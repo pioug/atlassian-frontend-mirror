@@ -11,7 +11,6 @@ export { default as layoutPlugin } from './layout';
 export { default as toolbarListsIndentationPlugin } from './toolbar-lists-indentation';
 export { default as macroPlugin } from './macro';
 export { default as maxContentSizePlugin } from './max-content-size';
-export { default as mentionsPlugin } from './mentions';
 export { default as panelPlugin } from './panel';
 export { default as pastePlugin } from './paste';
 export { default as placeholderTextPlugin } from './placeholder-text';

@@ -2,6 +2,8 @@ import { mount, configure } from 'enzyme';
 // @ts-ignore
 import Adapter from 'enzyme-adapter-react-16';
 import React, { useState } from 'react';
+// Allowing existing usage of non Pragmatic drag and drop solution
+// eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import {
   DropResult,
   DragUpdate,

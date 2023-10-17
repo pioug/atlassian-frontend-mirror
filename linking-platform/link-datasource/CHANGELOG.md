@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.8.0
+
+### Minor Changes
+
+- [#41368](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41368) [`1daa2514bcc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1daa2514bcc) - [ux] Updates empty state and loading row skeletons to prevent visual jumps once data loads.
+
 ## 1.7.6
 
 ### Patch Changes

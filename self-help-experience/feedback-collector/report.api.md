@@ -186,6 +186,7 @@ interface Props {
   name?: string;
   onClose: () => void;
   onSubmit: (formFields: FormFields) => void;
+  selectLabel?: string;
   shouldGetEntitlementDetails?: boolean;
   showDefaultTextFields?: boolean;
   showTypeField: boolean;
@@ -218,6 +219,7 @@ interface Props_2 {
   locale?: string;
   onClose: () => void;
   onSubmit: (formValues: FormFields) => Promise<void>;
+  selectLabel?: string;
   showDefaultTextFields?: boolean;
   showTypeField?: boolean;
   submitButtonLabel?: string;

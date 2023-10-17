@@ -117,8 +117,8 @@ describe('Page Layout Accessibility', () => {
     await axe(container);
   });
 
-  // DSP-12583 - Resize button lacks discernable text; not populating
-  // DSP-12584 - invalid use of separator
+  // DSP-12584 - once the axe-core rule is updated (using button element
+  // with a slider/separator role), we can remove `xit`
   xit('Integrated layout should pass basic aXe audit', async () => {
     testId = 'integrated-layout';
     renderPageLayout(false);

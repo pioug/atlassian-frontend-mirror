@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.1
+
+### Patch Changes
+
+- [#41703](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41703) [`3631a9d9750`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3631a9d9750) - [ux] Added a command to show insert line decoration/ drop target when dragging a table column or a row.
+- [#41640](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41640) [`c387b1bfcdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c387b1bfcdd) - Added a Pragmatic Drag and Drop montior to the DnD table plugin. This is responsible for triggering the row/column move when a drop operation occurs.
+
 ## 5.3.0
 
 ### Minor Changes

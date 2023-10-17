@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ba4727849cfe1b62059099a594316de7>>
+ * @codegen <<SignedSource::13b519ff8291998fc292b5fcb756fdd4>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -61,7 +61,7 @@ const tokens = [
     "cleanName": "color.text.accent.lime"
   },
   {
-    "value": "#2A3818",
+    "value": "#28311B",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -90,7 +90,7 @@ const tokens = [
     "cleanName": "color.text.accent.lime.bolder"
   },
   {
-    "value": "#601E16",
+    "value": "#5D1F1A",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -119,7 +119,7 @@ const tokens = [
     "cleanName": "color.text.accent.red"
   },
   {
-    "value": "#4F1C16",
+    "value": "#42221F",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -148,7 +148,7 @@ const tokens = [
     "cleanName": "color.text.accent.red.bolder"
   },
   {
-    "value": "#5F3811",
+    "value": "#702E00",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -177,7 +177,7 @@ const tokens = [
     "cleanName": "color.text.accent.orange"
   },
   {
-    "value": "#4A2B0F",
+    "value": "#38291E",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -235,7 +235,7 @@ const tokens = [
     "cleanName": "color.text.accent.yellow"
   },
   {
-    "value": "#3F3102",
+    "value": "#332E1B",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -293,7 +293,7 @@ const tokens = [
     "cleanName": "color.text.accent.green"
   },
   {
-    "value": "#143C2B",
+    "value": "#1C3329",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -322,7 +322,7 @@ const tokens = [
     "cleanName": "color.text.accent.green.bolder"
   },
   {
-    "value": "#1D474C",
+    "value": "#164555",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -351,7 +351,7 @@ const tokens = [
     "cleanName": "color.text.accent.teal"
   },
   {
-    "value": "#15373B",
+    "value": "#1E3137",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -409,7 +409,7 @@ const tokens = [
     "cleanName": "color.text.accent.blue"
   },
   {
-    "value": "#092957",
+    "value": "#1C2B41",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -467,7 +467,7 @@ const tokens = [
     "cleanName": "color.text.accent.purple"
   },
   {
-    "value": "#2B2451",
+    "value": "#2B273F",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -525,7 +525,7 @@ const tokens = [
     "cleanName": "color.text.accent.magenta"
   },
   {
-    "value": "#421F34",
+    "value": "#3D2232",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -720,7 +720,7 @@ const tokens = [
     "cleanName": "color.text.brand"
   },
   {
-    "value": "#601E16",
+    "value": "#5D1F1A",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
@@ -747,7 +747,7 @@ const tokens = [
     "cleanName": "color.text.danger"
   },
   {
-    "value": "#5F3811",
+    "value": "#702E00",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
@@ -965,7 +965,7 @@ const tokens = [
     "cleanName": "color.link"
   },
   {
-    "value": "#092957",
+    "value": "#1C2B41",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
@@ -1074,7 +1074,7 @@ const tokens = [
     "cleanName": "color.icon.accent.lime"
   },
   {
-    "value": "#AE2A19",
+    "value": "#AE2E24",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -1102,7 +1102,7 @@ const tokens = [
     "cleanName": "color.icon.accent.red"
   },
   {
-    "value": "#974F0C",
+    "value": "#A54800",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -1186,7 +1186,7 @@ const tokens = [
     "cleanName": "color.icon.accent.green"
   },
   {
-    "value": "#206B74",
+    "value": "#206A83",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -1434,7 +1434,7 @@ const tokens = [
     "cleanName": "color.icon.brand"
   },
   {
-    "value": "#CA3521",
+    "value": "#C9372C",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
@@ -1461,7 +1461,7 @@ const tokens = [
     "cleanName": "color.icon.danger"
   },
   {
-    "value": "#974F0C",
+    "value": "#A54800",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
@@ -1680,7 +1680,7 @@ const tokens = [
     "cleanName": "color.border.accent.lime"
   },
   {
-    "value": "#AE2A19",
+    "value": "#AE2E24",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -1708,7 +1708,7 @@ const tokens = [
     "cleanName": "color.border.accent.red"
   },
   {
-    "value": "#974F0C",
+    "value": "#A54800",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -1792,7 +1792,7 @@ const tokens = [
     "cleanName": "color.border.accent.green"
   },
   {
-    "value": "#206B74",
+    "value": "#206A83",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -2094,7 +2094,7 @@ const tokens = [
     "cleanName": "color.border.brand"
   },
   {
-    "value": "#CA3521",
+    "value": "#C9372C",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
@@ -2121,7 +2121,7 @@ const tokens = [
     "cleanName": "color.border.danger"
   },
   {
-    "value": "#974F0C",
+    "value": "#A54800",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
@@ -2256,7 +2256,7 @@ const tokens = [
     "cleanName": "color.border.bold"
   },
   {
-    "value": "#EEFBDA",
+    "value": "#EFFFD6",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2496,7 +2496,7 @@ const tokens = [
     "cleanName": "color.background.accent.lime.subtle.hovered"
   },
   {
-    "value": "#EEFBDA",
+    "value": "#EFFFD6",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -2556,7 +2556,7 @@ const tokens = [
     "cleanName": "color.background.accent.lime.bolder"
   },
   {
-    "value": "#2A3818",
+    "value": "#28311B",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -2616,7 +2616,7 @@ const tokens = [
     "cleanName": "color.background.accent.lime.bolder.pressed"
   },
   {
-    "value": "#FFEDEB",
+    "value": "#FFECEB",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2646,7 +2646,7 @@ const tokens = [
     "cleanName": "color.background.accent.red.subtlest"
   },
   {
-    "value": "#FFD2CC",
+    "value": "#FFD5D2",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2676,7 +2676,7 @@ const tokens = [
     "cleanName": "color.background.accent.red.subtlest.hovered"
   },
   {
-    "value": "#FF9C8F",
+    "value": "#FD9891",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2706,7 +2706,7 @@ const tokens = [
     "cleanName": "color.background.accent.red.subtlest.pressed"
   },
   {
-    "value": "#FFD2CC",
+    "value": "#FFD5D2",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2736,7 +2736,7 @@ const tokens = [
     "cleanName": "color.background.accent.red.subtler"
   },
   {
-    "value": "#FF9C8F",
+    "value": "#FD9891",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2766,7 +2766,7 @@ const tokens = [
     "cleanName": "color.background.accent.red.subtler.hovered"
   },
   {
-    "value": "#F87462",
+    "value": "#F87168",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2826,7 +2826,7 @@ const tokens = [
     "cleanName": "color.background.accent.red.subtle"
   },
   {
-    "value": "#FFD2CC",
+    "value": "#FFD5D2",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -2856,7 +2856,7 @@ const tokens = [
     "cleanName": "color.background.accent.red.subtle.hovered"
   },
   {
-    "value": "#FFEDEB",
+    "value": "#FFECEB",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -2886,7 +2886,7 @@ const tokens = [
     "cleanName": "color.background.accent.red.subtle.pressed"
   },
   {
-    "value": "#601E16",
+    "value": "#5D1F1A",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -2916,7 +2916,7 @@ const tokens = [
     "cleanName": "color.background.accent.red.bolder"
   },
   {
-    "value": "#4F1C16",
+    "value": "#42221F",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -2976,7 +2976,7 @@ const tokens = [
     "cleanName": "color.background.accent.red.bolder.pressed"
   },
   {
-    "value": "#FFF4E5",
+    "value": "#FFF3EB",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3006,7 +3006,7 @@ const tokens = [
     "cleanName": "color.background.accent.orange.subtlest"
   },
   {
-    "value": "#FFE2BD",
+    "value": "#FEDEC8",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3036,7 +3036,7 @@ const tokens = [
     "cleanName": "color.background.accent.orange.subtlest.hovered"
   },
   {
-    "value": "#FEC57B",
+    "value": "#FEC195",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3066,7 +3066,7 @@ const tokens = [
     "cleanName": "color.background.accent.orange.subtlest.pressed"
   },
   {
-    "value": "#FFE2BD",
+    "value": "#FEDEC8",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3096,7 +3096,7 @@ const tokens = [
     "cleanName": "color.background.accent.orange.subtler"
   },
   {
-    "value": "#FEC57B",
+    "value": "#FEC195",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3126,7 +3126,7 @@ const tokens = [
     "cleanName": "color.background.accent.orange.subtler.hovered"
   },
   {
-    "value": "#FAA53D",
+    "value": "#FEA362",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3156,7 +3156,7 @@ const tokens = [
     "cleanName": "color.background.accent.orange.subtler.pressed"
   },
   {
-    "value": "#FEC57B",
+    "value": "#FEC195",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -3186,7 +3186,7 @@ const tokens = [
     "cleanName": "color.background.accent.orange.subtle"
   },
   {
-    "value": "#FFE2BD",
+    "value": "#FEDEC8",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -3216,7 +3216,7 @@ const tokens = [
     "cleanName": "color.background.accent.orange.subtle.hovered"
   },
   {
-    "value": "#FFF4E5",
+    "value": "#FFF3EB",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -3246,7 +3246,7 @@ const tokens = [
     "cleanName": "color.background.accent.orange.subtle.pressed"
   },
   {
-    "value": "#5F3811",
+    "value": "#702E00",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -3276,7 +3276,7 @@ const tokens = [
     "cleanName": "color.background.accent.orange.bolder"
   },
   {
-    "value": "#4A2B0F",
+    "value": "#38291E",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -3636,7 +3636,7 @@ const tokens = [
     "cleanName": "color.background.accent.yellow.bolder"
   },
   {
-    "value": "#3F3102",
+    "value": "#332E1B",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -3696,7 +3696,7 @@ const tokens = [
     "cleanName": "color.background.accent.yellow.bolder.pressed"
   },
   {
-    "value": "#DFFCF0",
+    "value": "#DCFFF1",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3936,7 +3936,7 @@ const tokens = [
     "cleanName": "color.background.accent.green.subtle.hovered"
   },
   {
-    "value": "#DFFCF0",
+    "value": "#DCFFF1",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -3996,7 +3996,7 @@ const tokens = [
     "cleanName": "color.background.accent.green.bolder"
   },
   {
-    "value": "#143C2B",
+    "value": "#1C3329",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -4056,7 +4056,7 @@ const tokens = [
     "cleanName": "color.background.accent.green.bolder.pressed"
   },
   {
-    "value": "#E3FAFC",
+    "value": "#E7F9FF",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4086,7 +4086,7 @@ const tokens = [
     "cleanName": "color.background.accent.teal.subtlest"
   },
   {
-    "value": "#C1F0F5",
+    "value": "#C6EDFB",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4116,7 +4116,7 @@ const tokens = [
     "cleanName": "color.background.accent.teal.subtlest.hovered"
   },
   {
-    "value": "#8BDBE5",
+    "value": "#9DD9EE",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4146,7 +4146,7 @@ const tokens = [
     "cleanName": "color.background.accent.teal.subtlest.pressed"
   },
   {
-    "value": "#C1F0F5",
+    "value": "#C6EDFB",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4176,7 +4176,7 @@ const tokens = [
     "cleanName": "color.background.accent.teal.subtler"
   },
   {
-    "value": "#8BDBE5",
+    "value": "#9DD9EE",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4206,7 +4206,7 @@ const tokens = [
     "cleanName": "color.background.accent.teal.subtler.hovered"
   },
   {
-    "value": "#60C6D2",
+    "value": "#6CC3E0",
     "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4236,7 +4236,7 @@ const tokens = [
     "cleanName": "color.background.accent.teal.subtler.pressed"
   },
   {
-    "value": "#8BDBE5",
+    "value": "#9DD9EE",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -4266,7 +4266,7 @@ const tokens = [
     "cleanName": "color.background.accent.teal.subtle"
   },
   {
-    "value": "#C1F0F5",
+    "value": "#C6EDFB",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -4296,7 +4296,7 @@ const tokens = [
     "cleanName": "color.background.accent.teal.subtle.hovered"
   },
   {
-    "value": "#E3FAFC",
+    "value": "#E7F9FF",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -4326,7 +4326,7 @@ const tokens = [
     "cleanName": "color.background.accent.teal.subtle.pressed"
   },
   {
-    "value": "#1D474C",
+    "value": "#164555",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -4356,7 +4356,7 @@ const tokens = [
     "cleanName": "color.background.accent.teal.bolder"
   },
   {
-    "value": "#15373B",
+    "value": "#1E3137",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -4716,7 +4716,7 @@ const tokens = [
     "cleanName": "color.background.accent.blue.bolder"
   },
   {
-    "value": "#092957",
+    "value": "#1C2B41",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -5076,7 +5076,7 @@ const tokens = [
     "cleanName": "color.background.accent.purple.bolder"
   },
   {
-    "value": "#2B2451",
+    "value": "#2B273F",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -5436,7 +5436,7 @@ const tokens = [
     "cleanName": "color.background.accent.magenta.bolder"
   },
   {
-    "value": "#421F34",
+    "value": "#3D2232",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -6431,7 +6431,7 @@ const tokens = [
     "cleanName": "color.background.selected.bold"
   },
   {
-    "value": "#092957",
+    "value": "#1C2B41",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -6605,7 +6605,7 @@ const tokens = [
     "cleanName": "color.background.brand.bold"
   },
   {
-    "value": "#092957",
+    "value": "#1C2B41",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -6663,7 +6663,7 @@ const tokens = [
     "cleanName": "color.background.brand.bold.pressed"
   },
   {
-    "value": "#092957",
+    "value": "#1C2B41",
     "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6750,7 +6750,7 @@ const tokens = [
     "cleanName": "color.background.brand.boldest.pressed"
   },
   {
-    "value": "#FFEDEB",
+    "value": "#FFECEB",
     "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6779,7 +6779,7 @@ const tokens = [
     "cleanName": "color.background.danger"
   },
   {
-    "value": "#FFD2CC",
+    "value": "#FFD5D2",
     "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6808,7 +6808,7 @@ const tokens = [
     "cleanName": "color.background.danger.hovered"
   },
   {
-    "value": "#FF9C8F",
+    "value": "#FD9891",
     "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6837,7 +6837,7 @@ const tokens = [
     "cleanName": "color.background.danger.pressed"
   },
   {
-    "value": "#601E16",
+    "value": "#5D1F1A",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -6866,7 +6866,7 @@ const tokens = [
     "cleanName": "color.background.danger.bold"
   },
   {
-    "value": "#4F1C16",
+    "value": "#42221F",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7040,7 +7040,7 @@ const tokens = [
     "cleanName": "color.background.warning.bold"
   },
   {
-    "value": "#3F3102",
+    "value": "#332E1B",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7098,7 +7098,7 @@ const tokens = [
     "cleanName": "color.background.warning.bold.pressed"
   },
   {
-    "value": "#DFFCF0",
+    "value": "#DCFFF1",
     "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -7214,7 +7214,7 @@ const tokens = [
     "cleanName": "color.background.success.bold"
   },
   {
-    "value": "#143C2B",
+    "value": "#1C3329",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7388,7 +7388,7 @@ const tokens = [
     "cleanName": "color.background.discovery.bold"
   },
   {
-    "value": "#2B2451",
+    "value": "#2B273F",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7562,7 +7562,7 @@ const tokens = [
     "cleanName": "color.background.information.bold"
   },
   {
-    "value": "#092957",
+    "value": "#1C2B41",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7809,7 +7809,7 @@ const tokens = [
     "cleanName": "color.skeleton.subtle"
   },
   {
-    "value": "#206B74",
+    "value": "#206A83",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -7838,7 +7838,7 @@ const tokens = [
     "cleanName": "color.chart.categorical.1"
   },
   {
-    "value": "#1D474C",
+    "value": "#164555",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -7925,7 +7925,7 @@ const tokens = [
     "cleanName": "color.chart.categorical.2.hovered"
   },
   {
-    "value": "#974F0C",
+    "value": "#A54800",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -7954,7 +7954,7 @@ const tokens = [
     "cleanName": "color.chart.categorical.3"
   },
   {
-    "value": "#5F3811",
+    "value": "#702E00",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8070,7 +8070,7 @@ const tokens = [
     "cleanName": "color.chart.categorical.5"
   },
   {
-    "value": "#092957",
+    "value": "#1C2B41",
     "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -8186,7 +8186,7 @@ const tokens = [
     "cleanName": "color.chart.categorical.7"
   },
   {
-    "value": "#421F34",
+    "value": "#3D2232",
     "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -8215,7 +8215,7 @@ const tokens = [
     "cleanName": "color.chart.categorical.7.hovered"
   },
   {
-    "value": "#974F0C",
+    "value": "#A54800",
     "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -8244,7 +8244,7 @@ const tokens = [
     "cleanName": "color.chart.categorical.8"
   },
   {
-    "value": "#5F3811",
+    "value": "#702E00",
     "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -8360,7 +8360,7 @@ const tokens = [
     "cleanName": "color.chart.lime.bolder"
   },
   {
-    "value": "#2A3818",
+    "value": "#28311B",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8389,7 +8389,7 @@ const tokens = [
     "cleanName": "color.chart.lime.bolder.hovered"
   },
   {
-    "value": "#2A3818",
+    "value": "#28311B",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8503,7 +8503,7 @@ const tokens = [
     "cleanName": "color.chart.neutral.hovered"
   },
   {
-    "value": "#AE2A19",
+    "value": "#AE2E24",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8532,7 +8532,7 @@ const tokens = [
     "cleanName": "color.chart.red.bold"
   },
   {
-    "value": "#601E16",
+    "value": "#5D1F1A",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8561,7 +8561,7 @@ const tokens = [
     "cleanName": "color.chart.red.bold.hovered"
   },
   {
-    "value": "#601E16",
+    "value": "#5D1F1A",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8590,7 +8590,7 @@ const tokens = [
     "cleanName": "color.chart.red.bolder"
   },
   {
-    "value": "#4F1C16",
+    "value": "#42221F",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8619,7 +8619,7 @@ const tokens = [
     "cleanName": "color.chart.red.bolder.hovered"
   },
   {
-    "value": "#4F1C16",
+    "value": "#42221F",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8677,7 +8677,7 @@ const tokens = [
     "cleanName": "color.chart.red.boldest.hovered"
   },
   {
-    "value": "#974F0C",
+    "value": "#A54800",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8706,7 +8706,7 @@ const tokens = [
     "cleanName": "color.chart.orange.bold"
   },
   {
-    "value": "#5F3811",
+    "value": "#702E00",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8735,7 +8735,7 @@ const tokens = [
     "cleanName": "color.chart.orange.bold.hovered"
   },
   {
-    "value": "#5F3811",
+    "value": "#702E00",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8764,7 +8764,7 @@ const tokens = [
     "cleanName": "color.chart.orange.bolder"
   },
   {
-    "value": "#4A2B0F",
+    "value": "#38291E",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8793,7 +8793,7 @@ const tokens = [
     "cleanName": "color.chart.orange.bolder.hovered"
   },
   {
-    "value": "#4A2B0F",
+    "value": "#38291E",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8938,7 +8938,7 @@ const tokens = [
     "cleanName": "color.chart.yellow.bolder"
   },
   {
-    "value": "#3F3102",
+    "value": "#332E1B",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8967,7 +8967,7 @@ const tokens = [
     "cleanName": "color.chart.yellow.bolder.hovered"
   },
   {
-    "value": "#3F3102",
+    "value": "#332E1B",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9112,7 +9112,7 @@ const tokens = [
     "cleanName": "color.chart.green.bolder"
   },
   {
-    "value": "#143C2B",
+    "value": "#1C3329",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9141,7 +9141,7 @@ const tokens = [
     "cleanName": "color.chart.green.bolder.hovered"
   },
   {
-    "value": "#143C2B",
+    "value": "#1C3329",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9199,7 +9199,7 @@ const tokens = [
     "cleanName": "color.chart.green.boldest.hovered"
   },
   {
-    "value": "#206B74",
+    "value": "#206A83",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9228,7 +9228,7 @@ const tokens = [
     "cleanName": "color.chart.teal.bold"
   },
   {
-    "value": "#1D474C",
+    "value": "#164555",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9257,7 +9257,7 @@ const tokens = [
     "cleanName": "color.chart.teal.bold.hovered"
   },
   {
-    "value": "#1D474C",
+    "value": "#164555",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9286,7 +9286,7 @@ const tokens = [
     "cleanName": "color.chart.teal.bolder"
   },
   {
-    "value": "#15373B",
+    "value": "#1E3137",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9315,7 +9315,7 @@ const tokens = [
     "cleanName": "color.chart.teal.bolder.hovered"
   },
   {
-    "value": "#15373B",
+    "value": "#1E3137",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9460,7 +9460,7 @@ const tokens = [
     "cleanName": "color.chart.blue.bolder"
   },
   {
-    "value": "#092957",
+    "value": "#1C2B41",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9489,7 +9489,7 @@ const tokens = [
     "cleanName": "color.chart.blue.bolder.hovered"
   },
   {
-    "value": "#092957",
+    "value": "#1C2B41",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9634,7 +9634,7 @@ const tokens = [
     "cleanName": "color.chart.purple.bolder"
   },
   {
-    "value": "#2B2451",
+    "value": "#2B273F",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9663,7 +9663,7 @@ const tokens = [
     "cleanName": "color.chart.purple.bolder.hovered"
   },
   {
-    "value": "#2B2451",
+    "value": "#2B273F",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9808,7 +9808,7 @@ const tokens = [
     "cleanName": "color.chart.magenta.bolder"
   },
   {
-    "value": "#421F34",
+    "value": "#3D2232",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9837,7 +9837,7 @@ const tokens = [
     "cleanName": "color.chart.magenta.bolder.hovered"
   },
   {
-    "value": "#421F34",
+    "value": "#3D2232",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10125,7 +10125,7 @@ const tokens = [
     "cleanName": "color.chart.brand.hovered"
   },
   {
-    "value": "#CA3521",
+    "value": "#C9372C",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10154,7 +10154,7 @@ const tokens = [
     "cleanName": "color.chart.danger"
   },
   {
-    "value": "#AE2A19",
+    "value": "#AE2E24",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10183,7 +10183,7 @@ const tokens = [
     "cleanName": "color.chart.danger.hovered"
   },
   {
-    "value": "#601E16",
+    "value": "#5D1F1A",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10212,7 +10212,7 @@ const tokens = [
     "cleanName": "color.chart.danger.bold"
   },
   {
-    "value": "#4F1C16",
+    "value": "#42221F",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10328,7 +10328,7 @@ const tokens = [
     "cleanName": "color.chart.warning.bold"
   },
   {
-    "value": "#3F3102",
+    "value": "#332E1B",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10444,7 +10444,7 @@ const tokens = [
     "cleanName": "color.chart.success.bold"
   },
   {
-    "value": "#143C2B",
+    "value": "#1C3329",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10560,7 +10560,7 @@ const tokens = [
     "cleanName": "color.chart.discovery.bold"
   },
   {
-    "value": "#2B2451",
+    "value": "#2B273F",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10676,7 +10676,7 @@ const tokens = [
     "cleanName": "color.chart.information.bold"
   },
   {
-    "value": "#092957",
+    "value": "#1C2B41",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {

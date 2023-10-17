@@ -7,11 +7,11 @@ import { restrictedPaths } from './paths';
 const rule = createLintRule({
   meta: {
     name: 'no-unsupported-drag-and-drop-libraries',
-    type: 'suggestion',
+    type: 'problem',
     docs: {
       description: 'Disallow importing unsupported drag and drop modules.',
       recommended: true,
-      severity: 'warn',
+      severity: 'error',
     },
     messages: {
       path: "The '{{importSource}}' import is restricted from being used. Please use Pragmatic drag and drop: our performance focused drag and drop library that can be used to power any experience for any techstack. See https://staging.atlassian.design/components/pragmatic-drag-and-drop/. {{customMessage}}",

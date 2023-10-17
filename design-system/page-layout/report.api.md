@@ -83,6 +83,7 @@ interface LeftSidebarProps extends SlotWidthProps {
   resizeButtonLabel?: string;
   resizeGrabAreaLabel?: string;
   testId?: string;
+  valueTextLabel?: string;
   width?: number;
 }
 

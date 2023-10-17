@@ -44,21 +44,6 @@ export const getThemePreferences = (
     }
   }
 
-  // Replace light/dark theme with new palette if feature flag is on
-  if (
-    getBooleanFF('platform.design-system-team.saturated-palette-changes_asoro')
-  ) {
-    // Iterate over themePreferences and swap out light/dark with new palette
-    themePreferences.forEach((themeId, index) => {
-      if (themeId === 'light') {
-        themePreferences[index] = 'light-saturated-palette-changes';
-      }
-      if (themeId === 'dark') {
-        themePreferences[index] = 'dark-saturated-palette-changes';
-      }
-    });
-  }
-
   [shape, spacing, typography].forEach((themeId) => {
     if (themeId) {
       themePreferences.push(themeId);

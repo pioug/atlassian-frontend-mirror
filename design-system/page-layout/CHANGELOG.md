@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 1.8.0
+
+### Minor Changes
+
+- [#39166](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39166) [`fb049fdd01b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb049fdd01b) - [ux] DSP-12583 and DSP-12584 update examples to include missing resize/expandable labels fixed separator to use the valid slider role
+
 ## 1.7.13
 
 ### Patch Changes

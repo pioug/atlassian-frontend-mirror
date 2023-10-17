@@ -29,6 +29,8 @@ const DropdownItemCheckbox = ({
   shouldDescriptionWrap = true,
   shouldTitleWrap = true,
   testId,
+  // DSP-13312 TODO: remove spread props in future major release
+  ...rest
 }: DropdownItemCheckboxProps) => {
   if (
     typeof process !== 'undefined' &&
@@ -73,6 +75,8 @@ const DropdownItemCheckbox = ({
         shouldDescriptionWrap={shouldDescriptionWrap}
         shouldTitleWrap={shouldTitleWrap}
         testId={testId}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+        {...rest}
       >
         {children}
       </ButtonItem>

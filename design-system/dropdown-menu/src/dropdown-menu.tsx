@@ -199,12 +199,15 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
           'aria-controls': ariaControls,
           'aria-expanded': ariaExpanded,
           'aria-haspopup': ariaHasPopup,
+          // DSP-13312 TODO: remove spread props in future major release
+          ...rest
         }: TriggerProps) => {
           if (typeof trigger === 'function') {
             return trigger({
               'aria-controls': ariaControls,
               'aria-expanded': ariaExpanded,
               'aria-haspopup': ariaHasPopup,
+              ...rest,
               ...bindFocus,
               triggerRef: mergeRefs([ref, itemRef]),
               isSelected: isLocalOpen,

@@ -14,6 +14,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
+import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 
 import type tablePlugin from './index';
 
@@ -245,6 +246,9 @@ export enum TableDecorations {
   COLUMN_RESIZING_HANDLE_WIDGET = 'COLUMN_RESIZING_HANDLE_WIDGET',
   COLUMN_RESIZING_HANDLE_LINE = 'COLUMN_RESIZING_HANDLE_LINE',
 
+  COLUMN_INSERT_LINE = 'COLUMN_INSERT_LINE',
+  ROW_INSERT_LINE = 'ROW_INSERT_LINE',
+
   LAST_CELL_ELEMENT = 'LAST_CELL_ELEMENT',
 }
 
@@ -329,8 +333,15 @@ export const TableCssClassName = {
   TOP_LEFT_CELL: 'table > tbody > tr:nth-child(2) > td:nth-child(1)',
   LAST_ITEM_IN_CELL: `${tablePrefixSelector}-last-item-in-cell`,
 
+  WITH_COLUMN_INSERT_LINE: `${tablePrefixSelector}-column-insert-line`,
+  WITH_FIRST_COLUMN_INSERT_LINE: `${tablePrefixSelector}-first-column-insert-line`,
+  WITH_LAST_COLUMN_INSERT_LINE: `${tablePrefixSelector}-last-column-insert-line`,
+
   WITH_RESIZE_LINE: `${tablePrefixSelector}-column-resize-line`,
   WITH_RESIZE_LINE_LAST_COLUMN: `${tablePrefixSelector}-column-resize-line-last-column`,
+
+  WITH_ROW_INSERT_LINE: `${tablePrefixSelector}-row-insert-line`,
+  WITH_LAST_ROW_INSERT_LINE: `${tablePrefixSelector}-last-row-insert-line`,
 };
 
 export interface ToolbarMenuConfig {
@@ -383,8 +394,19 @@ export interface DraggableSourceData extends Record<string, unknown> {
   indexes: number[];
 }
 
-export interface DraggableTargetData extends Record<string, unknown> {
+export interface DraggableTargetData extends Record<string | symbol, unknown> {
   type: DraggableType;
   localId: string;
   targetIndex: number;
+}
+
+export interface DraggableData {
+  sourceType: DraggableType;
+  sourceLocalId: string;
+  sourceIndexes: number[];
+  targetType: DraggableType;
+  targetLocalId: string;
+  targetIndex: number;
+  targetAdjustedIndex: number;
+  targetClosestEdge: Edge;
 }

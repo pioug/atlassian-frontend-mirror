@@ -53,7 +53,7 @@
     "@atlaskit/primitives": "^1.6.0",
     "@atlaskit/spinner": "^15.6.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.26.0",
+    "@atlaskit/tokens": "^1.27.0",
     "@atlaskit/visually-hidden": "^1.2.4",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"

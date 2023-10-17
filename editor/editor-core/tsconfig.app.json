@@ -41,9 +41,6 @@
       "path": "../adf-utils/tsconfig.app.json"
     },
     {
-      "path": "../../analytics/analytics-gas-types/tsconfig.app.json"
-    },
-    {
       "path": "../../analytics/analytics-listeners/tsconfig.app.json"
     },
     {
@@ -165,6 +162,9 @@
     },
     {
       "path": "../editor-plugin-media/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-mentions/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-placeholder/tsconfig.app.json"

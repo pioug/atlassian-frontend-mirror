@@ -70,10 +70,10 @@ export type NegativeSpace = keyof typeof negativeSpaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::310a54617a9f912145976996fcef66a5>>
+ * @codegen <<SignedSource::fcf1cfc01cda3c278e69b0b564c7746d>>
  * @codegenId inverse-colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::5188ac15a9f4d65b80cf12e4eecac815>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::f1021f8d47ab63374e371ce18db72a1c>>
  */
 export const inverseColorMap = {
   'color.background.neutral.bold': 'color.text.inverse',
@@ -111,11 +111,11 @@ export const inverseColorMap = {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b93d845e13422e2b25a860f34dc6882b>>
+ * @codegen <<SignedSource::4f49a5a763f3c327f1d7ce5f2d030194>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "shadow", "text", "fill", "surface"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::5188ac15a9f4d65b80cf12e4eecac815>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::f1021f8d47ab63374e371ce18db72a1c>>
  */
 export const borderColorMap = {
   'color.border': token('color.border', '#091e4221'),

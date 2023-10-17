@@ -22,6 +22,7 @@ import {
   columnControlsDecorationHeight,
   columnControlsSelectedZIndex,
   columnControlsZIndex,
+  insertLineWidth,
   lineMarkerSize,
   resizeHandlerAreaWidth,
   resizeHandlerZIndex,
@@ -743,6 +744,120 @@ export const resizeHandle = (props: ThemeProps) => css`
       .${ClassName.RESIZE_HANDLE_DECORATION}::after {
       top: -${tableToolbarSize + tableCellBorderWidth}px;
       height: calc(100% + ${tableToolbarSize + tableCellBorderWidth}px);
+    }
+  }
+`;
+
+export const insertLine = (props: ThemeProps) => css`
+  .${ClassName.TABLE_CONTAINER} {
+    td.${ClassName.WITH_FIRST_COLUMN_INSERT_LINE}::before {
+      content: ' ';
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      width: ${insertLineWidth}px;
+      height: calc(100% + ${tableCellBorderWidth * 2}px);
+      background-color: ${tableBorderSelectedColor(props)};
+      z-index: ${columnControlsZIndex * 2};
+    }
+
+    th.${ClassName.WITH_FIRST_COLUMN_INSERT_LINE}::before {
+      content: ' ';
+      left: -1px;
+      position: absolute;
+      width: ${insertLineWidth}px;
+      height: calc(100% + ${tableCellBorderWidth * 2}px);
+      background-color: ${tableBorderSelectedColor(props)};
+      z-index: ${columnControlsZIndex * 2};
+      top: -${tableCellBorderWidth}px;
+    }
+
+    td.${ClassName.WITH_COLUMN_INSERT_LINE}::before {
+      content: ' ';
+      position: absolute;
+      left: ${token('space.negative.025', '-2px')};
+      top: -1px;
+      width: ${insertLineWidth}px;
+      height: calc(100% + ${tableCellBorderWidth * 2}px);
+      background-color: ${tableBorderSelectedColor(props)};
+      z-index: ${columnControlsZIndex * 2};
+    }
+
+    th.${ClassName.WITH_COLUMN_INSERT_LINE}::before {
+      content: ' ';
+      left: ${token('space.negative.025', '-2px')};
+      position: absolute;
+      width: ${insertLineWidth}px;
+      height: calc(100% + ${tableCellBorderWidth * 2}px);
+      background-color: ${tableBorderSelectedColor(props)};
+      z-index: ${columnControlsZIndex * 2};
+      top: -${tableCellBorderWidth}px;
+    }
+
+    td.${ClassName.WITH_LAST_COLUMN_INSERT_LINE}::before {
+      content: ' ';
+      position: absolute;
+      right: -1px;
+      top: -1px;
+      width: ${insertLineWidth}px;
+      height: calc(100% + ${tableCellBorderWidth * 2}px);
+      background-color: ${tableBorderSelectedColor(props)};
+      z-index: ${columnControlsZIndex * 2};
+    }
+
+    th.${ClassName.WITH_LAST_COLUMN_INSERT_LINE}::before {
+      content: ' ';
+      right: -1px;
+      position: absolute;
+      width: ${insertLineWidth}px;
+      height: calc(100% + ${tableCellBorderWidth * 2}px);
+      background-color: ${tableBorderSelectedColor(props)};
+      z-index: ${columnControlsZIndex * 2};
+      top: -${tableCellBorderWidth}px;
+    }
+
+    td.${ClassName.WITH_ROW_INSERT_LINE}::before {
+      content: ' ';
+      position: absolute;
+      left: ${token('space.negative.025', '-2px')};
+      top: -1px;
+      height: ${insertLineWidth}px;
+      width: calc(100% + ${tableCellBorderWidth * 2}px);
+      background-color: ${tableBorderSelectedColor(props)};
+      z-index: ${columnControlsZIndex * 2};
+    }
+
+    th.${ClassName.WITH_ROW_INSERT_LINE}::before {
+      content: ' ';
+      left: ${token('space.negative.025', '-2px')};
+      position: absolute;
+      height: ${insertLineWidth}px;
+      width: calc(100% + ${tableCellBorderWidth * 2}px);
+      background-color: ${tableBorderSelectedColor(props)};
+      z-index: ${columnControlsZIndex * 2};
+      top: -1px;
+    }
+
+    td.${ClassName.WITH_LAST_ROW_INSERT_LINE}::before {
+      content: ' ';
+      position: absolute;
+      left: ${token('space.negative.025', '-2px')};
+      bottom: 0;
+      height: ${insertLineWidth}px;
+      width: calc(100% + 2px);
+      background-color: ${tableBorderSelectedColor(props)};
+      z-index: ${columnControlsZIndex * 2};
+    }
+
+    th.${ClassName.WITH_LAST_ROW_INSERT_LINE}::before {
+      content: ' ';
+      left: ${token('space.negative.025', '-2px')};
+      bottom: 0;
+      position: absolute;
+      height: ${insertLineWidth}px;
+      width: calc(100% + ${tableCellBorderWidth * 2}px);
+      background-color: ${tableBorderSelectedColor(props)};
+      z-index: ${columnControlsZIndex * 2};
     }
   }
 `;

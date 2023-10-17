@@ -332,10 +332,7 @@ describe('setGlobalTheme style loading', () => {
 
   it('should load all feature flagged themes in the expected order', async () => {
     (getBooleanFF as jest.Mock).mockImplementation((name) =>
-      [
-        'platform.design-system-team.saturated-palette-changes_asoro',
-        'platform.design-system-team.border-checkbox_nyoiu',
-      ].includes(name),
+      ['platform.design-system-team.border-checkbox_nyoiu'].includes(name),
     );
 
     await setGlobalTheme({
@@ -358,10 +355,8 @@ describe('setGlobalTheme style loading', () => {
     );
 
     expect(dataThemes).toEqual([
-      // 'light', // Replaced with saturated palette
-      // 'dark',  // Replaced with saturated palette
-      'light-saturated-palette-changes',
-      'dark-saturated-palette-changes',
+      'light',
+      'dark',
       'spacing',
       'light-new-input-border',
       'dark-new-input-border',
@@ -370,10 +365,7 @@ describe('setGlobalTheme style loading', () => {
 
   it('should load all feature flagged themes in the expected order when switching color modes', async () => {
     (getBooleanFF as jest.Mock).mockImplementation((name) =>
-      [
-        'platform.design-system-team.saturated-palette-changes_asoro',
-        'platform.design-system-team.border-checkbox_nyoiu',
-      ].includes(name),
+      ['platform.design-system-team.border-checkbox_nyoiu'].includes(name),
     );
 
     await setGlobalTheme({
@@ -399,22 +391,18 @@ describe('setGlobalTheme style loading', () => {
     );
 
     expect(dataThemes).toEqual([
-      //'light', // Replaced with saturated palette
-      'light-saturated-palette-changes',
+      'light',
       'spacing',
       'light-new-input-border',
-      //'dark', // Replaced with saturated palette
-      'dark-saturated-palette-changes',
+      'dark',
       'dark-new-input-border',
     ]);
   });
 
   it('should load all feature flagged themes in the expected order when switching feature flags', async () => {
-    (getBooleanFF as jest.Mock).mockImplementation((name) =>
-      ['platform.design-system-team.saturated-palette-changes_asoro'].includes(
-        name,
-      ),
-    );
+    // (getBooleanFF as jest.Mock).mockImplementation((name) =>
+    //   ['NOTE-include-future-feature-flags-here'].includes(name),
+    // );
 
     await setGlobalTheme({});
 
@@ -429,7 +417,7 @@ describe('setGlobalTheme style loading', () => {
       const styleElements = document.querySelectorAll(
         `style[${THEME_DATA_ATTRIBUTE}]`,
       );
-      expect(styleElements).toHaveLength(7);
+      expect(styleElements).toHaveLength(5);
     });
 
     // Validate that the data-theme attributes match the expected values
@@ -439,11 +427,9 @@ describe('setGlobalTheme style loading', () => {
     );
 
     expect(dataThemes).toEqual([
-      'light-saturated-palette-changes',
-      'dark-saturated-palette-changes',
-      'spacing',
       'light',
       'dark',
+      'spacing',
       'light-new-input-border',
       'dark-new-input-border',
     ]);

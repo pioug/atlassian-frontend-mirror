@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-datasource",
-  "version": "1.7.6",
+  "version": "1.8.0",
   "description": "UI Components to support linking platform dataset feature",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -60,7 +60,7 @@
     "@atlaskit/tag": "^11.6.0",
     "@atlaskit/textfield": "5.6.8",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.26.0",
+    "@atlaskit/tokens": "^1.27.0",
     "@atlaskit/tooltip": "^17.8.0",
     "@atlaskit/ufo": "^0.2.4",
     "@atlassianlabs/jql-ast": "^2.1.0",

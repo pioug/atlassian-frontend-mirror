@@ -19,6 +19,7 @@ export type ResizeControlProps = {
       ) => ReactElement;
     };
   };
+  valueTextLabel?: string;
   resizeGrabAreaLabel?: string;
   resizeButtonLabel?: string;
   onCollapse?: (leftSidebarState: LeftSidebarState) => void;

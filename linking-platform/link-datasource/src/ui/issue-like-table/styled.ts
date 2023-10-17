@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+export const ScrollableContainerHeight = 590;
+
 export const FieldTextFontSize = '14px';
 
 export const Table = styled.table`
@@ -19,11 +21,5 @@ export const TableHeading = styled.th`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-`;
-
-export const EmptyStateTableHeading = styled(TableHeading)`
-  &:first-child {
-    padding-left: ${token('space.100', '8px')};
   }
 `;

@@ -23,6 +23,7 @@ import {
   SideNavigation,
 } from '@atlaskit/side-navigation';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import {
   Content,
@@ -90,8 +91,23 @@ export default function ProductLayout() {
           isFixed={true}
           width={450}
           id="project-navigation"
-          skipLinkTitle="Project Navigation"
+          skipLinkTitle="Current project sidebar"
           testId="left-sidebar"
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+          overrides={{
+            ResizeButton: {
+              render: (Component, props) => (
+                <Tooltip
+                  content={'Use [ to show or hide the sidebar'}
+                  hideTooltipOnClick
+                  position="right"
+                  testId="tooltip"
+                >
+                  <Component {...props} />
+                </Tooltip>
+              ),
+            },
+          }}
         >
           <SideNavigationContent />
           <ExpandLeftSidebarKeyboardShortcut />

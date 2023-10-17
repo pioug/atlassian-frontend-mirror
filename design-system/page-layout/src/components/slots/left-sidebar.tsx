@@ -88,6 +88,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     children,
     width,
     isFixed = true,
+    valueTextLabel,
     resizeButtonLabel,
     resizeGrabAreaLabel,
     overrides,
@@ -479,6 +480,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
           </ResizableChildrenWrapper>
           <ResizeControl
             testId={testId}
+            valueTextLabel={valueTextLabel}
             resizeGrabAreaLabel={resizeGrabAreaLabel}
             resizeButtonLabel={resizeButtonLabel}
             // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides

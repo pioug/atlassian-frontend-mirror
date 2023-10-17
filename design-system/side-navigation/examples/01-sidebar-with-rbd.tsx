@@ -2,6 +2,8 @@
 import { forwardRef, Fragment, Ref, useState } from 'react';
 
 import { jsx } from '@emotion/react';
+// Allowing existing usage of non Pragmatic drag and drop solution
+// eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import {
   DragDropContext,
   Draggable,

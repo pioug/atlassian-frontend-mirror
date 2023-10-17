@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import ReactDOMServer from 'react-dom/server';
 import exenv from 'exenv';
 // @ts-ignore resetServerContext is not typed in @types/rbd
+// Allowing existing usage of non Pragmatic drag and drop solution
+// eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import { resetServerContext } from 'react-beautiful-dnd-next';
 
 import { complexTree } from '../../../../../mockdata/complexTree';

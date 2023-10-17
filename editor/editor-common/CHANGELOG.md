@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 76.11.7
+
+### Patch Changes
+
+- [#40861](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40861) [`a7e65721b8b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7e65721b8b) - ECA11Y-73: Add announcements for the screen reader users when the user types incorrect values in Alt text input field
+
 ## 76.11.6
 
 ### Patch Changes

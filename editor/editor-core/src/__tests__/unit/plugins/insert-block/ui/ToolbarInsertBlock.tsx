@@ -45,7 +45,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import taskDecisionPlugin from '../../../../../plugins/tasks-and-decisions';
-import mentionsPlugin from '../../../../../plugins/mentions';
+import { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { mediaPlugin } from '@atlaskit/editor-plugin-media';

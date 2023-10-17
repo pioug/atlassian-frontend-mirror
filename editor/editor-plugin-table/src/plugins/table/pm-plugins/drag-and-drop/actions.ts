@@ -1,3 +1,5 @@
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+
 import type { DropTargetType } from './consts';
 
 export interface DragAndDropAction<T, D> {
@@ -15,12 +17,15 @@ export type DragAndDropSetDropTargetAction = DragAndDropAction<
   {
     type: DropTargetType;
     index: number;
+    decorationSet: DecorationSet;
   }
 >;
 
 export type DragAndDropClearDropTargetAction = DragAndDropAction<
   typeof DragAndDropActionType.CLEAR_DROP_TARGET,
-  undefined
+  {
+    decorationSet: DecorationSet;
+  }
 >;
 
 // NOTE: This should be a Union of all possible actions

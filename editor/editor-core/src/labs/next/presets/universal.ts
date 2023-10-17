@@ -11,7 +11,6 @@ import {
   toolbarListsIndentationPlugin,
   macroPlugin,
   maxContentSizePlugin,
-  mentionsPlugin,
   panelPlugin,
   placeholderTextPlugin,
   tasksAndDecisionsPlugin,
@@ -51,6 +50,7 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertio
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { saveOnEnterPlugin } from '@atlaskit/editor-plugin-save-on-enter';
 import { scrollIntoViewPlugin } from '@atlaskit/editor-plugin-scroll-into-view';
+import { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 

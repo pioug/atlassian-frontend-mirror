@@ -1,5 +1,4 @@
 import type { TOOLBAR_MENU_TYPE as InsertBlockInputMethodToolbar } from '@atlaskit/editor-common/types';
-import type { MentionPluginState } from '@atlaskit/editor-core/src/plugins/mentions/types';
 import type { StatusState, StatusType } from '@atlaskit/editor-plugin-status';
 import type { CustomMediaPicker } from '@atlaskit/editor-plugin-media/types';
 import type {
@@ -159,7 +158,6 @@ export default class WebBridgeImpl
   statusBridgeState: StatusState | null = null;
   blockFormatBridgeState: BlockTypeState | null = null;
   listBridgeState: ListState | null = null;
-  mentionsPluginState: MentionPluginState | null = null;
   editorView?: EditorViewWithComposition;
   transformer: JSONTransformer = new JSONTransformer();
   editorActions: EditorActions = new EditorActions();

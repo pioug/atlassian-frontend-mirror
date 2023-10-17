@@ -97,9 +97,9 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
           pressed: { value: 'Yellow800' },
         },
         bold: {
-          '[default]': { value: 'Yellow400' },
-          hovered: { value: 'Yellow300' },
-          pressed: { value: 'Yellow200' },
+          '[default]': { value: 'Yellow300' },
+          hovered: { value: 'Yellow400' },
+          pressed: { value: 'Yellow500' },
         },
       },
       success: {

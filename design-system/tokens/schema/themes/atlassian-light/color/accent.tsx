@@ -53,7 +53,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
     icon: {
       accent: {
         blue: { value: 'Blue600' },
-        red: { value: 'Red600' },
+        red: { value: 'Red700' },
         orange: { value: 'Orange600' },
         yellow: { value: 'Yellow600' },
         green: { value: 'Green600' },
@@ -214,12 +214,12 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
             },
           },
           subtle: {
-            '[default]': { value: 'Yellow400' },
+            '[default]': { value: 'Yellow300' },
             hovered: {
-              value: 'Yellow300',
+              value: 'Yellow400',
             },
             pressed: {
-              value: 'Yellow200',
+              value: 'Yellow500',
             },
           },
           bolder: {

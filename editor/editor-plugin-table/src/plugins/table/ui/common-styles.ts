@@ -63,6 +63,7 @@ import {
   hoveredDeleteButton,
   hoveredWarningCell,
   insertColumnButtonWrapper,
+  insertLine,
   InsertMarker,
   insertRowButtonWrapper,
   OverflowShadow,
@@ -291,6 +292,7 @@ export const tableStyles = (
     ${hoveredDeleteButton(props)};
     ${hoveredCell(props)};
     ${hoveredWarningCell};
+    ${getBooleanFF('platform.editor.table.drag-and-drop') && insertLine(props)};
     ${resizeHandle(props)};
     ${rangeSelectionStyles};
 

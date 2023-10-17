@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.35.2
+
+### Patch Changes
+
+- [#41678](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41678) [`3ca94279a92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ca94279a92) - Small update on hover card forbidden view spacing (behind feature flag)
+
 ## 26.35.1
 
 ### Patch Changes

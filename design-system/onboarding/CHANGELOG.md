@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 10.8.10
+
+### Patch Changes
+
+- [#41644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41644) [`35821e3b157`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35821e3b157) - Wrap ReactElement in React.Fragment to fix typechecking under local consumption
+
 ## 10.8.9
 
 ### Patch Changes

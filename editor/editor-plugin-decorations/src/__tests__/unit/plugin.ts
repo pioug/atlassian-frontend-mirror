@@ -8,9 +8,9 @@ import layoutPlugin from '@atlaskit/editor-core/src/plugins/layout';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { deleteActiveLayoutNode } from '@atlaskit/editor-core/src/plugins/layout/actions';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import mentionsPlugin from '@atlaskit/editor-core/src/plugins/mentions';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
+import { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';
+// eslint-disable-next-line import/no-extraneous-dependencies
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';

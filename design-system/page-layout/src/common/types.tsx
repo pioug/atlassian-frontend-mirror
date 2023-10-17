@@ -49,6 +49,16 @@ export interface LeftSidebarProps extends SlotWidthProps {
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    */
   testId?: string;
+
+  /**
+   * The `aria-valuetext` allows users relying on assistive technologies,
+   * particularly screen readers, to determine the purpose of the slider.
+   * The default value is "Width".
+   * The aria-valuenow property is automatically appended to the valueTextLabel.
+   * For Example, valueTextLabel="Width" will render aria-valuetext="Width 62%”.
+   */
+  valueTextLabel?: string;
+
   /**
    * You can override prop(s) for the mentioned component(s).
    */
@@ -62,11 +72,11 @@ export interface LeftSidebarProps extends SlotWidthProps {
     };
   };
   /**
-   * Display label for grab area. This will be announced to the screenreaders when the grab area receives focus
+   * Display label for grab area/slider to resize the left side bar. This will be rendered through assistive technologies.
    */
   resizeGrabAreaLabel?: string;
   /**
-   * Display label for resize button.
+   * Display label for expand/collapse button for the left sidebar.
    */
   resizeButtonLabel?: string;
   /**

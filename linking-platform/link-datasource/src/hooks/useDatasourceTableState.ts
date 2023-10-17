@@ -284,7 +284,7 @@ export const useDatasourceTableState = ({
       if (!hasDataForColumns) {
         reset();
         void onNextPage({
-          isSchemaFromData: false, // since this is not inital load, we will already have schema
+          isSchemaFromData: false,
           shouldRequestFirstPage: true,
         });
       }

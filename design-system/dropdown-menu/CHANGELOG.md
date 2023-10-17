@@ -1,8 +1,17 @@
 # @atlaskit/dropdown-menu
 
+## 12.1.2
+
+### Patch Changes
+
+- [#41673](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41673) [`e0bc1e5b8bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0bc1e5b8bb) - fix: adds spread prop support back to DropdownMenu and sub-components after their removal in version `11.14.5`.
+  These spread props will be removed instead in a future major version.
+
 ## 12.1.1
 
 ### Patch Changes
+
+- Warning: This version is deprecated due to breaking behavioural change from removal of spread props in 11.14.5. Please upgrade to version 12.1.2 or later
 
 - [#41611](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41611) [`876d7943287`](https://bitbucket.org/atlassian/atlassian-frontend/commits/876d7943287) - Fix keyboard arrow controls for dropdown item custom component.
 
@@ -10,11 +19,15 @@
 
 ### Minor Changes
 
+- Warning: This version is deprecated due to breaking behavioural change from removal of spread props in 11.14.5. Please upgrade to version 12.1.2 or later
+
 - [#41586](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41586) [`ef0466f92d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef0466f92d9) - We are removing previously added feature flag and unsafe entry point usage of the new Button inside DropdownMenu.
 
 ## 12.0.0
 
 ### Major Changes
+
+- Warning: This version is deprecated due to breaking behavioural change from removal of spread props in 11.14.5. Please upgrade to version 12.1.2 or later
 
 - [#41355](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41355) [`cd1c813da18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd1c813da18) - Menu items now have a secondary selected state (border or notch), this was previously feature flagged for Atlassian experiences and is now available for everyone.
 
@@ -39,6 +52,8 @@
 ## 11.14.5
 
 ### Patch Changes
+
+- Warning: This version is deprecated due to breaking behavioural change from the removal of spread props. Please downgrade to 11.14.4, or upgrade to 12.1.2 or later
 
 - [#41067](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41067) [`5a9ed67f8f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a9ed67f8f5) - Expand rest props for more explicit function data flow.
 

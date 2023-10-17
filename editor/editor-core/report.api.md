@@ -16,7 +16,6 @@
 
 ```ts
 /// <reference types="node" />
-/// <reference types="react" />
 
 import { ACTION } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
@@ -57,6 +56,7 @@ import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import { MediaOptions } from '@atlaskit/editor-plugin-media/types';
 import { MediaProvider as MediaProvider_2 } from '@atlaskit/editor-common/provider-factory';
 import type { MediaState } from '@atlaskit/editor-plugin-media/types';
+import type { MentionPluginConfig } from '@atlaskit/editor-plugin-mentions';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import { MentionResource } from '@atlaskit/mention/resource';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
@@ -653,14 +653,6 @@ export const measurements: {
 export { MediaOptions };
 
 export { MediaProvider_2 as MediaProvider };
-
-// @public (undocumented)
-interface MentionPluginConfig {
-  // (undocumented)
-  HighlightComponent?: React.ComponentType;
-  // (undocumented)
-  insertDisplayName?: boolean;
-}
 
 export { MentionProvider };
 

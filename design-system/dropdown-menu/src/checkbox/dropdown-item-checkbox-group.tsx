@@ -27,6 +27,8 @@ const DropdownItemCheckboxGroup = ({
   overrides,
   testId,
   title,
+  // DSP-13312 TODO: remove spread props in future major release
+  ...rest
 }: DropdownItemCheckboxGroupProps) => {
   return (
     <CheckboxGroupContext.Provider value={id}>
@@ -39,6 +41,8 @@ const DropdownItemCheckboxGroup = ({
         overrides={overrides}
         testId={testId}
         title={title}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+        {...rest}
       >
         {children}
       </Section>

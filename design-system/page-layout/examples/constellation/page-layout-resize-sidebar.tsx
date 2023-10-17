@@ -193,7 +193,7 @@ const BasicGrid = () => {
               <LeftSidebar
                 testId="left-sidebar"
                 id="left-sidebar"
-                skipLinkTitle="Left sidebar"
+                skipLinkTitle="Project Navigation"
                 isFixed={gridState.isLeftSidebarFixed}
                 onResizeStart={(state: LeftSidebarState) =>
                   console.log('onResizeStart', state)
@@ -203,14 +203,15 @@ const BasicGrid = () => {
                 }
                 onFlyoutExpand={() => console.log('onFlyoutExpand')}
                 onFlyoutCollapse={() => console.log('onFlyoutCollapse')}
+                resizeGrabAreaLabel="Resize Current project sidebar"
+                resizeButtonLabel="Current project sidebar"
+                valueTextLabel="Width"
                 // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
                 overrides={{
                   ResizeButton: {
                     render: (Component, props) => (
                       <Tooltip
-                        content={
-                          props.isLeftSidebarCollapsed ? 'Expand' : 'Collapse'
-                        }
+                        content={'Left Sidebar'}
                         hideTooltipOnClick
                         position="right"
                         testId="tooltip"

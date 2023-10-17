@@ -1574,8 +1574,7 @@ type Palettes =
   | 'legacyPalette'
   | 'shapePalette'
   | 'spacingScale'
-  | 'typographyPalette'
-  | 'updatedSaturatedPalette';
+  | 'typographyPalette';
 
 // @public (undocumented)
 export type RawToken = DesignToken<string, 'raw'>;
@@ -1698,8 +1697,6 @@ const themeIdsWithOverrides: readonly [
   'typography-minor3',
   'light-new-input-border',
   'dark-new-input-border',
-  'light-saturated-palette-changes',
-  'dark-saturated-palette-changes',
 ];
 
 // @public
@@ -1734,16 +1731,12 @@ type ThemeOverrideIds = (typeof themeOverrideIds)[number];
 const themeOverrideIds: readonly [
   'light-new-input-border',
   'dark-new-input-border',
-  'light-saturated-palette-changes',
-  'dark-saturated-palette-changes',
 ];
 
 // @public
 type ThemeOverrides =
   | 'atlassian-dark-new-input-border'
-  | 'atlassian-dark-saturated-palette-changes'
-  | 'atlassian-light-new-input-border'
-  | 'atlassian-light-saturated-palette-changes';
+  | 'atlassian-light-new-input-border';
 
 // @public
 export type Themes =

@@ -44,7 +44,7 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.26.0",
+    "@atlaskit/tokens": "^1.27.0",
     "@babel/runtime": "^7.0.0",
     "postcss-value-parser": "^4.2.0"
   },

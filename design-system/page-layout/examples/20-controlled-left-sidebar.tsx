@@ -3,10 +3,15 @@
 import { jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import { Content, LeftSidebar, Main, PageLayout, TopNavigation } from '../src';
 
-import { SlotLabel, SlotWrapper } from './common';
+import {
+  ExpandLeftSidebarKeyboardShortcut,
+  SlotLabel,
+  SlotWrapper,
+} from './common';
 
 const BasicGrid = () => {
   return (
@@ -26,13 +31,29 @@ const BasicGrid = () => {
         <LeftSidebar
           testId="leftSidebar"
           id="space-navigation"
-          skipLinkTitle="Space Navigation"
+          skipLinkTitle="Current project sidebar"
           width={350}
           collapsedState="collapsed"
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+          overrides={{
+            ResizeButton: {
+              render: (Component, props) => (
+                <Tooltip
+                  content={'Use [ to show or hide the sidebar'}
+                  hideTooltipOnClick
+                  position="right"
+                  testId="tooltip"
+                >
+                  <Component {...props} />
+                </Tooltip>
+              ),
+            },
+          }}
         >
           <SlotWrapper hasExtraPadding hasHorizontalScrollbar={false}>
             <SlotLabel isSmall>Space Navigation</SlotLabel>
           </SlotWrapper>
+          <ExpandLeftSidebarKeyboardShortcut />
         </LeftSidebar>
         <Main testId="main" id="main" skipLinkTitle="Main Content">
           <SlotWrapper hasHorizontalScrollbar={false} minHeight={400}>

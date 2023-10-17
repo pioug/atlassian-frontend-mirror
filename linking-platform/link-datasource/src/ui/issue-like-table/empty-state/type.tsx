@@ -14,7 +14,7 @@ import { IssueType } from './types';
 const IconWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
 `;
 
 export default ({ type }: { type: IssueType }) => {

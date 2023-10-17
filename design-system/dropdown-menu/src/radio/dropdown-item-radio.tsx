@@ -31,6 +31,8 @@ const DropdownItemRadio = ({
   onClick: providedOnClick = noop,
   shouldDescriptionWrap = true,
   shouldTitleWrap = true,
+  // DSP-13312 TODO: remove spread props in future major release
+  ...rest
 }: DropdownItemRadioProps) => {
   if (
     typeof process !== 'undefined' &&
@@ -64,7 +66,6 @@ const DropdownItemRadio = ({
     <SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="none">
       <ButtonItem
         aria-checked={selected}
-        children={children}
         description={description}
         iconBefore={<RadioIcon checked={selected} />}
         id={id}
@@ -76,7 +77,15 @@ const DropdownItemRadio = ({
         shouldDescriptionWrap={shouldDescriptionWrap}
         shouldTitleWrap={shouldTitleWrap}
         testId={testId}
-      />
+        // Thanks to spread props, this attribute are passed to ButtonItem, even though
+        // it's not in the component's prop types.
+        // @ts-expect-error
+        title={title}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+        {...rest}
+      >
+        {children}
+      </ButtonItem>
     </SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>
   );
 };

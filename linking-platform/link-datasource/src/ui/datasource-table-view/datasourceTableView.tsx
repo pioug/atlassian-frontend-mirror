@@ -12,6 +12,7 @@ import { startUfoExperience } from '../../analytics/ufoExperiences';
 import { useColumnPickerRenderedFailedUfoExperience } from '../../analytics/ufoExperiences/hooks/useColumnPickerRenderedFailedUfoExperience';
 import { useDataRenderedUfoExperience } from '../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
 import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
+import { ScrollableContainerHeight } from '../../ui/issue-like-table/styled';
 import { AccessRequired } from '../common/error-state/access-required';
 import { LoadingError } from '../common/error-state/loading-error';
 import { NoResults } from '../common/error-state/no-results';
@@ -163,16 +164,12 @@ const DatasourceTableViewWithoutAnalytics = ({
           columns={columns}
           visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
           onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-          scrollableContainerHeight={590}
+          scrollableContainerHeight={ScrollableContainerHeight}
           parentContainerRenderInstanceId={tableRenderInstanceId}
           extensionKey={extensionKey}
         />
       ) : (
-        <EmptyState
-          testId="datasource-table-view-skeleton"
-          isCompact
-          isLoading={!isDataReady || status === 'loading'}
-        />
+        <EmptyState testId="datasource-table-view-skeleton" isCompact />
       )}
       <TableFooter
         itemCount={isDataReady ? totalCount : undefined}

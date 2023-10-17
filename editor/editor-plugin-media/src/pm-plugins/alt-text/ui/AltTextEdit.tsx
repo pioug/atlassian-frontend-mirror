@@ -101,6 +101,7 @@ export class AltTextEditComponent extends React.Component<
   AltTextEditComponentState
 > {
   private fireCustomAnalytics?: FireAnalyticsCallback;
+  private errorsListRef;
   state = {
     showClearTextButton: Boolean(this.props.value),
     validationErrors: this.props.value
@@ -114,6 +115,7 @@ export class AltTextEditComponent extends React.Component<
 
     const { createAnalyticsEvent } = props;
     this.fireCustomAnalytics = fireAnalyticsEvent(createAnalyticsEvent);
+    this.errorsListRef = React.createRef<HTMLElement>();
   }
 
   prevValue: string | undefined;
@@ -164,6 +166,7 @@ export class AltTextEditComponent extends React.Component<
     ) {
       return <ErrorMessage key={index}>{error}</ErrorMessage>;
     });
+    const hasErrors = !!errorsList.length;
 
     return (
       <div css={container}>
@@ -181,7 +184,7 @@ export class AltTextEditComponent extends React.Component<
           <PanelTextInput
             testId="alt-text-input"
             ariaLabel={formatMessage(messages.placeholder)}
-            describedById="support-text"
+            describedById={`${hasErrors ? 'errors-list' : ''} support-text`}
             placeholder={formatMessage(messages.placeholder)}
             defaultValue={this.state.lastValue}
             onCancel={this.dispatchCancelEvent}
@@ -189,6 +192,8 @@ export class AltTextEditComponent extends React.Component<
             onBlur={this.handleOnBlur}
             onSubmit={this.closeMediaAltTextMenu}
             maxLength={MAX_ALT_TEXT_LENGTH}
+            ariaRequired={true}
+            ariaInvalid={hasErrors}
             autoFocus
           />
           {showClearTextButton && (
@@ -207,8 +212,15 @@ export class AltTextEditComponent extends React.Component<
             </div>
           )}
         </section>
-        {!!errorsList.length && (
-          <section css={validationWrapper}>{errorsList}</section>
+        {hasErrors && (
+          <section
+            id="errors-list"
+            ref={this.errorsListRef}
+            aria-live="assertive"
+            css={validationWrapper}
+          >
+            {errorsList}
+          </section>
         )}
         <p css={supportText} id="support-text">
           {formatMessage(messages.supportText)}
@@ -255,6 +267,15 @@ export class AltTextEditComponent extends React.Component<
   private handleOnChange = (newAltText: string) => {
     const validationErrors = this.getValidationErrors(newAltText);
 
+    if (this.state?.validationErrors?.length !== validationErrors?.length) {
+      // If number of errors was changed we need to reset attribute to get new SR announcement
+
+      if (this.errorsListRef) {
+        const errorsArea = this.errorsListRef?.current;
+        errorsArea?.removeAttribute('aria-live');
+        errorsArea?.setAttribute('aria-live', 'assertive');
+      }
+    }
     this.setState(
       {
         showClearTextButton: Boolean(newAltText),

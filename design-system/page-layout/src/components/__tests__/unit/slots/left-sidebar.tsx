@@ -472,10 +472,10 @@ describe('Left sidebar', () => {
         </PageLayout>,
       );
 
-      expect(queryByTestId('tooltip')).toBeNull();
+      expect(queryByTestId('tooltip')).not.toBeInTheDocument();
       fireEvent.mouseOver(getByTestId('left-sidebar-resize-button'));
       completeAnimations();
-      expect(getByTestId('tooltip').textContent).toBe('Expand');
+      expect(getByTestId('tooltip')).toHaveTextContent('Expand');
     });
 
     describe('GrabArea', () => {
@@ -505,7 +505,7 @@ describe('Left sidebar', () => {
         expect(grabArea).toHaveAttribute('aria-valuenow');
         expect(grabArea).toHaveAttribute('aria-valuemin', '0');
         expect(grabArea).toHaveAttribute('aria-valuemax', '100');
-        expect(grabArea).toHaveAttribute('role', 'separator');
+        expect(grabArea).toHaveAttribute('role', 'slider');
       });
     });
 
@@ -766,7 +766,7 @@ describe('Left sidebar', () => {
     ];
     // Note: not using `it.each` as our current version is not working
     // well with objects
-    // 'description $label' → `$label` not being populated
+    // 'description $label' →`$label` not being populated
     scenarios.forEach((scenario) => {
       it(`should stop resizing on event: [${scenario.label}]`, () => {
         const onResizeStart = jest.fn();
@@ -1746,12 +1746,12 @@ describe('Left sidebar', () => {
       );
       const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
 
-      expect(handle.hasAttribute('role')).toEqual(true);
-      expect(handle.hasAttribute('aria-label')).toEqual(true);
-      expect(handle.hasAttribute('aria-valuenow')).toEqual(true);
-      expect(handle.hasAttribute('aria-valuemin')).toEqual(true);
-      expect(handle.hasAttribute('aria-valuemax')).toEqual(true);
-      expect(resizeButton.hasAttribute('aria-expanded')).toEqual(true);
+      expect(handle).toHaveAttribute('role');
+      expect(handle).toHaveAttribute('aria-label');
+      expect(handle).toHaveAttribute('aria-valuenow');
+      expect(handle).toHaveAttribute('aria-valuemin');
+      expect(handle).toHaveAttribute('aria-valuemax');
+      expect(resizeButton).toHaveAttribute('aria-expanded');
     });
 
     it('should change step by 10px on arrow left-top/right-bottom push', () => {
@@ -1955,15 +1955,14 @@ describe('Left sidebar', () => {
         </PageLayout>,
       );
 
-      expect(getByTestId('left-sidebar-grab-area')).toHaveAttribute('disabled');
+      expect(getByTestId('left-sidebar-grab-area')).toBeDisabled();
+      expect(getByTestId('left-sidebar-grab-area')).toHaveAttribute(
+        'aria-hidden',
+        'true',
+      );
       expect(
-        getByTestId('left-sidebar-grab-area').getAttribute('aria-hidden'),
-      ).toBe('true');
-      expect(
-        getByTestId('left-sidebar-resize-children-wrapper').getAttribute(
-          'aria-hidden',
-        ),
-      ).toBe('true');
+        getByTestId('left-sidebar-resize-children-wrapper'),
+      ).toHaveAttribute('aria-hidden', 'true');
     });
 
     it('should make the left sidebar visible and interactive to assistive technologies when left sidebar is expanded', () => {
@@ -1989,17 +1988,14 @@ describe('Left sidebar', () => {
         </PageLayout>,
       );
 
-      expect(getByTestId('left-sidebar-grab-area')).not.toHaveAttribute(
-        'disabled',
+      expect(getByTestId('left-sidebar-grab-area')).toBeEnabled();
+      expect(getByTestId('left-sidebar-grab-area')).toHaveAttribute(
+        'aria-hidden',
+        'false',
       );
       expect(
-        getByTestId('left-sidebar-grab-area').getAttribute('aria-hidden'),
-      ).toBe('false');
-      expect(
-        getByTestId('left-sidebar-resize-children-wrapper').getAttribute(
-          'aria-hidden',
-        ),
-      ).toBe('false');
+        getByTestId('left-sidebar-resize-children-wrapper'),
+      ).toHaveAttribute('aria-hidden', 'false');
     });
 
     it('should collapse navbar on line Enter, Space or Click (that the same)', () => {
@@ -2022,12 +2018,12 @@ describe('Left sidebar', () => {
       );
       const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
 
-      expect(resizeButton.getAttribute('aria-expanded')).toEqual('true');
+      expect(resizeButton).toHaveAttribute('aria-expanded', 'true');
 
       fireEvent.focus(handle);
       fireEvent.keyDown(handle, { keyCode: 32, key: ' ' });
 
-      expect(resizeButton.getAttribute('aria-expanded')).toEqual('false');
+      expect(resizeButton).toHaveAttribute('aria-expanded', 'false');
     });
   });
 

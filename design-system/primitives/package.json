@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/primitives",
-  "version": "1.6.6",
+  "version": "1.6.7",
   "description": "Primitives are token-backed low-level building blocks.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -125,7 +125,7 @@
     "codegen-styles": "ts-node -r tsconfig-paths/register ./scripts/codegen-styles.tsx"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.26.0",
+    "@atlaskit/tokens": "^1.27.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/serialize": "^1.1.0",

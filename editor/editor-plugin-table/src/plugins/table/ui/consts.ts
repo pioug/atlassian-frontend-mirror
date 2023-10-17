@@ -131,6 +131,7 @@ export const columnControlsDecorationHeight = 25;
 export const columnControlsZIndex = akEditorUnitZIndex * 10;
 export const columnControlsSelectedZIndex = columnControlsZIndex + 1;
 export const columnResizeHandleZIndex = columnControlsSelectedZIndex + 1;
+export const insertLineWidth = 3;
 export const resizeHandlerAreaWidth = RESIZE_HANDLE_AREA_DECORATION_GAP / 3;
 export const resizeLineWidth = 2;
 export const resizeHandlerZIndex =

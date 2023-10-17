@@ -23,7 +23,7 @@ const color: ValueSchema<IconColorTokenSchema<BaseToken>> = {
         value: 'Blue700',
       },
       danger: {
-        value: 'Red600',
+        value: 'Red700',
       },
       warning: {
         '[default]': {

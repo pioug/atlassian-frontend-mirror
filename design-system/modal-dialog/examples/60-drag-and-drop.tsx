@@ -2,6 +2,8 @@
 import React, { useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
+// Allowing existing usage of non Pragmatic drag and drop solution
+// eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import {
   DragDropContext,
   Draggable,
@@ -40,7 +42,7 @@ const baseCardStyles = css({
   position: 'relative',
   background: token('color.background.neutral', N20),
 
-  borderBottom: `1px solid ${token('color.border', N40)}`,
+  borderBlockEnd: `1px solid ${token('color.border', N40)}`,
   borderRadius: token('border.radius.100', '3px'),
 
   cursor: 'pointer',
@@ -48,7 +50,7 @@ const baseCardStyles = css({
 
   ':focus': {
     zIndex: 1,
-    borderBottomColor: 'transparent',
+    borderBlockEndColor: 'transparent',
   },
 });
 

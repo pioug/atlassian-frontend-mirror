@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.12.0
+
+### Minor Changes
+
+- [#41346](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41346) [`b7e50f54fb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7e50f54fb3) - Changed the no-unsupported-drag-and-drop-libraries to 'problem' type with 'error' severity. Therefore an error will now be thrown when a drag and drop package that is not Pragmatic drag and drop is imported in packages that have the rule enabled.
+
+## 8.11.0
+
+### Minor Changes
+
+- [#41624](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41624) [`ee68a82c409`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee68a82c409) - Add fixer to and handle another invalid `href` value for link item rule.
+
 ## 8.10.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-decorations",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Decorations plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -31,6 +31,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@atlaskit/editor-plugin-mentions": "^0.1.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",

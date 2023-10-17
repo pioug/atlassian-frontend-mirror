@@ -594,10 +594,7 @@ export const PlainJiraIssuesConfigModal = (
       return (
         <div css={contentContainerStyles}>
           {!!jql ? (
-            <EmptyState
-              testId={`jira-jql-datasource-modal--empty-state`}
-              isLoading={true}
-            />
+            <EmptyState testId={`jira-jql-datasource-modal--empty-state`} />
           ) : (
             <InitialStateView searchMethod={currentSearchMethod} />
           )}

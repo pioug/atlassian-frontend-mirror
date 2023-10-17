@@ -53,9 +53,9 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
     icon: {
       accent: {
         blue: { value: 'Blue500' },
-        red: { value: 'Red500' },
+        red: { value: 'Red600' },
         orange: { value: 'Orange500' },
-        yellow: { value: 'Yellow500' },
+        yellow: { value: 'Yellow300' },
         green: { value: 'Green500' },
         purple: { value: 'Purple500' },
         teal: { value: 'Teal500' },

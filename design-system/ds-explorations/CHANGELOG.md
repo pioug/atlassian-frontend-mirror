@@ -1,5 +1,12 @@
 # @atlaskit/ds-explorations
 
+## 3.0.4
+
+### Patch Changes
+
+- [#41516](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41516) [`350e4081d89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/350e4081d89) - [ux] Regenerates codegen artifacts as a result of changes to color palettes and token values
+- Updated dependencies
+
 ## 3.0.3
 
 ### Patch Changes

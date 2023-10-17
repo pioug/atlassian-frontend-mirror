@@ -112,7 +112,7 @@ const BasicGrid = () => {
           <LeftSidebarWithoutResize
             testId="leftSidebar"
             id="space-navigation"
-            skipLinkTitle="Space Navigation"
+            skipLinkTitle="Project Navigation"
             isFixed={false}
             width={125}
           >

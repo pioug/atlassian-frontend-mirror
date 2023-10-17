@@ -1,14 +1,30 @@
 import type { Rule } from 'eslint';
-import { isNodeOfType, JSXAttribute } from 'eslint-codemod-utils';
+import {
+  ImportDeclaration,
+  ImportDefaultSpecifier,
+  isNodeOfType,
+  JSXAttribute,
+} from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';
+import type { Fix } from '../utils/types';
 
-import { getLinkItemImportName, hrefHasInvalidValue } from './utils';
+import {
+  getLinkItemImportName,
+  getUniqueButtonItemName,
+  hasImportOfName,
+  hrefHasInvalidValue,
+  insertButtonItemDefaultImport,
+  insertButtonItemImport,
+} from './utils';
+
+export const hrefRequiredSuggestionText = 'Convert LinkItem to ButtonItem';
 
 const rule = createLintRule({
   meta: {
     name: 'use-href-in-link-item',
     type: 'suggestion',
+    fixable: 'code',
     hasSuggestions: true,
     docs: {
       description:
@@ -18,11 +34,31 @@ const rule = createLintRule({
     },
     messages: {
       hrefRequired:
-        'The `href` prop will be required in future releases. Please use a valid `href` attribute on `LinkItem`. If no valid `href` is needed for your use case, consider using `ButtonItem`.',
+        'A valid `href` will be required in future releases on LinkItem. This may be able to be replaced by a ButtonItem.',
     },
   },
   create(context) {
+    let menuNode: ImportDeclaration | null = null;
+    let buttonItemDefaultImportNode: ImportDeclaration | null = null;
+    let linkItemDefaultImportNode: ImportDeclaration | null = null;
+    let customDefaultLinkItemSpecifier: string | null = null;
+    const allImportDeclarations: ImportDeclaration[] = [];
+
     return {
+      ImportDeclaration(node) {
+        if (node.source.value === '@atlaskit/menu') {
+          menuNode = node;
+        } else if (node.source.value === '@atlaskit/menu/link-item') {
+          linkItemDefaultImportNode = node;
+          customDefaultLinkItemSpecifier = (
+            node.specifiers[0] as ImportDefaultSpecifier
+          ).local.name;
+        } else if (node.source.value === '@atlaskit/menu/button-item') {
+          buttonItemDefaultImportNode = node;
+        }
+
+        allImportDeclarations.push(node);
+      },
       JSXElement(node: Rule.Node) {
         if (!isNodeOfType(node, 'JSXElement')) {
           return;
@@ -33,7 +69,9 @@ const rule = createLintRule({
         }
 
         // Get the name of the LinkItem import
-        const linkItemImportName = getLinkItemImportName(context.getScope());
+        const linkItemImportName =
+          customDefaultLinkItemSpecifier ||
+          getLinkItemImportName(context.getScope());
 
         if (node.openingElement.name.name === linkItemImportName) {
           // and if href prop does not exist
@@ -51,6 +89,64 @@ const rule = createLintRule({
             context.report({
               node: node,
               messageId: 'hrefRequired',
+              suggest: [
+                {
+                  desc: hrefRequiredSuggestionText,
+                  fix(fixer) {
+                    let importFix: Fix | null = null;
+
+                    const uniqueButtonItemName = getUniqueButtonItemName(
+                      menuNode,
+                      allImportDeclarations,
+                    );
+
+                    if (
+                      // Default link item import but no button item imports
+                      linkItemDefaultImportNode &&
+                      !buttonItemDefaultImportNode &&
+                      (!menuNode ||
+                        (menuNode && !hasImportOfName(menuNode, 'ButtonItem')))
+                    ) {
+                      importFix = insertButtonItemDefaultImport(
+                        fixer,
+                        linkItemDefaultImportNode,
+                      );
+                    } else if (
+                      // No button item imports of any kind
+                      menuNode &&
+                      !hasImportOfName(menuNode, 'ButtonItem') &&
+                      !buttonItemDefaultImportNode
+                    ) {
+                      importFix = insertButtonItemImport(
+                        fixer,
+                        menuNode,
+                        uniqueButtonItemName,
+                      );
+                    }
+
+                    const fixes = (importFix ? [importFix] : []).concat(
+                      href ? [fixer.remove(href)] : [],
+                      [
+                        fixer.replaceText(
+                          node.openingElement.name,
+                          uniqueButtonItemName,
+                        ),
+                      ],
+                    );
+
+                    if (node.closingElement) {
+                      fixes.push(
+                        fixer.replaceText(
+                          node.closingElement.name,
+                          uniqueButtonItemName,
+                        ),
+                      );
+                    }
+
+                    return fixes;
+                  },
+                },
+              ],
             });
           }
         }

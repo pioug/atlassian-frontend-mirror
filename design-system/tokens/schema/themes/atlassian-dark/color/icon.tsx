@@ -27,7 +27,7 @@ const color: ValueSchema<IconColorTokenSchema<BaseToken>> = {
       },
       warning: {
         '[default]': {
-          value: 'Yellow500',
+          value: 'Yellow300',
         },
         inverse: {
           value: 'DarkNeutral100',

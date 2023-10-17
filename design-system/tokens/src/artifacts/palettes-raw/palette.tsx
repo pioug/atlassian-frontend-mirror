@@ -1,11 +1,11 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::92182eabfb168482b95227f69330ae5e>>
+ * @codegen <<SignedSource::ef2302d3e60545ba54818efd29a896a6>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
   {
-    "value": "#EEFBDA",
+    "value": "#EFFFD6",
     "attributes": {
       "group": "palette",
       "category": "lime"
@@ -13,7 +13,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#EEFBDA",
+      "value": "#EFFFD6",
       "attributes": {
         "group": "palette",
         "category": "lime"
@@ -203,7 +203,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#2A3818",
+    "value": "#28311B",
     "attributes": {
       "group": "palette",
       "category": "lime"
@@ -211,7 +211,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#2A3818",
+      "value": "#28311B",
       "attributes": {
         "group": "palette",
         "category": "lime"
@@ -225,7 +225,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#FFEDEB",
+    "value": "#FFECEB",
     "attributes": {
       "group": "palette",
       "category": "red"
@@ -233,7 +233,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#FFEDEB",
+      "value": "#FFECEB",
       "attributes": {
         "group": "palette",
         "category": "red"
@@ -247,7 +247,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#FFD2CC",
+    "value": "#FFD5D2",
     "attributes": {
       "group": "palette",
       "category": "red"
@@ -255,7 +255,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#FFD2CC",
+      "value": "#FFD5D2",
       "attributes": {
         "group": "palette",
         "category": "red"
@@ -269,7 +269,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#FF9C8F",
+    "value": "#FD9891",
     "attributes": {
       "group": "palette",
       "category": "red"
@@ -277,7 +277,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#FF9C8F",
+      "value": "#FD9891",
       "attributes": {
         "group": "palette",
         "category": "red"
@@ -291,7 +291,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#F87462",
+    "value": "#F87168",
     "attributes": {
       "group": "palette",
       "category": "red"
@@ -299,7 +299,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#F87462",
+      "value": "#F87168",
       "attributes": {
         "group": "palette",
         "category": "red"
@@ -313,7 +313,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#EF5C48",
+    "value": "#F15B50",
     "attributes": {
       "group": "palette",
       "category": "red"
@@ -321,7 +321,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#EF5C48",
+      "value": "#F15B50",
       "attributes": {
         "group": "palette",
         "category": "red"
@@ -335,7 +335,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#E34935",
+    "value": "#E2483D",
     "attributes": {
       "group": "palette",
       "category": "red"
@@ -343,7 +343,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#E34935",
+      "value": "#E2483D",
       "attributes": {
         "group": "palette",
         "category": "red"
@@ -357,7 +357,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#CA3521",
+    "value": "#C9372C",
     "attributes": {
       "group": "palette",
       "category": "red"
@@ -365,7 +365,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#CA3521",
+      "value": "#C9372C",
       "attributes": {
         "group": "palette",
         "category": "red"
@@ -379,7 +379,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#AE2A19",
+    "value": "#AE2E24",
     "attributes": {
       "group": "palette",
       "category": "red"
@@ -387,7 +387,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#AE2A19",
+      "value": "#AE2E24",
       "attributes": {
         "group": "palette",
         "category": "red"
@@ -401,7 +401,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#601E16",
+    "value": "#5D1F1A",
     "attributes": {
       "group": "palette",
       "category": "red"
@@ -409,7 +409,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#601E16",
+      "value": "#5D1F1A",
       "attributes": {
         "group": "palette",
         "category": "red"
@@ -423,7 +423,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#4F1C16",
+    "value": "#42221F",
     "attributes": {
       "group": "palette",
       "category": "red"
@@ -431,7 +431,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#4F1C16",
+      "value": "#42221F",
       "attributes": {
         "group": "palette",
         "category": "red"
@@ -445,7 +445,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#FFF4E5",
+    "value": "#FFF3EB",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -453,7 +453,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#FFF4E5",
+      "value": "#FFF3EB",
       "attributes": {
         "group": "palette",
         "category": "orange"
@@ -467,7 +467,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#FFE2BD",
+    "value": "#FEDEC8",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -475,7 +475,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#FFE2BD",
+      "value": "#FEDEC8",
       "attributes": {
         "group": "palette",
         "category": "orange"
@@ -489,7 +489,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#FEC57B",
+    "value": "#FEC195",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -497,7 +497,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#FEC57B",
+      "value": "#FEC195",
       "attributes": {
         "group": "palette",
         "category": "orange"
@@ -511,7 +511,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#FAA53D",
+    "value": "#FEA362",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -519,7 +519,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#FAA53D",
+      "value": "#FEA362",
       "attributes": {
         "group": "palette",
         "category": "orange"
@@ -533,7 +533,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#F18D13",
+    "value": "#F38A3F",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -541,7 +541,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#F18D13",
+      "value": "#F38A3F",
       "attributes": {
         "group": "palette",
         "category": "orange"
@@ -555,7 +555,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#D97008",
+    "value": "#E56910",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -563,7 +563,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#D97008",
+      "value": "#E56910",
       "attributes": {
         "group": "palette",
         "category": "orange"
@@ -577,7 +577,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#B65C02",
+    "value": "#C25100",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -585,7 +585,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#B65C02",
+      "value": "#C25100",
       "attributes": {
         "group": "palette",
         "category": "orange"
@@ -599,7 +599,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#974F0C",
+    "value": "#A54800",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -607,7 +607,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#974F0C",
+      "value": "#A54800",
       "attributes": {
         "group": "palette",
         "category": "orange"
@@ -621,7 +621,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#5F3811",
+    "value": "#702E00",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -629,7 +629,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#5F3811",
+      "value": "#702E00",
       "attributes": {
         "group": "palette",
         "category": "orange"
@@ -643,7 +643,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#4A2B0F",
+    "value": "#38291E",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -651,7 +651,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#4A2B0F",
+      "value": "#38291E",
       "attributes": {
         "group": "palette",
         "category": "orange"
@@ -863,7 +863,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#3F3102",
+    "value": "#332E1B",
     "attributes": {
       "group": "palette",
       "category": "yellow"
@@ -871,7 +871,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#3F3102",
+      "value": "#332E1B",
       "attributes": {
         "group": "palette",
         "category": "yellow"
@@ -885,7 +885,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#DFFCF0",
+    "value": "#DCFFF1",
     "attributes": {
       "group": "palette",
       "category": "green"
@@ -893,7 +893,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#DFFCF0",
+      "value": "#DCFFF1",
       "attributes": {
         "group": "palette",
         "category": "green"
@@ -1083,7 +1083,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#143C2B",
+    "value": "#1C3329",
     "attributes": {
       "group": "palette",
       "category": "green"
@@ -1091,7 +1091,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#143C2B",
+      "value": "#1C3329",
       "attributes": {
         "group": "palette",
         "category": "green"
@@ -1105,7 +1105,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#E3FAFC",
+    "value": "#E7F9FF",
     "attributes": {
       "group": "palette",
       "category": "teal"
@@ -1113,7 +1113,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#E3FAFC",
+      "value": "#E7F9FF",
       "attributes": {
         "group": "palette",
         "category": "teal"
@@ -1127,7 +1127,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#C1F0F5",
+    "value": "#C6EDFB",
     "attributes": {
       "group": "palette",
       "category": "teal"
@@ -1135,7 +1135,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#C1F0F5",
+      "value": "#C6EDFB",
       "attributes": {
         "group": "palette",
         "category": "teal"
@@ -1149,7 +1149,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#8BDBE5",
+    "value": "#9DD9EE",
     "attributes": {
       "group": "palette",
       "category": "teal"
@@ -1157,7 +1157,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#8BDBE5",
+      "value": "#9DD9EE",
       "attributes": {
         "group": "palette",
         "category": "teal"
@@ -1171,7 +1171,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#60C6D2",
+    "value": "#6CC3E0",
     "attributes": {
       "group": "palette",
       "category": "teal"
@@ -1179,7 +1179,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#60C6D2",
+      "value": "#6CC3E0",
       "attributes": {
         "group": "palette",
         "category": "teal"
@@ -1193,7 +1193,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#37B4C3",
+    "value": "#42B2D7",
     "attributes": {
       "group": "palette",
       "category": "teal"
@@ -1201,7 +1201,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#37B4C3",
+      "value": "#42B2D7",
       "attributes": {
         "group": "palette",
         "category": "teal"
@@ -1215,7 +1215,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#1D9AAA",
+    "value": "#2898BD",
     "attributes": {
       "group": "palette",
       "category": "teal"
@@ -1223,7 +1223,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#1D9AAA",
+      "value": "#2898BD",
       "attributes": {
         "group": "palette",
         "category": "teal"
@@ -1237,7 +1237,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#1D7F8C",
+    "value": "#227D9B",
     "attributes": {
       "group": "palette",
       "category": "teal"
@@ -1245,7 +1245,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#1D7F8C",
+      "value": "#227D9B",
       "attributes": {
         "group": "palette",
         "category": "teal"
@@ -1259,7 +1259,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#206B74",
+    "value": "#206A83",
     "attributes": {
       "group": "palette",
       "category": "teal"
@@ -1267,7 +1267,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#206B74",
+      "value": "#206A83",
       "attributes": {
         "group": "palette",
         "category": "teal"
@@ -1281,7 +1281,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#1D474C",
+    "value": "#164555",
     "attributes": {
       "group": "palette",
       "category": "teal"
@@ -1289,7 +1289,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#1D474C",
+      "value": "#164555",
       "attributes": {
         "group": "palette",
         "category": "teal"
@@ -1303,7 +1303,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#15373B",
+    "value": "#1E3137",
     "attributes": {
       "group": "palette",
       "category": "teal"
@@ -1311,7 +1311,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#15373B",
+      "value": "#1E3137",
       "attributes": {
         "group": "palette",
         "category": "teal"
@@ -1523,7 +1523,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#092957",
+    "value": "#1C2B41",
     "attributes": {
       "group": "palette",
       "category": "blue"
@@ -1531,7 +1531,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#092957",
+      "value": "#1C2B41",
       "attributes": {
         "group": "palette",
         "category": "blue"
@@ -1743,7 +1743,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#2B2451",
+    "value": "#2B273F",
     "attributes": {
       "group": "palette",
       "category": "purple"
@@ -1751,7 +1751,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#2B2451",
+      "value": "#2B273F",
       "attributes": {
         "group": "palette",
         "category": "purple"
@@ -1963,7 +1963,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#421F34",
+    "value": "#3D2232",
     "attributes": {
       "group": "palette",
       "category": "magenta"
@@ -1971,7 +1971,7 @@ const tokens = [
     "filePath": "schema/palettes/palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#421F34",
+      "value": "#3D2232",
       "attributes": {
         "group": "palette",
         "category": "magenta"

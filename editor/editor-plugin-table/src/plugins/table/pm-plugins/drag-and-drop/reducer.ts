@@ -11,12 +11,14 @@ export default (
     case DragAndDropActionType.SET_DROP_TARGET:
       return {
         ...pluginState,
+        decorationSet: action.data.decorationSet,
         dropTargetType: action.data.type,
         dropTargetIndex: action.data.index,
       };
     case DragAndDropActionType.CLEAR_DROP_TARGET:
       return {
         ...pluginState,
+        decorationSet: action.data.decorationSet,
         dropTargetType: DropTargetType.NONE,
         dropTargetIndex: 0,
       };

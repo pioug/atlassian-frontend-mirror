@@ -32,6 +32,8 @@ export interface Props {
   ariaControls?: string;
   role?: string;
   ariaAutoComplete?: boolean;
+  ariaRequired?: boolean;
+  ariaInvalid?: boolean;
   inputId?: string;
 }
 
@@ -119,6 +121,8 @@ export default class PanelTextInput extends PureComponent<Props, State> {
         ref={this.handleRef}
         maxLength={maxLength}
         aria-label={ariaLabel}
+        aria-required={this.props?.ariaRequired}
+        aria-invalid={this.props?.ariaInvalid}
         id={inputId}
       />
     );

@@ -896,6 +896,18 @@ describe('Feedback Collector unit tests', () => {
         }
       }
     });
+
+    test('should render a correct field label name when selectLabel is passed in', () => {
+      render(
+        <FeedbackForm
+          onClose={() => {}}
+          onSubmit={async () => {}}
+          selectLabel="test label name"
+        />,
+      );
+      const label = screen.getByLabelText('test label name');
+      expect(label).toBeInTheDocument();
+    });
   });
 
   describe('Feedback Flag', () => {

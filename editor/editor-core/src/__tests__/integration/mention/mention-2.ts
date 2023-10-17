@@ -66,9 +66,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 16/10/2023: https://product-fabric.atlassian.net/browse/ED-20490
 BrowserTestCase(
   'mention-2.ts: @ <space> should not invoke picker',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

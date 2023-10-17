@@ -7,6 +7,7 @@ import {
   NestableNavigationContent,
   SideNavigation,
 } from '@atlaskit/side-navigation';
+import Tooltip from '@atlaskit/tooltip';
 
 import {
   Content,
@@ -16,7 +17,7 @@ import {
   usePageLayoutResize,
 } from '../src';
 
-import { SlotLabel } from './common';
+import { ExpandLeftSidebarKeyboardShortcut, SlotLabel } from './common';
 
 const SidebarControls = () => {
   const { collapseLeftSidebar } = usePageLayoutResize();
@@ -27,7 +28,24 @@ const SidebarControllerExample = () => {
   return (
     <PageLayout>
       <Content>
-        <LeftSidebar width={450}>
+        <LeftSidebar
+          width={450}
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+          overrides={{
+            ResizeButton: {
+              render: (Component, props) => (
+                <Tooltip
+                  content={'Use [ to show or hide the sidebar'}
+                  hideTooltipOnClick
+                  position="right"
+                  testId="tooltip"
+                >
+                  <Component {...props} />
+                </Tooltip>
+              ),
+            },
+          }}
+        >
           <SideNavigation label="Project navigation">
             <NavigationHeader>
               <Header description="Sidebar header description">
@@ -40,6 +58,7 @@ const SidebarControllerExample = () => {
               </Section>
             </NestableNavigationContent>
           </SideNavigation>
+          <ExpandLeftSidebarKeyboardShortcut />
         </LeftSidebar>
         <Main>
           <SlotLabel>Main Content</SlotLabel>

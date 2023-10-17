@@ -46,10 +46,9 @@ const cssSelector = { [RESIZE_CONTROL_SELECTOR]: true };
 
 const resizeControlStyles = css({
   position: 'absolute',
-  top: 0,
-  bottom: 0,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  left: '100%',
+  insetBlockEnd: 0,
+  insetBlockStart: 0,
+  insetInlineStart: '100%',
   outline: 'none',
 });
 
@@ -87,8 +86,9 @@ const globalResizingStyles = css({
 const ResizeControl = ({
   testId,
   overrides,
-  resizeButtonLabel = '',
-  resizeGrabAreaLabel = 'Resize',
+  resizeButtonLabel = 'Current project sidebar',
+  valueTextLabel = 'Width',
+  resizeGrabAreaLabel = 'Resize Current Project Sidebar',
   onResizeStart,
   onResizeEnd,
 }: ResizeControlProps) => {
@@ -448,6 +448,7 @@ const ResizeControl = ({
             isDisabled={isLeftSidebarCollapsed}
             isLeftSidebarCollapsed={isLeftSidebarCollapsed}
             label={resizeGrabAreaLabel}
+            valueTextLabel={valueTextLabel}
             leftSidebarPercentageExpanded={leftSidebarPercentageExpanded}
             onBlur={onBlur}
             onFocus={onFocus}

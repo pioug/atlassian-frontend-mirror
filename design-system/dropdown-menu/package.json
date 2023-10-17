@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/dropdown-menu",
-  "version": "12.1.1",
+  "version": "12.1.2",
   "description": "A dropdown menu displays a list of actions or options to a user.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,7 +34,7 @@
     "@atlaskit/primitives": "^1.6.0",
     "@atlaskit/spinner": "^15.6.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.26.0",
+    "@atlaskit/tokens": "^1.27.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "bind-event-listener": "^2.1.1"

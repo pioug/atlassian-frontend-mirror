@@ -5,12 +5,7 @@ import { Skeleton } from '@atlaskit/linking-common';
 import { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
 import { token } from '@atlaskit/tokens';
 
-import UserType from '../render-type/user';
-import { EmptyStateTableHeading } from '../styled';
-
-import Priority from './priority';
-import Type from './type';
-import { IssuePriority, IssueType } from './types';
+import { ScrollableContainerHeight, TableHeading } from '../styled';
 
 type Column = Omit<DatasourceResponseSchemaProperty, 'type' | 'title'> & {
   width: number;
@@ -18,20 +13,41 @@ type Column = Omit<DatasourceResponseSchemaProperty, 'type' | 'title'> & {
 
 type Row = {
   id: number;
-  priority: IssuePriority;
-  type: IssueType;
-  summaryWidth: number;
-  statusWidth: number;
+  longWidth: number;
+  shortWidth: number;
 };
+
+type SkeletonProps = {
+  width: number;
+  itemName: string;
+};
+
+const SkeletonComponent = ({ width, itemName }: SkeletonProps) => (
+  <Skeleton
+    borderRadius={8}
+    testId={`${itemName}-empty-state-skeleton`}
+    height={14}
+    width={width}
+  />
+);
+
+const tableSidePadding = token('space.200', '16px');
 
 const tableBodyStyles = css({
   borderBottom: 0,
 });
 
+const cellStyles = css({
+  paddingBlock: token('space.100', '12px'),
+  '&:last-child': {
+    paddingRight: token('space.100', '8px'),
+  },
+});
+
 const baseColumns: Column[] = [
   {
     key: 'type',
-    width: 50,
+    width: 35,
   },
   {
     key: 'issue',
@@ -39,11 +55,11 @@ const baseColumns: Column[] = [
   },
   {
     key: 'summary',
-    width: 70,
+    width: 100,
   },
   {
     key: 'assignee',
-    width: 100,
+    width: 70,
   },
   {
     key: 'priority',
@@ -67,147 +83,81 @@ const baseColumns: Column[] = [
   },
 ];
 
-const priorities: IssuePriority[] = [
-  'low',
-  'medium',
-  'high',
-  'medium',
-  'low',
-  'blocker',
-  'medium',
-  'blocker',
-  'high',
-  'low',
+const longColumnWidths = [
+  141, 208, 186, 212, 212, 151, 212, 182, 180, 163, 172, 211, 145, 190,
+];
+const shortColumnWidths = [
+  75, 54, 66, 73, 52, 73, 55, 80, 67, 76, 58, 65, 56, 76,
 ];
 
-const types: IssueType[] = [
-  'task',
-  'story',
-  'commit',
-  'epic',
-  'bug',
-  'task',
-  'story',
-  'commit',
-  'issue',
-  'epic',
-];
-
-const summaryColumnWidths = [141, 208, 186, 212, 212, 151, 212, 182, 180, 147];
-const statusColumnWidths = [75, 54, 66, 73, 52, 73, 55, 80, 66, 59];
-
-const rows: Row[] = new Array(10).fill(null).map((_, index) => ({
-  id: index,
-  priority: priorities[index],
-  type: types[index],
-  summaryWidth: summaryColumnWidths[index],
-  statusWidth: statusColumnWidths[index],
-}));
-
-const cellStyles = css({
-  '&:first-child': {
-    paddingLeft: token('space.100', '8px'),
-  },
-  '&:last-child': {
-    paddingRight: token('space.100', '8px'),
-  },
-});
-
-const renderItem = (
-  { key, width }: Column,
-  { priority, type, summaryWidth, statusWidth }: Row,
-  isShimmering: boolean,
-) => {
+const renderItem = ({ key, width }: Column, { longWidth, shortWidth }: Row) => {
   switch (key) {
-    case 'assignee':
-      return (
-        <UserType>
-          <Skeleton
-            borderRadius={8}
-            testId="empty-state-skeleton"
-            height={13}
-            isShimmering={isShimmering}
-            width={width}
-          />
-        </UserType>
-      );
-    case 'priority':
-      return <Priority priority={priority} />;
-    case 'type':
-      return <Type type={type} />;
-    case 'summary':
-      return (
-        <Skeleton
-          appearance="blue"
-          borderRadius={10}
-          testId="empty-state-skeleton"
-          height={13}
-          isShimmering={isShimmering}
-          width={summaryWidth}
-        />
-      );
     case 'status':
-      return (
-        <Skeleton
-          appearance="blue"
-          borderRadius={3}
-          testId="empty-state-skeleton"
-          height={16}
-          isShimmering={isShimmering}
-          width={statusWidth}
-        />
-      );
+      return <SkeletonComponent width={shortWidth} itemName={key} />;
+    case 'summary':
+      return <SkeletonComponent width={longWidth} itemName={key} />;
     default:
-      return (
-        <Skeleton
-          borderRadius={8}
-          testId="empty-state-skeleton"
-          height={13}
-          isShimmering={isShimmering}
-          width={width}
-        />
-      );
+      return <SkeletonComponent width={width} itemName={key} />;
   }
 };
 
 export interface Props {
   isCompact?: boolean;
-  isLoading?: boolean;
   testId?: string;
 }
 
-export default ({ isCompact, isLoading = false, testId }: Props) => {
+export default ({ isCompact, testId }: Props) => {
   const columnsToRender = isCompact ? baseColumns.slice(0, 6) : baseColumns;
+  // if it is compact (non-modal), there is room for 14 rows
+  // if it is modal (not compact), there is only room for 10 rows
+  const rowsNumber = isCompact ? 14 : 10;
+  const rows: Row[] = new Array(rowsNumber).fill(null).map((_, index) => ({
+    id: index,
+    longWidth: longColumnWidths[index],
+    shortWidth: shortColumnWidths[index],
+  }));
 
   return (
-    <table data-testid={testId}>
-      <thead>
-        <tr>
-          {columnsToRender.map(({ key, width }) => (
-            <EmptyStateTableHeading key={key} style={{ width }}>
-              <Skeleton
-                appearance="darkGray"
-                borderRadius={8}
-                testId="empty-state-skeleton"
-                isShimmering={isLoading}
-                height={13}
-                width={width}
-              />
-            </EmptyStateTableHeading>
-          ))}
-        </tr>
-      </thead>
-      <tbody css={tableBodyStyles}>
-        {rows.map(row => (
-          <tr key={row.id}>
-            {columnsToRender.map(column => (
-              <td css={cellStyles} key={column.key}>
-                {renderItem(column, row, isLoading)}
-              </td>
+    <div
+      style={{
+        // the IssueLikeDataTableView wraps the table in a container with the styling below while modal doesn't
+        // the isCompact prop is applied to non-modal empty states which require additional padding
+        // this maxHeight comes from scrollableContainerHeight
+        maxHeight: ScrollableContainerHeight,
+        padding: isCompact
+          ? `0 ${tableSidePadding} 0 ${tableSidePadding}`
+          : '0',
+        boxSizing: 'border-box',
+      }}
+    >
+      <table data-testid={testId}>
+        <thead style={{ borderBottom: 0 }}>
+          <tr>
+            {columnsToRender.map(({ key, width }) => (
+              <TableHeading key={key} style={{ width }}>
+                <Skeleton
+                  appearance="darkGray"
+                  borderRadius={8}
+                  testId="empty-state-skeleton"
+                  height={12}
+                  width={width}
+                />
+              </TableHeading>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody css={tableBodyStyles}>
+          {rows.map(row => (
+            <tr key={row.id}>
+              {columnsToRender.map(column => (
+                <td css={cellStyles} key={column.key}>
+                  {renderItem(column, row)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };

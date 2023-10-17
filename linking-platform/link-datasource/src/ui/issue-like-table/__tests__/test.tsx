@@ -16,6 +16,7 @@ import {
 } from '@atlaskit/linking-types/datasource';
 import { ConcurrentExperience } from '@atlaskit/ufo';
 
+import { ScrollableContainerHeight } from '../../../../src/ui/issue-like-table/styled';
 import { IssueLikeDataTableView, orderColumns } from '../index';
 import {
   IssueLikeDataTableViewProps,
@@ -601,7 +602,42 @@ describe('IssueLikeDataTableView', () => {
     expect(onNextPage).not.toHaveBeenCalled();
   });
 
-  it('should show special loading row when new page is loading', async () => {
+  it('returns 10 loading rows when there are no tableRows and status is loading and scrollableContainerHeight is not provided (modal)', () => {
+    jest.useFakeTimers();
+    const items: DatasourceDataResponseItem[] = [];
+    const columns: DatasourceResponseSchemaProperty[] = [];
+
+    const { getByTestId, queryByTestId } = setup({
+      items,
+      columns,
+      status: 'loading',
+      hasNextPage: false,
+    });
+    for (let i = 0; i < 10; i++) {
+      expect(getByTestId(`sometable--row-loading-${i}`)).toBeInTheDocument();
+    }
+    expect(queryByTestId('sometable--row-loading-10')).toBeNull();
+  });
+
+  it('returns 14 loading rows when there are no tableRows and status is loading and scrollableContainerHeight is provided (non-modal)', () => {
+    jest.useFakeTimers();
+    const items: DatasourceDataResponseItem[] = [];
+    const columns: DatasourceResponseSchemaProperty[] = [];
+
+    const { getByTestId, queryByTestId } = setup({
+      items,
+      columns,
+      status: 'loading',
+      hasNextPage: false,
+      scrollableContainerHeight: ScrollableContainerHeight,
+    });
+    for (let i = 0; i < 14; i++) {
+      expect(getByTestId(`sometable--row-loading-${i}`)).toBeInTheDocument();
+    }
+    expect(queryByTestId('sometable--row-loading-14')).toBeNull();
+  });
+
+  it('should show 1 loading row when new page is loading', async () => {
     jest.useFakeTimers();
     const items = getSimpleItems();
     const columns = getSimpleColumns();
@@ -620,7 +656,7 @@ describe('IssueLikeDataTableView', () => {
     });
 
     await waitFor(() => {
-      expect(getByTestId('sometable--row-loading')).toBeInTheDocument();
+      expect(getByTestId('issues-table-row-loading')).toBeInTheDocument();
     });
   });
 

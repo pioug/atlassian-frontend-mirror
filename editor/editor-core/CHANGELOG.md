@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 188.10.7
+
+### Patch Changes
+
+- [#41648](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41648) [`20f43769aa7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20f43769aa7) - [ED-19746] Extract mentions plugin from editor-core to its own package: @atlaskit/editor-plugin-mentions
+- Updated dependencies
+
 ## 188.10.5
 
 ### Patch Changes

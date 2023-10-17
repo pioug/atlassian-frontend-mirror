@@ -56,6 +56,8 @@ interface Props {
   customContent?: React.ReactChild;
   /** Optional parameter for showing contact opt-in checkboxes */
   anonymousFeedback?: boolean;
+  /** Optional custom label for select field */
+  selectLabel?: string;
 }
 
 export interface OptionType {
@@ -79,6 +81,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
   cancelButtonLabel,
   anonymousFeedback,
   hasDescriptionDefaultValue,
+  selectLabel,
 }) => {
   const [canBeContacted, setCanBeContacted] =
     useState<FormFields['canBeContacted']>(false);
@@ -194,11 +197,14 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
               {showTypeField ? (
                 <Field
                   name="topic"
-                  label={formatMessage(messages.selectionOptionDefaultLabel)}
+                  label={
+                    selectLabel ||
+                    formatMessage(messages.selectionOptionDefaultLabel)
+                  }
                 >
-                  {({ fieldProps }) => (
+                  {({ fieldProps: { id, ...restProps } }) => (
                     <Select<OptionType>
-                      {...fieldProps}
+                      {...restProps}
                       onChange={(option) => {
                         if (!option || option instanceof Array) {
                           return;
@@ -216,6 +222,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                       // @ts-ignore
                       ref={focusRef}
                       placeholder={getDefaultPlaceholder(feedbackGroupLabels)}
+                      inputId={id}
                     />
                   )}
                 </Field>

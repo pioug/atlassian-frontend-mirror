@@ -208,7 +208,7 @@ const BasicGrid = () => {
               <LeftSidebar
                 testId="left-sidebar"
                 id="left-sidebar"
-                skipLinkTitle="Left sidebar"
+                skipLinkTitle="Current project sidebar"
                 isFixed={gridState.isLeftSidebarFixed}
                 onResizeStart={(state: LeftSidebarState) =>
                   console.log('onResizeStart', state)
@@ -223,9 +223,7 @@ const BasicGrid = () => {
                   ResizeButton: {
                     render: (Component, props) => (
                       <Tooltip
-                        content={
-                          props.isLeftSidebarCollapsed ? 'Expand' : 'Collapse'
-                        }
+                        content={'Use [ to show or hide the sidebar'}
                         hideTooltipOnClick
                         position="right"
                         testId="tooltip"

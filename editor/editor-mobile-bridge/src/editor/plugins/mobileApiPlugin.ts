@@ -26,7 +26,7 @@ import { useTextFormattingListener } from './useTextFormattingListener';
 import { useListListener } from './useListListener';
 import { useQuickInsertListener } from './useQuickInsertListener';
 import { useBlockTypeListener } from './useBlockTypeListener';
-import type { MentionPlugin } from '@atlaskit/editor-core/src/plugins/mentions';
+import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { CodeBlockPlugin } from '@atlaskit/editor-core/src/plugins/code-block';
 import type { StatusPlugin } from '@atlaskit/editor-plugin-status';
 import type { PanelPlugin } from '@atlaskit/editor-core/src/plugins/panel';
@@ -143,7 +143,7 @@ export const mobileApiPlugin: NextEditorPlugin<
       OptionalPlugin<QuickInsertPlugin>,
       OptionalPlugin<RulePlugin>,
       EmojiPlugin,
-      MentionPlugin,
+      MentionsPlugin,
       EditorDisabledPlugin,
       DatePlugin,
       StatusPlugin,

@@ -28,12 +28,13 @@ const SpotlightTarget = ({ children, name }: SpotlightTargetProps) => (
   <TargetConsumer>
     {(targetRef) =>
       targetRef ? (
-        <NodeResolver innerRef={targetRef(name)}>{children}</NodeResolver>
+        <NodeResolver innerRef={targetRef(name)}>
+          <>{children}</>
+        </NodeResolver>
       ) : (
         children
       )
     }
   </TargetConsumer>
 );
-
 export default SpotlightTarget;

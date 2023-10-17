@@ -34,6 +34,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
       shouldTitleWrap = true,
       target,
       testId,
+      ...rest
     }: DropdownItemProps,
     ref,
   ) => {
@@ -53,6 +54,13 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
           shouldTitleWrap={shouldTitleWrap}
           testId={testId}
           href={href}
+          // Thanks to spread props, these attributes are passed to CustomItem, even though
+          // it's not in the component's prop types.
+          // @ts-expect-error
+          target={target}
+          rel={rel}
+          // DSP-13312 TODO: remove spread props in future major release
+          {...rest}
         >
           {children}
         </CustomItem>
@@ -74,6 +82,8 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
           shouldTitleWrap={shouldTitleWrap}
           target={target}
           testId={testId}
+          // DSP-13312 TODO: remove spread props in future major release
+          {...rest}
         >
           {children}
         </LinkItem>
@@ -92,6 +102,13 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
           shouldDescriptionWrap={shouldDescriptionWrap}
           shouldTitleWrap={shouldTitleWrap}
           testId={testId}
+          // Thanks to spread props, these attributes are passed to CustomItem, even though
+          // it's not in the component's prop types.
+          // @ts-expect-error
+          target={target}
+          rel={rel}
+          // DSP-13312 TODO: remove spread props in future major release
+          {...rest}
         >
           {children}
         </ButtonItem>

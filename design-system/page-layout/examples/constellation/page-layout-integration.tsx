@@ -48,6 +48,9 @@ export default function ProductLayout() {
           id="project-navigation"
           skipLinkTitle="Project Navigation"
           testId="left-sidebar"
+          resizeGrabAreaLabel="Resize Current project sidebar"
+          resizeButtonLabel="Current project sidebar"
+          valueTextLabel="Width"
         >
           <SideNavigationContent />
         </LeftSidebar>

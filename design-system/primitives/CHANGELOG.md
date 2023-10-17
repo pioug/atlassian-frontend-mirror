@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 1.6.7
+
+### Patch Changes
+
+- [#41516](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41516) [`350e4081d89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/350e4081d89) - [ux] Regenerates codegen artifacts as a result of changes to color palettes and token values
+- Updated dependencies
+
 ## 1.6.6
 
 ### Patch Changes

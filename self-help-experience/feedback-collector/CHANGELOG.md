@@ -1,5 +1,17 @@
 # @atlaskit/feedback-collector
 
+## 13.0.10
+
+### Patch Changes
+
+- [#41653](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41653) [`eb1181aec97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb1181aec97) - Fix label explicitly associated with select field, and add custom label name.
+
+## 13.0.9
+
+### Patch Changes
+
+- [#41615](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41615) [`3ebd474ee6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ebd474ee6e) - bumping form dependency
+
 ## 13.0.8
 
 ### Patch Changes

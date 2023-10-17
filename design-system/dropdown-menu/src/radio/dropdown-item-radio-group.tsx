@@ -41,6 +41,8 @@ const DropdownItemRadioGroup = ({
   overrides,
   testId,
   title,
+  // DSP-13312 TODO: remove spread props in future major release
+  ...rest
 }: DropdownItemRadioGroupProps) => {
   const { setGroupState, getGroupState } = useContext(SelectionStoreContext);
 
@@ -75,6 +77,8 @@ const DropdownItemRadioGroup = ({
         overrides={overrides}
         testId={testId}
         title={title}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+        {...rest}
       >
         {children}
       </Section>

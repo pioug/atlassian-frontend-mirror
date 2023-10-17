@@ -100,7 +100,7 @@ import panelPlugin from '../../../panel';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
-import mentionsPlugin from '../../../mentions';
+import { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import pastePlugin from '../../index';
 import { mediaPlugin } from '@atlaskit/editor-plugin-media';

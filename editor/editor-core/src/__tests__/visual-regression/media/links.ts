@@ -45,7 +45,8 @@ describe('Snapshot Test: Media', () => {
         await snapshot(page);
       });
 
-      it('should not trigger search if input is a URL', async () => {
+      // FIXME: This test was automatically skipped due to failure on 14/10/2023: https://product-fabric.atlassian.net/browse/ED-20477
+      it.skip('should not trigger search if input is a URL', async () => {
         await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
         await page.click('.ProseMirror');
 

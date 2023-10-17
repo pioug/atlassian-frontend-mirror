@@ -38,3 +38,10 @@ export const isDeprecatedJSXAttributeConfig = (
 ): config is DeprecatedJSXAttributeConfig => {
   return Array.isArray(Object.values(config)[0]);
 };
+
+// From ESLint's repo at path `docs/src/extend/custom-processors.md`. Can't be
+// imported I guess
+export type Fix = {
+  range: [number, number];
+  text: string;
+};

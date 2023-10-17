@@ -1,5 +1,9 @@
-import type { Scope } from 'eslint';
-import { isNodeOfType, JSXAttribute } from 'eslint-codemod-utils';
+import type { Rule, Scope } from 'eslint';
+import {
+  ImportDeclaration,
+  isNodeOfType,
+  JSXAttribute,
+} from 'eslint-codemod-utils';
 
 import { findIdentifierInParentScope } from '../utils/find-in-parent';
 
@@ -43,6 +47,8 @@ export const getLinkItemImportName = (scope: Scope.Scope): string | null => {
   }
 };
 
+const invalidHrefValues = ['', '#'];
+
 export const hrefHasInvalidValue = (
   scope: Scope.Scope,
   href: JSXAttribute | undefined,
@@ -52,7 +58,11 @@ export const hrefHasInvalidValue = (
     return true;
   } else if (href.value) {
     // If it is an invalid literal,
-    if (isNodeOfType(href.value, 'Literal') && !href.value.value) {
+    if (
+      isNodeOfType(href.value, 'Literal') &&
+      // We know this must be a string because node is type 'Literal'
+      invalidHrefValues.includes(href.value.value as string)
+    ) {
       return true;
       // If it is an expression with a variable inside
     } else if (
@@ -81,4 +91,73 @@ export const hrefHasInvalidValue = (
   }
 
   return false;
+};
+
+export const hasImportOfName = (
+  node: ImportDeclaration,
+  name: string,
+): boolean => {
+  return node.specifiers.some(
+    // This should not be an `any`. This is an array of `ImportSpecifier |
+    // ImportDefaultSpecifier`. For some reason, filtering this way still
+    // results in an error of `specifier.imported` doesn't exist on
+    // ImportDefaultSpecifier, which is exactly what I'm filtering for
+    (specifier: any) => specifier?.imported?.name === name,
+  );
+};
+
+export const insertButtonItemDefaultImport = (
+  fixer: Rule.RuleFixer,
+  node: ImportDeclaration,
+) =>
+  fixer.insertTextBefore(
+    node,
+    `import ButtonItem from '@atlaskit/menu/button-item';\n`,
+  );
+
+export const getUniqueButtonItemName = (
+  menuNode: ImportDeclaration | null,
+  importDeclarations: ImportDeclaration[],
+): string => {
+  // Remove menu import node from array
+  const allImportDeclarationsButMenu = importDeclarations.filter(
+    (i) => i !== menuNode,
+  );
+
+  let currentButtonItemNameExistsOtherThanMenu: boolean =
+    allImportDeclarationsButMenu.reduce(
+      (acc, importNode) => acc || hasImportOfName(importNode, 'ButtonItem'),
+      false,
+    );
+
+  if (currentButtonItemNameExistsOtherThanMenu) {
+    let suffix = 1;
+
+    while (currentButtonItemNameExistsOtherThanMenu) {
+      suffix += 1;
+      currentButtonItemNameExistsOtherThanMenu =
+        allImportDeclarationsButMenu.reduce(
+          (acc, importNode) =>
+            acc || hasImportOfName(importNode, `ButtonItem${suffix}`),
+          false,
+        );
+    }
+
+    return `ButtonItem${suffix}`;
+  } else {
+    return 'ButtonItem';
+  }
+};
+
+export const insertButtonItemImport = (
+  fixer: Rule.RuleFixer,
+  node: ImportDeclaration,
+  uniqueButtonItemName: string,
+) => {
+  const insertedImport =
+    uniqueButtonItemName !== 'ButtonItem'
+      ? `, ButtonItem as ${uniqueButtonItemName}`
+      : ', ButtonItem';
+
+  return fixer.insertTextAfter(node.specifiers.slice(-1)[0], insertedImport);
 };

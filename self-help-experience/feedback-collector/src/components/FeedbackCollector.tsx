@@ -108,6 +108,8 @@ export interface Props {
   email?: string;
   /** Override to mark feedback as anonymous */
   anonymousFeedback?: boolean;
+  /** Optional custom label for select field */
+  selectLabel?: string;
 }
 
 const MAX_SUMMARY_LENGTH_CHARS = 100;
@@ -477,6 +479,7 @@ export default class FeedbackCollector extends Component<Props> {
         onClose={this.props.onClose}
         locale={this.props.locale}
         anonymousFeedback={anonymousFeedback}
+        selectLabel={this.props.selectLabel}
       />
     );
   }

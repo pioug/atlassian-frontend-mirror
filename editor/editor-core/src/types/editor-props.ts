@@ -39,7 +39,7 @@ import type {
   MediaOptions,
   MediaState,
 } from '@atlaskit/editor-plugin-media/types';
-import type { MentionPluginConfig } from '../plugins/mentions/types';
+import type { MentionPluginConfig } from '@atlaskit/editor-plugin-mentions';
 import type { PanelPluginConfig } from '../plugins/panel/types';
 import type { PlaceholderTextOptions } from '../plugins/placeholder-text/types';
 import type { TextColorPluginConfig } from '../plugins/text-color/pm-plugins/main';

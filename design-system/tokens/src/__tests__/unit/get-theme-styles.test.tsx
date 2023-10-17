@@ -425,14 +425,6 @@ describe('getThemeStyles', () => {
             id: 'dark-new-input-border',
             attrs: { 'data-theme': 'dark-new-input-border' },
           },
-          {
-            id: 'light-saturated-palette-changes',
-            attrs: { 'data-theme': 'light-saturated-palette-changes' },
-          },
-          {
-            id: 'dark-saturated-palette-changes',
-            attrs: { 'data-theme': 'dark-saturated-palette-changes' },
-          },
         ]);
       },
       async () => {
@@ -463,14 +455,6 @@ describe('getThemeStyles', () => {
           {
             id: 'dark-new-input-border',
             attrs: { 'data-theme': 'dark-new-input-border' },
-          },
-          {
-            id: 'light-saturated-palette-changes',
-            attrs: { 'data-theme': 'light-saturated-palette-changes' },
-          },
-          {
-            id: 'dark-saturated-palette-changes',
-            attrs: { 'data-theme': 'dark-saturated-palette-changes' },
           },
         ]);
       },

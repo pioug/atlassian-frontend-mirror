@@ -1,15 +1,18 @@
+/* eslint-disable react/react-in-jsx-scope */
 /** @jsx jsx */
 import { ComponentProps, FocusEvent, KeyboardEvent, MouseEvent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { B100, B200 } from '@atlaskit/theme/colors';
+import { Box, xcss } from '@atlaskit/primitives';
+import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
   GRAB_AREA_LINE_SELECTOR,
   GRAB_AREA_SELECTOR,
 } from '../../common/constants';
+import { LeftSidebarProps } from '../../common/types';
 
 export type GrabAreaProps = {
   isDisabled: boolean;
@@ -21,6 +24,7 @@ export type GrabAreaProps = {
   onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void;
   onMouseDown: (event: MouseEvent<HTMLButtonElement>) => void;
   testId?: string;
+  ref?: React.Ref<HTMLButtonElement>;
 } & ComponentProps<'button'>;
 
 /**
@@ -31,7 +35,7 @@ export type GrabAreaProps = {
 const varLineColor = '--ds-line';
 
 const grabAreaStyles = css({
-  width: 24,
+  width: 4,
   height: '100%',
   padding: 0,
   backgroundColor: 'transparent',
@@ -43,13 +47,21 @@ const grabAreaStyles = css({
   ':focus': {
     outline: 0,
   },
-  ':enabled': {
-    ':hover': {
-      [varLineColor]: token('color.border.selected', B100),
-    },
-    ':active, :focus': {
-      [varLineColor]: token('color.border.selected', B200),
-    },
+});
+
+const grabAreaEnabledStyles = css({
+  ':hover': {
+    [varLineColor]: token('color.border.selected', B200),
+  },
+  ':active': {
+    borderColor: token('color.border.selected', B200),
+    [varLineColor]: token('color.border.selected', B200),
+  },
+  ':focus-visible': {
+    outlineColor: token('color.border.selected', B200),
+    outlineStyle: 'solid',
+    outlineWidth: token('border.width.outline', '2px'),
+    [varLineColor]: token('color.border.selected', B200),
   },
 });
 
@@ -60,11 +72,11 @@ const grabAreaCollapsedStyles = css({
   cursor: 'default',
 });
 
-const lineStyles = css({
+const lineStyles = xcss({
   display: 'block',
-  width: 2,
+  width: 'border.width.outline',
   height: '100%',
-  backgroundColor: `var(${varLineColor})`,
+  backgroundColor: 'color.background.neutral',
   transition: 'background-color 200ms',
 });
 
@@ -73,6 +85,7 @@ const grabAreaSelector = { [GRAB_AREA_SELECTOR]: true };
 
 const GrabArea = ({
   testId,
+  valueTextLabel = 'Width',
   isDisabled,
   isLeftSidebarCollapsed,
   label,
@@ -81,8 +94,9 @@ const GrabArea = ({
   onMouseDown,
   onBlur,
   onFocus,
+  ref,
   ...rest
-}: GrabAreaProps) => (
+}: GrabAreaProps & Partial<LeftSidebarProps>) => (
   <button
     {...grabAreaSelector}
     aria-label={label}
@@ -90,16 +104,21 @@ const GrabArea = ({
     disabled={isDisabled}
     aria-hidden={isLeftSidebarCollapsed}
     type="button"
-    // The separator role is applied to a button to utilize the native
-    // interactive and disabled functionality on the resize separator. While a
+    // The slider role is applied to a button to utilize the native
+    // interactive and disabled functionality on the resize slider. While a
     // range input would be more semantically accurate, it does not affect
     // usability.
-    role="separator"
-    css={[grabAreaStyles, isLeftSidebarCollapsed && grabAreaCollapsedStyles]}
+    role="slider"
+    css={[
+      grabAreaStyles,
+      isLeftSidebarCollapsed && grabAreaCollapsedStyles,
+      !isDisabled && grabAreaEnabledStyles,
+    ]}
     aria-orientation="vertical"
     aria-valuenow={leftSidebarPercentageExpanded}
     aria-valuemin={0}
     aria-valuemax={100}
+    aria-valuetext={`${valueTextLabel} ${leftSidebarPercentageExpanded}%`}
     onKeyDown={onKeyDown}
     onMouseDown={onMouseDown}
     onFocus={onFocus}
@@ -107,7 +126,7 @@ const GrabArea = ({
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...rest}
   >
-    <span css={lineStyles} {...grabAreaLineSelector} />
+    <Box as="span" xcss={lineStyles} {...grabAreaLineSelector} />
   </button>
 );
 

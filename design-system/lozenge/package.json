@@ -39,7 +39,7 @@
     "@atlaskit/ds-explorations": "^3.0.0",
     "@atlaskit/primitives": "^1.6.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.26.0",
+    "@atlaskit/tokens": "^1.27.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

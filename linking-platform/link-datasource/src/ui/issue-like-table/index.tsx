@@ -85,6 +85,11 @@ const noDefaultBorderStyles = css({
   borderBottom: 0,
 });
 
+type StyleObject = {
+  maxWidth: number | undefined;
+  paddingBlock?: string;
+};
+
 export interface RowType {
   cells: Array<RowCellType>;
   key?: string;
@@ -134,7 +139,6 @@ function getColumnWidth(
     status: BASE_WIDTH * 18,
     summary: BASE_WIDTH * 45,
     description: BASE_WIDTH * 31.25,
-    type: BASE_WIDTH * 8,
   };
 
   if (keyBasedWidth[key]) {
@@ -218,9 +222,10 @@ export const IssueLikeDataTableView = ({
       cells: visibleSortedColumns.map<RowCellType>(({ key }) => {
         const content = (
           <Skeleton
-            borderRadius={token('border.radius.100', '3px')}
-            width={'100%'}
-            height={'20px'}
+            borderRadius={8}
+            width="100%"
+            height={14}
+            testId="issues-table-row-loading"
           />
         );
         return {
@@ -362,10 +367,25 @@ export const IssueLikeDataTableView = ({
     [identityColumnKey, renderItem, items, visibleSortedColumns],
   );
 
-  const rows = useMemo(
-    () => [...tableRows, ...(status === 'loading' ? [loadingRow] : [])],
-    [loadingRow, status, tableRows],
-  );
+  const rows = useMemo(() => {
+    if (status !== 'loading') {
+      return tableRows;
+    }
+    // if there are table rows, only add 1 loading row
+    if (tableRows.length > 0) {
+      return [
+        ...tableRows,
+        { ...loadingRow, key: `loading-${tableRows.length}` },
+      ];
+    }
+    // if there are no table rows add 14 rows if it is compact (has scrollableContainerHeight or non-modal)
+    // add 10 rows if it is modal (no scrollableContainerHeight)
+    const loadingRowsCount = scrollableContainerHeight ? 14 : 10;
+    return [...Array(loadingRowsCount)].map((_, index) => ({
+      ...loadingRow,
+      key: `loading-${index}`,
+    }));
+  }, [loadingRow, status, tableRows, scrollableContainerHeight]);
 
   const onSelectedColumnKeysChange = useCallback(
     (newSelectedColumnKeys: string[]) => {
@@ -467,6 +487,8 @@ export const IssueLikeDataTableView = ({
                     key={key}
                     data-testid={`${key}-column-heading`}
                     style={{
+                      // this keeps the column headers from collapsing horizontally during loading states
+                      minWidth: maxWidth,
                       maxWidth,
                     }}
                   >
@@ -500,19 +522,27 @@ export const IssueLikeDataTableView = ({
               data-testid={testId && `${testId}--row-${key}`}
               ref={ref}
             >
-              {cells.map(({ key: cellKey, content, maxWidth }, cellIndex) => (
-                <td
-                  key={cellKey}
-                  data-testid={testId && `${testId}--cell-${cellIndex}`}
-                  colSpan={cellIndex + 1 === cells.length ? 2 : undefined}
-                  css={truncatedCellStyles}
-                  style={{
-                    maxWidth,
-                  }}
-                >
-                  {content}
-                </td>
-              ))}
+              {cells.map(({ key: cellKey, content, maxWidth }, cellIndex) => {
+                let loadingRowStyle: StyleObject = { maxWidth };
+                // extra padding is required around skeleton loader to avoid vertical jumps when data loads
+                if (key?.includes('loading')) {
+                  loadingRowStyle = {
+                    ...loadingRowStyle,
+                    paddingBlock: token('space.100', '12px'),
+                  };
+                }
+                return (
+                  <td
+                    key={cellKey}
+                    data-testid={testId && `${testId}--cell-${cellIndex}`}
+                    colSpan={cellIndex + 1 === cells.length ? 2 : undefined}
+                    css={truncatedCellStyles}
+                    style={loadingRowStyle}
+                  >
+                    {content}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>

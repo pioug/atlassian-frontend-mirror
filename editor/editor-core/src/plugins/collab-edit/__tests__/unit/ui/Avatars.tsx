@@ -23,7 +23,7 @@ import ToolbarButton from '../../../../../ui/ToolbarButton';
 
 // Editor plugins
 import collabEditPlugin from '../../../index';
-import mentionsPlugin from '../../../../mentions';
+import { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
 describe('collab-edit | Avatars', () => {

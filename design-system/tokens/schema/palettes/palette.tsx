@@ -220,77 +220,77 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       Blue1000: {
-        value: '#092957',
+        value: '#1C2B41',
         attributes: {
           group: 'palette',
           category: 'blue',
         },
       },
       Red100: {
-        value: '#FFEDEB',
+        value: '#FFECEB',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
       Red200: {
-        value: '#FFD2CC',
+        value: '#FFD5D2',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
       Red300: {
-        value: '#FF9C8F',
+        value: '#FD9891',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
       Red400: {
-        value: '#F87462',
+        value: '#F87168',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
       Red500: {
-        value: '#EF5C48',
+        value: '#F15B50',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
       Red600: {
-        value: '#E34935',
+        value: '#E2483D',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
       Red700: {
-        value: '#CA3521',
+        value: '#C9372C',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
       Red800: {
-        value: '#AE2A19',
+        value: '#AE2E24',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
       Red900: {
-        value: '#601E16',
+        value: '#5D1F1A',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
       Red1000: {
-        value: '#4F1C16',
+        value: '#42221F',
         attributes: {
           group: 'palette',
           category: 'red',
@@ -360,14 +360,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       Yellow1000: {
-        value: '#3F3102',
+        value: '#332E1B',
         attributes: {
           group: 'palette',
           category: 'yellow',
         },
       },
       Green100: {
-        value: '#DFFCF0',
+        value: '#DCFFF1',
         attributes: {
           group: 'palette',
           category: 'green',
@@ -430,7 +430,7 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       Green1000: {
-        value: '#143C2B',
+        value: '#1C3329',
         attributes: {
           group: 'palette',
           category: 'green',
@@ -500,147 +500,147 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       Purple1000: {
-        value: '#2B2451',
+        value: '#2B273F',
         attributes: {
           group: 'palette',
           category: 'purple',
         },
       },
       Teal100: {
-        value: '#E3FAFC',
+        value: '#E7F9FF',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
       Teal200: {
-        value: '#C1F0F5',
+        value: '#C6EDFB',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
       Teal300: {
-        value: '#8BDBE5',
+        value: '#9DD9EE',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
       Teal400: {
-        value: '#60C6D2',
+        value: '#6CC3E0',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
       Teal500: {
-        value: '#37B4C3',
+        value: '#42B2D7',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
       Teal600: {
-        value: '#1D9AAA',
+        value: '#2898BD',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
       Teal700: {
-        value: '#1D7F8C',
+        value: '#227D9B',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
       Teal800: {
-        value: '#206B74',
+        value: '#206A83',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
       Teal900: {
-        value: '#1D474C',
+        value: '#164555',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
       Teal1000: {
-        value: '#15373B',
+        value: '#1E3137',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
       Orange100: {
-        value: '#FFF4E5',
+        value: '#FFF3EB',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
       Orange200: {
-        value: '#FFE2BD',
+        value: '#FEDEC8',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
       Orange300: {
-        value: '#FEC57B',
+        value: '#FEC195',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
       Orange400: {
-        value: '#FAA53D',
+        value: '#FEA362',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
       Orange500: {
-        value: '#F18D13',
+        value: '#F38A3F',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
       Orange600: {
-        value: '#D97008',
+        value: '#E56910',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
       Orange700: {
-        value: '#B65C02',
+        value: '#C25100',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
       Orange800: {
-        value: '#974F0C',
+        value: '#A54800',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
       Orange900: {
-        value: '#5F3811',
+        value: '#702E00',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
       Orange1000: {
-        value: '#4A2B0F',
+        value: '#38291E',
         attributes: {
           group: 'palette',
           category: 'orange',
@@ -710,14 +710,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       Magenta1000: {
-        value: '#421F34',
+        value: '#3D2232',
         attributes: {
           group: 'palette',
           category: 'magenta',
         },
       },
       Lime100: {
-        value: '#EEFBDA',
+        value: '#EFFFD6',
         attributes: {
           group: 'palette',
           category: 'lime',
@@ -780,7 +780,7 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       Lime1000: {
-        value: '#2A3818',
+        value: '#28311B',
         attributes: {
           group: 'palette',
           category: 'lime',

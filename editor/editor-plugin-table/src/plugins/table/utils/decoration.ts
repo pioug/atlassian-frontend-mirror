@@ -566,3 +566,104 @@ export const createColumnLineResize = (
     })
     .filter(nonNullable);
 };
+
+export const createColumnInsertLine = (
+  columnIndex: number,
+  selection: Selection,
+): Decoration[] => {
+  const table = findTable(selection);
+  if (!table) {
+    return [];
+  }
+
+  const map = TableMap.get(table.node);
+
+  const isFirstColumn = columnIndex === 0;
+  const isLastColumn = columnIndex === map.width;
+  if (isLastColumn) {
+    columnIndex -= 1;
+  }
+  const decorationClassName = isFirstColumn
+    ? ClassName.WITH_FIRST_COLUMN_INSERT_LINE
+    : isLastColumn
+    ? ClassName.WITH_LAST_COLUMN_INSERT_LINE
+    : ClassName.WITH_COLUMN_INSERT_LINE;
+
+  const cellPositions = makeArray(map.height)
+    .map((rowIndex) => map.map[map.width * rowIndex + columnIndex])
+    .filter((cellPosition, rowIndex) => {
+      if (isLastColumn) {
+        return true; // If is the last column no filter applied
+      }
+      const nextPosition = map.map[map.width * rowIndex + columnIndex - 1];
+      return cellPosition !== nextPosition; // Removed it if next position is merged
+    });
+
+  const cells = cellPositions.map((pos) => ({
+    pos: pos + table.start,
+    node: table.node.nodeAt(pos),
+  }));
+
+  return cells
+    .map((cell, index) => {
+      if (!cell || !cell.node) {
+        return;
+      }
+
+      return Decoration.node(
+        cell.pos,
+        cell.pos + cell.node.nodeSize,
+        {
+          class: decorationClassName,
+        },
+        {
+          key: `${TableDecorations.COLUMN_INSERT_LINE}_${index}`,
+        },
+      );
+    })
+    .filter(nonNullable);
+};
+
+export const createRowInsertLine = (
+  rowIndex: number,
+  selection: Selection,
+): Decoration[] => {
+  const table = findTable(selection);
+  if (!table) {
+    return [];
+  }
+
+  const map = TableMap.get(table.node);
+  const isLastRow = rowIndex === map.height;
+  if (isLastRow) {
+    rowIndex -= 1;
+  }
+
+  const cells = getCellsInRow(rowIndex)(selection);
+  if (!cells) {
+    return [];
+  }
+
+  const decorationClassName = isLastRow
+    ? ClassName.WITH_LAST_ROW_INSERT_LINE
+    : ClassName.WITH_ROW_INSERT_LINE;
+
+  return cells
+    .map((cell, index) => {
+      if (!cell || !cell.node) {
+        return;
+      }
+
+      return Decoration.node(
+        cell.pos,
+        cell.pos + cell.node.nodeSize,
+        {
+          class: decorationClassName,
+        },
+        {
+          key: `${TableDecorations.ROW_INSERT_LINE}_${index}`,
+        },
+      );
+    })
+    .filter(nonNullable);
+};

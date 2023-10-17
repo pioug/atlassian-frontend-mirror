@@ -12,7 +12,9 @@ export {
   createCellHoverDecoration,
   updateDecorations,
   createResizeHandleDecoration,
+  createColumnInsertLine,
   createColumnLineResize,
+  createRowInsertLine,
 } from './decoration';
 export {
   isIsolating,
@@ -70,3 +72,4 @@ export type { RowParams } from './row-controls';
 export { getSelectedTableInfo, getSelectedCellInfo } from './analytics';
 export { getMergedCellsPositions } from './table';
 export { updatePluginStateDecorations } from './update-plugin-state-decorations';
+export { hasMergedCellsInColumn, hasMergedCellsInRow } from './merged-cells';

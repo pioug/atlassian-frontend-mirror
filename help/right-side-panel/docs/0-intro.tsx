@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  md,
-  code,
-  Props,
-  AtlassianInternalWarning,
-  DevPreviewWarning,
-} from '@atlaskit/docs';
+import { md, code, Props, AtlassianInternalWarning } from '@atlaskit/docs';
 import Button from '@atlaskit/button/custom-theme-button';
 import { token } from '@atlaskit/tokens';
 
@@ -14,9 +8,6 @@ export default md`
     <>
       <div style={{ marginBottom: token('space.100', '0.5rem') }}>
         <AtlassianInternalWarning />
-      </div>
-      <div style={{ marginTop: token('space.100', '0.5rem') }}>
-        <DevPreviewWarning />
       </div>
     </>
   )}

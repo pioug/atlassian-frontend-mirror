@@ -57,6 +57,7 @@ export const DropdownItemCheckbox: ({
   shouldDescriptionWrap,
   shouldTitleWrap,
   testId,
+  ...rest
 }: DropdownItemCheckboxProps) => JSX.Element;
 
 // @public
@@ -69,6 +70,7 @@ export const DropdownItemCheckboxGroup: ({
   overrides,
   testId,
   title,
+  ...rest
 }: DropdownItemCheckboxGroupProps) => JSX.Element;
 
 // @public (undocumented)
@@ -125,6 +127,7 @@ export const DropdownItemRadio: ({
   onClick: providedOnClick,
   shouldDescriptionWrap,
   shouldTitleWrap,
+  ...rest
 }: DropdownItemRadioProps) => JSX.Element;
 
 // @public
@@ -137,6 +140,7 @@ export const DropdownItemRadioGroup: ({
   overrides,
   testId,
   title,
+  ...rest
 }: DropdownItemRadioGroupProps) => JSX.Element;
 
 // @public (undocumented)

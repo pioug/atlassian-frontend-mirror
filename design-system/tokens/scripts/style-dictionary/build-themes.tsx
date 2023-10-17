@@ -9,7 +9,6 @@ import defaultPalette from '../../schema/palettes/palette';
 import shapePalette from '../../schema/palettes/shape-palette';
 import spacingScale from '../../schema/palettes/spacing-scale';
 import typographyPalette from '../../schema/palettes/typography-palette';
-import updatedSaturatedPalette from '../../schema/palettes/updated-saturated-palette';
 import themeConfig, { Palettes, ThemeFileNames } from '../../src/theme-config';
 
 import {
@@ -40,8 +39,6 @@ const getPalette = (paletteId: Palettes) => {
       return legacyPalette;
     case 'shapePalette':
       return shapePalette;
-    case 'updatedSaturatedPalette':
-      return updatedSaturatedPalette;
     case 'defaultPalette':
     default:
       return defaultPalette;

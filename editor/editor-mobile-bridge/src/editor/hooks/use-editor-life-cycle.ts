@@ -70,7 +70,6 @@ export const useEditorLifecycle = (
   const handleEditorDestroyed = useCallback(() => {
     bridge.unregisterEditor();
     setEditorReady(false);
-    bridge.mentionsPluginState = null;
   }, [bridge]);
 
   return {

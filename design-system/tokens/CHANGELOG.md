@@ -1,5 +1,113 @@
 # @atlaskit/tokens
 
+## 1.27.0
+
+### Minor Changes
+
+- [#41516](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41516) [`e6f589d4777`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6f589d4777) - [ux] This version releases changes that were feature flagged in version 1.25.0; they include minor adjustments to our color palette and design tokens.
+
+  These changes make certain colors more distinguishable, improves the visual appearance of warning and yellow accent backgrounds, and reduces saturation for subtle backgrounds in dark mode.
+
+  #### Palette changes
+
+  ##### All saturated palettes
+
+  - Saturation for `1000` shades reduced for all saturated palettes to reduce eye strain when placed against subtle UI in dark mode
+
+  ##### Red
+
+  - Saturation reduced on entire scale
+  - Hue adjusted to create more separation from orange
+
+  ##### Orange
+
+  - Saturation reduced on entire scale
+  - Hue adjusted to create more separation from yellow
+
+  ##### Lime
+
+  - Saturation for `100` shades reduced
+
+  ##### Green
+
+  - Saturation for `100` shades reduced
+
+  ##### Teal
+
+  - Hue adjusted to create more separation from green
+
+  ##### All palette changes
+
+  - `Red100` has changed from `#FFEDEB` to `#ffeceb`
+  - `Red200` has changed from `#FFD2CC` to `#ffd5d2`
+  - `Red300` has changed from `#FF9C8F` to `#fd9891`
+  - `Red400` has changed from `#F87462` to `#f87168`
+  - `Red500` has changed from `#EF5C48` to `#f15b50`
+  - `Red600` has changed from `#E34935` to `#e2483d`
+  - `Red700` has changed from `#CA3521` to `#c9372c`
+  - `Red800` has changed from `#AE2A19` to `#ae2e24`
+  - `Red900` has changed from `#601E16` to `#5d1f1a`
+  - `Red1000` has changed from `#4F1C16` to `#42221F`
+  - `Orange100` has changed from `#FFF4E5` to `#fff3eb`
+  - `Orange200` has changed from `#FFE2BD` to `#fedec8`
+  - `Orange300` has changed from `#FEC57B` to `#fec195`
+  - `Orange400` has changed from `#FAA53D` to `#fea362`
+  - `Orange500` has changed from `#F18D13` to `#f38a3f`
+  - `Orange600` has changed from `#D97008` to `#e56910`
+  - `Orange700` has changed from `#B65C02` to `#c25100`
+  - `Orange800` has changed from `#974F0C` to `#A54800`
+  - `Orange900` has changed from `#5F3811` to `#702e00`
+  - `Orange1000` has changed from `#4A2B0F` to `#38291e`
+  - `Yellow1000` has changed from `#3F3102` to `#332E1B`
+  - `Lime100` has changed from `#EEFBDA` to `#EFFFD6`
+  - `Lime1000` has changed from `#2A3818` to `#28311B`
+  - `Green100` has changed from `#DFFCF0` to `#DCFFF1`
+  - `Green1000` has changed from `#143C2B` to `#1C3329`
+  - `Teal100` has changed from `#E3FAFC` to `#E7F9FF`
+  - `Teal200` has changed from `#C1F0F5` to `#C6EDFB`
+  - `Teal300` has changed from `#8BDBE5` to `#9DD9EE`
+  - `Teal400` has changed from `#60C6D2` to `#6CC3E0`
+  - `Teal500` has changed from `#37B4C3` to `#42B2D7`
+  - `Teal600` has changed from `#1D9AAA` to `#2898BD`
+  - `Teal700` has changed from `#1D7F8C` to `#227D9B`
+  - `Teal800` has changed from `#206B74` to `#206A83`
+  - `Teal900` has changed from `#1D474C` to `#164555`
+  - `Teal1000` has changed from `#15373B` to `#1E3137`
+  - `Blue1000` has changed from `#092957` to `#1C2B41`
+  - `Purple1000` has changed from `#2B2451` to `#2B273F`
+  - `Magenta1000` has changed from `#421F34` to `#3D2232`
+
+  #### Token changes
+
+  ##### Yellow accent backgrounds
+
+  Mapped to lighter shades to create differentiation with orange, and increase vibrancy:
+
+  - \[Light theme\] `color.background.yellow.subtle`: `Yellow400` → `Yellow300`
+  - \[Light theme\] `color.background.accent.yellow.subtle.hovered`: `Yellow300` → `Yellow400`
+  - \[Light theme\] `color.background.accent.yellow.subtle.pressed`: `Yellow200` → `Yellow500`
+
+  ##### Bold warning backgrounds
+
+  Mapped to lighter shades to increase vibrancy:
+
+  - \[Light theme\] `color.background.warning.bold`: `Yellow400` → `Yellow300`
+  - \[Dark mode\]: `color.background.warning.bold`: `Yellow400` → `Yellow300`
+  - \[Light theme\] `color.background.warning.bold.hovered`: `Yellow500` → `Yellow400`
+  - \[Dark mode\]: `color.background.warning.bold.hovered`: `Yellow300` → `Yellow400`
+  - \[Light theme\] `color.background.warning.bold.pressed`: `Yellow600` → `Yellow500`
+  - \[Dark mode\]: `color.background.warning.bold.pressed`: `Yellow200` → `Yellow500`
+
+  ##### Icon:
+
+  Mapped red/danger icons to darker shades to create distinction between orange and red icons:
+
+  - \[Light theme\]: `color.icon.accent.red`: `Red600` → `Red700`
+  - \[Dark theme\]: `color.icon.accent.red`: `Red500` → `Red600`
+  - \[Dark theme\]: `color.icon.accent.yellow`: `Yellow500` → `Yellow300`
+  - \[Light theme\]: `color.icon.danger`: `Red600` → `Red700`
+  - \[Dark theme\]: `color.icon.warning`: `Yellow500` → `Yellow300`
+
 ## 1.26.1
 
 ### Patch Changes

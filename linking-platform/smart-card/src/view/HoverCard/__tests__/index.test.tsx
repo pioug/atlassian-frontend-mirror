@@ -17,13 +17,13 @@ jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import '@atlaskit/link-test-helpers/jest';
 import {
-  flushPromises,
   MockIntersectionObserverFactory,
   MockIntersectionObserverOpts,
 } from '@atlaskit/link-test-helpers';
 
 import React, { ReactElement, useEffect, useState } from 'react';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {
   AnalyticsListener,
   useAnalyticsEvents,
@@ -111,6 +111,18 @@ describe('HoverCard', () => {
   let mockFetch: jest.Mock;
   let mockGetEntries: jest.Mock;
   let mockIntersectionObserverOpts: MockIntersectionObserverOpts;
+  const userEventOptionsWithAdvanceTimers = {
+    advanceTimers: jest.advanceTimersByTime,
+  };
+
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+    jest.restoreAllMocks();
+  });
 
   const setup = async ({
     mock = mockConfluenceResponse,
@@ -119,6 +131,7 @@ describe('HoverCard', () => {
     component,
     extraCardProps,
     mockFetch = jest.fn(() => Promise.resolve(mock)),
+    userEventOptions = { delay: null },
   }: {
     mock?: any;
     featureFlags?: ProviderProps['featureFlags'];
@@ -126,6 +139,10 @@ describe('HoverCard', () => {
     component?: ReactElement;
     extraCardProps?: Partial<CardProps>;
     mockFetch?: () => {};
+    userEventOptions?: {
+      delay?: number | null;
+      advanceTimers?: typeof jest.advanceTimersByTime;
+    };
   } = {}) => {
     mockClient = new (fakeFactory(mockFetch))();
     const analyticsSpy = jest.fn();
@@ -155,16 +172,10 @@ describe('HoverCard', () => {
     );
 
     const element = await findByTestId(testId);
-    jest.useFakeTimers();
+    const event = userEvent.setup(userEventOptions);
     const dateSpy = jest.spyOn(Date, 'now').mockImplementation(() => now);
 
-    fireEvent.mouseEnter(element);
-
-    Object.assign(navigator, {
-      clipboard: {
-        writeText: () => {},
-      },
-    });
+    await event.hover(element);
 
     return {
       findByTestId,
@@ -172,15 +183,17 @@ describe('HoverCard', () => {
       element,
       analyticsSpy,
       dateSpy,
+      event,
     };
   };
 
   const commonTests = (setupComponent: () => ReturnType<typeof setup>) => {
     it('should close hover card when a user right clicks on child', async () => {
-      const { element, findByTestId, queryByTestId } = await setupComponent();
+      const { element, findByTestId, queryByTestId, event } =
+        await setupComponent();
 
       expect(await findByTestId('hover-card')).toBeDefined();
-      fireEvent.contextMenu(element);
+      await event.pointer({ keys: '[MouseRight>]', target: element });
 
       expect(queryByTestId('hover-card')).toBeNull();
     });
@@ -197,6 +210,7 @@ describe('HoverCard', () => {
   }) => {
     mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
     mockClient = new (fakeFactory(mockFetch))();
+    const event = userEvent.setup({ delay: null });
 
     const renderResult = render(
       <div onClick={mockOnClick}>
@@ -214,11 +228,9 @@ describe('HoverCard', () => {
     const { findByTestId } = renderResult;
 
     const element = await findByTestId(testId);
-    jest.useFakeTimers();
-    fireEvent.mouseEnter(element);
-    jest.runAllTimers();
+    await event.hover(element);
 
-    return { ...renderResult, element };
+    return { ...renderResult, element, event };
   };
 
   const serverActionsTest = (
@@ -228,7 +240,6 @@ describe('HoverCard', () => {
 
     it('shows server actions when enabled', async () => {
       const { findByTestId } = await renderComponent(true);
-      jest.runAllTimers();
 
       const actionElement = await findByTestId(elementId);
       expect(actionElement).toBeInTheDocument();
@@ -236,7 +247,6 @@ describe('HoverCard', () => {
 
     it('does not show server actions when disable', async () => {
       const { queryByTestId } = await renderComponent(false);
-      jest.runAllTimers();
 
       const actionElement = queryByTestId(elementId);
 
@@ -245,7 +255,6 @@ describe('HoverCard', () => {
 
     it('does not show server action when option not provided', async () => {
       const { queryByTestId } = await renderComponent();
-      jest.runAllTimers();
 
       const actionElement = queryByTestId(elementId);
 
@@ -253,14 +262,11 @@ describe('HoverCard', () => {
     });
 
     it('fires the buttonClicked event on a click of the status lozenge', async () => {
-      const { findByTestId, analyticsSpy } = await renderComponent(true);
-      jest.runAllTimers();
+      const { findByTestId, analyticsSpy, event } = await renderComponent(true);
 
       const actionElement = await findByTestId(elementId);
       expect(actionElement).toBeInTheDocument();
-      act(() => {
-        fireEvent.click(actionElement);
-      });
+      await event.click(actionElement);
       expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
         {
           payload: {
@@ -283,11 +289,12 @@ describe('HoverCard', () => {
       const hoverInOutAndVerify = async ({
         element,
         findByTestId,
+        event,
       }: Awaited<ReturnType<typeof setup>>) => {
         // Close hover preview and trigger it to open again
-        fireEvent.mouseLeave(element);
+        await event.unhover(element);
         jest.runAllTimers();
-        fireEvent.mouseEnter(element);
+        await event.hover(element);
         jest.runAllTimers();
 
         expect(await findByTestId(fdTestId)).toBeInTheDocument();
@@ -312,30 +319,23 @@ describe('HoverCard', () => {
       });
 
       it('does not render feature discovery component again after component has been visible over 2s', async () => {
-        const { element, dateSpy, findByTestId, queryByTestId } =
+        const { element, dateSpy, findByTestId, queryByTestId, event } =
           await renderComponent(true);
-        jest.runAllTimers();
 
         // Confirm that feature discovery component is showing
         await findByTestId(fdTestId);
 
         // Close hover preview and trigger it to open again
         dateSpy.mockReturnValue(now + 2001);
-        fireEvent.mouseLeave(element);
+        await event.unhover(element);
         jest.runAllTimers();
-        fireEvent.mouseEnter(element);
-        jest.runAllTimers();
+        await event.hover(element);
 
         const fdElement = queryByTestId(fdTestId);
         expect(fdElement).not.toBeInTheDocument();
       });
     });
   };
-
-  afterEach(() => {
-    jest.useRealTimers();
-    jest.restoreAllMocks();
-  });
 
   describe('smart-card', () => {
     beforeEach(() => {
@@ -357,7 +357,6 @@ describe('HoverCard', () => {
 
     it('renders hover card', async () => {
       const { findByTestId } = await setup();
-      jest.runAllTimers();
       const hoverCard = await findByTestId('hover-card');
 
       expect(hoverCard).toBeTruthy();
@@ -374,7 +373,7 @@ describe('HoverCard', () => {
         loadMetadata: loadMetadataSpy,
       };
 
-      await setup();
+      await setup({ userEventOptions: userEventOptionsWithAdvanceTimers });
 
       jest
         .spyOn(useSmartCardActions, 'useSmartCardActions')
@@ -386,7 +385,6 @@ describe('HoverCard', () => {
 
     it('should fire hover card viewed event with correct data in the analytics context', async () => {
       const { findByTestId, analyticsSpy } = await setup();
-      jest.runAllTimers();
       await findByTestId('hover-card');
 
       expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
@@ -432,7 +430,9 @@ describe('HoverCard', () => {
 
     describe('when mouse moves over the child', () => {
       it('should wait a default delay before showing', async () => {
-        const { queryByTestId } = await setup();
+        const { queryByTestId } = await setup({
+          userEventOptions: userEventOptionsWithAdvanceTimers,
+        });
 
         // Delay not completed yet
         jest.advanceTimersByTime(499);
@@ -446,9 +446,11 @@ describe('HoverCard', () => {
       });
 
       it('should wait a default delay before hiding', async () => {
-        const { queryByTestId, element } = await setup();
+        const { queryByTestId, element, event } = await setup({
+          userEventOptions: userEventOptionsWithAdvanceTimers,
+        });
         jest.runAllTimers();
-        fireEvent.mouseLeave(element);
+        await event.unhover(element);
 
         // Delay not completed yet
         jest.advanceTimersByTime(299);
@@ -463,15 +465,17 @@ describe('HoverCard', () => {
     });
 
     it('should stay shown if theres a mouseEnter before the delay elapses', async () => {
-      const { queryByTestId, element } = await setup();
+      const { queryByTestId, element, event } = await setup({
+        userEventOptions: userEventOptionsWithAdvanceTimers,
+      });
       jest.runAllTimers();
-      fireEvent.mouseLeave(element);
+      await event.unhover(element);
 
       // Delay not completed yet
       jest.advanceTimersByTime(299);
       expect(queryByTestId('hover-card')).not.toBeNull();
 
-      fireEvent.mouseEnter(element);
+      await event.hover(element);
 
       // Delay completed
       jest.advanceTimersByTime(1);
@@ -480,13 +484,15 @@ describe('HoverCard', () => {
     });
 
     it('should stay hidden if theres a mouseLeave before the delay elapses', async () => {
-      const { queryByTestId, element } = await setup();
+      const { queryByTestId, element, event } = await setup({
+        userEventOptions: userEventOptionsWithAdvanceTimers,
+      });
 
       // Delay not completed yet
       jest.advanceTimersByTime(299);
 
       expect(queryByTestId('hover-card')).toBeNull();
-      fireEvent.mouseLeave(element);
+      await event.unhover(element);
 
       // Delay completed
       jest.advanceTimersByTime(1);
@@ -495,44 +501,37 @@ describe('HoverCard', () => {
     });
 
     it('should stay shown if mouse moves over the hover card', async () => {
-      const { findByTestId, queryByTestId, element } = await setup();
-
-      jest.runAllTimers();
+      const { findByTestId, queryByTestId, event } = await setup();
 
       const hoverCard = await findByTestId('smart-links-container');
-      fireEvent.mouseLeave(element);
-      fireEvent.mouseEnter(hoverCard);
-
-      jest.runAllTimers();
+      await event.hover(hoverCard);
 
       expect(queryByTestId('hover-card')).not.toBeNull();
     });
 
-    it('should hide if mouse moves leaves the hover card', async () => {
-      const { findByTestId, queryByTestId, element } = await setup();
-
-      jest.runAllTimers();
+    it('should hide if mouse moves on the hover card and then leaves it', async () => {
+      const { findByTestId, queryByTestId, event } = await setup();
 
       const hoverCard = await findByTestId('smart-links-container');
-      fireEvent.mouseLeave(element);
-      fireEvent.mouseEnter(hoverCard);
-      fireEvent.mouseLeave(hoverCard);
-
+      await event.hover(hoverCard);
+      await event.unhover(hoverCard);
       jest.runAllTimers();
 
       expect(queryByTestId('hover-card')).toBeNull();
     });
 
     it('should hide the card if a mouse sends multiple mouse over events but leaves the hover area before the delay elapses', async () => {
-      const { queryByTestId, findByTestId, element } = await setup();
+      const { queryByTestId, findByTestId, element, event } = await setup({
+        userEventOptions: userEventOptionsWithAdvanceTimers,
+      });
 
       jest.advanceTimersByTime(100);
       const titleAndIcon = await findByTestId('inline-card-icon-and-title');
-      fireEvent.mouseOver(titleAndIcon);
+      await event.hover(titleAndIcon);
       jest.advanceTimersByTime(199);
 
       expect(queryByTestId('hover-card')).toBeNull();
-      fireEvent.mouseLeave(element);
+      await event.unhover(element);
 
       jest.advanceTimersByTime(1);
 
@@ -540,7 +539,9 @@ describe('HoverCard', () => {
     });
 
     it('should show the card in 500ms the card if a mouse sends multiple mouse over events over children', async () => {
-      const { queryByTestId, findByTestId } = await setup();
+      const { queryByTestId, findByTestId } = await setup({
+        userEventOptions: userEventOptionsWithAdvanceTimers,
+      });
 
       jest.advanceTimersByTime(300);
       const titleAndIcon = await findByTestId('inline-card-icon-and-title');
@@ -569,18 +570,13 @@ describe('HoverCard', () => {
     });
 
     it('should hide after pressing escape', async () => {
-      const { queryByTestId } = await setup();
-
-      jest.runAllTimers();
-
-      fireEvent.keyDown(document, { key: 'Escape', code: 27 });
-
+      const { queryByTestId, event } = await setup();
+      await event.keyboard('{Escape}');
       expect(queryByTestId('hover-card')).toBeNull();
     });
 
     it('should render smartlink actions', async () => {
       const { findByTestId } = await setup();
-      jest.runAllTimers();
       const downloadButton = await findByTestId('download-content');
       const previewButton = await findByTestId('preview-content');
 
@@ -592,7 +588,6 @@ describe('HoverCard', () => {
       const { findByTestId } = await setup({
         extraCardProps: { ui: { hideHoverCardPreviewButton: true } },
       });
-      jest.runAllTimers();
       const previewButton = await findByTestId('preview-content');
       expect(previewButton.textContent).toBe('Open preview');
     });
@@ -603,16 +598,14 @@ describe('HoverCard', () => {
           ui: { hideHoverCardPreviewButton: true },
         },
       });
-      jest.runAllTimers();
       const previewButton = await findByTestId('preview-content');
       expect(previewButton.textContent).toBe('Open preview');
     });
 
     it('should open preview modal after clicking preview button', async () => {
-      const { findByTestId, queryByTestId } = await setup();
-      jest.runAllTimers();
+      const { findByTestId, queryByTestId, event } = await setup();
       const previewButton = await findByTestId('preview-content');
-      fireEvent.click(previewButton);
+      event.click(previewButton);
       const previewModal = await findByTestId('preview-modal');
 
       expect(previewModal).toBeTruthy();
@@ -626,7 +619,7 @@ describe('HoverCard', () => {
       async (providerKey) => {
         const expectedPreviewUrl = 'http://some-preview-url.com';
 
-        const { findByTestId } = await setup({
+        const { findByTestId, event } = await setup({
           mock: {
             ...mockConfluenceResponse,
             meta: { ...mockConfluenceResponse.meta, key: providerKey },
@@ -639,9 +632,8 @@ describe('HoverCard', () => {
             },
           },
         });
-        jest.runAllTimers();
         const previewButton = await findByTestId('preview-content');
-        fireEvent.click(previewButton);
+        await event.click(previewButton);
         const iframeEl = await findByTestId(`smart-embed-preview-modal-embed`);
         expect(iframeEl).toBeTruthy();
 
@@ -656,12 +648,11 @@ describe('HoverCard', () => {
     );
 
     it('should show tooltip on copy link button', async () => {
-      const { findByTestId } = await setup();
-      jest.runAllTimers();
+      const { findByTestId, event } = await setup();
 
       const content = await findByTestId('smart-block-title-resolved-view');
       const copyButton = await findByTestId('hover-card-copy-button');
-      fireEvent.mouseOver(copyButton);
+      await event.hover(copyButton);
       const tooltip = await findByTestId('hover-card-copy-button-tooltip');
 
       expect(content).toBeTruthy();
@@ -696,7 +687,6 @@ describe('HoverCard', () => {
         const mock = jest.spyOn(analytics, 'uiHoverCardViewedEvent');
 
         const { findByTestId } = await setup();
-        jest.runAllTimers();
 
         //wait for card to be resolved
         await findByTestId('smart-block-title-resolved-view');
@@ -722,11 +712,10 @@ describe('HoverCard', () => {
       it('should fire closed event when hover card is opened then closed', async () => {
         const mock = jest.spyOn(analytics, 'uiHoverCardDismissedEvent');
 
-        const { queryByTestId, findByTestId, element } = await setup();
-        jest.runAllTimers();
+        const { queryByTestId, findByTestId, element, event } = await setup();
         // wait for card to be resolved
         await findByTestId('smart-block-title-resolved-view');
-        fireEvent.mouseLeave(element);
+        await event.unhover(element);
         jest.runAllTimers();
         expect(queryByTestId('hover-card')).toBeNull();
 
@@ -752,13 +741,13 @@ describe('HoverCard', () => {
 
       it('should fire clicked event when title is clicked', async () => {
         const spy = jest.spyOn(analytics, 'uiCardClickedEvent');
-        const { findByTestId, analyticsSpy } = await setup();
+        const { findByTestId, analyticsSpy, event } = await setup();
         jest.runAllTimers();
 
         await findByTestId('smart-block-title-resolved-view');
         const link = await findByTestId('smart-element-link');
 
-        fireEvent.click(link);
+        await event.click(link);
 
         expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
         expect(spy.mock.results[0].value).toEqual({
@@ -790,13 +779,12 @@ describe('HoverCard', () => {
       });
 
       it('should fire clicked event when title is middle clicked', async () => {
-        const { findByTestId, analyticsSpy } = await setup();
-        jest.runAllTimers();
+        const { findByTestId, analyticsSpy, event } = await setup();
 
         await findByTestId('smart-block-title-resolved-view');
         const link = await findByTestId('smart-element-link');
 
-        fireEvent.mouseDown(link, { button: 1 });
+        await event.click(link);
 
         expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
           {
@@ -810,13 +798,13 @@ describe('HoverCard', () => {
       });
 
       it('should fire clicked event when title is right clicked', async () => {
-        const { findByTestId, analyticsSpy } = await setup();
-        jest.runAllTimers();
+        const { findByTestId, analyticsSpy, event } = await setup();
 
         await findByTestId('smart-block-title-resolved-view');
         const link = await findByTestId('smart-element-link');
 
-        fireEvent.mouseDown(link, { button: 2 });
+        // @ts-ignore
+        await event.click(link, { button: 2 });
 
         expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
           {
@@ -830,15 +818,14 @@ describe('HoverCard', () => {
       });
 
       it('should fire link clicked event with attributes from SmartLinkAnalyticsContext if link is resolved', async () => {
-        const { findByTestId, analyticsSpy } = await setup({
+        const { findByTestId, analyticsSpy, event } = await setup({
           extraCardProps: { id: 'some-id' },
         });
-        jest.runAllTimers();
 
         await findByTestId('smart-block-title-resolved-view');
         const link = await findByTestId('smart-element-link');
 
-        fireEvent.click(link);
+        await event.click(link);
 
         expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
           {
@@ -868,15 +855,14 @@ describe('HoverCard', () => {
         const clickSpy = jest.spyOn(analytics, 'uiActionClickedEvent');
         const closeSpy = jest.spyOn(analytics, 'uiHoverCardDismissedEvent');
 
-        const { findByTestId } = await setup({
+        const { findByTestId, event } = await setup({
           mock: mockBaseResponseWithPreview,
         });
-        jest.runAllTimers();
 
         await findByTestId('smart-block-title-resolved-view');
         const button = await findByTestId('preview-content');
 
-        fireEvent.click(button);
+        await event.click(button);
 
         expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
         expect(clickSpy.mock.results[0].value).toEqual({
@@ -917,15 +903,14 @@ describe('HoverCard', () => {
 
       it('should fire clicked event when download button is clicked', async () => {
         const spy = jest.spyOn(analytics, 'uiActionClickedEvent');
-        const { findByTestId } = await setup({
+        const { findByTestId, event } = await setup({
           mock: mockBaseResponseWithDownload,
         });
-        jest.runAllTimers();
 
         await findByTestId('smart-block-title-resolved-view');
         const button = await findByTestId('download-content');
 
-        fireEvent.click(button);
+        await event.click(button);
 
         expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
         expect(spy.mock.results[0].value).toEqual({
@@ -950,17 +935,15 @@ describe('HoverCard', () => {
         ffTest(
           'platform.linking-platform.smart-card.follow-button',
           async () => {
-            const { analyticsSpy, findByTestId } = await setup({
+            const { analyticsSpy, findByTestId, event } = await setup({
               extraCardProps: { showServerActions: true },
               mock: MockAtlasProject,
             });
-            jest.runAllTimers();
 
             await findByTestId('smart-block-title-resolved-view');
             const button = await findByTestId('smart-action-follow-action');
 
-            fireEvent.click(button);
-            await flushPromises();
+            await event.click(button);
 
             expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
               {
@@ -996,7 +979,6 @@ describe('HoverCard', () => {
               extraCardProps: { showServerActions: true },
               mock: MockAtlasProject,
             });
-            jest.runAllTimers();
 
             await findByTestId('smart-block-title-resolved-view');
             const button = queryByTestId('smart-action-follow-action');
@@ -1016,7 +998,6 @@ describe('HoverCard', () => {
 
         //setup function implicitly tests that the inline link resolved view is still in the DOM
         await setup();
-        jest.runAllTimers();
 
         expect(analytics.uiRenderFailedEvent).toHaveBeenCalledTimes(1);
         expect(mock.mock.results[0].value).toEqual({
@@ -1053,9 +1034,8 @@ describe('HoverCard', () => {
         );
 
         const element = await findByTestId('inline-card-resolved-view');
-        jest.useFakeTimers();
-        fireEvent.mouseEnter(element);
-        jest.runAllTimers();
+        const event = userEvent.setup({ delay: null });
+        await event.hover(element);
         return { findByTestId, queryByTestId };
       };
 
@@ -1150,12 +1130,10 @@ describe('HoverCard', () => {
           'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
           async () => {
             const { queryByTestId } = await setup(setupProps);
-            jest.runAllTimers();
             expect(queryByTestId(authTooltipId)).toBeNull();
           },
           async () => {
             const { queryByTestId } = await setup(setupProps);
-            jest.runAllTimers();
             expect(queryByTestId(authTooltipId)).toBeNull();
           },
         );
@@ -1178,7 +1156,6 @@ describe('HoverCard', () => {
           mock: mocks.forbidden,
           testId: 'inline-card-forbidden-view',
         });
-        jest.runAllTimers();
         const hoverCard = await findByTestId('hover-card');
         expect(hoverCard).toBeTruthy();
       });
@@ -1192,7 +1169,6 @@ describe('HoverCard', () => {
           mock: mock,
           testId: 'inline-card-not-found-view',
         });
-        jest.runAllTimers();
         const hoverCard = await findByTestId('hover-card');
         expect(hoverCard).toBeTruthy();
       });
@@ -1201,27 +1177,29 @@ describe('HoverCard', () => {
     describe('event propagation', () => {
       it('does not propagate event to parent when clicking inside hover card content', async () => {
         const mockOnClick = jest.fn();
-        const { findByTestId } = await setupEventPropagationTest({
+        const { findByTestId, event } = await setupEventPropagationTest({
           mockOnClick,
         });
 
         const content = await findByTestId('smart-links-container');
-        fireEvent.click(content);
+        await event.click(content);
 
         const link = await findByTestId('smart-element-link');
-        fireEvent.click(link);
+        await event.click(link);
 
         const previewButton = await findByTestId('preview-content');
-        fireEvent.click(previewButton);
+        await event.click(previewButton);
 
         expect(mockOnClick).not.toHaveBeenCalled();
       });
 
       it('does not propagate event to parent when clicking on trigger element', async () => {
         const mockOnClick = jest.fn();
-        const { element } = await setupEventPropagationTest({ mockOnClick });
+        const { element, event } = await setupEventPropagationTest({
+          mockOnClick,
+        });
 
-        fireEvent.click(element);
+        await event.click(element);
 
         expect(mockOnClick).not.toHaveBeenCalled();
       });
@@ -1247,21 +1225,21 @@ describe('HoverCard', () => {
           element: trigger,
           findByTestId,
           queryByTestId,
+          event,
         }: Awaited<ReturnType<typeof setup>>,
         hoverCardTestId: string,
         testId: string,
         expectToBeInTheDocument: boolean,
       ) => {
-        fireEvent.mouseMove(trigger);
-        fireEvent.mouseLeave(trigger);
+        await event.hover(trigger);
+        await event.unhover(trigger);
         jest.runAllTimers();
 
         const element = await findByTestId(testId);
         expect(element).toBeInTheDocument();
 
-        fireEvent.mouseMove(element);
-        fireEvent.mouseOver(element);
-        jest.runAllTimers();
+        await event.hover(element);
+        await event.hover(element);
 
         if (expectToBeInTheDocument) {
           expect(await findByTestId(hoverCardTestId)).toBeInTheDocument();
@@ -1275,23 +1253,22 @@ describe('HoverCard', () => {
           element: trigger,
           findByTestId,
           queryByTestId,
+          event,
         }: Awaited<ReturnType<typeof setup>>,
         hoverCardTestId: string,
         testId: string,
       ) => {
-        fireEvent.mouseMove(trigger);
-        fireEvent.mouseLeave(trigger);
-        jest.runAllTimers();
+        await event.hover(trigger);
+        await event.unhover(trigger);
 
         const moreButton = await findByTestId('action-group-more-button');
-        fireEvent.click(moreButton);
+        await event.click(moreButton);
 
         const element = await findByTestId(testId);
         expect(element).toBeInTheDocument();
 
-        fireEvent.mouseMove(element);
-        fireEvent.mouseOver(element);
-        jest.runAllTimers();
+        await event.hover(element);
+        await event.hover(element);
 
         expect(queryByTestId(hoverCardTestId)).not.toBeInTheDocument();
       };
@@ -1312,7 +1289,6 @@ describe('HoverCard', () => {
           extraCardProps: { appearance, children },
           testId: triggerTestId,
         });
-        jest.runAllTimers();
 
         for (const [testId, expectToBeInTheDocument] of [
           ['smart-element-link', true], // title link
@@ -1347,7 +1323,6 @@ describe('HoverCard', () => {
           },
           testId: 'smart-links-container',
         });
-        jest.runAllTimers();
 
         for (const testId of [
           'smart-element-link',
@@ -1371,8 +1346,9 @@ describe('HoverCard', () => {
         const renderResult = await setup({
           extraCardProps: { appearance, children },
           testId: triggerTestId,
+          userEventOptions: userEventOptionsWithAdvanceTimers,
         });
-        jest.runAllTimers();
+        const { event } = renderResult;
 
         await hoverAndVerify(
           renderResult,
@@ -1393,7 +1369,7 @@ describe('HoverCard', () => {
         const wrapper = await findByTestId(
           'smart-links-container-hover-card-wrapper',
         );
-        fireEvent.mouseLeave(wrapper);
+        await event.unhover(wrapper);
 
         // move time forward to when canOpen is change but hideCard isn't triggered yet
         jest.advanceTimersByTime(101);
@@ -1408,7 +1384,6 @@ describe('HoverCard', () => {
           mock: mockUnauthorisedResponse,
           testId: triggerTestId,
         });
-        jest.runAllTimers();
 
         for (const [testId, expectToBeInTheDocument] of [
           ['smart-element-link', true], // title link
@@ -1438,7 +1413,6 @@ describe('HoverCard', () => {
           mock: mockUnauthorisedResponse,
           testId: 'smart-links-container',
         });
-        jest.runAllTimers();
 
         for (const testId of [
           'smart-element-link',
@@ -1464,7 +1438,6 @@ describe('HoverCard', () => {
           },
           testId: 'smart-links-container',
         });
-        jest.runAllTimers();
 
         await hoverAndVerify(
           renderResult,
@@ -1498,26 +1471,28 @@ describe('HoverCard', () => {
 
         it('does not propagate event to parent when clicking inside hover card content on a flexui link', async () => {
           const mockOnClick = jest.fn();
-          const { findByTestId } = await renderComponent({ mockOnClick });
+          const { findByTestId, event } = await renderComponent({
+            mockOnClick,
+          });
 
           const metadataBlock = await findByTestId(
             'smart-block-metadata-resolved-view',
           );
-          fireEvent.click(metadataBlock);
+          await event.click(metadataBlock);
 
           const previewButton = await findByTestId(
             'smart-footer-block-resolved-view',
           );
-          fireEvent.click(previewButton);
+          await event.click(previewButton);
 
           expect(mockOnClick).not.toHaveBeenCalled();
         });
 
         it('propagates event to parent when clicking on trigger element', async () => {
           const mockOnClick = jest.fn();
-          const { element } = await renderComponent({ mockOnClick });
+          const { element, event } = await renderComponent({ mockOnClick });
 
-          fireEvent.click(element);
+          await event.click(element);
 
           expect(mockOnClick).toHaveBeenCalled();
         });
@@ -1554,11 +1529,18 @@ describe('HoverCard', () => {
         expect(element.textContent).toBe('I am a fan of cheese');
 
         jest.useFakeTimers();
-        fireEvent.mouseEnter(element);
+        const event = userEvent.setup({ delay: null });
+        await event.hover(element);
         jest.runAllTimers();
         await waitFor(() => expect(mockFetch).toBeCalledTimes(1));
 
-        return { findByTestId, queryByTestId, resolveFetch, rejectFetch };
+        return {
+          findByTestId,
+          queryByTestId,
+          resolveFetch,
+          rejectFetch,
+          event,
+        };
       };
 
       it('should render hover card correctly', async () => {
@@ -1567,7 +1549,6 @@ describe('HoverCard', () => {
 
         await findByTestId('hover-card-loading-view');
         resolveFetch(mockConfluenceResponse);
-        jest.runAllTimers();
 
         await findByTestId('smart-block-metadata-resolved-view');
         const titleBlock = await findByTestId(
@@ -1620,7 +1601,6 @@ describe('HoverCard', () => {
           mock: mockUnauthorisedResponse,
           testId: 'inline-card-unauthorized-view',
         });
-        jest.runAllTimers();
         const unauthorisedHoverCard = await findByTestId(
           'hover-card-unauthorised-view',
         );
@@ -1637,7 +1617,6 @@ describe('HoverCard', () => {
             children: <TitleBlock />,
           },
         });
-        jest.runAllTimers();
         const unauthorisedHoverCard = await findByTestId(
           'hover-card-unauthorised-view',
         );
@@ -1659,7 +1638,6 @@ describe('HoverCard', () => {
             </Card>
           </Provider>,
         );
-        jest.runAllTimers();
 
         expect(await queryByTestId('hover-card-trigger-wrapper')).toBeNull();
       });
@@ -1671,7 +1649,6 @@ describe('HoverCard', () => {
           mock: mockUnauthorisedResponse,
           testId: 'inline-card-unauthorized-view',
         });
-        jest.runAllTimers();
 
         //wait for card to be resolved
         await findByTestId('hover-card-unauthorised-view');
@@ -1699,14 +1676,13 @@ describe('HoverCard', () => {
       it('should fire dismissed event when hover card is opened then closed', async () => {
         const mock = jest.spyOn(analytics, 'uiHoverCardDismissedEvent');
 
-        const { queryByTestId, findByTestId, element } = await setup({
+        const { queryByTestId, findByTestId, element, event } = await setup({
           mock: mockUnauthorisedResponse,
           testId: 'inline-card-unauthorized-view',
         });
-        jest.runAllTimers();
         // wait for card to be resolved
         await findByTestId('hover-card-unauthorised-view');
-        fireEvent.mouseLeave(element);
+        await event.unhover(element);
         jest.runAllTimers();
         expect(queryByTestId('hover-card')).toBeNull();
 
@@ -1739,14 +1715,14 @@ describe('HoverCard', () => {
             <div data-testid={testId}>Hover on me</div>
           </HoverCard>
         );
-        const { findByTestId, analyticsSpy } = await setup({
+        const { findByTestId, analyticsSpy, event } = await setup({
           testId,
           component: hoverCardComponent,
         });
         await findByTestId('smart-block-metadata-resolved-view');
         const link = await findByTestId('smart-element-link');
 
-        fireEvent.click(link);
+        await event.click(link);
 
         expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
           {
@@ -1876,7 +1852,6 @@ describe('HoverCard', () => {
 
     it('should render a hover card over a div', async () => {
       const { findByTestId } = await standaloneSetUp();
-      jest.runAllTimers();
       const titleBlock = await findByTestId('smart-block-title-resolved-view');
       await findByTestId('smart-block-metadata-resolved-view');
       const snippetBlock = await findByTestId(
@@ -1897,7 +1872,6 @@ describe('HoverCard', () => {
       const { findByTestId, queryByTestId } = await standaloneSetUp({
         hidePreviewButton: true,
       });
-      jest.runAllTimers();
       const footerBlock = await findByTestId(
         'smart-footer-block-resolved-view',
       );
@@ -1913,6 +1887,7 @@ describe('HoverCard', () => {
       const testId = 'h1-hover-card-trigger';
       const mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
       const mockClient = new (fakeFactory(mockFetch))();
+      const event = userEvent.setup({ delay: null });
 
       const ComponentWithHoverCard = () => {
         return (
@@ -1960,8 +1935,6 @@ describe('HoverCard', () => {
 
       const { findByTestId } = render(<SetUp />);
 
-      jest.useFakeTimers();
-
       // should render the first component on the first render.
       const firstComponent = await findByTestId('first');
       expect(firstComponent).toBeDefined();
@@ -1973,8 +1946,7 @@ describe('HoverCard', () => {
 
       // this should trigger the HoverCard mount for the first component
       // along with unmount of the first component and the mount of the second component
-      fireEvent.mouseOver(componentWithHoverCard);
-      jest.runAllTimers();
+      await event.hover(componentWithHoverCard);
 
       const secondComponent = await findByTestId('second');
       expect(secondComponent).toBeDefined();
@@ -2007,19 +1979,15 @@ describe('HoverCard', () => {
 
       it('should fire link clicked event with correct attributes', async () => {
         const spy = jest.spyOn(analytics, 'uiCardClickedEvent');
-        const { findByTestId, analyticsSpy } = await setup({
+        const { findByTestId, analyticsSpy, event } = await setup({
           testId,
           component: hoverCardComponent,
-        });
-
-        act(() => {
-          jest.runAllTimers();
         });
 
         await findByTestId('smart-block-metadata-resolved-view');
 
         const link = await findByTestId('smart-element-link');
-        fireEvent.click(link);
+        await event.click(link);
 
         expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
         expect(spy.mock.results[0].value).toEqual({
@@ -2097,7 +2065,6 @@ describe('HoverCard', () => {
           testId,
           component: <TestCanOpenComponent canOpen={true} testId={testId} />,
         });
-        jest.runAllTimers();
         const hoverContent = await findByTestId(contentTestId);
 
         expect(hoverContent).toBeInTheDocument();
@@ -2108,37 +2075,32 @@ describe('HoverCard', () => {
           testId,
           component: <TestCanOpenComponent canOpen={false} testId={testId} />,
         });
-        jest.runAllTimers();
         const hoverContent = queryByTestId(contentTestId);
 
         expect(hoverContent).not.toBeInTheDocument();
       });
 
       it('show and hide hover card when at canOpen change value', async () => {
-        const { findByTestId, queryByTestId } = await setup({
+        const { findByTestId, queryByTestId, event } = await setup({
           testId,
           component: <TestCanOpenComponent testId={testId} />,
         });
         // Element has not set canOpen value (default)
-        jest.runAllTimers();
         expect(await findByTestId(contentTestId)).toBeInTheDocument();
 
         // Element sets to can open
         const canOpenElement = await findByTestId(`${testId}-can-open`);
-        fireEvent.mouseEnter(canOpenElement);
-        jest.runAllTimers();
+        await event.hover(canOpenElement);
         expect(await findByTestId(contentTestId)).toBeInTheDocument();
 
         // Element sets to cannot open
         const cannotOpenElement = await findByTestId(`${testId}-cannot-open`);
-        fireEvent.mouseEnter(cannotOpenElement);
-        jest.runAllTimers();
+        await event.hover(cannotOpenElement);
         expect(queryByTestId(contentTestId)).not.toBeInTheDocument();
 
         // Go back to element sets to can open again
         const canOpenElementAgain = await findByTestId(`${testId}-can-open`);
-        fireEvent.mouseEnter(canOpenElementAgain);
-        jest.runAllTimers();
+        await event.hover(canOpenElementAgain);
         expect(await findByTestId(contentTestId)).toBeInTheDocument();
       });
     });
@@ -2146,7 +2108,6 @@ describe('HoverCard', () => {
     describe('z-index', () => {
       it('renders with defaults z-index', async () => {
         const { findByTestId } = await standaloneSetUp();
-        jest.runAllTimers();
 
         const hoverCard = await findByTestId('hover-card');
         const portal = hoverCard.closest('.atlaskit-portal');
@@ -2157,7 +2118,6 @@ describe('HoverCard', () => {
         const { findByTestId } = await standaloneSetUp({
           zIndex: 10,
         });
-        jest.runAllTimers();
 
         const hoverCard = await findByTestId('hover-card');
         const portal = hoverCard.closest('.atlaskit-portal');
@@ -2187,27 +2147,27 @@ describe('HoverCard', () => {
 
       it('does not propagate event to parent when clicking inside hover card content', async () => {
         const mockOnClick = jest.fn();
-        const { findByTestId } = await renderComponent({
+        const { findByTestId, event } = await renderComponent({
           mockOnClick,
         });
 
         const content = await findByTestId('smart-links-container');
-        fireEvent.click(content);
+        await event.click(content);
 
         const link = await findByTestId('smart-element-link');
-        fireEvent.click(link);
+        await event.click(link);
 
         const previewButton = await findByTestId('preview-content');
-        fireEvent.click(previewButton);
+        await event.click(previewButton);
 
         expect(mockOnClick).not.toHaveBeenCalled();
       });
 
       it('does not propagate event to parent when clicking on trigger element', async () => {
         const mockOnClick = jest.fn();
-        const { element } = await renderComponent({ mockOnClick });
+        const { element, event } = await renderComponent({ mockOnClick });
 
-        fireEvent.click(element);
+        await event.click(element);
 
         expect(mockOnClick).not.toHaveBeenCalled();
       });
@@ -2240,10 +2200,7 @@ describe('HoverCard', () => {
           testId,
           component,
         });
-
-        act(() => {
-          jest.runAllTimers();
-        });
+        jest.runAllTimers();
 
         expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
           payload: {
@@ -2320,9 +2277,10 @@ describe('HoverCard', () => {
           </StandaloneHoverCard>
         );
 
-        const { findByTestId } = await setup({
+        const { findByTestId, event } = await setup({
           component,
           testId: 'hover-card-trigger-wrapper',
+          userEventOptions: userEventOptionsWithAdvanceTimers,
         });
 
         // Delay not completed yet
@@ -2332,7 +2290,7 @@ describe('HoverCard', () => {
 
         // Delay completed
         const triggerArea = await findByTestId('hover-card-trigger-wrapper');
-        fireEvent.mouseLeave(triggerArea);
+        await event.unhover(triggerArea);
 
         jest.advanceTimersByTime(1);
 
@@ -2350,9 +2308,10 @@ describe('HoverCard', () => {
           </StandaloneHoverCard>
         );
 
-        const { findByTestId } = await setup({
+        const { findByTestId, event } = await setup({
           component,
           testId: 'hover-card-trigger-wrapper',
+          userEventOptions: userEventOptionsWithAdvanceTimers,
         });
 
         // Hovering on the hover area for the first time and then moving the mouse before the 100 ms elapses
@@ -2360,14 +2319,14 @@ describe('HoverCard', () => {
         expect(loadMetadataSpy).not.toHaveBeenCalled();
 
         const triggerArea = await findByTestId('hover-card-trigger-wrapper');
-        fireEvent.mouseLeave(triggerArea);
+        await event.unhover(triggerArea);
 
         // Making sure the loadMetadata was not called
         jest.advanceTimersByTime(1);
         expect(loadMetadataSpy).not.toHaveBeenCalled();
 
         // Hover on the hover area for the second time and waiting for 100ms
-        fireEvent.mouseEnter(triggerArea);
+        await event.hover(triggerArea);
         jest.advanceTimersByTime(100);
 
         // Making sure the loadMetadata was called
@@ -2392,9 +2351,8 @@ describe('HoverCard', () => {
         const triggerArea = await findByTestId('hover-card-trigger-wrapper');
         expect(triggerArea).toBeDefined();
 
-        jest.useFakeTimers();
-
-        fireEvent.mouseOver(triggerArea);
+        const event = userEvent.setup(userEventOptionsWithAdvanceTimers);
+        await event.hover(triggerArea);
 
         // Delay not completed yet
         jest.advanceTimersByTime(99);
@@ -2408,6 +2366,7 @@ describe('HoverCard', () => {
       });
 
       it('should call loadMetadata only once if multiple mouseOver events are sent and if link state is pending', async () => {
+        const event = userEvent.setup(userEventOptionsWithAdvanceTimers);
         jest
           .spyOn(useSmartCardActions, 'useSmartCardActions')
           .mockImplementation(() => mockedActions);
@@ -2425,16 +2384,14 @@ describe('HoverCard', () => {
         const triggerArea = await findByTestId('hover-card-trigger-wrapper');
         expect(triggerArea).toBeDefined();
 
-        jest.useFakeTimers();
-
         // Firing the first mouseOver event
-        fireEvent.mouseOver(triggerArea);
+        await event.hover(triggerArea);
 
         // Delay not completed yet
         jest.advanceTimersByTime(1);
 
         // Firing the second mouseOver event
-        fireEvent.mouseOver(triggerArea);
+        await event.hover(triggerArea);
 
         // Delay completed
         jest.advanceTimersByTime(99);
@@ -2443,6 +2400,8 @@ describe('HoverCard', () => {
       });
 
       it('should fire "hoverCard resolved" event when loadMetadata() is called and the FF is on', async () => {
+        const event = userEvent.setup(userEventOptionsWithAdvanceTimers);
+
         jest
           .spyOn(useSmartCardActions, 'useSmartCardActions')
           .mockImplementation(() => mockedActions);
@@ -2459,9 +2418,7 @@ describe('HoverCard', () => {
         const triggerArea = await findByTestId('hover-card-trigger-wrapper');
         expect(triggerArea).toBeDefined();
 
-        jest.useFakeTimers();
-
-        fireEvent.mouseOver(triggerArea);
+        await event.hover(triggerArea);
         jest.advanceTimersByTime(100);
 
         expect(loadMetadataSpy).toHaveBeenCalled();
@@ -2477,6 +2434,8 @@ describe('HoverCard', () => {
       });
 
       it('should not fire "hoverCard resolved" event when loadMetadata() is called and the FF is off', async () => {
+        const event = userEvent.setup(userEventOptionsWithAdvanceTimers);
+
         jest
           .spyOn(useSmartCardActions, 'useSmartCardActions')
           .mockImplementation(() => mockedActions);
@@ -2493,9 +2452,7 @@ describe('HoverCard', () => {
         const triggerArea = await findByTestId('hover-card-trigger-wrapper');
         expect(triggerArea).toBeDefined();
 
-        jest.useFakeTimers();
-
-        fireEvent.mouseOver(triggerArea);
+        await event.hover(triggerArea);
         jest.advanceTimersByTime(100);
 
         expect(loadMetadataSpy).toHaveBeenCalled();
@@ -2521,25 +2478,25 @@ describe('HoverCard', () => {
       );
 
       it('should close hoverCard when a user clicks on a child when closeOnChildClick is true', async () => {
-        const { findByTestId, queryByTestId } = await setup({
+        const { findByTestId, queryByTestId, event } = await setup({
           component: getHoverCard(true),
           testId: testId,
         });
 
         expect(await findByTestId('hover-card')).toBeDefined();
-        fireEvent.click(await findByTestId(testId));
+        await event.click(await findByTestId(testId));
 
         expect(queryByTestId('hover-card')).toBeNull();
       });
 
       it('should not close hoverCard when a user clicks on a child when closeOnChildClick is false', async () => {
-        const { findByTestId } = await setup({
+        const { findByTestId, event } = await setup({
           component: getHoverCard(false),
           testId: testId,
         });
 
         expect(await findByTestId('hover-card')).toBeDefined();
-        fireEvent.click(await findByTestId(testId));
+        await event.click(await findByTestId(testId));
 
         expect(await findByTestId('hover-card')).toBeDefined();
       });
@@ -2577,7 +2534,7 @@ describe('HoverCard', () => {
     describe('internal hover card props', () => {
       it('noFadeDelay should cancel fade in/out timeouts when is true', async () => {
         const noFadeDelay = true;
-        const { queryByTestId, findByTestId } = await standaloneSetUp({
+        const { queryByTestId, findByTestId, event } = await standaloneSetUp({
           noFadeDelay: noFadeDelay,
         });
 
@@ -2588,7 +2545,7 @@ describe('HoverCard', () => {
         const triggerArea = await findByTestId('hover-card-trigger-wrapper');
         expect(triggerArea).toBeDefined();
 
-        fireEvent.mouseLeave(triggerArea);
+        await event.unhover(triggerArea);
 
         // No Fade Out Delay
         jest.advanceTimersByTime(0);
@@ -2596,7 +2553,7 @@ describe('HoverCard', () => {
       });
       it('noFadeDelay should not cancel fade in/out timeouts when is false', async () => {
         const noFadeDelay = false;
-        const { queryByTestId, findByTestId } = await standaloneSetUp({
+        const { queryByTestId, findByTestId, event } = await standaloneSetUp({
           noFadeDelay: noFadeDelay,
         });
 
@@ -2613,7 +2570,7 @@ describe('HoverCard', () => {
         const triggerArea = await findByTestId('hover-card-trigger-wrapper');
         expect(triggerArea).toBeDefined();
 
-        fireEvent.mouseLeave(triggerArea);
+        await event.unhover(triggerArea);
 
         // Fade Out Delay not completed yet
         jest.advanceTimersByTime(299);

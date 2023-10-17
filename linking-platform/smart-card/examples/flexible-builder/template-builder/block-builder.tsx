@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import React, { useCallback } from 'react';
+// Allowing existing usage of non Pragmatic drag and drop solution
+// eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import BlockBuilderContainer from './block-builder-container';
 import { BlockTemplate } from '../types';

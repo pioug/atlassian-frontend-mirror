@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': '⚠️ Je kan een tabel met samengevoegde cellen niet rangschikken',
   'fabric.editor.headingLink.noOrderLabel': 'Rangschik kolom van A tot Z',
   'fabric.editor.headingLink.noneSortingLabel': 'Geen',
+  'fabric.editor.tableHeader.sorting.asc': 'Oplopende sortering toegepast',
+  'fabric.editor.tableHeader.sorting.default': 'Sorteer de kolom',
+  'fabric.editor.tableHeader.sorting.desc': 'Aflopende sortering toegepast',
+  'fabric.editor.tableHeader.sorting.invalid': 'Je kunt een tabel met samengevoegde cellen niet rangschikken',
+  'fabric.editor.tableHeader.sorting.no': 'Geen sortering toegepast op de kolom',
 };

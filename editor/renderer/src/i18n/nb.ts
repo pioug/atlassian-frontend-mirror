@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': '⚠️ Du kan ikke sortere en tabell med sammenslåtte celler',
   'fabric.editor.headingLink.noOrderLabel': 'Sorter kolonne A til Å',
   'fabric.editor.headingLink.noneSortingLabel': 'ingen',
+  'fabric.editor.tableHeader.sorting.asc': 'Stigende sortering brukt',
+  'fabric.editor.tableHeader.sorting.default': 'Sorter kolonnen',
+  'fabric.editor.tableHeader.sorting.desc': 'Synkende sortering brukt',
+  'fabric.editor.tableHeader.sorting.invalid': 'Du kan ikke sortere en tabell med sammenslåtte celler',
+  'fabric.editor.tableHeader.sorting.no': 'Ingen sortering brukt for kolonnen',
 };

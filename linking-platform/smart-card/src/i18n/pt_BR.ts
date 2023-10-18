@@ -7,8 +7,6 @@
  */
 //Portuguese (Brazil)
 export default {
-  'fabric.linking.access_exists_description':
-    'Entre em contato com o administrador e solicite acesso para visualizar esse conteúdo em {hostname}.',
   'fabric.linking.actions': 'Ações',
   'fabric.linking.add_account': 'Adicionar conta',
   'fabric.linking.assigned_to': 'Atribuído a {context}',
@@ -39,17 +37,12 @@ export default {
   'fabric.linking.create_on_relative': 'Criação: {context}',
   'fabric.linking.created_by': 'Criado por {context}',
   'fabric.linking.delete': 'Excluir',
-  'fabric.linking.direct_access_crossjoin': 'Ir para {product}',
-  'fabric.linking.direct_access_description_crossjoin':
-    'Todas as contas com o mesmo domínio de e-mail estão aprovadas para acessar {hostname} em {product}.',
-  'fabric.linking.direct_access_title_crossjoin': 'Participe da equipe em {product}',
   'fabric.linking.download': 'Baixar',
   'fabric.linking.edit': 'Editar',
   'fabric.linking.follow': 'Seguir',
   'fabric.linking.forbidden_access': 'O acesso é proibido',
   'fabric.linking.forbidden_description':
     'Você não tem acesso a essa visualização. Entre em contato com o administrador do site se precisar de acesso.',
-  'fabric.linking.forbidden_description_crossjoin': 'Entre em contato com o administrador para solicitar acesso.',
   'fabric.linking.forbidden_title_crossjoin': 'Você não tem acesso a este conteúdo',
   'fabric.linking.go_back': 'Voltar',
   'fabric.linking.invalid_permissions': 'Conteúdo restrito',
@@ -63,7 +56,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Atualizado em {context}',
   'fabric.linking.modified_on_relative': 'Atualizado em {context}',
   'fabric.linking.more_actions': 'Mais ações',
-  'fabric.linking.no_access_title_crossjoin': 'Você não tem acesso a este conteúdo',
   'fabric.linking.not_found_description':
     'Não foi possível encontrar o link. Verifique a URL e tente editar ou colar de novo.',
   'fabric.linking.not_found_description_crossjoin':
@@ -93,7 +85,6 @@ export default {
   'fabric.linking.request_access': 'Solicitar acesso',
   'fabric.linking.request_access_crossjoin': 'Solicitar acesso',
   'fabric.linking.request_access_description': 'Solicitar acesso a {context} para ver esta visualização.',
-  'fabric.linking.request_access_description_crossjoin': 'Entre em contato com o administrador para solicitar acesso.',
   'fabric.linking.request_access_pending': 'Acesso pendente',
   'fabric.linking.request_access_pending_crossjoin': 'Aprovação pendente',
   'fabric.linking.request_access_pending_description': 'Sua solicitação de acesso está pendente.',

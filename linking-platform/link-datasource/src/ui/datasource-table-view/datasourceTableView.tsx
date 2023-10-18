@@ -143,7 +143,7 @@ const DatasourceTableViewWithoutAnalytics = ({
   }
 
   if (status === 'unauthorized') {
-    return <AccessRequired />;
+    return <AccessRequired url={url} />;
   }
 
   if (status === 'rejected') {

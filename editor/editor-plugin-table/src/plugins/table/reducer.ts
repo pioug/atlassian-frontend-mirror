@@ -145,7 +145,8 @@ export default (
     case 'HOVER_ROWS':
     case 'HOVER_COLUMNS':
     case 'HOVER_TABLE':
-    case 'HOVER_CELLS':
+    case 'HOVER_MERGED_CELLS':
+    case 'HOVER_CELL':
     case 'SHOW_RESIZE_HANDLE_LINE':
     case 'SET_EDITOR_FOCUS':
       return { ...pluginState, ...action.data };

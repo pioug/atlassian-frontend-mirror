@@ -41,6 +41,8 @@ export interface JiraIssuesDatasourceAdf extends DatasourceAdf {
 export interface JiraIssuesConfigModalProps {
   datasourceId: string;
   visibleColumnKeys?: string[];
+  /** The url that was used to insert a Jira List of Links */
+  url?: string;
   parameters?: JiraIssueDatasourceParameters;
   onCancel: () => void;
   onInsert: (

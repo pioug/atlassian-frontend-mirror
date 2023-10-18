@@ -107,6 +107,13 @@ export interface DesignToken<TValue, Group extends Groups>
       };
 }
 
+export interface TypographyDesignToken<TValue>
+  extends DesignToken<TValue, 'typography'> {
+  attributes: DesignToken<TValue, 'typography'>['attributes'] & {
+    responsiveSmallerVariant?: ResponsiveTypographyTokens;
+  };
+}
+
 /**
  * @example
  * ```ts
@@ -116,7 +123,7 @@ export interface DesignToken<TValue, Group extends Groups>
  */
 type FlattenKeys<T, Prefix extends string = ''> = {
   [Key in keyof T]: T[Key] extends object
-    ? T[Key] extends { value: string }
+    ? T[Key] extends { value: any }
       ? `${Prefix}${Key & string}`
       : `${Prefix}${Key & string}.${FlattenKeys<T[Key]>}`
     : `${Prefix}.${Key & string}`;
@@ -1115,18 +1122,18 @@ export type TypographyToken<
     lineHeight: string;
     fontFamily: string;
     letterSpacing: string;
+    responsiveToken?: string;
   },
-> = DesignToken<
-  {
-    fontStyle: 'normal';
-    fontWeight: TPalette['fontWeight'];
-    fontFamily: FlattenKeys<FontFamilyTokenSchema<any>>;
-    fontSize: TPalette['fontSize'];
-    lineHeight: TPalette['lineHeight'];
-    letterSpacing: TPalette['letterSpacing'];
-  },
-  'typography'
->;
+> = TypographyDesignToken<{
+  fontStyle: 'normal';
+  fontWeight: TPalette['fontWeight'];
+  fontFamily: FlattenKeys<FontFamilyTokenSchema<any>>;
+  fontSize: TPalette['fontSize'];
+  lineHeight: TPalette['lineHeight'];
+  letterSpacing: TPalette['letterSpacing'];
+}>;
+
+type ResponsiveTypographyTokens = FlattenKeys<TypographyTokenSchema<any>>;
 
 /**
  * The semantic interface for typography tokens

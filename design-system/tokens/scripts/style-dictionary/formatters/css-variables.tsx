@@ -8,6 +8,7 @@ import {
   THEME_DATA_ATTRIBUTE,
 } from '../../../src/constants';
 import themeConfig, { Themes } from '../../../src/theme-config';
+import { TypographyDesignToken } from '../../../src/types';
 import getIncreasedContrastTheme from '../../../src/utils/get-increased-contrast-theme';
 import { getCSSCustomProperty } from '../../../src/utils/token-ids';
 import sortTokens from '../sort-tokens';
@@ -103,11 +104,56 @@ export const cssVariableFormatter: Format['formatter'] = ({
     indent += 2;
   }
 
-  tokens.forEach((token) => {
-    const tokenValue = getValue(dictionary, token);
+  // For typography we want to write some tokens twice under different breakpoints
+  // We only really care about the new minor3 scale for responsive tokens.
+  // TODO: Once ADG3 tokenset is no longer used we can remove those tokens and this check. Minor third should be the only scale remaining.
+  if (
+    theme.attributes.type === 'typography' &&
+    themeId === 'typography-minor3'
+  ) {
+    tokens.forEach((token) => {
+      const tokenValue = getValue(dictionary, token);
 
-    outputLine(`${token.name}: ${tokenValue};`);
-  });
+      outputLine(`${token.name}: ${tokenValue};`);
+    });
+
+    // Define breakpoint as below md.
+    // This is defined in @atlaskit/primitives however adding would cause a circular dependency
+    const mediaQuery = '@media not all and (min-width: 64rem)';
+    outputLine(`${mediaQuery} {`);
+    indent += 2;
+
+    // Find all the tokens that specify a responsive counterpart,
+    // then find and write each counterpart to the output
+    tokens
+      .filter(
+        (token) =>
+          (token.attributes as TypographyDesignToken<any>['attributes'])
+            .responsiveSmallerVariant !== undefined,
+      )
+      .forEach((token) => {
+        const tokenPath = (
+          token.attributes as TypographyDesignToken<any>['attributes']
+        ).responsiveSmallerVariant;
+        const responsiveToken = tokens.find(
+          (token) => token.path.join('.') === tokenPath,
+        );
+
+        if (responsiveToken) {
+          const tokenValue = getValue(dictionary, responsiveToken);
+          outputLine(`${token.name}: ${tokenValue};`);
+        }
+      });
+
+    indent -= 2;
+    outputLine(`}`);
+  } else {
+    tokens.forEach((token) => {
+      const tokenValue = getValue(dictionary, token);
+
+      outputLine(`${token.name}: ${tokenValue};`);
+    });
+  }
 
   indent -= 2;
   outputLine('}');

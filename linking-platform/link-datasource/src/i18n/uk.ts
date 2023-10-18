@@ -46,9 +46,9 @@ export default {
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': 'Вибрано сайт {siteName}',
   'linkDataSource.jira-issues.noResultsFound': 'Немає результатів',
   'linkDataSource.jira-issues.refresh': 'Оновити',
-  'linkDataSource.jira-issues.unableToLoadItems': 'Не вдалося завантажити завдання',
+  'linkDataSource.jira-issues.unableToLoadItems': 'Не вдалося завантажити елементи',
   'linkDataSource.jira-issues.unableToLoadResults': 'Не вдалося завантажити результати',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'Докладніше про пошук засобами JQL',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'Докладніше про пошук засобами JQL.',
   'linkDataSource.modal-initial-state.searchDescription': 'Почніть вводити запит або скористайтеся JQL для пошуку.',
   'linkDataSource.modal-initial-state.searchTitle': 'Пошук завдань Jira',
   'linkDataSource.render-type.boolean.false': 'Ні',
@@ -57,7 +57,7 @@ export default {
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Синхронізовано щойно',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Синхронізація: {date}',
   'linkDataSource.table-footer.item':
-    '{itemCount, plural, one {елемент} few {елементи} many {елементів} other {елементів}}',
+    '{itemCount, plural, one {елемент} few {елементи} many {елементів} other {елементи}}',
   'linkDataSource.table-footer.loading': 'Завантаження…',
   'linkDataSource.table-footer.refresh': 'Оновити',
 };

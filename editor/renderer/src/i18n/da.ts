@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': '⚠️ En tabel med flettede celler kan ikke sorteres',
   'fabric.editor.headingLink.noOrderLabel': 'Sortér kolonnen fra A til Å',
   'fabric.editor.headingLink.noneSortingLabel': 'ingen',
+  'fabric.editor.tableHeader.sorting.asc': 'Stigende sortering anvendt',
+  'fabric.editor.tableHeader.sorting.default': 'Sortér kolonnen',
+  'fabric.editor.tableHeader.sorting.desc': 'Faldende sortering anvendt',
+  'fabric.editor.tableHeader.sorting.invalid': 'Du kan ikke sortere en tabel med flettede celler',
+  'fabric.editor.tableHeader.sorting.no': 'Ingen sortering anvendt på kolonnen',
 };

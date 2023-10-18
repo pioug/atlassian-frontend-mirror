@@ -36,9 +36,17 @@ export const isColumnControlsDecorations = (
   node: HTMLElement | null,
 ): boolean => containsClassName(node, ClassName.COLUMN_CONTROLS_DECORATIONS);
 
+export const isColumnDragControlsDecorations = (node: HTMLElement | null) =>
+  containsClassName(node, ClassName.COLUMN_CONTROLS_DECORATIONS_WITH_DRAG) ||
+  closestElement(node, `.${ClassName.COLUMN_CONTROLS_DECORATIONS_WITH_DRAG}`);
+
 export const isRowControlsButton = (node: HTMLElement | null): boolean =>
   containsClassName(node, ClassName.ROW_CONTROLS_BUTTON) ||
   containsClassName(node, ClassName.NUMBERED_COLUMN_BUTTON);
+
+export const isRowDragControlsButton = (node: HTMLElement | null) =>
+  containsClassName(node, ClassName.ROW_CONTROLS_WITH_DRAG) ||
+  closestElement(node, `.${ClassName.ROW_CONTROLS_WITH_DRAG}`);
 
 export const isResizeHandleDecoration = (node: HTMLElement | null): boolean =>
   containsClassName(node, ClassName.RESIZE_HANDLE_DECORATION);

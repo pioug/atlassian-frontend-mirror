@@ -7,8 +7,6 @@
  */
 //Danish (Denmark)
 export default {
-  'fabric.linking.access_exists_description':
-    'Kontakt din administrator for at anmode om adgang til at vise dette indhold fra {hostname}.',
   'fabric.linking.actions': 'Handlinger',
   'fabric.linking.add_account': 'Tilføj konto',
   'fabric.linking.assigned_to': 'Tildelt til {context}',
@@ -39,17 +37,12 @@ export default {
   'fabric.linking.create_on_relative': 'Oprettet: {context}',
   'fabric.linking.created_by': 'Oprettet af {context}',
   'fabric.linking.delete': 'Slet',
-  'fabric.linking.direct_access_crossjoin': 'Gå til {product}',
-  'fabric.linking.direct_access_description_crossjoin':
-    'Alle konti med det samme e-maildomæne er godkendt til at tilgå {hostname} i {product}.',
-  'fabric.linking.direct_access_title_crossjoin': 'Slut dig til dit team i {product}',
   'fabric.linking.download': 'Hent',
   'fabric.linking.edit': 'Rediger',
   'fabric.linking.follow': 'Følg',
   'fabric.linking.forbidden_access': 'Du har ikke adgang',
   'fabric.linking.forbidden_description':
     'Du har ikke adgang til denne forhåndsvisning. Kontakt webstedets administrator, hvis du har brug for adgang.',
-  'fabric.linking.forbidden_description_crossjoin': 'Kontakt din administrator for at anmode om adgang.',
   'fabric.linking.forbidden_title_crossjoin': 'Du har ikke adgang til dette indhold',
   'fabric.linking.go_back': 'Gå tilbage',
   'fabric.linking.invalid_permissions': 'Begrænset indhold',
@@ -63,7 +56,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Opdateret {context}',
   'fabric.linking.modified_on_relative': 'Opdateret: {context}',
   'fabric.linking.more_actions': 'Flere handlinger',
-  'fabric.linking.no_access_title_crossjoin': 'Du har ikke adgang til dette indhold',
   'fabric.linking.not_found_description':
     'Vi kunne ikke finde linket. Kontrollér og rediger URL-adressen, eller indsæt den igen.',
   'fabric.linking.not_found_description_crossjoin':
@@ -93,7 +85,6 @@ export default {
   'fabric.linking.request_access': 'Anmod om adgang',
   'fabric.linking.request_access_crossjoin': 'Anmod om adgang',
   'fabric.linking.request_access_description': 'Anmod om adgang til {context} for at se denne forhåndsvisning.',
-  'fabric.linking.request_access_description_crossjoin': 'Kontakt din administrator for at anmode om adgang.',
   'fabric.linking.request_access_pending': 'Afventer adgang',
   'fabric.linking.request_access_pending_crossjoin': 'Afventer godkendelse',
   'fabric.linking.request_access_pending_description': 'Din anmodning om adgang afventer behandling.',

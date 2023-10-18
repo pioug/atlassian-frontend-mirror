@@ -6,7 +6,7 @@ import { createPlugin } from './pm-plugins/main';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { cardPlugin } from '@atlaskit/editor-plugin-card';
-import type betterTypeHistoryPlugin from '../better-type-history';
+import type { BetterTypeHistoryPlugin } from '@atlaskit/editor-plugin-better-type-history';
 import type { listPlugin } from '@atlaskit/editor-plugin-list';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
@@ -23,7 +23,7 @@ export type PastePlugin = NextEditorPlugin<
     dependencies: [
       FeatureFlagsPlugin,
       OptionalPlugin<typeof listPlugin>,
-      typeof betterTypeHistoryPlugin,
+      BetterTypeHistoryPlugin,
       OptionalPlugin<typeof cardPlugin>,
       OptionalPlugin<typeof analyticsPlugin>,
       OptionalPlugin<MediaPlugin>,

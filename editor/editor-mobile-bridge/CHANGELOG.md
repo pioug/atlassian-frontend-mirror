@@ -1,5 +1,24 @@
 # @atlaskit/editor-mobile-bridge
 
+## 188.11.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.11.0
+
+### Patch Changes
+
+- [#41651](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41651) [`68871f23ed3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68871f23ed3) - Extract Date Plugin
+- Updated dependencies
+
 ## 188.10.8
 
 ### Patch Changes

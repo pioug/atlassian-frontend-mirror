@@ -28,6 +28,12 @@ export {
 
 fetchMock.config.fallbackToNetwork = true;
 
+type Site = {
+  cloudId: string;
+  displayName: string;
+  url: string;
+};
+
 interface FetchMockRequestDetails {
   body: string;
   credentials: string;
@@ -871,6 +877,7 @@ interface MockOptions {
   shouldMockORSBatch?: boolean;
   initialVisibleColumnKeys?: string[];
   delayedResponse?: boolean; // For playwright VR tests
+  availableSitesOverride?: Site[];
 }
 
 export const mockDatasourceFetchRequests = ({
@@ -878,6 +885,7 @@ export const mockDatasourceFetchRequests = ({
   shouldMockORSBatch = false,
   initialVisibleColumnKeys = defaultInitialVisibleColumnKeys,
   delayedResponse = true,
+  availableSitesOverride,
 }: MockOptions = {}) => {
   let datasourceMatcher = '[^/]+';
   if (datasourceId) {
@@ -995,7 +1003,7 @@ export const mockDatasourceFetchRequests = ({
 
   fetchMock.post(/api\/available-sites/, async () => {
     return new Promise(resolve => {
-      resolve({ sites: mockSiteData });
+      resolve({ sites: availableSitesOverride || mockSiteData });
     });
   });
 

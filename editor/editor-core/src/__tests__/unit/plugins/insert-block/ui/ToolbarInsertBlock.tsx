@@ -49,7 +49,7 @@ import { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { mediaPlugin } from '@atlaskit/editor-plugin-media';
-import { datePlugin } from '../../../../../plugins/date';
+import { datePlugin } from '@atlaskit/editor-plugin-date';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';

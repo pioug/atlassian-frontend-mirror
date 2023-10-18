@@ -1,5 +1,7 @@
 import { expect, test } from '@af/integration-testing';
 
+const sitePickerSelector = '.jira-jql-datasource-modal--site-selector__control';
+
 test.describe('JiraIssuesModal', () => {
   test('should change site by choosing different site in site selector dropdown', async ({
     page,
@@ -9,17 +11,15 @@ test.describe('JiraIssuesModal', () => {
       'link-datasource',
       'with-modal',
     );
-    await page
-      .getByTestId('jira-jql-datasource-modal--site-selector--trigger')
-      .click();
+    await page.locator(sitePickerSelector).click();
 
-    await page.getByRole('menuitem', { name: 'test1' }).click();
+    await page.getByText('test1', { exact: true }).click();
 
-    const newSiteSelected = await page.getByText(
-      'Insert Jira issues from test1',
-    );
+    const newSiteSelected = await page
+      .locator(sitePickerSelector)
+      .textContent();
 
-    expect(await newSiteSelected.isVisible()).toEqual(true);
+    expect(newSiteSelected?.replace('\n', ' ')).toEqual('test1');
   });
 
   test('should provide autocomplete for JQL fields', async ({ page }) => {
@@ -132,10 +132,8 @@ test.describe('JiraIssuesModal', () => {
       'link-datasource',
       'with-modal',
     );
-    await page
-      .getByTestId('jira-jql-datasource-modal--site-selector--trigger')
-      .click();
-    await page.getByRole('menuitem', { name: 'testNetworkError' }).click();
+    await page.locator(sitePickerSelector).click();
+    await page.getByText('testNetworkError', { exact: true }).click();
     await page.getByTestId('jql-editor-search').click();
     expect(
       await page
@@ -152,16 +150,20 @@ test.describe('JiraIssuesModal', () => {
       'link-datasource',
       'with-modal',
     );
-    await page
-      .getByTestId('jira-jql-datasource-modal--site-selector--trigger')
-      .click();
-    await page.getByRole('menuitem', { name: 'testNoAccess' }).click();
+    await page.locator(sitePickerSelector).click();
+    await page.getByText('testNoAccess', { exact: true }).click();
     await page.getByTestId('jql-editor-search').click();
     expect(
       await page
-        .getByText(
-          "You don't have access to testNoAccessTo request access, contact your admin.",
-        )
+        .getByText("You don't have access to the following site:")
+        .isVisible(),
+    ).toEqual(true);
+    expect(
+      await page.getByText('https://test7.atlassian.net').isVisible(),
+    ).toEqual(true);
+    expect(
+      await page
+        .getByText('To request access, contact your site administrator.')
         .isVisible(),
     ).toEqual(true);
   });
@@ -186,10 +188,8 @@ test.describe('JiraIssuesModal', () => {
       'link-datasource',
       'with-modal',
     );
-    await page
-      .getByTestId('jira-jql-datasource-modal--site-selector--trigger')
-      .click();
-    await page.getByRole('menuitem', { name: 'testSingleIssue' }).click();
+    await page.locator(sitePickerSelector).click();
+    await page.getByText('testSingleIssue', { exact: true }).click();
     await page.getByTestId('jql-editor-search').click();
 
     await expect(

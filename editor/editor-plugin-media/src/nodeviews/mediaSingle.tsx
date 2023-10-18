@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import type { MouseEvent } from 'react';
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -74,7 +74,7 @@ export interface MediaSingleNodeState {
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export default class MediaSingleNode extends PureComponent<
+export default class MediaSingleNode extends Component<
   MediaSingleNodeProps,
   MediaSingleNodeState
 > {

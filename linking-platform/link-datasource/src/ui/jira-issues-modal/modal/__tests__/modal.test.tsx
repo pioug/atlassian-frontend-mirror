@@ -67,10 +67,10 @@ describe('JiraIssuesConfigModal', () => {
   });
 
   it('should display the preselected jira site in the title', async () => {
-    const { findByTestId } = await setup();
-    const modalTitle = await findByTestId('jira-jql-datasource-modal--title');
+    const { getJiraModalTitleText } = await setup();
+    const modalTitle = await getJiraModalTitleText();
 
-    expect(modalTitle.innerText).toEqual('Insert Jira issues from hello');
+    expect(modalTitle).toEqual('Insert Jira issues from hello');
   });
 
   it('should display the expected title for a single jira site', async () => {
@@ -116,9 +116,9 @@ describe('JiraIssuesConfigModal', () => {
   });
 
   it('should update title with new site name when cloudId updates', async () => {
-    const { findByTestId, rerender } = await setup();
-    const modalTitle = await findByTestId('jira-jql-datasource-modal--title');
-    expect(modalTitle.innerText).toEqual('Insert Jira issues from hello');
+    const { getJiraModalTitleText, rerender } = await setup();
+    const modalTitle = await getJiraModalTitleText();
+    expect(modalTitle).toEqual('Insert Jira issues from hello');
 
     rerender(
       <IntlProvider locale="en">
@@ -134,18 +134,21 @@ describe('JiraIssuesConfigModal', () => {
       </IntlProvider>,
     );
 
-    const modalTitle2 = await findByTestId('jira-jql-datasource-modal--title');
-    expect(modalTitle2.innerText).toEqual('Insert Jira issues from test1');
+    const modalTitle2 = await getJiraModalTitleText();
+    expect(modalTitle2).toEqual('Insert Jira issues from test1');
   });
 
   describe('when cloudId', () => {
     describe('is not present', () => {
       it('should produce ADF with cloudId for the site which user is browsing from', async () => {
-        const { findByText, searchWithNewBasic, assertInsertResult } =
-          await setup({
-            parameters: undefined,
-          });
-        await findByText('Insert Jira issues from hello');
+        const {
+          getJiraModalTitleText,
+          searchWithNewBasic,
+          assertInsertResult,
+        } = await setup({
+          parameters: undefined,
+        });
+        await getJiraModalTitleText();
 
         // We need to do generate jql, since insert button won't active without it.
         searchWithNewBasic('some keywords');
@@ -168,12 +171,12 @@ describe('JiraIssuesConfigModal', () => {
       });
 
       it('should default to first cloudId if no URL match is found', async () => {
-        const { findByText, searchWithNewJql, assertInsertResult } =
+        const { getJiraModalTitleText, searchWithNewJql, assertInsertResult } =
           await setup({
             parameters: undefined,
             mockSiteDataOverride: mockSiteData.slice(0, 2),
           });
-        await findByText('Insert Jira issues from hello');
+        await getJiraModalTitleText();
 
         searchWithNewJql('some-query');
 
@@ -185,32 +188,6 @@ describe('JiraIssuesConfigModal', () => {
           {
             attributes: {
               actions: ['query updated'],
-              searchCount: 1,
-              searchMethod: 'datasource_search_query',
-            },
-          },
-        );
-      });
-    });
-
-    describe('is present', () => {
-      it('should default to first cloudId if no URL match is found (unauthorized to edit)', async () => {
-        const { findByText, searchWithNewJql, assertInsertResult } =
-          await setup({
-            mockSiteDataOverride: mockSiteData.slice(0, 2),
-          });
-
-        await findByText('Insert Jira issues from hello');
-
-        searchWithNewJql('some-query');
-
-        assertInsertResult(
-          {
-            cloudId: '67899',
-            jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
-          },
-          {
-            attributes: {
               searchCount: 1,
               searchMethod: 'datasource_search_query',
             },
@@ -899,13 +876,58 @@ describe('JiraIssuesConfigModal', () => {
       });
 
       // issue view
-      expect(getByText("You don't have access to hello")).toBeInTheDocument();
+      expect(
+        getByText("You don't have access to the following site:"),
+      ).toBeInTheDocument();
       expect(getByRole('button', { name: 'Insert issues' })).toBeDisabled();
 
       // count view
       fireEvent.click(getByLabelText('Count view'));
-      expect(getByText("You don't have access to hello")).toBeInTheDocument();
+      expect(
+        getByText("You don't have access to the following site:"),
+      ).toBeInTheDocument();
       expect(getByRole('button', { name: 'Insert issues' })).toBeDisabled();
+    });
+
+    describe('during editing (unauthorized)', () => {
+      it('should not select a site if cloudId is not in availableSites', async () => {
+        const { getByText, getSiteSelectorText } = await setup({
+          hookState: { ...getErrorHookState(), status: 'unauthorized' },
+          mockSiteDataOverride: mockSiteData.slice(3),
+          url: 'https://hello.atlassian.net',
+        });
+
+        expect(getSiteSelectorText()).toEqual('Choose site');
+        expect(
+          getByText("You don't have access to the following site:"),
+        ).toBeInTheDocument();
+        expect(getByText('https://hello.atlassian.net')).toBeInTheDocument();
+      });
+
+      it('should not select a site if cloudId is not in availableSites and should not show a site in message if URL is not provided', async () => {
+        const { getByText, getSiteSelectorText } = await setup({
+          hookState: { ...getErrorHookState(), status: 'unauthorized' },
+          mockSiteDataOverride: mockSiteData.slice(3),
+        });
+
+        expect(getSiteSelectorText()).toEqual('Choose site');
+        expect(
+          getByText("You don't have access to this site"),
+        ).toBeInTheDocument();
+      });
+
+      it('should not show a site name if cloudId is not in availableSites and an invalid URL is provided', async () => {
+        const { getByText, getSiteSelectorText } = await setup({
+          hookState: { ...getErrorHookState(), status: 'unauthorized' },
+          mockSiteDataOverride: mockSiteData.slice(3),
+          url: '',
+        });
+
+        expect(getSiteSelectorText()).toEqual('Choose site');
+        expect(
+          getByText("You don't have access to this site"),
+        ).toBeInTheDocument();
+      });
     });
   });
 });

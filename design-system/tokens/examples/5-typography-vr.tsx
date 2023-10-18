@@ -8,6 +8,37 @@ import Stack from '@atlaskit/primitives/stack';
 
 import { token } from '../src';
 
+const headings = [
+  {
+    name: 'font.heading.xxlarge',
+    token: token('font.heading.xxlarge', '12px'),
+  },
+  {
+    name: 'font.heading.xlarge',
+    token: token('font.heading.xlarge', '14px'),
+  },
+  {
+    name: 'font.heading.large',
+    token: token('font.heading.large', '16px'),
+  },
+  {
+    name: 'font.heading.medium',
+    token: token('font.heading.medium', '20px'),
+  },
+  {
+    name: 'font.heading.small',
+    token: token('font.heading.small', '24px'),
+  },
+  {
+    name: 'font.heading.xsmall',
+    token: token('font.heading.xsmall', '29px'),
+  },
+  {
+    name: 'font.heading.xxsmall',
+    token: token('font.heading.xxsmall', '35px'),
+  },
+];
+
 const fontSizes = [
   {
     name: 'font.size.050',
@@ -103,6 +134,16 @@ const lineHeights = [
 export default () => {
   return (
     <div data-testid="typography">
+      <h1>Headings</h1>
+      <Stack space="space.100">
+        {headings.map((heading) => (
+          <Text UNSAFE_style={{ font: heading.token }} key={heading.name}>
+            {heading.name}
+          </Text>
+        ))}
+        {/* fallbacks specifically chosen to validate tokens are applied correctly when present and not applied when not */}
+      </Stack>
+
       <h1>Font size</h1>
       <Stack space="space.100">
         {fontSizes.map((fontSize) => (

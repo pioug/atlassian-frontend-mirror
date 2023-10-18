@@ -7,7 +7,6 @@
  */
 //Chinese (Simplified)
 export default {
-  'fabric.linking.access_exists_description': '请联系您的管理员申请访问权限，以从 {hostname} 查看此内容。',
   'fabric.linking.actions': '操作',
   'fabric.linking.add_account': '添加帐户',
   'fabric.linking.assigned_to': '已分配给 {context}',
@@ -36,16 +35,11 @@ export default {
   'fabric.linking.create_on_relative': '创建时间：{context}',
   'fabric.linking.created_by': '创建者：{context}',
   'fabric.linking.delete': '删除',
-  'fabric.linking.direct_access_crossjoin': '转至 {product}',
-  'fabric.linking.direct_access_description_crossjoin':
-    '具有同一电子邮件网域的所有帐户均已获准访问 {product} 中的 {hostname}。',
-  'fabric.linking.direct_access_title_crossjoin': '在 {product} 中加入您的团队',
   'fabric.linking.download': '下载',
   'fabric.linking.edit': '编辑',
   'fabric.linking.follow': '关注',
   'fabric.linking.forbidden_access': '您的访问已被禁止',
   'fabric.linking.forbidden_description': '您无权访问此预览。如果需要访问，请联系站点管理员。',
-  'fabric.linking.forbidden_description_crossjoin': '请联系您的管理员申请访问权限。',
   'fabric.linking.forbidden_title_crossjoin': '您无权访问此内容',
   'fabric.linking.go_back': '返回',
   'fabric.linking.invalid_permissions': '受限内容',
@@ -57,7 +51,6 @@ export default {
   'fabric.linking.modified_on_absolute': '更新时间：{context}',
   'fabric.linking.modified_on_relative': '更新时间：{context}',
   'fabric.linking.more_actions': '更多操作',
-  'fabric.linking.no_access_title_crossjoin': '您无权访问此内容',
   'fabric.linking.not_found_description': '未找到此链接。请检查 URL，然后尝试编辑或重新粘贴。',
   'fabric.linking.not_found_description_crossjoin': '该页面不存在或者在添加此链接后可能已发生更改。',
   'fabric.linking.not_found_title': '噢。找不到此链接！',
@@ -85,7 +78,6 @@ export default {
   'fabric.linking.request_access': '请求访问',
   'fabric.linking.request_access_crossjoin': '申请访问权限',
   'fabric.linking.request_access_description': '请求访问 {context} 以查看此预览。',
-  'fabric.linking.request_access_description_crossjoin': '请联系您的管理员申请访问权限。',
   'fabric.linking.request_access_pending': '访问待处理',
   'fabric.linking.request_access_pending_crossjoin': '待批准',
   'fabric.linking.request_access_pending_description': '您的访问请求正等待处理。',

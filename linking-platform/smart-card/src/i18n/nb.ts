@@ -7,8 +7,7 @@
  */
 //Norwegian (Bokmål)
 export default {
-  'fabric.linking.access_exists_description':
-    'Kontakt administratoren og be om tilgang til å vise dette innholdet fra {hostname}.',
+  'fabric.linking.access_exists_description': 'Be om tilgang for å vise dette innholdet fra {hostname}.',
   'fabric.linking.actions': 'Tiltak',
   'fabric.linking.add_account': 'Legg til en konto',
   'fabric.linking.assigned_to': 'Tilordnet til {context}',
@@ -39,17 +38,17 @@ export default {
   'fabric.linking.create_on_relative': 'Opprettet {context}',
   'fabric.linking.created_by': 'Opprettet av {context}',
   'fabric.linking.delete': 'Slett',
-  'fabric.linking.direct_access_crossjoin': 'Gå til {product}',
+  'fabric.linking.direct_access_crossjoin': 'Bli med nå',
   'fabric.linking.direct_access_description_crossjoin':
-    'Alle kontoer med samme e-postdomene er godkjent for tilgang til {hostname} i {product}.',
-  'fabric.linking.direct_access_title_crossjoin': 'Bli med teamet i {product}',
+    'Teamet ditt bruker {product} til å samarbeide, og du kan begynne å bruke det med en gang!',
+  'fabric.linking.direct_access_title_crossjoin': 'Bli med i {product} for å se dette innholdet',
   'fabric.linking.download': 'Last ned',
   'fabric.linking.edit': 'Rediger',
   'fabric.linking.follow': 'Følg',
   'fabric.linking.forbidden_access': 'Du har ikke tilgang',
   'fabric.linking.forbidden_description':
     'Du har ikke tilgang til denne forhåndsvisningen. Ta kontakt med nettstedets administrator hvis du trenger tilgang.',
-  'fabric.linking.forbidden_description_crossjoin': 'Kontakt administratoren for å be om tilgang.',
+  'fabric.linking.forbidden_description_crossjoin': 'Kontakt administratoren for å be om tilgang til {hostname}.',
   'fabric.linking.forbidden_title_crossjoin': 'Du har ikke tilgang til dette innholdet',
   'fabric.linking.go_back': 'Gå tilbake',
   'fabric.linking.invalid_permissions': 'Begrenset innhold',
@@ -63,7 +62,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Oppdatert {context}',
   'fabric.linking.modified_on_relative': 'Oppdatert {context}',
   'fabric.linking.more_actions': 'Flere handlinger',
-  'fabric.linking.no_access_title_crossjoin': 'Du har ikke tilgang til dette innholdet',
+  'fabric.linking.no_access_title_crossjoin': 'Bli med i {product} for å se dette innholdet',
   'fabric.linking.not_found_description':
     'Vi finner ikke koblingen. Sjekk URL-en og prøv å redigere den, eller lim inn på nytt.',
   'fabric.linking.not_found_description_crossjoin':
@@ -93,7 +92,8 @@ export default {
   'fabric.linking.request_access': 'Be om tilgang',
   'fabric.linking.request_access_crossjoin': 'Be om tilgang',
   'fabric.linking.request_access_description': 'Be om tilgang til {context} for å se denne forhåndsvisningen.',
-  'fabric.linking.request_access_description_crossjoin': 'Kontakt administratoren for å be om tilgang.',
+  'fabric.linking.request_access_description_crossjoin':
+    'Teamet ditt bruker {product} til å samarbeide. Be administratoren din om tilgang.',
   'fabric.linking.request_access_pending': 'Venter på tilgang',
   'fabric.linking.request_access_pending_crossjoin': 'Venter på godkjenning',
   'fabric.linking.request_access_pending_description': 'Avventer svar på forespørsel om tilgang',

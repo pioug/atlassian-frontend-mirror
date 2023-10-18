@@ -22,10 +22,16 @@ import {
   getCellsInRow,
   getSelectionRect,
 } from '@atlaskit/editor-tables/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import type { Cell, CellColumnPositioning } from '../types';
+import type {
+  Cell,
+  CellColumnPositioning,
+  CellHoverCoordinates,
+} from '../types';
 import { TableCssClassName as ClassName, TableDecorations } from '../types';
 import { ColumnResizeWidget } from '../ui/ColumnResizeWidget';
+import { DragHandle } from '../ui/DragHandle';
 
 const filterDecorationByKey = (
   key: TableDecorations,
@@ -206,35 +212,77 @@ export const createColumnSelectedDecoration = (
 
 export const createColumnControlsDecoration = (
   selection: Selection,
+  hoverLocation?: CellHoverCoordinates,
 ): Decoration[] => {
+  // todo: issue here where table may not be selected yet
   const cells: ContentNodeWithPos[] = getCellsInRow(0)(selection) || [];
-  let index = 0;
-  return cells.map((cell) => {
-    const colspan = (cell.node.attrs as CellAttributes).colspan || 1;
-    // It's important these values are scoped locally as the widget callback could be executed anytime in the future
-    // and we want to avoid value leak
-    const startIndex = index;
-    const endIndex = startIndex + colspan;
+  const table = findTable(selection);
 
-    // The next cell start index will commence from the current cell end index.
-    index = endIndex;
+  if (
+    getBooleanFF('platform.editor.table.drag-and-drop') &&
+    hoverLocation &&
+    !Number.isNaN(hoverLocation?.colIndex) &&
+    table
+  ) {
+    const colIndex = hoverLocation.colIndex as number;
+    const cell = cells[colIndex];
+    return [
+      Decoration.widget(
+        cell.pos + 1,
+        () => {
+          const element = document.createElement('div');
+          element.classList.add(
+            ClassName.COLUMN_CONTROLS_DECORATIONS_WITH_DRAG,
+          );
+          ReactDOM.render(
+            createElement(DragHandle, {
+              tableLocalId: table.node.attrs.localId,
+              direction: 'column',
+              indexes: [colIndex],
+            }),
+            element,
+          );
+          return element;
+        },
+        {
+          key: `${TableDecorations.COLUMN_CONTROLS_DECORATIONS}_${colIndex}`,
+          // this decoration should be the first one, even before gap cursor.
+          side: -100,
+          destroy: (node) => {
+            ReactDOM.unmountComponentAtNode(node as HTMLDivElement);
+          },
+        },
+      ),
+    ];
+  } else {
+    let index = 0;
+    return cells.map((cell) => {
+      const colspan = (cell.node.attrs as CellAttributes).colspan || 1;
+      // It's important these values are scoped locally as the widget callback could be executed anytime in the future
+      // and we want to avoid value leak
+      const startIndex = index;
+      const endIndex = startIndex + colspan;
 
-    return Decoration.widget(
-      cell.pos + 1,
-      () => {
-        const element = document.createElement('div');
-        element.classList.add(ClassName.COLUMN_CONTROLS_DECORATIONS);
-        element.dataset.startIndex = `${startIndex}`;
-        element.dataset.endIndex = `${endIndex}`;
-        return element;
-      },
-      {
-        key: `${TableDecorations.COLUMN_CONTROLS_DECORATIONS}_${endIndex}`,
-        // this decoration should be the first one, even before gap cursor.
-        side: -100,
-      },
-    );
-  });
+      // The next cell start index will commence from the current cell end index.
+      index = endIndex;
+
+      return Decoration.widget(
+        cell.pos + 1,
+        () => {
+          const element = document.createElement('div');
+          element.classList.add(ClassName.COLUMN_CONTROLS_DECORATIONS);
+          element.dataset.startIndex = `${startIndex}`;
+          element.dataset.endIndex = `${endIndex}`;
+          return element;
+        },
+        {
+          key: `${TableDecorations.COLUMN_CONTROLS_DECORATIONS}_${endIndex}`,
+          // this decoration should be the first one, even before gap cursor.
+          side: -100,
+        },
+      );
+    });
+  }
 };
 
 export const updateDecorations = (

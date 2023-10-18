@@ -7,8 +7,6 @@
  */
 //Japanese
 export default {
-  'fabric.linking.access_exists_description':
-    '管理者に連絡して、{hostname} のこのコンテンツを閲覧できるアクセス権をリクエストしてください。',
   'fabric.linking.actions': 'アクション',
   'fabric.linking.add_account': 'アカウントを追加',
   'fabric.linking.assigned_to': '割り当て先: {context}',
@@ -38,17 +36,12 @@ export default {
   'fabric.linking.create_on_relative': '作成日: {context}',
   'fabric.linking.created_by': '作成元: {context}',
   'fabric.linking.delete': '削除',
-  'fabric.linking.direct_access_crossjoin': '{product} に移動',
-  'fabric.linking.direct_access_description_crossjoin':
-    'あなたと同じメール ドメインの全アカウントが、{product} の {hostname} へのアクセスを承認されました。',
-  'fabric.linking.direct_access_title_crossjoin': '{product} でチームに参加しましょう',
   'fabric.linking.download': 'ダウンロード',
   'fabric.linking.edit': '編集',
   'fabric.linking.follow': 'フォロー',
   'fabric.linking.forbidden_access': 'アクセスは禁止されています。',
   'fabric.linking.forbidden_description':
     'このプレビューにアクセスできません。アクセスが必要な場合はサイト管理者にお問い合わせください。',
-  'fabric.linking.forbidden_description_crossjoin': 'アクセス権をリクエストするには、管理者にお問い合わせください。',
   'fabric.linking.forbidden_title_crossjoin': 'このコンテンツへのアクセス権がありません',
   'fabric.linking.go_back': '戻る',
   'fabric.linking.invalid_permissions': '制限付きコンテンツ',
@@ -62,7 +55,6 @@ export default {
   'fabric.linking.modified_on_absolute': '更新日: {context}',
   'fabric.linking.modified_on_relative': '更新日: {context}',
   'fabric.linking.more_actions': 'その他のアクション',
-  'fabric.linking.no_access_title_crossjoin': 'このコンテンツへのアクセス権がありません',
   'fabric.linking.not_found_description':
     'リンクが見つかりませんでした。URL を確認して編集するか、もう一度貼り付けてください。',
   'fabric.linking.not_found_description_crossjoin':
@@ -93,8 +85,6 @@ export default {
   'fabric.linking.request_access_crossjoin': 'アクセス権をリクエスト',
   'fabric.linking.request_access_description':
     'このプレビューを表示するための{context}へのアクセスをリクエストします。',
-  'fabric.linking.request_access_description_crossjoin':
-    'アクセス権をリクエストするには、管理者にお問い合わせください。',
   'fabric.linking.request_access_pending': 'アクセス保留中',
   'fabric.linking.request_access_pending_crossjoin': '承認待ち',
   'fabric.linking.request_access_pending_description': 'アクセス リクエストは保留中です。',

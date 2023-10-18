@@ -65,51 +65,100 @@ describe('<ModalDialog />', () => {
   describe('should close popup correctly when escape is pressed', () => {
     ffTest(
       'platform.design-system-team.layering_qmiw3',
-      () => {
-        render(<LayeredModal />);
+      (ff) =>
+        ffTest(
+          'platform.design-system-team.layering_popup_1cnzt',
+          () => {
+            render(<LayeredModal />);
 
-        const openModalBtn = screen.getByTestId('open-modal');
-        fireEvent.click(openModalBtn);
-        const modal = screen.getByTestId('modal');
-        const dropdownTrigger = screen.getByTestId('dropdown-menu--trigger');
-        expect(dropdownTrigger).toBeInTheDocument();
-        expect(modal).toBeInTheDocument();
-        expect(
-          screen.queryByTestId('dropdown-menu--content'),
-        ).not.toBeInTheDocument();
+            const openModalBtn = screen.getByTestId('open-modal');
+            fireEvent.click(openModalBtn);
+            const modal = screen.getByTestId('modal');
+            const dropdownTrigger = screen.getByTestId(
+              'dropdown-menu--trigger',
+            );
+            expect(dropdownTrigger).toBeInTheDocument();
+            expect(modal).toBeInTheDocument();
+            expect(
+              screen.queryByTestId('dropdown-menu--content'),
+            ).not.toBeInTheDocument();
 
-        fireEvent.click(dropdownTrigger);
-        expect(
-          screen.getByTestId('dropdown-menu--content'),
-        ).toBeInTheDocument();
-        fireEvent.keyDown(dropdownTrigger, { key: 'Escape', code: 'Escape' });
-        expect(
-          screen.queryByTestId('dropdown-menu--content'),
-        ).not.toBeInTheDocument();
-        expect(modal).toBeInTheDocument();
-      },
-      () => {
-        render(<LayeredModal />);
-        const openModalBtn = screen.getByTestId('open-modal');
-        fireEvent.click(openModalBtn);
-        const modal = screen.getByTestId('modal');
-        const dropdownTrigger = screen.getByTestId('dropdown-menu--trigger');
-        expect(dropdownTrigger).toBeInTheDocument();
-        expect(modal).toBeInTheDocument();
-        expect(
-          screen.queryByTestId('dropdown-menu--content'),
-        ).not.toBeInTheDocument();
+            fireEvent.click(dropdownTrigger);
+            expect(
+              screen.getByTestId('dropdown-menu--content'),
+            ).toBeInTheDocument();
+            fireEvent.keyDown(dropdownTrigger, {
+              key: 'Escape',
+              code: 'Escape',
+            });
+            expect(
+              screen.queryByTestId('dropdown-menu--content'),
+            ).not.toBeInTheDocument();
+            expect(modal).toBeInTheDocument();
+          },
+          () => {
+            render(<LayeredModal />);
+            const openModalBtn = screen.getByTestId('open-modal');
+            fireEvent.click(openModalBtn);
+            const modal = screen.getByTestId('modal');
+            const dropdownTrigger = screen.getByTestId(
+              'dropdown-menu--trigger',
+            );
+            expect(dropdownTrigger).toBeInTheDocument();
+            expect(modal).toBeInTheDocument();
+            expect(
+              screen.queryByTestId('dropdown-menu--content'),
+            ).not.toBeInTheDocument();
 
-        fireEvent.click(dropdownTrigger);
-        expect(
-          screen.getByTestId('dropdown-menu--content'),
-        ).toBeInTheDocument();
-        fireEvent.keyDown(dropdownTrigger, { key: 'Escape', code: 'Escape' });
-        expect(
-          screen.queryByTestId('dropdown-menu--content'),
-        ).not.toBeInTheDocument();
-        expect(screen.queryByTestId('modal')).not.toBeInTheDocument();
-      },
+            fireEvent.click(dropdownTrigger);
+            expect(
+              screen.getByTestId('dropdown-menu--content'),
+            ).toBeInTheDocument();
+            fireEvent.keyDown(dropdownTrigger, {
+              key: 'Escape',
+              code: 'Escape',
+            });
+            expect(
+              screen.queryByTestId('dropdown-menu--content'),
+            ).not.toBeInTheDocument();
+            expect(screen.queryByTestId('modal')).not.toBeInTheDocument();
+          },
+          ff,
+        ),
+      (ff) =>
+        ffTest(
+          'platform.design-system-team.layering_popup_1cnzt',
+          () => {
+            render(<LayeredModal />);
+
+            const openModalBtn = screen.getByTestId('open-modal');
+            fireEvent.click(openModalBtn);
+            const modal = screen.getByTestId('modal');
+            const dropdownTrigger = screen.getByTestId(
+              'dropdown-menu--trigger',
+            );
+            expect(dropdownTrigger).toBeInTheDocument();
+            expect(modal).toBeInTheDocument();
+            expect(
+              screen.queryByTestId('dropdown-menu--content'),
+            ).not.toBeInTheDocument();
+          },
+          () => {
+            render(<LayeredModal />);
+            const openModalBtn = screen.getByTestId('open-modal');
+            fireEvent.click(openModalBtn);
+            const modal = screen.getByTestId('modal');
+            const dropdownTrigger = screen.getByTestId(
+              'dropdown-menu--trigger',
+            );
+            expect(dropdownTrigger).toBeInTheDocument();
+            expect(modal).toBeInTheDocument();
+            expect(
+              screen.queryByTestId('dropdown-menu--content'),
+            ).not.toBeInTheDocument();
+          },
+          ff,
+        ),
     );
   });
   it('should be a section element', () => {

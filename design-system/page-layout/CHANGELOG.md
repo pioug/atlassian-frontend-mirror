@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 1.8.1
+
+### Patch Changes
+
+- [#41746](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41746) [`350d6c2bcc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/350d6c2bcc4) - [ux] Fix regressions in grab area styling
+
 ## 1.8.0
 
 ### Minor Changes

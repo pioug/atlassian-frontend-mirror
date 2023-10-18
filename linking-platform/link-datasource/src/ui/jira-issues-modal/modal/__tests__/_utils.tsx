@@ -25,6 +25,7 @@ import {
 import { getAvailableJiraSites } from '../../../../services/getAvailableJiraSites';
 import { IssueLikeDataTableView } from '../../../issue-like-table';
 import { IssueLikeDataTableViewProps } from '../../../issue-like-table/types';
+import { JiraIssuesConfigModalProps } from '../../types';
 import { JiraIssuesConfigModal } from '../index';
 
 jest.mock('../../../../services/getAvailableJiraSites', () => ({
@@ -212,6 +213,7 @@ export const setup = async (
       url: string;
       displayName: string;
     }[];
+    url?: JiraIssuesConfigModalProps['url'];
   } = {},
 ) => {
   asMock(getAvailableJiraSites).mockResolvedValue(
@@ -250,6 +252,7 @@ export const setup = async (
                   ? args.visibleColumnKeys
                   : ['myColumn']
               }
+              url={args.url}
             />
           </SmartCardProvider>
         </IntlProvider>
@@ -332,16 +335,45 @@ export const setup = async (
   };
 
   const selectNewJiraInstanceSite = async () => {
-    const { findByTestId, getAllByRole } = component;
-    const siteSelectorTrigger = await findByTestId(
-      'jira-jql-datasource-modal--site-selector--trigger',
-    );
-    siteSelectorTrigger.click();
-    const availableJiraSiteDropdownItems = getAllByRole('menuitem');
+    const siteSelectorTrigger = document.getElementsByClassName(
+      'jira-jql-datasource-modal--site-selector__control',
+    )[0];
+
+    fireEvent.mouseDown(siteSelectorTrigger);
+
+    const availableJiraSiteDropdownItems = [
+      ...document.getElementsByClassName(
+        'jira-jql-datasource-modal--site-selector__option',
+      ),
+    ] as HTMLElement[];
 
     act(() => {
-      availableJiraSiteDropdownItems[0].click();
+      fireEvent.click(availableJiraSiteDropdownItems[0]);
     });
+  };
+
+  const getSiteSelectorText = () =>
+    document.getElementsByClassName(
+      'jira-jql-datasource-modal--site-selector__control',
+    )[0]?.textContent;
+
+  const getJiraModalTitleText = async () => {
+    const modalTitle = await component.findByTestId(
+      'jira-jql-datasource-modal--title-text',
+    );
+    const modalTitleTextContent = modalTitle?.textContent;
+
+    const siteSelectorText = getSiteSelectorText();
+
+    if (!siteSelectorText) {
+      return modalTitleTextContent;
+    }
+
+    // the text content in title contains the input value but without spacing so this cleans it up a bit
+    return `${modalTitleTextContent?.replace(
+      siteSelectorText,
+      '',
+    )} ${siteSelectorText}`;
   };
 
   const searchWithNewBasic = (keywords: string = 'keywords') => {
@@ -423,6 +455,8 @@ export const setup = async (
     onInsert,
     onAnalyticFireEvent,
     assertInsertResult,
+    getSiteSelectorText,
+    getJiraModalTitleText,
     getLatestJQLEditorProps,
     getLatestIssueLikeTableProps,
     selectNewJiraInstanceSite,

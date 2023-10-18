@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': '⚠️ Non puoi ordinare una tabella con celle unite',
   'fabric.editor.headingLink.noOrderLabel': 'Ordina colonna da A a Z',
   'fabric.editor.headingLink.noneSortingLabel': 'nessuno',
+  'fabric.editor.tableHeader.sorting.asc': 'Ordinamento crescente applicato',
+  'fabric.editor.tableHeader.sorting.default': 'Ordina la colonna',
+  'fabric.editor.tableHeader.sorting.desc': 'Ordinamento decrescente applicato',
+  'fabric.editor.tableHeader.sorting.invalid': 'Non puoi ordinare una tabella con celle unite',
+  'fabric.editor.tableHeader.sorting.no': 'Nessun ordinamento applicato alla colonna',
 };

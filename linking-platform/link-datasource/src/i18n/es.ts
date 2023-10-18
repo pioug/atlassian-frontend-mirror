@@ -47,7 +47,7 @@ export default {
   'linkDataSource.jira-issues.refresh': 'Actualizar',
   'linkDataSource.jira-issues.unableToLoadItems': 'No se han podido cargar los elementos',
   'linkDataSource.jira-issues.unableToLoadResults': 'No se pueden cargar los resultados',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'Más información sobre cómo realizar búsquedas con JQL',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'Obtén más información sobre cómo realizar búsquedas con JQL.',
   'linkDataSource.modal-initial-state.searchDescription': 'Empieza a escribir o utiliza JQL para buscar.',
   'linkDataSource.modal-initial-state.searchTitle': 'Buscar incidencias de Jira',
   'linkDataSource.render-type.boolean.false': 'No',

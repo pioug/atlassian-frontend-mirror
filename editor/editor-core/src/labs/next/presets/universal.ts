@@ -32,7 +32,7 @@ import {
   codeBidiWarningPlugin,
 } from '../../../plugins';
 import { statusPlugin } from '@atlaskit/editor-plugin-status';
-import { datePlugin } from '../../../plugins/date';
+import { datePlugin } from '@atlaskit/editor-plugin-date';
 import { captionPlugin } from '@atlaskit/editor-plugin-caption';
 import { borderPlugin } from '@atlaskit/editor-plugin-border';
 import { helpDialogPlugin } from '@atlaskit/editor-plugin-help-dialog';

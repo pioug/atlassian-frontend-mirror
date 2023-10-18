@@ -52,11 +52,7 @@ import {
   isIsolating,
 } from '../utils/nodes';
 import { updatePluginStateDecorations } from '../utils/update-plugin-state-decorations';
-// #endregion
 
-// #endregion
-
-// #region Commands
 export const setEditorFocus = (editorHasFocus: boolean) =>
   createCommand({
     type: 'SET_EDITOR_FOCUS',
@@ -588,4 +584,3 @@ export const addBoldInEmptyHeaderCells =
 
     return false;
   };
-// #endregion

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b12a1413276d27bfa1f318002382d994>>
+ * @codegen <<SignedSource::34678f21a98c243e127e933a3251b36e>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -30,5 +30,11 @@ html[data-theme~="typography:typography-minor3"] {
   --ds-font-family-monospace: ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
   --ds-font-family-sans: ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-family-brand: Charlie Sans;
+  @media not all and (min-width: 64rem) {
+    --ds-font-heading-large: normal 700 1.25rem/1.5rem var(--ds-font-family-heading);
+    --ds-font-heading-medium: normal 700 1rem/1.25rem var(--ds-font-family-heading);
+    --ds-font-heading-xlarge: normal 700 1.5rem/1.75rem var(--ds-font-family-heading);
+    --ds-font-heading-xxlarge: normal 700 1.75rem/2rem var(--ds-font-family-heading);
+  }
 }
 `;

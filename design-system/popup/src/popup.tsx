@@ -5,6 +5,7 @@ import { FC, memo, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
@@ -37,7 +38,13 @@ export const Popup: FC<PopupProps> = memo(
     const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
 
     const renderPopperWrapper = (
-      <UNSAFE_LAYERING>
+      <UNSAFE_LAYERING
+        isDisabled={
+          getBooleanFF('platform.design-system-team.layering_popup_1cnzt')
+            ? false
+            : true
+        }
+      >
         <PopperWrapper
           content={content}
           isOpen={isOpen}

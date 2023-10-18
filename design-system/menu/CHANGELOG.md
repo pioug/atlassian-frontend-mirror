@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 2.1.0
+
+### Minor Changes
+
+- [#41571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41571) [`997b0489687`](https://bitbucket.org/atlassian/atlassian-frontend/commits/997b0489687) - Add codemod to convert link item components with invalid `href` attributes to button items. The `href` attribute will be required for link items in a later major upgrade. Using this will ease the transition.
+
 ## 2.0.1
 
 ### Patch Changes

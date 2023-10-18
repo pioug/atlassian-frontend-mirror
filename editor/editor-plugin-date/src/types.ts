@@ -1,9 +1,14 @@
 import type { WeekDay } from '@atlaskit/calendar/types';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type {
+  EditorCommand,
+  NextEditorPlugin,
+  TOOLBAR_MENU_TYPE,
+} from '@atlaskit/editor-common/types';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 
-import type { DeleteDate, InsertDate } from './commands';
+export type DateSegment = 'day' | 'month' | 'year';
 
 export type DateType = {
   year: number;
@@ -20,6 +25,15 @@ export type DatePluginSharedState = {
   isNew: boolean;
   focusDateInput: boolean;
 };
+
+export type InsertDate = (props: {
+  date?: DateType;
+  inputMethod?: TOOLBAR_MENU_TYPE;
+  commitMethod?: INPUT_METHOD.PICKER | INPUT_METHOD.KEYBOARD;
+  enterPressed?: boolean;
+}) => EditorCommand;
+
+export type DeleteDate = EditorCommand;
 
 export type DatePlugin = NextEditorPlugin<
   'date',

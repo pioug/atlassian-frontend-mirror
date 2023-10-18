@@ -502,7 +502,7 @@ describe('dropdown menu keyboard navigation', () => {
     };
     // should have arrow navigation work
     ffTest(
-      'platform.design-system-team.layering_qmiw3',
+      'platform.design-system-team.layering_popup_1cnzt',
       // Test when true
       () => {
         render(<NestedDropdown />);

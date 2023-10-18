@@ -7,8 +7,6 @@
  */
 //Turkish (Turkey)
 export default {
-  'fabric.linking.access_exists_description':
-    '{hostname} üzerindeki bu içeriği görüntülemek üzere yöneticinizle iletişime geçin ve erişim talep edin.',
   'fabric.linking.actions': 'Eylemler',
   'fabric.linking.add_account': 'Hesap ekle',
   'fabric.linking.assigned_to': '{context} adlı kişiye atandı',
@@ -39,17 +37,12 @@ export default {
   'fabric.linking.create_on_relative': '{context} oluşturuldu',
   'fabric.linking.created_by': '{context} tarafından oluşturuldu',
   'fabric.linking.delete': 'Sil',
-  'fabric.linking.direct_access_crossjoin': '{product} ürününe git',
-  'fabric.linking.direct_access_description_crossjoin':
-    'Aynı e-posta etki alanına sahip tüm hesaplarınızın {product} ürününde {hostname} adresine erişmesi onaylandı.',
-  'fabric.linking.direct_access_title_crossjoin': '{product} ürününde takımınıza katılın',
   'fabric.linking.download': 'İndir',
   'fabric.linking.edit': 'Düzenle',
   'fabric.linking.follow': 'Takip Et',
   'fabric.linking.forbidden_access': 'Erişiminiz yasak',
   'fabric.linking.forbidden_description':
     'Bu önizlemeye erişiminiz yok. Erişim gerekliyse site yöneticisiyle iletişime geçin.',
-  'fabric.linking.forbidden_description_crossjoin': 'Erişim talep etmek için yöneticinizle iletişime geçin.',
   'fabric.linking.forbidden_title_crossjoin': 'Bu içeriğe erişiminiz yok',
   'fabric.linking.go_back': 'Geri dön',
   'fabric.linking.invalid_permissions': 'Kısıtlanmış içerik',
@@ -63,7 +56,6 @@ export default {
   'fabric.linking.modified_on_absolute': '{context} tarihinde güncellendi',
   'fabric.linking.modified_on_relative': '{context} güncellendi',
   'fabric.linking.more_actions': 'Daha fazla işlem',
-  'fabric.linking.no_access_title_crossjoin': 'Bu içeriğe erişiminiz yok',
   'fabric.linking.not_found_description':
     "Bağlantıyı bulamadık. URL'yi kontrol edin ve düzenlemeyi veya yeniden yapıştırmayı deneyin.",
   'fabric.linking.not_found_description_crossjoin':
@@ -93,7 +85,6 @@ export default {
   'fabric.linking.request_access': 'Erişim talep edin',
   'fabric.linking.request_access_crossjoin': 'Erişim talep edin',
   'fabric.linking.request_access_description': 'Bu önizlemeyi görüntülemek için {context} ürününe erişim talep edin.',
-  'fabric.linking.request_access_description_crossjoin': 'Erişim talep etmek için yöneticinizle iletişime geçin.',
   'fabric.linking.request_access_pending': 'Erişim bekleniyor',
   'fabric.linking.request_access_pending_crossjoin': 'Onay bekleniyor',
   'fabric.linking.request_access_pending_description': 'Erişim talebiniz beklemede.',

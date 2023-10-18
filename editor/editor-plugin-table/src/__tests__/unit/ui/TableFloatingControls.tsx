@@ -37,7 +37,7 @@ import TableFloatingControls from '../../../plugins/table/ui/TableFloatingContro
 
 describe('TableFloatingControls', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const fakeGetEditorFeatureFlags = () => ({});
+
   const preset = new Preset<LightEditorPlugin>()
     .add([featureFlagsPlugin, {}])
     .add([analyticsPlugin, {}])
@@ -45,7 +45,10 @@ describe('TableFloatingControls', () => {
     .add(widthPlugin)
     .add(guidelinePlugin)
     .add(selectionPlugin)
-    .add(tablePlugin);
+    .add([
+      tablePlugin,
+      { tableOptions: { advanced: true }, dragAndDropEnabled: false },
+    ]);
 
   const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey, typeof preset>({
@@ -62,7 +65,7 @@ describe('TableFloatingControls', () => {
       const { container } = render(
         <TableFloatingControls
           editorView={editorView}
-          getEditorFeatureFlags={fakeGetEditorFeatureFlags}
+          isDragAndDropEnabled={false}
         />,
       );
       expect(container.innerHTML).toEqual('');
@@ -72,7 +75,7 @@ describe('TableFloatingControls', () => {
   describe('when tableRef is defined', () => {
     it('should render CornerControls and RowControls', () => {
       const { editorView } = editor(
-        doc(p('text'), table()(tr(tdEmpty, tdEmpty, tdEmpty))),
+        doc(p('text'), table()(tr(tdCursor, tdEmpty, tdEmpty))),
       );
       const ref = editorView.dom.querySelector('table') || undefined;
 
@@ -82,7 +85,8 @@ describe('TableFloatingControls', () => {
             tableRef={ref}
             tableActive={true}
             editorView={editorView}
-            getEditorFeatureFlags={fakeGetEditorFeatureFlags}
+            isDragAndDropEnabled={false}
+            selection={editorView.state.selection}
           />
         </IntlProvider>,
       );

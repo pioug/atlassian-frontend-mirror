@@ -1038,7 +1038,7 @@ type ExtensionThemeId = ThemeIds;
 type FlattenKeys<T, Prefix extends string = ''> = {
   [Key in keyof T]: T[Key] extends object
     ? T[Key] extends {
-        value: string;
+        value: any;
       }
       ? `${Prefix}${Key & string}`
       : `${Prefix}${Key & string}.${FlattenKeys<T[Key]>}`
@@ -1581,6 +1581,9 @@ export type RawToken = DesignToken<string, 'raw'>;
 
 // @public (undocumented)
 type Replacement = InternalTokenIds | InternalTokenIds[];
+
+// @public (undocumented)
+type ResponsiveTypographyTokens = FlattenKeys<TypographyTokenSchema<any>>;
 
 // @public
 export const setGlobalTheme: (
@@ -2306,6 +2309,15 @@ type TokenState =
   | DeprecatedTokenState
   | ExperimentalTokenState;
 
+// @public (undocumented)
+interface TypographyDesignToken<TValue>
+  extends DesignToken<TValue, 'typography'> {
+  // (undocumented)
+  attributes: DesignToken<TValue, 'typography'>['attributes'] & {
+    responsiveSmallerVariant?: ResponsiveTypographyTokens;
+  };
+}
+
 // @public
 export type TypographyToken<
   TPalette extends {
@@ -2314,18 +2326,52 @@ export type TypographyToken<
     lineHeight: string;
     fontFamily: string;
     letterSpacing: string;
+    responsiveToken?: string;
   },
-> = DesignToken<
-  {
-    fontStyle: 'normal';
-    fontWeight: TPalette['fontWeight'];
-    fontFamily: FlattenKeys<FontFamilyTokenSchema<any>>;
-    fontSize: TPalette['fontSize'];
-    lineHeight: TPalette['lineHeight'];
-    letterSpacing: TPalette['letterSpacing'];
+> = TypographyDesignToken<{
+  fontStyle: 'normal';
+  fontWeight: TPalette['fontWeight'];
+  fontFamily: FlattenKeys<FontFamilyTokenSchema<any>>;
+  fontSize: TPalette['fontSize'];
+  lineHeight: TPalette['lineHeight'];
+  letterSpacing: TPalette['letterSpacing'];
+}>;
+
+// @public
+interface TypographyTokenSchema<
+  TPalette extends {
+    fontWeight: string;
+    fontSize: string;
+    lineHeight: string;
+    fontFamily: string;
+    letterSpacing: string;
   },
-  'typography'
->;
+> {
+  // (undocumented)
+  font: {
+    heading: {
+      xxlarge: TypographyToken<TPalette>;
+      xlarge: TypographyToken<TPalette>;
+      large: TypographyToken<TPalette>;
+      medium: TypographyToken<TPalette>;
+      small: TypographyToken<TPalette>;
+      xsmall: TypographyToken<TPalette>;
+      xxsmall: TypographyToken<TPalette>;
+    };
+    ui: {
+      '[default]': TypographyToken<TPalette>;
+      small: TypographyToken<TPalette>;
+    };
+    body: {
+      '[default]': TypographyToken<TPalette>;
+      small: TypographyToken<TPalette>;
+      large: TypographyToken<TPalette>;
+    };
+    code: {
+      '[default]': TypographyToken<TPalette>;
+    };
+  };
+}
 
 // @public
 export const useThemeObserver: () => Partial<ActiveThemeState>;

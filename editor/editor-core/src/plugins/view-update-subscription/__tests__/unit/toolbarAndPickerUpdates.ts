@@ -13,7 +13,8 @@ import {
   tdEmpty as cellEmpty,
   tr as row,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { setDatePickerAt } from '../../../date/actions';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { setDatePickerAt } from '@atlaskit/editor-plugin-date/src/actions';
 import { subscribeToToolbarAndPickerUpdates } from '../../subscribe/toolbarAndPickerUpdates';
 import {
   setNodeSelection,

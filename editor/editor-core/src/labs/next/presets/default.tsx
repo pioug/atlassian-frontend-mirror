@@ -6,6 +6,7 @@ import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import clearMarksOnChangeToEmptyDocumentPlugin from '../../../plugins/clear-marks-on-change-to-empty-document';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
+import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugin-better-type-history';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { unsupportedContentPlugin } from '@atlaskit/editor-plugin-unsupported-content';
 import type { BasePluginOptions } from '@atlaskit/editor-plugin-base';
@@ -104,6 +105,7 @@ export function createDefaultPreset(
 
       return builder;
     })
+    .add(betterTypeHistoryPlugin)
     .add([pastePlugin, options.paste])
     .add(clipboardPlugin)
     .add(focusPlugin)

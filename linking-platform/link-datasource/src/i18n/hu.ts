@@ -45,7 +45,7 @@ export default {
   'linkDataSource.jira-issues.refresh': 'Frissítés',
   'linkDataSource.jira-issues.unableToLoadItems': 'Nem sikerült betölteni a tételeket',
   'linkDataSource.jira-issues.unableToLoadResults': 'Nem lehet betölteni a találatokat',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'További információ a JQL-lel történő keresésről',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'További információ a JQL-lel történő keresésről.',
   'linkDataSource.modal-initial-state.searchDescription': 'A kereséshez kezdj el gépelni vagy használj JQL-t.',
   'linkDataSource.modal-initial-state.searchTitle': 'Jira-ügyek keresése',
   'linkDataSource.render-type.boolean.false': 'Nem',

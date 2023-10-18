@@ -23,7 +23,7 @@ import {
 } from '@atlaskit/editor-core/src/plugins/mobile-dimensions/commands';
 import { createTable } from '@atlaskit/editor-plugin-table/commands';
 import { insertTaskDecisionCommand } from '@atlaskit/editor-core/src/plugins/tasks-and-decisions/commands';
-import { dateToDateType } from '@atlaskit/editor-core/src/plugins/date/utils/formatParse';
+import { dateToDateType } from '../../utils/dateToDateType';
 import { insertExpand } from '@atlaskit/editor-core/src/plugins/expand/commands';
 import type {
   TypeAheadHandler,

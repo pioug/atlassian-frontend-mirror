@@ -106,7 +106,7 @@ describe('dropdown menu', () => {
     };
     // should render nested dropdown on the page
     ffTest(
-      'platform.design-system-team.layering_qmiw3',
+      'platform.design-system-team.layering_popup_1cnzt',
       // Test when true
       () => {
         render(<NestedDropdown />);

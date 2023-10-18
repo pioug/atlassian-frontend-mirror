@@ -42,7 +42,7 @@ import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import expandPlugin from '../../../expand';
-import { datePlugin } from '../../../date';
+import { datePlugin } from '@atlaskit/editor-plugin-date';
 import layoutPlugin from '../../../layout';
 import panelPlugin from '../../../panel';
 import { mediaPlugin } from '@atlaskit/editor-plugin-media';
@@ -51,7 +51,7 @@ import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
-import betterTypeHistoryPlugin from '../../../better-type-history';
+import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugin-better-type-history';
 
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';

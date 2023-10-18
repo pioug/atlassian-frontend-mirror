@@ -14,22 +14,51 @@ It’s usually found in [forms](/patterns/forms) or [inline edit](/patterns/inli
 
 ### Single select
 
-![Single-select anatomy](images/single-select.png)
+![The single-select component is made of four parts. the field label is positioned above the input area, and the menu options open in a dropdown menu below the input area. Placeholder text is optional in the text input area.](images/single-select.png)
 
 1. **Field label:** Field labels should indicate what information the field requires. The label is usually left-aligned above the input area.
 2. **Text input field:** The field people click in to receive the options they can choose from. Once selected, the option will be shown in the text input.
 3. **Menu:** Contains the list of all selectable items. These can be grouped into sub-categories under headings.
-4. **Placeholder text:** Includes information that supports the field label and other contextual cues, for example, _“Start typing to see names”_. It should not be necessary to understand how to use the component.
+4. **Placeholder text (optional):** Includes information that supports the field label and other contextual cues, for example, _“Start typing to see names”_. It should not be necessary to understand how to use the component.
 
 ### Multi select
 
-![Multi-select anatomy](images/multi-select.png)
+![The multi-select component is made of five parts. the field label is positioned above the input area, and the menu options open in a dropdown menu below the input area. Selected options appear inside the text input area. When options are selected, a clear button appears to the right of the input area.](images/multi-select.png)
 
 1. **Field label:** Field labels should indicate what sort of information the field requires and are usually left-aligned directly above the input area.
 2. **Text input field:** The field people click in to receive the options they can choose from. Once selected, each option is shown in the text input.
 3. **Menu:** Contains the list of all selectable items. These can be grouped into sub-categories under headings.
 4. **Selected item:** Displays what options have been selected. Users can remove selections by clicking the **x**.
 5. **Clear all:** The **x** clears everything in the text input field. It only appears when at least one option has been selected.
+
+## Accessibility
+
+- Don’t use placeholder text to clarify field inputs – use the field label and helper text.
+- Use a field label to indicate what information goes in the text input. Ensure the label is positioned outside the field so it remains visible at all times.
+- Helper text can explain more about what to enter in the text input field. If the text is necessary to understand the field, put it above the text input (below the field label). Always keep this succinct.
+- To avoid introducing multiple tab stops per text field, and reduce keystrokes for assistive technology users, the clear control has been intentionally removed from the tab order. Keyboard users can clear content using the delete key.
+
+<DoDont
+  type="do"
+  image={{
+    url: SelectA11yDo,
+    alt: 'Select with the field label "Jira issues" and helper text "Select all Jira issues associated with your ticket"',
+  }}
+>
+  Use a field label and helper text to ensure all users can understand what’s
+  required.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: SelectA11yDont,
+    alt: 'Select where there is no field label or helper text. The placeholder text is "Search Jira issues"',
+  }}
+>
+  Use placeholder text instead of a field label. When information is entered the
+  context of the field input disappears.
+</DoDont>
 
 ## Best practices
 
@@ -43,37 +72,9 @@ It’s usually found in [forms](/patterns/forms) or [inline edit](/patterns/inli
 - Keep options to a single line of text.
 - Use commonly known terms for your options and make sure they’re clear and direct. Follow the [writing style](/content/writing-style).
 
-## Accessibility
-
-- Don’t rely on placeholder text for clarification of field inputs – use a combination of a concise field label and supportive helper text.
-- Use a field label to indicate what information goes in the text input. Ensure the label is positioned outside the field so it remains visible at all times.
-- Helper text can explain more about what to enter in the text input field. If the text is necessary to understand the field, put it above the text input (below the field label). Always keep this succinct.
-
-<DoDont
-  type="do"
-  image={{
-    url: SelectA11yDo,
-    alt: 'Select field displays a field label and helper text',
-  }}
->
-  Use a field label and helper text to ensure all users can understand what’s
-  required.
-</DoDont>
-
-<DoDont
-  type="dont"
-  image={{
-    url: SelectA11yDont,
-    alt: 'Select only uses placeholder text to label and describe the content required',
-  }}
->
-  Use placeholder text instead of a field label. Context of the input is lost
-  when information is entered.
-</DoDont>
-
 ## Server
 
-Consult AUI for implementation details on [Single select](https://docs.atlassian.com/aui/latest/docs/single-select.html) or [Multi select](https://docs.atlassian.com/aui/latest/docs/auiselect2.html).
+Consult AUI for implementation details on [AUI single select](https://docs.atlassian.com/aui/latest/docs/single-select.html) or [AUI multi select](https://docs.atlassian.com/aui/latest/docs/auiselect2.html).
 
 ## Related
 

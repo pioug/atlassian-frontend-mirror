@@ -135,6 +135,7 @@ interface JiraIssuesConfigModalProps {
   ) => void;
   // (undocumented)
   parameters?: JiraIssueDatasourceParameters;
+  url?: string;
   // (undocumented)
   viewMode?: JiraIssueViewModes;
   // (undocumented)

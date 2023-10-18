@@ -7,8 +7,6 @@
  */
 //Swedish
 export default {
-  'fabric.linking.access_exists_description':
-    'Kontakta administratören och begär åtkomst för att visa det här innehållet från {hostname}.',
   'fabric.linking.actions': 'Åtgärder',
   'fabric.linking.add_account': 'Lägg till konto',
   'fabric.linking.assigned_to': 'Tilldelad till {context}',
@@ -39,17 +37,12 @@ export default {
   'fabric.linking.create_on_relative': 'Skapades {context}',
   'fabric.linking.created_by': 'Skapades av {context}',
   'fabric.linking.delete': 'Radera',
-  'fabric.linking.direct_access_crossjoin': 'Gå till {product}',
-  'fabric.linking.direct_access_description_crossjoin':
-    'Alla konton med samma e-postdomän är godkända för åtkomst till {hostname} i {product}.',
-  'fabric.linking.direct_access_title_crossjoin': 'Anslut till ditt team i {product}',
   'fabric.linking.download': 'Ladda ner',
   'fabric.linking.edit': 'Redigera',
   'fabric.linking.follow': 'Följ',
   'fabric.linking.forbidden_access': 'Din åtkomst är förbjuden',
   'fabric.linking.forbidden_description':
     'Du har inte behörighet för den här förhandsgranskningen. Kontakta webbplatsadministratören om du behöver åtkomst.',
-  'fabric.linking.forbidden_description_crossjoin': 'Kontakta administratören för att begära åtkomst.',
   'fabric.linking.forbidden_title_crossjoin': 'Du har inte åtkomst till det här innehållet',
   'fabric.linking.go_back': 'Gå tillbaka',
   'fabric.linking.invalid_permissions': 'Begränsat innehåll',
@@ -63,7 +56,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Uppdaterades {context}',
   'fabric.linking.modified_on_relative': 'Uppdaterades {context}',
   'fabric.linking.more_actions': 'Fler åtgärder',
-  'fabric.linking.no_access_title_crossjoin': 'Du har inte åtkomst till det här innehållet',
   'fabric.linking.not_found_description':
     'Vi kunde inte hitta länken. Kontrollera URL-adressen och försök att redigera eller klistra in igen.',
   'fabric.linking.not_found_description_crossjoin':
@@ -93,7 +85,6 @@ export default {
   'fabric.linking.request_access': 'Begär åtkomst',
   'fabric.linking.request_access_crossjoin': 'Begär åtkomst',
   'fabric.linking.request_access_description': 'Be om åtkomst till {context} för att visa förhandsgranskningen.',
-  'fabric.linking.request_access_description_crossjoin': 'Kontakta administratören för att begära åtkomst.',
   'fabric.linking.request_access_pending': 'Väntar på åtkomst',
   'fabric.linking.request_access_pending_crossjoin': 'Väntar på godkännande',
   'fabric.linking.request_access_pending_description': 'Din åtkomstförfrågan väntar på svar.',

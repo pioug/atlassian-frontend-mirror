@@ -20,7 +20,7 @@ import pastePlugin from '../../';
 import { basePlugin } from '@atlaskit/editor-plugin-base';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
-import betterTypeHistoryPlugin from '../../../better-type-history';
+import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugin-better-type-history';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';

@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { hoverRows, selectRow } from '../../commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
+import type { CellHoverCoordinates } from '../../types';
 import { isSelectionUpdated } from '../../utils';
 
 import { CornerControls } from './CornerControls';
 import NumberColumn from './NumberColumn';
-import { RowControls } from './RowControls';
+import { DragControls, RowControls } from './RowControls';
 
 export interface Props {
   editorView: EditorView;
-  getEditorFeatureFlags: GetEditorFeatureFlags;
   selection?: Selection;
   tableRef?: HTMLTableElement;
   tableActive?: boolean;
@@ -25,9 +24,11 @@ export interface Props {
   isHeaderRowEnabled?: boolean;
   isHeaderColumnEnabled?: boolean;
   isNumberColumnEnabled?: boolean;
+  isDragAndDropEnabled?: boolean;
   hasHeaderRow?: boolean;
   headerRowHeight?: number;
   hoveredRows?: number[];
+  hoveredCell?: CellHoverCoordinates;
   ordering?: TableColumnOrdering;
   stickyHeader?: RowStickyState;
 }
@@ -77,6 +78,7 @@ export default class TableFloatingControls extends Component<Props, State> {
       ordering,
       headerRowHeight,
       stickyHeader,
+      hoveredCell,
     } = this.props;
     const tableHeight = this.state?.tableHeight;
     const nextTableHeight = nextState?.tableHeight;
@@ -93,7 +95,8 @@ export default class TableFloatingControls extends Component<Props, State> {
       isNumberColumnEnabled !== nextProps.isNumberColumnEnabled ||
       isSelectionUpdated(selection!, nextProps.selection) ||
       headerRowHeight !== nextProps.headerRowHeight ||
-      stickyHeader !== nextProps.stickyHeader
+      stickyHeader !== nextProps.stickyHeader ||
+      hoveredCell !== nextProps.hoveredCell
     );
   }
 
@@ -116,6 +119,8 @@ export default class TableFloatingControls extends Component<Props, State> {
       hasHeaderRow,
       hoveredRows,
       stickyHeader,
+      isDragAndDropEnabled,
+      hoveredCell,
     } = this.props;
 
     if (!tableRef) {
@@ -126,6 +131,7 @@ export default class TableFloatingControls extends Component<Props, State> {
       stickyHeader && stickyHeader.sticky && hasHeaderRow
         ? stickyHeader.top
         : undefined;
+
     return (
       <div onMouseDown={(e) => e.preventDefault()}>
         {isNumberColumnEnabled ? (
@@ -140,31 +146,44 @@ export default class TableFloatingControls extends Component<Props, State> {
             isResizing={isResizing}
             selectRow={this.selectRow}
             stickyTop={stickyTop}
+            isDragAndDropEnabled={isDragAndDropEnabled}
           />
         ) : null}
 
         {tableActive && (
           <>
-            <CornerControls
-              editorView={editorView}
-              tableRef={tableRef}
-              isInDanger={isInDanger}
-              isResizing={isResizing}
-              isHeaderRowEnabled={isHeaderRowEnabled}
-              isHeaderColumnEnabled={isHeaderColumnEnabled}
-              hoveredRows={hoveredRows}
-              stickyTop={tableActive ? stickyTop : undefined}
-            />
-            <RowControls
-              editorView={editorView}
-              tableRef={tableRef}
-              hoverRows={this.hoverRows}
-              hoveredRows={hoveredRows}
-              isInDanger={isInDanger}
-              isResizing={isResizing}
-              selectRow={this.selectRow}
-              stickyTop={tableActive ? stickyTop : undefined}
-            />
+            {isDragAndDropEnabled ? (
+              <DragControls
+                tableRef={tableRef}
+                hoveredCell={hoveredCell}
+                editorView={editorView}
+                hoverRows={this.hoverRows}
+                selectRow={this.selectRow}
+              />
+            ) : (
+              <>
+                <CornerControls
+                  editorView={editorView}
+                  tableRef={tableRef}
+                  isInDanger={isInDanger}
+                  isResizing={isResizing}
+                  isHeaderRowEnabled={isHeaderRowEnabled}
+                  isHeaderColumnEnabled={isHeaderColumnEnabled}
+                  hoveredRows={hoveredRows}
+                  stickyTop={tableActive ? stickyTop : undefined}
+                />
+                <RowControls
+                  editorView={editorView}
+                  tableRef={tableRef}
+                  hoverRows={this.hoverRows}
+                  hoveredRows={hoveredRows}
+                  isInDanger={isInDanger}
+                  isResizing={isResizing}
+                  selectRow={this.selectRow}
+                  stickyTop={tableActive ? stickyTop : undefined}
+                />
+              </>
+            )}
           </>
         )}
       </div>

@@ -45,7 +45,7 @@ export default {
   'linkDataSource.jira-issues.refresh': '更新',
   'linkDataSource.jira-issues.unableToLoadItems': 'アイテムを読み込めません',
   'linkDataSource.jira-issues.unableToLoadResults': '結果を読み込めません',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'JQL 検索の詳細',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'JQL 検索の詳細をご確認ください。',
   'linkDataSource.modal-initial-state.searchDescription': '語句を入力するか、JQL を使って検索できます。',
   'linkDataSource.modal-initial-state.searchTitle': 'Jira の課題を検索',
   'linkDataSource.render-type.boolean.false': 'いいえ',

@@ -7,8 +7,6 @@
  */
 //Vietnamese (Vietnam)
 export default {
-  'fabric.linking.access_exists_description':
-    'Hãy liên hệ với quản trị viên và yêu cầu cấp quyền xem nội dung này từ {hostname}.',
   'fabric.linking.actions': 'Hành động',
   'fabric.linking.add_account': 'Thêm tài khoản',
   'fabric.linking.assigned_to': 'Đã chỉ định cho {context}',
@@ -39,17 +37,12 @@ export default {
   'fabric.linking.create_on_relative': 'Đã tạo {context}',
   'fabric.linking.created_by': 'Được tạo bởi {context}',
   'fabric.linking.delete': 'Xóa',
-  'fabric.linking.direct_access_crossjoin': 'Đi đến {product}',
-  'fabric.linking.direct_access_description_crossjoin':
-    'Mọi tài khoản có cùng miền email của bạn đều được phép truy cập {hostname} trong {product}.',
-  'fabric.linking.direct_access_title_crossjoin': 'Tham gia nhóm của bạn trong {product}',
   'fabric.linking.download': 'Tải xuống',
   'fabric.linking.edit': 'Chỉnh sửa',
   'fabric.linking.follow': 'Theo dõi',
   'fabric.linking.forbidden_access': 'Quyền truy cập của bạn bị cấm',
   'fabric.linking.forbidden_description':
     'Bạn không có quyền truy cập vào bản xem trước này. Hãy liên hệ với quản trị viên trang web nếu bạn cần quyền truy cập.',
-  'fabric.linking.forbidden_description_crossjoin': 'Hãy liên hệ với quản trị viên để yêu cầu cấp quyền truy cập.',
   'fabric.linking.forbidden_title_crossjoin': 'Bạn không có quyền truy cập nội dung này',
   'fabric.linking.go_back': 'Quay lại',
   'fabric.linking.invalid_permissions': 'Nội dung bị hạn chế',
@@ -63,7 +56,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Đã cập nhật trên {context}',
   'fabric.linking.modified_on_relative': 'Đã cập nhật {context}',
   'fabric.linking.more_actions': 'Hành động khác',
-  'fabric.linking.no_access_title_crossjoin': 'Bạn không có quyền truy cập nội dung này',
   'fabric.linking.not_found_description':
     'Chúng tôi không thể tìm thấy đường liên kết này. Hãy kiểm tra url và thử chỉnh sửa hoặc dán lại.',
   'fabric.linking.not_found_description_crossjoin':
@@ -93,12 +85,11 @@ export default {
   'fabric.linking.request_access': 'Yêu cầu cấp quyền truy cập',
   'fabric.linking.request_access_crossjoin': 'Yêu cầu cấp quyền truy cập',
   'fabric.linking.request_access_description': 'Yêu cầu quyền truy cập để {context} xem bản xem trước này.',
-  'fabric.linking.request_access_description_crossjoin': 'Hãy liên hệ với quản trị viên để yêu cầu cấp quyền truy cập.',
   'fabric.linking.request_access_pending': 'Đang chờ xử lý quyền truy cập',
   'fabric.linking.request_access_pending_crossjoin': 'Đang chờ phê duyệt',
   'fabric.linking.request_access_pending_description': 'Đang chờ xử lý yêu cầu quyền truy cập của bạn.',
   'fabric.linking.request_access_pending_description_crossjoin':
-    'Yêu cầu quyền truy cập {hostname} của bạn đang chờ quản trị viên chấp thuận.',
+    'Yêu cầu quyền truy cập {hostname} của bạn đang chờ quản trị viên phê duyệt.',
   'fabric.linking.request_access_pending_title_crossjoin': 'Đang chờ cấp quyền truy cập {product}',
   'fabric.linking.request_access_to_view': 'Yêu cầu quyền truy cập vào {context} để xem vấn đề này',
   'fabric.linking.request_denied': 'Yêu cầu quyền truy cập của bạn đã bị từ chối',

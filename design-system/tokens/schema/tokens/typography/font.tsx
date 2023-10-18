@@ -39,6 +39,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           state: 'experimental',
           introduced: '1.14.0',
           description: 'TBD',
+          responsiveSmallerVariant: 'font.heading.xlarge',
         },
       },
       xlarge: {
@@ -47,6 +48,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           state: 'experimental',
           introduced: '1.14.0',
           description: 'TBD',
+          responsiveSmallerVariant: 'font.heading.large',
         },
       },
       large: {
@@ -55,6 +57,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           state: 'experimental',
           introduced: '1.14.0',
           description: 'TBD',
+          responsiveSmallerVariant: 'font.heading.medium',
         },
       },
       medium: {
@@ -63,6 +66,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           state: 'experimental',
           introduced: '1.14.0',
           description: 'TBD',
+          responsiveSmallerVariant: 'font.heading.small',
         },
       },
       small: {

@@ -49,7 +49,7 @@ export default {
   'linkDataSource.jira-issues.refresh': 'Обновить',
   'linkDataSource.jira-issues.unableToLoadItems': 'Не удалось загрузить элементы',
   'linkDataSource.jira-issues.unableToLoadResults': 'Не удалось загрузить результаты',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'Подробнее о поиске с помощью JQL',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'Подробнее о поиске с помощью JQL.',
   'linkDataSource.modal-initial-state.searchDescription': 'Начните вводить текст или используйте JQL для поиска.',
   'linkDataSource.modal-initial-state.searchTitle': 'Поиск задач Jira',
   'linkDataSource.render-type.boolean.false': 'Нет',

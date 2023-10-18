@@ -89,7 +89,7 @@ describe('Popup', () => {
   };
 
   describe('should close nested popup correctly', () => {
-    ffTest('platform.design-system-team.layering_qmiw3', () => {
+    ffTest('platform.design-system-team.layering_popup_1cnzt', () => {
       render(<PopupNested />);
 
       const popupTrigger = screen.getByTestId('popup-trigger');

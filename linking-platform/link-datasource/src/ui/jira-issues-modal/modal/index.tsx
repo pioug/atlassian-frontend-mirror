@@ -1,5 +1,12 @@
 /** @jsx jsx */
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl-next';
@@ -68,7 +75,9 @@ import { modalMessages } from './messages';
 
 const dropdownContainerStyles = css({
   display: 'flex',
+  alignItems: 'center',
   gap: token('space.100', '0.5rem'),
+  minHeight: '40px', // to prevent vertical shifting when site selector pops in
 });
 
 const contentContainerStyles = css({
@@ -136,11 +145,12 @@ export const PlainJiraIssuesConfigModal = (
 ) => {
   const {
     datasourceId,
-    parameters: initialParameters,
-    visibleColumnKeys: initialVisibleColumnKeys,
     onCancel,
     onInsert,
     viewMode = 'issue',
+    parameters: initialParameters,
+    url: urlBeingEdited,
+    visibleColumnKeys: initialVisibleColumnKeys,
   } = props;
 
   const [availableSites, setAvailableSites] = useState<Site[]>([]);
@@ -196,14 +206,9 @@ export const PlainJiraIssuesConfigModal = (
   const { fireEvent } = useDatasourceAnalyticsEvents();
   const { current: modalRenderInstanceId } = useRef(uuidv4());
 
-  const selectedJiraSite = useMemo<Site>(() => {
+  const selectedJiraSite = useMemo<Site | undefined>(() => {
     if (cloudId) {
-      // if the cloud id we're editing isn't in available sites then user is likely unauthorized for that site
-      // TODO: unauthorized to edit flow https://product-fabric.atlassian.net/browse/EDM-7216
-      return (
-        availableSites.find(jiraSite => jiraSite.cloudId === cloudId) ||
-        availableSites[0]
-      );
+      return availableSites.find(jiraSite => jiraSite.cloudId === cloudId);
     } else {
       const currentlyLoggedInSiteUrl = window.location.origin;
       return (
@@ -556,10 +561,10 @@ export const PlainJiraIssuesConfigModal = (
   );
 
   const renderCountModeContent = useCallback(() => {
-    const url = selectedJiraSite?.url;
+    const selectedJiraSiteUrl = selectedJiraSite?.url;
     if (status === 'unauthorized') {
-      return <AccessRequired siteName={selectedJiraSite?.displayName} />;
-    } else if (status === 'empty' || !jql || !url) {
+      return <AccessRequired url={selectedJiraSiteUrl || urlBeingEdited} />;
+    } else if (status === 'empty' || !jql || !selectedJiraSiteUrl) {
       return (
         <div css={smartLinkContainerStyles}>
           <span
@@ -573,20 +578,23 @@ export const PlainJiraIssuesConfigModal = (
         </div>
       );
     } else {
-      const urlWithEncodedJql = `${url}/issues/?jql=${encodeURI(jql)}`;
+      const urlWithEncodedJql = `${selectedJiraSiteUrl}/issues/?jql=${encodeURI(
+        jql,
+      )}`;
       return (
         <div css={smartLinkContainerStyles}>
           <LinkRenderType url={urlWithEncodedJql} />
         </div>
       );
     }
-  }, [jql, selectedJiraSite, status]);
+  }, [jql, selectedJiraSite?.url, status, urlBeingEdited]);
 
   const renderIssuesModeContent = useCallback(() => {
+    const selectedJiraSiteUrl = selectedJiraSite?.url;
     if (status === 'rejected' && jqlUrl) {
       return <ModalLoadingError url={jqlUrl} />;
     } else if (status === 'unauthorized') {
-      return <AccessRequired siteName={selectedJiraSite?.displayName} />;
+      return <AccessRequired url={selectedJiraSiteUrl || urlBeingEdited} />;
     } else if (resolvedWithNoResults) {
       return <NoResults />;
     } else if (status === 'empty' || !columns.length) {
@@ -613,44 +621,46 @@ export const PlainJiraIssuesConfigModal = (
 
     return issueLikeDataTableView;
   }, [
-    status,
+    columns.length,
+    currentSearchMethod,
+    issueLikeDataTableView,
+    jql,
     jqlUrl,
     resolvedWithNoResults,
-    columns.length,
-    retrieveUrlForSmartCardRender,
     responseItems.length,
-    issueLikeDataTableView,
-    selectedJiraSite?.displayName,
-    jql,
-    currentSearchMethod,
+    retrieveUrlForSmartCardRender,
+    selectedJiraSite?.url,
+    status,
+    urlBeingEdited,
   ]);
 
   return (
     <ModalTransition>
       <Modal
-        testId={'jira-jql-datasource-modal'}
+        testId="jira-jql-datasource-modal"
         onClose={onCancel}
         width="calc(100% - 80px)"
         shouldScrollInViewport={true}
       >
         <ModalHeader>
           <ModalTitle>
-            {availableSites.length < 2 ? (
-              <FormattedMessage {...modalMessages.insertIssuesTitle} />
-            ) : (
-              <div css={dropdownContainerStyles}>
-                <FormattedMessage
-                  {...modalMessages.insertIssuesTitleManySites}
-                  values={{ siteName: selectedJiraSite?.displayName }}
-                />
-                <JiraSiteSelector
-                  testId={`jira-jql-datasource-modal--site-selector`}
-                  availableSites={availableSites}
-                  onSiteSelection={onSiteSelection}
-                  selectedJiraSite={selectedJiraSite}
-                />
-              </div>
-            )}
+            <div css={dropdownContainerStyles}>
+              {availableSites.length < 2 ? (
+                <FormattedMessage {...modalMessages.insertIssuesTitle} />
+              ) : (
+                <Fragment>
+                  <FormattedMessage
+                    {...modalMessages.insertIssuesTitleManySites}
+                  />
+                  <JiraSiteSelector
+                    availableSites={availableSites}
+                    onSiteSelection={onSiteSelection}
+                    selectedJiraSite={selectedJiraSite}
+                    testId="jira-jql-datasource-modal--site-selector"
+                  />
+                </Fragment>
+              )}
+            </div>
           </ModalTitle>
           <ModeSwitcher
             isCompact
@@ -707,7 +717,7 @@ export const PlainJiraIssuesConfigModal = (
             appearance="primary"
             onClick={onInsertPressed}
             isDisabled={isInsertDisabled}
-            testId={'jira-jql-datasource-modal--insert-button'}
+            testId="jira-jql-datasource-modal--insert-button"
           >
             <FormattedMessage {...modalMessages.insertIssuesButtonText} />
           </Button>

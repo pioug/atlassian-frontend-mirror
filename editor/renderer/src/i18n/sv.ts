@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': '⚠️ Du kan inte sortera en panelvy med sammanslagna celler',
   'fabric.editor.headingLink.noOrderLabel': 'Sortera kolumn A till Ö',
   'fabric.editor.headingLink.noneSortingLabel': 'Ingen',
+  'fabric.editor.tableHeader.sorting.asc': 'Stigande sortering används',
+  'fabric.editor.tableHeader.sorting.default': 'Sortera kolumnen',
+  'fabric.editor.tableHeader.sorting.desc': 'Fallande sortering används',
+  'fabric.editor.tableHeader.sorting.invalid': 'Du kan inte sortera en tabell med sammanslagna celler',
+  'fabric.editor.tableHeader.sorting.no': 'Ingen sortering används på kolumnen',
 };

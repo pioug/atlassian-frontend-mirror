@@ -86,10 +86,13 @@ export type { ColumnResizingPluginState } from '@atlaskit/editor-common/types';
  */
 export type CellColumnPositioning = Pick<Rect, 'right' | 'left'>;
 
+export type CellHoverCoordinates = { colIndex?: number; rowIndex?: number };
+
 export interface TablePluginState {
   editorHasFocus?: boolean;
   hoveredColumns: number[];
   hoveredRows: number[];
+  hoveredCell: CellHoverCoordinates;
   pluginConfig: PluginConfig;
   isHeaderColumnEnabled: boolean;
   isHeaderRowEnabled: boolean;
@@ -122,7 +125,6 @@ export interface TablePluginState {
   isBreakoutEnabled?: boolean;
   wasFullWidthModeEnabled?: boolean;
   isTableResizingEnabled?: boolean;
-
   isDragAndDropEnabled?: boolean;
 }
 
@@ -151,7 +153,7 @@ export type TablePluginAction =
       };
     }
   | {
-      type: 'HOVER_CELLS';
+      type: 'HOVER_MERGED_CELLS';
       data: {
         decorationSet: DecorationSet;
       };
@@ -198,6 +200,7 @@ export type TablePluginAction =
   | { type: 'CLEAR_HOVER_SELECTION'; data: { decorationSet: DecorationSet } }
   | { type: 'SHOW_RESIZE_HANDLE_LINE'; data: { decorationSet: DecorationSet } }
   | { type: 'HIDE_RESIZE_HANDLE_LINE'; data: { decorationSet: DecorationSet } }
+  | { type: 'HOVER_CELL'; data: CellHoverCoordinates }
   | { type: 'SET_TARGET_CELL_POSITION'; data: { targetCellPosition?: number } }
   | {
       type: 'SELECT_COLUMN';
@@ -233,6 +236,7 @@ export type ColumnResizingPluginAction =
     };
 
 export enum TableDecorations {
+  /** Classic controls */
   ALL_CONTROLS_HOVER = 'CONTROLS_HOVER',
   ROW_CONTROLS_HOVER = 'ROW_CONTROLS_HOVER',
   COLUMN_CONTROLS_HOVER = 'COLUMN_CONTROLS_HOVER',
@@ -255,6 +259,7 @@ export enum TableDecorations {
 export const TableCssClassName = {
   ...TableSharedCssClassName,
 
+  /** Classic controls */
   COLUMN_CONTROLS: `${tablePrefixSelector}-column-controls`,
   COLUMN_CONTROLS_DECORATIONS: `${tablePrefixSelector}-column-controls-decoration`,
   COLUMN_SELECTED: `${tablePrefixSelector}-column__selected`,
@@ -293,8 +298,15 @@ export const TableCssClassName = {
   CORNER_CONTROLS_INSERT_COLUMN_MARKER: `${tablePrefixSelector}-corner-controls__insert-column-marker`,
   CONTROLS_CORNER_BUTTON: `${tablePrefixSelector}-corner-button`,
 
+  /** Controls with drag handle */
+  COLUMN_CONTROLS_DECORATIONS_WITH_DRAG: `${tablePrefixSelector}-column-controls-decoration-with-drag`,
+
+  ROW_CONTROLS_WITH_DRAG: `${tablePrefixSelector}-row-controls-with-drag`,
+
+  /** Other classes */
   NUMBERED_COLUMN: `${tablePrefixSelector}-numbered-column`,
   NUMBERED_COLUMN_BUTTON: `${tablePrefixSelector}-numbered-column__button`,
+  NUMBERED_COLUMN_BUTTON_DISABLED: `${tablePrefixSelector}-numbered-column__button-disabled`,
 
   HOVERED_COLUMN: `${tablePrefixSelector}-hovered-column`,
   HOVERED_ROW: `${tablePrefixSelector}-hovered-row`,

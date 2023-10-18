@@ -53,7 +53,7 @@ import panelPlugin from '../../../../panel';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
-import betterTypeHistoryPlugin from '../../../../better-type-history';
+import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugin-better-type-history';
 import { captionPlugin } from '@atlaskit/editor-plugin-caption';
 
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';

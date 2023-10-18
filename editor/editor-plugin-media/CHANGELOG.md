@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-media
 
+## 0.3.6
+
+### Patch Changes
+
+- [#41747](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41747) [`8b2001e7bbe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b2001e7bbe) - Extend mediaSingle from Component as props were not causing PureComponent to rerender correctly
+
 ## 0.3.5
 
 ### Patch Changes

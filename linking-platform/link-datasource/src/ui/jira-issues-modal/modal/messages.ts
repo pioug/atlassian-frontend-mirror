@@ -19,8 +19,8 @@ export const modalMessages = defineMessages({
   insertIssuesTitleManySites: {
     id: 'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites',
     description:
-      'Title for the Jira Issues Datasource config modal when multiple sites are available',
-    defaultMessage: 'Insert Jira issues from {siteName}',
+      'Title for the Jira Issues modal when a user has to select a site to inserting issues from',
+    defaultMessage: 'Insert Jira issues from',
   },
   issueViewModeLabel: {
     id: 'linkDataSource.jira-issues.configmodal.issueViewModeLabel',

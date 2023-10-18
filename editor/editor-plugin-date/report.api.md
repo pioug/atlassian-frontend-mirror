@@ -38,6 +38,9 @@ export type DatePlugin = NextEditorPlugin<
 >;
 
 // @public (undocumented)
+export const datePlugin: DatePlugin;
+
+// @public (undocumented)
 export interface DatePluginConfig {
   // (undocumented)
   weekStartDay?: WeekDay;
@@ -58,10 +61,10 @@ export type DateType = {
 };
 
 // @public (undocumented)
-export type DeleteDate = EditorCommand;
+type DeleteDate = EditorCommand;
 
 // @public (undocumented)
-export type InsertDate = (props: {
+type InsertDate = (props: {
   date?: DateType;
   inputMethod?: TOOLBAR_MENU_TYPE;
   commitMethod?: INPUT_METHOD.KEYBOARD | INPUT_METHOD.PICKER;

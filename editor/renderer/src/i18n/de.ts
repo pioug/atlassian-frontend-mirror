@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': '⚠️ Tabellen mit zusammengeführten Zellen können nicht sortiert werden.',
   'fabric.editor.headingLink.noOrderLabel': 'Spalte von A nach Z sortieren',
   'fabric.editor.headingLink.noneSortingLabel': 'Keine',
+  'fabric.editor.tableHeader.sorting.asc': 'Aufsteigend sortiert',
+  'fabric.editor.tableHeader.sorting.default': 'Spalte sortieren',
+  'fabric.editor.tableHeader.sorting.desc': 'Absteigend sortiert',
+  'fabric.editor.tableHeader.sorting.invalid': 'Tabellen mit zusammengeführten Zellen können nicht sortiert werden.',
+  'fabric.editor.tableHeader.sorting.no': 'Keine Sortierung auf die Spalte angewendet',
 };

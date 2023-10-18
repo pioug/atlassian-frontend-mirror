@@ -85,7 +85,7 @@ import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar'
 import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
-import betterTypeHistoryPlugin from '../../../better-type-history';
+import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugin-better-type-history';
 
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

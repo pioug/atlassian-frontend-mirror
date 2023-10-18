@@ -40,7 +40,7 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertio
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import betterTypeHistoryPlugin from '../../../better-type-history';
+import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugin-better-type-history';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 
 describe('paste plugin: third-party', () => {

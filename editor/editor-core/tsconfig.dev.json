@@ -73,9 +73,6 @@
       "path": "../../design-system/button/tsconfig.app.json"
     },
     {
-      "path": "../../design-system/calendar/tsconfig.app.json"
-    },
-    {
       "path": "../../design-system/checkbox/tsconfig.app.json"
     },
     {
@@ -113,6 +110,9 @@
     },
     {
       "path": "../editor-plugin-base/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-better-type-history/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-block-type/tsconfig.app.json"

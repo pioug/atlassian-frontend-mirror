@@ -1,7 +1,7 @@
 import type { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import { EditorActions } from '@atlaskit/editor-core';
 
-import { dateToDateType } from '@atlaskit/editor-core/src/plugins/date/utils/formatParse';
+import { dateToDateType } from '../../../../utils/dateToDateType';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type {

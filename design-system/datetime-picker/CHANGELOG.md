@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.10.3
+
+### Patch Changes
+
+- [#41628](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41628) [`b05664f7aba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b05664f7aba) - Use feature flag to toggle if we enable UNSAFE_LAYERING
+
 ## 12.10.2
 
 ### Patch Changes

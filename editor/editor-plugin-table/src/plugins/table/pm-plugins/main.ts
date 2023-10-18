@@ -63,6 +63,7 @@ import {
   handleMouseOver,
   handleTripleClick,
   whenTableInFocus,
+  withCellTracking,
 } from '../event-handlers';
 import { createTableView } from '../nodeviews/table';
 import TableCell from '../nodeviews/TableCell';
@@ -85,7 +86,10 @@ import {
 } from '../utils';
 import { isHeaderRowRequired } from '../utils/paste';
 
-import { defaultTableSelection } from './default-table-selection';
+import {
+  defaultHoveredCell,
+  defaultTableSelection,
+} from './default-table-selection';
 import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
 
@@ -99,8 +103,8 @@ export const createPlugin = (
   getEditorFeatureFlags: GetEditorFeatureFlags,
   getIntl: () => IntlShape,
   breakoutEnabled?: boolean,
-  fullWidthModeEnabled?: boolean,
   tableResizingEnabled?: boolean,
+  fullWidthModeEnabled?: boolean,
   previousFullWidthModeEnabled?: boolean,
   dragAndDropEnabled?: boolean,
   editorAnalyticsAPI?: EditorAnalyticsAPI,
@@ -117,6 +121,7 @@ export const createPlugin = (
     isHeaderRowEnabled: !!pluginConfig.allowHeaderRow,
     isHeaderColumnEnabled: false,
     isDragAndDropEnabled: dragAndDropEnabled,
+    ...defaultHoveredCell,
     ...defaultTableSelection,
     getIntl,
   });
@@ -375,8 +380,8 @@ export const createPlugin = (
       handleDOMEvents: {
         focus: handleFocus,
         blur: handleBlur,
-        mousedown: handleMouseDown,
-        mouseover: whenTableInFocus(handleMouseOver),
+        mousedown: withCellTracking(handleMouseDown),
+        mouseover: whenTableInFocus(withCellTracking(handleMouseOver)),
         mouseleave: whenTableInFocus(handleMouseLeave),
         mouseout: whenTableInFocus(handleMouseOut),
         mousemove: whenTableInFocus(handleMouseMove, elementContentRects),

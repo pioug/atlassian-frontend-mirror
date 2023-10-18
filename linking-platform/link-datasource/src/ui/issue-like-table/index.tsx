@@ -24,6 +24,7 @@ import {
   startUfoExperience,
   succeedUfoExperience,
 } from '../../analytics/ufoExperiences';
+import { stickyTableHeadersIndex } from '../../common/zindex';
 
 import { ColumnPicker } from './column-picker';
 import { DragColumnPreview } from './drag-column-preview';
@@ -33,13 +34,14 @@ import { fallbackRenderType } from './render-type';
 import { Table, TableHeading } from './styled';
 import { IssueLikeDataTableViewProps } from './types';
 import { useIsOnScreen } from './useIsOnScreen';
+
 const tableSidePadding = token('space.200', '16px');
 
 const tableHeadStyles = css({
   background: token('elevation.surface', '#FFF'),
   position: 'sticky',
   top: 0,
-  zIndex: 10,
+  zIndex: stickyTableHeadersIndex,
 });
 
 const ColumnPickerHeader = styled.th`

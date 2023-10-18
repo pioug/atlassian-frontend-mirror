@@ -1,5 +1,11 @@
 # @atlaskit/layering
 
+## 0.2.3
+
+### Patch Changes
+
+- [#41628](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41628) [`6d9ac32e548`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d9ac32e548) - Use disabled props to toggle layering instead of feature flag
+
 ## 0.2.2
 
 ### Patch Changes

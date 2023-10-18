@@ -403,7 +403,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     const { showBeforeShadow, showAfterShadow } = this.state;
     const node = getNode();
     // doesn't work well with WithPluginState
-    const { isInDanger, hoveredRows } = getPluginState(view.state);
+    const { isInDanger, hoveredRows, hoveredCell } = getPluginState(view.state);
 
     const tableRef = this.table || undefined;
     const headerRow = tableRef
@@ -418,10 +418,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           tableRef={tableRef}
           tableActive={tableActive}
           hoveredRows={hoveredRows}
+          hoveredCell={hoveredCell}
           isInDanger={isInDanger}
           isResizing={isResizing}
           isNumberColumnEnabled={node.attrs.isNumberColumnEnabled}
           isHeaderRowEnabled={isHeaderRowEnabled}
+          isDragAndDropEnabled={options?.isDragAndDropEnabled}
           ordering={ordering}
           isHeaderColumnEnabled={isHeaderColumnEnabled}
           hasHeaderRow={hasHeaderRow}
@@ -429,7 +431,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           selection={view.state.selection}
           headerRowHeight={headerRow ? headerRow.offsetHeight : undefined}
           stickyHeader={this.state.stickyHeader}
-          getEditorFeatureFlags={this.props.getEditorFeatureFlags}
         />
       </div>
     );

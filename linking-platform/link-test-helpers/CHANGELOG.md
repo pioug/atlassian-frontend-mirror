@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 6.1.6
+
+### Patch Changes
+
+- [#41407](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41407) [`1a0b798e027`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a0b798e027) - Added optional mock site data override to test util
+
 ## 6.1.5
 
 ### Patch Changes

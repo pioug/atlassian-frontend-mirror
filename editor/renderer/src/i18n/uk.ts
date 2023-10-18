@@ -22,5 +22,5 @@ export default {
   'fabric.editor.tableHeader.sorting.default': 'Сортувати стовпець',
   'fabric.editor.tableHeader.sorting.desc': 'Застосовано сортування за спаданням',
   'fabric.editor.tableHeader.sorting.invalid': 'Не можна сортувати таблицю, у якій є об’єднані клітинки',
-  'fabric.editor.tableHeader.sorting.no': 'До стовпця не застосовано сортування',
+  'fabric.editor.tableHeader.sorting.no': 'Стовпець не сортувався',
 };

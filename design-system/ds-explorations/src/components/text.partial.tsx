@@ -189,11 +189,11 @@ export default Text;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f42dabbb2f08c0ca0dd8a46fc3508937>>
+ * @codegen <<SignedSource::9433121c32ccc048039fa1dce6b3a3fc>>
  * @codegenId typography
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography.tsx <<SignedSource::ca98df97c16967b7984f4ad4d557cc48>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography.tsx <<SignedSource::e6864487c53c4cc578daae3094d18dd9>>
  */
 const fontSizeMap = {
   'size.050': css({

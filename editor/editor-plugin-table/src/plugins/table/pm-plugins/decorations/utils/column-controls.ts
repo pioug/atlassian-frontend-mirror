@@ -1,9 +1,9 @@
 // @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
-import {
+import type {
   ReadonlyTransaction,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
@@ -15,9 +15,10 @@ import {
   findControlsHoverDecoration,
   updateDecorations,
 } from '../../../utils/decoration';
+import { pluginKey as tablePluginKey } from '../../plugin-key';
 
 import { composeDecorations } from './compose-decorations';
-import { DecorationTransformer } from './types';
+import type { DecorationTransformer } from './types';
 
 const isColumnSelected = (tr: Transaction | ReadonlyTransaction): boolean =>
   tr.selection instanceof CellSelection && tr.selection.isColSelection();
@@ -49,13 +50,17 @@ const maybeUpdateColumnControlsDecoration: DecorationTransformer = ({
   tr,
 }): DecorationSet => {
   const table = findTable(tr.selection);
-  if (!table) {
+  const meta = tr.getMeta(tablePluginKey);
+
+  // avoid re-drawing state if dnd decorations don't need to be updated
+  if (!table && meta?.type !== 'HOVER_CELL') {
     return decorationSet;
   }
+
   return updateDecorations(
     tr.doc,
     decorationSet,
-    createColumnControlsDecoration(tr.selection),
+    createColumnControlsDecoration(tr.selection, meta?.data?.hoveredCell),
     TableDecorations.COLUMN_CONTROLS_DECORATIONS,
   );
 };

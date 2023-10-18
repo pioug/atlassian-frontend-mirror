@@ -45,7 +45,7 @@ export default {
   'linkDataSource.jira-issues.refresh': 'Opdater',
   'linkDataSource.jira-issues.unableToLoadItems': 'Kunne ikke indlæse elementer',
   'linkDataSource.jira-issues.unableToLoadResults': 'Kunne ikke indlæse resultater',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'Få mere at vide om søgning med JQL',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'Få mere at vide om at søge med JQL.',
   'linkDataSource.modal-initial-state.searchDescription': 'Begynd at indtaste, eller brug JQL til at søge.',
   'linkDataSource.modal-initial-state.searchTitle': 'Søg efter Jira-sager',
   'linkDataSource.render-type.boolean.false': 'Nej',

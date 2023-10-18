@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ecd63bab60b9c05c08973d35cc1989df>>
+ * @codegen <<SignedSource::e95de29cabce142a19e4a4c6780c2555>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -145,7 +145,8 @@ const tokens = [
       "group": "typography",
       "state": "experimental",
       "introduced": "1.14.0",
-      "description": "TBD"
+      "description": "TBD",
+      "responsiveSmallerVariant": "font.heading.medium"
     },
     "value": "normal 700 24px/28px var(--ds-font-family-heading)",
     "filePath": "schema/themes/atlassian-typography/theme.tsx",
@@ -155,7 +156,8 @@ const tokens = [
         "group": "typography",
         "state": "experimental",
         "introduced": "1.14.0",
-        "description": "TBD"
+        "description": "TBD",
+        "responsiveSmallerVariant": "font.heading.medium"
       },
       "value": {
         "fontWeight": "FontWeight700",
@@ -179,7 +181,8 @@ const tokens = [
       "group": "typography",
       "state": "experimental",
       "introduced": "1.14.0",
-      "description": "TBD"
+      "description": "TBD",
+      "responsiveSmallerVariant": "font.heading.small"
     },
     "value": "normal 700 20px/24px var(--ds-font-family-heading)",
     "filePath": "schema/themes/atlassian-typography/theme.tsx",
@@ -189,7 +192,8 @@ const tokens = [
         "group": "typography",
         "state": "experimental",
         "introduced": "1.14.0",
-        "description": "TBD"
+        "description": "TBD",
+        "responsiveSmallerVariant": "font.heading.small"
       },
       "value": {
         "fontWeight": "FontWeight700",
@@ -247,7 +251,8 @@ const tokens = [
       "group": "typography",
       "state": "experimental",
       "introduced": "1.14.0",
-      "description": "TBD"
+      "description": "TBD",
+      "responsiveSmallerVariant": "font.heading.large"
     },
     "value": "normal 700 28px/32px var(--ds-font-family-heading)",
     "filePath": "schema/themes/atlassian-typography/theme.tsx",
@@ -257,7 +262,8 @@ const tokens = [
         "group": "typography",
         "state": "experimental",
         "introduced": "1.14.0",
-        "description": "TBD"
+        "description": "TBD",
+        "responsiveSmallerVariant": "font.heading.large"
       },
       "value": {
         "fontWeight": "FontWeight700",
@@ -315,7 +321,8 @@ const tokens = [
       "group": "typography",
       "state": "experimental",
       "introduced": "1.14.0",
-      "description": "TBD"
+      "description": "TBD",
+      "responsiveSmallerVariant": "font.heading.xlarge"
     },
     "value": "normal 700 36px/40px var(--ds-font-family-heading)",
     "filePath": "schema/themes/atlassian-typography/theme.tsx",
@@ -325,7 +332,8 @@ const tokens = [
         "group": "typography",
         "state": "experimental",
         "introduced": "1.14.0",
-        "description": "TBD"
+        "description": "TBD",
+        "responsiveSmallerVariant": "font.heading.xlarge"
       },
       "value": {
         "fontWeight": "FontWeight700",

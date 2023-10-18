@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-date",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Date plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -31,14 +31,39 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
+    "@atlaskit/adf-schema": "^32.0.0",
     "@atlaskit/calendar": "^13.3.0",
-    "@atlaskit/editor-common": "^76.10.0",
+    "@atlaskit/date": "^0.10.0",
+    "@atlaskit/editor-common": "^76.12.0",
     "@atlaskit/editor-plugin-analytics": "^0.2.0",
     "@atlaskit/editor-plugin-editor-disabled": "^0.2.0",
-    "@babel/runtime": "^7.0.0"
+    "@atlaskit/editor-prosemirror": "1.1.0",
+    "@atlaskit/editor-shared-styles": "^2.8.0",
+    "@atlaskit/form": "^8.11.0",
+    "@atlaskit/locale": "^2.5.0",
+    "@atlaskit/textfield": "5.6.8",
+    "@atlaskit/theme": "^12.6.0",
+    "@atlaskit/tokens": "^1.28.0",
+    "@babel/runtime": "^7.0.0",
+    "@emotion/react": "^11.7.1",
+    "date-fns": "^2.17.0",
+    "react-dom": "^16.8.0",
+    "react-intl-next": "npm:react-intl@^5.18.1",
+    "react-loadable": "^5.1.0"
   },
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0"
+    "@atlaskit/editor-plugin-composition": "^0.1.0",
+    "@atlaskit/editor-plugin-content-insertion": "^0.1.0",
+    "@atlaskit/editor-plugin-decorations": "^0.2.0",
+    "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
+    "@atlaskit/editor-plugin-guideline": "^0.5.0",
+    "@atlaskit/editor-plugin-quick-insert": "^0.2.0",
+    "@atlaskit/editor-plugin-selection": "^0.1.0",
+    "@atlaskit/editor-plugin-table": "^5.2.0",
+    "@atlaskit/editor-plugin-type-ahead": "^0.7.0",
+    "@atlaskit/editor-plugin-width": "^0.2.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@testing-library/react": "^12.1.5"
   },
   "peerDependencies": {
     "react": "^16.8.0"

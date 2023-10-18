@@ -8,7 +8,7 @@
 //
 export default {
   'fabric.linking.access_exists_description':
-    '⁣⁢Contact your admin and request access to view this content from {hostname}.⁫⁡⁠⁬⁪⁪⁫⁡⁮؜؜⁯⁠‍‌‌⁠⁭⁫⁬⁮⁬⁮⁣⁤',
+    '⁣⁢Request access to view this content from {hostname}.؜⁡‌⁯⁬⁡⁡⁯⁯؜⁠؜⁭⁪⁪⁠‍؜⁪⁪⁪‍⁫⁠‌‌⁯⁣⁤',
   'fabric.linking.actions': '⁣⁢Actions⁬⁪⁮؜‌‌⁠‌⁡‌⁭‌⁭؜⁪⁫⁯⁭⁬⁣⁤',
   'fabric.linking.add_account': '⁣⁢Add account‌‍‌⁯⁬⁡⁠⁠⁭⁬⁯‌⁭‌⁡⁪‌⁫⁠⁣⁤',
   'fabric.linking.assigned_to': '⁣⁢Assigned to {context}؜⁯‌‍⁬⁬‍⁡؜⁯؜‌‌‍⁡⁫⁭⁮‍⁠⁠؜⁯⁣⁤',
@@ -40,17 +40,18 @@ export default {
   'fabric.linking.create_on_relative': '⁣⁢Created {context}⁬⁬؜؜⁭‌⁯⁭⁮‌‌⁯⁫⁡⁠⁫⁬⁯؜⁪⁣⁤',
   'fabric.linking.created_by': '⁣⁢Created by {context}⁯⁠⁭‌⁯؜⁫‍؜‍⁯⁫⁠⁬⁡⁭⁪⁭؜⁬؜⁭⁡⁣⁤',
   'fabric.linking.delete': '⁣⁢Delete⁫‍⁮⁬⁡⁪؜؜⁮‍؜⁡‌⁮⁫⁠⁮⁫⁯⁠⁪⁣⁤',
-  'fabric.linking.direct_access_crossjoin': '⁣⁢Go to {product}؜⁡؜⁫⁭⁡⁠⁭⁭⁯؜⁭⁡‍⁪⁬⁮⁯⁭⁠؜؜⁣⁤',
+  'fabric.linking.direct_access_crossjoin': '⁣⁢Join now⁬‍⁯⁭⁭⁫⁡⁫‌‍⁯⁭⁮⁡⁬؜⁡‍⁮⁮‍⁣⁤',
   'fabric.linking.direct_access_description_crossjoin':
-    '⁣⁢All accounts with your same email domain are approved to access {hostname} in {product}.‍⁯⁡⁫⁫⁡⁫⁪⁯⁠⁫⁯؜⁡‌؜⁫‌⁠⁮⁣⁤',
-  'fabric.linking.direct_access_title_crossjoin': '⁣⁢Join your team in {product}؜⁭⁭⁭⁫⁯⁫؜⁮⁠⁭؜⁪⁬؜⁬⁮⁫⁡⁪؜⁣⁤',
+    '⁣⁢Your team uses {product} to collaborate and you can start using it right away!؜⁡‍⁬‌‍؜⁭‍⁬⁡⁮؜⁭⁭⁠⁫؜⁣⁤',
+  'fabric.linking.direct_access_title_crossjoin': '⁣⁢Join {product} to view this content⁯⁮⁯‍⁫⁡؜⁡⁠⁠⁡⁯⁠⁪⁬⁯⁡⁯⁫⁠‍⁠⁭⁭⁬⁬⁣⁤',
   'fabric.linking.download': '⁣⁢Download‌⁫⁪⁬⁫⁫‍⁮‍؜⁪⁭⁠⁬⁯؜⁡⁡⁬‍⁬⁪⁣⁤',
   'fabric.linking.edit': '⁣⁢Edit⁭‌⁪⁠⁫⁠⁭⁫‍؜⁪‌⁡⁬‍⁫‍⁭⁮⁠⁣⁤',
   'fabric.linking.follow': '⁣⁢Follow‍⁡⁯⁪⁠⁭؜⁡⁫⁭‌‍‍‍‍⁬⁡⁭؜‍‍⁣⁤',
   'fabric.linking.forbidden_access': '⁣⁢Your access is forbidden⁫⁬؜‌⁠؜⁬⁡‌⁪؜⁠‌‍⁪⁮⁯⁯‌⁬⁮⁪⁣⁤',
   'fabric.linking.forbidden_description':
     '⁣⁢You don’t have access to this preview. Contact the site admin if you need access.⁫⁫⁯⁮⁭⁬‍⁠‍‍⁫⁫⁠⁪⁫⁪؜⁬⁬‌‌⁪⁭⁫⁪⁣⁤',
-  'fabric.linking.forbidden_description_crossjoin': '⁣⁢Contact your admin to request access.‍؜⁠⁯⁡⁫⁪‍⁠⁭⁡⁪⁯‌؜⁮⁪؜⁪⁠⁣⁤',
+  'fabric.linking.forbidden_description_crossjoin':
+    '⁣⁢Contact your admin to request access to {hostname}.⁠⁬؜⁮⁠⁭⁬⁬⁯⁠⁪⁡⁬⁯‍‍⁠⁠⁮؜⁬‍‌⁣⁤',
   'fabric.linking.forbidden_title_crossjoin': "⁣⁢You don't have access to this content⁡؜⁡⁯⁫⁡⁮⁪‌⁮‍⁯⁪⁫⁡‌⁮⁯⁭‌⁪⁣⁤",
   'fabric.linking.go_back': '⁣⁢Go back‌‍⁯⁭⁭‌⁯‌⁪⁪‍⁯⁯⁡؜⁡⁬⁭؜⁯⁪‌‍⁬⁣⁤',
   'fabric.linking.invalid_permissions': '⁣⁢Restricted content⁯‌⁡⁫‌⁮⁮؜⁠⁯⁪⁡؜⁬⁮‍⁡⁪⁪⁫⁭⁣⁤',
@@ -64,7 +65,7 @@ export default {
   'fabric.linking.modified_on_absolute': '⁣⁢Updated on {context}⁫⁭⁡⁫⁯⁠‌؜‌؜⁠⁯⁭⁫⁠⁭⁪⁫⁭؜⁬⁣⁤',
   'fabric.linking.modified_on_relative': '⁣⁢Updated {context}⁠⁪⁯‌⁯؜⁮‍⁯⁬‌⁪؜‌⁬⁫⁮؜⁪⁬⁠⁭⁬‌⁣⁤',
   'fabric.linking.more_actions': '⁣⁢More actions⁮‌⁭⁡‌⁭‌‌⁬⁪⁯⁭‍⁠⁯‍⁪⁡⁮⁬؜‌⁣⁤',
-  'fabric.linking.no_access_title_crossjoin': "⁣⁢You don't have access to this content⁭‍‍⁡⁭⁠‌؜⁬⁪⁮⁯‍؜⁮⁠⁫‍⁬⁣⁤",
+  'fabric.linking.no_access_title_crossjoin': '⁣⁢Join {product} to view this content⁮⁫⁯⁭⁮⁡⁮⁮⁪⁯⁠⁪⁯⁬⁭⁪⁭⁡⁠⁠⁮⁣⁤',
   'fabric.linking.not_found_description':
     "⁣⁢We couldn't find the link. Check the url and try editing or paste again.؜⁠⁮⁭⁮‍⁠⁠‍⁫؜‌⁠؜⁠⁯‍‍؜⁠⁡⁯⁪⁪⁠⁡⁫⁣⁤",
   'fabric.linking.not_found_description_crossjoin':
@@ -95,7 +96,8 @@ export default {
   'fabric.linking.request_access_crossjoin': '⁣⁢Request access⁡⁬⁪⁪⁪⁠⁡⁮‌⁪⁫⁭⁪‍؜⁠⁫⁫⁣⁤',
   'fabric.linking.request_access_description':
     '⁣⁢Request access to {context} view this preview.؜⁭⁫⁮⁯‌‌⁭⁡⁬⁬‌⁮‍‌⁯⁪⁫⁫‍⁭⁣⁤',
-  'fabric.linking.request_access_description_crossjoin': '⁣⁢Contact your admin to request access.‌‌⁮⁯⁬⁬⁪⁫⁫‍‍⁠⁪‌⁡⁯⁣⁤',
+  'fabric.linking.request_access_description_crossjoin':
+    '⁣⁢Your team uses {product} to collaborate. Send your admin a request for access.‍‌⁯؜⁡⁯؜⁠‌⁡⁪⁮⁫⁪⁬⁯⁯‍⁫⁭⁭؜⁮⁡⁭⁡⁯⁣⁤',
   'fabric.linking.request_access_pending': '⁣⁢Access pending؜⁫؜⁠؜؜⁪⁭؜⁠‌⁭⁬‍⁯⁭⁫⁮؜؜⁬⁯‌؜⁣⁤',
   'fabric.linking.request_access_pending_crossjoin': '⁣⁢Pending approval⁡⁭⁪⁠‌⁪⁮⁮⁫⁪⁪⁭⁡⁮⁯⁭⁫⁪⁮؜‌⁫⁠⁫⁡؜⁣⁤',
   'fabric.linking.request_access_pending_description': '⁣⁢Your access request is pending.‌⁠⁡⁠‍⁫؜⁡⁯‍؜‍⁯؜⁬؜⁬‌⁪⁯⁣⁤',

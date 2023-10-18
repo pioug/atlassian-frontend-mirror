@@ -49,8 +49,8 @@ class Decision extends ReactNodeView {
   }
 
   initWithAPI(api: ExtractInjectionAPI<TaskAndDecisionsPlugin> | undefined) {
-    this.init();
     this.api = api;
+    this.init();
     return this;
   }
 

@@ -41,7 +41,6 @@ import { RowControls } from '../../../plugins/table/ui/TableFloatingControls/Row
 
 describe('RowControls', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const fakeGetEditorFeatureFlags = jest.fn(() => ({}));
   let originalResizeObserver: any;
 
   beforeAll(() => {
@@ -94,7 +93,8 @@ describe('RowControls', () => {
               tableRef={ref}
               tableActive
               editorView={editorView}
-              getEditorFeatureFlags={fakeGetEditorFeatureFlags}
+              isDragAndDropEnabled={false}
+              selection={editorView.state.selection}
             />
           </IntlProvider>,
         );
@@ -116,7 +116,6 @@ describe('RowControls', () => {
           tableRef={ref}
           tableActive={false}
           editorView={editorView}
-          getEditorFeatureFlags={fakeGetEditorFeatureFlags}
         />
       </IntlProvider>,
     );
@@ -145,7 +144,8 @@ describe('RowControls', () => {
               tableRef={ref}
               tableActive
               editorView={editorView}
-              getEditorFeatureFlags={fakeGetEditorFeatureFlags}
+              isDragAndDropEnabled={false}
+              selection={editorView.state.selection}
             />
           </IntlProvider>,
         );

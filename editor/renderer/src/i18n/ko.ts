@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': '⚠️ 병합된 셀이 있는 표를 정렬할 수 없습니다',
   'fabric.editor.headingLink.noOrderLabel': '오름차순으로 열 정렬',
   'fabric.editor.headingLink.noneSortingLabel': '없음',
+  'fabric.editor.tableHeader.sorting.asc': '오름차순 정렬 적용',
+  'fabric.editor.tableHeader.sorting.default': '열 정렬',
+  'fabric.editor.tableHeader.sorting.desc': '내림차순 정렬 적용',
+  'fabric.editor.tableHeader.sorting.invalid': '병합된 셀이 있는 표를 정렬할 수 없습니다',
+  'fabric.editor.tableHeader.sorting.no': '열에 적용한 정렬이 없습니다',
 };

@@ -7,8 +7,6 @@
  */
 //French (France)
 export default {
-  'fabric.linking.access_exists_description':
-    "Contactez votre administrateur et demandez l'accès pour voir ce contenu depuis {hostname}.",
   'fabric.linking.actions': 'Actions',
   'fabric.linking.add_account': 'Ajouter un compte',
   'fabric.linking.assigned_to': 'Assigné à {context}',
@@ -40,17 +38,12 @@ export default {
   'fabric.linking.create_on_relative': 'Créé : {context}',
   'fabric.linking.created_by': 'Création par : {context}',
   'fabric.linking.delete': 'Supprimer',
-  'fabric.linking.direct_access_crossjoin': 'Accéder à {product}',
-  'fabric.linking.direct_access_description_crossjoin':
-    'Tous les comptes associés au même domaine de messagerie sont autorisés à accéder à {hostname} dans {product}.',
-  'fabric.linking.direct_access_title_crossjoin': 'Rejoignez votre équipe dans {product}',
   'fabric.linking.download': 'Télécharger',
   'fabric.linking.edit': 'Modifier',
   'fabric.linking.follow': 'Suivre',
   'fabric.linking.forbidden_access': "Vous n'avez pas accès à cette ressource",
   'fabric.linking.forbidden_description':
     "Vous n'avez pas accès à cet aperçu. Contactez l'administrateur de site si vous avez besoin d'y accéder.",
-  'fabric.linking.forbidden_description_crossjoin': "Contactez votre administrateur pour demander l'accès.",
   'fabric.linking.forbidden_title_crossjoin': "Vous n'avez pas accès à ce contenu",
   'fabric.linking.go_back': 'Retour',
   'fabric.linking.invalid_permissions': 'Contenu restreint',
@@ -64,7 +57,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Mise à jour : {context}',
   'fabric.linking.modified_on_relative': 'Mise à jour : {context}',
   'fabric.linking.more_actions': "Plus d'actions",
-  'fabric.linking.no_access_title_crossjoin': "Vous n'avez pas accès à ce contenu",
   'fabric.linking.not_found_description':
     "Lien introuvable. Cliquez sur l'URL et essayez de la modifier, ou collez-la de nouveau.",
   'fabric.linking.not_found_description_crossjoin':
@@ -94,7 +86,6 @@ export default {
   'fabric.linking.request_access': "Demander l'accès",
   'fabric.linking.request_access_crossjoin': "Demander l'accès",
   'fabric.linking.request_access_description': 'Demandez un accès à {context} pour voir cet aperçu.',
-  'fabric.linking.request_access_description_crossjoin': "Contactez votre administrateur pour demander l'accès.",
   'fabric.linking.request_access_pending': 'Accès en attente',
   'fabric.linking.request_access_pending_crossjoin': 'Approbation en attente',
   'fabric.linking.request_access_pending_description': "Votre demande d'accès est en attente.",

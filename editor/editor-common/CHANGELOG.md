@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 76.12.0
+
+### Minor Changes
+
+- [#41651](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41651) [`68871f23ed3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68871f23ed3) - Extract Date Plugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 76.11.7
 
 ### Patch Changes

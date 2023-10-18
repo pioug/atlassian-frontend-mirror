@@ -7,7 +7,6 @@
  */
 //Chinese (Traditional)
 export default {
-  'fabric.linking.access_exists_description': '請連絡您的管理員並要求存取權，以檢視 {hostname} 的這項內容。',
   'fabric.linking.actions': '動作',
   'fabric.linking.add_account': '新增帳戶',
   'fabric.linking.assigned_to': '已指派給 {context}',
@@ -36,16 +35,11 @@ export default {
   'fabric.linking.create_on_relative': '建立時間：{context}',
   'fabric.linking.created_by': '建立者：{context}',
   'fabric.linking.delete': '刪除',
-  'fabric.linking.direct_access_crossjoin': '前往 {product}',
-  'fabric.linking.direct_access_description_crossjoin':
-    '所有具有相同電子郵件網域的帳戶都被已經過核准，可以存取 {product} 中的 {hostname}。',
-  'fabric.linking.direct_access_title_crossjoin': '在 {product} 加入您的團隊',
   'fabric.linking.download': '下載',
   'fabric.linking.edit': '編輯',
   'fabric.linking.follow': '追蹤',
   'fabric.linking.forbidden_access': '您的存取遭拒',
   'fabric.linking.forbidden_description': '您沒有此預覽的存取權。如果您需要存取權，請連絡網站管理員。',
-  'fabric.linking.forbidden_description_crossjoin': '請連絡您的管理員以要求存取權。',
   'fabric.linking.forbidden_title_crossjoin': '您無法存取此內容',
   'fabric.linking.go_back': '返回',
   'fabric.linking.invalid_permissions': '受限制的內容',
@@ -57,7 +51,6 @@ export default {
   'fabric.linking.modified_on_absolute': '更新於 {context}',
   'fabric.linking.modified_on_relative': '更新時間：{context}',
   'fabric.linking.more_actions': '更多動作',
-  'fabric.linking.no_access_title_crossjoin': '您無法存取此內容',
   'fabric.linking.not_found_description': '我們找不到此連結。請檢查 URL，然後試著編輯或再次貼上。',
   'fabric.linking.not_found_description_crossjoin': '該頁面不存在，或在新增此連結後可能已變更。',
   'fabric.linking.not_found_title': '糟糕，我們找不到此連結！',
@@ -85,7 +78,6 @@ export default {
   'fabric.linking.request_access': '要求存取權',
   'fabric.linking.request_access_crossjoin': '要求存取權',
   'fabric.linking.request_access_description': '要求 {context} 的存取權以檢視此預覽。',
-  'fabric.linking.request_access_description_crossjoin': '請連絡您的管理員以要求存取權。',
   'fabric.linking.request_access_pending': '存取擱置',
   'fabric.linking.request_access_pending_crossjoin': '待核准',
   'fabric.linking.request_access_pending_description': '您的存取要求擱置中。',

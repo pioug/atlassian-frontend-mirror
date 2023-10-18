@@ -75,8 +75,8 @@ class Task extends ReactNodeView<Props> {
   private api: ExtractInjectionAPI<TaskAndDecisionsPlugin> | undefined;
 
   initWithAPI(api: ExtractInjectionAPI<TaskAndDecisionsPlugin> | undefined) {
-    this.init();
     this.api = api;
+    this.init();
     return this;
   }
 

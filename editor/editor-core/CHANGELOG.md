@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 188.11.2
+
+### Patch Changes
+
+- [#41783](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41783) [`60b12780695`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60b12780695) - [ED-20519] Extract Better Type Plugin to help paste decoupling and extraction
+- Updated dependencies
+
+## 188.11.1
+
+### Patch Changes
+
+- [#41780](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41780) [`986e88d2f0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/986e88d2f0d) - [ED-20510] Fix: Hide placehoder wqhen TypeAhead opens inside a Task/Decision item
+
+## 188.11.0
+
+### Minor Changes
+
+- [#41651](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41651) [`68871f23ed3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68871f23ed3) - Extract Date Plugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 188.10.7
 
 ### Patch Changes

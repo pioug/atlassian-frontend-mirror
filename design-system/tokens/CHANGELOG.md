@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.28.0
+
+### Minor Changes
+
+- [#41365](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41365) [`fab3ce9e39a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fab3ce9e39a) - Added smaller variants of heading tokens that get used for screen widths 1023px and below (Minor Third scale only). For example `font.heading.xlarge` will switch to the styles defined by `font.heading.large` on smaller screens.
+
 ## 1.27.0
 
 ### Minor Changes

@@ -24,6 +24,7 @@ import { ReactNode } from 'react';
 // @public
 export const UNSAFE_LAYERING: FC<{
   children: ReactNode;
+  isDisabled?: boolean;
 }>;
 
 // @public

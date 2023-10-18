@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 10.8.11
+
+### Patch Changes
+
+- [#41764](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41764) [`77fd34690e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77fd34690e9) - Add missing dependencies to fix typechecking under local consumption
+
 ## 10.8.10
 
 ### Patch Changes

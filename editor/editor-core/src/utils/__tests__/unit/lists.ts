@@ -7,11 +7,8 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, ol, li } from '@atlaskit/editor-test-helpers/doc-builder';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
-import {
-  panelPlugin,
-  pastePlugin,
-  betterTypeHistoryPlugin,
-} from '../../../plugins';
+import { panelPlugin, pastePlugin } from '../../../plugins';
+import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugin-better-type-history';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '../../../plugins/paste/handlers';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';

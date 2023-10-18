@@ -8,7 +8,8 @@ const SomeLayerWrapper = () => {
   return (
     <>
       <h2>
-        current Level is {currentLevel}, top level is {topLevelRef.current}
+        current Level is {currentLevel}, top level is{' '}
+        {topLevelRef.current ?? 'disabled'}
       </h2>
       {isLayerDisabled() ? (
         <p>It is a disabled layer</p>
@@ -20,7 +21,7 @@ const SomeLayerWrapper = () => {
 };
 
 export default () => (
-  <UNSAFE_LAYERING>
+  <UNSAFE_LAYERING isDisabled={false}>
     <SomeLayerWrapper />
   </UNSAFE_LAYERING>
 );

@@ -23,6 +23,7 @@ import {
   tdEmpty,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import tablePlugin from '../../../../plugins/table';
 import { selectColumn } from '../../../../plugins/table/commands';
@@ -53,28 +54,92 @@ describe('decorations plugin', () => {
 
   // ED-8457
   describe('when there is a selection pointer set', () => {
-    it('should remove the column selected decorations', () => {
-      const { editorView } = editor(
-        doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+    describe('should remove the column selected decorations', () => {
+      ffTest(
+        'platform.editor.table.drag-and-drop',
+        () => {
+          const { editorView } = editor(
+            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+          );
+
+          selectColumn(1)(editorView.state, editorView.dispatch);
+
+          const { tr: transaction } = editorView.state;
+
+          transaction.setMeta('pointer', true);
+          transaction.setSelection(Selection.atStart(transaction.doc));
+          editorView.dispatch(transaction);
+
+          const decorationSet = getDecorations(editorView.state);
+
+          const columnSelectedDecorations = decorationSet.find(
+            undefined,
+            undefined,
+            (spec) => spec.key.indexOf(TableDecorations.COLUMN_SELECTED) > -1,
+          );
+
+          expect(columnSelectedDecorations).toHaveLength(0);
+        },
+        () => {
+          const { editorView } = editor(
+            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+          );
+
+          selectColumn(1)(editorView.state, editorView.dispatch);
+
+          const { tr: transaction } = editorView.state;
+
+          transaction.setMeta('pointer', true);
+          transaction.setSelection(Selection.atStart(transaction.doc));
+          editorView.dispatch(transaction);
+
+          const decorationSet = getDecorations(editorView.state);
+
+          const columnSelectedDecorations = decorationSet.find(
+            undefined,
+            undefined,
+            (spec) => spec.key.indexOf(TableDecorations.COLUMN_SELECTED) > -1,
+          );
+
+          expect(columnSelectedDecorations).toHaveLength(0);
+        },
       );
+    });
+  });
 
-      selectColumn(1)(editorView.state, editorView.dispatch);
+  describe('when the hovered cell state changes', () => {
+    describe('should add column control decorations', () => {
+      ffTest('platform.editor.table.drag-and-drop', () => {
+        const pluginState = DecorationSet.empty;
+        const { editorView } = editor(
+          doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+        );
 
-      const { tr: transaction } = editorView.state;
+        const transaction = editorView.state.tr.setMeta(pluginKey, {
+          type: 'HOVER_CELL',
+          data: {
+            colIndex: 0,
+            rowIndex: 0,
+          },
+        });
 
-      transaction.setMeta('pointer', true);
-      transaction.setSelection(Selection.atStart(transaction.doc));
-      editorView.dispatch(transaction);
+        const oldState = handleDocOrSelectionChanged(
+          transaction,
+          pluginState,
+          editorView.state,
+          editorView.state,
+        );
 
-      const decorationSet = getDecorations(editorView.state);
+        editorView.dispatch(transaction);
+        const newState = handleDocOrSelectionChanged(
+          transaction,
+          oldState,
+          editorView.state,
+          editorView.state,
+        );
 
-      const columnSelectedDecorations = decorationSet.find(
-        undefined,
-        undefined,
-        (spec) => spec.key.indexOf(TableDecorations.COLUMN_SELECTED) > -1,
-      );
-
-      expect(columnSelectedDecorations).toHaveLength(0);
+        expect(oldState).not.toEqual(newState);
+      });
     });
   });
 
@@ -104,37 +169,76 @@ describe('decorations plugin', () => {
   });
 
   describe('when the table changed', () => {
-    it('should re-create the column controls decorations', () => {
-      const { editorView } = editor(
-        doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
-      );
-      const { state } = editorView;
+    describe('should re-create the column controls decorations', () => {
+      ffTest(
+        'platform.editor.table.drag-and-drop',
+        () => {
+          const { editorView } = editor(
+            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+          );
+          const { state } = editorView;
 
-      const nextPluginState = handleDocOrSelectionChanged(
-        editorView.state.tr,
-        DecorationSet.empty,
-        editorView.state,
-        state,
-      );
+          const nextPluginState = handleDocOrSelectionChanged(
+            editorView.state.tr,
+            DecorationSet.empty,
+            editorView.state,
+            state,
+          );
 
-      const { tr: transaction } = state;
-      editorView.dispatch(addColumnAt(2)(transaction));
+          const { tr: transaction } = state;
+          editorView.dispatch(addColumnAt(2)(transaction));
 
-      const newState = handleDocOrSelectionChanged(
-        transaction,
-        nextPluginState,
-        editorView.state,
-        state,
-      );
-      const expectedDecorationSet = newState;
-      const decorations = expectedDecorationSet.find(
-        undefined,
-        undefined,
-        (spec) =>
-          spec.key.indexOf(TableDecorations.COLUMN_CONTROLS_DECORATIONS) > -1,
-      );
+          const newState = handleDocOrSelectionChanged(
+            transaction,
+            nextPluginState,
+            editorView.state,
+            state,
+          );
+          const expectedDecorationSet = newState;
+          const decorations = expectedDecorationSet.find(
+            undefined,
+            undefined,
+            (spec) =>
+              spec.key.indexOf(TableDecorations.COLUMN_CONTROLS_DECORATIONS) >
+              -1,
+          );
 
-      expect(decorations).toHaveLength(3);
+          expect(decorations).toHaveLength(3);
+        },
+        () => {
+          const { editorView } = editor(
+            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+          );
+          const { state } = editorView;
+
+          const nextPluginState = handleDocOrSelectionChanged(
+            editorView.state.tr,
+            DecorationSet.empty,
+            editorView.state,
+            state,
+          );
+
+          const { tr: transaction } = state;
+          editorView.dispatch(addColumnAt(2)(transaction));
+
+          const newState = handleDocOrSelectionChanged(
+            transaction,
+            nextPluginState,
+            editorView.state,
+            state,
+          );
+          const expectedDecorationSet = newState;
+          const decorations = expectedDecorationSet.find(
+            undefined,
+            undefined,
+            (spec) =>
+              spec.key.indexOf(TableDecorations.COLUMN_CONTROLS_DECORATIONS) >
+              -1,
+          );
+
+          expect(decorations).toHaveLength(3);
+        },
+      );
     });
   });
 

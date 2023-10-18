@@ -352,6 +352,7 @@ export const createTableView = (
     isFullWidthModeEnabled,
     wasFullWidthModeEnabled,
     isTableResizingEnabled,
+    isDragAndDropEnabled,
   } = getPluginState(view.state);
   const { allowColumnResizing } = getPluginConfig(pluginConfig);
   const hasIntlContext = true;
@@ -368,6 +369,7 @@ export const createTableView = (
       isFullWidthModeEnabled,
       wasFullWidthModeEnabled,
       isTableResizingEnabled,
+      isDragAndDropEnabled,
     },
     getEditorContainerWidth,
     getEditorFeatureFlags,

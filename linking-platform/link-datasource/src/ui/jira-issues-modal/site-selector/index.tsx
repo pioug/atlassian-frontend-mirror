@@ -1,14 +1,13 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { useMemo } from 'react';
+
+import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import Button from '@atlaskit/button/standard-button';
-import DropdownMenu, {
-  DropdownItem,
-  DropdownItemGroup,
-} from '@atlaskit/dropdown-menu';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+import Select, { OptionType, ValueType } from '@atlaskit/select';
+import { token } from '@atlaskit/tokens';
 
+import { siteSelectorIndex } from '../../../common/zindex';
 import { Site } from '../../../services/getAvailableJiraSites';
 
 import { siteSelectorMessages } from './messages';
@@ -20,51 +19,63 @@ export interface JiraSiteSelectorProps {
   testId?: string;
 }
 
+const selectStyles = css({
+  fontSize: token('font.size.100', '14px'),
+  fontWeight: token('font.weight.medium', '500'),
+  lineHeight: token('font.lineHeight.200', '20px'),
+  zIndex: siteSelectorIndex,
+});
+
 export const JiraSiteSelector = (props: JiraSiteSelectorProps) => {
   const { availableSites, onSiteSelection, selectedJiraSite, testId } = props;
 
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
+
+  const onChange = (newValue: ValueType<OptionType>) => {
+    const selectedSite = availableSites.find(
+      site => site.cloudId === newValue?.value,
+    );
+
+    if (selectedSite) {
+      onSiteSelection(selectedSite);
+    }
+  };
+
+  const availableSitesOptions = useMemo(
+    () =>
+      availableSites.map(site => ({
+        label: site.displayName,
+        value: site.cloudId,
+      })),
+    [availableSites],
+  );
+
+  const selectedSiteOption = selectedJiraSite && {
+    label: selectedJiraSite.displayName,
+    value: selectedJiraSite.cloudId,
+  };
 
   return (
-    <DropdownMenu
-      spacing="compact"
-      testId={testId}
-      trigger={({ triggerRef, ...props }) => (
-        <Button
-          {...props}
-          testId={`${testId}--trigger`}
-          spacing="none"
-          iconBefore={
-            <ChevronDownIcon
-              label={intl.formatMessage(
-                siteSelectorMessages.dropdownChevronLabel,
-              )}
-            />
-          }
-          ref={triggerRef}
-        />
-      )}
-    >
-      <DropdownItemGroup>
-        {availableSites.map(availableSite => {
-          const { displayName, cloudId } = availableSite;
-          const isSelected = displayName === selectedJiraSite?.displayName;
-
-          return (
-            <DropdownItem
-              isSelected={isSelected}
-              key={cloudId}
-              onClick={() => onSiteSelection(availableSite)}
-              testId={
-                testId &&
-                `${testId}--dropdown-item${isSelected ? '__selected' : ''}`
-              }
-            >
-              {displayName}
-            </DropdownItem>
-          );
-        })}
-      </DropdownItemGroup>
-    </DropdownMenu>
+    <span data-testid={`${testId}--trigger`}>
+      <Select
+        css={selectStyles}
+        classNamePrefix={testId}
+        isLoading={availableSites.length === 0}
+        onChange={onChange}
+        options={availableSitesOptions}
+        placeholder={formatMessage(siteSelectorMessages.chooseSite)}
+        styles={{
+          // prevents the popup menu with available sites from being too narrow
+          // if the selected site is much shorter than the other options
+          menu: ({ width, ...css }) => ({
+            ...css,
+            minWidth: '100%',
+            width: 'max-content',
+          }),
+        }}
+        testId={testId}
+        value={selectedSiteOption}
+      />
+    </span>
   );
 };

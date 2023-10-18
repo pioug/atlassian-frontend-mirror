@@ -1,5 +1,12 @@
 # @atlaskit/ds-explorations
 
+## 3.0.5
+
+### Patch Changes
+
+- [#41365](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41365) [`f0a165587f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0a165587f2) - Internal change to update codegen styles.
+- Updated dependencies
+
 ## 3.0.4
 
 ### Patch Changes

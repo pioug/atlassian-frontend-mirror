@@ -7,8 +7,6 @@
  */
 //Polish (Poland)
 export default {
-  'fabric.linking.access_exists_description':
-    'Skontaktuj się z administratorem i poproś o dostęp, aby wyświetlić tę treść w witrynie {hostname}.',
   'fabric.linking.actions': 'Akcje',
   'fabric.linking.add_account': 'Dodaj konto',
   'fabric.linking.assigned_to': 'Przypisano do {context}',
@@ -38,17 +36,12 @@ export default {
   'fabric.linking.create_on_relative': 'Utworzono {context}',
   'fabric.linking.created_by': 'Autor: {context}',
   'fabric.linking.delete': 'Usuń',
-  'fabric.linking.direct_access_crossjoin': 'Przejdź do {product}',
-  'fabric.linking.direct_access_description_crossjoin':
-    'Zatwierdzono dostęp wszystkich kont z tą samą domeną e-mail co Twoja do witryny {hostname} w {product}.',
-  'fabric.linking.direct_access_title_crossjoin': 'Dołącz do swojego zespołu w {product}',
   'fabric.linking.download': 'Pobierz',
   'fabric.linking.edit': 'Edytuj',
   'fabric.linking.follow': 'Obserwuj',
   'fabric.linking.forbidden_access': 'Dostęp zabroniony',
   'fabric.linking.forbidden_description':
     'Nie masz dostępu do tego podglądu. Skontaktuj się z administratorem witryny, jeśli potrzebujesz dostępu.',
-  'fabric.linking.forbidden_description_crossjoin': 'Skontaktuj się z administratorem, aby poprosić o dostęp.',
   'fabric.linking.forbidden_title_crossjoin': 'Nie masz dostępu do tej treści',
   'fabric.linking.go_back': 'Wstecz',
   'fabric.linking.invalid_permissions': 'Treść objęta ograniczeniami',
@@ -62,7 +55,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Zaktualizowano {context}',
   'fabric.linking.modified_on_relative': 'Zaktualizowano {context}',
   'fabric.linking.more_actions': 'Więcej czynności',
-  'fabric.linking.no_access_title_crossjoin': 'Nie masz dostępu do tej treści',
   'fabric.linking.not_found_description':
     'Nie udało się znaleźć łącza. Sprawdź adres url i spróbuj go edytować lub wkleić ponownie.',
   'fabric.linking.not_found_description_crossjoin': 'Strona nie istnieje lub mogła ulec zmianie po dodaniu tego łącza.',
@@ -91,7 +83,6 @@ export default {
   'fabric.linking.request_access': 'Poproś o dostęp',
   'fabric.linking.request_access_crossjoin': 'Wyślij wniosek o dostęp',
   'fabric.linking.request_access_description': 'Poproś o dostęp do {context}, aby wyświetlić ten podgląd.',
-  'fabric.linking.request_access_description_crossjoin': 'Skontaktuj się z administratorem, aby poprosić o dostęp.',
   'fabric.linking.request_access_pending': 'Oczekuje na dostęp',
   'fabric.linking.request_access_pending_crossjoin': 'Oczekiwanie na zatwierdzenie',
   'fabric.linking.request_access_pending_description': 'Twój wniosek o dostęp oczekuje na rozpatrzenie.',

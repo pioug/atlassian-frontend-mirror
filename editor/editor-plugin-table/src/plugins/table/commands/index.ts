@@ -2,6 +2,7 @@ export {
   hoverColumns,
   hoverRows,
   hoverTable,
+  hoverCell,
   hoverMergedCells,
   clearHoverSelection,
   showResizeHandleLine,

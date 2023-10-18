@@ -7,8 +7,6 @@
  */
 //Dutch (Netherlands)
 export default {
-  'fabric.linking.access_exists_description':
-    'Neem contact op met je beheerder en vraag om toegang om de inhoud van {hostname} te bekijken.',
   'fabric.linking.actions': 'Acties',
   'fabric.linking.add_account': 'Account toevoegen',
   'fabric.linking.assigned_to': 'Toegewezen aan {context}',
@@ -39,17 +37,12 @@ export default {
   'fabric.linking.create_on_relative': 'Aangemaakt: {context}',
   'fabric.linking.created_by': 'Aangemaakt door {context}',
   'fabric.linking.delete': 'Verwijderen',
-  'fabric.linking.direct_access_crossjoin': 'Ga naar {product}',
-  'fabric.linking.direct_access_description_crossjoin':
-    'Alle accounts met dezelfde e-maildomein als jij hebben toegang tot {hostname} in {product}.',
-  'fabric.linking.direct_access_title_crossjoin': 'Sluit je aan bij je team op {product}',
   'fabric.linking.download': 'Downloaden',
   'fabric.linking.edit': 'Bewerken',
   'fabric.linking.follow': 'Volgen',
   'fabric.linking.forbidden_access': 'Je hebt geen toegang',
   'fabric.linking.forbidden_description':
     'Je hebt geen toegang tot deze voorvertoning. Neem contact op met de sitebeheerder als je toegang nodig hebt.',
-  'fabric.linking.forbidden_description_crossjoin': 'Neem contact op met je beheerder om toegang aan te vragen.',
   'fabric.linking.forbidden_title_crossjoin': 'Je hebt geen toegang tot deze inhoud',
   'fabric.linking.go_back': 'Teruggaan',
   'fabric.linking.invalid_permissions': 'Beperkte toegang',
@@ -63,7 +56,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Bijgewerkt op {context}',
   'fabric.linking.modified_on_relative': 'Bijgewerkt: {context}',
   'fabric.linking.more_actions': 'Meer acties',
-  'fabric.linking.no_access_title_crossjoin': 'Je hebt geen toegang tot deze inhoud',
   'fabric.linking.not_found_description':
     'We konden de link niet vinden. Controleer de URL en probeer nogmaals te bewerken of plakken.',
   'fabric.linking.not_found_description_crossjoin':
@@ -93,7 +85,6 @@ export default {
   'fabric.linking.request_access': 'Toegang aanvragen',
   'fabric.linking.request_access_crossjoin': 'Toegang aanvragen',
   'fabric.linking.request_access_description': 'Vraag toegang aan tot {context} om deze voorvertoning te bekijken.',
-  'fabric.linking.request_access_description_crossjoin': 'Neem contact op met je beheerder om toegang aan te vragen.',
   'fabric.linking.request_access_pending': 'Toegang wordt behandeld',
   'fabric.linking.request_access_pending_crossjoin': 'Wachten op goedkeuring',
   'fabric.linking.request_access_pending_description': 'Je toegangsaanvraag wordt behandeld.',

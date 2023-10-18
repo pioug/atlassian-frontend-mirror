@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-card
 
+## 0.10.0
+
+### Minor Changes
+
+- [#41407](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41407) [`10708446bd2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10708446bd2) - [ux] Added support for passing of new optional url prop to JiraConfigModal
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.9.2
 
 ### Patch Changes

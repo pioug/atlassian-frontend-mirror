@@ -31,6 +31,7 @@ import {
   columnControlsDecorationHeight,
   resizeHandlerAreaWidth,
   resizeLineWidth,
+  rowControlsZIndex,
   stickyHeaderBorderBottomWidth,
   stickyRowOffsetTop,
   tableBorderColor,
@@ -238,6 +239,26 @@ const tableStickyHeaderColumnControlsDecorationsStyle = (
       }
     `;
   }
+};
+
+const tableRowControlStyles = () => {
+  return getBooleanFF('platform.editor.table.drag-and-drop')
+    ? css`
+        .${ClassName.ROW_CONTROLS_WRAPPER} {
+          position: absolute;
+          margin-top: ${tableMarginTop}px;
+          left: -${tableToolbarSize + 1}px;
+          z-index: ${rowControlsZIndex};
+        }
+      `
+    : css`
+        .${ClassName.ROW_CONTROLS_WRAPPER} {
+          position: absolute;
+          /* top of corner control is table margin top - corner control height + 1 pixel of table border. */
+          top: ${tableMarginTop - cornerControlHeight + 1}px;
+          left: -${tableToolbarSize}px;
+        }
+      `;
 };
 
 const tableWrapperStyles = () => {
@@ -677,6 +698,12 @@ export const tableStyles = (
       )}
     }
 
+    .${ClassName.ROW_CONTROLS_WITH_DRAG} {
+      display: grid;
+      align-items: center;
+      position: absolute;
+    }
+
     ${floatingColumnControls(props)}
 
     :not(.${ClassName.IS_RESIZING}) .${ClassName.ROW_CONTROLS} {
@@ -691,7 +718,9 @@ export const tableStyles = (
       margin-left: ${getBooleanFF('platform.editor.custom-table-width')
         ? akEditorTableToolbarSize
         : akEditorTableToolbarSize - 1}px;
-      top: ${akEditorTableToolbarSize}px;
+      top: ${getBooleanFF('platform.editor.table.drag-and-drop')
+        ? 0
+        : akEditorTableToolbarSize}px;
       width: ${akEditorTableNumberColumnWidth + 1}px;
       box-sizing: border-box;
     }
@@ -715,6 +744,21 @@ export const tableStyles = (
       :last-child {
         border-bottom: 1px solid ${tableBorderColor(props)};
       }
+    }
+
+    // add a background above the first numbered column cell when sticky header is engaged
+    // which hides the table when scrolling
+    .${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}:first-of-type::after {
+      content: '';
+      display: block;
+      height: 33px;
+      width: 100%;
+      background-color: ${token('elevation.surface', 'white')};
+      position: absolute;
+
+      // the extra pixel is accounting for borders
+      top: -34px;
+      left: -1px;
     }
 
     .${ClassName.WITH_CONTROLS} {
@@ -741,10 +785,10 @@ export const tableStyles = (
       }
     }
     :not(.${ClassName.IS_RESIZING}) .${ClassName.WITH_CONTROLS} {
-      .${ClassName.NUMBERED_COLUMN_BUTTON} {
+      .${ClassName.NUMBERED_COLUMN_BUTTON}:not(.${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}) {
         cursor: pointer;
       }
-      .${ClassName.NUMBERED_COLUMN_BUTTON}:hover {
+      .${ClassName.NUMBERED_COLUMN_BUTTON}:not(.${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}):hover {
         border-bottom: 1px solid ${tableBorderSelectedColor(props)};
         border-color: ${tableBorderSelectedColor(props)};
         background-color: ${tableToolbarSelectedColor(props)};
@@ -777,6 +821,10 @@ export const tableStyles = (
       }
 
       .${ClassName.COLUMN_CONTROLS_DECORATIONS} + * {
+        margin-top: 0;
+      }
+
+      .${ClassName.COLUMN_CONTROLS_DECORATIONS_WITH_DRAG} + * {
         margin-top: 0;
       }
 
@@ -853,16 +901,9 @@ export const tableStyles = (
         }
       }
     }
-    .${ClassName.ROW_CONTROLS_WRAPPER} {
-      position: absolute;
-      /* top of corner control is table margin top - corner control height + 1 pixel of table border. */
-      top: ${tableMarginTop - cornerControlHeight + 1}px;
-    }
+    ${tableRowControlStyles()}
     .${ClassName.ROW_CONTROLS_WRAPPER}.${ClassName.TABLE_LEFT_SHADOW} {
       z-index: ${akEditorUnitZIndex};
-    }
-    .${ClassName.ROW_CONTROLS_WRAPPER} {
-      left: -${tableToolbarSize}px;
     }
 
     .${ClassName.COLUMN_CONTROLS_WRAPPER} {

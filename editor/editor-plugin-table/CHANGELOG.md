@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.2
+
+### Patch Changes
+
+- [#41446](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41446) [`ff8add18e61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff8add18e61) - Add drag handle controls to table behind a feature flag
+
 ## 5.3.1
 
 ### Patch Changes

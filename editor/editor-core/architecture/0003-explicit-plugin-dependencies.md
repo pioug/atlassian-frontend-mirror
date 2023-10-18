@@ -172,7 +172,7 @@ const fooPlugin: NextEditorPlugin <...> {
 
 ### Usage inside a React component
 
-(See date plugin at `packages/editor/editor-core/src/plugins/date/index.tsx` for a full code sample of using `useSharedPluginState`)
+(See date plugin at `packages/editor/editor-plugin-date/src/plugin.tsx` for a full code sample of using `useSharedPluginState`)
 
 ```ts
 // editor-core/src/plugins/bar-some-react-component-based-plugin/index.tsx

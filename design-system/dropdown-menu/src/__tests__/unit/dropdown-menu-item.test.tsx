@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { render, screen } from '@testing-library/react';
 
@@ -17,6 +17,21 @@ describe('DropdownMenu Item', () => {
       const desc = 'A long text to describe a menu';
       render(<DropdownItem description={desc}>Menu</DropdownItem>);
       expect(screen.getByText(desc)).toBeInTheDocument();
+    });
+
+    describe('custom component', () => {
+      it('should render the item as a custom component if one is provided', () => {
+        const text = 'Menu';
+        const role = 'banner';
+
+        const Header = forwardRef<HTMLElement, any>((props, ref) => (
+          <header {...props} ref={ref} />
+        ));
+
+        render(<DropdownItem component={Header}>{text}</DropdownItem>);
+
+        expect(screen.getByRole(role)).toHaveTextContent(text);
+      });
     });
 
     describe('icon', () => {

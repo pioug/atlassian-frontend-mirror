@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9a936afc84b1d60e754307860c256a05>>
+ * @codegen <<SignedSource::c3c9d9a9e8c21403ff2d0c99bb6419c2>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -172,7 +172,8 @@ const tokens = [
       "group": "typography",
       "state": "experimental",
       "introduced": "1.14.0",
-      "description": "TBD"
+      "description": "TBD",
+      "responsiveSmallerVariant": "font.heading.medium"
     },
     "value": "normal 500 24px/28px var(--ds-font-family-heading)",
     "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
@@ -182,7 +183,8 @@ const tokens = [
         "group": "typography",
         "state": "experimental",
         "introduced": "1.14.0",
-        "description": "TBD"
+        "description": "TBD",
+        "responsiveSmallerVariant": "font.heading.medium"
       },
       "value": {
         "fontWeight": "FontWeight500",
@@ -206,7 +208,8 @@ const tokens = [
       "group": "typography",
       "state": "experimental",
       "introduced": "1.14.0",
-      "description": "TBD"
+      "description": "TBD",
+      "responsiveSmallerVariant": "font.heading.small"
     },
     "value": "normal 500 20px/24px var(--ds-font-family-heading)",
     "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
@@ -216,7 +219,8 @@ const tokens = [
         "group": "typography",
         "state": "experimental",
         "introduced": "1.14.0",
-        "description": "TBD"
+        "description": "TBD",
+        "responsiveSmallerVariant": "font.heading.small"
       },
       "value": {
         "fontWeight": "FontWeight500",
@@ -274,7 +278,8 @@ const tokens = [
       "group": "typography",
       "state": "experimental",
       "introduced": "1.14.0",
-      "description": "TBD"
+      "description": "TBD",
+      "responsiveSmallerVariant": "font.heading.large"
     },
     "value": "normal 600 29px/32px var(--ds-font-family-heading)",
     "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
@@ -284,7 +289,8 @@ const tokens = [
         "group": "typography",
         "state": "experimental",
         "introduced": "1.14.0",
-        "description": "TBD"
+        "description": "TBD",
+        "responsiveSmallerVariant": "font.heading.large"
       },
       "value": {
         "fontWeight": "FontWeight600",
@@ -342,7 +348,8 @@ const tokens = [
       "group": "typography",
       "state": "experimental",
       "introduced": "1.14.0",
-      "description": "TBD"
+      "description": "TBD",
+      "responsiveSmallerVariant": "font.heading.xlarge"
     },
     "value": "normal 500 35px/40px var(--ds-font-family-heading)",
     "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
@@ -352,7 +359,8 @@ const tokens = [
         "group": "typography",
         "state": "experimental",
         "introduced": "1.14.0",
-        "description": "TBD"
+        "description": "TBD",
+        "responsiveSmallerVariant": "font.heading.xlarge"
       },
       "value": {
         "fontWeight": "FontWeight500",

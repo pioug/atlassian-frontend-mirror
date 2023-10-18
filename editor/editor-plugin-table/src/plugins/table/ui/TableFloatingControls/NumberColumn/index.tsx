@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 
+import classnames from 'classnames';
+
 import { Selection } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isRowSelected } from '@atlaskit/editor-tables/utils';
 
-import { clearHoverSelection } from '../../../commands';
+import { clearHoverSelection, hoverCell } from '../../../commands';
+import { getPluginState } from '../../../pm-plugins/plugin-factory';
 import { TableCssClassName as ClassName } from '../../../types';
 import { getRowHeights } from '../../../utils';
+import { tableBorderColor } from '../../consts';
 
 export interface Props {
   editorView: EditorView;
@@ -19,11 +23,13 @@ export interface Props {
   isInDanger?: boolean;
   isResizing?: boolean;
   stickyTop?: number;
+  isDragAndDropEnabled?: boolean;
 }
 
 export default class NumberColumn extends Component<Props, any> {
   render() {
-    const { tableRef, hasHeaderRow } = this.props;
+    const { tableRef, hasHeaderRow, isDragAndDropEnabled, tableActive } =
+      this.props;
     const rowHeights = getRowHeights(tableRef);
 
     return (
@@ -34,30 +40,38 @@ export default class NumberColumn extends Component<Props, any> {
             hasHeaderRow && this.props.stickyTop !== undefined
               ? rowHeights[0]
               : undefined,
+          borderLeft:
+            isDragAndDropEnabled && tableActive
+              ? `1px solid ${tableBorderColor()}`
+              : undefined,
         }}
         contentEditable={false}
       >
-        {rowHeights.map((rowHeight, index) => (
-          <div
-            key={`wrapper-${index}`}
-            className={this.getClassNames(index)}
-            data-index={index}
-            style={{
-              height: rowHeight,
-              top:
-                this.props.stickyTop !== undefined &&
-                hasHeaderRow &&
-                index === 0
-                  ? `${this.props.stickyTop}px`
-                  : undefined,
-            }}
-            onClick={(event) => this.selectRow(index, event)}
-            onMouseOver={() => this.hoverRows(index)}
-            onMouseOut={this.clearHoverSelection}
-          >
-            {hasHeaderRow ? (index > 0 ? index : null) : index + 1}
-          </div>
-        ))}
+        {rowHeights.map((rowHeight, index) =>
+          isDragAndDropEnabled ? (
+            <div
+              key={`wrapper-${index}`}
+              className={this.getClassNames(index, true)}
+              data-index={index}
+              style={this.getCellStyles(index, rowHeight)}
+              onMouseOver={() => this.updateDragHandleLocation(index)}
+            >
+              {hasHeaderRow ? (index > 0 ? index : null) : index + 1}
+            </div>
+          ) : (
+            <div
+              key={`wrapper-${index}`}
+              className={this.getClassNames(index)}
+              data-index={index}
+              style={this.getCellStyles(index, rowHeight)}
+              onClick={(event) => this.selectRow(index, event)}
+              onMouseOver={() => this.hoverRows(index)}
+              onMouseOut={this.clearHoverSelection}
+            >
+              {hasHeaderRow ? (index > 0 ? index : null) : index + 1}
+            </div>
+          ),
+        )}
       </div>
     );
   }
@@ -95,15 +109,39 @@ export default class NumberColumn extends Component<Props, any> {
     }
   };
 
-  private getClassNames = (index: number) => {
+  private updateDragHandleLocation = (rowIndex: number) => {
+    const { editorView, tableActive } = this.props;
+    const { state, dispatch } = editorView;
+    const { hoveredCell } = getPluginState(state);
+
+    if (tableActive && hoveredCell.rowIndex !== rowIndex) {
+      hoverCell(rowIndex, hoveredCell.colIndex)(state, dispatch);
+    }
+  };
+
+  private getCellStyles = (index: number, rowHeight: number) => {
+    const { stickyTop, hasHeaderRow } = this.props;
+    if (stickyTop && hasHeaderRow && index === 0) {
+      return {
+        height: rowHeight,
+        top: `${stickyTop}px`,
+      };
+    }
+    return {
+      height: rowHeight,
+    };
+  };
+
+  private getClassNames = (index: number, isButtonDisabled = false) => {
     const { hoveredRows, editorView, isInDanger, isResizing } = this.props;
     const isActive =
       isRowSelected(index)(editorView.state.selection) ||
       ((hoveredRows || []).indexOf(index) !== -1 && !isResizing);
-    return [
-      ClassName.NUMBERED_COLUMN_BUTTON,
-      isActive ? ClassName.HOVERED_CELL_ACTIVE : '',
-      isActive && isInDanger ? ClassName.HOVERED_CELL_IN_DANGER : '',
-    ].join(' ');
+
+    return classnames(ClassName.NUMBERED_COLUMN_BUTTON, {
+      [ClassName.NUMBERED_COLUMN_BUTTON_DISABLED]: isButtonDisabled,
+      [ClassName.HOVERED_CELL_IN_DANGER]: isActive && isInDanger,
+      [ClassName.HOVERED_CELL_ACTIVE]: isActive,
+    });
   };
 }

@@ -1,11 +1,11 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import {
+import type {
   EditorState,
-  PluginKey,
   // @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
   ReadonlyTransaction,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
@@ -30,6 +30,7 @@ export const handleDocOrSelectionChanged = (
 ): DecorationSet => {
   const isResizing = tableWidthPluginKey.getState(newState)?.resizing;
   const wasResizing = tableWidthPluginKey.getState(oldState)?.resizing;
+
   const changedResizing = isResizing !== wasResizing;
 
   // Remove column controls when resizing
@@ -38,7 +39,8 @@ export const handleDocOrSelectionChanged = (
   } else if (
     tr.docChanged ||
     tr.selection instanceof CellSelection ||
-    changedResizing
+    changedResizing ||
+    tr.getMeta(tablePluginKey)?.type === 'HOVER_CELL'
   ) {
     return buildColumnControlsDecorations({
       decorationSet,
@@ -69,6 +71,12 @@ export const createPlugin = () => {
       apply: (tr, decorationSet, oldState, newState) => {
         let pluginState = decorationSet;
         const meta = tr.getMeta(tablePluginKey);
+        const previousHover = tablePluginKey.getState(oldState)?.hoveredCell;
+        const newHover = tablePluginKey.getState(newState)?.hoveredCell;
+        const changedCellHover =
+          previousHover?.colIndex !== newHover?.colIndex ||
+          previousHover?.rowIndex !== newHover?.rowIndex;
+
         if (meta && meta.data && meta.data.decorationSet) {
           pluginState = meta.data.decorationSet;
         }
@@ -76,7 +84,8 @@ export const createPlugin = () => {
         if (
           tr.docChanged ||
           tr.selectionSet ||
-          tr.getMeta(tableWidthPluginKey)
+          tr.getMeta(tableWidthPluginKey) ||
+          changedCellHover
         ) {
           pluginState = pluginState.map(tr.mapping, tr.doc);
           return handleDocOrSelectionChanged(

@@ -390,6 +390,17 @@ export const floatingColumnControls = (props: ThemeProps) => {
 };
 
 export const columnControlsDecoration = (props: ThemeProps) => {
+  if (getBooleanFF('platform.editor.table.drag-and-drop')) {
+    return css`
+      .${ClassName.COLUMN_CONTROLS_DECORATIONS_WITH_DRAG} {
+        position: absolute;
+        // kinda a hacky way to center an element with absolute positioning inside a relative element
+        top: 25%;
+        left: 50%;
+        transform: translate(-50%, -100%);
+      }
+    `;
+  }
   if (getBooleanFF('platform.editor.table.column-controls-styles-updated')) {
     return css`
       .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
@@ -675,21 +686,35 @@ const getLastColumnResizerOverrides = () => {
     : '';
 };
 
-export const resizeHandle = (props: ThemeProps) => css`
-  .${ClassName.TABLE_CONTAINER} {
-    .${ClassName.RESIZE_HANDLE_DECORATION} {
-      background-color: transparent;
-      position: absolute;
-      width: ${resizeHandlerAreaWidth}px;
-      height: 100%;
-      top: 0;
-      right: -${resizeHandlerAreaWidth / 2}px;
-      cursor: col-resize;
-      z-index: ${resizeHandlerZIndex};
-    }
+const resizeHandleOverrides = (props: ThemeProps) => {
+  if (getBooleanFF('platform.editor.table.drag-and-drop')) {
+    return css`
+      th.${ClassName.WITH_RESIZE_LINE}::before,
+        td.${ClassName.WITH_RESIZE_LINE}::before {
+        content: ' ';
+        position: absolute;
+        left: ${token('space.negative.025', '-2px')};
+        top: -1px;
+        width: ${resizeLineWidth}px;
+        height: calc(100% + 2px);
+        background-color: ${tableBorderSelectedColor(props)};
+        z-index: ${columnControlsZIndex * 2};
+      }
 
-    ${getLastColumnResizerOverrides()}
-
+      th.${ClassName.WITH_RESIZE_LINE_LAST_COLUMN}::before,
+        td.${ClassName.WITH_RESIZE_LINE_LAST_COLUMN}::before {
+        content: ' ';
+        position: absolute;
+        right: -1px;
+        top: -1px;
+        width: ${resizeLineWidth}px;
+        height: calc(100% + 2px);
+        background-color: ${tableBorderSelectedColor(props)};
+        z-index: ${columnControlsZIndex * 2};
+      }
+    `;
+  }
+  return css`
     td.${ClassName.WITH_RESIZE_LINE}::before {
       content: ' ';
       position: absolute;
@@ -733,6 +758,25 @@ export const resizeHandle = (props: ThemeProps) => css`
       z-index: ${columnControlsZIndex * 2};
       top: -${tableToolbarSize + tableCellBorderWidth}px;
     }
+  `;
+};
+
+export const resizeHandle = (props: ThemeProps) => css`
+  .${ClassName.TABLE_CONTAINER} {
+    .${ClassName.RESIZE_HANDLE_DECORATION} {
+      background-color: transparent;
+      position: absolute;
+      width: ${resizeHandlerAreaWidth}px;
+      height: 100%;
+      top: 0;
+      right: -${resizeHandlerAreaWidth / 2}px;
+      cursor: col-resize;
+      z-index: ${resizeHandlerZIndex};
+    }
+
+    ${getLastColumnResizerOverrides()}
+
+    ${resizeHandleOverrides(props)}
 
     table
       tr:first-of-type

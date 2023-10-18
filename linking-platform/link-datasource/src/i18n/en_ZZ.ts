@@ -27,6 +27,7 @@ export default {
   'linkDataSource.column-picker.no-all-items-shown-message.line-2':
     '⁣⁢Try again with more specific keywords.⁮⁡⁬⁬⁪⁡‍⁯⁠⁭⁯⁮⁮⁭⁪‍⁯‍⁪⁮⁪⁫⁣⁤',
   'linkDataSource.column-picker.search': '⁣⁢Search for fields⁭⁮⁡⁪⁠‌‍⁫؜⁪⁬⁫؜⁡⁯⁭⁡⁬⁬⁫⁠⁡‌‍⁣⁤',
+  'linkDataSource.column-picker.tooltip': '⁣⁢Configure columns⁠⁮؜‍⁫⁠⁪⁠؜⁪‍⁪⁫⁪⁮⁫‌؜⁪⁮⁡⁮؜⁡⁣⁤',
   'linkDataSource.jira-issues.accessInstructions': '⁣⁢To request access, contact your admin.‌‌⁬⁫⁭⁫؜‍؜⁡⁯⁬‍⁮⁯⁠‌⁡‍⁯‌⁮⁣⁤',
   'linkDataSource.jira-issues.accessRequired': "⁣⁢You don't have access to this site⁪⁡⁭⁠‌‌⁮⁠⁯⁯⁡⁪⁬؜‌⁫⁬⁯‌؜⁭⁭⁭⁮‍⁣⁤",
   'linkDataSource.jira-issues.accessRequiredWithSite': "⁣⁢You don't have access to {siteName}⁪⁯⁡⁠⁬‍؜؜⁬⁭⁫⁠⁪⁪⁯⁯⁪⁫؜؜⁫‌⁭⁣⁤",
@@ -35,7 +36,8 @@ export default {
   'linkDataSource.jira-issues.checkConnectionWithSource':
     '⁣⁢Check your connection and refresh, or <a>open this query in Jira</a> to review.‌⁪⁠‌⁠⁯⁬⁠؜⁮‌⁭‌‍‌⁮‍⁠⁪⁣⁤',
   'linkDataSource.jira-issues.configmodal.basicModeText': '⁣⁢Basic‌⁭‍‌⁪⁭⁬⁪⁭‌‍⁪⁪⁪⁪⁠⁮⁮⁣⁤',
-  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': '⁣⁢Search؜⁪⁬؜⁫⁯⁠‌؜⁡⁮‌⁮⁪‍⁭⁪⁭⁣⁤',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder':
+    '⁣⁢Search for issues by keyword‌‍⁮‌‍⁪⁬‍‍⁠⁫⁭‌‍‌⁭⁪⁠⁮⁮⁯⁣⁤',
   'linkDataSource.jira-issues.configmodal.cancelButtonText': '⁣⁢Cancel⁯⁯⁬⁯؜‍⁮؜⁪‍؜⁡⁡⁡؜⁡‌⁯⁡‌⁮⁭⁣⁤',
   'linkDataSource.jira-issues.configmodal.countViewModeLabel': '⁣⁢Count view⁪⁯⁮⁯⁪‍⁯⁮‍⁫‍⁭‍⁬⁯⁭‌⁭⁯⁣⁤',
   'linkDataSource.jira-issues.configmodal.dropdownChevronLabel': '⁣⁢Pick jira site⁮⁠⁫⁡‌‌‍⁡⁡⁡⁭⁠⁠⁠⁠؜⁭⁬⁣⁤',
@@ -52,8 +54,10 @@ export default {
   'linkDataSource.jira-issues.refresh': '⁣⁢Refresh؜⁠⁫⁯؜⁬⁠⁡⁡⁮⁬⁫⁯⁡⁫⁪‍⁭⁭⁪⁪⁭؜⁫؜⁣⁤',
   'linkDataSource.jira-issues.unableToLoadItems': '⁣⁢Unable to load items⁪⁮⁠⁠⁮⁭⁭⁪⁫⁠‌‌⁠‌⁯⁮⁯‌⁠⁠⁯؜؜⁫⁣⁤',
   'linkDataSource.jira-issues.unableToLoadResults': '⁣⁢Unable to load results؜؜‌⁠‌⁡⁪⁫⁯⁪⁬⁫⁪⁮⁮؜‍⁪⁯⁬‍⁠‌‌⁣⁤',
-  'linkDataSource.modal-initial-state.learnMoreLink': '⁣⁢Learn more about searching with JQL⁫⁬‌⁫‍‌⁫⁫⁡⁮‌‌‍⁭⁠⁮⁬⁡⁫⁫⁯‍⁣⁤',
-  'linkDataSource.modal-initial-state.searchDescription': '⁣⁢Start typing or use JQL to search.⁯⁬⁫؜⁠؜⁭‍‍⁠⁬⁭‍‌‍⁭⁭؜⁡؜⁣⁤',
+  'linkDataSource.modal-initial-state.beta': '⁣⁢Beta⁠؜‌⁠⁠⁪⁬⁯⁮⁯؜⁭⁡⁡⁠⁡⁬‌⁯⁮⁣⁤',
+  'linkDataSource.modal-initial-state.learnMoreLink': '⁣⁢Learn how to search with JQL⁠⁬⁫⁪⁠⁡⁬‍⁬⁠⁡⁡⁮⁮⁫‍⁯‍؜‌⁬⁭⁪⁣⁤',
+  'linkDataSource.modal-initial-state.searchDescription':
+    '⁣⁢Use JQL (Jira Query Language) to search for issues.⁯‌‌⁫‌⁯⁭⁪⁭⁡⁪‌⁠⁮⁫⁭⁫‌⁮⁫‍⁣⁤',
   'linkDataSource.modal-initial-state.searchTitle': '⁣⁢Search for Jira issues⁠⁯⁬؜⁬⁡⁭⁭‌‍⁮⁫⁫⁭⁪⁡‍⁪⁬‍⁫⁣⁤',
   'linkDataSource.render-type.boolean.false': '⁣⁢No⁪⁡⁠؜⁡⁮⁡⁫؜⁮⁯⁠⁯⁠⁮⁭⁪⁠⁫؜⁪⁣⁤',
   'linkDataSource.render-type.boolean.true': '⁣⁢Yes‍⁫⁫⁬⁠⁡⁠⁡⁪⁬⁡⁭⁭⁡‍⁫⁫؜‍⁪⁪؜⁮⁬⁣⁤',

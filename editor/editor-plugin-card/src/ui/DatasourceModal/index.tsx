@@ -107,6 +107,7 @@ export const DatasourceModal = ({
           viewMode={isRegularCardNode ? 'count' : 'issue'} // Want non-datasource cards to open in count view since they are in issue count view
           visibleColumnKeys={visibleColumnKeys}
           parameters={parameters as JiraIssueDatasourceParameters}
+          url={existingNode?.attrs.url}
           onCancel={onClose}
           onInsert={onInsert}
         />

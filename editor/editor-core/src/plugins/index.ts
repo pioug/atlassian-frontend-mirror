@@ -1,8 +1,6 @@
-export { default as betterTypeHistoryPlugin } from './better-type-history';
 export { default as clearMarksOnChangeToEmptyDocumentPlugin } from './clear-marks-on-change-to-empty-document';
 export { default as codeBlockPlugin } from './code-block';
 export { default as collabEditPlugin } from './collab-edit';
-export { datePlugin } from './date';
 export { default as extensionPlugin } from './extension';
 export { default as fakeTextCursorPlugin } from './fake-text-cursor';
 export { default as insertBlockPlugin } from './insert-block';

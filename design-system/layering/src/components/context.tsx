@@ -10,7 +10,6 @@ import React, {
 } from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 /**
  *
@@ -99,19 +98,20 @@ const LayeringProvider: FC<{
  *
  * @experimental Still under development. Do not use.
  *
- * @important the component is under feature flag platform.design-system-team.layering_qmiw3
+ * @important the component is toggled by isDisabled props, default is true
  *
  * Layering component is a wrapper to let children to consume layer contexts and hooks.
  *
  */
 export const UNSAFE_LAYERING: FC<{
   children: ReactNode;
-}> = ({ children }) => {
+  isDisabled?: boolean;
+}> = ({ children, isDisabled = true }) => {
   const currentLevel = useContext(LevelContext);
-  const isNested = currentLevel > 0;
-  if (!getBooleanFF('platform.design-system-team.layering_qmiw3')) {
+  if (isDisabled) {
     return <>{children}</>;
   }
+  const isNested = currentLevel > 0;
 
   const content = (
     <LevelProvider currentLevel={currentLevel + 1}>{children}</LevelProvider>

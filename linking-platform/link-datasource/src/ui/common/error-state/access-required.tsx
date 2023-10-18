@@ -1,20 +1,54 @@
 /** @jsx jsx */
 import { useEffect } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
 import EmptyState from '@atlaskit/empty-state';
+import { N400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 
 import { AccessRequiredSVG } from './access-required-svg';
 import { loadingErrorMessages } from './messages';
+
+const urlStyles = css({
+  color: token('color.text.subtlest', N400),
+  fontSize: token('font.size.100', '14px'),
+  lineHeight: token('font.lineHeight.200', '20px'),
+});
+
+const descriptionMessageStyles = css({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: token('space.200', '16px'),
+});
+
+const iconContainerStyles = css({
+  marginBottom: token('space.200', '16px'),
+});
+
+const Description = ({ message, url }: { message: string; url: string }) => {
+  return (
+    <div css={descriptionMessageStyles}>
+      <span css={urlStyles}>{url}</span>
+      <span>{message}</span>
+    </div>
+  );
+};
+
+const IconContainer = () => (
+  <div css={iconContainerStyles}>
+    <AccessRequiredSVG />
+  </div>
+);
+
 interface AccessRequiredProps {
-  siteName?: string;
+  url?: string;
 }
 
-export const AccessRequired = ({ siteName }: AccessRequiredProps) => {
+export const AccessRequired = ({ url }: AccessRequiredProps) => {
   const { formatMessage } = useIntl();
   const { fireEvent } = useDatasourceAnalyticsEvents();
 
@@ -24,17 +58,26 @@ export const AccessRequired = ({ siteName }: AccessRequiredProps) => {
     });
   }, [fireEvent]);
 
+  if (url) {
+    return (
+      <EmptyState
+        header={formatMessage(loadingErrorMessages.accessRequiredWithSite)}
+        description={
+          <Description
+            message={formatMessage(loadingErrorMessages.accessInstructions)}
+            url={url}
+          />
+        }
+        renderImage={IconContainer}
+      />
+    );
+  }
+
   return (
     <EmptyState
-      header={
-        siteName
-          ? formatMessage(loadingErrorMessages.accessRequiredWithSite, {
-              siteName,
-            })
-          : formatMessage(loadingErrorMessages.accessRequired)
-      }
+      header={formatMessage(loadingErrorMessages.accessRequired)}
       description={formatMessage(loadingErrorMessages.accessInstructions)}
-      renderImage={() => <AccessRequiredSVG />}
+      renderImage={IconContainer}
     />
   );
 };

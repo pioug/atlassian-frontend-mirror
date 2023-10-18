@@ -243,7 +243,11 @@ const menuStyles = css({
 });
 
 const Menu = ({ selectProps, innerProps }: MenuProps<any>) => (
-  <UNSAFE_LAYERING>
+  <UNSAFE_LAYERING
+    isDisabled={
+      getBooleanFF('platform.design-system-team.layering_qmiw3') ? false : true
+    }
+  >
     <FixedLayer
       inputValue={selectProps.inputValue}
       containerRef={selectProps.calendarContainerRef}

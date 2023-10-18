@@ -7,8 +7,6 @@
  */
 //Italian (Italy)
 export default {
-  'fabric.linking.access_exists_description':
-    "Contatta l'amministratore e richiedi l'accesso per visualizzare questo contenuto da {hostname}.",
   'fabric.linking.actions': 'Azioni',
   'fabric.linking.add_account': 'Aggiungi account',
   'fabric.linking.assigned_to': 'Assegnato a {context}',
@@ -39,17 +37,12 @@ export default {
   'fabric.linking.create_on_relative': 'Creazione: {context}',
   'fabric.linking.created_by': 'Creato da {context}',
   'fabric.linking.delete': 'Elimina',
-  'fabric.linking.direct_access_crossjoin': 'Vai a {product}',
-  'fabric.linking.direct_access_description_crossjoin':
-    "L'accesso a {hostname} in {product} è approvato per tutti gli account con lo stesso dominio e-mail.",
-  'fabric.linking.direct_access_title_crossjoin': 'Unisciti al tuo team in {product}',
   'fabric.linking.download': 'Scarica',
   'fabric.linking.edit': 'Modifica',
   'fabric.linking.follow': 'Segui',
   'fabric.linking.forbidden_access': 'Accesso vietato',
   'fabric.linking.forbidden_description':
     "Non hai accesso a questa anteprima. Contatta l'amministratore del sito se devi accedere.",
-  'fabric.linking.forbidden_description_crossjoin': "Contatta l'amministratore per richiedere l'accesso.",
   'fabric.linking.forbidden_title_crossjoin': 'Non hai accesso a questo contenuto',
   'fabric.linking.go_back': 'Torna indietro',
   'fabric.linking.invalid_permissions': 'Contenuto soggetto a restrizioni',
@@ -63,7 +56,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Aggiornato il {context}',
   'fabric.linking.modified_on_relative': 'Aggiornamento: {context}',
   'fabric.linking.more_actions': 'Altre azioni',
-  'fabric.linking.no_access_title_crossjoin': 'Non hai accesso a questo contenuto',
   'fabric.linking.not_found_description':
     "Non è stato possibile trovare il link. Controlla l'URL e prova a modificarlo o a incollarlo di nuovo.",
   'fabric.linking.not_found_description_crossjoin':
@@ -93,7 +85,6 @@ export default {
   'fabric.linking.request_access': 'Richiedi accesso',
   'fabric.linking.request_access_crossjoin': 'Richiedi accesso',
   'fabric.linking.request_access_description': "Richiedi l'accesso a {context} per visualizzare questa anteprima.",
-  'fabric.linking.request_access_description_crossjoin': "Contatta l'amministratore per richiedere l'accesso.",
   'fabric.linking.request_access_pending': 'Accesso in sospeso',
   'fabric.linking.request_access_pending_crossjoin': 'In attesa di approvazione',
   'fabric.linking.request_access_pending_description': 'La tua richiesta di accesso è in sospeso.',

@@ -34,6 +34,18 @@
   "references": [
     {
       "path": "tsconfig.app.json"
+    },
+    {
+      "path": "../../../build/website/docs/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-core/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/section-message/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tokens/tsconfig.app.json"
     }
   ]
 }

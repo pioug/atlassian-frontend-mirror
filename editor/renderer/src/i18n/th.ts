@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': '⚠️ คุณไม่สามารถจัดเรียงตารางด้วยช่องข้อมูลที่ถูกรวมได้',
   'fabric.editor.headingLink.noOrderLabel': 'เรียงจากคอลัมน์ A ไป Z',
   'fabric.editor.headingLink.noneSortingLabel': 'ไม่มี',
+  'fabric.editor.tableHeader.sorting.asc': 'ใช้การเรียงลำดับจากน้อยไปมาก',
+  'fabric.editor.tableHeader.sorting.default': 'จัดเรียงคอลัมน์',
+  'fabric.editor.tableHeader.sorting.desc': 'ใช้การเรียงลำดับจากมากไปน้อย',
+  'fabric.editor.tableHeader.sorting.invalid': 'คุณไม่สามารถจัดเรียงตารางด้วยช่องข้อมูลที่ถูกรวมได้',
+  'fabric.editor.tableHeader.sorting.no': 'ไม่มีการใช้การจัดเรียงกับคอลัมน์',
 };

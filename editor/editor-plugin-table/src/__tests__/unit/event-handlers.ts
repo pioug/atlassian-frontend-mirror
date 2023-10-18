@@ -25,6 +25,7 @@ import {
   tdEmpty,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import tablePlugin from '../../plugins/table-plugin';
 import {
@@ -36,7 +37,9 @@ import {
   handleMouseMove,
   handleMouseOut,
   handleMouseOver,
+  withCellTracking,
 } from '../../plugins/table/event-handlers';
+import { getPluginState } from '../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { TableCssClassName as ClassName } from '../../plugins/table/types';
 
@@ -60,7 +63,7 @@ describe('table plugin: decorations', () => {
     beforeEach(() => {
       jest.resetAllMocks();
     });
-    it('should return true & prevent default behaviour for table wrappers: pm-table-contianer', () => {
+    it('should return true & prevent default behaviour for table wrappers: pm-table-container', () => {
       const { editorView } = editor(
         doc(table()(tr(td({})(p())), tr(td({})(p())), tr(td({})(p())))),
       );
@@ -229,6 +232,76 @@ describe('table event handlers', () => {
         };
         expect(handleMouseMove(editorView, event as any)).toEqual(false);
       });
+    });
+  });
+});
+
+describe('withCellTracking', () => {
+  const createEditor = createProsemirrorEditorFactory();
+  const editor = (doc: DocBuilder, isDragAndDropEnabled = false) =>
+    createEditor({
+      doc,
+      attachTo: document.body,
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
+        .add(decorationsPlugin)
+        .add(widthPlugin)
+        .add(guidelinePlugin)
+        .add(gridPlugin)
+        .add(selectionPlugin)
+        .add([
+          tablePlugin,
+          {
+            dragAndDropEnabled: isDragAndDropEnabled,
+            tableOptions: { advanced: true },
+          },
+        ]),
+      pluginKey,
+    });
+
+  describe('should fire event handler passed in', () => {
+    ffTest(
+      'platform.editor.table.drag-and-drop',
+      () => {
+        const { editorView } = editor(
+          doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+          true,
+        );
+        const eventHandlerSpy = jest.fn();
+        withCellTracking(eventHandlerSpy)(editorView, {} as any);
+
+        expect(eventHandlerSpy).toHaveBeenCalled();
+      },
+      () => {
+        const { editorView } = editor(
+          doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+        );
+        const eventHandlerSpy = jest.fn();
+        withCellTracking(eventHandlerSpy)(editorView, {} as any);
+
+        expect(eventHandlerSpy).toHaveBeenCalled();
+      },
+    );
+  });
+
+  describe('should correctly set table cell coordinates based on mouse location', () => {
+    ffTest('platform.editor.table.drag-and-drop', () => {
+      const { editorView, refs } = editor(
+        doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+        true,
+      );
+      const firstCell = editorView.domAtPos(refs['<>']);
+
+      const event = {
+        target: firstCell.node,
+      };
+
+      withCellTracking(jest.fn())(editorView, event as any);
+
+      const pluginState = getPluginState(editorView.state);
+      expect(pluginState.hoveredCell).toEqual({ colIndex: 0, rowIndex: 0 });
     });
   });
 });

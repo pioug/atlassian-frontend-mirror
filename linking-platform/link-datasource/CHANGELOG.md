@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.9.0
+
+### Minor Changes
+
+- [#41407](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41407) [`2e336273b6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e336273b6e) - [ux] Added an optional url prop for JiraConfigModal
+
 ## 1.8.0
 
 ### Minor Changes

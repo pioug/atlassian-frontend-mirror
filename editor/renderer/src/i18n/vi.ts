@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': '⚠️ Bạn không thể sắp xếp bảng có các ô đã hợp nhất',
   'fabric.editor.headingLink.noOrderLabel': 'Sắp xếp cột theo thứ tự từ A đến Z',
   'fabric.editor.headingLink.noneSortingLabel': 'không có',
+  'fabric.editor.tableHeader.sorting.asc': 'Đã áp dụng kiểu sắp xếp tăng dần',
+  'fabric.editor.tableHeader.sorting.default': 'Sắp xếp cột',
+  'fabric.editor.tableHeader.sorting.desc': 'Đã áp dụng kiểu sắp xếp giảm dần',
+  'fabric.editor.tableHeader.sorting.invalid': 'Bạn không thể sắp xếp bảng có các ô đã hợp nhất',
+  'fabric.editor.tableHeader.sorting.no': 'Không có kiểu sắp xếp nào được áp dụng cho cột',
 };

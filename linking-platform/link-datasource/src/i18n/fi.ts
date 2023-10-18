@@ -44,7 +44,7 @@ export default {
   'linkDataSource.jira-issues.refresh': 'Päivitä',
   'linkDataSource.jira-issues.unableToLoadItems': 'Kohteiden lataus ei onnistu',
   'linkDataSource.jira-issues.unableToLoadResults': 'Tulosten lataus epäonnistui',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'Lue lisää JQL-hausta',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'Lue lisää JQL-hausta.',
   'linkDataSource.modal-initial-state.searchDescription': 'Aloita haku kirjoittamalla tai käyttämällä JQL:ää.',
   'linkDataSource.modal-initial-state.searchTitle': 'Hae Jira-asioita',
   'linkDataSource.render-type.boolean.false': 'Ei',

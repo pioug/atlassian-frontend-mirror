@@ -2,17 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
 import { UNSAFE_LAYERING, UNSAFE_useLayering } from '../../../index';
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-  getBooleanFF: jest.fn().mockImplementation(() => false),
-}));
-
-afterEach(() => {
-  (getBooleanFF as jest.Mock).mockReset();
-});
 
 describe('Layering', () => {
   const Wrapper = () => {
@@ -25,9 +15,6 @@ describe('Layering', () => {
     );
   };
   it('should have default context value if Layering is not provided', () => {
-    (getBooleanFF as jest.Mock).mockImplementation(
-      (flag) => flag === 'platform.design-system-team.layering_qmiw3',
-    );
     render(<Wrapper />);
     expect(screen.getByText(/^The current level is/)).toHaveTextContent(
       'The current level is 0, top level is null',
@@ -35,12 +22,9 @@ describe('Layering', () => {
   });
 
   it('should have correct context value if 2 layers are provided', () => {
-    (getBooleanFF as jest.Mock).mockImplementation(
-      (flag) => flag === 'platform.design-system-team.layering_qmiw3',
-    );
     render(
-      <UNSAFE_LAYERING>
-        <UNSAFE_LAYERING>
+      <UNSAFE_LAYERING isDisabled={false}>
+        <UNSAFE_LAYERING isDisabled={false}>
           <Wrapper />
         </UNSAFE_LAYERING>
       </UNSAFE_LAYERING>,
@@ -51,14 +35,11 @@ describe('Layering', () => {
   });
 
   it('should have correct context value if 4 layers are provided', () => {
-    (getBooleanFF as jest.Mock).mockImplementation(
-      (flag) => flag === 'platform.design-system-team.layering_qmiw3',
-    );
     render(
-      <UNSAFE_LAYERING>
-        <UNSAFE_LAYERING>
-          <UNSAFE_LAYERING>
-            <UNSAFE_LAYERING>
+      <UNSAFE_LAYERING isDisabled={false}>
+        <UNSAFE_LAYERING isDisabled={false}>
+          <UNSAFE_LAYERING isDisabled={false}>
+            <UNSAFE_LAYERING isDisabled={false}>
               <Wrapper />
             </UNSAFE_LAYERING>
           </UNSAFE_LAYERING>
@@ -70,7 +51,7 @@ describe('Layering', () => {
     );
   });
 
-  it('should have default context value if feature flag is off', () => {
+  it('should have default context value if isDisabled is true by default', () => {
     render(
       <UNSAFE_LAYERING>
         <Wrapper />

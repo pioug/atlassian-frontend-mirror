@@ -44,7 +44,7 @@ import extensionPlugin from '../../../extension';
 import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
-import betterTypeHistoryPlugin from '../../../better-type-history';
+import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugin-better-type-history';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import { uuid } from '@atlaskit/adf-schema';

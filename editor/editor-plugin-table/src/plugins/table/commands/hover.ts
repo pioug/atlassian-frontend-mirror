@@ -7,7 +7,8 @@ import {
 } from '@atlaskit/editor-tables/utils';
 
 import { createCommand } from '../pm-plugins/plugin-factory';
-import { Cell, CellColumnPositioning, TableDecorations } from '../types';
+import type { Cell, CellColumnPositioning } from '../types';
+import { TableDecorations } from '../types';
 import {
   createCellHoverDecoration,
   createColumnLineResize,
@@ -15,13 +16,9 @@ import {
   getMergedCellsPositions,
   updatePluginStateDecorations,
 } from '../utils';
-// #endregion
 
-// #region Utils
 const makeArray = (n: number) => Array.from(Array(n).keys());
-// #endregion
 
-// #region Commands
 export const hoverMergedCells = () =>
   createCommand(
     (state) => {
@@ -43,7 +40,7 @@ export const hoverMergedCells = () =>
       const decorations = createCellHoverDecoration(mergedCells);
 
       return {
-        type: 'HOVER_CELLS',
+        type: 'HOVER_MERGED_CELLS',
         data: {
           decorationSet: updatePluginStateDecorations(
             state,
@@ -193,4 +190,16 @@ export const hideResizeHandleLine = () =>
       ),
     },
   }));
-// #endregion
+
+export const hoverCell = (rowIndex?: number, colIndex?: number) =>
+  createCommand(
+    () => {
+      return {
+        type: 'HOVER_CELL',
+        data: {
+          hoveredCell: { rowIndex, colIndex },
+        },
+      };
+    },
+    (tr) => tr.setMeta('addToHistory', false),
+  );

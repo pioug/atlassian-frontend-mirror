@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.35.3
+
+### Patch Changes
+
+- [#41765](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41765) [`41bae32862a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41bae32862a) - update translations
+
 ## 26.35.2
 
 ### Patch Changes

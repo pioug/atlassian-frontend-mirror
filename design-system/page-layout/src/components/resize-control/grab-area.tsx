@@ -4,7 +4,6 @@ import { ComponentProps, FocusEvent, KeyboardEvent, MouseEvent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { Box, xcss } from '@atlaskit/primitives';
 import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -35,7 +34,7 @@ export type GrabAreaProps = {
 const varLineColor = '--ds-line';
 
 const grabAreaStyles = css({
-  width: 4,
+  width: 24,
   height: '100%',
   padding: 0,
   backgroundColor: 'transparent',
@@ -47,20 +46,7 @@ const grabAreaStyles = css({
   ':focus': {
     outline: 0,
   },
-});
-
-const grabAreaEnabledStyles = css({
-  ':hover': {
-    [varLineColor]: token('color.border.selected', B200),
-  },
-  ':active': {
-    borderColor: token('color.border.selected', B200),
-    [varLineColor]: token('color.border.selected', B200),
-  },
-  ':focus-visible': {
-    outlineColor: token('color.border.selected', B200),
-    outlineStyle: 'solid',
-    outlineWidth: token('border.width.outline', '2px'),
+  ':enabled:hover, :enabled:focus, :enabled:active': {
     [varLineColor]: token('color.border.selected', B200),
   },
 });
@@ -72,11 +58,11 @@ const grabAreaCollapsedStyles = css({
   cursor: 'default',
 });
 
-const lineStyles = xcss({
+const lineStyles = css({
   display: 'block',
-  width: 'border.width.outline',
+  width: token('border.width.outline', '2px'),
   height: '100%',
-  backgroundColor: 'color.background.neutral',
+  backgroundColor: 'var(--ds-line)',
   transition: 'background-color 200ms',
 });
 
@@ -109,11 +95,7 @@ const GrabArea = ({
     // range input would be more semantically accurate, it does not affect
     // usability.
     role="slider"
-    css={[
-      grabAreaStyles,
-      isLeftSidebarCollapsed && grabAreaCollapsedStyles,
-      !isDisabled && grabAreaEnabledStyles,
-    ]}
+    css={[grabAreaStyles, isLeftSidebarCollapsed && grabAreaCollapsedStyles]}
     aria-orientation="vertical"
     aria-valuenow={leftSidebarPercentageExpanded}
     aria-valuemin={0}
@@ -126,7 +108,7 @@ const GrabArea = ({
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...rest}
   >
-    <Box as="span" xcss={lineStyles} {...grabAreaLineSelector} />
+    <span css={lineStyles} {...grabAreaLineSelector} />
   </button>
 );
 

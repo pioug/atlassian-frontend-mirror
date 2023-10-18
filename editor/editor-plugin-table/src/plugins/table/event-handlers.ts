@@ -33,6 +33,7 @@ import {
   clearHoverSelection,
   hideInsertColumnOrRowButton,
   hideResizeHandleLine,
+  hoverCell,
   hoverColumns,
   selectColumn,
   setEditorFocus,
@@ -275,12 +276,19 @@ export const handleMouseLeave = (view: EditorView, event: Event): boolean => {
   }
 
   const { state, dispatch } = view;
-  const { insertColumnButtonIndex, insertRowButtonIndex } =
-    getPluginState(state);
+  const {
+    insertColumnButtonIndex,
+    insertRowButtonIndex,
+    isDragAndDropEnabled,
+  } = getPluginState(state);
 
   const target = event.target;
   if (isTableControlsButton(target)) {
     return true;
+  }
+
+  if (isDragAndDropEnabled) {
+    hoverCell(undefined, undefined)(state, dispatch);
   }
 
   if (
@@ -496,5 +504,44 @@ export const whenTableInFocus =
       return false;
     }
 
+    return eventHandler(view, mouseEvent, elementContentRects);
+  };
+
+const trackCellLocation = (view: EditorView, mouseEvent: Event) => {
+  const target = mouseEvent.target;
+  const maybeTableCell = isElementInTableCell(
+    target as HTMLElement,
+  ) as HTMLTableCellElement | null;
+
+  if (!maybeTableCell) {
+    return;
+  }
+
+  const colIndex = maybeTableCell.cellIndex;
+  const rowElement = closestElement(
+    target as HTMLElement,
+    'tr',
+  ) as HTMLTableRowElement;
+  const rowIndex = rowElement && rowElement.rowIndex;
+  const { hoveredCell } = getPluginState(view.state);
+
+  if (hoveredCell.colIndex !== colIndex || hoveredCell.rowIndex !== rowIndex) {
+    hoverCell(rowIndex, colIndex)(view.state, view.dispatch);
+  }
+};
+
+export const withCellTracking =
+  (
+    eventHandler: (
+      view: EditorView,
+      mouseEvent: Event,
+      elementContentRects?: ElementContentRects,
+    ) => boolean,
+    elementContentRects?: ElementContentRects,
+  ) =>
+  (view: EditorView, mouseEvent: Event): boolean => {
+    if (getPluginState(view.state).isDragAndDropEnabled) {
+      trackCellLocation(view, mouseEvent);
+    }
     return eventHandler(view, mouseEvent, elementContentRects);
   };

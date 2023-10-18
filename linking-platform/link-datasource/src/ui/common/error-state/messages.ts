@@ -4,8 +4,8 @@ export const loadingErrorMessages = defineMessages({
   accessInstructions: {
     id: 'linkDataSource.jira-issues.accessInstructions',
     description:
-      "Instructions to let the user know they must contact an administrator in order to access this site's content",
-    defaultMessage: 'To request access, contact your admin.',
+      "Instructions to let the user know they must contact their site administrator in order to access this site's content",
+    defaultMessage: 'To request access, contact your site administrator.',
   },
   accessRequired: {
     id: 'linkDataSource.jira-issues.accessRequired',
@@ -16,8 +16,8 @@ export const loadingErrorMessages = defineMessages({
   accessRequiredWithSite: {
     id: 'linkDataSource.jira-issues.accessRequiredWithSite',
     description:
-      'Message letting user know that they do not have access to the site by name',
-    defaultMessage: "You don't have access to {siteName}",
+      'Message letting user know that they do not have access to the site that will be listed below this message',
+    defaultMessage: "You don't have access to the following site:",
   },
   checkConnection: {
     id: 'linkDataSource.jira-issues.checkConnection',

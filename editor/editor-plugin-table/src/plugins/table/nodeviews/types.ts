@@ -1,11 +1,11 @@
-import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type {
   GetEditorContainerWidth,
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
-import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { PluginInjectionAPI } from '../types';
 
@@ -14,6 +14,7 @@ export type TableOptions = {
   isFullWidthModeEnabled?: boolean;
   wasFullWidthModeEnabled?: boolean;
   isTableResizingEnabled?: boolean;
+  isDragAndDropEnabled?: boolean;
 };
 
 export interface Props {

@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': '⚠️ 您無法排序包含合併儲存格的表格',
   'fabric.editor.headingLink.noOrderLabel': '從 A 欄排序到 Z 欄',
   'fabric.editor.headingLink.noneSortingLabel': '無',
+  'fabric.editor.tableHeader.sorting.asc': '已套用遞增排序',
+  'fabric.editor.tableHeader.sorting.default': '排序直欄',
+  'fabric.editor.tableHeader.sorting.desc': '已套用遞減排序',
+  'fabric.editor.tableHeader.sorting.invalid': '您無法使用合併的儲存格來排序表格',
+  'fabric.editor.tableHeader.sorting.no': '沒有套用至直欄的排序',
 };

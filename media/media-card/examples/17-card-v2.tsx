@@ -1,8 +1,8 @@
 import CardV2Loader from '../src/card/v2/cardV2Loader';
 import React from 'react';
-import { MediaClientContext } from '@atlaskit/media-client-react';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 import {
-  createMediaClient,
+  createMockedMediaApi,
   fileMap,
 } from '../src/card/v2/__tests__/utils/_createMediaClient';
 import { MediaClientConfig } from '@atlaskit/media-client';
@@ -10,7 +10,7 @@ import { MainWrapper } from '../example-helpers';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 
-const mediaClient = createMediaClient();
+const mockedMediaApi = createMockedMediaApi();
 const identifier = {
   mediaItemType: 'file',
   id: fileMap.workingVideo.id,
@@ -19,7 +19,7 @@ const identifier = {
 
 export default () => (
   <MainWrapper developmentOnly>
-    <MediaClientContext.Provider value={mediaClient}>
+    <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
       <CardV2Loader
         mediaClientConfig={dummyMediaClientConfig}
         identifier={identifier}
@@ -27,6 +27,6 @@ export default () => (
         shouldOpenMediaViewer
         useInlinePlayer
       />
-    </MediaClientContext.Provider>
+    </MockedMediaClientProvider>
   </MainWrapper>
 );

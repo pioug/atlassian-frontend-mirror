@@ -11,6 +11,7 @@ const IGNORED_ERROR_REASONS_DIRECTORY = [
   // Error categories from pf-directory
   'NotPermitted',
   'Gone',
+  'IdentityUserNotFoundError',
 ];
 
 const IGNORE_ERROR_TYPES_AGG = [

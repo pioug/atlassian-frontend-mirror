@@ -164,6 +164,7 @@
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.4.3",
+    "@types/markdown-it": "^12.2.3",
     "@types/raf-schd": "^4.0.1",
     "@types/react-virtualized": "^9.18.12",
     "enzyme": "^3.10.0",

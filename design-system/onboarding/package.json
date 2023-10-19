@@ -67,6 +67,7 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@types/exenv": "^1.2.0",
     "@types/react-node-resolver": "^2.0.0",
+    "@types/react-transition-group": "^2.0.6",
     "raf-stub": "^2.0.1",
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.13.0",

@@ -20,9 +20,9 @@ import { token } from '@atlaskit/tokens';
 
 import {
   CloseSelectionOptions,
+  TYPE_AHEAD_DECORATION_ELEMENT_ID,
   TYPE_AHEAD_POPUP_CONTENT_CLASS,
 } from '../constants';
-import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../constants';
 import { typeAheadListMessages } from '../messages';
 import { getPluginState } from '../utils';
 

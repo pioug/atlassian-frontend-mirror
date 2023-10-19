@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 0.7.1
+
+### Patch Changes
+
+- [#41802](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41802) [`d20ecc5a9db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d20ecc5a9db) - Apply improved linting to type-ahead plugin.
+
 ## 0.7.0
 
 ### Minor Changes

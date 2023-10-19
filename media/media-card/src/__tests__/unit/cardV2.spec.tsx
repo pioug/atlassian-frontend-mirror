@@ -30,9 +30,9 @@ import {
 import userEvent from '@testing-library/user-event';
 import CardV2Loader from '../../card/v2/cardV2Loader';
 import React from 'react';
-import { MediaClientContext } from '@atlaskit/media-client-react';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 import {
-  createMediaClient,
+  createMockedMediaApi,
   fileMap,
 } from '../../card/v2/__tests__/utils/_createMediaClient';
 import { videoURI, tallImage } from '@atlaskit/media-test-helpers';
@@ -112,7 +112,7 @@ describe('Card V2', () => {
 
   describe('should manage lazy loading', () => {
     it('should reuse dataURI from global scope when ssr is client', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const expectedPreview = { dataURI: tallImage, source: 'ssr-data' };
       const { id, collection } = fileMap.workingImgWithRemotePreview;
       const identifier = {
@@ -124,13 +124,13 @@ describe('Card V2', () => {
       setGlobalSSRData(`${id}-${collection}`, expectedPreview);
 
       render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             ssr="client"
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       const img: HTMLImageElement = await screen.findByTestId(imgTestId);
@@ -139,19 +139,19 @@ describe('Card V2', () => {
     });
 
     it('should lazy load by default', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // should never render an image
@@ -162,19 +162,19 @@ describe('Card V2', () => {
     });
 
     it('should load image when card comes into view', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // should never render an image
@@ -190,7 +190,7 @@ describe('Card V2', () => {
     });
 
     it('should set loading img to lazy if lazy load is enabled and there is SSR data-preview', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const expectedPreview = { dataURI: tallImage, source: 'ssr-data' };
       const { id, collection } = fileMap.workingImgWithRemotePreview;
       const identifier = {
@@ -202,14 +202,14 @@ describe('Card V2', () => {
       setGlobalSSRData(`${id}-${collection}`, expectedPreview);
 
       render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={true}
             ssr="client"
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       expect(screen.getByTestId(spinnerTestId)).toBeInTheDocument();
@@ -218,7 +218,7 @@ describe('Card V2', () => {
     });
 
     it('should reuse local img when there is SSR data-preview dimentions are larger than image dimentions', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const expectedPreview = {
         dataURI: tallImage,
         source: 'ssr-data',
@@ -234,14 +234,14 @@ describe('Card V2', () => {
       setGlobalSSRData(`${id}-${collection}`, expectedPreview);
 
       render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             dimensions={{ width: 50, height: 50 }}
             ssr="client"
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       makeVisible();
@@ -252,7 +252,7 @@ describe('Card V2', () => {
     });
 
     it('should refetch img when there is SSR data-preview and the dimentions are bigger and no lazy loading', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const expectedPreview = {
         dataURI: tallImage,
         source: 'ssr-data',
@@ -268,7 +268,7 @@ describe('Card V2', () => {
       setGlobalSSRData(`${id}-${collection}`, expectedPreview);
 
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
@@ -276,7 +276,7 @@ describe('Card V2', () => {
             dimensions={{ width: 200, height: 200 }}
             ssr="client"
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       fireEvent.load(await screen.findByTestId(imgTestId));
@@ -292,20 +292,20 @@ describe('Card V2', () => {
     });
 
     it('should render immediately when not set to lazy load', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -329,20 +329,20 @@ describe('Card V2', () => {
         dimensions: {},
       });
 
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -362,21 +362,21 @@ describe('Card V2', () => {
     it('for onClick when the card is clicked upon', async () => {
       const user = userEvent.setup();
       const onClick = jest.fn();
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
             onClick={onClick}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -398,21 +398,21 @@ describe('Card V2', () => {
     it('for onMouseEnter when the mouse enters the card', async () => {
       const user = userEvent.setup();
       const onMouseEnter = jest.fn();
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
             onMouseEnter={onMouseEnter}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -436,20 +436,20 @@ describe('Card V2', () => {
 
   describe('should render an accessible preview (i.e. <img>)', () => {
     it('should render preview without alternative text by default', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -467,21 +467,21 @@ describe('Card V2', () => {
     });
 
     it('should render preview with alternative text when "alt" is provided', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
             alt="alt text"
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -501,20 +501,20 @@ describe('Card V2', () => {
 
   describe('should manage its resize mode', () => {
     it('should render "crop" resize mode by default', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -535,21 +535,21 @@ describe('Card V2', () => {
 
     // TODO - investigate if "fit" and "full-fit" are redundantly identical
     it('should render "fit" resize mode correctly', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
             resizeMode="fit"
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -569,21 +569,21 @@ describe('Card V2', () => {
     });
 
     it('should render "full-fit" resize mode correctly', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
             resizeMode="full-fit"
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -603,21 +603,21 @@ describe('Card V2', () => {
     });
 
     it('should render "stretchy-fit" resize mode correctly', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
             resizeMode="stretchy-fit"
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -640,20 +640,20 @@ describe('Card V2', () => {
 
   describe('should manage its dimensions', () => {
     it('should use default dimensions for the default "image" appearance', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       const card = await screen.findByTestId(cardTestId);
@@ -663,21 +663,21 @@ describe('Card V2', () => {
     });
 
     it('should use default dimensions for a "square" appearance', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
             appearance="square"
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       const card = await screen.findByTestId(cardTestId);
@@ -687,21 +687,21 @@ describe('Card V2', () => {
     });
 
     it('should use default dimensions for a "horizontal" appearance', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
             appearance="horizontal"
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       const card = await screen.findByTestId(cardTestId);
@@ -711,34 +711,34 @@ describe('Card V2', () => {
     });
 
     it('should update with new dimensions', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { rerender } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
             dimensions={{ width: 100, height: 500 }}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       expect(await screen.findByTestId(cardTestId)).toBeInTheDocument();
 
       rerender(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
             dimensions={{ width: 400, height: 400 }}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       const card = await screen.findByTestId(cardTestId);
@@ -748,14 +748,14 @@ describe('Card V2', () => {
     });
 
     it('should set custom dimensions', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
@@ -763,7 +763,7 @@ describe('Card V2', () => {
             appearance="square"
             dimensions={{ width: 100, height: 500 }}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       const card = await screen.findByTestId(cardTestId);
@@ -773,14 +773,14 @@ describe('Card V2', () => {
     });
 
     it('should set custom percentage dimensions', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
@@ -788,7 +788,7 @@ describe('Card V2', () => {
             appearance="square"
             dimensions={{ width: '20%', height: '20%' }}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       const card = await screen.findByTestId(cardTestId);
@@ -799,14 +799,14 @@ describe('Card V2', () => {
 
     // TODO - this actually successfully renders but has bad behaviour: it renders to be 100% width and 0 height (i.e. you can't see it)
     it.skip('should ignore invalid custom dimensions', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
@@ -814,7 +814,7 @@ describe('Card V2', () => {
             appearance="square"
             dimensions={{ width: 'invalid', height: 'invalid' }}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       const card = await screen.findByTestId(cardTestId);
@@ -826,20 +826,20 @@ describe('Card V2', () => {
 
   describe('should manage its orientation', () => {
     it('should not rotate the preview by default (i.e. preview has an orientation of 1)', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -864,20 +864,20 @@ describe('Card V2', () => {
         source: 'cache-remote',
         dimensions: {},
       });
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -899,20 +899,20 @@ describe('Card V2', () => {
   // TODO - should demonstrate its selection by its role
   describe('should manage its selection', () => {
     it('should render as not selected by default', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -931,21 +931,21 @@ describe('Card V2', () => {
     });
 
     it('should render as selected', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
             selected
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -968,20 +968,20 @@ describe('Card V2', () => {
 
   describe('should render a tick box appropriately', () => {
     it('should not render a tick box by default', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -999,21 +999,21 @@ describe('Card V2', () => {
     });
 
     it('should render a tick box when the card is "selectable"', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
             selectable
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -1034,20 +1034,22 @@ describe('Card V2', () => {
   describe('should render card correctly', () => {
     describe('when "disableOverlay" is false by default', () => {
       it('when there is no remote preview', async () => {
-        const mediaClient = createMediaClient({ withRemotePreview: false });
+        const mockedMediaApi = createMockedMediaApi({
+          withRemotePreview: false,
+        });
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithoutRemotePreview.id,
           collectionName: fileMap.workingPdfWithoutRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should completely process the error
@@ -1084,20 +1086,22 @@ describe('Card V2', () => {
       });
 
       it('when fetching the remote preview errors out (RemotePreviewError: remote-preview-fetch)', async () => {
-        const mediaClient = createMediaClient({ withRemotePreview: false });
+        const mockedMediaApi = createMockedMediaApi({
+          withRemotePreview: false,
+        });
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should completely process the error
@@ -1132,7 +1136,7 @@ describe('Card V2', () => {
       });
 
       it('when loading the remote preview errors out (ImageLoadError: remote-uri)', async () => {
-        const mediaClient = createMediaClient({
+        const mockedMediaApi = createMockedMediaApi({
           withRemotePreview: 'use-broken-preview',
         });
         const identifier = {
@@ -1141,13 +1145,13 @@ describe('Card V2', () => {
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should be attempting to load the preview
@@ -1203,20 +1207,23 @@ describe('Card V2', () => {
           name: fileMap.workingPdfWithRemotePreview.details.name,
         };
 
-        const mediaClient = createMediaClient({ initialStore });
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should completely process the error
@@ -1263,20 +1270,23 @@ describe('Card V2', () => {
           name: fileMap.workingPdfWithRemotePreview.details.name,
         };
 
-        const mediaClient = createMediaClient({ initialStore });
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should completely process the error
@@ -1310,7 +1320,7 @@ describe('Card V2', () => {
       });
 
       it('when there is an empty items error (emptyItems, metadata-fetch)', async () => {
-        const mediaClient = createMediaClient({
+        const mockedMediaApi = createMockedMediaApi({
           ids: [],
           withRemotePreview: false,
         });
@@ -1320,13 +1330,13 @@ describe('Card V2', () => {
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should completely process the error
@@ -1360,7 +1370,7 @@ describe('Card V2', () => {
       });
 
       it('when file id is invalid (invalidFileId, metadata-fetch)', async () => {
-        const mediaClient = createMediaClient({
+        const mockedMediaApi = createMockedMediaApi({
           ids: [],
           withRemotePreview: false,
         });
@@ -1370,13 +1380,13 @@ describe('Card V2', () => {
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should completely process the error
@@ -1410,7 +1420,7 @@ describe('Card V2', () => {
       });
 
       it('when backend fails to process the file (status: failed-processing) ', async () => {
-        const mediaClient = createMediaClient({
+        const mockedMediaApi = createMockedMediaApi({
           withRemotePreview: false,
         });
         const identifier = {
@@ -1419,13 +1429,13 @@ describe('Card V2', () => {
           collectionName: fileMap.failedPdf.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should completely process the error
@@ -1460,19 +1470,19 @@ describe('Card V2', () => {
       });
 
       it('when loading', async () => {
-        const mediaClient = createMediaClient();
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // should not render a title box
@@ -1496,7 +1506,7 @@ describe('Card V2', () => {
       });
 
       it('when backend is processing the file (status: processing)', async () => {
-        const mediaClient = createMediaClient({
+        const mockedMediaApi = createMockedMediaApi({
           withRemotePreview: false,
         });
         const identifier = {
@@ -1505,13 +1515,13 @@ describe('Card V2', () => {
           collectionName: fileMap.processingPdf.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should be processing
@@ -1552,10 +1562,10 @@ describe('Card V2', () => {
           id: fileMap.workingPdfWithRemotePreview.id,
           progress: 0,
         };
-        const mediaClient = createMediaClient({
-          initialStore,
+        const mockedMediaApi = createMockedMediaApi({
           withRemotePreview: false,
         });
+
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
@@ -1563,13 +1573,16 @@ describe('Card V2', () => {
         } as const;
 
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should be uploading
@@ -1630,8 +1643,7 @@ describe('Card V2', () => {
           id: fileMap.workingPdfWithRemotePreview.id,
           progress: 0.5,
         };
-        const mediaClient = createMediaClient({
-          initialStore,
+        const mockedMediaApi = createMockedMediaApi({
           withRemotePreview: false,
         });
         const identifier = {
@@ -1641,13 +1653,16 @@ describe('Card V2', () => {
         } as const;
 
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should be uploading
@@ -1708,9 +1723,7 @@ describe('Card V2', () => {
           id: fileMap.workingPdfWithRemotePreview.id,
           progress: 0.5,
         };
-        const mediaClient = createMediaClient({
-          initialStore,
-        });
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
@@ -1718,13 +1731,16 @@ describe('Card V2', () => {
         } as const;
 
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should be attempting to load a preview
@@ -1794,8 +1810,7 @@ describe('Card V2', () => {
             value: fileMap.workingPdfWithLocalPreview.details.preview.value,
           },
         };
-        const mediaClient = createMediaClient({
-          initialStore,
+        const mockedMediaApi = createMockedMediaApi({
           withRemotePreview: false,
         });
         const identifier = {
@@ -1805,13 +1820,16 @@ describe('Card V2', () => {
         } as const;
 
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should be uploading
@@ -1880,9 +1898,7 @@ describe('Card V2', () => {
           id: fileMap.workingPdfWithLocalPreview.id,
           progress: 0.5,
         };
-        const mediaClient = createMediaClient({
-          initialStore,
-        });
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithLocalPreview.id,
@@ -1890,13 +1906,16 @@ describe('Card V2', () => {
         } as const;
 
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should be fully processed
@@ -1937,19 +1956,19 @@ describe('Card V2', () => {
       });
 
       it('when the card is never loaded', async () => {
-        const mediaClient = createMediaClient();
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // should never render an image
@@ -1979,7 +1998,8 @@ describe('Card V2', () => {
         expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
       });
 
-      it('when there is an upload error', async () => {
+      // TODO: Fix when the Mocked Media API is updated from https://product-fabric.atlassian.net/browse/MEX-2642
+      it.skip('when there is an upload error', async () => {
         // add initial state so that the file is currently uploading
         let initialStore: any = { files: {} };
         initialStore.files[fileMap.workingPdfWithRemotePreview.id] = {
@@ -1992,8 +2012,7 @@ describe('Card V2', () => {
           progress: 0.5,
         };
 
-        const mediaClient = createMediaClient({
-          initialStore,
+        const mockedMediaApi = createMockedMediaApi({
           withRemotePreview: false,
         });
         const identifier = {
@@ -2002,13 +2021,16 @@ describe('Card V2', () => {
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should be uploading
@@ -2018,15 +2040,16 @@ describe('Card V2', () => {
           ).toBeInTheDocument(),
         );
 
+        // TODO: Fix when the Mocked Media API is updated from https://product-fabric.atlassian.net/browse/MEX-2642
         // the next state should be an upload error
-        mediaClient.__DO_NOT_USE__getMediaStore().setState((state) => {
-          state.files[fileMap.workingPdfWithRemotePreview.id] = {
-            status: 'error',
-            id: fileMap.workingPdfWithRemotePreview.id,
-            reason: 'upload',
-            details: {},
-          };
-        });
+        // mediaClient.__DO_NOT_USE__getMediaStore().setState((state) => {
+        //   state.files[fileMap.workingPdfWithRemotePreview.id] = {
+        //     status: 'error',
+        //     id: fileMap.workingPdfWithRemotePreview.id,
+        //     reason: 'upload',
+        //     details: {},
+        //   };
+        // });
 
         // card should completely process the error
         await waitFor(() =>
@@ -2056,21 +2079,22 @@ describe('Card V2', () => {
         expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
       });
 
-      it('when an error occurs after the card is complete', async () => {
-        const mediaClient = createMediaClient();
+      // TODO: Fix when the Mocked Media API is updated from https://product-fabric.atlassian.net/browse/MEX-2642
+      it.skip('when an error occurs after the card is complete', async () => {
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // simulate that the file has been fully processed in the browser
@@ -2084,14 +2108,15 @@ describe('Card V2', () => {
           ).toBeInTheDocument(),
         );
 
-        mediaClient.__DO_NOT_USE__getMediaStore().setState((state) => {
-          state.files[fileMap.workingPdfWithRemotePreview.id] = {
-            status: 'error',
-            id: fileMap.workingPdfWithRemotePreview.id,
-            reason: 'some error reason',
-            details: {},
-          };
-        });
+        // TODO: Fix when the Mocked Media API is updated from https://product-fabric.atlassian.net/browse/MEX-2642
+        // mediaClient.__DO_NOT_USE__getMediaStore().setState((state) => {
+        //   state.files[fileMap.workingPdfWithRemotePreview.id] = {
+        //     status: 'error',
+        //     id: fileMap.workingPdfWithRemotePreview.id,
+        //     reason: 'some error reason',
+        //     details: {},
+        //   };
+        // });
 
         // card should ignore the error
         await expect(
@@ -2126,21 +2151,23 @@ describe('Card V2', () => {
 
     describe('when "disableOverlay" is true', () => {
       it.skip('when there is an image load error (ImageLoadError: remote-uri) 2', async () => {
-        const mediaClient = createMediaClient({ withRemotePreview: false });
+        const mockedMediaApi = createMockedMediaApi({
+          withRemotePreview: false,
+        });
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
               disableOverlay
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should be attempting to load the preview
@@ -2184,14 +2211,14 @@ describe('Card V2', () => {
     it('should render a video player when a video is clicked upon', async () => {
       const user = userEvent.setup();
       const onClick = jest.fn();
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingVideo.id,
         collectionName: fileMap.workingVideo.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
@@ -2199,7 +2226,7 @@ describe('Card V2', () => {
             onClick={onClick}
             useInlinePlayer
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -2234,14 +2261,17 @@ describe('Card V2', () => {
         message: 'some error message',
       };
 
-      const mediaClient = createMediaClient({ initialStore });
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingVideo.id,
         collectionName: fileMap.workingVideo.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider
+          mockedMediaApi={mockedMediaApi}
+          initialStore={initialStore}
+        >
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
@@ -2249,7 +2279,7 @@ describe('Card V2', () => {
             useInlinePlayer
             disableOverlay
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // card should completely process the file
@@ -2266,20 +2296,20 @@ describe('Card V2', () => {
 
   describe('should update when a new identifier is provided', () => {
     it('for a new file identifier', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container, rerender } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -2305,13 +2335,13 @@ describe('Card V2', () => {
         collectionName: fileMap.workingJpegWithRemotePreview.collection,
       } as const;
       rerender(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={newIdentifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -2333,20 +2363,20 @@ describe('Card V2', () => {
     });
 
     it('for a new external image identifier', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const extIdentifier = {
         mediaItemType: 'external-image',
         dataURI: 'ext-uri',
         name: 'ext',
       } as const;
       const { container, rerender } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={extIdentifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -2369,13 +2399,13 @@ describe('Card V2', () => {
         name: 'nExt',
       } as const;
       rerender(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={newExtIdentifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -2398,7 +2428,7 @@ describe('Card V2', () => {
 
   it('should trigger download action successfully when clicked', async () => {
     const user = userEvent.setup();
-    const mediaClient = createMediaClient({
+    const mockedMediaApi = createMockedMediaApi({
       withRemotePreview: false,
     });
     const identifier = {
@@ -2407,13 +2437,13 @@ describe('Card V2', () => {
       collectionName: fileMap.failedPdf.collection,
     } as const;
     const { container } = render(
-      <MediaClientContext.Provider value={mediaClient}>
+      <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
         <CardV2Loader
           mediaClientConfig={dummyMediaClientConfig}
           identifier={identifier}
           isLazy={false}
         />
-      </MediaClientContext.Provider>,
+      </MockedMediaClientProvider>,
     );
 
     // card should completely process the error
@@ -2436,21 +2466,21 @@ describe('Card V2', () => {
   describe('should manage MediaViewer integration', () => {
     it('should render Media Viewer when clicked when "shouldOpenMediaViewer" is true', async () => {
       const user = userEvent.setup();
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
             shouldOpenMediaViewer
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // card should be attempting to load the preview
@@ -2478,20 +2508,20 @@ describe('Card V2', () => {
 
     it('should not render Media Viewer when clicked when "shouldOpenMediaViewer" is false by default', async () => {
       const user = userEvent.setup();
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -2518,21 +2548,21 @@ describe('Card V2', () => {
      */
     it('should render Media Viewer with an item', async () => {
       const user = userEvent.setup();
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
             shouldOpenMediaViewer
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -2561,14 +2591,14 @@ describe('Card V2', () => {
 
     it('should not render Media Viewer for a video when "useInlinePlayer" is true', async () => {
       const user = userEvent.setup();
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingVideo.id,
         collectionName: fileMap.workingVideo.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
@@ -2576,7 +2606,7 @@ describe('Card V2', () => {
             shouldOpenMediaViewer
             useInlinePlayer
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -2597,20 +2627,20 @@ describe('Card V2', () => {
   });
 
   it('should render correctly with an external image identifier', async () => {
-    const mediaClient = createMediaClient();
+    const mockedMediaApi = createMockedMediaApi();
     const extIdentifier = {
       mediaItemType: 'external-image',
       dataURI: 'ext-uri',
       name: 'ext',
     } as const;
     const { container } = render(
-      <MediaClientContext.Provider value={mediaClient}>
+      <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
         <CardV2Loader
           mediaClientConfig={dummyMediaClientConfig}
           identifier={extIdentifier}
           isLazy={false}
         />
-      </MediaClientContext.Provider>,
+      </MockedMediaClientProvider>,
     );
 
     // simulate that the file has been fully processed in the browser
@@ -2630,20 +2660,20 @@ describe('Card V2', () => {
 
   describe('should trigger events from globalMediaEventEmitter', () => {
     it('when rendering an image not from the recents collection, it should emit a "media-viewed" event', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingImgWithRemotePreview.id,
         collectionName: fileMap.workingImgWithRemotePreview.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -2669,7 +2699,7 @@ describe('Card V2', () => {
     });
 
     it('when rendering an image from the recents collection, it should emit a "media-viewed" event', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
         id: fileMap.workingImgWithRemotePreviewInRecentsCollection.id,
@@ -2677,13 +2707,13 @@ describe('Card V2', () => {
           fileMap.workingImgWithRemotePreviewInRecentsCollection.collection,
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -2709,20 +2739,20 @@ describe('Card V2', () => {
     });
 
     it('when rendering an external image, it should emit a "media-viewed" event', async () => {
-      const mediaClient = createMediaClient();
+      const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'external-image',
         dataURI: 'ext-uri',
         name: 'ext',
       } as const;
       const { container } = render(
-        <MediaClientContext.Provider value={mediaClient}>
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
             isLazy={false}
           />
-        </MediaClientContext.Provider>,
+        </MockedMediaClientProvider>,
       );
 
       // simulate that the file has been fully processed in the browser
@@ -2749,14 +2779,14 @@ describe('Card V2', () => {
   });
 
   it('should internationalise messages with the provided IntlProvider', async () => {
-    const mediaClient = createMediaClient({ withRemotePreview: false });
+    const mockedMediaApi = createMockedMediaApi({ withRemotePreview: false });
     const identifier = {
       mediaItemType: 'file',
       id: fileMap.workingPdfWithRemotePreview.id,
       collectionName: fileMap.workingPdfWithRemotePreview.collection,
     } as const;
     const { container } = render(
-      <MediaClientContext.Provider value={mediaClient}>
+      <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
         <IntlProvider
           locale="en"
           messages={{
@@ -2769,7 +2799,7 @@ describe('Card V2', () => {
             isLazy={false}
           />
         </IntlProvider>
-      </MediaClientContext.Provider>,
+      </MockedMediaClientProvider>,
     );
 
     // card should completely process the error
@@ -2801,21 +2831,21 @@ describe('Card V2', () => {
       it('from CardView to the provided onClick callback', async () => {
         const user = userEvent.setup();
         const onClick = jest.fn();
-        const mediaClient = createMediaClient();
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
               onClick={onClick}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // simulate that the file has been fully processed in the browser
@@ -2837,14 +2867,14 @@ describe('Card V2', () => {
       it('from InlinePlayerLazy to the provided onClick callback', async () => {
         const user = userEvent.setup();
         const onClick = jest.fn();
-        const mediaClient = createMediaClient();
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingVideo.id,
           collectionName: fileMap.workingVideo.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
@@ -2852,7 +2882,7 @@ describe('Card V2', () => {
               onClick={onClick}
               useInlinePlayer
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // simulate that the file has been fully processed in the browser
@@ -2874,20 +2904,20 @@ describe('Card V2', () => {
 
     describe('should fire commenced analytics event on file load start ', () => {
       it('with file identifier', async () => {
-        const mediaClient = createMediaClient();
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // simulate that the file has been fully processed in the browser
@@ -2915,20 +2945,20 @@ describe('Card V2', () => {
       });
 
       it('with an external image identifier', async () => {
-        const mediaClient = createMediaClient();
+        const mockedMediaApi = createMockedMediaApi();
         const extIdentifier = {
           mediaItemType: 'external-image',
           dataURI: 'ext-uri',
           name: 'ext',
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={extIdentifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // simulate that the file has been fully processed in the browser
@@ -2968,22 +2998,23 @@ describe('Card V2', () => {
           id: fileMap.workingPdfWithRemotePreview.id,
           progress: 0,
         };
-        const mediaClient = createMediaClient({
-          initialStore,
-        });
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // simulate that the file has been fully processed in the browser
@@ -3019,22 +3050,23 @@ describe('Card V2', () => {
           representations: {},
           artifacts: {},
         };
-        const mediaClient = createMediaClient({
-          initialStore,
-        });
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // simulate that the file has been fully processed in the browser
@@ -3059,20 +3091,20 @@ describe('Card V2', () => {
       });
 
       it('should attach uploading and processing file status flags with values as false', async () => {
-        const mediaClient = createMediaClient();
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // simulate that the file has been fully processed in the browser
@@ -3112,20 +3144,23 @@ describe('Card V2', () => {
           name: fileMap.workingPdfWithRemotePreview.details.name,
         };
 
-        const mediaClient = createMediaClient({ initialStore });
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should completely process the error
@@ -3181,20 +3216,23 @@ describe('Card V2', () => {
           name: fileMap.workingPdfWithRemotePreview.details.name,
         };
 
-        const mediaClient = createMediaClient({ initialStore });
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should completely process the error
@@ -3239,20 +3277,20 @@ describe('Card V2', () => {
 
     describe('should fire a screen event ', () => {
       it('when the file status is complete', async () => {
-        const mediaClient = createMediaClient();
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // simulate that the file has been fully processed in the browser
@@ -3270,20 +3308,20 @@ describe('Card V2', () => {
       });
 
       it('when the file is a video and has a preview', async () => {
-        const mediaClient = createMediaClient();
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingVideo.id,
           collectionName: fileMap.workingVideo.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // simulate that the file has been fully processed in the browser
@@ -3314,22 +3352,23 @@ describe('Card V2', () => {
           representations: {},
           artifacts: {},
         };
-        const mediaClient = createMediaClient({
-          initialStore,
-        });
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // simulate that the file has been fully processed in the browser
@@ -3407,20 +3446,23 @@ describe('Card V2', () => {
           name: fileMap.workingPdfWithRemotePreview.details.name,
         };
 
-        const mediaClient = createMediaClient({ initialStore });
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should completely process the error
@@ -3485,20 +3527,23 @@ describe('Card V2', () => {
           name: fileMap.workingPdfWithRemotePreview.details.name,
         };
 
-        const mediaClient = createMediaClient({ initialStore });
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
         const { container } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         // card should completely process the error
@@ -3553,7 +3598,7 @@ describe('Card V2', () => {
     describe('should abort the experience', () => {
       it('when the component is unmounted', () => {
         let initialStore: any = { files: {} };
-        const mediaClient = createMediaClient({ initialStore });
+        const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
           id: fileMap.workingPdfWithRemotePreview.id,
@@ -3561,13 +3606,16 @@ describe('Card V2', () => {
         } as const;
 
         const { unmount } = render(
-          <MediaClientContext.Provider value={mediaClient}>
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
             <CardV2Loader
               mediaClientConfig={dummyMediaClientConfig}
               identifier={identifier}
               isLazy={false}
             />
-          </MediaClientContext.Provider>,
+          </MockedMediaClientProvider>,
         );
 
         unmount();

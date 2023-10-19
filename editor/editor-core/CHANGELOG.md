@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 188.11.3
+
+### Patch Changes
+
+- [#41862](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41862) [`668cb3bcd3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/668cb3bcd3a) - [ED-20519] Extract Paste Plugin: Moving the plugin type to a new package
+- Updated dependencies
+
 ## 188.11.2
 
 ### Patch Changes

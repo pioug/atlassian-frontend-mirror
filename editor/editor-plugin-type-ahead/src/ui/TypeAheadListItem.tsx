@@ -9,10 +9,8 @@ import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
-import { B400, DN600, N200, N30, N800 } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
+import { B400, N200, N30, N800 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
-import type { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import { typeAheadListMessages } from '../messages';
@@ -47,12 +45,9 @@ const itemBody = css`
   justify-content: space-between;
 `;
 
-const itemText = (theme: ThemeProps) => css`
+const itemText = css`
   white-space: initial;
-  color: ${themed({
-    light: token('color.text', N800),
-    dark: token('color.text', DN600),
-  })(theme)};
+  color: ${token('color.text', N800)};
   .item-title {
     line-height: 1.4;
   }

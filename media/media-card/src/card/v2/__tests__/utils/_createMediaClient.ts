@@ -1,13 +1,8 @@
 import {
   type MediaStore as MediaApi,
-  MediaClient,
   RECENTS_COLLECTION,
 } from '@atlaskit/media-client';
-import {
-  createMediaStore,
-  MediaFileArtifacts,
-  Store,
-} from '@atlaskit/media-state';
+import { MediaFileArtifacts } from '@atlaskit/media-state';
 import { smallImage, videoURI } from '@atlaskit/media-test-helpers';
 
 export const fileMap = {
@@ -214,6 +209,7 @@ export const fileMap = {
       preview: {
         value: smallImage,
       },
+      representations: {},
       createdAt: 1691113227581, // '04 Aug 2023, 01:40 AM' UTC
     },
   },
@@ -429,8 +425,7 @@ export const fileMap = {
 
 export type FileKeys = keyof typeof fileMap;
 
-export interface CreateMediaClientOptions {
-  initialStore?: Store;
+export interface CreateMockedMediaApiOptions {
   ids?: FileKeys[];
   withRemotePreview?: boolean | 'use-broken-preview';
   timeout?: number;
@@ -439,14 +434,13 @@ export interface CreateMediaClientOptions {
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
-export const createMediaClient = ({
-  initialStore,
+export const createMockedMediaApi = ({
   ids,
   withRemotePreview = true,
   timeout = 100,
   mediaApiOverrides,
-}: CreateMediaClientOptions = {}) => {
-  const mediaApi = {
+}: CreateMockedMediaApiOptions = {}): Partial<MediaApi> => {
+  return {
     getItems: async function () {
       await delay(timeout);
 
@@ -487,21 +481,5 @@ export const createMediaClient = ({
       return 'an artifact binary url';
     },
     ...mediaApiOverrides,
-  } as unknown as MediaApi;
-
-  const mediaClient = new MediaClient(
-    {
-      authProvider: async () => {
-        return {
-          clientId: 'some-client-id',
-          token: 'some-token',
-          baseUrl: 'some-service-host',
-        };
-      },
-    },
-    createMediaStore(initialStore),
-    mediaApi,
-  );
-
-  return mediaClient;
+  };
 };

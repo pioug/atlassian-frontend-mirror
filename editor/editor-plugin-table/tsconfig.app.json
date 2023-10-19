@@ -79,6 +79,9 @@
       "path": "../../pragmatic-drag-and-drop/react-accessibility/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/primitives/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/theme/tsconfig.app.json"
     },
     {

@@ -1,5 +1,11 @@
 # @atlaskit/media-client-react
 
+## 1.2.0
+
+### Minor Changes
+
+- [#41643](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41643) [`6eb37f85acb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6eb37f85acb) - Utility MockedMediaClientProvider for testing. Import through entrypoint /test-helpers
+
 ## 1.1.0
 
 ### Minor Changes

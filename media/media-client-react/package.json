@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-client-react",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "🖼️ Media Client for React",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -27,7 +27,8 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "af:exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./test-helpers": "./src/test-helpers/index.ts"
   },
   "dependencies": {
     "@atlaskit/media-client": "^24.0.0",
@@ -35,8 +36,14 @@
     "zustand": "^4.3.9"
   },
   "peerDependencies": {
+    "@atlaskit/media-state": "^1.0.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
+  },
+  "peerDependenciesMeta": {
+    "@atlaskit/media-state": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@atlaskit/media-state": "^1.0.0",

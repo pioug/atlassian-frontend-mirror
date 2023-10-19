@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.12.1
+
+### Patch Changes
+
+- [#41836](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41836) [`93427b209ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93427b209ad) - Update all generated files for recent changes to link item rule.
+
 ## 8.12.0
 
 ### Minor Changes

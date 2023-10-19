@@ -1,1 +1,0 @@
-export default `<meta charset='utf-8'><div style=\"color: #f1eff7;background-color: #292a44;font-family: Hasklig, Operator Mono, Menlo, Monaco, 'Courier New', monospace;font-weight: 400;font-size: 15px;line-height: 22px;white-space: pre;\"><div><span style=\"color: #2de0a7;\">dispatchPasteEvent</span></div></div>`;

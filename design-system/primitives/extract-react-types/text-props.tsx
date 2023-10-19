@@ -14,7 +14,7 @@ interface TextProps {
   /**
    * HTML tag to be rendered. Defaults to `span`.
    */
-  // as?: AsElement;
+  as?: 'span' | 'p' | 'strong' | 'em';
   /**
    * Elements rendered within the Text element
    */

@@ -1,5 +1,5 @@
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { pluginFactory } from '../../../utils/plugin-state-factory';
+import { pluginFactory } from '@atlaskit/editor-common/utils';
 import { reducer } from '../reducer';
 
 export const pluginKey = new PluginKey('pastePlugin');

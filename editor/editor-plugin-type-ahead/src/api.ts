@@ -7,13 +7,12 @@ import {
 import type { Command } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { TypeAheadInputMethod } from './types';
 
 import { insertTypeAheadItem } from './commands/insert-type-ahead-item';
 import { updateQuery } from './commands/update-query';
 import { closeTypeAhead } from './transforms/close-type-ahead';
 import { openTypeAheadAtCursor } from './transforms/open-typeahead-at-cursor';
-import type { TypeAheadHandler } from './types';
+import type { TypeAheadHandler, TypeAheadInputMethod } from './types';
 import {
   findHandler,
   getTypeAheadHandler,

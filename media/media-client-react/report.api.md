@@ -76,6 +76,7 @@ export function useMediaStore<T>(
 
 ```json
 {
+  "@atlaskit/media-state": "^1.0.0",
   "react": "^16.8.0",
   "react-dom": "^16.8.0"
 }

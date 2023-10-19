@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.7.1
+
+### Patch Changes
+
+- [#41768](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41768) [`fe2e31821db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe2e31821db) - Dont fail SLO on IdentityUserNotFoundError
+
 ## 19.7.0
 
 ### Minor Changes

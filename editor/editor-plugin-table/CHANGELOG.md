@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.3
+
+### Patch Changes
+
+- [#41701](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41701) [`168e0da8a1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/168e0da8a1c) - [ux] ED-20425: Added DragPreview and DragInMotionIcon
+
 ## 5.3.2
 
 ### Patch Changes

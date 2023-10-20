@@ -33,6 +33,7 @@ import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
 import type { FeatureFlags } from '../../../types/feature-flags';
 import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface FullPageToolbarProps {
   appearance?: EditorAppearance;
@@ -95,8 +96,11 @@ export const EditorToolbar = React.memo(
             }
           />
         ) : null}
-        {props?.featureFlags?.showAvatarGroupAsPlugin === true &&
-        !props.featureFlags?.twoLineEditorToolbar ? null : (
+        {getBooleanFF(
+          'platform.confluence.frontend.editor.no.platform.avatar.group',
+        ) ||
+        (props?.featureFlags?.showAvatarGroupAsPlugin === true &&
+          !props.featureFlags?.twoLineEditorToolbar) ? null : (
           <AvatarsWithPluginState
             editorView={props.editorView}
             eventDispatcher={props.eventDispatcher}

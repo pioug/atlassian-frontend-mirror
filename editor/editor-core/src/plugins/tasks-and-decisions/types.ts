@@ -18,6 +18,7 @@ import type {
   LongPressSelectionPluginOptions,
 } from '@atlaskit/editor-common/types';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 export type TaskDecisionListType = 'taskList' | 'decisionList';
 
@@ -58,6 +59,9 @@ export type TaskAndDecisionsPlugin = NextEditorPlugin<
   'taskDecision',
   {
     pluginConfiguration: TaskDecisionPluginOptions | undefined;
-    dependencies: [OptionalPlugin<TypeAheadPlugin>];
+    dependencies: [
+      OptionalPlugin<TypeAheadPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+    ];
   }
 >;

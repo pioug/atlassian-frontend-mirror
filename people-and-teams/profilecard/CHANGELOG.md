@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.7.2
+
+### Patch Changes
+
+- [#41882](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41882) [`54e68dcc7da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54e68dcc7da) - Pass en-US as default locale
+
 ## 19.7.1
 
 ### Patch Changes

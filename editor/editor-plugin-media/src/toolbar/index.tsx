@@ -418,6 +418,7 @@ const generateMediaSingleFloatingToolbar = (
 
           const maxWidth =
             maxWidthForNestedNode || akEditorFullWidthLayoutWidth;
+
           const isVideoFile = isVideo(selectedMediaNode.attrs.__fileMimeType);
 
           const minWidth = calcMinWidth(
@@ -425,7 +426,7 @@ const generateMediaSingleFloatingToolbar = (
             maxWidthForNestedNode || contentWidth,
           );
 
-          const isLegacy = widthType !== 'pixel';
+          const hasPixelType = widthType === 'pixel';
 
           const pixelWidthFromElement = getPixelWidthOfElement(
             editorView,
@@ -433,9 +434,9 @@ const generateMediaSingleFloatingToolbar = (
             mediaWidth || DEFAULT_IMAGE_WIDTH,
           );
 
-          const pixelWidth = isLegacy
-            ? pixelWidthFromElement
-            : mediaSingleWidth;
+          const pixelWidth = hasPixelType
+            ? mediaSingleWidth
+            : pixelWidthFromElement;
 
           //hasParentNode will return falsey value if selection depth === 0
           const isNested = hasParentNode(
@@ -448,7 +449,7 @@ const generateMediaSingleFloatingToolbar = (
               width={
                 pluginState.isResizing ? pluginState.resizingWidth : pixelWidth
               }
-              showMigration={!pluginState.isResizing && isLegacy}
+              showMigration={!pluginState.isResizing && !hasPixelType}
               mediaWidth={mediaWidth || DEFAULT_IMAGE_WIDTH}
               mediaHeight={mediaHeight || DEFAULT_IMAGE_HEIGHT}
               minWidth={minWidth}

@@ -76,9 +76,6 @@
       "path": "../../pragmatic-drag-and-drop/hitbox/tsconfig.app.json"
     },
     {
-      "path": "../../pragmatic-drag-and-drop/react-accessibility/tsconfig.app.json"
-    },
-    {
       "path": "../../design-system/primitives/tsconfig.app.json"
     },
     {

@@ -6,7 +6,7 @@ import { TimePicker } from '../../src';
 
 const TimePickerLocaleExample = () => (
   <>
-    <Label htmlFor="timepicker-locale-en">English Locale</Label>
+    <Label htmlFor="timepicker-locale-en">English locale</Label>
     <TimePicker
       locale="en-US"
       selectProps={{
@@ -14,7 +14,7 @@ const TimePickerLocaleExample = () => (
       }}
     />
     <br />
-    <Label htmlFor="timepicker-locale-ko">Korean Locale</Label>
+    <Label htmlFor="timepicker-locale-ko">Korean locale</Label>
     <TimePicker
       locale="ko-KR"
       selectProps={{

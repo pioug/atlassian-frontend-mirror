@@ -121,6 +121,7 @@ describe('annotation', () => {
       bookmark: getBookmark(editorView, refs),
       disallowOnWhitespace: false,
       isVisible: true,
+      skipSelectionHandling: false,
     };
     jest
       .spyOn(inlineCommentPluginKey, 'getState')

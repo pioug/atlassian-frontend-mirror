@@ -24,7 +24,11 @@ const MessagesIntlProvider = ({
     } as Record<string, string> | Record<string, MessageFormatElement[]>;
   }, [intl.messages, intl.locale]);
   return (
-    <IntlProvider locale={intl.locale} messages={mergedMessages}>
+    <IntlProvider
+      locale={intl.locale}
+      messages={mergedMessages}
+      defaultLocale="en-US"
+    >
       {children}
     </IntlProvider>
   );

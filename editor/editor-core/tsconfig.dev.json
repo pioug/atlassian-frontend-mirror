@@ -166,6 +166,9 @@
       "path": "../editor-plugin-help-dialog/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-history/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-hyperlink/tsconfig.app.json"
     },
     {

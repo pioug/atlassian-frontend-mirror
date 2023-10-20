@@ -62,10 +62,9 @@ export const onItemActivated =
           );
         }
         if (node === 'taskList') {
-          indentTaskList(INPUT_METHOD.TOOLBAR)(
-            editorView.state,
-            editorView.dispatch,
-          );
+          indentTaskList(pluginInjectionApi?.analytics?.actions)(
+            INPUT_METHOD.TOOLBAR,
+          )(editorView.state, editorView.dispatch);
         }
 
         break;
@@ -86,10 +85,9 @@ export const onItemActivated =
           );
         }
         if (node === 'taskList') {
-          outdentTaskList(INPUT_METHOD.TOOLBAR)(
-            editorView.state,
-            editorView.dispatch,
-          );
+          outdentTaskList(pluginInjectionApi?.analytics?.actions)(
+            INPUT_METHOD.TOOLBAR,
+          )(editorView.state, editorView.dispatch);
         }
         break;
       }

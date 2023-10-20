@@ -4,7 +4,10 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type {
+  DocBuilder,
+  PublicPluginAPI,
+} from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   layoutSection,
@@ -35,12 +38,14 @@ import {
 import { selectNode } from '@atlaskit/editor-common/selection';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('layout actions', () => {
   const createEditor = createProsemirrorEditorFactory();
 
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
   let editorView: EditorView;
+  let editorAPI: PublicPluginAPI<[AnalyticsPlugin]>;
   const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     const preset = new Preset<LightEditorPlugin>()
@@ -57,7 +62,7 @@ describe('layout actions', () => {
   };
 
   beforeEach(() => {
-    ({ editorView } = editor(doc(p(''))));
+    ({ editorView, editorAPI } = editor(doc(p(''))));
   });
 
   describe('#getPresetLayout', () => {
@@ -143,10 +148,9 @@ describe('layout actions', () => {
 
   describe('#insertLayoutColumnsWithAnalytics', () => {
     beforeEach(() => {
-      insertLayoutColumnsWithAnalytics(INPUT_METHOD.INSERT_MENU)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      insertLayoutColumnsWithAnalytics(editorAPI?.analytics?.actions)(
+        INPUT_METHOD.INSERT_MENU,
+      )(editorView.state, editorView.dispatch);
     });
 
     it('inserts default layout (2 cols equal width)', () => {

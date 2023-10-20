@@ -1,3 +1,5 @@
+import memoizeOne from 'memoize-one';
+
 import type {
   EditorAnalyticsAPI,
   InputMethodInsertMedia,
@@ -284,5 +286,6 @@ export function isCaptionNode(editorView: EditorView) {
   return false;
 }
 
-export const isVideo = (fileType?: string) =>
-  !!fileType && fileType.includes('video');
+export const isVideo = memoizeOne((fileType?: string) => {
+  return !!fileType && fileType.includes('video');
+});

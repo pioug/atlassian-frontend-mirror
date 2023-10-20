@@ -18,6 +18,16 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  INDENT_DIRECTION,
+  INPUT_METHOD,
+  INDENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   buildKeyEvent,
@@ -140,6 +150,23 @@ describe('tasks and decisions - keymaps', () => {
       });
 
       it('can indent in a layout', () => {
+        const analyticsPayload: AnalyticsEventPayload = {
+          action: ACTION.FORMATTED,
+          actionSubject: ACTION_SUBJECT.TEXT,
+          actionSubjectId: ACTION_SUBJECT_ID.FORMAT_INDENT,
+          eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            actionSubjectId: ACTION_SUBJECT_ID.FORMAT_INDENT,
+            direction: INDENT_DIRECTION.INDENT,
+            indentType: INDENT_TYPE.TASK_LIST,
+            inputMethod: INPUT_METHOD.KEYBOARD,
+            newIndentLevel: 2,
+            nodeLocation: 'taskItem',
+            previousIndentationLevel: 1,
+            selectionPosition: 'middle',
+            selectionType: 'cursor',
+          },
+        };
         testKeymap(
           editorFactory,
           doc(
@@ -170,6 +197,8 @@ describe('tasks and decisions - keymaps', () => {
           ),
 
           ['Tab'],
+
+          analyticsPayload,
         );
       });
 
@@ -460,7 +489,12 @@ describe('tasks and decisions - keymaps', () => {
         editorProps,
       });
 
-      const plugin = keymapPlugin(editorView.state.schema, undefined, true)!;
+      const plugin = keymapPlugin(
+        editorView.state.schema,
+        undefined,
+        undefined,
+        true,
+      )!;
       expect(
         plugin.props.handleKeyDown?.call(plugin, editorView, shiftTab),
       ).toBe(true);

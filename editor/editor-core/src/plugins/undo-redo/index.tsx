@@ -2,9 +2,8 @@ import React from 'react';
 
 import { keymapPlugin } from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
-import { historyPluginKey } from '../history';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import ToolbarUndoRedo from './ui/ToolbarUndoRedo';
-import WithPluginState from '../../ui/WithPluginState';
 import type { UndoRedoPlugin } from './types';
 
 const undoRedoPlugin: UndoRedoPlugin = ({ api }) => ({
@@ -25,21 +24,11 @@ const undoRedoPlugin: UndoRedoPlugin = ({ api }) => ({
 
   primaryToolbarComponent({ editorView, disabled, isToolbarReducedSpacing }) {
     return (
-      <WithPluginState
-        plugins={{
-          historyState: historyPluginKey,
-        }}
-        render={({ historyState }) => {
-          return (
-            <ToolbarUndoRedo
-              isReducedSpacing={isToolbarReducedSpacing}
-              disabled={disabled}
-              historyState={historyState!}
-              editorView={editorView}
-              api={api}
-            />
-          );
-        }}
+      <ToolbarUndoRedo
+        isReducedSpacing={isToolbarReducedSpacing}
+        disabled={disabled}
+        editorView={editorView}
+        api={api}
       />
     );
   },

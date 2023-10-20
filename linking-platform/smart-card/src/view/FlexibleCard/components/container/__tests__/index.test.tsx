@@ -171,8 +171,8 @@ describe('Container', () => {
   });
 
   describe('hideElevation', () => {
-    const border = '1px solid transparent';
-    const borderRadius = '1.5px';
+    const border = '1px solid var(--ds-border, #DFE1E6)';
+    const borderRadius = 'var(--ds-border-radius-200, 8px)';
 
     it('shows elevation by default', async () => {
       const { getByTestId } = render(<Container testId={testId} />);
@@ -181,10 +181,6 @@ describe('Container', () => {
 
       expect(container).toHaveStyleDeclaration('border', border);
       expect(container).toHaveStyleDeclaration('border-radius', borderRadius);
-      expect(container).toHaveStyleDeclaration(
-        'box-shadow',
-        expect.any(String),
-      );
     });
 
     it('shows elevation', async () => {
@@ -196,10 +192,6 @@ describe('Container', () => {
 
       expect(container).toHaveStyleDeclaration('border', border);
       expect(container).toHaveStyleDeclaration('border-radius', borderRadius);
-      expect(container).toHaveStyleDeclaration(
-        'box-shadow',
-        expect.any(String),
-      );
     });
 
     it('hides elevation', async () => {
@@ -213,10 +205,6 @@ describe('Container', () => {
       expect(container).not.toHaveStyleDeclaration(
         'border-radius',
         borderRadius,
-      );
-      expect(container).not.toHaveStyleDeclaration(
-        'box-shadow',
-        expect.any(String),
       );
     });
   });

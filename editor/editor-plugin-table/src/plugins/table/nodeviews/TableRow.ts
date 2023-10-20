@@ -192,14 +192,11 @@ export default class TableRow
       this.dropTargetCleanup();
     }
 
-    const resolvedPos = this.view.state.doc.resolve(pos);
-    const targetIndex = resolvedPos.index();
-    const localId = resolvedPos.parent.attrs.localId;
-
     this.dropTargetCleanup = dropTargetForElements({
       element: element,
-      canDrop({ source }) {
+      canDrop: ({ source }) => {
         const data = source.data as DraggableSourceData;
+        const { localId, targetIndex } = this.getCurrentData();
         return (
           // Only draggables of row type can be dropped on this target
           data.type === 'table-row' &&
@@ -210,7 +207,9 @@ export default class TableRow
           data.indexes?.indexOf(targetIndex) === -1
         );
       },
-      getData({ input, element }) {
+      getIsSticky: () => true,
+      getData: ({ input, element }) => {
+        const { localId, targetIndex } = this.getCurrentData();
         const data = {
           localId,
           type: 'table-row',
@@ -223,6 +222,13 @@ export default class TableRow
         });
       },
     });
+  }
+
+  private getCurrentData() {
+    const resolvedPos = this.view.state.doc.resolve(this.getPos()!);
+    const targetIndex = resolvedPos.index();
+    const localId = resolvedPos.parent.attrs.localId;
+    return { targetIndex, localId };
   }
 
   private headerRowMouseScrollEnd = debounce(() => {

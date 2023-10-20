@@ -7,7 +7,7 @@ import { TimePicker } from '../../src';
 export default function App() {
   return (
     <>
-      <Label htmlFor="timepicker-editable-time">Editable Time Example</Label>
+      <Label htmlFor="timepicker-editable-time">Editable time example</Label>
       <TimePicker
         timeIsEditable
         selectProps={{

@@ -4,6 +4,7 @@ import type {
   NextEditorPlugin,
   ExtractInjectionAPI,
   FloatingToolbarConfig,
+  SelectionToolbarGroup,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { keymapPlugin } from './pm-plugins/keymap';
@@ -26,6 +27,7 @@ import { InlineCommentView } from './ui/InlineCommentView';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { InlineCommentPluginState } from './pm-plugins/types';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const annotationPlugin: NextEditorPlugin<
   'annotation',
@@ -82,7 +84,10 @@ const annotationPlugin: NextEditorPlugin<
 
     pluginsOptions: {
       floatingToolbar(state, intl): FloatingToolbarConfig | undefined {
-        if (!annotationProviders) {
+        if (
+          getBooleanFF('platform.editor.enable-selection-toolbar_ucdwd') ||
+          !annotationProviders
+        ) {
           return;
         }
 
@@ -95,6 +100,29 @@ const annotationPlugin: NextEditorPlugin<
         ) {
           const { isToolbarAbove } = annotationProviders.inlineComment;
           return buildToolbar(state, intl, isToolbarAbove);
+        }
+      },
+      selectionToolbar(state, intl): SelectionToolbarGroup | undefined {
+        if (
+          !getBooleanFF('platform.editor.enable-selection-toolbar_ucdwd') ||
+          !annotationProviders
+        ) {
+          return;
+        }
+
+        const pluginState = getPluginState(state);
+        if (
+          pluginState &&
+          pluginState.isVisible &&
+          !pluginState.bookmark &&
+          !pluginState.mouseData.isSelecting
+        ) {
+          const { isToolbarAbove } = annotationProviders.inlineComment;
+          return buildToolbar(
+            state,
+            intl,
+            isToolbarAbove,
+          ) as SelectionToolbarGroup;
         }
       },
     },

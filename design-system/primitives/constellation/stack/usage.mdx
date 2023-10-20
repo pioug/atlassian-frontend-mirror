@@ -1,14 +1,14 @@
 ---
 title: Stack
-description: Stack is a primitive component based on flexbox that manages the vertical layout of direct children.
+description: A stack manages the vertical layout of direct children using flexbox.
 order: 2
 ---
 
-Primitive components are designed to act as building blocks for composing a user experience. A `Stack` primitive should be used when you want to layout UI elements vertically, and make use of the built-in design guidance from the Atlassian Design System.
+Primitive components are building blocks for composing a user experience. A `Stack` primitive lays out UI elements vertically, and makes use of the built-in design guidance from the Atlassian Design System.
 
-`Stack` primitives work by aligning content vertically on a page or layout, as a container that decides the vertical layout of its children. `Stack` components also decide the specifics of how the children are displayed, for example, where they are aligned or how much space is between child elements. `Stack` should be used purely for visual alignment, and should have no opinions about the functionality of its children.
+Stacks work by aligning content vertically on a page or layout, as a container that decides the vertical layout of its children. Stack components also decide the specifics of how the children are displayed, for example, where they are aligned or how much space is between child elements. Stack is purely for visual alignment, and should have no opinions about the functionality of its children.
 
-In its simplest form, `Stack` operates like a flexbox column, however adds the built in design token support and guidance.
+In its simplest form, `Stack` works like a flexbox column, with built-in design token support and guidance.
 
 ```jsx
 <Stack space="space.100" alignInline="center" alignBlock="start">
@@ -16,11 +16,11 @@ In its simplest form, `Stack` operates like a flexbox column, however adds the b
 </Stack>
 ```
 
-## Use `Stack`
+## Usage
 
-The purpose of a `Stack` is primarily as a container element controlling how content is displayed and aligned vertically. `Stack` should be used any time you wish to layout elements or components vertically.
+A `Stack` is primarily a container element controlling how content is displayed and aligned vertically. Use stack any time you wish to lay out elements or components vertically.
 
-The various `Stack` props can then be used to customize the spacing and styling on any child elements. These include:
+These props customize the spacing and styling of any child elements:
 
 - `alignBlock`
 - `alignInline`
@@ -30,9 +30,9 @@ The various `Stack` props can then be used to customize the spacing and styling 
 
 ## Related
 
-- [Learn more about the Primitives](/components/primitives/overview)
-- [Learn more about the Box primitive](/components/primitives/box/usage)
-- [Learn more about the Inline primitive](/components/primitives/inline/usage)
-- [Learn more about the Grid primitive](/components/primitives/grid/examples)
-- [Learn more about the Bleed primitive](/components/primitives/bleed/examples)
-- [Learn more about the Flex primitive](/components/primitives/flex/examples)
+- [Primitives](/components/primitives/overview)
+- [Box](/components/primitives/box/usage)
+- [Inline](/components/primitives/inline/usage)
+- [Grid](/components/primitives/grid/examples)
+- [Bleed](/components/primitives/bleed/examples)
+- [Flex](/components/primitives/flex/examples)

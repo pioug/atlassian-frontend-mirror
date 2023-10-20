@@ -121,6 +121,58 @@ describe('ThemeProvider', () => {
         spacing: 'spacing',
       });
     });
+
+    it('should set default theme state properties when defaultTheme is omitted', async () => {
+      render(<ThemeProvider defaultColorMode="light">null</ThemeProvider>);
+
+      expect(setGlobalThemeSpy).toHaveBeenCalledWith({
+        colorMode: 'light',
+        light: 'light',
+        dark: 'dark',
+        spacing: 'spacing',
+      });
+    });
+
+    it('should set default theme state properties when defaultTheme is partial', async () => {
+      const defaultTheme: Partial<Theme> = { dark: 'dark', spacing: 'spacing' };
+
+      render(
+        <ThemeProvider defaultColorMode="light" defaultTheme={defaultTheme}>
+          null
+        </ThemeProvider>,
+      );
+
+      expect(setGlobalThemeSpy).toHaveBeenCalledWith({
+        colorMode: 'light',
+        light: 'light',
+        dark: 'dark',
+        spacing: 'spacing',
+      });
+    });
+
+    it('should set default theme state properties when defaultTheme is partial and includes non-default sub-themes', async () => {
+      const defaultTheme: Partial<Theme> = {
+        dark: 'dark',
+        spacing: 'spacing',
+        shape: 'shape',
+        typography: 'typography',
+      };
+
+      render(
+        <ThemeProvider defaultColorMode="light" defaultTheme={defaultTheme}>
+          null
+        </ThemeProvider>,
+      );
+
+      expect(setGlobalThemeSpy).toHaveBeenCalledWith({
+        colorMode: 'light',
+        light: 'light',
+        shape: 'shape',
+        dark: 'dark',
+        typography: 'typography',
+        spacing: 'spacing',
+      });
+    });
   });
 
   describe('useSetColorMode', () => {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/width-detector",
-  "version": "4.1.4",
+  "version": "4.1.5",
   "description": "Wrapper for components that need to respond to width changes",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,6 +26,9 @@
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Width Detector",
       "category": "Libraries"

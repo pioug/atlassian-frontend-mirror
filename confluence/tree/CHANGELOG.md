@@ -1,5 +1,11 @@
 # @atlaskit/tree
 
+## 8.8.7
+
+### Patch Changes
+
+- [#41729](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41729) [`04235acacd6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04235acacd6) - Enrol package to push model in Jira
+
 ## 8.8.6
 
 ### Patch Changes

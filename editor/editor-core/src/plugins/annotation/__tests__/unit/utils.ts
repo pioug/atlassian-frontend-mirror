@@ -117,6 +117,7 @@ function mockCommentsStateWithAnnotations(
     mouseData: { isSelecting: false },
     disallowOnWhitespace: false,
     isVisible: true,
+    skipSelectionHandling: false,
   };
 
   const testInlineCommentState: InlineCommentPluginState = {

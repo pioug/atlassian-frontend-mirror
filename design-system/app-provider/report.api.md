@@ -30,7 +30,7 @@ export default AppProvider;
 interface AppProviderProps {
   children: React_2.ReactNode;
   defaultColorMode?: ColorMode;
-  defaultTheme?: Theme;
+  defaultTheme?: Partial<Theme>;
 }
 
 // @public (undocumented)

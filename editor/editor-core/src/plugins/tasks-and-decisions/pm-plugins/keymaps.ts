@@ -28,7 +28,11 @@ import {
   deleteEmptyParagraphAndMoveBlockUp,
 } from '@atlaskit/editor-common/utils';
 
-import type { AnalyticsEventPayload } from '../../analytics';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type {
+  AnalyticsEventPayload,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -37,10 +41,10 @@ import {
   INDENT_DIRECTION,
   INDENT_TYPE,
   INPUT_METHOD,
-  withAnalytics,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
+import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { insertTaskDecisionWithAnalytics } from '../commands';
-import type { TaskDecisionListType } from '../types';
+import type { TaskDecisionListType, TaskAndDecisionsPlugin } from '../types';
 
 import { joinAtCut, liftSelection, wrapSelectionInTaskList } from './commands';
 import {
@@ -158,24 +162,25 @@ const joinTaskDecisionFollowing: Command = (state, dispatch) => {
   return false;
 };
 
-export const getUnindentCommand = (
-  inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD,
-) =>
-  filter(isInsideTask, (state, dispatch) => {
-    const normalizedSelection = normalizeTaskItemsSelection(state.selection);
+export const getUnindentCommand =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD) =>
+    filter(isInsideTask, (state, dispatch) => {
+      const normalizedSelection = normalizeTaskItemsSelection(state.selection);
 
-    const curIndentLevel = getCurrentIndentLevel(normalizedSelection);
-    if (!curIndentLevel || curIndentLevel === 1) {
-      return false;
-    }
-    return withAnalytics(
-      indentationAnalytics(
-        curIndentLevel,
-        INDENT_DIRECTION.OUTDENT,
-        inputMethod,
-      ),
-    )(autoJoin(liftSelection, ['taskList']))(state, dispatch);
-  });
+      const curIndentLevel = getCurrentIndentLevel(normalizedSelection);
+      if (!curIndentLevel || curIndentLevel === 1) {
+        return false;
+      }
+      return withAnalytics(
+        editorAnalyticsAPI,
+        indentationAnalytics(
+          curIndentLevel,
+          INDENT_DIRECTION.OUTDENT,
+          inputMethod,
+        ),
+      )(autoJoin(liftSelection, ['taskList']))(state, dispatch);
+    });
 
 // if selection is decision item or first action item in table cell
 // then dont consume the Tab, as table-keymap should tab to the next cell
@@ -194,25 +199,27 @@ const shouldLetTabThroughInTable = (state: EditorState) => {
   return false;
 };
 
-export const getIndentCommand = (
-  inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD,
-) =>
-  filter(isInsideTask, (state, dispatch) => {
-    const normalizedSelection = normalizeTaskItemsSelection(state.selection);
-    const curIndentLevel = getCurrentIndentLevel(normalizedSelection);
-    if (!curIndentLevel || curIndentLevel >= 6) {
-      return true;
-    }
-    return withAnalytics(
-      indentationAnalytics(
-        curIndentLevel,
-        INDENT_DIRECTION.INDENT,
-        inputMethod,
-      ),
-    )(autoJoin(wrapSelectionInTaskList, ['taskList']))(state, dispatch);
-  });
+export const getIndentCommand =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD) =>
+    filter(isInsideTask, (state, dispatch) => {
+      const normalizedSelection = normalizeTaskItemsSelection(state.selection);
+      const curIndentLevel = getCurrentIndentLevel(normalizedSelection);
+      if (!curIndentLevel || curIndentLevel >= 6) {
+        return true;
+      }
+      return withAnalytics(
+        editorAnalyticsAPI,
+        indentationAnalytics(
+          curIndentLevel,
+          INDENT_DIRECTION.INDENT,
+          inputMethod,
+        ),
+      )(autoJoin(wrapSelectionInTaskList, ['taskList']))(state, dispatch);
+    });
 
 const backspaceFrom =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   ($from: ResolvedPos): Command =>
   (state, dispatch) => {
     // previous was empty, just delete backwards
@@ -228,7 +235,7 @@ const backspaceFrom =
     // if nested, just unindent
     const { taskList, paragraph } = state.schema.nodes;
     if ($from.node($from.depth - 2).type === taskList) {
-      return getUnindentCommand()(state, dispatch);
+      return getUnindentCommand(editorAnalyticsAPI)()(state, dispatch);
     }
 
     // bottom level, should "unwrap" taskItem contents into paragraph
@@ -251,18 +258,22 @@ const backspaceFrom =
     return false;
   };
 
-const backspace = filter(
-  isEmptySelectionAtStart,
-  autoJoin(
-    chainCommands(
-      (state, dispatch) => joinAtCut(state.selection.$from)(state, dispatch),
-      filter(isInsideTaskOrDecisionItem, (state, dispatch) =>
-        backspaceFrom(state.selection.$from)(state, dispatch),
+const backspace = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  filter(
+    isEmptySelectionAtStart,
+    autoJoin(
+      chainCommands(
+        (state, dispatch) => joinAtCut(state.selection.$from)(state, dispatch),
+        filter(isInsideTaskOrDecisionItem, (state, dispatch) =>
+          backspaceFrom(editorAnalyticsAPI)(state.selection.$from)(
+            state,
+            dispatch,
+          ),
+        ),
       ),
+      ['taskList', 'decisionList'],
     ),
-    ['taskList', 'decisionList'],
-  ),
-);
+  );
 
 const unindentTaskOrUnwrapTaskDecisionFollowing: Command = (
   state,
@@ -429,59 +440,60 @@ const splitListItem = (
   return false;
 };
 
-const enter: Command = filter(
-  isInsideTaskOrDecisionItem,
-  chainCommands(
-    filter(
-      isEmptyTaskDecision,
-      chainCommands(getUnindentCommand(), splitListItem),
-    ),
-    (state, dispatch) => {
-      const { selection, schema } = state;
-      const { taskItem } = schema.nodes;
-      const { $from, $to } = selection;
-      const node = $from.node($from.depth);
-      const nodeType = node && node.type;
-      const listType: TaskDecisionListType =
-        nodeType === taskItem ? 'taskList' : 'decisionList';
+const enter = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  filter(
+    isInsideTaskOrDecisionItem,
+    chainCommands(
+      filter(
+        isEmptyTaskDecision,
+        chainCommands(getUnindentCommand(editorAnalyticsAPI)(), splitListItem),
+      ),
+      (state, dispatch) => {
+        const { selection, schema } = state;
+        const { taskItem } = schema.nodes;
+        const { $from, $to } = selection;
+        const node = $from.node($from.depth);
+        const nodeType = node && node.type;
+        const listType: TaskDecisionListType =
+          nodeType === taskItem ? 'taskList' : 'decisionList';
 
-      const addItem = ({
-        tr,
-        itemLocalId,
-      }: {
-        tr: Transaction;
-        itemLocalId?: string;
-      }) => {
-        // ED-8932: When cursor is at the beginning of a task item, instead of split, we insert above.
-        if ($from.pos === $to.pos && $from.parentOffset === 0) {
-          const newTask = nodeType.createAndFill({ localId: itemLocalId });
-          if (newTask) {
-            // Current position will point to text node, but we want to insert above the taskItem node
-            return tr.insert($from.pos - 1, newTask);
+        const addItem = ({
+          tr,
+          itemLocalId,
+        }: {
+          tr: Transaction;
+          itemLocalId?: string;
+        }) => {
+          // ED-8932: When cursor is at the beginning of a task item, instead of split, we insert above.
+          if ($from.pos === $to.pos && $from.parentOffset === 0) {
+            const newTask = nodeType.createAndFill({ localId: itemLocalId });
+            if (newTask) {
+              // Current position will point to text node, but we want to insert above the taskItem node
+              return tr.insert($from.pos - 1, newTask);
+            }
           }
+
+          return tr.split($from.pos, 1, [
+            { type: nodeType, attrs: { localId: itemLocalId } },
+          ]);
+        };
+
+        const insertTr = insertTaskDecisionWithAnalytics(
+          state,
+          listType,
+          INPUT_METHOD.KEYBOARD,
+          addItem,
+        );
+
+        if (insertTr && dispatch) {
+          insertTr.scrollIntoView();
+          dispatch(insertTr);
         }
 
-        return tr.split($from.pos, 1, [
-          { type: nodeType, attrs: { localId: itemLocalId } },
-        ]);
-      };
-
-      const insertTr = insertTaskDecisionWithAnalytics(
-        state,
-        listType,
-        INPUT_METHOD.KEYBOARD,
-        addItem,
-      );
-
-      if (insertTr && dispatch) {
-        insertTr.scrollIntoView();
-        dispatch(insertTr);
-      }
-
-      return true;
-    },
-  ),
-);
+        return true;
+      },
+    ),
+  );
 
 const cmdOptEnter: Command = filter(
   isInsideTaskOrDecisionItem,
@@ -510,6 +522,7 @@ const cmdOptEnter: Command = filter(
 
 export function keymapPlugin(
   schema: Schema,
+  api: ExtractInjectionAPI<TaskAndDecisionsPlugin> | undefined,
   allowNestedTasks?: boolean,
   consumeTabs?: boolean,
 ): SafePlugin | undefined {
@@ -520,8 +533,10 @@ export function keymapPlugin(
         (state) => !shouldLetTabThroughInTable(state),
       ],
       (state, dispatch) =>
-        getUnindentCommand(INPUT_METHOD.KEYBOARD)(state, dispatch) ||
-        !!consumeTabs,
+        getUnindentCommand(api?.analytics?.actions)(INPUT_METHOD.KEYBOARD)(
+          state,
+          dispatch,
+        ) || !!consumeTabs,
     ),
     Tab: filter(
       [
@@ -529,8 +544,10 @@ export function keymapPlugin(
         (state) => !shouldLetTabThroughInTable(state),
       ],
       (state, dispatch) =>
-        getIndentCommand(INPUT_METHOD.KEYBOARD)(state, dispatch) ||
-        !!consumeTabs,
+        getIndentCommand(api?.analytics?.actions)(INPUT_METHOD.KEYBOARD)(
+          state,
+          dispatch,
+        ) || !!consumeTabs,
     ),
   };
 
@@ -542,11 +559,11 @@ export function keymapPlugin(
     : {};
 
   const keymaps = {
-    Backspace: backspace,
+    Backspace: backspace(api?.analytics?.actions),
     Delete: deleteForwards,
     'Ctrl-d': deleteForwards,
 
-    Enter: enter,
+    Enter: enter(api?.analytics?.actions),
     [toggleTaskItemCheckbox.common!]: cmdOptEnter,
 
     ...(allowNestedTasks ? indentHandlers : defaultHandlers),

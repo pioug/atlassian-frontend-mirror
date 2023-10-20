@@ -9,7 +9,7 @@ import { messages } from '../../../i18n';
 describe('ShareHeader', () => {
   it('should render title', () => {
     const component = mount(
-      <IntlProvider locale="en">
+      <IntlProvider locale="en-US">
         <ShareHeader />
       </IntlProvider>,
     );

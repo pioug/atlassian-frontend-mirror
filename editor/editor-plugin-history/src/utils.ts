@@ -1,10 +1,12 @@
-import type { Plugin, EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { PmHistoryPluginState } from './pm-history-types';
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
+import type { EditorState, Plugin } from '@atlaskit/editor-prosemirror/state';
+
+import type { PmHistoryPluginState } from './pm-history-types';
 
 export const getPmHistoryPlugin = (state: EditorState): Plugin | undefined => {
   return state.plugins.find(
-    (plugin) => (plugin as any).key === pmHistoryPluginKey,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    plugin => (plugin as any).key === pmHistoryPluginKey,
   );
 };
 

@@ -11,6 +11,8 @@ import type {
   FloatingToolbarButton,
   FloatingToolbarColorPicker,
   FloatingToolbarEmojiPicker,
+  DocBuilder,
+  PublicPluginAPI,
 } from '@atlaskit/editor-common/types';
 import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
@@ -20,11 +22,9 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import panelPlugin from '.';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import { PanelType } from '@atlaskit/adf-schema';
-import deprecatedAnalyticsPlugin from '../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { AnalyticsEventPayload } from '../analytics';
 import {
@@ -32,12 +32,13 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { G75 } from '@atlaskit/theme/colors';
 import type { EmojiId } from '@atlaskit/emoji';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const dummyFormatMessage = (messageDescriptor: MessageDescriptor) =>
   (messageDescriptor.defaultMessage as string) || '';
@@ -60,12 +61,13 @@ describe('getToolbarItems', () => {
         allowCustomPanelEdit: true,
       },
     ]);
-  const itemsWithCustomPanelEnabled = getToolbarItems(
+  let itemsWithCustomPanelEnabled = getToolbarItems(
     dummyFormatMessage,
     defaultSchema.nodes.panel,
     true,
     true,
     providerFactory,
+    undefined,
     undefined,
     PanelType.INFO,
   );
@@ -82,6 +84,7 @@ describe('getToolbarItems', () => {
       false,
       providerFactory,
       undefined,
+      undefined,
     );
 
     expect(items).toHaveLength(7);
@@ -95,6 +98,7 @@ describe('getToolbarItems', () => {
       false,
       providerFactory,
       undefined,
+      undefined,
     );
 
     expect(items).toHaveLength(7);
@@ -107,6 +111,7 @@ describe('getToolbarItems', () => {
       false,
       true,
       providerFactory,
+      undefined,
       undefined,
     );
 
@@ -141,6 +146,7 @@ describe('getToolbarItems', () => {
         true,
         true,
         providerFactory,
+        undefined,
         undefined,
         PanelType.CUSTOM,
       );
@@ -266,6 +272,7 @@ describe('getToolbarItems', () => {
         true,
         providerFactory,
         undefined,
+        undefined,
         PanelType.CUSTOM,
       );
       const removeEmojiButton: FloatingToolbarButton<any> | undefined =
@@ -288,6 +295,7 @@ describe('getToolbarItems', () => {
         true,
         providerFactory,
         undefined,
+        undefined,
         PanelType.CUSTOM,
         '#ABF5D1',
         '',
@@ -308,6 +316,7 @@ describe('getToolbarItems', () => {
         true,
         true,
         providerFactory,
+        undefined,
         undefined,
         PanelType.CUSTOM,
         '#ABF5D1',
@@ -330,6 +339,7 @@ describe('getToolbarItems', () => {
         true,
         providerFactory,
         undefined,
+        undefined,
         PanelType.INFO,
         undefined,
         'info',
@@ -346,8 +356,8 @@ describe('getToolbarItems', () => {
 
   describe('analytics for custom panels', () => {
     const createEditor = createProsemirrorEditorFactory();
-    let createAnalyticsEvent: jest.Mock = jest.fn(() => ({ fire() {} }));
     let editorView: EditorView;
+    let editorAPI: PublicPluginAPI<[AnalyticsPlugin]>;
     const emojiId: EmojiId = {
       shortName: ':smiley:',
       id: '1f603',
@@ -355,7 +365,7 @@ describe('getToolbarItems', () => {
     };
 
     beforeEach(() => {
-      ({ editorView } = createEditor({
+      ({ editorView, editorAPI } = createEditor({
         doc: doc(
           panel({
             panelType: 'info',
@@ -363,10 +373,21 @@ describe('getToolbarItems', () => {
         ),
         preset: panelPreset
           .add([featureFlagsPlugin, {}])
-          .add([analyticsPlugin, { createAnalyticsEvent }])
-          .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]),
+          .add([analyticsPlugin, {}]),
         providerFactory,
       }));
+      jest.spyOn(editorAPI?.analytics?.actions, 'attachAnalyticsEvent');
+
+      itemsWithCustomPanelEnabled = getToolbarItems(
+        dummyFormatMessage,
+        defaultSchema.nodes.panel,
+        true,
+        true,
+        providerFactory,
+        undefined,
+        editorAPI?.analytics?.actions,
+        PanelType.INFO,
+      );
     });
 
     it('Should trigger analytics when background color is changed', () => {
@@ -389,7 +410,9 @@ describe('getToolbarItems', () => {
         }),
         eventType: EVENT_TYPE.TRACK,
       };
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(payload);
+      expect(
+        editorAPI?.analytics?.actions.attachAnalyticsEvent,
+      ).toHaveBeenCalledWith(payload, undefined);
     });
 
     it('Should trigger analytics when Icon is changed', () => {
@@ -411,7 +434,9 @@ describe('getToolbarItems', () => {
         }),
         eventType: EVENT_TYPE.TRACK,
       };
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(payload);
+      expect(
+        editorAPI?.analytics?.actions?.attachAnalyticsEvent,
+      ).toHaveBeenCalledWith(payload, undefined);
     });
 
     it('Should trigger analytics when Icon is removed', () => {
@@ -441,13 +466,20 @@ describe('getToolbarItems', () => {
         }),
         eventType: EVENT_TYPE.TRACK,
       };
-      expect(createAnalyticsEvent).nthCalledWith(4, payload);
+      expect(editorAPI?.analytics?.actions?.attachAnalyticsEvent).nthCalledWith(
+        2,
+        payload,
+        undefined,
+      );
     });
 
     it('Should not fire analytics when the same background color is selected', () => {
       const colorPickerConfig = itemsWithCustomPanelEnabled.find(
         (item) => item.type === 'select' && item.selectType === 'color',
       );
+      expect(
+        editorAPI?.analytics?.actions?.attachAnalyticsEvent,
+      ).toHaveBeenCalledTimes(0);
 
       (colorPickerConfig as FloatingToolbarColorPicker<any>)!.onChange({
         label: 'Mintie',
@@ -455,29 +487,46 @@ describe('getToolbarItems', () => {
         border: DEFAULT_BORDER_COLOR,
       })(editorView.state, editorView.dispatch);
 
+      expect(
+        editorAPI?.analytics?.actions?.attachAnalyticsEvent,
+      ).toHaveBeenCalledTimes(1);
+
       (colorPickerConfig as FloatingToolbarColorPicker<any>)!.onChange({
         label: 'Mintie',
         value: '#ABF5D1',
         border: DEFAULT_BORDER_COLOR,
       })(editorView.state, editorView.dispatch);
 
-      expect(createAnalyticsEvent).toHaveBeenCalledTimes(3);
+      expect(
+        editorAPI?.analytics?.actions.attachAnalyticsEvent,
+      ).toHaveBeenCalledTimes(1);
     });
 
     it('Should not fire analtyics when same emoji is selected', () => {
       const emojiPickerConfig = itemsWithCustomPanelEnabled.find(
         (item) => item.type === 'select' && item.selectType === 'emoji',
       );
-      (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(emojiId)(
-        editorView.state,
-        editorView.dispatch,
-      );
+
+      expect(
+        editorAPI?.analytics?.actions?.attachAnalyticsEvent,
+      ).toHaveBeenCalledTimes(0);
 
       (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(emojiId)(
         editorView.state,
         editorView.dispatch,
       );
-      expect(createAnalyticsEvent).toHaveBeenCalledTimes(3);
+
+      expect(
+        editorAPI?.analytics?.actions?.attachAnalyticsEvent,
+      ).toHaveBeenCalledTimes(1);
+
+      (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(emojiId)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(
+        editorAPI?.analytics?.actions?.attachAnalyticsEvent,
+      ).toHaveBeenCalledTimes(1);
     });
   });
 });

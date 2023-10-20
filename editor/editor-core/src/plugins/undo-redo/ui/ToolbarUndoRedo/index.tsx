@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { PureComponent } from 'react';
 import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import UndoIcon from '@atlaskit/icon/glyph/undo';
 import RedoIcon from '@atlaskit/icon/glyph/redo';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 
 import {
   undo as undoKeymap,
@@ -19,7 +19,6 @@ import {
 } from '@atlaskit/editor-common/styles';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import { undoRedoMessages } from '@atlaskit/editor-common/messages';
-import type { HistoryPluginState } from '../../../history/types';
 import { undoFromToolbar, redoFromToolbar } from '../../commands';
 import type { Command } from '../../../../types/command';
 import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
@@ -31,7 +30,6 @@ export interface Props {
   redoDisabled?: boolean;
   disabled?: boolean;
   isReducedSpacing?: boolean;
-  historyState: HistoryPluginState;
   editorView: EditorView;
   api: ExtractInjectionAPI<UndoRedoPlugin> | undefined;
 }
@@ -66,59 +64,55 @@ const forceFocus =
       editorView.focus();
     }
   };
-export class ToolbarUndoRedo extends PureComponent<
-  Props & WrappedComponentProps
-> {
-  render() {
-    const {
-      disabled,
-      isReducedSpacing,
-      historyState,
-      editorView,
-      api,
-      intl: { formatMessage },
-    } = this.props;
 
-    const handleUndo = () => {
-      forceFocus(editorView, api)(undoFromToolbar);
-    };
+export const ToolbarUndoRedo = ({
+  disabled,
+  isReducedSpacing,
+  editorView,
+  api,
+  intl: { formatMessage },
+}: Props & WrappedComponentProps) => {
+  const { historyState } = useSharedPluginState(api, ['history']);
 
-    const handleRedo = () => {
-      forceFocus(editorView, api)(redoFromToolbar);
-    };
-    const labelUndo = formatMessage(undoRedoMessages.undo);
-    const labelRedo = formatMessage(undoRedoMessages.redo);
+  const handleUndo = () => {
+    forceFocus(editorView, api)(undoFromToolbar);
+  };
 
-    const { canUndo, canRedo } = historyState;
+  const handleRedo = () => {
+    forceFocus(editorView, api)(redoFromToolbar);
+  };
+  const labelUndo = formatMessage(undoRedoMessages.undo);
+  const labelRedo = formatMessage(undoRedoMessages.redo);
 
-    return (
-      <span css={buttonGroupStyle}>
-        <ToolbarButton
-          buttonId={TOOLBAR_BUTTON.UNDO}
-          spacing={isReducedSpacing ? 'none' : 'default'}
-          onClick={handleUndo}
-          disabled={!canUndo || disabled}
-          aria-label={tooltip(undoKeymap, labelUndo)}
-          aria-keyshortcuts={getAriaKeyshortcuts(undoKeymap)}
-          title={<ToolTipContent description={labelUndo} keymap={undoKeymap} />}
-          iconBefore={<UndoIcon label="" />}
-          testId="ak-editor-toolbar-button-undo"
-        />
-        <ToolbarButton
-          spacing={isReducedSpacing ? 'none' : 'default'}
-          buttonId={TOOLBAR_BUTTON.REDO}
-          onClick={handleRedo}
-          disabled={!canRedo || disabled}
-          title={<ToolTipContent description={labelRedo} keymap={redoKeymap} />}
-          iconBefore={<RedoIcon label="" />}
-          testId="ak-editor-toolbar-button-redo"
-          aria-label={tooltip(redoKeymap, labelRedo)}
-          aria-keyshortcuts={getAriaKeyshortcuts(redoKeymap)}
-        />
-        <span css={separatorStyles} />
-      </span>
-    );
-  }
-}
+  const { canUndo, canRedo } = historyState ?? {};
+
+  return (
+    <span css={buttonGroupStyle}>
+      <ToolbarButton
+        buttonId={TOOLBAR_BUTTON.UNDO}
+        spacing={isReducedSpacing ? 'none' : 'default'}
+        onClick={handleUndo}
+        disabled={!canUndo || disabled}
+        aria-label={tooltip(undoKeymap, labelUndo)}
+        aria-keyshortcuts={getAriaKeyshortcuts(undoKeymap)}
+        title={<ToolTipContent description={labelUndo} keymap={undoKeymap} />}
+        iconBefore={<UndoIcon label="" />}
+        testId="ak-editor-toolbar-button-undo"
+      />
+      <ToolbarButton
+        spacing={isReducedSpacing ? 'none' : 'default'}
+        buttonId={TOOLBAR_BUTTON.REDO}
+        onClick={handleRedo}
+        disabled={!canRedo || disabled}
+        title={<ToolTipContent description={labelRedo} keymap={redoKeymap} />}
+        iconBefore={<RedoIcon label="" />}
+        testId="ak-editor-toolbar-button-redo"
+        aria-label={tooltip(redoKeymap, labelRedo)}
+        aria-keyshortcuts={getAriaKeyshortcuts(redoKeymap)}
+      />
+      <span css={separatorStyles} />
+    </span>
+  );
+};
 
 export default injectIntl(ToolbarUndoRedo);

@@ -61,6 +61,7 @@ export interface MediaMetaDataContextItem {
   size: number;
 }
 export interface MetaDataContext {
+  highlightedMentionNodeID?: string;
   baseURL?: string;
   conversion?: {
     inlineCardConversion?: { [key: string]: string };

@@ -8,6 +8,7 @@ import type { FloatingToolbarHandler } from './floating-toolbar';
 import type { PMPlugin } from './plugin-factory';
 import type { MarkConfig, NodeConfig } from './prosemirror-config';
 import type { QuickInsertHandler } from './quick-insert';
+import type { SelectionToolbarHandler } from './selection-toolbar';
 import type { ToolbarUIComponentFactory } from './toolbar';
 import type { TypeAheadHandler } from './type-ahead';
 import type { ReactHookFactory, UIComponentFactory } from './ui-components';
@@ -23,6 +24,14 @@ export type PluginsOptions = {
    * See: `FloatingToolbarConfig`
    */
   floatingToolbar?: FloatingToolbarHandler;
+  /**
+   * The selection toolbar is a floating toolbar that is displayed for
+   * range selections when any plugins return a selection toolbar group with
+   * items.
+   * @private
+   * @deprecated Do not use this plugin option, it is for AI purposes only and will be removed soon.
+   */
+  selectionToolbar?: SelectionToolbarHandler;
   /**
    * Handler returning a React component that is added to the context panel.
    *

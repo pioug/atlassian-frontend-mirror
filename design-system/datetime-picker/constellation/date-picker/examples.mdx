@@ -25,13 +25,13 @@ By default, selecting the date field opens the calendar view. The current date t
 
 ## Form
 
-Date picker used with the [form](https://atlaskit.atlassian.com/packages/design-system/form) component includes a field label and helper text.
+When using the date picker with the form component, include a field label and helper text. For more information, see the [form component](/components/form/examples).
 
 <Example Component={DatePickerForm} packageName="@atlaskit/datetime-picker" />
 
 ### Validation
 
-This is how date picker behaves within [forms](https://atlaskit.atlassian.com/packages/design-system/form).
+This is how date picker behaves within [forms](/components/form/examples).
 
 Validation displays an error message related to the restrictions of the date picker.
 
@@ -52,7 +52,7 @@ If a certain date is not a valid selection, you may disable it in the calendar s
 
 ### Specific dates
 
-Use `disabled` to disable individual dates.
+Use `disabled` to restrict selection of individual dates.
 
 <Example
   Component={DatePickerDisable}
@@ -70,7 +70,7 @@ Use `minDate` to set a minimum valid date and `maxDate` to set a maximum valid d
 
 ### Complex behavior
 
-Use `disabledDateFilter` for more complicated situations.
+Use `disabledDateFilter` for more complicated date options, like enabling only specific days of the week to be selectable.
 
 <Example
   Component={DatePickerDisableComplex}

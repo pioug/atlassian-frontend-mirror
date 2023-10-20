@@ -13,8 +13,7 @@ import { p, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
-import historyPlugin from '../../../history';
-import { historyPluginKey } from '../../../history';
+import { historyPlugin } from '@atlaskit/editor-plugin-history';
 import undoRedoPlugin from '../../index';
 import { ToolbarUndoRedo } from '../../ui/ToolbarUndoRedo';
 import {
@@ -44,12 +43,11 @@ describe('ToolbarUndoRedo', () => {
     });
 
   it('should disable Undo / Redo buttons when there is no undo / redo history', () => {
-    const { editorView } = editor(doc(p('some text')));
-    const historyState = historyPluginKey.getState(editorView.state);
+    const { editorAPI } = editor(doc(p('some text')));
 
     const { getByTestId } = render(
       // @ts-ignore
-      <ToolbarUndoRedo historyState={historyState} intl={mockIntl} />,
+      <ToolbarUndoRedo intl={mockIntl} api={editorAPI} />,
     );
 
     expect(getByTestId(undoSelector)).toHaveAttribute('disabled');
@@ -57,16 +55,14 @@ describe('ToolbarUndoRedo', () => {
   });
 
   it('should enable the Undo button when there is an undo history', () => {
-    const { editorView } = editor(doc(p('some text')));
+    const { editorView, editorAPI } = editor(doc(p('some text')));
     const tr = editorView.state.tr;
     tr.insertText('more text', 0);
     editorView.dispatch(tr);
 
-    const historyState = historyPluginKey.getState(editorView.state);
-
     const { getByTestId } = render(
       // @ts-ignore
-      <ToolbarUndoRedo historyState={historyState} intl={mockIntl} />,
+      <ToolbarUndoRedo intl={mockIntl} api={editorAPI} />,
     );
 
     expect(getByTestId(undoSelector)).not.toHaveAttribute('disabled');
@@ -74,17 +70,15 @@ describe('ToolbarUndoRedo', () => {
   });
 
   it('should disable the Undo button and enable the Redo button when Undo is clicked', async () => {
-    const { editorView } = editor(doc(p('some text')));
+    const { editorView, editorAPI } = editor(doc(p('some text')));
     const tr = editorView.state.tr;
     tr.insertText('more', 0);
     editorView.dispatch(tr);
 
-    const historyState = historyPluginKey.getState(editorView.state)!;
-
     const { getByTestId, rerender } = render(
       <ToolbarUndoRedo
         editorView={editorView}
-        historyState={historyState}
+        api={editorAPI}
         // @ts-ignore
         intl={mockIntl}
       />,
@@ -94,12 +88,10 @@ describe('ToolbarUndoRedo', () => {
     const redoButton = getByTestId(redoSelector);
     fireEvent.click(undoButton);
 
-    const newHistoryState = historyPluginKey.getState(editorView.state)!;
-
     rerender(
       <ToolbarUndoRedo
         editorView={editorView}
-        historyState={newHistoryState}
+        api={editorAPI}
         // @ts-ignore
         intl={mockIntl}
       />,
@@ -110,17 +102,15 @@ describe('ToolbarUndoRedo', () => {
   });
 
   it('should enable the Undo button and disable the Redo button when Redo is clicked', async () => {
-    const { editorView } = editor(doc(p('some text')));
+    const { editorView, editorAPI } = editor(doc(p('some text')));
     const tr = editorView.state.tr;
     tr.insertText('more', 0);
     editorView.dispatch(tr);
 
-    const historyState = historyPluginKey.getState(editorView.state)!;
-
     const { getByTestId, rerender } = render(
       <ToolbarUndoRedo
         editorView={editorView}
-        historyState={historyState}
+        api={editorAPI}
         // @ts-ignore
         intl={mockIntl}
       />,
@@ -130,26 +120,24 @@ describe('ToolbarUndoRedo', () => {
     const redoButton = getByTestId(redoSelector);
 
     fireEvent.click(undoButton);
-    let newHistoryState = historyPluginKey.getState(editorView.state)!;
 
     // We need to rerender here before firing the redoButton click
     // otherwise the redoButton is still disabled
     rerender(
       <ToolbarUndoRedo
         editorView={editorView}
-        historyState={newHistoryState}
+        api={editorAPI}
         // @ts-ignore
         intl={mockIntl}
       />,
     );
 
     fireEvent.click(redoButton);
-    newHistoryState = historyPluginKey.getState(editorView.state)!;
 
     rerender(
       <ToolbarUndoRedo
         editorView={editorView}
-        historyState={newHistoryState}
+        api={editorAPI}
         // @ts-ignore
         intl={mockIntl}
       />,
@@ -162,17 +150,16 @@ describe('ToolbarUndoRedo', () => {
   describe('analytics events', () => {
     it('should fire the analytics event with the redo toolbar button id', () => {
       const onEvent = jest.fn();
-      const { editorView } = editor(doc(p('some text')));
+      const { editorView, editorAPI } = editor(doc(p('some text')));
       const tr = editorView.state.tr;
       tr.insertText('more', 0);
       editorView.dispatch(tr);
 
-      const historyState = historyPluginKey.getState(editorView.state)!;
       const { getByTestId, rerender } = render(
         <AnalyticsListener onEvent={onEvent} channel={FabricChannel.editor}>
           <ToolbarUndoRedo
             editorView={editorView}
-            historyState={historyState}
+            api={editorAPI}
             // @ts-ignore
             intl={mockIntl}
           />
@@ -184,12 +171,11 @@ describe('ToolbarUndoRedo', () => {
       fireEvent.click(undoButton);
       onEvent.mockClear();
 
-      let newHistoryState = historyPluginKey.getState(editorView.state)!;
       rerender(
         <AnalyticsListener onEvent={onEvent} channel={FabricChannel.editor}>
           <ToolbarUndoRedo
             editorView={editorView}
-            historyState={newHistoryState}
+            api={editorAPI}
             // @ts-ignore
             intl={mockIntl}
           />
@@ -214,17 +200,16 @@ describe('ToolbarUndoRedo', () => {
 
     it('should fire the analytics event with the undo toolbar button id', () => {
       const onEvent = jest.fn();
-      const { editorView } = editor(doc(p('some text')));
+      const { editorView, editorAPI } = editor(doc(p('some text')));
       const tr = editorView.state.tr;
       tr.insertText('more', 0);
       editorView.dispatch(tr);
 
-      const historyState = historyPluginKey.getState(editorView.state)!;
       const { getByTestId } = render(
         <AnalyticsListener onEvent={onEvent} channel={FabricChannel.editor}>
           <ToolbarUndoRedo
             editorView={editorView}
-            historyState={historyState}
+            api={editorAPI}
             // @ts-ignore
             intl={mockIntl}
           />
@@ -252,13 +237,12 @@ describe('ToolbarUndoRedo', () => {
 
   describe('keyboard shortcuts', () => {
     it('should have ARIA keyshortcuts attribute', () => {
-      const { editorView } = editor(doc(p('some text')));
-      const historyState = historyPluginKey.getState(editorView.state)!;
+      const { editorView, editorAPI } = editor(doc(p('some text')));
 
       const { getByTestId } = render(
         <ToolbarUndoRedo
           editorView={editorView}
-          historyState={historyState}
+          api={editorAPI}
           // @ts-ignore
           intl={mockIntl}
         />,

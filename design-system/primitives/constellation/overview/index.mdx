@@ -1,6 +1,6 @@
 ---
 title: Primitives
-description: Primitives are composable components that solve common layout problems.
+description: Primitives are components that create layouts, add styling, make up other components.
 order: 1
 ---
 
@@ -19,19 +19,16 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
   directoryName="primitives"
 />
 
-Primitives are a new type of component for layouts and the placement of elements.
-They act as simple building blocks to compose different parts of the user experience,
+Primitives are a new type of component for layouts, styling, and the placement of elements.
+They act as building blocks to compose different parts of the user experience,
 from the smallest design decisions (for example, the spacing around an icon) to larger layout decisions (for example, how a page is structured).
 
-Primitives are powered by design tokens and add a layer of ergonomics and accessibility to token application. Tokens are great at describing the what of a design decision;
-primitives make it easier to reason about the when and how. This reduces cognitive overhead, improves productivity and prevents accidents or mistakes.
+Primitives are powered by design tokens and make it easier to apply design decisions. This reduces cognitive overhead, improves productivity and prevents accidents or mistakes.
 
-## Available Primitives
+## Available primitives
 
-Each primitive is designed to have a single responsibility, and it should be immediately clear where and when each primitive should be used.
-However, they are also flexible enough that they should be able to be used together to compose complex designs not otherwise implemented directly in the Design Systems.
-
-Currently, three core primitive components are available - Box, Inline and Stack. A large amount of layout problems can be reduced to laying out content:
+Primitives are used together to compose complex designs not otherwise implemented directly in the Design System.
+Currently, three layout primitive components are available:
 
 - in a container (see [box](/components/primitives/box))
 - horizontally (see [inline](/components/primitives/inline))
@@ -51,7 +48,7 @@ To install primitive components, add @atlaskit/primitives as a dependency on you
 $ yarn add @atlaskit/primitives
 ```
 
-## Using Primitives
+## Using primitives
 
 Use primitives for composing layouts.
 Primitives are not currently available in Figma, so the first step in implementing primitive components is identifying where they might fit in a given design.
@@ -87,9 +84,10 @@ The behavior within and around these boxes can then be broken down into their ho
 
 ## Related
 
-- [Learn more about the Box primitive](/components/primitives/box/usage)
-- [Learn more about the Inline primitive](/components/primitives/inline/usage)
-- [Learn more about the Stack primitive](/components/primitives/stack/usage)
-- [Learn more about the Grid primitive](/components/primitives/grid/examples)
-- [Learn more about the Bleed primitive](/components/primitives/bleed/examples)
-- [Learn more about the Flex primitive](/components/primitives/flex/examples)
+- [Box](/components/primitives/box/usage)
+- [Inline](/components/primitives/inline/usage)
+- [Stack](/components/primitives/stack/usage)
+- [Grid](/components/primitives/grid/examples)
+- [Bleed](/components/primitives/bleed/examples)
+- [Flex](/components/primitives/flex/examples)
+- [xcss](/components/primitives/xcss/usage)

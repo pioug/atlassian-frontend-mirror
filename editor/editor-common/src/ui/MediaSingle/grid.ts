@@ -1,4 +1,4 @@
-import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
   akEditorBreakoutPadding,
@@ -6,7 +6,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 
 import { MEDIA_SINGLE_GUTTER_SIZE } from '../../media-single/constants';
-import { EditorContainerWidth } from '../../types';
+import type { EditorContainerWidth } from '../../types';
 
 const validWidthModes: MediaSingleLayout[] = [
   'center',

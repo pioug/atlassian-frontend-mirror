@@ -29,6 +29,7 @@ import { InputSource } from '../../../enums';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { historyPlugin } from '@atlaskit/editor-plugin-history';
 
 describe('change input method from undo/redo events', () => {
   let fireMock: jest.Mock;
@@ -44,6 +45,7 @@ describe('change input method from undo/redo events', () => {
         .add(typeAheadPlugin)
         .add(listPlugin)
         .add(panelPlugin)
+        .add(historyPlugin)
         .add(undoPlugin),
       pluginKey: undoPluginKey,
     });

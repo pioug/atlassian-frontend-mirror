@@ -22,6 +22,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 
+import { updateCurrentMediaNodeAttrs } from '../../commands/helpers';
 import type { MediaNextEditorPluginType } from '../../next-plugin-type';
 import type {
   getPosHandler,
@@ -113,6 +114,24 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
     return isMediaBlobUrlFromAttrs(attrs);
   }
 
+  onExternalImageLoaded = (dimensions: { width: number; height: number }) => {
+    const getPos = this.getPos as getPosHandlerNode;
+    const { width, height, ...rest } = this.getAttrs();
+    if (!width || !height) {
+      updateCurrentMediaNodeAttrs(
+        {
+          ...rest,
+          width: width || dimensions.width,
+          height: height || dimensions.height,
+        },
+        {
+          node: this.node,
+          getPos,
+        },
+      )(this.view.state, this.view.dispatch);
+    }
+  };
+
   renderMediaNodeWithState = (
     mediaProvider?: Promise<MediaProvider>,
     contextIdentifierProvider?: Promise<ContextIdentifierProvider>,
@@ -159,6 +178,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
           mediaProvider={mediaProvider}
           contextIdentifierProvider={contextIdentifierProvider}
           mediaOptions={mediaOptions}
+          onExternalImageLoaded={this.onExternalImageLoaded}
         />
       );
     };

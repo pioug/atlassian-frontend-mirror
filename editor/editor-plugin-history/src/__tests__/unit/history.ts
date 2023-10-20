@@ -1,11 +1,12 @@
+import type { HistoryPluginState } from '@atlaskit/editor-plugin-history';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { historyPluginKey } from '../../../../plugins/history';
-import type { HistoryPluginState } from '../../../../plugins/history/types';
+
+import { historyPluginKey } from '../../plugin-key';
 
 describe('History Plugin', () => {
   const createEditor = createEditorFactory();
@@ -13,6 +14,7 @@ describe('History Plugin', () => {
     createEditor({
       // this plugin is only enabled for mobile currently
       editorProps: { appearance: 'mobile' },
+      pluginKey: historyPluginKey,
     });
   const getPluginState = (state: EditorState): HistoryPluginState =>
     historyPluginKey.getState(state)!;

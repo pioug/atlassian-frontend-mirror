@@ -1,6 +1,6 @@
 ---
 title: Responsive
-description: Responsive helpers and primitives to build responsive UIs with
+description: Responsive helpers and primitives to build responsive UIs.
 order: 2
 ---
 
@@ -10,7 +10,7 @@ The media query helper object `media.above[breakpoint]` maps to our [breakpoints
 
 These responsive helpers are designed be used in conjunction with [xcss](/components/primitives/xcss). It is recommended that both are used when available as this uses our media queries to allow for safe, responsive styling.
 
-### A basic example:
+### Basic example
 
 Compose your default styles alongside media overrides in [xcss](/components/primitives/xcss) or `css`.
 
@@ -27,7 +27,7 @@ export const Component = ({ children }: { children: ReactNode }) => (
 );
 ```
 
-### `media.above` usage
+### Using media.above
 
 It is important to note that the `media.above.xxs` will **always** match, it is explicitly `'@media all'`. This is only included for easy programatic usage, but it has a negative performance impact.
 

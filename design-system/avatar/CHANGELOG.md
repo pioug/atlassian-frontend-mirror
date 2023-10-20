@@ -1,5 +1,11 @@
 # @atlaskit/avatar
 
+## 21.4.1
+
+### Patch Changes
+
+- [#41729](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41729) [`04235acacd6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04235acacd6) - Enrol package to push model in Jira
+
 ## 21.4.0
 
 ### Minor Changes

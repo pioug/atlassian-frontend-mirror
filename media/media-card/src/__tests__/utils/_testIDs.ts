@@ -4,3 +4,4 @@ export const cardTestId = 'media-card-view';
 export const mediaViewerTestId = 'media-viewer-popup';
 export const titleBoxTestId = 'media-title-box';
 export const cardBlanketTestId = 'media-card-blanket';
+export const inlinePlayerTestId = 'media-card-inline-player';

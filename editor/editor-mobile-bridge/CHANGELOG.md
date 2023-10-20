@@ -1,5 +1,42 @@
 # @atlaskit/editor-mobile-bridge
 
+## 188.12.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.12.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.12.0
+
+### Patch Changes
+
+- [#41770](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41770) [`0d7961fbb3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d7961fbb3b) - Extract History Plugin
+- Updated dependencies
+
+## 188.11.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.11.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 188.11.3
 
 ### Patch Changes

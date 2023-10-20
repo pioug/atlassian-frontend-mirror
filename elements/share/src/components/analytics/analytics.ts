@@ -169,6 +169,7 @@ export const formShareSubmitted = (
   shareContentType?: string,
   shareOrigin?: OriginTracing,
   isPublicLink = false,
+  shareContentSubType?: string,
 ) => {
   const users = extractIdsByType(data, isUser);
   const teams = extractIdsByType(data, isTeam);
@@ -183,6 +184,7 @@ export const formShareSubmitted = (
     {
       ...getOriginTracingAttributes(shareOrigin),
       contentType: shareContentType,
+      contentSubType: shareContentSubType,
       duration: duration(start),
       emailCount: emails.length,
       teamCount: teams.length,

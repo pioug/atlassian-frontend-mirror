@@ -111,6 +111,11 @@ export type TitleBlockProps = {
    * @internal
    */
   metadataPosition?: SmartLinkPosition;
+
+  /**
+   * Determines whether TitleBlock will hide the Link Icon.
+   */
+  hideIcon?: boolean;
 } & BlockProps;
 
 export type TitleBlockViewProps = TitleBlockProps & {

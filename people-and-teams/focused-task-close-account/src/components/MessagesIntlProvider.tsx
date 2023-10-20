@@ -20,6 +20,7 @@ class MessagesIntlProvider extends React.Component<
       <IntlProvider
         messages={getMessagesForLocale(intl.locale as LangCode)}
         locale={intl.locale}
+        defaultLocale="en-US"
       >
         {children}
       </IntlProvider>

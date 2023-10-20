@@ -5,7 +5,6 @@ import type {
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { moveColumn, moveRow } from '@atlaskit/editor-tables/utils';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 
 import type { DraggableSourceData } from '../../types';
@@ -15,6 +14,7 @@ import {
 } from '../../utils/merged-cells';
 import { getPluginState as getTablePluginState } from '../plugin-factory';
 
+import { clearDropTarget, moveSource, setDropTarget } from './commands';
 import { DropTargetType } from './consts';
 import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
@@ -59,25 +59,31 @@ export const createPlugin = (
           },
           onDrag(event) {
             const data = getDraggableDataFromEvent(event);
-
             // If no data can be found then it's most like we do not want to perform any drag actions
             if (!data) {
+              clearDropTarget()(editorView.state, editorView.dispatch);
               return;
             }
 
             // TODO: as we drag an element around we are going to want to update the state to acurately reflect the current
             // insert location as to where the draggable will most likely be go. For example;
-            // const { sourceType, targetAdjustedIndex } = data;
-            // const highlight = sourceType === 'table-row' ? highlightRow : highlightColumn;
-            // return editorView.dispatch(
-            //   highlight(targetAdjustedIndex)(editorView.state.tr),
-            // );
+            const { sourceType, targetAdjustedIndex } = data;
+            const dropTargetType =
+              sourceType === 'table-row'
+                ? DropTargetType.ROW
+                : DropTargetType.COLUMN;
+
+            setDropTarget(dropTargetType, targetAdjustedIndex)(
+              editorView.state,
+              editorView.dispatch,
+            );
           },
           onDrop(event) {
             const data = getDraggableDataFromEvent(event);
 
             // If no data can be found then it's most like we do not want to perform any drop action
             if (!data) {
+              clearDropTarget()(editorView.state, editorView.dispatch);
               return;
             }
 
@@ -91,15 +97,16 @@ export const createPlugin = (
             if (
               hasMergedCells(targetAdjustedIndex)(editorView.state.selection)
             ) {
+              clearDropTarget()(editorView.state, editorView.dispatch);
               return;
             }
 
-            const move = sourceType === 'table-row' ? moveRow : moveColumn;
-
             const [sourceIndex] = sourceIndexes;
-            return editorView.dispatch(
-              move(sourceIndex, targetAdjustedIndex)(editorView.state.tr),
-            );
+            moveSource(
+              sourceType,
+              sourceIndex,
+              targetAdjustedIndex,
+            )(editorView.state, editorView.dispatch);
           },
         }),
       };

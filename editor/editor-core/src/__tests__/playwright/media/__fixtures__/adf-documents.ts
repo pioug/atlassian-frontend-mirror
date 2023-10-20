@@ -229,6 +229,92 @@ export const oneImagesNext = {
   ],
 };
 
+export const legacyExternalImage = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'mediaSingle',
+      attrs: {
+        layout: 'center',
+      },
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            type: 'external',
+            alt: 'external media image',
+            url: 'https://dummyimage.com/600x400/f4f5f7/a5adba',
+          },
+        },
+      ],
+    },
+  ],
+};
+
+export const threeExternalImages = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'mediaSingle',
+      attrs: {
+        layout: 'center',
+        widthType: 'pixel',
+        width: 250,
+      },
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            type: 'external',
+            alt: 'new external media image',
+            url: 'https://dummyimage.com/600x400/f4f5f7/a5adba',
+          },
+        },
+      ],
+    },
+    {
+      type: 'mediaSingle',
+      attrs: {
+        layout: 'center',
+        widthType: 'pixel',
+        width: 250,
+      },
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            type: 'external',
+            alt: 'new large external media image',
+            url: 'https://dummyimage.com/1280x800/f4f5f7/a5adba',
+          },
+        },
+      ],
+    },
+    {
+      type: 'mediaSingle',
+      attrs: {
+        layout: 'center',
+        widthType: 'pixel',
+        width: 250,
+      },
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            type: 'external',
+            alt: 'new small external media image',
+            url: 'https://dummyimage.com/500x300/f4f5f7/a5adba',
+            width: 200,
+            height: 150,
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export const threeImages = {
   version: 1,
   type: 'doc',

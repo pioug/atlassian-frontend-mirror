@@ -22,10 +22,12 @@ Buttons:
 
 ## Anatomy
 
-![Button anatomy](images/button-anatomy.png)
+![Button anatomy diagram. A caption follows this image.](images/button-anatomy.png)
 
-1. **Icon:** Use an icon to convey more meaning.
-2. **Label:** Text that indicates the result of selecting the button.
+Buttons are made up of a label, and an optional icon before or after the label.
+
+1. **Icon (optional):** Use an icon to convey meaning. For example, a pencil icon for edit actions, or a speech bubble icon for comment actions.
+2. **Label:** Meaningful text that lets the user know what will happen when they select the button.
 
 ## Behavior
 
@@ -41,6 +43,12 @@ On a `mousedown`, `event.preventDefault()` is always called to prevent the butto
 
 When a native `<button>` is disabled, it loses browser focus and cannot be focused. We replicate this behavior by setting `tabIndex={-1}` on the button element and calling `element.blur()` when a button becomes disabled (`isDisabled` prop is set to true).
 
+## Accessibility
+
+- Include alternative text using the aria-label prop when using icon buttons.
+- When using an icon alongside text, do not add a label to the icon. Doing so will unnecessarily repeat labels for people using screen readers.
+- Avoid using disabled buttons, especially in forms. Disabled buttons don't explain why the button isn't usable, and they aren't focusable at all for people using keyboard navigation. Instead, keep the button pressable, and use validation and errors to explain what needs to be done to proceed. Avoid putting [tooltips on disabled buttons](/components/button/usage#do-not-put-tooltips-on-disabled-buttons).
+
 ## Best practices
 
 - Use a primary button to indicate the main action of a group button set.
@@ -48,26 +56,13 @@ When a native `<button>` is disabled, it loses browser focus and cannot be focus
 - Button size matters - make sure the size of the button is large enough to interact with on web or other device but not too large so as to be visually overwhelming.
 - Use action verbs or phrases to tell the user what will happen next.
 
-## Do not put tooltips on disabled buttons
-
-We do not support this as it’s not accessible. Disabled buttons are not reachable in the tab order and do not receive hover, focus or click events.
-
-Do not attempt to create workarounds. If you are an Atlassian, Accessibility QA will make you redesign these implementations.
-
-Some questions you should ask if you feel you need a tooltip on a disabled button:
-
-- Is this information **essential** to the user experience? If so, don’t hide it behind a tooltip. Tooltips aren’t easy to discover and aren’t accessible on mobile. If it isn’t essential, consider whether you need to show it at all.
-- Is this information **actionable**? Being shown things that you can’t use without any actionable next step can be frustrating or confusing. Consider only showing UI that a user is able to interact with, or replacing the disabled button with text that has the same content you were going to put in the tooltip. If you do this, you can make things even more actionable for the user by providing a link to a next step that they can take, or further information.
-
-We know that disabled buttons with tooltips are often used to promote feature discovery. We are working on providing guidance on a core pattern for this use case in the future.
-
 ## Alignment
 
 ### Modal dialogs and focussed tasks
 
 **Right align** buttons and place the primary button furthest right for a single focussed task or a [modal dialog](/components/modal-dialog). This is best for experiences with less copy, so users end scanning on the most important action (following a Z-pattern).
 
-![Button alignment. End with the primary or most important action for modals.](images/forms-variations-modalSimple.jpg)
+![Example wireframe where in a small modal, the heading and text is left-aligned, followed by two right-aligned buttons. The primary button is the last button.](images/forms-variations-modalSimple.jpg)
 
 Also, right align buttons when a user is moving through a sequence of focussed screens (for example, going through an onboarding experience). The primary action should be furthest right.
 
@@ -75,7 +70,7 @@ Also, right align buttons when a user is moving through a sequence of focussed s
 
 **Left align** buttons for single-page forms and other full-page tasks where there is a lot of content in view, with the primary action furthest left. This aligns with how people scan full pages with more content (F-pattern), sorting by importance from left to right.
 
-![Button alignment starts with most important for full-page forms.](images/forms-variations-singlePage.jpg)
+![Example wireframe where all content is left-aligned, including: heading, text, form checkbox actions, text area fields, and two left-aligned buttons.](images/forms-variations-singlePage.jpg)
 
 Flags, cards, and section messages also left-align the primary action, as they're typically part of a larger page experience.
 
@@ -91,7 +86,7 @@ Buttons labels should be concise and clear enough to indicate the next action to
   type="do"
   image={{
     url: buttonConciseDo,
-    alt: 'Atlaskit button that says Reset Password',
+    alt: 'Button that says Reset Password',
   }}
 >
   Use concise, easy to scan, and clear button labels to indicate the next action
@@ -102,7 +97,7 @@ Buttons labels should be concise and clear enough to indicate the next action to
   type="dont"
   image={{
     url: buttonConciseDont,
-    alt: 'Atlaskit button that says Click here to choose a password',
+    alt: 'Button that says Click here to choose a password',
   }}
 >
   Use long, redundant button labels. Drop unnecessary articles, such as ‘a’ or
@@ -113,7 +108,7 @@ Buttons labels should be concise and clear enough to indicate the next action to
   type="do"
   image={{
     url: buttonCapitalizationDo,
-    alt: 'Atlaskit button that says Copy ticket',
+    alt: 'Button that says Copy ticket',
   }}
 >
   Use sentence-case capitalization.
@@ -123,17 +118,17 @@ Buttons labels should be concise and clear enough to indicate the next action to
   type="dont"
   image={{
     url: buttonCapitalizationDont,
-    alt: 'Atlaskit buttons that say copy text in sentence case and all caps',
+    alt: 'Buttons that say copy text in sentence case and all caps',
   }}
 >
-  Use title case captalization or all caps.
+  Use title case capitalization or all caps.
 </DoDont>
 
 <DoDont
   type="do"
   image={{
     url: buttonActionDo,
-    alt: 'text that asks delete unpublished page? Followed by a delete CTA button and a cancel button',
+    alt: 'Text that asks delete unpublished page? Followed by a delete CTA button and a cancel button',
   }}
 >
   Use active verbs or phrases that clearly indicate action.
@@ -143,7 +138,7 @@ Buttons labels should be concise and clear enough to indicate the next action to
   type="dont"
   image={{
     url: buttonActionDont,
-    alt: 'text that asks delete unpublished page? Followed by a Yes CTA button and a No button',
+    alt: 'Text that asks delete unpublished page? Followed by a Yes CTA button and a No button',
   }}
 >
   Use vague and generic labels that make the user read the dialog before taking
@@ -166,6 +161,19 @@ A disabled `<button>` will not fire any user events. We imitate this by:
 
 For a disabled button we also set `tabIndex={-1}`, and if the element has focus, we call `element.blur()`.
 
+### Do not put tooltips on disabled buttons
+
+We do not support this as it’s not accessible. Disabled buttons are not reachable in the tab order and do not receive hover, focus or click events.
+
+Do not attempt to create workarounds. If you are an Atlassian, Accessibility QA will make you redesign these implementations.
+
+Some questions you should ask if you feel you need a tooltip on a disabled button:
+
+- Is this information **essential** to the user experience? If so, don’t hide it behind a tooltip. Tooltips aren’t easy to discover and aren’t accessible on mobile. If it isn’t essential, consider whether you need to show it at all.
+- Is this information **actionable**? Being shown things that you can’t use without any actionable next step can be frustrating or confusing. Consider only showing UI that a user is able to interact with, or replacing the disabled button with text that has the same content you were going to put in the tooltip. If you do this, you can make things even more actionable for the user by providing a link to a next step that they can take, or further information.
+
+We know that disabled buttons with tooltips are often used to promote feature discovery. We are working on providing guidance on a core pattern for this use case in the future.
+
 ## Buttons with an overlay
 
 Buttons support an overlay element, which is used to display a spinner for `LoadingButton > isLoading`. When there is an overlay the normal button content fades out and the button is non-interactive but not disabled.
@@ -186,17 +194,13 @@ Bubble and capture event listeners will not be called when the button component 
 
 For elements that are parents of a button you need to bind on the bubble phase (for example, `onClick`) since button does not abort the event until the capture phase. So as the event goes down the DOM tree in the capture phase, it’s not aborted until it reaches the button element. This means you will get a click event from a button on parents in the capture phase. A workaround is to add events to the window when disabled and stop the event a bit earlier, but that's a bit heavy.
 
-## Accessibility
-
-- Include alternative text using the aria-label prop when using icon buttons.
-- When using an icon alongside text, do not add a label to the icon. Doing so will unnecessarily repeat labels for people using screen readers.
-- Avoid using disabled buttons, especially in forms. Disabled buttons don't explain why the button isn't usable, and they aren't focusable at all for people using keyboard navigation. Instead, keep the button pressable, and use validation and errors to explain what needs to be done to proceed. Avoid putting [tooltips on disabled buttons](/components/button/usage#do-not-put-tooltips-on-disabled-buttons).
-
 ## Server
 
 Consult [AUI](https://docs.atlassian.com/aui/latest/docs/buttons.html) for implementation details.
 
 ## Related
+
+Buttons are commonly used with these components:
 
 - [Forms](/patterns/forms)
 - [Modal dialogs](/components/modal-dialog)

@@ -13,6 +13,7 @@ jest.mock('@atlaskit/editor-plugin-help-dialog');
 jest.mock('@atlaskit/editor-plugin-media');
 jest.mock('@atlaskit/editor-plugin-status');
 jest.mock('@atlaskit/editor-plugin-scroll-into-view');
+jest.mock('@atlaskit/editor-plugin-history');
 
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
@@ -24,10 +25,10 @@ import {
   feedbackDialogPlugin,
   placeholderTextPlugin,
   layoutPlugin,
-  historyPlugin,
   mobileDimensionsPlugin,
   findReplacePlugin,
 } from '../../../plugins';
+import { historyPlugin } from '@atlaskit/editor-plugin-history';
 import { statusPlugin } from '@atlaskit/editor-plugin-status';
 import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 import { scrollIntoViewPlugin } from '@atlaskit/editor-plugin-scroll-into-view';

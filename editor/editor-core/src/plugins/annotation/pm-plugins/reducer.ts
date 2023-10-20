@@ -74,6 +74,7 @@ export default (
       return {
         ...pluginState,
         selectedAnnotations: [...action.data.selectedAnnotations],
+        skipSelectionHandling: true,
       };
     default:
       return pluginState;

@@ -400,5 +400,20 @@ describe('share analytics', () => {
         }),
       });
     });
+
+    it('should create event payload with contentSubType attribute when passed in', () => {
+      expect(
+        formShareSubmitted(100, data, 'page', undefined, false, 'embed'),
+      ).toMatchObject({
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'button',
+        actionSubjectId: 'submitShare',
+        attributes: expect.objectContaining({
+          contentType: 'page',
+          contentSubType: 'embed',
+        }),
+      });
+    });
   });
 });

@@ -95,7 +95,8 @@ const tasksAndDecisionsPlugin: TaskAndDecisionsPlugin = ({
       },
       {
         name: 'tasksAndDecisionsKeyMap',
-        plugin: ({ schema }) => keymap(schema, allowNestedTasks, consumeTabs),
+        plugin: ({ schema }) =>
+          keymap(schema, api, allowNestedTasks, consumeTabs),
       }, // Needs to be after "save-on-enter"
     ];
   },

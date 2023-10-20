@@ -3,13 +3,6 @@ import React, { createContext, useContext } from 'react';
 import ThemeProvider, { type ColorMode, type Theme } from './theme-provider';
 
 const InsideAppProviderContext = createContext(false);
-
-const defaultThemeSettings: Theme = {
-  dark: 'dark',
-  light: 'light',
-  spacing: 'spacing',
-};
-
 interface AppProviderProps {
   /**
    * Initial color mode.
@@ -19,7 +12,7 @@ interface AppProviderProps {
   /**
    * Theme settings.
    */
-  defaultTheme?: Theme;
+  defaultTheme?: Partial<Theme>;
 
   /**
    * App content.
@@ -37,7 +30,7 @@ interface AppProviderProps {
 export function AppProvider({
   children,
   defaultColorMode = 'light',
-  defaultTheme = defaultThemeSettings,
+  defaultTheme,
 }: AppProviderProps) {
   const isInsideAppProvider = useContext(InsideAppProviderContext);
 

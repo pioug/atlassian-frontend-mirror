@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { MouseEvent, useEffect, useState, useRef, useMemo } from 'react';
+import React, { MouseEvent, useEffect, useState, useRef } from 'react';
 import { MessageDescriptor } from 'react-intl-next';
 
 import { MediaItemType, FileDetails } from '@atlaskit/media-client';
@@ -20,12 +20,9 @@ import {
   CardPreview,
   MediaCardCursor,
 } from '../../types';
-import { defaultImageCardDimensions } from '../../utils/cardDimensions';
-import { isValidPercentageUnit } from '../../utils/isValidPercentageUnit';
-import { getElementDimension } from '../../utils/getElementDimension';
 import { createAndFireMediaCardEvent } from '../../utils/analytics';
 import { attachDetailsToActions } from '../actions';
-import { cardImageContainerStyles, calcBreakpointSize } from '../ui/styles';
+import { cardImageContainerStyles } from '../ui/styles';
 import { ImageRenderer } from '../ui/imageRenderer/imageRenderer';
 import { TitleBox } from '../ui/titleBox/titleBox';
 import { FailedTitleBox } from '../ui/titleBox/failedTitleBox';
@@ -50,6 +47,7 @@ import {
 } from '../../errors';
 import { Wrapper } from '../ui/wrapper';
 import { fileCardImageViewSelector } from '../classnames';
+import { useBreakpoint } from '../useBreakpoint';
 
 export interface CardViewV2OwnProps extends SharedCardProps {
   readonly status: CardStatus;
@@ -125,19 +123,10 @@ export const CardViewV2Base = ({
   error,
   disableAnimation,
 }: CardViewV2Props) => {
-  const [elementWidth, setElementWidth] = useState<number | undefined>();
   const [didImageRender, setDidImageRender] = useState<boolean>(false);
   const divRef = useRef<HTMLDivElement>(null);
   const prevCardPreviewRef = useRef<CardPreview | undefined>();
-  const width = dimensions?.width || 0;
-
-  useEffect(() => {
-    // If the dimensions.width is a percentage, we need to transform it into a pixel value in order to get the right breakpoints applied.
-    if (width && isValidPercentageUnit(width) && !!divRef.current) {
-      const elementWidth = getElementDimension(divRef.current, 'width');
-      setElementWidth(elementWidth);
-    }
-  }, [width]);
+  const breakpoint = useBreakpoint(dimensions?.width, divRef);
 
   useEffect(() => {
     innerRef && !!divRef.current && innerRef(divRef.current);
@@ -174,15 +163,6 @@ export const CardViewV2Base = ({
     setDidImageRender(false);
     onImageError?.(cardPreview);
   };
-
-  const breakpoint = useMemo(() => {
-    const width =
-      elementWidth ||
-      (dimensions ? dimensions.width : '') ||
-      defaultImageCardDimensions.width;
-
-    return calcBreakpointSize(parseInt(`${width}`, 10));
-  }, [elementWidth, dimensions]);
 
   const shouldRenderPlayButton = () => {
     const { mediaType } = metadata || {};

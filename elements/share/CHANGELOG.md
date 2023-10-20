@@ -1,5 +1,17 @@
 # @atlaskit/share
 
+## 4.5.1
+
+### Patch Changes
+
+- [#41882](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41882) [`54e68dcc7da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54e68dcc7da) - Pass en-US as default locale
+
+## 4.5.0
+
+### Minor Changes
+
+- [#41629](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41629) [`a1d5c2d59fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1d5c2d59fb) - Added optional prop to pass in the content subtype to be used for analytics.
+
 ## 4.4.5
 
 ### Patch Changes

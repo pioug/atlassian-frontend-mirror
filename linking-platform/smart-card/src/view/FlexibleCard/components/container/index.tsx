@@ -23,11 +23,11 @@ import { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/typ
 import { TitleBlockProps } from '../blocks/title-block/types';
 import HoverCardControl from './hover-card-control';
 import { isFlexUiPreviewPresent } from '../../../../state/flexible-ui-context/utils';
+import { N40 } from '@atlaskit/theme/colors';
 
 const elevationStyles: SerializedStyles = css`
-  border: 1px solid transparent;
-  border-radius: 1.5px;
-  box-shadow: ${tokens.elevation};
+  border: 1px solid ${token('color.border', N40)};
+  border-radius: ${token('border.radius.200', '8px')};
   margin: ${token('space.025', '2px')};
 `;
 

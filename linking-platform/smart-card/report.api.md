@@ -970,6 +970,7 @@ type TitleBlockProps = {
   text?: string;
   theme?: SmartLinkTheme;
   metadataPosition?: SmartLinkPosition;
+  hideIcon?: boolean;
 } & BlockProps;
 
 // @public (undocumented)

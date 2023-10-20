@@ -702,6 +702,15 @@ export const tableStyles = (
       display: grid;
       align-items: center;
       position: absolute;
+      left: -4px;
+    }
+
+    .${ClassName.DRAG_HANDLE_BUTTON_CONTAINER} {
+      cursor: grab;
+      width: max-content;
+      padding: 0;
+      border: none;
+      background: none;
     }
 
     ${floatingColumnControls(props)}

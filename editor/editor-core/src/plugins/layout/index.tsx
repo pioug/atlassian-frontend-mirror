@@ -7,7 +7,10 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { default as createLayoutPlugin } from './pm-plugins/main';
 import { buildToolbar } from './toolbar';
-import { createDefaultLayoutSection } from './actions';
+import {
+  createDefaultLayoutSection,
+  insertLayoutColumnsWithAnalytics,
+} from './actions';
 import { IconLayout } from '@atlaskit/editor-common/quick-insert';
 import {
   ACTION,
@@ -30,6 +33,9 @@ export type LayoutPlugin = NextEditorPlugin<
   {
     pluginConfiguration: LayoutPluginOptions | undefined;
     dependencies: [DecorationsPlugin, OptionalPlugin<AnalyticsPlugin>];
+    actions: {
+      insertLayoutColumns: ReturnType<typeof insertLayoutColumnsWithAnalytics>;
+    };
   }
 >;
 
@@ -51,6 +57,13 @@ const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
       },
     ];
   },
+
+  actions: {
+    insertLayoutColumns: insertLayoutColumnsWithAnalytics(
+      api?.analytics?.actions,
+    ),
+  },
+
   pluginsOptions: {
     floatingToolbar(state, intl): FloatingToolbarConfig | undefined {
       const { pos, allowBreakout, addSidebarLayouts, allowSingleColumnLayout } =

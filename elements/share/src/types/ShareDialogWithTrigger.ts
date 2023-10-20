@@ -39,6 +39,7 @@ export type ShareDialogWithTriggerProps = Pick<
   | 'onUserSelectionChange'
   | 'renderCustomTriggerButton'
   | 'shareContentType'
+  | 'shareContentSubType'
   | 'shareFormTitle'
   | 'shareFormHelperMessage'
   | 'showFlags'

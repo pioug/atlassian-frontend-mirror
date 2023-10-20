@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.7
+
+### Patch Changes
+
+- [#41918](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41918) [`a82ee707d1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a82ee707d1d) - [ux] ED-20495: Added table row drag preview
+
+## 5.3.6
+
+### Patch Changes
+
+- [#41863](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41863) [`fe134b9566c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe134b9566c) - Add a new custom icon for table drag and drop
+
+## 5.3.5
+
+### Patch Changes
+
+- [#41864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41864) [`34e85d7299e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34e85d7299e) - The table row nodeview needs to fetch the current live index and id when the canDrop and getData DnD methods are called. This is due to the fact that prosemirror reorders the tr elements efficently which causes the target indexes to be reordered and never updated.
+
+## 5.3.4
+
+### Patch Changes
+
+- [#41793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41793) [`7e48d39f900`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e48d39f900) - Connected the Pragmatic DnD monitor to the new drop target insert line decorations
+
 ## 5.3.3
 
 ### Patch Changes

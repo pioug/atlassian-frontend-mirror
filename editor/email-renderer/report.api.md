@@ -126,6 +126,8 @@ export interface MetaDataContext {
     };
   };
   // (undocumented)
+  highlightedMentionNodeID?: string;
+  // (undocumented)
   hydration?: {
     mediaMetaData?: {
       [key: string]: MediaMetaDataContextItem;

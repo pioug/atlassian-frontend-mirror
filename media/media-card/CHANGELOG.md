@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 77.2.0
+
+### Minor Changes
+
+- [#41358](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41358) [`80f2161f1bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/80f2161f1bb) - MEX-2581 Convert inline player base to functional component
+
 ## 77.1.2
 
 ### Patch Changes

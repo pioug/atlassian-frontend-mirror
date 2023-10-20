@@ -1,5 +1,11 @@
 # @atlaskit/progress-bar
 
+## 1.0.2
+
+### Patch Changes
+
+- [#41729](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41729) [`04235acacd6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04235acacd6) - Enrol package to push model in Jira
+
 ## 1.0.1
 
 ### Patch Changes

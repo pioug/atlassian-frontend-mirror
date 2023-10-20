@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 76.13.0
+
+### Minor Changes
+
+- [#41923](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41923) [`0120da635b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0120da635b9) - [ED-20519] Decoupling more paste plugin from editor-core moving common functions to editor-common
+
+## 76.12.2
+
+### Patch Changes
+
+- [#40916](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40916) [`0b80e2e68ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b80e2e68ea) - [ux] media single node with external type media should not show migration ui. Update external image with natural dimensions accordingly, and fixed whitespace issue in external image.
+
+## 76.12.1
+
+### Patch Changes
+
+- [#41731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41731) [`b0a40814c2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0a40814c2a) - ED-20161 Added selection toolbar types
+- [#41731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41731) [`b52107def30`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b52107def30) - ED-20161 Move functions shared between the annotation plugin and editor-plugin-selection-toolbar to editor-common.
+- [#41835](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41835) [`18c0f2cf143`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18c0f2cf143) - Tiny update for import type.
+- [#41168](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41168) [`20890d0dcab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20890d0dcab) - Dummy change as workaround for product integrator pipeline
+
 ## 76.12.0
 
 ### Minor Changes

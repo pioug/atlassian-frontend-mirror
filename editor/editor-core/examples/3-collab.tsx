@@ -231,9 +231,9 @@ const editorProps = ({
   allowPanel: true,
   allowFindReplace: true,
   featureFlags: {
-    showAvatarGroupAsPlugin: true,
+    showAvatarGroupAsPlugin: false,
     collabAvatarScroll: true,
-    twoLineEditorToolbar: true,
+    twoLineEditorToolbar: false,
   },
   allowTables: {
     advanced: true,

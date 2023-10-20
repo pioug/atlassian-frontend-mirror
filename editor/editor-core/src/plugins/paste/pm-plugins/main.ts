@@ -11,17 +11,35 @@ import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { mapChildren } from '../../../utils/slice';
+import {
+  containsAnyAnnotations,
+  extractSliceFromStep,
+  linkifyContent,
+  mapChildren,
+  measureRender,
+} from '@atlaskit/editor-common/utils';
+import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
 import type {
   ExtensionProvider,
   ExtensionAutoConvertHandler,
 } from '@atlaskit/editor-common/extensions';
 import { getExtensionAutoConvertersFromProvider } from '@atlaskit/editor-common/extensions';
 
-import { isPastedFile as isPastedFileFromEvent } from '@atlaskit/editor-common/paste';
+import {
+  ACTION,
+  INPUT_METHOD,
+  PasteTypes,
+} from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+
+import {
+  md,
+  isPastedFile as isPastedFileFromEvent,
+} from '@atlaskit/editor-common/paste';
 import {
   transformSliceForMedia,
   transformSliceToCorrectMediaWrapper,
+  transformSliceToMediaSingleWithNewExperience,
   unwrapNestedMediaElements,
 } from '../plugins/media';
 
@@ -34,17 +52,17 @@ import {
   removeDuplicateInvalidLinks,
   transformUnsupportedBlockCardToInline,
 } from '../util';
-import { linkifyContent } from '@atlaskit/editor-common/utils';
-import { transformSliceNestedExpandToExpand } from '../../expand/utils';
+import {
+  transformSliceNestedExpandToExpand,
+  transformSliceToJoinAdjacentCodeBlocks,
+  transformSingleLineCodeBlockToCodeMark,
+  transformSliceToDecisionList,
+} from '@atlaskit/editor-common/transforms';
 import {
   handleMacroAutoConvert,
   handleMention,
   handleParagraphBlockMarks,
 } from '../handlers';
-import {
-  transformSliceToJoinAdjacentCodeBlocks,
-  transformSingleLineCodeBlockToCodeMark,
-} from '../../code-block/utils';
 import {
   createPasteMeasurePayload,
   getContentNodeTypes,
@@ -63,34 +81,22 @@ import {
   handlePastePanelOrDecisionIntoListWithAnalytics,
   handlePasteNonNestableBlockNodesIntoListWithAnalytics,
 } from './analytics';
-import type { DispatchAnalyticsEvent } from '../../analytics';
-import {
-  ACTION,
-  analyticsPluginKey,
-  INPUT_METHOD,
-  PasteTypes,
-} from '../../analytics';
+// TODO: ED-20519 It requires full analytics extraction to use the plugin injection API
+import { analyticsPluginKey } from '../../analytics';
 import { isInsideBlockQuote, insideTable, measurements } from '../../../utils';
-import { measureRender } from '@atlaskit/editor-common/utils';
 import { upgradeTextToLists, splitParagraphs } from '../commands';
-import { md } from '@atlaskit/editor-common/paste';
-import { transformSliceToDecisionList } from '../../tasks-and-decisions/utils';
-import {
-  containsAnyAnnotations,
-  stripNonExistingAnnotations,
-} from '../../annotation/utils';
+// TODO: ED-20519 It requires annotation extraction to use the plugin injection API
+import { stripNonExistingAnnotations } from '../../annotation/utils';
 import { clipboardTextSerializer } from './clipboard-text-serializer';
 import {
   htmlHasIncompleteTable,
   tryRebuildCompleteTableHtml,
   isPastedFromTinyMCEConfluence,
 } from '../util/tinyMCE';
-import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
-import { extractSliceFromStep } from '../../../utils/step';
 
 import { pluginKey as stateKey, createPluginState } from './plugin-factory';
 export { pluginKey as stateKey } from './plugin-factory';
-import type { Dispatch } from '../../../event-dispatcher';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type {
   FeatureFlags,
   ExtractInjectionAPI,
@@ -634,6 +640,8 @@ export function createPlugin(
         slice = transformSingleLineCodeBlockToCodeMark(slice, schema);
 
         slice = transformSliceToCorrectMediaWrapper(slice, schema);
+
+        slice = transformSliceToMediaSingleWithNewExperience(slice, schema);
 
         slice = transformSliceToDecisionList(slice, schema);
 

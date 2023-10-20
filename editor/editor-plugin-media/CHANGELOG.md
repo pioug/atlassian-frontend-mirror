@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-media
 
+## 0.3.7
+
+### Patch Changes
+
+- [#40916](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40916) [`0b80e2e68ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b80e2e68ea) - [ux] media single node with external type media should not show migration ui. Update external image with natural dimensions accordingly, and fixed whitespace issue in external image.
+
 ## 0.3.6
 
 ### Patch Changes

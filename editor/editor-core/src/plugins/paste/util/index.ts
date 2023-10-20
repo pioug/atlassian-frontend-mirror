@@ -27,7 +27,7 @@ import {
   getSelectedTableInfo,
   isTableSelected,
 } from '@atlaskit/editor-tables/utils';
-import { sortByOrderWithTypeName } from '../../../create-editor/sort-by-order';
+import { sortByOrderWithTypeName } from '@atlaskit/editor-common/legacy-rank-plugins';
 import {
   isSupportedInParent,
   mapChildren,

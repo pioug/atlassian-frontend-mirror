@@ -2,7 +2,6 @@ import { pluginFactory } from '@atlaskit/editor-common/utils';
 
 import { pluginKey as tablePluginKey } from '../plugin-key';
 
-import { handleDocOrSelectionChanged } from './handlers';
 import { pluginKey } from './plugin-key';
 import reducer from './reducer';
 
@@ -28,6 +27,4 @@ export const { createPluginState, createCommand, getPluginState } =
       }
       return pluginState;
     },
-    onDocChanged: handleDocOrSelectionChanged,
-    onSelectionChanged: handleDocOrSelectionChanged,
   });

@@ -2,14 +2,18 @@
 order: 0
 ---
 
-import AppProviderDefault from '../../examples/constellation/0-default';
-import AppProviderThemeSwitcher from '../../examples/constellation/1-theme-switcher';
+import defaultExample from '../../examples/constellation/0-default';
+import themeSwitcherExample from '../../examples/constellation/1-theme-switcher';
 
 ## Theming
 
 AppProvider sets up theming for an app, enabling [design tokens](/tokens/design-tokens) to be used.
 
-<Example Component={AppProviderDefault} packageName="@atlaskit/app-provider" />
+<Example
+  Component={defaultExample.example}
+  source={defaultExample.code}
+  packageName="@atlaskit/app-provider"
+/>
 
 ## Color mode and theme switching
 
@@ -18,6 +22,7 @@ The `useColorMode` hook can be used to get the active color mode. When the color
 The `useTheme` hook can be used to get the active themes. The `useSetTheme` hook can be used to change themes.
 
 <Example
-  Component={AppProviderThemeSwitcher}
+  Component={themeSwitcherExample.example}
+  source={themeSwitcherExample.code}
   packageName="@atlaskit/app-provider"
 />

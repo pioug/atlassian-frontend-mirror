@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 1.1.2
+
+### Patch Changes
+
+- [#41867](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41867) [`2fb6074140b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fb6074140b) - Add default value to environment variable
+
 ## 1.1.1
 
 ### Patch Changes

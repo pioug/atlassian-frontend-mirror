@@ -26,7 +26,11 @@ const defaultProps = {
 };
 
 const renderWithIntl = (component: React.ReactNode) => {
-  return render(<IntlProvider locale="en">{component}</IntlProvider>);
+  return render(
+    <IntlProvider locale="en" defaultLocale="en-US">
+      {component}
+    </IntlProvider>,
+  );
 };
 
 // Returns an integer x such that min <= x < max

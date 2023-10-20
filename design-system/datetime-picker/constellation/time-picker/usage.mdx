@@ -12,7 +12,7 @@ Time picker is commonly used in [forms](/patterns/forms).
 
 ## Anatomy
 
-![Time picker anatomy](/images/time-picker-anatomy.png)
+![The label is left-aligned above the time input field. The time dropdown is a dropdown menu that opens below the time field.](/images/time-picker-anatomy.png)
 
 1. ** Label: ** Labels should indicate what information the field requires. The label is left-aligned above the input area.
 
@@ -23,14 +23,13 @@ Time picker is commonly used in [forms](/patterns/forms).
 ## Content guidelines
 
 - Ensure that locale is appropriately set so that users see times in a familiar format.
-- If helper text is necessary, place helper text above the input (below the area label).
 - Use a concise label to indicate what the time selection refers to.
 
 ## Accessibility
 
-- Label attributes for screen readers should be included for users who use screen readers to understand what the time picker relates to.
-
-Follow the [accessibility](/foundations/accessibility) foundations for more guidance on accessible design.
+- If using a field with a label other than "Time", use `timePickerSelectProps` to pass the `aria-label` prop. Assistive technologies will announce these along with the label from the field component when activated.
+- Allow multiple modes of data entry. Some users prefer entering date and time information by typing instead of selection, especially keyboard users.
+- If some dates are disabled, provide accurate validation and error messaging for keyboard users, like: `Please enter a future time`
 
 ## Related
 

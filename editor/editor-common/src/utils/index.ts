@@ -16,7 +16,9 @@ import { isEmptyParagraph } from './editor-core-utils';
 
 export {
   canApplyAnnotationOnRange,
+  containsAnyAnnotations,
   getAnnotationIdsFromRange,
+  hasAnnotationMark,
 } from './annotation';
 export { getExtensionLozengeData } from './macro';
 export type { Params } from './macro';
@@ -472,3 +474,8 @@ export { createWrapSelectionTransaction } from './create-wrap-selection-transact
 export { wrapSelectionIn } from './wrap-selection-in';
 
 export { toJSON, nodeToJSON } from './nodes';
+
+export {
+  calculateToolbarPositionAboveSelection,
+  calculateToolbarPositionTrackHead,
+} from './calculate-toolbar-position';

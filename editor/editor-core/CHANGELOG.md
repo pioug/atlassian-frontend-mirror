@@ -1,5 +1,43 @@
 # @atlaskit/editor-core
 
+## 188.12.3
+
+### Patch Changes
+
+- [#41923](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41923) [`0120da635b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0120da635b9) - [ED-20519] Decoupling more paste plugin from editor-core moving common functions to editor-common
+- Updated dependencies
+
+## 188.12.2
+
+### Patch Changes
+
+- [#40916](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40916) [`0b80e2e68ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b80e2e68ea) - [ux] media single node with external type media should not show migration ui. Update external image with natural dimensions accordingly, and fixed whitespace issue in external image.
+
+## 188.12.1
+
+### Patch Changes
+
+- [#41835](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41835) [`94e9da119e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94e9da119e9) - Decouple plugins from internal deprecated analytics plugin action "withAnalytics".
+- [#41731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41731) [`8a9ec6c3e8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a9ec6c3e8d) - ED-20161 Added editor-plugin-selection-toolbar as a dependency behind platform.editor.enable-selection-toolbar_ucdwd feature flag. Also moves toolbar position logic from annotation plugin in to selection toolbar.
+- [#41168](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41168) [`94faad53870`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94faad53870) - [ux] Allows for navigating overlapping inline comments
+- Updated dependencies
+
+## 188.12.0
+
+### Minor Changes
+
+- [#41770](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41770) [`0d7961fbb3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d7961fbb3b) - Extract History Plugin
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.11.4
+
+### Patch Changes
+
+- [#41366](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41366) [`b0fae9ec9d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0fae9ec9d9) - [ux] Avatar group removed from confluence full page toolbar if launch darkly feature flag set (platform.confluence.frontend.editor.no.platform.avatar.group)
+
 ## 188.11.3
 
 ### Patch Changes

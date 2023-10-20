@@ -25,7 +25,11 @@ const defaultProps = {
 };
 
 const renderWithIntl = (component: React.ReactNode) => {
-  return render(<IntlProvider locale="en">{component}</IntlProvider>);
+  return render(
+    <IntlProvider locale="en" defaultLocale="en-US">
+      {component}
+    </IntlProvider>,
+  );
 };
 
 const sampleProfile = {

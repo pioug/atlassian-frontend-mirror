@@ -84,6 +84,9 @@ export type ShareDialogContainerProps = {
   /** space */
   /** Any other unlisted type will have a default message of "Link shared". */
   shareContentType: string;
+  /** Content SubType of the resource to be shared. Optional. */
+  /** embed */
+  shareContentSubType?: string;
   /** Link of the resource to be shared (should NOT includes origin tracing).
    * Optional, the current page URL is used by default. */
   shareLink?: string;

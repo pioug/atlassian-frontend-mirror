@@ -12,7 +12,7 @@ Date picker is commonly used in [forms](/patterns/forms).
 
 ## Anatomy
 
-![Date picker anatomy](/images/date-picker-anatomy.png)
+![The label is left-aligned above the date input field. The calendar is a dropdown menu that opens below the date field.](/images/date-picker-anatomy.png)
 
 1. ** Label: ** Labels should indicate what information the field requires. The label is left-aligned above the input area.
 
@@ -23,14 +23,13 @@ Date picker is commonly used in [forms](/patterns/forms).
 ## Content guidelines
 
 - Ensure that locale is appropriately set so that users see dates in a familiar format.
-- If helper text is necessary, place helper text above the input (below the area label).
 - Use a concise label to indicate what the date selection refers to.
 
 ## Accessibility
 
-- Label attributes for screen readers should be included for users who use screen readers to understand what the date picker relates to.
-
-Follow the [accessibility](/foundations/accessibility) foundations for more guidance on accessible design.
+- If using a field with a label other than "Date", use `datePickerSelectProps` to pass the `aria-label` prop. Assistive technologies will announce these along with the label from the field component when activated.
+- Allow multiple modes of data entry. Some users prefer entering date and time information by typing instead of selection, especially keyboard users.
+- If some dates are `disabled`, provide accurate validation and error messaging for keyboard users, like: `Please enter a future date`.
 
 ## Related
 

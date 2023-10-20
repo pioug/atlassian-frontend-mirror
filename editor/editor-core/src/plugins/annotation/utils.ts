@@ -19,22 +19,33 @@ import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
 import {
   canApplyAnnotationOnRange,
   getAnnotationIdsFromRange,
+  isText,
+  isParagraph,
+  hasAnnotationMark,
+  containsAnyAnnotations,
 } from '@atlaskit/editor-common/utils';
 import type { AnnotationMarkAttributes } from '@atlaskit/adf-schema';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import type { AnnotationInfo } from './types';
 import { AnnotationSelectionType } from './types';
-import { isText, isParagraph, sum } from '../../utils';
 import type { InlineCommentPluginState } from './pm-plugins/types';
-import type { INPUT_METHOD, AnalyticsEventPayload } from '../analytics';
 import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   ACTION,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayloadCallback } from '../analytics/utils';
-import type { AnnotationAEPAttributes } from '../analytics/types/inline-comment-events';
+import type {
+  INPUT_METHOD,
+  AnnotationAEPAttributes,
+  AnalyticsEventPayload,
+} from '@atlaskit/editor-common/analytics';
+
+export { hasAnnotationMark, containsAnyAnnotations };
+function sum<T>(arr: Array<T>, f: (val: T) => number) {
+  return arr.reduce((val, x) => val + f(x), 0);
+}
 /**
  * Finds the marks in the nodes to the left and right.
  * @param $pos Position to center search around
@@ -365,23 +376,6 @@ export function hasInvalidWhitespaceNode(
 }
 
 /*
- * verifies if node contains annotation mark
- */
-export function hasAnnotationMark(node: Node, state: EditorState): boolean {
-  const {
-    schema: {
-      marks: { annotation: annotationMark },
-    },
-  } = state;
-  return !!(
-    annotationMark &&
-    node &&
-    node.marks.length &&
-    annotationMark.isInSet(node.marks)
-  );
-}
-
-/*
  * verifies that the annotation exists by the given id
  */
 export function annotationExists(
@@ -393,35 +387,6 @@ export function annotationExists(
     !!commentsPluginState?.annotations &&
     Object.keys(commentsPluginState.annotations).includes(annotationId)
   );
-}
-
-/*
- * verifies that slice contains any annotations
- */
-export function containsAnyAnnotations(
-  slice: Slice,
-  state: EditorState,
-): boolean {
-  if (!slice.content.size) {
-    return false;
-  }
-  let hasAnnotation = false;
-  slice.content.forEach((node) => {
-    hasAnnotation = hasAnnotation || hasAnnotationMark(node, state);
-    // return early if annotation found already
-    if (hasAnnotation) {
-      return true;
-    }
-    // check annotations in descendants
-    node.descendants((node) => {
-      if (hasAnnotationMark(node, state)) {
-        hasAnnotation = true;
-        return false;
-      }
-      return true;
-    });
-  });
-  return hasAnnotation;
 }
 
 /*

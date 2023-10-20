@@ -76,6 +76,7 @@ const initialState = (
     },
     disallowOnWhitespace,
     isVisible: true,
+    skipSelectionHandling: false,
   };
 };
 

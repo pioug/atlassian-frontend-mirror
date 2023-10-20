@@ -1,3 +1,5 @@
+import memoizeOne from 'memoize-one';
+
 import type {
   MediaBaseAttributes,
   RichMediaLayout,
@@ -71,17 +73,15 @@ export const getSelectedMediaSingle = (state: EditorState) => {
   );
 };
 
-export const getPixelWidthOfElement = (
-  editorView: EditorView,
-  pos: number,
-  mediaWidth: number,
-) => {
-  const domNode = editorView.nodeDOM(pos);
-  if (domNode instanceof HTMLElement) {
-    return domNode.offsetWidth;
-  }
-  return mediaWidth;
-};
+export const getPixelWidthOfElement = memoizeOne(
+  (editorView: EditorView, pos: number, mediaWidth: number) => {
+    const domNode = editorView.nodeDOM(pos);
+    if (domNode instanceof HTMLElement) {
+      return domNode.offsetWidth;
+    }
+    return mediaWidth;
+  },
+);
 
 export const calcNewLayout = (
   width: number,

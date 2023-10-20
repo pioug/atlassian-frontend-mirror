@@ -1,5 +1,11 @@
 # @atlaskit/email-renderer
 
+## 8.5.0
+
+### Minor Changes
+
+- [#41803](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41803) [`25dc6350a34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25dc6350a34) - ADFEXP-578: add highlight mention nodes feature
+
 ## 8.4.0
 
 ### Minor Changes

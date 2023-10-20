@@ -20,6 +20,13 @@ const handleSelectionChanged = (
   tr: ReadonlyTransaction,
   pluginState: InlineCommentPluginState,
 ): InlineCommentPluginState => {
+  if (pluginState.skipSelectionHandling) {
+    return {
+      ...pluginState,
+      skipSelectionHandling: false,
+    };
+  }
+
   const selectedAnnotations = findAnnotationsInSelection(tr.selection, tr.doc);
   const changed =
     selectedAnnotations.length !== pluginState.selectedAnnotations.length ||

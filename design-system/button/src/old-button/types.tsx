@@ -108,8 +108,8 @@ export type BaseOwnProps = {
     | React.ElementType;
 
   /**
-   * An optional name used to identify this component to press listeners. E.g. interaction tracing
-   * @see https://hello.atlassian.net/wiki/spaces/UFO/pages/2010358949/UFO+Integration+into+Design+System+components
+   * An optional name used to identify this component to press listeners. For example, interaction tracing. For more information,
+   * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration)
    */
   interactionName?: string;
 

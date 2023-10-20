@@ -17,7 +17,6 @@ import {
 } from '@atlaskit/editor-common/styles';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/actions';
-import { insertLayoutColumnsWithAnalytics } from '../../../layout/actions';
 import { insertTaskDecisionCommand } from '../../../tasks-and-decisions/commands';
 import { insertExpand } from '../../../expand/commands';
 import {
@@ -395,8 +394,8 @@ export class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private insertLayoutColumns = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-    const { editorView } = this.props;
-    insertLayoutColumnsWithAnalytics(inputMethod)(
+    const { editorView, pluginInjectionApi } = this.props;
+    pluginInjectionApi?.layout?.actions.insertLayoutColumns(inputMethod)(
       editorView.state,
       editorView.dispatch,
     );

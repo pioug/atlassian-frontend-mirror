@@ -3300,6 +3300,26 @@ exports[`Renderer - EmailSerializer should render mention correctly: html 1`] = 
 </div>
 `;
 
+exports[`Renderer - EmailSerializer should render mention with context: html 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    <span
+      class="csg-mention-highlighted"
+      data-user-id="1234"
+      style="background: #0052CC; border: 1px solid transparent; border-radius: 20px; color: #F4F5F7; padding: 0 4px 2px 3px; white-space: nowrap;"
+    >
+      @Oscar Wallhult
+    </span>
+  </p>
+</div>
+`;
+
 exports[`Renderer - EmailSerializer should render nested task list correctly with mock enabled: mock-embeddedImages 1`] = `Array []`;
 
 exports[`Renderer - EmailSerializer should render nested task list correctly with mock enabled: mock-html 1`] = `

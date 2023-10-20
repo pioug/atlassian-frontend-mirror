@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-layout",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "A collection of components which let you compose an application's page layout.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,6 +26,9 @@
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Page layout",
       "category": "Components"

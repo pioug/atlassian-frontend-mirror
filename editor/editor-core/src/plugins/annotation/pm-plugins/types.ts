@@ -80,4 +80,5 @@ export type InlineCommentPluginState = {
 
   // Allow users to hide inline comments during editing
   isVisible: boolean;
+  skipSelectionHandling: boolean;
 };

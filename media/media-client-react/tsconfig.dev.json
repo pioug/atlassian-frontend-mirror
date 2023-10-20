@@ -8,6 +8,8 @@
     "**/*.test.*",
     "**/test.*",
     "**/test-*",
+    "**/test-helpers/*.ts",
+    "**/test-helpers/*.tsx",
     "**/examples.ts",
     "**/examples.tsx",
     "**/examples/*.ts",

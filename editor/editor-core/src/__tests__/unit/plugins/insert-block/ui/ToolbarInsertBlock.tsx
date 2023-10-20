@@ -911,7 +911,10 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
 
       describe('click columns option', () => {
         beforeEach(() => {
-          buildToolbarForMenu({ layoutSectionEnabled: true });
+          buildToolbarForMenu({
+            layoutSectionEnabled: true,
+            pluginInjectionApi: editorAPI,
+          });
           menu.clickButton(messages.columns.defaultMessage, toolbarOption);
         });
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, xcss } from '@atlaskit/primitives';
 
-import { DragInMotionIcon } from '../Icons/DragInMotionIcon';
+import { DragInMotionIcon } from '../icons/DragInMotionIcon';
 
 const boxStyles = xcss({
   borderColor: 'color.border.focused',

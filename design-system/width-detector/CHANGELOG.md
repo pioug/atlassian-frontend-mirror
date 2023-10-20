@@ -1,5 +1,11 @@
 # @atlaskit/width-detector
 
+## 4.1.5
+
+### Patch Changes
+
+- [#41729](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41729) [`04235acacd6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04235acacd6) - Enrol package to push model in Jira
+
 ## 4.1.4
 
 ### Patch Changes

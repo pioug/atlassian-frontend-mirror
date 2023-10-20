@@ -4,6 +4,7 @@ import type {
   FloatingToolbarEmojiPicker,
   FloatingToolbarItem,
   FloatingToolbarButton,
+  ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
 import type { EmojiInfo, PanelPluginOptions } from './types';
 import type { IntlShape } from 'react-intl-next';
@@ -31,16 +32,20 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
 import { PanelType } from '@atlaskit/adf-schema';
-import type { AnalyticsEventPayload } from '../analytics';
+import type {
+  AnalyticsEventPayload,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-  withAnalytics,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
+import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { messages } from './message';
 import type { EmojiId } from '@atlaskit/emoji/types';
+import type { PanelPlugin } from './index';
 
 export const panelIconMap: {
   [key in Exclude<PanelType, PanelType.CUSTOM>]: EmojiInfo;
@@ -63,6 +68,7 @@ export const getToolbarItems = (
   isCustomPanelEditable: boolean,
   providerFactory: ProviderFactory,
   hoverDecoration: HoverDecorationHandler | undefined,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
   activePanelType?: string,
   activePanelColor?: string,
   activePanelIcon?: string,
@@ -154,7 +160,10 @@ export const getToolbarItems = (
           eventType: EVENT_TYPE.TRACK,
         };
 
-        withAnalytics(payload)(
+        withAnalytics(
+          editorAnalyticsAPI,
+          payload,
+        )(
           changePanelType(
             PanelType.CUSTOM,
             { color, ...previousEmoji },
@@ -191,7 +200,10 @@ export const getToolbarItems = (
           attributes: { newIcon: emoji.shortName, previousIcon: previousIcon },
           eventType: EVENT_TYPE.TRACK,
         };
-        withAnalytics(payload)(
+        withAnalytics(
+          editorAnalyticsAPI,
+          payload,
+        )(
           changePanelType(
             PanelType.CUSTOM,
             {
@@ -220,7 +232,10 @@ export const getToolbarItems = (
         attributes: { icon: panelNode.node.attrs.panelIcon },
         eventType: EVENT_TYPE.TRACK,
       };
-      withAnalytics(payload)(
+      withAnalytics(
+        editorAnalyticsAPI,
+        payload,
+      )(
         changePanelType(
           PanelType.CUSTOM,
           { emoji: undefined, emojiId: undefined, emojiText: undefined },
@@ -326,7 +341,7 @@ export const getToolbarConfig = (
   intl: IntlShape,
   options: PanelPluginOptions = {},
   providerFactory: ProviderFactory,
-  hoverDecoration: HoverDecorationHandler | undefined,
+  api: ExtractInjectionAPI<PanelPlugin> | undefined,
 ): FloatingToolbarConfig | undefined => {
   const { formatMessage } = intl;
   const panelObject = findPanel(state);
@@ -345,7 +360,8 @@ export const getToolbarConfig = (
       options.allowCustomPanel || false,
       (options.allowCustomPanel && options.allowCustomPanelEdit) || false,
       providerFactory,
-      hoverDecoration,
+      api?.decorations.actions.hoverDecoration,
+      api?.analytics?.actions,
       panelType,
       options.allowCustomPanel ? panelColor : undefined,
       options.allowCustomPanel

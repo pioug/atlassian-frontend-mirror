@@ -4,18 +4,17 @@ import type {
   PasteType,
   PasteSource,
   PasteContent,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   INPUT_METHOD,
   EVENT_TYPE,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   PasteTypes,
   PasteContents,
-  withAnalytics,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
+import { addAnalytics } from '../../analytics';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
   Slice,
@@ -44,8 +43,7 @@ import type {
   Selection,
 } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
-import { mapSlice } from '../../../utils/slice';
-import { getLinkDomain } from '@atlaskit/editor-common/utils';
+import { getLinkDomain, mapSlice } from '@atlaskit/editor-common/utils';
 import type {
   ExtractInjectionAPI,
   Command,
@@ -349,17 +347,6 @@ export function sendPasteAnalyticsEvent(
   const payload = createPasteAnalyticsPayload(view, event, slice, pasteContext);
 
   view.dispatch(addAnalytics(view.state, view.state.tr, payload));
-}
-
-export function pasteCommandWithAnalytics(
-  view: EditorView,
-  event: ClipboardEvent,
-  slice: Slice,
-  pasteContext: PasteContext,
-) {
-  return withAnalytics(() =>
-    createPasteAnalyticsPayload(view, event, slice, pasteContext),
-  );
 }
 
 export const handlePasteAsPlainTextWithAnalytics = (

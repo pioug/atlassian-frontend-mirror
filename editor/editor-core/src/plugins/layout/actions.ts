@@ -12,13 +12,15 @@ import {
 } from '@atlaskit/editor-prosemirror/state';
 import { flatmap, mapChildren } from '../../utils/slice';
 import { getStepRange, isEmptyDocument } from '@atlaskit/editor-common/utils';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-} from '../analytics/types/enums';
-import { addAnalytics, withAnalytics } from '../analytics/utils';
+} from '@atlaskit/editor-common/analytics';
+import { addAnalytics } from '../analytics/utils';
+import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { LAYOUT_TYPE } from '../analytics/types/node-events';
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { LayoutState } from './pm-plugins/types';
@@ -106,18 +108,18 @@ export const insertLayoutColumns: Command = (state, dispatch) => {
   return true;
 };
 
-export const insertLayoutColumnsWithAnalytics = (
-  inputMethod: TOOLBAR_MENU_TYPE,
-): Command =>
-  withAnalytics({
-    action: ACTION.INSERTED,
-    actionSubject: ACTION_SUBJECT.DOCUMENT,
-    actionSubjectId: ACTION_SUBJECT_ID.LAYOUT,
-    attributes: {
-      inputMethod,
-    },
-    eventType: EVENT_TYPE.TRACK,
-  })(insertLayoutColumns);
+export const insertLayoutColumnsWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (inputMethod: TOOLBAR_MENU_TYPE): Command =>
+    withAnalytics(editorAnalyticsAPI, {
+      action: ACTION.INSERTED,
+      actionSubject: ACTION_SUBJECT.DOCUMENT,
+      actionSubjectId: ACTION_SUBJECT_ID.LAYOUT,
+      attributes: {
+        inputMethod,
+      },
+      eventType: EVENT_TYPE.TRACK,
+    })(insertLayoutColumns);
 
 /**
  * Add a column to the right of existing layout

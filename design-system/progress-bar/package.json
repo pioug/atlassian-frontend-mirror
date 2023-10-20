@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-bar",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A progress bar communicates the status of a system process.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -18,6 +18,9 @@
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Progress bar",
       "category": "Components"

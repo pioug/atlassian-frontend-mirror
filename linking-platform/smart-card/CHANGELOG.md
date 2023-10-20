@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.37.0
+
+### Minor Changes
+
+- [#41792](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41792) [`1ebd05a89e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ebd05a89e6) - [ux] Flexible Smart Links: Update elevation style
+
+## 26.36.0
+
+### Minor Changes
+
+- [#41842](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41842) [`228a14ec749`](https://bitbucket.org/atlassian/atlassian-frontend/commits/228a14ec749) - [ux] Add hideIcon param which allows us to hide the Link Icon in Title Block
+
 ## 26.35.3
 
 ### Patch Changes

@@ -30,7 +30,7 @@ const defaultProps: Props = {
 
 const renderComponent = (props: Partial<Props> = {}) =>
   render(
-    <IntlProvider locale="en">
+    <IntlProvider locale="en" defaultLocale="en-US">
       <ProfileCardDetails {...defaultProps} {...props} />
     </IntlProvider>,
   );

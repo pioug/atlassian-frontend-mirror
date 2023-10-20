@@ -103,6 +103,10 @@ const mediaContext: MetaDataContext = {
   },
 };
 
+const highlightedMentionNodeContext: MetaDataContext = {
+  highlightedMentionNodeID: '1234',
+};
+
 const render = (
   doc: any,
   serializerOptions: Partial<EmailSerializerOpts> = {},
@@ -312,6 +316,15 @@ describe('Renderer - EmailSerializer', () => {
 
   it('should render mention correctly', () => {
     const { result } = render(mention);
+    expect(result).toMatchSnapshot('html');
+  });
+
+  it('should render mention with context', () => {
+    const { result } = render(
+      mention,
+      undefined,
+      highlightedMentionNodeContext,
+    );
     expect(result).toMatchSnapshot('html');
   });
 

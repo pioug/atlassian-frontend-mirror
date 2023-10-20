@@ -366,6 +366,36 @@ describe('TitleBlock', () => {
     });
   });
 
+  describe('Icon', () => {
+    it('should show Link Icon when hideIcon is false', async () => {
+      const { findByTestId } = renderTitleBlock({
+        hideIcon: false,
+      });
+
+      const element = await findByTestId('smart-element-icon');
+
+      expect(element).toBeDefined();
+    });
+
+    it('should show Link Icon when hideIcon is not set', async () => {
+      const { findByTestId } = renderTitleBlock();
+
+      const element = await findByTestId('smart-element-icon');
+
+      expect(element).toBeDefined();
+    });
+
+    it('should not show Link Icon when hideIcon is true', async () => {
+      const { queryByTestId } = renderTitleBlock({
+        hideIcon: true,
+      });
+
+      const element = await queryByTestId('smart-element-icon');
+
+      expect(element).toBeNull();
+    });
+  });
+
   describe('renders with tooltip on title', () => {
     beforeEach(() => {
       jest.useFakeTimers();

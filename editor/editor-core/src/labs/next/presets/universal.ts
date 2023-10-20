@@ -19,7 +19,6 @@ import {
   indentationPlugin,
   customAutoformatPlugin,
   feedbackDialogPlugin,
-  historyPlugin,
   expandPlugin,
   isExpandInsertionEnabled,
   mobileDimensionsPlugin,
@@ -31,6 +30,7 @@ import {
   beforePrimaryToolbarPlugin,
   codeBidiWarningPlugin,
 } from '../../../plugins';
+import { historyPlugin } from '@atlaskit/editor-plugin-history';
 import { statusPlugin } from '@atlaskit/editor-plugin-status';
 import { datePlugin } from '@atlaskit/editor-plugin-date';
 import { captionPlugin } from '@atlaskit/editor-plugin-caption';
@@ -51,6 +51,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { saveOnEnterPlugin } from '@atlaskit/editor-plugin-save-on-enter';
 import { scrollIntoViewPlugin } from '@atlaskit/editor-plugin-scroll-into-view';
 import { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';
+import { selectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
 
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 
@@ -586,6 +587,9 @@ export default function createUniversalPreset(
     ])
     .maybeAdd(beforePrimaryToolbarPlugin, (plugin, builder) => {
       if (
+        !getBooleanFF(
+          'platform.confluence.frontend.editor.no.platform.avatar.group',
+        ) &&
         hasBeforePrimaryToolbar(props.primaryToolbarComponents) &&
         !featureFlags.twoLineEditorToolbar
       ) {
@@ -602,6 +606,9 @@ export default function createUniversalPreset(
     })
     .maybeAdd(avatarGroupPlugin, (plugin, builder) => {
       if (
+        !getBooleanFF(
+          'platform.confluence.frontend.editor.no.platform.avatar.group',
+        ) &&
         featureFlags.showAvatarGroupAsPlugin === true &&
         !featureFlags.twoLineEditorToolbar
       ) {
@@ -624,6 +631,9 @@ export default function createUniversalPreset(
           plugin,
           {
             takeFullWidth:
+              !getBooleanFF(
+                'platform.confluence.frontend.editor.no.platform.avatar.group',
+              ) &&
               !!featureFlags.showAvatarGroupAsPlugin === false &&
               !hasBeforePrimaryToolbar(props.primaryToolbarComponents),
             twoLineEditorToolbar: !!featureFlags.twoLineEditorToolbar,
@@ -658,7 +668,22 @@ export default function createUniversalPreset(
       {
         appearance,
       },
-    ]);
+    ])
+    /**
+     * Do not use this plugin - it is for AI purposes only.
+     */
+    .maybeAdd(selectionToolbarPlugin, (plugin, builder) => {
+      if (getBooleanFF('platform.editor.enable-selection-toolbar_ucdwd')) {
+        return builder.add([
+          plugin,
+          {
+            preferenceToolbarAboveSelection: false,
+          },
+        ]);
+      }
+
+      return builder;
+    });
 
   return finalPreset;
 }

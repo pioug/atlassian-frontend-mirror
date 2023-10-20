@@ -241,3 +241,8 @@ export type {
 } from './quick-insert';
 
 export type { Refs, RefsNode, DocBuilder } from './doc-builder';
+
+export type {
+  SelectionToolbarGroup,
+  SelectionToolbarHandler,
+} from './selection-toolbar';

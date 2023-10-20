@@ -61,7 +61,7 @@ import {
   fetchAndCacheRemotePreview,
 } from '../getCardPreview';
 import { getFileDetails } from '../../utils/metadata';
-import { InlinePlayerLazy } from '../inlinePlayerLazy';
+import { InlinePlayerLazyV2 } from './inlinePlayerLazyV2';
 import {
   getFileAttributes,
   extractErrorInfo,
@@ -895,7 +895,6 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
   renderInlinePlayer = () => {
     const {
       identifier,
-      mediaClient,
       dimensions,
       selected,
       testId,
@@ -908,8 +907,7 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
 
     return (
       <Suspense fallback={card}>
-        <InlinePlayerLazy
-          mediaClient={mediaClient}
+        <InlinePlayerLazyV2
           dimensions={dimensions}
           originalDimensions={originalDimensions}
           identifier={identifier as FileIdentifier}

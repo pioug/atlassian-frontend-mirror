@@ -37,20 +37,24 @@ import type {
 } from '@atlaskit/smart-card';
 import { replaceSelectedTable } from '@atlaskit/editor-tables/utils';
 
-import type { Command, CommandDispatch } from '../../types';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
 import {
-  compose,
-  insideTable,
-  isParagraph,
-  isText,
-  isLinkMark,
+  canLinkBeCreatedInRange,
   insideTableCell,
   isInListItem,
-} from '../../utils';
-import { mapSlice } from '../../utils/slice';
-import type { InputMethodInsertMedia } from '../analytics';
+  isLinkMark,
+  isListItemNode,
+  isListNode,
+  isParagraph,
+  isText,
+  linkifyContent,
+  mapSlice,
+} from '@atlaskit/editor-common/utils';
+import { insideTable } from '@atlaskit/editor-common/core-utils';
+import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
+// TODO: ED-20519 Needs Macro extraction
 import { runMacroAutoConvert } from '../macro';
 import type { InsertMediaAsMediaSingle } from '@atlaskit/editor-plugin-media/types';
 
@@ -59,12 +63,6 @@ import {
   applyTextMarksToSlice,
   hasOnlyNodesOfType,
 } from './util';
-import {
-  linkifyContent,
-  isListItemNode,
-  isListNode,
-  canLinkBeCreatedInRange,
-} from '@atlaskit/editor-common/utils';
 
 import { insertSliceForLists } from './edge-cases';
 import {
@@ -78,6 +76,37 @@ import type {
 } from '@atlaskit/editor-common/card';
 import { anyMarkActive } from '@atlaskit/editor-common/mark';
 import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list';
+
+/** Helper type for single arg function */
+type Func<A, B> = (a: A) => B;
+
+/**
+ * Compose 1 to n functions.
+ * @param func first function
+ * @param funcs additional functions
+ */
+function compose<
+  F1 extends Func<any, any>,
+  FN extends Array<Func<any, any>>,
+  R extends FN extends []
+    ? F1
+    : FN extends [Func<infer A, any>]
+    ? (a: A) => ReturnType<F1>
+    : FN extends [any, Func<infer A, any>]
+    ? (a: A) => ReturnType<F1>
+    : FN extends [any, any, Func<infer A, any>]
+    ? (a: A) => ReturnType<F1>
+    : FN extends [any, any, any, Func<infer A, any>]
+    ? (a: A) => ReturnType<F1>
+    : FN extends [any, any, any, any, Func<infer A, any>]
+    ? (a: A) => ReturnType<F1>
+    : Func<any, ReturnType<F1>>, // Doubtful we'd ever want to pipe this many functions, but in the off chance someone does, we can still infer the return type
+>(func: F1, ...funcs: FN): R {
+  const allFuncs = [func, ...funcs];
+  return function composed(raw: any) {
+    return allFuncs.reduceRight((memo, func) => func(memo), raw);
+  } as R;
+}
 
 // remove text attribute from mention for copy/paste (GDPR)
 export function handleMention(slice: Slice, schema: Schema): Slice {

@@ -4,7 +4,9 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { moveColumn, moveRow } from '@atlaskit/editor-tables/utils';
 
+import type { DraggableType } from '../../types';
 import { TableDecorations } from '../../types';
 import {
   createColumnInsertLine,
@@ -13,7 +15,7 @@ import {
 } from '../../utils';
 
 import { DragAndDropActionType } from './actions';
-import type { DropTargetType } from './consts';
+import { DropTargetType } from './consts';
 import { createCommand, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
 
@@ -71,12 +73,46 @@ export const setDropTarget = (
 
 export const clearDropTarget = (tr?: Transaction) =>
   createCommand(
-    {
-      type: DragAndDropActionType.CLEAR_DROP_TARGET,
-      data: {
-        decorationSet: DecorationSet.empty,
-      },
+    (state) => {
+      const { dropTargetType, dropTargetIndex } = getPluginState(state);
+      if (dropTargetType === DropTargetType.NONE && dropTargetIndex === 0) {
+        return false;
+      }
+
+      return {
+        type: DragAndDropActionType.CLEAR_DROP_TARGET,
+        data: {
+          decorationSet: DecorationSet.empty,
+        },
+      };
     },
     (originalTr: Transaction) =>
       (tr || originalTr).setMeta('addToHistory', false),
+  );
+
+export const moveSource = (
+  sourceType: DraggableType,
+  sourceIndex: number,
+  targetIndex: number,
+) =>
+  createCommand(
+    (state) => {
+      return {
+        type: DragAndDropActionType.CLEAR_DROP_TARGET,
+        data: {
+          decorationSet: DecorationSet.empty,
+        },
+      };
+    },
+    (tr: Transaction) => {
+      if (sourceIndex === targetIndex) {
+        return tr.setMeta('addToHistory', false);
+      }
+
+      const move = sourceType === 'table-row' ? moveRow : moveColumn;
+      return move(
+        sourceIndex,
+        targetIndex + (sourceIndex > targetIndex ? 0 : -1),
+      )(tr);
+    },
   );

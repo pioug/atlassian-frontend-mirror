@@ -312,6 +312,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       formShareOrigin,
       showFlags,
       isPublicLink,
+      shareContentSubType,
     } = this.props;
     if (!onShareSubmit) {
       return;
@@ -328,6 +329,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
         shareContentType,
         formShareOrigin,
         isPublicLink,
+        shareContentSubType,
       ),
     );
 

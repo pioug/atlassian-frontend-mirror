@@ -13,6 +13,7 @@ import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import type codeBlockPlugin from '../code-block';
 import type panelPlugin from '../panel';
+import type { LayoutPlugin } from '../layout';
 import type { RulePlugin } from '@atlaskit/editor-plugin-rule';
 import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
@@ -36,4 +37,5 @@ export type InsertBlockPluginDependencies = [
   OptionalPlugin<MediaPlugin>,
   OptionalPlugin<MentionsPlugin>,
   OptionalPlugin<StatusPlugin>,
+  OptionalPlugin<LayoutPlugin>,
 ];

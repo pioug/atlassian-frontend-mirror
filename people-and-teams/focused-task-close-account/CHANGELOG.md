@@ -1,5 +1,11 @@
 # @atlaskit/focused-task-close-account
 
+## 2.1.5
+
+### Patch Changes
+
+- [#41882](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41882) [`54e68dcc7da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54e68dcc7da) - Pass en-US as default locale
+
 ## 2.1.4
 
 ### Patch Changes

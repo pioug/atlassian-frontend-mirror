@@ -133,7 +133,7 @@ export default class TableFloatingControls extends Component<Props, State> {
         : undefined;
 
     return (
-      <div onMouseDown={(e) => e.preventDefault()}>
+      <div onMouseDown={(e) => !isDragAndDropEnabled && e.preventDefault()}>
         {isNumberColumnEnabled ? (
           <NumberColumn
             editorView={editorView}

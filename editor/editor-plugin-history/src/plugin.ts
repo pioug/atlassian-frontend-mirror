@@ -1,24 +1,12 @@
-import { pluginFactory } from '../../utils/plugin-state-factory';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import type { Dispatch } from '../../event-dispatcher';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import reducer from './reducer';
+import { pluginFactory } from '@atlaskit/editor-common/utils';
+
 import { HistoryActionTypes } from './actions';
+import { historyPluginKey } from './plugin-key';
+import reducer from './reducer';
+import type { HistoryPlugin, HistoryPluginState } from './types';
 import { getPmHistoryPluginState } from './utils';
-import type { HistoryPluginState } from './types';
-
-/**
- * Plugin that keeps track of whether undo and redo are currently available
- * This is needed so we can enable/disable controls appropriately
- *
- * Actual undo/redo functionality is handled by prosemirror-history:
- * https://github.com/ProseMirror/prosemirror-history
- */
-
-export const historyPluginKey = new PluginKey<HistoryPluginState>(
-  'historyPlugin',
-);
 
 const getInitialState = (): HistoryPluginState => ({
   canUndo: false,
@@ -37,7 +25,7 @@ const createPlugin = (dispatch: Dispatch) =>
     appendTransaction: (transactions, oldState, newState) => {
       if (
         transactions.find(
-          (tr) => tr.docChanged && tr.getMeta('addToHistory') !== false,
+          tr => tr.docChanged && tr.getMeta('addToHistory') !== false,
         )
       ) {
         const pmHistoryPluginState = getPmHistoryPluginState(newState);
@@ -62,9 +50,8 @@ const createPlugin = (dispatch: Dispatch) =>
     },
   });
 
-const historyPlugin: NextEditorPlugin<'history'> = () => ({
+const historyPlugin: HistoryPlugin = () => ({
   name: 'history',
-
   pmPlugins() {
     return [
       {
@@ -72,6 +59,13 @@ const historyPlugin: NextEditorPlugin<'history'> = () => ({
         plugin: ({ dispatch }) => createPlugin(dispatch),
       },
     ];
+  },
+  getSharedState: editorState => {
+    if (!editorState) {
+      return undefined;
+    }
+
+    return historyPluginKey.getState(editorState);
   },
 });
 

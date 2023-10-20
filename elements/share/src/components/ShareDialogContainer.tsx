@@ -385,6 +385,7 @@ export class ShareDialogContainerInternal extends React.Component<
       loadUserOptions,
       renderCustomTriggerButton,
       shareContentType,
+      shareContentSubType,
       shareFormTitle,
       shareFormHelperMessage,
       shouldCloseOnEscapePress,
@@ -431,6 +432,7 @@ export class ShareDialogContainerInternal extends React.Component<
             onShareSubmit={this.handleSubmitShare}
             renderCustomTriggerButton={renderCustomTriggerButton}
             shareContentType={shareContentType}
+            shareContentSubType={shareContentSubType}
             shareFormTitle={shareFormTitle}
             shareFormHelperMessage={shareFormHelperMessage}
             copyLinkOrigin={this.getCopyLinkOriginTracing()}

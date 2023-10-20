@@ -29,7 +29,10 @@ const DragControlsComponent = ({
   editorView,
 }: DragControlsProps & WrappedComponentProps) => {
   const rowHeights = getRowHeights(tableRef);
-  const heights = rowHeights.map((height) => `${height - 1}px`).join(' ');
+  const heights = rowHeights
+    .map((height, index) => `${height - 1}px`)
+    .join(' ');
+  const rowWidth = tableRef.offsetWidth;
 
   const onClick = (
     index: number,
@@ -53,10 +56,11 @@ const DragControlsComponent = ({
         gridTemplateRows: heights,
       }}
     >
-      {Number.isFinite(rowIndex) && (
+      {rowIndex !== undefined && Number.isFinite(rowIndex) && (
         <div
           style={{
             gridRow: `${(rowIndex as number) + 1} / span 1`,
+            display: 'flex',
           }}
         >
           <DragHandle
@@ -64,7 +68,9 @@ const DragControlsComponent = ({
             onMouseOver={onMouseOver}
             onMouseOut={onMouseOut}
             tableLocalId={getLocalId()}
-            indexes={[]}
+            indexes={[rowIndex]}
+            previewWidth={rowWidth}
+            previewHeight={rowHeights[rowIndex]}
           />
         </div>
       )}

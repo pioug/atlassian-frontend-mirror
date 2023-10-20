@@ -190,9 +190,22 @@ ${(
   />
 )}
 
+### Hide Link Icon
+
+Use \`hideIcon\` to hide the Link Icon.
+
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/title-block-hide-icon').default
+    }
+    source={require('!!raw-loader!../../../examples/content/title-block-hide-icon')}
+  />
+)}
+
 ### Hide link title tooltip [Experiment]
 
-Use \`hideTitleTooltip\` to hide the tooltip on link tilte.
+Use \`hideTitleTooltip\` to hide the tooltip on link title.
 
 ${(
   <CustomExample

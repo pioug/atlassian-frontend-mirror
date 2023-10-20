@@ -9,7 +9,13 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { getRandomHex } from '@atlaskit/media-common';
 import type { Slice, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import { DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/media-single';
 
+/**
+ * Ensure correct layout in nested mode
+ *
+ * TODO: this func is only used in handlePaste, so layout update won't work for drop event
+ */
 export function transformSliceForMedia(slice: Slice, schema: Schema) {
   const {
     mediaSingle,
@@ -17,8 +23,6 @@ export function transformSliceForMedia(slice: Slice, schema: Schema) {
     table,
     bulletList,
     orderedList,
-    media,
-    mediaInline,
     expand,
     nestedExpand,
   } = schema.nodes;
@@ -64,43 +68,6 @@ export function transformSliceForMedia(slice: Slice, schema: Schema) {
           : node;
       });
     }
-
-    const __mediaTraceId = getRandomHex(8);
-
-    newSlice = mapSlice(newSlice, (node) => {
-      // This logic is duplicated in editor-plugin-ai where external images can be inserted
-      // from external sources through the use of AI.  The editor-plugin-ai package is avoiding
-      // sharing dependencies with editor-core to support products using it with various versions
-      // of editor packages.
-      // The duplication is in the following file:
-      // packages/editor/editor-plugin-ai/src/prebuilt/content-transformers/markdown-to-pm/markdown-transformer.ts
-      if (node.type.name === 'media') {
-        return media.createChecked(
-          {
-            ...node.attrs,
-            __external: node.attrs.type === 'external',
-            __mediaTraceId:
-              node.attrs.type === 'external' ? null : __mediaTraceId,
-          },
-          node.content,
-          node.marks,
-        );
-      }
-
-      if (node.type.name === 'mediaInline') {
-        return mediaInline.createChecked(
-          {
-            ...node.attrs,
-            __mediaTraceId,
-          },
-          node.content,
-          node.marks,
-        );
-      }
-
-      return node;
-    });
-
     return newSlice;
   };
 }
@@ -129,7 +96,67 @@ export const transformSliceToCorrectMediaWrapper = (
         return mediaGroup.createChecked({}, [node]);
       }
     }
+    return node;
+  });
+};
 
+/**
+ * This func will be called when copy & paste, drag & drop external html with media, media files, and slices from editor
+ * Because width may not be available when transform, DEFAULT_IMAGE_WIDTH is used as a fallback
+ *
+ */
+export const transformSliceToMediaSingleWithNewExperience = (
+  slice: Slice,
+  schema: Schema,
+) => {
+  const { mediaInline, mediaSingle, media } = schema.nodes;
+  const newSlice = mapSlice(slice, (node) => {
+    // This logic is duplicated in editor-plugin-ai where external images can be inserted
+    // from external sources through the use of AI.  The editor-plugin-ai package is avoiding
+    // sharing dependencies with editor-core to support products using it with various versions
+    // of editor packages.
+    // The duplication is in the following file:
+    // packages/editor/editor-plugin-ai/src/prebuilt/content-transformers/markdown-to-pm/markdown-transformer.ts
+    if (node.type === mediaSingle) {
+      return getBooleanFF('platform.editor.media.extended-resize-experience')
+        ? mediaSingle.createChecked(
+            {
+              width: node.attrs.width || DEFAULT_IMAGE_WIDTH,
+              widthType: node.attrs.widthType || 'pixel',
+              layout: node.attrs.layout,
+            },
+            node.content,
+            node.marks,
+          )
+        : node;
+    }
+    return node;
+  });
+
+  return mapSlice(newSlice, (node) => {
+    const __mediaTraceId = getRandomHex(8);
+    if (node.type === media) {
+      return media.createChecked(
+        {
+          ...node.attrs,
+          __external: node.attrs.type === 'external',
+          __mediaTraceId:
+            node.attrs.type === 'external' ? null : __mediaTraceId,
+        },
+        node.content,
+        node.marks,
+      );
+    }
+    if (node.type.name === 'mediaInline') {
+      return mediaInline.createChecked(
+        {
+          ...node.attrs,
+          __mediaTraceId,
+        },
+        node.content,
+        node.marks,
+      );
+    }
     return node;
   });
 };

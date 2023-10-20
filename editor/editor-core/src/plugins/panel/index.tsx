@@ -35,7 +35,7 @@ import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { insertPanelWithAnalytics } from './actions';
 
-const panelPlugin: NextEditorPlugin<
+export type PanelPlugin = NextEditorPlugin<
   'panel',
   {
     pluginConfiguration: PanelPluginOptions | undefined;
@@ -47,7 +47,9 @@ const panelPlugin: NextEditorPlugin<
       insertPanel: (inputMethod: INPUT_METHOD) => Command;
     };
   }
-> = ({ config: options = {}, api }) => ({
+>;
+
+const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
   name: 'panel',
 
   nodes() {
@@ -173,13 +175,7 @@ const panelPlugin: NextEditorPlugin<
       return quickInsertOptions;
     },
     floatingToolbar: (state, intl, providerFactory) =>
-      getToolbarConfig(
-        state,
-        intl,
-        options,
-        providerFactory,
-        api?.decorations.actions.hoverDecoration,
-      ),
+      getToolbarConfig(state, intl, options, providerFactory, api),
   },
 });
 
@@ -223,4 +219,3 @@ function createPanelAction({
 }
 
 export default panelPlugin;
-export type PanelPlugin = typeof panelPlugin;

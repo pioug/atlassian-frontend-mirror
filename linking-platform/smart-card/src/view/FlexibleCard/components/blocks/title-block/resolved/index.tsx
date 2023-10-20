@@ -26,13 +26,14 @@ const TitleBlockResolvedView: React.FC<TitleBlockViewProps> = ({
   text,
   title,
   metadataPosition,
+  hideIcon = false,
   ...blockProps
 }) => {
   const metadataElements = renderElementItems(metadata);
   const subtitleElements = renderElementItems(subtitle);
   return (
     <Block {...blockProps} testId={`${testId}-resolved-view`}>
-      <LinkIcon position={position} />
+      {!hideIcon && <LinkIcon position={position} />}
       <ElementGroup
         direction={SmartLinkDirection.Vertical}
         width={SmartLinkWidth.Flexible}

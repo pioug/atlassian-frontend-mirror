@@ -1,0 +1,51 @@
+Drawer should have an accessible name or a reference to it, so that upon opening, users of assistive technologies could have contextual information of interaction with current element.
+
+## Examples
+
+This rule will indicate user with warning to strongly recommend usage of either `label` or `titleId` prop.
+
+### Incorrect
+
+```tsx
+<Drawer>
+ ^^^^^^ Missing either `label` or `titleId` prop.
+  Drawer content
+</Drawer>
+
+<Drawer label>
+        ^^^^^ `label` prop is missing value.
+  Drawer content
+</Drawer>
+
+<Drawer label="">
+        ^^^^^ `label` prop is missing accessible name value.
+  Drawer content
+</Drawer>
+
+<Drawer titleId>
+        ^^^^^^^ `titleId` prop is missing reference value.
+  <h1 id="drawer-title">Drawer content title</hi>
+</Drawer>
+
+<Drawer titleId="">
+        ^^^^^^^ `titleId` prop is missing reference value.
+  <h1 id="drawer-title">Drawer content title</hi>
+</Drawer>
+
+<Drawer titleId="drawer-title" label="">
+        ^^^^^^^                ^^^^^ Do not include both `titleId` and `label` properties. Use `titleId` if the label text is available in the DOM to reference it, otherwise use `label` to provide accessible name explicitly.
+  <h1 id="drawer-title">Drawer content title</hi>
+</Drawer>
+```
+
+### Correct
+
+```tsx
+<Drawer label="Drawer content title">
+  Drawer content
+</Drawer>
+
+<Drawer titleId="drawer-title">
+  <h1 id="drawer-title">Drawer content title</hi>
+</Drawer>
+```

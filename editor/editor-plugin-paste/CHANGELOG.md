@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-paste
 
+## 0.1.0
+
+### Minor Changes
+
+- [#41895](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41895) [`96066a06792`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96066a06792) - ED-20524: Adding shared state for paste plugin which will be used by new paste options toolbar plugin
+
 ## 0.0.1
 
 ### Patch Changes

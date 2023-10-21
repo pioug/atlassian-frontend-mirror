@@ -51,6 +51,7 @@ import {
   htmlHasInvalidLinkTags,
   removeDuplicateInvalidLinks,
   transformUnsupportedBlockCardToInline,
+  getPasteSource,
 } from '../util';
 import {
   transformSliceNestedExpandToExpand,
@@ -102,6 +103,8 @@ import type {
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import type { LastContentPasted } from '@atlaskit/editor-plugin-paste';
+import { PastePluginActionTypes } from '../actions';
 import type { PastePlugin } from '../';
 
 export function createPlugin(
@@ -174,6 +177,7 @@ export function createPlugin(
     key: stateKey,
     state: createPluginState(dispatch, {
       pastedMacroPositions: {},
+      lastContentPasted: null,
     }),
     props: {
       // For serialising to plain text
@@ -302,6 +306,30 @@ export function createPlugin(
           addLinkMetadata(view.state.selection, tr, {
             action: isPlainText ? ACTION.PASTED_AS_PLAIN : ACTION.PASTED,
             inputMethod: INPUT_METHOD.CLIPBOARD,
+          });
+
+          const pasteStartPos = Math.min(
+            state.selection.anchor,
+            state.selection.head,
+          );
+          const pasteEndPos = tr.selection.to;
+
+          const contentPasted: LastContentPasted = {
+            pasteStartPos,
+            pasteEndPos,
+            text,
+            isShiftPressed: Boolean(
+              (view as any).shiftKey || (view as any).input?.shiftKey,
+            ),
+            isPlainText: Boolean(isPlainText),
+            pastedSlice: tr.doc.slice(pasteStartPos, pasteEndPos),
+            pastedAt: Date.now(),
+            pasteSource: getPasteSource(event),
+          };
+
+          tr.setMeta(stateKey, {
+            type: PastePluginActionTypes.ON_PASTE,
+            contentPasted,
           });
 
           view.dispatch(tr);

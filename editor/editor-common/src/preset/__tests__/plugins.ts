@@ -158,7 +158,7 @@ describe('NextEditorPlugin: types', () => {
         const fakePlugin: ReturnType<PluginOneType> = {
           name: 'one',
           getSharedState(editorState) {
-            // This should not throw a ts error
+            // this should not throw a ts error
             isEditorState = true as IsEditorState<typeof editorState>;
 
             return 12;

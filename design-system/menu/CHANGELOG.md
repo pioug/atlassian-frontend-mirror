@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 2.1.1
+
+### Patch Changes
+
+- [#41915](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41915) [`99b579bdc84`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99b579bdc84) - Fix error in codemod
+
 ## 2.1.0
 
 ### Minor Changes

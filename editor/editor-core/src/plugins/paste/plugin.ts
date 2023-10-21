@@ -1,5 +1,6 @@
 import type { PastePlugin } from './types';
 import { createPlugin } from './pm-plugins/main';
+import { pluginKey } from './pm-plugins/plugin-factory';
 
 export const pastePlugin: PastePlugin = ({ config, api }) => {
   const { cardOptions, sanitizePrivateContent } = config ?? {};
@@ -29,6 +30,20 @@ export const pastePlugin: PastePlugin = ({ config, api }) => {
             ),
         },
       ];
+    },
+
+    getSharedState: (editorState) => {
+      if (!editorState) {
+        return {
+          lastContentPasted: null,
+        };
+      }
+
+      const pluginState = pluginKey.getState(editorState);
+
+      return {
+        lastContentPasted: pluginState.lastContentPasted,
+      };
     },
   };
 };

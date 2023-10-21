@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.13.0
+
+### Minor Changes
+
+- [#41825](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41825) [`f9641b28ed5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9641b28ed5) - Introducing new rule to encourage adding/referencing accessible name to a Drawer component.
+
 ## 8.12.1
 
 ### Patch Changes

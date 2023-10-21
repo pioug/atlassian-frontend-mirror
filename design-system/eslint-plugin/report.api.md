@@ -38,6 +38,7 @@ export const configs: {
       '@atlaskit/design-system/no-unsafe-design-token-usage': string;
       '@atlaskit/design-system/no-unsupported-drag-and-drop-libraries': string;
       '@atlaskit/design-system/prefer-primitives': string;
+      '@atlaskit/design-system/use-drawer-label': string;
       '@atlaskit/design-system/use-href-in-link-item': string;
       '@atlaskit/design-system/use-primitives': string;
       '@atlaskit/design-system/use-visually-hidden': string;
@@ -56,6 +57,7 @@ export const configs: {
       '@atlaskit/design-system/no-nested-styles': string;
       '@atlaskit/design-system/no-unsafe-design-token-usage': string;
       '@atlaskit/design-system/no-unsupported-drag-and-drop-libraries': string;
+      '@atlaskit/design-system/use-drawer-label': string;
       '@atlaskit/design-system/use-href-in-link-item': string;
       '@atlaskit/design-system/use-visually-hidden': string;
     };
@@ -129,6 +131,7 @@ export const rules: {
   'no-unsafe-design-token-usage': Rule.RuleModule;
   'no-unsupported-drag-and-drop-libraries': Rule.RuleModule;
   'prefer-primitives': Rule.RuleModule;
+  'use-drawer-label': Rule.RuleModule;
   'use-href-in-link-item': Rule.RuleModule;
   'use-primitives': Rule.RuleModule;
   'use-visually-hidden': Rule.RuleModule;

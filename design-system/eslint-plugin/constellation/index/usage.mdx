@@ -27,6 +27,7 @@ This plugin contains rules that should be used when working with the [Atlassian 
 | <a href="#no-unsafe-design-token-usage">no-unsafe-design-token-usage</a>                     | Enforces design token usage is statically and locally analyzable.                                                                                                                                                                                                                                                   | Yes         | Yes     |             |
 | <a href="#no-unsupported-drag-and-drop-libraries">no-unsupported-drag-and-drop-libraries</a> | Disallow importing unsupported drag and drop modules.                                                                                                                                                                                                                                                               | Yes         |         |             |
 | <a href="#prefer-primitives">prefer-primitives</a>                                           | Increase awareness of primitive components via code hints. Strictly used for education purposes and discoverability. To enforce usage please refer to the `use-primitives` rule.                                                                                                                                    |             |         |             |
+| <a href="#use-drawer-label">use-drawer-label</a>                                             | Encourages to provide accessible name for Atlassian Design System Drawer component.                                                                                                                                                                                                                                 | Yes         |         | Yes         |
 | <a href="#use-href-in-link-item">use-href-in-link-item</a>                                   | Inform developers of eventual requirement of `href` prop in `LinkItem` component. Elements with a `link` role require an `href` attribute for users to properly navigate, particularly those using assistive technologies. If no valid `href` is required for your use case, consider using a `ButtonItem` instead. | Yes         | Yes     | Yes         |
 | <a href="#use-primitives">use-primitives</a>                                                 | Encourage the usage of primitives components.                                                                                                                                                                                                                                                                       |             | Yes     | Yes         |
 | <a href="#use-visually-hidden">use-visually-hidden</a>                                       | Enforce usage of the visually hidden component.                                                                                                                                                                                                                                                                     | Yes         | Yes     |             |
@@ -665,6 +666,60 @@ This rule marks code as violations when it may be able to be replaced with a pri
 <Component>
   <Box xcss={someStyles}></Box>
 </Component>
+```
+
+## use-drawer-label
+
+Drawer should have an accessible name or a reference to it, so that upon opening, users of assistive technologies could have contextual information of interaction with current element.
+
+<h3>Examples</h3>
+
+This rule will indicate user with warning to strongly recommend usage of either `label` or `titleId` prop.
+
+#### Incorrect
+
+```tsx
+<Drawer>
+ ^^^^^^ Missing either `label` or `titleId` prop.
+  Drawer content
+</Drawer>
+
+<Drawer label>
+        ^^^^^ `label` prop is missing value.
+  Drawer content
+</Drawer>
+
+<Drawer label="">
+        ^^^^^ `label` prop is missing accessible name value.
+  Drawer content
+</Drawer>
+
+<Drawer titleId>
+        ^^^^^^^ `titleId` prop is missing reference value.
+  <h1 id="drawer-title">Drawer content title</hi>
+</Drawer>
+
+<Drawer titleId="">
+        ^^^^^^^ `titleId` prop is missing reference value.
+  <h1 id="drawer-title">Drawer content title</hi>
+</Drawer>
+
+<Drawer titleId="drawer-title" label="">
+        ^^^^^^^                ^^^^^ Do not include both `titleId` and `label` properties. Use `titleId` if the label text is available in the DOM to reference it, otherwise use `label` to provide accessible name explicitly.
+  <h1 id="drawer-title">Drawer content title</hi>
+</Drawer>
+```
+
+#### Correct
+
+```tsx
+<Drawer label="Drawer content title">
+  Drawer content
+</Drawer>
+
+<Drawer titleId="drawer-title">
+  <h1 id="drawer-title">Drawer content title</hi>
+</Drawer>
 ```
 
 ## use-href-in-link-item

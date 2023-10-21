@@ -133,44 +133,6 @@ function convertInvalidLinkItemsToButtonItems(
   });
 }
 
-function removeLinkItemImportIfNoLinkItemsExist(
-  j: core.JSCodeshift,
-  source: ReturnType<typeof j>,
-  specifier: string,
-) {
-  // Get all instances of LinkItem
-  const linkItemInstances = source.findJSXElements(specifier);
-
-  // if none, delete from imports
-  if (linkItemInstances.length === 0) {
-    source
-      .find(j.ImportDeclaration)
-      .filter((path) => path.node.source.value === pkg)
-      .forEach((moduleImport) => {
-        j(moduleImport).replaceWith(
-          j.importDeclaration(
-            moduleImport.node.specifiers &&
-              moduleImport.node.specifiers
-                .filter(
-                  // This should be `ImportSpecifier | ImportDefaultSpecifier |
-                  // ImportNamespaceSpecifier` but it still throws even though
-                  // I'm filtering
-                  (
-                    currentSpecifier: any,
-                  ): currentSpecifier is ImportSpecifier =>
-                    currentSpecifier?.imported,
-                )
-                .filter(
-                  (currentSpecifier: ImportSpecifier) =>
-                    currentSpecifier.imported.name !== specifier,
-                ),
-            moduleImport.node.source,
-          ),
-        );
-      });
-  }
-}
-
 function hasImportDeclaration(
   j: core.JSCodeshift,
   source: ReturnType<typeof j>,
@@ -193,7 +155,6 @@ export default function transformer(
 
     if (importSpecifier != null) {
       convertInvalidLinkItemsToButtonItems(j, source, importSpecifier);
-      removeLinkItemImportIfNoLinkItemsExist(j, source, importSpecifier);
     }
 
     return source.toSource(

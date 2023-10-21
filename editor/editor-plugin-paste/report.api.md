@@ -24,6 +24,20 @@ import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { PasteSource } from '@atlaskit/editor-common/analytics';
+import type { Slice } from '@atlaskit/editor-prosemirror/model';
+
+// @public (undocumented)
+export type LastContentPasted = {
+  isPlainText: boolean;
+  text?: string;
+  isShiftPressed: boolean;
+  pasteStartPos: number;
+  pasteEndPos: number;
+  pastedSlice: Slice;
+  pastedAt: number;
+  pasteSource: PasteSource;
+};
 
 // @public (undocumented)
 export type PastePlugin = NextEditorPlugin<
@@ -38,6 +52,9 @@ export type PastePlugin = NextEditorPlugin<
       OptionalPlugin<AnalyticsPlugin>,
       OptionalPlugin<MediaPlugin>,
     ];
+    sharedState: {
+      lastContentPasted: LastContentPasted | null;
+    };
   }
 >;
 
@@ -49,6 +66,8 @@ export type PastePluginOptions = {
 
 // @public (undocumented)
 export interface PastePluginState {
+  // (undocumented)
+  lastContentPasted: LastContentPasted | null;
   pastedMacroPositions: {
     [key: string]: number;
   };

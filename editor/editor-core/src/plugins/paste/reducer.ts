@@ -1,8 +1,6 @@
-import { PastePluginState as State } from './types';
-import {
-  PastePluginActionTypes as ActionTypes,
-  PastePluginAction as Action,
-} from './actions';
+import type { PastePluginState as State } from './types';
+import type { PastePluginAction as Action } from './actions';
+import { PastePluginActionTypes as ActionTypes } from './actions';
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -22,6 +20,9 @@ export const reducer = (state: State, action: Action): State => {
         ),
       );
       return { ...state, pastedMacroPositions: filteredMacroPositions };
+    }
+    case ActionTypes.ON_PASTE: {
+      return { ...state, lastContentPasted: action.contentPasted };
     }
     default:
       return state;

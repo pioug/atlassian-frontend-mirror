@@ -89,7 +89,7 @@ describe('Converts link items with invalid or missing `href` to button items', (
       }
     `,
     `
-      import { ButtonItem } from '@atlaskit/menu';
+      import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
         return <ButtonItem>test</ButtonItem>;
@@ -109,7 +109,7 @@ describe('Converts link items with invalid or missing `href` to button items', (
       }
     `,
     `
-      import { ButtonItem } from '@atlaskit/menu';
+      import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
         return <ButtonItem id="test">test</ButtonItem>;
@@ -135,7 +135,7 @@ describe('Converts link items with invalid or missing `href` to button items', (
       }
     `,
     `
-      import { ButtonItem } from '@atlaskit/menu';
+      import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
         return <ButtonItem>test</ButtonItem>;
@@ -155,7 +155,7 @@ describe('Converts link items with invalid or missing `href` to button items', (
       }
     `,
     `
-      import { ButtonItem } from '@atlaskit/menu';
+      import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
         return <ButtonItem id="test">test</ButtonItem>;
@@ -175,7 +175,7 @@ describe('Converts link items with invalid or missing `href` to button items', (
       }
     `,
     `
-      import { ButtonItem } from '@atlaskit/menu';
+      import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
         return <ButtonItem>test</ButtonItem>;
@@ -201,7 +201,7 @@ describe('Converts link items with invalid or missing `href` to button items', (
       }
     `,
     `
-      import { ButtonItem } from '@atlaskit/menu';
+      import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
         return <ButtonItem>test</ButtonItem>;
@@ -232,7 +232,7 @@ describe('Converts link items with invalid or missing `href` to button items', (
       }
     `,
     `
-      import { ButtonItem } from '@atlaskit/menu';
+      import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
         return (
@@ -262,7 +262,7 @@ describe('Converts link items with invalid or missing `href` to button items', (
       }
     `,
     `
-      import { CustomItem, ButtonItem } from '@atlaskit/menu';
+      import { LinkItem, CustomItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
         return (
@@ -273,7 +273,7 @@ describe('Converts link items with invalid or missing `href` to button items', (
         );
       }
   `,
-    'Should not delete other imports',
+    'Should not delete any imports',
   );
 
   defineInlineTest(

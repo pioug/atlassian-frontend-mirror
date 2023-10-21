@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::77c3fb2b0891614695791b558527948a>>
+ * @codegen <<SignedSource::c5844c54692156b8d604fd5994082abe>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -17,6 +17,7 @@ import noPhysicalProperties from './no-physical-properties';
 import noUnsafeDesignTokenUsage from './no-unsafe-design-token-usage';
 import noUnsupportedDragAndDropLibraries from './no-unsupported-drag-and-drop-libraries';
 import preferPrimitives from './prefer-primitives';
+import useDrawerLabel from './use-drawer-label';
 import useHrefInLinkItem from './use-href-in-link-item';
 import usePrimitives from './use-primitives';
 import useVisuallyHidden from './use-visually-hidden';
@@ -36,6 +37,7 @@ export default {
   'no-unsafe-design-token-usage': noUnsafeDesignTokenUsage,
   'no-unsupported-drag-and-drop-libraries': noUnsupportedDragAndDropLibraries,
   'prefer-primitives': preferPrimitives,
+  'use-drawer-label': useDrawerLabel,
   'use-href-in-link-item': useHrefInLinkItem,
   'use-primitives': usePrimitives,
   'use-visually-hidden': useVisuallyHidden,

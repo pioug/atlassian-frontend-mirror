@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 76.13.1
+
+### Patch Changes
+
+- [#41895](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41895) [`165575d29eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/165575d29eb) - ED-20546: Dummy commit for confluence pipeline issue
+
 ## 76.13.0
 
 ### Minor Changes

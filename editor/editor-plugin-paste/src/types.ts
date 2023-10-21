@@ -1,3 +1,4 @@
+import type { PasteSource } from '@atlaskit/editor-common/analytics';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import type {
   NextEditorPlugin,
@@ -9,11 +10,24 @@ import type { CardPlugin } from '@atlaskit/editor-plugin-card';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
+import type { Slice } from '@atlaskit/editor-prosemirror/model';
 
 export interface PastePluginState {
   /** map of pasted macro link positions that will to be mapped through incoming transactions */
   pastedMacroPositions: { [key: string]: number };
+  lastContentPasted: LastContentPasted | null;
 }
+
+export type LastContentPasted = {
+  isPlainText: boolean;
+  text?: string;
+  isShiftPressed: boolean;
+  pasteStartPos: number;
+  pasteEndPos: number;
+  pastedSlice: Slice;
+  pastedAt: number;
+  pasteSource: PasteSource;
+};
 
 export type PastePluginOptions = {
   cardOptions?: CardOptions;
@@ -32,5 +46,8 @@ export type PastePlugin = NextEditorPlugin<
       OptionalPlugin<AnalyticsPlugin>,
       OptionalPlugin<MediaPlugin>,
     ];
+    sharedState: {
+      lastContentPasted: LastContentPasted | null;
+    };
   }
 >;

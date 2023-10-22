@@ -24,14 +24,9 @@ import {
 } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import type {
-  Cell,
-  CellColumnPositioning,
-  CellHoverCoordinates,
-} from '../types';
+import type { Cell, CellColumnPositioning } from '../types';
 import { TableCssClassName as ClassName, TableDecorations } from '../types';
 import { ColumnResizeWidget } from '../ui/ColumnResizeWidget';
-import { DragHandle } from '../ui/DragHandle';
 
 const filterDecorationByKey = (
   key: TableDecorations,
@@ -212,48 +207,11 @@ export const createColumnSelectedDecoration = (
 
 export const createColumnControlsDecoration = (
   selection: Selection,
-  hoverLocation?: CellHoverCoordinates,
 ): Decoration[] => {
-  // todo: issue here where table may not be selected yet
   const cells: ContentNodeWithPos[] = getCellsInRow(0)(selection) || [];
-  const table = findTable(selection);
 
-  if (
-    getBooleanFF('platform.editor.table.drag-and-drop') &&
-    hoverLocation &&
-    !Number.isNaN(hoverLocation?.colIndex) &&
-    table
-  ) {
-    const colIndex = hoverLocation.colIndex as number;
-    const cell = cells[colIndex];
-    return [
-      Decoration.widget(
-        cell.pos + 1,
-        () => {
-          const element = document.createElement('div');
-          element.classList.add(
-            ClassName.COLUMN_CONTROLS_DECORATIONS_WITH_DRAG,
-          );
-          ReactDOM.render(
-            createElement(DragHandle, {
-              tableLocalId: table.node.attrs.localId,
-              direction: 'column',
-              indexes: [colIndex],
-            }),
-            element,
-          );
-          return element;
-        },
-        {
-          key: `${TableDecorations.COLUMN_CONTROLS_DECORATIONS}_${colIndex}`,
-          // this decoration should be the first one, even before gap cursor.
-          side: -100,
-          destroy: (node) => {
-            ReactDOM.unmountComponentAtNode(node as HTMLDivElement);
-          },
-        },
-      ),
-    ];
+  if (getBooleanFF('platform.editor.table.drag-and-drop')) {
+    return [];
   } else {
     let index = 0;
     return cells.map((cell) => {

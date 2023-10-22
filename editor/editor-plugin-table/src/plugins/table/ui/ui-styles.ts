@@ -380,27 +380,51 @@ export const floatingColumnControls = (props: ThemeProps) => {
     .${ClassName.COLUMN_DROP_TARGET_CONTROLS} {
       box-sizing: border-box;
       position: absolute;
+      top: 0;
+      z-index: -1;
 
       .${ClassName.COLUMN_CONTROLS_INNER} {
         display: flex;
         flex-direction: row;
       }
     }
+
+    .${ClassName.COLUMN_CONTROLS_WITH_DRAG} {
+      box-sizing: border-box;
+
+      .${ClassName.COLUMN_CONTROLS_INNER} {
+        display: grid;
+        justify-items: center;
+      }
+    }
   `;
 };
 
-export const columnControlsDecoration = (props: ThemeProps) => {
+export const rowControlsWrapperDotStyle = (props: ThemeProps) => {
   if (getBooleanFF('platform.editor.table.drag-and-drop')) {
     return css`
-      .${ClassName.COLUMN_CONTROLS_DECORATIONS_WITH_DRAG} {
+      div.${ClassName.WITH_CONTROLS}>.${ClassName.ROW_CONTROLS_WRAPPER}::after {
+        display: none;
+      }
+    `;
+  } else {
+    return css`
+      div.${ClassName.WITH_CONTROLS}>.${ClassName.ROW_CONTROLS_WRAPPER}::after {
+        content: ' ';
+        background-color: ${tableBorderColor(props)};
         position: absolute;
-        // kinda a hacky way to center an element with absolute positioning inside a relative element
-        top: 25%;
-        left: 50%;
-        transform: translate(-50%, -100%);
+        height: ${lineMarkerSize}px;
+        width: ${lineMarkerSize}px;
+        border-radius: 50%;
+        pointer-events: none;
+        top: -${tableToolbarSize + tableCellBorderWidth}px;
+        right: -1px;
       }
     `;
   }
+};
+
+export const columnControlsDecoration = (props: ThemeProps) => {
   if (getBooleanFF('platform.editor.table.column-controls-styles-updated')) {
     return css`
       .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
@@ -451,18 +475,6 @@ export const columnControlsDecoration = (props: ThemeProps) => {
 
       // floating dot for adding column button - overriding style on last column to avoid scroll
       ${getFloatingDotOverrides(props)}
-
-      div.${ClassName.WITH_CONTROLS}>.${ClassName.ROW_CONTROLS_WRAPPER}::after {
-        content: ' ';
-        background-color: ${tableBorderColor(props)};
-        position: absolute;
-        height: ${lineMarkerSize}px;
-        width: ${lineMarkerSize}px;
-        border-radius: 50%;
-        pointer-events: none;
-        top: -${tableToolbarSize + tableCellBorderWidth}px;
-        right: -1px;
-      }
 
       .${ClassName.WITH_CONTROLS} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
         display: block;
@@ -571,18 +583,6 @@ export const columnControlsDecoration = (props: ThemeProps) => {
 
       // floating dot for adding column button - overriding style on last column to avoid scroll
       ${getFloatingDotOverrides(props)}
-
-      div.${ClassName.WITH_CONTROLS}>.${ClassName.ROW_CONTROLS_WRAPPER}::after {
-        content: ' ';
-        background-color: ${tableBorderColor(props)};
-        position: absolute;
-        height: ${lineMarkerSize}px;
-        width: ${lineMarkerSize}px;
-        border-radius: 50%;
-        pointer-events: none;
-        top: -${tableToolbarSize + tableCellBorderWidth}px;
-        right: -1px;
-      }
 
       .${ClassName.WITH_CONTROLS} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
         display: block;

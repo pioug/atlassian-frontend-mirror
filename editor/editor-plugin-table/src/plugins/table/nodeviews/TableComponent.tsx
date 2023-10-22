@@ -436,21 +436,21 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     );
 
     const colControls = (
-      <div className={ClassName.COLUMN_CONTROLS_WRAPPER}>
-        <TableFloatingColumnControls
-          editorView={view}
-          tableRef={tableRef}
-          tableActive={tableActive}
-          hoveredRows={hoveredRows}
-          ordering={ordering}
-          hasHeaderRow={hasHeaderRow}
-          // pass `selection` and `tableHeight` to control re-render
-          selection={view.state.selection}
-          headerRowHeight={headerRow ? headerRow.offsetHeight : undefined}
-          stickyHeader={this.state.stickyHeader}
-          getEditorFeatureFlags={this.props.getEditorFeatureFlags}
-        />
-      </div>
+      <TableFloatingColumnControls
+        editorView={view}
+        tableRef={tableRef}
+        tableActive={tableActive}
+        hoveredRows={hoveredRows}
+        hoveredCell={hoveredCell}
+        isResizing={isResizing}
+        ordering={ordering}
+        hasHeaderRow={hasHeaderRow}
+        // pass `selection` and `tableHeight` to control re-render
+        selection={view.state.selection}
+        headerRowHeight={headerRow ? headerRow.offsetHeight : undefined}
+        stickyHeader={this.state.stickyHeader}
+        getEditorFeatureFlags={this.props.getEditorFeatureFlags}
+      />
     );
 
     const shadowPadding =

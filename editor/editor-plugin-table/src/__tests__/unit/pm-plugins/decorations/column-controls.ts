@@ -15,7 +15,7 @@ import { buildColumnControlsDecorations } from '../../../../plugins/table/pm-plu
 import { TableDecorations } from '../../../../plugins/table/types';
 
 describe('tables: column controls decorations', () => {
-  describe(`should return a decorationSet with 2 ${TableDecorations.COLUMN_CONTROLS_DECORATIONS} type`, () => {
+  describe(`should return a decorationSet with 2 ${TableDecorations.COLUMN_CONTROLS_DECORATIONS} type when drag and drop disabled`, () => {
     ffTest(
       'platform.editor.table.drag-and-drop',
       () => {
@@ -32,7 +32,7 @@ describe('tables: column controls decorations', () => {
           (spec: any) => spec.key.indexOf(decorationKey) > -1,
         );
 
-        expect(decorations).toHaveLength(2);
+        expect(decorations).toHaveLength(0);
       },
       () => {
         const decorationKey = TableDecorations.COLUMN_CONTROLS_DECORATIONS;

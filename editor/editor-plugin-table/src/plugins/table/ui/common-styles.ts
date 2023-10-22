@@ -69,6 +69,7 @@ import {
   insertRowButtonWrapper,
   OverflowShadow,
   resizeHandle,
+  rowControlsWrapperDotStyle,
 } from './ui-styles';
 
 const cornerControlHeight = tableToolbarSize + 1;
@@ -573,6 +574,7 @@ export const tableStyles = (
     ${breakoutWidthStyling()}
 
     ${columnControlsDecoration(props)};
+    ${rowControlsWrapperDotStyle(props)};
 
     /* Corner controls */
     .${ClassName.CORNER_CONTROLS} {
@@ -830,10 +832,6 @@ export const tableStyles = (
       }
 
       .${ClassName.COLUMN_CONTROLS_DECORATIONS} + * {
-        margin-top: 0;
-      }
-
-      .${ClassName.COLUMN_CONTROLS_DECORATIONS_WITH_DRAG} + * {
         margin-top: 0;
       }
 

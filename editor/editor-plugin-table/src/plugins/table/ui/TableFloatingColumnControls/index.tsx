@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
+import ReactDOM from 'react-dom';
+
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
@@ -7,7 +9,10 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
+import type { CellHoverCoordinates } from '../../types';
+import { TableCssClassName as ClassName } from '../../types';
 
+import { ColumnControls } from './ColumnControls';
 import { ColumnDropTargets } from './ColumnDropTargets';
 
 export interface Props {
@@ -19,6 +24,8 @@ export interface Props {
   hasHeaderRow?: boolean;
   headerRowHeight?: number;
   hoveredRows?: number[];
+  hoveredCell?: CellHoverCoordinates;
+  isResizing?: boolean;
   ordering?: TableColumnOrdering;
   stickyHeader?: RowStickyState;
 }
@@ -28,6 +35,8 @@ export const TableFloatingColumnControls: React.FC<Props> = ({
   tableRef,
   tableActive,
   hasHeaderRow,
+  hoveredCell,
+  isResizing,
   stickyHeader,
   selection,
 }) => {
@@ -80,12 +89,24 @@ export const TableFloatingColumnControls: React.FC<Props> = ({
       ? stickyHeader.top
       : undefined;
 
-  return (
-    <div
-      onMouseDown={(e) => e.preventDefault()}
-      data-testid="table-floating-column-controls-wrapper"
-    >
-      {tableActive && (
+  const mountTo = (tableRef && tableRef?.parentElement) || document.body;
+
+  return ReactDOM.createPortal(
+    <div className={ClassName.COLUMN_CONTROLS_WRAPPER}>
+      <div
+        onMouseDown={(e) => e.preventDefault()}
+        data-testid="table-floating-column-controls-wrapper"
+      >
+        <ColumnControls
+          editorView={editorView}
+          hoveredCell={hoveredCell}
+          tableRef={tableRef}
+          isResizing={isResizing}
+          tableActive={tableActive}
+          stickyTop={tableActive ? stickyTop : undefined}
+          tableHeight={tableRect.height}
+          localId={selectedLocalId}
+        />
         <ColumnDropTargets
           editorView={editorView}
           tableRef={tableRef}
@@ -93,8 +114,9 @@ export const TableFloatingColumnControls: React.FC<Props> = ({
           tableHeight={tableRect.height}
           localId={selectedLocalId}
         />
-      )}
-    </div>
+      </div>
+    </div>,
+    mountTo,
   );
 };
 

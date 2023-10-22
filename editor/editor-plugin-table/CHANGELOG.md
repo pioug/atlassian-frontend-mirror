@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.8
+
+### Patch Changes
+
+- [#41909](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41909) [`b122e4659bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b122e4659bc) - Use floating column control buttons insetead of column controls implemented as decorations
+
 ## 5.3.7
 
 ### Patch Changes

@@ -299,7 +299,7 @@ export const TableCssClassName = {
   CONTROLS_CORNER_BUTTON: `${tablePrefixSelector}-corner-button`,
 
   /** Controls with drag handle */
-  COLUMN_CONTROLS_DECORATIONS_WITH_DRAG: `${tablePrefixSelector}-column-controls-decoration-with-drag`,
+  COLUMN_CONTROLS_WITH_DRAG: `${tablePrefixSelector}-column-controls-with-drag`,
   ROW_CONTROLS_WITH_DRAG: `${tablePrefixSelector}-row-controls-with-drag`,
   DRAG_HANDLE_BUTTON_CONTAINER: `${tablePrefixSelector}-drag-handle-button-container`,
 

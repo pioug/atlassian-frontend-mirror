@@ -8,6 +8,7 @@ import type {
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { pluginKey as tablePluginKey } from '../plugin-key';
 import { pluginKey as tableWidthPluginKey } from '../table-width';
@@ -33,8 +34,8 @@ export const handleDocOrSelectionChanged = (
 
   const changedResizing = isResizing !== wasResizing;
 
-  // Remove column controls when resizing
-  if (isResizing) {
+  // Remove column controls when resizing and don't add column decoration controls when DnD enabled
+  if (isResizing || getBooleanFF('platform.editor.table.drag-and-drop')) {
     return DecorationSet.empty;
   } else if (
     tr.docChanged ||

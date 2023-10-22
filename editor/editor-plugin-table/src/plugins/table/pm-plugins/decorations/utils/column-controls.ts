@@ -60,7 +60,7 @@ const maybeUpdateColumnControlsDecoration: DecorationTransformer = ({
   return updateDecorations(
     tr.doc,
     decorationSet,
-    createColumnControlsDecoration(tr.selection, meta?.data?.hoveredCell),
+    createColumnControlsDecoration(tr.selection),
     TableDecorations.COLUMN_CONTROLS_DECORATIONS,
   );
 };

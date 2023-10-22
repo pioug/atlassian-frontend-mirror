@@ -46,7 +46,6 @@ export {
   isColumnControlsDecorations,
   isTableControlsButton,
   isTableContainerOrWrapper,
-  isColumnDragControlsDecorations,
   isRowDragControlsButton,
   isRowControlsButton,
   getColumnOrRowIndex,

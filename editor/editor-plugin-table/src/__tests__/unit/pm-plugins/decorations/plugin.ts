@@ -108,38 +108,88 @@ describe('decorations plugin', () => {
   });
 
   describe('when the hovered cell state changes', () => {
-    describe('should add column control decorations', () => {
-      ffTest('platform.editor.table.drag-and-drop', () => {
-        const pluginState = DecorationSet.empty;
-        const { editorView } = editor(
-          doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
-        );
+    describe('should not add column control decorations', () => {
+      ffTest(
+        'platform.editor.table.drag-and-drop',
+        () => {
+          const pluginState = DecorationSet.empty;
+          const { editorView } = editor(
+            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+          );
 
-        const transaction = editorView.state.tr.setMeta(pluginKey, {
-          type: 'HOVER_CELL',
-          data: {
-            colIndex: 0,
-            rowIndex: 0,
-          },
-        });
+          const transaction = editorView.state.tr.setMeta(pluginKey, {
+            type: 'HOVER_CELL',
+            data: {
+              colIndex: 0,
+              rowIndex: 0,
+            },
+          });
 
-        const oldState = handleDocOrSelectionChanged(
-          transaction,
-          pluginState,
-          editorView.state,
-          editorView.state,
-        );
+          const oldState = handleDocOrSelectionChanged(
+            transaction,
+            pluginState,
+            editorView.state,
+            editorView.state,
+          );
 
-        editorView.dispatch(transaction);
-        const newState = handleDocOrSelectionChanged(
-          transaction,
-          oldState,
-          editorView.state,
-          editorView.state,
-        );
+          editorView.dispatch(transaction);
+          const newState = handleDocOrSelectionChanged(
+            transaction,
+            oldState,
+            editorView.state,
+            editorView.state,
+          );
 
-        expect(oldState).not.toEqual(newState);
-      });
+          const columnDecorations = newState.find(
+            undefined,
+            undefined,
+            (spec) =>
+              spec.key.indexOf(TableDecorations.COLUMN_CONTROLS_DECORATIONS) >
+              -1,
+          );
+
+          expect(columnDecorations).toHaveLength(0);
+        },
+        () => {
+          const pluginState = DecorationSet.empty;
+          const { editorView } = editor(
+            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+          );
+
+          const transaction = editorView.state.tr.setMeta(pluginKey, {
+            type: 'HOVER_CELL',
+            data: {
+              colIndex: 0,
+              rowIndex: 0,
+            },
+          });
+
+          const oldState = handleDocOrSelectionChanged(
+            transaction,
+            pluginState,
+            editorView.state,
+            editorView.state,
+          );
+
+          editorView.dispatch(transaction);
+          const newState = handleDocOrSelectionChanged(
+            transaction,
+            oldState,
+            editorView.state,
+            editorView.state,
+          );
+
+          const columnDecorations = newState.find(
+            undefined,
+            undefined,
+            (spec) =>
+              spec.key.indexOf(TableDecorations.COLUMN_CONTROLS_DECORATIONS) >
+              -1,
+          );
+
+          expect(columnDecorations).toHaveLength(2);
+        },
+      );
     });
   });
 
@@ -169,7 +219,7 @@ describe('decorations plugin', () => {
   });
 
   describe('when the table changed', () => {
-    describe('should re-create the column controls decorations', () => {
+    describe('should not re-create the column controls decorations', () => {
       ffTest(
         'platform.editor.table.drag-and-drop',
         () => {
@@ -203,7 +253,7 @@ describe('decorations plugin', () => {
               -1,
           );
 
-          expect(decorations).toHaveLength(3);
+          expect(decorations).toHaveLength(0);
         },
         () => {
           const { editorView } = editor(

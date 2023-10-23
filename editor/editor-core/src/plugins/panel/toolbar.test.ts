@@ -6,7 +6,6 @@ import { getToolbarItems, panelIconMap } from './toolbar';
 import type { IntlShape, MessageDescriptor } from 'react-intl-next';
 import { createIntl } from 'react-intl-next';
 import * as actions from '../panel/actions';
-import type { PanelOptions } from './pm-plugins/main';
 import type {
   FloatingToolbarButton,
   FloatingToolbarColorPicker,
@@ -39,6 +38,9 @@ import { G75 } from '@atlaskit/theme/colors';
 import type { EmojiId } from '@atlaskit/emoji';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+
+const setNodeMarkupSpy = jest.spyOn(Transaction.prototype, 'setNodeMarkup');
 
 const dummyFormatMessage = (messageDescriptor: MessageDescriptor) =>
   (messageDescriptor.defaultMessage as string) || '';
@@ -201,14 +203,16 @@ describe('getToolbarItems', () => {
       (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(emojiId)(
         editorView.state,
       );
-      expect(changePanelTypespy).toBeCalledWith(
-        PanelType.CUSTOM,
-        {
-          emoji: ':smiley:',
-          emojiId: '1f603',
-          emojiText: '😃',
-        } as PanelOptions,
-        true,
+      expect(setNodeMarkupSpy).toBeCalledWith(
+        expect.any(Number),
+        expect.any(Object),
+        expect.objectContaining({
+          panelType: PanelType.CUSTOM,
+          panelIcon: ':smiley:',
+          panelIconId: '1f603',
+          panelIconText: '😃',
+          panelColor: '#DEEBFF',
+        }),
       );
     });
 
@@ -230,15 +234,15 @@ describe('getToolbarItems', () => {
         })(editorView.state);
 
         const emojiInfo = panelIconMap[value];
-        expect(changePanelTypespy).toBeCalledWith(
-          PanelType.CUSTOM,
-          {
-            /* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */
-            color: G75,
-            emoji: emojiInfo.shortName,
-            emojiId: emojiInfo.id,
-          } as PanelOptions,
-          true,
+        expect(setNodeMarkupSpy).toBeCalledWith(
+          expect.any(Number),
+          expect.any(Object),
+          expect.objectContaining({
+            panelType: PanelType.CUSTOM,
+            panelIcon: emojiInfo.shortName,
+            panelIconId: emojiInfo.id,
+            panelColor: G75,
+          }),
         );
       },
     );
@@ -252,10 +256,13 @@ describe('getToolbarItems', () => {
 
       removeEmojiButton!.onClick(editorView.state);
 
-      expect(changePanelTypespy).toBeCalledWith(
-        PanelType.CUSTOM,
-        { emoji: undefined } as PanelOptions,
-        true,
+      expect(setNodeMarkupSpy).toBeCalledWith(
+        expect.any(Number),
+        expect.any(Object),
+        expect.objectContaining({
+          panelType: PanelType.CUSTOM,
+          panelIcon: undefined,
+        }),
       );
     });
 
@@ -467,7 +474,7 @@ describe('getToolbarItems', () => {
         eventType: EVENT_TYPE.TRACK,
       };
       expect(editorAPI?.analytics?.actions?.attachAnalyticsEvent).nthCalledWith(
-        2,
+        4,
         payload,
         undefined,
       );
@@ -489,7 +496,7 @@ describe('getToolbarItems', () => {
 
       expect(
         editorAPI?.analytics?.actions?.attachAnalyticsEvent,
-      ).toHaveBeenCalledTimes(1);
+      ).toHaveBeenCalledTimes(2);
 
       (colorPickerConfig as FloatingToolbarColorPicker<any>)!.onChange({
         label: 'Mintie',
@@ -499,10 +506,15 @@ describe('getToolbarItems', () => {
 
       expect(
         editorAPI?.analytics?.actions.attachAnalyticsEvent,
-      ).toHaveBeenCalledTimes(1);
+      ).toHaveBeenCalledTimes(3);
+      expect(
+        editorAPI?.analytics?.actions?.attachAnalyticsEvent,
+      ).not.toHaveBeenNthCalledWith(3, {
+        action: 'changedBackgroundColor',
+      });
     });
 
-    it('Should not fire analtyics when same emoji is selected', () => {
+    it('Should not fire analytics when same emoji is selected', () => {
       const emojiPickerConfig = itemsWithCustomPanelEnabled.find(
         (item) => item.type === 'select' && item.selectType === 'emoji',
       );
@@ -518,7 +530,7 @@ describe('getToolbarItems', () => {
 
       expect(
         editorAPI?.analytics?.actions?.attachAnalyticsEvent,
-      ).toHaveBeenCalledTimes(1);
+      ).toHaveBeenCalledTimes(2);
 
       (emojiPickerConfig as FloatingToolbarEmojiPicker<any>)!.onChange(emojiId)(
         editorView.state,
@@ -526,7 +538,10 @@ describe('getToolbarItems', () => {
       );
       expect(
         editorAPI?.analytics?.actions?.attachAnalyticsEvent,
-      ).toHaveBeenCalledTimes(1);
+      ).toHaveBeenCalledTimes(3);
+      expect(
+        editorAPI?.analytics?.actions?.attachAnalyticsEvent,
+      ).not.toHaveBeenNthCalledWith(3, { action: 'changedIcon' });
     });
   });
 });

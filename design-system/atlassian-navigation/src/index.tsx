@@ -19,6 +19,8 @@ export type { PrimaryButtonProps } from './components/PrimaryButton/types';
 export { PrimaryDropdownButton } from './components/PrimaryDropdownButton';
 export type { PrimaryDropdownButtonProps } from './components/PrimaryDropdownButton/types';
 
+export { PrimarySplitButton } from './components/PrimarySplitButton';
+
 export { IconButton } from './components/IconButton';
 export type { IconButtonProps } from './components/IconButton/types';
 

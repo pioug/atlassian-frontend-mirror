@@ -21,7 +21,6 @@ import {
 import panelPlugin from '../../../../plugins/panel';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
-import deprecatedAnalyticsPlugin from '../../../../plugins/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { selectNode } from '@atlaskit/editor-common/selection';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -40,7 +39,6 @@ describe('panel actions', () => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, { createAnalyticsEvent }])
-      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
       .add(decorationsPlugin)
       .add(typeAheadPlugin)
       .add([panelPlugin, { allowCustomPanel, allowCustomPanelEdit }])
@@ -55,7 +53,7 @@ describe('panel actions', () => {
         doc(panel({ panelType: 'info' })(p('text{<>}')), p('hello')),
       );
 
-      removePanel()(editorView.state, editorView.dispatch);
+      removePanel(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(doc(p('{<>}hello')));
     });
 
@@ -64,16 +62,19 @@ describe('panel actions', () => {
         doc('{<node>}', panel({ panelType: 'info' })(p('text')), p('hello')),
       );
 
-      removePanel()(editorView.state, editorView.dispatch);
+      removePanel(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(doc(p('{<>}hello')));
     });
 
     it('trigger GAS3 analytics when deleted via toolbar', () => {
-      const { editorView } = editor(
+      const { editorView, editorAPI } = editor(
         doc(panel({ panelType: 'info' })(p('text{<>}'))),
       );
 
-      removePanel()(editorView.state, editorView.dispatch);
+      removePanel(editorAPI?.analytics?.actions)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: 'deleted',
         actionSubject: 'panel',
@@ -92,7 +93,10 @@ describe('panel actions', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      changePanelType(PanelType.ERROR)(editorView.state, editorView.dispatch);
+      changePanelType(undefined)(PanelType.ERROR)(
+        editorView.state,
+        editorView.dispatch,
+      );
 
       const expectedDoc = doc(
         panel({ panelType: 'error' })(
@@ -108,11 +112,14 @@ describe('panel actions', () => {
       it(`trigger GAS3 analytics when changing panel type to ${type}`, () => {
         let startType =
           type === PanelType.INFO ? PanelType.NOTE : PanelType.INFO;
-        const { editorView } = editor(
+        const { editorView, editorAPI } = editor(
           doc(panel({ panelType: startType })(p('text{<>}'))),
         );
 
-        changePanelType(type)(editorView.state, editorView.dispatch);
+        changePanelType(editorAPI?.analytics?.actions)(type)(
+          editorView.state,
+          editorView.dispatch,
+        );
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
           action: 'changedType',
           actionSubject: 'panel',
@@ -137,7 +144,7 @@ describe('panel actions', () => {
           editCustomPanel,
         );
 
-        changePanelType(
+        changePanelType(undefined)(
           PanelType.CUSTOM,
           { emoji: 'frown' },
           useCustomPanel,
@@ -162,7 +169,7 @@ describe('panel actions', () => {
           editCustomPanel,
         );
 
-        changePanelType(
+        changePanelType(undefined)(
           PanelType.CUSTOM,
           { color: '#f7bada' },
           useCustomPanel,
@@ -193,11 +200,10 @@ describe('panel actions', () => {
           editCustomPanel,
         );
 
-        changePanelType(
-          PanelType.INFO,
-          {},
-          useCustomPanel,
-        )(editorView.state, editorView.dispatch);
+        changePanelType(undefined)(PanelType.INFO, {}, useCustomPanel)(
+          editorView.state,
+          editorView.dispatch,
+        );
 
         const expectedDoc = doc(
           panel({
@@ -224,7 +230,10 @@ describe('panel actions', () => {
           editCustomPanel,
         );
 
-        changePanelType(PanelType.INFO)(editorView.state, editorView.dispatch);
+        changePanelType(undefined)(PanelType.INFO)(
+          editorView.state,
+          editorView.dispatch,
+        );
 
         const expectedDoc = doc(
           panel({
@@ -249,7 +258,7 @@ describe('panel actions', () => {
           editCustomPanel,
         );
 
-        changePanelType(
+        changePanelType(undefined)(
           PanelType.CUSTOM,
           { emoji: 'smile', color: '#f33000' },
           useCustomPanel,
@@ -280,7 +289,7 @@ describe('panel actions', () => {
           editCustomPanel,
         );
 
-        changePanelType(
+        changePanelType(undefined)(
           PanelType.CUSTOM,
           { emoji: undefined, color: '#f33000' },
           useCustomPanel,
@@ -309,7 +318,7 @@ describe('panel actions', () => {
           editCustomPanel,
         );
 
-        changePanelType(
+        changePanelType(undefined)(
           PanelType.CUSTOM,
           { color: '#f33000' },
           useCustomPanel,

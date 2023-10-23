@@ -1,21 +1,28 @@
-import React, { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
+import React from 'react';
+import type { CellAttributes } from '@atlaskit/adf-schema';
 import {
-  CellAttributes,
+  isHex,
+  isRgb,
+  rgbToHex,
   tableBackgroundColorPalette,
 } from '@atlaskit/adf-schema';
-import { compose } from '@atlaskit/editor-common/utils';
+import { useThemeObserver } from '@atlaskit/tokens';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { hexToEditorBackgroundPaletteRawValue } from '@atlaskit/editor-palette';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import SortingIcon from '../../ui/SortingIcon';
-import { AnalyticsEventPayload, MODE, PLATFORM } from '../../analytics/events';
+import type { AnalyticsEventPayload } from '../../analytics/events';
+import { MODE, PLATFORM } from '../../analytics/events';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { RendererCssClassName } from '../../consts';
-import { injectIntl, IntlShape, WrappedComponentProps } from 'react-intl-next';
+import { useIntl } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 import { tableCellMessages } from '../../messages';
 
 type CellProps = CellAttributes & {
@@ -35,7 +42,7 @@ export type CellWithSortingProps = CellProps & {
   columnIndex?: number;
   sortOrdered?: SortOrder;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
-} & WrappedComponentProps;
+};
 
 const nextStatusOrder = (currentSortOrder?: SortOrder): SortOrder => {
   switch (currentSortOrder) {
@@ -94,20 +101,90 @@ const getDataAttributes = (colwidth?: number[], background?: string): any => {
   return attrs;
 };
 
-const getStyle = (
-  background?: string,
-  colGroupWidth?: string,
-  offsetTop?: number,
-): CSSProperties => {
+/**
+ * This function is duplicated in
+ * - @atlaskit/adf-schema
+ * - ../marks/textColor.tsx
+ * it takes a color string, and if the color string is a hex or rgb value
+ * it will invert the color and return the inverted color.
+ */
+function invertCustomColor(customColor: string) {
+  let hex: string;
+
+  if (isHex(customColor)) {
+    hex = customColor;
+  } else if (isRgb(customColor)) {
+    hex = rgbToHex(customColor)!;
+  } else {
+    return customColor;
+  }
+  const hexWithoutHash = hex!.replace('#', '');
+
+  // This inverts the hex color by
+  // 1. converting the hex code to a number
+  // 2. XORing it with 0xffffff
+  // 3. Converting the result back to hex
+  // 4. Removing the leading 1 from the result
+  return `#${(Number(`0x1${hexWithoutHash}`) ^ 0xffffff)
+    .toString(16)
+    .substring(1)
+    .toUpperCase()}`;
+}
+
+const getStyle = ({
+  background,
+  colGroupWidth,
+  offsetTop,
+  colorMode,
+}: {
+  background?: string;
+  colGroupWidth?: string;
+  offsetTop?: number;
+  colorMode: ReturnType<typeof useThemeObserver>['colorMode'];
+}): CSSProperties => {
   const style: CSSProperties = {};
   if (
     background &&
     // ignore setting inline styles if ds neutral token is detected
     !background.includes('--ds-background-neutral')
   ) {
-    const tokenColor =
-      hexToEditorBackgroundPaletteRawValue(background) || background;
-    style.backgroundColor = tokenColor;
+    if (getBooleanFF('platform.editor.dm-invert-tablecell-bgcolor_9fz6s')) {
+      /**
+       * The Editor supports users pasting content from external sources with custom table cell backgrounds and having those
+       * backgrounds persisted.
+       *
+       * This feature predates the introduction of dark mode.
+       *
+       * Without the inversion logic below, tokenised content (ie. text), can be hard to read when the user loads the page in dark mode.
+       *
+       * This introduces inversion of the presentation of the custom background color when the user is in dark mode.
+       *
+       * This can be done without additional changes to account for users copying and pasting content inside the Editor, because of
+       * how we detect table cell background colors copied from external editor sources. Where we load the background color from a
+       * seperate attribute (data-cell-background), instead of the inline style.
+       *
+       * See the following document for more details on this behaviour
+       * https://hello.atlassian.net/wiki/spaces/CCECO/pages/2892247168/Unsupported+custom+table+cell+background+colors+in+dark+theme+Editor+Job+Story
+       */
+      const tokenColor = hexToEditorBackgroundPaletteRawValue(background);
+
+      if (tokenColor) {
+        style.backgroundColor = tokenColor;
+      } else {
+        // if we have a custom color, we need to check if we are in dark mode
+        if (colorMode === 'dark') {
+          // if we are in dark mode, we need to invert the color
+          style.backgroundColor = invertCustomColor(background);
+        } else {
+          // if we are in light mode, we can just set the color
+          style.backgroundColor = background;
+        }
+      }
+    } else {
+      const tokenColor =
+        hexToEditorBackgroundPaletteRawValue(background) || background;
+      style.backgroundColor = tokenColor;
+    }
   }
 
   if (colGroupWidth) {
@@ -122,104 +199,103 @@ const getStyle = (
   return style;
 };
 
-const withCellProps = (WrapperComponent: React.ElementType) => {
-  return class WithCellProps extends React.Component<CellProps> {
-    render() {
-      const {
-        children,
-        className,
-        onClick,
-        colwidth,
-        colGroupWidth,
-        rowspan,
-        colspan,
-        background,
-        offsetTop,
-        ariaSort,
-      } = this.props;
+const getWithCellProps = (WrapperComponent: React.ElementType) => {
+  return function WithCellProps(props: CellProps) {
+    const { colorMode } = useThemeObserver();
+    const {
+      children,
+      className,
+      onClick,
+      colwidth,
+      colGroupWidth,
+      rowspan,
+      colspan,
+      background,
+      offsetTop,
+      ariaSort,
+    } = props;
 
-      const colorName = background
-        ? tableBackgroundColorPalette.get(background)
-        : '';
+    // This is used to set the background color of the cell
+    // to a dark mode color in mobile dark mode
+    const colorName = background
+      ? tableBackgroundColorPalette.get(background)
+      : '';
 
-      return (
-        <WrapperComponent
-          rowSpan={rowspan}
-          colSpan={colspan}
-          style={getStyle(background, colGroupWidth, offsetTop)}
-          colorname={colorName}
-          onClick={onClick}
-          className={className}
-          {...getDataAttributes(colwidth, background)}
-          aria-sort={ariaSort}
-        >
-          {children}
-        </WrapperComponent>
-      );
-    }
+    return (
+      <WrapperComponent
+        rowSpan={rowspan}
+        colSpan={colspan}
+        // Note: When content from a renderer is pasted into an editor
+        // the background color is not taken from the inline style.
+        // Instead it is taken from the data-cell-background attribute
+        // (added via getDataAttributes below).
+        style={getStyle({ background, colGroupWidth, offsetTop, colorMode })}
+        colorname={colorName}
+        onClick={onClick}
+        className={className}
+        {...getDataAttributes(colwidth, background)}
+        aria-sort={ariaSort}
+      >
+        {children}
+      </WrapperComponent>
+    );
   };
 };
+const TH = getWithCellProps('th');
 
 export const withSortableColumn = (WrapperComponent: React.ElementType) => {
-  class WithSortableColumn extends React.Component<CellWithSortingProps> {
-    constructor(props: CellWithSortingProps) {
-      super(props);
+  return function THWithSortableColumn(props: CellWithSortingProps) {
+    const intl = useIntl();
+    const {
+      allowColumnSorting,
+      onSorting,
+      children,
+      sortOrdered,
+      isHeaderRow,
+    } = props;
+    const sortOrderedClassName =
+      sortOrdered === SortOrder.NO_ORDER
+        ? RendererCssClassName.SORTABLE_COLUMN_NO_ORDER
+        : '';
+
+    if (!allowColumnSorting || !isHeaderRow) {
+      return <WrapperComponent {...props} />;
     }
 
-    render() {
-      const {
-        allowColumnSorting,
-        onSorting,
-        children,
-        sortOrdered,
-        isHeaderRow,
-        intl,
-      } = this.props;
-      const sortOrderedClassName =
-        sortOrdered === SortOrder.NO_ORDER
-          ? RendererCssClassName.SORTABLE_COLUMN_NO_ORDER
-          : '';
+    return (
+      <WrapperComponent
+        {...props}
+        className={RendererCssClassName.SORTABLE_COLUMN_WRAPPER}
+        ariaSort={getSortOrderLabel(intl, sortOrdered)}
+      >
+        <div className={RendererCssClassName.SORTABLE_COLUMN}>
+          {children}
+          <figure
+            className={`${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} ${sortOrderedClassName}`}
+          >
+            <SortingIcon
+              isSortingAllowed={!!onSorting}
+              sortOrdered={sortOrdered}
+              onClick={sort}
+              onKeyDown={onKeyPress}
+            />
+          </figure>
+        </div>
+      </WrapperComponent>
+    );
 
-      if (!allowColumnSorting || !isHeaderRow) {
-        return <WrapperComponent {...this.props} />;
-      }
-
-      return (
-        <WrapperComponent
-          {...this.props}
-          className={RendererCssClassName.SORTABLE_COLUMN_WRAPPER}
-          ariaSort={getSortOrderLabel(intl, sortOrdered)}
-        >
-          <div className={RendererCssClassName.SORTABLE_COLUMN}>
-            {children}
-            <figure
-              className={`${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} ${sortOrderedClassName}`}
-            >
-              <SortingIcon
-                isSortingAllowed={!!onSorting}
-                sortOrdered={sortOrdered}
-                onClick={this.sort}
-                onKeyDown={this.onKeyPress}
-              />
-            </figure>
-          </div>
-        </WrapperComponent>
-      );
-    }
-
-    onKeyPress = (event: React.KeyboardEvent<HTMLElement>) => {
+    function onKeyPress(event: React.KeyboardEvent<HTMLElement>) {
       const keys = [' ', 'Enter', 'Spacebar'];
       const { tagName } = event.target as HTMLElement;
       // trigger sorting if space or enter are clicked but not when in an input field (template variables)
       if (keys.includes(event.key) && !IgnoreSorting.includes(tagName)) {
         event.preventDefault();
-        this.sort();
+        sort();
       }
-    };
+    }
 
-    sort = () => {
-      const { fireAnalyticsEvent, onSorting, columnIndex, sortOrdered } =
-        this.props;
+    function sort() {
+      const { fireAnalyticsEvent, onSorting, columnIndex, sortOrdered } = props;
 
       if (onSorting && columnIndex != null) {
         const sortOrder = nextStatusOrder(sortOrdered);
@@ -248,11 +324,11 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
             eventType: EVENT_TYPE.TRACK,
           });
       }
-    };
-  }
-
-  return injectIntl(WithSortableColumn);
+    }
+  };
 };
 
-export const TableHeader = compose(withSortableColumn, withCellProps)('th');
-export const TableCell = withCellProps('td');
+export const TableHeader = withSortableColumn(TH);
+
+const TD = getWithCellProps('td');
+export const TableCell = TD;

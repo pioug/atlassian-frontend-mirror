@@ -26,10 +26,14 @@ export type FetchObjectSchemasResponse = {
   isLast: boolean;
 };
 
+export type ValidationError = {
+  iql?: string;
+};
+
 export type AqlValidateResponse = {
   isValid: boolean;
   errorMessages: string[];
-  errors: {};
+  errors?: ValidationError;
 };
 
 // These are to enforce the field "name" property and keep everything typed

@@ -10,7 +10,7 @@ import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../../types';
 import { DragPreview } from '../DragPreview';
-import { DragHandleIcon } from '../icons/DragHandleIcon';
+import { DragHandleIcon } from '../icons';
 
 type DragHandleState = 'default' | 'selected' | 'disabled' | 'danger';
 
@@ -99,7 +99,9 @@ export const DragHandle = ({
         borderRadius: '4px',
         border: `2px solid ${token('elevation.surface', 'white')}`,
         transform: direction === 'column' ? 'none' : 'rotate(90deg)',
+        pointerEvents: 'auto',
       }}
+      data-testid="table-floating-column-controls-drag-handle"
     >
       <DragHandleIcon {...iconProps} />
       {previewContainer &&

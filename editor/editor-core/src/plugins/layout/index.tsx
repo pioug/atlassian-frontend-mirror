@@ -76,7 +76,7 @@ const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
           allowBreakout,
           addSidebarLayouts,
           allowSingleColumnLayout,
-          api?.decorations.actions?.hoverDecoration,
+          api,
         );
       }
       return undefined;

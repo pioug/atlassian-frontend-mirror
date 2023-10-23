@@ -4,7 +4,10 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import { validateAql } from '../../services/cmdbService';
 import { AqlValidateResponse } from '../../types/assets/types';
-import { useValidateAqlText } from '../useValidateAqlText';
+import {
+  AqlValidationResponse,
+  useValidateAqlText,
+} from '../useValidateAqlText';
 
 jest.mock('../../services/cmdbService');
 
@@ -40,12 +43,12 @@ describe('useValidateAqlText', () => {
       });
       const { result } = renderHook(() => useValidateAqlText(workspaceId));
       const validateAqlText = result.current.validateAqlText;
-      let validateAqlTextResponse: boolean = !expectedIsValid;
+      let validateAqlTextResponse: AqlValidationResponse | undefined;
       await act(async () => {
         validateAqlTextResponse = await validateAqlText(aqlText);
       });
       expect(mockValidateAql).toBeCalledWith(workspaceId, { qlQuery: aqlText });
-      expect(validateAqlTextResponse).toBe(expectedIsValid);
+      expect(validateAqlTextResponse?.isValid).toBe(expectedIsValid);
       expect(result.current.isValidAqlText).toEqual(expectedIsValid);
       expect(result.current.validateAqlTextError).toEqual(undefined);
     },
@@ -56,11 +59,11 @@ describe('useValidateAqlText', () => {
     mockValidateAql.mockRejectedValue(mockError);
     const { result } = renderHook(() => useValidateAqlText(workspaceId));
     const validateAqlText = result.current.validateAqlText;
-    let validateAqlTextResponse: boolean | undefined;
+    let validateAqlTextResponse: AqlValidationResponse | undefined;
     await act(async () => {
       validateAqlTextResponse = await validateAqlText(aqlText);
     });
-    expect(validateAqlTextResponse).toBe(false);
+    expect(validateAqlTextResponse?.isValid).toBe(false);
     expect(result.current.isValidAqlText).toBe(false);
     expect(result.current.validateAqlTextError).toBe(mockError);
   });
@@ -70,15 +73,34 @@ describe('useValidateAqlText', () => {
     mockValidateAql.mockRejectedValue(mockError);
     const { result } = renderHook(() => useValidateAqlText(workspaceId));
     const validateAqlText = result.current.validateAqlText;
-    let validateAqlTextResponse: boolean | undefined;
+    let validateAqlTextResponse: AqlValidationResponse | undefined;
     await act(async () => {
       validateAqlTextResponse = await validateAqlText(aqlText);
     });
-    expect(validateAqlTextResponse).toBe(false);
+    expect(validateAqlTextResponse?.isValid).toBe(false);
     expect(result.current.isValidAqlText).toBe(false);
     expect(result.current.validateAqlTextError?.message).toEqual(
       `Unexpected error occured`,
     );
+  });
+
+  it('should return false and an error message when validateAql return error iql message in server response', async () => {
+    mockValidateAql.mockResolvedValue({
+      ...mockAqlValidateResponse,
+      isValid: false,
+      errors: {
+        iql: 'A validation error message',
+      },
+    });
+    const { result } = renderHook(() => useValidateAqlText(workspaceId));
+    const validateAqlText = result.current.validateAqlText;
+    let validateAqlTextResponse: AqlValidationResponse | undefined;
+    await act(async () => {
+      validateAqlTextResponse = await validateAqlText(aqlText);
+    });
+    expect(validateAqlTextResponse?.isValid).toBe(false);
+    expect(validateAqlTextResponse?.message).toBe('A validation error message');
+    expect(result.current.isValidAqlText).toBe(false);
   });
 
   it('should correctly set validateAqlTextLoading when validateAql is called', async () => {

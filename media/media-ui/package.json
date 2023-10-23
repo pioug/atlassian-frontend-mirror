@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-ui",
-  "version": "25.0.1",
+  "version": "25.0.2",
   "description": "Includes common components and utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/button": "^16.10.0",
+    "@atlaskit/button": "^16.11.0",
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/icon-file-type": "^6.4.0",
@@ -58,9 +58,11 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
+    "@types/blueimp-load-image": "^5.16.3",
     "@types/bytes": "^2.4.33",
     "@types/enzyme": "3.1.15",
     "@types/exenv": "^1.2.0",
+    "@types/png-chunks-extract": "^1.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "jest-emotion": "^10.0.32",

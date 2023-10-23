@@ -7,18 +7,18 @@ import type {
   Command,
   NextEditorPlugin,
   OptionalPlugin,
+  ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
 import { createPlugin } from './pm-plugins/main';
 import { getToolbarConfig } from './toolbar';
 import keymap from './pm-plugins/keymaps';
 import {
-  addAnalytics,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   INPUT_METHOD,
   EVENT_TYPE,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import {
   IconPanel,
   IconPanelNote,
@@ -92,6 +92,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
             return createPanelAction({
               state,
               attributes: { panelType: PanelType.INFO },
+              api,
             });
           },
         },
@@ -105,6 +106,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
             return createPanelAction({
               state,
               attributes: { panelType: PanelType.NOTE },
+              api,
             });
           },
         },
@@ -119,6 +121,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
             return createPanelAction({
               state,
               attributes: { panelType: PanelType.SUCCESS },
+              api,
             });
           },
         },
@@ -132,6 +135,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
             return createPanelAction({
               state,
               attributes: { panelType: PanelType.WARNING },
+              api,
             });
           },
         },
@@ -145,6 +149,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
             return createPanelAction({
               state,
               attributes: { panelType: PanelType.ERROR },
+              api,
             });
           },
         },
@@ -168,6 +173,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
                 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                 panelColor: T50,
               },
+              api,
             });
           },
         });
@@ -194,9 +200,11 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 function createPanelAction({
   state,
   attributes,
+  api,
 }: {
   state: EditorState;
   attributes: PanelAttributes;
+  api: ExtractInjectionAPI<PanelPlugin> | undefined;
 }) {
   const tr = createWrapSelectionTransaction({
     state,
@@ -204,7 +212,7 @@ function createPanelAction({
     nodeAttributes: attributes,
   });
   if (tr) {
-    addAnalytics(state, tr, {
+    api?.analytics?.actions.attachAnalyticsEvent({
       action: ACTION.INSERTED,
       actionSubject: ACTION_SUBJECT.DOCUMENT,
       actionSubjectId: ACTION_SUBJECT_ID.PANEL,
@@ -213,7 +221,7 @@ function createPanelAction({
         panelType: attributes.panelType,
       },
       eventType: EVENT_TYPE.TRACK,
-    });
+    })(tr);
   }
   return tr;
 }

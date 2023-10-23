@@ -80,7 +80,7 @@ export const getToolbarItems = (
       id: 'editor.panel.info',
       type: 'button',
       icon: InfoIcon,
-      onClick: changePanelType(PanelType.INFO),
+      onClick: changePanelType(editorAnalyticsAPI)(PanelType.INFO),
       selected: activePanelType === PanelType.INFO,
       title: formatMessage(messages.info),
       tabIndex: null,
@@ -89,7 +89,7 @@ export const getToolbarItems = (
       id: 'editor.panel.note',
       type: 'button',
       icon: NoteIcon,
-      onClick: changePanelType(PanelType.NOTE),
+      onClick: changePanelType(editorAnalyticsAPI)(PanelType.NOTE),
       selected: activePanelType === PanelType.NOTE,
       title: formatMessage(messages.note),
       tabIndex: null,
@@ -98,7 +98,7 @@ export const getToolbarItems = (
       id: 'editor.panel.success',
       type: 'button',
       icon: SuccessIcon,
-      onClick: changePanelType(PanelType.SUCCESS),
+      onClick: changePanelType(editorAnalyticsAPI)(PanelType.SUCCESS),
       selected: activePanelType === PanelType.SUCCESS,
       title: formatMessage(messages.success),
       tabIndex: null,
@@ -107,7 +107,7 @@ export const getToolbarItems = (
       id: 'editor.panel.warning',
       type: 'button',
       icon: WarningIcon,
-      onClick: changePanelType(PanelType.WARNING),
+      onClick: changePanelType(editorAnalyticsAPI)(PanelType.WARNING),
       selected: activePanelType === PanelType.WARNING,
       title: formatMessage(messages.warning),
       tabIndex: null,
@@ -116,7 +116,7 @@ export const getToolbarItems = (
       id: 'editor.panel.error',
       type: 'button',
       icon: ErrorIcon,
-      onClick: changePanelType(PanelType.ERROR),
+      onClick: changePanelType(editorAnalyticsAPI)(PanelType.ERROR),
       selected: activePanelType === PanelType.ERROR,
       title: formatMessage(messages.error),
       tabIndex: null,
@@ -145,7 +145,7 @@ export const getToolbarItems = (
           ? { emoji: panelEmoji.shortName, emojiId: panelEmoji.id }
           : {};
         if (previousColor === color) {
-          changePanelType(
+          changePanelType(editorAnalyticsAPI)(
             PanelType.CUSTOM,
             { color, ...previousEmoji },
             isCustomPanelEnabled,
@@ -164,7 +164,7 @@ export const getToolbarItems = (
           editorAnalyticsAPI,
           payload,
         )(
-          changePanelType(
+          changePanelType(editorAnalyticsAPI)(
             PanelType.CUSTOM,
             { color, ...previousEmoji },
             isCustomPanelEnabled,
@@ -182,7 +182,7 @@ export const getToolbarItems = (
         }
         let previousIcon = panelNode.node.attrs.panelIcon || '';
         if (previousIcon === emoji.shortName) {
-          changePanelType(
+          changePanelType(editorAnalyticsAPI)(
             PanelType.CUSTOM,
             {
               emoji: emoji.shortName,
@@ -204,7 +204,7 @@ export const getToolbarItems = (
           editorAnalyticsAPI,
           payload,
         )(
-          changePanelType(
+          changePanelType(editorAnalyticsAPI)(
             PanelType.CUSTOM,
             {
               emoji: emoji.shortName,
@@ -236,7 +236,7 @@ export const getToolbarItems = (
         editorAnalyticsAPI,
         payload,
       )(
-        changePanelType(
+        changePanelType(editorAnalyticsAPI)(
           PanelType.CUSTOM,
           { emoji: undefined, emojiId: undefined, emojiText: undefined },
           isCustomPanelEnabled,
@@ -323,7 +323,7 @@ export const getToolbarItems = (
       appearance: 'danger',
       focusEditoronEnter: true,
       icon: RemoveIcon,
-      onClick: removePanel(),
+      onClick: removePanel(editorAnalyticsAPI),
       onMouseEnter: hoverDecoration?.(panelNodeType, true),
       onMouseLeave: hoverDecoration?.(panelNodeType, false),
       onFocus: hoverDecoration?.(panelNodeType, true),

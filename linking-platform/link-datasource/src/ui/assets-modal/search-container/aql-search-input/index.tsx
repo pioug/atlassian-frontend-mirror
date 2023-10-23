@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { Fragment, useCallback, useRef } from 'react';
+import { Fragment, useCallback, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
 import { LoadingButton } from '@atlaskit/button';
-import { Field } from '@atlaskit/form';
+import { ErrorMessage, Field } from '@atlaskit/form';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import SearchIcon from '@atlaskit/icon/glyph/editor/search';
@@ -112,6 +112,7 @@ export const AqlSearchInput = ({
   const lastResult = useRef<Promise<string | undefined>>(
     Promise.resolve(undefined),
   );
+  const [message, setMessage] = useState<string | null>(null);
 
   const { validateAqlText } = useValidateAqlText(workspaceId);
 
@@ -121,8 +122,9 @@ export const AqlSearchInput = ({
       if (!newUnvalidatedQlQuery) {
         return undefined;
       }
-      const isValid = await validateAqlText(newUnvalidatedQlQuery);
-      return isValid ? undefined : 'invalid';
+      const validation = await validateAqlText(newUnvalidatedQlQuery);
+      setMessage(validation.message);
+      return validation.isValid ? undefined : 'invalid';
     },
     [validateAqlText],
   );
@@ -159,56 +161,61 @@ export const AqlSearchInput = ({
         validate={debouncedMemoizedValidation}
       >
         {({ fieldProps, meta, error }) => (
-          <Textfield
-            {...fieldProps}
-            elemBeforeInput={
-              <span style={{ paddingLeft: 6, width: 24 }}>
-                {renderValidatorIcon(fieldProps.value, error, meta)}
-              </span>
-            }
-            elemAfterInput={
-              <Fragment>
-                <Tooltip
-                  content={formatMessage(searchInputMessages.helpTooltipText)}
-                  position="bottom"
-                >
-                  <a
-                    href={AQLSupportDocumentLink}
-                    target="_blank"
-                    css={buttonBaseStyles}
+          <Fragment>
+            <Textfield
+              {...fieldProps}
+              elemBeforeInput={
+                <span style={{ paddingLeft: 6, width: 24 }}>
+                  {renderValidatorIcon(fieldProps.value, error, meta)}
+                </span>
+              }
+              elemAfterInput={
+                <Fragment>
+                  <Tooltip
+                    content={formatMessage(searchInputMessages.helpTooltipText)}
+                    position="bottom"
                   >
-                    <QuestionCircleIcon
-                      label="label"
-                      primaryColor={token('color.icon', N500)}
-                      size="medium"
-                      testId="assets-datasource-modal-help"
-                    />
-                  </a>
-                </Tooltip>
-                <LoadingButton
-                  appearance="primary"
-                  css={searchButtonStyles}
-                  iconBefore={
-                    <SearchIcon
-                      label={formatMessage(searchInputMessages.placeholder)}
-                      size="medium"
-                    />
-                  }
-                  isLoading={isSearching}
-                  spacing="none"
-                  testId="assets-datasource-modal--aql-search-button"
-                  type="submit"
-                  isDisabled={
-                    fieldProps.value.trim() === '' ||
-                    meta.validating ||
-                    !meta.valid
-                  }
-                />
-              </Fragment>
-            }
-            placeholder={formatMessage(searchInputMessages.placeholder)}
-            testId={testId}
-          />
+                    <a
+                      href={AQLSupportDocumentLink}
+                      target="_blank"
+                      css={buttonBaseStyles}
+                    >
+                      <QuestionCircleIcon
+                        label="label"
+                        primaryColor={token('color.icon', N500)}
+                        size="medium"
+                        testId="assets-datasource-modal-help"
+                      />
+                    </a>
+                  </Tooltip>
+                  <LoadingButton
+                    appearance="primary"
+                    css={searchButtonStyles}
+                    iconBefore={
+                      <SearchIcon
+                        label={formatMessage(searchInputMessages.placeholder)}
+                        size="medium"
+                      />
+                    }
+                    isLoading={isSearching}
+                    spacing="none"
+                    testId="assets-datasource-modal--aql-search-button"
+                    type="submit"
+                    isDisabled={
+                      fieldProps.value.trim() === '' ||
+                      meta.validating ||
+                      !meta.valid
+                    }
+                  />
+                </Fragment>
+              }
+              placeholder={formatMessage(searchInputMessages.placeholder)}
+              testId={testId}
+            />
+            {fieldProps.value && error && message && (
+              <ErrorMessage>{message}</ErrorMessage>
+            )}
+          </Fragment>
         )}
       </Field>
     </FieldContainer>

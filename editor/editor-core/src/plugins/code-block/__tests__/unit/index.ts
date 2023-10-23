@@ -147,7 +147,10 @@ describe('code-block', () => {
         it('language should update', () => {
           const { editorView } = editor(doc(code_block()('text{<>}')));
           const language = 'someLanguage';
-          changeLanguage(language)(editorView.state, editorView.dispatch);
+          changeLanguage(undefined)(language)(
+            editorView.state,
+            editorView.dispatch,
+          );
           expect(editorView.state.doc).toEqualDocument(
             doc(code_block({ language: 'someLanguage' })('text')),
           );
@@ -155,7 +158,10 @@ describe('code-block', () => {
         it('language should update if changed while code block was selected', () => {
           const { editorView } = editor(doc('{<node>}', code_block()('text')));
           const language = 'someLanguage';
-          changeLanguage(language)(editorView.state, editorView.dispatch);
+          changeLanguage(undefined)(language)(
+            editorView.state,
+            editorView.dispatch,
+          );
           expect(editorView.state.doc).toEqualDocument(
             doc(code_block({ language: 'someLanguage' })('text')),
           );
@@ -175,7 +181,10 @@ describe('code-block', () => {
           ];
 
           const language = 'someLanguage';
-          changeLanguage(language)(editorView.state, editorView.dispatch);
+          changeLanguage(undefined)(language)(
+            editorView.state,
+            editorView.dispatch,
+          );
 
           expect(editorView.state.selection.from).toBe(prevFrom);
           expect(editorView.state.selection.to).toBe(prevTo);
@@ -194,7 +203,10 @@ describe('code-block', () => {
             editorView.state.tr.selection.to,
             editorView.state.tr.selection.$from.nodeAfter!.type,
           ];
-          changeLanguage(language)(editorView.state, editorView.dispatch);
+          changeLanguage(undefined)(language)(
+            editorView.state,
+            editorView.dispatch,
+          );
 
           expect(editorView.state.selection.from).toBe(prevFrom);
           expect(editorView.state.selection.to).toBe(prevTo);

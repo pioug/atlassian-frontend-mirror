@@ -2,6 +2,7 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
   bindKeymapWithEditorCommand,
+  isCapsLockOnAndModifyKeyboardEvent,
   toggleBold,
   toggleCode,
   toggleItalic,
@@ -10,8 +11,8 @@ import {
   toggleSuperscript,
   toggleUnderline,
 } from '@atlaskit/editor-common/keymaps';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
 import {
@@ -86,5 +87,12 @@ export default function keymapPlugin(
     );
   }
 
-  return keymap(list) as SafePlugin;
+  return new SafePlugin({
+    props: {
+      handleKeyDown(view, event) {
+        let keyboardEvent = isCapsLockOnAndModifyKeyboardEvent(event);
+        return keydownHandler(list)(view, keyboardEvent);
+      },
+    },
+  });
 }

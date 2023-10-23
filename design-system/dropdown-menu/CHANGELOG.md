@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 12.1.4
+
+### Patch Changes
+
+- [#41898](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41898) [`b3c84e42159`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3c84e42159) - Fix loss of autofocus when opening with Enter and Space keys.
+
 ## 12.1.3
 
 ### Patch Changes

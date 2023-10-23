@@ -1,10 +1,9 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { CellHoverCoordinates } from '../../../types';
 import { TableCssClassName as ClassName } from '../../../types';
-import { getColumnsWidths, getRowHeights } from '../../../utils';
 import { DragHandle } from '../../DragHandle';
 
 export interface Props {
@@ -14,8 +13,9 @@ export interface Props {
   hoveredCell?: CellHoverCoordinates;
   isResizing?: boolean;
   stickyTop?: number;
-  tableHeight?: number;
   localId?: string;
+  rowHeights?: number[];
+  colWidths?: (number | undefined)[];
 }
 
 export const ColumnControls: React.FC<Props> = ({
@@ -24,18 +24,11 @@ export const ColumnControls: React.FC<Props> = ({
   tableRef,
   hoveredCell,
   isResizing,
-  tableHeight,
   stickyTop,
   localId,
+  rowHeights,
+  colWidths,
 }) => {
-  const rowHeights = useMemo(() => {
-    // NOTE: we don't care so much as to what tableHeight is, we only care that it changed and is a sane value.
-    if (tableRef && !!tableHeight) {
-      return getRowHeights(tableRef);
-    }
-    return [0];
-  }, [tableRef, tableHeight]);
-
   if (!tableRef) {
     return null;
   }
@@ -48,10 +41,9 @@ export const ColumnControls: React.FC<Props> = ({
   const marginTop =
     hasHeaderRow && stickyTop !== undefined ? rowHeights?.[0] ?? 0 : 0;
 
-  const colWidths = getColumnsWidths(editorView);
-  const widths = colWidths
-    .map((width) => (width ? `${width - 1}px` : '0px'))
-    .join(' ');
+  const widths =
+    colWidths?.map((width) => (width ? `${width - 1}px` : '0px')).join(' ') ??
+    '0px';
 
   const colIndex = hoveredCell?.colIndex;
 
@@ -84,7 +76,7 @@ export const ColumnControls: React.FC<Props> = ({
           >
             <DragHandle
               direction="column"
-              indexes={[]}
+              indexes={[colIndex!]}
               onClick={(event) => onClick(colIndex as number, event)}
               onMouseOver={onMouseOver}
               onMouseOut={onMouseOut}

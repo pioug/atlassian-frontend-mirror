@@ -82,7 +82,7 @@ export class UploadServiceImpl implements UploadService {
     files: LocalFileWithSource[],
     traceContext = generateTraceContext(),
   ): Promise<void> {
-    const batches = [];
+    const batches: Promise<void>[] = [];
     for (
       let iterator = 0;
       iterator < files.length;

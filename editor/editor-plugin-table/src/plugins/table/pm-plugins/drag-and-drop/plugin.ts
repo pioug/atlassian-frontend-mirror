@@ -87,7 +87,12 @@ export const createPlugin = (
               return;
             }
 
-            const { sourceType, sourceIndexes, targetAdjustedIndex } = data;
+            const {
+              sourceType,
+              sourceIndexes,
+              targetAdjustedIndex,
+              direction,
+            } = data;
 
             // If the drop target index contains merged cells then we should not allow the drop to occur.
             const hasMergedCells =
@@ -105,7 +110,7 @@ export const createPlugin = (
             moveSource(
               sourceType,
               sourceIndex,
-              targetAdjustedIndex,
+              targetAdjustedIndex + (direction === -1 ? 0 : -1),
             )(editorView.state, editorView.dispatch);
           },
         }),

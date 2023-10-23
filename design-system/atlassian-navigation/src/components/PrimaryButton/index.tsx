@@ -33,13 +33,13 @@ const buttonHighlightedStyles = css({
   '&:after': {
     height: 3,
     position: 'absolute',
-    right: token('space.050', '4px'),
-    bottom: 0,
-    left: token('space.050', '4px'),
     backgroundColor: `var(${VAR_BUTTON_SELECTED_BORDER_COLOR})`,
-    borderTopLeftRadius: token('border.radius.050', '1px'),
-    borderTopRightRadius: token('border.radius.050', '1px'),
+    borderStartEndRadius: token('border.radius.050', '1px'),
+    borderStartStartRadius: token('border.radius.050', '1px'),
     content: '""',
+    insetBlockEnd: 0,
+    insetInlineEnd: token('space.050', '4px'),
+    insetInlineStart: token('space.050', '4px'),
   },
 });
 

@@ -2,16 +2,20 @@ import { useCallback, useState } from 'react';
 
 import { validateAql } from '../services/cmdbService';
 
+export type AqlValidationResponse = {
+  isValid: boolean;
+  message: string | null;
+};
+
 export type UseValidateAqlTextState = {
   validateAqlTextLoading: boolean;
   validateAqlTextError: Error | undefined;
   isValidAqlText: boolean;
-  validateAqlText: (aql: string) => Promise<boolean>;
+  validateAqlText: (aql: string) => Promise<AqlValidationResponse>;
 };
 
 export const useValidateAqlText = (
   workspaceId: string,
-  hostname?: string,
 ): UseValidateAqlTextState => {
   const [loading, setLoading] = useState<boolean>(false);
   const [isValidAqlText, setIsValidAqlText] = useState<boolean>(false);
@@ -22,12 +26,14 @@ export const useValidateAqlText = (
       setLoading(true);
       setError(undefined);
       let isValid = false;
+      let message = null;
       try {
         const validateAqlResponse = await validateAql(workspaceId, {
           qlQuery: aql,
         });
         setIsValidAqlText(validateAqlResponse.isValid);
         isValid = validateAqlResponse.isValid;
+        message = validateAqlResponse.errors?.iql || null;
       } catch (err) {
         if (err instanceof Error) {
           setError(err);
@@ -37,7 +43,10 @@ export const useValidateAqlText = (
       } finally {
         setLoading(false);
       }
-      return isValid;
+      return {
+        isValid,
+        message,
+      };
     },
     [workspaceId],
   );

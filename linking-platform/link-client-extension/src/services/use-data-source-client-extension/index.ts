@@ -33,19 +33,19 @@ export const useDatasourceClientExtension = () => {
   } = useSmartLinkContext();
   const resolverUrl = useResolverUrl(client);
 
-  const cachedRequest = async <T extends { [key: string]: any }, R>(
+  const cachedRequest = async <R>(
     datasourceId: string,
-    data: T,
+    data: DatasourceDetailsRequest | DatasourceDataRequest,
     url: string,
     lruMap: LRUMap<string, Promise<R>>,
     force: boolean,
   ) => {
-    const dataWithSortedFields = {
+    const cacheKeyData = {
       ...data,
       // Sort fields to use cached version of response regardless of the order
-      ...(data.fields && { fields: [...(data.fields || [])].sort() }),
+      ...('fields' in data ? { fields: [...(data.fields || [])].sort() } : {}),
     };
-    const cacheKey = JSON.stringify({ datasourceId, dataWithSortedFields });
+    const cacheKey = JSON.stringify({ datasourceId, cacheKeyData });
     if (force) {
       lruMap.delete(cacheKey);
     }

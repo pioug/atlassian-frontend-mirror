@@ -53,7 +53,7 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/button": "^16.10.0",
+    "@atlaskit/button": "^16.11.0",
     "@atlaskit/datetime-picker": "^12.10.0",
     "@atlaskit/docs": "*",
     "@atlaskit/modal-dialog": "^12.8.0",

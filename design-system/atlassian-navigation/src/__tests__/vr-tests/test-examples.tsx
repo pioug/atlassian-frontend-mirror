@@ -7,7 +7,10 @@ import { NotificationIndicator } from '@atlaskit/notification-indicator';
 import { Stack } from '@atlaskit/primitives';
 
 import { DefaultCreate } from '../../../examples/shared/create';
-import { jiraPrimaryItems } from '../../../examples/shared/primary-items';
+import {
+  jiraPrimaryItems,
+  primaryItemsWithPrimarySplitButton,
+} from '../../../examples/shared/primary-items';
 import {
   DefaultCustomProductHome,
   JiraProductHome,
@@ -53,6 +56,18 @@ const NavExample = () => (
       <Notifications badge={NotificationsBadge} tooltip="Notifications" />
     )}
     renderProfile={DefaultProfile}
+  />
+);
+
+const PrimarySplitButtonNavExample = () => (
+  <AtlassianNavigation
+    label="site"
+    renderAppSwitcher={DefaultAppSwitcher}
+    renderProductHome={JiraProductHome}
+    primaryItems={primaryItemsWithPrimarySplitButton}
+    renderNotifications={() => (
+      <Notifications badge={NotificationsBadge} tooltip="Notifications" />
+    )}
   />
 );
 
@@ -185,6 +200,7 @@ const ThemingNavigationSkeletonExample = () => (
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export {
   NavExample,
+  PrimarySplitButtonNavExample,
   ThemingExample,
   ResponsiveCreateHomeAndSearchExample,
   CustomProductHomeExample,

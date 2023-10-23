@@ -145,15 +145,17 @@ describe('Action', () => {
       );
     });
 
-    it('does not call onClick when button is disabled', async () => {
-      const onClick = jest.fn();
-      const { findByTestId } = render(
-        <Action isDisabled={true} onClick={onClick} testId={testId} />,
-      );
-      const element = await findByTestId(testId);
-      await user.click(element);
+    describe('does not call onClick when button is disabled', () => {
+      ffTest('platform.linking-platform.smart-card.follow-button', async () => {
+        const onClick = jest.fn();
+        const { findByTestId } = render(
+          <Action isDisabled={true} onClick={onClick} testId={testId} />,
+        );
+        const element = await findByTestId(testId);
+        await user.click(element);
 
-      expect(onClick).not.toHaveBeenCalled();
+        expect(onClick).not.toHaveBeenCalled();
+      });
     });
   });
 

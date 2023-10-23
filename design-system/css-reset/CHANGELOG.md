@@ -1,5 +1,11 @@
 # @atlaskit/css-reset
 
+## 6.6.1
+
+### Patch Changes
+
+- [#41883](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41883) [`893f68af200`](https://bitbucket.org/atlassian/atlassian-frontend/commits/893f68af200) - check in bundle.css file into source, update package scripts
+
 ## 6.6.0
 
 ### Minor Changes

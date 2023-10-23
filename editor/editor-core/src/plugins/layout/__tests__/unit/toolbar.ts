@@ -75,6 +75,7 @@ describe('layout toolbar', () => {
     },
   ];
   let editorView: EditorView;
+  let editorAPI: any;
   let toolbar: FloatingToolbarConfig;
   let items: Array<FloatingToolbarItem<Command>>;
 
@@ -89,7 +90,9 @@ describe('layout toolbar', () => {
   };
 
   beforeEach(() => {
-    ({ editorView } = editor(doc(buildLayoutForWidths([50, 50], true))));
+    ({ editorView, editorAPI } = editor(
+      doc(buildLayoutForWidths([50, 50], true)),
+    ));
   });
 
   describe('with "addSidebarLayouts"', () => {
@@ -101,7 +104,7 @@ describe('layout toolbar', () => {
         true,
         true,
         false,
-        undefined,
+        editorAPI,
       ) as FloatingToolbarConfig;
 
       items = getToolbarItems(toolbar, editorView);
@@ -129,7 +132,7 @@ describe('layout toolbar', () => {
         true,
         false,
         false,
-        undefined,
+        editorAPI,
       ) as FloatingToolbarConfig;
 
       items = getToolbarItems(toolbar, editorView);
@@ -161,7 +164,7 @@ describe('layout toolbar', () => {
         true,
         true,
         true,
-        undefined,
+        editorAPI,
       ) as FloatingToolbarConfig;
 
       items = getToolbarItems(toolbar, editorView);
@@ -182,7 +185,7 @@ describe('layout toolbar', () => {
         true,
         true,
         false,
-        undefined,
+        editorAPI,
       ) as FloatingToolbarConfig;
 
       items = getToolbarItems(toolbar, editorView);
@@ -203,7 +206,7 @@ describe('layout toolbar', () => {
         true,
         true,
         false,
-        undefined,
+        editorAPI,
       ) as FloatingToolbarConfig;
 
       items = getToolbarItems(toolbar, editorView);

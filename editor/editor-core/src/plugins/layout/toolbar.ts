@@ -19,14 +19,16 @@ import type {
   FloatingToolbarSeparator,
   FloatingToolbarButton,
   Icon,
+  ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   setPresetLayout,
   deleteActiveLayoutNode,
   getPresetLayout,
 } from './actions';
-import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { PresetLayout } from './types';
+import type { LayoutPlugin } from './';
 
 type PresetLayoutButtonItem = {
   id?: string;
@@ -85,13 +87,14 @@ const buildLayoutButton = (
   intl: IntlShape,
   item: PresetLayoutButtonItem,
   currentLayout: string | undefined,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): FloatingToolbarItem<Command> => ({
   id: item.id,
   type: 'button',
   icon: item.icon,
   testId: item.title.id,
   title: intl.formatMessage(item.title),
-  onClick: setPresetLayout(item.type),
+  onClick: setPresetLayout(editorAnalyticsAPI)(item.type),
   selected: !!currentLayout && currentLayout === item.type,
   tabIndex: null,
 });
@@ -105,8 +108,10 @@ export const buildToolbar = (
   _allowBreakout: boolean,
   addSidebarLayouts: boolean,
   allowSingleColumnLayout: boolean,
-  hoverDecoration: HoverDecorationHandler | undefined,
+  api: ExtractInjectionAPI<LayoutPlugin> | undefined,
 ): FloatingToolbarConfig | undefined => {
+  const { hoverDecoration } = api?.decorations?.actions ?? {};
+  const editorAnalyticsAPI = api?.analytics?.actions;
   const node = state.doc.nodeAt(pos);
   if (node) {
     const currentLayout = getPresetLayout(node);
@@ -125,7 +130,7 @@ export const buildToolbar = (
       icon: RemoveIcon,
       testId: commonMessages.remove.id,
       title: intl.formatMessage(commonMessages.remove),
-      onClick: deleteActiveLayoutNode,
+      onClick: deleteActiveLayoutNode(editorAnalyticsAPI),
       onMouseEnter: hoverDecoration?.(nodeType, true),
       onMouseLeave: hoverDecoration?.(nodeType, false),
       onFocus: hoverDecoration?.(nodeType, true),
@@ -143,10 +148,12 @@ export const buildToolbar = (
         findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
       nodeType,
       items: [
-        ...layoutTypes.map((i) => buildLayoutButton(intl, i, currentLayout)),
+        ...layoutTypes.map((i) =>
+          buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
+        ),
         ...(addSidebarLayouts
           ? SIDEBAR_LAYOUT_TYPES.map((i) =>
-              buildLayoutButton(intl, i, currentLayout),
+              buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
             )
           : []),
 

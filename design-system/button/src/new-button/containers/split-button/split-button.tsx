@@ -1,22 +1,20 @@
 /** @jsx jsx */
-import React, { type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { fontSize as getFontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { ButtonContext } from '../variants/shared/button-context';
-import type { Appearance, Spacing } from '../variants/types';
+import { SplitButtonContext } from './split-button-context';
+import type {
+  SplitButtonAppearance,
+  SplitButtonContextAppearance,
+  SplitButtonSpacing,
+} from './types';
+import { getActions } from './utils';
 
 const fontSize: number = getFontSize();
-
-type SplitButtonAppearance = Extract<
-  Appearance,
-  'default' | 'primary' | 'danger' | 'warning'
->;
-
-type SplitButtonSpacing = Extract<Spacing, 'default' | 'compact'>;
 
 const defaultDividerHeight = 20 / fontSize + 'em';
 
@@ -29,7 +27,7 @@ const compactDividerHeight = 16 / fontSize + 'em';
 
 const compactDividerStyles = css({
   height: compactDividerHeight,
-  margin: `${token('space.075', '4px')} -0.5px`,
+  margin: `${token('space.050', '4px')} -0.5px`,
 });
 
 const baseDividerStyles = css({
@@ -44,17 +42,26 @@ const disabledStyles = css({
   cursor: 'not-allowed',
 });
 
-const dividerBackgroundColors: Record<SplitButtonAppearance, SerializedStyles> =
-  {
-    default: css({ backgroundColor: token('color.text', '#172B4D') }),
-    primary: css({ backgroundColor: token('color.text.inverse', '#FFF') }),
-    danger: css({
-      backgroundColor: token('color.text.inverse', '#FFF'),
-    }),
-    warning: css({
-      backgroundColor: token('color.text.warning.inverse', '#172B4D'),
-    }),
-  };
+const navigationDividerStyles = css({
+  height: compactDividerHeight,
+  margin: `${token('space.100', '8px')} -0.5px`,
+  backgroundColor: token('color.border', '#0052cc'),
+});
+
+const dividerAppearance: Record<
+  SplitButtonContextAppearance,
+  SerializedStyles
+> = {
+  default: css({ backgroundColor: token('color.text', '#172B4D') }),
+  primary: css({ backgroundColor: token('color.text.inverse', '#FFF') }),
+  danger: css({
+    backgroundColor: token('color.text.inverse', '#FFF'),
+  }),
+  warning: css({
+    backgroundColor: token('color.text.warning.inverse', '#172B4D'),
+  }),
+  navigation: navigationDividerStyles,
+};
 
 const dividerHeight: Record<SplitButtonSpacing, SerializedStyles> = {
   default: defaultDividerStyles,
@@ -62,20 +69,25 @@ const dividerHeight: Record<SplitButtonSpacing, SerializedStyles> = {
 };
 
 type DividerProps = {
-  appearance: SplitButtonAppearance;
+  appearance: SplitButtonContextAppearance;
   spacing: SplitButtonSpacing;
-  isDisabled: boolean;
+  isDisabled?: boolean;
 };
 
 /**
- * I find it funny to provide a div for Divider
+ * TODO: Add JSDoc
  */
-const Divider = ({ appearance, spacing, isDisabled }: DividerProps) => {
+export const Divider = ({
+  appearance,
+  spacing,
+  isDisabled = false,
+}: DividerProps) => {
   return (
+    // I find it funny to provide a div for Divider
     <div
       css={[
         baseDividerStyles,
-        dividerBackgroundColors[appearance],
+        dividerAppearance[appearance],
         dividerHeight[spacing],
         isDisabled ? disabledStyles : undefined,
       ]}
@@ -88,6 +100,13 @@ const splitButtonStyles = css({
   position: 'relative',
   whiteSpace: 'nowrap',
 });
+
+/**
+ * TODO: Add JSdoc
+ */
+export const SplitButtonContainer = ({ children }: { children: ReactNode }) => {
+  return <div css={splitButtonStyles}>{children}</div>;
+};
 
 type SplitButtonProps = {
   /**
@@ -110,25 +129,15 @@ export const SplitButton = ({
   spacing = 'default',
   isDisabled = false,
 }: SplitButtonProps) => {
-  const [PrimaryAction, SecondaryAction] = React.Children.toArray(children);
-
-  if (
-    (process.env.NODE_ENV !== 'production' && !PrimaryAction) ||
-    !SecondaryAction
-  ) {
-    // TODO: i18n?
-    throw new SyntaxError('SplitButton requires two children to be provided');
-  }
+  const { PrimaryAction, SecondaryAction } = getActions(children);
 
   return (
-    <div css={splitButtonStyles}>
-      <ButtonContext.Provider
+    <SplitButtonContainer>
+      <SplitButtonContext.Provider
         value={{
           appearance,
           spacing,
-          borderVariant: 'split',
           isDisabled,
-          isActiveOverSelected: true,
         }}
       >
         {PrimaryAction}
@@ -138,8 +147,8 @@ export const SplitButton = ({
           isDisabled={isDisabled}
         />
         {SecondaryAction}
-      </ButtonContext.Provider>
-    </div>
+      </SplitButtonContext.Provider>
+    </SplitButtonContainer>
   );
 };
 
@@ -149,9 +158,10 @@ type SplitButtonWithSlotsProps = {
   appearance?: SplitButtonAppearance;
   spacing?: SplitButtonSpacing;
   isDisabled?: boolean;
+  isSelected?: boolean;
 };
 /**
- * TODO: Add description when adding docs
+ * TODO: Decide on API
  */
 export const SplitButtonWithSlots = ({
   primaryAction,
@@ -161,14 +171,12 @@ export const SplitButtonWithSlots = ({
   isDisabled = false,
 }: SplitButtonWithSlotsProps) => {
   return (
-    <div css={splitButtonStyles}>
-      <ButtonContext.Provider
+    <SplitButtonContainer>
+      <SplitButtonContext.Provider
         value={{
           appearance,
           spacing,
-          borderVariant: 'split',
           isDisabled,
-          isActiveOverSelected: true,
         }}
       >
         {primaryAction}
@@ -178,7 +186,7 @@ export const SplitButtonWithSlots = ({
           isDisabled={isDisabled}
         />
         {secondaryAction}
-      </ButtonContext.Provider>
-    </div>
+      </SplitButtonContext.Provider>
+    </SplitButtonContainer>
   );
 };

@@ -19,6 +19,7 @@
 
 import { AnyAction } from 'redux';
 import { JsonLd } from 'json-ld-types';
+import { jsx } from '@emotion/react';
 import { default as React_2 } from 'react';
 import { Store } from 'redux';
 
@@ -358,6 +359,15 @@ export function promiseDebounce<
   cb: (...args: Args) => Promise<ResolveType>,
   time: number,
 ): (...args: Args) => Promise<ResolveType>;
+
+// @public (undocumented)
+export const Pulse: ({ children }: PulseProps) => jsx.JSX.Element;
+
+// @public (undocumented)
+interface PulseProps {
+  // (undocumented)
+  children: JSX.Element;
+}
 
 // @public (undocumented)
 export function request<T = JsonLd.Response>(

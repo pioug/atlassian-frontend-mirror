@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 0.4.8
+
+### Patch Changes
+
+- [#41634](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41634) [`e7cd20932b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7cd20932b9) - on windows, toggles mark when the capslock is on
+
 ## 0.4.7
 
 ### Patch Changes

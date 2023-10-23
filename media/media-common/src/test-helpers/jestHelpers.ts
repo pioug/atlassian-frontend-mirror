@@ -1,3 +1,5 @@
+/// <reference types="jest" />
+
 export const asMock = (fn: Function): jest.Mock => fn as jest.Mock;
 export const asMockFunction = <T extends (...args: any[]) => any>(
   fn: T,

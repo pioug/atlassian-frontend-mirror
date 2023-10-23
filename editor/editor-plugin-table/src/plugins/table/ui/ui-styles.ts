@@ -381,7 +381,6 @@ export const floatingColumnControls = (props: ThemeProps) => {
       box-sizing: border-box;
       position: absolute;
       top: 0;
-      z-index: -1;
 
       .${ClassName.COLUMN_CONTROLS_INNER} {
         display: flex;

@@ -90,6 +90,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
             appearance={appearance}
             iconAfter={iconAfter}
             iconBefore={iconBefore}
+            isDisabled={isDisabled}
             isLoading={isLoading}
             onClick={onButtonClick(onClick)}
             spacing={sizeToButtonSpacing[size]}

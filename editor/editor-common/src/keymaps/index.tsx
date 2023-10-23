@@ -2,6 +2,7 @@
 import React, { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
+import { base, keyName } from 'w3c-keyname';
 
 import { N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -371,6 +372,30 @@ export function findKeyMapForBrowser(keyMap: Keymap): string | undefined {
     return keyMap.windows;
   }
   return;
+}
+
+/**
+ * ED-20175: on windows OS if the capsLock is ON then it registers the key with capital case
+ * which creates a command (Ctrl-B) and all the keymap bindings are in lower case (Ctrl-b).
+ *
+ */
+export function isCapsLockOnAndModifyKeyboardEvent(event: KeyboardEvent) {
+  let keyboardEvent = event;
+  const name = keyName(event);
+  if (
+    event.ctrlKey &&
+    event.getModifierState('CapsLock') &&
+    !event.getModifierState('Shift') &&
+    name.length === 1 &&
+    /^[A-Z]/.test(name)
+  ) {
+    keyboardEvent = new KeyboardEvent('keydown', {
+      key: base[event.keyCode].toLowerCase(),
+      code: event.code,
+      ctrlKey: true,
+    });
+  }
+  return keyboardEvent;
 }
 
 export {

@@ -17,10 +17,10 @@ import type { InteractionContextType } from '@atlaskit/interaction-context';
 import InteractionContext from '@atlaskit/interaction-context';
 import { Box, xcss } from '@atlaskit/primitives';
 
+import { useSplitButtonContext } from '../../containers/split-button/split-button-context';
 import { type CommonButtonProps } from '../types';
 
 import blockEvents from './block-events';
-import { useButtonContext } from './button-context';
 import { getXCSS } from './xcss';
 
 export type ControlledEvents<TagName extends HTMLElement> = Pick<
@@ -129,13 +129,18 @@ const useButtonBase = <TagName extends HTMLElement>({
   spacing: propSpacing = 'default',
 }: UseButtonBaseArgs<TagName>): UseButtonBaseReturn<TagName> => {
   const ourRef = useRef<TagName | null>();
-  const buttonContext = useButtonContext();
+  const splitButtonContext = useSplitButtonContext();
 
-  const appearance = buttonContext?.appearance || propAppearance;
-  const spacing = buttonContext?.spacing || propSpacing;
-  const borderVariant = buttonContext?.borderVariant || 'default';
-  const isDisabled = buttonContext?.isDisabled || propIsDisabled;
-  const isActiveOverSelected = buttonContext?.isActiveOverSelected || false;
+  const isSplitButton = Boolean(splitButtonContext);
+  const isNavigationSplitButton =
+    splitButtonContext?.isNavigationSplitButton || false;
+
+  const appearance = splitButtonContext?.appearance || propAppearance;
+  const spacing = splitButtonContext?.spacing || propSpacing;
+  const isDisabled = splitButtonContext?.isDisabled || propIsDisabled;
+  const isHighlighted = splitButtonContext?.isHighlighted || false;
+  const isActiveOverSelected =
+    splitButtonContext?.isActiveOverSelected || false;
 
   const setRef = useCallback(
     (node: TagName | null) => {
@@ -187,6 +192,7 @@ const useButtonBase = <TagName extends HTMLElement>({
         spacing,
         isDisabled,
         isSelected,
+        isHighlighted,
         isActiveOverSelected,
         shouldFitContainer,
         isIconButton,
@@ -194,7 +200,8 @@ const useButtonBase = <TagName extends HTMLElement>({
         isLink: buttonType === 'link',
         hasIconBefore,
         hasIconAfter,
-        isSplit: borderVariant === 'split',
+        isSplit: isSplitButton,
+        isNavigationSplit: isNavigationSplitButton,
       }),
     [
       appearance,
@@ -202,13 +209,15 @@ const useButtonBase = <TagName extends HTMLElement>({
       spacing,
       isDisabled,
       isSelected,
+      isHighlighted,
       isActiveOverSelected,
       isIconButton,
       shouldFitContainer,
       overlay,
       hasIconBefore,
       hasIconAfter,
-      borderVariant,
+      isSplitButton,
+      isNavigationSplitButton,
     ],
   );
 

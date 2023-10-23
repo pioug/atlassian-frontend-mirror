@@ -8,7 +8,9 @@ import HoverCardUnassignedJiraIssue from '../../../examples/vr-hover-card/vr-hov
 import HoverCardJiraProject from '../../../examples/vr-hover-card/vr-hover-card-jira-project';
 import HoverCardForbiddenJira from '../../../examples/vr-hover-card/vr-hover-card-forbidden-jira';
 
-snapshot(HoverCard, {
+// Skipped because this test makes a failing network request and was previously
+// Flakey. This test should be re-enabled once the network request has been mocked out properly
+snapshot.skip(HoverCard, {
   description: 'Standalone hover card deafult',
   states: [{ state: 'hovered', selector: { byRole: 'button' } }],
   drawsOutsideBounds: true,
@@ -46,8 +48,9 @@ snapshot(HoverCardJiraProject, {
 
 //Same list of tests for refreshed hover card design under the FF
 //TODO: Delete during the 'platform.linking-platform.smart-card.show-smart-links-refreshed-design' FF clean up
-
-snapshot(HoverCard, {
+// Skipped because this test makes a failing network request and was previously
+// Flakey. This test should be re-enabled once the network request has been mocked out properly
+snapshot.skip(HoverCard, {
   description: 'Refreshed standalone hover card deafult',
   states: [{ state: 'hovered', selector: { byRole: 'button' } }],
   drawsOutsideBounds: true,
@@ -123,7 +126,9 @@ snapshot(HoverCardJiraProject, {
   },
 });
 
-snapshot(HoverCardForbiddenJira, {
+// Skipped because this test makes a failing network request and was previously
+// Flakey. This test should be re-enabled once the network request has been mocked out properly
+snapshot.skip(HoverCardForbiddenJira, {
   description:
     'Refreshed standalone hover card forbidden view with direct_access context for Jira ',
   states: [
@@ -141,7 +146,9 @@ snapshot(HoverCardForbiddenJira, {
   },
 });
 
-snapshot(HoverCardForbiddenJira, {
+// Skipped because this test makes a failing network request and was previously
+// Flakey. This test should be re-enabled once the network request has been mocked out properly
+snapshot.skip(HoverCardForbiddenJira, {
   description:
     'Refreshed standalone hover card forbidden view with request_access context for Jira',
   states: [
@@ -159,7 +166,9 @@ snapshot(HoverCardForbiddenJira, {
   },
 });
 
-snapshot(HoverCardForbiddenJira, {
+// Skipped because this test makes a failing network request and was previously
+// Flakey. This test should be re-enabled once the network request has been mocked out properly
+snapshot.skip(HoverCardForbiddenJira, {
   description:
     'Refreshed standalone hover card forbidden view with pending_request_exists context for Jira',
   states: [
@@ -177,7 +186,9 @@ snapshot(HoverCardForbiddenJira, {
   },
 });
 
-snapshot(HoverCardForbiddenJira, {
+// Skipped because this test makes a failing network request and was previously
+// Flakey. This test should be re-enabled once the network request has been mocked out properly
+snapshot.skip(HoverCardForbiddenJira, {
   description:
     'Refreshed standalone hover card forbidden view with denied_request_exists context for Jira',
   states: [
@@ -195,7 +206,9 @@ snapshot(HoverCardForbiddenJira, {
   },
 });
 
-snapshot(HoverCardForbiddenJira, {
+// Skipped because this test makes a failing network request and was previously
+// Flakey. This test should be re-enabled once the network request has been mocked out properly
+snapshot.skip(HoverCardForbiddenJira, {
   description:
     'Refreshed standalone hover card forbidden view with access_exists context and visibility not_found for Jira',
   states: [
@@ -213,7 +226,9 @@ snapshot(HoverCardForbiddenJira, {
   },
 });
 
-snapshot(HoverCardForbiddenJira, {
+// Skipped because this test makes a failing network request and was previously
+// Flakey. This test should be re-enabled once the network request has been mocked out properly
+snapshot.skip(HoverCardForbiddenJira, {
   description:
     'Refreshed standalone hover card forbidden view with access_exists context and visibility restricted for Jira',
   states: [
@@ -231,7 +246,9 @@ snapshot(HoverCardForbiddenJira, {
   },
 });
 
-snapshot(HoverCardForbiddenJira, {
+// Skipped because this test makes a failing network request and was previously
+// Flakey. This test should be re-enabled once the network request has been mocked out properly
+snapshot.skip(HoverCardForbiddenJira, {
   description:
     'Refreshed standalone hover card forbidden view with forbidden context for Jira',
   states: [{ state: 'hovered', selector: { byTestId: 'FORBIDDEN' } }],

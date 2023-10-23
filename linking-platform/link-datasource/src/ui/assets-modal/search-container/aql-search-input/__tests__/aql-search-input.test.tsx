@@ -12,6 +12,7 @@ import Form from '@atlaskit/form';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import {
+  AqlValidationResponse,
   useValidateAqlText,
   UseValidateAqlTextState,
 } from '../../../../../hooks/useValidateAqlText';
@@ -40,8 +41,14 @@ describe('AqlSearchInput', () => {
     validateAqlTextLoading: false,
     validateAqlText: mockValidateAqlText,
   };
-  const mockValidateAqlTextValid: boolean = true;
-  const mockValidateAqlTextInvalid: boolean = false;
+  const mockValidateAqlTextValid: AqlValidationResponse = {
+    isValid: true,
+    message: null,
+  };
+  const mockValidateAqlTextInvalid: AqlValidationResponse = {
+    isValid: false,
+    message: null,
+  };
 
   const renderDefaultAqlSearchInput = async () => {
     let renderFunction = render;
@@ -120,6 +127,28 @@ describe('AqlSearchInput', () => {
       );
       await button.click();
       expect(onSubmitMock).not.toBeCalled();
+    });
+
+    it('should show a validation error message when a message is given', async () => {
+      mockValidateAqlText.mockReturnValue({
+        ...mockValidateAqlTextInvalid,
+        message: 'A validation error message',
+      });
+      const { findByTestId, getByTestId, getByText } =
+        await renderDefaultAqlSearchInput();
+      const textInput = getByTestId(searchInputTestId);
+      fireEvent.focus(textInput);
+      fireEvent.change(textInput, { target: { value: 'invalid query' } });
+      jest.advanceTimersByTime(SEARCH_DEBOUNCE_MS);
+      await waitFor(() => {
+        expect(mockValidateAqlText).toBeCalledTimes(1);
+      });
+      const button = await findByTestId(
+        'assets-datasource-modal--aql-search-button',
+      );
+      await button.click();
+      expect(onSubmitMock).not.toBeCalled();
+      expect(getByText('A validation error message')).toBeInTheDocument();
     });
   });
 

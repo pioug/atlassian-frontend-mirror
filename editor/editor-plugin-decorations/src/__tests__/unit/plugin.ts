@@ -131,7 +131,7 @@ describe('decoration', () => {
       editorView.state,
       dispatch,
     );
-    deleteActiveLayoutNode(editorView.state, dispatch);
+    deleteActiveLayoutNode(undefined)(editorView.state, dispatch);
 
     const pluginState = getState();
     expect(pluginState.decoration).toBeUndefined();

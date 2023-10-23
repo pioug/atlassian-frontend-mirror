@@ -19,7 +19,6 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { addAnalytics } from '../analytics/utils';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { LAYOUT_TYPE } from '../analytics/types/node-events';
 import { pluginKey } from './pm-plugins/plugin-key';
@@ -304,6 +303,7 @@ export function forceSectionToPresetLayout(
 }
 
 export const setPresetLayout =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (layout: PresetLayout): Command =>
   (state, dispatch) => {
     const { pos, selectedLayout } = pluginKey.getState(state) as LayoutState;
@@ -318,7 +318,7 @@ export const setPresetLayout =
 
     let tr = forceSectionToPresetLayout(state, node, pos, layout);
     if (tr) {
-      tr = addAnalytics(state, tr, {
+      editorAnalyticsAPI?.attachAnalyticsEvent({
         action: ACTION.CHANGED_LAYOUT,
         actionSubject: ACTION_SUBJECT.LAYOUT,
         attributes: {
@@ -326,7 +326,7 @@ export const setPresetLayout =
           newLayout: formatLayoutName(layout),
         },
         eventType: EVENT_TYPE.TRACK,
-      });
+      })(tr);
       tr.setMeta('scrollIntoView', false);
       if (dispatch) {
         dispatch(tr);
@@ -419,24 +419,28 @@ export const fixColumnStructure = (state: EditorState) => {
   return;
 };
 
-export const deleteActiveLayoutNode: Command = (state, dispatch) => {
-  const { pos, selectedLayout } = pluginKey.getState(state) as LayoutState;
-  if (pos !== null) {
-    const node = state.doc.nodeAt(pos) as Node;
-    if (dispatch) {
-      let tr = state.tr.delete(pos, pos + node.nodeSize);
-      tr = addAnalytics(state, tr, {
-        action: ACTION.DELETED,
-        actionSubject: ACTION_SUBJECT.LAYOUT,
-        attributes: { layout: formatLayoutName(<PresetLayout>selectedLayout) },
-        eventType: EVENT_TYPE.TRACK,
-      });
-      dispatch(tr);
+export const deleteActiveLayoutNode =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+  (state, dispatch) => {
+    const { pos, selectedLayout } = pluginKey.getState(state) as LayoutState;
+    if (pos !== null) {
+      const node = state.doc.nodeAt(pos) as Node;
+      if (dispatch) {
+        let tr = state.tr.delete(pos, pos + node.nodeSize);
+        editorAnalyticsAPI?.attachAnalyticsEvent({
+          action: ACTION.DELETED,
+          actionSubject: ACTION_SUBJECT.LAYOUT,
+          attributes: {
+            layout: formatLayoutName(<PresetLayout>selectedLayout),
+          },
+          eventType: EVENT_TYPE.TRACK,
+        })(tr);
+        dispatch(tr);
+      }
+      return true;
     }
-    return true;
-  }
-  return false;
-};
+    return false;
+  };
 
 const formatLayoutName = (layout: PresetLayout): LAYOUT_TYPE => {
   switch (layout) {

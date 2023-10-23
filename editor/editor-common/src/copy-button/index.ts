@@ -27,5 +27,3 @@ export function getSelectedNodeOrNodeParentByNodeType({
 export const toDOM = (node: PMNode, schema: Schema): Node => {
   return DOMSerializer.fromSchema(schema).serializeNode(node);
 };
-
-// ED-19657:  adding a dummy comment, so that the cofluence pick's up the latest version.

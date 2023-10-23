@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 188.13.3
+
+### Patch Changes
+
+- [#41937](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41937) [`d510a8e569a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d510a8e569a) - Migrate code-block, panel, and layout to new editor analytics API.
+
+## 188.13.2
+
+### Patch Changes
+
+- [#41634](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41634) [`e7cd20932b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7cd20932b9) - on windows, toggles mark when the capslock is on
+
+## 188.13.1
+
+### Patch Changes
+
+- [#41501](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41501) [`67d84139104`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67d84139104) - Update comment to point to the correct file
+
 ## 188.13.0
 
 ### Minor Changes

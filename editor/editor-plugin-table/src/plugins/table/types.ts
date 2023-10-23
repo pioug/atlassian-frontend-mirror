@@ -421,4 +421,5 @@ export interface DraggableData {
   targetIndex: number;
   targetAdjustedIndex: number;
   targetClosestEdge: Edge;
+  direction: 1 | -1;
 }

@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 76.13.3
+
+### Patch Changes
+
+- [#41634](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41634) [`e7cd20932b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7cd20932b9) - on windows, toggles mark when the capslock is on
+
+## 76.13.2
+
+### Patch Changes
+
+- [#41501](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41501) [`ae6adcf6667`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae6adcf6667) - Add JSDoc comment quick-insert find
+
 ## 76.13.1
 
 ### Patch Changes

@@ -37,6 +37,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 const ideUX = (
   pluginInjectionApi: ExtractInjectionAPI<typeof codeBlockPlugin> | undefined,
 ) => {
+  const editorAnalyticsAPI = pluginInjectionApi?.analytics?.actions;
   return new SafePlugin({
     props: {
       handleTextInput(view, from, to, text) {
@@ -157,8 +158,14 @@ const ideUX = (
           isSelectionEntirelyInsideCodeBlock,
           insertNewlineWithIndent,
         ),
-        'Mod-]': filter(isSelectionEntirelyInsideCodeBlock, indent),
-        'Mod-[': filter(isSelectionEntirelyInsideCodeBlock, outdent),
+        'Mod-]': filter(
+          isSelectionEntirelyInsideCodeBlock,
+          indent(editorAnalyticsAPI),
+        ),
+        'Mod-[': filter(
+          isSelectionEntirelyInsideCodeBlock,
+          outdent(editorAnalyticsAPI),
+        ),
         Tab: filter(
           isSelectionEntirelyInsideCodeBlock,
           (state: EditorState, dispatch?: CommandDispatch) => {
@@ -169,10 +176,13 @@ const ideUX = (
             if (isCursorInsideCodeBlock(state)) {
               return insertIndent(state, dispatch);
             }
-            return indent(state, dispatch);
+            return indent(editorAnalyticsAPI)(state, dispatch);
           },
         ),
-        'Shift-Tab': filter(isSelectionEntirelyInsideCodeBlock, outdent),
+        'Shift-Tab': filter(
+          isSelectionEntirelyInsideCodeBlock,
+          outdent(editorAnalyticsAPI),
+        ),
         'Mod-a': (state: EditorState, dispatch?: CommandDispatch) => {
           if (isSelectionEntirelyInsideCodeBlock(state)) {
             const { $from, $to } = state.selection;

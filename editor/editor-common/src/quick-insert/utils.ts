@@ -38,6 +38,14 @@ const options = {
   ],
 };
 
+/**
+ * This function is used to find and sort QuickInsertItems based on a given query string.
+ *
+ * @export
+ * @param {string} query - The query string to be used in the search.
+ * @param {QuickInsertItem[]} items - An array of QuickInsertItems to be searched.
+ * @returns {QuickInsertItem[]} - Returns a sorted array of QuickInsertItems based on the priority. If the query string is empty, it will return the array sorted by priority. If a query string is provided, it will return an array of QuickInsertItems that match the query string, sorted by relevance to the query.
+ */
 export function find(
   query: string,
   items: QuickInsertItem[],

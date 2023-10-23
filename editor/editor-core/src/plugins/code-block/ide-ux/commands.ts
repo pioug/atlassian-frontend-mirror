@@ -7,8 +7,8 @@ import {
   forEachLine,
   getStartOfCurrentLine,
 } from './line-handling';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
-  addAnalytics,
   ACTION,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
@@ -16,8 +16,8 @@ import {
   INDENT_DIRECTION,
   INDENT_TYPE,
   ACTION_SUBJECT,
-} from '../../analytics';
-import type { CommandDispatch } from '../../../types';
+} from '@atlaskit/editor-common/analytics';
+import type { CommandDispatch } from '@atlaskit/editor-common/types';
 
 /**
  * Return the current indentation level
@@ -32,65 +32,22 @@ function getIndentLevel(indentText: string, indentSize: number) {
   return indentText.length / indentSize;
 }
 
-export function indent(state: EditorState, dispatch?: CommandDispatch) {
-  const { text, start } = getLinesFromSelection(state);
-  const { tr, selection } = state;
-  forEachLine(text, (line, offset) => {
-    const { indentText, indentToken } = getLineInfo(line);
-    const indentLevel = getIndentLevel(indentText, indentToken.size);
-
-    const indentToAdd = indentToken.token.repeat(
-      indentToken.size - (indentText.length % indentToken.size) ||
-        indentToken.size,
-    );
-    tr.insertText(indentToAdd, tr.mapping.map(start + offset, -1));
-
-    addAnalytics(state, tr, {
-      action: ACTION.FORMATTED,
-      actionSubject: ACTION_SUBJECT.TEXT,
-      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_INDENT,
-      eventType: EVENT_TYPE.TRACK,
-      attributes: {
-        inputMethod: INPUT_METHOD.KEYBOARD,
-        previousIndentationLevel: indentLevel,
-        newIndentLevel: indentLevel + 1,
-        direction: INDENT_DIRECTION.INDENT,
-        indentType: INDENT_TYPE.CODE_BLOCK,
-      },
-    });
-
-    if (!selection.empty) {
-      tr.setSelection(
-        TextSelection.create(
-          tr.doc,
-          tr.mapping.map(selection.from, -1),
-          tr.selection.to,
-        ),
-      );
-    }
-  });
-  if (dispatch) {
-    dispatch(tr);
-  }
-  return true;
-}
-
-export function outdent(state: EditorState, dispatch?: CommandDispatch) {
-  const { text, start } = getLinesFromSelection(state);
-  const { tr } = state;
-  forEachLine(text, (line, offset) => {
-    const { indentText, indentToken } = getLineInfo(line);
-    if (indentText) {
+export const indent =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (state: EditorState, dispatch?: CommandDispatch) => {
+    const { text, start } = getLinesFromSelection(state);
+    const { tr, selection } = state;
+    forEachLine(text, (line, offset) => {
+      const { indentText, indentToken } = getLineInfo(line);
       const indentLevel = getIndentLevel(indentText, indentToken.size);
 
-      const unindentLength =
-        indentText.length % indentToken.size || indentToken.size;
-      tr.delete(
-        tr.mapping.map(start + offset),
-        tr.mapping.map(start + offset + unindentLength),
+      const indentToAdd = indentToken.token.repeat(
+        indentToken.size - (indentText.length % indentToken.size) ||
+          indentToken.size,
       );
+      tr.insertText(indentToAdd, tr.mapping.map(start + offset, -1));
 
-      addAnalytics(state, tr, {
+      editorAnalyticsAPI?.attachAnalyticsEvent({
         action: ACTION.FORMATTED,
         actionSubject: ACTION_SUBJECT.TEXT,
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_INDENT,
@@ -98,18 +55,65 @@ export function outdent(state: EditorState, dispatch?: CommandDispatch) {
         attributes: {
           inputMethod: INPUT_METHOD.KEYBOARD,
           previousIndentationLevel: indentLevel,
-          newIndentLevel: indentLevel - 1,
-          direction: INDENT_DIRECTION.OUTDENT,
+          newIndentLevel: indentLevel + 1,
+          direction: INDENT_DIRECTION.INDENT,
           indentType: INDENT_TYPE.CODE_BLOCK,
         },
-      });
+      })(tr);
+
+      if (!selection.empty) {
+        tr.setSelection(
+          TextSelection.create(
+            tr.doc,
+            tr.mapping.map(selection.from, -1),
+            tr.selection.to,
+          ),
+        );
+      }
+    });
+    if (dispatch) {
+      dispatch(tr);
     }
-  });
-  if (dispatch) {
-    dispatch(tr);
-  }
-  return true;
-}
+    return true;
+  };
+
+export const outdent =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (state: EditorState, dispatch?: CommandDispatch) => {
+    const { text, start } = getLinesFromSelection(state);
+    const { tr } = state;
+    forEachLine(text, (line, offset) => {
+      const { indentText, indentToken } = getLineInfo(line);
+      if (indentText) {
+        const indentLevel = getIndentLevel(indentText, indentToken.size);
+
+        const unindentLength =
+          indentText.length % indentToken.size || indentToken.size;
+        tr.delete(
+          tr.mapping.map(start + offset),
+          tr.mapping.map(start + offset + unindentLength),
+        );
+
+        editorAnalyticsAPI?.attachAnalyticsEvent({
+          action: ACTION.FORMATTED,
+          actionSubject: ACTION_SUBJECT.TEXT,
+          actionSubjectId: ACTION_SUBJECT_ID.FORMAT_INDENT,
+          eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            inputMethod: INPUT_METHOD.KEYBOARD,
+            previousIndentationLevel: indentLevel,
+            newIndentLevel: indentLevel - 1,
+            direction: INDENT_DIRECTION.OUTDENT,
+            indentType: INDENT_TYPE.CODE_BLOCK,
+          },
+        })(tr);
+      }
+    });
+    if (dispatch) {
+      dispatch(tr);
+    }
+    return true;
+  };
 
 export function insertIndent(state: EditorState, dispatch: CommandDispatch) {
   const { text: textAtStartOfLine } = getStartOfCurrentLine(state);

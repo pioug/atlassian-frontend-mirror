@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/css-reset",
-  "version": "6.6.0",
+  "version": "6.6.1",
   "description": "A base stylesheet for the Atlassian Design System.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,8 +25,8 @@
     }
   },
   "scripts": {
-    "build-css": "ts-node --compiler-options='{ \"module\": \"CommonJS\" }' -P ./tsconfig.json build/js-to-css.tsx",
-    "ak-postbuild": "yarn build-css"
+    "ak-postbuild": "mkdir -p dist && cp src/bundle.css dist/bundle.css",
+    "build-css": "ts-node --compiler-options='{ \"module\": \"CommonJS\" }' -P ./tsconfig.json build/js-to-css.tsx"
   },
   "dependencies": {
     "@atlaskit/theme": "^12.6.0",

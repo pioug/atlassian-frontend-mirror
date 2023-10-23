@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 66.2.6
+
+### Patch Changes
+
+- [#41501](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41501) [`b3cb749dc67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3cb749dc67) - Fix TS errors in AFM
+
 ## 66.2.5
 
 ### Patch Changes

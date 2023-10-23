@@ -1,12 +1,13 @@
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   undo,
   redo,
-  keymap,
   bindKeymapWithCommand,
   findKeyMapForBrowser,
+  isCapsLockOnAndModifyKeyboardEvent,
 } from '@atlaskit/editor-common/keymaps';
 import { redoFromKeyboard, undoFromKeyboard } from '../commands';
+import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 
 export function keymapPlugin(): SafePlugin {
   const list = {};
@@ -15,5 +16,12 @@ export function keymapPlugin(): SafePlugin {
 
   bindKeymapWithCommand(undo.common!, undoFromKeyboard, list);
 
-  return keymap(list);
+  return new SafePlugin({
+    props: {
+      handleKeyDown(view, event) {
+        let keyboardEvent = isCapsLockOnAndModifyKeyboardEvent(event);
+        return keydownHandler(list)(view, keyboardEvent);
+      },
+    },
+  });
 }

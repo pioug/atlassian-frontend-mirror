@@ -79,6 +79,7 @@ function getColors({
   interactionState = 'default',
   isDisabled,
   isSelected,
+  isHighlighted,
   isActiveOverSelected,
   hasOverlay,
 }: {
@@ -92,6 +93,7 @@ function getColors({
   interactionState?: 'default' | 'hover' | 'active';
   isDisabled?: boolean;
   isSelected?: boolean;
+  isHighlighted?: boolean;
   hasOverlay?: boolean;
 }): {
   backgroundColor: BackgroundColor;
@@ -100,7 +102,12 @@ function getColors({
   let key: keyof ColorGroup<any> = interactionState;
   // Overlay does not change color on interaction, revert to 'default' or resting state
   key = hasOverlay ? 'default' : key;
-  key = isSelected ? (isActiveOverSelected ? 'active' : 'selected') : key;
+  key =
+    isSelected || isHighlighted
+      ? isActiveOverSelected
+        ? 'active'
+        : 'selected'
+      : key;
   // Disabled colors overrule everything else
   key = isDisabled ? 'disabled' : key;
 
@@ -121,6 +128,7 @@ export type GetXCSSArgs = {
   spacing: Spacing;
   isDisabled: boolean;
   isSelected: boolean;
+  isHighlighted: boolean;
   isActiveOverSelected: boolean;
   shouldFitContainer: boolean;
   hasOverlay: boolean;
@@ -135,6 +143,10 @@ export type GetXCSSArgs = {
    * If the button is a SplitButton
    */
   isSplit: boolean;
+  /**
+   * If the button is a PrimarySplitButton used in atlassian-navigation
+   */
+  isNavigationSplit: boolean;
 };
 
 export function getXCSS({
@@ -142,11 +154,13 @@ export function getXCSS({
   spacing,
   isDisabled,
   isSelected,
+  isHighlighted,
   isActiveOverSelected,
   isIconButton,
   shouldFitContainer,
   isLink,
   isSplit,
+  isNavigationSplit,
   hasOverlay,
   hasIconBefore,
   hasIconAfter,
@@ -154,6 +168,7 @@ export function getXCSS({
   const baseColors = getColors({
     appearance,
     isSelected,
+    isHighlighted,
     isActiveOverSelected,
     isDisabled,
   });
@@ -166,19 +181,41 @@ export function getXCSS({
         // Disabling visited styles (by re-declaring the base colors)
         ':visited': baseColors,
       }
+    : isNavigationSplit && !isSelected
+    ? {
+        ...baseColors,
+        backgroundColor: 'color.background.neutral.subtle' as const,
+      }
     : baseColors;
 
   const height = heights[spacing];
 
   let width = shouldFitContainer ? '100%' : 'auto';
-  width = isIconButton ? height : width;
+  width = isIconButton ? (isNavigationSplit ? '24px' : height) : width;
 
-  const paddingInlineStart =
+  const defaultPaddingInlineStart =
     paddingInline[spacing][hasIconBefore ? 'withIcon' : 'default'];
-  const paddingInlineEnd =
+  const defaultPaddingInlineEnd =
     paddingInline[spacing][hasIconAfter ? 'withIcon' : 'default'];
 
   const splitButtonStyles = isSplit ? splitBorderStyles : {};
+
+  const getNavigationSplitButtonPaddings = () => {
+    if (isNavigationSplit) {
+      return {
+        paddingInlineStart: 'space.075',
+        paddingInlineEnd: 'space.075',
+      } as const;
+    }
+
+    return {
+      paddingInlineStart: isIconButton ? 'space.0' : defaultPaddingInlineStart,
+      paddingInlineEnd: isIconButton ? 'space.0' : defaultPaddingInlineEnd,
+    } as const;
+  };
+
+  const { paddingInlineStart, paddingInlineEnd } =
+    getNavigationSplitButtonPaddings();
 
   return xcss({
     alignItems: 'center',
@@ -199,8 +236,8 @@ export function getXCSS({
     whiteSpace: 'nowrap',
     height,
     paddingBlock: 'space.0',
-    paddingInlineStart: isIconButton ? 'space.0' : paddingInlineStart,
-    paddingInlineEnd: isIconButton ? 'space.0' : paddingInlineEnd,
+    paddingInlineStart,
+    paddingInlineEnd,
     columnGap: gap[spacing],
     verticalAlign: verticalAlign[spacing],
     width,
@@ -216,7 +253,7 @@ export function getXCSS({
     ':hover': {
       ...getColors({
         appearance,
-        isSelected,
+        isSelected: isNavigationSplit && !isSelected ? false : isSelected,
         isActiveOverSelected,
         isDisabled,
         interactionState: 'hover',
@@ -233,7 +270,7 @@ export function getXCSS({
     ':active': {
       ...getColors({
         appearance,
-        isSelected,
+        isSelected: isNavigationSplit && !isSelected ? false : isSelected,
         isActiveOverSelected,
         isDisabled,
         interactionState: 'active',

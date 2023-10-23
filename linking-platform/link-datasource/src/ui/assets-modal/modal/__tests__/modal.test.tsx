@@ -20,6 +20,7 @@ import {
   UseObjectSchemasState,
 } from '../../../../hooks/useObjectSchemas';
 import {
+  AqlValidationResponse,
   useValidateAqlText,
   UseValidateAqlTextState,
 } from '../../../../hooks/useValidateAqlText';
@@ -214,7 +215,10 @@ describe('AssetsConfigModal', () => {
     validateAqlTextLoading: false,
     validateAqlText: mockValidateAqlText,
   };
-  const mockValidateAqlTextValid: boolean = true;
+  const mockValidateAqlTextValid: AqlValidationResponse = {
+    isValid: true,
+    message: null,
+  };
 
   beforeEach(() => {
     jest.resetAllMocks();

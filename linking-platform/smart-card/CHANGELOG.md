@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.37.1
+
+### Patch Changes
+
+- [#41994](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41994) [`bb0b21b1d05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb0b21b1d05) - Fix block card forbidden view pending request button is enabled
+
 ## 26.37.0
 
 ### Minor Changes

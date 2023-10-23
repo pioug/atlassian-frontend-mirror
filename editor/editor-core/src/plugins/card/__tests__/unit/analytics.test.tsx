@@ -23,6 +23,7 @@ import { createCardRequest } from '@atlaskit/editor-plugin-card/src/__tests__/un
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type {
   Command,
+  DocBuilder,
   FloatingToolbarConfig,
   FloatingToolbarButton,
 } from '@atlaskit/editor-common/types';
@@ -64,7 +65,6 @@ import {
   DefaultExtensionProvider,
   combineExtensionProviders,
 } from '@atlaskit/editor-common/extensions';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,

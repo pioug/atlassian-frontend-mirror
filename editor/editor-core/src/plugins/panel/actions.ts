@@ -8,54 +8,59 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { PanelType } from '@atlaskit/adf-schema';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Command } from '../../types';
-import type { AnalyticsEventPayload } from '../analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   INPUT_METHOD,
   EVENT_TYPE,
-  addAnalytics,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
+import type {
+  EditorAnalyticsAPI,
+  AnalyticsEventPayload,
+} from '@atlaskit/editor-common/analytics';
 import { findPanel } from './utils';
 import type { PanelOptions } from './pm-plugins/main';
 import { getPanelTypeBackgroundNoTokens } from '@atlaskit/editor-common/panel';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { wrapSelectionIn } from '@atlaskit/editor-common/utils';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };
 
-export const removePanel = (): Command => (state, dispatch) => {
-  const {
-    schema: { nodes },
-    tr,
-  } = state;
-  const payload: AnalyticsEventPayload = {
-    action: ACTION.DELETED,
-    actionSubject: ACTION_SUBJECT.PANEL,
-    attributes: { inputMethod: INPUT_METHOD.TOOLBAR },
-    eventType: EVENT_TYPE.TRACK,
+export const removePanel =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+  (state, dispatch) => {
+    const {
+      schema: { nodes },
+      tr,
+    } = state;
+    const payload: AnalyticsEventPayload = {
+      action: ACTION.DELETED,
+      actionSubject: ACTION_SUBJECT.PANEL,
+      attributes: { inputMethod: INPUT_METHOD.TOOLBAR },
+      eventType: EVENT_TYPE.TRACK,
+    };
+
+    let deleteTr = tr;
+    if (findSelectedNodeOfType(nodes.panel)(tr.selection)) {
+      deleteTr = removeSelectedNode(tr);
+    } else if (findParentNodeOfType(nodes.panel)(tr.selection)) {
+      deleteTr = removeParentNodeOfType(nodes.panel)(tr);
+    }
+
+    if (!deleteTr) {
+      return false;
+    }
+
+    if (dispatch) {
+      editorAnalyticsAPI?.attachAnalyticsEvent(payload)(deleteTr);
+      dispatch(deleteTr);
+    }
+    return true;
   };
 
-  let deleteTr = tr;
-  if (findSelectedNodeOfType(nodes.panel)(tr.selection)) {
-    deleteTr = removeSelectedNode(tr);
-  } else if (findParentNodeOfType(nodes.panel)(tr.selection)) {
-    deleteTr = removeParentNodeOfType(nodes.panel)(tr);
-  }
-
-  if (!deleteTr) {
-    return false;
-  }
-
-  if (dispatch) {
-    dispatch(addAnalytics(state, deleteTr, payload));
-  }
-  return true;
-};
-
 export const changePanelType =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (
     panelType: PanelType,
     panelOptions: PanelOptions = {},
@@ -117,12 +122,12 @@ export const changePanelType =
         ? newTr.setSelection(new NodeSelection(tr.doc.resolve(panelNode.pos)))
         : newTr;
 
-    const changePanelTypeTr = addAnalytics(state, newTrWithSelection, payload);
+    editorAnalyticsAPI?.attachAnalyticsEvent(payload)(newTrWithSelection);
 
-    changePanelTypeTr.setMeta('scrollIntoView', false);
+    newTrWithSelection.setMeta('scrollIntoView', false);
 
     if (dispatch) {
-      dispatch(changePanelTypeTr);
+      dispatch(newTrWithSelection);
     }
     return true;
   };

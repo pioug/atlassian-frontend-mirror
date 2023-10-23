@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.9
+
+### Patch Changes
+
+- [#41924](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41924) [`71cb328c202`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71cb328c202) - Fixed the column controls drag and drop targets. The monitor was not responding to the targets due to there layering and pointer value. The targets are now added/removed on demand when the user starts/stop dragging
+
 ## 5.3.8
 
 ### Patch Changes

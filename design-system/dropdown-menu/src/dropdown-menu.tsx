@@ -34,6 +34,8 @@ const opposites = {
   auto: 'auto',
   end: 'start',
 };
+export const KEY_SPACE = ' ';
+export const KEY_ENTER = 'Enter';
 
 const getFallbackPlacements = (
   placement: Placement,
@@ -169,7 +171,8 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
     return bind(window, {
       type: 'keydown',
       listener: function openOnKeyDown(e: KeyboardEvent) {
-        if (e.key === KEY_DOWN) {
+        // KEY_ENTER and KEY_SPACE are required to correctly recognize the keydown event in Safari
+        if (e.key === KEY_DOWN || e.key === KEY_ENTER || e.key === KEY_SPACE) {
           // prevent page scroll
           e.preventDefault();
           handleTriggerClicked(e);

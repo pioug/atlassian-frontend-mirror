@@ -80,7 +80,7 @@ describe('layout actions', () => {
     });
   });
 
-  describe('#setPresetLayout', () => {
+  describe('#setPresetLayout(undefined)', () => {
     layouts.forEach((currentLayout) => {
       layouts.forEach((newLayout) => {
         if (currentLayout.name !== newLayout.name) {
@@ -88,7 +88,7 @@ describe('layout actions', () => {
             ({ editorView } = editor(
               doc(buildLayoutForWidths(currentLayout.widths, true)),
             ));
-            setPresetLayout(newLayout.name)(
+            setPresetLayout(undefined)(newLayout.name)(
               editorView.state,
               editorView.dispatch,
             );
@@ -102,13 +102,19 @@ describe('layout actions', () => {
 
     it('should do nothing if selection not in layout', () => {
       expect(
-        setPresetLayout('three_equal')(editorView.state, editorView.dispatch),
+        setPresetLayout(undefined)('three_equal')(
+          editorView.state,
+          editorView.dispatch,
+        ),
       ).toBe(false);
     });
 
     it('keeps TextSelection if previously had TextSelection', () => {
       ({ editorView } = editor(doc(buildLayoutForWidths([50, 50], true))));
-      setPresetLayout('three_equal')(editorView.state, editorView.dispatch);
+      setPresetLayout(undefined)('three_equal')(
+        editorView.state,
+        editorView.dispatch,
+      );
 
       expect(editorView.state.selection).toBeInstanceOf(TextSelection);
     });
@@ -120,7 +126,10 @@ describe('layout actions', () => {
           NodeSelection.create(editorView.state.doc, 1),
         ),
       );
-      setPresetLayout('three_equal')(editorView.state, editorView.dispatch);
+      setPresetLayout(undefined)('three_equal')(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state.selection).toBeInstanceOf(NodeSelection);
     });
   });
@@ -135,13 +144,16 @@ describe('layout actions', () => {
           ),
         ),
       ));
-      deleteActiveLayoutNode(editorView.state, editorView.dispatch);
+      deleteActiveLayoutNode(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(doc(p('')));
     });
 
     it('should do nothing if selection not in layout', () => {
       expect(
-        setPresetLayout('three_equal')(editorView.state, editorView.dispatch),
+        setPresetLayout(undefined)('three_equal')(
+          editorView.state,
+          editorView.dispatch,
+        ),
       ).toBe(false);
     });
   });

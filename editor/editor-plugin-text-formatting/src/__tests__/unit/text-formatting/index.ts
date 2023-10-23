@@ -235,6 +235,26 @@ describe('text-formatting', () => {
             );
             expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
           });
+
+          it('toggles bold mark with CapsLock modifier on', () => {
+            const expectedPayload: AnalyticsEventPayload = {
+              action: ACTION.FORMATTED,
+              actionSubject: ACTION_SUBJECT.TEXT,
+              actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRONG,
+              eventType: EVENT_TYPE.TRACK,
+              attributes: expect.objectContaining({
+                inputMethod: INPUT_METHOD.SHORTCUT,
+              }),
+            };
+            const { editorView } = editor(doc(p('{<}text{>}')));
+
+            sendKeyToPm(editorView, 'Ctrl-B', { CapsLock: true });
+
+            expect(editorView.state.doc).toEqualDocument(
+              doc(p(strong('text'))),
+            );
+            expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
+          });
         });
 
         describe('when hits Ctrl-I', () => {
@@ -255,6 +275,24 @@ describe('text-formatting', () => {
             expect(editorView.state.doc).toEqualDocument(doc(p(em('text'))));
             expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
           });
+
+          it('toggles italic mark with CapsLock modifier on', () => {
+            const expectedPayload: AnalyticsEventPayload = {
+              action: ACTION.FORMATTED,
+              actionSubject: ACTION_SUBJECT.TEXT,
+              actionSubjectId: ACTION_SUBJECT_ID.FORMAT_ITALIC,
+              eventType: EVENT_TYPE.TRACK,
+              attributes: expect.objectContaining({
+                inputMethod: INPUT_METHOD.SHORTCUT,
+              }),
+            };
+            const { editorView } = editor(doc(p('{<}text{>}')));
+
+            sendKeyToPm(editorView, 'Ctrl-I', { CapsLock: true });
+
+            expect(editorView.state.doc).toEqualDocument(doc(p(em('text'))));
+            expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
+          });
         });
 
         describe('when hits Ctrl-U', () => {
@@ -271,6 +309,26 @@ describe('text-formatting', () => {
             const { editorView } = editor(doc(p('{<}text{>}')));
 
             sendKeyToPm(editorView, 'Ctrl-u');
+
+            expect(editorView.state.doc).toEqualDocument(
+              doc(p(underline('text'))),
+            );
+            expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
+          });
+
+          it('toggles underline mark with CapsLock modifier on', () => {
+            const expectedPayload: AnalyticsEventPayload = {
+              action: ACTION.FORMATTED,
+              actionSubject: ACTION_SUBJECT.TEXT,
+              actionSubjectId: ACTION_SUBJECT_ID.FORMAT_UNDERLINE,
+              eventType: EVENT_TYPE.TRACK,
+              attributes: expect.objectContaining({
+                inputMethod: INPUT_METHOD.SHORTCUT,
+              }),
+            };
+            const { editorView } = editor(doc(p('{<}text{>}')));
+
+            sendKeyToPm(editorView, 'Ctrl-U', { CapsLock: true });
 
             expect(editorView.state.doc).toEqualDocument(
               doc(p(underline('text'))),

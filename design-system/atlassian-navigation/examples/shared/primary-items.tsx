@@ -1,5 +1,14 @@
-import React, { KeyboardEvent, useState } from 'react';
+import React, { KeyboardEvent, type Ref, useState } from 'react';
 
+import {
+  UNSAFE_BUTTON as Button,
+  UNSAFE_ICON_BUTTON as IconButton,
+} from '@atlaskit/button/unsafe';
+import DropdownMenu, {
+  DropdownItem,
+  DropdownItemGroup,
+} from '@atlaskit/dropdown-menu';
+import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { PopupProps } from '@atlaskit/popup/types';
@@ -8,6 +17,7 @@ import {
   PrimaryButton,
   PrimaryButtonProps,
   PrimaryDropdownButton,
+  PrimarySplitButton,
 } from '../../src';
 import { useOverflowStatus } from '../../src/controllers/overflow';
 
@@ -102,6 +112,54 @@ const PrimaryDropdown = (props: PrimaryDropdownProps) => {
     />
   );
 };
+
+export const primaryItemsWithPrimarySplitButton = [
+  <PrimaryDropdownButton>Services</PrimaryDropdownButton>,
+  <PrimaryButton>What's next</PrimaryButton>,
+  <PrimarySplitButton isHighlighted>
+    <Button>Explore</Button>
+    <DropdownMenu
+      trigger={({ triggerRef, ...triggerProps }) => (
+        <IconButton
+          ref={triggerRef as Ref<HTMLButtonElement>}
+          {...triggerProps}
+          icon={<ChevronDownIcon label="Open link issue options" />}
+        >
+          ''
+        </IconButton>
+      )}
+    >
+      <DropdownItemGroup>
+        <DropdownItem>Option one</DropdownItem>
+        <DropdownItem>Option two</DropdownItem>
+      </DropdownItemGroup>
+    </DropdownMenu>
+  </PrimarySplitButton>,
+  <PrimaryDropdownButton>Issues</PrimaryDropdownButton>,
+  <PrimarySplitButton>
+    <Button>Open something</Button>
+    <DropdownMenu
+      trigger={({ triggerRef, ...triggerProps }) => (
+        <IconButton
+          ref={triggerRef as Ref<HTMLButtonElement>}
+          {...triggerProps}
+          isSelected
+          icon={
+            <ChevronDownIcon label="Select what sort of something to open" />
+          }
+        >
+          ''
+        </IconButton>
+      )}
+    >
+      <DropdownItemGroup>
+        <DropdownItem>Option one</DropdownItem>
+        <DropdownItem>Option two</DropdownItem>
+      </DropdownItemGroup>
+    </DropdownMenu>
+  </PrimarySplitButton>,
+  ,
+];
 
 export const bitbucketPrimaryItems = [
   <NavigationButton

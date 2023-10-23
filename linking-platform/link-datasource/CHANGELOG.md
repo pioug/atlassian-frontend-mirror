@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.9.1
+
+### Patch Changes
+
+- [#41877](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41877) [`dabace22e02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dabace22e02) - [ux] Add validation error message when validating AQL string
+
 ## 1.9.0
 
 ### Minor Changes

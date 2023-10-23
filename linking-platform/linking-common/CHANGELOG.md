@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.12.0
+
+### Minor Changes
+
+- [#41979](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41979) [`e9a109ecb52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9a109ecb52) - Export base pulse component
+
 ## 4.11.0
 
 ### Minor Changes

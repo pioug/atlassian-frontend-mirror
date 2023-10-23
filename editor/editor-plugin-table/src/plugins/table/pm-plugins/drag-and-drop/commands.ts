@@ -110,9 +110,6 @@ export const moveSource = (
       }
 
       const move = sourceType === 'table-row' ? moveRow : moveColumn;
-      return move(
-        sourceIndex,
-        targetIndex + (sourceIndex > targetIndex ? 0 : -1),
-      )(tr);
+      return move(sourceIndex, targetIndex)(tr);
     },
   );

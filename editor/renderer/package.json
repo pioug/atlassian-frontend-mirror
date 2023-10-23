@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "108.15.14",
+  "version": "108.15.15",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
     "@atlaskit/analytics-listeners": "^8.7.0",
     "@atlaskit/analytics-namespaced-context": "^6.7.0",
     "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/button": "^16.10.0",
+    "@atlaskit/button": "^16.11.0",
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/editor-common": "^76.13.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
@@ -122,6 +122,12 @@
       "type": "boolean"
     },
     "platform.editor.table.increase-shadow-visibility_lh89r": {
+      "type": "boolean"
+    },
+    "platform.editor.dm-invert-tablecell-bgcolor_9fz6s": {
+      "type": "boolean"
+    },
+    "platform.editor.dm-invert-text-color_cvho2": {
       "type": "boolean"
     }
   }

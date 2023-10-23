@@ -8,6 +8,7 @@ import type {
   FloatingToolbarSeparator,
   FloatingToolbarListPicker,
   SelectOption,
+  ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
 import {
   removeCodeBlock,
@@ -23,13 +24,13 @@ import {
   removeVisualFeedbackForCopyButton,
 } from './pm-plugins/codeBlockCopySelectionPlugin';
 import type { Command } from '../../types';
-import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import { pluginKey } from './plugin-key';
 import {
   createLanguageList,
   getLanguageIdentifier,
   DEFAULT_LANGUAGES,
 } from './language-list';
+import type { CodeBlockPlugin } from '.';
 
 export const messages = defineMessages({
   selectLanguage: {
@@ -45,9 +46,12 @@ const languageList = createLanguageList(DEFAULT_LANGUAGES);
 export const getToolbarConfig =
   (
     allowCopyToClipboard: boolean = false,
-    hoverDecoration: HoverDecorationHandler | undefined,
+    api: ExtractInjectionAPI<CodeBlockPlugin> | undefined,
   ): FloatingToolbarHandler =>
   (state, { formatMessage }) => {
+    const { hoverDecoration } = api?.decorations.actions ?? {};
+    const editorAnalyticsAPI = api?.analytics?.actions;
+
     const codeBlockState: CodeBlockState | undefined =
       pluginKey.getState(state);
     const pos = codeBlockState?.pos ?? null;
@@ -81,7 +85,7 @@ export const getToolbarConfig =
       id: 'editor.codeBlock.languageOptions',
       type: 'select',
       selectType: 'list',
-      onChange: (option) => changeLanguage(option.value),
+      onChange: (option) => changeLanguage(editorAnalyticsAPI)(option.value),
       defaultValue,
       placeholder: formatMessage(messages.selectLanguage),
       options,

@@ -1,5 +1,15 @@
 # @atlaskit/atlassian-navigation
 
+## 2.9.0
+
+### Minor Changes
+
+- [#41859](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41859) [`abe039bab59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abe039bab59) - Including missing dropdown-menu dev dependency and introduce PrimarySplitButton (unsafe)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.8.0
 
 ### Minor Changes

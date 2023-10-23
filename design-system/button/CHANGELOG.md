@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.11.0
+
+### Minor Changes
+
+- [#41859](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41859) [`7c662f243b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c662f243b9) - Expose more UNSAFE exports from UNSAFE entry point for internal work. PLEASE DO NO USE ANYTHING FROM "UNSAFE" ENTRY POINT WITH "UNSAFE" PREFIX.
+
 ## 16.10.2
 
 ### Patch Changes

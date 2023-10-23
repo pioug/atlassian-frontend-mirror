@@ -58,6 +58,13 @@ const TitleBlockBuilder: React.FC<BlockBuilderProps> = ({
       source={SmartLinkPosition}
       template={template}
     />
+    <CheckboxOption
+      label="Hide icon"
+      name="title.hideIcon"
+      onChange={onChange}
+      propName="hideIcon"
+      template={template}
+    />
     <SelectOption
       defaultValue="_blank"
       label="Override link target"

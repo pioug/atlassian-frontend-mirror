@@ -302,6 +302,18 @@ export type PrimaryDropdownButtonProps = Omit<
 };
 
 // @public
+export const PrimarySplitButton: ({
+  children,
+  isHighlighted,
+}: PrimarySplitButtonProps) => jsx.JSX.Element;
+
+// @public (undocumented)
+type PrimarySplitButtonProps = {
+  children: ReactNode;
+  isHighlighted?: boolean;
+};
+
+// @public
 export const ProductHome: ({
   icon: Icon,
   logo: Logo,

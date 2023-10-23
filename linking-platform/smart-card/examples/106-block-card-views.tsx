@@ -1,8 +1,9 @@
 /** @jsx jsx */
+import { ProviderProps } from '@atlaskit/link-provider';
 import { jsx, css } from '@emotion/react';
+import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 
-import { Appearance } from '@atlaskit/button/types';
 import Page from '@atlaskit/page';
 import AttachmentIcon from '@atlaskit/icon/glyph/attachment';
 import CommentIcon from '@atlaskit/icon/glyph/comment';
@@ -21,14 +22,25 @@ import { ActionList } from '../src/view/BlockCard/components/ActionList';
 import {
   BlockCardResolvedView,
   BlockCardResolvingView,
-  BlockCardUnauthorisedView,
-  BlockCardForbiddenView,
-  BlockCardErroredView,
   PreviewAction,
-  BlockCardNotFoundView,
 } from '../src/view/BlockCard';
 import { CollaboratorListProps } from '../src/view/BlockCard/components/CollaboratorList';
 import { mockAnalytics } from '../src/utils/mocks';
+import CardView from './utils/card-view';
+import {
+  ErroredClient,
+  ForbiddenClient,
+  ForbiddenWithObjectRequestAccessClient,
+  ForbiddenWithSiteDeniedRequestClient,
+  ForbiddenWithSiteDirectAccessClient,
+  ForbiddenWithSiteForbiddenClient,
+  ForbiddenWithSitePendingRequestClient,
+  ForbiddenWithSiteRequestAccessClient,
+  NotFoundClient,
+  NotFoundWithSiteAccessExistsClient,
+  UnAuthClient,
+  UnAuthClientWithNoAuthFlow,
+} from './utils/custom-client';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const headerCSS = css`
@@ -128,31 +140,6 @@ const resolvedActionListProps = {
   ],
 };
 
-const failedActionListProps = {
-  showDefaultActions: true,
-  items: [
-    {
-      id: 'tryagain',
-      text: 'Try a different account',
-      promise: () =>
-        new Promise<void>((resolve) => setTimeout(() => resolve(), 2000)),
-    },
-  ],
-};
-
-const unauthorisedActionListProps = {
-  showDefaultActions: true,
-  items: [
-    {
-      id: 'connect',
-      text: 'Connect',
-      buttonAppearance: 'default' as Appearance,
-      promise: () =>
-        new Promise<void>((resolve) => setTimeout(() => resolve(), 2000)),
-    },
-  ],
-};
-
 const bylineProps = {
   text: 'Updated 2 days ago. Created 3 days ago.',
   tooltip: 'Here is a byline',
@@ -165,6 +152,22 @@ const providerProps = {
 
 const kittyThumb =
   'https://icatcare.org/app/uploads/2019/09/The-Kitten-Checklist-1.png';
+
+const render = (
+  client: ProviderProps['client'],
+  title: string,
+  description?: string,
+) => (
+  <React.Fragment>
+    <h6>{title}</h6>
+    {description ? <p>Context: {description}</p> : undefined}
+    <CardView
+      appearance="block"
+      client={client}
+      url="https://site.atlassian.net/browse/key-1"
+    />
+  </React.Fragment>
+);
 
 export default () => {
   return (
@@ -247,40 +250,50 @@ export default () => {
               console.log('you clicked an avatar!');
             }}
           />
-          <h6 css={subHeaderCSS}>Unauthorized View</h6>
-          <BlockCardUnauthorisedView
-            icon={resolvedIconProps}
-            link={
-              'https://icatcare.org/app/uploads/2019/09/The-Kitten-Checklist-1.png'
-            }
-            actions={unauthorisedActionListProps.items}
-            context={{ text: providerProps.name, icon: providerProps.icon }}
-          />
-          <h6 css={subHeaderCSS}>Permission Denied View</h6>
-          <BlockCardForbiddenView
-            icon={resolvedIconProps}
-            link={
-              'https://icatcare.org/app/uploads/2019/09/The-Kitten-Checklist-1.png'
-            }
-            context={{ text: providerProps.name, icon: providerProps.icon }}
-            actions={failedActionListProps.items}
-          />
-          <h6 css={subHeaderCSS}>Not Found View</h6>
-          <BlockCardNotFoundView
-            icon={resolvedIconProps}
-            link={
-              'https://icatcare.org/app/uploads/2019/09/The-Kitten-Checklist-1.png'
-            }
-            context={{ text: providerProps.name, icon: providerProps.icon }}
-          />
-          <h6 css={subHeaderCSS}>Error View</h6>
-
-          <BlockCardErroredView
-            onRetry={() => {}}
-            link={
-              'https://icatcare.org/app/uploads/2019/09/The-Kitten-Checklist-1.png'
-            }
-          />
+          {render(new ForbiddenClient(), '[Forbidden] Default')}
+          {render(
+            new ForbiddenWithSiteRequestAccessClient(),
+            '[Forbidden] Site - Request Access',
+            "I don't have access to the site, but I can request access",
+          )}
+          {render(
+            new ForbiddenWithSitePendingRequestClient(),
+            '[Forbidden] Site - Pending Request',
+            "I don't have access to the site, but I’ve already requested access and I’m waiting",
+          )}
+          {render(
+            new ForbiddenWithSiteDeniedRequestClient(),
+            '[Forbidden] Site - Denied Request',
+            "I don't have access to the site, and my previous request was denied",
+          )}
+          {render(
+            new ForbiddenWithSiteDirectAccessClient(),
+            '[Forbidden] Site - Direct Access',
+            "I don't have access to the site, but I can join directly",
+          )}
+          {render(
+            new ForbiddenWithObjectRequestAccessClient(),
+            '[Forbidden] Object - Request Access',
+            'I have access to the site, but not the object',
+          )}
+          {render(
+            new ForbiddenWithSiteForbiddenClient(),
+            '[Forbidden] Forbidden',
+            "When you don't have access to the site, and you can’t request access",
+          )}
+          {render(new NotFoundClient(), '[Not Found] Default')}
+          {render(
+            new NotFoundWithSiteAccessExistsClient(),
+            '[Not Found] Access Exists',
+            'I have access to the site, but not the object or object is not-found',
+          )}
+          {render(new UnAuthClient(), '[Unauthorized]')}
+          {render(
+            new UnAuthClientWithNoAuthFlow(),
+            '[Unauthorized] No auth flow',
+          )}
+          {render(new NotFoundClient(), '[Not Found]')}
+          {render(new ErroredClient(), '[Error]')}
         </div>
       </Page>
     </IntlProvider>

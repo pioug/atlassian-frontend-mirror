@@ -124,10 +124,7 @@ const codeBlockPlugin: NextEditorPlugin<
         },
       },
     ],
-    floatingToolbar: getToolbarConfig(
-      options?.allowCopyToClipboard,
-      api?.decorations.actions.hoverDecoration,
-    ),
+    floatingToolbar: getToolbarConfig(options?.allowCopyToClipboard, api),
   },
 });
 

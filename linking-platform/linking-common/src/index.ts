@@ -50,4 +50,5 @@ export { getBaseUrl, getResolverUrl, BaseUrls } from './environments';
 
 export { request, NetworkError } from './api';
 
+export { Pulse } from './components/Pulse';
 export { Skeleton } from './components/Skeleton';

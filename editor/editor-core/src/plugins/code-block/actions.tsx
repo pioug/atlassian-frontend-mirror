@@ -15,7 +15,6 @@ import type { CodeBlockState } from './pm-plugins/main-state';
 import { copySelectionPluginKey } from './pm-plugins/codeBlockCopySelectionPlugin';
 import { ACTIONS } from './pm-plugins/actions';
 import { copyToClipboard } from '../../utils/clipboard';
-import { addAnalytics } from '../analytics/utils';
 import { shouldSplitSelectedNodeOnNodeInsertion } from '@atlaskit/editor-common/insert';
 import { transformToCodeBlockAction } from './transform-to-code-block';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
@@ -48,6 +47,7 @@ export const removeCodeBlock: Command = (state, dispatch) => {
 };
 
 export const changeLanguage =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (language: string): Command =>
   (state, dispatch) => {
     const { codeBlock } = state.schema.nodes;
@@ -68,14 +68,13 @@ export const changeLanguage =
     const result = tr.setSelection(selection);
 
     if (dispatch) {
-      dispatch(
-        addAnalytics(state, result, {
-          action: ACTION.LANGUAGE_SELECTED,
-          actionSubject: ACTION_SUBJECT.CODE_BLOCK,
-          attributes: { language },
-          eventType: EVENT_TYPE.TRACK,
-        }),
-      );
+      editorAnalyticsAPI?.attachAnalyticsEvent({
+        action: ACTION.LANGUAGE_SELECTED,
+        actionSubject: ACTION_SUBJECT.CODE_BLOCK,
+        attributes: { language },
+        eventType: EVENT_TYPE.TRACK,
+      })(result);
+      dispatch(result);
     }
 
     return true;

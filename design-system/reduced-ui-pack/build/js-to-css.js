@@ -5,17 +5,17 @@ import makeDir from 'mkdirp';
 import styleSheet from '../src';
 
 const writeFile = promisify(fs.writeFile);
-const DIST = path.join(__dirname, '..', 'src');
+const SRC = path.join(__dirname, '..', 'src');
 
-async function buildCSSReset() {
+async function buildReducedUIPack() {
   try {
-    makeDir.sync(DIST);
-    await writeFile(path.join(DIST, 'bundle.css'), styleSheet);
+    makeDir.sync(SRC);
+    await writeFile(path.join(SRC, 'bundle.css'), styleSheet);
   } catch (err) {
-    console.error(`Failed to build css-reset due to ${err}`);
+    console.error(`Failed to build reduced-ui-pack due to ${err}`);
   }
 }
 
-buildCSSReset().then(() => {
-  console.log('successfully build css-reset');
+buildReducedUIPack().then(() => {
+  console.log('successfully build reduced-ui-pack');
 });

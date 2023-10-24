@@ -1,5 +1,30 @@
 # @atlaskit/editor-mobile-bridge
 
+## 189.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.13.6
+
+### Patch Changes
+
+- [#41967](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41967) [`8f6d293c321`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f6d293c321) - Decouple tasks and decisions, code block, and expand plugins from internal deprecated analytics plugin.
+- Updated dependencies
+
+## 188.13.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 188.13.4
 
 ### Patch Changes

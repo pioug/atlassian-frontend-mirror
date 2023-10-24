@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.10.0
+
+### Minor Changes
+
+- [#41851](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41851) [`3db4d0fcf3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3db4d0fcf3e) - Add Basic filter component to jira issue modal.
+
 ## 1.9.1
 
 ### Patch Changes

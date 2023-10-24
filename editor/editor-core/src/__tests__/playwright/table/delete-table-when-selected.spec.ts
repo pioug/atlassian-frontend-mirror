@@ -65,7 +65,8 @@ test.describe('when the entire table is selected', () => {
 
       await editor.simulatePasteEvent({
         pasteAs: 'text/html',
-        text: '<p>this is a link <a href="http://www.google.com">www.google.com</a></p><p>more elements with some <strong>format</strong></p><p>some addition<em> formatting</em></p>',
+        text: '',
+        html: '<p>this is a link <a href="http://www.google.com">www.google.com</a></p><p>more elements with some <strong>format</strong></p><p>some addition<em> formatting</em></p>',
       });
 
       await expect(editor).toHaveDocument(

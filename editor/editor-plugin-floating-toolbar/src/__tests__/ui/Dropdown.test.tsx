@@ -2,6 +2,7 @@
 import React from 'react';
 
 import { fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import type {
   Command,
@@ -56,9 +57,29 @@ describe('Dropdown', () => {
       expect(button.getAttribute('aria-expanded')).toBe('true');
     });
   });
+
+  describe('onToggle functionality', async () => {
+    beforeAll(() => {
+      jest
+        .spyOn(window, 'requestAnimationFrame')
+        .mockImplementation((cb: Function) => cb());
+    });
+    it('should call onToggle when dropdown menu is expanded', async () => {
+      const onToggle = jest.fn();
+      const { button } = getDropdownSetup(onToggle);
+      await userEvent.click(button);
+      await userEvent.click(button);
+      expect(onToggle).toHaveBeenCalledTimes(2);
+    });
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+  });
 });
 
-const getDropdownSetup = (): {
+const getDropdownSetup = (
+  onToggle?: jest.Mock,
+): {
   editorView: EditorView;
   dropdown: FloatingToolbarDropdown<Command>;
   container: HTMLElement;
@@ -98,7 +119,14 @@ const getDropdownSetup = (): {
     id: 'dropdownId',
     type: 'dropdown',
     title: 'title',
+    onToggle,
     options: dropdownOptions,
+  };
+
+  const dispatchCommand = (command?: Function): void => {
+    if (command) {
+      command();
+    }
   };
 
   const { container } = renderWithIntl(
@@ -112,7 +140,7 @@ const getDropdownSetup = (): {
         node={editorView.state.doc.firstChild!}
         items={[dropdown]}
         dispatchAnalyticsEvent={jest.fn()}
-        dispatchCommand={jest.fn()}
+        dispatchCommand={dispatchCommand}
         featureFlags={{}}
         api={undefined}
       />

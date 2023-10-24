@@ -274,7 +274,7 @@ export function expandKeymap(
         isEmptyNode(state.schema)(expandNode.node) &&
         dispatch
       ) {
-        return deleteExpand()(state, dispatch);
+        return deleteExpand(api?.analytics?.actions)(state, dispatch);
       }
 
       return false;

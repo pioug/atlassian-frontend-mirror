@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.13.1
+
+### Patch Changes
+
+- [#42031](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42031) [`0b60a2a6318`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b60a2a6318) - Add more test cases and handle undefined object property error.
+
 ## 8.13.0
 
 ### Minor Changes

@@ -625,7 +625,7 @@ export default class WebBridgeImpl
         );
         return;
       case 'action':
-        insertTaskDecisionCommand(
+        insertTaskDecisionCommand(this.pluginInjectionApi?.analytics?.actions)(
           'taskList',
           inputMethod as InsertBlockInputMethodToolbar,
           undefined,
@@ -634,7 +634,7 @@ export default class WebBridgeImpl
         )(state, dispatch);
         return;
       case 'decision':
-        insertTaskDecisionCommand(
+        insertTaskDecisionCommand(this.pluginInjectionApi?.analytics?.actions)(
           'decisionList',
           inputMethod as InsertBlockInputMethodToolbar,
           undefined,
@@ -648,7 +648,10 @@ export default class WebBridgeImpl
         )(state, dispatch);
         return;
       case 'expand':
-        insertExpand(state, dispatch);
+        insertExpand(this.pluginInjectionApi?.analytics?.actions)(
+          state,
+          dispatch,
+        );
         return;
       case 'table':
         createTable()(state, dispatch);

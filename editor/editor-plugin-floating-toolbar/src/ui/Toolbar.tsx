@@ -202,6 +202,7 @@ const ToolbarItems = React.memo(
                     }
                     dropdownListId={item?.id && `${item.id}-dropdownList`}
                     alignDropdownWithToolbar={items.length === 1}
+                    onToggle={item.onToggle}
                   />
                 );
 

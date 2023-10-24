@@ -18,7 +18,7 @@ import {
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/actions';
 import { insertTaskDecisionCommand } from '../../../tasks-and-decisions/commands';
-import { insertExpand } from '../../../expand/commands';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -430,6 +430,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private insertTaskDecision =
+    (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
     (name: 'action' | 'decision', inputMethod: TOOLBAR_MENU_TYPE) =>
     (): boolean => {
       const {
@@ -437,7 +438,10 @@ export class ToolbarInsertBlock extends React.PureComponent<
       } = this.props;
       const listType = name === 'action' ? 'taskList' : 'decisionList';
 
-      return insertTaskDecisionCommand(listType, inputMethod)(state, dispatch);
+      return insertTaskDecisionCommand(editorAnalyticsAPI)(
+        listType,
+        inputMethod,
+      )(state, dispatch);
     };
 
   private insertHorizontalRule = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
@@ -455,8 +459,13 @@ export class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private insertExpand = (): boolean => {
-    const { state, dispatch } = this.props.editorView;
-    return insertExpand(state, dispatch);
+    const {
+      editorView: { state, dispatch },
+      pluginInjectionApi,
+    } = this.props;
+    return (
+      pluginInjectionApi?.expand?.actions.insertExpand(state, dispatch) ?? false
+    );
   };
 
   private insertBlockType = (itemName: string) => () => {
@@ -532,7 +541,9 @@ export class ToolbarInsertBlock extends React.PureComponent<
         break;
       case 'action':
       case 'decision':
-        this.insertTaskDecision(item.value.name, inputMethod)();
+        this.insertTaskDecision(
+          this.props.pluginInjectionApi?.analytics?.actions,
+        )(item.value.name, inputMethod)();
         break;
 
       case 'horizontalrule':

@@ -249,7 +249,7 @@ const tableRowControlStyles = () => {
           position: absolute;
           margin-top: ${tableMarginTop}px;
           left: -${tableToolbarSize + 1}px;
-          z-index: ${rowControlsZIndex};
+          z-index: ${rowControlsZIndex + 4};
         }
       `
     : css`
@@ -705,14 +705,77 @@ export const tableStyles = (
       align-items: center;
       position: absolute;
       left: -4px;
+      z-index: ${akEditorUnitZIndex};
     }
 
     .${ClassName.DRAG_HANDLE_BUTTON_CONTAINER} {
       cursor: grab;
-      width: max-content;
       padding: 0;
-      border: none;
-      background: none;
+
+      border-radius: 6px;
+      width: max-content;
+      height: max-content;
+      border: 2px solid ${token('elevation.surface', N0)};
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg {
+        rect {
+          //
+          fill: ${token('color.background.accent.gray.subtlest', '#F1F2F4')};
+        }
+        g {
+          fill: ${token('color.icon.subtle', '#626F86')};
+        }
+      }
+
+      &:hover {
+        svg {
+          rect {
+            fill: ${token('color.background.accent.blue.subtle', '#579DFF')};
+          }
+          g {
+            fill: ${token('color.icon.inverse', '#FFF')};
+          }
+        }
+      }
+
+      &.selected {
+        svg {
+          rect {
+            fill: ${token('color.background.accent.blue.subtle', '#579DFF')};
+          }
+          g {
+            fill: ${token('color.icon.inverse', '#FFF')};
+          }
+        }
+      }
+
+      &.danger {
+        svg {
+          rect {
+            fill: ${token(
+              'color.background.accent.red.subtler.pressed',
+              '#F87462',
+            )};
+          }
+          g {
+            fill: ${token('color.border.inverse', '#FFF')};
+          }
+        }
+      }
+
+      &.disabled {
+        svg {
+          rect {
+            fill: ${token('color.background.accent.gray.subtlest', '#F1F2F4')};
+          }
+          g {
+            fill: ${token('color.border.inverse', '#FFF')};
+          }
+        }
+      }
     }
 
     ${floatingColumnControls(props)}

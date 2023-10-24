@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.11
+
+### Patch Changes
+
+- [#41823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41823) [`60dab8657e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60dab8657e1) - Add row and column select functionality for table drag controls
+
+## 5.3.10
+
+### Patch Changes
+
+- [#42000](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42000) [`62e03b45cf6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62e03b45cf6) - Updated the column drag handle to display the drag preview correctly
+
 ## 5.3.9
 
 ### Patch Changes

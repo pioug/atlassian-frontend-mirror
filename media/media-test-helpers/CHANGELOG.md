@@ -1,5 +1,11 @@
 # @atlaskit/media-test-helpers
 
+## 33.0.16
+
+### Patch Changes
+
+- [#41932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41932) [`756dd90f1a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/756dd90f1a3) - 1. Deprecate withMediaClient HOC in media-client and migrated it to media-client-react 2. clean up deprecated imports from media-client
+
 ## 33.0.15
 
 ### Patch Changes

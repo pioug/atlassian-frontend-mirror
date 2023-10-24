@@ -5,9 +5,10 @@ import { browser } from '@atlaskit/editor-common/utils';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { hoverRows, selectRow } from '../../commands';
+import { hoverCell, hoverRows, selectRow } from '../../commands';
+import { getPluginState } from '../../pm-plugins/plugin-factory';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
-import type { CellHoverCoordinates } from '../../types';
+import type { CellHoverMeta } from '../../types';
 import { isSelectionUpdated } from '../../utils';
 
 import { CornerControls } from './CornerControls';
@@ -28,7 +29,7 @@ export interface Props {
   hasHeaderRow?: boolean;
   headerRowHeight?: number;
   hoveredRows?: number[];
-  hoveredCell?: CellHoverCoordinates;
+  hoveredCell?: CellHoverMeta;
   ordering?: TableColumnOrdering;
   stickyHeader?: RowStickyState;
 }
@@ -145,6 +146,7 @@ export default class TableFloatingControls extends Component<Props, State> {
             isInDanger={isInDanger}
             isResizing={isResizing}
             selectRow={this.selectRow}
+            updateCellHoverLocation={this.updateCellHoverLocation}
             stickyTop={stickyTop}
             isDragAndDropEnabled={isDragAndDropEnabled}
           />
@@ -157,8 +159,11 @@ export default class TableFloatingControls extends Component<Props, State> {
                 tableRef={tableRef}
                 hoveredCell={hoveredCell}
                 editorView={editorView}
+                tableActive={tableActive}
+                isInDanger={isInDanger}
                 hoverRows={this.hoverRows}
                 selectRow={this.selectRow}
+                updateCellHoverLocation={this.updateCellHoverLocation}
               />
             ) : (
               <>
@@ -203,5 +208,16 @@ export default class TableFloatingControls extends Component<Props, State> {
   private hoverRows = (rows: Array<number>, danger?: boolean) => {
     const { state, dispatch } = this.props.editorView;
     hoverRows(rows, danger)(state, dispatch);
+  };
+
+  // re-use across numbered columns and row controls
+  private updateCellHoverLocation = (rowIndex: number) => {
+    const { editorView, tableActive } = this.props;
+    const { state, dispatch } = editorView;
+    const { hoveredCell } = getPluginState(state);
+
+    if (tableActive && hoveredCell.rowIndex !== rowIndex) {
+      hoverCell(rowIndex, hoveredCell.colIndex)(state, dispatch);
+    }
   };
 }

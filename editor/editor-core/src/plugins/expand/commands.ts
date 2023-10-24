@@ -6,10 +6,12 @@ import type {
 } from '@atlaskit/editor-prosemirror/model';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
-import type { Command } from '../../types';
-import type { AnalyticsEventPayload } from '../analytics';
+import type { Command } from '@atlaskit/editor-common/types';
+import type {
+  EditorAnalyticsAPI,
+  AnalyticsEventPayload,
+} from '@atlaskit/editor-common/analytics';
 import {
-  addAnalytics,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
@@ -17,7 +19,7 @@ import {
   EVENT_TYPE,
   PLATFORMS,
   MODE,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 
 import { findExpand } from './utils';
@@ -37,6 +39,7 @@ export const setExpandRef = (ref?: HTMLDivElement | null): Command =>
   );
 
 export const deleteExpandAtPos =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (expandNodePos: number, expandNode: PMNode): Command =>
   (state, dispatch) => {
     if (!expandNode || isNaN(expandNodePos)) {
@@ -54,26 +57,28 @@ export const deleteExpandAtPos =
     };
 
     if (expandNode && dispatch) {
-      dispatch(
-        addAnalytics(
-          state,
-          state.tr.delete(expandNodePos, expandNodePos + expandNode.nodeSize),
-          payload,
-        ),
-      );
+      const { tr } = state;
+      tr.delete(expandNodePos, expandNodePos + expandNode.nodeSize);
+      editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
+      dispatch(tr);
     }
 
     return true;
   };
 
-export const deleteExpand = (): Command => (state, dispatch) => {
-  const expandNode = findExpand(state);
-  if (!expandNode) {
-    return false;
-  }
+export const deleteExpand =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+  (state, dispatch) => {
+    const expandNode = findExpand(state);
+    if (!expandNode) {
+      return false;
+    }
 
-  return deleteExpandAtPos(expandNode.pos, expandNode.node)(state, dispatch);
-};
+    return deleteExpandAtPos(editorAnalyticsAPI)(
+      expandNode.pos,
+      expandNode.node,
+    )(state, dispatch);
+  };
 
 export const updateExpandTitle =
   (title: string, pos: number, nodeType: NodeType): Command =>
@@ -96,6 +101,7 @@ export const updateExpandTitle =
   };
 
 export const toggleExpandExpanded =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (pos: number, nodeType: NodeType): Command =>
   (state, dispatch) => {
     const node = state.doc.nodeAt(pos);
@@ -142,7 +148,9 @@ export const toggleExpandExpanded =
 
       // `isRemote` meta prevents this step from being
       // sync'd between sessions in collab edit
-      dispatch(addAnalytics(state, tr.setMeta('isRemote', true), payload));
+      tr.setMeta('isRemote', true);
+      editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
+      dispatch(tr);
     }
     return true;
   };
@@ -154,36 +162,39 @@ export const createExpandNode = (state: EditorState): PMNode | null => {
   return expandType.createAndFill({});
 };
 
-export const insertExpand: Command = (state, dispatch) => {
-  const expandNode = createExpandNode(state);
+export const insertExpand =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+  (state, dispatch) => {
+    const expandNode = createExpandNode(state);
 
-  if (!expandNode) {
-    return false;
-  }
+    if (!expandNode) {
+      return false;
+    }
 
-  const tr = state.selection.empty
-    ? safeInsert(expandNode)(state.tr).scrollIntoView()
-    : createWrapSelectionTransaction({
-        state,
-        type: expandNode.type,
-      });
-  const payload: AnalyticsEventPayload = {
-    action: ACTION.INSERTED,
-    actionSubject: ACTION_SUBJECT.DOCUMENT,
-    actionSubjectId:
-      expandNode?.type === state.schema.nodes.expand
-        ? ACTION_SUBJECT_ID.EXPAND
-        : ACTION_SUBJECT_ID.NESTED_EXPAND,
-    attributes: { inputMethod: INPUT_METHOD.INSERT_MENU },
-    eventType: EVENT_TYPE.TRACK,
+    const tr = state.selection.empty
+      ? safeInsert(expandNode)(state.tr).scrollIntoView()
+      : createWrapSelectionTransaction({
+          state,
+          type: expandNode.type,
+        });
+    const payload: AnalyticsEventPayload = {
+      action: ACTION.INSERTED,
+      actionSubject: ACTION_SUBJECT.DOCUMENT,
+      actionSubjectId:
+        expandNode?.type === state.schema.nodes.expand
+          ? ACTION_SUBJECT_ID.EXPAND
+          : ACTION_SUBJECT_ID.NESTED_EXPAND,
+      attributes: { inputMethod: INPUT_METHOD.INSERT_MENU },
+      eventType: EVENT_TYPE.TRACK,
+    };
+
+    if (dispatch && expandNode) {
+      editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
+      dispatch(tr);
+    }
+
+    return true;
   };
-
-  if (dispatch && expandNode) {
-    dispatch(addAnalytics(state, tr, payload));
-  }
-
-  return true;
-};
 
 export const focusTitle =
   (pos: number): Command =>

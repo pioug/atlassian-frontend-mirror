@@ -5,9 +5,12 @@ import useIsSubsequentRender from './internal/hooks/use-is-subsequent-render';
 import useFirePortalEvent from './internal/hooks/use-portal-event';
 import type { PortalProps } from './types';
 
-export default function Portal(props: PortalProps) {
-  const { zIndex = 0, children } = props;
-  const isSubsequentRender = useIsSubsequentRender();
+export default function Portal({
+  zIndex = 0,
+  children,
+  mountStrategy = 'effect',
+}: PortalProps) {
+  const isSubsequentRender = useIsSubsequentRender(mountStrategy);
 
   useFirePortalEvent(zIndex);
 

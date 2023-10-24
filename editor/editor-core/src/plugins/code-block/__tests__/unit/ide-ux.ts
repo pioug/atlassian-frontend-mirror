@@ -14,8 +14,8 @@ import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { AllSelection } from '@atlaskit/editor-prosemirror/state';
-import type { AnalyticsEventPayload } from '../../../analytics';
-import deprecatedAnalyticsPlugin, {
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
@@ -23,7 +23,7 @@ import deprecatedAnalyticsPlugin, {
   INPUT_METHOD,
   INDENT_DIRECTION,
   INDENT_TYPE,
-} from '../../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { basePlugin } from '@atlaskit/editor-plugin-base';
@@ -57,8 +57,7 @@ describe('IDE UX plugin', () => {
         .add(decorationsPlugin)
         .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
-        .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]),
+        .add([analyticsPlugin, { createAnalyticsEvent }]),
     });
   };
 

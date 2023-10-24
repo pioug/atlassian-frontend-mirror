@@ -41,6 +41,7 @@ import { token } from '@atlaskit/tokens';
 import { telepointerStyle } from '../../plugins/collab-edit/styles';
 import { tableStyles } from '@atlaskit/editor-plugin-table/ui/common-styles';
 import { blocktypeStyles } from '@atlaskit/editor-plugin-block-type/styles';
+import { textHighlightStyle } from '@atlaskit/editor-plugin-paste-options-toolbar/styles';
 import { codeBlockStyles } from '../../plugins/code-block/styles';
 import { mediaStyles } from './media';
 import { layoutStyles } from '../../plugins/layout/styles';
@@ -255,6 +256,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${extensionStyles}
   ${expandStyles(props)}
   ${findReplaceStyles}
+  ${textHighlightStyle}
   ${taskDecisionStyles}
   ${statusStyles}
   ${annotationSharedStyles(props)}

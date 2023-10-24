@@ -3,10 +3,16 @@ import { MediaClientConfig } from '@atlaskit/media-core';
 import { MediaClient } from '../client/media-client';
 import { Identifier } from '../identifier';
 
+/**
+ * @deprecated This export will be removed. Please use one from `@atlaskit/media-client-react`
+ */
 export interface WithMediaClientConfig {
   mediaClientConfig: MediaClientConfig;
 }
 
+/**
+ * @deprecated This export will be removed. Please use one from `@atlaskit/media-client-react`
+ */
 export interface WithMediaClient {
   mediaClient: MediaClient;
   identifier?: Identifier;
@@ -14,6 +20,9 @@ export interface WithMediaClient {
 
 const mediaClientsMap = new Map<MediaClientConfig, MediaClient>();
 
+/**
+ * @deprecated This export will be removed. Please use one from `@atlaskit/media-client-react`
+ */
 export const getMediaClient = (
   mediaClientConfig: MediaClientConfig,
 ): MediaClient => {
@@ -40,16 +49,25 @@ const createEmptyMediaClient = (): MediaClient => {
   return new MediaClient(emptyConfig);
 };
 
+/**
+ * @deprecated This export will be removed. Please use one from `@atlaskit/media-client-react`
+ */
 export type WithMediaClientConfigProps<P extends WithMediaClient> = Omit<
   P,
   'mediaClient'
 > &
   WithMediaClientConfig;
 
+/**
+ * @deprecated This export will be removed. Please use one from `@atlaskit/media-client-react`
+ */
 export type WithMediaClientFunction = <P extends WithMediaClient>(
   Component: React.ComponentType<P>,
 ) => React.ComponentType<WithMediaClientConfigProps<P>>;
 
+/**
+ * @deprecated This export will be removed. Please use one from `@atlaskit/media-client-react`
+ */
 export const withMediaClient: WithMediaClientFunction = <
   P extends WithMediaClient,
 >(

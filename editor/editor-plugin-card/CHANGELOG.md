@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 0.10.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.10.1
+
+### Patch Changes
+
+- [#41921](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41921) [`12d685a4b30`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12d685a4b30) - Removed chromeCursorHandlerFixedVersion feature flag
+
 ## 0.10.0
 
 ### Minor Changes

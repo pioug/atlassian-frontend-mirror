@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.6.8
+
+### Patch Changes
+
+- [#42012](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42012) [`0a52fc9129e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a52fc9129e) - Internal change to the `media` export to ensure compatibility with [Compiled](https://github.com/atlassian-labs/compiled). No change to public API.
+
 ## 1.6.7
 
 ### Patch Changes

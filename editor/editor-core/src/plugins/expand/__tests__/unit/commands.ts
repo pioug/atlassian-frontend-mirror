@@ -12,6 +12,7 @@ import expandPlugin from '../../index';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 describe('Expand Commands', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -28,20 +29,35 @@ describe('Expand Commands', () => {
   };
 
   describe('toggleExpandExpanded()', () => {
+    const mockAttach = jest.fn(() => () => {});
+    const mockAnalytics = {
+      attachAnalyticsEvent: mockAttach,
+    } as unknown as EditorAnalyticsAPI;
+
     it('should move to right gap cursor if selection is inside the expand when collapsing', () => {
       const { editorView, refs } = editor(
         doc('{expandPos}', expand()(p('{<>}'))),
       );
       const { state, dispatch } = editorView;
 
-      toggleExpandExpanded(refs.expandPos, state.schema.nodes.expand)(
-        state,
-        dispatch,
-      );
+      toggleExpandExpanded(mockAnalytics)(
+        refs.expandPos,
+        state.schema.nodes.expand,
+      )(state, dispatch);
 
       expect(editorView.state).toEqualDocumentAndSelection(
         doc(expand({ __expanded: false })(p('')), '{<|gap>}'),
       );
+      expect(mockAttach).toBeCalledWith({
+        action: 'toggleExpand',
+        actionSubject: 'expand',
+        attributes: {
+          expanded: false,
+          mode: 'editor',
+          platform: 'web',
+        },
+        eventType: 'track',
+      });
     });
 
     it('should leave selection along if outside the expand when collapsing', () => {
@@ -50,14 +66,24 @@ describe('Expand Commands', () => {
       );
       const { state, dispatch } = editorView;
 
-      toggleExpandExpanded(refs.expandPos, state.schema.nodes.expand)(
-        state,
-        dispatch,
-      );
+      toggleExpandExpanded(mockAnalytics)(
+        refs.expandPos,
+        state.schema.nodes.expand,
+      )(state, dispatch);
 
       expect(editorView.state).toEqualDocumentAndSelection(
         doc(p('Hello!{<>}'), expand({ __expanded: false })(p())),
       );
+      expect(mockAttach).toBeCalledWith({
+        action: 'toggleExpand',
+        actionSubject: 'expand',
+        attributes: {
+          expanded: false,
+          mode: 'editor',
+          platform: 'web',
+        },
+        eventType: 'track',
+      });
     });
   });
 });

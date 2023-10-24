@@ -13,7 +13,9 @@ interface MediaClientProviderProp {
 
 const mediaClientsMap = new Map<MediaClientConfig, MediaClient>();
 
-const getMediaClient = (mediaClientConfig: MediaClientConfig): MediaClient => {
+export const getMediaClient = (
+  mediaClientConfig: MediaClientConfig,
+): MediaClient => {
   // The Provider defines mediaClientConfig as required,
   // but integrators may skip it when using Media Card to display external images
   // i.e. a Media Client is not needed.

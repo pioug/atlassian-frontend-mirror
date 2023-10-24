@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect } from 'react';
 
-import { act, cleanup, render } from '@testing-library/react';
+import { act, cleanup, render, screen } from '@testing-library/react';
 import { bindAll, UnbindFn } from 'bind-event-listener';
 import { replaceRaf } from 'raf-stub';
 
@@ -19,6 +19,7 @@ const zIndex = (elem: HTMLElement | void) =>
 const onMountListener = jest.fn();
 const onUnmountListener = jest.fn();
 const createContainerSpy = jest.spyOn(domUtils, 'createContainer');
+const effectSpy = jest.spyOn(React, 'useEffect');
 
 const getElementByText = (text: string, elements: HTMLCollectionOf<Element>) =>
   [...(elements as unknown as Array<HTMLElement>)].find(
@@ -410,5 +411,23 @@ describe('Portal container', () => {
     );
 
     expect(childrenInBody).toBeTruthy();
+  });
+
+  test('should not throw an exception when changing between mount strategies after the initial render', () => {
+    const { rerender } = render(
+      <Portal zIndex={100}>
+        <div>Lorem Ipsum</div>
+      </Portal>,
+    );
+    expect(screen.getByText(/Lorem Ipsum/)).toBeInTheDocument();
+    expect(effectSpy).toHaveBeenCalled();
+
+    expect(() => {
+      rerender(
+        <Portal zIndex={100} mountStrategy="layoutEffect">
+          <div>Dolor Sit</div>
+        </Portal>,
+      );
+    }).not.toThrow();
   });
 });

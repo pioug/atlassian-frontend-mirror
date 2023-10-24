@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 189.0.1
+
+### Patch Changes
+
+- [#39920](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39920) [`c08ab6beb65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c08ab6beb65) - [ux] Adding new plugin for paste options toolbar. Also making required changes for the new toolbar in folating-toolbar plugin and paste plugin.
+- Updated dependencies
+
+## 189.0.0
+
+### Major Changes
+
+- [#42052](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42052) [`12b16804202`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12b16804202) - Decoupled submit-editor plugin, used to allow mod+Enter keyboard shortcut to trigger saving the editor content, from editor-core
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.13.6
+
+### Patch Changes
+
+- [#41967](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41967) [`8f6d293c321`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f6d293c321) - Decouple tasks and decisions, code block, and expand plugins from internal deprecated analytics plugin.
+
+## 188.13.5
+
+### Patch Changes
+
+- [#41921](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41921) [`12d685a4b30`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12d685a4b30) - Removed chromeCursorHandlerFixedVersion feature flag
+
 ## 188.13.3
 
 ### Patch Changes

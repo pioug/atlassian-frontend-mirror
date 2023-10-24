@@ -9,6 +9,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { JiraSearchMethod } from '../../../common/types';
+import { BasicFilters } from '../basic-filters';
 import { BasicSearchInput } from '../basic-search-input';
 import { JiraJQLEditor } from '../jql-editor';
 import { ModeSwitcher } from '../mode-switcher';
@@ -17,7 +18,6 @@ import {
   JiraIssueDatasourceParametersQuery,
 } from '../types';
 
-import { BasicFilters } from './basic-filters';
 import { buildJQL } from './buildJQL';
 import { modeSwitcherMessages } from './messages';
 
@@ -131,7 +131,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
             onSearch={handleSearch}
             searchTerm={basicSearchTerm}
           />
-          {showBasicFilters && <BasicFilters />}
+          {showBasicFilters && <BasicFilters jql={jql} />}
         </React.Fragment>
       )}
       {currentSearchMethod === 'jql' && (

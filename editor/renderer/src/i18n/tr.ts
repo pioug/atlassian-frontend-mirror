@@ -21,6 +21,6 @@ export default {
   'fabric.editor.tableHeader.sorting.asc': 'Artan biçimde sıralama uygulandı',
   'fabric.editor.tableHeader.sorting.default': 'Sütunu sırala',
   'fabric.editor.tableHeader.sorting.desc': 'Azalan biçimde sıralama uygulandı',
-  'fabric.editor.tableHeader.sorting.invalid': 'Birleştirilmiş hücre içeren bir tabloyu sıralayamazsınız',
+  'fabric.editor.tableHeader.sorting.invalid': 'Birleştirilmiş hücreler içeren bir tabloyu sıralayamazsınız',
   'fabric.editor.tableHeader.sorting.no': 'Sütuna sıralama uygulanmadı',
 };

@@ -435,12 +435,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       </div>
     );
 
-    const colControls = (
+    const colControls = isDragAndDropEnabled ? (
       <TableFloatingColumnControls
         editorView={view}
         tableRef={tableRef}
         getNode={getNode}
         tableActive={tableActive}
+        isInDanger={isInDanger}
         hoveredRows={hoveredRows}
         hoveredCell={hoveredCell}
         isResizing={isResizing}
@@ -452,7 +453,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         stickyHeader={this.state.stickyHeader}
         getEditorFeatureFlags={this.props.getEditorFeatureFlags}
       />
-    );
+    ) : null;
 
     const shadowPadding =
       allowControls && tableActive ? -tableToolbarSize : tableMarginSides;

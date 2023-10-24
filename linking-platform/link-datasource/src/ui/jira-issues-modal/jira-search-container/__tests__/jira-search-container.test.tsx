@@ -378,7 +378,7 @@ describe('JiraSearchContainer', () => {
         expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
 
         expect(
-          queryByTestId('jlol-datasource-basic-filter-container'),
+          queryByTestId('jlol-basic-filter-container'),
         ).toBeInTheDocument();
       },
       () => {
@@ -391,7 +391,7 @@ describe('JiraSearchContainer', () => {
         expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
 
         expect(
-          queryByTestId('jlol-datasource-basic-filter-container'),
+          queryByTestId('jlol-basic-filter-container'),
         ).not.toBeInTheDocument();
       },
     );

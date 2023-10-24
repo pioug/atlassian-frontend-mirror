@@ -1,18 +1,17 @@
 import type { MouseEventHandler } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 
+import classnames from 'classnames';
 import ReactDOM from 'react-dom';
 
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
-import { N200, N700 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../../types';
 import { DragPreview } from '../DragPreview';
 import { DragHandleIcon } from '../icons';
 
-type DragHandleState = 'default' | 'selected' | 'disabled' | 'danger';
+type DragHandleAppearance = 'default' | 'selected' | 'disabled' | 'danger';
 
 type DragHandleProps = {
   tableLocalId: string;
@@ -20,39 +19,24 @@ type DragHandleProps = {
   previewWidth?: number;
   previewHeight?: number;
   direction?: 'column' | 'row';
-  state?: DragHandleState;
+  appearance?: DragHandleAppearance;
   onClick?: MouseEventHandler;
   onMouseOver?: MouseEventHandler;
   onMouseOut?: MouseEventHandler;
 };
 
-const mapStateToProps = (state: DragHandleState) => {
-  switch (state) {
-    case 'danger':
-    case 'disabled':
-    case 'selected':
-    case 'default':
-    default:
-      return {
-        backgroundColor: token('color.background.accent.gray.subtlest', N200),
-        foregroundColor: token('color.icon.subtle', N700),
-      };
-  }
-};
-
 export const DragHandle = ({
   tableLocalId,
   direction = 'row',
-  state = 'default',
+  appearance = 'default',
   indexes,
   previewWidth,
   previewHeight,
-  onClick,
   onMouseOver,
   onMouseOut,
+  onClick,
 }: DragHandleProps) => {
   const dragHandleDivRef = useRef<HTMLButtonElement>(null);
-  const iconProps = mapStateToProps(state);
   const [previewContainer, setPreviewContainer] = useState<HTMLElement | null>(
     null,
   );
@@ -92,18 +76,18 @@ export const DragHandle = ({
 
   return (
     <button
-      className={ClassName.DRAG_HANDLE_BUTTON_CONTAINER}
+      className={classnames(ClassName.DRAG_HANDLE_BUTTON_CONTAINER, appearance)}
       ref={dragHandleDivRef}
       style={{
-        backgroundColor: `${token('elevation.surface', 'white')}`,
-        borderRadius: '4px',
-        border: `2px solid ${token('elevation.surface', 'white')}`,
         transform: direction === 'column' ? 'none' : 'rotate(90deg)',
         pointerEvents: 'auto',
       }}
       data-testid="table-floating-column-controls-drag-handle"
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
+      onClick={onClick}
     >
-      <DragHandleIcon {...iconProps} />
+      <DragHandleIcon />
       {previewContainer &&
         previewWidth !== undefined &&
         previewHeight !== undefined &&

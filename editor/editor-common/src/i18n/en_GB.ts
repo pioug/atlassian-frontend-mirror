@@ -64,6 +64,7 @@ export default {
   'fabric.editor.displayText': 'Text to display',
   'fabric.editor.ecombedDescription': 'Display an interactive preview of a link',
   'fabric.editor.edit.datasource': 'Edit search query',
+  'fabric.editor.editDateText': 'Edit Date',
   'fabric.editor.editLink': 'Edit link',
   'fabric.editor.editMode.inviteToEditButton.title': 'Invite to edit',
   'fabric.editor.editStatusColor': 'Edit Status Colour',

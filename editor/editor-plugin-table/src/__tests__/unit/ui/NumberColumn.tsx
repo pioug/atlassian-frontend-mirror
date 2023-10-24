@@ -27,9 +27,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import tablePlugin from '../../../plugins/table-plugin';
-import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-// import type { TablePluginState } from '../../../plugins/table/types';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 import NumberColumn from '../../../plugins/table/ui/TableFloatingControls/NumberColumn';
 
@@ -55,6 +53,7 @@ describe('NumberColumn', () => {
       doc(p('text'), table()(tr(tdEmpty, tdEmpty, tdEmpty))),
       { dragAndDropEnabled: true },
     );
+    const hoverCellLocationMock = jest.fn();
     const ref = editorView.dom.querySelector('table');
 
     const { container } = render(
@@ -65,6 +64,7 @@ describe('NumberColumn', () => {
           editorView={editorView}
           hoverRows={jest.fn()}
           selectRow={jest.fn()}
+          updateCellHoverLocation={hoverCellLocationMock}
           isDragAndDropEnabled
         />
       </IntlProvider>,
@@ -76,12 +76,7 @@ describe('NumberColumn', () => {
 
     fireEvent.mouseOver(firstNumberedCell!);
 
-    const pluginState = getPluginState(editorView.state);
-    // colIndex is not defined yet, keep undefined
-    expect(pluginState.hoveredCell).toEqual({
-      colIndex: undefined,
-      rowIndex: 0,
-    });
+    expect(hoverCellLocationMock).toHaveBeenCalledWith(0);
   });
 
   it('should render button disabled numbered column cells - when drag and drop is enabled', () => {
@@ -99,6 +94,7 @@ describe('NumberColumn', () => {
           editorView={editorView}
           hoverRows={jest.fn()}
           selectRow={jest.fn()}
+          updateCellHoverLocation={jest.fn()}
           isDragAndDropEnabled
         />
       </IntlProvider>,
@@ -130,6 +126,7 @@ describe('NumberColumn', () => {
           editorView={editorView}
           hoverRows={jest.fn()}
           selectRow={jest.fn()}
+          updateCellHoverLocation={jest.fn()}
           isDragAndDropEnabled={false}
         />
       </IntlProvider>,

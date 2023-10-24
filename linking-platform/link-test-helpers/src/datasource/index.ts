@@ -26,6 +26,11 @@ export {
   mockAssetsClientFetchRequests,
 };
 
+export {
+  mockBasicFilterAGGFetchRequests,
+  mockBasicFilterData,
+} from './basic-filters';
+
 fetchMock.config.fallbackToNetwork = true;
 
 type Site = {
@@ -34,7 +39,7 @@ type Site = {
   url: string;
 };
 
-interface FetchMockRequestDetails {
+export interface FetchMockRequestDetails {
   body: string;
   credentials: string;
   headers: object;
@@ -1020,7 +1025,7 @@ export const mockDatasourceFetchRequests = ({
   );
 
   fetchMock.post(
-    /\/api\/ex\/jira\/.+\/\/rest\/api\/latest\/jql\/autocompletedata/,
+    /\/api\/ex\/jira\/.+\/rest\/api\/latest\/jql\/autocompletedata/,
     async () => {
       return new Promise(resolve => {
         const delay = 150;

@@ -12,6 +12,26 @@ test.describe('DatasourceTableView', () => {
     expect(await page.isVisible('#react-select-2-option-10')).toEqual(true);
   });
 
+  test('can search in column picker', async ({ page }) => {
+    await page.visitExample(
+      'linking-platform',
+      'link-datasource',
+      'jira-issues-table',
+    );
+    await page.getByTestId('column-picker-trigger-button').click();
+    page.keyboard.type('Due');
+
+    await expect(await page.locator('#react-select-2-option-9')).toContainText(
+      'Due',
+    );
+    await expect(await page.locator('#react-select-2-option-10')).toContainText(
+      'Due',
+    );
+    await expect(await page.locator('#react-select-2-option-11')).toContainText(
+      'Due',
+    );
+  });
+
   test('persists column order after loading next page', async ({ page }) => {
     await page.visitExample(
       'linking-platform',

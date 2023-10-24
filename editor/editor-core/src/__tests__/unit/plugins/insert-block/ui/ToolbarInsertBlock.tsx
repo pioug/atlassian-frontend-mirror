@@ -17,7 +17,10 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type {
+  DocBuilder,
+  ExtractPublicEditorAPI,
+} from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
@@ -29,7 +32,6 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { ExtractPublicEditorAPI } from '@atlaskit/editor-common/types';
 import { uuid } from '@atlaskit/adf-schema';
 import layoutPlugin from '../../../../../plugins/layout';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
@@ -38,9 +40,7 @@ import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { statusPlugin } from '@atlaskit/editor-plugin-status';
 import expandPlugin from '../../../../../plugins/expand';
-import deprecatedAnalyticsPlugin, {
-  INPUT_METHOD,
-} from '../../../../../plugins/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
@@ -178,7 +178,6 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       .add(blockTypePlugin)
       .add(editorDisabledPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }])
-      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
       .add(widthPlugin)
       .add(guidelinePlugin)
       .add(contentInsertionPlugin)
@@ -804,7 +803,10 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       describe('click action option', () => {
         beforeEach(() => {
           uuid.setStatic('local-highlight');
-          buildToolbarForMenu({ actionSupported: true });
+          buildToolbarForMenu({
+            actionSupported: true,
+            pluginInjectionApi: editorAPI,
+          });
           menu.clickButton(messages.action.defaultMessage, toolbarOption);
         });
 
@@ -836,7 +838,10 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       describe('click decision option', () => {
         beforeEach(() => {
           uuid.setStatic('local-highlight');
-          buildToolbarForMenu({ decisionSupported: true });
+          buildToolbarForMenu({
+            decisionSupported: true,
+            pluginInjectionApi: editorAPI,
+          });
           menu.clickButton(messages.decision.defaultMessage, toolbarOption);
         });
 

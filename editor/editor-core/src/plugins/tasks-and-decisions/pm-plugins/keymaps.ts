@@ -478,7 +478,7 @@ const enter = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
           ]);
         };
 
-        const insertTr = insertTaskDecisionWithAnalytics(
+        const insertTr = insertTaskDecisionWithAnalytics(editorAnalyticsAPI)(
           state,
           listType,
           INPUT_METHOD.KEYBOARD,

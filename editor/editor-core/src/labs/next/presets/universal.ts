@@ -39,6 +39,7 @@ import { helpDialogPlugin } from '@atlaskit/editor-plugin-help-dialog';
 import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
+import { pasteOptionsToolbarPlugin } from '@atlaskit/editor-plugin-paste-options-toolbar';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { imageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
@@ -658,6 +659,13 @@ export default function createUniversalPreset(
     })
     .maybeAdd(viewUpdateSubscriptionPlugin, (plugin, builder) => {
       if (featureFlags.enableViewUpdateSubscription) {
+        return builder.add(plugin);
+      }
+
+      return builder;
+    })
+    .maybeAdd(pasteOptionsToolbarPlugin, (plugin, builder) => {
+      if (getBooleanFF('platform.editor.paste-options-toolbar')) {
         return builder.add(plugin);
       }
 

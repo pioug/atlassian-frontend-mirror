@@ -81,9 +81,16 @@ export const hrefHasInvalidValue = (
       // invalid because we can't know what the value actually is.
       if (variable) {
         const defNode = variable.defs[0].node;
-        // If it is not an imported variable or it is a local variable and it
-        // has an invalid value
-        if (!defNode.imported && !defNode.init.value) {
+        // If it is an imported variable, a local variable with an valid value,
+        // or an argument in a function, it should pass.
+        if (
+          defNode?.imported ||
+          (defNode?.init?.value &&
+            !invalidHrefValues.includes(defNode?.init?.value)) ||
+          isNodeOfType(defNode, 'ArrowFunctionExpression')
+        ) {
+          return false;
+        } else {
           return true;
         }
       }

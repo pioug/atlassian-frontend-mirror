@@ -6,8 +6,7 @@ import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isRowSelected } from '@atlaskit/editor-tables/utils';
 
-import { clearHoverSelection, hoverCell } from '../../../commands';
-import { getPluginState } from '../../../pm-plugins/plugin-factory';
+import { clearHoverSelection } from '../../../commands';
 import { TableCssClassName as ClassName } from '../../../types';
 import { getRowHeights } from '../../../utils';
 import { tableBorderColor } from '../../consts';
@@ -19,6 +18,7 @@ export interface Props {
   hoverRows: (rows: number[], danger?: boolean) => void;
   hoveredRows?: number[];
   selectRow: (row: number, expand: boolean) => void;
+  updateCellHoverLocation: (rowIndex: number) => void;
   hasHeaderRow?: boolean;
   isInDanger?: boolean;
   isResizing?: boolean;
@@ -28,8 +28,13 @@ export interface Props {
 
 export default class NumberColumn extends Component<Props, any> {
   render() {
-    const { tableRef, hasHeaderRow, isDragAndDropEnabled, tableActive } =
-      this.props;
+    const {
+      tableRef,
+      hasHeaderRow,
+      isDragAndDropEnabled,
+      tableActive,
+      updateCellHoverLocation,
+    } = this.props;
     const rowHeights = getRowHeights(tableRef);
 
     return (
@@ -54,7 +59,7 @@ export default class NumberColumn extends Component<Props, any> {
               className={this.getClassNames(index, true)}
               data-index={index}
               style={this.getCellStyles(index, rowHeight)}
-              onMouseOver={() => this.updateDragHandleLocation(index)}
+              onMouseOver={() => updateCellHoverLocation(index)}
             >
               {hasHeaderRow ? (index > 0 ? index : null) : index + 1}
             </div>
@@ -106,16 +111,6 @@ export default class NumberColumn extends Component<Props, any> {
     if (tableActive) {
       const { state, dispatch } = editorView;
       clearHoverSelection()(state, dispatch);
-    }
-  };
-
-  private updateDragHandleLocation = (rowIndex: number) => {
-    const { editorView, tableActive } = this.props;
-    const { state, dispatch } = editorView;
-    const { hoveredCell } = getPluginState(state);
-
-    if (tableActive && hoveredCell.rowIndex !== rowIndex) {
-      hoverCell(rowIndex, hoveredCell.colIndex)(state, dispatch);
     }
   };
 

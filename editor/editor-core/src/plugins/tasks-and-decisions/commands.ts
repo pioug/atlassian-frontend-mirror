@@ -22,15 +22,15 @@ import { uuid } from '@atlaskit/adf-schema';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { Command } from '../../types';
 import type { AnalyticsEventPayload } from '../analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
   USER_CONTEXT,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
 import { stateKey as taskDecisionStateKey } from './pm-plugins/plugin-key';
@@ -114,83 +114,86 @@ export const getListTypes = (
   };
 };
 
-export const insertTaskDecisionAction = (
-  state: EditorState,
-  listType: TaskDecisionListType,
-  inputMethod:
-    | INPUT_METHOD.FORMATTING
-    | INPUT_METHOD.QUICK_INSERT
-    | TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR,
-  addItem?: AddItemTransactionCreator,
-  listLocalId?: string,
-  itemLocalId?: string,
-  itemAttrs?: AddItemAttrs,
-): Transaction => {
-  const { schema } = state;
-  const addAndCreateList = ({
-    tr,
-    list,
-    item,
-    listLocalId,
-    itemLocalId,
-  }: {
-    tr: Transaction;
-    list: any;
-    item: any;
-    listLocalId?: string;
-    itemLocalId?: string;
-  }) =>
-    createListAtSelection(
+export const insertTaskDecisionAction =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (
+    state: EditorState,
+    listType: TaskDecisionListType,
+    inputMethod:
+      | INPUT_METHOD.FORMATTING
+      | INPUT_METHOD.QUICK_INSERT
+      | TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR,
+    addItem?: AddItemTransactionCreator,
+    listLocalId?: string,
+    itemLocalId?: string,
+    itemAttrs?: AddItemAttrs,
+  ): Transaction => {
+    const { schema } = state;
+    const addAndCreateList = ({
       tr,
       list,
       item,
-      schema,
+      listLocalId,
+      itemLocalId,
+    }: {
+      tr: Transaction;
+      list: any;
+      item: any;
+      listLocalId?: string;
+      itemLocalId?: string;
+    }) =>
+      createListAtSelection(
+        tr,
+        list,
+        item,
+        schema,
+        state,
+        listLocalId,
+        itemLocalId,
+        itemAttrs,
+      );
+    const addToList = ({
       state,
+      tr,
+      item,
+      itemLocalId,
+    }: {
+      state: EditorState;
+      tr: Transaction;
+      item: any;
+      itemLocalId: string;
+    }) => {
+      const { $to } = state.selection;
+      const endPos = $to.end($to.depth);
+      const newItemParagraphPos = endPos + 2;
+      return tr
+        .split(endPos, 1, [{ type: item, attrs: { localId: itemLocalId } }])
+        .setSelection(new TextSelection(tr.doc.resolve(newItemParagraphPos)));
+    };
+
+    const addAndCreateListFn = addItem ?? addAndCreateList;
+    const tr = insertTaskDecisionWithAnalytics(editorAnalyticsAPI)(
+      state,
+      listType,
+      inputMethod,
+      addAndCreateListFn,
+      addToList,
       listLocalId,
       itemLocalId,
       itemAttrs,
     );
-  const addToList = ({
-    state,
-    tr,
-    item,
-    itemLocalId,
-  }: {
-    state: EditorState;
-    tr: Transaction;
-    item: any;
-    itemLocalId: string;
-  }) => {
-    const { $to } = state.selection;
-    const endPos = $to.end($to.depth);
-    const newItemParagraphPos = endPos + 2;
-    return tr
-      .split(endPos, 1, [{ type: item, attrs: { localId: itemLocalId } }])
-      .setSelection(new TextSelection(tr.doc.resolve(newItemParagraphPos)));
+
+    if (!tr) {
+      return state.tr;
+    }
+
+    autoJoinTr(tr, ['taskList', 'decisionList']);
+
+    return tr;
   };
 
-  const addAndCreateListFn = addItem ?? addAndCreateList;
-  const tr = insertTaskDecisionWithAnalytics(
-    state,
-    listType,
-    inputMethod,
-    addAndCreateListFn,
-    addToList,
-    listLocalId,
-    itemLocalId,
-    itemAttrs,
-  );
-
-  if (!tr) {
-    return state.tr;
-  }
-
-  autoJoinTr(tr, ['taskList', 'decisionList']);
-
-  return tr;
-};
-
 export const insertTaskDecisionCommand =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (
     listType: TaskDecisionListType,
     inputMethod:
@@ -202,7 +205,7 @@ export const insertTaskDecisionCommand =
     itemLocalId?: string,
   ): Command =>
   (state, dispatch) => {
-    const tr = insertTaskDecisionAction(
+    const tr = insertTaskDecisionAction(editorAnalyticsAPI)(
       state,
       listType,
       inputMethod,
@@ -216,76 +219,76 @@ export const insertTaskDecisionCommand =
     return true;
   };
 
-export const insertTaskDecisionWithAnalytics = (
-  state: EditorState,
-  listType: TaskDecisionListType,
-  inputMethod: TaskDecisionInputMethod,
-  addAndCreateList: AddItemTransactionCreator,
-  addToList?: AddItemTransactionCreator,
-  listLocalId?: string,
-  itemLocalId?: string,
-  itemAttrs?: AddItemAttrs,
-): Transaction | null => {
-  const { schema } = state;
-  const { list, item } = getListTypes(listType, schema);
-  const { tr } = state;
-  const { $to } = state.selection;
-  const listNode = findParentNodeOfType(list)(state.selection);
-  const contextIdentifierProvider =
-    taskDecisionStateKey.getState(state).contextIdentifierProvider;
-  const contextData = getContextData(contextIdentifierProvider);
-  let insertTrCreator;
-  let itemIdx;
-  let listSize;
+export const insertTaskDecisionWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (
+    state: EditorState,
+    listType: TaskDecisionListType,
+    inputMethod: TaskDecisionInputMethod,
+    addAndCreateList: AddItemTransactionCreator,
+    addToList?: AddItemTransactionCreator,
+    listLocalId?: string,
+    itemLocalId?: string,
+    itemAttrs?: AddItemAttrs,
+  ): Transaction | null => {
+    const { schema } = state;
+    const { list, item } = getListTypes(listType, schema);
+    const { tr } = state;
+    const { $to } = state.selection;
+    const listNode = findParentNodeOfType(list)(state.selection);
+    const contextIdentifierProvider =
+      taskDecisionStateKey.getState(state).contextIdentifierProvider;
+    const contextData = getContextData(contextIdentifierProvider);
+    let insertTrCreator;
+    let itemIdx;
+    let listSize;
 
-  if (!listNode) {
-    // Not a list - convert to one.
-    itemIdx = 0;
-    listSize = 1;
-    insertTrCreator = addAndCreateList;
-  } else if ($to.node().textContent.length >= 0) {
-    listSize = listNode.node.childCount + 1;
-    listLocalId = listLocalId || listNode.node.attrs.localId;
-    const listItemNode = findParentNodeOfType(item)(state.selection); // finds current item in list
-    itemIdx = listItemNode
-      ? state.doc.resolve(listItemNode.pos).index() + 1
-      : 0;
-    insertTrCreator = addToList ? addToList : addAndCreateList;
-  }
-
-  listLocalId = listLocalId || (uuid.generate() as string);
-  itemLocalId = itemLocalId || (uuid.generate() as string);
-
-  if (insertTrCreator) {
-    let insertTr = insertTrCreator({
-      state,
-      tr,
-      list,
-      item,
-      listLocalId,
-      itemLocalId,
-      itemAttrs,
-    });
-    if (insertTr) {
-      insertTr = addAnalytics(
-        state,
-        insertTr,
-        generateAnalyticsPayload(
-          listType,
-          contextData,
-          inputMethod,
-          itemLocalId,
-          listLocalId,
-          itemIdx || 0,
-          listSize || 0,
-        ),
-      );
+    if (!listNode) {
+      // Not a list - convert to one.
+      itemIdx = 0;
+      listSize = 1;
+      insertTrCreator = addAndCreateList;
+    } else if ($to.node().textContent.length >= 0) {
+      listSize = listNode.node.childCount + 1;
+      listLocalId = listLocalId || listNode.node.attrs.localId;
+      const listItemNode = findParentNodeOfType(item)(state.selection); // finds current item in list
+      itemIdx = listItemNode
+        ? state.doc.resolve(listItemNode.pos).index() + 1
+        : 0;
+      insertTrCreator = addToList ? addToList : addAndCreateList;
     }
-    return insertTr;
-  }
 
-  return null;
-};
+    listLocalId = listLocalId || (uuid.generate() as string);
+    itemLocalId = itemLocalId || (uuid.generate() as string);
+
+    if (insertTrCreator) {
+      let insertTr = insertTrCreator({
+        state,
+        tr,
+        list,
+        item,
+        listLocalId,
+        itemLocalId,
+        itemAttrs,
+      });
+      if (insertTr) {
+        editorAnalyticsAPI?.attachAnalyticsEvent(
+          generateAnalyticsPayload(
+            listType,
+            contextData,
+            inputMethod,
+            itemLocalId,
+            listLocalId,
+            itemIdx || 0,
+            listSize || 0,
+          ),
+        )(insertTr);
+      }
+      return insertTr;
+    }
+
+    return null;
+  };
 
 export const isSupportedSourceNode = (
   schema: Schema,

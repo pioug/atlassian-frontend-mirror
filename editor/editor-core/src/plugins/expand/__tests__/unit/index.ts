@@ -24,7 +24,6 @@ import {
 import { ExpandNodeView } from '../../nodeviews';
 import { findExpand } from '../../utils';
 import expandPlugin from '../../index';
-import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
@@ -47,7 +46,6 @@ describe('expand actions', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
         .add(selectionPlugin)
@@ -77,8 +75,11 @@ describe('expand actions', () => {
     });
 
     it('fires analytics when inserted from insert menu', () => {
-      const { editorView } = editor(doc(p('{<>}')));
-      insertExpand(editorView.state, editorView.dispatch);
+      const { editorView, editorAPI } = editor(doc(p('{<>}')));
+      insertExpand(editorAPI?.analytics?.actions)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'inserted',
         actionSubject: 'document',
@@ -91,9 +92,12 @@ describe('expand actions', () => {
     });
 
     it('fires analytics when deleted with floating toolbar', () => {
-      const { editorView } = editor(doc(expand()(p('{<>}'))));
+      const { editorView, editorAPI } = editor(doc(expand()(p('{<>}'))));
 
-      deleteExpand()(editorView.state, editorView.dispatch);
+      deleteExpand(editorAPI?.analytics?.actions)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'deleted',
         actionSubject: 'expand',
@@ -103,13 +107,13 @@ describe('expand actions', () => {
     });
 
     it('fires analytics when closed in editor', () => {
-      const { editorView } = editor(doc(expand()(p('{<>}'))));
+      const { editorView, editorAPI } = editor(doc(expand()(p('{<>}'))));
       const expandView = findExpand(editorView.state)!;
 
-      toggleExpandExpanded(expandView.pos, expandView.node.type)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      toggleExpandExpanded(editorAPI?.analytics?.actions)(
+        expandView.pos,
+        expandView.node.type,
+      )(editorView.state, editorView.dispatch);
 
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'toggleExpand',
@@ -124,13 +128,19 @@ describe('expand actions', () => {
     });
 
     it('fires analytics when expanded in editor', () => {
-      const { editorView } = editor(doc(expand()(p('{<>}'))));
+      const { editorView, editorAPI } = editor(doc(expand()(p('{<>}'))));
       const { dispatch } = editorView;
       const expandView = findExpand(editorView.state)!;
       const { pos, node } = expandView;
 
-      toggleExpandExpanded(pos, node.type)(editorView.state, dispatch);
-      toggleExpandExpanded(pos, node.type)(editorView.state, dispatch);
+      toggleExpandExpanded(editorAPI?.analytics?.actions)(pos, node.type)(
+        editorView.state,
+        dispatch,
+      );
+      toggleExpandExpanded(editorAPI?.analytics?.actions)(pos, node.type)(
+        editorView.state,
+        dispatch,
+      );
 
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'toggleExpand',
@@ -211,8 +221,13 @@ describe('expand actions', () => {
     });
 
     it('fires analytics when inserted from insert menu', () => {
-      const { editorView } = editor(doc(table()(tr(td({})(p('{<>}'))))));
-      insertExpand(editorView.state, editorView.dispatch);
+      const { editorView, editorAPI } = editor(
+        doc(table()(tr(td({})(p('{<>}'))))),
+      );
+      insertExpand(editorAPI?.analytics?.actions)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'inserted',
         actionSubject: 'document',
@@ -225,11 +240,14 @@ describe('expand actions', () => {
     });
 
     it('fires analytics when deleted with floating toolbar', () => {
-      const { editorView } = editor(
+      const { editorView, editorAPI } = editor(
         doc(table()(tr(td({})(nestedExpand()(p('{<>}')))))),
       );
 
-      deleteExpand()(editorView.state, editorView.dispatch);
+      deleteExpand(editorAPI?.analytics?.actions)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'deleted',
         actionSubject: 'nestedExpand',
@@ -239,15 +257,15 @@ describe('expand actions', () => {
     });
 
     it('fires analytics when closed in editor', () => {
-      const { editorView } = editor(
+      const { editorView, editorAPI } = editor(
         doc(table()(tr(td({})(nestedExpand()(p('{<>}')))))),
       );
       const expandView = findExpand(editorView.state)!;
 
-      toggleExpandExpanded(expandView.pos, expandView.node.type)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      toggleExpandExpanded(editorAPI?.analytics?.actions)(
+        expandView.pos,
+        expandView.node.type,
+      )(editorView.state, editorView.dispatch);
 
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'toggleExpand',
@@ -262,20 +280,20 @@ describe('expand actions', () => {
     });
 
     it('fires analytics when expanded in editor', () => {
-      const { editorView } = editor(
+      const { editorView, editorAPI } = editor(
         doc(table()(tr(td({})(nestedExpand()(p('{<>}')))))),
       );
       const { dispatch } = editorView;
       const expandView = findExpand(editorView.state)!;
 
-      toggleExpandExpanded(expandView.pos, expandView.node.type)(
-        editorView.state,
-        dispatch,
-      );
-      toggleExpandExpanded(expandView.pos, expandView.node.type)(
-        editorView.state,
-        dispatch,
-      );
+      toggleExpandExpanded(editorAPI?.analytics?.actions)(
+        expandView.pos,
+        expandView.node.type,
+      )(editorView.state, dispatch);
+      toggleExpandExpanded(editorAPI?.analytics?.actions)(
+        expandView.pos,
+        expandView.node.type,
+      )(editorView.state, dispatch);
 
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'toggleExpand',
@@ -290,11 +308,14 @@ describe('expand actions', () => {
     });
 
     it('should be used inside a table when inserted from insert menu', () => {
-      const { editorView } = editor(
+      const { editorView, editorAPI } = editor(
         doc(table({ localId: 'test-id' })(tr(td({})(p('{<>}'))))),
       );
 
-      insertExpand(editorView.state, editorView.dispatch);
+      insertExpand(editorAPI?.analytics?.actions)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state.doc).toEqualDocument(
         doc(table({ localId: 'test-id' })(tr(td()(nestedExpand()(p()))))),
       );

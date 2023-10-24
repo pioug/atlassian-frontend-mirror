@@ -32,7 +32,7 @@ import {
 } from './actions';
 import { createCodeBlockInputRule } from './pm-plugins/input-rule';
 
-const codeBlockPlugin: NextEditorPlugin<
+export type CodeBlockPlugin = NextEditorPlugin<
   'codeBlock',
   {
     pluginConfiguration: CodeBlockOptions;
@@ -45,7 +45,9 @@ const codeBlockPlugin: NextEditorPlugin<
       insertCodeBlock: (inputMethod: INPUT_METHOD) => Command;
     };
   }
-> = ({ config: options, api }) => ({
+>;
+
+const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => ({
   name: 'codeBlock',
 
   nodes() {
@@ -129,4 +131,3 @@ const codeBlockPlugin: NextEditorPlugin<
 });
 
 export default codeBlockPlugin;
-export type CodeBlockPlugin = typeof codeBlockPlugin;

@@ -122,11 +122,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         ? !!props.collabEdit?.useNativePlugin
         : false,
     ),
-    chromeCursorHandlerFixedVersion:
-      typeof props.featureFlags?.chromeCursorHandlerFixedVersion === 'string'
-        ? Number(props.featureFlags.chromeCursorHandlerFixedVersion) ||
-          undefined
-        : undefined,
 
     showHoverPreview: Boolean(
       typeof props.featureFlags?.showHoverPreview === 'boolean'

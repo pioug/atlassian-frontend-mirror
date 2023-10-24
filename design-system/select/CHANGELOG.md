@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.7.4
+
+### Patch Changes
+
+- [#41990](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41990) [`7a88114cef7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a88114cef7) - added type dependency for @types/react-node-resolver
+
 ## 16.7.3
 
 ### Patch Changes

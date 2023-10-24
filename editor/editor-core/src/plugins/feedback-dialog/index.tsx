@@ -1,16 +1,19 @@
 import React from 'react';
 import type { FeedbackInfo } from '../../types';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import { IconFeedback } from '@atlaskit/editor-common/quick-insert';
 import { version as coreVersion } from '../../version-wrapper';
 
 import {
-  addAnalytics,
   ACTION,
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import loadJiraCollectorDialogScript from './loadJiraCollectorDialogScript';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 
@@ -64,12 +67,18 @@ export const openFeedbackDialog = async (feedbackInfo?: FeedbackInfo) =>
     resolve(timeoutId);
   });
 
-const feedbackDialog: NextEditorPlugin<
+export type FeedbackDialogPlugin = NextEditorPlugin<
   'feedbackDialog',
   {
     pluginConfiguration: FeedbackInfo;
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
   }
-> = ({ config: feedbackInfo }) => {
+>;
+
+const feedbackDialog: FeedbackDialogPlugin = ({
+  config: feedbackInfo,
+  api,
+}) => {
   defaultFeedbackInfo = feedbackInfo ?? {};
   return {
     name: 'feedbackDialog',
@@ -87,12 +96,14 @@ const feedbackDialog: NextEditorPlugin<
             const tr = insert('');
             openFeedbackDialog(feedbackInfo);
 
-            return addAnalytics(state, tr, {
+            api?.analytics?.actions.attachAnalyticsEvent({
               action: ACTION.OPENED,
               actionSubject: ACTION_SUBJECT.FEEDBACK_DIALOG,
               attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
               eventType: EVENT_TYPE.UI,
-            });
+            })(tr);
+
+            return tr;
           },
         },
       ],

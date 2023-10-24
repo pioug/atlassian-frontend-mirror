@@ -28,7 +28,11 @@ describe('tasks and decisions - ToolbarTask', () => {
   it('should be disabled if isDisabled property is true', () => {
     const { editorView } = editor(doc(p('text')));
     const toolbarOption = mountWithIntl(
-      <ToolbarTask editorView={editorView} isDisabled={true} />,
+      <ToolbarTask
+        editorView={editorView}
+        isDisabled={true}
+        editorAPI={undefined}
+      />,
     );
     expect(toolbarOption.find(ToolbarButton).prop('disabled')).toEqual(true);
     toolbarOption.unmount();

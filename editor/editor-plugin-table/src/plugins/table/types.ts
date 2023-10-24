@@ -85,14 +85,18 @@ export type { ColumnResizingPluginState } from '@atlaskit/editor-common/types';
  *
  */
 export type CellColumnPositioning = Pick<Rect, 'right' | 'left'>;
-
-export type CellHoverCoordinates = { colIndex?: number; rowIndex?: number };
+export interface CellHoverMeta {
+  colIndex?: number;
+  rowIndex?: number;
+  colWidth?: number;
+  colHeight?: number;
+}
 
 export interface TablePluginState {
   editorHasFocus?: boolean;
   hoveredColumns: number[];
   hoveredRows: number[];
-  hoveredCell: CellHoverCoordinates;
+  hoveredCell: CellHoverMeta;
   pluginConfig: PluginConfig;
   isHeaderColumnEnabled: boolean;
   isHeaderRowEnabled: boolean;
@@ -200,7 +204,12 @@ export type TablePluginAction =
   | { type: 'CLEAR_HOVER_SELECTION'; data: { decorationSet: DecorationSet } }
   | { type: 'SHOW_RESIZE_HANDLE_LINE'; data: { decorationSet: DecorationSet } }
   | { type: 'HIDE_RESIZE_HANDLE_LINE'; data: { decorationSet: DecorationSet } }
-  | { type: 'HOVER_CELL'; data: CellHoverCoordinates }
+  | {
+      type: 'HOVER_CELL';
+      data: {
+        hoveredCell: CellHoverMeta;
+      };
+    }
   | { type: 'SET_TARGET_CELL_POSITION'; data: { targetCellPosition?: number } }
   | {
       type: 'SELECT_COLUMN';

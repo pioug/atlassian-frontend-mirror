@@ -12,12 +12,13 @@ import { DatabaseSchema } from 'kakapo/dist/Database';
 import uuid from 'uuid/v4';
 
 import {
-  getMediaTypeFromMimeType,
   MediaItemDetails,
   TouchFileDescriptor,
   ItemsPayload,
   ResponseFileItem,
 } from '@atlaskit/media-client';
+
+import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
 
 import {
   MediaDatabaseSchema,

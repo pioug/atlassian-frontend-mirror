@@ -12,7 +12,6 @@ export { default as maxContentSizePlugin } from './max-content-size';
 export { default as panelPlugin } from './panel';
 export { default as pastePlugin } from './paste';
 export { default as placeholderTextPlugin } from './placeholder-text';
-export { default as submitEditorPlugin } from './submit-editor';
 export { default as tasksAndDecisionsPlugin } from './tasks-and-decisions';
 export { default as textColorPlugin } from './text-color';
 export { default as breakoutPlugin } from './breakout';

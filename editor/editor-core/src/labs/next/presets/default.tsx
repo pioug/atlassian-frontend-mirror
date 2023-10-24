@@ -14,7 +14,7 @@ import { basePlugin } from '@atlaskit/editor-plugin-base';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
-import submitEditorPlugin from '../../../plugins/submit-editor';
+import { submitEditorPlugin } from '@atlaskit/editor-plugin-submit-editor';
 import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';

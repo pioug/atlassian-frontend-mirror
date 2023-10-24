@@ -8,34 +8,44 @@ import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { getToolbarConfig } from './toolbar';
-import { createExpandNode } from './commands';
+import { createExpandNode, insertExpand } from './commands';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
-import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
+import type {
+  LongPressSelectionPluginOptions,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
+
 interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
   allowInsertion?: boolean;
   appearance?: EditorProps['appearance'];
 }
 
-const expandPlugin: NextEditorPlugin<
+export type ExpandPlugin = NextEditorPlugin<
   'expand',
   {
     pluginConfiguration: ExpandPluginOptions | undefined;
     dependencies: [
       FeatureFlagsPlugin,
-      typeof decorationsPlugin,
+      DecorationsPlugin,
       SelectionPlugin,
+      OptionalPlugin<AnalyticsPlugin>,
     ];
+    actions: {
+      insertExpand: ReturnType<typeof insertExpand>;
+    };
   }
-> = ({ config: options = {}, api }) => {
+>;
+
+const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
   return {
     name: 'expand',
@@ -45,6 +55,10 @@ const expandPlugin: NextEditorPlugin<
         { name: 'expand', node: expand },
         { name: 'nestedExpand', node: nestedExpand },
       ];
+    },
+
+    actions: {
+      insertExpand: insertExpand(api?.analytics?.actions),
     },
 
     pmPlugins() {
@@ -70,9 +84,7 @@ const expandPlugin: NextEditorPlugin<
     },
 
     pluginsOptions: {
-      floatingToolbar: getToolbarConfig(
-        api?.decorations.actions.hoverDecoration,
-      ),
+      floatingToolbar: getToolbarConfig(api),
 
       quickInsert: ({ formatMessage }) => {
         if (options && options.allowInsertion !== true) {
@@ -97,7 +109,7 @@ const expandPlugin: NextEditorPlugin<
                     state,
                     type: node.type,
                   });
-              return addAnalytics(state, tr, {
+              api?.analytics?.actions.attachAnalyticsEvent({
                 action: ACTION.INSERTED,
                 actionSubject: ACTION_SUBJECT.DOCUMENT,
                 actionSubjectId:
@@ -106,7 +118,8 @@ const expandPlugin: NextEditorPlugin<
                     : ACTION_SUBJECT_ID.EXPAND,
                 attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
                 eventType: EVENT_TYPE.TRACK,
-              });
+              })(tr);
+              return tr;
             },
           },
         ];

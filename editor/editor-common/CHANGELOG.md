@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 76.14.0
+
+### Minor Changes
+
+- [#39920](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39920) [`c08ab6beb65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c08ab6beb65) - [ux] Adding new plugin for paste options toolbar. Also making required changes for the new toolbar in folating-toolbar plugin and paste plugin.
+
 ## 76.13.3
 
 ### Patch Changes

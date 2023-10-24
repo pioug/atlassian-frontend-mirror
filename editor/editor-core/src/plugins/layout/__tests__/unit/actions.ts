@@ -27,7 +27,7 @@ import {
   insertLayoutColumnsWithAnalytics,
 } from '../../actions';
 import { layouts, buildLayoutForWidths } from './_utils';
-import deprecatedAnalyticsPlugin, { INPUT_METHOD } from '../../../analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { PresetLayout } from '../../types';
 import layoutPlugin from '../..';
@@ -52,8 +52,7 @@ describe('layout actions', () => {
       .add([featureFlagsPlugin, {}])
       .add(decorationsPlugin)
       .add(layoutPlugin)
-      .add([analyticsPlugin, { createAnalyticsEvent }])
-      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
+      .add([analyticsPlugin, { createAnalyticsEvent }]);
 
     return createEditor({
       doc,

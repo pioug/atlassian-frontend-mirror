@@ -5,6 +5,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   blockquote,
@@ -43,7 +44,6 @@ describe('tasks and decisions - commands', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
   let providerFactory: ProviderFactory;
   let editorView: EditorView;
-  let sel: number;
 
   beforeEach(() => {
     uuid.setStatic('local-uuid');
@@ -99,7 +99,7 @@ describe('tasks and decisions - commands', () => {
         describe(name, () => {
           it(`can convert paragraph node to ${name}`, () => {
             ({ editorView } = editorFactory(doc(p('Hello{<>} World'))));
-            insertTaskDecisionCommand(listName)(
+            insertTaskDecisionCommand(undefined)(listName)(
               editorView.state,
               editorView.dispatch,
             );
@@ -113,7 +113,7 @@ describe('tasks and decisions - commands', () => {
 
           it(`can convert empty paragraph node to ${name}`, () => {
             ({ editorView } = editorFactory(doc(p('{<>}'))));
-            insertTaskDecisionCommand(listName)(
+            insertTaskDecisionCommand(undefined)(listName)(
               editorView.state,
               editorView.dispatch,
             );
@@ -125,7 +125,7 @@ describe('tasks and decisions - commands', () => {
 
           it(`can convert empty paragraph (below another paragraph node) to a selected ${name} node`, () => {
             ({ editorView } = editorFactory(doc(p('Hello World'), p('{<>}'))));
-            insertTaskDecisionCommand(listName)(
+            insertTaskDecisionCommand(undefined)(listName)(
               editorView.state,
               editorView.dispatch,
             );
@@ -142,7 +142,7 @@ describe('tasks and decisions - commands', () => {
             ({ editorView } = editorFactory(
               doc(blockquote(p('Hello{<>} World'))),
             ));
-            insertTaskDecisionCommand(listName)(
+            insertTaskDecisionCommand(undefined)(listName)(
               editorView.state,
               editorView.dispatch,
             );
@@ -156,7 +156,7 @@ describe('tasks and decisions - commands', () => {
             ({ editorView } = editorFactory(
               doc(blockquote(p('Hello'), p('{<>}Hello'), p('Hello'))),
             ));
-            insertTaskDecisionCommand(listName)(
+            insertTaskDecisionCommand(undefined)(listName)(
               editorView.state,
               editorView.dispatch,
             );
@@ -174,7 +174,7 @@ describe('tasks and decisions - commands', () => {
             ({ editorView } = editorFactory(
               doc(blockquote(p('Hello'), p('Hello'), p('{<>}'))),
             ));
-            insertTaskDecisionCommand(listName)(
+            insertTaskDecisionCommand(undefined)(listName)(
               editorView.state,
               editorView.dispatch,
             );
@@ -197,7 +197,7 @@ describe('tasks and decisions - commands', () => {
                 ),
               ),
             ));
-            insertTaskDecisionCommand(listName)(
+            insertTaskDecisionCommand(undefined)(listName)(
               editorView.state,
               editorView.dispatch,
             );
@@ -221,7 +221,7 @@ describe('tasks and decisions - commands', () => {
             ({ editorView } = editorFactory(
               doc(p('Hello', br(), ' World{<>}')),
             ));
-            insertTaskDecisionCommand(listName)(
+            insertTaskDecisionCommand(undefined)(listName)(
               editorView.state,
               editorView.dispatch,
             );
@@ -247,7 +247,7 @@ describe('tasks and decisions - commands', () => {
               ),
             ));
 
-            insertTaskDecisionCommand(listName)(
+            insertTaskDecisionCommand(undefined)(listName)(
               editorView.state,
               editorView.dispatch,
             );
@@ -269,7 +269,7 @@ describe('tasks and decisions - commands', () => {
           describe('when cursor is inside of a block node', () => {
             it(`should append an empty ${name} list after the parent block node`, () => {
               ({ editorView } = editorFactory(doc(panel()(p('te{<>}xt')))));
-              insertTaskDecisionCommand(listName)(
+              insertTaskDecisionCommand(undefined)(listName)(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -288,7 +288,7 @@ describe('tasks and decisions - commands', () => {
               ({ editorView } = editorFactory(
                 doc(list(listProps)(item(itemProps)('Hello World{<>}'))),
               ));
-              insertTaskDecisionCommand(listName)(
+              insertTaskDecisionCommand(undefined)(listName)(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -312,7 +312,7 @@ describe('tasks and decisions - commands', () => {
               ));
 
               // create new list
-              insertTaskDecisionCommand(listName)(
+              insertTaskDecisionCommand(undefined)(listName)(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -325,7 +325,7 @@ describe('tasks and decisions - commands', () => {
               compareSelection(editorFactory, expectedDoc, editorView);
 
               // add item to existing list
-              insertTaskDecisionCommand(listName)(
+              insertTaskDecisionCommand(undefined)(listName)(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -354,7 +354,7 @@ describe('tasks and decisions - commands', () => {
               ({ editorView } = editorFactory(
                 doc(list(listProps)(item(itemProps)('Hello World{<>}'))),
               ));
-              insertTaskDecisionCommand(convertTo.listName)(
+              insertTaskDecisionCommand(undefined)(convertTo.listName)(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -377,7 +377,7 @@ describe('tasks and decisions - commands', () => {
                   ),
                 ),
               ));
-              insertTaskDecisionCommand(convertTo.listName)(
+              insertTaskDecisionCommand(undefined)(convertTo.listName)(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -405,7 +405,7 @@ describe('tasks and decisions - commands', () => {
                   ),
                 ),
               ));
-              insertTaskDecisionCommand(convertTo.listName)(
+              insertTaskDecisionCommand(undefined)(convertTo.listName)(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -431,7 +431,7 @@ describe('tasks and decisions - commands', () => {
                   ),
                 ),
               ));
-              insertTaskDecisionCommand(convertTo.listName)(
+              insertTaskDecisionCommand(undefined)(convertTo.listName)(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -461,7 +461,7 @@ describe('tasks and decisions - commands', () => {
                   ),
                 ),
               ));
-              insertTaskDecisionCommand(convertTo.listName)(
+              insertTaskDecisionCommand(undefined)(convertTo.listName)(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -480,7 +480,7 @@ describe('tasks and decisions - commands', () => {
             it(`should change p -> ${listName} -> ${convertTo.listName} -> ${listName}`, () => {
               ({ editorView } = editorFactory(doc(p('Hello{<>}'))));
 
-              insertTaskDecisionCommand(listName)(
+              insertTaskDecisionCommand(undefined)(listName)(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -488,7 +488,7 @@ describe('tasks and decisions - commands', () => {
                 doc(list(listProps)(item(itemProps)('Hello{<>}'))),
               );
 
-              insertTaskDecisionCommand(convertTo.listName)(
+              insertTaskDecisionCommand(undefined)(convertTo.listName)(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -500,7 +500,7 @@ describe('tasks and decisions - commands', () => {
                 ),
               );
 
-              insertTaskDecisionCommand(listName)(
+              insertTaskDecisionCommand(undefined)(listName)(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -529,9 +529,11 @@ describe('tasks and decisions - commands', () => {
             });
 
             it('should fire analytics event when add new item when no parent list', async () => {
-              ({ editorView } = editorFactory(doc(p('{<>}'))));
+              let { editorView, editorAPI } = editorFactory(doc(p('{<>}')));
               await contextIdentifierProvider;
-              insertTaskDecisionCommand(listName)(
+              const editorAnalyticsAPI = editorAPI?.analytics
+                ?.actions as EditorAnalyticsAPI;
+              insertTaskDecisionCommand(editorAnalyticsAPI)(listName)(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -541,14 +543,18 @@ describe('tasks and decisions - commands', () => {
             });
 
             it('should fire analytics event when add item to existing list', async () => {
-              ({ editorView, sel } = editorFactory(doc(p('{<>}'))));
+              let { editorView, sel, editorAPI } = editorFactory(
+                doc(p('{<>}')),
+              );
+              const editorAnalyticsAPI = editorAPI?.analytics
+                ?.actions as EditorAnalyticsAPI;
               await contextIdentifierProvider;
-              insertTaskDecisionCommand(listName)(
+              insertTaskDecisionCommand(editorAnalyticsAPI)(listName)(
                 editorView.state,
                 editorView.dispatch,
               );
               insertText(editorView, 'task 1', sel + 1);
-              insertTaskDecisionCommand(listName)(
+              insertTaskDecisionCommand(editorAnalyticsAPI)(listName)(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -558,7 +564,7 @@ describe('tasks and decisions - commands', () => {
                 generatePayload(1, 2),
               );
 
-              insertTaskDecisionCommand(listName)(
+              insertTaskDecisionCommand(editorAnalyticsAPI)(listName)(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -608,7 +614,7 @@ describe('tasks and decisions - commands', () => {
             expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
           });
           it(`should replace selected node when typing`, () => {
-            ({ editorView, sel, refs } = editorFactory(
+            ({ editorView, refs } = editorFactory(
               doc(
                 list(listProps)(
                   '{nodeStart}',

@@ -170,6 +170,9 @@
       "path": "../editor-plugin-paste/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-paste-options-toolbar/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-placeholder/tsconfig.app.json"
     },
     {
@@ -192,6 +195,9 @@
     },
     {
       "path": "../editor-plugin-status/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-submit-editor/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-table/tsconfig.app.json"

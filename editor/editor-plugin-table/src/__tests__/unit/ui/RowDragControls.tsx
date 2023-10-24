@@ -70,6 +70,9 @@ describe('NumberColumn', () => {
           tableActive
           editorView={editorView}
           hoveredCell={{ rowIndex: 1, colIndex: 1 }}
+          hoverRows={jest.fn()}
+          selectRow={jest.fn()}
+          updateCellHoverLocation={jest.fn()}
         />
       </IntlProvider>,
     );
@@ -105,6 +108,9 @@ describe('NumberColumn', () => {
             colIndex: undefined,
             rowIndex: undefined,
           }}
+          hoverRows={jest.fn()}
+          selectRow={jest.fn()}
+          updateCellHoverLocation={jest.fn()}
         />
       </IntlProvider>,
     );

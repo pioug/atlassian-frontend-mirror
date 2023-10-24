@@ -5,7 +5,6 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
-import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 import { addSynchronyErrorAnalytics } from '../../analytics';
@@ -13,7 +12,7 @@ import {
   ACTION,
   ACTION_SUBJECT,
   getAnalyticsEventsFromTransaction,
-} from '../../../analytics';
+} from '@atlaskit/editor-common/analytics';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -26,12 +25,6 @@ describe('Collab Edit Analytics', () => {
         .add([featureFlagsPlugin, {}])
         .add([
           analyticsPlugin,
-          {
-            createAnalyticsEvent: createAnalyticsEventMock(),
-          },
-        ])
-        .add([
-          deprecatedAnalyticsPlugin,
           {
             createAnalyticsEvent: createAnalyticsEventMock(),
           },
@@ -62,12 +55,6 @@ describe('Collab Edit Analytics', () => {
         .add([featureFlagsPlugin, { synchronyErrorDocStructure: false }])
         .add([
           analyticsPlugin,
-          {
-            createAnalyticsEvent: createAnalyticsEventMock(),
-          },
-        ])
-        .add([
-          deprecatedAnalyticsPlugin,
           {
             createAnalyticsEvent: createAnalyticsEventMock(),
           },

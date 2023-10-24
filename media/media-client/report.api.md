@@ -448,7 +448,7 @@ export interface GetFileOptions {
 // @public (undocumented)
 export const getFileStreamsCache: () => StreamsCache<FileState>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export const getMediaClient: (
   mediaClientConfig: MediaClientConfig,
 ) => MediaClient;
@@ -1517,7 +1517,7 @@ export interface UploadFileResult {
 
 export { UploadingFileState };
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export interface WithMediaClient {
   // (undocumented)
   identifier?: Identifier;
@@ -1525,23 +1525,23 @@ export interface WithMediaClient {
   mediaClient: MediaClient;
 }
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export const withMediaClient: WithMediaClientFunction;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export interface WithMediaClientConfig {
   // (undocumented)
   mediaClientConfig: MediaClientConfig;
 }
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export type WithMediaClientConfigProps<P extends WithMediaClient> = Omit<
   P,
   'mediaClient'
 > &
   WithMediaClientConfig;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export type WithMediaClientFunction = <P extends WithMediaClient>(
   Component: React_2.ComponentType<P>,
 ) => React_2.ComponentType<WithMediaClientConfigProps<P>>;

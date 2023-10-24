@@ -24,7 +24,14 @@ import { default as React_2 } from 'react';
 type LayerName = keyof Layers;
 
 // @public (undocumented)
-function Portal(props: PortalProps): JSX.Element | null;
+type MountStrategy = 'effect' | 'layoutEffect';
+
+// @public (undocumented)
+function Portal({
+  zIndex,
+  children,
+  mountStrategy,
+}: PortalProps): JSX.Element | null;
 export default Portal;
 
 // @public (undocumented)
@@ -48,6 +55,7 @@ interface PortalEventDetail {
 export interface PortalProps {
   // (undocumented)
   children: React_2.ReactNode;
+  mountStrategy?: MountStrategy;
   // (undocumented)
   zIndex?: number | string;
 }

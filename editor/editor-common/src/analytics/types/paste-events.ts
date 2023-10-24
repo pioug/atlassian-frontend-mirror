@@ -140,7 +140,7 @@ type PasteBaseOperationalAEP<Action, Attributes, NonPrivacySafeAttributes> =
 type PasteAEP = PasteBaseAEP<
   ACTION.PASTED,
   {
-    inputMethod: INPUT_METHOD.KEYBOARD;
+    inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
     type: PasteType;
     content: PasteContent;
     source?: PasteSource;

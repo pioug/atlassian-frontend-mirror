@@ -34,7 +34,7 @@
     "@atlaskit/adf-schema": "^32.0.0",
     "@atlaskit/calendar": "^13.3.0",
     "@atlaskit/date": "^0.10.0",
-    "@atlaskit/editor-common": "^76.13.0",
+    "@atlaskit/editor-common": "^76.14.0",
     "@atlaskit/editor-plugin-analytics": "^0.2.0",
     "@atlaskit/editor-plugin-editor-disabled": "^0.2.0",
     "@atlaskit/editor-prosemirror": "1.1.0",

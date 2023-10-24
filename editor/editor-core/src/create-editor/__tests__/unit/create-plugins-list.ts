@@ -4,7 +4,7 @@ jest.mock('@atlaskit/editor-plugin-placeholder');
 jest.mock('@atlaskit/editor-plugin-selection');
 jest.mock('../../../plugins/code-block');
 jest.mock('../../../plugins/fake-text-cursor');
-jest.mock('../../../plugins/submit-editor');
+jest.mock('@atlaskit/editor-plugin-submit-editor');
 jest.mock('@atlaskit/editor-plugin-quick-insert');
 jest.mock('@atlaskit/editor-plugin-card');
 jest.mock('@atlaskit/editor-plugin-table');
@@ -38,7 +38,7 @@ import { placeholderPlugin } from '@atlaskit/editor-plugin-placeholder';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import codeBlockPlugin from '../../../plugins/code-block';
 import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
-import submitEditorPlugin from '../../../plugins/submit-editor';
+import { submitEditorPlugin } from '@atlaskit/editor-plugin-submit-editor';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 
 import createPluginsListBase, {

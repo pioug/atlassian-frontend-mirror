@@ -1,9 +1,17 @@
 import { useEffect, useState } from 'react';
 
-const useIsSubsequentRender = () => {
+import { MountStrategy } from '../types';
+
+import { useIsomorphicLayoutEffect } from './use-isomorphic-layout-effect';
+
+const useIsSubsequentRender = (mountStrategy?: MountStrategy) => {
   const [isSubsequentRender, setIsSubsequentRender] = useState(false);
 
-  useEffect(() => {
+  const [useMountEffect] = useState(() =>
+    mountStrategy === 'layoutEffect' ? useIsomorphicLayoutEffect : useEffect,
+  );
+
+  useMountEffect(() => {
     setIsSubsequentRender(true);
   }, []);
 

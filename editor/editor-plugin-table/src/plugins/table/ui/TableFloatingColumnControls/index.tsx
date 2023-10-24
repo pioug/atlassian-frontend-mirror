@@ -10,7 +10,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
-import type { CellHoverCoordinates, DraggableSourceData } from '../../types';
+import type { CellHoverMeta, DraggableSourceData } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 import { getColumnsWidths, getRowHeights } from '../../utils';
 
@@ -24,10 +24,11 @@ export interface Props {
   tableRef?: HTMLTableElement;
   getNode: () => PmNode;
   tableActive?: boolean;
+  isInDanger?: boolean;
   hasHeaderRow?: boolean;
   headerRowHeight?: number;
   hoveredRows?: number[];
-  hoveredCell?: CellHoverCoordinates;
+  hoveredCell?: CellHoverMeta;
   isResizing?: boolean;
   ordering?: TableColumnOrdering;
   stickyHeader?: RowStickyState;
@@ -43,6 +44,7 @@ export const TableFloatingColumnControls: React.FC<Props> = ({
   isResizing,
   stickyHeader,
   selection,
+  isInDanger,
 }) => {
   const [tableRect, setTableRect] = useState<{ width: number; height: number }>(
     { width: 0, height: 0 },
@@ -132,6 +134,7 @@ export const TableFloatingColumnControls: React.FC<Props> = ({
         tableActive={tableActive}
         stickyTop={tableActive ? stickyTop : undefined}
         localId={currentNodeLocalId}
+        isInDanger={isInDanger}
         rowHeights={rowHeights}
         colWidths={colWidths}
       />

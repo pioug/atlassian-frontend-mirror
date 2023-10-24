@@ -36,6 +36,30 @@ import { url } from 'another-package';
 
 <LinkItem href={url}>Zombo</LinkItem>
   `,
+    // Should not trip if variable is defined as a prop
+    `
+import { LinkItem } from '@atlaskit/menu';
+
+const Component = ({ url }) => <LinkItem href={url}>Zombo</LinkItem>;
+  `,
+    `
+import { LinkItem } from '@atlaskit/menu';
+
+const Component = (url) => <LinkItem href={url}>Zombo</LinkItem>;
+  `,
+    `
+import { LinkItem } from '@atlaskit/menu';
+
+class C extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return <LinkItem href={this.props.url}>Zombo</LinkItem>;
+  }
+}
+  `,
     // Should only trip on `@atlaskit/menu`
     `
 import { LinkItem } from 'a-different-package';

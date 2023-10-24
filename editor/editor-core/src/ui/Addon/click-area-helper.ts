@@ -148,6 +148,7 @@ const outsideProsemirrorEditorClickHandler = (
     event.clientY > dom.getBoundingClientRect().bottom;
 
   if (isBottomAreaClicked) {
+    tr.setMeta('outsideProsemirrorEditorClicked', true);
     addParagraphAtEnd(tr);
   }
 

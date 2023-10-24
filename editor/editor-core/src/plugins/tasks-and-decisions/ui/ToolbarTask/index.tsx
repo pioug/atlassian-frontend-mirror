@@ -3,17 +3,20 @@ import React, { PureComponent } from 'react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import TaskIcon from '@atlaskit/icon/glyph/editor/task';
 
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import { messages } from '../../../insert-block/ui/ToolbarInsertBlock/messages';
 import { insertTaskDecisionCommand } from '../../commands';
+import type { TaskAndDecisionsPlugin } from '../../types';
 
 export interface Props {
   editorView?: EditorView;
   isDisabled?: boolean;
   isReducedSpacing?: boolean;
+  editorAPI: ExtractInjectionAPI<TaskAndDecisionsPlugin> | undefined;
 }
 
 export interface State {
@@ -49,11 +52,11 @@ export class ToolbarTask extends PureComponent<
   }
 
   private handleInsertTask = (): boolean => {
-    const { editorView } = this.props;
+    const { editorView, editorAPI } = this.props;
     if (!editorView) {
       return false;
     }
-    insertTaskDecisionCommand('taskList')(
+    insertTaskDecisionCommand(editorAPI?.analytics?.actions)('taskList')(
       editorView.state,
       editorView.dispatch,
     );

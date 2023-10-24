@@ -845,16 +845,7 @@ const layerMap: {
 type MarginSpace = 'auto' | NegativeSpace | Space;
 
 // @public
-export const media: {
-  readonly above: {
-    readonly xxs: '@media all';
-    readonly xs: '@media (min-width: 30rem)';
-    readonly sm: '@media (min-width: 48rem)';
-    readonly md: '@media (min-width: 64rem)';
-    readonly lg: '@media (min-width: 90rem)';
-    readonly xl: '@media (min-width: 110rem)';
-  };
-};
+export const media: SafeMedia;
 
 // @public
 type MediaQuery = (typeof media.above)[Breakpoint];
@@ -881,6 +872,9 @@ type SafeCSSObject = CSSPseudos &
   TokenisedProps &
   CSSMediaQueries &
   Omit<CSSPropertiesWithMultiValues, keyof TokenisedProps>;
+
+// @public
+type SafeMedia = Pick<typeof UNSAFE_media, 'above'>;
 
 // @public (undocumented)
 export type Shadow = keyof typeof shadowMap;

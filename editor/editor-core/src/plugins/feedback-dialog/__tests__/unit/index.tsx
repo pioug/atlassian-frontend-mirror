@@ -17,7 +17,6 @@ import * as LoadJiraCollectorDialogScript from '../../loadJiraCollectorDialogScr
 
 // Editor plugins
 import feedbackDialogPlugin, { openFeedbackDialog } from '../../index';
-import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
@@ -53,7 +52,6 @@ describe('feedbackDialogPlugin', () => {
           },
         ])
         .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(typeAheadPlugin)
         .add(quickInsertPlugin),
     });

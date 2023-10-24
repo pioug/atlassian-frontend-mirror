@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 6.2.0
+
+### Minor Changes
+
+- [#41851](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41851) [`1617920980f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1617920980f) - Add and export `mockBasicFilterAGGFetchRequests`, `mockBasicFilterData` for AGG mocks in basic filters.
+
 ## 6.1.6
 
 ### Patch Changes

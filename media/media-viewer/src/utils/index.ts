@@ -2,8 +2,9 @@ import {
   Identifier,
   isFileIdentifier,
   MediaType,
-  getMediaTypeFromMimeType,
 } from '@atlaskit/media-client';
+import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
+
 import { getType } from 'mime';
 
 export const isSameIdentifier = (id1: Identifier, id2: Identifier) => {

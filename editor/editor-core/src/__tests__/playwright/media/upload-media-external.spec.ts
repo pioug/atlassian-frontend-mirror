@@ -24,7 +24,8 @@ test.describe('when pasted an external media', () => {
   test('should upload it', async ({ editor }) => {
     await editor.simulatePasteEvent({
       pasteAs: 'text/html',
-      text: `<meta charset='utf-8'><img src="http://localhost:9000/img/editor-core/test-image-9kb.jpg"/>`,
+      text: '',
+      html: `<meta charset='utf-8'><img src="http://localhost:9000/img/editor-core/test-image-9kb.jpg"/>`,
     });
 
     const nodes = EditorNodeContainerModel.from(editor);

@@ -6,10 +6,10 @@ import {
   FileState,
   isAbortedRequestError,
   isImageRepresentationReady,
-  isImageMimeTypeSupportedByBrowser,
   isErrorFileState,
   addFileAttrsToUrl,
 } from '@atlaskit/media-client';
+import { isImageMimeTypeSupportedByBrowser } from '@atlaskit/media-common';
 import { getOrientation } from '@atlaskit/media-ui';
 
 import { Outcome } from '../../domain';

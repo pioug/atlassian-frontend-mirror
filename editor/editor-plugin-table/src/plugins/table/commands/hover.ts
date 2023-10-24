@@ -191,13 +191,18 @@ export const hideResizeHandleLine = () =>
     },
   }));
 
-export const hoverCell = (rowIndex?: number, colIndex?: number) =>
+export const hoverCell = (
+  rowIndex?: number,
+  colIndex?: number,
+  colWidth?: number,
+  colHeight?: number,
+) =>
   createCommand(
     () => {
       return {
         type: 'HOVER_CELL',
         data: {
-          hoveredCell: { rowIndex, colIndex },
+          hoveredCell: { rowIndex, colIndex, colWidth, colHeight },
         },
       };
     },

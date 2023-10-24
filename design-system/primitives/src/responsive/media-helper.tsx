@@ -74,10 +74,25 @@ export const UNSAFE_media = {
 };
 
 /**
+ * We needed to simplify the `media` export below to rely on less AST traversal so that Compiled could understand it.
+ * This type provides the same guarantees as `const media = { above: UNSAFE_media.above }` would but allows it to be a simple
+ * object that Compiled parses easily.
+ * See https://product-fabric.atlassian.net/browse/DSP-13626 for more detail.
+ */
+type SafeMedia = Pick<typeof UNSAFE_media, 'above'>;
+
+/**
  * This is an object of usable media query helpers using our internal breakpoints configuration.
  *
  * We strictly only export `media.above` at this stage as we want makers to build mobile-first.
  */
-export const media = {
-  above: UNSAFE_media.above,
+export const media: SafeMedia = {
+  above: {
+    xxs: '@media all',
+    xs: '@media (min-width: 30rem)',
+    sm: '@media (min-width: 48rem)',
+    md: '@media (min-width: 64rem)',
+    lg: '@media (min-width: 90rem)',
+    xl: '@media (min-width: 110rem)',
+  },
 } as const;

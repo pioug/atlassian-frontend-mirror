@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-datasource",
-  "version": "1.9.1",
+  "version": "1.10.0",
   "description": "UI Components to support linking platform dataset feature",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -53,6 +53,7 @@
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^0.11.0",
     "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^0.6.0",
     "@atlaskit/pragmatic-drag-and-drop-react-indicator": "^0.16.0",
+    "@atlaskit/primitives": "^1.6.7",
     "@atlaskit/select": "^16.7.0",
     "@atlaskit/smart-card": "^26.37.0",
     "@atlaskit/spinner": "^15.6.0",
@@ -81,7 +82,7 @@
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/link-provider": "^1.6.0",
-    "@atlaskit/link-test-helpers": "^6.1.0",
+    "@atlaskit/link-test-helpers": "^6.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

@@ -25,3 +25,7 @@ export interface PortalEventDetail {
   layer: LayerName | null;
   zIndex: number;
 }
+
+// Specify the mount strategy type for portal
+
+export type MountStrategy = 'effect' | 'layoutEffect';

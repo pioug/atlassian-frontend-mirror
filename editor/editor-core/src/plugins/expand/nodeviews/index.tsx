@@ -241,7 +241,10 @@ export class ExpandNodeView implements NodeView {
         this.view.dom.blur();
       }
 
-      toggleExpandExpanded(pos, this.node.type)(state, dispatch);
+      toggleExpandExpanded(this.api?.analytics?.actions)(pos, this.node.type)(
+        state,
+        dispatch,
+      );
       return;
     }
 
@@ -311,7 +314,10 @@ export class ExpandNodeView implements NodeView {
     const { state } = this.view;
     const expandNode = this.node;
     if (expandNode && isEmptyNode(state.schema)(expandNode)) {
-      deleteExpandAtPos(pos, expandNode)(state, this.view.dispatch);
+      deleteExpandAtPos(this.api?.analytics?.actions)(pos, expandNode)(
+        state,
+        this.view.dispatch,
+      );
     }
   };
 
@@ -323,7 +329,10 @@ export class ExpandNodeView implements NodeView {
 
     if (this.isAllowInteractiveExpandEnabled()) {
       const { state, dispatch } = this.view;
-      toggleExpandExpanded(pos, this.node.type)(state, dispatch);
+      toggleExpandExpanded(this.api?.analytics?.actions)(pos, this.node.type)(
+        state,
+        dispatch,
+      );
     }
   };
 

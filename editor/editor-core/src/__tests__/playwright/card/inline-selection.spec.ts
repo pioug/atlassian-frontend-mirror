@@ -9,9 +9,6 @@ test.use({
     appearance: 'full-page',
     allowTextAlignment: true,
     smartLinks: {},
-    featureFlags: {
-      chromeCursorHandlerFixedVersion: '999',
-    },
   },
 });
 

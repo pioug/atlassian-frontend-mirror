@@ -301,7 +301,10 @@ describe('withCellTracking', () => {
       withCellTracking(jest.fn())(editorView, event as any);
 
       const pluginState = getPluginState(editorView.state);
-      expect(pluginState.hoveredCell).toEqual({ colIndex: 0, rowIndex: 0 });
+      expect(pluginState.hoveredCell).toEqual({
+        colIndex: undefined,
+        rowIndex: undefined,
+      });
     });
   });
 });

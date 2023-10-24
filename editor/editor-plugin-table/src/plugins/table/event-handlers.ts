@@ -288,7 +288,7 @@ export const handleMouseLeave = (view: EditorView, event: Event): boolean => {
   }
 
   if (isDragAndDropEnabled) {
-    hoverCell(undefined, undefined)(state, dispatch);
+    hoverCell()(state, dispatch);
   }
 
   if (
@@ -512,8 +512,9 @@ const trackCellLocation = (view: EditorView, mouseEvent: Event) => {
   const maybeTableCell = isElementInTableCell(
     target as HTMLElement,
   ) as HTMLTableCellElement | null;
+  const tableRef = getPluginState(view.state).tableRef;
 
-  if (!maybeTableCell) {
+  if (!maybeTableCell || !tableRef) {
     return;
   }
 
@@ -525,8 +526,21 @@ const trackCellLocation = (view: EditorView, mouseEvent: Event) => {
   const rowIndex = rowElement && rowElement.rowIndex;
   const { hoveredCell } = getPluginState(view.state);
 
-  if (hoveredCell.colIndex !== colIndex || hoveredCell.rowIndex !== rowIndex) {
-    hoverCell(rowIndex, colIndex)(view.state, view.dispatch);
+  const colHeight = tableRef.offsetHeight;
+  const colWidth = maybeTableCell.offsetWidth;
+
+  if (
+    hoveredCell.colIndex !== colIndex ||
+    hoveredCell.rowIndex !== rowIndex ||
+    hoveredCell.colWidth !== colWidth ||
+    hoveredCell.colHeight !== colHeight
+  ) {
+    hoverCell(
+      rowIndex,
+      colIndex,
+      colWidth,
+      colHeight,
+    )(view.state, view.dispatch);
   }
 };
 

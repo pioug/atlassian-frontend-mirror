@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import type { MediaClient } from '@atlaskit/media-client';
 import Loadable from 'react-loadable';
 import { CardLoading } from '../../utils/lightCards/cardLoading';
 import type { CardBaseProps } from '../card';
 import type { MediaCardAnalyticsErrorBoundaryProps } from '../media-card-analytics-error-boundary';
 import { CardWithMediaClientConfigProps } from '../cardLoader';
+import { WithMediaClientFunction } from '@atlaskit/media-client-react';
 
 const MediaCardContext = React.createContext({});
 
@@ -31,13 +31,16 @@ const MediaCardErrorBoundary = Loadable({
   loading: () => <CardLoadingWithContext />,
 });
 
-const MediaCardWithMediaClient: React.FC<
+const CardWithMediaClient: React.FC<
   CardWithMediaClientConfigProps & {
-    useMediaClient: () => MediaClient;
+    withMediaClient: WithMediaClientFunction;
   }
 > = (props) => {
-  const { dimensions, onClick, useMediaClient, featureFlags } = props;
-  const mediaClient = useMediaClient();
+  const { dimensions, onClick, withMediaClient, featureFlags } = props;
+  const Card = React.useMemo(() => {
+    return withMediaClient(MediaV2Card);
+  }, [withMediaClient]);
+
   const featureFlagsWithMediaCardV2 = React.useMemo(
     () => ({
       ...featureFlags,
@@ -47,11 +50,7 @@ const MediaCardWithMediaClient: React.FC<
   );
   return (
     <MediaCardErrorBoundary dimensions={dimensions} onClick={onClick}>
-      <MediaV2Card
-        {...props}
-        featureFlags={featureFlagsWithMediaCardV2}
-        mediaClient={mediaClient}
-      />
+      <Card {...props} featureFlags={featureFlagsWithMediaCardV2} />
     </MediaCardErrorBoundary>
   );
 };
@@ -62,28 +61,9 @@ const MediaCardWithMediaClientProvider = Loadable({
       /* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
     ),
   loading: () => <CardLoadingWithContext />,
-  render: (loaded, props: CardWithMediaClientConfigProps) => {
-    const mediaCard = (
-      <MediaCardWithMediaClient
-        {...props}
-        useMediaClient={loaded.useMediaClient}
-      />
-    );
-    return (
-      <loaded.MediaClientContext.Consumer>
-        {(value) =>
-          value ? (
-            mediaCard
-          ) : (
-            // TODO - make clientConfig optional
-            <loaded.MediaClientProvider clientConfig={props.mediaClientConfig}>
-              {mediaCard}
-            </loaded.MediaClientProvider>
-          )
-        }
-      </loaded.MediaClientContext.Consumer>
-    );
-  },
+  render: (loaded, props: CardWithMediaClientConfigProps) => (
+    <CardWithMediaClient {...props} withMediaClient={loaded.withMediaClient} />
+  ),
 });
 
 const CardLoader: React.FC<CardWithMediaClientConfigProps> = (props) => {

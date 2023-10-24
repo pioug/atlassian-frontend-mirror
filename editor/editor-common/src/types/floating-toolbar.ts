@@ -11,7 +11,7 @@ import type { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analyti
 import type { ProviderFactory } from '../provider-factory';
 import type { PaletteColor } from '../ui-color/ColorPalette/Palettes/type';
 
-import type { Command } from './command';
+import type { Command, CommandDispatch } from './command';
 import type { MarkOptions, NodeOptions } from './copy-button';
 
 export interface RenderOptionsPropsT<T extends {}> {
@@ -242,6 +242,10 @@ export type FloatingToolbarDropdown<T extends {}> = {
   showSelected?: boolean;
   // A prop to align the dropdown with the floating toolbar instead of the toolbar item
   alignDropdownWithToolbar?: boolean;
+  onToggle?: (
+    state: EditorState,
+    dispatch: CommandDispatch | undefined,
+  ) => boolean;
 };
 
 type FloatingToolbarExtensionsPlaceholder = {

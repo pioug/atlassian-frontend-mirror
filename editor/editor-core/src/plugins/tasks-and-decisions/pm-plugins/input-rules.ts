@@ -11,7 +11,8 @@ import { canInsert } from '@atlaskit/editor-prosemirror/utils';
 
 import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
-import { INPUT_METHOD } from '../../analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
   changeInDepth,
   insertTaskDecisionAction,
@@ -23,46 +24,44 @@ import type {
   TaskDecisionListType,
 } from '../types';
 
-const createListRule = (
-  regex: RegExp,
-  listType: TaskDecisionListType,
-  itemAttrs?: AddItemAttrs,
-) => {
-  return createRule(
-    regex,
-    (
-      state: EditorState,
-      _match: Object | undefined,
-      start: number,
-      end: number,
-    ) => {
-      const { paragraph } = state.schema.nodes;
-      const { list } = getListTypes(listType, state.schema);
-      const $end = state.doc.resolve(end);
-      const $endOfParent = state.doc.resolve($end.after());
-      // Only allow creating list in nodes that support them.
-      // Parent must be a paragraph as we don't want this applying to headings
-      if (
-        $end.parent.type !== paragraph ||
-        !canInsert($endOfParent, list.createAndFill() as Node)
-      ) {
-        return null;
-      }
+const createListRule =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (regex: RegExp, listType: TaskDecisionListType, itemAttrs?: AddItemAttrs) => {
+    return createRule(
+      regex,
+      (
+        state: EditorState,
+        _match: Object | undefined,
+        start: number,
+        end: number,
+      ) => {
+        const { paragraph } = state.schema.nodes;
+        const { list } = getListTypes(listType, state.schema);
+        const $end = state.doc.resolve(end);
+        const $endOfParent = state.doc.resolve($end.after());
+        // Only allow creating list in nodes that support them.
+        // Parent must be a paragraph as we don't want this applying to headings
+        if (
+          $end.parent.type !== paragraph ||
+          !canInsert($endOfParent, list.createAndFill() as Node)
+        ) {
+          return null;
+        }
 
-      const insertTr = insertTaskDecisionAction(
-        state,
-        listType,
-        INPUT_METHOD.FORMATTING,
-        addItem(start, end),
-        undefined,
-        undefined,
-        itemAttrs,
-      );
+        const insertTr = insertTaskDecisionAction(editorAnalyticsAPI)(
+          state,
+          listType,
+          INPUT_METHOD.FORMATTING,
+          addItem(start, end),
+          undefined,
+          undefined,
+          itemAttrs,
+        );
 
-      return insertTr;
-    },
-  );
-};
+        return insertTr;
+      },
+    );
+  };
 
 const addItem =
   (start: number, end: number): AddItemTransactionCreator =>
@@ -112,42 +111,41 @@ const addItem =
     return tr;
   };
 
-export function inputRulePlugin(
-  schema: Schema,
-  featureFlags: FeatureFlags,
-): SafePlugin {
-  const rules: InputRuleWrapper[] = [];
+export const inputRulePlugin =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (schema: Schema, featureFlags: FeatureFlags): SafePlugin => {
+    const rules: InputRuleWrapper[] = [];
 
-  const { decisionList, decisionItem, taskList, taskItem } = schema.nodes;
+    const { decisionList, decisionItem, taskList, taskItem } = schema.nodes;
 
-  if (decisionList && decisionItem) {
-    rules.push(
-      createListRule(
-        new RegExp(`(^|${leafNodeReplacementCharacter})\\<\\>\\s$`),
-        'decisionList',
-      ),
-    );
-  }
+    if (decisionList && decisionItem) {
+      rules.push(
+        createListRule(editorAnalyticsAPI)(
+          new RegExp(`(^|${leafNodeReplacementCharacter})\\<\\>\\s$`),
+          'decisionList',
+        ),
+      );
+    }
 
-  if (taskList && taskItem) {
-    rules.push(
-      createListRule(
-        new RegExp(`(^|${leafNodeReplacementCharacter})\\[\\]\\s$`),
-        'taskList',
-      ),
-    );
-    rules.push(
-      createListRule(
-        new RegExp(`(^|${leafNodeReplacementCharacter})\\[x\\]\\s$`),
-        'taskList',
-        { state: 'DONE' },
-      ),
-    );
-  }
+    if (taskList && taskItem) {
+      rules.push(
+        createListRule(editorAnalyticsAPI)(
+          new RegExp(`(^|${leafNodeReplacementCharacter})\\[\\]\\s$`),
+          'taskList',
+        ),
+      );
+      rules.push(
+        createListRule(editorAnalyticsAPI)(
+          new RegExp(`(^|${leafNodeReplacementCharacter})\\[x\\]\\s$`),
+          'taskList',
+          { state: 'DONE' },
+        ),
+      );
+    }
 
-  return createPlugin('tasks-and-decisions', rules, {
-    isBlockNodeRule: true,
-  });
-}
+    return createPlugin('tasks-and-decisions', rules, {
+      isBlockNodeRule: true,
+    });
+  };
 
 export default inputRulePlugin;

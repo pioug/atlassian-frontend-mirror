@@ -16,10 +16,16 @@
 
 ```ts
 import type { FileState } from '@atlaskit/media-state';
+import { Identifier } from '@atlaskit/media-client';
 import { MediaClient } from '@atlaskit/media-client';
 import { MediaClientConfig } from '@atlaskit/media-client';
 import { default as React_2 } from 'react';
 import type { Store } from '@atlaskit/media-state';
+
+// @public (undocumented)
+export const getMediaClient: (
+  mediaClientConfig: MediaClientConfig,
+) => MediaClient;
 
 // @public (undocumented)
 export const MediaClientContext: React_2.Context<MediaClient | undefined>;
@@ -64,6 +70,35 @@ export function useMediaStore<T>(
   selector: (state: Store) => T,
   equals?: (a: T, b: T) => boolean,
 ): T;
+
+// @public (undocumented)
+interface WithMediaClient {
+  // (undocumented)
+  identifier?: Identifier;
+  // (undocumented)
+  mediaClient: MediaClient;
+}
+
+// @public (undocumented)
+export const withMediaClient: WithMediaClientFunction;
+
+// @public (undocumented)
+export interface WithMediaClientConfig {
+  // (undocumented)
+  mediaClientConfig: MediaClientConfig;
+}
+
+// @public (undocumented)
+export type WithMediaClientConfigProps<P extends WithMediaClient> = Omit<
+  P,
+  'mediaClient'
+> &
+  WithMediaClientConfig;
+
+// @public (undocumented)
+export type WithMediaClientFunction = <P extends WithMediaClient>(
+  Component: React_2.ComponentType<P>,
+) => React_2.ComponentType<WithMediaClientConfigProps<P>>;
 
 // (No @packageDocumentation comment for this package)
 ```

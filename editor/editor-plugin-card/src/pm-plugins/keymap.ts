@@ -3,13 +3,14 @@ import {
   moveDown,
   moveUp,
 } from '@atlaskit/editor-common/keymaps';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Command, FeatureFlags } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
-import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findChildren, flatten } from '@atlaskit/editor-prosemirror/utils';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 const lookupPixel = 10;
 
@@ -80,12 +81,7 @@ export function cardKeymap(featureFlags: FeatureFlags): SafePlugin {
   const list = {};
 
   // https://bugs.chromium.org/p/chromium/issues/detail?id=1227468 introduced since Chrome 91
-  if (
-    browser.chrome &&
-    browser.chrome_version > 90 &&
-    featureFlags.chromeCursorHandlerFixedVersion &&
-    browser.chrome_version < featureFlags.chromeCursorHandlerFixedVersion
-  ) {
+  if (browser.chrome && browser.chrome_version > 90) {
     bindKeymapWithCommand(
       moveUp.common!,
       selectAboveBelowInlineCard('up'),

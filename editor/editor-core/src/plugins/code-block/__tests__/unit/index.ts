@@ -39,7 +39,6 @@ import { basePlugin } from '@atlaskit/editor-plugin-base';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
-import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { getToolbarConfig } from '../../toolbar';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -70,8 +69,7 @@ describe('code-block', () => {
       .add(selectionPlugin)
       .add(tablesPlugin)
       .add(typeAheadPlugin)
-      .add(quickInsertPlugin)
-      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
+      .add(quickInsertPlugin);
 
     return createEditor<CodeBlockState, PluginKey, typeof preset>({
       doc,

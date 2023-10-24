@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "188.13.3",
+  "version": "189.0.1",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -53,7 +53,7 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.10.0",
-    "@atlaskit/editor-common": "^76.13.0",
+    "@atlaskit/editor-common": "^76.14.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.5",
     "@atlaskit/editor-palette": "1.5.1",
@@ -75,7 +75,7 @@
     "@atlaskit/editor-plugin-emoji": "^0.4.0",
     "@atlaskit/editor-plugin-extension": "^0.2.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
-    "@atlaskit/editor-plugin-floating-toolbar": "^0.6.0",
+    "@atlaskit/editor-plugin-floating-toolbar": "^0.7.0",
     "@atlaskit/editor-plugin-focus": "^0.2.0",
     "@atlaskit/editor-plugin-grid": "^0.3.0",
     "@atlaskit/editor-plugin-guideline": "^0.5.0",
@@ -87,6 +87,7 @@
     "@atlaskit/editor-plugin-media": "^0.3.0",
     "@atlaskit/editor-plugin-mentions": "^0.1.0",
     "@atlaskit/editor-plugin-paste": "^0.1.0",
+    "@atlaskit/editor-plugin-paste-options-toolbar": "^0.2.0",
     "@atlaskit/editor-plugin-placeholder": "^0.1.0",
     "@atlaskit/editor-plugin-quick-insert": "^0.2.0",
     "@atlaskit/editor-plugin-rule": "^0.1.0",
@@ -95,6 +96,7 @@
     "@atlaskit/editor-plugin-selection": "^0.1.0",
     "@atlaskit/editor-plugin-selection-toolbar": "^0.1.0",
     "@atlaskit/editor-plugin-status": "^0.1.0",
+    "@atlaskit/editor-plugin-submit-editor": "^0.1.0",
     "@atlaskit/editor-plugin-table": "^5.3.0",
     "@atlaskit/editor-plugin-text-formatting": "^0.4.0",
     "@atlaskit/editor-plugin-type-ahead": "^0.7.0",
@@ -163,7 +165,7 @@
     "@atlaskit/inline-dialog": "^13.6.0",
     "@atlaskit/link-analytics": "^8.3.0",
     "@atlaskit/link-provider": "^1.6.0",
-    "@atlaskit/link-test-helpers": "^6.1.5",
+    "@atlaskit/link-test-helpers": "^6.2.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
@@ -319,6 +321,9 @@
       "referenceOnly": "true"
     },
     "platform.editor.enable-selection-toolbar_ucdwd": {
+      "type": "boolean"
+    },
+    "platform.editor.paste-options-toolbar": {
       "type": "boolean"
     }
   }

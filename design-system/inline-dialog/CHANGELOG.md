@@ -1,5 +1,11 @@
 # @atlaskit/inline-dialog
 
+## 13.6.8
+
+### Patch Changes
+
+- [#41990](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41990) [`7a88114cef7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a88114cef7) - added type dependency for @types/react-node-resolver
+
 ## 13.6.7
 
 ### Patch Changes

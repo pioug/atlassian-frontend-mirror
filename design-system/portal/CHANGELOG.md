@@ -1,5 +1,11 @@
 # @atlaskit/portal
 
+## 4.4.0
+
+### Minor Changes
+
+- [#41817](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41817) [`76888385b72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76888385b72) - Add MountStrategy prop to specify mount strategy
+
 ## 4.3.6
 
 ### Patch Changes

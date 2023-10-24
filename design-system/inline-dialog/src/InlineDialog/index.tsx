@@ -174,7 +174,7 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(
                 }
               }}
             >
-              {children}
+              <React.Fragment>{children}</React.Fragment>
             </NodeResolver>
           )}
         </Reference>

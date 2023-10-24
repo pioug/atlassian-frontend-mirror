@@ -91,7 +91,7 @@ const tasksAndDecisionsPlugin: TaskAndDecisionsPlugin = ({
       {
         name: 'tasksAndDecisionsInputRule',
         plugin: ({ schema, featureFlags }) =>
-          inputRulePlugin(schema, featureFlags),
+          inputRulePlugin(api?.analytics?.actions)(schema, featureFlags),
       },
       {
         name: 'tasksAndDecisionsKeyMap',
@@ -108,11 +108,13 @@ const tasksAndDecisionsPlugin: TaskAndDecisionsPlugin = ({
           editorView={editorView}
           isDisabled={disabled}
           isReducedSpacing={true}
+          editorAPI={api}
         />
         <ToolbarTask
           editorView={editorView}
           isDisabled={disabled}
           isReducedSpacing={true}
+          editorAPI={api}
         />
       </div>
     );
@@ -129,7 +131,7 @@ const tasksAndDecisionsPlugin: TaskAndDecisionsPlugin = ({
         keyshortcut: '[]',
         icon: () => <IconAction />,
         action(insert, state) {
-          return insertTaskDecisionAction(
+          return insertTaskDecisionAction(api?.analytics?.actions)(
             state,
             'taskList',
             INPUT_METHOD.QUICK_INSERT,
@@ -145,7 +147,7 @@ const tasksAndDecisionsPlugin: TaskAndDecisionsPlugin = ({
         keyshortcut: '<>',
         icon: () => <IconDecision />,
         action(insert, state) {
-          return insertTaskDecisionAction(
+          return insertTaskDecisionAction(api?.analytics?.actions)(
             state,
             'decisionList',
             INPUT_METHOD.QUICK_INSERT,

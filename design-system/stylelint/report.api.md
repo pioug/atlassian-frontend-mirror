@@ -30,7 +30,7 @@ export default rules;
 
 ```json
 {
-  "stylelint": "^14.5.3"
+  "stylelint": "^14.16.1"
 }
 ```
 

@@ -95,6 +95,7 @@ export class Dropdown extends PureComponent<Props, State> {
         fitHeight={fitHeight}
         fitWidth={fitWidth}
         zIndex={zIndex}
+        allowOutOfBounds={alignDropdownWithParentElement}
       >
         <ArrowKeyNavigationProvider
           {...arrowKeyNavigationProviderOptions}

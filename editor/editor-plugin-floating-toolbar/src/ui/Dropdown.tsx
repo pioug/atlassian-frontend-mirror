@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import type {
+  CommandDispatch,
   DropdownOptions,
   DropdownOptionT,
 } from '@atlaskit/editor-common/types';
@@ -14,6 +15,7 @@ import {
   ArrowKeyNavigationType,
   DropdownContainer as UiDropdown,
 } from '@atlaskit/editor-common/ui-menu';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import { token } from '@atlaskit/tokens';
@@ -60,6 +62,10 @@ export interface Props {
   dropdownListId?: string;
   // A prop to align the dropdown with the floating toolbar instead of the toolbar item
   alignDropdownWithToolbar?: boolean;
+  onToggle?: (
+    state: EditorState,
+    dispatch: CommandDispatch | undefined,
+  ) => boolean;
 }
 
 export interface State {
@@ -180,6 +186,13 @@ export default class Dropdown extends Component<Props, State> {
 
   private toggleOpen = () => {
     this.setState({ isOpen: !this.state.isOpen, isOpenedByKeyboard: false });
+    const onToggle = this.props.onToggle;
+    if (!onToggle) {
+      return;
+    }
+    requestAnimationFrame(() => {
+      this.props.dispatchCommand(onToggle);
+    });
   };
 
   private toggleOpenByKeyboard = (event: React.KeyboardEvent) => {

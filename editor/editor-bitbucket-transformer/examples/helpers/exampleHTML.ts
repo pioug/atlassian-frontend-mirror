@@ -16,6 +16,71 @@ const html = `<p>Regular,
 
 <hr>
 
+<table>
+  <thead>
+    <tr>
+    <th>First Header</th>
+    <th>Second Header</th>
+    <th>Third Header</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <pre><code>private handleChange = () => {
+        const { onChange } = this.props;
+        if (onChange) {
+        onChange(this);
+        }
+        }</code></pre>
+      </td>
+      <td>
+        <blockquote>
+          <p>Block quote first paragraph</p>
+          <p>Regular,
+          <strong>Strong</strong>,
+          <em>Italic</em>,
+          <em><strong>Strong Italic</strong></em>
+          </p>
+          <ul>
+          <li>Bullet list item 1</li>
+          <li>Bullet list item 2</li>
+          </ul>
+          <ol>
+          <li>Number list item 1</li>
+          <li>Number list item 2</li>
+          </ol>
+        </blockquote>
+      </td>
+      <td>
+        <ul>
+          <li><a href="/scott" class="mention" data-atlassian-id="5c09bf77ec71bd223bbe866f">@Scott Demo</a></li>
+          <li><a href="/scott" class="ap-mention" data-atlassian-id="5c09bf77ec71bd223bbe866f">@Scott Demo</a></li>
+          <li><span class="ap-mention" data-atlassian-id="5c09bf77ec71bd223bbe866f">@Scott Demo</span></li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <ol>
+          <li>Number list item 1</li>
+          <li>Number list item 2</li>
+        </ol>
+      </td>
+      <td>
+        <p>
+          Paragraph Cell
+          2nd Line
+          3rd Line
+        </p>
+      </td>
+      <td>Content Cell</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
 <p><a href="//atlassian.com" data-is-external-link="true">Regular link</a>,
   <a href="//atlassian.com" data-is-external-link="true"><strong>strong link</strong></a>,
   <a href="//atlassian.com" data-is-external-link="true"><em><strong>strong italic link</strong></em></a>

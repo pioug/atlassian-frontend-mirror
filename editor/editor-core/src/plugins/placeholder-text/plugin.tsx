@@ -9,14 +9,13 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { placeholder } from '@atlaskit/adf-schema';
 import MediaServicesTextIcon from '@atlaskit/icon/glyph/media-services/text';
-import type { getPosHandler } from '../../nodeviews/types';
+import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import type {
   ExtractInjectionAPI,
-  NextEditorPlugin,
-  OptionalPlugin,
+  UiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
-import WithPluginState from '../../ui/WithPluginState';
-import type { Dispatch } from '../../event-dispatcher';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { isNodeEmpty } from '@atlaskit/editor-common/utils';
 import { FakeTextCursorSelection } from '../fake-text-cursor/cursor';
 import PlaceholderFloatingToolbar from './ui/PlaceholderFloatingToolbar';
@@ -26,7 +25,11 @@ import {
 } from './actions';
 import { PlaceholderTextNodeView } from './placeholder-text-nodeview';
 import { pluginKey } from './plugin-key';
-import type { PlaceholderTextOptions, PluginState } from './types';
+import type {
+  PlaceholderTextOptions,
+  PlaceholderTextPlugin,
+  PlaceholderTextPluginState,
+} from './types';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -34,10 +37,8 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { isSelectionAtPlaceholder } from './selection-utils';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
 const getOpenTypeAhead = (
   trigger: string,
@@ -56,7 +57,7 @@ const getOpenTypeAhead = (
 };
 
 export function createPlugin(
-  dispatch: Dispatch<PluginState>,
+  dispatch: Dispatch<PlaceholderTextPluginState>,
   options: PlaceholderTextOptions,
   api: ExtractInjectionAPI<PlaceholderTextPlugin> | undefined,
 ): SafePlugin | undefined {
@@ -68,9 +69,11 @@ export function createPlugin(
         ({
           showInsertPanelAt: null,
           allowInserting,
-        } as PluginState),
-      apply: (tr: ReadonlyTransaction, state: PluginState) => {
-        const meta = tr.getMeta(pluginKey) as Partial<PluginState>;
+        } as PlaceholderTextPluginState),
+      apply: (tr: ReadonlyTransaction, state: PlaceholderTextPluginState) => {
+        const meta = tr.getMeta(
+          pluginKey,
+        ) as Partial<PlaceholderTextPluginState>;
         if (meta && meta.showInsertPanelAt !== undefined) {
           const newState = {
             showInsertPanelAt: meta.showInsertPanelAt,
@@ -121,16 +124,20 @@ export function createPlugin(
 
       // Handle Fake Text Cursor for Floating Toolbar
       if (
-        !(pluginKey.getState(oldState) as PluginState).showInsertPanelAt &&
-        (pluginKey.getState(newState) as PluginState).showInsertPanelAt
+        !(pluginKey.getState(oldState) as PlaceholderTextPluginState)
+          .showInsertPanelAt &&
+        (pluginKey.getState(newState) as PlaceholderTextPluginState)
+          .showInsertPanelAt
       ) {
         return newState.tr.setSelection(
           new FakeTextCursorSelection(newState.selection.$from),
         );
       }
       if (
-        (pluginKey.getState(oldState) as PluginState).showInsertPanelAt &&
-        !(pluginKey.getState(newState) as PluginState).showInsertPanelAt
+        (pluginKey.getState(oldState) as PlaceholderTextPluginState)
+          .showInsertPanelAt &&
+        !(pluginKey.getState(newState) as PlaceholderTextPluginState)
+          .showInsertPanelAt
       ) {
         if (newState.selection instanceof FakeTextCursorSelection) {
           return newState.tr.setSelection(
@@ -181,6 +188,57 @@ export function createPlugin(
   });
 }
 
+type ContentComponentProps = Pick<
+  UiComponentFactoryParams,
+  | 'editorView'
+  | 'dispatchAnalyticsEvent'
+  | 'popupsMountPoint'
+  | 'popupsBoundariesElement'
+  | 'popupsScrollableElement'
+> & {
+  dependencyApi: ExtractInjectionAPI<typeof placeholderTextPlugin> | undefined;
+};
+
+function ContentComponent({
+  editorView,
+  dependencyApi,
+  popupsMountPoint,
+  popupsBoundariesElement,
+}: ContentComponentProps): JSX.Element | null {
+  const { placeholderTextState } = useSharedPluginState(dependencyApi, [
+    'placeholderText',
+  ]);
+
+  const insertPlaceholderText = (value: string) =>
+    insertPlaceholderTextAtSelection(value)(
+      editorView.state,
+      editorView.dispatch,
+    );
+  const hidePlaceholderToolbar = () =>
+    hidePlaceholderFloatingToolbar(editorView.state, editorView.dispatch);
+  const getNodeFromPos = (pos: number) => editorView.domAtPos(pos).node;
+  const getFixedCoordinatesFromPos = (pos: number) =>
+    editorView.coordsAtPos(pos);
+  const setFocusInEditor = () => editorView.focus();
+
+  if (placeholderTextState?.showInsertPanelAt) {
+    return (
+      <PlaceholderFloatingToolbar
+        editorViewDOM={editorView.dom as HTMLElement}
+        popupsMountPoint={popupsMountPoint}
+        popupsBoundariesElement={popupsBoundariesElement}
+        getFixedCoordinatesFromPos={getFixedCoordinatesFromPos}
+        getNodeFromPos={getNodeFromPos}
+        hidePlaceholderFloatingToolbar={hidePlaceholderToolbar}
+        showInsertPanelAt={placeholderTextState.showInsertPanelAt}
+        insertPlaceholder={insertPlaceholderText}
+        setFocusInEditor={setFocusInEditor}
+      />
+    );
+  }
+  return null;
+}
+
 const basePlaceholderTextPlugin: PlaceholderTextPlugin = ({
   api,
   config: options,
@@ -200,40 +258,27 @@ const basePlaceholderTextPlugin: PlaceholderTextPlugin = ({
     ];
   },
 
-  contentComponent({ editorView, popupsMountPoint, popupsBoundariesElement }) {
-    const insertPlaceholderText = (value: string) =>
-      insertPlaceholderTextAtSelection(value)(
-        editorView.state,
-        editorView.dispatch,
-      );
-    const hidePlaceholderToolbar = () =>
-      hidePlaceholderFloatingToolbar(editorView.state, editorView.dispatch);
-    const getNodeFromPos = (pos: number) => editorView.domAtPos(pos).node;
-    const getFixedCoordinatesFromPos = (pos: number) =>
-      editorView.coordsAtPos(pos);
-    const setFocusInEditor = () => editorView.focus();
+  getSharedState(editorState) {
+    if (!editorState) {
+      return undefined;
+    }
 
+    const { showInsertPanelAt, allowInserting } = pluginKey.getState(
+      editorState,
+    ) || { showInsertPanelAt: null };
+    return {
+      showInsertPanelAt,
+      allowInserting: !!allowInserting,
+    };
+  },
+
+  contentComponent({ editorView, popupsMountPoint, popupsBoundariesElement }) {
     return (
-      <WithPluginState
-        plugins={{ placeholderTextState: pluginKey }}
-        render={({ placeholderTextState = {} as PluginState }) => {
-          if (placeholderTextState.showInsertPanelAt) {
-            return (
-              <PlaceholderFloatingToolbar
-                editorViewDOM={editorView.dom as HTMLElement}
-                popupsMountPoint={popupsMountPoint}
-                popupsBoundariesElement={popupsBoundariesElement}
-                getFixedCoordinatesFromPos={getFixedCoordinatesFromPos}
-                getNodeFromPos={getNodeFromPos}
-                hidePlaceholderFloatingToolbar={hidePlaceholderToolbar}
-                showInsertPanelAt={placeholderTextState.showInsertPanelAt}
-                insertPlaceholder={insertPlaceholderText}
-                setFocusInEditor={setFocusInEditor}
-              />
-            );
-          }
-          return null;
-        }}
+      <ContentComponent
+        editorView={editorView}
+        popupsMountPoint={popupsMountPoint}
+        popupsBoundariesElement={popupsBoundariesElement}
+        dependencyApi={api}
       />
     );
   },
@@ -270,7 +315,6 @@ const decorateWithPluginOptions = (
             },
             eventType: EVENT_TYPE.TRACK,
           })(tr);
-
           return tr;
         },
       },
@@ -279,21 +323,10 @@ const decorateWithPluginOptions = (
   return plugin;
 };
 
-type PlaceholderTextPlugin = NextEditorPlugin<
-  'placeholderText',
-  {
-    dependencies: [OptionalPlugin<typeof analyticsPlugin>, TypeAheadPlugin];
-    pluginConfiguration: PlaceholderTextOptions;
-  }
->;
-
-const placeholderTextPlugin: NextEditorPlugin<
-  'placeholderText',
-  {
-    dependencies: [OptionalPlugin<typeof analyticsPlugin>, TypeAheadPlugin];
-    pluginConfiguration: PlaceholderTextOptions;
-  }
-> = ({ config: options = {}, api }) =>
+const placeholderTextPlugin: PlaceholderTextPlugin = ({
+  config: options = {},
+  api,
+}) =>
   decorateWithPluginOptions(
     basePlaceholderTextPlugin({ config: options, api }),
     options,

@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 189.0.6
+
+### Patch Changes
+
+- [#41805](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41805) [`2d24da18c8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d24da18c8e) - ED-20043: Added feature flag for Editor Multi-bodied extension feature
+
+## 189.0.5
+
+### Patch Changes
+
+- [#42111](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42111) [`e60618a4870`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e60618a4870) - Decouple paste from the legacy analytics plugin.
+
+## 189.0.4
+
+### Patch Changes
+
+- [#41991](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41991) [`28a7171e7e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28a7171e7e3) - [ux] add shift click select backward feature to expand selection
+
+## 189.0.3
+
+### Patch Changes
+
+- [#41773](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41773) [`2ad7c026f79`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ad7c026f79) - ED-20478: partially decouples placeholdertext editor plugin for future package extraction, migrates associated failing integration tests to libra
+
 ## 189.0.1
 
 ### Patch Changes

@@ -73,6 +73,9 @@
       "path": "../linking-types/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/locale/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/primitives/tsconfig.app.json"
     },
     {

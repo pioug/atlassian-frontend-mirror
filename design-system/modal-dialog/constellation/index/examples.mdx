@@ -45,24 +45,24 @@ and provide an alternative or opt-out where possible.
 
 ### Danger
 
-Danger modals are used to inform people when something potentially destructive will happen if they continue.
+Use danger modals to inform people when something potentially destructive will happen if they continue.
 Explain the problem and provide a next step or an alternative.
 
 <Example Component={ModalDanger} packageName="@atlaskit/modal-dialog" />
 
 ## Width
 
-The width of the modal can be specified in different ways:
+There are multiple ways to specify the width of a modal. We recommend using named size options to specify modal width.
 
-- The recommended way to specify modal width is using named size options.
-- If a number is provided, the width is set to that number in pixels.
-- If a string including pixels or a percentage is provided, the width will be directly applied as a style.
+- The named size options are `small`, `medium`, `large`, or `x-large`
+- If you provide a number instead, the width is set to that number in pixels.
+- If you provide a string including pixels or a percentage, the width will be directly applied as a style.
 
 <Example Component={ModalWidth} packageName="@atlaskit/modal-dialog" />
 
 ## Focus management
 
-Focus is moved to the first interactive element inside the modal dialog when rendered.
+Focus moves to the first interactive element inside the modal dialog when rendered.
 Pass the `autoFocus` prop an element `ref` to focus on a specific element.
 
 <Example
@@ -72,12 +72,11 @@ Pass the `autoFocus` prop an element `ref` to focus on a specific element.
 
 ## Scrolling behavior
 
-Modal dialogs differ in width,
-whereas height is determined by the content.
+While you can set the width of the modal, the content determines the height of the modal.
 Once it reaches a certain threshold,
-the body content will scroll while the header and footer remain fixed until the bottom of the modal dialog is reached.
+the body content will scroll while the header and footer remain fixed until the user reaches the bottom of the modal dialog.
 
-The scroll behavior of modals can be configured so that scrolling happens inside the modal body or outside the modal,
+You can configure the scroll behavior of modals so that scrolling happens inside the modal body or outside the modal,
 within the viewport.
 
 In either case,

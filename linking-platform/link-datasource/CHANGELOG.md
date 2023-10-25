@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.10.1
+
+### Patch Changes
+
+- [#42063](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42063) [`74fd796c7c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74fd796c7c7) - Internationalisation for Assets LOL
+
 ## 1.10.0
 
 ### Minor Changes

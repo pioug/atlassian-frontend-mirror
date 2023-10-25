@@ -15,24 +15,26 @@ import { getOrderFromOrderedListNode } from '@atlaskit/editor-common/utils';
  * generate a backtick chain of a length longer by one. This is the only proven way
  * to escape backticks inside code block and inline code (for python-markdown)
  */
-const generateOuterBacktickChain: (text: string, minLength?: number) => string =
-  (() => {
-    function getMaxLength(text: String): number {
-      const matches = text.match(/`+/g);
-      if (matches) {
-        return matches.reduce(
-          (prev, val) => (val.length > prev.length ? val : prev),
-          '',
-        ).length;
-      }
-      return 0;
+export const generateOuterBacktickChain: (
+  text: string,
+  minLength?: number,
+) => string = (() => {
+  function getMaxLength(text: string): number {
+    const matches = text.match(/`+/g);
+    if (matches) {
+      return matches.reduce(
+        (prev, val) => (val.length > prev.length ? val : prev),
+        '',
+      ).length;
     }
+    return 0;
+  }
 
-    return function (text: string, minLength = 1): string {
-      const length = Math.max(minLength, getMaxLength(text) + 1);
-      return stringRepeat('`', length);
-    };
-  })();
+  return function (text: string, minLength = 1): string {
+    const length = Math.max(minLength, getMaxLength(text) + 1);
+    return stringRepeat('`', length);
+  };
+})();
 
 export class MarkdownSerializerState extends PMMarkdownSerializerState {
   context = { insideTable: false };

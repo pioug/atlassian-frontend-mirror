@@ -61,6 +61,9 @@
       "path": "../../design-system/image/tsconfig.app.json"
     },
     {
+      "path": "../../helpers/intl-messages-provider/tsconfig.app.json"
+    },
+    {
       "path": "../../jql/jql-ast/tsconfig.app.json"
     },
     {

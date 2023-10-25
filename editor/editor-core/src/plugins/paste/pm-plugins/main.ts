@@ -117,6 +117,7 @@ export function createPlugin(
   sanitizePrivateContent?: boolean,
   providerFactory?: ProviderFactory,
 ) {
+  const editorAnalyticsAPI = pluginInjectionApi?.analytics?.actions;
   const atlassianMarkDownParser = new MarkdownTransformer(schema, md);
 
   function getMarkdownSlice(
@@ -340,11 +341,11 @@ export function createPlugin(
         const plainTextPasteSlice = linkifyContent(state.schema)(slice);
 
         if (
-          handlePasteAsPlainTextWithAnalytics(view, event, plainTextPasteSlice)(
-            state,
-            dispatch,
+          handlePasteAsPlainTextWithAnalytics(editorAnalyticsAPI)(
             view,
-          )
+            event,
+            plainTextPasteSlice,
+          )(state, dispatch, view)
         ) {
           return true;
         }
@@ -370,7 +371,7 @@ export function createPlugin(
           if (markdownSlice) {
             // linkify text prior to converting to macro
             if (
-              handlePasteLinkOnSelectedTextWithAnalytics(
+              handlePasteLinkOnSelectedTextWithAnalytics(editorAnalyticsAPI)(
                 view,
                 event,
                 markdownSlice,
@@ -391,9 +392,14 @@ export function createPlugin(
               )(state, dispatch, view)
             ) {
               // TODO: handleMacroAutoConvert dispatch twice, so we can't use the helper
-              sendPasteAnalyticsEvent(view, event, markdownSlice, {
-                type: PasteTypes.markdown,
-              });
+              sendPasteAnalyticsEvent(editorAnalyticsAPI)(
+                view,
+                event,
+                markdownSlice,
+                {
+                  type: PasteTypes.markdown,
+                },
+              );
               return true;
             }
           }
@@ -445,7 +451,7 @@ export function createPlugin(
 
         // If we're in a code block, append the text contents of clipboard inside it
         if (
-          handleCodeBlockWithAnalytics(
+          handleCodeBlockWithAnalytics(editorAnalyticsAPI)(
             view,
             event,
             slice,
@@ -456,7 +462,7 @@ export function createPlugin(
         }
 
         if (
-          handleMediaSingleWithAnalytics(
+          handleMediaSingleWithAnalytics(editorAnalyticsAPI)(
             view,
             event,
             slice,
@@ -468,7 +474,11 @@ export function createPlugin(
         }
 
         if (
-          handleSelectedTableWithAnalytics(view, event, slice)(state, dispatch)
+          handleSelectedTableWithAnalytics(editorAnalyticsAPI)(
+            view,
+            event,
+            slice,
+          )(state, dispatch)
         ) {
           return true;
         }
@@ -524,7 +534,7 @@ export function createPlugin(
           slice = linkifyContent(state.schema)(slice);
 
           if (
-            handlePasteLinkOnSelectedTextWithAnalytics(
+            handlePasteLinkOnSelectedTextWithAnalytics(editorAnalyticsAPI)(
               view,
               event,
               slice,
@@ -545,7 +555,7 @@ export function createPlugin(
             )(state, dispatch, view)
           ) {
             // TODO: handleMacroAutoConvert dispatch twice, so we can't use the helper
-            sendPasteAnalyticsEvent(view, event, slice, {
+            sendPasteAnalyticsEvent(editorAnalyticsAPI)(view, event, slice, {
               type: PasteTypes.richText,
             });
             return true;
@@ -554,7 +564,7 @@ export function createPlugin(
           // get editor-tables to handle pasting tables if it can
           // otherwise, just the replace the selection with the content
           if (handlePasteTable(view, null, slice)) {
-            sendPasteAnalyticsEvent(view, event, slice, {
+            sendPasteAnalyticsEvent(editorAnalyticsAPI)(view, event, slice, {
               type: PasteTypes.richText,
             });
             return true;
@@ -601,7 +611,12 @@ export function createPlugin(
             slice = sliceCopy;
           }
 
-          if (handleExpandWithAnalytics(view, event, slice)(state, dispatch)) {
+          if (
+            handleExpandWithAnalytics(editorAnalyticsAPI)(view, event, slice)(
+              state,
+              dispatch,
+            )
+          ) {
             return true;
           }
 
@@ -613,7 +628,7 @@ export function createPlugin(
           // As SafeInsert is used inside handleRichText which caused some bad UX like this:
           // https://product-fabric.atlassian.net/browse/MEX-1520
           if (
-            handlePasteIntoCaptionWithAnalytics(
+            handlePasteIntoCaptionWithAnalytics(editorAnalyticsAPI)(
               view,
               event,
               slice,
@@ -624,7 +639,7 @@ export function createPlugin(
           }
 
           if (
-            handlePastePanelOrDecisionIntoListWithAnalytics(
+            handlePastePanelOrDecisionIntoListWithAnalytics(editorAnalyticsAPI)(
               view,
               event,
               slice,
@@ -637,6 +652,8 @@ export function createPlugin(
           if (
             featureFlags?.restartNumberedLists &&
             handlePasteNonNestableBlockNodesIntoListWithAnalytics(
+              editorAnalyticsAPI,
+            )(
               view,
               event,
               slice,

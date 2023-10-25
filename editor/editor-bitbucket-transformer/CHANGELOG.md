@@ -1,5 +1,11 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 8.1.14
+
+### Patch Changes
+
+- [#40372](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40372) [`fa51857ec31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa51857ec31) - Add compatability for various marks in tables
+
 ## 8.1.13
 
 ### Patch Changes

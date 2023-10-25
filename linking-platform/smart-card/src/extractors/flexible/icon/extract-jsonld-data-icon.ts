@@ -63,7 +63,7 @@ const extractJsonldDataIcon = (
       const fileFormatIcon = extractFileFormatIcon(fileFormat);
       const documentTypeIcon = extractDocumentTypeIcon(type, label);
       return isNativeProvider(provider)
-        ? fileFormatIcon || documentTypeIcon || providerIcon
+        ? fileFormatIcon || documentTypeIcon || urlIcon || providerIcon
         : providerIcon || fileFormatIcon || documentTypeIcon;
     case 'atlassian:Task':
       const taskLabel = label || 'Task';

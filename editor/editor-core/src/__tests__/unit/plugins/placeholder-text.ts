@@ -1,5 +1,5 @@
 import { name } from '../../../version-wrapper';
-import placeholderTextPlugin from '../../../plugins/placeholder-text';
+import { placeholderTextPlugin } from '../../../plugins/placeholder-text';
 import {
   insertPlaceholderTextAtSelection,
   showPlaceholderFloatingToolbar,

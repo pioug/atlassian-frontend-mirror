@@ -6,13 +6,13 @@ order: 2
 
 Use modal dialogs to present a short-term task the user needs to perform. This can include critical or warning information where a response is required, however they’re also intended to support efficient task completion without losing the context of the underlying page. Users won't be able to interact with the page until the dialog is closed.
 
-In some cases, modals may contain information that requires additional help and support. Elements, such as filters or hint text, can be added to the modal dialog to help users respond with clarity and efficiency at the expense of dialog real estate.
+In some cases, modals contain information that requires additional help and support. You can add elements like filters or hint text to the modal dialog, but be mindful of dialog real estate.
 
-Although highly versatile, this doesn't mean modal dialogs are fit for all purposes.
+Although highly versatile, this doesn't mean modal dialogs are fit for all purposes. Modal dialogs are invasive and should be used sparingly. The ability of the user to access and view their own content is important for a good experience.
 
 ## Anatomy
 
-![Modal dialog anatomy](../images/modal-dialog-anatomy.png)
+![The modal is made up of three parts, a header and body text, both are left-aligned, and a footer with two right-aligned buttons: a primary action button, and a button to close the dialog.](../images/modal-dialog-anatomy.png)
 
 - **Header:** Contains the modal title.
 - **Body:** Provides an overview of the modal's purpose and, optionally, controls to complete a task.
@@ -20,8 +20,7 @@ Although highly versatile, this doesn't mean modal dialogs are fit for all purpo
 
 ## Best practices
 
-- Modal dialogs are invasive and should be used sparingly. The ability of the user to access and view their own content is paramount to a good experience.
-- Try to limit the number of interactions in a modal dialog. Simplify by removing unnecessary elements or content that does not support the task.
+- Limit the number of interactions in a modal dialog. Simplify by removing unnecessary elements or content that does not support the task.
 - Avoid multiple steps that require navigation within the modal dialog.
 - Avoid complex decision making that requires additional sources of information unavailable in the modal.
 - This modal dialog is responsive. When adding contents, respect the dimensions set by modal dialog to maintain responsiveness.
@@ -38,7 +37,7 @@ Although highly versatile, this doesn't mean modal dialogs are fit for all purpo
 
 ### Labeling modals
 
-Modals must have a title or label available for users to understand what the modal is for. There are three ways you can ensure you have an accessible name for your modal:
+Modals must have a title or label so that users can understand what the modal is for. There are three ways you can ensure you have an accessible name for your modal:
 
 1. Use the modal title component (see the [modal header example](/components/modal-dialog/examples#modal-header))
 2. Add the `titleId` from the `useModal` hook to an element within your modal (see the [custom header example](/components/modal-dialog/examples#custom-modal-header))
@@ -46,12 +45,12 @@ Modals must have a title or label available for users to understand what the mod
 
 ### Dismissing modals
 
-To cater for both mouse and keyboard interactions we've included numerous ways to dismiss a modal dialog:
+Users can't interact with the rest of the page until the modal is closed. To cater for both mouse and keyboard interactions we've included numerous ways to dismiss a modal dialog:
 
-- click **Cancel** in the footer
-- click **X** in the header (if included)
-- press `Esc` on a keyboard
-- click anywhere on the blanket
+- Click **Cancel** in the footer
+- Click **X** in the header (if included)
+- Press `Esc` on a keyboard
+- Click anywhere on the blanket
 
 ## Server
 

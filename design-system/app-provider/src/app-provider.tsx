@@ -1,5 +1,8 @@
 import React, { createContext, useContext } from 'react';
 
+import RouterLinkProvider, {
+  type RouterLinkComponent,
+} from './router-link-provider';
 import ThemeProvider, { type ColorMode, type Theme } from './theme-provider';
 
 const InsideAppProviderContext = createContext(false);
@@ -13,6 +16,11 @@ interface AppProviderProps {
    * Theme settings.
    */
   defaultTheme?: Partial<Theme>;
+
+  /**
+   * A configured router link component.
+   */
+  routerLinkComponent?: RouterLinkComponent<any>;
 
   /**
    * App content.
@@ -31,6 +39,7 @@ export function AppProvider({
   children,
   defaultColorMode = 'light',
   defaultTheme,
+  routerLinkComponent,
 }: AppProviderProps) {
   const isInsideAppProvider = useContext(InsideAppProviderContext);
 
@@ -46,7 +55,9 @@ export function AppProvider({
         defaultColorMode={defaultColorMode}
         defaultTheme={defaultTheme}
       >
-        {children}
+        <RouterLinkProvider routerLinkComponent={routerLinkComponent}>
+          {children}
+        </RouterLinkProvider>
       </ThemeProvider>
     </InsideAppProviderContext.Provider>
   );

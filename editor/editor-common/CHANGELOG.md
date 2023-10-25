@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 76.15.1
+
+### Patch Changes
+
+- [#41991](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41991) [`8b07e784407`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b07e784407) - dummy bump for pipeline
+
+## 76.15.0
+
+### Minor Changes
+
+- [#42086](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42086) [`af85799296c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af85799296c) - Adds focus and blur actions to the core plugin to replace focus and blur from EditorActions.
+
 ## 76.14.0
 
 ### Minor Changes

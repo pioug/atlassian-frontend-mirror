@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "189.0.1",
+  "version": "189.0.6",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -53,7 +53,7 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.10.0",
-    "@atlaskit/editor-common": "^76.14.0",
+    "@atlaskit/editor-common": "^76.15.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.5",
     "@atlaskit/editor-palette": "1.5.1",
@@ -316,6 +316,10 @@
       "type": "boolean",
       "referenceOnly": "true"
     },
+    "platform.editor.table-shift-click-selection-backward": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
     "platform.editor.table-update-colwidths-after-column-is-deleted": {
       "type": "boolean",
       "referenceOnly": "true"
@@ -324,6 +328,9 @@
       "type": "boolean"
     },
     "platform.editor.paste-options-toolbar": {
+      "type": "boolean"
+    },
+    "platform.editor.multi-bodied-extension_0rygg": {
       "type": "boolean"
     }
   }

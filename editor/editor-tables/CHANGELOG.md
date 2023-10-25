@@ -1,5 +1,17 @@
 # @atlaskit/editor-tables
 
+## 2.3.13
+
+### Patch Changes
+
+- [#42109](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42109) [`d25ae495fed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d25ae495fed) - [ux] Adds a fix to keep selection on a dropped row or column.
+
+## 2.3.12
+
+### Patch Changes
+
+- [#41991](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41991) [`28a7171e7e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28a7171e7e3) - [ux] add shift click select backward feature to expand selection
+
 ## 2.3.11
 
 ### Patch Changes

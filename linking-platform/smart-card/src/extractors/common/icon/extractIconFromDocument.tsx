@@ -33,7 +33,7 @@ export const extractIconFromDocument = (
   if (opts.priority === 'provider') {
     return iconFromProvider || iconFromFileFormat || iconFromType;
   }
-  return iconFromFileFormat || iconFromType || iconFromProvider;
+  return iconFromFileFormat || iconFromType || opts.icon || iconFromProvider;
 };
 const documentFileFormatToIcon = (
   opts: IconOpts,

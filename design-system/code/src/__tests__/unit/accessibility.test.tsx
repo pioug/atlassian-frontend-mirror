@@ -31,16 +31,14 @@ describe('CodeBlock Accessibility jest-axe', () => {
     const { container } = render(<BasicCodeBlockExample />);
     await axe(container);
   });
-});
 
-describe('Code Accessibility jest-axe', () => {
   it('Inline Code example should not fail aXe audit', async () => {
     const { container } = render(<BasicInlineCodeExample />);
     await axe(container);
   });
-});
 
-it('CodeBlock highlighting lines example should not fail aXe audit', async () => {
-  const { container } = render(<CodeBlockHighlightingExample />);
-  await axe(container);
+  it('CodeBlock highlighting lines example should not fail aXe audit', async () => {
+    const { container } = render(<CodeBlockHighlightingExample />);
+    await axe(container);
+  });
 });

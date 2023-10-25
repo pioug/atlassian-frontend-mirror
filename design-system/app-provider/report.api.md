@@ -23,6 +23,7 @@ function AppProvider({
   children,
   defaultColorMode,
   defaultTheme,
+  routerLinkComponent,
 }: AppProviderProps): JSX.Element;
 export default AppProvider;
 
@@ -31,6 +32,7 @@ interface AppProviderProps {
   children: React_2.ReactNode;
   defaultColorMode?: ColorMode;
   defaultTheme?: Partial<Theme>;
+  routerLinkComponent?: RouterLinkComponent<any>;
 }
 
 // @public (undocumented)
@@ -40,10 +42,23 @@ type ColorMode = 'auto' | 'dark' | 'light';
 type ReconciledColorMode = Exclude<ColorMode, 'auto'>;
 
 // @public (undocumented)
+type RouterLinkComponent<RouterLinkConfig extends {} = {}> =
+  React_2.ComponentType<RouterLinkComponentProps<RouterLinkConfig>>;
+
+// @public (undocumented)
+export type RouterLinkComponentProps<RouterLinkConfig extends {} = {}> = {
+  href: RouterLinkConfig | string;
+  children: React_2.ReactNode;
+};
+
+// @public (undocumented)
 type Theme = Omit<ThemeState, 'colorMode' | 'contrastMode'>;
 
 // @public
 export function useColorMode(): ReconciledColorMode;
+
+// @public
+export const useRouterLink: () => RouterLinkComponent | undefined;
 
 // @public
 export function useSetColorMode(): (value: ColorMode) => void;

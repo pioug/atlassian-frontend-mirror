@@ -16,6 +16,7 @@ import {
 import { forceCmdbBaseUrl } from '@atlaskit/link-test-helpers/assets';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
+import LocaleSelect, { Locale } from '@atlaskit/locale/LocaleSelect';
 import { Card } from '@atlaskit/smart-card';
 
 import {
@@ -91,8 +92,12 @@ export default () => {
       return <Card url={generatedAdf.attrs.url} appearance={'inline'} />;
     }
   }, [generatedAdf, parameters, visibleColumnKeys]);
+  const [locale, setLocale] = useState('en');
   return (
-    <IntlProvider locale="en">
+    <IntlProvider defaultLocale="en" locale={locale}>
+      <LocaleSelect
+        onLocaleChange={(locale: Locale) => setLocale(locale.value)}
+      />
       <SmartCardProvider client={new SmartCardClient('staging')}>
         <Button appearance="primary" onClick={toggleIsOpen}>
           Toggle Modal

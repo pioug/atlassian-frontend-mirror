@@ -96,13 +96,13 @@ export interface DropdownMenuProps<
 > {
   /**
    * Controls the appearance of the menu.
-   * Default menu has scroll after its height exceeds the pre-defined amount.
-   * Tall menu has no scroll until the height exceeds the height of the viewport.
+   * The default menu will scroll after its height exceeds the pre-defined amount.
+   * The tall menu will not scroll until the height exceeds the height of the viewport.
    */
   appearance?: 'default' | 'tall';
   /**
    * Controls if the first menu item receives focus when menu is opened. Note that the menu has a focus lock
-   * which traps the focus within the menu. Also, the first item gets fouced automatically
+   * which traps the focus within the menu. The first item gets focus automatically
    * if the menu is triggered using the keyboard.
    *
    */

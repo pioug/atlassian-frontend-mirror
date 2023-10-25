@@ -133,6 +133,24 @@ function Toolbar({ editorApi }: ToolbarProps) {
       >
         Insert Text
       </Button>
+
+      <Button
+        appearance="primary"
+        onClick={() => {
+          editorApi?.core.actions.blur();
+        }}
+      >
+        Blur
+      </Button>
+
+      <Button
+        appearance="primary"
+        onClick={() => {
+          editorApi?.core.actions.focus();
+        }}
+      >
+        Focus
+      </Button>
     </ButtonGroup>
   );
 }

@@ -1,3 +1,8 @@
+/**
+ * See this example in action at
+ * https://atlaskit.atlassian.com/examples/editor/editor-bitbucket-transformer/transformer-example
+ */
+
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 /* eslint-disable no-console */

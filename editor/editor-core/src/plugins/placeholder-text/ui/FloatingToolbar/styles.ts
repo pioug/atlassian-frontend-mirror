@@ -12,7 +12,7 @@ export const container = (height?: number) => css`
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  padding: 4px 8px;
+  padding: ${token('space.050', '4px')} ${token('space.100', '8px')};
   background-color: ${token('color.background.input', N0)};
   ${height
     ? css`

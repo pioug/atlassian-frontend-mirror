@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.12
+
+### Patch Changes
+
+- [#42109](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42109) [`d25ae495fed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d25ae495fed) - [ux] Adds a fix to keep selection on a dropped row or column.
+
 ## 5.3.11
 
 ### Patch Changes

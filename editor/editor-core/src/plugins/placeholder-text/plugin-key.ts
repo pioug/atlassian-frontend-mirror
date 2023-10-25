@@ -1,4 +1,6 @@
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import type { PluginState } from './types';
+import type { PlaceholderTextPluginState } from './types';
 
-export const pluginKey = new PluginKey<PluginState>('placeholderTextPlugin');
+export const pluginKey = new PluginKey<PlaceholderTextPluginState>(
+  'placeholderTextPlugin',
+);

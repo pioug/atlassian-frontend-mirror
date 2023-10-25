@@ -22,7 +22,7 @@ import {
 } from '@atlaskit/editor-plugin-block-type/consts';
 import { INPUT_METHOD } from '../analytics';
 import { pluginKey as placeholderTextStateKey } from '../placeholder-text/plugin-key';
-import type { PluginState as PlaceholderTextPluginState } from '../placeholder-text/types';
+import type { PlaceholderTextPluginState } from '../placeholder-text';
 import { pluginKey as macroStateKey } from '../macro/plugin-key';
 import { ToolbarSize } from '../../ui/Toolbar/types';
 

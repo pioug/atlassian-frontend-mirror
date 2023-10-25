@@ -51,7 +51,10 @@ import {
   mapSlice,
 } from '@atlaskit/editor-common/utils';
 import { insideTable } from '@atlaskit/editor-common/core-utils';
-import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
+import type {
+  InputMethodInsertMedia,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 // TODO: ED-20519 Needs Macro extraction
@@ -561,6 +564,7 @@ export function handlePasteLinkOnSelectedText(slice: Slice): Command {
 export function handlePasteAsPlainText(
   slice: Slice,
   _event: ClipboardEvent,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): Command {
   return (state: EditorState, dispatch?, view?: EditorView): boolean => {
     if (!view) {
@@ -589,7 +593,7 @@ export function handlePasteAsPlainText(
       tr = replaceSelectedTable(state, slice);
 
       // add analytics after replacing selected table
-      tr = addReplaceSelectedTableAnalytics(state, tr);
+      tr = addReplaceSelectedTableAnalytics(state, tr, editorAnalyticsAPI);
 
       // otherwise just replace the selection
       if (!tr.docChanged) {
@@ -1292,12 +1296,13 @@ export function handlePasteIntoCaption(slice: Slice): Command {
 }
 
 export const handleSelectedTable =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (slice: Slice): Command =>
   (state, dispatch) => {
     let tr = replaceSelectedTable(state, slice);
 
     // add analytics after replacing selected table
-    tr = addReplaceSelectedTableAnalytics(state, tr);
+    tr = addReplaceSelectedTableAnalytics(state, tr, editorAnalyticsAPI);
 
     if (tr.docChanged) {
       if (dispatch) {

@@ -4,7 +4,12 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { moveColumn, moveRow } from '@atlaskit/editor-tables/utils';
+import {
+  moveColumn,
+  moveRow,
+  selectColumn,
+  selectRow,
+} from '@atlaskit/editor-tables/utils';
 
 import type { DraggableType } from '../../types';
 import { TableDecorations } from '../../types';
@@ -109,7 +114,10 @@ export const moveSource = (
         return tr.setMeta('addToHistory', false);
       }
 
-      const move = sourceType === 'table-row' ? moveRow : moveColumn;
-      return move(sourceIndex, targetIndex)(tr);
+      const isTableRow = sourceType === 'table-row';
+      const move = isTableRow ? moveRow : moveColumn;
+      const newTr = move(sourceIndex, targetIndex)(tr);
+      const select = isTableRow ? selectRow : selectColumn;
+      return select(targetIndex)(newTr);
     },
   );

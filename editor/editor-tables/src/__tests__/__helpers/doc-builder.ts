@@ -12,10 +12,17 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
+import { setSelectionTransform } from './set-selection';
+
 export const createEditorState = (content: DocBuilder) => {
-  return EditorState.create({
+  const state = EditorState.create({
     doc: content(defaultSchema),
   });
+
+  const { tr } = state;
+  // @ts-ignore
+  setSelectionTransform(state.doc, tr);
+  return state.apply(tr);
 };
 
 export const createTable = (...content: BuilderContent[]): RefsNode => {

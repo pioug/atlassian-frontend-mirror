@@ -21,7 +21,6 @@ export type UntilAllArgs = Array<UntilDefinition>;
 
 export const untilAll = (deps: UntilAllArgs) => () => {
   const notMet = [...deps];
-  let finalState = null;
   return (data: ExperienceData) => {
     if (notMet.length > 0) {
       const doneIndexes = notMet.reduce((acc: Array<number>, dep, i) => {
@@ -40,12 +39,10 @@ export const untilAll = (deps: UntilAllArgs) => () => {
 
       if (priorityStateFound) {
         notMet.length = 0;
-        finalState = {
+        return {
           done: true,
           state: data.state,
         };
-
-        return finalState;
       }
 
       doneIndexes.reverse().forEach(i => {
@@ -54,11 +51,10 @@ export const untilAll = (deps: UntilAllArgs) => () => {
 
       ufolog('untilAll deps left:', notMet.length, notMet);
       if (notMet.length === 0) {
-        finalState = {
+        return {
           done: true,
           state: UFOExperienceState.SUCCEEDED,
         };
-        return finalState;
       }
     }
 

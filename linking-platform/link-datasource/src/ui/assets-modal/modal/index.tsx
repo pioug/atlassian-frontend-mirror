@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
+import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { Link } from '@atlaskit/linking-types';
 import Modal, {
   ModalBody,
@@ -21,8 +22,10 @@ import type {
   AnalyticsContextType,
   PackageMetaDataType,
 } from '../../../analytics/generated/analytics.types';
+import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import { useAssetsClient } from '../../../hooks/useAssetsClient';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
+import i18nEN from '../../../i18n/en';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
 import { AssetsSearchContainer } from '../search-container';
 import { AssetsSearchContainerLoading } from '../search-container/loading-state';
@@ -220,61 +223,66 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
   ]);
 
   return (
-    <ModalTransition>
-      <Modal
-        testId={'asset-datasource-modal'}
-        onClose={onCancel}
-        width="calc(100% - 80px)"
-        shouldScrollInViewport={true}
-        shouldCloseOnOverlayClick={false}
-      >
-        <ModalHeader>{renderModalTitleContent()}</ModalHeader>
-        <ModalBody>
-          <div css={modalBodyWrapperStyles}>
-            {workspaceError ? (
-              <ModalLoadingError />
-            ) : (
-              <RenderAssetsContent
-                status={status}
-                responseItems={responseItems}
-                visibleColumnKeys={visibleColumnKeys}
-                onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-                datasourceId={datasourceId}
-                aql={aql}
-                schemaId={schemaId}
-                onNextPage={onNextPage}
-                hasNextPage={hasNextPage}
-                loadDatasourceDetails={loadDatasourceDetails}
-                columns={columns}
-                defaultVisibleColumnKeys={defaultVisibleColumnKeys}
+    <IntlMessagesProvider
+      defaultMessages={i18nEN}
+      loaderFn={fetchMessagesForLocale}
+    >
+      <ModalTransition>
+        <Modal
+          testId={'asset-datasource-modal'}
+          onClose={onCancel}
+          width="calc(100% - 80px)"
+          shouldScrollInViewport={true}
+          shouldCloseOnOverlayClick={false}
+        >
+          <ModalHeader>{renderModalTitleContent()}</ModalHeader>
+          <ModalBody>
+            <div css={modalBodyWrapperStyles}>
+              {workspaceError ? (
+                <ModalLoadingError />
+              ) : (
+                <RenderAssetsContent
+                  status={status}
+                  responseItems={responseItems}
+                  visibleColumnKeys={visibleColumnKeys}
+                  onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+                  datasourceId={datasourceId}
+                  aql={aql}
+                  schemaId={schemaId}
+                  onNextPage={onNextPage}
+                  hasNextPage={hasNextPage}
+                  loadDatasourceDetails={loadDatasourceDetails}
+                  columns={columns}
+                  defaultVisibleColumnKeys={defaultVisibleColumnKeys}
+                />
+              )}
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              appearance="default"
+              onClick={onCancel}
+              testId={'asset-datasource-modal--cancel-button'}
+            >
+              <FormattedMessage {...modalMessages.cancelButtonText} />
+            </Button>
+            <Button
+              appearance="primary"
+              onClick={onInsertPressed}
+              isDisabled={isDisabled}
+              testId={'assets-datasource-modal--insert-button'}
+            >
+              <FormattedMessage
+                {...modalMessages.insertIssuesButtonText}
+                values={{
+                  objectsCount: responseItems.length,
+                }}
               />
-            )}
-          </div>
-        </ModalBody>
-        <ModalFooter>
-          <Button
-            appearance="default"
-            onClick={onCancel}
-            testId={'asset-datasource-modal--cancel-button'}
-          >
-            <FormattedMessage {...modalMessages.cancelButtonText} />
-          </Button>
-          <Button
-            appearance="primary"
-            onClick={onInsertPressed}
-            isDisabled={isDisabled}
-            testId={'assets-datasource-modal--insert-button'}
-          >
-            <FormattedMessage
-              {...modalMessages.insertIssuesButtonText}
-              values={{
-                objectsCount: responseItems.length,
-              }}
-            />
-          </Button>
-        </ModalFooter>
-      </Modal>
-    </ModalTransition>
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </ModalTransition>
+    </IntlMessagesProvider>
   );
 };
 

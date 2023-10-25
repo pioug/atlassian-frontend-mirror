@@ -1,17 +1,14 @@
 import React from 'react';
-import {
-  defineMessages,
-  injectIntl,
-  WrappedComponentProps,
-} from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { defineMessages, injectIntl } from 'react-intl-next';
 
 import { PanelTextInput } from '@atlaskit/editor-common/ui';
+import type { Coordinates } from '../FloatingToolbar';
 import FloatingToolbar, {
   handlePositionCalculatedWith,
   getOffsetParent,
   getNearestNonTextNode,
-  Coordinates,
-} from '../../../../ui/FloatingToolbar';
+} from '../FloatingToolbar';
 
 export const messages = defineMessages({
   placeholderTextPlaceholder: {

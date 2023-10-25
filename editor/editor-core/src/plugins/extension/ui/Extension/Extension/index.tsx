@@ -29,6 +29,7 @@ import type {
   WidthPluginState,
 } from '@atlaskit/editor-plugin-width';
 import type { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface Props {
   node: PmNode;
@@ -59,8 +60,16 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
     hideFrame,
     editorAppearance,
   } = props;
+  let isMultiBodiedExtension = false;
+  if (getBooleanFF('platform.editor.multi-bodied-extension_0rygg')) {
+    isMultiBodiedExtension = true;
+  }
 
-  const hasBody = node.type.name === 'bodiedExtension';
+  //TODO: clean-up after removing multi-bodied-extension FF
+  const hasBody =
+    node.type.name === 'bodiedExtension' ||
+    (isMultiBodiedExtension && node.type.name === 'multiBodiedExtension');
+
   const isMobile = editorAppearance === 'mobile';
   const hasChildren = !!children;
   const removeBorder = (hideFrame && !isMobile && !hasBody) || false;

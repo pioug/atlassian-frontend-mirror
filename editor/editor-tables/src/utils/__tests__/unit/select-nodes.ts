@@ -6,6 +6,7 @@ import {
   table,
   td,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
   cEmpty,
@@ -106,6 +107,47 @@ describe('selectColumn', () => {
       expect(selection.$anchorCell.pos).toEqual(41);
       expect(selection.$headCell.pos).toEqual(2);
     });
+
+    describe('should return a new transaction that expands the existing text selection with multiple selection', () => {
+      ffTest(
+        'platform.editor.table-shift-click-selection-backward',
+        () => {
+          const { tr } = createEditorState(
+            doc(
+              table()(
+                row(td()(p('1')), cEmpty, cEmpty, td()(p('2{<>}'))),
+                row(cEmpty, cEmpty, cEmpty, td()(p('3'))),
+                row(td()(p('4')), cEmpty, cEmpty, cEmpty),
+              ),
+            ),
+          );
+
+          const newTr = selectColumn(2, true)(tr);
+          const anotherTr = selectColumn(1, true)(newTr);
+          const selection = anotherTr.selection as CellSelection;
+
+          expect(selection.$anchorCell.pos).toEqual(54);
+          expect(selection.$headCell.pos).toEqual(7);
+        },
+        () => {
+          const { tr } = createEditorState(
+            doc(
+              table()(
+                row(td()(p('1')), cEmpty, cEmpty, td()(p('2{<>}'))),
+                row(cEmpty, cEmpty, cEmpty, td()(p('3'))),
+                row(td()(p('4')), cEmpty, cEmpty, cEmpty),
+              ),
+            ),
+          );
+          const newTr = selectColumn(2, true)(tr);
+          const anotherTr = selectColumn(1, true)(newTr);
+          const selection = anotherTr.selection as CellSelection;
+
+          expect(selection.$anchorCell.pos).toEqual(50);
+          expect(selection.$headCell.pos).toEqual(7);
+        },
+      );
+    });
   });
 });
 
@@ -169,6 +211,49 @@ describe('selectRow', () => {
       expect(newTr).not.toBe(tr);
       expect(selection.$anchorCell.pos).toEqual(41);
       expect(selection.$headCell.pos).toEqual(2);
+    });
+
+    describe('should return a new transaction that expands the existing text selection with multiple selection', () => {
+      ffTest(
+        'platform.editor.table-shift-click-selection-backward',
+        () => {
+          const { tr } = createEditorState(
+            doc(
+              table()(
+                row(td()(p('1')), td()(p('2')), cEmpty),
+                row(cEmpty, cEmpty, td()(p('3'))),
+                row(cEmpty, cEmpty, cEmpty),
+                row(td()(p('4{<>}')), cEmpty, cEmpty),
+              ),
+            ),
+          );
+
+          const newTr = selectRow(2, true)(tr);
+          const anotherTr = selectRow(1, true)(newTr);
+          const selection = anotherTr.selection as CellSelection;
+
+          expect(selection.$anchorCell.pos).toEqual(56);
+          expect(selection.$headCell.pos).toEqual(18);
+        },
+        () => {
+          const { tr } = createEditorState(
+            doc(
+              table()(
+                row(td()(p('1')), td()(p('2')), cEmpty),
+                row(cEmpty, cEmpty, td()(p('3'))),
+                row(cEmpty, cEmpty, cEmpty),
+                row(td()(p('4{<>}')), cEmpty, cEmpty),
+              ),
+            ),
+          );
+          const newTr = selectRow(2, true)(tr);
+          const anotherTr = selectRow(1, true)(newTr);
+          const selection = anotherTr.selection as CellSelection;
+          expect(anotherTr).not.toBe(tr);
+          expect(selection.$anchorCell.pos).toEqual(41);
+          expect(selection.$headCell.pos).toEqual(18);
+        },
+      );
     });
   });
 });

@@ -1,5 +1,11 @@
 # @af/ufo-types
 
+## 0.2.5
+
+### Patch Changes
+
+- [#42058](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42058) [`08b6a522300`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08b6a522300) - Fix TS errors for @atlaskit/analytics-next, @atlaskit/ufo, @atlassian/ufo and @atlassian/ufo-experimental
+
 ## 0.2.4
 
 ### Patch Changes

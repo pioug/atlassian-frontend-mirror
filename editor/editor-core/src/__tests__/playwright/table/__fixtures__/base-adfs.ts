@@ -1759,6 +1759,242 @@ export const simpleTableWithTwoParagraphAfter = {
   ],
 };
 
+export const tableExpandBackward = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'table',
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      marks: [
+                        {
+                          type: 'strong',
+                        },
+                      ],
+                      text: '1',
+                    },
+                  ],
+                },
+              ],
+              attrs: {},
+            },
+            {
+              type: 'tableHeader',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      marks: [
+                        {
+                          type: 'strong',
+                        },
+                      ],
+                      text: '2',
+                    },
+                  ],
+                },
+              ],
+              attrs: {},
+            },
+            {
+              type: 'tableHeader',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+              attrs: {},
+            },
+            {
+              type: 'tableHeader',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      marks: [
+                        {
+                          type: 'strong',
+                        },
+                      ],
+                      text: '3',
+                    },
+                  ],
+                },
+              ],
+              attrs: {},
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+              attrs: {},
+            },
+            {
+              type: 'tableCell',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+              attrs: {},
+            },
+            {
+              type: 'tableCell',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+              attrs: {},
+            },
+            {
+              type: 'tableCell',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+              attrs: {},
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+              attrs: {},
+            },
+            {
+              type: 'tableCell',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+              attrs: {},
+            },
+            {
+              type: 'tableCell',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+              attrs: {},
+            },
+            {
+              type: 'tableCell',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+              attrs: {},
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: '4',
+                    },
+                  ],
+                },
+              ],
+              attrs: {},
+            },
+            {
+              type: 'tableCell',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+              attrs: {},
+            },
+            {
+              type: 'tableCell',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+              attrs: {},
+            },
+            {
+              type: 'tableCell',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+              attrs: {},
+            },
+          ],
+        },
+      ],
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: 'loremIp',
+      },
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+  ],
+};
+
 export const simpleTable = {
   version: 1,
   type: 'doc',

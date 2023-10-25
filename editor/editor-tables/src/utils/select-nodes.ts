@@ -1,5 +1,6 @@
-import { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { CellSelection } from '../cell-selection';
 import { TableMap } from '../table-map';
@@ -13,6 +14,12 @@ const select =
   (tr: Transaction): Transaction => {
     const table = findTable(tr.selection);
     const isRowSelection = type === 'row';
+
+    const prevSelection = tr.selection as CellSelection;
+
+    const isPrevRowSelection =
+      !!prevSelection.$anchorCell && !!prevSelection.$headCell;
+
     if (table) {
       const map = TableMap.get(table.node);
 
@@ -22,6 +29,8 @@ const select =
         let top = isRowSelection ? index : 0;
         let right = isRowSelection ? map.width : index + 1;
         let bottom = isRowSelection ? index + 1 : map.height;
+
+        let cellsInFirstRow = [];
 
         if (expand) {
           const cell = findCellClosestToPos(tr.selection.$from);
@@ -33,13 +42,81 @@ const select =
           if (isRowSelection) {
             top = Math.min(top, selRect.top);
             bottom = Math.max(bottom, selRect.bottom);
+            if (
+              getBooleanFF(
+                'platform.editor.table-shift-click-selection-backward',
+              )
+            ) {
+              cellsInFirstRow = map.cellsInRect({
+                left,
+                top,
+                right,
+                bottom: top + 1,
+              });
+
+              const targetRowCells = map.cellsInRect({
+                left,
+                top: index,
+                right,
+                bottom: index + 1,
+              });
+
+              const isBackwardSelection =
+                targetRowCells[0] < prevSelection.$head.pos;
+
+              if (isBackwardSelection && isPrevRowSelection) {
+                const head = table.start + cellsInFirstRow[0];
+                const anchor = prevSelection.$anchorCell.pos;
+
+                const $head = tr.doc.resolve(head);
+                const $anchor = tr.doc.resolve(anchor);
+
+                return cloneTr(
+                  tr.setSelection(new CellSelection($anchor, $head)),
+                );
+              }
+            }
           } else {
             left = Math.min(left, selRect.left);
             right = Math.max(right, selRect.right);
+
+            if (
+              getBooleanFF(
+                'platform.editor.table-shift-click-selection-backward',
+              )
+            ) {
+              cellsInFirstRow = map.cellsInRect({
+                left,
+                top,
+                right: left + 1,
+                bottom,
+              });
+
+              const targetRowCells = map.cellsInRect({
+                left: index,
+                top,
+                right: index + 1,
+                bottom,
+              });
+
+              const isBackwardSelection =
+                targetRowCells[0] < prevSelection.$head.pos;
+
+              if (isBackwardSelection && isPrevRowSelection) {
+                const head = table.start + cellsInFirstRow[0];
+                const anchor = prevSelection.$anchorCell.pos;
+
+                const $head = tr.doc.resolve(head);
+                const $anchor = tr.doc.resolve(anchor);
+                return cloneTr(
+                  tr.setSelection(new CellSelection($anchor, $head)),
+                );
+              }
+            }
           }
         }
 
-        const cellsInFirstRow = map.cellsInRect({
+        cellsInFirstRow = map.cellsInRect({
           left,
           top,
           right: isRowSelection ? right : left + 1,

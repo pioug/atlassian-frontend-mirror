@@ -1,5 +1,11 @@
 # @atlaskit/app-provider
 
+## 0.3.0
+
+### Minor Changes
+
+- [#42091](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42091) [`4ec3142822b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ec3142822b) - Add the `routerLinkComponent` prop to support router link configuration within the Design System.
+
 ## 0.2.0
 
 ### Minor Changes

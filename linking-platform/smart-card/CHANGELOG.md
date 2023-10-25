@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.37.2
+
+### Patch Changes
+
+- [#41913](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41913) [`470d0eae0a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/470d0eae0a7) - Allow teams to provide a custom icon for smart links of confluence pages - specifically for the whiteboards team
+
 ## 26.37.1
 
 ### Patch Changes

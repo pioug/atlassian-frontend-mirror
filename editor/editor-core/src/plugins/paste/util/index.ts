@@ -11,13 +11,13 @@ import type {
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type { PasteSource } from '../../analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION_SUBJECT,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
   TABLE_ACTION,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import {
   TextSelection,
   NodeSelection,
@@ -248,12 +248,13 @@ export const removeDuplicateInvalidLinks = (html: string): string => {
 export const addReplaceSelectedTableAnalytics = (
   state: EditorState,
   tr: Transaction,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): Transaction => {
   if (isTableSelected(state.selection)) {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );
-    addAnalytics(state, tr, {
+    editorAnalyticsAPI?.attachAnalyticsEvent({
       action: TABLE_ACTION.REPLACED,
       actionSubject: ACTION_SUBJECT.TABLE,
       attributes: {
@@ -262,7 +263,7 @@ export const addReplaceSelectedTableAnalytics = (
         inputMethod: INPUT_METHOD.CLIPBOARD,
       },
       eventType: EVENT_TYPE.TRACK,
-    });
+    })(tr);
     return tr;
   }
   return state.tr;

@@ -19,6 +19,23 @@ export type CorePlugin = NextEditorPlugin<
        * @returns (boolean) if the command was successful in dispatching
        */
       execute: (command: EditorCommand | undefined) => boolean;
+      /**
+       * Focuses the editor.
+       *
+       * Calls the focus method of the `EditorView` and scrolls the
+       * current selection into view.
+       *
+       * @returns (boolean) if the focus was successful
+       */
+      focus: () => boolean;
+      /**
+       * Blurs the editor.
+       *
+       * Calls blur on the editor DOM element.
+       *
+       * @returns (boolean) if the blur was successful
+       */
+      blur: () => boolean;
     };
   }
 >;
@@ -39,6 +56,29 @@ export const corePlugin: CorePlugin = ({ config }) => {
 
         const { state, dispatch } = editorView;
         return editorCommandToPMCommand(command)(state, dispatch);
+      },
+      // Code copied from `EditorActions.focus()`
+      focus: () => {
+        const editorView = config?.getEditorView();
+
+        if (!editorView || editorView.hasFocus()) {
+          return false;
+        }
+
+        editorView.focus();
+        editorView.dispatch(editorView.state.tr.scrollIntoView());
+        return true;
+      },
+      // Code copied from `EditorActions.blur()`
+      blur: () => {
+        const editorView = config?.getEditorView();
+
+        if (!editorView || !editorView.hasFocus()) {
+          return false;
+        }
+
+        (editorView.dom as HTMLElement).blur();
+        return true;
       },
     },
   };

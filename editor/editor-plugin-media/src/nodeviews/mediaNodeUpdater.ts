@@ -20,10 +20,10 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { FileState } from '@atlaskit/media-client';
 import {
   getAttrsFromUrl,
-  getMediaClient,
   isImageRepresentationReady,
   isMediaBlobUrl,
 } from '@atlaskit/media-client';
+import { getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaTraceContext } from '@atlaskit/media-common';
 
 import {

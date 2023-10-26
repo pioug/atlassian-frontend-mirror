@@ -5,11 +5,13 @@ import { N40 } from '@atlaskit/theme/colors';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 // in editor prosemirror adds padding-left so we need to overwrite it
+// renderer overwrites the margin-right so we need to add it here
 export const metadataBlockCss = css`
   /* primary element group */
   span[data-smart-element-avatar-group] {
     > ul {
       padding-left: 0px;
+      margin-right: 0.5rem;
     }
   }
   [data-smart-element-group] {
@@ -62,7 +64,3 @@ export const flexibleBlockCardStyle = getBooleanFF(
 )
   ? refreshedFlexibleBlockCardStyle
   : flexibleBlockCardElevationStyle;
-
-export const forbiddenViewTitleStyle = css`
-  font-weight: 600;
-`;

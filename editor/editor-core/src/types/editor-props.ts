@@ -42,7 +42,7 @@ import type {
 import type { MentionPluginConfig } from '@atlaskit/editor-plugin-mentions';
 import type { PanelPluginConfig } from '../plugins/panel/types';
 import type { PlaceholderTextOptions } from '../plugins/placeholder-text/types';
-import type { TextColorPluginConfig } from '../plugins/text-color/pm-plugins/main';
+import type { TextColorPluginConfig } from '@atlaskit/editor-plugin-text-color';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 
 import type { EditorAppearance } from './editor-appearance';

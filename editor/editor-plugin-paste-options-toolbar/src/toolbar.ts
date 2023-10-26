@@ -160,22 +160,37 @@ export const buildToolbar = (
   };
 };
 
-const onPositionCalculated = (
-  editorView: EditorView,
-  nextPos: Position,
-): Position => {
+const onPositionCalculated = (editorView: EditorView, nextPos: Position) => {
+  const { from } = editorView.state.selection;
+  const fromCoords = editorView.coordsAtPos(from);
+
   const toolbar = document.querySelector(
     `div[aria-label="${messages.pasteOptions.defaultMessage}"]`,
   ) as HTMLElement;
 
-  const cursorHeight = parseFloat(
-    window.getComputedStyle(toolbar, undefined).lineHeight || '',
-  );
-  const { from } = editorView.state.tr.selection;
-  const fromCoords = editorView.coordsAtPos(from);
+  const offsetParent = toolbar?.offsetParent || editorView.dom;
+  const offsetParentRect = offsetParent?.getBoundingClientRect();
+
+  const offsetTop = offsetParentRect?.top || 0;
+  const offsetLeft = offsetParentRect?.left || 0;
+  const offsetScrollTop = offsetParent?.scrollTop || 0;
+
+  const cursorHeight = getCursorHeight(editorView, from);
 
   return {
-    top: fromCoords.top + cursorHeight,
-    left: fromCoords.left,
-  } as Position;
+    top: fromCoords.top - offsetTop + offsetScrollTop + cursorHeight,
+    left: fromCoords.left - offsetLeft,
+  };
+};
+
+const getCursorHeight = (editorView: EditorView, from: number): number => {
+  const nodeAtFrom = editorView.domAtPos(from).node;
+  const nearestNonTextNode =
+    nodeAtFrom?.nodeType === Node.TEXT_NODE
+      ? (nodeAtFrom.parentNode as HTMLElement)
+      : (nodeAtFrom as HTMLElement);
+
+  return parseFloat(
+    window.getComputedStyle(nearestNonTextNode, undefined).lineHeight || '',
+  );
 };

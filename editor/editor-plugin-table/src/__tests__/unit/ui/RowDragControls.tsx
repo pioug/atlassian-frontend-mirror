@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import type { DocBuilder } from '@atlaskit/editor-common/types';
@@ -29,7 +29,7 @@ import {
 
 import tablePlugin from '../../../plugins/table-plugin';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import { TableCssClassName as ClassName } from '../../../plugins/table/types';
+// import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 import { DragControls } from '../../../plugins/table/ui/TableFloatingControls/RowControls';
 
 describe('NumberColumn', () => {
@@ -63,7 +63,7 @@ describe('NumberColumn', () => {
     );
     const ref = editorView.dom.querySelector('table');
 
-    const { container } = render(
+    render(
       <IntlProvider locale="en">
         <DragControls
           tableRef={ref!}
@@ -77,11 +77,9 @@ describe('NumberColumn', () => {
       </IntlProvider>,
     );
 
-    const dragHandleContainer = container.querySelector(
-      `.${ClassName.ROW_CONTROLS_WITH_DRAG}`,
-    );
+    const dragHandle = screen.getAllByTestId('table-floating-row-drag-handle');
 
-    expect(dragHandleContainer?.children.length).toBe(1);
+    expect(dragHandle.length).toBe(1);
   });
 
   it('should not render any drag handle containers if hoveredCell is undefined', () => {
@@ -98,7 +96,7 @@ describe('NumberColumn', () => {
     );
     const ref = editorView.dom.querySelector('table');
 
-    const { container } = render(
+    render(
       <IntlProvider locale="en">
         <DragControls
           tableRef={ref!}
@@ -115,10 +113,10 @@ describe('NumberColumn', () => {
       </IntlProvider>,
     );
 
-    const dragHandleContainer = container.querySelector(
-      `.${ClassName.ROW_CONTROLS_WITH_DRAG}`,
+    const dragHandle = screen.queryAllByTestId(
+      'table-floating-row-drag-handle',
     );
 
-    expect(dragHandleContainer?.children.length).toBe(0);
+    expect(dragHandle.length).toBe(0);
   });
 });

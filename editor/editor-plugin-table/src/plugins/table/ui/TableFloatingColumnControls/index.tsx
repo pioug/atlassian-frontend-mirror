@@ -12,7 +12,11 @@ import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/el
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import type { CellHoverMeta, DraggableSourceData } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
-import { getColumnsWidths, getRowHeights } from '../../utils';
+import {
+  containsHeaderColumn,
+  getColumnsWidths,
+  getRowHeights,
+} from '../../utils';
 
 import { ColumnControls } from './ColumnControls';
 import { ColumnDropTargets } from './ColumnDropTargets';
@@ -53,6 +57,7 @@ export const TableFloatingColumnControls: React.FC<Props> = ({
   const [hasDropTargets, setHasDropTargets] = useState(false);
   const node = getNode();
   const currentNodeLocalId = node?.attrs.localId;
+  const hasHeaderColumn = containsHeaderColumn(node);
 
   useEffect(() => {
     if (tableRef && window?.ResizeObserver) {
@@ -118,12 +123,13 @@ export const TableFloatingColumnControls: React.FC<Props> = ({
 
   const mountTo = (tableRef && tableRef?.parentElement) || document.body;
 
+  if (!tableActive) {
+    return null;
+  }
+
   return ReactDOM.createPortal(
     <div
       className={ClassName.COLUMN_CONTROLS_WRAPPER}
-      style={{
-        pointerEvents: 'none',
-      }}
       data-testid="table-floating-column-controls-wrapper"
     >
       <ColumnControls
@@ -137,6 +143,7 @@ export const TableFloatingColumnControls: React.FC<Props> = ({
         isInDanger={isInDanger}
         rowHeights={rowHeights}
         colWidths={colWidths}
+        hasHeaderColumn={hasHeaderColumn}
       />
       {hasDropTargets && (
         <ColumnDropTargets

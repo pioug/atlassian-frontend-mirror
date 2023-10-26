@@ -22,6 +22,13 @@ export default (
         dropTargetType: DropTargetType.NONE,
         dropTargetIndex: 0,
       };
+    case DragAndDropActionType.TOGGLE_DRAG_MENU:
+      return {
+        ...pluginState,
+        isDragMenuOpen: action.data.isDragMenuOpen,
+        dragMenuDirection: action.data.direction,
+        dragMenuIndex: action.data.index,
+      };
     default:
       return pluginState;
   }

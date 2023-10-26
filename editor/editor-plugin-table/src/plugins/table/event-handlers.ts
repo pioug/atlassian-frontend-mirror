@@ -55,6 +55,8 @@ import {
   isCell,
   isColumnControlsDecorations,
   isCornerButton,
+  isDragColumnFloatingInsertDot,
+  isDragRowFloatingInsertDot,
   isInsertRowButton,
   isResizeHandleDecoration,
   isRowControlsButton,
@@ -78,6 +80,12 @@ const isFocusingFloatingToolbar = (event: Event) =>
   event.relatedTarget instanceof HTMLElement &&
   event.relatedTarget.closest('[role="toolbar"]');
 
+const isFocusingDragHandles = (event: Event) =>
+  event instanceof FocusEvent &&
+  event.relatedTarget instanceof HTMLElement &&
+  event.relatedTarget.closest('button') &&
+  event.relatedTarget.getAttribute('draggable') === 'true';
+
 export const handleBlur = (view: EditorView, event: Event): boolean => {
   const { state, dispatch } = view;
   // IE version check for ED-4665
@@ -86,7 +94,8 @@ export const handleBlur = (view: EditorView, event: Event): boolean => {
     browser.ie_version !== 11 &&
     !isFocusingCalendar(event) &&
     !isFocusingModal(event) &&
-    !isFocusingFloatingToolbar(event)
+    !isFocusingFloatingToolbar(event) &&
+    !isFocusingDragHandles(event)
   ) {
     setEditorFocus(false)(state, dispatch);
   }
@@ -312,7 +321,10 @@ export const handleMouseMove = (
   }
   const element = event.target;
 
-  if (isColumnControlsDecorations(element)) {
+  if (
+    isColumnControlsDecorations(element) ||
+    isDragColumnFloatingInsertDot(element)
+  ) {
     const { state, dispatch } = view;
     const { insertColumnButtonIndex } = getPluginState(state);
     const [startIndex, endIndex] = getColumnOrRowIndex(element);
@@ -330,7 +342,7 @@ export const handleMouseMove = (
     }
   }
 
-  if (isRowControlsButton(element)) {
+  if (isRowControlsButton(element) || isDragRowFloatingInsertDot(element)) {
     const { state, dispatch } = view;
     const { insertRowButtonIndex } = getPluginState(state);
     const [startIndex, endIndex] = getColumnOrRowIndex(element);

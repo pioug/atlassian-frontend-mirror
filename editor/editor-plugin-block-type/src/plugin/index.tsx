@@ -25,6 +25,7 @@ import type {
 import { IconHeading, IconQuote } from '@atlaskit/editor-common/quick-insert';
 import type {
   Command,
+  EditorCommand,
   HeadingLevels,
   NextEditorPlugin,
   OptionalPlugin,
@@ -34,6 +35,7 @@ import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
+import type { TextBlockTypes } from './block-types';
 import { setBlockTypeWithAnalytics } from './commands';
 import type { InputMethod } from './commands/block-type';
 import { insertBlockQuoteWithAnalytics } from './commands/block-type';
@@ -140,7 +142,12 @@ export type BlockTypePlugin = NextEditorPlugin<
     sharedState: BlockTypeState | undefined;
     actions: {
       insertBlockQuote: (inputMethod: InputMethod) => Command;
-      setBlockType: (name: string, inputMethod: InputMethod) => Command;
+    };
+    commands: {
+      setTextLevel: (
+        level: TextBlockTypes,
+        inputMethod: InputMethod,
+      ) => EditorCommand;
     };
   }
 >;
@@ -171,7 +178,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => ({
         name: 'blockType',
         plugin: ({ dispatch }) =>
           createPlugin(
-            api?.analytics?.actions,
+            api,
             dispatch,
             options && options.lastNodeMustBeParagraph,
           ),
@@ -198,9 +205,12 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => ({
         api?.analytics?.actions,
       );
     },
-    setBlockType(name: string, inputMethod: InputMethod) {
+  },
+
+  commands: {
+    setTextLevel(level: TextBlockTypes, inputMethod: InputMethod) {
       return setBlockTypeWithAnalytics(
-        name,
+        level,
         inputMethod,
         api?.analytics?.actions,
       );
@@ -228,12 +238,15 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => ({
       options && options.isUndoRedoButtonsEnabled
         ? toolbarSize < ToolbarSize.XXL
         : toolbarSize < ToolbarSize.XL;
-    const boundSetBlockType = (name: string) =>
-      setBlockTypeWithAnalytics(
-        name,
-        INPUT_METHOD.TOOLBAR,
-        api?.analytics?.actions,
-      )(editorView.state, editorView.dispatch);
+    const boundSetBlockType = (name: TextBlockTypes) => {
+      api?.core.actions.execute(
+        setBlockTypeWithAnalytics(
+          name,
+          INPUT_METHOD.TOOLBAR,
+          api?.analytics?.actions,
+        ),
+      );
+    };
 
     return (
       <WithPluginState
@@ -248,7 +261,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => ({
               isSmall={isSmall}
               isDisabled={disabled}
               isReducedSpacing={isToolbarReducedSpacing}
-              setBlockType={boundSetBlockType}
+              setTextLevel={boundSetBlockType}
               pluginState={pluginState!}
               popupsMountPoint={popupsMountPoint}
               popupsBoundariesElement={popupsBoundariesElement}

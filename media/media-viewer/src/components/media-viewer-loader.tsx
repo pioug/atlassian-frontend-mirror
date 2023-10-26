@@ -1,6 +1,6 @@
 import React from 'react';
 import ModalSpinner from '../viewers/modalSpinner';
-import type { WithMediaClientConfigProps } from '@atlaskit/media-client';
+import type { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 import type { MediaViewerProps } from './types';
 import type { MediaViewerAnalyticsErrorBoundaryProps } from './media-viewer-analytics-error-boundary';
 
@@ -38,7 +38,7 @@ export class AsyncMediaViewer extends React.PureComponent<
         const [mediaClient, mediaViewerModule, mediaViewerErrorBoundaryModule] =
           await Promise.all([
             import(
-              /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
+              /* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
             ),
             import(
               /* webpackChunkName: "@atlaskit-internal_media-viewer" */ './media-viewer'

@@ -4,23 +4,33 @@ import React, { useCallback, useMemo } from 'react';
 import { injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
 
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables';
-import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { token } from '@atlaskit/tokens';
 
 import { clearHoverSelection } from '../../../commands';
+import { toggleDragMenu } from '../../../pm-plugins/drag-and-drop/commands';
 import type { CellHoverMeta } from '../../../types';
 import { TableCssClassName as ClassName } from '../../../types';
-import { getRowHeights, getSelectedRowIndexes } from '../../../utils';
+import {
+  getRowHeights,
+  getRowsParams,
+  getSelectedRowIndexes,
+} from '../../../utils';
 import { DragHandle } from '../../DragHandle';
 
 type DragControlsProps = {
   editorView: EditorView;
   tableRef: HTMLTableElement;
+  tableNode?: PmNode;
   tableActive?: boolean;
   hoveredCell?: CellHoverMeta;
   isInDanger?: boolean;
+  isResizing?: boolean;
+  hasHeaderRow?: boolean;
   hoverRows: (rows: number[], danger?: boolean) => void;
   selectRow: (row: number, expand: boolean) => void;
   updateCellHoverLocation: (rowIndex: number) => void;
@@ -39,18 +49,31 @@ const getSelectedRows = (selection: Selection) => {
 
 const DragControlsComponent = ({
   tableRef,
+  tableNode,
   hoveredCell,
   tableActive,
   editorView,
   isInDanger,
+  isResizing,
+  hasHeaderRow,
   hoverRows,
   selectRow,
   updateCellHoverLocation,
 }: DragControlsProps & WrappedComponentProps) => {
   const rowHeights = getRowHeights(tableRef);
+  const rowsParams = getRowsParams(rowHeights);
   const heights = rowHeights.map((height) => `${height - 1}px`).join(' ');
   const selectedRowIndexes = getSelectedRows(editorView.state.selection);
   const rowWidth = tableRef.offsetWidth;
+
+  const onMouseUp = useCallback(() => {
+    toggleDragMenu(
+      undefined,
+      'row',
+      hoveredCell?.rowIndex,
+    )(editorView.state, editorView.dispatch);
+  }, [editorView, hoveredCell?.rowIndex]);
+
   const rowIndex = hoveredCell?.rowIndex;
 
   const gridRowPosition = useMemo(() => {
@@ -61,11 +84,6 @@ const DragControlsComponent = ({
     return `${rowIndex! + 1} / span 1`;
   }, [rowIndex, selectedRowIndexes]);
 
-  const getLocalId = () => {
-    const tableNode = findTable(editorView.state.selection);
-    return tableNode?.node?.attrs?.localId || '';
-  };
-
   const handleMouseOut = useCallback(() => {
     if (tableActive) {
       const { state, dispatch } = editorView;
@@ -75,25 +93,21 @@ const DragControlsComponent = ({
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
-      // avoid updating if event target is drag handle
-      if (
-        !(e.nativeEvent.target as Element).classList.contains(
-          ClassName.ROW_CONTROLS_WITH_DRAG,
-        )
-      ) {
+      const isParentDragControls = (e.nativeEvent.target as Element).closest(
+        `.${ClassName.DRAG_ROW_CONTROLS}`,
+      );
+      const rowIndex = (e.nativeEvent.target as Element).getAttribute(
+        'data-start-index',
+      );
+
+      // avoid updating if event target is not related
+      if (!isParentDragControls || !rowIndex) {
         return;
       }
 
-      const hoverHeight = e.nativeEvent.offsetY;
-      let totalHeight = 0;
-      const rowIndex = rowHeights.findIndex((row) => {
-        totalHeight += row;
-        return hoverHeight <= totalHeight;
-      });
-
-      updateCellHoverLocation(rowIndex);
+      updateCellHoverLocation(Number(rowIndex));
     },
-    [updateCellHoverLocation, rowHeights],
+    [updateCellHoverLocation],
   );
 
   const handleMouseOver = useCallback(() => {
@@ -109,13 +123,37 @@ const DragControlsComponent = ({
 
   return (
     <div
-      className={ClassName.ROW_CONTROLS_WITH_DRAG}
+      className={ClassName.DRAG_ROW_CONTROLS}
       style={{
         gridTemplateRows: heights,
       }}
       onMouseMove={handleMouseMove}
     >
-      {Number.isFinite(rowIndex) && (
+      {!isResizing &&
+        rowsParams.map(({ startIndex, endIndex }, index) => (
+          <div
+            style={{
+              gridRow: `${index + 1} / span 1`,
+            }}
+            data-start-index={startIndex}
+            data-end-index={endIndex}
+            className={ClassName.DRAG_ROW_FLOATING_INSERT_DOT_WRAPPER}
+            contentEditable={false}
+            key={index}
+          >
+            {!hasHeaderRow && index === 0 && (
+              <div
+                style={{
+                  top: '0px',
+                  left: token('space.075', '6px'),
+                }}
+                className={ClassName.DRAG_ROW_FLOATING_INSERT_DOT}
+              />
+            )}
+            <div className={ClassName.DRAG_ROW_FLOATING_INSERT_DOT} />
+          </div>
+        ))}
+      {!isResizing && Number.isFinite(rowIndex) && (
         <div
           style={{
             gridRow: gridRowPosition,
@@ -124,9 +162,10 @@ const DragControlsComponent = ({
             alignItems: 'center',
             justifyContent: 'center',
           }}
+          data-testid="table-floating-row-drag-handle"
         >
           <DragHandle
-            tableLocalId={getLocalId()}
+            tableLocalId={tableNode?.attrs?.localId ?? ''}
             indexes={[rowIndex!]}
             previewWidth={rowWidth}
             previewHeight={rowHeights[rowIndex!]}
@@ -140,6 +179,7 @@ const DragControlsComponent = ({
             onClick={handleClick}
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
+            onMouseUp={onMouseUp}
           />
         </div>
       )}

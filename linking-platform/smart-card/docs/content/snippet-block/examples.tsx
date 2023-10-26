@@ -33,6 +33,19 @@ ${(
   />
 )}
 
+### Text override
+
+Use \`text\` to override the default link description.
+
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/snippet-block-override-text').default
+    }
+    source={require('!!raw-loader!../../../examples/content/snippet-block-override-text')}
+  />
+)}
+
 ### Sizing
 
 As a Flexible Smart Links block, a snippet block inherits and allow sizing override.

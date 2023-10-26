@@ -12,12 +12,6 @@ import {
   RetryOptions,
 } from './types';
 
-export function clientTimeoutPromise(timeout: number) {
-  return new Promise<Response>((_, reject) => {
-    setTimeout(reject, timeout, new RequestError('clientTimeoutRequest'));
-  });
-}
-
 export function waitPromise(timeout: number) {
   return new Promise<void>((resolve) => setTimeout(resolve, timeout));
 }
@@ -110,65 +104,6 @@ export function extendHeaders(
     ...mapAuthToRequestHeaders(auth),
     ...mapTraceIdToRequestHeaders(traceContext),
   };
-}
-
-/**
- * @deprecated Helper is deprecated and will be removed in the next major version.
- * TODO: https://product-fabric.atlassian.net/browse/BMPT-1354
- */
-export async function mapResponseToJson(response: Response): Promise<any> {
-  // eslint-disable-next-line no-console
-  console.warn(
-    'Helper is deprecated and will be remove in the next major version',
-  );
-
-  try {
-    return await response.json();
-  } catch (err) {
-    throw new RequestError(
-      'serverInvalidBody',
-      {
-        statusCode: response.status,
-      },
-      err instanceof Error ? err : undefined,
-    );
-  }
-}
-
-/**
- * @deprecated Helper is deprecated and will be removed in the next major version.
- * TODO: https://product-fabric.atlassian.net/browse/BMPT-1354
- */
-export async function mapResponseToBlob(response: Response): Promise<Blob> {
-  // eslint-disable-next-line no-console
-  console.warn(
-    'Helper is deprecated and will be remove in the next major version',
-  );
-
-  try {
-    return await response.blob();
-  } catch (err) {
-    throw new RequestError(
-      'serverInvalidBody',
-      {
-        statusCode: response.status,
-      },
-      err instanceof Error ? err : undefined,
-    );
-  }
-}
-
-/**
- * @deprecated Helper is deprecated and will be removed in the next major version.
- * TODO: https://product-fabric.atlassian.net/browse/BMPT-1354
- */
-export function mapResponseToVoid(): Promise<void> {
-  // eslint-disable-next-line no-console
-  console.warn(
-    'Helper is deprecated and will be remove in the next major version',
-  );
-
-  return Promise.resolve();
 }
 
 export function createMapResponseToJson(

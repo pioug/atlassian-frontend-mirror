@@ -55,10 +55,15 @@ export interface TaskDecisionPluginOptions
   consumeTabs?: boolean;
 }
 
+export type TaskAndDecisionsSharedState = {
+  focusedTaskItemLocalId: string | null;
+};
+
 export type TaskAndDecisionsPlugin = NextEditorPlugin<
   'taskDecision',
   {
     pluginConfiguration: TaskDecisionPluginOptions | undefined;
+    sharedState: TaskAndDecisionsSharedState | undefined;
     dependencies: [
       OptionalPlugin<TypeAheadPlugin>,
       OptionalPlugin<AnalyticsPlugin>,

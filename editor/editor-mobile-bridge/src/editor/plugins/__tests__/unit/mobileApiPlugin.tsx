@@ -53,7 +53,12 @@ describe('mobileApiPluign', () => {
       />,
     );
     expect(mockSetPluginInjectionApi).toHaveBeenCalledTimes(1);
-    expect(mockCall).toHaveBeenCalledTimes(0);
+    expect(mockCall).toHaveBeenCalledTimes(1);
+    expect(mockCall).toHaveBeenCalledWith(
+      'textFormatBridge',
+      'updateTextColor',
+      { states: '{"color":null,"borderColorPalette":{},"palette":{}}' },
+    );
   });
 
   it('should call the hyperlink listener if the state updates', async () => {
@@ -77,14 +82,31 @@ describe('mobileApiPluign', () => {
     });
 
     expect(mockSetPluginInjectionApi).toHaveBeenCalledTimes(1);
-    expect(mockCall).toHaveBeenCalledTimes(1);
-    expect(mockCall).toHaveBeenCalledWith('linkBridge', 'currentSelection', {
-      bottom: -1,
-      left: -1,
-      right: -1,
-      text: '',
-      top: -1,
-      url: '',
-    });
+    expect(mockCall).toHaveBeenCalledTimes(3);
+    expect(mockCall).toHaveBeenNthCalledWith(
+      1,
+      'textFormatBridge',
+      'updateTextColor',
+      { states: '{"color":null,"borderColorPalette":{},"palette":{}}' },
+    );
+    expect(mockCall).toHaveBeenNthCalledWith(
+      2,
+      'textFormatBridge',
+      'updateTextColor',
+      { states: '{"color":null,"borderColorPalette":{},"palette":{}}' },
+    );
+    expect(mockCall).toHaveBeenNthCalledWith(
+      3,
+      'linkBridge',
+      'currentSelection',
+      {
+        bottom: -1,
+        left: -1,
+        right: -1,
+        text: '',
+        top: -1,
+        url: '',
+      },
+    );
   });
 });

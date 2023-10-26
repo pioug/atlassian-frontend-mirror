@@ -15,6 +15,7 @@ import fileTypeIconMetadata from '@atlaskit/icon-file-type/metadata';
 
 import metadata from '../src/metadata';
 import IconExplorerCell from './utils/icon-explorer-cell';
+import type { IconCommonProps } from './utils/icon-explorer-cell';
 import logoIcons from '../utils/logo-icons';
 import { token } from '@atlaskit/tokens';
 
@@ -79,7 +80,7 @@ const getAllIcons = async (): Promise<IconsList> => {
       component: (() =>
         'exported from @atlaskit/icon') as unknown as ComponentType<any>,
       keywords: getKeywords(metadata),
-      divider: true,
+      isDivider: true,
     },
     ...iconData,
     firstTwo: {
@@ -87,7 +88,7 @@ const getAllIcons = async (): Promise<IconsList> => {
       component: (() =>
         'exported from @atlaskit/logo' as unknown) as ComponentType<any>,
       keywords: getKeywords(logoIcons),
-      divider: true,
+      isDivider: true,
     },
     ...logoIcons,
     second: {
@@ -95,7 +96,7 @@ const getAllIcons = async (): Promise<IconsList> => {
       component: (() =>
         'exported from @atlaskit/icon-object' as unknown) as ComponentType<any>,
       keywords: getKeywords(objectIconMetadata),
-      divider: true,
+      isDivider: true,
     },
     ...objectData,
     third: {
@@ -103,26 +104,22 @@ const getAllIcons = async (): Promise<IconsList> => {
       component: (() =>
         'exported from @atlaskit/icon-file-type' as unknown) as ComponentType<any>,
       keywords: getKeywords(fileTypeIconMetadata),
-      divider: true,
+      isDivider: true,
     },
     ...filetypeData,
   };
 };
-interface IconData {
+interface IconData extends IconCommonProps {
   keywords: string[];
-  component: ComponentType<any>;
-  componentName: string;
-  package?: string;
-  divider?: boolean;
 }
 
 interface LogoMap {
-  [key: string]: Pick<IconData, Exclude<keyof IconData, 'component'>>;
+  [key: string]: Omit<IconData, 'component'>;
 }
 
-const getKeywords = (logoMap: LogoMap) =>
+const getKeywords = (logoMap: LogoMap): IconData['keywords'] =>
   Object.keys(logoMap).reduce(
-    (existingKeywords: string[], key) => [
+    (existingKeywords: string[], key: string) => [
       ...existingKeywords,
       ...logoMap[key].keywords,
     ],
@@ -138,15 +135,15 @@ const gridWrapperStyles = css({
 
 const iconExplorerGridStyles = css({
   display: 'flex',
-  marginTop: token('space.100', '10px'),
   justifyContent: 'flex-start',
   flexDirection: 'row',
   flexWrap: 'wrap',
+  marginBlockStart: token('space.100', '10px'),
 });
 
 const noIconsStyles = css({
-  marginTop: token('space.100', '10px'),
   padding: token('space.100', '10px'),
+  marginBlockStart: token('space.100', '10px'),
 });
 
 const filterIcons = (icons: IconsList, query: string) => {

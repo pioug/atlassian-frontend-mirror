@@ -64,6 +64,19 @@ describe('SnippetBlock', () => {
     });
   });
 
+  it('renders with override text', async () => {
+    const testId = 'smart-element-text';
+    const { findByTestId } = render(
+      <FlexibleUiContext.Provider value={context}>
+        <SnippetBlock text="text override" status={SmartLinkStatus.Resolved} />
+      </FlexibleUiContext.Provider>,
+    );
+
+    const block = await findByTestId(testId);
+
+    expect(block.textContent).toBe('text override');
+  });
+
   it('renders with override css', async () => {
     const overrideCss = css`
       background-color: blue;

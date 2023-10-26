@@ -13,17 +13,22 @@ import { doc, code_block, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
 
-import type { TextColorPluginState } from '../../../../../plugins/text-color/pm-plugins/main';
-import { pluginKey } from '../../../../../plugins/text-color/pm-plugins/main';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { pluginKey } from '@atlaskit/editor-plugin-text-color/src/pm-plugins/main';
 import { Color } from '@atlaskit/editor-common/ui-color';
 
 import ToolbarButton from '../../../../../ui/ToolbarButton';
-import type { Props as ToolbarTextColorProps } from '../../../../../plugins/text-color/ui/ToolbarTextColor';
-import { ToolbarTextColor } from '../../../../../plugins/text-color/ui/ToolbarTextColor';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import type { Props as ToolbarTextColorProps } from '@atlaskit/editor-plugin-text-color/src/ui/ToolbarTextColor';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { ToolbarTextColor } from '@atlaskit/editor-plugin-text-color/src/ui/ToolbarTextColor';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { TextColorPlugin } from '../../../../../plugins/text-color/types';
+import type {
+  TextColorPlugin,
+  TextColorPluginState,
+} from '@atlaskit/editor-plugin-text-color';
 
 const mockDispatchAnalytics = jest.fn(() => () => {});
 

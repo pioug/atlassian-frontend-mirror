@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.14.0
+
+### Minor Changes
+
+- [#41884](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41884) [`862be3ee13b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/862be3ee13b) - Adds `no-css-tagged-template-expression` rule that disallows any `css` tagged template expressions that originate from `@emotion/react` and automatically converts them to the preferred call expression syntax.
+
 ## 8.13.1
 
 ### Patch Changes

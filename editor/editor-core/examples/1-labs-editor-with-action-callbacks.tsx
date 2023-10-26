@@ -1,5 +1,5 @@
 import React from 'react';
-import Editor from './../src/labs/EditorWithActions';
+import Editor from './../src/EditorWithActions';
 import { EditorContext } from '../src';
 
 export default function Example() {

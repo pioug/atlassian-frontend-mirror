@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserProps } from './browser';
-import { WithMediaClientConfigProps } from '@atlaskit/media-client';
+import { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 import { BrowserConfig } from '../../types';
 
 type BrowserWithMediaClientConfigProps = WithMediaClientConfigProps<
@@ -43,7 +43,7 @@ export class BrowserLoader extends React.PureComponent<
     if (!this.state.Browser) {
       const [mediaClient, browserModule] = await Promise.all([
         import(
-          /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
+          /* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
         ),
         import(
           /* webpackChunkName: "@atlaskit-internal_media-browser" */ './browser'

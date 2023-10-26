@@ -1,5 +1,5 @@
 import React from 'react';
-import { WithMediaClientConfigProps } from '@atlaskit/media-client';
+import { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
 import { MediaInlineCardProps } from './mediaInlineCard';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
@@ -41,7 +41,7 @@ export default class MediaInlineCardLoader extends React.PureComponent<
         const [mediaClient, cardModule, mediaInlineErrorBoundaryModule] =
           await Promise.all([
             import(
-              /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
+              /* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
             ),
             import(
               /* webpackChunkName: "@atlaskit-internal_inline-media-card" */ './mediaInlineCard'

@@ -17,7 +17,7 @@ import type {
   Identifier,
   FileState,
 } from '@atlaskit/media-client';
-import { getMediaClient } from '@atlaskit/media-client';
+import { getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaType } from '@atlaskit/adf-schema';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { withImageLoader } from '@atlaskit/editor-common/utils';

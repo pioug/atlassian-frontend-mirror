@@ -82,6 +82,7 @@ import type { SearchProvider } from '@atlaskit/editor-common/provider-factory';
 import { setTextSelection } from '@atlaskit/editor-common/utils';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision';
 import { TeamMentionResource } from '@atlaskit/mention/team-resource';
+import type { TextColorPluginConfig } from '@atlaskit/editor-plugin-text-color';
 import type { TextFormattingOptions } from '@atlaskit/editor-common/types';
 import { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -756,18 +757,6 @@ export { setTextSelection };
 interface State {}
 
 export { TeamMentionResource };
-
-// @public (undocumented)
-type TextColorDefaultColor = {
-  color: string;
-  label: string;
-};
-
-// @public (undocumented)
-interface TextColorPluginConfig {
-  // (undocumented)
-  defaultColor?: TextColorDefaultColor;
-}
 
 // @public (undocumented)
 export function ToolbarFeedback(props: Props_3): jsx.JSX.Element;

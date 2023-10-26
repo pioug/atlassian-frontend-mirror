@@ -1,4 +1,6 @@
 jest.mock('@atlaskit/media-client');
+jest.mock('@atlaskit/media-client-react');
+
 import React from 'react';
 import type {
   ContextIdentifierProvider,
@@ -31,11 +33,11 @@ import type {
 } from '@atlaskit/media-core';
 import type { MediaClient, ProcessedFileState } from '@atlaskit/media-client';
 import {
-  getMediaClient,
-  withMediaClient,
   isFileIdentifier,
   createMediaSubscribable,
 } from '@atlaskit/media-client';
+
+import { getMediaClient, withMediaClient } from '@atlaskit/media-client-react';
 import uuid from 'uuid/v4';
 import {
   asMock,

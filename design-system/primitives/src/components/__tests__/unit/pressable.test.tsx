@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { xcss } from '../../../xcss/xcss';
 import Pressable from '../../pressable';
@@ -11,31 +11,25 @@ const pressableStyles = xcss({
   textTransform: 'uppercase',
 });
 
-describe('Pressable component', () => {
+describe('Pressable', () => {
   it('should render with a given test id', () => {
-    const { getByTestId } = render(
-      <Pressable testId={testId}>Pressable with testid</Pressable>,
-    );
+    render(<Pressable testId={testId}>Pressable with testid</Pressable>);
 
-    expect(getByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByTestId(testId)).toBeInTheDocument();
   });
 
   it('should render a <button>', () => {
-    const { getByTestId } = render(
-      <Pressable testId={testId}>Pressable</Pressable>,
-    );
-    expect(getByTestId(testId).nodeName).toEqual('BUTTON');
+    render(<Pressable testId={testId}>Pressable</Pressable>);
+    expect(screen.getByTestId(testId).nodeName).toEqual('BUTTON');
   });
 
   it('should be type `button` by default', () => {
-    const { getByTestId } = render(
-      <Pressable testId={testId}>Pressable</Pressable>,
-    );
-    expect(getByTestId(testId).getAttribute('type')).toEqual('button');
+    render(<Pressable testId={testId}>Pressable</Pressable>);
+    expect(screen.getByTestId(testId)).toHaveAttribute('type', 'button');
   });
 
   it('should only render a <button> regardless of Box `as` prop override', () => {
-    const { getByTestId } = render(
+    render(
       <Pressable
         // The `as` prop isn't allowed by types, but we should
         // confirm the primitive can't be intentionally misused by
@@ -47,35 +41,29 @@ describe('Pressable component', () => {
         Pressable
       </Pressable>,
     );
-    expect(getByTestId(testId).nodeName).toEqual('BUTTON');
+    expect(screen.getByTestId(testId).nodeName).toEqual('BUTTON');
   });
 
   it('should render plain text as children', () => {
-    const { getByText } = render(
-      <Pressable testId={testId}>Pressable text</Pressable>,
-    );
-    const element = getByText('Pressable text');
+    render(<Pressable testId={testId}>Pressable text</Pressable>);
+    const element = screen.getByText('Pressable text');
     expect(element).toBeInTheDocument();
   });
 
   it('should render children', () => {
-    const { getByTestId } = render(
+    render(
       <Pressable testId={testId}>
         <span data-testid="test-pressable-child">Pressable children</span>
       </Pressable>,
     );
-    const parent = getByTestId(testId);
+    const parent = screen.getByTestId(testId);
     expect(parent).toBeInTheDocument();
-    const child = getByTestId('test-pressable-child');
+    const child = screen.getByTestId('test-pressable-child');
     expect(child).toBeInTheDocument();
   });
 
   it('should apply aria attributes', () => {
-    /**
-     * Renders other button butons
-     * @see https://www.w3.org/WAI/ARIA/apg/patterns/button/
-     */
-    const { getByTestId } = render(
+    render(
       <Fragment>
         <Pressable testId="pressed" aria-pressed="true">
           Mute sound
@@ -85,41 +73,47 @@ describe('Pressable component', () => {
         </Pressable>
       </Fragment>,
     );
-    expect(getByTestId('pressed').getAttribute('aria-pressed')).toBe('true');
-    expect(getByTestId('haspopup').getAttribute('aria-haspopup')).toBe('menu');
+    expect(screen.getByTestId('pressed')).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    expect(screen.getByTestId('haspopup')).toHaveAttribute(
+      'aria-haspopup',
+      'menu',
+    );
   });
 
   it('should disable the button using `isDisabled` prop', () => {
-    const { getByTestId } = render(
+    render(
       <Pressable testId={testId} isDisabled>
         Disabled
       </Pressable>,
     );
-    expect(getByTestId(testId)).toBeDisabled();
+    expect(screen.getByTestId(testId)).toBeDisabled();
   });
 
   it('should call click handler when present', () => {
     const mockOnClick = jest.fn();
 
-    const { getByTestId } = render(
+    render(
       <Pressable testId={testId} onClick={mockOnClick}>
         Click me
       </Pressable>,
     );
 
-    fireEvent.click(getByTestId(testId));
+    fireEvent.click(screen.getByTestId(testId));
 
     expect(mockOnClick).toHaveBeenCalled();
   });
 
   it('should apply styles with `xcss`', () => {
-    const { getByTestId } = render(
+    render(
       <Pressable testId={testId} xcss={pressableStyles}>
         Pressable with xcss styles
       </Pressable>,
     );
 
-    const styles = getComputedStyle(getByTestId(testId));
+    const styles = getComputedStyle(screen.getByTestId(testId));
     expect(styles.getPropertyValue('text-transform')).toBe('uppercase');
   });
 });

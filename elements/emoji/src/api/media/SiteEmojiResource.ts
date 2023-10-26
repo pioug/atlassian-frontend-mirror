@@ -2,7 +2,7 @@ import {
   ServiceConfig,
   utils as serviceUtils,
 } from '@atlaskit/util-service-support';
-import { getMediaClient } from '@atlaskit/media-client';
+import { getMediaClient } from '@atlaskit/media-client-react';
 import {
   EmojiDescription,
   EmojiId,

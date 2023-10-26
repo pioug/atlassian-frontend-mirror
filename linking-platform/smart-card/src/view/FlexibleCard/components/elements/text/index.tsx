@@ -27,6 +27,7 @@ const Text: React.FC<TextProps> = ({
   name,
   overrideCss,
   testId = 'smart-element-text',
+  text,
 }) => {
   if (!message && !content) {
     return null;
@@ -40,7 +41,7 @@ const Text: React.FC<TextProps> = ({
       data-smart-element-text
       data-testid={testId}
     >
-      {getFormattedMessage(message) || content}
+      {text ? text : getFormattedMessage(message) || content}
     </span>
   );
 };

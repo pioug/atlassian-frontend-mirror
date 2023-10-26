@@ -26,9 +26,6 @@ import FlexibleErroredView from './views/flexible/FlexibleErroredView';
 import { jsx } from '@emotion/react';
 import { handleClickCommon } from './utils/handlers';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { AnchorTarget } from '../FlexibleCard/components/types';
-import { titleBlockCss } from './views/flexible/styled';
-import { SmartLinkSize } from '../../constants';
 
 export { default as PreviewAction } from './actions/PreviewAction';
 export type { ResolvedViewProps as BlockCardResolvedViewProps } from './views/ResolvedView';
@@ -77,19 +74,6 @@ export const BlockCard: FC<BlockCardProps> = ({
   };
 
   if (enableFlexibleBlockCard) {
-    const anchorTarget: AnchorTarget | undefined = getBooleanFF(
-      'platform.linking-platform.smart-card.enable-block-card-clicks-opening-in-same-tab',
-    )
-      ? '_self'
-      : undefined;
-
-    const titleBlockProps = {
-      overrideCss: titleBlockCss,
-      ...(getBooleanFF(
-        'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-      ) && { size: SmartLinkSize.Large }),
-    };
-
     const flexibleBlockCardProps = {
       id,
       cardState,
@@ -102,9 +86,6 @@ export const BlockCard: FC<BlockCardProps> = ({
       renderers,
       showServerActions,
       analytics,
-      extensionKey,
-      titleBlockProps: titleBlockProps,
-      ...(anchorTarget ? { anchorTarget } : {}),
     };
 
     switch (status) {

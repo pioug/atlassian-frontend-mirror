@@ -1,1 +1,1 @@
-export { default as useUniversalPreset } from './labs/next/presets/useUniversalPreset';
+export { default as useUniversalPreset } from './presets/useUniversalPreset';

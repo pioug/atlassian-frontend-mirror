@@ -38,23 +38,24 @@ const dividerStyles = css({
   textAlign: 'center',
 });
 
-interface IconExplorerCellProps {
+export interface IconCommonProps {
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   component: ComponentType<any>;
   componentName: string;
+  isDivider?: boolean;
+  isNamedImport?: boolean;
+}
+
+interface IconExplorerCellProps extends IconCommonProps {
   package?: string;
-  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-  divider?: boolean;
-  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-  namedImport?: boolean;
 }
 
 const IconExplorerCell: FC<IconExplorerCellProps> = ({
   component: Icon,
   componentName,
   package: packageName,
-  divider,
-  namedImport: isNamedImport,
+  isDivider,
+  isNamedImport,
 }) => {
   const inputEl = useRef<HTMLInputElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -78,7 +79,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
     }
   };
 
-  if (divider) {
+  if (isDivider) {
     return (
       <h4 css={dividerStyles}>
         <Icon />

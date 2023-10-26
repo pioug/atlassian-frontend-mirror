@@ -1,8 +1,19 @@
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { JsonLd } from 'json-ld-types';
-import { ElementName } from '../../../../../constants';
+import {
+  ElementName,
+  MediaPlacement,
+  SmartLinkPosition,
+  SmartLinkSize,
+} from '../../../../../constants';
+import type { FlexibleUiOptions } from '../../../../FlexibleCard/types';
+import type { FooterBlockProps } from '../../../../FlexibleCard/components/blocks/footer-block/types';
+import type { PreviewBlockProps } from '../../../../FlexibleCard/components/blocks/preview-block/types';
+import type { TitleBlockProps } from '../../../../FlexibleCard/components/blocks/title-block/types';
 import { ElementItem } from '../../../../FlexibleCard/components/blocks/types';
 import { extractOwnedBy } from '../../../../../extractors/flexible/utils';
 import { getExtensionKey } from '../../../../../state/helpers';
+import { footerBlockCss, titleBlockCss } from '../styled';
 
 const baseTopMetadata: ElementItem[] = [
   { name: ElementName.ModifiedOn },
@@ -127,3 +138,38 @@ type SimulatedMetadata = {
   topMetadata: ElementItem[];
   bottomMetadata?: ElementItem[];
 };
+
+export const FlexibleCardUiOptions: FlexibleUiOptions = { hideElevation: true };
+
+// Due to the use of getBooleanFF(), this has to be a function.
+// Make this a const object after ff cleanup.
+export const getTitleBlockOptions = (): Partial<TitleBlockProps> => ({
+  anchorTarget: getBooleanFF(
+    'platform.linking-platform.smart-card.enable-block-card-clicks-opening-in-same-tab',
+  )
+    ? '_self'
+    : undefined,
+  position: SmartLinkPosition.Center,
+  overrideCss: titleBlockCss,
+  hideRetry: true,
+  size: getBooleanFF(
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+  )
+    ? SmartLinkSize.Large
+    : undefined,
+});
+
+export const PreviewBlockOptions: Partial<PreviewBlockProps> = {
+  placement: MediaPlacement.Right,
+  ignoreContainerPadding: true,
+};
+
+// Due to the use of getBooleanFF(), this has to be a function.
+// Make this a const object after ff cleanup.
+export const getFooterBlockOptions = (): Partial<FooterBlockProps> => ({
+  overrideCss: getBooleanFF(
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+  )
+    ? footerBlockCss
+    : undefined,
+});

@@ -1,5 +1,11 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 8.1.15
+
+### Patch Changes
+
+- [#42147](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42147) [`c2fdae4f6e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2fdae4f6e9) - Add mention functionality in tables
+
 ## 8.1.14
 
 ### Patch Changes

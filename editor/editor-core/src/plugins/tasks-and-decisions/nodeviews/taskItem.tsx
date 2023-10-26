@@ -15,19 +15,17 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { stateKey as taskPluginKey } from '../pm-plugins/plugin-key';
-import TaskItem from '../ui/Task';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 
+import { useShowPlaceholder } from './hooks/use-show-placeholder';
+import TaskItem from '../ui/Task';
 import type { TaskAndDecisionsPlugin } from '../types';
-//import { isTypeAheadOpen } from '../../type-ahead/utils';
 
 type ForwardRef = (node: HTMLElement | null) => void;
 type getPosHandler = getPosHandlerNode | boolean;
@@ -40,23 +38,35 @@ type TaskItemWrapperProps = {
   localId: string;
   forwardRef: ForwardRef;
   isContentNodeEmpty: boolean;
-  api: ExtractInjectionAPI<TaskAndDecisionsPlugin> | undefined;
   providerFactory: ProviderFactory;
   isDone: boolean;
-  isFocused: boolean;
+  api: ExtractInjectionAPI<TaskAndDecisionsPlugin> | undefined;
+  getPos: () => number | undefined;
   onChange: (taskId: string, isChecked: boolean) => false | undefined;
+  editorView: EditorView;
 };
 const TaskItemWrapper = ({
   localId,
   forwardRef,
   isDone,
   onChange,
-  isFocused,
-  isContentNodeEmpty,
   providerFactory,
+  isContentNodeEmpty,
   api,
+  getPos,
+  editorView,
 }: TaskItemWrapperProps) => {
-  const { typeAheadState } = useSharedPluginState(api, ['typeAhead']);
+  const { taskDecisionState } = useSharedPluginState(api, ['taskDecision']);
+  const isFocused = Boolean(
+    taskDecisionState?.focusedTaskItemLocalId === localId,
+  );
+
+  const showPlaceholder = useShowPlaceholder({
+    editorView,
+    isContentNodeEmpty,
+    getPos,
+    api,
+  });
 
   return (
     <TaskItem
@@ -65,7 +75,7 @@ const TaskItemWrapper = ({
       isDone={isDone}
       onChange={onChange}
       isFocused={isFocused}
-      showPlaceholder={isContentNodeEmpty && !typeAheadState?.isOpen}
+      showPlaceholder={showPlaceholder}
       providers={providerFactory}
     />
   );
@@ -166,32 +176,23 @@ class Task extends ReactNodeView<Props> {
   render(props: Props, forwardRef: ForwardRef) {
     const { localId, state } = this.node.attrs;
     const isContentNodeEmpty = this.isContentEmpty(this.node);
-
     return (
       <AnalyticsListener
         channel="fabric-elements"
         onEvent={this.addListAnalyticsData}
       >
-        <WithPluginState
-          plugins={{
-            taskDecisionPlugin: taskPluginKey,
-          }}
-          render={({ taskDecisionPlugin }) => {
-            return (
-              <TaskItemWrapper
-                localId={localId}
-                forwardRef={forwardRef}
-                isDone={state === 'DONE'}
-                onChange={this.handleOnChange}
-                isFocused={Boolean(
-                  taskDecisionPlugin?.focusedTaskItemLocalId === localId,
-                )}
-                isContentNodeEmpty={isContentNodeEmpty}
-                providerFactory={props.providerFactory}
-                api={this.api}
-              />
-            );
-          }}
+        <TaskItemWrapper
+          localId={localId}
+          forwardRef={forwardRef}
+          isDone={state === 'DONE'}
+          onChange={this.handleOnChange}
+          isContentNodeEmpty={isContentNodeEmpty}
+          providerFactory={props.providerFactory}
+          // The getPosHandler type is wrong, there is no `boolean` in the real implementation
+          // @ts-expect-error 2322: Type 'getPosHandler' is not assignable to type '() => number | undefined'.
+          getPos={this.getPos}
+          editorView={this.view}
+          api={this.api}
         />
       </AnalyticsListener>
     );

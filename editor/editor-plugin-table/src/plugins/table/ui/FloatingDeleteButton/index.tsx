@@ -23,6 +23,7 @@ import {
 } from '../../commands-with-analytics';
 import { getPluginState as getTablePluginState } from '../../pm-plugins/plugin-factory';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
+import type { TableDirection } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 import {
   getColumnDeleteButtonParams,
@@ -60,7 +61,7 @@ export interface State {
 
 export function getSelectionType(
   selection: Selection,
-): 'column' | 'row' | undefined {
+): TableDirection | undefined {
   if (!isTableSelected(selection) && selection instanceof CellSelection) {
     if (selection.isRowSelection()) {
       return 'row';

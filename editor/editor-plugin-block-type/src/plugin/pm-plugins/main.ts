@@ -2,6 +2,8 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
+  EditorCommand,
+  ExtractInjectionAPI,
   HeadingLevels,
   HeadingLevelsAndNormalText,
 } from '@atlaskit/editor-common/types';
@@ -35,6 +37,7 @@ import {
   setNormalTextWithAnalytics,
 } from '../commands';
 import { HEADING_KEYS } from '../consts';
+import type { BlockTypePlugin } from '../index';
 import type { BlockType } from '../types';
 import { areBlockTypesDisabled } from '../utils';
 
@@ -109,31 +112,29 @@ const detectBlockType = (
 
 const autoformatHeading = (
   headingLevel: HeadingLevelsAndNormalText,
-  view: EditorView,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-): boolean => {
+): EditorCommand => {
   if (headingLevel === 0) {
-    setNormalTextWithAnalytics(INPUT_METHOD.FORMATTING, editorAnalyticsApi)(
-      view.state,
-      view.dispatch,
-    );
-  } else {
-    setHeadingWithAnalytics(
-      headingLevel as HeadingLevels,
+    return setNormalTextWithAnalytics(
       INPUT_METHOD.FORMATTING,
       editorAnalyticsApi,
-    )(view.state, view.dispatch);
+    );
   }
-  return true;
+  return setHeadingWithAnalytics(
+    headingLevel as HeadingLevels,
+    INPUT_METHOD.FORMATTING,
+    editorAnalyticsApi,
+  );
 };
 
 export const pluginKey = new PluginKey<BlockTypeState>('blockTypePlugin');
 export const createPlugin = (
-  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+  editorAPI: ExtractInjectionAPI<BlockTypePlugin> | undefined,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dispatch: (eventName: string | PluginKey, data: any) => void,
   lastNodeMustBeParagraph?: boolean,
 ) => {
+  const editorAnalyticsApi = editorAPI?.analytics?.actions;
   let altKeyLocation = 0;
 
   return new SafePlugin({
@@ -216,13 +217,21 @@ export const createPlugin = (
         ) as HeadingLevels;
         if (headingLevel > -1 && event.altKey) {
           if (browser.mac && event.metaKey) {
-            return autoformatHeading(headingLevel, view, editorAnalyticsApi);
+            return (
+              editorAPI?.core.actions.execute(
+                autoformatHeading(headingLevel, editorAnalyticsApi),
+              ) ?? false
+            );
           } else if (
             !browser.mac &&
             event.ctrlKey &&
             altKeyLocation !== event.DOM_KEY_LOCATION_RIGHT
           ) {
-            return autoformatHeading(headingLevel, view, editorAnalyticsApi);
+            return (
+              editorAPI?.core.actions.execute(
+                autoformatHeading(headingLevel, editorAnalyticsApi),
+              ) ?? false
+            );
           }
         } else if (event.key === 'Alt') {
           // event.location is for the current key only; when a user hits Ctrl-Alt-1 the

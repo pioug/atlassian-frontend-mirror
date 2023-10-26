@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 26.38.1
+
+### Patch Changes
+
+- [#42082](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42082) [`abc9cf5b768`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abc9cf5b768) - [ux] Fix block card unresolved view inconsitent styling.
+- [#42120](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42120) [`d35229c10fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d35229c10fb) - Update style for avatar-group in block card as it gets overwritten by renderer.
+
+## 26.38.0
+
+### Minor Changes
+
+- [#42098](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42098) [`0c93d2f2e70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c93d2f2e70) - [ux] Add text prop to override content in SnippetBlock
+
 ## 26.37.2
 
 ### Patch Changes

@@ -416,6 +416,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         <TableFloatingControls
           editorView={view}
           tableRef={tableRef}
+          tableNode={node}
           tableActive={tableActive}
           hoveredRows={hoveredRows}
           hoveredCell={hoveredCell}
@@ -423,7 +424,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           isResizing={isResizing}
           isNumberColumnEnabled={node.attrs.isNumberColumnEnabled}
           isHeaderRowEnabled={isHeaderRowEnabled}
-          isDragAndDropEnabled={options?.isDragAndDropEnabled}
+          isDragAndDropEnabled={isDragAndDropEnabled}
           ordering={ordering}
           isHeaderColumnEnabled={isHeaderColumnEnabled}
           hasHeaderRow={hasHeaderRow}

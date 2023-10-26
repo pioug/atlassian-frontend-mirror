@@ -5,15 +5,17 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { token } from '@atlaskit/tokens';
 
 import {
   clearHoverSelection,
   hoverColumns,
   selectColumn,
 } from '../../../commands';
+import { toggleDragMenu } from '../../../pm-plugins/drag-and-drop/commands';
 import type { CellHoverMeta } from '../../../types';
 import { TableCssClassName as ClassName } from '../../../types';
-import { getSelectedColumnIndexes } from '../../../utils';
+import { getRowsParams, getSelectedColumnIndexes } from '../../../utils';
 import { DragHandle } from '../../DragHandle';
 
 export interface ColumnControlsProps {
@@ -27,6 +29,7 @@ export interface ColumnControlsProps {
   localId?: string;
   rowHeights?: number[];
   colWidths?: (number | undefined)[];
+  hasHeaderColumn?: boolean;
 }
 
 const getSelectedColumns = (selection: Selection) => {
@@ -51,10 +54,13 @@ export const ColumnControls = ({
   isInDanger,
   rowHeights,
   colWidths,
+  hasHeaderColumn,
 }: ColumnControlsProps) => {
   const widths =
     colWidths?.map((width) => (width ? `${width - 1}px` : '0px')).join(' ') ??
     '0px';
+  // TODO: reusing getRowsParams here because it's generic enough to work for columns -> rename
+  const columnParams = getRowsParams(colWidths ?? []);
   const colIndex = hoveredCell?.colIndex;
   const selectedColIndexes = getSelectedColumns(editorView.state.selection);
 
@@ -94,8 +100,13 @@ export const ColumnControls = ({
     }
   }, [editorView, tableActive]);
 
+  const handleMouseUp = useCallback(() => {
+    const { state, dispatch } = editorView;
+    toggleDragMenu(undefined, 'column', colIndex)(state, dispatch);
+  }, [editorView, colIndex]);
+
   return (
-    <div className={ClassName.COLUMN_CONTROLS_WITH_DRAG}>
+    <div className={ClassName.DRAG_COLUMN_CONTROLS}>
       <div
         className={ClassName.COLUMN_CONTROLS_INNER}
         data-testid="table-floating-column-controls"
@@ -104,6 +115,33 @@ export const ColumnControls = ({
           marginTop,
         }}
       >
+        {!isResizing &&
+          columnParams.map(({ startIndex, endIndex }, index) => (
+            <div
+              style={{
+                gridColumn: `${index + 1} / span 1`,
+              }}
+              data-start-index={startIndex}
+              data-end-index={endIndex}
+              className={ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT_WRAPPER}
+              contentEditable={false}
+              key={index}
+            >
+              {!hasHeaderColumn && index === 0 && (
+                <div
+                  style={{
+                    left: '0px',
+                    right: 'unset',
+                  }}
+                  className={ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT}
+                />
+              )}
+              <div
+                className={ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT}
+                style={columnParams.length - 1 === index ? { right: '0' } : {}}
+              />
+            </div>
+          ))}
         {tableActive &&
           !isResizing &&
           !!hoveredCell &&
@@ -111,7 +149,12 @@ export const ColumnControls = ({
             <div
               style={{
                 gridColumn: gridColumnPosition,
-                marginTop: `-15px`,
+                zIndex: 99,
+                display: 'flex',
+                width: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: token('space.negative.025', '-2px'),
               }}
               data-column-control-index={hoveredCell.colIndex}
               data-testid="table-floating-column-control"
@@ -132,6 +175,7 @@ export const ColumnControls = ({
                 onClick={handleClick}
                 onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
+                onMouseUp={handleMouseUp}
               />
             </div>
           )}

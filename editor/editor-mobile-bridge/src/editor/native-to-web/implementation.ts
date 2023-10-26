@@ -8,6 +8,7 @@ import type {
 import type {
   BlockTypeState,
   InputMethod as BlockTypeInputMethod,
+  TextBlockTypes,
 } from '@atlaskit/editor-plugin-block-type';
 import type {
   QuickInsertItem,
@@ -16,7 +17,6 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import { EditorActions } from '@atlaskit/editor-core';
 import { clearEditorContent } from '@atlaskit/editor-core/src/commands';
-import { changeColor } from '@atlaskit/editor-core/src/plugins/text-color/commands/change-color';
 import {
   setMobilePaddingTop,
   setIsExpanded,
@@ -454,7 +454,7 @@ export default class WebBridgeImpl
 
   setTextColor(color: string) {
     if (this.editorView) {
-      changeColor(color, this.pluginInjectionApi?.analytics?.actions)(
+      this.pluginInjectionApi?.textColor?.actions.changeColor(color)(
         this.editorView.state,
         this.editorView.dispatch,
       );
@@ -510,11 +510,12 @@ export default class WebBridgeImpl
     inputMethod: BlockTypeInputMethod = INPUT_METHOD.INSERT_MENU,
   ) {
     if (this.editorView) {
-      const { state, dispatch } = this.editorView;
-      this.pluginInjectionApi?.blockType.actions.setBlockType(
-        blockType,
-        inputMethod,
-      )(state, dispatch);
+      this.pluginInjectionApi?.core.actions.execute(
+        this.pluginInjectionApi?.blockType.commands.setTextLevel(
+          blockType as TextBlockTypes,
+          inputMethod,
+        ),
+      );
     }
   }
 

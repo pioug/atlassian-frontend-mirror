@@ -1,1 +1,1 @@
-export { createDefaultPreset } from './labs/next/presets/default';
+export { createDefaultPreset } from './presets/default';

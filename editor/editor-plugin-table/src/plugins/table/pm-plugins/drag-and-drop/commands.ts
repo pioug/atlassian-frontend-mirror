@@ -11,7 +11,7 @@ import {
   selectRow,
 } from '@atlaskit/editor-tables/utils';
 
-import type { DraggableType } from '../../types';
+import type { DraggableType, TableDirection } from '../../types';
 import { TableDecorations } from '../../types';
 import {
   createColumnInsertLine,
@@ -119,5 +119,36 @@ export const moveSource = (
       const newTr = move(sourceIndex, targetIndex)(tr);
       const select = isTableRow ? selectRow : selectColumn;
       return select(targetIndex)(newTr);
+    },
+  );
+
+export const toggleDragMenu = (
+  isDragMenuOpen: boolean | undefined,
+  direction?: TableDirection,
+  index?: number,
+) =>
+  createCommand(
+    (state) => {
+      let {
+        isDragMenuOpen: previousOpenState,
+        dragMenuDirection,
+        dragMenuIndex,
+      } = getPluginState(state);
+      if (previousOpenState === isDragMenuOpen) {
+        return false;
+      }
+
+      return {
+        type: DragAndDropActionType.TOGGLE_DRAG_MENU,
+        data: {
+          isDragMenuOpen:
+            isDragMenuOpen === undefined ? !previousOpenState : isDragMenuOpen,
+          direction: direction ?? dragMenuDirection,
+          index: index ?? dragMenuIndex,
+        },
+      };
+    },
+    (tr: Transaction) => {
+      return tr.setMeta('addToHistory', false);
     },
   );

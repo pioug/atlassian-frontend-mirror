@@ -1,4 +1,4 @@
-import createUniversalPreset from '../labs/next/presets/universal';
+import createUniversalPreset from '../presets/universal';
 import type { EditorProps, EditorPlugin } from '../types';
 import { getDefaultPresetOptionsFromEditorProps } from './create-plugins-list';
 import { createFeatureFlagsFromProps } from './feature-flags-from-props';

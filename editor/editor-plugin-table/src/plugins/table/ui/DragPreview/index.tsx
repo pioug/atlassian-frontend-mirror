@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Box, xcss } from '@atlaskit/primitives';
 
+import type { TableDirection } from '../../types';
 import { DragInMotionIcon } from '../icons/DragInMotionIcon';
 
 const boxStyles = xcss({
@@ -17,7 +18,7 @@ export const DragPreview = ({
   width,
   height,
 }: {
-  direction: 'column' | 'row';
+  direction: TableDirection;
   width: number;
   height: number;
 }) => {

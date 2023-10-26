@@ -81,6 +81,15 @@ export const TEXT_BLOCK_TYPES = [
   HEADING_6,
 ];
 
+export type TextBlockTypes =
+  | 'normal'
+  | 'heading1'
+  | 'heading2'
+  | 'heading3'
+  | 'heading4'
+  | 'heading5'
+  | 'heading6';
+
 export const WRAPPER_BLOCK_TYPES = [BLOCK_QUOTE, CODE_BLOCK, PANEL];
 export const ALL_BLOCK_TYPES = TEXT_BLOCK_TYPES.concat(WRAPPER_BLOCK_TYPES);
 

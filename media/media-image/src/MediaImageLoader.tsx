@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { WithMediaClientConfigProps } from '@atlaskit/media-client';
+import { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 import { MediaImageInternalProps, MediaImageState } from './mediaImage';
 
 export interface MediaImageLoaderChildrenProps {
@@ -39,7 +39,7 @@ export class MediaImageLoader extends React.PureComponent<
       try {
         const [mediaClient, mediaImageModule] = await Promise.all([
           import(
-            /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
+            /* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
           ),
           import(
             /* webpackChunkName: "@atlaskit-internal_media-image" */ './mediaImage'

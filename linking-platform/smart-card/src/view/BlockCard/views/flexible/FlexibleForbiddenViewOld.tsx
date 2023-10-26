@@ -1,21 +1,17 @@
 import React, { useMemo } from 'react';
 import { JsonLd } from 'json-ld-types';
-import FlexibleCard from '../../../FlexibleCard';
-import TitleBlock from '../../../FlexibleCard/components/blocks/title-block';
-import { CustomBlock } from '../../../FlexibleCard/components/blocks';
 import { token } from '@atlaskit/tokens';
 import { R300 } from '@atlaskit/theme/colors';
 import { messages } from '../../../../messages';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
-import BlockCardFooter from '../../components/flexible/footer';
 import { ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { ForbiddenAction } from '../../actions/flexible/ForbiddenAction';
 import Text from '../../../FlexibleCard/components/elements/text';
-import { SmartLinkStatus } from '../../../../constants';
 import { FlexibleBlockCardProps } from './types';
 import { getForbiddenJsonLd } from '../../../../utils/jsonld';
 import { extractProvider } from '@atlaskit/link-extractors';
 import { extractRequestAccessContext } from '../../../../extractors/common/context';
+import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
 /**
@@ -24,16 +20,11 @@ import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardSty
  * @deprecated Replaced by FlexibleForbiddenView
  */
 const FlexibleForbiddenView = ({
-  anchorTarget,
-  cardState,
-  onAuthorize,
-  onClick,
-  onError,
   testId = 'smart-block-forbidden-view',
-  url,
-  titleBlockProps,
+  ...props
 }: FlexibleBlockCardProps) => {
-  const status = cardState.status as SmartLinkStatus;
+  const { cardState, onAuthorize, url } = props;
+
   const details = cardState?.details;
   const cardMetadata = details?.meta ?? getForbiddenJsonLd().meta;
   const provider = extractProvider(details?.data as JsonLd.Data.BaseData);
@@ -73,39 +64,20 @@ const FlexibleForbiddenView = ({
   }, [onAuthorize, requestAccessContext, providerName]);
 
   return (
-    <FlexibleCard
-      appearance="block"
-      cardState={cardState}
-      onAuthorize={onAuthorize}
-      onClick={onClick}
-      onError={onError}
-      testId={testId}
-      ui={{ hideElevation: true }}
-      url={url}
-    >
-      <TitleBlock
-        hideRetry={true}
-        anchorTarget={anchorTarget}
-        {...titleBlockProps}
+    <UnresolvedView {...props} actions={actions} testId={testId}>
+      <LockIcon
+        label="forbidden-lock-icon"
+        size="small"
+        primaryColor={token('color.icon.danger', R300)}
+        testId={`${testId}-lock-icon`}
       />
-      <CustomBlock>
-        <LockIcon
-          label="forbidden-lock-icon"
-          size="small"
-          primaryColor={token('color.icon.danger', R300)}
-          testId={`${testId}-lock-icon`}
-        />
-        <Text
-          message={{
-            descriptor: messages[descriptiveMessageKey],
-            values: { context: providerName },
-          }}
-        />
-      </CustomBlock>
-      <CustomBlock>
-        <BlockCardFooter actions={actions} status={status} />
-      </CustomBlock>
-    </FlexibleCard>
+      <Text
+        message={{
+          descriptor: messages[descriptiveMessageKey],
+          values: { context: providerName },
+        }}
+      />
+    </UnresolvedView>
   );
 };
 

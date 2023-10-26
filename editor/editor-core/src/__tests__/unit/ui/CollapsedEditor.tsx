@@ -7,7 +7,7 @@ import Editor from '../../../editor';
 import { ComposableEditor } from '../../../composable-editor';
 
 import CollapsedEditor from '../../../ui/CollapsedEditor';
-import createUniversalPreset from '../../../labs/next/presets/universal';
+import createUniversalPreset from '../../../presets/universal';
 
 describe('CollapsedEditor', () => {
   it('should load even if IntlProvider is not provided', () => {

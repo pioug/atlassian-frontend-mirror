@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "189.0.6",
+  "version": "189.0.11",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -60,7 +60,7 @@
     "@atlaskit/editor-plugin-analytics": "^0.2.0",
     "@atlaskit/editor-plugin-base": "^0.2.0",
     "@atlaskit/editor-plugin-better-type-history": "^0.1.0",
-    "@atlaskit/editor-plugin-block-type": "^2.0.0",
+    "@atlaskit/editor-plugin-block-type": "^3.0.0",
     "@atlaskit/editor-plugin-border": "^0.1.0",
     "@atlaskit/editor-plugin-caption": "^0.2.0",
     "@atlaskit/editor-plugin-card": "^0.10.0",
@@ -98,6 +98,7 @@
     "@atlaskit/editor-plugin-status": "^0.1.0",
     "@atlaskit/editor-plugin-submit-editor": "^0.1.0",
     "@atlaskit/editor-plugin-table": "^5.3.0",
+    "@atlaskit/editor-plugin-text-color": "^0.1.0",
     "@atlaskit/editor-plugin-text-formatting": "^0.4.0",
     "@atlaskit/editor-plugin-type-ahead": "^0.7.0",
     "@atlaskit/editor-plugin-unsupported-content": "^0.2.0",
@@ -120,7 +121,7 @@
     "@atlaskit/radio": "^5.6.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/select": "^16.7.0",
-    "@atlaskit/smart-card": "^26.37.0",
+    "@atlaskit/smart-card": "^26.38.0",
     "@atlaskit/smart-user-picker": "^6.3.0",
     "@atlaskit/spinner": "^15.6.0",
     "@atlaskit/tabs": "^13.4.0",

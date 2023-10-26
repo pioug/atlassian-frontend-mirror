@@ -40,10 +40,6 @@ export const isRowControlsButton = (node: HTMLElement | null): boolean =>
   containsClassName(node, ClassName.ROW_CONTROLS_BUTTON) ||
   containsClassName(node, ClassName.NUMBERED_COLUMN_BUTTON);
 
-export const isRowDragControlsButton = (node: HTMLElement | null) =>
-  containsClassName(node, ClassName.ROW_CONTROLS_WITH_DRAG) ||
-  closestElement(node, `.${ClassName.ROW_CONTROLS_WITH_DRAG}`);
-
 export const isResizeHandleDecoration = (node: HTMLElement | null): boolean =>
   containsClassName(node, ClassName.RESIZE_HANDLE_DECORATION);
 
@@ -54,6 +50,17 @@ export const isTableControlsButton = (node: HTMLElement | null): boolean =>
 export const isTableContainerOrWrapper = (node: HTMLElement | null): boolean =>
   containsClassName(node, ClassName.TABLE_CONTAINER) ||
   containsClassName(node, ClassName.TABLE_NODE_WRAPPER);
+
+/** drag-and-drop classes */
+export const isRowDragControlsButton = (node: HTMLElement | null) =>
+  containsClassName(node, ClassName.DRAG_ROW_CONTROLS) ||
+  closestElement(node, `.${ClassName.DRAG_ROW_CONTROLS}`);
+
+export const isDragRowFloatingInsertDot = (node: HTMLElement | null) =>
+  containsClassName(node, ClassName.DRAG_ROW_FLOATING_INSERT_DOT_WRAPPER);
+
+export const isDragColumnFloatingInsertDot = (node: HTMLElement | null) =>
+  containsClassName(node, ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT_WRAPPER);
 
 /*
  * This function returns which side of a given element the mouse cursor is,

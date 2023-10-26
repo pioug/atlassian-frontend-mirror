@@ -15,7 +15,6 @@ import {
   findControlsHoverDecoration,
   updateDecorations,
 } from '../../../utils/decoration';
-import { pluginKey as tablePluginKey } from '../../plugin-key';
 
 import { composeDecorations } from './compose-decorations';
 import type { DecorationTransformer } from './types';
@@ -50,10 +49,9 @@ const maybeUpdateColumnControlsDecoration: DecorationTransformer = ({
   tr,
 }): DecorationSet => {
   const table = findTable(tr.selection);
-  const meta = tr.getMeta(tablePluginKey);
 
   // avoid re-drawing state if dnd decorations don't need to be updated
-  if (!table && meta?.type !== 'HOVER_CELL') {
+  if (!table) {
     return decorationSet;
   }
 

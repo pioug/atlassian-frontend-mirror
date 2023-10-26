@@ -180,6 +180,32 @@ const InsertButtonHover = () => css`
   }
 `;
 
+export const dragInsertButtonWrapper = (props: ThemeProps) => css`
+  .${ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER} {
+    position: absolute;
+    z-index: ${akEditorUnitZIndex + 10};
+    bottom: -5px;
+    left: 3px;
+  }
+  .${ClassName.DRAG_CONTROLS_INSERT_BUTTON} {
+    ${Button(`
+    background: ${token('elevation.surface.overlay', 'white')};
+    color: ${token('color.icon', N300)};
+    border: 1px solid ${token(
+      'color.background.accent.gray.subtler',
+      '#C1C7D0',
+    )};
+    border-radius: 50%;
+  `)}
+  }
+  .${ClassName.DRAG_CONTROLS_INSERT_BUTTON}:hover {
+    background: ${token('color.background.brand.bold', B300)};
+    border: 1px solid ${token('color.background.brand.bold', B300)};
+    color: ${token('color.icon.inverse', 'white')};
+    cursor: pointer;
+  }
+`;
+
 export const insertColumnButtonWrapper = (props: ThemeProps) => css`
   ${InsertButton()}
   ${InsertButtonHover()}
@@ -388,7 +414,7 @@ export const floatingColumnControls = (props: ThemeProps) => {
       }
     }
 
-    .${ClassName.COLUMN_CONTROLS_WITH_DRAG} {
+    .${ClassName.DRAG_COLUMN_CONTROLS} {
       box-sizing: border-box;
 
       .${ClassName.COLUMN_CONTROLS_INNER} {

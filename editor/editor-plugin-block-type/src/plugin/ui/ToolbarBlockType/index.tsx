@@ -16,6 +16,7 @@ import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/ed
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 
+import type { TextBlockTypes } from '../../block-types';
 import type { BlockTypeState } from '../../pm-plugins/main';
 import type { BlockType } from '../../types';
 
@@ -39,7 +40,7 @@ export interface Props {
   popupsBoundariesElement?: HTMLElement;
   popupsScrollableElement?: HTMLElement;
   editorView?: EditorView;
-  setBlockType: (type: string) => void;
+  setTextLevel: (type: TextBlockTypes) => void;
 }
 
 export interface State {
@@ -228,7 +229,7 @@ class ToolbarBlockType extends React.PureComponent<
     shouldCloseMenu: boolean;
   }) => {
     const blockType = item.value;
-    this.props.setBlockType(blockType.name);
+    this.props.setTextLevel(blockType.name as TextBlockTypes);
     if (shouldCloseMenu) {
       this.setState({ ...this.state, active: false });
     }

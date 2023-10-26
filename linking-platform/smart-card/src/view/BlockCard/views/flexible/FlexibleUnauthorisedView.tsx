@@ -1,25 +1,21 @@
-import React, { useCallback, useMemo } from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
+import { token } from '@atlaskit/tokens';
+import { useCallback, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import FlexibleCard from '../../../FlexibleCard';
+import { getExtensionKey } from '../../../../state/helpers';
 import { ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { AuthorizeAction } from '../../actions/flexible/AuthorizeAction';
-import BlockCardFooter from '../../components/flexible/footer';
-import {
-  CustomBlock,
-  TitleBlock,
-} from '../../../FlexibleCard/components/blocks';
-import { SmartLinkStatus } from '../../../../constants';
 import { FlexibleBlockCardProps } from './types';
 import { extractProvider } from '@atlaskit/link-extractors';
 import { JsonLd } from 'json-ld-types';
 import UnauthorisedViewContent from '../../../common/UnauthorisedViewContent';
-import { css } from '@emotion/react';
-import { tokens } from '../../../../utils/token';
 import { messages } from '../../../../messages';
+import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
 const contentStyles = css`
-  color: ${tokens.text};
+  color: ${token('color.text.subtlest', '#626F86')};
   margin-top: 0.5rem;
   font-size: 0.75rem;
 `;
@@ -32,29 +28,23 @@ const contentStyles = css`
  * @see FlexibleCardProps
  */
 const FlexibleUnauthorisedView = ({
-  anchorTarget,
-  analytics,
-  cardState,
-  extensionKey = '',
-  onAuthorize,
-  onClick,
-  onError,
   testId = 'smart-block-unauthorized-view',
-  url,
-  titleBlockProps,
+  ...props
 }: FlexibleBlockCardProps) => {
+  const { analytics, cardState, onAuthorize } = props;
+  const extensionKey = getExtensionKey(cardState?.details) ?? '';
   const data = cardState.details?.data as JsonLd.Data.BaseData;
   const providerName = extractProvider(data)?.text;
 
   const handleAuthorize = useCallback(() => {
     if (onAuthorize) {
-      analytics.track.appAccountAuthStarted({
+      analytics?.track.appAccountAuthStarted({
         extensionKey,
       });
 
       onAuthorize();
     }
-  }, [onAuthorize, extensionKey, analytics.track]);
+  }, [onAuthorize, extensionKey, analytics?.track]);
 
   const content = useMemo(
     () =>
@@ -83,32 +73,11 @@ const FlexibleUnauthorisedView = ({
   );
 
   return (
-    <FlexibleCard
-      appearance="block"
-      cardState={cardState}
-      onAuthorize={onAuthorize}
-      onClick={onClick}
-      onError={onError}
-      testId={testId}
-      ui={{ hideElevation: true }}
-      url={url}
-    >
-      <TitleBlock
-        hideRetry={true}
-        anchorTarget={anchorTarget}
-        {...titleBlockProps}
-      />
-      <CustomBlock overrideCss={contentStyles} testId={`${testId}-content`}>
-        <div>{content}</div>
-      </CustomBlock>
-      <CustomBlock>
-        <BlockCardFooter
-          actions={actions}
-          status={SmartLinkStatus.Unauthorized}
-          actionGroupAppearance="primary"
-        />
-      </CustomBlock>
-    </FlexibleCard>
+    <UnresolvedView {...props} actions={actions} testId={testId}>
+      <div css={contentStyles} data-testid={`${testId}-content`}>
+        {content}
+      </div>
+    </UnresolvedView>
   );
 };
 

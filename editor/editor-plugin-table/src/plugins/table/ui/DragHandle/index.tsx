@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
 
+import type { TableDirection } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 import { DragPreview } from '../DragPreview';
 import { DragHandleIcon } from '../icons';
@@ -18,11 +19,12 @@ type DragHandleProps = {
   indexes: number[];
   previewWidth?: number;
   previewHeight?: number;
-  direction?: 'column' | 'row';
+  direction?: TableDirection;
   appearance?: DragHandleAppearance;
   onClick?: MouseEventHandler;
   onMouseOver?: MouseEventHandler;
   onMouseOut?: MouseEventHandler;
+  onMouseUp?: MouseEventHandler;
 };
 
 export const DragHandle = ({
@@ -34,6 +36,7 @@ export const DragHandle = ({
   previewHeight,
   onMouseOver,
   onMouseOut,
+  onMouseUp,
   onClick,
 }: DragHandleProps) => {
   const dragHandleDivRef = useRef<HTMLButtonElement>(null);
@@ -85,6 +88,7 @@ export const DragHandle = ({
       data-testid="table-floating-column-controls-drag-handle"
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
+      onMouseUp={onMouseUp}
       onClick={onClick}
     >
       <DragHandleIcon />

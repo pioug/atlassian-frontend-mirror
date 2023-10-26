@@ -56,6 +56,7 @@ import {
   columnControlsDecoration,
   columnControlsLineMarker,
   DeleteButton,
+  dragInsertButtonWrapper,
   floatingColumnControls,
   HeaderButton,
   HeaderButtonDanger,
@@ -356,6 +357,8 @@ export const tableStyles = (
     .${ClassName.CONTROLS_FLOATING_BUTTON_ROW} {
       ${insertRowButtonWrapper(props)}
     }
+
+    ${dragInsertButtonWrapper(props)}
 
     /* Delete button */
     ${DeleteButton(props)}
@@ -700,12 +703,64 @@ export const tableStyles = (
       )}
     }
 
-    .${ClassName.ROW_CONTROLS_WITH_DRAG} {
+    .${ClassName.DRAG_ROW_CONTROLS} {
       display: grid;
       align-items: center;
       position: absolute;
       left: -4px;
       z-index: ${akEditorUnitZIndex};
+
+      .${ClassName.DRAG_ROW_FLOATING_INSERT_DOT_WRAPPER} {
+        align-self: end;
+        position: absolute;
+        height: 100%;
+        width: 24px;
+      }
+
+      .${ClassName.DRAG_ROW_FLOATING_INSERT_DOT} {
+        position: absolute;
+        bottom: -3px;
+        left: 6px;
+        background-color: ${token(
+          'color.background.accent.gray.subtler',
+          '#C1C7D0',
+        )};
+        height: 4px;
+        width: 4px;
+        border-radius: 50%;
+      }
+    }
+
+    .${ClassName.DRAG_COLUMN_CONTROLS} {
+      .${ClassName.COLUMN_CONTROLS_INNER} {
+        height: 24px;
+        position: absolute;
+        top: ${token('space.negative.150', '-12px')};
+        z-index: ${akEditorUnitZIndex};
+      }
+
+      .${ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT_WRAPPER} {
+        position: absolute;
+        height: 24px;
+        width: 100%;
+      }
+
+      .${ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT} {
+        background-color: ${token(
+          'color.background.accent.gray.subtler',
+          '#C1C7D0',
+        )};
+        height: 4px;
+        width: 4px;
+        border-radius: 50%;
+        position: absolute;
+        right: -2px;
+      }
+    }
+
+    .${ClassName.CONTROLS_FLOATING_BUTTON_ROW}
+      .${ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER} {
+      bottom: -1px;
     }
 
     .${ClassName.DRAG_HANDLE_BUTTON_CONTAINER} {
@@ -719,10 +774,10 @@ export const tableStyles = (
       display: flex;
       justify-content: center;
       align-items: center;
+      outline: none !important;
 
       svg {
         rect {
-          //
           fill: ${token('color.background.accent.gray.subtlest', '#F1F2F4')};
         }
         g {

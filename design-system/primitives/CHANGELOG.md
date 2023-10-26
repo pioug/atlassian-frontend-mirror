@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.7.0
+
+### Minor Changes
+
+- [#42130](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42130) [`a64dc3026de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a64dc3026de) - Create the new Link primitive (Unsafe to use, still in Alpha)
+
 ## 1.6.8
 
 ### Patch Changes

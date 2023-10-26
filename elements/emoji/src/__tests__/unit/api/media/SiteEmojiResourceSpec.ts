@@ -1,12 +1,12 @@
-jest.mock('@atlaskit/media-client', () => {
+jest.mock('@atlaskit/media-client-react', () => {
   return {
-    ...jest.requireActual<Object>('@atlaskit/media-client'),
+    ...jest.requireActual<Object>('@atlaskit/media-client-react'),
     getMediaClient: jest.fn(),
   };
 });
 
 import { FileState } from '@atlaskit/media-client';
-import * as MediaClientModule from '@atlaskit/media-client';
+import * as MediaClientReactModule from '@atlaskit/media-client-react';
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 
 import fetchMock from 'fetch-mock/cjs/client';
@@ -47,8 +47,8 @@ class TestSiteEmojiResource extends SiteEmojiResource {
 }
 
 let mockGetMediaClient: jest.SpyInstance<
-  (typeof MediaClientModule)['getMediaClient']
-> = MediaClientModule.getMediaClient as any;
+  (typeof MediaClientReactModule)['getMediaClient']
+> = MediaClientReactModule.getMediaClient as any;
 
 describe('SiteEmojiResource', () => {
   afterEach(() => {

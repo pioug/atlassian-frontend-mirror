@@ -6,12 +6,22 @@ order: 2
 
 Use the radio component to customize how you present radio buttons. For example, options listed in a table.
 
+In most situations where you want to present a list of radio options, you'll use a [radio group](/components/radio/radio-group/examples).
+
 ## Anatomy
 
-![Radio anatomy](images/radio-anatomy.png)
+![Anatomy diagram of the radio button. A caption follows this image.](images/radio-anatomy.png)
+
+The radio button can appear in two states: a selected state (a filled circle), or unselected (an empty circle).
 
 1. **Current selection:** Indicates the selected option.
 2. **Option:** Clicking on another option will de-select the current option.
+
+## Accessibility
+
+- Include error messages for required or invalid radio fields (for example, `Please select an option`)
+- Never preselect a high-risk option, especially if the radio is related to payment, privacy or security. Use the lowest-risk, lowest-change option as the default to ensure that users don’t accidentally opt in when submitting forms.
+- Don’t use a `disabled` radio button if it needs to remain in the tab order. Instead, use validation so that screen reader users can perceive the radio button and hear an error message explaining why that option cannot currently be selected.
 
 ## Best practices
 
@@ -22,9 +32,13 @@ Use the radio component to customize how you present radio buttons. For example,
 - Make one radio group option the default. Select the safest, most secure, and private option first. If safety and security aren’t factors, select the most likely or convenient option.
 - If you need an unselected state, add a radio group with a "None" option.
 - If you can't have a list of all possible options, add an "Other" option.
-- Avoid putting things in alphabetical order because it is language dependent and not localizable.
-- Make sure choices don’t overlap. For example, Select age: 0-20, 20-40 — What do you pick if your age is 20?
-- Avoid forgetting to include choices. For example, Select age: Below 20, Above 20 — What do you pick if you are 20?
+
+Avoid:
+
+- Alphabetical orders. This can’t be localized, as it is language-specific.
+- Numeric choices that overlap (for example, Select age: 0-20, 20-40 — it's unclear which option to select if your age is 20).
+- Numeric choices that skip a number (for example, Select age: Below 20, Above 20 — there is no option to select if your age is 20).
+- Long lists of options. If you have a large number of options to choose from, use the [select component](/components/select/examples).
 
 ## Content guidelines
 
@@ -33,3 +47,9 @@ Labels should be concise and provide context.
 ## Server
 
 Consult [AUI](https://docs.atlassian.com/aui/latest/docs/forms.html) for implementation details.
+
+## Related
+
+- For a list of options where people can select multiple answers, use [checkbox](/components/checkbox).
+- For longer lists of options, use [select](/components/select).
+- To turn something on or off, use a [toggle](/components/toggle).

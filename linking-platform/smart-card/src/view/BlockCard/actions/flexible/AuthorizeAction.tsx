@@ -17,6 +17,7 @@ export const AuthorizeAction = (
   providerName?: string,
 ): CustomActionItem =>
   ({
+    appearance: 'primary',
     name: ActionName.CustomAction,
     content: providerName ? (
       <FormattedMessage

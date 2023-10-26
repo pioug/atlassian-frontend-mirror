@@ -5,7 +5,7 @@ import { render } from '@testing-library/react';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
-import createUniversalPreset from '../../../labs/next/presets/universal';
+import createUniversalPreset from '../../../presets/universal';
 import { basePlugin } from '@atlaskit/editor-plugin-base';
 import { ComposableEditor } from '../../editor';
 

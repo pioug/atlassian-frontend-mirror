@@ -20,6 +20,7 @@ const SnippetBlock: React.FC<SnippetBlockProps> = ({
   maxLines = DEFAULT_MAX_LINES,
   status = SmartLinkStatus.Fallback,
   testId = 'smart-block-snippet',
+  text,
   ...blockProps
 }) => {
   if (status !== SmartLinkStatus.Resolved) {
@@ -35,7 +36,7 @@ const SnippetBlock: React.FC<SnippetBlockProps> = ({
 
   return (
     <Block {...blockProps} testId={`${testId}-resolved-view`}>
-      <Snippet maxLines={snippetMaxLines} />
+      <Snippet maxLines={snippetMaxLines} text={text} />
     </Block>
   );
 };

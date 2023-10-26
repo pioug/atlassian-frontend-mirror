@@ -19,11 +19,7 @@ import { MetadataList } from '../src/view/common/MetadataList';
 import { CollaboratorList } from '../src/view/BlockCard/components/CollaboratorList';
 import { ActionList } from '../src/view/BlockCard/components/ActionList';
 
-import {
-  BlockCardResolvedView,
-  BlockCardResolvingView,
-  PreviewAction,
-} from '../src/view/BlockCard';
+import { BlockCardResolvingView, PreviewAction } from '../src/view/BlockCard';
 import { CollaboratorListProps } from '../src/view/BlockCard/components/CollaboratorList';
 import { mockAnalytics } from '../src/utils/mocks';
 import CardView from './utils/card-view';
@@ -38,6 +34,7 @@ import {
   ForbiddenWithSiteRequestAccessClient,
   NotFoundClient,
   NotFoundWithSiteAccessExistsClient,
+  ResolvedClient,
   UnAuthClient,
   UnAuthClientWithNoAuthFlow,
 } from './utils/custom-client';
@@ -222,34 +219,7 @@ export default () => {
           <h2 css={headerCSS}>Views</h2>
           <h6 css={subHeaderCSS}>Resolving View</h6>
           <BlockCardResolvingView />
-          <h6 css={subHeaderCSS}>Resolved View</h6>
-          <BlockCardResolvedView
-            icon={resolvedIconProps}
-            users={resolvedCollabProps.items}
-            actions={resolvedActionListProps.items}
-            thumbnail={kittyThumb}
-            byline={bylineProps.text}
-            context={{ text: providerProps.name, icon: providerProps.icon }}
-            title="Smart Links designs"
-            link="https://icatcare.org/app/uploads/2019/09/The-Kitten-Checklist-1.png"
-            handleAvatarClick={() => {
-              console.log('you clicked an avatar!');
-            }}
-          />
-          <h6 css={subHeaderCSS}>Resolved View (with details)</h6>
-          <BlockCardResolvedView
-            icon={resolvedIconProps}
-            users={resolvedCollabProps.items}
-            actions={resolvedActionListProps.items}
-            thumbnail={kittyThumb}
-            context={{ text: providerProps.name, icon: providerProps.icon }}
-            title="Smart Links designs"
-            details={resolvedViewDetails}
-            link="https://icatcare.org/app/uploads/2019/09/The-Kitten-Checklist-1.png"
-            handleAvatarClick={() => {
-              console.log('you clicked an avatar!');
-            }}
-          />
+          {render(new ResolvedClient(), '[Resolved]')}
           {render(new ForbiddenClient(), '[Forbidden] Default')}
           {render(
             new ForbiddenWithSiteRequestAccessClient(),

@@ -75,6 +75,7 @@ import type { ColumnResizingPluginState, PluginConfig } from './types';
 import FloatingContextualButton from './ui/FloatingContextualButton';
 import FloatingContextualMenu from './ui/FloatingContextualMenu';
 import FloatingDeleteButton from './ui/FloatingDeleteButton';
+import FloatingDragMenu from './ui/FloatingDragMenu';
 import FloatingInsertButton from './ui/FloatingInsertButton';
 import LayoutButton from './ui/LayoutButton';
 import { isLayoutSupported } from './utils';
@@ -363,6 +364,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               stickyHeadersState,
               tablePluginState,
               tableWidthPluginState,
+              dragAndDropState,
             }) => {
               const { state } = editorView;
               const isColumnResizing = resizingPluginState?.dragging;
@@ -381,6 +383,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                 insertRowButtonIndex,
                 isHeaderColumnEnabled,
                 isHeaderRowEnabled,
+                isDragAndDropEnabled,
                 tableWrapperTarget,
               } = tablePluginState!;
 
@@ -441,6 +444,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                       insertRowButtonIndex={insertRowButtonIndex}
                       isHeaderColumnEnabled={isHeaderColumnEnabled}
                       isHeaderRowEnabled={isHeaderRowEnabled}
+                      isDragAndDropEnabled={isDragAndDropEnabled}
                       editorView={editorView}
                       mountPoint={popupsMountPoint}
                       boundariesElement={popupsBoundariesElement}
@@ -467,7 +471,20 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                       }
                     />
                   )}
-                  {allowControls && !isResizing && (
+                  {isDragAndDropEnabled && (
+                    <FloatingDragMenu
+                      editorView={editorView}
+                      mountPoint={popupsMountPoint}
+                      boundariesElement={popupsBoundariesElement}
+                      tableRef={tableRef as HTMLTableElement}
+                      tableNode={tableNode}
+                      targetCellPosition={targetCellPosition}
+                      direction={dragAndDropState?.dragMenuDirection}
+                      index={dragAndDropState?.dragMenuIndex}
+                      isOpen={!!dragAndDropState?.isDragMenuOpen && !isResizing}
+                    />
+                  )}
+                  {allowControls && !isDragAndDropEnabled && !isResizing && (
                     <FloatingDeleteButton
                       editorView={editorView}
                       selection={editorView.state.selection}

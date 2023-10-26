@@ -42,7 +42,7 @@
     "@atlaskit/ds-explorations": "^3.0.0",
     "@atlaskit/heading": "^1.4.0",
     "@atlaskit/icon": "^21.12.0",
-    "@atlaskit/primitives": "^1.6.0",
+    "@atlaskit/primitives": "^1.7.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.28.0",
     "@babel/runtime": "^7.0.0"

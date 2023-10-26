@@ -41,6 +41,7 @@
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/icon-file-type": "^6.4.0",
     "@atlaskit/media-client": "^24.0.0",
+    "@atlaskit/media-client-react": "^1.3.0",
     "@atlaskit/media-common": "^9.0.0",
     "@atlaskit/media-ui": "^25.0.0",
     "@atlaskit/side-navigation": "^3.0.0",

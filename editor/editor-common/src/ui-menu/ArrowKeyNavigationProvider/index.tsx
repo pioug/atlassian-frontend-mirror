@@ -4,10 +4,8 @@ import { ReactEditorViewContext } from '../../ui-react';
 
 import { ColorPaletteArrowKeyNavigationProvider } from './ColorPaletteArrowKeyNavigationProvider';
 import { MenuArrowKeyNavigationProvider } from './MenuArrowKeyNavigationProvider';
-import {
-  ArrowKeyNavigationProviderProps,
-  ArrowKeyNavigationType,
-} from './types';
+import type { ArrowKeyNavigationProviderProps } from './types';
+import { ArrowKeyNavigationType } from './types';
 
 export const ArrowKeyNavigationProvider: React.FC<
   ArrowKeyNavigationProviderProps

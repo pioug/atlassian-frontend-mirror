@@ -1,37 +1,27 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { InlineCardEvent, MediaInlineCard } from '@atlaskit/media-card';
+import type { InlineCardEvent } from '@atlaskit/media-card';
+import { MediaInlineCard } from '@atlaskit/media-card';
 import {
   MediaInlineCardErroredView,
   MediaInlineCardLoadingView,
   messages,
 } from '@atlaskit/media-ui';
-import {
+import type {
   ContextIdentifierProvider,
   ProviderFactory,
-  WithProviders,
 } from '@atlaskit/editor-common/provider-factory';
-import {
-  FileIdentifier,
-  getMediaClient,
-  FileState,
-} from '@atlaskit/media-client';
-import {
-  getClipboardAttrs,
-  MediaProvider,
-  ClipboardAttrs,
-  mediaIdentifierMap,
-} from '../../ui/MediaCard';
-import { MediaClientConfig } from '@atlaskit/media-core/auth';
-import {
-  createIntl,
-  injectIntl,
-  IntlShape,
-  WrappedComponentProps,
-} from 'react-intl-next';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory';
+import type { FileIdentifier, FileState } from '@atlaskit/media-client';
+import { getMediaClient } from '@atlaskit/media-client-react';
+import type { MediaProvider, ClipboardAttrs } from '../../ui/MediaCard';
+import { getClipboardAttrs, mediaIdentifierMap } from '../../ui/MediaCard';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
+import { createIntl, injectIntl } from 'react-intl-next';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import { RendererAppearance } from '../../ui/Renderer/types';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
-import { RendererContext } from '../types';
+import type { RendererAppearance } from '../../ui/Renderer/types';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { RendererContext } from '../types';
 
 type MediaInlineProviders = {
   mediaProvider?: Promise<MediaProvider>;

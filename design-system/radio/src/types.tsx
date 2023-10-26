@@ -23,7 +23,7 @@ export type RadioValue = string;
 // If updating props in OwnProps, also update in ExtractReactTypeProps
 type OwnProps = {
   /**
-   * the aria-label attribute associated with the radio element
+   * The aria-label attribute associated with the radio element.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   ariaLabel?: string;
@@ -32,41 +32,41 @@ type OwnProps = {
    */
   isDisabled?: boolean;
   /**
-   * Marks this as a required field
+   * Marks this as a required field.
    */
   isRequired?: boolean;
   /**
-   * Field is invalid
+   * Marks this as an invalid field.
    */
   isInvalid?: boolean;
   /**
-   * Set the field as checked
+   * Set the field as checked.
    */
   isChecked?: boolean;
   /**
-   * The label value for the input rendered to the dom
+   * The label value for the input rendered to the DOM.
    */
   label?: ReactNode;
   /**
-   * onChange event handler, passed into the props of each `Radio` Component instantiated within `RadioGroup`
+   * onChange event handler, passed into the props of each `Radio` Component instantiated within `RadioGroup`.
    */
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement>,
     analyticsEvent: UIAnalyticsEvent,
   ) => void;
   /**
-   * Field value
+   * Field value.
    */
   value?: RadioValue;
   /**
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
    * we have 2 different testid generated based on the one you pass to the Radio component:
    * - `{testId}--radio-input` to check if it got changed to checked/unchecked.
-   * - `{testId}--radio-label` to click the input
+   * - `{testId}--radio-label` to click the input.
    */
   testId?: string;
   /**
-   * Additional information to be included in the `context` of analytics events that come from radio
+   * Additional information to be included in the `context` of analytics events that come from radio.
    */
   analyticsContext?: Record<string, any>;
 };
@@ -85,36 +85,36 @@ export type RadioProps = Combine<
 // Maintained for extract react types so it's clear what methods exist
 export interface ExtractReactTypeProps extends WithAnalyticsEventsProps {
   /**
-   * the aria-label attribute associated with the radio element
+   * The aria-label attribute associated with the radio element.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   ariaLabel?: string;
   /**
-   * Field disabled
+   * Marks this as a disabled field.
    */
   isDisabled?: boolean;
   /**
-   * Marks this as a required field
+   * Marks this as a required field.
    */
   isRequired?: boolean;
   /**
-   * Field is invalid
+   * Marks this as an invalid field.
    */
   isInvalid?: boolean;
   /**
-   * Set the field as checked
+   * Set the field as checked.
    */
   isChecked?: boolean;
   /**
-   * The label value for the input rendered to the dom
+   * The label value for the input rendered to the DOM.
    */
   label?: ReactNode;
   /**
-   * Field name, must be unique to the radio group
+   * Field name, must be unique to the radio group.
    */
   name?: string;
   /**
-   * `onChange` event handler, passed into the props of each `Radio` Component instantiated within RadioGroup
+   * `onChange` event handler, passed into the props of each `Radio` Component instantiated within RadioGroup.
    */
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -127,11 +127,11 @@ export interface ExtractReactTypeProps extends WithAnalyticsEventsProps {
   onMouseEnter?: React.MouseEventHandler;
   onMouseLeave?: React.MouseEventHandler;
   /**
-   * `onInvalid` event handler, passed into the props of each `Radio` component instantiated within `RadioGroup`
+   * `onInvalid` event handler, passed into the props of each `Radio` component instantiated within `RadioGroup`.
    */
   onInvalid?: (e: SyntheticEvent<any>) => void;
   /**
-   * Field value
+   * Field value.
    */
   value?: RadioValue;
   /**
@@ -142,7 +142,7 @@ export interface ExtractReactTypeProps extends WithAnalyticsEventsProps {
    */
   testId?: string;
   /**
-   * Additional information to be included in the `context` of analytics events that come from radio
+   * Additional information to be included in the `context` of analytics events that come from radio.
    */
   analyticsContext?: Record<string, any>;
 }

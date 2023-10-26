@@ -8,10 +8,10 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { setHeading } from '@atlaskit/editor-common/commands';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import type {
   Command,
+  EditorCommand,
   HeadingLevelsAndNormalText,
 } from '@atlaskit/editor-common/types';
 import {
@@ -22,6 +22,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables';
 
+import type { TextBlockTypes } from '../block-types';
 import { HEADINGS_BY_NAME, NORMAL_TEXT } from '../block-types';
 
 export type InputMethod =
@@ -31,34 +32,54 @@ export type InputMethod =
   | INPUT_METHOD.FORMATTING
   | INPUT_METHOD.KEYBOARD;
 
-export function setBlockType(name: string): Command {
-  return (state, dispatch) => {
-    const { nodes } = state.schema;
+export function setBlockType(name: TextBlockTypes): EditorCommand {
+  return ({ tr }) => {
+    const { nodes } = tr.doc.type.schema;
     if (name === NORMAL_TEXT.name && nodes.paragraph) {
-      return setNormalText()(state, dispatch);
+      return setNormalText()({ tr });
     }
 
     const headingBlockType = HEADINGS_BY_NAME[name];
     if (headingBlockType && nodes.heading && headingBlockType.level) {
-      return setHeading(headingBlockType.level)(state, dispatch);
+      return setHeading(headingBlockType.level)({ tr });
     }
 
-    return false;
+    return null;
+  };
+}
+
+export function setHeading(level: HeadingLevelsAndNormalText): EditorCommand {
+  return function ({ tr }) {
+    const {
+      selection,
+      doc: {
+        type: { schema },
+      },
+    } = tr;
+    const ranges =
+      selection instanceof CellSelection ? selection.ranges : [selection];
+    ranges.forEach(({ $from, $to }) => {
+      tr.setBlockType($from.pos, $to.pos, schema.nodes.heading, {
+        level,
+      });
+    });
+
+    return tr;
   };
 }
 
 export function setBlockTypeWithAnalytics(
-  name: string,
+  name: TextBlockTypes,
   inputMethod: InputMethod,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-): Command {
-  return (state, dispatch) => {
-    const { nodes } = state.schema;
-    if (name === NORMAL_TEXT.name && nodes.paragraph) {
-      return setNormalTextWithAnalytics(inputMethod, editorAnalyticsApi)(
-        state,
-        dispatch,
-      );
+): EditorCommand {
+  return ({ tr }) => {
+    const { nodes } = tr.doc.type.schema;
+    if (name === 'normal' && nodes.paragraph) {
+      return setNormalTextWithAnalytics(
+        inputMethod,
+        editorAnalyticsApi,
+      )({ tr });
     }
 
     const headingBlockType = HEADINGS_BY_NAME[name];
@@ -67,39 +88,40 @@ export function setBlockTypeWithAnalytics(
         headingBlockType.level,
         inputMethod,
         editorAnalyticsApi,
-      )(state, dispatch);
+      )({ tr });
     }
 
-    return false;
+    return null;
   };
 }
 
-export function setNormalText(): Command {
-  return function (state, dispatch) {
-    const { selection, schema, tr } = state;
+export function setNormalText(): EditorCommand {
+  return function ({ tr }) {
+    const {
+      selection,
+      doc: {
+        type: { schema },
+      },
+    } = tr;
     const ranges =
       selection instanceof CellSelection ? selection.ranges : [selection];
     ranges.forEach(({ $from, $to }) => {
       tr.setBlockType($from.pos, $to.pos, schema.nodes.paragraph);
     });
 
-    if (dispatch) {
-      dispatch(tr);
-    }
-
-    return true;
+    return tr;
   };
 }
 function withCurrentHeadingLevel(
-  fn: (level?: HeadingLevelsAndNormalText) => Command,
-): Command {
-  return (state, dispatch, view) => {
+  fn: (level?: HeadingLevelsAndNormalText) => EditorCommand,
+): EditorCommand {
+  return ({ tr }) => {
     // Find all headings and paragraphs of text
-    const { heading, paragraph } = state.schema.nodes;
+    const { heading, paragraph } = tr.doc.type.schema.nodes;
     const nodes = filterChildrenBetween(
-      state.doc,
-      state.selection.from,
-      state.selection.to,
+      tr.doc,
+      tr.selection.from,
+      tr.selection.to,
       (node: PMNode) => {
         return node.type === heading || node.type === paragraph;
       },
@@ -118,16 +140,16 @@ function withCurrentHeadingLevel(
       }
     }
 
-    return fn(level)(state, dispatch, view);
+    return fn(level)({ tr });
   };
 }
 
 export function setNormalTextWithAnalytics(
   inputMethod: InputMethod,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-): Command {
-  return withCurrentHeadingLevel(previousHeadingLevel =>
-    withAnalytics(editorAnalyticsApi, {
+): EditorCommand {
+  return withCurrentHeadingLevel(previousHeadingLevel => ({ tr }) => {
+    editorAnalyticsApi?.attachAnalyticsEvent({
       action: ACTION.FORMATTED,
       actionSubject: ACTION_SUBJECT.TEXT,
       eventType: EVENT_TYPE.TRACK,
@@ -137,8 +159,9 @@ export function setNormalTextWithAnalytics(
         newHeadingLevel: 0,
         previousHeadingLevel,
       },
-    })(setNormalText()),
-  );
+    })(tr);
+    return setNormalText()({ tr });
+  });
 }
 
 export const setHeadingWithAnalytics = (
@@ -146,8 +169,8 @@ export const setHeadingWithAnalytics = (
   inputMethod: InputMethod,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ) => {
-  return withCurrentHeadingLevel(previousHeadingLevel =>
-    withAnalytics(editorAnalyticsApi, {
+  return withCurrentHeadingLevel(previousHeadingLevel => ({ tr }) => {
+    editorAnalyticsApi?.attachAnalyticsEvent({
       action: ACTION.FORMATTED,
       actionSubject: ACTION_SUBJECT.TEXT,
       eventType: EVENT_TYPE.TRACK,
@@ -157,8 +180,9 @@ export const setHeadingWithAnalytics = (
         newHeadingLevel,
         previousHeadingLevel,
       },
-    })(setHeading(newHeadingLevel)),
-  );
+    })(tr);
+    return setHeading(newHeadingLevel)({ tr });
+  });
 };
 
 function insertBlockQuote(): Command {

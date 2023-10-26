@@ -18,6 +18,7 @@
 import type { AllowedBlockTypes } from '@atlaskit/editor-common/types';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { Command } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
@@ -48,7 +49,12 @@ export type BlockTypePlugin = NextEditorPlugin<
     sharedState: BlockTypeState | undefined;
     actions: {
       insertBlockQuote: (inputMethod: InputMethod) => Command;
-      setBlockType: (name: string, inputMethod: InputMethod) => Command;
+    };
+    commands: {
+      setTextLevel: (
+        level: TextBlockTypes,
+        inputMethod: InputMethod,
+      ) => EditorCommand;
     };
   }
 >;
@@ -88,6 +94,16 @@ export type InputMethod =
   | INPUT_METHOD.KEYBOARD
   | INPUT_METHOD.SHORTCUT
   | INPUT_METHOD.TOOLBAR;
+
+// @public (undocumented)
+export type TextBlockTypes =
+  | 'heading1'
+  | 'heading2'
+  | 'heading3'
+  | 'heading4'
+  | 'heading5'
+  | 'heading6'
+  | 'normal';
 
 // (No @packageDocumentation comment for this package)
 ```

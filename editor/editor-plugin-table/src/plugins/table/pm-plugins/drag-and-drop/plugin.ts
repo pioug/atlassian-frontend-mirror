@@ -5,6 +5,8 @@ import type {
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { getCellsInRow } from '@atlaskit/editor-tables/utils';
+import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 
 import type { DraggableSourceData } from '../../types';
@@ -14,6 +16,7 @@ import {
 } from '../../utils/merged-cells';
 import { getPluginState as getTablePluginState } from '../plugin-factory';
 
+import { DragAndDropActionType } from './actions';
 import { clearDropTarget, moveSource, setDropTarget } from './commands';
 import { DropTargetType } from './consts';
 import { createPluginState, getPluginState } from './plugin-factory';
@@ -27,12 +30,49 @@ export const createPlugin = (
   return new SafePlugin({
     state: createPluginState(dispatch, (state) => ({
       decorationSet: DecorationSet.empty,
-      // TODO: This is example placeholder state. We could use this to track which row/col is currently set as the drop target
-      // This would result in a blue highlight being displayed on the corrisponding row/column to single the drop target location.
       dropTargetType: DropTargetType.NONE,
       dropTargetIndex: 0,
+      isDragMenuOpen: false,
+      dragMenuIndex: 0,
     })),
     key: pluginKey,
+    appendTransaction: (transactions, oldState, newState) => {
+      const { targetCellPosition: oldTargetCellPosition } =
+        getTablePluginState(oldState);
+      const { targetCellPosition: newTargetCellPosition } =
+        getTablePluginState(newState);
+      const { isDragMenuOpen, dragMenuIndex } = getPluginState(newState);
+
+      // What's happening here? you asked... In a nutshell;
+      // If the target cell position changes while the drag menu is open then we want to close the drag menu if it has been opened.
+      // This will stop the drag menu from moving around the screen to different row/cols. Too achieve this we need
+      // to check if the new target cell position is pointed at a different cell than what the drag menu was opened on.
+      if (oldTargetCellPosition !== newTargetCellPosition) {
+        if (isDragMenuOpen) {
+          const tr = newState.tr;
+          const action = {
+            type: DragAndDropActionType.TOGGLE_DRAG_MENU,
+            data: {
+              isDragMenuOpen: false,
+              direction: undefined,
+            },
+          };
+
+          if (newTargetCellPosition !== undefined) {
+            const cells = getCellsInRow(dragMenuIndex)(tr.selection);
+            if (
+              cells &&
+              cells.length &&
+              cells[0].node !== tr.doc.nodeAt(newTargetCellPosition)
+            ) {
+              return tr.setMeta(pluginKey, action);
+            } // else NOP
+          } else {
+            return tr.setMeta(pluginKey, action);
+          }
+        }
+      }
+    },
     view: (editorView: EditorView) => {
       return {
         destroy: monitorForElements({
@@ -57,7 +97,14 @@ export const createPlugin = (
             // watch for changes
             return localId === tableNode?.attrs.localId;
           },
+          onDragStart: ({ location }) => {
+            autoScroller.start({ input: location.current.input });
+          },
           onDrag(event) {
+            autoScroller.updateInput({
+              input: event.location.current.input,
+            });
+
             const data = getDraggableDataFromEvent(event);
             // If no data can be found then it's most like we do not want to perform any drag actions
             if (!data) {
@@ -79,6 +126,7 @@ export const createPlugin = (
             );
           },
           onDrop(event) {
+            autoScroller.stop();
             const data = getDraggableDataFromEvent(event);
 
             // If no data can be found then it's most like we do not want to perform any drop action

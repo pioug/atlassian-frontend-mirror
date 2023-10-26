@@ -1,1 +1,3 @@
-export type CellSelectionType = 'column' | 'row' | undefined;
+import type { TableDirection } from '../../types';
+
+export type CellSelectionType = TableDirection | undefined;

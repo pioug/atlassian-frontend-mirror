@@ -1,5 +1,11 @@
 # @atlaskit/icon
 
+## 21.12.8
+
+### Patch Changes
+
+- [#42106](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42106) [`f4b2c484864`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4b2c484864) - Improve typing and prop naming in icon explorer utility.
+
 ## 21.12.7
 
 ### Patch Changes

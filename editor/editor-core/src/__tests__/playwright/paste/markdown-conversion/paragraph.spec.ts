@@ -1,10 +1,8 @@
 import {
-  BROWSERS,
   EditorFloatingToolbarModel,
   EditorPasteModel,
   editorTestCase as test,
   expect,
-  fixTest,
 } from '@af/editor-libra';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -58,12 +56,6 @@ test.describe('paragraph', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     //end of line/doc
     const initialAnchor = 60;
     const initialHead = 60;
@@ -176,12 +168,6 @@ test.describe('paragraph', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'DTR-1914',
-      reason: `ClipboardEvent is not working correctly when more than one MIME type data is involved`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     //beginning of second line
     const initialAnchor = 30;
     const initialHead = 30;
@@ -294,12 +280,6 @@ test.describe('paragraph', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'DTR-1914',
-      reason: `ClipboardEvent is not working correctly when more than one MIME type data is involved`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     //setting cursor at the end of word `Lorem`
     const initialAnchor = 6;
     const initialHead = 6;
@@ -412,12 +392,6 @@ test.describe('paragraph', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'DTR-1914',
-      reason: `ClipboardEvent is not working correctly when more than one MIME type data is involved`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     await expect(editor).toMatchDocument(
       doc(
         p('Lorem ipsum dolor sit amet.'),
@@ -488,12 +462,6 @@ test.describe('paragraph', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'DTR-1914',
-      reason: `ClipboardEvent is not working correctly when more than one MIME type data is involved`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     await expect(editor).toMatchDocument(
       doc(
         p('Lorem ipsum dolor sit amet.'),
@@ -795,12 +763,6 @@ test.describe('paste heading text over existing rich text', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     const headingText = '# heading';
     const html = `<meta charset="utf-8"><div style="color: #cccccc;background-color: #1f1f1f;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;"><div><span style="color: #cccccc;"># </span><span style="color: #9cdcfe;">heading</span></div></div>`;
 
@@ -881,12 +843,6 @@ test.describe('paste heading text over existing rich text', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     const headingText = '# heading';
     const html = `<meta charset="utf-8"><div style="color: #cccccc;background-color: #1f1f1f;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;"><div><span style="color: #cccccc;"># </span><span style="color: #9cdcfe;">heading</span></div></div>`;
 
@@ -982,12 +938,6 @@ test.describe('paste heading text over existing heading', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     const headingText = '# heading';
     const html = `<meta charset="utf-8"><div style="color: #cccccc;background-color: #1f1f1f;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;"><div><span style="color: #cccccc;"># </span><span style="color: #9cdcfe;">heading</span></div></div>`;
 
@@ -1073,12 +1023,6 @@ test.describe('paste heading text over existing heading', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     const headingText = '# heading';
     const html = `<meta charset="utf-8"><div style="color: #cccccc;background-color: #1f1f1f;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;"><div><span style="color: #cccccc;"># </span><span style="color: #9cdcfe;">heading</span></div></div>`;
 
@@ -1166,12 +1110,6 @@ test.describe('paste text in newline after heading', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     const headingText = '# heading';
     const html = `<meta charset="utf-8"><div style="color: #cccccc;background-color: #1f1f1f;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;"><div><span style="color: #cccccc;"># </span><span style="color: #9cdcfe;">heading</span></div></div>`;
 
@@ -1257,12 +1195,6 @@ test.describe('paste text in newline after heading', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     const headingText = '# heading';
 
     const initialAnchor = 10;
@@ -1362,12 +1294,6 @@ test.describe('image', () => {
   const html = `<meta charset="utf-8"><div style="color: #cccccc;background-color: #1f1f1f;font-family: Menlo, Monaco, 'Courier New', monospace;font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;"><div><span style="color: #ce9178;">![alt-text-1](image1.png) ![alt-text-2](image2.png)</span></div></div>`;
 
   test('toggle rich-text > markdown', async ({ editor, browserName }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     await editor.selection.set({ anchor: 6, head: 6 });
 
     await editor.simulatePasteEvent({
@@ -1432,12 +1358,6 @@ test.describe('image', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     await editor.simulatePasteEvent({
       pasteAs: 'text/html',
       text: plainText,

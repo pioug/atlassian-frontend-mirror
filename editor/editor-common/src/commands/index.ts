@@ -208,6 +208,12 @@ export function findCutBefore($pos: ResolvedPos): ResolvedPos | null {
   return null;
 }
 
+/**
+ * @deprecated
+ *
+ * This method is no longer needed and can be accessed via the
+ * `editor-plugin-block-type` command of `setTextLevel`
+ */
 export function setHeading(level: HeadingLevelsAndNormalText): Command {
   return function (state, dispatch) {
     const { selection, schema, tr } = state;

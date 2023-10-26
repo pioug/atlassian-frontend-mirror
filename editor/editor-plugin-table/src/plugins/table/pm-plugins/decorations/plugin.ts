@@ -40,8 +40,7 @@ export const handleDocOrSelectionChanged = (
   } else if (
     tr.docChanged ||
     tr.selection instanceof CellSelection ||
-    changedResizing ||
-    tr.getMeta(tablePluginKey)?.type === 'HOVER_CELL'
+    changedResizing
   ) {
     return buildColumnControlsDecorations({
       decorationSet,
@@ -72,11 +71,6 @@ export const createPlugin = () => {
       apply: (tr, decorationSet, oldState, newState) => {
         let pluginState = decorationSet;
         const meta = tr.getMeta(tablePluginKey);
-        const previousHover = tablePluginKey.getState(oldState)?.hoveredCell;
-        const newHover = tablePluginKey.getState(newState)?.hoveredCell;
-        const changedCellHover =
-          previousHover?.colIndex !== newHover?.colIndex ||
-          previousHover?.rowIndex !== newHover?.rowIndex;
 
         if (meta && meta.data && meta.data.decorationSet) {
           pluginState = meta.data.decorationSet;
@@ -85,8 +79,7 @@ export const createPlugin = () => {
         if (
           tr.docChanged ||
           tr.selectionSet ||
-          tr.getMeta(tableWidthPluginKey) ||
-          changedCellHover
+          tr.getMeta(tableWidthPluginKey)
         ) {
           pluginState = pluginState.map(tr.mapping, tr.doc);
           return handleDocOrSelectionChanged(

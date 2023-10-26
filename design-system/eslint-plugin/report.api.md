@@ -29,6 +29,7 @@ export const configs: {
       '@atlaskit/design-system/ensure-design-token-usage/preview': string;
       '@atlaskit/design-system/icon-label': string;
       '@atlaskit/design-system/no-banned-imports': string;
+      '@atlaskit/design-system/no-css-tagged-template-expression': string;
       '@atlaskit/design-system/no-deprecated-apis': string;
       '@atlaskit/design-system/no-deprecated-design-token-usage': string;
       '@atlaskit/design-system/no-deprecated-imports': string;
@@ -106,6 +107,7 @@ export const rules: {
   'ensure-design-token-usage/preview': Rule.RuleModule;
   'icon-label': Rule.RuleModule;
   'no-banned-imports': Rule.RuleModule;
+  'no-css-tagged-template-expression': Rule.RuleModule;
   'no-deprecated-apis': RuleModule<
     string,
     [

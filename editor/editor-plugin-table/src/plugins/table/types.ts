@@ -293,6 +293,10 @@ export const TableCssClassName = {
   CONTROLS_BUTTON_OVERLAY: `${tablePrefixSelector}-controls__button-overlay`,
   LAYOUT_BUTTON: `${tablePrefixSelector}-layout-button`,
 
+  DRAG_CONTROLS_INSERT_BUTTON: `${tablePrefixSelector}-controls__drag-insert-button`,
+  DRAG_CONTROLS_INSERT_BUTTON_INNER: `${tablePrefixSelector}-controls__drag-insert-button-inner`,
+  DRAG_CONTROLS_INSERT_BUTTON_WRAP: `${tablePrefixSelector}-controls__drag-insert-button-wrap`,
+
   CONTROLS_INSERT_MARKER: `${tablePrefixSelector}-controls__insert-marker`,
   CONTROLS_INSERT_COLUMN: `${tablePrefixSelector}-controls__insert-column`,
   CONTROLS_INSERT_ROW: `${tablePrefixSelector}-controls__insert-row`,
@@ -308,8 +312,14 @@ export const TableCssClassName = {
   CONTROLS_CORNER_BUTTON: `${tablePrefixSelector}-corner-button`,
 
   /** Controls with drag handle */
-  COLUMN_CONTROLS_WITH_DRAG: `${tablePrefixSelector}-column-controls-with-drag`,
-  ROW_CONTROLS_WITH_DRAG: `${tablePrefixSelector}-row-controls-with-drag`,
+  DRAG_ROW_CONTROLS: `${tablePrefixSelector}-drag-row-controls`,
+  DRAG_ROW_FLOATING_INSERT_DOT_WRAPPER: `${tablePrefixSelector}-drag-row-floating-insert-dot-wrapper`,
+  DRAG_ROW_FLOATING_INSERT_DOT: `${tablePrefixSelector}-drag-row-floating-insert-dot`,
+
+  DRAG_COLUMN_CONTROLS: `${tablePrefixSelector}-drag-column-controls`,
+  DRAG_COLUMN_FLOATING_INSERT_DOT_WRAPPER: `${tablePrefixSelector}-drag-columns-floating-insert-dot-wrapper`,
+  DRAG_COLUMN_FLOATING_INSERT_DOT: `${tablePrefixSelector}-drag-columns-floating-insert-dot`,
+
   DRAG_HANDLE_BUTTON_CONTAINER: `${tablePrefixSelector}-drag-handle-button-container`,
 
   /** Other classes */
@@ -404,6 +414,8 @@ export type InvalidNodeAttr = {
   spanValue: number;
   tableLocalId: string;
 };
+
+export type TableDirection = 'row' | 'column';
 
 /**
  * Drag and Drop interfaces

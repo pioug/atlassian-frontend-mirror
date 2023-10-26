@@ -23,7 +23,6 @@ import {
   tdEmpty,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import tablePlugin from '../../../../plugins/table';
 import { selectColumn } from '../../../../plugins/table/commands';
@@ -55,141 +54,27 @@ describe('decorations plugin', () => {
   // ED-8457
   describe('when there is a selection pointer set', () => {
     describe('should remove the column selected decorations', () => {
-      ffTest(
-        'platform.editor.table.drag-and-drop',
-        () => {
-          const { editorView } = editor(
-            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
-          );
-
-          selectColumn(1)(editorView.state, editorView.dispatch);
-
-          const { tr: transaction } = editorView.state;
-
-          transaction.setMeta('pointer', true);
-          transaction.setSelection(Selection.atStart(transaction.doc));
-          editorView.dispatch(transaction);
-
-          const decorationSet = getDecorations(editorView.state);
-
-          const columnSelectedDecorations = decorationSet.find(
-            undefined,
-            undefined,
-            (spec) => spec.key.indexOf(TableDecorations.COLUMN_SELECTED) > -1,
-          );
-
-          expect(columnSelectedDecorations).toHaveLength(0);
-        },
-        () => {
-          const { editorView } = editor(
-            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
-          );
-
-          selectColumn(1)(editorView.state, editorView.dispatch);
-
-          const { tr: transaction } = editorView.state;
-
-          transaction.setMeta('pointer', true);
-          transaction.setSelection(Selection.atStart(transaction.doc));
-          editorView.dispatch(transaction);
-
-          const decorationSet = getDecorations(editorView.state);
-
-          const columnSelectedDecorations = decorationSet.find(
-            undefined,
-            undefined,
-            (spec) => spec.key.indexOf(TableDecorations.COLUMN_SELECTED) > -1,
-          );
-
-          expect(columnSelectedDecorations).toHaveLength(0);
-        },
+      const { editorView } = editor(
+        doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
       );
-    });
-  });
 
-  describe('when the hovered cell state changes', () => {
-    describe('should not add column control decorations', () => {
-      ffTest(
-        'platform.editor.table.drag-and-drop',
-        () => {
-          const pluginState = DecorationSet.empty;
-          const { editorView } = editor(
-            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
-          );
+      selectColumn(1)(editorView.state, editorView.dispatch);
 
-          const transaction = editorView.state.tr.setMeta(pluginKey, {
-            type: 'HOVER_CELL',
-            data: {
-              colIndex: 0,
-              rowIndex: 0,
-            },
-          });
+      const { tr: transaction } = editorView.state;
 
-          const oldState = handleDocOrSelectionChanged(
-            transaction,
-            pluginState,
-            editorView.state,
-            editorView.state,
-          );
+      transaction.setMeta('pointer', true);
+      transaction.setSelection(Selection.atStart(transaction.doc));
+      editorView.dispatch(transaction);
 
-          editorView.dispatch(transaction);
-          const newState = handleDocOrSelectionChanged(
-            transaction,
-            oldState,
-            editorView.state,
-            editorView.state,
-          );
+      const decorationSet = getDecorations(editorView.state);
 
-          const columnDecorations = newState.find(
-            undefined,
-            undefined,
-            (spec) =>
-              spec.key.indexOf(TableDecorations.COLUMN_CONTROLS_DECORATIONS) >
-              -1,
-          );
-
-          expect(columnDecorations).toHaveLength(0);
-        },
-        () => {
-          const pluginState = DecorationSet.empty;
-          const { editorView } = editor(
-            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
-          );
-
-          const transaction = editorView.state.tr.setMeta(pluginKey, {
-            type: 'HOVER_CELL',
-            data: {
-              colIndex: 0,
-              rowIndex: 0,
-            },
-          });
-
-          const oldState = handleDocOrSelectionChanged(
-            transaction,
-            pluginState,
-            editorView.state,
-            editorView.state,
-          );
-
-          editorView.dispatch(transaction);
-          const newState = handleDocOrSelectionChanged(
-            transaction,
-            oldState,
-            editorView.state,
-            editorView.state,
-          );
-
-          const columnDecorations = newState.find(
-            undefined,
-            undefined,
-            (spec) =>
-              spec.key.indexOf(TableDecorations.COLUMN_CONTROLS_DECORATIONS) >
-              -1,
-          );
-
-          expect(columnDecorations).toHaveLength(2);
-        },
+      const columnSelectedDecorations = decorationSet.find(
+        undefined,
+        undefined,
+        (spec) => spec.key.indexOf(TableDecorations.COLUMN_SELECTED) > -1,
       );
+
+      expect(columnSelectedDecorations).toHaveLength(0);
     });
   });
 
@@ -220,75 +105,36 @@ describe('decorations plugin', () => {
 
   describe('when the table changed', () => {
     describe('should not re-create the column controls decorations', () => {
-      ffTest(
-        'platform.editor.table.drag-and-drop',
-        () => {
-          const { editorView } = editor(
-            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
-          );
-          const { state } = editorView;
-
-          const nextPluginState = handleDocOrSelectionChanged(
-            editorView.state.tr,
-            DecorationSet.empty,
-            editorView.state,
-            state,
-          );
-
-          const { tr: transaction } = state;
-          editorView.dispatch(addColumnAt(2)(transaction));
-
-          const newState = handleDocOrSelectionChanged(
-            transaction,
-            nextPluginState,
-            editorView.state,
-            state,
-          );
-          const expectedDecorationSet = newState;
-          const decorations = expectedDecorationSet.find(
-            undefined,
-            undefined,
-            (spec) =>
-              spec.key.indexOf(TableDecorations.COLUMN_CONTROLS_DECORATIONS) >
-              -1,
-          );
-
-          expect(decorations).toHaveLength(0);
-        },
-        () => {
-          const { editorView } = editor(
-            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
-          );
-          const { state } = editorView;
-
-          const nextPluginState = handleDocOrSelectionChanged(
-            editorView.state.tr,
-            DecorationSet.empty,
-            editorView.state,
-            state,
-          );
-
-          const { tr: transaction } = state;
-          editorView.dispatch(addColumnAt(2)(transaction));
-
-          const newState = handleDocOrSelectionChanged(
-            transaction,
-            nextPluginState,
-            editorView.state,
-            state,
-          );
-          const expectedDecorationSet = newState;
-          const decorations = expectedDecorationSet.find(
-            undefined,
-            undefined,
-            (spec) =>
-              spec.key.indexOf(TableDecorations.COLUMN_CONTROLS_DECORATIONS) >
-              -1,
-          );
-
-          expect(decorations).toHaveLength(3);
-        },
+      const { editorView } = editor(
+        doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
       );
+      const { state } = editorView;
+
+      const nextPluginState = handleDocOrSelectionChanged(
+        editorView.state.tr,
+        DecorationSet.empty,
+        editorView.state,
+        state,
+      );
+
+      const { tr: transaction } = state;
+      editorView.dispatch(addColumnAt(2)(transaction));
+
+      const newState = handleDocOrSelectionChanged(
+        transaction,
+        nextPluginState,
+        editorView.state,
+        state,
+      );
+      const expectedDecorationSet = newState;
+      const decorations = expectedDecorationSet.find(
+        undefined,
+        undefined,
+        (spec) =>
+          spec.key.indexOf(TableDecorations.COLUMN_CONTROLS_DECORATIONS) > -1,
+      );
+
+      expect(decorations).toHaveLength(3);
     });
   });
 

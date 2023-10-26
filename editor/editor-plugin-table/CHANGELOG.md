@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.14
+
+### Patch Changes
+
+- [#42038](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42038) [`071533736a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/071533736a8) - Fixed an bug in the tables where the onBlur was causing the editor has focus flag to be reset to false. This would result in the drag handle disappearing due to the table not being active anymore.
+- [#42188](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42188) [`5b8b565940b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b8b565940b) - Killed the outline for the drag handle button which appears only in firfox when the button has focus
+- [#42186](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42186) [`20b5f464a2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20b5f464a2b) - [ux] Integrate drag menu with column control
+- [#42148](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42148) [`fb0c3a2c035`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb0c3a2c035) - Add row and column select functionality for table drag controls
+- [#42182](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42182) [`1053f5745d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1053f5745d3) - Added autoscroller functionality to the table DnD plugin. When dragging rows/cols the table will auto scroll into view when the drag approaches the borders of the table
+
+## 5.3.13
+
+### Patch Changes
+
+- [#41846](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41846) [`7fe6ab0832b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fe6ab0832b) - [ux] Add utility function to create drag menu content and integrate with row control behind platform.editor.table.drag-and-drop FF
+- [#42137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42137) [`88058fc0fcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88058fc0fcb) - ED-20197 moved editor preset and other prod code out of labs
+- Updated dependencies
+
 ## 5.3.12
 
 ### Patch Changes

@@ -12,9 +12,9 @@ jest.mock('../../../pm-plugins/plugin-key', () => {
   };
 });
 
-jest.mock('@atlaskit/media-client', () => {
+jest.mock('@atlaskit/media-client-react', () => {
   return {
-    ...jest.requireActual<Object>('@atlaskit/media-client'),
+    ...jest.requireActual<Object>('@atlaskit/media-client-react'),
     getMediaClient: jest.fn(),
   };
 });
@@ -24,8 +24,8 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { media, mediaSingle } from '@atlaskit/editor-test-helpers/doc-builder';
-import { getMediaClient } from '@atlaskit/media-client';
 import type { FileState } from '@atlaskit/media-client';
+import { getMediaClient } from '@atlaskit/media-client-react';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
 import {
   fakeMediaClient,

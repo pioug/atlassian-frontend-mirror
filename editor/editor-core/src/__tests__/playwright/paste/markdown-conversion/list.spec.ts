@@ -1,10 +1,8 @@
 import {
-  BROWSERS,
   EditorFloatingToolbarModel,
   EditorPasteModel,
   editorTestCase as test,
   expect,
-  fixTest,
 } from '@af/editor-libra';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -42,12 +40,6 @@ test.describe('paste bullet list in empty doc', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     const bulletListText = `
 - First item
 - Second item
@@ -183,12 +175,6 @@ test.describe('paste bullet list in-between two lines', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     const bulletListText = `
 - First item
 - Second item
@@ -338,12 +324,6 @@ test.describe('paste bullet list in-between characters on same line', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     const bulletListText = `
 - First item
 - Second item
@@ -502,12 +482,6 @@ test.describe('paste bullet list with text up and below in new line', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     const bulletListText = `
 some initial text
 
@@ -666,12 +640,6 @@ test.describe('paste ordered list in empty doc', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     const orderedListText = `
 1. First item
 2. Second item
@@ -809,12 +777,6 @@ test.describe('paste ordered list in-between two lines', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     const orderedListText = `
 1. First item
 2. Second item
@@ -964,12 +926,6 @@ test.describe('paste ordered list in-between characters on same line', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     const orderedListText = `
 1. First item
 2. Second item

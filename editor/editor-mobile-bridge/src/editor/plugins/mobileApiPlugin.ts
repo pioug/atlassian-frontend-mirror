@@ -26,11 +26,13 @@ import { useTextFormattingListener } from './useTextFormattingListener';
 import { useListListener } from './useListListener';
 import { useQuickInsertListener } from './useQuickInsertListener';
 import { useBlockTypeListener } from './useBlockTypeListener';
+import { useTextColorListener } from './useTextColorListener';
 import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { CodeBlockPlugin } from '@atlaskit/editor-core/src/plugins/code-block';
 import type { StatusPlugin } from '@atlaskit/editor-plugin-status';
 import type { PanelPlugin } from '@atlaskit/editor-core/src/plugins/panel';
 import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
+import type { TextColorPlugin } from '@atlaskit/editor-plugin-text-color';
 import type { DatePlugin } from '@atlaskit/editor-plugin-date';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type EditorConfiguration from '../editor-configuration';
@@ -48,18 +50,21 @@ const useListeners = (
     blockTypeState,
     listState,
     quickInsertState,
+    textColorState,
   } = useSharedPluginState(pluginInjectionApi, [
     'hyperlink',
     'textFormatting',
     'blockType',
     'list',
     'quickInsert',
+    'textColor',
   ]);
   useHyperlinkListener(editorView, hyperlinkState);
   useTextFormattingListener(textFormattingState, bridge);
   useListListener(listState, bridge);
   useQuickInsertListener(quickInsertState, bridge, intl);
   useBlockTypeListener(blockTypeState);
+  useTextColorListener(textColorState, bridge);
 };
 
 function useTypeAheadSubscription(
@@ -147,6 +152,7 @@ export const mobileApiPlugin: NextEditorPlugin<
       EditorDisabledPlugin,
       DatePlugin,
       StatusPlugin,
+      TextColorPlugin,
     ];
     pluginConfiguration: {
       editorConfiguration: EditorConfiguration;

@@ -12,6 +12,14 @@ describe('useListener', () => {
     expect(callback).not.toHaveBeenCalled();
   });
 
+  it('should call the callback on the first render if sendInitialState is true', () => {
+    const callback = jest.fn();
+
+    renderHook(() => useListener(callback, [], undefined, true));
+
+    expect(callback).toHaveBeenCalled();
+  });
+
   it('should call the callback on dependencies change', () => {
     const callback = jest.fn();
 

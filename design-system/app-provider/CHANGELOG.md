@@ -1,5 +1,11 @@
 # @atlaskit/app-provider
 
+## 0.3.1
+
+### Patch Changes
+
+- [#42130](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42130) [`b9b8b2c1e0a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9b8b2c1e0a) - Removed unused dev dependencies `@atlaskit/primitives` and `@atlaskit/dropdown-menu`
+
 ## 0.3.0
 
 ### Minor Changes

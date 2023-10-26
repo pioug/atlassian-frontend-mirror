@@ -1,5 +1,62 @@
 # @atlaskit/editor-mobile-bridge
 
+## 189.0.11
+
+### Patch Changes
+
+- [#42153](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42153) [`56e9ac7f76d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56e9ac7f76d) - Extract text-color plugin from editor-core into @atlaskit/editor-plugin-text-color.
+- [#42090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42090) [`dfea93d39c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfea93d39c9) - Replacing setBlockType action on `editor-plugin-block-type` with setTextLevel
+  command.
+
+  WHAT/WHY?: setBlockType is only for headings/text so the naming is not clear,
+  it is also an action which makes it difficult to use by external consumers.
+
+  This replacement can be easily used by external consumers (ie. for custom toolbars)
+  and also has more type safety (for setBlockType the name parameter is any string but
+  setTextLevel only accepts valid values including "normal", "heading1",
+  "heading2" etc.)
+
+  HOW?: This API at this stage should be unused by consumers to the best of our
+  knowledge. However if you are using it you should change as so:
+
+  Before:
+
+  ```ts
+  api?.blockType.actions.setBlockType(blockType, inputMethod)(state, dispatch);
+  ```
+
+  ```ts
+  api?.core.actions.execute(
+    api?.blockType.commands.setTextLevel(blockType, inputMethod),
+  );
+  ```
+
+- Updated dependencies
+
+## 189.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 189.0.6
 
 ### Patch Changes

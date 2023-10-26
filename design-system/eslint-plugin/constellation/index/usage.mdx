@@ -18,6 +18,7 @@ This plugin contains rules that should be used when working with the [Atlassian 
 | <a href="#ensure-design-token-usage-preview">ensure-design-token-usage/preview</a>           | Enforces usage of pre-release design tokens rather than hard-coded values.                                                                                                                                                                                                                                          |             | Yes     | Yes         |
 | <a href="#icon-label">icon-label</a>                                                         | Enforces accessible usage of icon labels when composed with Atlassian Design System components.                                                                                                                                                                                                                     | Yes         | Yes     |             |
 | <a href="#no-banned-imports">no-banned-imports</a>                                           | Disallow importing banned modules.                                                                                                                                                                                                                                                                                  | Yes         |         |             |
+| <a href="#no-css-tagged-template-expression">no-css-tagged-template-expression</a>           | Disallows any `css` tagged template expressions that originate from Emotion, Styled Components or Compiled                                                                                                                                                                                                          |             | Yes     |             |
 | <a href="#no-deprecated-apis">no-deprecated-apis</a>                                         | Disallow using deprecated APIs.                                                                                                                                                                                                                                                                                     | Yes         |         |             |
 | <a href="#no-deprecated-design-token-usage">no-deprecated-design-token-usage</a>             | Disallow using deprecated design tokens.                                                                                                                                                                                                                                                                            | Yes         | Yes     |             |
 | <a href="#no-deprecated-imports">no-deprecated-imports</a>                                   | Disallow importing deprecated modules.                                                                                                                                                                                                                                                                              | Yes         |         |             |
@@ -282,6 +283,46 @@ import noop from '@atlaskit/ds-lib/noop';
 import { Text } from '@atlaskit/ds-explorations';
                       ^^^^^^^^^^^^^^^^^^^^^^^^^
 ```
+
+## no-css-tagged-template-expression
+
+Disallows any `css` tagged template expressions that originate from `@emotion/react`, `@emotion/core`, `compiled/react` or `styled-components`.
+
+Tagged template expressions cannot be type safe and are difficult to parse correctly. Will auto fix ` css`` ` to the preferred `css({})` call expression syntax.
+
+Thank you to the [Compiled team for their rule](https://github.com/atlassian-labs/compiled/tree/master/packages/eslint-plugin/src/rules/no-css-tagged-template-expression) from which this was ported.
+
+<h3>Incorrect</h3>
+
+```js
+import { css } from '@emotion/react';
+
+css`
+  color: blue;
+`;
+
+const styles = css`
+  color: blue;
+  font-weight: 500;
+`;
+```
+
+<h3>Correct</h3>
+
+```js
+import { css } from '@emotion/react';
+
+css({ color: 'blue' });
+
+const styles = css({
+  color: 'blue',
+  fontWeight: 500,
+});
+```
+
+<h3>Limitations</h3>
+
+- Comments are not auto-fixable. You will need to manually convert usages containing functions.
 
 ## no-deprecated-apis
 

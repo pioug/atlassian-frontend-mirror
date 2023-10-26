@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 189.0.11
+
+### Patch Changes
+
+- [#42153](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42153) [`56e9ac7f76d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56e9ac7f76d) - Extract text-color plugin from editor-core into @atlaskit/editor-plugin-text-color.
+- Updated dependencies
+
+## 189.0.10
+
+### Patch Changes
+
+- [#42139](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42139) [`9474db7141c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9474db7141c) - [ED-20622] Fix task and decision placeholder been removed when the TypeAhead was open
+
+## 189.0.9
+
+### Patch Changes
+
+- [#42137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42137) [`88058fc0fcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88058fc0fcb) - ED-20197 moved editor preset and other prod code out of labs
+
 ## 189.0.6
 
 ### Patch Changes

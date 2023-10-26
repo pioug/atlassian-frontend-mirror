@@ -12,11 +12,11 @@ import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { RowType, RowCellType } from '@atlaskit/dynamic-table/types';
 import {
   isFileIdentifier,
-  withMediaClient,
   isProcessedFileState,
   FileIdentifier,
   MediaSubscription,
 } from '@atlaskit/media-client';
+import { withMediaClient } from '@atlaskit/media-client-react';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import { mediaTableWrapperStyles } from './styles';
 import DownloadButton from './downloadButton';

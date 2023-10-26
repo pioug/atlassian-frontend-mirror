@@ -17,4 +17,9 @@ export type TextProps = ElementProps & {
    * The maximum number of lines the text should span over. Maximum is 2.
    */
   maxLines?: number;
+
+  /**
+   * The text to display. Overrides the default link description.
+   */
+  text?: string;
 };

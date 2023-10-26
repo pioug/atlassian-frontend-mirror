@@ -4,7 +4,11 @@ import { IntlProvider } from 'react-intl-next';
 import { JsonLd } from 'json-ld-types';
 import Page from '@atlaskit/page';
 import { token } from '@atlaskit/tokens';
-import { iconGoogleDrive, imageForbiddenJiraEmbed } from '../images';
+import {
+  forbiddenJira,
+  iconGoogleDrive,
+  imageForbiddenJiraEmbed,
+} from '../images';
 interface VRTestCaseOpts {
   title: string;
   children: () => JSX.Element;
@@ -139,6 +143,10 @@ export const mocks = {
             '@type': 'Image',
             url: imageForbiddenJiraEmbed,
           },
+        },
+        image: {
+          '@type': 'Image',
+          url: forbiddenJira,
         },
         url: 'https://site.atlassian.net/browse/key-1',
         '@type': ['atlassian:Task', 'Object'],

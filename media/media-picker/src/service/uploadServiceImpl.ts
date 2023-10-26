@@ -5,8 +5,6 @@ import {
   UploadableFileUpfrontIds,
   UploadableFile,
   MediaType,
-  getMediaTypeFromMimeType,
-  isMimeTypeSupportedByBrowser,
   MediaClient,
   globalMediaEventEmitter,
   RequestError,
@@ -25,7 +23,12 @@ import {
 } from './types';
 import { LocalFileSource, LocalFileWithSource } from '../service/types';
 import { getPreviewFromBlob } from '../util/getPreviewFromBlob';
-import { getRandomHex, MediaTraceContext } from '@atlaskit/media-common';
+import {
+  getRandomHex,
+  MediaTraceContext,
+  isMimeTypeSupportedByBrowser,
+  getMediaTypeFromMimeType,
+} from '@atlaskit/media-common';
 
 export interface CancellableFileUpload {
   mediaFile: MediaFile;

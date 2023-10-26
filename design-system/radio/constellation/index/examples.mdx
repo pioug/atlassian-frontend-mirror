@@ -17,18 +17,18 @@ In most situations where you want to present a list of mutually exclusive option
 
 ## Complex radio usage
 
-There may be some situations where you are unable to directly stack the radio inputs vertically. In those situations, using individual `Radio` components rather than a `RadioGroup` may be more suited to your needs.
+There may be some situations where you are unable to directly stack the radio inputs vertically (for example, within a table). In those situations, you can use individual `Radio` components rather than a `RadioGroup`.
 
 <Example Component={RadioInTable} packageName="@atlaskit/radio" />
 
 ## Invalid radio
 
-There may be some situations where the selected field is invalid or incorrect.
+Use `isInvalid` for situations where the selected field is invalid or incorrect. Remember to provide useful validation messages to help people understand how to proceed.
 
 <Example Component={RadioInvalid} packageName="@atlaskit/radio" />
 
 ## Required radio
 
-There may be some situations where an input field must be filled out before submitting the form.
+Use `isRequired` to require users to fill out the input field before submitting the form.
 
 <Example Component={RadioRequired} packageName="@atlaskit/radio" />

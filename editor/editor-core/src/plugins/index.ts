@@ -13,7 +13,6 @@ export { default as panelPlugin } from './panel';
 export { default as pastePlugin } from './paste';
 export { placeholderTextPlugin } from './placeholder-text';
 export { default as tasksAndDecisionsPlugin } from './tasks-and-decisions';
-export { default as textColorPlugin } from './text-color';
 export { default as breakoutPlugin } from './breakout';
 export { default as alignmentPlugin } from './alignment';
 export { default as dataConsumerMarkPlugin } from './data-consumer';

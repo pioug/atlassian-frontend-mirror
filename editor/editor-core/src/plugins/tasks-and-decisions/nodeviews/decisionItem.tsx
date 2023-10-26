@@ -10,10 +10,10 @@ import type {
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
+import { useShowPlaceholder } from './hooks/use-show-placeholder';
 import type { TaskAndDecisionsPlugin } from '../types';
 import DecisionItem from '../ui/Decision';
 
@@ -24,20 +24,26 @@ type getPosHandlerNode = () => number | undefined;
 type DecisionItemWrapperProps = {
   forwardRef: ForwardRef;
   isContentNodeEmpty: boolean;
+  getPos: () => number | undefined;
   api: ExtractInjectionAPI<TaskAndDecisionsPlugin> | undefined;
+  editorView: EditorView;
 };
 const DecisionItemWrapper = ({
   api,
+  editorView,
   forwardRef,
   isContentNodeEmpty,
+  getPos,
 }: DecisionItemWrapperProps) => {
-  const { typeAheadState } = useSharedPluginState(api, ['typeAhead']);
+  const showPlaceholder = useShowPlaceholder({
+    editorView,
+    isContentNodeEmpty,
+    getPos,
+    api,
+  });
 
   return (
-    <DecisionItem
-      contentRef={forwardRef}
-      showPlaceholder={isContentNodeEmpty && !typeAheadState?.isOpen}
-    />
+    <DecisionItem contentRef={forwardRef} showPlaceholder={showPlaceholder} />
   );
 };
 
@@ -75,6 +81,10 @@ class Decision extends ReactNodeView {
         forwardRef={forwardRef}
         isContentNodeEmpty={isContentNodeEmpty}
         api={this.api}
+        // The getPosHandler type is wrong, there is no `boolean` in the real implementation
+        // @ts-expect-error 2322: Type 'getPosHandler' is not assignable to type '() => number | undefined'.
+        getPos={this.getPos}
+        editorView={this.view}
       />
     );
   }

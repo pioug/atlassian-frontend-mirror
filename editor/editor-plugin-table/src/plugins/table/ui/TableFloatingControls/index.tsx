@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import { browser } from '@atlaskit/editor-common/utils';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -19,6 +20,7 @@ export interface Props {
   editorView: EditorView;
   selection?: Selection;
   tableRef?: HTMLTableElement;
+  tableNode?: PmNode;
   tableActive?: boolean;
   isInDanger?: boolean;
   isResizing?: boolean;
@@ -32,6 +34,7 @@ export interface Props {
   hoveredCell?: CellHoverMeta;
   ordering?: TableColumnOrdering;
   stickyHeader?: RowStickyState;
+  insertRowButtonIndex?: number;
 }
 
 interface State {
@@ -111,6 +114,7 @@ export default class TableFloatingControls extends Component<Props, State> {
     const {
       editorView,
       tableRef,
+      tableNode,
       isInDanger,
       isResizing,
       isNumberColumnEnabled,
@@ -157,10 +161,13 @@ export default class TableFloatingControls extends Component<Props, State> {
             {isDragAndDropEnabled ? (
               <DragControls
                 tableRef={tableRef}
+                tableNode={tableNode}
                 hoveredCell={hoveredCell}
                 editorView={editorView}
                 tableActive={tableActive}
                 isInDanger={isInDanger}
+                isResizing={isResizing}
+                hasHeaderRow={hasHeaderRow}
                 hoverRows={this.hoverRows}
                 selectRow={this.selectRow}
                 updateCellHoverLocation={this.updateCellHoverLocation}

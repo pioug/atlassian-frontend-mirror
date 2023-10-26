@@ -12,9 +12,10 @@ import type {
 } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { messages as insertBlockMessages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+import { toolbarInsertBlockMessages as insertBlockMessages } from '@atlaskit/editor-common/messages';
 import { IconAction, IconDecision } from '@atlaskit/editor-common/quick-insert';
 
+import { stateKey as taskPluginKey } from './pm-plugins/plugin-key';
 import { insertTaskDecisionAction, getListTypes } from './commands';
 import inputRulePlugin from './pm-plugins/input-rules';
 import keymap from './pm-plugins/keymaps';
@@ -66,6 +67,17 @@ const tasksAndDecisionsPlugin: TaskAndDecisionsPlugin = ({
       },
       { name: 'taskItem', node: taskItem },
     ];
+  },
+
+  getSharedState(editorState) {
+    if (!editorState) {
+      return undefined;
+    }
+
+    const pluginState = taskPluginKey.getState(editorState);
+    return {
+      focusedTaskItemLocalId: pluginState?.focusedTaskItemLocalId || null,
+    };
   },
 
   pmPlugins() {

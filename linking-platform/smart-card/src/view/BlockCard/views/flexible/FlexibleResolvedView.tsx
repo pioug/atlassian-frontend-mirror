@@ -7,15 +7,21 @@ import {
   SnippetBlock,
   TitleBlock,
 } from '../../../FlexibleCard/components/blocks';
-import { metadataBlockCss, footerBlockCss } from './styled';
+import { metadataBlockCss } from './styled';
 import {
   ActionName,
   ElementName,
-  MediaPlacement,
   SmartLinkPosition,
 } from '../../../../constants';
 import { FlexibleBlockCardProps } from './types';
-import { getSimulatedMetadata, getSimulatedBetterMetadata } from './utils';
+import {
+  getSimulatedMetadata,
+  getSimulatedBetterMetadata,
+  getTitleBlockOptions,
+  getFooterBlockOptions,
+  PreviewBlockOptions,
+  FlexibleCardUiOptions,
+} from './utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 import type { ActionItem } from '../../../FlexibleCard/components/blocks/types';
@@ -31,11 +37,9 @@ const FlexibleResolvedView = ({
   onError,
   onResolve,
   showServerActions,
-  anchorTarget,
   testId = 'smart-block-resolved-view',
   url,
   analytics,
-  titleBlockProps,
 }: FlexibleBlockCardProps) => {
   const [isPreviewBlockErrored, setIsPreviewBlockErrored] =
     useState<boolean>(false);
@@ -70,17 +74,14 @@ const FlexibleResolvedView = ({
       onResolve={onResolve}
       showServerActions={showServerActions}
       testId={testId}
-      ui={{ hideElevation: true }}
+      ui={FlexibleCardUiOptions}
       url={url}
     >
       <TitleBlock
-        position={SmartLinkPosition.Center}
+        {...getTitleBlockOptions()}
         metadata={titleMetadata}
-        hideRetry={true}
         subtitle={[{ name: ElementName.Location }]}
         metadataPosition={SmartLinkPosition.Top}
-        anchorTarget={anchorTarget}
-        {...titleBlockProps}
       />
       <MetadataBlock
         primary={topMetadata}
@@ -103,19 +104,13 @@ const FlexibleResolvedView = ({
 
       {!isPreviewBlockErrored ? (
         <PreviewBlock
-          placement={MediaPlacement.Right}
-          ignoreContainerPadding={true}
+          {...PreviewBlockOptions}
           onError={() => {
             setIsPreviewBlockErrored(true);
           }}
         />
       ) : null}
-      <FooterBlock
-        {...(getBooleanFF(
-          'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-        ) && { overrideCss: footerBlockCss })}
-        actions={footerActions}
-      />
+      <FooterBlock {...getFooterBlockOptions()} actions={footerActions} />
     </FlexibleCard>
   );
 };

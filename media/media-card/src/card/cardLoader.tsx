@@ -2,8 +2,9 @@ import React, { useContext } from 'react';
 import type {
   WithMediaClientConfigProps,
   WithMediaClientFunction,
-} from '@atlaskit/media-client';
+} from '@atlaskit/media-client-react';
 import Loadable from 'react-loadable';
+
 import { CardLoading } from '../utils/lightCards/cardLoading';
 import type { CardBaseProps } from './card';
 import type { MediaCardAnalyticsErrorBoundaryProps } from './media-card-analytics-error-boundary';
@@ -39,7 +40,7 @@ const MediaCardErrorBoundary = Loadable({
 const MediaCardWithMediaClient = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
+      /* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
     ),
   loading: () => <CardLoadingWithContext />,
   render: (loaded, props: CardWithMediaClientConfigProps) => (

@@ -910,6 +910,7 @@ export const SnippetBlock: React_2.FC<SnippetBlockProps>;
 // @public (undocumented)
 type SnippetBlockProps = {
   maxLines?: number;
+  text?: string;
 } & BlockProps;
 
 // @public

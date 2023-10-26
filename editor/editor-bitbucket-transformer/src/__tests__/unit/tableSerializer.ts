@@ -14,6 +14,7 @@ import {
   code,
   blockquote,
   ul,
+  mention,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 const markdownSerializer = new MarkdownSerializer(nodes, marks);
@@ -113,6 +114,23 @@ describe('BitbucketTransformer: serializer', () => {
         ),
       ).toEqual(
         '| h1**HH** | h2 | h3 |\n| --- | --- | --- |\n| c11**CC** | c12 | c13 |\n',
+      );
+    });
+
+    it('should preserve mentions correctly', () => {
+      expect(
+        markdownSerializer.serialize(
+          table()(
+            tr(th({})(p('h1')), th({})(p('h2')), th({})(p('h3'))),
+            tr(
+              td({})(p('c11', mention({ text: 'Testy', id: 'test' })())),
+              td({})(p('c12')),
+              td({})(p('c13')),
+            ),
+          )(defaultSchema),
+        ),
+      ).toEqual(
+        '| h1 | h2 | h3 |\n| --- | --- | --- |\n| c11@{test} | c12 | c13 |\n',
       );
     });
 

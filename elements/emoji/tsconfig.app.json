@@ -45,10 +45,7 @@
       "path": "../../design-system/icon/tsconfig.app.json"
     },
     {
-      "path": "../../media/media-client/tsconfig.app.json"
-    },
-    {
-      "path": "../../media/media-core/tsconfig.app.json"
+      "path": "../../media/media-client-react/tsconfig.app.json"
     },
     {
       "path": "../../design-system/spinner/tsconfig.app.json"

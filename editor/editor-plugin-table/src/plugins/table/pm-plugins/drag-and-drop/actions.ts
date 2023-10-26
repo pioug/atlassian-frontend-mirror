@@ -1,5 +1,7 @@
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
+import type { TableDirection } from '../../types';
+
 import type { DropTargetType } from './consts';
 
 export interface DragAndDropAction<T, D> {
@@ -10,6 +12,7 @@ export interface DragAndDropAction<T, D> {
 export const DragAndDropActionType = {
   SET_DROP_TARGET: 'SET_DROP_TARGET',
   CLEAR_DROP_TARGET: 'CLEAR_DROP_TARGET',
+  TOGGLE_DRAG_MENU: 'TOGGLE_DRAG_MENU',
 } as const;
 
 export type DragAndDropSetDropTargetAction = DragAndDropAction<
@@ -28,7 +31,17 @@ export type DragAndDropClearDropTargetAction = DragAndDropAction<
   }
 >;
 
+export type DragAndDropToggleDragMenuAction = DragAndDropAction<
+  typeof DragAndDropActionType.TOGGLE_DRAG_MENU,
+  {
+    isDragMenuOpen: boolean;
+    direction: TableDirection;
+    index: number;
+  }
+>;
+
 // NOTE: This should be a Union of all possible actions
 export type DragAndDropPluginAction =
   | DragAndDropSetDropTargetAction
-  | DragAndDropClearDropTargetAction;
+  | DragAndDropClearDropTargetAction
+  | DragAndDropToggleDragMenuAction;

@@ -60,6 +60,9 @@
       "path": "../../media/media-client/tsconfig.app.json"
     },
     {
+      "path": "../../media/media-client-react/tsconfig.app.json"
+    },
+    {
       "path": "../../media/media-common/tsconfig.app.json"
     },
     {

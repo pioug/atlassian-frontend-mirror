@@ -27,6 +27,15 @@ test.describe('Task Items: feat TypeAhead', () => {
           },
         ],
       },
+      {
+        type: 'paragraph',
+        content: [
+          {
+            type: 'text',
+            text: 'Hello ',
+          },
+        ],
+      },
     ],
   };
 
@@ -67,6 +76,37 @@ test.describe('Task Items: feat TypeAhead', () => {
       });
     });
   });
+
+  test.describe('when the cursor is not inside a task item', () => {
+    test('it should show the placeholder', async ({ editor }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const actionList = EditorActionListModel.from(nodes.actionList);
+      const actionItem = await actionList.actionItem(0);
+
+      await editor.selection.set({
+        anchor: 11,
+        head: 11,
+      });
+
+      await expect(actionItem.placeholder).toBeVisible();
+    });
+
+    test.describe('when type ahead opens', () => {
+      test('it should not hide the placeholder', async ({ editor }) => {
+        const nodes = EditorNodeContainerModel.from(editor);
+        const actionList = EditorActionListModel.from(nodes.actionList);
+        const actionItem = await actionList.actionItem(0);
+
+        await editor.selection.set({
+          anchor: 11,
+          head: 11,
+        });
+        await editor.typeAhead.search('');
+
+        await expect(actionItem.placeholder).toBeVisible();
+      });
+    });
+  });
 });
 
 test.describe('Decisions Items: feat TypeAhead', () => {
@@ -87,6 +127,15 @@ test.describe('Decisions Items: feat TypeAhead', () => {
               state: 'DECIDED',
             },
             content: [],
+          },
+        ],
+      },
+      {
+        type: 'paragraph',
+        content: [
+          {
+            type: 'text',
+            text: 'Hello ',
           },
         ],
       },
@@ -126,6 +175,37 @@ test.describe('Decisions Items: feat TypeAhead', () => {
         await editor.typeAhead.search('');
 
         await expect(item.placeholder).toBeHidden();
+      });
+    });
+  });
+
+  test.describe('when the cursor is not inside a decision item', () => {
+    test('it should show the placeholder', async ({ editor }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const decisionList = EditorDecisionListModel.from(nodes.decisionList);
+      const item = await decisionList.decisionItem(0);
+
+      await editor.selection.set({
+        anchor: 11,
+        head: 11,
+      });
+
+      await expect(item.placeholder).toBeVisible();
+    });
+
+    test.describe('when type ahead opens', () => {
+      test('it should not hide the placeholder', async ({ editor }) => {
+        const nodes = EditorNodeContainerModel.from(editor);
+        const decisionList = EditorDecisionListModel.from(nodes.decisionList);
+        const item = await decisionList.decisionItem(0);
+
+        await editor.selection.set({
+          anchor: 11,
+          head: 11,
+        });
+        await editor.typeAhead.search('');
+
+        await expect(item.placeholder).toBeVisible();
       });
     });
   });

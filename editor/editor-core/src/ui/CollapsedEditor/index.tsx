@@ -2,7 +2,7 @@ import { IntlProviderIfMissingWrapper } from '@atlaskit/editor-common/ui';
 import React from 'react';
 import Editor from '../../editor';
 import { ComposableEditor } from '../../composable-editor';
-import EditorWithActions from '../../labs/EditorWithActions';
+import EditorWithActions from '../../EditorWithActions';
 import ChromeCollapsed from '../ChromeCollapsed';
 
 export interface Props {

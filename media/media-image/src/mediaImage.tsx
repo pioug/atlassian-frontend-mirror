@@ -3,11 +3,12 @@ import {
   MediaClient,
   FileState,
   MediaStoreGetFileImageParams,
-  WithMediaClientConfig,
   isDifferentIdentifier,
   FileIdentifier,
   MediaSubscription,
 } from '@atlaskit/media-client';
+
+import { WithMediaClientConfig } from '@atlaskit/media-client-react';
 
 export interface MediaImageChildrenProps {
   /** Boolean with value to check if component is loading image source from API */

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ClipboardProps } from './clipboard';
 import { ClipboardConfig } from '../../types';
-import { WithMediaClientConfigProps } from '@atlaskit/media-client';
+import { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 
 type ClipboardWithMediaClientConfigProps = WithMediaClientConfigProps<
   // ClipboardBase defines config default value, which modifies final shape of ClipboardBase component.
@@ -34,7 +34,7 @@ export class ClipboardLoader extends React.PureComponent<
     if (!this.state.Clipboard) {
       const [mediaClient, clipboardModule] = await Promise.all([
         import(
-          /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
+          /* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
         ),
         import(
           /* webpackChunkName: "@atlaskit-internal_media-clipboard" */ './clipboard'

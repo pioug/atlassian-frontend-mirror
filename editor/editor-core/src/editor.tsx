@@ -37,7 +37,7 @@ export type {
 } from './types';
 
 import { ComposableEditor } from './composable-editor';
-import useUniversalPreset from './labs/next/presets/useUniversalPreset';
+import useUniversalPreset from './presets/useUniversalPreset';
 
 interface WrapperProps {
   props: EditorProps;

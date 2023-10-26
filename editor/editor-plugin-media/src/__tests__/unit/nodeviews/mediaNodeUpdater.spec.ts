@@ -10,13 +10,13 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
  *
  * This is a workaround: https://github.com/microsoft/TypeScript/issues/38568#issuecomment-628637477
  */
-jest.mock('@atlaskit/media-client', () => ({
+jest.mock('@atlaskit/media-client-react', () => ({
   __esModule: true,
-  ...jest.requireActual<Object>('@atlaskit/media-client'),
+  ...jest.requireActual<Object>('@atlaskit/media-client-react'),
 }));
 import type { FileState } from '@atlaskit/media-client';
-import * as MediaClientModule from '@atlaskit/media-client';
-import { getMediaClient } from '@atlaskit/media-client';
+import * as MediaClientReactModule from '@atlaskit/media-client-react';
+import { getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import {
   asMock,
@@ -42,7 +42,7 @@ describe('MediaNodeUpdater', () => {
   const setup = (props?: Partial<MediaNodeUpdaterProps>) => {
     const mediaClient = fakeMediaClient();
     jest
-      .spyOn(MediaClientModule, 'getMediaClient')
+      .spyOn(MediaClientReactModule, 'getMediaClient')
       .mockReturnValue(mediaClient);
     jest
       .spyOn(commands, 'updateAllMediaSingleNodesAttrs')

@@ -14,7 +14,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
-import { getMediaClient } from '@atlaskit/media-client';
+import { getMediaClient } from '@atlaskit/media-client-react';
 
 import type { MediaPluginState } from '../pm-plugins/types';
 

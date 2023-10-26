@@ -1,6 +1,7 @@
 import type { PopupProps } from '@atlaskit/editor-common/ui';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
+import type { TableDirection } from '../../types';
 import {
   tableInsertColumnButtonOffset,
   tableInsertColumnButtonSize,
@@ -10,17 +11,26 @@ import {
 const HORIZONTAL_ALIGN_COLUMN_BUTTON = -(tableInsertColumnButtonSize / 2);
 const HORIZONTAL_ALIGN_NUMBERED_COLUMN_BUTTON =
   HORIZONTAL_ALIGN_COLUMN_BUTTON + akEditorTableNumberColumnWidth;
+
 const VERTICAL_ALIGN_COLUMN_BUTTON =
   tableToolbarSize + tableInsertColumnButtonOffset;
+
+const VERTICAL_ALIGN_COLUMN_BUTTON_DRAG = tableInsertColumnButtonOffset;
 
 const HORIZONTAL_ALIGN_ROW_BUTTON = -(
   tableToolbarSize +
   tableInsertColumnButtonOffset +
   tableInsertColumnButtonSize
 );
+
+const HORIZONTAL_ALIGN_ROW_BUTTON_DRAG = -18;
+
 const VERTICAL_ALIGN_ROW_BUTTON = tableInsertColumnButtonSize / 2;
 
-function getRowOptions(index: number): Partial<PopupProps> {
+function getRowOptions(
+  index: number,
+  isDragAndDropEnabled: boolean,
+): Partial<PopupProps> {
   let defaultOptions = {
     alignX: 'left',
     alignY: 'bottom',
@@ -42,7 +52,9 @@ function getRowOptions(index: number): Partial<PopupProps> {
       return {
         ...position,
         // Left position should be always the offset (To place in the correct position even if the table has overflow).
-        left: HORIZONTAL_ALIGN_ROW_BUTTON,
+        left: isDragAndDropEnabled
+          ? HORIZONTAL_ALIGN_ROW_BUTTON_DRAG
+          : HORIZONTAL_ALIGN_ROW_BUTTON,
       };
     },
   };
@@ -52,11 +64,17 @@ function getColumnOptions(
   index: number,
   tableContainer: HTMLElement | null,
   hasNumberedColumns: boolean,
+  isDragAndDropEnabled: boolean,
 ): Partial<PopupProps> {
   const options: Partial<PopupProps> = {
     alignX: 'end',
     alignY: 'top',
-    offset: [HORIZONTAL_ALIGN_COLUMN_BUTTON, VERTICAL_ALIGN_COLUMN_BUTTON],
+    offset: [
+      HORIZONTAL_ALIGN_COLUMN_BUTTON,
+      isDragAndDropEnabled
+        ? VERTICAL_ALIGN_COLUMN_BUTTON_DRAG
+        : VERTICAL_ALIGN_COLUMN_BUTTON,
+    ],
     // :: (position: PopupPosition) -> PopupPosition
     // Limit the InsertButton position to the table container
     // if the left position starts before it
@@ -104,16 +122,22 @@ function getColumnOptions(
 }
 
 function getPopupOptions(
-  type: 'column' | 'row',
+  direction: TableDirection,
   index: number,
   hasNumberedColumns: boolean,
+  isDragAndDropEnabled: boolean,
   tableContainer: HTMLElement | null,
 ): Partial<PopupProps> {
-  switch (type) {
+  switch (direction) {
     case 'column':
-      return getColumnOptions(index, tableContainer, hasNumberedColumns);
+      return getColumnOptions(
+        index,
+        tableContainer,
+        hasNumberedColumns,
+        isDragAndDropEnabled,
+      );
     case 'row':
-      return getRowOptions(index);
+      return getRowOptions(index, isDragAndDropEnabled);
     default:
       return {};
   }

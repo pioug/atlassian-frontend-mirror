@@ -25,14 +25,16 @@ interface BridgeConfig<Key extends keyof WebBridgeImpl> {
  * @param bridgeConfig Contains the bridge as well as the key and state to update.
  */
 export function useListener<Key extends keyof WebBridgeImpl>(
-  cb: () => (() => void) | void,
+  cb: (initialPass?: boolean) => (() => void) | void,
   dependencies: DependencyList,
   bridgeConfig: BridgeConfig<Key> | undefined,
+  sendInitialState?: boolean,
 ) {
   const firstRun = useRef(true);
   useEffect(() => {
-    if (firstRun.current) {
-      firstRun.current = false;
+    const wasFirstRun = firstRun.current;
+    firstRun.current = false;
+    if (wasFirstRun && !sendInitialState) {
       return;
     }
 
@@ -43,7 +45,7 @@ export function useListener<Key extends keyof WebBridgeImpl>(
       };
     }
 
-    return cb();
+    return cb(wasFirstRun);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
 }

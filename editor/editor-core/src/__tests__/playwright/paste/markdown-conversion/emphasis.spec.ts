@@ -1,10 +1,8 @@
 import {
-  BROWSERS,
   EditorFloatingToolbarModel,
   EditorPasteModel,
   editorTestCase as test,
   expect,
-  fixTest,
 } from '@af/editor-libra';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -47,12 +45,6 @@ test.describe('Emphasis - bold', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     //beginning of second line
     const initialAnchor = 30;
     const initialHead = 30;
@@ -168,12 +160,6 @@ test.describe('Emphasis - bold', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     //setting cursor at the end of word `Lorem`
     const initialAnchor = 6;
     const initialHead = 6;
@@ -307,12 +293,6 @@ test.describe('Emphasis - italics', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     //beginning of second line
     const initialAnchor = 30;
     const initialHead = 30;
@@ -428,12 +408,6 @@ test.describe('Emphasis - italics', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     //setting cursor at the end of word `Lorem`
     const initialAnchor = 6;
     const initialHead = 6;
@@ -567,12 +541,6 @@ test.describe('Emphasis - bold & italics', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     //beginning of second line
     const initialAnchor = 30;
     const initialHead = 30;
@@ -694,12 +662,6 @@ test.describe('Emphasis - bold & italics', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'https://github.com/mdn/browser-compat-data/issues/20762',
-      reason: `api.DataTransfer.setData - setting multiple data items doesn't work with Firefox`,
-      condition: browserName === BROWSERS.firefox,
-    });
-
     //setting cursor at the end of word `Lorem`
     const initialAnchor = 6;
     const initialHead = 6;
@@ -895,11 +857,6 @@ test.describe('Cursor position tests: pasting basic markdown between paragraphs'
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'DTR-1914',
-      reason: `ClipboardEvent is not working correctly when more than one MIME type data is involved`,
-      condition: browserName === BROWSERS.firefox,
-    });
     await editor.selection.set({ anchor: 30, head: 30 });
     await editor.simulatePasteEvent({
       pasteAs: 'text/html',
@@ -1037,11 +994,6 @@ test.describe('On Paste: ', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'DTR-1914',
-      reason: `ClipboardEvent is not working correctly when more than one MIME type data is involved`,
-      condition: browserName === BROWSERS.firefox,
-    });
     await editor.simulatePasteEvent({
       pasteAs: 'text/plain',
       text: markDownText,
@@ -1069,11 +1021,6 @@ test.describe('On Paste: ', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'DTR-1914',
-      reason: `ClipboardEvent is not working correctly when more than one MIME type data is involved`,
-      condition: browserName === BROWSERS.firefox,
-    });
     await editor.simulatePasteEvent({
       pasteAs: 'text/plain',
       text: markDownText,
@@ -1100,11 +1047,6 @@ test.describe('On Paste: ', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'DTR-1914',
-      reason: `ClipboardEvent is not working correctly when more than one MIME type data is involved`,
-      condition: browserName === BROWSERS.firefox,
-    });
     await editor.simulatePasteEvent({
       pasteAs: 'text/html',
       text: markDownText,
@@ -1134,11 +1076,6 @@ test.describe('On Paste: ', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'DTR-1914',
-      reason: `ClipboardEvent is not working correctly when more than one MIME type data is involved`,
-      condition: browserName === BROWSERS.firefox,
-    });
     await editor.simulatePasteEvent({
       pasteAs: 'text/html',
       text: markDownText,
@@ -1165,11 +1102,6 @@ test.describe('On Paste: ', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'DTR-1914',
-      reason: `ClipboardEvent is not working correctly when more than one MIME type data is involved`,
-      condition: browserName === BROWSERS.firefox,
-    });
     await editor.simulatePasteEvent({
       pasteAs: 'text/html',
       text: markDownText,
@@ -1198,11 +1130,6 @@ test.describe('On Paste: ', () => {
     editor,
     browserName,
   }) => {
-    fixTest({
-      jiraIssueId: 'DTR-1914',
-      reason: `ClipboardEvent is not working correctly when more than one MIME type data is involved`,
-      condition: browserName === BROWSERS.firefox,
-    });
     await editor.simulatePasteEvent({
       pasteAs: 'text/html',
       text: `Initialise`,

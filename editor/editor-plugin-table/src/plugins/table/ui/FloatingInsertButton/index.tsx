@@ -1,23 +1,26 @@
 import React from 'react';
 
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type {
+  AnalyticsEventPayload,
+  DispatchAnalyticsEvent,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
-  AnalyticsEventPayload,
   CONTENT_COMPONENT,
-  DispatchAnalyticsEvent,
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { closestElement } from '@atlaskit/editor-common/utils';
-import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableCellOnStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
@@ -31,7 +34,7 @@ import { TableCssClassName as ClassName } from '../../types';
 import { checkIfNumberColumnEnabled } from '../../utils';
 
 import getPopupOptions from './getPopupOptions';
-import InsertButton from './InsertButton';
+import InsertButton, { DragAndDropInsertButton } from './InsertButton';
 
 export interface Props {
   editorView: EditorView;
@@ -42,6 +45,7 @@ export interface Props {
   insertRowButtonIndex?: number;
   isHeaderColumnEnabled?: boolean;
   isHeaderRowEnabled?: boolean;
+  isDragAndDropEnabled?: boolean;
   mountPoint?: HTMLElement;
   boundariesElement?: HTMLElement;
   scrollableElement?: HTMLElement;
@@ -73,6 +77,7 @@ export class FloatingInsertButton extends React.Component<
       boundariesElement,
       isHeaderColumnEnabled,
       isHeaderRowEnabled,
+      isDragAndDropEnabled,
       dispatchAnalyticsEvent,
     } = this.props;
 
@@ -196,16 +201,26 @@ export class FloatingInsertButton extends React.Component<
           type,
           index,
           hasNumberedColumns,
+          !!isDragAndDropEnabled,
           tableContainerWrapper,
         )}
         zIndex={zIndex}
       >
-        <InsertButton
-          type={type}
-          tableRef={tableRef}
-          onMouseDown={type === 'column' ? this.insertColumn : this.insertRow}
-          hasStickyHeaders={this.props.hasStickyHeaders || false}
-        />
+        {isDragAndDropEnabled ? (
+          <DragAndDropInsertButton
+            type={type}
+            tableRef={tableRef}
+            onMouseDown={type === 'column' ? this.insertColumn : this.insertRow}
+            hasStickyHeaders={this.props.hasStickyHeaders || false}
+          />
+        ) : (
+          <InsertButton
+            type={type}
+            tableRef={tableRef}
+            onMouseDown={type === 'column' ? this.insertColumn : this.insertRow}
+            hasStickyHeaders={this.props.hasStickyHeaders || false}
+          />
+        )}
       </Popup>
     );
   }

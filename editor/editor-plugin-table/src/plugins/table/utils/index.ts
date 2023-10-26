@@ -48,6 +48,8 @@ export {
   isTableContainerOrWrapper,
   isRowDragControlsButton,
   isRowControlsButton,
+  isDragColumnFloatingInsertDot,
+  isDragRowFloatingInsertDot,
   getColumnOrRowIndex,
   getMousePositionHorizontalRelativeByElement,
   getMousePositionVerticalRelativeByElement,

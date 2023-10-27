@@ -21,7 +21,7 @@ import { MediaFeatureFlags as MediaFeatureFlags_2 } from '@atlaskit/media-common
 import { MediaTraceContext } from '@atlaskit/media-common';
 import { default as React_2 } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { WithMediaClientConfigProps } from '@atlaskit/media-client';
+import { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 
 // @public (undocumented)
 export class Browser extends React_2.PureComponent<

@@ -35,7 +35,6 @@ exports[`@atlaskit/icon Glyph should match snapshot 1`] = `
 <span
   aria-label="test-label"
   class="emotion-0"
-  data-testid="test"
   role="img"
   style="--icon-primary-color: currentColor; --icon-secondary-color: var(--ds-surface, #FFFFFF);"
 >

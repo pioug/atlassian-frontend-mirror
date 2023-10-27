@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 77.2.2
+
+### Patch Changes
+
+- [#41659](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41659) [`a0c97a19dba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0c97a19dba) - Remove unused utils and depreciated exports in mediaClient.
+- Updated dependencies
+
 ## 77.2.1
 
 ### Patch Changes

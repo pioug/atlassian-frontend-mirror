@@ -31,7 +31,6 @@ describe('create-plugins-list without mock tests', () => {
       'unsupportedContent',
       'editorDisabled',
       'submitEditor',
-      'fakeTextCursor',
       'floatingToolbar',
       'selection',
       'codeBlock',

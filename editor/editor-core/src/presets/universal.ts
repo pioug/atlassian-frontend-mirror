@@ -4,7 +4,6 @@ import {
   collabEditPlugin,
   dataConsumerMarkPlugin,
   extensionPlugin,
-  fragmentMarkPlugin,
   insertBlockPlugin,
   jiraIssuePlugin,
   layoutPlugin,
@@ -38,6 +37,7 @@ import { borderPlugin } from '@atlaskit/editor-plugin-border';
 import { helpDialogPlugin } from '@atlaskit/editor-plugin-help-dialog';
 import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
+import { fragmentPlugin } from '@atlaskit/editor-plugin-fragment';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { pasteOptionsToolbarPlugin } from '@atlaskit/editor-plugin-paste-options-toolbar';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
@@ -52,7 +52,6 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { saveOnEnterPlugin } from '@atlaskit/editor-plugin-save-on-enter';
 import { scrollIntoViewPlugin } from '@atlaskit/editor-plugin-scroll-into-view';
 import { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';
-import { selectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
 
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 
@@ -650,7 +649,7 @@ export default function createUniversalPreset(
 
       return builder;
     })
-    .maybeAdd(fragmentMarkPlugin, (plugin, builder) => {
+    .maybeAdd(fragmentPlugin, (plugin, builder) => {
       if (props.allowFragmentMark) {
         return builder.add(plugin);
       }
@@ -676,22 +675,6 @@ export default function createUniversalPreset(
       {
         appearance,
       },
-    ])
-    /**
-     * Do not use this plugin - it is for AI purposes only.
-     */
-    .maybeAdd(selectionToolbarPlugin, (plugin, builder) => {
-      if (getBooleanFF('platform.editor.enable-selection-toolbar_ucdwd')) {
-        return builder.add([
-          plugin,
-          {
-            preferenceToolbarAboveSelection: false,
-          },
-        ]);
-      }
-
-      return builder;
-    });
-
+    ]);
   return finalPreset;
 }

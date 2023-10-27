@@ -187,6 +187,7 @@ export const dragInsertButtonWrapper = (props: ThemeProps) => css`
     bottom: -5px;
     left: 3px;
   }
+
   .${ClassName.DRAG_CONTROLS_INSERT_BUTTON} {
     ${Button(`
     background: ${token('elevation.surface.overlay', 'white')};
@@ -198,11 +199,52 @@ export const dragInsertButtonWrapper = (props: ThemeProps) => css`
     border-radius: 50%;
   `)}
   }
+
   .${ClassName.DRAG_CONTROLS_INSERT_BUTTON}:hover {
     background: ${token('color.background.brand.bold', B300)};
     border: 1px solid ${token('color.background.brand.bold', B300)};
     color: ${token('color.icon.inverse', 'white')};
     cursor: pointer;
+  }
+`;
+
+export const dragCornerControlButton = (props: ThemeProps) => css`
+  .${ClassName.DRAG_CORNER_BUTTON} {
+    width: 12px;
+    height: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: ${token('space.negative.075', '-6px')};
+    left: ${token('space.075', '6px')};
+    background-color: ${token('elevation.surface', '#FFF')};
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    outline: none;
+    z-index: ${akEditorUnitZIndex * 99};
+
+    &.active .${ClassName.DRAG_CORNER_BUTTON_INNER} {
+      background-color: ${token('color.border.selected', '#0C66E4')};
+      border-color: ${token('color.border.selected', '#0C66E4')};
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      .${ClassName.DRAG_CORNER_BUTTON_INNER} {
+        border-color: ${token('color.border.selected', '#0C66E4')};
+      }
+    }
+  }
+
+  .${ClassName.DRAG_CORNER_BUTTON_INNER} {
+    border: 1px solid
+      ${token('color.background.accent.gray.subtler', '#DCDFE4')};
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
   }
 `;
 
@@ -403,12 +445,12 @@ const getFloatingDotOverrides = (props: ThemeProps) => {
 
 export const floatingColumnControls = (props: ThemeProps) => {
   return css`
-    .${ClassName.COLUMN_DROP_TARGET_CONTROLS} {
+    .${ClassName.DRAG_COLUMN_DROP_TARGET_CONTROLS} {
       box-sizing: border-box;
       position: absolute;
       top: 0;
 
-      .${ClassName.COLUMN_CONTROLS_INNER} {
+      .${ClassName.DRAG_COLUMN_CONTROLS_INNER} {
         display: flex;
         flex-direction: row;
       }
@@ -417,7 +459,7 @@ export const floatingColumnControls = (props: ThemeProps) => {
     .${ClassName.DRAG_COLUMN_CONTROLS} {
       box-sizing: border-box;
 
-      .${ClassName.COLUMN_CONTROLS_INNER} {
+      .${ClassName.DRAG_COLUMN_CONTROLS_INNER} {
         display: grid;
         justify-items: center;
       }

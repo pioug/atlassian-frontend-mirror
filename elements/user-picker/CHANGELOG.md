@@ -1,5 +1,15 @@
 # @atlaskit/user-picker
 
+## 10.12.0
+
+### Minor Changes
+
+- [#42184](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42184) [`f0685d50c55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0685d50c55) - This change adds `ariaLabel` prop to `UserPicker` that allows us to provide an accessible label for the input.
+
+### Patch Changes
+
+- [#42184](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42184) [`7f7cb1e8f0a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f7cb1e8f0a) - This change adds `ariaLabel` prop to `UserPicker` that allows us to provide an accessible label for the input.
+
 ## 10.11.2
 
 ### Patch Changes

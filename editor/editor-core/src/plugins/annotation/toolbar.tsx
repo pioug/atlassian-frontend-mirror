@@ -9,6 +9,7 @@ import type {
   FloatingToolbarConfig,
   FloatingToolbarButton,
 } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { setInlineCommentDraftState } from './commands';
 import { AnnotationTestIds, AnnotationSelectionType } from './types';
 import { isSelectionValid } from './utils';
@@ -18,67 +19,72 @@ import {
   calculateToolbarPositionTrackHead,
 } from '@atlaskit/editor-common/utils';
 
-export const buildToolbar = (
-  state: EditorState,
-  intl: IntlShape,
-  isToolbarAbove: boolean = false,
-): FloatingToolbarConfig | undefined => {
-  const { schema } = state;
-  const selectionValid = isSelectionValid(state);
-  if (selectionValid === AnnotationSelectionType.INVALID) {
-    return undefined;
-  }
+export const buildToolbar =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (
+    state: EditorState,
+    intl: IntlShape,
+    isToolbarAbove: boolean = false,
+  ): FloatingToolbarConfig | undefined => {
+    const { schema } = state;
+    const selectionValid = isSelectionValid(state);
+    if (selectionValid === AnnotationSelectionType.INVALID) {
+      return undefined;
+    }
 
-  const createCommentMessage = intl.formatMessage(
-    annotationMessages.createComment,
-  );
-  const commentDisabledMessage = intl.formatMessage(
-    annotationMessages.createCommentInvalid,
-  );
+    const createCommentMessage = intl.formatMessage(
+      annotationMessages.createComment,
+    );
+    const commentDisabledMessage = intl.formatMessage(
+      annotationMessages.createCommentInvalid,
+    );
 
-  const createComment: FloatingToolbarButton<Command> = {
-    type: 'button',
-    showTitle: true,
-    disabled: selectionValid === AnnotationSelectionType.DISABLED,
-    testId: AnnotationTestIds.floatingToolbarCreateButton,
-    icon: CommentIcon,
-    tooltipContent:
-      selectionValid === AnnotationSelectionType.DISABLED ? (
-        commentDisabledMessage
-      ) : (
-        <ToolTipContent
-          description={createCommentMessage}
-          keymap={addInlineComment}
-        />
-      ),
-    title: createCommentMessage,
-    onClick: (state, dispatch) => {
-      return setInlineCommentDraftState(true)(state, dispatch);
-    },
+    const createComment: FloatingToolbarButton<Command> = {
+      type: 'button',
+      showTitle: true,
+      disabled: selectionValid === AnnotationSelectionType.DISABLED,
+      testId: AnnotationTestIds.floatingToolbarCreateButton,
+      icon: CommentIcon,
+      tooltipContent:
+        selectionValid === AnnotationSelectionType.DISABLED ? (
+          commentDisabledMessage
+        ) : (
+          <ToolTipContent
+            description={createCommentMessage}
+            keymap={addInlineComment}
+          />
+        ),
+      title: createCommentMessage,
+      onClick: (state, dispatch) => {
+        return setInlineCommentDraftState(editorAnalyticsAPI)(true)(
+          state,
+          dispatch,
+        );
+      },
+    };
+
+    const { annotation } = schema.marks;
+    const validNodes = Object.keys(schema.nodes).reduce<NodeType[]>(
+      (acc, current) => {
+        const type = schema.nodes[current];
+        if (type.allowsMarkType(annotation)) {
+          acc.push(type);
+        }
+        return acc;
+      },
+      [],
+    );
+
+    const toolbarTitle = intl.formatMessage(annotationMessages.toolbar);
+    const calcToolbarPosition = isToolbarAbove
+      ? calculateToolbarPositionAboveSelection
+      : calculateToolbarPositionTrackHead;
+    const onPositionCalculated = calcToolbarPosition(toolbarTitle);
+
+    return {
+      title: toolbarTitle,
+      nodeType: validNodes,
+      items: [createComment],
+      onPositionCalculated,
+    };
   };
-
-  const { annotation } = schema.marks;
-  const validNodes = Object.keys(schema.nodes).reduce<NodeType[]>(
-    (acc, current) => {
-      const type = schema.nodes[current];
-      if (type.allowsMarkType(annotation)) {
-        acc.push(type);
-      }
-      return acc;
-    },
-    [],
-  );
-
-  const toolbarTitle = intl.formatMessage(annotationMessages.toolbar);
-  const calcToolbarPosition = isToolbarAbove
-    ? calculateToolbarPositionAboveSelection
-    : calculateToolbarPositionTrackHead;
-  const onPositionCalculated = calcToolbarPosition(toolbarTitle);
-
-  return {
-    title: toolbarTitle,
-    nodeType: validNodes,
-    items: [createComment],
-    onPositionCalculated,
-  };
-};

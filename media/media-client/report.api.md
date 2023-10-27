@@ -36,7 +36,6 @@ import { MediaType } from '@atlaskit/media-common';
 import { ProcessedFileState } from '@atlaskit/media-state';
 import { ProcessingFailedState } from '@atlaskit/media-state';
 import { ProcessingFileState } from '@atlaskit/media-state';
-import { default as React_2 } from 'react';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { UploadingFileState } from '@atlaskit/media-state';
 
@@ -448,11 +447,6 @@ export interface GetFileOptions {
 // @public (undocumented)
 export const getFileStreamsCache: () => StreamsCache<FileState>;
 
-// @public @deprecated (undocumented)
-export const getMediaClient: (
-  mediaClientConfig: MediaClientConfig,
-) => MediaClient;
-
 // @public (undocumented)
 export function getMediaClientErrorReason(
   err: Error,
@@ -463,9 +457,6 @@ export const getMediaEnvironment: () => string | undefined;
 
 // @public (undocumented)
 export const getMediaRegion: () => string | undefined;
-
-// @public @deprecated (undocumented)
-export const getMediaTypeFromMimeType: (mimeType: string) => MediaType;
 
 // @public (undocumented)
 export const globalMediaEventEmitter: {
@@ -515,19 +506,8 @@ export const imageResizeModeToFileImageMode: (
 // @public (undocumented)
 export function isAbortedRequestError(err: any): boolean;
 
-// @public @deprecated (undocumented)
-export const isAudioMimeTypeSupportedByServer: (mimeType: string) => boolean;
-
 // @public (undocumented)
 export const isDifferentIdentifier: (a: Identifier, b: Identifier) => boolean;
-
-// @public @deprecated (undocumented)
-export const isDocumentMimeTypeSupportedByBrowser: (
-  mimeType: string,
-) => boolean;
-
-// @public @deprecated (undocumented)
-export const isDocumentMimeTypeSupportedByServer: (mimeType: string) => boolean;
 
 // @public (undocumented)
 export const isErrorFileState: (
@@ -552,18 +532,6 @@ export const isFinalFileState: (
   fileState: FileState,
 ) => fileState is ErrorFileState | ProcessedFileState | ProcessingFailedState;
 
-// @public @deprecated (undocumented)
-export const isImageMimeTypeSupportedByBrowser: (mimeType: string) => boolean;
-
-// @public @deprecated (undocumented)
-export const isImageMimeTypeSupportedByServer: (mimeType: string) => boolean;
-
-// @public (undocumented)
-export const isImageRemote: (
-  imageUrl: string,
-  windowOrigin?: string,
-) => boolean;
-
 // @public (undocumented)
 export const isImageRepresentationReady: (fileState: FileState) => boolean;
 
@@ -577,12 +545,6 @@ export function isMediaClientError(error: any): error is MediaClientError<{
 
 // @public (undocumented)
 export function isMediaStoreError(err: Error): err is MediaStoreError;
-
-// @public @deprecated (undocumented)
-export const isMimeTypeSupportedByBrowser: (mimeType: string) => boolean;
-
-// @public @deprecated (undocumented)
-export const isMimeTypeSupportedByServer: (mimeType: string) => boolean;
 
 // @public (undocumented)
 export function isPollingError(err?: Error): err is PollingError;
@@ -617,16 +579,10 @@ export function isRateLimitedError(error: Error | undefined): boolean;
 // @public (undocumented)
 export function isRequestError(err: Error): err is RequestError;
 
-// @public @deprecated (undocumented)
-export const isUnknownMimeTypeSupportedByServer: (mimeType: string) => boolean;
-
 // @public (undocumented)
 export const isUploadingFileState: (
   fileState: FileState,
 ) => fileState is UploadingFileState;
-
-// @public @deprecated (undocumented)
-export const isVideoMimeTypeSupportedByServer: (mimeType: string) => boolean;
 
 // @public (undocumented)
 export interface ItemsPayload {
@@ -644,15 +600,6 @@ export const mapMediaItemToFileState: (
   id: string,
   item: MediaItemDetails,
 ) => FileState;
-
-// @public @deprecated (undocumented)
-export function mapResponseToBlob(response: Response): Promise<Blob>;
-
-// @public @deprecated (undocumented)
-export function mapResponseToJson(response: Response): Promise<any>;
-
-// @public @deprecated (undocumented)
-export function mapResponseToVoid(): Promise<void>;
 
 // @public (undocumented)
 export const MAX_RESOLUTION = 4096;
@@ -1397,9 +1344,6 @@ export type RetryOptions = {
 };
 
 // @public (undocumented)
-export const safeUnsubscribe: (subscription: MediaSubscription) => void;
-
-// @public (undocumented)
 export interface SourceFile {
   // (undocumented)
   collection?: string;
@@ -1517,35 +1461,6 @@ export interface UploadFileResult {
 
 export { UploadingFileState };
 
-// @public @deprecated (undocumented)
-export interface WithMediaClient {
-  // (undocumented)
-  identifier?: Identifier;
-  // (undocumented)
-  mediaClient: MediaClient;
-}
-
-// @public @deprecated (undocumented)
-export const withMediaClient: WithMediaClientFunction;
-
-// @public @deprecated (undocumented)
-export interface WithMediaClientConfig {
-  // (undocumented)
-  mediaClientConfig: MediaClientConfig;
-}
-
-// @public @deprecated (undocumented)
-export type WithMediaClientConfigProps<P extends WithMediaClient> = Omit<
-  P,
-  'mediaClient'
-> &
-  WithMediaClientConfig;
-
-// @public @deprecated (undocumented)
-export type WithMediaClientFunction = <P extends WithMediaClient>(
-  Component: React_2.ComponentType<P>,
-) => React_2.ComponentType<WithMediaClientConfigProps<P>>;
-
 // (No @packageDocumentation comment for this package)
 ```
 
@@ -1558,10 +1473,7 @@ export type WithMediaClientFunction = <P extends WithMediaClient>(
 ```json
 {
   "@atlaskit/media-core": "^34.1.2",
-  "@atlaskit/media-state": "^1.0.0",
-  "@emotion/react": "^11.7.1",
-  "enzyme": ">=3.10.0",
-  "react": "^16.8.0"
+  "@atlaskit/media-state": "^1.0.0"
 }
 ```
 

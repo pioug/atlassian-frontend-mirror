@@ -2,7 +2,6 @@ export { default as clearMarksOnChangeToEmptyDocumentPlugin } from './clear-mark
 export { default as codeBlockPlugin } from './code-block';
 export { default as collabEditPlugin } from './collab-edit';
 export { default as extensionPlugin } from './extension';
-export { default as fakeTextCursorPlugin } from './fake-text-cursor';
 export { default as insertBlockPlugin } from './insert-block';
 export { default as jiraIssuePlugin } from './jira-issue';
 export { default as layoutPlugin } from './layout';
@@ -16,7 +15,6 @@ export { default as tasksAndDecisionsPlugin } from './tasks-and-decisions';
 export { default as breakoutPlugin } from './breakout';
 export { default as alignmentPlugin } from './alignment';
 export { default as dataConsumerMarkPlugin } from './data-consumer';
-export { default as fragmentMarkPlugin } from './fragment';
 export { default as indentationPlugin } from './indentation';
 export { default as annotationPlugin } from './annotation';
 export { default as analyticsPlugin } from './analytics';

@@ -5,6 +5,7 @@ import type {
   ExtractInjectionAPI,
   FloatingToolbarConfig,
   SelectionToolbarGroup,
+  OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { keymapPlugin } from './pm-plugins/keymap';
@@ -28,14 +29,21 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { InlineCommentPluginState } from './pm-plugins/types';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
-const annotationPlugin: NextEditorPlugin<
+export type AnnotationPlugin = NextEditorPlugin<
   'annotation',
   {
     pluginConfiguration: AnnotationProviders | undefined;
     sharedState: InlineCommentPluginState | undefined;
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
   }
-> = ({ config: annotationProviders, api }) => {
+>;
+
+const annotationPlugin: AnnotationPlugin = ({
+  config: annotationProviders,
+  api,
+}) => {
   return {
     name: 'annotation',
 
@@ -65,6 +73,7 @@ const annotationPlugin: NextEditorPlugin<
               portalProviderAPI,
               eventDispatcher,
               provider: annotationProviders.inlineComment,
+              editorAnalyticsAPI: api?.analytics?.actions,
             });
           }
 
@@ -75,7 +84,7 @@ const annotationPlugin: NextEditorPlugin<
         name: 'annotationKeymap',
         plugin: () => {
           if (annotationProviders) {
-            return keymapPlugin();
+            return keymapPlugin(api?.analytics?.actions);
           }
           return;
         },
@@ -99,7 +108,11 @@ const annotationPlugin: NextEditorPlugin<
           !pluginState.mouseData.isSelecting
         ) {
           const { isToolbarAbove } = annotationProviders.inlineComment;
-          return buildToolbar(state, intl, isToolbarAbove);
+          return buildToolbar(api?.analytics?.actions)(
+            state,
+            intl,
+            isToolbarAbove,
+          );
         }
       },
       selectionToolbar(state, intl): SelectionToolbarGroup | undefined {
@@ -118,7 +131,7 @@ const annotationPlugin: NextEditorPlugin<
           !pluginState.mouseData.isSelecting
         ) {
           const { isToolbarAbove } = annotationProviders.inlineComment;
-          return buildToolbar(
+          return buildToolbar(api?.analytics?.actions)(
             state,
             intl,
             isToolbarAbove,
@@ -169,6 +182,7 @@ function AnnotationContentComponent({
         providers={annotationProviders}
         editorView={editorView}
         dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+        editorAnalyticsAPI={api?.analytics?.actions}
       />
     </div>
   );

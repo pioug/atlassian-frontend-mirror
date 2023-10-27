@@ -1,11 +1,13 @@
 import { name } from '../../../version-wrapper';
-import { placeholderTextPlugin } from '../../../plugins/placeholder-text';
+import {
+  placeholderTextPlugin,
+  FakeTextCursorSelection,
+} from '../../../plugins/placeholder-text';
 import {
   insertPlaceholderTextAtSelection,
   showPlaceholderFloatingToolbar,
   hidePlaceholderFloatingToolbar,
 } from '../../../plugins/placeholder-text/actions';
-import { FakeTextCursorSelection } from '../../../plugins/fake-text-cursor/cursor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { DocBuilder } from '@atlaskit/editor-common/types';

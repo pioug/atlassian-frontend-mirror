@@ -129,7 +129,7 @@ export function getDefaultPresetOptionsFromEditorProps(
  * Maps EditorProps to EditorPlugins
  *
  * Note: The order that presets are added determines
- * their placement in the editor toolbar
+ * their placement in the editor toolbar.
  */
 export default function createPluginsList(
   preset: EditorPresetBuilder<any, any>,

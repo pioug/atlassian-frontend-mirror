@@ -3,7 +3,7 @@ import type { CSSProperties, FC } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import * as colors from '@atlaskit/theme/colors';
+import { B100, B400, G300, P300, R400, Y300 } from '@atlaskit/theme/colors';
 import { themed, useGlobalTheme } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 
@@ -18,24 +18,24 @@ interface MessageIconProps {
 
 const iconColor = themed('appearance', {
   connectivity: {
-    light: token('color.icon.brand', colors.B400),
-    dark: token('color.icon.brand', colors.B100),
+    light: token('color.icon.brand', B400),
+    dark: token('color.icon.brand', B100),
   },
   confirmation: {
-    light: token('color.icon.success', colors.G300),
-    dark: token('color.icon.success', colors.G300),
+    light: token('color.icon.success', G300),
+    dark: token('color.icon.success', G300),
   },
   info: {
-    light: token('color.icon.discovery', colors.P300),
-    dark: token('color.icon.discovery', colors.P300),
+    light: token('color.icon.discovery', P300),
+    dark: token('color.icon.discovery', P300),
   },
   warning: {
-    light: token('color.icon.warning', colors.Y300),
-    dark: token('color.icon.warning', colors.Y300),
+    light: token('color.icon.warning', Y300),
+    dark: token('color.icon.warning', Y300),
   },
   error: {
-    light: token('color.icon.danger', colors.R400),
-    dark: token('color.icon.danger', colors.R400),
+    light: token('color.icon.danger', R400),
+    dark: token('color.icon.danger', R400),
   },
 });
 
@@ -58,7 +58,7 @@ const iconColorStyles = css({
  */
 const SelectedIcon: FC<MessageIconProps> = ({ appearance, isOpen, label }) => {
   const {
-    [appearance]: { icon: SelectedIcon, defaultLabel },
+    [appearance]: { icon: Icon, defaultLabel },
   } = typesMapping;
 
   const theme = useGlobalTheme();
@@ -71,7 +71,7 @@ const SelectedIcon: FC<MessageIconProps> = ({ appearance, isOpen, label }) => {
       }
       css={[iconWrapperStyles, isOpen && iconColorStyles]}
     >
-      <SelectedIcon
+      <Icon
         testId="inline-message-icon"
         label={label || defaultLabel}
         size="medium"

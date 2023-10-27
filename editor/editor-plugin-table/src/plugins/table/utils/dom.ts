@@ -52,7 +52,7 @@ export const isTableContainerOrWrapper = (node: HTMLElement | null): boolean =>
   containsClassName(node, ClassName.TABLE_NODE_WRAPPER);
 
 /** drag-and-drop classes */
-export const isRowDragControlsButton = (node: HTMLElement | null) =>
+export const isDragRowControlsButton = (node: HTMLElement | null) =>
   containsClassName(node, ClassName.DRAG_ROW_CONTROLS) ||
   closestElement(node, `.${ClassName.DRAG_ROW_CONTROLS}`);
 
@@ -61,6 +61,10 @@ export const isDragRowFloatingInsertDot = (node: HTMLElement | null) =>
 
 export const isDragColumnFloatingInsertDot = (node: HTMLElement | null) =>
   containsClassName(node, ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT_WRAPPER);
+
+export const isDragCornerButton = (node: HTMLElement | null) =>
+  containsClassName(node, ClassName.DRAG_CORNER_BUTTON) ||
+  containsClassName(node, ClassName.DRAG_CORNER_BUTTON_INNER);
 
 /*
  * This function returns which side of a given element the mouse cursor is,
@@ -120,15 +124,23 @@ export const getMousePositionHorizontalRelativeByElement = (
   mouseEvent: MouseEvent,
   elementContentRects?: ElementContentRects,
   gapInPixels?: number,
+  isDragAndDropEnabled?: boolean,
 ): 'left' | 'right' | null => {
   const element = mouseEvent.target;
 
   if (element instanceof HTMLElement) {
     let width, x;
-    const closestCell = element.closest(SELECTOR_TABLE_LEAFS);
 
-    const id = closestCell?.id ?? '';
-    width = elementContentRects?.[id]?.width ?? 0;
+    if (isDragAndDropEnabled) {
+      // mouse event fires for new overlapping column controls, so the cell can not get detected. Get width
+      // directly from element that will be .pm-table-drag-columns-floating-insert-dot-wrapper
+      width = element.clientWidth;
+    } else {
+      const closestCell = element.closest(SELECTOR_TABLE_LEAFS);
+
+      const id = closestCell?.id ?? '';
+      width = elementContentRects?.[id]?.width ?? 0;
+    }
     x = mouseEvent.offsetX;
 
     if (width <= 0) {

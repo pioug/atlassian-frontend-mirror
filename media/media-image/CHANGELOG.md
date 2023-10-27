@@ -1,5 +1,12 @@
 # @atlaskit/media-image
 
+## 17.4.7
+
+### Patch Changes
+
+- [#41659](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41659) [`a0c97a19dba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0c97a19dba) - Remove unused utils and depreciated exports in mediaClient.
+- Updated dependencies
+
 ## 17.4.6
 
 ### Patch Changes

@@ -10,7 +10,7 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { Providers } from '../provider-factory';
 
 // Format of the payload returned by the callback function passed to the collab provider
-// that gets called when syncing with the back-end service fails
+// that gets called when syncing with the back-end service fails.
 export type NewCollabSyncUpErrorAttributes = {
   lengthOfUnconfirmedSteps?: number;
   tries: number;

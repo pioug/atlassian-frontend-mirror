@@ -273,10 +273,6 @@ export const TableCssClassName = {
   COLUMN_CONTROLS_DECORATIONS: `${tablePrefixSelector}-column-controls-decoration`,
   COLUMN_SELECTED: `${tablePrefixSelector}-column__selected`,
 
-  COLUMN_CONTROLS_WRAPPER: `${tablePrefixSelector}-col-controls-wrapper`,
-  COLUMN_DROP_TARGET_CONTROLS: `${tablePrefixSelector}-col-drop-target-controls`,
-  COLUMN_CONTROLS_INNER: `${tablePrefixSelector}-col-controls__inner`,
-
   ROW_CONTROLS_WRAPPER: `${tablePrefixSelector}-row-controls-wrapper`,
   ROW_CONTROLS: `${tablePrefixSelector}-row-controls`,
   ROW_CONTROLS_INNER: `${tablePrefixSelector}-row-controls__inner`,
@@ -320,7 +316,14 @@ export const TableCssClassName = {
   DRAG_COLUMN_FLOATING_INSERT_DOT_WRAPPER: `${tablePrefixSelector}-drag-columns-floating-insert-dot-wrapper`,
   DRAG_COLUMN_FLOATING_INSERT_DOT: `${tablePrefixSelector}-drag-columns-floating-insert-dot`,
 
+  DRAG_COLUMN_CONTROLS_WRAPPER: `${tablePrefixSelector}-col-controls-wrapper`,
+  DRAG_COLUMN_DROP_TARGET_CONTROLS: `${tablePrefixSelector}-col-drop-target-controls`,
+  DRAG_COLUMN_CONTROLS_INNER: `${tablePrefixSelector}-col-controls__inner`,
+
   DRAG_HANDLE_BUTTON_CONTAINER: `${tablePrefixSelector}-drag-handle-button-container`,
+
+  DRAG_CORNER_BUTTON: `${tablePrefixSelector}-drag-corner-button`,
+  DRAG_CORNER_BUTTON_INNER: `${tablePrefixSelector}-drag-corner-button-inner`,
 
   /** Other classes */
   NUMBERED_COLUMN: `${tablePrefixSelector}-numbered-column`,

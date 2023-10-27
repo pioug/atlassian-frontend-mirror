@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.16
+
+### Patch Changes
+
+- [#42211](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42211) [`feef33e6e7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/feef33e6e7e) - Add new corner button for tables to support drag and drop
+- [#42213](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42213) [`1daf5ff634c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1daf5ff634c) - Fixed and issue where a drag could occur with the menu open. When a drag starts if a menu is open then it wil be closed.
+- Updated dependencies
+
+## 5.3.15
+
+### Patch Changes
+
+- [#42203](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42203) [`7eb9439a045`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7eb9439a045) - Implement drag menu options
+
 ## 5.3.14
 
 ### Patch Changes

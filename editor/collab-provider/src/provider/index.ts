@@ -47,6 +47,7 @@ const OUT_OF_SYNC_PERIOD = 3 * 1000; // 3 seconds
 const PRELOAD_DRAFT_SYNC_PERIOD = 15 * 1000; // 15 seconds
 
 export const MAX_STEP_REJECTED_ERROR = 15;
+export const MAX_STEP_REJECTED_ERROR_AGGRESSIVE = 2;
 
 type BaseEvents = Pick<
   CollabEditProvider<CollabEvents>,
@@ -163,7 +164,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       () => this.userId,
       this.onErrorHandled,
       this.metadataService,
-      this.config.failedStepLimitBeforeCatchupOnPublish,
       this.config.enableErrorOnFailedDocumentApply,
     );
     this.namespaceService = new NamespaceService();

@@ -1,5 +1,11 @@
 # @atlaskit/link-client-extension
 
+## 1.8.0
+
+### Minor Changes
+
+- [#42199](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42199) [`896e6300360`](https://bitbucket.org/atlassian/atlassian-frontend/commits/896e6300360) - Add api to make GET request to related-urls endpoint
+
 ## 1.7.3
 
 ### Patch Changes

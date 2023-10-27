@@ -15,7 +15,6 @@ import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { submitEditorPlugin } from '@atlaskit/editor-plugin-submit-editor';
-import fakeTextCursorPlugin from '../plugins/fake-text-cursor';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
@@ -45,6 +44,8 @@ import undoRedoPlugin from '../plugins/undo-redo';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { TypeAheadPluginOptions } from '@atlaskit/editor-plugin-type-ahead';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { selectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 // #endregion
 
 export type DefaultPresetPluginOptions = {
@@ -127,6 +128,21 @@ export function createDefaultPreset(
       }
       return builder;
     })
+    /**
+     * Do not use this plugin - it is for AI purposes only.
+     */
+    .maybeAdd(selectionToolbarPlugin, (plugin, builder) => {
+      if (getBooleanFF('platform.editor.enable-selection-toolbar_ucdwd')) {
+        return builder.add([
+          plugin,
+          {
+            preferenceToolbarAboveSelection: false,
+          },
+        ]);
+      }
+
+      return builder;
+    })
     .add([hyperlinkPlugin, options.hyperlinkOptions])
     .add([textFormattingPlugin, options.textFormatting])
     .add(widthPlugin)
@@ -141,7 +157,6 @@ export function createDefaultPreset(
     .add(unsupportedContentPlugin)
     .add(editorDisabledPlugin)
     .add([submitEditorPlugin, options.submitEditor])
-    .add(fakeTextCursorPlugin)
     .add(copyButtonPlugin)
     .add(floatingToolbarPlugin)
     .add([selectionPlugin, options.selection])

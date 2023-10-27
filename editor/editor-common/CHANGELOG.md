@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 76.16.0
+
+### Minor Changes
+
+- [#42210](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42210) [`a00e52ea8b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a00e52ea8b8) - ED-20478: removes editor fake-text-cursor editor plugin and relocates it under placeholder-text plugin
+
+## 76.15.4
+
+### Patch Changes
+
+- [#41977](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41977) [`b03daf294d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b03daf294d5) - dummy change to fix product build
+
+## 76.15.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 76.15.2
 
 ### Patch Changes

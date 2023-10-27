@@ -1,6 +1,11 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type { RefsNode, DocBuilder } from '@atlaskit/editor-common/types';
+import type {
+  RefsNode,
+  DocBuilder,
+  PublicPluginAPI,
+} from '@atlaskit/editor-common/types';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -31,7 +36,6 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '../../../analytics/types/enums';
-import deprecatedAnalyticsPlugin from '../../../analytics/plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import * as pluginFactory from '../../pm-plugins/plugin-factory';
@@ -51,7 +55,6 @@ describe('commands', () => {
   const annotationPreset = new Preset<LightEditorPlugin>()
     .add([featureFlagsPlugin, {}])
     .add([analyticsPlugin, { createAnalyticsEvent }])
-    .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
     .add(textFormattingPlugin)
     .add([annotationPlugin, { inlineComment: { ...inlineCommentProvider } }]);
 
@@ -79,12 +82,12 @@ describe('commands', () => {
     });
 
     it('sends analytics when resolving comment from component', async () => {
-      const editorView = editor(helloWorldDoc).editorView;
+      const { editorView, editorAPI } = editor(helloWorldDoc);
 
-      setInlineCommentDraftState(true, INPUT_METHOD.TOOLBAR)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      setInlineCommentDraftState(editorAPI?.analytics?.actions)(
+        true,
+        INPUT_METHOD.TOOLBAR,
+      )(editorView.state, editorView.dispatch);
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: ACTION.OPENED,
         actionSubject: ACTION_SUBJECT.ANNOTATION,
@@ -100,12 +103,12 @@ describe('commands', () => {
     });
 
     it('sends analytics when opening draft comment', async () => {
-      const editorView = editor(helloWorldDoc).editorView;
+      const { editorView, editorAPI } = editor(helloWorldDoc);
 
-      setInlineCommentDraftState(true, INPUT_METHOD.TOOLBAR)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      setInlineCommentDraftState(editorAPI?.analytics?.actions)(
+        true,
+        INPUT_METHOD.TOOLBAR,
+      )(editorView.state, editorView.dispatch);
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: ACTION.OPENED,
         actionSubject: ACTION_SUBJECT.ANNOTATION,
@@ -121,12 +124,12 @@ describe('commands', () => {
     });
 
     it('sends analytics when opening draft comment from keyboard shortcut', async () => {
-      const editorView = editor(helloWorldDoc).editorView;
+      const { editorView, editorAPI } = editor(helloWorldDoc);
 
-      setInlineCommentDraftState(true, INPUT_METHOD.SHORTCUT)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      setInlineCommentDraftState(editorAPI?.analytics?.actions)(
+        true,
+        INPUT_METHOD.SHORTCUT,
+      )(editorView.state, editorView.dispatch);
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: ACTION.OPENED,
         actionSubject: ACTION_SUBJECT.ANNOTATION,
@@ -142,9 +145,12 @@ describe('commands', () => {
     });
 
     it('sends analytics when closing draft comment', async () => {
-      const editorView = editor(helloWorldDoc).editorView;
+      const { editorView, editorAPI } = editor(helloWorldDoc);
 
-      setInlineCommentDraftState(false)(editorView.state, editorView.dispatch);
+      setInlineCommentDraftState(editorAPI?.analytics?.actions)(false)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: ACTION.CLOSED,
         actionSubject: ACTION_SUBJECT.ANNOTATION,
@@ -168,12 +174,12 @@ describe('commands', () => {
             })('This {<}line is a ', strong('formatted'), ' comment{>}'),
           ),
         );
-        const editorView = editor(commentedDoc).editorView;
+        const { editorView, editorAPI } = editor(commentedDoc);
 
-        setInlineCommentDraftState(true, INPUT_METHOD.TOOLBAR)(
-          editorView.state,
-          editorView.dispatch,
-        );
+        setInlineCommentDraftState(editorAPI?.analytics?.actions)(
+          true,
+          INPUT_METHOD.TOOLBAR,
+        )(editorView.state, editorView.dispatch);
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
           action: ACTION.OPENED,
           actionSubject: ACTION_SUBJECT.ANNOTATION,
@@ -201,12 +207,12 @@ describe('commands', () => {
             })('This line is another comment{>}'),
           ),
         );
-        const editorView = editor(commentedADF).editorView;
+        const { editorView, editorAPI } = editor(commentedADF);
 
-        setInlineCommentDraftState(true, INPUT_METHOD.TOOLBAR)(
-          editorView.state,
-          editorView.dispatch,
-        );
+        setInlineCommentDraftState(editorAPI?.analytics?.actions)(
+          true,
+          INPUT_METHOD.TOOLBAR,
+        )(editorView.state, editorView.dispatch);
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
           action: ACTION.OPENED,
           actionSubject: ACTION_SUBJECT.ANNOTATION,
@@ -221,13 +227,13 @@ describe('commands', () => {
     });
 
     it('calls dispatch just once', async () => {
-      const editorView = editor(helloWorldDoc).editorView;
+      const { editorView, editorAPI } = editor(helloWorldDoc);
       await nextTick();
       const dispatchSpy = jest.spyOn(editorView, 'dispatch');
-      setInlineCommentDraftState(true, INPUT_METHOD.TOOLBAR)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      setInlineCommentDraftState(editorAPI?.analytics?.actions)(
+        true,
+        INPUT_METHOD.TOOLBAR,
+      )(editorView.state, editorView.dispatch);
       let inlineCommentTransactionCalls = 0;
       dispatchSpy.mock.calls.forEach((call) => {
         call.forEach((tr) => {
@@ -243,8 +249,8 @@ describe('commands', () => {
       isDraft: boolean,
       doc: (schema: Schema<any, any>) => RefsNode,
     ) {
-      const editorView = editor(doc).editorView;
-      setInlineCommentDraftState(isDraft)(
+      const { editorView, editorAPI } = editor(doc);
+      setInlineCommentDraftState(editorAPI?.analytics?.actions)(isDraft)(
         editorView.state,
         editorView.dispatch,
       );
@@ -303,14 +309,15 @@ describe('commands', () => {
 
   describe('updateInlineCommentResolvedState', () => {
     let editorView: EditorView;
+    let editorAPI: PublicPluginAPI<[AnalyticsPlugin]>;
     beforeEach(() => {
-      editorView = editor(helloWorldDoc).editorView;
+      ({ editorView, editorAPI } = editor(helloWorldDoc));
     });
 
     it('calls dispatch just once', async () => {
       await nextTick();
       const dispatchSpy = jest.spyOn(editorView, 'dispatch');
-      updateInlineCommentResolvedState(
+      updateInlineCommentResolvedState(undefined)(
         { testId: true },
         RESOLVE_METHOD.COMPONENT,
       )(editorView.state, editorView.dispatch);
@@ -338,10 +345,10 @@ describe('commands', () => {
           },
         ],
       ])('%s', async (name, { resolveMethod }) => {
-        updateInlineCommentResolvedState({ testId: true }, resolveMethod)(
-          editorView.state,
-          editorView.dispatch,
-        );
+        updateInlineCommentResolvedState(editorAPI?.analytics?.actions)(
+          { testId: true },
+          resolveMethod,
+        )(editorView.state, editorView.dispatch);
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
           action: 'resolved',
           actionSubject: ACTION_SUBJECT.ANNOTATION,

@@ -26,7 +26,7 @@ const TitleBlockResolvedView: React.FC<TitleBlockViewProps> = ({
   text,
   title,
   metadataPosition,
-  hideIcon = false,
+  hideIcon,
   ...blockProps
 }) => {
   const metadataElements = renderElementItems(metadata);

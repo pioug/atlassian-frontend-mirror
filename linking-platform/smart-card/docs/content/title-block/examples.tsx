@@ -232,11 +232,38 @@ ${(
   />
 )}
 
+### Resolving views
+When a link is loading, the TitleBlock will show resolving views.
+ If \`hideIcon\` is true, the icon will be hidden.
+
+#### Default loading view
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/title-block-resolving').default
+    }
+    sourceVisible={false}
+  />
+)}
+
+#### Default loading view with hidden icon
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/title-block-resolving-hide-icon')
+        .default
+    }
+    sourceVisible={false}
+  />
+)}
+
+
 ### Unresolved views
 
 When a link fails to resolved, the TitleBlock will show unresolved views with the url of the link
 and any additional information about the error.
 If \`text\` is defined, the url will be override with its value.
+If \`hideIcon\` is true, the icon will be hidden.
 
 #### Default error view
 
@@ -244,6 +271,18 @@ ${(
   <CustomExample
     Component={
       require('../../../examples/content/title-block-unresolved-error').default
+    }
+    sourceVisible={false}
+  />
+)}
+
+#### Default error view with hidden icon
+
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/title-block-unresolved-error-hide-icon')
+        .default
     }
     sourceVisible={false}
   />

@@ -18,14 +18,14 @@ import {
   drawFakeTextCursor,
   FakeTextCursorBookmark,
 } from '../../cursor';
-import fakeTextCursorPlugin from '../../index';
+import placeholderTextPlugin from '../../../plugin';
 
-describe('FakeTextCursor -> Cursor', () => {
+describe('placeholder text -> FakeTextCursor -> Cursor', () => {
   const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
-      preset: new Preset<LightEditorPlugin>().add(fakeTextCursorPlugin),
+      preset: new Preset<LightEditorPlugin>().add([placeholderTextPlugin, {}]),
     });
 
   describe('addFakeTextCursor', () => {

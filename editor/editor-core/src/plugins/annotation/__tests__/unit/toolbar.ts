@@ -65,7 +65,7 @@ describe('annotation', () => {
         doc(p('Trysail Sail ho {<}Corsair smartly{>} boom gangway.')),
       );
 
-      const toolbar = buildToolbar(editorView.state, intl);
+      const toolbar = buildToolbar(undefined)(editorView.state, intl);
       expect(toolbar).toBeDefined();
 
       expect((toolbar as FloatingToolbarConfig).items.length).toBe(1);
@@ -76,7 +76,7 @@ describe('annotation', () => {
         doc(h1('Trysail Sail ho {<}Corsair smartly{>} boom gangway.')),
       );
 
-      const toolbar = buildToolbar(editorView.state, intl);
+      const toolbar = buildToolbar(undefined)(editorView.state, intl);
       expect(toolbar).toBeDefined();
     });
 
@@ -91,7 +91,7 @@ describe('annotation', () => {
         ),
       );
 
-      const toolbar = buildToolbar(editorView.state, intl);
+      const toolbar = buildToolbar(undefined)(editorView.state, intl);
       expect(toolbar).toBeDefined();
     });
 
@@ -106,7 +106,7 @@ describe('annotation', () => {
         ),
       );
 
-      const toolbar = buildToolbar(editorView.state, intl);
+      const toolbar = buildToolbar(undefined)(editorView.state, intl);
       expect(toolbar).toBeDefined();
     });
 
@@ -115,7 +115,7 @@ describe('annotation', () => {
         doc(p('Trysail Sail ho {<>}Corsair smartly boom gangway.')),
       );
 
-      const toolbar = buildToolbar(editorView.state, intl);
+      const toolbar = buildToolbar(undefined)(editorView.state, intl);
       expect(toolbar).toBeUndefined();
     });
 
@@ -124,7 +124,7 @@ describe('annotation', () => {
         doc(p('Corsair', '{<node>}', emoji({ shortName: ':smiley:' })())),
       );
 
-      const toolbar = buildToolbar(editorView.state, intl);
+      const toolbar = buildToolbar(undefined)(editorView.state, intl);
       expect(toolbar).toBeUndefined();
     });
   });
@@ -134,7 +134,7 @@ describe('annotation', () => {
       doc(p('Trysail Sail ho {<}Corsair smartly{>} boom gangway.')),
     );
 
-    const toolbar = buildToolbar(editorView.state, intl);
+    const toolbar = buildToolbar(undefined)(editorView.state, intl);
     expect(toolbar).toBeDefined();
 
     expect((<FloatingToolbarConfig>toolbar).items.length).toBe(1);

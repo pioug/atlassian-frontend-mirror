@@ -28,7 +28,7 @@ import { SortOrderType } from '@atlaskit/dynamic-table/types';
 import { TruncateProps } from '@atlaskit/media-ui/truncateText';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithIntlProps } from 'react-intl-next';
-import { WithMediaClientConfigProps } from '@atlaskit/media-client';
+import { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 import { WrappedComponentProps } from 'react-intl-next';
 
 // @public (undocumented)

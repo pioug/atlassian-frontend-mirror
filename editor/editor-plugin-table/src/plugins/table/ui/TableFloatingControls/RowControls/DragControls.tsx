@@ -9,7 +9,6 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { token } from '@atlaskit/tokens';
 
 import { clearHoverSelection } from '../../../commands';
 import { toggleDragMenu } from '../../../pm-plugins/drag-and-drop/commands';
@@ -141,7 +140,8 @@ const DragControlsComponent = ({
             contentEditable={false}
             key={index}
           >
-            {!hasHeaderRow && index === 0 && (
+            {/* TODO: Disabling first column insert button https://atlassian.slack.com/archives/C05U8HRQM50/p1698363744682219?thread_ts=1698209039.104909&cid=C05U8HRQM50 */}
+            {/* {!hasHeaderRow && index === 0 && (
               <div
                 style={{
                   top: '0px',
@@ -149,7 +149,7 @@ const DragControlsComponent = ({
                 }}
                 className={ClassName.DRAG_ROW_FLOATING_INSERT_DOT}
               />
-            )}
+            )} */}
             <div className={ClassName.DRAG_ROW_FLOATING_INSERT_DOT} />
           </div>
         ))}

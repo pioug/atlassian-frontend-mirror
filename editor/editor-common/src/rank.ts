@@ -89,7 +89,6 @@ export const rankEditorPlugins = {
     'mediaEditor',
     'unsupportedContent',
     'jiraIssue',
-    'fakeTextCursor',
     'helpDialog',
     'helpDialogKeymap',
     'macro',

@@ -1,32 +1,16 @@
 /* eslint-disable react/prop-types */
-import React, { Component, createContext } from 'react';
+import React, { Component } from 'react';
 
 import Cell from './cell';
 import Header from './header';
 import Headers from './headers';
+import { type ColumnWidth, TableTreeContext } from './internal/context';
 import Row from './row';
 import Rows from './rows';
-
-type ColumnWidth = string | number;
 
 interface State {
   columnWidths: ColumnWidth[];
 }
-
-type TableTreeContext = {
-  setColumnWidth: (columnIndex: number, width: ColumnWidth) => void;
-  getColumnWidth: (columnIndex: number) => ColumnWidth | null;
-};
-
-/**
- *
- * Context provider which maintains the column widths and access methods for use in descendent table cells
- * Enables composed table-tree implementations to e.g. set width on header cells only
- */
-export const TableTreeContext = createContext<TableTreeContext>({
-  setColumnWidth: () => {},
-  getColumnWidth: () => null,
-});
 
 export default class TableTree extends Component<any, State> {
   state: State = {

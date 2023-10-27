@@ -17,7 +17,10 @@ import type {
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { isNodeEmpty } from '@atlaskit/editor-common/utils';
-import { FakeTextCursorSelection } from '../fake-text-cursor/cursor';
+import {
+  drawFakeTextCursor,
+  FakeTextCursorSelection,
+} from './fake-text-cursor/cursor';
 import PlaceholderFloatingToolbar from './ui/PlaceholderFloatingToolbar';
 import {
   hidePlaceholderFloatingToolbar,
@@ -148,6 +151,7 @@ export function createPlugin(
       return;
     },
     props: {
+      decorations: drawFakeTextCursor,
       handleDOMEvents: {
         beforeinput: (view, event) => {
           const { state } = view;

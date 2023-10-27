@@ -4,6 +4,7 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
@@ -11,7 +12,6 @@ import {
   ACTION,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { addAnalytics } from '../../analytics/utils';
 import type { AnalyticsEventPayload } from '../../analytics/types';
 import {
   getSelectionPositions,
@@ -37,17 +37,23 @@ const addAnnotationMark =
   };
 
 const addInlineComment =
-  (id: string) => (transaction: Transaction, state: EditorState) => {
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (id: string) =>
+  (transaction: Transaction, state: EditorState) => {
     let tr = addAnnotationMark(id)(transaction, state);
     // add insert analytics step to transaction
-    tr = addInsertAnalytics(tr, state);
+    tr = addInsertAnalytics(editorAnalyticsAPI)(tr, state);
     // add close analytics step to transaction
-    tr = addOpenCloseAnalytics(false, INPUT_METHOD.TOOLBAR)(tr, state);
+    tr = addOpenCloseAnalytics(editorAnalyticsAPI)(false, INPUT_METHOD.TOOLBAR)(
+      tr,
+      state,
+    );
 
     return tr;
   };
 
 const addOpenCloseAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (
     drafting: boolean,
     method: INPUT_METHOD.SHORTCUT | INPUT_METHOD.TOOLBAR = INPUT_METHOD.TOOLBAR,
@@ -57,19 +63,24 @@ const addOpenCloseAnalytics =
       drafting,
       method,
     )(state) as AnalyticsEventPayload;
-    return addAnalytics(state, transaction, draftingPayload);
+    editorAnalyticsAPI?.attachAnalyticsEvent(draftingPayload)(transaction);
+    return transaction;
   };
 
-const addInsertAnalytics = (transaction: Transaction, state: EditorState) => {
-  return addAnalytics(state, transaction, {
-    action: ACTION.INSERTED,
-    actionSubject: ACTION_SUBJECT.ANNOTATION,
-    eventType: EVENT_TYPE.TRACK,
-    actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
-  });
-};
+const addInsertAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (transaction: Transaction, state: EditorState) => {
+    editorAnalyticsAPI?.attachAnalyticsEvent({
+      action: ACTION.INSERTED,
+      actionSubject: ACTION_SUBJECT.ANNOTATION,
+      eventType: EVENT_TYPE.TRACK,
+      actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+    })(transaction);
+    return transaction;
+  };
 
 const addResolveAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (method?: RESOLVE_METHOD) =>
   (transaction: Transaction, state: EditorState) => {
     const resolvedPayload = {
@@ -81,7 +92,8 @@ const addResolveAnalytics =
         method,
       },
     } as AnalyticsEventPayload;
-    return addAnalytics(state, transaction, resolvedPayload);
+    editorAnalyticsAPI?.attachAnalyticsEvent(resolvedPayload)(transaction);
+    return transaction;
   };
 
 export default {

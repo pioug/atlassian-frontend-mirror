@@ -1,5 +1,6 @@
 import React from 'react';
 
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
@@ -23,6 +24,7 @@ export interface Props {
   direction?: TableDirection;
   index?: number;
   targetCellPosition?: number;
+  getEditorContainerWidth: GetEditorContainerWidth;
 }
 
 const FloatingDragMenu = ({
@@ -36,6 +38,7 @@ const FloatingDragMenu = ({
   direction,
   index,
   targetCellPosition,
+  getEditorContainerWidth,
 }: Props) => {
   if (
     !isOpen ||
@@ -81,6 +84,8 @@ const FloatingDragMenu = ({
         tableNode={tableNode}
         direction={direction}
         index={index}
+        targetCellPosition={targetCellPosition}
+        getEditorContainerWidth={getEditorContainerWidth}
       />
     </Popup>
   );

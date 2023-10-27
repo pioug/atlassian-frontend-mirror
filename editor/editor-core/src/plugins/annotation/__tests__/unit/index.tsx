@@ -8,7 +8,12 @@ import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import * as prosemirrorUtils from '@atlaskit/editor-prosemirror/utils';
 
-import type { Refs, DocBuilder } from '@atlaskit/editor-common/types';
+import type {
+  Refs,
+  DocBuilder,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   annotation,
@@ -19,7 +24,7 @@ import {
   panel,
   hardBreak,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { EventDispatcher } from '../../../../event-dispatcher';
+import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getState } from '../_utils';
 import {
   removeInlineCommentNearSelection,
@@ -35,13 +40,14 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
   CONTENT_COMPONENT,
-} from '../../../analytics/types/enums';
+} from '@atlaskit/editor-common/analytics';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { RESOLVE_METHOD } from '../../../analytics/types/inline-comment-events';
 import * as commands from '../../commands/index';
 import { inlineCommentPluginKey, getPluginState } from '../../utils';
 import { getAnnotationViewClassname } from '../../nodeviews';
+import type { AnnotationPlugin } from '../../index';
 
 jest.mock('@atlaskit/editor-prosemirror/utils', () => {
   // Unblock prosemirror bump:
@@ -89,10 +95,15 @@ describe('annotation', () => {
       createAnalyticsEvent,
     });
 
-  function mount(editorView: EditorView): RenderResult {
+  function mount(
+    editorView: EditorView,
+    editorAPI?: ExtractInjectionAPI<AnnotationPlugin>,
+  ): RenderResult {
     return render(
-      annotationPlugin({ config: { inlineComment: inlineCommentProviderFake } })
-        .contentComponent!({
+      annotationPlugin({
+        config: { inlineComment: inlineCommentProviderFake },
+        api: editorAPI,
+      }).contentComponent!({
         editorView,
         editorActions: null as any,
         eventDispatcher,
@@ -197,6 +208,7 @@ describe('annotation', () => {
   describe('component', () => {
     describe('passes selection data to annotation create and view components', () => {
       let editorView: EditorView;
+      let editorAPI: ExtractInjectionAPI<AnnotationPlugin> | undefined;
       let bookMarkPositions: Refs;
 
       beforeEach(async () => {
@@ -217,12 +229,14 @@ describe('annotation', () => {
         // Let the getState promise resolve
         await flushPromises();
 
-        editorView = editorData.editorView;
+        ({ editorView } = editorData);
+        editorAPI =
+          editorData.editorAPI as ExtractInjectionAPI<AnnotationPlugin>;
         bookMarkPositions = editorData.refs;
       });
 
       it('passes dom based on current selection if there is no bookmarked selection', async () => {
-        contentComponent = mount(editorView);
+        contentComponent = mount(editorView, editorAPI);
 
         expect(inlineCommentProviderFake.viewComponent).toHaveBeenCalled();
 
@@ -235,7 +249,7 @@ describe('annotation', () => {
       it('passes dom and textSelection based on bookmarked selection if it is available', () => {
         mockPluginStateWithBookmark(editorView, bookMarkPositions);
 
-        contentComponent = mount(editorView);
+        contentComponent = mount(editorView, editorAPI);
 
         const { textSelection, dom: domElement } = (
           inlineCommentProviderFake.createComponent as jest.Mock
@@ -320,6 +334,7 @@ describe('annotation', () => {
 
     describe('view annotation', () => {
       let editorView: EditorView;
+      let editorAPI: ExtractInjectionAPI<AnnotationPlugin> | undefined;
       let annotationPos: number;
 
       beforeEach(async () => {
@@ -334,12 +349,14 @@ describe('annotation', () => {
             p('world'),
           ),
         );
-        editorView = editorData.editorView;
+        ({ editorView } = editorData);
+        editorAPI =
+          editorData.editorAPI as ExtractInjectionAPI<AnnotationPlugin>;
         annotationPos = editorData.refs.start;
 
         // Let the getState promise resolve
         await flushPromises();
-        contentComponent = mount(editorView);
+        contentComponent = mount(editorView, editorAPI);
       });
 
       it('renders correctly', () => {
@@ -555,14 +572,16 @@ describe('annotation', () => {
 
   describe('create annotation', () => {
     it('calls dispatch just once', () => {
-      const { editorView, refs } = editor(
+      const { editorView, refs, editorAPI } = editor(
         doc(p('Fluke {start}{<}jib scourge of the{>}{end} seven seas')),
       );
       mockPluginStateWithBookmark(editorView, refs);
 
       const dispatchSpy = jest.spyOn(editorView, 'dispatch');
       const id = 'annotation-id-123';
-      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
+      commands.createAnnotation(
+        editorAPI?.analytics?.actions as EditorAnalyticsAPI,
+      )(id)(editorView.state, editorView.dispatch);
 
       let inlineCommentTransactionCalls = 0;
       dispatchSpy.mock.calls.forEach((call) => {
@@ -574,13 +593,15 @@ describe('annotation', () => {
     });
 
     it('paragraph', () => {
-      const { editorView, refs } = editor(
+      const { editorView, refs, editorAPI } = editor(
         doc(p('Fluke {start}{<}jib scourge of the{>}{end} seven seas')),
       );
       mockPluginStateWithBookmark(editorView, refs);
 
       const id = 'annotation-id-123';
-      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
+      commands.createAnnotation(
+        editorAPI?.analytics?.actions as EditorAnalyticsAPI,
+      )(id)(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(
@@ -601,13 +622,15 @@ describe('annotation', () => {
     });
 
     it('paragraph with trailing new line', () => {
-      const { editorView, refs } = editor(
+      const { editorView, refs, editorAPI } = editor(
         doc(p('Fluke {start}{<}jib scourge of the'), p('{>}{end}seven seas')),
       );
       mockPluginStateWithBookmark(editorView, refs);
 
       const id = 'annotation-id-123';
-      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
+      commands.createAnnotation(
+        editorAPI?.analytics?.actions as EditorAnalyticsAPI,
+      )(id)(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(
@@ -622,13 +645,17 @@ describe('annotation', () => {
     });
 
     it('with only text and a hardBreak', () => {
-      const { editorView } = editor(
+      const { editorView, editorAPI } = editor(
         doc(p('Fluke {<}jib scourge', hardBreak(), ' of the{>} seven seas')),
       );
 
       const id = 'annotation-id-123';
-      setInlineCommentDraftState(true)(editorView.state, editorView.dispatch);
-      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
+      setInlineCommentDraftState(
+        editorAPI?.analytics?.actions as EditorAnalyticsAPI,
+      )(true)(editorView.state, editorView.dispatch);
+      commands.createAnnotation(
+        editorAPI?.analytics?.actions as EditorAnalyticsAPI,
+      )(id)(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(
@@ -655,7 +682,10 @@ describe('annotation', () => {
         jest.spyOn(editorView, 'hasFocus').mockReturnValue(false);
         jest.spyOn(editorView, 'focus');
         // set the draft state first before creation annotation
-        setInlineCommentDraftState(true)(editorView.state, editorView.dispatch);
+        setInlineCommentDraftState(undefined)(true)(
+          editorView.state,
+          editorView.dispatch,
+        );
       });
 
       it('after create', () => {
@@ -707,15 +737,19 @@ describe('annotation', () => {
     });
 
     it('optimistic creation', async () => {
-      const { editorView } = editor(
+      const { editorView, editorAPI } = editor(
         doc(p('Fluke {<}jib scourge of the{>} seven seas')),
       );
 
       // set the draft state first before creation annotation
-      setInlineCommentDraftState(true)(editorView.state, editorView.dispatch);
+      setInlineCommentDraftState(
+        editorAPI?.analytics?.actions as EditorAnalyticsAPI,
+      )(true)(editorView.state, editorView.dispatch);
 
       const id = 'annotation-id-123';
-      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
+      commands.createAnnotation(
+        editorAPI?.analytics?.actions as EditorAnalyticsAPI,
+      )(id)(editorView.state, editorView.dispatch);
 
       // Optimistic creation should create the comment in the state right away.
       const pluginState = getPluginState(editorView.state);
@@ -723,14 +757,16 @@ describe('annotation', () => {
     });
 
     it('heading', () => {
-      const { editorView, refs } = editor(
+      const { editorView, refs, editorAPI } = editor(
         doc(h1('Fluke {start}{<}jib scourge of the{>}{end} seven seas')),
       );
 
       mockPluginStateWithBookmark(editorView, refs);
 
       const id = 'annotation-id-123';
-      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
+      commands.createAnnotation(
+        editorAPI?.analytics?.actions as EditorAnalyticsAPI,
+      )(id)(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           h1(
@@ -745,7 +781,7 @@ describe('annotation', () => {
     });
 
     it('across panel', () => {
-      const { editorView, refs } = editor(
+      const { editorView, refs, editorAPI } = editor(
         doc(
           p('Fluke {start}{<}jib'),
           panel()(p('scourge of the{>}{end} seven seas')),
@@ -755,7 +791,9 @@ describe('annotation', () => {
       mockPluginStateWithBookmark(editorView, refs);
 
       const id = 'annotation-id-123';
-      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
+      commands.createAnnotation(
+        editorAPI?.analytics?.actions as EditorAnalyticsAPI,
+      )(id)(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(
@@ -779,7 +817,7 @@ describe('annotation', () => {
 
     it('across code_block', () => {
       // Annotation is not valid on code block
-      const { editorView, refs } = editor(
+      const { editorView, refs, editorAPI } = editor(
         doc(
           p('Fluke {start}{<}jib'),
           code_block()('scourge of the{>}{end} seven seas'),
@@ -789,7 +827,9 @@ describe('annotation', () => {
       mockPluginStateWithBookmark(editorView, refs);
 
       const id = 'annotation-id-123';
-      commands.createAnnotation(id)(editorView.state, editorView.dispatch);
+      commands.createAnnotation(
+        editorAPI?.analytics?.actions as EditorAnalyticsAPI,
+      )(id)(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(

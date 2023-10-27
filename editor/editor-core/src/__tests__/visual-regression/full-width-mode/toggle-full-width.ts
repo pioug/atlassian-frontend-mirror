@@ -11,7 +11,6 @@ import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import mixedContentAdf from './__fixtures__/mixed-content.adf.json';
 import layoutWithBreakoutAdf from './__fixtures__/layout-with-breakout.adf.json';
 import breakoutAdf from './__fixtures__/mixed-content-with-breakout.adf.json';
-import mediaAdf from './__fixtures__/media-single.adf.json';
 import resizedTableAdf from './__fixtures__/resized-table.adf.json';
 import resizedTableWideAdf from './__fixtures__/resized-table-wide.adf.json';
 import resizedTableFullWidthAdf from './__fixtures__/resized-table-full-width.adf.json';
@@ -20,7 +19,6 @@ import resizedTableInExt from '../table/__fixtures__/nested-table-inside-bodied-
 import resizedTableFWM from './__fixtures__/resized-table-fwm.adf.json';
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
-import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
 import { layoutSelectors } from '@atlaskit/editor-test-helpers/page-objects/layouts';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
@@ -132,15 +130,6 @@ describe('Snapshot Test: Toggle between full-width and default mode', () => {
         },
       });
       await snapshot(page);
-    });
-  });
-
-  describe('Media', () => {
-    // FIXME: This test was automatically skipped due to failure on 18/08/2023: https://product-fabric.atlassian.net/browse/ED-19606
-    it.skip('resizes image correctly', async () => {
-      await initEditor(mediaAdf);
-      await waitForMediaToBeLoaded(page);
-      await toggleFullWidthMode();
     });
   });
 

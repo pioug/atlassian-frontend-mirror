@@ -81,6 +81,14 @@ export class FloatingInsertButton extends React.Component<
       dispatchAnalyticsEvent,
     } = this.props;
 
+    // TODO: temporarily disable insert button for first column and row https://atlassian.slack.com/archives/C05U8HRQM50/p1698363744682219?thread_ts=1698209039.104909&cid=C05U8HRQM50
+    if (
+      isDragAndDropEnabled &&
+      (insertColumnButtonIndex === 0 || insertRowButtonIndex === 0)
+    ) {
+      return null;
+    }
+
     const type =
       typeof insertColumnButtonIndex !== 'undefined'
         ? 'column'

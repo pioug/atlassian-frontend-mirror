@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.15.3
+
+### Patch Changes
+
+- [#41977](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41977) [`5b2f6d283ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b2f6d283ef) - clean up catchup retry feature flag
+
 ## 9.15.2
 
 ### Patch Changes

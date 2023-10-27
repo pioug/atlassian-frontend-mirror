@@ -33,7 +33,7 @@ import { ReactNode } from 'react';
 import { SSR } from '@atlaskit/media-common';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { WithMediaClientConfigProps } from '@atlaskit/media-client';
+import { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 import { WrappedComponentProps } from 'react-intl-next';
 
 // @public (undocumented)

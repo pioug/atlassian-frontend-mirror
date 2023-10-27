@@ -358,16 +358,14 @@ describe('TitleBlock', () => {
         hideRetry: true,
       });
 
-      const message = await queryByTestId(
-        'smart-block-title-errored-view-message',
-      );
+      const message = queryByTestId('smart-block-title-errored-view-message');
 
       expect(message).toBeNull();
     });
   });
 
   describe('Icon', () => {
-    it('should show Link Icon when hideIcon is false', async () => {
+    it('should show Link Icon when hideIcon is false in resolved state', async () => {
       const { findByTestId } = renderTitleBlock({
         hideIcon: false,
       });
@@ -377,7 +375,7 @@ describe('TitleBlock', () => {
       expect(element).toBeDefined();
     });
 
-    it('should show Link Icon when hideIcon is not set', async () => {
+    it('should show Link Icon when hideIcon is not set in resolved state', async () => {
       const { findByTestId } = renderTitleBlock();
 
       const element = await findByTestId('smart-element-icon');
@@ -385,12 +383,76 @@ describe('TitleBlock', () => {
       expect(element).toBeDefined();
     });
 
-    it('should not show Link Icon when hideIcon is true', async () => {
+    it('should not show Link Icon when hideIcon is true in resolved state', async () => {
       const { queryByTestId } = renderTitleBlock({
         hideIcon: true,
       });
 
-      const element = await queryByTestId('smart-element-icon');
+      const element = queryByTestId('smart-element-icon');
+
+      expect(element).toBeNull();
+    });
+
+    it('should show Link Icon when hideIcon is false in loading state', async () => {
+      const { queryByTestId } = renderTitleBlock({
+        hideIcon: false,
+        status: SmartLinkStatus.Resolving,
+      });
+
+      const element = queryByTestId(`${iconTestId}-icon-loading`);
+
+      expect(element).toBeDefined();
+    });
+
+    it('should show Link Icon when hideIcon is not set in loading state', async () => {
+      const { queryByTestId } = renderTitleBlock({
+        status: SmartLinkStatus.Resolving,
+      });
+
+      const element = queryByTestId(`${iconTestId}-icon-loading`);
+
+      expect(element).toBeDefined();
+    });
+
+    it('should not show Link Icon when hideIcon is true in loading state', async () => {
+      const { queryByTestId } = renderTitleBlock({
+        hideIcon: true,
+        status: SmartLinkStatus.Resolving,
+      });
+
+      const element = queryByTestId(`${iconTestId}-icon-loading`);
+
+      expect(element).toBeNull();
+    });
+
+    it('should show Link Icon when hideIcon is false in error state', async () => {
+      const { queryByTestId } = renderTitleBlock({
+        hideIcon: false,
+        status: SmartLinkStatus.Errored,
+      });
+
+      const element = queryByTestId('smart-element-icon');
+
+      expect(element).toBeDefined();
+    });
+
+    it('should show Link Icon when hideIcon is not set in error state', async () => {
+      const { queryByTestId } = renderTitleBlock({
+        status: SmartLinkStatus.Errored,
+      });
+
+      const element = queryByTestId('smart-element-icon');
+
+      expect(element).toBeDefined();
+    });
+
+    it('should not show Link Icon when hideIcon is true in error state', async () => {
+      const { queryByTestId } = renderTitleBlock({
+        hideIcon: true,
+        status: SmartLinkStatus.Errored,
+      });
+
+      const element = queryByTestId('smart-element-icon');
 
       expect(element).toBeNull();
     });

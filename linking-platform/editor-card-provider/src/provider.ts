@@ -58,7 +58,9 @@ const isConfluenceWhiteboard = (url: string) =>
   );
 
 const isConfluenceDatabase = (url: string) =>
-  url.match(/\/wiki\/spaces\/~?[\d\w]+\/database\/\d+$/);
+  url.match(
+    /\/wiki\/spaces\/~?[\d\w]+\/database\/\d+(\?.*(savedViewId=[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}|entryId=[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}).*)?$/,
+  );
 
 export class EditorCardProvider implements CardProvider {
   private baseUrl: string;

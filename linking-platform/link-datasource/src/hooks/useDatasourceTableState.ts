@@ -25,28 +25,43 @@ export interface onNextPageProps {
 export type NextPageType = (requestInfo?: onNextPageProps) => void;
 
 interface ResetOptions {
+  /** Used to force a request to be made even if a cache already exists for it */
   shouldForceRequest?: boolean;
+  /** Resets current column data from a datasource table when issuing the new request */
   shouldResetColumns?: boolean;
 }
 
 export interface DatasourceTableState {
+  /** The current status of the table for rendering of the different UI states (e.g.: loading, error, etc). */
   status: DatasourceTableStatusType;
+  /** Requests the available data with pagination and also sets column headers if not already available */
   onNextPage: NextPageType;
-  // Resets state of the hook to be as if it is a first time it is being called.
+  /** Resets state of the hook to be as if it is a first time it is being called. */
   reset: (options?: ResetOptions) => void;
+  /** Requests the available column schemas that can be displayed within the table */
   loadDatasourceDetails: () => void;
+  /** Items to be rendered within the table */
   responseItems: DatasourceDataResponseItem[];
+  /** Indicates whether there is still more data that can be paginated */
   hasNextPage: boolean;
+  /** All available columns for a datasource table to display */
   columns: DatasourceResponseSchemaProperty[];
+  /** The keys belonging to all of the currently visible columns in a table */
   defaultVisibleColumnKeys: string[];
+  /** Total count of response items available for pagination in a query */
   totalCount?: number;
+  /** List of objects types that will be included in the reponse (e.g. 'issues' for Jira) */
   destinationObjectTypes: string[];
+  /** Used as an indicated of which provider type is being used - originates from ORS */
   extensionKey?: string;
 }
 
 export interface DatasourceTableStateProps {
+  /** Unique identifier for which type of datasource is being rendered and for making its requests */
   datasourceId: string;
+  /** Parameters for making the data requests necessary to render data within the table */
   parameters?: DatasourceParameters;
+  /** Keys for each of the columns to be shown in the table */
   fieldKeys?: string[];
 }
 

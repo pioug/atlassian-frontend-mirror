@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 189.1.0
+
+### Minor Changes
+
+- [#42210](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42210) [`a00e52ea8b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a00e52ea8b8) - ED-20478: removes editor fake-text-cursor editor plugin and relocates it under placeholder-text plugin
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.0.14
+
+### Patch Changes
+
+- [#42201](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42201) [`17d3a9df7c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17d3a9df7c0) - ED-20650 Move selectionToolbar higher in presets to prevent it from overriding the link picker floating toolbar
+- [#42194](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42194) [`6b57f690c13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b57f690c13) - Updating comment to trigger build in editor-plugin-ai branch
+
+## 189.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 189.0.11
 
 ### Patch Changes

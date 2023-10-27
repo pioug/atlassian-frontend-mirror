@@ -35,11 +35,11 @@ export const ColumnDropTargets: React.FC<Props> = ({
 
   return (
     <div
-      className={ClassName.COLUMN_DROP_TARGET_CONTROLS}
+      className={ClassName.DRAG_COLUMN_DROP_TARGET_CONTROLS}
       contentEditable={false}
     >
       <div
-        className={ClassName.COLUMN_CONTROLS_INNER}
+        className={ClassName.DRAG_COLUMN_CONTROLS_INNER}
         data-testid="table-floating-column-controls-drop-targets"
       >
         {colWidths?.map((width, index) => {

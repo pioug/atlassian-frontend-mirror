@@ -56,6 +56,7 @@ import {
   isColumnControlsDecorations,
   isCornerButton,
   isDragColumnFloatingInsertDot,
+  isDragCornerButton,
   isDragRowFloatingInsertDot,
   isInsertRowButton,
   isResizeHandleDecoration,
@@ -237,7 +238,8 @@ export const handleMouseDown = (_: EditorView, event: Event) => {
     event.target instanceof HTMLElement &&
     (isTableContainerOrWrapper(event.target) ||
       isColumnControlsDecorations(event.target) ||
-      isRowControlsButton(event.target))
+      isRowControlsButton(event.target) ||
+      isDragCornerButton(event.target))
   );
 
   if (isControl) {
@@ -326,13 +328,16 @@ export const handleMouseMove = (
     isDragColumnFloatingInsertDot(element)
   ) {
     const { state, dispatch } = view;
-    const { insertColumnButtonIndex } = getPluginState(state);
+    const { insertColumnButtonIndex, isDragAndDropEnabled } =
+      getPluginState(state);
     const [startIndex, endIndex] = getColumnOrRowIndex(element);
 
     const positionColumn =
       getMousePositionHorizontalRelativeByElement(
         event as MouseEvent,
         elementContentRects,
+        undefined,
+        isDragAndDropEnabled,
       ) === 'right'
         ? endIndex
         : startIndex;

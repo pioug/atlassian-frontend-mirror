@@ -1,5 +1,11 @@
 # @atlaskit/inline-message
 
+## 11.5.8
+
+### Patch Changes
+
+- [#42261](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42261) [`5bbffa62596`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5bbffa62596) - Remove shadowed variable and use type imports
+
 ## 11.5.7
 
 ### Patch Changes

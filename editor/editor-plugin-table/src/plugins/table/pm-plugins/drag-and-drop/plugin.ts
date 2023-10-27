@@ -17,7 +17,12 @@ import {
 import { getPluginState as getTablePluginState } from '../plugin-factory';
 
 import { DragAndDropActionType } from './actions';
-import { clearDropTarget, moveSource, setDropTarget } from './commands';
+import {
+  clearDropTarget,
+  moveSource,
+  setDropTarget,
+  toggleDragMenu,
+} from './commands';
 import { DropTargetType } from './consts';
 import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
@@ -99,6 +104,7 @@ export const createPlugin = (
           },
           onDragStart: ({ location }) => {
             autoScroller.start({ input: location.current.input });
+            toggleDragMenu(false)(editorView.state, editorView.dispatch);
           },
           onDrag(event) {
             autoScroller.updateInput({

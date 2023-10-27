@@ -72,6 +72,7 @@ export const useDatasourceClientExtension: () => {
 // @public
 export const useSmartLinkClientExtension: (cardClient: CardClient) => {
   invoke: (data: InvokeRequest) => Promise<InvokeResponse>;
+  relatedUrls: <TResponse>(url: string) => Promise<TResponse>;
 };
 
 // (No @packageDocumentation comment for this package)

@@ -299,6 +299,7 @@ export const PopupUserPicker: React_2.ForwardRefExoticComponent<
     | 'allowEmail'
     | 'anchor'
     | 'appearance'
+    | 'ariaLabel'
     | 'ariaLabelledBy'
     | 'ariaLive'
     | 'autoFocus'
@@ -471,6 +472,7 @@ const UserPicker: React_2.ForwardRefExoticComponent<
     | 'allowEmail'
     | 'anchor'
     | 'appearance'
+    | 'ariaLabel'
     | 'ariaLabelledBy'
     | 'ariaLive'
     | 'autoFocus'
@@ -592,6 +594,7 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   inputId?: string;
   closeMenuOnScroll?: EventListener | boolean;
   menuShouldBlockScroll?: boolean;
+  ariaLabel?: string;
   ariaLabelledBy?: string;
   ariaLive?: 'assertive' | 'off' | 'polite';
   name?: string;

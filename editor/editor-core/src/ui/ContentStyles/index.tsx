@@ -46,7 +46,6 @@ import { codeBlockStyles } from '../../plugins/code-block/styles';
 import { mediaStyles } from './media';
 import { layoutStyles } from '../../plugins/layout/styles';
 import { panelStyles } from '../../plugins/panel/styles';
-import { fakeCursorStyles } from '../../plugins/fake-text-cursor/styles';
 import { placeholderTextStyles } from '../../plugins/placeholder-text/styles';
 import { extensionStyles } from '../../plugins/extension/ui/styles';
 import { expandStyles } from '../../plugins/expand/ui/styles';
@@ -245,7 +244,6 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${gapCursorStyles};
   ${tableStyles(props)}
   ${panelStyles(props)}
-  ${fakeCursorStyles}
   ${mentionsStyles}
   ${emojiStyles}
   ${tasksAndDecisionsStyles}

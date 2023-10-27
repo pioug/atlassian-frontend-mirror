@@ -20,8 +20,8 @@ import { MediaClient } from '@atlaskit/media-client';
 import { MediaStoreGetFileImageParams } from '@atlaskit/media-client';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
-import { WithMediaClientConfig } from '@atlaskit/media-client';
-import { WithMediaClientConfigProps } from '@atlaskit/media-client';
+import { WithMediaClientConfig } from '@atlaskit/media-client-react';
+import { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 
 // @public (undocumented)
 interface AsyncMediaImageState {

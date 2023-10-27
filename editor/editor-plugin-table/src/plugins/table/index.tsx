@@ -482,6 +482,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                       direction={dragAndDropState?.dragMenuDirection}
                       index={dragAndDropState?.dragMenuIndex}
                       isOpen={!!dragAndDropState?.isDragMenuOpen && !isResizing}
+                      getEditorContainerWidth={defaultGetEditorContainerWidth}
                     />
                   )}
                   {allowControls && !isDragAndDropEnabled && !isResizing && (

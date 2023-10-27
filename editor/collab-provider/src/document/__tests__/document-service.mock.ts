@@ -34,8 +34,6 @@ export const createMockService = (config: Partial<Config> = {}) => {
     getUserIdMock,
     onErrorHandledMock,
     metadataService,
-    // @ts-ignore
-    config.failedStepLimitBeforeCatchupOnPublish,
     config.enableErrorOnFailedDocumentApply,
   );
 

@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 25.0.0
+
+### Major Changes
+
+- [#41659](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41659) [`a0c97a19dba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0c97a19dba) - Remove unused utils and depreciated exports in mediaClient.
+
 ## 24.0.3
 
 ### Patch Changes

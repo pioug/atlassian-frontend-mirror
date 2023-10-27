@@ -3,6 +3,8 @@ import {
   EditorPasteModel,
   editorTestCase as test,
   expect,
+  fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -1151,6 +1153,13 @@ test.describe('On Paste: ', () => {
   test(`pasting plain-text, then mouse click outside should dismiss the toolbar`, async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-20670',
+      reason:
+        'FIXME: This test was automatically skipped due to failure on 26/10/2023: https://product-fabric.atlassian.net/browse/ED-20670',
+      browsers: [BROWSERS.webkit],
+    });
+
     await editor.simulatePasteEvent({
       pasteAs: 'text/plain',
       text: markDownText,

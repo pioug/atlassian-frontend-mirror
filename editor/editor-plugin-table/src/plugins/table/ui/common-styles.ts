@@ -56,6 +56,7 @@ import {
   columnControlsDecoration,
   columnControlsLineMarker,
   DeleteButton,
+  dragCornerControlButton,
   dragInsertButtonWrapper,
   floatingColumnControls,
   HeaderButton,
@@ -360,6 +361,8 @@ export const tableStyles = (
 
     ${dragInsertButtonWrapper(props)}
 
+    ${dragCornerControlButton(props)}
+
     /* Delete button */
     ${DeleteButton(props)}
     /* Ends Delete button */
@@ -543,7 +546,7 @@ export const tableStyles = (
         }
       }
 
-      .${ClassName.COLUMN_CONTROLS_WRAPPER} {
+      .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
         padding: 0 ${tablePadding}px;
       }
 
@@ -732,11 +735,11 @@ export const tableStyles = (
     }
 
     .${ClassName.DRAG_COLUMN_CONTROLS} {
-      .${ClassName.COLUMN_CONTROLS_INNER} {
+      .${ClassName.DRAG_COLUMN_CONTROLS_INNER} {
         height: 24px;
         position: absolute;
         top: ${token('space.negative.150', '-12px')};
-        z-index: ${akEditorUnitZIndex};
+        z-index: ${akEditorUnitZIndex * 13};
       }
 
       .${ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT_WRAPPER} {
@@ -1031,9 +1034,9 @@ export const tableStyles = (
       z-index: ${akEditorUnitZIndex};
     }
 
-    .${ClassName.COLUMN_CONTROLS_WRAPPER} {
+    .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
       position: absolute;
-      top: ${tableMarginTop + 1}px;
+      top: ${tableMarginTop}px;
     }
 
     ${tableWrapperStyles()}

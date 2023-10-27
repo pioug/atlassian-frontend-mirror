@@ -36,7 +36,10 @@ import {
   stopMeasure,
 } from '../analytics/performance';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import { MAX_STEP_REJECTED_ERROR } from '../provider';
+import {
+  MAX_STEP_REJECTED_ERROR,
+  MAX_STEP_REJECTED_ERROR_AGGRESSIVE,
+} from '../provider';
 import { catchup } from './catchup';
 import type { ParticipantsService } from '../participants/participants-service';
 import { StepQueueState } from './step-queue-state';
@@ -77,7 +80,6 @@ export class DocumentService {
    * @param getUserId - Callback to fetch the current user's ID
    * @param onErrorHandled - Callback to handle
    * @param metadataService
-   * @param failedStepsBeforeCatchupOnPublish - Control MAX_STEP_REJECTED_ERROR during page publishes.
    * @param enableErrorOnFailedDocumentApply - Enable failed document update exceptions.
    */
   constructor(
@@ -99,7 +101,6 @@ export class DocumentService {
     private getUserId: () => string | undefined,
     private onErrorHandled: (error: InternalError) => void,
     private metadataService: MetadataService,
-    private failedStepsBeforeCatchupOnPublish: number = MAX_STEP_REJECTED_ERROR,
     private enableErrorOnFailedDocumentApply: boolean = false,
   ) {
     this.stepQueue = new StepQueueState();
@@ -688,7 +689,7 @@ export class DocumentService {
       },
     );
     let maxRetries = this.aggressiveCatchup
-      ? this.failedStepsBeforeCatchupOnPublish
+      ? MAX_STEP_REJECTED_ERROR_AGGRESSIVE
       : MAX_STEP_REJECTED_ERROR;
 
     if (this.stepRejectCounter >= maxRetries) {

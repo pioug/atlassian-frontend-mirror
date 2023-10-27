@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.39.0
+
+### Minor Changes
+
+- [#42180](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42180) [`80f857d75db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/80f857d75db) - [ux] Add hideIcon prop to resolved, resolving, and error states for TitleBlock
+
 ## 26.38.1
 
 ### Patch Changes

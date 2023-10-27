@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import Icon, { size, CustomGlyphProps, IconProps } from '../../..';
 import AddIcon from '../../../../glyph/add';
@@ -7,7 +7,6 @@ import { sizes as sizeValues } from '../../../constants';
 import { Size } from '../../../types';
 
 describe('@atlaskit/icon', () => {
-  afterEach(cleanup);
   describe('Icon', () => {
     const secretContent = 'secret content';
     const secretWrapper = (props: CustomGlyphProps) => (
@@ -22,9 +21,9 @@ describe('@atlaskit/icon', () => {
     );
 
     it('should match the DOM Snapshot', () => {
-      const { getByLabelText } = render(<Icon glyph={empty} label="My icon" />);
+      render(<Icon glyph={empty} label="My icon" />);
 
-      expect(getByLabelText('My icon')).toMatchSnapshot();
+      expect(screen.getByRole('img')).toMatchSnapshot();
     });
 
     describe('glyph prop', () => {
@@ -35,18 +34,16 @@ describe('@atlaskit/icon', () => {
           <svg {...props} data-testid={id} />
         );
 
-        const { getByTestId } = render(
-          <Icon glyph={customGlyphJsx} label="" />,
-        );
-        expect(getByTestId(id)).toBeDefined();
+        render(<Icon glyph={customGlyphJsx} label="" />);
+        expect(
+          screen.getByRole('presentation', { hidden: true }),
+        ).toBeInTheDocument();
       });
 
       it('should present itself as an image', () => {
-        const { getByRole } = render(
-          <Icon glyph={empty} testId="empty-icon" label="My icon" />,
-        );
+        render(<Icon glyph={empty} testId="empty-icon" label="My icon" />);
 
-        expect(getByRole('img')).toBeDefined();
+        expect(screen.getByRole('img')).toBeInTheDocument();
       });
     });
 
@@ -55,45 +52,39 @@ describe('@atlaskit/icon', () => {
       const customGlyphString = `<svg data-testid=${id}></svg>`;
 
       it('should render an SVG provided as a string', () => {
-        const { getByTestId } = render(
+        render(
           <Icon
             testId="test-icon"
             dangerouslySetGlyph={customGlyphString}
             label="hello-world"
           />,
         );
-        const svg = getByTestId(id);
-        expect(svg).toBeDefined();
+        const svg = screen.getByTestId(id);
+        expect(svg).toBeInTheDocument();
         expect(svg.nodeName).toEqual('svg');
       });
 
       it('should present itself as an image when label is defined', () => {
-        const testId = 'test-icon';
-        const { getByTestId } = render(
-          <Icon
-            testId="test-icon"
-            dangerouslySetGlyph={customGlyphString}
-            label="hello-world"
-          />,
+        render(
+          <Icon dangerouslySetGlyph={customGlyphString} label="hello-world" />,
         );
 
-        const element = getByTestId(testId);
-        expect(element.getAttribute('role')).toEqual('img');
-        expect(element.getAttribute('aria-label')).toEqual('hello-world');
+        const element = screen.getByRole('img');
+        expect(element).toHaveAttribute('aria-label', 'hello-world');
       });
 
       it('should present as hidden, without a role when the label is an empty string', () => {
         const testId = 'test-icon';
-        const { getByTestId } = render(
+        render(
           <Icon
-            testId="test-icon"
+            testId={testId}
             dangerouslySetGlyph={customGlyphString}
             label=""
           />,
         );
 
-        const element = getByTestId(testId);
-        expect(element).not.toHaveAttribute('role'); // the default role for a span is `none`
+        const element = screen.getByTestId(testId);
+        expect(element).not.toHaveAttribute('role');
         expect(element).not.toHaveAttribute('aria-label');
         expect(element).toHaveAttribute('aria-hidden', 'true');
       });
@@ -109,9 +100,9 @@ describe('@atlaskit/icon', () => {
     });
 
     it('should be possible to create an Icon via a subclass', () => {
-      const { getByLabelText } = render(<MyIcon label="My icon" />);
+      render(<MyIcon label="My icon" />);
 
-      expect(getByLabelText('My icon')).toBeDefined();
+      expect(screen.getByRole('img')).toBeInTheDocument();
     });
 
     describe('size property', () => {
@@ -119,10 +110,8 @@ describe('@atlaskit/icon', () => {
 
       sizes.forEach((s) => {
         it(`with value ${s}`, () => {
-          const { getByLabelText } = render(
-            <Icon glyph={empty} label={s} size={s} />,
-          );
-          const element = getByLabelText(s);
+          render(<Icon glyph={empty} label={s} size={s} />);
+          const element = screen.getByRole('img');
           expect(element).toHaveStyleDeclaration('height', sizeValues[s]);
           expect(element).toHaveStyleDeclaration('width', sizeValues[s]);
         });
@@ -131,10 +120,8 @@ describe('@atlaskit/icon', () => {
       it(`should use width/height if provided`, () => {
         const label = 'width';
         const props = { width: 10, height: 10 } as CSSProperties;
-        const { getByLabelText } = render(
-          <Icon glyph={empty} label={label} {...props} />,
-        );
-        const element = getByLabelText(label);
+        render(<Icon glyph={empty} label={label} {...props} />);
+        const element = screen.getByRole('img');
         expect(element).toHaveStyleDeclaration('height', '10px');
         expect(element).toHaveStyleDeclaration('width', '10px');
       });
@@ -142,10 +129,8 @@ describe('@atlaskit/icon', () => {
       it(`should use width/height above size`, () => {
         const size = 'large';
         const props = { width: 10, height: 10 } as CSSProperties;
-        const { getByLabelText } = render(
-          <Icon glyph={empty} label={size} size={size} {...props} />,
-        );
-        const element = getByLabelText(size);
+        render(<Icon glyph={empty} label={size} size={size} {...props} />);
+        const element = screen.getByRole('img');
         expect(element).toHaveStyleDeclaration('height', '10px');
         expect(element).toHaveStyleDeclaration('width', '10px');
       });
@@ -154,20 +139,17 @@ describe('@atlaskit/icon', () => {
     describe('primaryColor property', () => {
       const testLabel = 'test';
       it('is set to inherit the text color by default', () => {
-        const { getByLabelText } = render(<MyIcon label={testLabel} />);
+        render(<MyIcon label={testLabel} />);
 
-        expect(getByLabelText(testLabel).firstChild).toHaveStyle(
-          `color: var(--icon-color)`,
-        );
+        expect(screen.getByRole('img')).toHaveStyle(`color: var(--icon-color)`);
       });
     });
 
     describe('secondaryColor property', () => {
       it('is set to the default theme background color by default', () => {
-        const label = 'default secondaryColor';
-        const { getByLabelText } = render(<MyIcon label={label} />);
+        render(<MyIcon label="default secondaryColor" />);
 
-        expect(getByLabelText(label).firstChild).toHaveStyle(
+        expect(screen.getByRole('presentation')).toHaveStyle(
           `fill: var(--icon-secondary-color)`,
         );
       });
@@ -175,11 +157,9 @@ describe('@atlaskit/icon', () => {
       it('can be changed to a hex value', () => {
         const secondaryColor = '#ff0000';
         const label = 'hex secondaryColor';
-        const { getByLabelText } = render(
-          <MyIcon label={label} secondaryColor={secondaryColor} />,
-        );
+        render(<MyIcon label={label} secondaryColor={secondaryColor} />);
 
-        expect(getByLabelText(label).firstChild).toHaveStyle(
+        expect(screen.getByRole('presentation')).toHaveStyle(
           `fill: var(--icon-secondary-color)`,
         );
       });
@@ -187,13 +167,9 @@ describe('@atlaskit/icon', () => {
       it('can be changed to a named color', () => {
         const secondaryColor = 'rebeccapurple';
         const label = 'hex secondaryColor';
-        const { getByLabelText } = render(
-          <MyIcon label={label} secondaryColor={secondaryColor} />,
-        );
+        render(<MyIcon label={label} secondaryColor={secondaryColor} />);
 
-        const element = getByLabelText(label);
-
-        expect(element.firstChild).toHaveStyle(
+        expect(screen.getByRole('presentation')).toHaveStyle(
           'fill: var(--icon-secondary-color)',
         );
       });
@@ -204,16 +180,17 @@ describe('@atlaskit/icon', () => {
       jest.resetAllMocks();
     });
 
-    const glyph = <AddIcon testId="test" label="test-label" />;
+    const label = 'test-label';
+    const glyph = <AddIcon label={label} />;
 
     it('should match snapshot', () => {
-      const { getByTestId } = render(glyph);
-      expect(getByTestId('test')).toMatchSnapshot();
+      render(glyph);
+      expect(screen.getByRole('img')).toMatchSnapshot();
     });
 
     it('should have the correct label', () => {
-      const { getByLabelText } = render(glyph);
-      expect(getByLabelText('test-label')).toBeDefined();
+      render(glyph);
+      expect(screen.getByRole('img')).toHaveAccessibleName(label);
     });
   });
 });

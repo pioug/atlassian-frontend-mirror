@@ -2,6 +2,7 @@ import React from 'react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { AnnotationViewWrapper } from './AnnotationViewWrapper';
 import type { AnnotationProviders } from '../types';
 import { AnnotationTestIds } from '../types';
@@ -56,12 +57,14 @@ const findPosForDOM = (sel: Selection) => {
 interface InlineCommentViewProps {
   providers: AnnotationProviders;
   editorView: EditorView;
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 }
 
 export function InlineCommentView({
   providers,
   editorView,
+  editorAnalyticsAPI,
   dispatchAnalyticsEvent,
 }: InlineCommentViewProps) {
   // As inlineComment is the only annotation present, this function is not generic
@@ -127,11 +130,14 @@ export function InlineCommentView({
           dom={dom}
           textSelection={textSelection}
           onCreate={(id) => {
-            createAnnotation(id)(editorView.state, editorView.dispatch);
+            createAnnotation(editorAnalyticsAPI)(id)(
+              editorView.state,
+              editorView.dispatch,
+            );
             !editorView.hasFocus() && editorView.focus();
           }}
           onClose={() => {
-            setInlineCommentDraftState(false)(
+            setInlineCommentDraftState(editorAnalyticsAPI)(false)(
               editorView.state,
               editorView.dispatch,
             );
@@ -185,7 +191,7 @@ export function InlineCommentView({
         dom={dom}
         onDelete={(id) => removeInlineCommentNearSelection(id)(state, dispatch)}
         onResolve={(id) =>
-          updateInlineCommentResolvedState(
+          updateInlineCommentResolvedState(editorAnalyticsAPI)(
             { [id]: true },
             RESOLVE_METHOD.COMPONENT,
           )(editorView.state, editorView.dispatch)

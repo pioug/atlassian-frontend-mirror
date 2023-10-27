@@ -221,6 +221,7 @@ export {
   bracketTyped,
   hasVisibleContent,
   isSelectionEndOfParagraph,
+  getChangedNodes,
 } from './document';
 
 export {

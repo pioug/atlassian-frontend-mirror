@@ -364,6 +364,14 @@ describe('providers > editor', () => {
       'A database with no user space',
       'https://databases-playground.jira-dev.com/wiki/spaces/ABC/database/12345',
     ],
+    [
+      'A database with an entryId query parameter that has a valid UUID',
+      'https://pug.jira-dev.com/wiki/spaces/~448762021/database/452927129132?entryId=8fb8c642-803d-59fe-8d1c-066610e860c6',
+    ],
+    [
+      'A database with a savedViewId query parameter that has a valid UUID',
+      'https://pug.jira-dev.com/wiki/spaces/~448762021/database/452927129132?savedViewId=8fb8c642-803d-59fe-8d1c-066610e860c6',
+    ],
   ])(
     'returns embedCard when %s confluence database is inserted, calling /providers endpoint',
     async (_, url) => {

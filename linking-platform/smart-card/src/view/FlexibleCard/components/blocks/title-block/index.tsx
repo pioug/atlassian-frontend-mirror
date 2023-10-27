@@ -72,6 +72,7 @@ const TitleBlock: React.FC<TitleBlockProps> = ({
   theme,
   hideRetry,
   metadataPosition,
+  hideIcon = false,
   ...props
 }) => {
   if (hideRetry && props.retry) {
@@ -125,6 +126,7 @@ const TitleBlock: React.FC<TitleBlockProps> = ({
       testId={testId}
       title={title}
       metadataPosition={metadataPosition}
+      hideIcon={hideIcon}
     />
   );
 };

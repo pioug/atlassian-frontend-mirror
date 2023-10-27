@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 108.15.16
+
+### Patch Changes
+
+- [#41659](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41659) [`a0c97a19dba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0c97a19dba) - Remove unused utils and depreciated exports in mediaClient.
+- [#42195](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42195) [`09876d718cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09876d718cc) - add back important styles to nested table, fixes table in expand width issue
+- Updated dependencies
+
 ## 108.15.15
 
 ### Patch Changes

@@ -381,3 +381,36 @@ export function hasVisibleContent(node: Node): boolean {
 export const isSelectionEndOfParagraph = (state: EditorState): boolean =>
   state.selection.$to.parent.type === state.schema.nodes.paragraph &&
   state.selection.$to.pos === state.doc.resolve(state.selection.$to.pos).end();
+
+function getChangedNodesIn({
+  tr,
+  doc,
+}: {
+  tr: ReadonlyTransaction | Transaction;
+  doc: Node;
+}): { node: Node; pos: number }[] {
+  const nodes: { node: Node; pos: number }[] = [];
+  const stepRange = getStepRange(tr);
+
+  if (!stepRange) {
+    return nodes;
+  }
+
+  const from = Math.min(doc.nodeSize - 2, stepRange.from);
+  const to = Math.min(doc.nodeSize - 2, stepRange.to);
+
+  doc.nodesBetween(from, to, (node, pos) => {
+    nodes.push({ node, pos });
+  });
+
+  return nodes;
+}
+
+export function getChangedNodes(
+  tr: ReadonlyTransaction | Transaction,
+): { node: Node; pos: number }[] {
+  return getChangedNodesIn({
+    tr: tr,
+    doc: tr.doc,
+  });
+}

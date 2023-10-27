@@ -5,6 +5,7 @@ import {
   EditorBlockCardModel,
   fixTest,
   EditorFloatingToolbarModel,
+  BROWSERS,
 } from '@af/editor-libra';
 import type { EditorPageInterface } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -396,6 +397,13 @@ test.describe('blockCard:datasource update table', () => {
   });
 
   test('should prevent invalid JQL searches', async ({ editor }) => {
+    fixTest({
+      jiraIssueId: 'ED-20649',
+      reason:
+        'FIXME: This test was automatically skipped due to failure on 25/10/2023: https://product-fabric.atlassian.net/browse/ED-20649',
+      browsers: [BROWSERS.firefox],
+    });
+
     await setupQuery(editor);
     await editor.keyboard.type('nonsense');
     await editor.page.getByTestId('jql-editor-search').click();

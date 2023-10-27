@@ -65,4 +65,10 @@ export default defineMessages({
     defaultMessage: 'Adjust column',
     description: 'Tooltip displayed on table column resize handle',
   },
+  cornerControl: {
+    id: 'fabric.editor.cornerControl',
+    defaultMessage: 'Highlight table',
+    description:
+      'A button on the upper left corner of the table that shows up when the table is in focus. Clicking on it will select the entire table.',
+  },
 });

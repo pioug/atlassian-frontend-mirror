@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 9.6.6
+
+### Patch Changes
+
+- [#42271](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42271) [`a2f554b0828`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2f554b0828) - Remove circular dependency and use type imports
+
 ## 9.6.5
 
 ### Patch Changes

@@ -58,6 +58,7 @@ const TitleBlockErroredView: React.FC<TitleBlockViewProps> = ({
   position,
   testId,
   title,
+  hideIcon,
   ...blockProps
 }) => {
   const { descriptor, onClick, values } = retry || {};
@@ -65,7 +66,7 @@ const TitleBlockErroredView: React.FC<TitleBlockViewProps> = ({
   const hasAction = onClick !== undefined;
   return (
     <Block {...blockProps} testId={`${testId}-errored-view`}>
-      <LinkIcon position={position} />
+      {!hideIcon && <LinkIcon position={position} />}
       {title}
       {descriptor && (
         <ElementGroup

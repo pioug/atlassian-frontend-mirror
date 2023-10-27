@@ -11,7 +11,6 @@ import type {
   TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { FakeTextCursorSelection } from '../plugins/fake-text-cursor/cursor';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
 export {
@@ -67,10 +66,6 @@ export function isMarkTypeAllowedInCurrentSelection(
   markType: MarkType,
   state: EditorState,
 ) {
-  if (state.selection instanceof FakeTextCursorSelection) {
-    return true;
-  }
-
   if (!isMarkTypeAllowedInNode(markType, state)) {
     return false;
   }

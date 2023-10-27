@@ -619,6 +619,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       textFieldBackgroundColor,
       ariaLabelledBy,
       ariaLive,
+      ariaLabel,
       name,
       header,
     } = this.props;
@@ -640,6 +641,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         value={value}
         autoFocus={autoFocus !== undefined ? autoFocus : menuIsOpen}
         aria-labelledby={ariaLabelledBy}
+        aria-label={ariaLabel}
         aria-live={ariaLive}
         ref={this.handleSelectRef}
         isMulti={isMulti}

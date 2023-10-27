@@ -1,4 +1,4 @@
-export { getChangedNodes } from './utils/document';
+export { getChangedNodes } from '@atlaskit/editor-common/utils';
 export { validateNodes } from './utils/nodes';
 export { toJSON } from './utils';
 export { default as Extension } from './plugins/extension/ui/Extension';

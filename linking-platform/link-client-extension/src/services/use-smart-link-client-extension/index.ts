@@ -19,14 +19,14 @@ import { useResolverUrl } from '../use-resolver-url';
  * @param cardClient
  */
 export const useSmartLinkClientExtension = (cardClient: CardClient) => {
-  const resolvedUrl = useResolverUrl(cardClient);
+  const resolverUrl = useResolverUrl(cardClient);
 
   const invoke = useCallback(
     async (data: InvokeRequest) => {
       try {
         return await request<InvokeResponse>(
           'post',
-          `${resolvedUrl}/invoke`,
+          `${resolverUrl}/invoke`,
           data,
           undefined,
           [200, 201, 202, 203, 204],
@@ -49,8 +49,23 @@ export const useSmartLinkClientExtension = (cardClient: CardClient) => {
         throw err;
       }
     },
-    [resolvedUrl],
+    [resolverUrl],
   );
 
-  return useMemo(() => ({ invoke }), [invoke]);
+  const relatedUrls = useCallback(
+    async <TResponse>(url: string) => {
+      return await request<TResponse>(
+        'get',
+        `${resolverUrl}/related-urls?url=${encodeURIComponent(url)}`,
+        undefined,
+        {
+          'Cache-Control': 'private',
+        },
+        [200],
+      );
+    },
+    [resolverUrl],
+  );
+
+  return useMemo(() => ({ invoke, relatedUrls }), [invoke, relatedUrls]);
 };

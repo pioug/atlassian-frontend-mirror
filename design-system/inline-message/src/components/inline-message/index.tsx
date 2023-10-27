@@ -1,11 +1,28 @@
 /** @jsx jsx */
-import { CSSProperties, FC, ReactNode, useCallback, useState } from 'react';
+import {
+  type CSSProperties,
+  type FC,
+  type ReactNode,
+  useCallback,
+  useState,
+} from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import InlineDialog from '@atlaskit/inline-dialog';
-import * as colors from '@atlaskit/theme/colors';
+import {
+  B300,
+  B75,
+  DN100,
+  DN600,
+  G200,
+  N300,
+  N600,
+  P200,
+  R300,
+  Y200,
+} from '@atlaskit/theme/colors';
 import { themed, useGlobalTheme } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 
@@ -105,34 +122,34 @@ const rootStyles = css({
 });
 
 const titleColor = themed({
-  light: token('color.text', colors.N600),
-  dark: token('color.text', colors.DN600),
+  light: token('color.text', N600),
+  dark: token('color.text', DN600),
 });
 const textColor = themed({
-  light: token('color.text.subtlest', colors.N300),
-  dark: token('color.text.subtlest', colors.DN100),
+  light: token('color.text.subtlest', N300),
+  dark: token('color.text.subtlest', DN100),
 });
 
 const iconColor = themed('appearance', {
   connectivity: {
-    light: token('color.icon.brand', colors.B300),
-    dark: token('color.icon.brand', colors.B75),
+    light: token('color.icon.brand', B300),
+    dark: token('color.icon.brand', B75),
   },
   confirmation: {
-    light: token('color.icon.success', colors.G200),
-    dark: token('color.icon.success', colors.G200),
+    light: token('color.icon.success', G200),
+    dark: token('color.icon.success', G200),
   },
   info: {
-    light: token('color.icon.discovery', colors.P200),
-    dark: token('color.icon.discovery', colors.P200),
+    light: token('color.icon.discovery', P200),
+    dark: token('color.icon.discovery', P200),
   },
   warning: {
-    light: token('color.icon.warning', colors.Y200),
-    dark: token('color.icon.warning', colors.Y200),
+    light: token('color.icon.warning', Y200),
+    dark: token('color.icon.warning', Y200),
   },
   error: {
-    light: token('color.icon.danger', colors.R300),
-    dark: token('color.icon.danger', colors.R300),
+    light: token('color.icon.danger', R300),
+    dark: token('color.icon.danger', R300),
   },
 });
 

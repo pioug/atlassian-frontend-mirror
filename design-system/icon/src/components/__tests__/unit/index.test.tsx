@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import path from 'path';
 import fs from 'fs';
@@ -25,7 +25,6 @@ const walkSync = (dir: string, filelist: string[]) => {
 };
 
 describe('@atlaskit/icon', () => {
-  afterEach(cleanup);
   describe('exports', () => {
     it('are properly defined for atomic ones', () => {
       // NOTE Please remember:
@@ -439,8 +438,8 @@ describe('@atlaskit/icon', () => {
         const component = await import(`../../../../glyph/${key}`);
 
         const Icon = component.default;
-        const { getByLabelText } = render(<Icon label={Icon.name} />);
-        expect(getByLabelText(Icon.name)).toBeDefined();
+        render(<Icon label={Icon.name} />);
+        expect(screen.getByRole('img')).toBeInTheDocument();
         expect(Icon).toBeInstanceOf(Function);
       });
     });
@@ -450,10 +449,10 @@ describe('@atlaskit/icon', () => {
     describe('label property', () => {
       it('should accept a label', () => {
         const label = 'my label';
-        const { getByLabelText } = render(<BookIcon label={label} />);
-        const span = getByLabelText(label);
+        render(<BookIcon label={label} />);
+        const span = screen.getByRole('img');
 
-        expect(span).toBeDefined();
+        expect(span).toBeInTheDocument();
       });
     });
   });

@@ -7,18 +7,17 @@
  * The implementation has been _heavily_ borrowed from
  * - packages/editor/editor-core/src/plugins/table/pm-plugins/table-local-id.ts
  */
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import type {
-  NodeType,
-  Schema,
-  Node as ProsemirrorNode,
-} from '@atlaskit/editor-prosemirror/model';
 
 import { uuid } from '@atlaskit/adf-schema';
-
-import type { Dispatch } from '../../../event-dispatcher';
-import { getChangedNodes } from '../../../utils/document';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { getChangedNodes } from '@atlaskit/editor-common/utils';
+import type {
+  NodeType,
+  Node as ProsemirrorNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 const pluginKey = new PluginKey('fragmentMarkConsistencyPlugin');
 
@@ -46,7 +45,7 @@ export const createPlugin = (dispatch: Dispatch) =>
       const addedSupportedNodesPos: Map<ProsemirrorNode, number> = new Map();
       const localIds: Set<string> = new Set();
 
-      transactions.forEach((transaction) => {
+      transactions.forEach(transaction => {
         if (!transaction.docChanged) {
           return;
         }
@@ -84,7 +83,7 @@ export const createPlugin = (dispatch: Dispatch) =>
         }
 
         const existingFragmentMark = node.marks.find(
-          (mark) => mark.type === fragment,
+          mark => mark.type === fragment,
         );
         if (!existingFragmentMark) {
           // continue traversing
@@ -105,7 +104,7 @@ export const createPlugin = (dispatch: Dispatch) =>
         }
 
         const existingFragmentMark = node.marks.find(
-          (mark) => mark.type === fragment,
+          mark => mark.type === fragment,
         );
         if (!existingFragmentMark) {
           continue;
@@ -116,7 +115,7 @@ export const createPlugin = (dispatch: Dispatch) =>
             pos,
             undefined,
             node.attrs,
-            node.marks.map((mark) => {
+            node.marks.map(mark => {
               if (mark.type !== fragment) {
                 return mark;
               }

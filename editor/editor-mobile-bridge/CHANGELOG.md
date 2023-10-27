@@ -1,5 +1,30 @@
 # @atlaskit/editor-mobile-bridge
 
+## 189.1.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.0.12
+
+### Patch Changes
+
+- [#41659](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41659) [`a0c97a19dba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0c97a19dba) - Remove unused utils and depreciated exports in mediaClient.
+- Updated dependencies
+
 ## 189.0.11
 
 ### Patch Changes

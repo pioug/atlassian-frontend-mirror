@@ -147,6 +147,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   closeMenuOnScroll?: boolean | EventListener;
   /** Whether to block scrolling actions */
   menuShouldBlockScroll?: boolean;
+  /** Accessibility: Uses to set aria-label of the input*/
+  ariaLabel?: string;
   /** Accessibility: Identifies the element (or elements) that labels the current element.*/
   ariaLabelledBy?: string;
   /** Accessibility: Used to set the priority with which screen reader should treat updates to live regions.*/

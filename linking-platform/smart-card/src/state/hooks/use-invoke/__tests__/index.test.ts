@@ -31,7 +31,10 @@ describe('useInvoke', () => {
 
   it('makes request to client extension', async () => {
     const mockInvoke = jest.fn();
-    mocked(useSmartLinkClientExtension).mockReturnValue({ invoke: mockInvoke });
+    mocked(useSmartLinkClientExtension).mockReturnValue({
+      invoke: mockInvoke,
+      relatedUrls: jest.fn(),
+    });
 
     const { result } = renderHook(() => useInvoke());
 
@@ -44,7 +47,10 @@ describe('useInvoke', () => {
   it('returns response', async () => {
     const expectedResponse = { a: 'invoke-response' };
     const mockInvoke = jest.fn().mockResolvedValueOnce(expectedResponse);
-    mocked(useSmartLinkClientExtension).mockReturnValue({ invoke: mockInvoke });
+    mocked(useSmartLinkClientExtension).mockReturnValue({
+      invoke: mockInvoke,
+      relatedUrls: jest.fn(),
+    });
 
     const { result } = renderHook(() => useInvoke());
 
@@ -58,6 +64,7 @@ describe('useInvoke', () => {
     const callback = jest.fn().mockReturnValue(expectedResponse);
     mocked(useSmartLinkClientExtension).mockReturnValue({
       invoke: jest.fn().mockResolvedValueOnce({ a: 'invoke-response' }),
+      relatedUrls: jest.fn(),
     });
 
     const { result } = renderHook(() => useInvoke());

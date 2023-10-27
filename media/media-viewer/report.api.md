@@ -20,7 +20,7 @@ import { MediaClient } from '@atlaskit/media-client';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
-import type { WithMediaClientConfigProps } from '@atlaskit/media-client';
+import type { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 
 // @public (undocumented)
 interface AsyncMediaViewerState {

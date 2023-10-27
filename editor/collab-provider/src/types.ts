@@ -108,7 +108,6 @@ export interface Config {
    * The default value is MAX_STEP_REJECTED_ERROR (15).
    */
   failedStepLimitBeforeCatchupOnPublish?: number;
-
   /**
    * Enable checking if a document update from collab-provider is being dropped by the editor,
    * throwing a non-recoverable error if it's detected.

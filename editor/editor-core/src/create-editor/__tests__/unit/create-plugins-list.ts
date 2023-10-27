@@ -3,7 +3,6 @@ jest.mock('@atlaskit/editor-plugin-hyperlink');
 jest.mock('@atlaskit/editor-plugin-placeholder');
 jest.mock('@atlaskit/editor-plugin-selection');
 jest.mock('../../../plugins/code-block');
-jest.mock('../../../plugins/fake-text-cursor');
 jest.mock('@atlaskit/editor-plugin-submit-editor');
 jest.mock('@atlaskit/editor-plugin-quick-insert');
 jest.mock('@atlaskit/editor-plugin-card');
@@ -37,7 +36,6 @@ import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { placeholderPlugin } from '@atlaskit/editor-plugin-placeholder';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import codeBlockPlugin from '../../../plugins/code-block';
-import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
 import { submitEditorPlugin } from '@atlaskit/editor-plugin-submit-editor';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 
@@ -60,11 +58,6 @@ describe('createPluginsList', () => {
   it('should add helpDialogPlugin if allowHelpDialog is true', () => {
     createPluginsList({ allowHelpDialog: true });
     expect(helpDialogPlugin).toHaveBeenCalledWith({ config: false });
-  });
-
-  it('should add fakeTextCursorPlugin by default', () => {
-    createPluginsList({});
-    expect(fakeTextCursorPlugin).toHaveBeenCalled();
   });
 
   it('should add tablePlugin if allowTables is true', () => {

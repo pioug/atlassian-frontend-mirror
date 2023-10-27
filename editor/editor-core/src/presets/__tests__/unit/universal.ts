@@ -42,7 +42,6 @@ describe('createUniversalPreset', () => {
       'unsupportedContent',
       'editorDisabled',
       'submitEditor',
-      'fakeTextCursor',
       'floatingToolbar',
       'selection',
       'codeBlock',

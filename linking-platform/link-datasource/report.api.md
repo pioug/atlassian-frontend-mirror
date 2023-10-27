@@ -84,17 +84,12 @@ export const DatasourceTableView: (
 
 // @public (undocumented)
 interface DatasourceTableViewProps {
-  // (undocumented)
   datasourceId: string;
   // (undocumented)
   fields?: string[];
-  // (undocumented)
   onVisibleColumnKeysChange?: (visibleColumnKeys: string[]) => void;
-  // (undocumented)
   parameters: object;
-  // (undocumented)
   url?: string;
-  // (undocumented)
   visibleColumnKeys?: string[];
 }
 
@@ -124,21 +119,15 @@ export const JiraIssuesConfigModal: (
 
 // @public (undocumented)
 interface JiraIssuesConfigModalProps {
-  // (undocumented)
   datasourceId: string;
-  // (undocumented)
   onCancel: () => void;
-  // (undocumented)
   onInsert: (
     adf: InlineCardAdf | JiraIssuesDatasourceAdf,
     analyticsEvent?: UIAnalyticsEvent,
   ) => void;
-  // (undocumented)
   parameters?: JiraIssueDatasourceParameters;
   url?: string;
-  // (undocumented)
   viewMode?: JiraIssueViewModes;
-  // (undocumented)
   visibleColumnKeys?: string[];
 }
 

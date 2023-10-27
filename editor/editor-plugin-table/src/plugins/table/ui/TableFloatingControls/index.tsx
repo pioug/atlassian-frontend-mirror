@@ -12,7 +12,7 @@ import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import type { CellHoverMeta } from '../../types';
 import { isSelectionUpdated } from '../../utils';
 
-import { CornerControls } from './CornerControls';
+import { CornerControls, DragCornerControls } from './CornerControls';
 import NumberColumn from './NumberColumn';
 import { DragControls, RowControls } from './RowControls';
 
@@ -159,19 +159,27 @@ export default class TableFloatingControls extends Component<Props, State> {
         {tableActive && (
           <>
             {isDragAndDropEnabled ? (
-              <DragControls
-                tableRef={tableRef}
-                tableNode={tableNode}
-                hoveredCell={hoveredCell}
-                editorView={editorView}
-                tableActive={tableActive}
-                isInDanger={isInDanger}
-                isResizing={isResizing}
-                hasHeaderRow={hasHeaderRow}
-                hoverRows={this.hoverRows}
-                selectRow={this.selectRow}
-                updateCellHoverLocation={this.updateCellHoverLocation}
-              />
+              <>
+                <DragCornerControls
+                  editorView={editorView}
+                  tableRef={tableRef}
+                  isInDanger={isInDanger}
+                  isResizing={isResizing}
+                />
+                <DragControls
+                  tableRef={tableRef}
+                  tableNode={tableNode}
+                  hoveredCell={hoveredCell}
+                  editorView={editorView}
+                  tableActive={tableActive}
+                  isInDanger={isInDanger}
+                  isResizing={isResizing}
+                  hasHeaderRow={hasHeaderRow}
+                  hoverRows={this.hoverRows}
+                  selectRow={this.selectRow}
+                  updateCellHoverLocation={this.updateCellHoverLocation}
+                />
+              </>
             ) : (
               <>
                 <CornerControls

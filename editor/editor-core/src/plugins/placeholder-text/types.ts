@@ -18,7 +18,10 @@ export interface PlaceholderTextPluginState {
 export type PlaceholderTextPlugin = NextEditorPlugin<
   'placeholderText',
   {
-    dependencies: [OptionalPlugin<typeof analyticsPlugin>, TypeAheadPlugin];
+    dependencies: [
+      OptionalPlugin<typeof analyticsPlugin>,
+      OptionalPlugin<TypeAheadPlugin>,
+    ];
     pluginConfiguration: PlaceholderTextOptions;
     sharedState: PlaceholderTextPluginState | undefined;
   }

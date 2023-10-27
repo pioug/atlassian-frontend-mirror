@@ -5,6 +5,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { AnnotationNodeView, getAnnotationViewClassname } from '../nodeviews';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   updateInlineCommentResolvedState,
   updateMouseState,
@@ -47,6 +48,7 @@ const fetchState = async (
   provider: InlineCommentAnnotationProvider,
   annotationIds: string[],
   editorView: EditorView,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ) => {
   if (!annotationIds || !annotationIds.length) {
     return;
@@ -58,7 +60,7 @@ const fetchState = async (
   );
 
   if (editorView.dispatch) {
-    updateInlineCommentResolvedState(inlineCommentStates)(
+    updateInlineCommentResolvedState(editorAnalyticsAPI)(inlineCommentStates)(
       editorView.state,
       editorView.dispatch,
     );
@@ -86,19 +88,22 @@ const hideToolbar = (state: EditorState, dispatch: CommandDispatch) => () => {
 
 // Subscribe to updates from consumer
 const onResolve =
-  (state: EditorState, dispatch: CommandDispatch) => (annotationId: string) => {
-    updateInlineCommentResolvedState(
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (state: EditorState, dispatch: CommandDispatch) =>
+  (annotationId: string) => {
+    updateInlineCommentResolvedState(editorAnalyticsAPI)(
       { [annotationId]: true },
       RESOLVE_METHOD.CONSUMER,
     )(state, dispatch);
   };
 
 const onUnResolve =
-  (state: EditorState, dispatch: CommandDispatch) => (annotationId: string) => {
-    updateInlineCommentResolvedState({ [annotationId]: false })(
-      state,
-      dispatch,
-    );
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (state: EditorState, dispatch: CommandDispatch) =>
+  (annotationId: string) => {
+    updateInlineCommentResolvedState(editorAnalyticsAPI)({
+      [annotationId]: false,
+    })(state, dispatch);
   };
 
 const onMouseUp =
@@ -136,12 +141,23 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
     view(editorView: EditorView) {
       // Get initial state
       // Need to pass `editorView` to mitigate editor state going stale
-      fetchState(provider, getAllAnnotations(editorView.state.doc), editorView);
+      fetchState(
+        provider,
+        getAllAnnotations(editorView.state.doc),
+        editorView,
+        options.editorAnalyticsAPI,
+      );
 
       const resolve = (annotationId: string) =>
-        onResolve(editorView.state, editorView.dispatch)(annotationId);
+        onResolve(options.editorAnalyticsAPI)(
+          editorView.state,
+          editorView.dispatch,
+        )(annotationId);
       const unResolve = (annotationId: string) =>
-        onUnResolve(editorView.state, editorView.dispatch)(annotationId);
+        onUnResolve(options.editorAnalyticsAPI)(
+          editorView.state,
+          editorView.dispatch,
+        )(annotationId);
       const mouseUp = (event: Event) =>
         onMouseUp(editorView.state, editorView.dispatch)(event);
       const setVisibility = (isVisible: boolean) =>
@@ -178,7 +194,12 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
           }
 
           clearDirtyMark()(view.state, view.dispatch);
-          fetchState(provider, getAllAnnotations(view.state.doc), view);
+          fetchState(
+            provider,
+            getAllAnnotations(view.state.doc),
+            view,
+            options.editorAnalyticsAPI,
+          );
         },
 
         destroy() {

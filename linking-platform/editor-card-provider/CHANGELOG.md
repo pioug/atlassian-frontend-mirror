@@ -1,5 +1,11 @@
 # @atlaskit/editor-card-provider
 
+## 3.1.10
+
+### Patch Changes
+
+- [#42239](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42239) [`3ebc0b4f999`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ebc0b4f999) - [ux] Updated default smart card view for Confluence Databases to include check for entryId and savedViewId parameters
+
 ## 3.1.9
 
 ### Patch Changes

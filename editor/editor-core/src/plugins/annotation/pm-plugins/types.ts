@@ -4,6 +4,7 @@ import type {
   SelectionBookmark,
 } from '@atlaskit/editor-prosemirror/state';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type {
   Dispatch,
   EventDispatcher,
@@ -26,6 +27,7 @@ export interface InlineCommentPluginOptions {
   eventDispatcher: EventDispatcher;
   portalProviderAPI: PortalProviderAPI;
   provider: InlineCommentAnnotationProvider;
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 }
 export interface InlineCommentMouseData {
   isSelecting: boolean;

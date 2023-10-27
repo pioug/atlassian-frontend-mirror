@@ -59,39 +59,6 @@ export type ChangedFn = (
   index: number,
 ) => boolean | void;
 
-export function getChangedNodesIn({
-  tr,
-  doc,
-}: {
-  tr: ReadonlyTransaction | Transaction;
-  doc: Node;
-}): { node: Node; pos: number }[] {
-  const nodes: { node: Node; pos: number }[] = [];
-  const stepRange = getStepRange(tr);
-
-  if (!stepRange) {
-    return nodes;
-  }
-
-  const from = Math.min(doc.nodeSize - 2, stepRange.from);
-  const to = Math.min(doc.nodeSize - 2, stepRange.to);
-
-  doc.nodesBetween(from, to, (node, pos) => {
-    nodes.push({ node, pos });
-  });
-
-  return nodes;
-}
-
-export function getChangedNodes(
-  tr: ReadonlyTransaction | Transaction,
-): { node: Node; pos: number }[] {
-  return getChangedNodesIn({
-    tr: tr,
-    doc: tr.doc,
-  });
-}
-
 export function nodesBetweenChanged(
   tr: Transaction | ReadonlyTransaction,
   f: ChangedFn,

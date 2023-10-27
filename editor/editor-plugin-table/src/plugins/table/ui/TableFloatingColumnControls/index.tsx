@@ -129,7 +129,7 @@ export const TableFloatingColumnControls: React.FC<Props> = ({
 
   return ReactDOM.createPortal(
     <div
-      className={ClassName.COLUMN_CONTROLS_WRAPPER}
+      className={ClassName.DRAG_COLUMN_CONTROLS_WRAPPER}
       data-testid="table-floating-column-controls-wrapper"
     >
       <ColumnControls

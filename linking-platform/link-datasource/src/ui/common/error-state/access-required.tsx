@@ -45,6 +45,7 @@ const IconContainer = () => (
 );
 
 interface AccessRequiredProps {
+  /** The url to be displayed to the user when they are unauthorized to query */
   url?: string;
 }
 

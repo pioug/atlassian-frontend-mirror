@@ -19,6 +19,7 @@ const TitleBlockResolvingView: React.FC<TitleBlockViewProps> = ({
   actionGroup,
   testId,
   title,
+  hideIcon,
   ...blockProps
 }) => {
   const { size = SmartLinkSize.Medium } = blockProps;
@@ -27,9 +28,11 @@ const TitleBlockResolvingView: React.FC<TitleBlockViewProps> = ({
 
   return (
     <Block {...blockProps} testId={`${testId}-resolving-view`}>
-      <span css={iconStyles} data-testid={`${testId}-icon`}>
-        <LoadingSkeleton testId={`${testId}-icon-loading`} />
-      </span>
+      {!hideIcon && (
+        <span css={iconStyles} data-testid={`${testId}-icon`}>
+          <LoadingSkeleton testId={`${testId}-icon-loading`} />
+        </span>
+      )}
       {title}
       {actionGroup}
     </Block>

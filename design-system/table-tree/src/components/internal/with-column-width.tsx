@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
-import { TableTreeContext } from '../table-tree';
+import { TableTreeContext } from './context';
 
 export interface CellWithColumnWidthProps {
   width?: string | number;

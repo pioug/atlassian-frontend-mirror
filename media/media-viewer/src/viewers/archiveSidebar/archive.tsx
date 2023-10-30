@@ -16,6 +16,7 @@ import {
   AudioPlayer,
   CustomAudioPlayerWrapper,
   DefaultCoverWrapper,
+  ListWrapper,
 } from '../../styleWrappers';
 import AudioIcon from '@atlaskit/icon/glyph/media-services/audio';
 import ErrorMessage from '../../errorMessage';
@@ -235,9 +236,9 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
         />
         <ArchiveViewerWrapper>
           {!hasSelectedArchiveEntry && !hasLoadedEntries ? (
-            <ArchiveViewerWrapper>
+            <ListWrapper>
               <Spinner />
-            </ArchiveViewerWrapper>
+            </ListWrapper>
           ) : (
             this.renderArchiveItemViewer(content)
           )}
@@ -393,16 +394,18 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
     );
 
     return (
-      <ErrorMessage
-        fileId={item.id}
-        fileState={item}
-        error={error}
-        supressAnalytics={true}
-      >
-        <p>
-          <FormattedMessage {...messages.try_downloading_file} />
-        </p>
-      </ErrorMessage>
+      <ListWrapper>
+        <ErrorMessage
+          fileId={item.id}
+          fileState={item}
+          error={error}
+          supressAnalytics={true}
+        >
+          <p>
+            <FormattedMessage {...messages.try_downloading_file} />
+          </p>
+        </ErrorMessage>
+      </ListWrapper>
     );
   }
 }

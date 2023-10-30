@@ -59,6 +59,7 @@ export type Props = {
   readonly isSidebarVisible?: boolean;
   readonly featureFlags?: MediaFeatureFlags;
   readonly onSetArchiveSideBarVisible?: (isVisible: boolean) => void;
+  readonly isArchiveSideBarVisible?: boolean;
 };
 
 export type State = {
@@ -122,14 +123,9 @@ export class Header extends React.Component<
         })
         .subscribe({
           next: (file) => {
-            if (
-              !isErrorFileState(file) &&
-              file.mediaType === 'archive' &&
-              onSetArchiveSideBarVisible
-            ) {
-              onSetArchiveSideBarVisible(true);
-            }
-
+            onSetArchiveSideBarVisible?.(
+              !isErrorFileState(file) && file.mediaType === 'archive',
+            );
             this.setState({
               item: Outcome.successful(file),
             });
@@ -176,12 +172,7 @@ export class Header extends React.Component<
   };
 
   render() {
-    const { item } = this.state;
-    let isArchiveSideBarVisible = false;
-    if (item.data && !isErrorFileState(item.data)) {
-      const { mediaType } = item.data;
-      isArchiveSideBarVisible = mediaType === 'archive';
-    }
+    const { isArchiveSideBarVisible = false } = this.props;
     return (
       <HeaderWrapper
         isArchiveSideBarVisible={isArchiveSideBarVisible}

@@ -27,7 +27,9 @@ function getDatasourceDisplay(datasourceAttrs: DatasourceAdf['attrs']) {
 }
 
 function getDisplayedColumnCount(datasourceAttrs: DatasourceAdf['attrs']) {
-  return datasourceAttrs.datasource.views[0]?.properties?.columns?.length ?? 0;
+  return (
+    datasourceAttrs.datasource.views[0]?.properties?.columns?.length ?? null
+  );
 }
 
 function getSearchMethod(

@@ -52,9 +52,9 @@ export class List extends React.Component<Props, State> {
       showControls,
       extensions,
       onSidebarButtonClick,
-      isSidebarVisible,
       contextId,
       featureFlags,
+      isSidebarVisible,
     } = this.props;
     const { selectedItem, isArchiveSideBarVisible } = this.state;
 
@@ -71,6 +71,7 @@ export class List extends React.Component<Props, State> {
             extensions={extensions}
             onSidebarButtonClick={onSidebarButtonClick}
             isSidebarVisible={isSidebarVisible}
+            isArchiveSideBarVisible={isArchiveSideBarVisible}
             featureFlags={featureFlags}
             onSetArchiveSideBarVisible={(isVisible: boolean) =>
               this.setState({ isArchiveSideBarVisible: isVisible })

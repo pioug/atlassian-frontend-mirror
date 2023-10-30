@@ -69,13 +69,15 @@ export const fireDatasourceEvent = (
 ): DatasourceLifecycleEventCallback => {
   return async (details, sourceEvent, attributes = {}) => {
     const {
-      data: { totalCount: totalItemCount },
+      data: { totalCount: totalItemCount, schema },
       meta,
       meta: { extensionKey, destinationObjectTypes },
     } = await getDatasourceData(details.datasourceId, {
       parameters: details.parameters,
       // Currently, pageSize doesn't change the values we are interested in
       pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+      includeSchema: true,
+      fields: [],
     });
     const status = getStatus({ meta });
     const resolvedAttributes = {
@@ -83,6 +85,7 @@ export const fireDatasourceEvent = (
       status: status,
       destinationObjectTypes,
       totalItemCount,
+      displayedColumnCount: schema?.properties.length,
     };
 
     const mergedAttributes = mergeAttributes(

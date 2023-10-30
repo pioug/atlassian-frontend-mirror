@@ -141,10 +141,22 @@ const datasourceAttributes: DatasourceAdf['attrs'] = {
               key: 'key',
             },
             {
-              key: 'type',
+              key: 'updated',
             },
             {
               key: 'summary',
+            },
+            {
+              key: 'assignee',
+            },
+            {
+              key: 'issuetype',
+            },
+            {
+              key: 'priority',
+            },
+            {
+              key: 'status',
             },
           ],
         },
@@ -2382,7 +2394,7 @@ describe('Analytics key events', () => {
         display: 'table',
         nodeContext: 'doc',
         searchMethod: '',
-        displayedColumnCount: 3,
+        displayedColumnCount: 7,
         extensionKey: 'jira-object-provider',
         status: 'resolved',
         destinationObjectTypes: ['issue'],
@@ -2465,7 +2477,7 @@ describe('Analytics key events', () => {
             expect(datasourceCreatedCalls[0][0].payload).toEqual(
               getExpectedPayload('created', {
                 creationMethod: 'editor_paste',
-                displayedColumnCount: 0,
+                displayedColumnCount: 7,
                 actions: [],
               }),
             );

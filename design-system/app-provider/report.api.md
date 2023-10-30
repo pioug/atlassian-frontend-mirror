@@ -42,11 +42,16 @@ type ColorMode = 'auto' | 'dark' | 'light';
 type ReconciledColorMode = Exclude<ColorMode, 'auto'>;
 
 // @public (undocumented)
-type RouterLinkComponent<RouterLinkConfig extends {} = {}> =
-  React_2.ComponentType<RouterLinkComponentProps<RouterLinkConfig>>;
+type RouterLinkComponent<RouterLinkConfig extends Record<string, any> = never> =
+  React_2.ForwardRefExoticComponent<
+    RouterLinkComponentProps<RouterLinkConfig> &
+      React_2.RefAttributes<HTMLAnchorElement>
+  >;
 
 // @public (undocumented)
-export type RouterLinkComponentProps<RouterLinkConfig extends {} = {}> = {
+export type RouterLinkComponentProps<
+  RouterLinkConfig extends Record<string, any> = never,
+> = {
   href: RouterLinkConfig | string;
   children: React_2.ReactNode;
 };
@@ -58,7 +63,9 @@ type Theme = Omit<ThemeState, 'colorMode' | 'contrastMode'>;
 export function useColorMode(): ReconciledColorMode;
 
 // @public
-export const useRouterLink: () => RouterLinkComponent | undefined;
+export const useRouterLink: <
+  RouterLinkConfig extends Record<string, any> = never,
+>() => RouterLinkComponent<RouterLinkConfig> | undefined;
 
 // @public
 export function useSetColorMode(): (value: ColorMode) => void;

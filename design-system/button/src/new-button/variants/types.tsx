@@ -104,9 +104,33 @@ export type AdditionalHTMLElementPropsExtender<
 >;
 
 /**
- * Combines common buttom props with additional HTML attributes.
+ * Combines common button props with additional HTML attributes.
  */
 export type CombinedButtonProps<
   TagName extends HTMLElement,
   HTMLAttributes extends SupportedElementAttributes,
 > = Combine<HTMLAttributes, CommonButtonProps<TagName>>;
+
+/**
+ * Common props for Button `<button>` variants
+ */
+export type CommonButtonVariantProps = CombinedButtonProps<
+  HTMLButtonElement,
+  AdditionalHTMLElementPropsExtender<
+    React.ButtonHTMLAttributes<HTMLButtonElement>
+  >
+>;
+
+/**
+ * Common props for Link `<a>` Button variants
+ */
+export type CommonLinkVariantProps<
+  RouterLinkConfig extends Record<string, any> = never,
+> = {
+  href: string | RouterLinkConfig;
+} & CombinedButtonProps<
+  HTMLAnchorElement,
+  AdditionalHTMLElementPropsExtender<
+    Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
+  >
+>;

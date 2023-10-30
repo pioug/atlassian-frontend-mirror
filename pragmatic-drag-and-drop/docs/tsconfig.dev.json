@@ -111,9 +111,6 @@
       "path": "../react-accessibility/tsconfig.app.json"
     },
     {
-      "path": "../react-beautiful-dnd-autoscroll/tsconfig.app.json"
-    },
-    {
       "path": "../react-beautiful-dnd-migration/tsconfig.app.json"
     },
     {

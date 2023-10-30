@@ -125,24 +125,48 @@ export type ColumnType = {
 };
 export type ColumnMap = { [columnId: string]: ColumnType };
 
-export function getInitialData(
-  { itemsPerColumn }: { itemsPerColumn: number } = { itemsPerColumn: 10 },
-) {
+export function getData({
+  columnCount,
+  itemsPerColumn,
+}: {
+  columnCount: number;
+  itemsPerColumn: number;
+}) {
+  const columnMap: ColumnMap = {};
+
+  for (let i = 0; i < columnCount; i++) {
+    const column: ColumnType = {
+      title: `Column ${i}`,
+      columnId: `column-${i}`,
+      items: getPeople({ amount: itemsPerColumn }),
+    };
+    columnMap[column.columnId] = column;
+  }
+  const orderedColumnIds = Object.keys(columnMap);
+
+  return {
+    columnMap,
+    orderedColumnIds,
+    lastOperation: null,
+  };
+}
+
+export function getBasicData() {
   const columnMap: ColumnMap = {
     confluence: {
       title: 'Confluence',
       columnId: 'confluence',
-      items: getPeople({ amount: itemsPerColumn }),
+      items: getPeople({ amount: 10 }),
     },
     jira: {
       title: 'Jira',
       columnId: 'jira',
-      items: getPeople({ amount: itemsPerColumn }),
+      items: getPeople({ amount: 10 }),
     },
     trello: {
       title: 'Trello',
       columnId: 'trello',
-      items: getPeople({ amount: itemsPerColumn }),
+      items: getPeople({ amount: 10 }),
     },
   };
 

@@ -36,7 +36,7 @@ const UnresolvedView: FC<UnresolvedViewProps> = ({
     ui={FlexibleCardUiOptions}
     url={url}
   >
-    <TitleBlock {...getTitleBlockOptions()} text={title} />
+    <TitleBlock {...getTitleBlockOptions()} hideIcon={!!title} text={title} />
     <CustomBlock>{children}</CustomBlock>
     {showPreview && <PreviewBlock {...PreviewBlockOptions} />}
     <InternalFooterBlock

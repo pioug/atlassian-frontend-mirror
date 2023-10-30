@@ -1,0 +1,197 @@
+import type {
+  AllDragTypes,
+  Input,
+  Position,
+} from '@atlaskit/pragmatic-drag-and-drop/types';
+
+import type { Axis, Edge, Spacing } from '../internal-types';
+import { canScrollOnEdge } from '../shared/can-scroll-on-edge';
+import { edges } from '../shared/edges';
+import { markAndGetEngagement } from '../shared/engagement-history';
+import { getScrollChange } from '../shared/get-scroll-change';
+import { isWithin } from '../shared/is-within';
+
+import { getHitbox } from './hitbox';
+import {
+  HitboxSpacing,
+  ProvidedHitboxSpacing,
+  UnsafeOverflowAutoScrollArgs,
+} from './types';
+
+export type HitboxForEdge = {
+  edge: Edge;
+  type: 'inside-of-edge' | 'outside-of-edge';
+  hitbox: DOMRect;
+};
+
+// Distance dampening is enabled when we are inside the edge
+// In order to match "over element" scrolling
+function getIsDistanceDampeningEnabled(value: HitboxForEdge): boolean {
+  return value.type === 'inside-of-edge';
+}
+
+function getSpacingFromProvided(value: Partial<Spacing> | undefined): Spacing {
+  return {
+    top: value?.top ?? 0,
+    right: value?.right ?? 0,
+    bottom: value?.bottom ?? 0,
+    left: value?.left ?? 0,
+  };
+}
+
+function getHitboxSpacing(provided: ProvidedHitboxSpacing): HitboxSpacing {
+  return {
+    top: getSpacingFromProvided(provided.fromTopEdge),
+    right: getSpacingFromProvided(provided.fromRightEdge),
+    bottom: getSpacingFromProvided(provided.fromBottomEdge),
+    left: getSpacingFromProvided(provided.fromLeftEdge),
+  };
+}
+
+export function getScrollBy<DragType extends AllDragTypes>({
+  entry,
+  timeSinceLastFrame,
+  input,
+}: {
+  entry: UnsafeOverflowAutoScrollArgs<DragType>;
+  input: Input;
+  timeSinceLastFrame: number;
+}): Pick<ScrollToOptions, 'top' | 'left'> | null {
+  const client: Position = {
+    x: input.clientX,
+    y: input.clientY,
+  };
+
+  // 🔥
+  // For each registered item we need to do `getBoundingClientRect()` which is not great
+  // Why?
+  // 1. The hitbox can extend outside of an elements bounds
+  // 2. We want overflow scrolling to start before the user has entered the bounds of the element
+  //     Otherwise we could search upwards in the DOM from the `elementFromPoint`
+  const clientRect: DOMRect = entry.element.getBoundingClientRect();
+  const overflow = getHitboxSpacing(entry.getOverflow());
+
+  const inHitboxForEdge: HitboxForEdge[] = edges
+    .map((edge): HitboxForEdge | false => {
+      const { insideOfEdge, outsideOfEdge, overElementHitbox } = getHitbox[
+        edge
+      ]({
+        clientRect,
+        overflow,
+      });
+
+      // Making sure that if we are over the over element hitbox,
+      // we don't do anything.
+      // This is important as this hotbox needs to 'cut out' the 'insideOfEdge' hitbox
+      // This check is a bit redundant as our `element.contains(underUsersCursor)` should catch this,
+      // but it's helpful to be explicit here
+      if (isWithin({ client, clientRect: overElementHitbox })) {
+        return false;
+      }
+
+      if (isWithin({ client, clientRect: outsideOfEdge })) {
+        return {
+          edge,
+          hitbox: outsideOfEdge,
+          type: 'outside-of-edge',
+        };
+      }
+
+      if (isWithin({ client, clientRect: insideOfEdge })) {
+        return {
+          edge,
+          hitbox: insideOfEdge,
+          type: 'inside-of-edge',
+        };
+      }
+
+      return false;
+    })
+    .filter((value): value is HitboxForEdge => Boolean(value));
+
+  if (!inHitboxForEdge.length) {
+    return null;
+  }
+
+  // Even if no edges are scrollable, we are marking the element
+  // as being engaged with to start applying time dampening
+  const engagement = markAndGetEngagement(entry.element);
+
+  const scrollableEdges: HitboxForEdge[] = inHitboxForEdge.filter(value =>
+    canScrollOnEdge[value.edge](entry.element),
+  );
+
+  // Nothing can be scrolled
+  if (!scrollableEdges.length) {
+    return null;
+  }
+
+  const lookup = new Map<Edge, HitboxForEdge>(
+    scrollableEdges.map(value => [value.edge, value]),
+  );
+
+  const left: number = (() => {
+    const axis: Axis = 'horizontal';
+    const leftEdge = lookup.get('left');
+    if (leftEdge) {
+      return getScrollChange({
+        client,
+        isDistanceDampeningEnabled: getIsDistanceDampeningEnabled(leftEdge),
+        hitbox: leftEdge.hitbox,
+        edge: 'left',
+        axis,
+        timeSinceLastFrame,
+        engagement,
+      });
+    }
+    const rightEdge = lookup.get('right');
+    if (rightEdge) {
+      return getScrollChange({
+        client,
+        isDistanceDampeningEnabled: getIsDistanceDampeningEnabled(rightEdge),
+        hitbox: rightEdge.hitbox,
+        edge: 'right',
+        axis,
+        timeSinceLastFrame,
+        engagement,
+      });
+    }
+
+    return 0;
+  })();
+
+  const top: number = (() => {
+    const axis: Axis = 'vertical';
+    const bottomEdge = lookup.get('bottom');
+    if (bottomEdge) {
+      return getScrollChange({
+        client,
+        isDistanceDampeningEnabled: getIsDistanceDampeningEnabled(bottomEdge),
+        hitbox: bottomEdge.hitbox,
+        edge: 'bottom',
+        axis,
+        timeSinceLastFrame,
+        engagement,
+      });
+    }
+    const topEdge = lookup.get('top');
+    if (topEdge) {
+      return getScrollChange({
+        client,
+        isDistanceDampeningEnabled: getIsDistanceDampeningEnabled(topEdge),
+        hitbox: topEdge.hitbox,
+        edge: 'top',
+        axis,
+        timeSinceLastFrame,
+        engagement,
+      });
+    }
+
+    return 0;
+  })();
+
+  return {
+    left,
+    top,
+  };
+}

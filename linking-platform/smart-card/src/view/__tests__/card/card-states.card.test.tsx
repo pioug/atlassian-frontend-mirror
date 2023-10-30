@@ -1,6 +1,8 @@
 import './card-states.card.test.mock';
 
 import { SmartLinkActionType } from '@atlaskit/linking-types';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { JsonLd } from 'json-ld-types';
 
 import * as analytics from '../../../utils/analytics';
 import React from 'react';
@@ -12,7 +14,7 @@ import '@atlaskit/link-test-helpers/jest';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
-import { fakeFactory, mocks } from '../../../utils/mocks';
+import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
 import { IntlProvider } from 'react-intl-next';
 
 const mockUrl = 'https://some.url';
@@ -703,6 +705,194 @@ describe('smart-card: card states, block', () => {
             status: 'forbidden',
           });
         });
+      });
+
+      describe('with content', () => {
+        type ContextProp = { accessType: string; visibility: string };
+        type ContentProps = {
+          button?: string;
+          description: string;
+          title?: string;
+        };
+        const mockResponse = ({
+          accessType = 'FORBIDDEN',
+          visibility = 'not_found',
+        } = {}) =>
+          ({
+            meta: {
+              auth: [],
+              visibility,
+              access: 'forbidden',
+              key: 'jira-object-provider',
+              requestAccess: { accessType },
+            },
+            data: {
+              ...mocks.forbidden.data,
+              generator: mockGenerator,
+            },
+          } as JsonLd.Response);
+
+        const setup = async (response = mocks.forbidden) => {
+          mockFetch.mockImplementationOnce(async () => response);
+          const renderResult = render(
+            <Provider
+              client={mockClient}
+              featureFlags={{ enableFlexibleBlockCard: true }}
+            >
+              <Card
+                appearance="block"
+                url="https://site.atlassian.net/browse/key-1"
+              />
+            </Provider>,
+          );
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+
+          return renderResult;
+        };
+
+        describe.each([
+          [
+            "site - request access: I don't have access to the site, but I can request access",
+            { accessType: 'REQUEST_ACCESS', visibility: 'not_found' },
+            {
+              title: 'Join Jira to view this content',
+              description:
+                'Your team uses Jira to collaborate. Send your admin a request for access.',
+              button: 'Request access',
+            },
+            {
+              description: 'Request access to Jira view this preview.',
+              button: 'Request access',
+            },
+          ],
+          [
+            "site - pending request: I don't have access to the site, but I've already requested access and I'm waiting",
+            { accessType: 'PENDING_REQUEST_EXISTS', visibility: 'not_found' },
+            {
+              title: 'Access to Jira is pending',
+              description:
+                'Your request to access site.atlassian.net is awaiting admin approval.',
+              button: 'Pending approval',
+            },
+            {
+              description: 'Your access request is pending.',
+            },
+          ],
+          [
+            "site - denied request: I don't have access to the site, and my previous request was denied",
+            { accessType: 'DENIED_REQUEST_EXISTS', visibility: 'not_found' },
+            {
+              title: "You don't have access to this content",
+              description:
+                "Your admin didn't approve your request to view Jira pages from site.atlassian.net.",
+            },
+            {
+              description:
+                'Your access request was denied. Contact the site admin if you still need access.',
+            },
+          ],
+          [
+            "site - direct access: I don't have access to the site, but I can join directly",
+            { accessType: 'DIRECT_ACCESS', visibility: 'not_found' },
+            {
+              title: 'Join Jira to view this content',
+              description:
+                'Your team uses Jira to collaborate and you can start using it right away!',
+              button: 'Join now',
+            },
+            {
+              description:
+                "You've been approved, so you can join Jira right away.",
+              button: 'Join Jira',
+            },
+          ],
+          [
+            'object - request Access: I have access to the site, but not the object',
+            { accessType: 'ACCESS_EXISTS', visibility: 'restricted' },
+            {
+              title: "You don't have access to this content",
+              description:
+                'Request access to view this content from site.atlassian.net.',
+              button: 'Request access',
+            },
+            {
+              description:
+                "You'll need to request access or try a different account to view this preview.",
+            },
+          ],
+          [
+            'not found, access exists: I have access to the site, but not the object or object is not-found',
+            { accessType: 'ACCESS_EXISTS', visibility: 'not_found' },
+            {
+              title: "We can't show you this Jira page",
+              description:
+                "The page doesn't exist or it may have changed after this link was added.",
+            },
+            {
+              description:
+                "We couldn't find the link. Check the url and try editing or paste again.",
+            },
+          ],
+          [
+            'forbidden: When you don’t have access to the site, and you can’t request access',
+            { accessType: 'FORBIDDEN', visibility: 'not_found' },
+            {
+              title: "You don't have access to this content",
+              description:
+                'Contact your admin to request access to site.atlassian.net.',
+            },
+            {
+              description:
+                'You don’t have access to this preview. Contact the site admin if you need access.',
+            },
+          ],
+        ])(
+          '%s',
+          (
+            name: string,
+            context: ContextProp,
+            expected: ContentProps,
+            expectedFFOff: ContentProps,
+          ) => {
+            ffTest(
+              'platform.linking-platform.smart-card.cross-join',
+              async () => {
+                const { container, findByText, queryByTestId } = await setup(
+                  mockResponse(context),
+                );
+
+                if (expected!.title) {
+                  expect(await findByText(expected.title)).toBeVisible();
+                }
+                expect(container).toHaveTextContent(expected.description);
+                if (expected.button) {
+                  expect(await findByText(expected.button)).toBeVisible();
+                }
+                expect(
+                  queryByTestId('smart-element-icon'),
+                ).not.toBeInTheDocument();
+              },
+              async () => {
+                const { findByText, findByTestId } = await setup(
+                  mockResponse(context),
+                );
+
+                if (expectedFFOff.title) {
+                  expect(await findByText(expectedFFOff.title)).toBeVisible();
+                }
+                expect(
+                  await findByText(expectedFFOff.description),
+                ).toBeVisible();
+                if (expectedFFOff.button) {
+                  expect(await findByText(expectedFFOff.button)).toBeVisible();
+                }
+                expect(
+                  await findByTestId('smart-element-icon'),
+                ).toBeInTheDocument();
+              },
+            );
+          },
+        );
       });
     });
 

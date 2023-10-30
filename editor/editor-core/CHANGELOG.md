@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 189.1.3
+
+### Patch Changes
+
+- [#42329](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42329) [`2bdcd641710`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2bdcd641710) - Decouple indentation plugin from deprecated analytics plugin.
+
+## 189.1.2
+
+### Patch Changes
+
+- [#42323](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42323) [`a4cb1c16536`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4cb1c16536) - Fix useSharedPluginState if the editor API changes to ensure that the state updates.
+- Updated dependencies
+
+## 189.1.1
+
+### Patch Changes
+
+- [#42279](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42279) [`f4fd8d16522`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4fd8d16522) - ED-20556 Extract Fragment plugin
+- [#42255](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42255) [`44cdc71165d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44cdc71165d) - Decouple annotation plugin from deprecated analytics plugin.
+- Updated dependencies
+
 ## 189.1.0
 
 ### Minor Changes

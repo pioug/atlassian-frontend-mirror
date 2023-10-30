@@ -169,6 +169,7 @@ function useSharedPluginStateInternal<P extends NamedPluginKeys>(
     mapValues(externalPlugins, (value) => value?.sharedState.currentState()),
   );
   const refStates = useRef<Record<string, unknown>>({});
+  const mounted = useRef(false);
 
   useLayoutEffect(() => {
     const debouncedPluginStateUpdate = debounce(() => {
@@ -177,6 +178,17 @@ function useSharedPluginStateInternal<P extends NamedPluginKeys>(
         ...refStates.current,
       }));
     });
+
+    // If we re-render this hook due to a change in the external
+    // plugins we need to push a state update to ensure we have
+    // the most current state.
+    if (mounted.current) {
+      refStates.current = mapValues(externalPlugins, (value) =>
+        value?.sharedState.currentState(),
+      );
+      debouncedPluginStateUpdate();
+    }
+
     const unsubs = Object.entries(externalPlugins).map(
       ([pluginKey, externalPlugin]) => {
         return externalPlugin?.sharedState.onChange(
@@ -190,6 +202,7 @@ function useSharedPluginStateInternal<P extends NamedPluginKeys>(
         );
       },
     );
+    mounted.current = true;
 
     return () => {
       refStates.current = {};

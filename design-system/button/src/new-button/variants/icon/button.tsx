@@ -2,21 +2,12 @@ import React from 'react';
 
 import UNSAFE_PRESSABLE from '@atlaskit/primitives/pressable';
 
-import {
-  type AdditionalHTMLElementPropsExtender,
-  type CombinedButtonProps,
-} from '../types';
+import { type CommonButtonVariantProps } from '../types';
 
 import { type CommonIconButtonProps } from './types';
 import useIconButton from './use-icon-button';
 
-type Element = HTMLButtonElement;
-type AdditionalHTMLElementProps = AdditionalHTMLElementPropsExtender<
-  React.ButtonHTMLAttributes<Element>
->;
-
-export type IconButtonProps = CommonIconButtonProps &
-  CombinedButtonProps<Element, AdditionalHTMLElementProps>;
+export type IconButtonProps = CommonIconButtonProps & CommonButtonVariantProps;
 
 /**
  * __Icon Button__
@@ -30,7 +21,6 @@ export type IconButtonProps = CommonIconButtonProps &
 const IconButton = React.memo(
   React.forwardRef(function Button(
     {
-      // Button base
       analyticsContext,
       autoFocus,
       appearance,
@@ -55,13 +45,13 @@ const IconButton = React.memo(
       testId,
       ...rest
     }: IconButtonProps,
-    ref: React.Ref<Element>,
+    ref: React.Ref<HTMLButtonElement>,
   ) {
     /**
      * TODO: At some stage I'll look into re-using more logic across 'default' and 'icon'
      * buttons. It's currently duplicated and mostly the same.
      */
-    const baseProps = useIconButton<Element>({
+    const baseProps = useIconButton<HTMLButtonElement>({
       analyticsContext,
       appearance,
       autoFocus,

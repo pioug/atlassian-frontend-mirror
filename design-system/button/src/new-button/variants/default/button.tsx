@@ -2,21 +2,12 @@ import React from 'react';
 
 import UNSAFE_PRESSABLE from '@atlaskit/primitives/pressable';
 
-import {
-  type AdditionalHTMLElementPropsExtender,
-  type CombinedButtonProps,
-} from '../types';
+import { type CommonButtonVariantProps } from '../types';
 
 import { type CommonDefaultButtonProps } from './types';
 import useDefaultButton from './use-default-button';
 
-type Element = HTMLButtonElement;
-type AdditionalHTMLElementProps = AdditionalHTMLElementPropsExtender<
-  React.ButtonHTMLAttributes<Element>
->;
-
-export type ButtonProps = CommonDefaultButtonProps &
-  CombinedButtonProps<Element, AdditionalHTMLElementProps>;
+export type ButtonProps = CommonDefaultButtonProps & CommonButtonVariantProps;
 
 /**
  * __Button__
@@ -32,7 +23,6 @@ export type ButtonProps = CommonDefaultButtonProps &
 const Button = React.memo(
   React.forwardRef(function Button(
     {
-      // Button base
       analyticsContext,
       autoFocus,
       appearance,
@@ -59,9 +49,9 @@ const Button = React.memo(
       testId,
       ...rest
     }: ButtonProps,
-    ref: React.Ref<Element>,
+    ref: React.Ref<HTMLButtonElement>,
   ) {
-    const baseProps = useDefaultButton<Element>({
+    const baseProps = useDefaultButton<HTMLButtonElement>({
       analyticsContext,
       appearance,
       autoFocus,

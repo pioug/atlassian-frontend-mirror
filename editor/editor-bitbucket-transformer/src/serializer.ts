@@ -365,7 +365,7 @@ const editorNodes = {
       delimiter = nextNodeHasLeadingSpace ? '' : ' ';
     }
 
-    state.write(`@{${node.attrs.id}}${delimiter}`);
+    state.write(`@${node.attrs.id}${delimiter}`);
   },
   emoji(state: MarkdownSerializerState, node: PMNode) {
     state.write(node.attrs.shortName);

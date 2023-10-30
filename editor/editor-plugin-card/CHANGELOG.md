@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-card
 
+## 0.10.3
+
+### Patch Changes
+
+- [#41985](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41985) [`75de7b64b6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75de7b64b6d) - DatasourceEvents getDisplayedColumnCount now returns null instead of 0 if no properties exist
+- Updated dependencies
+
 ## 0.10.2
 
 ### Patch Changes

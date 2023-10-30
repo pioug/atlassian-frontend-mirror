@@ -91,28 +91,6 @@ const cleanup = monitorForElements({
 
 Learn more about [monitors](/components/pragmatic-drag-and-drop/monitors).
 
-### Addons
-
-An addon piece of code that impacts the control flow of your drag operation (for example, the [hitbox detection addon](/components/pragmatic-drag-and-drop/packages/hitbox)) or performs some side effect during the drag operation (like the [auto scroller addon](/components/pragmatic-drag-and-drop/packages/autoscroll)).
-
-```ts
-import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
-
-const cleanup = monitorForElements({
-  onDragStart: ({ location }) => {
-    autoScroller.start({ input: location.current.input });
-  },
-  onDrop: () => {
-    autoScroller.stop();
-  },
-  onDrag: ({ location }) => {
-    autoScroller.updateInput({
-      input: location.current.input,
-    });
-  },
-});
-```
-
 ### Utilities
 
 Utilities are small helper functions for common , which are included with the main drag and drop package (e.g. `once` for simple memoization, or `combine` to collapse cleanup functions).

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, type Ref } from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
@@ -11,38 +11,40 @@ import UNSAFE_LINK from '../../link';
 
 const testId = 'test-link';
 
-type MyLinkConfig = {
+type MyRouterLinkConfig = {
   to: string;
   customProp?: string;
 };
 
-const MyLinkComponent = ({
-  href,
-  children,
-  ...rest
-}: RouterLinkComponentProps<MyLinkConfig>) => {
-  const label = <>{children} (Router link)</>;
+const MyRouterLinkComponent = forwardRef(
+  (
+    { href, children, ...rest }: RouterLinkComponentProps<MyRouterLinkConfig>,
+    ref: Ref<HTMLAnchorElement>,
+  ) => {
+    const label = <>{children} (Router link)</>;
 
-  if (typeof href === 'string') {
+    if (typeof href === 'string') {
+      return (
+        <a ref={ref} data-test-link-type="simple" href={href} {...rest}>
+          {label}
+        </a>
+      );
+    }
+
     return (
-      <a data-test-link-type="simple" href={href} {...rest}>
+      <a
+        ref={ref}
+        data-test-link-type="advanced"
+        data-custom-attribute={href.customProp}
+        href={href.to}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+        {...rest}
+      >
         {label}
       </a>
     );
-  }
-
-  return (
-    <a
-      data-test-link-type="advanced"
-      data-custom-attribute={href.customProp}
-      href={href.to}
-      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-      {...rest}
-    >
-      {label}
-    </a>
-  );
-};
+  },
+);
 
 const linkStyles = xcss({
   textTransform: 'uppercase',
@@ -307,7 +309,7 @@ describe('Link', () => {
         ({ id, type, value, shouldRouterLinkComponentBeUsed }) => {
           it(type, () => {
             render(
-              <AppProvider routerLinkComponent={MyLinkComponent}>
+              <AppProvider routerLinkComponent={MyRouterLinkComponent}>
                 <UNSAFE_LINK href={value} testId={id}>
                   Hello world
                 </UNSAFE_LINK>
@@ -320,6 +322,72 @@ describe('Link', () => {
             );
           });
         },
+      );
+    });
+  });
+
+  describe('Custom router link objects passed to the `href` prop', () => {
+    it('throws an error when links are used outside an AppProvider', () => {
+      expect(() =>
+        render(
+          <AppProvider>
+            <UNSAFE_LINK<MyRouterLinkConfig>
+              href={{
+                to: 'foo',
+                customProp: 'bar',
+              }}
+              testId={testId}
+            >
+              Hello world
+            </UNSAFE_LINK>
+          </AppProvider>,
+        ),
+      ).toThrow(
+        new Error(
+          `Invariant failed: @atlaskit/primitives: Link primitive cannot pass an object to 'href' unless a router link is configured in the AppProvider`,
+        ),
+      );
+    });
+    it('throws an error when links are used inside an AppProvider, without a routerLinkComponent defined', () => {
+      expect(() =>
+        render(
+          <AppProvider>
+            <UNSAFE_LINK<MyRouterLinkConfig>
+              href={{
+                to: 'foo',
+                customProp: 'bar',
+              }}
+              testId={testId}
+            >
+              Hello world
+            </UNSAFE_LINK>
+          </AppProvider>,
+        ),
+      ).toThrow(
+        new Error(
+          `Invariant failed: @atlaskit/primitives: Link primitive cannot pass an object to 'href' unless a router link is configured in the AppProvider`,
+        ),
+      );
+    });
+    it('are interpreted when links are used inside an AppProvider, with a routerLinkComponent defined', () => {
+      render(
+        <AppProvider routerLinkComponent={MyRouterLinkComponent}>
+          <UNSAFE_LINK<MyRouterLinkConfig>
+            href={{
+              to: 'foo',
+              customProp: 'bar',
+            }}
+            testId={testId}
+          >
+            Hello world
+          </UNSAFE_LINK>
+        </AppProvider>,
+      );
+
+      expect(screen.getByTestId(testId)).toHaveAttribute('href', 'foo');
+      expect(screen.getByTestId(testId)).toHaveAttribute(
+        'data-custom-attribute',
+        'bar',
       );
     });
   });

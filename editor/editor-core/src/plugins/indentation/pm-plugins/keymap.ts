@@ -1,6 +1,6 @@
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   bindKeymapWithCommand,
   findShortcutByKeymap,
@@ -12,18 +12,20 @@ import { isTextSelection } from '../../../utils';
 import { getIndentCommand, getOutdentCommand } from '../commands';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 
-export function keymapPlugin(): SafePlugin | undefined {
+export function keymapPlugin(
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): SafePlugin | undefined {
   const list = {};
 
   bindKeymapWithCommand(
     findShortcutByKeymap(indent)!,
-    getIndentCommand(INPUT_METHOD.KEYBOARD),
+    getIndentCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD),
     list,
   );
 
   bindKeymapWithCommand(
     findShortcutByKeymap(outdent)!,
-    getOutdentCommand(INPUT_METHOD.KEYBOARD),
+    getOutdentCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD),
     list,
   );
 
@@ -37,7 +39,10 @@ export function keymapPlugin(): SafePlugin | undefined {
         selection.$cursor.parentOffset === 0
       ) {
         return dispatch
-          ? getOutdentCommand(INPUT_METHOD.KEYBOARD)(state, dispatch)
+          ? getOutdentCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD)(
+              state,
+              dispatch,
+            )
           : false;
       }
       return false;

@@ -8,7 +8,10 @@ import {
   blockquote,
   indentation,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type {
+  DocBuilder,
+  PublicPluginAPI,
+} from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
@@ -21,6 +24,7 @@ import {
   getPrevIndentLevel,
   getNewIndentLevel,
 } from '../../../../plugins/indentation/commands/utils';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const { getIndentCommand: indent, getOutdentCommand: outdent } =
   indentationCommands;
@@ -32,25 +36,45 @@ describe('indentation', () => {
     createEditor({
       doc,
       editorProps: {
+        allowAnalyticsGASV3: true,
         allowTextAlignment: true,
         allowIndentation: true,
       },
     });
 
   describe('indent', () => {
-    it('indents a top level paragraph', () => {
-      const { editorView } = editor(doc(p('hello{<>}')));
+    it('indents a top level paragraph and sends analytics', () => {
+      const { editorView, editorAPI: api } = editor(doc(p('hello{<>}')));
+      const editorAPI = api as PublicPluginAPI<[AnalyticsPlugin]>;
+      jest.spyOn(editorAPI?.analytics?.actions, 'attachAnalyticsEvent');
       const { dispatch, state } = editorView;
-      indent()(state, dispatch);
+
+      indent(editorAPI?.analytics?.actions)()(state, dispatch);
+
       expect(editorView.state.doc).toEqualDocument(
         doc(indentation({ level: 1 })(p('hello'))),
       );
+      expect(
+        editorAPI?.analytics?.actions.attachAnalyticsEvent,
+      ).toHaveBeenCalledWith({
+        action: 'formatted',
+        actionSubject: 'text',
+        actionSubjectId: 'indentation',
+        attributes: {
+          direction: 'indent',
+          indentType: 'paragraph',
+          inputMethod: 'keyboard',
+          newIndentLevel: 1,
+          previousIndentationLevel: 0,
+        },
+        eventType: 'track',
+      });
     });
 
     it('indents only the current paragraph', () => {
       const { editorView } = editor(doc(p('hello{<>}'), p('world')));
       const { dispatch, state } = editorView;
-      indent()(state, dispatch);
+      indent(undefined)()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(indentation({ level: 1 })(p('hello')), p('world')),
       );
@@ -59,7 +83,7 @@ describe('indentation', () => {
     it('indents a top level heading', () => {
       const { editorView } = editor(doc(h1('hello{<>}')));
       const { dispatch, state } = editorView;
-      indent()(state, dispatch);
+      indent(undefined)()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(indentation({ level: 1 })(h1('hello'))),
       );
@@ -70,7 +94,7 @@ describe('indentation', () => {
         doc(p('{<}hello'), blockquote(p('hello')), p('world{>}')),
       );
       const { dispatch, state } = editorView;
-      indent()(state, dispatch);
+      indent(undefined)()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           indentation({ level: 1 })(p('hello')),
@@ -85,7 +109,7 @@ describe('indentation', () => {
         doc(indentation({ level: 6 })(p('hello{<>}'))),
       );
       const { dispatch, state } = editorView;
-      indent()(state, dispatch);
+      indent(undefined)()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(indentation({ level: 6 })(p('hello'))),
       );
@@ -94,14 +118,32 @@ describe('indentation', () => {
 
   describe('outdent', () => {
     it('outdents a top level paragraph', () => {
-      const { editorView } = editor(
+      const { editorView, editorAPI: api } = editor(
         doc(indentation({ level: 3 })(p('hello{<>}'))),
       );
+      const editorAPI = api as PublicPluginAPI<[AnalyticsPlugin]>;
+      jest.spyOn(editorAPI?.analytics?.actions, 'attachAnalyticsEvent');
       const { dispatch, state } = editorView;
-      outdent()(state, dispatch);
+      outdent(editorAPI?.analytics?.actions)()(state, dispatch);
+
       expect(editorView.state.doc).toEqualDocument(
         doc(indentation({ level: 2 })(p('hello'))),
       );
+      expect(
+        editorAPI?.analytics?.actions.attachAnalyticsEvent,
+      ).toHaveBeenCalledWith({
+        action: 'formatted',
+        actionSubject: 'text',
+        actionSubjectId: 'indentation',
+        attributes: {
+          direction: 'outdent',
+          indentType: 'paragraph',
+          inputMethod: 'keyboard',
+          newIndentLevel: 2,
+          previousIndentationLevel: 3,
+        },
+        eventType: 'track',
+      });
     });
 
     it('outdents only the current paragraph', () => {
@@ -109,7 +151,7 @@ describe('indentation', () => {
         doc(indentation({ level: 3 })(p('hello{<>}')), p('world')),
       );
       const { dispatch, state } = editorView;
-      outdent()(state, dispatch);
+      outdent(undefined)()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(indentation({ level: 2 })(p('hello')), p('world')),
       );
@@ -120,7 +162,7 @@ describe('indentation', () => {
         doc(indentation({ level: 3 })(h1('hello{<>}'))),
       );
       const { dispatch, state } = editorView;
-      outdent()(state, dispatch);
+      outdent(undefined)()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(indentation({ level: 2 })(h1('hello'))),
       );
@@ -135,7 +177,7 @@ describe('indentation', () => {
         ),
       );
       const { dispatch, state } = editorView;
-      outdent()(state, dispatch);
+      outdent(undefined)()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           indentation({ level: 1 })(p('hello')),
@@ -150,7 +192,7 @@ describe('indentation', () => {
         doc(indentation({ level: 1 })(p('hello{<>}'))),
       );
       const { dispatch, state } = editorView;
-      outdent()(state, dispatch);
+      outdent(undefined)()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(doc(p('hello')));
     });
   });
@@ -160,7 +202,7 @@ describe('indentation', () => {
       const indentMock = jest.fn();
       jest
         .spyOn(indentationCommands, 'getIndentCommand')
-        .mockImplementation(() => indentMock);
+        .mockImplementation(() => () => indentMock);
       const { editorView } = editor(doc(p('{<>}')));
 
       expect(indentMock).toHaveBeenCalledTimes(0);
@@ -172,7 +214,7 @@ describe('indentation', () => {
       const outdentMock = jest.fn();
       jest
         .spyOn(indentationCommands, 'getOutdentCommand')
-        .mockImplementation(() => outdentMock);
+        .mockImplementation(() => () => outdentMock);
       const { editorView } = editor(doc(p('{<>}')));
 
       expect(outdentMock).toHaveBeenCalledTimes(0);
@@ -184,7 +226,7 @@ describe('indentation', () => {
       const outdentMock = jest.fn();
       jest
         .spyOn(indentationCommands, 'getOutdentCommand')
-        .mockImplementation(() => outdentMock);
+        .mockImplementation(() => () => outdentMock);
       const { editorView } = editor(doc(p('{<>}hello')));
 
       expect(outdentMock).toHaveBeenCalledTimes(0);
@@ -196,7 +238,7 @@ describe('indentation', () => {
       const outdentMock = jest.fn();
       jest
         .spyOn(indentationCommands, 'getOutdentCommand')
-        .mockImplementation(() => outdentMock);
+        .mockImplementation(() => () => outdentMock);
       const { editorView } = editor(doc(p('h{<>}ello')));
 
       expect(outdentMock).toHaveBeenCalledTimes(0);

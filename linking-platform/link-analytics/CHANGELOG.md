@@ -1,5 +1,11 @@
 # @atlaskit/link-analytics
 
+## 8.3.6
+
+### Patch Changes
+
+- [#41985](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41985) [`4e1f5c00d92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e1f5c00d92) - Datasource analytic getDatasourceData request now includes includeSchema flag
+
 ## 8.3.5
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-provider",
-  "version": "1.6.11",
+  "version": "1.6.12",
   "description": "Contains provider with react context for anything link related and the link http client",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -12,6 +12,9 @@
     "singleton": true,
     "inPublicMirror": false,
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "SmartCardProvider"
     }

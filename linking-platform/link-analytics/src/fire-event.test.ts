@@ -25,7 +25,8 @@ const data: DatasourceDataResponse = {
   },
 };
 
-const getDatasourceData = () => Promise.resolve(data);
+const getDatasourceData = jest.fn(() => Promise.resolve(data));
+
 const datasourceDetails = {
   datasourceId: 'jira-issue-id',
   parameters: {
@@ -46,6 +47,21 @@ describe('fireDatasourceEvent', () => {
     )(datasourceDetails, null, {});
 
     expect(analyticsFire).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call getDatasourceData with correct arguments', async () => {
+    await fireDatasourceEvent(
+      'updated',
+      createAnalyticsEvent,
+      getDatasourceData,
+    )(datasourceDetails, null, {});
+
+    expect(getDatasourceData).toHaveBeenCalledWith('jira-issue-id', {
+      fields: [],
+      includeSchema: true,
+      pageSize: 20,
+      parameters: { jql: '' },
+    });
   });
 
   it('should fire datasource created and macro inserted event if jira datasource', async () => {

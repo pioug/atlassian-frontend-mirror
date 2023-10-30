@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import variants from '../../../utils/variants';
 import testEventBlocking from '../_util/test-event-blocking';
@@ -10,28 +10,28 @@ variants.forEach(({ name, Component, elementType }) => {
     testEventBlocking(Component, { isDisabled: true });
 
     it('is not focusable', () => {
-      const { getByTestId } = render(
+      render(
         <Component testId="button" isDisabled>
           Hello
         </Component>,
       );
-      const button = getByTestId('button');
+      const button = screen.getByTestId('button');
 
       button.focus();
 
-      expect(button).not.toBe(document.activeElement);
+      expect(button).not.toHaveFocus();
     });
 
     if (elementType === HTMLButtonElement) {
       it('disables buttons with valid HTML attributes', async () => {
-        const { getByTestId, rerender } = render(
+        const { rerender } = render(
           <Component testId="button" href="http://foo.com">
             Hello
           </Component>,
         );
-        const button = getByTestId('button');
+        const button = screen.getByTestId('button');
 
-        expect(button.hasAttribute('disabled')).toBe(false);
+        expect(button).toBeEnabled();
 
         rerender(
           <Component testId="button" href="http://foo.com" isDisabled>
@@ -39,23 +39,23 @@ variants.forEach(({ name, Component, elementType }) => {
           </Component>,
         );
 
-        expect(button.hasAttribute('disabled')).toBe(true);
+        expect(button).toBeDisabled();
 
         // should not add unnecessary `aria-disabled`
-        expect(button.hasAttribute('aria-disabled')).toBe(false);
+        expect(button).not.toHaveAttribute('aria-disabled');
       });
     } else if (elementType === HTMLAnchorElement) {
       it('disables link buttons with accessible and valid HTML attributes', async () => {
-        const { getByTestId, rerender } = render(
+        const { rerender } = render(
           <Component testId="button" href="http://foo.com">
             Hello
           </Component>,
         );
-        const button = getByTestId('button');
+        const button = screen.getByTestId('button');
 
-        expect(button.hasAttribute('href')).toBe(true);
-        expect(button.hasAttribute('aria-disabled')).toBe(false);
-        expect(button.hasAttribute('role')).toBe(false);
+        expect(button).toHaveAttribute('href');
+        expect(button).not.toHaveAttribute('aria-disabled');
+        expect(button).not.toHaveAttribute('role');
 
         rerender(
           <Component testId="button" href="http://foo.com" isDisabled>
@@ -63,12 +63,12 @@ variants.forEach(({ name, Component, elementType }) => {
           </Component>,
         );
 
-        expect(button.hasAttribute('href')).toBe(false);
-        expect(button.getAttribute('aria-disabled')).toBe('true');
-        expect(button.getAttribute('role')).toBe('link');
+        expect(button).not.toHaveAttribute('href');
+        expect(button).toHaveAttribute('aria-disabled');
+        expect(button).toHaveAttribute('role', 'link');
 
         // `disabled` is not a valid <a> attribute
-        expect(button.hasAttribute('disabled')).toBe(false);
+        expect(button).toBeEnabled();
       });
     }
   });

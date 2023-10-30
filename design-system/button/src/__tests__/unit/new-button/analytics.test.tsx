@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
@@ -31,8 +31,8 @@ it('should fire an event on the public channel and the internal channel', () => 
       </AnalyticsListener>
     );
   }
-  const { getByTestId } = render(<WithBoth />);
-  const button = getByTestId(buttonTestId);
+  render(<WithBoth />);
+  const button = screen.getByTestId(buttonTestId);
 
   fireEvent.click(button);
 
@@ -91,14 +91,14 @@ it('should allow the addition of additional context', () => {
 
   const onEvent = jest.fn();
   const extraContext = { hello: 'world' };
-  const { getByTestId } = render(
+  render(
     <App
       onEvent={onEvent}
       channel="atlaskit"
       analyticsContext={extraContext}
     />,
   );
-  const button = getByTestId(buttonTestId);
+  const button = screen.getByTestId(buttonTestId);
 
   fireEvent.click(button);
 
@@ -129,13 +129,13 @@ it('should allow the addition of additional context', () => {
 it('should not error if there is no analytics provider', () => {
   const error = jest.spyOn(console, 'error');
   const onClick = jest.fn();
-  const { getByTestId } = render(
+  render(
     <Button testId={buttonTestId} onClick={onClick}>
       Button
     </Button>,
   );
 
-  const button = getByTestId(buttonTestId);
+  const button = screen.getByTestId(buttonTestId);
   fireEvent.click(button);
 
   expect(error).not.toHaveBeenCalled();
@@ -146,7 +146,7 @@ variants.forEach(({ name, Component, elementType }) => {
   it(`${name}: Analytics should send the correct actionSubject`, () => {
     const onEvent = jest.fn();
 
-    const { getByTestId } = render(
+    render(
       <AnalyticsListener onEvent={onEvent}>
         <Component
           testId={buttonTestId}
@@ -159,7 +159,7 @@ variants.forEach(({ name, Component, elementType }) => {
       </AnalyticsListener>,
     );
 
-    const button = getByTestId(buttonTestId);
+    const button = screen.getByTestId(buttonTestId);
 
     fireEvent.click(button);
 

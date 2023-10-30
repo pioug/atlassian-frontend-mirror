@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, type Ref } from 'react';
 
 import {
   createBrowserHistory,
@@ -15,31 +15,32 @@ import useRouterLink from '../src/router-link-provider/hooks/use-router-link';
 
 type LinkConfig = Pick<LinkProps, 'to' | 'href' | 'replace'>;
 
-const MyRouterLink = ({
-  href,
-  children,
-  ...rest
-}: RouterLinkComponentProps<LinkConfig>) => {
-  if (typeof href === 'string') {
+const MyRouterLinkComponent = forwardRef(
+  (
+    { href, children, ...rest }: RouterLinkComponentProps<LinkConfig>,
+    ref: Ref<HTMLAnchorElement>,
+  ) => {
+    if (typeof href === 'string') {
+      return (
+        <Link data-testid="react-resource-router-link" href={href} {...rest}>
+          {children}
+        </Link>
+      );
+    }
+
     return (
-      <Link data-testid="react-resource-router-link" href={href} {...rest}>
+      <Link
+        data-testid="react-resource-router-link"
+        href={href.href}
+        to={href.to}
+        replace={href.replace}
+        {...rest}
+      >
         {children}
       </Link>
     );
-  }
-
-  return (
-    <Link
-      data-testid="react-resource-router-link"
-      href={href.href}
-      to={href.to}
-      replace={href.replace}
-      {...rest}
-    >
-      {children}
-    </Link>
-  );
-};
+  },
+);
 
 function LinkReactResourceRouter() {
   const RouterLink = useRouterLink();
@@ -72,7 +73,7 @@ const appRoutes = [
 
 function LinkReactResourceRouterExample() {
   return (
-    <AppProvider routerLinkComponent={MyRouterLink}>
+    <AppProvider routerLinkComponent={MyRouterLinkComponent}>
       <Router routes={appRoutes} history={history}>
         <RouteComponent />
       </Router>

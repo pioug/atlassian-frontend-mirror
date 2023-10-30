@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, type Ref } from 'react';
 
 import { render, screen } from '@testing-library/react';
 
@@ -7,48 +7,51 @@ import RouterLinkProvider, {
 } from '../../src/router-link-provider';
 import useRouterLink from '../../src/router-link-provider/hooks/use-router-link';
 
-const MyRouterLinkComponent = ({
-  href,
-  children,
-  ...rest
-}: RouterLinkComponentProps<MyRouterLinkConfig>) => {
-  // A simple link by passing a string as the `href` prop
-  if (typeof href === 'string') {
-    return (
-      <a data-test-link-type="simple" href={href} {...rest}>
-        {children}
-      </a>
-    );
-  }
-
-  // A configured link by passing an object as the `href` prop
-  return (
-    <a
-      data-test-link-type="advanced"
-      data-custom-attribute={href.customProp}
-      href={href.to}
-      {...rest}
-    >
-      {children}
-    </a>
-  );
-};
-
 type MyRouterLinkConfig = {
   to: string;
   customProp?: string;
 };
 
+const MyRouterLinkComponent = forwardRef(
+  (
+    { href, children, ...rest }: RouterLinkComponentProps<MyRouterLinkConfig>,
+    ref: Ref<HTMLAnchorElement>,
+  ) => {
+    // A simple link by passing a string as the `href` prop
+    if (typeof href === 'string') {
+      return (
+        <a ref={ref} data-test-link-type="simple" href={href} {...rest}>
+          {children}
+        </a>
+      );
+    }
+
+    // A configured link by passing an object as the `href` prop
+    return (
+      <a
+        ref={ref}
+        data-test-link-type="advanced"
+        data-custom-attribute={href.customProp}
+        href={href.to}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+        {...rest}
+      >
+        {children}
+      </a>
+    );
+  },
+);
+
 const testId = 'my-link';
 
-const ComponentWithRouterLink = <RouterLinkConfig extends {} = {}>({
+const ComponentWithRouterLink = ({
   href,
   children,
 }: {
-  href: string | RouterLinkConfig;
+  href: string | MyRouterLinkConfig;
   children: React.ReactNode;
 }) => {
-  const RouterLink = useRouterLink();
+  const RouterLink = useRouterLink<MyRouterLinkConfig>();
 
   if (!RouterLink) {
     return null;
@@ -99,7 +102,7 @@ describe('RouterLinkProvider', () => {
   it('renders advanced links by passing an object to the `href` prop', () => {
     render(
       <RouterLinkProvider routerLinkComponent={MyRouterLinkComponent}>
-        <ComponentWithRouterLink<MyRouterLinkConfig>
+        <ComponentWithRouterLink
           href={{
             to: '/home',
             customProp: 'foo',

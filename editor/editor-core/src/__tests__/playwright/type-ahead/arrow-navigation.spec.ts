@@ -1,7 +1,6 @@
-import type { EditorProps } from '@atlaskit/editor-core';
 import { editorTestCase as test, expect } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, h1, h5 } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   spaceAtEnd,
   spaceBeforeText,
@@ -9,11 +8,10 @@ import {
 } from './__fixtures__/base-adfs';
 
 test.describe('typeahead: arrow navigation', () => {
-  const editorProps: EditorProps = {
-    appearance: 'full-page',
-  };
   test.use({
-    editorProps,
+    editorProps: {
+      appearance: 'full-page',
+    },
     adf: spaceAtEnd,
   });
 
@@ -225,6 +223,83 @@ test.describe('typeahead: arrow navigation', () => {
 
         await expect(editor).toHaveDocument(doc(p('a /Actb')));
       });
+    });
+  });
+});
+
+test.describe('typeahead: up & down arrow navigation', () => {
+  test.use({
+    editorProps: {
+      appearance: 'full-page',
+    },
+    adf: spaceAtEnd,
+  });
+
+  test.describe('when cursor is inside of query and arrow down is used with ENTER to select', () => {
+    test('it navigates to the typeahead search result below', async ({
+      editor,
+    }) => {
+      await editor.selection.set({
+        anchor: 1,
+        head: 1,
+      });
+      await editor.keyboard.type('X');
+      await editor.keyboard.press('Space');
+      await editor.typeAhead.search('heading');
+      await editor.keyboard.press('ArrowDown');
+      await editor.keyboard.press('ArrowDown');
+      await editor.keyboard.press('Enter');
+      await editor.keyboard.type('X');
+      await expect(editor).toHaveDocument(doc(p('X  '), h1('X')));
+    });
+  });
+
+  test.describe('when cursor is inside of query and arrow down is used with CLICK to select', () => {
+    test('it navigates to the typeahead search result below', async ({
+      editor,
+    }) => {
+      await editor.selection.set({
+        anchor: 1,
+        head: 1,
+      });
+      await editor.keyboard.type('X');
+      await editor.keyboard.press('Space');
+      await editor.typeAhead.search('heading');
+      await editor.keyboard.press('ArrowDown');
+      await editor.keyboard.press('ArrowDown');
+      await editor.typeAhead.itemSelected.click();
+      await editor.typeAhead.popup.waitFor({ state: 'hidden' });
+
+      await editor.keyboard.type('X');
+      await expect(editor).toHaveDocument(doc(p('X  '), h1('X')));
+    });
+  });
+
+  test.describe('when cursor is inside of query and arrow up is used with ENTER to select', () => {
+    test('it navigates to the typeahead search result below', async ({
+      editor,
+    }) => {
+      // wait until option is actually selected before pressing enter,
+      // going to end of list can sometimes be flaky otherwise
+      const h5Locator = editor.typeAhead.popup.locator(
+        ' [role="option"][aria-label="Heading 5"][aria-selected="true"]',
+      );
+      await editor.selection.set({
+        anchor: 1,
+        head: 1,
+      });
+      await editor.keyboard.type('X');
+      await editor.keyboard.press('Space');
+      await editor.typeAhead.search('heading');
+      await editor.keyboard.press('ArrowUp');
+
+      await editor.waitForEditorStable();
+      await h5Locator.waitFor({ state: 'visible' });
+
+      await editor.keyboard.press('Enter');
+      await editor.typeAhead.popup.waitFor({ state: 'hidden' });
+
+      await expect(editor).toHaveDocument(doc(p('X  '), h5('')));
     });
   });
 });

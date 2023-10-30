@@ -16,10 +16,10 @@ import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/el
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
 
-import { ColumnMap, ColumnType, getInitialData, Person } from './data/people';
-import Board from './pieces/board';
-import { BoardContext, BoardContextProps } from './pieces/board-context';
-import { Column } from './pieces/column';
+import { ColumnMap, ColumnType, getBasicData, Person } from './data/people';
+import Board from './pieces/board/board';
+import { BoardContext, BoardContextProps } from './pieces/board/board-context';
+import { Column } from './pieces/board/column';
 
 type KeyboardOperation =
   | {
@@ -74,7 +74,7 @@ function createRegistry() {
 
 export default function BoardExample() {
   const [data, setData] = useState<BoardState>(() => {
-    const base = getInitialData();
+    const base = getBasicData();
     return {
       ...base,
       lastKeyboardOperation: null,

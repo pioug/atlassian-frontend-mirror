@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-auto-scroll",
-  "version": "0.4.0",
-  "description": "An optional auto scroller for Pragmatic drag and drop",
+  "version": "0.5.0",
+  "description": "An optional package for Pragmatic drag and drop that enables ergonomic automatic scrolling during a drag operation",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -16,6 +16,12 @@
       "category": "Libraries",
       "status": {
         "type": "alpha"
+      },
+      "integrationTests": {
+        "additionalBrowsers": [
+          "desktop-firefox",
+          "desktop-webkit"
+        ]
       }
     }
   },
@@ -38,19 +44,21 @@
     ".": "./src/index.ts",
     "./element": "./src/entry-point/element.ts",
     "./file": "./src/entry-point/file.ts",
-    "./behavior/standard": "./src/entry-point/standard-behavior.ts",
-    "./behavior/unsafe-overflow": "./src/entry-point/unsafe-overflow-behavior.ts"
+    "./unsafe-overflow/element": "./src/entry-point/unsafe-overflow/element.ts",
+    "./unsafe-overflow/file": "./src/entry-point/unsafe-overflow/file.ts"
   },
   "dependencies": {
-    "@atlaskit/pragmatic-drag-and-drop": "^0.23.0",
+    "@atlaskit/pragmatic-drag-and-drop": "^0.24.0",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
+    "@af/integration-testing": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/dom": "^8.17.1",
+    "bind-event-listener": "^2.1.1",
     "raf-stub": "^2.0.1",
-    "typescript": "~4.9.5",
-    "wait-for-expect": "^1.2.0"
+    "tiny-invariant": "^1.2.0",
+    "typescript": "~4.9.5"
   },
   "techstack": {
     "@atlassian/frontend": {

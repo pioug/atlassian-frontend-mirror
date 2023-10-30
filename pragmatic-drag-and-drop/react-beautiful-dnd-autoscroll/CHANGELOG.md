@@ -1,5 +1,12 @@
 # @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll
 
+## 0.6.5
+
+### Patch Changes
+
+- [#39935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39935) [`d9e36079257`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9e36079257) - Updating package information. No API or behaviour changes.
+- Updated dependencies
+
 ## 0.6.4
 
 ### Patch Changes

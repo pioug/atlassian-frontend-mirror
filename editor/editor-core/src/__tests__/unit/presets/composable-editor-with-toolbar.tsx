@@ -31,6 +31,17 @@ describe('composable editor with toolbar', () => {
     expect(editorElement[0].textContent).toBe('bark');
   });
 
+  it('should not be an unknown boy as the state should always update', () => {
+    const { getByTestId } = render(
+      <EditorContext>
+        <TestEditor />
+      </EditorContext>,
+    );
+
+    const status = getByTestId('dog-status');
+    expect(status.textContent).toBe('Good boy');
+  });
+
   it('should be able to execute commands and it uses the correct editor', () => {
     const { container, getAllByText } = render(
       <div>
@@ -145,7 +156,11 @@ function Toolbar({
   return (
     <div>
       <p data-testid="dog-status">
-        {dogState?.hasBarked ? 'Bad boy' : 'Good boy'}
+        {dogState
+          ? dogState?.hasBarked
+            ? 'Bad boy'
+            : 'Good boy'
+          : 'Unknown boy'}
       </p>
       <Button
         onClick={() => {

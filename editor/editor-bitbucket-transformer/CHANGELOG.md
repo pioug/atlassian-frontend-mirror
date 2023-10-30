@@ -1,5 +1,12 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 8.1.16
+
+### Patch Changes
+
+- [#42254](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42254) [`39372fb6b7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39372fb6b7e) - Rollback changes to rendering of nodes in tables
+- Updated dependencies
+
 ## 8.1.15
 
 ### Patch Changes

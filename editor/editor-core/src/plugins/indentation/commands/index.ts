@@ -3,6 +3,7 @@ import type {
   Schema,
 } from '@atlaskit/editor-prosemirror/model';
 import type { IndentationMarkAttributes } from '@atlaskit/adf-schema';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { toggleBlockMark } from '../../../commands';
 import type { Command } from '../../../types/command';
 import type { IndentationInputMethod } from './utils';
@@ -55,6 +56,7 @@ function createIndentationCommandWithAnalytics({
   getNewIndentationAttrs,
   direction,
   inputMethod,
+  editorAnalyticsAPI,
 }: {
   getNewIndentationAttrs: (
     prevAttrs?: IndentationMarkAttributes,
@@ -62,6 +64,7 @@ function createIndentationCommandWithAnalytics({
   ) => IndentationMarkAttributes | undefined | false;
   direction: INDENT_DIRECTION;
   inputMethod: IndentationInputMethod;
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 }): Command {
   // Create a new getAttrs function to record the changes
   const { getAttrs, getAndResetAttrsChanges } = getAttrsWithChangesRecorder(
@@ -79,6 +82,7 @@ function createIndentationCommandWithAnalytics({
       createAnalyticsDispatch({
         getAttrsChanges: getAndResetAttrsChanges,
         inputMethod,
+        editorAnalyticsAPI,
         state,
         dispatch,
       }),
@@ -107,14 +111,15 @@ const getIndentAttrs = (
   return { level: level + 1 }; // Otherwise, increase the level by one
 };
 
-export const getIndentCommand = (
-  inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD,
-): Command =>
-  createIndentationCommandWithAnalytics({
-    getNewIndentationAttrs: getIndentAttrs,
-    direction: INDENT_DIRECTION.INDENT,
-    inputMethod,
-  });
+export const getIndentCommand =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD): Command =>
+    createIndentationCommandWithAnalytics({
+      getNewIndentationAttrs: getIndentAttrs,
+      direction: INDENT_DIRECTION.INDENT,
+      inputMethod,
+      editorAnalyticsAPI,
+    });
 
 /**
  * Get new level for outdent
@@ -138,14 +143,15 @@ const getOutdentAttrs = (
   return { level: level - 1 }; // Decrease the level on other cases
 };
 
-export const getOutdentCommand = (
-  inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD,
-): Command =>
-  createIndentationCommandWithAnalytics({
-    getNewIndentationAttrs: getOutdentAttrs,
-    direction: INDENT_DIRECTION.OUTDENT,
-    inputMethod,
-  });
+export const getOutdentCommand =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD): Command =>
+    createIndentationCommandWithAnalytics({
+      getNewIndentationAttrs: getOutdentAttrs,
+      direction: INDENT_DIRECTION.OUTDENT,
+      inputMethod,
+      editorAnalyticsAPI,
+    });
 
 export const removeIndentation: Command = (state, dispatch) =>
   toggleBlockMark(state.schema.marks.indentation, () => false)(state, dispatch);

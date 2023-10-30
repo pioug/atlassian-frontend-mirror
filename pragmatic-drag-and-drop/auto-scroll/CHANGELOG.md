@@ -1,5 +1,15 @@
 # @atlaskit/pragmatic-drag-and-drop-auto-scroll
 
+## 0.5.0
+
+### Minor Changes
+
+- [#39935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39935) [`20a91012629`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20a91012629) - First public release of this package. Please refer to documentation for usage and API information.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.4.0
 
 ### Minor Changes

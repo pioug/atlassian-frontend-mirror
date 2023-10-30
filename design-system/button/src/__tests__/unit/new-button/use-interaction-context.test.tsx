@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import type { InteractionContextType } from '@atlaskit/interaction-context';
 // eslint-disable-next-line no-duplicate-imports
@@ -24,20 +24,20 @@ variants.forEach(({ name, Component }) => {
     });
 
     it('should call click handler when context is not present', () => {
-      const { getByTestId } = render(
+      render(
         <Component onClick={mockOnClick} testId={name}>
           Button
         </Component>,
       );
 
-      fireEvent.click(getByTestId(name));
+      fireEvent.click(screen.getByTestId(name));
 
       expect(mockTraceInteraction).not.toHaveBeenCalled();
       expect(mockOnClick).toHaveBeenCalled();
     });
 
     it('should call click handler even when interactionName is not present', () => {
-      const { getByTestId } = render(
+      render(
         <InteractionContext.Provider value={context}>
           <Component onClick={mockOnClick} testId={name}>
             Button
@@ -45,26 +45,24 @@ variants.forEach(({ name, Component }) => {
         </InteractionContext.Provider>,
       );
 
-      fireEvent.click(getByTestId(name));
+      fireEvent.click(screen.getByTestId(name));
 
       expect(mockTraceInteraction).toHaveBeenCalled();
       expect(mockOnClick).toHaveBeenCalled();
     });
 
     it('should not throw error when no click handler exists', () => {
-      const { getByTestId } = render(
-        <Component testId={name}>Button</Component>,
-      );
+      render(<Component testId={name}>Button</Component>);
 
       expect(() => {
-        fireEvent.click(getByTestId(name));
+        fireEvent.click(screen.getByTestId(name));
       }).not.toThrow();
       expect(mockOnClick).not.toHaveBeenCalled();
     });
 
     it('should trace button press with interactionName', () => {
       const interactionName = 'ufo.event';
-      const { getByTestId } = render(
+      render(
         <InteractionContext.Provider value={context}>
           <Component
             onClick={mockOnClick}
@@ -76,7 +74,7 @@ variants.forEach(({ name, Component }) => {
         </InteractionContext.Provider>,
       );
 
-      fireEvent.click(getByTestId(name));
+      fireEvent.click(screen.getByTestId(name));
 
       expect(mockTraceInteraction).toHaveBeenCalled();
       expect(mockTraceInteraction).toHaveBeenCalledWith(

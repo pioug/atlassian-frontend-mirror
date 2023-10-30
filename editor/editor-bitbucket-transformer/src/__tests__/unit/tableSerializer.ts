@@ -8,12 +8,7 @@ import {
   td,
   doc,
   strong,
-  ol,
-  li,
-  code_block,
   code,
-  blockquote,
-  ul,
   mention,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
@@ -130,7 +125,7 @@ describe('BitbucketTransformer: serializer', () => {
           )(defaultSchema),
         ),
       ).toEqual(
-        '| h1 | h2 | h3 |\n| --- | --- | --- |\n| c11@{test} | c12 | c13 |\n',
+        '| h1 | h2 | h3 |\n| --- | --- | --- |\n| c11@test | c12 | c13 |\n',
       );
     });
 
@@ -151,119 +146,6 @@ describe('BitbucketTransformer: serializer', () => {
       );
     });
 
-    it('should preserve codeblocks correctly', () => {
-      expect(
-        markdownSerializer.serialize(
-          table()(
-            tr(th({})(p('h1')), th({})(p('h2')), th({})(p('h3'))),
-            tr(
-              td({})(code_block({ language: 'js' })('const example = 1')),
-              td({})(p('c12')),
-              td({})(p('c13')),
-            ),
-          )(defaultSchema),
-        ),
-      ).toEqual(
-        '| h1 | h2 | h3 |\n| --- | --- | --- |\n| ```js\nconst example = 1\n```\n\n | c12 | c13 |\n',
-      );
-    });
-
-    it('should preserve single line block quotes correctly', () => {
-      expect(
-        markdownSerializer.serialize(
-          table()(
-            tr(th({})(p('h1')), th({})(p('h2')), th({})(p('h3'))),
-            tr(
-              td({})(blockquote(p('I am a highly quotable person'))),
-              td({})(p('c12')),
-              td({})(p('c13')),
-            ),
-          )(defaultSchema),
-        ),
-      ).toEqual(
-        '| h1 | h2 | h3 |\n| --- | --- | --- |\n| > I am a highly quotable person\n\n | c12 | c13 |\n',
-      );
-    });
-
-    it('should preserve multiple line block quotes correctly', () => {
-      expect(
-        markdownSerializer.serialize(
-          table()(
-            tr(th({})(p('h1')), th({})(p('h2')), th({})(p('h3'))),
-            tr(
-              td({})(
-                blockquote(
-                  p('I am a highly quotable person'),
-                  p('And I ramble on a lot'),
-                ),
-              ),
-              td({})(p('c12')),
-              td({})(p('c13')),
-            ),
-          )(defaultSchema),
-        ),
-      ).toEqual(
-        '| h1 | h2 | h3 |\n| --- | --- | --- |\n| > I am a highly quotable person\n>\n> And I ramble on a lot\n\n | c12 | c13 |\n',
-      );
-    });
-
-    it('should preserve bulleted lists with one item correctly', () => {
-      expect(
-        markdownSerializer.serialize(
-          table()(
-            tr(th({})(p('h1')), th({})(p('h2')), th({})(p('h3'))),
-            tr(
-              td({})(ul(li(p('I am an unordered person')))),
-              td({})(p('c12')),
-              td({})(p('c13')),
-            ),
-          )(defaultSchema),
-        ),
-      ).toEqual(
-        '| h1 | h2 | h3 |\n| --- | --- | --- |\n| * I am an unordered person\n\n | c12 | c13 |\n',
-      );
-    });
-
-    it('should preserve lists with nesting', () => {
-      expect(
-        markdownSerializer.serialize(
-          table()(
-            tr(th({})(p('h1')), th({})(p('h2')), th({})(p('h3'))),
-            tr(
-              td({})(
-                ul(
-                  li(
-                    p('foo 1'),
-                    ul(
-                      li(p('bar 1'), ul(li(p('baz 1')), li(p('baz 2')))),
-                      li(p('bar 2')),
-                    ),
-                  ),
-                  li(p('foo 2')),
-                ),
-              ),
-              td({})(p('c12')),
-              td({})(p('c13')),
-            ),
-          )(defaultSchema),
-        ),
-      ).toEqual(
-        '| h1 | h2 | h3 |\n| --- | --- | --- |\n| ' +
-          '* foo 1\n' +
-          '\n' +
-          '    * bar 1\n' +
-          '    \n' +
-          '        * baz 1\n' +
-          '        * baz 2\n' +
-          '        \n' +
-          '    * bar 2\n' +
-          '    \n' +
-          '* foo 2\n' +
-          '\n' +
-          ' | c12 | c13 |\n',
-      );
-    });
-
     it('should separate content of multiple blocks with space', () => {
       expect(
         markdownSerializer.serialize(
@@ -278,23 +160,6 @@ describe('BitbucketTransformer: serializer', () => {
         ),
       ).toEqual(
         '| h1 | h2 | h3 |\n| --- | --- | --- |\n| c111 c112 | c12 | c13 |\n',
-      );
-    });
-
-    it('should preserve ordered lists', () => {
-      expect(
-        markdownSerializer.serialize(
-          table()(
-            tr(th({})(p('h1')), th({})(p('h2')), th({})(p('h3'))),
-            tr(
-              td({})(ol()(li(p('l1')), li(p('l2')))),
-              td({})(p('c12')),
-              td({})(p('c13')),
-            ),
-          )(defaultSchema),
-        ),
-      ).toEqual(
-        '| h1 | h2 | h3 |\n| --- | --- | --- |\n| 1. l1\n2. l2\n\n | c12 | c13 |\n',
       );
     });
 

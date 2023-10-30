@@ -9,6 +9,7 @@ export type Locale = {
 export type LocaleSelectProps = {
   id?: string;
   locales?: Locale[];
+  locale?: Locale;
   defaultLocale?: Locale;
   onLocaleChange?: (locale: Locale) => void;
 };
@@ -57,12 +58,14 @@ const SingleValue = ({
 const LocaleSelect: React.FunctionComponent<LocaleSelectProps> = ({
   id,
   locales = defaultLocales,
+  locale,
   defaultLocale = defaultLocales[0],
   onLocaleChange = () => {},
 }: LocaleSelectProps) => (
   <Select<Locale>
     inputId={id}
     options={locales}
+    value={locale}
     defaultValue={defaultLocale}
     onChange={(locale) => onLocaleChange(locale as Locale)}
     components={{ SingleValue }}

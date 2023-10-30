@@ -118,7 +118,7 @@ describe('BitbucketTransformer: serializer', () => {
         defaultSchema,
       );
       const test = markdownSerializer.serialize(node);
-      expect(test).toEqual('@{oscar}');
+      expect(test).toEqual('@oscar');
     });
 
     it('should divide serialized mentions and text with one blank space', () => {
@@ -126,7 +126,7 @@ describe('BitbucketTransformer: serializer', () => {
         p(mention({ text: 'Oscar Wallhult', id: 'oscar' })(), 'text'),
       )(defaultSchema);
       const test = markdownSerializer.serialize(node);
-      expect(test).toEqual('@{oscar} text');
+      expect(test).toEqual('@oscar text');
     });
 
     it('should not add a blank space in the end of the string for mentions', () => {
@@ -134,7 +134,7 @@ describe('BitbucketTransformer: serializer', () => {
         p('text ', mention({ text: 'Oscar Wallhult', id: 'oscar' })()),
       )(defaultSchema);
       const test = markdownSerializer.serialize(node);
-      expect(test).toEqual('text @{oscar}');
+      expect(test).toEqual('text @oscar');
     });
 
     it('should not divide mention and text with additional space if text starts with the space', () => {
@@ -142,7 +142,7 @@ describe('BitbucketTransformer: serializer', () => {
         p(mention({ text: 'Oscar Wallhult', id: 'oscar' })(), ' text'),
       )(defaultSchema);
       const test = markdownSerializer.serialize(node);
-      expect(test).toEqual('@{oscar} text');
+      expect(test).toEqual('@oscar text');
     });
 
     it('should divide mention and text with only one additional space if text starts with the spaces', () => {
@@ -150,7 +150,7 @@ describe('BitbucketTransformer: serializer', () => {
         p(mention({ text: 'Oscar Wallhult', id: 'oscar' })(), '  text'),
       )(defaultSchema);
       const test = markdownSerializer.serialize(node);
-      expect(test).toEqual('@{oscar}  text');
+      expect(test).toEqual('@oscar  text');
     });
 
     it('should not divide mention and italic text node with additional space if text starts with the space', () => {
@@ -158,7 +158,7 @@ describe('BitbucketTransformer: serializer', () => {
         p(mention({ text: 'Oscar Wallhult', id: 'oscar' })(), em(' text')),
       )(defaultSchema);
       const test = markdownSerializer.serialize(node);
-      expect(test).toEqual('@{oscar} _text_');
+      expect(test).toEqual('@oscar _text_');
     });
   });
 

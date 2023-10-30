@@ -3,15 +3,15 @@ import type {
   INDENT_DIRECTION,
   INPUT_METHOD,
   FormatEventPayload,
-} from '../../analytics';
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import {
-  addAnalytics,
   INDENT_TYPE,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import type {
   EditorState,
   Transaction,
@@ -73,6 +73,7 @@ export function getPrevIndentLevel(prevAttrs: PrevAttributes): number {
 export function createAnalyticsDispatch({
   getAttrsChanges,
   inputMethod,
+  editorAnalyticsAPI,
   state,
   dispatch,
 }: {
@@ -81,6 +82,7 @@ export function createAnalyticsDispatch({
     IndentationChangesOptions
   >[];
   inputMethod: IndentationInputMethod;
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
   state: EditorState;
   dispatch?: (tr: Transaction) => void;
 }): (tr: Transaction) => void {
@@ -95,7 +97,7 @@ export function createAnalyticsDispatch({
         return; // If no valid indent type continue
       }
 
-      currentTr = addAnalytics(state, currentTr, {
+      editorAnalyticsAPI?.attachAnalyticsEvent({
         action: ACTION.FORMATTED,
         actionSubject: ACTION_SUBJECT.TEXT,
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_INDENT,
@@ -107,7 +109,7 @@ export function createAnalyticsDispatch({
           direction,
           indentType,
         },
-      } as FormatEventPayload);
+      } as FormatEventPayload)(currentTr);
     });
 
     // Dispatch analytics if exist

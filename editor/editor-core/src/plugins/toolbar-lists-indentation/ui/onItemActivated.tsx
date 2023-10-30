@@ -51,10 +51,9 @@ export const onItemActivated =
           editorView.state,
         )?.node;
         if (node === 'paragraph_heading') {
-          indentParagraphOrHeading(INPUT_METHOD.TOOLBAR)(
-            editorView.state,
-            editorView.dispatch,
-          );
+          indentParagraphOrHeading(pluginInjectionApi?.analytics?.actions)(
+            INPUT_METHOD.TOOLBAR,
+          )(editorView.state, editorView.dispatch);
         }
         if (node === 'list') {
           pluginInjectionApi?.core.actions.execute(
@@ -74,10 +73,9 @@ export const onItemActivated =
           editorView.state,
         )?.node;
         if (node === 'paragraph_heading') {
-          outdentParagraphOrHeading(INPUT_METHOD.TOOLBAR)(
-            editorView.state,
-            editorView.dispatch,
-          );
+          outdentParagraphOrHeading(pluginInjectionApi?.analytics?.actions)(
+            INPUT_METHOD.TOOLBAR,
+          )(editorView.state, editorView.dispatch);
         }
         if (node === 'list') {
           pluginInjectionApi?.core.actions.execute(

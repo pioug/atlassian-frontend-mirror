@@ -36,6 +36,12 @@
       "path": "tsconfig.app.json"
     },
     {
+      "path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/motion/tsconfig.app.json"
+    },
+    {
       "path": "../core/tsconfig.app.json"
     },
     {

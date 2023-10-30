@@ -20,6 +20,7 @@ import { ErroredView as BlockCardErroredView } from './views/ErroredView';
 import FlexibleResolvedView from './views/flexible/FlexibleResolvedView';
 import FlexibleUnauthorisedView from './views/flexible/FlexibleUnauthorisedView';
 import FlexibleNotFoundView from './views/flexible/FlexibleNotFoundView';
+import FlexibleNotFoundViewOld from './views/flexible/FlexibleNotFoundViewOld';
 import FlexibleForbiddenView from './views/flexible/FlexibleForbiddenView';
 import FlexibleForbiddenViewOld from './views/flexible/FlexibleForbiddenViewOld';
 import FlexibleErroredView from './views/flexible/FlexibleErroredView';
@@ -121,8 +122,15 @@ export const BlockCard: FC<BlockCardProps> = ({
           />
         );
       case 'not_found':
-        return (
+        return getBooleanFF(
+          'platform.linking-platform.smart-card.cross-join',
+        ) ? (
           <FlexibleNotFoundView
+            {...flexibleBlockCardProps}
+            onAuthorize={handleAuthorize}
+          />
+        ) : (
+          <FlexibleNotFoundViewOld
             {...flexibleBlockCardProps}
             onAuthorize={handleAuthorize}
           />

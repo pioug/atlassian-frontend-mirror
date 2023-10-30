@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 48.1.6
+
+### Patch Changes
+
+- [#41370](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41370) [`9970a101183`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9970a101183) - Fix to media viewer navigation arrows positioning
+- Updated dependencies
+
 ## 48.1.5
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, type Ref } from 'react';
 
 import AppProvider, {
   type RouterLinkComponentProps,
@@ -7,40 +7,42 @@ import AppProvider, {
 import Box from '../src/components/box';
 import UNSAFE_LINK from '../src/components/link';
 
-type MyLinkConfig = {
+type MyRouterLinkConfig = {
   to: string;
   customProp?: string;
 };
 
-const MyLinkComponent = ({
-  href,
-  children,
-  ...rest
-}: RouterLinkComponentProps<MyLinkConfig>) => {
-  const label = <>{children} (Router link)</>;
+const MyRouterLinkComponent = forwardRef(
+  (
+    { href, children, ...rest }: RouterLinkComponentProps<MyRouterLinkConfig>,
+    ref: Ref<HTMLAnchorElement>,
+  ) => {
+    const label = <>{children} (Router link)</>;
 
-  // A simple link by passing a string as the `href` prop
-  if (typeof href === 'string') {
+    // A simple link by passing a string as the `href` prop
+    if (typeof href === 'string') {
+      return (
+        <a ref={ref} data-test-link-type="simple" href={href} {...rest}>
+          {label}
+        </a>
+      );
+    }
+
+    // A configured link by passing an object as the `href` prop
     return (
-      <a data-test-link-type="simple" href={href} {...rest}>
+      <a
+        ref={ref}
+        data-test-link-type="advanced"
+        data-custom-attribute={href.customProp}
+        href={href.to}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+        {...rest}
+      >
         {label}
       </a>
     );
-  }
-
-  // A configured link by passing an object as the `href` prop
-  return (
-    <a
-      data-test-link-type="advanced"
-      data-custom-attribute={href.customProp}
-      href={href.to}
-      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-      {...rest}
-    >
-      {label}
-    </a>
-  );
-};
+  },
+);
 
 const Table = ({
   title,
@@ -213,7 +215,7 @@ export default function Configured() {
           id="in-app-provider-no-component"
         />
       </AppProvider>
-      <AppProvider routerLinkComponent={MyLinkComponent}>
+      <AppProvider routerLinkComponent={MyRouterLinkComponent}>
         <Table
           title="Link primitives inside an AppProvider, with a routerLinkComponent set"
           id="in-app-provider-with-component"

@@ -5,7 +5,11 @@ import { Fragment, useEffect, useRef } from 'react';
 import { css, Global, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
-import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import {
+  draggable,
+  dropTargetForElements,
+} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { autoScrollWindowForElements } from '../src/entry-point/element';
@@ -30,6 +34,7 @@ const itemStyles = xcss({
   borderColor: 'color.border.brand',
   borderRadius: 'border.radius',
   backgroundColor: 'color.background.accent.lime.subtlest',
+  width: '300px',
 });
 
 function Item({ item }: { item: ItemType }) {
@@ -38,10 +43,13 @@ function Item({ item }: { item: ItemType }) {
   useEffect(() => {
     const element = ref.current;
     invariant(element);
-    return draggable({
-      element,
-      getInitialData: () => item,
-    });
+    return combine(
+      draggable({
+        element,
+        getInitialData: () => item,
+      }),
+      dropTargetForElements({ element, getIsSticky: () => true }),
+    );
   }, [item]);
   return (
     <Box xcss={itemStyles} ref={ref}>
@@ -58,12 +66,12 @@ const listStyles = xcss({
   display: 'flex',
   flexDirection: 'column',
   gap: 'space.050',
-  width: 'size.1000',
+  width: '200vw',
 });
 
 export default function WindowScroll() {
   useEffect(() => {
-    return autoScrollWindowForElements({});
+    return autoScrollWindowForElements();
   });
   return (
     <Fragment>

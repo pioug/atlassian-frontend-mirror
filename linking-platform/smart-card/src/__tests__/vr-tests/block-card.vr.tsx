@@ -3,6 +3,7 @@ import { snapshot } from '@af/visual-regression';
 import BlockCardError from '../../../examples/vr-block-card/vr-block-card-error';
 import BlockCardForbidden from '../../../examples/vr-block-card/vr-block-card-forbidden';
 import BlockCardNotFound from '../../../examples/vr-block-card/vr-block-card-not-found';
+import BlockCardNotFoundSiteAccessExists from '../../../examples/vr-block-card/vr-block-card-not-found-site-access-exists';
 import BlockCardUnauthorised from '../../../examples/vr-block-card/vr-block-card-unauthorised';
 import BlockCardUnauthorisedNoAuth from '../../../examples/vr-block-card/vr-block-card-unauthorised-no-auth';
 import BlockCardResolvedJira from '../../../examples/vr-block-card/vr-block-card-resolved-jira';
@@ -53,6 +54,13 @@ snapshot(BlockCardNotFound, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
+  },
+});
+snapshot(BlockCardNotFoundSiteAccessExists, {
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.cross-join': true,
   },
 });
 snapshot(BlockCardUnauthorised, {

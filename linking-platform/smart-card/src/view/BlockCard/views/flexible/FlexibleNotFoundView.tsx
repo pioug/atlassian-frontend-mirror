@@ -1,8 +1,11 @@
-import React from 'react';
-import { messages } from '../../../../messages';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
-import { token } from '@atlaskit/tokens';
+import LockIcon from '@atlaskit/icon/glyph/lock';
+import { extractProvider } from '@atlaskit/link-extractors';
 import { R300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+import { JsonLd } from 'json-ld-types';
+import React, { useMemo } from 'react';
+import { useIntl } from 'react-intl-next';
+import { messages } from '../../../../messages';
 import Text from '../../../FlexibleCard/components/elements/text';
 import { FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';
@@ -17,19 +20,44 @@ import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardSty
 const FlexibleNotFoundView = ({
   testId = 'smart-block-not-found-view',
   ...props
-}: FlexibleBlockCardProps) => (
-  <UnresolvedView {...props} testId={testId}>
-    <WarningIcon
-      label="not-found-warning-icon"
-      size="small"
-      primaryColor={token('color.icon.warning', R300)}
-      testId={`${testId}-warning-icon`}
-    />
-    <Text
-      message={{ descriptor: messages.not_found_description }}
-      testId={`${testId}-message`}
-    />
-  </UnresolvedView>
-);
+}: FlexibleBlockCardProps) => {
+  const intl = useIntl();
+
+  const { cardState } = props;
+
+  const product = useMemo(() => {
+    const provider = extractProvider(
+      cardState?.details?.data as JsonLd.Data.BaseData,
+    );
+    return provider?.text ?? '';
+  }, [cardState?.details?.data]);
+
+  const title = useMemo(
+    () =>
+      intl.formatMessage(messages.not_found_title_crossjoin, {
+        product,
+      }),
+    [intl, product],
+  );
+
+  const description = useMemo(
+    () => ({
+      descriptor: messages.not_found_description_crossjoin,
+    }),
+    [],
+  );
+
+  return (
+    <UnresolvedView {...props} showPreview={true} testId={testId} title={title}>
+      <LockIcon
+        label="not-found-lock-icon"
+        size="small"
+        primaryColor={token('color.icon.danger', R300)}
+        testId={`${testId}-lock-icon`}
+      />
+      <Text message={description} testId={`${testId}-message`} />
+    </UnresolvedView>
+  );
+};
 
 export default withFlexibleUIBlockCardStyle(FlexibleNotFoundView);

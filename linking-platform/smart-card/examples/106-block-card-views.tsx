@@ -262,7 +262,6 @@ export default () => {
             new UnAuthClientWithNoAuthFlow(),
             '[Unauthorized] No auth flow',
           )}
-          {render(new NotFoundClient(), '[Not Found]')}
           {render(new ErroredClient(), '[Error]')}
         </div>
       </Page>

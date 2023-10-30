@@ -1,35 +1,31 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import variants from '../../../utils/variants';
 
 variants.forEach(({ name, Component }) => {
   describe(name, () => {
     it('should not focus on the element if autoFocus is not set', () => {
-      const { getByTestId } = render(
-        <Component testId="button">Hello</Component>,
-      );
-      const button = getByTestId('button');
-      expect(button).not.toBe(document.activeElement);
+      render(<Component testId="button">Hello</Component>);
+      const button = screen.getByTestId('button');
+      expect(button).not.toHaveFocus();
     });
 
     it('should focus on the element if autoFocus is set', () => {
-      const { getByTestId } = render(
+      render(
         <Component testId="button" autoFocus>
           Hello
         </Component>,
       );
-      const button = getByTestId('button');
-      expect(button).toBe(document.activeElement);
+      const button = screen.getByTestId('button');
+      expect(button).toHaveFocus();
     });
 
     it('should only set auto focus based on initial render', () => {
-      const { getByTestId, rerender } = render(
-        <Component testId="button">Hello</Component>,
-      );
-      const button = getByTestId('button');
-      expect(button).not.toBe(document.activeElement);
+      const { rerender } = render(<Component testId="button">Hello</Component>);
+      const button = screen.getByTestId('button');
+      expect(button).not.toHaveFocus();
 
       // setting autoFocus to true after an initial render
       rerender(
@@ -37,7 +33,7 @@ variants.forEach(({ name, Component }) => {
           Hello
         </Component>,
       );
-      expect(button).not.toBe(document.activeElement);
+      expect(button).not.toHaveFocus();
     });
   });
 });

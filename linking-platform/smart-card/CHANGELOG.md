@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.40.0
+
+### Minor Changes
+
+- [#42280](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42280) [`df99143a991`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df99143a991) - [ux] Update block card not found view to improve cross join (behind feature flag)
+
 ## 26.39.0
 
 ### Minor Changes

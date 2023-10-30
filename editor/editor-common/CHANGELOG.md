@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 76.17.1
+
+### Patch Changes
+
+- [#42323](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42323) [`a4cb1c16536`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4cb1c16536) - Fix useSharedPluginState if the editor API changes to ensure that the state updates.
+- Updated dependencies
+
+## 76.17.0
+
+### Minor Changes
+
+- [#42279](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42279) [`f4fd8d16522`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4fd8d16522) - ED-20556 Extract Fragment plugin
+
 ## 76.16.0
 
 ### Minor Changes

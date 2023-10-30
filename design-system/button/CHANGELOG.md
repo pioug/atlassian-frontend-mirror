@@ -1,5 +1,15 @@
 # @atlaskit/button
 
+## 16.12.0
+
+### Minor Changes
+
+- [#42305](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42305) [`4c9d4a7be34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c9d4a7be34) - - Link button variants (still in Alpha) `<LinkButton>` and `<LinkIconButton>` now support router link components through use of an app provider
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.11.0
 
 ### Minor Changes

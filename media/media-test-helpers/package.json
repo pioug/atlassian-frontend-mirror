@@ -27,10 +27,10 @@
     "releaseModel": "continuous"
   },
   "dependencies": {
-    "@atlaskit/button": "^16.11.0",
+    "@atlaskit/button": "^16.12.0",
     "@atlaskit/checkbox": "^12.6.0",
     "@atlaskit/icon": "^21.12.0",
-    "@atlaskit/locale": "^2.5.0",
+    "@atlaskit/locale": "^2.6.0",
     "@atlaskit/media-client": "^25.0.0",
     "@atlaskit/media-common": "^9.0.0",
     "@atlaskit/media-ui": "^25.0.0",

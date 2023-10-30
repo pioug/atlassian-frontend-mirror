@@ -43,26 +43,26 @@ Use an `important` badge to call attention to information that needs to stand ou
 
 ### Added
 
-Use an `added` appearance to show additions. For example, when characters are added to a line of code in Bitbucket.
+Use an `added` appearance to show a plus symbol (`+`) preceding the number. For example, when characters are added to a line of code in Bitbucket.
 
 <Example Component={BadgeAdded} packageName="@atlaskit/badge" />
 
 ### Removed
 
-Use a `removed` appearance to show removals. For example, when characters are removed from a line of code in Bitbucket.
+Use a `removed` appearance to show a minus symbol (`-`) preceding the number. For example, when characters are removed from a line of code in Bitbucket.
 
 <Example Component={BadgeRemoved} packageName="@atlaskit/badge" />
 
 ## Max value
 
-### Number Values
+### Capped number values
 
-The `max` prop caps the value of a badge. When the value to display is greater than the `max` prop, a `+` will automatically be appended. The default `max` value of a badge is `99`.
+Use the `max` prop to cap the value of a badge. When the value to display is greater than the `max` prop, a `+` will be appended. The default `max` value of a badge is `99`.
 
 <Example Component={BadgeMaxValue} packageName="@atlaskit/badge" />
 
 ### Disabled
 
-If the `max` prop is set to `false` then no `+` will be appended, and the value will be displayed as it was passed.
+If the `max` prop is set to `false` then the value will be displayed as it was passed, without a plus symbol (`+`).
 
 <Example Component={BadgeMaxValueDisabled} packageName="@atlaskit/badge" />

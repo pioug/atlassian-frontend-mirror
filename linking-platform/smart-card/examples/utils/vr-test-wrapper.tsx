@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { DiProvider, injectable } from 'react-magnetic-di';
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 import { global } from './vr-test';
 import { imageForbidden, imageNotFound, imageUnauthorised } from '../images';
@@ -27,11 +27,17 @@ const mockGetEmbedCardImage = injectable(
 
 const dependencies = [mockGetEmbedCardImage];
 
-const VRTestWrapper: React.FC = ({ children }) => {
+export type VRTestWrapperProps = {
+  overrideCss?: SerializedStyles;
+};
+const VRTestWrapper: React.FC<VRTestWrapperProps> = ({
+  children,
+  overrideCss,
+}) => {
   return (
     <DiProvider use={dependencies}>
       <IntlProvider locale="en">
-        <div className="vr-test-wrapper" css={styles}>
+        <div className="vr-test-wrapper" css={[styles, overrideCss]}>
           {global}
           {children}
         </div>

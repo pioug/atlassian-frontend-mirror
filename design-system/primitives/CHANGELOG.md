@@ -1,5 +1,16 @@
 # @atlaskit/primitives
 
+## 1.8.0
+
+### Minor Changes
+
+- [#42305](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42305) [`4c9d4a7be34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c9d4a7be34) - - Link primitive will now throw an error if a router link configuration object is passed to the `href` prop when there is not a router link component set in the AppProvider
+
+### Patch Changes
+
+- [#42305](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42305) [`4c9d4a7be34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c9d4a7be34) - - Fixes a bug where Link primitive was not passing through router link configuration objects
+- Updated dependencies
+
 ## 1.7.0
 
 ### Minor Changes

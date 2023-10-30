@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, type Ref } from 'react';
 
 import {
   Link,
@@ -11,28 +11,39 @@ import AppProvider, { type RouterLinkComponentProps } from '../../src';
 
 type ReactResourceRouterLinkConfig = Pick<LinkProps, 'to' | 'href' | 'replace'>;
 
-const MyRouterLink = ({
-  href,
-  children,
-  ...rest
-}: RouterLinkComponentProps<ReactResourceRouterLinkConfig>) => {
-  // A basic link by passing a string as the component's `href` prop.
-  if (typeof href === 'string') {
+const MyRouterLinkComponent = forwardRef(
+  (
+    {
+      href,
+      children,
+      ...rest
+    }: RouterLinkComponentProps<ReactResourceRouterLinkConfig>,
+    ref: Ref<HTMLAnchorElement>,
+  ) => {
+    // A basic link by passing a string as the component's `href` prop.
+    if (typeof href === 'string') {
+      return (
+        <Link ref={ref} href={href} {...rest}>
+          {children}
+        </Link>
+      );
+    }
+
+    // Advanced link configuration by passing an object as the
+    // component's `href` prop
     return (
-      <Link href={href} {...rest}>
+      <Link
+        ref={ref}
+        href={href.href}
+        to={href.to}
+        replace={href.replace}
+        {...rest}
+      >
         {children}
       </Link>
     );
-  }
-
-  // Advanced link configuration by passing an object as the
-  // component's `href` prop
-  return (
-    <Link href={href.href} to={href.to} replace={href.replace} {...rest}>
-      {children}
-    </Link>
-  );
-};
+  },
+);
 
 const routes = [
   {
@@ -45,7 +56,7 @@ const routes = [
 
 function App() {
   return (
-    <AppProvider routerLinkComponent={MyRouterLink}>
+    <AppProvider routerLinkComponent={MyRouterLinkComponent}>
       <Router routes={routes}>
         <RouteComponent />
       </Router>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, type Ref } from 'react';
 
 import {
   BrowserRouter,
@@ -15,30 +15,31 @@ import useRouterLink from '../src/router-link-provider/hooks/use-router-link';
 
 export type LinkConfig = Pick<LinkProps, 'to' | 'replace'>;
 
-const MyRouterLink = ({
-  href,
-  children,
-  ...rest
-}: RouterLinkComponentProps<LinkConfig>) => {
-  if (typeof href === 'string') {
+const MyRouterLinkComponent = forwardRef(
+  (
+    { href, children, ...rest }: RouterLinkComponentProps<LinkConfig>,
+    ref: Ref<HTMLAnchorElement>,
+  ) => {
+    if (typeof href === 'string') {
+      return (
+        <Link data-testid="react-router-link" to={href} {...rest}>
+          {children}
+        </Link>
+      );
+    }
+
     return (
-      <Link data-testid="react-router-link" to={href} {...rest}>
+      <Link
+        data-testid="react-router-link"
+        to={href.to}
+        replace={href.replace}
+        {...rest}
+      >
         {children}
       </Link>
     );
-  }
-
-  return (
-    <Link
-      data-testid="react-router-link"
-      to={href.to}
-      replace={href.replace}
-      {...rest}
-    >
-      {children}
-    </Link>
-  );
-};
+  },
+);
 
 function LinkReactRouter() {
   const RouterLink = useRouterLink();
@@ -59,7 +60,7 @@ function LinkReactRouter() {
 
 function LinkReactRouterExample() {
   return (
-    <AppProvider routerLinkComponent={MyRouterLink}>
+    <AppProvider routerLinkComponent={MyRouterLinkComponent}>
       <BrowserRouter>
         <Switch>
           <Route component={LinkReactRouter} />

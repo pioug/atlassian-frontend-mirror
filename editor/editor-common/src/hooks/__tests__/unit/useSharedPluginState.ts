@@ -215,6 +215,61 @@ describe('useSharedPluginState', () => {
     expect(numRenders).toHaveBeenCalledTimes(3);
   });
 
+  it('should re-rerender with the new current state if the api changes', () => {
+    const numRenders = jest.fn();
+
+    const { rerender, result } = renderHook(
+      ({ state }) => {
+        const output = useSharedPluginState(state, ['pluginA', 'pluginB']);
+
+        useEffect(() => {
+          numRenders();
+        }, [output]);
+
+        return output;
+      },
+      { initialProps: { state: undefined } },
+    );
+
+    act(() => {
+      coreAPI.onEditorViewUpdated({
+        // @ts-ignore
+        newEditorState: answer,
+        // @ts-ignore
+        oldEditorState: ultimateQuestionOfLife,
+      });
+    });
+
+    act(() => {
+      coreAPI.onEditorViewUpdated({
+        // @ts-ignore
+        newEditorState: answer,
+        // @ts-ignore
+        oldEditorState: ultimateQuestionOfLife,
+      });
+    });
+
+    expect(numRenders).toHaveBeenCalledTimes(1);
+
+    rerender({ state: api });
+
+    expect(numRenders).toHaveBeenCalledTimes(2);
+    expect(result.current).toStrictEqual({
+      pluginAState: 42,
+      pluginBState: '42',
+    });
+
+    act(() => {
+      coreAPI.onEditorViewUpdated({
+        // @ts-ignore
+        newEditorState: answer,
+        // @ts-ignore
+        oldEditorState: ultimateQuestionOfLife,
+      });
+    });
+    expect(numRenders).toHaveBeenCalledTimes(3);
+  });
+
   it('should clean all subscriptions after unmount', () => {
     const injectionSpy = jest.spyOn(
       SharedStateAPI.prototype,

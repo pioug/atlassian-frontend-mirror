@@ -1,9 +1,6 @@
 import type { ScrollContainerConfig } from '../internal-types';
 
-// TODO: expose deep merge with provided config
 export const defaultConfig: ScrollContainerConfig = {
-  // allowedAxis: 'both',
-  // TODO: these names are not great, I'll work on them
   startHitboxAtPercentageRemainingOfElement: {
     top: 0.25,
     right: 0.25,
@@ -16,15 +13,10 @@ export const defaultConfig: ScrollContainerConfig = {
     bottom: 0.25,
     left: 0.25,
   },
-  // maxPixelScrollPerSecond: {
-  //   top: 1680,
-  //   right: 1680,
-  //   bottom: 1680,
-  //   left: 1680,
-  // },
-  // ease({ percentage }) {
-  //   if (percentage < 30) {
-  //     return 0;
-  //   }
-  // },
+  // What the value would be if we were scrolling at 15px per frame at 60fps
+  maxPixelScrollPerSecond: 60 * 15,
+  timeDampeningDurationMs: 300,
+  // Too big and it's too easy to trigger auto scrolling
+  // Too small and it's too hard 😅
+  maxMainAxisHitboxSize: 180,
 };

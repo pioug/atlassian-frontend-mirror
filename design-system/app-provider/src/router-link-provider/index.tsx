@@ -1,26 +1,42 @@
 import React, { createContext } from 'react';
 
-export type RouterLinkComponent<RouterLinkConfig extends {} = {}> =
-  React.ComponentType<RouterLinkComponentProps<RouterLinkConfig>>;
+export type RouterLinkComponent<
+  RouterLinkConfig extends Record<string, any> = never,
+> = React.ForwardRefExoticComponent<
+  RouterLinkComponentProps<RouterLinkConfig> &
+    React.RefAttributes<HTMLAnchorElement>
+>;
 
-export type RouterLinkComponentProps<RouterLinkConfig extends {} = {}> = {
+export type RouterLinkComponentProps<
+  RouterLinkConfig extends Record<string, any> = never,
+> = {
   /**
    * A string which can be mapped to the underlying router link,
    * or optionally a custom object defined in the generic type for advanced use.
    *
    * @example
    * ```
-   * const MyRouterLink: RouterLinkComponent<{
-   *  to: string;
-   *  replace?: boolean;
-   * }> ...
+   * const MyRouterLink = forwardRef(
+   * (
+   *   {
+   *     href,
+   *     children,
+   *     ...rest
+   *   }: RouterLinkComponentProps<{
+   *     href: string;
+   *     replace: boolean;
+   *   }>,
+   *   ref: Ref<HTMLAnchorElement>,
+   * ) => { ...
    * ```
    */
   href: string | RouterLinkConfig;
   children: React.ReactNode;
 };
 
-export type RouterLinkProviderContextProps<RouterLinkConfig extends {} = {}> = {
+export type RouterLinkProviderContextProps<
+  RouterLinkConfig extends Record<string, any> = never,
+> = {
   routerLinkComponent?: RouterLinkComponent<RouterLinkConfig>;
 };
 

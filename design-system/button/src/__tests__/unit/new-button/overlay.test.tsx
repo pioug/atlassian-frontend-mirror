@@ -1,39 +1,39 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import variants from '../../../utils/variants';
 import testEventBlocking from '../_util/test-event-blocking';
 
 variants.forEach(async ({ name, Component, elementType }) => {
-  describe(`${name}: overlay`, async () => {
-    testEventBlocking(Component, {
-      overlay: 'hello',
-    });
+  testEventBlocking(Component, {
+    overlay: 'hello',
+  });
 
+  describe(`${name}: overlay`, () => {
     it('is not focusable', () => {
-      const { getByTestId } = render(
+      render(
         <Component testId="button" overlay="hello">
           Hello
         </Component>,
       );
-      const button = getByTestId('button');
+      const button = screen.getByTestId('button');
 
       button.focus();
 
-      expect(button).not.toBe(document.activeElement);
+      expect(button).not.toHaveFocus();
     });
 
     if (elementType === HTMLAnchorElement) {
       it('<a> should remove href attribute when there is an overlay', () => {
-        const { getByTestId, rerender } = render(
+        const { rerender } = render(
           <Component testId="button" href="http://foo.com">
             Hello
           </Component>,
         );
-        const button = getByTestId('button');
+        const button = screen.getByTestId('button');
 
-        expect(button.hasAttribute('href')).toBe(true);
+        expect(button).toHaveAttribute('href');
 
         rerender(
           <Component testId="button" href="http://foo.com" overlay="hey">
@@ -41,7 +41,7 @@ variants.forEach(async ({ name, Component, elementType }) => {
           </Component>,
         );
 
-        expect(button.hasAttribute('href')).toBe(false);
+        expect(button).not.toHaveAttribute('href');
       });
     }
   });

@@ -11,11 +11,12 @@ import {
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
+import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { triggerPostMoveFlash } from '@atlaskit/pragmatic-drag-and-drop-flourish/trigger-post-move-flash';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 import { getReorderDestinationIndex } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/get-reorder-destination-index';
-import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
 import { token } from '@atlaskit/tokens';
 
@@ -175,63 +176,52 @@ export default function Table() {
   );
 
   useEffect(() => {
-    return monitorForElements({
-      canMonitor({ source }) {
-        return source.data.instanceId === instanceId;
-      },
-      onDragStart({ location, source }) {
-        // Only enabling auto scrolling when scrolling rows
-        // - resizing: we don't want auto scrolling
-        // - column headers: we don't want to be scrolling vertically
-        if (source.data.type === 'item-row') {
-          autoScroller.start({
-            input: location.current.input,
-            behavior: 'container-only',
-          });
-        }
+    invariant(scrollableRef.current);
 
-        // using this class to disable hover styles while dragging
-        document.body.classList.add('is-dragging');
-      },
-      onDrag({ location }) {
-        // It is safe to call `updateInput` optimistically,
-        // if the `autoScroller` has not been started it will noop.
-        autoScroller.updateInput({ input: location.current.input });
-      },
-      onDrop({ location, source }) {
-        document.body.classList.remove('is-dragging');
+    return combine(
+      monitorForElements({
+        canMonitor({ source }) {
+          return source.data.instanceId === instanceId;
+        },
+        onDragStart() {
+          // using this class to disable hover styles while dragging
+          document.body.classList.add('is-dragging');
+        },
+        onDrop({ location, source }) {
+          document.body.classList.remove('is-dragging');
 
-        // It is safe to call `stop` optimistically,
-        // if the `autoScroller` has not been started it will noop.
-        autoScroller.stop();
+          /**
+           * Only checking the inner-most drop target.
+           */
+          const destination = location.current.dropTargets.at(0);
+          if (!destination) {
+            return;
+          }
 
-        /**
-         * Only checking the inner-most drop target.
-         */
-        const destination = location.current.dropTargets.at(0);
-        if (!destination) {
-          return;
-        }
+          const startIndex = extractIndex(source.data);
+          const indexOfTarget = extractIndex(destination.data);
+          if (startIndex === null || indexOfTarget === null) {
+            return;
+          }
 
-        const startIndex = extractIndex(source.data);
-        const indexOfTarget = extractIndex(destination.data);
-        if (startIndex === null || indexOfTarget === null) {
-          return;
-        }
+          const closestEdgeOfTarget = extractClosestEdge(destination.data);
 
-        const closestEdgeOfTarget = extractClosestEdge(destination.data);
+          if (source.data.type === 'item-row') {
+            reorderItem({ startIndex, indexOfTarget, closestEdgeOfTarget });
+            return;
+          }
 
-        if (source.data.type === 'item-row') {
-          reorderItem({ startIndex, indexOfTarget, closestEdgeOfTarget });
-          return;
-        }
-
-        if (source.data.type === 'table-header') {
-          reorderColumn({ startIndex, indexOfTarget, closestEdgeOfTarget });
-          return;
-        }
-      },
-    });
+          if (source.data.type === 'table-header') {
+            reorderColumn({ startIndex, indexOfTarget, closestEdgeOfTarget });
+            return;
+          }
+        },
+      }),
+      autoScrollForElements({
+        element: scrollableRef.current,
+        canScroll: ({ source }) => source.data.type === 'item-row',
+      }),
+    );
   }, [instanceId, reorderColumn, reorderItem]);
 
   // Elements

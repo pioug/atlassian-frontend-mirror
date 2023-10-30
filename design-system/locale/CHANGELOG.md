@@ -1,5 +1,11 @@
 # @atlaskit/locale
 
+## 2.6.0
+
+### Minor Changes
+
+- [#40135](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40135) [`b12fd55deaa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b12fd55deaa) - Expose selected locale
+
 ## 2.5.4
 
 ### Patch Changes

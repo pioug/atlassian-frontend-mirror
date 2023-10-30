@@ -1,5 +1,16 @@
 # @atlaskit/app-provider
 
+## 0.4.0
+
+### Minor Changes
+
+- [#42305](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42305) [`4c9d4a7be34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c9d4a7be34) - - Router link components are now required to forward refs
+  - The `useRouterLink()` hook now supports generic router link configuration: `useRouterLink<YourLinkConfigObject>()`
+
+### Patch Changes
+
+- [#42305](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42305) [`4c9d4a7be34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c9d4a7be34) - - Fixes a bug with router link component generic `href` prop typings where non-object types were allowed
+
 ## 0.3.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 22.1.7
+
+### Patch Changes
+
+- [#42251](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42251) [`9c7b42127f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c7b42127f6) - Enrol `@atlaskit/mention` and `@atlaskit/link-provider` on push model in JFE.
+
 ## 22.1.6
 
 ### Patch Changes

@@ -8,13 +8,14 @@ Lozenges are either subtle or bold.
 
 - Use subtle lozenges by default and in instances where they may dominate the screen, such as in long tables with a lot of lozenges.
 - Use bold lozenges sparingly and reserve them for things like Pipeline or JIRA issue statuses.
+- Combine color with a logical and concise label.
 
-The [color system](/foundations/color) can help keep a consistent visual language that helps users learn to quickly recognize the meaning of a status across products. Combine color with a logical label.
+The color system is a consistent visual language that helps people learn to quickly recognize the meaning of a status across products. For more information, see the [color foundation.](/foundations/color)
 
 ## Accessibility
 
-- Lozenge text must be clear enough for color blind users to be able to understand immediately without needing to rely only on the [color](/foundations/color).
-- Avoid using lozenges for longer text. Lozenges are not focusable, so the text truncated after 200 (or the custom `maxWidth` value) pixels will not be accessible.
+- Don't use color alone to signify an important state. Instead, use accurate label. For example: for an critical status, use words like `Error` or `Warning'.
+- Don't use lozenges for long text. Lozenges are not focusable, so any text that gets truncated after 200 pixels (or the custom `maxWidth` value) will not be accessible.
 
 ## Server
 

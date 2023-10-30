@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop
 
+## 0.24.0
+
+### Minor Changes
+
+- [#39935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39935) [`03b91562fec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03b91562fec) - Exposing `AllDragTypes` type. This was previously an internal type, but it provided helpful to expose for our new auto scroller. `AllDragTypes` is helpful if you need a function to work with either `element` or `file` drag operations.
+
 ## 0.23.0
 
 ### Minor Changes

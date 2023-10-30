@@ -7,7 +7,7 @@ export function getPercentageInRange({
   endOfRange: number;
   value: number;
 }): number {
-  // invalidating inputs
+  // checking inputs
   const isValid: boolean = startOfRange < endOfRange;
 
   if (!isValid) {

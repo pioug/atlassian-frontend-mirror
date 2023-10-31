@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-analytics
 
+## 0.3.0
+
+### Minor Changes
+
+- [#42373](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42373) [`f607a815ffc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f607a815ffc) - Decoupled deprecated analytics plugin imports from remaining plugins except for collab-edit, macro, find-replace, extension.
+
 ## 0.2.6
 
 ### Patch Changes

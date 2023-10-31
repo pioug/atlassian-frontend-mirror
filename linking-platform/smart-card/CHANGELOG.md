@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.41.0
+
+### Minor Changes
+
+- [#41654](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41654) [`dddfb1500d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dddfb1500d0) - [ux] expermintal hover chard changes to show related urls section behind feature flag
+
 ## 26.40.0
 
 ### Minor Changes

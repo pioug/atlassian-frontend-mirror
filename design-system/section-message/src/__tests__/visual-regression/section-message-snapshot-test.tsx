@@ -72,29 +72,6 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('should match color for light and dark themes example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'section-message',
-      'theme',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    const selector = '[data-testid="section-message"]';
-
-    await loadPage(page, url);
-    await page.waitForSelector(selector);
-
-    const imageDark = await takeElementScreenShot(page, selector);
-    expect(imageDark).toMatchProdImageSnapshot();
-
-    const toggleThemeBtn = await page.$("[data-testid='toggle-theme']");
-    await toggleThemeBtn?.click();
-
-    const imageLight = await takeElementScreenShot(page, selector);
-    expect(imageLight).toMatchProdImageSnapshot();
-  });
-
   it('SSR & Hydrated section-message output should be visually identical', async () => {
     const url = getExampleUrl(
       'design-system',

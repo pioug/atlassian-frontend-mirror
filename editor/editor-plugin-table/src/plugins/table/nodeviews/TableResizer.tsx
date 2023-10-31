@@ -8,12 +8,13 @@ import React, {
 } from 'react';
 
 import rafSchd from 'raf-schd';
-import { defineMessages, useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl-next';
 
 import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
 import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics';
 import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
+import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -65,14 +66,6 @@ export interface TableResizerImprovementProps extends TableResizerProps {
   onResizeStop?: () => void;
   onResizeStart?: () => void;
 }
-
-const messages = defineMessages({
-  resizeTable: {
-    id: 'fabric.editor.tables.resizeTable',
-    defaultMessage: 'Resize table',
-    description: 'Tooltip displayed on custom table width resize hande',
-  },
-});
 
 const handles = { right: true };
 const handleStyles = {

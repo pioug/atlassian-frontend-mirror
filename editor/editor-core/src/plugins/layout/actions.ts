@@ -18,9 +18,9 @@ import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
+  LAYOUT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import { LAYOUT_TYPE } from '../analytics/types/node-events';
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { LayoutState } from './pm-plugins/types';
 import type { Change, PresetLayout } from './types';

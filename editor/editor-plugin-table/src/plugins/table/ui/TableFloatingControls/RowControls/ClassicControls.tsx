@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
 import type { WrappedComponentProps } from 'react-intl-next';
-import { defineMessages, injectIntl } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
+import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { clearHoverSelection } from '../../../commands';
@@ -10,15 +11,6 @@ import { TableCssClassName as ClassName } from '../../../types';
 import type { RowParams } from '../../../utils';
 import { getRowClassNames, getRowHeights, getRowsParams } from '../../../utils';
 import { tableControlsSpacing, tableToolbarSize } from '../../consts';
-
-const messages = defineMessages({
-  rowControl: {
-    id: 'fabric.editor.rowControl',
-    defaultMessage: 'Highlight row',
-    description:
-      'A button on the left of each row that shows up when the table is in focus. Clicking on it will select the entire row.',
-  },
-});
 
 export interface Props {
   editorView: EditorView;

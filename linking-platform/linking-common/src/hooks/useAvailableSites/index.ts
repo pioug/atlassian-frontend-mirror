@@ -25,7 +25,11 @@ const defaultProducts = [
   AvailableSitesProductType.STATUS_PAGE,
   AvailableSitesProductType.ATLAS,
 ];
-export const useAvailableSites = () => {
+export const useAvailableSites = ({
+  gatewayBaseUrl,
+}: {
+  gatewayBaseUrl?: string;
+} = {}) => {
   const [state, setState] = useState<{
     data: AvailableSite[];
     loading: boolean;
@@ -41,6 +45,7 @@ export const useAvailableSites = () => {
       try {
         const { sites } = await getAvailableSites({
           products: defaultProducts,
+          gatewayBaseUrl,
         });
         setState({
           data: sites,
@@ -63,13 +68,14 @@ export const useAvailableSites = () => {
       }
     };
     fetchSites();
-  }, [createAnalyticsEvent]);
+  }, [createAnalyticsEvent, gatewayBaseUrl]);
 
   return state;
 };
 
 async function getAvailableSites({
   products,
+  gatewayBaseUrl,
 }: AvailableSitesRequest): Promise<AvailableSitesResponse> {
   const requestConfig = {
     method: 'POST',
@@ -85,7 +91,9 @@ async function getAvailableSites({
   };
 
   const response = await window.fetch(
-    `/gateway/api/available-sites`,
+    gatewayBaseUrl
+      ? `${gatewayBaseUrl}/gateway/api/available-sites`
+      : '/gateway/api/available-sites',
     requestConfig,
   );
   if (response.ok) {

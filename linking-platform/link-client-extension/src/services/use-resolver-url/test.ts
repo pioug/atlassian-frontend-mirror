@@ -28,12 +28,12 @@ describe('useResolverUrl', () => {
     const { result } = renderHook(() => {
       const cardClient = new CardClient(
         'stg',
-        'https://api-gateway.trellis.coffee/gateway/api',
+        'https://trellis.coffee/gateway/api',
       );
       return useResolverUrl(cardClient);
     });
     expect(result.current).toEqual(
-      'https://api-gateway.trellis.coffee/gateway/api/object-resolver',
+      'https://trellis.coffee/gateway/api/object-resolver',
     );
   });
 });

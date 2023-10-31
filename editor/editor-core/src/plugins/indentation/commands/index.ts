@@ -8,7 +8,10 @@ import { toggleBlockMark } from '../../../commands';
 import type { Command } from '../../../types/command';
 import type { IndentationInputMethod } from './utils';
 import { createAnalyticsDispatch } from './utils';
-import { INDENT_DIRECTION, INPUT_METHOD } from '../../analytics';
+import {
+  INDENT_DIRECTION,
+  INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import getAttrsWithChangesRecorder from '../../../utils/getAttrsWithChangesRecorder';
 
 export const MAX_INDENTATION_LEVEL = 6;

@@ -20,7 +20,7 @@ import {
   CODE_BLOCK,
   PANEL,
 } from '@atlaskit/editor-plugin-block-type/consts';
-import { INPUT_METHOD } from '../analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { pluginKey as placeholderTextStateKey } from '../placeholder-text/plugin-key';
 import type { PlaceholderTextPluginState } from '../placeholder-text';
 import { pluginKey as macroStateKey } from '../macro/plugin-key';

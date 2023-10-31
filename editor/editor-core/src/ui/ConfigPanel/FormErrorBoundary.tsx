@@ -1,20 +1,21 @@
 import React from 'react';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import SectionMessage from '@atlaskit/section-message';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { FieldDefinition } from '@atlaskit/editor-common/extensions';
+import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
   withAnalyticsContext,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
-  AnalyticsEventPayload,
-} from '../../plugins/analytics';
-import { editorAnalyticsChannel } from '../../plugins/analytics/consts';
+  editorAnalyticsChannel,
+} from '@atlaskit/editor-common/analytics';
 import { messages } from './messages';
 
 interface ErrorInfo {

@@ -2,27 +2,26 @@
 import React from 'react';
 
 import { jsx } from '@emotion/react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
-import { TableLayout } from '@atlaskit/adf-schema';
-import {
-  ACTION_SUBJECT,
-  DispatchAnalyticsEvent,
-} from '@atlaskit/editor-common/analytics';
+import type { TableLayout } from '@atlaskit/adf-schema';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
+import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { ThemeProps } from '@atlaskit/theme/types';
+import type { ThemeProps } from '@atlaskit/theme/types';
 
 import { toggleContextualMenu } from '../../commands';
-import { RowStickyState } from '../../pm-plugins/sticky-headers';
+import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { TableCssClassName as ClassName } from '../../types';
-import messages from '../../ui/messages';
 
 import FixedButton from './FixedButton';
 import {

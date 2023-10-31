@@ -2,9 +2,9 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EditorAppearance } from '../../types/editor-appearance';
 import type { ToolbarSize, ToolbarUIComponentFactory } from './types';
-import type { EventDispatcher } from '../../event-dispatcher';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type EditorActions from '../../actions';
-import type { DispatchAnalyticsEvent } from '../../plugins/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 
 export interface ToolbarBreakPoint {
   width: number;

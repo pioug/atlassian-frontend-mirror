@@ -5,8 +5,11 @@ import { jsx } from '@emotion/react';
 import Find from './Find';
 import Replace from './Replace';
 import { ruleStyles, wrapperStyles } from './styles';
-import { TRIGGER_METHOD, DispatchAnalyticsEvent } from '../../analytics/types';
-import { MatchCaseProps } from '../types';
+import type {
+  TRIGGER_METHOD,
+  DispatchAnalyticsEvent,
+} from '@atlaskit/editor-common/analytics';
+import type { MatchCaseProps } from '../types';
 
 export type FindReplaceProps = {
   findText?: string;

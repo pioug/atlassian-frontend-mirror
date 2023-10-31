@@ -20,13 +20,13 @@ import {
   confirmationHeader,
   confirmationImg,
 } from './styles';
-import type { AnalyticsDispatch } from '../../plugins/analytics';
+import type { AnalyticsDispatch } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-} from '../../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
 import { createDispatch } from '../../event-dispatcher';
 import { openFeedbackDialog } from '../../plugins/feedback-dialog';
 import type { FeedbackInfo } from '../../types';

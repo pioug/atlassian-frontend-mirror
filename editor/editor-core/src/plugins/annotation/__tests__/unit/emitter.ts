@@ -1,4 +1,3 @@
-import { RESOLVE_METHOD } from './../../../analytics/types/inline-comment-events';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -15,7 +14,6 @@ import { inlineCommentProvider } from '../_utils';
 import annotationPlugin, { AnnotationUpdateEmitter } from '../..';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import deprecatedAnalyticsPlugin from '../../../analytics/plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -24,7 +22,8 @@ import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-} from '../../../analytics/types/enums';
+  RESOLVE_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 describe('annotation emitter', () => {
@@ -36,8 +35,7 @@ describe('annotation emitter', () => {
       annotationPlugin,
       { inlineComment: { ...inlineCommentProvider, updateSubscriber } },
     ])
-    .add([analyticsPlugin, { createAnalyticsEvent }])
-    .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
+    .add([analyticsPlugin, { createAnalyticsEvent }]);
 
   const createEditor = createProsemirrorEditorFactory();
   let editorView: EditorView;

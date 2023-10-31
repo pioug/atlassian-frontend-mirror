@@ -60,6 +60,16 @@ export interface LinkCreatePlugin {
 export type CreatePayload = {
   /** The url to the resource created by the create plugin */
   url: string;
+  /**
+   * ARI of the created resource.
+   * https://developer.atlassian.com/platform/atlassian-resource-identifier/spec/ari-latest/
+   *
+   * It should be returned but it's not required to be on the Jira side:
+   * https://stash.atlassian.com/projects/JIRACLOUD/repos/jira-frontend/browse/src/packages/issue-create/issue-create-embed/src/ui/index.tsx
+   * https://stash.atlassian.com/projects/JIRACLOUD/repos/jira-frontend/pull-requests/103587/overview?commentId=5778323
+   */
+  ari: string | undefined;
+
   /** The object identifier for the resource created by the create plugin (for analytics) */
   objectId: string;
   /** The type of object created (for analytics) */

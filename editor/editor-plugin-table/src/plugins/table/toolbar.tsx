@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { defineMessages } from 'react-intl-next';
 
 import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -11,7 +10,9 @@ import {
   backspace,
   tooltip,
 } from '@atlaskit/editor-common/keymaps';
-import commonMessages from '@atlaskit/editor-common/messages';
+import commonMessages, {
+  tableMessages as messages,
+} from '@atlaskit/editor-common/messages';
 import type {
   Command,
   CommandDispatch,
@@ -87,41 +88,11 @@ import type {
   ToolbarMenuState,
 } from './types';
 import { TableCssClassName } from './types';
-import { messages as ContextualMenuMessages } from './ui/FloatingContextualMenu/ContextualMenu';
-import tableMessages from './ui/messages';
 import {
   getMergedCellsPositions,
   getSelectedColumnIndexes,
   getSelectedRowIndexes,
 } from './utils';
-
-export const messages = defineMessages({
-  tableOptions: {
-    id: 'fabric.editor.tableOptions',
-    defaultMessage: 'Table options',
-    description: 'Opens a menu with additional table options',
-  },
-  headerRow: {
-    id: 'fabric.editor.headerRow',
-    defaultMessage: 'Header row',
-    description: 'Marks the first table row as a header row',
-  },
-  headerColumn: {
-    id: 'fabric.editor.headerColumn',
-    defaultMessage: 'Header column',
-    description: 'Marks the first table column as a header row',
-  },
-  numberedColumn: {
-    id: 'fabric.editor.numberedColumn',
-    defaultMessage: 'Numbered column',
-    description: 'Adds an auto-numbering column to your table',
-  },
-  collapseTable: {
-    id: 'fabric.editor.collapseTable',
-    defaultMessage: 'Collapse table',
-    description: 'Wraps table in an expand',
-  },
-});
 
 export const getToolbarMenuConfig = (
   config: ToolbarMenuConfig,
@@ -190,7 +161,7 @@ export const getToolbarCellOptionsConfig = (
   const options: DropdownOptionT<Command>[] = [
     {
       id: 'editor.table.insertColumn',
-      title: formatMessage(tableMessages.insertColumn),
+      title: formatMessage(messages.insertColumn),
       onClick: (
         state: EditorState,
         dispatch?: CommandDispatch,
@@ -212,7 +183,7 @@ export const getToolbarCellOptionsConfig = (
     },
     {
       id: 'editor.table.insertRow',
-      title: formatMessage(tableMessages.insertRow),
+      title: formatMessage(messages.insertRow),
       onClick: (state: EditorState, dispatch?: CommandDispatch) => {
         const selectionRect = getClosestSelectionRect(state);
         const index = selectionRect?.bottom;
@@ -230,7 +201,7 @@ export const getToolbarCellOptionsConfig = (
     },
     {
       id: 'editor.table.removeColumns',
-      title: formatMessage(tableMessages.removeColumns, {
+      title: formatMessage(messages.removeColumns, {
         0: numberOfColumns,
       }),
       onClick: (
@@ -256,7 +227,7 @@ export const getToolbarCellOptionsConfig = (
     },
     {
       id: 'editor.table.removeRows',
-      title: formatMessage(tableMessages.removeRows, {
+      title: formatMessage(messages.removeRows, {
         0: numberOfRows,
       }),
       onClick: (state: EditorState, dispatch?: CommandDispatch) => {
@@ -279,7 +250,7 @@ export const getToolbarCellOptionsConfig = (
     },
     {
       id: 'editor.table.mergeCells',
-      title: formatMessage(ContextualMenuMessages.mergeCells),
+      title: formatMessage(messages.mergeCells),
       onClick: mergeCellsWithAnalytics(editorAnalyticsAPI)(
         INPUT_METHOD.FLOATING_TB,
       ),
@@ -288,7 +259,7 @@ export const getToolbarCellOptionsConfig = (
     },
     {
       id: 'editor.table.splitCell',
-      title: formatMessage(ContextualMenuMessages.splitCell),
+      title: formatMessage(messages.splitCell),
       onClick: splitCellWithAnalytics(editorAnalyticsAPI)(
         INPUT_METHOD.FLOATING_TB,
       ),
@@ -321,7 +292,7 @@ export const getToolbarCellOptionsConfig = (
 
     options.push({
       id: 'editor.table.distributeColumns',
-      title: formatMessage(ContextualMenuMessages.distributeColumns),
+      title: formatMessage(messages.distributeColumns),
       onClick: distributeColumnWidths,
       selected: false,
       disabled: !wouldChange,
@@ -332,12 +303,12 @@ export const getToolbarCellOptionsConfig = (
     const hasMergedCellsInTable =
       getMergedCellsPositions(editorState.tr).length > 0;
     const warning = hasMergedCellsInTable
-      ? formatMessage(ContextualMenuMessages.canNotSortTable)
+      ? formatMessage(messages.canNotSortTable)
       : undefined;
 
     options.push({
       id: 'editor.table.sortColumnAsc',
-      title: formatMessage(ContextualMenuMessages.sortColumnASC),
+      title: formatMessage(messages.sortColumnASC),
       onMouseOver: (state: EditorState, dispatch?: CommandDispatch) => {
         if (getMergedCellsPositions(state.tr).length !== 0) {
           hoverMergedCells()(state, dispatch);
@@ -364,7 +335,7 @@ export const getToolbarCellOptionsConfig = (
 
     options.push({
       id: 'editor.table.sortColumnDesc',
-      title: formatMessage(ContextualMenuMessages.sortColumnDESC),
+      title: formatMessage(messages.sortColumnDESC),
       onMouseOver: (state: EditorState, dispatch?: CommandDispatch) => {
         if (getMergedCellsPositions(state.tr).length !== 0) {
           hoverMergedCells()(state, dispatch);
@@ -392,7 +363,7 @@ export const getToolbarCellOptionsConfig = (
 
   options.push({
     id: 'editor.table.clearCells',
-    title: formatMessage(ContextualMenuMessages.clearCells, {
+    title: formatMessage(messages.clearCells, {
       0: Math.max(numberOfColumns, numberOfRows),
     }),
     onClick: (state: EditorState, dispatch?: CommandDispatch) => {
@@ -412,7 +383,7 @@ export const getToolbarCellOptionsConfig = (
     id: 'editor.table.cellOptions',
     testId: 'cell_options',
     type: 'dropdown',
-    title: formatMessage(tableMessages.cellOptions),
+    title: formatMessage(messages.cellOptions),
     options,
     // Increased dropdown item width to prevent labels from being truncated
     dropdownWidth: 230,
@@ -469,27 +440,25 @@ export const getToolbarConfig =
       let confirmDialog;
 
       if (isReferencedSource(state, tableObject.node)) {
-        const localSourceName = intl.formatMessage(tableMessages.unnamedSource);
+        const localSourceName = intl.formatMessage(messages.unnamedSource);
 
         confirmDialog = (): ConfirmDialogOptions => ({
-          title: intl.formatMessage(tableMessages.deleteElementTitle),
+          title: intl.formatMessage(messages.deleteElementTitle),
           okButtonLabel: intl.formatMessage(
-            tableMessages.confirmDeleteLinkedModalOKButton,
+            messages.confirmDeleteLinkedModalOKButton,
           ),
           message: intl.formatMessage(
-            tableMessages.confirmDeleteLinkedModalMessage,
+            messages.confirmDeleteLinkedModalMessage,
             {
               nodeName: getNodeName(state, tableObject.node) || localSourceName,
             },
           ),
           messagePrefix: intl.formatMessage(
-            tableMessages.confirmDeleteLinkedModalMessagePrefix,
+            messages.confirmDeleteLinkedModalMessagePrefix,
           ),
           isReferentialityDialog: true,
           getChildrenInfo: () => getChildrenInfo(state, tableObject.node),
-          checkboxLabel: intl.formatMessage(
-            tableMessages.confirmModalCheckboxLabel,
-          ),
+          checkboxLabel: intl.formatMessage(messages.confirmModalCheckboxLabel),
           onConfirm: (isChecked = false) =>
             clickWithCheckboxHandler(isChecked, tableObject.node),
         });
@@ -628,7 +597,7 @@ const getColorPicker = (
   return [
     {
       id: 'editor.table.colorPicker',
-      title: formatMessage(ContextualMenuMessages.cellBackground),
+      title: formatMessage(messages.cellBackground),
       type: 'select',
       selectType: 'color',
       defaultValue: defaultPalette,

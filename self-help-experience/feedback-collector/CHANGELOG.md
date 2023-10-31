@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 13.0.11
+
+### Patch Changes
+
+- [#41951](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41951) [`9a51206e182`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a51206e182) - Updates references to api-gateway Trello URLs to use trello.com or trellis.coffee.
+
 ## 13.0.10
 
 ### Patch Changes

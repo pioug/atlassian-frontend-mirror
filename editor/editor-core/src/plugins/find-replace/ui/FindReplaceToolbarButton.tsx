@@ -16,8 +16,8 @@ import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
 import { token } from '@atlaskit/tokens';
 import type { FindReplaceProps } from './FindReplace';
 import FindReplace from './FindReplace';
-import type { DispatchAnalyticsEvent } from '../../analytics/types';
-import { TRIGGER_METHOD } from '../../analytics/types';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import {
   ToolTipContent,
   findKeymapByDescription,

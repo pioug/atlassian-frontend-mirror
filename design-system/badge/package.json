@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/badge",
-  "version": "15.1.15",
+  "version": "15.1.16",
   "description": "A badge is a visual indicator for numeric values such as tallies and scores.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

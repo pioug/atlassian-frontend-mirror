@@ -28,6 +28,7 @@ export function MockPluginForm({ shouldThrowError }: pluginProps) {
         objectId: 'new-object-id',
         objectType: 'object-type',
         data: {},
+        ari: 'example-ari',
       });
     }
   };

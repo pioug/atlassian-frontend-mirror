@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 76.17.3
+
+### Patch Changes
+
+- [#42416](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42416) [`d4e57bf9189`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4e57bf9189) - Removing unused dependencies in editor-core.
+
+## 76.17.2
+
+### Patch Changes
+
+- [#42287](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42287) [`02bc2130172`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02bc2130172) - [ux] Moves intl messages from edito-plugin-table to editor-common to fix table plugin translations
+
 ## 76.17.1
 
 ### Patch Changes

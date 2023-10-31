@@ -3,20 +3,17 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
-import {
-  defineMessages,
-  WrappedComponentProps,
-  injectIntl,
-} from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { defineMessages, injectIntl } from 'react-intl-next';
 import Textfield from '@atlaskit/textfield';
 import { sectionWrapperStyles, replaceSectionButtonStyles } from './styles';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
   EVENT_TYPE,
   ACTION,
   ACTION_SUBJECT,
   TRIGGER_METHOD,
-  DispatchAnalyticsEvent,
-} from '../../analytics/types';
+} from '@atlaskit/editor-common/analytics';
 
 export type ReplaceProps = {
   canReplace: boolean;

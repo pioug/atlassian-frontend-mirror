@@ -1,6 +1,4 @@
 import React from 'react';
-import Theme from '@atlaskit/theme/components';
-import { DN30 } from '@atlaskit/theme/colors';
 
 import metadata from '../src/metadata';
 
@@ -39,25 +37,6 @@ export default function IconExamples() {
           ))}
         </div>
       </div>
-      <Theme.Provider value={() => ({ mode: 'dark' })}>
-        <div
-          style={{
-            backgroundColor: DN30,
-          }}
-          data-testid="dark-root"
-        >
-          <div>
-            {icons16.map((Icon, index) => (
-              <Icon key={index} />
-            ))}
-          </div>
-          <div>
-            {icons24.map((Icon, index) => (
-              <Icon key={index} />
-            ))}
-          </div>
-        </div>
-      </Theme.Provider>
     </div>
   );
 }

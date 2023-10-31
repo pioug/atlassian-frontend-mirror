@@ -88,7 +88,7 @@ const LinkPickerCreate = () => {
         onCancel={() => setShowCreateModal(false)}
         onCreate={(payload: CreatePayload) => {
           setLink(payload.url);
-          console.log(payload.url);
+          console.log('payload is', payload);
           setShowCreateModal(false);
           setShowPicker(false);
         }}

@@ -4,10 +4,10 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
+import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import Tooltip from '@atlaskit/tooltip';
 
 import { TableCssClassName } from '../../types';
-import messages from '../messages';
 
 type Props = {
   startIndex: number;

@@ -1,7 +1,7 @@
-import EditorConfiguration from './editor-configuration';
+import type EditorConfiguration from './editor-configuration';
 
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
-import {
+import type {
   Command,
   FloatingToolbarConfig,
   FloatingToolbarItem,
@@ -9,7 +9,7 @@ import {
 import type { ConfigWithNodeInfo } from '@atlaskit/editor-plugin-floating-toolbar';
 import { PanelType } from '@atlaskit/adf-schema/schema';
 
-import { panelDarkModeBackgroundPalette } from '@atlaskit/editor-core/src/ui/ColorPalette/Palettes/panelBackgroundPalette';
+import { panelDarkModeBackgroundPalette } from '@atlaskit/editor-common/ui-color';
 import {
   darkPanelColors,
   getPanelDarkColor,

@@ -1,10 +1,12 @@
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { RESOLVE_METHOD } from './../../analytics/types/inline-comment-events';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type {
+  EditorAnalyticsAPI,
+  RESOLVE_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import type { Command } from '../../../types';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { createCommand } from '../pm-plugins/plugin-factory';
-import { INPUT_METHOD } from '../../analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { isSelectionValid, getPluginState } from '../utils';
 import type {
   InlineCommentAction,

@@ -13,6 +13,7 @@ import {
 import {
   FooterBlock,
   MetadataBlock,
+  RelatedUrlsBlock,
   SnippetBlock,
   TitleBlock,
 } from '../../../../FlexibleCard/components/blocks';
@@ -88,6 +89,7 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   cardActions = [],
   onActionClick,
   extensionKey,
+  url,
 }) => {
   const canBeDatasource = getCanBeDatasource(cardState.details);
 
@@ -187,6 +189,9 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
           maxLines={1}
         />
       )}
+      {getBooleanFF(
+        'platform.linking-platform.smart-card.enable-hover-card-related-urls',
+      ) && <RelatedUrlsBlock url={url} size={SmartLinkSize.Small} />}
       <FooterBlock
         actions={footerActions}
         size={SmartLinkSize.Large}

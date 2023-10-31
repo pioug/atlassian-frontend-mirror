@@ -5,11 +5,11 @@ import { Box, Stack } from '@atlaskit/primitives';
 
 import Heading, { HeadingContextProvider } from '../../src';
 
-const Section = ({ variant, children }: any) => (
+const Section = ({ level, children }: any) => (
   <HeadingContextProvider>
     <Box paddingInlineStart="space.100">
       <Stack space="space.100">
-        <Heading variant={variant}>{variant}</Heading>
+        <Heading level={level}>{level}</Heading>
         <Text>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic adipisci,
           fuga perferendis nam neque doloribus velit eveniet? Distinctio
@@ -27,10 +27,10 @@ export default () => {
     <HeadingContextProvider>
       <Box style={{ maxWidth: 850, margin: 'auto' }}>
         <Stack testId="headings" space="space.100">
-          <Heading variant="xxlarge">xxlarge and H2</Heading>
-          <Section variant="medium">
-            <Section variant="large">
-              <Section variant="xxlarge" />
+          <Heading level="h900">h900 as H2</Heading>
+          <Section level="h600">
+            <Section level="h700">
+              <Section level="h900" />
             </Section>
           </Section>
         </Stack>

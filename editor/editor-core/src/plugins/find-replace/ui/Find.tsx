@@ -13,7 +13,7 @@ import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
 import MatchCaseIcon from '@atlaskit/icon/glyph/emoji/keyboard';
 import Textfield from '@atlaskit/textfield';
 import { countStyles, sectionWrapperStyles } from './styles';
-import { TRIGGER_METHOD } from '../../analytics/types';
+import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import { FindReplaceTooltipButton } from './FindReplaceTooltipButton';
 import type { MatchCaseProps } from '../types';
 import rafSchd from 'raf-schd';

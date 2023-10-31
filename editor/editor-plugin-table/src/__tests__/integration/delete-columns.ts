@@ -1,5 +1,6 @@
 import { createIntl } from 'react-intl-next';
 
+import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   editable,
@@ -14,7 +15,6 @@ import {
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
 import { TableCssClassName as ClassName } from '../../plugins/table/types';
-import messages from '../../plugins/table/ui/messages';
 
 import { documentWithMergedCells } from './__fixtures__/merged-rows-and-cols-document';
 

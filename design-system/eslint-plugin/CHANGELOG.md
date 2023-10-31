@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.14.1
+
+### Patch Changes
+
+- [#42240](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42240) [`ec474733d38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec474733d38) - Handle destructured variables in link item rule.
+
 ## 8.14.0
 
 ### Minor Changes

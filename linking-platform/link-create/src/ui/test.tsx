@@ -1,11 +1,14 @@
 import React from 'react';
 
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
 import { LinkCreatePlugin, LinkCreateWithModalProps } from '../common/types';
 import { useLinkCreateCallback } from '../controllers/callback-context';
 
@@ -29,6 +32,7 @@ const CreatePluginForm = () => {
             },
             objectId: '123',
             objectType: 'page',
+            ari: 'example-ari',
           })
         }
       >
@@ -55,6 +59,7 @@ describe('<LinkCreate />', () => {
   let onAnalyticsEventMock: jest.Mock;
 
   const testId = 'link-create';
+  const dismissDialogTestId = 'link-create-confirm-dismiss-dialog';
 
   beforeEach(() => {
     onCreateMock = jest.fn();
@@ -71,26 +76,39 @@ describe('<LinkCreate />', () => {
     jest.clearAllMocks();
   });
 
-  const plugin: LinkCreatePlugin = {
-    group: {
-      label: 'group-label',
-      icon: 'group-icon',
-      key: 'group',
+  const plugins: LinkCreatePlugin[] = [
+    {
+      group: {
+        label: 'group-label',
+        icon: 'group-icon',
+        key: 'group',
+      },
+      label: 'entity-label',
+      icon: 'entity-icon',
+      key: 'entity-key',
+      form: <CreatePluginForm />,
     },
-    label: 'entity-label',
-    icon: 'entity-icon',
-    key: 'entity-key',
-    form: <CreatePluginForm />,
-  };
+    {
+      group: {
+        label: 'group-label',
+        icon: 'group-icon',
+        key: 'group',
+      },
+      label: 'plugin-with-create-form',
+      icon: 'plugin-with-create-form',
+      key: 'plugin-with-create-form',
+      form: <MockPluginForm />,
+    },
+  ];
 
   const setUpLinkCreate = (props?: Partial<LinkCreateWithModalProps>) => {
-    return render(
+    render(
       <IntlProvider locale="en">
         <AnalyticsListener channel={'media'} onEvent={onAnalyticsEventMock}>
           <LinkCreate
             testId={testId}
-            plugins={[plugin]}
-            entityKey={'entity-key'}
+            plugins={plugins}
+            entityKey={props?.entityKey ?? 'entity-key'}
             active={true}
             {...props}
             onCreate={onCreateMock}
@@ -103,14 +121,14 @@ describe('<LinkCreate />', () => {
   };
 
   it("should find LinkCreate by its testid when it's active", async () => {
-    const { getByTestId } = setUpLinkCreate();
-    expect(getByTestId(testId)).toBeTruthy();
+    setUpLinkCreate();
+    expect(screen.getByTestId(testId)).toBeTruthy();
   });
 
   it('should fire screen viewed analytics event when it opens', async () => {
-    const { getByTestId } = setUpLinkCreate();
+    setUpLinkCreate();
 
-    expect(getByTestId(testId)).toBeTruthy();
+    expect(screen.getByTestId(testId)).toBeTruthy();
 
     expect(onAnalyticsEventMock).toBeCalled();
     const mockCall = onAnalyticsEventMock.mock.calls[0];
@@ -126,71 +144,229 @@ describe('<LinkCreate />', () => {
   });
 
   it("should NOT find LinkCreate by its testid when it's NOT active", async () => {
-    const { queryByTestId } = setUpLinkCreate({ active: false });
-    expect(queryByTestId(testId)).toBeNull();
+    setUpLinkCreate({ active: false });
+    expect(screen.queryByTestId(testId)).toBeNull();
   });
 
   it('should trigger the callback onCreate when it submits the form', async () => {
-    const { getByTestId } = setUpLinkCreate();
-    await getByTestId('submit-button').click();
+    setUpLinkCreate();
+    screen.getByTestId('submit-button').click();
+
     expect(onCreateMock).toBeCalledWith(
       expect.objectContaining({
         url: 'https://www.atlassian.com',
         objectId: '123',
         objectType: 'page',
         data: { spaceName: 'space' },
+        ari: 'example-ari',
       }),
     );
   });
 
   it('should trigger the callback onFailure when the form fails', async () => {
-    const { getByTestId } = setUpLinkCreate();
-    getByTestId('error-button').click();
+    setUpLinkCreate();
+    screen.getByTestId('error-button').click();
     expect(onFailureMock).toBeCalled();
   });
 
   it('should trigger the callback onCancel when it close the form', async () => {
-    const { getByTestId } = setUpLinkCreate();
-    getByTestId('close-button').click();
+    setUpLinkCreate();
+    screen.getByTestId('close-button').click();
     expect(onCloseMock).toBeCalled();
   });
 
+  it('should display an error boundary on unhandled error', async () => {
+    setUpLinkCreate({
+      entityKey: 'undefined' as any,
+    });
+
+    expect(
+      await screen.findByTestId('link-create-error-boundary-ui'),
+    ).toBeInTheDocument();
+  });
+
   it('should display a custom title when provided', async () => {
-    const { queryByTestId, getByText } = setUpLinkCreate({
+    setUpLinkCreate({
       modalTitle: 'Create meeting notes',
     });
-    expect(queryByTestId(testId)).toBeInTheDocument();
-    expect(getByText('Create meeting notes')).toBeTruthy();
+    expect(screen.queryByTestId(testId)).toBeInTheDocument();
+    expect(screen.getByText('Create meeting notes')).toBeTruthy();
+  });
+
+  describe('should close modal on Esc if no changes are made', () => {
+    ffTest(
+      'platform.linking-platform.link-create.confirm-dismiss-dialog',
+      async () => {
+        setUpLinkCreate();
+
+        expect(await screen.findByTestId(testId)).toBeInTheDocument();
+        await userEvent.keyboard('{Escape}');
+
+        waitFor(() => {
+          expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+        });
+      },
+      async () => {
+        setUpLinkCreate();
+
+        expect(await screen.findByTestId(testId)).toBeInTheDocument();
+        await userEvent.keyboard('{Escape}');
+
+        waitFor(() => {
+          expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+        });
+      },
+    );
+  });
+
+  describe('should display Confirm Dismiss Dialog when changes are made and user clicks close or Esc', () => {
+    ffTest(
+      'platform.linking-platform.link-create.confirm-dismiss-dialog',
+      async () => {
+        setUpLinkCreate({ entityKey: 'plugin-with-create-form' });
+
+        expect(await screen.findByTestId(testId)).toBeInTheDocument();
+
+        const textField = screen.getByLabelText(
+          /Enter some Text/i,
+        ) as HTMLInputElement;
+
+        expect(textField).toBeTruthy();
+        await userEvent.click(textField);
+        await userEvent.keyboard('title text content');
+
+        await userEvent.click(
+          screen.getByTestId('link-create-form-button-cancel'),
+        );
+
+        expect(
+          await screen.findByTestId(dismissDialogTestId),
+        ).toBeInTheDocument();
+
+        const goBackBtn = screen.getByText(/Go back/i) as HTMLInputElement;
+        expect(goBackBtn).toBeTruthy();
+        await userEvent.click(goBackBtn);
+
+        waitFor(() => {
+          expect(
+            screen.queryByTestId(dismissDialogTestId),
+          ).not.toBeInTheDocument();
+        });
+
+        await userEvent.keyboard('{Escape}');
+
+        expect(
+          await screen.findByTestId(dismissDialogTestId),
+        ).toBeInTheDocument();
+      },
+      async () => {
+        setUpLinkCreate({ entityKey: 'plugin-with-create-form' });
+
+        expect(await screen.findByTestId(testId)).toBeInTheDocument();
+
+        const textField = screen.getByLabelText(
+          /Enter some Text/i,
+        ) as HTMLInputElement;
+
+        expect(textField).toBeTruthy();
+        await userEvent.click(textField);
+        await userEvent.keyboard('title text content');
+
+        await userEvent.click(
+          screen.getByTestId('link-create-form-button-cancel'),
+        );
+
+        waitFor(() => {
+          expect(
+            screen.queryByTestId(dismissDialogTestId),
+          ).not.toBeInTheDocument();
+        });
+      },
+    );
+  });
+
+  describe('should dismiss create on confirm Dismiss Dialog', async () => {
+    ffTest(
+      'platform.linking-platform.link-create.confirm-dismiss-dialog',
+      async () => {
+        setUpLinkCreate({ entityKey: 'plugin-with-create-form' });
+
+        expect(await screen.findByTestId(testId)).toBeInTheDocument();
+
+        const textField = screen.getByLabelText(
+          /Enter some Text/i,
+        ) as HTMLInputElement;
+
+        expect(textField).toBeTruthy();
+        await userEvent.click(textField);
+        await userEvent.keyboard('title text content');
+
+        await userEvent.click(
+          screen.getByTestId('link-create-form-button-cancel'),
+        );
+
+        expect(
+          await screen.findByTestId(dismissDialogTestId),
+        ).toBeInTheDocument();
+
+        const discardBtn = screen.getByText(/Discard/i) as HTMLInputElement;
+        expect(discardBtn).toBeTruthy();
+        await userEvent.click(discardBtn);
+
+        waitFor(() => {
+          expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+          expect(
+            screen.queryByTestId(dismissDialogTestId),
+          ).not.toBeInTheDocument();
+        });
+      },
+      async () => {
+        setUpLinkCreate({ entityKey: 'plugin-with-create-form' });
+
+        expect(await screen.findByTestId(testId)).toBeInTheDocument();
+
+        const textField = screen.getByLabelText(
+          /Enter some Text/i,
+        ) as HTMLInputElement;
+
+        expect(textField).toBeTruthy();
+        await userEvent.click(textField);
+        await userEvent.keyboard('title text content');
+
+        await userEvent.click(
+          screen.getByTestId('link-create-form-button-cancel'),
+        );
+
+        waitFor(() => {
+          expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+          expect(
+            screen.queryByTestId(dismissDialogTestId),
+          ).not.toBeInTheDocument();
+        });
+      },
+    );
   });
 
   it('should trigger the Modal Callbacks when provided', async () => {
     let onOpenComplete = jest.fn();
     let onCloseComplete = jest.fn();
-    const { getByTestId, queryByTestId } = setUpLinkCreate({
+
+    setUpLinkCreate({
       onOpenComplete,
       onCloseComplete,
     });
 
+    expect(await screen.findByTestId(testId)).toBeInTheDocument();
+
     waitFor(() => {
-      expect(queryByTestId(testId)).toBeInTheDocument();
       expect(onOpenComplete).toHaveBeenCalledTimes(1);
     });
 
-    getByTestId('close-button').click();
+    screen.getByTestId('close-button').click();
 
     waitFor(() => {
-      expect(queryByTestId(testId)).not.toBeInTheDocument();
+      expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
       expect(onCloseComplete).toHaveBeenCalledTimes(1);
     });
-  });
-
-  it('should display an error boundary on unhandled error', async () => {
-    const { findByTestId } = setUpLinkCreate({
-      entityKey: 'undefined' as any,
-    });
-
-    expect(
-      await findByTestId('link-create-error-boundary-ui'),
-    ).toBeInTheDocument();
   });
 });

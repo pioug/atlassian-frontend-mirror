@@ -5,16 +5,17 @@ order: 0
 import HeadingDefault from '../../examples/constellation/heading-default';
 import HeadingInverse from '../../examples/constellation/heading-inverse';
 import HeadingProvider from '../../examples/constellation/heading-provider';
+import HeadingMigration from '../../examples/constellation/heading-migration';
+import HeadingNew from '../../examples/constellation/heading-new';
 
 ## Basic
 
 Implements the [Atlassian typography heading set](/foundations/typography/) as a component.
 
-Depending on if you're applying the legacy or new system the API is slightly different. For the future typography system,
-the `variant` prop is exposed to control the visual appearance of the heading element. For the legacy typography system,
-use the `level` prop.
-
-The `variant` and `level` can be configured to one of the following types.
+A selected `level` will affect the final HTML element rendered in the DOM.
+It's important to note that the final DOM may be impacted by the parent heading level context
+because of inferred accessibility level correction. Therefore, it is recommended to check the final
+DOM to confirm the actual rendered HTML element.
 
 <Example Component={HeadingDefault} packageName="@atlaskit/heading" />
 

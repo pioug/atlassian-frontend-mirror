@@ -70,7 +70,7 @@ import { stateKey as hyperlinkPluginKey } from '@atlaskit/editor-plugin-hyperlin
 import { LinkAction } from '@atlaskit/editor-common/link';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 
-import type { DispatchAnalyticsEvent } from '../../../../../plugins/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 
 import { messages } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';

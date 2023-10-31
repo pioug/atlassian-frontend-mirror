@@ -3,8 +3,9 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { tableMessages as messages } from '@atlaskit/editor-common/messages';
+
 import DeleteButton from '../../../plugins/table/ui/FloatingDeleteButton/DeleteButton';
-import tableMessages from '../../../plugins/table/ui/messages';
 
 describe('<DeleteButton />', () => {
   it('should fire the onMouseEnter callback', () => {
@@ -12,7 +13,7 @@ describe('<DeleteButton />', () => {
     render(
       <IntlProvider locale="en">
         <DeleteButton
-          removeLabel={tableMessages.removeColumns}
+          removeLabel={messages.removeColumns}
           onMouseEnter={onMouseEnter}
         />
       </IntlProvider>,
@@ -26,7 +27,7 @@ describe('<DeleteButton />', () => {
     render(
       <IntlProvider locale="en">
         <DeleteButton
-          removeLabel={tableMessages.removeColumns}
+          removeLabel={messages.removeColumns}
           onMouseLeave={onMouseLeave}
         />
       </IntlProvider>,

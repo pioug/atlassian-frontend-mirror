@@ -23,6 +23,11 @@ function MockPluginForm() {
     value: string;
   };
 
+  type MockedFormData = {
+    textFieldName?: string | undefined;
+    asyncSelectName?: MockOptions | null;
+  };
+
   const mockHandleSubmit = async () => {
     if (onCreate) {
       await onCreate({
@@ -30,6 +35,7 @@ function MockPluginForm() {
         objectId: 'new-object-id',
         objectType: 'object-type',
         data: {},
+        ari: 'example-ari',
       });
     }
   };
@@ -41,6 +47,10 @@ function MockPluginForm() {
     }),
     [],
   );
+
+  const initialValues: MockedFormData = {
+    asyncSelectName: null,
+  };
 
   const exampleOptions = [
     { label: 'Option 1', value: 'option-1' },
@@ -61,9 +71,13 @@ function MockPluginForm() {
   return (
     <div>
       This is a mocked plugin.
-      <CreateForm<FormData> onSubmit={mockHandleSubmit} onCancel={onCancel}>
+      <CreateForm<MockedFormData>
+        initialValues={initialValues}
+        onSubmit={mockHandleSubmit}
+        onCancel={onCancel}
+      >
         <TextField
-          name={'textField-name'}
+          name={'textFieldName'}
           label={'Enter some Text'}
           placeholder={'Type something here...'}
           validators={[mockValidator]}
@@ -73,7 +87,7 @@ function MockPluginForm() {
         <AsyncSelect<MockOptions>
           isRequired
           isSearchable
-          name={'asyncSelect-name'}
+          name={'asyncSelectName'}
           label={'Select an Option'}
           validators={[mockValidator]}
           defaultOptions={true}
@@ -86,6 +100,7 @@ function MockPluginForm() {
 }
 function CreateBasic() {
   const [link, setLink] = useState<string | null>();
+  const [ari, setAri] = useState<string | null>();
   const [active, setActive] = useState(false);
 
   const mockPlugin = () => {
@@ -108,7 +123,9 @@ function CreateBasic() {
     await new Promise<void>(resolve => {
       setTimeout(() => resolve(), 2000);
     });
+    console.log('handleCreate payload is:', payload);
     setLink(payload.url);
+    setAri(payload.ari);
     setActive(false);
   }, []);
 
@@ -130,6 +147,12 @@ function CreateBasic() {
 
   return (
     <div style={{ padding: '20px' }}>
+      {ari && (
+        <div style={{ marginBottom: '2rem' }}>
+          <p>ARI: {ari}</p>
+        </div>
+      )}
+
       {link && (
         <div style={{ marginBottom: '1rem' }}>
           <a href={link} target="_blank" rel="noopener noreferrer nofollow">

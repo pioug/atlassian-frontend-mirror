@@ -1,16 +1,15 @@
 import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
+import { render } from '@testing-library/react';
 import { ErrorBoundary } from '../..';
 import { ACTION, EVENT_TYPE } from '../../../../';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
-  DispatchAnalyticsEvent,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-} from '../../../../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
 
 describe('ErrorBoundary', () => {
   let mockDispatchAnalyticsEvent: jest.MockedFunction<DispatchAnalyticsEvent>;
-  let wrapper: ReactWrapper;
 
   const CustomError = new Error('oops');
   const BrokenComponent = (): never => {
@@ -22,11 +21,10 @@ describe('ErrorBoundary', () => {
   });
   afterEach(() => {
     mockDispatchAnalyticsEvent.mockClear();
-    wrapper.unmount();
   });
 
   it('should dispatch an event if props.dispatchAnalyticsEvent exists', () => {
-    wrapper = mount(
+    render(
       <ErrorBoundary
         component={ACTION_SUBJECT.TABLES_PLUGIN}
         dispatchAnalyticsEvent={mockDispatchAnalyticsEvent}
@@ -54,7 +52,7 @@ describe('ErrorBoundary', () => {
   });
 
   it('should dispatch an event with actionSubjectId if props.dispatchAnalyticsEvent and props.componentId exists', () => {
-    wrapper = mount(
+    render(
       <ErrorBoundary
         component={ACTION_SUBJECT.REACT_NODE_VIEW}
         componentId={ACTION_SUBJECT_ID.STATUS}
@@ -84,7 +82,7 @@ describe('ErrorBoundary', () => {
   });
 
   it('should NOT dispatch an event if props.dispatchAnalyticsEvent does NOT exist', () => {
-    wrapper = mount(
+    render(
       <ErrorBoundary component={ACTION_SUBJECT.TABLES_PLUGIN}>
         <BrokenComponent />
       </ErrorBoundary>,
@@ -93,9 +91,9 @@ describe('ErrorBoundary', () => {
   });
 
   it('should render props.fallbackComponent if props.fallbackComponent exists', () => {
-    const ExampleFallback = <div className="my-fallback" />;
+    const ExampleFallback = <div data-testid="my-fallback" />;
 
-    wrapper = mount(
+    const { getByTestId } = render(
       <ErrorBoundary
         component={ACTION_SUBJECT.TABLES_PLUGIN}
         fallbackComponent={ExampleFallback}
@@ -103,14 +101,14 @@ describe('ErrorBoundary', () => {
         <BrokenComponent />
       </ErrorBoundary>,
     );
-    expect(wrapper.find('.my-fallback').length).toEqual(1);
+    expect(getByTestId('my-fallback')).toBeInTheDocument();
   });
 
   it('should NOT render props.fallbackComponent if zero render errors', () => {
     const GoodComponent = () => <div className="working" />;
     const ExampleFallback = <div className="my-fallback" />;
 
-    wrapper = mount(
+    const { queryByTestId } = render(
       <ErrorBoundary
         component={ACTION_SUBJECT.TABLES_PLUGIN}
         fallbackComponent={ExampleFallback}
@@ -118,6 +116,6 @@ describe('ErrorBoundary', () => {
         <GoodComponent />
       </ErrorBoundary>,
     );
-    expect(wrapper.find('.my-fallback').length).toEqual(0);
+    expect(queryByTestId('my-fallback')).not.toBeInTheDocument();
   });
 });

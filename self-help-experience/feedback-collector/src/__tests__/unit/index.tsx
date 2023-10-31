@@ -686,10 +686,9 @@ describe('Feedback Collector unit tests', () => {
       );
 
       test.each`
-        url                                             | expected
-        ${'/not-a-gateway-url'}                         | ${'https://feedback-collector-api.services.atlassian.com/v2/feedback'}
-        ${'/gateway/api'}                               | ${'/gateway/api/feedback-collector-api/v2/feedback'}
-        ${'https://api-gateway.trello.com/gateway/api'} | ${'https://api-gateway.trello.com/gateway/api/feedback-collector-api/v2/feedback'}
+        url                     | expected
+        ${'/not-a-gateway-url'} | ${'https://feedback-collector-api.services.atlassian.com/v2/feedback'}
+        ${'/gateway/api'}       | ${'/gateway/api/feedback-collector-api/v2/feedback'}
       `(
         'Should call $expected when called url is $url',
         async ({ url, expected }) => {
@@ -725,11 +724,10 @@ describe('Feedback Collector unit tests', () => {
       );
 
       test.each`
-        url                                             | customFeedbackUrl        | expected
-        ${'/not-a-gateway-url'}                         | ${undefined}             | ${'https://feedback-collector-api.services.atlassian.com/v2/feedback'}
-        ${'/not-a-gateway-url'}                         | ${'custom-feedback-url'} | ${'custom-feedback-url/v2/feedback'}
-        ${'/gateway/api'}                               | ${undefined}             | ${'/gateway/api/feedback-collector-api/v2/feedback'}
-        ${'https://api-gateway.trello.com/gateway/api'} | ${undefined}             | ${'https://api-gateway.trello.com/gateway/api/feedback-collector-api/v2/feedback'}
+        url                     | customFeedbackUrl        | expected
+        ${'/not-a-gateway-url'} | ${undefined}             | ${'https://feedback-collector-api.services.atlassian.com/v2/feedback'}
+        ${'/not-a-gateway-url'} | ${'custom-feedback-url'} | ${'custom-feedback-url/v2/feedback'}
+        ${'/gateway/api'}       | ${undefined}             | ${'/gateway/api/feedback-collector-api/v2/feedback'}
       `(
         'Should correctly determine feedback url based on passed parameters',
         async ({ url, customFeedbackUrl, expected }) => {

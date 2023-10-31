@@ -1,5 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
+import { DiProvider, injectable } from 'react-magnetic-di';
 import { mocked } from 'ts-jest/utils';
 import { JsonLd } from 'json-ld-types';
 import { fireEvent, render } from '@testing-library/react';
@@ -34,6 +35,9 @@ import { useSmartCardState } from '../../../../../../state/store';
 import { extractBlockProps } from '../../../../../../extractors/block';
 import MockAtlasProject from '../../../../../../__fixtures__/atlas-project';
 import { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
+import useRelatedUrls, {
+  RelatedUrlsResponse,
+} from '../../../../../../state/hooks/use-related-urls';
 
 jest.mock('../../../../../../state/actions', () => ({
   useSmartCardActions: jest.fn(),
@@ -57,6 +61,10 @@ jest.mock('@atlaskit/link-provider', () => ({
   }),
   useFeatureFlag: jest.fn(),
 }));
+
+const mockGetRelatedUrls = jest.fn<Promise<RelatedUrlsResponse>, any[]>();
+const mockuseRelatedUrls = () => mockGetRelatedUrls;
+const injectableUseRelatedUrls = injectable(useRelatedUrls, mockuseRelatedUrls);
 
 const titleBlockProps = {
   maxLines: 2,
@@ -82,7 +90,7 @@ describe('HoverCardResolvedView', () => {
     jest.clearAllMocks();
   });
 
-  const setup = async ({
+  const setup = ({
     mockResponse = mockConfluenceResponse as JsonLdDatasourceResponse,
     cardActions = [],
   }: { mockResponse?: JsonLd.Response; cardActions?: LinkAction[] } = {}) => {
@@ -93,28 +101,32 @@ describe('HoverCardResolvedView', () => {
       datasources: (mockResponse as JsonLdDatasourceResponse).datasources,
     });
 
-    const { queryByTestId, findByTestId, findByText, findAllByTestId } = render(
-      <IntlProvider locale="en">
-        <HoverCardResolvedView
-          analytics={analyticsEvents}
-          extensionKey={mockResponse.meta.key}
-          id={'123'}
-          flexibleCardProps={{
-            cardState: cardState,
-            children: {},
-            showServerActions: true,
-            url: url,
-          }}
-          onActionClick={jest.fn()}
-          cardState={cardState}
-          url={url}
-          titleBlockProps={titleBlockProps}
-          cardActions={cardActions}
-        />
-      </IntlProvider>,
-    );
+    const { queryByTestId, findByTestId, findByText, findAllByTestId, debug } =
+      render(
+        <DiProvider use={[injectableUseRelatedUrls]}>
+          <IntlProvider locale="en">
+            <HoverCardResolvedView
+              analytics={analyticsEvents}
+              extensionKey={mockResponse.meta.key}
+              id={'123'}
+              flexibleCardProps={{
+                cardState: cardState,
+                children: {},
+                showServerActions: true,
+                url: url,
+              }}
+              onActionClick={jest.fn()}
+              cardState={cardState}
+              url={url}
+              titleBlockProps={titleBlockProps}
+              cardActions={cardActions}
+            />
+          </IntlProvider>
+          ,
+        </DiProvider>,
+      );
 
-    return { queryByTestId, findByTestId, findByText, findAllByTestId };
+    return { queryByTestId, findByTestId, findByText, findAllByTestId, debug };
   };
 
   describe('hover card blocks', () => {
@@ -140,7 +152,7 @@ describe('HoverCardResolvedView', () => {
     };
 
     it('renders hover card blocks', async () => {
-      const { findByTestId } = await setup();
+      const { findByTestId } = setup();
       jest.runAllTimers();
       const titleBlock = await findByTestId('smart-block-title-resolved-view');
       await findByTestId('smart-block-metadata-resolved-view');
@@ -157,7 +169,7 @@ describe('HoverCardResolvedView', () => {
     });
 
     it('should render preview instead of snippet when preview data is available', async () => {
-      const { findByTestId, queryByTestId } = await setup({
+      const { findByTestId, queryByTestId } = setup({
         mockResponse: mockBaseResponseWithPreview as JsonLd.Response,
       });
       jest.runAllTimers();
@@ -168,7 +180,7 @@ describe('HoverCardResolvedView', () => {
     });
 
     it('should fallback to rendering snippet if preview data is available but fails to load', async () => {
-      const { findByTestId, queryByTestId } = await setup({
+      const { findByTestId, queryByTestId } = setup({
         mockResponse: mockBaseResponseWithErrorPreview as JsonLd.Response,
       });
       jest.runAllTimers();
@@ -189,7 +201,7 @@ describe('HoverCardResolvedView', () => {
       );
       const cardActions = result.current;
 
-      const { findByTestId } = await setup({ cardActions });
+      const { findByTestId } = setup({ cardActions });
 
       await findByTestId('smart-element-group-actions');
 
@@ -210,7 +222,7 @@ describe('HoverCardResolvedView', () => {
       );
       const cardActions = result.current;
 
-      const { findByTestId } = await setup({ cardActions });
+      const { findByTestId } = setup({ cardActions });
 
       await findByTestId('smart-element-group-actions');
 
@@ -231,7 +243,7 @@ describe('HoverCardResolvedView', () => {
               appearance: CardDisplay.HoverCardPreview,
             }),
           );
-          const { findByTestId } = await setup({
+          const { findByTestId } = setup({
             cardActions: result.current,
             mockResponse: MockAtlasProject,
           });
@@ -248,7 +260,7 @@ describe('HoverCardResolvedView', () => {
               appearance: CardDisplay.HoverCardPreview,
             }),
           );
-          const { findByTestId, queryByTestId } = await setup({
+          const { findByTestId, queryByTestId } = setup({
             cardActions: result.current,
             mockResponse: MockAtlasProject,
           });
@@ -259,13 +271,30 @@ describe('HoverCardResolvedView', () => {
         },
       );
     });
+
+    describe('renders RelatedUrlsBlock', () => {
+      ffTest(
+        'platform.linking-platform.smart-card.enable-hover-card-related-urls',
+        async () => {
+          const { findByTestId } = setup();
+          await findByTestId('smart-block-related-urls-resolving-view');
+        },
+        async () => {
+          const { queryByTestId } = setup();
+          const relatedUrlsBlock = queryByTestId(
+            'smart-block-related-urls-resolving-view',
+          );
+          expect(relatedUrlsBlock).not.toBeInTheDocument();
+        },
+      );
+    });
   });
 
   describe('image preview display position - first or 3rd position, depending on the FF  ', () => {
     ffTest(
       'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
       async () => {
-        const { findByTestId } = await setup({
+        const { findByTestId } = setup({
           mockResponse: mockBaseResponseWithPreview as JsonLd.Response,
         });
         const container = await findByTestId('smart-links-container');
@@ -275,7 +304,7 @@ describe('HoverCardResolvedView', () => {
         expect(container.firstElementChild).toBe(imagePreview);
       },
       async () => {
-        const { findByTestId } = await setup({
+        const { findByTestId } = setup({
           mockResponse: mockBaseResponseWithPreview as JsonLd.Response,
         });
         const container = await findByTestId('smart-links-container');
@@ -290,7 +319,7 @@ describe('HoverCardResolvedView', () => {
 
   describe('metadata', () => {
     it('renders correctly for confluence links', async () => {
-      const { findByTestId } = await setup();
+      const { findByTestId } = setup();
       await findByTestId('authorgroup-metadata-element');
       const createdBy = await findByTestId('createdby-metadata-element');
       const commentCount = await findByTestId('commentcount-metadata-element');
@@ -302,7 +331,7 @@ describe('HoverCardResolvedView', () => {
     });
 
     it('renders correctly for jira links', async () => {
-      const { findByTestId } = await setup({
+      const { findByTestId } = setup({
         mockResponse: mockJiraResponse as JsonLd.Response,
       });
       await findByTestId('authorgroup-metadata-element');
@@ -314,7 +343,7 @@ describe('HoverCardResolvedView', () => {
     });
 
     it('renders correctly for other providers', async () => {
-      const { findByTestId } = await setup({
+      const { findByTestId } = setup({
         mockResponse: mockIframelyResponse as JsonLd.Response,
       });
       const titleBlock = await findByTestId('smart-block-title-resolved-view');
@@ -330,7 +359,7 @@ describe('HoverCardResolvedView', () => {
       ffTest(
         'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
         async () => {
-          const { findAllByTestId, findByTestId } = await setup({
+          const { findAllByTestId, findByTestId } = setup({
             mockResponse: mockConfluenceResponse as JsonLd.Response,
           });
           const metadataElements = await findAllByTestId(
@@ -349,7 +378,7 @@ describe('HoverCardResolvedView', () => {
           );
         },
         async () => {
-          const { findAllByTestId, findByTestId } = await setup({
+          const { findAllByTestId, findByTestId } = setup({
             mockResponse: mockConfluenceResponse as JsonLd.Response,
           });
           const metadataElements = await findAllByTestId(
@@ -397,7 +426,7 @@ describe('HoverCardResolvedView', () => {
     });
 
     it('should fire render success event when hover card is rendered', async () => {
-      const { findByTestId } = await setup();
+      const { findByTestId } = setup();
       await findByTestId('smart-block-title-resolved-view');
 
       expect(dispatchAnalytics).toHaveBeenCalledWith(
@@ -406,7 +435,7 @@ describe('HoverCardResolvedView', () => {
     });
 
     it('should fire render success event with canBeDatasource = true when hover card is rendered and state has datasources data', async () => {
-      const { findByTestId } = await setup({
+      const { findByTestId } = setup({
         mockResponse: mockJiraResponseWithDatasources as JsonLd.Response,
       });
       await findByTestId('smart-block-title-resolved-view');

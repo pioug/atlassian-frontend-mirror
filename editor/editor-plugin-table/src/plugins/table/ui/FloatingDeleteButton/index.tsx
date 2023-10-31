@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
@@ -32,7 +33,6 @@ import {
   getRowHeights,
 } from '../../utils';
 import { stickyRowZIndex } from '../consts';
-import tableMessages from '../messages';
 
 import DeleteButton from './DeleteButton';
 import getPopupOptions from './getPopUpOptions';
@@ -314,8 +314,8 @@ class FloatingDeleteButton extends Component<Props, State> {
       <DeleteButton
         removeLabel={
           selectionType === 'column'
-            ? tableMessages.removeColumns
-            : tableMessages.removeRows
+            ? messages.removeColumns
+            : messages.removeRows
         }
         onClick={this.handleClick}
         onMouseEnter={this.handleMouseEnter}

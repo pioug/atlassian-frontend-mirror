@@ -1,6 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type {
+  DocBuilder,
+  FloatingToolbarConfig,
+  FloatingToolbarItem,
+} from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import type {
@@ -12,14 +16,10 @@ import { createIntl } from 'react-intl-next';
 import { buildToolbar } from '../../toolbar';
 import { toolbarMessages } from '../../toolbar-messages';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type {
-  FloatingToolbarConfig,
-  FloatingToolbarItem,
-} from '@atlaskit/editor-common/types';
 import type { Command } from '../../../../types';
 import commonMessages from '../../../../messages';
 import { buildLayoutForWidths } from './_utils';
-import { LAYOUT_TYPE } from '../../../analytics/types/node-events';
+import { LAYOUT_TYPE } from '@atlaskit/editor-common/analytics';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   getToolbarItems,

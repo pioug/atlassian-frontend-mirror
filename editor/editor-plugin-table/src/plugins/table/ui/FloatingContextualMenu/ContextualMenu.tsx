@@ -3,7 +3,7 @@ import { Component } from 'react';
 
 import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
-import { defineMessages, injectIntl } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 type DropdownItem = MenuItem & {
   value: {
@@ -20,6 +20,7 @@ import {
   backspace,
   tooltip,
 } from '@atlaskit/editor-common/keymaps';
+import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import {
@@ -68,53 +69,8 @@ import {
   getSelectedRowIndexes,
 } from '../../utils';
 import { contextualMenuDropdownWidth } from '../consts';
-import tableMessages from '../messages';
 
 import { cellColourPreviewStyles } from './styles';
-
-export const messages = defineMessages({
-  cellBackground: {
-    id: 'fabric.editor.cellBackground',
-    defaultMessage: 'Cell background',
-    description: 'Change the background color of a table cell.',
-  },
-  mergeCells: {
-    id: 'fabric.editor.mergeCells',
-    defaultMessage: 'Merge cells',
-    description: 'Merge tables cells together.',
-  },
-  splitCell: {
-    id: 'fabric.editor.splitCell',
-    defaultMessage: 'Split cell',
-    description: 'Split a merged table cell.',
-  },
-  clearCells: {
-    id: 'fabric.editor.clearCells',
-    defaultMessage: 'Clear {0, plural, one {cell} other {cells}}',
-    description:
-      'Clears the contents of the selected cells (this does not delete the cells themselves).',
-  },
-  sortColumnASC: {
-    id: 'fabric.editor.sortColumnASC',
-    defaultMessage: 'Sort column A → Z',
-    description: 'Sort column in ascending order',
-  },
-  sortColumnDESC: {
-    id: 'fabric.editor.sortColumnDESC',
-    defaultMessage: 'Sort column Z → A',
-    description: 'Sort column in descending order',
-  },
-  canNotSortTable: {
-    id: 'fabric.editor.canNotSortTable',
-    defaultMessage: `⚠️ You can't sort a table with merged cells`,
-    description: `Split your cells to enable this feature`,
-  },
-  distributeColumns: {
-    id: 'fabric.editor.distributeColumns',
-    defaultMessage: `Distribute columns`,
-    description: `Distribute widths between selected columns`,
-  },
-});
 
 export interface Props {
   editorView: EditorView;
@@ -257,13 +213,13 @@ export class ContextualMenu extends Component<
     }
 
     items.push({
-      content: formatMessage(tableMessages.insertColumn),
+      content: formatMessage(messages.insertColumn),
       value: { name: 'insert_column' },
       elemAfter: <div css={shortcutStyle}>{tooltip(addColumnAfter)}</div>,
     });
 
     items.push({
-      content: formatMessage(tableMessages.insertRow),
+      content: formatMessage(messages.insertRow),
       value: { name: 'insert_row' },
       elemAfter: <div css={shortcutStyle}>{tooltip(addRowAfter)}</div>,
     });
@@ -273,14 +229,14 @@ export class ContextualMenu extends Component<
     const noOfRows = bottom - top;
 
     items.push({
-      content: formatMessage(tableMessages.removeColumns, {
+      content: formatMessage(messages.removeColumns, {
         0: noOfColumns,
       }),
       value: { name: 'delete_column' },
     });
 
     items.push({
-      content: formatMessage(tableMessages.removeRows, {
+      content: formatMessage(messages.removeRows, {
         0: noOfRows,
       }),
       value: { name: 'delete_row' },

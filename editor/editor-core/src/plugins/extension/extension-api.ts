@@ -25,15 +25,15 @@ import {
   getNodeTypesReferenced,
   getSelectedExtension,
 } from './utils';
-import type { AnalyticsEventPayload } from '../analytics';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
-  addAnalytics,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
+import { addAnalytics } from '../analytics';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';

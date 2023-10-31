@@ -122,6 +122,7 @@ export type AnalyticsPlugin = NextEditorPlugin<
     sharedState: {
       createAnalyticsEvent: CreateUIAnalyticsEvent | null;
       attachAnalyticsEvent: CreateAttachPayloadIntoTransaction | null;
+      performanceTracking: PerformanceTracking | undefined;
     };
     dependencies: [FeatureFlagsPlugin];
     actions: EditorAnalyticsAPI;
@@ -143,15 +144,17 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
         return {
           createAnalyticsEvent: null,
           attachAnalyticsEvent: null,
+          performanceTracking: undefined,
         };
       }
-      const { createAnalyticsEvent } =
+      const { createAnalyticsEvent, performanceTracking } =
         analyticsPluginKey.getState(editorState) ?? {};
       return {
         createAnalyticsEvent,
         attachAnalyticsEvent: createAttachPayloadIntoTransaction(
           editorState.selection,
         ),
+        performanceTracking,
       };
     },
 

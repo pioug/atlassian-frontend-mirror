@@ -1028,7 +1028,9 @@ export class PopupSelect<
             MenuListProps<Option, IsMulti, GroupType<Option>>
           >
         | undefined;
-      menuPortal?: StylesConfigFunction<PortalStyleArgs> | undefined;
+      menuPortal?:
+        | StylesConfigFunction<PortalStyleArgs>
+        | undefined /** @deprecated Use isInvalid instead. The state of validation if used in a form */;
       multiValue?:
         | StylesConfigFunction<
             MultiValueProps<Option, IsMulti, GroupType<Option>>
@@ -1047,11 +1049,6 @@ export class PopupSelect<
       noOptionsMessage?:
         | StylesConfigFunction<NoticeProps<Option, IsMulti, GroupType<Option>>>
         | undefined;
-      /**
-       * TODO: This type should be cleaned up with `platform.design-system-team.popup-select-render-perf_i0s6m`.
-       *  - If discarded, revert to `focusLockEnabled: boolean`
-       *  - If kept, delete this type.
-       */
       option?:
         | StylesConfigFunction<
             OptionProps_2<Option, IsMulti, GroupType<Option>>

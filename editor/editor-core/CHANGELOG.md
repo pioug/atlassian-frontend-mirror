@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 189.1.7
+
+### Patch Changes
+
+- [#42426](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42426) [`fb9b3dea8f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb9b3dea8f8) - NO-ISSUE dependency clean-up in editor-core
+- [#42431](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42431) [`b6fd3da758d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6fd3da758d) - Remove some unused barrel files.
+- Updated dependencies
+
+## 189.1.6
+
+### Patch Changes
+
+- [#42416](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42416) [`d4e57bf9189`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4e57bf9189) - Removing unused dependencies in editor-core.
+
+## 189.1.5
+
+### Patch Changes
+
+- [#42373](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42373) [`f607a815ffc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f607a815ffc) - Decoupled deprecated analytics plugin imports from remaining plugins except for collab-edit, macro, find-replace, extension.
+- Updated dependencies
+
 ## 189.1.3
 
 ### Patch Changes

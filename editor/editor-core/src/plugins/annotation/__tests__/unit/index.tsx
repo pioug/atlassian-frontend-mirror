@@ -40,10 +40,10 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
   CONTENT_COMPONENT,
+  RESOLVE_METHOD,
 } from '@atlaskit/editor-common/analytics';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import { RESOLVE_METHOD } from '../../../analytics/types/inline-comment-events';
 import * as commands from '../../commands/index';
 import { inlineCommentPluginKey, getPluginState } from '../../utils';
 import { getAnnotationViewClassname } from '../../nodeviews';

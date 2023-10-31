@@ -29,8 +29,8 @@ import {
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
-  addAnalytics,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
+import { addAnalytics } from '../analytics';
 import type {
   ExtensionType,
   SelectionJson,
@@ -160,7 +160,7 @@ export const resolveMacro = (
 // gets the macroProvider from the state and tries to autoConvert a given text
 export const runMacroAutoConvert = (
   state: EditorState,
-  text: String,
+  text: string,
 ): PmNode | null => {
   const macroPluginState = pluginKey.getState(state);
 

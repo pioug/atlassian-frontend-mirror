@@ -1,5 +1,30 @@
 # @atlaskit/editor-mobile-bridge
 
+## 189.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.1.6
+
+### Patch Changes
+
+- [#42416](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42416) [`d4e57bf9189`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4e57bf9189) - Removing unused dependencies in editor-core.
+- Updated dependencies
+
+## 189.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 189.1.3
 
 ### Patch Changes

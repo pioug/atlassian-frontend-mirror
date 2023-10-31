@@ -23,7 +23,7 @@ export type { LinkItemProps } from '@atlaskit/menu';
  */
 const LinkItem = forwardRef<HTMLElement, LinkItemProps>(
   // Type needed on props to extract types with extract react types.
-  ({ cssFn, ...rest }: LinkItemProps, ref) => {
+  ({ cssFn, href, ...rest }: LinkItemProps, ref) => {
     const { shouldRender } = useShouldNestedElementRender();
     if (!shouldRender) {
       return null;
@@ -31,7 +31,7 @@ const LinkItem = forwardRef<HTMLElement, LinkItemProps>(
 
     const cssOverride = overrideStyleFunction(baseSideNavItemStyle, cssFn);
     // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides
-    return <Link ref={ref} cssFn={cssOverride} {...rest} />;
+    return <Link ref={ref} cssFn={cssOverride} href={href} {...rest} />;
   },
 );
 

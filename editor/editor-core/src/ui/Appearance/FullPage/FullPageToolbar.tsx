@@ -26,8 +26,8 @@ import type {
   PrimaryToolbarComponents,
 } from '../../../types';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
-import type { DispatchAnalyticsEvent } from '../../../plugins/analytics';
-import type { EventDispatcher } from '../../../event-dispatcher';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { EditorActions } from '../../..';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
 import type { FeatureFlags } from '../../../types/feature-flags';

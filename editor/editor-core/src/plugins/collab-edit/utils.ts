@@ -11,8 +11,12 @@ import * as themeColors from '@atlaskit/theme/colors';
 import { hexToRgba } from '@atlaskit/adf-schema';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/utils';
 import { addAnalytics } from '../analytics/utils';
-import type { AnalyticsEventPayload } from '../analytics/types';
-import { EVENT_TYPE, ACTION, ACTION_SUBJECT } from '../analytics/types';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import {
+  EVENT_TYPE,
+  ACTION,
+  ACTION_SUBJECT,
+} from '@atlaskit/editor-common/analytics';
 
 import type {
   CollabParticipant,

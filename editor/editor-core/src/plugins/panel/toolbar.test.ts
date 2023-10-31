@@ -25,7 +25,7 @@ import panelPlugin from '.';
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import { PanelType } from '@atlaskit/adf-schema';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { AnalyticsEventPayload } from '../analytics';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,

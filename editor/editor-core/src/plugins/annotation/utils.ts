@@ -35,7 +35,7 @@ import {
   EVENT_TYPE,
   ACTION,
 } from '@atlaskit/editor-common/analytics';
-import type { AnalyticsEventPayloadCallback } from '../analytics/utils';
+import type { AnalyticsEventPayloadCallback } from '@atlaskit/editor-common/analytics';
 import type {
   INPUT_METHOD,
   AnnotationAEPAttributes,

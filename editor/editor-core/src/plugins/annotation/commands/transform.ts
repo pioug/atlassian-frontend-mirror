@@ -4,7 +4,6 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
@@ -12,13 +11,16 @@ import {
   ACTION,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type { AnalyticsEventPayload } from '../../analytics/types';
+import type {
+  AnalyticsEventPayload,
+  RESOLVE_METHOD,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import {
   getSelectionPositions,
   getPluginState,
   getDraftCommandAnalyticsPayload,
 } from '../utils';
-import type { RESOLVE_METHOD } from '../../analytics/types/inline-comment-events';
 import { applyMarkOnRange } from '@atlaskit/editor-common/mark';
 
 const addAnnotationMark =

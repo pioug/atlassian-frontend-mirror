@@ -21,7 +21,7 @@ import { liftTarget } from '@atlaskit/editor-prosemirror/transform';
 import { uuid } from '@atlaskit/adf-schema';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { Command } from '../../types';
-import type { AnalyticsEventPayload } from '../analytics';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,

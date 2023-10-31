@@ -100,6 +100,7 @@ export interface CreateFormProps<FormData> {
 // @public
 export type CreatePayload = {
   url: string;
+  ari: string | undefined;
   objectId: string;
   objectType: string;
   data?: Record<string, unknown>;

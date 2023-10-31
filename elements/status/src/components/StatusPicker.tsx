@@ -25,6 +25,8 @@ export interface Props {
 }
 
 class Picker extends PureComponent<Props & WrappedComponentProps, any> {
+  private inputRef: HTMLInputElement | undefined;
+  private autofocusTimeout: NodeJS.Timeout | undefined;
   private fieldTextWrapperKey = Math.random().toString();
   private colorPaletteKey = Math.random().toString();
 
@@ -74,13 +76,33 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
   };
 
   private handleInputRef = (ref?: HTMLInputElement) => {
+    this.inputRef = ref;
     if (ref && this.props.autoFocus) {
-      // Defer to prevent editor scrolling to top (See FS-3227, also ED-2992)
-      setTimeout(() => {
-        ref.focus();
-      }, 50);
+      this.focusInput();
     }
   };
+
+  private focusInput = () => {
+    if (!this.inputRef) {
+      return;
+    }
+    // Defer to prevent editor scrolling to top
+    this.autofocusTimeout = setTimeout(() => {
+      this.inputRef?.focus();
+    });
+  };
+
+  componentDidUpdate() {
+    if (this.inputRef && this.props.autoFocus) {
+      this.focusInput();
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.autofocusTimeout !== undefined) {
+      clearTimeout(this.autofocusTimeout);
+    }
+  }
 }
 
 export const StatusPicker = injectIntl(Picker);

@@ -10,6 +10,7 @@ import {
   addRowAfter,
   ToolTipContent,
 } from '@atlaskit/editor-common/keymaps';
+import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { tableMarginTop } from '@atlaskit/editor-common/styles';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
@@ -18,7 +19,6 @@ import Tooltip from '@atlaskit/tooltip';
 import type { TableDirection } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 import { tableToolbarSize } from '../consts';
-import tableMessages from '../messages';
 
 export interface ButtonProps {
   type: TableDirection;
@@ -75,7 +75,7 @@ const getInsertLineWidth = (
 };
 
 const tooltipMessageByType = (type: TableDirection) => {
-  return type === 'row' ? tableMessages.insertRow : tableMessages.insertColumn;
+  return type === 'row' ? messages.insertRow : messages.insertColumn;
 };
 
 export const InsertButtonForDragAndDrop = ({

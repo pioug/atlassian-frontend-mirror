@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-create",
-  "version": "1.1.2",
+  "version": "1.4.0",
   "description": "The driver component of meta creation flow",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -41,6 +41,8 @@
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/intl-messages-provider": "^1.0.0",
     "@atlaskit/modal-dialog": "^12.8.0",
+    "@atlaskit/platform-feature-flags": "^0.2.1",
+    "@atlaskit/primitives": "^1.6.0",
     "@atlaskit/select": "^16.7.0",
     "@atlaskit/spinner": "^15.6.0",
     "@atlaskit/textfield": "^5.6.0",
@@ -60,6 +62,7 @@
     "@atlaskit/link-test-helpers": "^6.2.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "@types/debounce-promise": "^3.1.2",
@@ -107,5 +110,13 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
+  "platform-feature-flags": {
+    "platform.linking-platform.link-create.enable-edit": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.link-create.confirm-dismiss-dialog": {
+      "type": "boolean"
+    }
+  }
 }

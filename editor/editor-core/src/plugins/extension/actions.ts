@@ -31,8 +31,8 @@ import {
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
-  addAnalytics,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
+import { addAnalytics } from '../analytics';
 import type {
   ExtensionType,
   SelectionJson,

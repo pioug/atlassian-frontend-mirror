@@ -54,6 +54,9 @@
       "path": "../popper/tsconfig.app.json"
     },
     {
+      "path": "../primitives/tsconfig.app.json"
+    },
+    {
       "path": "../section-message/tsconfig.app.json"
     },
     {

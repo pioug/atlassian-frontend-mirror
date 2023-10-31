@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
+import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
   findTable,
@@ -13,7 +14,6 @@ import {
 
 import { clearHoverSelection, hoverTable } from '../../../commands';
 import { TableCssClassName as ClassName } from '../../../types';
-import messages from '../../messages';
 
 import type { CornerControlProps } from './types';
 

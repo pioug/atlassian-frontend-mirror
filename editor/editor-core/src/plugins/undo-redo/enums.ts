@@ -1,4 +1,4 @@
-import { INPUT_METHOD } from '../analytics/types/enums';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 
 export enum InputSource {
   TOOLBAR = INPUT_METHOD.TOOLBAR,

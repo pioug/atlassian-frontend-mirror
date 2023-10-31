@@ -47,7 +47,7 @@ export const getLinkItemImportName = (scope: Scope.Scope): string | null => {
   }
 };
 
-const invalidHrefValues = ['', '#'];
+const invalidHrefValues = ['', '#', null, undefined];
 
 export const hrefHasInvalidValue = (
   scope: Scope.Scope,
@@ -81,12 +81,21 @@ export const hrefHasInvalidValue = (
       // invalid because we can't know what the value actually is.
       if (variable) {
         const defNode = variable.defs[0].node;
-        // If it is an imported variable, a local variable with an valid value,
-        // or an argument in a function, it should pass.
+        // Should be accepted as a valid `href` for
+        // * imported variables
+        // * local variables with an valid value
+        // * local variables defined via destructuring
+        // * arguments in a function declaration
+        // * arguments in an anonymous function
         if (
           defNode?.imported ||
           (defNode?.init?.value &&
             !invalidHrefValues.includes(defNode?.init?.value)) ||
+          (isNodeOfType(defNode, 'VariableDeclarator') &&
+            defNode?.init &&
+            isNodeOfType(defNode.init, 'Identifier') &&
+            isNodeOfType(defNode.id, 'ObjectPattern')) ||
+          isNodeOfType(defNode, 'FunctionDeclaration') ||
           isNodeOfType(defNode, 'ArrowFunctionExpression')
         ) {
           return false;

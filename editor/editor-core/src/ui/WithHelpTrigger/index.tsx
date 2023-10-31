@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import type { AnalyticsDispatch } from '../../plugins/analytics';
+import type { AnalyticsDispatch } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-} from '../../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
 import { createDispatch } from '../../event-dispatcher';
 import { analyticsEventKey } from '../../plugins/analytics/consts';
 import { deprecatedOpenHelpCommand } from '@atlaskit/editor-plugin-help-dialog';

@@ -36,6 +36,7 @@ function MockPluginForm() {
         objectId: 'new-object-id',
         objectType: 'object-type',
         data: {},
+        ari: 'example-ari',
       });
     }
   };

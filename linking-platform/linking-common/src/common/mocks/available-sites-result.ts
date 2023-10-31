@@ -228,3 +228,24 @@ export const mockedAvailableSitesResult = {
     },
   ],
 };
+
+/**
+ * Mock availableSites response for a specific gatewayBaseUrl
+ */
+export const mockedAvailableSitesResultWithGatewayBaseUrl = {
+  sites: [
+    ...mockedAvailableSitesResult.sites,
+    {
+      cloudId: 'cloudid-for-custom-baseurl',
+      products: [
+        'confluence.ondemand',
+        'jira-software.ondemand',
+        'jira-servicedesk.ondemand',
+      ],
+      url: 'https://custom-domain-for-custom-baseurl.jira-dev.com',
+      displayName: 'custom-domain-for-custom-baseurl',
+      avatarUrl: icon.star.base64,
+      isVertigo: true,
+    },
+  ],
+};

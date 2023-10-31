@@ -7,13 +7,13 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import { useIntl } from 'react-intl-next';
 import { avatarGroupMessages } from '../messages';
-import type { DispatchAnalyticsEvent } from '../../analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 const toolbarButtonWrapper = css`

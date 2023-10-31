@@ -36,8 +36,8 @@ describe('getResolverUrl', () => {
   });
 
   it('should use custom baseUrl when provided', () => {
-    expect(
-      getResolverUrl('prod', 'https://api-gateway.trellis.coffee/gateway/api'),
-    ).toBe('https://api-gateway.trellis.coffee/gateway/api/object-resolver');
+    expect(getResolverUrl('prod', 'https://trellis.coffee/gateway/api')).toBe(
+      'https://trellis.coffee/gateway/api/object-resolver',
+    );
   });
 });

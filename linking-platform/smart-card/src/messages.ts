@@ -113,7 +113,11 @@ export type MessageKey =
   | 'retry'
   | 'save'
   | 'unlink_account'
-  | RequestAccessMessageKey;
+  | RequestAccessMessageKey
+  | 'related_work_items_not_found'
+  | 'last_mentioned_in'
+  | 'related'
+  | 'generic_error_message';
 
 type Messages = {
   [K in MessageKey]: MessageDescriptor;
@@ -722,5 +726,27 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Contact your admin to request access to {hostname}.',
     description:
       'Informs the user that they must contact the site administrator for access.',
+  },
+  related_work_items_not_found: {
+    id: 'fabric.linking.related_work_items_not_found',
+    defaultMessage: 'This link is not mentioned anywhere else.',
+    description:
+      'Informs the user that there are no related resources for a given url',
+  },
+  last_mentioned_in: {
+    id: 'fabric.linking.last_mentioned_in',
+    defaultMessage: 'Last mentioned in',
+    description:
+      'Informs the user about where the resource was last mentioned in',
+  },
+  related: {
+    id: 'fabric.linking.related',
+    defaultMessage: 'Related',
+    description: 'Informs the user about related resources',
+  },
+  generic_error_message: {
+    id: 'fabric.linking.generic_error_message',
+    defaultMessage: 'An error occurred',
+    description: 'A generic error message to the user',
   },
 });

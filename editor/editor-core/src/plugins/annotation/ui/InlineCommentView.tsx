@@ -25,14 +25,14 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import type {
   AnalyticsEventPayload,
   DispatchAnalyticsEvent,
-} from '../../analytics/types';
-import { CONTENT_COMPONENT } from '../../analytics/types';
-import type { AnnotationAEP } from '../../analytics/types/inline-comment-events';
-import { RESOLVE_METHOD } from '../../analytics/types/inline-comment-events';
+} from '@atlaskit/editor-common/analytics';
+import { CONTENT_COMPONENT } from '@atlaskit/editor-common/analytics';
+import type { AnnotationAEP } from '@atlaskit/editor-common/analytics';
+import { RESOLVE_METHOD } from '@atlaskit/editor-common/analytics';
 
 const findPosForDOM = (sel: Selection) => {
   const { $from, from } = sel;

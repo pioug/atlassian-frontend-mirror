@@ -14,8 +14,8 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   ACTION_SUBJECT,
-  withAnalytics,
-} from '../../../../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
+import { withAnalytics } from '../../../../plugins/analytics';
 import { createTable } from '@atlaskit/editor-plugin-table/commands';
 
 /**

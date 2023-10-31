@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.13.0
+
+### Minor Changes
+
+- [#42417](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42417) [`ce50b40c45b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce50b40c45b) - EDM-8199 Fix gatewaybaseurl in linkCreate
+
 ## 4.12.0
 
 ### Minor Changes

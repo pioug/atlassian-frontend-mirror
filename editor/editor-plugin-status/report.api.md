@@ -76,6 +76,7 @@ interface StatusPluginOptions {
 export type StatusState = {
   isNew: boolean;
   showStatusPickerAt: null | number;
+  focusStatusInput?: boolean;
 };
 
 // @public (undocumented)

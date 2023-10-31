@@ -21,7 +21,6 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { RESOLVE_METHOD } from './../../../analytics/types/inline-comment-events';
 import { getPluginState, inlineCommentPluginKey } from '../../utils';
 import {
   setInlineCommentDraftState,
@@ -35,7 +34,8 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../../../analytics/types/enums';
+  RESOLVE_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import * as pluginFactory from '../../pm-plugins/plugin-factory';

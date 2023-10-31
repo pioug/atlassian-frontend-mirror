@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.18
+
+### Patch Changes
+
+- [#42287](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42287) [`02bc2130172`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02bc2130172) - [ux] Moves intl messages from edito-plugin-table to editor-common to fix table plugin translations
+
 ## 5.3.17
 
 ### Patch Changes

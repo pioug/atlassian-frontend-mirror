@@ -10,8 +10,10 @@ import type {
   Selection,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import type { PasteSource } from '../../analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type {
+  PasteSource,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION_SUBJECT,
   EVENT_TYPE,

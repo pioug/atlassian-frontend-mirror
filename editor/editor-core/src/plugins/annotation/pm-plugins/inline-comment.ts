@@ -1,4 +1,4 @@
-import { RESOLVE_METHOD } from './../../analytics/types/inline-comment-events';
+import { RESOLVE_METHOD } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

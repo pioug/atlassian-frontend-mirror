@@ -1,5 +1,23 @@
 # @atlaskit/link-create
 
+## 1.4.0
+
+### Minor Changes
+
+- [#42119](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42119) [`fbb3d5ea801`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbb3d5ea801) - Displays a confirm dismiss dialog when user clicks cancel and made changes to form
+
+## 1.3.0
+
+### Minor Changes
+
+- [#41722](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41722) [`0bcdc0cc988`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bcdc0cc988) - EDM-8055 Add ARI to link create callback
+
+## 1.2.0
+
+### Minor Changes
+
+- [#42356](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42356) [`db060471faf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db060471faf) - EDM-7905: an internal refactor for a new experimental feature under a feature flag platform.linking-platform.link-create.enable-edit
+
 ## 1.1.2
 
 ### Patch Changes

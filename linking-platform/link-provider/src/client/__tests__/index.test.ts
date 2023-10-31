@@ -100,14 +100,14 @@ describe('Smart Card: Client', () => {
     mockRequest.mockImplementationOnce(async () => [successfulResponse]);
     const client = new SmartCardClient(
       'stg',
-      'https://api-gateway.trellis.coffee/gateway/api',
+      'https://trellis.coffee/gateway/api',
     );
     const resourceUrl = 'https://i.love.cheese';
     const response = await client.fetchData(resourceUrl);
     expect(mockRequest).toBeCalled();
     expect(mockRequest).toBeCalledWith(
       'post',
-      'https://api-gateway.trellis.coffee/gateway/api/object-resolver/resolve/batch',
+      'https://trellis.coffee/gateway/api/object-resolver/resolve/batch',
       [
         {
           resourceUrl,
@@ -118,7 +118,7 @@ describe('Smart Card: Client', () => {
   });
 
   it('should export baseUrlOverride and envKey for consumers to use to construct custom URLs', async () => {
-    const baseUrlOverride = 'https://api-gateway.trellis.coffee/gateway/api';
+    const baseUrlOverride = 'https://trellis.coffee/gateway/api';
     const envKey = 'stg';
     const client = new SmartCardClient(envKey, baseUrlOverride);
     expect(client.baseUrlOverride).toEqual(baseUrlOverride);

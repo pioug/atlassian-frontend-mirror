@@ -14,7 +14,6 @@ import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p, indentation } from '@atlaskit/editor-test-helpers/doc-builder';
 import { listMessages } from '@atlaskit/editor-common/messages';
 import { basePlugin } from '@atlaskit/editor-plugin-base';
-import deprecatedAnalyticsPlugin from '../../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import toolbarListsIndentationPlugin from '../../../';
 import indentationPlugin from '../../../../indentation';
@@ -57,7 +56,6 @@ describe('ToolbarListsIndentation', () => {
         .add([featureFlagsPlugin, {}])
         .add(basePlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(textFormattingPlugin)
         .add(listPlugin)
         .add(blockTypePlugin)
@@ -80,7 +78,6 @@ describe('ToolbarListsIndentation', () => {
         .add(basePlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(mockAnalyticsPlugin)
-        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(textFormattingPlugin)
         .add(listPlugin)
         .add(blockTypePlugin)

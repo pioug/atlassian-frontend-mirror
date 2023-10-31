@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 2.11.0
+
+### Minor Changes
+
+- [#42258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42258) [`b75e1360bb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b75e1360bb3) - remove requirement to enable whiteboard features: delete and share
+
 ## 2.10.0
 
 ### Minor Changes

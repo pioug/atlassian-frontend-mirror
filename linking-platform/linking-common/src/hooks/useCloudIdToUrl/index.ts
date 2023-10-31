@@ -1,8 +1,8 @@
 import { useAvailableSites } from '../useAvailableSites';
 import { AvailableSite } from '../useAvailableSites/types';
 
-export const useCloudIdToUrl = (cloudId: string) => {
-  const { data, loading, error } = useAvailableSites();
+export const useCloudIdToUrl = (cloudId: string, gatewayBaseUrl?: string) => {
+  const { data, loading, error } = useAvailableSites({ gatewayBaseUrl });
 
   const filterData = data.filter(
     (site: AvailableSite) => site.cloudId === cloudId,

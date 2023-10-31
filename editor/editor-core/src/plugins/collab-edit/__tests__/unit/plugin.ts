@@ -15,7 +15,11 @@ import {
 import collabEditPlugin from '../../';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../analytics';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';

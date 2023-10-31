@@ -19,6 +19,10 @@ export interface Site {
 
 export type AvailableSitesRequest = {
   products: AvailableSitesProductType[];
+  /**
+   * Set the base url for network requests to the API gateway
+   */
+  gatewayBaseUrl?: string;
 };
 
 export interface AvailableSitesResponse {

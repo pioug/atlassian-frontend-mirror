@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-status
 
+## 0.2.0
+
+### Minor Changes
+
+- [#42325](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42325) [`58f1fd91d09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58f1fd91d09) - ED-20512 Set Focus on status input field when tab is pressed
+
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.1
 
 ### Patch Changes

@@ -14,8 +14,8 @@ import {
 } from './commands-with-analytics';
 import { blur, toggleMatchCase } from './commands';
 import FindReplaceToolbarButton from './ui/FindReplaceToolbarButton';
-import type { DispatchAnalyticsEvent } from '../analytics';
-import { TRIGGER_METHOD } from '../analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export type FindReplaceToolbarButtonWithStateProps = {

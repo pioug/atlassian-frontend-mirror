@@ -25,7 +25,7 @@ import {
   ACTION,
   INPUT_METHOD,
   ACTION_SUBJECT_ID,
-} from '../../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';

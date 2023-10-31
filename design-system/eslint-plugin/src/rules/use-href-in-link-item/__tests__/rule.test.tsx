@@ -36,7 +36,32 @@ import { url } from 'another-package';
 
 <LinkItem href={url}>Zombo</LinkItem>
   `,
+    // Should not trip if variable is destructured
+    `
+import { LinkItem } from '@atlaskit/menu';
+
+const Component = (props) => {
+  const { url } = props;
+  return <LinkItem href={url}>Zombo</LinkItem>;
+}
+  `,
+    // This is way too much of a pain in the ass to try and resolve, so we're
+    // leaving this amount of complexity up to the developer to manage.
+    `
+import { LinkItem } from '@atlaskit/menu';
+
+const obj = { url: undefined };
+const { url } = obj;
+<LinkItem href={url}>Zombo</LinkItem>
+    `,
     // Should not trip if variable is defined as a prop
+    `
+import { LinkItem } from '@atlaskit/menu';
+
+function Component ({ url }) {
+  return <LinkItem href={url}>Zombo</LinkItem>;
+}
+  `,
     `
 import { LinkItem } from '@atlaskit/menu';
 

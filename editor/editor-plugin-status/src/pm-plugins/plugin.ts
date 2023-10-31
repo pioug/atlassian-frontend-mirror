@@ -29,6 +29,7 @@ const createPlugin = (
       init: () => ({
         isNew: false,
         showStatusPickerAt: null,
+        focusStatusInput: false,
       }),
       apply(tr, state: StatusState, oldEditorState) {
         const meta = tr.getMeta(pluginKey);
@@ -76,6 +77,7 @@ const createPlugin = (
               ...state,
               isNew: false,
               showStatusPickerAt,
+              focusStatusInput: false,
             };
             pmPluginFactoryParams.dispatch(pluginKey, newState);
             return newState;

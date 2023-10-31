@@ -1,10 +1,10 @@
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
-import type { PaletteColor } from '@atlaskit/editor-core/src/ui/ColorPalette/Palettes/type';
+import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import type { StatusType } from '@atlaskit/editor-plugin-status';
 import {
   lightModeStatusColorPalette,
   darkModeStatusColorPalette,
-} from '@atlaskit/editor-core/src/ui/ColorPalette/Palettes/statusColorPalette';
+} from '@atlaskit/editor-common/ui-color';
 import { statusMessages } from '@atlaskit/editor-core/src/messages';
 import messages from '@atlaskit/editor-common/messages';
 import type WebBridgeImpl from './native-to-web';

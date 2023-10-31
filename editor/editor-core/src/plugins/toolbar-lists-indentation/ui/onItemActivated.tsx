@@ -8,7 +8,7 @@ import {
   getIndentCommand as indentTaskList,
   getUnindentCommand as outdentTaskList,
 } from '../../tasks-and-decisions/pm-plugins/keymaps';
-import { INPUT_METHOD } from '../../analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 
 import { pluginKey as indentationButtonsPluginKey } from '../pm-plugins/indentation-buttons';
 

@@ -82,8 +82,6 @@ import {
   handlePastePanelOrDecisionIntoListWithAnalytics,
   handlePasteNonNestableBlockNodesIntoListWithAnalytics,
 } from './analytics';
-// TODO: ED-20519 It requires full analytics extraction to use the plugin injection API
-import { analyticsPluginKey } from '../../analytics';
 import { isInsideBlockQuote, insideTable, measurements } from '../../../utils';
 import { upgradeTextToLists, splitParagraphs } from '../commands';
 // TODO: ED-20519 It requires annotation extraction to use the plugin injection API
@@ -240,7 +238,8 @@ export function createPlugin(
         }
 
         const { state } = view;
-        const analyticsPlugin = analyticsPluginKey.getState(state);
+        const analyticsPlugin =
+          pluginInjectionApi?.analytics?.sharedState?.currentState();
         const pasteTrackingEnabled =
           analyticsPlugin?.performanceTracking?.pasteTracking?.enabled;
 

@@ -111,6 +111,7 @@ const baseStatusPlugin: StatusPlugin = ({ config: options, api }) => ({
           return (
             <StatusPicker
               isNew={statusState.isNew}
+              focusStatusInput={statusState.focusStatusInput}
               target={target}
               defaultText={text}
               defaultColor={color}

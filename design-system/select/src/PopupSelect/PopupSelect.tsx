@@ -17,7 +17,7 @@ import {
 } from 'react-popper';
 import { Placement } from '@popperjs/core';
 import NodeResolver from 'react-node-resolver';
-import shallowEqualObjects from 'shallow-equal/objects';
+import { shallowEqualObjects } from 'shallow-equal';
 
 import { N80 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

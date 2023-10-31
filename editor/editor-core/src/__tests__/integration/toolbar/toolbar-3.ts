@@ -15,7 +15,7 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import colorPaletteMessages from '../../../ui/ColorPalette/Palettes/paletteMessages';
+import { colorPaletteMessages } from '@atlaskit/editor-common/ui-color';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   toolbarMenuItemsSelectors,

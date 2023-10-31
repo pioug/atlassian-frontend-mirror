@@ -90,19 +90,16 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import type { MentionProvider } from '@atlaskit/mention/resource';
-import { EventDispatcher } from '../../../event-dispatcher';
-import type {
-  AnalyticsEventPayload,
-  DispatchAnalyticsEvent,
-} from '../../../plugins/analytics';
+import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../../../plugins/analytics';
+  fireAnalyticsEvent,
+} from '@atlaskit/editor-common/analytics';
+import { addAnalytics } from '../../../plugins/analytics';
 import type { EditorAppearance, EditorProps } from '../../../types';
 import {
   analyticsEventKey,
@@ -112,8 +109,11 @@ import {
   PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
 } from '../../consts';
-import type { FireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type {
+  FireAnalyticsEvent,
+  AnalyticsEventPayload,
+  DispatchAnalyticsEvent,
+} from '@atlaskit/editor-common/analytics';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import {

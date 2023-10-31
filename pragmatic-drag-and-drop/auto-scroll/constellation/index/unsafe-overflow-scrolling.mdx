@@ -11,29 +11,30 @@ Unsafe overflow scrolling allows the user to scroll a scrollable element when th
 
 <Example Component={UnsafeOverflowExample} appearance="showcase-only" />
 
-## Please avoid overflow scrolling if you can
+## Challenges with overflow scrolling
 
-<SectionMessage appearance="warning">
+<SectionMessage appearance="warning" title="Avoid overflow scrolling">
 
-These challenges are why we call overflow scrolling "unsafe"
+These challenges are why overflow scrolling is considered unsafe.
+It should only be used when there is a strong product justification.
 
 </SectionMessage>
 
 ### 1. It can be confusing for users
 
-Overflow scrolling can feel great, but it does not play well with the web platform's drag and drop capabilities. In order to update the "drop target" for a drag operation, the user needs to drag over an element. With overflow scrolling, the interface can be changing, but the "drop target" might not be as the user might not be over the "drop target". This can be confusing for users
+Overflow scrolling can feel great, but it does not play well with the web platform's drag and drop capabilities. In order to update the drop target for a drag operation, the user needs to drag over an element. With overflow scrolling, the interface can be changing, but the drop target might not be as the user might not be over the drop target. This can be confusing for users
 
 ### 2. It is easy to create strange experiences
 
-When you are enabling overflow scrolling, it is easy to have multiple scrollable elements scrolling at the same time in unexpected ways. This is because we can no longer rely on the DOM hierarchy to help us provide an scrolling experience that will always feel great. This package gives you the control to setup auto scrolling how you want it, but you will need to be careful to ensure that the settings you have chosen work well for the experience you are making.
+When you enable overflow scrolling, it is easy to have multiple scrollable elements scrolling at the same time in unexpected ways. This is because we can no longer rely on the DOM hierarchy to help us provide an scrolling experience that will always feel great. This package gives you the control to setup auto scrolling how you want it, but you will need to be careful to ensure that the settings you have chosen work well for the experience you are making.
 
 ### 3. It is more expensive than standard overflow scrolling
 
-When doing standard "over element" auto scrolling, we can leverage the DOM hierarchy to quickly search for relevant scroll containers. We cannot do that for overflow scrolling. For every overflow scrolling registration (eg `unsafeOverflowForElements()`), we need to do a `element.getBoundingClientRect()` in each animation frame to see if we are over the element (we have to re-create hitbox testing). Doing excessive amounts of of `getBoundingClientRect()` can get expensive, so we suggest you don't add too much overflow scrolling registrations.
+When doing standard 'over element' auto scrolling, we can leverage the DOM hierarchy to quickly search for relevant scroll containers. We cannot do that for overflow scrolling. For every overflow scrolling registration (eg `unsafeOverflowForElements()`), we need to do a `element.getBoundingClientRect()` in each animation frame to see if we are over the element (we have to re-create hitbox testing). Doing excessive amounts of of `getBoundingClientRect()` can get expensive, so we suggest you don't add too many overflow scrolling registrations.
 
 ## Registering unsafe overflow scrolling for scrollable elements
 
-Registring unsafe overflow scrolling will only enable scrolling when outside of the element. If you want the element to be scrollable when over the element, then you will also need to add "over element" auto scrolling as well (eg `autoScrollForElements()`).
+Registering unsafe overflow scrolling will only enable scrolling when outside of the element. If you want the element to be scrollable when over the element, then you will also need to add 'over element' auto scrolling as well (eg `autoScrollForElements()`).
 
 ```ts
 import { unsafeOverflowForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/unsafe-overflow/element';
@@ -42,11 +43,11 @@ import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-sc
 import { autoScrollForFiles } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/file';
 
 const cleanup = combine(
-  // Enabling scrolling when "over" an element
+  // Enabling scrolling when over an element
   autoScrollForElements({
     element,
   }),
-  // Enabling scrolling when "outside" an element - in the overflow
+  // Enabling scrolling when outside an element - in the overflow
   unsafeOverflowForElements({
     element,
   }),
@@ -56,7 +57,7 @@ const cleanup = combine(
 cleanup();
 ```
 
-A slightly fuller example of a `react` list that is a _drop target_, and has auto scrolling
+A slightly fuller example of a `react` list that is a drop target, and has auto scrolling:
 
 ```tsx
 import { useRef, ReactElement } from 'react';
@@ -67,7 +68,7 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import invariant from 'tiny-invariant';
 
 function ScrollableList({ children }: { children: ReactElement }) {
-  const ref = (useRef<HTMLDivElement | null> = useRef(null));
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const element = ref.current;
@@ -98,26 +99,26 @@ function ScrollableList({ children }: { children: ReactElement }) {
 
 ### Element scrolling rules and behaviour
 
-Overflow scrolling has the same flexible rules as "over element" auto scrolling - you can have any setup you want, and change anything you want during a drag.
+Overflow scrolling has the same flexible rules as 'over element' auto scrolling - you can have any setup you want, and change anything you want during a drag.
 
 ## `unsafeOverflowAutoScrollFor*` arguments
 
 - `element`: the `HTMLElement` you want to add auto scrolling too. The `element` does not need to be a `dropTarget`. The `element` is the unique key for an auto scrolling registration.
-- `getOverflow: () => ProvidedHitboxSpacing`. `ProvidedHitboxSpacing` allows you to specify how overflow scrolling should occur for a element
+- `getOverflow: () => ProvidedHitboxSpacing`. `ProvidedHitboxSpacing` allows you to specify how overflow scrolling should occur for a element.
 
-`getOverflow()` allows you to specify how overflow scrolling should work for each edge (eg `"top"`) of an element
+`getOverflow()` allows you to specify how overflow scrolling should work for each edge of an element.
 
 ```ts
 unsafeOverflowAutoScrollForElements({
   getOverflow: () => ({
-    // When will scroll on the "top" edge scroll?
+    // When will scroll on the top edge occur?
     fromTopEdge: {
       top: 400, // for 400px above the top edge
       right: 100, // up to 100px on the right hand side of the top edge
       left: 100, // up to 100px on the left hand side of the top edge
       // bottom: not allowed → the hitbox will stretch down into the element
       // on the left and right and sides of the top edge by the same size as the
-      // "over element" scrolling hitbox
+      // 'over element' scrolling hitbox
     },
   }),
 });
@@ -171,14 +172,14 @@ unsafeOverflowAutoScrollForElements({
 });
 ```
 
-- _(optional)_: `canScroll: (args: ElementGetFeedbackArgs) => boolean`: whether or not auto scrolling should occur. Disabling auto scrolling with `canScroll` will _not_ prevent the browsers built in auto scrolling, or manual user scrolling during a drag. Unfortunately, there is no way to opt out of the platforms built in auto scrolling. We included `canScroll` because it is helpful to disable this packages auto scrolling, as it is much easier for users to trigger than the platforms built in auto scrolling.
+- _(optional)_: `canScroll: (args: ElementGetFeedbackArgs) => boolean`: whether or not auto scrolling should occur. Disabling auto scrolling with `canScroll` will _not_ prevent the browser's built in auto scrolling, or manual user scrolling during a drag. Unfortunately, there is no way to opt out of the platform's built in auto scrolling. We included `canScroll` because it is helpful to disable this package's auto scrolling, as it is much easier for users to trigger than the platform's built in auto scrolling.
 
 ## Scroll acceleration
 
-- Builds on "over element" auto scrolling
-- When outside of the element on the main axis of an edge (eg "vertical" axis for the "top" edge), then the max scroll speed is applied
-- Time dampening timer is shared with "over element" auto scrolling. This means that time dampening will carry over correctly when moving between "over element" and "overflow scrolling".
+- Builds on 'over element' auto scrolling.
+- When outside of the element on the main axis of an edge (eg vertical axis for the top edge), then the max scroll speed is applied.
+- Time dampening timer is shared with 'over element' auto scrolling. This means that time dampening will carry over correctly when moving between 'over element' and 'overflow scrolling'.
 
 ## Window scrolling
 
-Overflow scrolling is not applicable for window scrolling as the browser stops publishing events to the document once the user has left the window. If you want to have window scrolling, then use our "over element" window scrolling functions (eg `autoScrollWindowForElements`)
+Overflow scrolling is not applicable for window scrolling as the browser stops publishing events to the document once the user has left the window. If you want to have window scrolling, then use our standard approach for [registering auto scrolling for the window](./about#registering-auto-scrolling-for-the-window).

@@ -1,5 +1,11 @@
 # @atlaskit/lozenge
 
+## 11.4.6
+
+### Patch Changes
+
+- [#41725](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41725) [`8d838ab41ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d838ab41ed) - Removed all remaining legacy theming logic from Badge, IconObject, Lozenge and SectionMessage. This only affects the examples and some tests in each component. No internal component logic contained legacy theming.
+
 ## 11.4.5
 
 ### Patch Changes

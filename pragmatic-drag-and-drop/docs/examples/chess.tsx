@@ -108,7 +108,7 @@ const Chessboard = () => {
 
         squares.push(
           <Square pieces={pieces} key={`${row}-${col}`} location={[row, col]}>
-            {piece && pieceLookup['king']([row, col])}
+            {piece && pieceLookup[piece.type]([row, col])}
           </Square>,
         );
       }

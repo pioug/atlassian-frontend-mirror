@@ -39,6 +39,7 @@ export interface Props {
   onTextChanged: (status: StatusType, isNew: boolean) => void;
   onEnter: (status: StatusType) => void;
   isNew?: boolean;
+  focusStatusInput?: boolean;
   defaultText?: string;
   defaultColor?: Color;
   defaultLocalId?: string;
@@ -129,13 +130,6 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
   componentDidMount() {
     this.reset();
     this.fireStatusPopupOpenedAnalytics(this.state);
-    if (typeof this.props.isNew === 'boolean' && this.props.isNew === false) {
-      // Wrapper should be focused only if status already exists otherwise input field will receive focus
-      this.focusTimeout = requestAnimationFrame(() => {
-        // Defer to prevent editor scrolling to top. See https://product-fabric.atlassian.net/browse/DTR-1952
-        this.popupBodyWrapper?.current?.focus();
-      });
-    }
   }
 
   componentWillUnmount() {
@@ -239,8 +233,14 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
   };
 
   render() {
-    const { isNew, target, mountTo, boundariesElement, scrollableElement } =
-      this.props;
+    const {
+      isNew,
+      target,
+      mountTo,
+      boundariesElement,
+      scrollableElement,
+      focusStatusInput,
+    } = this.props;
     const { color, text } = this.state;
     return (
       target && (
@@ -264,7 +264,7 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
             onKeyDown={this.onKeyDown}
           >
             <AkStatusPicker
-              autoFocus={isNew}
+              autoFocus={isNew || focusStatusInput}
               selectedColor={color}
               text={text}
               onColorClick={this.onColorClick}

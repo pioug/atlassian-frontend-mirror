@@ -3,9 +3,10 @@ import { ReactNode, useCallback } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { MutableState, Tools } from 'final-form';
-import { Form } from 'react-final-form';
+import { Form, FormSpy } from 'react-final-form';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -47,7 +48,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
   initialValues,
 }: CreateFormProps<FormData>) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
-  const { getValidators, formErrorMessage } = useFormContext();
+  const { getValidators, formErrorMessage, setFormDirty } = useFormContext();
 
   const handleSubmit = useCallback(
     async (data: FormData) => {
@@ -99,7 +100,11 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
             data-testid={testId}
             css={formStyles}
           >
-            <div>{children}</div>
+            <FormSpy
+              subscription={{ dirty: true }}
+              onChange={state => setFormDirty(state.dirty)}
+            />
+            <Box>{children}</Box>
             {!hideFooter && (
               <CreateFormFooter
                 formErrorMessage={formErrorMessage}

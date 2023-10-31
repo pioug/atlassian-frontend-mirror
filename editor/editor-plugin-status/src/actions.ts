@@ -9,6 +9,7 @@ import {
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import type {
   Command,
+  CommandDispatch,
   EditorCommand,
   TOOLBAR_MENU_TYPE,
 } from '@atlaskit/editor-common/types';
@@ -156,6 +157,16 @@ export const removeStatus =
     return tr;
   };
 
+export const setFocusOnStatusInput =
+  () => (state: EditorState, dispatch: CommandDispatch | undefined) => {
+    if (!dispatch) {
+      return false;
+    }
+    const tr = state.tr.setMeta(pluginKey, { focusStatusInput: true });
+    dispatch(tr);
+    return true;
+  };
+
 const handleClosingByArrows = (
   closingMethod: string,
   state: EditorState,
@@ -192,6 +203,7 @@ export const commitStatusPicker =
     let tr = state.tr;
     tr = tr.setMeta(pluginKey, {
       showStatusPickerAt: null,
+      focusStatusInput: false,
       isNew: false,
     });
 

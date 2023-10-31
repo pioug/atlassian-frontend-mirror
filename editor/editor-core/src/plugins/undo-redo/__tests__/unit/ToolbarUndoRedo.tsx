@@ -20,7 +20,7 @@ import {
   ACTION_SUBJECT,
   ACTION,
   EVENT_TYPE,
-} from '../../../analytics/types/enums';
+} from '@atlaskit/editor-common/analytics';
 
 import { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 

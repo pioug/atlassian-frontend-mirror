@@ -1,5 +1,11 @@
 # @atlaskit/side-navigation
 
+## 3.0.1
+
+### Patch Changes
+
+- [#42240](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42240) [`e5f784d7889`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5f784d7889) - Add explicit `href` to link item.
+
 ## 3.0.0
 
 ### Major Changes

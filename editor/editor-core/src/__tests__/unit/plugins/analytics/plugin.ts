@@ -1,13 +1,13 @@
-import type { AnalyticsEventPayload } from '../../../../plugins/analytics';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import { addAnalytics } from '../../../../plugins/analytics';
+import { analyticsPluginKey } from '../../../../plugins/analytics/plugin-key';
 import {
-  addAnalytics,
-  analyticsPluginKey,
   ACTION,
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-} from '../../../../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
 import { extendPayload } from '../../../../plugins/analytics/plugin';
 import type {
   EditorState,

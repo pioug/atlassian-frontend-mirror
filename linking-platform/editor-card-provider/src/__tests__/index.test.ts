@@ -173,7 +173,7 @@ describe('providers > editor', () => {
   it('should use baseUrl defined by provided override for /providers call', async () => {
     const provider = setupEditorCardProvider(
       'stg',
-      'https://api-gateway.trellis.coffee/gateway/api',
+      'https://trellis.coffee/gateway/api',
     );
     mockFetch.mockResolvedValueOnce({
       json: async () => getMockProvidersResponse(),
@@ -182,11 +182,11 @@ describe('providers > editor', () => {
     const url = 'https://drive.google.com/file/d/123/view?usp=sharing';
     await provider.resolve(url, 'inline', false);
     expect(mockFetch).toHaveBeenCalledWith(
-      'https://api-gateway.trellis.coffee/gateway/api/object-resolver/providers',
+      'https://trellis.coffee/gateway/api/object-resolver/providers',
       expect.objectContaining({
         method: 'post',
         headers: expect.objectContaining({
-          Origin: 'https://api-gateway.trellis.coffee/gateway/api',
+          Origin: 'https://trellis.coffee/gateway/api',
         }),
       }),
     );
@@ -222,7 +222,7 @@ describe('providers > editor', () => {
   it('should use baseUrl defined by provided override for /resolve/batch call', async () => {
     const provider = setupEditorCardProvider(
       'stg',
-      'https://api-gateway.trellis.coffee/gateway/api',
+      'https://trellis.coffee/gateway/api',
     );
     // Mocking call to /providers
     mockFetch.mockResolvedValueOnce({
@@ -237,7 +237,7 @@ describe('providers > editor', () => {
     const url = 'https://site-without-pattern.com';
     await provider.findPattern(url);
     expect(mockFetch).toHaveBeenCalledWith(
-      'https://api-gateway.trellis.coffee/gateway/api/object-resolver/resolve/batch',
+      'https://trellis.coffee/gateway/api/object-resolver/resolve/batch',
       expect.objectContaining({
         body: JSON.stringify([
           {

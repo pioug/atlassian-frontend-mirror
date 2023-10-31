@@ -11,6 +11,7 @@ export type StatusType = {
 export type StatusState = {
   isNew: boolean;
   showStatusPickerAt: number | null;
+  focusStatusInput?: boolean;
 };
 
 export interface StatusPluginOptions {

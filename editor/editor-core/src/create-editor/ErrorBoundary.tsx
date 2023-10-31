@@ -12,9 +12,13 @@ import type { CustomData } from '@atlaskit/ufo/types';
 import type {
   ErrorEventAttributes,
   ErrorEventPayload,
-} from '../plugins/analytics';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../plugins/analytics';
-import { editorAnalyticsChannel } from '../plugins/analytics/consts';
+} from '@atlaskit/editor-common/analytics';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  editorAnalyticsChannel,
+} from '@atlaskit/editor-common/analytics';
 import type { FeatureFlags } from '../types/feature-flags';
 import { getDocStructure } from '../utils/document-logger';
 import { WithEditorView } from './WithEditorView';

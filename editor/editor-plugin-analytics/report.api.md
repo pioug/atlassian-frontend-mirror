@@ -31,6 +31,7 @@ export type AnalyticsPlugin = NextEditorPlugin<
     sharedState: {
       createAnalyticsEvent: CreateUIAnalyticsEvent | null;
       attachAnalyticsEvent: CreateAttachPayloadIntoTransaction | null;
+      performanceTracking: PerformanceTracking | undefined;
     };
     dependencies: [FeatureFlagsPlugin];
     actions: EditorAnalyticsAPI;

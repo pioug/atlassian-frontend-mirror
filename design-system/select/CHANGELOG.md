@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.7.5
+
+### Patch Changes
+
+- [#42429](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42429) [`1cc562c4005`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1cc562c4005) - upgrade shallow-equal version to 3.1.0
+
 ## 16.7.4
 
 ### Patch Changes

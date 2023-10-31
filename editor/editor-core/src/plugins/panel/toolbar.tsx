@@ -23,7 +23,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 
 import type { Command } from '../../types';
-import { panelBackgroundPalette } from '../../ui/ColorPalette/Palettes/panelBackgroundPalette';
+import { panelBackgroundPalette } from '@atlaskit/editor-common/ui-color';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getPanelTypeBackgroundNoTokens } from '@atlaskit/editor-common/panel';
 import { findPanel } from './utils';

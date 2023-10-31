@@ -34,7 +34,7 @@ const LinkCreateCallbackProvider: React.FC<LinkCreateCallbackProviderProps> = ({
 }) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
 
-  const value = useMemo(
+  const handleCreate = useMemo(
     () => ({
       onCreate: async (result: CreatePayload) => {
         const { objectId, objectType } = result;
@@ -48,6 +48,12 @@ const LinkCreateCallbackProvider: React.FC<LinkCreateCallbackProviderProps> = ({
           await onCreate(result);
         }
       },
+    }),
+    [createAnalyticsEvent, onCreate],
+  );
+
+  const handleFailure = useMemo(
+    () => ({
       onFailure: async (error: Error) => {
         createAnalyticsEvent(
           createEventPayload('track.object.createFailed.linkCreate', {
@@ -56,9 +62,17 @@ const LinkCreateCallbackProvider: React.FC<LinkCreateCallbackProviderProps> = ({
         ).fire(ANALYTICS_CHANNEL);
         onFailure && onFailure(error);
       },
-      onCancel,
     }),
-    [onFailure, onCancel, createAnalyticsEvent, onCreate],
+    [createAnalyticsEvent, onFailure],
+  );
+
+  const value = useMemo(
+    () => ({
+      onCancel,
+      ...handleCreate,
+      ...handleFailure,
+    }),
+    [onCancel, handleCreate, handleFailure],
   );
 
   return (

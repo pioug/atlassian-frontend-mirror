@@ -1,3 +1,4 @@
+import { BasicFilterFieldType } from '../../basic-filters/ui/async-popup-select/types';
 import { buildJQL } from '../buildJQL';
 
 describe('buildJQL', () => {
@@ -58,5 +59,144 @@ describe('buildJQL', () => {
     });
 
     expect(jql).toEqual('text ~ "*" or summary ~ "*" ORDER BY created DESC');
+  });
+
+  it('jql does not break into a new line when search text is too long', () => {
+    const jql = buildJQL({
+      rawSearch:
+        'very long text very long text very long text very long text very long text very long text very long text very long text',
+    });
+
+    expect(jql).toEqual(
+      'text ~ "very long text very long text very long text very long text very long text very long text very long text very long text*" or summary ~ "very long text very long text very long text very long text very long text very long text very long text very long text*" ORDER BY created DESC',
+    );
+  });
+
+  describe('using Basic Filters', () => {
+    it('should create correct jql when rawSearch and filterValues are empty', () => {
+      const jql = buildJQL({
+        rawSearch: '',
+        filterValues: {},
+      });
+
+      expect(jql).toEqual('created >= -30d ORDER BY created DESC');
+    });
+
+    it('should create correct jql when filterValues is empty', () => {
+      const jql = buildJQL({
+        rawSearch: 'test',
+        filterValues: {},
+      });
+
+      expect(jql).toEqual(
+        'text ~ "test*" or summary ~ "test*" ORDER BY created DESC',
+      );
+    });
+
+    it('should create correct jql when basic filter values are emtpy', () => {
+      const jql = buildJQL({
+        rawSearch: '',
+        filterValues: { assignee: [], issuetype: [], project: [], status: [] },
+      });
+
+      expect(jql).toEqual('created >= -30d ORDER BY created DESC');
+    });
+
+    it.each<[BasicFilterFieldType]>([
+      ['project'],
+      ['assignee'],
+      ['issuetype'],
+      ['status'],
+    ])(
+      'should create jql with %s field when single value is passed',
+      filterType => {
+        const jql = buildJQL({
+          rawSearch: '',
+          filterValues: {
+            [filterType]: [
+              {
+                value: 'hello',
+              },
+            ],
+          },
+        });
+
+        expect(jql).toEqual(
+          `${filterType} in (hello) and created >= -30d ORDER BY created DESC`,
+        );
+      },
+    );
+
+    it.each<[BasicFilterFieldType]>([
+      ['project'],
+      ['assignee'],
+      ['issuetype'],
+      ['status'],
+    ])(
+      'should create jql with %s field when multiple values are passed',
+      filterType => {
+        const jql = buildJQL({
+          rawSearch: '',
+          filterValues: {
+            [filterType]: [
+              {
+                value: 'hello',
+              },
+              {
+                value: 'world',
+              },
+            ],
+          },
+        });
+
+        expect(jql).toEqual(
+          `${filterType} in (hello, world) and created >= -30d ORDER BY created DESC`,
+        );
+      },
+    );
+
+    it('should create jql with all fields when all filter fields are supplied', () => {
+      const jql = buildJQL({
+        rawSearch: '',
+        filterValues: {
+          project: [
+            {
+              label: 'Commitment Register',
+              value: 'Commitment Register',
+              optionType: 'iconLabel',
+              icon: '',
+            },
+          ],
+          assignee: [
+            {
+              label: 'Mike Dao',
+              value: 'Mike Dao',
+              optionType: 'avatarLabel',
+              avatar: '',
+            },
+          ],
+          issuetype: [
+            {
+              label: '[CTB]Bug',
+              value: '[CTB]Bug',
+              optionType: 'iconLabel',
+              icon: '',
+            },
+          ],
+          status: [
+            {
+              label: 'Progress',
+              value: 'Progress',
+              optionType: 'lozengeLabel',
+              appearance: 'inprogress',
+            },
+          ],
+        },
+      });
+
+      expect(jql).toEqual(
+        `project in (\"Commitment Register\") and assignee in (\"Mike Dao\") and issuetype in (\"[CTB]Bug\") and status in (Progress) and created >= -30d ORDER BY created DESC`,
+      );
+    });
   });
 });

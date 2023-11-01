@@ -16,8 +16,13 @@ import {
   formatMarkdown,
   formatPlainText,
   formatRichText,
-  getRichTextSlice,
 } from '../../util/format-handlers';
+
+import {
+  getDefaultMarkdownPluginState,
+  getDefaultPlainTextPluginState,
+  getDefaultRichTextPluginState,
+} from './_testHelpers';
 
 describe('formatMarkdown', () => {
   describe('when pasting a paragraph inside an empty paragraph', () => {
@@ -40,7 +45,11 @@ describe('formatMarkdown', () => {
 
 I think I'll use it to format all of my documents from now on.`;
 
-      const tr = formatMarkdown(state, state.selection.from, plaintext);
+      let pluginState = getDefaultMarkdownPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+      const tr = formatMarkdown(state.tr, pluginState);
 
       expect(tr).toEqualDocumentAndSelection(
         doc(
@@ -64,7 +73,11 @@ I think I'll use it to format all of my documents from now on.`;
 
       const plaintext = `I really like using Markdown.`;
 
-      const tr = formatMarkdown(state, state.selection.from, plaintext);
+      let pluginState = getDefaultMarkdownPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+      const tr = formatMarkdown(state.tr, pluginState);
 
       expect(tr).toEqualDocumentAndSelection(
         doc(
@@ -93,7 +106,11 @@ I think I'll use it to format all of my documents from now on.`;
 
 I think I'll use it to format all of my documents from now on.`;
 
-      const tr = formatMarkdown(state, state.selection.from, plaintext);
+      let pluginState = getDefaultMarkdownPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+      const tr = formatMarkdown(state.tr, pluginState);
 
       expect(tr).toEqualDocumentAndSelection(
         doc(
@@ -125,7 +142,11 @@ I think I'll use it to format all of my documents from now on.`;
 
 I think I'll use it to format all of my documents from now on.`;
 
-      const tr = formatMarkdown(state, state.selection.from, plaintext);
+      let pluginState = getDefaultMarkdownPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+      const tr = formatMarkdown(state.tr, pluginState);
 
       expect(tr).toEqualDocumentAndSelection(
         doc(
@@ -134,25 +155,6 @@ I think I'll use it to format all of my documents from now on.`;
           p(
             "I think I'll use it to format all of my documents from now on.{<>}",
           ),
-        ),
-      );
-    });
-  });
-
-  describe('empty text inside a new paragraph in-between existing paras', () => {
-    it('should set the selection at correct position', () => {
-      const state = createEditorState(
-        doc(p('Hello World'), p('{<>}'), p('end')),
-      );
-      const plaintext = ``;
-
-      const tr = formatMarkdown(state, state.selection.from, plaintext);
-
-      expect(tr).toEqualDocumentAndSelection(
-        doc(
-          // prettier-ignore
-          p('Hello World'),
-          p('end'),
         ),
       );
     });
@@ -169,8 +171,11 @@ describe('format markdown: marks', () => {
       ),
     );
 
-    const pasteStartPos = state.selection.from;
-    const tr = formatMarkdown(state, pasteStartPos, 'some **bold** text');
+    let pluginState = getDefaultMarkdownPluginState();
+    pluginState.plaintext = 'some **bold** text';
+    pluginState.pasteStartPos = state.selection.from;
+    pluginState.pasteEndPos = state.selection.to;
+    const tr = formatMarkdown(state.tr, pluginState); // );
 
     expect(tr).toEqualDocumentAndSelection(
       // prettier-ignore
@@ -190,8 +195,12 @@ describe('format markdown: marks', () => {
       ),
     );
 
-    const pasteStartPos = 0; //insert md in beginning of doc
-    const tr = formatMarkdown(state, pasteStartPos, 'some **bold** text');
+    let pluginState = getDefaultMarkdownPluginState();
+    pluginState.plaintext = 'some **bold** text';
+    pluginState.pasteStartPos = 0;
+    pluginState.pasteEndPos = state.selection.to;
+
+    const tr = formatMarkdown(state.tr, pluginState);
 
     expect(tr).toEqualDocumentAndSelection(
       // prettier-ignore
@@ -210,8 +219,12 @@ describe('format markdown: marks', () => {
       ),
     );
 
-    const pasteStartPos = -1; //invalid start pos
-    const tr = formatMarkdown(state, pasteStartPos, 'some **bold** text');
+    let pluginState = getDefaultMarkdownPluginState();
+    pluginState.plaintext = 'some **bold** text';
+    pluginState.pasteStartPos = -1;
+    pluginState.pasteEndPos = state.selection.to;
+
+    const tr = formatMarkdown(state.tr, pluginState);
 
     expect(tr).toEqualDocumentAndSelection(
       // prettier-ignore
@@ -231,8 +244,12 @@ describe('format markdown: marks', () => {
       ),
     );
 
-    const pasteStartPos = -1; //invalid start pos
-    const tr = formatMarkdown(state, pasteStartPos, '');
+    let pluginState = getDefaultMarkdownPluginState();
+    pluginState.plaintext = '';
+    pluginState.pasteStartPos = state.selection.from;
+    pluginState.pasteEndPos = state.selection.to;
+
+    const tr = formatMarkdown(state.tr, pluginState);
 
     expect(tr).toEqualDocumentAndSelection(
       // prettier-ignore
@@ -251,12 +268,13 @@ describe('format markdown: marks', () => {
       ),
     );
 
-    const tr = formatMarkdown(
-      state,
-      1,
-      '\\* Without the backslash, this would be a bullet in an unordered list.',
-    );
+    let pluginState = getDefaultMarkdownPluginState();
+    pluginState.plaintext =
+      '\\* Without the backslash, this would be a bullet in an unordered list.';
+    pluginState.pasteStartPos = 1;
+    pluginState.pasteEndPos = state.selection.to;
 
+    const tr = formatMarkdown(state.tr, pluginState);
     expect(tr).toEqualDocumentAndSelection(
       // prettier-ignore
       doc(
@@ -287,8 +305,12 @@ describe('formatPlainText', () => {
 
 I think I'll use it to format all of my documents from now on.`;
 
-      const tr = formatPlainText(state, state.selection.from, plaintext);
+      let pluginState = getDefaultPlainTextPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
 
+      const tr = formatPlainText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(
           // prettier-ignore
@@ -310,7 +332,12 @@ I think I'll use it to format all of my documents from now on.{<>}`),
 
       const plaintext = `I really like using RichText.`;
 
-      const tr = formatPlainText(state, state.selection.from, plaintext);
+      let pluginState = getDefaultPlainTextPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatPlainText(state.tr, pluginState);
 
       expect(tr).toEqualDocumentAndSelection(
         doc(
@@ -339,7 +366,12 @@ I think I'll use it to format all of my documents from now on.{<>}`),
 
 I think I'll use it to format all of my documents from now on.`;
 
-      const tr = formatPlainText(state, state.selection.from, plaintext);
+      let pluginState = getDefaultPlainTextPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatPlainText(state.tr, pluginState);
 
       expect(tr).toEqualDocumentAndSelection(
         doc(
@@ -371,7 +403,12 @@ I think I'll use it to format all of my documents from now on.{<>}`,
 
 I think I'll use it to format all of my documents from now on.`;
 
-      const tr = formatPlainText(state, state.selection.from, plaintext);
+      let pluginState = getDefaultPlainTextPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatPlainText(state.tr, pluginState);
 
       expect(tr).toEqualDocumentAndSelection(
         doc(
@@ -392,7 +429,12 @@ I think I'll use it to format all of my documents from now on.{<>}`,
       );
       const plaintext = ``;
 
-      const tr = formatPlainText(state, state.selection.from, plaintext);
+      let pluginState = getDefaultPlainTextPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatPlainText(state.tr, pluginState);
 
       expect(tr).toEqualDocumentAndSelection(
         doc(
@@ -415,11 +457,12 @@ describe('format plain text: cursor positioning', () => {
       ),
     );
 
-    const tr = formatPlainText(
-      state,
-      state.selection.from,
-      'Some pasted text.',
-    );
+    let pluginState = getDefaultPlainTextPluginState();
+    pluginState.plaintext = 'Some pasted text.';
+    pluginState.pasteStartPos = state.selection.from;
+    pluginState.pasteEndPos = state.selection.to;
+
+    const tr = formatPlainText(state.tr, pluginState);
 
     expect(tr).toEqualDocumentAndSelection(
       // prettier-ignore
@@ -438,7 +481,13 @@ describe('format plain text: cursor positioning', () => {
     );
 
     // pass -1 as start position
-    const tr = formatPlainText(state, -1, 'Some pasted text.');
+    let pluginState = getDefaultPlainTextPluginState();
+    pluginState.plaintext = 'Some pasted text.';
+    pluginState.pasteStartPos = -1;
+    pluginState.pasteEndPos = state.selection.to;
+
+    const tr = formatPlainText(state.tr, pluginState);
+
     expect(tr).toEqualDocumentAndSelection(
       // prettier-ignore
       doc(
@@ -455,7 +504,13 @@ describe('format plain text: cursor positioning', () => {
       ),
     );
 
-    const tr = formatPlainText(state, 0, '');
+    let pluginState = getDefaultPlainTextPluginState();
+    pluginState.plaintext = '';
+    pluginState.pasteStartPos = state.selection.from;
+    pluginState.pasteEndPos = state.selection.to;
+
+    const tr = formatPlainText(state.tr, pluginState);
+
     expect(tr).toEqualDocumentAndSelection(
       // prettier-ignore
       doc(
@@ -472,7 +527,12 @@ describe('format plain text: cursor positioning', () => {
       ),
     );
 
-    const tr = formatPlainText(state, 1, 'Pasted plain text.');
+    let pluginState = getDefaultPlainTextPluginState();
+    pluginState.plaintext = 'Pasted plain text.';
+    pluginState.pasteStartPos = 1;
+    pluginState.pasteEndPos = state.selection.to;
+
+    const tr = formatPlainText(state.tr, pluginState);
     expect(tr).toEqualDocumentAndSelection(
       // prettier-ignore
       doc(
@@ -489,7 +549,12 @@ describe('format plain text: cursor positioning', () => {
       ),
     );
 
-    const tr = formatPlainText(state, 1, 'I');
+    let pluginState = getDefaultPlainTextPluginState();
+    pluginState.plaintext = 'I';
+    pluginState.pasteStartPos = 1;
+    pluginState.pasteEndPos = state.selection.to;
+
+    const tr = formatPlainText(state.tr, pluginState);
     expect(tr).toEqualDocumentAndSelection(
       // prettier-ignore
       doc(
@@ -503,14 +568,21 @@ describe('format rich text: paragraph', () => {
   describe('when pasting a paragraph in empty doc', () => {
     it('should convert to paragraph with code mark', () => {
       const plaintext = 'test paragraph';
-      const state = createEditorState(doc('{<}', p('test paragraph'), '{>}'));
+      const state = createEditorState(doc(p('{<}test paragraph{>}')));
       const schema = state.schema;
       const richTextSlice = new Slice(
         Fragment.from(schema.text(plaintext, [schema.marks.code.create()])),
         0,
         0,
       );
-      let tr = formatRichText(state, state.selection.from, richTextSlice);
+
+      let pluginState = getDefaultRichTextPluginState();
+      pluginState.richTextSlice = richTextSlice;
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatRichText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(doc(p(code(`${plaintext}{<>}`))));
     });
 
@@ -518,12 +590,7 @@ describe('format rich text: paragraph', () => {
       const plaintext = `test paragraph line 1
 test paragraph line 2`;
       const state = createEditorState(
-        doc(
-          '{<}',
-          p('test paragraph line 1'),
-          p('test paragraph line 2'),
-          '{>}',
-        ),
+        doc(p('{<}test paragraph line 1'), p('test paragraph line 2{>}')),
       );
       const schema = state.schema;
       const richTextSlice = new Slice(
@@ -537,7 +604,14 @@ test paragraph line 2`;
         1,
         1,
       );
-      let tr = formatRichText(state, state.selection.from, richTextSlice);
+
+      let pluginState = getDefaultRichTextPluginState();
+      pluginState.richTextSlice = richTextSlice;
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatRichText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(code_block({})(plaintext), p('{<>}')),
       );
@@ -548,13 +622,7 @@ test paragraph line 2`;
     it('should convert to paragraph with code mark', () => {
       const plaintext = 'test paragraph';
       const state = createEditorState(
-        doc(
-          p('Some text'),
-          '{<}',
-          p('test paragraph'),
-          '{>}',
-          p('another text'),
-        ),
+        doc(p('Some text'), p('{<}test paragraph{>}'), p('another text')),
       );
       const schema = state.schema;
       const richTextSlice = new Slice(
@@ -562,7 +630,14 @@ test paragraph line 2`;
         0,
         0,
       );
-      let tr = formatRichText(state, state.selection.from, richTextSlice);
+
+      let pluginState = getDefaultRichTextPluginState();
+      pluginState.richTextSlice = richTextSlice;
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatRichText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(p('Some text'), p(code(`${plaintext}{<>}`)), p('another text')),
       );
@@ -574,10 +649,8 @@ test paragraph line 2`;
       const state = createEditorState(
         doc(
           p('some text'),
-          '{<}',
-          p('test paragraph line 1'),
-          p('test paragraph line 2'),
-          '{>}',
+          p('{<}test paragraph line 1'),
+          p('test paragraph line 2{>}'),
           p('another text'),
         ),
       );
@@ -593,7 +666,14 @@ test paragraph line 2`;
         1,
         1,
       );
-      let tr = formatRichText(state, state.selection.from, richTextSlice);
+
+      let pluginState = getDefaultRichTextPluginState();
+      pluginState.richTextSlice = richTextSlice;
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatRichText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(
           p('some text'),
@@ -609,13 +689,7 @@ test paragraph line 2`;
     it('should convert to paragraph with code mark', () => {
       const plaintext = 'test paragraph';
       const state = createEditorState(
-        doc(
-          p('Some text'),
-          '{<}',
-          p('test paragraph'),
-          '{>}',
-          p('another text'),
-        ),
+        doc(p('Some text'), p('{<}test paragraph{>}'), p('another text')),
       );
       const schema = state.schema;
       const richTextSlice = new Slice(
@@ -623,7 +697,14 @@ test paragraph line 2`;
         0,
         0,
       );
-      let tr = formatRichText(state, state.selection.from, richTextSlice);
+
+      let pluginState = getDefaultRichTextPluginState();
+      pluginState.richTextSlice = richTextSlice;
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatRichText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(p('Some text'), p(code(`${plaintext}{<>}`)), p('another text')),
       );
@@ -635,10 +716,8 @@ test paragraph line 2`;
       const state = createEditorState(
         doc(
           p('some text'),
-          '{<}',
-          p('test paragraph line 1'),
-          p('test paragraph line 2'),
-          '{>}',
+          p('{<}test paragraph line 1'),
+          p('test paragraph line 2{>}'),
           p('another text'),
         ),
       );
@@ -654,7 +733,14 @@ test paragraph line 2`;
         1,
         1,
       );
-      let tr = formatRichText(state, state.selection.from, richTextSlice);
+
+      let pluginState = getDefaultRichTextPluginState();
+      pluginState.richTextSlice = richTextSlice;
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatRichText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(
           p('some text'),
@@ -667,114 +753,25 @@ test paragraph line 2`;
   });
 });
 
-describe('get rich text slice', () => {
-  it('should correctly get rich text at given position', () => {
-    const state = createEditorState(
-      // prettier-ignore
-      doc(
-        p(code('Code mark example.')),
-        p('work{<>}'),
-      ),
-    );
-
-    const richTextSlice = getRichTextSlice(state, 0);
-    expect(richTextSlice.openStart).toEqual(0);
-    expect(richTextSlice.openEnd).toEqual(1);
-
-    const content = richTextSlice.content;
-    expect(content.size).toEqual(26);
-
-    expect(content.child(0).toString()).toEqual(
-      'paragraph(code("Code mark example."))',
-    );
-
-    expect(content.child(1).toString()).toEqual('paragraph("work")');
-  });
-
-  it('should correctly replace rich text at given position', () => {
-    const state = createEditorState(
-      // prettier-ignore
-      doc(
-        p(code('Code mark example.')),
-        p('work{<>}'),
-      ),
-    );
-
-    const richTextSlice = getRichTextSlice(state, 0);
-    const pasteStartPos = 0; //insert in the beginning
-    const tr = formatRichText(state, pasteStartPos, richTextSlice);
-
-    expect(tr).toEqualDocumentAndSelection(
-      // prettier-ignore
-      doc(
-        p(code('Code mark example.')),
-        p('work{<>}'),
-      ),
-    );
-  });
-});
-
-describe('format rich text: positions', () => {
-  it('should not do anything if start position is invalid', () => {
-    const state = createEditorState(
-      // prettier-ignore
-      doc(
-        p(code('Code mark example.')),
-        p('work{<>}'),
-      ),
-    );
-
-    const richTextSlice = getRichTextSlice(state, 0);
-    const pasteStartPos = -1; //invalid
-    const tr = formatRichText(state, pasteStartPos, richTextSlice);
-
-    expect(tr).toEqualDocumentAndSelection(
-      // prettier-ignore
-      doc(
-        p(code('Code mark example.')),
-        p('work{<>}'),
-      ),
-    );
-  });
-
-  it('should correctly insert rich text at given position', () => {
-    const state = createEditorState(
-      // prettier-ignore
-      doc(
-        p(code('Code mark example.')),
-        p('work{<>}'),
-      ),
-    );
-
-    const richTextSlice = getRichTextSlice(state, 1);
-    const pasteStartPos = state.tr.selection.$to.pos;
-    const tr = formatRichText(state, pasteStartPos, richTextSlice);
-
-    expect(tr).toEqualDocumentAndSelection(
-      // prettier-ignore
-      doc(
-        p(code('Code mark example.')),
-        p('work', code('Code mark example.')),
-        p('work{<>}'),
-      ),
-    );
-  });
-});
-
 describe('format rich text: heading', () => {
   describe('when pasting a heading in empty doc', () => {
     it('should convert the heading into paragraph with code mark', () => {
       const plaintext = '# Heading level 1';
-      const state = createEditorState(
-        doc('{<}', h1('Heading level 1{>}'), '{>}'),
-      );
+      const state = createEditorState(doc(h1('{<}Heading level 1{>}')));
       const schema = state.schema;
       const richTextSlice = new Slice(
         Fragment.from(schema.text(plaintext, [schema.marks.code.create()])),
         0,
         0,
       );
-      let tr = formatRichText(state, state.selection.from, richTextSlice);
+
+      let pluginState = getDefaultRichTextPluginState();
+      pluginState.richTextSlice = richTextSlice;
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatRichText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(doc(p(code(`${plaintext}{<>}`))));
     });
   });
@@ -783,13 +780,7 @@ describe('format rich text: heading', () => {
     it('should convert the heading into paragraph with code mark', () => {
       const plaintext = '# Heading level 1';
       const state = createEditorState(
-        doc(
-          p('Some text'),
-          '{<}',
-          h1('Heading level 1'),
-          '{>}',
-          p('another text'),
-        ),
+        doc(p('Some text'), h1('{<}Heading level 1{>}'), p('another text')),
       );
       const schema = state.schema;
       const richTextSlice = new Slice(
@@ -797,7 +788,14 @@ describe('format rich text: heading', () => {
         0,
         0,
       );
-      let tr = formatRichText(state, state.selection.from, richTextSlice);
+
+      let pluginState = getDefaultRichTextPluginState();
+      pluginState.richTextSlice = richTextSlice;
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatRichText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(p('Some text'), p(code(`${plaintext}{<>}`)), p('another text')),
       );
@@ -808,13 +806,7 @@ describe('format rich text: heading', () => {
     it('should convert the heading into paragraph with code mark', () => {
       const plaintext = '# Heading level 1';
       const state = createEditorState(
-        doc(
-          p('Some text'),
-          '{<}',
-          h1('Heading level 1'),
-          '{>}',
-          p('another text'),
-        ),
+        doc(p('Some text'), h1('{<}Heading level 1{>}'), p('another text')),
       );
       const schema = state.schema;
       const richTextSlice = new Slice(
@@ -822,7 +814,14 @@ describe('format rich text: heading', () => {
         0,
         0,
       );
-      let tr = formatRichText(state, state.selection.from, richTextSlice);
+
+      let pluginState = getDefaultRichTextPluginState();
+      pluginState.richTextSlice = richTextSlice;
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatRichText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(p('Some text'), p(code(`${plaintext}{<>}`)), p('another text')),
       );
@@ -837,7 +836,11 @@ describe('when pasting a heading inside an empty paragraph', () => {
     );
 
     const plaintext = `# heading`;
-    const tr = formatMarkdown(state, state.selection.from, plaintext);
+    let pluginState = getDefaultMarkdownPluginState();
+    pluginState.plaintext = plaintext;
+    pluginState.pasteStartPos = state.selection.from;
+    pluginState.pasteEndPos = state.selection.to;
+    const tr = formatMarkdown(state.tr, pluginState);
 
     expect(tr).toEqualDocumentAndSelection(
       doc(
@@ -855,7 +858,11 @@ describe('when pasting a heading inside an empty doc', () => {
     const state = createEditorState(doc(p('{<}', code('# heading'), '{>}')));
 
     const plaintext = `# heading`;
-    const tr = formatMarkdown(state, state.selection.from, plaintext);
+    let pluginState = getDefaultMarkdownPluginState();
+    pluginState.plaintext = plaintext;
+    pluginState.pasteStartPos = state.selection.from;
+    pluginState.pasteEndPos = state.selection.to;
+    const tr = formatMarkdown(state.tr, pluginState);
 
     expect(tr).toEqualDocumentAndSelection(
       doc(
@@ -873,7 +880,11 @@ describe('when pasting a heading on a line containing heading', () => {
     );
 
     const plaintext = `# heading`;
-    const tr = formatMarkdown(state, state.selection.from, plaintext);
+    let pluginState = getDefaultMarkdownPluginState();
+    pluginState.plaintext = plaintext;
+    pluginState.pasteStartPos = state.selection.from;
+    pluginState.pasteEndPos = state.selection.to;
+    const tr = formatMarkdown(state.tr, pluginState);
 
     expect(tr).toEqualDocumentAndSelection(
       doc(
@@ -890,7 +901,12 @@ describe('formatPlainText', () => {
       const state = createEditorState(doc(h1('{<>}')));
       const plaintext = `# text`;
 
-      const tr = formatPlainText(state, state.selection.from, plaintext);
+      let pluginState = getDefaultPlainTextPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatPlainText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(
           // prettier-ignore
@@ -907,7 +923,12 @@ describe('formatPlainText', () => {
       );
       const plaintext = `# Heading`;
 
-      const tr = formatPlainText(state, state.selection.from, plaintext);
+      let pluginState = getDefaultPlainTextPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatPlainText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(p('Hello World'), p('# Heading{<>}'), p('end')),
       );
@@ -921,7 +942,12 @@ describe('formatPlainText', () => {
       );
       const plaintext = `# Heading`;
 
-      const tr = formatPlainText(state, state.selection.from, plaintext);
+      let pluginState = getDefaultPlainTextPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatPlainText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(p('Hello World', '# Heading{<>}', 'end')),
       );
@@ -933,7 +959,12 @@ describe('formatPlainText', () => {
       const state = createEditorState(doc(h1('{<}# Heading{>}')));
       const plaintext = `# Heading`;
 
-      const tr = formatPlainText(state, state.selection.from, plaintext);
+      let pluginState = getDefaultPlainTextPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatPlainText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(doc(p('# Heading{<>}')));
     });
   });

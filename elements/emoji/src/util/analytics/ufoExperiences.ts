@@ -1,6 +1,6 @@
 import {
-  EmojiId,
-  ProviderTypes,
+  type EmojiId,
+  type ProviderTypes,
   UfoComponentName,
   UfoEmojiTimings,
   UfoEmojiTimingsKeys,

@@ -1,7 +1,7 @@
 // TODO: Switch from ERT to ts-morph when this is completed and has reasonable adoption: https://product-fabric.atlassian.net/browse/DSP-10364
 import React, { ElementType, ReactNode } from 'react';
 
-import { BasePrimitiveProps } from '../src/components/types';
+import { BasePrimitiveProps, StyleProp } from '../src/components/types';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace Token {
@@ -84,5 +84,6 @@ export default function Box(
      * Forwarded ref element.
      */
     ref?: React.ComponentPropsWithRef<ElementType>['ref'];
-  } & BasePrimitiveProps,
+  } & BasePrimitiveProps &
+    StyleProp,
 ) {}

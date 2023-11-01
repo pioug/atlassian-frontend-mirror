@@ -1,21 +1,24 @@
 /** @jsx jsx */
 import { PureComponent } from 'react';
-import {
+import type {
   AnalyticsEventPayload,
   CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import uuid from 'uuid';
 import { jsx } from '@emotion/react';
-import { EmojiProvider, OnEmojiProviderChange } from '../../api/EmojiResource';
+import type {
+  EmojiProvider,
+  OnEmojiProviderChange,
+} from '../../api/EmojiResource';
 import { defaultListLimit } from '../../util/constants';
 import { toEmojiId } from '../../util/type-helpers';
 import {
-  EmojiDescription,
-  EmojiSearchResult,
-  OnEmojiEvent,
-  SearchOptions,
+  type EmojiDescription,
+  type EmojiSearchResult,
+  type OnEmojiEvent,
+  type SearchOptions,
   SearchSort,
-  ToneSelection,
+  type ToneSelection,
 } from '../../types';
 import debug from '../../util/logger';
 import {

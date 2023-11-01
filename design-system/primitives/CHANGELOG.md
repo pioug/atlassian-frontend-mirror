@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.9.0
+
+### Minor Changes
+
+- [#42494](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42494) [`8cc2926465e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2926465e) - Removed the ability to use the `style` prop on primitives such as Inline, Stack, and Flex. This prop previously had no effect on these components and is now only allowed on Box.
+
 ## 1.8.0
 
 ### Minor Changes

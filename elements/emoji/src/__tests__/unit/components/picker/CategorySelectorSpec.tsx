@@ -2,12 +2,12 @@ import React from 'react';
 import { messages } from '../../../../components/i18n';
 import { CategoryDescriptionMap } from '../../../../components/picker/categories';
 import CategorySelector, {
-  Props,
+  type Props,
   sortCategories,
 } from '../../../../components/picker/CategorySelector';
 import { defaultCategories } from '../../../../util/constants';
 import { isMessagesKey } from '../../../../util/type-helpers';
-import { CategoryId } from '../../../../types';
+import type { CategoryId } from '../../../../types';
 import { renderWithIntl } from '../../_testing-library';
 import { fireEvent, screen } from '@testing-library/dom';
 import { expectTabIndexFromList } from './_emoji-picker-test-helpers';

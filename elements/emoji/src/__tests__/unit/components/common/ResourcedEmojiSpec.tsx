@@ -1,4 +1,4 @@
-import { ReactWrapper } from 'enzyme';
+import type { ReactWrapper } from 'enzyme';
 import React from 'react';
 import Loadable from 'react-loadable';
 import { waitFor, cleanup, screen } from '@testing-library/react';
@@ -9,7 +9,7 @@ import { EmojiDescription, UfoEmojiTimings } from '../../../../types';
 import Emoji from '../../../../components/common/Emoji';
 import EmojiPlaceholder from '../../../../components/common/EmojiPlaceholder';
 import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';
-import { EmojiProvider } from '../../../../api/EmojiResource';
+import type { EmojiProvider } from '../../../../api/EmojiResource';
 
 import {
   evilburnsEmoji,
@@ -22,7 +22,7 @@ import { ufoExperiences } from '../../../../util/analytics';
 import * as constants from '../../../../util/constants';
 import * as samplingUfo from '../../../../util/analytics/samplingUfo';
 import browserSupport from '../../../../util/browser-support';
-import { EmojiId } from '../../../..';
+import type { EmojiId } from '../../../..';
 import { renderWithIntl } from '../../_testing-library';
 import { mountWithIntl } from '../../_enzyme';
 

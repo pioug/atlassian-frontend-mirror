@@ -1,4 +1,4 @@
-import React, { FC, useRef, ChangeEventHandler } from 'react';
+import React, { type FC, useRef, type ChangeEventHandler } from 'react';
 
 import AkButton from '@atlaskit/button/standard-button';
 

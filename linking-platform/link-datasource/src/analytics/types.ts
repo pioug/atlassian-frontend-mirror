@@ -6,6 +6,8 @@ export enum DatasourceAction {
   QUERY_UPDATED = 'query updated',
   DISPLAY_VIEW_CHANGED = 'display view changed',
   NEXT_PAGE_SCROLLED = 'next page scrolled',
+  // Assets Actions
+  SCHEMA_UPDATED = 'schema updated',
 }
 
 export enum DatasourceDisplay {

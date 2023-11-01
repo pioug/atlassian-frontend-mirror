@@ -1,10 +1,11 @@
 ---
 order: 0
 title: Auto scroll
-description: An optional package enables ergonomic automatic scrolling during a drag operation
+description: An optional package enables ergonomic automatic scrolling during a drag operation for any experience
 ---
 
 import OverElementExample from '../../examples/over-element';
+import LazyLoadedExample from '../../examples/lazy-loaded';
 
 This package improves the browsers built in automatic scrolling during drag operations.
 
@@ -174,12 +175,27 @@ export type ElementGetFeedbackArgs = {
 };
 ```
 
-## Scroll speed
+## Scroll speed dampening
 
-There are two factors that control how fast the auto scroll speed will be:
+We slow down the scroll speed based on two factors: time over an element, and closeness to an edge.
 
-1. **Distance**: the closer a user's pointer is to the edge of a scrollable entity (element or window), the faster the scroll will be. Scrolling will start a small distance away from an edge (based on the dimensions of the element as well as some upper thresholds). The max scroll speed will be reached at a small distance away from the edge so that a user does not need to drag exactly over the edge to have the max scroll speed.
-2. **Time**: The longer a user drags over a scrollable entity, the faster the scroll speed will be (up to a limit). The result of this is that user will not start a drag, or enter into a new scrollable entity and immediately lose context due to a fast scroll speed. Time dampening starts from when an entity is being dragged over, regardless of whether the user is over an area of the entity that would trigger auto scrolling.
+### Time dampening
+
+The longer a user drags over a scrollable entity, the faster the scroll speed will be (up to a limit).
+
+Time dampening helps a user to avoid loosing context by scrolling too quickly when:
+
+- Lifting a draggable element inside of a scrollable element
+- Dragging into a scrollable element
+
+Time dampening is reset when you leave an element, so if you re-renter an element again, time dampening starts again.
+
+Our time dampening value has been tuned to balance:
+
+1. Trying to avoid losing context
+2. Letting the user get stuff done quickly
+
+Time dampening is shared between "over element" and "overflow" auto scroll regions.
 
 Time dampening is reset when:
 
@@ -189,11 +205,43 @@ Time dampening is reset when:
 
 The `window` time dampening timer does not reset if leaving the `window`. Currently no `onDragLeaveWindow` and `onDragEnterWindow` events are published by Pragmatic drag and drop. If we did publish those events, then we _could_ reset the auto scrolling acceleration timer for the `window` when entering the `window`.
 
-This package will adjust the scroll speed based on the current frame rate of the device. This is to help provide a great feeling experience across devices.
+### Distance dampening
 
-- For devices running at higher `60fps`: we pull the max scroll speed per frame down to ensure the scroll does not get too fast.
-- For devices running at slower than `60fps`: we slow the scroll speed down, so that the max scroll change in a frame is what it would be if the device was running at `60fps`. This will result in a slower scroll speed in order to avoid having the scroll stutter and jump in big chunks.
-- The max scroll speed is updated dynamically based on the current frame rate.
+The closer a user's pointer is to the edge of a scrollable entity (element or window), the faster the scroll will be. Distance dampening allows a user to control the scroll speed by moving closer / further away from a scrollable edge
+
+The max speed can be reached a distance away from the actual edge of a scrollable element. This is so that users don't have to move right onto the edge to get the max speed - they can get the max speed from a small distance out from the edge
+
+<img
+  src="images/distance-dampening.jpg"
+  alt="Distance dampening"
+  style="max-width:300px"
+/>
+
+## Dynamic scroll speed
+
+In order to facilitate a great experience for all users, on all devices, we dynamically adjust the speed of scroll changes based on the devices frame rate (measured in frames per second - `fps`)
+
+**Devices running at `60fps`**
+
+We can scroll up to our maximum target scroll change in a frame
+
+**Devices running at higher frame rates (eg `120fps` displays)**
+
+We lower the max scroll change per frame to ensure we don’t scroll too fast.
+
+If we made the same scroll change per frame on a `120fps` device as we did on a 60fps device, then the `120fps` device would be scrolling twice as fast
+
+The auto scroller ensures that a `120fps` display scrolls at the same visible speed as a 60fps devices.
+
+**Devices running at slower than `60fps`**
+
+You might think we would do the inverse of what we do for the `120fps` devices - increase the max change per frame so that the overall speed would match a `60fps` device. However, this can lead to large scroll changes in a single frame causing the experience to feel janky.
+
+For lower frame rate devices, we cap the max scroll change per frame to match would it would be if the device was running at `60fps`. This can result in a slower over all scroll speed, but the scroll will always feel smooth.
+
+**Dynamic switching**
+
+These rules are applied on a _per frame_ basis. One device might move between all three categories in the same drag operation.
 
 ## Scroll bubbling
 
@@ -240,6 +288,10 @@ const { autoScrollForElements } = await import(
 );
 ```
 
+In this example, we start loading the auto scroller code after the drag has started, but you could load in the auto scroller whenever you like.
+
+<Example Component={LazyLoadedExample} appearance="showcase-only" />
+
 See our [deferred loading guide](../../improving-performance/deferred-loading) for more information.
 
 ## Axis locking
@@ -254,6 +306,7 @@ This package works by declaratively registering scrollable entities. An alternat
 
 We chose declarative registrations for a few reasons:
 
-- Declarative registrations allow for per item configuration (for example, adjusting the speed and auto scroll hitboxes for specific entities).
-- If we find (or make) a way to disable the browser's built in auto scrolling, we can easily add functionality like `canScroll` and axis locking to the existing API.
-- Declarative registrations align with the existing declarative Pragmatic drag and drop API.
+- They allow for per item configuration (for example, adjusting the speed and auto scroll hitboxes for specific entities).
+- They allow us to easily enable / disable scrolling during a drag (through `canScroll()`)
+- They align with the existing declarative Pragmatic drag and drop API
+- Registrations are a cheap way of identifying what is scrollable, otherwise we have to check all elements (through `window.getComputedStyles(element)`) to check what is scrollable, which has poor performance characteristics.

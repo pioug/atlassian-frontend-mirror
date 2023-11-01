@@ -50,12 +50,15 @@ export const showToolbar = (
   return createCommand(commandAction);
 };
 
-export const changeToPlainText = (
-  pasteStartPos: number,
-  plaintext: string,
-): Command => {
+export const changeToPlainText = (): Command => {
   const plaintextTransformer = (tr: Transaction, state: EditorState) => {
-    return formatPlainText(state, pasteStartPos, plaintext);
+    const pluginState: PasteOtionsPluginState =
+      pasteOptionsPluginKey.getState(state);
+    if (pluginState.selectedOption === ToolbarDropdownOption.PlainText) {
+      return tr;
+    }
+
+    return formatPlainText(tr, pluginState);
   };
   const commandAction = (editorState: EditorState) => {
     return {
@@ -70,7 +73,7 @@ export const changeToPlainText = (
 
 export const changeToPlainTextWithAnalytics =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined, sliceSize: number) =>
-  (pasteStartPos: number, plaintext: string): Command => {
+  (): Command => {
     return withAnalytics(editorAnalyticsAPI, {
       action: ACTION.PASTED,
       actionSubject: ACTION_SUBJECT.DOCUMENT,
@@ -81,20 +84,22 @@ export const changeToPlainTextWithAnalytics =
         content: PasteContents.text,
         pasteSize: sliceSize,
       },
-    })(changeToPlainText(pasteStartPos, plaintext));
+    })(changeToPlainText());
   };
 
 export const dropdownClickHandler = (): Command => {
   return highlightContent();
 };
 
-export const changeToRichText = (pasteStartPos: number): Command => {
+export const changeToRichText = (): Command => {
   const transformer = (tr: Transaction, state: EditorState) => {
-    const pastePluginState = pasteOptionsPluginKey.getState(
-      state,
-    ) as PasteOtionsPluginState;
+    const pluginState: PasteOtionsPluginState =
+      pasteOptionsPluginKey.getState(state);
+    if (pluginState.selectedOption === ToolbarDropdownOption.RichText) {
+      return tr;
+    }
 
-    return formatRichText(state, pasteStartPos, pastePluginState.richTextSlice);
+    return formatRichText(tr, pluginState);
   };
   const commandAction = (editorState: EditorState) => {
     return {
@@ -108,8 +113,7 @@ export const changeToRichText = (pasteStartPos: number): Command => {
 };
 
 export const changeToRichTextWithAnalytics =
-  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-  (pasteStartPos: number): Command => {
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => (): Command => {
     const payloadCallback = (
       state: EditorState,
     ): AnalyticsEventPayload | undefined => {
@@ -133,15 +137,18 @@ export const changeToRichTextWithAnalytics =
     return withAnalytics(
       editorAnalyticsAPI,
       payloadCallback,
-    )(changeToRichText(pasteStartPos));
+    )(changeToRichText());
   };
 
-export const changeToMarkDown = (
-  pasteStartPos: number,
-  plaintext: string,
-): Command => {
+export const changeToMarkDown = (): Command => {
   const markdownTransformer = (tr: Transaction, state: EditorState) => {
-    return formatMarkdown(state, pasteStartPos, plaintext);
+    const pluginState: PasteOtionsPluginState =
+      pasteOptionsPluginKey.getState(state);
+    if (pluginState.selectedOption === ToolbarDropdownOption.Markdown) {
+      return tr;
+    }
+
+    return formatMarkdown(tr, pluginState);
   };
 
   const commandAction = (editorState: EditorState) => {
@@ -157,7 +164,7 @@ export const changeToMarkDown = (
 
 export const changeToMarkdownWithAnalytics =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined, sliceSize: number) =>
-  (pasteStartPos: number, plaintext: string): Command => {
+  (): Command => {
     return withAnalytics(editorAnalyticsAPI, {
       action: ACTION.PASTED,
       actionSubject: ACTION_SUBJECT.DOCUMENT,
@@ -168,7 +175,7 @@ export const changeToMarkdownWithAnalytics =
         content: PasteContents.text,
         pasteSize: sliceSize,
       },
-    })(changeToMarkDown(pasteStartPos, plaintext));
+    })(changeToMarkDown());
   };
 
 export const highlightContent = (): Command => {

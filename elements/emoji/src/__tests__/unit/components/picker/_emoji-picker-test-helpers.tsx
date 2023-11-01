@@ -1,13 +1,13 @@
 import { mountWithIntl } from '../../_enzyme';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { ReactWrapper } from 'enzyme';
+import type { ReactWrapper } from 'enzyme';
 import React from 'react';
 import Emoji from '../../../../components/common/Emoji';
 import EmojiDeletePreview from '../../../../components/common/EmojiDeletePreview';
 import EmojiErrorMessage from '../../../../components/common/EmojiErrorMessage';
 import EmojiUploadPreview from '../../../../components/common/EmojiUploadPreview';
 import * as commonStyles from '../../../../components/common/styles';
-import { CategoryGroupKey } from '../../../../components/picker/categories';
+import type { CategoryGroupKey } from '../../../../components/picker/categories';
 import CategorySelector from '../../../../components/picker/CategorySelector';
 import EmojiPicker, { Props } from '../../../../components/picker/EmojiPicker';
 import EmojiPickerCategoryHeading from '../../../../components/picker/EmojiPickerCategoryHeading';
@@ -15,13 +15,13 @@ import EmojiPickerComponent from '../../../../components/picker/EmojiPickerCompo
 import EmojiPickerEmojiRow from '../../../../components/picker/EmojiPickerEmojiRow';
 import EmojiPickerList from '../../../../components/picker/EmojiPickerList';
 import { EmojiPickerListSearch } from '../../../../components/picker/EmojiPickerListSearch';
-import { EmojiDescription } from '../../../../types';
+import type { EmojiDescription } from '../../../../types';
 import { hasSelector } from '../../_emoji-selectors';
 import { getEmojiResourcePromise, newEmojiRepository } from '../../_test-data';
 import { FormattedMessage } from 'react-intl-next';
 import FileChooser from '../../../../components/common/FileChooser';
 import {
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
   AnalyticsListener,
 } from '@atlaskit/analytics-next';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling

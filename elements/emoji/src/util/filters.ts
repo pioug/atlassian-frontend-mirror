@@ -1,5 +1,5 @@
-import { EmojiProvider } from '../api/EmojiResource';
-import { EmojiDescription, OptionalEmojiDescription } from '../types';
+import type { EmojiProvider } from '../api/EmojiResource';
+import type { EmojiDescription, OptionalEmojiDescription } from '../types';
 
 const toneEmojiShortName = ':raised_hand:';
 

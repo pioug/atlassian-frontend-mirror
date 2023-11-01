@@ -1,3 +1,4 @@
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   DatasourceAdf,
   DatasourceAdfView,
@@ -23,5 +24,8 @@ export interface AssetsConfigModalProps {
   visibleColumnKeys?: string[];
   parameters?: AssetsDatasourceParameters;
   onCancel: () => void;
-  onInsert: (adf: InlineCardAdf | AssetsDatasourceAdf) => void;
+  onInsert: (
+    adf: InlineCardAdf | AssetsDatasourceAdf,
+    analyticsEvent?: UIAnalyticsEvent,
+  ) => void;
 }

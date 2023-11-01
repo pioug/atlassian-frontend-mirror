@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import { FC, memo } from 'react';
+import { type FC, memo } from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
-import { EmojiDescription, OnEmojiEvent } from '../../types';
+import type { EmojiDescription, OnEmojiEvent } from '../../types';
 import CachingEmoji from '../common/CachingEmoji';
 import { emojiItem, emojiPickerRow } from './styles';
-import { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
+import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 import { useEmojiPickerListContext } from '../../hooks/useEmojiPickerListContext';
-import { CategoryGroupKey } from './categories';
+import type { CategoryGroupKey } from './categories';
 import { messages } from '../i18n';
 
 export interface Props {

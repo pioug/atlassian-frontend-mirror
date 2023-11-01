@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { jsx } from '@emotion/react';
 import Spinner from '@atlaskit/spinner';
 import EmojiPickerCategoryHeading, {
@@ -10,7 +10,7 @@ import EmojiPickerEmojiRow, {
 } from './EmojiPickerEmojiRow';
 import { sizes } from './EmojiPickerSizes';
 import { emojiPickerSpinner } from './styles';
-import { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
+import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 
 export interface RenderItem {
   (context?: VirtualItemContext): ReactNode;

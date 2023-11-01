@@ -4,7 +4,7 @@ import {
 } from '../../../api/EmojiUtils';
 import { customCategory } from '../../../util/constants';
 import { isEmojiVariationDescription } from '../../../util/type-helpers';
-import {
+import type {
   EmojiDescription,
   EmojiServiceDescription,
   EmojiServiceDescriptionWithVariations,

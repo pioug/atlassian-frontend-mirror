@@ -1,231 +1,23 @@
-import React from 'react';
-
-import { fireEvent, render, waitFor } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
-
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { fireEvent, waitFor } from '@testing-library/react';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
-import {
-  useAssetsClient,
-  UseAssetsClientState,
-} from '../../../../hooks/useAssetsClient';
-import {
-  DatasourceTableState,
-  useDatasourceTableState,
-} from '../../../../hooks/useDatasourceTableState';
-import {
-  useObjectSchemas,
-  UseObjectSchemasState,
-} from '../../../../hooks/useObjectSchemas';
-import {
-  AqlValidationResponse,
-  useValidateAqlText,
-  UseValidateAqlTextState,
-} from '../../../../hooks/useValidateAqlText';
-import { AssetsDatasourceParameters } from '../../types';
-import { AssetsConfigModal } from '../index'; // Using async one to test lazy integration at the same time
 
-jest.mock('../../../../hooks/useDatasourceTableState');
-jest.mock('../../../../hooks/useAssetsClient');
-jest.mock('../../../../hooks/useObjectSchemas');
-jest.mock('../../../../hooks/useValidateAqlText');
+import {
+  getAssetsClientErrorHookState,
+  getAssetsClientLoadingHookState,
+  getDefaultDataSourceTableHookState,
+  getDefaultParameters,
+  getEmptyDatasourceTableHookState,
+  getErrorDatasourceTableHookState,
+  getLoadingDatasourceTableHookState,
+  getSingleAssetHookState,
+  geValidateAqlTextDefaultHookState,
+  setup,
+} from './_utils';
 
 describe('AssetsConfigModal', () => {
-  const getDefaultParameters: () => AssetsDatasourceParameters = () => ({
-    workspaceId: 'some-workspace-id',
-    aql: 'some-query',
-    schemaId: '123',
-  });
-
-  const getDefaultDataSourceTableHookState: () => DatasourceTableState =
-    () => ({
-      reset: jest.fn(),
-      status: 'resolved',
-      onNextPage: jest.fn(),
-      loadDatasourceDetails: jest.fn(),
-      hasNextPage: false,
-      responseItems: [
-        {
-          myColumn: { data: 'some-value' },
-          otherColumn: { data: 'other-column-value' },
-          myId: { data: 'some-id1' },
-        },
-        {
-          myColumn: { data: 'other-value' },
-          otherColumn: { data: 'other-column-other-value' },
-          myId: { data: 'some-id2' },
-        },
-      ],
-      columns: [
-        { key: 'myColumn', title: 'My Column', type: 'string' },
-        { key: 'otherColumn', title: 'My Other Column', type: 'string' },
-        { key: 'myId', title: 'ID', type: 'string', isIdentity: true },
-      ],
-      defaultVisibleColumnKeys: ['myDefaultColumn', 'otherDefaultColumn'],
-      totalCount: 3,
-      destinationObjectTypes: ['issue'],
-      extensionKey: 'jira-object-provider',
-    });
-
-  const getSingleAssetHookState: () => DatasourceTableState = () => ({
-    ...getDefaultDataSourceTableHookState(),
-    responseItems: [
-      {
-        key: {
-          data: {
-            url: 'hello.com',
-          },
-        },
-      },
-    ],
-  });
-
-  const getEmptyDatasourceTableHookState: () => DatasourceTableState = () => ({
-    columns: [],
-    status: 'empty',
-    responseItems: [],
-    hasNextPage: true,
-    defaultVisibleColumnKeys: [],
-    onNextPage: jest.fn(),
-    loadDatasourceDetails: jest.fn(),
-    reset: jest.fn(),
-    totalCount: undefined,
-    destinationObjectTypes: [],
-    extensionKey: undefined,
-  });
-  const getErrorDatasourceTableHookState: () => DatasourceTableState = () => ({
-    columns: [],
-    status: 'rejected',
-    responseItems: [],
-    hasNextPage: true,
-    defaultVisibleColumnKeys: [],
-    onNextPage: jest.fn(),
-    loadDatasourceDetails: jest.fn(),
-    reset: jest.fn(),
-    totalCount: undefined,
-    destinationObjectTypes: ['issue'],
-    extensionKey: 'jira-object-provider',
-  });
-  const getLoadingDatasourceTableHookState: () => DatasourceTableState =
-    () => ({
-      columns: [],
-      status: 'loading',
-      responseItems: [],
-      hasNextPage: true,
-      defaultVisibleColumnKeys: [],
-      onNextPage: jest.fn(),
-      loadDatasourceDetails: jest.fn(),
-      reset: jest.fn(),
-      destinationObjectTypes: ['issue'],
-      extensionKey: 'jira-object-provider',
-    });
-
-  const getObjectSchemasDefaultHookState: () => UseObjectSchemasState = () => ({
-    fetchObjectSchemas: jest.fn(),
-    objectSchemasError: undefined,
-    objectSchemasLoading: false,
-    objectSchemas: undefined,
-  });
-
-  const getAssetsClientDefaultHookState: () => UseAssetsClientState = () => ({
-    workspaceId: 'some-workspace-id',
-    workspaceError: undefined,
-    objectSchema: { name: 'test schema', id: '123' },
-    assetsClientLoading: false,
-  });
-
-  const getAssetsClientLoadingHookState: () => UseAssetsClientState = () => ({
-    workspaceId: undefined,
-    workspaceError: undefined,
-    objectSchema: undefined,
-    assetsClientLoading: true,
-  });
-
-  const getAssetsClientErrorHookState: () => UseAssetsClientState = () => ({
-    workspaceId: undefined,
-    workspaceError: new Error('workspaceError'),
-    objectSchema: undefined,
-    assetsClientLoading: false,
-  });
-
-  const setup = async (
-    args: {
-      parameters?: AssetsDatasourceParameters;
-      datasourceTableHookState?: DatasourceTableState;
-      assetsClientHookState?: UseAssetsClientState;
-      visibleColumnKeys?: string[];
-    } = {},
-  ) => {
-    asMock(useDatasourceTableState).mockReturnValue(
-      args.datasourceTableHookState || getDefaultDataSourceTableHookState(),
-    );
-    asMock(useAssetsClient).mockReturnValue(
-      args.assetsClientHookState || getAssetsClientDefaultHookState(),
-    );
-    asMock(useObjectSchemas).mockReturnValue(
-      getObjectSchemasDefaultHookState(),
-    );
-
-    const onCancel = jest.fn();
-    const onInsert = jest.fn();
-    const onAnalyticFireEvent = jest.fn();
-
-    let renderFunction = render;
-    const renderComponent = () =>
-      renderFunction(
-        <AnalyticsListener
-          channel={EVENT_CHANNEL}
-          onEvent={onAnalyticFireEvent}
-        >
-          <IntlProvider locale="en">
-            <AssetsConfigModal
-              datasourceId={'some-assets-datasource-id'}
-              parameters={
-                Object.keys(args).includes('parameters')
-                  ? args.parameters
-                  : getDefaultParameters()
-              }
-              onCancel={onCancel}
-              onInsert={onInsert}
-              visibleColumnKeys={
-                Object.keys(args).includes('visibleColumnKeys')
-                  ? args.visibleColumnKeys
-                  : ['myColumn']
-              }
-            />
-          </IntlProvider>
-          ,
-        </AnalyticsListener>,
-      );
-    return {
-      ...renderComponent(),
-      onCancel,
-      onInsert,
-      onAnalyticFireEvent,
-    };
-  };
-
-  const mockUseValidateAqlText = asMock(useValidateAqlText);
-  const mockValidateAqlText = jest.fn();
-  const getUseValidateAqlTextDefaultHookState: UseValidateAqlTextState = {
-    isValidAqlText: false,
-    validateAqlTextError: undefined,
-    validateAqlTextLoading: false,
-    validateAqlText: mockValidateAqlText,
-  };
-  const mockValidateAqlTextValid: AqlValidationResponse = {
-    isValid: true,
-    message: null,
-  };
-
   beforeEach(() => {
     jest.resetAllMocks();
-    mockUseValidateAqlText.mockReturnValue(
-      getUseValidateAqlTextDefaultHookState,
-    );
-    mockValidateAqlText.mockResolvedValue(mockValidateAqlTextValid);
   });
 
   afterEach(() => {
@@ -259,26 +51,27 @@ describe('AssetsConfigModal', () => {
 
   it('should fire screen viewed analytics event when config modal is shown', async () => {
     const { onAnalyticFireEvent } = await setup();
-
-    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-      {
-        payload: {
-          eventType: 'screen',
-          name: 'datasourceModalDialog',
-          action: 'viewed',
-          attributes: {},
-        },
-        context: [
-          {
-            packageName: '@atlaskit/fabric',
-            packageVersion: '0.0.0',
-            source: 'datasourceConfigModal',
-            attributes: { dataProvider: 'jsm-assets' },
+    await waitFor(() => {
+      expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            eventType: 'screen',
+            name: 'datasourceModalDialog',
+            action: 'viewed',
+            attributes: {},
           },
-        ],
-      },
-      EVENT_CHANNEL,
-    );
+          context: [
+            {
+              packageName: '@atlaskit/fabric',
+              packageVersion: '0.0.0',
+              source: 'datasourceConfigModal',
+              attributes: { dataProvider: 'jsm-assets' },
+            },
+          ],
+        },
+        EVENT_CHANNEL,
+      );
+    });
   });
 
   describe('when there is no parameters yet', () => {
@@ -287,9 +80,11 @@ describe('AssetsConfigModal', () => {
         datasourceTableHookState: getEmptyDatasourceTableHookState(),
         parameters: undefined,
       });
-      expect(
-        queryByTestId('assets-aql-datasource-modal--initial-state-view'),
-      ).toBeTruthy();
+      await waitFor(() => {
+        expect(
+          queryByTestId('assets-aql-datasource-modal--initial-state-view'),
+        ).toBeTruthy();
+      });
     });
 
     it('should disable insert button', async () => {
@@ -298,7 +93,9 @@ describe('AssetsConfigModal', () => {
         parameters: { workspaceId: '', aql: '', schemaId: '' },
         datasourceTableHookState: getEmptyDatasourceTableHookState(),
       });
-      expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+      await waitFor(() => {
+        expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+      });
     });
   });
 
@@ -309,7 +106,9 @@ describe('AssetsConfigModal', () => {
         parameters: { workspaceId: 'abc123', aql: 'cool', schemaId: '123' },
         datasourceTableHookState: getLoadingDatasourceTableHookState(),
       });
-      expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+      await waitFor(() => {
+        expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+      });
     });
   });
 
@@ -322,14 +121,19 @@ describe('AssetsConfigModal', () => {
         });
         const insertButton = getByRole('button', { name: 'Insert object' });
 
-        expect(insertButton).toBeEnabled();
-        insertButton.click();
+        await waitFor(() => {
+          expect(insertButton).toBeEnabled();
+          insertButton.click();
 
-        expect(onInsert).toHaveBeenCalledWith({
-          type: 'inlineCard',
-          attrs: {
-            url: 'hello.com',
-          },
+          expect(onInsert).toHaveBeenCalledWith(
+            {
+              type: 'inlineCard',
+              attrs: {
+                url: 'hello.com',
+              },
+            },
+            expect.any(Object),
+          );
         });
       });
       it('should insert blockCard adf when no valid url is available', async () => {
@@ -345,15 +149,17 @@ describe('AssetsConfigModal', () => {
           datasourceTableHookState,
         });
         const insertButton = getByRole('button', { name: 'Insert object' });
+        await waitFor(() => {
+          expect(insertButton).toBeEnabled();
+          insertButton.click();
 
-        expect(insertButton).toBeEnabled();
-        insertButton.click();
-
-        expect(onInsert).toHaveBeenCalledWith(
-          expect.objectContaining({
-            type: 'blockCard',
-          }),
-        );
+          expect(onInsert).toHaveBeenCalledWith(
+            expect.objectContaining({
+              type: 'blockCard',
+            }),
+            expect.any(Object),
+          );
+        });
       });
       it('should insert blockCard adf when response does not have a "key" prop', async () => {
         const datasourceTableHookState = getSingleAssetHookState();
@@ -361,48 +167,54 @@ describe('AssetsConfigModal', () => {
         const { getByRole, onInsert } = await setup({
           datasourceTableHookState,
         });
-        const insertButton = getByRole('button', { name: 'Insert object' });
+        await waitFor(() => {
+          const insertButton = getByRole('button', { name: 'Insert object' });
 
-        expect(insertButton).toBeEnabled();
-        insertButton.click();
+          expect(insertButton).toBeEnabled();
+          insertButton.click();
 
-        expect(onInsert).toHaveBeenCalledWith(
-          expect.objectContaining({
-            type: 'blockCard',
-          }),
-        );
+          expect(onInsert).toHaveBeenCalledWith(
+            expect.objectContaining({
+              type: 'blockCard',
+            }),
+            expect.any(Object),
+          );
+        });
       });
       it('should insert blockCard adf when more than 1 asset is returned', async () => {
-        const { getByRole, onInsert } = await setup({});
+        const { getByRole, onInsert } = await setup();
         const insertButton = getByRole('button', { name: 'Insert objects' });
-
-        expect(insertButton).toBeEnabled();
-        insertButton.click();
-
-        expect(onInsert).toHaveBeenCalledWith({
-          type: 'blockCard',
-          attrs: {
-            datasource: {
-              id: 'some-assets-datasource-id',
-              parameters: {
-                workspaceId: 'some-workspace-id',
-                aql: 'some-query',
-                schemaId: '123',
-              },
-              views: [
-                {
-                  type: 'table',
-                  properties: {
-                    columns: [
-                      {
-                        key: 'myColumn',
-                      },
-                    ],
+        await waitFor(() => {
+          expect(insertButton).toBeEnabled();
+          insertButton.click();
+          expect(onInsert).toHaveBeenCalledWith(
+            {
+              type: 'blockCard',
+              attrs: {
+                datasource: {
+                  id: 'some-assets-datasource-id',
+                  parameters: {
+                    workspaceId: 'some-workspace-id',
+                    aql: 'some-query',
+                    schemaId: '123',
                   },
+                  views: [
+                    {
+                      type: 'table',
+                      properties: {
+                        columns: [
+                          {
+                            key: 'myColumn',
+                          },
+                        ],
+                      },
+                    },
+                  ],
                 },
-              ],
+              },
             },
-          },
+            expect.any(Object),
+          );
         });
       });
       it('should insert blockCard adf with default column keys when visibleColumnKeys is undefined', async () => {
@@ -410,37 +222,41 @@ describe('AssetsConfigModal', () => {
           visibleColumnKeys: undefined,
         });
         const insertButton = getByRole('button', { name: 'Insert objects' });
+        await waitFor(() => {
+          expect(insertButton).toBeEnabled();
+          insertButton.click();
 
-        expect(insertButton).toBeEnabled();
-        insertButton.click();
-
-        expect(onInsert).toHaveBeenCalledWith({
-          type: 'blockCard',
-          attrs: {
-            datasource: {
-              id: 'some-assets-datasource-id',
-              parameters: {
-                workspaceId: 'some-workspace-id',
-                aql: 'some-query',
-                schemaId: '123',
-              },
-              views: [
-                {
-                  type: 'table',
-                  properties: {
-                    columns: [
-                      {
-                        key: 'myDefaultColumn',
-                      },
-                      {
-                        key: 'otherDefaultColumn',
-                      },
-                    ],
+          expect(onInsert).toHaveBeenCalledWith(
+            {
+              type: 'blockCard',
+              attrs: {
+                datasource: {
+                  id: 'some-assets-datasource-id',
+                  parameters: {
+                    workspaceId: 'some-workspace-id',
+                    aql: 'some-query',
+                    schemaId: '123',
                   },
+                  views: [
+                    {
+                      type: 'table',
+                      properties: {
+                        columns: [
+                          {
+                            key: 'myDefaultColumn',
+                          },
+                          {
+                            key: 'otherDefaultColumn',
+                          },
+                        ],
+                      },
+                    },
+                  ],
                 },
-              ],
+              },
             },
-          },
+            expect.any(Object),
+          );
         });
       });
       it('should insert initial columns if no response items are returned', async () => {
@@ -451,34 +267,38 @@ describe('AssetsConfigModal', () => {
           },
         });
         const insertButton = getByRole('button', { name: 'Insert objects' });
+        await waitFor(() => {
+          expect(insertButton).toBeEnabled();
+          insertButton.click();
 
-        expect(insertButton).toBeEnabled();
-        insertButton.click();
-
-        expect(onInsert).toHaveBeenCalledWith({
-          type: 'blockCard',
-          attrs: {
-            datasource: {
-              id: 'some-assets-datasource-id',
-              parameters: {
-                workspaceId: 'some-workspace-id',
-                aql: 'some-query',
-                schemaId: '123',
-              },
-              views: [
-                {
-                  type: 'table',
-                  properties: {
-                    columns: [
-                      {
-                        key: 'myColumn',
-                      },
-                    ],
+          expect(onInsert).toHaveBeenCalledWith(
+            {
+              type: 'blockCard',
+              attrs: {
+                datasource: {
+                  id: 'some-assets-datasource-id',
+                  parameters: {
+                    workspaceId: 'some-workspace-id',
+                    aql: 'some-query',
+                    schemaId: '123',
                   },
+                  views: [
+                    {
+                      type: 'table',
+                      properties: {
+                        columns: [
+                          {
+                            key: 'myColumn',
+                          },
+                        ],
+                      },
+                    },
+                  ],
                 },
-              ],
+              },
             },
-          },
+            expect.any(Object),
+          );
         });
       });
     });
@@ -490,7 +310,9 @@ describe('AssetsConfigModal', () => {
       const insertButton = getByRole('button', {
         name: 'Insert object',
       });
-      expect(insertButton).toBeInTheDocument();
+      await waitFor(() => {
+        expect(insertButton).toBeInTheDocument();
+      });
     });
 
     it("should show insert button with 'Insert objects' text when more than one asset is returned", async () => {
@@ -501,7 +323,9 @@ describe('AssetsConfigModal', () => {
       const insertButton = getByRole('button', {
         name: 'Insert objects',
       });
-      expect(insertButton).toBeInTheDocument();
+      await waitFor(() => {
+        expect(insertButton).toBeInTheDocument();
+      });
     });
   });
 
@@ -513,24 +337,32 @@ describe('AssetsConfigModal', () => {
           responseItems: [],
         },
       });
-      expect(getByText('No results found')).toBeInTheDocument();
-      expect(getByRole('button', { name: 'Insert objects' })).toBeEnabled();
+      await waitFor(() => {
+        expect(getByText('No results found')).toBeInTheDocument();
+        expect(getByRole('button', { name: 'Insert objects' })).toBeEnabled();
+      });
     });
   });
 
   describe('when an error occurs on data request', () => {
     it('should show network error message', async () => {
       const { getByRole, getByText } = await setup({
-        datasourceTableHookState: { ...getErrorDatasourceTableHookState() },
+        datasourceTableHookState: getErrorDatasourceTableHookState(),
       });
-      expect(getByText('Unable to load results')).toBeInTheDocument();
-      expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+      await waitFor(() => {
+        expect(getByText('Unable to load results')).toBeInTheDocument();
+        expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+      });
     });
   });
 
   describe('when handling column resetting in search query', () => {
     it('should reset columns when search has changed', async () => {
       const mockReset = jest.fn();
+      const mockValidateAqlText = jest.fn().mockResolvedValue({
+        isValid: true,
+        message: null,
+      });
 
       const { getByTestId } = await setup({
         parameters: {
@@ -540,6 +372,10 @@ describe('AssetsConfigModal', () => {
         datasourceTableHookState: {
           ...getDefaultDataSourceTableHookState(),
           reset: mockReset,
+        },
+        validateAqlTextHookState: {
+          ...geValidateAqlTextDefaultHookState(),
+          validateAqlText: mockValidateAqlText,
         },
       });
 

@@ -4,11 +4,11 @@ import { jsx } from '@emotion/react';
 import {
   FormattedMessage,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 import AkButton from '@atlaskit/button/custom-theme-button';
 import FocusLock from 'react-focus-lock';
-import { EmojiDescription } from '../../types';
+import type { EmojiDescription } from '../../types';
 import { messages } from '../i18n';
 import CachingEmoji from './CachingEmoji';
 import EmojiErrorMessage, {

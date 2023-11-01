@@ -1,5 +1,12 @@
 # @atlaskit/menu
 
+## 2.1.2
+
+### Patch Changes
+
+- [#42474](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42474) [`d7400cb1aa2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7400cb1aa2) - Adds a platform feature flag to adjust Menu Section seperator border widths from 2px to 1px.
+- Updated dependencies
+
 ## 2.1.1
 
 ### Patch Changes

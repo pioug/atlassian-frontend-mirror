@@ -29,27 +29,27 @@ import {
   isEmojiDescription,
 } from '../../util/type-helpers';
 import {
-  EmojiDescription,
-  EmojiId,
-  EmojiSearchResult,
-  EmojiUpload,
-  OnEmojiEvent,
-  OptionalEmojiDescription,
-  OptionalEmojiDescriptionWithVariations,
-  PickerSize,
-  SearchOptions,
+  type EmojiDescription,
+  type EmojiId,
+  type EmojiSearchResult,
+  type EmojiUpload,
+  type OnEmojiEvent,
+  type OptionalEmojiDescription,
+  type OptionalEmojiDescriptionWithVariations,
+  type PickerSize,
+  type SearchOptions,
   SearchSort,
   SearchSourceTypes,
-  ToneSelection,
+  type ToneSelection,
 } from '../../types';
 import { getToneEmoji } from '../../util/filters';
 import { uploadEmoji } from '../common/UploadEmoji';
 import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
-import { CategoryId } from './categories';
+import type { CategoryId } from './categories';
 import CategorySelector from './CategorySelector';
 import EmojiPickerFooter from './EmojiPickerFooter';
 import EmojiPickerList from './EmojiPickerList';
-import {
+import type {
   AnalyticsEventPayload,
   CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';

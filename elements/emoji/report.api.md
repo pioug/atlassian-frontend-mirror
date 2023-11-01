@@ -19,19 +19,19 @@
 
 import { AbstractResource } from '@atlaskit/util-service-support';
 import { Component } from 'react';
-import { ComponentClass } from 'react';
+import type { ComponentClass } from 'react';
 import { ComponentType } from 'react';
 import { ConcurrentExperience } from '@atlaskit/ufo';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { FC } from 'react';
 import { ForwardRefExoticComponent } from 'react';
 import { jsx } from '@emotion/react';
-import { Provider } from '@atlaskit/util-service-support/types';
+import type { Provider } from '@atlaskit/util-service-support/types';
 import { PureComponent } from 'react';
 import { default as React_2 } from 'react';
 import { RefAttributes } from 'react';
 import { ServiceConfig } from '@atlaskit/util-service-support';
-import { SyntheticEvent } from 'react';
+import type { SyntheticEvent } from 'react';
 import { UFOExperience } from '@atlaskit/ufo';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
@@ -555,7 +555,7 @@ export class EmojiTypeAhead extends LoadingEmojiComponent<Props_7, State> {
   // (undocumented)
   renderLoaded(
     loadedEmojiProvider: EmojiProvider,
-    EmojiTypeAheadComponent: ComponentClass<Props_8>,
+    TypeAheadComponent: ComponentClass<Props_8>,
   ): JSX.Element | null;
   // (undocumented)
   selectNext: () => void;

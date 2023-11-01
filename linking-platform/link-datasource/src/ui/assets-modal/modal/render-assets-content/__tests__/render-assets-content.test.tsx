@@ -38,6 +38,7 @@ describe('AssetsConfigModal', () => {
             onNextPage={mockOnNextPage}
             hasNextPage={false}
             loadDatasourceDetails={mockLoadDatasourceDetails}
+            modalRenderInstanceId="510203d1-74b0-4ae4-b2aa-f34516665ee4"
             columns={
               props.columns !== undefined
                 ? []

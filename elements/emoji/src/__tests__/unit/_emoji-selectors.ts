@@ -1,4 +1,4 @@
-import { ReactWrapper, EnzymePropSelector } from 'enzyme';
+import type { ReactWrapper, EnzymePropSelector } from 'enzyme';
 
 export function getEmojiTypeAheadItemById(
   emojiTypeAhead: ReactWrapper<any, any>,

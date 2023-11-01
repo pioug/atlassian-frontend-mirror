@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import type { FC } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { jsx } from '@emotion/react';
 import AkButton from '@atlaskit/button/custom-theme-button';

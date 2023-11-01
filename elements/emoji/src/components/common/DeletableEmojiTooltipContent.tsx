@@ -4,7 +4,7 @@ import { messages } from '../i18n';
 import { ToolTipContentWithKeymap } from './ToolTipContentWithKeymap';
 import { backspace } from '../../util/keymaps';
 import VisuallyHidden from '@atlaskit/visually-hidden';
-import { EmojiDescription } from '../../types';
+import type { EmojiDescription } from '../../types';
 
 export const DeletableEmojiTooltipContent = () => {
   const { formatMessage } = useIntl();

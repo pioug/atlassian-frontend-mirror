@@ -1,5 +1,9 @@
-import React, { ReactElement } from 'react';
-import { render, RenderOptions, RenderResult } from '@testing-library/react';
+import React, { type ReactElement } from 'react';
+import {
+  render,
+  type RenderOptions,
+  type RenderResult,
+} from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 const IntlWrapper: React.FC<{ locale?: string }> = ({

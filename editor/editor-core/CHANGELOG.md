@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 189.1.10
+
+### Patch Changes
+
+- [#42152](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42152) [`0097171c562`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0097171c562) - ED-19766-collab: Adding collab support for paste options toolbar for confluence
+
 ## 189.1.7
 
 ### Patch Changes

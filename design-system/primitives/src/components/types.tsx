@@ -9,12 +9,6 @@ export type BasePrimitiveProps = {
   testId?: string;
 
   /**
-   * Inline styles to be applied to the primitive. Only apply as a last resort, or where
-   * styles cannot otherwise be calculated outside of the runtime of the component they're applied.
-   */
-  style?: CSSProperties;
-
-  /**
    * Apply a subset of permitted styles, powered by Atlassian Design System tokens.
    */
   xcss?: XCSS | Array<XCSS | false | undefined>;
@@ -23,6 +17,14 @@ export type BasePrimitiveProps = {
    * Accessible role
    */
   role?: string;
+};
+
+export type StyleProp = {
+  /**
+   * Inline styles to be applied to the primitive. Only apply as a last resort, or where
+   * styles cannot otherwise be calculated outside of the runtime of the component they're applied.
+   */
+  style?: CSSProperties;
 };
 
 export type AlignInline = 'start' | 'center' | 'end' | 'stretch';

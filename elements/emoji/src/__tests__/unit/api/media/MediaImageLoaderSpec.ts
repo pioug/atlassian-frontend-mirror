@@ -3,7 +3,7 @@ import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 import fetchMock from 'fetch-mock/cjs/client';
 
 import MediaImageLoader from '../../../../api/media/MediaImageLoader';
-import TokenManager from '../../../../api/media/TokenManager';
+import type TokenManager from '../../../../api/media/TokenManager';
 import {
   blobResponse,
   createTokenManager,

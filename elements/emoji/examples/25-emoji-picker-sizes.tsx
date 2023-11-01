@@ -1,5 +1,5 @@
 import React from 'react';
-import { EmojiProvider } from '../src/resource';
+import type { EmojiProvider } from '../src/resource';
 import { EmojiPicker } from '../src/picker';
 import { IntlProvider } from 'react-intl-next';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling

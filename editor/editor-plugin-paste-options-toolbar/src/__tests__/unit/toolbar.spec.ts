@@ -22,7 +22,6 @@ describe('Toolbar config', () => {
     locale: 'en',
   });
 
-  const plainTextContent = 'plain text';
   let pasteOptionsPluginState = {
     showToolbar: true,
     pasteStartPos: 0,
@@ -40,8 +39,6 @@ describe('Toolbar config', () => {
       // When plain text is pasted, the paste options should have "use Rich text" option hidden.
       const menu = getToolbarMenuConfig(
         pasteOptionsPluginState,
-        1,
-        plainTextContent,
         intl,
         undefined,
       );

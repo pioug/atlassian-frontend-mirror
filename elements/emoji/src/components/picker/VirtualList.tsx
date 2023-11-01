@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
+import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 import React, { useCallback, useImperativeHandle } from 'react';
 import { virtualList } from './styles';
 import { useVirtualizer } from '@tanstack/react-virtual';

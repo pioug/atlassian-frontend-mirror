@@ -1,5 +1,11 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { EmojiProvider } from '../../api/EmojiResource';
+import React, {
+  type FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import type { EmojiProvider } from '../../api/EmojiResource';
 import { defaultEmojiHeight } from '../../util/constants';
 import {
   isImageRepresentation,
@@ -7,8 +13,8 @@ import {
   isPromise,
 } from '../../util/type-helpers';
 import {
-  EmojiId,
-  OptionalEmojiDescription,
+  type EmojiId,
+  type OptionalEmojiDescription,
   UfoEmojiTimings,
 } from '../../types';
 import Emoji from './Emoji';

@@ -94,14 +94,6 @@ class ProfilecardTrigger extends React.PureComponent<
     }
   };
 
-  onFocus = () => {
-    this.showProfilecard();
-
-    if (!this.state.visible) {
-      this.fireAnalytics(cardTriggered('user', 'hover'));
-    }
-  };
-
   onKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
@@ -112,13 +104,17 @@ class ProfilecardTrigger extends React.PureComponent<
     }
   };
 
+  onFocus = () => {
+    this.showProfilecard();
+  };
+
   containerListeners =
     this.props.trigger === 'hover'
       ? {
           onMouseEnter: this.onMouseEnter,
           onMouseLeave: this.hideProfilecard,
-          onFocus: this.onFocus,
           onBlur: this.hideProfilecard,
+          onKeyPress: this.onKeyPress,
         }
       : {
           onClick: this.onClick,

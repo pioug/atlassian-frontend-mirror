@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
@@ -1276,5 +1276,43 @@ describe('Tooltip', () => {
       expect(triggerDescriptionId).toEqual(tooltipId);
       unmount();
     });
+  });
+
+  it('should not throw when the first child of tooltip is not an element', () => {
+    render(
+      <Tooltip testId="tooltip" content="Save">
+        hello
+        <button data-testid="trigger">focus me</button>
+      </Tooltip>,
+    );
+
+    fireEvent.mouseOver(screen.getByTestId('trigger'));
+
+    expect(() => {
+      jest.runAllTimers();
+    }).not.toThrow();
+  });
+
+  it('should pick up the latest child ref after a re-render using the children-not-a-function API', () => {
+    const { rerender } = render(
+      <Tooltip testId="tooltip" content="Save">
+        {null}
+      </Tooltip>,
+    );
+
+    rerender(
+      <Tooltip testId="tooltip" content="Save">
+        <button data-testid="trigger">focus me</button>
+      </Tooltip>,
+    );
+
+    fireEvent.mouseOver(screen.getByTestId('trigger'));
+
+    jest.runAllTimers();
+
+    expect(() => {
+      // If this throws it means the test id resolved to "{testId}--unresolved".
+      screen.getByTestId('tooltip');
+    }).not.toThrow();
   });
 });

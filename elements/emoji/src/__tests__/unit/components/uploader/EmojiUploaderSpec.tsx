@@ -7,7 +7,7 @@ import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource'
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import TextField from '@atlaskit/textfield';
-import { ReactWrapper } from 'enzyme';
+import type { ReactWrapper } from 'enzyme';
 import { screen, waitFor } from '@testing-library/react';
 
 import * as ImageUtil from '../../../../util/image';

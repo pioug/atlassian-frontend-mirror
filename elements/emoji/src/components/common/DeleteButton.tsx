@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import type { FC } from 'react';
 import { jsx } from '@emotion/react';
 import Button, {
-  CustomThemeButtonProps,
+  type CustomThemeButtonProps,
 } from '@atlaskit/button/custom-theme-button';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import { token } from '@atlaskit/tokens';

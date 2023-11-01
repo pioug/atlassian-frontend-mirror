@@ -25,6 +25,7 @@ export interface RenderAssetsContentProps {
   columns: DatasourceResponseSchemaProperty[];
   defaultVisibleColumnKeys: string[];
   onVisibleColumnKeysChange: (visibleColumnKeys: string[]) => void;
+  modalRenderInstanceId: string;
 }
 
 export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
@@ -38,6 +39,7 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
     columns,
     defaultVisibleColumnKeys,
     onVisibleColumnKeysChange,
+    modalRenderInstanceId,
   } = props;
 
   const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
@@ -54,6 +56,7 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
         onNextPage={onNextPage}
         onLoadDatasourceDetails={loadDatasourceDetails}
         onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+        parentContainerRenderInstanceId={modalRenderInstanceId}
       />
     ),
     [
@@ -66,6 +69,7 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
       responseItems,
       status,
       visibleColumnKeys,
+      modalRenderInstanceId,
     ],
   );
 

@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import type { FC } from 'react';
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 import { isMessagesKey } from '../../util/type-helpers';
 import { messages } from '../i18n';
 import { emojiCategoryTitle } from './styles';
-import { CategoryGroupKey } from './categories';
+import type { CategoryGroupKey } from './categories';
 
 /**
  * Test id for wrapper Emoji Picker List div

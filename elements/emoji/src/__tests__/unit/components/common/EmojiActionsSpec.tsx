@@ -1,6 +1,6 @@
 import React from 'react';
 import EmojiActionsWithIntl from '../../../../components/common/EmojiActions';
-import { EmojiDescriptionWithVariations } from '../../../../types';
+import type { EmojiDescriptionWithVariations } from '../../../../types';
 import { generateSkinVariation, imageEmoji } from '../../_test-data';
 import { renderWithIntl } from '../../_testing-library';
 import userEvent from '@testing-library/user-event';

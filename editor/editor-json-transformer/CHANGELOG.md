@@ -1,5 +1,11 @@
 # @atlaskit/editor-json-transformer
 
+## 8.10.11
+
+### Patch Changes
+
+- [#42277](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42277) [`7e381f8dd7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e381f8dd7a) - Enrol @atlaskit/editor-json-transformer to push model in JFE
+
 ## 8.10.10
 
 ### Patch Changes

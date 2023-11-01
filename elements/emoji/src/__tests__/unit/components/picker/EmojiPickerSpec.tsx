@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 import { act, screen, waitFor, within } from '@testing-library/react';
 import { matchers } from '@emotion/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { ReactWrapper } from 'enzyme';
+import type { ReactWrapper } from 'enzyme';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import {
   mockReactDomWarningGlobal,
@@ -17,7 +17,7 @@ import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/m
 import { VirtualList } from '../../../../components/picker/VirtualList';
 import EmojiRepository from '../../../../api/EmojiRepository';
 import Emoji, {
-  Props as EmojiProps,
+  type Props as EmojiProps,
 } from '../../../../components/common/Emoji';
 import EmojiRadioButton from '../../../../components/common/EmojiRadioButton';
 import { messages } from '../../../../components/i18n';
@@ -42,7 +42,10 @@ import {
   selectedToneStorageKey,
 } from '../../../../util/constants';
 import { isMessagesKey } from '../../../../util/type-helpers';
-import { EmojiDescription, OptionalEmojiDescription } from '../../../../types';
+import type {
+  EmojiDescription,
+  OptionalEmojiDescription,
+} from '../../../../types';
 import {
   getEmojiResourcePromise,
   mediaEmoji,
@@ -71,7 +74,7 @@ import EmojiPickerComponent from '../../../../components/picker/EmojiPickerCompo
 import { emojiPickerHeightOffset } from '../../../../components/picker/utils';
 import * as constants from '../../../../util/constants';
 import fetchMock from 'fetch-mock/cjs/client';
-import { ServiceConfig } from '@atlaskit/util-service-support';
+import type { ServiceConfig } from '@atlaskit/util-service-support';
 import {
   EmojiResource,
   EmojiResourceConfig,

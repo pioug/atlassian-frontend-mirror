@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import {
-  FC,
-  KeyboardEventHandler,
+  type FC,
+  type KeyboardEventHandler,
   useEffect,
   useLayoutEffect,
   useState,
-  ChangeEvent,
-  ChangeEventHandler,
+  type ChangeEvent,
+  type ChangeEventHandler,
   useRef,
   memo,
   useCallback,
@@ -15,14 +15,14 @@ import { jsx } from '@emotion/react';
 import {
   FormattedMessage,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 import TextField from '@atlaskit/textfield';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import AkButton from '@atlaskit/button/standard-button';
 import FocusLock from 'react-focus-lock';
 
-import { EmojiUpload, Message } from '../../types';
+import type { EmojiUpload, Message } from '../../types';
 import * as ImageUtil from '../../util/image';
 import debug from '../../util/logger';
 import { messages } from '../i18n';

@@ -1,8 +1,8 @@
-import { EmojiResponse } from '../types';
+import type { EmojiResponse } from '../types';
 
 import {
   denormaliseEmojiServiceResponse,
-  EmojiLoaderConfig,
+  type EmojiLoaderConfig,
   emojiRequest,
 } from './EmojiUtils';
 

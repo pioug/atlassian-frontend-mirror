@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react';
+import React, { type FC, useMemo, useState } from 'react';
 import { EmojiPicker } from '../src/picker';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -8,7 +8,7 @@ import { getEmojiResourceWithStandardAndAtlassianEmojis } from '@atlaskit/util-d
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { loggedUser } from '@atlaskit/util-data-test/logged-user';
 import { onSelection } from '../example-helpers';
-import { EmojiProvider } from '../src/resource';
+import type { EmojiProvider } from '../src/resource';
 import { IntlProvider } from 'react-intl-next';
 
 const EmojiPickerWithUpload: FC = () => {

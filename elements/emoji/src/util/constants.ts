@@ -1,4 +1,4 @@
-import { CategoryId } from '../components/picker/categories';
+import type { CategoryId } from '../components/picker/categories';
 
 export const customCategory = 'CUSTOM';
 export const frequentCategory = 'FREQUENT';

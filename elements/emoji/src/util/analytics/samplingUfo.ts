@@ -1,4 +1,4 @@
-import { CustomData, UFOExperience } from '@atlaskit/ufo';
+import type { CustomData, UFOExperience } from '@atlaskit/ufo';
 
 export interface UFOExperienceSampledRecords {
   [experienceName: string]: UFOExperienceSampledRecord;

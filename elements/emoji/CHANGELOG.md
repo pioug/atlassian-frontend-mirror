@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 67.5.12
+
+### Patch Changes
+
+- [#42406](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42406) [`b847b791658`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b847b791658) - Use import type
+
 ## 67.5.11
 
 ### Patch Changes

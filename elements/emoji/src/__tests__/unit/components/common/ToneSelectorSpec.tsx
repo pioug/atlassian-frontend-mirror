@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import ToneSelector from '../../../../components/common/ToneSelector';
-import {
+import type {
   EmojiDescription,
   EmojiDescriptionWithVariations,
 } from '../../../../types';

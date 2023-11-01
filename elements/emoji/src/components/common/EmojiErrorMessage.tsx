@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import type { FC } from 'react';
 import { jsx, SerializedStyles } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
-import { Message } from '../../types';
+import type { Message } from '../../types';
 import { useIntl } from 'react-intl-next';
 
 import { messages } from '../i18n';

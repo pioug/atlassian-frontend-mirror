@@ -1,5 +1,12 @@
 # @atlaskit/tooltip
 
+## 17.8.9
+
+### Patch Changes
+
+- [#42475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42475) [`c93c86d4089`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c93c86d4089) - Tooltip no longer throws in an effect when the first child of tooltip isn't an element.
+- [#42475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42475) [`61779a58ad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61779a58ad8) - Tooltip nolonger memoizes the ref callback function for the implicit passing-children-jsx API. The children-as-function API remains memoized. For more control and better performance characteristics we recommend leaning on the explicit children-as-function API over the implicit passing-children-jsx API.
+
 ## 17.8.8
 
 ### Patch Changes

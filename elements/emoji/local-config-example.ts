@@ -1,4 +1,4 @@
-import { EmojiId } from './src/types';
+import type { EmojiId } from './src/types';
 
 export default {
   recordConfig: {

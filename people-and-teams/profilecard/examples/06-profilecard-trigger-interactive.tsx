@@ -29,6 +29,7 @@ export default function Example() {
       <MainStage>
         <Section>
           <h4>Profilecard triggered by hover</h4>
+          <a href="#">An interactive link to test hover</a>
           <InteractiveTrigger resourceClient={mockClient} />
         </Section>
       </MainStage>

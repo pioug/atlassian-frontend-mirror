@@ -1,14 +1,14 @@
 import React, {
-  FC,
-  ReactElement,
+  type FC,
+  type ReactElement,
   cloneElement,
-  ChangeEvent,
+  type ChangeEvent,
   useState,
 } from 'react';
 import {
   EmojiResource,
-  EmojiProvider,
-  EmojiResourceConfig,
+  type EmojiProvider,
+  type EmojiResourceConfig,
 } from '../src/resource';
 
 export function getEmojiConfig(allowUpload = true) {

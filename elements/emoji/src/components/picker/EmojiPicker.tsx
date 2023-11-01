@@ -1,18 +1,18 @@
 /** @jsx jsx */
-import { ComponentClass, FC } from 'react';
+import type { ComponentClass, FC } from 'react';
 import { jsx } from '@emotion/react';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { ufoExperiences } from '../../util/analytics';
-import { EmojiProvider } from '../../api/EmojiResource';
-import { OnEmojiEvent, PickerSize } from '../../types';
+import type { EmojiProvider } from '../../api/EmojiResource';
+import type { OnEmojiEvent, PickerSize } from '../../types';
 import LoadingEmojiComponent, {
-  Props as LoadingProps,
-  State as LoadingState,
+  type Props as LoadingProps,
+  type State as LoadingState,
 } from '../common/LoadingEmojiComponent';
-import {
+import type {
   PickerRefHandler,
   Props as ComponentProps,
 } from './EmojiPickerComponent';

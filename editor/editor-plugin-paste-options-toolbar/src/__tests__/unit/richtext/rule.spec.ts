@@ -5,6 +5,7 @@ import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-s
 import { code, doc, hr, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { formatRichText } from '../../../util/format-handlers';
+import { getDefaultRichTextPluginState } from '../_testHelpers';
 
 describe('format rich text: rule', () => {
   describe('when pasting a rule in empty doc', () => {
@@ -17,7 +18,14 @@ describe('format rich text: rule', () => {
         0,
         0,
       );
-      let tr = formatRichText(state, state.selection.from, richTextSlice);
+
+      let pluginState = getDefaultRichTextPluginState();
+      pluginState.richTextSlice = richTextSlice;
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatRichText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(doc(p(code(`${plaintext}{<>}`))));
     });
   });
@@ -34,7 +42,14 @@ describe('format rich text: rule', () => {
         0,
         0,
       );
-      let tr = formatRichText(state, state.selection.from, richTextSlice);
+
+      let pluginState = getDefaultRichTextPluginState();
+      pluginState.richTextSlice = richTextSlice;
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatRichText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(p('some text'), p(code(`${plaintext}{<>}`)), p('another text')),
       );
@@ -53,7 +68,14 @@ describe('format rich text: rule', () => {
         0,
         0,
       );
-      let tr = formatRichText(state, state.selection.from, richTextSlice);
+
+      let pluginState = getDefaultRichTextPluginState();
+      pluginState.richTextSlice = richTextSlice;
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatRichText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(p('some text'), p(code(`${plaintext}{<>}`)), p('another text')),
       );

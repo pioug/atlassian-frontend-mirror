@@ -25,7 +25,7 @@ import {
   N50,
   N900,
 } from '@atlaskit/theme/colors';
-import { PickerSize } from '../../types';
+import type { PickerSize } from '../../types';
 import { emojiPickerHeightOffset } from './utils';
 
 // Level 1 - picker

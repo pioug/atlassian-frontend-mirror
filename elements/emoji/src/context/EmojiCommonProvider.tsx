@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { EmojiProvider } from '../api/EmojiResource';
+import React, { type FC } from 'react';
+import type { EmojiProvider } from '../api/EmojiResource';
 import { EmojiContextProvider } from './EmojiContextProvider';
 
 export interface EmojiCommonProviderProps {

@@ -1,12 +1,19 @@
 /** @jsx jsx */
-import { Fragment, useState, FC, useRef, memo, useLayoutEffect } from 'react';
+import {
+  Fragment,
+  useState,
+  type FC,
+  useRef,
+  memo,
+  useLayoutEffect,
+} from 'react';
 import { jsx } from '@emotion/react';
 import {
   FormattedMessage,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
-import {
+import type {
   EmojiDescription,
   EmojiDescriptionWithVariations,
   Message,
@@ -16,9 +23,11 @@ import {
   ToneValueType,
 } from '../../types';
 import EmojiDeletePreview, {
-  OnDeleteEmoji,
+  type OnDeleteEmoji,
 } from '../common/EmojiDeletePreview';
-import EmojiUploadPicker, { OnUploadEmoji } from '../common/EmojiUploadPicker';
+import EmojiUploadPicker, {
+  type OnUploadEmoji,
+} from '../common/EmojiUploadPicker';
 import { EmojiPickerListSearch } from '../picker/EmojiPickerListSearch';
 import ToneSelector from './ToneSelector';
 import TonePreviewButton from './TonePreviewButton';

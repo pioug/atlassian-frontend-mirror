@@ -1,7 +1,7 @@
-import { OnLifecycle } from '../src/components/typeahead/EmojiTypeAheadComponent';
+import type { OnLifecycle } from '../src/components/typeahead/EmojiTypeAheadComponent';
 import debug, { enableLogger } from '../src/util/logger';
-import { OnEmojiEvent, OnToneSelected, EmojiUpload } from '../src/types';
-import { OnUploadEmoji } from '../src/components/common/EmojiUploadPicker';
+import type { OnEmojiEvent, OnToneSelected, EmojiUpload } from '../src/types';
+import type { OnUploadEmoji } from '../src/components/common/EmojiUploadPicker';
 
 enableLogger(true);
 

@@ -36,7 +36,7 @@
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@babel/runtime": "^7.0.0",
-    "@babel/traverse": "^7.20.0",
+    "@babel/traverse": "^7.23.2",
     "@babel/types": "^7.20.0",
     "bind-event-listener": "^2.1.1"
   },

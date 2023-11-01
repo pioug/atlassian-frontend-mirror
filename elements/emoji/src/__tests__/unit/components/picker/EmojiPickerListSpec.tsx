@@ -15,7 +15,7 @@ import {
   deleteEmojiLabel,
   EMOJI_LIST_COLUMNS,
 } from '../../../../util/constants';
-import { EmojiDescription } from '../../../../types';
+import type { EmojiDescription } from '../../../../types';
 import {
   mockReactDomWarningGlobal,
   renderWithIntl,

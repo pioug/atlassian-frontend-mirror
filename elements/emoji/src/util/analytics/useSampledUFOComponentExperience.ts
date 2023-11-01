@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { CustomData, UFOExperience } from '@atlaskit/ufo';
+import type { CustomData, UFOExperience } from '@atlaskit/ufo';
 import { withSampling } from './samplingUfo';
 
 const useConstructor = (callback: () => void) => {

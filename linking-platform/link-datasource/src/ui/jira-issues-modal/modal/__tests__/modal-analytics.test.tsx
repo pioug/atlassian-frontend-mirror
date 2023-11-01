@@ -61,6 +61,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           actionSubjectId: 'datasource',
           attributes: {
             instancesCount: 8,
+            schemasCount: null,
           },
         },
         context: [

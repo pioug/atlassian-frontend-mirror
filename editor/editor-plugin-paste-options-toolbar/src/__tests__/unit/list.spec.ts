@@ -19,6 +19,12 @@ import {
   formatRichText,
 } from '../../util/format-handlers';
 
+import {
+  getDefaultMarkdownPluginState,
+  getDefaultPlainTextPluginState,
+  getDefaultRichTextPluginState,
+} from './_testHelpers';
+
 describe('formatMarkdown', () => {
   describe('when pasting a markdown list', () => {
     it('set the selection inside the last list item', () => {
@@ -43,7 +49,11 @@ describe('formatMarkdown', () => {
 3. Third item
 4. Fourth item`;
 
-      const tr = formatMarkdown(state, state.selection.from, plaintext);
+      let pluginState = getDefaultMarkdownPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+      const tr = formatMarkdown(state.tr, pluginState);
 
       expect(tr).toEqualDocumentAndSelection(
         doc(
@@ -85,7 +95,11 @@ Ending paragraph.
 With multiple lines.
 `;
 
-      const tr = formatMarkdown(state, state.selection.from, plaintext);
+      let pluginState = getDefaultMarkdownPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+      const tr = formatMarkdown(state.tr, pluginState);
 
       expect(tr).toEqualDocumentAndSelection(
         doc(
@@ -132,7 +146,11 @@ some initial text
 some final text
       `;
 
-      const tr = formatMarkdown(state, state.selection.from, plaintext);
+      let pluginState = getDefaultMarkdownPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+      const tr = formatMarkdown(state.tr, pluginState);
 
       expect(tr).toEqualDocumentAndSelection(
         doc(
@@ -177,7 +195,11 @@ some final text
 3. Third item
 4. Fourth item`;
 
-      const tr = formatMarkdown(state, state.selection.from, plaintext);
+      let pluginState = getDefaultMarkdownPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+      const tr = formatMarkdown(state.tr, pluginState);
 
       expect(tr).toEqualDocumentAndSelection(
         doc(
@@ -209,7 +231,12 @@ describe('formatPlainText', () => {
       const plaintext = `1. One
 2. Two
 3. Three`;
-      const tr = formatPlainText(state, state.selection.from, plaintext);
+      let pluginState = getDefaultPlainTextPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatPlainText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(
           // prettier-ignore
@@ -234,7 +261,12 @@ describe('formatPlainText', () => {
       const plaintext = `1. One
 2. Two
 3. Three`;
-      const tr = formatPlainText(state, state.selection.from, plaintext);
+      let pluginState = getDefaultPlainTextPluginState();
+      pluginState.plaintext = plaintext;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatPlainText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(
           // prettier-ignore
@@ -265,7 +297,13 @@ describe('format rich text:list', () => {
         0,
         0,
       );
-      let tr = formatRichText(state, state.selection.from, richTextSlice);
+
+      let pluginState = getDefaultRichTextPluginState();
+      pluginState.richTextSlice = richTextSlice;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatRichText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(p(code('1. First item'), hardBreak(), code('2. Second item{<>}'))),
       );
@@ -293,7 +331,13 @@ describe('format rich text:list', () => {
         0,
         0,
       );
-      let tr = formatRichText(state, state.selection.from, richTextSlice);
+
+      let pluginState = getDefaultRichTextPluginState();
+      pluginState.richTextSlice = richTextSlice;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatRichText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(
           p('Some text'),
@@ -325,7 +369,13 @@ describe('format rich text:list', () => {
         0,
         0,
       );
-      let tr = formatRichText(state, state.selection.from, richTextSlice);
+
+      let pluginState = getDefaultRichTextPluginState();
+      pluginState.richTextSlice = richTextSlice;
+      pluginState.pasteStartPos = state.selection.from;
+      pluginState.pasteEndPos = state.selection.to;
+
+      const tr = formatRichText(state.tr, pluginState);
       expect(tr).toEqualDocumentAndSelection(
         doc(
           p('Some text'),

@@ -1,4 +1,5 @@
-import React, { EventHandler, KeyboardEvent, MouseEvent } from 'react';
+import type { EventHandler, KeyboardEvent, MouseEvent } from 'react';
+import React from 'react';
 
 import PropTypes from 'prop-types';
 import rafSchedule from 'raf-schd';
@@ -8,11 +9,14 @@ import {
   findOverflowScrollParent,
   UnsupportedInline,
 } from '@atlaskit/editor-common/ui';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
 import { registerCard } from '../pm-plugins/actions';
 
-import { Card, SmartCardProps } from './genericCard';
+import type { SmartCardProps } from './genericCard';
+import { Card } from './genericCard';
+import { InlineCardWithAwareness } from './inlineCardWithAwareness';
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
@@ -100,6 +104,10 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
 }
 
 const WrappedInlineCard = Card(InlineCardComponent, UnsupportedInline);
+const WrappedInlineCardWithAwareness = Card(
+  InlineCardWithAwareness,
+  UnsupportedInline,
+);
 
 export type InlineCardNodeViewProps = Pick<
   SmartCardProps,
@@ -112,8 +120,14 @@ export function InlineCardNodeView(
   const { useAlternativePreloader, node, view, getPos, showServerActions } =
     props;
 
+  const WrappedCard = getBooleanFF(
+    'platform.linking-platform.smart-card.inline-switcher',
+  )
+    ? WrappedInlineCardWithAwareness
+    : WrappedInlineCard;
+
   return (
-    <WrappedInlineCard
+    <WrappedCard
       node={node}
       view={view}
       getPos={getPos}

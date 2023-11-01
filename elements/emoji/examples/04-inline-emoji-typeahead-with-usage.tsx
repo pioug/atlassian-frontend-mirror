@@ -1,5 +1,5 @@
 import { layers } from '@atlaskit/theme/constants';
-import React, { FC, useRef, useState } from 'react';
+import React, { type FC, useRef, useState } from 'react';
 import { lorem, onClose, onOpen } from '../example-helpers';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -9,10 +9,10 @@ import {
   UsagingShowingProps,
 } from '../example-helpers/demo-emoji-usage-components';
 import SearchTextInput from '../example-helpers/demo-search-text-input';
-import { TypeaheadProps } from '../example-helpers/typeahead-props';
-import { EmojiProvider } from '../src/resource';
+import type { TypeaheadProps } from '../example-helpers/typeahead-props';
+import type { EmojiProvider } from '../src/resource';
 import { EmojiTypeAhead } from '../src/typeahead';
-import { EmojiId, OptionalEmojiDescription } from '../src/types';
+import type { EmojiId, OptionalEmojiDescription } from '../src/types';
 import debug from '../src/util/logger';
 import { IntlProvider } from 'react-intl-next';
 

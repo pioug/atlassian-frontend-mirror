@@ -1,4 +1,4 @@
-import React, { FC, memo, useState } from 'react';
+import React, { type FC, memo, useState } from 'react';
 import {
   ResourcedEmojiControl,
   getEmojiConfig,
@@ -6,7 +6,7 @@ import {
 } from '../example-helpers/demo-resource-control';
 import { emojiPickerHeight } from '../src/util/constants';
 import { IntlProvider } from 'react-intl-next';
-import { EmojiProvider, ResourcedEmoji } from '../src';
+import { type EmojiProvider, ResourcedEmoji } from '../src';
 
 interface RenderRealEmojisProps {
   emailProvider: Promise<EmojiProvider>;

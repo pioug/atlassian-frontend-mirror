@@ -1,13 +1,13 @@
-import React, { FC } from 'react';
+import React, { type FC } from 'react';
 
 import LoadingEmojiComponent, {
-  Props as LoadingProps,
-  State as LoadingState,
+  type Props as LoadingProps,
+  type State as LoadingState,
 } from '../common/LoadingEmojiComponent';
-import { Props as ComponentProps } from './EmojiUploadComponent';
-import { EmojiProvider } from '../../api/EmojiResource';
+import type { Props as ComponentProps } from './EmojiUploadComponent';
+import type { EmojiProvider } from '../../api/EmojiResource';
 import {
-  CreateUIAnalyticsEvent,
+  type CreateUIAnalyticsEvent,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 

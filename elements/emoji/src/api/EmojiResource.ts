@@ -4,7 +4,7 @@ import {
   ServiceConfig,
   utils as serviceUtils,
 } from '@atlaskit/util-service-support';
-import { CategoryId } from '../components/picker/categories';
+import type { CategoryId } from '../components/picker/categories';
 import {
   SAMPLING_RATE_EMOJI_RESOURCE_FETCHED_EXP,
   selectedToneStorageKey,
@@ -18,26 +18,26 @@ import {
 } from '../util/type-helpers';
 import storageAvailable from '../util/storage-available';
 import {
-  EmojiDescription,
-  EmojiId,
-  EmojiProvider,
-  EmojiResponse,
-  EmojiSearchResult,
-  EmojiUpload,
-  ImageRepresentation,
-  OptionalEmojiDescription,
-  OptionalEmojiDescriptionWithVariations,
-  OptionalUser,
+  type EmojiDescription,
+  type EmojiId,
+  type EmojiProvider,
+  type EmojiResponse,
+  type EmojiSearchResult,
+  type EmojiUpload,
+  type ImageRepresentation,
+  type OptionalEmojiDescription,
+  type OptionalEmojiDescriptionWithVariations,
+  type OptionalUser,
   ProviderTypes,
-  SearchOptions,
-  ToneSelection,
-  UploadingEmojiProvider,
-  User,
+  type SearchOptions,
+  type ToneSelection,
+  type UploadingEmojiProvider,
+  type User,
 } from '../types';
 import EmojiLoader from './EmojiLoader';
 import EmojiRepository from './EmojiRepository';
 import SiteEmojiResource from './media/SiteEmojiResource';
-import {
+import type {
   EmojiLoaderConfig,
   OptimisticImageApiLoaderConfig,
   Options,

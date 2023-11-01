@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 0.10.6
+
+### Patch Changes
+
+- [#42350](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42350) [`5c905e458da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c905e458da) - [ux] Fixed an issue where a blinking cursor would appear before a selected datasource node.
+
+## 0.10.5
+
+### Patch Changes
+
+- [#42367](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42367) [`4f70009532a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f70009532a) - [ux] Refactored the inline card to be a functional component behind a FF
+
 ## 0.10.4
 
 ### Patch Changes

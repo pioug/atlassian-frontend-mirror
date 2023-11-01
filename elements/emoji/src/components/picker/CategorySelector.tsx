@@ -8,12 +8,12 @@ import {
   defaultCategories,
   KeyboardKeys,
 } from '../../util/constants';
-import { CategoryDescription, OnCategory } from '../../types';
+import type { CategoryDescription, OnCategory } from '../../types';
 import { messages } from '../i18n';
 import {
   CategoryDescriptionMap,
-  CategoryGroupKey,
-  CategoryId,
+  type CategoryGroupKey,
+  type CategoryId,
 } from './categories';
 import {
   active,

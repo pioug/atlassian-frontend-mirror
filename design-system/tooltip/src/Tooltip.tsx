@@ -15,7 +15,7 @@ import {
   Transition,
 } from '@atlaskit/motion';
 import { mediumDurationMs } from '@atlaskit/motion/durations';
-import { Placement, Popper, PopperProps } from '@atlaskit/popper';
+import { Placement, Popper } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
@@ -92,27 +92,22 @@ function Tooltip({
 
   const apiRef = useRef<API>(null);
   const [state, setState] = useState<State>('hide');
-  const targetRef = useRef<
-    PopperProps<any>['referenceElement'] | ChildNode | null
-  >(null);
+  const targetRef = useRef<HTMLElement | null>(null);
   const containerRef = useRef<HTMLElement | null>(null);
 
-  const hasFunctionalChildren = typeof children === 'function'; // Stored to keep our `setRef` callback cleaner.
-  const setRef = useCallback(
-    (node: HTMLElement | null) => {
-      if (!node) {
-        return;
-      }
+  // This function is deliberately _not_ memoized as it needs to re-run every render
+  // to pick up any child ref changes. If you use render props you don't have this issue.
+  const setImplicitRefFromChildren = (node: HTMLElement | null) => {
+    containerRef.current = node;
+    targetRef.current = node
+      ? (node.firstElementChild as HTMLElement | null)
+      : null;
+  };
 
-      if (hasFunctionalChildren) {
-        targetRef.current = node;
-      } else {
-        containerRef.current = node;
-        targetRef.current = node.firstChild;
-      }
-    },
-    [hasFunctionalChildren],
-  );
+  // This is memoized and passed into the render props callback.
+  const setDirectRef = useCallback((node: HTMLElement | null) => {
+    targetRef.current = node;
+  }, []);
 
   // Putting a few things into refs so that we don't have to break memoization
   const lastState = useRef<State>(state);
@@ -360,12 +355,13 @@ function Tooltip({
     if (position === 'mouse' && apiRef.current?.mousePosition) {
       return apiRef.current?.mousePosition;
     }
+
     return targetRef.current || undefined;
   };
 
   const tooltipId = useUniqueId('tooltip', shouldRenderTooltipContainer);
 
-  const tooltipTriggerProps: TriggerProps = {
+  const tooltipTriggerProps: Omit<TriggerProps, 'ref'> = {
     onMouseOver,
     onMouseOut,
     onMouseMove,
@@ -373,7 +369,6 @@ function Tooltip({
     onClick,
     onFocus,
     onBlur,
-    ref: setRef,
   };
 
   // Don't set `data-testid` unless it's defined, as it's not in the interface.
@@ -393,8 +388,7 @@ function Tooltip({
       return;
     }
 
-    // Necessary for TS to know that it has the attribute methods
-    const target = targetRef.current as HTMLElement;
+    const target = targetRef.current;
 
     if (shouldRenderTooltipContainer) {
       target.setAttribute('aria-describedby', tooltipId);
@@ -412,9 +406,14 @@ function Tooltip({
         children({
           ...tooltipTriggerProps,
           'aria-describedby': tooltipId,
+          ref: setDirectRef,
         })
       ) : (
-        <CastTargetContainer {...tooltipTriggerProps} role="presentation">
+        <CastTargetContainer
+          {...tooltipTriggerProps}
+          ref={setImplicitRefFromChildren}
+          role="presentation"
+        >
           {children}
         </CastTargetContainer>
       )}
@@ -457,7 +456,11 @@ function Tooltip({
                           style={style}
                           truncate={truncate}
                           placement={tooltipPosition}
-                          testId={testId}
+                          testId={
+                            getReferenceElement()
+                              ? testId
+                              : testId && `${testId}--unresolved`
+                          }
                           onMouseOut={onMouseOut}
                           onMouseOver={onMouseOverTooltip}
                           id={tooltipId}

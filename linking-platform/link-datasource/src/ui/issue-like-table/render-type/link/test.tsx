@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
@@ -13,8 +13,10 @@ mockSimpleIntersectionObserver(); // required to mock smart link internals
 describe('Link Type', () => {
   const smartLinkClient = new SmartLinkClient();
   const spyFetchData = jest.spyOn(smartLinkClient, 'fetchData');
+  let originalWindowOpen: typeof window.open;
   // Needed to suppress console errors in smart-card
   let consoleErrorFn: jest.SpyInstance;
+
   beforeEach(() => {
     consoleErrorFn = jest
       .spyOn(console, 'error')
@@ -23,6 +25,16 @@ describe('Link Type', () => {
   afterEach(() => {
     consoleErrorFn.mockRestore();
   });
+
+  beforeAll(() => {
+    originalWindowOpen = window.open;
+    window.open = jest.fn();
+  });
+
+  afterAll(() => {
+    window.open = originalWindowOpen;
+  });
+
   const setup = ({ url = '', ...props }) => {
     return render(
       <SmartCardProvider client={smartLinkClient}>
@@ -52,6 +64,30 @@ describe('Link Type', () => {
     expect(card).toHaveAttribute(
       'href',
       'https://product-fabric.atlassian.net/browse/EDM-5941',
+    );
+  });
+
+  it('opens a smart link in a new tab when clicked', async () => {
+    const { getByText, queryByTestId } = setup({
+      url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
+    });
+
+    await waitFor(() =>
+      getByText(
+        'EDM-5941: Implement mapping between data type and visual component',
+      ),
+    );
+
+    const card = queryByTestId(`${LINK_TYPE_TEST_ID}-resolved-view`);
+
+    expect(card).toBeInTheDocument();
+
+    fireEvent.click(card!);
+
+    expect(window.open).toHaveBeenCalledWith(
+      'https://product-fabric.atlassian.net/browse/EDM-5941',
+      '_blank',
+      'noopener, noreferrer',
     );
   });
 

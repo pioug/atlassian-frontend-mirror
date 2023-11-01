@@ -288,6 +288,7 @@ export const PlainJiraIssuesConfigModal = (
 
       fireEvent('ui.modal.ready.datasource', {
         instancesCount: sortedAvailableSites.length,
+        schemasCount: null,
       });
     };
 

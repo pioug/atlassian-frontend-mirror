@@ -10,7 +10,7 @@ import EmojiSymbolsIcon from '@atlaskit/icon/glyph/emoji/symbols';
 import EmojiTravelIcon from '@atlaskit/icon/glyph/emoji/travel';
 import EmojiProductivityIcon from '@atlaskit/icon/glyph/emoji/productivity';
 
-import { CategoryDescription } from '../../types';
+import type { CategoryDescription } from '../../types';
 import {
   customCategory,
   userCustomTitle,
@@ -32,11 +32,11 @@ export type CategoryId =
 
 export type CategoryGroupKey = CategoryId | 'USER_CUSTOM' | 'SEARCH';
 
-export type CategoryDescriptionMap = {
+type CategoryDescriptionRecord = {
   [key in CategoryGroupKey]: CategoryDescription;
 };
 
-export const CategoryDescriptionMap: CategoryDescriptionMap = {
+export const CategoryDescriptionMap: CategoryDescriptionRecord = {
   SEARCH: {
     id: 'SEARCH',
     name: 'categoriesSearchResults', // refers to i18n categoriesSearchResults key

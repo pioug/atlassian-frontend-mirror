@@ -1,4 +1,4 @@
-import {
+import type {
   EmojiDescription,
   OptionalEmojiDescription,
   EmojiRepresentation,
@@ -10,7 +10,7 @@ import {
 } from '../../util/type-helpers';
 import MediaImageLoader from './MediaImageLoader';
 import debug from '../../util/logger';
-import TokenManager from './TokenManager';
+import type TokenManager from './TokenManager';
 
 import { LRUMap } from 'lru_map';
 

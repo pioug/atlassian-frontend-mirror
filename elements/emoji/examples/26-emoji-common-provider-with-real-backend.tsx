@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { getRealEmojiResource } from '../example-helpers/demo-resource-control';
 import { IntlProvider } from 'react-intl-next';
 import EmojiPicker, {
-  EmojiId,
-  EmojiProvider,
+  type EmojiId,
+  type EmojiProvider,
   EmojiCommonProvider,
-  OnEmojiEvent,
+  type OnEmojiEvent,
   ResourcedEmoji,
   useEmoji,
 } from '../src';

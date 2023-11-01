@@ -1,4 +1,4 @@
-import { EmojiProvider } from '../../api/EmojiResource';
+import type { EmojiProvider } from '../../api/EmojiResource';
 
 export interface EmojiContext {
   emoji: {

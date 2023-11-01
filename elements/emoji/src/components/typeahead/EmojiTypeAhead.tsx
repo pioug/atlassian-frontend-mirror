@@ -1,14 +1,15 @@
 import React from 'react';
-import { ComponentClass } from 'react';
-import { EmojiProvider } from '../../api/EmojiResource';
-import { RelativePosition } from '../../types';
+import type { ComponentClass } from 'react';
+import type { EmojiProvider } from '../../api/EmojiResource';
+import type { RelativePosition } from '../../types';
 import debug from '../../util/logger';
 import LoadingEmojiComponent, {
   Props as LoadingProps,
   State as LoadingState,
 } from '../common/LoadingEmojiComponent';
 import Popup from '../common/Popup';
-import EmojiTypeAheadComponent, {
+import type EmojiTypeAheadComponent from './EmojiTypeAheadComponent';
+import type {
   EmojiTypeAheadBaseProps,
   Props as ComponentProps,
 } from './EmojiTypeAheadComponent';
@@ -80,7 +81,7 @@ export default class EmojiTypeahead extends LoadingEmojiComponent<
 
   renderLoaded(
     loadedEmojiProvider: EmojiProvider,
-    EmojiTypeAheadComponent: ComponentClass<ComponentProps>,
+    TypeAheadComponent: ComponentClass<ComponentProps>,
   ) {
     const {
       emojiProvider,
@@ -93,7 +94,7 @@ export default class EmojiTypeahead extends LoadingEmojiComponent<
     } = this.props;
 
     const typeAhead = (
-      <EmojiTypeAheadComponent
+      <TypeAheadComponent
         {...otherProps}
         emojiProvider={loadedEmojiProvider}
         ref="typeAhead"

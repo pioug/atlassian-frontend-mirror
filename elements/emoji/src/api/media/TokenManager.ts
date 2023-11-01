@@ -1,4 +1,4 @@
-import { MediaApiToken } from '../../types';
+import type { MediaApiToken } from '../../types';
 import {
   ServiceConfig,
   utils as serviceUtils,

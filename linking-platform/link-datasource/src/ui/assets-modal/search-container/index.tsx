@@ -3,6 +3,7 @@ import { jsx } from '@emotion/react';
 
 import Form from '@atlaskit/form';
 
+import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { ObjectSchema, SearchForm } from '../../../types/assets/types';
 
 import { AqlSearchInput } from './aql-search-input';
@@ -13,7 +14,7 @@ import {
   SchemaSelectContainer,
 } from './styled';
 
-type InitialSearchData = {
+export type InitialSearchData = {
   objectSchema?: ObjectSchema;
   aql?: string;
 };
@@ -33,10 +34,12 @@ const SEARCH_FORM_ID = 'linkDataSource.assets.configModal.searchContainer-form';
 export const AssetsSearchContainer = (props: SearchContainerProps) => {
   const { onSearch, workspaceId, initialSearchData, modalTitle, isSearching } =
     props;
+  const { fireEvent } = useDatasourceAnalyticsEvents();
 
   const onFormSubmit = (searchFormValues: SearchForm) => {
     const { aql, objectSchema } = searchFormValues;
     if (objectSchema) {
+      fireEvent('ui.aqlEditor.searched', {});
       // Pass the validated aql and object schema back to modal
       onSearch(aql, objectSchema.value);
     }

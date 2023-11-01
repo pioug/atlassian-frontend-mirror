@@ -8,7 +8,7 @@ import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { loggedUser } from '@atlaskit/util-data-test/logged-user';
 
 import { lorem } from '../example-helpers';
-import { EmojiProvider } from '../src/resource';
+import type { EmojiProvider } from '../src/resource';
 import { IntlProvider } from 'react-intl-next';
 
 export default function EmojiUploaderWithUpload() {

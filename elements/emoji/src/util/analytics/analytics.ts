@@ -1,9 +1,9 @@
 import {
   createAndFireEvent,
-  AnalyticsEventPayload,
-  CreateUIAnalyticsEvent,
+  type AnalyticsEventPayload,
+  type CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { EmojiDescription } from '../../types';
+import type { EmojiDescription } from '../../types';
 
 export const createAndFireEventInElementsChannel =
   createAndFireEvent('fabric-elements');

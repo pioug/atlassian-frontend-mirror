@@ -1,13 +1,13 @@
 import React, {
-  ReactElement,
-  FC,
+  type ReactElement,
+  type FC,
   useCallback,
   useEffect,
   useRef,
   useState,
 } from 'react';
 import ReactDOM from 'react-dom';
-import { RelativePosition } from '../../types';
+import type { RelativePosition } from '../../types';
 
 const getTargetNode = (target: string | Element): Element | null => {
   if (typeof target === 'string') {

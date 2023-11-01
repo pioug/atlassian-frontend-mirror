@@ -149,7 +149,7 @@ export const SentOn = createElement<DateTimeProps>(ElementName.SentOn);
  * Creates a Snippet element using the data from Snippet in the Flexible UI Context.
  * @see Text
  */
-export const Snippet = createElement<TextProps>(ElementName.Snippet);
+export { default as Snippet } from './snippet-element';
 /**
  * Creates a SourceBranch Text element using the data from sourceBranch in the Flexible UI Context.
  * @see Text

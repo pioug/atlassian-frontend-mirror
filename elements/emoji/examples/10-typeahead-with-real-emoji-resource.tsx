@@ -8,13 +8,13 @@ import {
   getRealEmojiProvider,
 } from '../example-helpers/demo-resource-control';
 import SearchTextInput from '../example-helpers/demo-search-text-input';
-import {
+import type {
   TypeaheadProps,
   TypeaheadState,
 } from '../example-helpers/typeahead-props';
 import { EmojiTypeAhead } from '../src/typeahead';
 import { emojiTypeAheadMaxHeight } from '../src/util/shared-styles';
-import { EmojiId, OptionalEmojiDescription } from '../src/types';
+import type { EmojiId, OptionalEmojiDescription } from '../src/types';
 import { IntlProvider } from 'react-intl-next';
 
 class EmojiTypeAheadTextInput extends Component<

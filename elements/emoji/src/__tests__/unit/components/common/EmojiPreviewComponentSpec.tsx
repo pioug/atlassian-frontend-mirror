@@ -1,5 +1,5 @@
 import React from 'react';
-import { EmojiDescriptionWithVariations } from '../../../../types';
+import type { EmojiDescriptionWithVariations } from '../../../../types';
 import { imageEmoji } from '../../_test-data';
 import { EmojiPreviewComponent } from '../../../../components/common/EmojiPreviewComponent';
 import { renderWithIntl } from '../../_testing-library';

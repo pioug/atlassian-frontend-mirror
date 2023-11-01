@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import Spinner from '@atlaskit/spinner';
 import { emojiTypeAheadMaxHeight } from '../../util/shared-styles';
 import { toEmojiId } from '../../util/type-helpers';
-import { EmojiDescription, EmojiId, OnEmojiEvent } from '../../types';
+import type { EmojiDescription, EmojiId, OnEmojiEvent } from '../../types';
 import debug from '../../util/logger';
 import { actualMouseMove, mouseLocation, Position } from '../../util/mouse';
 import Scrollable from '../common/Scrollable';

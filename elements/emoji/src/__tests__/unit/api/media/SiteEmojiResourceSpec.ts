@@ -5,7 +5,7 @@ jest.mock('@atlaskit/media-client-react', () => {
   };
 });
 
-import { FileState } from '@atlaskit/media-client';
+import type { FileState } from '@atlaskit/media-client';
 import * as MediaClientReactModule from '@atlaskit/media-client-react';
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 
@@ -14,13 +14,13 @@ import * as sinon from 'sinon';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 
 import SiteEmojiResource, {
-  EmojiProgress,
-  EmojiProgessCallback,
-  EmojiUploadResponse,
+  type EmojiProgress,
+  type EmojiProgessCallback,
+  type EmojiUploadResponse,
   mediaProportionOfProgress,
 } from '../../../../api/media/SiteEmojiResource';
 import TokenManager from '../../../../api/media/TokenManager';
-import {
+import type {
   EmojiDescription,
   EmojiServiceResponse,
   EmojiUpload,

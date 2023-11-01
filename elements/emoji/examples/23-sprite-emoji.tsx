@@ -4,7 +4,7 @@ import React from 'react';
 import { getEmojiRepository } from '@atlaskit/util-data-test/get-emoji-repository';
 import { Emoji } from '../src/element';
 import { IntlProvider } from 'react-intl-next';
-import { EmojiDescription } from '../src';
+import type { EmojiDescription } from '../src';
 
 const emojiService = getEmojiRepository();
 

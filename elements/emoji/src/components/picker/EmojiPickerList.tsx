@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { createRef, PureComponent } from 'react';
 import { jsx } from '@emotion/react';
-import { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
+import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 import {
   customCategory,
@@ -11,7 +11,7 @@ import {
   userCustomTitle,
   yourUploadsCategory,
 } from '../../util/constants';
-import {
+import type {
   EmojiDescription,
   EmojiDescriptionWithVariations,
   EmojiId,
@@ -26,12 +26,12 @@ import {
 } from '../../types';
 import {
   CategoryDescriptionMap,
-  CategoryGroupKey,
-  CategoryId,
+  type CategoryGroupKey,
+  type CategoryId,
 } from './categories';
 import CategoryTracker from './CategoryTracker';
 import { sizes } from './EmojiPickerSizes';
-import * as Items from './EmojiPickerVirtualItems';
+import type * as Items from './EmojiPickerVirtualItems';
 import {
   CategoryHeadingItem,
   EmojisRowItem,
@@ -40,14 +40,14 @@ import {
   virtualItemRenderer,
 } from './EmojiPickerVirtualItems';
 import EmojiActions from '../common/EmojiActions';
-import { OnUploadEmoji } from '../common/EmojiUploadPicker';
-import { OnDeleteEmoji } from '../common/EmojiDeletePreview';
+import type { OnUploadEmoji } from '../common/EmojiUploadPicker';
+import type { OnDeleteEmoji } from '../common/EmojiDeletePreview';
 import { emojiPickerList } from './styles';
 import { emojiPickerHeightOffset } from './utils';
-import { Props as CategoryHeadingProps } from './EmojiPickerCategoryHeading';
-import { Props as EmojiRowProps } from './EmojiPickerEmojiRow';
+import type { Props as CategoryHeadingProps } from './EmojiPickerCategoryHeading';
+import type { Props as EmojiRowProps } from './EmojiPickerEmojiRow';
 import { ListRef, VirtualList } from './VirtualList';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { messages } from '../i18n';
 import { EmojiPickerListContextProvider } from '../../context/EmojiPickerListContext';
 

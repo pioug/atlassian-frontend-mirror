@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 1.5.0
+
+### Minor Changes
+
+- [#42436](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42436) [`08c8e861177`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08c8e861177) - EDM-8371: internal refactor under feature flag platform.linking-platform.link-create.enable-edit
+
 ## 1.4.0
 
 ### Minor Changes

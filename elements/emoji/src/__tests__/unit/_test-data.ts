@@ -34,7 +34,7 @@ import {
 /* eslint-enable import/no-extraneous-dependencies */
 
 import TokenManager from '../../api/media/TokenManager';
-import {
+import type {
   EmojiDescription,
   EmojiDescriptionWithVariations,
   EmojiId,

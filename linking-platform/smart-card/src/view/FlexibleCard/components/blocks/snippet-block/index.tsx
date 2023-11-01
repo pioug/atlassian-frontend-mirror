@@ -36,7 +36,7 @@ const SnippetBlock: React.FC<SnippetBlockProps> = ({
 
   return (
     <Block {...blockProps} testId={`${testId}-resolved-view`}>
-      <Snippet maxLines={snippetMaxLines} text={text} />
+      <Snippet maxLines={snippetMaxLines} content={text} />
     </Block>
   );
 };

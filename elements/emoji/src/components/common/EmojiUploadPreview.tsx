@@ -5,10 +5,10 @@ import AkButton from '@atlaskit/button/custom-theme-button';
 import {
   FormattedMessage,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 import { customCategory } from '../../util/constants';
-import { EmojiDescription, Message } from '../../types';
+import type { EmojiDescription, Message } from '../../types';
 import { messages } from '../i18n';
 import Emoji from './Emoji';
 import EmojiErrorMessage from './EmojiErrorMessage';

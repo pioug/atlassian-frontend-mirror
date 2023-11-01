@@ -1,8 +1,8 @@
 import React from 'react';
-import { ReactWrapper } from 'enzyme';
+import type { ReactWrapper } from 'enzyme';
 import * as sinon from 'sinon';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import {
+import type {
   AnalyticsEventPayload,
   CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
@@ -29,12 +29,12 @@ import EmojiTypeAhead, {
   Props,
 } from '../../../../components/typeahead/EmojiTypeAhead';
 import EmojiTypeAheadComponent from '../../../../components/typeahead/EmojiTypeAheadComponent';
-import { OnLifecycle } from '../../../../components/typeahead/EmojiTypeAheadComponent';
+import type { OnLifecycle } from '../../../../components/typeahead/EmojiTypeAheadComponent';
 import EmojiTypeAheadItem from '../../../../components/typeahead/EmojiTypeAheadItem';
-import { OptionalEmojiDescription, OnEmojiEvent } from '../../../../types';
+import type { OptionalEmojiDescription, OnEmojiEvent } from '../../../../types';
 import { toEmojiId } from '../../../../util/type-helpers';
-import { Props as TypeAheadProps } from '../../../../components/typeahead/EmojiTypeAhead';
-import { State as TypeAheadState } from '../../../../components/typeahead/EmojiTypeAheadComponent';
+import type { Props as TypeAheadProps } from '../../../../components/typeahead/EmojiTypeAhead';
+import type { State as TypeAheadState } from '../../../../components/typeahead/EmojiTypeAheadComponent';
 import {
   typeaheadCancelledEvent,
   typeaheadRenderedEvent,

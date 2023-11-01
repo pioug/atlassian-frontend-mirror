@@ -1,13 +1,19 @@
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  type FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { IntlProvider } from 'react-intl-next';
 import {
   ResourcedEmojiControl,
   getEmojiConfig,
   getRealEmojiProvider,
 } from '../example-helpers/demo-resource-control';
-import { EmojiId, EmojiProvider, ResourcedEmoji } from '../src';
+import { type EmojiId, type EmojiProvider, ResourcedEmoji } from '../src';
 
 const emojiIds: EmojiId[] = [
   { shortName: ':grimacing:', id: '1f603' },

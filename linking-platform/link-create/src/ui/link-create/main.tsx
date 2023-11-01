@@ -20,12 +20,15 @@ import {
   LinkCreateWithModalProps,
 } from '../../common/types';
 import { LinkCreateCallbackProvider } from '../../controllers/callback-context';
+import { EditPostCreateModalProvider } from '../../controllers/edit-post-create-context';
 import {
   useFormContext,
   withLinkCreateFormContext,
 } from '../../controllers/form-context';
+import { LinkCreatePluginsProvider } from '../../controllers/plugin-context';
 
 import { ConfirmDismissDialog } from './confirm-dismiss-dialog';
+import { EditModal } from './edit-modal';
 import { ErrorBoundary } from './error-boundary';
 import { messages } from './messages';
 import TrackMount from './track-mount';
@@ -147,13 +150,35 @@ const LinkCreateWithModal = ({
           </Modal>
         )}
       </ModalTransition>
-      <ConfirmDismissDialog
-        active={dismissDialog}
-        onCancelDismiss={handleCancelDismiss}
-        onConfirmDismiss={handleConfirmDismiss}
-      />
+      {getBooleanFF('platform.linking-platform.link-create.enable-edit') && (
+        <EditModal onClose={handleCancel} />
+      )}
+      {getBooleanFF(
+        'platform.linking-platform.link-create.confirm-dismiss-dialog',
+      ) && (
+        <ConfirmDismissDialog
+          active={dismissDialog}
+          onCancelDismiss={handleCancelDismiss}
+          onConfirmDismiss={handleConfirmDismiss}
+        />
+      )}
     </Fragment>
   );
 };
 
-export default withLinkCreateFormContext(LinkCreateWithModal);
+export default withLinkCreateFormContext((props: LinkCreateWithModalProps) => {
+  if (getBooleanFF('platform.linking-platform.link-create.enable-edit')) {
+    return (
+      <LinkCreatePluginsProvider
+        plugins={props.plugins}
+        entityKey={props.entityKey}
+      >
+        <EditPostCreateModalProvider active={!!props.active}>
+          <LinkCreateWithModal {...props} />
+        </EditPostCreateModalProvider>
+      </LinkCreatePluginsProvider>
+    );
+  }
+
+  return <LinkCreateWithModal {...props} />;
+});

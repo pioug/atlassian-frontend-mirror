@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.41.1
+
+### Patch Changes
+
+- [#42443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42443) [`220a7a76105`](https://bitbucket.org/atlassian/atlassian-frontend/commits/220a7a76105) - Display override content on Snippet element without link data
+
 ## 26.41.0
 
 ### Minor Changes

@@ -51,14 +51,22 @@ const LinkRenderType = ({
     [linkStyle, url, text, testId],
   );
 
-  const SmartCard = () => (
-    <Card
-      appearance="inline"
-      url={url}
-      testId={testId}
-      fallbackComponent={() => anchor}
-    />
-  );
+  const SmartCard = () => {
+    const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+      e.preventDefault();
+      window.open(url, '_blank', 'noopener, noreferrer');
+    };
+
+    return (
+      <Card
+        appearance="inline"
+        onClick={handleClick}
+        url={url}
+        testId={testId}
+        fallbackComponent={() => anchor}
+      />
+    );
+  };
 
   // url can be undefined before data is fetched whilst adding new link column to display
   if (!url) {

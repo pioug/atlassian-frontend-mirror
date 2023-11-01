@@ -3,7 +3,7 @@ import { act } from '@testing-library/react';
 import { mockReactDomWarningGlobal } from '../../_testing-library';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { mountWithIntl } from '../../_enzyme';
-import { EmojiProvider } from '../../../../api/EmojiResource';
+import type { EmojiProvider } from '../../../../api/EmojiResource';
 import { CachingMediaEmoji } from '../../../../components/common/CachingEmoji';
 import Emoji from '../../../../components/common/Emoji';
 import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';

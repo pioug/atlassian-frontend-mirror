@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.7.3
+
+### Patch Changes
+
+- [#42285](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42285) [`e9af0f05581`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9af0f05581) - [ux] PTC-8007 remove on focus handler to fix a11y issue for screen reader users
+
 ## 19.7.2
 
 ### Patch Changes

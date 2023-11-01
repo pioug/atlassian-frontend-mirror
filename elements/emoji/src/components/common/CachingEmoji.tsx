@@ -1,13 +1,13 @@
-import React, { FC, memo, useEffect, useState } from 'react';
+import React, { type FC, memo, useEffect, useState } from 'react';
 import { isMediaEmoji } from '../../util/type-helpers';
 import {
-  EmojiDescription,
-  EmojiId,
-  EmojiProvider,
+  type EmojiDescription,
+  type EmojiId,
+  type EmojiProvider,
   UfoEmojiTimings,
 } from '../../types';
 import debug from '../../util/logger';
-import Emoji, { Props as EmojiProps } from './Emoji';
+import Emoji, { type Props as EmojiProps } from './Emoji';
 import EmojiPlaceholder from './EmojiPlaceholder';
 import { UfoErrorBoundary } from './UfoErrorBoundary';
 import {

@@ -2,23 +2,23 @@ import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 
 import fetchMock from 'fetch-mock/cjs/client';
 import * as sinon from 'sinon';
-import {
+import type {
   OnProviderChange,
   SecurityOptions,
   ServiceConfig,
 } from '@atlaskit/util-service-support';
 
 import {
-  EmojiDescription,
-  EmojiId,
-  EmojiSearchResult,
-  EmojiServiceResponse,
-  MediaApiRepresentation,
+  type EmojiDescription,
+  type EmojiId,
+  type EmojiSearchResult,
+  type EmojiServiceResponse,
+  type MediaApiRepresentation,
   ProviderTypes,
   SearchSort,
 } from '../../../types';
 import EmojiResource, { EmojiResourceConfig } from '../../../api/EmojiResource';
-import EmojiRepository from '../../../api/EmojiRepository';
+import type EmojiRepository from '../../../api/EmojiRepository';
 
 import {
   atlassianEmojis,
@@ -49,7 +49,7 @@ import * as samplingUfo from '../../../util/analytics/samplingUfo';
 
 import { ufoExperiences } from '../../../util/analytics';
 
-import { SingleEmojiApiLoaderConfig } from '../../../api/EmojiUtils';
+import type { SingleEmojiApiLoaderConfig } from '../../../api/EmojiUtils';
 
 jest.mock('../../../util/constants', () => {
   const originalModule = jest.requireActual('../../../util/constants');

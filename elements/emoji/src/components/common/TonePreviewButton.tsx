@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef, memo } from 'react';
 import { jsx } from '@emotion/react';
-import { EmojiDescription } from '../../types';
+import type { EmojiDescription } from '../../types';
 import { emojiButton, hidden } from './styles';
 import Emoji from './Emoji';
 

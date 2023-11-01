@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
 import { onSelection } from '../example-helpers';
 import EmojiTypeAheadList from '../src/components/typeahead/EmojiTypeAheadList';
-import { EmojiDescription } from '../src/types';
+import type { EmojiDescription } from '../src/types';
 import { IntlProvider } from 'react-intl-next';
 
 function randomEmojis(): EmojiDescription[] {

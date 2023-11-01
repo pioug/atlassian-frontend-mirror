@@ -1,10 +1,13 @@
-import { MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl-next';
 
-import { EmojiProvider, supportsUploadFeature } from '../../api/EmojiResource';
+import {
+  type EmojiProvider,
+  supportsUploadFeature,
+} from '../../api/EmojiResource';
 
-import { EmojiDescription, EmojiUpload } from '../../types';
+import type { EmojiDescription, EmojiUpload } from '../../types';
 import { uploadFailedEvent, uploadSucceededEvent } from '../../util/analytics';
-import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 
 import { messages } from '../i18n';
 import { ufoExperiences } from '../../util/analytics/ufoExperiences';

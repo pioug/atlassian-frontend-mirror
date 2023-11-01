@@ -1,5 +1,5 @@
-import React, { FC, useMemo, useEffect } from 'react';
-import { EmojiContext, EmojiContextType } from './EmojiContext';
+import React, { type FC, useMemo, useEffect } from 'react';
+import { EmojiContext, type EmojiContextType } from './EmojiContext';
 import debug from '../util/logger';
 
 type EmojiContextProviderType = {

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { FC, memo, useEffect, useMemo, useRef } from 'react';
-import {
+import { type FC, memo, useEffect, useMemo, useRef } from 'react';
+import type {
   EmojiDescription,
   EmojiDescriptionWithVariations,
   OnToneSelected,
@@ -10,8 +10,8 @@ import {
 } from '../../types';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
-  AnalyticsEventPayload,
+  type WithAnalyticsEventsProps,
+  type AnalyticsEventPayload,
 } from '@atlaskit/analytics-next';
 import {
   createAndFireEventInElementsChannel,

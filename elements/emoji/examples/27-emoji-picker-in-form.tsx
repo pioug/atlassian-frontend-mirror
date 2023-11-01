@@ -1,11 +1,15 @@
-import React, { FC, useState } from 'react';
+import React, { type FC, useState } from 'react';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { loggedUser } from '@atlaskit/util-data-test/logged-user';
 import { IntlProvider } from 'react-intl-next';
-import EmojiPicker, { EmojiId, OnEmojiEvent, ResourcedEmoji } from '../src';
+import EmojiPicker, {
+  type EmojiId,
+  type OnEmojiEvent,
+  ResourcedEmoji,
+} from '../src';
 import { EmojiPickerPopup } from './26-emoji-common-provider-with-real-backend';
 
 import Form, { Field, FormFooter } from '@atlaskit/form';

@@ -1,9 +1,9 @@
 import {
-  ServiceConfig,
+  type ServiceConfig,
   utils as serviceUtils,
 } from '@atlaskit/util-service-support';
 import { getMediaClient } from '@atlaskit/media-client-react';
-import {
+import type {
   EmojiDescription,
   EmojiId,
   EmojiServiceDescription,

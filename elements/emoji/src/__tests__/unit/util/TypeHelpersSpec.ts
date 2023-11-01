@@ -3,7 +3,7 @@ import {
   convertMediaToImageEmoji,
   convertMediaToImageRepresentation,
 } from '../../../util/type-helpers';
-import {
+import type {
   EmojiDescriptionWithVariations,
   MediaApiRepresentation,
 } from '../../../types';

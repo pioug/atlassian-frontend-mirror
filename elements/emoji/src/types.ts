@@ -1,8 +1,8 @@
-import { SyntheticEvent } from 'react';
-import { messages } from './components/i18n';
-import { CategoryId } from './components/picker/categories';
-import { Provider } from '@atlaskit/util-service-support/types';
-import { EmojiRepository } from './resource';
+import type { SyntheticEvent } from 'react';
+import type { messages } from './components/i18n';
+import type { CategoryId } from './components/picker/categories';
+import type { Provider } from '@atlaskit/util-service-support/types';
+import type { EmojiRepository } from './resource';
 
 export type { CategoryId } from './components/picker/categories';
 

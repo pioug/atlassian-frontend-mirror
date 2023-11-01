@@ -3,7 +3,11 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import { toEmojiId } from '../../util/type-helpers';
-import { EmojiDescription, EmojiProvider, OnEmojiEvent } from '../../types';
+import type {
+  EmojiDescription,
+  EmojiProvider,
+  OnEmojiEvent,
+} from '../../types';
 import { leftClick } from '../../util/mouse';
 import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
 import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';

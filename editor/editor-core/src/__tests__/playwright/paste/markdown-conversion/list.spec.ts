@@ -435,8 +435,9 @@ test.describe('paste bullet list in-between characters on same line', () => {
 
     await expect(editor).toMatchDocument(
       doc(
-        p('Lorem- First item - Second item - Third item - Fourth item'),
-        p(' ipsum dolor sit amet.'),
+        p(
+          'Lorem - First item - Second item - Third item - Fourth item ipsum dolor sit amet',
+        ),
         p(),
         p('consectetur adipiscing elit.'),
       ),
@@ -464,8 +465,8 @@ test.describe('paste bullet list in-between characters on same line', () => {
           code('- Third item'),
           br(),
           code('- Fourth item'),
+          ' ipsum dolor sit amet.',
         ),
-        p(' ipsum dolor sit amet.'),
         p(),
         p('consectetur adipiscing elit.'),
       ),
@@ -1037,8 +1038,9 @@ test.describe('paste ordered list in-between characters on same line', () => {
 
     await expect(editor).toMatchDocument(
       doc(
-        p('Lorem1. First item 2. Second item 3. Third item 4. Fourth item'),
-        p(' ipsum dolor sit amet.'),
+        p(
+          'Lorem1. First item 2. Second item 3. Third item 4. Fourth item ipsum dolor sit amet.',
+        ),
         p(),
         p('consectetur adipiscing elit.'),
       ),
@@ -1066,8 +1068,8 @@ test.describe('paste ordered list in-between characters on same line', () => {
           code('3. Third item'),
           br(),
           code('4. Fourth item'),
+          ' ipsum dolor sit amet.',
         ),
-        p(' ipsum dolor sit amet.'),
         p(),
         p('consectetur adipiscing elit.'),
       ),

@@ -6,10 +6,10 @@ import MediaEmojiCache, {
   MemoryCacheStrategy,
 } from '../../../../api/media/MediaEmojiCache';
 import MediaImageLoader from '../../../../api/media/MediaImageLoader';
-import TokenManager from '../../../../api/media/TokenManager';
+import type TokenManager from '../../../../api/media/TokenManager';
 import { frequentCategory } from '../../../../util/constants';
 import { isPromise } from '../../../../util/type-helpers';
-import { EmojiDescriptionWithVariations } from '../../../../types';
+import type { EmojiDescriptionWithVariations } from '../../../../types';
 import {
   createTokenManager,
   imageEmoji,

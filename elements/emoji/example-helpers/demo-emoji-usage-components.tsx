@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { PureComponent } from 'react';
-import { EmojiProvider } from '../src/resource';
+import type { EmojiProvider } from '../src/resource';
 import { ResourcedEmoji } from '../src/element';
 import { localStoragePrefix } from '../src/util/constants';
-import { EmojiDescription } from '../src/types';
+import type { EmojiDescription } from '../src/types';
 
 export interface EmojiUsageProps {
   emojiProvider: EmojiProvider;

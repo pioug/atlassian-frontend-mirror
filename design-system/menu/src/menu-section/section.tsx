@@ -74,8 +74,14 @@ const unscrollableStyles = css({
   flexShrink: 0,
 });
 
-const separatorStyles = css({
+const thickSeparatorStyles = css({
   borderBlockStart: `2px solid var(${VAR_SEPARATOR_COLOR}, ${token(
+    'color.border',
+    N30A,
+  )})`,
+});
+const thinSeparatorStyles = css({
+  borderBlockStart: `1px solid var(${VAR_SEPARATOR_COLOR}, ${token(
     'color.border',
     N30A,
   )})`,
@@ -184,7 +190,13 @@ const Section = forwardRef<HTMLElement, SectionProps>(
         css={[
           sectionStyles,
           isScrollable ? scrollableStyles : unscrollableStyles,
-          hasSeparator ? separatorStyles : noSeparatorStyles,
+          hasSeparator
+            ? getBooleanFF(
+                'platform.design-system-team.section-1px-seperator-borders',
+              )
+              ? thinSeparatorStyles
+              : thickSeparatorStyles
+            : noSeparatorStyles,
         ]}
         aria-label={title}
         data-testid={testId}

@@ -179,6 +179,8 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 
   createDomRef(): HTMLElement {
     const domRef = document.createElement('div');
+
+    domRef.setAttribute('contenteditable', 'true');
     domRef.classList.add(SmartCardSharedCssClassName.DATASOURCE_CONTAINER);
     return domRef;
   }

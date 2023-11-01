@@ -1,4 +1,4 @@
-import { PickerSize } from '../../types';
+import type { PickerSize } from '../../types';
 import { sizeGap } from '../../util/constants';
 
 export const emojiPickerHeightOffset = (size: PickerSize) => {

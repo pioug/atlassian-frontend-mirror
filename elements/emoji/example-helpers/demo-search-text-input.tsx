@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  FocusEventHandler,
-  FormEventHandler,
-  KeyboardEvent,
-  MouseEvent,
+  type FocusEventHandler,
+  type FormEventHandler,
+  type KeyboardEvent,
+  type MouseEvent,
   PureComponent,
 } from 'react';
 import uuid from 'uuid/v1';

@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { FormattedDate, MessageDescriptor } from 'react-intl-next';
-import { css } from '@emotion/react';
 
 import {
   ElementName,
@@ -23,17 +22,13 @@ import { BadgeProps } from './badge/types';
 import { DateTimeProps } from './date-time/types';
 import { LinkProps } from './link/types';
 import { TextProps } from './text/types';
-import { tokens } from '../../../../utils/token';
 import { LozengeProps } from './lozenge/types';
 import AtlaskitBadge from './atlaskit-badge';
 import { AtlaskitBadgeProps } from './atlaskit-badge/types';
 
-const SNIPPET_DEFAULT_MAX_LINES = 3;
-
-const elementMappings: Record<
-  ElementName,
-  { component: React.FC<any> | undefined; props?: any }
-> = {
+const elementMappings: {
+  [key in ElementName]?: { component: React.FC<any> | undefined; props?: any };
+} = {
   [ElementName.AttachmentCount]: {
     component: Badge,
     props: { icon: IconType.Attachment },
@@ -83,15 +78,6 @@ const elementMappings: Record<
   [ElementName.Provider]: { component: Badge },
   [ElementName.ReadTime]: { component: Text },
   [ElementName.SentOn]: { component: DateTime },
-  [ElementName.Snippet]: {
-    component: Text,
-    props: {
-      maxLines: SNIPPET_DEFAULT_MAX_LINES,
-      overrideCss: css`
-        color: ${tokens.snippet};
-      `,
-    },
-  },
   [ElementName.SourceBranch]: { component: Text },
   [ElementName.State]: { component: Lozenge },
   [ElementName.SubscriberCount]: {
@@ -170,7 +156,6 @@ const getData = (
       return toDateTimeProps('sent', context.sentOn);
     case ElementName.ReadTime:
       return toFormattedTextProps(messages.read_time, data as string);
-    case ElementName.Snippet:
     case ElementName.SourceBranch:
     case ElementName.TargetBranch:
       return toTextProps(data as string | undefined);

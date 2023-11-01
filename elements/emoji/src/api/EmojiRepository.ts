@@ -1,15 +1,15 @@
 import { ITokenizer, Search, UnorderedSearchIndex } from 'js-search';
-import { CategoryId } from '../components/picker/categories';
+import type { CategoryId } from '../components/picker/categories';
 import { defaultCategories, frequentCategory } from '../util/constants';
 import {
   getCategoryId,
   isEmojiDescriptionWithVariations,
 } from '../util/type-helpers';
 import {
-  EmojiDescription,
-  EmojiSearchResult,
-  OptionalEmojiDescription,
-  SearchOptions,
+  type EmojiDescription,
+  type EmojiSearchResult,
+  type OptionalEmojiDescription,
+  type SearchOptions,
   SearchSort,
 } from '../types';
 import { tokenizerRegex } from './EmojiRepositoryRegex';

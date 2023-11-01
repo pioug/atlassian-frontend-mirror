@@ -1,13 +1,17 @@
 import React from 'react';
 
 import {
-  EmojiInsertionAnalytic,
+  type EmojiInsertionAnalytic,
   recordFailed,
   recordSucceeded,
   ufoExperiences,
 } from '../../util/analytics';
-import { EmojiId, OnEmojiEvent, OptionalEmojiDescription } from '../../types';
-import { EmojiProvider } from '../../api/EmojiResource';
+import type {
+  EmojiId,
+  OnEmojiEvent,
+  OptionalEmojiDescription,
+} from '../../types';
+import type { EmojiProvider } from '../../api/EmojiResource';
 import { extractErrorInfo } from '../../util/analytics/analytics';
 
 /**

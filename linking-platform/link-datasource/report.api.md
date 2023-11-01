@@ -34,7 +34,10 @@ interface AssetsConfigModalProps {
   // (undocumented)
   onCancel: () => void;
   // (undocumented)
-  onInsert: (adf: AssetsDatasourceAdf | InlineCardAdf) => void;
+  onInsert: (
+    adf: AssetsDatasourceAdf | InlineCardAdf,
+    analyticsEvent?: UIAnalyticsEvent,
+  ) => void;
   // (undocumented)
   parameters?: AssetsDatasourceParameters;
   // (undocumented)

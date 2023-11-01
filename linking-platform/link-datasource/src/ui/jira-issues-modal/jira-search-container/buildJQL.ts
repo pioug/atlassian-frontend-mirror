@@ -6,6 +6,7 @@ import {
   JastBuilder,
   OPERATOR_EQUALS,
   OPERATOR_GT_EQUALS,
+  OPERATOR_IN,
   OPERATOR_LIKE,
   OperatorValue,
   ORDER_BY_DIRECTION_ASC,
@@ -13,10 +14,18 @@ import {
   print,
 } from '@atlaskit/jql-ast';
 
+import {
+  BasicFilterFieldType,
+  SelectOption,
+} from '../basic-filters/ui/async-popup-select/types';
+
 type BuildJQLInput = {
   rawSearch: string;
   orderDirection?: string;
   orderKey?: string;
+  filterValues?: {
+    [key in BasicFilterFieldType]?: SelectOption[];
+  };
 };
 
 const fuzzySearchRegExp = /^"(.+)"$/;
@@ -45,7 +54,9 @@ export const buildJQL = (input: BuildJQLInput): string => {
     rawSearch,
     orderDirection = ORDER_BY_DIRECTION_DESC,
     orderKey = 'created',
+    filterValues,
   } = input;
+
   const trimmedRawSearch = rawSearch.trim();
 
   if (!query) {
@@ -80,7 +91,29 @@ export const buildJQL = (input: BuildJQLInput): string => {
     );
 
     query.appendClause(orClause, COMPOUND_OPERATOR_AND);
-  } else {
+  }
+
+  if (filterValues) {
+    Object.entries(filterValues).forEach(([key, filterFieldValues]) => {
+      if (!key || filterFieldValues.length === 0) {
+        return;
+      }
+
+      const filterInClause = creators.terminalClause(
+        creators.field(key),
+        creators.operator(OPERATOR_IN),
+        creators.listOperand(
+          filterFieldValues.map(filterFieldValue =>
+            creators.valueOperand(filterFieldValue.value),
+          ),
+        ),
+      );
+
+      query.appendClause(filterInClause, COMPOUND_OPERATOR_AND);
+    });
+  }
+
+  if (!trimmedRawSearch) {
     const created = constructTerminalClause(
       'created',
       OPERATOR_GT_EQUALS,
@@ -100,5 +133,7 @@ export const buildJQL = (input: BuildJQLInput): string => {
     ),
   );
 
-  return print(jast);
+  return print(jast, {
+    printWidth: null, // this ensures jql string is not broken to new line
+  });
 };

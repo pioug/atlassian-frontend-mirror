@@ -1051,7 +1051,7 @@ test.describe('paste heading text over existing heading', () => {
     await floatingToolbarModel.toggleOptionsButton();
 
     await floatingToolbarModel.clickAsRichText();
-    await expect(editor).toMatchDocument(doc(p(code(headingText), 'heading')));
+    await expect(editor).toMatchDocument(doc(h1(code(headingText), 'heading')));
 
     await expect(editor).toHaveSelection({
       type: 'text',
@@ -1069,7 +1069,7 @@ test.describe('paste heading text over existing heading', () => {
       head: headingText.length - 1,
     });
 
-    await expect(editor).toMatchDocument(doc(h1('heading'), p('heading')));
+    await expect(editor).toMatchDocument(doc(h1('heading', 'heading')));
 
     // Markdown to Plain Text
     await floatingToolbarModel.waitForStable();
@@ -1082,7 +1082,7 @@ test.describe('paste heading text over existing heading', () => {
       head: headingText.length + 1,
     });
 
-    await expect(editor).toMatchDocument(doc(p('# heading'), p('heading')));
+    await expect(editor).toMatchDocument(doc(p('# heading', 'heading')));
 
     // Plain Text to Rich Text
     await floatingToolbarModel.waitForStable();
@@ -1095,9 +1095,7 @@ test.describe('paste heading text over existing heading', () => {
       head: initialHead + headingText.length,
     });
 
-    await expect(editor).toMatchDocument(
-      doc(p(code(headingText)), p('heading')),
-    );
+    await expect(editor).toMatchDocument(doc(p(code(headingText), 'heading')));
   });
 });
 

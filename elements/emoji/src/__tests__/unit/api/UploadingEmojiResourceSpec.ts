@@ -1,5 +1,5 @@
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import {
+import type {
   OnProviderChange,
   SecurityOptions,
   ServiceConfig,
@@ -9,14 +9,14 @@ import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 import fetchMock from 'fetch-mock/cjs/client';
 import * as sinon from 'sinon';
 import EmojiResource, {
-  EmojiProvider,
-  EmojiResourceConfig,
+  type EmojiProvider,
+  type EmojiResourceConfig,
   supportsUploadFeature,
-  UploadingEmojiProvider,
+  type UploadingEmojiProvider,
 } from '../../../api/EmojiResource';
 import SiteEmojiResource from '../../../api/media/SiteEmojiResource';
 import { selectedToneStorageKey } from '../../../util/constants';
-import {
+import type {
   EmojiDescription,
   EmojiId,
   EmojiSearchResult,

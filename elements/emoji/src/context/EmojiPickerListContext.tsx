@@ -1,5 +1,5 @@
-import React, { createContext, FC, useState } from 'react';
-import { EmojiPickerListContextType } from '../components/common/internal-types';
+import React, { createContext, type FC, useState } from 'react';
+import type { EmojiPickerListContextType } from '../components/common/internal-types';
 
 export const EmojiPickerListContext = createContext<EmojiPickerListContextType>(
   {

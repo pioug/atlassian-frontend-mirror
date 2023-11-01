@@ -5,11 +5,11 @@ import {
   getEmojiConfig,
   getRealEmojiProvider,
 } from '../example-helpers/demo-resource-control';
-import { EmojiProvider, OnEmojiProviderChange } from '../src/resource';
+import type { EmojiProvider, OnEmojiProviderChange } from '../src/resource';
 import { ResourcedEmoji } from '../src/element';
 import { customCategory } from '../src/util/constants';
 import { toEmojiId } from '../src/util/type-helpers';
-import { EmojiDescription, EmojiSearchResult } from '../src/types';
+import type { EmojiDescription, EmojiSearchResult } from '../src/types';
 import { IntlProvider } from 'react-intl-next';
 
 const customFilter = (emoji: EmojiDescription) =>

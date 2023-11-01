@@ -3,23 +3,21 @@ import { md } from '@atlaskit/editor-common/paste';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
-import type {
-  EditorState,
-  Transaction,
-} from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+
+import type { PasteOtionsPluginState } from '../types';
 
 import { escapeLinks } from './index';
 
 export const formatMarkdown = (
-  state: EditorState,
-  pasteStartPos: number,
-  plaintext: string,
+  tr: Transaction,
+  pluginState: PasteOtionsPluginState,
 ): Transaction => {
-  const schema = state.schema;
-  let { tr } = state;
-  const { selection } = tr;
+  let pasteStartPos = pluginState.pasteStartPos;
+  let pasteEndPos = pluginState.pasteEndPos;
+  let plaintext = pluginState.plaintext;
 
   if (pasteStartPos < 0) {
     return tr;
@@ -33,15 +31,13 @@ export const formatMarkdown = (
 
   const markdownSlice: Slice | undefined = getMarkdownSlice(
     plaintext,
-    schema,
-    selection,
+    tr.doc.type.schema,
+    tr.selection,
   );
 
   if (!markdownSlice) {
     return tr;
   }
-
-  const pasteEndPos = selection.$to.pos;
 
   pasteSliceIntoTransactionWithSelectionAdjust({
     tr,
@@ -53,30 +49,22 @@ export const formatMarkdown = (
   return tr;
 };
 
-export const getRichTextSlice = (state: EditorState, pasteStartPos: number) => {
-  const { tr } = state;
-  const { selection } = tr;
-  let pasteEndPos = selection.$to.pos;
-  return state.doc.slice(pasteStartPos, pasteEndPos);
-};
-
 export const formatRichText = (
-  state: EditorState,
-  pasteStartPos: number,
-  richTextSlice: Slice,
+  tr: Transaction,
+  pluginState: PasteOtionsPluginState,
 ): Transaction => {
-  let { tr } = state;
-  const { selection } = tr;
+  let pasteStartPos = pluginState.pasteStartPos;
+  let pasteEndPos = pluginState.pasteEndPos;
+  const richTextSlice = pluginState.richTextSlice;
 
   if (pasteStartPos < 0) {
     return tr;
   }
 
-  if (richTextSlice === Slice.empty) {
+  if (richTextSlice.content.size === 0) {
     return tr;
   }
 
-  let pasteEndPos = selection.$to.pos;
   const resolvedPasteStartPos = tr.doc.resolve(pasteStartPos);
   const parentOffset = resolvedPasteStartPos.parentOffset;
   if (parentOffset === 0 && resolvedPasteStartPos.depth > 0) {
@@ -94,33 +82,36 @@ export const formatRichText = (
 };
 
 export const formatPlainText = (
-  state: EditorState,
-  pasteStartPos: number,
-  plaintext: string,
+  tr: Transaction,
+  pluginState: PasteOtionsPluginState,
 ): Transaction => {
-  const { tr, schema } = state;
+  let pasteStartPos = pluginState.pasteStartPos;
+  let pasteEndPos = pluginState.pasteEndPos;
+  let plaintext = pluginState.plaintext;
 
   //not possible to create plain text slice with empty string
   if (pasteStartPos < 0 || plaintext === '') {
     return tr;
   }
-  const { selection } = tr;
 
-  const pasteEndPos = selection.$to.pos;
   const resolvedPasteStartPos = tr.doc.resolve(pasteStartPos);
   const parentOffset = resolvedPasteStartPos.parentOffset;
   if (parentOffset === 0 && resolvedPasteStartPos.depth > 0) {
     pasteStartPos = resolvedPasteStartPos.before();
   }
+
+  const schema = tr.doc.type.schema;
   const plainTextNode = schema.text(plaintext);
   const plainTextFragment = Fragment.from(
     schema.nodes.paragraph.createAndFill(null, plainTextNode),
   );
+
   const plainTextSlice = new Slice(
     plainTextFragment,
     resolvedPasteStartPos.depth,
     resolvedPasteStartPos.depth,
   );
+
   pasteSliceIntoTransactionWithSelectionAdjust({
     tr,
     pasteStartPos,

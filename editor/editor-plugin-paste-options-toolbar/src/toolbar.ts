@@ -79,8 +79,6 @@ export const isToolbarVisible = (
 
 export const getToolbarMenuConfig = (
   pluginState: PasteOtionsPluginState,
-  pasteStartPos: number,
-  plaintext: string,
   intl: IntlShape,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): FloatingToolbarDropdown<Command> => {
@@ -90,7 +88,7 @@ export const getToolbarMenuConfig = (
       title: intl.formatMessage(messages.richText),
       selected: pluginState.selectedOption === ToolbarDropdownOption.RichText,
       hidden: pluginState.isPlainText,
-      onClick: changeToRichTextWithAnalytics(editorAnalyticsAPI)(pasteStartPos),
+      onClick: changeToRichTextWithAnalytics(editorAnalyticsAPI)(),
     },
     {
       id: 'editor.paste.markdown',
@@ -98,8 +96,8 @@ export const getToolbarMenuConfig = (
       selected: pluginState.selectedOption === ToolbarDropdownOption.Markdown,
       onClick: changeToMarkdownWithAnalytics(
         editorAnalyticsAPI,
-        plaintext.length,
-      )(pasteStartPos, plaintext),
+        pluginState.plaintext.length,
+      )(),
     },
     {
       id: 'editor.paste.plainText',
@@ -107,8 +105,8 @@ export const getToolbarMenuConfig = (
       selected: pluginState.selectedOption === ToolbarDropdownOption.PlainText,
       onClick: changeToPlainTextWithAnalytics(
         editorAnalyticsAPI,
-        plaintext.length,
-      )(pasteStartPos, plaintext),
+        pluginState.plaintext.length,
+      )(),
     },
   ];
 
@@ -132,8 +130,6 @@ const onToggleHandler = (
 
 export const buildToolbar = (
   state: EditorState,
-  pasteStartPos: number,
-  plaintext: string,
   intl: IntlShape,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): FloatingToolbarConfig | undefined => {
@@ -143,8 +139,6 @@ export const buildToolbar = (
   const pluginState = pasteOptionsPluginKey.getState(state);
   const menu: FloatingToolbarItem<Command> = getToolbarMenuConfig(
     pluginState,
-    pasteStartPos,
-    plaintext,
     intl,
     editorAnalyticsAPI,
   );

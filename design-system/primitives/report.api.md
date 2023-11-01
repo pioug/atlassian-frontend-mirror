@@ -313,7 +313,6 @@ type BaseBoxProps<T extends CustomElementType> = {
 // @public (undocumented)
 type BasePrimitiveProps = {
   testId?: string;
-  style?: CSSProperties;
   xcss?: Array<XCSS | false | undefined> | XCSS;
   role?: string;
 };
@@ -407,6 +406,7 @@ export type BoxProps<T extends CustomElementType> = Omit<
   'as' | 'className'
 > &
   BasePrimitiveProps &
+  StyleProp &
   BaseBoxProps<T>;
 
 // @public
@@ -973,6 +973,11 @@ export type StackProps<T extends ElementType = 'div'> = {
   children: ReactNode;
   ref?: React.ComponentPropsWithRef<T>['ref'];
 } & BasePrimitiveProps;
+
+// @public (undocumented)
+type StyleProp = {
+  style?: CSSProperties;
+};
 
 // @public (undocumented)
 type SVGElements =

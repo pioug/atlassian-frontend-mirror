@@ -152,11 +152,10 @@ describe('datasource', () => {
       width: null,
       ...mockAdfAttributes,
     });
-    const nodeDOM = editorView.nodeDOM(0);
-    expect((nodeDOM as HTMLDivElement).innerHTML).toMatch(
-      new RegExp(
-        '<div class="[\\w- ]+" style="min-width: 100%;"><button data-testid="mock-datasource-table-view">Mock Datasource Table View</button></div>',
-      ),
+    const nodeDOMRef = editorView.nodeDOM(0)?.parentElement as HTMLDivElement;
+
+    expect(nodeDOMRef.innerHTML).toMatchInlineSnapshot(
+      `"<div contenteditable=\\"true\\" class=\\"datasourceView-content-wrap blockCardView-content-wrap ak-editor-selected-node ProseMirror-selectednode\\" url=\\"null\\" data=\\"null\\" datasource=\\"[object Object]\\" width=\\"null\\" layout=\\"wide\\" draggable=\\"true\\"><div class=\\"datasourceView-content-inner-wrap\\" style=\\"min-width: 100%;\\"><button data-testid=\\"mock-datasource-table-view\\">Mock Datasource Table View</button></div></div>"`,
     );
   });
 

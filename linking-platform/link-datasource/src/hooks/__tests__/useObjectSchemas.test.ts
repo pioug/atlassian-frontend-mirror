@@ -3,11 +3,11 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import { fetchObjectSchemas } from '../../services/cmdbService';
+import { FetchObjectSchemasResponse } from '../../types/assets/types';
 import {
-  FetchObjectSchemasResponse,
-  ObjectSchema,
-} from '../../types/assets/types';
-import { useObjectSchemas } from '../useObjectSchemas';
+  FetchObjectSchemasDetails,
+  useObjectSchemas,
+} from '../useObjectSchemas';
 
 jest.mock('../../services/cmdbService');
 
@@ -46,20 +46,24 @@ describe('useObjectSchemas', () => {
     expect(result.current.fetchObjectSchemas).toEqual(expect.any(Function));
   });
 
-  it('should return objectSchemas when fetchObjectSchemas resolves', async () => {
+  it('should return objectSchemas and totalObjectSchemas when fetchObjectSchemas resolves', async () => {
     mockFetchObjectSchemas.mockResolvedValue(mockFetchObjectSchemasResponse);
     const { result } = renderHook(() => useObjectSchemas(workspaceId));
     const fetchObjectSchemas = result.current.fetchObjectSchemas;
-    let fetchObjectSchemasResponse: ObjectSchema[] | undefined;
+    let fetchObjectSchemasResponse: FetchObjectSchemasDetails | undefined;
     await act(async () => {
       fetchObjectSchemasResponse = await fetchObjectSchemas(schemaQuery);
     });
     expect(mockFetchObjectSchemas).toBeCalledWith(workspaceId, schemaQuery);
-    expect(fetchObjectSchemasResponse).toBe(
-      mockFetchObjectSchemasResponse.values,
-    );
+    expect(fetchObjectSchemasResponse).toMatchObject({
+      objectSchemas: mockFetchObjectSchemasResponse.values,
+      totalObjectSchemas: mockFetchObjectSchemasResponse.total,
+    });
     expect(result.current.objectSchemas).toMatchObject(
       mockFetchObjectSchemasResponse.values,
+    );
+    expect(result.current.totalObjectSchemas).toEqual(
+      mockFetchObjectSchemasResponse.total,
     );
     expect(result.current.objectSchemasError).toBe(undefined);
   });
@@ -69,12 +73,16 @@ describe('useObjectSchemas', () => {
     mockFetchObjectSchemas.mockRejectedValue(mockError);
     const { result } = renderHook(() => useObjectSchemas(workspaceId));
     const fetchObjectSchemas = result.current.fetchObjectSchemas;
-    let fetchObjectSchemasResponse: ObjectSchema[] | undefined;
+    let fetchObjectSchemasResponse: FetchObjectSchemasDetails | undefined;
     await act(async () => {
       fetchObjectSchemasResponse = await fetchObjectSchemas(schemaQuery);
     });
-    expect(fetchObjectSchemasResponse).toBe(undefined);
+    expect(fetchObjectSchemasResponse).toMatchObject({
+      objectSchemas: undefined,
+      totalObjectSchemas: undefined,
+    });
     expect(result.current.objectSchemas).toBe(undefined);
+    expect(result.current.totalObjectSchemas).toBe(undefined);
     expect(result.current.objectSchemasError).toBe(mockError);
   });
 

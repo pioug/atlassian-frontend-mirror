@@ -1,5 +1,24 @@
 # @atlaskit/link-datasource
 
+## 1.11.1
+
+### Patch Changes
+
+- [#42377](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42377) [`c1c8a308bd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1c8a308bd5) - Add support for basic filter in JQL generation
+
+## 1.11.0
+
+### Minor Changes
+
+- [#42245](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42245) [`7b328d1b1b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b328d1b1b2) - Added Datasource Analytics and UFO metrics to Assets Config Modal.
+  Added additional analyticsEvent param to onInsert of AssetsConfigModal.
+
+## 1.10.3
+
+### Patch Changes
+
+- [#42390](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42390) [`d1aa333bfce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1aa333bfce) - [ux] Enabled count view smart link preview in jira config modal to open in new tab on click
+
 ## 1.10.2
 
 ### Patch Changes

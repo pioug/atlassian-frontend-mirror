@@ -1,27 +1,22 @@
-import React, {
-  FunctionComponent,
-  useCallback,
-  ReactElement,
-  useRef,
-  useEffect,
-} from 'react';
+import type { FunctionComponent, ReactElement } from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
 import memoizeOne from 'memoize-one';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
   withAnalyticsContext,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import Form from '@atlaskit/form';
-import {
+import type {
+  ExtensionManifest,
   FieldDefinition,
   Parameters,
   OnSaveCallback,
-  isTabGroup,
   TabGroupField,
   TabField,
 } from '@atlaskit/editor-common/extensions';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import Form from '@atlaskit/form';
+import { isTabGroup } from '@atlaskit/editor-common/extensions';
 import _isEqual from 'lodash/isEqual';
 import _mergeRecursive from 'lodash/merge';
 
@@ -31,14 +26,15 @@ import {
   ACTION_SUBJECT,
   ACTION,
 } from '@atlaskit/editor-common/analytics';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 import LoadingState from './LoadingState';
 import Header from './Header';
 import ErrorMessage from './ErrorMessage';
 import { serialize, deserialize, findDuplicateFields } from './transformers';
 
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
 import { FormFooter } from '@atlaskit/form';
@@ -47,8 +43,10 @@ import { pluginKey as extensionPluginKey } from '../../plugins/extension/plugin-
 import WithPluginState from '../WithPluginState';
 import FormContent from './FormContent';
 import { messages } from './messages';
-import { OnFieldChange, ValidationErrors } from './types';
+import type { OnFieldChange, ValidationErrors } from './types';
 import { FormErrorBoundary } from './FormErrorBoundary';
+
+const LOGGED_MACRO_KEYS = ['children', 'recently-updated', 'excerpt'];
 
 function ConfigForm({
   canSave,
@@ -221,6 +219,32 @@ class ConfigPanel extends React.Component<Props, State> {
 
   componentWillUnmount() {
     const { createAnalyticsEvent, extensionManifest } = this.props;
+    const { currentParameters } = this.state;
+
+    // PGXT-4393 We need to collect configuration analytics for the macros in LOGGED_MACRO_KEYS.
+    // This function takes the parameters and filters out anything which might have UGC.
+    const getMacroParameters = (): Parameters => {
+      const { page, labels, types, name, width, ...safeParams } =
+        currentParameters;
+
+      let ugcFreeParams = { ...safeParams };
+      // Parse types field as an array of valid content types and include in the result
+      if (types) {
+        const contentTypes = ['page', 'blogpost', 'comment', 'attachment'];
+        const parsedTypes = types
+          .split(',')
+          .map((type: string) => type.trim())
+          .filter((type: string) => contentTypes.includes(type));
+        ugcFreeParams = { types: parsedTypes, ...ugcFreeParams };
+      }
+      // Since width is a raw string input, parse then return
+      if (width) {
+        const parsedWidth = parseFloat(width);
+        ugcFreeParams = { width: parsedWidth, ...ugcFreeParams };
+      }
+
+      return ugcFreeParams;
+    };
 
     fireAnalyticsEvent(createAnalyticsEvent)({
       payload: {
@@ -230,6 +254,10 @@ class ConfigPanel extends React.Component<Props, State> {
         attributes: {
           extensionKey: extensionManifest?.key,
           extensionType: extensionManifest?.type,
+          ...(extensionManifest?.key &&
+          LOGGED_MACRO_KEYS.includes(extensionManifest.key)
+            ? { parameters: getMacroParameters() }
+            : {}),
         },
       },
     });

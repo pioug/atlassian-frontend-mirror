@@ -5,7 +5,7 @@ import TextField from '@atlaskit/textfield';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 import { useIntl } from 'react-intl-next';
-import { Styles } from '../../types';
+import type { Styles } from '../../types';
 import { messages } from '../i18n';
 import { input, pickerSearch, searchIcon } from './styles';
 import { EMOJI_SEARCH_DEBOUNCE } from '../../util/constants';

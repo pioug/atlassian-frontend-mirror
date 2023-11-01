@@ -1,6 +1,6 @@
 import { isEmojiVariationDescription } from '../../util/type-helpers';
 import { localStoragePrefix } from '../../util/constants';
-import { EmojiDescription } from '../../types';
+import type { EmojiDescription } from '../../types';
 import DuplicateLimitedQueue from '../../util/DuplicateLimitedQueue';
 import StoredDuplicateLimitedQueue from '../../util/StoredDuplicateLimitedQueue';
 import storageAvailable from '../../util/storage-available';

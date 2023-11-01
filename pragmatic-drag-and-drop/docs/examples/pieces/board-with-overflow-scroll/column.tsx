@@ -209,6 +209,7 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
       }),
       unsafeOverflowAutoScrollForElements({
         element: scrollContainerRef.current,
+        canScroll: ({ source }) => source.data.type === 'card',
         getOverflow: () => ({
           fromTopEdge: {
             top: 6000,

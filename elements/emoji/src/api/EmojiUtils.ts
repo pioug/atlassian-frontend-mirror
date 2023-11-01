@@ -1,10 +1,10 @@
 import {
-  KeyValues,
-  RequestServiceOptions,
-  ServiceConfig,
+  type KeyValues,
+  type RequestServiceOptions,
+  type ServiceConfig,
   utils as serviceUtils,
 } from '@atlaskit/util-service-support';
-import {
+import type {
   AltRepresentations,
   EmojiDescription,
   EmojiDescriptionWithVariations,

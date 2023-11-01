@@ -1,6 +1,6 @@
-import React, { FC, useEffect } from 'react';
+import React, { type FC, useEffect } from 'react';
 import Loadable from 'react-loadable';
-import { Props as ResourcedEmojiProps } from './ResourcedEmojiComponent';
+import type { Props as ResourcedEmojiProps } from './ResourcedEmojiComponent';
 import { UfoErrorBoundary } from './UfoErrorBoundary';
 import { sampledUfoRenderedEmoji, ufoExperiences } from '../../util/analytics';
 import { SAMPLING_RATE_EMOJI_RENDERED_EXP } from '../../util/constants';

@@ -1,5 +1,5 @@
 import React, { ErrorInfo } from 'react';
-import { UFOExperience } from '@atlaskit/ufo';
+import type { UFOExperience } from '@atlaskit/ufo';
 
 export class UfoErrorBoundary extends React.Component<{
   experiences: UFOExperience[];

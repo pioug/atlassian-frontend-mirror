@@ -21,7 +21,7 @@ import { parseXcss } from '../xcss/xcss';
 
 import { SurfaceContext } from './internal/surface-provider';
 import { SVGElements } from './internal/types';
-import type { BasePrimitiveProps } from './types';
+import type { BasePrimitiveProps, StyleProp } from './types';
 
 // Can either Exclude or Extract - here we're excluding all SVG-related elements
 type AllowedElements = Exclude<keyof JSX.IntrinsicElements, SVGElements>;
@@ -37,6 +37,7 @@ export type BoxProps<T extends CustomElementType> = Omit<
   'as' | 'className'
 > &
   BasePrimitiveProps &
+  StyleProp &
   BaseBoxProps<T>;
 
 type BaseBoxProps<T extends CustomElementType> = {

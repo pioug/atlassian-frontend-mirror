@@ -38,17 +38,9 @@ export const pasteOptionsToolbarPlugin: NextEditorPlugin<
         const pastePluginState = pasteOptionsPluginKey.getState(
           state,
         ) as PasteOtionsPluginState;
-        const { showToolbar, pasteStartPos, plaintext } =
-          pastePluginState || {};
 
-        if (showToolbar) {
-          return buildToolbar(
-            state,
-            pasteStartPos,
-            plaintext,
-            intl,
-            editorAnalyticsAPI,
-          );
+        if (pastePluginState.showToolbar) {
+          return buildToolbar(state, intl, editorAnalyticsAPI);
         }
 
         return;

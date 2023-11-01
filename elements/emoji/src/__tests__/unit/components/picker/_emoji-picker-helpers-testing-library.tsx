@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, screen, within } from '@testing-library/react';
 import {
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
   AnalyticsListener,
 } from '@atlaskit/analytics-next';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling

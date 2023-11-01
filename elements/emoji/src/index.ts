@@ -16,9 +16,9 @@ export {
   placeholder as emojiPlaceholder,
 } from './components/common/styles';
 import EmojiResource, {
-  EmojiProvider,
-  UploadingEmojiProvider,
-  EmojiResourceConfig,
+  type EmojiProvider,
+  type UploadingEmojiProvider,
+  type EmojiResourceConfig,
 } from './api/EmojiResource';
 import EmojiRepository from './api/EmojiRepository';
 import EmojiLoader from './api/EmojiLoader';

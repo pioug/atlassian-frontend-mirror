@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { defaultEmojiHeight } from '../../util/constants';
-import { EmojiImageRepresentation } from '../../types';
+import type { EmojiImageRepresentation } from '../../types';
 import {
   placeholder,
   placeholderContainer,

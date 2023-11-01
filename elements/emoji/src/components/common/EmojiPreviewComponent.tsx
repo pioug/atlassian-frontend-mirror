@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import type { FC } from 'react';
 import { jsx } from '@emotion/react';
-import { EmojiDescription } from '../../types';
+import type { EmojiDescription } from '../../types';
 import CachingEmoji from './CachingEmoji';
 import {
   emojiName,

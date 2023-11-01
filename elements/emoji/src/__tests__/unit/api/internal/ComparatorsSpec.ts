@@ -1,4 +1,7 @@
-import { EmojiDescription, EmojiVariationDescription } from '../../../../types';
+import type {
+  EmojiDescription,
+  EmojiVariationDescription,
+} from '../../../../types';
 
 import {
   AlphabeticalShortnameComparator,

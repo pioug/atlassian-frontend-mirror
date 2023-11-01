@@ -1,4 +1,4 @@
-import { ReactWrapper } from 'enzyme';
+import type { ReactWrapper } from 'enzyme';
 import EmojiActions from '../../../../components/common/EmojiActions';
 import { EmojiPreviewComponent } from '../../../../components/common/EmojiPreviewComponent';
 

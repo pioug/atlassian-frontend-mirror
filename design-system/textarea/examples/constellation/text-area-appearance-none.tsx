@@ -7,7 +7,7 @@ import TextArea from '../../src';
 export default function TextAreaAppearanceNone() {
   return (
     <>
-      <Label htmlFor="appearance-none">None Appearance</Label>
+      <Label htmlFor="appearance-none">None appearance</Label>
       <TextArea
         appearance="none"
         id="appearance-none"

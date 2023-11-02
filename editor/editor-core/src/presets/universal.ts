@@ -6,12 +6,10 @@ import {
   extensionPlugin,
   insertBlockPlugin,
   jiraIssuePlugin,
-  layoutPlugin,
   toolbarListsIndentationPlugin,
   macroPlugin,
   maxContentSizePlugin,
   panelPlugin,
-  placeholderTextPlugin,
   tasksAndDecisionsPlugin,
   alignmentPlugin,
   indentationPlugin,
@@ -46,12 +44,14 @@ import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { cardPlugin } from '@atlaskit/editor-plugin-card';
+import { layoutPlugin } from '@atlaskit/editor-plugin-layout';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { saveOnEnterPlugin } from '@atlaskit/editor-plugin-save-on-enter';
 import { scrollIntoViewPlugin } from '@atlaskit/editor-plugin-scroll-into-view';
 import { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';
+import { placeholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text';
 
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 

@@ -21,7 +21,7 @@ test('should ssr then hydrate icon correctly', async () => {
   const example = examples.find(({ filePath }) =>
     filePath.includes('size-example'),
   )!;
-  const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
+  const Example = require(example.filePath).default;
   const elem = document.createElement('div');
   elem.innerHTML = await ssr(example.filePath);
   ReactDOM.hydrate(<Example />, elem);

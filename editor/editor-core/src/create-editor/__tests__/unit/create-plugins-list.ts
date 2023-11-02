@@ -3,6 +3,7 @@ jest.mock('@atlaskit/editor-plugin-hyperlink');
 jest.mock('@atlaskit/editor-plugin-placeholder');
 jest.mock('@atlaskit/editor-plugin-selection');
 jest.mock('../../../plugins/code-block');
+jest.mock('@atlaskit/editor-plugin-layout');
 jest.mock('@atlaskit/editor-plugin-submit-editor');
 jest.mock('@atlaskit/editor-plugin-quick-insert');
 jest.mock('@atlaskit/editor-plugin-card');
@@ -13,6 +14,7 @@ jest.mock('@atlaskit/editor-plugin-media');
 jest.mock('@atlaskit/editor-plugin-status');
 jest.mock('@atlaskit/editor-plugin-scroll-into-view');
 jest.mock('@atlaskit/editor-plugin-history');
+jest.mock('@atlaskit/editor-plugin-placeholder-text');
 
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
@@ -22,8 +24,6 @@ import {
   analyticsPlugin,
   insertBlockPlugin,
   feedbackDialogPlugin,
-  placeholderTextPlugin,
-  layoutPlugin,
   mobileDimensionsPlugin,
   findReplacePlugin,
 } from '../../../plugins';
@@ -34,10 +34,12 @@ import { scrollIntoViewPlugin } from '@atlaskit/editor-plugin-scroll-into-view';
 import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { placeholderPlugin } from '@atlaskit/editor-plugin-placeholder';
+import { layoutPlugin } from '@atlaskit/editor-plugin-layout';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import codeBlockPlugin from '../../../plugins/code-block';
 import { submitEditorPlugin } from '@atlaskit/editor-plugin-submit-editor';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
+import { placeholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text';
 
 import createPluginsListBase, {
   getScrollGutterOptions,

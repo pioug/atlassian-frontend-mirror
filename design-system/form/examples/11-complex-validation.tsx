@@ -89,12 +89,13 @@ export default class extends Component<{}> {
                     )}
                     {error === 'TOO_SHORT' && (
                       <ErrorMessage>
-                        Invalid username, needs to be more than 4 characters
+                        Please enter a username that's longer than 4 characters.
                       </ErrorMessage>
                     )}
                     {error === 'IN_USE' && (
                       <ErrorMessage>
-                        Username is already taken, try another one
+                        This username is already in use, please enter a
+                        different username.
                       </ErrorMessage>
                     )}
                   </Fragment>
@@ -118,12 +119,14 @@ export default class extends Component<{}> {
                     )}
                     {error === 'INVALID_EMAIL' && (
                       <ErrorMessage>
-                        This email is invalid, please try again
+                        Please enter your email in a valid format, like:
+                        name@example.com.
                       </ErrorMessage>
                     )}
                     {error === 'IN_USE' && (
                       <ErrorMessage>
-                        This email is already in use, try another one
+                        This email is already in use, please enter a different
+                        email.
                       </ErrorMessage>
                     )}
                   </Fragment>

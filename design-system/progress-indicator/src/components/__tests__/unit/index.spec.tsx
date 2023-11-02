@@ -36,7 +36,6 @@ describe('Progress Indicator', () => {
         />,
       );
 
-      expect(screen.getByRole('tablist')).toBeInTheDocument();
       values.forEach((_, index) => {
         expect(
           screen.getByTestId(`progress-dots-ind-${index}`),
@@ -54,7 +53,6 @@ describe('Progress Indicator', () => {
           />,
         );
 
-        expect(screen.getByRole('tablist')).toBeInTheDocument();
         defaultValues.forEach((_, index) => {
           expect(
             screen.getByTestId(`progress-dots-ind-${index}`),
@@ -72,7 +70,6 @@ describe('Progress Indicator', () => {
           />,
         );
 
-        expect(screen.getByRole('tablist')).toBeInTheDocument();
         values.forEach((_, index) => {
           expect(
             screen.getByTestId(`progress-dots-ind-${index}`),
@@ -137,8 +134,22 @@ describe('Progress Indicator', () => {
   });
 
   describe('aria attributes', () => {
+    it('should not apply role=tablist when not interactive', () => {
+      render(<StubComponent />);
+
+      expect(screen.queryByRole('tablist')).not.toBeInTheDocument();
+    });
+
+    it('should apply role=tablist when interactive with onSelect', () => {
+      render(<StubComponent onSelect={__noop} />);
+
+      expect(screen.getByRole('tablist')).toBeInTheDocument();
+    });
+
     it('should apply default aria-controls and aria-label props', () => {
       render(<StubComponent onSelect={__noop} />);
+
+      expect(screen.getByRole('tablist')).toBeInTheDocument();
 
       const buttons = screen.getAllByRole('tab');
 
@@ -157,6 +168,8 @@ describe('Progress Indicator', () => {
         />,
       );
 
+      expect(screen.getByRole('tablist')).toBeInTheDocument();
+
       const buttons = screen.getAllByRole('tab');
 
       expect(buttons[0]).toHaveAttribute('aria-label', 'testAriaLabel0');
@@ -165,6 +178,8 @@ describe('Progress Indicator', () => {
 
     it('should apply aria-selected prop to the selected button', () => {
       render(<StubComponent onSelect={__noop} />);
+
+      expect(screen.getByRole('tablist')).toBeInTheDocument();
 
       const buttons = screen.getAllByRole('tab');
 

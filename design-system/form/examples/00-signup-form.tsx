@@ -37,7 +37,7 @@ export default () => (
         <form {...formProps}>
           <Field
             name="username"
-            label="User name"
+            label="Username"
             isRequired
             defaultValue="hello"
           >
@@ -51,7 +51,8 @@ export default () => (
                 )}
                 {error && (
                   <ErrorMessage>
-                    This user name is already in use, try another one.
+                    This username is already in use, please enter a different
+                    username.
                   </ErrorMessage>
                 )}
               </Fragment>
@@ -78,7 +79,7 @@ export default () => (
                   )}
                   {error && (
                     <ErrorMessage>
-                      Password needs to be more than 8 characters.
+                      Enter a password that's longer than 8 characters.
                     </ErrorMessage>
                   )}
                   {valid && meta.dirty ? (

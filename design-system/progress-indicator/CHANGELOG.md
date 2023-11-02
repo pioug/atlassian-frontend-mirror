@@ -1,5 +1,11 @@
 # @atlaskit/progress-indicator
 
+## 9.5.18
+
+### Patch Changes
+
+- [#42460](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42460) [`a2a52116171`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2a52116171) - Remove role=tablist when progress indicator is not interactive
+
 ## 9.5.17
 
 ### Patch Changes

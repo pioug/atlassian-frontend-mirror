@@ -34,14 +34,14 @@ import type { CodeBlockOptions } from '../plugins/code-block/types';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type { DatePluginConfig } from '@atlaskit/editor-plugin-date';
 import type { FindReplaceOptions } from '../plugins/find-replace/types';
-import type { LayoutPluginOptions } from '../plugins/layout/types';
+import type { LayoutPluginOptions } from '@atlaskit/editor-plugin-layout';
 import type {
   MediaOptions,
   MediaState,
 } from '@atlaskit/editor-plugin-media/types';
 import type { MentionPluginConfig } from '@atlaskit/editor-plugin-mentions';
 import type { PanelPluginConfig } from '../plugins/panel/types';
-import type { PlaceholderTextOptions } from '../plugins/placeholder-text/types';
+import type { PlaceholderTextOptions } from '@atlaskit/editor-plugin-placeholder-text';
 import type { TextColorPluginConfig } from '@atlaskit/editor-plugin-text-color';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 

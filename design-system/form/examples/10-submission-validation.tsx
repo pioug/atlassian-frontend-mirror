@@ -11,10 +11,10 @@ const createUser = async (data: { username: string; email: string }) => {
   await sleep(500);
   const errors = {
     username: ['jsmith', 'mchan'].includes(data.username)
-      ? 'Username already taken, try another one'
+      ? 'This username is already taken, please enter a different username.'
       : undefined,
     email: !data.email.includes('@')
-      ? 'Your email is not valid, please try again'
+      ? 'Please enter your email in a valid format, like: name@example.com.'
       : undefined,
   };
   if (!errors.username && !errors.email) {

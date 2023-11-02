@@ -9,10 +9,9 @@ const dangerFlow = `
 </svg>
 `;
 
-const arrowRight = (props: CustomGlyphProps) => {
+const arrowRight = ({ role }: CustomGlyphProps) => {
   return (
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    <svg {...props} width="24" height="24" viewBox="0 0 24 24" version="1.1">
+    <svg role={role} width="24" height="24" viewBox="0 0 24 24" version="1.1">
       <path
         style={{ fill: 'currentColor' }}
         d="M14.586 11l-2.293-2.293a1 1 0 1 1 1.414-1.414l4 4a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414-1.414L14.586 13H10a1 1 0 0 0-1 1v7a1 1 0 0 1-2 0v-7a3 3 0 0 1 3-3h4.586z"

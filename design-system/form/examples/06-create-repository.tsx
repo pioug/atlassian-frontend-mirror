@@ -165,7 +165,7 @@ export default class LayoutExample extends PureComponent<void, State> {
                 <Field<ValueType<OptionType>>
                   name="include-readme"
                   id="include-readme"
-                  label="Include a README?"
+                  label="Include a readme file?"
                   defaultValue={{ label: 'No', value: 'no' }}
                 >
                   {({ fieldProps: { id, ...rest } }) => (

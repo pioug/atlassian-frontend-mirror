@@ -175,6 +175,9 @@
       "path": "../editor-plugin-image-upload/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-layout/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-list/tsconfig.app.json"
     },
     {
@@ -185,6 +188,9 @@
     },
     {
       "path": "../editor-plugin-placeholder/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-placeholder-text/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-quick-insert/tsconfig.app.json"

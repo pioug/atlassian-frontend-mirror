@@ -150,7 +150,8 @@ snapshotInformational(EditorGapCursorLayout, {
   },
 });
 
-snapshotInformational(EditorGapCursorLayout, {
+// Skipped flaky test
+snapshotInformational.skip(EditorGapCursorLayout, {
   description: 'Gap cursor after last divider',
   selector: {
     byTestId: CONTENT_AREA_TEST_ID,

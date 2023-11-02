@@ -49,6 +49,7 @@ import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { jsx } from '@emotion/react';
+import type { LayoutPluginOptions } from '@atlaskit/editor-plugin-layout';
 import type { LinkingOptions } from '@atlaskit/editor-common/types';
 import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
 import { MacroAttributes } from '@atlaskit/editor-common/provider-factory';
@@ -62,6 +63,7 @@ import { MentionResource } from '@atlaskit/mention/resource';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
 import { PerformanceTracking } from '@atlaskit/editor-common/types';
+import type { PlaceholderTextOptions } from '@atlaskit/editor-plugin-placeholder-text';
 import type { PluginConfig } from '@atlaskit/editor-plugin-table/types';
 import { PortalProvider } from '@atlaskit/editor-common/portal-provider';
 import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
@@ -628,16 +630,6 @@ export type InlineCommentViewComponentProps = AnnotationComponentProps & {
 
 export { INPUT_METHOD };
 
-// @public (undocumented)
-interface LayoutPluginOptions extends LongPressSelectionPluginOptions {
-  // (undocumented)
-  allowBreakout?: boolean;
-  // (undocumented)
-  UNSAFE_addSidebarLayouts?: boolean;
-  // (undocumented)
-  UNSAFE_allowSingleColumnLayout?: boolean;
-}
-
 export { MacroAttributes };
 
 export { MacroProvider };
@@ -677,12 +669,6 @@ interface PanelPluginConfig {
   allowCustomPanel?: boolean;
   // (undocumented)
   allowCustomPanelEdit?: boolean;
-}
-
-// @public (undocumented)
-interface PlaceholderTextOptions {
-  // (undocumented)
-  allowInserting?: boolean;
 }
 
 export { PortalProvider };

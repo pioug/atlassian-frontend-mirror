@@ -68,7 +68,7 @@ const flavorValidation = (data: Category, errors?: Record<string, string>) => {
   if (data.icecream && data.icecream.length >= 3) {
     return {
       ...errors,
-      icecream: `${data.icecream.length} is too many flavors, don't be greedy, you get to pick 2.`,
+      icecream: `${data.icecream.length} is too many flavors, please select a maximum of 2 flavors.`,
     };
   }
 
@@ -94,7 +94,7 @@ export default () => (
         <form {...formProps}>
           <Field<Value<Option>>
             name="colors"
-            label="Select a colour"
+            label="Select a color"
             defaultValue={null}
           >
             {({ fieldProps: { id, ...rest }, error }) => (

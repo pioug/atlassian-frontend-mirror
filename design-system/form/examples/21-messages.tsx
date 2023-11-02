@@ -14,13 +14,13 @@ export default function MessagesExample() {
       </div>
       <div data-testid="messages--long" style={{ maxWidth: 240 }}>
         <HelperMessage testId="helper--long">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          This is a help message, but it's really really really long.
         </HelperMessage>
         <ErrorMessage testId="error--long">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          This is an error message, but it's really really really long.
         </ErrorMessage>
         <ValidMessage testId="valid--long">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          This is a validation message, but it's really really really long.
         </ValidMessage>
       </div>
       <div data-testid="messages--inline-content" style={{ maxWidth: 240 }}>
@@ -29,7 +29,7 @@ export default function MessagesExample() {
         </HelperMessage>
         <ErrorMessage testId="error--long">
           This message contains a link to{' '}
-          <a href="http://www.atlassian.com">Atlassian</a>.
+          <a href="http://www.atlassian.com">the Atlassian website</a>.
         </ErrorMessage>
         <ValidMessage testId="valid--long">
           This message contains a{' '}

@@ -21,9 +21,9 @@ import { token } from '@atlaskit/tokens';
 
 const iconRowStyles = css({
   display: 'flex',
-  marginTop: token('space.100', '8px'),
   justifyContent: 'flex-start',
   flexDirection: 'row',
+  marginBlockStart: token('space.100', '8px'),
 });
 
 const iconWrapperStyles = css({
@@ -66,7 +66,6 @@ const IconSizeExample = ({ defaultSize = 'medium' }: { defaultSize: Size }) => {
       </ButtonGroup>
       <div id="size-example" css={iconRowStyles}>
         {demoIcons.map((Icon, i) => (
-          // eslint-disable-next-line react/no-array-index-key
           <span css={iconWrapperStyles} key={i}>
             <Icon label={`Icon ${i}`} size={size} />
           </span>

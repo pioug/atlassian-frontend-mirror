@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 189.1.13
+
+### Patch Changes
+
+- [#42391](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42391) [`f46e9fd8b00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f46e9fd8b00) - [ux] ED-20479: Extracts placeholder-test editor plugin from editor-core
+- Updated dependencies
+
+## 189.1.12
+
+### Patch Changes
+
+- [#42505](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42505) [`48e5f1efdde`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48e5f1efdde) - Extract layout plugin into new package @atlaskit/editor-plugin-layout.
+- Updated dependencies
+
+## 189.1.11
+
+### Patch Changes
+
+- [#42477](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42477) [`8f5175dc714`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f5175dc714) - Decouple layout plugin from editor-core
+
 ## 189.1.10
 
 ### Patch Changes

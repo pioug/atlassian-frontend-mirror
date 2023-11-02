@@ -5,8 +5,8 @@ import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-
-import { buildLayoutForWidths } from '../../../../../plugins/layout/__tests__/unit/_utils';
+// eslint-disable-next-line import/no-extraneous-dependencies, @atlassian/tangerine/import/entry-points -- Removed import for fixing circular dependencies
+import { buildLayoutForWidths } from '@atlaskit/editor-plugin-layout/src/__tests__/unit/_utils';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 

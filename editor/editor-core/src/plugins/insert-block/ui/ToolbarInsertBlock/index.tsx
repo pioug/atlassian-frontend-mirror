@@ -16,7 +16,6 @@ import {
   wrapperStyle,
 } from '@atlaskit/editor-common/styles';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/actions';
 import { insertTaskDecisionCommand } from '../../../tasks-and-decisions/commands';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
@@ -388,8 +387,11 @@ export class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private createPlaceholderText = (): boolean => {
-    const { editorView } = this.props;
-    showPlaceholderFloatingToolbar(editorView.state, editorView.dispatch);
+    const { editorView, pluginInjectionApi } = this.props;
+    pluginInjectionApi?.placeholderText?.actions.showPlaceholderFloatingToolbar(
+      editorView.state,
+      editorView.dispatch,
+    );
     return true;
   };
 

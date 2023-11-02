@@ -9,13 +9,12 @@ import { Size } from '../../../types';
 describe('@atlaskit/icon', () => {
   describe('Icon', () => {
     const secretContent = 'secret content';
-    const secretWrapper = (props: CustomGlyphProps) => (
-      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-      <svg {...props}>{secretContent}</svg>
+    const secretWrapper = ({ role }: CustomGlyphProps) => (
+      <svg role={role}>{secretContent}</svg>
     );
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    const empty = (props: CustomGlyphProps) => <svg {...props}>Icon</svg>;
+    const empty = ({ role }: CustomGlyphProps) => <svg role={role}>Icon</svg>;
     const MyIcon = (props: IconProps) => (
+      // This is not ideal but is easier for testing
       // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       <Icon glyph={secretWrapper} {...props} />
     );
@@ -29,9 +28,8 @@ describe('@atlaskit/icon', () => {
     describe('glyph prop', () => {
       it('should render an SVG provided via JSX', () => {
         const id = 'customSvg';
-        const customGlyphJsx = (props: {}) => (
-          // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-          <svg {...props} data-testid={id} />
+        const customGlyphJsx = ({ role }: CustomGlyphProps) => (
+          <svg role={role} data-testid={id} />
         );
 
         render(<Icon glyph={customGlyphJsx} label="" />);
@@ -49,7 +47,7 @@ describe('@atlaskit/icon', () => {
 
     describe('dangerouslySetGlyph prop', () => {
       const id = 'customSvg';
-      const customGlyphString = `<svg data-testid=${id}></svg>`;
+      const customGlyphString = `<svg data-testid="${id}"></svg>`;
 
       it('should render an SVG provided as a string', () => {
         render(

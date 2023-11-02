@@ -49,7 +49,7 @@ import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { basePlugin } from '@atlaskit/editor-plugin-base';
-import layoutPlugin from '../../../layout';
+import { layoutPlugin } from '@atlaskit/editor-plugin-layout';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import alignmentPlugin from '../../../alignment';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';

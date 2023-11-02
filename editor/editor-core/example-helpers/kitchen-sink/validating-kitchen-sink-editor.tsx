@@ -110,6 +110,9 @@ export class ValidatingKitchenSinkEditor extends React.Component<
   private cardProviderPromise = Promise.resolve(
     new ConfluenceCardProvider('stg'),
   );
+  private legacyImageProvider = Promise.resolve(() => {
+    console.warn('legacyImageProvider not implemented in kitchen sink');
+  });
 
   private validatorTimeout?: number;
   private editorView?: EditorView;
@@ -216,6 +219,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             'restart-numbered-lists': true,
             ...this.props.featureFlags,
           }}
+          legacyImageUploadProvider={this.legacyImageProvider}
           dangerouslyAppendPlugins={{
             __plugins: this.props.editorPlugins ?? EMPTY,
           }}

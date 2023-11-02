@@ -27,7 +27,38 @@
     "releaseModel": "continuous",
     "website": {
       "name": "Button",
-      "category": "Components"
+      "category": "Components",
+      "subPages": [
+        {
+          "title": "Button (new)",
+          "id": "button-new",
+          "status": {
+            "type": "draft"
+          },
+          "sortKey": 1
+        },
+        {
+          "title": "Icon button",
+          "id": "icon-button",
+          "status": {
+            "type": "draft"
+          },
+          "sortKey": 2
+        },
+        {
+          "title": "Button group",
+          "id": "button-group",
+          "sortKey": 3
+        },
+        {
+          "title": "Split button",
+          "id": "split-button",
+          "status": {
+            "type": "draft"
+          },
+          "sortKey": 4
+        }
+      ]
     }
   },
   "af:exports": {

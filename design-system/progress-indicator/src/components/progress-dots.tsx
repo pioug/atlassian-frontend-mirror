@@ -124,7 +124,7 @@ const ProgressDots: FC<ProgressDotsProps> = ({
           [varDotsMargin]: rawGapValue,
         } as CSSProperties
       }
-      role="tablist"
+      role={onSelect && 'tablist'}
     >
       <Inline
         testId={testId}

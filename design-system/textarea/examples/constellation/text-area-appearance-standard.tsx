@@ -7,7 +7,7 @@ import TextArea from '../../src';
 export default function TextAreaAppearanceStandard() {
   return (
     <>
-      <Label htmlFor="standard-appearance">Standard Appearance</Label>
+      <Label htmlFor="standard-appearance">Standard appearance</Label>
       <TextArea
         appearance="standard"
         id="standard-appearance"

@@ -35,7 +35,7 @@ export default () => (
     >
       {({ formProps, submitting, reset }) => (
         <form {...formProps}>
-          <Field name="username" label="User name" defaultValue="" isRequired>
+          <Field name="username" label="Username" defaultValue="" isRequired>
             {({ fieldProps, error }) => (
               <Fragment>
                 <TextField autoComplete="off" {...fieldProps} />
@@ -46,7 +46,7 @@ export default () => (
                 )}
                 {error && (
                   <ErrorMessage>
-                    This user name is already in use, try another one.
+                    This username is already in use, try another one.
                   </ErrorMessage>
                 )}
               </Fragment>
@@ -72,7 +72,7 @@ export default () => (
                 )}
                 {error && (
                   <ErrorMessage>
-                    Password needs to be more than 8 characters.
+                    Please enter a password that's longer than 8 characters.
                   </ErrorMessage>
                 )}
                 {valid && meta.dirty && (

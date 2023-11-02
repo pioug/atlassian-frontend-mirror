@@ -8,7 +8,6 @@ import TextareaValidation from '../../examples/constellation/text-area-validatio
 import TextareaResize from '../../examples/constellation/text-area-resize';
 import TextAreaAppearanceStandard from '../../examples/constellation/text-area-appearance-standard';
 import TextAreaAppearanceSubtle from '../../examples/constellation/text-area-appearance-subtle';
-import TextAreaAppearanceNone from '../../examples/constellation/text-area-appearance-none';
 
 ## Default
 
@@ -18,39 +17,41 @@ The default text area.
 
 ## Form
 
-Text area used with the `Form` component.
+You'll often use text areas as a [form field](/components/form/examples#field).
 
 <Example Component={TextareaForm} packageName="@atlaskit/textarea" />
 
 ## Validation
 
-This behavior is how text area will behave within [forms](/patterns/forms).
+This is how the text area will behave within [forms](/patterns/forms).
 
 Validation displays an error message related to the restrictions of the text area.
 
-When a user selects the text area and starts typing or changing content, the focus color changes to blue. When validating text areas in real-time, message icons switch based on the message type. For example, helper text becomes an error message when the input content doesn't meet the criteria. Error and warning messages disappear when the criteria is met.
+When a user selects the text area and starts typing or changing content, the focus color will change to blue. When validating text areas in real-time, message icons switch based on the message type. For example, helper text becomes an error message when the input content doesn't meet the criteria. Error and warning messages disappear when the criteria is met.
 
-Keep helper text as short as possible. For complex information, provide a link to more information in a new browser tab. Use the [messaging guidelines](/content/messaging-guidelines) for more help.
+Keep helper text as short as possible. For complex information, provide a link to more information in a new browser tab. For more help, use the [messaging guidelines](/content/messaging-guidelines).
 
 <Example Component={TextareaValidation} packageName="@atlaskit/textarea" />
 
 ## Resize
 
+Use the `resize` prop to set whether the text area expands when the user enters text that exceeds the size of the text area.
+
 ### Smart
 
-A text area that shows all user input at once. Overflow text wraps onto a new line and expands the text area.
+Use `smart` for a text area that shows all user input at once. Overflow text wraps onto a new line and expands the text area. This is the default sizing option.
 
 ### Auto
 
-A text area that lets the user resize the area horizontally and vertically.
+Use `auto` for a text area that will resize horizontally and vertically.
 
 ### Vertical / horizontal resize
 
-A text area that lets the user resize the area either vertically only or horizontally only.
+Use `vertical` or `horizontal` for a text area that will resize either vertically only or horizontally only.
 
 ### None
 
-A text area that does not resize and uses a scroll bar to show overflow text.
+Use `none` for a text area that does not resize and uses a scroll bar if the user enters text that exceeds the size of the text area.
 
 <Example Component={TextareaResize} packageName="@atlaskit/textarea" />
 
@@ -58,7 +59,7 @@ A text area that does not resize and uses a scroll bar to show overflow text.
 
 ### Standard
 
-The standard (default) text area appearance.
+The default text area appearance.
 
 <Example
   Component={TextAreaAppearanceStandard}
@@ -73,9 +74,3 @@ A text area that's transparent until interaction or error.
   Component={TextAreaAppearanceSubtle}
   packageName="@atlaskit/textarea"
 />
-
-### None
-
-A text area that's fully transparent with no indication on interaction or error.
-
-<Example Component={TextAreaAppearanceNone} packageName="@atlaskit/textarea" />

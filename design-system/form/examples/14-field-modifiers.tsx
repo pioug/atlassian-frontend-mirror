@@ -26,7 +26,7 @@ export default () => (
     >
       {({ formProps, submitting, setFieldValue }) => (
         <form {...formProps}>
-          <Field name="username" label="User name" isRequired defaultValue="">
+          <Field name="username" label="Username" isRequired defaultValue="">
             {({ fieldProps }) => (
               <TextField
                 autoComplete="off"

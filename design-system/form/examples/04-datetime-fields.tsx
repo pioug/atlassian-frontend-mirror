@@ -26,7 +26,7 @@ const requiredValidator = (
   if (!data[key]) {
     return {
       ...errors,
-      [key]: `no ${key} value selected, please select a value.`,
+      [key]: `Please select a date to continue.`,
     };
   }
 
@@ -50,7 +50,7 @@ export default () => (
     >
       {({ formProps }) => (
         <form {...formProps}>
-          <Field name="DOB" label="Date of Birth" defaultValue="" isRequired>
+          <Field name="DOB" label="Date of birth" defaultValue="" isRequired>
             {({ fieldProps: { id, ...rest }, error }) => (
               <Fragment>
                 <DatePicker selectProps={{ inputId: id }} {...rest} />
@@ -60,7 +60,7 @@ export default () => (
           </Field>
           <Field
             name="preference"
-            label="Appointment preference"
+            label="Preferred appointment date & time"
             defaultValue=""
             isRequired
           >

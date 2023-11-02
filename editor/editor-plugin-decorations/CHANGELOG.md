@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-decorations
 
+## 0.2.5
+
+### Patch Changes
+
+- [#42505](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42505) [`48e5f1efdde`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48e5f1efdde) - Extract layout plugin into new package @atlaskit/editor-plugin-layout.
+
+## 0.2.4
+
+### Patch Changes
+
+- [#42477](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42477) [`8f5175dc714`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f5175dc714) - Decouple layout plugin from editor-core
+
 ## 0.2.3
 
 ### Patch Changes

@@ -153,8 +153,11 @@ export interface DropdownMenuProps<
   spacing?: Extract<MenuGroupProps['spacing'], 'cozy' | 'compact'>;
 
   /**
-   * Content which will trigger the dropdown menu to open and close. Use with `triggerType`
-   * to easily get a button trigger.
+   * Content that triggers the dropdown menu to open and close. Use with
+   * `triggerType` to get a button trigger. To customize the trigger element,
+   * provide a function to this prop. You can find
+   * [examples for custom triggers](components/dropdown-menu/examples#custom-triggers)
+   * in our documentation.
    */
   trigger?:
     | string

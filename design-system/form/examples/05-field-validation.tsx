@@ -87,17 +87,18 @@ export default class extends Component<{}> {
                     )}
                     {!error && valid && (
                       <ValidMessage>
-                        Nice one, this username is available
+                        Nice one, this username is available.
                       </ValidMessage>
                     )}
                     {error === 'TOO_SHORT' && (
                       <ErrorMessage>
-                        Invalid username, needs to be more than 4 characters
+                        Please enter a username that's longer than 4 characters.
                       </ErrorMessage>
                     )}
                     {error === 'IN_USE' && (
                       <ErrorMessage>
-                        Username already taken, try another one
+                        This username is already taken, please enter a different
+                        username.
                       </ErrorMessage>
                     )}
                   </Fragment>

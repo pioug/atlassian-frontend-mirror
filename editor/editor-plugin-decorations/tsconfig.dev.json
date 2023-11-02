@@ -45,6 +45,9 @@
       "path": "../editor-core/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-layout/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-mentions/tsconfig.app.json"
     },
     {

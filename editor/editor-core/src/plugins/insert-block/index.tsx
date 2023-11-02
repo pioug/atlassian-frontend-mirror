@@ -9,8 +9,6 @@ import type {
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 
-import { pluginKey as layoutStateKey } from '../layout';
-import type { LayoutState } from '../layout/pm-plugins/types';
 import type { MacroState } from '../macro';
 import { insertMacroFromMacroBrowser } from '../macro';
 import WithPluginState from '../../ui/WithPluginState';
@@ -21,8 +19,6 @@ import {
   PANEL,
 } from '@atlaskit/editor-plugin-block-type/consts';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { pluginKey as placeholderTextStateKey } from '../placeholder-text/plugin-key';
-import type { PlaceholderTextPluginState } from '../placeholder-text';
 import { pluginKey as macroStateKey } from '../macro/plugin-key';
 import { ToolbarSize } from '../../ui/Toolbar/types';
 
@@ -110,14 +106,8 @@ const insertBlockPlugin: NextEditorPlugin<
           <WithPluginState
             plugins={{
               macroState: macroStateKey,
-              placeholderTextState: placeholderTextStateKey,
-              layoutState: layoutStateKey,
             }}
-            render={({
-              macroState = {} as MacroState,
-              placeholderTextState,
-              layoutState,
-            }) => {
+            render={({ macroState = {} as MacroState }) => {
               return (
                 <ToolbarInsertBlockWithInjectionApi
                   pluginInjectionApi={api}
@@ -134,8 +124,6 @@ const insertBlockPlugin: NextEditorPlugin<
                   isLastItem={isLastItem}
                   featureFlags={featureFlags}
                   macroState={macroState}
-                  placeholderTextState={placeholderTextState}
-                  layoutState={layoutState}
                   providers={providers}
                   options={options}
                 />
@@ -168,8 +156,6 @@ interface ToolbarInsertBlockWithInjectionApiProps
   // As part of Scalability project we are removing plugin keys
   // As we do this these props below will disappear
   macroState: MacroState;
-  placeholderTextState: PlaceholderTextPluginState | undefined;
-  layoutState: LayoutState | undefined;
 }
 
 function ToolbarInsertBlockWithInjectionApi({
@@ -187,8 +173,6 @@ function ToolbarInsertBlockWithInjectionApi({
   pluginInjectionApi,
   options,
   macroState,
-  placeholderTextState,
-  layoutState,
   featureFlags,
 }: ToolbarInsertBlockWithInjectionApiProps) {
   const buttons = toolbarSizeToButtons(toolbarSize);
@@ -201,6 +185,7 @@ function ToolbarInsertBlockWithInjectionApi({
     blockTypeState,
     mediaState,
     typeAheadState,
+    placeholderTextState,
   } = useSharedPluginState(pluginInjectionApi, [
     'hyperlink',
     'date',
@@ -210,6 +195,7 @@ function ToolbarInsertBlockWithInjectionApi({
     'blockType',
     'media',
     'typeAhead',
+    'placeholderText',
   ]);
 
   return (
@@ -229,7 +215,7 @@ function ToolbarInsertBlockWithInjectionApi({
       placeholderTextEnabled={
         placeholderTextState && placeholderTextState.allowInserting
       }
-      layoutSectionEnabled={!!layoutState}
+      layoutSectionEnabled={Boolean(pluginInjectionApi?.layout)}
       expandEnabled={!!options.allowExpand}
       mediaUploadsEnabled={
         (mediaState && mediaState.allowsUploads) ?? undefined

@@ -22,7 +22,9 @@ import * as layoutWithDecisions from './__fixtures__/layout-with-decisions-adf.j
 import * as colLeftSidebar from './__fixtures__/columnLeftSidebar-adf.json';
 import * as colRightSidebar from './__fixtures__/columnRightSidebar-adf.json';
 import * as col3WithSidebars from './__fixtures__/column3WithSidebars-adf.json';
-import { layoutToolbarTitle } from '../../../plugins/layout/toolbar';
+
+// Copied from 'packages/editor/editor-plugin-layout/src/toolbar.ts`
+const layoutToolbarTitle = 'Layout floating controls';
 
 describe('Layouts:', () => {
   let page: PuppeteerPage;

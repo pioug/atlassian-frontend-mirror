@@ -4,11 +4,11 @@ import type {
 } from '@atlaskit/editor-common/types';
 // TODO: These should be updated once we extract these plugins to separate packages
 // eslint-disable-next-line import/no-extraneous-dependencies
-import layoutPlugin from '@atlaskit/editor-core/src/plugins/layout';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { deleteActiveLayoutNode } from '@atlaskit/editor-core/src/plugins/layout/actions';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { layoutPlugin } from '@atlaskit/editor-plugin-layout';
+// eslint-disable-next-line import/no-extraneous-dependencies, @atlassian/tangerine/import/entry-points
+import { deleteActiveLayoutNode } from '@atlaskit/editor-plugin-layout/src/actions';
 import { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 // eslint-disable-next-line import/no-extraneous-dependencies
 // eslint-disable-next-line import/no-extraneous-dependencies

@@ -33,7 +33,7 @@ import {
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { uuid } from '@atlaskit/adf-schema';
-import layoutPlugin from '../../../../../plugins/layout';
+import { layoutPlugin } from '@atlaskit/editor-plugin-layout';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import panelPlugin from '../../../../../plugins/panel';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
@@ -87,6 +87,7 @@ import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
+import { placeholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text';
 
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 import codeBlockPlugin from '../../../../../plugins/code-block';
@@ -201,6 +202,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       .add(gridPlugin)
       .add(copyButtonPlugin)
       .add(focusPlugin)
+      .add([placeholderTextPlugin, {}])
       .add(floatingToolbarPlugin)
       .add([codeBlockPlugin, {}])
       .add([mediaPlugin, { allowMediaSingle: true }]);

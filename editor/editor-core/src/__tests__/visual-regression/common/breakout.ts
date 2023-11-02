@@ -23,7 +23,9 @@ import {
   retryUntilStablePosition,
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { layoutToolbarTitle } from '../../../plugins/layout/toolbar';
+
+// Copied from 'packages/editor/editor-plugin-layout/src/toolbar.ts`
+const layoutToolbarTitle = 'Layout floating controls';
 
 describe('Columns:', () => {
   let page: PuppeteerPage;

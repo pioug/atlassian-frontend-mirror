@@ -58,7 +58,6 @@ const IconCustomExample = () => (
 const IconRow = () => (
   <div css={iconRowStyles}>
     {demoIcons.map((Icon, i) => (
-      // eslint-disable-next-line react/no-array-index-key
       <span css={iconWrapperStyles} key={i}>
         <Icon label={`Icon ${i}`} size="medium" />
       </span>

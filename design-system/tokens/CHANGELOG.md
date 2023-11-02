@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.28.1
+
+### Patch Changes
+
+- [#42413](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42413) [`202e2c9c2ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/202e2c9c2ff) - Fix for vuln [VULN-1112073](https://asecurityteam.atlassian.net/browse/VULN-1112073) by bumping `@babel/traverse` to safest patch 7.23.2.
+
 ## 1.28.0
 
 ### Minor Changes

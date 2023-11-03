@@ -57,7 +57,7 @@ const Date = memo(
       tabIndex,
       testId,
     },
-    ref,
+    _ref,
   ) {
     const dateRef = useRef({ day, month, year, isDisabled });
 

@@ -12,7 +12,7 @@ export type ButtonProps = CommonDefaultButtonProps & CommonButtonVariantProps;
 /**
  * __Button__
  *
- * @warning __UNSAFE__ Button is not yet safe for production use.
+ * @private __UNSAFE__ Button is not yet safe for production use.
  *
  * A button triggers an event or action.
  *

@@ -30,7 +30,7 @@ import { useTextColorListener } from './useTextColorListener';
 import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { CodeBlockPlugin } from '@atlaskit/editor-core/src/plugins/code-block';
 import type { StatusPlugin } from '@atlaskit/editor-plugin-status';
-import type { PanelPlugin } from '@atlaskit/editor-core/src/plugins/panel';
+import type { PanelPlugin } from '@atlaskit/editor-plugin-panel';
 import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import type { TextColorPlugin } from '@atlaskit/editor-plugin-text-color';
 import type { DatePlugin } from '@atlaskit/editor-plugin-date';

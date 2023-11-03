@@ -45,7 +45,7 @@ import { textHighlightStyle } from '@atlaskit/editor-plugin-paste-options-toolba
 import { codeBlockStyles } from '../../plugins/code-block/styles';
 import { mediaStyles } from './media';
 import { layoutStyles } from './layout';
-import { panelStyles } from '../../plugins/panel/styles';
+import { panelStyles } from './panel';
 import { placeholderTextStyles } from '@atlaskit/editor-plugin-placeholder-text/styles';
 import { extensionStyles } from '../../plugins/extension/ui/styles';
 import { expandStyles } from '../../plugins/expand/ui/styles';

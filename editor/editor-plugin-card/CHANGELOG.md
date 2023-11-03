@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 0.10.8
+
+### Patch Changes
+
+- [#42586](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42586) [`ed2a549e705`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed2a549e705) - ED-20177 Use updated transaction when closing modal
+
+## 0.10.7
+
+### Patch Changes
+
+- [#38725](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38725) [`0f145c04dbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f145c04dbf) - [ux] Datasource columns now can be resizied
+- [#38725](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38725) [`0f145c04dbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f145c04dbf) - [ux] Datasource columns now can be resizied
+- Updated dependencies
+
 ## 0.10.6
 
 ### Patch Changes

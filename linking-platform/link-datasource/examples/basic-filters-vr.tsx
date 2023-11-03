@@ -5,8 +5,8 @@ import { IntlProvider } from 'react-intl-next';
 import { mockBasicFilterAGGFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import { Flex, xcss } from '@atlaskit/primitives';
 
+import { BasicFilterFieldType } from '../src/ui/jira-issues-modal/basic-filters/types';
 import AsyncPopupSelect from '../src/ui/jira-issues-modal/basic-filters/ui/async-popup-select';
-import { BasicFilterFieldType } from '../src/ui/jira-issues-modal/basic-filters/ui/async-popup-select/types';
 
 const flexContainerStyles = xcss({
   margin: 'space.400',

@@ -66,7 +66,6 @@ export default {
   'fabric.editor.single': 'Enkelt kolonne',
   'fabric.editor.success': 'Succes',
   'fabric.editor.taskPlaceholder': 'Indtast din handling, og brug "@" for at tildele til nogen.',
-  'fabric.editor.textColor': 'Tekstfarve',
   'fabric.editor.threeColumns': 'Tre kolonner',
   'fabric.editor.threeColumnsWithSidebars': 'Tre kolonner med sidebjælker',
   'fabric.editor.twoColumns': 'To kolonner',

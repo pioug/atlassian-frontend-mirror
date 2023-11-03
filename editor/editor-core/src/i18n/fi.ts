@@ -65,7 +65,6 @@ export default {
   'fabric.editor.single': 'Yksittäinen sarake',
   'fabric.editor.success': 'Onnistunut',
   'fabric.editor.taskPlaceholder': "Kirjoita toimintasi, käytä '@'-merkkiä määrätäksesi sen jollekin henkilölle.",
-  'fabric.editor.textColor': 'Tekstin väri',
   'fabric.editor.threeColumns': 'Kolme saraketta',
   'fabric.editor.threeColumnsWithSidebars': 'Kolme saraketta sivupalkkien kanssa',
   'fabric.editor.twoColumns': 'Kaksi saraketta',

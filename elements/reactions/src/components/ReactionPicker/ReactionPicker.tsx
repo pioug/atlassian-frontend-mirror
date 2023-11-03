@@ -19,14 +19,22 @@ import {
   PopperChildrenProps,
 } from '@atlaskit/popper';
 import { layers } from '@atlaskit/theme/constants';
+
+import { useCloseManager } from '../../hooks/useCloseManager';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
+import { messages } from '../../shared/i18n';
+import { ReactionSource } from '../../types';
+import { PickerRender } from '../../ufo';
+
 import { Selector, SelectorProps } from '../Selector';
 import { Trigger, TriggerProps } from '../Trigger';
-import { UFO } from '../../analytics';
-import { i18n } from '../../shared';
-import { useCloseManager } from '../../hooks';
-import { ReactionSource } from '../../types';
-import * as styles from './styles';
-import { useFocusTrap } from '../../hooks/useFocusTrap';
+
+import {
+  contentStyle,
+  pickerStyle,
+  popupStyle,
+  popupWrapperStyle,
+} from './styles';
 import { RepositionOnUpdate } from './RepositionOnUpdate';
 
 /**
@@ -135,7 +143,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
       onShowMore = () => {},
       onOpen = () => {},
       onCancel = () => {},
-      tooltipContent = <FormattedMessage {...i18n.messages.addReaction} />,
+      tooltipContent = <FormattedMessage {...messages.addReaction} />,
       emojiPickerSize,
     } = props;
 
@@ -191,7 +199,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
           isOpen: false,
         });
         // ufo abort reaction experience
-        UFO.PickerRender.abort({
+        PickerRender.abort({
           metadata: {
             emojiId: _id,
             source: 'ReactionPicker',
@@ -242,7 +250,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
      */
     const onTriggerClick = () => {
       // ufo start reactions picker open experience
-      UFO.PickerRender.start();
+      PickerRender.start();
 
       setSettings({
         isOpen: !settings.isOpen,
@@ -254,7 +262,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
 
       onOpen();
       // ufo reactions picker opened success
-      UFO.PickerRender.success();
+      PickerRender.success();
     };
 
     const wrapperClassName = ` ${settings.isOpen ? 'isOpen' : ''} ${
@@ -268,7 +276,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
     return (
       <div
         className={wrapperClassName}
-        css={styles.pickerStyle}
+        css={pickerStyle}
         data-testid={RENDER_REACTIONPICKER_TESTID}
         ref={wrapperRef}
       >
@@ -309,7 +317,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
                   size={emojiPickerSize}
                 />
               ) : (
-                <div css={styles.contentStyle}>
+                <div css={contentStyle}>
                   <Selector
                     emojiProvider={emojiProvider}
                     onSelection={onEmojiSelected}
@@ -359,11 +367,11 @@ const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
                 setPopupRef(node);
               }
             }}
-            css={styles.popupWrapperStyle}
+            css={popupWrapperStyle}
             tabIndex={0}
           >
             <RepositionOnUpdate update={update} settings={settings}>
-              <div css={styles.popupStyle}>{children}</div>
+              <div css={popupStyle}>{children}</div>
             </RepositionOnUpdate>
           </div>
         );

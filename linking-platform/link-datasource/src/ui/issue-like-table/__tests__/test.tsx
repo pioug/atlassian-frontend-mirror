@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { findByTestId, screen } from '@testing-library/dom';
+import {
+  findByTestId,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/dom';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
@@ -10,18 +14,47 @@ import {
   MockIntersectionObserverFactory,
   MockIntersectionObserverOpts,
 } from '@atlaskit/link-test-helpers';
+import { asMock } from '@atlaskit/link-test-helpers/jest';
 import {
   DatasourceDataResponseItem,
   DatasourceResponseSchemaProperty,
 } from '@atlaskit/linking-types/datasource';
+import { Input } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { ConcurrentExperience } from '@atlaskit/ufo';
 
 import { ScrollableContainerHeight } from '../../../../src/ui/issue-like-table/styled';
-import { IssueLikeDataTableView, orderColumns } from '../index';
+import {
+  COLUMN_MIN_WIDTH,
+  getOrderedColumns,
+  IssueLikeDataTableView,
+} from '../index';
 import {
   IssueLikeDataTableViewProps,
   TableViewPropsRenderType,
 } from '../types';
+
+function getDefaultInput(overrides: Partial<Input> = {}): Input {
+  const defaults: Input = {
+    // user input
+    altKey: false,
+    button: 0,
+    buttons: 0,
+    ctrlKey: false,
+    metaKey: false,
+    shiftKey: false,
+
+    // coordinates
+    clientX: 0,
+    clientY: 0,
+    pageX: 0,
+    pageY: 0,
+  };
+
+  return {
+    ...defaults,
+    ...overrides,
+  };
+}
 
 const mockColumnPickerUfoStart = jest.fn();
 const mockColumnPickerUfoAddMetadata = jest.fn();
@@ -50,14 +83,24 @@ jest.mock('@atlaskit/ufo', () => ({
   }),
 }));
 
-const dragAndDrop = async (source: HTMLElement, destination: HTMLElement) => {
-  fireEvent.dragStart(source);
+const dragAndDrop = async (
+  source: HTMLElement,
+  destination: HTMLElement,
+  moveItBy: number = 5,
+) => {
+  fireEvent.dragStart(source, getDefaultInput({ clientX: 5 }));
   act(() => {
     // ticking forward an animation frame will complete the lift
     // @ts-ignore
     requestAnimationFrame.step();
   });
   fireEvent.dragEnter(destination);
+  fireEvent.dragOver(destination, getDefaultInput({ clientX: 5 + moveItBy }));
+  act(() => {
+    // ticking forward an animation frame will complete the lift
+    // @ts-ignore
+    requestAnimationFrame.step();
+  });
   fireEvent.drop(destination);
 };
 
@@ -65,6 +108,7 @@ const setup = (props: Partial<IssueLikeDataTableViewProps>) => {
   const onNextPage = jest.fn(() => {});
   const onLoadDatasourceDetails = jest.fn(() => {});
   const onVisibleColumnKeysChange = jest.fn(() => {});
+  const onColumnResize = jest.fn(() => {});
 
   const renderResult = render(
     <IntlProvider locale="en">
@@ -75,6 +119,7 @@ const setup = (props: Partial<IssueLikeDataTableViewProps>) => {
         onLoadDatasourceDetails={onLoadDatasourceDetails}
         hasNextPage={false}
         onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+        onColumnResize={onColumnResize}
         items={[]}
         columns={[]}
         visibleColumnKeys={['id']}
@@ -83,11 +128,52 @@ const setup = (props: Partial<IssueLikeDataTableViewProps>) => {
     </IntlProvider>,
   );
 
+  let wasColumnPickerOpenBefore = false;
+  const openColumnPicker = async () => {
+    const { getByTestId, getByText, baseElement } = renderResult;
+    const triggerButton = getByTestId('column-picker-trigger-button');
+    invariant(triggerButton);
+
+    // open popup
+    act(() => {
+      fireEvent.click(triggerButton);
+    });
+
+    if (!wasColumnPickerOpenBefore) {
+      expect(getByText('Loading...')).not.toBeNull();
+      await waitForElementToBeRemoved(() => getByText('Loading...'));
+    }
+    wasColumnPickerOpenBefore = true;
+
+    const picker = baseElement.querySelector('#column-picker-popup');
+    invariant(picker);
+    const allOptions = picker.querySelectorAll('.column-picker-popup__option');
+    const selectedOptions = picker.querySelectorAll(
+      '.column-picker-popup__option--is-selected',
+    );
+
+    const close = () => {
+      // close popup
+      act(() => {
+        fireEvent.click(triggerButton);
+      });
+    };
+
+    return {
+      close,
+      picker,
+      allOptions,
+      selectedOptions,
+    };
+  };
+
   return {
     ...renderResult,
     onNextPage,
     onLoadDatasourceDetails,
     onVisibleColumnKeysChange,
+    onColumnResize,
+    openColumnPicker,
   };
 };
 
@@ -95,6 +181,7 @@ describe('IssueLikeDataTableView', () => {
   let mockGetEntries: jest.Mock;
   let mockIntersectionObserverOpts: MockIntersectionObserverOpts;
   let mockCallBackFn: jest.Mock;
+  let mockGetBoundingClientRect: jest.Mock;
 
   beforeEach(() => {
     jest.useRealTimers();
@@ -111,6 +198,16 @@ describe('IssueLikeDataTableView', () => {
     window.IntersectionObserver = MockIntersectionObserverFactory(
       mockIntersectionObserverOpts,
     );
+    mockGetBoundingClientRect = jest.fn();
+    Element.prototype.getBoundingClientRect = mockGetBoundingClientRect;
+    // for (let width = 100; width < 500; width += 100) {
+    //   mockGetBoundingClientRect.mockReturnValueOnce({width, height: 42});
+    // }
+    mockGetBoundingClientRect.mockReturnValue({ width: 600, height: 42 });
+  });
+
+  afterEach(() => {
+    asMock(Element.prototype.getBoundingClientRect).mockRestore();
   });
 
   const getSimpleItems = (amount: number = 3): DatasourceDataResponseItem[] =>
@@ -231,7 +328,7 @@ describe('IssueLikeDataTableView', () => {
   it('should sort columns in correct order for column picker', () => {
     const columns = getExampleColumns();
     const visibleColumnKeys = ['created', 'priority', 'key'];
-    const orderedColumns = orderColumns(columns, visibleColumnKeys);
+    const orderedColumns = getOrderedColumns(columns, visibleColumnKeys);
     const expectedOrderedColumns = [
       {
         key: 'created',
@@ -694,53 +791,111 @@ describe('IssueLikeDataTableView', () => {
     ).toBeInTheDocument();
   });
 
-  it('should call onLoadDatasourceDetails when opening the picker for the first time', async () => {
-    jest.useFakeTimers();
-    const items = getSimpleItems();
-    const columns = getSimpleColumns();
+  describe('column picker integration', () => {
+    it('should call onLoadDatasourceDetails when opening the picker for the first time', async () => {
+      jest.useFakeTimers();
+      const items = getSimpleItems();
+      const columns = getSimpleColumns();
 
-    const { onLoadDatasourceDetails, getByTestId, getByText } = setup({
-      items,
-      columns,
-      hasNextPage: true,
+      const { onLoadDatasourceDetails, openColumnPicker } = setup({
+        items,
+        columns,
+        hasNextPage: true,
+      });
+
+      await openColumnPicker();
+      expect(onLoadDatasourceDetails).toHaveBeenCalledTimes(1);
     });
 
-    const triggerButton = getByTestId('column-picker-trigger-button');
-    invariant(triggerButton);
+    it('should not call onLoadDatasourceDetails after opening the picker for the first time', async () => {
+      jest.useFakeTimers();
+      const items = getSimpleItems();
+      const columns = getSimpleColumns();
 
-    // open popup
-    fireEvent.click(triggerButton);
+      const { onLoadDatasourceDetails, openColumnPicker } = setup({
+        items,
+        columns,
+        hasNextPage: true,
+      });
 
-    expect(getByText('Loading...')).not.toBeNull();
-    expect(onLoadDatasourceDetails).toHaveBeenCalledTimes(1);
-  });
+      const { close } = await openColumnPicker();
 
-  it('should not call onLoadDatasourceDetails after opening the picker for the first time', async () => {
-    jest.useFakeTimers();
-    const items = getSimpleItems();
-    const columns = getSimpleColumns();
+      await flushPromises();
 
-    const { onLoadDatasourceDetails, getByTestId } = setup({
-      items,
-      columns,
-      hasNextPage: true,
+      close();
+
+      await openColumnPicker();
+
+      expect(onLoadDatasourceDetails).toHaveBeenCalledTimes(1);
     });
 
-    const triggerButton = getByTestId('column-picker-trigger-button');
-    invariant(triggerButton);
+    it('should show all columns', async () => {
+      jest.useFakeTimers();
+      const items = getComplexItems();
+      const columns = getComplexColumns();
 
-    // open popup
-    fireEvent.click(triggerButton);
+      const { openColumnPicker } = setup({
+        items,
+        columns,
+        visibleColumnKeys: ['someKey', 'someOtherKey'],
+        hasNextPage: true,
+      });
 
-    await flushPromises();
+      const { allOptions } = await openColumnPicker();
 
-    // close popup
-    fireEvent.click(triggerButton);
+      expect(allOptions).toHaveLength(3);
+    });
 
-    // open popup
-    fireEvent.click(triggerButton);
+    it('should have visible columns selected', async () => {
+      jest.useFakeTimers();
+      const items = getComplexItems();
+      const columns = getComplexColumns();
 
-    expect(onLoadDatasourceDetails).toHaveBeenCalledTimes(1);
+      const { openColumnPicker } = setup({
+        items,
+        columns,
+        visibleColumnKeys: ['someKey', 'someOtherKey'],
+        hasNextPage: true,
+      });
+
+      const { selectedOptions } = await openColumnPicker();
+
+      expect(selectedOptions).toHaveLength(2);
+    });
+
+    it('should update visible columns when column is unselected', async () => {
+      jest.useFakeTimers();
+      const items = getComplexItems();
+      const columns = getComplexColumns();
+
+      const { onVisibleColumnKeysChange, openColumnPicker, getByTestId } =
+        setup({
+          items,
+          columns,
+          visibleColumnKeys: ['someKey', 'someOtherKey'],
+          hasNextPage: true,
+        });
+
+      const { selectedOptions } = await openColumnPicker();
+
+      expect(getByTestId('someKey-column-heading')).toHaveTextContent(
+        'Some key',
+      );
+      expect(getByTestId('someOtherKey-column-heading')).toHaveTextContent(
+        'Some Other key',
+      );
+
+      const otherKeyItem = Array.from(selectedOptions).find(
+        el => (el as HTMLElement).innerText === 'Some Other key',
+      );
+      invariant(otherKeyItem);
+
+      act(() => {
+        fireEvent.click(otherKeyItem);
+      });
+
+      expect(onVisibleColumnKeysChange).toHaveBeenLastCalledWith(['someKey']);
+    });
   });
 
   const makeDragAndDropTableProps = () => {
@@ -795,6 +950,58 @@ describe('IssueLikeDataTableView', () => {
     };
   };
 
+  it('should call onWidthChange when column resized', async () => {
+    const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
+
+    mockGetBoundingClientRect.mockReturnValueOnce({ width: 100, height: 42 });
+    mockGetBoundingClientRect.mockReturnValueOnce({ width: 200, height: 42 });
+    mockGetBoundingClientRect.mockReturnValueOnce({ width: 300, height: 42 });
+
+    mockGetBoundingClientRect.mockReturnValueOnce({ width: 200, height: 42 });
+
+    const { onColumnResize, getByTestId } = setup({
+      items,
+      columns,
+      visibleColumnKeys,
+      columnCustomSizes: { id: 100, task: 200, emoji: 300 },
+      hasNextPage: false,
+    });
+
+    const dragHandle = await findByTestId(
+      getByTestId('task-column-heading'),
+      'column-resize-handle',
+    );
+    await dragAndDrop(dragHandle, dragHandle);
+
+    expect(onColumnResize).toHaveBeenCalledWith('task', 205);
+  });
+
+  it('should not allow column width smaller then COLUMN_MIN_WIDTH when resized resized', async () => {
+    const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
+
+    mockGetBoundingClientRect.mockReturnValueOnce({ width: 100, height: 42 });
+    mockGetBoundingClientRect.mockReturnValueOnce({ width: 200, height: 42 });
+    mockGetBoundingClientRect.mockReturnValueOnce({ width: 300, height: 42 });
+
+    mockGetBoundingClientRect.mockReturnValueOnce({ width: 200, height: 42 });
+
+    const { onColumnResize, getByTestId } = setup({
+      items,
+      columns,
+      visibleColumnKeys,
+      columnCustomSizes: { id: 100, task: 200, emoji: 300 },
+      hasNextPage: false,
+    });
+
+    const dragHandle = await findByTestId(
+      getByTestId('task-column-heading'),
+      'column-resize-handle',
+    );
+    await dragAndDrop(dragHandle, dragHandle, -195);
+
+    expect(onColumnResize).toHaveBeenCalledWith('task', COLUMN_MIN_WIDTH);
+  });
+
   it('should have correct column order after a drag and drop reorder', async () => {
     const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
 
@@ -815,6 +1022,33 @@ describe('IssueLikeDataTableView', () => {
     await dragAndDrop(dragHandle, dropTarget);
     expect(onVisibleColumnKeysChange).toBeCalledTimes(1);
     expect(onVisibleColumnKeysChange).toBeCalledWith(['task', 'id', 'emoji']);
+  });
+
+  it('should have correct order of columns inside picker', async () => {
+    const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
+
+    const { getByTestId, openColumnPicker } = setup({
+      items,
+      columns,
+      visibleColumnKeys,
+      hasNextPage: false,
+    });
+
+    const dragHandle = screen.getByTestId('id-column-heading');
+    const dropTarget = await findByTestId(
+      getByTestId('emoji-column-heading'),
+      'column-drop-target',
+    );
+    expect(dropTarget).toBeDefined();
+
+    await dragAndDrop(dragHandle, dropTarget);
+
+    const { allOptions } = await openColumnPicker();
+
+    const pickerOptionTitles = Array.from(allOptions).map(
+      el => (el as HTMLElement).innerText,
+    );
+    expect(pickerOptionTitles).toEqual(['task', 'id', 'emoji']);
   });
 
   it('should not be able to drag and drop between tables', async () => {
@@ -912,7 +1146,7 @@ describe('IssueLikeDataTableView', () => {
     });
   });
 
-  describe('when column widths are applied', () => {
+  describe('when custom column size is not defined, and default widths are applied', () => {
     const prepColumns = (): {
       [key: string]: DatasourceResponseSchemaProperty;
     } => ({
@@ -968,17 +1202,11 @@ describe('IssueLikeDataTableView', () => {
       });
 
       expect(queryByTestId('summary-column-heading')).toHaveStyle({
-        'max-width': '360px',
-      });
-      expect(queryByTestId('sometable--cell-0')).toHaveStyle({
-        'max-width': '360px',
+        width: '360px',
       });
 
       expect(queryByTestId('status-column-heading')).toHaveStyle({
-        'max-width': `${8 * 18}px`,
-      });
-      expect(queryByTestId('sometable--cell-1')).toHaveStyle({
-        'max-width': `${8 * 18}px`,
+        width: `${8 * 18}px`,
       });
     });
 
@@ -997,47 +1225,59 @@ describe('IssueLikeDataTableView', () => {
       });
 
       expect(queryByTestId('name-column-heading')).toHaveStyle({
-        'max-width': '176px',
-      });
-      expect(queryByTestId('sometable--cell-0')).toHaveStyle({
-        'max-width': '176px',
+        width: '176px',
       });
 
       expect(queryByTestId('dob-column-heading')).toHaveStyle({
-        'max-width': '112px',
-      });
-      expect(queryByTestId('sometable--cell-1')).toHaveStyle({
-        'max-width': '112px',
+        width: '112px',
       });
     });
 
-    it('should not render the header and cells with width if not configured', () => {
+    it('should render the header and cells with given column width in draggable mode', () => {
       const items: DatasourceDataResponseItem[] = [
-        {
-          summary: { data: 'summary' },
-          key: { data: 'KEY-123' },
-          name: { data: 'Bob' },
-          dob: { data: '12/12/2023' },
-          hobby: { data: 'Coding' },
-        },
+        { name: { data: 'key1' }, dob: { data: '12/12/2023' } },
       ];
       const columns = prepColumns();
 
       const { queryByTestId } = setup({
         items,
-        columns: Object.values(columns),
-        visibleColumnKeys: ['summary', 'key', 'name', 'dob', 'hobby'],
+        columns: [columns.name, columns.dob],
+        columnCustomSizes: { name: 100, dob: 200 },
+        visibleColumnKeys: ['name', 'dob'],
+        hasNextPage: false,
+      });
+
+      expect(queryByTestId('name-column-heading')).toHaveStyle({
+        width: '100px',
+      });
+
+      expect(queryByTestId('dob-column-heading')).toHaveStyle({
+        width: '200px',
+      });
+    });
+
+    it('should render the header and cells with given column width in static mode', () => {
+      const items: DatasourceDataResponseItem[] = [
+        { name: { data: 'key1' }, dob: { data: '12/12/2023' } },
+      ];
+      const columns = prepColumns();
+
+      const { queryByTestId } = setup({
+        items,
+        columns: [columns.name, columns.dob],
+        columnCustomSizes: { name: 100, dob: 200 },
+        visibleColumnKeys: ['name', 'dob'],
         hasNextPage: false,
         onVisibleColumnKeysChange: undefined,
       });
 
-      const hobbyHeader = queryByTestId('hobby-column-heading');
-      const hobbyCell = queryByTestId('sometable--cell-4');
+      expect(queryByTestId('name-column-heading')).toHaveStyle({
+        width: '100px',
+      });
 
-      expect(hobbyHeader).toBeInTheDocument();
-      expect(hobbyCell).toBeInTheDocument();
-      expect(hobbyHeader).not.toHaveAttribute('style');
-      expect(hobbyCell).not.toHaveAttribute('style');
+      expect(queryByTestId('dob-column-heading')).toHaveStyle({
+        width: '200px',
+      });
     });
 
     it('should render the header and cells with width in draggable mode', () => {
@@ -1053,17 +1293,11 @@ describe('IssueLikeDataTableView', () => {
       });
 
       expect(queryByTestId('summary-column-heading')).toHaveStyle({
-        'max-width': '360px',
-      });
-      expect(queryByTestId('sometable--cell-0')).toHaveStyle({
-        'max-width': '360px',
+        width: '360px',
       });
 
       expect(queryByTestId('status-column-heading')).toHaveStyle({
-        'max-width': `${8 * 18}px`,
-      });
-      expect(queryByTestId('sometable--cell-1')).toHaveStyle({
-        'max-width': `${8 * 18}px`,
+        width: `${8 * 18}px`,
       });
     });
 

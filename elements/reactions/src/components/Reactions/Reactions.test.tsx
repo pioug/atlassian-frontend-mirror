@@ -15,7 +15,8 @@ import {
   useFakeTimers,
 } from '../../__tests__/_testing-library';
 import type { FakeUFOInstance } from '../../__tests__/_testing-library';
-import { constants, i18n } from '../../shared';
+import { DefaultReactions } from '../../shared/constants';
+import { messages } from '../../shared/i18n';
 import {
   QuickReactionEmojiSummary,
   ReactionStatus,
@@ -34,6 +35,11 @@ import { RENDER_MODAL_TESTID } from '../ReactionDialog/ReactionsDialog';
 import { RENDER_SELECTOR_TESTID } from '../Selector';
 import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
 import { RENDER_REACTIONPICKERPANEL_TESTID } from '../ReactionPicker/ReactionPicker';
+
+jest.mock('../../shared/constants', () => ({
+  ...jest.requireActual('../../shared/constants'),
+  SAMPLING_RATE_REACTIONS_RENDERED_EXP: 1,
+}));
 
 describe('@atlaskit/reactions/components/Reactions', () => {
   const mockOnReactionsClick = jest.fn();
@@ -87,8 +93,8 @@ describe('@atlaskit/reactions/components/Reactions', () => {
    * Pre defined selected emoji ids
    */
   const reactions: ReactionSummary[] = [
-    getReactionSummary(constants.DefaultReactions[0].shortName, 9, false),
-    getReactionSummary(constants.DefaultReactions[2].shortName, 1, true),
+    getReactionSummary(DefaultReactions[0].shortName, 9, false),
+    getReactionSummary(DefaultReactions[2].shortName, 1, true),
   ];
   /**
    * Custom quick Reaction list to pick from
@@ -96,7 +102,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
   const quickReactionEmojis: QuickReactionEmojiSummary = {
     ari,
     containerAri,
-    emojiIds: [constants.DefaultReactions[5].id ?? ''],
+    emojiIds: [DefaultReactions[5].id ?? ''],
   };
   const status = ReactionStatus.ready;
 
@@ -260,7 +266,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
     it('status is set to loading', async () => {
       renderWithIntl(getTooltip(ReactionStatus.loading) as JSX.Element);
       const element = screen.queryByText(
-        i18n.messages.loadingReactions.defaultMessage,
+        messages.loadingReactions.defaultMessage,
       );
       expect(element).toBeDefined();
     });
@@ -268,23 +274,21 @@ describe('@atlaskit/reactions/components/Reactions', () => {
     it('status is set to error', async () => {
       renderWithIntl(getTooltip(ReactionStatus.error) as JSX.Element);
       const element = screen.queryByText(
-        i18n.messages.unexpectedError.defaultMessage,
+        messages.unexpectedError.defaultMessage,
       );
       expect(element).toBeDefined();
     });
 
     it('status is set to ready', async () => {
       renderWithIntl(getTooltip(ReactionStatus.ready) as JSX.Element);
-      const element = screen.queryByText(
-        i18n.messages.addReaction.defaultMessage,
-      );
+      const element = screen.queryByText(messages.addReaction.defaultMessage);
       expect(element).toBeDefined();
     });
 
     it('status is set to notLoaded', async () => {
       renderWithIntl(getTooltip(ReactionStatus.notLoaded) as JSX.Element);
       const element = screen.queryByText(
-        i18n.messages.loadingReactions.defaultMessage,
+        messages.loadingReactions.defaultMessage,
       );
       expect(element).toBeDefined();
     });
@@ -304,10 +308,6 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 
   describe('with analytics', () => {
     it('should trigger render', async () => {
-      Object.defineProperty(constants, 'SAMPLING_RATE_REACTIONS_RENDERED_EXP', {
-        value: 1,
-      });
-
       const mockOnEvent = jest.fn();
       renderReactions({}, mockOnEvent);
 
@@ -437,7 +437,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
               eventType: 'ui',
               attributes: expect.objectContaining({
                 duration: expect.any(Number),
-                emojiId: constants.DefaultReactions[1].id,
+                emojiId: DefaultReactions[1].id,
                 previousState: 'new',
                 source: 'quickSelector',
                 packageName: expect.any(String),
@@ -492,7 +492,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
               eventType: 'ui',
               attributes: expect.objectContaining({
                 duration: expect.any(Number),
-                emojiId: constants.DefaultReactions[0].id,
+                emojiId: DefaultReactions[0].id,
                 previousState: 'existingNotReacted',
                 source: 'quickSelector',
                 packageName: expect.any(String),

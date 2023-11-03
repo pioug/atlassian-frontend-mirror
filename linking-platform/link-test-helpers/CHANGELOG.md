@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 6.2.1
+
+### Patch Changes
+
+- [#42575](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42575) [`d7338b9229e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7338b9229e) - Update toBeFiredWithAnalyticEventOnce helper message to account for screen events
+
 ## 6.2.0
 
 ### Minor Changes

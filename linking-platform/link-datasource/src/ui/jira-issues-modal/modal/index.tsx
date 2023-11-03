@@ -59,6 +59,7 @@ import { ModalLoadingError } from '../../common/error-state/modal-loading-error'
 import { NoResults } from '../../common/error-state/no-results';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
 import LinkRenderType from '../../issue-like-table/render-type/link';
+import { ColumnSizesMap } from '../../issue-like-table/types';
 import { InitialStateView } from '../initial-state-view';
 import { JiraSearchContainer } from '../jira-search-container';
 import { ModeSwitcher } from '../mode-switcher';
@@ -145,6 +146,7 @@ export const PlainJiraIssuesConfigModal = (
 ) => {
   const {
     datasourceId,
+    columnCustomSizes: initialColumnCustomSizes,
     onCancel,
     onInsert,
     viewMode = 'issue',
@@ -183,6 +185,17 @@ export const PlainJiraIssuesConfigModal = (
   );
 
   const isParametersSet = !!(jql && cloudId);
+
+  const [columnCustomSizes, setColumnCustomSizes] = useState<
+    ColumnSizesMap | undefined
+  >(initialColumnCustomSizes);
+
+  const onColumnResize = useCallback(
+    (key: string, width: number) => {
+      setColumnCustomSizes({ ...columnCustomSizes, [key]: width });
+    },
+    [columnCustomSizes],
+  );
 
   const {
     reset,
@@ -473,7 +486,10 @@ export const PlainJiraIssuesConfigModal = (
                   {
                     type: 'table',
                     properties: {
-                      columns: visibleColumnKeys?.map(key => ({ key })),
+                      columns: visibleColumnKeys?.map(key => ({
+                        key,
+                        width: columnCustomSizes?.[key],
+                      })),
                     },
                   },
                 ],
@@ -498,6 +514,7 @@ export const PlainJiraIssuesConfigModal = (
       jqlUrl,
       datasourceId,
       cloudId,
+      columnCustomSizes,
     ],
   );
 
@@ -543,6 +560,8 @@ export const PlainJiraIssuesConfigModal = (
           onVisibleColumnKeysChange={handleVisibleColumnKeysChange}
           parentContainerRenderInstanceId={modalRenderInstanceId}
           extensionKey={extensionKey}
+          columnCustomSizes={columnCustomSizes}
+          onColumnResize={onColumnResize}
         />
       </div>
     ),
@@ -558,6 +577,8 @@ export const PlainJiraIssuesConfigModal = (
       status,
       visibleColumnKeys,
       extensionKey,
+      columnCustomSizes,
+      onColumnResize,
     ],
   );
 

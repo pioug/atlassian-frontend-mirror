@@ -62,6 +62,7 @@ import { MentionProvider } from '@atlaskit/mention/resource';
 import { MentionResource } from '@atlaskit/mention/resource';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
+import type { PanelPluginConfig } from '@atlaskit/editor-plugin-panel';
 import { PerformanceTracking } from '@atlaskit/editor-common/types';
 import type { PlaceholderTextOptions } from '@atlaskit/editor-plugin-placeholder-text';
 import type { PluginConfig } from '@atlaskit/editor-plugin-table/types';
@@ -662,14 +663,6 @@ type OnEditorViewStateUpdated = (props: {
   readonly oldEditorState: Readonly<EditorState>;
   readonly newEditorState: Readonly<EditorState>;
 }) => void;
-
-// @public (undocumented)
-interface PanelPluginConfig {
-  // (undocumented)
-  allowCustomPanel?: boolean;
-  // (undocumented)
-  allowCustomPanelEdit?: boolean;
-}
 
 export { PortalProvider };
 

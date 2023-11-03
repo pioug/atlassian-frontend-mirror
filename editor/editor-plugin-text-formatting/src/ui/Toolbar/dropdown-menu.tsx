@@ -48,9 +48,11 @@ export const FormattingTextDropdownMenu = React.memo(
         item: MenuIconItem;
         shouldCloseMenu: boolean;
       }) => {
-        item.command(editorView.state, editorView.dispatch);
-        if (shouldCloseMenu) {
-          closeMenu();
+        if (item) {
+          item.command(editorView.state, editorView.dispatch);
+          if (shouldCloseMenu) {
+            closeMenu();
+          }
         }
       },
       [editorView.state, editorView.dispatch, closeMenu],

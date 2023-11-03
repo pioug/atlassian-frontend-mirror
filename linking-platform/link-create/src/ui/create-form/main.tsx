@@ -6,12 +6,14 @@ import { MutableState, Tools } from 'final-form';
 import { Form, FormSpy } from 'react-final-form';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import {
   ANALYTICS_CHANNEL,
   CREATE_FORM_MAX_WIDTH_IN_PX,
+  LINK_CREATE_FORM_POST_CREATE_FIELD,
 } from '../../common/constants';
 import { ValidatorMap } from '../../common/types';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
@@ -27,15 +29,37 @@ const formStyles = css({
   margin: `${token('space.0', '0px')} auto`,
 });
 
+type ReservedFields = {
+  [Field in (typeof RESERVED_FIELDS)[number]]?: unknown;
+};
+
+type WithReservedFields<T> = T & ReservedFields;
+
+const RESERVED_FIELDS = [LINK_CREATE_FORM_POST_CREATE_FIELD] as const;
+
+type DisallowReservedFields<T> = T & {
+  [Field in (typeof RESERVED_FIELDS)[number]]?: never;
+};
+
+type OmitReservedFields<T> = Omit<T, keyof ReservedFields>;
+
 export interface CreateFormProps<FormData> {
   children: ReactNode;
   testId?: string;
-  onSubmit: (data: FormData) => void;
+  onSubmit: (data: OmitReservedFields<FormData>) => void;
   onCancel?: () => void;
   isLoading?: boolean;
+  /**
+   * Hides the rendering of the footer buttons
+   */
   hideFooter?: boolean;
-  initialValues?: FormData;
+  /**
+   * Values to initialise the forms initial state with
+   * Should not include values for reserved fields
+   */
+  initialValues?: DisallowReservedFields<FormData>;
 }
+
 export const TEST_ID = 'link-create-form';
 
 export const CreateForm = <FormData extends Record<string, any> = {}>({
@@ -48,10 +72,11 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
   initialValues,
 }: CreateFormProps<FormData>) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
-  const { getValidators, formErrorMessage, setFormDirty } = useFormContext();
+  const { getValidators, formErrorMessage, setFormDirty, enableEditView } =
+    useFormContext();
 
   const handleSubmit = useCallback(
-    async (data: FormData) => {
+    async (data: WithReservedFields<FormData>) => {
       createAnalyticsEvent(
         createEventPayload('ui.button.clicked.create', {}),
       ).fire(ANALYTICS_CHANNEL);
@@ -62,9 +87,26 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
       if (Object.keys(errors).length !== 0) {
         return errors;
       }
+
+      if (getBooleanFF('platform.linking-platform.link-create.enable-edit')) {
+        const {
+          [LINK_CREATE_FORM_POST_CREATE_FIELD]: shouldEnableEditView,
+          ...formData
+        } = data;
+
+        /**
+         * If form has post-create field set to trigger post-create edit
+         * send this to the form context so we know what to do next
+         * if submission is successful
+         */
+        enableEditView?.(!!shouldEnableEditView);
+
+        return onSubmit(formData);
+      }
+
       return onSubmit(data);
     },
-    [createAnalyticsEvent, getValidators, onSubmit],
+    [createAnalyticsEvent, getValidators, onSubmit, enableEditView],
   );
 
   const handleCancel = useCallback(() => {
@@ -79,7 +121,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
   }
 
   return (
-    <Form<FormData>
+    <Form<WithReservedFields<FormData>>
       onSubmit={handleSubmit}
       initialValues={initialValues}
       mutators={{

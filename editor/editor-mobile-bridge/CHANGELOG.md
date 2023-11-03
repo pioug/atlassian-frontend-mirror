@@ -1,5 +1,24 @@
 # @atlaskit/editor-mobile-bridge
 
+## 189.2.0
+
+### Patch Changes
+
+- [#42604](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42604) [`182627d0f5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/182627d0f5e) - Extracted panel plugin from editor-core as @atlaskit/editor-plugin-panel
+- Updated dependencies
+
+## 189.1.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 189.1.13
 
 ### Patch Changes

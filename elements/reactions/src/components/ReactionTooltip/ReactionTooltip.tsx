@@ -3,9 +3,15 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
 import { FormattedMessage } from 'react-intl-next';
+import { TOOLTIP_USERS_LIMIT } from '../../shared/constants';
+import { messages } from '../../shared/i18n';
 import { ReactionSummary } from '../../types';
-import { constants, i18n } from '../../shared';
-import * as styles from './styles';
+import {
+  emojiNameStyle,
+  footerStyle,
+  tooltipStyle,
+  underlineStyle,
+} from './styles';
 
 /**
  * Test id for wrapper ReactionTooltip div
@@ -43,7 +49,7 @@ export const ReactionTooltip: React.FC<ReactionTooltipProps> = ({
   children,
   emojiName,
   reaction: { users = [], emojiId = '' },
-  maxReactions = constants.TOOLTIP_USERS_LIMIT,
+  maxReactions = TOOLTIP_USERS_LIMIT,
   handleUserListClick,
   allowUserDialog = false,
   isEnabled = true,
@@ -53,20 +59,16 @@ export const ReactionTooltip: React.FC<ReactionTooltipProps> = ({
    */
   const content =
     !users || users.length === 0 || !isEnabled ? null : (
-      <div css={styles.tooltipStyle} tabIndex={0}>
+      <div css={tooltipStyle} tabIndex={0}>
         <ul>
-          {emojiName ? <li css={styles.emojiNameStyle}>{emojiName}</li> : null}
+          {emojiName ? <li css={emojiNameStyle}>{emojiName}</li> : null}
           {users.slice(0, maxReactions).map((user) => {
             return <li key={user.id}>{user.displayName}</li>;
           })}
           {/* If count of reactions higher then given threshold then render custom message */}
 
           <li
-            css={
-              allowUserDialog
-                ? [styles.footerStyle, styles.underlineStyle]
-                : styles.footerStyle
-            }
+            css={allowUserDialog ? [footerStyle, underlineStyle] : footerStyle}
             onClick={() => {
               if (allowUserDialog && handleUserListClick) {
                 handleUserListClick(emojiId);
@@ -75,15 +77,13 @@ export const ReactionTooltip: React.FC<ReactionTooltipProps> = ({
           >
             {users.length > maxReactions ? (
               <FormattedMessage
-                {...i18n.messages.otherUsers}
+                {...messages.otherUsers}
                 values={{
                   count: users.length - maxReactions,
                 }}
               />
             ) : (
-              allowUserDialog && (
-                <FormattedMessage {...i18n.messages.moreInfo} />
-              )
+              allowUserDialog && <FormattedMessage {...messages.moreInfo} />
             )}
           </li>
         </ul>

@@ -1,3 +1,4 @@
+import { uuid } from '@atlaskit/adf-schema';
 import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -19,6 +20,7 @@ import {
 
 import {
   commitStatusPicker,
+  createStatus,
   setStatusPickerAt,
   updateStatus,
 } from '../../../actions';
@@ -27,6 +29,7 @@ import { pluginKey } from '../../../pm-plugins/plugin-key';
 describe('status plugin: actions', () => {
   const createEditor = createEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
+  const STATUS_LOCAL_ID = 'test-status-local-id';
 
   const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
@@ -42,6 +45,71 @@ describe('status plugin: actions', () => {
       createAnalyticsEvent,
     });
   };
+
+  describe('createStatus', () => {
+    beforeAll(() => {
+      uuid.setStatic(STATUS_LOCAL_ID);
+    });
+
+    afterAll(() => {
+      uuid.setStatic(false);
+    });
+
+    it('should safe insert status node after codeblock', () => {
+      const { editorView } = editor(doc(code_block()('te{<>}xt')));
+
+      const tr = createStatus(editorView.state);
+
+      expect(tr.doc).toEqualDocument(
+        doc(
+          code_block()('text'),
+          p(
+            '',
+            status({
+              text: '',
+              color: 'neutral',
+              localId: 'test-status-local-id',
+            }),
+            ' ',
+          ),
+        ),
+      );
+    });
+
+    it('should safe insert status node after codeblock inside same table cell', () => {
+      const TABLE_LOCAL_ID = 'test-table-local-id';
+      const { editorView } = editor(
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(td({})(code_block()('te{<>}xt'))),
+          ),
+        ),
+      );
+
+      const newTr = createStatus(editorView.state);
+
+      expect(newTr.doc).toEqualDocument(
+        doc(
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(
+              td()(
+                code_block()('text'),
+                p(
+                  '',
+                  status({
+                    text: '',
+                    color: 'neutral',
+                    localId: 'test-status-local-id',
+                  }),
+                  ' ',
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    });
+  });
 
   describe('updateStatus', () => {
     it('should update node at picker location if picker is shown', () => {

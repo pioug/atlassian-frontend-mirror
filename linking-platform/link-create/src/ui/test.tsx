@@ -108,12 +108,12 @@ describe('<LinkCreate />', () => {
           <LinkCreate
             testId={testId}
             plugins={plugins}
-            entityKey={props?.entityKey ?? 'entity-key'}
+            entityKey="entity-key"
             active={true}
-            {...props}
             onCreate={onCreateMock}
             onFailure={onFailureMock}
             onCancel={onCloseMock}
+            {...props}
           />
         </AnalyticsListener>
       </IntlProvider>,
@@ -175,14 +175,56 @@ describe('<LinkCreate />', () => {
     expect(onCloseMock).toBeCalled();
   });
 
-  it('should display an error boundary on unhandled error', async () => {
-    setUpLinkCreate({
-      entityKey: 'undefined' as any,
+  describe('error boundary', () => {
+    it('should display an error boundary on unhandled error within the link create modal', async () => {
+      setUpLinkCreate({
+        entityKey: 'undefined' as any,
+      });
+
+      expect(
+        await screen.findByTestId('link-create-error-boundary-ui'),
+      ).toBeInTheDocument();
     });
 
-    expect(
-      await screen.findByTestId('link-create-error-boundary-ui'),
-    ).toBeInTheDocument();
+    describe('should display outer error boundary on unhandled error outside the link create modal', () => {
+      ffTest(
+        'platform.linking-platform.link-create.outer-error-boundary',
+        ff =>
+          ffTest(
+            'platform.linking-platform.link-create.enable-edit',
+            async () => {
+              // when `enable-edit` flag is enabled, there's an additional <LinkCreatePluginsProvider />
+              // which will throw error outside of link create modal if `plugins` contains bad data
+              setUpLinkCreate({ plugins: 'error' as any });
+
+              expect(
+                await screen.findByTestId('link-create-error-boundary-modal'),
+              ).toBeInTheDocument();
+            },
+            async () => {
+              setUpLinkCreate({ plugins: 'error' as any });
+
+              expect(
+                await screen.findByTestId('link-create-error-boundary-ui'),
+              ).toBeInTheDocument();
+              expect(
+                screen.queryByTestId('link-create-error-boundary-modal'),
+              ).not.toBeInTheDocument();
+            },
+            ff,
+          ),
+        async () => {
+          setUpLinkCreate({ plugins: 'error' as any });
+
+          expect(
+            await screen.findByTestId('link-create-error-boundary-ui'),
+          ).toBeInTheDocument();
+          expect(
+            screen.queryByTestId('link-create-error-boundary-modal'),
+          ).not.toBeInTheDocument();
+        },
+      );
+    });
   });
 
   it('should display a custom title when provided', async () => {
@@ -285,7 +327,7 @@ describe('<LinkCreate />', () => {
     );
   });
 
-  describe('should dismiss create on confirm Dismiss Dialog', async () => {
+  describe('should dismiss create on confirm Dismiss Dialog', () => {
     ffTest(
       'platform.linking-platform.link-create.confirm-dismiss-dialog',
       async () => {

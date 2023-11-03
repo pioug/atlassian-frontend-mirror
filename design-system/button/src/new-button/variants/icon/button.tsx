@@ -12,6 +12,8 @@ export type IconButtonProps = CommonIconButtonProps & CommonButtonVariantProps;
 /**
  * __Icon Button__
  *
+ * @private __UNSAFE__ IconButton is not yet safe for production use.
+ *
  * TODO: Description
  *
  * - [Examples](https://atlassian.design/components/button/examples)

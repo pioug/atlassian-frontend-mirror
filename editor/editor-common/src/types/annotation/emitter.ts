@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
 
-import {
+import type {
   AnnotationId,
   AnnotationMarkStates,
   AnnotationTypes,

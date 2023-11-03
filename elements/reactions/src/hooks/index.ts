@@ -1,1 +1,0 @@
-export { useCloseManager } from './useCloseManager';

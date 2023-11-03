@@ -19,6 +19,7 @@ export interface LinkingPlatformFeatureFlags {
   showAuthTooltip?: string;
   /**
    * Enables alternative tabs for Atlassian tabs in products
+   * @deprecated Feature flag rolled out FD-39681
    */
   useLinkPickerAtlassianTabs?: boolean;
   /**

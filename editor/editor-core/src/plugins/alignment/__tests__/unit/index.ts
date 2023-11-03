@@ -28,7 +28,7 @@ import alignmentPlugin from '../../';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 
-import panelPlugin from '../../../panel';
+import { panelPlugin } from '@atlaskit/editor-plugin-panel';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';

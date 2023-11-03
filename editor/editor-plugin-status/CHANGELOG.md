@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-status
 
+## 0.2.1
+
+### Patch Changes
+
+- [#42564](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42564) [`7139d6b0a64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7139d6b0a64) - ED-20512 Fixed issue with adding status node inside a codeblock
+
 ## 0.2.0
 
 ### Minor Changes

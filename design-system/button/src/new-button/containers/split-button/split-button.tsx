@@ -121,6 +121,10 @@ type SplitButtonProps = {
 };
 
 /**
+ * __Split Button__
+ *
+ * @private __UNSAFE__ SplitButton is not yet safe for production use.
+ *
  * TODO: Add description when adding docs
  */
 export const SplitButton = ({

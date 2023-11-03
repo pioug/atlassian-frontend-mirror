@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import Button from '@atlaskit/button';
+import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Modal, {
   ModalBody,
   ModalFooter,
@@ -11,6 +11,9 @@ import Modal, {
   ModalTransition,
 } from '@atlaskit/modal-dialog';
 
+import { Button } from '../../../common/ui/Button';
+import { ScreenViewedEvent } from '../../../common/utils/analytics/components';
+
 import messages from './messages';
 
 export type ConfirmDismissDialogProps = {
@@ -18,6 +21,10 @@ export type ConfirmDismissDialogProps = {
   onCancelDismiss?: () => void;
   onConfirmDismiss?: () => void;
 };
+
+const screen = 'linkCreateExitWarningScreen';
+
+const context = { component: screen, source: screen };
 
 export const ConfirmDismissDialog = ({
   active,
@@ -29,24 +36,35 @@ export const ConfirmDismissDialog = ({
   return (
     <ModalTransition>
       {active && (
-        <Modal
-          testId="link-create-confirm-dismiss-dialog"
-          onClose={onCancelDismiss}
-          width="small"
-        >
-          <ModalHeader>
-            <ModalTitle>{intl.formatMessage(messages.title)}</ModalTitle>
-          </ModalHeader>
-          <ModalBody>{intl.formatMessage(messages.description)}</ModalBody>
-          <ModalFooter>
-            <Button appearance="subtle" onClick={onCancelDismiss}>
-              {intl.formatMessage(messages.cancelButtonLabel)}
-            </Button>
-            <Button appearance="primary" onClick={onConfirmDismiss}>
-              {intl.formatMessage(messages.confirmButtonLabel)}
-            </Button>
-          </ModalFooter>
-        </Modal>
+        <AnalyticsContext data={context}>
+          <Modal
+            testId="link-create-confirm-dismiss-dialog"
+            onClose={onCancelDismiss}
+            width="small"
+          >
+            <ScreenViewedEvent screen="linkCreateExitWarningScreen" />
+            <ModalHeader>
+              <ModalTitle>{intl.formatMessage(messages.title)}</ModalTitle>
+            </ModalHeader>
+            <ModalBody>{intl.formatMessage(messages.description)}</ModalBody>
+            <ModalFooter>
+              <Button
+                actionSubjectId="cancel"
+                appearance="subtle"
+                onClick={onCancelDismiss}
+              >
+                {intl.formatMessage(messages.cancelButtonLabel)}
+              </Button>
+              <Button
+                actionSubjectId="confirm"
+                appearance="primary"
+                onClick={onConfirmDismiss}
+              >
+                {intl.formatMessage(messages.confirmButtonLabel)}
+              </Button>
+            </ModalFooter>
+          </Modal>
+        </AnalyticsContext>
       )}
     </ModalTransition>
   );

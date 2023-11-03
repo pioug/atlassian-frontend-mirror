@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 0.4.10
+
+### Patch Changes
+
+- [#42570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42570) [`d7ff4d590d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7ff4d590d7) - ED-20023: Adding check for undefined item in dropdown menu
+
 ## 0.4.9
 
 ### Patch Changes

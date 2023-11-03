@@ -15,6 +15,7 @@ import { IntlProviderWithResolvedMessages } from './IntlProviderWithResolvedMess
 interface Props {
   entrypointId: string;
   atlassianAccountId?: string;
+  shouldGetEntitlementDetails?: boolean;
 }
 
 /*
@@ -24,7 +25,8 @@ const FeedbackButton = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [displayFlag, setDisplayFlag] = useState(false);
   const { formatMessage } = useIntl();
-  const { entrypointId, atlassianAccountId } = props;
+  const { entrypointId, atlassianAccountId, shouldGetEntitlementDetails } =
+    props;
 
   return (
     <>
@@ -46,6 +48,7 @@ const FeedbackButton = (props: Props) => {
           onSubmit={() => setDisplayFlag(true)}
           atlassianAccountId={atlassianAccountId}
           entrypointId={entrypointId}
+          shouldGetEntitlementDetails={shouldGetEntitlementDetails}
         />
       )}
 

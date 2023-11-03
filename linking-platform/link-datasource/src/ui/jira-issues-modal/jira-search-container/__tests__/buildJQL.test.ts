@@ -1,4 +1,4 @@
-import { BasicFilterFieldType } from '../../basic-filters/ui/async-popup-select/types';
+import { BasicFilterFieldType } from '../../basic-filters/types';
 import { buildJQL } from '../buildJQL';
 
 describe('buildJQL', () => {

@@ -4,10 +4,10 @@ import type { CSSProperties } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import type { Instruction } from '@atlaskit/pragmatic-drag-and-drop-hitbox/experimental/tree-item';
+import type { Instruction } from '@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item';
 import { token } from '@atlaskit/tokens';
 
-import { DropIndicator } from '../../src/experimental/tree-item';
+import { DropIndicator } from '../../src/tree-item';
 
 const itemStyles = css({
   display: 'flex',

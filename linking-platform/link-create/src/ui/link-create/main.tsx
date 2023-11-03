@@ -22,8 +22,8 @@ import {
 import { LinkCreateCallbackProvider } from '../../controllers/callback-context';
 import { EditPostCreateModalProvider } from '../../controllers/edit-post-create-context';
 import {
+  FormContextProvider,
   useFormContext,
-  withLinkCreateFormContext,
 } from '../../controllers/form-context';
 import { LinkCreatePluginsProvider } from '../../controllers/plugin-context';
 
@@ -151,7 +151,7 @@ const LinkCreateWithModal = ({
         )}
       </ModalTransition>
       {getBooleanFF('platform.linking-platform.link-create.enable-edit') && (
-        <EditModal onClose={handleCancel} />
+        <EditModal onCloseComplete={onCloseComplete} onClose={handleCancel} />
       )}
       {getBooleanFF(
         'platform.linking-platform.link-create.confirm-dismiss-dialog',
@@ -166,19 +166,69 @@ const LinkCreateWithModal = ({
   );
 };
 
-export default withLinkCreateFormContext((props: LinkCreateWithModalProps) => {
+type ExperimentalProps = {
+  onComplete?: () => void;
+};
+
+const LinkCreateModalInternal = (
+  props: LinkCreateWithModalProps & ExperimentalProps,
+) => {
   if (getBooleanFF('platform.linking-platform.link-create.enable-edit')) {
     return (
       <LinkCreatePluginsProvider
         plugins={props.plugins}
         entityKey={props.entityKey}
       >
-        <EditPostCreateModalProvider active={!!props.active}>
-          <LinkCreateWithModal {...props} />
-        </EditPostCreateModalProvider>
+        {pluginsProvider => (
+          <EditPostCreateModalProvider active={!!props.active}>
+            {({
+              setEditViewPayload,
+              editViewPayload,
+              shouldActivateEditView,
+              enableEditView,
+            }) => (
+              <FormContextProvider
+                enableEditView={
+                  pluginsProvider?.activePlugin?.editView
+                    ? enableEditView
+                    : undefined
+                }
+              >
+                <LinkCreateWithModal
+                  {...props}
+                  active={props.active && !editViewPayload}
+                  onCreate={async payload => {
+                    await props.onCreate?.(payload);
+
+                    // if onComplete exists then there is an edit flow
+                    if (props.onComplete) {
+                      if (shouldActivateEditView()) {
+                        //edit button is pressed
+                        setEditViewPayload(payload);
+                      } else {
+                        //create button is pressed
+                        props.onComplete();
+                      }
+                    }
+                  }}
+                />
+              </FormContextProvider>
+            )}
+          </EditPostCreateModalProvider>
+        )}
       </LinkCreatePluginsProvider>
     );
   }
 
-  return <LinkCreateWithModal {...props} />;
-});
+  return (
+    <FormContextProvider>
+      <LinkCreateWithModal {...props} />
+    </FormContextProvider>
+  );
+};
+
+const LinkCreateModalPublic = (props: LinkCreateWithModalProps) => {
+  return <LinkCreateModalInternal {...props} />;
+};
+
+export default LinkCreateModalPublic;

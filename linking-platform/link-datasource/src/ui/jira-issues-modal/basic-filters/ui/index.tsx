@@ -2,13 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import { Flex } from '@atlaskit/primitives';
 
+import type { BasicFilterFieldType, SelectOption } from '../types';
 import { isValidJql } from '../utils';
 
 import AsyncPopupSelect from './async-popup-select';
-import type {
-  BasicFilterFieldType,
-  SelectOption,
-} from './async-popup-select/types';
 
 const availableBasicFilterTypes: BasicFilterFieldType[] = [
   'project',

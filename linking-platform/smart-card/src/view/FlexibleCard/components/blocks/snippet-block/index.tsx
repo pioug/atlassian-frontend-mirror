@@ -23,19 +23,19 @@ const SnippetBlock: React.FC<SnippetBlockProps> = ({
   text,
   ...blockProps
 }) => {
-  if (status !== SmartLinkStatus.Resolved) {
+  if (status !== SmartLinkStatus.Resolved && !text) {
     return null;
   }
-
   const snippetMaxLines = getMaxLines(
     maxLines,
     DEFAULT_MAX_LINES,
     MAXIMUM_MAX_LINES,
     MINIMUM_MAX_LINES,
   );
+  const statusTestId = !text ? 'resolved' : 'non-resolved';
 
   return (
-    <Block {...blockProps} testId={`${testId}-resolved-view`}>
+    <Block {...blockProps} testId={`${testId}-${statusTestId}-view`}>
       <Snippet maxLines={snippetMaxLines} content={text} />
     </Block>
   );

@@ -3,9 +3,16 @@ import React from 'react';
 import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
 
 import { useEditPostCreateModal } from '../../../controllers/edit-post-create-context';
+import { useLinkCreatePlugins } from '../../../controllers/plugin-context';
 
-export const EditModal = ({ onClose }: { onClose?: () => void }) => {
+type EditModalProps = {
+  onClose: () => void;
+  onCloseComplete?: React.ComponentProps<typeof Modal>['onCloseComplete'];
+};
+
+export const EditModal = ({ onClose, onCloseComplete }: EditModalProps) => {
   const { editViewPayload } = useEditPostCreateModal();
+  const { activePlugin } = useLinkCreatePlugins();
 
   return (
     <ModalTransition>
@@ -16,7 +23,10 @@ export const EditModal = ({ onClose }: { onClose?: () => void }) => {
           shouldScrollInViewport={true}
           width="calc(100vw - 120px)"
           height="calc(100vh - 120px)"
-        ></Modal>
+          onCloseComplete={onCloseComplete}
+        >
+          {activePlugin?.editView?.({ payload: editViewPayload, onClose })}
+        </Modal>
       )}
     </ModalTransition>
   );

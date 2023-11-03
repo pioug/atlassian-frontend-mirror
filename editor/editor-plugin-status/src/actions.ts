@@ -14,6 +14,7 @@ import type {
   TOOLBAR_MENU_TYPE,
 } from '@atlaskit/editor-common/types';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type {
   EditorState,
   Transaction,
@@ -30,33 +31,41 @@ export const DEFAULT_STATUS: StatusType = {
   color: 'neutral',
 };
 
-export const createStatus =
-  (showStatusPickerAtOffset = 0) =>
-  (
-    insert: (
-      node: Node | Object | string,
-      opts: { selectInlineNode: boolean },
-    ) => Transaction,
-    state: EditorState,
-  ): Transaction => {
-    const statusNode = state.schema.nodes.status.createChecked({
-      ...DEFAULT_STATUS,
-      localId: uuid.generate(),
-    });
+export const verifyAndInsertStatus = (
+  statusNode: Node,
+  state: EditorState,
+): Transaction => {
+  const fragment = Fragment.fromArray([statusNode, state.schema.text(' ')]);
+  const tr = state.tr;
+  const insertable = canInsert(tr.selection.$from, fragment);
+  if (!insertable) {
+    const parentSelection = NodeSelection.create(
+      tr.doc,
+      tr.selection.from - tr.selection.$anchor.parentOffset - 1,
+    );
+    tr.insert(parentSelection.to, fragment).setSelection(
+      NodeSelection.create(tr.doc, parentSelection.to + 1),
+    );
+  } else {
+    tr.insert(tr.selection.from, fragment).setSelection(
+      NodeSelection.create(tr.doc, tr.selection.from - fragment.size),
+    );
+  }
+  return tr
+    .setMeta(pluginKey, {
+      showStatusPickerAt: tr.selection.from,
+      isNew: true,
+    })
+    .scrollIntoView();
+};
 
-    const space = state.schema.text(' ');
-
-    const tr = insert(Fragment.from([statusNode, space]), {
-      selectInlineNode: true,
-    });
-    const showStatusPickerAt = tr.selection.from + showStatusPickerAtOffset;
-    return tr
-      .setSelection(NodeSelection.create(tr.doc, showStatusPickerAt))
-      .setMeta(pluginKey, {
-        showStatusPickerAt,
-        isNew: true,
-      });
-  };
+export const createStatus = (state: EditorState): Transaction => {
+  const statusNode = state.schema.nodes.status.createChecked({
+    ...DEFAULT_STATUS,
+    localId: uuid.generate(),
+  });
+  return verifyAndInsertStatus(statusNode, state);
+};
 
 export const updateStatus =
   (status?: StatusType): Command =>
@@ -81,26 +90,7 @@ export const updateStatus =
     if (!showStatusPickerAt) {
       // Same behaviour as quick insert (used in createStatus)
       const statusNode = schema.nodes.status.createChecked(statusProps);
-      const fragment = Fragment.fromArray([statusNode, state.schema.text(' ')]);
-
-      const insertable = canInsert(tr.selection.$from, fragment);
-      if (!insertable) {
-        const parentSelection = NodeSelection.create(
-          tr.doc,
-          tr.selection.from - tr.selection.$anchor.parentOffset - 1,
-        );
-        tr.insert(parentSelection.to, fragment).setSelection(
-          NodeSelection.create(tr.doc, parentSelection.to + 1),
-        );
-      } else {
-        tr.insert(tr.selection.from, fragment).setSelection(
-          NodeSelection.create(tr.doc, tr.selection.from - fragment.size),
-        );
-      }
-      tr.setMeta(pluginKey, {
-        showStatusPickerAt: tr.selection.from,
-        isNew: true,
-      }).scrollIntoView();
+      tr = verifyAndInsertStatus(statusNode, state);
       if (dispatch) {
         dispatch(tr);
       }

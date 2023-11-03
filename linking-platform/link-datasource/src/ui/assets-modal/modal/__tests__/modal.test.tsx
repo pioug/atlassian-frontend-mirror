@@ -113,7 +113,7 @@ describe('AssetsConfigModal', () => {
   });
 
   describe('when isDisabled is false', () => {
-    describe('and user clicks button', () => {
+    describe('and user clicks insert button', () => {
       it('should insert inlineCard adf when 1 asset is returned and valid url is available', async () => {
         const datasourceTableHookState = getSingleAssetHookState();
         const { getByRole, onInsert } = await setup({
@@ -352,6 +352,26 @@ describe('AssetsConfigModal', () => {
       await waitFor(() => {
         expect(getByText('Unable to load results')).toBeInTheDocument();
         expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+      });
+    });
+    it("should call 'reset' on search button click", async () => {
+      const mockReset = jest.fn();
+      const { getByTestId } = await setup({
+        datasourceTableHookState: {
+          ...getErrorDatasourceTableHookState(),
+          reset: mockReset,
+        },
+      });
+      const searchButton = await getByTestId(
+        'assets-datasource-modal--aql-search-button',
+      );
+      await waitFor(() => {
+        expect(searchButton).toBeEnabled();
+      });
+      await searchButton.click();
+      await waitFor(() => {
+        expect(mockReset).toBeCalledTimes(1);
+        expect(mockReset).toHaveBeenCalledWith({ shouldResetColumns: true });
       });
     });
   });

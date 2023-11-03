@@ -82,7 +82,7 @@ export interface EmbedCardAdf {
 export interface DatasourceAdfTableView {
   type: 'table';
   properties?: {
-    columns: { key: string }[];
+    columns: { key: string; width?: number }[];
   };
 }
 // TODO Remove me when next View be added. I am here as an example of intent

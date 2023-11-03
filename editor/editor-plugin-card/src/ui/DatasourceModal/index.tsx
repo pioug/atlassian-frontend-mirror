@@ -55,8 +55,8 @@ export const DatasourceModal = ({
   });
 
   const onClose = useCallback(() => {
-    dispatch(hideDatasourceModal(state.tr));
-  }, [dispatch, state.tr]);
+    dispatch(hideDatasourceModal(view.state.tr));
+  }, [dispatch, view.state.tr]);
 
   const onInsert = useCallback(
     (
@@ -74,17 +74,17 @@ export const DatasourceModal = ({
       }
       if (existingNode) {
         updateCardFromDatasourceModal(
-          state,
+          view.state,
           existingNode,
           newAdf,
           view,
           analyticEvent,
         );
       } else {
-        insertDatasource(state, newAdf, view, analyticEvent);
+        insertDatasource(view.state, newAdf, view, analyticEvent);
       }
     },
-    [existingNode, state, view],
+    [existingNode, view],
   );
 
   if (modalType === 'jira') {

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from '@emotion/react';
-import * as styles from './styles';
+import { containerStyle, flashStyle } from './styles';
 
 export interface FlashAnimationProps {
   /**
@@ -25,7 +25,7 @@ export const RENDER_FLASHANIMATION_TESTID = 'flash-animation';
 export const FlashAnimation: React.FC<FlashAnimationProps> = (props) => (
   <div
     className={props.className}
-    css={[styles.containerStyle, props.flash && styles.flashStyle]}
+    css={[containerStyle, props.flash && flashStyle]}
     data-testid={RENDER_FLASHANIMATION_TESTID}
   >
     {props.children}

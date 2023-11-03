@@ -83,16 +83,14 @@ export function CreateFormLoader({
 export interface CreateFormProps<FormData> {
   // (undocumented)
   children: ReactNode;
-  // (undocumented)
   hideFooter?: boolean;
-  // (undocumented)
-  initialValues?: FormData;
+  initialValues?: DisallowReservedFields<FormData>;
   // (undocumented)
   isLoading?: boolean;
   // (undocumented)
   onCancel?: () => void;
   // (undocumented)
-  onSubmit: (data: FormData) => void;
+  onSubmit: (data: OmitReservedFields<FormData>) => void;
   // (undocumented)
   testId?: string;
 }
@@ -104,6 +102,17 @@ export type CreatePayload = {
   objectId: string;
   objectType: string;
   data?: Record<string, unknown>;
+};
+
+// @public (undocumented)
+type DisallowReservedFields<T> = T & {
+  [Field in (typeof RESERVED_FIELDS)[number]]?: never;
+};
+
+// @public (undocumented)
+type EditViewProps = {
+  payload: CreatePayload;
+  onClose: () => void;
 };
 
 // @public
@@ -135,6 +144,7 @@ interface LinkCreateCallbackProviderProps {
 
 // @public (undocumented)
 export interface LinkCreatePlugin {
+  editView?: ({ payload, onClose }: EditViewProps) => JSX.Element;
   form: ReactNode;
   group: Group;
   icon: string;
@@ -162,6 +172,17 @@ export interface LinkCreateWithModalProps
   active?: boolean;
   modalTitle?: string;
 }
+
+// @public (undocumented)
+type OmitReservedFields<T> = Omit<T, keyof ReservedFields>;
+
+// @public (undocumented)
+const RESERVED_FIELDS: readonly ['__post_create__'];
+
+// @public (undocumented)
+type ReservedFields = {
+  [Field in (typeof RESERVED_FIELDS)[number]]?: unknown;
+};
 
 // @public
 export function Select<T = OptionType>({

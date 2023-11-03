@@ -39,7 +39,7 @@ export default function useHandleDateChange({
   day: [dayValue, setDayValue],
   month: [monthValue, setMonthValue],
   year: [yearValue, setYearValue],
-  shouldSetFocus: [shouldSetFocus, setShouldSetFocus],
+  shouldSetFocus: [_shouldSetFocus, setShouldSetFocus],
   onChange,
 }: {
   day: readonly [number, (newValue: number) => void];

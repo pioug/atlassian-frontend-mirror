@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-decorations
 
+## 0.2.6
+
+### Patch Changes
+
+- [#42604](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42604) [`182627d0f5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/182627d0f5e) - Extracted panel plugin from editor-core as @atlaskit/editor-plugin-panel
+
 ## 0.2.5
 
 ### Patch Changes

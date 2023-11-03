@@ -68,27 +68,35 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
   private getDatasource = () =>
     (this.props.node.attrs as DatasourceAdf['attrs']).datasource;
 
-  private getTableView = (
-    datasource?: DatasourceAdf['attrs']['datasource'],
-  ) => {
-    const views = (datasource || this.getDatasource())
-      .views as DatasourceAdfView[];
+  private getTableView = () => {
+    const views = this.getDatasource().views as DatasourceAdfView[];
     return views.find(view => view.type === 'table') || undefined;
   };
 
-  handleColumnChange = (columnKeys: string[]) => {
+  private updateTableProperties(
+    columnKeys: string[],
+    columnCustomSizes: { [key: string]: number },
+  ) {
     const { state, dispatch } = this.props.view;
     const pos = getPosSafely(this.props.getPos);
     if (pos === undefined) {
       return;
     }
-    const attrs = this.props.node.attrs as DatasourceAdf['attrs'];
+
     const views = [
       {
         type: 'table',
-        properties: { columns: columnKeys.map(key => ({ key })) },
+        properties: {
+          columns: columnKeys.map(key => ({
+            key,
+            ...(columnCustomSizes[key]
+              ? { width: columnCustomSizes[key] }
+              : {}),
+          })),
+        },
       } as DatasourceAdfView,
     ];
+    const attrs = this.props.node.attrs as DatasourceAdf['attrs'];
 
     const tr = state.tr.setNodeMarkup(pos, undefined, {
       ...attrs,
@@ -102,6 +110,24 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
     tr.setMeta('addToHistory', false);
     tr.setMeta('scrollIntoView', false);
     dispatch(tr);
+  }
+
+  handleColumnChange = (columnKeys: string[]) => {
+    const { columnCustomSizes } = this.getColumnsInfo();
+    this.updateTableProperties(columnKeys, columnCustomSizes || {});
+  };
+
+  handleColumnResize = (key: string, width: number) => {
+    const { columnCustomSizes, visibleColumnKeys } = this.getColumnsInfo();
+    const newColumnCustomSizes = { ...(columnCustomSizes || {}), [key]: width };
+    // In case for some reason there are no visible keys stored in ADF, we can take them from columnSizes
+    // columnKeys are needed to update ADF (since custom width only make sense for a visible column)
+    // So this function effectively adds a visible column if it wasn't there
+    const columnKeys =
+      visibleColumnKeys && visibleColumnKeys.indexOf(key) > -1
+        ? visibleColumnKeys
+        : Object.keys(newColumnCustomSizes);
+    this.updateTableProperties(columnKeys, newColumnCustomSizes);
   };
 
   onError = ({ err }: { err?: Error }) => {
@@ -109,6 +135,26 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
       throw err;
     }
   };
+
+  private getColumnsInfo() {
+    const tableView = this.getTableView();
+
+    const columnsProp = tableView?.properties?.columns;
+    const visibleColumnKeys = columnsProp?.map(({ key }) => key);
+
+    let columnCustomSizes: { [key: string]: number } | undefined;
+    const columnsWithWidth = columnsProp?.filter(
+      (c): c is { key: string; width: number } => !!c.width,
+    );
+    if (columnsWithWidth) {
+      const keyWidthPairs: [string, number][] = columnsWithWidth.map<
+        [string, number]
+      >(c => [c.key, c.width]);
+      columnCustomSizes = Object.fromEntries<number>(keyWidthPairs);
+    }
+
+    return { visibleColumnKeys, columnCustomSizes };
+  }
 
   render() {
     const cardContext = this.context.contextAdapter
@@ -119,9 +165,7 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
     const attrs = this.props.node.attrs as DatasourceAdf['attrs'];
     const tableView = this.getTableView();
     if (tableView) {
-      const visibleColumnKeys = tableView.properties?.columns.map(
-        ({ key }) => key,
-      );
+      const { visibleColumnKeys, columnCustomSizes } = this.getColumnsInfo();
 
       // [WS-2307]: we only render card wrapped into a Provider when the value is ready
       if (cardContext && cardContext.value) {
@@ -134,6 +178,8 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
                 visibleColumnKeys={visibleColumnKeys}
                 onVisibleColumnKeysChange={this.handleColumnChange}
                 url={attrs?.url}
+                onColumnResize={this.handleColumnResize}
+                columnCustomSizes={columnCustomSizes}
               />
             </cardContext.Provider>
           </EditorAnalyticsContext>

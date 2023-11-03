@@ -16,17 +16,25 @@ import {
   dropTargetForElements,
   monitorForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { cancelUnhandled } from '@atlaskit/pragmatic-drag-and-drop/addon/cancel-unhandled';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/disable-native-drag-preview';
 import { offsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/offset-from-pointer';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
 import { token } from '@atlaskit/tokens';
 
 import { TableHeading } from './styled';
 
+import { COLUMN_MIN_WIDTH } from './index';
+
 type DraggableState =
   | { type: 'idle' }
   | { type: 'preview'; container: HTMLElement }
-  | { type: 'dragging' };
+  | { type: 'dragging' }
+  | {
+      type: 'resizing';
+      initialWidth: number;
+    };
 
 const tableHeadingStatusStyles: Partial<
   Record<DraggableState['type'], SerializedStyles>
@@ -59,6 +67,43 @@ const noPointerEventsStyles = css({
   pointerEvents: 'none',
 });
 
+const resizerStyles = css({
+  '--local-hitbox-width': token('space.300', '24px'),
+  width: 'var(--local-hitbox-width)',
+  cursor: 'col-resize',
+  flexGrow: '0',
+  position: 'absolute',
+  zIndex: 1, // we want this to sit on top of adjacent column headers
+  right: 'calc(-1 * calc(var(--local-hitbox-width) / 2))',
+  top: 0,
+
+  '::before': {
+    opacity: 0,
+    '--local-line-width': token('border.width', '2px'),
+    content: '""',
+    position: 'absolute',
+    background: token('color.border.brand', '#0052CC'),
+    width: 'var(--local-line-width)',
+    inset: 0,
+    left: `calc(50% - calc(var(--local-line-width) / 2))`,
+    transition: 'opacity 0.2s ease',
+  },
+
+  ':hover::before': {
+    opacity: 1,
+  },
+});
+
+const resizingStyles = css({
+  // turning off the resizing cursor as sometimes it can cause the cursor to flicker
+  // while resizing. The browser controls the cursor while dragging, but the browser
+  // can sometimes bug out.
+  cursor: 'unset',
+  '::before': {
+    opacity: 1,
+  },
+});
+
 const idleState: DraggableState = { type: 'idle' };
 const draggingState: DraggableState = { type: 'dragging' };
 
@@ -69,7 +114,8 @@ export const DraggableTableHeading = ({
   tableId,
   dndPreviewHeight,
   dragPreview,
-  maxWidth,
+  width,
+  onWidthChange,
 }: {
   children: ReactNode;
   id: string;
@@ -77,9 +123,11 @@ export const DraggableTableHeading = ({
   tableId: Symbol;
   dndPreviewHeight: number;
   dragPreview: React.ReactNode;
-  maxWidth?: number;
+  width: number;
+  onWidthChange?: (width: number) => void;
 }) => {
-  const ref = useRef<HTMLTableCellElement>(null);
+  const mainHeaderCellRef = useRef<HTMLTableCellElement>(null);
+  const columnResizeHandleRef = useRef<HTMLDivElement | null>(null);
   const [state, setState] = useState<DraggableState>(idleState);
 
   const [isDraggingAnyColumn, setIsDraggingAnyColumn] = useState(false);
@@ -88,7 +136,7 @@ export const DraggableTableHeading = ({
   const dropTargetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const cell = ref.current;
+    const cell = mainHeaderCellRef.current;
 
     invariant(cell);
 
@@ -184,16 +232,81 @@ export const DraggableTableHeading = ({
     });
   }, [tableId]);
 
+  // Handling column resizing
+  useEffect(() => {
+    const resizeHandle = columnResizeHandleRef.current;
+    invariant(resizeHandle);
+    const mainHeaderCell = mainHeaderCellRef.current;
+    invariant(mainHeaderCell);
+
+    return draggable({
+      element: resizeHandle,
+      getInitialData() {
+        // metadata related to currently dragging item (can be read by drop events etc)
+        return { type: 'column-resize', id, index, tableId };
+      },
+
+      // Is called when dragging started
+      onGenerateDragPreview({ nativeSetDragImage }) {
+        // We don't show any preview, since column separator (handle) is moving with the cursor
+        disableNativeDragPreview({ nativeSetDragImage });
+        // Block drag operations outside `@atlaskit/pragmatic-drag-and-drop`
+        cancelUnhandled.start();
+
+        setState({
+          type: 'resizing',
+          initialWidth: width,
+        });
+      },
+      onDrag({ location }) {
+        const relativeDistanceX =
+          location.current.input.clientX - location.initial.input.clientX;
+
+        invariant(state.type === 'resizing');
+        const { initialWidth } = state;
+
+        // Set the width of our header being resized
+        let proposedWidth = initialWidth + relativeDistanceX;
+        if (
+          initialWidth >= COLUMN_MIN_WIDTH &&
+          proposedWidth < COLUMN_MIN_WIDTH
+        ) {
+          proposedWidth = COLUMN_MIN_WIDTH;
+        }
+
+        // We update width css directly live
+        mainHeaderCell.style.setProperty('width', `${proposedWidth}px`);
+      },
+      onDrop() {
+        cancelUnhandled.stop();
+        setState(idleState);
+        if (onWidthChange) {
+          // We use element's css value as a source of truth (compare to another Ref)
+          const currentWidthPx = mainHeaderCell.style.getPropertyValue('width');
+          onWidthChange(+currentWidthPx.slice(0, -2));
+        }
+      },
+    });
+  }, [id, index, onWidthChange, state, tableId, width]);
+
   return (
     <TableHeading
-      ref={ref}
+      ref={mainHeaderCellRef}
       css={[tableHeadingStatusStyles[state.type]]}
       data-testid={`${id}-column-heading`}
       style={{
-        maxWidth,
+        width,
         cursor: 'grab',
       }}
     >
+      <div
+        ref={columnResizeHandleRef}
+        css={[resizerStyles, state.type === 'resizing' && resizingStyles]}
+        style={{
+          height: `${dndPreviewHeight}px`,
+        }}
+        data-testid="column-resize-handle"
+      ></div>
       <div
         ref={dropTargetRef}
         css={[

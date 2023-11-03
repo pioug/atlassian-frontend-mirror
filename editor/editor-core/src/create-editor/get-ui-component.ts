@@ -3,7 +3,10 @@ import Chromeless from '../ui/Appearance/Chromeless';
 import Comment from '../ui/Appearance/Comment';
 import Mobile from '../ui/Appearance/Mobile';
 
-import { EditorAppearance, EditorAppearanceComponentProps } from '../types';
+import type {
+  EditorAppearance,
+  EditorAppearanceComponentProps,
+} from '../types';
 
 export default function getUiComponent(
   appearance: EditorAppearance,

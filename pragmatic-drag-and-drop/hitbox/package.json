@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-hitbox",
-  "version": "0.11.9",
+  "version": "0.12.0",
   "description": "An addon for `@atlaskit/pragmatic-drag-and-drop` with helpers for attaching interaction information to a drop target when it is being dragged over",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -40,7 +40,7 @@
     "./addon/closest-edge": "./src/closest-edge.ts",
     "./util/reorder-with-edge": "./src/reorder-with-edge.ts",
     "./util/get-reorder-destination-index": "./src/get-reorder-destination-index.ts",
-    "./experimental/tree-item": "./src/experimental/tree-item.ts"
+    "./tree-item": "./src/tree-item.ts"
   },
   "dependencies": {
     "@atlaskit/pragmatic-drag-and-drop": "^0.24.0",

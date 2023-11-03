@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -13,6 +13,7 @@ import {
 
 import { useDatasourceTableState } from '../src/hooks/useDatasourceTableState';
 import { IssueLikeDataTableView } from '../src/ui/issue-like-table';
+import { ColumnSizesMap } from '../src/ui/issue-like-table/types';
 import { JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
 
 import SmartLinkClient from './smartLinkCustomClient';
@@ -57,6 +58,17 @@ const ExampleBody = ({ isReadonly }: Props) => {
     defaultInitialVisibleColumnKeys,
   );
 
+  const [columnCustomSizes, setColumnCustomSizes] = useState<
+    ColumnSizesMap | undefined
+  >();
+
+  const onColumnResize = useCallback(
+    (key: string, width: number) => {
+      setColumnCustomSizes({ ...columnCustomSizes, [key]: width });
+    },
+    [columnCustomSizes],
+  );
+
   useEffect(() => {
     if (visibleColumnKeys.length === 0 && defaultVisibleColumnKeys.length > 0) {
       setVisibleColumnKeys(defaultVisibleColumnKeys);
@@ -78,6 +90,8 @@ const ExampleBody = ({ isReadonly }: Props) => {
           onVisibleColumnKeysChange={
             isReadonly ? undefined : setVisibleColumnKeys
           }
+          onColumnResize={isReadonly ? undefined : onColumnResize}
+          columnCustomSizes={columnCustomSizes}
         />
       ) : (
         <span>Loading ...</span>

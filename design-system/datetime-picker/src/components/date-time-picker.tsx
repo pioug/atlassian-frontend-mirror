@@ -250,15 +250,15 @@ const timePickerContainerStyles = css({
 
 const iconContainerStyles = css({
   display: 'flex',
-  paddingTop: token('space.075', '6px'),
-  paddingRight: token('space.100', '8px'),
-  paddingBottom: token('space.075', '6px'),
-  paddingLeft: token('space.050', '4px'), // ICON_PADDING (2) * 2
   alignItems: 'center',
   flexBasis: 'inherit',
   backgroundColor: 'inherit',
   border: 'none',
   color: token('color.text.subtlest', N70),
+  paddingBlockEnd: token('space.075', '6px'),
+  paddingBlockStart: token('space.075', '6px'),
+  paddingInlineEnd: token('space.100', '8px'),
+  paddingInlineStart: token('space.050', '4px'),
   transition: `color 150ms`,
   '&:hover': {
     color: token('color.text.subtle', N500),
@@ -288,9 +288,9 @@ const dateTimePickerDefaultProps = {
   // These disables are here for proper typing when used as defaults. They
   // should *not* use the `noop` function.
   /* eslint-disable @repo/internal/react/use-noop */
-  onBlur: (event: React.FocusEvent<HTMLInputElement>) => {},
-  onChange: (value: string) => {},
-  onFocus: (event: React.FocusEvent<HTMLInputElement>) => {},
+  onBlur: (_event: React.FocusEvent<HTMLInputElement>) => {},
+  onChange: (_value: string) => {},
+  onFocus: (_event: React.FocusEvent<HTMLInputElement>) => {},
   /* eslint-enable @repo/internal/react/use-noop */
   innerProps: {},
   id: '',

@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 13.3.3
+
+### Patch Changes
+
+- [#42445](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42445) [`5645b5a1132`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5645b5a1132) - Fix TS errors for forge-ui in AFM
+
 ## 13.3.2
 
 ### Patch Changes

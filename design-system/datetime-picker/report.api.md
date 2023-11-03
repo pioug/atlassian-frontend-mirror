@@ -90,9 +90,9 @@ export const DatePicker: ForwardRefExoticComponent<
             isDisabled: boolean;
             isInvalid: boolean;
             name: string;
-            onBlur: (event: FocusEvent_2<HTMLInputElement>) => void;
-            onChange: (value: string) => void;
-            onFocus: (event: FocusEvent_2<HTMLInputElement>) => void;
+            onBlur: (_event: FocusEvent_2<HTMLInputElement>) => void;
+            onChange: (_value: string) => void;
+            onFocus: (_event: FocusEvent_2<HTMLInputElement>) => void;
             selectProps: {};
             spacing: Spacing;
             locale: string;
@@ -156,9 +156,9 @@ const datePickerDefaultProps: {
   isDisabled: boolean;
   isInvalid: boolean;
   name: string;
-  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onChange: (value: string) => void;
-  onFocus: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur: (_event: React.FocusEvent<HTMLInputElement>) => void;
+  onChange: (_value: string) => void;
+  onFocus: (_event: React.FocusEvent<HTMLInputElement>) => void;
   selectProps: {};
   spacing: Spacing;
   locale: string;
@@ -240,9 +240,9 @@ export const DateTimePicker: React_2.ForwardRefExoticComponent<
             autoFocus: boolean;
             isDisabled: boolean;
             name: string;
-            onBlur: (event: React_2.FocusEvent<HTMLInputElement>) => void;
-            onChange: (value: string) => void;
-            onFocus: (event: React_2.FocusEvent<HTMLInputElement>) => void;
+            onBlur: (_event: React_2.FocusEvent<HTMLInputElement>) => void;
+            onChange: (_value: string) => void;
+            onFocus: (_event: React_2.FocusEvent<HTMLInputElement>) => void;
             innerProps: {};
             id: string;
             defaultValue: string;
@@ -297,9 +297,9 @@ const dateTimePickerDefaultProps: {
   autoFocus: boolean;
   isDisabled: boolean;
   name: string;
-  onBlur: (event: React_2.FocusEvent<HTMLInputElement>) => void;
-  onChange: (value: string) => void;
-  onFocus: (event: React_2.FocusEvent<HTMLInputElement>) => void;
+  onBlur: (_event: React_2.FocusEvent<HTMLInputElement>) => void;
+  onChange: (_value: string) => void;
+  onFocus: (_event: React_2.FocusEvent<HTMLInputElement>) => void;
   innerProps: {};
   id: string;
   defaultValue: string;
@@ -407,12 +407,12 @@ export const TimePicker: React_2.ForwardRefExoticComponent<
             isDisabled: boolean;
             isInvalid: boolean;
             name: string;
-            onBlur: (event: React_2.FocusEvent<HTMLInputElement>) => void;
-            onChange: (value: string) => void;
-            onFocus: (event: React_2.FocusEvent<HTMLInputElement>) => void;
+            onBlur: (_event: React_2.FocusEvent<HTMLInputElement>) => void;
+            onChange: (_value: string) => void;
+            onFocus: (_event: React_2.FocusEvent<HTMLInputElement>) => void;
             parseInputValue: (
               time: string,
-              timeFormat: string,
+              _timeFormat: string,
             ) => Date | string;
             selectProps: {};
             spacing: Spacing;
@@ -468,10 +468,10 @@ const timePickerDefaultProps: {
   isDisabled: boolean;
   isInvalid: boolean;
   name: string;
-  onBlur: (event: React_2.FocusEvent<HTMLInputElement>) => void;
-  onChange: (value: string) => void;
-  onFocus: (event: React_2.FocusEvent<HTMLInputElement>) => void;
-  parseInputValue: (time: string, timeFormat: string) => Date | string;
+  onBlur: (_event: React_2.FocusEvent<HTMLInputElement>) => void;
+  onChange: (_value: string) => void;
+  onFocus: (_event: React_2.FocusEvent<HTMLInputElement>) => void;
+  parseInputValue: (time: string, _timeFormat: string) => Date | string;
   selectProps: {};
   spacing: Spacing;
   times: string[];

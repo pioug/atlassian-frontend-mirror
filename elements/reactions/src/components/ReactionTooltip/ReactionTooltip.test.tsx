@@ -1,7 +1,7 @@
 import React from 'react';
 import { act, fireEvent, screen } from '@testing-library/react';
+import { TOOLTIP_USERS_LIMIT } from '../../shared/constants';
 import { ReactionSummary } from '../../types';
-import { constants } from '../../shared';
 import {
   mockReactDomWarningGlobal,
   renderWithIntl,
@@ -101,7 +101,7 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
     expect(usersListWrapper).toHaveAttribute('data-placement', 'bottom');
 
     const items = usersListWrapper.querySelectorAll('li');
-    expect(items.length).toEqual(constants.TOOLTIP_USERS_LIMIT + 2);
+    expect(items.length).toEqual(TOOLTIP_USERS_LIMIT + 2);
     expect(items[0].textContent).toEqual('emoji name');
     expect(items[1].textContent).toEqual('User 1');
     expect(items[2].textContent).toEqual('User 2');
@@ -183,7 +183,7 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
     const usersListWrapper = await screen.findByRole('tooltip');
     expect(usersListWrapper).toBeInTheDocument();
     const items = usersListWrapper.querySelectorAll('li');
-    expect(items.length).toEqual(constants.TOOLTIP_USERS_LIMIT + 1);
+    expect(items.length).toEqual(TOOLTIP_USERS_LIMIT + 1);
     expect(items[0].textContent).toEqual('User 1');
     expect(items[5].textContent).toEqual('and 2 others');
   });

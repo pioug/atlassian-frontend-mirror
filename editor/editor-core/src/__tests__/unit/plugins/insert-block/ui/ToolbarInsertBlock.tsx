@@ -35,7 +35,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { uuid } from '@atlaskit/adf-schema';
 import { layoutPlugin } from '@atlaskit/editor-plugin-layout';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
-import panelPlugin from '../../../../../plugins/panel';
+import { panelPlugin } from '@atlaskit/editor-plugin-panel';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { statusPlugin } from '@atlaskit/editor-plugin-status';

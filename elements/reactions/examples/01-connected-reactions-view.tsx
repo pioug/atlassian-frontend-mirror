@@ -7,7 +7,7 @@ import {
   Example,
   Constants as ExampleConstants,
 } from './utils';
-import { constants } from '../src/shared';
+import { DefaultReactions } from '../src/shared/constants';
 
 export default () => {
   return (
@@ -59,7 +59,7 @@ export default () => {
           >
             "allowAllEmojis" prop - Show the "more emoji" selector icon for
             choosing emoji icons beyond the default list of emojis (defaults to
-            constants.DEFAULT_REACTION_EMOJI_IDS)
+            DEFAULT_REACTION_EMOJI_IDS)
           </strong>
 
           {/* Example 3 */}
@@ -187,7 +187,7 @@ export default () => {
                 quickReactionEmojis={{
                   ari: `${ExampleConstants.AriPrefix}7`,
                   containerAri: `${ExampleConstants.ContainerAriPrefix}1`,
-                  emojiIds: constants.DefaultReactions.slice(3, 5).map(
+                  emojiIds: DefaultReactions.slice(3, 5).map(
                     (item) => item.id ?? '',
                   ),
                 }}

@@ -46,6 +46,34 @@ ${(
   />
 )}
 
+### Non resolved view
+
+This is the default view for a non resolved state.
+
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/snippet-block-non-resolved-view')
+        .default
+    }
+    source={require('!!raw-loader!../../../examples/content/snippet-block-non-resolved-view')}
+  />
+)}
+
+### Non resolved view with text override
+
+Use \`text\` to override the default null description in a non resolved state
+
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/snippet-block-non-resolved-view-text-override')
+        .default
+    }
+    source={require('!!raw-loader!../../../examples/content/snippet-block-non-resolved-view-text-override')}
+  />
+)}
+
 ### Sizing
 
 As a Flexible Smart Links block, a snippet block inherits and allow sizing override.

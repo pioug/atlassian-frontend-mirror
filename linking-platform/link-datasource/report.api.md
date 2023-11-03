@@ -87,9 +87,15 @@ export const DatasourceTableView: (
 
 // @public (undocumented)
 interface DatasourceTableViewProps {
+  // (undocumented)
+  columnCustomSizes?: {
+    [key: string]: number;
+  };
   datasourceId: string;
   // (undocumented)
   fields?: string[];
+  // (undocumented)
+  onColumnResize?: (key: string, width: number) => void;
   onVisibleColumnKeysChange?: (visibleColumnKeys: string[]) => void;
   parameters: object;
   url?: string;
@@ -122,6 +128,10 @@ export const JiraIssuesConfigModal: (
 
 // @public (undocumented)
 interface JiraIssuesConfigModalProps {
+  // (undocumented)
+  columnCustomSizes?: {
+    [key: string]: number;
+  };
   datasourceId: string;
   onCancel: () => void;
   onInsert: (
@@ -148,6 +158,7 @@ export interface JiraIssuesDatasourceAdf extends DatasourceAdf {
           properties?: {
             columns: {
               key: string;
+              width?: number;
             }[];
           };
         },

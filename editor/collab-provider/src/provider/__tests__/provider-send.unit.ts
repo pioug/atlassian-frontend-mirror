@@ -251,6 +251,7 @@ describe('#sendData', () => {
                   status: 'ONLINE',
                 },
                 documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+                errorCode: 'HEAD_VERSION_UPDATE_FAILED',
                 errorMessage:
                   'Error while adding steps - Acknowledgement Error',
               },
@@ -310,6 +311,7 @@ describe('#sendData', () => {
                   status: 'ONLINE',
                 },
                 documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+                errorCode: 'VERSION_NUMBER_ALREADY_EXISTS',
                 errorMessage:
                   'Error while adding steps - Acknowledgement Error',
               },
@@ -388,6 +390,7 @@ describe('#sendData', () => {
                   status: 'ONLINE',
                 },
                 documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+                errorCode: 'SOME_TECHNICAL_ERROR',
                 errorMessage: 'Error handled',
                 errorName: undefined,
               },
@@ -433,6 +436,7 @@ describe('#sendData', () => {
                   status: 'ONLINE',
                 },
                 documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+                errorCode: 'SOME_TECHNICAL_ERROR',
                 errorMessage:
                   'Error while adding steps - Acknowledgement Error',
               },

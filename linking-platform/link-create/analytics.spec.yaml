@@ -35,6 +35,13 @@ events:
         <<: *PackageMetaDataContext
         <<: *LinkCreateAnalyticContext
 
+  - linkCreateExitWarningScreen viewed:
+      type: screen
+      description: fired when the link create warning modal is shown to the users to warn them of losing their changes
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkCreateAnalyticContext
+
   - button clicked (create):
       type: ui
       description: fired when the create button is clicked
@@ -45,6 +52,13 @@ events:
   - button clicked (cancel):
       type: ui
       description: fired when the create button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkCreateAnalyticContext
+
+  - button clicked (confirm):
+      type: ui
+      description: fired when the confirmation button is clicked
       attributes:
         <<: *PackageMetaDataContext
         <<: *LinkCreateAnalyticContext

@@ -241,34 +241,6 @@ describe('Feature Flags from Props', () => {
     });
   });
 
-  describe('indentationButtonsInTheToolbar', () => {
-    it('should add the FF value', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {
-            'indentation-buttons-in-the-toolbar': true,
-          },
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          indentationButtonsInTheToolbar: true,
-        }),
-      );
-    });
-
-    it('should default to false if nothing passed in', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {},
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          indentationButtonsInTheToolbar: false,
-        }),
-      );
-    });
-  });
-
   describe('floating toolbar link settings button', () => {
     it('should add the FF value', () => {
       expect(

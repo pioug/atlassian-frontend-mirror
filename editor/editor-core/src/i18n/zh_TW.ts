@@ -64,7 +64,6 @@ export default {
   'fabric.editor.single': '單欄',
   'fabric.editor.success': '成功',
   'fabric.editor.taskPlaceholder': '輸入動作，使用「@」以指派給他人。',
-  'fabric.editor.textColor': '文字顏色',
   'fabric.editor.threeColumns': '三欄',
   'fabric.editor.threeColumnsWithSidebars': '三個包含資訊看板的直欄',
   'fabric.editor.twoColumns': '兩欄',

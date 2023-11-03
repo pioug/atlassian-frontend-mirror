@@ -37,7 +37,6 @@ export function PageWrapper({
     <SmartCardProvider
       featureFlags={{
         useLinkPickerScrollingTabs: true,
-        useLinkPickerAtlassianTabs: true,
       }}
     >
       <div className="example" style={{ padding: 50 }}>

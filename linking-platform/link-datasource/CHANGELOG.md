@@ -1,5 +1,25 @@
 # @atlaskit/link-datasource
 
+## 1.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.12.0
+
+### Minor Changes
+
+- [#38725](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38725) [`da6ee1eea9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da6ee1eea9c) - [ux] `JiraIssuesConfigModal` now has new optional prop `columnCustomSizes` which is an object with keys representing column key and value being a width of that column.
+  `DatasourceTableView` now has two new props: `columnCustomSizes` with same type and `onColumnResize` callback of shape `(key: string, width: number) => void;` that will be called
+  every time customer resizing a column.
+
+### Patch Changes
+
+- [#42539](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42539) [`581b3f7a822`](https://bitbucket.org/atlassian/atlassian-frontend/commits/581b3f7a822) - [ux] Assets Config Modal now allows users to search again when datasource is 'rejected'
+- [#42383](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42383) [`624c5e73c9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/624c5e73c9d) - Add transformers for mapping the AGG response for field values and hydrated JQL values to arrays of SelectOption for use within basic filters. Add new types defining each potential lozenge appearance and their mappings to status category colors.
+- Updated dependencies
+
 ## 1.11.1
 
 ### Patch Changes

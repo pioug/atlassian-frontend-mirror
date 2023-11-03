@@ -1,6 +1,9 @@
 import { EmojiId } from '@atlaskit/emoji/types';
 import { Reactions, Client, ReactionSummary } from './types';
-import { constants } from './shared';
+import {
+  DefaultReactionsByShortName,
+  ExtendedReactionsByShortName,
+} from './shared/constants';
 
 export const containerAri = 'ari:cloud:owner:demo-cloud-id:container/1';
 export const ari = 'ari:cloud:owner:demo-cloud-id:item/1';
@@ -11,8 +14,8 @@ export const getReactionSummary: (
   extendedReactions?: boolean,
 ) => ReactionSummary = (shortName, count, reacted, extendedReactions) => {
   const getReactionsByShortName = extendedReactions
-    ? constants.ExtendedReactionsByShortName.get(shortName)
-    : constants.DefaultReactionsByShortName.get(shortName);
+    ? ExtendedReactionsByShortName.get(shortName)
+    : DefaultReactionsByShortName.get(shortName);
   return {
     ari,
     containerAri,

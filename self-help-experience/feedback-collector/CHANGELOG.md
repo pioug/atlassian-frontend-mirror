@@ -1,5 +1,15 @@
 # @atlaskit/feedback-collector
 
+## 13.1.0
+
+### Minor Changes
+
+- [#42497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42497) [`3b2f9a50f1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b2f9a50f1e) - [ux] Enable non anonymous feedback
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.11
 
 ### Patch Changes

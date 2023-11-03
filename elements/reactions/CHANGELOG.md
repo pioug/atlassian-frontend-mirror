@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 22.5.4
+
+### Patch Changes
+
+- [#42502](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42502) [`d1298d300a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1298d300a5) - Remove export all declarations and import namespace specifiers
+
 ## 22.5.3
 
 ### Patch Changes

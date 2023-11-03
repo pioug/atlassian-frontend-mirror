@@ -64,7 +64,6 @@ export default {
   'fabric.editor.single': 'Cột đơn',
   'fabric.editor.success': 'Thành công',
   'fabric.editor.taskPlaceholder': "Nhập thao tác của bạn, sử dụng '@' để chỉ định cho người nào đó.",
-  'fabric.editor.textColor': 'Màu văn bản',
   'fabric.editor.threeColumns': 'Ba cột',
   'fabric.editor.threeColumnsWithSidebars': 'Ba cột có các thanh bên',
   'fabric.editor.twoColumns': 'Hai cột',

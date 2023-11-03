@@ -109,6 +109,8 @@ const WithRef = forwardRef(LinkButtonBase) as <
 /**
  * __Link Button__
  *
+ * @private __UNSAFE__ LinkButton is not yet safe for production use.
+ *
  * Renders a link in the style of a button.
  *
  * - [Examples](https://atlassian.design/components/button/examples)

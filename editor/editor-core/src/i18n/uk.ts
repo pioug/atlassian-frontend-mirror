@@ -65,7 +65,6 @@ export default {
   'fabric.editor.single': 'Один стовпець',
   'fabric.editor.success': 'Готово',
   'fabric.editor.taskPlaceholder': 'Вкажіть задачу. Призначте її комусь за допомогою символу «@».',
-  'fabric.editor.textColor': 'Колір тексту',
   'fabric.editor.threeColumns': 'Три стовпці',
   'fabric.editor.threeColumnsWithSidebars': 'Три стовпці з бічними панелями',
   'fabric.editor.twoColumns': 'Два стовпці',

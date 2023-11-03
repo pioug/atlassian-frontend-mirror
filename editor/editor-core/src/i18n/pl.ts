@@ -65,7 +65,6 @@ export default {
   'fabric.editor.single': 'Pojedyncza kolumna',
   'fabric.editor.success': 'Sukces',
   'fabric.editor.taskPlaceholder': 'Wprowadź swoją akcję, użyj „@”, aby przypisać ją do użytkownika.',
-  'fabric.editor.textColor': 'Kolor tekstu',
   'fabric.editor.threeColumns': 'Trzy kolumny',
   'fabric.editor.threeColumnsWithSidebars': 'Trzy kolumny z paskami bocznymi',
   'fabric.editor.twoColumns': 'Dwie kolumny',

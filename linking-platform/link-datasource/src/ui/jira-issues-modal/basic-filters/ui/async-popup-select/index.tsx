@@ -10,13 +10,13 @@ import {
 } from '@atlaskit/select';
 
 import { useFieldValues } from '../../hooks/useFieldValues';
+import { BasicFilterFieldType, SelectOption } from '../../types';
 
 import CustomControl from './control';
 import PopupFooter from './footer';
 import formatOptionLabel from './formatOptionLabel';
 import { asyncPopupSelectMessages } from './messages';
 import PopupTrigger from './trigger';
-import { BasicFilterFieldType, SelectOption } from './types';
 
 export interface AsyncPopupSelectProps {
   filterType: BasicFilterFieldType;

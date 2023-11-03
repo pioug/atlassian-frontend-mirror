@@ -245,16 +245,6 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Show indentation buttons in the Editor toolbar
-   *
-   * @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/3237512038/EXPLORE+Indentation+buttons+in+the+Editor+toolbar
-   * @see https://product-fabric.atlassian.net/browse/ED-15067
-   * @default false
-   */
-  indentationButtonsInTheToolbar?: boolean;
-
-  /**
-   * @description
    * Use the linking platform link picker for link insertion and edit
    *
    * @see https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3158246501/PP+Link+Picker+-+Standalone

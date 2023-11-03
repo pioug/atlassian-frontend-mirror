@@ -5,7 +5,7 @@ import {
   extractInstruction,
   Instruction,
   ItemMode,
-} from '../../src/experimental/tree-item';
+} from '../../src/tree-item';
 
 import { getDefaultInput, getElements, getRect } from './_util';
 

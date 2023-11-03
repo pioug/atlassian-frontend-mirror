@@ -5,7 +5,7 @@ import { AnalyticsEvent, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import Tooltip from '@atlaskit/tooltip';
 import EmojiAddIcon from '@atlaskit/icon/glyph/emoji-add';
-import * as styles from './styles';
+import { triggerStyle } from './styles';
 
 /**
  * Test id for the tooltip
@@ -67,7 +67,7 @@ export const Trigger = React.forwardRef(
       <Tooltip testId={RENDER_TOOLTIP_TRIGGER_TESTID} content={tooltipContent}>
         <Button
           testId={RENDER_TRIGGER_BUTTON_TESTID}
-          css={styles.triggerStyle({ miniMode, disabled })}
+          css={triggerStyle({ miniMode, disabled })}
           appearance="subtle"
           onClick={handleMouseDown}
           aria-disabled={disabled}

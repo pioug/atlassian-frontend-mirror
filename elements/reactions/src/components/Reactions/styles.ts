@@ -7,7 +7,7 @@ export const reactionPickerStyle = css({
   marginTop: token('space.050', '4px'),
 });
 
-export const seeWhoReacted = css({
+export const seeWhoReactedStyle = css({
   height: '24px',
   lineHeight: '24px',
   paddingLeft: 0,

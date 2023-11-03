@@ -232,6 +232,8 @@ interface Props_3 {
   atlassianAccountId?: string;
   // (undocumented)
   entrypointId: string;
+  // (undocumented)
+  shouldGetEntitlementDetails?: boolean;
 }
 
 // @public (undocumented)

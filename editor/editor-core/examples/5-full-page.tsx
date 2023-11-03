@@ -56,7 +56,7 @@ import quickInsertProviderFactory from '../example-helpers/quick-insert-provider
 import { DevTools } from '../example-helpers/DevTools';
 import { TitleInput } from '../example-helpers/PageElements';
 import type { EditorActions } from './../src';
-import type { PanelPluginConfig } from '../src/plugins/panel/types';
+import type { PanelPluginConfig } from '@atlaskit/editor-plugin-panel';
 import {
   PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,

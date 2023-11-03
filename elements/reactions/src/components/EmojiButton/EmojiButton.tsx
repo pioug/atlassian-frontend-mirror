@@ -8,8 +8,9 @@ import {
   EmojiProvider,
   ResourcedEmoji,
 } from '@atlaskit/emoji';
-import { i18n, utils } from '../../shared';
-import * as styles from './styles';
+import { messages } from '../../shared/i18n';
+import { isLeftClick } from '../../shared/utils';
+import { emojiButtonStyle } from './styles';
 
 export const RENDER_BUTTON_TESTID = 'button-emoji-id';
 
@@ -38,7 +39,7 @@ export const EmojiButton: React.FC<EmojiButtonProps> = ({
 }) => {
   const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    if (onClick && utils.isLeftClick(event)) {
+    if (onClick && isLeftClick(event)) {
       onClick(emojiId, undefined, event);
     }
   };
@@ -49,11 +50,11 @@ export const EmojiButton: React.FC<EmojiButtonProps> = ({
     <button
       data-testid={RENDER_BUTTON_TESTID}
       onClick={onButtonClick}
-      aria-label={intl.formatMessage(i18n.messages.reactWithEmoji, {
+      aria-label={intl.formatMessage(messages.reactWithEmoji, {
         emoji: emojiId.shortName,
       })}
       type="button"
-      css={styles.emojiButtonStyle}
+      css={emojiButtonStyle}
     >
       <ResourcedEmoji emojiProvider={emojiProvider} emojiId={emojiId} />
     </button>

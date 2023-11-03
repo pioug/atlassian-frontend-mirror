@@ -17,7 +17,7 @@ import { triggerPostMoveFlash } from '@atlaskit/pragmatic-drag-and-drop-flourish
 import {
   Instruction,
   ItemMode,
-} from '@atlaskit/pragmatic-drag-and-drop-hitbox/experimental/tree-item';
+} from '@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item';
 import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';

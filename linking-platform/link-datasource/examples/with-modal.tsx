@@ -31,15 +31,26 @@ export default () => {
   const [visibleColumnKeys, setVisibleColumnKeys] = useState<
     string[] | undefined
   >(defaultInitialVisibleColumnKeys);
+  const [columnCustomSizes, setColumnCustomSizes] = useState<
+    { [key: string]: number } | undefined
+  >();
   const toggleIsOpen = () => setShowModal(prevOpenState => !prevOpenState);
   const closeModal = () => setShowModal(false);
 
   const onInsert = (adf: InlineCardAdf | JiraIssuesDatasourceAdf) => {
     if (adf.type === 'blockCard') {
       setParameters(adf.attrs.datasource.parameters);
-      setVisibleColumnKeys(
-        adf.attrs.datasource.views[0].properties?.columns.map(c => c.key),
+      const columnsProp = adf.attrs.datasource.views[0]?.properties?.columns;
+      setVisibleColumnKeys(columnsProp?.map(c => c.key));
+      const columnsWithWidth = columnsProp?.filter(
+        (c): c is { key: string; width: number } => !!c.width,
       );
+      if (columnsWithWidth) {
+        const keyWidthPairs: [string, number][] = columnsWithWidth.map<
+          [string, number]
+        >(c => [c.key, c.width]);
+        setColumnCustomSizes(Object.fromEntries<number>(keyWidthPairs));
+      }
     }
     setGeneratedAdf(JSON.stringify(adf, null, 2));
     closeModal();
@@ -59,6 +70,7 @@ export default () => {
           <JiraIssuesConfigModal
             datasourceId={JIRA_LIST_OF_LINKS_DATASOURCE_ID}
             visibleColumnKeys={visibleColumnKeys}
+            columnCustomSizes={columnCustomSizes}
             parameters={parameters}
             onCancel={closeModal}
             onInsert={onInsert}

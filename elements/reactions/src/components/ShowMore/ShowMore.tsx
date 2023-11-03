@@ -4,8 +4,12 @@ import { jsx, SerializedStyles } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
 import Tooltip from '@atlaskit/tooltip';
-import { i18n } from '../../shared';
-import * as styles from './styles';
+import { messages } from '../../shared/i18n';
+import {
+  moreButtonStyle,
+  moreEmojiContainerStyle,
+  separatorStyle,
+} from './styles';
 
 /**
  * Test id for wrapper button
@@ -50,19 +54,19 @@ export const ShowMore: React.FC<ShowMoreProps> = ({
   return (
     <div
       className={className.container}
-      css={styles.moreEmojiContainerStyle}
+      css={moreEmojiContainerStyle}
       style={style.container}
       data-testid={RENDER_WRAPPER_TESTID}
     >
-      <div css={styles.separatorStyle} />
-      <FormattedMessage {...i18n.messages.moreEmoji}>
+      <div css={separatorStyle} />
+      <FormattedMessage {...messages.moreEmoji}>
         {(message) => (
           <Tooltip content={message}>
             {/* TODO: Convert this to use Emotion css/classname instead of style prop (stylelint rule CSS inline styles should not be used, move styles to an external CSS file) */}
             <button
               className={className.button}
-              css={[styles.moreButtonStyle, buttonStyle]}
-              aria-label={i18n.messages.moreEmoji.defaultMessage}
+              css={[moreButtonStyle, buttonStyle]}
+              aria-label={messages.moreEmoji.defaultMessage}
               type="button"
               style={style.button}
               onClick={onClick}

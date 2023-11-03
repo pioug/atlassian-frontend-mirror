@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-react-indicator",
-  "version": "0.16.6",
+  "version": "0.17.0",
   "description": "A react addon for @atlaskit/pragmatic-drag-and-drop which will draw drop indicators (eg lines)",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@atlaskit/pragmatic-drag-and-drop": "^0.24.0",
-    "@atlaskit/pragmatic-drag-and-drop-hitbox": "^0.11.0",
+    "@atlaskit/pragmatic-drag-and-drop-hitbox": "^0.12.0",
     "@atlaskit/tokens": "^1.28.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
@@ -81,7 +81,7 @@
     "./box": "./src/box.tsx",
     "./box-without-terminal": "./src/box-without-terminal.tsx",
     "./types": "./src/types.ts",
-    "./experimental/tree-item": "./src/experimental/tree-item.tsx"
+    "./tree-item": "./src/tree-item.tsx"
   },
   "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"

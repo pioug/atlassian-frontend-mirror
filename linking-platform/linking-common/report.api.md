@@ -239,6 +239,7 @@ export interface DatasourceAdfTableView {
   properties?: {
     columns: {
       key: string;
+      width?: number;
     }[];
   };
   // (undocumented)
@@ -336,6 +337,7 @@ export interface LinkingPlatformFeatureFlags {
   showAuthTooltip?: string;
   // (undocumented)
   showHoverPreview?: boolean;
+  // @deprecated
   useLinkPickerAtlassianTabs?: boolean;
   // (undocumented)
   useLinkPickerScrollingTabs?: boolean;

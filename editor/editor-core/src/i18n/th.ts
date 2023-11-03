@@ -64,7 +64,6 @@ export default {
   'fabric.editor.single': 'คอลัมน์เดียว',
   'fabric.editor.success': 'สำเร็จ',
   'fabric.editor.taskPlaceholder': "พิมพ์ข้อความของคุณ ใช้ '@' เพื่อมอบหมายให้ผู้ใช้ที่คุณเลือก",
-  'fabric.editor.textColor': 'สีข้อความ',
   'fabric.editor.threeColumns': 'สามคอลัมน์',
   'fabric.editor.threeColumnsWithSidebars': 'สามคอลัมน์พร้อมแถบด้านข้าง',
   'fabric.editor.twoColumns': 'สองคอลัมน์',

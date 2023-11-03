@@ -14,7 +14,7 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import undoPlugin from '../../..';
-import panelPlugin from '../../../../panel';
+import { panelPlugin } from '@atlaskit/editor-plugin-panel';
 import {
   ACTION,
   ACTION_SUBJECT,

@@ -1,4 +1,4 @@
-import { Server, WebSocket } from 'mock-socket';
+import { Server, WebSocket, type Client } from 'mock-socket';
 import { Database } from 'kakapo';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
@@ -47,10 +47,10 @@ type WsMessage = any & {
 function getUpstreamMessages(
   wsServer: Server,
 ): Observable<{ socket: WebSocket; message: WsMessage }> {
-  return Observable.create((observer: Observer<WebSocket>) =>
-    wsServer.on('connection', (socket: WebSocket) => observer.next(socket)),
+  return Observable.create((observer: Observer<Client>) =>
+    wsServer.on('connection', (socket: Client) => observer.next(socket)),
   ).pipe(
-    switchMap((socket: WebSocket) =>
+    switchMap((socket: Client) =>
       Observable.create(
         (observer: Observer<string | Blob | ArrayBuffer | ArrayBufferView>) =>
           socket.on(
@@ -196,11 +196,12 @@ export class RemoteUploadActivityServer implements WebSocketServer {
   }
 
   start() {
-    this.wsServer.start();
+    this.wsServer.mockWebsocket();
   }
 
   stop() {
     this.msgSubscription.unsubscribe();
+    this.wsServer.restoreWebsocket();
     this.wsServer.stop();
   }
 }

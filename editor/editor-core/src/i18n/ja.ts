@@ -66,7 +66,6 @@ export default {
   'fabric.editor.single': '単一列',
   'fabric.editor.success': '成功',
   'fabric.editor.taskPlaceholder': 'アクションを入力し、「@」を使用して担当者を割り当てます。',
-  'fabric.editor.textColor': 'テキストの色',
   'fabric.editor.threeColumns': '3 列',
   'fabric.editor.threeColumnsWithSidebars': 'サイドバーを使用した 3 列レイアウト',
   'fabric.editor.twoColumns': '2 列',

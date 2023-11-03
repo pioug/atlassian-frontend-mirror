@@ -9,7 +9,6 @@ import {
   toolbarListsIndentationPlugin,
   macroPlugin,
   maxContentSizePlugin,
-  panelPlugin,
   tasksAndDecisionsPlugin,
   alignmentPlugin,
   indentationPlugin,
@@ -26,6 +25,7 @@ import {
   beforePrimaryToolbarPlugin,
   codeBidiWarningPlugin,
 } from '../plugins';
+import { panelPlugin } from '@atlaskit/editor-plugin-panel';
 import { textColorPlugin } from '@atlaskit/editor-plugin-text-color';
 import { historyPlugin } from '@atlaskit/editor-plugin-history';
 import { statusPlugin } from '@atlaskit/editor-plugin-status';
@@ -566,7 +566,7 @@ export default function createUniversalPreset(
     .add([
       toolbarListsIndentationPlugin,
       {
-        showIndentationButtons: !!featureFlags.indentationButtonsInTheToolbar,
+        showIndentationButtons: !!props.showIndentationButtons,
         allowHeadingAndParagraphIndentation: !!props.allowIndentation,
       },
     ])

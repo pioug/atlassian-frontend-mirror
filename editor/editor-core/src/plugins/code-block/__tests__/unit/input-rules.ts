@@ -20,7 +20,7 @@ import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import codeBlockPlugin from '../../';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
-import panelPlugin from '../../../panel';
+import { panelPlugin } from '@atlaskit/editor-plugin-panel';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';

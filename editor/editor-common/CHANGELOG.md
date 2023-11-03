@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 76.18.1
+
+### Patch Changes
+
+- [#42452](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42452) [`bdbe13c80c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bdbe13c80c9) - ED-19900 Removing indentationButtonsInTheToolbar FF fallback from showIndentationButtons editor prop.
+- [#42352](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42352) [`965649a4121`](https://bitbucket.org/atlassian/atlassian-frontend/commits/965649a4121) - Decouple find replace prop from the full page toolbar.
+
 ## 76.18.0
 
 ### Minor Changes

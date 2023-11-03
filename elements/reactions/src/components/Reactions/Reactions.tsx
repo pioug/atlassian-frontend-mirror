@@ -16,7 +16,18 @@ import {
 } from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button';
 import Tooltip from '@atlaskit/tooltip';
-import { Analytics, UFO } from '../../analytics';
+
+import {
+  createAndFireSafe,
+  createPickerButtonClickedEvent,
+  createPickerCancelledEvent,
+  createPickerMoreClickedEvent,
+  createReactionsRenderedEvent,
+  createReactionSelectionEvent,
+  isSampled,
+} from '../../analytics';
+import { SAMPLING_RATE_REACTIONS_RENDERED_EXP } from '../../shared/constants';
+import { messages } from '../../shared/i18n';
 import {
   onDialogSelectReactionChange,
   ReactionStatus,
@@ -25,14 +36,22 @@ import {
   ReactionSource,
   QuickReactionEmojiSummary,
 } from '../../types';
-import { i18n } from '../../shared';
+import {
+  ReactionDialogClosed,
+  ReactionDialogOpened,
+  ReactionDialogSelectedReactionChanged,
+} from '../../ufo';
+
 import { Reaction, ReactionProps } from '../Reaction';
 import { ReactionsDialog } from '../ReactionDialog';
 import { ReactionPicker, ReactionPickerProps } from '../ReactionPicker';
 import { SelectorProps } from '../Selector';
-import * as styles from './styles';
-import { isSampled } from '../../analytics/analytics';
-import { SAMPLING_RATE_REACTIONS_RENDERED_EXP } from '../../shared/constants';
+
+import {
+  reactionPickerStyle,
+  seeWhoReactedStyle,
+  wrapperStyle,
+} from './styles';
 
 /**
  * Set of all available UFO experiences relating to reactions dialog
@@ -41,15 +60,15 @@ export const ufoExperiences = {
   /**
    * Expeirence when a reaction dialog is opened
    */
-  openDialog: UFO.ReactionDialogOpened,
+  openDialog: ReactionDialogOpened,
   /**
    * Experience when a reaction dialog is closed
    */
-  closeDialog: UFO.ReactionDialogClosed,
+  closeDialog: ReactionDialogClosed,
   /**
    * Experience when a reaction changed/fetched from inside the modal dialog
    */
-  selectedReactionChangeInsideDialog: UFO.ReactionDialogSelectedReactionChanged,
+  selectedReactionChangeInsideDialog: ReactionDialogSelectedReactionChanged,
 };
 
 /**
@@ -130,17 +149,15 @@ export interface ReactionsProps
 export function getTooltip(status: ReactionStatus, errorMessage?: string) {
   switch (status) {
     case ReactionStatus.error:
-      return (
-        errorMessage || <FormattedMessage {...i18n.messages.unexpectedError} />
-      );
+      return errorMessage || <FormattedMessage {...messages.unexpectedError} />;
     // When reaction is not available don't show any tooltip (e.g. Archive page in Confluence)
     case ReactionStatus.disabled:
       return null;
     case ReactionStatus.notLoaded:
     case ReactionStatus.loading:
-      return <FormattedMessage {...i18n.messages.loadingReactions} />;
+      return <FormattedMessage {...messages.loadingReactions} />;
     case ReactionStatus.ready:
-      return <FormattedMessage {...i18n.messages.addReaction} />;
+      return <FormattedMessage {...messages.addReaction} />;
   }
 }
 
@@ -186,9 +203,9 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
         renderTime.current = Date.now();
       } else {
         if (isSampled(SAMPLING_RATE_REACTIONS_RENDERED_EXP)) {
-          Analytics.createAndFireSafe(
+          createAndFireSafe(
             createAnalyticsEvent,
-            Analytics.createReactionsRenderedEvent,
+            createReactionsRenderedEvent,
             renderTime.current ?? Date.now(), //renderTime.current can be null during unit test cases
           );
         }
@@ -213,35 +230,35 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
 
     const handlePickerOpen = useCallback(() => {
       openTime.current = Date.now();
-      Analytics.createAndFireSafe(
+      createAndFireSafe(
         createAnalyticsEvent,
-        Analytics.createPickerButtonClickedEvent,
+        createPickerButtonClickedEvent,
         reactions.length,
       );
     }, [createAnalyticsEvent, reactions]);
 
     const handleOnCancel = useCallback(() => {
-      Analytics.createAndFireSafe(
+      createAndFireSafe(
         createAnalyticsEvent,
-        Analytics.createPickerCancelledEvent,
+        createPickerCancelledEvent,
         openTime.current,
       );
       openTime.current = undefined;
     }, [createAnalyticsEvent]);
 
     const handleOnMore = useCallback(() => {
-      Analytics.createAndFireSafe(
+      createAndFireSafe(
         createAnalyticsEvent,
-        Analytics.createPickerMoreClickedEvent,
+        createPickerMoreClickedEvent,
         openTime.current,
       );
     }, [createAnalyticsEvent]);
 
     const handleOnSelection = useCallback(
       (emojiId: string, source: ReactionSource) => {
-        Analytics.createAndFireSafe(
+        createAndFireSafe(
           createAnalyticsEvent,
-          Analytics.createReactionSelectionEvent,
+          createReactionSelectionEvent,
           source,
           emojiId,
           reactions.find((reaction) => reaction.emojiId === emojiId),
@@ -367,7 +384,7 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
     }, [quickReactionEmojis, reactions]);
 
     return (
-      <div css={styles.wrapperStyle} data-testid={RENDER_REACTIONS_TESTID}>
+      <div css={wrapperStyle} data-testid={RENDER_REACTIONS_TESTID}>
         {memorizedReactions.map((reaction) => (
           <Reaction
             key={reaction.emojiId}
@@ -382,7 +399,7 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
           />
         ))}
         <ReactionPicker
-          css={styles.reactionPickerStyle}
+          css={reactionPickerStyle}
           emojiProvider={emojiProvider}
           allowAllEmojis={allowAllEmojis}
           pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
@@ -397,18 +414,16 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
         />
         {allowUserDialog && reactions.length > 0 && (
           <Tooltip
-            content={
-              <FormattedMessage {...i18n.messages.seeWhoReactedTooltip} />
-            }
+            content={<FormattedMessage {...messages.seeWhoReactedTooltip} />}
             hideTooltipOnClick
           >
             <Button
               appearance="subtle-link"
               onClick={handleOpenAllReactionsDialog}
-              css={styles.seeWhoReacted}
+              css={seeWhoReactedStyle}
               testId={RENDER_VIEWALL_REACTED_USERS_DIALOG}
             >
-              <FormattedMessage {...i18n.messages.seeWhoReacted} />
+              <FormattedMessage {...messages.seeWhoReacted} />
             </Button>
           </Tooltip>
         )}

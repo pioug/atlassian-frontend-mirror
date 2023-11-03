@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment } from 'react';
+import { Fragment, useCallback } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -16,6 +16,7 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
   AllEditorPresetPluginTypes,
   Transformer,
+  PublicPluginAPI,
 } from '@atlaskit/editor-common/types';
 import { BaseTheme, WidthProvider } from '@atlaskit/editor-common/ui';
 
@@ -23,6 +24,7 @@ import type EditorActions from '../actions';
 import { getUiComponent } from '../create-editor';
 import ErrorBoundary from '../create-editor/ErrorBoundary';
 import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from-props';
+import type { EditorViewProps } from '../create-editor/ReactEditorView';
 import ReactEditorView from '../create-editor/ReactEditorView';
 import type { EventDispatcher } from '../event-dispatcher';
 import { ContextAdapter } from '../nodeviews/context-adapter';
@@ -113,7 +115,7 @@ export function EditorInternal({
                 useAnalyticsContext={props.UNSAFE_useAnalyticsContext}
                 render={(portalProviderAPI) => (
                   <Fragment>
-                    <ReactEditorView
+                    <ReactEditorViewContextWrapper
                       editorProps={overriddenEditorProps}
                       createAnalyticsEvent={createAnalyticsEvent}
                       portalProviderAPI={portalProviderAPI}
@@ -198,4 +200,27 @@ export function EditorInternal({
       </ErrorBoundary>
     </Fragment>
   );
+}
+
+function ReactEditorViewContextWrapper(props: EditorViewProps) {
+  const setInternalEditorAPI = useSetPresetContext();
+  const { setEditorApi: setExternalEditorAPI } = props;
+
+  /**
+   * We use the context to retrieve the editorAPI
+   * externally for consumers via `usePreset`.
+   *
+   * However we also may need to retrieve this value internally via context
+   * so we should also set the value for the `EditorContext` that is used in
+   * `EditorInternal`.
+   */
+  const setEditorAPI = useCallback(
+    (api: PublicPluginAPI<any>) => {
+      setInternalEditorAPI?.(api);
+      setExternalEditorAPI?.(api);
+    },
+    [setInternalEditorAPI, setExternalEditorAPI],
+  );
+
+  return <ReactEditorView {...props} setEditorApi={setEditorAPI} />;
 }

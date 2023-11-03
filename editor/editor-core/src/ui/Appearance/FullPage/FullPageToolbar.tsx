@@ -34,6 +34,7 @@ import type { FeatureFlags } from '../../../types/feature-flags';
 import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { usePresetContext } from '../../../presets/context';
 
 export interface FullPageToolbarProps {
   appearance?: EditorAppearance;
@@ -60,6 +61,7 @@ export interface FullPageToolbarProps {
 export const EditorToolbar = React.memo(
   (props: FullPageToolbarProps & WrappedComponentProps) => {
     const [shouldSplitToolbar, setShouldSplitToolbar] = useState(false);
+    const editorAPI = usePresetContext();
 
     const nonCustomToolbar = (
       <div css={nonCustomToolbarWrapperStyle}>
@@ -112,8 +114,7 @@ export const EditorToolbar = React.memo(
             featureFlags={props.featureFlags || {}}
           />
         )}
-        {props.featureFlags?.findReplace &&
-        props.featureFlags?.twoLineEditorToolbar ? (
+        {editorAPI?.findReplace && props.featureFlags?.twoLineEditorToolbar ? (
           <FindReplaceToolbarButtonWithState
             popupsBoundariesElement={props.popupsBoundariesElement}
             popupsMountPoint={props.popupsMountPoint}

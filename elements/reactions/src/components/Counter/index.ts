@@ -5,4 +5,3 @@ export {
   RENDER_LABEL_TESTID,
 } from './Counter';
 export type { CounterProps } from './Counter';
-export * as styles from './styles';

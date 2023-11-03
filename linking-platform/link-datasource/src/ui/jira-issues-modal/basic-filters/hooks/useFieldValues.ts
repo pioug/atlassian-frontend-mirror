@@ -2,10 +2,7 @@ import { useState } from 'react';
 
 import { request } from '@atlaskit/linking-common';
 
-import {
-  BasicFilterFieldType,
-  SelectOption,
-} from '../ui/async-popup-select/types';
+import { BasicFilterFieldType, SelectOption } from '../types';
 
 interface FieldValuesProps {
   filterType: BasicFilterFieldType;

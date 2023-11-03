@@ -11,6 +11,10 @@ export type TableViewPropsRenderType = (
   item: DatasourceType,
 ) => React.ReactNode;
 
+export interface ColumnSizesMap {
+  [key: string]: number;
+}
+
 export interface IssueLikeDataTableViewProps {
   testId?: string;
   /**
@@ -60,4 +64,7 @@ export interface IssueLikeDataTableViewProps {
    * It this number is undefined it will not restrict height and not make container scrollable.
    */
   scrollableContainerHeight?: number;
+
+  columnCustomSizes?: ColumnSizesMap;
+  onColumnResize?: (key: string, width: number) => void;
 }

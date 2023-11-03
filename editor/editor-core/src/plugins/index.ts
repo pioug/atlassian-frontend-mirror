@@ -7,7 +7,6 @@ export { default as jiraIssuePlugin } from './jira-issue';
 export { default as toolbarListsIndentationPlugin } from './toolbar-lists-indentation';
 export { default as macroPlugin } from './macro';
 export { default as maxContentSizePlugin } from './max-content-size';
-export { default as panelPlugin } from './panel';
 export { default as pastePlugin } from './paste';
 export { default as tasksAndDecisionsPlugin } from './tasks-and-decisions';
 export { default as breakoutPlugin } from './breakout';

@@ -65,7 +65,6 @@ export default {
   'fabric.editor.single': '단일 열',
   'fabric.editor.success': '성공',
   'fabric.editor.taskPlaceholder': "작업을 입력하고 '@'를 사용하여 할당합니다.",
-  'fabric.editor.textColor': '텍스트 색상',
   'fabric.editor.threeColumns': '세 개 열',
   'fabric.editor.threeColumnsWithSidebars': '사이드바가 있는 세 개 열',
   'fabric.editor.twoColumns': '두 개 열',

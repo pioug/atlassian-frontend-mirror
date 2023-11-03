@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 
+import { SelectOption } from '../../../types';
 import formatOptionLabel from '../formatOptionLabel';
-import { SelectOption } from '../types';
 
 describe('Testing formatOptionLabel', () => {
   const setup = (props: SelectOption) => {

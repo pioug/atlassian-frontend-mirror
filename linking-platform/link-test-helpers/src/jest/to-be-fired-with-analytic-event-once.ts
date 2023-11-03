@@ -87,10 +87,12 @@ expect.extend({
             '\n\n' +
             `Event Expected: \n\n${JSON.stringify(event)}\n\n` +
             `Events Received: \n\n${spy.mock.calls
-              .map(
-                ([x]: any[], i) =>
-                  `${i}: ${x.payload.actionSubject} ${x.payload.action}`,
-              )
+              .map(([x]: any[], i) => {
+                if (x.payload.eventType === 'screen') {
+                  return `${i}: ${x.payload.name} ${x.payload.action}`;
+                }
+                return `${i}: ${x.payload.actionSubject} ${x.payload.action}`;
+              })
               .join('\n')}`
           );
         }

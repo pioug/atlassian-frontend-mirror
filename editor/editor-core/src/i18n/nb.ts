@@ -65,7 +65,6 @@ export default {
   'fabric.editor.single': 'Enkeltkolonne',
   'fabric.editor.success': 'Vellykket',
   'fabric.editor.taskPlaceholder': 'Skriv inn handlingen. Bruk @ for å tilordne den til noen.',
-  'fabric.editor.textColor': 'Tekstfarge',
   'fabric.editor.threeColumns': 'Tre kolonner',
   'fabric.editor.threeColumnsWithSidebars': 'Tre kolonner med sidelinjer',
   'fabric.editor.twoColumns': 'To kolonner',

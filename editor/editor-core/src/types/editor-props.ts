@@ -40,7 +40,7 @@ import type {
   MediaState,
 } from '@atlaskit/editor-plugin-media/types';
 import type { MentionPluginConfig } from '@atlaskit/editor-plugin-mentions';
-import type { PanelPluginConfig } from '../plugins/panel/types';
+import type { PanelPluginConfig } from '@atlaskit/editor-plugin-panel';
 import type { PlaceholderTextOptions } from '@atlaskit/editor-plugin-placeholder-text';
 import type { TextColorPluginConfig } from '@atlaskit/editor-plugin-text-color';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';

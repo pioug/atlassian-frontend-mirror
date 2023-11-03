@@ -66,7 +66,6 @@ export default {
   'fabric.editor.single': 'Einzelne Spalte',
   'fabric.editor.success': 'Erfolgreich',
   'fabric.editor.taskPlaceholder': 'Geben Sie Ihre Aktion ein und weisen Sie sie mithilfe von „@” jemandem zu.',
-  'fabric.editor.textColor': 'Textfarbe',
   'fabric.editor.threeColumns': 'Drei Spalten',
   'fabric.editor.threeColumnsWithSidebars': 'Drei Spalten mit Seitenleisten',
   'fabric.editor.twoColumns': 'Zwei Spalten',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { css } from '@emotion/react';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
@@ -62,6 +62,34 @@ describe('SnippetBlock', () => {
 
       expect(element).toHaveStyleDeclaration('-webkit-line-clamp', '3');
     });
+  });
+
+  it('should not render text for a non resolved state', async () => {
+    const testId = 'smart-element-text';
+    const { queryByTestId } = render(
+      <FlexibleUiContext.Provider value={context}>
+        <SnippetBlock status={SmartLinkStatus.Resolving} />
+      </FlexibleUiContext.Provider>,
+    );
+    await waitFor(() => {
+      expect(queryByTestId(testId)).toBeNull();
+    });
+  });
+
+  it('renders with text for a non resolved state when text is overridden', async () => {
+    const testId = 'smart-element-text';
+    const { findByTestId } = render(
+      <FlexibleUiContext.Provider value={context}>
+        <SnippetBlock
+          text="text override for a non resolved state"
+          status={SmartLinkStatus.Resolving}
+        />
+      </FlexibleUiContext.Provider>,
+    );
+
+    const block = await findByTestId(testId);
+
+    expect(block.textContent).toBe('text override for a non resolved state');
   });
 
   it('renders with override text', async () => {

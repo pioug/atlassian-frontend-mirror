@@ -115,8 +115,6 @@ export default function ForgePluginsWrapper() {
       client={smartCardClient}
       featureFlags={{
         useLinkPickerScrollingTabs: true,
-        useLinkPickerAtlassianTabs: true,
-        enableLinkPickerForgeTabs: true,
       }}
     >
       <CustomEndPoints />

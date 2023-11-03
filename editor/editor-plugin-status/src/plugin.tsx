@@ -157,7 +157,7 @@ const decorateWithPluginOptions = (
         keywords: ['lozenge'],
         icon: () => <IconStatus />,
         action(insert, state) {
-          const tr = createStatus()(insert, state);
+          const tr = createStatus(state);
           api?.analytics?.actions.attachAnalyticsEvent({
             action: ACTION.INSERTED,
             actionSubject: ACTION_SUBJECT.DOCUMENT,

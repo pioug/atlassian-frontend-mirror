@@ -1,6 +1,6 @@
 import waitForExpect from 'wait-for-expect';
 import { Client, ReactionStatus } from '../types';
-import { Analytics as AnalyticsModule } from '../analytics';
+import * as AnalyticsModule from '../analytics';
 import {
   mockReactDomWarningGlobal,
   mockResetUFOInstance,

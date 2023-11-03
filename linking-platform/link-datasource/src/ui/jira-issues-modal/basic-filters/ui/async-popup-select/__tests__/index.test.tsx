@@ -12,8 +12,8 @@ import {
   FieldValuesState,
   useFieldValues,
 } from '../../../hooks/useFieldValues';
+import { BasicFilterFieldType } from '../../../types';
 import AsyncPopupSelect, { AsyncPopupSelectProps } from '../index';
-import { BasicFilterFieldType } from '../types';
 
 jest.mock('../../../hooks/useFieldValues');
 

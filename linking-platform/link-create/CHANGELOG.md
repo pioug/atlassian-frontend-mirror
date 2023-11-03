@@ -1,5 +1,19 @@
 # @atlaskit/link-create
 
+## 1.6.0
+
+### Minor Changes
+
+- [#42487](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42487) [`0b6245f9d18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b6245f9d18) - EDM-8376: Introduces a editView field to the LinkCreatePlugin interface which will allow plugins to register a screen to edit objects post-creation in a future release.
+
+## 1.5.1
+
+### Patch Changes
+
+- [#42575](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42575) [`d7338b9229e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7338b9229e) - Updates exit warning dialog to fire analytics on open, and button clicks
+- [#42553](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42553) [`76b95198067`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76b95198067) - Add error boundary to catch unhandled errors outside the link create modal
+- Updated dependencies
+
 ## 1.5.0
 
 ### Minor Changes

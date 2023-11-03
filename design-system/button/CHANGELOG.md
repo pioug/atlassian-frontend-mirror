@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.13.0
+
+### Minor Changes
+
+- [#42603](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42603) [`48423992847`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48423992847) - Add new Link Button variants to unsafe entrypoint for internal testing purposes.
+
 ## 16.12.0
 
 ### Minor Changes

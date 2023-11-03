@@ -102,6 +102,8 @@ export default class AnalyticsHelper {
         documentAri: this.documentAri,
         errorMessage,
         errorName: error instanceof Error ? error.name : undefined,
+        errorCode: (error as any).data?.code ?? undefined,
+        errorStatus: (error as any).data?.status ?? undefined,
         ...errorExtraAttributes,
       },
       nonPrivacySafeAttributes: {

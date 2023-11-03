@@ -1,5 +1,12 @@
 # @atlaskit/linking-common
 
+## 4.14.0
+
+### Minor Changes
+
+- [#38725](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38725) [`5084b740027`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5084b740027) - [ux] `DatasourceAdfTableView` type gets an update. Now properties.columns item can have optional `width` of type number
+- [#42602](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42602) [`3f6926d24cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f6926d24cc) - Deprecates useLinkPickerAtlassianTabs feature flag in LinkingPlatformFeatureFlags
+
 ## 4.13.0
 
 ### Minor Changes

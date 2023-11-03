@@ -30,7 +30,7 @@ export interface JiraIssuesDatasourceAdf extends DatasourceAdf {
         {
           type: 'table';
           properties?: {
-            columns: { key: string }[];
+            columns: { key: string; width?: number }[];
           };
         },
       ];
@@ -43,6 +43,7 @@ export interface JiraIssuesConfigModalProps {
   datasourceId: string;
   /** The keys for each of the visible columns to the shown in the rendered table */
   visibleColumnKeys?: string[];
+  columnCustomSizes?: { [key: string]: number };
   /** The url that was used to insert a Jira List of Links */
   url?: string;
   /** Parameters for making the data requests necessary to render data within the table */

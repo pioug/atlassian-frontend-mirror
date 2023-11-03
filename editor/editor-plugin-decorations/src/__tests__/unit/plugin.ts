@@ -4,13 +4,13 @@ import type {
 } from '@atlaskit/editor-common/types';
 // TODO: These should be updated once we extract these plugins to separate packages
 // eslint-disable-next-line import/no-extraneous-dependencies
-import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { layoutPlugin } from '@atlaskit/editor-plugin-layout';
 // eslint-disable-next-line import/no-extraneous-dependencies, @atlassian/tangerine/import/entry-points
 import { deleteActiveLayoutNode } from '@atlaskit/editor-plugin-layout/src/actions';
 import { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { panelPlugin } from '@atlaskit/editor-plugin-panel';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';

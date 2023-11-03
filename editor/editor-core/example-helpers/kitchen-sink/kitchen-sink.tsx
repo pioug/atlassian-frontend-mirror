@@ -46,14 +46,6 @@ addGlobalEventEmitterListeners();
 mockDatasourceFetchRequests();
 mockAssetsClientFetchRequests();
 
-try {
-  // eslint-disable-next-line import/no-extraneous-dependencies
-  const fetchMock = require('!!raw-loader!fetch-mock/cjs/client');
-  fetchMock.config.warnOnFallback = false;
-} catch {
-  // fail silently in ci
-}
-
 const appearanceOptions = [
   {
     label: 'Full page',

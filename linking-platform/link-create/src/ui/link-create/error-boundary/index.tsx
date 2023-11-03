@@ -3,15 +3,22 @@ import React, { useCallback } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
+import { ErrorBoundaryUI } from '../../../common/ui/error-boundary-ui';
 import createEventPayload from '../../../common/utils/analytics/analytics.codegen';
 
 import {
   BaseErrorBoundary,
   ErrorBoundaryErrorInfo,
 } from './error-boundary-base';
-import { ErrorBoundaryUI } from './error-boundary-ui';
 
-export const ErrorBoundary: React.FC<{}> = ({ children }) => {
+type ErrorBoundaryProps = {
+  errorComponent?: JSX.Element;
+};
+
+export const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
+  children,
+  errorComponent,
+}) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
   const handleError = useCallback(
     (error: Error, info?: ErrorBoundaryErrorInfo) => {
@@ -31,7 +38,10 @@ export const ErrorBoundary: React.FC<{}> = ({ children }) => {
   );
 
   return (
-    <BaseErrorBoundary onError={handleError} ErrorComponent={ErrorBoundaryUI}>
+    <BaseErrorBoundary
+      onError={handleError}
+      errorComponent={errorComponent ?? <ErrorBoundaryUI />}
+    >
       {children}
     </BaseErrorBoundary>
   );

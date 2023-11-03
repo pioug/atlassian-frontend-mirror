@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.15.4
+
+### Patch Changes
+
+- [#42471](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42471) [`f850ec1b5a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f850ec1b5a6) - improve error logging for collab provider
+
 ## 9.15.3
 
 ### Patch Changes

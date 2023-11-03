@@ -129,19 +129,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         : false,
     ),
 
-    indentationButtonsInTheToolbar:
-      typeof props.showIndentationButtons === 'boolean'
-        ? props.showIndentationButtons
-        : Boolean(
-            (typeof normalizedFeatureFlags.indentationButtonsInTheToolbar ===
-              'boolean' &&
-              !!normalizedFeatureFlags.indentationButtonsInTheToolbar) ||
-              (typeof props.featureFlags?.indentationButtonsInTheToolbar ===
-              'boolean'
-                ? !!props.featureFlags?.indentationButtonsInTheToolbar
-                : false),
-          ),
-
     floatingToolbarLinkSettingsButton:
       typeof props.featureFlags?.['floating-toolbar-link-settings-button'] ===
       'string'

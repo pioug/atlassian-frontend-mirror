@@ -4,8 +4,8 @@ import {
   ReactionPickerProps,
   UfoErrorBoundary,
 } from '../../components';
-import { UFO } from '../../analytics';
 import { StorePropInput } from '../../types';
+import { PickerRender } from '../../ufo';
 
 export interface ConnectedReactionPickerProps
   extends Omit<ReactionPickerProps, 'onSelection'> {
@@ -44,7 +44,7 @@ export const ConnectedReactionPicker: React.FC<ConnectedReactionPickerProps> = (
   };
 
   return (
-    <UfoErrorBoundary experiences={[UFO.PickerRender]}>
+    <UfoErrorBoundary experiences={[PickerRender]}>
       <ReactionPicker {...props} onSelection={onSelection} />
     </UfoErrorBoundary>
   );

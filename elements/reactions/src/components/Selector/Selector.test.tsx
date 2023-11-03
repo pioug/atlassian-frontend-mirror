@@ -9,7 +9,8 @@ import {
   useFakeTimers,
 } from '../../__tests__/_testing-library';
 import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
-import { constants, i18n } from '../../shared';
+import { DefaultReactions } from '../../shared/constants';
+import { messages } from '../../shared/i18n';
 import { RENDER_SELECTOR_TESTID, Selector } from './Selector';
 
 expect.extend(matchers);
@@ -37,9 +38,9 @@ describe('@atlaskit/reactions/components/selector', () => {
     renderWithIntl(renderSelector());
 
     const emojiWrappers = screen.getAllByRole('presentation');
-    expect(emojiWrappers.length).toEqual(constants.DefaultReactions.length);
+    expect(emojiWrappers.length).toEqual(DefaultReactions.length);
 
-    constants.DefaultReactions.forEach(({ id, shortName }) => {
+    DefaultReactions.forEach(({ id, shortName }) => {
       const elem = screen.getByLabelText(shortName, { exact: false });
       expect(elem).toBeInTheDocument();
     });
@@ -50,9 +51,9 @@ describe('@atlaskit/reactions/components/selector', () => {
     renderWithIntl(renderSelector(onSelection));
 
     const firstButton = await screen.findByLabelText(
-      i18n.messages.reactWithEmoji.defaultMessage.replace(
+      messages.reactWithEmoji.defaultMessage.replace(
         '{emoji}',
-        constants.DefaultReactions[0].shortName,
+        DefaultReactions[0].shortName,
       ),
     );
 

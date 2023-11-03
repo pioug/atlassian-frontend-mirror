@@ -5,8 +5,9 @@ import { FormattedMessage } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 
+import { BasicFilterFieldType } from '../../types';
+
 import { asyncPopupSelectMessages } from './messages';
-import { BasicFilterFieldType } from './types';
 
 export interface PopupTriggerProps {
   filterType: BasicFilterFieldType;

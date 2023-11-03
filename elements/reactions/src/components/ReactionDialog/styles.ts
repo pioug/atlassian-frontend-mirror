@@ -3,13 +3,13 @@ import { css } from '@emotion/react';
 import { B400, N500, N800 } from '@atlaskit/theme/colors';
 import { ThemeColorModes, token } from '@atlaskit/tokens';
 
-import { constants } from '../../shared';
+import { NUMBER_OF_REACTIONS_TO_DISPLAY } from '../../shared/constants';
 
 const REACTIONS_CONTAINER_WIDTH = 48;
 const REACTION_RIGHT_MARGIN = 8;
 /* we want to display around 9 reactions and show 10th one as faded so removing 2px from REACTIONS_CONTAINER_WIDTH*/
 const CONTAINER_WIDTH =
-  constants.NUMBER_OF_REACTIONS_TO_DISPLAY *
+  NUMBER_OF_REACTIONS_TO_DISPLAY *
     (REACTIONS_CONTAINER_WIDTH + REACTION_RIGHT_MARGIN) +
   REACTIONS_CONTAINER_WIDTH -
   2;

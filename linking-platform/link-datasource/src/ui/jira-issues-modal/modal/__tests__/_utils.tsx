@@ -213,6 +213,7 @@ export const setup = async (
       url: string;
       displayName: string;
     }[];
+    columnCustomSizes?: JiraIssuesConfigModalProps['columnCustomSizes'];
     url?: JiraIssuesConfigModalProps['url'];
   } = {},
 ) => {
@@ -251,6 +252,11 @@ export const setup = async (
                 Object.keys(args).includes('visibleColumnKeys')
                   ? args.visibleColumnKeys
                   : ['myColumn']
+              }
+              columnCustomSizes={
+                Object.keys(args).includes('columnCustomSizes')
+                  ? args.columnCustomSizes
+                  : undefined
               }
               url={args.url}
             />
@@ -297,7 +303,7 @@ export const setup = async (
     args: {
       cloudId?: string;
       jql?: string;
-      columnKeys?: string[];
+      properties?: JiraIssuesDatasourceAdf['attrs']['datasource']['views'][0]['properties'];
       jqlUrl?: string;
     } = {},
     analyticsExpectedOverride: T,
@@ -318,10 +324,8 @@ export const setup = async (
             views: [
               {
                 type: 'table',
-                properties: {
-                  columns: Object.keys(args).includes('columnKeys')
-                    ? args.columnKeys?.map(key => ({ key }))
-                    : [{ key: 'myColumn' }],
+                properties: args.properties || {
+                  columns: [{ key: 'myColumn' }],
                 },
               },
             ],

@@ -138,6 +138,8 @@ describe('Analytics helper function', () => {
           status: 'ONLINE',
         },
         documentAri: fakeDocumentAri,
+        errorCode: 'HEAD_VERSION_UPDATE_FAILED',
+        errorStatus: 409,
         errorMessage: 'Meaningful Context-Aware Error Message',
       },
       nonPrivacySafeAttributes: {
@@ -259,6 +261,8 @@ describe('Analytics helper function', () => {
           status: 'ONLINE',
         },
         documentAri: fakeDocumentAri,
+        errorCode: 'HEAD_VERSION_UPDATE_FAILED',
+        errorStatus: 409,
         errorMessage: 'Meaningful Context-Aware Error Message',
       },
       nonPrivacySafeAttributes: {

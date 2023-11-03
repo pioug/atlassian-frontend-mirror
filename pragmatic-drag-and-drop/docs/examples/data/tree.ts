@@ -1,6 +1,6 @@
 import invariant from 'tiny-invariant';
 
-import type { Instruction } from '@atlaskit/pragmatic-drag-and-drop-hitbox/experimental/tree-item';
+import type { Instruction } from '@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item';
 
 export type TreeItem = {
   id: string;

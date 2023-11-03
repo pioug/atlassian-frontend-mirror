@@ -1,5 +1,20 @@
 # @atlaskit/pragmatic-drag-and-drop-react-indicator
 
+## 0.17.0
+
+### Minor Changes
+
+- [#42620](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42620) [`0e076ee05b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e076ee05b0) - Moving our tree exports that are used in Confluence from `experimental` to `stable`.
+
+  ```diff
+  - @atlaskit/pragmatic-drag-and-drop-react-indicator/experimental/tree-item
+  + @atlaskit/pragmatic-drag-and-drop-react-indicator/tree-item
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.16.6
 
 ### Patch Changes

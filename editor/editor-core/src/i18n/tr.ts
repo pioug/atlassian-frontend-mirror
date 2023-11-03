@@ -65,7 +65,6 @@ export default {
   'fabric.editor.single': 'Tek sütun',
   'fabric.editor.success': 'Başarılı',
   'fabric.editor.taskPlaceholder': "Yapılacak eylemi yazın, birine atamak için '@' kullanın.",
-  'fabric.editor.textColor': 'Metin rengi',
   'fabric.editor.threeColumns': 'Üç sütun',
   'fabric.editor.threeColumnsWithSidebars': 'Kenar çubuklu üç sütun',
   'fabric.editor.twoColumns': 'İki sütun',

@@ -296,9 +296,9 @@ const datePickerDefaultProps = {
   // These disables are here for proper typing when used as defaults. They
   // should *not* use the `noop` function.
   /* eslint-disable @repo/internal/react/use-noop */
-  onBlur: (event: React.FocusEvent<HTMLInputElement>) => {},
-  onChange: (value: string) => {},
-  onFocus: (event: React.FocusEvent<HTMLInputElement>) => {},
+  onBlur: (_event: React.FocusEvent<HTMLInputElement>) => {},
+  onChange: (_value: string) => {},
+  onFocus: (_event: React.FocusEvent<HTMLInputElement>) => {},
   /* eslint-enable @repo/internal/react/use-noop */
   selectProps: {},
   spacing: 'default' as Spacing,
@@ -536,7 +536,7 @@ class DatePicker extends Component<DatePickerProps, State> {
     this.props.onChange('');
   };
 
-  onSelectChange = (value: ValueType<OptionType>, action: ActionMeta) => {
+  onSelectChange = (_value: ValueType<OptionType>, action: ActionMeta) => {
     // Used for native clear event in React Select
     // Triggered when clicking ClearIndicator or backspace with no value
     if (action.action === 'clear') {

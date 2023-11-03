@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.41.2
+
+### Patch Changes
+
+- [#42479](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42479) [`4ff9be977ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ff9be977ba) - [ux] Add non resolved state for SnippetBlock when there is text override
+
 ## 26.41.1
 
 ### Patch Changes

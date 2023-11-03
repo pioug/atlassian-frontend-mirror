@@ -8,9 +8,14 @@ import {
 } from '@atlaskit/motion';
 // eslint-disable-next-line @atlaskit/design-system/no-banned-imports
 
-import { utils } from '../../shared';
+import { formatLargeNumber } from '../../shared/utils';
 
-import * as styles from './styles';
+import {
+  containerStyle,
+  counterLabelStyle,
+  countStyle,
+  highlightStyle,
+} from './styles';
 
 /**
  * Test id for component top level div
@@ -72,7 +77,7 @@ export const Counter: React.FC<CounterProps> = ({
     } else if (value === 0) {
       return '';
     } else {
-      return utils.formatLargeNumber(value);
+      return formatLargeNumber(value);
     }
   };
   const lastValue = useRef<number>();
@@ -91,7 +96,7 @@ export const Counter: React.FC<CounterProps> = ({
     <div
       className={className}
       data-testid={RENDER_COMPONENT_WRAPPER}
-      css={styles.countStyle}
+      css={countStyle}
     >
       <ExitingPersistence>
         <SlideIn
@@ -105,7 +110,7 @@ export const Counter: React.FC<CounterProps> = ({
               <div
                 ref={motion.ref}
                 css={[
-                  styles.containerStyle,
+                  containerStyle,
                   css({
                     position: direction === 'exiting' ? 'absolute' : undefined,
                   }),
@@ -117,8 +122,8 @@ export const Counter: React.FC<CounterProps> = ({
                   data-testid={RENDER_LABEL_TESTID}
                   css={
                     highlight
-                      ? [styles.counterLabelStyle, styles.highlightStyle]
-                      : styles.counterLabelStyle
+                      ? [counterLabelStyle, highlightStyle]
+                      : counterLabelStyle
                   }
                   key={value}
                 >

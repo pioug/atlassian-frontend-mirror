@@ -92,7 +92,6 @@ export default function LinkPickerPluginsWrapper() {
       client={smartCardClient}
       featureFlags={{
         useLinkPickerScrollingTabs: true,
-        useLinkPickerAtlassianTabs: true,
       }}
     >
       <LinkPickerPlugins />

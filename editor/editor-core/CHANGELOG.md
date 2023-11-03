@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 189.2.0
+
+### Minor Changes
+
+- [#42452](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42452) [`bdbe13c80c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bdbe13c80c9) - ED-19900 Removing indentationButtonsInTheToolbar FF fallback from showIndentationButtons editor prop.
+
+### Patch Changes
+
+- [#42352](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42352) [`965649a4121`](https://bitbucket.org/atlassian/atlassian-frontend/commits/965649a4121) - Decouple find replace prop from the full page toolbar.
+- [#42604](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42604) [`182627d0f5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/182627d0f5e) - Extracted panel plugin from editor-core as @atlaskit/editor-plugin-panel
+- Updated dependencies
+
+## 189.1.15
+
+### Patch Changes
+
+- [#42584](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42584) [`2191409c070`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2191409c070) - Decouple panel plugin from editor-core.
+
 ## 189.1.13
 
 ### Patch Changes

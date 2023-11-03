@@ -29,6 +29,17 @@ export interface Group {
   key: string;
 }
 
+export type EditViewProps = {
+  /**
+   * The payload returned from the create function
+   */
+  payload: CreatePayload;
+  /**
+   * Function for the plugin to call when it signals to be closed
+   */
+  onClose: () => void;
+};
+
 export interface LinkCreatePlugin {
   /**
    * The Group that this plugin entity belongs to
@@ -54,6 +65,11 @@ export interface LinkCreatePlugin {
    * A renderer function to render the form
    */
   form: ReactNode;
+
+  /**
+   * The post create edit view to be rendered after edit button is clicked.
+   */
+  editView?: ({ payload, onClose }: EditViewProps) => JSX.Element;
 }
 
 /** The object that is returned on successful callback of create function*/

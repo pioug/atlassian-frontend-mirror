@@ -45,7 +45,8 @@ const tableHeadStyles = css({
 });
 
 const ColumnPickerHeader = styled.th`
-  width: 40px;
+  width: 56px;
+  z-index: 10;
   position: sticky;
   right: calc(-1 * ${tableSidePadding});
   background-color: ${token('elevation.surface', '#FFF')};
@@ -59,6 +60,7 @@ const ColumnPickerHeader = styled.th`
   &:last-of-type {
     padding-right: ${tableSidePadding};
   }
+  text-align: right; /* In case when TH itself is bigger we want to keep picker at the right side */
 `;
 
 const truncatedCellStyles = css({
@@ -75,6 +77,7 @@ const scrollableContainerStyles = css({
 });
 
 const tableStyles = css({
+  tableLayout: 'fixed',
   // These styles are needed to prevent thead bottom border from scrolling away.
   // This happens because it is sticky. https://stackoverflow.com/questions/50361698/border-style-do-not-work-with-sticky-position-element
   borderCollapse: 'separate',
@@ -87,11 +90,6 @@ const noDefaultBorderStyles = css({
   borderBottom: 0,
 });
 
-type StyleObject = {
-  maxWidth: number | undefined;
-  paddingBlock?: string;
-};
-
 export interface RowType {
   cells: Array<RowCellType>;
   key?: string;
@@ -100,8 +98,9 @@ export interface RowType {
 
 export interface RowCellType {
   key: string;
+  width: number;
+  shouldTruncate?: boolean;
   content?: React.ReactNode | string;
-  maxWidth?: number;
 }
 
 function extractIndex(data: Record<string, unknown>) {
@@ -110,7 +109,7 @@ function extractIndex(data: Record<string, unknown>) {
   return index;
 }
 
-export const orderColumns = (
+export const getOrderedColumns = (
   columns: DatasourceResponseSchemaProperty[],
   visibleColumnKeys: string[],
 ) => {
@@ -130,32 +129,35 @@ export const orderColumns = (
 };
 
 const BASE_WIDTH = 8;
-function getColumnWidth(
+const DEFAULT_WIDTH = BASE_WIDTH * 22;
+export const COLUMN_MIN_WIDTH = BASE_WIDTH * 3;
+const keyBasedWidthMap: Record<string, number> = {
+  priority: BASE_WIDTH * 4,
+  status: BASE_WIDTH * 18,
+  summary: BASE_WIDTH * 45,
+  description: BASE_WIDTH * 31.25,
+  type: BASE_WIDTH * 4,
+  key: BASE_WIDTH * 13,
+};
+
+function getDefaultColumnWidth(
   key: string,
   type: DatasourceType['type'],
-): number | undefined {
-  const keyBasedWidth: Record<string, number | undefined> = {
-    assignee: BASE_WIDTH * 22,
-    labels: BASE_WIDTH * 22,
-    priority: BASE_WIDTH * 8,
-    status: BASE_WIDTH * 18,
-    summary: BASE_WIDTH * 45,
-    description: BASE_WIDTH * 31.25,
-  };
-
-  if (keyBasedWidth[key]) {
-    return keyBasedWidth[key];
+): number {
+  const keyBasedWidth = keyBasedWidthMap[key];
+  if (keyBasedWidth) {
+    return keyBasedWidth;
   }
 
   switch (type) {
     case 'date':
       return BASE_WIDTH * 14;
 
-    case 'string':
-      return BASE_WIDTH * 22;
+    case 'icon':
+      return BASE_WIDTH * 4;
 
     default:
-      return undefined;
+      return DEFAULT_WIDTH;
   }
 }
 
@@ -168,6 +170,8 @@ export const IssueLikeDataTableView = ({
   renderItem = fallbackRenderType,
   visibleColumnKeys,
   onVisibleColumnKeysChange,
+  columnCustomSizes,
+  onColumnResize,
   status,
   hasNextPage,
   scrollableContainerHeight,
@@ -175,6 +179,8 @@ export const IssueLikeDataTableView = ({
   extensionKey,
 }: IssueLikeDataTableViewProps) => {
   const tableId = useMemo(() => Symbol('unique-id'), []);
+
+  const tableHeaderRowRef = useRef<HTMLTableRowElement>(null);
 
   const [lastRowElement, setLastRowElement] =
     useState<HTMLTableRowElement | null>(null);
@@ -184,12 +190,14 @@ export const IssueLikeDataTableView = ({
   const containerRef = useRef<HTMLDivElement>(null);
 
   const [orderedColumns, setOrderedColumns] = useState(() =>
-    orderColumns([...columns], [...visibleColumnKeys]),
+    getOrderedColumns([...columns], [...visibleColumnKeys]),
   );
 
   useEffect(() => {
     if (!hasFullSchema) {
-      setOrderedColumns(orderColumns([...columns], [...visibleColumnKeys]));
+      setOrderedColumns(
+        getOrderedColumns([...columns], [...visibleColumnKeys]),
+      );
     }
   }, [columns, visibleColumnKeys, hasFullSchema]);
 
@@ -218,36 +226,42 @@ export const IssueLikeDataTableView = ({
 
   const identityColumnKey = 'id';
 
+  const getColumnWidth = useCallback(
+    (key: string, type: DatasourceType['type']) =>
+      columnCustomSizes?.[key] || getDefaultColumnWidth(key, type),
+    [columnCustomSizes],
+  );
+
+  const headerColumns: Array<RowCellType> = useMemo(
+    () =>
+      visibleSortedColumns.map(
+        ({ key, title, type }) =>
+          ({
+            key,
+            content: title,
+            shouldTruncate: true,
+            width: getColumnWidth(key, type),
+          } as RowCellType),
+      ),
+    [getColumnWidth, visibleSortedColumns],
+  );
+
   const loadingRow: RowType = useMemo(
     () => ({
       key: 'loading',
-      cells: visibleSortedColumns.map<RowCellType>(({ key }) => {
-        const content = (
+      cells: headerColumns.map<RowCellType>(column => ({
+        ...column,
+        content: (
           <Skeleton
             borderRadius={8}
             width="100%"
             height={14}
             testId="issues-table-row-loading"
           />
-        );
-        return {
-          key,
-          content,
-        };
-      }),
-    }),
-    [visibleSortedColumns],
-  );
-
-  const headColumns: Array<RowCellType> = useMemo(
-    () =>
-      visibleSortedColumns.map(({ key, title, type }) => ({
-        key,
-        content: title,
-        shouldTruncate: true,
-        maxWidth: getColumnWidth(key, type),
+        ),
       })),
-    [visibleSortedColumns],
+    }),
+    [headerColumns],
   );
 
   useEffect(() => {
@@ -271,30 +285,34 @@ export const IssueLikeDataTableView = ({
 
     return combine(
       monitorForElements({
-        onDragStart: ({ location }) => {
+        onDragStart: ({ location, source }) => {
           initialAutoScrollerClientY.current = location.current.input.clientY;
-          autoScroller.start({
-            input: {
-              ...location.current.input,
-              clientY:
-                // The goal is to have clientY the same and in the middle of the scrollable area
-                // Since clientY is taken from to of the viewport we need to plus that in order to get
-                // middle of the scrollable area in reference to the viewport
-                (initialAutoScrollerClientY.current || 0) +
-                (containerRef.current?.offsetHeight || 0) / 2,
-            },
-            behavior: 'container-only',
-          });
+          if (source.data.type === 'table-header') {
+            autoScroller.start({
+              input: {
+                ...location.current.input,
+                clientY:
+                  // The goal is to have clientY the same and in the middle of the scrollable area
+                  // Since clientY is taken from to of the viewport we need to plus that in order to get
+                  // middle of the scrollable area in reference to the viewport
+                  (initialAutoScrollerClientY.current || 0) +
+                  (containerRef.current?.offsetHeight || 0) / 2,
+              },
+              behavior: 'container-only',
+            });
+          }
         },
-        onDrag: ({ location }) => {
-          autoScroller.updateInput({
-            input: {
-              ...location.current.input,
-              clientY:
-                (initialAutoScrollerClientY.current || 0) +
-                (containerRef.current?.offsetHeight || 0) / 2,
-            },
-          });
+        onDrag: ({ location, source }) => {
+          if (source.data.type === 'table-header') {
+            autoScroller.updateInput({
+              input: {
+                ...location.current.input,
+                clientY:
+                  (initialAutoScrollerClientY.current || 0) +
+                  (containerRef.current?.offsetHeight || 0) / 2,
+              },
+            });
+          }
         },
         onDrop({ source, location }) {
           autoScroller.stop();
@@ -330,9 +348,9 @@ export const IssueLikeDataTableView = ({
             onVisibleColumnKeysChange?.([...newColumnKeyOrder]);
 
             // We sort columns (whole objects) according to their key order presented in newColumnKeyOrder
-            setOrderedColumns(columns => {
-              return orderColumns([...columns], [...newColumnKeyOrder]);
-            });
+            setOrderedColumns(columns =>
+              getOrderedColumns([...columns], [...newColumnKeyOrder]),
+            );
           }
         },
       }),
@@ -358,7 +376,7 @@ export const IssueLikeDataTableView = ({
           return {
             key,
             content: content.length === 1 ? content[0] : content,
-            maxWidth: getColumnWidth(key, type),
+            width: getColumnWidth(key, type),
           };
         }),
         ref:
@@ -366,7 +384,7 @@ export const IssueLikeDataTableView = ({
             ? el => setLastRowElement(el)
             : undefined,
       })),
-    [identityColumnKey, renderItem, items, visibleSortedColumns],
+    [items, visibleSortedColumns, getColumnWidth, renderItem],
   );
 
   const rows = useMemo(() => {
@@ -441,8 +459,8 @@ export const IssueLikeDataTableView = ({
           data-testid={testId && `${testId}--head`}
           css={[noDefaultBorderStyles, tableHeadStyles]}
         >
-          <tr>
-            {headColumns.map(({ key, content, maxWidth }, cellIndex) => {
+          <tr ref={tableHeaderRowRef}>
+            {headerColumns.map(({ key, content, width }, cellIndex) => {
               const heading = (
                 <Tooltip
                   content={content}
@@ -454,6 +472,7 @@ export const IssueLikeDataTableView = ({
                   </Heading>
                 </Tooltip>
               );
+
               if (onVisibleColumnKeysChange && hasData) {
                 const previewRows = tableRows
                   .map(({ cells }) => {
@@ -476,7 +495,8 @@ export const IssueLikeDataTableView = ({
                     key={key}
                     id={key}
                     index={cellIndex}
-                    maxWidth={maxWidth}
+                    width={width}
+                    onWidthChange={onColumnResize?.bind(null, key)}
                     dndPreviewHeight={containerRef.current?.offsetHeight || 0}
                     dragPreview={dragPreview}
                   >
@@ -488,11 +508,7 @@ export const IssueLikeDataTableView = ({
                   <TableHeading
                     key={key}
                     data-testid={`${key}-column-heading`}
-                    style={{
-                      // this keeps the column headers from collapsing horizontally during loading states
-                      minWidth: maxWidth,
-                      maxWidth,
-                    }}
+                    style={{ width }}
                   >
                     {heading}
                   </TableHeading>
@@ -524,8 +540,8 @@ export const IssueLikeDataTableView = ({
               data-testid={testId && `${testId}--row-${key}`}
               ref={ref}
             >
-              {cells.map(({ key: cellKey, content, maxWidth }, cellIndex) => {
-                let loadingRowStyle: StyleObject = { maxWidth };
+              {cells.map(({ key: cellKey, content, width }, cellIndex) => {
+                let loadingRowStyle: React.CSSProperties = { width };
                 // extra padding is required around skeleton loader to avoid vertical jumps when data loads
                 if (key?.includes('loading')) {
                   loadingRowStyle = {

@@ -9,7 +9,7 @@ import Avatar from '@atlaskit/avatar/Avatar';
 import Spinner from '@atlaskit/spinner';
 import { useTabPanel } from '@atlaskit/tabs';
 
-import { i18n } from '../../shared';
+import { messages } from '../../shared/i18n';
 import { ReactionSummary } from '../../types';
 
 import {
@@ -75,7 +75,7 @@ export const ReactionView: FC<ReactionViewProps> = ({
           emojiId={{ id: selectedEmojiId, shortName: '' }}
           fitToHeight={24}
         />
-        {intl.formatMessage(i18n.messages.emojiName, { emojiName })}
+        {intl.formatMessage(messages.emojiName, { emojiName })}
       </p>
       {alphabeticalNames.length === 0 ? (
         <div css={centerSpinner}>

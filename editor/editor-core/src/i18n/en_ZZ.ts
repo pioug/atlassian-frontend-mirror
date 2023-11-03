@@ -70,7 +70,6 @@ export default {
   'fabric.editor.single': '⁣⁢Single column⁯⁡⁯‍⁮⁠⁯⁯‌⁪⁭؜⁡⁪⁪⁫‍‌⁪⁯‍⁬⁣⁤',
   'fabric.editor.success': '⁣⁢Success⁯؜⁫⁬⁭⁮⁠⁭؜‍⁭⁮‍‌⁡؜⁯‌⁯‍⁠⁫⁯؜⁪⁣⁤',
   'fabric.editor.taskPlaceholder': "⁣⁢Type your action, use '@' to assign to someone.‌⁫⁭⁠⁭⁠⁠⁠⁠⁯⁭⁮‍⁬‍⁬⁭⁡⁪⁡‌⁬⁣⁤",
-  'fabric.editor.textColor': '⁣⁢Text color‌⁭⁬⁫⁭؜؜⁡⁭⁫⁡⁪⁯⁫⁯‌⁡⁪‌؜‍‌⁣⁤',
   'fabric.editor.threeColumns': '⁣⁢Three columns⁪⁪⁪⁫؜⁯‍‌‍⁫⁪⁪‌‌⁭⁭⁮⁭‌‌⁠⁬؜⁣⁤',
   'fabric.editor.threeColumnsWithSidebars': '⁣⁢Three columns with sidebars؜⁯⁫⁪‌⁬⁠⁠⁪‍⁯⁬⁫⁡⁬؜⁪⁫‍⁭؜؜⁪⁪⁪⁣⁤',
   'fabric.editor.twoColumns': '⁣⁢Two columns⁮⁡⁪⁪‌‍⁬⁫⁯؜⁪⁫‌⁫‍؜⁭‍‍‍⁡⁫⁣⁤',

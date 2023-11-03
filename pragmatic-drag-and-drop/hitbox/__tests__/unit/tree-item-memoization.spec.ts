@@ -4,7 +4,7 @@ import {
   attachInstruction,
   extractInstruction,
   Instruction,
-} from '../../src/experimental/tree-item';
+} from '../../src/tree-item';
 
 import { getDefaultInput, getElements, getRect } from './_util';
 

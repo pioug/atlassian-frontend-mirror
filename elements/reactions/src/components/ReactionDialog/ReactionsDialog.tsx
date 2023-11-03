@@ -13,7 +13,8 @@ import Modal, {
   OnCloseHandler,
 } from '@atlaskit/modal-dialog';
 
-import { constants, i18n } from '../../shared';
+import { NUMBER_OF_REACTIONS_TO_DISPLAY } from '../../shared/constants';
+import { messages } from '../../shared/i18n';
 import { onDialogSelectReactionChange, ReactionSummary } from '../../types';
 
 import { ReactionsList } from './ReactionsList';
@@ -84,9 +85,8 @@ export const ReactionsDialog: FC<ReactionsDialogProps> = ({
 
   /* set Reactions Border Width , 9 Number of reactions to display*/
   const reactionsBorderWidth = useMemo(() => {
-    return (Math.ceil(
-      reactions.length / constants.NUMBER_OF_REACTIONS_TO_DISPLAY,
-    ) * 100) as number;
+    return (Math.ceil(reactions.length / NUMBER_OF_REACTIONS_TO_DISPLAY) *
+      100) as number;
   }, [reactions]);
 
   /* Callback from IntersectionObserver to set/unset classNames based on visibility to toggle styles*/
@@ -181,7 +181,7 @@ export const ReactionsDialog: FC<ReactionsDialogProps> = ({
       <ModalHeader>
         <div css={titleStyle}>
           <ModalTitle>
-            {intl.formatMessage(i18n.messages.reactionsCount, {
+            {intl.formatMessage(messages.reactionsCount, {
               count: totalReactionsCount,
             })}
           </ModalTitle>
@@ -203,7 +203,7 @@ export const ReactionsDialog: FC<ReactionsDialogProps> = ({
           onClick={handleCloseReactionsDialog}
           autoFocus
         >
-          {intl.formatMessage(i18n.messages.closeReactionsDialog)}
+          {intl.formatMessage(messages.closeReactionsDialog)}
         </Button>
       </ModalFooter>
     </Modal>

@@ -185,9 +185,9 @@ ${(
   ${(
     <Example
       packageName="@atlaskit/link-picker"
-      Component={require('../examples/10-forge-plugins').default}
+      Component={require('../examples/60-link-picker-plugins').default}
       title="Example"
-      source={require('!!raw-loader!../examples/10-forge-plugins')}
+      source={require('!!raw-loader!../examples/60-link-picker-plugins')}
     />
   )}
 `;

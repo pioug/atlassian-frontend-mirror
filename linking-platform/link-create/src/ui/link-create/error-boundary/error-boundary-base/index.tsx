@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import { Component, ReactNode } from 'react';
 
 export type ErrorBoundaryErrorInfo = {
   componentStack: string;
@@ -10,7 +10,7 @@ type BaseErrorBoundaryState = {
 
 interface BaseErrorBoundaryProps {
   children: ReactNode;
-  ErrorComponent?: React.ComponentType;
+  errorComponent?: JSX.Element;
   onError?: (error: Error, info?: ErrorBoundaryErrorInfo) => void;
 }
 
@@ -31,11 +31,11 @@ export class BaseErrorBoundary extends Component<
   }
 
   render() {
-    const { children, ErrorComponent } = this.props;
+    const { children, errorComponent } = this.props;
     const { hasError } = this.state;
 
-    if (hasError && ErrorComponent) {
-      return <ErrorComponent />;
+    if (hasError && errorComponent) {
+      return errorComponent;
     }
 
     return children;

@@ -65,7 +65,6 @@ export default {
   'fabric.editor.single': 'Una sola columna',
   'fabric.editor.success': 'Correcto',
   'fabric.editor.taskPlaceholder': 'Escribe la acción y usa "@" para asignársela a alguien.',
-  'fabric.editor.textColor': 'Color del texto',
   'fabric.editor.threeColumns': 'Tres columnas',
   'fabric.editor.threeColumnsWithSidebars': 'Tres columnas con barras laterales',
   'fabric.editor.twoColumns': 'Dos columnas',

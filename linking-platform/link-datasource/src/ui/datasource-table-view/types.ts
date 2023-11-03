@@ -14,4 +14,6 @@ export interface DatasourceTableViewProps {
   visibleColumnKeys?: string[];
   /** Url for an existing datasource, initially used for displaying to a user unauthorized to query that site  */
   url?: string;
+  columnCustomSizes?: { [key: string]: number };
+  onColumnResize?: (key: string, width: number) => void;
 }

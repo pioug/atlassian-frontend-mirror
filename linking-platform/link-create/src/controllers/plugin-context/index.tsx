@@ -2,9 +2,12 @@ import React, { createContext, useContext, useMemo, useState } from 'react';
 
 import { LinkCreatePlugin } from '../../common/types';
 
-const LinkCreatePluginsContext = createContext<{
+type LinkCreatePluginsContextValue = {
   activePlugin: LinkCreatePlugin | null;
-} | null>(null);
+} | null;
+
+const LinkCreatePluginsContext =
+  createContext<LinkCreatePluginsContextValue>(null);
 
 type LinkCreatePluginsProviderProps = {
   /**
@@ -15,7 +18,9 @@ type LinkCreatePluginsProviderProps = {
    * The entity key as provided as prop to link create which controls the initially active plugin
    */
   entityKey: string;
-  children: React.ReactNode;
+  children:
+    | React.ReactNode
+    | ((value: LinkCreatePluginsContextValue) => React.ReactNode);
 };
 
 export const LinkCreatePluginsProvider = ({
@@ -34,7 +39,7 @@ export const LinkCreatePluginsProvider = ({
 
   return (
     <LinkCreatePluginsContext.Provider value={value}>
-      {children}
+      {typeof children === 'function' ? children(value) : children}
     </LinkCreatePluginsContext.Provider>
   );
 };

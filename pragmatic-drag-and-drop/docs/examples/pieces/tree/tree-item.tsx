@@ -29,7 +29,7 @@ import { ModalTransition } from '@atlaskit/modal-dialog';
 import {
   Instruction,
   ItemMode,
-} from '@atlaskit/pragmatic-drag-and-drop-hitbox/experimental/tree-item';
+} from '@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item';
 import {
   draggable,
   dropTargetForElements,

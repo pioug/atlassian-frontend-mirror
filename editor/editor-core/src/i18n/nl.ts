@@ -65,7 +65,6 @@ export default {
   'fabric.editor.single': 'Eén kolom',
   'fabric.editor.success': 'Gelukt',
   'fabric.editor.taskPlaceholder': "Geef je actie in en gebruik een '@' om de actie aan iemand toe te wijzen.",
-  'fabric.editor.textColor': 'Tekstkleur',
   'fabric.editor.threeColumns': 'Drie kolommen',
   'fabric.editor.threeColumnsWithSidebars': 'Drie kolommen met zijbalken',
   'fabric.editor.twoColumns': 'Twee kolommen',

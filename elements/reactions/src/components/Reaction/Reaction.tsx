@@ -5,7 +5,12 @@ import { jsx } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { EmojiProvider, ResourcedEmoji, EmojiId } from '@atlaskit/emoji';
 import { token } from '@atlaskit/tokens';
-import { Analytics } from '../../analytics';
+import {
+  createAndFireSafe,
+  createReactionClickedEvent,
+  createReactionFocusedEvent,
+  createReactionHoveredEvent,
+} from '../../analytics';
 import {
   ReactionSummary,
   ReactionClick,
@@ -14,8 +19,9 @@ import {
 import { Counter } from '../Counter';
 import { FlashAnimation } from '../FlashAnimation';
 import { ReactionTooltip, ReactionTooltipProps } from '../ReactionTooltip';
-import { i18n, utils } from '../../shared';
-import * as styles from './styles';
+import { messages } from '../../shared/i18n';
+import { isLeftClick } from '../../shared/utils';
+import { emojiStyle, flashStyle, reactedStyle, reactionStyle } from './styles';
 import { ReactionFocused } from '../../types/reaction';
 
 /**
@@ -97,11 +103,11 @@ export const Reaction: React.FC<ReactionProps> = ({
   const handleClick = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
-      if (utils.isLeftClick(event)) {
+      if (isLeftClick(event)) {
         const { reacted, emojiId } = reaction;
-        Analytics.createAndFireSafe(
+        createAndFireSafe(
           createAnalyticsEvent,
-          Analytics.createReactionClickedEvent,
+          createReactionClickedEvent,
           !reacted,
           emojiId,
         );
@@ -118,9 +124,9 @@ export const Reaction: React.FC<ReactionProps> = ({
       if (!reaction.users || !reaction.users.length) {
         focusStart.current = Date.now();
       }
-      Analytics.createAndFireSafe(
+      createAndFireSafe(
         createAnalyticsEvent,
-        Analytics.createReactionHoveredEvent,
+        createReactionHoveredEvent,
         focusStart.current,
       );
       onMouseEnter(reaction.emojiId, event);
@@ -135,9 +141,9 @@ export const Reaction: React.FC<ReactionProps> = ({
       if (!reaction.users || !reaction.users.length) {
         hoverStart.current = Date.now();
       }
-      Analytics.createAndFireSafe(
+      createAndFireSafe(
         createAnalyticsEvent,
-        Analytics.createReactionFocusedEvent,
+        createReactionFocusedEvent,
         hoverStart.current,
       );
       onFocused(reaction.emojiId, event);
@@ -160,8 +166,8 @@ export const Reaction: React.FC<ReactionProps> = ({
     >
       <button
         className={className}
-        css={[styles.reactionStyle, reaction.reacted && styles.reactedStyle]}
-        aria-label={intl.formatMessage(i18n.messages.reactWithEmoji, {
+        css={[reactionStyle, reaction.reacted && reactedStyle]}
+        aria-label={intl.formatMessage(messages.reactWithEmoji, {
           emoji: emojiName,
         })}
         type="button"
@@ -172,10 +178,10 @@ export const Reaction: React.FC<ReactionProps> = ({
         onFocus={handleFocused}
         data-emoji-button-id={reaction.emojiId}
       >
-        <FlashAnimation flash={flash} css={styles.flashStyle}>
+        <FlashAnimation flash={flash} css={flashStyle}>
           <div
             css={[
-              styles.emojiStyle,
+              emojiStyle,
               reaction.count === 0 && {
                 padding: `${token('space.050', '4px')} ${token(
                   'space.025',

@@ -59,7 +59,7 @@ import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar'
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
-import panelPlugin from '../../../panel';
+import { panelPlugin } from '@atlaskit/editor-plugin-panel';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 

@@ -3,6 +3,7 @@ import React from 'react';
 import { JQLEditorProps } from '@atlassianlabs/jql-editor';
 import { act, fireEvent, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
+import invariant from 'tiny-invariant';
 
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
@@ -637,6 +638,8 @@ describe('JiraIssuesConfigModal', () => {
           onVisibleColumnKeysChange: expect.any(Function),
           parentContainerRenderInstanceId: expect.any(String),
           extensionKey: expect.any(String),
+          columnCustomSizes: undefined,
+          onColumnResize: expect.any(Function),
         } as IssueLikeDataTableViewProps,
         expect.anything(),
       );
@@ -740,10 +743,88 @@ describe('JiraIssuesConfigModal', () => {
 
       assertInsertResult(
         {
-          columnKeys: ['myColumn'],
+          properties: { columns: [{ key: 'myColumn' }] },
           jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
         },
         {},
+      );
+    });
+  });
+
+  describe('when user provides list of custom column widths', () => {
+    it('should use custom column widths in resulting ADF', async () => {
+      const { assertInsertResult } = await setup({
+        visibleColumnKeys: ['myColumn'],
+        columnCustomSizes: { myColumn: 42 },
+      });
+
+      assertInsertResult(
+        {
+          properties: { columns: [{ key: 'myColumn', width: 42 }] },
+          jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+        },
+        {},
+      );
+    });
+
+    it('should render IssueLikeDataTableView with custom column width', async () => {
+      await setup({
+        visibleColumnKeys: ['myColumn'],
+        columnCustomSizes: { myColumn: 42 },
+      });
+
+      expect(IssueLikeDataTableView).toHaveBeenCalledWith(
+        expect.objectContaining({
+          columnCustomSizes: { myColumn: 42 },
+        } as Partial<IssueLikeDataTableViewProps>),
+        expect.anything(),
+      );
+    });
+  });
+
+  describe('when user provides callback for column resizing', () => {
+    it('should use updated custom column widths in resulting ADF', async () => {
+      const { getLatestIssueLikeTableProps, assertInsertResult } = await setup({
+        visibleColumnKeys: ['myColumn'],
+        columnCustomSizes: { myColumn: 42 },
+      });
+
+      const { onColumnResize } = getLatestIssueLikeTableProps();
+
+      invariant(onColumnResize);
+
+      act(() => {
+        onColumnResize('myColumn', 56);
+      });
+
+      assertInsertResult(
+        {
+          properties: { columns: [{ key: 'myColumn', width: 56 }] },
+          jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+        },
+        {},
+      );
+    });
+
+    it('should update and send custom column widths to table component', async () => {
+      const { getLatestIssueLikeTableProps } = await setup({
+        visibleColumnKeys: ['myColumn', 'otherColumn', 'thirdColumn'],
+        columnCustomSizes: { myColumn: 42, otherColumn: 43 },
+      });
+
+      const { onColumnResize } = getLatestIssueLikeTableProps();
+
+      invariant(onColumnResize);
+
+      act(() => {
+        onColumnResize('myColumn', 56);
+      });
+
+      expect(IssueLikeDataTableView).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          columnCustomSizes: { myColumn: 56, otherColumn: 43 },
+        } as Partial<IssueLikeDataTableViewProps>),
+        expect.anything(),
       );
     });
   });
@@ -756,7 +837,7 @@ describe('JiraIssuesConfigModal', () => {
 
       assertInsertResult(
         {
-          columnKeys: ['someColumn'],
+          properties: { columns: [{ key: 'someColumn' }] },
           jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
         },
         {
@@ -782,7 +863,9 @@ describe('JiraIssuesConfigModal', () => {
 
       assertInsertResult(
         {
-          columnKeys: ['myColumn', 'otherColumn'],
+          properties: {
+            columns: [{ key: 'myColumn' }, { key: 'otherColumn' }],
+          },
           jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
         },
         {
@@ -806,7 +889,9 @@ describe('JiraIssuesConfigModal', () => {
 
         assertInsertResult(
           {
-            columnKeys: ['myColumn', 'otherColumn'],
+            properties: {
+              columns: [{ key: 'myColumn' }, { key: 'otherColumn' }],
+            },
             jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
           },
           {

@@ -65,7 +65,6 @@ export default {
   'fabric.editor.single': 'Colonna singola',
   'fabric.editor.success': 'Operazione riuscita',
   'fabric.editor.taskPlaceholder': 'Digita la tua azione e usa “@” per assegnarla a qualcuno.',
-  'fabric.editor.textColor': 'Colore del testo',
   'fabric.editor.threeColumns': 'Tre colonne',
   'fabric.editor.threeColumnsWithSidebars': 'Tre colonne con barre laterali',
   'fabric.editor.twoColumns': 'Due colonne',

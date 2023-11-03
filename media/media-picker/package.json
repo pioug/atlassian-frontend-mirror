@@ -61,7 +61,7 @@
   "devDependencies": {
     "@atlaskit/analytics-listeners": "^8.7.0",
     "@atlaskit/analytics-namespaced-context": "^6.7.0",
-    "@atlaskit/button": "^16.12.0",
+    "@atlaskit/button": "^16.13.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/ssr": "*",
@@ -72,6 +72,7 @@
     "@types/enzyme": "3.1.15",
     "@types/exenv": "^1.2.0",
     "@types/react": "^16.8.0",
+    "@types/uuid-validate": "^0.0.2",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",
     "identity-obj-proxy": "^3.0.0",

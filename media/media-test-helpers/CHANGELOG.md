@@ -1,5 +1,12 @@
 # @atlaskit/media-test-helpers
 
+## 33.0.18
+
+### Patch Changes
+
+- [#42562](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42562) [`49213c393ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49213c393ca) - Upgrade `mock-socket` and adapt to API changes
+- Updated dependencies
+
 ## 33.0.17
 
 ### Patch Changes

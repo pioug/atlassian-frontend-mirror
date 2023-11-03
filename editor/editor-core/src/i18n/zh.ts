@@ -64,7 +64,6 @@ export default {
   'fabric.editor.single': '单列',
   'fabric.editor.success': '成功',
   'fabric.editor.taskPlaceholder': '输入您的操作，使用“@”进行分配。',
-  'fabric.editor.textColor': '文本颜色',
   'fabric.editor.threeColumns': '三栏',
   'fabric.editor.threeColumnsWithSidebars': '具有侧边栏的三列',
   'fabric.editor.twoColumns': '两栏',

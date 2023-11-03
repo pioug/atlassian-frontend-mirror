@@ -312,7 +312,11 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 
   const handleOnSearch = useCallback(
     async (searchAql: string, searchSchemaId: string) => {
-      if (schemaId !== searchSchemaId || aql !== searchAql) {
+      if (
+        schemaId !== searchSchemaId ||
+        aql !== searchAql ||
+        status === 'rejected'
+      ) {
         searchCount.current++;
         if (schemaId !== searchSchemaId) {
           userInteractionActions.current.add(DatasourceAction.SCHEMA_UPDATED);
@@ -326,7 +330,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
         setIsNewSearch(true);
       }
     },
-    [aql, reset, schemaId],
+    [aql, reset, schemaId, status],
   );
 
   const renderModalTitleContent = useCallback(() => {

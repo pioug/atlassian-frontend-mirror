@@ -66,7 +66,6 @@ export default {
   'fabric.editor.single': 'Jeden sloupec',
   'fabric.editor.success': 'Úspěch',
   'fabric.editor.taskPlaceholder': 'Napište svou akci a použitím „@“ ji někomu přidělte.',
-  'fabric.editor.textColor': 'Barva textu',
   'fabric.editor.threeColumns': 'Tři sloupce',
   'fabric.editor.threeColumnsWithSidebars': 'Tři sloupce s postranními panely',
   'fabric.editor.twoColumns': 'Dva sloupce',

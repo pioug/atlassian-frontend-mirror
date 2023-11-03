@@ -2,7 +2,7 @@
 
 import { css, jsx } from '@emotion/react';
 
-import type { Instruction } from '@atlaskit/pragmatic-drag-and-drop-hitbox/experimental/tree-item';
+import type { Instruction } from '@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item';
 
 import Layout from './internal/layout';
 import TreeItem from './internal/tree-item';

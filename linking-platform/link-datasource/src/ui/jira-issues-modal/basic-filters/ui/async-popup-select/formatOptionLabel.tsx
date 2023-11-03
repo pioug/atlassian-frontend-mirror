@@ -9,7 +9,7 @@ import {
   FormatOptionLabel,
   IconLabelOption,
   LozengeLabelOption,
-} from './types';
+} from '../../types';
 
 const commonLabelStyles = xcss({
   overflow: 'hidden',
@@ -42,7 +42,6 @@ const IconOptionLabel = ({ data }: { data: IconLabelOption }) => {
 const LozengeOptionLabel = ({ data }: { data: LozengeLabelOption }) => {
   return (
     <Lozenge
-      isBold={data.isBold}
       appearance={data.appearance}
       testId="jlol-basic-filter-popup-select-option--lozenge"
     >

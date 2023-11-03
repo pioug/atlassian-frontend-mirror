@@ -213,11 +213,11 @@ const timePickerDefaultProps = {
   // These disables are here for proper typing when used as defaults. They
   // should *not* use the `noop` function.
   /* eslint-disable @repo/internal/react/use-noop */
-  onBlur: (event: React.FocusEvent<HTMLInputElement>) => {},
-  onChange: (value: string) => {},
-  onFocus: (event: React.FocusEvent<HTMLInputElement>) => {},
+  onBlur: (_event: React.FocusEvent<HTMLInputElement>) => {},
+  onChange: (_value: string) => {},
+  onFocus: (_event: React.FocusEvent<HTMLInputElement>) => {},
   /* eslint-enable @repo/internal/react/use-noop */
-  parseInputValue: (time: string, timeFormat: string) => parseTime(time),
+  parseInputValue: (time: string, _timeFormat: string) => parseTime(time),
   selectProps: {},
   spacing: 'default' as Spacing,
   times: defaultTimes,

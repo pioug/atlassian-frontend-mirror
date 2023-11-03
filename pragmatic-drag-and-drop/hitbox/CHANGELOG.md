@@ -1,5 +1,16 @@
 # @atlaskit/pragmatic-drag-and-drop-hitbox
 
+## 0.12.0
+
+### Minor Changes
+
+- [#42620](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42620) [`0b832b288e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b832b288e8) - Moving our tree exports that are used in Confluence from `experimental` to `stable`.
+
+  ```diff
+  - @atlaskit/pragmatic-drag-and-drop-hitbox/experimental/tree-item
+  + @atlaskit/pragmatic-drag-and-drop-hitbox/tree-item
+  ```
+
 ## 0.11.9
 
 ### Patch Changes

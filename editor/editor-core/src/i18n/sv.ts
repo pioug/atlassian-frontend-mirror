@@ -65,7 +65,6 @@ export default {
   'fabric.editor.single': 'Enkel kolumn',
   'fabric.editor.success': 'Klart!',
   'fabric.editor.taskPlaceholder': 'Skriv din åtgärd och använd @ för att tilldela någon.',
-  'fabric.editor.textColor': 'Textfärg',
   'fabric.editor.threeColumns': 'Tre kolumner',
   'fabric.editor.threeColumnsWithSidebars': 'Tre kolumner med sidopaneler',
   'fabric.editor.twoColumns': 'Två kolumner',

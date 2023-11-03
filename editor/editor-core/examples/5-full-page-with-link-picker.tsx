@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { useLinkPickerEditorProps } from '@atlassian/link-picker-plugins/editor';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
@@ -31,14 +31,8 @@ const FullPageWithLinkPicker = () => {
 };
 
 export default () => {
-  const featureFlags = useMemo(() => {
-    return {
-      useLinkPickerAtlassianTabs: true,
-    } as const;
-  }, []);
-
   return (
-    <SmartCardProvider client={smartCardClient} featureFlags={featureFlags}>
+    <SmartCardProvider client={smartCardClient}>
       <FullPageWithLinkPicker />
     </SmartCardProvider>
   );

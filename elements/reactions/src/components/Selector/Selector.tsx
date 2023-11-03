@@ -4,10 +4,10 @@ import { jsx } from '@emotion/react';
 import { EmojiId, OnEmojiEvent } from '@atlaskit/emoji/types';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import Tooltip from '@atlaskit/tooltip';
-import { constants } from '../../shared';
+import { DefaultReactions } from '../../shared/constants';
 import { EmojiButton } from '../EmojiButton';
 import { ShowMore } from '../ShowMore';
-import * as styles from './styles';
+import { emojiStyle, revealStyle, selectorStyle } from './styles';
 
 /**
  * Test id for wrapper Selector div
@@ -32,7 +32,7 @@ export interface SelectorProps {
    */
   onMoreClick?: React.MouseEventHandler<HTMLElement>;
   /**
-   * Optional emojis shown for user to select from when the reaction add button is clicked (defaults to pre-defined list of emojis {@link constants.DefaultReactions})
+   * Optional emojis shown for user to select from when the reaction add button is clicked (defaults to pre-defined list of emojis {@link DefaultReactions})
    */
   pickerQuickReactionEmojiIds?: EmojiId[];
 }
@@ -45,7 +45,7 @@ export const Selector: React.FC<SelectorProps> = ({
   onMoreClick,
   onSelection,
   showMore,
-  pickerQuickReactionEmojiIds = constants.DefaultReactions,
+  pickerQuickReactionEmojiIds = DefaultReactions,
 }) => {
   const [selection, setSelection] = useState<EmojiId>();
   /**
@@ -96,7 +96,7 @@ export const Selector: React.FC<SelectorProps> = ({
       <div
         key={emoji.id ?? emoji.shortName}
         className={emoji === selection ? 'selected' : undefined}
-        css={[styles.emojiStyle, styles.revealStyle]}
+        css={[emojiStyle, revealStyle]}
         style={emojiStyleAnimation(index)}
         data-testid={RENDER_SELECTOR_TESTID}
       >
@@ -112,7 +112,7 @@ export const Selector: React.FC<SelectorProps> = ({
   };
 
   return (
-    <div css={styles.selectorStyle}>
+    <div css={selectorStyle}>
       {pickerQuickReactionEmojiIds
         ? pickerQuickReactionEmojiIds.map(renderEmoji)
         : null}
@@ -120,9 +120,9 @@ export const Selector: React.FC<SelectorProps> = ({
       {showMore ? (
         <ShowMore
           key="more"
-          buttonStyle={styles.revealStyle}
+          buttonStyle={revealStyle}
           style={{
-            button: emojiStyleAnimation(constants.DefaultReactions.length),
+            button: emojiStyleAnimation(DefaultReactions.length),
           }}
           onClick={onMoreClick}
         />

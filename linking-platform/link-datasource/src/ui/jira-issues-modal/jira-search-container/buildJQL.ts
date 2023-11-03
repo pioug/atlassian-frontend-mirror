@@ -14,10 +14,7 @@ import {
   print,
 } from '@atlaskit/jql-ast';
 
-import {
-  BasicFilterFieldType,
-  SelectOption,
-} from '../basic-filters/ui/async-popup-select/types';
+import { BasicFilterFieldType, SelectOption } from '../basic-filters/types';
 
 type BuildJQLInput = {
   rawSearch: string;

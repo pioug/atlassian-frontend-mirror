@@ -66,7 +66,6 @@ export default {
   'fabric.editor.single': 'Один столбец',
   'fabric.editor.success': 'Готово',
   'fabric.editor.taskPlaceholder': 'Укажите задание и назначьте исполнителя с помощью значка «@».',
-  'fabric.editor.textColor': 'Цвет текста',
   'fabric.editor.threeColumns': 'Три столбца',
   'fabric.editor.threeColumnsWithSidebars': 'Три столбца с боковыми панелями',
   'fabric.editor.twoColumns': 'Два столбца',

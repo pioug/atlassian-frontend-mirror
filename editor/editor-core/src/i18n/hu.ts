@@ -65,7 +65,6 @@ export default {
   'fabric.editor.single': 'Egy oszlop',
   'fabric.editor.success': 'Sikerült',
   'fabric.editor.taskPlaceholder': 'Írja be a műveletet. Az „@” jellel hozzárendelheti valakihez.',
-  'fabric.editor.textColor': 'Szövegszín',
   'fabric.editor.threeColumns': 'Három oszlop',
   'fabric.editor.threeColumnsWithSidebars': 'Három oszlop oldalsávval',
   'fabric.editor.twoColumns': 'Két oszlop',

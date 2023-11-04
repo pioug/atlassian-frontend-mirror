@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popup",
-  "version": "1.11.2",
+  "version": "1.11.3",
   "description": "A popup displays brief content in an overlay.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -97,9 +97,6 @@
   },
   "platform-feature-flags": {
     "platform.design-system-team.layering_popup_1cnzt": {
-      "type": "boolean"
-    },
-    "platform.design-system-team.remove-focus-trap-from-popup_3q7sk": {
       "type": "boolean"
     }
   },

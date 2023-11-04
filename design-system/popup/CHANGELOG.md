@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.11.3
+
+### Patch Changes
+
+- [#42594](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42594) [`07781d6d786`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07781d6d786) - Removes feature flag implemented in 1.11.0. Does not implement proposed functionality behind the feature flag.
+
 ## 1.11.2
 
 ### Patch Changes

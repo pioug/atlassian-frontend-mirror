@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 2.12.0
+
+### Minor Changes
+
+- [#42655](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42655) [`ea6b876c360`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea6b876c360) - Remove copy, move, and archive from allowlist
+
 ## 2.11.0
 
 ### Minor Changes

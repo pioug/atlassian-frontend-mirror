@@ -1,5 +1,6 @@
 import { fireEvent } from '@testing-library/dom';
 import { bind } from 'bind-event-listener';
+import invariant from 'tiny-invariant';
 
 import {
   draggable,
@@ -9,6 +10,7 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 
 import { unsafeOverflowAutoScrollForElements } from '../../../src/entry-point/unsafe-overflow/element';
 import { Axis, Edge, Side } from '../../../src/internal-types';
+import { isWithin } from '../../../src/shared/is-within';
 import { mainAxisSideLookup } from '../../../src/shared/side';
 import {
   advanceTimersToNextFrame,
@@ -84,6 +86,7 @@ const scenarios: Scenario[] = [
       top: parentRect.top - overflowSizeOnMainAxis,
       right: parentRect.right,
       // (the first pixel is "cut out" by the "over element" auto scroller)
+      // bottom: parentRect.top,
       bottom: parentRect.top - 1,
       left: parentRect.left,
     }),
@@ -228,7 +231,20 @@ scenarios.forEach(scenario => {
       });
     });
 
-    getOutsidePoints(scenario.hitbox).forEach(point => {
+    // need to exclude points that would be over the main parent rect and would usually
+    // be excluded by our `elementFromPoint()` check.
+    const relevantOutsidePoints = getOutsidePoints(scenario.hitbox).filter(
+      point => {
+        const isOverParent = isWithin({
+          client: point,
+          clientRect: parentRect,
+        });
+        return !isOverParent;
+      },
+    );
+    invariant(relevantOutsidePoints.length > 1);
+
+    relevantOutsidePoints.forEach(point => {
       it(`should not scroll when outside the main axis overflow. Point: [${point.label}]`, () => {
         const ordered: string[] = [];
 

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/platform-feature-flags",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Platform Feature Flags",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,6 +34,10 @@
       "jira"
     ]
   },
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
   "af:exports": {
     ".": "./src/index.ts"
   },

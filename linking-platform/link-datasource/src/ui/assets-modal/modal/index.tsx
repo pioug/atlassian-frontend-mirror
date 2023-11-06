@@ -204,9 +204,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 
   const isDisabled =
     !!workspaceError ||
-    status === 'rejected' ||
-    status === 'loading' ||
-    status === 'empty' ||
+    status !== 'resolved' ||
     assetsClientLoading ||
     !aql ||
     !schemaId;

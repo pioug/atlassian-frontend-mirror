@@ -66,6 +66,9 @@
       "path": "../editor-shared-styles/tsconfig.app.json"
     },
     {
+      "path": "../../helpers/frontend-utilities/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/icon/tsconfig.app.json"
     },
     {
@@ -79,6 +82,9 @@
     },
     {
       "path": "../../linking-platform/link-provider/tsconfig.app.json"
+    },
+    {
+      "path": "../../linking-platform/linking-common/tsconfig.app.json"
     },
     {
       "path": "../../linking-platform/linking-types/tsconfig.app.json"

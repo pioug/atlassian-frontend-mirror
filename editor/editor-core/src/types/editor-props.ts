@@ -266,6 +266,9 @@ export interface EditorSharedPropsWithPlugins {
    *  Configure and extend editor linking behaviour
    */
   linking?: LinkingOptions;
+
+  // Hide avatar group in editor toolbar
+  hideAvatarGroup?: boolean;
 }
 
 export interface EditorProps

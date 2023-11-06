@@ -2,8 +2,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import React from 'react';
-import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
 import { borderRadius } from '@atlaskit/theme/constants';
 import type { ShareResponse, ConfigResponse } from '@atlaskit/share';
 import { ShareDialogContainer } from '@atlaskit/share';
@@ -32,11 +30,10 @@ import {
 import type { EditorProps } from './../src';
 import { Editor } from './../src';
 import EditorContext from './../src/ui/EditorContext';
-import WithEditorActions from './../src/ui/WithEditorActions';
 
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { TitleInput } from '../example-helpers/PageElements';
-import type { EditorActions, MentionProvider } from '../src';
+import type { MentionProvider } from '../src';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { InviteToEditComponentProps } from '../src/plugins/collab-edit/types';
 import type { ResolvingMentionProvider } from '@atlaskit/mention/resource';
@@ -70,22 +67,6 @@ export const column = css`
 `;
 
 const quickInsertProvider = quickInsertProviderFactory();
-
-const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => (
-  <ButtonGroup>
-    <Button
-      appearance="primary"
-      onClick={() =>
-        props.editorActions.getValue().then((value) => console.log(value))
-      }
-    >
-      Publish
-    </Button>
-    <Button appearance="subtle" onClick={() => props.editorActions.clear()}>
-      Close
-    </Button>
-  </ButtonGroup>
-);
 
 const shareClient = {
   share: () =>
@@ -230,10 +211,11 @@ const editorProps = ({
   allowDate: true,
   allowPanel: true,
   allowFindReplace: true,
+  hideAvatarGroup: true,
   featureFlags: {
-    showAvatarGroupAsPlugin: false,
+    showAvatarGroupAsPlugin: true,
     collabAvatarScroll: true,
-    twoLineEditorToolbar: false,
+    twoLineEditorToolbar: true,
   },
   allowTables: {
     advanced: true,
@@ -273,11 +255,7 @@ const editorProps = ({
   shouldFocus: false,
   quickInsert: { provider: Promise.resolve(quickInsertProvider) },
   contentComponents: <TitleInput innerRef={(ref) => ref && ref.focus()} />,
-  primaryToolbarComponents: (
-    <WithEditorActions
-      render={(actions) => <SaveAndCancelButtons editorActions={actions} />}
-    />
-  ),
+  primaryToolbarComponents: undefined,
   insertMenuItems: customInsertMenuItems,
   extensionHandlers: extensionHandlers,
 });

@@ -1,5 +1,10 @@
 import React, { Component, ComponentType } from 'react';
-import { mergeStyles, OptionsOrGroups } from 'react-select';
+import {
+  type ClearIndicatorProps,
+  type GroupBase,
+  mergeStyles,
+  OptionsOrGroups,
+} from 'react-select';
 import BaseSelect from 'react-select/base';
 import memoizeOne from 'memoize-one';
 import isEqual from 'react-fast-compare';
@@ -13,7 +18,13 @@ import {
   CreatableSelectProps,
   GroupType,
 } from './types';
-import * as defaultComponents from './components';
+import {
+  ClearIndicator,
+  DropdownIndicator,
+  LoadingIndicator,
+  MultiValueRemove,
+  IndicatorSeparator,
+} from './components';
 import baseStyles from './styles';
 import {
   onFocus,
@@ -58,7 +69,15 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 
     cacheComponents = (components: SelectComponentsConfig<Option, IsMulti>) => {
       this.components = {
-        ...defaultComponents,
+        ClearIndicator: ClearIndicator
+          ? (ClearIndicator as React.ComponentType<
+              ClearIndicatorProps<Option, IsMulti, GroupBase<Option>>
+            >)
+          : undefined,
+        DropdownIndicator,
+        LoadingIndicator,
+        MultiValueRemove,
+        IndicatorSeparator,
         ...components,
       };
     };

@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider, Client } from '../src';
 import { EnvironmentsKeys } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
-import { LoadingCardLink } from '../src/view/CardWithUrl/component-lazy/LazyFallback';
+import { LoadingCardLink } from '../src/view/CardWithUrl/component-lazy/LoadingCardLink';
 import { AnalyticsPayload } from '../src/utils/types';
 
 class BrokenClient extends Client {

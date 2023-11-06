@@ -110,7 +110,7 @@ type DisallowReservedFields<T> = T & {
 };
 
 // @public (undocumented)
-type EditViewProps = {
+export type EditViewProps = {
   payload: CreatePayload;
   onClose: () => void;
 };

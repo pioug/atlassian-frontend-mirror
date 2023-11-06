@@ -21,23 +21,6 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Breadcrumbs dark mode should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'breadcrumbs',
-      'themed',
-      global.__BASEURL__,
-    );
-
-    const { page } = global;
-    await loadPage(page, url);
-
-    await page.waitForSelector('[data-testid="MyBreadcrumbsTestId"]');
-
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
-
   it('Breadcrumbs number of items exceed maxItems', async () => {
     const url = getExampleUrl(
       'design-system',

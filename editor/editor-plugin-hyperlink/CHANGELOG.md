@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 0.5.5
+
+### Patch Changes
+
+- [#42680](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42680) [`1174ff1745b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1174ff1745b) - Cleans up ff platform.linking-platform.editor.fix-link-insert-analytics. No expected functional changes.
+
 ## 0.5.4
 
 ### Patch Changes

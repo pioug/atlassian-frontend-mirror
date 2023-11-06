@@ -48,9 +48,6 @@
       "path": "../../design-system/icon/tsconfig.app.json"
     },
     {
-      "path": "../../platform/feature-flags/tsconfig.app.json"
-    },
-    {
       "path": "../input-rules/tsconfig.app.json"
     }
   ]

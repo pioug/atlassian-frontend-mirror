@@ -186,6 +186,7 @@ export function EditorInternal({
                             useStickyToolbar={props.useStickyToolbar}
                             featureFlags={featureFlags}
                             pluginHooks={config.pluginHooks}
+                            hideAvatarGroup={props.hideAvatarGroup}
                           />
                         </BaseTheme>
                       )}

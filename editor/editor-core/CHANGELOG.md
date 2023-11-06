@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 189.3.2
+
+### Patch Changes
+
+- [#42567](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42567) [`7c771cc4e22`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c771cc4e22) - [ux] [ECA11Y-142] Added feature flag to rollout A11y changes for find and replace
+
+## 189.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.3.0
+
+### Minor Changes
+
+- [#42535](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42535) [`39770b766f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39770b766f1) - [ux] MODES-3618 Use hideAvatarGroup instead of feature flag to determine whether avatar should be hidden
+
 ## 189.2.0
 
 ### Minor Changes

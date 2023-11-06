@@ -36,7 +36,7 @@
   "dependencies": {
     "@atlaskit/link-client-extension": "^1.8.0",
     "@atlaskit/link-extractors": "^1.2.0",
-    "@atlaskit/linking-common": "^4.14.0",
+    "@atlaskit/linking-common": "^4.15.0",
     "@babel/runtime": "^7.0.0",
     "dataloader": "^2.0.0",
     "json-ld-types": "^3.9.1",

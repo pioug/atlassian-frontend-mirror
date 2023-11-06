@@ -282,6 +282,8 @@ export function advanceTimersToNextFrame() {
 type BasicElementArgs = {
   width: number;
   height: number;
+  x?: number;
+  y?: number;
   id?: string;
 };
 export function setupNestedScrollContainers(bubbleOrdered: BasicElementArgs[]) {
@@ -336,8 +338,8 @@ export function setupNestedScrollContainers(bubbleOrdered: BasicElementArgs[]) {
     item.element.getBoundingClientRect = () => {
       // for simplicity, all elements are currently drawn from 0,0
       const start: Position = {
-        x: 0,
-        y: 0,
+        x: item.args.x ?? 0,
+        y: item.args.y ?? 0,
       };
       const box = DOMRect.fromRect({
         x: start.x,

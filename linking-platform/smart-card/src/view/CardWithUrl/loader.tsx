@@ -12,7 +12,7 @@ import { CardProps } from '../Card/types';
 import { clearMarks, clearMeasures } from '../../utils/performance';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useSmartLinkAnalytics } from '../../state/analytics';
-import { LoadingCardLink } from './component-lazy/LazyFallback';
+import { LoadingCardLink } from './component-lazy/LoadingCardLink';
 import { CardWithUrlContentProps } from './types';
 import { importWithRetry } from '../../utils';
 import { isFlexibleUiCard } from '../../utils/flexible';

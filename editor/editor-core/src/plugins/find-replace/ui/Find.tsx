@@ -17,6 +17,7 @@ import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import { FindReplaceTooltipButton } from './FindReplaceTooltipButton';
 import type { MatchCaseProps } from '../types';
 import rafSchd from 'raf-schd';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const FIND_DEBOUNCE_MS = 100;
 
@@ -154,16 +155,18 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 
   componentDidUpdate(prevProps: FindProps) {
     // focus on update if find text did not change
-    if (this.props.findText === this.state?.localFindText) {
-      this.focusFindTextfield();
-    }
-    if (this.props.findText !== prevProps.findText) {
-      this.syncFindText(() => {
-        // focus after input is synced if find text provided
-        if (this.props.findText) {
-          this.focusFindTextfield();
-        }
-      });
+    if (!getBooleanFF('platform.editor.a11y-find-replace')) {
+      if (this.props.findText === this.state?.localFindText) {
+        this.focusFindTextfield();
+      }
+      if (this.props.findText !== prevProps.findText) {
+        this.syncFindText(() => {
+          // focus after input is synced if find text provided
+          if (this.props.findText) {
+            this.focusFindTextfield();
+          }
+        });
+      }
     }
   }
 

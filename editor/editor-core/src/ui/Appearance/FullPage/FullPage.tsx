@@ -85,6 +85,7 @@ export const FullPageEditor = (props: EditorAppearanceComponentProps) => {
           providerFactory={props.providerFactory}
           showKeyline={showKeyline}
           featureFlags={props.featureFlags}
+          hideAvatarGroup={props.hideAvatarGroup}
         />
         <FullPageContentArea
           ref={scrollContentContainerRef}

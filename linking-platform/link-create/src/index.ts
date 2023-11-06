@@ -4,6 +4,7 @@ export type {
   LinkCreatePlugin,
   LinkCreateWithModalProps,
   CreatePayload,
+  EditViewProps,
 } from './common/types';
 
 export {

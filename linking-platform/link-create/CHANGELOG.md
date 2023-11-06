@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 1.7.0
+
+### Minor Changes
+
+- [#42674](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42674) [`2fd5dd27ec2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fd5dd27ec2) - EDM-8373: export editViewProps type
+
 ## 1.6.0
 
 ### Minor Changes

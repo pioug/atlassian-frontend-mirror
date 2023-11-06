@@ -18,10 +18,15 @@ const pulseStyles = css`
 
 export interface PulseProps {
   children: JSX.Element;
+  isDiscovered?: boolean;
 }
 
-export const Pulse = ({ children }: PulseProps) => {
-  return <span css={pulseStyles}>{children}</span>;
+export const Pulse = ({ children, isDiscovered = false }: PulseProps) => {
+  return (
+    <span data-testid="discovery-pulse" css={!isDiscovered && pulseStyles}>
+      {children}
+    </span>
+  );
 };
 
 export default Pulse;

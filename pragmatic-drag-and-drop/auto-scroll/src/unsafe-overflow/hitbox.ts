@@ -17,7 +17,6 @@ function makeGetHitbox({ axis, side }: { axis: Axis; side: Side }) {
   }): {
     insideOfEdge: DOMRect;
     outsideOfEdge: DOMRect;
-    overElementHitbox: DOMRect;
   } {
     const { mainAxis, crossAxis } = axisLookup[axis];
     const edge: Edge = mainAxis[side];
@@ -60,7 +59,7 @@ function makeGetHitbox({ axis, side }: { axis: Axis; side: Side }) {
         spacingForEdge[crossAxis.end],
     });
 
-    return { insideOfEdge, outsideOfEdge, overElementHitbox };
+    return { insideOfEdge, outsideOfEdge };
   };
 }
 
@@ -68,7 +67,6 @@ export const getHitbox: {
   [Key in Edge]: (args: { clientRect: DOMRect; overflow: HitboxSpacing }) => {
     insideOfEdge: DOMRect;
     outsideOfEdge: DOMRect;
-    overElementHitbox: DOMRect;
   };
 } = {
   top: makeGetHitbox({

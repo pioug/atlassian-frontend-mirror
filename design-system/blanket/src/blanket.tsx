@@ -5,10 +5,8 @@ import { css, jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
-import { DN90A, N100A } from '@atlaskit/theme/colors';
-import { useGlobalTheme } from '@atlaskit/theme/components';
+import { N100A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
-import type { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import type { BlanketProps } from './types';
@@ -26,6 +24,7 @@ const baseStyles = css({
   position: 'fixed',
   zIndex: layers.blanket(),
   inset: 0,
+  backgroundColor: token('color.blanket', N100A),
   overflowY: 'auto',
   pointerEvents: 'initial',
 });
@@ -37,19 +36,6 @@ const shouldAllowClickThroughStyles = css({
 const invisibleStyles = css({
   backgroundColor: 'transparent',
 });
-
-const lightBgStyles = css({
-  backgroundColor: token('color.blanket', N100A),
-});
-
-const darkBgStyles = css({
-  backgroundColor: token('color.blanket', DN90A),
-});
-
-const backgroundStyle: { [index in ThemeModes]: ReturnType<typeof css> } = {
-  light: lightBgStyles,
-  dark: darkBgStyles,
-};
 
 /**
  * __Blanket__
@@ -70,7 +56,6 @@ const Blanket = memo(
     },
     ref,
   ) {
-    const { mode }: { mode: ThemeModes } = useGlobalTheme();
     const mouseDownTarget = useRef<EventTarget | null>(null);
 
     const onBlanketClickedWithAnalytics = usePlatformLeafEventHandler({
@@ -109,7 +94,6 @@ const Blanket = memo(
         css={[
           baseStyles,
           shouldAllowClickThrough && shouldAllowClickThroughStyles,
-          backgroundStyle[mode],
           !isTinted && invisibleStyles,
         ]}
         onClick={onClick}

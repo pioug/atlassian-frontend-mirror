@@ -4,8 +4,6 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
-import type { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import Blanket from '../src';
@@ -21,21 +19,12 @@ const eventResultStyles = css({
   color: token('color.text.subtlest', '#ccc'),
 });
 
-const LIGHT = 'light';
-const DARK = 'dark';
-
 const BasicExample = () => {
-  const [themeMode, setThemeMode] = useState<ThemeModes>(LIGHT);
-
   const [isBlanketVisible, setIsBlanketVisible] = useState(false);
   const [shouldAllowClickThrough, setShouldAllowClickThrough] = useState(true);
   const [onEventResult, setOnEventResult] = useState(
     'Blanket isTinted:false shouldAllowClickThrough:true',
   );
-
-  const toggleMode = useCallback(() => {
-    setThemeMode((themeMode) => (themeMode === LIGHT ? DARK : LIGHT));
-  }, [setThemeMode]);
 
   const showBlanketClick = useCallback(() => {
     setOnEventResult('Blanket isTinted: true shouldAllowClickThrough: false');
@@ -52,39 +41,26 @@ const BasicExample = () => {
   }, []);
 
   return (
-    <AtlaskitThemeProvider mode={themeMode}>
-      <div>
-        <Button
-          appearance="default"
-          onClick={showBlanketClick}
-          testId="show-button"
-        >
-          Show blanket
-        </Button>
-        <Button
-          style={{ marginLeft: token('space.100', '8px') }}
-          testId="toggle-theme"
-          onClick={toggleMode}
-        >
-          Toggle theme
-        </Button>
-        <p>
-          Click "Show blanket" button to open the blanket & click the blanket to
-          dismiss it.
-        </p>
-        <p>
-          Click "Toggle theme" button to toggle between light and dark theme.
-        </p>
-
-        <Blanket
-          onBlanketClicked={onBlanketClicked}
-          isTinted={isBlanketVisible}
-          shouldAllowClickThrough={shouldAllowClickThrough}
-          testId="basic-blanket"
-        />
-        <div css={eventResultStyles}>{onEventResult}</div>
-      </div>
-    </AtlaskitThemeProvider>
+    <div>
+      <Button
+        appearance="default"
+        onClick={showBlanketClick}
+        testId="show-button"
+      >
+        Show blanket
+      </Button>
+      <p>
+        Click "Show blanket" button to open the blanket & click the blanket to
+        dismiss it.
+      </p>
+      <Blanket
+        onBlanketClicked={onBlanketClicked}
+        isTinted={isBlanketVisible}
+        shouldAllowClickThrough={shouldAllowClickThrough}
+        testId="basic-blanket"
+      />
+      <div css={eventResultStyles}>{onEventResult}</div>
+    </div>
   );
 };
 

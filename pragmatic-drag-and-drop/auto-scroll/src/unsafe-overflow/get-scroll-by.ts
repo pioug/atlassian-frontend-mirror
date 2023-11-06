@@ -73,21 +73,24 @@ export function getScrollBy<DragType extends AllDragTypes>({
 
   const inHitboxForEdge: HitboxForEdge[] = edges
     .map((edge): HitboxForEdge | false => {
-      const { insideOfEdge, outsideOfEdge, overElementHitbox } = getHitbox[
-        edge
-      ]({
+      const { insideOfEdge, outsideOfEdge } = getHitbox[edge]({
         clientRect,
         overflow,
       });
 
-      // Making sure that if we are over the over element hitbox,
-      // we don't do anything.
-      // This is important as this hotbox needs to 'cut out' the 'insideOfEdge' hitbox
-      // This check is a bit redundant as our `element.contains(underUsersCursor)` should catch this,
-      // but it's helpful to be explicit here
-      if (isWithin({ client, clientRect: overElementHitbox })) {
-        return false;
-      }
+      /** Note:
+       * Intentionally _not_ doing an explicit check to
+       * see if `client` is with within the `overElementHitbox`.
+       *
+       * **Why?**
+       *
+       * 1. This check is already achieved by `element.contains(underUsersPointer)`.
+       * This check is shared between "over element" and "overflow" scrolling to guarantee
+       * only one is being activated a time
+       *
+       * 2. Sometimes `document.getElementFromPoint()` can return the wrong element
+       * when on the boundary of an element
+       */
 
       if (isWithin({ client, clientRect: outsideOfEdge })) {
         return {

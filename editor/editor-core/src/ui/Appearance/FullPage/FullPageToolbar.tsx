@@ -33,7 +33,6 @@ import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
 import type { FeatureFlags } from '../../../types/feature-flags';
 import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { usePresetContext } from '../../../presets/context';
 
 export interface FullPageToolbarProps {
@@ -55,13 +54,19 @@ export interface FullPageToolbarProps {
   containerElement: HTMLElement | null;
   beforeIcon?: ReactElement;
   hasMinWidth?: boolean;
-  featureFlags?: FeatureFlags;
+  featureFlags: FeatureFlags;
+  hideAvatarGroup?: boolean;
 }
 
 export const EditorToolbar = React.memo(
   (props: FullPageToolbarProps & WrappedComponentProps) => {
     const [shouldSplitToolbar, setShouldSplitToolbar] = useState(false);
     const editorAPI = usePresetContext();
+
+    // When primary toolbar components is undefined, do not show two line editor toolbar
+    const twoLineEditorToolbar =
+      !!props.customPrimaryToolbarComponents &&
+      !!props.featureFlags?.twoLineEditorToolbar;
 
     const nonCustomToolbar = (
       <div css={nonCustomToolbarWrapperStyle}>
@@ -82,14 +87,14 @@ export const EditorToolbar = React.memo(
           dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
           containerElement={props.containerElement}
           hasMinWidth={props.hasMinWidth}
-          twoLineEditorToolbar={!!props.featureFlags?.twoLineEditorToolbar}
+          twoLineEditorToolbar={twoLineEditorToolbar}
         />
       </div>
     );
 
     const customToolbar = (
       <div css={customToolbarWrapperStyle}>
-        {props.featureFlags?.twoLineEditorToolbar &&
+        {twoLineEditorToolbar &&
         !!props.customPrimaryToolbarComponents &&
         'before' in props.customPrimaryToolbarComponents ? (
           <BeforePrimaryToolbarWrapper
@@ -98,11 +103,13 @@ export const EditorToolbar = React.memo(
             }
           />
         ) : null}
-        {getBooleanFF(
-          'platform.confluence.frontend.editor.no.platform.avatar.group',
-        ) ||
+        {props.hideAvatarGroup ||
         (props?.featureFlags?.showAvatarGroupAsPlugin === true &&
           !props.featureFlags?.twoLineEditorToolbar) ? null : (
+          // Avatars are moved to Confluence codebase for Edit in Context
+          // When Edit in Context is enabled customPrimaryToolbarComponents is undefined
+          // For more details please check
+          // https://hello.atlassian.net/wiki/spaces/PCG/pages/2851572180/Editor+toolbar+for+live+pages+and+edit+in+context+projects
           <AvatarsWithPluginState
             editorView={props.editorView}
             eventDispatcher={props.eventDispatcher}
@@ -114,7 +121,7 @@ export const EditorToolbar = React.memo(
             featureFlags={props.featureFlags || {}}
           />
         )}
-        {editorAPI?.findReplace && props.featureFlags?.twoLineEditorToolbar ? (
+        {editorAPI?.findReplace && twoLineEditorToolbar ? (
           <FindReplaceToolbarButtonWithState
             popupsBoundariesElement={props.popupsBoundariesElement}
             popupsMountPoint={props.popupsMountPoint}
@@ -133,7 +140,7 @@ export const EditorToolbar = React.memo(
     );
 
     useEffect(() => {
-      if (props.featureFlags?.twoLineEditorToolbar) {
+      if (twoLineEditorToolbar) {
         const updateOnResize = () => {
           setShouldSplitToolbar(
             window.innerWidth <= MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT,
@@ -171,23 +178,19 @@ export const EditorToolbar = React.memo(
             <div
               css={mainToolbarStyle(
                 props.showKeyline || contextPanelWidth > 0,
-                !!props.featureFlags?.twoLineEditorToolbar,
+                twoLineEditorToolbar,
               )}
               data-testid="ak-editor-main-toolbar"
             >
               <div
-                css={mainToolbarFirstChildStyle(
-                  !!props.featureFlags?.twoLineEditorToolbar,
-                )}
+                css={mainToolbarFirstChildStyle(twoLineEditorToolbar)}
                 role="toolbar"
                 aria-label={props.intl.formatMessage(messages.toolbarLabel)}
               >
                 {shouldSplitToolbar ? customToolbar : nonCustomToolbar}
               </div>
               <div
-                css={mainToolbarSecondChildStyle(
-                  !!props.featureFlags?.twoLineEditorToolbar,
-                )}
+                css={mainToolbarSecondChildStyle(twoLineEditorToolbar)}
                 data-testid={'avatar-group-outside-plugin'}
                 role="region"
                 aria-label={props.intl.formatMessage(messages.pageActionsLabel)}

@@ -189,6 +189,8 @@ export function tryScroll<DragType extends AllDragTypes>({
   findEntry: (element: Element) => ElementAutoScrollArgs<DragType> | null;
   getWindowScrollEntries: () => WindowAutoScrollArgs<DragType>[];
 }): void {
+  // This is the same starting point as the "overflow" auto scroller,
+  // which is important to ensure that there is a clean handover between the auto scroller's
   const target = document.elementFromPoint(input.clientX, input.clientY);
 
   // We are matching browser behaviour and scrolling inner elements

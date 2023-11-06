@@ -68,4 +68,5 @@ export interface EditorAppearanceComponentProps {
   useStickyToolbar?: UseStickyToolbarType;
 
   innerRef?: RefObject<HTMLDivElement>;
+  hideAvatarGroup?: boolean;
 }

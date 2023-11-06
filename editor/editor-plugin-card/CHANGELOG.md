@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-card
 
+## 0.10.9
+
+### Patch Changes
+
+- [#42607](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42607) [`87e6390f290`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87e6390f290) - [ux] Added a DiscoveryPulse component that can be used for feature discovery based on local storage keys
+- Updated dependencies
+
 ## 0.10.8
 
 ### Patch Changes

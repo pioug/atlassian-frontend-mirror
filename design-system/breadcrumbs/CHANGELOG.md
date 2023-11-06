@@ -1,5 +1,11 @@
 # @atlaskit/breadcrumbs
 
+## 12.0.0
+
+### Major Changes
+
+- [#41760](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41760) [`909e4a30fe7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/909e4a30fe7) - Removed all remaining legacy theming logic from the Blanket, Breadcrumbs and Checkbox components.
+
 ## 11.10.7
 
 ### Patch Changes

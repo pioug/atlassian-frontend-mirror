@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 76.18.2
+
+### Patch Changes
+
+- [#42643](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42643) [`4ff9296edf3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ff9296edf3) - Upgrade `linkify-it` from `2.x` to `3.x`
+
 ## 76.18.1
 
 ### Patch Changes

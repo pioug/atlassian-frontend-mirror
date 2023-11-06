@@ -7,7 +7,7 @@ import { AnalyticsContext } from '@atlaskit/analytics-next';
 
 import type { CardProps } from './types';
 import { CardWithUrlContent } from './view/CardWithUrl/component';
-import { LoadingCardLink } from './view/CardWithUrl/component-lazy/LazyFallback';
+import { LoadingCardLink } from './view/CardWithUrl/component-lazy/LoadingCardLink';
 import { context } from './utils/analytics/analytics';
 
 export type CardSSRProps = CardProps & { url: string };

@@ -541,6 +541,8 @@ interface EditorSharedPropsWithPlugins {
   allowUndoRedoButtons?: boolean;
   // (undocumented)
   collabEdit?: CollabEditOptions;
+  // (undocumented)
+  hideAvatarGroup?: boolean;
   linking?: LinkingOptions;
   // (undocumented)
   media?: MediaOptions;

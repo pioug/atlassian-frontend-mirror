@@ -1,5 +1,17 @@
 # @atlaskit/linking-common
 
+## 4.15.0
+
+### Minor Changes
+
+- [#42607](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42607) [`87e6390f290`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87e6390f290) - [ux] Added an optional prop isDiscovered to the Pulse component that will stop the animation when true.
+
+## 4.14.1
+
+### Patch Changes
+
+- [#42643](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42643) [`4ff9296edf3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ff9296edf3) - Upgrade `linkify-it` from `2.x` to `3.x`
+
 ## 4.14.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 1.12.2
+
+### Patch Changes
+
+- [#42675](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42675) [`bce00b9b36f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bce00b9b36f) - [ux] Updated Assets Config Modal to also show unauthorized state
+  Updated useDatasourceTableState to return unauthorized state on 401 & 403 responses
+- Updated dependencies
+
 ## 1.12.1
 
 ### Patch Changes

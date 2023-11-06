@@ -6,6 +6,7 @@ import {
   DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
 
+import { AccessRequired } from '../../../common/error-state/access-required';
 import { ModalLoadingError } from '../../../common/error-state/modal-loading-error';
 import { NoResults } from '../../../common/error-state/no-results';
 import { EmptyState, IssueLikeDataTableView } from '../../../issue-like-table';
@@ -75,6 +76,8 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
 
   if (status === 'rejected') {
     return <ModalLoadingError />;
+  } else if (status === 'unauthorized') {
+    return <AccessRequired />;
   } else if (status === 'empty') {
     return <InitialStateView />;
   } else if (resolvedWithNoResults) {

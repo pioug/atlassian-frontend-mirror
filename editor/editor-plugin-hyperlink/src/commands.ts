@@ -36,7 +36,6 @@ import type {
 } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { stateKey } from './pm-plugins/main';
 import { toolbarKey } from './pm-plugins/toolbar-buttons';
@@ -192,11 +191,7 @@ export function insertLink(
             sourceEvent,
           });
         }
-      } else if (
-        getBooleanFF(
-          'platform.linking-platform.editor.fix-link-insert-analytics',
-        )
-      ) {
+      } else {
         /**
          * Add link metadata because queue cards would have otherwise handled this for us
          */

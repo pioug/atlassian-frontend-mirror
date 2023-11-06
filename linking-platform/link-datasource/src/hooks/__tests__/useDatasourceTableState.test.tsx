@@ -313,6 +313,25 @@ describe('useDatasourceTableState', () => {
       expect(result.current.status).toBe('unauthorized');
     });
 
+    it.each([
+      ['unauthorized', 401],
+      ['unauthorized', 403],
+      ['rejected', 500],
+    ])(
+      'should change status to "%s" on request error %s response',
+      async (status: string, errorStatusCode: number) => {
+        // Needed to create instanceof
+        const errorResponse: Response = Object.create(Response.prototype);
+        asMock(getDatasourceData).mockRejectedValueOnce(
+          Object.assign(errorResponse, { status: errorStatusCode }),
+        );
+        const { result, waitForNextUpdate } = setup();
+        await waitForNextUpdate();
+
+        expect(result.current.status).toBe(status);
+      },
+    );
+
     it('should populate responseItems with data coming from getDatasourceData', async () => {
       const { result, waitForNextUpdate } = setup();
       await waitForNextUpdate();
@@ -620,6 +639,29 @@ describe('useDatasourceTableState', () => {
 
       expect(result.current.status).toEqual('unauthorized');
     });
+
+    it.each([
+      ['unauthorized', 401],
+      ['unauthorized', 403],
+      ['rejected', 500],
+    ])(
+      'should update status to "%s" on request error %s response',
+      async (status: string, errorStatusCode: number) => {
+        // Needed to create instanceof
+        const errorResponse: Response = Object.create(Response.prototype);
+        asMock(getDatasourceData).mockRejectedValueOnce(
+          Object.assign(errorResponse, { status: errorStatusCode }),
+        );
+        const { waitForNextUpdate, result } = setup();
+        await waitForNextUpdate();
+
+        act(() => {
+          result.current.loadDatasourceDetails();
+        });
+
+        expect(result.current.status).toEqual(status);
+      },
+    );
   });
 
   describe('#reset()', () => {

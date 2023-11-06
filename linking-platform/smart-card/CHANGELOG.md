@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.41.3
+
+### Patch Changes
+
+- [#42679](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42679) [`e1dd216aa02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1dd216aa02) - Extract loadingPlaceholderClassName export to seperate file
+
 ## 26.41.2
 
 ### Patch Changes

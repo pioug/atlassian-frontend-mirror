@@ -127,6 +127,10 @@ export const useDatasourceTableState = ({
 
       newColumns.length > 0 && setColumns([...columns, ...newColumns]);
     } catch (e) {
+      if (e instanceof Response && (e.status === 401 || e.status === 403)) {
+        setStatus('unauthorized');
+        return;
+      }
       setStatus('rejected');
     }
   }, [columns, datasourceId, getDatasourceDetails, parameters]);
@@ -225,6 +229,10 @@ export const useDatasourceTableState = ({
         }
         setStatus('resolved');
       } catch (e: any) {
+        if (e instanceof Response && (e.status === 401 || e.status === 403)) {
+          setStatus('unauthorized');
+          return;
+        }
         setStatus('rejected');
       }
     },

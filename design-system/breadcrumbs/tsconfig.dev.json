@@ -69,9 +69,6 @@
       "path": "../../../build/test-tooling/ssr/tsconfig.app.json"
     },
     {
-      "path": "../theme/tsconfig.app.json"
-    },
-    {
       "path": "../tokens/tsconfig.app.json"
     },
     {

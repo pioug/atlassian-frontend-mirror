@@ -1,16 +1,29 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { N80, N900 } from '@atlaskit/theme/colors';
-import { useGlobalTheme } from '@atlaskit/theme/components';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import {
+  B200,
+  B300,
+  B400,
+  B50,
+  N10,
+  N100,
+  N20,
+  N30,
+  N40,
+  N70,
+  N80,
+  N900,
+  R300,
+} from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { LabelProps } from '../types';
 
 import { fontFamily } from './constants';
-import theme from './theme';
 
-const labelStyles = css({
+const baseStyles = css({
   display: 'grid',
   gridAutoColumns: '1fr',
   gridAutoRows: 'min-content',
@@ -29,68 +42,50 @@ const disabledStyles = css({
   cursor: 'not-allowed',
 });
 
-const themeStyles = {
-  light: css({
-    /**
-     * Background
-     */
-    '--local-background': theme.light.boxColor.rest,
-    '--local-background-active': theme.light.boxColor.active,
-    '--local-background-checked': theme.light.boxColor.checked,
-    '--local-background-checked-hover': theme.light.boxColor.hoveredAndChecked,
-    '--local-background-disabled': theme.light.boxColor.disabled,
-    '--local-background-hover': theme.light.boxColor.hovered,
-    /**
-     * Border
-     */
-    '--local-border': theme.light.borderColor.rest,
-    '--local-border-active': theme.light.borderColor.active,
-    '--local-border-checked': theme.light.borderColor.checked,
-    '--local-border-checked-hover': theme.light.borderColor.hoveredAndChecked,
-    '--local-border-checked-invalid': theme.light.borderColor.invalidAndChecked,
-    '--local-border-disabled': theme.light.borderColor.disabled,
-    '--local-border-focus': theme.light.borderColor.focused,
-    '--local-border-hover': theme.light.borderColor.hovered,
-    '--local-border-invalid': theme.light.borderColor.invalid,
-    /**
-     * Tick
-     */
-    '--local-tick-active': theme.light.tickColor.activeAndChecked,
-    '--local-tick-checked': theme.light.tickColor.checked,
-    '--local-tick-disabled': theme.light.tickColor.disabledAndChecked,
-    '--local-tick-rest': 'transparent',
-  }),
-  dark: css({
-    /**
-     * Background
-     */
-    '--local-background': theme.dark.boxColor.rest,
-    '--local-background-active': theme.dark.boxColor.active,
-    '--local-background-checked': theme.dark.boxColor.checked,
-    '--local-background-checked-hover': theme.dark.boxColor.hoveredAndChecked,
-    '--local-background-disabled': theme.dark.boxColor.disabled,
-    '--local-background-hover': theme.dark.boxColor.hovered,
-    /**
-     * Border
-     */
-    '--local-border': theme.dark.borderColor.rest,
-    '--local-border-active': theme.dark.borderColor.active,
-    '--local-border-checked': theme.dark.borderColor.checked,
-    '--local-border-checked-hover': theme.dark.borderColor.hoveredAndChecked,
-    '--local-border-checked-invalid': theme.dark.borderColor.invalidAndChecked,
-    '--local-border-disabled': theme.dark.borderColor.disabled,
-    '--local-border-focus': theme.dark.borderColor.focused,
-    '--local-border-hover': theme.dark.borderColor.hovered,
-    '--local-border-invalid': theme.dark.borderColor.invalid,
-    /**
-     * Tick
-     */
-    '--local-tick-active': theme.dark.tickColor.activeAndChecked,
-    '--local-tick-checked': theme.dark.tickColor.checked,
-    '--local-tick-disabled': theme.dark.tickColor.disabledAndChecked,
-    '--local-tick-rest': 'transparent',
-  }),
-};
+const labelStyles = css({
+  /**
+   * Background
+   */
+  '--local-background': token('color.background.input', N10),
+  '--local-background-active': token('color.background.input.pressed', B50),
+  '--local-background-checked': token('color.background.selected.bold', B400),
+  '--local-background-checked-hover': token(
+    'color.background.selected.bold.hovered',
+    B300,
+  ),
+  '--local-background-disabled': token('color.background.disabled', N20),
+  '--local-background-hover': token('color.background.input.hovered', N30),
+  /**
+   * Border
+   */
+  '--local-border': getBooleanFF(
+    'platform.design-system-team.update-border-radio-checkbox_7askv',
+  )
+    ? token('color.border.bold', N100)
+    : token('color.border.input', N40),
+  '--local-border-active': token('color.border', B50),
+  '--local-border-checked': token('color.background.selected.bold', B400),
+  '--local-border-checked-hover': token(
+    'color.background.selected.bold.hovered',
+    B300,
+  ),
+  '--local-border-checked-invalid': token('color.border.danger', R300),
+  '--local-border-disabled': token('color.background.disabled', N20),
+  '--local-border-focus': token('color.border.focused', B200),
+  '--local-border-hover': getBooleanFF(
+    'platform.design-system-team.update-border-radio-checkbox_7askv',
+  )
+    ? token('color.border.bold', N100)
+    : token('color.border.input', N40),
+  '--local-border-invalid': token('color.border.danger', R300),
+  /**
+   * Tick
+   */
+  '--local-tick-active': token('color.icon.inverse', B400),
+  '--local-tick-checked': token('color.icon.inverse', N10),
+  '--local-tick-disabled': token('color.icon.disabled', N70),
+  '--local-tick-rest': 'transparent',
+});
 
 export default function Label({
   children,
@@ -99,16 +94,13 @@ export default function Label({
   label,
   id,
 }: LabelProps) {
-  const { mode } = useGlobalTheme();
-
   return (
     <label
       css={[
-        labelStyles,
+        baseStyles,
         label && textLabelLayoutStyles,
         isDisabled && disabledStyles,
-        mode === 'light' && themeStyles.light,
-        mode === 'dark' && themeStyles.dark,
+        labelStyles,
       ]}
       data-testid={testId}
       data-disabled={isDisabled || undefined}

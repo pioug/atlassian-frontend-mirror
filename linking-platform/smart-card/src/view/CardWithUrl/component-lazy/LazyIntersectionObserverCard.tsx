@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { CardWithUrlContentProps } from '../types';
 import { usePrefetch } from '../../../state';
 import { CardWithUrlContent } from '../component';
-import { LoadingCardLink } from './LazyFallback';
+import { LoadingCardLink } from './LoadingCardLink';
 import { startUfoExperience } from '../../../state/analytics/ufoExperiences';
 
 // This property enables the intersection observer to be run once the

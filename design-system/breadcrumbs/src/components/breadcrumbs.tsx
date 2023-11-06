@@ -9,11 +9,9 @@ import {
 } from '@atlaskit/analytics-next';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import __noop from '@atlaskit/ds-lib/noop';
-import GlobalTheme from '@atlaskit/theme/components';
-import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
+import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { getColors } from '../internal/colors';
 import { BreadcrumbsProps } from '../types';
 
 import EllipsisItem from './ellipsis-item';
@@ -24,10 +22,6 @@ const defaultBreadcrumbsLabel = 'Breadcrumbs';
 const defaultEllipsisLabel = 'Show more breadcrumbs';
 
 const { toArray } = React.Children;
-
-interface ThemedBreadcrumbsProps extends BreadcrumbsProps {
-  mode: ThemeModes;
-}
 
 const analyticsAttributes = {
   componentName: 'breadcrumbs',
@@ -47,7 +41,7 @@ const breadcrumbStyles = css({
 });
 
 const InnerBreadcrumbs = forwardRef(
-  (props: ThemedBreadcrumbsProps, ref: React.Ref<any>) => {
+  (props: BreadcrumbsProps, ref: React.Ref<any>) => {
     const {
       defaultExpanded = false,
       isExpanded,
@@ -59,7 +53,6 @@ const InnerBreadcrumbs = forwardRef(
       testId,
       onExpand: providedExpanse = noop,
       analyticsContext,
-      mode = 'light',
       label = defaultBreadcrumbsLabel,
       ellipsisLabel = defaultEllipsisLabel,
     } = props;
@@ -71,8 +64,6 @@ const InnerBreadcrumbs = forwardRef(
     const isControlled = typeof isExpanded !== 'undefined';
     const isExpansionHandled = providedExpanse !== noop;
     const shouldExpand = isControlled ? isExpanded : expanded;
-
-    const { separatorColor } = getColors(mode);
 
     const focusFirstRevealed = () => {
       if (wrapperRef.current) {
@@ -165,7 +156,7 @@ const InnerBreadcrumbs = forwardRef(
         <ol
           data-testid={testId}
           css={breadcrumbStyles}
-          style={{ color: separatorColor }}
+          style={{ color: token('color.text.subtlest', N200) }}
         >
           {breadcrumbsItems}
         </ol>
@@ -176,13 +167,7 @@ const InnerBreadcrumbs = forwardRef(
 
 const Breadcrumbs = memo(
   forwardRef((props: BreadcrumbsProps, ref: React.Ref<any>) => {
-    return (
-      <GlobalTheme.Consumer>
-        {(tokens: GlobalThemeTokens) => {
-          return <InnerBreadcrumbs {...props} mode={tokens.mode} ref={ref} />;
-        }}
-      </GlobalTheme.Consumer>
-    );
+    return <InnerBreadcrumbs {...props} ref={ref} />;
   }),
 );
 

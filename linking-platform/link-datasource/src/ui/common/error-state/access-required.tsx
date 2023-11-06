@@ -62,6 +62,7 @@ export const AccessRequired = ({ url }: AccessRequiredProps) => {
   if (url) {
     return (
       <EmptyState
+        testId="datasource--access-required-with-url"
         header={formatMessage(loadingErrorMessages.accessRequiredWithSite)}
         description={
           <Description
@@ -76,6 +77,7 @@ export const AccessRequired = ({ url }: AccessRequiredProps) => {
 
   return (
     <EmptyState
+      testId="datasource--access-required"
       header={formatMessage(loadingErrorMessages.accessRequired)}
       description={formatMessage(loadingErrorMessages.accessInstructions)}
       renderImage={IconContainer}

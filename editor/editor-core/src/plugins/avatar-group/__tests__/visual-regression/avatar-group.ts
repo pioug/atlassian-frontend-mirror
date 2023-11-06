@@ -13,7 +13,8 @@ describe('Avatar Group:', () => {
   const initEditor = async (
     adf: any,
     viewport = { width: 1280, height: 600 },
-    showAvatarGroup: boolean,
+    showAvatarGroupAsPlugin: boolean,
+    hideAvatarGroup: boolean,
   ) => {
     page = global.page;
     await initEditorWithAdf(page, {
@@ -21,20 +22,41 @@ describe('Avatar Group:', () => {
       appearance: Appearance.fullPage,
       viewport,
       editorProps: {
-        featureFlags: { showAvatarGroupAsPlugin: showAvatarGroup },
+        featureFlags: { showAvatarGroupAsPlugin: showAvatarGroupAsPlugin },
+        hideAvatarGroup: hideAvatarGroup,
       },
       withCollab: true,
     });
   };
 
   it('should render avatar-group as plugin when showAvatarGroupAsPlugin feature flag is set true', async () => {
-    await initEditor(adf, { width: 1000, height: 300 }, true);
+    await initEditor(adf, { width: 1000, height: 300 }, true, false);
     await page.waitForSelector('[data-testid="avatar-group-in-plugin"]');
     await snapshot(page, undefined, '[data-testid="avatar-group-in-plugin"]');
   });
 
   it('should not render avatar-group as plugin when showAvatarGroupAsPlugin feature flag is not set true', async () => {
-    await initEditor(adf, { width: 1000, height: 300 }, false);
+    await initEditor(adf, { width: 1000, height: 300 }, false, false);
+    await page.waitForSelector('[data-testid="avatar-group-outside-plugin"]');
+    await snapshot(
+      page,
+      undefined,
+      '[data-testid="avatar-group-outside-plugin"]',
+    );
+  });
+
+  it('should not render avatar-group when hideAvatarGroup is true', async () => {
+    await initEditor(adf, { width: 1000, height: 300 }, true, true);
+    await page.waitForSelector('[data-testid="avatar-group-outside-plugin"]');
+    await snapshot(
+      page,
+      undefined,
+      '[data-testid="avatar-group-outside-plugin"]',
+    );
+  });
+
+  it('should not render avatar-group when showAvatarGroupAsPlugin feature flag is false and hideAvatarGroup is true', async () => {
+    await initEditor(adf, { width: 1000, height: 300 }, false, true);
     await page.waitForSelector('[data-testid="avatar-group-outside-plugin"]');
     await snapshot(
       page,

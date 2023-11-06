@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.7.6
+
+### Patch Changes
+
+- [#42697](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42697) [`37d5038129d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37d5038129d) - Revise types for `ClearIndicator` usage inside `AtlaskitSelect`
+
 ## 16.7.5
 
 ### Patch Changes

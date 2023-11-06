@@ -587,9 +587,6 @@ export default function createUniversalPreset(
     ])
     .maybeAdd(beforePrimaryToolbarPlugin, (plugin, builder) => {
       if (
-        !getBooleanFF(
-          'platform.confluence.frontend.editor.no.platform.avatar.group',
-        ) &&
         hasBeforePrimaryToolbar(props.primaryToolbarComponents) &&
         !featureFlags.twoLineEditorToolbar
       ) {
@@ -606,12 +603,14 @@ export default function createUniversalPreset(
     })
     .maybeAdd(avatarGroupPlugin, (plugin, builder) => {
       if (
-        !getBooleanFF(
-          'platform.confluence.frontend.editor.no.platform.avatar.group',
-        ) &&
+        !props.hideAvatarGroup &&
         featureFlags.showAvatarGroupAsPlugin === true &&
         !featureFlags.twoLineEditorToolbar
       ) {
+        // Avatars are moved to Confluence codebase for Edit in Context
+        // When Edit in Context is enabled primaryToolbarComponents is undefined
+        // For more details please check
+        // https://hello.atlassian.net/wiki/spaces/PCG/pages/2851572180/Editor+toolbar+for+live+pages+and+edit+in+context+projects
         return builder.add([
           plugin,
           {
@@ -631,12 +630,12 @@ export default function createUniversalPreset(
           plugin,
           {
             takeFullWidth:
-              !getBooleanFF(
-                'platform.confluence.frontend.editor.no.platform.avatar.group',
-              ) &&
+              !props.hideAvatarGroup &&
               !!featureFlags.showAvatarGroupAsPlugin === false &&
               !hasBeforePrimaryToolbar(props.primaryToolbarComponents),
-            twoLineEditorToolbar: !!featureFlags.twoLineEditorToolbar,
+            twoLineEditorToolbar:
+              !!props.primaryToolbarComponents &&
+              !!featureFlags.twoLineEditorToolbar,
           },
         ]);
       }

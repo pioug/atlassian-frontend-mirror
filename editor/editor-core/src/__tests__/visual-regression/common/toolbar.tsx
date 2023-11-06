@@ -459,6 +459,79 @@ describe('Toolbar: Responsive toolbar', () => {
   });
 });
 
+describe('Toolbar: No primaryToolbarComponents', () => {
+  let page: PuppeteerPage;
+
+  const initEditor = async (viewport: any) => {
+    page = global.page;
+    await initEditorWithAdf(page, {
+      appearance: Appearance.fullPage,
+      viewport,
+      editorProps: {
+        allowUndoRedoButtons: true,
+        primaryToolbarIconBefore: <div></div>,
+        featureFlags: { twoLineEditorToolbar: true },
+        allowFindReplace: true,
+        primaryToolbarComponents: undefined,
+      },
+      withCollab: true,
+    });
+  };
+
+  afterEach(async () => {
+    await snapshot(page, undefined, mainToolbarSelector);
+  });
+
+  it('should show one line toolbar when viewport is big', async () => {
+    await initEditor({ width: 1280, height: 300 });
+    await page.waitForSelector(mainToolbarSelector);
+  });
+
+  it('should show one line toolbar when viewport is small', async () => {
+    await initEditor({ width: 400, height: 300 });
+    await page.waitForSelector(mainToolbarSelector);
+  });
+});
+
+describe('Toolbar: Avatar group', () => {
+  let page: PuppeteerPage;
+
+  const initEditor = async ({
+    hideAvatarGroup,
+  }: {
+    hideAvatarGroup: boolean;
+  }) => {
+    page = global.page;
+    await initEditorWithAdf(page, {
+      appearance: Appearance.fullPage,
+      viewport: { width: 1280, height: 300 },
+      editorProps: {
+        allowUndoRedoButtons: true,
+        primaryToolbarIconBefore: <div></div>,
+        featureFlags: { twoLineEditorToolbar: true },
+        allowFindReplace: true,
+        primaryToolbarComponents: undefined,
+        hideAvatarGroup: hideAvatarGroup,
+      },
+      withCollab: true,
+    });
+  };
+
+  afterEach(async () => {
+    await snapshot(page, undefined, mainToolbarSelector);
+  });
+
+  it('should show avatar group when hideAvatarGroup is false', async () => {
+    await initEditor({ hideAvatarGroup: false });
+    await page.waitForSelector(mainToolbarSelector);
+  });
+
+  it('should hide avatar group when hideAvatarGroup is true', async () => {
+    await initEditor({ hideAvatarGroup: true });
+    await page.waitForSelector(mainToolbarSelector);
+  });
+});
+
 describe('Toolbar: Dropdown behaviours', () => {
   let page: PuppeteerPage;
   beforeEach(async () => {

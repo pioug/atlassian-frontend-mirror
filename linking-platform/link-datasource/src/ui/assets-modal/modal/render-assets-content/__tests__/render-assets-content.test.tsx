@@ -90,6 +90,11 @@ describe('AssetsConfigModal', () => {
     ).toBeInTheDocument();
   });
 
+  it('Should display access required view when the status is unauthorized', async () => {
+    const { queryByTestId } = setup({ status: 'unauthorized' });
+    expect(queryByTestId('datasource--access-required')).toBeInTheDocument();
+  });
+
   it('Should display IssueLikeDataTableView when the status is resolved', async () => {
     const { queryByTestId } = setup({ status: 'resolved' });
     expect(queryByTestId('asset-datasource-table')).toBeInTheDocument();

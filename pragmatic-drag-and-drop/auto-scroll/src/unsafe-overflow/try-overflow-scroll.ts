@@ -19,7 +19,10 @@ export function tryOverflowScrollElements<DragType extends AllDragTypes>({
   source: DragType['payload'];
   entries: UnsafeOverflowAutoScrollArgs<DragType>[];
 }): void {
-  // doing this lookup here so it can be shared for all the entries
+  // Notes
+  // - This is the same starting point as the "over element" auto scroller,
+  //   which is important to ensure that there is a clean handover between the auto scroller's
+  // - Doing this lookup here so it can be shared for all the entries.
   const underUsersPointer = document.elementFromPoint(
     input.clientX,
     input.clientY,
@@ -35,7 +38,7 @@ export function tryOverflowScrollElements<DragType extends AllDragTypes>({
     // 2. The overflow hitbox area for an edge actually stretches over the element
     //    This check is used to "mask" or "cut out" the element hitbox from the overflow hitbox
     if (entry.element.contains(underUsersPointer)) {
-      return;
+      continue;
     }
 
     const feedback: ElementGetFeedbackArgs<DragType> = {
@@ -47,7 +50,7 @@ export function tryOverflowScrollElements<DragType extends AllDragTypes>({
     // Scrolling not allowed for this entity
     // Note: not marking engagement if an entity is opting out of scrolling
     if (entry.canScroll && !entry.canScroll(feedback)) {
-      return;
+      continue;
     }
 
     const scrollBy = getScrollBy({

@@ -1,5 +1,15 @@
 # @atlaskit/pragmatic-drag-and-drop-auto-scroll
 
+## 0.6.0
+
+### Minor Changes
+
+- [#42668](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42668) [`0a4e3f44ba3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a4e3f44ba3) - We have landed a few fixes for "overflow scrolling"
+
+  - Fix: Time dampening could be incorrectly reset when transitioning from "over element" auto scrolling to "overflow" auto scrolling for certain element configurations.
+  - Fix: Parent "overflow scrolling" registrations could prevent overflow scrolling on children elements, if the parent was registered first.
+  - Fix: "overflow scrolling" `canScroll() => false` would incorrectly opt out of "overflow scrolling" for younger registrations.
+
 ## 0.5.0
 
 ### Minor Changes

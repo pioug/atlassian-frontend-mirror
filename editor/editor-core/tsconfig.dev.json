@@ -103,6 +103,9 @@
       "path": "../editor-json-transformer/tsconfig.app.json"
     },
     {
+      "path": "../editor-mobile-bridge/tsconfig.app.json"
+    },
+    {
       "path": "../editor-palette/tsconfig.app.json"
     },
     {

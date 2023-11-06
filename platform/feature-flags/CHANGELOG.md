@@ -1,5 +1,11 @@
 # @atlaskit/platform-feature-flags
 
+## 0.2.5
+
+### Patch Changes
+
+- [#42550](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42550) [`c9c2b136ecb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9c2b136ecb) - Add a type to globalThis and dummy index.js file to fix failing typecheck and eslint check in AFM
+
 ## 0.2.4
 
 ### Patch Changes

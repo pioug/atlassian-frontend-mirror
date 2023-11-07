@@ -21,7 +21,7 @@ export default function FormExampleSimple() {
         return (
           <form {...formProps} name="form-example">
             <Field
-              label="regular radio group"
+              label="Regular radio group"
               name="fruit"
               defaultValue="peach"
             >

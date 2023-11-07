@@ -10,7 +10,6 @@ import {
 import { useThemeObserver } from '@atlaskit/tokens';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { hexToEditorBackgroundPaletteRawValue } from '@atlaskit/editor-palette';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import SortingIcon from '../../ui/SortingIcon';
 import type { AnalyticsEventPayload } from '../../analytics/events';
@@ -115,6 +114,13 @@ function invertCustomColor(customColor: string) {
     hex = customColor;
   } else if (isRgb(customColor)) {
     hex = rgbToHex(customColor)!;
+
+    if (hex === null) {
+      // in some cases the rgb color is invalid, in this case we just return the color
+      // See https://product-fabric.atlassian.net/browse/DTR-2003 for a ticket to improve the isRgb function
+      // to align with the rgbToHex function
+      return customColor;
+    }
   } else {
     return customColor;
   }
@@ -148,42 +154,36 @@ const getStyle = ({
     // ignore setting inline styles if ds neutral token is detected
     !background.includes('--ds-background-neutral')
   ) {
-    if (getBooleanFF('platform.editor.dm-invert-tablecell-bgcolor_9fz6s')) {
-      /**
-       * The Editor supports users pasting content from external sources with custom table cell backgrounds and having those
-       * backgrounds persisted.
-       *
-       * This feature predates the introduction of dark mode.
-       *
-       * Without the inversion logic below, tokenised content (ie. text), can be hard to read when the user loads the page in dark mode.
-       *
-       * This introduces inversion of the presentation of the custom background color when the user is in dark mode.
-       *
-       * This can be done without additional changes to account for users copying and pasting content inside the Editor, because of
-       * how we detect table cell background colors copied from external editor sources. Where we load the background color from a
-       * seperate attribute (data-cell-background), instead of the inline style.
-       *
-       * See the following document for more details on this behaviour
-       * https://hello.atlassian.net/wiki/spaces/CCECO/pages/2892247168/Unsupported+custom+table+cell+background+colors+in+dark+theme+Editor+Job+Story
-       */
-      const tokenColor = hexToEditorBackgroundPaletteRawValue(background);
+    /**
+     * The Editor supports users pasting content from external sources with custom table cell backgrounds and having those
+     * backgrounds persisted.
+     *
+     * This feature predates the introduction of dark mode.
+     *
+     * Without the inversion logic below, tokenised content (ie. text), can be hard to read when the user loads the page in dark mode.
+     *
+     * This introduces inversion of the presentation of the custom background color when the user is in dark mode.
+     *
+     * This can be done without additional changes to account for users copying and pasting content inside the Editor, because of
+     * how we detect table cell background colors copied from external editor sources. Where we load the background color from a
+     * seperate attribute (data-cell-background), instead of the inline style.
+     *
+     * See the following document for more details on this behaviour
+     * https://hello.atlassian.net/wiki/spaces/CCECO/pages/2892247168/Unsupported+custom+table+cell+background+colors+in+dark+theme+Editor+Job+Story
+     */
+    const tokenColor = hexToEditorBackgroundPaletteRawValue(background);
 
-      if (tokenColor) {
-        style.backgroundColor = tokenColor;
-      } else {
-        // if we have a custom color, we need to check if we are in dark mode
-        if (colorMode === 'dark') {
-          // if we are in dark mode, we need to invert the color
-          style.backgroundColor = invertCustomColor(background);
-        } else {
-          // if we are in light mode, we can just set the color
-          style.backgroundColor = background;
-        }
-      }
-    } else {
-      const tokenColor =
-        hexToEditorBackgroundPaletteRawValue(background) || background;
+    if (tokenColor) {
       style.backgroundColor = tokenColor;
+    } else {
+      // if we have a custom color, we need to check if we are in dark mode
+      if (colorMode === 'dark') {
+        // if we are in dark mode, we need to invert the color
+        style.backgroundColor = invertCustomColor(background);
+      } else {
+        // if we are in light mode, we can just set the color
+        style.backgroundColor = background;
+      }
     }
   }
 

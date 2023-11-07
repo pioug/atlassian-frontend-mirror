@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { EditorAnalyticsContext } from '../EditorAnalyticsContext';
 
-import { AnalyticsBindingsProps } from './common';
+import type { AnalyticsBindingsProps } from './common';
 import { DatasourceEventsBinding } from './DatasourceEvents';
 import { LinkEventsBinding } from './LinkEvents';
 
@@ -15,17 +15,16 @@ export class EditorLinkingPlatformAnalytics extends React.PureComponent<Analytic
   };
 
   render() {
-    const cardContext = this.context.contextAdapter.card;
+    const cardContext = this.context?.contextAdapter?.card;
 
     /**
      * The analytics hook needs to be able to communicate with the card context
      * If we can't access it, don't mount the event bindings
      * This effectively entirely disables all tracking behaviour
      */
-    if (!cardContext) {
+    if (!cardContext?.value) {
       return null;
     }
-
     return (
       <cardContext.Provider value={cardContext.value}>
         <EditorAnalyticsContext editorView={this.props.editorView}>

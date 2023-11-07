@@ -1,5 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
+import debounce from 'lodash/debounce';
 import { useIntl } from 'react-intl-next';
 
 import {
@@ -9,10 +16,11 @@ import {
   ValueType,
 } from '@atlaskit/select';
 
-import { useFieldValues } from '../../hooks/useFieldValues';
+import { useFilterOptions } from '../../hooks/useFilterOptions';
 import { BasicFilterFieldType, SelectOption } from '../../types';
 
 import CustomControl from './control';
+import CustomDropdownIndicator from './dropdownIndicator';
 import PopupFooter from './footer';
 import formatOptionLabel from './formatOptionLabel';
 import { asyncPopupSelectMessages } from './messages';
@@ -20,17 +28,23 @@ import PopupTrigger from './trigger';
 
 export interface AsyncPopupSelectProps {
   filterType: BasicFilterFieldType;
+  cloudId: string;
   selection: SelectOption[];
   onSelectionChange?: (selection: SelectOption[]) => void;
+  isDisabled?: boolean;
 }
 
 // Needed to disable filtering from react-select
 const noFilterOptions = () => true;
 
+const SEARCH_DEBOUNCE_MS = 350;
+
 const AsyncPopupSelect = ({
   filterType,
+  cloudId,
   selection,
   onSelectionChange = () => {},
+  isDisabled = false,
 }: AsyncPopupSelectProps) => {
   const { formatMessage } = useIntl();
 
@@ -42,17 +56,27 @@ const AsyncPopupSelect = ({
     useState<ValueType<SelectOption, true>>(selection);
 
   const { filterOptions, fetchFilterOptions, totalCount, status } =
-    useFieldValues({
+    useFilterOptions({
       filterType,
+      cloudId,
     });
 
+  const handleDebouncedFetchFilterOptions = useMemo(
+    () => debounce(fetchFilterOptions, SEARCH_DEBOUNCE_MS),
+    [fetchFilterOptions],
+  );
+
   const handleInputChange = useCallback(
-    (searchString: string, actionMeta: InputActionMeta) => {
-      if (actionMeta.action === 'input-change' && searchString !== searchTerm) {
-        setSearchTerm(searchString);
+    async (newSearchTerm: string, actionMeta: InputActionMeta) => {
+      if (
+        actionMeta.action === 'input-change' &&
+        newSearchTerm !== searchTerm
+      ) {
+        setSearchTerm(newSearchTerm);
+        handleDebouncedFetchFilterOptions({ searchString: newSearchTerm });
       }
     },
-    [searchTerm],
+    [handleDebouncedFetchFilterOptions, searchTerm],
   );
 
   const handleOptionSelection = (newValue: ValueType<SelectOption, true>) => {
@@ -62,7 +86,7 @@ const AsyncPopupSelect = ({
 
   const handleOpenPopup = useCallback(async () => {
     if (status === 'empty') {
-      fetchFilterOptions();
+      await fetchFilterOptions();
     }
   }, [fetchFilterOptions, status]);
 
@@ -73,6 +97,11 @@ const AsyncPopupSelect = ({
     }
   }, [status]);
 
+  const isLoading = status === 'loading' || status === 'empty';
+  const shouldShowFooter = status === 'resolved' && filterOptions.length > 0;
+
+  const options = isLoading ? [] : filterOptions; // if not set to [], then on loading, no loading UI will be shown
+
   return (
     <PopupSelect<SelectOption, true>
       isMulti
@@ -81,18 +110,25 @@ const AsyncPopupSelect = ({
       ref={pickerRef}
       testId="jlol-basic-filter-popup-select"
       inputId="jlol-basic-filter-popup-select--input"
-      searchThreshold={0}
+      /*
+        this threshold controls the display of the search control (input field for search)
+        if this threshold is less than 0, when typing a search string that returns no results it will not remove the search control
+        if this threshold is 0 or higher, it will remove the search control when there are no results, the user will be unable to clear the search to see more results
+      */
+      searchThreshold={-1}
       inputValue={searchTerm}
       closeMenuOnSelect={false}
       hideSelectedOptions={false}
-      isLoading={status === 'loading'}
+      isLoading={isLoading}
       placeholder={formatMessage(asyncPopupSelectMessages.selectPlaceholder)}
       components={{
         /* @ts-expect-error - This component has stricter OptionType, hence a temp setup untill its made generic */
         Option: CheckboxOption,
         Control: CustomControl,
+        LoadingIndicator: undefined, // disables the three ... indicator in the searchbox when picker is loading
+        DropdownIndicator: CustomDropdownIndicator,
       }}
-      options={filterOptions}
+      options={options}
       value={selectedOptions}
       filterOption={noFilterOptions}
       formatOptionLabel={formatOptionLabel}
@@ -104,13 +140,16 @@ const AsyncPopupSelect = ({
           filterType={filterType}
           isSelected={isOpen}
           onClick={handleOpenPopup}
+          isDisabled={isDisabled}
         />
       )}
       footer={
-        <PopupFooter
-          currentDisplayCount={filterOptions.length}
-          totalCount={totalCount}
-        />
+        shouldShowFooter && (
+          <PopupFooter
+            currentDisplayCount={filterOptions.length}
+            totalCount={totalCount}
+          />
+        )
       }
     />
   );

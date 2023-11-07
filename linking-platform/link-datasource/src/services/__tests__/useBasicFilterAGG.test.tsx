@@ -7,13 +7,21 @@ import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { mockFieldValuesResponse, mockHydrateJqlResponse } from '../mocks';
 import { useBasicFilterAGG } from '../useBasicFilterAGG';
 
+let mockRequest = jest.fn();
+
+jest.mock('@atlaskit/linking-common', () => {
+  const originalModule = jest.requireActual('@atlaskit/linking-common');
+  return {
+    ...originalModule,
+    request: (...args: any) => mockRequest(...args),
+  };
+});
+
 const wrapper: RenderHookOptions<{}>['wrapper'] = ({ children }) => (
   <SmartCardProvider client={new CardClient()}>{children}</SmartCardProvider>
 );
 
 describe('useBasicFilterAGG', () => {
-  let mockFetch: jest.Mock;
-
   const setup = () => {
     const { result } = renderHook(() => useBasicFilterAGG(), {
       wrapper,
@@ -28,9 +36,7 @@ describe('useBasicFilterAGG', () => {
   };
 
   beforeEach(() => {
-    jest.resetModules();
-    mockFetch = jest.fn();
-    (global as any).fetch = mockFetch;
+    mockRequest.mockClear();
   });
 
   it('returns datasource client extension methods', () => {
@@ -51,31 +57,19 @@ describe('useBasicFilterAGG', () => {
     it('makes request to /graphql with expected arguments', async () => {
       const { getHydratedJQL } = setup();
 
-      mockFetch.mockResolvedValueOnce({
-        json: async () => undefined,
-        ok: true,
-        text: async () => undefined,
-      });
-
       await getHydratedJQL(cloudId, jql);
 
-      expect(mockFetch).toHaveBeenCalledWith(
-        expect.objectContaining({
-          credentials: 'same-origin',
-          headers: {
-            map: {
-              'content-type': 'application/json',
-              'x-experimentalapi': 'JiraJqlBuilder',
-            },
-          },
-          method: 'POST',
-          url: 'http://localhost/graphql',
-        }),
+      expect(mockRequest).toHaveBeenCalledWith(
+        'post',
+        '/gateway/api/graphql',
+        expect.any(Object), // this is checked below
+        { 'X-ExperimentalApi': 'JiraJqlBuilder' },
+        [200, 201, 202, 203, 204],
       );
 
-      const fetchArgs = mockFetch.mock.calls[0][0];
-      const bodyInitObj = JSON.parse(fetchArgs._bodyInit);
-      expect(bodyInitObj.variables).toEqual(
+      const fetchArgs = mockRequest.mock.calls[0][2];
+
+      expect(fetchArgs.variables).toEqual(
         expect.objectContaining({
           cloudId,
           jql,
@@ -87,16 +81,9 @@ describe('useBasicFilterAGG', () => {
       const { getHydratedJQL } = setup();
 
       const expectedResponse = mockHydrateJqlResponse;
-
-      mockFetch.mockResolvedValueOnce({
-        body: {},
-        json: async () => expectedResponse,
-        ok: true,
-        text: async () => JSON.stringify(expectedResponse),
-      });
+      mockRequest.mockResolvedValueOnce(expectedResponse);
 
       const response = await getHydratedJQL(cloudId, jql);
-
       expect(response).toEqual(expectedResponse);
     });
 
@@ -104,7 +91,7 @@ describe('useBasicFilterAGG', () => {
       const { getHydratedJQL } = setup();
 
       const error = new Error();
-      mockFetch.mockRejectedValueOnce(error);
+      mockRequest.mockRejectedValueOnce(error);
 
       await expect(getHydratedJQL(cloudId, jql)).rejects.toThrow();
     });
@@ -120,31 +107,19 @@ describe('useBasicFilterAGG', () => {
     it('makes request to /graphql with expected arguments', async () => {
       const { getFieldValues } = setup();
 
-      mockFetch.mockResolvedValueOnce({
-        json: async () => undefined,
-        ok: true,
-        text: async () => undefined,
-      });
+      await getFieldValues({ cloudId, jql, jqlTerm, searchString, pageCursor });
 
-      await getFieldValues(cloudId, jql, jqlTerm, searchString, pageCursor);
-
-      expect(mockFetch).toHaveBeenCalledWith(
-        expect.objectContaining({
-          credentials: 'same-origin',
-          headers: {
-            map: {
-              'content-type': 'application/json',
-              'x-experimentalapi': 'JiraJqlBuilder',
-            },
-          },
-          method: 'POST',
-          url: 'http://localhost/graphql',
-        }),
+      expect(mockRequest).toHaveBeenCalledWith(
+        'post',
+        '/gateway/api/graphql',
+        expect.any(Object), // this is checked below
+        { 'X-ExperimentalApi': 'JiraJqlBuilder' },
+        [200, 201, 202, 203, 204],
       );
 
-      const fetchArgs = mockFetch.mock.calls[0][0];
-      const bodyInitObj = JSON.parse(fetchArgs._bodyInit);
-      expect(bodyInitObj.variables).toEqual(
+      const fetchArgs = mockRequest.mock.calls[0][2];
+
+      expect(fetchArgs.variables).toEqual(
         expect.objectContaining({
           cloudId,
           jql,
@@ -159,22 +134,15 @@ describe('useBasicFilterAGG', () => {
       const { getFieldValues } = setup();
 
       const expectedResponse = mockFieldValuesResponse;
+      mockRequest.mockResolvedValueOnce(expectedResponse);
 
-      mockFetch.mockResolvedValueOnce({
-        body: {},
-        json: async () => expectedResponse,
-        ok: true,
-        text: async () => JSON.stringify(expectedResponse),
-      });
-
-      const response = await getFieldValues(
+      const response = await getFieldValues({
         cloudId,
         jql,
         jqlTerm,
         searchString,
         pageCursor,
-      );
-
+      });
       expect(response).toEqual(expectedResponse);
     });
 
@@ -182,10 +150,10 @@ describe('useBasicFilterAGG', () => {
       const { getFieldValues } = setup();
 
       const error = new Error();
-      mockFetch.mockRejectedValueOnce(error);
+      mockRequest.mockRejectedValueOnce(error);
 
       await expect(
-        getFieldValues(cloudId, jql, jqlTerm, searchString, pageCursor),
+        getFieldValues({ cloudId, jql, jqlTerm, searchString, pageCursor }),
       ).rejects.toThrow();
     });
   });

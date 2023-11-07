@@ -30,8 +30,6 @@ import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
 import {
   isMarkTypeAllowedInCurrentSelection,
   isEmptyNode,
-  compose,
-  pipe,
   isSelectionInsideLastNodeInDocument,
 } from '../../../utils';
 import { shallowEqual, dedupe } from '@atlaskit/editor-common/utils';
@@ -429,46 +427,6 @@ describe('@atlaskit/editore-core/utils', () => {
       ];
 
       expect(dedupe(l, (item) => item.item)).toEqual(deduped);
-    });
-  });
-
-  describe('#pipe', () => {
-    it('pipes functions', () => {
-      const fn1 = (val: string) => `fn1(${val})`;
-      const fn2 = (val: string) => `fn2(${val})`;
-      const fn3 = (val: string) => `fn3(${val})`;
-
-      const pipedFunction = pipe(fn1, fn2, fn3);
-
-      expect(pipedFunction('inner')).toBe('fn3(fn2(fn1(inner)))');
-    });
-
-    it('pipes functions with different initial type', () => {
-      const fn1 = (val: string, num: number) => `fn1(${val}-${num})`;
-      const fn2 = (val: string) => `fn2(${val})`;
-      const fn3 = (val: string) => `fn3(${val})`;
-      const pipedFunction = pipe(fn1, fn2, fn3);
-
-      expect(pipedFunction('inner', 2)).toBe('fn3(fn2(fn1(inner-2)))');
-    });
-
-    it('pipes functions with different return value', () => {
-      const fn1 = (val: string) => Number.parseInt(val, 10);
-      const fn2 = (val: number) => ({ number: val, string: val.toString() });
-      const fn3 = (val: object) => `fn3(${JSON.stringify(val)})`;
-
-      const pipedFunction = pipe(fn1, fn2, fn3);
-
-      expect(pipedFunction('2')).toBe('fn3({"number":2,"string":"2"})');
-    });
-  });
-
-  describe('#compose', () => {
-    it('should compose functions right to left', () => {
-      const f1 = (a: string) => `#${a}`;
-      const f2 = (b: string) => `!${b}`;
-
-      expect(compose(f1, f2)('test')).toEqual('#!test');
     });
   });
 

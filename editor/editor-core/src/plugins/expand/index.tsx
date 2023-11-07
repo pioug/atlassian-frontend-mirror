@@ -13,7 +13,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { getToolbarConfig } from './toolbar';
 import { createExpandNode, insertExpand } from './commands';
-import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type {
   LongPressSelectionPluginOptions,
   OptionalPlugin,

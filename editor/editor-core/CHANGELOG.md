@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 189.3.6
+
+### Patch Changes
+
+- [#42770](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42770) [`c7a6a824958`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7a6a824958) - Extract code-block plugin from editor-core as `@atlaskit/editor-plugin-code-block`.
+- Updated dependencies
+
+## 189.3.4
+
+### Patch Changes
+
+- [#42754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42754) [`21c26ae2798`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21c26ae2798) - stop explicitly stating the version in which deprecations will be actioned in
+- [#42757](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42757) [`73c66d2c6db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73c66d2c6db) - remove media securedClipboard FF
+- Updated dependencies
+
+## 189.3.3
+
+### Patch Changes
+
+- [#42734](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42734) [`9a298d1b3c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a298d1b3c3) - Decouple code-block plugin from editor-core.
+
 ## 189.3.2
 
 ### Patch Changes

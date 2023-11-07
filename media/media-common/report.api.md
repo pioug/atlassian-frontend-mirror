@@ -148,8 +148,6 @@ export interface MediaFeatureFlags {
   folderUploads?: boolean;
   // (undocumented)
   mediaInline?: boolean;
-  // (undocumented)
-  securedClipboard?: boolean;
 }
 
 // @public (undocumented)

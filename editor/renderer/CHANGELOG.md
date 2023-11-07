@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 108.15.18
+
+### Patch Changes
+
+- [#42725](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42725) [`a05b3548339`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a05b3548339) - [ux] ED-20700 Clean up color inversion feature flag
+
+## 108.15.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 108.15.16
 
 ### Patch Changes

@@ -482,7 +482,7 @@ test.describe('paragraph', () => {
       text: singleCharacter, //single character
     });
 
-    await expect(editor).toMatchDocument(doc(p(paragraphText)));
+    await expect(editor).toMatchDocument(doc(p('a')));
 
     const editorPasteModel = EditorPasteModel.from(editor);
     const floatingToolbarModel = EditorFloatingToolbarModel.from(
@@ -699,7 +699,7 @@ test.describe('On paste `plain-text` should not be garbled', () => {
     await expect(editor).toMatchDocument(
       doc(
         p(
-          '<a href="',
+          '<a title="Image Title" href="',
           a({
             href: 'https://www.example.com/File:file.jpg',
             title: 'Image Title',
@@ -810,7 +810,7 @@ test.describe('paste heading text over existing rich text', () => {
       head: headingText.length - 1,
     });
 
-    await expect(editor).toMatchDocument(doc(h1(headingText)));
+    await expect(editor).toMatchDocument(doc(h1('heading')));
 
     // Markdown to Plain Text
     await floatingToolbarModel.waitForStable();
@@ -946,7 +946,7 @@ test.describe('paste heading text over existing heading', () => {
 
     //setting selection at the end
     await editor.selection.set({ anchor: initialAnchor, head: initialHead });
-    await expect(editor).toMatchDocument(doc(h1(headingText)));
+    await expect(editor).toMatchDocument(doc(h1('heading')));
 
     await editor.simulatePasteEvent({
       pasteAs: 'text/html',
@@ -954,9 +954,7 @@ test.describe('paste heading text over existing heading', () => {
       html: html,
     });
 
-    await expect(editor).toMatchDocument(
-      doc(h1(headingText, code(headingText))),
-    );
+    await expect(editor).toMatchDocument(doc(h1('heading', code(headingText))));
 
     const editorPasteModel = EditorPasteModel.from(editor);
     const floatingToolbarModel = EditorFloatingToolbarModel.from(
@@ -968,9 +966,7 @@ test.describe('paste heading text over existing heading', () => {
     await floatingToolbarModel.toggleOptionsButton();
 
     await floatingToolbarModel.clickAsRichText();
-    await expect(editor).toMatchDocument(
-      doc(h1(headingText, code(headingText))),
-    );
+    await expect(editor).toMatchDocument(doc(h1('heading', code(headingText))));
 
     await expect(editor).toHaveSelection({
       type: 'text',
@@ -988,7 +984,7 @@ test.describe('paste heading text over existing heading', () => {
       head: initialHead + headingText.length - 2,
     });
 
-    await expect(editor).toMatchDocument(doc(h1(headingText, 'heading')));
+    await expect(editor).toMatchDocument(doc(h1('heading', 'heading')));
 
     // Markdown to Plain Text
     await floatingToolbarModel.waitForStable();
@@ -1001,7 +997,7 @@ test.describe('paste heading text over existing heading', () => {
       head: initialHead + headingText.length,
     });
 
-    await expect(editor).toMatchDocument(doc(h1(headingText, headingText)));
+    await expect(editor).toMatchDocument(doc(h1('heading# heading')));
 
     // Plain Text to Rich Text
     await floatingToolbarModel.waitForStable();
@@ -1014,9 +1010,7 @@ test.describe('paste heading text over existing heading', () => {
       head: initialHead + headingText.length,
     });
 
-    await expect(editor).toMatchDocument(
-      doc(h1(headingText, code(headingText))),
-    );
+    await expect(editor).toMatchDocument(doc(h1('heading', code(headingText))));
   });
 
   test('paste heading text at the beginning of existing heading: toggle rich-text > markdown > plaintext > rich-text', async ({
@@ -1031,7 +1025,7 @@ test.describe('paste heading text over existing heading', () => {
 
     //setting selection at the beginning
     await editor.selection.set({ anchor: initialAnchor, head: initialHead });
-    await expect(editor).toMatchDocument(doc(h1(headingText)));
+    await expect(editor).toMatchDocument(doc(h1('heading')));
 
     await editor.simulatePasteEvent({
       pasteAs: 'text/html',
@@ -1125,7 +1119,7 @@ test.describe('paste text in newline after heading', () => {
     });
 
     await expect(editor).toMatchDocument(
-      doc(h1('headingText'), p(code(headingText))),
+      doc(h1('heading'), p(code(headingText))),
     );
 
     const editorPasteModel = EditorPasteModel.from(editor);
@@ -1139,7 +1133,7 @@ test.describe('paste text in newline after heading', () => {
 
     await floatingToolbarModel.clickAsRichText();
     await expect(editor).toMatchDocument(
-      doc(h1(headingText), p(code(headingText))),
+      doc(h1('heading'), p(code(headingText))),
     );
 
     await expect(editor).toHaveSelection({

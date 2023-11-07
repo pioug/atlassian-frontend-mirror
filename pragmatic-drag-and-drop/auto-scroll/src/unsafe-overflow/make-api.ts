@@ -30,15 +30,18 @@ export function makeApi<DragType extends AllDragTypes>({
 
   function onFrame({
     latestArgs,
+    underUsersPointer,
     timeSinceLastFrame,
   }: {
     latestArgs: BaseEventPayload<DragType>;
     timeSinceLastFrame: number;
+    underUsersPointer: Element | null;
   }) {
     tryOverflowScrollElements({
       input: latestArgs.location.current.input,
       source: latestArgs.source,
       entries: Array.from(ledger).map(([_, args]) => args),
+      underUsersPointer,
       timeSinceLastFrame,
     });
   }

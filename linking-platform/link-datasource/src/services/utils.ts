@@ -59,7 +59,7 @@ export const hydrateJQLQuery = `query hydrate($cloudId: ID!, $jql: String!) {
   }
 }`;
 
-export const fieldValuesQuery = `query fieldValues($cloudId: ID!, $first: Int = 10, $jqlTerm: String!, $jql: String!, $searchString: String!, $after: String, $projectOptions: JiraProjectOptions) {
+export const fieldValuesQuery = `query fieldValues($cloudId: ID!, $first: Int = 10, $jqlTerm: String!, $jql: String!, $searchString: String!, $after: String) {
   jira {
     jqlBuilder(cloudId: $cloudId) {
       fieldValues(

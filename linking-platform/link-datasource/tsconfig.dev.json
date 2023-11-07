@@ -76,6 +76,9 @@
       "path": "../../design-system/locale/tsconfig.app.json"
     },
     {
+      "path": "../../platform/feature-flags/tsconfig.app.json"
+    },
+    {
       "path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
     },
     {

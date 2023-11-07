@@ -3,13 +3,19 @@ import React from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { N0, N20, N30A, N700 } from '@atlaskit/theme/colors';
+import { N0, N20, N30A, N60, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 export interface ModeSwitcherProps<T extends string = string> {
   isCompact?: boolean;
   isDisabled?: boolean;
-  options: { label: string; value: T }[];
+  options: {
+    label: string;
+    value: T;
+    disabled?: boolean;
+    tooltipText?: string;
+  }[];
   onOptionValueChange: (selectedOptionValue: T) => void;
   selectedOptionValue?: string;
 }
@@ -65,8 +71,13 @@ const modeSwitcherLabelSelectedStyles = css({
 });
 
 const modeSwitcherLabelDisabledStyles = css({
+  color: token('color.text.disabled', N60),
+});
+
+const modeSwitcherDisabledStyles = css({
   ':hover': {
     cursor: 'not-allowed',
+    background: 'transparent',
   },
 });
 
@@ -95,33 +106,45 @@ export const ModeSwitcher = <T extends string = string>(
       data-testid="mode-toggle-container"
       disabled={isDisabled}
     >
-      {options.map(({ value, label }) => {
-        const isSelected = value === selectedOptionValue;
-        return (
-          <label
-            key={value}
-            css={[
-              modeSwitcherLabelStyles,
-              isCompact && compactModeSwitcherLabelStyles,
-              isSelected && modeSwitcherLabelSelectedStyles,
-              isDisabled && modeSwitcherLabelDisabledStyles,
-            ]}
-            data-testid={`mode-toggle-${value}`}
-          >
-            {label}
-            <input
-              aria-checked={isSelected}
-              aria-disabled={isDisabled}
-              checked={isSelected}
-              css={modeInputStyles}
-              disabled={isDisabled}
-              onChange={handleModeChange}
-              type="radio"
-              value={value}
-            />
-          </label>
-        );
-      })}
+      {options.map(
+        ({ value, label, disabled: isOptionDisabled, tooltipText }) => {
+          const isSelected = value === selectedOptionValue;
+
+          return (
+            <Tooltip content={tooltipText}>
+              {tooltipProps => (
+                <label
+                  {...tooltipProps}
+                  key={value}
+                  css={[
+                    modeSwitcherLabelStyles,
+                    isCompact && compactModeSwitcherLabelStyles,
+                    isSelected && modeSwitcherLabelSelectedStyles,
+                    isDisabled && modeSwitcherDisabledStyles,
+                    isOptionDisabled && [
+                      modeSwitcherLabelDisabledStyles,
+                      modeSwitcherDisabledStyles,
+                    ],
+                  ]}
+                  data-testid={`mode-toggle-${value}`}
+                >
+                  {label}
+                  <input
+                    aria-checked={isSelected}
+                    aria-disabled={isOptionDisabled}
+                    checked={isSelected}
+                    css={modeInputStyles}
+                    disabled={isOptionDisabled}
+                    onChange={handleModeChange}
+                    type="radio"
+                    value={value}
+                  />
+                </label>
+              )}
+            </Tooltip>
+          );
+        },
+      )}
     </fieldset>
   ) : null;
 };

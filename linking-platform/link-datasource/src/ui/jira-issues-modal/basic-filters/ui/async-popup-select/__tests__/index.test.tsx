@@ -4,36 +4,42 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
-import { mockBasicFilterData } from '@atlaskit/link-test-helpers/datasource';
+import {
+  fieldValuesResponseForProjectsMapped,
+  fieldValuesResponseForStatusesMapped,
+} from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { token } from '@atlaskit/tokens';
 
 import {
-  FieldValuesState,
-  useFieldValues,
-} from '../../../hooks/useFieldValues';
-import { BasicFilterFieldType } from '../../../types';
+  FilterOptionsState,
+  useFilterOptions,
+} from '../../../hooks/useFilterOptions';
+import { BasicFilterFieldType, SelectOption } from '../../../types';
 import AsyncPopupSelect, { AsyncPopupSelectProps } from '../index';
 
-jest.mock('../../../hooks/useFieldValues');
+jest.mock('../../../hooks/useFilterOptions');
 
 describe('Testing AsyncPopupSelect', () => {
   const setup = ({
     filterType,
+    cloudId,
     selection,
     onSelectionChange,
     filterOptions,
     openPicker,
     totalCount,
     status,
+    isDisabled,
+    fetchFilterOptions,
   }: Partial<
-    AsyncPopupSelectProps & FieldValuesState & { openPicker?: boolean }
+    AsyncPopupSelectProps & FilterOptionsState & { openPicker?: boolean }
   > = {}) => {
-    asMock(useFieldValues).mockReturnValue({
+    asMock(useFilterOptions).mockReturnValue({
       filterOptions: filterOptions || [],
       status: status || 'empty',
       totalCount: totalCount || 0,
-      fetchFilterOptions: jest.fn(),
+      fetchFilterOptions: fetchFilterOptions || jest.fn(),
     });
 
     const mockOnSelectionChange = jest.fn();
@@ -42,8 +48,10 @@ describe('Testing AsyncPopupSelect', () => {
       <IntlProvider locale="en">
         <AsyncPopupSelect
           filterType={filterType || 'project'}
+          cloudId={cloudId as string}
           selection={selection || []}
           onSelectionChange={onSelectionChange || mockOnSelectionChange}
+          isDisabled={isDisabled}
         />
       </IntlProvider>,
     );
@@ -81,6 +89,22 @@ describe('Testing AsyncPopupSelect', () => {
       },
     );
 
+    it.each<BasicFilterFieldType>([
+      'project',
+      'assignee',
+      'issuetype',
+      'status',
+    ])(
+      'should disable %s filter trigger button when isDisabled is true',
+      filterType => {
+        const { queryByTestId } = setup({ filterType, isDisabled: true });
+
+        const button = queryByTestId(`jlol-basic-filter-${filterType}-trigger`);
+
+        expect(button).toBeDisabled();
+      },
+    );
+
     it('should render the popup menu when the trigger button is clicked', () => {
       const { queryByTestId } = setup({
         openPicker: true,
@@ -96,42 +120,92 @@ describe('Testing AsyncPopupSelect', () => {
     it('should render the popup footer when the popup is opened', () => {
       const { queryByTestId } = setup({
         openPicker: true,
+        totalCount: 10,
+        filterOptions: fieldValuesResponseForProjectsMapped as SelectOption[],
+        status: 'resolved',
       });
 
       const footer = queryByTestId('jlol-basic-filter-popup-select--footer');
       expect(footer).toBeInTheDocument();
     });
 
+    it('should not render the popup footer when the status is rejected', () => {
+      const { queryByTestId } = setup({
+        openPicker: true,
+        filterOptions: fieldValuesResponseForProjectsMapped as SelectOption[],
+        status: 'rejected',
+      });
+
+      const footer = queryByTestId('jlol-basic-filter-popup-select--footer');
+      expect(footer).not.toBeInTheDocument();
+    });
+
     it('should render the popup footer with correct pagination info', () => {
       const { queryByTestId } = setup({
         openPicker: true,
         totalCount: 10,
-        filterOptions: mockBasicFilterData['project'],
+        filterOptions: fieldValuesResponseForProjectsMapped as SelectOption[],
+        status: 'resolved',
       });
 
       const footer = queryByTestId('jlol-basic-filter-popup-select--footer');
 
-      expect(footer).toHaveTextContent('3 of 10');
+      expect(footer).toHaveTextContent('4 of 10');
+    });
+  });
+
+  it('should show the loading text when the status is loading', () => {
+    const { getByText } = setup({
+      filterType: 'status',
+      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
+      openPicker: true,
+      status: 'loading',
+    });
+
+    expect(getByText('Loading...')).toBeInTheDocument();
+  });
+
+  it('should call fetchFilterOptions with searchString when user inputs a search term', () => {
+    const mockFetchFilterOptions = jest.fn();
+
+    const { container } = setup({
+      filterType: 'status',
+      openPicker: true,
+      fetchFilterOptions: mockFetchFilterOptions,
+      status: 'empty',
+    });
+
+    const input = container.parentElement?.querySelector(
+      '#jlol-basic-filter-popup-select--input',
+    );
+    invariant(input);
+
+    fireEvent.change(input, { target: { value: 'projects' } });
+
+    expect(mockFetchFilterOptions).toBeCalledTimes(2);
+    expect(mockFetchFilterOptions).toHaveBeenNthCalledWith(2, {
+      searchString: 'projects',
     });
   });
 
   it('should render the correct options', () => {
     const { getByText } = setup({
       filterType: 'status',
-      filterOptions: mockBasicFilterData['status'],
+      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
       openPicker: true,
+      status: 'resolved',
     });
 
-    expect(getByText('Progress')).toBeInTheDocument();
-    expect(getByText('Done')).toBeInTheDocument();
-    expect(getByText('New')).toBeInTheDocument();
+    expect(getByText('Authorize')).toBeInTheDocument();
+    expect(getByText('Canceled')).toBeInTheDocument();
+    expect(getByText('Closed')).toBeInTheDocument();
   });
 
   it('should render the search box with placeholder correctly when menu is opened', () => {
     const { container } = setup({
       openPicker: true,
       filterType: 'status',
-      filterOptions: mockBasicFilterData['status'],
+      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
     });
 
     const input = container.parentElement?.querySelector(
@@ -146,7 +220,7 @@ describe('Testing AsyncPopupSelect', () => {
     const { container } = setup({
       openPicker: true,
       filterType: 'status',
-      filterOptions: mockBasicFilterData['status'],
+      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
     });
 
     const input = container.parentElement?.querySelector(
@@ -161,10 +235,11 @@ describe('Testing AsyncPopupSelect', () => {
 
   it('should select the correct option when selectedOptions is passed', () => {
     const { queryAllByTestId } = setup({
-      selection: mockBasicFilterData['status'][0],
+      selection: [fieldValuesResponseForStatusesMapped[0] as SelectOption],
       filterType: 'status',
-      filterOptions: mockBasicFilterData['status'],
+      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
       openPicker: true,
+      status: 'resolved',
     });
 
     const [firstOption] = queryAllByTestId(
@@ -183,9 +258,10 @@ describe('Testing AsyncPopupSelect', () => {
 
     const { queryAllByTestId } = setup({
       filterType: 'status',
-      filterOptions: mockBasicFilterData['status'],
+      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
       openPicker: true,
       onSelectionChange: mockOnSelection,
+      status: 'resolved',
     });
 
     const [firstOption, secondOption] = queryAllByTestId(
@@ -197,9 +273,9 @@ describe('Testing AsyncPopupSelect', () => {
     expect(mockOnSelection).toHaveBeenNthCalledWith(1, [
       {
         appearance: 'inprogress',
-        label: 'Progress',
+        label: 'Authorize',
         optionType: 'lozengeLabel',
-        value: 'Progress',
+        value: 'Authorize',
       },
     ]);
 
@@ -208,15 +284,15 @@ describe('Testing AsyncPopupSelect', () => {
     expect(mockOnSelection).toHaveBeenNthCalledWith(2, [
       {
         appearance: 'inprogress',
-        label: 'Progress',
+        label: 'Authorize',
         optionType: 'lozengeLabel',
-        value: 'Progress',
+        value: 'Authorize',
       },
       {
-        appearance: 'success',
-        label: 'Done',
+        appearance: 'inprogress',
+        label: 'Awaiting approval',
         optionType: 'lozengeLabel',
-        value: 'Done',
+        value: '"Awaiting approval"',
       },
     ]);
   });

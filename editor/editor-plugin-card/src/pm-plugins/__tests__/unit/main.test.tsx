@@ -464,7 +464,7 @@ describe('analytics events queue', () => {
     });
   };
 
-  it('should enable dispatch of events if `lp-analytics-events-next` is provided as `true`', () => {
+  it('should create events queue', () => {
     const url = 'https://atlassian.com';
     editor(
       doc(
@@ -475,48 +475,9 @@ describe('analytics events queue', () => {
           })(),
         ),
       ),
-      {
-        'lp-analytics-events-next': true,
-      },
     );
 
     expect(createEventsQueue).toHaveBeenCalled();
-  });
-
-  it('should disable dispatch of events if `lp-analytics-events-next` is not provided', () => {
-    const url = 'https://atlassian.com';
-    editor(
-      doc(
-        p(
-          '{<node>}',
-          inlineCard({
-            url,
-          })(),
-        ),
-      ),
-      {},
-    );
-
-    expect(createEventsQueue).not.toHaveBeenCalled();
-  });
-
-  it('should not initialise events queue if `lp-analytics-events-next` is provided as `false`', () => {
-    const url = 'https://atlassian.com';
-    editor(
-      doc(
-        p(
-          '{<node>}',
-          inlineCard({
-            url,
-          })(),
-        ),
-      ),
-      {
-        'lp-analytics-events-next': false,
-      },
-    );
-
-    expect(createEventsQueue).not.toHaveBeenCalled();
   });
 
   it('should flush events when the editor updates and flush should always be called after push', () => {
@@ -537,9 +498,6 @@ describe('analytics events queue', () => {
           })(),
         ),
       ),
-      {
-        'lp-analytics-events-next': true,
-      },
     );
 
     expect(mockAnalyticsQueue.push).toHaveBeenCalled();

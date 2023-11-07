@@ -30,7 +30,7 @@ export default function FormExample() {
           return (
             <form {...formProps} name="form-example">
               <Field
-                label="radio group which can be dynamically disabled, with a single radio item disabled"
+                label="Radio group which can be dynamically disabled, with a single radio item disabled"
                 name="weather"
                 defaultValue="windy"
                 isDisabled={isDisabledChecked}
@@ -49,7 +49,7 @@ export default function FormExample() {
               </Field>
               <Checkbox
                 value="isDisabledChecked"
-                label="is disabled"
+                label="Make this radio group disabled"
                 onChange={toggleCheckbox}
               />
               <FormFooter>

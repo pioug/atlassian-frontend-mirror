@@ -565,7 +565,7 @@ test.describe('Emphasis - bold & italics', () => {
     await expect(editor).toMatchDocument(
       doc(
         p('Lorem ipsum dolor sit amet.'),
-        p(code('Some new *rich text* to be inserted.')),
+        p(code('***Some*** new *rich text* to be **inserted.**')),
         p('consectetur adipiscing elit.', '{<>}'),
       ),
     );
@@ -1040,7 +1040,7 @@ test.describe('On Paste: ', () => {
 
     await floatingToolbarModel.clickAsMarkdown();
     await expect(editor).toMatchDocument(
-      doc(p(em('Italic'), ', ', strong('bold'), ', ', code('monospace'))),
+      doc(p(em('Italic'), ', ', strong('bold'), ', and ', code('monospace'))),
     );
   });
 
@@ -1124,7 +1124,7 @@ test.describe('On Paste: ', () => {
     await floatingToolbarModel.clickAsMarkdown();
 
     await expect(editor).toMatchDocument(
-      doc(p(em('Italic'), ', ', strong('bold'), ', ', code('monospace'))),
+      doc(p(em('Italic'), ', ', strong('bold'), ', and ', code('monospace'))),
     );
   });
 

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 0.3.0
+
+### Minor Changes
+
+- [#42718](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42718) [`954af7ba44b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954af7ba44b) - Changing hasLinkMark function to use pasted slice instead of state.doc while searching for link in pasted text.
+
 ## 0.2.3
 
 ### Patch Changes

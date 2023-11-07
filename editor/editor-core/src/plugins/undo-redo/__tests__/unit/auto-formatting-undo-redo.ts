@@ -41,7 +41,7 @@ import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decis
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
-import codeBlockPlugin from '../../../code-block';
+import { codeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';

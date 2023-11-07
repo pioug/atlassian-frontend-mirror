@@ -1,5 +1,30 @@
 # @atlaskit/editor-mobile-bridge
 
+## 189.3.6
+
+### Patch Changes
+
+- [#42770](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42770) [`c7a6a824958`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7a6a824958) - Extract code-block plugin from editor-core as `@atlaskit/editor-plugin-code-block`.
+- Updated dependencies
+
+## 189.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 189.3.2
 
 ### Patch Changes

@@ -41,9 +41,9 @@ test.describe('when pressing arrow key to focus checkbox at the simple action li
     await expect(editor).toMatchDocument(
       doc(
         taskList({})(
-          taskItem({ state: 'TODO' })('Task item 1'),
-          taskItem({ state: 'DONE' })('Task item 2'),
-          taskItem({ state: 'DONE' })('Task item 3'),
+          taskItem({ state: 'TODO' })('T1'),
+          taskItem({ state: 'DONE' })('T2'),
+          taskItem({ state: 'DONE' })('T3'),
         ),
       ),
     );
@@ -67,9 +67,9 @@ test.describe('when pressing arrow key to focus checkbox at the simple action li
     await expect(editor).toMatchDocument(
       doc(
         taskList({})(
-          taskItem({ state: 'DONE' })('Task item 1'),
-          taskItem({ state: 'TODO' })('Task item 2'),
-          taskItem({ state: 'DONE' })('Task item 3'),
+          taskItem({ state: 'DONE' })('T1'),
+          taskItem({ state: 'TODO' })('T2'),
+          taskItem({ state: 'DONE' })('T3'),
         ),
       ),
     );
@@ -94,9 +94,9 @@ test.describe('when pressing arrow key to focus checkbox at the simple action li
     await expect(editor).toMatchDocument(
       doc(
         taskList({})(
-          taskItem({ state: 'TODO' })('Task item 1'),
-          taskItem({ state: 'TODO' })('Task item 2'),
-          taskItem({ state: 'TODO' })('Task item 3'),
+          taskItem({ state: 'TODO' })('T1'),
+          taskItem({ state: 'TODO' })('T2'),
+          taskItem({ state: 'TODO' })('T3'),
         ),
       ),
     );

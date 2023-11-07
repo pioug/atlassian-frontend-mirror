@@ -1,9 +1,9 @@
-import {
+import type {
   Node as PMNode,
   ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
 
-import { Axis } from './types';
+import type { Axis } from './types';
 
 // Because working with row and column-spanning cells is not quite
 // trivial, this code builds up a descriptive structure for a given
@@ -28,7 +28,7 @@ if (typeof WeakMap !== 'undefined') {
     return value;
   };
 } else {
-  let cache = <any>[];
+  let cache: any[] = [];
   let cacheSize = 10;
   let cachePos = 0;
   readFromCache = (key: PMNode) => {

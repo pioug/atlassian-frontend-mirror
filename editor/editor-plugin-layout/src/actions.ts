@@ -326,7 +326,7 @@ export const setPresetLayout =
         action: ACTION.CHANGED_LAYOUT,
         actionSubject: ACTION_SUBJECT.LAYOUT,
         attributes: {
-          previousLayout: formatLayoutName(<PresetLayout>selectedLayout),
+          previousLayout: formatLayoutName(selectedLayout as PresetLayout),
           newLayout: formatLayoutName(layout),
         },
         eventType: EVENT_TYPE.TRACK,
@@ -435,7 +435,7 @@ export const deleteActiveLayoutNode =
           action: ACTION.DELETED,
           actionSubject: ACTION_SUBJECT.LAYOUT,
           attributes: {
-            layout: formatLayoutName(<PresetLayout>selectedLayout),
+            layout: formatLayoutName(selectedLayout as PresetLayout),
           },
           eventType: EVENT_TYPE.TRACK,
         })(tr);

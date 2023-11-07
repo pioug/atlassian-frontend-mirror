@@ -6,6 +6,7 @@ import Button from '@atlaskit/button/standard-button';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
   defaultInitialVisibleColumnKeys,
+  mockBasicFilterAGGFetchRequests,
   mockDatasourceFetchRequests,
 } from '@atlaskit/link-test-helpers/datasource';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
@@ -21,6 +22,7 @@ import {
 } from '../src/ui/jira-issues-modal/types';
 
 mockDatasourceFetchRequests();
+mockBasicFilterAGGFetchRequests();
 
 export default () => {
   const [generatedAdf, setGeneratedAdf] = useState<string>('');

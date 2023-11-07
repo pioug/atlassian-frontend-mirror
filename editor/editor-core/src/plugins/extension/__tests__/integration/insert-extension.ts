@@ -14,7 +14,7 @@ import {
   insertBlockMenuItem,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 
-import { messages } from '../../../insert-block/ui/ToolbarInsertBlock/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 
 BrowserTestCase(
   `insert-extension.ts: Extension: Insert Inline extension`,

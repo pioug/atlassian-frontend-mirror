@@ -43,7 +43,7 @@ export default function FormExample() {
                 )}
               </CheckboxField>
               <Field
-                label="required radio group"
+                label="Required radio group"
                 name="color"
                 defaultValue="blue"
                 isRequired
@@ -53,7 +53,7 @@ export default function FormExample() {
                 )}
               </Field>
               <Field
-                label="regular radio group"
+                label="Regular radio group"
                 name="fruit"
                 defaultValue="peach"
               >
@@ -62,7 +62,7 @@ export default function FormExample() {
                 )}
               </Field>
               <Field
-                label="radio group with individual field disabled"
+                label="Radio group with individual field disabled"
                 name="city"
                 defaultValue="sydney"
               >
@@ -75,7 +75,7 @@ export default function FormExample() {
                 )}
               </Field>
               <Field
-                label="radio group with individual field enabled"
+                label="Radio group with individual field enabled"
                 name="weather"
                 defaultValue="windy"
               >

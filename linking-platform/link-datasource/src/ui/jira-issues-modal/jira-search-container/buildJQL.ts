@@ -27,6 +27,7 @@ type BuildJQLInput = {
 
 const fuzzySearchRegExp = /^"(.+)"$/;
 const jiraIssueKeyRegExp = /[A-Z]+-\d+/;
+export const fuzzyCharacter = '*';
 
 const constructTerminalClause = (
   field: string,
@@ -61,7 +62,9 @@ export const buildJQL = (input: BuildJQLInput): string => {
   }
 
   if (trimmedRawSearch) {
-    const fuzzy = !trimmedRawSearch.match(fuzzySearchRegExp) ? '*' : '';
+    const fuzzy = !trimmedRawSearch.match(fuzzySearchRegExp)
+      ? fuzzyCharacter
+      : '';
     const basicSearch = trimmedRawSearch.replace(/['"?*]+/g, '');
 
     const text = constructTerminalClause(

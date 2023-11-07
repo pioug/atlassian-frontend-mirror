@@ -51,6 +51,9 @@
       "path": "../../helpers/intl-messages-provider/tsconfig.app.json"
     },
     {
+      "path": "../linking-common/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/modal-dialog/tsconfig.app.json"
     },
     {

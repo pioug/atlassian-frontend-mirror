@@ -314,7 +314,6 @@ describe('Analytics key events', () => {
           allowAnalyticsGASV3: true,
           featureFlags: {
             'lp-link-picker': true,
-            'lp-analytics-events-next': true,
           },
           linking: {
             smartLinks: {
@@ -2842,38 +2841,6 @@ describe('Analytics key events', () => {
           },
         );
       });
-    });
-  });
-
-  describe('without ff: lp-analytics-events-next', () => {
-    const setupWithoutFF = () =>
-      setup({
-        editorProps: (props) => ({
-          ...props,
-          featureFlags: {
-            ...props.featureFlags,
-            'lp-analytics-events-next': false,
-          },
-        }),
-      });
-
-    it('does not bind lifecycle callbacks to card plugin state', async () => {
-      await setupWithoutFF();
-
-      expect(useSmartLinkLifecycleAnalytics).toHaveBeenCalledTimes(0);
-    });
-
-    it('should NOT fire when auto-linking a typed url', async () => {
-      const { editorView } = await setupWithoutFF();
-      const url = 'https://atlassian.com';
-      insertText(editorView, `${url} `);
-
-      raf.flush();
-      await flushPromises();
-
-      expect(mockLinkCreated).toHaveBeenCalledTimes(0);
-      expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
-      expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
     });
   });
 

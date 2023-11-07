@@ -127,6 +127,9 @@
       "path": "../editor-plugin-card/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-code-block/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-composition/tsconfig.app.json"
     },
     {

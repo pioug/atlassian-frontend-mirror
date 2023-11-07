@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.16.0
+
+### Minor Changes
+
+- [#42758](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42758) [`de7c4a28af8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de7c4a28af8) - Adds /sentry entrypoint which exposes captureException method to capture exceptions to Sentry.
+
 ## 4.15.0
 
 ### Minor Changes

@@ -12,7 +12,7 @@ import {
   mountEditor,
   goToEditorTestingWDExample,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 
 BrowserTestCase(
   `quick-insert.ts: Extension: Quick Insert`,

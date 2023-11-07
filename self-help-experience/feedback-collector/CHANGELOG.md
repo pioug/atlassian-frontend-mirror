@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 13.1.2
+
+### Patch Changes
+
+- [#42610](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42610) [`7170f800fda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7170f800fda) - [ux] A11y fix, add visual instruction for mandatory field in feedback collector for learning impaired users.
+
 ## 13.1.1
 
 ### Patch Changes

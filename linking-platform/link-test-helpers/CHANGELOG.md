@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 6.2.2
+
+### Patch Changes
+
+- [#42612](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42612) [`709162833ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/709162833ca) - Exports alert image for use in mocks. Updates folder structure for basic-filters and adds AGG fetch request mocks.
+
 ## 6.2.1
 
 ### Patch Changes

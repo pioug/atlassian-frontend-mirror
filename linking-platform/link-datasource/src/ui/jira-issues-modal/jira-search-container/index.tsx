@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
@@ -10,6 +10,7 @@ import { token } from '@atlaskit/tokens';
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { JiraSearchMethod } from '../../../common/types';
 import { BasicFilters } from '../basic-filters';
+import { isQueryTooComplex } from '../basic-filters/utils/isQueryTooComplex';
 import { BasicSearchInput } from '../basic-search-input';
 import { JiraJQLEditor } from '../jql-editor';
 import { ModeSwitcher } from '../mode-switcher';
@@ -29,6 +30,13 @@ const inputContainerStyles = css({
 });
 
 const DEFAULT_JQL_QUERY = 'created >= -30d order by created DESC';
+export const ALLOWED_ORDER_BY_KEYS = [
+  'key',
+  'summary',
+  'assignee',
+  'status',
+  'created',
+];
 
 const JiraSearchMethodSwitcher = ModeSwitcher<JiraSearchMethod>;
 export interface SearchContainerProps {
@@ -55,9 +63,11 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
   const { formatMessage } = useIntl();
 
   const [basicSearchTerm, setBasicSearchTerm] = useState('');
+
   const [currentSearchMethod, setCurrentSearchMethod] =
     useState<JiraSearchMethod>(initialSearchMethod);
   const [jql, setJql] = useState(initialJql || DEFAULT_JQL_QUERY);
+  const [isComplexQuery, setIsComplexQuery] = useState(false);
   const [orderKey, setOrderKey] = useState<string | undefined>();
   const [orderDirection, setOrderDirection] = useState<string | undefined>();
   const { fireEvent } = useDatasourceAnalyticsEvents();
@@ -92,7 +102,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
     const order = hasOrder ? fragments.at(-1)?.split(' ').at(-1) : undefined;
 
     // TODO: confirm if these are the only order keys we want to preserve - existing whiteboard logic
-    if (key && ['key', 'summary', 'assignee', 'status'].includes(key)) {
+    if (key && ALLOWED_ORDER_BY_KEYS.includes(key)) {
       setOrderKey(key);
       setOrderDirection(order);
     }
@@ -102,6 +112,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 
   const handleSearch = useCallback(() => {
     onSearch({ jql }, currentSearchMethod);
+    setIsComplexQuery(isQueryTooComplex(jql));
 
     if (currentSearchMethod === 'basic') {
       fireEvent('ui.form.submitted.basicSearch', {});
@@ -121,6 +132,11 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
     return false;
   }, []);
 
+  useEffect(() => {
+    setIsComplexQuery(isQueryTooComplex(jql));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div css={inputContainerStyles}>
       {currentSearchMethod === 'basic' && (
@@ -131,7 +147,9 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
             onSearch={handleSearch}
             searchTerm={basicSearchTerm}
           />
-          {showBasicFilters && <BasicFilters jql={jql} />}
+          {showBasicFilters && (
+            <BasicFilters jql={jql} cloudId={cloudId || ''} />
+          )}
         </React.Fragment>
       )}
       {currentSearchMethod === 'jql' && (
@@ -151,6 +169,12 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
           {
             label: formatMessage(modeSwitcherMessages.basicTextSearchLabel),
             value: 'basic',
+            disabled: isComplexQuery,
+            tooltipText: isComplexQuery
+              ? formatMessage(
+                  modeSwitcherMessages.basicModeSwitchDisabledTooltipText,
+                )
+              : '',
           },
         ]}
       />

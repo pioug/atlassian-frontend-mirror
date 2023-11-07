@@ -15,7 +15,7 @@ import {
   insertLongText,
   fullpage,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 

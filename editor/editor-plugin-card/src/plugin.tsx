@@ -69,9 +69,7 @@ export type CardPlugin = NextEditorPlugin<
 export const cardPlugin: CardPlugin = ({ config: options, api }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 
-  const cardPluginEvents = featureFlags?.lpAnalyticsEventsNext
-    ? createEventsQueue<CardPluginEvent>()
-    : undefined;
+  const cardPluginEvents = createEventsQueue<CardPluginEvent>();
 
   return {
     name: 'card',
@@ -149,12 +147,10 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
       return (
         <>
           <EditorSmartCardEvents editorView={editorView} />
-          {cardPluginEvents && (
-            <EditorLinkingPlatformAnalytics
-              cardPluginEvents={cardPluginEvents}
-              editorView={editorView}
-            />
-          )}
+          <EditorLinkingPlatformAnalytics
+            cardPluginEvents={cardPluginEvents}
+            editorView={editorView}
+          />
           <LayoutButton
             api={api}
             editorView={editorView}

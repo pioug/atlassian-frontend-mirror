@@ -45,7 +45,7 @@ function mapNodeToOption({
         ...baseProps,
         optionType: 'avatarLabel',
         avatar: user.picture,
-        isSquare: true,
+        isSquare: false,
       };
     }
 
@@ -108,7 +108,7 @@ export function mapHydrateResponseData({ data }: HydrateResponse) {
   return transformedHydrateResponseData;
 }
 
-export function mapFieldValuesResponseData({
+export function mapFieldValuesToFilterOptions({
   data,
 }: FieldValuesResponse): SelectOption[] {
   return (
@@ -116,4 +116,16 @@ export function mapFieldValuesResponseData({
       ?.map(edge => (edge.node ? mapNodeToOption(edge.node) : null))
       .filter(isNonNullSelectOption) || []
   );
+}
+
+export function mapFieldValuesToTotalCount({
+  data,
+}: FieldValuesResponse): number {
+  return data?.jira?.jqlBuilder?.fieldValues?.totalCount || 0;
+}
+
+export function mapFieldValuesToPageCursor({
+  data,
+}: FieldValuesResponse): string | undefined {
+  return data?.jira?.jqlBuilder?.fieldValues?.pageInfo?.endCursor;
 }

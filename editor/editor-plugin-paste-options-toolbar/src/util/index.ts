@@ -3,7 +3,6 @@ import type {
   Schema,
   Slice,
 } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 export function isPastedFromFabricEditor(pastedFrom: string): boolean {
   return pastedFrom === 'fabric-editor';
@@ -54,14 +53,16 @@ export const hasRuleNode = (slice: Slice, schema: Schema): boolean => {
   return hasRuleNode;
 };
 
-export const hasLinkMark = (
-  state: EditorState,
-  pasteStartPos: number,
-  pasteEndPos: number,
-): boolean => {
-  return state.doc.rangeHasMark(
-    pasteStartPos,
-    pasteEndPos,
-    state.schema.marks.link,
-  );
+export const hasLinkMark = (slice: Slice): boolean => {
+  let hasLinkMark = false;
+  slice.content.descendants((node: PMNode) => {
+    const marks = node.marks?.map(mark => mark.type.name);
+    hasLinkMark = marks?.includes('link');
+    if (hasLinkMark) {
+      //break out of loop
+      return false;
+    }
+  });
+
+  return hasLinkMark;
 };

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.22
+
+### Patch Changes
+
+- [#42762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42762) [`424cc9c0c25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/424cc9c0c25) - [ED-20613] Removing duplicate webdriver tests that already have migrated tests to Libra
+
+## 5.3.21
+
+### Patch Changes
+
+- [#42754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42754) [`3e156c0e632`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e156c0e632) - move guideline/selection/width editor plugin packages from devDependencies to depenedencies
+
 ## 5.3.20
 
 ### Patch Changes

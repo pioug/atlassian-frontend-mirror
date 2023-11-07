@@ -416,7 +416,6 @@ class ExampleEditorComponent extends React.Component<
       allowAltTextOnImages: true,
       featureFlags: {
         mediaInline: true,
-        securedClipboard: true,
       },
     };
 

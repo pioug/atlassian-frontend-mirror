@@ -4,9 +4,10 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 // eslint-disable-next-line
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
-
 import cardDatasourceAdf from '../../visual-regression/common/__fixtures__/card-datasource.adf.json';
 import cardInlineAndBlock from '../../visual-regression/common/__fixtures__/card-inline-block-adf.json';
+import { NotFoundClient } from './card.customClient';
+import { embedCardNotFoundAdf } from './card.fixtures.adf';
 
 export function EditorCardFullPageInlineAndBlock() {
   mockDatasourceFetchRequests({ shouldMockORSBatch: true });
@@ -208,3 +209,19 @@ export const EditorCardMobileWithDatasource = () => {
     </div>
   );
 };
+
+export function EditorCardFullPageEmbedNotFound() {
+  return (
+    <SmartCardProvider client={new NotFoundClient()}>
+      <Editor
+        defaultValue={embedCardNotFoundAdf}
+        appearance="full-page"
+        smartLinks={{
+          resolveBeforeMacros: ['jira'],
+          allowBlockCards: true,
+          allowEmbeds: true,
+        }}
+      />
+    </SmartCardProvider>
+  );
+}

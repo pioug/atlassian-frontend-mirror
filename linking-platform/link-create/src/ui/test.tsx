@@ -4,8 +4,10 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
+import '@atlaskit/link-test-helpers/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
+import { captureException } from '@atlaskit/linking-common/sentry';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
@@ -13,6 +15,10 @@ import { LinkCreatePlugin, LinkCreateWithModalProps } from '../common/types';
 import { useLinkCreateCallback } from '../controllers/callback-context';
 
 import LinkCreate from './index';
+
+jest.mock('@atlaskit/linking-common/sentry', () => ({
+  captureException: jest.fn(),
+}));
 
 const CreatePluginForm = () => {
   const { onCreate, onFailure, onCancel } = useLinkCreateCallback();
@@ -187,6 +193,45 @@ describe('<LinkCreate />', () => {
     });
 
     describe('should display outer error boundary on unhandled error outside the link create modal', () => {
+      // should capture exception to sentry when error boundary is hit
+      ffTest(
+        'platform.linking-platform.link-create.enable-sentry-client',
+        async () => {
+          // when `enable-edit` flag is enabled, there's an additional <LinkCreatePluginsProvider />
+          // which will throw error outside of link create modal if `plugins` contains bad data
+          setUpLinkCreate({ plugins: 'error' as any });
+
+          expect(captureException).toHaveBeenCalledWith(
+            expect.any(Error),
+            'link-create',
+          );
+          expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
+            payload: {
+              action: 'unhandledErrorCaught',
+              actionSubject: 'linkCreate',
+              attributes: {
+                error: 'TypeError',
+                componentStack: 'unknown',
+              },
+            },
+          });
+        },
+        async () => {
+          setUpLinkCreate({ plugins: 'error' as any });
+
+          expect(captureException).not.toHaveBeenCalled();
+          expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
+            payload: {
+              action: 'unhandledErrorCaught',
+              actionSubject: 'linkCreate',
+              attributes: {
+                error: 'TypeError: plugins.find is not a function',
+              },
+            },
+          });
+        },
+      );
+
       ffTest(
         'platform.linking-platform.link-create.outer-error-boundary',
         ff =>

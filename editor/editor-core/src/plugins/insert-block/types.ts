@@ -11,7 +11,7 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
-import type { CodeBlockPlugin } from '../code-block';
+import type { CodeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
 import type { PanelPlugin } from '@atlaskit/editor-plugin-panel';
 import type { LayoutPlugin } from '@atlaskit/editor-plugin-layout';
 import type { RulePlugin } from '@atlaskit/editor-plugin-rule';

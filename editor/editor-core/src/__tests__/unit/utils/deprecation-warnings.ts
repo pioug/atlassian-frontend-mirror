@@ -1,5 +1,4 @@
 import deprecationWarnings from '../../../utils/deprecation-warnings';
-import { nextMajorVersion } from '../../../version-wrapper';
 
 describe('utils -> deprecationWarnings', () => {
   let spy: jest.SpyInstance<any>;
@@ -38,13 +37,13 @@ describe('utils -> deprecationWarnings', () => {
   it('calls toHaveBeenCalledTimes correct times with correct message', () => {
     expect(global.console.warn).toHaveBeenCalledTimes(3);
     expect(global.console.warn).toHaveBeenCalledWith(
-      `prop1 property for TestComponent is deprecated. prop1 is moved [Will be removed in editor-core@${nextMajorVersion()}]`,
+      `prop1 property for TestComponent is deprecated. prop1 is moved [Will be removed in the next major editor-core version]`,
     );
     expect(global.console.warn).toHaveBeenCalledWith(
-      `prop2 property for TestComponent is deprecated. prop2 is moved [Will be  in editor-core@${nextMajorVersion()}]`,
+      `prop2 property for TestComponent is deprecated. prop2 is moved [Will be  in the next major editor-core version]`,
     );
     expect(global.console.warn).toHaveBeenCalledWith(
-      `prop3 property for TestComponent is deprecated.  [Will be removed in editor-core@${nextMajorVersion()}]`,
+      `prop3 property for TestComponent is deprecated.  [Will be removed in the next major editor-core version]`,
     );
   });
 });

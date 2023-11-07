@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 
-import { Jast } from '@atlassianlabs/jql-ast';
 import { JQLEditor } from '@atlassianlabs/jql-editor';
 
+import { Jast } from '@atlaskit/jql-ast';
 import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest';
 
 import { makeGetJqlAutocompleteData } from '../../../services/makeGetJqlAutocompleteData';

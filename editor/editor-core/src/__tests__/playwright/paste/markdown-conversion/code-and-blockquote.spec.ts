@@ -323,7 +323,7 @@ test.describe('code', () => {
     await expect(editor).toMatchDocument(
       doc(
         p('Lorem ipsum dolor sit amet.'),
-        code_block()(codeTextWithSpaces),
+        code_block()('Use spaces in your Markdown file'),
         p('consectetur adipiscing elit.'),
       ),
     );
@@ -521,7 +521,11 @@ test.describe('blockquote', () => {
     await expect(editor).toMatchDocument(
       doc(
         p('Lorem ips'),
-        blockquote(p(blockquoteContent)),
+        blockquote(
+          p(
+            'Dorothy followed her through many of the beautiful rooms in her castle.',
+          ),
+        ),
         p('um dolor sit amet.'),
         p(),
         p('consectetur adipiscing elit.'),

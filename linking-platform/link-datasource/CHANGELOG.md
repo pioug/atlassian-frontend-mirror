@@ -1,5 +1,30 @@
 # @atlaskit/link-datasource
 
+## 1.13.1
+
+### Patch Changes
+
+- [#42684](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42684) [`3752d98e7fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3752d98e7fd) - Add search functionality to basic filter dropdowns.
+
+## 1.13.0
+
+### Minor Changes
+
+- [#42523](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42523) [`8cf0628d658`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cf0628d658) - Add logic to disable switching to Basic mode when the query is complex
+
+## 1.12.4
+
+### Patch Changes
+
+- [#42612](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42612) [`eb39b74b03b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb39b74b03b) - Adds hook to get field values from graphQL for basic filters.
+- [#42598](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42598) [`6105d017042`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6105d017042) - [ux] Updated styles of the table header.
+
+## 1.12.3
+
+### Patch Changes
+
+- [#42706](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42706) [`c3c9a5ec9c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3c9a5ec9c9) - Fix a problem where when column dragging start on top of a label - it drags whole table
+
 ## 1.12.2
 
 ### Patch Changes

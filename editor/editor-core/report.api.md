@@ -27,6 +27,7 @@ import type { AnnotationTypes } from '@atlaskit/adf-schema';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugin-block-type';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import type { CodeBlockOptions } from '@atlaskit/editor-plugin-code-block';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ContextUpdateHandler } from '@atlaskit/editor-common/types';
@@ -51,7 +52,6 @@ import { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { jsx } from '@emotion/react';
 import type { LayoutPluginOptions } from '@atlaskit/editor-plugin-layout';
 import type { LinkingOptions } from '@atlaskit/editor-common/types';
-import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
 import { MacroAttributes } from '@atlaskit/editor-common/provider-factory';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import { MediaOptions } from '@atlaskit/editor-plugin-media/types';
@@ -165,16 +165,6 @@ type BeforeAndAfterToolbarComponents = {
 };
 
 export { CardProvider };
-
-// @public (undocumented)
-interface CodeBlockOptions extends LongPressSelectionPluginOptions {
-  // (undocumented)
-  allowCompositionInputOverride?: boolean;
-  // (undocumented)
-  allowCopyToClipboard?: boolean;
-  // (undocumented)
-  appearance?: EditorAppearance | undefined;
-}
 
 // @public (undocumented)
 export class CollapsedEditor extends React_2.Component<Props, State> {

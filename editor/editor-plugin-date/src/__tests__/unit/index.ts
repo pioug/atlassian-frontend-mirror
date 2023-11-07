@@ -4,9 +4,9 @@ import type {
 } from '@atlaskit/analytics-next';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import codeBlockPlugin from '@atlaskit/editor-core/src/plugins/code-block';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { codeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';

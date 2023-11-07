@@ -1,7 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import { EnvironmentsKeys, useSmartLinkContext } from '@atlaskit/link-provider';
-import { getBaseUrl } from '@atlaskit/linking-common';
+import { request } from '@atlaskit/linking-common';
 
 import {
   BasicFilterFieldType,
@@ -11,63 +10,53 @@ import {
 
 import { fieldValuesQuery, hydrateJQLQuery } from './utils';
 
-const getGraphqlUrl = (envKey?: EnvironmentsKeys, baseUrlOverride?: string) => {
-  const baseUrl = baseUrlOverride || getBaseUrl(envKey);
-  return baseUrl ? `${baseUrl}/graphql` : '/gateway/api/graphql';
-};
+interface GetFieldValuesProps {
+  cloudId: string;
+  jql: string;
+  jqlTerm: BasicFilterFieldType;
+  searchString: string;
+  pageCursor?: string;
+}
+
+const AGG_BASE_URL = '/gateway/api/graphql';
 
 export const useBasicFilterAGG = () => {
-  const {
-    connections: { client },
-  } = useSmartLinkContext();
-
-  const gatewayGraphqlUrl = getGraphqlUrl(
-    client.envKey as EnvironmentsKeys,
-    client.baseUrlOverride,
+  const requestCall = useCallback(
+    async <Response>(body: object) =>
+      request<Response>(
+        'post',
+        AGG_BASE_URL,
+        body,
+        {
+          'X-ExperimentalApi': 'JiraJqlBuilder',
+        },
+        [200, 201, 202, 203, 204],
+      ),
+    [],
   );
 
-  const aggHeaders = useMemo(() => {
-    return new Headers({
-      'Content-Type': 'application/json',
-      'X-ExperimentalApi': 'JiraJqlBuilder',
-    });
-  }, []);
-
   const getHydratedJQL = useCallback(
-    async (cloudId: string, jql: string): Promise<HydrateResponse> => {
-      const body = JSON.stringify({
+    (cloudId: string, jql: string) =>
+      requestCall<HydrateResponse>({
         variables: {
           cloudId,
           jql,
         },
         operationName: 'hydrate',
         query: hydrateJQLQuery,
-      });
-
-      const request = new Request(gatewayGraphqlUrl, {
-        method: 'POST',
-        headers: aggHeaders,
-        body,
-      });
-      try {
-        const response = await fetch(request);
-        return response.json();
-      } catch (e: any) {
-        throw new Error(e);
-      }
-    },
-    [gatewayGraphqlUrl, aggHeaders],
+      }),
+    [requestCall],
   );
 
   const getFieldValues = useCallback(
-    async (
-      cloudId: string,
-      jql: string,
-      jqlTerm: BasicFilterFieldType,
-      searchString: string,
-      pageCursor?: string,
-    ): Promise<FieldValuesResponse> => {
-      const body = JSON.stringify({
+    ({
+      cloudId,
+      jql = '',
+      jqlTerm,
+      searchString = '',
+      pageCursor,
+    }: GetFieldValuesProps) =>
+      requestCall<FieldValuesResponse>({
         variables: {
           cloudId,
           jql,
@@ -78,22 +67,8 @@ export const useBasicFilterAGG = () => {
         },
         operationName: 'fieldValues',
         query: fieldValuesQuery,
-      });
-
-      const request = new Request(gatewayGraphqlUrl, {
-        method: 'POST',
-        headers: aggHeaders,
-        body,
-      });
-
-      try {
-        const response = await fetch(request);
-        return await response.json();
-      } catch (e: any) {
-        throw new Error(e);
-      }
-    },
-    [gatewayGraphqlUrl, aggHeaders],
+      }),
+    [requestCall],
   );
 
   return useMemo(

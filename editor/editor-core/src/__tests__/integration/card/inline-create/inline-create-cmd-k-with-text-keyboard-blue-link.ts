@@ -16,7 +16,7 @@ import {
   insertLongText,
   fullpage,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 
 const mockLinkSearchTitle = 'home opt-in';
 const mockLinkUrlEndsWith = 'Home+opt-in+requests';

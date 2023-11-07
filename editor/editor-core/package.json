@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "189.3.2",
+  "version": "189.3.6",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -64,6 +64,7 @@
     "@atlaskit/editor-plugin-caption": "^0.2.0",
     "@atlaskit/editor-plugin-card": "^0.10.0",
     "@atlaskit/editor-plugin-clipboard": "^0.1.0",
+    "@atlaskit/editor-plugin-code-block": "^0.1.0",
     "@atlaskit/editor-plugin-composition": "^0.1.0",
     "@atlaskit/editor-plugin-content-insertion": "^0.1.4",
     "@atlaskit/editor-plugin-context-panel": "^0.2.0",
@@ -89,7 +90,7 @@
     "@atlaskit/editor-plugin-mentions": "^0.1.0",
     "@atlaskit/editor-plugin-panel": "^0.1.0",
     "@atlaskit/editor-plugin-paste": "^0.1.0",
-    "@atlaskit/editor-plugin-paste-options-toolbar": "^0.2.0",
+    "@atlaskit/editor-plugin-paste-options-toolbar": "^0.3.0",
     "@atlaskit/editor-plugin-placeholder": "^0.1.0",
     "@atlaskit/editor-plugin-placeholder-text": "^0.1.0",
     "@atlaskit/editor-plugin-quick-insert": "^0.2.0",
@@ -116,7 +117,7 @@
     "@atlaskit/logo": "^13.14.0",
     "@atlaskit/media-card": "^77.2.0",
     "@atlaskit/media-client": "^25.0.0",
-    "@atlaskit/media-common": "^9.0.0",
+    "@atlaskit/media-common": "^10.0.0",
     "@atlaskit/mention": "^22.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/prosemirror-collab": "^0.2.0",

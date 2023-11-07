@@ -2,6 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { mockBasicFilterAGGFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import { Flex, xcss } from '@atlaskit/primitives';
 
@@ -24,11 +25,18 @@ export default () => {
 
   return (
     <IntlProvider locale="en">
-      <Flex gap="space.400" xcss={flexContainerStyles}>
-        {filters.map(filter => (
-          <AsyncPopupSelect filterType={filter} key={filter} selection={[]} />
-        ))}
-      </Flex>
+      <SmartCardProvider client={new CardClient()}>
+        <Flex gap="space.400" xcss={flexContainerStyles}>
+          {filters.map(filter => (
+            <AsyncPopupSelect
+              filterType={filter}
+              cloudId="my-cloud-id"
+              key={filter}
+              selection={[]}
+            />
+          ))}
+        </Flex>
+      </SmartCardProvider>
     </IntlProvider>
   );
 };

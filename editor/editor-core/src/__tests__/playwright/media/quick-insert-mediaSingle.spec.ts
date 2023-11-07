@@ -38,7 +38,7 @@ test.describe('quick-insert', () => {
     ),
 
     mediaAfterParagraph: doc(
-      p('Hello'),
+      p('Hello '),
       mediaSingle({
         layout: 'center',
       }).any,

@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 76.18.3
+
+### Patch Changes
+
+- [#42754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42754) [`32895b114de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32895b114de) - add custom-steps as a dependency
+- Updated dependencies
+
 ## 76.18.2
 
 ### Patch Changes

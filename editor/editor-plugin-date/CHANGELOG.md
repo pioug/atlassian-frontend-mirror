@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-date
 
+## 0.2.2
+
+### Patch Changes
+
+- [#42770](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42770) [`c7a6a824958`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7a6a824958) - Extract code-block plugin from editor-core as `@atlaskit/editor-plugin-code-block`.
+
 ## 0.2.1
 
 ### Patch Changes

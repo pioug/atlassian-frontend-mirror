@@ -90,7 +90,7 @@ import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import { placeholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text';
 
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
-import codeBlockPlugin from '../../../../../plugins/code-block';
+import { codeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
 
 jest.mock('../../../../../ui/ElementBrowser/InsertMenu', () => () => <div />);
 

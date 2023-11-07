@@ -22,7 +22,6 @@ const FullPageWithLinkPicker = () => {
         featureFlags: {
           'lp-link-picker': true,
           'lp-link-picker-focus-trap': true,
-          'lp-analytics-events-next': true,
           'prevent-popup-overflow': true,
         },
       }}

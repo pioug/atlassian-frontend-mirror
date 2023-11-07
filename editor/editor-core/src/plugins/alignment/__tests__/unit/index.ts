@@ -30,7 +30,7 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 
 import { panelPlugin } from '@atlaskit/editor-plugin-panel';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
-import codeBlockPlugin from '../../../code-block';
+import { codeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import type { AlignmentPluginState } from '../../pm-plugins/types';

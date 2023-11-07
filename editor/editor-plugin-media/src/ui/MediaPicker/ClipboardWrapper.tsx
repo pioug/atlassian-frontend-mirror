@@ -22,13 +22,11 @@ export const ClipboardWrapper = ({
   <PickerFacadeProvider mediaState={mediaState} analyticsName="clipboard">
     {({ mediaClientConfig, config, pickerFacadeInstance }) => {
       const clipboardConfig = Object.assign({}, config) as ClipboardConfig;
-      if (featureFlags?.securedClipboard === true) {
-        clipboardConfig.container = container;
-        clipboardConfig.onPaste = event => {
-          event.stopPropagation();
-          return false;
-        };
-      }
+      clipboardConfig.container = container;
+      clipboardConfig.onPaste = event => {
+        event.stopPropagation();
+        return false;
+      };
       return (
         <Clipboard
           mediaClientConfig={mediaClientConfig}

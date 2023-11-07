@@ -13,13 +13,25 @@ export const Table = styled.table`
 
 export const TableHeading = styled.th`
   position: relative;
-  padding-block: ${token('space.300', '24px')} ${token('space.100', '8px')};
   line-height: ${token('font.lineHeight.300', '16px')};
   border-bottom: 2px solid ${token('color.background.accent.gray.subtler', N40)};
+  height: calc(52px - ${token('space.050', '4px')} * 2 - 2px);
+  vertical-align: bottom;
+
   & [data-testid='datasource-header-content--container'] {
-    margin-top: 0;
+    width: 100%;
+    padding: ${token('space.100', '4px')} ${token('space.050', '2px')};
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    max-height: 2.5rem;
+    word-wrap: break-word;
+
+    &:hover {
+      background: ${token('color.background.input.hovered', '#F7F8F9')};
+      border-radius: 3px;
+    }
   }
 `;

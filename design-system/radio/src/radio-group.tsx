@@ -13,11 +13,11 @@ import { OptionPropType, OptionsPropType, RadioValue } from './types';
 
 export interface RadioGroupProps {
   /**
-   * Once set, controls the selected value on the `RadioGroup`
+   * Once set, controls the selected value on the `RadioGroup`.
    */
   value?: RadioValue | null;
   /**
-   * Sets the initial selected value on the `RadioGroup`
+   * Sets the initial selected value on the `RadioGroup`.
    */
   defaultValue?: RadioValue | null;
   /**
@@ -25,11 +25,11 @@ export interface RadioGroupProps {
    */
   isDisabled?: boolean;
   /**
-   * Sets the required state of all `Radio` elements in the group
+   * Sets the required state of all `Radio` elements in the group.
    */
   isRequired?: boolean;
   /**
-   * Sets the invalid state of all `Radio` elements in the group
+   * Sets the invalid state of all `Radio` elements in the group.
    */
   isInvalid?: boolean;
   /**
@@ -37,26 +37,26 @@ export interface RadioGroupProps {
    */
   options: OptionsPropType;
   /**
-   * Function that gets fired after each invalid event
+   * Function that gets fired after each invalid event.
    */
   onInvalid?: (event: SyntheticEvent<any>) => void;
   /**
-   * Function that gets after each change event
+   * Function that gets after each change event.
    */
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement>,
     analyticsEvent: UIAnalyticsEvent,
   ) => void;
   /**
-   * Sets the `name` prop on each of the `Radio` elements in the group
+   * Sets the `name` prop on each of the `Radio` elements in the group.
    */
   name?: string;
   /**
-   * Additional information to be included in the `context` of analytics events that come from radio
+   * Additional information to be included in the `context` of analytics events that come from radio.
    */
   analyticsContext?: Record<string, any>;
   /**
-   * The id of the element that links to this radiogroup.
+   * The id of the element that links to this radio group.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   'aria-labelledby'?: string;

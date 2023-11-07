@@ -444,6 +444,11 @@ export const IssueLikeDataTableView = ({
 
   return (
     <div
+      /* There is required contentEditable={true} in editor-card-plugin
+       * But this brakes how DND works. We set contentEditable={false} to allow DND to work
+       * when dragging is initiated on top of a column label.
+       */
+      contentEditable={false}
       ref={containerRef}
       css={scrollableContainerHeight ? scrollableContainerStyles : null}
       style={

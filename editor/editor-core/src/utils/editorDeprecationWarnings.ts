@@ -1,11 +1,9 @@
 import type { EditorProps } from '../types/editor-props';
-import { nextMajorVersion } from '../version-wrapper';
 
 export default function editorDeprecationWarnings(props: EditorProps) {
   if (process.env.NODE_ENV === 'production') {
     return;
   }
-  const nextVersion = nextMajorVersion();
   const deprecatedProperties = {
     allowTasksAndDecisions: {
       message:
@@ -40,7 +38,7 @@ export default function editorDeprecationWarnings(props: EditorProps) {
       console.warn(
         `${property} property is deprecated. ${
           meta.message || ''
-        } [Will be ${type} in editor-core@${nextVersion}]`,
+        } [Will be ${type} in the next major editor-core version]`,
       );
     }
   });
@@ -52,7 +50,7 @@ export default function editorDeprecationWarnings(props: EditorProps) {
   ) {
     // eslint-disable-next-line no-console
     console.warn(
-      `Advanced table options are deprecated (except isHeaderRowRequired) to continue using advanced table features use - <Editor allowTables={{ advanced: true }} /> [Will be changed in editor-core@${nextVersion}]`,
+      `Advanced table options are deprecated (except isHeaderRowRequired) to continue using advanced table features use - <Editor allowTables={{ advanced: true }} /> [Will be changed in the next major editor-core version]`,
     );
   }
 }

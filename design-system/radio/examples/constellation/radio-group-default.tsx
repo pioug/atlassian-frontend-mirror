@@ -57,7 +57,7 @@ export default function BasicExample() {
       </div>
       <Checkbox
         value="isDisabled"
-        label="is disabled"
+        label="Make this radio group disabled"
         onChange={toggleCheckbox}
       />
     </Fragment>

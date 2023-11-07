@@ -90,7 +90,7 @@ test.describe('List', () => {
               td()(
                 ul(
                   li(
-                    p('Bullet item 2'),
+                    p('Bullet item 1'),
                     ul(
                       li(
                         p('Bullet item 2'),

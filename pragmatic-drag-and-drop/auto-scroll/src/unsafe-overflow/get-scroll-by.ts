@@ -84,12 +84,27 @@ export function getScrollBy<DragType extends AllDragTypes>({
        *
        * **Why?**
        *
-       * 1. This check is already achieved by `element.contains(underUsersPointer)`.
-       * This check is shared between "over element" and "overflow" scrolling to guarantee
-       * only one is being activated a time
+       * 1. 🥱 Redundant
+       * This check is already achieved by `element.contains(underUsersPointer)`
        *
-       * 2. Sometimes `document.getElementFromPoint()` can return the wrong element
-       * when on the boundary of an element
+       * 2. 📐 Overlap on boundaries
+       * Two elements can share the same `{x,y}` points on shared edges.
+       * It's not clear which of the two will be picked by
+       * `const underUsersPointer = document.elementFromPoint(x,y)`
+       * The edge of an "outside" element, can have shared `{x,y}`
+       * values along the edge of an "inside element".
+       * So when `underUsersPointer` is the "outer" element, the `client`
+       * point might actually be also within the "inner" element.
+       * We are exclusively relying on `underUsersPointer` make the decision
+       * on what we are "over" so we should not be doing "over element" hitbox
+       * testing here.
+       * https://twitter.com/alexandereardon/status/1721758766507638996
+       *
+       *
+       * 3. 🐞 Chrome bug
+       * `document.getElementFromPoint(x, y)` can return an element that does not contain `{x,y}`,
+       * In these cases, `isWithin({client, clientRect: overElementHitbox})` can return `false`.
+       * https://bugs.chromium.org/p/chromium/issues/detail?id=1500073
        */
 
       if (isWithin({ client, clientRect: outsideOfEdge })) {

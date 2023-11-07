@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-media
 
+## 0.3.11
+
+### Patch Changes
+
+- [#42757](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42757) [`73c66d2c6db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73c66d2c6db) - remove media securedClipboard FF
+- Updated dependencies
+
 ## 0.3.10
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.3.14
+
+### Patch Changes
+
+- [#42754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42754) [`b2396966987`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2396966987) - use 'as' type assertion rather than angle brackets
+
 ## 2.3.13
 
 ### Patch Changes

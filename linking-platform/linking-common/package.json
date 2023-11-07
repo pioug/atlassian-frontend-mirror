@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/linking-common",
-  "version": "4.15.0",
+  "version": "4.16.0",
   "description": "Contains utils and interfaces shared across different LP components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,6 +41,8 @@
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.0.0",
+    "@sentry/browser": "^6.18.2",
+    "@sentry/integrations": "^6.18.2",
     "fetch-mock": "^8.0.0",
     "json-ld-types": "^3.9.1",
     "linkify-it": "^3.0.3",
@@ -69,6 +71,7 @@
     "./utils": "./src/utils/index.ts",
     "./hooks": "./src/hooks/index.ts",
     "./mocks": "./src/common/mocks/index.ts",
+    "./sentry": "./src/sentry/index.ts",
     ".": "./src/index.ts"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"

@@ -36,8 +36,8 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
-import codeBlockPlugin from '../plugins/code-block';
-import type { CodeBlockOptions } from '../plugins/code-block/types';
+import { codeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
+import type { CodeBlockOptions } from '@atlaskit/editor-plugin-code-block';
 import type { SelectionPluginOptions } from '@atlaskit/editor-common/selection';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import undoRedoPlugin from '../plugins/undo-redo';

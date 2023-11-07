@@ -124,4 +124,9 @@ export const messages = defineMessages({
       'This feedback is being submitted anonymously. Atlassian will not be able to contact you directly regarding this feedback',
     description: 'Notice that feedback is anonymous',
   },
+  requiredFieldsSummary: {
+    id: 'feedback-collector.required.fields.summary',
+    defaultMessage: 'Required fields are marked with an asterisk',
+    description: 'Summary info of required fields asterisk.',
+  },
 });

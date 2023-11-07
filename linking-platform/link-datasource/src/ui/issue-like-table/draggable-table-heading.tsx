@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { ReactNode, useEffect, useRef, useState } from 'react';
 
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
 import invariant from 'tiny-invariant';
 
@@ -35,20 +35,6 @@ type DraggableState =
       type: 'resizing';
       initialWidth: number;
     };
-
-const tableHeadingStatusStyles: Partial<
-  Record<DraggableState['type'], SerializedStyles>
-> = {
-  idle: css({
-    ':hover': {
-      background: token('elevation.surface.hovered', '#091E4224'),
-    },
-  }),
-  dragging: css({
-    background: token('color.background.disabled', '#091E4224'),
-    color: token('color.text.disabled', '#091E424F'),
-  }),
-};
 
 const verticallyAlignedStyles = css({
   display: 'flex',
@@ -292,7 +278,6 @@ export const DraggableTableHeading = ({
   return (
     <TableHeading
       ref={mainHeaderCellRef}
-      css={[tableHeadingStatusStyles[state.type]]}
       data-testid={`${id}-column-heading`}
       style={{
         width,

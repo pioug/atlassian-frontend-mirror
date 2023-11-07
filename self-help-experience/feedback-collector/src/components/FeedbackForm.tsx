@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
-import Form, { Field } from '@atlaskit/form';
+import Form, { Field, RequiredAsterisk } from '@atlaskit/form';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import Modal, {
   ModalBody,
@@ -15,7 +15,7 @@ import Modal, {
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
-import { N500 } from '@atlaskit/theme/colors';
+import { N300, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../messages';
@@ -192,6 +192,15 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
               </Button>
             </ModalHeader>
             <ModalBody>
+              <p
+                style={{
+                  color: token('color.text.subtle', N300),
+                  marginBottom: token('space.300', '24px'),
+                }}
+              >
+                {formatMessage(messages.requiredFieldsSummary)}
+                <RequiredAsterisk />
+              </p>
               {feedbackTitleDetails}
               {customContent}
               {showTypeField ? (

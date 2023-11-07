@@ -12,16 +12,18 @@ import { asyncPopupSelectMessages } from './messages';
 export interface PopupTriggerProps {
   filterType: BasicFilterFieldType;
   isSelected?: boolean;
+  isDisabled?: boolean;
   onClick?: () => void;
 }
 
 const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
-  ({ filterType, isSelected, onClick }, ref) => {
+  ({ filterType, isSelected, isDisabled, onClick }, ref) => {
     return (
       <Button
         ref={ref}
         appearance="default"
         isSelected={isSelected}
+        isDisabled={isDisabled}
         onClick={onClick}
         testId={`jlol-basic-filter-${filterType}-trigger`}
         iconAfter={<ChevronDownIcon label="" />}

@@ -354,7 +354,7 @@ test.describe('paste bullet list in-between characters on same line', () => {
           code('- Third item'),
           br(),
           code('- Fourth item'),
-          'ipsum dolor sit amet.',
+          ' ipsum dolor sit amet.',
         ),
         p(),
         p('consectetur adipiscing elit.'),
@@ -382,7 +382,7 @@ test.describe('paste bullet list in-between characters on same line', () => {
           code('- Third item'),
           br(),
           code('- Fourth item'),
-          'ipsum dolor sit amet.',
+          ' ipsum dolor sit amet.',
         ),
         p(),
         p('consectetur adipiscing elit.'),
@@ -415,7 +415,7 @@ test.describe('paste bullet list in-between characters on same line', () => {
           li(p('Third item')),
           li(p('Fourth item')),
         ),
-        p('ipsum dolor sit amet.'),
+        p(' ipsum dolor sit amet.'),
         p(),
         p('consectetur adipiscing elit.'),
       ),
@@ -435,9 +435,12 @@ test.describe('paste bullet list in-between characters on same line', () => {
 
     await expect(editor).toMatchDocument(
       doc(
-        p(
-          'Lorem - First item - Second item - Third item - Fourth item ipsum dolor sit amet',
-        ),
+        p(`Lorem
+- First item
+- Second item
+- Third item
+- Fourth item
+ ipsum dolor sit amet.`),
         p(),
         p('consectetur adipiscing elit.'),
       ),
@@ -511,12 +514,12 @@ some final text
         p('Lorem ipsum dolor sit amet.'),
         code_block()(`some initial text
 
-          - First item
-          - Second item
-          - Third item
-          - Fourth item
+- First item
+- Second item
+- Third item
+- Fourth item
 
-          some final text`),
+some final text`),
         p(),
         p('consectetur adipiscing elit.'),
       ),
@@ -538,12 +541,12 @@ some final text
         p('Lorem ipsum dolor sit amet.'),
         code_block()(`some initial text
 
-          - First item
-          - Second item
-          - Third item
-          - Fourth item
+- First item
+- Second item
+- Third item
+- Fourth item
 
-          some final text`),
+some final text`),
         p(),
         p('consectetur adipiscing elit.'),
       ),
@@ -596,9 +599,16 @@ some final text
     await expect(editor).toMatchDocument(
       doc(
         p('Lorem ipsum dolor sit amet.'),
-        p(
-          'some initial text - First item - Second item - Third item - Fourth item some final text',
-        ),
+        p(`
+some initial text
+
+- First item
+- Second item
+- Third item
+- Fourth item
+
+some final text
+`),
         p('consectetur adipiscing elit.'),
       ),
     );
@@ -619,12 +629,12 @@ some final text
         p('Lorem ipsum dolor sit amet.'),
         code_block()(`some initial text
 
-          - First item
-          - Second item
-          - Third item
-          - Fourth item
+- First item
+- Second item
+- Third item
+- Fourth item
 
-          some final text`),
+some final text`),
         p(),
         p('consectetur adipiscing elit.'),
       ),
@@ -957,7 +967,7 @@ test.describe('paste ordered list in-between characters on same line', () => {
           code('3. Third item'),
           br(),
           code('4. Fourth item'),
-          'ipsum dolor sit amet.',
+          ' ipsum dolor sit amet.',
         ),
         p(),
         p('consectetur adipiscing elit.'),
@@ -985,7 +995,7 @@ test.describe('paste ordered list in-between characters on same line', () => {
           code('3. Third item'),
           br(),
           code('4. Fourth item'),
-          'ipsum dolor sit amet.',
+          ' ipsum dolor sit amet.',
         ),
         p(),
         p('consectetur adipiscing elit.'),
@@ -1018,7 +1028,7 @@ test.describe('paste ordered list in-between characters on same line', () => {
           li(p('Third item')),
           li(p('Fourth item')),
         ),
-        p('ipsum dolor sit amet.'),
+        p(' ipsum dolor sit amet.'),
         p(),
         p('consectetur adipiscing elit.'),
       ),
@@ -1038,9 +1048,12 @@ test.describe('paste ordered list in-between characters on same line', () => {
 
     await expect(editor).toMatchDocument(
       doc(
-        p(
-          'Lorem1. First item 2. Second item 3. Third item 4. Fourth item ipsum dolor sit amet.',
-        ),
+        p(`Lorem
+1. First item
+2. Second item
+3. Third item
+4. Fourth item
+ ipsum dolor sit amet.`),
         p(),
         p('consectetur adipiscing elit.'),
       ),

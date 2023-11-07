@@ -64,11 +64,7 @@ export const isToolbarVisible = (
     grandParentNodeType &&
     grandParentNodeType.name === state.schema.nodes.doc.name &&
     !isPastedFromFabricEditor(lastContentPasted.pasteSource) &&
-    !hasLinkMark(
-      state,
-      lastContentPasted.pasteStartPos,
-      lastContentPasted.pasteEndPos,
-    ) &&
+    !hasLinkMark(lastContentPasted.pastedSlice) &&
     !hasMediaNode(lastContentPasted.pastedSlice)
   ) {
     return true;

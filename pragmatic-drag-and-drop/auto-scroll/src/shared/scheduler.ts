@@ -32,6 +32,10 @@ type State<DragType extends AllDragTypes> =
     };
 
 type OnFrameFn<DragType extends AllDragTypes> = (args: {
+  // This is a shared starting point between the
+  // "overflow" and "over element auto scroller's.
+  // This is important to ensure that there is a clean handover between the auto scroller's
+  underUsersPointer: Element | null;
   latestArgs: BaseEventPayload<DragType>;
   timeSinceLastFrame: number;
 }) => void;
@@ -76,8 +80,18 @@ function makeScheduler<DragType extends AllDragTypes>(
       timeLastFrameFinished - state.timeLastFrameFinished;
 
     const { latestArgs } = state;
+
+    // A common starting lookup point for determining
+    // which auto scroller should be used, and what should be scrolled.
+    const underUsersPointer = document.elementFromPoint(
+      latestArgs.location.current.input.clientX,
+      latestArgs.location.current.input.clientY,
+    );
+
     clearUnusedEngagements(() => {
-      callbacks.forEach(onFrame => onFrame({ latestArgs, timeSinceLastFrame }));
+      callbacks.forEach(onFrame =>
+        onFrame({ underUsersPointer, latestArgs, timeSinceLastFrame }),
+      );
     });
 
     state.timeLastFrameFinished = timeLastFrameFinished;

@@ -16,9 +16,10 @@ const availableBasicFilterTypes: BasicFilterFieldType[] = [
 
 interface BasicFilterContainerProps {
   jql: string;
+  cloudId: string;
 }
 
-const BasicFilterContainer = ({ jql }: BasicFilterContainerProps) => {
+const BasicFilterContainer = ({ jql, cloudId }: BasicFilterContainerProps) => {
   const [selection] = useState<SelectOption[]>([]);
 
   useEffect(() => {
@@ -33,9 +34,11 @@ const BasicFilterContainer = ({ jql }: BasicFilterContainerProps) => {
     <Flex gap="space.100" testId="jlol-basic-filter-container">
       {availableBasicFilterTypes.map(filter => (
         <AsyncPopupSelect
+          cloudId={cloudId}
           filterType={filter}
           key={filter}
           selection={selection}
+          isDisabled={!cloudId}
           onSelectionChange={handleSelectionChange}
         />
       ))}

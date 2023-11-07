@@ -70,7 +70,7 @@ test.describe('On paste `plain-text` should not be garbled', () => {
     await expect(editor).toMatchDocument(
       doc(
         p(
-          '<a href="',
+          '<a title="Image Title" href="',
           a({
             href: 'https://www.example.com/File:file.jpg',
             title: 'Image Title',

@@ -47,6 +47,21 @@ describe('Feedback Collector unit tests', () => {
       wrapper.unmount();
     });
 
+    test('should render visual instruction for mandatory field', () => {
+      render(
+        <FeedbackCollector
+          onClose={() => {}}
+          onSubmit={() => {}}
+          name="name"
+          entrypointId="entrypoint_id"
+        />,
+      );
+      const visualInstruction = screen.getByText(
+        'Required fields are marked with an asterisk',
+      );
+      expect(visualInstruction).toBeInTheDocument();
+    });
+
     describe('Transforming form values into format', () => {
       let wrapper: ReactWrapper<{}, {}, FeedbackCollector>;
 

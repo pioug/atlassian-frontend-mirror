@@ -19,6 +19,8 @@ const options: OptionsType = {
   drawsOutsideBounds: true,
 };
 
+const filters = ['project', 'issuetype', 'status', 'assignee'];
+
 snapshotInformational(BasicFiltersVR, {
   ...options,
 
@@ -28,92 +30,53 @@ snapshotInformational(BasicFiltersVR, {
   description: 'default state for all filters',
 });
 
-snapshotInformational(BasicFiltersVR, {
-  ...options,
-
-  prepare: async (page: Page, component: Locator) => {
-    await component.getByTestId('jlol-basic-filter-project-trigger').click();
-    const firstOption = page.locator('#react-select-2-option-0');
-    await firstOption.waitFor({ state: 'visible' });
-  },
-  description: 'project open trigger',
-});
-
-snapshotInformational(BasicFiltersVR, {
-  ...options,
-
-  prepare: async (page: Page, component: Locator) => {
-    await component.getByTestId('jlol-basic-filter-project-trigger').click();
-    await page.locator('#react-select-2-option-0 span').first().click();
-  },
-  description: 'project open and option selected',
-});
-
-snapshotInformational(BasicFiltersVR, {
-  ...options,
-
-  prepare: async (_page: Page, component: Locator) => {
-    await component.getByTestId('jlol-basic-filter-issuetype-trigger').click();
-  },
-  description: 'type open trigger',
-});
-
-snapshotInformational(BasicFiltersVR, {
-  ...options,
-
-  prepare: async (page: Page, component: Locator) => {
-    await component.getByTestId('jlol-basic-filter-issuetype-trigger').click();
-    await page.locator('#react-select-2-option-0 span').first().click();
-  },
-  description: 'type open and option selected',
-});
-
-snapshotInformational(BasicFiltersVR, {
-  ...options,
-
-  prepare: async (_page: Page, component: Locator) => {
-    await component.getByTestId('jlol-basic-filter-status-trigger').click();
-  },
-  description: 'status open trigger',
-});
-
-snapshotInformational(BasicFiltersVR, {
-  ...options,
-
-  prepare: async (page: Page, component: Locator) => {
-    await component.getByTestId('jlol-basic-filter-status-trigger').click();
-    await page.locator('#react-select-2-option-0 span').first().click();
-  },
-  description: 'status open and option selected',
-});
-
-snapshotInformational(BasicFiltersVR, {
-  ...options,
-
-  prepare: async (_page: Page, component: Locator) => {
-    await component.getByTestId('jlol-basic-filter-assignee-trigger').click();
-  },
-  description: 'assignee open trigger',
-});
-
-snapshotInformational(BasicFiltersVR, {
-  ...options,
-
-  prepare: async (page: Page, component: Locator) => {
-    await component.getByTestId('jlol-basic-filter-assignee-trigger').click();
-    await page.locator('#react-select-2-option-0 span').first().click();
-  },
-  description: 'assignee open and option selected',
-});
-
 snapshotInformational(WithModal, {
   ...options,
 
-  prepare: async (page: Page, component: Locator) => {
+  prepare: async (page: Page) => {
     await page.getByTestId('mode-toggle-basic').click();
   },
   description: 'basic mode with basic filters',
   featureFlags: {
     'platform.linking-platform.datasource.show-jlol-basic-filters': true,
   },
+});
+
+filters.forEach(filter => {
+  snapshotInformational(BasicFiltersVR, {
+    ...options,
+
+    prepare: async (page: Page, component: Locator) => {
+      await component
+        .getByTestId(`jlol-basic-filter-${filter}-trigger`)
+        .click();
+      const firstOption = page.locator('#react-select-2-option-0');
+      await firstOption.waitFor({ state: 'visible' });
+    },
+    description: `${filter} open trigger`,
+  });
+
+  snapshotInformational(BasicFiltersVR, {
+    ...options,
+
+    prepare: async (page: Page, component: Locator) => {
+      await component
+        .getByTestId(`jlol-basic-filter-${filter}-trigger`)
+        .click();
+      await page.locator('#react-select-2-option-0 span').first().click();
+    },
+    description: `${filter} open and option selected`,
+  });
+
+  snapshotInformational(BasicFiltersVR, {
+    ...options,
+
+    prepare: async (page: Page, component: Locator) => {
+      await component
+        .getByTestId(`jlol-basic-filter-${filter}-trigger`)
+        .click();
+      await page.type('#jlol-basic-filter-popup-select--input', `my ${filter}`);
+    },
+    description: `${filter} open and search text entered`,
+  });
 });

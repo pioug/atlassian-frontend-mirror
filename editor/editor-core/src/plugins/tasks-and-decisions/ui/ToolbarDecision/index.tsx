@@ -7,7 +7,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import DecisionIcon from '@atlaskit/icon/glyph/editor/decision';
 
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
-import { messages } from '../../../insert-block/ui/ToolbarInsertBlock/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { insertTaskDecisionCommand } from '../../commands';
 import type { TaskAndDecisionsPlugin } from '../../types';
 

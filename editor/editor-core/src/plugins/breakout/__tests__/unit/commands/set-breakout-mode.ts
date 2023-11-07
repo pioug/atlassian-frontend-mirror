@@ -16,7 +16,7 @@ import { setBreakoutMode } from '../../../commands/set-breakout-mode';
 // Editor plugins
 import breakoutPlugin from '../../../';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import codeBlockPlugin from '../../../../code-block';
+import { codeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 

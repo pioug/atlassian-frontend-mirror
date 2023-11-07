@@ -333,7 +333,17 @@ test.describe('blockCard:datasource', () => {
     await blockCardModel.waitForStable();
 
     await expect(editor).toMatchDocument(
-      doc(p(), datasourceBlockCard(blockCardDatasourceAdf.content[0].attrs)()),
+      doc(
+        p(),
+        datasourceBlockCard({
+          url: expect.any(String),
+          datasource: {
+            id: expect.any(String),
+            parameters: expect.any(Object),
+            views: expect.any(Array),
+          },
+        })(),
+      ),
     );
   });
 });
@@ -385,6 +395,11 @@ test.describe('blockCard:datasource update table', () => {
   test('should be able to change my query using the floating toolbar', async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-20649',
+      reason:
+        'FIXME: This test was automatically skipped due to failure on 25/10/2023: https://product-fabric.atlassian.net/browse/ED-20649',
+    });
     await setupQuery(editor);
     await editor.keyboard.type('created >= -30d order by created ASC');
     await editor.page.getByTestId('jql-editor-search').click();

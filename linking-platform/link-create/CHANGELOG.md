@@ -1,5 +1,12 @@
 # @atlaskit/link-create
 
+## 1.7.1
+
+### Patch Changes
+
+- [#42758](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42758) [`67953559475`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67953559475) - Updates error boundary to captureException to Sentry behind a feature flag.
+- Updated dependencies
+
 ## 1.7.0
 
 ### Minor Changes

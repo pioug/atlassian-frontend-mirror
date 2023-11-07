@@ -92,15 +92,18 @@ export function makeApi<DragType extends AllDragTypes>({
 
   function onFrame({
     latestArgs,
+    underUsersPointer,
     timeSinceLastFrame,
   }: {
     latestArgs: BaseEventPayload<DragType>;
+    underUsersPointer: Element | null;
     timeSinceLastFrame: number;
   }) {
     tryScroll({
       input: latestArgs.location.current.input,
       source: latestArgs.source,
       findEntry,
+      underUsersPointer,
       timeSinceLastFrame,
       getWindowScrollEntries,
     });

@@ -15,7 +15,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import loadJiraCollectorDialogScript from './loadJiraCollectorDialogScript';
-import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 
 let showJiraCollectorDialog: () => void;
 let feedbackInfoHash: string;

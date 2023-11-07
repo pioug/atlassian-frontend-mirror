@@ -13,21 +13,14 @@ export function tryOverflowScrollElements<DragType extends AllDragTypes>({
   source,
   entries,
   timeSinceLastFrame,
+  underUsersPointer,
 }: {
   input: Input;
   timeSinceLastFrame: number;
+  underUsersPointer: Element | null;
   source: DragType['payload'];
   entries: UnsafeOverflowAutoScrollArgs<DragType>[];
 }): void {
-  // Notes
-  // - This is the same starting point as the "over element" auto scroller,
-  //   which is important to ensure that there is a clean handover between the auto scroller's
-  // - Doing this lookup here so it can be shared for all the entries.
-  const underUsersPointer = document.elementFromPoint(
-    input.clientX,
-    input.clientY,
-  );
-
   // For now we are auto scrolling any element that wants to.
   // Otherwise it's hard to know what should scroll first as we might
   // be scrolling elements that have no hierarchical relationship

@@ -4,6 +4,7 @@ import { JQLEditor, JQLEditorProps } from '@atlassianlabs/jql-editor';
 import { act, fireEvent, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
+import invariant from 'tiny-invariant';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
@@ -12,6 +13,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { EVENT_CHANNEL } from '../../../../analytics';
 import { JiraIssueDatasourceParameters } from '../../types';
 import { JiraSearchContainer, SearchContainerProps } from '../index';
+
 jest.mock('@atlaskit/jql-editor-autocomplete-rest', () => ({
   useAutocompleteProvider: jest
     .fn()
@@ -23,6 +25,16 @@ jest.mock('@atlassianlabs/jql-editor', () => ({
     .fn()
     .mockReturnValue(<div data-testid={'mocked-jql-editor'}></div>),
 }));
+
+let mockRequest = jest.fn();
+
+jest.mock('@atlaskit/linking-common', () => {
+  const originalModule = jest.requireActual('@atlaskit/linking-common');
+  return {
+    ...originalModule,
+    request: (...args: any) => mockRequest(...args),
+  };
+});
 
 const onAnalyticFireEvent = jest.fn();
 
@@ -369,8 +381,12 @@ describe('JiraSearchContainer', () => {
     ffTest(
       'platform.linking-platform.datasource.show-jlol-basic-filters',
       () => {
-        const { queryByTestId, getByTestId, mockOnSearchMethodChange } =
-          setup();
+        const { queryByTestId, getByTestId, mockOnSearchMethodChange } = setup({
+          parameters: {
+            cloudId: 'test-cloud-id',
+            filter: 'project',
+          },
+        });
 
         // switch to basic search because default is JQL
         // in current implementation JQL doesn't have basic filters
@@ -380,6 +396,26 @@ describe('JiraSearchContainer', () => {
         expect(
           queryByTestId('jlol-basic-filter-container'),
         ).toBeInTheDocument();
+
+        const triggerButton = queryByTestId(
+          `jlol-basic-filter-project-trigger`,
+        );
+
+        invariant(triggerButton);
+        fireEvent.click(triggerButton);
+
+        const fetchArgs = mockRequest.mock.calls[0][2];
+
+        expect(fetchArgs.variables).toEqual(
+          expect.objectContaining({
+            after: undefined,
+            cloudId: 'test-cloud-id',
+            first: 10,
+            jql: '',
+            jqlTerm: 'project',
+            searchString: '',
+          }),
+        );
       },
       () => {
         const { queryByTestId, getByTestId, mockOnSearchMethodChange } =
@@ -393,6 +429,88 @@ describe('JiraSearchContainer', () => {
         expect(
           queryByTestId('jlol-basic-filter-container'),
         ).not.toBeInTheDocument();
+      },
+    );
+  });
+
+  describe('should disable basic mode on search when the query is complex based on FF', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      () => {
+        const { getLatestJQLEditorProps, getByTestId } = setup();
+
+        getLatestJQLEditorProps().onUpdate!(
+          'text ~ "wrong" or summary ~ "value" ORDER BY status ASC',
+          {
+            represents: '',
+            errors: [],
+            query: undefined,
+          },
+        );
+
+        // triggers search
+        getLatestJQLEditorProps().onSearch!('', {
+          represents: '',
+          errors: [],
+          query: undefined,
+        });
+
+        expect(
+          getByTestId('mode-toggle-basic').querySelector('input'),
+        ).toBeDisabled();
+      },
+      () => {
+        const { getLatestJQLEditorProps, getByTestId } = setup();
+
+        getLatestJQLEditorProps().onUpdate!(
+          'text ~ "wrong" or summary ~ "value" ORDER BY status ASC',
+          {
+            represents: '',
+            errors: [],
+            query: undefined,
+          },
+        );
+
+        // triggers search
+        getLatestJQLEditorProps().onSearch!('', {
+          represents: '',
+          errors: [],
+          query: undefined,
+        });
+
+        expect(
+          getByTestId('mode-toggle-basic').querySelector('input'),
+        ).not.toBeDisabled();
+      },
+    );
+  });
+
+  describe('should disable basic mode when the modal loads if the query is complex based on FF', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      () => {
+        const { getByTestId } = setup({
+          parameters: {
+            ...initialParameters,
+            jql: 'text ~ "wrong" or summary ~ "value" ORDER BY status ASC',
+          },
+        });
+
+        expect(
+          getByTestId('mode-toggle-basic').querySelector('input'),
+        ).toBeDisabled();
+      },
+      () => {
+        const { getByTestId } = setup({
+          parameters: {
+            ...initialParameters,
+            jql: 'text ~ "wrong" or summary ~ "value" ORDER BY status ASC',
+          },
+        });
+
+        expect(
+          getByTestId('mode-toggle-basic').querySelector('input'),
+        ).not.toBeDisabled();
       },
     );
   });

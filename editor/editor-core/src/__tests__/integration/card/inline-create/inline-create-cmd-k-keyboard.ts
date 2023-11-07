@@ -16,7 +16,7 @@ import {
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import type Page from '@atlaskit/webdriver-runner/wd-wrapper';
-import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { isFocusTrapped } from '../_utils';
 
 BrowserTestCase(

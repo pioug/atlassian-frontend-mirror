@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 0.2.3
+
+### Patch Changes
+
+- [#42734](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42734) [`9a298d1b3c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a298d1b3c3) - Decouple code-block plugin from editor-core.
+
 ## 0.2.2
 
 ### Patch Changes

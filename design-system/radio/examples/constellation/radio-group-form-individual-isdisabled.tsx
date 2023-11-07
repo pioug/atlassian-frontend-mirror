@@ -23,7 +23,7 @@ export default function FormExampleSingleDisabled() {
           return (
             <form {...formProps} name="form-example">
               <Field
-                label="radio group with single radio item disabled"
+                label="Radio group with a single radio item disabled"
                 name="city"
                 defaultValue="sydney"
               >

@@ -33,3 +33,18 @@ export const prepareSetupForCardWithDataSource = async (page: Page) => {
   await blockCard.waitForStable();
   await editor.waitForEditorStable();
 };
+
+export const prepareSetupForEmbedCard =
+  (checkForIframe: boolean) => async (page: Page) => {
+    const editor = await EditorPageModel.from({ page });
+    const nodes = EditorNodeContainerModel.from(editor);
+    await page.setViewportSize(deviceViewPorts.LaptopHiDPI);
+    const embedCard = await nodes.embedCard.elementHandle();
+    await embedCard?.waitForElementState('stable');
+    if (checkForIframe) {
+      nodes.embedCard
+        .locator('iframe[data-iframe-loaded="true"]')
+        .waitFor({ state: 'attached' });
+    }
+    await editor.waitForEditorStable();
+  };

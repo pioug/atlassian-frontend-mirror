@@ -80,7 +80,7 @@ test.describe('gap-cursor: ', () => {
         ),
         p('localId: a, b'),
         p(
-          'The below extension ⌄⌄⌄ contains a dataConsumer and is linked to the above extension ^b ^ ',
+          'The below extension ⌄⌄⌄ contains a dataConsumer and is linked to the above extension ^b^ ',
         ),
         p('localId: c, d '),
       ),

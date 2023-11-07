@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 10.0.0
+
+### Major Changes
+
+- [#42757](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42757) [`73c66d2c6db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73c66d2c6db) - remove media securedClipboard FF
+
 ## 9.0.3
 
 ### Patch Changes

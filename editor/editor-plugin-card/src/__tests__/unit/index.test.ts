@@ -34,7 +34,10 @@ describe('cardPlugin', () => {
       const editorPlugin = cardPlugin({ config: options });
       editorPlugin.pmPlugins!();
 
-      expect(spy).toHaveBeenCalledWith(options, undefined);
+      expect(spy).toHaveBeenCalledWith(
+        { ...options, cardPluginEvents: expect.any(Object) },
+        undefined,
+      );
     });
 
     it('invokes createPlugin with default plugin options', () => {
@@ -51,6 +54,7 @@ describe('cardPlugin', () => {
           allowWrapping: true,
           allowAlignment: true,
           useAlternativePreloader: true,
+          cardPluginEvents: expect.any(Object),
         },
         undefined,
       );

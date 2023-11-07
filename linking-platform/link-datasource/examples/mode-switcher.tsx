@@ -11,6 +11,12 @@ const exampleModes = [
   { value: 'other', label: 'Other' },
 ];
 
+const exampleModesWithOptionsDisabled = [
+  { value: 'basic', label: 'Basic' },
+  { value: 'jql', label: 'JQL', disabled: true },
+  { value: 'other', label: 'Other' },
+];
+
 const containerStyles = css({
   display: 'flex',
   flexDirection: 'column',
@@ -41,6 +47,14 @@ export default () => {
         <ModeSwitcher
           isCompact={true}
           options={exampleModes}
+          onOptionValueChange={onModeChange}
+          selectedOptionValue={currentMode}
+        />
+      </div>
+      <div css={lineStyles}>
+        <ModeSwitcher
+          isCompact={false}
+          options={exampleModesWithOptionsDisabled}
           onOptionValueChange={onModeChange}
           selectedOptionValue={currentMode}
         />

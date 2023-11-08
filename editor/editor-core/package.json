@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "189.3.6",
+  "version": "189.3.10",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -112,10 +112,10 @@
     "@atlaskit/editor-tables": "^2.3.0",
     "@atlaskit/emoji": "^67.5.0",
     "@atlaskit/empty-state": "^7.6.0",
-    "@atlaskit/form": "^8.11.0",
+    "@atlaskit/form": "^9.0.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/logo": "^13.14.0",
-    "@atlaskit/media-card": "^77.2.0",
+    "@atlaskit/media-card": "^77.3.0",
     "@atlaskit/media-client": "^25.0.0",
     "@atlaskit/media-common": "^10.0.0",
     "@atlaskit/mention": "^22.1.0",
@@ -125,7 +125,7 @@
     "@atlaskit/radio": "^5.6.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/select": "^16.7.0",
-    "@atlaskit/smart-card": "^26.41.0",
+    "@atlaskit/smart-card": "^26.42.0",
     "@atlaskit/smart-user-picker": "^6.3.0",
     "@atlaskit/spinner": "^15.6.0",
     "@atlaskit/tabs": "^13.4.0",
@@ -169,7 +169,7 @@
     "@atlaskit/editor-palette": "1.5.1",
     "@atlaskit/flag": "^15.2.0",
     "@atlaskit/icon-object": "^6.3.0",
-    "@atlaskit/inline-dialog": "^13.6.0",
+    "@atlaskit/inline-dialog": "^14.0.0",
     "@atlaskit/link-analytics": "^8.3.0",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/link-test-helpers": "^6.2.0",
@@ -186,7 +186,7 @@
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/adf-schema-json": "^1.0.7",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "@atlassian/editor-extension-link-create": "^0.6.0",
+    "@atlassian/editor-extension-link-create": "^0.7.0",
     "@atlassian/feature-flags-test-utils": "^0.1.1",
     "@atlassian/link-picker-plugins": "^23.2.0",
     "@atlassian/search-provider": "2.4.8",
@@ -324,6 +324,10 @@
     },
     "platform.editor.a11y-find-replace": {
       "type": "boolean"
+    },
+    "platform.editor.menu.group-items": {
+      "type": "boolean",
+      "referenceOnly": "true"
     }
   }
 }

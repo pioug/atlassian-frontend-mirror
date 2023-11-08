@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 189.3.10
+
+### Patch Changes
+
+- [#42818](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42818) [`66c577c11dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66c577c11dd) - ED-20659: migrates paste webdriver tests to libra
+- [#42834](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42834) [`a4695f1205a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4695f1205a) - Fix TS errors for editor packages in AFM
+
+## 189.3.9
+
+### Patch Changes
+
+- [#42746](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42746) [`ea352517252`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea352517252) - Update editor dropdown menu component to support section behind platform.editor.menu.group-items FF
+- Updated dependencies
+
+## 189.3.7
+
+### Patch Changes
+
+- [#42151](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42151) [`192b62f6d36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/192b62f6d36) - Cleans up editor feature flag 'lp-analytics-events-next'. Card plugin will now always dispatch link tracking events.
+
 ## 189.3.6
 
 ### Patch Changes

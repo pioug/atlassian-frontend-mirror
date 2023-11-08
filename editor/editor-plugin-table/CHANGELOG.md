@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.23
+
+### Patch Changes
+
+- [#42746](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42746) [`ea352517252`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea352517252) - Update editor dropdown menu component to support section behind platform.editor.menu.group-items FF
+
 ## 5.3.22
 
 ### Patch Changes

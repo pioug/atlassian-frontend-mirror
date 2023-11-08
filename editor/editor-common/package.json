@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "76.18.3",
+  "version": "76.18.6",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -105,9 +105,9 @@
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/in-product-testing": "^0.2.0",
-    "@atlaskit/link-datasource": "^1.13.0",
+    "@atlaskit/link-datasource": "^1.14.0",
     "@atlaskit/link-picker": "^1.30.0",
-    "@atlaskit/media-card": "^77.2.0",
+    "@atlaskit/media-card": "^77.3.0",
     "@atlaskit/media-client": "^25.0.0",
     "@atlaskit/media-picker": "^66.2.0",
     "@atlaskit/mention": "^22.1.0",
@@ -155,7 +155,7 @@
   "devDependencies": {
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlaskit/smart-card": "^26.41.0",
+    "@atlaskit/smart-card": "^26.42.0",
     "@atlaskit/util-data-test": "^17.8.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
@@ -209,6 +209,9 @@
       "type": "boolean"
     },
     "platform.editor.table.increase-shadow-visibility_lh89r": {
+      "type": "boolean"
+    },
+    "platform.editor.menu.group-items": {
       "type": "boolean"
     }
   }

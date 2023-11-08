@@ -1,18 +1,21 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { Inline } from '@atlaskit/primitives';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { SmartLinkSize } from '../../../../../../../../constants';
 import extractFlexibleUiContext from '../../../../../../../../extractors/flexible';
 import Icon from '../../../../../elements/icon';
 import Link from '../../../../../elements/link';
 import { ResolvedResultItemProps } from './types';
+import { fireLinkClickedEvent } from '../../../../../../../../utils/analytics/click';
 
 const RelatedUrlItem: React.FC<ResolvedResultItemProps> = ({
   results,
   renderers,
   testId,
 }) => {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
   const flexibleDataContext = useMemo(
     () =>
       extractFlexibleUiContext({
@@ -20,6 +23,13 @@ const RelatedUrlItem: React.FC<ResolvedResultItemProps> = ({
         renderers,
       }),
     [renderers, results],
+  );
+
+  const onClick = useCallback(
+    (event: React.MouseEvent) => {
+      fireLinkClickedEvent(createAnalyticsEvent)(event);
+    },
+    [createAnalyticsEvent],
   );
 
   return (
@@ -35,6 +45,7 @@ const RelatedUrlItem: React.FC<ResolvedResultItemProps> = ({
         url={flexibleDataContext?.url}
         size={SmartLinkSize.Small}
         maxLines={1}
+        onClick={onClick}
       />
     </Inline>
   );

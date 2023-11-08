@@ -119,12 +119,15 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
     // https://product-fabric.atlassian.net/browse/DSP-4692
     (event) => {
       const newValue = !isLocalOpen;
-      const { clientX, clientY, type } = event;
+      const { clientX, clientY, type, detail } = event;
       if (type === 'keydown') {
         setTriggeredUsingKeyboard(true);
       } else if (clientX === 0 || clientY === 0) {
         // Hitting enter/space is registered as a click
         // with both clientX and clientY === 0
+        setTriggeredUsingKeyboard(true);
+      } else if (detail === 0) {
+        // Fix for Safari. clientX and clientY !== 0 in Safari
         setTriggeredUsingKeyboard(true);
       }
 
@@ -171,11 +174,16 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
     return bind(window, {
       type: 'keydown',
       listener: function openOnKeyDown(e: KeyboardEvent) {
-        // KEY_ENTER and KEY_SPACE are required to correctly recognize the keydown event in Safari
-        if (e.key === KEY_DOWN || e.key === KEY_ENTER || e.key === KEY_SPACE) {
+        if (e.key === KEY_DOWN) {
           // prevent page scroll
           e.preventDefault();
           handleTriggerClicked(e);
+        } else if (
+          (e.key === KEY_SPACE || e.key === KEY_ENTER) &&
+          e.detail === 0
+        ) {
+          // This allows us to focus on the first element if the dropdown was triggered by a custom trigger with a custom onClick
+          setTriggeredUsingKeyboard(true);
         }
       },
     });

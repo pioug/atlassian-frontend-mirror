@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-card",
-  "version": "77.2.3",
+  "version": "77.3.0",
   "description": "Includes all media card related components, CardView, CardViewSmall, Card...",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -66,7 +66,7 @@
   "devDependencies": {
     "@atlaskit/analytics-listeners": "^8.7.0",
     "@atlaskit/analytics-namespaced-context": "^6.7.0",
-    "@atlaskit/inline-message": "^11.5.0",
+    "@atlaskit/inline-message": "^12.0.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-picker": "^66.2.0",
     "@atlaskit/media-state": "^1.0.0",

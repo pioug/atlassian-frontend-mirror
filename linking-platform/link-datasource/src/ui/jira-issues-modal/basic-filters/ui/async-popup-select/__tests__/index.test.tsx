@@ -19,6 +19,7 @@ import { BasicFilterFieldType, SelectOption } from '../../../types';
 import AsyncPopupSelect, { AsyncPopupSelectProps } from '../index';
 
 jest.mock('../../../hooks/useFilterOptions');
+jest.useFakeTimers();
 
 describe('Testing AsyncPopupSelect', () => {
   const setup = ({
@@ -154,15 +155,32 @@ describe('Testing AsyncPopupSelect', () => {
     });
   });
 
-  it('should show the loading text when the status is loading', () => {
-    const { getByText } = setup({
+  it('should show the loading UI when the status is loading', () => {
+    const { getByText, queryByTestId } = setup({
       filterType: 'status',
       filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
       openPicker: true,
       status: 'loading',
     });
 
+    expect(
+      queryByTestId('jlol-basic-filter-popup-select--loading-message'),
+    ).toBeInTheDocument();
     expect(getByText('Loading...')).toBeInTheDocument();
+  });
+
+  it('should show the empty state UI when the status is resolved but no options are available', () => {
+    const { getByText, queryByTestId } = setup({
+      filterType: 'status',
+      filterOptions: [],
+      openPicker: true,
+      status: 'resolved',
+    });
+
+    expect(
+      queryByTestId('jlol-basic-filter-popup-select--no-options-message'),
+    ).toBeInTheDocument();
+    expect(getByText('No matches found')).toBeInTheDocument();
   });
 
   it('should call fetchFilterOptions with searchString when user inputs a search term', () => {
@@ -181,6 +199,8 @@ describe('Testing AsyncPopupSelect', () => {
     invariant(input);
 
     fireEvent.change(input, { target: { value: 'projects' } });
+
+    jest.advanceTimersByTime(350);
 
     expect(mockFetchFilterOptions).toBeCalledTimes(2);
     expect(mockFetchFilterOptions).toHaveBeenNthCalledWith(2, {

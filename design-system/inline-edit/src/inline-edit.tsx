@@ -9,8 +9,6 @@ import {
 } from '@atlaskit/analytics-next';
 import Field from '@atlaskit/form/Field';
 import Form from '@atlaskit/form/Form';
-import GlobalTheme from '@atlaskit/theme/components';
-import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
 
 import Buttons from './internal/buttons';
 import useButtonFocusHook from './internal/hooks/use-button-focus-hook';
@@ -27,15 +25,11 @@ const analyticsAttributes = {
   packageName: process.env._PACKAGE_NAME_ as string,
   packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
-interface ExtendedInlineEditProps<FieldValue>
-  extends InlineEditProps<FieldValue> {
-  mode: ThemeModes;
-}
 
 const noop = () => {};
 
 const InnerInlineEdit = <FieldValue extends unknown>(
-  props: ExtendedInlineEditProps<FieldValue>,
+  props: InlineEditProps<FieldValue>,
 ) => {
   const {
     startWithEditViewOpen = false,
@@ -56,7 +50,6 @@ const InnerInlineEdit = <FieldValue extends unknown>(
     onConfirm: providedOnConfirm,
     onCancel: providedOnCancel = noop,
     onEdit: providedOnEdit = noop,
-    mode,
   } = props;
 
   const wasFocusReceivedSinceLastBlurRef = useRef(false);
@@ -242,7 +235,6 @@ const InnerInlineEdit = <FieldValue extends unknown>(
                         /** Prevents focus on edit button only if mouse is used to click button, but not when keyboard is used */
                         doNotFocusOnEditButton();
                       }}
-                      mode={mode}
                       onCancelClick={onCancelClick}
                     />
                   ) : (
@@ -277,14 +269,7 @@ const InnerInlineEdit = <FieldValue extends unknown>(
 const InlineEdit = <FieldValue extends unknown = string>(
   props: InlineEditProps<FieldValue>,
 ) => {
-  return (
-    <GlobalTheme.Consumer>
-      {(tokens: GlobalThemeTokens) => {
-        const mode = tokens.mode;
-        return <InnerInlineEdit<FieldValue> {...props} mode={mode} />;
-      }}
-    </GlobalTheme.Consumer>
-  );
+  return <InnerInlineEdit<FieldValue> {...props} />;
 };
 
 export default InlineEdit;

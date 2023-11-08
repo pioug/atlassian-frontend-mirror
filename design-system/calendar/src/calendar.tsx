@@ -6,7 +6,6 @@ import { jsx } from '@emotion/react';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
-import GlobalTheme from '@atlaskit/theme/components';
 
 import Header from './internal/components/header';
 import WeekDaysComponent from './internal/components/week-days';
@@ -33,7 +32,7 @@ const analyticsAttributes = {
   packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
-const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
+const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(
   function Calendar(
     {
       day,
@@ -62,7 +61,6 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
       weekStartDay = 0,
       testId,
       calendarRef,
-      mode = 'light',
       className,
       style,
       tabIndex = 0,
@@ -202,7 +200,6 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
               handleClickNext={handleClickNext}
               handleClickPrev={handleClickPrev}
               headerId={headerId}
-              mode={mode}
               tabIndex={tabIndex}
               testId={testId}
             />
@@ -213,15 +210,10 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
               aria-labelledby={headerId}
               testId={testId && `${testId}--calendar-dates`}
             >
-              <WeekHeaderComponent
-                daysShort={daysShort}
-                mode={mode}
-                testId={testId}
-              />
+              <WeekHeaderComponent daysShort={daysShort} testId={testId} />
               <WeekDaysComponent
                 weeks={weeks}
                 handleClickDay={handleClickDay}
-                mode={mode}
                 monthsLong={monthsLong}
                 shouldSetFocus={shouldSetFocus}
                 tabIndex={tabIndex}
@@ -246,11 +238,7 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
  */
 const Calendar = memo(
   forwardRef<HTMLDivElement, CalendarProps>(function Calendar(props, ref) {
-    return (
-      <GlobalTheme.Consumer>
-        {({ mode }) => <CalendarWithMode {...props} mode={mode} ref={ref} />}
-      </GlobalTheme.Consumer>
-    );
+    return <InnerCalendar {...props} ref={ref} />;
   }),
 );
 

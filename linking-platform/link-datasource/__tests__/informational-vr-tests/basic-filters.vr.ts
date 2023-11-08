@@ -79,4 +79,40 @@ filters.forEach(filter => {
     },
     description: `${filter} open and search text entered`,
   });
+
+  snapshotInformational(BasicFiltersVR, {
+    ...options,
+
+    prepare: async (page: Page, component: Locator) => {
+      await component
+        .getByTestId(`jlol-basic-filter-${filter}-trigger`)
+        .click();
+
+      await page.type(
+        '#jlol-basic-filter-popup-select--input',
+        `loading-message`,
+      );
+
+      await page.waitForTimeout(1000);
+    },
+    description: `${filter} open and view loading state`,
+  });
+
+  snapshotInformational(BasicFiltersVR, {
+    ...options,
+
+    prepare: async (page: Page, component: Locator) => {
+      await component
+        .getByTestId(`jlol-basic-filter-${filter}-trigger`)
+        .click();
+
+      await page.type(
+        '#jlol-basic-filter-popup-select--input',
+        `empty-message`,
+      );
+
+      await page.waitForTimeout(1000);
+    },
+    description: `${filter} open and view empty state`,
+  });
 });

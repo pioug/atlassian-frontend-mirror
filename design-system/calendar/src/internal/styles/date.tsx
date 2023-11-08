@@ -1,51 +1,20 @@
 import { CSSObject } from '@emotion/react';
 
 import {
-  B100,
   B200,
   B400,
   B50,
-  DN600,
   N0,
   N200,
   N30,
   N40,
   N500,
   N600,
-  N700,
-  N800,
   N900,
 } from '@atlaskit/theme/colors';
-import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
-const textColor = {
-  light: token('color.text', N900),
-  dark: token('color.text', DN600),
-};
-const textColorMedium = token('color.text.subtle', N600);
-const todayColor = {
-  light: token('color.text.selected', B400),
-  dark: token('color.text.selected', B100),
-};
-const hoverBackground = {
-  light: token('color.background.neutral.subtle.hovered', N30),
-  dark: token('color.background.neutral.subtle.hovered', N800),
-};
-const textSelected = {
-  light: token('color.text.selected', N0),
-  dark: token('color.text.selected', N700),
-};
-const selectedBackground = {
-  light: token('color.background.selected', N500),
-  dark: token('color.background.selected', N0),
-};
-const borderColorFocused = {
-  light: token('color.border.focused', B200),
-  dark: token('color.border.focused', B100),
-};
-
-export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
+export const dateCellStyles = (): CSSObject => ({
   all: 'unset',
   display: 'block',
   padding: `${token('space.050', '4px')} 9px`,
@@ -53,7 +22,7 @@ export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
   backgroundColor: 'transparent',
   border: '2px solid transparent',
   borderRadius: 3,
-  color: textColor[mode],
+  color: token('color.text', N900),
   cursor: 'pointer',
   flexGrow: 1,
   fontSize: token('font.size.100', '14px'),
@@ -62,7 +31,7 @@ export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
     color: token('color.text.subtlest', N200),
   },
   '&[data-today]': {
-    color: todayColor[mode],
+    color: token('color.text.selected', B400),
     fontWeight: token('font.weight.bold', 'bold'),
     '&::after': {
       display: 'block',
@@ -80,30 +49,30 @@ export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
     color: token('color.text.subtle', N600),
   },
   '&[data-selected]': {
-    backgroundColor: selectedBackground[mode],
-    color: textSelected[mode],
+    backgroundColor: token('color.background.selected', N500),
+    color: token('color.text.selected', N0),
   },
   '&[data-disabled]': {
     color: token('color.text.disabled', N40),
     cursor: 'not-allowed',
   },
   '&:focus-visible': {
-    border: `2px solid ${borderColorFocused[mode]}`,
+    border: `2px solid ${token('color.border.focused', B200)}`,
   },
   '&:hover': {
-    backgroundColor: hoverBackground[mode],
-    color: textColor[mode],
+    backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+    color: token('color.text', N900),
   },
   '&:active': {
     backgroundColor: token('color.background.neutral.subtle.pressed', B50),
-    color: textColor[mode],
+    color: token('color.text', N900),
   },
   '&[data-selected]:hover': {
     backgroundColor: token('color.background.selected.hovered', B50),
     color: token('color.text.selected', N600),
   },
   '&[data-prev-selected]:hover': {
-    color: textColorMedium,
+    color: token('color.text.subtle', N600),
   },
   '&[data-sibling]:hover': {
     color: token('color.text.subtlest', N200),

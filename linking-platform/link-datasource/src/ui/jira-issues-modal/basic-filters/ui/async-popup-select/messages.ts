@@ -29,4 +29,14 @@ export const asyncPopupSelectMessages = {
     description: 'Label to be displayed for assignee filter dropdown button.',
     defaultMessage: 'Assignee',
   },
+  loadingMessage: {
+    id: 'linkDataSource.basic-filter.loading-message',
+    defaultMessage: 'Loading...',
+    description: 'The text for when options are being loaded in dropdown',
+  },
+  noOptionsMessage: {
+    id: 'linkDataSource.basic-filter.no-options-message',
+    defaultMessage: 'No matches found',
+    description: 'The text for when no matches are found in dropdown',
+  },
 };

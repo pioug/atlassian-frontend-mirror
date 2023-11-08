@@ -3,6 +3,7 @@ import { MediaType, ImageResizeMode } from '@atlaskit/media-client';
 import { MediaImage } from '@atlaskit/media-ui';
 import { resizeModeToMediaImageProps } from './resizeModeToMediaImageProps';
 import { CardPreview } from '../../../types';
+import { useCurrentValueRef } from '../../../utils/useCurrentValueRef';
 
 export type ImageRendererProps = {
   readonly cardPreview: CardPreview;
@@ -27,12 +28,13 @@ export const ImageRenderer: React.FC<ImageRendererProps> = ({
   nativeLazyLoad,
   forceSyncDisplay,
 }) => {
+  const onDisplayImageRef = useCurrentValueRef(onDisplayImage);
   useEffect(() => {
     // TODO: trigger accordingly with the succeeded event. This could be a breaking change
-    if (mediaType === 'image' && onDisplayImage) {
-      onDisplayImage();
+    if (mediaType === 'image') {
+      onDisplayImageRef.current?.();
     }
-  }, [mediaType, onDisplayImage]);
+  }, [mediaType, onDisplayImageRef]);
 
   const onLoad = () => {
     onImageLoad && onImageLoad(cardPreview);

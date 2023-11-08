@@ -227,6 +227,7 @@ type ContentComponentErrorAEP = OperationalAEP<
 export type ErrorEventAttributes = {
   error: Error;
   errorInfo: React.ErrorInfo;
+  errorRethrown?: boolean;
   product?: string;
   browserInfo?: string;
   errorId?: string;

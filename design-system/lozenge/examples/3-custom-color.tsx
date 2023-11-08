@@ -2,6 +2,8 @@ import React from 'react';
 
 import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 import Stack from '@atlaskit/primitives/stack';
+import { N0 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Lozenge from '../src';
 
@@ -18,8 +20,10 @@ export default function Example() {
         style: {`{ backgroundColor: 'green' }`}{' '}
         <Lozenge
           testId="lozenge-custom-color1"
-          /* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */
-          style={{ backgroundColor: 'green' }}
+          style={{
+            backgroundColor: 'green',
+            color: token('color.text.inverse', N0),
+          }}
         >
           Success
         </Lozenge>

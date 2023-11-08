@@ -44,11 +44,35 @@ type DragMenuProps = {
   getEditorContainerWidth: GetEditorContainerWidth;
 };
 
+const groupedDragMenuConfig = [
+  [
+    'add_row_above',
+    'add_row_below',
+    'add_column_left',
+    'add_column_right',
+    'distribute_columns',
+    'clear_cells',
+    'delete_row',
+    'delete_column',
+  ],
+  ['move_column_left', 'move_column_right', 'move_row_up', 'move_row_down'],
+  ['sort_column_asc', 'sort_column_desc'],
+];
+
 const convertToDropdownItems = (dragMenuConfig: DragMenuConfig[]) => {
-  let menuItems: MenuItem[] = [];
+  let menuItemsArr: MenuItem[][] = [...Array(groupedDragMenuConfig.length)].map(
+    () => [],
+  );
   let menuCallback: { [key: string]: Command } = {};
   dragMenuConfig.forEach((item) => {
-    menuItems.push({
+    const menuGroupIndex = groupedDragMenuConfig.findIndex((group) =>
+      group.includes(item.id),
+    );
+
+    if (menuGroupIndex === -1) {
+      return;
+    }
+    menuItemsArr[menuGroupIndex].push({
       key: item.id,
       content: item.title,
       value: { name: item.id },
@@ -69,6 +93,11 @@ const convertToDropdownItems = (dragMenuConfig: DragMenuConfig[]) => {
     });
     item.onClick && (menuCallback[item.id] = item.onClick);
   });
+
+  const menuItems = menuItemsArr.reduce((acc, curr) => {
+    curr?.length > 0 && acc.push({ items: curr });
+    return acc;
+  }, [] as { items: MenuItem[] }[]);
   return { menuItems, menuCallback };
 };
 
@@ -149,11 +178,7 @@ export const DragMenu = ({
         type: ArrowKeyNavigationType.MENU,
         disableArrowKeyNavigation: true,
       }}
-      items={[
-        {
-          items: menuItems,
-        },
-      ]}
+      items={menuItems}
       isOpen={isOpen}
       onOpenChange={closeMenu}
       onItemActivated={handleMenuItemActivated}
@@ -161,6 +186,7 @@ export const DragMenu = ({
       onMouseLeave={handleItemMouseLeave}
       fitWidth={dragMenuDropdownWidth}
       boundariesElement={boundariesElement}
+      section={{ hasSeparator: true }}
     />
   );
 };

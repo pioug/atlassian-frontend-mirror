@@ -5,40 +5,9 @@ import React, { forwardRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import {
-  DN50,
-  DN50A,
-  DN600,
-  DN60A,
-  N0,
-  N50A,
-  N60A,
-  N900,
-} from '@atlaskit/theme/colors';
-import { themed, useGlobalTheme } from '@atlaskit/theme/components';
+import { N0, N50A, N60A, N900 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
-
-const themedBackground = themed({
-  light: token('elevation.surface.overlay', N0),
-  dark: token('elevation.surface.overlay', DN50),
-});
-
-const themedColor = themed({
-  light: token('color.text', N900),
-  dark: token('color.text', DN600),
-});
-
-const themedBoxShadow = themed({
-  light: token(
-    'elevation.shadow.overlay',
-    `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
-  ),
-  dark: token(
-    'elevation.shadow.overlay',
-    `0 4px 8px -2px ${DN50A}, 0 0 1px ${DN60A}`,
-  ),
-});
 
 const CSS_THEME_BACKGROUND = '--theme-background';
 const CSS_THEME_COLOR = '--theme-color';
@@ -77,7 +46,6 @@ interface ContainerProps {
  */
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
   ({ children, onBlur, onClick, onFocus, style, testId }, ref) => {
-    const theme = useGlobalTheme();
     return (
       <div
         css={containerStyles}
@@ -88,9 +56,12 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
         ref={ref}
         style={
           {
-            [CSS_THEME_BACKGROUND]: themedBackground(theme),
-            [CSS_THEME_COLOR]: themedColor(theme),
-            [CSS_THEME_BOX_SHADOW]: themedBoxShadow(theme),
+            [CSS_THEME_BACKGROUND]: token('elevation.surface.overlay', N0),
+            [CSS_THEME_COLOR]: token('color.text', N900),
+            [CSS_THEME_BOX_SHADOW]: token(
+              'elevation.shadow.overlay',
+              `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
+            ),
             ...style,
           } as unknown as React.CSSProperties
         }

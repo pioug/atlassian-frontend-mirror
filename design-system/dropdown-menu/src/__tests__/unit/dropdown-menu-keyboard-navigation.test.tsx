@@ -26,6 +26,7 @@ describe('dropdown menu keyboard navigation', () => {
     fireEvent.click(element, {
       clientX: 1,
       clientY: 1,
+      detail: 1,
     });
 
     requestAnimationFrame.step();

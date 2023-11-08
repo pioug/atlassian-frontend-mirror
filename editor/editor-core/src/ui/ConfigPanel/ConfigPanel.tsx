@@ -520,7 +520,12 @@ class ConfigPanel extends React.Component<Props, State> {
           return (
             <WithOnFieldChange
               autoSave={!!autoSave}
-              getState={getState}
+              getState={
+                getState as () => {
+                  values: Parameters;
+                  errors: ValidationErrors;
+                }
+              }
               handleSubmit={handleSubmit}
             >
               {(onFieldChange) => {

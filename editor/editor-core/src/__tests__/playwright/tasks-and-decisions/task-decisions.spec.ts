@@ -4,6 +4,8 @@ import {
   EditorNodeContainerModel,
   EditorTableModel,
   EditorMainToolbarModel,
+  fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 import {
   decisionAdf,
@@ -225,6 +227,13 @@ test.describe('task and decisions: keyboard stuff', () => {
     test('keymap.ts: tabbing from any decisionItem in a tableCell should go to the next cell', async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-20771',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 07/11/2023: https://product-fabric.atlassian.net/browse/ED-20771',
+        browsers: [BROWSERS.webkit],
+      });
+
       const nodes = EditorNodeContainerModel.from(editor);
 
       await nodes.decisionItem.first().click();

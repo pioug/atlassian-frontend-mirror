@@ -46,7 +46,6 @@ export class ErrorBoundary extends React.Component<
         attributes: {
           error,
           errorInfo,
-          // @ts-expect-error
           errorRethrown: !this.hasFallback(),
         },
       });

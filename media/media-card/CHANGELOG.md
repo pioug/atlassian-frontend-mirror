@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 77.3.0
+
+### Minor Changes
+
+- [#41419](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41419) [`251e86f3c28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/251e86f3c28) - MEX-2633 Convert CardBase to a functional component
+
 ## 77.2.3
 
 ### Patch Changes

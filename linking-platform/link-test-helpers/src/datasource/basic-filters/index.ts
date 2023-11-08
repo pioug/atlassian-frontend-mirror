@@ -1,6 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 import {
+  fieldValuesEmptyResponse,
   fieldValuesResponseForAssignees,
   fieldValuesResponseForProjects,
   fieldValuesResponseForStatuses,
@@ -12,6 +13,7 @@ export const mockBasicFilterAGGFetchRequests = () => {
     return new Promise(resolve => {
       const requestBody = JSON.parse(details.body);
       const filterType: string = requestBody.variables.jqlTerm;
+      const searchString: string = requestBody.variables.searchString;
 
       const mockBasicFilterData: Record<string, any> = {
         project: fieldValuesResponseForProjects,
@@ -20,9 +22,23 @@ export const mockBasicFilterAGGFetchRequests = () => {
         status: fieldValuesResponseForStatuses,
       };
 
-      resolve({
+      const resolveData = {
         data: mockBasicFilterData[filterType]?.data || [],
-      });
+      };
+
+      // slowing down specifically for vr testing
+      if (searchString.includes('loading')) {
+        setTimeout(() => {
+          resolve(resolveData);
+        }, 5000);
+      } // returning empty response for vr testing
+      else if (searchString.includes('empty')) {
+        resolve({
+          data: fieldValuesEmptyResponse,
+        });
+      } else {
+        resolve(resolveData);
+      }
     });
   });
 };

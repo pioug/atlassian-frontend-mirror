@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import React from 'react';
 
 import InlineMessage from '../src';
 
@@ -18,27 +16,14 @@ const MessageContent = (
 );
 
 export default () => {
-  const [mode, setMode] = useState<'light' | 'dark'>('light');
   return (
-    <AtlaskitThemeProvider mode={mode}>
-      <div>
-        <button
-          type="button"
-          onClick={() =>
-            setMode((oldMode) => (oldMode === 'light' ? 'dark' : 'light'))
-          }
-        >
-          Toggle mode
-        </button>
-        <InlineMessage
-          appearance="error"
-          title="My testing Inline Message"
-          secondaryText="Use data-testid for reliable testing"
-          testId="the-inline-message"
-        >
-          {MessageContent}
-        </InlineMessage>
-      </div>
-    </AtlaskitThemeProvider>
+    <InlineMessage
+      appearance="error"
+      title="My testing Inline Message"
+      secondaryText="Use data-testid for reliable testing"
+      testId="the-inline-message"
+    >
+      {MessageContent}
+    </InlineMessage>
   );
 };

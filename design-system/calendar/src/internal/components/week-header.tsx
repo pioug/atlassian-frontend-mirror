@@ -5,13 +5,11 @@ import { jsx } from '@emotion/react';
 
 import Text from '@atlaskit/ds-explorations/text';
 import { Box, xcss } from '@atlaskit/primitives';
-import type { ThemeModes } from '@atlaskit/theme/types';
 
 import WeekDayGrid from './week-day-grid';
 
 interface WeekHeaderProps {
   daysShort: string[];
-  mode?: ThemeModes;
   testId?: string;
 }
 

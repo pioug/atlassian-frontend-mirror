@@ -2,6 +2,10 @@ import { JsonLd } from 'json-ld-types';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { DiProvider, injectable } from 'react-magnetic-di';
+import FabricAnalyticsListeners, {
+  type AnalyticsWebClient,
+} from '@atlaskit/analytics-listeners';
+import { AnalyticsContext } from '@atlaskit/analytics-next';
 
 import { fireEvent, render } from '@testing-library/react';
 
@@ -28,6 +32,20 @@ const injectableUseRelatedUrls = injectable(useRelatedUrls, mockuseRelatedUrls);
 describe('RelatedUrlsBlock', () => {
   const rootTestId = 'smart-block-related-urls';
   const resolvedViewTestId = `${rootTestId}-resolved-view`;
+  const eventCommonAttributes = {
+    canBeDatasource: false,
+    destinationCategory: 'object',
+    destinationContainerId: '10004',
+    destinationObjectId: '10014',
+    destinationObjectType: 'issue',
+    destinationProduct: 'jira',
+    destinationSubproduct: 'core',
+    destinationTenantId: '9a257bbc-b7c6-47c8-b1dc-c3db3ac8954b',
+    display: 'hoverCardPreview',
+    displayCategory: 'smartLink',
+    extensionKey: 'jira-object-provider',
+    status: 'resolved',
+  };
   beforeEach(() => {
     mockGetRelatedUrls.mockReturnValue(
       Promise.resolve<RelatedUrlsResponse>(mockGetRelatedUrlsResponseDefault),
@@ -38,33 +56,76 @@ describe('RelatedUrlsBlock', () => {
     jest.clearAllMocks();
   });
 
-  const renderRelatedUrlsBlock = () =>
-    render(
-      <DiProvider use={[injectableUseRelatedUrls]}>
-        <IntlProvider locale="en">
-          <RelatedUrlsBlock url="https://this-url-has-related-urls.com" />,
-        </IntlProvider>
-      </DiProvider>,
+  const renderRelatedUrlsBlock = () => {
+    const mockAnalyticsClient: AnalyticsWebClient = {
+      sendUIEvent: jest.fn().mockResolvedValue(undefined),
+      sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+      sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+      sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+    };
+
+    const renderResult = render(
+      <FabricAnalyticsListeners client={mockAnalyticsClient}>
+        <DiProvider use={[injectableUseRelatedUrls]}>
+          <IntlProvider locale="en">
+            <AnalyticsContext
+              data={{
+                attributes: eventCommonAttributes,
+              }}
+            >
+              <RelatedUrlsBlock url="https://this-url-has-related-urls.com" />,
+            </AnalyticsContext>
+          </IntlProvider>
+        </DiProvider>
+        ,
+      </FabricAnalyticsListeners>,
     );
 
+    return { ...renderResult, mockAnalyticsClient };
+  };
+
   it('renders related urls list section with title', async () => {
-    const { findByTestId } = renderRelatedUrlsBlock();
+    const { findByTestId, mockAnalyticsClient } = renderRelatedUrlsBlock();
     const relatedUrlsBlock = await findByTestId(`${resolvedViewTestId}-list`);
     expect(relatedUrlsBlock.textContent).toBe('Last mentioned in');
+    expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: 'loaded',
+        actionSubject: 'relatedLinks',
+        attributes: expect.objectContaining({
+          relatedLinksCount: 3,
+          ...eventCommonAttributes,
+        }),
+      }),
+    );
   });
 
   it('renders related urls section and expands when title clicked', async () => {
-    const { findByTestId, findAllByTestId } = renderRelatedUrlsBlock();
+    const { findByTestId, findAllByTestId, mockAnalyticsClient } =
+      renderRelatedUrlsBlock();
     const expandTitle = await findByTestId(
       `${resolvedViewTestId}-list-expand-title`,
     );
     fireEvent.click(expandTitle);
     const urlItems = await findAllByTestId(`${resolvedViewTestId}-list-item`);
     expect(urlItems.length).toBe(3);
+
+    expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: 'viewed',
+        actionSubject: 'relatedLinks',
+        attributes: expect.objectContaining({
+          relatedLinksCount: 3,
+          componentHierarchy: 'relatedLinksSection',
+          ...eventCommonAttributes,
+        }),
+      }),
+    );
   });
 
   it('renders related url items correctly', async () => {
-    const { findByTestId, findAllByTestId } = renderRelatedUrlsBlock();
+    const { findByTestId, findAllByTestId, mockAnalyticsClient } =
+      renderRelatedUrlsBlock();
     const expandTitle = await findByTestId(
       `${resolvedViewTestId}-list-expand-title`,
     );
@@ -77,6 +138,17 @@ describe('RelatedUrlsBlock', () => {
     links.forEach((link) => {
       expect(link).toHaveAttribute('href');
     });
+
+    fireEvent.click(links[0]);
+    expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: 'clicked',
+        actionSubject: 'link',
+        attributes: expect.objectContaining({
+          componentHierarchy: 'relatedLinksSection.relatedLink',
+        }),
+      }),
+    );
   });
 
   it('renders url items with correct href value', async () => {

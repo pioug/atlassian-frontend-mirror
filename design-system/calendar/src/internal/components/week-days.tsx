@@ -4,7 +4,6 @@ import { memo } from 'react';
 import { jsx } from '@emotion/react';
 
 import Box from '@atlaskit/primitives/box';
-import type { ThemeModes } from '@atlaskit/theme/types';
 
 import type { TabIndex } from '../../types';
 import { DateObj, Week } from '../types';
@@ -15,7 +14,6 @@ import WeekdayGrid from './week-day-grid';
 interface WeekDaysProps {
   weeks: Week[];
   handleClickDay: (date: DateObj) => void;
-  mode?: ThemeModes;
   monthsLong: string[];
   shouldSetFocus: boolean;
   tabIndex: TabIndex;
@@ -25,7 +23,6 @@ interface WeekDaysProps {
 const WeekDays = memo<WeekDaysProps>(function WeekDays({
   weeks,
   handleClickDay,
-  mode,
   monthsLong,
   shouldSetFocus,
   tabIndex,
@@ -49,7 +46,6 @@ const WeekDays = memo<WeekDaysProps>(function WeekDays({
               isSelected={weekDay.isSelected}
               isSibling={weekDay.isSiblingMonth}
               year={weekDay.year}
-              mode={mode}
               shouldSetFocus={shouldSetFocus}
               tabIndex={tabIndex}
               testId={testId}

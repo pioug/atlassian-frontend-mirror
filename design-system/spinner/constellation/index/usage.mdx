@@ -6,14 +6,19 @@ order: 2
 
 Spinners indicate that a system process is going on that will end with content being displayed to the user. They animate as soon as user action is initiated and disappear once the content appears.
 
+Only show a spinner if the expected wait time is more than a second. There should only be a single spinner on a page at any time.
+
+## Accessibility
+
+- Always use a `label` to add context for assistive technologies. Make sure the label accurately describes the type of process that's occurring. For example, "loading", "submitting", or "processing".
+- Spinners are an exception to [reduced motion](/components/motion/accessibility/code). We don't disable the spinner component because a frozen spinner can make it seem like the process has stopped.
+
 ## Best practices
 
-- If you want a spinner that is triggered by a button, place the spinner in the button, and disable the button while the spinner is visible. If you're using the [Button](/components/button/) component, you should use the `LoadingButton` export as all of this is taken care of for you.
-- If only a portion of a page is displaying new content or being updated, place the spinner in that part of the page.
-- If you are unsure where to place the spinner, place it where you want the user's attention to be when loading is finished.
-- Only show a spinner if the expected wait time is more than a second.
-- There should only be a single spinner on a page at one time.
-- If using a spinner directly over content, apply the `opacity.loading` token to the content container to de-emphasis the content and allow the spinner to be seen. See [Dynamic table loading states](/components/dynamic-table/examples#loading-states) for an example.
+- If you want a spinner that is triggered by a button, use the `LoadingButton` export from the [button](/components/button/) component.
+- When only a portion of a page is being updated, place the spinner in that part of the page.
+- If you're unsure where to place the spinner, place it where you want the user's attention to be when loading is finished.
+- When using a spinner directly over content, apply the `opacity.loading` token to the content container to de-emphasize the content and make the spinner more visible. See [dynamic table loading states](/components/dynamic-table/examples#loading-states) for an example.
 
 ## Server
 
@@ -21,4 +26,4 @@ Consult [AUI](https://docs.atlassian.com/aui/latest/docs/spinner.html) for imple
 
 ## Related
 
-- [Loading button](/components/button/examples#loading-button) is the recommended approach in situations where you want to show a spinner as an overlay on a button.
+- When you want to show a spinner as an overlay on a button, use [loading button](/components/button/examples#loading-button).

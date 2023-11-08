@@ -21,7 +21,6 @@ import { CSSProperties } from 'react';
 import { ForwardRefExoticComponent } from 'react';
 import { MemoExoticComponent } from 'react';
 import { RefAttributes } from 'react';
-import { ThemeModes } from '@atlaskit/theme/types';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
@@ -48,7 +47,6 @@ const Calendar: MemoExoticComponent<
       | 'locale'
       | 'maxDate'
       | 'minDate'
-      | 'mode'
       | 'month'
       | 'nextMonthLabel'
       | 'onBlur'
@@ -87,8 +85,6 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
   locale?: string;
   maxDate?: string;
   minDate?: string;
-  // @internal
-  mode?: ThemeModes;
   month?: number;
   nextMonthLabel?: string;
   onBlur?: React.FocusEventHandler;

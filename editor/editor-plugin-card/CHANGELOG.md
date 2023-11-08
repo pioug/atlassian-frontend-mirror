@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 0.10.10
+
+### Patch Changes
+
+- [#42151](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42151) [`192b62f6d36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/192b62f6d36) - Cleans up editor feature flag 'lp-analytics-events-next'. Card plugin will now always dispatch link tracking events.
+
 ## 0.10.9
 
 ### Patch Changes

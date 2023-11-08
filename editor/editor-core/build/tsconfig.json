@@ -12,6 +12,7 @@
   "exclude": [
     "../src/**/__tests__/*",
     "../src/**/*.test.*",
-    "../src/**/test.*"
+    "../src/**/test.*",
+    "../src/stories/*"
   ]
 }

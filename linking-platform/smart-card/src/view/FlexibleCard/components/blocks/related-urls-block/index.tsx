@@ -3,6 +3,7 @@ import { di } from 'react-magnetic-di';
 
 import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { css } from '@emotion/react';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import useRelatedUrls, {
   RelatedUrlsResponse,
@@ -11,6 +12,7 @@ import { BlockProps } from '../types';
 import { RelatedUrlsBlockErroredView } from './errored';
 import { RelatedUrlsResolvedView } from './resolved';
 import { RelatedUrlsBlockResolvingView } from './resolving';
+import { fireRelatedLinksLoadedEvent } from './analytics';
 
 export type RelatedUrlBlockProps = {
   url: string;
@@ -27,6 +29,8 @@ const RelatedUrlsBlock: React.FC<RelatedUrlBlockProps> = ({
   renderers,
   ...blockProps
 }) => {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
+
   di(useRelatedUrls);
   const [loadingRelatedUrls, setLoadingRelatedUrls] = useState(true);
   const [err, setErr] = useState<Error>();
@@ -38,13 +42,20 @@ const RelatedUrlsBlock: React.FC<RelatedUrlBlockProps> = ({
       try {
         const relUrls = await getRelatedUrls(url);
         setRelatedUrls(relUrls);
+
+        /**
+         * Fire TrackRelatedLinksLoadedEvent
+         */
+        fireRelatedLinksLoadedEvent(createAnalyticsEvent)({
+          relatedLinksCount: relUrls.resolvedResults?.length ?? 0,
+        });
       } catch (error) {
         setErr(error as Error);
       }
       setLoadingRelatedUrls(false);
     };
     fetchRelatedUrls();
-  }, [getRelatedUrls, url]);
+  }, [createAnalyticsEvent, getRelatedUrls, url]);
 
   if (loadingRelatedUrls) {
     return (

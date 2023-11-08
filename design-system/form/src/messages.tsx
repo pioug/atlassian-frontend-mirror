@@ -7,7 +7,6 @@ import { css, jsx, SerializedStyles } from '@emotion/react';
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { N200 } from '@atlaskit/theme/colors';
-import { useGlobalTheme } from '@atlaskit/theme/components';
 import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
 import { h200 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -46,15 +45,13 @@ const fontFamily = getFontFamily();
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const lightH200Styles = css(h200({ theme: { mode: 'light' } }));
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const darkH200Styles = css(h200({ theme: { mode: 'dark' } }));
 
 const messageStyles = css({
   display: 'flex',
-  marginTop: token('space.050', '4px'),
   justifyContent: 'baseline',
   fontFamily: `${fontFamily}`,
   fontWeight: 'normal',
+  marginBlockStart: token('space.050', '4px'),
 });
 
 const messageAppearanceStyles: Record<MessageAppearance, SerializedStyles> = {
@@ -88,8 +85,6 @@ const Message = ({
   fieldId,
   testId,
 }: InternalMessageProps) => {
-  const { mode } = useGlobalTheme();
-
   const icon = messageIcons[appearance];
 
   /**
@@ -106,7 +101,7 @@ const Message = ({
   return (
     <div
       css={[
-        mode === 'light' ? lightH200Styles : darkH200Styles,
+        lightH200Styles,
         messageStyles,
         messageAppearanceStyles[appearance],
       ]}

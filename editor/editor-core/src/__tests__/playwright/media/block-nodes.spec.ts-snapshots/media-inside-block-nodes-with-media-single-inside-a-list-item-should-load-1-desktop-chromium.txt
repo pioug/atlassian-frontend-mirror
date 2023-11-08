@@ -1,0 +1,102 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph"
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Um"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Dois"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "mediaSingle",
+              "attrs": {
+                "width": null,
+                "layout": "center",
+                "widthType": null
+              },
+              "content": [
+                {
+                  "type": "media",
+                  "attrs": {
+                    "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+                    "type": "file",
+                    "collection": "MediaServicesSample",
+                    "occurrenceKey": null,
+                    "alt": "",
+                    "width": 500,
+                    "height": 500,
+                    "url": null,
+                    "__fileName": "tall_image.jpeg",
+                    "__fileSize": 58705,
+                    "__fileMimeType": "image/jpeg",
+                    "__displayType": null,
+                    "__contextId": "DUMMY-OBJECT-ID",
+                    "__mediaTraceId": null,
+                    "__external": false
+                  },
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "href": "https://gnu.org",
+                        "__confluenceMetadata": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Tres"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

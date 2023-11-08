@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 14.0.0
+
+### Major Changes
+
+- [#41791](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41791) [`ec7c2a38247`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec7c2a38247) - Removed all remaining legacy theming logic from the Calendar, Form, InlineDialog, InlineEdit and InlineMessage components.
+
 ## 13.3.3
 
 ### Patch Changes

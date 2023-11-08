@@ -6,7 +6,8 @@ import { css, jsx } from '@emotion/react';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import type { CustomItemComponentProps } from '@atlaskit/menu';
-import { CustomItem, MenuGroup } from '@atlaskit/menu';
+import { CustomItem, MenuGroup, Section } from '@atlaskit/menu';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B100, DN600, DN80, N70, N900 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import type { ThemeProps } from '@atlaskit/theme/types';
@@ -165,6 +166,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
       shouldUseDefaultRole,
       onItemActivated,
       arrowKeyNavigationProviderOptions,
+      section,
     } = this.props;
 
     // Note that this onSelection function can't be refactored to useMemo for
@@ -224,23 +226,46 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
           >
             <div style={{ height: 0, minWidth: fitWidth || 0 }} />
             <div ref={this.popupRef}>
-              {items.map((group, index) => (
-                <MenuGroup
-                  key={index}
-                  role={shouldUseDefaultRole ? 'group' : 'menu'}
-                >
-                  {group.items.map((item) => (
-                    <DropdownMenuItem
-                      key={item.key ?? String(item.content)}
-                      item={item}
-                      onItemActivated={this.props.onItemActivated}
-                      shouldUseDefaultRole={this.props.shouldUseDefaultRole}
-                      onMouseEnter={this.props.onMouseEnter}
-                      onMouseLeave={this.props.onMouseLeave}
-                    />
+              {getBooleanFF('platform.editor.menu.group-items') && (
+                <MenuGroup role={shouldUseDefaultRole ? 'group' : 'menu'}>
+                  {items.map((group, index) => (
+                    <Section
+                      hasSeparator={section?.hasSeparator && index > 0}
+                      title={section?.title}
+                      key={index}
+                    >
+                      {group.items.map((item) => (
+                        <DropdownMenuItem
+                          key={item.key ?? String(item.content)}
+                          item={item}
+                          onItemActivated={this.props.onItemActivated}
+                          shouldUseDefaultRole={this.props.shouldUseDefaultRole}
+                          onMouseEnter={this.props.onMouseEnter}
+                          onMouseLeave={this.props.onMouseLeave}
+                        />
+                      ))}
+                    </Section>
                   ))}
                 </MenuGroup>
-              ))}
+              )}
+              {!getBooleanFF('platform.editor.menu.group-items') &&
+                items.map((group, index) => (
+                  <MenuGroup
+                    key={index}
+                    role={shouldUseDefaultRole ? 'group' : 'menu'}
+                  >
+                    {group.items.map((item) => (
+                      <DropdownMenuItem
+                        key={item.key ?? String(item.content)}
+                        item={item}
+                        onItemActivated={this.props.onItemActivated}
+                        shouldUseDefaultRole={this.props.shouldUseDefaultRole}
+                        onMouseEnter={this.props.onMouseEnter}
+                        onMouseLeave={this.props.onMouseLeave}
+                      />
+                    ))}
+                  </MenuGroup>
+                ))}
             </div>
           </DropListWithOutsideListeners>
         </ArrowKeyNavigationProvider>

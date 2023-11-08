@@ -3,8 +3,7 @@ import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { DN300, N200 } from '@atlaskit/theme/colors';
-import { themed, useGlobalTheme } from '@atlaskit/theme/components';
+import { N200 } from '@atlaskit/theme/colors';
 import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
 import { h200 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -22,29 +21,17 @@ export interface LegendProps {
   children: ReactNode;
 }
 
-const fieldsetLabelStyles = css({
-  display: 'inline-block',
-  marginTop: 0,
-  marginBottom: token('space.050', '4px'),
-  fontFamily: fontFamily,
-});
-
-const getFieldsetLabelDynamicStyles = (mode: 'dark' | 'light') =>
-  css([
-    h200({ theme: { mode } }),
-    {
-      color: themed({
-        dark: token('color.text.subtle', DN300),
-        light: token('color.text.subtle', N200),
-      })({ theme: { mode } }),
-    },
-  ]);
-
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const lightH200Styles = getFieldsetLabelDynamicStyles('light');
-
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const darkH200Styles = getFieldsetLabelDynamicStyles('dark');
+const fieldsetLabelStyles = css([
+  h200({ theme: { mode: 'light' } }),
+  {
+    display: 'inline-block',
+    marginTop: 0,
+    marginBottom: token('space.050', '4px'),
+    color: token('color.text.subtle', N200),
+    fontFamily: fontFamily,
+  },
+]);
 
 /**
  * __Label__
@@ -55,13 +42,9 @@ const darkH200Styles = getFieldsetLabelDynamicStyles('dark');
  * control element.
  */
 export const Label: FC<LabelProps> = ({ children, htmlFor, id, testId }) => {
-  const { mode } = useGlobalTheme();
   return (
     <label
-      css={[
-        mode === 'light' ? lightH200Styles : darkH200Styles,
-        fieldsetLabelStyles,
-      ]}
+      css={fieldsetLabelStyles}
       id={id}
       htmlFor={htmlFor}
       data-testid={testId}
@@ -77,18 +60,7 @@ export const Label: FC<LabelProps> = ({ children, htmlFor, id, testId }) => {
  * A Legend represents a caption for a fieldset in a user interface.
  */
 export const Legend: FC<LegendProps> = ({ children }) => {
-  const { mode } = useGlobalTheme();
-
-  return (
-    <legend
-      css={[
-        mode === 'light' ? lightH200Styles : darkH200Styles,
-        fieldsetLabelStyles,
-      ]}
-    >
-      {children}
-    </legend>
-  );
+  return <legend css={fieldsetLabelStyles}>{children}</legend>;
 };
 
 export default Label;

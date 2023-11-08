@@ -15,12 +15,15 @@ import {
   layoutSection,
   layoutColumn,
   p,
+  ul,
+  li,
   breakout,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   layoutWithTwoColumns,
   layoutWithThreeColumns,
   layoutWithRightSideBar,
+  mediaSingleInsideListWithinLayoutAdf,
 } from './__fixtures__/adf-documents';
 
 async function testStepUploadImageAndResize(
@@ -334,5 +337,65 @@ test.describe('when media is inside a layout with right side bar', () => {
 
       await expect(editor).toMatchDocument(expectedDocuments.fullWidthBreakout);
     });
+  });
+});
+
+test.describe('Image within List is resized to 100% inside column of a two-column layout [EDM-1318]', () => {
+  test.use({
+    editorProps: {
+      appearance: 'full-page',
+      allowTables: {
+        advanced: true,
+      },
+      allowLayouts: {
+        UNSAFE_addSidebarLayouts: true,
+        allowBreakout: true,
+      },
+      allowBreakout: true,
+      media: {
+        allowMediaSingle: true,
+        allowResizing: true,
+      },
+    },
+  });
+  test.use({
+    adf: mediaSingleInsideListWithinLayoutAdf,
+  });
+
+  test('should resize', async ({ editor }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const mediaSingleModel = EditorMediaSingleModel.from(nodes.mediaSingle);
+
+    await test.step('put selection inside the first layout column', async () => {
+      await editor.selection.set({ anchor: 3, head: 3 });
+    });
+
+    await test.step('wait and resize image', async () => {
+      await mediaSingleModel.waitForReady();
+
+      await mediaSingleModel.resize({
+        moveDirection: 'left',
+        moveDistance: 50,
+        side: 'right',
+      });
+    });
+
+    await expect(editor).toMatchDocument(
+      doc(
+        p(),
+        layoutSection(
+          layoutColumn({ width: 50 })(p()),
+          layoutColumn({ width: 50 })(
+            ul(
+              li(
+                mediaSingle({ layout: 'center', width: 33.333333333333336 })
+                  .any,
+              ),
+            ),
+            p(),
+          ),
+        ),
+      ),
+    );
   });
 });

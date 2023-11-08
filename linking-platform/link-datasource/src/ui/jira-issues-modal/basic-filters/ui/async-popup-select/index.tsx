@@ -1,13 +1,7 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import debounce from 'lodash/debounce';
 import { useIntl } from 'react-intl-next';
+import { useDebouncedCallback } from 'use-debounce';
 
 import {
   CheckboxOption,
@@ -23,7 +17,9 @@ import CustomControl from './control';
 import CustomDropdownIndicator from './dropdownIndicator';
 import PopupFooter from './footer';
 import formatOptionLabel from './formatOptionLabel';
+import CustomDropdownLoadingMessage from './loadingMessage';
 import { asyncPopupSelectMessages } from './messages';
+import CustomNoOptionsMessage from './noOptionsMessage';
 import PopupTrigger from './trigger';
 
 export interface AsyncPopupSelectProps {
@@ -61,9 +57,13 @@ const AsyncPopupSelect = ({
       cloudId,
     });
 
-  const handleDebouncedFetchFilterOptions = useMemo(
-    () => debounce(fetchFilterOptions, SEARCH_DEBOUNCE_MS),
-    [fetchFilterOptions],
+  const [handleDebouncedFetchFilterOptions] = useDebouncedCallback(
+    (searchString: string) => {
+      fetchFilterOptions({
+        searchString,
+      });
+    },
+    SEARCH_DEBOUNCE_MS,
   );
 
   const handleInputChange = useCallback(
@@ -73,7 +73,7 @@ const AsyncPopupSelect = ({
         newSearchTerm !== searchTerm
       ) {
         setSearchTerm(newSearchTerm);
-        handleDebouncedFetchFilterOptions({ searchString: newSearchTerm });
+        handleDebouncedFetchFilterOptions(newSearchTerm);
       }
     },
     [handleDebouncedFetchFilterOptions, searchTerm],
@@ -120,13 +120,16 @@ const AsyncPopupSelect = ({
       closeMenuOnSelect={false}
       hideSelectedOptions={false}
       isLoading={isLoading}
+      loadingMessage={CustomDropdownLoadingMessage}
+      noOptionsMessage={CustomNoOptionsMessage}
       placeholder={formatMessage(asyncPopupSelectMessages.selectPlaceholder)}
       components={{
         /* @ts-expect-error - This component has stricter OptionType, hence a temp setup untill its made generic */
         Option: CheckboxOption,
         Control: CustomControl,
-        LoadingIndicator: undefined, // disables the three ... indicator in the searchbox when picker is loading
         DropdownIndicator: CustomDropdownIndicator,
+        LoadingIndicator: undefined, // disables the three ... indicator in the searchbox when picker is loading
+        IndicatorSeparator: undefined, // disables the | separator between search input and icon
       }}
       options={options}
       value={selectedOptions}

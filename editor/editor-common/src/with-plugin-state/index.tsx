@@ -6,16 +6,12 @@ import type {
   EditorState,
   PluginKey,
 } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  AnalyticsDispatch,
-  AnalyticsEventPayload,
-  EVENT_TYPE,
-} from '../analytics';
-import { createDispatch, EventDispatcher } from '../event-dispatcher';
+import type { AnalyticsDispatch, AnalyticsEventPayload } from '../analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
+import type { EventDispatcher } from '../event-dispatcher';
+import { createDispatch } from '../event-dispatcher';
 import { analyticsEventKey, startMeasure, stopMeasure } from '../utils';
 
 import type { NamedPluginKeys, NamedPluginStates, Writeable } from './types';
@@ -122,10 +118,15 @@ class WithPluginState<P extends NamedPluginKeys> extends React.Component<
     editorSharedConfig: PropTypes.object,
   };
   context!: Context;
-  state: NamedPluginStates<P> = this.getPluginsStates(
-    this.props.plugins,
-    this.getEditorView(this.props, this.context),
-  );
+  state: NamedPluginStates<P>;
+
+  constructor(props: Props<P>, context: Context) {
+    super(props, context);
+    this.state = this.getPluginsStates(
+      this.props.plugins,
+      this.getEditorView(props, context),
+    );
+  }
 
   private getEditorView(
     maybeProps?: Props<P>,

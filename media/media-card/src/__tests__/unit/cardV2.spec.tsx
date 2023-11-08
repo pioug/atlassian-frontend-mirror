@@ -19,6 +19,14 @@ jest.mock('../../card/cardAnalytics', () => {
     fireScreenEvent: jest.fn(actualModule.fireScreenEvent),
   };
 });
+jest.mock('@atlaskit/media-client-react', () => {
+  const actualModule = jest.requireActual('@atlaskit/media-client-react');
+  return {
+    __esModule: true,
+    ...actualModule,
+    useFileState: jest.fn(actualModule.useFileState),
+  };
+});
 
 import {
   fireEvent,
@@ -61,6 +69,7 @@ import {
 } from '../../card/cardAnalytics';
 import { MediaCardError, MediaFileStateError } from '../../errors';
 import { MockIntersectionObserver } from '../../utils/mockIntersectionObserver';
+import { useFileState } from '@atlaskit/media-client-react';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 
@@ -84,7 +93,15 @@ describe('Card V2', () => {
   };
 
   beforeEach(() => {
+    jest.clearAllMocks();
+
+    const actualUseFileState = jest.requireActual(
+      '@atlaskit/media-client-react',
+    ).useFileState;
+    (useFileState as jest.Mock).mockImplementation(jest.fn(actualUseFileState));
+
     jest.spyOn(globalMediaEventEmitter, 'emit');
+    jest.spyOn(performance, 'now').mockReturnValue(1000);
 
     intersectionObserver.setup({
       observe: (elem?: any) => {
@@ -1770,8 +1787,8 @@ describe('Card V2', () => {
           screen.queryByText('24 Aug 2023, 05:11 AM'),
         ).not.toBeInTheDocument();
 
-        // should render file type icon correctly
-        expect(screen.queryByLabelText('pdf')).toBeInTheDocument();
+        // should not render file type icon
+        expect(screen.queryByLabelText('pdf')).not.toBeInTheDocument();
 
         // should not render a creating preview message
         expect(
@@ -1955,7 +1972,13 @@ describe('Card V2', () => {
         ).toBeInTheDocument();
       });
 
+      // TODO: Fix when the Mocked Media API is updated from https://product-fabric.atlassian.net/browse/MEX-2642
       it('when the card is never loaded', async () => {
+        // ensure that the next file state is never returned
+        (useFileState as jest.Mock).mockReturnValue({
+          fileState: undefined,
+        });
+
         const mockedMediaApi = createMockedMediaApi();
         const identifier = {
           mediaItemType: 'file',
@@ -2042,6 +2065,7 @@ describe('Card V2', () => {
 
         // TODO: Fix when the Mocked Media API is updated from https://product-fabric.atlassian.net/browse/MEX-2642
         // the next state should be an upload error
+        // act(() => {
         // mediaClient.__DO_NOT_USE__getMediaStore().setState((state) => {
         //   state.files[fileMap.workingPdfWithRemotePreview.id] = {
         //     status: 'error',
@@ -2049,6 +2073,7 @@ describe('Card V2', () => {
         //     reason: 'upload',
         //     details: {},
         //   };
+        // });
         // });
 
         // card should completely process the error
@@ -2108,6 +2133,7 @@ describe('Card V2', () => {
           ).toBeInTheDocument(),
         );
 
+        //act(() => {
         // TODO: Fix when the Mocked Media API is updated from https://product-fabric.atlassian.net/browse/MEX-2642
         // mediaClient.__DO_NOT_USE__getMediaStore().setState((state) => {
         //   state.files[fileMap.workingPdfWithRemotePreview.id] = {
@@ -2116,6 +2142,7 @@ describe('Card V2', () => {
         //     reason: 'some error reason',
         //     details: {},
         //   };
+        // });
         // });
 
         // card should ignore the error
@@ -2138,9 +2165,6 @@ describe('Card V2', () => {
         // should not render an error message
         expect(screen.queryByText('Failed to load')).not.toBeInTheDocument();
 
-        // should render file type icon correctly
-        expect(screen.queryByLabelText('pdf')).toBeInTheDocument();
-
         // should not render a spinner
         expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
 
@@ -2150,9 +2174,117 @@ describe('Card V2', () => {
     });
 
     describe('when "disableOverlay" is true', () => {
-      it.skip('when there is an image load error (ImageLoadError: remote-uri) 2', async () => {
+      it('when there is no remote preview', async () => {
         const mockedMediaApi = createMockedMediaApi({
           withRemotePreview: false,
+        });
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.workingPdfWithoutRemotePreview.id,
+          collectionName: fileMap.workingPdfWithoutRemotePreview.collection,
+        } as const;
+        const { container } = render(
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // card should completely process the error
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="complete"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // should not render a preview img
+        expect(screen.queryByTestId(imgTestId)).not.toBeInTheDocument();
+
+        // should not render title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('04 Aug 2023, 01:40 AM'),
+        ).not.toBeInTheDocument();
+        expect(screen.queryByLabelText('Warning')).not.toBeInTheDocument();
+
+        // should render error message correctly
+        expect(
+          screen.queryByText('Preview unavailable'),
+        ).not.toBeInTheDocument();
+
+        // should render file type icon correctly
+        expect(screen.queryByLabelText('pdf')).toBeInTheDocument();
+
+        // should not render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should not render a progress bar
+        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      });
+
+      it('when fetching the remote preview errors out (RemotePreviewError: remote-preview-fetch)', async () => {
+        const mockedMediaApi = createMockedMediaApi({
+          withRemotePreview: false,
+        });
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.workingPdfWithRemotePreview.id,
+          collectionName: fileMap.workingPdfWithRemotePreview.collection,
+        } as const;
+        const { container } = render(
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // card should completely process the error
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="error"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // should not render a preview img
+        expect(screen.queryByTestId(imgTestId)).not.toBeInTheDocument();
+
+        // should not render title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('04 Aug 2023, 01:40 AM'),
+        ).not.toBeInTheDocument();
+        expect(screen.queryByLabelText('Warning')).not.toBeInTheDocument();
+
+        // should render error message correctly
+        expect(screen.queryByText('Preview unavailable')).toBeInTheDocument();
+
+        // should render file type icon correctly
+        expect(screen.queryByLabelText('pdf')).toBeInTheDocument();
+
+        // should not render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should not render a progress bar
+        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      });
+
+      it('when loading the remote preview errors out (ImageLoadError: remote-uri)', async () => {
+        const mockedMediaApi = createMockedMediaApi({
+          withRemotePreview: 'use-broken-preview',
         });
         const identifier = {
           mediaItemType: 'file',
@@ -2188,7 +2320,7 @@ describe('Card V2', () => {
           ).toBeInTheDocument(),
         );
 
-        // should not render a title box
+        // should not render title box
         expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
         expect(
           screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
@@ -2199,10 +2331,999 @@ describe('Card V2', () => {
         expect(screen.queryByLabelText('Warning')).not.toBeInTheDocument();
 
         // should render error message correctly
-        expect(screen.getByText('Preview unavailable')).toBeInTheDocument();
+        expect(screen.queryByText('Preview unavailable')).toBeInTheDocument();
 
         // should render file type icon correctly
-        expect(screen.getByLabelText('pdf')).toBeInTheDocument();
+        expect(screen.queryByLabelText('pdf')).toBeInTheDocument();
+
+        // should not render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should not render a progress bar
+        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      });
+
+      it('when a serverRateLimited error occurs (RequestError: serverRateLimited)', async () => {
+        let initialStore: any = { files: {} };
+        const attributes = {
+          reason: 'serverRateLimited',
+          statusCode: 429,
+        };
+        initialStore.files[fileMap.workingPdfWithRemotePreview.id] = {
+          status: 'error',
+          id: fileMap.workingPdfWithRemotePreview.id,
+          reason: 'serverRateLimited',
+          details: attributes,
+          name: fileMap.workingPdfWithRemotePreview.details.name,
+        };
+
+        const mockedMediaApi = createMockedMediaApi();
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.workingPdfWithRemotePreview.id,
+          collectionName: fileMap.workingPdfWithRemotePreview.collection,
+        } as const;
+        const { container } = render(
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // card should completely process the error
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="error"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // should not render title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('04 Aug 2023, 01:40 AM'),
+        ).not.toBeInTheDocument();
+        expect(screen.queryByLabelText('Warning')).not.toBeInTheDocument();
+
+        // should not render error message
+        expect(screen.queryByText('Failed to load')).not.toBeInTheDocument();
+
+        // should render file type icon correctly
+        expect(screen.queryByLabelText('media-type')).toBeInTheDocument();
+
+        // should not render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should not render a progress bar
+        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      });
+
+      it('when a pollingMaxAttemptsExceeded error occurs (PollingError: pollingMaxAttemptsExceeded)', async () => {
+        let initialStore: any = { files: {} };
+        const attributes = {
+          reason: 'pollingMaxAttemptsExceeded',
+          attempts: 2,
+        };
+        initialStore.files[fileMap.workingPdfWithRemotePreview.id] = {
+          status: 'error',
+          id: fileMap.workingPdfWithRemotePreview.id,
+          reason: 'pollingMaxAttemptsExceeded',
+          details: attributes,
+          name: fileMap.workingPdfWithRemotePreview.details.name,
+        };
+
+        const mockedMediaApi = createMockedMediaApi();
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.workingPdfWithRemotePreview.id,
+          collectionName: fileMap.workingPdfWithRemotePreview.collection,
+        } as const;
+        const { container } = render(
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // card should completely process the error
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="error"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // should not render title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('04 Aug 2023, 01:40 AM'),
+        ).not.toBeInTheDocument();
+        expect(screen.queryByLabelText('Warning')).not.toBeInTheDocument();
+
+        // should not render error message
+        expect(screen.queryByText('Failed to load')).not.toBeInTheDocument();
+
+        // should render file type icon correctly
+        expect(screen.queryByLabelText('media-type')).toBeInTheDocument();
+
+        // should not render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should not render a progress bar
+        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      });
+
+      it('when there is an empty items error (emptyItems, metadata-fetch)', async () => {
+        const mockedMediaApi = createMockedMediaApi({
+          ids: [],
+          withRemotePreview: false,
+        });
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.workingPdfWithRemotePreview.id,
+          collectionName: fileMap.workingPdfWithRemotePreview.collection,
+        } as const;
+        const { container } = render(
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // card should completely process the error
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="error"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // should not render title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('04 Aug 2023, 01:40 AM'),
+        ).not.toBeInTheDocument();
+        expect(screen.queryByLabelText('Warning')).not.toBeInTheDocument();
+
+        // should not render error message
+        expect(screen.queryByText('Failed to load')).not.toBeInTheDocument();
+
+        // should render file type icon correctly
+        expect(screen.queryByLabelText('media-type')).toBeInTheDocument();
+
+        // should not render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should not render a progress bar
+        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      });
+
+      it('when file id is invalid (invalidFileId, metadata-fetch)', async () => {
+        const mockedMediaApi = createMockedMediaApi({
+          ids: [],
+          withRemotePreview: false,
+        });
+        const identifier = {
+          mediaItemType: 'file',
+          id: 'invalid id',
+          collectionName: fileMap.workingPdfWithRemotePreview.collection,
+        } as const;
+        const { container } = render(
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // card should completely process the error
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="error"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // should not render title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('04 Aug 2023, 01:40 AM'),
+        ).not.toBeInTheDocument();
+        expect(screen.queryByLabelText('Warning')).not.toBeInTheDocument();
+
+        // should not render error message
+        expect(screen.queryByText('Failed to load')).not.toBeInTheDocument();
+
+        // should render file type icon correctly
+        expect(screen.queryByLabelText('media-type')).toBeInTheDocument();
+
+        // should not render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should not render a progress bar
+        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      });
+
+      it('when backend fails to process the file (status: failed-processing) ', async () => {
+        const mockedMediaApi = createMockedMediaApi({
+          withRemotePreview: false,
+        });
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.failedPdf.id,
+          collectionName: fileMap.failedPdf.collection,
+        } as const;
+        const { container } = render(
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // card should completely process the error
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="failed-processing"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // should not provide a download action
+        expect(screen.queryByLabelText('Download')).not.toBeInTheDocument();
+
+        // should not render title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.failedPdf.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('04 Aug 2023, 01:40 AM'),
+        ).not.toBeInTheDocument();
+        expect(screen.queryByLabelText('Warning')).not.toBeInTheDocument();
+
+        // should render error message correctly
+        expect(screen.queryByText('Preview unavailable')).toBeInTheDocument();
+
+        // should render file type icon correctly
+        expect(screen.queryByLabelText('pdf')).toBeInTheDocument();
+
+        // should render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should not render a progress bar
+        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      });
+
+      it('when loading', async () => {
+        const mockedMediaApi = createMockedMediaApi();
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.workingPdfWithRemotePreview.id,
+          collectionName: fileMap.workingPdfWithRemotePreview.collection,
+        } as const;
+        render(
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // should not render a title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.failedPdf.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('04 Aug 2023, 01:40 AM'),
+        ).not.toBeInTheDocument();
+        expect(screen.queryByLabelText('Warning')).not.toBeInTheDocument();
+
+        // should not render a file type icon
+        expect(screen.queryByLabelText('pdf')).not.toBeInTheDocument();
+
+        // should render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).toBeInTheDocument();
+
+        // should not render a progress bar
+        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      });
+
+      it('when backend is processing the file (status: processing)', async () => {
+        const mockedMediaApi = createMockedMediaApi({
+          withRemotePreview: false,
+        });
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.processingPdf.id,
+          collectionName: fileMap.processingPdf.collection,
+        } as const;
+        const { container } = render(
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // card should be processing
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="processing"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // should not render title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.processingPdf.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('24 Aug 2023, 05:11 AM'),
+        ).not.toBeInTheDocument();
+
+        // should render file type icon correctly
+        expect(screen.queryByLabelText('pdf')).toBeInTheDocument();
+
+        // should render message correctly
+        expect(screen.queryByText('Creating preview...')).toBeInTheDocument();
+
+        // should not render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should not render a progress bar
+        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      });
+
+      it('when uploading with a progress of 0', async () => {
+        let initialStore: any = { files: {} };
+        initialStore.files[fileMap.workingPdfWithRemotePreview.id] = {
+          status: 'uploading',
+          name: fileMap.workingPdfWithRemotePreview.details.name,
+          size: fileMap.workingPdfWithRemotePreview.details.size,
+          mediaType: fileMap.workingPdfWithRemotePreview.details.mediaType,
+          mimeType: fileMap.workingPdfWithRemotePreview.details.mimeType,
+          id: fileMap.workingPdfWithRemotePreview.id,
+          progress: 0,
+        };
+        const mockedMediaApi = createMockedMediaApi({
+          withRemotePreview: false,
+        });
+
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.workingPdfWithRemotePreview.id,
+          collectionName: fileMap.workingPdfWithRemotePreview.collection,
+        } as const;
+
+        const { container } = render(
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // card should be uploading
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="uploading"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // use fake timer to pause when the card is uploading
+        jest.useFakeTimers();
+
+        // should not render a preview img
+        expect(screen.queryByTestId(imgTestId)).not.toBeInTheDocument();
+
+        // should not render title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('24 Aug 2023, 05:11 AM'),
+        ).not.toBeInTheDocument();
+
+        // should render file type icon correctly
+        expect(screen.queryByLabelText('pdf')).toBeInTheDocument();
+
+        // should not render a creating preview message
+        expect(
+          screen.queryByText('Creating preview...'),
+        ).not.toBeInTheDocument();
+
+        // should not render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should render a progress bar correctly
+        expect(screen.queryByRole('progressbar')).toBeInTheDocument();
+        expect(
+          container.querySelector('[aria-valuenow="0"]'),
+        ).toBeInTheDocument();
+        expect(
+          container.querySelector('[data-test-progress="0"]'),
+        ).toBeInTheDocument();
+
+        // set timers back to normal
+        jest.runOnlyPendingTimers();
+        jest.useRealTimers();
+      });
+
+      it('when uploading with a progress of 0.5', async () => {
+        let initialStore: any = { files: {} };
+        initialStore.files[fileMap.workingPdfWithRemotePreview.id] = {
+          status: 'uploading',
+          name: fileMap.workingPdfWithRemotePreview.details.name,
+          size: fileMap.workingPdfWithRemotePreview.details.size,
+          mediaType: fileMap.workingPdfWithRemotePreview.details.mediaType,
+          mimeType: fileMap.workingPdfWithRemotePreview.details.mimeType,
+          id: fileMap.workingPdfWithRemotePreview.id,
+          progress: 0.5,
+        };
+        const mockedMediaApi = createMockedMediaApi({
+          withRemotePreview: false,
+        });
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.workingPdfWithRemotePreview.id,
+          collectionName: fileMap.workingPdfWithRemotePreview.collection,
+        } as const;
+
+        const { container } = render(
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // card should be uploading
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="uploading"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // use fake timer to pause the card in its uploading state
+        jest.useFakeTimers();
+
+        // should not render a preview img
+        expect(screen.queryByTestId(imgTestId)).not.toBeInTheDocument();
+
+        // should not render title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('24 Aug 2023, 05:11 AM'),
+        ).not.toBeInTheDocument();
+
+        // should render file type icon correctly
+        expect(screen.queryByLabelText('pdf')).toBeInTheDocument();
+
+        // should not render a creating preview message
+        expect(
+          screen.queryByText('Creating preview...'),
+        ).not.toBeInTheDocument();
+
+        // should not render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should render a progress bar correctly
+        expect(screen.queryByRole('progressbar')).toBeInTheDocument();
+        expect(
+          container.querySelector('[aria-valuenow="50"]'),
+        ).toBeInTheDocument();
+        expect(
+          container.querySelector('[data-test-progress="0.5"]'),
+        ).toBeInTheDocument();
+
+        // set timers back to normal
+        jest.runOnlyPendingTimers();
+        jest.useRealTimers();
+      });
+
+      it('when successfully being processed after uploading without a local preview', async () => {
+        let initialStore: any = { files: {} };
+        initialStore.files[fileMap.workingPdfWithRemotePreview.id] = {
+          status: 'uploading',
+          name: fileMap.workingPdfWithRemotePreview.details.name,
+          size: fileMap.workingPdfWithRemotePreview.details.size,
+          mediaType: fileMap.workingPdfWithRemotePreview.details.mediaType,
+          mimeType: fileMap.workingPdfWithRemotePreview.details.mimeType,
+          id: fileMap.workingPdfWithRemotePreview.id,
+          progress: 0.5,
+        };
+        const mockedMediaApi = createMockedMediaApi();
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.workingPdfWithRemotePreview.id,
+          collectionName: fileMap.workingPdfWithRemotePreview.collection,
+        } as const;
+
+        const { container } = render(
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // card should be attempting to load a preview
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="loading-preview"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // simulate that the file has been fully processed in the browser
+        const img = await screen.findByTestId(imgTestId);
+        fireEvent.load(img);
+
+        // card should be fully processeds
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="complete"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // should not render title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('24 Aug 2023, 05:11 AM'),
+        ).not.toBeInTheDocument();
+
+        // should not render file type icon
+        expect(screen.queryByLabelText('pdf')).not.toBeInTheDocument();
+
+        // should not render a creating preview message
+        expect(
+          screen.queryByText('Creating preview...'),
+        ).not.toBeInTheDocument();
+
+        // should not render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should not render a progress bar correctly
+        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+        expect(
+          container.querySelector('[data-test-progress="1"]'),
+        ).toBeInTheDocument();
+      });
+
+      it('when uploading with a local preview', async () => {
+        // cache a local preview
+        cardPreviewCache.set(fileMap.workingPdfWithLocalPreview.id, 'crop', {
+          dataURI: fileMap.workingPdfWithLocalPreview.details.preview.value,
+          orientation: 1,
+          source: 'cache-local',
+          dimensions: {},
+        });
+
+        let initialStore: any = { files: {} };
+        initialStore.files[fileMap.workingPdfWithLocalPreview.id] = {
+          status: 'uploading',
+          name: fileMap.workingPdfWithLocalPreview.details.name,
+          size: fileMap.workingPdfWithLocalPreview.details.size,
+          mediaType: fileMap.workingPdfWithLocalPreview.details.mediaType,
+          mimeType: fileMap.workingPdfWithLocalPreview.details.mimeType,
+          id: fileMap.workingPdfWithLocalPreview.id,
+          progress: 0.8,
+          preview: {
+            value: fileMap.workingPdfWithLocalPreview.details.preview.value,
+          },
+        };
+        const mockedMediaApi = createMockedMediaApi({
+          withRemotePreview: false,
+        });
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.workingPdfWithLocalPreview.id,
+          collectionName: fileMap.workingPdfWithLocalPreview.collection,
+        } as const;
+
+        const { container } = render(
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // card should be uploading
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="uploading"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // use fake timer to pause when the card is uploading
+        jest.useFakeTimers();
+
+        // should render a preview img
+        expect(screen.queryByTestId(imgTestId)).toBeInTheDocument();
+
+        // should not render title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('24 Aug 2023, 05:11 AM'),
+        ).not.toBeInTheDocument();
+
+        // should render file type icon correctly
+        expect(screen.queryByLabelText('pdf')).toBeInTheDocument();
+
+        // should not render a creating preview message
+        expect(
+          screen.queryByText('Creating preview...'),
+        ).not.toBeInTheDocument();
+
+        // should not render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should render a progress bar correctly
+        expect(screen.queryByRole('progressbar')).toBeInTheDocument();
+        expect(
+          container.querySelector('[aria-valuenow="80"]'),
+        ).toBeInTheDocument();
+        expect(
+          container.querySelector('[data-test-progress="0.8"]'),
+        ).toBeInTheDocument();
+
+        // set timers back to normal
+        jest.runOnlyPendingTimers();
+        jest.useRealTimers();
+      });
+
+      it('when successfully being processed after uploading with a local preview', async () => {
+        // cache a local preview
+        cardPreviewCache.set(fileMap.workingPdfWithLocalPreview.id, 'crop', {
+          dataURI: fileMap.workingPdfWithLocalPreview.details.preview.value,
+          orientation: 1,
+          source: 'cache-local',
+          dimensions: {},
+        });
+
+        let initialStore: any = { files: {} };
+        initialStore.files[fileMap.workingPdfWithLocalPreview.id] = {
+          status: 'uploading',
+          name: fileMap.workingPdfWithLocalPreview.details.name,
+          size: fileMap.workingPdfWithLocalPreview.details.size,
+          mediaType: fileMap.workingPdfWithLocalPreview.details.mediaType,
+          mimeType: fileMap.workingPdfWithLocalPreview.details.mimeType,
+          id: fileMap.workingPdfWithLocalPreview.id,
+          progress: 0.5,
+        };
+        const mockedMediaApi = createMockedMediaApi();
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.workingPdfWithLocalPreview.id,
+          collectionName: fileMap.workingPdfWithLocalPreview.collection,
+        } as const;
+
+        const { container } = render(
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // card should be fully processed
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="complete"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // should render a preview img
+        expect(screen.queryByTestId(imgTestId)).toBeInTheDocument();
+
+        // should not render title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('24 Aug 2023, 05:11 AM'),
+        ).not.toBeInTheDocument();
+
+        // should render file type icon correctly
+        expect(screen.queryByLabelText('pdf')).toBeInTheDocument();
+
+        // should not render a creating preview message
+        expect(
+          screen.queryByText('Creating preview...'),
+        ).not.toBeInTheDocument();
+
+        // should not render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should not render a progress bar correctly
+        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+        expect(
+          container.querySelector('[data-test-progress="1"]'),
+        ).toBeInTheDocument();
+      });
+
+      // TODO: Fix when the Mocked Media API is updated from https://product-fabric.atlassian.net/browse/MEX-2642
+      it('when the card is never loaded', async () => {
+        // ensure that the next file state is never returned
+        (useFileState as jest.Mock).mockReturnValue({
+          fileState: undefined,
+        });
+
+        const mockedMediaApi = createMockedMediaApi();
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.workingPdfWithRemotePreview.id,
+          collectionName: fileMap.workingPdfWithRemotePreview.collection,
+        } as const;
+        render(
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // should never render an image
+        await expect(screen.findByTestId(imgTestId)).rejects.toThrow();
+
+        // should not render a title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('24 Aug 2023, 05:11 AM'),
+        ).not.toBeInTheDocument();
+
+        // should not render a file type icon
+        expect(screen.queryByLabelText('pdf')).not.toBeInTheDocument();
+
+        // should not render a creating preview message
+        expect(
+          screen.queryByText('Creating preview...'),
+        ).not.toBeInTheDocument();
+
+        // should render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).toBeInTheDocument();
+
+        // should not render a progress bar
+        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      });
+
+      // TODO: Fix when the Mocked Media API is updated from https://product-fabric.atlassian.net/browse/MEX-2642
+      it.skip('when there is an upload error', async () => {
+        // add initial state so that the file is currently uploading
+        let initialStore: any = { files: {} };
+        initialStore.files[fileMap.workingPdfWithRemotePreview.id] = {
+          status: 'uploading',
+          name: fileMap.workingPdfWithRemotePreview.details.name,
+          size: fileMap.workingPdfWithRemotePreview.details.size,
+          mediaType: fileMap.workingPdfWithRemotePreview.details.mediaType,
+          mimeType: fileMap.workingPdfWithRemotePreview.details.mimeType,
+          id: fileMap.workingPdfWithRemotePreview.id,
+          progress: 0.5,
+        };
+
+        const mockedMediaApi = createMockedMediaApi({
+          withRemotePreview: false,
+        });
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.workingPdfWithRemotePreview.id,
+          collectionName: fileMap.workingPdfWithRemotePreview.collection,
+        } as const;
+        const { container } = render(
+          <MockedMediaClientProvider
+            mockedMediaApi={mockedMediaApi}
+            initialStore={initialStore}
+          >
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // card should be uploading
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="uploading"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // TODO: Fix when the Mocked Media API is updated from https://product-fabric.atlassian.net/browse/MEX-2642
+        // the next state should be an upload error
+        // act(() => {
+        // mediaClient.__DO_NOT_USE__getMediaStore().setState((state) => {
+        //   state.files[fileMap.workingPdfWithRemotePreview.id] = {
+        //     status: 'error',
+        //     id: fileMap.workingPdfWithRemotePreview.id,
+        //     reason: 'upload',
+        //     details: {},
+        //   };
+        // });
+        // });
+
+        // card should completely process the error
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="error"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // should not render title box
+        expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('04 Aug 2023, 01:40 AM'),
+        ).not.toBeInTheDocument();
+        expect(screen.queryByLabelText('Warning')).toBeInTheDocument();
+        expect(screen.queryByText('Failed to upload')).toBeInTheDocument();
+
+        // should render file type icon correctly
+        expect(screen.queryByLabelText('pdf')).toBeInTheDocument();
+
+        // should not render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should not render a progress bar
+        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      });
+
+      // TODO: Fix when the Mocked Media API is updated from https://product-fabric.atlassian.net/browse/MEX-2642
+      it.skip('when an error occurs after the card is complete', async () => {
+        const mockedMediaApi = createMockedMediaApi();
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.workingPdfWithRemotePreview.id,
+          collectionName: fileMap.workingPdfWithRemotePreview.collection,
+        } as const;
+        const { container } = render(
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+              disableOverlay
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // simulate that the file has been fully processed in the browser
+        const img = await screen.findByTestId(imgTestId);
+        fireEvent.load(img);
+
+        // card should completely process
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="complete"]'),
+          ).toBeInTheDocument(),
+        );
+
+        //act(() => {
+        // TODO: Fix when the Mocked Media API is updated from https://product-fabric.atlassian.net/browse/MEX-2642
+        // mediaClient.__DO_NOT_USE__getMediaStore().setState((state) => {
+        //   state.files[fileMap.workingPdfWithRemotePreview.id] = {
+        //     status: 'error',
+        //     id: fileMap.workingPdfWithRemotePreview.id,
+        //     reason: 'some error reason',
+        //     details: {},
+        //   };
+        // });
+        // });
+
+        // card should ignore the error
+        await expect(
+          waitFor(() =>
+            expect(
+              container.querySelector('[data-test-status="error"]'),
+            ).toBeInTheDocument(),
+          ),
+        ).rejects.toThrow();
+
+        // should not render title box
+        expect(screen.queryByTestId(titleBoxTestId)).toBeInTheDocument();
+        expect(
+          screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('04 Aug 2023, 01:40 AM'),
+        ).not.toBeInTheDocument();
+        expect(screen.queryByLabelText('Warning')).not.toBeInTheDocument();
+
+        // should not render an error message
+        expect(screen.queryByText('Failed to load')).not.toBeInTheDocument();
+
+        // should not render a spinner
+        expect(screen.queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+
+        // should not render a progress bar
+        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
       });
     });
   });
@@ -2324,10 +3445,9 @@ describe('Card V2', () => {
       );
 
       expect(
-        screen.getByText(fileMap.workingPdfWithRemotePreview.details.name),
+        screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
       ).toBeInTheDocument();
-      expect(screen.getByText('04 Aug 2023, 01:40 AM')).toBeInTheDocument();
-      expect(screen.getByLabelText('pdf')).toBeInTheDocument();
+      expect(screen.queryByText('04 Aug 2023, 01:40 AM')).toBeInTheDocument();
 
       const newIdentifier = {
         mediaItemType: 'file',
@@ -2356,10 +3476,11 @@ describe('Card V2', () => {
       );
 
       expect(
-        screen.getByText(fileMap.workingJpegWithRemotePreview.details.name),
+        await screen.findByText(
+          fileMap.workingJpegWithRemotePreview.details.name,
+        ),
       ).toBeInTheDocument();
-      expect(screen.getByText('11 Jan 2017, 04:48 AM')).toBeInTheDocument();
-      expect(screen.getByLabelText('media-type')).toBeInTheDocument(); // TODO - why is the label 'media-type' and not 'image'?
+      expect(screen.queryByText('11 Jan 2017, 04:48 AM')).toBeInTheDocument();
     });
 
     it('for a new external image identifier', async () => {
@@ -2687,7 +3808,7 @@ describe('Card V2', () => {
         ).toBeInTheDocument(),
       );
 
-      expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(2); // TODO - investigate if this is emitting twice redundantly
+      expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
       expect(globalMediaEventEmitter.emit).toHaveBeenCalledWith(
         'media-viewed',
         {
@@ -2727,7 +3848,7 @@ describe('Card V2', () => {
         ).toBeInTheDocument(),
       );
 
-      expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(2);
+      expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
       expect(globalMediaEventEmitter.emit).toHaveBeenCalledWith(
         'media-viewed',
         {
@@ -2814,19 +3935,7 @@ describe('Card V2', () => {
     ).toBeInTheDocument();
   });
 
-  // TODO
-  // then check by completeUfoExperience && fireOperationalEvent for error events
-
   describe('should manage analytics appropriately', () => {
-    beforeEach(() => {
-      (fireScreenEvent as jest.Mock).mockClear();
-      (fireOperationalEvent as jest.Mock).mockClear();
-      (fireCommencedEvent as jest.Mock).mockClear();
-      (completeUfoExperience as jest.Mock).mockClear();
-      (abortUfoExperience as jest.Mock).mockClear();
-      jest.spyOn(performance, 'now').mockReturnValue(1000);
-    });
-
     describe('should pass the Analytics Event fired', () => {
       it('from CardView to the provided onClick callback', async () => {
         const user = userEvent.setup();
@@ -3127,6 +4236,44 @@ describe('Card V2', () => {
           undefined,
         );
       });
+
+      it('should attach uploading and processing file status flags with values as false for external image identifiers', async () => {
+        const mockedMediaApi = createMockedMediaApi();
+        const extIdentifier = {
+          mediaItemType: 'external-image',
+          dataURI: 'ext-uri',
+          name: 'ext',
+        } as const;
+        const { container } = render(
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={extIdentifier}
+              isLazy={false}
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // simulate that the file has been fully processed in the browser
+        const img = await screen.findByTestId(imgTestId);
+        fireEvent.load(img);
+
+        // card should completely process the file
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="complete"]'),
+          ).toBeInTheDocument(),
+        );
+        expect(completeUfoExperience).toBeCalledTimes(1);
+        expect(completeUfoExperience).toHaveBeenLastCalledWith(
+          expect.any(String),
+          expect.any(String),
+          expect.any(Object),
+          { wasStatusUploading: false, wasStatusProcessing: false },
+          expect.any(Object),
+          undefined,
+        );
+      });
     });
 
     describe('should complete the UFO experience correctly when experiencing errors', () => {
@@ -3340,7 +4487,7 @@ describe('Card V2', () => {
     });
 
     describe('should fire an operational event', () => {
-      it('when the card status changes', async () => {
+      it('when the card status changes (file identifier)', async () => {
         let initialStore: any = { files: {} };
         initialStore.files[fileMap.workingPdfWithRemotePreview.id] = {
           status: 'processing',
@@ -3382,6 +4529,7 @@ describe('Card V2', () => {
           ).toBeInTheDocument(),
         );
 
+        expect(fireOperationalEvent).toHaveBeenCalledTimes(2);
         expect(fireOperationalEvent).toHaveBeenCalledWith(
           expect.any(Function),
           'processing',
@@ -3406,7 +4554,8 @@ describe('Card V2', () => {
           },
           undefined,
         );
-        expect(fireOperationalEvent).toHaveBeenLastCalledWith(
+        expect(fireOperationalEvent).toHaveBeenNthCalledWith(
+          2,
           expect.any(Function),
           'complete',
           {
@@ -3416,6 +4565,57 @@ describe('Card V2', () => {
             fileId: fileMap.workingPdfWithRemotePreview.id,
             fileSize: fileMap.workingPdfWithRemotePreview.details.size,
             fileStatus: 'processing',
+          },
+          {
+            overall: {
+              durationSinceCommenced: 0,
+              durationSincePageStart: 1000,
+            },
+          },
+          { client: { status: 'unknown' }, server: { status: 'unknown' } },
+          undefined,
+          {
+            traceId: expect.any(String),
+          },
+          undefined,
+        );
+      });
+
+      it('when the card status changes (external image identifier)', async () => {
+        const mockedMediaApi = createMockedMediaApi();
+        const extIdentifier = {
+          mediaItemType: 'external-image',
+          dataURI: 'ext-uri',
+          name: 'ext',
+        } as const;
+        const { container } = render(
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={extIdentifier}
+              isLazy={false}
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // simulate that the file has been fully processed in the browser
+        const img = await screen.findByTestId(imgTestId);
+        fireEvent.load(img);
+
+        // card should completely process the file
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="complete"]'),
+          ).toBeInTheDocument(),
+        );
+
+        expect(fireOperationalEvent).toHaveBeenCalledTimes(1);
+        expect(fireOperationalEvent).toHaveBeenCalledWith(
+          expect.any(Function),
+          'complete',
+          {
+            fileMediatype: 'image',
+            fileId: extIdentifier.mediaItemType,
           },
           {
             overall: {
@@ -3596,7 +4796,7 @@ describe('Card V2', () => {
     });
 
     describe('should abort the experience', () => {
-      it('when the component is unmounted', () => {
+      it('when the component is unmounted (file identifier)', async () => {
         let initialStore: any = { files: {} };
         const mockedMediaApi = createMockedMediaApi();
         const identifier = {
@@ -3605,7 +4805,7 @@ describe('Card V2', () => {
           collectionName: fileMap.workingPdfWithRemotePreview.collection,
         } as const;
 
-        const { unmount } = render(
+        const { container, unmount } = render(
           <MockedMediaClientProvider
             mockedMediaApi={mockedMediaApi}
             initialStore={initialStore}
@@ -3618,8 +4818,92 @@ describe('Card V2', () => {
           </MockedMediaClientProvider>,
         );
 
+        // simulate that the file has been fully processed in the browser
+        const img = await screen.findByTestId(imgTestId);
+        fireEvent.load(img);
+
+        // card should completely process the file
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="complete"]'),
+          ).toBeInTheDocument(),
+        );
+
         unmount();
         expect(abortUfoExperience).toBeCalledTimes(1);
+        expect(abortUfoExperience).toHaveBeenCalledWith(expect.any(String), {
+          fileAttributes: {
+            fileId: fileMap.workingPdfWithRemotePreview.id,
+            fileMediatype:
+              fileMap.workingPdfWithRemotePreview.details.mediaType,
+            fileMimetype: fileMap.workingPdfWithRemotePreview.details.mimeType,
+            fileSize: fileMap.workingPdfWithRemotePreview.details.size,
+            fileStatus: 'processed',
+          },
+          fileStateFlags: {
+            wasStatusProcessing: false,
+            wasStatusUploading: false,
+          },
+          ssrReliability: {
+            client: {
+              status: 'unknown',
+            },
+            server: {
+              status: 'unknown',
+            },
+          },
+        });
+      });
+
+      it('when the component is unmounted (external image identifier)', async () => {
+        const mockedMediaApi = createMockedMediaApi();
+        const extIdentifier = {
+          mediaItemType: 'external-image',
+          dataURI: 'ext-uri',
+          name: 'ext',
+        } as const;
+
+        const { container, unmount } = render(
+          <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={extIdentifier}
+              isLazy={false}
+            />
+          </MockedMediaClientProvider>,
+        );
+
+        // simulate that the file has been fully processed in the browser
+        const img = await screen.findByTestId(imgTestId);
+        fireEvent.load(img);
+
+        // card should completely process the file
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="complete"]'),
+          ).toBeInTheDocument(),
+        );
+
+        unmount();
+        expect(abortUfoExperience).toBeCalledTimes(1);
+        expect(abortUfoExperience).toHaveBeenCalledWith(expect.any(String), {
+          fileAttributes: {
+            fileMediatype: 'image',
+            fileId: extIdentifier.mediaItemType,
+          },
+          fileStateFlags: {
+            wasStatusProcessing: false,
+            wasStatusUploading: false,
+          },
+          ssrReliability: {
+            client: {
+              status: 'unknown',
+            },
+            server: {
+              status: 'unknown',
+            },
+          },
+        });
       });
     });
   });

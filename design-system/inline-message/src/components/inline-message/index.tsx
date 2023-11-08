@@ -13,9 +13,6 @@ import Button from '@atlaskit/button/custom-theme-button';
 import InlineDialog from '@atlaskit/inline-dialog';
 import {
   B300,
-  B75,
-  DN100,
-  DN600,
   G200,
   N300,
   N600,
@@ -23,7 +20,6 @@ import {
   R300,
   Y200,
 } from '@atlaskit/theme/colors';
-import { themed, useGlobalTheme } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 
 import { VAR_SECONDARY_TEXT_COLOR } from '../../constants';
@@ -121,37 +117,20 @@ const rootStyles = css({
   },
 });
 
-const titleColor = themed({
-  light: token('color.text', N600),
-  dark: token('color.text', DN600),
-});
-const textColor = themed({
-  light: token('color.text.subtlest', N300),
-  dark: token('color.text.subtlest', DN100),
-});
-
-const iconColor = themed('appearance', {
-  connectivity: {
-    light: token('color.icon.brand', B300),
-    dark: token('color.icon.brand', B75),
-  },
-  confirmation: {
-    light: token('color.icon.success', G200),
-    dark: token('color.icon.success', G200),
-  },
-  info: {
-    light: token('color.icon.discovery', P200),
-    dark: token('color.icon.discovery', P200),
-  },
-  warning: {
-    light: token('color.icon.warning', Y200),
-    dark: token('color.icon.warning', Y200),
-  },
-  error: {
-    light: token('color.icon.danger', R300),
-    dark: token('color.icon.danger', R300),
-  },
-});
+const iconColor = (appearance: IconAppearance) => {
+  switch (appearance) {
+    case 'connectivity':
+      return token('color.icon.brand', B300);
+    case 'confirmation':
+      return token('color.icon.success', G200);
+    case 'info':
+      return token('color.icon.discovery', P200);
+    case 'warning':
+      return token('color.icon.warning', Y200);
+    case 'error':
+      return token('color.icon.danger', R300);
+  }
+};
 
 /**
  * __Inline message__
@@ -192,7 +171,6 @@ const InlineMessage: FC<InlineMessageProps> = ({
   }, [setIsOpen]);
 
   const onCloseDialog = useCallback(() => setIsOpen(false), [setIsOpen]);
-  const theme = useGlobalTheme();
 
   if (!appearance) {
     appearance = type;
@@ -203,7 +181,7 @@ const InlineMessage: FC<InlineMessageProps> = ({
       css={rootStyles}
       style={
         {
-          '--icon-accent-color': iconColor({ appearance: appearance, theme }),
+          '--icon-accent-color': iconColor(appearance),
         } as CSSProperties
       }
       data-testid={testId}
@@ -231,7 +209,7 @@ const InlineMessage: FC<InlineMessageProps> = ({
             />
             {title && (
               <span
-                style={{ color: titleColor({ theme }) }}
+                style={{ color: token('color.text', N600) }}
                 css={titleStyles}
                 data-testid={testId && `${testId}--title`}
               >
@@ -243,7 +221,10 @@ const InlineMessage: FC<InlineMessageProps> = ({
                 data-ds--inline-message--secondary-text
                 style={
                   {
-                    [VAR_SECONDARY_TEXT_COLOR]: textColor({ theme }),
+                    [VAR_SECONDARY_TEXT_COLOR]: token(
+                      'color.text.subtlest',
+                      N300,
+                    ),
                   } as CSSProperties
                 }
                 css={textStyles}

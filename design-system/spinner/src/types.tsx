@@ -6,31 +6,31 @@ export type Appearance = 'inherit' | 'invert';
 export type SpinnerProps = {
   /**
    * You can use this to invert the current theme.
-   * This is useful when you are displaying a spinner on a background that is not the same background color scheme as the body
+   * This is useful when you are displaying a spinner on a background that is not the same background color scheme as the main content.
    */
   appearance?: Appearance;
 
   /**
-   * Delay the intro animation of `<Spinner/>`.
-   * This is not to be used to avoid quick flickering of `<Spinner/>`.
-   * `<Spinner/>` will automatically fade in and takes ~200ms to become partially visible.
+   * Delay the intro animation of `Spinner`.
+   * This is not to be used to avoid quick flickering of `Spinner`.
+   * `Spinner` will automatically fade in and takes ~200ms to become partially visible.
    * This prop can be helpful for **long delays** such as `500-1000ms` for when you want to not
-   * show a `<Spinner/>` until some longer period of time has elapsed.
+   * show a `Spinner` until some longer period of time has elapsed.
    */
   delay?: number;
 
   /**
-   * An optional interactionName used to identify when this component is holding an interaction
+   * An optional `interactionName` used to identify when this component is holding an interaction.
    */
   interactionName?: string;
 
   /**
-   * Adds context for assistive technologies.
+   * Describes what the spinner is doing for assistive technologies. For example, "loading", "submitting", or "processing".
    */
   label?: string;
 
   /**
-   * Size of the spinner.
+   * Size of the spinner. The available sizes are `xsmall`, `small`, `medium`, `large`, and `xlarge`. For most use cases, we recommend `medium`.
    */
   size?: Size;
 

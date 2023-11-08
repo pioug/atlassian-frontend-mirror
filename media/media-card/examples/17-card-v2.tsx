@@ -13,8 +13,8 @@ const dummyMediaClientConfig = {} as MediaClientConfig;
 const mockedMediaApi = createMockedMediaApi();
 const identifier = {
   mediaItemType: 'file',
-  id: fileMap.workingVideo.id,
-  collectionName: fileMap.workingVideo.collection,
+  id: fileMap.workingImgWithRemotePreview.id,
+  collectionName: fileMap.workingImgWithRemotePreview.collection,
 } as const;
 
 export default () => (

@@ -128,14 +128,6 @@ describe('Find/replace:', () => {
       await snapshot(page, undefined, editorSelector);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 05/10/2023: https://product-fabric.atlassian.net/browse/ED-20322
-    it.skip('should not match case by default', async () => {
-      await initEditor(matchCaseAdf, { width: 600, height: 600 }, options);
-      await page.waitForSelector(findReplaceSelectors.matchCaseButton);
-      await page.type(findReplaceSelectors.findInput, 'HELLO');
-      await page.waitForSelector(findReplaceSelectors.decorations);
-      await snapshot(page, undefined, editorSelector);
-    });
     // FIXME: Inconsistent test
     it.skip('should update text decorations when enabling match case', async () => {
       await initEditor(matchCaseAdf, { width: 600, height: 600 }, options);

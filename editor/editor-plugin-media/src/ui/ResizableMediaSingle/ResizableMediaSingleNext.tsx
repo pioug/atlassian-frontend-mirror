@@ -3,6 +3,7 @@ import React from 'react';
 
 import { jsx } from '@emotion/react';
 import classnames from 'classnames';
+import type { Mapping } from 'classnames';
 import throttle from 'lodash/throttle';
 import memoizeOne from 'memoize-one';
 
@@ -593,8 +594,10 @@ class ResizableMediaSingleNext extends React.Component<
         'rich-media-wrapped': layout === 'wrap-left' || layout === 'wrap-right',
       },
     );
-    // @ts-expect-error - TS2339 Lodash get() now infers types.
-    const resizerNextClassName = classnames(className, resizerStyles);
+    const resizerNextClassName = classnames(
+      className,
+      resizerStyles as unknown as Mapping,
+    );
     const isNestedNode = this.isNestedNode();
 
     const maxWidth =

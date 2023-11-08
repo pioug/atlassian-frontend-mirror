@@ -4,7 +4,6 @@ import {
   UIAnalyticsEvent,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { ThemeModes } from '@atlaskit/theme/types';
 
 import type { ArrowKeys, DateObj, ISODate } from './internal/types';
 
@@ -156,10 +155,6 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
    * backward compatibility. PLEASE DO NOT USE THIS.
    */
   calendarRef?: React.Ref<CalendarRef>;
-  /**
-   * @internal Legacy theme mode, can be either 'light' or 'dark'
-   */
-  mode?: ThemeModes;
   /**
    * Indicates if the calendar can be focused by keyboard or only
    * programmatically. Defaults to "0".

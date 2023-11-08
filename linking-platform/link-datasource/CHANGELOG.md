@@ -1,5 +1,21 @@
 # @atlaskit/link-datasource
 
+## 1.14.0
+
+### Minor Changes
+
+- [#42756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42756) [`89ed621ec92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89ed621ec92) - Add loading message UI for basic filter dropdown
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.13.2
+
+### Patch Changes
+
+- [#42785](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42785) [`63e0adac24f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63e0adac24f) - Fix AGG base URL
+
 ## 1.13.1
 
 ### Patch Changes

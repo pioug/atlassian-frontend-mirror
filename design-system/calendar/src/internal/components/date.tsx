@@ -1,18 +1,10 @@
 /** @jsx jsx */
-import {
-  forwardRef,
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import { forwardRef, memo, useCallback, useEffect, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { Grid } from '@atlaskit/primitives';
-import { ThemeModes } from '@atlaskit/theme/types';
 
 import type { TabIndex } from '../../types';
 import { dateCellStyles as getDateCellStyles } from '../styles/date';
@@ -31,7 +23,6 @@ interface DateProps {
   isSelected?: boolean;
   isSibling?: boolean;
   year: number;
-  mode?: ThemeModes;
   shouldSetFocus: boolean;
   tabIndex: TabIndex;
   testId?: string;
@@ -52,7 +43,6 @@ const Date = memo(
       isSelected = false,
       isSibling = false,
       year,
-      mode,
       shouldSetFocus,
       tabIndex,
       testId,
@@ -95,7 +85,7 @@ const Date = memo(
       }
     }, [onClick]);
 
-    const dateCellStyles = useMemo(() => css(getDateCellStyles(mode)), [mode]);
+    const dateCellStyles = css(getDateCellStyles());
 
     return (
       <Grid role="gridcell" alignItems="center">

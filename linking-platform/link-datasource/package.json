@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-datasource",
-  "version": "1.13.1",
+  "version": "1.14.0",
   "description": "UI Components to support linking platform dataset feature",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,7 @@
     "@atlaskit/button": "^16.13.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/empty-state": "^7.5.0",
-    "@atlaskit/form": "^8.11.0",
+    "@atlaskit/form": "^9.0.0",
     "@atlaskit/heading": "^1.4.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/icon-object": "^6.3.0",
@@ -56,7 +56,7 @@
     "@atlaskit/pragmatic-drag-and-drop-react-indicator": "^0.17.0",
     "@atlaskit/primitives": "^1.9.0",
     "@atlaskit/select": "^16.7.0",
-    "@atlaskit/smart-card": "^26.41.0",
+    "@atlaskit/smart-card": "^26.42.0",
     "@atlaskit/spinner": "^15.6.0",
     "@atlaskit/tag": "^11.6.0",
     "@atlaskit/textfield": "5.6.8",
@@ -72,6 +72,7 @@
     "lodash": "^4.17.21",
     "react-dom": "^16.8.0",
     "tiny-invariant": "^1.2.0",
+    "use-debounce": "^3.4.0",
     "uuid": "^3.1.0"
   },
   "peerDependencies": {

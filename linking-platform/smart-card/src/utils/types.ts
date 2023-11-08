@@ -25,7 +25,8 @@ export type AnalyticsAction =
   | 'focused'
   | 'started'
   | 'success'
-  | 'failed';
+  | 'failed'
+  | 'loaded';
 
 export type AnalyticsActionSubject =
   | 'smartLink'
@@ -38,7 +39,8 @@ export type AnalyticsActionSubject =
   | 'embedPreviewModal'
   | 'smartLinkIframe'
   | 'link'
-  | 'smartLinkQuickAction';
+  | 'smartLinkQuickAction'
+  | 'relatedLinks';
 
 export type AnalyticsName = 'embedPreviewModal';
 

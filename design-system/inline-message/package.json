@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/inline-message",
-  "version": "11.5.8",
+  "version": "12.0.0",
   "description": "An inline message lets users know when important information is available or when an action is required.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,7 +26,7 @@
   "dependencies": {
     "@atlaskit/button": "^16.13.0",
     "@atlaskit/icon": "^21.12.0",
-    "@atlaskit/inline-dialog": "^13.6.0",
+    "@atlaskit/inline-dialog": "^14.0.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.28.0",
     "@babel/runtime": "^7.0.0",

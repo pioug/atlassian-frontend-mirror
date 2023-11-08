@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { getMediaListAdf } from './__fixtures__/adf-documents';
 
-export const getMediaSingleDocument = (mediaTraceId: null | any) => {
+const getMediaSingleDocument = (mediaTraceId: null | any) => {
   return mediaSingle()(
     media({
       id: 'a559980d-cd47-43e2-8377-27359fcb905f',

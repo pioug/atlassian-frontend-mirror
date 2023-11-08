@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
@@ -10,8 +10,8 @@ import { css } from '@emotion/react';
 import { messages } from '../../../../../../../messages';
 import { getFormattedMessageAsString } from '../../../../../components/utils';
 import Text from '../../../../elements/text';
-import RelatedUrlItem from './related-url-item';
 import { ResolvedResultProps } from './types';
+import ResolvedResultsStack from './resolved-result-stack';
 
 const RelatedUrlList: React.FC<ResolvedResultProps> = ({
   resolvedResults,
@@ -25,24 +25,16 @@ const RelatedUrlList: React.FC<ResolvedResultProps> = ({
   const ChevronComponent = isOpen ? ChevronUpIcon : ChevronDownIcon;
   const intl = useIntl();
 
-  const resolvedResultsStack = useMemo(() => {
-    return (
-      <Stack space="space.050" testId={`${testId}-items-wrapper`}>
-        {resolvedResults.map((resolvedResults, idx) => (
-          <RelatedUrlItem
-            testId={`${testId}-item`}
-            key={idx}
-            results={resolvedResults}
-            renderers={renderers}
-          />
-        ))}
-      </Stack>
-    );
-  }, [renderers, resolvedResults, testId]);
-
   return resolvedResults.length > 0 ? (
     <Stack testId={testId} xcss={xcss({ width: '100%' })}>
-      <Box onClick={chevronClickHandler} testId={`${testId}-expand-title`}>
+      <Box
+        onClick={chevronClickHandler}
+        testId={`${testId}-expand-title`}
+        as="button"
+        backgroundColor="color.background.neutral.subtle"
+        aria-expanded={!!isOpen}
+        padding="space.0"
+      >
         <Inline alignBlock="center" spread="space-between">
           <Text
             overrideCss={css`
@@ -56,7 +48,13 @@ const RelatedUrlList: React.FC<ResolvedResultProps> = ({
           />
         </Inline>
       </Box>
-      {isOpen && resolvedResultsStack}
+      {isOpen && (
+        <ResolvedResultsStack
+          resolvedResults={resolvedResults}
+          testId={testId}
+          renderers={renderers}
+        />
+      )}
     </Stack>
   ) : (
     <Text

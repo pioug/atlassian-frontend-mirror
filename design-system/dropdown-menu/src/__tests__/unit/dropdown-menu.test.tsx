@@ -201,6 +201,48 @@ describe('dropdown menu', () => {
 
       expect(screen.getAllByRole('menuitem')).toHaveLength(items.length);
     });
+
+    it('should open the menu and call onClick on the trigger when Enter or Space is pressed while the trigger is focused', () => {
+      const triggerTestId = 'triggerTestId';
+      const onClick = jest.fn((callback) => callback());
+
+      const DDMWithCustomTrigger = ({ onClick }: { onClick: any }) => {
+        const [isOpen, setIsOpen] = useState(false);
+        return (
+          <DropdownMenu
+            isOpen={isOpen}
+            trigger={(triggerProps) => (
+              <Button
+                {...triggerProps}
+                onClick={() => onClick(() => setIsOpen(!isOpen))}
+                testId={triggerTestId}
+              >
+                {triggerText}
+              </Button>
+            )}
+          >
+            <DropdownItemGroup>
+              {items.map((text) => (
+                <DropdownItem>{text}</DropdownItem>
+              ))}
+            </DropdownItemGroup>
+          </DropdownMenu>
+        );
+      };
+
+      render(<DDMWithCustomTrigger onClick={onClick} />);
+
+      const trigger = screen.getByTestId(triggerTestId);
+
+      fireEvent.click(trigger, {
+        clientX: 0,
+        clientY: 0,
+        detail: 0,
+      });
+
+      expect(screen.getAllByRole('menuitem')).toHaveLength(items.length);
+      expect(onClick).toHaveBeenCalled();
+    });
   });
 
   describe('isLoading status', () => {

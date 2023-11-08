@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { useGlobalTheme } from '@atlaskit/theme/components';
 import { h600 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
@@ -23,43 +22,31 @@ export interface FormSectionProps {
 }
 
 const formSectionDescriptionStyles = css({
-  marginTop: token('space.100', '8px'),
+  marginBlockStart: token('space.100', '8px'),
 });
 
 const formSectionTitleStyles = css({
-  marginTop: 0,
-  marginRight: token('space.400', '32px'),
   lineHeight: token('space.400', '32px'),
+  marginBlockStart: 0,
+  marginInlineEnd: token('space.400', '32px'),
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
 });
 
 const formSectionWrapperStyles = css({
-  marginTop: token('space.300', '24px'),
+  marginBlockStart: token('space.300', '24px'),
 });
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const lightH600Styles = css(h600({ theme: { mode: 'light' } }));
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const darkH600Styles = css(h600({ theme: { mode: 'dark' } }));
 
 const FormSectionWrapper = ({ children }: { children?: ReactNode }) => {
   return <div css={formSectionWrapperStyles}>{children}</div>;
 };
 
 const FormSectionTitle = ({ children }: { children: ReactNode }) => {
-  const { mode } = useGlobalTheme();
-  return (
-    <h3
-      css={[
-        formSectionTitleStyles,
-        mode === 'light' ? lightH600Styles : darkH600Styles,
-      ]}
-    >
-      {children}
-    </h3>
-  );
+  return <h3 css={[formSectionTitleStyles, lightH600Styles]}>{children}</h3>;
 };
 
 const FormSectionDescription = ({ children }: { children: ReactNode }) => {

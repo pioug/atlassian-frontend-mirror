@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.42.0
+
+### Minor Changes
+
+- [#42696](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42696) [`6191f76a929`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6191f76a929) - Adds analytics for related links
+
 ## 26.41.3
 
 ### Patch Changes

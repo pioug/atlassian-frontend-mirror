@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 6.2.3
+
+### Patch Changes
+
+- [#42756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42756) [`2bae2862ce7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2bae2862ce7) - Updated mockBasicFilterAGGFetchRequests response to slow down for vr testing
+
 ## 6.2.2
 
 ### Patch Changes

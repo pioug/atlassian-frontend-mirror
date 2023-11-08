@@ -3,8 +3,7 @@ import type { CSSProperties, FC } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { B100, B400, G300, P300, R400, Y300 } from '@atlaskit/theme/colors';
-import { themed, useGlobalTheme } from '@atlaskit/theme/components';
+import { B400, G300, P300, R400, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { typesMapping } from '../../constants';
@@ -16,28 +15,20 @@ interface MessageIconProps {
   label?: string;
 }
 
-const iconColor = themed('appearance', {
-  connectivity: {
-    light: token('color.icon.brand', B400),
-    dark: token('color.icon.brand', B100),
-  },
-  confirmation: {
-    light: token('color.icon.success', G300),
-    dark: token('color.icon.success', G300),
-  },
-  info: {
-    light: token('color.icon.discovery', P300),
-    dark: token('color.icon.discovery', P300),
-  },
-  warning: {
-    light: token('color.icon.warning', Y300),
-    dark: token('color.icon.warning', Y300),
-  },
-  error: {
-    light: token('color.icon.danger', R400),
-    dark: token('color.icon.danger', R400),
-  },
-});
+const iconColor = (appearance: IconAppearance) => {
+  switch (appearance) {
+    case 'connectivity':
+      return token('color.icon.brand', B400);
+    case 'confirmation':
+      return token('color.icon.success', G300);
+    case 'info':
+      return token('color.icon.discovery', P300);
+    case 'warning':
+      return token('color.icon.warning', Y300);
+    case 'error':
+      return token('color.icon.danger', R400);
+  }
+};
 
 const iconWrapperStyles = css({
   display: 'flex',
@@ -61,14 +52,10 @@ const SelectedIcon: FC<MessageIconProps> = ({ appearance, isOpen, label }) => {
     [appearance]: { icon: Icon, defaultLabel },
   } = typesMapping;
 
-  const theme = useGlobalTheme();
-
   return (
     <span
       data-ds--inline-message--icon
-      style={
-        { '--icon-color': iconColor({ appearance, theme }) } as CSSProperties
-      }
+      style={{ '--icon-color': iconColor(appearance) } as CSSProperties}
       css={[iconWrapperStyles, isOpen && iconColorStyles]}
     >
       <Icon

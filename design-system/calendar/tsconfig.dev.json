@@ -45,9 +45,6 @@
       "path": "../../analytics/analytics-next/tsconfig.app.json"
     },
     {
-      "path": "../button/tsconfig.app.json"
-    },
-    {
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
@@ -67,12 +64,6 @@
     },
     {
       "path": "../../../build/test-tooling/ssr/tsconfig.app.json"
-    },
-    {
-      "path": "../theme/tsconfig.app.json"
-    },
-    {
-      "path": "../tokens/tsconfig.app.json"
     },
     {
       "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"

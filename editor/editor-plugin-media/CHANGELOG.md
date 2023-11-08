@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media
 
+## 0.3.13
+
+### Patch Changes
+
+- [#42834](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42834) [`a4695f1205a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4695f1205a) - Fix TS errors for editor packages in AFM
+
+## 0.3.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.3.11
 
 ### Patch Changes

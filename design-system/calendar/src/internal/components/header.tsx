@@ -9,7 +9,6 @@ import ArrowleftIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import ArrowrightIcon from '@atlaskit/icon/glyph/chevron-right-large';
 import { Box, Inline } from '@atlaskit/primitives';
 import { N700 } from '@atlaskit/theme/colors';
-import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import useUniqueId from '../../internal/hooks/use-unique-id';
@@ -24,7 +23,6 @@ interface HeaderProps {
   nextHeading: string;
   handleClickNext: (e: React.MouseEvent<HTMLElement>) => void;
   handleClickPrev: (e: React.MouseEvent<HTMLElement>) => void;
-  mode?: ThemeModes;
   headerId: string;
   tabIndex?: TabIndex;
   testId?: string;

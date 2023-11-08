@@ -1,5 +1,25 @@
 # @atlaskit/editor-common
 
+## 76.18.6
+
+### Patch Changes
+
+- [#42834](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42834) [`a4695f1205a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4695f1205a) - Fix TS errors for editor packages in AFM
+
+## 76.18.5
+
+### Patch Changes
+
+- [#42746](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42746) [`ea352517252`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea352517252) - Update editor dropdown menu component to support section behind platform.editor.menu.group-items FF
+- [#42845](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42845) [`9a9260f905f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a9260f905f) - Move state initialisation for WithPluginState in constructor
+- Updated dependencies
+
+## 76.18.4
+
+### Patch Changes
+
+- [#42151](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42151) [`192b62f6d36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/192b62f6d36) - Cleans up editor feature flag 'lp-analytics-events-next'. Card plugin will now always dispatch link tracking events.
+
 ## 76.18.3
 
 ### Patch Changes

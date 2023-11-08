@@ -1,8 +1,9 @@
-import React from 'react';
+import type React from 'react';
 
-import { EditorActionsOptions as EditorActions } from '../../types';
-import { ArrowKeyNavigationProviderOptions } from '../ArrowKeyNavigationProvider/types';
+import type { EditorActionsOptions as EditorActions } from '../../types';
+import type { ArrowKeyNavigationProviderOptions } from '../ArrowKeyNavigationProvider/types';
 
+type SectionOptions = { hasSeparator?: boolean; title?: string };
 export interface Props {
   mountTo?: HTMLElement;
   boundariesElement?: HTMLElement;
@@ -23,6 +24,7 @@ export interface Props {
   disableArrowKeyNavigation?: boolean;
   shouldFocusFirstItem?: () => boolean;
   arrowKeyNavigationProviderOptions: ArrowKeyNavigationProviderOptions;
+  section?: SectionOptions;
 }
 
 export interface MenuItem {

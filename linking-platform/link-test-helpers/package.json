@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-test-helpers",
-  "version": "6.2.2",
+  "version": "6.2.3",
   "description": "Collection of test helpers used in linking platform examples and specs",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",

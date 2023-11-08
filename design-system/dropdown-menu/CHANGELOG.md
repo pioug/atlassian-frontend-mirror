@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 12.1.5
+
+### Patch Changes
+
+- [#42645](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42645) [`df1c4868d29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df1c4868d29) - Fix keyboard access for custom trigger.
+
 ## 12.1.4
 
 ### Patch Changes

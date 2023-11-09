@@ -18,11 +18,13 @@ import {
 import { getPreviewBlockStyles } from '../../../styled';
 import { extractRequestAccessContextImproved } from '../../../../../extractors/common/context/extractAccessContext';
 import extractHostname from '../../../../../extractors/common/hostname/extractHostname';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 const HoverCardForbiddenView: React.FC<HoverCardForbiddenProps> = ({
   flexibleCardProps,
   testId = 'hover-card-forbidden-view',
 }) => {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
   const { cardState, url } = flexibleCardProps;
   const data = cardState.details?.data as JsonLd.Data.BaseData;
   const meta = cardState.details?.meta as JsonLd.Meta.BaseMeta;
@@ -34,6 +36,7 @@ const HoverCardForbiddenView: React.FC<HoverCardForbiddenProps> = ({
       jsonLd: meta,
       url,
       product,
+      createAnalyticsEvent,
     }) ?? {};
 
   if (!titleMessageKey || !descriptiveMessageKey) {
@@ -56,12 +59,11 @@ const HoverCardForbiddenView: React.FC<HoverCardForbiddenProps> = ({
           values={{ product, hostname }}
         />
       </CustomBlock>
+
       {action && (
-        <CustomBlock
-          overrideCss={connectButtonStyles}
-          testId={`${testId}-button`}
-        >
+        <CustomBlock overrideCss={connectButtonStyles}>
           <Button
+            testId={`${testId}-button`}
             onClick={action?.promise}
             appearance="primary"
             isDisabled={buttonDisabled}

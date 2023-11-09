@@ -1,5 +1,6 @@
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   ExtractInjectionAPI,
   NextEditorPlugin,

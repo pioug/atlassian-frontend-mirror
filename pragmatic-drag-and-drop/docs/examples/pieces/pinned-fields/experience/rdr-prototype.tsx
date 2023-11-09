@@ -6,10 +6,10 @@ import { css, jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
 
 import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import { DragHandleDropdownMenu } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-dropdown-menu';
-import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
 import { offsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/offset-from-pointer';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
+import { DragHandleDropdownMenu } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-dropdown-menu';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
 import { token } from '@atlaskit/tokens';
 
 import { useFlashOnDrop } from '../../hooks/use-flash-on-drop';

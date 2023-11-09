@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 
-import { withReactEditorViewOuterListeners } from '../../ui-react';
-import type { WithOutsideClickProps } from '../../ui-react/with-react-editor-view-outer-listeners';
 import type { OpenChangedEvent } from '../../ui/DropList';
 import DropdownList from '../../ui/DropList';
 import Popup from '../../ui/Popup';
+import { withReactEditorViewOuterListeners } from '../../ui-react';
+import type { WithOutsideClickProps } from '../../ui-react/with-react-editor-view-outer-listeners';
 import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
 import type { ArrowKeyNavigationProviderOptions } from '../ArrowKeyNavigationProvider/types';
 

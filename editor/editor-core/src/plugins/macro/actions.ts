@@ -24,13 +24,13 @@ import type {
 import { normaliseNestedLayout } from '@atlaskit/editor-common/insert';
 
 import { getPluginState as getExtensionPluginState } from '../extension/plugin-factory';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { addAnalytics } from '../analytics';
 import type {
   ExtensionType,
   SelectionJson,
@@ -39,6 +39,7 @@ import { TARGET_SELECTION_SOURCE } from '../analytics/types/extension-events';
 import { pluginKey } from './plugin-key';
 
 export const insertMacroFromMacroBrowser =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (macroProvider: MacroProvider, macroNode?: PmNode, isEditing?: boolean) =>
   async (view: EditorView): Promise<boolean> => {
     if (!macroProvider) {
@@ -105,7 +106,7 @@ export const insertMacroFromMacroBrowser =
       if (dispatch && tr.docChanged) {
         const { extensionType, extensionKey, layout, localId } =
           macroNode.attrs;
-        addAnalytics(state, tr, {
+        editorAnalyticsAPI?.attachAnalyticsEvent({
           action: ACTION.UPDATED,
           actionSubject: ACTION_SUBJECT.EXTENSION,
           actionSubjectId: macroNode.type.name as ExtensionType,
@@ -121,7 +122,7 @@ export const insertMacroFromMacroBrowser =
             selection: tr.selection.toJSON() as SelectionJson,
             targetSelectionSource,
           },
-        });
+        })(tr);
         dispatch(tr.scrollIntoView());
       }
       return true;

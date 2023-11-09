@@ -9,6 +9,7 @@ import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -27,7 +28,6 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import tablePlugin from '../../plugins/table-plugin';
 import {
   addResizeHandleDecorations,
   showInsertColumnButton,
@@ -42,6 +42,7 @@ import {
 import { getPluginState } from '../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { TableCssClassName as ClassName } from '../../plugins/table/types';
+import tablePlugin from '../../plugins/table-plugin';
 
 describe('table plugin: decorations', () => {
   const createEditor = createProsemirrorEditorFactory();

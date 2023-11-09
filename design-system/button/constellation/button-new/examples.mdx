@@ -3,3 +3,211 @@ title: Button (new)
 description: A button triggers an event or action. They let users know what will happen next.
 order: 0
 ---
+
+import SectionMessage from '@atlaskit/section-message';
+
+import ButtonDefault from '../../examples/constellation/new-button/button/button-default';
+import ButtonPrimary from '../../examples/constellation/new-button/button/button-primary';
+import ButtonSubtle from '../../examples/constellation/new-button/button/button-subtle';
+import ButtonLink from '../../examples/constellation/new-button/button/button-link';
+import ButtonSubtleLink from '../../examples/constellation/new-button/button/button-subtle-link';
+import ButtonWarning from '../../examples/constellation/new-button/button/button-warning';
+import ButtonDanger from '../../examples/constellation/new-button/button/button-danger';
+import ButtonDisabled from '../../examples/constellation/new-button/button/button-disabled';
+import ButtonSelected from '../../examples/constellation/new-button/button/button-selected';
+import ButtonPadding from '../../examples/constellation/new-button/button/button-padding';
+import ButtonFullWidth from '../../examples/constellation/new-button/button/button-full-width';
+import ButtonWithIconBefore from '../../examples/constellation/new-button/button/button-with-icon-before';
+import ButtonWithIconAfter from '../../examples/constellation/new-button/button/button-with-icon-after';
+import ButtonTruncation from '../../examples/constellation/new-button/button/button-truncation';
+import ButtonOverlay from '../../examples/constellation/new-button/button/button-overlay';
+
+import LinkButton from '../../examples/constellation/new-button/button/link-button';
+import LinkButtonDisabled from '../../examples/constellation/new-button/button/link-button-disabled';
+import LinkButtonWithRouting from '../../examples/constellation/new-button/button/link-button-with-routing';
+
+## Default
+
+The default form of a button, used for most cases. They are not impactful enough to represent the primary action in a container.
+
+<Example Component={ButtonDefault} packageName="@atlaskit/button" />
+
+## Appearance
+
+### Primary
+
+Use a `primary` button to call attention to an action on a [form](/patterns/forms) or to highlight the strongest call to action on a page.
+Primary buttons should only appear once per container (not including the application header or in a [modal dialog](/components/modal-dialog)). Not every screen requires a primary button.
+
+<Example Component={ButtonPrimary} packageName="@atlaskit/button" />
+
+### Subtle
+
+Use a `subtle` button with a `primary` button for secondary actions, such as “Cancel".
+
+<Example Component={ButtonSubtle} packageName="@atlaskit/button" />
+
+### Warning
+
+A `warning` button appears before we request the user to take action, usually in anticipation of a significant change. These are found mostly in confirmation modals.
+
+<Example Component={ButtonWarning} packageName="@atlaskit/button" />
+
+### Danger
+
+The `danger` button appears as a final confirmation for a destructive action such as deleting. These are found mostly in confirmation modals.
+
+<Example Component={ButtonDanger} packageName="@atlaskit/button" />
+
+### Link
+
+<SectionMessage title="Caution" appearance="warning">
+  <p>
+    This appearance has been carried over from the legacy button, but may be
+    removed in the future and only supported on{' '}
+    <a href="#link-button">Link Buttons</a>. Please use with caution.
+  </p>
+</SectionMessage>
+
+Use a `link` appearance for buttons that should look similar to inline text links. This is only recommended for usage with <a href="#link-button">Link Buttons</a>. Avoid using for regular Buttons that are not links.
+
+<Example Component={ButtonLink} packageName="@atlaskit/button" />
+
+### Subtle link
+
+<SectionMessage title="Caution" appearance="warning">
+  <p>
+    This appearance has been carried over from the legacy button, but may be
+    removed in the future and only supported on{' '}
+    <a href="#link-button">Link Buttons</a>. Please use with caution.
+  </p>
+</SectionMessage>
+
+Similar to a `subtle` button, but behaves like a `link` appearance button. Use a `subtle-link` button to avoid overwhelming the page with blue links.
+
+<Example Component={ButtonSubtleLink} packageName="@atlaskit/button" />
+
+## Link button
+
+When buttons are links rather than triggering actions. This will render an `<a>` tag instead of a `<button>`. It accepts anchor tag HTML attributes, including `href`.
+
+<Example Component={LinkButton} packageName="@atlaskit/button" />
+
+### Routing
+
+When available, Link Button will consume the router link component configured in the **App provider**. This allows router links to be configured once across an entire application.
+
+When appropriate, certain links passed to `href` **will not** utilize the configured router link component and instead render a standard `<a>` tag. These include:
+
+- External links
+- Non-HTTP-based links (`mailto:`, `tel:`, `sms:`)
+- Anchor / hash links (`#`)
+
+If your application does not have an existing App Provider or `routerLinkComponent` configuration, see [the documentation](/components/app-provider/examples#router-links) for guidance on setting this up.
+
+_This replaces [the component prop](/components/button/examples#routing) from the legacy button._
+
+#### Advanced `href` usage with TypeScript
+
+Link Button accepts a generic type containing the configured router link's props. This is only required for advanced usage to allow an object to be passed to `href`.
+
+<Example
+  Component={LinkButtonWithRouting}
+  packageName="@atlaskit/button"
+  appearance="source-only"
+/>
+
+## States
+
+### Disabled
+
+Set `isDisabled` to disable a button that should not be actionable. The button will appear faded and will not respond to user interaction.
+
+Disabled buttons can cause accessibility issues as disabled elements are not in the tab order, so wherever possible avoid using `isDisabled`, especially for form submit buttons.
+
+You should never put a tooltip on a disabled button. For more information see our [usage guidelines](/components/button-new/usage#do-not-put-tooltips-on-disabled-buttons).
+
+<Example Component={ButtonDisabled} packageName="@atlaskit/button" />
+
+#### Disabled Link buttons
+
+Standard buttons utilize the `disabled` HTML attribute, however this does not exist for anchor `<a>` tags, so **LinkButton** is disabled using an accessible technique:
+
+- Adds `aria-disabled="true"`
+- Adds `role="link"`
+- Removes `href` attribute
+
+<Example Component={LinkButtonDisabled} packageName="@atlaskit/button" />
+
+### Selected
+
+Set `isSelected` to indicate the button is selected.
+
+<Example Component={ButtonSelected} packageName="@atlaskit/button" />
+
+## Spacing
+
+Buttons can have various spacing. Default spacing is used for most use cases, compact for tables and none for breadcrumbs.
+
+<Example Component={ButtonPadding} packageName="@atlaskit/button" />
+
+## Full width
+
+Buttons can be expanded to full width to fill its parent container.
+
+<Example Component={ButtonFullWidth} packageName="@atlaskit/button" />
+
+## Button with icon
+
+Buttons may include an icon before or after the text.
+
+### Icon before
+
+Display an icon before the text.
+
+<Example Component={ButtonWithIconBefore} packageName="@atlaskit/button" />
+
+### Icon after
+
+Display an icon after the text.
+
+<Example Component={ButtonWithIconAfter} packageName="@atlaskit/button" />
+
+## Truncation
+
+Text will truncate when buttons are used in a narrow container. This prevents wrapping onto a new line and breaking layout. An ellipsis will be added to the end to indicate that the text has been truncated.
+
+The truncation is implemented with styles, so screen readers will still read the full text.
+
+Avoid truncation whenever possible. For more information see [truncation](/content/language-and-grammar#truncation).
+
+<Example Component={ButtonTruncation} packageName="@atlaskit/button" />
+
+## Overlays
+
+Content can overlay buttons for purposes such as loading states. This is not recommended for most use cases.
+
+When the `overlay` prop is set, the button will be disabled and block user interaction.
+
+<SectionMessage title="Caution" appearance="warning">
+  <p>
+    This feature has been carried over from the legacy button, but may be
+    removed in the future. Please use with caution.
+  </p>
+</SectionMessage>
+
+<Example Component={ButtonOverlay} packageName="@atlaskit/button" />
+
+## Custom buttons
+
+<SectionMessage title="Coming soon" appearance="information">
+  <p>
+    The legacy Button's{' '}
+    <a href="/components/button/examples#custom-theme-button-not-recommended">
+      CustomThemeButton
+    </a>{' '}
+    solution for creating custom buttons will soon be deprecated. We're still
+    working on implementing a replacement for this in the new Button with safe
+    style overrides using <a href="/components/primitives/xcss/usage">xcss</a>.
+  </p>
+</SectionMessage>

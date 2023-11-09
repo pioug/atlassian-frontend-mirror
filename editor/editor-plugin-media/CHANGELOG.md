@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-media
 
+## 0.3.14
+
+### Patch Changes
+
+- [#42899](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42899) [`4b3e40bff6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b3e40bff6f) - Added a new media plugin state `allowInlineImages` to support upcoming feature development.
+
 ## 0.3.13
 
 ### Patch Changes

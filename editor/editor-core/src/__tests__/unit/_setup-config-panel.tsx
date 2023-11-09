@@ -6,6 +6,7 @@ import { mount, ReactWrapper } from 'enzyme';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { BuilderContent } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -17,6 +18,7 @@ import type {
   UpdateExtension,
 } from '@atlaskit/editor-common/extensions';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { NodeConfig } from '@atlaskit/editor-test-helpers/extensions';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';

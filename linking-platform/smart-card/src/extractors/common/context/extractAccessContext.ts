@@ -3,6 +3,8 @@ import { messages } from '../../../messages';
 import { RequestAccessContextProps } from '../../../view/types';
 import { ForbiddenAction } from '../../../view/BlockCard/actions/ForbiddenAction';
 import extractHostname from '../hostname/extractHostname';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 
 export const extractRequestAccessContext = ({
   jsonLd,
@@ -62,10 +64,12 @@ export const extractRequestAccessContextImproved = ({
   jsonLd,
   url,
   product,
+  createAnalyticsEvent,
 }: {
   jsonLd: JsonLd.Meta.BaseMeta;
   url: string;
   product: string;
+  createAnalyticsEvent: CreateUIAnalyticsEvent;
 }): RequestAccessContextProps => {
   const requestAccess = jsonLd?.requestAccess
     ? {
@@ -81,7 +85,16 @@ export const extractRequestAccessContextImproved = ({
         descriptiveMessageKey: 'direct_access_description_crossjoin',
         callToActionMessageKey: 'direct_access_crossjoin',
         action: ForbiddenAction(
-          () => window.open(url),
+          () => {
+            createAnalyticsEvent({
+              action: 'clicked',
+              actionSubject: 'button',
+              actionSubjectId: 'crossJoin',
+              eventType: 'ui',
+            }).fire(ANALYTICS_CHANNEL);
+
+            window.open(url);
+          },
           'direct_access',
           messages.direct_access_crossjoin,
           { product },
@@ -94,7 +107,16 @@ export const extractRequestAccessContextImproved = ({
         descriptiveMessageKey: 'request_access_description_crossjoin',
         callToActionMessageKey: 'request_access_crossjoin',
         action: ForbiddenAction(
-          () => window.open(url),
+          () => {
+            createAnalyticsEvent({
+              action: 'clicked',
+              actionSubject: 'button',
+              actionSubjectId: 'requestAccess',
+              eventType: 'ui',
+            }).fire(ANALYTICS_CHANNEL);
+
+            window.open(url);
+          },
           'request_access',
           messages.request_access_crossjoin,
         ),
@@ -133,7 +155,16 @@ export const extractRequestAccessContextImproved = ({
         descriptiveMessageKey: 'access_exists_description_crossjoin',
         callToActionMessageKey: 'request_access_crossjoin',
         action: ForbiddenAction(
-          () => window.open(url),
+          () => {
+            createAnalyticsEvent({
+              action: 'clicked',
+              actionSubject: 'button',
+              actionSubjectId: 'requestAccess',
+              eventType: 'ui',
+            }).fire(ANALYTICS_CHANNEL);
+
+            window.open(url);
+          },
           'access_exists',
           messages.request_access_crossjoin,
         ),

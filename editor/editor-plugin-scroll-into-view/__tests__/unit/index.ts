@@ -1,5 +1,6 @@
 import { toggleMark } from '@atlaskit/editor-common/mark';
 import type { ExtractPublicEditorAPI } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { CommandDispatch } from '@atlaskit/editor-core/src/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';

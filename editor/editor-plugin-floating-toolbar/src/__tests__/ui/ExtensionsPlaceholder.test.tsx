@@ -3,6 +3,7 @@ import React from 'react';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { RefsNode } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';

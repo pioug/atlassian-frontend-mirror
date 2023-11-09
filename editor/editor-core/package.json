@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "189.3.10",
+  "version": "189.3.12",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -48,7 +48,7 @@
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
     "@atlaskit/avatar": "^21.4.0",
     "@atlaskit/avatar-group": "^9.4.0",
-    "@atlaskit/button": "^16.13.0",
+    "@atlaskit/button": "^16.14.0",
     "@atlaskit/checkbox": "^13.0.0",
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
@@ -62,7 +62,7 @@
     "@atlaskit/editor-plugin-block-type": "^3.0.0",
     "@atlaskit/editor-plugin-border": "^0.1.0",
     "@atlaskit/editor-plugin-caption": "^0.2.0",
-    "@atlaskit/editor-plugin-card": "^0.10.0",
+    "@atlaskit/editor-plugin-card": "^0.11.0",
     "@atlaskit/editor-plugin-clipboard": "^0.1.0",
     "@atlaskit/editor-plugin-code-block": "^0.1.0",
     "@atlaskit/editor-plugin-composition": "^0.1.0",
@@ -255,6 +255,10 @@
     },
     "platform.editor.media.extended-resize-experience": {
       "type": "boolean"
+    },
+    "platform.editor.media.inline-image.base-support": {
+      "type": "boolean",
+      "referenceOnly": "true"
     },
     "platform.design-system-team.border-checkbox_nyoiu": {
       "type": "boolean",

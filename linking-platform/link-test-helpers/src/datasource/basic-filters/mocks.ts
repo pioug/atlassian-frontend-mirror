@@ -843,4 +843,22 @@ export const fieldValuesEmptyResponse = {
   },
 };
 
+export const fieldValuesErrorResponse = {
+  errors: [
+    {
+      message: 'CloudId a436116f-02ce-4520-8fbb-7301462a1674d is not found',
+      locations: [],
+      extensions: {
+        statusCode: 400,
+        classification: 'CloudIdNotFound',
+        aggUgcPiiSafe: true,
+        errorSource: 'GRAPHQL_GATEWAY',
+      },
+    },
+  ],
+  data: {
+    jira: null,
+  },
+};
+
 export const fieldValuesEmptyResponseMapped = [];

@@ -9,6 +9,7 @@ import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -30,7 +31,6 @@ import {
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { B50 } from '@atlaskit/theme/colors';
 
-import tablePlugin from '../../plugins/table-plugin';
 import {
   deleteColumnsWithAnalytics,
   deleteRowsWithAnalytics,
@@ -51,6 +51,7 @@ import { handleCut } from '../../plugins/table/event-handlers';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { replaceSelectedTable } from '../../plugins/table/transforms';
 import type { PluginConfig } from '../../plugins/table/types';
+import tablePlugin from '../../plugins/table-plugin';
 
 const defaultTableDoc = doc(
   table()(

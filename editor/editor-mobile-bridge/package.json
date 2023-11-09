@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "189.3.10",
+  "version": "189.3.12",
   "description": "Mobile distribution of the Editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,8 +34,8 @@
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/collab-provider": "^9.15.0",
     "@atlaskit/editor-card-provider": "^3.1.0",
-    "@atlaskit/editor-common": "76.18.6",
-    "@atlaskit/editor-core": "189.3.10",
+    "@atlaskit/editor-common": "76.18.7",
+    "@atlaskit/editor-core": "189.3.12",
     "@atlaskit/editor-json-transformer": "8.10.11",
     "@atlaskit/editor-plugin-date": "^0.2.0",
     "@atlaskit/editor-plugin-media": "^0.3.0",
@@ -44,13 +44,13 @@
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/emoji": "67.5.12",
     "@atlaskit/icon": "^21.12.0",
-    "@atlaskit/legacy-mobile-macros": "2.4.272",
+    "@atlaskit/legacy-mobile-macros": "2.4.273",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/media-client": "^25.0.0",
     "@atlaskit/media-picker": "^66.2.0",
     "@atlaskit/mention": "22.1.7",
     "@atlaskit/renderer": "108.15.18",
-    "@atlaskit/smart-card": "26.42.0",
+    "@atlaskit/smart-card": "26.42.1",
     "@atlaskit/status": "1.4.3",
     "@atlaskit/task-decision": "17.9.2",
     "@atlaskit/theme": "12.6.2",
@@ -71,7 +71,7 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.13.0",
+    "@atlaskit/button": "^16.14.0",
     "@atlaskit/editor-plugin-block-type": "^3.0.0",
     "@atlaskit/editor-plugin-code-block": "^0.1.0",
     "@atlaskit/editor-plugin-editor-disabled": "^0.2.0",

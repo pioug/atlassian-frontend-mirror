@@ -16,10 +16,10 @@ import type { PositionType } from '@atlaskit/tooltip';
 import Tooltip from '@atlaskit/tooltip';
 
 import { DropdownMenuSharedCssClassName } from '../../styles';
-import { KeyDownHandlerContext } from '../../ui-menu/ToolbarArrowKeyNavigationProvider';
-import { withReactEditorViewOuterListeners } from '../../ui-react';
 import DropList from '../../ui/DropList';
 import Popup from '../../ui/Popup';
+import { KeyDownHandlerContext } from '../../ui-menu/ToolbarArrowKeyNavigationProvider';
+import { withReactEditorViewOuterListeners } from '../../ui-react';
 import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
 import { ArrowKeyNavigationType } from '../ArrowKeyNavigationProvider/types';
 

@@ -19,7 +19,7 @@ const validateOnSubmit = (data: FormData) => {
 const requiredValidator = (data: FormData, key: string) => {
   if (!data[key]) {
     return {
-      [key]: `This field is required.`,
+      [key]: `Please read and accept the terms and conditions to continue.`,
     };
   }
 };

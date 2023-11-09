@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LinkSearchListItemData } from '@atlaskit/link-picker';
 import { icon } from '@atlaskit/link-test-helpers/images';
 

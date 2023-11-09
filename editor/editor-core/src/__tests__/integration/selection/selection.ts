@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { BrowserObject } from 'webdriverio';
 
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */

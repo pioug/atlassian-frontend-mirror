@@ -9,6 +9,7 @@ import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findTable } from '@atlaskit/editor-tables/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -24,7 +25,6 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import tablePlugin from '../../plugins/table-plugin';
 import { toggleTableLayout } from '../../plugins/table/commands';
 import { getPluginState } from '../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
@@ -32,6 +32,7 @@ import type {
   PermittedLayoutsDescriptor,
   TablePluginState,
 } from '../../plugins/table/types';
+import tablePlugin from '../../plugins/table-plugin';
 
 describe('table toolbar', () => {
   const tableOptions = {

@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 76.18.7
+
+### Patch Changes
+
+- [#42848](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42848) [`f2f8428f703`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2f8428f703) - Abandons feature flag lp-link-picker-focus-trap as it was not successfully rolled out. Will re-introduce as platform feature flag as/when necessary.
+- Updated dependencies
+
 ## 76.18.6
 
 ### Patch Changes

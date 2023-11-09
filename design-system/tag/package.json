@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tag",
-  "version": "11.6.1",
+  "version": "11.6.2",
   "description": "A tag labels UI objects for quick recognition and navigation.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,6 +25,9 @@
   "homepage": "https://atlassian.design/components/tag/",
   "atlassian": {
     "team": "Design System Team",
+    "productPushConsumption": [
+      "jira"
+    ],
     "releaseModel": "continuous",
     "website": {
       "name": "Tag",

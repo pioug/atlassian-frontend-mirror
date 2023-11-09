@@ -13,6 +13,7 @@ import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { getSelectionRect, selectRow } from '@atlaskit/editor-tables/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -33,11 +34,11 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { selectRows } from '@atlaskit/editor-test-helpers/table';
 
-import tablePlugin from '../../../plugins/table-plugin';
 import { hoverRows } from '../../../plugins/table/commands';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import TableFloatingControls from '../../../plugins/table/ui/TableFloatingControls';
 import { RowControls } from '../../../plugins/table/ui/TableFloatingControls/RowControls';
+import tablePlugin from '../../../plugins/table-plugin';
 
 describe('RowControls', () => {
   const createEditor = createProsemirrorEditorFactory();

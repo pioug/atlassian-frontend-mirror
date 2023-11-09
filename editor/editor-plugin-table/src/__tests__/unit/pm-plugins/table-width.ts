@@ -8,6 +8,7 @@ import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { undo } from '@atlaskit/editor-prosemirror/history';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -24,8 +25,8 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import tablePlugin from '../../../plugins/table-plugin';
 import { pluginKey as tablePluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
+import tablePlugin from '../../../plugins/table-plugin';
 
 const createDoc = (attrs: any) =>
   doc(

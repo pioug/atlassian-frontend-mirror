@@ -3,87 +3,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import { bind } from 'bind-event-listener';
 import invariant from 'tiny-invariant';
 
-import { easeInOut, mediumDurationMs } from '@atlaskit/motion';
-import {
-  draggable,
-  dropTargetForElements,
-  monitorForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
-import { scrollJustEnoughIntoView } from '@atlaskit/pragmatic-drag-and-drop/util/scroll-just-enough-into-view';
 import { Box, Flex, Inline, Stack, xcss } from '@atlaskit/primitives';
 
-const cardStyles = xcss({
-  height: 'size.400',
-  borderWidth: 'border.width',
-  borderColor: 'color.border.accent.purple',
-  borderStyle: 'solid',
-  backgroundColor: 'color.background.accent.purple.subtler',
-  borderRadius: 'border.radius',
-  transitionProperty: 'background-color, opacity',
-  transitionDuration: `${mediumDurationMs}ms`,
-  transitionTimingFunction: easeInOut,
-
-  display: 'flex',
-  alignItems: 'center',
-  padding: 'space.050',
-});
+import { Card } from './card';
 
 type TItem = { id: string };
 type TColumn = {
   id: string;
   items: TItem[];
 };
-
-type CardState = 'idle' | 'is-dragging' | 'is-over';
-
-const cardStateStyles: {
-  [Key in CardState]: ReturnType<typeof xcss> | undefined;
-} = {
-  idle: undefined,
-  'is-dragging': xcss({ opacity: 0.4 }),
-  'is-over': xcss({
-    backgroundColor: 'color.background.accent.purple.subtler.hovered',
-  }),
-};
-
-function Card({ item }: { item: TItem }) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [state, setState] = useState<CardState>('idle');
-
-  useEffect(() => {
-    const element = ref.current;
-    invariant(element);
-
-    return combine(
-      draggable({
-        element,
-        onGenerateDragPreview: ({ source }) => {
-          scrollJustEnoughIntoView({ element: source.element });
-        },
-        onDragStart: () => setState('is-dragging'),
-        onDrop: () => setState('idle'),
-      }),
-      dropTargetForElements({
-        element,
-        getIsSticky: () => true,
-        canDrop: ({ source }) => source.element !== element,
-        onDragStart: () => setState('is-over'),
-        onDragEnter: () => setState('is-over'),
-        onDragLeave: () => setState('idle'),
-        onDrop: () => setState('idle'),
-      }),
-    );
-  }, []);
-
-  return (
-    <Box
-      ref={ref}
-      xcss={[cardStyles, cardStateStyles[state]]}
-      testId={item.id}
-    />
-  );
-}
 
 const columnStyles = xcss({
   overflowY: 'auto',

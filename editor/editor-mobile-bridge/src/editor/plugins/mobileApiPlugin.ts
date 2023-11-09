@@ -12,14 +12,23 @@ import {
 } from '@atlaskit/editor-common/hooks';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { RulePlugin } from '@atlaskit/editor-plugin-rule';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { BasePlugin } from '@atlaskit/editor-plugin-base';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { EmojiPlugin } from '@atlaskit/editor-plugin-emoji';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { useHyperlinkListener } from './useHyperlinkListener';
 import { useTextFormattingListener } from './useTextFormattingListener';
@@ -28,12 +37,18 @@ import { useQuickInsertListener } from './useQuickInsertListener';
 import { useBlockTypeListener } from './useBlockTypeListener';
 import { useTextColorListener } from './useTextColorListener';
 import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { CodeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { StatusPlugin } from '@atlaskit/editor-plugin-status';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { PanelPlugin } from '@atlaskit/editor-plugin-panel';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { TextColorPlugin } from '@atlaskit/editor-plugin-text-color';
 import type { DatePlugin } from '@atlaskit/editor-plugin-date';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type EditorConfiguration from '../editor-configuration';
 import { toNativeBridge } from '../web-to-native';

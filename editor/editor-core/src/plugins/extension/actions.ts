@@ -26,13 +26,13 @@ export { transformSliceToRemoveOpenBodiedExtension } from '@atlaskit/editor-comm
 
 import type { Command, CommandDispatch } from '../../types';
 import type EditorActions from '../../actions';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { addAnalytics } from '../analytics';
 import type {
   ExtensionType,
   SelectionJson,
@@ -65,6 +65,7 @@ export const buildExtensionNode = <S extends Schema>(
 };
 
 export const performNodeUpdate =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (
     type: 'inlineExtension' | 'extension' | 'bodiedExtension',
     newAttrs: object,
@@ -142,7 +143,7 @@ export const performNodeUpdate =
     // Only scroll if we have anything to update, best to avoid surprise scroll
     if (dispatch && tr.docChanged) {
       const { extensionType, extensionKey, layout, localId } = newNode.attrs;
-      addAnalytics(state, tr, {
+      editorAnalyticsAPI?.attachAnalyticsEvent({
         action,
         actionSubject: ACTION_SUBJECT.EXTENSION,
         actionSubjectId: newNode.type.name as ExtensionType,
@@ -156,13 +157,14 @@ export const performNodeUpdate =
           selection: tr.selection.toJSON() as SelectionJson,
           targetSelectionSource,
         },
-      });
+      })(tr);
       dispatch(shouldScrollIntoView ? tr.scrollIntoView() : tr);
     }
     return true;
   };
 
-export const updateExtensionParams =
+const updateExtensionParams =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (
     updateExtension: UpdateExtension<object>,
     node: { node: PmNode; pos: number },
@@ -192,7 +194,7 @@ export const updateExtensionParams =
           },
         };
 
-        return performNodeUpdate(
+        return performNodeUpdate(editorAnalyticsAPI)(
           type.name as 'inlineExtension' | 'extension' | 'bodiedExtension',
           newAttrs,
           content,
@@ -209,17 +211,24 @@ export const editSelectedExtension = (editorActions: EditorActions) => {
   const { updateExtension, applyChangeToContextPanel } = getPluginState(
     editorView.state,
   );
-  return editExtension(null, applyChangeToContextPanel, updateExtension)(
-    editorView.state,
-    editorView.dispatch,
-    editorView,
-  );
+  // The analytics API cannot be accessed in this case because
+  // we do not have access to the plugin injection API. Rather
+  // than change the way this works - we just won't use analytics
+  // here for now.
+  const editorAnalyticsAPI = undefined;
+  return editExtension(
+    null,
+    applyChangeToContextPanel,
+    editorAnalyticsAPI,
+    updateExtension,
+  )(editorView.state, editorView.dispatch, editorView);
 };
 
 export const editExtension =
   (
     macroProvider: MacroProvider | null | undefined,
     applyChangeToContextPanel: ApplyChangeHandler | undefined,
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
     updateExtension?: Promise<UpdateExtension<object> | void>,
   ): Command =>
   (state, dispatch, view): boolean => {
@@ -236,6 +245,7 @@ export const editExtension =
     const editInLegacyMacroBrowser = getEditInLegacyMacroBrowser({
       view,
       macroProvider: macroProvider || undefined,
+      editorAnalyticsAPI,
     });
 
     if (updateExtension) {
@@ -245,13 +255,14 @@ export const editExtension =
             editorView: view,
             editInLegacyMacroBrowser,
             applyChange: applyChangeToContextPanel,
+            editorAnalyticsAPI,
           });
 
-          updateExtensionParams(updateMethod, nodeWithPos, actions)(
-            state,
-            dispatch,
-            view,
-          );
+          updateExtensionParams(editorAnalyticsAPI)(
+            updateMethod,
+            nodeWithPos,
+            actions,
+          )(state, dispatch, view);
 
           return;
         }

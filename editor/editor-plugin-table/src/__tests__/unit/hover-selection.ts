@@ -12,6 +12,7 @@ import {
   getCellsInRow,
   getCellsInTable,
 } from '@atlaskit/editor-tables/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -30,7 +31,6 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { selectColumns } from '@atlaskit/editor-test-helpers/table';
 
-import tablePlugin from '../../plugins/table-plugin';
 import {
   clearHoverSelection,
   hoverColumns,
@@ -41,6 +41,7 @@ import { getDecorations } from '../../plugins/table/pm-plugins/decorations/plugi
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import type { TablePluginState } from '../../plugins/table/types';
 import { TableDecorations } from '../../plugins/table/types';
+import tablePlugin from '../../plugins/table-plugin';
 
 describe('table hover selection plugin', () => {
   const createEditor = createProsemirrorEditorFactory();

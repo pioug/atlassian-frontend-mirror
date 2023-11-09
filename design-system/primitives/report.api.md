@@ -21,6 +21,7 @@ import type * as CSS_2 from 'csstype';
 import type { CSSProperties } from 'react';
 import type { CSSPropertiesWithMultiValues } from '@emotion/serialize';
 import { ElementType } from 'react';
+import { FC } from 'react';
 import { ForwardRefExoticComponent } from 'react';
 import { jsx } from '@emotion/react';
 import { MemoExoticComponent } from 'react';
@@ -83,6 +84,12 @@ type AllMedia =
 
 // @public (undocumented)
 type AllowedElements = Exclude<keyof JSX.IntrinsicElements, SVGElements>;
+
+// @public (undocumented)
+const asAllowlist: readonly ['span', 'p', 'strong', 'em'];
+
+// @public (undocumented)
+type AsElement = (typeof asAllowlist)[number];
 
 // @public (undocumented)
 type AtRulesWithoutMedia = Exclude<CSS_2.AtRules, '@media'>;
@@ -336,6 +343,16 @@ export type BleedProps = {
   inline?: Space_2;
   block?: Space_2;
 } & BasePrimitiveProps;
+
+// @public (undocumented)
+type BodyText = keyof typeof bodyTextMap;
+
+// @public (undocumented)
+const bodyTextMap: {
+  body: 'var(--ds-font-body)';
+  'body.large': 'var(--ds-font-body-large)';
+  'body.small': 'var(--ds-font-body-small)';
+};
 
 // @public (undocumented)
 export type BorderColor = keyof typeof borderColorMap;
@@ -1040,6 +1057,20 @@ type SVGElements =
   | 'use'
   | 'view';
 
+// @internal
+const Text_2: FC<TextProps>;
+export { Text_2 as Text };
+
+// @public (undocumented)
+type TextAlign = keyof typeof textAlignMap;
+
+// @public (undocumented)
+const textAlignMap: {
+  center: SerializedStyles_2;
+  end: SerializedStyles_2;
+  start: SerializedStyles_2;
+};
+
 // @public (undocumented)
 export type TextColor = keyof typeof textColorMap;
 
@@ -1082,6 +1113,17 @@ const textColorMap: {
   readonly 'color.link.pressed': 'var(--ds-link-pressed)';
   readonly 'color.link.visited': 'var(--ds-link-visited)';
 };
+
+// @public (undocumented)
+export interface TextProps extends BasePrimitiveProps {
+  as?: AsElement;
+  children: ReactNode;
+  color?: TextColor;
+  id?: string;
+  shouldTruncate?: boolean;
+  textAlign?: TextAlign;
+  variant?: Variant;
+}
 
 // @public (undocumented)
 type TokenisedProps = {
@@ -1143,6 +1185,15 @@ type TokenisedProps = {
   top?: AutoComplete<Space>;
   width?: AutoComplete<Dimension>;
   zIndex?: Layer;
+};
+
+// @public (undocumented)
+type UiText = keyof typeof uiTextMap;
+
+// @public (undocumented)
+const uiTextMap: {
+  ui: 'var(--ds-font-ui)';
+  'ui.small': 'var(--ds-font-ui-small)';
 };
 
 // @public (undocumented)
@@ -1214,6 +1265,9 @@ export const UNSAFE_media: {
     readonly xl: '@media (min-width: 110rem)';
   };
 };
+
+// @public (undocumented)
+type Variant = BodyText | UiText;
 
 // @public (undocumented)
 type Wrap = keyof typeof flexWrapMap;

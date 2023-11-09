@@ -25,15 +25,15 @@ import {
   editorAnalyticsChannel,
   EVENT_TYPE,
 } from '../../analytics';
+import { default as Popup } from '../../ui/Popup';
+import type { Position as PopupPosition } from '../../ui/Popup/utils';
+import { default as withOuterListeners } from '../../ui/with-outer-listeners';
+import type { PaletteColor, PaletteTooltipMessages } from '../../ui-color';
 import {
   ColorPalette,
   DEFAULT_BORDER_COLOR,
   getSelectedRowAndColumnFromPalette,
 } from '../../ui-color';
-import type { PaletteColor, PaletteTooltipMessages } from '../../ui-color';
-import { default as Popup } from '../../ui/Popup';
-import type { Position as PopupPosition } from '../../ui/Popup/utils';
-import { default as withOuterListeners } from '../../ui/with-outer-listeners';
 import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
 import { ArrowKeyNavigationType } from '../ArrowKeyNavigationProvider/types';
 

@@ -1,8 +1,11 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 
 import { Pulse } from '@atlaskit/linking-common';
 
-import { markLocalStorageKeyDiscovered } from '../local-storage';
+import {
+  isLocalStorageKeyDiscovered,
+  markLocalStorageKeyDiscovered,
+} from '../local-storage';
 
 export interface PulseProps {
   /**
@@ -20,11 +23,6 @@ export interface PulseProps {
   localStorageKeyExpirationInMs?: number;
 
   /**
-   * The time in ms since the Pulse has started after which the key will be stored in local storage.
-   */
-  timeToDiscoverInMs?: number;
-
-  /**
    * And indicator that the feature was discovered externally and the pulsation needs to stop.
    */
   isDiscovered?: boolean;
@@ -34,29 +32,25 @@ export const DiscoveryPulse = ({
   children,
   localStorageKey,
   isDiscovered,
-  timeToDiscoverInMs,
   localStorageKeyExpirationInMs,
 }: PulseProps) => {
+  const discovered =
+    isDiscovered || isLocalStorageKeyDiscovered(localStorageKey);
+
   const onDiscovery = useCallback(() => {
-    markLocalStorageKeyDiscovered(
-      localStorageKey,
-      localStorageKeyExpirationInMs,
-    );
-  }, [localStorageKey, localStorageKeyExpirationInMs]);
-
-  useEffect(() => {
-    if (timeToDiscoverInMs) {
-      const timeoutUntilDiscovery = setTimeout(() => {
-        onDiscovery();
-      }, timeToDiscoverInMs);
-
-      return () => clearTimeout(timeoutUntilDiscovery);
+    if (!discovered) {
+      markLocalStorageKeyDiscovered(
+        localStorageKey,
+        localStorageKeyExpirationInMs,
+      );
     }
+  }, [discovered, localStorageKey, localStorageKeyExpirationInMs]);
 
-    onDiscovery();
-  }, [isDiscovered, localStorageKey, onDiscovery, timeToDiscoverInMs]);
-
-  return <Pulse isDiscovered={isDiscovered}>{children}</Pulse>;
+  return (
+    <Pulse onAnimationIteration={onDiscovery} isDiscovered={discovered}>
+      {children}
+    </Pulse>
+  );
 };
 
 export default Pulse;

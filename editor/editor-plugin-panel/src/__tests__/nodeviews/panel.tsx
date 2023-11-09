@@ -9,7 +9,9 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { panelPlugin } from '@atlaskit/editor-plugin-panel';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {

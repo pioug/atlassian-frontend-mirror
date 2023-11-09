@@ -240,10 +240,9 @@ const PaletteBlock = ({
                 }}
               >
                 <Box
-                  xcss={xcss({
-                    //@ts-ignore
+                  style={{
                     color: textColor,
-                  })}
+                  }}
                 >
                   Reset
                 </Box>

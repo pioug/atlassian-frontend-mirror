@@ -32,13 +32,13 @@ import {
   selectRows,
 } from '@atlaskit/editor-test-helpers/table';
 
-import tablePlugin from '../../../plugins/table-plugin';
 import { setEditorFocus, setTableRef } from '../../../plugins/table/commands';
 import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import type { TablePluginState } from '../../../plugins/table/types';
 import type { Props as FloatingInsertButtonProps } from '../../../plugins/table/ui/FloatingInsertButton';
 import { FloatingInsertButton } from '../../../plugins/table/ui/FloatingInsertButton';
+import tablePlugin from '../../../plugins/table-plugin';
 
 jest.mock('@atlaskit/editor-prosemirror/utils', () => {
   // Unblock prosemirror bump:

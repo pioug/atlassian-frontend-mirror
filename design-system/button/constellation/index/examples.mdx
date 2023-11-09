@@ -2,26 +2,26 @@
 order: 0
 ---
 
-import ButtonDefault from '../../examples/constellation/button-default';
-import ButtonPrimary from '../../examples/constellation/button-primary';
-import ButtonSubtle from '../../examples/constellation/button-subtle';
-import ButtonLink from '../../examples/constellation/button-link';
-import ButtonSubtleLink from '../../examples/constellation/button-subtle-link';
-import ButtonWarning from '../../examples/constellation/button-warning';
-import ButtonDanger from '../../examples/constellation/button-danger';
-import ButtonDisabled from '../../examples/constellation/button-disabled';
-import ButtonSelected from '../../examples/constellation/button-selected';
-import ButtonLoading from '../../examples/constellation/button-loading';
-import ButtonPadding from '../../examples/constellation/button-padding';
-import ButtonFullWidth from '../../examples/constellation/button-full-width';
-import ButtonWithIconBefore from '../../examples/constellation/button-with-icon-before';
-import ButtonWithIconAfter from '../../examples/constellation/button-with-icon-after';
+import LegacyButtonDefault from '../../examples/constellation/legacy-button/button-default';
+import LegacyButtonPrimary from '../../examples/constellation/legacy-button/button-primary';
+import LegacyButtonSubtle from '../../examples/constellation/legacy-button/button-subtle';
+import LegacyButtonLink from '../../examples/constellation/legacy-button/button-link';
+import LegacyButtonSubtleLink from '../../examples/constellation/legacy-button/button-subtle-link';
+import LegacyButtonWarning from '../../examples/constellation/legacy-button/button-warning';
+import LegacyButtonDanger from '../../examples/constellation/legacy-button/button-danger';
+import LegacyButtonDisabled from '../../examples/constellation/legacy-button/button-disabled';
+import LegacyButtonSelected from '../../examples/constellation/legacy-button/button-selected';
+import LegacyButtonLoading from '../../examples/constellation/legacy-button/button-loading';
+import LegacyButtonPadding from '../../examples/constellation/legacy-button/button-padding';
+import LegacyButtonFullWidth from '../../examples/constellation/legacy-button/button-full-width';
+import LegacyButtonWithIconBefore from '../../examples/constellation/legacy-button/button-with-icon-before';
+import LegacyButtonWithIconAfter from '../../examples/constellation/legacy-button/button-with-icon-after';
 
 ## Default
 
 The default form of a button, used for most cases. They are not impactful enough to represent the primary action in a container.
 
-<Example Component={ButtonDefault} packageName="@atlaskit/button" />
+<Example Component={LegacyButtonDefault} packageName="@atlaskit/button" />
 
 <!-- WARNING: A pollinator test visits this page and searches for this title to validate the page loaded correctly -->
 <!-- https://pollinator.prod.atl-paas.net/checks/f7425790-6c31-4368-9911-3facd24cb51f -->
@@ -34,37 +34,37 @@ The default form of a button, used for most cases. They are not impactful enough
 Use a `primary` button to call attention to an action on a [form](/patterns/forms) or to highlight the strongest call to action on a page.
 Primary buttons should only appear once per container (not including the application header or in a [modal dialog](/components/modal-dialog)). Not every screen requires a primary button.
 
-<Example Component={ButtonPrimary} packageName="@atlaskit/button" />
+<Example Component={LegacyButtonPrimary} packageName="@atlaskit/button" />
 
 ### Subtle
 
 Use a `subtle` button with a `primary` button for secondary actions, such as “Cancel".
 
-<Example Component={ButtonSubtle} packageName="@atlaskit/button" />
+<Example Component={LegacyButtonSubtle} packageName="@atlaskit/button" />
 
 ### Link
 
 Use a `link` button to navigate to another page. These should open in the same window unless information may be lost (for example, when someone is filling out a form), or when the destination is an external site (for example, a knowledge base article).
 
-<Example Component={ButtonLink} packageName="@atlaskit/button" />
+<Example Component={LegacyButtonLink} packageName="@atlaskit/button" />
 
 ### Subtle link
 
 Similar to a `subtle` button, but behaves like a `link` button. Use a `subtle link` button to avoid overwhelming the page with blue links.
 
-<Example Component={ButtonSubtleLink} packageName="@atlaskit/button" />
+<Example Component={LegacyButtonSubtleLink} packageName="@atlaskit/button" />
 
 ### Warning
 
 A `warning` button appears before we request the user to take action, usually in anticipation of a significant change. These are found mostly in confirmation modals.
 
-<Example Component={ButtonWarning} packageName="@atlaskit/button" />
+<Example Component={LegacyButtonWarning} packageName="@atlaskit/button" />
 
 ### Danger
 
 The `danger` button appears as a final confirmation for a destructive action such as deleting. These are found mostly in confirmation modals.
 
-<Example Component={ButtonDanger} packageName="@atlaskit/button" />
+<Example Component={LegacyButtonDanger} packageName="@atlaskit/button" />
 
 ## States
 
@@ -74,13 +74,13 @@ Set `isDisabled` to disable a button that isn’t usable. Disabled buttons can c
 
 You should never put a tooltip on a disabled button. For more information see our [usage guidelines](/components/button/usage#do-not-put-tooltips-on-disabled-buttons).
 
-<Example Component={ButtonDisabled} packageName="@atlaskit/button" />
+<Example Component={LegacyButtonDisabled} packageName="@atlaskit/button" />
 
 ### Selected
 
 Set `isSelected` to indicate the button is selected.
 
-<Example Component={ButtonSelected} packageName="@atlaskit/button" />
+<Example Component={LegacyButtonSelected} packageName="@atlaskit/button" />
 
 ### Loading
 
@@ -88,19 +88,19 @@ Set `isLoading` to indicate the button is loading. The button text is hidden and
 
 To assist screen readers, it will also set the `aria-busy` attribute based on the value of `isLoading`. For this reason, it's important that elements containing `LoadingButton`'s have an `aria-live` attribute (e.g. `aria-live="polite"`).
 
-<Example Component={ButtonLoading} packageName="@atlaskit/button" />
+<Example Component={LegacyButtonLoading} packageName="@atlaskit/button" />
 
 ## Spacing
 
 Buttons can have various spacing. Default spacing is used for most use cases, compact for tables and none for breadcrumbs.
 
-<Example Component={ButtonPadding} packageName="@atlaskit/button" />
+<Example Component={LegacyButtonPadding} packageName="@atlaskit/button" />
 
 ## Full width
 
 Buttons can be expanded to full width to fill its parent container.
 
-<Example Component={ButtonFullWidth} packageName="@atlaskit/button" />
+<Example Component={LegacyButtonFullWidth} packageName="@atlaskit/button" />
 
 ## Button with icon
 
@@ -110,13 +110,16 @@ Buttons may include an icon before or after the text.
 
 Display an icon before the text.
 
-<Example Component={ButtonWithIconBefore} packageName="@atlaskit/button" />
+<Example
+  Component={LegacyButtonWithIconBefore}
+  packageName="@atlaskit/button"
+/>
 
 ### Icon after
 
 Display an icon after the text.
 
-<Example Component={ButtonWithIconAfter} packageName="@atlaskit/button" />
+<Example Component={LegacyButtonWithIconAfter} packageName="@atlaskit/button" />
 
 ## Routing
 

@@ -34,9 +34,9 @@ import {
 test.describe('paste', () => {
   test.describe('handlePastingBreakoutMarks', () => {
     test.use({
+      adf: JSON.stringify(emptyDocument),
       editorProps: {
         appearance: 'full-page',
-        defaultValue: JSON.stringify(emptyDocument),
         allowTables: {
           advanced: true,
         },
@@ -471,7 +471,6 @@ test.describe('paste', () => {
       await editor.keyboard.insertText('hello have a link ');
       await editor.simulatePasteEvent({
         pasteAs: 'text/html',
-        text: 'https://www.atlassian.com',
         html: 'https://www.atlassian.com',
       });
       await expect(editor).toHaveDocument(

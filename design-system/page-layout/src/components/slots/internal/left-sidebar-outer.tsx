@@ -75,9 +75,9 @@ const mobileFlyoutStyles = getBooleanFF(
 
 const outerStyles = css({
   width: LEFT_SIDEBAR_WIDTH,
-  marginLeft: token('space.0', '0px'),
   position: 'relative',
   zIndex: 1,
+  marginInlineStart: token('space.0', '0px'),
   transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
   ':hover': {
     '--ds--resize-button--opacity': 1,
@@ -158,6 +158,9 @@ const LeftSidebarOuter = (
           className={className}
           data-testid={testId}
           id={id}
+          // We are adding additional functionality for hover, so this should
+          // not have associated key events.
+          // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
           onMouseOver={onMouseOver}
           onMouseLeave={onMouseLeave}
           onClick={onClick}

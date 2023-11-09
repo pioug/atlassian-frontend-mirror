@@ -16,6 +16,7 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { CardAppearance } from '@atlaskit/smart-card';
 
 /**

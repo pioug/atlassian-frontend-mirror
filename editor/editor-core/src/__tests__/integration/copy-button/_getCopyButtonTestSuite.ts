@@ -7,6 +7,7 @@ import {
   getDynamicBrowserTestCase,
   BrowserTestCase,
 } from '@atlaskit/webdriver-runner/runner';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

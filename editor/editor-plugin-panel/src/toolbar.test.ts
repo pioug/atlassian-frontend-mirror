@@ -22,6 +22,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { panelPlugin } from '@atlaskit/editor-plugin-panel';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -30,6 +31,7 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';

@@ -1,5 +1,6 @@
 import { validateAttrs } from '../../../validator';
-import { AttributesSpec } from '@atlaskit/adf-utils/validatorTypes';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import type { AttributesSpec } from '@atlaskit/adf-utils/validatorTypes';
 
 jest.mock('../../rules', () => ({
   validatorFnMap: {

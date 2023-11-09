@@ -13,14 +13,14 @@ import { css, jsx } from '@emotion/react';
 import memoizeOne from 'memoize-one';
 import invariant from 'tiny-invariant';
 
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { triggerPostMoveFlash } from '@atlaskit/pragmatic-drag-and-drop-flourish/trigger-post-move-flash';
 import {
   Instruction,
   ItemMode,
 } from '@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item';
 import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { token } from '@atlaskit/tokens';
 
 import {

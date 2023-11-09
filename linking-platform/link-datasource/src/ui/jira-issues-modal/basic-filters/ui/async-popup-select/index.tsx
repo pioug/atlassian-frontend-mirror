@@ -12,14 +12,13 @@ import {
 
 import { useFilterOptions } from '../../hooks/useFilterOptions';
 import { BasicFilterFieldType, SelectOption } from '../../types';
+import CustomMenuList from '../menu-list';
 
 import CustomControl from './control';
 import CustomDropdownIndicator from './dropdownIndicator';
 import PopupFooter from './footer';
 import formatOptionLabel from './formatOptionLabel';
-import CustomDropdownLoadingMessage from './loadingMessage';
 import { asyncPopupSelectMessages } from './messages';
-import CustomNoOptionsMessage from './noOptionsMessage';
 import PopupTrigger from './trigger';
 
 export interface AsyncPopupSelectProps {
@@ -84,11 +83,14 @@ const AsyncPopupSelect = ({
     onSelectionChange(newValue as SelectOption[]);
   };
 
-  const handleOpenPopup = useCallback(async () => {
-    if (status === 'empty') {
-      await fetchFilterOptions();
+  const handleOpenPopup = useCallback(() => {
+    if (status === 'empty' || status === 'rejected') {
+      // if user searches and gets status as rejected, we want the dropdown to try load the request with searchString when the user reopens the dropdown
+      fetchFilterOptions({
+        searchString: searchTerm,
+      });
     }
-  }, [fetchFilterOptions, status]);
+  }, [fetchFilterOptions, searchTerm, status]);
 
   useEffect(() => {
     if (status === 'resolved') {
@@ -97,10 +99,13 @@ const AsyncPopupSelect = ({
     }
   }, [status]);
 
+  const filterOptionsLength = filterOptions.length;
+  const isError = status === 'rejected';
   const isLoading = status === 'loading' || status === 'empty';
-  const shouldShowFooter = status === 'resolved' && filterOptions.length > 0;
+  const isEmpty = status === 'resolved' && filterOptionsLength === 0;
 
-  const options = isLoading ? [] : filterOptions; // if not set to [], then on loading, no loading UI will be shown
+  const shouldShowFooter = status === 'resolved' && filterOptionsLength > 0;
+  const options = isLoading || isError ? [] : filterOptions; // if not set to [], for eg: on loading, no loading UI will be shown
 
   return (
     <PopupSelect<SelectOption, true>
@@ -120,13 +125,19 @@ const AsyncPopupSelect = ({
       closeMenuOnSelect={false}
       hideSelectedOptions={false}
       isLoading={isLoading}
-      loadingMessage={CustomDropdownLoadingMessage}
-      noOptionsMessage={CustomNoOptionsMessage}
       placeholder={formatMessage(asyncPopupSelectMessages.selectPlaceholder)}
       components={{
         /* @ts-expect-error - This component has stricter OptionType, hence a temp setup untill its made generic */
         Option: CheckboxOption,
         Control: CustomControl,
+        MenuList: props => (
+          <CustomMenuList
+            {...props}
+            isError={isError}
+            isEmpty={isEmpty}
+            isLoading={isLoading}
+          />
+        ),
         DropdownIndicator: CustomDropdownIndicator,
         LoadingIndicator: undefined, // disables the three ... indicator in the searchbox when picker is loading
         IndicatorSeparator: undefined, // disables the | separator between search input and icon
@@ -149,7 +160,7 @@ const AsyncPopupSelect = ({
       footer={
         shouldShowFooter && (
           <PopupFooter
-            currentDisplayCount={filterOptions.length}
+            currentDisplayCount={filterOptionsLength}
             totalCount={totalCount}
           />
         )

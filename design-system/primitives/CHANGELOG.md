@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.10.0
+
+### Minor Changes
+
+- [#42931](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42931) [`5778f757885`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5778f757885) - Added export for Text component. This component is currently in closed beta and is not intended for general use at this stage.
+
 ## 1.9.0
 
 ### Minor Changes

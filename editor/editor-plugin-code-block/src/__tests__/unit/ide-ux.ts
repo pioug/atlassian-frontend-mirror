@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
@@ -20,6 +21,7 @@ import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { AllSelection } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {

@@ -257,7 +257,7 @@ describe('extension', () => {
           doc(bodiedExtension(bodiedExtensionAttrs)(paragraph('te{<>}xt'))),
         );
         expect(
-          editExtension(null, undefined)(
+          editExtension(null, undefined, undefined)(
             editorView.state,
             editorView.dispatch,
             editorView,
@@ -277,7 +277,7 @@ describe('extension', () => {
           );
           const provider = await macroProviderPromise;
           expect(
-            editExtension(provider, undefined)(
+            editExtension(provider, undefined, undefined)(
               editorView.state,
               editorView.dispatch,
               editorView,
@@ -289,7 +289,7 @@ describe('extension', () => {
           const { editorView } = editor(doc(paragraph('te{<>}xt')));
           const provider = await macroProviderPromise;
           expect(
-            editExtension(provider, undefined)(
+            editExtension(provider, undefined, undefined)(
               editorView.state,
               editorView.dispatch,
               editorView,
@@ -302,7 +302,7 @@ describe('extension', () => {
             doc(bodiedExtension(bodiedExtensionAttrs)(paragraph('{<>}'))),
           );
           const provider = await macroProviderPromise;
-          editExtension(provider, undefined)(
+          editExtension(provider, undefined, undefined)(
             editorView.state,
             editorView.dispatch,
             editorView,
@@ -338,7 +338,7 @@ describe('extension', () => {
             new MockMacroProvider(inlineExtensionData[1]),
           );
           const provider = await macroProviderPromise;
-          editExtension(provider, undefined)(
+          editExtension(provider, undefined, undefined)(
             editorView.state,
             editorView.dispatch,
             editorView,
@@ -377,7 +377,7 @@ describe('extension', () => {
               new MockMacroProvider(inlineExtensionData[1]),
             );
             const provider = await macroProviderPromise;
-            editExtension(provider, undefined)(
+            editExtension(provider, undefined, undefined)(
               editorView.state,
               editorView.dispatch,
               editorView,
@@ -410,7 +410,7 @@ describe('extension', () => {
 
           const provider = await macroProviderPromise;
           expect(
-            editExtension(provider, undefined)(
+            editExtension(provider, undefined, undefined)(
               editorView.state,
               editorView.dispatch,
               editorView,
@@ -470,11 +470,12 @@ describe('extension', () => {
 
         it('should return true if valid extensionHandler is provided and cursor is inside extension node', async () => {
           expect(
-            editExtension(null, undefined, updateHandlerPromise)(
-              editorView.state,
-              editorView.dispatch,
-              editorView,
-            ),
+            editExtension(
+              null,
+              undefined,
+              undefined,
+              updateHandlerPromise,
+            )(editorView.state, editorView.dispatch, editorView),
           ).toBe(true);
           await flushPromises();
 
@@ -490,11 +491,12 @@ describe('extension', () => {
           const dispatchSpy = jest.spyOn(editorView, 'dispatch');
 
           expect(
-            editExtension(null, undefined, updateHandlerPromise)(
-              editorView.state,
-              editorView.dispatch,
-              editorView,
-            ),
+            editExtension(
+              null,
+              undefined,
+              undefined,
+              updateHandlerPromise,
+            )(editorView.state, editorView.dispatch, editorView),
           ).toBe(true);
           await flushPromises();
 
@@ -543,11 +545,12 @@ describe('extension', () => {
             Promise.resolve(newMacroParams),
           );
 
-          editExtension(provider, undefined, updateMethodResolvingMacroParams)(
-            editorView.state,
-            editorView.dispatch,
-            editorView,
-          );
+          editExtension(
+            provider,
+            undefined,
+            undefined,
+            updateMethodResolvingMacroParams,
+          )(editorView.state, editorView.dispatch, editorView);
 
           await flushPromises();
 
@@ -566,11 +569,12 @@ describe('extension', () => {
 
           const updateMethodResolvingUndefined = Promise.resolve(undefined);
 
-          editExtension(provider, undefined, updateMethodResolvingUndefined)(
-            editorView.state,
-            editorView.dispatch,
-            editorView,
-          );
+          editExtension(
+            provider,
+            undefined,
+            undefined,
+            updateMethodResolvingUndefined,
+          )(editorView.state, editorView.dispatch, editorView);
 
           await flushPromises();
 
@@ -589,11 +593,12 @@ describe('extension', () => {
 
           const updateMethodMissing = undefined;
 
-          editExtension(provider, undefined, updateMethodMissing)(
-            editorView.state,
-            editorView.dispatch,
-            editorView,
-          );
+          editExtension(
+            provider,
+            undefined,
+            undefined,
+            updateMethodMissing,
+          )(editorView.state, editorView.dispatch, editorView);
 
           await flushPromises();
 
@@ -812,11 +817,12 @@ describe('extension', () => {
         ),
       );
 
-      editExtension(null, undefined, Promise.resolve(extensionUpdater))(
-        editorView.state,
-        editorView.dispatch,
-        editorView,
-      );
+      editExtension(
+        null,
+        undefined,
+        undefined,
+        Promise.resolve(extensionUpdater),
+      )(editorView.state, editorView.dispatch, editorView);
 
       await flushPromises();
 

@@ -1,10 +1,10 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-import Story16Icon from '@atlaskit/icon-object/glyph/story/16';
-import EmojiAddIcon from '@atlaskit/icon/glyph/emoji-add';
 import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
 import EmojiSymbolsIcon from '@atlaskit/icon/glyph/emoji/symbols';
+import EmojiAddIcon from '@atlaskit/icon/glyph/emoji-add';
+import Story16Icon from '@atlaskit/icon-object/glyph/story/16';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
 

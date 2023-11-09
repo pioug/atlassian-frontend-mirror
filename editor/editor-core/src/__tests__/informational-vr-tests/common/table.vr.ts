@@ -1,4 +1,5 @@
 import { snapshotInformational } from '@af/visual-regression';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Page, Locator } from '@playwright/test';
 import {
   EditorNodeContainerModel,

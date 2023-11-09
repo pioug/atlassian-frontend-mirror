@@ -24,6 +24,7 @@ jest.mock('@atlaskit/editor-common/ui', () => ({
 }));
 
 import { render } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -37,6 +38,10 @@ import { InlineCardWithAwareness } from '../../../nodeviews/inlineCardWithAwaren
 import { createCardContext } from '../_helpers';
 
 import { TestErrorBoundary } from './_ErrorBoundary';
+
+const TestWrapper = ({ children }: { children: React.ReactNode }) => (
+  <IntlProvider locale="en">{children}</IntlProvider>
+);
 
 describe('inlineCard', () => {
   let mockEditorView: EditorView;
@@ -89,6 +94,7 @@ describe('inlineCard', () => {
             getPos={() => 0}
             cardContext={createCardContext()}
           />,
+          { wrapper: TestWrapper },
         );
         const cardElement = getByTestId('mockSmartCard');
         expect(cardElement).toBeInTheDocument();
@@ -113,6 +119,7 @@ describe('inlineCard', () => {
               cardContext={createCardContext()}
               useAlternativePreloader={true}
             />,
+            { wrapper: TestWrapper },
           );
 
           const cardElement = getByTestId('mockSmartCard');
@@ -138,6 +145,7 @@ describe('inlineCard', () => {
               cardContext={createCardContext()}
               useAlternativePreloader={false}
             />,
+            { wrapper: TestWrapper },
           );
           const cardElement = getByTestId('mockSmartCard');
           expect(cardElement).toBeInTheDocument();
@@ -166,6 +174,7 @@ describe('inlineCard', () => {
             getPos={() => 0}
             cardContext={createCardContext()}
           />,
+          { wrapper: TestWrapper },
         );
         const cardElement = getByTestId('mockSmartCard');
         expect(cardElement).toBeInTheDocument();
@@ -189,6 +198,7 @@ describe('inlineCard', () => {
             getPos={() => 0}
             cardContext={createCardContext()}
           />,
+          { wrapper: TestWrapper },
         );
 
         expect(mockRafSchedule).toHaveBeenCalledTimes(1);
@@ -223,6 +233,7 @@ describe('inlineCard', () => {
             getPos={() => 0}
             cardContext={createCardContext()}
           />,
+          { wrapper: TestWrapper },
         );
 
         expect(mockRafSchedule).toHaveBeenCalledTimes(1);
@@ -248,6 +259,7 @@ describe('inlineCard', () => {
             view={mockEditorView}
             getPos={() => 0}
           />,
+          { wrapper: TestWrapper },
         );
 
         const cardElement = queryByTestId('mockSmartCard');
@@ -266,6 +278,7 @@ describe('inlineCard', () => {
             view={mockEditorView}
             getPos={() => 0}
           />,
+          { wrapper: TestWrapper },
         );
 
         const cardElement = getByTestId('mockSmartCard');
@@ -296,6 +309,7 @@ describe('inlineCard', () => {
                 cardContext={createCardContext()}
               />
             </TestErrorBoundary>,
+            { wrapper: TestWrapper },
           );
 
           if (err) {

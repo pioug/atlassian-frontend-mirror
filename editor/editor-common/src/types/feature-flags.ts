@@ -255,17 +255,6 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Enables focus trap for the linking platform link picker
-   *
-   * @see https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3158246501/PP+Link+Picker+-+Standalone
-   * @see https://product-fabric.atlassian.net/browse/EDM-2577
-   * @see https://product-fabric.atlassian.net/browse/EDM-4919
-   * @default false
-   */
-  lpLinkPickerFocusTrap?: boolean;
-
-  /**
-   * @description
    * Show link settings button in the Floating toolbar
    *
    * @see https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3199172609/POP+Some+users+need+to+work+with+URLs+to+get+their+job+done

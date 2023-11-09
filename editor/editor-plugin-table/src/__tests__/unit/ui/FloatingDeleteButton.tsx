@@ -20,13 +20,13 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { selectColumns, selectRows } from '@atlaskit/editor-test-helpers/table';
 
-import tablePlugin from '../../../plugins/table-plugin';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import type { TablePluginState } from '../../../plugins/table/types';
 import { TableCssClassName } from '../../../plugins/table/types';
 import type { Props as FloatingDeleteButtonProps } from '../../../plugins/table/ui/FloatingDeleteButton';
 import FloatingDeleteButton from '../../../plugins/table/ui/FloatingDeleteButton';
 import * as tableColumnControlsUtils from '../../../plugins/table/utils/column-controls';
+import tablePlugin from '../../../plugins/table-plugin';
 
 describe('Floating Delete Button', () => {
   const createEditor = createEditorFactory<TablePluginState>();

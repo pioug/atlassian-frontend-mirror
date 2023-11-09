@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import {
   areSameItems,

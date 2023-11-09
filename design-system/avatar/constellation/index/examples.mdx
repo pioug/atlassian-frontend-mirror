@@ -23,7 +23,7 @@ import AvatarLocked from '../../examples/constellation/avatar-status-locked';
 
 ## Default
 
-A default image is displayed for avatars when a chosen source is unavailable (for example, when there is a problem displaying the image due to an error), or simply unspecified.
+When the image source is unavailable (for example, when there's a problem displaying the image due to an error), or the source is unspecified, the avatar component will display a default image.
 
 <Example Component={AvatarDefault} packageName="@atlaskit/avatar" />
 
@@ -45,9 +45,9 @@ Use `square` avatars to represent an entity, such as a project, repository or sp
 
 ### Disabled
 
-Set `isDisabled` to disable an avatar that is not usable. This sets the avatar image to 40% opacity using the `opacity.disabled` token.
+Set `isDisabled` to disable an avatar that isn't usable. This sets the avatar image to 40% opacity using the `opacity.disabled` token.
 
-Avoid using disabled UI, as it can cause accessibility problems.
+Avoid using disabled UI. This can cause accessibility problems, because disabled UI doesn't give enough information to the user about what went wrong and how to proceed, and will not appear in the tab order.
 
 <Example Component={AvatarDisabled} packageName="@atlaskit/avatar" />
 
@@ -92,13 +92,13 @@ Indicates a user's online status by showing a small icon on the avatar.
 
 ### xxlarge
 
-Use `xxlarge` circle avatars in places where larger avatars are needed. For example, the Atlassian People Directory. This size is currently not used for square avatars.
+Use `xxlarge` circle avatars in places where larger avatars are needed. For example, the Atlassian People Directory. This size isn't used for square avatars.
 
 <Example Component={AvatarXXLarge} packageName="@atlaskit/avatar" />
 
 ### xlarge
 
-Use `xlarge` circle avatars where they’re needed to display prominently on a page. This size is currently not used for square avatars.
+Use `xlarge` circle avatars where they’re needed to display prominently on a page. This size isn't used for square avatars.
 
 <Example Component={AvatarXLarge} packageName="@atlaskit/avatar" />
 
@@ -128,8 +128,8 @@ Use `xsmall` circle and square avatars for onscreen metadata such as in Jira iss
 
 ## Displaying a tooltip
 
-A tooltip can be used with an avatar to be displayed on focus or hover. The tooltip `content` should be set to the same value as the avatar `label`.
+You can display a tooltip with an avatar on focus or hover. The tooltip `content` should be set to the same value as the avatar `label`.
 
-For [accessibilty reasons](usage#accessibility), do not use a tooltip with an avatar unless it is interactive.
+Don't use a tooltip with an avatar unless it is interactive. For more information, see the [avatar component accessibilty guidelines](usage#accessibility).
 
 <Example Component={AvatarTooltip} packageName="@atlaskit/avatar" />

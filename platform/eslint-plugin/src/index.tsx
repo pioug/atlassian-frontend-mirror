@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Linter } from 'eslint';
 import ensureFeatureFlagRegistration from './rules/ensure-feature-flag-registration';
 import noPreAndPostInstallScripts from './rules/no-pre-post-installs';

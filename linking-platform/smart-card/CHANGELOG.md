@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.42.1
+
+### Patch Changes
+
+- [#42773](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42773) [`d2ff4012e8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2ff4012e8d) - [ux] fire additional analytics events within smart-card forbidden views
+
 ## 26.42.0
 
 ### Minor Changes

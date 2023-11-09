@@ -15,6 +15,13 @@ import invariant from 'tiny-invariant';
 
 import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import {
+  draggable,
+  dropTargetForElements,
+  monitorForElements,
+} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
+import {
   attachClosestEdge,
   Edge,
   extractClosestEdge,
@@ -23,13 +30,6 @@ import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/r
 import { announce } from '@atlaskit/pragmatic-drag-and-drop-live-region';
 import { DragHandleDropdownMenu } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-dropdown-menu';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
-import {
-  draggable,
-  dropTargetForElements,
-  monitorForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
-import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
 
 const itemStyles = css({
   display: 'flex',

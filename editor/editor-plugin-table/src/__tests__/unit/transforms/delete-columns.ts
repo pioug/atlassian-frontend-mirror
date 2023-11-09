@@ -10,6 +10,7 @@ import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -28,10 +29,10 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import tablePlugin from '../../../plugins/table-plugin';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { deleteColumns } from '../../../plugins/table/transforms';
 import type { TablePluginState } from '../../../plugins/table/types';
+import tablePlugin from '../../../plugins/table-plugin';
 
 const colsToRect = (cols: Array<number>, noOfRows: number): Rect => ({
   left: Math.min(...cols),

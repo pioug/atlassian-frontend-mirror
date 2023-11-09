@@ -245,7 +245,9 @@ function ToolbarInsertBlockWithInjectionApi({
         pluginInjectionApi?.panel?.actions.insertPanel,
         pluginInjectionApi?.blockType?.actions.insertBlockQuote,
       )}
-      onInsertMacroFromMacroBrowser={insertMacroFromMacroBrowser}
+      onInsertMacroFromMacroBrowser={insertMacroFromMacroBrowser(
+        pluginInjectionApi?.analytics?.actions,
+      )}
       macroProvider={macroState.macroProvider}
       popupsMountPoint={popupsMountPoint}
       popupsBoundariesElement={popupsBoundariesElement}

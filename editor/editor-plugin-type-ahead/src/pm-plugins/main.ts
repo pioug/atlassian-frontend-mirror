@@ -1,6 +1,7 @@
 import type { IntlShape } from 'react-intl-next';
 
 import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';

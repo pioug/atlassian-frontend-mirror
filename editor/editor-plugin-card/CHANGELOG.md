@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-card
 
+## 0.11.1
+
+### Patch Changes
+
+- [#42248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42248) [`c3ce5d9263f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3ce5d9263f) - Add inline card overlay component
+- [#42848](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42848) [`f2f8428f703`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2f8428f703) - Abandons feature flag lp-link-picker-focus-trap as it was not successfully rolled out. Will re-introduce as platform feature flag as/when necessary.
+- Updated dependencies
+
+## 0.11.0
+
+### Minor Changes
+
+- [#42755](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42755) [`97f9fcba5a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97f9fcba5a5) - [ux] Add a discovery pulse to smart link view switcher under certain conditions and behind a feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.10.10
 
 ### Patch Changes

@@ -208,13 +208,8 @@ export const floatingToolbar = (
       ? FLOATING_TOOLBAR_LINKPICKER_CLASSNAME
       : undefined;
 
-    /**
-     * Enable focus trap only if feature flag is enabled AND for the new version of the picker
-     */
-    const { lpLinkPicker, lpLinkPickerFocusTrap, preventPopupOverflow } =
-      featureFlags;
+    const { lpLinkPicker, preventPopupOverflow } = featureFlags;
 
-    const shouldEnableFocusTrap = lpLinkPicker && lpLinkPickerFocusTrap;
     const isLinkPickerEnabled = !!lpLinkPicker;
 
     return {
@@ -248,7 +243,6 @@ export const floatingToolbar = (
         pluginInjectionApi,
       ),
       scrollable: pluginState?.showLinkingToolbar ? false : true,
-      focusTrap: shouldEnableFocusTrap && pluginState?.showLinkingToolbar,
       ...editLinkToolbarConfig(
         Boolean(pluginState?.showLinkingToolbar),
         isLinkPickerEnabled,
@@ -633,4 +627,19 @@ const getDatasourceButtonGroup = (
   );
 
   return toolbarItems;
+};
+
+export const shouldRenderToolbarPulse = (
+  embedEnabled: boolean,
+  appearance: string,
+  status: string,
+  isDiscoverabilityEnabled: boolean,
+): boolean => {
+  return (
+    embedEnabled &&
+    appearance === 'inline' &&
+    status === 'resolved' &&
+    isDiscoverabilityEnabled &&
+    getBooleanFF('platform.linking-platform.smart-card.inline-switcher')
+  );
 };

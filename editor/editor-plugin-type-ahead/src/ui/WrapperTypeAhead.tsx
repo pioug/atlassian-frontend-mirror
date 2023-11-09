@@ -7,6 +7,7 @@ import React, {
   useState,
 } from 'react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

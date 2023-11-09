@@ -44,4 +44,5 @@ export class CardPreviewCacheImpl implements CardPreviewCache {
   };
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default new CardPreviewCacheImpl(createObjectURLCache());

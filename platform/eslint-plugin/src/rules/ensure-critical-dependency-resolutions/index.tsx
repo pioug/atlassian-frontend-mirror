@@ -1,4 +1,5 @@
 import { findRootSync } from '@manypkg/find-root';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
 import type { ObjectExpression } from 'estree';
 import { getObjectPropertyAsObject } from '../util/handle-ast-object';

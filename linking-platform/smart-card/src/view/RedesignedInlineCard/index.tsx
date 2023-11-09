@@ -15,6 +15,7 @@ import { extractProvider } from '@atlaskit/link-extractors';
 import { useFeatureFlag } from '@atlaskit/link-provider';
 import { getExtensionKey } from '../../state/helpers';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 export {
   InlineCardResolvedView,
@@ -41,6 +42,8 @@ export const InlineCard: FC<InlineCardProps> = ({
   showAuthTooltip,
   showServerActions,
 }) => {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
+
   const { status, details } = cardState;
   const cardDetails = (details && details.data) || getEmptyJsonLd();
   const extensionKey = getExtensionKey(details);
@@ -126,6 +129,7 @@ export const InlineCard: FC<InlineCardProps> = ({
             jsonLd: cardMetadata,
             url,
             product: providerForbidden?.text ?? '',
+            createAnalyticsEvent,
           })
         : extractRequestAccessContext({
             jsonLd: cardMetadata,

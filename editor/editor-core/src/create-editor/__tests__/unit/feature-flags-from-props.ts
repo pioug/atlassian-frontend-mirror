@@ -297,34 +297,6 @@ describe('Feature Flags from Props', () => {
     });
   });
 
-  describe('lpLinkPickerFocusTrap', () => {
-    it('should add the FF value', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {
-            'lp-link-picker-focus-trap': true,
-          },
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          lpLinkPickerFocusTrap: true,
-        }),
-      );
-    });
-
-    it('should default to false if nothing passed in', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {},
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          lpLinkPickerFocusTrap: false,
-        }),
-      );
-    });
-  });
-
   describe('prevent popup overflow', () => {
     it('should add the FF value', () => {
       expect(

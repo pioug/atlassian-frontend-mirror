@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { SourceCode } from 'eslint';
 import { isNodeOfType, ObjectExpression, Property } from 'eslint-codemod-utils';
 

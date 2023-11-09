@@ -1,4 +1,5 @@
 import { PanelType } from '@atlaskit/adf-schema';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { selectNode } from '@atlaskit/editor-common/selection';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
@@ -6,7 +7,9 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { panelPlugin } from '@atlaskit/editor-plugin-panel';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {

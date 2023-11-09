@@ -1,4 +1,5 @@
 // Original source from Compiled https://github.com/atlassian-labs/compiled/blob/master/packages/eslint-plugin/src/utils/create-no-tagged-template-expression-rule/index.ts
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule, Scope } from 'eslint';
 
 import { generate } from './generate';

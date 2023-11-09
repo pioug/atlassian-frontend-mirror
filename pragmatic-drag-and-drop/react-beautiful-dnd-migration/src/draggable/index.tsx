@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 
 import { bindAll } from 'bind-event-listener';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   DraggableProps,
   DraggableProvided,

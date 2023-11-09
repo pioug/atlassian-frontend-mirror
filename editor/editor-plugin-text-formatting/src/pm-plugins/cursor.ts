@@ -4,6 +4,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 type PosAtDOM = (node: Node) => number | null;
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default new SafePlugin({
   props: {
     handleClick(view: EditorView, clickPos, event) {

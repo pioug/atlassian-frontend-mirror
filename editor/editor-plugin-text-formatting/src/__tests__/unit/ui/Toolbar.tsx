@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, render, within } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -18,6 +19,7 @@ import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {

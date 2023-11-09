@@ -28,6 +28,7 @@ import {
   selectColumn,
   selectTable,
 } from '@atlaskit/editor-tables/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -52,7 +53,6 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
-import tablePlugin from '../../plugins/table-plugin';
 import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import type { PluginConfig, TablePluginState } from '../../plugins/table/types';
 import {
@@ -62,6 +62,7 @@ import {
   transformSliceToRemoveOpenTable,
   unwrapContentFromTable,
 } from '../../plugins/table/utils/paste';
+import tablePlugin from '../../plugins/table-plugin';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 const array = (...args: any): Node[] => args.map((i: any) => i(defaultSchema));

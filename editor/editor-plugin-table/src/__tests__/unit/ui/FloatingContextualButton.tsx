@@ -15,6 +15,7 @@ import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import * as prosemirrorUtils from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -31,9 +32,9 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import tablePlugin from '../../../plugins/table-plugin';
 import type { Props as FloatingContextualButtonProps } from '../../../plugins/table/ui/FloatingContextualButton';
 import FloatingContextualButton from '../../../plugins/table/ui/FloatingContextualButton';
+import tablePlugin from '../../../plugins/table-plugin';
 
 jest.mock('@atlaskit/editor-prosemirror/utils', () => {
   // Unblock prosemirror bump:

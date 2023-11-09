@@ -10,6 +10,7 @@ import { undo } from '@atlaskit/editor-prosemirror/history';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import * as pmUtils from '@atlaskit/editor-prosemirror/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {

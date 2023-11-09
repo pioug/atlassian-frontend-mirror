@@ -19,11 +19,20 @@ const pulseStyles = css`
 export interface PulseProps {
   children: JSX.Element;
   isDiscovered?: boolean;
+  onAnimationIteration?: React.AnimationEventHandler<HTMLSpanElement>;
 }
 
-export const Pulse = ({ children, isDiscovered = false }: PulseProps) => {
+export const Pulse = ({
+  children,
+  isDiscovered = false,
+  onAnimationIteration,
+}: PulseProps) => {
   return (
-    <span data-testid="discovery-pulse" css={!isDiscovered && pulseStyles}>
+    <span
+      data-testid="discovery-pulse"
+      css={!isDiscovered && pulseStyles}
+      onAnimationIteration={onAnimationIteration}
+    >
       {children}
     </span>
   );

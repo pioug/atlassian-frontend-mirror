@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-paste
 
+## 0.1.3
+
+### Patch Changes
+
+- [#42907](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42907) [`0493f1968e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0493f1968e6) - add editor-plugin-list as a dependency
+
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.1
 
 ### Patch Changes

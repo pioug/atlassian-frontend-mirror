@@ -1,5 +1,6 @@
 import { act } from '@testing-library/react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

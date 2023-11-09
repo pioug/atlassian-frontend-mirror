@@ -13,6 +13,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {

@@ -1,4 +1,5 @@
 import { snapshotInformational } from '@af/visual-regression';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Page } from '@playwright/test';
 import { EditorPageModel } from '@af/editor-libra/page-models';
 // eslint-disable-next-line

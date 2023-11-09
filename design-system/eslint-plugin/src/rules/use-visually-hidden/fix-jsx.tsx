@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule, SourceCode } from 'eslint';
 import { closestOfType } from 'eslint-codemod-utils';
 

@@ -4,6 +4,7 @@ import type {
   Scope,
   Event as SentryEvent,
 } from '@sentry/browser';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Integration, Primitive } from '@sentry/types';
 
 const SENTRY_DSN =

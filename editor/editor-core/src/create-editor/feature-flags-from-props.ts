@@ -144,10 +144,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
       normalizedFeatureFlags.restartNumberedLists === true ||
       props.featureFlags?.restartNumberedLists === true,
 
-    lpLinkPickerFocusTrap: Boolean(
-      normalizedFeatureFlags.lpLinkPickerFocusTrap,
-    ),
-
     preventPopupOverflow: Boolean(
       typeof props.featureFlags?.['prevent-popup-overflow'] === 'boolean'
         ? !!props.featureFlags?.['prevent-popup-overflow']

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { BrowserObject } from 'webdriverio';
 
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';

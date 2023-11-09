@@ -14,11 +14,11 @@ export type Size = 'small' | 'medium' | 'large' | 'xlarge';
 
 export type OwnProps = {
   /**
-   * Sets whether the checkbox begins checked.
+   * Sets whether the checkbox begins as checked or unchecked.
    */
   defaultChecked?: boolean;
   /**
-   * id assigned to input
+   * The ID assigned to the input.
    */
   id?: string;
   /**
@@ -26,7 +26,7 @@ export type OwnProps = {
    */
   isChecked?: boolean;
   /**
-   * Sets whether the checkbox is disabled.
+   * Sets whether the checkbox is disabled. Don’t use a disabled checkbox if it needs to remain in the tab order for assistive technologies.
    */
   isDisabled?: boolean;
   /**
@@ -53,7 +53,7 @@ export type OwnProps = {
   name?: string;
   /**
    * Function that is called whenever the state of the checkbox changes. It will
-   * be called with an object containing the react synthetic event. Use currentTarget to get value, name and checked
+   * be called with an object containing the react synthetic event. Use `currentTarget` to get value, name and checked.
    */
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -64,7 +64,7 @@ export type OwnProps = {
    */
   value?: number | string;
   /**
-   * The size of the Checkbox
+   * The size of the checkbox.
    */
   size?: Size;
   /**
@@ -74,7 +74,7 @@ export type OwnProps = {
    */
   testId?: string;
   /**
-   * Additional information to be included in the `context` of analytics events that come from radio
+   * Additional information to be included in the `context` of analytics events that come from radio.
    */
   analyticsContext?: Record<string, any>;
 };
@@ -107,12 +107,12 @@ export interface LabelTextProps extends React.HTMLProps<HTMLSpanElement> {
 export interface LabelProps extends React.HTMLProps<HTMLInputElement> {
   isDisabled?: boolean;
   /**
-   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    */
   testId?: string;
   /**
    * Click handler that is conditionally applied for Firefox
-   * as Firefox does not dispatch modified click events (e.g. Ctrl+Click) down to the underlying input element
+   * as Firefox does not dispatch modified click events (e.g. Ctrl+Click) down to the underlying input element.
    */
   onClick?: React.MouseEventHandler;
 }

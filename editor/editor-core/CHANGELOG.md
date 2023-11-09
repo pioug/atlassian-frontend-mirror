@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 189.3.12
+
+### Patch Changes
+
+- [#42899](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42899) [`4b3e40bff6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b3e40bff6f) - Added a new media plugin state `allowInlineImages` to support upcoming feature development.
+- [#42848](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42848) [`f2f8428f703`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2f8428f703) - Abandons feature flag lp-link-picker-focus-trap as it was not successfully rolled out. Will re-introduce as platform feature flag as/when necessary.
+
+## 189.3.11
+
+### Patch Changes
+
+- [#42869](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42869) [`e49e90d2093`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e49e90d2093) - Decoupling internal analytics plugin from extensions and macro plugins.
+- Updated dependencies
+
 ## 189.3.10
 
 ### Patch Changes

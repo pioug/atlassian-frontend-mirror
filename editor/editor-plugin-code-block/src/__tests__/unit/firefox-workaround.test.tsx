@@ -1,8 +1,10 @@
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { codeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {

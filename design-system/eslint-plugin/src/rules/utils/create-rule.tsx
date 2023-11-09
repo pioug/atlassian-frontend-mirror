@@ -1,4 +1,5 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
 
 /**

@@ -37,7 +37,7 @@
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/ds-explorations": "^3.0.0",
-    "@atlaskit/primitives": "^1.9.0",
+    "@atlaskit/primitives": "^1.10.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.28.0",
     "@babel/runtime": "^7.0.0",

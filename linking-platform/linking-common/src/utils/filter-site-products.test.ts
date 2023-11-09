@@ -1,4 +1,5 @@
 import { filterSiteProducts } from '.';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { AvailableSitesProductType } from '@atlaskit/linking-common/types';
 
 describe('filter site products', () => {

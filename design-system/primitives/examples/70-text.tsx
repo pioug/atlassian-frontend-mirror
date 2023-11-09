@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import { Stack } from '../src';
-import Text from '../src/components/text';
+import { Stack, Text } from '../src';
 
 const variants = [
   'ui.small',

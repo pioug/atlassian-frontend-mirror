@@ -6,8 +6,8 @@ import DropdownMenu, {
   DropdownItemGroup,
 } from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
-import StoryIcon from '@atlaskit/icon-object/glyph/story/16';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+import StoryIcon from '@atlaskit/icon-object/glyph/story/16';
 import { Inline } from '@atlaskit/primitives';
 import { Y400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

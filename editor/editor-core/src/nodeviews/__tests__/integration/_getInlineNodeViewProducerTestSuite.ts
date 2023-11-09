@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { SelectionMatch } from '@atlaskit/editor-test-helpers/integration/helpers';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -5,6 +6,7 @@ import {
   fullpage,
   setProseMirrorTextSelection,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {

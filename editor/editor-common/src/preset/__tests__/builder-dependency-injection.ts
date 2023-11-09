@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 import { EditorPluginInjectionAPI, EditorPresetBuilder } from '../../preset';

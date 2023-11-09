@@ -13,6 +13,7 @@ import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import * as prosemirrorUtils from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -31,8 +32,8 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import tablePlugin from '../../../plugins/table-plugin';
 import FloatingDragMenu from '../../../plugins/table/ui/FloatingDragMenu';
+import tablePlugin from '../../../plugins/table-plugin';
 
 describe('FloatingDragMenu', () => {
   const createEditor = createProsemirrorEditorFactory();

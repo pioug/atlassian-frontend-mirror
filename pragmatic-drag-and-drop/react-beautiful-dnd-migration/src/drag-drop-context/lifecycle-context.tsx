@@ -15,6 +15,7 @@ import React, {
   useState,
 } from 'react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   DraggableId,
   DraggableLocation,

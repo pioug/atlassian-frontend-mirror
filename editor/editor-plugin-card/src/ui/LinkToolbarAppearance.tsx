@@ -1,31 +1,33 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
-import {
-  ACTION,
-  EditorAnalyticsAPI,
-  INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import {
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type {
   CardPluginActions,
+  OptionConfig,
+} from '@atlaskit/editor-common/card';
+import {
   commandWithMetadata,
   getButtonGroupOption,
   LinkToolbarButtonGroup,
-  OptionConfig,
 } from '@atlaskit/editor-common/card';
 import nodeNames, {
   cardMessages as messages,
 } from '@atlaskit/editor-common/messages';
-import { CardAppearance } from '@atlaskit/editor-common/provider-factory';
-import { Command } from '@atlaskit/editor-common/types';
+import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
+import type { Command } from '@atlaskit/editor-common/types';
 import { isSupportedInParent } from '@atlaskit/editor-common/utils';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { CardContext } from '@atlaskit/link-provider';
-import { CardPlatform } from '@atlaskit/smart-card';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { CardContext } from '@atlaskit/link-provider';
+import type { CardPlatform } from '@atlaskit/smart-card';
+
+import { DiscoveryPulse } from '../common/pulse';
+import { shouldRenderToolbarPulse } from '../toolbar';
 
 export interface LinkToolbarAppearanceProps {
   intl: IntlShape;
@@ -38,6 +40,7 @@ export interface LinkToolbarAppearanceProps {
   allowBlockCards?: boolean;
   platform?: CardPlatform;
   cardActions: CardPluginActions | undefined;
+  showInlineUpgradeDiscoverability?: boolean;
 }
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class LinkToolbarAppearance extends React.Component<
@@ -59,6 +62,7 @@ export class LinkToolbarAppearance extends React.Component<
       platform,
       editorAnalyticsApi,
       cardActions,
+      showInlineUpgradeDiscoverability = false,
     } = this.props;
     const preview =
       allowEmbeds &&
@@ -169,7 +173,7 @@ export class LinkToolbarAppearance extends React.Component<
       options.push(embedOption);
     }
 
-    return (
+    const LinkToolbarButtons = (
       <LinkToolbarButtonGroup
         key="link-toolbar-button-group"
         options={options.map(option =>
@@ -182,6 +186,28 @@ export class LinkToolbarAppearance extends React.Component<
         )}
       />
     );
+
+    const status = url ? cardContext?.store?.getState()[url]?.status : '';
+    const embedEnabled = embedOption ? !embedOption.disabled : false;
+    if (
+      shouldRenderToolbarPulse(
+        embedEnabled,
+        currentAppearance ?? '',
+        status ?? '',
+        showInlineUpgradeDiscoverability,
+      )
+    ) {
+      return (
+        // This div is necessary because the toolbar uses :first-child to add margins and can't add margins to the pulse element
+        <div>
+          <DiscoveryPulse localStorageKey="toolbar-upgrade-pulse">
+            {LinkToolbarButtons}
+          </DiscoveryPulse>
+        </div>
+      );
+    }
+
+    return LinkToolbarButtons;
   };
 
   render() {

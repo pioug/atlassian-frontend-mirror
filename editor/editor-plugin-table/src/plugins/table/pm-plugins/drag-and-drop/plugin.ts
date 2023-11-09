@@ -6,8 +6,8 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { getCellsInRow } from '@atlaskit/editor-tables/utils';
-import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
 
 import type { DraggableSourceData } from '../../types';
 import {

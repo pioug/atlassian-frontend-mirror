@@ -1,4 +1,5 @@
 import { uuid } from '@atlaskit/adf-schema';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,

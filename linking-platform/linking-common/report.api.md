@@ -363,7 +363,11 @@ export function promiseDebounce<
 ): (...args: Args) => Promise<ResolveType>;
 
 // @public (undocumented)
-export const Pulse: ({ children, isDiscovered }: PulseProps) => jsx.JSX.Element;
+export const Pulse: ({
+  children,
+  isDiscovered,
+  onAnimationIteration,
+}: PulseProps) => jsx.JSX.Element;
 
 // @public (undocumented)
 interface PulseProps {
@@ -371,6 +375,8 @@ interface PulseProps {
   children: JSX.Element;
   // (undocumented)
   isDiscovered?: boolean;
+  // (undocumented)
+  onAnimationIteration?: React.AnimationEventHandler<HTMLSpanElement>;
 }
 
 // @public (undocumented)

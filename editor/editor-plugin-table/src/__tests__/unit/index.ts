@@ -20,6 +20,7 @@ import {
   selectRow,
   selectTable,
 } from '@atlaskit/editor-tables/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -44,7 +45,6 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
-import tablePlugin from '../../plugins/table-plugin';
 import {
   createTable,
   insertColumn,
@@ -61,6 +61,7 @@ import {
   checkIfHeaderRowEnabled,
   checkIfNumberColumnEnabled,
 } from '../../plugins/table/utils';
+import tablePlugin from '../../plugins/table-plugin';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

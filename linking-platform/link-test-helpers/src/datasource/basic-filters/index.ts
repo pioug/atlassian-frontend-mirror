@@ -2,6 +2,7 @@ import fetchMock from 'fetch-mock/cjs/client';
 
 import {
   fieldValuesEmptyResponse,
+  fieldValuesErrorResponse,
   fieldValuesResponseForAssignees,
   fieldValuesResponseForProjects,
   fieldValuesResponseForStatuses,
@@ -33,9 +34,10 @@ export const mockBasicFilterAGGFetchRequests = () => {
         }, 5000);
       } // returning empty response for vr testing
       else if (searchString.includes('empty')) {
-        resolve({
-          data: fieldValuesEmptyResponse,
-        });
+        resolve(fieldValuesEmptyResponse);
+      } // returning error response for vr testing
+      else if (searchString.includes('error')) {
+        resolve(fieldValuesErrorResponse);
       } else {
         resolve(resolveData);
       }

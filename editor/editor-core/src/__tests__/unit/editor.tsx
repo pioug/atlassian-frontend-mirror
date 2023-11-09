@@ -54,6 +54,7 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   GasPurePayload,
   GasPureScreenEventPayload,

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
 
 const STORYBOOK_DECORATOR_IDENTIFIER = 'withPlatformFeatureFlags' as const;

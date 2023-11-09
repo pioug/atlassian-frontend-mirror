@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 1.15.0
+
+### Minor Changes
+
+- [#42867](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42867) [`39f66ca6aec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39f66ca6aec) - Add error state UI to basic filter dropdown.
+
+## 1.14.1
+
+### Patch Changes
+
+- [#42835](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42835) [`685b3b60d34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/685b3b60d34) - Add empty state UI for basic filter dropdown.
+
 ## 1.14.0
 
 ### Minor Changes

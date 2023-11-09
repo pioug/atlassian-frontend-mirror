@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pagination",
-  "version": "14.4.14",
+  "version": "14.4.15",
   "description": "Pagination allows you to divide large amounts of content into smaller chunks across multiple pages.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,6 +29,9 @@
   },
   "atlassian": {
     "team": "Design System Team",
+    "productPushConsumption": [
+      "jira"
+    ],
     "releaseModel": "continuous",
     "website": {
       "name": "Pagination",
@@ -37,12 +40,12 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/button": "^16.13.0",
+    "@atlaskit/button": "^16.14.0",
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/ds-explorations": "^3.0.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^21.12.0",
-    "@atlaskit/primitives": "^1.9.0",
+    "@atlaskit/primitives": "^1.10.0",
     "@babel/runtime": "^7.0.0",
     "memoize-one": "^6.0.0"
   },

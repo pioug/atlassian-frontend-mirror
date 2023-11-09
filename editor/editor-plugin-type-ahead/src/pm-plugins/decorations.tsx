@@ -6,6 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 import uuid from 'uuid';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type {

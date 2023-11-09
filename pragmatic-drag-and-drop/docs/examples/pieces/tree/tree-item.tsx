@@ -27,10 +27,6 @@ import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { ModalTransition } from '@atlaskit/modal-dialog';
 import {
-  Instruction,
-  ItemMode,
-} from '@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item';
-import {
   draggable,
   dropTargetForElements,
   monitorForElements,
@@ -39,6 +35,10 @@ import type { DragLocationHistory } from '@atlaskit/pragmatic-drag-and-drop/type
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { offsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/offset-from-pointer';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
+import {
+  Instruction,
+  ItemMode,
+} from '@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item';
 import { token } from '@atlaskit/tokens';
 
 import { TreeItem as TreeItemType } from '../../data/tree';

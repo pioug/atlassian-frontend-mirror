@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { TextColorPluginState } from '@atlaskit/editor-plugin-text-color';
 import { toNativeBridge } from '../web-to-native';
 import { useListener } from './useListener';

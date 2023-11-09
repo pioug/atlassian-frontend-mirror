@@ -21,7 +21,6 @@ const FullPageWithLinkPicker = () => {
         linking: { linkPicker },
         featureFlags: {
           'lp-link-picker': true,
-          'lp-link-picker-focus-trap': true,
           'prevent-popup-overflow': true,
         },
       }}

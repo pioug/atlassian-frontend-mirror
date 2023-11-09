@@ -8,7 +8,7 @@ import { setExpandRef } from '../commands';
 import { findExpand } from '../utils';
 import { expandClassNames } from '../ui/class-names';
 import { getPluginState, createPluginState, pluginKey } from './plugin-factory';
-import type { EditorProps } from '../../../types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import type { IntlShape } from 'react-intl-next';
 import type {
   FeatureFlags,
@@ -26,7 +26,7 @@ export function containsClass(
 export const createPlugin = (
   dispatch: Dispatch,
   getIntl: () => IntlShape,
-  appearance: EditorProps['appearance'] = 'full-page',
+  appearance: EditorAppearance = 'full-page',
   useLongPressSelection: boolean = false,
   featureFlags: FeatureFlags,
   api: ExtractInjectionAPI<typeof expandPlugin> | undefined,

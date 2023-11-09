@@ -1,5 +1,5 @@
 import type { EventHandler, KeyboardEvent, MouseEvent } from 'react';
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 
 import rafSchedule from 'raf-schd';
 
@@ -7,6 +7,7 @@ import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
 import { registerCard } from '../pm-plugins/actions';
+import InlineCardOverlay from '../ui/InlineCardOverlay';
 
 import type { SmartCardProps } from './genericCard';
 
@@ -23,6 +24,10 @@ const InlineCard = ({
     [view.dom],
   );
   const { url, data } = node.attrs;
+
+  // A complete show/hide logic for the overlay will be implemented
+  // in EDM-8239 and EDM-8241
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
   const onClick: EventHandler<MouseEvent | KeyboardEvent> = () => {};
 
@@ -67,21 +72,27 @@ const InlineCard = ({
   );
 
   const card = (
-    <span className="card">
-      <SmartCard
-        key={url}
-        url={url}
-        data={data}
-        appearance="inline"
-        onClick={onClick}
-        container={scrollContainer}
-        onResolve={onResolve}
-        onError={onError}
-        inlinePreloaderStyle={
-          useAlternativePreloader ? 'on-right-without-skeleton' : undefined
-        }
-        showServerActions={showServerActions}
-      />
+    <span
+      className="card"
+      onMouseEnter={() => setIsOverlayVisible(true)}
+      onMouseLeave={() => setIsOverlayVisible(false)}
+    >
+      <InlineCardOverlay isVisible={isOverlayVisible} url={url}>
+        <SmartCard
+          key={url}
+          url={url}
+          data={data}
+          appearance="inline"
+          onClick={onClick}
+          container={scrollContainer}
+          onResolve={onResolve}
+          onError={onError}
+          inlinePreloaderStyle={
+            useAlternativePreloader ? 'on-right-without-skeleton' : undefined
+          }
+          showServerActions={showServerActions}
+        />
+      </InlineCardOverlay>
     </span>
   );
   // [WS-2307]: we only render card wrapped into a Provider when the value is ready,

@@ -8,9 +8,9 @@ export const editable = '.ProseMirror';
 test.describe('placeholder text', () => {
   test.describe('default placeholder', () => {
     test.use({
+      adf: placeholderDocument,
       editorProps: {
         appearance: 'full-page',
-        defaultValue: placeholderDocument,
         allowTemplatePlaceholders: {
           allowInserting: true,
         },

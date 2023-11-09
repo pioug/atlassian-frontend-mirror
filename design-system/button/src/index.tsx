@@ -27,3 +27,19 @@ export type {
   CustomThemeButtonOwnProps,
 } from './entry-points/custom-theme-button';
 export { default as ButtonGroup } from './entry-points/button-group';
+
+// New Button
+export { UNSAFE_BUTTON } from './entry-points/unsafe';
+export { UNSAFE_LINK_BUTTON } from './entry-points/unsafe';
+
+export { UNSAFE_ICON_BUTTON } from './entry-points/unsafe';
+export { UNSAFE_LINK_ICON_BUTTON } from './entry-points/unsafe';
+
+export {
+  UNSAFE_SPLIT_BUTTON,
+  UNSAFE_SPLIT_BUTTON_CONTAINER,
+  UNSAFE_DIVIDER,
+  UNSAFE_GET_ACTIONS,
+} from './entry-points/unsafe';
+
+export { UNSAFE_SPLIT_BUTTON_CONTEXT } from './entry-points/unsafe';

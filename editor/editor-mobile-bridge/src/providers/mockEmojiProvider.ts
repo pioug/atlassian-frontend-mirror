@@ -1,8 +1,8 @@
 /**
  * Mocking out emojis for the editor, so they easily fall back to text.
  */
-import { EmojiProvider, EmojiRepository } from '@atlaskit/emoji/resource';
-import { EmojiDescription, EmojiId } from '@atlaskit/emoji';
+import type { EmojiProvider, EmojiRepository } from '@atlaskit/emoji/resource';
+import type { EmojiDescription, EmojiId } from '@atlaskit/emoji';
 
 class EmojiProviderImpl implements EmojiProvider {
   findByShortName() {
@@ -75,4 +75,5 @@ class EmojiProviderImpl implements EmojiProvider {
   unsubscribe() {}
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default new EmojiProviderImpl();

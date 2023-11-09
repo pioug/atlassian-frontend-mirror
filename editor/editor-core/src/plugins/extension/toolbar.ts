@@ -10,14 +10,15 @@ import FullWidthIcon from '@atlaskit/icon/glyph/editor/media-full-width';
 import WideIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import CenterIcon from '@atlaskit/icon/glyph/editor/media-center';
 
-import type { Command } from '../../types';
 import commonMessages from '../../messages';
 import type {
   ConfirmDialogOptions,
   FloatingToolbarConfig,
   FloatingToolbarHandler,
   FloatingToolbarItem,
+  Command,
 } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { editExtension } from './actions';
 import { getPluginState } from './pm-plugins/main';
 import type { ExtensionState } from './types';
@@ -143,6 +144,7 @@ const editButton = (
   formatMessage: IntlShape['formatMessage'],
   extensionState: ExtensionState,
   applyChangeToContextPanel: ApplyChangeHandler | undefined,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): Array<FloatingToolbarItem<Command>> => {
   if (!extensionState.showEditButton) {
     return [];
@@ -162,6 +164,7 @@ const editButton = (
         editExtension(
           macroState && macroState.macroProvider,
           applyChangeToContextPanel,
+          editorAnalyticsAPI,
           updateExtension,
         )(state, dispatch, view);
 
@@ -178,6 +181,7 @@ interface GetToolbarConfigProps {
   breakoutEnabled: boolean | undefined;
   hoverDecoration: HoverDecorationHandler | undefined;
   applyChangeToContextPanel: ApplyChangeHandler | undefined;
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 }
 
 export const getToolbarConfig =
@@ -185,6 +189,7 @@ export const getToolbarConfig =
     breakoutEnabled = true,
     hoverDecoration,
     applyChangeToContextPanel,
+    editorAnalyticsAPI,
   }: GetToolbarConfigProps): FloatingToolbarHandler =>
   (state, intl) => {
     const { formatMessage } = intl;
@@ -205,6 +210,7 @@ export const getToolbarConfig =
         formatMessage,
         extensionState,
         applyChangeToContextPanel,
+        editorAnalyticsAPI,
       );
       const breakoutButtonArray = breakoutOptions(
         state,

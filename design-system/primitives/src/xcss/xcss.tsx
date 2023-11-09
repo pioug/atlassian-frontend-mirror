@@ -6,6 +6,7 @@ import type {
   CSSPropertiesWithMultiValues,
   SerializedStyles,
 } from '@emotion/serialize';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type * as CSS from 'csstype';
 
 import type { MediaQuery } from '../responsive/types';

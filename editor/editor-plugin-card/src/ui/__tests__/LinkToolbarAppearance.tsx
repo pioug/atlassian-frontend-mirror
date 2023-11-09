@@ -19,6 +19,7 @@ import {
   ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { hideLinkToolbar } from '../../pm-plugins/actions';
 import {
@@ -36,6 +37,10 @@ import {
   mockCardContextState,
   mockPreview,
 } from './_utils/mock-card-context';
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+  getBooleanFF: jest.fn().mockImplementation(() => false),
+}));
 
 const cardActions = {
   queueCardsFromChangedTr,
@@ -74,9 +79,9 @@ describe('LinkToolbarAppearance', () => {
     ];
 
     const content = builder ?? defaultBuilder();
-    const { editorView } = editor(doc(panel()(...content)));
+    const { editorView } = editor(doc(...content));
 
-    render(
+    const { findByTestId } = render(
       <MockCardContextAdapter card={cardContext}>
         <LinkToolbarAppearance
           intl={fakeIntl}
@@ -94,6 +99,7 @@ describe('LinkToolbarAppearance', () => {
     return {
       toolbar,
       editorView,
+      findByTestId,
     };
   };
 
@@ -109,6 +115,10 @@ describe('LinkToolbarAppearance', () => {
   beforeEach(() => {
     mockPreview();
     mockCardContextState();
+  });
+
+  afterEach(() => {
+    (getBooleanFF as jest.Mock).mockReset();
   });
 
   describe('when icons toolbar appear`', () => {
@@ -294,11 +304,14 @@ describe('LinkToolbarAppearance', () => {
       const user = userEvent.setup();
       mockPreview('some-url-preview');
 
-      const { editorView } = setup({
-        currentAppearance: 'inline',
-        allowEmbeds: true,
-        platform: 'web',
-      });
+      const { editorView } = setup(
+        {
+          currentAppearance: 'inline',
+          allowEmbeds: true,
+          platform: 'web',
+        },
+        [panel()(blockCard(defaultCardAttributes)())],
+      );
 
       const cardButton = queryForButtonByLabel('Card');
       await user.click(cardButton!);
@@ -314,10 +327,13 @@ describe('LinkToolbarAppearance', () => {
 
       const url = 'some-url';
 
-      const { editorView } = setup({
-        url,
-        currentAppearance: 'inline',
-      });
+      const { editorView } = setup(
+        {
+          url,
+          currentAppearance: 'inline',
+        },
+        [panel()(blockCard(defaultCardAttributes)())],
+      );
 
       const button = queryForButtonByLabel('URL');
       await user.click(button!);
@@ -325,6 +341,35 @@ describe('LinkToolbarAppearance', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(panel()(p(a({ href: url })(url)))),
       );
+    });
+
+    it('should show pulse animation when embed is enabled, status is resolved, appearance is inline, and showInlineUpgradeDiscoverability is true', async () => {
+      const url = 'some-url';
+
+      (getBooleanFF as jest.Mock).mockImplementation(
+        name => name === 'platform.linking-platform.smart-card.inline-switcher',
+      );
+      mockPreview('some-url-preview');
+      mockCardContextState({
+        [url]: {
+          status: 'resolved',
+          details: {},
+        },
+      });
+
+      const { findByTestId } = setup(
+        {
+          url,
+          allowEmbeds: true,
+          platform: 'web',
+          currentAppearance: 'inline',
+          showInlineUpgradeDiscoverability: true,
+        },
+        [p('{<node>}', inlineCard(defaultCardAttributes)())],
+      );
+
+      const discoveryPulse = await findByTestId('discovery-pulse');
+      expect(discoveryPulse).toBeInTheDocument();
     });
 
     it('should return no buttons when url has fatal error', () => {

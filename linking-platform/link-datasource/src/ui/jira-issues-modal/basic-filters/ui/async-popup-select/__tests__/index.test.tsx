@@ -155,6 +155,48 @@ describe('Testing AsyncPopupSelect', () => {
     });
   });
 
+  it('should call fetchFilterOptions when opening the modal and status is empty', () => {
+    const mockFetchFilterOptions = jest.fn();
+
+    const { container } = setup({
+      filterType: 'status',
+      openPicker: true,
+      fetchFilterOptions: mockFetchFilterOptions,
+      status: 'empty',
+    });
+
+    const input = container.parentElement?.querySelector(
+      '#jlol-basic-filter-popup-select--input',
+    );
+    invariant(input);
+
+    expect(mockFetchFilterOptions).toBeCalledTimes(1);
+    expect(mockFetchFilterOptions).toHaveBeenNthCalledWith(1, {
+      searchString: '',
+    });
+  });
+
+  it('should call fetchFilterOptions when opening the modal and status is rejected', () => {
+    const mockFetchFilterOptions = jest.fn();
+
+    const { container } = setup({
+      filterType: 'status',
+      openPicker: true,
+      fetchFilterOptions: mockFetchFilterOptions,
+      status: 'rejected',
+    });
+
+    const input = container.parentElement?.querySelector(
+      '#jlol-basic-filter-popup-select--input',
+    );
+    invariant(input);
+
+    expect(mockFetchFilterOptions).toBeCalledTimes(1);
+    expect(mockFetchFilterOptions).toHaveBeenNthCalledWith(1, {
+      searchString: '',
+    });
+  });
+
   it('should show the loading UI when the status is loading', () => {
     const { getByText, queryByTestId } = setup({
       filterType: 'status',
@@ -181,6 +223,21 @@ describe('Testing AsyncPopupSelect', () => {
       queryByTestId('jlol-basic-filter-popup-select--no-options-message'),
     ).toBeInTheDocument();
     expect(getByText('No matches found')).toBeInTheDocument();
+  });
+
+  it('should show the error state UI when the status is rejected', () => {
+    const { getByText, queryByTestId } = setup({
+      filterType: 'status',
+      filterOptions: [],
+      openPicker: true,
+      status: 'rejected',
+    });
+
+    expect(
+      queryByTestId('jlol-basic-filter-popup-select--error-message'),
+    ).toBeInTheDocument();
+
+    expect(getByText('Something went wrong')).toBeInTheDocument();
   });
 
   it('should call fetchFilterOptions with searchString when user inputs a search term', () => {
@@ -284,7 +341,7 @@ describe('Testing AsyncPopupSelect', () => {
       status: 'resolved',
     });
 
-    const [firstOption, secondOption] = queryAllByTestId(
+    const [firstOption] = queryAllByTestId(
       'jlol-basic-filter-popup-select-option--lozenge',
     );
 
@@ -298,6 +355,10 @@ describe('Testing AsyncPopupSelect', () => {
         value: 'Authorize',
       },
     ]);
+
+    const [_, secondOption] = queryAllByTestId(
+      'jlol-basic-filter-popup-select-option--lozenge',
+    );
 
     fireEvent.click(secondOption);
 

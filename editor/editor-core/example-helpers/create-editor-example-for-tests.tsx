@@ -33,6 +33,7 @@ import {
 } from '@atlaskit/editor-test-helpers/example-inline-comment-component';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { TestExtensionProviders } from '@atlaskit/editor-test-helpers/vr-utils';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 

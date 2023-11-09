@@ -1,10 +1,13 @@
 import type { TOOLBAR_MENU_TYPE as InsertBlockInputMethodToolbar } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { StatusState, StatusType } from '@atlaskit/editor-plugin-status';
 import type { CustomMediaPicker } from '@atlaskit/editor-plugin-media/types';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   ListState,
   InputMethod as ListInputMethod,
 } from '@atlaskit/editor-plugin-list';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   BlockTypeState,
   InputMethod as BlockTypeInputMethod,

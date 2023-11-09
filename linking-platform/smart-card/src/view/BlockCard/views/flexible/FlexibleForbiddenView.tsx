@@ -16,6 +16,7 @@ import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardSty
 import { extractRequestAccessContextImproved } from '../../../../extractors/common/context/extractAccessContext';
 import { useIntl } from 'react-intl-next';
 import extractHostname from '../../../../extractors/common/hostname/extractHostname';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 /**
  * This view represent a Block Card with the 'Forbidden' status.
@@ -28,6 +29,8 @@ const FlexibleForbiddenView = ({
   testId = 'smart-block-forbidden-view',
   ...props
 }: FlexibleBlockCardProps) => {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
+
   const intl = useIntl();
 
   const { cardState, onAuthorize, url } = props;
@@ -47,8 +50,9 @@ const FlexibleForbiddenView = ({
       jsonLd: cardMetadata,
       url,
       product: providerName,
+      createAnalyticsEvent,
     });
-  }, [cardMetadata, providerName, url]);
+  }, [cardMetadata, providerName, url, createAnalyticsEvent]);
 
   const title = useMemo(() => {
     const descriptor = toMessage(

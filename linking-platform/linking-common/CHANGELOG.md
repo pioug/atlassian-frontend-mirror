@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.17.0
+
+### Minor Changes
+
+- [#42755](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42755) [`8bb39480e00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bb39480e00) - add onAnimationIteration event handler to pulse component
+
 ## 4.16.0
 
 ### Minor Changes

@@ -4,9 +4,9 @@ import { Fragment, RefObject, useEffect, useRef } from 'react';
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
-import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import type { DragLocationHistory } from '@atlaskit/pragmatic-drag-and-drop/types';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
 
 import { useFlashOnDrop } from '../../hooks/use-flash-on-drop';
 import { DragState, useSortableField } from '../../hooks/use-sortable-field';

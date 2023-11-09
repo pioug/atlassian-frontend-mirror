@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { ObjectKey } from '@atlaskit/task-decision';
 
 // Copy of helper functions from @atlaskit/task-decision

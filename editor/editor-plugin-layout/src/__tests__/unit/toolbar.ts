@@ -1,6 +1,7 @@
 import type { MessageDescriptor } from 'react-intl-next';
 import { createIntl } from 'react-intl-next';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,

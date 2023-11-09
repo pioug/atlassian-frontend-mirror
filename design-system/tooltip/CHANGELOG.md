@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 17.8.10
+
+### Patch Changes
+
+- [#42577](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42577) [`d51b45b02fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d51b45b02fb) - Add component to push model consumption in JFE
+
 ## 17.8.9
 
 ### Patch Changes

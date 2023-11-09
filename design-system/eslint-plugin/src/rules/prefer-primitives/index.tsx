@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
 import { Identifier, isNodeOfType, JSXElement } from 'eslint-codemod-utils';
 

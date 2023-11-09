@@ -10,6 +10,7 @@ import {
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Options as CreateEditorOptions } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';

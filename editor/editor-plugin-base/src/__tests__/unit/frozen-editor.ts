@@ -32,6 +32,7 @@ import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { EditorExperience } from '@atlaskit/editor-common/ufo';
 import { getTimeSince, SEVERITY } from '@atlaskit/editor-common/utils';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {

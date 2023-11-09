@@ -4,8 +4,6 @@ import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   snapshot,
   initFullPageEditorWithAdf,
-  initCommentEditorWithAdf,
-  editorCommentContentSelector,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/table-with-blocks.adf.json';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -77,25 +75,6 @@ describe('Table with block looks correct for fullpage:', () => {
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
     await animationFrame(page);
     await setTableLayout(page, 'fullWidth');
-    await animationFrame(page);
-    await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
-  });
-});
-
-describe('Table with block looks correct for comment:', () => {
-  let page: PuppeteerPage;
-
-  beforeAll(async () => {
-    page = global.page;
-  });
-
-  afterEach(async () => {
-    await snapshot(page, undefined, editorCommentContentSelector);
-  });
-
-  // https://product-fabric.atlassian.net/browse/ED-19725
-  it.skip('default layout ', async () => {
-    await initCommentEditorWithAdf(page, adf, Device.LaptopMDPI);
     await animationFrame(page);
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
   });

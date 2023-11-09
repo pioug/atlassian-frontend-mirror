@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { DraggableId, DroppableId } from 'react-beautiful-dnd';
 
 /**

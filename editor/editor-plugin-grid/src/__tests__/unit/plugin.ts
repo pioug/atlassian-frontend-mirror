@@ -3,6 +3,7 @@ import { act, render } from '@testing-library/react';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {

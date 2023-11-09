@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { renderer } from '../../integration/_utils';
 

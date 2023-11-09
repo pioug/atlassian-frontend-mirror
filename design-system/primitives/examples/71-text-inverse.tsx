@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Box, Inline, xcss } from '../src';
-import Text from '../src/components/text';
+import { Box, Inline, Text, xcss } from '../src';
 
 const boxStyles = xcss({
   display: 'flex',

@@ -15,6 +15,16 @@ import { CONTENT_URL_SECURITY_AND_PERMISSIONS } from '../../../constants';
 
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
 import { setGlobalTheme } from '@atlaskit/tokens';
+import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import '@atlaskit/link-test-helpers/jest';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
+jest.mock('@atlaskit/platform-feature-flags');
+
+afterEach(() => {
+  (getBooleanFF as jest.Mock).mockReset();
+});
 
 const baseData: JsonLd.Response['data'] = {
   '@type': 'Object',
@@ -34,25 +44,29 @@ const setup = (
   const onResolveMock: JestFunction<Required<EmbedCardProps>['onResolve']> =
     jest.fn();
   const ref = React.createRef<HTMLIFrameElement>();
+  const onEventMock = jest.fn();
+  window.open = jest.fn();
 
   setGlobalTheme({ colorMode: 'dark' });
 
   const renderResult = renderWithIntl(
-    <EmbedCard
-      url={url}
-      cardState={cardState}
-      isSelected={true}
-      isFrameVisible={true}
-      inheritDimensions={true}
-      handleAuthorize={jest.fn()}
-      handleErrorRetry={jest.fn()}
-      handleFrameClick={handleFrameClickMock}
-      analytics={mockAnalytics}
-      handleInvoke={jest.fn()}
-      onResolve={onResolveMock}
-      ref={ref}
-      {...props}
-    />,
+    <AnalyticsListener onEvent={onEventMock} channel={ANALYTICS_CHANNEL}>
+      <EmbedCard
+        url={url}
+        cardState={cardState}
+        isSelected={true}
+        isFrameVisible={true}
+        inheritDimensions={true}
+        handleAuthorize={jest.fn()}
+        handleErrorRetry={jest.fn()}
+        handleFrameClick={handleFrameClickMock}
+        analytics={mockAnalytics}
+        handleInvoke={jest.fn()}
+        onResolve={onResolveMock}
+        ref={ref}
+        {...props}
+      />
+    </AnalyticsListener>,
   );
 
   const iframeEl = renderResult.queryByTestId(
@@ -67,6 +81,7 @@ const setup = (
     handleFrameClickMock,
     iframeEl,
     onResolveMock,
+    onEventMock,
     ref,
   };
 };
@@ -175,6 +190,9 @@ describe('EmbedCard view component', () => {
         meta: {
           visibility: 'restricted',
           access: 'forbidden',
+          requestAccess: {
+            accessType: 'REQUEST_ACCESS',
+          },
         },
         data: {
           ...baseData,
@@ -201,6 +219,31 @@ describe('EmbedCard view component', () => {
       const { getByTestId } = setup(cardState, expectedUrl);
       const forbiddenView = getByTestId('embed-card-forbidden-view');
       expect(forbiddenView).toBeTruthy();
+    });
+
+    it('fires buttonClicked event on click of the request access button', () => {
+      const cardState = getForbiddenCardState(undefined);
+
+      (getBooleanFF as jest.Mock).mockImplementation((flag) => {
+        switch (flag) {
+          case 'platform.linking-platform.smart-card.cross-join':
+          case 'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+            return true;
+        }
+      });
+
+      const { getByTestId, onEventMock } = setup(cardState, expectedUrl);
+      const requestAccessButton = getByTestId('button-request_access');
+      fireEvent.click(requestAccessButton);
+
+      expect(onEventMock).toBeFiredWithAnalyticEventOnce({
+        payload: {
+          action: 'clicked',
+          actionSubject: 'button',
+          actionSubjectId: 'requestAccess',
+          eventType: 'ui',
+        },
+      });
     });
   });
 

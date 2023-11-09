@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { Box, Inline, xcss } from '@atlaskit/primitives';
-
-import Text from '../../../src/components/text';
+import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
 
 const boxStyles = xcss({
   display: 'flex',

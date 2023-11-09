@@ -8,6 +8,7 @@ import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {

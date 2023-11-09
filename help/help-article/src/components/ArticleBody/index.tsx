@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import debounce from 'lodash/debounce';
 import ReactDOM from 'react-dom';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { DocNode } from '@atlaskit/adf-schema';
 import { ReactRenderer } from '@atlaskit/renderer';
 

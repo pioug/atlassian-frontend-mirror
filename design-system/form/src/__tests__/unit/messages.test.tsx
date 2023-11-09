@@ -2,6 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { ErrorMessage, HelperMessage, ValidMessage } from '@atlaskit/form';
 
 const props = {

@@ -3,6 +3,10 @@ import { IntlProvider } from 'react-intl-next';
 import { render } from '@testing-library/react';
 import { getMockForbiddenDirectAccessResponse } from '../../../../__tests__/__mocks__/mocks';
 import HoverCardForbiddenView from '../index';
+import '@atlaskit/link-test-helpers/jest';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import * as analytics from '../../../../../../utils/analytics';
+import userEvent from '@testing-library/user-event';
 
 const mockResponse = getMockForbiddenDirectAccessResponse();
 const forbiddenViewTestId = 'hover-card-forbidden-view-resolved-view';
@@ -15,22 +19,31 @@ describe('Forbidden Hover Card', () => {
   });
 
   const setUpHoverCard = async (customResponse: any = mockResponse) => {
+    const user = userEvent.setup();
+
+    const analyticsSpy = jest.fn();
+
     const { findByTestId, queryByTestId } = render(
-      <IntlProvider locale="en">
-        <HoverCardForbiddenView
-          flexibleCardProps={{
-            cardState: {
-              status: 'forbidden',
-              details: customResponse,
-            },
-            children: {},
-            url: mockUrl,
-          }}
-        />
-      </IntlProvider>,
+      <AnalyticsListener
+        channel={analytics.ANALYTICS_CHANNEL}
+        onEvent={analyticsSpy}
+      >
+        <IntlProvider locale="en">
+          <HoverCardForbiddenView
+            flexibleCardProps={{
+              cardState: {
+                status: 'forbidden',
+                details: customResponse,
+              },
+              children: {},
+              url: mockUrl,
+            }}
+          />
+        </IntlProvider>
+      </AnalyticsListener>,
     );
 
-    return { findByTestId, queryByTestId };
+    return { findByTestId, queryByTestId, analyticsSpy, user };
   };
 
   it('renders forbidden hover card content', async () => {
@@ -69,5 +82,28 @@ describe('Forbidden Hover Card', () => {
     const hoverCard = await queryByTestId(forbiddenViewTestId);
 
     expect(hoverCard).not.toBeInTheDocument();
+  });
+
+  it('fires buttonClicked event on click of the request access button', async () => {
+    const { findByTestId, analyticsSpy, user } = await setUpHoverCard();
+
+    window.open = jest.fn();
+
+    const buttonElement = await findByTestId(
+      'hover-card-forbidden-view-button',
+    );
+    await user.click(buttonElement);
+
+    expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          action: 'clicked',
+          actionSubject: 'button',
+          actionSubjectId: 'crossJoin',
+          eventType: 'ui',
+        },
+      },
+      analytics.ANALYTICS_CHANNEL,
+    );
   });
 });

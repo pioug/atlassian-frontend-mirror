@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
@@ -114,5 +115,23 @@ filters.forEach(filter => {
       await page.waitForTimeout(1000);
     },
     description: `${filter} open and view empty state`,
+  });
+
+  snapshotInformational(BasicFiltersVR, {
+    ...options,
+
+    prepare: async (page: Page, component: Locator) => {
+      await component
+        .getByTestId(`jlol-basic-filter-${filter}-trigger`)
+        .click();
+
+      await page.type(
+        '#jlol-basic-filter-popup-select--input',
+        `error-message`,
+      );
+
+      await page.waitForTimeout(1000);
+    },
+    description: `${filter} open and view error state`,
   });
 });

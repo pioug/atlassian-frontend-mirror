@@ -15,9 +15,11 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { ExtensionAPI } from '@atlaskit/editor-common/extensions';
@@ -40,6 +42,8 @@ interface CreateExtensionAPIOptions {
   // (undocumented)
   editInLegacyMacroBrowser?: () => void;
   // (undocumented)
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+  // (undocumented)
   editorView: EditorView;
 }
 
@@ -49,6 +53,7 @@ export type ExtensionPlugin = NextEditorPlugin<
   {
     pluginConfiguration: ExtensionPluginOptions | undefined;
     dependencies: [
+      OptionalPlugin<AnalyticsPlugin>,
       FeatureFlagsPlugin,
       WidthPlugin,
       DecorationsPlugin,

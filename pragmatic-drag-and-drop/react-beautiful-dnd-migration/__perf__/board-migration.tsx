@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   InteractionTaskArgs,
   PublicInteractionTask,

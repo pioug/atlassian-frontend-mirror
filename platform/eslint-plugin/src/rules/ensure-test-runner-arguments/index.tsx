@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
 
 const TEST_RUNNER_IDENTIFIER = 'ffTest' as const;

@@ -1,4 +1,5 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { DocBuilder, Refs } from '@atlaskit/editor-common/types';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';

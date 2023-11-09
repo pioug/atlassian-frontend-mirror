@@ -8,13 +8,11 @@ import type {
   SelectionToolbarGroup,
   SelectionToolbarHandler,
 } from '@atlaskit/editor-common/types';
-import {
-  calculateToolbarPositionAboveSelection,
-  calculateToolbarPositionTrackHead,
-} from '@atlaskit/editor-common/utils';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
+import { calculateToolbarPositionTrackHead } from './calculate-toolbar-position';
 import { selectionToolbarPluginKey } from './plugin-key';
 
 type SelectionToolbarPluginState = {
@@ -118,7 +116,10 @@ export const selectionToolbarPlugin: NextEditorPlugin<
         if (
           state.selection.empty ||
           !selectionStable ||
-          'node' in state.selection
+          state.selection instanceof NodeSelection ||
+          // $anchorCell is only available in CellSelection, this check is to
+          // avoid importing CellSelection from @atlaskit/editor-tables
+          '$anchorCell' in state.selection
         ) {
           // If there is no active selection, or the selection is not stable, or the selection is a node selection,
           // do not show the toolbar.
@@ -144,15 +145,19 @@ export const selectionToolbarPlugin: NextEditorPlugin<
           }
           return -1;
         });
+
+        const items: FloatingToolbarItem<Command>[] = [];
+
         // This flattens the groups passed into the floating toolbar into a single list of items
-        const items = resolved.reduce((acc, curr) => {
-          acc.push(...curr.items);
-          return acc;
-        }, [] as FloatingToolbarItem<Command>[]);
-        const calcToolbarPosition = options.config
-          .preferenceToolbarAboveSelection
-          ? calculateToolbarPositionAboveSelection
-          : calculateToolbarPositionTrackHead;
+        for (let i = 0; i < resolved.length; i++) {
+          // add a seperator icon after each group except the last
+          items.push(...resolved[i].items);
+          if (i !== resolved.length - 1) {
+            items.push({ type: 'separator' });
+          }
+        }
+
+        const calcToolbarPosition = calculateToolbarPositionTrackHead;
         const toolbarTitle = 'Selection toolbar';
         const onPositionCalculated = calcToolbarPosition(toolbarTitle);
         const nodeType = getSelectionNodeTypes(state);

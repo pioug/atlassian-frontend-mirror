@@ -76,7 +76,7 @@ export interface AvatarPropTypes {
    */
   borderColor?: string;
   /**
-   * Supply a custom avatar component instead of the default
+   * Supply a custom avatar component instead of the default.
    */
   children?: (props: CustomAvatarProps) => ReactNode;
   /**
@@ -93,13 +93,13 @@ export interface AvatarPropTypes {
   name?: string;
   /**
    * Indicates a user's online status by showing a small icon on the avatar.
-   * Refer to presence values on the Presence component.
+   * Refer to presence values on the presence component.
    * Alternatively accepts any React element. For best results, it is recommended to
    * use square content with height and width of 100%.
    */
   presence?: Presence | Omit<ReactNode, string> | (string & {}) | null;
   /**
-   * Defines the size of the avatar
+   * Defines the size of the avatar.
    */
   size?: SizeType;
   /**
@@ -128,11 +128,11 @@ export interface AvatarPropTypes {
    */
   onClick?: AvatarClickEventHandler;
   /**
-   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    */
   testId?: string;
   /**
-   * Analytics context meta data
+   * Analytics context meta data.
    */
   analyticsContext?: Record<string, any>;
   /**

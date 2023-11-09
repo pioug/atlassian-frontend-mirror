@@ -4,31 +4,30 @@ order: 2
 
 ## Usage
 
-An avatar acts as a proxy for a user or entity (such as a project, repository, or space), in a product. They're often combined with status or presence indicators to give more context. Users generally upload their own image, otherwise, a default image is displayed.
+An avatar represents a user or entity (such as a project, a repository, or a space), in a product. They're often combined with status or presence indicators to give more context. Users generally upload their own image. If they haven't uploaded an image, the avatar will use a default image.
 
-#### Use:
+Check you’re using the right avatar shape, size, and features for your use case:
 
-- circular avatars to quickly identify users
-- square avatars to help identify large product entities like projects, spaces, groups, rooms, or repositories
-- a presence indicator to indicate presence for a single user
-- a status icon to indicate a user’s status in a product
+- Use circular avatars to identify users.
+- Use square avatars to identify large product entities like projects, spaces, groups, rooms, or repositories.
+- Add a presence indicator to show a user's online availability. For example: available, away, focused, or busy.
+- Add a status icon to show additional contextual information about the user. For example: an approved checkmark, to signal when a user has approved a piece of work.
+- For more on sizing, see the [avatar sizing examples](/components/avatar/examples#size).
 
 ## Anatomy
 
-![Avatar Anatomy](images/anatomy.png)
+![A diagram of the avatar component. A caption immediately follows this image.](images/anatomy.png)
 
-1. **Body:** The image representing the user or entity.
-2. **Status:** An icon that displays the avatar’s status.
-3. **Presence:** Indicates if a user is available, away, focused, or busy.
+The avatar component is made of three parts: Body, status, and presence.
 
-## Best practices
-
-Check you’re using the appropriately sized shape and sized avatar for your use case.
+1. **Body:** The image representing the user or entity. This can be round or square.
+2. **Status:** An icon that displays the avatar’s status. This is positioned at the top right of the avatar component.
+3. **Presence:** Indicates if a user is available, away, focused, or busy. This is positioned at the bottom left of the avatar component.
 
 ## Accessibility
 
-- Use the `name` prop to ensure there is an alternative text equivalent for screen readers.
-- To avoid confusion, do not use a [tooltip with an avatar](examples#displaying-a-tooltip) when it is non-interactive or disabled, as the tooltip may not work consistently for keyboard users and screen readers.
+- Use the `name` prop to include alternative text for screen readers.
+- Don't use a [tooltip with an avatar](examples#displaying-a-tooltip) when it's non-interactive or disabled. The tooltip won't work for keyboard users and screen readers.
 
 ## Mobile guidelines
 

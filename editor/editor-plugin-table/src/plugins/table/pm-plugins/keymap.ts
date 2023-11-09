@@ -29,14 +29,14 @@ import {
   triggerUnlessTableHeader,
 } from '../commands';
 import {
+  addColumnAfter as addColumnAfterCommand,
+  addColumnBefore as addColumnBeforeCommand,
+} from '../commands/insert';
+import {
   addRowAroundSelection,
   deleteTableIfSelectedWithAnalytics,
   emptyMultipleCellsWithAnalytics,
 } from '../commands-with-analytics';
-import {
-  addColumnAfter as addColumnAfterCommand,
-  addColumnBefore as addColumnBeforeCommand,
-} from '../commands/insert';
 import { withEditorAnalyticsAPI } from '../utils/analytics';
 
 const createTableWithAnalytics = (

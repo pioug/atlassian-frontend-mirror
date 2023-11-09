@@ -1,5 +1,17 @@
 # @atlaskit/link-test-helpers
 
+## 6.2.5
+
+### Patch Changes
+
+- [#42867](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42867) [`35472354e2c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35472354e2c) - Update mockBasicFilterAGGFetchRequests to return error response.
+
+## 6.2.4
+
+### Patch Changes
+
+- [#42835](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42835) [`2dd92680543`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2dd92680543) - Updated mockBasicFilterAGGFetchRequests to return empty results.
+
 ## 6.2.3
 
 ### Patch Changes

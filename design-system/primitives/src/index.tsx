@@ -23,5 +23,7 @@ export { default as Grid } from './components/grid';
 export type { GridProps } from './components/grid';
 export { default as Bleed } from './components/bleed';
 export type { BleedProps } from './components/bleed';
+export { default as Text } from './components/text';
+export type { TextProps } from './components/text';
 export { media, UNSAFE_media, UNSAFE_BREAKPOINTS_CONFIG } from './responsive';
 export type { Breakpoint } from './responsive';

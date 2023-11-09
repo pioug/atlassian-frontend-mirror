@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.14.0
+
+### Minor Changes
+
+- [#42928](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42928) [`f858870ae90`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f858870ae90) - Added new Button variants (in Alpha) unsafe exports to root entrypoint for documentation purposes
+
 ## 16.13.0
 
 ### Minor Changes

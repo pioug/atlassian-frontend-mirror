@@ -56,8 +56,11 @@ const TooltipPrimitive = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
         <div
           role="tooltip"
           className={className}
+          // Because the tooltip should not be focusable, there is no reason to have key events.
+          /* eslint-disable jsx-a11y/mouse-events-have-key-events */
           onMouseOut={onMouseOut}
           onMouseOver={onMouseOver}
+          /* eslint-enable jsx-a11y/mouse-events-have-key-events */
           css={primitiveStyles}
           data-placement={placement}
           data-testid={testId}

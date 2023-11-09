@@ -43,7 +43,7 @@ describe('ExtensionAPI', () => {
   const createEditor = (doc: DocBuilder, allowFragmentMark = false) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
 
-    const { editorView } = createEditorFn({
+    return createEditorFn({
       doc,
       editorProps: {
         allowExtension: true,
@@ -56,11 +56,14 @@ describe('ExtensionAPI', () => {
       },
       createAnalyticsEvent,
     });
-    return editorView;
   };
 
-  const createAPI = (editorView: EditorView): ExtensionAPI => {
-    return createExtensionAPI({ editorView, applyChange: undefined });
+  const createAPI = (editorView: EditorView, editorAPI: any): ExtensionAPI => {
+    return createExtensionAPI({
+      editorView,
+      applyChange: undefined,
+      editorAnalyticsAPI: editorAPI?.analytics?.actions,
+    });
   };
 
   afterEach(() => {
@@ -82,8 +85,8 @@ describe('ExtensionAPI', () => {
           tr(td({})(p()), td({})(p()), td({})(p())),
         ),
       );
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
 
       api.doc.insertAfter('tableId', ParagraphADF, {
         allowSelectionToNewNode: true,
@@ -107,8 +110,8 @@ describe('ExtensionAPI', () => {
           tr(td({})(p()), td({})(p()), td({})(p())),
         ),
       );
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
 
       api.doc.insertAfter('tableId', ParagraphADF, {
         allowSelectionToNewNode: false,
@@ -123,8 +126,8 @@ describe('ExtensionAPI', () => {
           tr(td({})(p()), td({})(p()), td({})(p())),
         ),
       );
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
 
       api.doc.insertAfter('tableId', ParagraphADF);
 
@@ -133,8 +136,8 @@ describe('ExtensionAPI', () => {
 
     it('should throw error when localId type is mismatched', () => {
       const initDoc = doc(p('hello'));
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
 
       expect(() => {
         api.doc.insertAfter({} as any, ParagraphADF);
@@ -143,8 +146,8 @@ describe('ExtensionAPI', () => {
 
     it('should throw error when localId type is empty string', () => {
       const initDoc = doc(p(''));
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
 
       expect(() => {
         api.doc.insertAfter('', ParagraphADF);
@@ -153,8 +156,8 @@ describe('ExtensionAPI', () => {
 
     it('should throw error when adf type is mismatched', () => {
       const initDoc = doc(p(''));
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
 
       expect(() => {
         api.doc.insertAfter('tableId', [] as any);
@@ -168,8 +171,8 @@ describe('ExtensionAPI', () => {
         ),
         p('hello API!'),
       );
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
       expect(() => {
         api.doc.insertAfter('fakeId', ParagraphADF);
       }).toThrowError("insertAfter(): Could not find node with ID 'fakeId'.");
@@ -181,8 +184,8 @@ describe('ExtensionAPI', () => {
           tr(td({})(p()), td({})(p()), td({})(p())),
         ),
       );
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
 
       expect(() => {
         api.doc.insertAfter('tableId', {
@@ -199,8 +202,8 @@ describe('ExtensionAPI', () => {
         ),
         p('hello API!'),
       );
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
 
       expect(() => {
         const badContentsADF = {
@@ -217,8 +220,8 @@ describe('ExtensionAPI', () => {
           tr(td({})(p()), td({})(p()), td({})(p())),
         ),
       );
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
       expect(() => {
         const badMarksADF = {
           type: 'paragraph',
@@ -267,8 +270,8 @@ describe('ExtensionAPI', () => {
         const initDoc = doc(
           table({ localId })(tr(td({})(p()), td({})(p()), td({})(p()))),
         );
-        const editorView = createEditor(initDoc);
-        const api = createAPI(editorView);
+        const { editorView, editorAPI } = createEditor(initDoc);
+        const api = createAPI(editorView, editorAPI);
         const adf = {
           type: 'extension',
           attrs: {
@@ -314,8 +317,8 @@ describe('ExtensionAPI', () => {
         const initDoc = doc(
           table({ localId })(tr(td({})(p()), td({})(p()), td({})(p()))),
         );
-        const editorView = createEditor(initDoc);
-        const api = createAPI(editorView);
+        const { editorView, editorAPI } = createEditor(initDoc);
+        const api = createAPI(editorView, editorAPI);
 
         const adf = {
           type: 'expand',
@@ -411,8 +414,8 @@ describe('ExtensionAPI', () => {
             taskItem({ localId: 'de2b0dc1-f1f2-46a9-9ea5-4f3871751e13' })('2'),
           ),
         );
-        const editorView = createEditor(initDoc);
-        const api = createAPI(editorView);
+        const { editorView, editorAPI } = createEditor(initDoc);
+        const api = createAPI(editorView, editorAPI);
         const adf = {
           type: 'extension',
           attrs: {
@@ -469,8 +472,8 @@ describe('ExtensionAPI', () => {
     it('should shift cursor to the table source', () => {
       // Cursor is placed on the last index on the doc
       const initDoc = createTableWithLocalId('tableId');
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
       api.doc.scrollTo('tableId');
 
       /*
@@ -485,8 +488,8 @@ describe('ExtensionAPI', () => {
 
     it('should throw error when given an empty string', () => {
       const initDoc = createTableWithLocalId('');
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
 
       expect(() => {
         api.doc.scrollTo('');
@@ -495,8 +498,8 @@ describe('ExtensionAPI', () => {
 
     it('should throw error when given an undefined', () => {
       const initDoc = createTableWithLocalId('tableId');
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
 
       expect(() => {
         api.doc.scrollTo(undefined as any);
@@ -505,8 +508,8 @@ describe('ExtensionAPI', () => {
 
     it('should throw error when given a number', () => {
       const initDoc = createTableWithLocalId('tableId');
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
       expect(() => {
         api.doc.scrollTo(42 as any);
       }).toThrow();
@@ -514,8 +517,8 @@ describe('ExtensionAPI', () => {
 
     it('should throw error when given a mismatched id', () => {
       const initDoc = createTableWithLocalId('tableId');
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
       expect(() => {
         api.doc.scrollTo('fakeId');
       }).toThrowError("scrollTo(): Could not find node with ID 'fakeId'.");
@@ -536,8 +539,8 @@ describe('ExtensionAPI', () => {
       const initDoc = doc(
         table({ localId })(tr(td({})(p()), td({})(p()), td({})(p()))),
       );
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
       api.doc.scrollTo(localId);
       expect(createAnalyticsEvent).toBeCalledWith(expectedApiCallPayload);
     });
@@ -554,8 +557,8 @@ describe('ExtensionAPI', () => {
         })(),
       );
 
-      const editorView = createEditor(initDoc, true);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc, true);
+      const api = createAPI(editorView, editorAPI);
 
       api.doc.update(
         localId,
@@ -609,8 +612,8 @@ describe('ExtensionAPI', () => {
           })(p('old text')),
         ),
       );
-      const editorView = createEditor(initDoc, true);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc, true);
+      const api = createAPI(editorView, editorAPI);
 
       api.doc.update('localId-2', () => ({
         attrs: {
@@ -655,8 +658,8 @@ describe('ExtensionAPI', () => {
           })(p('old text')),
         ),
       );
-      const editorView = createEditor(initDoc, true);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc, true);
+      const api = createAPI(editorView, editorAPI);
 
       api.doc.update('localId-2', () => ({
         content: [
@@ -687,8 +690,8 @@ describe('ExtensionAPI', () => {
         ),
       );
 
-      const editorView = createEditor(initDoc, true);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc, true);
+      const api = createAPI(editorView, editorAPI);
 
       api.doc.update('localId-1', () => ({
         content: [
@@ -751,8 +754,8 @@ describe('ExtensionAPI', () => {
           extensionType: 'atlassian.com.editor',
         })(p('')),
       );
-      const editorView = createEditor(initDoc, true);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc, true);
+      const api = createAPI(editorView, editorAPI);
       expect(() => {
         api.doc.update('', (params) => params);
       }).toThrowError("update(): Invalid localId ''.");
@@ -766,8 +769,8 @@ describe('ExtensionAPI', () => {
           extensionType: 'atlassian.com.editor',
         })(p('')),
       );
-      const editorView = createEditor(initDoc, true);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc, true);
+      const api = createAPI(editorView, editorAPI);
       expect(() => {
         api.doc.update('2', (params) => params);
       }).toThrowError("update(): Could not find node with ID '2'.");
@@ -778,8 +781,8 @@ describe('ExtensionAPI', () => {
       const initDoc = doc(
         table({ localId })(tr(td({})(p()), td({})(p()), td({})(p()))),
       );
-      const editorView = createEditor(initDoc, false);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc, false);
+      const api = createAPI(editorView, editorAPI);
 
       expect(() => {
         api.doc.update(
@@ -804,8 +807,8 @@ describe('ExtensionAPI', () => {
           extensionType: 'type-1',
         })(),
       );
-      const editorView = createEditor(initDoc, true);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc, true);
+      const api = createAPI(editorView, editorAPI);
 
       expect(() => {
         api.doc.update(
@@ -831,8 +834,8 @@ describe('ExtensionAPI', () => {
         })(p('')),
       );
 
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc, true);
+      const api = createAPI(editorView, editorAPI);
 
       expect(() => {
         api.doc.update('localId-1', ({ attrs, marks }) => ({
@@ -854,8 +857,8 @@ describe('ExtensionAPI', () => {
           extensionType: 'atlassian.com.editor',
         })(p('')),
       );
-      const editorView = createEditor(initDoc);
-      const api = createAPI(editorView);
+      const { editorView, editorAPI } = createEditor(initDoc);
+      const api = createAPI(editorView, editorAPI);
 
       expect(() => {
         api.doc.update('localId-1', ({ attrs, marks }) => ({

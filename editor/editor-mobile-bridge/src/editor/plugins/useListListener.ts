@@ -2,6 +2,7 @@ import { toNativeBridge } from '../web-to-native';
 import { useListener } from './useListener';
 import { useRef } from 'react';
 import isEqual from 'lodash/isEqual';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { ListState } from '@atlaskit/editor-plugin-list';
 import type WebBridgeImpl from '../native-to-web';
 import { valueOf as valueOfListState } from '../web-to-native/listState';

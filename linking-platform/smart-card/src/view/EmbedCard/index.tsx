@@ -20,6 +20,7 @@ import { EmbedCardErroredView } from './views/ErroredView';
 import ForbiddenView from './views/forbidden-view';
 import NotFoundView from './views/not-found-view';
 import UnauthorizedView from './views/unauthorized-view';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
   (
@@ -46,6 +47,8 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
     },
     iframeRef,
   ) => {
+    const { createAnalyticsEvent } = useAnalyticsEvents();
+
     const data =
       ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
     const meta = (details && details.meta) as JsonLd.Meta.BaseMeta;
@@ -178,6 +181,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
             jsonLd: cardMetadata,
             url,
             product: forbiddenViewProps.context?.text ?? '',
+            createAnalyticsEvent,
           });
 
           return (
@@ -220,6 +224,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
                 jsonLd: details?.meta,
                 url,
                 product: notFoundViewProps.context?.text ?? '',
+                createAnalyticsEvent,
               })
             : undefined;
 

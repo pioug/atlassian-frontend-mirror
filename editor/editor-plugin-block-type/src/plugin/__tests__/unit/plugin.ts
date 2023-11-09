@@ -1,7 +1,9 @@
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { BlockTypeState } from '@atlaskit/editor-plugin-block-type';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

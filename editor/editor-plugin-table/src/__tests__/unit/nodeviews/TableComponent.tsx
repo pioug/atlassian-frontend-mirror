@@ -27,7 +27,6 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import tablePlugin from '../../../plugins/table-plugin';
 import * as commands from '../../../plugins/table/commands';
 import {
   hoverTable,
@@ -37,6 +36,7 @@ import TableComponent from '../../../plugins/table/nodeviews/TableComponent';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import type { TablePluginState } from '../../../plugins/table/types';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
+import tablePlugin from '../../../plugins/table-plugin';
 
 jest.mock('../../../plugins/table/utils/nodes', () =>
   Object.assign({}, jest.requireActual('../../../plugins/table/utils/nodes'), {

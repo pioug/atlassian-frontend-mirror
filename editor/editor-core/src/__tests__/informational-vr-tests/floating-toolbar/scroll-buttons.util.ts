@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Page } from '@playwright/test';
 
 const panelSelectorName = '.ak-editor-panel__content';

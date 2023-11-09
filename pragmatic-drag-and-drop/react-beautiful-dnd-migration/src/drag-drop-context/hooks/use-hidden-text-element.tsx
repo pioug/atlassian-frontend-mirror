@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { ContextId } from 'react-beautiful-dnd';
 
 export function getHiddenTextElementId(contextId: string) {

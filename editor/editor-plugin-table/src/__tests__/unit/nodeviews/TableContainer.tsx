@@ -23,7 +23,6 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import tablePlugin from '../../../plugins/table-plugin';
 import {
   ResizableTableContainer,
   TableContainer,
@@ -31,6 +30,7 @@ import {
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { pluginKey as tableResizingPluginKey } from '../../../plugins/table/pm-plugins/table-width';
 import type { TablePluginState } from '../../../plugins/table/types';
+import tablePlugin from '../../../plugins/table-plugin';
 
 const mockStartMeasure = jest.fn();
 const mockEndMeasure = jest.fn(() => {

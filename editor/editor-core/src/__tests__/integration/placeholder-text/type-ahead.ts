@@ -17,6 +17,7 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import { twoPlaceholdersInsideTableCells } from './__fixtures__/base-adfs';
 

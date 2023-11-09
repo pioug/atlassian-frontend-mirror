@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { DraggingStyle, NotDraggingStyle } from 'react-beautiful-dnd';
 
 import type { DraggableDimensions } from '../hooks/use-captured-dimensions';

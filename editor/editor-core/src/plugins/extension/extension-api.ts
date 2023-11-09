@@ -25,7 +25,10 @@ import {
   getNodeTypesReferenced,
   getSelectedExtension,
 } from './utils';
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import type {
+  AnalyticsEventPayload,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -33,7 +36,6 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { addAnalytics } from '../analytics';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
@@ -41,11 +43,13 @@ import type { CreateExtensionAPI } from '@atlaskit/editor-plugin-extension';
 
 interface EditInLegacyMacroBrowserArgs {
   view: EditorView;
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
   macroProvider?: MacroProvider;
 }
 export const getEditInLegacyMacroBrowser = ({
   view,
   macroProvider,
+  editorAnalyticsAPI,
 }: EditInLegacyMacroBrowserArgs) => {
   return () => {
     if (!view) {
@@ -63,13 +67,18 @@ export const getEditInLegacyMacroBrowser = ({
       throw new Error(`Missing nodeWithPos. Can't determine position of node`);
     }
 
-    insertMacroFromMacroBrowser(macroProvider, nodeWithPos.node, true)(view);
+    insertMacroFromMacroBrowser(editorAnalyticsAPI)(
+      macroProvider,
+      nodeWithPos.node,
+      true,
+    )(view);
   };
 };
 
 interface CreateExtensionAPIOptions {
   editorView: EditorView;
   applyChange: ApplyChangeHandler | undefined;
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
   editInLegacyMacroBrowser?: () => void;
 }
 
@@ -92,6 +101,7 @@ export const createExtensionAPI: CreateExtensionAPI = (
     editorView: {
       state: { schema },
     },
+    editorAnalyticsAPI,
   } = options;
   const nodes = Object.keys(schema.nodes);
   const marks = Object.keys(schema.marks);
@@ -178,7 +188,7 @@ export const createExtensionAPI: CreateExtensionAPI = (
       // Analytics - tracking the api call
       const apiCallPayload: AnalyticsEventPayload =
         extensionAPICallPayload('insertAfter');
-      addAnalytics(state, tr, apiCallPayload);
+      editorAnalyticsAPI?.attachAnalyticsEvent(apiCallPayload)(tr);
 
       // Analytics - tracking node types added
       const nodesAdded: PMNode[] = [newNode];
@@ -216,7 +226,7 @@ export const createExtensionAPI: CreateExtensionAPI = (
           eventType: EVENT_TYPE.TRACK,
         };
 
-        addAnalytics(state, tr, payload);
+        editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
       });
       if (opt && opt.allowSelectionToNewNode) {
         tr.setSelection(new NodeSelection(tr.doc.resolve(insertPosition)));
@@ -234,7 +244,7 @@ export const createExtensionAPI: CreateExtensionAPI = (
         editorView: { dispatch, state },
       } = options;
       let { tr } = state;
-      tr = addAnalytics(state, tr, apiCallPayload);
+      editorAnalyticsAPI?.attachAnalyticsEvent(apiCallPayload)(tr);
       tr = setTextSelection(nodePos.pos)(tr);
       tr = tr.scrollIntoView();
       dispatch(tr);
@@ -311,7 +321,7 @@ export const createExtensionAPI: CreateExtensionAPI = (
       // Analytics - tracking the api call
       const apiCallPayload: AnalyticsEventPayload =
         extensionAPICallPayload('update');
-      addAnalytics(state, tr, apiCallPayload);
+      editorAnalyticsAPI?.attachAnalyticsEvent(apiCallPayload)(tr);
 
       dispatch(tr);
     },
@@ -341,6 +351,7 @@ export const createExtensionAPI: CreateExtensionAPI = (
         editInLegacy = getEditInLegacyMacroBrowser({
           view: options.editorView,
           macroProvider: macroState?.macroProvider || undefined,
+          editorAnalyticsAPI,
         });
       }
 

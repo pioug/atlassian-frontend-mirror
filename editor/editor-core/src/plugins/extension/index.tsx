@@ -96,6 +96,7 @@ const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) => {
         return createExtensionAPI({
           editorView: editorViewRef.current!,
           applyChange: api?.contextPanel?.actions.applyChange,
+          editorAnalyticsAPI: api?.analytics?.actions,
         });
       },
     },
@@ -105,6 +106,7 @@ const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) => {
         breakoutEnabled: options.breakoutEnabled,
         hoverDecoration: api?.decorations.actions.hoverDecoration,
         applyChangeToContextPanel: api?.contextPanel?.actions.applyChange,
+        editorAnalyticsAPI: api?.analytics?.actions,
       }),
       contextPanel: getContextPanel(
         options.allowAutoSave,

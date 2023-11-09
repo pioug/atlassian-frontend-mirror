@@ -25,4 +25,10 @@ export const messages = defineMessages({
     description:
       'Description text displayed when selecting the type of data to include onto the page, in this case: JSM Assets objects',
   },
+  inlineOverlay: {
+    id: 'fabric.editor.inlineOverlay',
+    defaultMessage: 'Change view',
+    description:
+      'An overlay shown when hover over inline smart link to inform user that they can change link view to card and/or embed.',
+  },
 });

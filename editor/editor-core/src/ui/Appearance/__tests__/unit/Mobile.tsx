@@ -1,6 +1,7 @@
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {

@@ -2,6 +2,7 @@ import React from 'react';
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import { WidthContext } from '@atlaskit/editor-common/ui';
 import '@atlaskit/link-test-helpers/jest';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { RendererAppearance } from '@atlaskit/renderer';
 
 import { Card, Client, Provider } from '@atlaskit/smart-card';

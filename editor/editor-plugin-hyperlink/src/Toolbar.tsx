@@ -201,15 +201,7 @@ export const getToolbarConfig =
     const { formatMessage } = intl;
     const linkState: HyperlinkState | undefined = stateKey.getState(state);
     const editorAnalyticsApi = pluginInjectionApi?.analytics?.actions;
-
-    /**
-     * Enable focus trap only if feature flag is enabled AND for the new version of the picker
-     */
-    const { lpLinkPicker, lpLinkPickerFocusTrap, preventPopupOverflow } =
-      featureFlags;
-    const shouldEnableFocusTrap = Boolean(
-      lpLinkPicker && lpLinkPickerFocusTrap,
-    );
+    const { lpLinkPicker, preventPopupOverflow } = featureFlags;
 
     if (linkState && linkState.activeLinkMark) {
       const { activeLinkMark } = linkState;
@@ -350,7 +342,6 @@ export const getToolbarConfig =
             preventPopupOverflow,
             height: popupHeight,
             width: RECENT_SEARCH_WIDTH_IN_PX,
-            focusTrap: shouldEnableFocusTrap,
             items: [
               {
                 type: 'custom',
@@ -374,9 +365,6 @@ export const getToolbarConfig =
                       displayText={displayText || ''}
                       providerFactory={providerFactory}
                       onCancel={() => view.focus()}
-                      onClose={
-                        lpLinkPickerFocusTrap ? () => view.focus() : undefined
-                      }
                       onEscapeCallback={onEscapeCallback}
                       onClickAwayCallback={onClickAwayCallback}
                       onSubmit={(
@@ -418,9 +406,7 @@ export const getToolbarConfig =
 
                         command(view.state, view.dispatch, view);
 
-                        if (!lpLinkPickerFocusTrap) {
-                          view.focus();
-                        }
+                        view.focus();
                       }}
                     />
                   );

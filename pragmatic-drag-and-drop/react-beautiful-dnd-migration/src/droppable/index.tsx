@@ -6,6 +6,7 @@ import React, {
   useRef,
 } from 'react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   DroppableId,
   DroppableProps,
@@ -15,9 +16,9 @@ import type {
 import { createPortal } from 'react-dom';
 import invariant from 'tiny-invariant';
 
-import { attachClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { attachClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 
 import { useDragDropContext } from '../drag-drop-context/internal-context';
 import { useMonitorForLifecycle } from '../drag-drop-context/lifecycle-context';

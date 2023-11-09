@@ -1,4 +1,5 @@
 // Original source from Compiled https://github.com/atlassian-labs/compiled/blob/master/packages/eslint-plugin/src/utils/create-no-tagged-template-expression-rule/to-arguments.ts
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { SourceCode } from 'eslint';
 import type * as ESTree from 'estree';
 

@@ -1,6 +1,8 @@
-import { JsonLd } from 'json-ld-types';
 import { extractRequestAccessContextImproved } from '../extractAccessContext';
+import { JsonLd } from 'json-ld-types';
 import { TEST_META_DATA, TEST_VISIT_URL } from '../../__mocks__/jsonld';
+import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
+import '@atlaskit/link-test-helpers/jest';
 
 describe('extractors.access.context', () => {
   afterEach(() => jest.clearAllMocks());
@@ -11,6 +13,7 @@ describe('extractors.access.context', () => {
         jsonLd: TEST_META_DATA,
         url: TEST_VISIT_URL,
         product: 'mock-product',
+        createAnalyticsEvent: jest.fn(),
       }),
     ).toEqual(undefined);
   });
@@ -25,6 +28,7 @@ describe('extractors.access.context', () => {
         jsonLd,
         url: TEST_VISIT_URL,
         product: 'mock-product',
+        createAnalyticsEvent: jest.fn(),
       }),
     ).toEqual({
       accessType: 'invalid',
@@ -42,6 +46,7 @@ describe('extractors.access.context', () => {
         jsonLd,
         url: TEST_VISIT_URL,
         product: 'mock-product',
+        createAnalyticsEvent: jest.fn(),
       }),
     ).toMatchObject({
       accessType: 'DIRECT_ACCESS',
@@ -68,6 +73,7 @@ describe('extractors.access.context', () => {
         jsonLd,
         url: TEST_VISIT_URL,
         product: 'mock-product',
+        createAnalyticsEvent: jest.fn(),
       }),
     ).toMatchObject({
       accessType: 'REQUEST_ACCESS',
@@ -94,6 +100,7 @@ describe('extractors.access.context', () => {
         jsonLd,
         url: TEST_VISIT_URL,
         product: 'mock-product',
+        createAnalyticsEvent: jest.fn(),
       }),
     ).toMatchObject({
       accessType: 'PENDING_REQUEST_EXISTS',
@@ -120,6 +127,7 @@ describe('extractors.access.context', () => {
         jsonLd,
         url: TEST_VISIT_URL,
         product: 'mock-product',
+        createAnalyticsEvent: jest.fn(),
       }),
     ).toMatchObject({
       accessType: 'FORBIDDEN',
@@ -139,6 +147,7 @@ describe('extractors.access.context', () => {
         jsonLd,
         url: TEST_VISIT_URL,
         product: 'mock-product',
+        createAnalyticsEvent: jest.fn(),
       }),
     ).toMatchObject({
       accessType: 'DENIED_REQUEST_EXISTS',
@@ -158,6 +167,7 @@ describe('extractors.access.context', () => {
         jsonLd,
         url: TEST_VISIT_URL,
         product: 'mock-product',
+        createAnalyticsEvent: jest.fn(),
       }),
     ).toMatchObject({
       accessType: 'ACCESS_EXISTS',
@@ -187,6 +197,7 @@ describe('extractors.access.context', () => {
         jsonLd,
         url: TEST_VISIT_URL,
         product: 'mock-product',
+        createAnalyticsEvent: jest.fn(),
       }),
     ).toMatchObject({
       accessType: 'ACCESS_EXISTS',
@@ -194,5 +205,71 @@ describe('extractors.access.context', () => {
       descriptiveMessageKey: 'not_found_description_crossjoin',
       hostname: 'visit.url.com',
     });
+  });
+
+  it('an analytics event is invoked when the request access type is REQUEST_ACCESS', async () => {
+    window.open = jest.fn();
+
+    const jsonLd = { ...TEST_META_DATA };
+    jsonLd.requestAccess = {
+      accessType: 'REQUEST_ACCESS',
+    };
+
+    const createAnalyticsEventMock = jest.fn();
+    const fireMock = jest.fn();
+    createAnalyticsEventMock.mockReturnValue({
+      fire: fireMock,
+    });
+
+    const requestAccessContext = extractRequestAccessContextImproved({
+      jsonLd,
+      url: TEST_VISIT_URL,
+      product: 'mock-product',
+      createAnalyticsEvent: createAnalyticsEventMock,
+    });
+
+    await requestAccessContext.action?.promise();
+
+    expect(createAnalyticsEventMock).toHaveBeenCalledWith({
+      action: 'clicked',
+      actionSubject: 'button',
+      actionSubjectId: 'requestAccess',
+      eventType: 'ui',
+    });
+
+    expect(fireMock).toHaveBeenCalledWith(ANALYTICS_CHANNEL);
+  });
+
+  it('an analytics event is invoked when the request access type is DIRECT_ACCESS', async () => {
+    window.open = jest.fn();
+
+    const jsonLd = { ...TEST_META_DATA };
+    jsonLd.requestAccess = {
+      accessType: 'DIRECT_ACCESS',
+    };
+
+    const createAnalyticsEventMock = jest.fn();
+    const fireMock = jest.fn();
+    createAnalyticsEventMock.mockReturnValue({
+      fire: fireMock,
+    });
+
+    const requestAccessContext = extractRequestAccessContextImproved({
+      jsonLd,
+      url: TEST_VISIT_URL,
+      product: 'mock-product',
+      createAnalyticsEvent: createAnalyticsEventMock,
+    });
+
+    await requestAccessContext.action?.promise();
+
+    expect(createAnalyticsEventMock).toHaveBeenCalledWith({
+      action: 'clicked',
+      actionSubject: 'button',
+      actionSubjectId: 'crossJoin',
+      eventType: 'ui',
+    });
+
+    expect(fireMock).toHaveBeenCalledWith(ANALYTICS_CHANNEL);
   });
 });

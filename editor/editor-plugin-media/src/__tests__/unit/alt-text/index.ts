@@ -8,6 +8,7 @@ import type { DocBuilder, Refs } from '@atlaskit/editor-common/types';
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Options as CreateEditorOptions } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';

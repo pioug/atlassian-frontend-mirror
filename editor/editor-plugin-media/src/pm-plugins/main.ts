@@ -51,6 +51,7 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { UploadParams } from '@atlaskit/media-picker/types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import * as helpers from '../commands/helpers';
 import { updateMediaSingleNodeAttrs } from '../commands/helpers';
@@ -141,6 +142,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   isResizing: boolean = false;
   resizingWidth: number = 0;
   currentMaxWidth?: number;
+  allowInlineImages = false;
 
   private view!: EditorView;
   private destroyed = false;
@@ -205,6 +207,10 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       'contextIdentifierProvider',
       this.onContextIdentifierProvider,
     );
+
+    if (getBooleanFF('platform.editor.media.inline-image.base-support')) {
+      this.allowInlineImages = true;
+    }
 
     this.errorReporter = options.errorReporter || new ErrorReporter();
     this.singletonCreatedAt = (performance || Date).now();

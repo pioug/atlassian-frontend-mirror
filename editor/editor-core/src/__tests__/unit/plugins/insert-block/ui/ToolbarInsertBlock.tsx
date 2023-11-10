@@ -40,7 +40,7 @@ import { panelPlugin } from '@atlaskit/editor-plugin-panel';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { statusPlugin } from '@atlaskit/editor-plugin-status';
-import expandPlugin from '../../../../../plugins/expand';
+import { expandPlugin } from '@atlaskit/editor-plugin-expand';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';

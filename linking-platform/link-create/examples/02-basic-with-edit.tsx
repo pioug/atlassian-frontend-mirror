@@ -191,7 +191,6 @@ function CreateBasic() {
         onCancel={handleCancel}
         onOpenComplete={handleOpenComplete}
         onCloseComplete={handleCloseComplete}
-        // @ts-expect-error onComplete is an experimental prop for a future release
         onComplete={handleOnComplete}
       />
     </div>

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { useIntl } from 'react-intl-next';
-
 import type {
   ProviderFactory,
   Providers,
@@ -15,7 +13,6 @@ import {
 } from '@atlaskit/mention';
 import { isPromise } from '@atlaskit/mention/types';
 
-import { messages } from '../messages';
 import type { MentionPluginOptions } from '../types';
 import Mention from '../ui/Mention';
 import type { MentionProps } from '../ui/Mention';
@@ -35,7 +32,6 @@ const MentionAssistiveTextComponent = ({
   mentionProvider,
 }: MentionProps & { mentionProvider?: Promise<MentionProvider> }) => {
   const [resolvedName, setResolvedName] = useState(text);
-  const intl = useIntl();
 
   const processName = (name: MentionNameDetails): string => {
     if (name.status === MentionNameStatus.OK) {
@@ -68,10 +64,7 @@ const MentionAssistiveTextComponent = ({
 
   return (
     <>
-      <span className={'assistive'}>
-        {`${intl.formatMessage(messages.mentionsNodeLabel)} ${resolvedName}`}
-      </span>
-      <span aria-hidden="true">
+      <span>
         <Mention
           id={id}
           text={resolvedName}

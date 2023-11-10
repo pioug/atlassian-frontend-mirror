@@ -14,9 +14,9 @@ export const messages = defineMessages({
   },
   datasourceAssetsObjects: {
     id: 'fabric.editor.datasource.assetsObjects',
-    defaultMessage: 'Assets',
+    defaultMessage: 'Assets (Beta)',
     description:
-      'Text displayed when selecting the type of data to include onto the page, in this case: JSM Assets objects',
+      'Text displayed when selecting the type of data to include onto the page, in this case: JSM Assets objects. This feature is currently in Beta release, so we also include messaging for that.',
   },
   datasourceAssetsObjectsDescription: {
     id: 'fabric.editor.datasource.assetsObjects.description',

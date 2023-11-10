@@ -1,4 +1,7 @@
-import React, { useMemo } from 'react';
+/** @jsx jsx */
+import { useMemo } from 'react';
+
+import { css, jsx } from '@emotion/react';
 
 import {
   DatasourceDataResponseItem,
@@ -14,6 +17,7 @@ import { EmptyState, IssueLikeDataTableView } from '../../../issue-like-table';
 import { InitialStateView } from './initial-state-view';
 
 export interface RenderAssetsContentProps {
+  isFetchingInitialData: boolean;
   status: DatasourceTableStatusType;
   responseItems: DatasourceDataResponseItem[];
   visibleColumnKeys?: string[];
@@ -29,6 +33,12 @@ export interface RenderAssetsContentProps {
   modalRenderInstanceId: string;
 }
 
+// This is to prevent y scrollbar when initially fetching data
+const emptyStateOverrideStyles = css({
+  height: '420px',
+  overflow: 'hidden',
+});
+
 export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
   const {
     status,
@@ -41,6 +51,7 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
     defaultVisibleColumnKeys,
     onVisibleColumnKeysChange,
     modalRenderInstanceId,
+    isFetchingInitialData,
   } = props;
 
   const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
@@ -74,7 +85,14 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
     ],
   );
 
-  if (status === 'rejected') {
+  if (isFetchingInitialData) {
+    // Placing this check first as it's a priority before all others
+    return (
+      <div css={emptyStateOverrideStyles}>
+        <EmptyState testId="assets-aql-datasource-modal--loading-state" />
+      </div>
+    );
+  } else if (status === 'rejected') {
     return <ModalLoadingError />;
   } else if (status === 'unauthorized') {
     return <AccessRequired />;

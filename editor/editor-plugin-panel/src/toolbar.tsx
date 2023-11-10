@@ -34,7 +34,6 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { EmojiId } from '@atlaskit/emoji/types';
 import ErrorIcon from '@atlaskit/icon/glyph/editor/error';
 import InfoIcon from '@atlaskit/icon/glyph/editor/info';

@@ -16,6 +16,7 @@ import {
 
 export type InitialSearchData = {
   objectSchema?: ObjectSchema;
+  objectSchemas?: ObjectSchema[];
   aql?: string;
 };
 
@@ -55,6 +56,9 @@ export const AssetsSearchContainer = (props: SearchContainerProps) => {
               <AssetsObjectSchemaSelect
                 value={initialSearchData.objectSchema ?? undefined}
                 workspaceId={workspaceId}
+                initialObjectSchemas={
+                  initialSearchData.objectSchemas ?? undefined
+                }
                 classNamePrefix="assets-datasource-modal--object-schema-select"
               />
             </SchemaSelectContainer>

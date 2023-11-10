@@ -9,7 +9,6 @@ import type {
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type {
   ApplyChangeHandler,

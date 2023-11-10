@@ -117,6 +117,9 @@ function CreateBasic() {
       setTimeout(() => resolve(), 2000);
     });
     setLink(payload.url);
+  }, []);
+
+  const handleComplete = useCallback(() => {
     setActive(false);
   }, []);
 
@@ -160,6 +163,7 @@ function CreateBasic() {
         triggeredFrom="example"
         entityKey={ENTITY_KEY}
         onCreate={handleCreate}
+        onComplete={handleComplete}
         onFailure={handleFailure}
         onCancel={handleCancel}
         onOpenComplete={handleOpenComplete}

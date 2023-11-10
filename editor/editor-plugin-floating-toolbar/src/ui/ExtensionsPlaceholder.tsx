@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import Loadable from 'react-loadable';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import ButtonGroup from '@atlaskit/button/button-group';
 import type {

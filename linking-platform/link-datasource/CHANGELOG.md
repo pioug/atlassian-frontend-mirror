@@ -1,5 +1,29 @@
 # @atlaskit/link-datasource
 
+## 1.15.4
+
+### Patch Changes
+
+- [#42840](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42840) [`0358055bfaa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0358055bfaa) - [ux] Permission error states are now shown in the Assets Config Modal.
+
+## 1.15.3
+
+### Patch Changes
+
+- [#42661](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42661) [`c6abc68904d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6abc68904d) - [ux] Fix date showing incorrectly and also update test data to check for the format it was failing for
+
+## 1.15.2
+
+### Patch Changes
+
+- [#42738](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42738) [`95e6223ddb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95e6223ddb8) - Add macro inserted analytics event for jlol smart link insertions
+
+## 1.15.1
+
+### Patch Changes
+
+- [#42936](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42936) [`8aab8999a3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8aab8999a3d) - Update error UI text.
+
 ## 1.15.0
 
 ### Minor Changes

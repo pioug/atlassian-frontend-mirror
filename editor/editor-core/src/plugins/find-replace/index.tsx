@@ -1,21 +1,31 @@
 import React from 'react';
 import { createPlugin } from './plugin';
 import keymapPlugin from './keymap';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import FindReplaceToolbarButtonWithState from './FindReplaceToolbarButtonWithState';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 type Config = {
   takeFullWidth: boolean;
   twoLineEditorToolbar: boolean;
 };
-export const findReplacePlugin: NextEditorPlugin<
+
+export type FindReplacePlugin = NextEditorPlugin<
   'findReplace',
   {
     pluginConfiguration: Config;
-    dependencies: [FeatureFlagsPlugin];
+    dependencies: [FeatureFlagsPlugin, OptionalPlugin<AnalyticsPlugin>];
   }
-> = ({ config: props, api }) => {
+>;
+
+export const findReplacePlugin: FindReplacePlugin = ({
+  config: props,
+  api,
+}) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 
   return {
@@ -29,7 +39,7 @@ export const findReplacePlugin: NextEditorPlugin<
         },
         {
           name: 'findReplaceKeymap',
-          plugin: () => keymapPlugin(),
+          plugin: () => keymapPlugin(api?.analytics?.actions),
         },
       ];
     },
@@ -57,6 +67,7 @@ export const findReplacePlugin: NextEditorPlugin<
             dispatchAnalyticsEvent={dispatchAnalyticsEvent}
             takeFullWidth={props?.takeFullWidth}
             featureFlags={featureFlags}
+            editorAnalyticsAPI={api?.analytics?.actions}
           />
         );
       }

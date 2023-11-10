@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import type WebBridgeImpl from '../native-to-web';
 import type EditorConfiguration from '../editor-configuration';
 import type { IntlShape } from 'react-intl-next';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { StatusType } from '@atlaskit/editor-plugin-status';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { subscribeToToolbarAndPickerUpdates } from '@atlaskit/editor-core/src/plugins/view-update-subscription/subscribe/toolbarAndPickerUpdates';

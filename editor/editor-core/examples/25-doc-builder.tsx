@@ -9,7 +9,7 @@ import EditorContext from '../src/ui/EditorContext';
 import { DevTools } from '../example-helpers/DevTools';
 import { evaluateDocBuilderExpression } from '../example-helpers/evaluate-doc-builder-expression';
 import WithEditorActions from '../src/ui/WithEditorActions';
-import { EditorActions } from '../src';
+import type { EditorActions } from '../src';
 import { ExampleEditor as FullPageEditor } from './5-full-page';
 
 interface DocBuilderState {
@@ -88,6 +88,25 @@ const nodeTypes: Record<string, NodeMapping> = {
       'width',
       'occurrenceKey',
       'url',
+    ],
+  },
+  mediaInline: {
+    name: 'mediaInline',
+    attrs: [
+      '__contextId',
+      '__displayType',
+      '__external',
+      '__fileMimeType',
+      '__fileName',
+      '__fileSize',
+      '__mediaTraceId',
+      'alt',
+      'height',
+      'id',
+      'occurrenceKey',
+      'type',
+      'url',
+      'width',
     ],
   },
   applicationCard: {

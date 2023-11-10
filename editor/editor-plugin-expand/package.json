@@ -1,0 +1,104 @@
+{
+  "name": "@atlaskit/editor-plugin-expand",
+  "version": "0.1.0",
+  "description": "Expand plugin for @atlaskit/editor-core",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "Editor: Jenga",
+    "inPublicMirror": false,
+    "releaseModel": "continuous"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@atlaskit/adf-schema": "^32.0.0",
+    "@atlaskit/button": "^16.13.0",
+    "@atlaskit/editor-common": "^76.18.0",
+    "@atlaskit/editor-plugin-analytics": "^0.3.0",
+    "@atlaskit/editor-plugin-decorations": "^0.2.0",
+    "@atlaskit/editor-plugin-feature-flags": "^1.0.1",
+    "@atlaskit/editor-plugin-selection": "^0.1.0",
+    "@atlaskit/editor-prosemirror": "1.1.0",
+    "@atlaskit/editor-shared-styles": "^2.8.0",
+    "@atlaskit/editor-tables": "^2.3.0",
+    "@atlaskit/icon": "^21.12.0",
+    "@atlaskit/tooltip": "^17.8.0",
+    "@babel/runtime": "^7.0.0",
+    "@emotion/react": "^11.7.1",
+    "w3c-keyname": "^2.1.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-intl-next": "npm:react-intl@^5.18.1"
+  },
+  "devDependencies": {
+    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/editor-plugin-content-insertion": "^0.1.0",
+    "@atlaskit/editor-plugin-guideline": "^0.5.0",
+    "@atlaskit/editor-plugin-quick-insert": "^0.2.0",
+    "@atlaskit/editor-plugin-table": "^5.3.0",
+    "@atlaskit/editor-plugin-type-ahead": "^0.7.0",
+    "@atlaskit/editor-plugin-width": "^0.2.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@testing-library/react": "^12.1.5",
+    "react-test-renderer": "^16.8.0",
+    "typescript": "~4.9.5"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": [
+        "file-and-folder-level"
+      ]
+    },
+    "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
+      "analytics": [
+        "analytics-next"
+      ],
+      "design-tokens": [
+        "color"
+      ],
+      "theming": [
+        "react-context"
+      ],
+      "ui-components": [
+        "lite-mode"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ],
+      "styling": [
+        "static",
+        "emotion"
+      ],
+      "imports": [
+        "import-no-extraneous-disable-for-examples-and-docs"
+      ]
+    }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+}

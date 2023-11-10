@@ -14,7 +14,6 @@ import {
   toJSONTableHeader,
 } from '@atlaskit/adf-schema';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   Mark as PMMark,
   Node as PMNode,

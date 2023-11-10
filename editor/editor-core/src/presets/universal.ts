@@ -8,14 +8,11 @@ import {
   jiraIssuePlugin,
   toolbarListsIndentationPlugin,
   macroPlugin,
-  maxContentSizePlugin,
   tasksAndDecisionsPlugin,
   alignmentPlugin,
   indentationPlugin,
   customAutoformatPlugin,
   feedbackDialogPlugin,
-  expandPlugin,
-  isExpandInsertionEnabled,
   mobileDimensionsPlugin,
   findReplacePlugin,
   mobileSelectionPlugin,
@@ -30,6 +27,7 @@ import { textColorPlugin } from '@atlaskit/editor-plugin-text-color';
 import { historyPlugin } from '@atlaskit/editor-plugin-history';
 import { statusPlugin } from '@atlaskit/editor-plugin-status';
 import { datePlugin } from '@atlaskit/editor-plugin-date';
+import { maxContentSizePlugin } from '@atlaskit/editor-plugin-max-content-size';
 import { captionPlugin } from '@atlaskit/editor-plugin-caption';
 import { borderPlugin } from '@atlaskit/editor-plugin-border';
 import { helpDialogPlugin } from '@atlaskit/editor-plugin-help-dialog';
@@ -52,9 +50,10 @@ import { saveOnEnterPlugin } from '@atlaskit/editor-plugin-save-on-enter';
 import { scrollIntoViewPlugin } from '@atlaskit/editor-plugin-scroll-into-view';
 import { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import { placeholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text';
-
+import { expandPlugin } from '@atlaskit/editor-plugin-expand';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 
+import type { EditorProps } from '../types';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import type { PrivateCollabEditOptions } from '../plugins/collab-edit/types';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
@@ -676,4 +675,16 @@ export default function createUniversalPreset(
       },
     ]);
   return finalPreset;
+}
+
+interface ExpandEditorProps {
+  allowExpand?: EditorProps['allowExpand'];
+}
+
+export function isExpandInsertionEnabled({ allowExpand }: ExpandEditorProps) {
+  if (allowExpand && typeof allowExpand === 'object') {
+    return !!allowExpand.allowInsertion;
+  }
+
+  return false;
 }

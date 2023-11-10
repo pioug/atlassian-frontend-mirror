@@ -1,5 +1,17 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.2.22
+
+### Patch Changes
+
+- [#42761](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42761) [`5d1881c7ed0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d1881c7ed0) - Adds @ak/tokens as a dependency
+
+## 11.2.21
+
+### Patch Changes
+
+- [#42963](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42963) [`b82377fa7ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b82377fa7ae) - Changed brace-wrapped formatting marks to be considered valid even if preceded/followed by alphanumeric characters
+
 ## 11.2.20
 
 ### Patch Changes

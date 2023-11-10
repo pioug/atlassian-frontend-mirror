@@ -28,6 +28,8 @@ ${(<AtlassianInternalWarning />)}
   // Inside a component with proper state and event management
   const handleCreate = (payload: CreatePayload) => {...}
 
+  const handleComplete = () => {...}
+
   const handleCancel = () => {...}
 
   const handleFailure = () => {...}
@@ -36,7 +38,8 @@ ${(<AtlassianInternalWarning />)}
     <LinkCreate
       entityKey={"entityKey"}
       plugins={...}
-      onSubmit={handleCreate}
+      onCreate={handleCreate}
+      onComplete={handleComplete}
       onFailure={handleFailure}
       onCancel={handleCancel}
       {...}
@@ -82,6 +85,11 @@ ${(<AtlassianInternalWarning />)}
 
   ...
   // Inside a component with proper state and event management
+  const handleComplete = () => {
+    ...
+    setActive(false);
+  }
+
   const handleCloseComplete = () => {...}
 
   const handleOpenComplete = () => {...}
@@ -91,6 +99,7 @@ ${(<AtlassianInternalWarning />)}
       active={active}
       entityKey={"entityKey"}
       plugins={...}
+      onComplete={handleComplete}
       onOpenComplete={handleOpenComplete}
       onCloseComplete={handleCloseComplete}
       {...}

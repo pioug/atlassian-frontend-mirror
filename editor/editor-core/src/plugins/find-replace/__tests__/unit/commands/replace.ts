@@ -26,6 +26,7 @@ const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
   () => ({ fire: () => {} } as UIAnalyticsEvent),
 );
 let editorView: EditorView;
+let editorAPI: any;
 let refs: { [name: string]: number };
 let rafStub: {
   add: (cb: Function) => number;
@@ -54,7 +55,7 @@ const findCommand = async (keyword?: string) => {
 };
 
 const initEditor = async (doc: DocBuilder, query = 'quokka') => {
-  ({ editorView, refs } = editor(doc, createAnalyticsEvent));
+  ({ editorView, refs, editorAPI } = editor(doc, createAnalyticsEvent));
   dispatchSpy = jest.spyOn(editorView, 'dispatch');
 
   // need to do a find before we can do a replace
@@ -537,7 +538,7 @@ describe('find/replace commands: replace', () => {
 describe('find/replace commands: replaceWithAnalytics', () => {
   it('should fire analytics event from button click', () => {
     initEditor(doc(p('{<>}this is a {matchStart}quokka{matchEnd}')));
-    replaceWithAnalytics({
+    replaceWithAnalytics(editorAPI?.analytics?.actions)({
       triggerMethod: TRIGGER_METHOD.BUTTON,
       replaceText: 'numbat',
     })(editorView.state, editorView.dispatch);
@@ -553,7 +554,7 @@ describe('find/replace commands: replaceWithAnalytics', () => {
 
   it('should fire analytics event from pressing Enter', () => {
     initEditor(doc(p('{<>}this is a {matchStart}quokka{matchEnd}')));
-    replaceWithAnalytics({
+    replaceWithAnalytics(editorAPI?.analytics?.actions)({
       triggerMethod: TRIGGER_METHOD.KEYBOARD,
       replaceText: 'numbat',
     })(editorView.state, editorView.dispatch);

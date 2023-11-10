@@ -35,6 +35,18 @@ describe('DateTime Type', () => {
       expect(el).toHaveTextContent('Sep 14, 2006');
     });
 
+    it('renders date in the correct format when a valid hyphen separated date is passed', async () => {
+      const { queryByTestId } = setup({
+        value: '2023-09-08',
+        display: 'date',
+      });
+
+      const el = queryByTestId(DATETIME_TYPE_TEST_ID);
+
+      expect(el).toBeInTheDocument();
+      expect(el).toHaveTextContent('Sep 8, 2023');
+    });
+
     it('renders date in the correct format when a valid non-iso date format is passed', async () => {
       const { queryByTestId } = setup({
         value: '11/11/2023',

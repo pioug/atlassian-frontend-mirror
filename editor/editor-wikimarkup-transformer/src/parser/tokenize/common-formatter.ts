@@ -1,6 +1,7 @@
-import { Schema } from '@atlaskit/editor-prosemirror/model';
-import { Token, TokenType } from './';
-import { Context } from '../../interfaces';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Token } from './';
+import { TokenType } from './';
+import type { Context } from '../../interfaces';
 import { linkFormat } from './links/link-format';
 import { parseNewlineOnly } from './whitespace';
 import { parseMacroKeyword } from './keyword';
@@ -37,6 +38,10 @@ export function commonFormatter(
   let buffer = [];
   const openingSymbolLength = opt.opening.length;
   const closingSymbolLength = opt.closing.length;
+  const openingWrapped =
+    opt.opening.startsWith('{') && opt.opening.endsWith('}');
+  const closingWrapped =
+    opt.closing.startsWith('{') && opt.closing.endsWith('}');
 
   while (index < input.length) {
     const char = input.charAt(index);
@@ -52,6 +57,7 @@ export function commonFormatter(
            */
           const charBeforeOpening = input.charAt(position - 1);
           if (
+            !openingWrapped &&
             /[a-zA-Z0-9]|[^\u0000-\u007F]/.test(charBeforeOpening) &&
             charBeforeOpening !== '\u00A0'
           ) {
@@ -116,6 +122,7 @@ export function commonFormatter(
           const charAfterEnd = input.charAt(index);
 
           if (
+            !closingWrapped &&
             /[a-zA-Z0-9]|[^\u0000-\u007F]/.test(charAfterEnd) &&
             charAfterEnd !== '\u00A0'
           ) {

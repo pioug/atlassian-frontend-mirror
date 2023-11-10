@@ -4,6 +4,7 @@ import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type {
   AllEditorPresetPluginTypes,
   ExtractPublicEditorAPI,
+  ExtractNextEditorPlugins,
 } from '@atlaskit/editor-common/types';
 import { usePresetContext } from './presets/context';
 
@@ -57,8 +58,7 @@ export function usePreset<
   createPreset: () => EditorPresetBuilder<PluginNames, StackPlugins>,
   dependencies: DependencyList,
 ): PresetAPI<PluginNames, StackPlugins> {
-  const editorApi = usePresetContext();
-
+  const editorApi = usePresetContext<ExtractNextEditorPlugins<StackPlugins>>();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const preset = useMemo(createPreset, dependencies);
 

@@ -20,7 +20,7 @@ import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { StatusPlugin } from '@atlaskit/editor-plugin-status';
 import type { PlaceholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text';
-import type { ExpandPlugin } from '../expand';
+import type { ExpandPlugin } from '@atlaskit/editor-plugin-expand';
 
 export type InsertBlockPluginDependencies = [
   FeatureFlagsPlugin,

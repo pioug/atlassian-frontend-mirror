@@ -1,6 +1,5 @@
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { StatusType } from '@atlaskit/editor-plugin-status';
 import {
   lightModeStatusColorPalette,

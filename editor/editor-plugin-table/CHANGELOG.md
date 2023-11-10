@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.25
+
+### Patch Changes
+
+- [#42925](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42925) [`8ea16423505`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ea16423505) - Removes FF platform.editor.update-table-cell-width-via-step
+
+## 5.3.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.23
 
 ### Patch Changes

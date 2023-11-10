@@ -18,6 +18,7 @@ describe('AssetsConfigModal', () => {
       <IntlProvider locale="en">
         <SmartCardProvider client={new CardClient()}>
           <RenderAssetsContent
+            isFetchingInitialData={props.isFetchingInitialData ?? false}
             status="resolved"
             responseItems={[
               {
@@ -74,6 +75,13 @@ describe('AssetsConfigModal', () => {
       'href',
       'https://support.atlassian.com/jira-service-management-cloud/docs/use-assets-query-language-aql/',
     );
+  });
+
+  it('Should display loading view when isFetchingInitialData', async () => {
+    const { queryByTestId } = setup({ isFetchingInitialData: true });
+    expect(
+      queryByTestId('assets-aql-datasource-modal--loading-state'),
+    ).toBeInTheDocument();
   });
 
   it('Should display loading view when the status is loading', async () => {

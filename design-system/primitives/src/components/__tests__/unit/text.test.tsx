@@ -51,6 +51,8 @@ describe('Text component', () => {
 
     it('throws when an invalid "as" value is given', () => {
       // @ts-ignore purposefully providing an invalid value to test invariant behaviour
+      // TODO: Change this `as` to something that won't trip ESLint (DSP-14030)
+      // eslint-disable-next-line jsx-a11y/label-has-associated-control
       expect(() => render(<Text as="label">Text</Text>)).toThrow(
         new Error(
           'Invariant failed: @atlaskit/primitives: Text received an invalid "as" value of "label"',

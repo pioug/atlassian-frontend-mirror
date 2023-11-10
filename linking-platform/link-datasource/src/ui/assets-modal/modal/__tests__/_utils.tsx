@@ -169,7 +169,11 @@ export const getAssetsClientDefaultHookState: () => UseAssetsClientState =
   () => ({
     workspaceId: 'some-workspace-id',
     workspaceError: undefined,
-    objectSchema: { name: 'test schema', id: '123' },
+    existingObjectSchema: { name: 'test schema', id: '123' },
+    existingObjectSchemaError: undefined,
+    objectSchemas: mockFetchObjectSchemasSuccess.objectSchemas,
+    objectSchemasError: undefined,
+    totalObjectSchemas: mockFetchObjectSchemasSuccess.totalObjectSchemas,
     assetsClientLoading: false,
   });
 
@@ -177,17 +181,36 @@ export const getAssetsClientLoadingHookState: () => UseAssetsClientState =
   () => ({
     workspaceId: undefined,
     workspaceError: undefined,
-    objectSchema: undefined,
+    existingObjectSchema: undefined,
+    existingObjectSchemaError: undefined,
+    objectSchemas: undefined,
+    objectSchemasError: undefined,
+    totalObjectSchemas: undefined,
     assetsClientLoading: true,
   });
 
-export const getAssetsClientErrorHookState: () => UseAssetsClientState =
-  () => ({
-    workspaceId: undefined,
-    workspaceError: new Error('workspaceError'),
-    objectSchema: undefined,
-    assetsClientLoading: false,
-  });
+export const getAssetsClientErrorHookState: ({
+  workspaceError,
+  existingObjectSchemaError,
+  objectSchemasError,
+}: {
+  workspaceError?: Error;
+  existingObjectSchemaError?: Error;
+  objectSchemasError?: Error;
+}) => UseAssetsClientState = ({
+  workspaceError,
+  existingObjectSchemaError,
+  objectSchemasError,
+}) => ({
+  workspaceId: undefined,
+  workspaceError: workspaceError,
+  existingObjectSchema: undefined,
+  existingObjectSchemaError: existingObjectSchemaError,
+  objectSchemas: undefined,
+  objectSchemasError: objectSchemasError,
+  totalObjectSchemas: undefined,
+  assetsClientLoading: false,
+});
 
 export const geValidateAqlTextDefaultHookState: () => UseValidateAqlTextState =
   () => ({

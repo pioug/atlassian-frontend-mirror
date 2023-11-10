@@ -6,6 +6,7 @@ import {
   getWorkspaceId,
   validateAql,
 } from '../cmdbService';
+import { FetchError, PermissionError } from '../cmdbService.utils';
 
 describe('cmdbService', () => {
   beforeEach(() => {
@@ -37,7 +38,7 @@ describe('cmdbService', () => {
       expect(response).toEqual(mockResponse.results[0].id);
     });
 
-    it('should throw error if response results is empty', async () => {
+    it('should throw PermissionError if response results is empty', async () => {
       const mockResponse = {
         results: [],
       };
@@ -46,12 +47,32 @@ describe('cmdbService', () => {
         response: mockResponse,
       });
 
-      await expect(getWorkspaceId).rejects.toThrow(
-        'No workspace results found',
-      );
+      await expect(getWorkspaceId).rejects.toThrow(PermissionError);
       expect(mock.calls()).toHaveLength(1);
       expect(mock.done()).toBe(true);
     });
+
+    it.each([
+      [500, FetchError],
+      [429, FetchError],
+      [412, PermissionError],
+      [401, PermissionError],
+    ])(
+      'should throw correct error type if response status is %s',
+      async (
+        statusCode: number,
+        errorType: string | RegExp | Error | jest.Constructable,
+      ) => {
+        const mock = fetchMock.get({
+          url: '/rest/servicedesk/cmdb/latest/workspace',
+          response: statusCode,
+        });
+
+        await expect(getWorkspaceId).rejects.toThrow(errorType);
+        expect(mock.calls()).toHaveLength(1);
+        expect(mock.done()).toBe(true);
+      },
+    );
   });
 
   describe('validateAql', () => {
@@ -85,6 +106,33 @@ describe('cmdbService', () => {
         expect(response).toEqual(expectedMockResponse);
       },
     );
+
+    it.each([
+      [500, FetchError],
+      [401, PermissionError],
+    ])(
+      'should throw correct error type if response status is %s',
+      async (
+        statusCode: number,
+        errorType: string | RegExp | Error | jest.Constructable,
+      ) => {
+        const query = { qlQuery: 'valid aql' };
+        const mock = fetchMock.post({
+          url: `/gateway/api/jsm/assets/workspace/${workspaceId}/v1/aql/validate`,
+          response: statusCode,
+          body: {
+            context: 'SMART_LINKS',
+            ...query,
+          },
+        });
+
+        await expect(validateAql(workspaceId, query)).rejects.toThrow(
+          errorType,
+        );
+        expect(mock.calls()).toHaveLength(1);
+        expect(mock.done()).toBe(true);
+      },
+    );
   });
 
   describe('fetchObjectSchema', () => {
@@ -104,6 +152,28 @@ describe('cmdbService', () => {
       expect(mock.done()).toBe(true);
       expect(response).toEqual(mockResponseObjectSchema);
     });
+
+    it.each([
+      [500, FetchError],
+      [401, PermissionError],
+    ])(
+      'should throw correct error type if response status is %s',
+      async (
+        statusCode: number,
+        errorType: string | RegExp | Error | jest.Constructable,
+      ) => {
+        const mock = fetchMock.get({
+          url: `/gateway/api/jsm/assets/workspace/${workspaceId}/v1/objectschema/${schemaId}`,
+          response: statusCode,
+        });
+
+        await expect(fetchObjectSchema(workspaceId, schemaId)).rejects.toThrow(
+          errorType,
+        );
+        expect(mock.calls()).toHaveLength(1);
+        expect(mock.done()).toBe(true);
+      },
+    );
   });
 
   describe('fetchObjectSchemas', () => {
@@ -144,6 +214,28 @@ describe('cmdbService', () => {
         expect(mock.calls()).toHaveLength(1);
         expect(mock.done()).toBe(true);
         expect(response).toEqual(expectedMockResponse);
+      },
+    );
+
+    it.each([
+      [500, FetchError],
+      [401, PermissionError],
+    ])(
+      'should throw correct error type if response status is %s',
+      async (
+        statusCode: number,
+        errorType: string | RegExp | Error | jest.Constructable,
+      ) => {
+        const mock = fetchMock.get({
+          url: `/gateway/api/jsm/assets/workspace/${workspaceId}/v1/objectschema/list?maxResults=20&includeCounts=false`,
+          response: statusCode,
+        });
+
+        await expect(fetchObjectSchemas(workspaceId)).rejects.toThrow(
+          errorType,
+        );
+        expect(mock.calls()).toHaveLength(1);
+        expect(mock.done()).toBe(true);
       },
     );
   });

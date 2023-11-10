@@ -1,11 +1,9 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
 import type { TOOLBAR_MENU_TYPE as InsertBlockInputMethodToolbar } from '@atlaskit/editor-common/types';
 import type {
   LinkInputType as LinkInputMethod,
   InputMethodBasic as TextFormattingInputMethodBasic,
 } from '@atlaskit/editor-common/types';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { InputMethod as ListInputMethod } from '@atlaskit/editor-plugin-list';
 
 import type { Color as StatusColor } from '@atlaskit/status/element';

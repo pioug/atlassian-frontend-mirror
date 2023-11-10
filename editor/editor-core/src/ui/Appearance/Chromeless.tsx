@@ -1,16 +1,18 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 import PluginSlot from '../PluginSlot';
-import WithPluginState from '../WithPluginState';
 import { createEditorContentStyle } from '../ContentStyles';
-import { EditorAppearanceComponentProps, EditorAppearance } from '../../types';
-import {
-  pluginKey as maxContentSizePluginKey,
-  MaxContentSizePluginState,
-} from '../../plugins/max-content-size';
+import type { MaxContentSizePluginState } from '@atlaskit/editor-plugin-max-content-size';
+import type {
+  EditorAppearanceComponentProps,
+  EditorAppearance,
+} from '../../types';
 import { scrollbarStyles } from '../styles';
 import WithFlash from '../WithFlash';
+import { usePresetContext } from '../../presets/context';
+
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 
 const chromelessEditor = css`
   line-height: 20px;
@@ -119,11 +121,22 @@ export default class Editor extends React.Component<
   };
 
   render() {
-    return (
-      <WithPluginState
-        plugins={{ maxContentSize: maxContentSizePluginKey }}
-        render={this.renderChrome}
-      />
-    );
+    return <RenderWithPluginState renderChrome={this.renderChrome} />;
   }
+}
+
+interface PluginStates {
+  maxContentSize?: MaxContentSizePluginState;
+}
+interface RenderChromeProps {
+  renderChrome: (props: PluginStates) => React.ReactNode;
+}
+
+function RenderWithPluginState({ renderChrome }: RenderChromeProps) {
+  const api = usePresetContext();
+  const { maxContentSizeState } = useSharedPluginState(api, ['maxContentSize']);
+
+  return (
+    <Fragment>{renderChrome({ maxContentSize: maxContentSizeState })}</Fragment>
+  );
 }

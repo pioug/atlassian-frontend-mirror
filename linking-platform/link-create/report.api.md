@@ -157,6 +157,7 @@ export interface LinkCreateProps {
   entityKey: string;
   groupKey?: string;
   onCancel?: () => void;
+  onComplete?: () => void;
   onCreate?: (payload: CreatePayload) => Promise<void> | void;
   onFailure?: (error: unknown) => void;
   // (undocumented)

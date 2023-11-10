@@ -6,7 +6,6 @@ import type {
   FloatingToolbarConfig,
   FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { ConfigWithNodeInfo } from '@atlaskit/editor-plugin-floating-toolbar';
 import { PanelType } from '@atlaskit/adf-schema/schema';
 

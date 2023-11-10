@@ -123,6 +123,13 @@ export interface LinkCreateProps {
   onCreate?: (payload: CreatePayload) => Promise<void> | void;
 
   /**
+   * This callback for when the LinkCreate experience has successfully been completed.
+   * Note: this callback is one of the requirements to enable the LinkCreate
+   * post-create edit functionality
+   */
+  onComplete?: () => void;
+
+  /**
    * This callback for any errors
    */
   onFailure?: (error: unknown) => void;

@@ -18,7 +18,7 @@ import ToolbarButton from '../../../ui/ToolbarButton';
 import { getBreakoutMode } from '../utils/get-breakout-mode';
 import { setBreakoutMode } from '../commands/set-breakout-mode';
 import { removeBreakout } from '../commands/remove-breakout';
-import { BreakoutCssClassName } from '../constants';
+import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
 import { isBreakoutMarkAllowed } from '../utils/is-breakout-mark-allowed';
 import { getPluginState } from '../plugin-key';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';

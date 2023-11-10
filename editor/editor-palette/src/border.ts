@@ -1,5 +1,4 @@
 // This import will be stripped on build
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { token } from '@atlaskit/tokens';
 
 /**

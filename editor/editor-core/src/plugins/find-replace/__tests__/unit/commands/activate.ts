@@ -32,9 +32,10 @@ let rafStub: {
   flush: () => void;
 };
 let rafSpy: jest.SpyInstance;
+let editorAPI: any;
 
 const initEditor = (doc: DocBuilder) => {
-  ({ editorView, refs } = editor(doc, createAnalyticsEvent));
+  ({ editorView, refs, editorAPI } = editor(doc, createAnalyticsEvent));
 };
 
 describe('find/replace commands: activate', () => {
@@ -232,10 +233,9 @@ describe('find/replace commands: activate', () => {
 describe('find/replace commands: activateWithAnalytics', () => {
   it('should fire analytics event when text is not prefilled', () => {
     initEditor(doc(p('{<>}this is a document')));
-    activateWithAnalytics({ triggerMethod: TRIGGER_METHOD.SHORTCUT })(
-      editorView.state,
-      editorView.dispatch,
-    );
+    activateWithAnalytics(editorAPI?.analytics?.actions)({
+      triggerMethod: TRIGGER_METHOD.SHORTCUT,
+    })(editorView.state, editorView.dispatch);
     expect(createAnalyticsEvent).toBeCalledWith({
       eventType: 'ui',
       action: 'activated',
@@ -249,10 +249,9 @@ describe('find/replace commands: activateWithAnalytics', () => {
 
   it('should fire analytics event when text is prefilled', () => {
     initEditor(doc(p('{<}this{>} is a document')));
-    activateWithAnalytics({ triggerMethod: TRIGGER_METHOD.SHORTCUT })(
-      editorView.state,
-      editorView.dispatch,
-    );
+    activateWithAnalytics(editorAPI?.analytics?.actions)({
+      triggerMethod: TRIGGER_METHOD.SHORTCUT,
+    })(editorView.state, editorView.dispatch);
     expect(createAnalyticsEvent).toBeCalledWith({
       eventType: 'ui',
       action: 'activated',

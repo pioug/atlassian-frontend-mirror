@@ -11,6 +11,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import type { ToolbarButtonRef } from '../ToolbarButton';
 import ToolbarButton from '../ToolbarButton';
 import withOuterListeners from '../with-outer-listeners';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 
 import {
   wrapper,
@@ -36,7 +37,7 @@ import pickBy from '../../utils/pick-by';
 import { analyticsEventKey } from '../../plugins/analytics/consts';
 import { usePresetContext } from '../../presets/context';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import type { basePlugin } from '@atlaskit/editor-plugin-base';
+import type { BasePlugin } from '@atlaskit/editor-plugin-base';
 
 const PopupWithOutsideListeners = withOuterListeners(Popup);
 const POPUP_HEIGHT = 388;
@@ -102,7 +103,7 @@ declare global {
 const isNullOrUndefined = (attr: string) => attr === null || attr === undefined;
 
 type ToolbarFeedbackInternalProps = Props & {
-  api?: PublicPluginAPI<[typeof basePlugin]>;
+  api: PublicPluginAPI<[OptionalPlugin<BasePlugin>]> | undefined;
 };
 
 class ToolbarFeedbackInternal extends PureComponent<
@@ -224,7 +225,7 @@ class ToolbarFeedbackInternal extends PureComponent<
       jiraIssueCollectorScriptLoading: true,
       showOptOutOption: false,
     });
-    const basePluginState = this.props.api?.base.sharedState.currentState();
+    const basePluginState = this.props.api?.base?.sharedState.currentState();
     const sessionId = window.localStorage.getItem('awc.session.id')?.toString();
     const contentId = basePluginState?.contextIdentifier?.objectId;
     const tabId = window.sessionStorage['awc.tab.id'];
@@ -266,6 +267,6 @@ class ToolbarFeedbackInternal extends PureComponent<
 }
 
 export default function ToolbarFeedback(props: Props) {
-  const api = usePresetContext();
+  const api = usePresetContext<[OptionalPlugin<BasePlugin>]>();
   return <ToolbarFeedbackInternal api={api} {...props} />;
 }

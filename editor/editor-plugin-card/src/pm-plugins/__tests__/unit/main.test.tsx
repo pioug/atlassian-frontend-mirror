@@ -364,7 +364,7 @@ describe('datasource', () => {
 
         expect(assetsQuickInsertItem).toEqual(
           expect.objectContaining({
-            title: 'Assets',
+            title: 'Assets (Beta)',
             description:
               'Insert objects from Assets in Jira Service Management with search and filtering',
           }),

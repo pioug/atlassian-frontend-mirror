@@ -1,5 +1,11 @@
 # @atlaskit/editor-slack-transformer
 
+## 3.2.9
+
+### Patch Changes
+
+- [#42761](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42761) [`5d1881c7ed0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d1881c7ed0) - Adds @ak/tokens as a dependency
+
 ## 3.2.8
 
 ### Patch Changes

@@ -93,6 +93,9 @@
       "path": "../../platform/feature-flags/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/primitives/tsconfig.app.json"
+    },
+    {
       "path": "../../linking-platform/smart-card/tsconfig.app.json"
     },
     {

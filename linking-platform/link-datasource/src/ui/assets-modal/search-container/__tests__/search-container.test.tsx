@@ -59,6 +59,7 @@ describe('AssetsSearchContainer', () => {
       await renderAssetsSearchContainer({
         aql: undefined,
         objectSchema: undefined,
+        objectSchemas: undefined,
       });
     await waitFor(() => {
       expect(
@@ -72,6 +73,7 @@ describe('AssetsSearchContainer', () => {
     const { container, getByDisplayValue } = await renderAssetsSearchContainer({
       aql: validAqlQuery,
       objectSchema: objectSchema,
+      objectSchemas: [objectSchema],
     });
     const objectSchemaSelectValue = container.querySelector(
       `${objectSchemaSelectClass}__single-value`,
@@ -86,6 +88,7 @@ describe('AssetsSearchContainer', () => {
     const { findByTestId } = await renderAssetsSearchContainer({
       aql: validAqlQuery,
       objectSchema: objectSchema,
+      objectSchemas: [objectSchema],
     });
     const button = await findByTestId(searchButtonTestId);
     await button.click();
@@ -99,6 +102,7 @@ describe('AssetsSearchContainer', () => {
     const { findByTestId } = await renderAssetsSearchContainer({
       aql: validAqlQuery,
       objectSchema: objectSchema,
+      objectSchemas: [objectSchema],
     });
     const button = await findByTestId(searchButtonTestId);
     await button.click();
@@ -121,6 +125,7 @@ describe('AssetsSearchContainer', () => {
     const { findByTestId } = await renderAssetsSearchContainer({
       aql: validAqlQuery,
       objectSchema: undefined,
+      objectSchemas: undefined,
     });
     const button = await findByTestId(searchButtonTestId);
     await button.click();

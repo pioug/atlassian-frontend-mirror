@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';

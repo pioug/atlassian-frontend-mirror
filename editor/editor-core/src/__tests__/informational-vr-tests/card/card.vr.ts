@@ -11,6 +11,8 @@ import {
   EditorCardChromelessWithDatasource,
   EditorCardMobileWithDatasource,
   EditorCardFullPageEmbedNotFound,
+  EditorCardFullPageEmbedResolving,
+  EditorCardFullPageEmbedForbidden,
 } from './card.fixtures';
 
 import {
@@ -27,7 +29,7 @@ const COMMENT_TEST_ID = 'click-wrapper';
 const CHROMELESS_TEST_ID = 'chromeless-editor';
 const MOBILE_TEST_ID = 'ak-editor-content-area';
 
-snapshotInformational.skip(EditorCardFullPageInlineAndBlock, {
+snapshotInformational(EditorCardFullPageInlineAndBlock, {
   description: 'FullPage: displays link with correct appearance',
   selector: {
     byTestId: FULL_PAGE_TEST_ID,
@@ -39,7 +41,7 @@ snapshotInformational.skip(EditorCardFullPageInlineAndBlock, {
   prepare: prepareSetupForInlineAndBlockCard,
 });
 
-snapshotInformational.skip(EditorCardFullWidthInlineAndBlock, {
+snapshotInformational(EditorCardFullWidthInlineAndBlock, {
   description: 'FullWidth: displays link with correct appearance',
   selector: {
     byTestId: FULL_WIDTH_TEST_ID,
@@ -51,7 +53,7 @@ snapshotInformational.skip(EditorCardFullWidthInlineAndBlock, {
   prepare: prepareSetupForInlineAndBlockCard,
 });
 
-snapshotInformational.skip(EditorCardCommentInlineAndBlock, {
+snapshotInformational(EditorCardCommentInlineAndBlock, {
   description: 'Comment: displays link with correct appearance',
   selector: {
     byTestId: COMMENT_TEST_ID,
@@ -63,7 +65,7 @@ snapshotInformational.skip(EditorCardCommentInlineAndBlock, {
   prepare: prepareSetupForInlineAndBlockCard,
 });
 
-snapshotInformational.skip(EditorCardChromelessInlineAndBlock, {
+snapshotInformational(EditorCardChromelessInlineAndBlock, {
   description: 'Chromeless: displays link with correct appearance',
   selector: {
     byTestId: CHROMELESS_TEST_ID,
@@ -75,7 +77,7 @@ snapshotInformational.skip(EditorCardChromelessInlineAndBlock, {
   prepare: prepareSetupForInlineAndBlockCard,
 });
 
-snapshotInformational.skip(EditorCardMobileInlineAndBlock, {
+snapshotInformational(EditorCardMobileInlineAndBlock, {
   description: 'Mobile: displays link with correct appearance',
   selector: {
     byTestId: MOBILE_TEST_ID,
@@ -87,7 +89,7 @@ snapshotInformational.skip(EditorCardMobileInlineAndBlock, {
   prepare: prepareSetupForInlineAndBlockCard,
 });
 
-snapshotInformational.skip(EditorCardFullPageWithDatasource, {
+snapshotInformational(EditorCardFullPageWithDatasource, {
   description: 'FullPage: displays datasource on non-mobile editors',
   selector: {
     byTestId: FULL_PAGE_TEST_ID,
@@ -99,7 +101,7 @@ snapshotInformational.skip(EditorCardFullPageWithDatasource, {
   prepare: prepareSetupForCardWithDataSource,
 });
 
-snapshotInformational.skip(EditorCardFullWidthWithDatasource, {
+snapshotInformational(EditorCardFullWidthWithDatasource, {
   description: 'FullWidth: displays datasource on non-mobile editors',
   selector: {
     byTestId: FULL_WIDTH_TEST_ID,
@@ -111,7 +113,7 @@ snapshotInformational.skip(EditorCardFullWidthWithDatasource, {
   prepare: prepareSetupForCardWithDataSource,
 });
 
-snapshotInformational.skip(EditorCardCommentWithDatasource, {
+snapshotInformational(EditorCardCommentWithDatasource, {
   description: 'Comment: displays datasource on non-mobile editors',
   selector: {
     byTestId: COMMENT_TEST_ID,
@@ -123,7 +125,7 @@ snapshotInformational.skip(EditorCardCommentWithDatasource, {
   prepare: prepareSetupForCardWithDataSource,
 });
 
-snapshotInformational.skip(EditorCardChromelessWithDatasource, {
+snapshotInformational(EditorCardChromelessWithDatasource, {
   description: 'Chromeless: displays datasource on non-mobile editors',
   selector: {
     byTestId: CHROMELESS_TEST_ID,
@@ -135,7 +137,7 @@ snapshotInformational.skip(EditorCardChromelessWithDatasource, {
   prepare: prepareSetupForCardWithDataSource,
 });
 
-snapshotInformational.skip(EditorCardMobileWithDatasource, {
+snapshotInformational(EditorCardMobileWithDatasource, {
   description:
     'Mobile: displays inline fallback instead of datasource tables on mobile',
   selector: {
@@ -151,6 +153,38 @@ snapshotInformational.skip(EditorCardMobileWithDatasource, {
 snapshotInformational(EditorCardFullPageEmbedNotFound, {
   description:
     'FullPage: Editor card embed notFound displays link with correct appearance',
+  selector: {
+    byTestId: FULL_PAGE_TEST_ID,
+  },
+  variants: [
+    { name: 'light', environment: { colorScheme: 'light' } },
+    { name: 'dark', environment: { colorScheme: 'dark' } },
+  ],
+  featureFlags: {
+    'platform.linking-platform.smart-card.cross-join': true,
+  },
+  prepare: prepareSetupForEmbedCard(false),
+});
+
+snapshotInformational(EditorCardFullPageEmbedResolving, {
+  description:
+    'FullPage: Editor card embed resolving displays link with correct appearance',
+  selector: {
+    byTestId: FULL_PAGE_TEST_ID,
+  },
+  variants: [
+    { name: 'light', environment: { colorScheme: 'light' } },
+    { name: 'dark', environment: { colorScheme: 'dark' } },
+  ],
+  featureFlags: {
+    'platform.linking-platform.smart-card.cross-join': true,
+  },
+  prepare: prepareSetupForEmbedCard(false),
+});
+
+snapshotInformational(EditorCardFullPageEmbedForbidden, {
+  description:
+    'FullPage: Editor card embed forbidden displays link with correct appearance',
   selector: {
     byTestId: FULL_PAGE_TEST_ID,
   },

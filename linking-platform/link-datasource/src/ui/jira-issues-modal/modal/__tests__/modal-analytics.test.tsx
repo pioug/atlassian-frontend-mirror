@@ -165,12 +165,14 @@ describe('Analytics: JiraIssuesConfigModal', () => {
       actionSubjectId: 'insert' | 'cancel',
       defaultAttributes = {},
       overrideAttributes = {},
+      payloadOverride = {},
     ) => ({
       payload: {
         eventType: 'ui',
         actionSubject: 'button',
         action: 'clicked',
         actionSubjectId: actionSubjectId,
+        ...payloadOverride,
         attributes: {
           ...defaultAttributes,
           ...overrideAttributes,
@@ -368,11 +370,66 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           );
         });
 
+        it('should fire "macro inserted" when the insert button is clicked and results are presented as a single issue', async () => {
+          const expectedPayload = getEventPayload(
+            'insert',
+            defaultAttributes,
+            { totalItemCount: 1, displayedColumnCount: 1, display: 'inline' },
+            {
+              eventType: 'track',
+              actionSubject: 'macro',
+              action: 'inserted',
+              actionSubjectId: 'jlol',
+            },
+          );
+
+          const { assertAnalyticsAfterButtonClick } = await setup({
+            hookState: {
+              ...getDefaultHookState(),
+              responseItems: [
+                {
+                  key: { data: { url: 'some-value' } },
+                },
+              ],
+              totalCount: 1,
+            },
+          });
+
+          await assertAnalyticsAfterButtonClick(
+            INSERT_BUTTON_NAME,
+            expectedPayload,
+          );
+        });
+
         it('should fire "ui.button.clicked.insert" with display "datasource_inline" when the insert button is clicked and results are presented as a count issue', async () => {
           const expectedPayload = getEventPayload('insert', defaultAttributes, {
             actions: ['display view changed'],
             display: 'datasource_inline',
           });
+
+          const { assertAnalyticsAfterButtonClick, getByLabelText } =
+            await setup();
+
+          getByLabelText('Count view').click();
+
+          await assertAnalyticsAfterButtonClick(
+            INSERT_BUTTON_NAME,
+            expectedPayload,
+          );
+        });
+
+        it('should fire "macro inserted" when the insert button is clicked and results are presented as a count issue', async () => {
+          const expectedPayload = getEventPayload(
+            'insert',
+            defaultAttributes,
+            { actions: ['display view changed'] },
+            {
+              eventType: 'track',
+              actionSubject: 'macro',
+              action: 'inserted',
+              actionSubjectId: 'jlol',
+            },
+          );
 
           const { assertAnalyticsAfterButtonClick, getByLabelText } =
             await setup();

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -7,6 +7,7 @@ import { IntlProvider } from 'react-intl-next';
 import '@atlaskit/link-test-helpers/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
+import { flushPromises } from '@atlaskit/link-test-helpers';
 import { captureException } from '@atlaskit/linking-common/sentry';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
@@ -14,7 +15,7 @@ import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
 import { LinkCreatePlugin, LinkCreateWithModalProps } from '../common/types';
 import { useLinkCreateCallback } from '../controllers/callback-context';
 
-import LinkCreate from './index';
+import LinkCreate, { CreateForm } from './index';
 
 jest.mock('@atlaskit/linking-common/sentry', () => ({
   captureException: jest.fn(),
@@ -60,8 +61,9 @@ const CreatePluginForm = () => {
 
 describe('<LinkCreate />', () => {
   let onCreateMock: jest.Mock;
+  let onCompleteMock: jest.Mock;
   let onFailureMock: jest.Mock;
-  let onCloseMock: jest.Mock;
+  let onCancelMock: jest.Mock;
   let onAnalyticsEventMock: jest.Mock;
 
   const testId = 'link-create';
@@ -69,8 +71,9 @@ describe('<LinkCreate />', () => {
 
   beforeEach(() => {
     onCreateMock = jest.fn();
+    onCompleteMock = jest.fn();
     onFailureMock = jest.fn();
-    onCloseMock = jest.fn();
+    onCancelMock = jest.fn();
     onAnalyticsEventMock = jest.fn();
   });
 
@@ -108,33 +111,63 @@ describe('<LinkCreate />', () => {
   ];
 
   const setUpLinkCreate = (props?: Partial<LinkCreateWithModalProps>) => {
-    render(
-      <IntlProvider locale="en">
-        <AnalyticsListener channel={'media'} onEvent={onAnalyticsEventMock}>
-          <LinkCreate
-            testId={testId}
-            plugins={plugins}
-            entityKey="entity-key"
-            active={true}
-            onCreate={onCreateMock}
-            onFailure={onFailureMock}
-            onCancel={onCloseMock}
-            {...props}
-          />
-        </AnalyticsListener>
-      </IntlProvider>,
-    );
+    const Component = (props?: Partial<LinkCreateWithModalProps>) => {
+      return (
+        <IntlProvider locale="en">
+          <AnalyticsListener channel={'media'} onEvent={onAnalyticsEventMock}>
+            <LinkCreate
+              testId={testId}
+              plugins={plugins}
+              entityKey="entity-key"
+              active={true}
+              onFailure={onFailureMock}
+              onCreate={onCreateMock}
+              onCancel={onCancelMock}
+              {...props}
+            />
+          </AnalyticsListener>
+        </IntlProvider>
+      );
+    };
+
+    const renderResult = render(<Component {...props} />);
+
+    const rerender = (props?: Partial<LinkCreateWithModalProps>) =>
+      renderResult.rerender(<Component {...props} />);
+
+    return {
+      rerender,
+    };
   };
 
   it("should find LinkCreate by its testid when it's active", async () => {
     setUpLinkCreate();
-    expect(screen.getByTestId(testId)).toBeTruthy();
+
+    expect(screen.getByTestId(testId)).toBeInTheDocument();
+  });
+
+  it('should hide LinkCreate when `active` changes from `true` to `false`', async () => {
+    const { rerender } = setUpLinkCreate({
+      active: true,
+    });
+
+    expect(screen.getByTestId(testId)).toBeInTheDocument();
+
+    rerender({ active: false });
+
+    // Expect it is still visible temporarily while transitioning out
+    expect(screen.getByTestId(testId)).toBeInTheDocument();
+
+    // Exits
+    await waitFor(() => {
+      expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+    });
   });
 
   it('should fire screen viewed analytics event when it opens', async () => {
     setUpLinkCreate();
 
-    expect(screen.getByTestId(testId)).toBeTruthy();
+    expect(screen.getByTestId(testId)).toBeInTheDocument();
 
     expect(onAnalyticsEventMock).toBeCalled();
     const mockCall = onAnalyticsEventMock.mock.calls[0];
@@ -151,10 +184,10 @@ describe('<LinkCreate />', () => {
 
   it("should NOT find LinkCreate by its testid when it's NOT active", async () => {
     setUpLinkCreate({ active: false });
-    expect(screen.queryByTestId(testId)).toBeNull();
+    expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
   });
 
-  it('should trigger the callback onCreate when it submits the form', async () => {
+  it('should only trigger the callback onCreate when it submits the form when onComplete is not provided', async () => {
     setUpLinkCreate();
     screen.getByTestId('submit-button').click();
 
@@ -167,6 +200,27 @@ describe('<LinkCreate />', () => {
         ari: 'example-ari',
       }),
     );
+    // the onCreate callback is awaited
+    await flushPromises();
+    expect(onCompleteMock).toBeCalledTimes(0);
+  });
+
+  it('should trigger the callback onCreate and onComplete when it submits the form if onComplete is provided', async () => {
+    setUpLinkCreate({ onComplete: onCompleteMock });
+    screen.getByTestId('submit-button').click();
+
+    expect(onCreateMock).toBeCalledWith(
+      expect.objectContaining({
+        url: 'https://www.atlassian.com',
+        objectId: '123',
+        objectType: 'page',
+        data: { spaceName: 'space' },
+        ari: 'example-ari',
+      }),
+    );
+    // the onCreate callback is awaited before onComplete is called
+    await flushPromises();
+    expect(onCompleteMock).toBeCalledTimes(1);
   });
 
   it('should trigger the callback onFailure when the form fails', async () => {
@@ -178,15 +232,62 @@ describe('<LinkCreate />', () => {
   it('should trigger the callback onCancel when it close the form', async () => {
     setUpLinkCreate();
     screen.getByTestId('close-button').click();
-    expect(onCloseMock).toBeCalled();
+    expect(onCancelMock).toBeCalled();
+  });
+
+  describe('link create modal should trigger onComplete if it is provided', () => {
+    ffTest(
+      'platform.linking-platform.link-create.enable-edit',
+      async () => {
+        setUpLinkCreate({ onComplete: onCompleteMock });
+        screen.getByTestId('submit-button').click();
+
+        expect(onCreateMock).toBeCalledWith(
+          expect.objectContaining({
+            url: 'https://www.atlassian.com',
+            objectId: '123',
+            objectType: 'page',
+            data: { spaceName: 'space' },
+            ari: 'example-ari',
+          }),
+        );
+        // the onCreate callback is awaited before onComplete is called
+        await flushPromises();
+        expect(onCompleteMock).toBeCalledTimes(1);
+      },
+      async () => {
+        setUpLinkCreate({ onComplete: onCompleteMock });
+        screen.getByTestId('submit-button').click();
+
+        expect(onCreateMock).toBeCalledWith(
+          expect.objectContaining({
+            url: 'https://www.atlassian.com',
+            objectId: '123',
+            objectType: 'page',
+            data: { spaceName: 'space' },
+            ari: 'example-ari',
+          }),
+        );
+        // the onCreate callback is awaited before onComplete is called
+        await flushPromises();
+        expect(onCompleteMock).toBeCalledTimes(1);
+      },
+    );
   });
 
   describe('error boundary', () => {
+    beforeAll(() => {
+      jest.spyOn(console, 'error').mockImplementation(() => {});
+    });
+
+    afterAll(() => {
+      jest.spyOn(console, 'error').mockRestore();
+    });
+
     it('should display an error boundary on unhandled error within the link create modal', async () => {
       setUpLinkCreate({
         entityKey: 'undefined' as any,
       });
-
       expect(
         await screen.findByTestId('link-create-error-boundary-ui'),
       ).toBeInTheDocument();
@@ -284,23 +385,33 @@ describe('<LinkCreate />', () => {
     ffTest(
       'platform.linking-platform.link-create.confirm-dismiss-dialog',
       async () => {
-        setUpLinkCreate();
+        const { rerender } = setUpLinkCreate({ active: true });
 
         expect(await screen.findByTestId(testId)).toBeInTheDocument();
         await userEvent.keyboard('{Escape}');
 
-        waitFor(() => {
+        rerender({
+          active: false,
+        });
+
+        await waitFor(() => {
           expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+          expect(onCancelMock).toHaveBeenCalled();
         });
       },
       async () => {
-        setUpLinkCreate();
+        const { rerender } = setUpLinkCreate({ active: true });
 
         expect(await screen.findByTestId(testId)).toBeInTheDocument();
         await userEvent.keyboard('{Escape}');
 
-        waitFor(() => {
+        rerender({
+          active: false,
+        });
+
+        await waitFor(() => {
           expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+          expect(onCancelMock).toHaveBeenCalled();
         });
       },
     );
@@ -334,7 +445,7 @@ describe('<LinkCreate />', () => {
         expect(goBackBtn).toBeTruthy();
         await userEvent.click(goBackBtn);
 
-        waitFor(() => {
+        await waitFor(() => {
           expect(
             screen.queryByTestId(dismissDialogTestId),
           ).not.toBeInTheDocument();
@@ -363,7 +474,7 @@ describe('<LinkCreate />', () => {
           screen.getByTestId('link-create-form-button-cancel'),
         );
 
-        waitFor(() => {
+        await waitFor(() => {
           expect(
             screen.queryByTestId(dismissDialogTestId),
           ).not.toBeInTheDocument();
@@ -376,7 +487,10 @@ describe('<LinkCreate />', () => {
     ffTest(
       'platform.linking-platform.link-create.confirm-dismiss-dialog',
       async () => {
-        setUpLinkCreate({ entityKey: 'plugin-with-create-form' });
+        const { rerender } = setUpLinkCreate({
+          active: true,
+          entityKey: 'plugin-with-create-form',
+        });
 
         expect(await screen.findByTestId(testId)).toBeInTheDocument();
 
@@ -400,15 +514,23 @@ describe('<LinkCreate />', () => {
         expect(discardBtn).toBeTruthy();
         await userEvent.click(discardBtn);
 
-        waitFor(() => {
+        rerender({
+          active: false,
+        });
+
+        await waitFor(() => {
           expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
           expect(
             screen.queryByTestId(dismissDialogTestId),
           ).not.toBeInTheDocument();
+          expect(onCancelMock).toHaveBeenCalled();
         });
       },
       async () => {
-        setUpLinkCreate({ entityKey: 'plugin-with-create-form' });
+        const { rerender } = setUpLinkCreate({
+          active: true,
+          entityKey: 'plugin-with-create-form',
+        });
 
         expect(await screen.findByTestId(testId)).toBeInTheDocument();
 
@@ -424,11 +546,16 @@ describe('<LinkCreate />', () => {
           screen.getByTestId('link-create-form-button-cancel'),
         );
 
-        waitFor(() => {
+        rerender({
+          active: false,
+        });
+
+        await waitFor(() => {
           expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
           expect(
             screen.queryByTestId(dismissDialogTestId),
           ).not.toBeInTheDocument();
+          expect(onCancelMock).toHaveBeenCalled();
         });
       },
     );
@@ -438,22 +565,384 @@ describe('<LinkCreate />', () => {
     let onOpenComplete = jest.fn();
     let onCloseComplete = jest.fn();
 
-    setUpLinkCreate({
+    const { rerender } = setUpLinkCreate({
+      active: true,
       onOpenComplete,
       onCloseComplete,
     });
 
     expect(await screen.findByTestId(testId)).toBeInTheDocument();
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(onOpenComplete).toHaveBeenCalledTimes(1);
     });
 
-    screen.getByTestId('close-button').click();
+    rerender({
+      active: false,
+      onOpenComplete,
+      onCloseComplete,
+    });
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
       expect(onCloseComplete).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('plugin edit view', () => {
+    const onSubmitSpy = jest.fn();
+
+    function Form() {
+      const { onCreate, onCancel } = useLinkCreateCallback();
+
+      const onSubmit = useCallback(async () => {
+        try {
+          onSubmitSpy();
+          await onCreate?.({
+            url: 'https://atlassian.com',
+            objectId: 'someId',
+            objectType: 'someObjectType',
+            ari: 'example-ari',
+          });
+        } catch (err) {
+          // don't complete
+        }
+      }, [onCreate]);
+
+      return (
+        <CreateForm onSubmit={onSubmit} onCancel={onCancel}>
+          Form
+        </CreateForm>
+      );
+    }
+
+    const pluginWithEdit: LinkCreatePlugin = {
+      group: {
+        label: 'group-label',
+        icon: 'group-icon',
+        key: 'group',
+      },
+      label: 'entity-label',
+      icon: 'entity-icon',
+      key: 'entity-key',
+      form: <Form />,
+      editView: jest.fn(({ onClose }) => (
+        <button onClick={onClose}>Finish</button>
+      )),
+    };
+
+    describe('should NOT show edit button when edit view is undefined even if `onComplete` is provided', () => {
+      ffTest(
+        'platform.linking-platform.link-create.enable-edit',
+        async () => {
+          setUpLinkCreate({
+            plugins: [{ ...pluginWithEdit, editView: undefined }],
+            onComplete: onCompleteMock,
+          });
+
+          expect(
+            await screen.findByRole('button', { name: 'Create' }),
+          ).toBeInTheDocument();
+          expect(
+            screen.queryByRole('button', { name: 'Edit' }),
+          ).not.toBeInTheDocument();
+        },
+        async () => {
+          setUpLinkCreate({
+            plugins: [{ ...pluginWithEdit, editView: undefined }],
+            onComplete: onCompleteMock,
+          });
+
+          expect(
+            await screen.findByRole('button', { name: 'Create' }),
+          ).toBeInTheDocument();
+          expect(
+            screen.queryByRole('button', { name: 'Edit' }),
+          ).not.toBeInTheDocument();
+        },
+      );
+    });
+
+    describe('with create form should show edit button when edit view and `onComplete` is provided', () => {
+      ffTest(
+        'platform.linking-platform.link-create.enable-edit',
+        async () => {
+          setUpLinkCreate({
+            plugins: [pluginWithEdit],
+            onComplete: onCompleteMock,
+          });
+
+          expect(
+            await screen.findByRole('button', { name: 'Create' }),
+          ).toBeInTheDocument();
+          expect(
+            await screen.findByRole('button', { name: 'Edit' }),
+          ).toBeInTheDocument();
+        },
+        async () => {
+          setUpLinkCreate({
+            plugins: [pluginWithEdit],
+            onComplete: onCompleteMock,
+          });
+
+          expect(
+            await screen.findByRole('button', { name: 'Create' }),
+          ).toBeInTheDocument();
+          expect(
+            screen.queryByRole('button', { name: 'Edit' }),
+          ).not.toBeInTheDocument();
+        },
+      );
+    });
+
+    describe('with create form + edit view should render editView when edit button is clicked', () => {
+      ffTest(
+        'platform.linking-platform.link-create.enable-edit',
+        async () => {
+          setUpLinkCreate({
+            plugins: [pluginWithEdit],
+            onComplete: onCompleteMock,
+          });
+
+          const editButton = await screen.findByRole('button', {
+            name: 'Edit',
+          });
+
+          await userEvent.click(editButton);
+
+          // Because modals transition in and out they will still
+          // be in the DOM temporarily when exiting
+          await waitFor(() => {
+            expect(
+              screen.queryByTestId('link-create-modal'),
+            ).not.toBeInTheDocument();
+            expect(
+              screen.queryByTestId('link-create-edit-modal'),
+            ).toBeInTheDocument();
+          });
+
+          expect(onSubmitSpy).toBeCalled();
+          expect(onCreateMock).toBeCalledWith(
+            expect.objectContaining({
+              url: 'https://atlassian.com',
+              objectId: 'someId',
+              objectType: 'someObjectType',
+            }),
+          );
+
+          // the onCreate callback is awaited before onComplete is called
+          await flushPromises();
+          expect(onCompleteMock).toBeCalledTimes(0);
+
+          const editCloseButton = await screen.findByRole('button', {
+            name: 'Finish',
+          });
+          await userEvent.click(editCloseButton);
+          expect(onCompleteMock).toBeCalledTimes(1);
+        },
+        async () => {
+          setUpLinkCreate({
+            plugins: [pluginWithEdit],
+            onComplete: onCompleteMock,
+          });
+
+          expect(
+            await screen.findByRole('button', { name: 'Create' }),
+          ).toBeInTheDocument();
+          expect(
+            screen.queryByRole('button', { name: 'Edit' }),
+          ).not.toBeInTheDocument();
+        },
+      );
+    });
+
+    describe('with create form + edit view should NOT render editView when create button is clicked', () => {
+      ffTest(
+        'platform.linking-platform.link-create.enable-edit',
+        async () => {
+          setUpLinkCreate({
+            plugins: [pluginWithEdit],
+            onComplete: onCompleteMock,
+          });
+
+          const createButton = await screen.findByRole('button', {
+            name: 'Create',
+          });
+
+          await userEvent.click(createButton);
+
+          // Because modals transition in and out they will still
+          // be in the DOM temporarily when exiting
+          await waitFor(() => {
+            expect(
+              screen.queryByTestId('link-create-modal'),
+            ).toBeInTheDocument();
+            expect(
+              screen.queryByTestId('link-create-edit-modal'),
+            ).not.toBeInTheDocument();
+          });
+
+          expect(onSubmitSpy).toBeCalled();
+          expect(onCreateMock).toBeCalledWith(
+            expect.objectContaining({
+              url: 'https://atlassian.com',
+              objectId: 'someId',
+              objectType: 'someObjectType',
+            }),
+          );
+          // the onCreate callback is awaited before onComplete is called
+          await flushPromises();
+          expect(onCompleteMock).toBeCalled();
+        },
+        async () => {
+          setUpLinkCreate({
+            plugins: [pluginWithEdit],
+            onComplete: onCompleteMock,
+          });
+
+          const createButton = await screen.findByRole('button', {
+            name: 'Create',
+          });
+          expect(
+            screen.queryByRole('button', { name: 'Edit' }),
+          ).not.toBeInTheDocument();
+
+          await userEvent.click(createButton);
+
+          // Because modals transition in and out they will still
+          // be in the DOM temporarily when exiting
+          await waitFor(() => {
+            expect(
+              screen.queryByTestId('link-create-modal'),
+            ).toBeInTheDocument();
+            expect(
+              screen.queryByTestId('link-create-edit-modal'),
+            ).not.toBeInTheDocument();
+          });
+
+          expect(onSubmitSpy).toBeCalled();
+          expect(onCreateMock).toBeCalledWith(
+            expect.objectContaining({
+              url: 'https://atlassian.com',
+              objectId: 'someId',
+              objectType: 'someObjectType',
+            }),
+          );
+          // the onCreate callback is awaited before onComplete is called
+          await flushPromises();
+          expect(onCompleteMock).toBeCalled();
+        },
+      );
+    });
+
+    describe('with create form + edit view should NOT render editView when close button is clicked', () => {
+      ffTest(
+        'platform.linking-platform.link-create.enable-edit',
+        async () => {
+          setUpLinkCreate({
+            plugins: [pluginWithEdit],
+            onComplete: onCompleteMock,
+          });
+
+          const closeButton = await screen.findByRole('button', {
+            name: 'Close',
+          });
+
+          await userEvent.click(closeButton);
+
+          expect(onCreateMock).toBeCalledTimes(0);
+          expect(onCompleteMock).toBeCalledTimes(0);
+          expect(onCancelMock).toBeCalledTimes(1);
+          expect(
+            screen.queryByTestId('link-create-edit-modal'),
+          ).not.toBeInTheDocument();
+        },
+        async () => {
+          setUpLinkCreate({
+            plugins: [pluginWithEdit],
+            onComplete: onCompleteMock,
+          });
+
+          const closeButton = await screen.findByRole('button', {
+            name: 'Close',
+          });
+
+          expect(
+            screen.queryByRole('button', { name: 'Edit' }),
+          ).not.toBeInTheDocument();
+
+          await userEvent.click(closeButton);
+
+          expect(onCreateMock).toBeCalledTimes(0);
+          expect(onCompleteMock).toBeCalledTimes(0);
+          expect(onCancelMock).toBeCalledTimes(1);
+          expect(
+            screen.queryByTestId('link-create-edit-modal'),
+          ).not.toBeInTheDocument();
+        },
+      );
+    });
+
+    describe('should NOT trigger the edit flow if the form fails to submit', () => {
+      ffTest(
+        'platform.linking-platform.link-create.enable-edit',
+        async () => {
+          onSubmitSpy.mockImplementation(() => {
+            throw new Error('Something went wrong!');
+          });
+
+          setUpLinkCreate({
+            plugins: [pluginWithEdit],
+            onComplete: onCompleteMock,
+          });
+
+          await waitFor(async () => {
+            userEvent.click(
+              await screen.findByRole('button', {
+                name: 'Edit',
+              }),
+            );
+          });
+
+          // Enters submitting state
+          await waitFor(() => {
+            expect(
+              screen.getByRole('button', { name: 'Edit' }),
+            ).toHaveAttribute('aria-busy', 'true');
+          });
+
+          // Exits sumitting state
+          await waitFor(() => {
+            expect(
+              screen.getByRole('button', { name: 'Edit' }),
+            ).toHaveAttribute('aria-busy', 'false');
+            expect(onSubmitSpy).toBeCalled();
+          });
+
+          // Edit modal not visible
+          // Create modal still visible
+          expect(
+            screen.queryByTestId('link-create-edit-modal'),
+          ).not.toBeInTheDocument();
+          expect(screen.queryByTestId('link-create-modal')).toBeInTheDocument();
+          expect(onCreateMock).not.toBeCalled();
+
+          onSubmitSpy.mockReset();
+        },
+        async () => {
+          setUpLinkCreate({
+            plugins: [pluginWithEdit],
+            onComplete: onCompleteMock,
+          });
+
+          expect(
+            await screen.findByRole('button', { name: 'Create' }),
+          ).toBeInTheDocument();
+          expect(
+            screen.queryByRole('button', { name: 'Edit' }),
+          ).not.toBeInTheDocument();
+        },
+      );
     });
   });
 });

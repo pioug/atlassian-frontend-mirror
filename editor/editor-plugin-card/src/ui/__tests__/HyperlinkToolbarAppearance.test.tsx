@@ -6,6 +6,8 @@ import type { CardOptions } from '@atlaskit/editor-common/card';
 import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { canRenderDatasource } from '@atlaskit/editor-common/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, inlineCard, p } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -15,6 +17,17 @@ import { asMock, fakeIntl } from '@atlaskit/media-test-helpers';
 import type { CardPlatform } from '@atlaskit/smart-card';
 
 import { HyperlinkToolbarAppearance } from '../HyperlinkToolbarAppearance';
+import { useFetchDatasourceInfo } from '../useFetchDatasourceInfo';
+
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual('@atlaskit/editor-common/utils'),
+  canRenderDatasource: jest.fn(),
+}));
+
+jest.mock('../useFetchDatasourceInfo', () => ({
+  ...jest.requireActual('../useFetchDatasourceInfo'),
+  useFetchDatasourceInfo: jest.fn(),
+}));
 
 describe('<HyperlinkToolbarAppearance />', () => {
   class TestCardProvider implements CardProvider {
@@ -37,7 +50,10 @@ describe('<HyperlinkToolbarAppearance />', () => {
     providerFactory.setProvider('cardProvider', cardProvider);
     const url = 'some-url';
     const platform: CardPlatform = 'web';
-    const cardOptions: CardOptions = { allowEmbeds: true };
+    const cardOptions: CardOptions = {
+      allowEmbeds: true,
+      allowDatasource: true,
+    };
     const { rerender } = render(
       <HyperlinkToolbarAppearance
         intl={fakeIntl}
@@ -79,15 +95,42 @@ describe('<HyperlinkToolbarAppearance />', () => {
     expect(resolvedCardProvider.findPattern).toBeCalledWith(url);
     const linkToolbar = screen.queryByTestId('url-appearance');
     expect(linkToolbar).toBeNull();
+    const editDatasourceButton = screen.queryByTestId(
+      'card-edit-datasource-button',
+    );
+    expect(editDatasourceButton).toBeNull();
   });
 
-  it('should render <LinkToolbarAppearance /> with the right props', async () => {
+  it('should render <LinkToolbarAppearance /> with the right props and not show edit datasource button if not resolvable to datasource', async () => {
     const { cardProvider, url } = setup();
-
+    (canRenderDatasource as jest.Mock).mockReturnValue(true);
+    (useFetchDatasourceInfo as jest.Mock).mockReturnValue({
+      datasourceId: undefined,
+    });
     await (await cardProvider).resolve(url);
     await nextTick();
     const linkToolbar = screen.queryByTestId('url-appearance');
     expect(linkToolbar).not.toBeNull();
+    const editDatasourceButton = screen.queryByTestId(
+      'card-edit-datasource-button',
+    );
+    expect(editDatasourceButton).toBeNull();
+  });
+
+  it('should render <LinkToolbarAppearance /> with the right props and show edit datasource button if resolvable to datasource', async () => {
+    const { cardProvider, url } = setup();
+    (canRenderDatasource as jest.Mock).mockReturnValue(true);
+    (useFetchDatasourceInfo as jest.Mock).mockReturnValue({
+      datasourceId: '123',
+    });
+    await (await cardProvider).resolve(url);
+    await nextTick();
+    const linkToolbar = screen.queryByTestId('url-appearance');
+    expect(linkToolbar).not.toBeNull();
+    const editDatasourceButton = screen.queryByTestId(
+      'card-edit-datasource-button',
+    );
+    expect(editDatasourceButton).not.toBeNull();
   });
 
   it('should resolve new url when props change', async () => {

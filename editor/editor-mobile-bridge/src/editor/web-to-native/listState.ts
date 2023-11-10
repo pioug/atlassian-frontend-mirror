@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { ListState } from '@atlaskit/editor-plugin-list';
 
 export interface ListsState {

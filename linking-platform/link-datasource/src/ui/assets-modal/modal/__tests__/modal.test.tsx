@@ -1,6 +1,10 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
+import {
+  FetchError,
+  PermissionError,
+} from '../../../../services/cmdbService.utils';
 
 import {
   getAssetsClientErrorHookState,
@@ -40,13 +44,82 @@ describe('AssetsConfigModal', () => {
     expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
   });
 
-  it('should show error when workspace fetch fails', async () => {
-    const { getByTestId } = await setup({
-      assetsClientHookState: getAssetsClientErrorHookState(),
+  it('should show "access-required" and disable insert button when workspace fetch fails with PermissionError', async () => {
+    const mockError = new PermissionError('workspace error');
+    const { getByTestId, getByRole } = await setup({
+      assetsClientHookState: getAssetsClientErrorHookState({
+        workspaceError: mockError,
+      }),
+    });
+    expect(getByTestId('datasource--access-required')).toBeInTheDocument();
+    expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+  });
+
+  it('should show "modal-loading-error" and disable insert button when workspace fetch fails with FetchError', async () => {
+    const mockError = new FetchError(500, 'workspace error');
+    const { getByTestId, getByRole } = await setup({
+      assetsClientHookState: getAssetsClientErrorHookState({
+        workspaceError: mockError,
+      }),
     });
     expect(
       getByTestId('jira-jql-datasource-modal--loading-error'),
     ).toBeInTheDocument();
+    expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+  });
+
+  it('should show "access-required" and disable insert button when object schemas fetch fails with PermissionError', async () => {
+    const mockError = new PermissionError('object schemas error');
+    const { getByTestId, getByRole } = await setup({
+      assetsClientHookState: getAssetsClientErrorHookState({
+        objectSchemasError: mockError,
+      }),
+    });
+    expect(getByTestId('datasource--access-required')).toBeInTheDocument();
+    expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+  });
+
+  it('should show "initial-state" when object schemas fetch fails with FetchError', async () => {
+    const mockError = new FetchError(500, 'object schemas error');
+    const { queryByTestId } = await setup({
+      datasourceTableHookState: getEmptyDatasourceTableHookState(),
+      parameters: undefined,
+      assetsClientHookState: getAssetsClientErrorHookState({
+        objectSchemasError: mockError,
+      }),
+    });
+    await waitFor(() => {
+      expect(
+        queryByTestId('assets-aql-datasource-modal--initial-state-view'),
+      ).toBeTruthy();
+    });
+  });
+
+  it('should show "access-required" and disable insert button when existing object schema fetch fails with PermissionError', async () => {
+    const mockError = new PermissionError('object schemas error');
+    const { getByTestId, getByRole } = await setup({
+      assetsClientHookState: getAssetsClientErrorHookState({
+        existingObjectSchemaError: mockError,
+      }),
+    });
+    expect(getByTestId('datasource--access-required')).toBeInTheDocument();
+    expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+  });
+
+  it('should show "initial-state" when existing object schema fetch fails with FetchError', async () => {
+    const mockError = new FetchError(500, 'object schema error');
+    const { queryByTestId } = await setup({
+      datasourceTableHookState: getEmptyDatasourceTableHookState(),
+      parameters: undefined,
+      assetsClientHookState: getAssetsClientErrorHookState({
+        existingObjectSchemaError: mockError,
+      }),
+    });
+    await waitFor(() => {
+      expect(
+        queryByTestId('assets-aql-datasource-modal--initial-state-view'),
+      ).toBeTruthy();
+    });
   });
 
   it('should fire screen viewed analytics event when config modal is shown', async () => {

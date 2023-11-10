@@ -1,7 +1,5 @@
 /** @jsx jsx */
 
-import { useEffect, useState } from 'react';
-
 import { jsx } from '@emotion/react';
 import debounce from 'debounce-promise';
 import { useIntl } from 'react-intl-next';
@@ -10,7 +8,6 @@ import { Field } from '@atlaskit/form';
 import { AsyncSelect } from '@atlaskit/select';
 import { layers } from '@atlaskit/theme/constants';
 
-import { useDatasourceAnalyticsEvents } from '../../../../analytics';
 import { useObjectSchemas } from '../../../../hooks/useObjectSchemas';
 import {
   ObjectSchema,
@@ -25,6 +22,7 @@ import { objectSchemaToSelectOption } from './utils';
 type AssetsObjectSchemaSelectProps = {
   value: ObjectSchema | undefined;
   workspaceId: string;
+  initialObjectSchemas: ObjectSchema[] | undefined;
   classNamePrefix?: string;
 };
 
@@ -54,12 +52,9 @@ export const selectInAModalStyleFixProps = {
 export const AssetsObjectSchemaSelect = ({
   value,
   workspaceId,
+  initialObjectSchemas,
   classNamePrefix = 'assets-datasource-modal--object-schema-select',
 }: AssetsObjectSchemaSelectProps) => {
-  const [defaultOptions, setDefaultOptions] = useState<
-    ObjectSchemaOption[] | null
-  >(null);
-  const { fireEvent } = useDatasourceAnalyticsEvents();
   const { formatMessage } = useIntl();
   const { fetchObjectSchemas, objectSchemasLoading } =
     useObjectSchemas(workspaceId);
@@ -67,24 +62,6 @@ export const AssetsObjectSchemaSelect = ({
   const selectedObjectSchema = value
     ? objectSchemaToSelectOption(value)
     : undefined;
-
-  useEffect(() => {
-    const fetchInitialData = async () => {
-      const { objectSchemas, totalObjectSchemas } = await fetchObjectSchemas(
-        '',
-      );
-      // We only want to send modal ready event once after we've fetched the schema count
-      fireEvent('ui.modal.ready.datasource', {
-        schemasCount: totalObjectSchemas ?? 0,
-        instancesCount: null,
-      });
-      setDefaultOptions(mapObjectSchemasToOptions(objectSchemas));
-    };
-    if (defaultOptions === null) {
-      fetchInitialData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const loadOptions = async (inputValue: string) => {
     const { objectSchemas } = await fetchObjectSchemas(inputValue);
@@ -112,7 +89,7 @@ export const AssetsObjectSchemaSelect = ({
             autoFocus
             classNamePrefix={classNamePrefix}
             isLoading={objectSchemasLoading}
-            defaultOptions={defaultOptions ?? []}
+            defaultOptions={mapObjectSchemasToOptions(initialObjectSchemas)}
             isSearchable
             loadOptions={debouncedLoadOptions}
             placeholder={formatMessage(objectSchemaSelectMessages.placeholder)}

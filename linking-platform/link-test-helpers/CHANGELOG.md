@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 6.2.6
+
+### Patch Changes
+
+- [#42661](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42661) [`c6abc68904d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6abc68904d) - [ux] Fix date showing incorrectly and also update test data to check for the format it was failing for
+
 ## 6.2.5
 
 ### Patch Changes

@@ -48,7 +48,7 @@ import { layoutStyles } from './layout';
 import { panelStyles } from './panel';
 import { placeholderTextStyles } from '@atlaskit/editor-plugin-placeholder-text/styles';
 import { extensionStyles } from '../../plugins/extension/ui/styles';
-import { expandStyles } from '../../plugins/expand/ui/styles';
+import { expandStyles } from './expand';
 import { MediaSharedClassNames } from '@atlaskit/editor-common/styles';
 import { findReplaceStyles } from '../../plugins/find-replace/styles';
 import { taskDecisionStyles } from '../../plugins/tasks-and-decisions/styles';

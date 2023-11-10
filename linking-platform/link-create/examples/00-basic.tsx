@@ -126,6 +126,9 @@ function CreateBasic() {
     console.log('handleCreate payload is:', payload);
     setLink(payload.url);
     setAri(payload.ari);
+  }, []);
+
+  const handleComplete = useCallback(() => {
     setActive(false);
   }, []);
 
@@ -175,6 +178,7 @@ function CreateBasic() {
         triggeredFrom="example"
         entityKey={ENTITY_KEY}
         onCreate={handleCreate}
+        onComplete={handleComplete}
         onFailure={handleFailure}
         onCancel={handleCancel}
         onOpenComplete={handleOpenComplete}

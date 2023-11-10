@@ -69,6 +69,7 @@ describe('useObjectSchemas', () => {
   });
 
   it('should return an error when fetchObjectSchemas rejects', async () => {
+    // PermissionError and FetchError extend Error so this test verifies they propogate up
     const mockError = new Error();
     mockFetchObjectSchemas.mockRejectedValue(mockError);
     const { result } = renderHook(() => useObjectSchemas(workspaceId));

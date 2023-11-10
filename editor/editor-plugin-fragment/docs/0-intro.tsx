@@ -5,19 +5,17 @@ import { createEditorUseOnlyNotice } from '@atlaskit/editor-core/docs/editor-use
 import { token } from '@atlaskit/tokens';
 
 export default md`
-
 ${createEditorUseOnlyNotice('Editor Plugin Fragment', [
   { name: 'Editor Core', link: '/packages/editor/editor-core' },
 ])}
-
-
   ${(
     <div style={{ marginTop: token('space.100', '8px') }}>
       <AtlassianInternalWarning />
     </div>
   )}
 
-  This package includes the fragment plugin used by \`@atlaskit/editor-core\`.
+  This package includes the fragment plugin used by @atlaskit/editor-core.
+
 
   ## Usage
 ---
@@ -28,7 +26,6 @@ below:
 ${code`
 type FragmentPlugin = NextEditorPlugin<'fragmentPlugin'>;
 `}
-
 
   ## Support
 ---

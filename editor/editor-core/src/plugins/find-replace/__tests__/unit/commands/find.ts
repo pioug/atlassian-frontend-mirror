@@ -24,6 +24,7 @@ const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
   () => ({ fire: () => {} } as UIAnalyticsEvent),
 );
 let editorView: EditorView;
+let editorAPI: any;
 let refs: { [name: string]: number };
 let rafStub: {
   add: (cb: Function) => number;
@@ -34,7 +35,7 @@ let rafSpy: jest.SpyInstance;
 let dispatchSpy: jest.SpyInstance;
 
 const initEditor = (doc: DocBuilder) => {
-  ({ editorView, refs } = editor(doc, createAnalyticsEvent));
+  ({ editorView, refs, editorAPI } = editor(doc, createAnalyticsEvent));
   dispatchSpy = jest.spyOn(editorView, 'dispatch');
 };
 
@@ -344,7 +345,7 @@ describe('find/replace commands: find', () => {
 describe('find/replace commands: findWithAnalytics', () => {
   it('should fire analytics event', () => {
     initEditor(doc(p('{<>}word')));
-    findWithAnalytics({
+    findWithAnalytics(editorAPI?.analytics?.actions)({
       editorView,
       containerElement,
       keyword: 'word',

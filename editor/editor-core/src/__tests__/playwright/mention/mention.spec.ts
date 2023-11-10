@@ -4,8 +4,6 @@ import {
   EditorMentionModel,
   EditorMainToolbarModel,
   EditorNodeContainerModel,
-  fixTest,
-  BROWSERS,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -24,7 +22,7 @@ import {
   code_block,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-test.describe('feature name: mention', () => {
+test.describe('feature name: Mention', () => {
   test.use({
     editorProps: {
       appearance: 'full-page',
@@ -290,14 +288,11 @@ test.describe('feature name: mention', () => {
   test('mention-3.ts: inserted if space on single match', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'DTR-2009',
-      reason: 'Failing on FireFox - one space difference',
-      browsers: [BROWSERS.firefox],
-    });
     const mentionModel = EditorMentionModel.from(editor);
     await mentionModel.search('Carolyn');
-    await editor.keyboard.type('  text ');
+    await editor.keyboard.press('Space');
+    await expect(mentionModel.popup).toBeHidden();
+    await editor.keyboard.type('text ');
     await expect(editor).toHaveDocument(
       doc(
         p(mention({ id: '0', text: '@Carolyn', accessLevel: '' })(), ' text '),

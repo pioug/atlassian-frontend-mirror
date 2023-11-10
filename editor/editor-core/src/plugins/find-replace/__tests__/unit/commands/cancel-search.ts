@@ -16,9 +16,10 @@ const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
   () => ({ fire: () => {} } as UIAnalyticsEvent),
 );
 let editorView: EditorView;
+let editorAPI: any;
 
 const initEditor = (doc: DocBuilder) => {
-  ({ editorView } = editor(doc, createAnalyticsEvent));
+  ({ editorView, editorAPI } = editor(doc, createAnalyticsEvent));
 };
 
 describe('find/replace commands: cancelSearch', () => {
@@ -50,10 +51,9 @@ describe('find/replace commands: cancelSearch', () => {
 describe('find/replace commands: cancelSearchWithAnalytics', () => {
   it('should fire analytics event', () => {
     initEditor(doc(p('{<>}word')));
-    cancelSearchWithAnalytics({ triggerMethod: TRIGGER_METHOD.BUTTON })(
-      editorView.state,
-      editorView.dispatch,
-    );
+    cancelSearchWithAnalytics(editorAPI?.analytics?.actions)({
+      triggerMethod: TRIGGER_METHOD.BUTTON,
+    })(editorView.state, editorView.dispatch);
     expect(createAnalyticsEvent).toBeCalledWith({
       eventType: 'ui',
       action: 'deactivated',

@@ -82,8 +82,20 @@ const createPlugin = (dispatch: Dispatch) => {
   });
 };
 
-const mobileDimensionsPlugin: NextEditorPlugin<'mobileDimensions'> = () => ({
+export type MobileDimensionsPlugin = NextEditorPlugin<
+  'mobileDimensions',
+  { sharedState: MobileDimensionsPluginState | undefined }
+>;
+
+const mobileDimensionsPlugin: MobileDimensionsPlugin = () => ({
   name: 'mobileDimensions',
+  getSharedState(editorState) {
+    if (!editorState) {
+      return undefined;
+    }
+
+    return mobileDimensionsPluginKey.getState(editorState);
+  },
   pmPlugins() {
     return [
       {

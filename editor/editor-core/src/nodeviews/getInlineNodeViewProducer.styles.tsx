@@ -16,7 +16,7 @@ export const InlineNodeViewSharedStyles = css`
     white-space: nowrap;
     /* Then reset to the Editor default so we don't interfere
     with any component styling. */
-    & > *:not(span[aria-hidden='true'].zeroWidthSpaceContainer) {
+    & > *:not(.zeroWidthSpaceContainer) {
       white-space: pre-wrap;
     }
     // Prevent visually hidden assistive text from being selected.

@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 1.8.0
+
+### Minor Changes
+
+- [#42777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42777) [`fe571895d1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe571895d1f) - EDM-8401: Introduce the onComplete props to LinkCreateProps which is a callback function to be called when the link create experience is completed. This prop allows a post-create edit flow to be added into the link create experience before completion.
+
 ## 1.7.2
 
 ### Patch Changes

@@ -57,13 +57,13 @@ describe('useValidateAqlText', () => {
   it('should return false and an error when validateAql rejects', async () => {
     const mockError = new Error();
     mockValidateAql.mockRejectedValue(mockError);
-    const { result } = renderHook(() => useValidateAqlText(workspaceId));
-    const validateAqlText = result.current.validateAqlText;
-    let validateAqlTextResponse: AqlValidationResponse | undefined;
-    await act(async () => {
-      validateAqlTextResponse = await validateAqlText(aqlText);
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useValidateAqlText(workspaceId),
+    );
+    act(() => {
+      result.current.validateAqlText(aqlText);
     });
-    expect(validateAqlTextResponse?.isValid).toBe(false);
+    await waitForNextUpdate();
     expect(result.current.isValidAqlText).toBe(false);
     expect(result.current.validateAqlTextError).toBe(mockError);
   });
@@ -71,13 +71,13 @@ describe('useValidateAqlText', () => {
   it('should return false and an error when validateAql rejects with a non error type', async () => {
     const mockError = { error: 'fake error message' };
     mockValidateAql.mockRejectedValue(mockError);
-    const { result } = renderHook(() => useValidateAqlText(workspaceId));
-    const validateAqlText = result.current.validateAqlText;
-    let validateAqlTextResponse: AqlValidationResponse | undefined;
-    await act(async () => {
-      validateAqlTextResponse = await validateAqlText(aqlText);
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useValidateAqlText(workspaceId),
+    );
+    act(() => {
+      result.current.validateAqlText(aqlText);
     });
-    expect(validateAqlTextResponse?.isValid).toBe(false);
+    await waitForNextUpdate();
     expect(result.current.isValidAqlText).toBe(false);
     expect(result.current.validateAqlTextError?.message).toEqual(
       `Unexpected error occured`,

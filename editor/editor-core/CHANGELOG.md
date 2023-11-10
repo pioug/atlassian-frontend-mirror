@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 189.3.15
+
+### Patch Changes
+
+- [#42925](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42925) [`8ea16423505`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ea16423505) - Removes FF platform.editor.update-table-cell-width-via-step
+- [#42859](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42859) [`16cc82bf2e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16cc82bf2e3) - ED-20721 Extract Expand Plugin
+- [#42937](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42937) [`c9a523f6662`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9a523f6662) - Remove internal withAnalytics function.
+- [#42451](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42451) [`36764ad64a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36764ad64a9) - [ECA11Y-87] Mentioned name is not communicated to the users of screen reader
+- Updated dependencies
+
+## 189.3.14
+
+### Patch Changes
+
+- [#42995](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42995) [`a527682dee6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a527682dee6) - add in missing dependencies for imported types
+- [#42618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42618) [`d55f8d9c0a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d55f8d9c0a3) - ED-20359 extracted max-content-size plugin from editor-core
+- Updated dependencies
+
+## 189.3.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 189.3.12
 
 ### Patch Changes

@@ -3,18 +3,15 @@ import React from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import {
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type {
   Decoration,
   EditorView,
   NodeView,
 } from '@atlaskit/editor-prosemirror/view';
 
-import {
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  AnalyticsEventPayload,
-} from '../analytics';
+import type { AnalyticsEventPayload } from '../analytics';
+import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
 import type { PMPluginFactoryParams } from '../types';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
 import {
@@ -223,7 +220,7 @@ function getPortalChildren<ExtraComponentProps>({
         }
         dispatchAnalyticsEvent={dispatchAnalyticsEvent}
       >
-        <span aria-hidden="true" className={`zeroWidthSpaceContainer`}>
+        <span className={`zeroWidthSpaceContainer`}>
           <span className={`${inlineNodeViewClassname}AddZeroWidthSpace`} />
           {ZERO_WIDTH_SPACE}
         </span>
@@ -234,10 +231,7 @@ function getPortalChildren<ExtraComponentProps>({
           node={currentNode}
           {...extraComponentProps}
         />
-        <span
-          aria-hidden="true"
-          className={`${inlineNodeViewClassname}AddZeroWidthSpace`}
-        />
+        <span className={`${inlineNodeViewClassname}AddZeroWidthSpace`} />
       </ErrorBoundary>
     );
   };

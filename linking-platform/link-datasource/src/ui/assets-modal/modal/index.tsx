@@ -42,6 +42,8 @@ import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messa
 import { useAssetsClient } from '../../../hooks/useAssetsClient';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
 import i18nEN from '../../../i18n/en';
+import { PermissionError } from '../../../services/cmdbService.utils';
+import { AccessRequired } from '../../../ui/common/error-state/access-required';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
 import { AssetsSearchContainer } from '../search-container';
 import { AssetsSearchContainerLoading } from '../search-container/loading-state';
@@ -54,11 +56,18 @@ import {
 import { modalMessages } from './messages';
 import { RenderAssetsContent } from './render-assets-content';
 
+type ErrorState = 'permission' | 'network';
+
 const modalBodyWrapperStyles = css({
   display: 'grid',
   height: '420px',
   overflow: 'auto',
 });
+
+const modalBodyErrorWrapperStyles = css({
+  alignItems: 'center',
+});
+
 const AssetsModalTitle = (
   <ModalTitle>
     <FormattedMessage {...modalMessages.insertObjectsTitle} />
@@ -79,12 +88,51 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
     initialVisibleColumnKeys,
   );
   const [isNewSearch, setIsNewSearch] = useState<boolean>(false);
+  const [errorState, setErrorState] = useState<ErrorState | undefined>();
   const { fireEvent } = useDatasourceAnalyticsEvents();
   const { current: modalRenderInstanceId } = useRef<string>(uuidv4());
 
-  // If a workspaceError occurs this is a critical error
-  const { workspaceId, workspaceError, objectSchema, assetsClientLoading } =
-    useAssetsClient(initialParameters);
+  const {
+    workspaceId,
+    workspaceError,
+    existingObjectSchema,
+    existingObjectSchemaError,
+    objectSchemas,
+    objectSchemasError,
+    totalObjectSchemas,
+    assetsClientLoading,
+  } = useAssetsClient(initialParameters);
+
+  /* ------------------------------ PERMISSIONS ------------------------------ */
+  useEffect(() => {
+    if (workspaceError) {
+      // If a workspaceError occurs this is a critical error
+      if (workspaceError instanceof PermissionError) {
+        setErrorState('permission');
+      } else {
+        setErrorState('network');
+      }
+    }
+  }, [workspaceError]);
+
+  useEffect(() => {
+    if (objectSchemasError) {
+      // We only care about permission errors for objectSchemas fetching as the user can retry this action
+      if (objectSchemasError instanceof PermissionError) {
+        setErrorState('permission');
+      }
+    }
+  }, [objectSchemasError]);
+
+  useEffect(() => {
+    if (existingObjectSchemaError) {
+      // We only care about permission errors for existingObjectSchema fetching as the user can retry this action
+      if (existingObjectSchemaError instanceof PermissionError) {
+        setErrorState('permission');
+      }
+    }
+  }, [existingObjectSchemaError]);
+  /* ------------------------------ END PERMISSIONS ------------------------------ */
 
   const parameters = useMemo<AssetsDatasourceParameters>(
     () => ({
@@ -126,6 +174,16 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
       destinationObjectTypes: destinationObjectTypes,
     };
   }, [destinationObjectTypes, extensionKey]);
+
+  useEffect(() => {
+    // We only want to send modal ready event once after we've fetched the schema count
+    if (totalObjectSchemas !== undefined) {
+      fireEvent('ui.modal.ready.datasource', {
+        schemasCount: totalObjectSchemas,
+        instancesCount: null,
+      });
+    }
+  }, [fireEvent, totalObjectSchemas]);
 
   useEffect(() => {
     fireEvent('screen.datasourceModalDialog.viewed', {});
@@ -203,7 +261,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
   }, [defaultVisibleColumnKeys, isNewSearch]);
 
   const isDisabled =
-    !!workspaceError ||
+    !!errorState ||
     status !== 'resolved' ||
     assetsClientLoading ||
     !aql ||
@@ -331,8 +389,21 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
     [aql, reset, schemaId, status],
   );
 
+  const renderErrorState = useCallback(() => {
+    if (errorState) {
+      switch (errorState) {
+        case 'permission':
+          return <AccessRequired />;
+        case 'network':
+          return <ModalLoadingError />;
+        default:
+          return <ModalLoadingError />;
+      }
+    }
+  }, [errorState]);
+
   const renderModalTitleContent = useCallback(() => {
-    if (workspaceError) {
+    if (errorState) {
       return undefined;
     } else {
       if (!workspaceId || assetsClientLoading) {
@@ -341,7 +412,11 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
       return (
         <AssetsSearchContainer
           workspaceId={workspaceId}
-          initialSearchData={{ aql, objectSchema }}
+          initialSearchData={{
+            aql,
+            objectSchema: existingObjectSchema,
+            objectSchemas,
+          }}
           onSearch={handleOnSearch}
           modalTitle={AssetsModalTitle}
           isSearching={status === 'loading'}
@@ -349,13 +424,14 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
       );
     }
   }, [
-    aql,
-    assetsClientLoading,
-    handleOnSearch,
-    objectSchema,
-    status,
-    workspaceError,
+    errorState,
     workspaceId,
+    assetsClientLoading,
+    aql,
+    existingObjectSchema,
+    objectSchemas,
+    handleOnSearch,
+    status,
   ]);
 
   return (
@@ -373,11 +449,17 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
         >
           <ModalHeader>{renderModalTitleContent()}</ModalHeader>
           <ModalBody>
-            <div css={modalBodyWrapperStyles}>
-              {workspaceError ? (
-                <ModalLoadingError />
+            <div
+              css={[
+                modalBodyWrapperStyles,
+                errorState && modalBodyErrorWrapperStyles,
+              ]}
+            >
+              {errorState ? (
+                renderErrorState()
               ) : (
                 <RenderAssetsContent
+                  isFetchingInitialData={assetsClientLoading}
                   status={status}
                   responseItems={responseItems}
                   visibleColumnKeys={visibleColumnKeys}

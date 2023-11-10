@@ -12,7 +12,6 @@ import {
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import type { Command } from '@atlaskit/editor-common/types';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { EditorSelectionAPI } from '@atlaskit/editor-plugin-selection';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';

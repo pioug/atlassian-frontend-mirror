@@ -17,6 +17,7 @@ import {
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CardContext } from '@atlaskit/link-provider';
+import { Flex } from '@atlaskit/primitives';
 
 import { showDatasourceModal } from '../pm-plugins/actions';
 
@@ -34,10 +35,6 @@ export interface EditDatasourceButtonProps {
 
 const buttonStyles = css({
   pointerEvents: 'auto',
-});
-
-const buttonWrapperStyles = css({
-  display: 'flex',
 });
 
 // Edit button in toolbar to open datasource modal. This button is shown for inline, block, and embed cards
@@ -75,7 +72,7 @@ const EditDatasourceButtonWithCardContext = ({
   };
 
   return (
-    <div css={buttonWrapperStyles}>
+    <Flex>
       <Button
         css={buttonStyles}
         title={intl.formatMessage(messages.datasourceTitle)}
@@ -87,7 +84,7 @@ const EditDatasourceButtonWithCardContext = ({
         testId={'card-edit-datasource-button'}
       />
       <Separator />
-    </div>
+    </Flex>
   );
 };
 

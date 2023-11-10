@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-extension
 
+## 0.2.5
+
+### Patch Changes
+
+- [#42995](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42995) [`a527682dee6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a527682dee6) - add in missing dependencies for imported types
+
 ## 0.2.4
 
 ### Patch Changes

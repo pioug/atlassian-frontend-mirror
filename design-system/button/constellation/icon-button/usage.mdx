@@ -1,5 +1,58 @@
 ---
 title: Icon button
-description: TODO
+description: An icon-only button lets people take a common and recognizable action where space is limited.
 order: 2
 ---
+
+## Usage
+
+Use icon-only buttons when space is limited and the icon has a clear meaning.
+
+There are very few icons that have clear and common associations across products, so use buttons with text labels where space allows or when the action is very important.
+
+![Diagram of icon only button. A caption follows this image.](./images/anatomy-icon-button.png)
+
+1. **Button:** Can be square or round, depending on the context.
+2. **Icon:** An existing [system icon](/components/icon).
+3. **Tooltip label:** All icon buttons require a clear text label for tooltips and screen readers.
+
+### Use icons with clear meanings, or else use a button with a text label
+
+To test whether an icon button will be clear, apply the five-second rule: if it takes you more than five seconds to think of an appropriate icon, it is unlikely that an icon can effectively communicate that action.
+
+If the icon isn’t commonly used or has multiple different associations, use a [button with a text label](/components/button/examples) instead.
+
+<!-- TODO add do don't -->
+
+### Choose an existing system icon with a clear meaning
+
+Don’t use icon-only buttons with custom icons. If you are creating a new icon, it’s probably a more complex idea that would require a [button with a text label](/components/button/examples).
+
+## Accessibility
+
+<!-- TODO get accessibility review and check this against other a11y button guidance for consistency -->
+
+- Clearly describe the icon button action in a tooltip and label for screen readers. Follow the [button label content guidance for clear and active labels](/components/button/icon-button/usage#content-guidelines).
+- Consider localization: does the icon have a clear single meaning that holds up for everyone, including people from different cultures or places?
+- Avoid disabling buttons and follow all [general button accessibility guidance](/components/button/usage#accessibility).
+
+## Best practices
+
+- Follow our iconography guidance and use the line versions of icons for most cases. You can use filled icons to show an action has been taken or selected.
+
+## Content guidelines
+
+Use sentence case for all button action tooltips and labels, unless there’s a proper noun in the button. This creates consistency for assistive technologies.
+
+Where possible, specify the object being acted on in the tooltip label. For example “Edit page” instead of just “Edit”.
+
+<!-- TODO make clearer headings and do/donts throughout -->
+
+<!-- ## Mobile guidelines -->
+
+## Related
+
+- [Icon buttons with text labels](/components/button/examples)
+- [Icons](/components/icon)
+
+<!-- TODO fix all links throughout. Spell check :) -->

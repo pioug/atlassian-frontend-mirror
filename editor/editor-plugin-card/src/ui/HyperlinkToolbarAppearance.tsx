@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { CardOptions } from '@atlaskit/editor-common/card';
-import type { CardPluginActions } from '@atlaskit/editor-common/card';
-import {
+import type {
+  CardOptions,
+  CardPluginActions,
+} from '@atlaskit/editor-common/card';
+import type {
   CardProvider,
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { CardPlatform } from '@atlaskit/smart-card';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { Flex } from '@atlaskit/primitives';
+import type { CardPlatform } from '@atlaskit/smart-card';
 
+import { EditDatasourceButton } from './EditDatasourceButton';
 import { LinkToolbarAppearance } from './LinkToolbarAppearance';
 
 export interface HyperlinkToolbarAppearanceProps {
@@ -104,18 +108,27 @@ export class HyperlinkToolbarAppearance extends Component<
       return null;
     }
     return (
-      <LinkToolbarAppearance
-        key="link-appearance"
-        url={url}
-        intl={intl}
-        editorView={editorView}
-        editorState={editorState}
-        allowEmbeds={cardOptions?.allowEmbeds}
-        allowBlockCards={cardOptions?.allowBlockCards}
-        platform={platform}
-        editorAnalyticsApi={editorAnalyticsApi}
-        cardActions={cardActions}
-      />
+      <Flex>
+        <EditDatasourceButton
+          url={url}
+          intl={intl}
+          editorState={editorState}
+          editorView={editorView}
+          editorAnalyticsApi={editorAnalyticsApi}
+        />
+        <LinkToolbarAppearance
+          key="link-appearance"
+          url={url}
+          intl={intl}
+          editorView={editorView}
+          editorState={editorState}
+          allowEmbeds={cardOptions?.allowEmbeds}
+          allowBlockCards={cardOptions?.allowBlockCards}
+          platform={platform}
+          editorAnalyticsApi={editorAnalyticsApi}
+          cardActions={cardActions}
+        />
+      </Flex>
     );
   }
 }

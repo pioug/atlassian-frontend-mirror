@@ -6,6 +6,8 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 import AvatarsWithPluginState from '../../../plugins/collab-edit/ui';
 import FindReplaceToolbarButtonWithState from '../../../plugins/find-replace/FindReplaceToolbarButtonWithState';
@@ -34,6 +36,7 @@ import type { FeatureFlags } from '../../../types/feature-flags';
 import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import { usePresetContext } from '../../../presets/context';
+import type { FindReplacePlugin } from './../../../plugins/find-replace';
 
 export interface FullPageToolbarProps {
   appearance?: EditorAppearance;
@@ -61,7 +64,10 @@ export interface FullPageToolbarProps {
 export const EditorToolbar = React.memo(
   (props: FullPageToolbarProps & WrappedComponentProps) => {
     const [shouldSplitToolbar, setShouldSplitToolbar] = useState(false);
-    const editorAPI = usePresetContext();
+    const editorAPI =
+      usePresetContext<
+        [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<FindReplacePlugin>]
+      >();
 
     // When primary toolbar components is undefined, do not show two line editor toolbar
     const twoLineEditorToolbar =
@@ -130,6 +136,7 @@ export const EditorToolbar = React.memo(
             containerElement={props.containerElement}
             dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
             featureFlags={props.featureFlags}
+            editorAnalyticsAPI={editorAPI?.analytics?.actions}
           />
         ) : null}
         {!!props.customPrimaryToolbarComponents &&

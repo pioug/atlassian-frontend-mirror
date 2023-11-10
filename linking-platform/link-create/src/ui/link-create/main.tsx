@@ -150,9 +150,13 @@ const LinkCreateWithModal = ({
           </Modal>
         )}
       </ModalTransition>
-      {getBooleanFF('platform.linking-platform.link-create.enable-edit') && (
-        <EditModal onCloseComplete={onCloseComplete} onClose={handleCancel} />
-      )}
+      {getBooleanFF('platform.linking-platform.link-create.enable-edit') &&
+        createProps.onComplete && (
+          <EditModal
+            onCloseComplete={onCloseComplete}
+            onClose={createProps.onComplete}
+          />
+        )}
       {getBooleanFF(
         'platform.linking-platform.link-create.confirm-dismiss-dialog',
       ) && (
@@ -166,13 +170,7 @@ const LinkCreateWithModal = ({
   );
 };
 
-type ExperimentalProps = {
-  onComplete?: () => void;
-};
-
-const LinkCreateModalInternal = (
-  props: LinkCreateWithModalProps & ExperimentalProps,
-) => {
+const LinkCreateModal = (props: LinkCreateWithModalProps) => {
   if (getBooleanFF('platform.linking-platform.link-create.enable-edit')) {
     return (
       <LinkCreatePluginsProvider
@@ -189,7 +187,7 @@ const LinkCreateModalInternal = (
             }) => (
               <FormContextProvider
                 enableEditView={
-                  pluginsProvider?.activePlugin?.editView
+                  pluginsProvider?.activePlugin?.editView && props?.onComplete
                     ? enableEditView
                     : undefined
                 }
@@ -222,13 +220,15 @@ const LinkCreateModalInternal = (
 
   return (
     <FormContextProvider>
-      <LinkCreateWithModal {...props} />
+      <LinkCreateWithModal
+        {...props}
+        onCreate={async payload => {
+          await props.onCreate?.(payload);
+          props.onComplete?.();
+        }}
+      />
     </FormContextProvider>
   );
 };
 
-const LinkCreateModalPublic = (props: LinkCreateWithModalProps) => {
-  return <LinkCreateModalInternal {...props} />;
-};
-
-export default LinkCreateModalPublic;
+export default LinkCreateModal;

@@ -5,7 +5,6 @@ import type {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import rafSchedule from 'raf-schd';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { HistoryPluginState } from '@atlaskit/editor-plugin-history';
 import type { SelectionDataState } from '@atlaskit/editor-core/src/plugins/mobile-selection';
 import type WebBridgeImpl from '../native-to-web';

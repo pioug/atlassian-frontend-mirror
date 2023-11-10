@@ -1,5 +1,25 @@
 # @atlaskit/editor-mobile-bridge
 
+## 189.3.15
+
+### Patch Changes
+
+- [#42859](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42859) [`16cc82bf2e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16cc82bf2e3) - ED-20721 Extract Expand Plugin
+- Updated dependencies
+
+## 189.3.14
+
+### Patch Changes
+
+- [#42995](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42995) [`a527682dee6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a527682dee6) - add in missing dependencies for imported types
+- Updated dependencies
+
+## 189.3.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 189.3.12
 
 ### Patch Changes

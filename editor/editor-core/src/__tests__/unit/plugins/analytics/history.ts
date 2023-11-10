@@ -15,8 +15,10 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT,
 } from '@atlaskit/editor-common/analytics';
-import { withAnalytics } from '../../../../plugins/analytics';
+import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { createTable } from '@atlaskit/editor-plugin-table/commands';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 /**
  * Note that the history events are defined within `@atlaskit/adf-schema`.
@@ -33,8 +35,19 @@ describe('Analytics Plugin: History Events', () => {
 
   const undo = () => sendKeyToPm(editorView, 'Ctrl-z');
   const redo = () => sendKeyToPm(editorView, 'Ctrl-y');
+
+  const do3Times = (fn: Function) =>
+    Array(3)
+      .fill(null)
+      .forEach(() => fn());
+
+  let createAnalyticsEvent: jest.Mock;
+  let editorView: EditorView;
+  let sel: number;
+  let editorAPI: PublicPluginAPI<[AnalyticsPlugin]> | undefined;
+
   const insertHeading = () =>
-    withAnalytics({
+    withAnalytics(editorAPI?.analytics?.actions, {
       action: ACTION.FORMATTED,
       actionSubject: ACTION_SUBJECT.TEXT,
       eventType: EVENT_TYPE.TRACK,
@@ -46,7 +59,7 @@ describe('Analytics Plugin: History Events', () => {
       },
     })(setHeading(1))(editorView.state, editorView.dispatch);
   const insertTable = () =>
-    withAnalytics({
+    withAnalytics(editorAPI?.analytics?.actions, {
       action: ACTION.INSERTED,
       actionSubject: ACTION_SUBJECT.DOCUMENT,
       actionSubjectId: ACTION_SUBJECT_ID.TABLE,
@@ -56,18 +69,9 @@ describe('Analytics Plugin: History Events', () => {
       eventType: EVENT_TYPE.TRACK,
     })(createTable())(editorView.state, editorView.dispatch);
 
-  const do3Times = (fn: Function) =>
-    Array(3)
-      .fill(null)
-      .forEach(() => fn());
-
-  let createAnalyticsEvent: jest.Mock;
-  let editorView: EditorView;
-  let sel: number;
-
   beforeEach(() => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
-    ({ editorView, sel } = createEditor({
+    const editor = createEditor({
       doc: doc(p('{<>}')),
       editorProps: {
         allowAnalyticsGASV3: true,
@@ -75,7 +79,11 @@ describe('Analytics Plugin: History Events', () => {
         allowRule: true,
       },
       createAnalyticsEvent,
-    }));
+    });
+    ({ editorView, sel } = editor);
+    editorAPI = editor.editorAPI as
+      | PublicPluginAPI<[AnalyticsPlugin]>
+      | undefined;
   });
 
   describe('undo', () => {
@@ -147,7 +155,7 @@ describe('Analytics Plugin: History Events', () => {
     });
 
     it('does not fire undo event for "invoked" events', () => {
-      withAnalytics({
+      withAnalytics(editorAPI?.analytics?.actions, {
         action: ACTION.INVOKED,
         actionSubject: ACTION_SUBJECT.TYPEAHEAD,
         actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_EMOJI,
@@ -162,7 +170,7 @@ describe('Analytics Plugin: History Events', () => {
     });
 
     it('does not fire undo event for "opened" events', () => {
-      withAnalytics({
+      withAnalytics(editorAPI?.analytics?.actions, {
         action: ACTION.OPENED,
         actionSubject: ACTION_SUBJECT.PICKER,
         actionSubjectId: ACTION_SUBJECT_ID.PICKER_EMOJI,

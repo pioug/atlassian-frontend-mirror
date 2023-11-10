@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { CardAppearance } from '@atlaskit/smart-card';
 
 import type { AnalyticsEventPayload } from './types';

@@ -1,17 +1,17 @@
 import { css } from '@emotion/react';
-
+import { token } from '@atlaskit/tokens';
 import { N800 } from '@atlaskit/theme/colors';
 
 export const content = css`
   & div.toolsDrawer {
-    padding: 8px 16px;
-    background: ${N800};
+    padding: ${token('space.100', '8px')} ${token('space.200', '16px')};
+    background: ${token('color.background.neutral.bold', N800)};
 
     & label {
       display: flex;
-      color: white;
+      color: ${token('color.text.inverse', 'white')};
       align-self: center;
-      padding-right: 8px;
+      padding-right: ${token('space.100', '8px')};
     }
 
     & > div {
@@ -19,12 +19,12 @@ export const content = css`
     }
 
     & button {
-      margin: 4px 0;
+      margin: ${token('space.050', '4px')} 0;
     }
   }
 
   & legend {
-    margin: 8px 0;
+    margin: ${token('space.100', '8px')} 0;
   }
 
   & input {

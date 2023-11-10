@@ -78,71 +78,25 @@ export const updateColumnWidths =
     }
 
     // updating all cells with new attributes
-    if (getBooleanFF('platform.editor.update-table-cell-width-via-step')) {
-      const seen: { [key: number]: boolean } = {};
-      for (let rowIndex = 0; rowIndex < map.height; rowIndex++) {
-        for (let columnIndex = 0; columnIndex < map.width; columnIndex++) {
-          const mapIndex = rowIndex * map.width + columnIndex;
-          const pos = map.map[mapIndex];
-          const cell = table.nodeAt(pos);
-          if (!seen[pos] && cell) {
-            if (updatedCellsAttrs[pos]) {
-              tr.step(
-                new AttrStep(
-                  pos + start,
-                  'colwidth',
-                  updatedCellsAttrs[pos].colwidth,
-                ),
-              );
-            }
-            seen[pos] = true;
-          }
-        }
-      }
-    } else {
-      const rows: PMNode[] = [];
-      const seen: { [key: number]: boolean } = {};
-      for (let rowIndex = 0; rowIndex < map.height; rowIndex++) {
-        const row = table.child(rowIndex);
-        const cells: PMNode[] = [];
-
-        for (let columnIndex = 0; columnIndex < map.width; columnIndex++) {
-          const mapIndex = rowIndex * map.width + columnIndex;
-          const pos = map.map[mapIndex];
-          const cell = table.nodeAt(pos);
-          if (!seen[pos] && cell) {
-            cells.push(
-              cell.type.createChecked(
-                updatedCellsAttrs[pos] || cell.attrs,
-                cell.content,
-                cell.marks,
+    const seen: { [key: number]: boolean } = {};
+    for (let rowIndex = 0; rowIndex < map.height; rowIndex++) {
+      for (let columnIndex = 0; columnIndex < map.width; columnIndex++) {
+        const mapIndex = rowIndex * map.width + columnIndex;
+        const pos = map.map[mapIndex];
+        const cell = table.nodeAt(pos);
+        if (!seen[pos] && cell) {
+          if (updatedCellsAttrs[pos]) {
+            tr.step(
+              new AttrStep(
+                pos + start,
+                'colwidth',
+                updatedCellsAttrs[pos].colwidth,
               ),
             );
-            seen[pos] = true;
           }
+          seen[pos] = true;
         }
-        rows.push(row.type.createChecked(row.attrs, cells, row.marks));
       }
-
-      const tablePos = start - 1;
-      const selectionBookmark = tr.selection.getBookmark();
-
-      tr.replaceWith(
-        tablePos,
-        tablePos + table.nodeSize,
-        table.type.createChecked(table.attrs, rows, table.marks),
-      );
-      /**
-       * We want to restore to the original selection but w/o applying the mapping. Function
-       * tr.replaceWith puts the selection after the inserted content. We need to manually
-       * set the selection back to original state. Mapping in this case doesn't quite work
-       * e.g. if we change the content before a selection. This is because mapping
-       * means moving it if the content in front of it changed. Instead we can get
-       * bookmark of selection.
-       *
-       * @see https://github.com/ProseMirror/prosemirror/issues/645
-       */
-      tr.setSelection(selectionBookmark.resolve(tr.doc));
     }
 
     return tr;

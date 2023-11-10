@@ -1,16 +1,16 @@
 import { css } from '@emotion/react';
+import { token } from '@atlaskit/tokens';
 // @ts-ignore: unused variable
 // prettier-ignore
 import { N800 } from '@atlaskit/theme/colors';
-
 export const content = css`
   & div.toolsDrawer {
     padding: 8px 16px;
-    background: ${N800};
+    background: ${token('color.background.neutral.bold', N800)};
 
     & label {
       display: flex;
-      color: white;
+      color: ${token('color.text.inverse', 'white')};
       align-self: center;
       padding-right: 8px;
     }

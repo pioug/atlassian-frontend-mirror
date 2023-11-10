@@ -8,7 +8,6 @@ import { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { IntlErrorBoundary } from '@atlaskit/editor-common/ui';
 import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
 import { sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { CustomData } from '@atlaskit/ufo/types';
 import type {
   ErrorEventAttributes,

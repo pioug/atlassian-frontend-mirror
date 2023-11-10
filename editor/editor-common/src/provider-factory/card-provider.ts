@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { CardAdf, DatasourceAdf } from '@atlaskit/smart-card';
 
 export type CardAppearance = 'inline' | 'block' | 'embed';

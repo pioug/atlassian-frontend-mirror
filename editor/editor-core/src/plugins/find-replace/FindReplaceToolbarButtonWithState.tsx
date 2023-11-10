@@ -17,6 +17,7 @@ import FindReplaceToolbarButton from './ui/FindReplaceToolbarButton';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export type FindReplaceToolbarButtonWithStateProps = {
   popupsBoundariesElement?: HTMLElement;
@@ -28,22 +29,21 @@ export type FindReplaceToolbarButtonWithStateProps = {
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   takeFullWidth?: boolean;
   featureFlags: FeatureFlags;
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 };
 
-const FindReplaceToolbarButtonWithState: React.FunctionComponent<
-  FindReplaceToolbarButtonWithStateProps
-> = (props) => {
-  const {
-    popupsBoundariesElement,
-    popupsMountPoint,
-    popupsScrollableElement,
-    isToolbarReducedSpacing,
-    editorView,
-    containerElement,
-    dispatchAnalyticsEvent,
-    featureFlags,
-  } = props;
-
+const FindReplaceToolbarButtonWithState = ({
+  popupsBoundariesElement,
+  popupsMountPoint,
+  popupsScrollableElement,
+  isToolbarReducedSpacing,
+  editorView,
+  containerElement,
+  dispatchAnalyticsEvent,
+  featureFlags,
+  editorAnalyticsAPI,
+  takeFullWidth,
+}: FindReplaceToolbarButtonWithStateProps) => {
   if (!editorView) {
     return null;
   }
@@ -66,14 +66,16 @@ const FindReplaceToolbarButtonWithState: React.FunctionComponent<
   const handleActivate = () => {
     runWithEditorFocused(() =>
       dispatchCommand(
-        activateWithAnalytics({ triggerMethod: TRIGGER_METHOD.TOOLBAR }),
+        activateWithAnalytics(editorAnalyticsAPI)({
+          triggerMethod: TRIGGER_METHOD.TOOLBAR,
+        }),
       ),
     );
   };
   const handleFind = (keyword?: string) => {
     runWithEditorFocused(() =>
       dispatchCommand(
-        findWithAnalytics({
+        findWithAnalytics(editorAnalyticsAPI)({
           editorView,
           containerElement,
           keyword,
@@ -87,7 +89,9 @@ const FindReplaceToolbarButtonWithState: React.FunctionComponent<
     triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
   }) => {
     runWithEditorFocused(() =>
-      dispatchCommand(findNextWithAnalytics({ triggerMethod })),
+      dispatchCommand(
+        findNextWithAnalytics(editorAnalyticsAPI)({ triggerMethod }),
+      ),
     );
   };
   const handleFindPrev = ({
@@ -96,7 +100,9 @@ const FindReplaceToolbarButtonWithState: React.FunctionComponent<
     triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
   }) => {
     runWithEditorFocused(() =>
-      dispatchCommand(findPrevWithAnalytics({ triggerMethod })),
+      dispatchCommand(
+        findPrevWithAnalytics(editorAnalyticsAPI)({ triggerMethod }),
+      ),
     );
   };
   const handleReplace = ({
@@ -107,12 +113,19 @@ const FindReplaceToolbarButtonWithState: React.FunctionComponent<
     replaceText: string;
   }) => {
     runWithEditorFocused(() =>
-      dispatchCommand(replaceWithAnalytics({ triggerMethod, replaceText })),
+      dispatchCommand(
+        replaceWithAnalytics(editorAnalyticsAPI)({
+          triggerMethod,
+          replaceText,
+        }),
+      ),
     );
   };
   const handleReplaceAll = ({ replaceText }: { replaceText: string }) => {
     runWithEditorFocused(() =>
-      dispatchCommand(replaceAllWithAnalytics({ replaceText })),
+      dispatchCommand(
+        replaceAllWithAnalytics(editorAnalyticsAPI)({ replaceText }),
+      ),
     );
   };
   const handleFindBlur = () => {
@@ -126,7 +139,9 @@ const FindReplaceToolbarButtonWithState: React.FunctionComponent<
       | TRIGGER_METHOD.TOOLBAR
       | TRIGGER_METHOD.BUTTON;
   }) => {
-    dispatchCommand(cancelSearchWithAnalytics({ triggerMethod }));
+    dispatchCommand(
+      cancelSearchWithAnalytics(editorAnalyticsAPI)({ triggerMethod }),
+    );
     editorView.focus();
   };
   const handleToggleMatchCase = () => {
@@ -169,7 +184,7 @@ const FindReplaceToolbarButtonWithState: React.FunctionComponent<
             onFindPrev={handleFindPrev}
             onReplace={handleReplace}
             onReplaceAll={handleReplaceAll}
-            takeFullWidth={!!props.takeFullWidth}
+            takeFullWidth={!!takeFullWidth}
           />
         );
       }}

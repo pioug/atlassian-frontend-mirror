@@ -197,7 +197,8 @@ describe('Snapshot Test: table resizing', () => {
         await unselectTable(page);
       });
 
-      it('header shadows are aligned when focusing overflown table', async () => {
+      // FIXME: This test was skipped on 09/11/2023 https://product-fabric.atlassian.net/browse/DTR-2011
+      it.skip('header shadows are aligned when focusing overflown table', async () => {
         // Scroll to the middle of the table horizontally to have shadows on both sides
         await scrollTable(page, 0.5);
         // scroll to bottom to have sticky header

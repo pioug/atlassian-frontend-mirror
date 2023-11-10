@@ -36,8 +36,16 @@ const DateTimeRenderType = ({
   testId = DATETIME_TYPE_TEST_ID,
   display = 'datetime',
 }: DateProps) => {
-  const date = new Date(value);
   const intl = useIntl();
+  /* In some cases we get a value of `2023-12-20` which when parsed by JS assumes meantime timezone, causing the date
+    to be one day off in some timezones. We want it to display the date without converting timezones and a solution
+   is to replace the hyphens with slashes. So it should be 20th Dec regardless of the timezone in this case.
+    See https://stackoverflow.com/a/31732581
+   */
+  const dateValue = /^\d{4}-\d{2}-\d{2}$/.exec(value)
+    ? value.replace(/-/g, '/')
+    : value;
+  const date = new Date(dateValue);
 
   if (!value || isNaN(date.getTime())) {
     return <></>;

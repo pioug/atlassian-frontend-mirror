@@ -4,6 +4,7 @@ import { css, jsx } from '@emotion/react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
 import { borderRadius } from '@atlaskit/theme/constants';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -14,7 +15,10 @@ import type {
   EditorAppearanceComponentProps,
   EditorAppearance,
 } from '../../../types';
-import type { MaxContentSizePluginState } from '../../../plugins/max-content-size';
+import type {
+  MaxContentSizePluginState,
+  MaxContentSizePlugin,
+} from '@atlaskit/editor-plugin-max-content-size';
 import { ClickAreaBlock } from '../../Addon';
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugin-table/ui/common-styles';
 import WithFlash from '../../WithFlash';
@@ -26,6 +30,7 @@ import classnames from 'classnames';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 import messages from '../../../messages';
+import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
 import type { MediaPluginState } from '@atlaskit/editor-plugin-media/types';
 import { usePresetContext } from '../../../presets/context';
 
@@ -309,7 +314,10 @@ interface RenderChromeProps {
 }
 
 function RenderWithPluginState({ renderChrome }: RenderChromeProps) {
-  const api = usePresetContext();
+  const api =
+    usePresetContext<
+      [OptionalPlugin<MediaPlugin>, OptionalPlugin<MaxContentSizePlugin>]
+    >();
   const { mediaState, maxContentSizeState } = useSharedPluginState(api, [
     'media',
     'maxContentSize',
@@ -317,7 +325,10 @@ function RenderWithPluginState({ renderChrome }: RenderChromeProps) {
 
   return (
     <Fragment>
-      {renderChrome({ maxContentSize: maxContentSizeState, mediaState })}
+      {renderChrome({
+        maxContentSize: maxContentSizeState,
+        mediaState: mediaState ?? undefined,
+      })}
     </Fragment>
   );
 }

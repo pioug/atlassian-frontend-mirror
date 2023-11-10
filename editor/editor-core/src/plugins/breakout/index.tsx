@@ -19,11 +19,11 @@ import type {
 } from '@atlaskit/editor-plugin-width';
 import type { Props as LayoutButtonProps } from './ui/LayoutButton';
 import LayoutButton from './ui/LayoutButton';
-import { BreakoutCssClassName } from './constants';
 import { pluginKey } from './plugin-key';
 import { findSupportedNodeForBreakout } from './utils/find-breakout-node';
 import type { BreakoutPluginState } from './types';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
+import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 

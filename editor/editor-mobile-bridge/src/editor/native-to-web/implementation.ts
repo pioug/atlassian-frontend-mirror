@@ -1,13 +1,10 @@
 import type { TOOLBAR_MENU_TYPE as InsertBlockInputMethodToolbar } from '@atlaskit/editor-common/types';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { StatusState, StatusType } from '@atlaskit/editor-plugin-status';
 import type { CustomMediaPicker } from '@atlaskit/editor-plugin-media/types';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   ListState,
   InputMethod as ListInputMethod,
 } from '@atlaskit/editor-plugin-list';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   BlockTypeState,
   InputMethod as BlockTypeInputMethod,
@@ -27,7 +24,6 @@ import {
 import { createTable } from '@atlaskit/editor-plugin-table/commands';
 import { insertTaskDecisionCommand } from '@atlaskit/editor-core/src/plugins/tasks-and-decisions/commands';
 import { dateToDateType } from '../../utils/dateToDateType';
-import { insertExpand } from '@atlaskit/editor-core/src/plugins/expand/commands';
 import type {
   TypeAheadHandler,
   InputMethodBasic as TextFormattingInputMethodBasic,
@@ -652,10 +648,7 @@ export default class WebBridgeImpl
         )(state, dispatch);
         return;
       case 'expand':
-        insertExpand(this.pluginInjectionApi?.analytics?.actions)(
-          state,
-          dispatch,
-        );
+        this.pluginInjectionApi?.expand?.actions.insertExpand(state, dispatch);
         return;
       case 'table':
         createTable()(state, dispatch);

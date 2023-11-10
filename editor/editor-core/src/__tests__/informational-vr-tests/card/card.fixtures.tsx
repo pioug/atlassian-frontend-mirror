@@ -6,8 +6,16 @@ import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasou
 import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 import cardDatasourceAdf from '../../visual-regression/common/__fixtures__/card-datasource.adf.json';
 import cardInlineAndBlock from '../../visual-regression/common/__fixtures__/card-inline-block-adf.json';
-import { NotFoundClient } from './card.customClient';
-import { embedCardNotFoundAdf } from './card.fixtures.adf';
+import {
+  ForbiddenClient,
+  NotFoundClient,
+  ResolvingClient,
+} from './card.customClient';
+import {
+  embedCardForbiddenAdf,
+  embedCardNotFoundAdf,
+  embedCardResolvingAdf,
+} from './card.fixtures.adf';
 
 export function EditorCardFullPageInlineAndBlock() {
   mockDatasourceFetchRequests({ shouldMockORSBatch: true });
@@ -215,6 +223,38 @@ export function EditorCardFullPageEmbedNotFound() {
     <SmartCardProvider client={new NotFoundClient()}>
       <Editor
         defaultValue={embedCardNotFoundAdf}
+        appearance="full-page"
+        smartLinks={{
+          resolveBeforeMacros: ['jira'],
+          allowBlockCards: true,
+          allowEmbeds: true,
+        }}
+      />
+    </SmartCardProvider>
+  );
+}
+
+export function EditorCardFullPageEmbedResolving() {
+  return (
+    <SmartCardProvider client={new ResolvingClient(1000000)}>
+      <Editor
+        defaultValue={embedCardResolvingAdf}
+        appearance="full-page"
+        smartLinks={{
+          resolveBeforeMacros: ['jira'],
+          allowBlockCards: true,
+          allowEmbeds: true,
+        }}
+      />
+    </SmartCardProvider>
+  );
+}
+
+export function EditorCardFullPageEmbedForbidden() {
+  return (
+    <SmartCardProvider client={new ForbiddenClient()}>
+      <Editor
+        defaultValue={embedCardForbiddenAdf}
         appearance="full-page"
         smartLinks={{
           resolveBeforeMacros: ['jira'],

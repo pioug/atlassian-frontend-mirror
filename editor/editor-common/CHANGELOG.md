@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 76.18.9
+
+### Patch Changes
+
+- [#43004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43004) [`534feb3059b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/534feb3059b) - [ux] Update text for /assets slash command to add "(Beta)" suffix, and change Assets slash command icon slightly
+- [#42859](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42859) [`16cc82bf2e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16cc82bf2e3) - ED-20721 Extract Expand Plugin
+- [#42937](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42937) [`c9a523f6662`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9a523f6662) - Remove internal withAnalytics function.
+- [#42451](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42451) [`36764ad64a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36764ad64a9) - [ECA11Y-87] Mentioned name is not communicated to the users of screen reader
+
+## 76.18.8
+
+### Patch Changes
+
+- [#42995](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42995) [`a527682dee6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a527682dee6) - add in missing dependencies for imported types
+- Updated dependencies
+
 ## 76.18.7
 
 ### Patch Changes

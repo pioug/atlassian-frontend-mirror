@@ -1,11 +1,9 @@
 /** @jsx jsx */
 import { useEffect, useState } from 'react';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import type { JiraIssueDatasourceParameters } from '@atlaskit/link-datasource';
 import type { CardContext } from '@atlaskit/link-provider';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { DatasourceParameters } from '@atlaskit/linking-types';
 
 export interface useFetchDatasourceInfoProps {

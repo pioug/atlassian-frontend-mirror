@@ -58,6 +58,13 @@ another line`;
     expect(transformer.parse(wiki)).toMatchSnapshot();
   });
 
+  test('should be a emphasis mark if there is no space before _ but it is wrapped in braces', () => {
+    const wiki = 'This is a{_}emphasis_ text';
+
+    const transformer = new WikiMarkupTransformer();
+    expect(transformer.parse(wiki)).toMatchSnapshot();
+  });
+
   test('should not be a emphasis mark if there is a space after opening _', () => {
     const wiki = 'This is not a _ emphasis_ text';
 
@@ -74,6 +81,13 @@ another line`;
 
   test('should not be a emphasis mark if there is not a space after closing _', () => {
     const wiki = 'This is not a _emphasis_text';
+
+    const transformer = new WikiMarkupTransformer();
+    expect(transformer.parse(wiki)).toMatchSnapshot();
+  });
+
+  test('should be a emphasis mark if there is not a space after closing _ but it is wrapped in braces', () => {
+    const wiki = 'This is a _emphasis{_}text';
 
     const transformer = new WikiMarkupTransformer();
     expect(transformer.parse(wiki)).toMatchSnapshot();

@@ -445,12 +445,32 @@ export const PlainJiraIssuesConfigModal = (
         },
         eventType: 'ui',
       });
+
+      // additional event for tracking in confluence against JIM
+      const macroInsertedEvent = analyticsEvent.clone();
+      macroInsertedEvent?.update({
+        eventType: 'track',
+        action: 'inserted',
+        actionSubject: 'macro',
+        actionSubjectId: 'jlol',
+        attributes: {
+          ...analyticsPayload,
+          totalItemCount: totalCount || 0,
+          displayedColumnCount: visibleColumnCount.current,
+          display: getDisplayValue(currentViewMode, totalCount || 0),
+          searchCount: searchCount.current,
+          searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
+          actions: Array.from(userInteractionActions.current),
+        },
+      });
+
       const consumerEvent = insertButtonClickedEvent.clone() ?? undefined;
       insertButtonClickedEvent.fire(EVENT_CHANNEL);
 
       const firstIssueUrl = retrieveUrlForSmartCardRender();
 
       if (currentViewMode === 'count') {
+        macroInsertedEvent?.fire(EVENT_CHANNEL);
         onInsert(
           {
             type: 'inlineCard',
@@ -461,6 +481,7 @@ export const PlainJiraIssuesConfigModal = (
           consumerEvent,
         );
       } else if (responseItems.length === 1 && firstIssueUrl) {
+        macroInsertedEvent?.fire(EVENT_CHANNEL);
         onInsert(
           {
             type: 'inlineCard',

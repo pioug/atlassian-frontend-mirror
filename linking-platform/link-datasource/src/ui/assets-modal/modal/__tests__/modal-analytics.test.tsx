@@ -5,9 +5,7 @@ import { EVENT_CHANNEL } from '../../../../analytics';
 import {
   assetsContext,
   defaultAssetsMeta,
-  getObjectSchemasDefaultHookState,
   geValidateAqlTextDefaultHookState,
-  mockFetchObjectSchemasSuccess,
   setup,
 } from './_utils';
 
@@ -55,20 +53,9 @@ describe('Analytics: AssetsConfigModal', () => {
   });
 
   it('should fire "ui.modal.ready.datasource" when modal is ready after fetching schemas for the user to search and display data', async () => {
-    const mockFetchObjectSchemas = jest
-      .fn()
-      .mockResolvedValue(mockFetchObjectSchemasSuccess);
-
-    const { onAnalyticFireEvent } = await setup({
-      objectSchemasHookState: {
-        ...getObjectSchemasDefaultHookState(),
-        objectSchemas: mockFetchObjectSchemasSuccess.objectSchemas,
-        fetchObjectSchemas: mockFetchObjectSchemas,
-      },
-    });
+    const { onAnalyticFireEvent } = await setup();
 
     await waitFor(() => {
-      expect(mockFetchObjectSchemas).toHaveBeenCalled();
       expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
         {
           payload: {
@@ -103,21 +90,11 @@ describe('Analytics: AssetsConfigModal', () => {
       });
       describe('with "actions" attribute', () => {
         it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "schema updated" when user selected a new schema and then clicked the ${buttonName} button`, async () => {
-          const mockFetchObjectSchemas = jest
-            .fn()
-            .mockResolvedValue(mockFetchObjectSchemasSuccess);
-
           const {
             selectNewSchema,
             assertAnalyticsAfterButtonClick,
             clickSearchButton,
-          } = await setup({
-            objectSchemasHookState: {
-              ...getObjectSchemasDefaultHookState(),
-              objectSchemas: mockFetchObjectSchemasSuccess.objectSchemas,
-              fetchObjectSchemas: mockFetchObjectSchemas,
-            },
-          });
+          } = await setup();
 
           await selectNewSchema('schemaTwo');
           await clickSearchButton();

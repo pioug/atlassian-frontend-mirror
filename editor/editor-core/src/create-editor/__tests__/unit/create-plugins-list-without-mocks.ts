@@ -1,10 +1,10 @@
-import { expandPlugin } from '../../../plugins';
-import * as expand from '../../../plugins/expand';
-
+import { expandPlugin } from '@atlaskit/editor-plugin-expand';
 import createPluginsListBase from '../../create-plugins-list';
 import { createPreset } from '../../create-preset';
 
 import type { EditorProps } from '../../../types';
+
+jest.mock('@atlaskit/editor-plugin-expand');
 
 const createPluginsList = (props: EditorProps, prevProps?: EditorProps) => {
   return createPluginsListBase(createPreset(props, prevProps), props);
@@ -81,7 +81,6 @@ describe('create-plugins-list without mock tests', () => {
     });
 
     it('should pass allowCompositionInputOverride when mobile editor', () => {
-      jest.spyOn(expand, 'default');
       createPluginsList({
         appearance: 'full-page',
         allowExpand: { allowInsertion: true },
@@ -96,7 +95,6 @@ describe('create-plugins-list without mock tests', () => {
     });
 
     it('should pass allowCompositionInputOverride when mobile editor', () => {
-      jest.spyOn(expand, 'default');
       createPluginsList({
         appearance: 'full-page',
       });

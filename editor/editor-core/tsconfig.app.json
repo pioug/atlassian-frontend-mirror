@@ -128,6 +128,9 @@
       "path": "../editor-plugin-emoji/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-expand/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-extension/tsconfig.app.json"
     },
     {
@@ -165,6 +168,9 @@
     },
     {
       "path": "../editor-plugin-list/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-max-content-size/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-media/tsconfig.app.json"

@@ -1,18 +1,22 @@
 /** @jsx jsx */
 import React, { useCallback, forwardRef } from 'react';
 import { css, jsx } from '@emotion/react';
-import type { BasePluginState } from '@atlaskit/editor-plugin-base';
-import type { MaxContentSizePluginState } from '../../plugins/max-content-size';
-import { pluginKey as maxContentSizePluginKey } from '../../plugins/max-content-size';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { BasePlugin, BasePluginState } from '@atlaskit/editor-plugin-base';
+import type {
+  MaxContentSizePluginState,
+  MaxContentSizePlugin,
+} from '@atlaskit/editor-plugin-max-content-size';
 import type { MobileDimensionsPluginState } from '../../plugins/mobile-dimensions/types';
-import { mobileDimensionsPluginKey } from '../../plugins/mobile-dimensions/plugin-factory';
-import WithPluginState from '../WithPluginState';
+import type { MobileDimensionsPlugin } from '../../plugins/mobile-dimensions';
 import WithFlash from '../WithFlash';
 import { createEditorContentStyle } from '../ContentStyles';
 import { ClickAreaMobile as ClickArea } from '../Addon';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { FeatureFlags } from '../../types/feature-flags';
 import { usePresetContext } from '../../presets/context';
+
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 
 const mobileEditor = css`
   min-height: 30px;
@@ -48,16 +52,20 @@ export const MobileAppearance = forwardRef<
   { editorView, persistScrollGutter, children, editorDisabled, featureFlags },
   ref,
 ) {
-  const api = usePresetContext();
-
+  const api =
+    usePresetContext<
+      [
+        OptionalPlugin<BasePlugin>,
+        OptionalPlugin<MobileDimensionsPlugin>,
+        OptionalPlugin<MaxContentSizePlugin>,
+      ]
+    >();
+  const { maxContentSizeState, mobileDimensionsState } = useSharedPluginState(
+    api,
+    ['maxContentSize', 'mobileDimensions'],
+  );
   const render = useCallback(
-    ({
-      maxContentSize,
-      mobileDimensions,
-    }: {
-      maxContentSize?: MaxContentSizePluginState;
-      mobileDimensions?: MobileDimensionsPluginState;
-    }) => {
+    ({ maxContentSize, mobileDimensions }: PluginStates) => {
       const maxContentSizeReached = Boolean(
         maxContentSize?.maxContentSizeReached,
       );
@@ -117,14 +125,13 @@ export const MobileAppearance = forwardRef<
       api?.base?.sharedState,
     ],
   );
-
-  return (
-    <WithPluginState
-      plugins={{
-        maxContentSize: maxContentSizePluginKey,
-        mobileDimensions: mobileDimensionsPluginKey,
-      }}
-      render={render}
-    />
-  );
+  return render({
+    maxContentSize: maxContentSizeState,
+    mobileDimensions: mobileDimensionsState,
+  });
 });
+
+interface PluginStates {
+  mobileDimensions?: MobileDimensionsPluginState;
+  maxContentSize?: MaxContentSizePluginState;
+}

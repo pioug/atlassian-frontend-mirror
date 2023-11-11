@@ -54,4 +54,26 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
     await expect(popupSearchInput).toBeVisible();
     await expect(popupFooter).toBeVisible();
   });
+
+  test('should show more options when scrolling to the bottom of the popup for projects and clicking showMore button', async ({
+    page,
+  }) => {
+    await loadExample(page);
+
+    await page.getByTestId('mode-toggle-basic').click();
+    await page.getByTestId('jlol-basic-filter-project-trigger').click();
+
+    const showMoreButton = page.locator(
+      '[data-testid="jlol-basic-filter-popup-select--show-more-button"]',
+    );
+
+    await showMoreButton.scrollIntoViewIfNeeded();
+
+    await showMoreButton.click();
+
+    await expect(page.getByText('Test10', { exact: true })).toBeVisible();
+    await expect(
+      page.getByTestId('jlol-basic-filter-popup-select--show-more-button'),
+    ).toBeHidden();
+  });
 });

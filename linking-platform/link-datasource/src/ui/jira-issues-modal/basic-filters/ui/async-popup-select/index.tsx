@@ -50,7 +50,7 @@ const AsyncPopupSelect = ({
   const [selectedOptions, setSelectedOptions] =
     useState<ValueType<SelectOption, true>>(selection);
 
-  const { filterOptions, fetchFilterOptions, totalCount, status } =
+  const { filterOptions, fetchFilterOptions, totalCount, status, pageCursor } =
     useFilterOptions({
       filterType,
       cloudId,
@@ -92,6 +92,15 @@ const AsyncPopupSelect = ({
     }
   }, [fetchFilterOptions, searchTerm, status]);
 
+  const handleShowMore = useCallback(() => {
+    if (pageCursor) {
+      fetchFilterOptions({
+        pageCursor,
+        searchString: searchTerm,
+      });
+    }
+  }, [fetchFilterOptions, pageCursor, searchTerm]);
+
   useEffect(() => {
     if (status === 'resolved') {
       // necessary to refocus the search input after the loading state
@@ -100,11 +109,18 @@ const AsyncPopupSelect = ({
   }, [status]);
 
   const filterOptionsLength = filterOptions.length;
+
   const isError = status === 'rejected';
   const isLoading = status === 'loading' || status === 'empty';
+  const isLoadingMore = status === 'loadingMore';
   const isEmpty = status === 'resolved' && filterOptionsLength === 0;
+  const areAllResultsLoaded = filterOptions.length === totalCount;
 
-  const shouldShowFooter = status === 'resolved' && filterOptionsLength > 0;
+  const shouldShowFooter =
+    (status === 'resolved' || isLoadingMore) && filterOptions.length > 0; // footer should not disappear when there is an inline spinner for loading more data
+  const shouldDisplayShowMoreButton =
+    status === 'resolved' && !!pageCursor && !areAllResultsLoaded;
+
   const options = isLoading || isError ? [] : filterOptions; // if not set to [], for eg: on loading, no loading UI will be shown
 
   return (
@@ -136,6 +152,9 @@ const AsyncPopupSelect = ({
             isError={isError}
             isEmpty={isEmpty}
             isLoading={isLoading}
+            isLoadingMore={isLoadingMore}
+            showMore={shouldDisplayShowMoreButton}
+            handleShowMore={handleShowMore}
           />
         ),
         DropdownIndicator: CustomDropdownIndicator,

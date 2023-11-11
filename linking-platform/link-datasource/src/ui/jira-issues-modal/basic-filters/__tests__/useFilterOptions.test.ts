@@ -2,11 +2,12 @@ import { act, renderHook } from '@testing-library/react-hooks';
 
 import {
   fieldValuesResponseForProjects,
+  fieldValuesResponseForProjectsMapped,
   fieldValuesResponseForProjectsMoreData,
   fieldValuesResponseForStatuses,
   fieldValuesResponseForStatusesSearched,
 } from '@atlaskit/link-test-helpers/datasource';
-import { handshake, hotdog, rocket } from '@atlaskit/link-test-helpers/images';
+import { hotdog, rocket } from '@atlaskit/link-test-helpers/images';
 
 import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
 import { useFilterOptions } from '../hooks/useFilterOptions';
@@ -128,32 +129,7 @@ describe('useFilterOptions', () => {
     });
 
     expect(result.current).toEqual({
-      filterOptions: [
-        {
-          label: 'My IT TEST',
-          value: '"My IT TEST"',
-          optionType: 'iconLabel',
-          icon: handshake,
-        },
-        {
-          label: 'Test',
-          value: 'Test',
-          optionType: 'iconLabel',
-          icon: hotdog,
-        },
-        {
-          label: 'Test rights',
-          value: '"Test rights"',
-          optionType: 'iconLabel',
-          icon: rocket,
-        },
-        {
-          label: 'Test2',
-          value: 'Test2',
-          optionType: 'iconLabel',
-          icon: handshake,
-        },
-      ],
+      filterOptions: fieldValuesResponseForProjectsMapped,
       fetchFilterOptions: expect.any(Function),
       totalCount: 12,
       pageCursor: 'YXJyYXljb25uZWN0aW9uOjM=',
@@ -200,101 +176,18 @@ describe('useFilterOptions', () => {
     });
     expect(result.current).toEqual({
       filterOptions: [
+        ...fieldValuesResponseForProjectsMapped,
         {
-          label: 'My IT TEST',
-          value: '"My IT TEST"',
-          optionType: 'iconLabel',
-          icon: handshake,
-        },
-        {
-          label: 'Test',
-          value: 'Test',
-          optionType: 'iconLabel',
           icon: hotdog,
-        },
-        {
-          label: 'Test rights',
-          value: '"Test rights"',
-          optionType: 'iconLabel',
-          icon: rocket,
-        },
-        {
-          label: 'Test2',
-          value: 'Test2',
-          optionType: 'iconLabel',
-          icon: handshake,
-        },
-        {
-          label: 'My IT TEST',
-          value: '"My IT TEST"',
-          optionType: 'iconLabel',
-          icon: handshake,
-        },
-        {
-          label: 'Test',
-          value: 'Test',
-          optionType: 'iconLabel',
-          icon: hotdog,
-        },
-        {
-          label: 'Test rights',
-          value: '"Test rights"',
-          optionType: 'iconLabel',
-          icon: rocket,
-        },
-        {
-          label: 'Test2',
-          value: 'Test2',
-          optionType: 'iconLabel',
-          icon: handshake,
-        },
-        {
-          label: 'Test3',
-          value: 'Test3',
-          optionType: 'iconLabel',
-          icon: hotdog,
-        },
-        {
-          label: 'Test4',
-          value: 'Test4',
-          optionType: 'iconLabel',
-          icon: rocket,
-        },
-        {
-          label: 'Test5',
-          value: 'Test5',
-          optionType: 'iconLabel',
-          icon: handshake,
-        },
-        {
-          label: 'Test6',
-          value: 'Test6',
-          optionType: 'iconLabel',
-          icon: hotdog,
-        },
-        {
-          label: 'Test7',
-          value: 'Test7',
-          optionType: 'iconLabel',
-          icon: rocket,
-        },
-        {
-          label: 'Test8',
-          value: 'Test8',
-          optionType: 'iconLabel',
-          icon: handshake,
-        },
-        {
           label: 'Test9',
-          value: 'Test9',
           optionType: 'iconLabel',
-          icon: hotdog,
+          value: 'Test9',
         },
         {
-          label: 'Test10',
-          value: 'Test10',
-          optionType: 'iconLabel',
           icon: rocket,
+          label: 'Test10',
+          optionType: 'iconLabel',
+          value: 'Test10',
         },
       ],
       fetchFilterOptions: expect.any(Function),
@@ -342,6 +235,12 @@ describe('useFilterOptions', () => {
         {
           label: 'Awaiting approval',
           value: '"Awaiting approval"',
+          optionType: 'lozengeLabel',
+          appearance: 'inprogress',
+        },
+        {
+          label: 'Awaiting implementation',
+          value: '"Awaiting implementation"',
           optionType: 'lozengeLabel',
           appearance: 'inprogress',
         },

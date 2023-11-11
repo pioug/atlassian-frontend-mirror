@@ -246,6 +246,71 @@ export const fieldValuesResponseForTypes = {
                 ],
               },
             },
+            {
+              node: {
+                jqlTerm: '"[System] Change requested"',
+                displayName: '[System] Change requested',
+                issueTypes: [
+                  {
+                    avatar: {
+                      small: alert,
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              node: {
+                jqlTerm: '"[System] Incident reported"',
+                displayName: '[System] Incident reported',
+                issueTypes: [
+                  {
+                    avatar: {
+                      small: arrows,
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              node: {
+                jqlTerm: '"[System] Post-incident review request"',
+                displayName: '[System] Post-incident review request',
+                issueTypes: [
+                  {
+                    avatar: {
+                      small: bug,
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              node: {
+                jqlTerm: '"[System] Issue"',
+                displayName: '[System] Issue',
+                issueTypes: [
+                  {
+                    avatar: {
+                      small: lightning,
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              node: {
+                jqlTerm: '"[System] Service"',
+                displayName: '[System] Service',
+                issueTypes: [
+                  {
+                    avatar: {
+                      small: alert,
+                    },
+                  },
+                ],
+              },
+            },
           ],
         },
       },
@@ -283,6 +348,36 @@ export const fieldValuesResponseForTypesMapped = [
     label: '[System] Service request',
     optionType: 'iconLabel',
     value: '"[System] Service request"',
+  },
+  {
+    icon: alert,
+    label: '[System] Change requested',
+    optionType: 'iconLabel',
+    value: '"[System] Change requested"',
+  },
+  {
+    icon: arrows,
+    label: '[System] Incident reported',
+    optionType: 'iconLabel',
+    value: '"[System] Incident reported"',
+  },
+  {
+    icon: bug,
+    label: '[System] Post-incident review request',
+    optionType: 'iconLabel',
+    value: '"[System] Post-incident review request"',
+  },
+  {
+    icon: lightning,
+    label: '[System] Issue',
+    optionType: 'iconLabel',
+    value: '"[System] Issue"',
+  },
+  {
+    icon: alert,
+    label: '[System] Service',
+    optionType: 'iconLabel',
+    value: '"[System] Service"',
   },
 ];
 
@@ -341,6 +436,51 @@ export const fieldValuesResponseForStatuses = {
                 },
               },
             },
+            {
+              node: {
+                jqlTerm: '"Awaiting information"',
+                displayName: 'Awaiting information',
+                statusCategory: {
+                  colorName: 'YELLOW',
+                },
+              },
+            },
+            {
+              node: {
+                jqlTerm: 'Canceled2',
+                displayName: 'Canceled2',
+                statusCategory: {
+                  colorName: 'GREEN',
+                },
+              },
+            },
+            {
+              node: {
+                jqlTerm: 'Authorized',
+                displayName: 'Authorized',
+                statusCategory: {
+                  colorName: 'YELLOW',
+                },
+              },
+            },
+            {
+              node: {
+                jqlTerm: 'Canceled3',
+                displayName: 'Canceled3',
+                statusCategory: {
+                  colorName: 'GREEN',
+                },
+              },
+            },
+            {
+              node: {
+                jqlTerm: 'Canceled4',
+                displayName: 'Canceled4',
+                statusCategory: {
+                  colorName: 'GREEN',
+                },
+              },
+            },
           ],
         },
       },
@@ -379,6 +519,36 @@ export const fieldValuesResponseForStatusesMapped = [
     optionType: 'lozengeLabel',
     value: 'Closed',
   },
+  {
+    appearance: 'inprogress',
+    label: 'Awaiting information',
+    optionType: 'lozengeLabel',
+    value: '"Awaiting information"',
+  },
+  {
+    appearance: 'success',
+    label: 'Canceled2',
+    optionType: 'lozengeLabel',
+    value: 'Canceled2',
+  },
+  {
+    appearance: 'inprogress',
+    label: 'Authorized',
+    optionType: 'lozengeLabel',
+    value: 'Authorized',
+  },
+  {
+    appearance: 'success',
+    label: 'Canceled3',
+    optionType: 'lozengeLabel',
+    value: 'Canceled3',
+  },
+  {
+    appearance: 'success',
+    label: 'Canceled4',
+    optionType: 'lozengeLabel',
+    value: 'Canceled4',
+  },
 ];
 
 export const fieldValuesResponseForStatusesSearched = {
@@ -409,6 +579,15 @@ export const fieldValuesResponseForStatusesSearched = {
                 },
               },
             },
+            {
+              node: {
+                jqlTerm: '"Awaiting implementation"',
+                displayName: 'Awaiting implementation',
+                statusCategory: {
+                  colorName: 'YELLOW',
+                },
+              },
+            },
           ],
         },
       },
@@ -424,94 +603,6 @@ export const fieldValuesResponseForProjects = {
           totalCount: 12,
           pageInfo: {
             endCursor: 'YXJyYXljb25uZWN0aW9uOjM=',
-          },
-          edges: [
-            {
-              node: {
-                jqlTerm: '"My IT TEST"',
-                displayName: 'My IT TEST',
-                project: {
-                  avatar: {
-                    small: handshake,
-                  },
-                },
-              },
-            },
-            {
-              node: {
-                jqlTerm: 'Test',
-                displayName: 'Test',
-                project: {
-                  avatar: {
-                    small: hotdog,
-                  },
-                },
-              },
-            },
-            {
-              node: {
-                jqlTerm: '"Test rights"',
-                displayName: 'Test rights',
-                project: {
-                  avatar: {
-                    small: rocket,
-                  },
-                },
-              },
-            },
-            {
-              node: {
-                jqlTerm: 'Test2',
-                displayName: 'Test2',
-                project: {
-                  avatar: {
-                    small: handshake,
-                  },
-                },
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
-};
-
-export const fieldValuesResponseForProjectsMapped = [
-  {
-    icon: handshake,
-    label: 'My IT TEST',
-    optionType: 'iconLabel',
-    value: '"My IT TEST"',
-  },
-  {
-    icon: hotdog,
-    label: 'Test',
-    optionType: 'iconLabel',
-    value: 'Test',
-  },
-  {
-    icon: rocket,
-    label: 'Test rights',
-    optionType: 'iconLabel',
-    value: '"Test rights"',
-  },
-  {
-    icon: handshake,
-    label: 'Test2',
-    optionType: 'iconLabel',
-    value: 'Test2',
-  },
-];
-
-export const fieldValuesResponseForProjectsMoreData = {
-  data: {
-    jira: {
-      jqlBuilder: {
-        fieldValues: {
-          totalCount: 12,
-          pageInfo: {
-            endCursor: 'YXJyYXljb25uZWN0aW9uOjM2',
           },
           edges: [
             {
@@ -624,6 +715,86 @@ export const fieldValuesResponseForProjectsMoreData = {
                 },
               },
             },
+          ],
+        },
+      },
+    },
+  },
+};
+
+export const fieldValuesResponseForProjectsMapped = [
+  {
+    icon: handshake,
+    label: 'My IT TEST',
+    optionType: 'iconLabel',
+    value: '"My IT TEST"',
+  },
+  {
+    icon: hotdog,
+    label: 'Test',
+    optionType: 'iconLabel',
+    value: 'Test',
+  },
+  {
+    icon: rocket,
+    label: 'Test rights',
+    optionType: 'iconLabel',
+    value: '"Test rights"',
+  },
+  {
+    icon: handshake,
+    label: 'Test2',
+    optionType: 'iconLabel',
+    value: 'Test2',
+  },
+  {
+    icon: hotdog,
+    label: 'Test3',
+    optionType: 'iconLabel',
+    value: 'Test3',
+  },
+  {
+    icon: rocket,
+    label: 'Test4',
+    optionType: 'iconLabel',
+    value: 'Test4',
+  },
+  {
+    icon: handshake,
+    label: 'Test5',
+    optionType: 'iconLabel',
+    value: 'Test5',
+  },
+  {
+    icon: hotdog,
+    label: 'Test6',
+    optionType: 'iconLabel',
+    value: 'Test6',
+  },
+  {
+    icon: rocket,
+    label: 'Test7',
+    optionType: 'iconLabel',
+    value: 'Test7',
+  },
+  {
+    icon: handshake,
+    label: 'Test8',
+    optionType: 'iconLabel',
+    value: 'Test8',
+  },
+];
+
+export const fieldValuesResponseForProjectsMoreData = {
+  data: {
+    jira: {
+      jqlBuilder: {
+        fieldValues: {
+          totalCount: 12,
+          pageInfo: {
+            endCursor: 'YXJyYXljb25uZWN0aW9uOjM2',
+          },
+          edges: [
             {
               node: {
                 jqlTerm: 'Test9',
@@ -693,10 +864,10 @@ export const fieldValuesResponseForAssignees = {
             },
             {
               node: {
-                jqlTerm: 'membersOf(confluence-admins-nmccormick2)',
-                displayName: 'confluence-admins-nmccormick2',
+                jqlTerm: 'membersOf(confluence-admins-nicmccormick2)',
+                displayName: 'confluence-admins-nicmccormick2',
                 group: {
-                  name: 'confluence-admins-nmccormick2',
+                  name: 'confluence-admins-nicmccormick2',
                 },
               },
             },
@@ -785,9 +956,9 @@ export const fieldValuesResponseForAssigneesMapped = [
   },
   {
     isGroup: true,
-    label: 'confluence-admins-nmccormick2',
+    label: 'confluence-admins-nicmccormick2',
     optionType: 'avatarLabel',
-    value: 'membersOf(confluence-admins-nmccormick2)',
+    value: 'membersOf(confluence-admins-nicmccormick2)',
   },
   {
     isGroup: true,

@@ -27,7 +27,7 @@ export interface FilterOptionsState {
   fetchFilterOptions: (prop?: FetchFilterOptionsProps) => Promise<void>;
   totalCount: number;
   pageCursor?: string;
-  status: 'empty' | 'loading' | 'resolved' | 'rejected';
+  status: 'empty' | 'loading' | 'resolved' | 'rejected' | 'loadingMore';
 }
 
 export const useFilterOptions = ({
@@ -46,7 +46,9 @@ export const useFilterOptions = ({
 
   const fetchFilterOptions = useCallback(
     async ({ pageCursor, searchString } = {}) => {
-      setStatus('loading');
+      const isNewSearch = !pageCursor;
+
+      isNewSearch ? setStatus('loading') : setStatus('loadingMore');
 
       const isRequestLikeInitialSearch = !pageCursor && !searchString;
       const { current: initialResponseData } = initialData;
@@ -67,8 +69,6 @@ export const useFilterOptions = ({
           setStatus('rejected');
           return;
         }
-
-        const isNewSearch = !pageCursor;
 
         if (isNewSearch) {
           setFilterOptions(mapFieldValuesToFilterOptions(response));

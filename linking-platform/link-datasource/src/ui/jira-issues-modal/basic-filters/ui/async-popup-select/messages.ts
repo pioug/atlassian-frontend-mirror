@@ -29,4 +29,9 @@ export const asyncPopupSelectMessages = {
     description: 'Label to be displayed for assignee filter dropdown button.',
     defaultMessage: 'Assignee',
   },
+  showMoreMessage: {
+    id: 'linkDataSource.basic-filter.showMoreButton',
+    defaultMessage: 'Show more',
+    description: 'The text to show more options in dropdown',
+  },
 };

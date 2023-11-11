@@ -5,6 +5,7 @@ import {
   fieldValuesErrorResponse,
   fieldValuesResponseForAssignees,
   fieldValuesResponseForProjects,
+  fieldValuesResponseForProjectsMoreData,
   fieldValuesResponseForStatuses,
   fieldValuesResponseForTypes,
 } from './mocks';
@@ -15,6 +16,7 @@ export const mockBasicFilterAGGFetchRequests = () => {
       const requestBody = JSON.parse(details.body);
       const filterType: string = requestBody.variables.jqlTerm;
       const searchString: string = requestBody.variables.searchString;
+      const pageCursor: string = requestBody.variables.after;
 
       const mockBasicFilterData: Record<string, any> = {
         project: fieldValuesResponseForProjects,
@@ -26,6 +28,11 @@ export const mockBasicFilterAGGFetchRequests = () => {
       const resolveData = {
         data: mockBasicFilterData[filterType]?.data || [],
       };
+
+      // playwright test specifically requesting more projects data
+      if (pageCursor) {
+        resolve(fieldValuesResponseForProjectsMoreData);
+      }
 
       // slowing down specifically for vr testing
       if (searchString.includes('loading')) {

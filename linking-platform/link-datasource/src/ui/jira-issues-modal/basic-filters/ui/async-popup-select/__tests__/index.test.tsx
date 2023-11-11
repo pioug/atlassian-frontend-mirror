@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
 import {
+  fieldValuesResponseForAssigneesMapped,
   fieldValuesResponseForProjectsMapped,
   fieldValuesResponseForStatusesMapped,
 } from '@atlaskit/link-test-helpers/datasource';
@@ -33,6 +34,7 @@ describe('Testing AsyncPopupSelect', () => {
     status,
     isDisabled,
     fetchFilterOptions,
+    pageCursor,
   }: Partial<
     AsyncPopupSelectProps & FilterOptionsState & { openPicker?: boolean }
   > = {}) => {
@@ -41,6 +43,7 @@ describe('Testing AsyncPopupSelect', () => {
       status: status || 'empty',
       totalCount: totalCount || 0,
       fetchFilterOptions: fetchFilterOptions || jest.fn(),
+      pageCursor: pageCursor || undefined,
     });
 
     const mockOnSelectionChange = jest.fn();
@@ -151,7 +154,7 @@ describe('Testing AsyncPopupSelect', () => {
 
       const footer = queryByTestId('jlol-basic-filter-popup-select--footer');
 
-      expect(footer).toHaveTextContent('4 of 10');
+      expect(footer).toHaveTextContent('10 of 10');
     });
   });
 
@@ -238,6 +241,65 @@ describe('Testing AsyncPopupSelect', () => {
     ).toBeInTheDocument();
 
     expect(getByText('Something went wrong')).toBeInTheDocument();
+  });
+
+  it('should show the show more button when the status is resolved, pageCursor exists and totalCount is not equal to filterOptions length', () => {
+    const mockFetchFilterOptions = jest.fn();
+
+    const { getByTestId, getByText } = setup({
+      filterType: 'assignee',
+      filterOptions: fieldValuesResponseForAssigneesMapped as SelectOption[],
+      openPicker: true,
+      status: 'resolved',
+      pageCursor: 'YXJyYXljb25uZWN0aW9uOjk=',
+      fetchFilterOptions: mockFetchFilterOptions,
+      totalCount: 21,
+    });
+
+    expect(getByText('10 of 21')).toBeInTheDocument();
+
+    const showMoreButton = getByTestId(
+      'jlol-basic-filter-popup-select--show-more-button',
+    );
+    fireEvent.click(showMoreButton);
+
+    expect(mockFetchFilterOptions).toBeCalledTimes(1);
+    expect(mockFetchFilterOptions).toHaveBeenNthCalledWith(1, {
+      pageCursor: 'YXJyYXljb25uZWN0aW9uOjk=',
+      searchString: '',
+    });
+  });
+
+  it('should call fetchFilterOptions with searchString if showMore button pressed with search term inputted', () => {
+    const mockFetchFilterOptions = jest.fn();
+
+    const { getByTestId, container } = setup({
+      filterType: 'assignee',
+      filterOptions: fieldValuesResponseForAssigneesMapped as SelectOption[],
+      openPicker: true,
+      status: 'resolved',
+      pageCursor: 'YXJyYXljb25uZWN0aW9uOjk=',
+      fetchFilterOptions: mockFetchFilterOptions,
+      totalCount: 21,
+    });
+
+    const input = container.parentElement?.querySelector(
+      '#jlol-basic-filter-popup-select--input',
+    );
+    invariant(input);
+
+    fireEvent.change(input, { target: { value: 'a' } });
+
+    const showMoreButton = getByTestId(
+      'jlol-basic-filter-popup-select--show-more-button',
+    );
+    fireEvent.click(showMoreButton);
+
+    expect(mockFetchFilterOptions).toBeCalledTimes(1);
+    expect(mockFetchFilterOptions).toHaveBeenNthCalledWith(1, {
+      pageCursor: 'YXJyYXljb25uZWN0aW9uOjk=',
+      searchString: 'a',
+    });
   });
 
   it('should call fetchFilterOptions with searchString when user inputs a search term', () => {

@@ -134,4 +134,24 @@ filters.forEach(filter => {
     },
     description: `${filter} open and view error state`,
   });
+
+  snapshotInformational(BasicFiltersVR, {
+    ...options,
+
+    prepare: async (page: Page, component: Locator) => {
+      await component
+        .getByTestId(`jlol-basic-filter-${filter}-trigger`)
+        .click();
+
+      const showMoreButton = page.locator(
+        '[data-testid="jlol-basic-filter-popup-select--show-more-button"]',
+      );
+      showMoreButton.scrollIntoViewIfNeeded();
+
+      await page.getByTestId(
+        'jlol-basic-filter-popup-select--show-more-button',
+      );
+    },
+    description: `${filter} open and view show more button`,
+  });
 });

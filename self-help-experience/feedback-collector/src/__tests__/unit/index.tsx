@@ -619,7 +619,7 @@ describe('Feedback Collector unit tests', () => {
           'componentWillUnmount',
         );
 
-        const wrapper = shallow<TestableFeedbackCollector>(
+        const wrapper = mount<TestableFeedbackCollector>(
           <TestableFeedbackCollector
             onClose={() => wrapper.unmount()}
             onSubmit={onSubmit}
@@ -772,7 +772,7 @@ describe('Feedback Collector unit tests', () => {
           });
           fireEvent.click(submitBtn);
           await waitFor(() => {
-            expect(mocked.mock.calls?.[2]?.[0]).toBe(expected);
+            expect(mocked.mock.calls?.[4]?.[0]).toBe(expected);
           });
         },
       );

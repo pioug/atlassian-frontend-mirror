@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "108.15.19",
+  "version": "108.15.20",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,23 +29,23 @@
     "@atlaskit/analytics-listeners": "^8.7.0",
     "@atlaskit/analytics-namespaced-context": "^6.7.0",
     "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/button": "^16.14.0",
+    "@atlaskit/button": "^16.15.0",
     "@atlaskit/code": "^14.6.0",
-    "@atlaskit/editor-common": "^76.18.0",
+    "@atlaskit/editor-common": "^76.19.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-palette": "1.5.2",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/editor-shared-styles": "^2.8.0",
     "@atlaskit/emoji": "^67.5.0",
     "@atlaskit/icon": "^21.12.0",
-    "@atlaskit/link-datasource": "^1.15.0",
-    "@atlaskit/media-card": "^77.3.0",
+    "@atlaskit/link-datasource": "^1.16.0",
+    "@atlaskit/media-card": "^77.4.0",
     "@atlaskit/media-client": "^25.0.0",
-    "@atlaskit/media-client-react": "^1.3.0",
-    "@atlaskit/media-common": "^10.0.0",
+    "@atlaskit/media-client-react": "^1.4.0",
+    "@atlaskit/media-common": "^11.0.0",
     "@atlaskit/media-filmstrip": "^47.0.0",
     "@atlaskit/media-ui": "^25.0.0",
-    "@atlaskit/media-viewer": "^48.1.0",
+    "@atlaskit/media-viewer": "^48.2.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/smart-card": "^26.42.0",
     "@atlaskit/status": "^1.4.0",
@@ -124,6 +124,10 @@
     },
     "platform.editor.table.increase-shadow-visibility_lh89r": {
       "type": "boolean"
+    },
+    "platform.media-experience.media-viewer-v2_hgsii": {
+      "type": "boolean",
+      "referenceOnly": "true"
     }
   }
 }

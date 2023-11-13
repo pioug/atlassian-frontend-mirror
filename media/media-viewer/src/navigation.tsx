@@ -38,7 +38,7 @@ export type NavigationSource = 'keyboard' | 'mouse';
 export class NavigationBase extends Component<NavigationProps, {}> {
   private navigate(direction: NavigationDirection, source: NavigationSource) {
     return () => {
-      const { onChange, items } = this.props;
+      const { onChange, items, createAnalyticsEvent } = this.props;
       const { selectedIndex } = this;
       const newItem =
         direction === 'next'
@@ -48,7 +48,7 @@ export class NavigationBase extends Component<NavigationProps, {}> {
       if (newItem) {
         fireAnalytics(
           createNavigatedEvent(direction, source, newItem),
-          this.props,
+          createAnalyticsEvent,
         );
         onChange(newItem);
       }
@@ -79,7 +79,7 @@ export class NavigationBase extends Component<NavigationProps, {}> {
         <LeftWrapper isArchiveSideBarVisible={!!isArchiveSideBarVisible}>
           {isLeftVisible ? (
             <Arrow className={hideControlsClassName}>
-              <Shortcut keyCode={37} handler={prev('keyboard')} />
+              <Shortcut code={'ArrowLeft'} handler={prev('keyboard')} />
               <Button
                 testId={prevNavButtonId}
                 onClick={prev('mouse')}
@@ -101,7 +101,7 @@ export class NavigationBase extends Component<NavigationProps, {}> {
         <RightWrapper>
           {isRightVisible ? (
             <Arrow className={hideControlsClassName}>
-              <Shortcut keyCode={39} handler={next('keyboard')} />
+              <Shortcut code={'ArrowRight'} handler={next('keyboard')} />
               <Button
                 testId={nextNavButtonId}
                 onClick={next('mouse')}

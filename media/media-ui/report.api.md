@@ -753,7 +753,7 @@ export class Shortcut extends Component<ShortcutProps, {}> {
 // @public (undocumented)
 export type ShortcutProps = {
   handler: () => void;
-} & (WithCode | WithKeyCode);
+} & WithCode;
 
 // @public (undocumented)
 export const size: (value?: number | string) => string;
@@ -857,12 +857,6 @@ export class Vector2 {
 type WithCode = {
   code: string;
   keyCode?: never;
-};
-
-// @public (undocumented)
-type WithKeyCode = {
-  keyCode: number;
-  code?: never;
 };
 
 // @public (undocumented)

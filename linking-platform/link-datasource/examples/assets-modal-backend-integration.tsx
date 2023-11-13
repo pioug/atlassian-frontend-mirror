@@ -14,7 +14,7 @@ import {
   SmartCardProvider,
 } from '@atlaskit/link-provider';
 import { forceCmdbBaseUrl } from '@atlaskit/link-test-helpers/assets';
-import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
 import LocaleSelect, { Locale } from '@atlaskit/locale/LocaleSelect';
 import { Card } from '@atlaskit/smart-card';
@@ -31,9 +31,7 @@ const tableContainerStyles = css({
   overflow: 'scroll',
 });
 export default () => {
-  mockDatasourceFetchRequests({
-    datasourceId: ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
-  });
+  mockAssetsClientFetchRequests();
   // Change the below url to http://localhost:3000 when running locally with a proxy
   // forceCmdbBaseUrl('http://localhost:3000');
   forceCmdbBaseUrl('https://jsm-cmdb-dev1.jira-dev.com');

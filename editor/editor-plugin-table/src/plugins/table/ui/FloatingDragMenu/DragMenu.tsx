@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
@@ -23,6 +24,7 @@ import { token } from '@atlaskit/tokens';
 
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../commands';
 import { toggleDragMenu } from '../../pm-plugins/drag-and-drop/commands';
+import { getPluginState } from '../../pm-plugins/drag-and-drop/plugin-factory';
 import type { PluginConfig, TableDirection } from '../../types';
 import { getSelectedColumnIndexes, getSelectedRowIndexes } from '../../utils';
 import type { DragMenuConfig } from '../../utils/drag-menu';
@@ -132,9 +134,39 @@ export const DragMenu = ({
 
   const { menuItems, menuCallback } = convertToDropdownItems(dragMenuConfig);
 
+  /**
+   * This function is to check if the menu should be closed or not.
+   * As when continously clicking on drag handle on different rows/columns,
+   * should open the menu corresponding to the position of the drag handle.
+   * @returns true when the menu should be closed, false otherwise
+   */
+  const shouldCloseMenu = (state: EditorState) => {
+    let {
+      isDragMenuOpen: previousOpenState,
+      dragMenuDirection: previousDragMenuDirection,
+      dragMenuIndex: previousDragMenuIndex,
+    } = getPluginState(state);
+
+    // menu open but menu direction changed, means user clicked on drag handle of different row/column
+    // menu open menu direction not changed, but index changed, means user clicked on drag handle of same row/column, different cells.
+    // 2 scenarios above , menu should not be closed.
+    if (
+      (previousOpenState === true && previousDragMenuDirection !== direction) ||
+      (previousOpenState === true &&
+        previousDragMenuDirection === direction &&
+        previousDragMenuIndex !== index)
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   const closeMenu = () => {
     const { state, dispatch } = editorView;
-    toggleDragMenu(false)(state, dispatch);
+    if (shouldCloseMenu(state)) {
+      toggleDragMenu(false, direction, index)(state, dispatch);
+    }
   };
 
   const handleMenuItemActivated = ({ item }: { item: MenuItem }) => {

@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import { FC } from 'react';
+import { di } from 'react-magnetic-di';
 import { css, jsx } from '@emotion/react';
 import { getIframeSandboxAttribute } from '../../../../utils';
 import { EmbedProps } from './types';
+import { IFrame } from '../../../EmbedCard/components/IFrame';
 
 const iframeCss = css`
   width: 100%;
@@ -10,6 +12,7 @@ const iframeCss = css`
 `;
 
 const EmbedContent: FC<EmbedProps> = ({ isTrusted, name, src, testId }) => {
+  di(IFrame);
   const sandbox = getIframeSandboxAttribute(isTrusted);
   const props = {
     css: iframeCss,
@@ -19,7 +22,7 @@ const EmbedContent: FC<EmbedProps> = ({ isTrusted, name, src, testId }) => {
     src,
     'data-testid': `${testId}-embed`,
   };
-  return <iframe {...props} />;
+  return <IFrame {...props} />;
 };
 
 export default EmbedContent;

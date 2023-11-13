@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.15.0
+
+### Minor Changes
+
+- [#42950](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42950) [`9691abc55ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9691abc55ce) - Restructure new Button (in Alpha) types for documentation purposes
+
 ## 16.14.0
 
 ### Minor Changes

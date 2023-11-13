@@ -17,3 +17,5 @@ export type {
   WithMediaClientFunction,
   WithMediaClientConfig,
 } from './withMediaClient';
+
+export { MediaFileStateError } from './MediaFileStateError';

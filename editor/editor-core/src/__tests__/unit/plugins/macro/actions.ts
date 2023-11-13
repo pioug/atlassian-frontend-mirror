@@ -7,7 +7,7 @@ import {
   bodiedExtension,
   extension,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { insertMacroFromMacroBrowser } from '../../../../plugins/macro';
+import { insertMacroFromMacroBrowser } from '../../../../plugins/extension/pm-plugins/macro/actions';
 import type {
   MacroAttributes,
   MacroProvider,

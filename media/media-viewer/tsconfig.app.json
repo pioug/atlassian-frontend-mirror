@@ -61,7 +61,13 @@
       "path": "../media-core/tsconfig.app.json"
     },
     {
+      "path": "../media-state/tsconfig.app.json"
+    },
+    {
       "path": "../media-ui/tsconfig.app.json"
+    },
+    {
+      "path": "../../platform/feature-flags/tsconfig.app.json"
     },
     {
       "path": "../../design-system/side-navigation/tsconfig.app.json"

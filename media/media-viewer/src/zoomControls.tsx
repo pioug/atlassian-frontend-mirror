@@ -30,19 +30,27 @@ export class ZoomControlsBase extends Component<
   {}
 > {
   zoomIn = () => {
-    const { onChange, zoomLevel } = this.props;
+    const { onChange, zoomLevel, createAnalyticsEvent } = this.props;
     if (zoomLevel.canZoomIn) {
       const zoom = zoomLevel.zoomIn();
-      fireAnalytics(createZoomInButtonClickEvent(zoom.value), this.props);
+
+      fireAnalytics(
+        createZoomInButtonClickEvent(zoom.value),
+        createAnalyticsEvent,
+      );
       onChange(zoom);
     }
   };
 
   zoomOut = () => {
-    const { onChange, zoomLevel } = this.props;
+    const { onChange, zoomLevel, createAnalyticsEvent } = this.props;
     if (zoomLevel.canZoomOut) {
       const zoom = zoomLevel.zoomOut();
-      fireAnalytics(createZoomOutButtonClickedEvent(zoom.value), this.props);
+
+      fireAnalytics(
+        createZoomOutButtonClickedEvent(zoom.value),
+        createAnalyticsEvent,
+      );
       onChange(zoom);
     }
   };

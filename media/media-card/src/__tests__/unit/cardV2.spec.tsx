@@ -38,6 +38,7 @@ import {
 import userEvent from '@testing-library/user-event';
 import CardV2Loader from '../../card/v2/cardV2Loader';
 import React from 'react';
+import { MediaFileStateError } from '@atlaskit/media-client-react';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 import {
   createMockedMediaApi,
@@ -67,7 +68,7 @@ import {
   fireCommencedEvent,
   fireScreenEvent,
 } from '../../card/cardAnalytics';
-import { MediaCardError, MediaFileStateError } from '../../errors';
+import { MediaCardError } from '../../errors';
 import { MockIntersectionObserver } from '../../utils/mockIntersectionObserver';
 import { useFileState } from '@atlaskit/media-client-react';
 

@@ -4,7 +4,6 @@ import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/assets';
-import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';
 import {
@@ -19,12 +18,21 @@ const mockParameters: AssetsDatasourceParameters = {
   schemaId: '1',
 };
 
-const visibleColumnKeys = ['key', 'summary', 'labels', 'status', 'created'];
+const visibleColumnKeys = [
+  'Key',
+  'Label',
+  'Created',
+  'Is Virtual',
+  'Hardware Components',
+  'Applications',
+  'Software Services',
+  'Number of Slots',
+  'Primary Capability',
+  'Owners',
+  'Notes',
+];
 
 export default () => {
-  mockDatasourceFetchRequests({
-    datasourceId: ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
-  });
   mockAssetsClientFetchRequests();
   return (
     <IntlProvider locale="en">

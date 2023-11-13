@@ -7,7 +7,6 @@ import {
   insertBlockPlugin,
   jiraIssuePlugin,
   toolbarListsIndentationPlugin,
-  macroPlugin,
   tasksAndDecisionsPlugin,
   alignmentPlugin,
   indentationPlugin,
@@ -56,7 +55,6 @@ import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import type { EditorProps } from '../types';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import type { PrivateCollabEditOptions } from '../plugins/collab-edit/types';
-import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { DefaultPresetPluginOptions } from './default';
 import { createDefaultPreset } from './default';
 import type { EditorPresetProps } from './types';
@@ -232,11 +230,7 @@ export default function createUniversalPreset(
     })
     .maybeAdd(captionPlugin, (plugin, builder) => {
       // EDM-799: inside caption plugin we do the feature flag in enabling the plugin
-      if (
-        props.media &&
-        (props.media.allowCaptions ||
-          getMediaFeatureFlag('captions', props.media.featureFlags))
-      ) {
+      if (props.media?.allowCaptions) {
         return builder.add(plugin);
       }
       return builder;
@@ -430,13 +424,6 @@ export default function createUniversalPreset(
           },
         ]);
       }
-      return builder;
-    })
-    .maybeAdd(macroPlugin, (plugin, builder) => {
-      if (props.macroProvider) {
-        return builder.add(plugin);
-      }
-
       return builder;
     })
     .maybeAdd(annotationPlugin, (plugin, builder) => {

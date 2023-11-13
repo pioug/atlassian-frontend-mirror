@@ -2,6 +2,8 @@ import { Buffer } from 'buffer';
 
 import React, { Component } from 'react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import { FormFields, SelectOptionDetails, SelectValue } from '../types';
 import { isApiGatewayUrl } from '../utils/is-api-gateway-url';
 import truncate from '../utils/Truncate';
@@ -123,6 +125,15 @@ const singleLineTruncatedText = (
 };
 
 export default class FeedbackCollector extends Component<Props> {
+  state = {
+    anonymousFeedback: true,
+  };
+
+  async componentDidMount() {
+    const anonymousFeedback = !(await this.shouldShowOptInCheckboxesNew());
+    this.setState({ anonymousFeedback });
+  }
+
   static defaultProps = {
     url: '/gateway/api',
     shouldGetEntitlementDetails: true,
@@ -321,6 +332,24 @@ export default class FeedbackCollector extends Component<Props> {
     return response;
   }
 
+  shouldShowOptInCheckboxesNew(): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      if (this.props.anonymousFeedback) {
+        resolve(!this.props.anonymousFeedback);
+      }
+      if (this.props.atlassianAccountId) {
+        resolve(true);
+      }
+      this.getAtlassianID()
+        .then((result) => {
+          resolve(result !== undefined);
+        })
+        .catch(() => {
+          resolve(false);
+        });
+    });
+  }
+
   getDescription(formValues: FormFields) {
     return formValues.description || this.props.descriptionDefaultValue;
   }
@@ -478,7 +507,11 @@ export default class FeedbackCollector extends Component<Props> {
         onSubmit={this.postFeedback}
         onClose={this.props.onClose}
         locale={this.props.locale}
-        anonymousFeedback={anonymousFeedback}
+        anonymousFeedback={
+          getBooleanFF('platform.proforma-form-builder-feedback_hupaz')
+            ? this.state.anonymousFeedback
+            : anonymousFeedback
+        }
         selectLabel={this.props.selectLabel}
       />
     );

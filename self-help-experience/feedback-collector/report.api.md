@@ -39,6 +39,8 @@ class FeedbackCollector extends Component<Props> {
   // (undocumented)
   addEmailToContext(): void;
   // (undocumented)
+  componentDidMount(): Promise<void>;
+  // (undocumented)
   static defaultProps: {
     url: string;
     shouldGetEntitlementDetails: boolean;
@@ -113,6 +115,12 @@ class FeedbackCollector extends Component<Props> {
   render(): JSX.Element;
   // (undocumented)
   shouldShowOptInCheckboxes(): boolean;
+  // (undocumented)
+  shouldShowOptInCheckboxesNew(): Promise<boolean>;
+  // (undocumented)
+  state: {
+    anonymousFeedback: boolean;
+  };
 }
 export default FeedbackCollector;
 

@@ -117,15 +117,4 @@ describe('Async Card Loader', () => {
       expect(wrapper.find(CardLoading)).toHaveLength(1);
     });
   });
-
-  describe('feature flags', () => {
-    it('passes featureFlags to CardWithMediaClient', () => {
-      const wrapper = mount(
-        <CardLoader {...props} featureFlags={{ captions: true }} />,
-      );
-      expect(wrapper.find('CardWithMediaClient').prop('featureFlags')).toEqual({
-        captions: true,
-      });
-    });
-  });
 });

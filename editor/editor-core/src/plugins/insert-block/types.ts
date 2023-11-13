@@ -6,7 +6,7 @@ import type { EmojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import type { DatePlugin } from '@atlaskit/editor-plugin-date';
 import type { TablePlugin } from '@atlaskit/editor-plugin-table';
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
-
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
@@ -42,4 +42,5 @@ export type InsertBlockPluginDependencies = [
   OptionalPlugin<LayoutPlugin>,
   OptionalPlugin<ExpandPlugin>,
   OptionalPlugin<PlaceholderTextPlugin>,
+  OptionalPlugin<ExtensionPlugin>,
 ];

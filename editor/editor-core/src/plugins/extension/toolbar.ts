@@ -29,7 +29,7 @@ import {
   removeDescendantNodes,
 } from './commands';
 
-import { pluginKey as macroPluginKey } from '../macro/plugin-key';
+import { pluginKey as macroPluginKey } from './pm-plugins/macro/plugin-key';
 import {
   isReferencedSource,
   getChildrenInfo,

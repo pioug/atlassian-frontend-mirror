@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useRef,
-  useState,
-} from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 
 import { LinkCreateProps, Validator, ValidatorMap } from '../../common/types';
 
@@ -12,8 +6,6 @@ interface FormContextType {
   getValidators: () => ValidatorMap;
   assignValidator: (name: string, validators: Validator[]) => void;
   setFormErrorMessage: (errorMessage?: string) => void;
-  setFormDirty: (dirty?: boolean) => void;
-  isFormDirty: () => boolean;
   formErrorMessage?: string;
   /**
    * Callback that updates link create to tell it that it should/should not open the current plugins
@@ -21,7 +13,6 @@ interface FormContextType {
    * is not defined as a prop at the `LinkCreate` props level
    */
   enableEditView?: ((editButtonClicked: boolean) => void) | undefined;
-  formDirty?: boolean;
 }
 
 export const FormContext = createContext<FormContextType>({
@@ -29,8 +20,6 @@ export const FormContext = createContext<FormContextType>({
   getValidators: () => ({}),
   setFormErrorMessage: () => {},
   enableEditView: undefined,
-  setFormDirty: () => {},
-  isFormDirty: () => false,
 });
 
 const FormContextProvider: React.FC<{
@@ -38,18 +27,6 @@ const FormContextProvider: React.FC<{
 }> = ({ enableEditView, children }) => {
   const [error, setError] = useState<string | undefined>();
   const [validators, setValidators] = useState<Record<string, Validator[]>>({});
-
-  const dirty = useRef(false);
-  const isFormDirty = useCallback(() => {
-    return dirty.current;
-  }, [dirty]);
-
-  const setFormDirty = useCallback(
-    (isDirty?: boolean) => {
-      dirty.current = !!isDirty;
-    },
-    [dirty],
-  );
 
   // Add validators to the form
   const assignValidator = useCallback(
@@ -83,8 +60,6 @@ const FormContextProvider: React.FC<{
         setFormErrorMessage,
         formErrorMessage: error,
         enableEditView,
-        setFormDirty,
-        isFormDirty,
       }}
     >
       {children}

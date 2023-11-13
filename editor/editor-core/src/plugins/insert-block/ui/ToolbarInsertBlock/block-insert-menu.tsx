@@ -1,6 +1,6 @@
 import React from 'react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { OnInsert } from '../../../../ui/ElementBrowser/types';
+import type { OnInsert } from '../ElementBrowser/types';
 import { BlockInsertElementBrowser } from './block-insert-element-browser';
 import { BlockInsertMenuLegacy } from './block-insert-menu-legacy';
 import type { BlockMenuItem } from './create-items';

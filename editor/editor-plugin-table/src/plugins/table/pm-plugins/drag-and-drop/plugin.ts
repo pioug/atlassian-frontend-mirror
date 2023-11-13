@@ -5,6 +5,7 @@ import type {
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { getCellsInRow } from '@atlaskit/editor-tables/utils';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
@@ -65,10 +66,15 @@ export const createPlugin = (
 
           if (newTargetCellPosition !== undefined) {
             const cells = getCellsInRow(dragMenuIndex)(tr.selection);
+            // ED-20673 check if it is a cell selection,
+            // when true, a drag handle is clicked and isDragMenuOpen is true here
+            // should not close the drag menu.
+            const isCellSelection = tr.selection instanceof CellSelection;
             if (
               cells &&
               cells.length &&
-              cells[0].node !== tr.doc.nodeAt(newTargetCellPosition)
+              cells[0].node !== tr.doc.nodeAt(newTargetCellPosition) &&
+              !isCellSelection
             ) {
               return tr.setMeta(pluginKey, action);
             } // else NOP

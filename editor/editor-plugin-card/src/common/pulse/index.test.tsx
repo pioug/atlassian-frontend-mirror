@@ -4,7 +4,7 @@ import { fireEvent, render } from '@testing-library/react';
 
 import { markLocalStorageKeyDiscovered } from '../local-storage';
 
-import type { PulseProps } from './index';
+import type { PulseDiscoveryMode, PulseProps } from './index';
 import { DiscoveryPulse } from './index';
 
 describe('DiscoveryPulse', () => {
@@ -54,12 +54,29 @@ describe('DiscoveryPulse', () => {
     },
   );
 
-  it('should mark local storage key as discovered after an iteration of pulse animation', async () => {
-    const { findByTestId } = setup();
+  it.each([undefined, 'iteration'])(
+    'should mark local storage key as discovered after an iteration of pulse animation when discoveryMode is %s',
+    async discoveryMode => {
+      const { findByTestId } = setup({
+        discoveryMode: discoveryMode as PulseDiscoveryMode,
+      });
+      const discoveryPulse = await findByTestId('discovery-pulse');
+      expect(localStorage.getItem(localStorageKeyWithPackage)).toBeNull();
+
+      fireEvent.animationIteration(discoveryPulse);
+
+      expect(localStorage.getItem(localStorageKeyWithPackage)).toBe(
+        JSON.stringify({ value: 'discovered' }),
+      );
+    },
+  );
+
+  it('should mark local storage key as discovered after an iteration of pulse animation when discoveryMode is "start"', async () => {
+    const { findByTestId } = setup({ discoveryMode: 'start' });
     const discoveryPulse = await findByTestId('discovery-pulse');
     expect(localStorage.getItem(localStorageKeyWithPackage)).toBeNull();
 
-    fireEvent.animationIteration(discoveryPulse);
+    fireEvent.animationStart(discoveryPulse);
 
     expect(localStorage.getItem(localStorageKeyWithPackage)).toBe(
       JSON.stringify({ value: 'discovered' }),

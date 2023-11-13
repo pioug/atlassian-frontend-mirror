@@ -115,22 +115,15 @@ export const mediaPlugin: MediaNextEditorPluginType = ({
         mediaFeatureFlags,
       );
 
-      const withCaption = getMediaFeatureFlag('captions', mediaFeatureFlags);
-
-      // temporary mapping - we will support captions feature flag until
-      // confluence removes the feature flag support in their code base and
-      // utilizes allowCaptions media prop instead
-      const mappedAllowCaptions = allowCaptions ? allowCaptions : withCaption;
-
       const mediaSingleOption = getBooleanFF(
         'platform.editor.media.extended-resize-experience',
       )
         ? {
-            withCaption: mappedAllowCaptions,
+            withCaption: allowCaptions,
             withExtendedWidthTypes: true,
           }
         : {
-            withCaption: mappedAllowCaptions,
+            withCaption: allowCaptions,
             withExtendedWidthTypes: false,
           };
 

@@ -45,7 +45,6 @@ export const getFeatureFlagKeysAllProducts = (): Array<string> => {
  * that change should be released as a MAJOR, because it's a breaking change.
  */
 export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
-  captions: false,
   mediaInline: false,
   // We can't yet switch this feature on
   // TODO https://product-fabric.atlassian.net/browse/MEX-104

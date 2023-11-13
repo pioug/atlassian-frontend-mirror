@@ -19,6 +19,7 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BetterTypeHistoryPlugin } from '@atlaskit/editor-plugin-better-type-history';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import type { CardPlugin } from '@atlaskit/editor-plugin-card';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
@@ -51,6 +52,7 @@ export type PastePlugin = NextEditorPlugin<
       OptionalPlugin<CardPlugin>,
       OptionalPlugin<AnalyticsPlugin>,
       OptionalPlugin<MediaPlugin>,
+      OptionalPlugin<ExtensionPlugin>,
     ];
     sharedState: {
       lastContentPasted: LastContentPasted | null;

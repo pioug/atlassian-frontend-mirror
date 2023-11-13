@@ -1,5 +1,11 @@
 /** @jsx jsx */
-import { Fragment, useCallback, useState } from 'react';
+import {
+  Fragment,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
@@ -21,6 +27,10 @@ import {
 } from '../../common/types';
 import { LinkCreateCallbackProvider } from '../../controllers/callback-context';
 import { EditPostCreateModalProvider } from '../../controllers/edit-post-create-context';
+import {
+  ExitWarningModalProvider,
+  useExitWarningModal,
+} from '../../controllers/exit-warning-modal-context';
 import {
   FormContextProvider,
   useFormContext,
@@ -47,12 +57,31 @@ const LinkCreateContent = ({ plugins, entityKey }: LinkCreateProps) => {
 
 const LinkCreate = ({
   testId = TEST_ID,
-  onCreate,
-  onFailure,
-  onCancel,
   triggeredFrom,
   ...restProps
 }: LinkCreateProps) => {
+  return (
+    <Box testId={testId}>
+      <ErrorBoundary>
+        <TrackMount />
+        <LinkCreateContent {...restProps} />
+      </ErrorBoundary>
+    </Box>
+  );
+};
+
+const LinkCreateWithModal = ({
+  active,
+  modalTitle,
+  onCreate,
+  onFailure,
+  onCancel,
+  onOpenComplete,
+  onCloseComplete,
+  ...createProps
+}: LinkCreateWithModalProps) => {
+  const intl = useIntl();
+
   const { setFormErrorMessage } = useFormContext();
 
   const handleCreate = useCallback(
@@ -75,34 +104,8 @@ const LinkCreate = ({
     [onFailure, setFormErrorMessage],
   );
 
-  return (
-    <Box testId={testId}>
-      <ErrorBoundary>
-        <LinkCreateCallbackProvider
-          onCancel={onCancel}
-          onCreate={handleCreate}
-          onFailure={handleFailure}
-        >
-          <TrackMount />
-          <LinkCreateContent {...restProps} />
-        </LinkCreateCallbackProvider>
-      </ErrorBoundary>
-    </Box>
-  );
-};
-
-const LinkCreateWithModal = ({
-  active,
-  modalTitle,
-  onCancel,
-  onOpenComplete,
-  onCloseComplete,
-  ...createProps
-}: LinkCreateWithModalProps) => {
-  const [dismissDialog, setDismissDialog] = useState(false);
-
-  const { isFormDirty } = useFormContext();
-  const intl = useIntl();
+  const { getShouldShowWarning } = useExitWarningModal();
+  const [showExitWarning, setShowExitWarning] = useState(false);
 
   const handleCancel = useCallback(() => {
     if (
@@ -110,27 +113,28 @@ const LinkCreateWithModal = ({
         'platform.linking-platform.link-create.confirm-dismiss-dialog',
       )
     ) {
-      if (isFormDirty()) {
-        return setDismissDialog(true);
+      if (getShouldShowWarning() && !showExitWarning) {
+        setShowExitWarning(true);
+        return;
       }
     }
 
-    onCancel && onCancel();
-  }, [onCancel, isFormDirty]);
+    onCancel?.();
+  }, [onCancel, getShouldShowWarning, showExitWarning]);
 
-  const handleCancelDismiss = useCallback(() => {
-    setDismissDialog(false);
-  }, []);
-
-  const handleConfirmDismiss = useCallback(() => {
-    setDismissDialog(false);
-    onCancel && onCancel();
-  }, [onCancel]);
+  const handleCloseExitWarning = useCallback(
+    () => setShowExitWarning(false),
+    [],
+  );
 
   return (
-    <Fragment>
+    <LinkCreateCallbackProvider
+      onCreate={handleCreate}
+      onFailure={handleFailure}
+      onCancel={handleCancel}
+    >
       <ModalTransition>
-        {!!active && (
+        {active && (
           <Modal
             testId="link-create-modal"
             onClose={handleCancel}
@@ -145,7 +149,7 @@ const LinkCreateWithModal = ({
               </ModalTitle>
             </ModalHeader>
             <ModalBody>
-              <LinkCreate {...createProps} onCancel={handleCancel} />
+              <LinkCreate {...createProps} />
             </ModalBody>
           </Modal>
         )}
@@ -161,17 +165,28 @@ const LinkCreateWithModal = ({
         'platform.linking-platform.link-create.confirm-dismiss-dialog',
       ) && (
         <ConfirmDismissDialog
-          active={dismissDialog}
-          onCancelDismiss={handleCancelDismiss}
-          onConfirmDismiss={handleConfirmDismiss}
+          active={showExitWarning}
+          onClose={handleCloseExitWarning}
         />
       )}
-    </Fragment>
+    </LinkCreateCallbackProvider>
   );
 };
 
 const LinkCreateModal = (props: LinkCreateWithModalProps) => {
   if (getBooleanFF('platform.linking-platform.link-create.enable-edit')) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const shouldCallCloseComplete = useRef(!props.active);
+
+    // modal calls onCloseComplete in a useEffect(), so we can track whether
+    // or not we should execute it based on the active prop in a
+    // useLayoutEffect() which will be run before child useEffect()s
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useLayoutEffect(() => {
+      // onCloseComplete should only be called when it is not active
+      shouldCallCloseComplete.current = !props.active;
+    }, [props.active]);
+
     return (
       <LinkCreatePluginsProvider
         plugins={props.plugins}
@@ -192,24 +207,31 @@ const LinkCreateModal = (props: LinkCreateWithModalProps) => {
                     : undefined
                 }
               >
-                <LinkCreateWithModal
-                  {...props}
-                  active={props.active && !editViewPayload}
-                  onCreate={async payload => {
-                    await props.onCreate?.(payload);
+                <ExitWarningModalProvider>
+                  <LinkCreateWithModal
+                    {...props}
+                    active={props.active && !editViewPayload}
+                    onCreate={async payload => {
+                      await props.onCreate?.(payload);
 
-                    // if onComplete exists then there is an edit flow
-                    if (props.onComplete) {
-                      if (shouldActivateEditView()) {
-                        //edit button is pressed
-                        setEditViewPayload(payload);
-                      } else {
-                        //create button is pressed
-                        props.onComplete();
+                      // if onComplete exists then there is an edit flow
+                      if (props.onComplete) {
+                        if (shouldActivateEditView()) {
+                          //edit button is pressed
+                          setEditViewPayload(payload);
+                        } else {
+                          //create button is pressed
+                          props.onComplete();
+                        }
                       }
-                    }
-                  }}
-                />
+                    }}
+                    onCloseComplete={(...args) => {
+                      if (shouldCallCloseComplete.current) {
+                        props.onCloseComplete?.(...args);
+                      }
+                    }}
+                  />
+                </ExitWarningModalProvider>
               </FormContextProvider>
             )}
           </EditPostCreateModalProvider>
@@ -220,13 +242,15 @@ const LinkCreateModal = (props: LinkCreateWithModalProps) => {
 
   return (
     <FormContextProvider>
-      <LinkCreateWithModal
-        {...props}
-        onCreate={async payload => {
-          await props.onCreate?.(payload);
-          props.onComplete?.();
-        }}
-      />
+      <ExitWarningModalProvider>
+        <LinkCreateWithModal
+          {...props}
+          onCreate={async payload => {
+            await props.onCreate?.(payload);
+            props.onComplete?.();
+          }}
+        />
+      </ExitWarningModalProvider>
     </FormContextProvider>
   );
 };

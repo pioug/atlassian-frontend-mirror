@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.42.2
+
+### Patch Changes
+
+- [#43024](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43024) [`4e36cb30932`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e36cb30932) - Update embed card and embed modal internal structure and unskip vr tests
+
 ## 26.42.1
 
 ### Patch Changes

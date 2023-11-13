@@ -10,9 +10,8 @@ import { messages } from './messages';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { BlockType } from '@atlaskit/editor-plugin-block-type';
 
-import { ToolTipContent } from '../../../../keymaps';
+import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import type { MacroProvider } from '../../../macro';
 import { sortItems } from './sort-items';
 import {
   action,
@@ -59,7 +58,6 @@ export interface CreateItemsConfig {
   showElementBrowserLink?: boolean;
   expandEnabled?: boolean;
   insertMenuItems?: MenuItem[];
-  macroProvider?: MacroProvider | null;
   emojiProvider?: Promise<EmojiProvider>;
   schema: Schema;
   numberOfButtons: number;

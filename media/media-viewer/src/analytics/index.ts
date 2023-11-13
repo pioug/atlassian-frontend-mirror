@@ -6,7 +6,7 @@ import {
   ANALYTICS_MEDIA_CHANNEL,
   WithTraceContext,
 } from '@atlaskit/media-common';
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { PrimaryErrorReason } from '../errors';
 
 import { MediaViewerEventPayload } from './events';
@@ -64,9 +64,8 @@ export type MediaViewerFailureAttributes = Omit<
 
 export function fireAnalytics(
   payload: MediaViewerEventPayload,
-  props: WithAnalyticsEventsProps,
+  createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ) {
-  const { createAnalyticsEvent } = props;
   if (createAnalyticsEvent) {
     const ev = createAnalyticsEvent(payload);
     ev.fire(ANALYTICS_MEDIA_CHANNEL);

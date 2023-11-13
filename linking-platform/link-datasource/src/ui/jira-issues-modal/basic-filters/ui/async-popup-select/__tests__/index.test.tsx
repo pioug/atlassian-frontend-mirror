@@ -4,6 +4,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import {
   fieldValuesResponseForAssigneesMapped,
   fieldValuesResponseForProjectsMapped,
@@ -12,6 +13,7 @@ import {
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { token } from '@atlaskit/tokens';
 
+import { EVENT_CHANNEL } from '../../../../../../analytics/constants';
 import {
   FilterOptionsState,
   useFilterOptions,
@@ -22,33 +24,34 @@ import AsyncPopupSelect, { AsyncPopupSelectProps } from '../index';
 jest.mock('../../../hooks/useFilterOptions');
 jest.useFakeTimers();
 
-describe('Testing AsyncPopupSelect', () => {
-  const setup = ({
-    filterType,
-    cloudId,
-    selection,
-    onSelectionChange,
-    filterOptions,
-    openPicker,
-    totalCount,
-    status,
-    isDisabled,
-    fetchFilterOptions,
-    pageCursor,
-  }: Partial<
-    AsyncPopupSelectProps & FilterOptionsState & { openPicker?: boolean }
-  > = {}) => {
-    asMock(useFilterOptions).mockReturnValue({
-      filterOptions: filterOptions || [],
-      status: status || 'empty',
-      totalCount: totalCount || 0,
-      fetchFilterOptions: fetchFilterOptions || jest.fn(),
-      pageCursor: pageCursor || undefined,
-    });
+const setup = ({
+  filterType,
+  cloudId,
+  selection,
+  onSelectionChange,
+  filterOptions,
+  openPicker,
+  totalCount,
+  status,
+  isDisabled,
+  fetchFilterOptions,
+  pageCursor,
+}: Partial<
+  AsyncPopupSelectProps & FilterOptionsState & { openPicker?: boolean }
+> = {}) => {
+  asMock(useFilterOptions).mockReturnValue({
+    filterOptions: filterOptions || [],
+    status: status || 'empty',
+    totalCount: totalCount || 0,
+    fetchFilterOptions: fetchFilterOptions || jest.fn(),
+    pageCursor: pageCursor || undefined,
+  });
 
-    const mockOnSelectionChange = jest.fn();
+  const mockOnSelectionChange = jest.fn();
+  const onAnalyticFireEvent = jest.fn();
 
-    const renderResult = render(
+  const renderResult = render(
+    <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
       <IntlProvider locale="en">
         <AsyncPopupSelect
           filterType={filterType || 'project'}
@@ -57,21 +60,23 @@ describe('Testing AsyncPopupSelect', () => {
           onSelectionChange={onSelectionChange || mockOnSelectionChange}
           isDisabled={isDisabled}
         />
-      </IntlProvider>,
+      </IntlProvider>
+    </AnalyticsListener>,
+  );
+
+  if (openPicker) {
+    const triggerButton = renderResult.queryByTestId(
+      `jlol-basic-filter-${filterType || 'project'}-trigger`,
     );
 
-    if (openPicker) {
-      const triggerButton = renderResult.queryByTestId(
-        `jlol-basic-filter-${filterType || 'project'}-trigger`,
-      );
+    invariant(triggerButton);
+    fireEvent.click(triggerButton);
+  }
 
-      invariant(triggerButton);
-      fireEvent.click(triggerButton);
-    }
+  return { ...renderResult, onAnalyticFireEvent };
+};
 
-    return { ...renderResult };
-  };
-
+describe('Testing AsyncPopupSelect', () => {
   describe('popup trigger button', () => {
     it.each<[BasicFilterFieldType, string]>([
       ['project', 'Project'],
@@ -119,7 +124,6 @@ describe('Testing AsyncPopupSelect', () => {
       ).toBeInTheDocument();
     });
   });
-
   describe('popup footer', () => {
     it('should render the popup footer when the popup is opened', () => {
       const { queryByTestId } = setup({
@@ -438,5 +442,33 @@ describe('Testing AsyncPopupSelect', () => {
         value: '"Awaiting approval"',
       },
     ]);
+  });
+});
+
+describe('Analytics: AsyncPopupSelect', () => {
+  it('should fire "ui.emptyResult.shown.basicSearchDropdown" when the empty UI is shown', () => {
+    const { onAnalyticFireEvent } = setup({
+      filterType: 'status',
+      filterOptions: [],
+      openPicker: true,
+      status: 'resolved',
+    });
+
+    jest.advanceTimersByTime(350);
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          action: 'shown',
+          actionSubject: 'emptyResult',
+          actionSubjectId: 'basicSearchDropdown',
+          attributes: {
+            filterType: 'status',
+          },
+        },
+      },
+      EVENT_CHANNEL,
+    );
   });
 });

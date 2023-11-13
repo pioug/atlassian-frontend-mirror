@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 0.7.3
+
+### Patch Changes
+
+- [#43032](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43032) [`c85584cce3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c85584cce3e) - [ED-20835] Add aria label to emoji button inside panel floating toolbar
+- Updated dependencies
+
 ## 0.7.2
 
 ### Patch Changes

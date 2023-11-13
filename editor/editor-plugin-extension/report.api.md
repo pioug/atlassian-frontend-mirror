@@ -21,12 +21,15 @@ import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { ExtensionAPI } from '@atlaskit/editor-common/extensions';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
+import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
@@ -61,6 +64,8 @@ export type ExtensionPlugin = NextEditorPlugin<
     ];
     actions: {
       api: () => ExtensionAPI;
+      insertMacroFromMacroBrowser: InsertMacroFromMacroBrowser;
+      runMacroAutoConvert: RunMacroAutoConvert;
     };
   }
 >;
@@ -77,6 +82,19 @@ export interface ExtensionPluginOptions
   // (undocumented)
   extensionHandlers?: ExtensionHandlers;
 }
+
+// @public (undocumented)
+type InsertMacroFromMacroBrowser = (
+  macroProvider: MacroProvider,
+  macroNode?: Node_2,
+  isEditing?: boolean,
+) => (view: EditorView) => Promise<boolean>;
+
+// @public (undocumented)
+export type RunMacroAutoConvert = (
+  state: EditorState,
+  text: string,
+) => Node_2 | null;
 
 // (No @packageDocumentation comment for this package)
 ```

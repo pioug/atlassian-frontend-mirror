@@ -46,7 +46,6 @@ import type {
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type { CardEvent } from '@atlaskit/media-card';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
-import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
@@ -397,8 +396,7 @@ export default class MediaSingleNode extends Component<
     }
 
     const shouldShowPlaceholder =
-      (mediaOptions.allowCaptions ||
-        getMediaFeatureFlag('captions', mediaOptions.featureFlags)) &&
+      mediaOptions.allowCaptions &&
       node.childCount !== 2 &&
       isSelected &&
       state.selection instanceof NodeSelection;

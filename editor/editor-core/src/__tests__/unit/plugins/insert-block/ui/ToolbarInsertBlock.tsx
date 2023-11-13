@@ -80,7 +80,8 @@ import type { Props as ToolbarInsertBlockProps } from '../../../../../plugins/in
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
-import InsertMenu from '../../../../../ui/ElementBrowser/InsertMenu';
+import InsertMenu from '../../../../../plugins/insert-block/ui/ElementBrowser/InsertMenu';
+import extensionPlugin from '../../../../../plugins/extension';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -93,7 +94,10 @@ import { placeholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text'
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 import { codeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
 
-jest.mock('../../../../../ui/ElementBrowser/InsertMenu', () => () => <div />);
+jest.mock(
+  '../../../../../plugins/insert-block/ui/ElementBrowser/InsertMenu',
+  () => () => <div />,
+);
 
 type ToolbarOptionWrapper = ReactWrapper;
 
@@ -206,7 +210,8 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       .add([placeholderTextPlugin, {}])
       .add(floatingToolbarPlugin)
       .add([codeBlockPlugin, {}])
-      .add([mediaPlugin, { allowMediaSingle: true }]);
+      .add([mediaPlugin, { allowMediaSingle: true }])
+      .add(extensionPlugin);
 
   let editorAPI: ExtractPublicEditorAPI<ReturnType<typeof createPreset>>;
 

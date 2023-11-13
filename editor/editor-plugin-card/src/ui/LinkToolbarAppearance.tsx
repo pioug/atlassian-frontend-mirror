@@ -26,6 +26,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CardContext } from '@atlaskit/link-provider';
 import type { CardPlatform } from '@atlaskit/smart-card';
 
+import { LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR } from '../common/local-storage';
 import { DiscoveryPulse } from '../common/pulse';
 import { shouldRenderToolbarPulse } from '../toolbar';
 
@@ -40,7 +41,7 @@ export interface LinkToolbarAppearanceProps {
   allowBlockCards?: boolean;
   platform?: CardPlatform;
   cardActions: CardPluginActions | undefined;
-  showInlineUpgradeDiscoverability?: boolean;
+  showUpgradeDiscoverability?: boolean;
 }
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class LinkToolbarAppearance extends React.Component<
@@ -62,7 +63,7 @@ export class LinkToolbarAppearance extends React.Component<
       platform,
       editorAnalyticsApi,
       cardActions,
-      showInlineUpgradeDiscoverability = false,
+      showUpgradeDiscoverability = false,
     } = this.props;
     const preview =
       allowEmbeds &&
@@ -175,7 +176,7 @@ export class LinkToolbarAppearance extends React.Component<
 
     const LinkToolbarButtons = (
       <LinkToolbarButtonGroup
-        key="link-toolbar-button-group"
+        key={LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR}
         options={options.map(option =>
           getButtonGroupOption(intl, dispatchCommand, {
             ...option,
@@ -194,7 +195,7 @@ export class LinkToolbarAppearance extends React.Component<
         embedEnabled,
         currentAppearance ?? '',
         status ?? '',
-        showInlineUpgradeDiscoverability,
+        showUpgradeDiscoverability,
       )
     ) {
       return (

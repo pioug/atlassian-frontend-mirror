@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.26
+
+### Patch Changes
+
+- [#42815](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42815) [`7fac5fb48e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fac5fb48e7) - ED-20673: Fixed drag menu is not open when clicking on different drag handles consecutively.
+- Updated dependencies
+
 ## 5.3.25
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 76.19.0
+
+### Minor Changes
+
+- [#42692](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42692) [`f5be713ca2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5be713ca2f) - [ux] Added an opt-out prop to CardOptions interface that is responsible for showing inline upgrade discoverability features
+
 ## 76.18.9
 
 ### Patch Changes

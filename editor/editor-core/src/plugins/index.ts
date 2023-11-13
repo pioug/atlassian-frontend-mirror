@@ -4,7 +4,6 @@ export { default as extensionPlugin } from './extension';
 export { default as insertBlockPlugin } from './insert-block';
 export { default as jiraIssuePlugin } from './jira-issue';
 export { default as toolbarListsIndentationPlugin } from './toolbar-lists-indentation';
-export { default as macroPlugin } from './macro';
 export { default as pastePlugin } from './paste';
 export { default as tasksAndDecisionsPlugin } from './tasks-and-decisions';
 export { default as breakoutPlugin } from './breakout';

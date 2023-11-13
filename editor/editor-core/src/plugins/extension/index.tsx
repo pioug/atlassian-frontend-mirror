@@ -6,7 +6,13 @@ import {
 import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { createPlugin } from './pm-plugins/main';
+import { createPlugin as createMacroPlugin } from './pm-plugins/macro';
+import {
+  insertMacroFromMacroBrowser,
+  runMacroAutoConvert,
+} from './pm-plugins/macro/actions';
 import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin as createUniqueIdPlugin } from './pm-plugins/unique-id';
 import { getToolbarConfig } from './toolbar';
@@ -88,6 +94,11 @@ const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) => {
             });
           },
         },
+        {
+          name: 'macro',
+          plugin: ({ dispatch, providerFactory }: PMPluginFactoryParams) =>
+            createMacroPlugin(dispatch, providerFactory),
+        },
       ];
     },
 
@@ -99,6 +110,10 @@ const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) => {
           editorAnalyticsAPI: api?.analytics?.actions,
         });
       },
+      insertMacroFromMacroBrowser: insertMacroFromMacroBrowser(
+        api?.analytics?.actions,
+      ),
+      runMacroAutoConvert,
     },
 
     pluginsOptions: {

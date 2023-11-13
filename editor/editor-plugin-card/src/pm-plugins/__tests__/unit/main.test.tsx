@@ -1,5 +1,8 @@
 import React from 'react';
 
+import type { Stub } from 'raf-stub';
+import { replaceRaf } from 'raf-stub';
+
 import type { DatasourceAttributes } from '@atlaskit/adf-schema/schema';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { CardOptions } from '@atlaskit/editor-common/card';
@@ -19,16 +22,21 @@ import {
   datasourceBlockCard,
   doc,
   inlineCard,
+  li,
   p,
+  ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type { CardProps } from '@atlaskit/smart-card';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+import { createCardRequest } from '../../../__tests__/unit/_helpers';
 import { createEventsQueue } from '../../../analytics/create-events-queue';
+import { queueCards, resolveCard } from '../../actions';
 import { pluginKey } from '../../plugin-key';
 import { getPluginState } from '../../util/state';
 
@@ -76,6 +84,10 @@ jest.mock('@atlaskit/smart-card', () => {
 
 jest.mock('../../../analytics/create-events-queue', () => ({
   createEventsQueue: jest.fn(),
+}));
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+  getBooleanFF: jest.fn().mockImplementation(() => false),
 }));
 
 describe('datasource', () => {
@@ -517,5 +529,190 @@ describe('analytics events queue', () => {
     expect(mockAnalyticsQueue.push).toHaveBeenCalled();
     expect(mockAnalyticsQueue.flush).toHaveBeenCalled();
     expect(lastCalled).toBe(mockAnalyticsQueue.flush);
+  });
+});
+
+describe('smart link upgrade discoverability', () => {
+  const atlassianUrl = 'http://www.atlassian.com/';
+  let raf: Stub;
+
+  const createEditor = createEditorFactory();
+  const providerFactory = new ProviderFactory();
+  const editor = (
+    doc: DocBuilder,
+    appearance: EditorAppearance = 'full-page',
+    smartLinksOverrides?: Partial<CardOptions>,
+  ) => {
+    return createEditor({
+      doc,
+      providerFactory,
+      editorProps: {
+        smartLinks: {
+          allowEmbeds: true,
+          showUpgradeDiscoverability: true,
+          ...smartLinksOverrides,
+        },
+        appearance,
+      },
+      pluginKey,
+    });
+  };
+
+  beforeAll(() => {
+    replaceRaf();
+    const asStub = (raf: typeof requestAnimationFrame) =>
+      raf as unknown as Stub;
+    raf = asStub(requestAnimationFrame);
+  });
+
+  beforeEach(() => {
+    jest.resetAllMocks();
+    localStorage.clear();
+    raf.reset();
+  });
+
+  afterEach(() => {
+    raf.flush();
+  });
+
+  it('should not update state with inlineCardAwarenessCandidatePosition when the FF is off', () => {
+    const { editorView } = editor(doc(p()));
+    const atlassianCardRequest = createCardRequest(atlassianUrl, 1);
+    editorView.dispatch(
+      queueCards([atlassianCardRequest])(editorView.state.tr),
+    );
+
+    editorView.dispatch(resolveCard(atlassianUrl)(editorView.state.tr));
+
+    expect(
+      pluginKey.getState(editorView.state)
+        ?.inlineCardAwarenessCandidatePosition,
+    ).not.toBeDefined();
+  });
+
+  it('should not update state with inlineCardAwarenessCandidatePosition when more than one request is present', () => {
+    (getBooleanFF as jest.Mock).mockImplementation(
+      flag => flag === 'platform.linking-platform.smart-card.inline-switcher',
+    );
+
+    const { editorView } = editor(doc(p()));
+    const firstRequest = createCardRequest(atlassianUrl, 1);
+    const secondRequest = createCardRequest(atlassianUrl, 3);
+    editorView.dispatch(
+      queueCards([firstRequest, secondRequest])(editorView.state.tr),
+    );
+
+    editorView.dispatch(resolveCard(atlassianUrl)(editorView.state.tr));
+
+    expect(
+      pluginKey.getState(editorView.state)
+        ?.inlineCardAwarenessCandidatePosition,
+    ).not.toBeDefined();
+  });
+
+  it('should not update state with inlineCardAwarenessCandidatePosition when inserted link appearance is not "inline"', () => {
+    (getBooleanFF as jest.Mock).mockImplementation(
+      flag => flag === 'platform.linking-platform.smart-card.inline-switcher',
+    );
+
+    const { editorView } = editor(doc(p()));
+    const request = createCardRequest(atlassianUrl, 1, { appearance: 'block' });
+    editorView.dispatch(queueCards([request])(editorView.state.tr));
+
+    editorView.dispatch(resolveCard(atlassianUrl)(editorView.state.tr));
+
+    expect(
+      pluginKey.getState(editorView.state)
+        ?.inlineCardAwarenessCandidatePosition,
+    ).not.toBeDefined();
+  });
+
+  it('should not update state with inlineCardAwarenessCandidatePosition when platform is not web', () => {
+    (getBooleanFF as jest.Mock).mockImplementation(
+      flag => flag === 'platform.linking-platform.smart-card.inline-switcher',
+    );
+
+    const { editorView } = editor(doc(p()), 'mobile');
+    const request = createCardRequest(atlassianUrl, 1);
+    editorView.dispatch(queueCards([request])(editorView.state.tr));
+
+    editorView.dispatch(resolveCard(atlassianUrl)(editorView.state.tr));
+
+    expect(
+      pluginKey.getState(editorView.state)
+        ?.inlineCardAwarenessCandidatePosition,
+    ).not.toBeDefined();
+  });
+
+  it('should not update state with inlineCardAwarenessCandidatePosition when the showUpgradeDiscoverability prop is false', () => {
+    (getBooleanFF as jest.Mock).mockImplementation(
+      flag => flag === 'platform.linking-platform.smart-card.inline-switcher',
+    );
+
+    const { editorView } = editor(doc(p()), 'full-page', {
+      showUpgradeDiscoverability: false,
+    });
+    const request = createCardRequest(atlassianUrl, 1);
+    editorView.dispatch(queueCards([request])(editorView.state.tr));
+
+    editorView.dispatch(resolveCard(atlassianUrl)(editorView.state.tr));
+
+    expect(
+      pluginKey.getState(editorView.state)
+        ?.inlineCardAwarenessCandidatePosition,
+    ).not.toBeDefined();
+  });
+
+  it('should not update state with inlineCardAwarenessCandidatePosition when the allowEmbeds is false', () => {
+    (getBooleanFF as jest.Mock).mockImplementation(
+      flag => flag === 'platform.linking-platform.smart-card.inline-switcher',
+    );
+
+    const { editorView } = editor(doc(p()), 'full-page', {
+      allowEmbeds: false,
+    });
+    const request = createCardRequest(atlassianUrl, 1);
+    editorView.dispatch(queueCards([request])(editorView.state.tr));
+
+    editorView.dispatch(resolveCard(atlassianUrl)(editorView.state.tr));
+
+    expect(
+      pluginKey.getState(editorView.state)
+        ?.inlineCardAwarenessCandidatePosition,
+    ).not.toBeDefined();
+  });
+
+  it('should not update state with inlineCardAwarenessCandidatePosition when the location cannot be upgraded to embed', () => {
+    (getBooleanFF as jest.Mock).mockImplementation(
+      flag => flag === 'platform.linking-platform.smart-card.inline-switcher',
+    );
+
+    const { editorView } = editor(doc(ul(li(p()))));
+    const request = createCardRequest(atlassianUrl, 3);
+    editorView.dispatch(queueCards([request])(editorView.state.tr));
+
+    editorView.dispatch(resolveCard(atlassianUrl)(editorView.state.tr));
+
+    expect(
+      pluginKey.getState(editorView.state)
+        ?.inlineCardAwarenessCandidatePosition,
+    ).not.toBeDefined();
+  });
+
+  it('should add inlineCardAwarenessCandidatePosition when the conditions are correct', () => {
+    (getBooleanFF as jest.Mock).mockImplementation(
+      flag => flag === 'platform.linking-platform.smart-card.inline-switcher',
+    );
+
+    const { editorView } = editor(doc(p()));
+    const request = createCardRequest(atlassianUrl, 1);
+    editorView.dispatch(queueCards([request])(editorView.state.tr));
+
+    editorView.dispatch(resolveCard(atlassianUrl)(editorView.state.tr));
+
+    expect(
+      pluginKey.getState(editorView.state)
+        ?.inlineCardAwarenessCandidatePosition,
+    ).toEqual(1);
   });
 });

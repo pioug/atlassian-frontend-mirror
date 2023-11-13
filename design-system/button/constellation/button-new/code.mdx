@@ -3,3 +3,31 @@ title: Button (new)
 description: A button triggers an event or action. They let users know what will happen next.
 order: 1
 ---
+
+import CommonProps from '!!extract-react-types-loader!../../extract-react-types/new-button/variants/default/common-props';
+import ButtonProps from '!!extract-react-types-loader!../../extract-react-types/new-button/variants/default/button-props';
+import LinkButtonProps from '!!extract-react-types-loader!../../extract-react-types/new-button/variants/default/link-button-props';
+
+## Props
+
+### Common props
+
+These props can be applied to both `Button` and `LinkButton`. Both variants also support their respective HTML element attributes, except for:
+
+- `disabled` (use `isDisabled` instead)
+- `style`
+- `role`
+
+<PropsTable heading="" props={CommonProps} />
+
+### Button props
+
+Standard buttons also support valid `<button>` tag HTML attributes.
+
+<PropsTable heading="" props={ButtonProps} />
+
+### LinkButton props
+
+Link buttons also support valid anchor `<a>` tag HTML attributes.
+
+<PropsTable heading="" props={LinkButtonProps} />

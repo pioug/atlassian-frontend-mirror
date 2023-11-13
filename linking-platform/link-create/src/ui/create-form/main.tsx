@@ -17,6 +17,7 @@ import {
 } from '../../common/constants';
 import { ValidatorMap } from '../../common/types';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
+import { useExitWarningModal } from '../../controllers/exit-warning-modal-context';
 import { useFormContext } from '../../controllers/form-context';
 
 import { CreateFormFooter } from './form-footer';
@@ -72,8 +73,8 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
   initialValues,
 }: CreateFormProps<FormData>) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
-  const { getValidators, formErrorMessage, setFormDirty, enableEditView } =
-    useFormContext();
+  const { getValidators, formErrorMessage, enableEditView } = useFormContext();
+  const { setShouldShowWarning } = useExitWarningModal();
 
   const handleSubmit = useCallback(
     async (data: WithReservedFields<FormData>) => {
@@ -144,7 +145,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
           >
             <FormSpy
               subscription={{ dirty: true }}
-              onChange={state => setFormDirty(state.dirty)}
+              onChange={state => setShouldShowWarning(state.dirty)}
             />
             <Box>{children}</Box>
             {!hideFooter && (

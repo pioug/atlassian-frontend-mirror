@@ -386,6 +386,7 @@ export function createPlugin(
                 text,
                 markdownSlice,
                 pluginInjectionApi?.card?.actions?.queueCardsFromChangedTr,
+                pluginInjectionApi?.extension?.actions?.runMacroAutoConvert,
                 cardOptions,
                 extensionAutoConverter,
               )(state, dispatch, view)
@@ -549,6 +550,7 @@ export function createPlugin(
               text,
               slice,
               pluginInjectionApi?.card?.actions?.queueCardsFromChangedTr,
+              pluginInjectionApi?.extension?.actions?.runMacroAutoConvert,
               cardOptions,
               extensionAutoConverter,
             )(state, dispatch, view)

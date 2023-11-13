@@ -1,5 +1,17 @@
 # @atlaskit/link-test-helpers
 
+## 6.2.8
+
+### Patch Changes
+
+- [#42398](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42398) [`55d91a074ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55d91a074ea) - Update mocking for Assets Datasource Requests
+
+## 6.2.7
+
+### Patch Changes
+
+- [#42962](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42962) [`48ee74fecbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48ee74fecbf) - Updates basic filters mocks to not use copy pasted identical values in mocked data response after useFieldValues mock fetch calls.
+
 ## 6.2.6
 
 ### Patch Changes

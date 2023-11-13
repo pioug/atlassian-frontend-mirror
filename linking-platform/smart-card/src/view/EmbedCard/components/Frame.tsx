@@ -8,8 +8,10 @@ import React, {
   RefObject,
   MutableRefObject,
 } from 'react';
+import { di } from 'react-magnetic-di';
 import { getIframeSandboxAttribute } from '../../../utils';
 import { IframeDwellTracker } from './IframeDwellTracker';
+import { IFrame } from './IFrame';
 
 export interface FrameProps {
   url?: string;
@@ -41,6 +43,7 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
     { url, isTrusted = false, testId, onIframeDwell, onIframeFocus },
     iframeRef,
   ) => {
+    di(IFrame);
     const [isIframeLoaded, setIframeLoaded] = useState(false);
     const [isMouseOver, setMouseOver] = useState(false);
     const [isWindowFocused, setWindowFocused] = useState(true);
@@ -113,8 +116,8 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
           iframePercentVisible={percentVisible}
           onIframeDwell={onIframeDwell}
         />
-        <iframe
-          ref={mergedRef}
+        <IFrame
+          childRef={mergedRef}
           src={url}
           data-testid={`${testId}-frame`}
           data-iframe-loaded={isIframeLoaded}

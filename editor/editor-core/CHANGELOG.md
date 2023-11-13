@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 189.3.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.3.17
+
+### Patch Changes
+
+- [#42702](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42702) [`79e5ed8fac7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79e5ed8fac7) - ED-19543 remove unused FF check
+- Updated dependencies
+
+## 189.3.16
+
+### Patch Changes
+
+- [#43042](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43042) [`fd547efa4e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd547efa4e5) - Remove `macro` editor plugin and migrate functionality into extension plugin.
+- Updated dependencies
+
 ## 189.3.15
 
 ### Patch Changes

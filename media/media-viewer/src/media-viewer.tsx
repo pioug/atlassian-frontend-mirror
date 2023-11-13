@@ -59,26 +59,26 @@ export class MediaViewerComponent extends React.Component<
   };
 
   UNSAFE_componentWillMount() {
-    fireAnalytics(createModalEvent(), this.props);
+    fireAnalytics(createModalEvent(), this.props.createAnalyticsEvent);
     start('MediaViewer.SessionDuration');
   }
 
   onShortcutClosed = () => {
-    fireAnalytics(createClosedEvent('escKey'), this.props);
-    const { onClose } = this.props;
+    const { onClose, createAnalyticsEvent } = this.props;
+    fireAnalytics(createClosedEvent('escKey'), createAnalyticsEvent);
     if (onClose) {
       onClose();
     }
   };
 
   onContentClose = (_e?: SyntheticEvent, analyticsEvent?: UIAnalyticsEvent) => {
-    const { onClose } = this.props;
+    const { onClose, createAnalyticsEvent } = this.props;
     if (
       analyticsEvent &&
       analyticsEvent.payload &&
       analyticsEvent.payload.actionSubject === 'button'
     ) {
-      fireAnalytics(createClosedEvent('button'), this.props);
+      fireAnalytics(createClosedEvent('button'), createAnalyticsEvent);
     }
     if (onClose) {
       onClose();
@@ -138,7 +138,7 @@ export class MediaViewerComponent extends React.Component<
           data-testid="media-viewer-popup"
           className={mediaViewerPopupClass}
         >
-          <Shortcut keyCode={27} handler={this.onShortcutClosed} />
+          <Shortcut code={'Escape'} handler={this.onShortcutClosed} />
           <Content
             isSidebarVisible={isSidebarVisible}
             onClose={this.onContentClose}

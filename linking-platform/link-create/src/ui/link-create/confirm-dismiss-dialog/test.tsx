@@ -9,14 +9,15 @@ import '@atlaskit/link-test-helpers/jest';
 
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 
-import { ConfirmDismissDialog } from './main';
+import { ConfirmDismissDialog, ConfirmDismissDialogProps } from './main';
 
 describe('ConfirmDismissDialog', () => {
-  const setup = (props?: React.ComponentProps<typeof ConfirmDismissDialog>) => {
+  const setup = (props?: Partial<ConfirmDismissDialogProps>) => {
     const analyticsSpy = jest.fn();
 
-    const defaultProps: React.ComponentProps<typeof ConfirmDismissDialog> = {
+    const defaultProps: ConfirmDismissDialogProps = {
       active: true,
+      onClose: () => {},
     };
 
     const { rerender } = render(
@@ -34,7 +35,7 @@ describe('ConfirmDismissDialog', () => {
 
     return {
       analyticsSpy,
-      rerender: (props?: React.ComponentProps<typeof ConfirmDismissDialog>) =>
+      rerender: (props?: Partial<ConfirmDismissDialogProps>) =>
         rerender(<ConfirmDismissDialog {...defaultProps} {...props} />),
     };
   };

@@ -8,8 +8,8 @@ import { injectIntl } from 'react-intl-next';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import type { EmojiId } from '@atlaskit/emoji/types';
 import { Popup } from '@atlaskit/editor-common/ui';
-import type { ToolbarButtonRef } from '../../../../ui/ToolbarButton';
-import ToolbarButton from '../../../../ui/ToolbarButton';
+import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
+import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import {
   separatorStyles,
   buttonGroupStyle,
@@ -26,13 +26,13 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { DropdownItem } from '@atlaskit/editor-plugin-block-type';
-import type { OnInsert } from '../../../../ui/ElementBrowser/types';
+import type { OnInsert } from '../ElementBrowser/types';
 import { messages } from './messages';
 import type { Props, State } from './types';
 import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
 import { createItems } from './create-items';
 import { BlockInsertMenu } from './block-insert-menu';
-import withOuterListeners from '../../../../ui/with-outer-listeners';
+import { withReactEditorViewOuterListeners as withOuterListeners } from '@atlaskit/editor-common/ui-react';
 
 /**
  * Checks if an element is detached (i.e. not in the current document)
@@ -82,7 +82,6 @@ export class ToolbarInsertBlock extends React.PureComponent<
       horizontalRuleEnabled: props.horizontalRuleEnabled,
       layoutSectionEnabled: props.layoutSectionEnabled,
       expandEnabled: props.expandEnabled,
-      macroProvider: props.macroProvider,
       showElementBrowserLink: props.showElementBrowserLink,
       emojiProvider: props.emojiProvider,
       availableWrapperBlockTypes: props.availableWrapperBlockTypes,

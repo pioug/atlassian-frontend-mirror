@@ -32,6 +32,7 @@ const modeSwitcherStyles = css({
   '&:disabled': {
     opacity: '0.5',
   },
+  marginLeft: token('space.250', '20px'),
 });
 
 const compactModeSwitcherStyles = css({

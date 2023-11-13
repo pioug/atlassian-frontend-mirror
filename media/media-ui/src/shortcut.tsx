@@ -7,18 +7,13 @@ export const keyCodes = {
   leftArrow: 'ArrowLeft',
 };
 
-type WithKeyCode = {
-  /** @deprecated use code: string instead */
-  keyCode: number;
-  code?: never;
-};
 type WithCode = {
   code: string;
   keyCode?: never;
 };
 export type ShortcutProps = {
   handler: () => void;
-} & (WithKeyCode | WithCode);
+} & WithCode;
 
 export class Shortcut extends Component<ShortcutProps, {}> {
   componentDidMount() {
@@ -34,10 +29,7 @@ export class Shortcut extends Component<ShortcutProps, {}> {
   }
 
   private keyHandler = (e: KeyboardEvent) => {
-    const { handler, code, keyCode } = this.props;
-    if (keyCode !== undefined && e.keyCode === keyCode) {
-      handler();
-    }
+    const { handler, code } = this.props;
 
     if (code !== undefined && e.code === code) {
       handler();

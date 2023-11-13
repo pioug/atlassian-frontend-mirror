@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-extension
 
+## 0.3.0
+
+### Minor Changes
+
+- [#43042](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43042) [`fd547efa4e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd547efa4e5) - Remove `macro` editor plugin and migrate functionality into extension plugin.
+
 ## 0.2.5
 
 ### Patch Changes

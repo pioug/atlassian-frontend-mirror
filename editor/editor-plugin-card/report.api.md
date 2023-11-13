@@ -15,12 +15,12 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { ACTION } from '@atlaskit/editor-common/analytics';
+import type { ACTION } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { CardAppearance } from '@atlaskit/editor-common/provider-factory';
+import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import type { CardPluginActions } from '@atlaskit/editor-common/card';
-import { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { CardReplacementInputMethod } from '@atlaskit/editor-common/card';
 import type { DatasourceModalType } from '@atlaskit/editor-common/types';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -33,8 +33,8 @@ import type { LinkPickerOptions } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import { SmartLinkEvents } from '@atlaskit/smart-card';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { SmartLinkEvents } from '@atlaskit/smart-card';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 // @public (undocumented)
@@ -90,6 +90,10 @@ type CardPluginState = {
   datasourceModalType?: DatasourceModalType;
   datasourceTableRef?: HTMLElement;
   layout?: DatasourceTableLayout;
+  inlineCardAwarenessCandidatePosition?: number;
+  selectedInlineLinkPosition?: number;
+  allowEmbeds?: boolean;
+  allowBlockCards?: boolean;
 };
 
 // @public (undocumented)

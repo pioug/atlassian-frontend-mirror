@@ -49,13 +49,13 @@ function MockPluginForm() {
     [],
   );
 
-  const exampleOptions = [
-    { label: 'Option 1', value: 'option-1' },
-    { label: 'Option 2', value: 'option-2' },
-    { label: 'Option 3 (which will fail)', value: 'option-3' },
-  ];
+  const mockLoadOptions = useCallback(async () => {
+    const exampleOptions = [
+      { label: 'Option 1', value: 'option-1' },
+      { label: 'Option 2', value: 'option-2' },
+      { label: 'Option 3 (which will fail)', value: 'option-3' },
+    ];
 
-  const mockLoadOptions = async (inputValue: string) => {
     try {
       return exampleOptions;
     } catch (error) {
@@ -64,7 +64,7 @@ function MockPluginForm() {
       }
       return [];
     }
-  };
+  }, [onFailure]);
 
   return (
     <div>
@@ -85,7 +85,6 @@ function MockPluginForm() {
           label={'Select an Option'}
           validators={[mockValidator]}
           defaultOptions={true}
-          defaultOption={mockLoadOptions}
           loadOptions={mockLoadOptions}
         ></AsyncSelect>
       </CreateForm>

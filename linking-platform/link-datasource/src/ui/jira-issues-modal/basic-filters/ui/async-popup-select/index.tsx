@@ -32,7 +32,7 @@ export interface AsyncPopupSelectProps {
 // Needed to disable filtering from react-select
 const noFilterOptions = () => true;
 
-const SEARCH_DEBOUNCE_MS = 350;
+export const SEARCH_DEBOUNCE_MS = 350;
 
 const AsyncPopupSelect = ({
   filterType,
@@ -149,6 +149,7 @@ const AsyncPopupSelect = ({
         MenuList: props => (
           <CustomMenuList
             {...props}
+            filterType={filterType}
             isError={isError}
             isEmpty={isEmpty}
             isLoading={isLoading}

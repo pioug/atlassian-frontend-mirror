@@ -58,7 +58,7 @@ import type {
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 // TODO: ED-20519 Needs Macro extraction
-import { runMacroAutoConvert } from '../macro';
+import type { RunMacroAutoConvert } from '@atlaskit/editor-plugin-extension';
 import type { InsertMediaAsMediaSingle } from '@atlaskit/editor-plugin-media/types';
 
 import {
@@ -762,6 +762,7 @@ export function handleMacroAutoConvert(
   text: string,
   slice: Slice,
   queueCardsFromChangedTr: QueueCardsFromTransactionAction | undefined,
+  runMacroAutoConvert: RunMacroAutoConvert | undefined,
   cardsOptions?: CardOptions,
   extensionAutoConverter?: ExtensionAutoConvertHandler,
 ): Command {
@@ -782,7 +783,7 @@ export function handleMacroAutoConvert(
 
     // then try from macro provider (which will be removed some time in the future)
     if (!macro) {
-      macro = runMacroAutoConvert(state, text);
+      macro = runMacroAutoConvert?.(state, text) ?? null;
     }
 
     if (macro) {

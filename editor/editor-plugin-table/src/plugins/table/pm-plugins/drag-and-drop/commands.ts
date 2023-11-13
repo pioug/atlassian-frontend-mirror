@@ -131,20 +131,44 @@ export const toggleDragMenu = (
     (state) => {
       let {
         isDragMenuOpen: previousOpenState,
-        dragMenuDirection,
-        dragMenuIndex,
+        dragMenuDirection: previousDragMenuDirection,
+        dragMenuIndex: previousDragMenuIndex,
       } = getPluginState(state);
-      if (previousOpenState === isDragMenuOpen) {
+
+      if (
+        previousOpenState === isDragMenuOpen &&
+        previousDragMenuDirection === direction &&
+        previousDragMenuIndex === index
+      ) {
         return false;
+      }
+
+      let updatedMenuOpenState;
+      if (isDragMenuOpen !== undefined) {
+        updatedMenuOpenState = isDragMenuOpen;
+      } else {
+        // menu open but menu direction changed, means user clicked on drag handle of different row/column
+        // menu open menu direction not changed, but index changed, means user clicked on drag handle of same row/column, different cells.
+        // 2 scenarios above , menu should remain open.
+        if (
+          (previousOpenState === true &&
+            previousDragMenuDirection !== direction) ||
+          (previousOpenState === true &&
+            previousDragMenuDirection === direction &&
+            previousDragMenuIndex !== index)
+        ) {
+          updatedMenuOpenState = true;
+        } else {
+          updatedMenuOpenState = !previousOpenState;
+        }
       }
 
       return {
         type: DragAndDropActionType.TOGGLE_DRAG_MENU,
         data: {
-          isDragMenuOpen:
-            isDragMenuOpen === undefined ? !previousOpenState : isDragMenuOpen,
-          direction: direction ?? dragMenuDirection,
-          index: index ?? dragMenuIndex,
+          isDragMenuOpen: updatedMenuOpenState,
+          direction: direction ?? previousDragMenuDirection,
+          index: index ?? previousDragMenuIndex,
         },
       };
     },

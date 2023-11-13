@@ -29,9 +29,9 @@ const imageStyles = css({
 
 const defaultHeaderStyles = css({
   display: 'flex',
-  paddingBottom: token('space.100', '8px'),
   alignItems: 'baseline',
   justifyContent: 'space-between',
+  paddingBlockEnd: token('space.100', '8px'),
 });
 
 const DefaultHeader = ({ children }: { children: ReactNode }) => (
@@ -40,9 +40,9 @@ const DefaultHeader = ({ children }: { children: ReactNode }) => (
 
 const defaultFooterStyles = css({
   display: 'flex',
-  paddingTop: token('space.100', '8px'),
   alignItems: 'center',
   justifyContent: 'space-between',
+  paddingBlockStart: token('space.100', '8px'),
 });
 
 const DefaultFooter = ({ children }: { children: ReactNode }) => (
@@ -143,6 +143,10 @@ interface SpotlightCardProps {
    * serving as a hook for automated tests.
    */
   testId?: string;
+  /**
+   * The id of heading
+   */
+  headingId?: string;
 }
 
 /**
@@ -169,6 +173,7 @@ const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
       testId,
       theme,
       width = 400,
+      headingId,
     } = props;
     const { Header = DefaultHeader, Footer = DefaultFooter } = components;
 
@@ -201,7 +206,12 @@ const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
                   <div css={bodyStyles}>
                     {heading || headingAfterElement ? (
                       <Header>
-                        <Heading color="inverse" level="h600" as="h4">
+                        <Heading
+                          id={headingId}
+                          color="inverse"
+                          level="h600"
+                          as="h4"
+                        >
                           {heading}
                         </Heading>
                         {headingAfterElement}

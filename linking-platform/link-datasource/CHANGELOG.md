@@ -1,5 +1,30 @@
 # @atlaskit/link-datasource
 
+## 1.16.3
+
+### Patch Changes
+
+- [#43029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43029) [`e8fc17ac873`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8fc17ac873) - Add ui analytics event when empty results UI is displayed for basic filter search.
+- Updated dependencies
+
+## 1.16.2
+
+### Patch Changes
+
+- [#43034](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43034) [`b191795744a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b191795744a) - [ux] Decreases spacing between search input and basic filters.
+
+## 1.16.1
+
+### Patch Changes
+
+- [#42398](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42398) [`55d91a074ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55d91a074ea) - Update mocking for Assets Datasource Requests
+
+## 1.16.0
+
+### Minor Changes
+
+- [#42962](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42962) [`00b9a417c51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00b9a417c51) - Adds show more button to UI and functionality to fetch more data for datasource basic filters
+
 ## 1.15.4
 
 ### Patch Changes

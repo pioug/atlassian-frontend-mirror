@@ -3,9 +3,9 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import AddIcon from '@atlaskit/icon/glyph/editor/add';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { ToolTipContent } from '../../../../keymaps';
-import type { ToolbarButtonRef } from '../../../../ui/ToolbarButton';
-import ToolbarButton from '../../../../ui/ToolbarButton';
+import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
+import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
+import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { expandIconWrapperStyle } from '@atlaskit/editor-common/styles';
 import { triggerWrapper } from './styles';
 

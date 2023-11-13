@@ -3,6 +3,7 @@ import type {
   ExtensionAPI,
   ExtensionHandlers,
 } from '@atlaskit/editor-common/extensions';
+import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
   EditorAppearance,
   LongPressSelectionPluginOptions,
@@ -17,6 +18,8 @@ import type {
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 interface CreateExtensionAPIOptions {
@@ -38,6 +41,17 @@ export interface ExtensionPluginOptions
   appearance?: EditorAppearance;
 }
 
+type InsertMacroFromMacroBrowser = (
+  macroProvider: MacroProvider,
+  macroNode?: PmNode,
+  isEditing?: boolean,
+) => (view: EditorView) => Promise<boolean>;
+
+export type RunMacroAutoConvert = (
+  state: EditorState,
+  text: string,
+) => PmNode | null;
+
 export type ExtensionPlugin = NextEditorPlugin<
   'extension',
   {
@@ -49,6 +63,10 @@ export type ExtensionPlugin = NextEditorPlugin<
       DecorationsPlugin,
       OptionalPlugin<ContextPanelPlugin>,
     ];
-    actions: { api: () => ExtensionAPI };
+    actions: {
+      api: () => ExtensionAPI;
+      insertMacroFromMacroBrowser: InsertMacroFromMacroBrowser;
+      runMacroAutoConvert: RunMacroAutoConvert;
+    };
   }
 >;

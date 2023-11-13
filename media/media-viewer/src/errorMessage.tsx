@@ -114,7 +114,15 @@ export class ErrorMessage extends React.Component<
 
   componentDidMount() {
     const { props } = this;
-    const { supressAnalytics, error, fileState, fileId, traceContext } = props;
+    const {
+      supressAnalytics,
+      error,
+      fileState,
+      fileId,
+      traceContext,
+      createAnalyticsEvent,
+      fileStateFlags,
+    } = props;
     if (supressAnalytics !== true) {
       const payload = ErrorMessage.getEventPayload(
         error,
@@ -122,10 +130,10 @@ export class ErrorMessage extends React.Component<
         fileState,
         traceContext,
       );
-      fireAnalytics(payload, props);
+      fireAnalytics(payload, createAnalyticsEvent);
       const rawPayload: UFOFailedEventPayload & { status?: string } = {
         ...payload?.attributes,
-        fileStateFlags: props.fileStateFlags,
+        fileStateFlags,
       };
       if (Object.keys(rawPayload).includes('status')) {
         delete rawPayload['status'];

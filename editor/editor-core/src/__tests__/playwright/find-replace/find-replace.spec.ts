@@ -25,8 +25,7 @@ test.describe('Find/replace', () => {
     const toolbar = EditorMainToolbarModel.from(editor);
     await toolbar.clickAt('Find and replace');
     const findReplaceModel = EditorFindAndReplaceModel.from(editor);
-    await findReplaceModel.findInputFocus.click();
-    await findReplaceModel.findInputFocus.waitFor({ state: 'visible' });
+    await findReplaceModel.clickFindInput();
     await editor.keyboard.type('HELLO');
     await editor.waitForEditorStable();
     expect(await findReplaceModel.matches.count()).toBe(9);

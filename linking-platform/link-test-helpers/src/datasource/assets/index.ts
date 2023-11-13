@@ -1,5 +1,12 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
+import {
+  assetsDefaultDetails,
+  assetsDefaultInitialVisibleColumnKeys,
+  generateDataResponse,
+  objectSchemaListResponse,
+} from './data';
+
 fetchMock.config.fallbackToNetwork = true;
 
 interface FetchMockRequestDetails {
@@ -8,39 +15,12 @@ interface FetchMockRequestDetails {
   headers: object;
   method: string;
 }
+const ASSETS_LIST_OF_LINKS_DATASOURCE_ID =
+  '361d618a-3c04-40ad-9b27-3c8ea6927020';
 
 type AqlValidateRequest = {
   qlQuery: string;
   context: string;
-};
-
-const objectSchemaListResponse = {
-  values: [
-    {
-      id: '1',
-      name: 'objSchema1',
-    },
-    {
-      id: '2',
-      name: 'objSchema2',
-    },
-    {
-      id: '3',
-      name: 'objSchema3',
-    },
-    {
-      id: '4',
-      name: 'objSchema4',
-    },
-    {
-      id: '5',
-      name: 'Demo',
-    },
-    {
-      id: '6',
-      name: 'Test',
-    },
-  ],
 };
 
 const delay = 150;
@@ -127,6 +107,30 @@ export const mockAssetsClientFetchRequests = ({
           });
         }, delay);
       });
+    },
+  );
+
+  fetchMock.post(
+    new RegExp(
+      `/object-resolver/datasource/${ASSETS_LIST_OF_LINKS_DATASOURCE_ID}/fetch/details`,
+    ),
+    async () => {
+      return new Promise(resolve => resolve(assetsDefaultDetails));
+    },
+  );
+
+  fetchMock.post(
+    new RegExp(
+      `/gateway/api/object-resolver/datasource/${ASSETS_LIST_OF_LINKS_DATASOURCE_ID}/fetch/data`,
+    ),
+    async (url: string) => {
+      return new Promise(resolve =>
+        resolve(
+          generateDataResponse({
+            initialVisibleColumnKeys: assetsDefaultInitialVisibleColumnKeys,
+          }),
+        ),
+      );
     },
   );
 };

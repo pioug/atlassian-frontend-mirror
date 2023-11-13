@@ -141,7 +141,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
         const fileAttributes = getFileAttributes(fileItem);
         fireAnalytics(
           createLoadSucceededEvent(fileAttributes, this.traceContext),
-          this.props,
+          this.props.createAnalyticsEvent,
         );
         succeedMediaFileUfoExperience({
           fileAttributes,
@@ -162,7 +162,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
       createLoadSucceededEvent({
         fileId: 'external-image',
       }),
-      this.props,
+      this.props.createAnalyticsEvent,
     );
     succeedMediaFileUfoExperience({
       fileAttributes: {
@@ -379,7 +379,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
   }
 
   private init(props: Props) {
-    const { mediaClient, identifier } = props;
+    const { mediaClient, identifier, createAnalyticsEvent } = props;
 
     if (isExternalImageIdentifier(identifier)) {
       // external images do not need to talk to our backend,
@@ -393,7 +393,10 @@ export class ItemViewerBase extends React.Component<Props, State> {
 
     const { id } = identifier;
 
-    fireAnalytics(createCommencedEvent(id, this.traceContext), this.props);
+    fireAnalytics(
+      createCommencedEvent(id, this.traceContext),
+      createAnalyticsEvent,
+    );
     startMediaFileUfoExperience();
     this.subscription = mediaClient.file
       .getFileState(id, {

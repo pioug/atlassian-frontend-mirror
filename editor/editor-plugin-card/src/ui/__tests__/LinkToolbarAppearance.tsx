@@ -343,7 +343,7 @@ describe('LinkToolbarAppearance', () => {
       );
     });
 
-    it('should show pulse animation when embed is enabled, status is resolved, appearance is inline, and showInlineUpgradeDiscoverability is true', async () => {
+    it('should show pulse animation when embed is enabled, status is resolved, appearance is inline, and showUpgradeDiscoverability is true', async () => {
       const url = 'some-url';
 
       (getBooleanFF as jest.Mock).mockImplementation(
@@ -363,7 +363,7 @@ describe('LinkToolbarAppearance', () => {
           allowEmbeds: true,
           platform: 'web',
           currentAppearance: 'inline',
-          showInlineUpgradeDiscoverability: true,
+          showUpgradeDiscoverability: true,
         },
         [p('{<node>}', inlineCard(defaultCardAttributes)())],
       );

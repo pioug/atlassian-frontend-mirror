@@ -15,7 +15,6 @@ import type { Command } from '@atlaskit/editor-common/types';
 import type { EditorSelectionAPI } from '@atlaskit/editor-plugin-selection';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { getMediaFeatureFlag } from '@atlaskit/media-common';
 
 import {
   insertAndSelectCaptionFromMediaSinglePos,
@@ -32,12 +31,11 @@ export function keymapPlugin(
   editorSelectionAPI: EditorSelectionAPI | undefined,
 ): SafePlugin {
   const list = {};
-  const { featureFlags } = options || {};
 
   bindKeymapWithCommand(undo.common!, ignoreLinksInSteps, list);
   bindKeymapWithCommand(enter.common!, splitMediaGroup, list);
 
-  if (options?.allowCaptions || getMediaFeatureFlag('captions', featureFlags)) {
+  if (options?.allowCaptions) {
     bindKeymapWithCommand(
       moveDown.common!,
       insertAndSelectCaption(editorAnalyticsAPI),

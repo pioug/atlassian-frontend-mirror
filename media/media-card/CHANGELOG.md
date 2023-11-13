@@ -1,5 +1,16 @@
 # @atlaskit/media-card
 
+## 77.4.0
+
+### Minor Changes
+
+- [#43014](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43014) [`f021d31543e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f021d31543e) - create useFileState hook versions of header and itemviewer, create list-v2, refactor MediaFileStateError to media-client-react
+
+### Patch Changes
+
+- [#42702](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42702) [`79e5ed8fac7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79e5ed8fac7) - ED-19543 remove unused FF check
+- Updated dependencies
+
 ## 77.3.0
 
 ### Minor Changes

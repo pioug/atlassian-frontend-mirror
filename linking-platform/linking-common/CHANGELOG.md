@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.18.0
+
+### Minor Changes
+
+- [#42692](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42692) [`8443e671cdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8443e671cdd) - [ux] Added a prop onAnimationStart to the Pulse component
+
 ## 4.17.0
 
 ### Minor Changes

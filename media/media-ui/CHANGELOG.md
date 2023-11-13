@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 25.0.4
+
+### Patch Changes
+
+- [#43014](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43014) [`f021d31543e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f021d31543e) - create useFileState hook versions of header and itemviewer, create list-v2, refactor MediaFileStateError to media-client-react
+- [#43014](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43014) [`761551f78ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/761551f78ab) - Implement useFileState hook on Media Viewer under Version 2
+- Updated dependencies
+
 ## 25.0.3
 
 ### Patch Changes

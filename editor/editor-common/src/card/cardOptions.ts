@@ -11,4 +11,5 @@ export interface CardOptions {
   useAlternativePreloader?: boolean;
   allowAlignment?: boolean;
   allowWrapping?: boolean;
+  showUpgradeDiscoverability?: boolean;
 }

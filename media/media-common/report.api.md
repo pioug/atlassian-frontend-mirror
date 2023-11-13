@@ -142,8 +142,6 @@ export const matches: (srcObj: Object) => (obj: Object) => boolean;
 
 // @public (undocumented)
 export interface MediaFeatureFlags {
-  // @deprecated (undocumented)
-  captions?: boolean;
   // (undocumented)
   folderUploads?: boolean;
   // (undocumented)

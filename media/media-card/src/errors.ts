@@ -6,6 +6,7 @@ import {
 } from '@atlaskit/media-client';
 import { CardPreview } from './types';
 
+import { MediaFileStateError } from '@atlaskit/media-client-react';
 /**
  * Primary reason is logged through Data Portal.
  * Make sure all the values are whitelisted in Measure -> Event Regitry -> "mediaCardRender failed" event
@@ -47,24 +48,6 @@ export type SsrPreviewPrimaryReason =
   | 'ssr-client-load'
   | 'ssr-server-uri'
   | 'ssr-server-load';
-
-export class MediaFileStateError extends Error {
-  constructor(
-    readonly id: string,
-    readonly reason?: string,
-    readonly message: string = '',
-    readonly details?: Record<string, any>,
-  ) {
-    super(reason);
-    // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#support-for-newtarget
-    Object.setPrototypeOf(this, new.target.prototype);
-
-    // https://v8.dev/docs/stack-trace-api
-    if ('captureStackTrace' in Error) {
-      Error.captureStackTrace(this, new.target);
-    }
-  }
-}
 
 export function isMediaFileStateError(err: Error): err is MediaFileStateError {
   return err instanceof MediaFileStateError;

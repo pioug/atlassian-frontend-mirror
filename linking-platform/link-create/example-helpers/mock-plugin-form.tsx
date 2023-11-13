@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import {
   AsyncSelect,
@@ -41,12 +41,12 @@ export function MockPluginForm({ shouldThrowError }: pluginProps) {
     [],
   );
 
-  const exampleOptions = [
-    { label: 'Option 1', value: 'option-1' },
-    { label: 'Option 2', value: 'option-2' },
-  ];
+  const mockLoadOptions = useCallback(async () => {
+    const exampleOptions = [
+      { label: 'Option 1', value: 'option-1' },
+      { label: 'Option 2', value: 'option-2' },
+    ];
 
-  const mockLoadOptions = async () => {
     try {
       if (shouldThrowError) {
         throw new Error('This is an error message.');
@@ -58,7 +58,7 @@ export function MockPluginForm({ shouldThrowError }: pluginProps) {
       }
       return [];
     }
-  };
+  }, [onFailure, shouldThrowError]);
 
   return (
     <div>
@@ -82,7 +82,6 @@ export function MockPluginForm({ shouldThrowError }: pluginProps) {
           label={'Select an Option'}
           validators={[mockValidator]}
           defaultOptions={true}
-          defaultOption={mockLoadOptions}
           loadOptions={mockLoadOptions}
         ></AsyncSelect>
       </CreateForm>

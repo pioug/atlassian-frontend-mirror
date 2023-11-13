@@ -1,10 +1,10 @@
 import React from 'react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Popup } from '@atlaskit/editor-common/ui';
-import InsertMenu from '../../../../ui/ElementBrowser/InsertMenu';
+import InsertMenu from '../ElementBrowser/InsertMenu';
 import type { BlockMenuItem } from './create-items';
 import { DropDownButton } from './dropdown-button';
-import type { OnInsert } from '../../../../ui/ElementBrowser/types';
+import type { OnInsert } from '../ElementBrowser/types';
 import type { PluginInjectionAPIWithDependencies } from '@atlaskit/editor-common/types';
 import type { InsertBlockPluginDependencies } from '../../types';
 

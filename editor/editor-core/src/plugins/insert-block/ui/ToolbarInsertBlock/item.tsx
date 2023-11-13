@@ -21,9 +21,9 @@ import CodeIcon from '@atlaskit/icon/glyph/editor/code';
 import InfoIcon from '@atlaskit/icon/glyph/editor/info';
 import QuoteIcon from '@atlaskit/icon/glyph/quote';
 
-import { shortcutStyle } from '../../../../ui/styles';
+import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import { tooltip, addLink, toggleTable } from '../../../../keymaps';
+import { tooltip, addLink, toggleTable } from '@atlaskit/editor-common/keymaps';
 import { shallowEquals } from './shallow-equals';
 import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
 

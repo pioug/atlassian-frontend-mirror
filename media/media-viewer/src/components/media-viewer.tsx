@@ -1,9 +1,11 @@
 import React, { useEffect, useMemo } from 'react';
 import { Identifier } from '@atlaskit/media-client';
+import { MediaViewerV2 as MediaViewerNextGenV2 } from '../v2/media-viewer-v2';
 import { MediaViewer as MediaViewerNextGen } from '../media-viewer';
 import { MediaMessage, MediaViewerProps } from './types';
 import { isSameIdentifier } from '../utils';
 import { isFileIdentifier } from '@atlaskit/media-client';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const ensureCollectionName = (identifier: Identifier, collectionName: string) =>
   isFileIdentifier(identifier)
@@ -43,6 +45,8 @@ const normaliseItems = (
   };
 };
 
+// TODO: This component will be removed in https://product-fabric.atlassian.net/browse/CXP-2722
+
 export const MediaViewer = ({
   featureFlags,
   onClose,
@@ -81,7 +85,16 @@ export const MediaViewer = ({
     };
   }, []);
 
-  return (
+  return getBooleanFF('platform.media-experience.media-viewer-v2_hgsii') ? (
+    <MediaViewerNextGenV2
+      selectedItem={normalisedSelectedItem}
+      onClose={onClose}
+      items={normalisedItems}
+      featureFlags={featureFlags}
+      extensions={extensions}
+      contextId={contextId}
+    />
+  ) : (
     <MediaViewerNextGen
       mediaClient={mediaClient}
       selectedItem={normalisedSelectedItem}

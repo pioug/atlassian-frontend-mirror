@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 108.15.20
+
+### Patch Changes
+
+- [#43014](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43014) [`f021d31543e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f021d31543e) - create useFileState hook versions of header and itemviewer, create list-v2, refactor MediaFileStateError to media-client-react
+- [#42702](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42702) [`79e5ed8fac7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79e5ed8fac7) - ED-19543 remove unused FF check
+- [#43014](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43014) [`761551f78ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/761551f78ab) - Implement useFileState hook on Media Viewer under Version 2
+- Updated dependencies
+
 ## 108.15.19
 
 ### Patch Changes

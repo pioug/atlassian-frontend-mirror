@@ -141,6 +141,7 @@ export const EmojiPickerButton: React.FunctionComponent<{
           onClick={togglePopup}
           ref={buttonRef}
           isSelected={props.isSelected}
+          aria-label={title}
           iconBefore={<EditorEmojiAddIcon />}
         />
       </Tooltip>

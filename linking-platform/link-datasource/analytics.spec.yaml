@@ -60,6 +60,10 @@ attributes:
     actions:
       type: []
       description: The type of update made to datasource config.
+  BasicFilterFieldTypes: &BasicFilterFieldTypes
+    filterType:
+      type: ["project", "assignee", "issuetype", "status"]
+      description: The basic filters available in jlol config modal
 
 events:
   # actionSubject action (actionSubjectId)
@@ -277,6 +281,17 @@ events:
             *SearchMethod,
             *TotalItemCount,
             *ExtensionKey,
+          ]
+  - emptyResult shown (basicSearchDropdown):
+      type: ui
+      description: Fired when the basic filter search results are empty
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *BasicFilterFieldTypes,
           ]
   # Assets Events
   - aqlEditor searched:

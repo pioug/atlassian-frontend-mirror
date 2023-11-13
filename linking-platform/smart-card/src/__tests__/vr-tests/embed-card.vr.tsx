@@ -26,8 +26,7 @@ snapshot(EmbedCardError);
 snapshot(EmbedCardForbidden);
 snapshot(EmbedCardNotFound);
 
-// Skipping due to pipeline failure - https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1860884
-snapshot.skip(EmbedCardResolved);
+snapshot(EmbedCardResolved);
 
 snapshot(EmbedCardUnauthorised);
 snapshot(EmbedCardUnauthorisedWithProviderImage);
@@ -121,8 +120,7 @@ snapshot(EmbedCardNotFoundSiteAccessExists, {
   },
 });
 
-// Skipping due to pipeline failure - https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1860884
-snapshot.skip(EmbedCardResolved, {
+snapshot(EmbedCardResolved, {
   description: 'refreshed embed card resolved view',
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':

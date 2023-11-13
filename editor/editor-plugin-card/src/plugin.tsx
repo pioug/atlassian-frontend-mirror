@@ -104,6 +104,8 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
       const allowWrapping = options.allowWrapping ?? true;
       const allowAlignment = options.allowAlignment ?? true;
       const allowDatasource = options.allowDatasource ?? false;
+      const showUpgradeDiscoverability =
+        options.showUpgradeDiscoverability ?? true;
 
       const plugins = [
         {
@@ -118,6 +120,7 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
               allowAlignment,
               allowDatasource,
               cardPluginEvents,
+              showUpgradeDiscoverability,
             },
             api,
           ),

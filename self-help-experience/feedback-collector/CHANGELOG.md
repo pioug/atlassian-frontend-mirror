@@ -1,5 +1,15 @@
 # @atlaskit/feedback-collector
 
+## 13.2.0
+
+### Minor Changes
+
+- [#43003](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43003) [`84ce39f5f04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84ce39f5f04) - Fix shouldShowOptInCheckboxes to not always return undefined
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.3
 
 ### Patch Changes

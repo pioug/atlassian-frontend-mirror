@@ -4,7 +4,7 @@ import { Flex } from '@atlaskit/primitives';
 import { components, MenuListComponentProps } from '@atlaskit/select';
 import Spinner from '@atlaskit/spinner';
 
-import { SelectOption } from '../../types';
+import { BasicFilterFieldType, SelectOption } from '../../types';
 import ShowMoreButton from '../async-popup-select/showMoreButton';
 
 import CustomErrorMessage from './errorMessage';
@@ -18,9 +18,11 @@ type CustomProps = {
   isEmpty?: boolean;
   showMore?: boolean;
   handleShowMore: () => void;
+  filterType: BasicFilterFieldType;
 };
 
 const CustomMenuList = ({
+  filterType,
   isLoading,
   isLoadingMore,
   isError,
@@ -49,7 +51,7 @@ const CustomMenuList = ({
     }
 
     if (isEmpty) {
-      return <CustomNoOptionsMessage />;
+      return <CustomNoOptionsMessage filterType={filterType} />;
     }
 
     return (

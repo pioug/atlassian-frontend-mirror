@@ -8,7 +8,6 @@ import type {
   MediaADFAttrs,
   RichMediaLayout as MediaSingleLayout,
 } from '@atlaskit/adf-schema';
-import { getMediaFeatureFlag } from '@atlaskit/media-common';
 
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import {
@@ -105,8 +104,7 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
     widthType,
     allowCaptions = false,
   } = props;
-  const isCaptionsFlaggedOn = getMediaFeatureFlag('captions', featureFlags);
-  const showCaptions = allowCaptions ? allowCaptions : isCaptionsFlaggedOn;
+
   const [externalImageDimensions, setExternalImageDimensions] = React.useState({
     width: 0,
     height: 0,
@@ -228,7 +226,7 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
         fullWidthMode={isFullWidth}
       >
         <Fragment>{mediaComponent}</Fragment>
-        {showCaptions && caption}
+        {allowCaptions && caption}
       </UIMediaSingle>
     );
   };

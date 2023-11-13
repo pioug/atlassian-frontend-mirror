@@ -1,5 +1,11 @@
 # @atlaskit/media-client-react
 
+## 1.4.0
+
+### Minor Changes
+
+- [#43014](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43014) [`f021d31543e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f021d31543e) - create useFileState hook versions of header and itemviewer, create list-v2, refactor MediaFileStateError to media-client-react
+
 ## 1.3.1
 
 ### Patch Changes

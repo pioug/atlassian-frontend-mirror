@@ -1,5 +1,21 @@
 # @atlaskit/link-create
 
+## 1.9.0
+
+### Minor Changes
+
+- [#43068](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43068) [`76817bfbd5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76817bfbd5d) - EDM-8402: under a FF platform.linking-platform.link-create.enable-edit internally refactor onCloseComplete hook to be conditionally called when active prop is false
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.8.1
+
+### Patch Changes
+
+- [#43001](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43001) [`7eed2972d58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7eed2972d58) - Internal refactor moving show exit warning modal conditions to React context
+
 ## 1.8.0
 
 ### Minor Changes

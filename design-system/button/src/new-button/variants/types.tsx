@@ -23,7 +23,7 @@ type Combine<First, Second> = Omit<First, keyof Second> & Second;
 
 export type CommonButtonProps<TagName extends HTMLElement> = {
   /**
-   * The base styling to apply to the button
+   * The button style variation
    */
   appearance?: Appearance;
   /**
@@ -35,11 +35,11 @@ export type CommonButtonProps<TagName extends HTMLElement> = {
    */
   overlay?: React.ReactNode;
   /**
-   * Set if the button is disabled
+   * Disable the button to prevent user interaction
    */
   isDisabled?: boolean;
   /**
-   * Change the style to indicate the button is selected
+   * Indicates that the button is selected
    */
   isSelected?: boolean;
   /**
@@ -58,11 +58,11 @@ export type CommonButtonProps<TagName extends HTMLElement> = {
    */
   onFocus?: React.FocusEventHandler<TagName>;
   /**
-   * Set the amount of padding in the button
+   * Controls the amount of padding in the button
    */
   spacing?: Spacing;
   /**
-   * Text content to be rendered in the button
+   * Text content to be rendered in the button. Required so that screen readers always have an accessible label provided for the button.
    */
   children: React.ReactNode;
   /**
@@ -70,8 +70,8 @@ export type CommonButtonProps<TagName extends HTMLElement> = {
    */
   testId?: string;
   /**
-   * An optional name used to identify this component to press listeners. E.g. interaction tracing
-   * @see https://hello.atlassian.net/wiki/spaces/UFO/pages/2010358949/UFO+Integration+into+Design+System+components
+   * An optional name used to identify this component to press listeners. For example, interaction tracing. For more information,
+   * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration)
    */
   interactionName?: string;
   /**
@@ -79,6 +79,8 @@ export type CommonButtonProps<TagName extends HTMLElement> = {
    */
   analyticsContext?: Record<string, any>;
 };
+
+export type SupportedElements = HTMLButtonElement | HTMLAnchorElement;
 
 type SupportedElementAttributes =
   | React.ButtonHTMLAttributes<HTMLButtonElement>
@@ -104,6 +106,11 @@ export type AdditionalHTMLElementPropsExtender<
 >;
 
 /**
+ * Common additional props for button `<button>` variants
+ */
+export type AdditionalButtonVariantProps = {};
+
+/**
  * Combines common button props with additional HTML attributes.
  */
 export type CombinedButtonProps<
@@ -114,23 +121,35 @@ export type CombinedButtonProps<
 /**
  * Common props for Button `<button>` variants
  */
-export type CommonButtonVariantProps = CombinedButtonProps<
-  HTMLButtonElement,
-  AdditionalHTMLElementPropsExtender<
-    React.ButtonHTMLAttributes<HTMLButtonElement>
-  >
->;
+export type CommonButtonVariantProps = AdditionalButtonVariantProps &
+  CombinedButtonProps<
+    HTMLButtonElement,
+    AdditionalHTMLElementPropsExtender<
+      React.ButtonHTMLAttributes<HTMLButtonElement>
+    >
+  >;
+
+/**
+ * Common additional props for Link `<a>` Button variants
+ */
+export type AdditionalLinkVariantProps<
+  RouterLinkConfig extends Record<string, any> = never,
+> = {
+  /**
+   * Provides a URL for link buttons. When using an AppProvider with a configured router link component, a `RouterLinkConfig` object type can be provided for advanced usage. See the [Link Button routing example](https://atlassian.design/components/button/button-new/examples#routing) for more details.
+   */
+  href: string | RouterLinkConfig;
+};
 
 /**
  * Common props for Link `<a>` Button variants
  */
 export type CommonLinkVariantProps<
   RouterLinkConfig extends Record<string, any> = never,
-> = {
-  href: string | RouterLinkConfig;
-} & CombinedButtonProps<
-  HTMLAnchorElement,
-  AdditionalHTMLElementPropsExtender<
-    Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
-  >
->;
+> = AdditionalLinkVariantProps<RouterLinkConfig> &
+  CombinedButtonProps<
+    HTMLAnchorElement,
+    AdditionalHTMLElementPropsExtender<
+      Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
+    >
+  >;

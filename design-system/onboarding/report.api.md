@@ -124,6 +124,7 @@ interface SpotlightCardProps {
   };
   heading?: ReactNode;
   headingAfterElement?: ReactNode;
+  headingId?: string;
   image?: ReactNode | string;
   // @deprecated (undocumented)
   innerRef?: Ref<HTMLDivElement> | null;

@@ -64,6 +64,7 @@ describe('<LinkCreate />', () => {
   let onCompleteMock: jest.Mock;
   let onFailureMock: jest.Mock;
   let onCancelMock: jest.Mock;
+  let onCloseCompleteMock: jest.Mock;
   let onAnalyticsEventMock: jest.Mock;
 
   const testId = 'link-create';
@@ -74,6 +75,7 @@ describe('<LinkCreate />', () => {
     onCompleteMock = jest.fn();
     onFailureMock = jest.fn();
     onCancelMock = jest.fn();
+    onCloseCompleteMock = jest.fn();
     onAnalyticsEventMock = jest.fn();
   });
 
@@ -123,6 +125,7 @@ describe('<LinkCreate />', () => {
               onFailure={onFailureMock}
               onCreate={onCreateMock}
               onCancel={onCancelMock}
+              onCloseComplete={onCloseCompleteMock}
               {...props}
             />
           </AnalyticsListener>
@@ -152,6 +155,7 @@ describe('<LinkCreate />', () => {
     });
 
     expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(onCloseCompleteMock).toBeCalledTimes(0);
 
     rerender({ active: false });
 
@@ -162,6 +166,7 @@ describe('<LinkCreate />', () => {
     await waitFor(() => {
       expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
     });
+    expect(onCloseCompleteMock).toBeCalledTimes(1);
   });
 
   it('should fire screen viewed analytics event when it opens', async () => {
@@ -695,11 +700,60 @@ describe('<LinkCreate />', () => {
       );
     });
 
+    describe('onCloseComplete should only be called when active changes from `true` to `false`', () => {
+      ffTest(
+        'platform.linking-platform.link-create.enable-edit',
+        async () => {
+          const { rerender } = setUpLinkCreate({
+            active: true,
+            plugins: [pluginWithEdit],
+            onComplete: onCompleteMock,
+          });
+          expect(onCloseCompleteMock).not.toHaveBeenCalled();
+
+          rerender({ active: false });
+
+          // Expect it is still visible temporarily while transitioning out
+          expect(screen.getByTestId('link-create-modal')).toBeInTheDocument();
+
+          // Exits
+          await waitFor(() => {
+            expect(
+              screen.queryByTestId('link-create-modal'),
+            ).not.toBeInTheDocument();
+          });
+          expect(onCloseCompleteMock).toHaveBeenCalled();
+        },
+        async () => {
+          const { rerender } = setUpLinkCreate({
+            active: true,
+            plugins: [pluginWithEdit],
+            onComplete: onCompleteMock,
+          });
+          expect(onCloseCompleteMock).not.toHaveBeenCalled();
+
+          rerender({ active: false });
+
+          // Expect it is still visible temporarily while transitioning out
+          expect(screen.getByTestId('link-create-modal')).toBeInTheDocument();
+
+          // Exits
+          await waitFor(() => {
+            expect(
+              screen.queryByTestId('link-create-modal'),
+            ).not.toBeInTheDocument();
+          });
+          expect(onCloseCompleteMock).toHaveBeenCalled();
+        },
+      );
+    });
+
     describe('with create form + edit view should render editView when edit button is clicked', () => {
       ffTest(
         'platform.linking-platform.link-create.enable-edit',
         async () => {
-          setUpLinkCreate({
+          const { rerender } = setUpLinkCreate({
+            active: true,
             plugins: [pluginWithEdit],
             onComplete: onCompleteMock,
           });
@@ -720,6 +774,7 @@ describe('<LinkCreate />', () => {
               screen.queryByTestId('link-create-edit-modal'),
             ).toBeInTheDocument();
           });
+          expect(onCloseCompleteMock).not.toHaveBeenCalled();
 
           expect(onSubmitSpy).toBeCalled();
           expect(onCreateMock).toBeCalledWith(
@@ -738,7 +793,21 @@ describe('<LinkCreate />', () => {
             name: 'Finish',
           });
           await userEvent.click(editCloseButton);
-          expect(onCompleteMock).toBeCalledTimes(1);
+          rerender({
+            active: false,
+            plugins: [pluginWithEdit],
+            onComplete: onCompleteMock,
+          });
+
+          expect(
+            screen.queryByTestId('link-create-edit-modal'),
+          ).toBeInTheDocument();
+          await waitFor(() => {
+            expect(
+              screen.queryByTestId('link-create-edit-modal'),
+            ).not.toBeInTheDocument();
+          });
+          expect(onCloseCompleteMock).toBeCalledTimes(1);
         },
         async () => {
           setUpLinkCreate({

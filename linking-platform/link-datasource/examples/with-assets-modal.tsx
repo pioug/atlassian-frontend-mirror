@@ -6,7 +6,6 @@ import Button from '@atlaskit/button/standard-button';
 import { CodeBlock } from '@atlaskit/code';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/assets';
-import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import { InlineCardAdf } from '@atlaskit/linking-common';
 
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';
@@ -18,7 +17,6 @@ import {
 import JSMAssetsConfigModal from '../src/ui/assets-modal';
 
 export default () => {
-  mockDatasourceFetchRequests();
   mockAssetsClientFetchRequests();
   const [generatedAdf, setGeneratedAdf] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(true);

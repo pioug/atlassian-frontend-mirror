@@ -15,7 +15,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { SmartCardContext } from '@atlaskit/link-provider';
+import type { CardContext } from '@atlaskit/link-provider';
 import type { APIError, CardPlatform } from '@atlaskit/smart-card';
 
 import type { cardPlugin } from '../index';
@@ -44,10 +44,13 @@ export interface CardProps extends CardNodeViewProps {
   useAlternativePreloader?: boolean;
   showServerActions?: boolean;
   pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
+  isOverlayEnabled?: boolean;
+  isPulseEnabled?: boolean;
+  linkPosition?: number;
 }
 
 export interface SmartCardProps extends CardProps {
-  cardContext?: EditorContext<typeof SmartCardContext>;
+  cardContext?: EditorContext<CardContext | undefined>;
 }
 
 export function Card(

@@ -5,7 +5,6 @@ import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { JiraSearchMethod } from '../../../common/types';
@@ -25,7 +24,6 @@ import { modeSwitcherMessages } from './messages';
 const inputContainerStyles = css({
   alignItems: 'baseline',
   display: 'flex',
-  gap: token('space.250', '20px'),
   minHeight: '60px',
 });
 

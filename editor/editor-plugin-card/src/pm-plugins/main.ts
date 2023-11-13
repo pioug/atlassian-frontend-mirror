@@ -13,8 +13,10 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { eventsFromTransaction } from '../analytics/events-from-tr';
+import { isLocalStorageKeyDiscovered } from '../common/local-storage';
 import type { cardPlugin } from '../index';
 import type { BlockCardNodeViewProps } from '../nodeviews/blockCard';
 import { BlockCard } from '../nodeviews/blockCard';
@@ -23,6 +25,7 @@ import type { EmbedCardNodeViewProps } from '../nodeviews/embedCard';
 import { EmbedCard } from '../nodeviews/embedCard';
 import { InlineCardNodeView } from '../nodeviews/inlineCard';
 import type { CardPluginOptions, CardPluginState } from '../types';
+import { isEmbedSupportedAtPosition } from '../utils';
 
 import {
   setCardLayoutAndDatasourceTableRef,
@@ -38,6 +41,8 @@ import {
 } from './util/state';
 
 export { pluginKey } from './plugin-key';
+
+const LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK = 'smart-link-upgrade-pulse';
 
 export const createPlugin =
   (
@@ -55,12 +60,25 @@ export const createPlugin =
       fullWidthMode,
       showServerActions,
       cardPluginEvents,
+      showUpgradeDiscoverability,
+      allowEmbeds,
+      allowBlockCards,
     } = options;
+
+    const enableInlineUpgradeFeatures =
+      !!showUpgradeDiscoverability && platform !== 'mobile';
 
     const inlineCardViewProducer = getInlineNodeViewProducer({
       pmPluginFactoryParams,
       Component: InlineCardNodeView,
-      extraComponentProps: { useAlternativePreloader, showServerActions },
+      extraComponentProps: {
+        useAlternativePreloader,
+        showServerActions,
+        enableInlineUpgradeFeatures,
+        allowEmbeds,
+        allowBlockCards,
+        pluginInjectionApi,
+      },
     });
 
     return new SafePlugin({
@@ -96,11 +114,48 @@ export const createPlugin =
             cardPluginEvents.push(...events);
           }
 
-          if (meta) {
+          if (!meta) {
+            return pluginStateWithUpdatedPos;
+          }
+
+          if (
+            !getBooleanFF(
+              'platform.linking-platform.smart-card.inline-switcher',
+            )
+          ) {
             return reducer(pluginStateWithUpdatedPos, meta);
           }
 
-          return pluginStateWithUpdatedPos;
+          const newState = reducer(pluginStateWithUpdatedPos, meta);
+
+          // the code below is related to the "Inline Switcher" project, for more information pls see EDM-7984
+          const isSingleInlineLink =
+            pluginState?.requests?.length === 1 &&
+            pluginState.requests[0].appearance === 'inline';
+
+          const isSmartLinkPulseDiscovered = isLocalStorageKeyDiscovered(
+            LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK,
+          );
+
+          if (
+            meta.type !== 'RESOLVE' ||
+            !enableInlineUpgradeFeatures ||
+            isSmartLinkPulseDiscovered ||
+            !isSingleInlineLink
+          ) {
+            return newState;
+          }
+
+          const linkPosition = pluginState.requests[0].pos;
+          const canBeUpgradedToEmbed =
+            allowEmbeds &&
+            isEmbedSupportedAtPosition(linkPosition, prevEditorState, 'inline');
+
+          if (canBeUpgradedToEmbed) {
+            newState.inlineCardAwarenessCandidatePosition = linkPosition;
+          }
+
+          return newState;
         },
       },
 

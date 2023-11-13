@@ -17,7 +17,7 @@ describe('Shortcut', () => {
 
     const el = mount(
       <div>
-        <Shortcut keyCode={37} handler={() => {}} />
+        <Shortcut code={'ArrowLeft'} handler={() => {}} />
       </div>,
     );
 
@@ -27,14 +27,14 @@ describe('Shortcut', () => {
   it('should execute handler', (done) => {
     mount(
       <div>
-        <Shortcut keyCode={37} handler={done} />
+        <Shortcut code={'ArrowLeft'} handler={done} />
       </div>,
     );
 
     const e = new KeyboardEvent('keydown', {
       bubbles: true,
       cancelable: true,
-      keyCode: 37,
+      code: 'ArrowLeft',
     } as any);
     document.dispatchEvent(e);
     expect(document.dispatchEvent(e)).toBeTruthy();

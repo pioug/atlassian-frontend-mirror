@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-card
 
+## 0.13.0
+
+### Minor Changes
+
+- [#42692](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42692) [`755bedc2db1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/755bedc2db1) - [ux] Added functionality for Inline Card pulse that should surface only on the first inserted link of the day.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.12.2
 
 ### Patch Changes

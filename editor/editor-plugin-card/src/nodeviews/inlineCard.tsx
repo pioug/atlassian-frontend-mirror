@@ -13,6 +13,10 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
 import { registerCard } from '../pm-plugins/actions';
+import {
+  isBlockSupportedAtPosition,
+  isEmbedSupportedAtPosition,
+} from '../utils';
 
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
@@ -111,28 +115,78 @@ const WrappedInlineCardWithAwareness = Card(
 
 export type InlineCardNodeViewProps = Pick<
   SmartCardProps,
-  'useAlternativePreloader' | 'showServerActions'
+  | 'useAlternativePreloader'
+  | 'showServerActions'
+  | 'allowEmbeds'
+  | 'allowBlockCards'
+  | 'enableInlineUpgradeFeatures'
+  | 'pluginInjectionApi'
 >;
 
-export function InlineCardNodeView(
-  props: InlineNodeViewComponentProps & InlineCardNodeViewProps,
-) {
-  const { useAlternativePreloader, node, view, getPos, showServerActions } =
-    props;
+type InlineCardWithAwarenessProps = {
+  allowEmbeds?: boolean;
+  allowBlockCards?: boolean;
+  enableInlineUpgradeFeatures: boolean;
+};
 
-  const WrappedCard = getBooleanFF(
-    'platform.linking-platform.smart-card.inline-switcher',
-  )
-    ? WrappedInlineCardWithAwareness
-    : WrappedInlineCard;
+export function InlineCardNodeView(
+  props: InlineNodeViewComponentProps &
+    InlineCardNodeViewProps &
+    InlineCardWithAwarenessProps,
+) {
+  const {
+    useAlternativePreloader,
+    node,
+    view,
+    getPos,
+    showServerActions,
+    allowEmbeds,
+    allowBlockCards,
+    enableInlineUpgradeFeatures,
+    pluginInjectionApi,
+  } = props;
+
+  if (!getBooleanFF('platform.linking-platform.smart-card.inline-switcher')) {
+    return (
+      <WrappedInlineCard
+        node={node}
+        view={view}
+        getPos={getPos}
+        showServerActions={showServerActions}
+        useAlternativePreloader={useAlternativePreloader}
+      />
+    );
+  }
+
+  const editorState = view.state;
+  const linkPosition =
+    getPos && typeof getPos() === 'number' ? getPos() : undefined;
+
+  const canBeUpgradedToEmbed =
+    !!linkPosition && allowEmbeds
+      ? isEmbedSupportedAtPosition(linkPosition, editorState, 'inline')
+      : false;
+
+  const canBeUpgradedToBlock =
+    !!linkPosition && allowBlockCards
+      ? isBlockSupportedAtPosition(linkPosition, editorState, 'inline')
+      : false;
+
+  const isPulseEnabled = enableInlineUpgradeFeatures && canBeUpgradedToEmbed;
+  const isOverlayEnabled =
+    enableInlineUpgradeFeatures &&
+    (canBeUpgradedToEmbed || canBeUpgradedToBlock);
 
   return (
-    <WrappedCard
+    <WrappedInlineCardWithAwareness
       node={node}
       view={view}
       getPos={getPos}
       showServerActions={showServerActions}
       useAlternativePreloader={useAlternativePreloader}
+      isOverlayEnabled={isOverlayEnabled}
+      isPulseEnabled={isPulseEnabled}
+      pluginInjectionApi={pluginInjectionApi}
     />
   );
 }

@@ -181,7 +181,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
   private onViewerLoad = (selectedArchiveEntry: ZipEntry) => () => {
     fireAnalytics(
       createZipEntryLoadSucceededEvent(this.props.item, selectedArchiveEntry),
-      this.props,
+      this.props.createAnalyticsEvent,
     );
   };
 
@@ -386,11 +386,11 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
   }
 
   private renderPreviewError(error: ArchiveViewerError, entry?: ZipEntry) {
-    const { item } = this.props;
+    const { item, createAnalyticsEvent } = this.props;
 
     fireAnalytics(
-      createZipEntryLoadFailedEvent(this.props.item, error, entry),
-      this.props,
+      createZipEntryLoadFailedEvent(item, error, entry),
+      createAnalyticsEvent,
     );
 
     return (

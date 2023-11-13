@@ -71,6 +71,13 @@ test.describe('task and decisions: keyboard stuff', () => {
     test('arrow-up-from-decision-node.ts: pressing arrow up in decision node should move cursor into paragraph above without content', async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-20855',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 12/11/2023: https://product-fabric.atlassian.net/browse/ED-20855',
+        browsers: [BROWSERS.firefox],
+      });
+
       await editor.selection.set({ anchor: 4, head: 4 });
 
       await editor.keyboard.press('ArrowUp');

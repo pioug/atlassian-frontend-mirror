@@ -19,6 +19,7 @@ const PADDING_IN_PX = 2;
 
 const containerStyles = css({
   position: 'relative',
+  lineHeight: 'normal',
 });
 
 const linkStyles = css({

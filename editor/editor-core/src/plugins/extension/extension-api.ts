@@ -14,9 +14,9 @@ import type {
 import { Fragment, Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
-import type { MacroProvider } from '../macro';
-import { insertMacroFromMacroBrowser } from '../macro';
-import { pluginKey as macroPluginKey } from '../macro/plugin-key';
+import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
+import { insertMacroFromMacroBrowser } from './pm-plugins/macro/actions';
+import { pluginKey as macroPluginKey } from './pm-plugins/macro/plugin-key';
 import { nodeToJSON } from '../../utils';
 import { setEditingContextToContextPanel } from './commands';
 import {

@@ -367,6 +367,7 @@ export const Pulse: ({
   children,
   isDiscovered,
   onAnimationIteration,
+  onAnimationStart,
 }: PulseProps) => jsx.JSX.Element;
 
 // @public (undocumented)
@@ -377,6 +378,8 @@ interface PulseProps {
   isDiscovered?: boolean;
   // (undocumented)
   onAnimationIteration?: React.AnimationEventHandler<HTMLSpanElement>;
+  // (undocumented)
+  onAnimationStart?: React.AnimationEventHandler<HTMLSpanElement>;
 }
 
 // @public (undocumented)

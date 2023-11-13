@@ -1,10 +1,10 @@
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { ACTION } from '@atlaskit/editor-common/analytics';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { ACTION } from '@atlaskit/editor-common/analytics';
 import type {
   CardOptions,
   CardReplacementInputMethod,
 } from '@atlaskit/editor-common/card';
-import {
+import type {
   CardAppearance,
   CardProvider,
 } from '@atlaskit/editor-common/provider-factory';
@@ -13,11 +13,11 @@ import type {
   EditorAppearance,
   LinkPickerOptions,
 } from '@atlaskit/editor-common/types';
-import { SmartLinkEvents } from '@atlaskit/smart-card';
+import type { SmartLinkEvents } from '@atlaskit/smart-card';
 
-import { EditorCardPluginEvents } from './analytics/create-events-queue';
-import { CardPluginEvent } from './analytics/types';
-import { DatasourceTableLayout } from './ui/LayoutButton/types';
+import type { EditorCardPluginEvents } from './analytics/create-events-queue';
+import type { CardPluginEvent } from './analytics/types';
+import type { DatasourceTableLayout } from './ui/LayoutButton/types';
 
 export type CardInfo = {
   title?: string;
@@ -90,6 +90,10 @@ export type CardPluginState = {
   datasourceModalType?: DatasourceModalType;
   datasourceTableRef?: HTMLElement;
   layout?: DatasourceTableLayout;
+  inlineCardAwarenessCandidatePosition?: number;
+  selectedInlineLinkPosition?: number;
+  allowEmbeds?: boolean;
+  allowBlockCards?: boolean;
 };
 
 export type CardPluginOptions = CardOptions & {

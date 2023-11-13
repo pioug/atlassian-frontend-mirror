@@ -9,9 +9,6 @@ import type {
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 
-import type { MacroState } from '../macro';
-import { insertMacroFromMacroBrowser } from '../macro';
-import WithPluginState from '../../ui/WithPluginState';
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
 import {
   BLOCK_QUOTE,
@@ -19,9 +16,7 @@ import {
   PANEL,
 } from '@atlaskit/editor-plugin-block-type/consts';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { pluginKey as macroStateKey } from '../macro/plugin-key';
-import { ToolbarSize } from '../../ui/Toolbar/types';
-
+import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { InsertBlockPluginDependencies } from './types';
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
@@ -100,35 +95,23 @@ const insertBlockPlugin: NextEditorPlugin<
       isLastItem,
     }) {
       const renderNode = (providers: Providers) => {
-        // We will slowly migrate these to use the new approach inside
-        // `ToolbarInsertBlockWithInjectionApi` and remove `WithPluginState`
         return (
-          <WithPluginState
-            plugins={{
-              macroState: macroStateKey,
-            }}
-            render={({ macroState = {} as MacroState }) => {
-              return (
-                <ToolbarInsertBlockWithInjectionApi
-                  pluginInjectionApi={api}
-                  editorView={editorView}
-                  editorActions={editorActions}
-                  dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-                  providerFactory={providerFactory}
-                  popupsMountPoint={popupsMountPoint}
-                  popupsBoundariesElement={popupsBoundariesElement}
-                  popupsScrollableElement={popupsScrollableElement}
-                  toolbarSize={toolbarSize}
-                  disabled={disabled}
-                  isToolbarReducedSpacing={isToolbarReducedSpacing}
-                  isLastItem={isLastItem}
-                  featureFlags={featureFlags}
-                  macroState={macroState}
-                  providers={providers}
-                  options={options}
-                />
-              );
-            }}
+          <ToolbarInsertBlockWithInjectionApi
+            pluginInjectionApi={api}
+            editorView={editorView}
+            editorActions={editorActions}
+            dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+            providerFactory={providerFactory}
+            popupsMountPoint={popupsMountPoint}
+            popupsBoundariesElement={popupsBoundariesElement}
+            popupsScrollableElement={popupsScrollableElement}
+            toolbarSize={toolbarSize}
+            disabled={disabled}
+            isToolbarReducedSpacing={isToolbarReducedSpacing}
+            isLastItem={isLastItem}
+            featureFlags={featureFlags}
+            providers={providers}
+            options={options}
           />
         );
       };
@@ -153,9 +136,6 @@ interface ToolbarInsertBlockWithInjectionApiProps
   pluginInjectionApi: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined;
   options: InsertBlockOptions;
   featureFlags: FeatureFlags;
-  // As part of Scalability project we are removing plugin keys
-  // As we do this these props below will disappear
-  macroState: MacroState;
 }
 
 function ToolbarInsertBlockWithInjectionApi({
@@ -172,7 +152,6 @@ function ToolbarInsertBlockWithInjectionApi({
   providers,
   pluginInjectionApi,
   options,
-  macroState,
   featureFlags,
 }: ToolbarInsertBlockWithInjectionApiProps) {
   const buttons = toolbarSizeToButtons(toolbarSize);
@@ -245,10 +224,9 @@ function ToolbarInsertBlockWithInjectionApi({
         pluginInjectionApi?.panel?.actions.insertPanel,
         pluginInjectionApi?.blockType?.actions.insertBlockQuote,
       )}
-      onInsertMacroFromMacroBrowser={insertMacroFromMacroBrowser(
-        pluginInjectionApi?.analytics?.actions,
-      )}
-      macroProvider={macroState.macroProvider}
+      onInsertMacroFromMacroBrowser={
+        pluginInjectionApi?.extension?.actions.insertMacroFromMacroBrowser
+      }
       popupsMountPoint={popupsMountPoint}
       popupsBoundariesElement={popupsBoundariesElement}
       popupsScrollableElement={popupsScrollableElement}

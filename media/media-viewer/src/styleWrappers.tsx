@@ -64,6 +64,7 @@ type DataTestID = {
 };
 
 type BlanketProps = DataTestID & Children & ClassName;
+// We are keeping this data-testid since JIRA is still using it in their codebase to perform checks. Before removing this, we need to ensure this 'media-viewer-popup' test id is not being used anywhere else in other codebases
 export const Blanket = ({
   'data-testid': datatestId,
   className,

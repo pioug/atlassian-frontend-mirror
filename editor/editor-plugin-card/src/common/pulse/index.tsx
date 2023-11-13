@@ -7,6 +7,8 @@ import {
   markLocalStorageKeyDiscovered,
 } from '../local-storage';
 
+export type PulseDiscoveryMode = 'start' | 'iteration';
+
 export interface PulseProps {
   /**
    * The component around which the Pulse should be displayed
@@ -26,6 +28,12 @@ export interface PulseProps {
    * And indicator that the feature was discovered externally and the pulsation needs to stop.
    */
   isDiscovered?: boolean;
+
+  /**
+   * Indicates when the feature is considered discovered. If "start" is passed, local storage key will be invalidated
+   * as soon as the animation starts. If "iteration" is passed (the default one), it will be invalidated after the first iteration
+   */
+  discoveryMode?: PulseDiscoveryMode;
 }
 
 export const DiscoveryPulse = ({
@@ -33,6 +41,7 @@ export const DiscoveryPulse = ({
   localStorageKey,
   isDiscovered,
   localStorageKeyExpirationInMs,
+  discoveryMode = 'iteration',
 }: PulseProps) => {
   const discovered =
     isDiscovered || isLocalStorageKeyDiscovered(localStorageKey);
@@ -46,11 +55,14 @@ export const DiscoveryPulse = ({
     }
   }, [discovered, localStorageKey, localStorageKeyExpirationInMs]);
 
-  return (
-    <Pulse onAnimationIteration={onDiscovery} isDiscovered={discovered}>
-      {children}
-    </Pulse>
-  );
+  const pulseProps = {
+    onAnimationStart: discoveryMode === 'start' ? onDiscovery : undefined,
+    onAnimationIteration:
+      discoveryMode === 'iteration' ? onDiscovery : undefined,
+    isDiscovered: discovered,
+  };
+
+  return <Pulse {...pulseProps}>{children}</Pulse>;
 };
 
 export default Pulse;

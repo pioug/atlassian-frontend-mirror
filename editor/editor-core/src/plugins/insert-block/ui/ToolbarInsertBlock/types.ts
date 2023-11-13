@@ -47,7 +47,6 @@ export interface Props {
   popupsMountPoint?: HTMLElement;
   popupsBoundariesElement?: HTMLElement;
   popupsScrollableElement?: HTMLElement;
-  macroProvider?: MacroProvider | null;
   insertMenuItems?: MenuItem[];
   showElementBrowserLink?: boolean;
   showSeparator?: boolean;

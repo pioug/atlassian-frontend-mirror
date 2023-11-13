@@ -45,6 +45,24 @@ interface MediaClientProviderProp {
 }
 
 // @public (undocumented)
+export class MediaFileStateError extends Error {
+  constructor(
+    id: string,
+    reason?: string | undefined,
+    message?: string,
+    details?: Record<string, any> | undefined,
+  );
+  // (undocumented)
+  readonly details?: Record<string, any> | undefined;
+  // (undocumented)
+  readonly id: string;
+  // (undocumented)
+  readonly message: string;
+  // (undocumented)
+  readonly reason?: string | undefined;
+}
+
+// @public (undocumented)
 export function useFileState(
   id: string,
   options?: UseFileStateOptions,

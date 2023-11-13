@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-paste
 
+## 0.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.1.5
+
+### Patch Changes
+
+- [#43042](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43042) [`fd547efa4e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd547efa4e5) - Remove `macro` editor plugin and migrate functionality into extension plugin.
+
 ## 0.1.4
 
 ### Patch Changes

@@ -23,7 +23,7 @@ jest.mock('@atlaskit/editor-common/ui', () => ({
   WidthProvider: jest.fn(),
 }));
 
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -33,6 +33,7 @@ import { inlineCard } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { Card } from '@atlaskit/smart-card';
 
+import * as useLinkUpgradeDiscoverabilityHook from '../../../common/hooks/useLinkUpgradeDiscoverability';
 import { InlineCardComponent } from '../../../nodeviews/inlineCard';
 import { InlineCardWithAwareness } from '../../../nodeviews/inlineCardWithAwareness';
 import { createCardContext } from '../_helpers';
@@ -49,7 +50,7 @@ describe('inlineCard', () => {
   beforeEach(() => {
     (Card as any).mockImplementation((props: any) => {
       mockSmartCardRender(props);
-      return <div data-testid="mockSmartCard" />;
+      return <div onClick={props.onClick} data-testid="mockSmartCard" />;
     });
     mockFindOverflowScrollParent = jest.fn();
     mockEditorView = {
@@ -71,7 +72,14 @@ describe('inlineCard', () => {
         title: 'my-title',
         url: 'https://my.url.com',
       });
-      return <div className="smart-card-mock">{props.url}</div>;
+      const onClick = () => {
+        props.onClick();
+      };
+      return (
+        <div onClick={onClick} className="smart-card-mock">
+          {props.url}
+        </div>
+      );
     });
   });
 
@@ -321,4 +329,83 @@ describe('inlineCard', () => {
       );
     },
   );
+
+  describe('isPulseEnabled', () => {
+    const mockInlinePmNode = inlineCard({ url: 'https://some/url' })()(
+      defaultSchema,
+    );
+
+    const setup = () =>
+      render(
+        <InlineCardWithAwareness
+          node={mockInlinePmNode}
+          view={mockEditorView}
+          getPos={() => 0}
+          cardContext={createCardContext()}
+          useAlternativePreloader={false}
+          isPulseEnabled={true}
+        />,
+        { wrapper: TestWrapper },
+      );
+
+    beforeEach(() => {
+      localStorage.clear();
+    });
+
+    it('should show pulse if shouldShowLinkPulse returned from the useLinkUpgradeDiscoverability hook is true', () => {
+      jest.spyOn(useLinkUpgradeDiscoverabilityHook, 'default').mockReturnValue({
+        shouldShowLinkPulse: true,
+        shouldShowLinkOverlay: true,
+        shouldShowToolbarPulse: true,
+      });
+
+      const { getByTestId } = setup();
+
+      const cardElement = getByTestId('mockSmartCard');
+      expect(cardElement).toBeInTheDocument();
+      expect(getByTestId('discovery-pulse')).toBeDefined();
+    });
+
+    it('should not show pulse if shouldShowLinkPulse returned from the useLinkUpgradeDiscoverability hook is false', () => {
+      jest.spyOn(useLinkUpgradeDiscoverabilityHook, 'default').mockReturnValue({
+        shouldShowLinkPulse: false,
+        shouldShowLinkOverlay: true,
+        shouldShowToolbarPulse: true,
+      });
+
+      const { getByTestId, queryByTestId } = setup();
+
+      const cardElement = getByTestId('mockSmartCard');
+      expect(cardElement).toBeInTheDocument();
+      expect(queryByTestId('discovery-pulse')).toBeFalsy();
+    });
+
+    it('should invalidate the local storage key with an expiration of 1 day when the pulse starts', () => {
+      jest.spyOn(useLinkUpgradeDiscoverabilityHook, 'default').mockReturnValue({
+        shouldShowLinkPulse: true,
+        shouldShowLinkOverlay: true,
+        shouldShowToolbarPulse: true,
+      });
+
+      const { getByTestId } = setup();
+
+      const cardElement = getByTestId('mockSmartCard');
+      expect(cardElement).toBeInTheDocument();
+
+      const pulse = getByTestId('discovery-pulse');
+      expect(pulse).toBeDefined();
+
+      fireEvent.animationStart(pulse);
+
+      const localStorageValue = localStorage.getItem(
+        '@atlaskit/editor-plugin-card_smart-link-upgrade-pulse',
+      );
+      expect(localStorage).toBeDefined();
+
+      expect(JSON.parse(localStorageValue || '')).toMatchObject({
+        value: 'discovered',
+        expires: expect.any(Number),
+      });
+    });
+  });
 });

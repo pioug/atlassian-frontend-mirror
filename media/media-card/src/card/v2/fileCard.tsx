@@ -18,7 +18,10 @@ import {
   isFileIdentifier,
   isImageRepresentationReady,
 } from '@atlaskit/media-client';
-import { useFileState } from '@atlaskit/media-client-react';
+import {
+  MediaFileStateError,
+  useFileState,
+} from '@atlaskit/media-client-react';
 import {
   MediaTraceContext,
   SSR,
@@ -34,7 +37,6 @@ import {
   ImageLoadError,
   LocalPreviewError,
   MediaCardError,
-  MediaFileStateError,
   ensureMediaCardError,
   isLocalPreviewError,
   isUnsupportedLocalPreviewError,

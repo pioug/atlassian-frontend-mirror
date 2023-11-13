@@ -13,13 +13,13 @@ import Modal, {
 
 import { Button } from '../../../common/ui/Button';
 import { ScreenViewedEvent } from '../../../common/utils/analytics/components';
+import { useLinkCreateCallback } from '../../../controllers/callback-context';
 
 import messages from './messages';
 
 export type ConfirmDismissDialogProps = {
   active: boolean;
-  onCancelDismiss?: () => void;
-  onConfirmDismiss?: () => void;
+  onClose: () => void;
 };
 
 const screen = 'linkCreateExitWarningScreen';
@@ -28,10 +28,17 @@ const context = { component: screen, source: screen };
 
 export const ConfirmDismissDialog = ({
   active,
-  onCancelDismiss,
-  onConfirmDismiss,
+  onClose,
 }: ConfirmDismissDialogProps) => {
   const intl = useIntl();
+  const { onCancel } = useLinkCreateCallback();
+
+  const onCancelDismiss = () => onClose();
+
+  const onConfirmDismiss = () => {
+    onClose();
+    onCancel?.();
+  };
 
   return (
     <ModalTransition>

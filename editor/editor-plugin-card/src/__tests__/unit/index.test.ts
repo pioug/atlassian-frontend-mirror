@@ -29,6 +29,7 @@ describe('cardPlugin', () => {
         platform: 'web' as 'mobile' | 'web',
         fullWidthMode: true,
         createAnalyticsEvent: expect.any(Function),
+        showUpgradeDiscoverability: true,
       };
       const spy = jest.spyOn(main, 'createPlugin');
       const editorPlugin = cardPlugin({ config: options });
@@ -55,6 +56,7 @@ describe('cardPlugin', () => {
           allowAlignment: true,
           useAlternativePreloader: true,
           cardPluginEvents: expect.any(Object),
+          showUpgradeDiscoverability: true,
         },
         undefined,
       );

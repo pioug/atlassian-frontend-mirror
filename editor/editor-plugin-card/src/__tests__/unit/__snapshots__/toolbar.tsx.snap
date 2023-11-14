@@ -44,6 +44,11 @@ Array [
     "type": "custom",
   },
   Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
     "type": "separator",
   },
   Object {
@@ -107,6 +112,11 @@ Array [
     "type": "custom",
   },
   Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
     "type": "separator",
   },
   Object {
@@ -164,6 +174,11 @@ exports[`card toolbar tests \`allowWrapping\`, \`allowAlignment\` and \`allowRes
   allowResizing: false
 } 1`] = `
 Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
   Object {
     "fallback": Array [],
     "render": [Function],
@@ -260,6 +275,11 @@ Array [
     "type": "custom",
   },
   Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
     "type": "separator",
   },
   Object {
@@ -350,6 +370,11 @@ Array [
     "type": "custom",
   },
   Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
     "type": "separator",
   },
   Object {
@@ -432,6 +457,11 @@ Array [
     "type": "custom",
   },
   Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
     "type": "separator",
   },
   Object {
@@ -508,6 +538,11 @@ exports[`card toolbar tests \`allowWrapping\`, \`allowAlignment\` and \`allowRes
   allowResizing: false
 } 1`] = `
 Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
   Object {
     "fallback": Array [],
     "render": [Function],
@@ -617,6 +652,11 @@ exports[`card toolbar tests \`allowWrapping\`, \`allowAlignment\` and \`allowRes
   allowResizing: true
 } 1`] = `
 Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
   Object {
     "fallback": Array [],
     "render": [Function],
@@ -720,6 +760,11 @@ Array [
 
 exports[`card toolbar with settings button flag returning false displays toolbar items in correct order for blockCard 1`] = `
 Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
   Object {
     "fallback": Array [],
     "render": [Function],
@@ -860,6 +905,11 @@ Array [
 
 exports[`card toolbar with settings button flag returning false displays toolbar items in correct order for embedCard 1`] = `
 Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
   Object {
     "fallback": Array [],
     "render": [Function],
@@ -1018,6 +1068,11 @@ Array [
     "type": "custom",
   },
   Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
     "type": "separator",
   },
   Object {
@@ -1086,6 +1141,11 @@ Array [
     "type": "custom",
   },
   Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
     "type": "separator",
   },
   Object {
@@ -1148,6 +1208,11 @@ Array [
 
 exports[`card toolbar with settings button flag returning true displays toolbar items in correct order for blockCard 1`] = `
 Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
   Object {
     "fallback": Array [],
     "render": [Function],
@@ -1298,6 +1363,11 @@ Array [
 
 exports[`card toolbar with settings button flag returning true displays toolbar items in correct order for embedCard 1`] = `
 Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
   Object {
     "fallback": Array [],
     "render": [Function],
@@ -1476,6 +1546,11 @@ Array [
     "type": "custom",
   },
   Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
     "type": "separator",
   },
   Object {
@@ -1554,6 +1629,11 @@ Array [
     "type": "custom",
   },
   Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
     "type": "separator",
   },
   Object {
@@ -1626,6 +1706,11 @@ Array [
 
 exports[`card toolbar with settings button flag returning undefined displays toolbar items in correct order for blockCard 1`] = `
 Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
   Object {
     "fallback": Array [],
     "render": [Function],
@@ -1766,6 +1851,11 @@ Array [
 
 exports[`card toolbar with settings button flag returning undefined displays toolbar items in correct order for embedCard 1`] = `
 Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
   Object {
     "fallback": Array [],
     "render": [Function],
@@ -1924,6 +2014,11 @@ Array [
     "type": "custom",
   },
   Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
     "type": "separator",
   },
   Object {
@@ -1986,6 +2081,11 @@ Array [
 
 exports[`card toolbar with settings button flag returning undefined displays toolbar items in correct order for inlineCard on mobile 1`] = `
 Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
   Object {
     "fallback": Array [],
     "render": [Function],

@@ -50,11 +50,17 @@ const AsyncPopupSelect = ({
   const [selectedOptions, setSelectedOptions] =
     useState<ValueType<SelectOption, true>>(selection);
 
-  const { filterOptions, fetchFilterOptions, totalCount, status, pageCursor } =
-    useFilterOptions({
-      filterType,
-      cloudId,
-    });
+  const {
+    filterOptions,
+    fetchFilterOptions,
+    totalCount,
+    status,
+    pageCursor,
+    errors,
+  } = useFilterOptions({
+    filterType,
+    cloudId,
+  });
 
   const [handleDebouncedFetchFilterOptions] = useDebouncedCallback(
     (searchString: string) => {
@@ -156,6 +162,7 @@ const AsyncPopupSelect = ({
             isLoadingMore={isLoadingMore}
             showMore={shouldDisplayShowMoreButton}
             handleShowMore={handleShowMore}
+            errors={errors}
           />
         ),
         DropdownIndicator: CustomDropdownIndicator,

@@ -99,12 +99,12 @@ import {
   INPUT_METHOD,
   fireAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
-import { addAnalytics } from '../../../plugins/analytics';
 import type { EditorAppearance, EditorProps } from '../../../types';
-import {
-  analyticsEventKey,
-  editorAnalyticsChannel,
-} from '../../../plugins/analytics/consts';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import { FabricChannel } from '@atlaskit/analytics-listeners';
+import { analyticsEventKey } from '@atlaskit/editor-common/utils';
+
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import {
   PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
@@ -123,6 +123,8 @@ import {
 import { createIntl } from 'react-intl-next';
 import { createPreset } from '../../create-preset';
 import PluginSlot from '../../../ui/PluginSlot';
+
+export const editorAnalyticsChannel = FabricChannel.editor;
 
 const portalProviderAPI: any = {
   render() {},
@@ -661,6 +663,7 @@ describe('@atlaskit/editor-core', () => {
       let wrapper: ReactWrapper;
       let editor: any;
       let invalidTr;
+      let editorAPI: PublicPluginAPI<[AnalyticsPlugin]>;
 
       const setupEditor = (additionalProps: EditorProps = {}) => {
         const editorProps = {
@@ -672,6 +675,7 @@ describe('@atlaskit/editor-core', () => {
           <ReactEditorView
             {...requiredProps()}
             {...analyticsProps()}
+            setEditorApi={(api) => (editorAPI = api)}
             editorProps={editorProps}
             preset={createPreset(editorProps)}
             render={({ editor, view, config: { pluginHooks } }) => {
@@ -703,16 +707,18 @@ describe('@atlaskit/editor-core', () => {
           eventType: EVENT_TYPE.UI,
         };
 
+        const tr = editor.view.state.tr;
+
+        editorAPI?.analytics?.actions?.attachAnalyticsEvent(
+          analyticsEventPayload,
+        )(tr);
+
         // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
         //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
         mockFire.mockClear();
         dispatchInvalidTransaction(
           // add v3 analytics meta to transaction as we want to check this info is sent on
-          addAnalytics(
-            editor.view.state,
-            editor.view.state.tr,
-            analyticsEventPayload,
-          ),
+          tr,
         );
         expect(mockFire).toHaveBeenCalledWith({
           payload: {
@@ -744,16 +750,18 @@ describe('@atlaskit/editor-core', () => {
           eventType: EVENT_TYPE.UI,
         };
 
+        const tr = editor.view.state.tr;
+
+        editorAPI?.analytics?.actions?.attachAnalyticsEvent(
+          analyticsEventPayload,
+        )(tr);
+
         // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
         //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
         mockFire.mockClear();
         dispatchInvalidTransaction(
           // add v3 analytics meta to transaction as we want to check this info is sent on
-          addAnalytics(
-            editor.view.state,
-            editor.view.state.tr,
-            analyticsEventPayload,
-          ),
+          tr,
         );
         expect(mockFire).toHaveBeenCalledTimes(0);
       });

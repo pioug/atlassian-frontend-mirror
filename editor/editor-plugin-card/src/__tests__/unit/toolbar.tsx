@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
-import { render } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import { createIntl } from 'react-intl-next';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -239,7 +239,11 @@ describe('card', () => {
             expect(settingsButton).toMatchObject({
               icon: CogIcon,
             });
-            settingsButton?.onClick(editorView.state, editorView.dispatch);
+
+            act(() => {
+              settingsButton?.onClick(editorView.state, editorView.dispatch);
+            });
+
             expect(open).toBeCalledWith(
               'https://id.atlassian.com/manage-profile/link-preferences',
             );
@@ -290,7 +294,7 @@ describe('card', () => {
           const toolbarItems = getToolbarItems(toolbar!, editorView);
           expect(toolbar).toBeDefined();
           expect(toolbarItems).toHaveLength(
-            isLinkSettingsButtonEnabled === 'true' ? 11 : 9,
+            isLinkSettingsButtonEnabled === 'true' ? 12 : 10,
           );
           expect(toolbarItems).toMatchSnapshot();
 
@@ -325,7 +329,7 @@ describe('card', () => {
           expect(toolbarItems[2].type).not.toBe('custom');
           expect(toolbar).toBeDefined();
           expect(toolbarItems).toHaveLength(
-            isLinkSettingsButtonEnabled === 'true' ? 11 : 9,
+            isLinkSettingsButtonEnabled === 'true' ? 12 : 10,
           );
           expect(toolbarItems).toMatchSnapshot();
 
@@ -357,7 +361,7 @@ describe('card', () => {
           const toolbarItems = getToolbarItems(toolbar!, editorView);
           expect(toolbar).toBeDefined();
           expect(toolbarItems).toHaveLength(
-            isLinkSettingsButtonEnabled === 'true' ? 9 : 7,
+            isLinkSettingsButtonEnabled === 'true' ? 10 : 8,
           );
           expect(toolbarItems).toMatchSnapshot();
 
@@ -385,8 +389,8 @@ describe('card', () => {
           const toolbarItems = getToolbarItems(toolbar!, editorView);
 
           expect(
-            (toolbarItems[2] as FloatingToolbarButton<Command>).id,
-          ).toEqual('editor.link.edit');
+            toolbarItems.filter((item: any) => item.id === 'editor.link.edit'),
+          ).toHaveLength(1);
         });
 
         it('displays toolbar items in correct order for datasource with url', () => {
@@ -460,7 +464,7 @@ describe('card', () => {
           const toolbarItems = getToolbarItems(toolbar!, editorView);
           expect(toolbar).toBeDefined();
           expect(toolbarItems).toHaveLength(
-            isLinkSettingsButtonEnabled === 'true' ? 16 : 14,
+            isLinkSettingsButtonEnabled === 'true' ? 17 : 15,
           );
           expect(toolbarItems).toMatchSnapshot();
 
@@ -638,20 +642,19 @@ describe('card', () => {
           )(editorView.state, intl, providerFactory);
           const toolbarItems = getToolbarItems(toolbar!, editorView);
           expect(toolbar).toBeDefined();
-          expect(toolbarItems).toHaveLength(9);
+          expect(toolbarItems).toHaveLength(10);
 
-          const customItem: any = toolbarItems.find(
+          const customItems = toolbarItems.filter(
             item => item.type === 'custom',
           );
-          expect(customItem).toBeDefined();
 
-          const { getByTestId, queryByTestId } =
-            customItem &&
-            render(
-              <MockCardContextAdapter card={cardContext}>
-                {customItem.render()}
-              </MockCardContextAdapter>,
-            );
+          const { getByTestId, queryByTestId } = render(
+            <MockCardContextAdapter card={cardContext}>
+              {customItems.map((item: any, i) => (
+                <Fragment key={i}>{item.render()}</Fragment>
+              ))}
+            </MockCardContextAdapter>,
+          );
 
           // verify the correct config is present in the link switching toolbar:
           // "inline" & "url" option should always be present, whereas embed & block options should depend on the passed props
@@ -744,7 +747,11 @@ describe('card', () => {
         const editButton = items.find(
           item => 'id' in item && item.id === 'editor.link.edit',
         ) as FloatingToolbarButton<Command>;
-        editButton.onClick(editorView.state, editorView.dispatch);
+
+        act(() => {
+          editButton.onClick(editorView.state, editorView.dispatch);
+        });
+
         const editToolbar = floatingToolbar(
           {},
           featureFlags,
@@ -752,6 +759,7 @@ describe('card', () => {
           undefined,
           mockPluginInjectionApi,
         )(editorView.state, intl, providerFactory);
+
         expect(editToolbar?.height).toBe(height);
       },
     );
@@ -935,7 +943,10 @@ describe('card', () => {
         item => item.type === 'button' && item.title === visitTitle,
       ) as FloatingToolbarButton<Command>;
 
-      visitButton.onClick(editorView.state, editorView.dispatch);
+      act(() => {
+        visitButton.onClick(editorView.state, editorView.dispatch);
+      });
+
       expect(attachAnalyticsEvent).toBeCalledWith({
         action: 'visited',
         actionSubject: 'smartLink',
@@ -974,7 +985,10 @@ describe('card', () => {
         item => item.type === 'button' && item.title === visitTitle,
       ) as FloatingToolbarButton<Command>;
 
-      visitButton.onClick(editorView.state, editorView.dispatch);
+      act(() => {
+        visitButton.onClick(editorView.state, editorView.dispatch);
+      });
+
       expect(open).toBeCalledWith('http://www.atlassian.com/');
     });
 
@@ -999,7 +1013,10 @@ describe('card', () => {
         item => item.type === 'button' && item.title === removeTitle,
       ) as FloatingToolbarButton<Command>;
 
-      removeButton.onClick(editorView.state, editorView.dispatch);
+      act(() => {
+        removeButton.onClick(editorView.state, editorView.dispatch);
+      });
+
       expect(editorView.state.doc).toEqualDocument(doc(p('ab'), p('cd')));
     });
 
@@ -1031,7 +1048,10 @@ describe('card', () => {
         item => item.type === 'button' && item.title === unlinkTitle,
       ) as FloatingToolbarButton<Command>;
 
-      unlinkButton.onClick(editorView.state, editorView.dispatch);
+      act(() => {
+        unlinkButton.onClick(editorView.state, editorView.dispatch);
+      });
+
       expect(attachAnalyticsEvent).toBeCalledWith({
         action: 'unlinked',
         actionSubject: 'smartLink',
@@ -1070,7 +1090,10 @@ describe('card', () => {
         item => item.type === 'button' && item.title === removeTitle,
       ) as FloatingToolbarButton<Command>;
 
-      removeButton.onClick(editorView.state, editorView.dispatch);
+      act(() => {
+        removeButton.onClick(editorView.state, editorView.dispatch);
+      });
+
       expect(editorView.state.doc).toEqualDocument(doc(p('ab'), p('cd')));
     });
 
@@ -1201,7 +1224,10 @@ describe('card', () => {
           visitTitle,
         );
 
-        visitLinkButton.onClick(editorView.state, editorView.dispatch);
+        act(() => {
+          visitLinkButton.onClick(editorView.state, editorView.dispatch);
+        });
+
         expect(open).toBeCalledWith(mockJqlUrl);
       });
 
@@ -1229,7 +1255,11 @@ describe('card', () => {
           editorView,
           removeTitle,
         );
-        removeButton.onClick(editorView.state, editorView.dispatch);
+
+        act(() => {
+          removeButton.onClick(editorView.state, editorView.dispatch);
+        });
+
         expect(editorView.state.doc).toEqualDocument(doc(p('ab'), p('cd')));
       });
 
@@ -1264,7 +1294,9 @@ describe('card', () => {
               editDatasourceTitle,
             );
 
-            editButton.onClick(editorView.state, editorView.dispatch);
+            act(() => {
+              editButton.onClick(editorView.state, editorView.dispatch);
+            });
 
             const toolbarAfterClick = floatingToolbar(
               {},
@@ -1311,7 +1343,9 @@ describe('card', () => {
               'Edit link',
             );
 
-            editButton.onClick(editorView.state, editorView.dispatch);
+            act(() => {
+              editButton.onClick(editorView.state, editorView.dispatch);
+            });
 
             const pluginStateAfterClick = pluginKey.getState(editorView.state);
             expect(pluginStateAfterClick?.datasourceModalType).toBeUndefined();
@@ -1351,7 +1385,9 @@ describe('card', () => {
               editDatasourceTitle,
             );
 
-            editButton.onClick(editorView.state, editorView.dispatch);
+            act(() => {
+              editButton.onClick(editorView.state, editorView.dispatch);
+            });
 
             const toolbarAfterClick = floatingToolbar(
               {},
@@ -1400,7 +1436,9 @@ describe('card', () => {
               'Edit link',
             );
 
-            editButton.onClick(editorView.state, editorView.dispatch);
+            act(() => {
+              editButton.onClick(editorView.state, editorView.dispatch);
+            });
 
             const pluginStateAfterClick = pluginKey.getState(editorView.state);
             expect(pluginStateAfterClick?.datasourceModalType).toEqual(

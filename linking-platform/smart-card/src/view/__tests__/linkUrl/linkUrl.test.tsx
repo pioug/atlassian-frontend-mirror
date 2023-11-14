@@ -15,7 +15,6 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import LinkUrl from '../../LinkUrl';
 import userEvent from '@testing-library/user-event';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('LinkUrl', () => {
   let LinkUrlTestId: string = 'link-with-safety';
@@ -336,73 +335,30 @@ describe('LinkUrl', () => {
       });
     });
 
-    describe('onclick calling behaviours are different with FF true/false', () => {
-      ffTest(
-        'platform.linking-platform.smart-card.should-call-onclick-in-warning-modal-only-when-safe',
-        async () => {
-          // test case when FF is true
-          const onClick = jest.fn();
-          const { component, onEvent, user } = setup({ onClick });
+    it('should not call `onClick` if checkSafety is true and link is unsafe', async () => {
+      const onClick = jest.fn();
+      const { component, user } = setup({ onClick });
 
-          await user.click(component);
+      await user.click(component);
 
-          expect(onClick).not.toHaveBeenCalled();
+      expect(onClick).not.toHaveBeenCalled();
+    });
 
-          expect(onEvent).not.toHaveBeenCalledWith(
-            expect.objectContaining({
-              payload: expect.objectContaining({
-                action: 'clicked',
-              }),
-            }),
-          );
-        },
-        async () => {
-          // test case when FF is false
-          const onClick = jest.fn();
-          const { component, onEvent, user } = setup({ onClick });
+    it('shoud call `onClick` if checkSafety is true and link is safe', async () => {
+      const onClick = jest.fn();
+      const { component, user } = setup({ onClick }, '#safe');
 
-          await user.click(component);
+      await user.click(component);
 
-          expect(onClick).toHaveBeenCalled();
-
-          expect(onEvent).toBeFiredWithAnalyticEventOnce({
-            payload: {
-              action: 'clicked',
-              actionSubject: 'link',
-              eventType: 'ui',
-              attributes: {
-                clickType: 'left',
-                clickOutcome: 'clickThrough',
-                defaultPrevented: true,
-                keysHeld: [],
-              },
-            },
-            context: [
-              {
-                componentName: 'linkUrl',
-              },
-              {
-                attributes: {
-                  display: 'url',
-                },
-              },
-            ],
-          });
-        },
-      );
+      expect(onClick).toHaveBeenCalled();
     });
 
     it('should call `onClick` and fire `link clicked` event when link text cannot be normalized', async () => {
       const onClick = jest.fn();
-      const user = userEvent.setup();
-      const onEvent = jest.fn();
 
-      const { getByRole } = render(
-        <AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
-          <LinkUrl href="https://some.url" checkSafety={true} onClick={onClick}>
-            some random text
-          </LinkUrl>
-        </AnalyticsListener>,
+      const { getByRole, user, onEvent } = setup(
+        { onClick, checkSafety: true, href: 'https://some.url' },
+        'some random text',
       );
 
       const component = getByRole('link');

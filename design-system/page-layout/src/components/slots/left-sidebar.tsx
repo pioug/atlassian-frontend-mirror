@@ -46,28 +46,18 @@ import LeftSidebarOuter from './internal/left-sidebar-outer';
 import ResizableChildrenWrapper from './internal/resizable-children-wrapper';
 import SlotDimensions from './slot-dimensions';
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply
-const openBackdropStyles = getBooleanFF(
-  'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-)
-  ? css({
-      width: '100%',
-      height: '100%',
-      position: 'absolute',
-      background: token('color.blanket', N100A),
-      opacity: 1,
-    })
-  : undefined;
+const openBackdropStyles = css({
+  width: '100%',
+  height: '100%',
+  position: 'absolute',
+  background: token('color.blanket', N100A),
+  opacity: 1,
+});
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply
-const hiddenBackdropStyles = getBooleanFF(
-  'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-)
-  ? css({
-      opacity: 0,
-      transition: `opacity ${TRANSITION_DURATION}ms ${easeOut} 0s`,
-    })
-  : undefined;
+const hiddenBackdropStyles = css({
+  opacity: 0,
+  transition: `opacity ${TRANSITION_DURATION}ms ${easeOut} 0s`,
+});
 
 /**
  * __Left sidebar__
@@ -337,105 +327,108 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     }, FLYOUT_DELAY);
   };
 
-  const mobileMediaQuery = getBooleanFF(
-    'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-  )
-    ? // eslint-disable-next-line react-hooks/rules-of-hooks -- Does not apply to being feature flagged.
-      useMediaQuery('below.sm')
-    : null;
+  const mobileMediaQuery = useMediaQuery('below.sm');
 
-  const openMobileFlyout = getBooleanFF(
-    'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-  )
-    ? // eslint-disable-next-line react-hooks/rules-of-hooks -- Does not apply to being feature flagged.
-      useCallback(() => {
-        if (!mobileMediaQuery?.matches) {
-          return;
-        }
+  // CLEANUP NOTE: If we revert `'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g'`, this would be gone.
+  const openMobileFlyout = useCallback(() => {
+    if (
+      !getBooleanFF(
+        'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+      ) ||
+      !mobileMediaQuery?.matches
+    ) {
+      // Only do this for our feature flag and for mobile viewports
+      return;
+    }
 
-        setLeftSidebarState((current) => {
-          if (current.isFlyoutOpen) {
-            return current;
-          }
-
-          onExpand?.();
-          return { ...current, isFlyoutOpen: true };
-        });
-      }, [setLeftSidebarState, onExpand, mobileMediaQuery])
-    : undefined;
-
-  const closeMobileFlyout = getBooleanFF(
-    'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-  )
-    ? // eslint-disable-next-line react-hooks/rules-of-hooks -- Does not apply to being feature flagged.
-      useCallback(() => {
-        if (!mobileMediaQuery?.matches) {
-          return;
-        }
-
-        setLeftSidebarState((current) => {
-          if (!current.isFlyoutOpen) {
-            return current;
-          }
-
-          onCollapse?.();
-          return { ...current, isFlyoutOpen: false };
-        });
-      }, [setLeftSidebarState, onCollapse, mobileMediaQuery])
-    : undefined;
-
-  if (
-    getBooleanFF(
-      'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-    )
-  ) {
-    // eslint-disable-next-line react-hooks/rules-of-hooks -- Does not apply to being feature flagged.
-    useMediaQuery('below.sm', (event) => {
-      setLeftSidebarState((current) => {
-        if (event.matches && !current.isLeftSidebarCollapsed) {
-          // Sidebar was previously open when resizing downwards, convert the sidebar being open to a flyout being open
-          return {
-            ...current,
-            isResizing: false,
-            isLeftSidebarCollapsed: true,
-            leftSidebarWidth: COLLAPSED_LEFT_SIDEBAR_WIDTH,
-            lastLeftSidebarWidth: current.leftSidebarWidth,
-            isFlyoutOpen: true,
-          };
-        } else if (!event.matches && current.isFlyoutOpen) {
-          // The user is resizing "upwards", eg. going from mobile to desktop.
-          // Flyout was previously open, let's keep it open by moving to the un-collapsed sidebar instead
-
-          return {
-            ...current,
-            isResizing: false,
-            isLeftSidebarCollapsed: false,
-            leftSidebarWidth: Math.max(
-              current.lastLeftSidebarWidth,
-              DEFAULT_LEFT_SIDEBAR_WIDTH,
-            ),
-            isFlyoutOpen: false,
-          };
-        }
-
+    setLeftSidebarState((current) => {
+      if (current.isFlyoutOpen) {
         return current;
-      });
-    });
+      }
 
-    // Close the flyout when the "escape" key is pressed.
-    // eslint-disable-next-line react-hooks/rules-of-hooks -- Does not apply to being feature flagged.
-    useCloseOnEscapePress({
-      onClose: closeMobileFlyout!,
-      isDisabled: !isFlyoutOpen,
+      onExpand?.();
+      return { ...current, isFlyoutOpen: true };
     });
-  }
+  }, [setLeftSidebarState, onExpand, mobileMediaQuery]);
+
+  // CLEANUP NOTE: If we revert `'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g'`, this would be gone.
+  const closeMobileFlyout = useCallback(() => {
+    if (
+      !getBooleanFF(
+        'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+      ) ||
+      !mobileMediaQuery?.matches
+    ) {
+      return;
+    }
+
+    setLeftSidebarState((current) => {
+      if (!current.isFlyoutOpen) {
+        return current;
+      }
+
+      onCollapse?.();
+      return { ...current, isFlyoutOpen: false };
+    });
+  }, [setLeftSidebarState, onCollapse, mobileMediaQuery]);
+
+  // CLEANUP NOTE: If we revert `'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g'`, this would be gone.
+  useMediaQuery('below.sm', (event) => {
+    if (
+      !getBooleanFF(
+        'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+      )
+    ) {
+      return;
+    }
+
+    setLeftSidebarState((current) => {
+      if (event.matches && !current.isLeftSidebarCollapsed) {
+        // Sidebar was previously open when resizing downwards, convert the sidebar being open to a flyout being open
+        return {
+          ...current,
+          isResizing: false,
+          isLeftSidebarCollapsed: true,
+          leftSidebarWidth: COLLAPSED_LEFT_SIDEBAR_WIDTH,
+          lastLeftSidebarWidth: current.leftSidebarWidth,
+          isFlyoutOpen: true,
+        };
+      } else if (!event.matches && current.isFlyoutOpen) {
+        // The user is resizing "upwards", eg. going from mobile to desktop.
+        // Flyout was previously open, let's keep it open by moving to the un-collapsed sidebar instead
+
+        return {
+          ...current,
+          isResizing: false,
+          isLeftSidebarCollapsed: false,
+          leftSidebarWidth: Math.max(
+            current.lastLeftSidebarWidth,
+            DEFAULT_LEFT_SIDEBAR_WIDTH,
+          ),
+          isFlyoutOpen: false,
+        };
+      }
+
+      return current;
+    });
+  });
+
+  // Close the flyout when the "escape" key is pressed.
+  // CLEANUP NOTE: If we revert `'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g'`, this would be gone as `closeMobileFlyout` only does something with the feature flag.
+  useCloseOnEscapePress({
+    onClose: closeMobileFlyout,
+    isDisabled:
+      !getBooleanFF(
+        'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+      ) || !isFlyoutOpen,
+  });
 
   return (
     <Fragment>
-      {mobileMediaQuery?.matches &&
-        getBooleanFF(
-          'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-        ) && (
+      {getBooleanFF(
+        'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+      ) &&
+        mobileMediaQuery?.matches && (
           /**
            * On desktop, the `onClick` handlers controls the temporary flyout behavior.
            * This is an intentionally mouse-only experience, it may even be disruptive with keyboard navigation.
@@ -454,9 +447,31 @@ const LeftSidebar = (props: LeftSidebarProps) => {
       <LeftSidebarOuter
         ref={leftSideBarRef}
         testId={testId}
-        onMouseOver={!mobileMediaQuery?.matches ? onMouseOver : undefined}
-        onMouseLeave={!mobileMediaQuery?.matches ? onMouseLeave : undefined}
-        onClick={mobileMediaQuery?.matches ? openMobileFlyout : undefined}
+        onMouseOver={
+          !(
+            getBooleanFF(
+              'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+            ) && mobileMediaQuery?.matches
+          )
+            ? onMouseOver
+            : undefined
+        }
+        onMouseLeave={
+          !(
+            getBooleanFF(
+              'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+            ) && mobileMediaQuery?.matches
+          )
+            ? onMouseLeave
+            : undefined
+        }
+        onClick={
+          getBooleanFF(
+            'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+          ) && mobileMediaQuery?.matches
+            ? openMobileFlyout
+            : undefined
+        }
         id={id}
         isFixed={isFixed}
       >

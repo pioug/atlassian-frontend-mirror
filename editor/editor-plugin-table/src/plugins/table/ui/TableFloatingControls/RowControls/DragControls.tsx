@@ -180,6 +180,7 @@ const DragControlsComponent = ({
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
             onMouseUp={onMouseUp}
+            editorView={editorView}
           />
         </div>
       )}

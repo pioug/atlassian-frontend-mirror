@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 1.8.3
+
+### Patch Changes
+
+- [#42759](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42759) [`2edeebd136a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2edeebd136a) - Ensure the `responsive-page-layout-left-sidebar_p8r7g` feature flag is idempotent and does not break devloops where this may change at runtime or even between renders.
+
 ## 1.8.2
 
 ### Patch Changes

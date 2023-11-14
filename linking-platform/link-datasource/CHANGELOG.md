@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 1.16.5
+
+### Patch Changes
+
+- [#43103](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43103) [`effb3f0234c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/effb3f0234c) - Add ui analytics event when error UI is displayed for basic filter search.
+
+## 1.16.4
+
+### Patch Changes
+
+- [#43137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43137) [`4d201f9fe57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d201f9fe57) - [ux] Updates spacing to ensure it is consistent between search input and mode switcher on toggle between JQL and Basic and when Basic Filters feature flag is on.
+
 ## 1.16.3
 
 ### Patch Changes

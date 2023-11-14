@@ -488,7 +488,7 @@ describe('Analytics key events', () => {
 
   describe('toolbar viewed', () => {
     const url = 'https://atlassian.com';
-    describe.each([
+    it.each([
       [
         'url',
         {
@@ -519,60 +519,30 @@ describe('Analytics key events', () => {
       ],
     ])(
       'should fire toolbar viewed event when the floating toolbar is displayed for link of display %s',
-      (display, { displayCategory, docBuilder }) => {
-        ffTest(
-          'platform.linking-platform.editor.toolbar-viewed-event',
-          async () => {
-            const { analyticsSpy } = await setup({
-              doc: doc(...docBuilder),
-            });
+      async (display, { displayCategory, docBuilder }) => {
+        const { analyticsSpy } = await setup({
+          doc: doc(...docBuilder),
+        });
 
-            requestAnimationFrame.step();
+        requestAnimationFrame.step();
 
-            await screen.findByRole('button', {
-              name: toDisplayButtonName(display),
-            });
+        await screen.findByRole('button', {
+          name: toDisplayButtonName(display),
+        });
 
-            expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
-              payload: {
-                action: 'viewed',
-                actionSubject: 'inlineDialog',
-                actionSubjectId: 'editLinkToolbar',
-                eventType: 'ui',
-                attributes: {
-                  extensionKey: 'atlassian-provider',
-                  display,
-                  displayCategory,
-                },
-              },
-            });
+        expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'viewed',
+            actionSubject: 'inlineDialog',
+            actionSubjectId: 'editLinkToolbar',
+            eventType: 'ui',
+            attributes: {
+              extensionKey: 'atlassian-provider',
+              display,
+              displayCategory,
+            },
           },
-          async () => {
-            const { analyticsSpy } = await setup({
-              doc: doc(...docBuilder),
-            });
-
-            requestAnimationFrame.step();
-
-            await screen.findByRole('button', {
-              name: toDisplayButtonName(display),
-            });
-
-            expect(analyticsSpy).not.toBeFiredWithAnalyticEventOnce({
-              payload: {
-                action: 'viewed',
-                actionSubject: 'inlineDialog',
-                actionSubjectId: 'editLinkToolbar',
-                eventType: 'ui',
-                attributes: {
-                  extensionKey: 'atlassian-provider',
-                  display,
-                  displayCategory,
-                },
-              },
-            });
-          },
-        );
+        });
       },
     );
   });

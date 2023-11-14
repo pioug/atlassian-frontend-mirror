@@ -2,7 +2,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { uuid } from '@atlaskit/adf-schema';
 
-import { stepAddsOneOf } from '../../../utils/step';
+import { stepAddsOneOf } from '@atlaskit/editor-common/utils';
 
 const pluginKey = new PluginKey('extensionUniqueIdPlugin');
 

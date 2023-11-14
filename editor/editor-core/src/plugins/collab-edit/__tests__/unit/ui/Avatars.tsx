@@ -26,6 +26,7 @@ import ToolbarButton from '../../../../../ui/ToolbarButton';
 import collabEditPlugin from '../../../index';
 import { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('collab-edit | Avatars', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -34,9 +35,9 @@ describe('collab-edit | Avatars', () => {
     collabEditProvider: createMockCollabEditProvider('rick'),
     mentionProvider: new Promise(() => {}),
   });
-
   const preset = new Preset<LightEditorPlugin>()
     .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, {}])
     .add([collabEditPlugin, {}])
     .add(typeAheadPlugin)
     .add(mentionsPlugin);
@@ -73,7 +74,7 @@ describe('collab-edit | Avatars', () => {
     it('should render inviteToEditButton', async () => {
       const CustomButton = () => <button />;
 
-      const { editorView } = editor(doc(p('text')));
+      const { editorView, editorAPI } = editor(doc(p('text')));
       setPresence(editorView);
 
       const node = mountWithIntl(
@@ -81,6 +82,7 @@ describe('collab-edit | Avatars', () => {
           editorView={editorView}
           inviteToEditComponent={CustomButton}
           featureFlags={{}}
+          editorAnalyticsAPI={editorAPI?.analytics?.actions}
         />,
       );
 
@@ -92,9 +94,13 @@ describe('collab-edit | Avatars', () => {
   describe('when inviteToEditButton is undefined', () => {
     describe('when inviteToEditHandler is undefined', () => {
       it('should not render inviteToEdit button', async () => {
-        const { editorView } = editor(doc(p('text')));
+        const { editorView, editorAPI } = editor(doc(p('text')));
         const node = mountWithIntl(
-          <AvatarsWithPluginState editorView={editorView} featureFlags={{}} />,
+          <AvatarsWithPluginState
+            editorView={editorView}
+            featureFlags={{}}
+            editorAnalyticsAPI={editorAPI?.analytics?.actions}
+          />,
         );
         expect(node.find(ToolbarButton).length).toEqual(0);
         node.unmount();
@@ -103,7 +109,7 @@ describe('collab-edit | Avatars', () => {
 
     describe('when inviteToEditHandler is provided', () => {
       it('should render inviteToEdit button', async () => {
-        const { editorView } = editor(doc(p('text')));
+        const { editorView, editorAPI } = editor(doc(p('text')));
         setPresence(editorView);
 
         const node = mountWithIntl(
@@ -111,6 +117,7 @@ describe('collab-edit | Avatars', () => {
             editorView={editorView}
             inviteToEditHandler={() => {}}
             featureFlags={{}}
+            editorAnalyticsAPI={editorAPI?.analytics?.actions}
           />,
         );
 
@@ -120,7 +127,7 @@ describe('collab-edit | Avatars', () => {
 
       describe('when inviteToEdit is clicked', () => {
         it('should call inviteToEditHandler', async () => {
-          const { editorView } = editor(doc(p('text')));
+          const { editorView, editorAPI } = editor(doc(p('text')));
           setPresence(editorView);
           const inviteToEditHandler = jest.fn();
           const node = mountWithIntl(
@@ -128,6 +135,7 @@ describe('collab-edit | Avatars', () => {
               editorView={editorView}
               inviteToEditHandler={inviteToEditHandler}
               featureFlags={{}}
+              editorAnalyticsAPI={editorAPI?.analytics?.actions}
             />,
           );
           node.find(ToolbarButton).at(0).find('button').simulate('click');
@@ -138,7 +146,7 @@ describe('collab-edit | Avatars', () => {
 
       describe('when isInviteToEditButtonSelected is true', () => {
         it('should make inviteToEdit button selected', async () => {
-          const { editorView } = editor(doc(p('text')));
+          const { editorView, editorAPI } = editor(doc(p('text')));
           setPresence(editorView);
           const inviteToEditHandler = () => {};
           const node = mountWithIntl(
@@ -147,6 +155,7 @@ describe('collab-edit | Avatars', () => {
               inviteToEditHandler={inviteToEditHandler}
               isInviteToEditButtonSelected={true}
               featureFlags={{}}
+              editorAnalyticsAPI={editorAPI?.analytics?.actions}
             />,
           );
           expect(node.find(ToolbarButton).at(0).prop('selected')).toBe(true);

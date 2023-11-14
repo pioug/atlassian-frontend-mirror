@@ -33,7 +33,7 @@ import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
-} from '../../../plugins/analytics/types/enums';
+} from '@atlaskit/editor-common/analytics';
 
 describe(name, () => {
   describe('Utils -> Document', () => {

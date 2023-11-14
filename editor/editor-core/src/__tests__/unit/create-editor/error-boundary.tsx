@@ -12,6 +12,7 @@ jest.mock('@atlaskit/editor-common/ufo', () => ({
   },
 }));
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, shallow, ReactWrapper, ShallowWrapper } from 'enzyme';
 import React from 'react';
 import { ErrorBoundaryWithEditorView as EditorErrorBoundary } from '../../../create-editor/ErrorBoundary';
@@ -27,7 +28,7 @@ import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
-} from '../../../plugins/analytics/types';
+} from '@atlaskit/editor-common/analytics';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';

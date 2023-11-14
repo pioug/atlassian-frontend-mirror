@@ -29,37 +29,26 @@ type LeftSidebarInnerProps = {
 const prefersReducedMotionStyles = css(prefersReducedMotion());
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply
-const mobileStyles = getBooleanFF(
-  'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-)
-  ? css({
-      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-      [UNSAFE_media.below.sm]: {
-        width: `${MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH}px`,
-        position: 'fixed',
-        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-        top: `calc(${BANNER_HEIGHT} + ${TOP_NAVIGATION_HEIGHT})`,
-        bottom: 0,
-        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-        left: `${LEFT_PANEL_WIDTH}`,
-        transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
-      },
-    })
-  : undefined;
+const mobileStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+  [UNSAFE_media.below.sm]: {
+    width: `${MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH}px`,
+    position: 'fixed',
+    insetBlockEnd: 0,
+    insetBlockStart: `calc(${BANNER_HEIGHT} + ${TOP_NAVIGATION_HEIGHT})`,
+    insetInlineStart: `${LEFT_PANEL_WIDTH}`,
+    transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
+  },
+});
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply
-const mobileInnerFlyoutStyles = getBooleanFF(
-  'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-)
-  ? css({
-      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-      [UNSAFE_media.below.sm]: {
-        width: `min(90vw, ${MAX_MOBILE_SIDEBAR_FLYOUT_WIDTH}px)`,
-        maxWidth: MAX_MOBILE_SIDEBAR_FLYOUT_WIDTH,
-        transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s, box-shadow ${TRANSITION_DURATION}ms ${easeOut} 0s`,
-      },
-    })
-  : undefined;
+const mobileInnerFlyoutStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+  [UNSAFE_media.below.sm]: {
+    width: `min(90vw, ${MAX_MOBILE_SIDEBAR_FLYOUT_WIDTH}px)`,
+    maxWidth: MAX_MOBILE_SIDEBAR_FLYOUT_WIDTH,
+    transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s, box-shadow ${TRANSITION_DURATION}ms ${easeOut} 0s`,
+  },
+});
 
 /**
  * This inner wrapper is required to allow the sidebar to be `position: fixed`.
@@ -70,11 +59,9 @@ const mobileInnerFlyoutStyles = getBooleanFF(
 const fixedInnerStyles = css({
   width: `${LEFT_SIDEBAR_WIDTH}`,
   position: 'fixed',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  top: `calc(${BANNER_HEIGHT} + ${TOP_NAVIGATION_HEIGHT})`,
-  bottom: 0,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  left: `${LEFT_PANEL_WIDTH}`,
+  insetBlockEnd: 0,
+  insetBlockStart: `calc(${BANNER_HEIGHT} + ${TOP_NAVIGATION_HEIGHT})`,
+  insetInlineStart: `${LEFT_PANEL_WIDTH}`,
   transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
 });
 
@@ -107,9 +94,15 @@ const LeftSidebarInner = ({
   return (
     <div
       css={[
-        // mobile breakpoint styles
-        mobileStyles,
-        isFlyoutOpen && mobileInnerFlyoutStyles,
+        // feature flagged mobile viewport styles
+        getBooleanFF(
+          'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+        ) && mobileStyles,
+        getBooleanFF(
+          'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+        ) &&
+          isFlyoutOpen &&
+          mobileInnerFlyoutStyles,
 
         // generic styles
         !isFixed && staticInnerStyles,

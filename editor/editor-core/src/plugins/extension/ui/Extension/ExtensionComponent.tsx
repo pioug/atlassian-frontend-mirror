@@ -21,10 +21,12 @@ import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
 
 import Extension from './Extension';
 import InlineExtension from './InlineExtension';
-import type { ProsemirrorGetPosHandler } from '../../../../nodeviews';
-import type { EditorAppearance } from '../../../../types/editor-appearance';
+import type { ProsemirrorGetPosHandler } from '@atlaskit/editor-common/react-node-view';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
-import type { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
+import type {
+  PluginInjectionAPIWithDependency,
+  EditorAppearance,
+} from '@atlaskit/editor-common/types';
 
 export interface Props {
   editorView: EditorView;

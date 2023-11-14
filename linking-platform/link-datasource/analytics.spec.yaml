@@ -293,6 +293,20 @@ events:
             *AnalyticsContextAttributes,
             *BasicFilterFieldTypes,
           ]
+  - error shown (basicSearchDropdown):
+      type: ui
+      description: Fired when the basic filter search dropdown shows an error UI
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *BasicFilterFieldTypes,
+          ]
+        reason:
+          type: [ "agg", "network", "unknown" ]
+          description: The reason why basic filter search dropdown shows an error UI.
   # Assets Events
   - aqlEditor searched:
       type: ui

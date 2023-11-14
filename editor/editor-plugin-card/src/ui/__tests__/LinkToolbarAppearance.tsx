@@ -18,6 +18,7 @@ import {
   panel,
   ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { CardAppearance } from '@atlaskit/linking-common';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
@@ -81,7 +82,7 @@ describe('LinkToolbarAppearance', () => {
     const content = builder ?? defaultBuilder();
     const { editorView } = editor(doc(...content));
 
-    const { findByTestId } = render(
+    const { findByTestId, queryByTestId } = render(
       <MockCardContextAdapter card={cardContext}>
         <LinkToolbarAppearance
           intl={fakeIntl}
@@ -100,6 +101,7 @@ describe('LinkToolbarAppearance', () => {
       toolbar,
       editorView,
       findByTestId,
+      queryByTestId,
     };
   };
 
@@ -343,35 +345,6 @@ describe('LinkToolbarAppearance', () => {
       );
     });
 
-    it('should show pulse animation when embed is enabled, status is resolved, appearance is inline, and showUpgradeDiscoverability is true', async () => {
-      const url = 'some-url';
-
-      (getBooleanFF as jest.Mock).mockImplementation(
-        name => name === 'platform.linking-platform.smart-card.inline-switcher',
-      );
-      mockPreview('some-url-preview');
-      mockCardContextState({
-        [url]: {
-          status: 'resolved',
-          details: {},
-        },
-      });
-
-      const { findByTestId } = setup(
-        {
-          url,
-          allowEmbeds: true,
-          platform: 'web',
-          currentAppearance: 'inline',
-          showUpgradeDiscoverability: true,
-        },
-        [p('{<node>}', inlineCard(defaultCardAttributes)())],
-      );
-
-      const discoveryPulse = await findByTestId('discovery-pulse');
-      expect(discoveryPulse).toBeInTheDocument();
-    });
-
     it('should return no buttons when url has fatal error', () => {
       const url = 'some-url';
 
@@ -412,6 +385,181 @@ describe('LinkToolbarAppearance', () => {
       expect(queryForButtonByLabel('Inline')).not.toBeDisabled();
       expect(queryForButtonByLabel('Card')).toBeDisabled();
       expect(queryForButtonByLabel('Embed')).toBeDisabled();
+    });
+
+    describe('inline upgrade discoverability', () => {
+      const url = 'some-url';
+
+      const defaultProps: Partial<LinkToolbarAppearanceProps> = {
+        url,
+        allowEmbeds: true,
+        platform: 'web',
+        currentAppearance: 'inline' as CardAppearance,
+        showUpgradeDiscoverability: true,
+      };
+
+      const editorLink = p('{<node>}', inlineCard(defaultCardAttributes)());
+
+      const discoverabilitySetup = (
+        overrideProps: Partial<LinkToolbarAppearanceProps> = {},
+        builder = [editorLink],
+      ) =>
+        setup(
+          {
+            ...defaultProps,
+            ...overrideProps,
+          },
+          builder,
+        );
+
+      it('should show pulse animation when embed is enabled, status is resolved, appearance is inline, and showUpgradeDiscoverability is true', async () => {
+        (getBooleanFF as jest.Mock).mockImplementation(
+          name =>
+            name === 'platform.linking-platform.smart-card.inline-switcher',
+        );
+        mockPreview('some-url-preview');
+        mockCardContextState({
+          [url]: {
+            status: 'resolved',
+            details: {},
+          },
+        });
+
+        const { queryByTestId } = discoverabilitySetup();
+
+        const discoveryPulse = queryByTestId('discovery-pulse');
+        expect(discoveryPulse).toBeInTheDocument();
+      });
+
+      it('should not show pulse when link is resolved but there is no preview', () => {
+        (getBooleanFF as jest.Mock).mockImplementation(
+          name =>
+            name === 'platform.linking-platform.smart-card.inline-switcher',
+        );
+        mockCardContextState({
+          [url]: {
+            status: 'resolved',
+            details: {},
+          },
+        });
+
+        const { queryByTestId } = discoverabilitySetup();
+
+        const discoveryPulse = queryByTestId('discovery-pulse');
+        expect(discoveryPulse).not.toBeInTheDocument();
+      });
+
+      it.each([
+        'pending',
+        'resolving',
+        'errored',
+        'fallback',
+        'unauthorized',
+        'forbidden',
+        'not_found',
+      ])('should not show pulse when link status is %s', status => {
+        (getBooleanFF as jest.Mock).mockImplementation(
+          name =>
+            name === 'platform.linking-platform.smart-card.inline-switcher',
+        );
+
+        mockPreview('some-url-preview');
+        mockCardContextState({
+          [url]: {
+            status: status,
+            details: {},
+          },
+        });
+
+        const { queryByTestId } = discoverabilitySetup();
+
+        const discoveryPulse = queryByTestId('discovery-pulse');
+        expect(discoveryPulse).not.toBeInTheDocument();
+      });
+
+      it('should not show pulse when FF is off', () => {
+        mockPreview('some-url-preview');
+        mockCardContextState({
+          [url]: {
+            status: 'resolved',
+            details: {},
+          },
+        });
+
+        const { queryByTestId } = discoverabilitySetup();
+
+        const discoveryPulse = queryByTestId('discovery-pulse');
+        expect(discoveryPulse).not.toBeInTheDocument();
+      });
+
+      it('should not show pulse when showUpgradeDiscoverability is false', () => {
+        (getBooleanFF as jest.Mock).mockImplementation(
+          name =>
+            name === 'platform.linking-platform.smart-card.inline-switcher',
+        );
+
+        mockPreview('some-url-preview');
+        mockCardContextState({
+          [url]: {
+            status: 'resolved',
+            details: {},
+          },
+        });
+
+        const { queryByTestId } = discoverabilitySetup({
+          showUpgradeDiscoverability: false,
+        });
+
+        const discoveryPulse = queryByTestId('discovery-pulse');
+        expect(discoveryPulse).not.toBeInTheDocument();
+      });
+
+      it('should not show pulse when link is in a location that cannot be upgraded to embed', () => {
+        (getBooleanFF as jest.Mock).mockImplementation(
+          name =>
+            name === 'platform.linking-platform.smart-card.inline-switcher',
+        );
+
+        mockPreview('some-url-preview');
+        mockCardContextState({
+          [url]: {
+            status: 'resolved',
+            details: {},
+          },
+        });
+
+        const { queryByTestId } = discoverabilitySetup({}, [
+          ul(li(p('{<node>}', inlineCard(defaultCardAttributes)()))),
+        ]);
+
+        const discoveryPulse = queryByTestId('discovery-pulse');
+        expect(discoveryPulse).not.toBeInTheDocument();
+      });
+
+      it.each(['embed', 'block'])(
+        'should not show pulse when appearance is %s',
+        currentAppearance => {
+          (getBooleanFF as jest.Mock).mockImplementation(
+            name =>
+              name === 'platform.linking-platform.smart-card.inline-switcher',
+          );
+
+          mockPreview('some-url-preview');
+          mockCardContextState({
+            [url]: {
+              status: 'resolved',
+              details: {},
+            },
+          });
+
+          const { queryByTestId } = discoverabilitySetup({
+            currentAppearance: currentAppearance as CardAppearance,
+          });
+
+          const discoveryPulse = queryByTestId('discovery-pulse');
+          expect(discoveryPulse).not.toBeInTheDocument();
+        },
+      );
     });
   });
 });

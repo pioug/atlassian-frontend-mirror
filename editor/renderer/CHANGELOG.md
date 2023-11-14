@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 108.15.21
+
+### Patch Changes
+
+- [#43083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43083) [`5fab3712542`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fab3712542) - Add data attribute to table in renderer for width
+- Updated dependencies
+
 ## 108.15.20
 
 ### Patch Changes

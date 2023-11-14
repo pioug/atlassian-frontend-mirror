@@ -31,6 +31,7 @@ import {
   tableBorderDeleteColor,
   tableBorderSelectedColor,
   tableCellDeleteColor,
+  tableCellDisabledColor,
   tableCellHoverDeleteIconBackground,
   tableCellHoverDeleteIconColor,
   tableCellSelectedDeleteIconBackground,
@@ -707,6 +708,18 @@ export const hoveredDeleteButton = (props: ThemeProps) => css`
   }
 `;
 
+export const disabledCell = (props: ThemeProps) => css`
+  :not(.${ClassName.IS_RESIZING})
+    .${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {
+    .${ClassName.HOVERED_CELL}.${ClassName.HOVERED_DISABLED_CELL} {
+      position: relative;
+      border: 1px solid ${tableCellDisabledColor};
+    }
+    .${ClassName.HOVERED_CELL}.${ClassName.HOVERED_DISABLED_CELL}::after {
+      border: 1px solid ${tableCellDisabledColor};
+    }
+  }
+`;
 export const hoveredCell = (props: ThemeProps) => css`
   :not(.${ClassName.IS_RESIZING})
     .${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {

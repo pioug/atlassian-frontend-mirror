@@ -4,6 +4,8 @@ import {
   EditorMentionModel,
   EditorMainToolbarModel,
   EditorNodeContainerModel,
+  fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -273,6 +275,13 @@ test.describe('feature name: Mention', () => {
   test('mention-3.ts: should not insert on space if multiple exact nickname match', async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-20853',
+      reason:
+        'FIXME: This test was automatically skipped due to failure on 11/11/2023: https://product-fabric.atlassian.net/browse/ED-20853',
+      browsers: [BROWSERS.chromium],
+    });
+
     const mentionModel = EditorMentionModel.from(editor);
     const pgillLocator = await mentionModel.mentionItemByName('pgill');
     const jjacksonLocator = await mentionModel.mentionItemByName('jjackson');

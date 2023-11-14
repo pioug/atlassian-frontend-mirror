@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 76.20.0
+
+### Minor Changes
+
+- [#43094](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43094) [`c797611f8ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c797611f8ad) - Internally decouple extension plugin from editor-core.
+
 ## 76.19.0
 
 ### Minor Changes

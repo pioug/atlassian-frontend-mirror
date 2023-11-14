@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 189.3.20
+
+### Patch Changes
+
+- [#43094](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43094) [`c797611f8ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c797611f8ad) - Internally decouple extension plugin from editor-core.
+- Updated dependencies
+
+## 189.3.19
+
+### Patch Changes
+
+- [#43099](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43099) [`743652a9a4a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/743652a9a4a) - Remove deprecated internal analytics plugin.
+- Updated dependencies
+
 ## 189.3.18
 
 ### Patch Changes

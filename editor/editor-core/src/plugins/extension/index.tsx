@@ -123,7 +123,7 @@ const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) => {
         applyChangeToContextPanel: api?.contextPanel?.actions.applyChange,
         editorAnalyticsAPI: api?.analytics?.actions,
       }),
-      contextPanel: getContextPanel(
+      contextPanel: getContextPanel(() => editorViewRef.current ?? undefined)(
         options.allowAutoSave,
         featureFlags,
         api?.contextPanel?.actions.applyChange,

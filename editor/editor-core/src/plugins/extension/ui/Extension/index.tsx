@@ -11,11 +11,13 @@ import {
   WithProviders,
 } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
-import type { ProsemirrorGetPosHandler } from '../../../../nodeviews/types';
-import type { EditorAppearance } from '../../../../types/editor-appearance';
+import type { ProsemirrorGetPosHandler } from '@atlaskit/editor-common/react-node-view';
 import ExtensionComponent from './ExtensionComponent';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
-import type { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
+import type {
+  PluginInjectionAPIWithDependency,
+  EditorAppearance,
+} from '@atlaskit/editor-common/types';
 
 export interface Props {
   editorView: EditorView;

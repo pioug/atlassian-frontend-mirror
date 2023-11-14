@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import {
+import type {
   ExtensionManifest,
   FieldDefinition,
   ExtensionProvider,
@@ -8,7 +8,7 @@ import {
   ExtensionKey,
   Parameters,
 } from '@atlaskit/editor-common/extensions';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 import { useStateFromPromise } from '../../utils/react-hooks/use-state-from-promise';
 import ConfigPanel from './ConfigPanel';

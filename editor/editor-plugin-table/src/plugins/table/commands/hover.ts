@@ -6,7 +6,7 @@ import {
   getCellsInRow,
 } from '@atlaskit/editor-tables/utils';
 
-import { createCommand } from '../pm-plugins/plugin-factory';
+import { createCommand, getPluginState } from '../pm-plugins/plugin-factory';
 import type { Cell, CellColumnPositioning } from '../types';
 import { TableDecorations } from '../types';
 import {
@@ -57,13 +57,18 @@ export const hoverColumns = (hoveredColumns: number[], isInDanger?: boolean) =>
   createCommand(
     (state) => {
       const cells = getCellsInColumn(hoveredColumns)(state.tr.selection);
+
+      const { isDragAndDropEnabled } = getPluginState(state);
       if (!cells) {
         return false;
       }
+
       const decorations = createControlsHoverDecoration(
         cells,
         'column',
         state.tr,
+        isDragAndDropEnabled,
+        hoveredColumns,
         isInDanger,
       );
 
@@ -90,10 +95,13 @@ export const hoverRows = (hoveredRows: number[], isInDanger?: boolean) =>
       if (!cells) {
         return false;
       }
+      const { isDragAndDropEnabled } = getPluginState(state);
       const decorations = createControlsHoverDecoration(
         cells,
         'row',
         state.tr,
+        isDragAndDropEnabled,
+        hoveredRows,
         isInDanger,
       );
 
@@ -127,10 +135,13 @@ export const hoverTable = (isInDanger?: boolean, isSelected?: boolean) =>
       if (!cells) {
         return false;
       }
+      const { isDragAndDropEnabled } = getPluginState(state);
       const decorations = createControlsHoverDecoration(
         cells,
         'table',
         state.tr,
+        isDragAndDropEnabled,
+        [],
         isInDanger,
         isSelected,
       );

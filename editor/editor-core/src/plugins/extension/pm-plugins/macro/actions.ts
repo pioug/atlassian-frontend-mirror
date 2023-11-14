@@ -34,8 +34,8 @@ import {
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
+  TARGET_SELECTION_SOURCE,
 } from '@atlaskit/editor-common/analytics';
-import { TARGET_SELECTION_SOURCE } from '@atlaskit/editor-common/analytics';
 import { pluginKey } from './plugin-key';
 
 export const insertMacroFromMacroBrowser =

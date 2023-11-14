@@ -18,6 +18,7 @@ describe('Text component', () => {
     );
     expect(getByTestId('test')).toMatchInlineSnapshot(`
       .emotion-0 {
+        margin: 0;
         font: var(--ds-font-body, normal 400 14px/20px var(--ds-font-family-body));
       }
 

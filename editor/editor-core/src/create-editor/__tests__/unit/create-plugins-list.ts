@@ -15,13 +15,13 @@ jest.mock('@atlaskit/editor-plugin-status');
 jest.mock('@atlaskit/editor-plugin-scroll-into-view');
 jest.mock('@atlaskit/editor-plugin-history');
 jest.mock('@atlaskit/editor-plugin-placeholder-text');
+jest.mock('@atlaskit/editor-plugin-analytics');
 
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import { helpDialogPlugin } from '@atlaskit/editor-plugin-help-dialog';
 
 import {
-  analyticsPlugin,
   insertBlockPlugin,
   feedbackDialogPlugin,
   mobileDimensionsPlugin,
@@ -40,7 +40,7 @@ import { codeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
 import { submitEditorPlugin } from '@atlaskit/editor-plugin-submit-editor';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import { placeholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text';
-
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import createPluginsListBase, {
   getScrollGutterOptions,
 } from '../../create-plugins-list';

@@ -22,9 +22,7 @@
     "./__generated__/**/*",
     "./mocks/**/*",
     "./__mocks__/**/*",
-    "**/mock.*",
-    "**/codemods/**/*.ts",
-    "**/codemods/**/*.tsx"
+    "**/mock.*"
   ],
   "compilerOptions": {
     "baseUrl": "./",

@@ -605,6 +605,125 @@ export const mapMediaItemToFileState: (
 export const MAX_RESOLUTION = 4096;
 
 // @public (undocumented)
+interface MediaApi {
+  // (undocumented)
+  appendChunksToUpload: (
+    uploadId: string,
+    body: AppendChunksToUploadRequestBody,
+    collectionName?: string,
+    traceContext?: MediaTraceContext,
+  ) => Promise<void>;
+  // (undocumented)
+  copyFileWithToken: (
+    body: MediaStoreCopyFileWithTokenBody,
+    params: MediaStoreCopyFileWithTokenParams,
+    traceContext?: MediaTraceContext,
+  ) => Promise<MediaStoreResponse<MediaFile>>;
+  // (undocumented)
+  createFileFromUpload: (
+    body: MediaStoreCreateFileFromUploadBody,
+    params: MediaStoreCreateFileFromUploadParams,
+    traceContext?: MediaTraceContext,
+  ) => Promise<MediaStoreResponse<MediaFile>>;
+  // (undocumented)
+  createUpload: (
+    createUpTo: number,
+    collectionName?: string,
+    traceContext?: MediaTraceContext,
+  ) => Promise<MediaStoreResponse<MediaUpload[]>>;
+  // (undocumented)
+  getArtifactURL: (
+    artifacts: MediaFileArtifacts,
+    artifactName: keyof MediaFileArtifacts,
+    collectionName?: string,
+  ) => Promise<string>;
+  // (undocumented)
+  getFile: (
+    fileId: string,
+    params: MediaStoreGetFileParams,
+    traceContext?: MediaTraceContext,
+  ) => Promise<MediaStoreResponse<MediaFile>>;
+  // (undocumented)
+  getFileBinaryURL: (id: string, collectionName?: string) => Promise<string>;
+  // (undocumented)
+  getFileImageURL: (
+    id: string,
+    params?: MediaStoreGetFileImageParams,
+  ) => Promise<string>;
+  // (undocumented)
+  getFileImageURLSync: (
+    id: string,
+    params?: MediaStoreGetFileImageParams,
+  ) => string;
+  // (undocumented)
+  getImage: (
+    id: string,
+    params?: MediaStoreGetFileImageParams,
+    controller?: AbortController,
+    fetchMaxRes?: boolean,
+    traceContext?: MediaTraceContext,
+  ) => Promise<Blob>;
+  // (undocumented)
+  getImageMetadata: (
+    id: string,
+    params?: MediaStoreGetFileImageParams,
+    traceContext?: MediaTraceContext,
+  ) => Promise<{
+    metadata: ImageMetadata;
+  }>;
+  // (undocumented)
+  getItems: (
+    ids: string[],
+    collectionName?: string,
+    traceContext?: MediaTraceContext,
+  ) => Promise<MediaStoreResponse<ItemsPayload>>;
+  // (undocumented)
+  getRejectedResponseFromDescriptor: (
+    descriptor: TouchFileDescriptor,
+    limit: number,
+  ) => RejectedTouchFile;
+  // (undocumented)
+  probeChunks: (
+    chunks: string[],
+    uploadId: string,
+    collectionName?: string,
+    traceContext?: MediaTraceContext,
+  ) => Promise<MediaStoreResponse<MediaChunksProbe>>;
+  // (undocumented)
+  removeCollectionFile: (
+    id: string,
+    collectionName: string,
+    occurrenceKey?: string,
+    traceContext?: MediaTraceContext,
+  ) => Promise<void>;
+  // (undocumented)
+  request: (
+    path: string,
+    options: MediaStoreRequestOptions,
+    controller?: AbortController,
+  ) => Promise<Response>;
+  // (undocumented)
+  resolveAuth: (authContext?: AuthContext) => Promise<Auth>;
+  // (undocumented)
+  resolveInitialAuth: () => Auth;
+  // (undocumented)
+  touchFiles: (
+    body: MediaStoreTouchFileBody,
+    params: MediaStoreTouchFileParams,
+    traceContext?: MediaTraceContext,
+  ) => Promise<MediaStoreResponse<TouchedFiles>>;
+  // (undocumented)
+  uploadChunk: (
+    etag: string,
+    blob: Blob,
+    uploadId: string,
+    partNumber: number,
+    collectionName?: string,
+    traceContext?: MediaTraceContext,
+  ) => Promise<void>;
+}
+
+// @public (undocumented)
 export interface MediaArtifact {
   // (undocumented)
   processingStatus?: FileProcessingStatus;
@@ -800,7 +919,7 @@ export type MediaRepresentations = {
 };
 
 // @public (undocumented)
-export class MediaStore {
+export class MediaStore implements MediaApi {
   constructor(config: MediaApiConfig);
   // (undocumented)
   appendChunksToUpload(

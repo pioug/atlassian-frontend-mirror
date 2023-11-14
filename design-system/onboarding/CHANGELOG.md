@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- [#43073](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43073) [`2d760e89b53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d760e89b53) - headingId is the id of heading in spotlightCard, which is used as the value of aria-labelledby attribute of <div> element containing the modal dialog heading for screen reader recognising the dialog
+- [#43073](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43073) [`2d760e89b53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d760e89b53) - headingId is the id of heading in spotlightCard, which is used as the value of aria-labelledby attribute of `<div>` element containing the modal dialog heading for screen reader recognising the dialog
 
 ## 10.8.11
 

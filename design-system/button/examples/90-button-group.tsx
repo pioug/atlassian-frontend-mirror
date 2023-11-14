@@ -7,6 +7,7 @@ import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import { ButtonGroup } from '../src';
 import Button from '../src/new-button/variants/default/button';
+import appearances from '../src/utils/appearances';
 import spacing from '../src/utils/spacing';
 import variants from '../src/utils/variants';
 
@@ -28,17 +29,24 @@ export default function ButtonGroupExample() {
           {spacing.map((space) => (
             <Stack key={space} space="space.100">
               <h3>{capitalize(space)} spacing</h3>
-              <Stack key={space} space="space.100">
-                <ButtonGroup appearance="primary">
+              <Stack space="space.100">
+                <ButtonGroup>
                   <Component spacing={space}>First Button</Component>
                   <Component spacing={space}>Second Button</Component>
-                  <Component
-                    spacing={space}
-                    // Test `appearance` is overridden by  ButtonGroup container
-                    appearance="subtle"
-                  >
-                    Third Button
-                  </Component>
+                  <Component spacing={space}>Third Button</Component>
+                </ButtonGroup>
+              </Stack>
+            </Stack>
+          ))}
+          <h2>Shared appearances</h2>
+          {appearances.map((appearance) => (
+            <Stack key={appearance} space="space.100">
+              <h3>{capitalize(appearance)}</h3>
+              <Stack space="space.100">
+                <ButtonGroup appearance={appearance}>
+                  <Component>First Button</Component>
+                  <Component>Second Button</Component>
+                  <Component>Third Button</Component>
                 </ButtonGroup>
               </Stack>
             </Stack>

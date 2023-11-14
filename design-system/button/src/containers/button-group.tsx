@@ -9,10 +9,17 @@ import { Appearance } from '../old-button/types';
 
 export type ButtonGroupProps = {
   /**
-   * The appearance to apply to all buttons.
+   * The appearance to apply to all buttons
    */
   appearance?: Appearance;
+  /**
+   * The buttons to render inside the Button Group
+   */
   children?: React.ReactNode;
+  /**
+   * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
+   */
+  testId?: string;
 };
 
 const buttonGroupStyles = css({
@@ -27,9 +34,10 @@ const buttonGroupStyles = css({
 export default function ButtonGroup({
   appearance,
   children,
+  testId,
 }: ButtonGroupProps) {
   return (
-    <div css={buttonGroupStyles}>
+    <div css={buttonGroupStyles} data-testid={testId}>
       {/* flatten children to apply correct styles in the case where a child is an array of elements */}
       {React.Children.map(React.Children.toArray(children), (child, idx) => {
         if (!child) {

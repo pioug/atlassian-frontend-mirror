@@ -1,5 +1,11 @@
 # @atlaskit/codemod-cli
 
+## 0.16.0
+
+### Minor Changes
+
+- [#41699](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41699) [`436fa9358ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/436fa9358ae) - Introduces new codemod “migrate-to-new-buttons” to automate the new button migration.
+
 ## 0.15.0
 
 ### Minor Changes

@@ -10,7 +10,7 @@ import FullWidthIcon from '@atlaskit/icon/glyph/editor/media-full-width';
 import WideIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import CenterIcon from '@atlaskit/icon/glyph/editor/media-center';
 
-import commonMessages from '../../messages';
+import commonMessages from '@atlaskit/editor-common/messages';
 import type {
   ConfirmDialogOptions,
   FloatingToolbarConfig,

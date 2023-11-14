@@ -21,7 +21,6 @@ import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar'
 import type { EditorProps } from '../types/editor-props';
 import type { EditorPresetProps } from './types';
 import { clipboardPlugin } from '@atlaskit/editor-plugin-clipboard';
-import { analyticsPlugin as deprecatedAnalyticsPlugin } from '../plugins';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugin-block-type';
 import type { PlaceholderPluginOptions } from '@atlaskit/editor-plugin-placeholder';
@@ -77,21 +76,6 @@ export function createDefaultPreset(
   const preset = new EditorPresetBuilder()
     .add([featureFlagsPlugin, options.featureFlags || {}])
     .maybeAdd(analyticsPlugin, (plugin, builder) => {
-      if (options.allowAnalyticsGASV3) {
-        const { performanceTracking, createAnalyticsEvent } = options;
-
-        return builder.add([
-          plugin,
-          {
-            createAnalyticsEvent,
-            performanceTracking,
-          },
-        ]);
-      }
-
-      return builder;
-    })
-    .maybeAdd(deprecatedAnalyticsPlugin, (plugin, builder) => {
       if (options.allowAnalyticsGASV3) {
         const { performanceTracking, createAnalyticsEvent } = options;
 

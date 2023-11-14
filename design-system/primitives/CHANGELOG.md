@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.10.1
+
+### Patch Changes
+
+- [#43018](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43018) [`3cb6a290654`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cb6a290654) - Text component now has `margin: 0` to ensure no margins are inherited (for example from the CSS reset).
+
 ## 1.10.0
 
 ### Minor Changes

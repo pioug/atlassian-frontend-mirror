@@ -41,37 +41,27 @@ type LeftSidebarOuterProps = {
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const prefersReducedMotionStyles = css(prefersReducedMotion());
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply
-const mobileStyles = getBooleanFF(
-  'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-)
-  ? css({
-      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-      [UNSAFE_media.below.sm]: {
-        width: MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH,
-        cursor: 'pointer',
-        opacity: 1,
-        transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
-        '&::after': {
-          display: 'inline-block',
-          maxWidth: MAX_MOBILE_SIDEBAR_FLYOUT_WIDTH,
-          content: "''",
-        },
-      },
-    })
-  : undefined;
+const mobileStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+  [UNSAFE_media.below.sm]: {
+    width: MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH,
+    cursor: 'pointer',
+    opacity: 1,
+    transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
+    '&::after': {
+      display: 'inline-block',
+      maxWidth: MAX_MOBILE_SIDEBAR_FLYOUT_WIDTH,
+      content: "''",
+    },
+  },
+});
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply
-const mobileFlyoutStyles = getBooleanFF(
-  'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-)
-  ? css({
-      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-      [UNSAFE_media.below.sm]: {
-        cursor: 'revert',
-      },
-    })
-  : undefined;
+const mobileFlyoutStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+  [UNSAFE_media.below.sm]: {
+    cursor: 'revert',
+  },
+});
 
 const outerStyles = css({
   width: LEFT_SIDEBAR_WIDTH,
@@ -143,9 +133,15 @@ const LeftSidebarOuter = (
         // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div
           css={[
-            // mobile breakpoint styles
-            mobileStyles,
-            isFlyoutOpen && mobileFlyoutStyles,
+            // feature flagged mobile viewport styles
+            getBooleanFF(
+              'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+            ) && mobileStyles,
+            getBooleanFF(
+              'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+            ) &&
+              isFlyoutOpen &&
+              mobileFlyoutStyles,
 
             // generic styles
             outerStyles,

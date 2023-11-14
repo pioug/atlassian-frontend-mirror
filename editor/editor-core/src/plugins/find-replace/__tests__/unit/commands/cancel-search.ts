@@ -10,7 +10,7 @@ import { find, replace, cancelSearch } from '../../../commands';
 import { cancelSearchWithAnalytics } from '../../../commands-with-analytics';
 import { editor } from '../_utils';
 import { getPluginState } from '../../../plugin';
-import { TRIGGER_METHOD } from '../../../../analytics/types';
+import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 
 const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
   () => ({ fire: () => {} } as UIAnalyticsEvent),

@@ -1,12 +1,13 @@
 import React from 'react';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type {
+  EditorState,
+  Selection,
+} from '@atlaskit/editor-prosemirror/state';
 import { getExtensionKeyAndNodeKey } from '@atlaskit/editor-common/extensions';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { getPluginState } from './pm-plugins/main';
 import { getSelectedExtension } from './utils';
-import WithEditorActions from '../../ui/WithEditorActions';
 import ConfigPanelLoader from '../../ui/ConfigPanel/ConfigPanelLoader';
-import { duplicateSelection } from '../../utils/selection';
 import { clearEditingContext, forceAutoSave, updateState } from './commands';
 import { buildExtensionNode } from './actions';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -14,6 +15,13 @@ import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { ExtensionState } from './types';
 import { SaveIndicator } from './ui/SaveIndicator/SaveIndicator';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import {
+  NodeSelection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 
 const areParametersEqual = (
   firstParameters: any,
@@ -36,7 +44,33 @@ const areParametersEqual = (
   return firstParameters === secondParameters;
 };
 
+export const duplicateSelection = (
+  selectionToDuplicate: Selection,
+  doc: Node,
+): Selection | undefined => {
+  if (selectionToDuplicate instanceof NodeSelection) {
+    return NodeSelection.create(doc, selectionToDuplicate.from);
+  } else if (selectionToDuplicate instanceof TextSelection) {
+    return TextSelection.create(
+      doc,
+      selectionToDuplicate.from,
+      selectionToDuplicate.to,
+    );
+  } else if (selectionToDuplicate instanceof GapCursorSelection) {
+    return new GapCursorSelection(
+      doc.resolve(selectionToDuplicate.from),
+      selectionToDuplicate.side,
+    );
+  } else if (selectionToDuplicate instanceof CellSelection) {
+    return new CellSelection(
+      doc.resolve(selectionToDuplicate.$anchorCell.pos),
+      doc.resolve(selectionToDuplicate.$headCell.pos),
+    );
+  }
+};
+
 export const getContextPanel =
+  (getEditorView?: () => EditorView | undefined) =>
   (
     allowAutoSave?: boolean,
     featureFlags?: FeatureFlags,
@@ -80,73 +114,66 @@ export const getContextPanel =
       return (
         <SaveIndicator duration={5000} visible={allowAutoSave}>
           {({ onSaveStarted, onSaveEnded }) => {
+            const editorView = getEditorView?.();
+            if (!editorView) {
+              return null;
+            }
+
             return (
-              <WithEditorActions
-                render={(actions) => {
-                  const editorView = actions._privateGetEditorView();
+              <ConfigPanelLoader
+                showHeader
+                closeOnEsc
+                extensionType={extensionType}
+                extensionKey={extKey}
+                nodeKey={nodeKey}
+                extensionParameters={parameters}
+                parameters={configParams}
+                extensionProvider={extensionProvider}
+                autoSave={allowAutoSave}
+                autoSaveTrigger={autoSaveResolve}
+                autoSaveReject={autoSaveReject}
+                onChange={async (updatedParameters) => {
+                  await onChangeAction(
+                    editorView,
+                    updatedParameters,
+                    parameters,
+                    nodeWithPos,
+                    onSaveStarted,
+                  );
+                  onSaveEnded();
 
-                  if (!editorView) {
-                    return null;
+                  if (autoSaveResolve) {
+                    autoSaveResolve();
                   }
-
-                  return (
-                    <ConfigPanelLoader
-                      showHeader
-                      closeOnEsc
-                      extensionType={extensionType}
-                      extensionKey={extKey}
-                      nodeKey={nodeKey}
-                      extensionParameters={parameters}
-                      parameters={configParams}
-                      extensionProvider={extensionProvider}
-                      autoSave={allowAutoSave}
-                      autoSaveTrigger={autoSaveResolve}
-                      autoSaveReject={autoSaveReject}
-                      onChange={async (updatedParameters) => {
-                        await onChangeAction(
-                          editorView,
-                          updatedParameters,
-                          parameters,
-                          nodeWithPos,
-                          onSaveStarted,
-                        );
-                        onSaveEnded();
-
-                        if (autoSaveResolve) {
-                          autoSaveResolve();
-                        }
-                        if (!allowAutoSave) {
-                          clearEditingContext(applyChange)(
-                            editorView.state,
-                            editorView.dispatch,
-                          );
-                        }
-                      }}
-                      onCancel={async () => {
-                        if (allowAutoSave) {
-                          try {
-                            await new Promise<void>((resolve, reject) => {
-                              forceAutoSave(applyChange)(resolve, reject)(
-                                editorView.state,
-                                editorView.dispatch,
-                              );
-                            });
-                          } catch (e) {
-                            // Even if the save failed, we should proceed with closing the panel
-                            // eslint-disable-next-line no-console
-                            console.error(`Autosave failed with error`, e);
-                          }
-                        }
-
-                        clearEditingContext(applyChange)(
+                  if (!allowAutoSave) {
+                    clearEditingContext(applyChange)(
+                      editorView.state,
+                      editorView.dispatch,
+                    );
+                  }
+                }}
+                onCancel={async () => {
+                  if (allowAutoSave) {
+                    try {
+                      await new Promise<void>((resolve, reject) => {
+                        forceAutoSave(applyChange)(resolve, reject)(
                           editorView.state,
                           editorView.dispatch,
                         );
-                      }}
-                      featureFlags={featureFlags}
-                    />
+                      });
+                    } catch (e) {
+                      // Even if the save failed, we should proceed with closing the panel
+                      // eslint-disable-next-line no-console
+                      console.error(`Autosave failed with error`, e);
+                    }
+                  }
+
+                  clearEditingContext(applyChange)(
+                    editorView.state,
+                    editorView.dispatch,
                   );
                 }}
+                featureFlags={featureFlags}
               />
             );
           }}

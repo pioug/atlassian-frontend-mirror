@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 0.1.3
+
+### Patch Changes
+
+- [#43081](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43081) [`efe83787c45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efe83787c45) - [ux] ED-20762 Remove blur dom event handler to prevent the toolbar disappearing when using the keyboard to access it.
+
 ## 0.1.2
 
 ### Patch Changes

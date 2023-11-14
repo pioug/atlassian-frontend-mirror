@@ -7,7 +7,7 @@ import CodeBidiWarning from '@atlaskit/code/bidi-warning';
 import codeBidiWarningDecorator from '@atlaskit/code/bidi-warning-decorator';
 
 import { pluginFactory } from '../../../utils/plugin-state-factory';
-import { stepHasSlice } from '../../../utils/step';
+import { stepHasSlice } from '@atlaskit/editor-common/utils';
 
 import { codeBidiWarningPluginKey } from '../plugin-key';
 import reducer from './reducer';

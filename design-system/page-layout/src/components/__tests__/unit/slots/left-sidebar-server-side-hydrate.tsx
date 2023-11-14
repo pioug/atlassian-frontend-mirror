@@ -28,15 +28,21 @@ test('should ssr then hydrate page-layout correctly', async () => {
 
   ReactDOM.hydrate(<Example />, elem);
 
-  // ignore warnings caused by emotion's server-side rendering approach
+  // Ignore warnings caused by emotion's server-side rendering approach
+  // Ignore `useLayoutEffect` errors (as they're intentional with `useMediaQuery`)
   // eslint-disable-next-line no-console
-  const mockCalls = (console.error as jest.Mock).mock.calls.filter(
-    ([f, s]) =>
-      !(
-        f ===
-          'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
-        s === 'style'
+  const mockCalls = (console.error as jest.Mock).mock.calls;
+  expect(mockCalls).toEqual([
+    expect.arrayContaining([
+      expect.stringMatching(
+        /Warning.*useLayoutEffect does nothing on the server/,
       ),
-  );
-  expect(mockCalls.length).toBe(0); // eslint-disable-line no-console
+    ]),
+    expect.arrayContaining([
+      expect.stringMatching(
+        /Warning: Did not expect server HTML to contain a <%s> in <%s>/,
+      ),
+      'style',
+    ]),
+  ]);
 });

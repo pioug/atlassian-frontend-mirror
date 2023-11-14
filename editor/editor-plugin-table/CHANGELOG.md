@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.27
+
+### Patch Changes
+
+- [#42960](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42960) [`93a67d55fd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93a67d55fd9) - disable drag and drop handler when has merged cell in current column or row
+- Updated dependencies
+
 ## 5.3.26
 
 ### Patch Changes

@@ -19,12 +19,12 @@ import {
   analyticsEventKey,
   isEmptyDocument,
   processRawValue,
+  findNodePosByLocalIds,
 } from '@atlaskit/editor-common/utils';
 
 import type { EventDispatcher } from '../event-dispatcher';
 import { createDispatch } from '../event-dispatcher';
 import { getCollabProvider } from '../plugins/collab-edit/native-collab-provider-plugin';
-import { findNodePosWithLocalId } from '../plugins/extension/utils';
 import { toJSON } from '../utils';
 import {
   __temporaryFixForConfigPanel,
@@ -182,7 +182,9 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 
   getNodeByLocalId(id: string): Node | undefined {
     if (this.editorView?.state) {
-      return findNodePosWithLocalId(this.editorView?.state, id)?.node;
+      const nodes = findNodePosByLocalIds(this.editorView?.state, [id]);
+      const node = nodes.length >= 1 ? nodes[0] : undefined;
+      return node?.node;
     }
   }
 

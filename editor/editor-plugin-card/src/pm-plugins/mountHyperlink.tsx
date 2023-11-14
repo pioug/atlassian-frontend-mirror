@@ -6,7 +6,6 @@ import type {
   ExtractInjectionAPI,
   FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { cardPlugin } from '../index';
 import type { CardPluginOptions } from '../types';
@@ -14,24 +13,20 @@ import { HyperlinkToolbarAppearance } from '../ui/HyperlinkToolbarAppearance';
 import { ToolbarViewedEvent } from '../ui/ToolbarViewedEvent';
 
 const getToolbarViewedItem = (link: string): FloatingToolbarItem<Command>[] => {
-  if (getBooleanFF('platform.linking-platform.editor.toolbar-viewed-event')) {
-    return [
-      {
-        type: 'custom',
-        fallback: [],
-        render: editorView => (
-          <ToolbarViewedEvent
-            key="edit.link.menu.viewed"
-            url={link}
-            display="url"
-            editorView={editorView}
-          />
-        ),
-      },
-    ];
-  }
-
-  return [];
+  return [
+    {
+      type: 'custom',
+      fallback: [],
+      render: editorView => (
+        <ToolbarViewedEvent
+          key="edit.link.menu.viewed"
+          url={link}
+          display="url"
+          editorView={editorView}
+        />
+      ),
+    },
+  ];
 };
 
 export const mountHyperlinkPlugin = (

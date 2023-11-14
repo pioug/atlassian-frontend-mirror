@@ -24,20 +24,20 @@ import type {
 import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 export { transformSliceToRemoveOpenBodiedExtension } from '@atlaskit/editor-common/transforms';
 
-import type { Command, CommandDispatch } from '../../types';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
 import type EditorActions from '../../actions';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type {
+  EditorAnalyticsAPI,
+  ExtensionType,
+  SelectionJson,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
+  TARGET_SELECTION_SOURCE,
 } from '@atlaskit/editor-common/analytics';
-import type {
-  ExtensionType,
-  SelectionJson,
-} from '../analytics/types/extension-events';
-import { TARGET_SELECTION_SOURCE } from '../analytics/types/extension-events';
 
 import { findExtensionWithLocalId } from './utils';
 import { getPluginState } from './pm-plugins/main';

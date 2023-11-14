@@ -34,7 +34,8 @@ import type { FeedbackInfo } from '../../types';
 import type { DeprecationWarning } from '../../utils/deprecation-warnings';
 import deprecationWarnings from '../../utils/deprecation-warnings';
 import pickBy from '../../utils/pick-by';
-import { analyticsEventKey } from '../../plugins/analytics/consts';
+import { analyticsEventKey } from '@atlaskit/editor-common/utils';
+
 import { usePresetContext } from '../../presets/context';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import type { BasePlugin } from '@atlaskit/editor-plugin-base';

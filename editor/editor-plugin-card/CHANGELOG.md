@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-card
 
+## 0.13.2
+
+### Patch Changes
+
+- [#42933](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42933) [`6a7848b6400`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a7848b6400) - Cleansup feature flag. Floating toolbar now always fires a viewed event when activated for links when the card plugin is enabled.
+- Updated dependencies
+
+## 0.13.1
+
+### Patch Changes
+
+- [#43078](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43078) [`088d6edebd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/088d6edebd4) - [ux] Passing the value of showUpgradeDiscoverability prop to toolbar component
+
 ## 0.13.0
 
 ### Minor Changes

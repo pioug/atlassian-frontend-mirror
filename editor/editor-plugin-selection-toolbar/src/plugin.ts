@@ -93,15 +93,6 @@ export const selectionToolbarPlugin: NextEditorPlugin<
                     );
                     return false;
                   },
-
-                  blur: view => {
-                    view.dispatch(
-                      view.state.tr.setMeta(selectionToolbarPluginKey, {
-                        selectionStable: false,
-                      }),
-                    );
-                    return false;
-                  },
                 },
               },
             });

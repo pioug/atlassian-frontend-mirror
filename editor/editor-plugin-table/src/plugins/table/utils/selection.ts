@@ -1,6 +1,10 @@
-import { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+  Selection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { Rect, TableMap } from '@atlaskit/editor-tables/table-map';
+import type { Rect } from '@atlaskit/editor-tables/table-map';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
   findTable,
   getSelectionRangeInColumn,

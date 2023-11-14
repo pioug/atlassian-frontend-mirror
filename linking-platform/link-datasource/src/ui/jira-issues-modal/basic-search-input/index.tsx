@@ -24,7 +24,6 @@ const searchButtonStyles = css({
 
 const formStyles = css({
   flex: 1,
-  paddingRight: token('space.100', '8px'),
 });
 
 export const BasicSearchInput = ({

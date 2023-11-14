@@ -133,7 +133,11 @@ export const setupConfigPanel = async (
     applyChangeToContextPanel,
   )(editorView.state, editorView.dispatch);
 
-  const contextPanel = getContextPanel(autoSave, {})(editorView.state);
+  const contextPanel = getContextPanel(() => editorView)(
+    autoSave,
+    {},
+    undefined,
+  )(editorView.state);
 
   expect(contextPanel).toBeTruthy();
   const editorActions = new EditorActions();

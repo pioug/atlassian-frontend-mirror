@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 25.0.3
+
+### Patch Changes
+
+- [#43076](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43076) [`43317a91142`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43317a91142) - Added new internal interface MediaApi
+
 ## 25.0.2
 
 ### Patch Changes

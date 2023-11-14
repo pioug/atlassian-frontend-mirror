@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 26.42.3
+
+### Patch Changes
+
+- [#43009](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43009) [`df50e1df692`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df50e1df692) - Remove should-call-onclick-in-warning-modal-only-when-safe FF
+- Updated dependencies
+
 ## 26.42.2
 
 ### Patch Changes

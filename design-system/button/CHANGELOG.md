@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.16.0
+
+### Minor Changes
+
+- [#42973](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42973) [`0fe0a5121a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fe0a5121a7) - Add missing `testId` prop to `<ButtonGroup>` to enable testing
+
 ## 16.15.0
 
 ### Minor Changes

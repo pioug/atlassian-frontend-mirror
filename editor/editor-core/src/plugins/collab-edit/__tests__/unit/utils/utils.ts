@@ -12,7 +12,6 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import type { PrivateCollabEditOptions } from '../../../types';
 import collabEditPlugin from '../../../index';
-import deprecatedAnalyticsPlugin from '../../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type {
   CreateUIAnalyticsEvent,
@@ -46,8 +45,7 @@ describe('collab-edit: utils', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([collabEditPlugin, collabEditOptions as PrivateCollabEditOptions])
-        .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]),
+        .add([analyticsPlugin, { createAnalyticsEvent }]),
     });
   };
 
@@ -116,7 +114,7 @@ describe('collab-edit: utils', () => {
 
   describe('scrollToCollabCursor', () => {
     it('should change the users selection to the correct position', () => {
-      const { editorView } = editor(
+      const { editorView, editorAPI } = editor(
         doc(
           p('{<>}First Paragraph'),
           p('Paragraph'),
@@ -143,7 +141,13 @@ describe('collab-edit: utils', () => {
       ];
 
       initializeCollab(editorView);
-      scrollToCollabCursor(editorView, participants, 'morty', 1);
+      scrollToCollabCursor(
+        editorView,
+        participants,
+        'morty',
+        1,
+        editorAPI?.analytics?.actions,
+      );
 
       const { from, to } = editorView.state.selection;
       expect({ from, to }).toEqual({

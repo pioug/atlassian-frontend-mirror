@@ -19,12 +19,11 @@ import type {
   OnEditorViewStateUpdated,
 } from './create-editor/get-plugins';
 import { sortByOrder } from './create-editor/sort-by-order';
-import { analyticsPluginKey } from './plugins/analytics/plugin-key';
 import { basePlugin } from '@atlaskit/editor-plugin-base';
 import type { MarkConfig, NodeConfig } from './types/pm-config';
 
 export type { LightEditorPlugin } from './create-editor/get-plugins';
-export type { DispatchAnalyticsEvent } from './plugins/analytics/types';
+export type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 export type { FeatureFlags } from './types/feature-flags';
 
 export interface LightEditorConfig {
@@ -34,10 +33,6 @@ export interface LightEditorConfig {
   contentComponents: UIComponentFactory[];
   pluginHooks: ReactHookFactory[];
   onEditorViewStateUpdatedCallbacks: Array<OnEditorViewStateUpdated>;
-}
-
-export function getFireAnalytics(editorView: EditorView) {
-  return analyticsPluginKey?.getState(editorView.state)?.fireAnalytics;
 }
 
 function lightProcessPluginsList(

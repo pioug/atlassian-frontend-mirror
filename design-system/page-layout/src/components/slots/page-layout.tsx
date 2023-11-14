@@ -49,18 +49,13 @@ const gridStyles = css({
   outline: 'none',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply
-const gridStylesMobile = getBooleanFF(
-  'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-)
-  ? css({
-      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-      [UNSAFE_media.below.sm]: {
-        gridTemplateAreas: gridTemplateAreasMobile,
-        gridTemplateColumns: `${LEFT_PANEL_WIDTH} minmax(0, 1fr)`,
-      },
-    })
-  : undefined;
+const gridStylesMobileStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+  [UNSAFE_media.below.sm]: {
+    gridTemplateAreas: gridTemplateAreasMobile,
+    gridTemplateColumns: `${LEFT_PANEL_WIDTH} minmax(0, 1fr)`,
+  },
+});
 
 /**
  * __Page layout__
@@ -84,7 +79,12 @@ const PageLayout = ({
         <div
           {...pageLayoutSelector}
           data-testid={testId}
-          css={[gridStyles, gridStylesMobile]}
+          css={[
+            gridStyles,
+            getBooleanFF(
+              'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+            ) && gridStylesMobileStyles,
+          ]}
           tabIndex={-1}
         >
           <SidebarResizeController

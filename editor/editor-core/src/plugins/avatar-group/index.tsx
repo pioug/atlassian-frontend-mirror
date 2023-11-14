@@ -1,8 +1,12 @@
 import React from 'react';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import AvatarGroupPluginWrapper from './ui/AvatarGroupPluginWrapper';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 type Config = {
   collabEdit?: CollabEditOptions;
@@ -13,7 +17,7 @@ const avatarGroup: NextEditorPlugin<
   'avatarGroup',
   {
     pluginConfiguration: Config;
-    dependencies: [FeatureFlagsPlugin];
+    dependencies: [FeatureFlagsPlugin, OptionalPlugin<AnalyticsPlugin>];
   }
 > = ({ config: props, api }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
@@ -38,6 +42,7 @@ const avatarGroup: NextEditorPlugin<
           collabEdit={props?.collabEdit}
           takeFullWidth={props?.takeFullWidth}
           featureFlags={featureFlags}
+          editorAnalyticsAPI={api?.analytics?.actions}
         />
       );
     },

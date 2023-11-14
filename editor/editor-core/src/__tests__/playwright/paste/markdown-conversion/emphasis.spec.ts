@@ -981,13 +981,11 @@ test.describe('On Paste: ', () => {
     await floatingToolbarModel.waitForStable();
 
     // Validate available popup menu options
-    expect(await floatingToolbarModel.optionsPopup.isVisible()).toEqual(true);
-    expect(await floatingToolbarModel.textHighlight.isVisible()).toEqual(true);
-    expect(await floatingToolbarModel.richTextOption.isHidden()).toEqual(true);
-    expect(await floatingToolbarModel.markDownOption.isVisible()).toEqual(true);
-    expect(await floatingToolbarModel.plainTextOption.isVisible()).toEqual(
-      true,
-    );
+    await expect(floatingToolbarModel.optionsPopup).toBeVisible();
+    await expect(floatingToolbarModel.textHighlight).toBeVisible();
+    await expect(floatingToolbarModel.markDownOption).toBeVisible();
+    await expect(floatingToolbarModel.richTextOption).toBeHidden();
+    await expect(floatingToolbarModel.plainTextOption).toBeVisible();
   });
 
   test(`pasting plain-text, then convert to plain-text should work`, async ({
@@ -1043,10 +1041,7 @@ test.describe('On Paste: ', () => {
   });
 
   // Tests for the cases when Clipboard content is HTML Text
-  test(`pasting html text should show the toolbar`, async ({
-    editor,
-    browserName,
-  }) => {
+  test(`pasting html text should show the toolbar`, async ({ editor }) => {
     await editor.simulatePasteEvent({
       pasteAs: 'text/html',
       text: markDownText,
@@ -1192,8 +1187,8 @@ test.describe('On Paste: ', () => {
     await floatingToolbarModel.waitForStable();
     await floatingToolbarModel.toggleOptionsButton();
 
-    expect(await floatingToolbarModel.optionsPopup.isVisible()).toEqual(true);
+    await expect(floatingToolbarModel.optionsPopup).toBeVisible();
     await editor.keyboard.press('Space');
-    expect(await floatingToolbarModel.optionsPopup.isVisible()).toEqual(false);
+    await expect(floatingToolbarModel.optionsPopup).toBeHidden();
   });
 });

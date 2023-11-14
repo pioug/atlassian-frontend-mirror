@@ -20,15 +20,17 @@ import {
 } from './styles';
 import { overlay } from '../styles';
 import ExtensionLozenge from '../Lozenge';
-import type { ProsemirrorGetPosHandler } from '../../../../../nodeviews';
-import type { EditorAppearance } from '../../../../../types/editor-appearance';
+import type { ProsemirrorGetPosHandler } from '@atlaskit/editor-common/react-node-view';
 import classnames from 'classnames';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type {
   WidthPlugin,
   WidthPluginState,
 } from '@atlaskit/editor-plugin-width';
-import type { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
+import type {
+  PluginInjectionAPIWithDependency,
+  EditorAppearance,
+} from '@atlaskit/editor-common/types';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface Props {

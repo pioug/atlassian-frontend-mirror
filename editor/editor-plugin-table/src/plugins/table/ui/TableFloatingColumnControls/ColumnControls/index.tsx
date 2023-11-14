@@ -174,6 +174,7 @@ export const ColumnControls = ({
                 onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
                 onMouseUp={handleMouseUp}
+                editorView={editorView}
               />
             </div>
           )}

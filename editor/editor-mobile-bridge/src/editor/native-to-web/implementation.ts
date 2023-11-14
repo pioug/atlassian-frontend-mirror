@@ -198,7 +198,9 @@ export default class WebBridgeImpl
     this.pluginInjectionApi = pluginInjectionApi;
   }
 
-  getPluginInjectionApi() {
+  getPluginInjectionApi():
+    | ExtractInjectionAPI<typeof mobileApiPlugin>
+    | undefined {
     return this.pluginInjectionApi;
   }
 

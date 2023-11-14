@@ -10,7 +10,7 @@ import type {
   Transformer,
   ReplaceRawValue,
 } from '@atlaskit/editor-common/types';
-import type { DispatchAnalyticsEvent } from '../plugins/analytics/types/dispatch-analytics-event';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { getBreakoutMode } from './node-width';
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import { processRawValue, getStepRange } from '@atlaskit/editor-common/utils';

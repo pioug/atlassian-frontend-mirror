@@ -7,7 +7,10 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import { useIntl } from 'react-intl-next';
 import { avatarGroupMessages } from '../messages';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type {
+  DispatchAnalyticsEvent,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -38,6 +41,7 @@ const AvatarGroupPluginWrapper = (props: {
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   takeFullWidth: boolean;
   featureFlags: FeatureFlags;
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 }) => {
   const { dispatchAnalyticsEvent, featureFlags } = props;
   const intl = useIntl();
@@ -78,6 +82,7 @@ const AvatarGroupPluginWrapper = (props: {
           props.collabEdit && props.collabEdit.isInviteToEditButtonSelected
         }
         featureFlags={featureFlags}
+        editorAnalyticsAPI={props.editorAnalyticsAPI}
       />
     </div>
   );

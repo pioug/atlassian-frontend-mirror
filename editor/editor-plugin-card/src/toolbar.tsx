@@ -303,24 +303,20 @@ const getToolbarViewedItem = (
     return [];
   }
 
-  if (getBooleanFF('platform.linking-platform.editor.toolbar-viewed-event')) {
-    return [
-      {
-        type: 'custom',
-        fallback: [],
-        render: editorView => (
-          <ToolbarViewedEvent
-            key="edit.link.menu.viewed"
-            url={url}
-            display={display}
-            editorView={editorView}
-          />
-        ),
-      },
-    ];
-  }
-
-  return [];
+  return [
+    {
+      type: 'custom',
+      fallback: [],
+      render: editorView => (
+        <ToolbarViewedEvent
+          key="edit.link.menu.viewed"
+          url={url}
+          display={display}
+          editorView={editorView}
+        />
+      ),
+    },
+  ];
 };
 
 const generateToolbarItems =
@@ -461,8 +457,12 @@ const generateToolbarItems =
         }
         toolbarItems.unshift(...alignmentOptions);
       }
-      const { allowBlockCards, allowEmbeds, allowDatasource } = cardOptions;
-
+      const {
+        allowBlockCards,
+        allowEmbeds,
+        allowDatasource,
+        showUpgradeDiscoverability,
+      } = cardOptions;
       // This code will be executed only for appearances such as "inline", "block" & "embed"
       // For url appearance, please see HyperlinkToolbarAppearanceProps
       if (currentAppearance) {
@@ -484,6 +484,7 @@ const generateToolbarItems =
                 platform={platform}
                 editorAnalyticsApi={editorAnalyticsApi}
                 cardActions={pluginInjectionApi?.card.actions}
+                showUpgradeDiscoverability={showUpgradeDiscoverability}
               />
             ),
           },

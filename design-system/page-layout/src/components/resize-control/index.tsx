@@ -105,12 +105,7 @@ const ResizeControl = ({
   const keyboardEventTimeout = useRef<number>();
   const [isGrabAreaFocused, setIsGrabAreaFocused] = useState(false);
   const unbindEvents = useRef<UnbindFn | null>(null);
-  const mobileMediaQuery = getBooleanFF(
-    'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-  )
-    ? // eslint-disable-next-line react-hooks/rules-of-hooks -- With the feature flag, this does not apply as it should be static.
-      useMediaQuery('below.sm')
-    : null;
+  const mobileMediaQuery = useMediaQuery('below.sm');
 
   // Used in some cases to ensure function references don't have to change
   // TODO: more functions could use `stableSidebarState` rather than `leftSidebarState`
@@ -443,24 +438,37 @@ const ResizeControl = ({
         ]}
       >
         <Shadow testId={testId && `${testId}-shadow`} />
-        {!mobileMediaQuery?.matches && (
-          <GrabArea
-            isDisabled={isLeftSidebarCollapsed}
-            isLeftSidebarCollapsed={isLeftSidebarCollapsed}
-            label={resizeGrabAreaLabel}
-            valueTextLabel={valueTextLabel}
-            leftSidebarPercentageExpanded={leftSidebarPercentageExpanded}
-            onBlur={onBlur}
-            onFocus={onFocus}
-            onKeyDown={onKeyDown}
-            onMouseDown={onMouseDown}
-            testId={testId && `${testId}-grab-area`}
-          />
-        )}
+        {
+          // Without the feature flag, always show the GrabArea
+          (!getBooleanFF(
+            'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+          ) ||
+            // With the feature flag, only show the GrabArea if we're not on the mobile viewport
+            (getBooleanFF(
+              'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+            ) &&
+              !mobileMediaQuery?.matches)) && (
+            <GrabArea
+              isDisabled={isLeftSidebarCollapsed}
+              isLeftSidebarCollapsed={isLeftSidebarCollapsed}
+              label={resizeGrabAreaLabel}
+              valueTextLabel={valueTextLabel}
+              leftSidebarPercentageExpanded={leftSidebarPercentageExpanded}
+              onBlur={onBlur}
+              onFocus={onFocus}
+              onKeyDown={onKeyDown}
+              onMouseDown={onMouseDown}
+              testId={testId && `${testId}-grab-area`}
+            />
+          )
+        }
         {resizeButton.render(ResizeButton, {
-          isLeftSidebarCollapsed: mobileMediaQuery?.matches
-            ? !leftSidebarState.isFlyoutOpen
-            : isLeftSidebarCollapsed,
+          isLeftSidebarCollapsed:
+            getBooleanFF(
+              'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+            ) && mobileMediaQuery?.matches
+              ? !leftSidebarState.isFlyoutOpen
+              : isLeftSidebarCollapsed,
           label: resizeButtonLabel,
           onClick: toggleSideBar,
           testId: testId && `${testId}-resize-button`,

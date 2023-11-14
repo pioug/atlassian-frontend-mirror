@@ -4,7 +4,7 @@ import React from 'react';
 import WithHelpTrigger from '../../../ui/WithHelpTrigger';
 import EditorContext from '../../../ui/EditorContext';
 import * as EventDispatcher from '@atlaskit/editor-common/event-dispatcher';
-import { analyticsEventKey } from '../../../plugins/analytics/consts';
+import { analyticsEventKey } from '@atlaskit/editor-common/utils';
 
 describe(name, () => {
   describe('WithHelpTrigger', () => {

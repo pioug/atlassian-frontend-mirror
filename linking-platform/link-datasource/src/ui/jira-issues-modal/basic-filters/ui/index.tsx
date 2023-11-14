@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import { Flex } from '@atlaskit/primitives';
+import { Flex, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import type { BasicFilterFieldType, SelectOption } from '../types';
 import { isValidJql } from '../utils';
@@ -19,6 +20,10 @@ interface BasicFilterContainerProps {
   cloudId: string;
 }
 
+const basicFilterContainerStyles = xcss({
+  paddingLeft: token('space.100', '8px'),
+});
+
 const BasicFilterContainer = ({ jql, cloudId }: BasicFilterContainerProps) => {
   const [selection] = useState<SelectOption[]>([]);
 
@@ -31,7 +36,11 @@ const BasicFilterContainer = ({ jql, cloudId }: BasicFilterContainerProps) => {
   const handleSelectionChange = () => {};
 
   return (
-    <Flex gap="space.100" testId="jlol-basic-filter-container">
+    <Flex
+      xcss={basicFilterContainerStyles}
+      gap="space.100"
+      testId="jlol-basic-filter-container"
+    >
       {availableBasicFilterTypes.map(filter => (
         <AsyncPopupSelect
           cloudId={cloudId}

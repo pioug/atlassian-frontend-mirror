@@ -325,6 +325,9 @@ export const TableCssClassName = {
   DRAG_CORNER_BUTTON: `${tablePrefixSelector}-drag-corner-button`,
   DRAG_CORNER_BUTTON_INNER: `${tablePrefixSelector}-drag-corner-button-inner`,
 
+  /** disabled classes */
+  DRAG_HANDLE_DISABLED: `${tablePrefixSelector}-drag-handle-disabled`,
+
   /** Other classes */
   NUMBERED_COLUMN: `${tablePrefixSelector}-numbered-column`,
   NUMBERED_COLUMN_BUTTON: `${tablePrefixSelector}-numbered-column__button`,
@@ -334,6 +337,7 @@ export const TableCssClassName = {
   HOVERED_ROW: `${tablePrefixSelector}-hovered-row`,
   HOVERED_TABLE: `${tablePrefixSelector}-hovered-table`,
   HOVERED_CELL: `${tablePrefixSelector}-hovered-cell`,
+  HOVERED_DISABLED_CELL: `${tablePrefixSelector}-hovered-disabled`,
   HOVERED_CELL_IN_DANGER: 'danger',
   HOVERED_CELL_ACTIVE: 'active',
   HOVERED_CELL_WARNING: `${tablePrefixSelector}-hovered-cell__warning`,

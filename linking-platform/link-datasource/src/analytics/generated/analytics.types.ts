@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::ea736210c3d6e0528843ce49cebf0610>>
+ * @codegen <<SignedSource::ddaee20abebe8b4891d75f243120dce8>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type PackageMetaDataType = {
@@ -102,6 +102,10 @@ export type LinkViewedCountAttributesType = {
 export type EmptyResultShownBasicSearchDropdownAttributesType = {
   filterType: 'project' | 'assignee' | 'issuetype' | 'status';
 };
+export type ErrorShownBasicSearchDropdownAttributesType = {
+  filterType: 'project' | 'assignee' | 'issuetype' | 'status';
+  reason: 'agg' | 'network' | 'unknown';
+};
 export type AqlEditorSearchedAttributesType = {};
 
 export type AnalyticsEventAttributes = {
@@ -156,6 +160,9 @@ export type AnalyticsEventAttributes = {
   /**
    * Fired when the basic filter search results are empty */
   'ui.emptyResult.shown.basicSearchDropdown': EmptyResultShownBasicSearchDropdownAttributesType;
+  /**
+   * Fired when the basic filter search dropdown shows an error UI */
+  'ui.error.shown.basicSearchDropdown': ErrorShownBasicSearchDropdownAttributesType;
   /**
    * Fired when search is initiated via the search icon or enter key press for aql editor input field. */
   'ui.aqlEditor.searched': AqlEditorSearchedAttributesType;

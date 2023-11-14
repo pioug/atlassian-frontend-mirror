@@ -3,19 +3,21 @@ import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
-import type { EditorAppearance } from '../../../types/editor-appearance';
+import type {
+  PluginInjectionAPIWithDependency,
+  EditorAppearance,
+} from '@atlaskit/editor-common/types';
 import type {
   ForwardRef,
   getPosHandler,
   ProsemirrorGetPosHandler,
-} from '../../../nodeviews';
+} from '@atlaskit/editor-common/react-node-view';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 
 import Extension from '../ui/Extension';
 import ExtensionNodeWrapper from '../ui/Extension/ExtensionNodeWrapper';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-import type { EventDispatcher } from '../../../event-dispatcher';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 interface ExtensionNodeViewOptions {

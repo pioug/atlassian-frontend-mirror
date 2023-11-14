@@ -10,8 +10,10 @@ import * as themeColors from '@atlaskit/theme/colors';
 
 import { hexToRgba } from '@atlaskit/adf-schema';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/utils';
-import { addAnalytics } from '../analytics/utils';
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import type {
+  AnalyticsEventPayload,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import {
   EVENT_TYPE,
   ACTION,
@@ -190,6 +192,7 @@ export const scrollToCollabCursor = (
   sessionId: string | undefined,
   // analytics: AnalyticsEvent | undefined,
   index: number,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ) => {
   const selectedUser = participants[index];
   if (
@@ -205,7 +208,7 @@ export const scrollToCollabCursor = (
       eventType: EVENT_TYPE.TRACK,
     };
     tr.setSelection(Selection.near(tr.doc.resolve(selectedUser.cursorPos)));
-    tr = addAnalytics(state, tr, analyticsPayload);
+    editorAnalyticsAPI?.attachAnalyticsEvent(analyticsPayload)(tr);
     tr.scrollIntoView();
     editorView.dispatch(tr);
     if (!editorView.hasFocus()) {

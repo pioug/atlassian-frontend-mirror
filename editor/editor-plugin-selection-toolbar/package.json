@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-selection-toolbar",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "@atlaskit/editor-plugin-selection-toolbar for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -35,7 +35,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^76.19.0",
+    "@atlaskit/editor-common": "^76.20.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@babel/runtime": "^7.0.0",
     "bind-event-listener": "^2.1.1"

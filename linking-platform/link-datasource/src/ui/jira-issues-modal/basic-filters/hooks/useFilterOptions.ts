@@ -28,6 +28,7 @@ export interface FilterOptionsState {
   totalCount: number;
   pageCursor?: string;
   status: 'empty' | 'loading' | 'resolved' | 'rejected' | 'loadingMore';
+  errors: unknown[];
 }
 
 export const useFilterOptions = ({
@@ -37,6 +38,7 @@ export const useFilterOptions = ({
   const [filterOptions, setFilterOptions] = useState<SelectOption[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [status, setStatus] = useState<FilterOptionsState['status']>('empty');
+  const [errors, setErrors] = useState<FilterOptionsState['errors']>([]);
   const [nextPageCursor, setNextPageCursor] = useState<string | undefined>(
     undefined,
   );
@@ -67,6 +69,7 @@ export const useFilterOptions = ({
 
         if (response.errors && response.errors.length > 0) {
           setStatus('rejected');
+          setErrors(response.errors);
           return;
         }
 
@@ -90,6 +93,7 @@ export const useFilterOptions = ({
         setNextPageCursor(mapFieldValuesToPageCursor(response));
         setStatus('resolved');
       } catch (error) {
+        setErrors([error]);
         setStatus('rejected');
       }
     },
@@ -102,5 +106,6 @@ export const useFilterOptions = ({
     totalCount,
     pageCursor: nextPageCursor,
     status,
+    errors: status === 'rejected' ? errors : [],
   };
 };

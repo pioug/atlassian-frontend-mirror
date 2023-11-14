@@ -265,6 +265,13 @@ test.describe('task and decisions: keyboard stuff', () => {
     test('keymap.ts: shift+tabbing from any decisionItem in a tableCell should go to the previous cell', async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-20854',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 11/11/2023: https://product-fabric.atlassian.net/browse/ED-20854',
+        browsers: [BROWSERS.webkit],
+      });
+
       const nodes = EditorNodeContainerModel.from(editor);
 
       await nodes.decisionItem.first().click();

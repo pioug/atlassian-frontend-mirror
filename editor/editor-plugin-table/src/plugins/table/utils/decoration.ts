@@ -28,6 +28,8 @@ import type { Cell, CellColumnPositioning } from '../types';
 import { TableCssClassName as ClassName, TableDecorations } from '../types';
 import { ColumnResizeWidget } from '../ui/ColumnResizeWidget';
 
+import { hasMergedCellsInColumn, hasMergedCellsInRow } from './merged-cells';
+
 const filterDecorationByKey = (
   key: TableDecorations,
   decorationSet: DecorationSet,
@@ -66,6 +68,8 @@ export const createControlsHoverDecoration = (
   cells: Cell[],
   type: 'row' | 'column' | 'table',
   tr: Transaction | ReadonlyTransaction,
+  isDragAndDropEnable: boolean | undefined,
+  hoveredIndexes: number[],
   danger?: boolean,
   selected?: boolean,
 ): Decoration[] => {
@@ -94,6 +98,13 @@ export const createControlsHoverDecoration = (
   }
 
   let updatedCells: number[] = cells.map((x) => x.pos);
+
+  const hasMergedCells =
+    type === 'row'
+      ? hasMergedCellsInRow(hoveredIndexes[0])(tr.selection)
+      : hasMergedCellsInColumn(hoveredIndexes[0])(tr.selection);
+
+  let disabled: boolean = hasMergedCells;
 
   // ED-15246 fixed trello card table overflow issue
   // If columns / rows have been merged the hovered selection is different to the actual selection
@@ -139,6 +150,9 @@ export const createControlsHoverDecoration = (
     }
     if (selected) {
       classes.push(ClassName.SELECTED_CELL);
+    }
+    if (isDragAndDropEnable && disabled) {
+      classes.push(ClassName.HOVERED_DISABLED_CELL);
     }
 
     classes.push(

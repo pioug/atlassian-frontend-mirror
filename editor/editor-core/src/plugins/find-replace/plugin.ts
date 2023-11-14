@@ -17,7 +17,7 @@ import {
   isMatchAffectedByStep,
 } from './utils';
 import { findUniqueItemsIn } from '../../utils/array';
-import { stepHasSlice } from '../../utils/step';
+import { stepHasSlice } from '@atlaskit/editor-common/utils';
 
 export const initialState: FindReplacePluginState = {
   isActive: false,

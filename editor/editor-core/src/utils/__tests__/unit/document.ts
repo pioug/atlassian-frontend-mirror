@@ -12,7 +12,7 @@ import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
-} from '../../../plugins/analytics/types/enums';
+} from '@atlaskit/editor-common/analytics';
 import { processRawValue, getStepRange } from '@atlaskit/editor-common/utils';
 
 describe('document: processRawValue', () => {

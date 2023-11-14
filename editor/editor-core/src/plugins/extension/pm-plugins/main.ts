@@ -22,11 +22,15 @@ import {
   isSelectionAtEndOfNode,
   createSelectionClickHandler,
 } from '@atlaskit/editor-common/selection';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type {
+  ProviderFactory,
+  ContextIdentifierProvider,
+} from '@atlaskit/editor-common/provider-factory';
+import type {
+  ExtractInjectionAPI,
+  EditorAppearance,
+} from '@atlaskit/editor-common/types';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
-import type { EditorAppearance } from '../../../types/editor-appearance';
 import type {
   Dispatch,
   EventDispatcher,

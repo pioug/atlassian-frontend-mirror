@@ -17,7 +17,8 @@ import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import { insertMacroFromMacroBrowser } from './pm-plugins/macro/actions';
 import { pluginKey as macroPluginKey } from './pm-plugins/macro/plugin-key';
-import { nodeToJSON } from '../../utils';
+import { nodeToJSON } from '@atlaskit/editor-common/utils';
+
 import { setEditingContextToContextPanel } from './commands';
 import {
   findNodePosWithLocalId,

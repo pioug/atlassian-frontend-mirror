@@ -81,16 +81,14 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   }, [onExpand, onCollapse]);
 
   const transition = useRef<Transition | null>(null);
-  const mobileMediaQuery = getBooleanFF(
-    'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-  )
-    ? // eslint-disable-next-line react-hooks/rules-of-hooks -- With the feature flag, this does not apply as it should be static.
-      useMediaQuery('below.sm')
-    : null;
+  const mobileMediaQuery = useMediaQuery('below.sm');
 
-  const isOpen = mobileMediaQuery?.matches
-    ? isFlyoutOpen
-    : !isLeftSidebarCollapsed;
+  const isOpen =
+    getBooleanFF(
+      'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+    ) && mobileMediaQuery?.matches
+      ? isFlyoutOpen
+      : !isLeftSidebarCollapsed;
 
   const expandLeftSidebar = useCallback(() => {
     if (isOpen) {
@@ -99,7 +97,12 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 
     // If the user is at a mobile viewport when this runs, we handle it differently
     // We don't expand at mobile widths; instead we use a flyout which is treated the same otherwise
-    if (mobileMediaQuery?.matches) {
+    if (
+      getBooleanFF(
+        'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+      ) &&
+      mobileMediaQuery?.matches
+    ) {
       const flyoutOpenSidebarState = {
         isResizing: false,
         isLeftSidebarCollapsed: true,
@@ -207,7 +210,12 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 
       // If the user is at a mobile viewport when this runs, we handle it differently
       // We don't collapse at mobile widths; instead we close the flyout.
-      if (mobileMediaQuery?.matches) {
+      if (
+        getBooleanFF(
+          'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+        ) &&
+        mobileMediaQuery?.matches
+      ) {
         const flyoutCloseSidebarState = {
           isResizing: false,
           isLeftSidebarCollapsed: true,

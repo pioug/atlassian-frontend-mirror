@@ -17,43 +17,33 @@ import { ResizeButtonProps } from './types';
 
 const increaseHitAreaStyles = css({
   position: 'absolute',
-  top: `${token('space.negative.100', '-8px')}`,
-  right: `${token('space.negative.150', '-12px')}`,
-  bottom: `${token('space.negative.100', '-8px')}`,
-  left: `${token('space.negative.100', '-8px')}`,
+  insetBlockEnd: `${token('space.negative.100', '-8px')}`,
+  insetBlockStart: `${token('space.negative.100', '-8px')}`,
+  insetInlineEnd: `${token('space.negative.150', '-12px')}`,
+  insetInlineStart: `${token('space.negative.100', '-8px')}`,
 });
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply
-const mobileStyles = getBooleanFF(
-  'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-)
-  ? css({
-      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-      [UNSAFE_media.below.sm]: {
-        opacity: 1,
-      },
-    })
-  : undefined;
+const mobileStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+  [UNSAFE_media.below.sm]: {
+    opacity: 1,
+  },
+});
 
 const resizeIconButtonStyles = css({
   width: 24,
   height: 24,
   padding: token('space.0', '0px'),
   position: 'absolute',
-  top: token('space.400', '32px'),
-  left: 0,
   backgroundColor: token('elevation.surface.overlay', N0),
   border: 0,
   borderRadius: token('border.radius.circle', '50%'),
-  /**
-   * TODO: https://product-fabric.atlassian.net/browse/DSP-3392
-   * This shadow needs further investigation,
-   * along with the hover and active background colors.
-   */
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- TODO: https://product-fabric.atlassian.net/browse/DSP-3392; this boxShadow needs further investigation, along with the hover and active background colors.
   boxShadow: `0 0 0 1px ${N30A}, 0 2px 4px 1px ${N30A}`,
   color: token('color.text.subtle', N200),
   cursor: 'pointer',
+  insetBlockStart: token('space.400', '32px'),
+  insetInlineStart: 0,
   /**
    * The fallback value of 0 ensures that the button is hidden by default,
    * unless some parent (or the button itself) overrides it.
@@ -98,7 +88,9 @@ const ResizeButton = ({
     type="button"
     css={[
       resizeIconButtonStyles,
-      mobileStyles,
+      getBooleanFF(
+        'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+      ) && mobileStyles,
       !isLeftSidebarCollapsed && resizeIconButtonExpandedStyles,
     ]}
     data-testid={testId}

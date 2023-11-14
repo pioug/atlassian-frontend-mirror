@@ -36,6 +36,7 @@ const setup = ({
   isDisabled,
   fetchFilterOptions,
   pageCursor,
+  errors,
 }: Partial<
   AsyncPopupSelectProps & FilterOptionsState & { openPicker?: boolean }
 > = {}) => {
@@ -45,6 +46,7 @@ const setup = ({
     totalCount: totalCount || 0,
     fetchFilterOptions: fetchFilterOptions || jest.fn(),
     pageCursor: pageCursor || undefined,
+    errors: errors || undefined,
   });
 
   const mockOnSelectionChange = jest.fn();
@@ -465,6 +467,91 @@ describe('Analytics: AsyncPopupSelect', () => {
           actionSubjectId: 'basicSearchDropdown',
           attributes: {
             filterType: 'status',
+          },
+        },
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should fire "ui.error.shown.basicSearchDropdown" with reason as unknown when the error UI is shown', () => {
+    const { onAnalyticFireEvent } = setup({
+      filterType: 'status',
+      filterOptions: [],
+      openPicker: true,
+      status: 'rejected',
+    });
+
+    jest.advanceTimersByTime(350);
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          action: 'shown',
+          actionSubject: 'error',
+          actionSubjectId: 'basicSearchDropdown',
+          attributes: {
+            filterType: 'status',
+            reason: 'unknown',
+          },
+        },
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should fire "ui.error.shown.basicSearchDropdown" with reason as agg when the error UI is shown', () => {
+    const { onAnalyticFireEvent } = setup({
+      filterType: 'status',
+      filterOptions: [],
+      openPicker: true,
+      status: 'rejected',
+      errors: [{}],
+    });
+
+    jest.advanceTimersByTime(350);
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          action: 'shown',
+          actionSubject: 'error',
+          actionSubjectId: 'basicSearchDropdown',
+          attributes: {
+            filterType: 'status',
+            reason: 'agg',
+          },
+        },
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should fire "ui.error.shown.basicSearchDropdown" with reason as networn when the error UI is shown', () => {
+    const error = new Error('bla');
+
+    const { onAnalyticFireEvent } = setup({
+      filterType: 'status',
+      filterOptions: [],
+      openPicker: true,
+      status: 'rejected',
+      errors: [error],
+    });
+
+    jest.advanceTimersByTime(350);
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          action: 'shown',
+          actionSubject: 'error',
+          actionSubjectId: 'basicSearchDropdown',
+          attributes: {
+            filterType: 'status',
+            reason: 'network',
           },
         },
       },

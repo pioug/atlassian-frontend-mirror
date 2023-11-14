@@ -11,12 +11,14 @@ import type { CollabParticipant } from '@atlaskit/editor-common/collab';
 import { scrollToCollabCursor } from '../utils';
 import type { AnalyticsEvent } from '@atlaskit/analytics-next';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export interface AvatarsProps {
   sessionId?: string;
   participants: ReadOnlyParticipants;
   editorView?: EditorView;
   featureFlags: FeatureFlags;
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 }
 
 export const Avatars: React.FC<AvatarsProps> = React.memo((props) => {
@@ -55,6 +57,7 @@ export const Avatars: React.FC<AvatarsProps> = React.memo((props) => {
               participants,
               props.sessionId,
               index,
+              props.editorAnalyticsAPI,
             );
           }
         }}

@@ -58,6 +58,13 @@ export interface TextProps extends BasePrimitiveProps {
   textAlign?: TextAlign;
 }
 
+// We're doing this because our CSS reset can add top margins to elements such as `p` which is totally insane.
+// Long term we should remove those instances from the reset - it should be a reset to 0.
+// For now, at least we know <Text> will be unaffected by this.
+const resetStyles = css({
+  margin: 0,
+});
+
 const variantStyles = { ...bodyTextStylesMap, ...uiTextStylesMap };
 
 const strongStyles = css({
@@ -149,6 +156,7 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
   const component = (
     <Component
       css={[
+        resetStyles,
         variant && variantStyles[variant],
         color && textColorStylesMap[color],
         shouldTruncate && truncateStyles,

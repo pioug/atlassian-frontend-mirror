@@ -9,7 +9,7 @@ import {
   ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 import { createDispatch } from '../../event-dispatcher';
-import { analyticsEventKey } from '../../plugins/analytics/consts';
+import { analyticsEventKey } from '@atlaskit/editor-common/utils';
 import { deprecatedOpenHelpCommand } from '@atlaskit/editor-plugin-help-dialog';
 
 interface WithHelpTriggerProps {

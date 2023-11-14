@@ -480,3 +480,5 @@ export {
   calculateToolbarPositionAboveSelection,
   calculateToolbarPositionTrackHead,
 } from './calculate-toolbar-position';
+
+export { findNodePosByLocalIds } from './nodes-by-localIds';

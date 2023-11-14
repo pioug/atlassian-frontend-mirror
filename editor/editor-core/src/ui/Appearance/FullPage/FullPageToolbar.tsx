@@ -125,6 +125,7 @@ export const EditorToolbar = React.memo(
               props.collabEdit?.isInviteToEditButtonSelected
             }
             featureFlags={props.featureFlags || {}}
+            editorAnalyticsAPI={editorAPI?.analytics?.actions}
           />
         )}
         {editorAPI?.findReplace && twoLineEditorToolbar ? (

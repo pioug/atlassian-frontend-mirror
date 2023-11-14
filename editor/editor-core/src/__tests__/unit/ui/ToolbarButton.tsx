@@ -10,7 +10,7 @@ import {
   ACTION_SUBJECT,
   ACTION,
   EVENT_TYPE,
-} from '../../../plugins/analytics/types/enums';
+} from '@atlaskit/editor-common/analytics';
 
 const noop = () => {};
 

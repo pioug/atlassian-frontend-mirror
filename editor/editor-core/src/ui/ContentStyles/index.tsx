@@ -47,7 +47,7 @@ import { mediaStyles } from './media';
 import { layoutStyles } from './layout';
 import { panelStyles } from './panel';
 import { placeholderTextStyles } from '@atlaskit/editor-plugin-placeholder-text/styles';
-import { extensionStyles } from '../../plugins/extension/ui/styles';
+import { extensionStyles } from './extension';
 import { expandStyles } from './expand';
 import { MediaSharedClassNames } from '@atlaskit/editor-common/styles';
 import { findReplaceStyles } from '../../plugins/find-replace/styles';

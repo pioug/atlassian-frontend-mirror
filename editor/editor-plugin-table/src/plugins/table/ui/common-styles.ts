@@ -56,6 +56,7 @@ import {
   columnControlsDecoration,
   columnControlsLineMarker,
   DeleteButton,
+  disabledCell,
   dragCornerControlButton,
   dragInsertButtonWrapper,
   floatingColumnControls,
@@ -315,6 +316,7 @@ export const tableStyles = (
     ${columnControlsLineMarker()};
     ${hoveredDeleteButton(props)};
     ${hoveredCell(props)};
+    ${disabledCell(props)};
     ${hoveredWarningCell};
     ${getBooleanFF('platform.editor.table.drag-and-drop') && insertLine(props)};
     ${resizeHandle(props)};
@@ -779,58 +781,49 @@ export const tableStyles = (
       align-items: center;
       outline: none !important;
 
-      svg {
-        rect {
-          fill: ${token('color.background.accent.gray.subtlest', '#F1F2F4')};
-        }
-        g {
-          fill: ${token('color.icon.subtle', '#626F86')};
-        }
-      }
-
-      &:hover {
-        svg {
-          rect {
-            fill: ${token('color.background.accent.blue.subtle', '#579DFF')};
-          }
-          g {
-            fill: ${token('color.icon.inverse', '#FFF')};
-          }
-        }
-      }
-
-      &.selected {
-        svg {
-          rect {
-            fill: ${token('color.background.accent.blue.subtle', '#579DFF')};
-          }
-          g {
-            fill: ${token('color.icon.inverse', '#FFF')};
-          }
-        }
-      }
-
-      &.danger {
-        svg {
-          rect {
-            fill: ${token(
-              'color.background.accent.red.subtler.pressed',
-              '#F87462',
-            )};
-          }
-          g {
-            fill: ${token('color.border.inverse', '#FFF')};
-          }
-        }
-      }
-
-      &.disabled {
-        svg {
+      &:not(.${ClassName.DRAG_HANDLE_DISABLED}) {
+        & > svg {
           rect {
             fill: ${token('color.background.accent.gray.subtlest', '#F1F2F4')};
           }
           g {
-            fill: ${token('color.border.inverse', '#FFF')};
+            fill: ${token('color.icon.subtle', '#626F86')};
+          }
+        }
+
+        &:hover {
+          svg {
+            rect {
+              fill: ${token('color.background.accent.blue.subtle', '#579DFF')};
+            }
+            g {
+              fill: ${token('color.icon.inverse', '#FFF')};
+            }
+          }
+        }
+
+        &.selected {
+          svg {
+            rect {
+              fill: ${token('color.background.accent.blue.subtle', '#579dff')};
+            }
+            g {
+              fill: ${token('color.icon.inverse', '#fff')};
+            }
+          }
+        }
+
+        &.danger {
+          svg {
+            rect {
+              fill: ${token(
+                'color.background.accent.red.subtler.pressed',
+                '#F87462',
+              )};
+            }
+            g {
+              fill: ${token('color.border.inverse', '#FFF')};
+            }
           }
         }
       }

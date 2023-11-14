@@ -17,7 +17,7 @@ import {
   getContainerElement,
 } from '../_utils';
 import { getPluginState } from '../../../plugin';
-import { TRIGGER_METHOD } from '../../../../analytics/types';
+import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 

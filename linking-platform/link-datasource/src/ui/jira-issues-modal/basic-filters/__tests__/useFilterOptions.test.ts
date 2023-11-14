@@ -58,6 +58,7 @@ describe('useFilterOptions', () => {
       totalCount: 0,
       pageCursor: undefined,
       status: 'empty',
+      errors: [],
     });
   });
 
@@ -134,6 +135,7 @@ describe('useFilterOptions', () => {
       totalCount: 12,
       pageCursor: 'YXJyYXljb25uZWN0aW9uOjM=',
       status: 'resolved',
+      errors: [],
     });
   });
 
@@ -194,6 +196,7 @@ describe('useFilterOptions', () => {
       totalCount: 12,
       pageCursor: 'YXJyYXljb25uZWN0aW9uOjM2',
       status: 'resolved',
+      errors: [],
     });
   });
 
@@ -255,6 +258,7 @@ describe('useFilterOptions', () => {
       totalCount: 27,
       pageCursor: 'YXJyYXljb25uZWN0aW9uOjQ=',
       status: 'resolved',
+      errors: [],
     });
   });
 
@@ -271,6 +275,7 @@ describe('useFilterOptions', () => {
       totalCount: 0,
       pageCursor: undefined,
       status: 'rejected',
+      errors: expect.any(Array),
     });
   });
 

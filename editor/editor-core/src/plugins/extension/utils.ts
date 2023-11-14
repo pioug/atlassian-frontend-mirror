@@ -1,14 +1,19 @@
-import type { Schema, Mark } from '@atlaskit/editor-prosemirror/model';
+import type {
+  Schema,
+  Mark,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { NodeWithPos, DomAtPos } from '@atlaskit/editor-prosemirror/utils';
 import {
   findParentNodeOfType,
   findSelectedNodeOfType,
   findDomRefAtPos,
 } from '@atlaskit/editor-prosemirror/utils';
-import { closestElement } from '../../utils/dom';
-import { findNodePosByLocalIds } from '../../utils/nodes-by-localIds';
+import {
+  findNodePosByLocalIds,
+  closestElement,
+} from '@atlaskit/editor-common/utils';
 
 export const getSelectedExtension = (
   state: EditorState,

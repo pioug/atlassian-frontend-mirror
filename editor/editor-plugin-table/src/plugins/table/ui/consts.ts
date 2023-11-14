@@ -97,6 +97,12 @@ export const tableCellDeleteColor = themed({
   light: token('color.blanket.danger', akEditorTableCellBlanketDeleted),
   dark: token('color.blanket.danger', akEditorTableCellBlanketDeleted),
 });
+
+export const tableCellDisabledColor = token(
+  'color.background.accent.gray.subtler.hovered',
+  '#C1C7D0',
+);
+
 export const tableBorderDeleteColor = themed({
   light: token('color.border.danger', R400),
   dark: token('color.border.danger', R400),

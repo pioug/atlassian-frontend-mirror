@@ -6,7 +6,6 @@ import type { CardContext } from '@atlaskit/link-provider';
 import type { cardPlugin } from '../../plugin';
 import {
   isLocalStorageKeyDiscovered,
-  LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK,
   LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR,
 } from '../local-storage';
 
@@ -47,17 +46,12 @@ const useLinkUpgradeDiscoverability = ({
   }, [cardContext?.extractors, url, urlState?.status]);
 
   const shouldShowLinkPulse = useMemo(() => {
-    const isKeyDiscovered = isLocalStorageKeyDiscovered(
-      LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK,
-    );
-
     const awarenessCandidatePosition =
       pluginInjectionApi?.card?.sharedState?.currentState()
         ?.inlineCardAwarenessCandidatePosition;
 
     return (
       isPulseEnabled &&
-      !isKeyDiscovered &&
       linkPosition === awarenessCandidatePosition &&
       canBeUpgradedToEmbed
     );

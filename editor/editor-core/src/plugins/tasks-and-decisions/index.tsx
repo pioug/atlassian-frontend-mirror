@@ -23,6 +23,12 @@ import { createPlugin } from './pm-plugins/main';
 import type { TaskAndDecisionsPlugin, TaskDecisionListType } from './types';
 import ToolbarDecision from './ui/ToolbarDecision';
 import ToolbarTask from './ui/ToolbarTask';
+import {
+  getCurrentIndentLevel,
+  getTaskItemIndex,
+  isInsideTask,
+} from './pm-plugins/helpers';
+import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
 
 const taskDecisionToolbarGroup = css`
   display: flex;
@@ -75,8 +81,14 @@ const tasksAndDecisionsPlugin: TaskAndDecisionsPlugin = ({
     }
 
     const pluginState = taskPluginKey.getState(editorState);
+    const indentLevel = getCurrentIndentLevel(editorState.selection) || 0;
+    const itemIndex = getTaskItemIndex(editorState);
+
     return {
       focusedTaskItemLocalId: pluginState?.focusedTaskItemLocalId || null,
+      isInsideTask: isInsideTask(editorState),
+      indentDisabled: itemIndex === 0 || indentLevel >= MAX_INDENTATION_LEVEL,
+      outdentDisabled: indentLevel <= 1,
     };
   },
 

@@ -144,8 +144,18 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
             css={formStyles}
           >
             <FormSpy
-              subscription={{ dirty: true }}
-              onChange={state => setShouldShowWarning(state.dirty)}
+              subscription={{ modified: true }}
+              onChange={state => {
+                // determine if any of the fields have been modified
+                if (!state.modified) {
+                  setShouldShowWarning(false);
+                  return;
+                }
+                const isModified = Object.values(state.modified).some(
+                  value => value,
+                );
+                setShouldShowWarning(isModified);
+              }}
             />
             <Box>{children}</Box>
             {!hideFooter && (

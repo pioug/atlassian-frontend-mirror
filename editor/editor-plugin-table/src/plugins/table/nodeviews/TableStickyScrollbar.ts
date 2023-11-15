@@ -38,7 +38,7 @@ export class TableStickyScrollbar {
       this.handleScrollDebounced.cancel();
     }
 
-    this.deleteIntesactionObserver();
+    this.deleteIntersectionObserver();
   }
 
   scrollLeft(left: number) {
@@ -95,7 +95,7 @@ export class TableStickyScrollbar {
               ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM,
             )
           ) {
-            this.sentenialBottomCallback(entry);
+            this.sentinelBottomCallback(entry);
           }
 
           if (
@@ -103,7 +103,7 @@ export class TableStickyScrollbar {
               ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP,
             )
           ) {
-            this.sentenialTopCallback(entry);
+            this.sentinelTopCallback(entry);
           }
         });
       },
@@ -123,7 +123,7 @@ export class TableStickyScrollbar {
     );
   }
 
-  private deleteIntesactionObserver() {
+  private deleteIntersectionObserver() {
     if (this.intersectionObserver) {
       if (this.sentinels.bottom) {
         this.intersectionObserver.unobserve(this.sentinels.bottom);
@@ -132,7 +132,7 @@ export class TableStickyScrollbar {
     }
   }
 
-  private sentenialBottomCallback(entry: IntersectionObserverEntry) {
+  private sentinelBottomCallback(entry: IntersectionObserverEntry) {
     const sentinelIsAboveScrollArea =
       entry.boundingClientRect.top < (entry.rootBounds?.top || 0);
 
@@ -145,7 +145,7 @@ export class TableStickyScrollbar {
     this.toggle();
   }
 
-  private sentenialTopCallback(entry: IntersectionObserverEntry) {
+  private sentinelTopCallback(entry: IntersectionObserverEntry) {
     const sentinelIsBelowScrollArea =
       (entry.rootBounds?.bottom || 0) < entry.boundingClientRect.top;
 

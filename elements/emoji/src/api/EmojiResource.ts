@@ -10,12 +10,7 @@ import {
   selectedToneStorageKey,
 } from '../util/constants';
 import debug from '../util/logger';
-import {
-  isMediaEmoji,
-  isMediaRepresentation,
-  isPromise,
-  toEmojiId,
-} from '../util/type-helpers';
+import { isMediaEmoji, isPromise, toEmojiId } from '../util/type-helpers';
 import storageAvailable from '../util/storage-available';
 import {
   type EmojiDescription,
@@ -453,19 +448,18 @@ export class EmojiResource
   async getMediaEmojiDescriptionURLWithInlineToken(
     emoji: EmojiDescription,
   ): Promise<EmojiDescription> {
-    if (
-      this.isRepositoryAvailable<SiteEmojiResource>(this.siteEmojiResource) &&
-      isMediaRepresentation(emoji.representation)
-    ) {
-      const tokenisedMediaPath =
-        await this.siteEmojiResource.generateTokenisedMediaURL(emoji);
+    if (this.isRepositoryAvailable<SiteEmojiResource>(this.siteEmojiResource)) {
+      const { representation, altRepresentation } =
+        await this.siteEmojiResource.generateTokenisedMediaURLS(
+          emoji.representation,
+          emoji.altRepresentation,
+        );
+
       return {
         ...emoji,
-        representation: {
-          ...emoji.representation,
-          mediaPath: tokenisedMediaPath,
-        },
-      } as EmojiDescription;
+        representation,
+        altRepresentation,
+      };
     }
 
     return emoji;

@@ -1008,7 +1008,7 @@ test.describe('On Paste: ', () => {
     await floatingToolbarModel.toggleOptionsButton();
     await floatingToolbarModel.clickAsPlainText();
 
-    expect(await floatingToolbarModel.textHighlight.isVisible()).toEqual(true);
+    await expect(floatingToolbarModel.textHighlight).toBeVisible();
 
     await expect(editor).toMatchDocument(
       doc(p('*Italic*, **bold**, and `monospace`')),
@@ -1059,12 +1059,10 @@ test.describe('On Paste: ', () => {
     await floatingToolbarModel.toggleOptionsButton();
 
     // Validate available popup menu options
-    expect(await floatingToolbarModel.optionsPopup.isVisible()).toEqual(true);
-    expect(await floatingToolbarModel.richTextOption.isVisible()).toEqual(true);
-    expect(await floatingToolbarModel.markDownOption.isVisible()).toEqual(true);
-    expect(await floatingToolbarModel.plainTextOption.isVisible()).toEqual(
-      true,
-    );
+    await expect(floatingToolbarModel.optionsPopup).toBeVisible();
+    await expect(floatingToolbarModel.richTextOption).toBeVisible();
+    await expect(floatingToolbarModel.markDownOption).toBeVisible();
+    await expect(floatingToolbarModel.plainTextOption).toBeVisible();
   });
 
   test(`pasting html text, then convert to plain text should work`, async ({

@@ -15,6 +15,7 @@ export const rootContainerStyles = css`
   padding-bottom: var(--link-picker-padding-bottom);
   box-sizing: border-box;
   line-height: initial;
+  display: block !important;
 `;
 
 export const formFooterMargin = css`

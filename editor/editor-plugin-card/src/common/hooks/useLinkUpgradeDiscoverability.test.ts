@@ -88,19 +88,6 @@ describe('useLinkUpgradeDiscoverability', () => {
       expect(result.current.shouldShowLinkPulse).toBe(false);
     });
 
-    it('should return false if local storage key for link pulse is already discovered', () => {
-      mockCardContextState(getCardState());
-      mockPreview('some-preview');
-
-      localStorage.setItem(
-        '@atlaskit/editor-plugin-card_smart-link-upgrade-pulse',
-        JSON.stringify({ value: 'discovered' }),
-      );
-
-      const { result } = setup();
-      expect(result.current.shouldShowLinkPulse).toBe(false);
-    });
-
     it('should return false if link position is not equal to "inlineCardAwarenessCandidatePosition" in cardState', () => {
       mockCardContextState(getCardState());
       mockPreview('some-preview');

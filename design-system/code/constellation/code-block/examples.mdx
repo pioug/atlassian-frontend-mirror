@@ -17,23 +17,23 @@ A code block highlights an entire block of code and keeps the formatting.
 
 ## Line numbers
 
-A code block can be displayed with or without line numbers. Line numbers are shown by default.
+You can display a code block with or without line numbers. Line numbers are included by default.
 
 <Example Component={CodeBlockLineNumbers} packageName="@atlaskit/code" />
 
 ## Line highlighting
 
-Lines in a code block can be highlighted.
+You can highlight lines in a code block.
 
-- To highlight one line: `highlight="3"`
-- To highlight a group of lines: `highlight="1-5"`
-- To highlight multiple groups: `highlight="1-5,7,10,15-20"`
+- To highlight one line, input the line number: `highlight="3"`
+- To highlight a group of lines, input the line numbers as a range: `highlight="1-5"`
+- To highlight multiple groups, separate the individual lines and ranges with a comma: `highlight="1-5,7,10,15-20"`
 
 <Example Component={CodeBlockLineHighlight} packageName="@atlaskit/code" />
 
 ## Wrapping long lines
 
-Long lines in a code block can be made to wrap using the `shouldWrapLongLines` prop.
+By default, long lines will result in a horizontal-scrolling code block. You can use the `shouldWrapLongLines` prop to make the long lines wrap instead.
 
 <Example
   Component={CodeBlockShouldWrapLongLinesExample}

@@ -1,5 +1,11 @@
 # @atlassian/give-kudos
 
+## 2.0.2
+
+### Patch Changes
+
+- [#43141](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43141) [`90eb988ffd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90eb988ffd4) - Add typecheck for GiveKudosLauncher JSON.parse call
+
 ## 2.0.1
 
 ### Patch Changes

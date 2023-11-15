@@ -1,5 +1,17 @@
 # @atlaskit/emoji
 
+## 67.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 67.6.0
+
+### Minor Changes
+
+- [#43046](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43046) [`b48c8bbb269`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b48c8bbb269) - Add media tokens to query attributes when altRepresentation is used
+
 ## 67.5.12
 
 ### Patch Changes

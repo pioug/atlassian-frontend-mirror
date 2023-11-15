@@ -15,8 +15,9 @@ import {
   taskItem,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { pluginKey } from '../../../pm-plugins/indentation-buttons';
-import ToolbarListsIndentation from '../../../ui';
-import toolbarListsIndentationPlugin from '../../../';
+import toolbarListsIndentationPlugin, {
+  PrimaryToolbarComponent,
+} from '../../../';
 import indentationPlugin from '../../../../indentation';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
@@ -67,19 +68,17 @@ describe('Indentation buttons', () => {
     noOfClicks?: number;
   }) => {
     const { editorView, editorAPI } = editor(doc);
-    const { indentDisabled, outdentDisabled } = pluginKey.getState(
-      editorView.state,
-    )!;
     const { getByTestId } = render(
       <IntlProvider locale="en">
-        <ToolbarListsIndentation
+        <PrimaryToolbarComponent
           disabled={false}
           editorView={editorView}
-          indentDisabled={indentDisabled}
-          outdentDisabled={outdentDisabled}
           showIndentationButtons={true}
           featureFlags={{}}
           pluginInjectionApi={editorAPI}
+          allowHeadingAndParagraphIndentation={true}
+          isToolbarReducedSpacing={false}
+          isSmall={false}
         />
       </IntlProvider>,
     );

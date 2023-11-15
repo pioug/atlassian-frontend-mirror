@@ -2,10 +2,8 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
-
 import { cssVar } from '../../../constants';
-import * as theme from '../../../theme';
+import * as tagStyles from '../../../styles';
 import BaseTag from '../../internal/shared/base';
 import getCSSVar from '../_utils/get-css-var';
 
@@ -31,7 +29,7 @@ describe('<BaseTag />', () => {
       const tag = getByTestId('tag');
       const styles = getComputedStyle(tag);
       expect(styles.getPropertyValue(cssVar.borderRadius)).toBe(
-        theme.borderRadius.default,
+        tagStyles.borderRadius.default,
       );
     });
 
@@ -47,7 +45,7 @@ describe('<BaseTag />', () => {
       const tag = getByTestId('tag');
       const styles = getComputedStyle(tag);
       expect(styles.getPropertyValue(cssVar.borderRadius)).toBe(
-        theme.borderRadius.rounded,
+        tagStyles.borderRadius.rounded,
       );
     });
   });
@@ -85,34 +83,13 @@ describe('<BaseTag />', () => {
         const tag = getByTestId('tag');
 
         expect(getCSSVar(tag, cssVar.color.background.default)).toBe(
-          theme.backgroundColors[tagColor].light,
+          tagStyles.backgroundColors[tagColor],
         );
 
         expect(getCSSVar(tag, cssVar.color.text.default)).toBe(
-          theme.textColors[tagColor].light,
+          tagStyles.textColors[tagColor],
         );
       },
     );
-
-    it.each(tagColors)('should support legacy theming (%s)', (tagColor) => {
-      const { getByTestId } = render(
-        <AtlaskitThemeProvider mode="dark">
-          <BaseTag
-            color={tagColor}
-            contentElement={<span>Hello world</span>}
-            testId="tag"
-          />
-        </AtlaskitThemeProvider>,
-      );
-      const tag = getByTestId('tag');
-
-      expect(getCSSVar(tag, cssVar.color.background.default)).toBe(
-        theme.backgroundColors[tagColor].dark,
-      );
-
-      expect(getCSSVar(tag, cssVar.color.text.default)).toBe(
-        theme.textColors[tagColor].dark,
-      );
-    });
   });
 });

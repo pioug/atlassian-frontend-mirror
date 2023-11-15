@@ -41,6 +41,7 @@ describe('useAssetsClient', () => {
   const mockGetWorkspaceId = asMock(getWorkspaceId);
   const mockFetchObjectSchema = asMock(fetchObjectSchema);
   const mockFetchObjectSchemas = asMock(fetchObjectSchemas);
+  const mockFetchEvent = expect.any(Function);
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -61,7 +62,11 @@ describe('useAssetsClient', () => {
     expect(result.current.totalObjectSchemas).toEqual(
       mockFetchObjectSchemasResponse.total,
     );
-    expect(mockFetchObjectSchemas).toHaveBeenCalledWith(workspaceId);
+    expect(mockFetchObjectSchemas).toHaveBeenCalledWith(
+      workspaceId,
+      undefined,
+      mockFetchEvent,
+    );
     expect(mockFetchObjectSchema).not.toHaveBeenCalled();
   });
 
@@ -74,6 +79,7 @@ describe('useAssetsClient', () => {
     expect(mockFetchObjectSchema).toHaveBeenCalledWith(
       workspaceId,
       initialParameters.schemaId,
+      mockFetchEvent,
     );
     expect(result.current.existingObjectSchema).toMatchObject({
       name: schemaName,
@@ -92,6 +98,7 @@ describe('useAssetsClient', () => {
     expect(mockFetchObjectSchema).toHaveBeenCalledWith(
       workspaceId,
       initialParameters.schemaId,
+      mockFetchEvent,
     );
     expect(result.current.existingObjectSchema).toEqual(undefined);
     expect(result.current.existingObjectSchemaError).toBe(mockError);
@@ -107,6 +114,7 @@ describe('useAssetsClient', () => {
     expect(mockFetchObjectSchema).toHaveBeenCalledWith(
       workspaceId,
       initialParameters.schemaId,
+      mockFetchEvent,
     );
     expect(result.current.existingObjectSchema).toEqual(undefined);
     expect(result.current.existingObjectSchemaError?.message).toEqual(
@@ -143,7 +151,11 @@ describe('useAssetsClient', () => {
     mockFetchObjectSchemas.mockRejectedValue(mockError);
     const { result, waitForNextUpdate } = renderHook(() => useAssetsClient());
     await waitForNextUpdate();
-    expect(mockFetchObjectSchemas).toHaveBeenCalledWith(workspaceId);
+    expect(mockFetchObjectSchemas).toHaveBeenCalledWith(
+      workspaceId,
+      undefined,
+      mockFetchEvent,
+    );
     expect(result.current.objectSchemas).toBe(undefined);
     expect(result.current.objectSchemasError).toBe(mockError);
   });
@@ -153,7 +165,11 @@ describe('useAssetsClient', () => {
     mockFetchObjectSchemas.mockRejectedValue(mockError);
     const { result, waitForNextUpdate } = renderHook(() => useAssetsClient());
     await waitForNextUpdate();
-    expect(mockFetchObjectSchemas).toHaveBeenCalledWith(workspaceId);
+    expect(mockFetchObjectSchemas).toHaveBeenCalledWith(
+      workspaceId,
+      undefined,
+      mockFetchEvent,
+    );
     expect(result.current.objectSchemas).toBe(undefined);
     expect(result.current.objectSchemasError?.message).toEqual(
       `Unexpected error occured`,

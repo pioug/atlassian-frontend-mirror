@@ -22,7 +22,7 @@ import { Box } from '@atlaskit/primitives';
 import { CREATE_FORM_MAX_WIDTH_IN_PX } from '../../common/constants';
 import {
   CreatePayload,
-  LinkCreateProps,
+  LinkCreatePlugin,
   LinkCreateWithModalProps,
 } from '../../common/types';
 import { LinkCreateCallbackProvider } from '../../controllers/callback-context';
@@ -45,7 +45,12 @@ import TrackMount from './track-mount';
 
 export const TEST_ID = 'link-create';
 
-const LinkCreateContent = ({ plugins, entityKey }: LinkCreateProps) => {
+type LinkCreateContentProps = {
+  plugins: LinkCreatePlugin[];
+  entityKey: string;
+};
+
+const LinkCreateContent = ({ plugins, entityKey }: LinkCreateContentProps) => {
   const chosenOne = plugins.find(plugin => plugin.key === entityKey);
 
   if (!chosenOne) {
@@ -55,30 +60,18 @@ const LinkCreateContent = ({ plugins, entityKey }: LinkCreateProps) => {
   return <Fragment>{chosenOne.form}</Fragment>;
 };
 
-const LinkCreate = ({
-  testId = TEST_ID,
-  triggeredFrom,
-  ...restProps
-}: LinkCreateProps) => {
-  return (
-    <Box testId={testId}>
-      <ErrorBoundary>
-        <TrackMount />
-        <LinkCreateContent {...restProps} />
-      </ErrorBoundary>
-    </Box>
-  );
-};
-
 const LinkCreateWithModal = ({
   active,
   modalTitle,
   onCreate,
   onFailure,
   onCancel,
+  onComplete,
   onOpenComplete,
   onCloseComplete,
-  ...createProps
+  testId = TEST_ID,
+  plugins,
+  entityKey,
 }: LinkCreateWithModalProps) => {
   const intl = useIntl();
 
@@ -149,17 +142,19 @@ const LinkCreateWithModal = ({
               </ModalTitle>
             </ModalHeader>
             <ModalBody>
-              <LinkCreate {...createProps} />
+              <Box testId={testId}>
+                <ErrorBoundary>
+                  <TrackMount />
+                  <LinkCreateContent plugins={plugins} entityKey={entityKey} />
+                </ErrorBoundary>
+              </Box>
             </ModalBody>
           </Modal>
         )}
       </ModalTransition>
       {getBooleanFF('platform.linking-platform.link-create.enable-edit') &&
-        createProps.onComplete && (
-          <EditModal
-            onCloseComplete={onCloseComplete}
-            onClose={createProps.onComplete}
-          />
+        onComplete && (
+          <EditModal onCloseComplete={onCloseComplete} onClose={onComplete} />
         )}
       {getBooleanFF(
         'platform.linking-platform.link-create.confirm-dismiss-dialog',

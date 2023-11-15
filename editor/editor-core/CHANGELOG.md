@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 189.3.22
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 189.3.20
 
 ### Patch Changes

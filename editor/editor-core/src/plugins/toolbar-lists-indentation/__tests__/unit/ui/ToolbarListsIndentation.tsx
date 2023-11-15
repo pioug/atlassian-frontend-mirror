@@ -16,9 +16,12 @@ import { doc, p, indentation } from '@atlaskit/editor-test-helpers/doc-builder';
 import { listMessages } from '@atlaskit/editor-common/messages';
 import { basePlugin } from '@atlaskit/editor-plugin-base';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import toolbarListsIndentationPlugin from '../../../';
+import toolbarListsIndentationPlugin, {
+  PrimaryToolbarComponent,
+} from '../../../';
 import indentationPlugin from '../../../../indentation';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
+import taskDecisionPlugin from '../../../../../plugins/tasks-and-decisions';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import type { Props as ToolbarListsIndentationProps } from '../../../ui';
@@ -60,14 +63,15 @@ describe('ToolbarListsIndentation', () => {
         .add(textFormattingPlugin)
         .add(listPlugin)
         .add(blockTypePlugin)
+        .add(indentationPlugin)
+        .add(taskDecisionPlugin)
         .add([
           toolbarListsIndentationPlugin,
           {
             showIndentationButtons: true,
             allowHeadingAndParagraphIndentation: true,
           },
-        ])
-        .add(indentationPlugin),
+        ]),
     });
   };
 
@@ -82,14 +86,15 @@ describe('ToolbarListsIndentation', () => {
         .add(textFormattingPlugin)
         .add(listPlugin)
         .add(blockTypePlugin)
+        .add(indentationPlugin)
+        .add(taskDecisionPlugin)
         .add([
           toolbarListsIndentationPlugin,
           {
             showIndentationButtons: true,
             allowHeadingAndParagraphIndentation: true,
           },
-        ])
-        .add(indentationPlugin),
+        ]),
     });
   };
 
@@ -101,11 +106,15 @@ describe('ToolbarListsIndentation', () => {
       doc: setupDoc || doc(p('text')),
     });
     renderWithIntl(
-      <ToolbarListsIndentation
+      <PrimaryToolbarComponent
         editorView={editorWrapper.editorView}
         featureFlags={{}}
         pluginInjectionApi={editorWrapper.editorAPI}
+        allowHeadingAndParagraphIndentation={true}
+        isToolbarReducedSpacing={false}
         {...toolbarProps}
+        disabled={toolbarProps.disabled ?? false}
+        isSmall={toolbarProps.isSmall ?? false}
       />,
     );
     return {

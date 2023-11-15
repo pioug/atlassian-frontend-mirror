@@ -30,6 +30,7 @@ describe('toolbar accessbility', () => {
         adf: indentedAdf,
         editorProps: {
           showIndentationButtons: true,
+          allowIndentation: true,
         },
       });
       await page.waitForSelector(buttonSelectors.outdent);
@@ -82,6 +83,7 @@ describe('toolbar accessbility', () => {
         adf: outdentedAdf,
         editorProps: {
           showIndentationButtons: true,
+          allowIndentation: true,
         },
       });
       await page.waitForSelector(buttonSelectors.outdent);

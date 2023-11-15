@@ -3,8 +3,7 @@ import { forwardRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { DN0, DN600, N0, N800 } from '@atlaskit/theme/colors';
-import GlobalTheme from '@atlaskit/theme/components';
+import { N0, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import TooltipPrimitive, { TooltipPrimitiveProps } from './TooltipPrimitive';
@@ -22,6 +21,8 @@ const baseStyles = css({
   lineHeight: 1.3,
   overflowWrap: 'break-word',
   wordWrap: 'break-word',
+  backgroundColor: token('color.background.neutral.bold', N800),
+  color: token('color.text.inverse', N0),
 });
 
 const truncateStyles = css({
@@ -29,16 +30,6 @@ const truncateStyles = css({
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
-});
-
-const lightStyles = css({
-  backgroundColor: token('color.background.neutral.bold', N800),
-  color: token('color.text.inverse', N0),
-});
-
-const darkStyles = css({
-  backgroundColor: token('color.background.neutral.bold', DN0),
-  color: token('color.text.inverse', DN600),
 });
 
 const TooltipContainer = forwardRef<HTMLDivElement, TooltipContainerProps>(
@@ -57,27 +48,19 @@ const TooltipContainer = forwardRef<HTMLDivElement, TooltipContainerProps>(
     ref,
   ) {
     return (
-      <GlobalTheme.Consumer>
-        {({ mode }) => (
-          <TooltipPrimitive
-            ref={ref}
-            style={style}
-            className={className}
-            placement={placement}
-            testId={testId}
-            id={id}
-            onMouseOut={onMouseOut}
-            onMouseOver={onMouseOver}
-            css={[
-              baseStyles,
-              truncate ? truncateStyles : null,
-              mode === 'light' ? lightStyles : darkStyles,
-            ]}
-          >
-            {children}
-          </TooltipPrimitive>
-        )}
-      </GlobalTheme.Consumer>
+      <TooltipPrimitive
+        ref={ref}
+        style={style}
+        className={className}
+        placement={placement}
+        testId={testId}
+        id={id}
+        onMouseOut={onMouseOut}
+        onMouseOver={onMouseOver}
+        css={[baseStyles, truncate ? truncateStyles : null]}
+      >
+        {children}
+      </TooltipPrimitive>
     );
   },
 );

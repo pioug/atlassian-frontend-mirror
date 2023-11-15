@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "76.20.0",
+  "version": "76.20.1",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -82,7 +82,8 @@
     "./element-browser": "./src/element-browser/index.ts",
     "./floating-toolbar": "./src/floating-toolbar/index.ts",
     "./copy-button": "./src/copy-button/index.ts",
-    "./legacy-rank-plugins": "./src/rank.ts"
+    "./legacy-rank-plugins": "./src/rank.ts",
+    "./indentation": "./src/indentation/index.ts"
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
@@ -101,11 +102,11 @@
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/editor-shared-styles": "^2.8.0",
     "@atlaskit/editor-tables": "^2.3.0",
-    "@atlaskit/emoji": "^67.5.0",
+    "@atlaskit/emoji": "^67.6.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/in-product-testing": "^0.2.0",
-    "@atlaskit/link-datasource": "^1.16.0",
+    "@atlaskit/link-datasource": "^1.17.0",
     "@atlaskit/link-picker": "^1.30.0",
     "@atlaskit/media-card": "^77.4.0",
     "@atlaskit/media-client": "^25.0.0",
@@ -121,7 +122,7 @@
     "@atlaskit/textfield": "^5.6.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.28.0",
-    "@atlaskit/tooltip": "^17.8.0",
+    "@atlaskit/tooltip": "^18.0.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/width-detector": "^4.1.0",
     "@babel/runtime": "^7.0.0",

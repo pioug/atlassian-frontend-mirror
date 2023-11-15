@@ -6,14 +6,14 @@ import { token } from '@atlaskit/tokens';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 export const replaceSectionButtonStyles = css({
-  marginLeft: '4px',
+  marginLeft: token('space.050', '4px'),
 });
 
 export const ruleStyles = css({
   width: '100%',
   border: 'none',
   backgroundColor: `${token('color.border', N30A)}`,
-  margin: '4px 0px',
+  margin: `${token('space.050', '4px')} 0px`,
   height: '1px',
   borderRadius: '1px',
 });
@@ -23,7 +23,7 @@ export const wrapperStyles = css({
   flexDirection: 'column',
 
   '> *:not(#replace-hr-element)': {
-    margin: '0px 4px',
+    margin: `0px ${token('space.050', '4px')}`,
   },
 });
 
@@ -48,6 +48,10 @@ export const countStyles = css({
   flex: '0 0 auto',
   justifyContent: 'center',
   alignItems: 'center',
-  marginLeft: '4px',
-  marginRight: '8px',
+  marginLeft: token('space.050', '4px'),
+  marginRight: token('space.100', '8px'),
+});
+
+export const countWrapperStyles = css({
+  alignItems: 'center',
 });

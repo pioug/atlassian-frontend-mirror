@@ -30,14 +30,13 @@ describe('Pressable', () => {
 
   it('should only render a <button> regardless of Box `as` prop override', () => {
     render(
-      // TODO: Provide a valid `href` for the `a` tag (DSP-14031)
-      // eslint-disable-next-line jsx-a11y/anchor-is-valid
       <Pressable
         // The `as` prop isn't allowed by types, but we should
         // confirm the primitive can't be intentionally misused by
         // forwarding this prop to Box.
         // @ts-expect-error
         as="a"
+        href="atlassian.design"
         testId={testId}
       >
         Pressable

@@ -89,6 +89,30 @@ export { getTestEmojiResourceNonUploading as getNonUploadingEmojiResourcePromise
 export const newEmojiRepository = getTestEmojiRepository;
 export const newSiteEmojiRepository = getTestSiteEmojiRepository;
 
+export const loadedMediaEmojiWithLoadedAlt: EmojiDescriptionWithVariations = {
+  ...mediaEmojiData,
+  representation: {
+    mediaPath: 'https://emoji.example.com/emoji/site/blah',
+    width: 24,
+    height: 24,
+  },
+  altRepresentation: {
+    mediaPath: 'https://emoji.example.com/emoji/site/blah',
+    width: 48,
+    height: 48,
+  },
+};
+
+export const loadedMediaEmojiWithoutAlt: EmojiDescriptionWithVariations = {
+  ...mediaEmojiData,
+  representation: {
+    mediaPath: 'https://emoji.example.com/emoji/site/blah',
+    width: 24,
+    height: 24,
+  },
+  altRepresentation: undefined,
+};
+
 export const loadedMediaEmoji: EmojiDescriptionWithVariations = {
   ...mediaEmojiData,
   representation: {

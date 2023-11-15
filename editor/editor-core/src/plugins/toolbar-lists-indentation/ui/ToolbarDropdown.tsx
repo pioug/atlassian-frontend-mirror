@@ -17,8 +17,10 @@ import ToolbarButton from '../../../ui/ToolbarButton';
 import { shortcutStyle } from '../../../ui/styles';
 import { expandIconWrapperStyle } from '@atlaskit/editor-common/styles';
 import { wrapperStyle, separatorStyles } from '@atlaskit/editor-common/styles';
-import { listMessages } from '@atlaskit/editor-common/messages';
-import { messages as indentationMessages } from '../../indentation/messages';
+import {
+  listMessages,
+  indentationMessages,
+} from '@atlaskit/editor-common/messages';
 import type { ButtonName, ToolbarProps } from '../types';
 
 export type DropdownProps = ToolbarProps & {

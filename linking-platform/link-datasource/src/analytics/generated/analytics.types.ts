@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::ddaee20abebe8b4891d75f243120dce8>>
+ * @codegen <<SignedSource::d3722446f615a812f3e336474f9d8d3c>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type PackageMetaDataType = {
@@ -107,6 +107,22 @@ export type ErrorShownBasicSearchDropdownAttributesType = {
   reason: 'agg' | 'network' | 'unknown';
 };
 export type AqlEditorSearchedAttributesType = {};
+export type GetWorkspaceIdSuccessAttributesType = {};
+export type GetWorkspaceIdFailedAttributesType = {
+  statusCodeGroup: '1xx' | '3xx' | '4xx' | '5xx' | 'unknown';
+};
+export type ValidateAqlSuccessAttributesType = {};
+export type ValidateAqlFailedAttributesType = {
+  statusCodeGroup: '1xx' | '3xx' | '4xx' | '5xx' | 'unknown';
+};
+export type ObjectSchemaSuccessAttributesType = {};
+export type ObjectSchemaFailedAttributesType = {
+  statusCodeGroup: '1xx' | '3xx' | '4xx' | '5xx' | 'unknown';
+};
+export type ObjectSchemasSuccessAttributesType = {};
+export type ObjectSchemasFailedAttributesType = {
+  statusCodeGroup: '1xx' | '3xx' | '4xx' | '5xx' | 'unknown';
+};
 
 export type AnalyticsEventAttributes = {
   /**
@@ -166,6 +182,30 @@ export type AnalyticsEventAttributes = {
   /**
    * Fired when search is initiated via the search icon or enter key press for aql editor input field. */
   'ui.aqlEditor.searched': AqlEditorSearchedAttributesType;
+  /**
+   * Fired when fetching a workspace Id is successful. */
+  'operational.getWorkspaceId.success': GetWorkspaceIdSuccessAttributesType;
+  /**
+   * Fired when fetching a workspace Id fails. */
+  'operational.getWorkspaceId.failed': GetWorkspaceIdFailedAttributesType;
+  /**
+   * Fired when making a request to validateAQL is successful. */
+  'operational.validateAql.success': ValidateAqlSuccessAttributesType;
+  /**
+   * Fired when making a request to validateAQL fails. */
+  'operational.validateAql.failed': ValidateAqlFailedAttributesType;
+  /**
+   * Fired when fetching an object schema is successful. */
+  'operational.objectSchema.success': ObjectSchemaSuccessAttributesType;
+  /**
+   * Fired when fetching an object schema fails. */
+  'operational.objectSchema.failed': ObjectSchemaFailedAttributesType;
+  /**
+   * Fired when fetching object schemas is successful. */
+  'operational.objectSchemas.success': ObjectSchemasSuccessAttributesType;
+  /**
+   * Fired when fetching object schemas fails. */
+  'operational.objectSchemas.failed': ObjectSchemasFailedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

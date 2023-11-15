@@ -31,7 +31,8 @@
     "website": {
       "name": "Badge",
       "category": "Components"
-    }
+    },
+    "supportsReact18": true
   },
   "af:exports": {
     "./types": "./src/entry-points/types.tsx",

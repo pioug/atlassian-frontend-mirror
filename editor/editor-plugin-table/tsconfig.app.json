@@ -73,10 +73,10 @@
       "path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
     },
     {
-      "path": "../../pragmatic-drag-and-drop/hitbox/tsconfig.app.json"
+      "path": "../../pragmatic-drag-and-drop/auto-scroll/tsconfig.app.json"
     },
     {
-      "path": "../../pragmatic-drag-and-drop/react-beautiful-dnd-autoscroll/tsconfig.app.json"
+      "path": "../../pragmatic-drag-and-drop/hitbox/tsconfig.app.json"
     },
     {
       "path": "../../design-system/primitives/tsconfig.app.json"

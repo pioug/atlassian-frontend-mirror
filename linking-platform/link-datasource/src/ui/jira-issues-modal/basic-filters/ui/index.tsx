@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { Flex, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -15,7 +15,7 @@ const availableBasicFilterTypes: BasicFilterFieldType[] = [
   'assignee',
 ];
 
-interface BasicFilterContainerProps {
+export interface BasicFilterContainerProps {
   jql: string;
   cloudId: string;
 }
@@ -25,7 +25,9 @@ const basicFilterContainerStyles = xcss({
 });
 
 const BasicFilterContainer = ({ jql, cloudId }: BasicFilterContainerProps) => {
-  const [selection] = useState<SelectOption[]>([]);
+  const [selection, setSelection] = useState<{
+    [key in BasicFilterFieldType]?: SelectOption[];
+  }>({});
 
   useEffect(() => {
     if (isValidJql(jql)) {
@@ -33,7 +35,22 @@ const BasicFilterContainer = ({ jql, cloudId }: BasicFilterContainerProps) => {
     }
   }, [jql]);
 
-  const handleSelectionChange = () => {};
+  const handleSelectionChange = useCallback(
+    (options: SelectOption[], filter: BasicFilterFieldType) => {
+      const updatedSelection = {
+        ...selection,
+        [filter]: options,
+      };
+      setSelection(updatedSelection);
+    },
+    [selection],
+  );
+
+  const handleReset = useCallback(() => {
+    if (Object.keys(selection).length > 0) {
+      setSelection({});
+    }
+  }, [selection]);
 
   return (
     <Flex
@@ -41,14 +58,15 @@ const BasicFilterContainer = ({ jql, cloudId }: BasicFilterContainerProps) => {
       gap="space.100"
       testId="jlol-basic-filter-container"
     >
-      {availableBasicFilterTypes.map(filter => (
+      {availableBasicFilterTypes.map((filter: BasicFilterFieldType) => (
         <AsyncPopupSelect
           cloudId={cloudId}
           filterType={filter}
           key={filter}
-          selection={selection}
+          selection={selection[filter] || []}
           isDisabled={!cloudId}
-          onSelectionChange={handleSelectionChange}
+          onSelectionChange={options => handleSelectionChange(options, filter)}
+          onReset={handleReset}
         />
       ))}
     </Flex>

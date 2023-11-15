@@ -179,20 +179,24 @@ export type DatasourceDetails = {
   name: string;
   description: string;
   parameters: DatasourceResponseParameter[];
-  schema: {
-    defaultProperties: string[];
-    properties: DatasourceResponseSchemaProperty[];
-  };
+  schema: DatasourceDetailsSchema;
 };
 
 export type DatasourceData = {
   items: DatasourceDataResponseItem[];
-  schema?: {
-    properties: DatasourceResponseSchemaProperty[];
-    defaultProperties?: string[];
-  };
+  schema?: DatasourceDataSchema;
   nextPageCursor?: string;
   totalCount?: number;
+};
+
+export type DatasourceDataSchema = {
+  properties: DatasourceResponseSchemaProperty[];
+  defaultProperties?: string[];
+};
+
+export type DatasourceDetailsSchema = {
+  properties: DatasourceResponseSchemaProperty[];
+  defaultProperties: string[];
 };
 
 export type DatasourceMeta = {

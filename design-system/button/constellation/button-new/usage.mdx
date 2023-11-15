@@ -4,14 +4,14 @@ description: A button triggers an event or action. They let users know what will
 order: 2
 ---
 
-import buttonConciseDo from '../index/images/button-concise-do.png';
-import buttonConciseDont from '../index/images/button-concise-dont.png';
-import buttonCapitalizationDo from '../index/images/button-capitalization-do.png';
-import buttonCapitalizationDont from '../index/images/button-capitalization-dont.png';
-import buttonActionDo from '../index/images/button-action-do.png';
-import buttonActionDont from '../index/images/button-action-dont.png';
-import buttonLabelDo from '../index/images/button-label-do.png';
-import buttonLabelDont from '../index/images/button-label-dont.png';
+import buttonConciseDo from './images/button-concise-do.png';
+import buttonConciseDont from './images/button-concise-dont.png';
+import buttonCapitalizationDo from './images/button-capitalization-do.png';
+import buttonCapitalizationDont from './images/button-capitalization-dont.png';
+import buttonActionDo from './images/button-action-do.png';
+import buttonActionDont from './images/button-action-dont.png';
+import buttonLabelDo from './images/button-label-do.png';
+import buttonLabelDont from './images/button-label-dont.png';
 
 ## Usage
 
@@ -52,21 +52,32 @@ In general, don’t use a `<button>` in place of a link (`<a>`) or a link in pla
 
 ## Accessibility
 
-### Include aria labels for icon-only buttons
+### Aria labels for buttons with icons
 
-- Include alternative text using the `aria-label` prop when using icon-only buttons.
-- When using an icon alongside text, do not add a label to the icon. Doing so will unnecessarily repeat labels for people using screen readers.
+When using an icon alongside text, do not add a label to the icon. Doing so will unnecessarily repeat labels for people using screen readers.
+
+Always include a clear, accessible name as an aria label for [icon-only buttons](/components/button/icon-button/usage#accessibility).
 
 ### Avoid disabling buttons
 
-Avoid using disabled buttons, especially in forms. Disabled buttons don’t explain why the button isn’t usable, and they aren’t focusable at all for people using keyboard navigation.
+Avoid disabling buttons, especially in forms. Instead, keep the button pressable, and use validation and errors to explain what needs to be done to proceed.
 
-Instead, keep the button pressable, and use validation and errors to explain what needs to be done to proceed. Avoid putting [tooltips on disabled buttons](/components/button/usage#do-not-put-tooltips-on-disabled-buttons).
+Disabled buttons don’t explain why the button isn’t usable. They also aren’t reachable in the tab order and don’t receive hover, focus, or click events, making them entirely inaccessible to some people.
 
-### Don’t put tooltips on disabled buttons
+<DoDont type="do">
+  Use validation or other clear on-screen directions to help people proceed.
+</DoDont>
 
-This is not accessible. Disabled buttons aren’t reachable in the tab order and don’t receive hover, focus, or click events.
-Don’t attempt to create workarounds. If you are an Atlassian, Accessibility QA will make you redesign these implementations.
+<DoDont type="dont">
+  Don’t disable form submission buttons, as this doesn't give people clear a
+  direction for how to proceed.
+</DoDont>
+
+### Never put tooltips on disabled buttons
+
+Tooltips aren't visible on all devices or assitive technologies, and they should never appear on elements that aren't interactable.
+
+<!-- Don’t attempt to create workarounds. If you are an Atlassian, Accessibility QA will make you redesign these implementations. -->
 
 Some questions you should ask if you feel you need a tooltip on a disabled button:
 
@@ -81,21 +92,29 @@ We know that disabled buttons with tooltips are sometimes used to promote featur
 
 ### Alignment and positioning
 
-In general, the primary button or main CTA should match the alignment of the button group. For example, right aligned button groups place the primary button on the right. Left aligned button groups would place the primary button on the left.
+In general, the primary button or main CTA should match the alignment of the button group. For example, right aligned button groups place the primary button on the right. Left aligned button groups place the primary button on the left.
 
-**Right align** buttons for focussed tasks, series of tasks (such as [onboarding](/components/onboarding)), and [modal dialogs](/components/modal-dialog). Right aligning buttons is best for experiences with less copy, so users end scanning on the most important action (following a Z-pattern).
+- **Right align** buttons for focussed tasks, series of tasks (such as [onboarding](/components/onboarding)), and [modal dialogs](/components/modal-dialog). Right aligning buttons is best for experiences with less copy, so users end scanning on the most important action (following a Z-pattern).
+- **Left align** buttons for single-page forms and other full-page tasks where there is a lot of content in view. This aligns with how people scan full pages with more content (F-pattern), sorting by importance from left to right. Cards can also left-align the primary action, as they’re typically part of a larger page experience.
+- **Exceptions:** Benefits modals and login forms currently center align buttons.
 
-**Left align** buttons for single-page forms and other full-page tasks where there is a lot of content in view. This aligns with how people scan full pages with more content (F-pattern), sorting by importance from left to right. Cards can also left-align the primary action, as they’re typically part of a larger page experience.
+<DoDont type="do">
+  Right-align buttons for focussed tasks, modal dialogs, and other areas with
+  less content.
+</DoDont>
 
-Exceptions: Benefits modals and login forms currently center align buttons.
+<DoDont type="do">
+  Left align buttons on full-page forms, long lists of cards, or other screens
+  with a lot of full-page content.
+</DoDont>
 
-Form patterns show more detailed [button alignment diagrams](/patterns/forms#button-positioning).
+Also see [button alignment diagrams in the form pattern guidelines](/patterns/forms#button-positioning).
 
 ## Content guidelines
 
 ### Use sentence case capitalization
 
-Only capitalize the first letter of the button and any proper nouns. (Most feature names aren’t capitalized or considered proper nouns when following [our capitalization guidance](/content/language-and-grammar#capitalization).)
+Only capitalize the first letter of the button and any proper nouns. Most feature names aren’t capitalized or considered proper nouns when following [our capitalization guidance](/content/language-and-grammar#capitalization).
 
 <DoDont
   type="do"

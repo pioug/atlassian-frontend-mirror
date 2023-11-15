@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor, within } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
@@ -25,7 +25,7 @@ jest.mock('../../../hooks/useFilterOptions');
 jest.useFakeTimers();
 
 const setup = ({
-  filterType,
+  filterType = 'project',
   cloudId,
   selection,
   onSelectionChange,
@@ -56,7 +56,7 @@ const setup = ({
     <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
       <IntlProvider locale="en">
         <AsyncPopupSelect
-          filterType={filterType || 'project'}
+          filterType={filterType}
           cloudId={cloudId as string}
           selection={selection || []}
           onSelectionChange={onSelectionChange || mockOnSelectionChange}
@@ -68,7 +68,7 @@ const setup = ({
 
   if (openPicker) {
     const triggerButton = renderResult.queryByTestId(
-      `jlol-basic-filter-${filterType || 'project'}-trigger`,
+      `jlol-basic-filter-${filterType}-trigger`,
     );
 
     invariant(triggerButton);
@@ -89,11 +89,11 @@ describe('Testing AsyncPopupSelect', () => {
       'should render the correct label for %s filter button',
       (filterType, label) => {
         const { queryByTestId } = setup({ filterType });
-
         const button = queryByTestId(`jlol-basic-filter-${filterType}-trigger`);
 
-        expect(button).toBeInTheDocument();
-        expect(button).toHaveTextContent(label);
+        invariant(button);
+
+        expect(button.textContent).toEqual(label);
         expect(
           queryByTestId('jlol-basic-filter-popup-select--menu'),
         ).not.toBeInTheDocument();
@@ -124,6 +124,76 @@ describe('Testing AsyncPopupSelect', () => {
       expect(
         queryByTestId('jlol-basic-filter-popup-select--menu'),
       ).toBeInTheDocument();
+    });
+
+    describe('when options have been selected', () => {
+      it.each<[BasicFilterFieldType, string]>([
+        ['project', 'Project: Authorize'],
+        ['assignee', 'Assignee: Authorize'],
+        ['issuetype', 'Type: Authorize'],
+        ['status', 'Status: Authorize'],
+      ])(
+        'should render the correct label for %s filter button when a single option has been selected',
+        (filterType, label) => {
+          const selectedOptions: SelectOption[] = [
+            {
+              appearance: 'inprogress',
+              label: 'Authorize',
+              optionType: 'lozengeLabel',
+              value: 'Authorize',
+            },
+          ];
+
+          const { queryByTestId } = setup({
+            filterType,
+            selection: selectedOptions,
+          });
+
+          const button = queryByTestId(
+            `jlol-basic-filter-${filterType}-trigger`,
+          );
+
+          expect(button).toBeInTheDocument();
+          expect(button?.textContent).toEqual(label);
+        },
+      );
+
+      it.each<[BasicFilterFieldType, string]>([
+        ['project', 'Project: Authorize+1'],
+        ['assignee', 'Assignee: Authorize+1'],
+        ['issuetype', 'Type: Authorize+1'],
+        ['status', 'Status: Authorize+1'],
+      ])(
+        'should render the correct label for %s filter button when multiple options have been selected',
+        (filterType, label) => {
+          const selectedOptions: SelectOption[] = [
+            {
+              appearance: 'inprogress',
+              label: 'Authorize',
+              optionType: 'lozengeLabel',
+              value: 'Authorize',
+            },
+            {
+              appearance: 'inprogress',
+              label: 'Awaiting approval',
+              optionType: 'lozengeLabel',
+              value: '"Awaiting approval"',
+            },
+          ];
+
+          const { queryByTestId } = setup({
+            filterType,
+            selection: selectedOptions,
+          });
+
+          const button = queryByTestId(
+            `jlol-basic-filter-${filterType}-trigger`,
+          );
+
+          expect(button).toBeInTheDocument();
+          expect(button?.textContent).toEqual(label);
+        },
+      );
     });
   });
   describe('popup footer', () => {
@@ -346,6 +416,45 @@ describe('Testing AsyncPopupSelect', () => {
     expect(getByText('Closed')).toBeInTheDocument();
   });
 
+  it('should render options with those selected ordered first for initial render', async () => {
+    const selectedOption: SelectOption[] = [
+      {
+        appearance: 'success',
+        label: 'Canceled',
+        optionType: 'lozengeLabel',
+        value: 'Canceled',
+      },
+    ];
+
+    const { findByTestId } = setup({
+      filterType: 'status',
+      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
+      selection: selectedOption,
+      openPicker: true,
+      status: 'resolved',
+    });
+
+    const selectMenu = await findByTestId(
+      'jlol-basic-filter-popup-select--menu',
+    );
+    const optionLozenges = within(selectMenu).queryAllByTestId(
+      'jlol-basic-filter-popup-select-option--lozenge',
+    );
+
+    // Check that the ordering of optionLozenges is correct
+    const expectedTextContents = [
+      'Canceled',
+      'Authorize',
+      'Awaiting approval',
+      'Awaiting implementation',
+      'Closed',
+    ];
+
+    expectedTextContents.forEach((expectedTextContent, index) => {
+      expect(optionLozenges[index]).toHaveTextContent(expectedTextContent);
+    });
+  });
+
   it('should render the search box with placeholder correctly when menu is opened', () => {
     const { container } = setup({
       openPicker: true,
@@ -400,8 +509,16 @@ describe('Testing AsyncPopupSelect', () => {
 
   it('should call on selection callback when selecting items', () => {
     const mockOnSelection = jest.fn();
+    const expectedFirstSelection = [
+      {
+        appearance: 'inprogress',
+        label: 'Authorize',
+        optionType: 'lozengeLabel',
+        value: 'Authorize',
+      },
+    ] as SelectOption[];
 
-    const { queryAllByTestId } = setup({
+    const { queryByTestId, queryAllByTestId, rerender } = setup({
       filterType: 'status',
       filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
       openPicker: true,
@@ -415,14 +532,25 @@ describe('Testing AsyncPopupSelect', () => {
 
     fireEvent.click(firstOption);
 
-    expect(mockOnSelection).toHaveBeenNthCalledWith(1, [
-      {
-        appearance: 'inprogress',
-        label: 'Authorize',
-        optionType: 'lozengeLabel',
-        value: 'Authorize',
-      },
-    ]);
+    expect(mockOnSelection).toHaveBeenNthCalledWith(1, expectedFirstSelection);
+
+    // since the parent is handling selection, we need the rerender with the first selection object
+    rerender(
+      <IntlProvider locale="en">
+        <AsyncPopupSelect
+          filterType={'status'}
+          cloudId={''}
+          onSelectionChange={mockOnSelection}
+          selection={expectedFirstSelection}
+        />
+      </IntlProvider>,
+    );
+
+    // after rerender, open the popup again
+    const triggerButton = queryByTestId(`jlol-basic-filter-status-trigger`);
+
+    invariant(triggerButton);
+    fireEvent.click(triggerButton);
 
     const [_, secondOption] = queryAllByTestId(
       'jlol-basic-filter-popup-select-option--lozenge',

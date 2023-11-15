@@ -41,6 +41,7 @@ import {
   showInsertRowButton,
   showResizeHandleLine,
 } from './commands';
+import { getPluginState as getDragDropPluginState } from './pm-plugins/drag-and-drop/plugin-factory';
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { getPluginState as getResizePluginState } from './pm-plugins/table-resizing/plugin-factory';
 import { deleteColumns, deleteRows } from './transforms';
@@ -299,7 +300,9 @@ export const handleMouseLeave = (view: EditorView, event: Event): boolean => {
   }
 
   if (isDragAndDropEnabled) {
-    hoverCell()(state, dispatch);
+    const { isDragMenuOpen } = getDragDropPluginState(state);
+    // Only set hoveredCell colIndex and rowIndex to undefined if the drag menu is not open
+    !isDragMenuOpen && hoverCell()(state, dispatch);
   }
 
   if (

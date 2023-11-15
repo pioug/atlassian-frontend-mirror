@@ -3,12 +3,11 @@ import React from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { useGlobalTheme } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 
 import { cssVar, defaultMargin, tagHeight } from '../../../constants';
 import type { AppearanceType, TagColor } from '../../../index';
-import * as theme from '../../../theme';
+import * as styles from '../../../styles';
 
 type BaseProps = React.AllHTMLAttributes<HTMLElement> & {
   before?: JSX.Element;
@@ -71,8 +70,6 @@ const BaseTag = React.forwardRef<HTMLDivElement, BaseProps>(function BaseTag(
   }: BaseProps,
   ref,
 ) {
-  const { mode } = useGlobalTheme();
-
   const isLink = Boolean(href);
   const isRemovable = Boolean(after);
   const isInteractive = isLink || isRemovable;
@@ -80,18 +77,18 @@ const BaseTag = React.forwardRef<HTMLDivElement, BaseProps>(function BaseTag(
 
   // Change link text color if  the tag is standard color
   const textLinkColors = isStandardLink
-    ? theme.textColors['standardLink'][mode]
-    : theme.textColors[color][mode];
+    ? styles.textColors['standardLink']
+    : styles.textColors[color];
 
   const backgroundHoverColors =
     isRemovable && !isLink
-      ? theme.backgroundColors[color][mode]
-      : theme.linkHoverBackgroundColors[color][mode];
+      ? styles.backgroundColors[color]
+      : styles.linkHoverBackgroundColors[color];
 
   const backgroundActiveColors =
     isRemovable && !isLink
-      ? theme.backgroundColors[color][mode]
-      : theme.linkActiveBackgroundColors[color][mode];
+      ? styles.backgroundColors[color]
+      : styles.linkActiveBackgroundColors[color];
 
   return (
     <span
@@ -104,18 +101,18 @@ const BaseTag = React.forwardRef<HTMLDivElement, BaseProps>(function BaseTag(
         isInteractive && interactiveStyles,
       ]}
       style={{
-        [cssVar.color.text.default]: theme.textColors[color][mode],
-        [cssVar.color.text.hover]: theme.textHoverColors[color][mode],
-        [cssVar.color.text.active]: theme.textActiveColors[color][mode],
+        [cssVar.color.text.default]: styles.textColors[color],
+        [cssVar.color.text.hover]: styles.textHoverColors[color],
+        [cssVar.color.text.active]: styles.textActiveColors[color],
         [cssVar.color.text.link]: textLinkColors,
-        [cssVar.color.background.default]: theme.backgroundColors[color][mode],
+        [cssVar.color.background.default]: styles.backgroundColors[color],
         [cssVar.color.background.hover]: backgroundHoverColors,
         [cssVar.color.background.active]: backgroundActiveColors,
-        [cssVar.color.focusRing]: theme.focusRingColors[mode],
-        [cssVar.color.removeButton.default]: theme.removeButtonColors[color],
+        [cssVar.color.focusRing]: styles.focusRingColors,
+        [cssVar.color.removeButton.default]: styles.removeButtonColors[color],
         [cssVar.color.removeButton.hover]:
-          theme.removeButtonHoverColors[color][mode],
-        [cssVar.borderRadius]: theme.borderRadius[appearance],
+          styles.removeButtonHoverColors[color],
+        [cssVar.borderRadius]: styles.borderRadius[appearance],
         ...style,
       }}
       className={className}

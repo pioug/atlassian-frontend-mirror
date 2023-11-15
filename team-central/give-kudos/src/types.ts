@@ -11,6 +11,31 @@ export enum FlagEventType {
   CLOSE = 'close',
 }
 
+type FlagEventTypeValue = `${FlagEventType}`;
+
+export const isFlagEventTypeValue = (
+  value: string,
+): value is FlagEventTypeValue => {
+  return Object.values(FlagEventType).includes(value as FlagEventType);
+};
+
+type FlagType = 'error' | 'warning' | 'success' | 'info';
+
+interface FlagAction {
+  content: string | JSX.Element;
+  href?: string;
+  onClick?: () => void;
+}
+
+export interface Flag {
+  id: string | number;
+  title: string | JSX.Element;
+  description: string | JSX.Element;
+  icon?: JSX.Element;
+  actions?: FlagAction[];
+  type?: FlagType;
+}
+
 export interface KudosRecipient {
   type: KudosType;
   recipientId: string;

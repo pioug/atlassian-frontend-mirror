@@ -9,6 +9,7 @@ import {
 import {
   DatasourceDataRequest,
   DatasourceDataResponseItem,
+  DatasourceDataSchema,
   DatasourceParameters,
   DatasourceResponseSchemaProperty,
   DatasourceTableStatusType,
@@ -72,12 +73,18 @@ export const useDatasourceTableState = ({
 }: DatasourceTableStateProps): DatasourceTableState => {
   const { fireEvent } = useDatasourceAnalyticsEvents();
 
+  const idFieldCount = 1;
+  const keyFieldCount = 1;
+
   const [defaultVisibleColumnKeys, setDefaultVisibleColumnKeys] = useState<
     DatasourceTableState['defaultVisibleColumnKeys']
   >([]);
   const [lastRequestedFieldKeys, setLastRequestedFieldKeys] = useState<
     string[]
   >([]);
+  const [fullSchema, setFullSchema] = useState<DatasourceDataSchema>({
+    properties: [],
+  });
   const [status, setStatus] = useState<DatasourceTableState['status']>('empty');
   const [responseItems, setResponseItems] = useState<
     DatasourceTableState['responseItems']
@@ -136,21 +143,43 @@ export const useDatasourceTableState = ({
   }, [columns, datasourceId, getDatasourceDetails, parameters]);
 
   const applySchemaProperties = useCallback(
-    (properties: DatasourceResponseSchemaProperty[]) => {
-      if (!isEqual(columns, properties)) {
-        setColumns(properties);
+    (schema: DatasourceDataSchema, fieldKeys: string[]) => {
+      let { properties, defaultProperties = [] } = schema;
+      let propertiesToBeUsed = properties;
+      const propertyKeysToBeUsed =
+        Array.isArray(fieldKeys) && fieldKeys.length > 0
+          ? fieldKeys
+          : defaultProperties;
+      if (fieldKeys.length > 0 || defaultProperties.length > 0) {
+        propertiesToBeUsed = properties.filter(property => {
+          return propertyKeysToBeUsed.includes(property.key);
+        });
       }
 
-      const defaultProperties = properties.map(prop => prop.key);
+      /*Jira adds identifier fields like id and key to all data responses
+      Since defaultProperties already send back the keyField, we are accounting only
+      for the idField when we are using defaulProperties
+      */
+      if (
+        properties.length > fieldKeys.length + idFieldCount + keyFieldCount &&
+        properties.length > defaultProperties.length + idFieldCount
+      ) {
+        setFullSchema(schema);
+      }
+      if (!isEqual(columns, propertiesToBeUsed)) {
+        setColumns(propertiesToBeUsed);
+      }
+
+      const newProperties = propertiesToBeUsed.map(prop => prop.key);
 
       // when loading for the first time, we will need to set default visible props as /data does not give you that info
       // also, since we dont pass any fields, we will need to set this info as lastRequestedFieldKeys
-      if (!isEqual(defaultVisibleColumnKeys, defaultProperties)) {
-        setDefaultVisibleColumnKeys(defaultProperties);
+      if (!isEqual(defaultVisibleColumnKeys, newProperties)) {
+        setDefaultVisibleColumnKeys(newProperties);
       }
 
-      if (!isEqual(lastRequestedFieldKeys, defaultProperties)) {
-        setLastRequestedFieldKeys(defaultProperties);
+      if (!isEqual(lastRequestedFieldKeys, newProperties)) {
+        setLastRequestedFieldKeys(newProperties);
       }
     },
     [columns, defaultVisibleColumnKeys, lastRequestedFieldKeys],
@@ -161,19 +190,19 @@ export const useDatasourceTableState = ({
       if (!parameters) {
         return;
       }
-
       const {
         isSchemaFromData = true,
         shouldRequestFirstPage,
         shouldForceRequest = false,
       } = requestInfo;
 
+      const isFullSchemaLoaded = fullSchema.properties.length > 0;
       const datasourceDataRequest: DatasourceDataRequest = {
         parameters,
         pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
         pageCursor: shouldRequestFirstPage ? undefined : nextCursor,
         fields: fieldKeys,
-        includeSchema: isSchemaFromData,
+        includeSchema: isFullSchemaLoaded ? false : isSchemaFromData,
       };
 
       setStatus('loading');
@@ -211,8 +240,11 @@ export const useDatasourceTableState = ({
           setLastRequestedFieldKeys(fieldKeys);
         }
 
-        if (isSchemaFromData && schema && items.length > 0) {
-          applySchemaProperties(schema.properties);
+        if (
+          ((isSchemaFromData && schema) || fullSchema.properties.length > 0) &&
+          items.length > 0
+        ) {
+          applySchemaProperties(schema || fullSchema, fieldKeys);
         }
 
         const isUserLoadingNextPage =
@@ -245,6 +277,7 @@ export const useDatasourceTableState = ({
       responseItems?.length,
       applySchemaProperties,
       fireEvent,
+      fullSchema,
     ],
   );
 
@@ -255,6 +288,7 @@ export const useDatasourceTableState = ({
     setNextCursor(undefined);
     setTotalCount(undefined);
     setLastRequestedFieldKeys([]);
+    setFullSchema({ properties: [] });
     setShouldForceRequest(options?.shouldForceRequest || false);
     if (options?.shouldResetColumns) {
       setColumns([]);

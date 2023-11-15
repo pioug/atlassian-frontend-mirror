@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 
+import { useDatasourceAnalyticsEvents } from '../analytics';
 import { validateAql } from '../services/cmdbService';
 
 export type AqlValidationResponse = {
@@ -20,6 +21,7 @@ export const useValidateAqlText = (
   const [loading, setLoading] = useState<boolean>(false);
   const [isValidAqlText, setIsValidAqlText] = useState<boolean>(false);
   const [error, setError] = useState<Error | undefined>();
+  const { fireEvent } = useDatasourceAnalyticsEvents();
 
   const validateAqlText = useCallback(
     async (aql: string) => {
@@ -28,9 +30,11 @@ export const useValidateAqlText = (
       let isValid = false;
       let message = null;
       try {
-        const validateAqlResponse = await validateAql(workspaceId, {
-          qlQuery: aql,
-        });
+        const validateAqlResponse = await validateAql(
+          workspaceId,
+          { qlQuery: aql },
+          fireEvent,
+        );
         setIsValidAqlText(validateAqlResponse.isValid);
         isValid = validateAqlResponse.isValid;
         message = validateAqlResponse.errors?.iql || null;
@@ -48,7 +52,7 @@ export const useValidateAqlText = (
         message,
       };
     },
-    [workspaceId],
+    [workspaceId, fireEvent],
   );
 
   return {

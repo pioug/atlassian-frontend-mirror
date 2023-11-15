@@ -14,6 +14,7 @@ jest.mock('../../card/cardAnalytics', () => {
     __esModule: true,
     ...actualModule,
     fireOperationalEvent: jest.fn(actualModule.fireOperationalEvent),
+    fireNonCriticalErrorEvent: jest.fn(actualModule.fireNonCriticalErrorEvent),
     fireCopiedEvent: jest.fn(actualModule.fireCopiedEvent),
     fireCommencedEvent: jest.fn(actualModule.fireCommencedEvent),
     fireScreenEvent: jest.fn(actualModule.fireScreenEvent),
@@ -29,6 +30,7 @@ jest.mock('@atlaskit/media-client-react', () => {
 });
 
 import {
+  act,
   fireEvent,
   render,
   screen,
@@ -44,7 +46,7 @@ import {
   createMockedMediaApi,
   fileMap,
 } from '../../card/v2/__tests__/utils/_createMediaClient';
-import { videoURI, tallImage } from '@atlaskit/media-test-helpers';
+import { videoURI } from '@atlaskit/media-test-helpers';
 import {
   imgTestId,
   spinnerTestId,
@@ -64,6 +66,7 @@ import {
   abortUfoExperience,
 } from '../../utils/ufoExperiences';
 import {
+  fireNonCriticalErrorEvent,
   fireOperationalEvent,
   fireCommencedEvent,
   fireScreenEvent,
@@ -87,9 +90,11 @@ describe('Card V2', () => {
   const intersectionObserver = new MockIntersectionObserver();
 
   const makeVisible = () => {
-    intersectionObserver.triggerIntersect({
-      target: currentObserver,
-      isIntersecting: true,
+    act(() => {
+      intersectionObserver.triggerIntersect({
+        target: currentObserver,
+        isIntersecting: true,
+      });
     });
   };
 
@@ -129,33 +134,6 @@ describe('Card V2', () => {
   });
 
   describe('should manage lazy loading', () => {
-    it('should reuse dataURI from global scope when ssr is client', async () => {
-      const mockedMediaApi = createMockedMediaApi();
-      const expectedPreview = { dataURI: tallImage, source: 'ssr-data' };
-      const { id, collection } = fileMap.workingImgWithRemotePreview;
-      const identifier = {
-        mediaItemType: 'file',
-        id,
-        collectionName: collection,
-      } as const;
-
-      setGlobalSSRData(`${id}-${collection}`, expectedPreview);
-
-      render(
-        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
-          <CardV2Loader
-            mediaClientConfig={dummyMediaClientConfig}
-            identifier={identifier}
-            ssr="client"
-          />
-        </MockedMediaClientProvider>,
-      );
-
-      const img: HTMLImageElement = await screen.findByTestId(imgTestId);
-      expect(img).toBeInTheDocument();
-      expect(img.src).toEqual(tallImage);
-    });
-
     it('should lazy load by default', async () => {
       const mockedMediaApi = createMockedMediaApi();
       const identifier = {
@@ -172,8 +150,21 @@ describe('Card V2', () => {
         </MockedMediaClientProvider>,
       );
 
-      // should never render an image
+      // ensure that an img is never rendered
       await expect(screen.findByTestId(imgTestId)).rejects.toThrow();
+
+      // should not render A title box
+      expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText('04 Aug 2023, 01:40 AM'),
+      ).not.toBeInTheDocument();
+      expect(screen.queryByLabelText('Warning')).not.toBeInTheDocument();
+
+      // should not render a file type icon
+      expect(screen.queryByLabelText('pdf')).not.toBeInTheDocument();
 
       // should render a spinner icon
       expect(screen.getByTestId(spinnerTestId)).toBeInTheDocument();
@@ -186,7 +177,7 @@ describe('Card V2', () => {
         id: fileMap.workingPdfWithRemotePreview.id,
         collectionName: fileMap.workingPdfWithRemotePreview.collection,
       } as const;
-      render(
+      const { container } = render(
         <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
@@ -195,12 +186,12 @@ describe('Card V2', () => {
         </MockedMediaClientProvider>,
       );
 
-      // should never render an image
-      await expect(screen.findByTestId(imgTestId)).rejects.toThrow();
-
-      // should render a spinner icon
-      expect(screen.getByTestId(spinnerTestId)).toBeInTheDocument();
-
+      // wait for ViewportDetector to be mounted before turning the card visible
+      await waitFor(() =>
+        expect(
+          container.querySelector('[data-test-status="loading"]'),
+        ).toBeInTheDocument(),
+      );
       makeVisible();
 
       const img = await screen.findByTestId(imgTestId);
@@ -209,7 +200,10 @@ describe('Card V2', () => {
 
     it('should set loading img to lazy if lazy load is enabled and there is SSR data-preview', async () => {
       const mockedMediaApi = createMockedMediaApi();
-      const expectedPreview = { dataURI: tallImage, source: 'ssr-data' };
+      const expectedPreview = {
+        dataURI: 'global-scope-datauri',
+        source: 'ssr-data',
+      };
       const { id, collection } = fileMap.workingImgWithRemotePreview;
       const identifier = {
         mediaItemType: 'file',
@@ -235,12 +229,11 @@ describe('Card V2', () => {
       expect(img.getAttribute('loading')).toEqual('lazy');
     });
 
-    it('should reuse local img when there is SSR data-preview dimentions are larger than image dimentions', async () => {
+    it('should reuse dataURI from global scope when ssr is client', async () => {
       const mockedMediaApi = createMockedMediaApi();
       const expectedPreview = {
-        dataURI: tallImage,
+        dataURI: 'global-scope-datauri',
         source: 'ssr-data',
-        dimensions: { width: 100, height: 100 },
       };
       const { id, collection } = fileMap.workingImgWithRemotePreview;
       const identifier = {
@@ -256,23 +249,105 @@ describe('Card V2', () => {
           <CardV2Loader
             mediaClientConfig={dummyMediaClientConfig}
             identifier={identifier}
+            ssr="client"
+          />
+        </MockedMediaClientProvider>,
+      );
+
+      const img: HTMLImageElement = await screen.findByTestId(imgTestId);
+      expect(img).toBeInTheDocument();
+      expect(img.src).toContain('global-scope-datauri');
+    });
+
+    it('should reuse local img when the SSR data-preview dimensions are larger than the image dimensions', async () => {
+      const mockedMediaApi = createMockedMediaApi();
+      const expectedPreview = {
+        dataURI: 'global-scope-datauri',
+        source: 'ssr-data',
+        dimensions: { width: 100, height: 100 },
+      };
+      const { id, collection } = fileMap.workingImgWithRemotePreview;
+      const identifier = {
+        mediaItemType: 'file',
+        id,
+        collectionName: collection,
+      } as const;
+
+      setGlobalSSRData(`${id}-${collection}`, expectedPreview);
+
+      const { container } = render(
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+          <CardV2Loader
+            mediaClientConfig={dummyMediaClientConfig}
+            identifier={identifier}
             dimensions={{ width: 50, height: 50 }}
             ssr="client"
           />
         </MockedMediaClientProvider>,
       );
 
+      // wait for ViewportDetector to be mounted before turning the card visible
+      await waitFor(() =>
+        expect(
+          container.querySelector('[data-test-status="loading"]'),
+        ).toBeInTheDocument(),
+      );
       makeVisible();
 
       const img: HTMLImageElement = await screen.findByTestId(imgTestId);
       expect(img).toBeInTheDocument();
-      expect(img.src).toEqual(tallImage);
+      expect(img.src).toContain('global-scope-datauri');
     });
 
-    it('should refetch img when there is SSR data-preview and the dimentions are bigger and no lazy loading', async () => {
+    it('should refetch img when there is SSR data-preview and the dimensions are bigger', async () => {
       const mockedMediaApi = createMockedMediaApi();
       const expectedPreview = {
-        dataURI: tallImage,
+        dataURI: 'global-scope-datauri',
+        source: 'ssr-data',
+        dimensions: { width: 100, height: 100 },
+      };
+      const { id, collection } = fileMap.workingImgWithRemotePreview;
+      const identifier = {
+        mediaItemType: 'file',
+        id,
+        collectionName: collection,
+      } as const;
+
+      setGlobalSSRData(`${id}-${collection}`, expectedPreview);
+
+      const { container } = render(
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+          <CardV2Loader
+            mediaClientConfig={dummyMediaClientConfig}
+            identifier={identifier}
+            dimensions={{ width: 500, height: 500 }}
+            ssr="client"
+          />
+        </MockedMediaClientProvider>,
+      );
+
+      // wait for ViewportDetector to be mounted before turning the card visible
+      await waitFor(() =>
+        expect(
+          container.querySelector('[data-test-status="loading"]'),
+        ).toBeInTheDocument(),
+      );
+      makeVisible();
+
+      const img: HTMLImageElement = await screen.findByTestId(imgTestId);
+      expect(img).toBeInTheDocument();
+
+      // expect card to refetch the img
+      await waitFor(() =>
+        expect(img.src).not.toContain('global-scope-datauri'),
+      );
+      expect(img.src).toContain('http://localhost/');
+    });
+
+    it('should refetch img when there is SSR data-preview and the dimensions are bigger and no lazy loading', async () => {
+      const mockedMediaApi = createMockedMediaApi();
+      const expectedPreview = {
+        dataURI: 'global-scope-datauri',
         source: 'ssr-data',
         dimensions: { width: 100, height: 100 },
       };
@@ -307,6 +382,7 @@ describe('Card V2', () => {
       const img: HTMLImageElement = await screen.findByTestId(imgTestId);
       expect(img).toBeInTheDocument();
       expect(img.src).toContain('http://localhost/');
+      expect(img.src).not.toContain('global-scope-datauri');
     });
 
     it('should render immediately when not set to lazy load', async () => {
@@ -4794,6 +4870,59 @@ describe('Card V2', () => {
           details: { attempts: 2 },
         });
       });
+    });
+
+    it('should fire a non-critical error event if an error occurs when refetching a preview with bigger dimensions', async () => {
+      const mockedMediaApi = createMockedMediaApi({ withRemotePreview: false });
+      const expectedPreview = {
+        dataURI: 'global-scope-datauri',
+        source: 'ssr-data',
+        dimensions: { width: 100, height: 100 },
+      };
+      const { id, collection } = fileMap.workingImgWithRemotePreview;
+      const identifier = {
+        mediaItemType: 'file',
+        id,
+        collectionName: collection,
+      } as const;
+
+      setGlobalSSRData(`${id}-${collection}`, expectedPreview);
+
+      const { container } = render(
+        <MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+          <CardV2Loader
+            mediaClientConfig={dummyMediaClientConfig}
+            identifier={identifier}
+            dimensions={{ width: 500, height: 500 }}
+            ssr="client"
+          />
+        </MockedMediaClientProvider>,
+      );
+
+      // wait for ViewportDetector to be mounted before turning the card visible
+      await waitFor(() =>
+        expect(
+          container.querySelector('[data-test-status="loading"]'),
+        ).toBeInTheDocument(),
+      );
+      makeVisible();
+
+      await waitFor(() => expect(fireNonCriticalErrorEvent).toBeCalledTimes(1));
+      expect(fireNonCriticalErrorEvent).toBeCalledWith(
+        expect.any(Function),
+        expect.any(String),
+        expect.any(Object),
+        expect.any(Object),
+        expect.objectContaining({
+          primaryReason: 'remote-preview-fetch-ssr',
+        }),
+        expect.any(Object),
+        undefined,
+      );
+
+      const img: HTMLImageElement = await screen.findByTestId(imgTestId);
+      expect(img).toBeInTheDocument();
+      expect(img.src).toContain('global-scope-datauri');
     });
 
     describe('should abort the experience', () => {

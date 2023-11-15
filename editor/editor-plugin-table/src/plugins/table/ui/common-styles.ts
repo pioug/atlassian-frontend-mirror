@@ -29,6 +29,7 @@ import { TableCssClassName as ClassName } from '../types';
 
 import {
   columnControlsDecorationHeight,
+  dropTargetExtendedWidth,
   resizeHandlerAreaWidth,
   resizeLineWidth,
   rowControlsZIndex,
@@ -712,7 +713,7 @@ export const tableStyles = (
       display: grid;
       align-items: center;
       position: absolute;
-      left: -4px;
+      left: -${dropTargetExtendedWidth + 4}px;
       z-index: ${akEditorUnitZIndex};
 
       .${ClassName.DRAG_ROW_FLOATING_INSERT_DOT_WRAPPER} {

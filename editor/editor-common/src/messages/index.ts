@@ -19,6 +19,7 @@ export { messages as undoRedoMessages } from './undo-redo';
 export { messages as statusMessages } from './status';
 export { messages as dateMessages } from './date';
 export { toolbarMessages as layoutMessages } from './layout';
+export { messages as indentationMessages } from './indentation';
 
 export default defineMessages({
   layoutFixedWidth: {

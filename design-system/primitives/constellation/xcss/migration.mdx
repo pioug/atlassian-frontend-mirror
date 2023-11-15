@@ -1,6 +1,6 @@
 ---
 title: Migrating your app to XCSS
-description: xcss is a safer, tokens-first approach to CSS-in-JS.
+description: XCSS is a safer, tokens-first approach to CSS-in-JS.
 order: 2
 ---
 
@@ -8,9 +8,9 @@ order: 2
 
 ### Changes for developers
 
-There are two key changes to be mindful of when migrating to `xcss`.
+There are two key changes to be mindful of when migrating to XCSS.
 The first is updating callsites to remove any nested styles and
-tokenised values.
+tokenized values.
 
 ```diff
 - import { css } from '@emotion/react';
@@ -21,13 +21,12 @@ tokenised values.
   // token based properties will no longer need to be wrapped
 - padding: token('space.100'),
 + padding: 'space.100'
-  // no change is required for non-tokenised values
+  // no change is required for non-tokenized values
   transform: 'scale(2)'
 });
 ```
 
-The second change is that for the `xcss` function to be applied correctly it must be applied on a
-component with an `xcss` JSXAttribute. This won't work with the `css` or `className`
+The second change is that for the `xcss` function to be applied correctly it must be applied on a component with an `xcss` JSXAttribute. This won't work with the `css` or `className`
 JSXAttributes, be aware if you're not seeing your styles appear.
 
 ```diff
@@ -35,9 +34,9 @@ JSXAttributes, be aware if you're not seeing your styles appear.
 + <Box xcss={someStyles} />
 ```
 
-#### Changing the way you express styles
+### Changing the way you express styles
 
-Why are nested selectors a problem? A key philosophy of `xcss` is encouraging more deterministic style application. Restricting nested styles eliminates side-effects and encourages component encapsulation. Consider the below example:
+Why are nested selectors a problem? A key philosophy of XCSS is encouraging more deterministic style application. Restricting nested styles eliminates side-effects and encourages component encapsulation. Consider the below example:
 
 ```tsx
 const myComponentStyles = css({
@@ -77,13 +76,13 @@ const MyComponent = () => (
 
 There will likely be cases where nesting is the only option. While not desirable, nesting can be used minimally, and when the potential impact is considered.
 
-### FAQ
+## FAQ
 
-Migration to `xcss` is simple for the majority of cases. Here are some common strategies for migrations.
+Migration to XCSS is simple for the majority of cases. Here are some common strategies for migrations.
 
-#### Non-tokenised values
+### Non-tokenized values
 
-Before migrating to tokens, there are two options. Migrate to tokens first and then on a second pass migrate to `xcss` or make the jump directly to use both tokens and `xcss`.
+Before migrating to tokens, there are two options. Migrate to tokens first and then on a second pass migrate to XCSS or make the jump directly to use both tokens and XCSS.
 
 ```tsx
 const someStyles = css({
@@ -101,10 +100,10 @@ const someStyles = xcss({
 });
 ```
 
-#### Moving from the `styled` API
+### Moving from the `styled` API
 
 If currently using the `styled` API there are a few steps to migrate.
-The safest approach is to use object styles, migrate to tokens (optionally) and then migrate to `xcss`.
+The safest approach is to use object styles, migrate to tokens (optionally) and then migrate to XCSS.
 
 ```tsx
 const MyComponent = styled.div`
@@ -128,9 +127,3 @@ const myComponentStyles = xcss({
 
 const MyComponent = () => <Box xcss={myComponentStyles} />
 ```
-
-## Get help
-
-- Atlassians can reach out in [Slack](slack://channel?team=TFCUTJ0G5&id=CFJ9DU39U) for help with `xcss` migration.
-- Other developers who need help with tokens or the `xcss` utility can post in the [public developer community](https://community.developer.atlassian.com/).
-- For general help with the Atlassian Design System, [contact us](/resources/contact-us).

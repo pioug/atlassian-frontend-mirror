@@ -6,7 +6,11 @@ import {
   getWorkspaceId,
   validateAql,
 } from '../cmdbService';
-import { FetchError, PermissionError } from '../cmdbService.utils';
+import {
+  FetchError,
+  getStatusCodeGroup,
+  PermissionError,
+} from '../cmdbService.utils';
 
 describe('cmdbService', () => {
   beforeEach(() => {
@@ -15,6 +19,7 @@ describe('cmdbService', () => {
 
   const workspaceId = 'workspaceId';
   const schemaId = 'schemaId';
+  const fireEventMock = jest.fn();
 
   describe('getWorkspaceId', () => {
     const mockResponse = {
@@ -31,11 +36,15 @@ describe('cmdbService', () => {
         response: mockResponse,
       });
 
-      const response = await getWorkspaceId();
+      const response = await getWorkspaceId(fireEventMock);
 
       expect(mock.calls()).toHaveLength(1);
       expect(mock.done()).toBe(true);
       expect(response).toEqual(mockResponse.results[0].id);
+      expect(fireEventMock).toBeCalledWith(
+        'operational.getWorkspaceId.success',
+        {},
+      );
     });
 
     it('should throw PermissionError if response results is empty', async () => {
@@ -68,9 +77,13 @@ describe('cmdbService', () => {
           response: statusCode,
         });
 
-        await expect(getWorkspaceId).rejects.toThrow(errorType);
+        await expect(getWorkspaceId(fireEventMock)).rejects.toThrow(errorType);
         expect(mock.calls()).toHaveLength(1);
         expect(mock.done()).toBe(true);
+        expect(fireEventMock).toBeCalledWith(
+          'operational.getWorkspaceId.failed',
+          { statusCodeGroup: getStatusCodeGroup(new FetchError(statusCode)) },
+        );
       },
     );
   });
@@ -99,11 +112,15 @@ describe('cmdbService', () => {
           },
         });
 
-        const response = await validateAql(workspaceId, aql);
+        const response = await validateAql(workspaceId, aql, fireEventMock);
 
         expect(mock.calls()).toHaveLength(1);
         expect(mock.done()).toBe(true);
         expect(response).toEqual(expectedMockResponse);
+        expect(fireEventMock).toBeCalledWith(
+          'operational.validateAql.success',
+          {},
+        );
       },
     );
 
@@ -126,11 +143,14 @@ describe('cmdbService', () => {
           },
         });
 
-        await expect(validateAql(workspaceId, query)).rejects.toThrow(
-          errorType,
-        );
+        await expect(
+          validateAql(workspaceId, query, fireEventMock),
+        ).rejects.toThrow(errorType);
         expect(mock.calls()).toHaveLength(1);
         expect(mock.done()).toBe(true);
+        expect(fireEventMock).toBeCalledWith('operational.validateAql.failed', {
+          statusCodeGroup: getStatusCodeGroup(new FetchError(statusCode)),
+        });
       },
     );
   });
@@ -146,11 +166,19 @@ describe('cmdbService', () => {
         response: mockResponseObjectSchema,
       });
 
-      const response = await fetchObjectSchema(workspaceId, schemaId);
+      const response = await fetchObjectSchema(
+        workspaceId,
+        schemaId,
+        fireEventMock,
+      );
 
       expect(mock.calls()).toHaveLength(1);
       expect(mock.done()).toBe(true);
       expect(response).toEqual(mockResponseObjectSchema);
+      expect(fireEventMock).toBeCalledWith(
+        'operational.objectSchema.success',
+        {},
+      );
     });
 
     it.each([
@@ -167,11 +195,15 @@ describe('cmdbService', () => {
           response: statusCode,
         });
 
-        await expect(fetchObjectSchema(workspaceId, schemaId)).rejects.toThrow(
-          errorType,
-        );
+        await expect(
+          fetchObjectSchema(workspaceId, schemaId, fireEventMock),
+        ).rejects.toThrow(errorType);
         expect(mock.calls()).toHaveLength(1);
         expect(mock.done()).toBe(true);
+        expect(fireEventMock).toBeCalledWith(
+          'operational.objectSchema.failed',
+          { statusCodeGroup: getStatusCodeGroup(new FetchError(statusCode)) },
+        );
       },
     );
   });
@@ -209,11 +241,19 @@ describe('cmdbService', () => {
           response: expectedMockResponse,
         });
 
-        const response = await fetchObjectSchemas(workspaceId, query);
+        const response = await fetchObjectSchemas(
+          workspaceId,
+          query,
+          fireEventMock,
+        );
 
         expect(mock.calls()).toHaveLength(1);
         expect(mock.done()).toBe(true);
         expect(response).toEqual(expectedMockResponse);
+        expect(fireEventMock).toBeCalledWith(
+          'operational.objectSchemas.success',
+          {},
+        );
       },
     );
 
@@ -231,11 +271,15 @@ describe('cmdbService', () => {
           response: statusCode,
         });
 
-        await expect(fetchObjectSchemas(workspaceId)).rejects.toThrow(
-          errorType,
-        );
+        await expect(
+          fetchObjectSchemas(workspaceId, undefined, fireEventMock),
+        ).rejects.toThrow(errorType);
         expect(mock.calls()).toHaveLength(1);
         expect(mock.done()).toBe(true);
+        expect(fireEventMock).toBeCalledWith(
+          'operational.objectSchemas.failed',
+          { statusCodeGroup: getStatusCodeGroup(new FetchError(statusCode)) },
+        );
       },
     );
   });

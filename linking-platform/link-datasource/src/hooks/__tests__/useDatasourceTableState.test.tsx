@@ -8,6 +8,7 @@ import {
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import {
+  DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
   mockDatasourceDataResponse,
   mockDatasourceDataResponseWithSchema,
   mockDatasourceDetailsResponse,
@@ -486,6 +487,107 @@ describe('useDatasourceTableState', () => {
         await waitForNextUpdate();
 
         expect(result.current.columns).toEqual(expectedProperties);
+      });
+
+      it('should not request schema when fullschema is present', async () => {
+        asMock(getDatasourceData).mockResolvedValue(
+          mockDatasourceDataResponseWithSchema,
+        );
+        const requestedFields = ['type', 'summary'];
+        const { result, rerender, waitForNextUpdate } = setup(requestedFields);
+        await waitForNextUpdate();
+
+        expect(result.current.columns.map(column => column.key)).toEqual(
+          requestedFields,
+        );
+
+        rerender({
+          fieldKeys: ['assignee'],
+        });
+
+        await waitForNextUpdate();
+        expect(getDatasourceData).toBeCalledTimes(2);
+
+        expect(getDatasourceData).toHaveBeenNthCalledWith(
+          1,
+          '1',
+          {
+            parameters: expect.any(Object),
+            pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+            pageCursor: undefined,
+            fields: ['type', 'summary'],
+            includeSchema: true,
+          },
+          false,
+        );
+
+        expect(getDatasourceData).toHaveBeenNthCalledWith(
+          2,
+          '1',
+          {
+            parameters: expect.any(Object),
+            pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+            pageCursor: undefined,
+            fields: ['assignee'],
+            includeSchema: false,
+          },
+          false,
+        );
+      });
+
+      it('should use fullschema when fullschema is present', async () => {
+        asMock(getDatasourceData).mockResolvedValue(
+          mockDatasourceDataResponseWithSchema,
+        );
+        const requestedFields = ['type', 'summary'];
+        const { result, rerender, waitForNextUpdate } = setup(requestedFields);
+        await waitForNextUpdate();
+
+        expect(result.current.columns.map(column => column.key)).toEqual(
+          requestedFields,
+        );
+
+        rerender({
+          fieldKeys: ['assignee'],
+        });
+
+        await waitForNextUpdate();
+
+        expect(getDatasourceData).toBeCalledTimes(2);
+        expect(getDatasourceData).toHaveBeenNthCalledWith(
+          2,
+          '1',
+          {
+            parameters: expect.any(Object),
+            pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+            pageCursor: undefined,
+            fields: ['assignee'],
+            includeSchema: false,
+          },
+          false,
+        );
+        expect(result.current.columns.map(column => column.key)).toEqual([
+          'assignee',
+        ]);
+      });
+
+      it('should use fieldKeys when fieldKeys are requested', async () => {
+        const response = JSON.parse(
+          JSON.stringify(mockDatasourceDataResponseWithSchema),
+        );
+        if (response.data.schema) {
+          response.data.schema.defaultProperties = ['issue', 'type', 'summary'];
+        }
+        asMock(getDatasourceData).mockResolvedValue(response);
+
+        const { result, waitForNextUpdate } = setup();
+        await waitForNextUpdate();
+
+        expect(result.current.columns.map(column => column.key)).toEqual([
+          'issue',
+          'type',
+          'summary',
+        ]);
       });
 
       it('should fire analytics event "ui.nextItem.loaded" when next page is loaded', async () => {

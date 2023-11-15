@@ -6,6 +6,7 @@ import { getMediaClient } from '@atlaskit/media-client-react';
 import type {
   EmojiDescription,
   EmojiId,
+  EmojiRepresentation,
   EmojiServiceDescription,
   EmojiUpload,
   ImageRepresentation,
@@ -42,6 +43,11 @@ export interface EmojiProgessCallback {
   (progress: EmojiProgress): void;
 }
 
+type TokenisedEmojiRepresentation = {
+  representation?: EmojiRepresentation;
+  altRepresentation?: EmojiRepresentation;
+};
+
 // Assume media is 95% of total upload time.
 export const mediaProportionOfProgress = 95 / 100;
 
@@ -61,22 +67,45 @@ export default class SiteEmojiResource {
   }
 
   /**
-   * Will generate an emoji media path that is inclusive of client and token within the query parameter
+   * Will generate an emoji media path that is inclusive of client and token within the query parameter for media representation and altRepresentation
    */
-  async generateTokenisedMediaURL(emoji: EmojiDescription): Promise<string> {
-    if (emoji && isMediaRepresentation(emoji.representation)) {
-      const currentMediaPathURL = new URL(emoji.representation.mediaPath);
-      const currentMediaPathPARAMS = currentMediaPathURL.searchParams;
-      const readToken = await this.tokenManager.getToken('read');
-      if (currentMediaPathPARAMS.get('token') !== readToken.jwt) {
-        currentMediaPathPARAMS.set('token', readToken.jwt);
-      }
-      if (currentMediaPathPARAMS.get('client') !== readToken.clientId) {
-        currentMediaPathPARAMS.set('client', readToken.clientId);
-      }
-      return currentMediaPathURL.toString();
+  async generateTokenisedMediaURLS(
+    representation: EmojiRepresentation,
+    altRepresentation?: EmojiRepresentation,
+  ): Promise<TokenisedEmojiRepresentation> {
+    if (!isMediaRepresentation(representation)) {
+      return { representation, altRepresentation };
     }
-    throw Error('Emoji resource is not of type Media Representation');
+
+    try {
+      const readToken = await this.tokenManager.getToken('read');
+
+      return Object.entries({
+        representation,
+        altRepresentation,
+      }).reduce<Record<string, EmojiRepresentation>>(
+        (acc, [key, value]) => {
+          if (value && isMediaRepresentation(value)) {
+            const path = new URL(value.mediaPath);
+            const params = path.searchParams;
+            if (params.get('token') !== readToken.jwt) {
+              params.set('token', readToken.jwt);
+            }
+            if (params.get('client') !== readToken.clientId) {
+              params.set('client', readToken.clientId);
+            }
+            acc[key] = {
+              ...value,
+              mediaPath: path.toString(),
+            };
+          }
+          return acc;
+        },
+        { representation, altRepresentation },
+      );
+    } catch (error) {
+      return { representation, altRepresentation };
+    }
   }
 
   /**

@@ -440,9 +440,7 @@ describe('Avatar', () => {
   });
 
   it('should render a wrapping span element if supplied by the as prop', () => {
-    // TODO: Remove onClick from non-interactive `span` (DSP-14029)
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
-    render(<Avatar testId={'avatar'} onClick={__noop} as="span" />);
+    render(<Avatar testId={'avatar'} as="span" />);
     const avatar = screen.getByTestId('avatar');
 
     expect(avatar.tagName).toEqual('SPAN');

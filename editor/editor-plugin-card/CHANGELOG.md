@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 0.13.3
+
+### Patch Changes
+
+- [#43175](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43175) [`a72cac2bc28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a72cac2bc28) - [ux] Added a check for showLinkOverlay for hover/unhover scenarios
+
 ## 0.13.2
 
 ### Patch Changes

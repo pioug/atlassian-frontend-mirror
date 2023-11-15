@@ -49,7 +49,7 @@ export const ConfirmDismissDialog = ({
             onClose={onCancelDismiss}
             width="small"
           >
-            <ScreenViewedEvent screen="linkCreateExitWarningScreen" />
+            <ScreenViewedEvent screen={screen} />
             <ModalHeader>
               <ModalTitle>{intl.formatMessage(messages.title)}</ModalTitle>
             </ModalHeader>

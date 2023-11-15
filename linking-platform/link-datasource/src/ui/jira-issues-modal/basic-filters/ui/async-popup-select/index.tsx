@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import isEqual from 'lodash/isEqual';
 import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
@@ -26,6 +27,7 @@ export interface AsyncPopupSelectProps {
   cloudId: string;
   selection: SelectOption[];
   onSelectionChange?: (selection: SelectOption[]) => void;
+  onReset?: () => void;
   isDisabled?: boolean;
 }
 
@@ -39,16 +41,20 @@ const AsyncPopupSelect = ({
   cloudId,
   selection,
   onSelectionChange = () => {},
+  onReset: resetSelection = () => {},
   isDisabled = false,
 }: AsyncPopupSelectProps) => {
   const { formatMessage } = useIntl();
 
-  const pickerRef = useRef<PopupSelect<SelectOption, true>>(null);
-
   const [searchTerm, setSearchTerm] = useState('');
-
   const [selectedOptions, setSelectedOptions] =
     useState<ValueType<SelectOption, true>>(selection);
+  const [sortedOptions, setSortedOptions] = useState<readonly SelectOption[]>(
+    [],
+  );
+
+  const currentSiteCloudId = useRef<string>(cloudId);
+  const sortPaginatedResults = useRef(false); // this is to track pagination for sorting purpose
 
   const {
     filterOptions,
@@ -56,6 +62,7 @@ const AsyncPopupSelect = ({
     totalCount,
     status,
     pageCursor,
+    reset: resetHook,
     errors,
   } = useFilterOptions({
     filterType,
@@ -84,22 +91,67 @@ const AsyncPopupSelect = ({
     [handleDebouncedFetchFilterOptions, searchTerm],
   );
 
-  const handleOptionSelection = (newValue: ValueType<SelectOption, true>) => {
-    setSelectedOptions(newValue);
-    onSelectionChange(newValue as SelectOption[]);
-  };
+  const handleOptionSelection = useCallback(
+    (newValue: ValueType<SelectOption, true>) => {
+      onSelectionChange(newValue as SelectOption[]);
+    },
+    [onSelectionChange],
+  );
 
-  const handleOpenPopup = useCallback(() => {
-    if (status === 'empty' || status === 'rejected') {
-      // if user searches and gets status as rejected, we want the dropdown to try load the request with searchString when the user reopens the dropdown
-      fetchFilterOptions({
-        searchString: searchTerm,
-      });
+  const sortOptionsOnPopupOpen = useCallback(() => {
+    if (selectedOptions.length === 0) {
+      return setSortedOptions(filterOptions);
     }
-  }, [fetchFilterOptions, searchTerm, status]);
+
+    const nonSelectedOptions = filterOptions.filter(
+      option =>
+        !selectedOptions.find(
+          selectedOption => selectedOption.value === option.value,
+        ),
+    );
+
+    const newOptions = [...selectedOptions, ...nonSelectedOptions];
+
+    if (!isEqual(newOptions, sortedOptions)) {
+      setSortedOptions(newOptions);
+    }
+  }, [selectedOptions, filterOptions, sortedOptions]);
+
+  const sortOptionsOnResolve = useCallback(() => {
+    // sortedOptions is empty initially, this will take care of setting the initial value and bring the selected items to the top
+    if (sortedOptions.length === 0) {
+      return sortOptionsOnPopupOpen();
+    }
+
+    // when the user is searching, we want the search result to be displayed as it is, and the select component will take care of marking the selected items
+    if (searchTerm) {
+      sortPaginatedResults.current = false; // set to false to indicate pagination resolve action is completed from the sorting perspective
+      return setSortedOptions(filterOptions);
+    }
+
+    // this block handles the pagination, where on pagination, we will just append newOptions to the current list
+    if (sortPaginatedResults.current) {
+      const newOptions = filterOptions.filter(
+        option =>
+          !sortedOptions.find(
+            sortedOption => sortedOption.value === option.value,
+          ),
+      );
+      if (newOptions.length > 0) {
+        setSortedOptions([...sortedOptions, ...newOptions]);
+      }
+
+      sortPaginatedResults.current = false; // set to false to indicate pagination resolve action is completed from the sorting perspective
+      return;
+    }
+
+    sortPaginatedResults.current = false; // set to false to indicate pagination resolve action is completed from the sorting perspective
+    sortOptionsOnPopupOpen();
+  }, [filterOptions, searchTerm, sortOptionsOnPopupOpen, sortedOptions]);
 
   const handleShowMore = useCallback(() => {
     if (pageCursor) {
+      sortPaginatedResults.current = true;
       fetchFilterOptions({
         pageCursor,
         searchString: searchTerm,
@@ -107,34 +159,58 @@ const AsyncPopupSelect = ({
     }
   }, [fetchFilterOptions, pageCursor, searchTerm]);
 
+  const handleOpenPopup = useCallback(() => {
+    if (status === 'empty' || status === 'rejected') {
+      // if user searches and gets status as rejected, we want the dropdown to try load the request with searchString when the user reopens the dropdown
+      fetchFilterOptions({
+        searchString: searchTerm,
+      });
+    } else if (status === 'resolved') {
+      sortOptionsOnPopupOpen();
+    }
+  }, [fetchFilterOptions, searchTerm, sortOptionsOnPopupOpen, status]);
+
   useEffect(() => {
     if (status === 'resolved') {
-      // necessary to refocus the search input after the loading state
-      pickerRef?.current?.selectRef?.inputRef?.focus();
+      sortOptionsOnResolve();
     }
-  }, [status]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status]); // we only want the sortOptionsOnResolve to run when there is a status change
+
+  useEffect(() => {
+    if (currentSiteCloudId.current !== cloudId) {
+      currentSiteCloudId.current = cloudId;
+      setSortedOptions([]);
+      setSearchTerm('');
+      resetHook();
+      resetSelection();
+    }
+  }, [cloudId, resetHook, resetSelection]);
+
+  useEffect(() => {
+    if (!isEqual(selection, selectedOptions)) {
+      setSelectedOptions(selection);
+    }
+  }, [selectedOptions, selection]);
 
   const filterOptionsLength = filterOptions.length;
-
   const isError = status === 'rejected';
   const isLoading = status === 'loading' || status === 'empty';
   const isLoadingMore = status === 'loadingMore';
   const isEmpty = status === 'resolved' && filterOptionsLength === 0;
-  const areAllResultsLoaded = filterOptions.length === totalCount;
+  const popupSelectOptions = isLoading || isError ? [] : sortedOptions; // if not set to [], then on loading, no loading UI will be shown
+  const areAllResultsLoaded = filterOptionsLength === totalCount;
 
   const shouldShowFooter =
-    (status === 'resolved' || isLoadingMore) && filterOptions.length > 0; // footer should not disappear when there is an inline spinner for loading more data
+    (status === 'resolved' || isLoadingMore) && filterOptionsLength > 0; // footer should not disappear when there is an inline spinner for loading more data
   const shouldDisplayShowMoreButton =
     status === 'resolved' && !!pageCursor && !areAllResultsLoaded;
-
-  const options = isLoading || isError ? [] : filterOptions; // if not set to [], for eg: on loading, no loading UI will be shown
 
   return (
     <PopupSelect<SelectOption, true>
       isMulti
       maxMenuWidth={300}
       minMenuWidth={300}
-      ref={pickerRef}
       testId="jlol-basic-filter-popup-select"
       inputId="jlol-basic-filter-popup-select--input"
       /*
@@ -169,7 +245,7 @@ const AsyncPopupSelect = ({
         LoadingIndicator: undefined, // disables the three ... indicator in the searchbox when picker is loading
         IndicatorSeparator: undefined, // disables the | separator between search input and icon
       }}
-      options={options}
+      options={popupSelectOptions}
       value={selectedOptions}
       filterOption={noFilterOptions}
       formatOptionLabel={formatOptionLabel}
@@ -179,6 +255,7 @@ const AsyncPopupSelect = ({
         <PopupTrigger
           {...triggerProps}
           filterType={filterType}
+          selectedOptions={selectedOptions}
           isSelected={isOpen}
           onClick={handleOpenPopup}
           isDisabled={isDisabled}
@@ -187,7 +264,7 @@ const AsyncPopupSelect = ({
       footer={
         shouldShowFooter && (
           <PopupFooter
-            currentDisplayCount={filterOptionsLength}
+            currentDisplayCount={popupSelectOptions.length}
             totalCount={totalCount}
           />
         )

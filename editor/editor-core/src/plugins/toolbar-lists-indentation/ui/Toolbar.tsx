@@ -14,8 +14,10 @@ import {
   tooltip,
 } from '../../../keymaps';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../ui/ToolbarButton';
-import { listMessages as messages } from '@atlaskit/editor-common/messages';
-import { messages as indentationMessages } from '../../indentation/messages';
+import {
+  listMessages as messages,
+  indentationMessages,
+} from '@atlaskit/editor-common/messages';
 import type { ButtonName, ToolbarProps } from '../types';
 import {
   separatorStyles,

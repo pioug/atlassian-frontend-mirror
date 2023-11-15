@@ -32,37 +32,25 @@
           "title": "Overview",
           "id": "@atlaskit/primitives",
           "folder": "overview",
-          "slug": "primitives/overview",
-          "status": {
-            "type": "beta"
-          }
+          "slug": "primitives/overview"
         },
         {
           "title": "Box",
           "folder": "box",
           "slug": "primitives/box",
-          "id": "@atlaskit/primitives/box",
-          "status": {
-            "type": "beta"
-          }
+          "id": "@atlaskit/primitives/box"
         },
         {
           "title": "Inline",
           "folder": "inline",
           "slug": "primitives/inline",
-          "id": "@atlaskit/primitives/inline",
-          "status": {
-            "type": "beta"
-          }
+          "id": "@atlaskit/primitives/inline"
         },
         {
           "title": "Stack",
           "folder": "stack",
           "slug": "primitives/stack",
-          "id": "@atlaskit/primitives/stack",
-          "status": {
-            "type": "beta"
-          }
+          "id": "@atlaskit/primitives/stack"
         },
         {
           "title": "Flex",
@@ -86,28 +74,19 @@
           "title": "Bleed",
           "folder": "bleed",
           "slug": "primitives/bleed",
-          "id": "@atlaskit/primitives/bleed",
-          "status": {
-            "type": "beta"
-          }
+          "id": "@atlaskit/primitives/bleed"
         },
         {
           "title": "xcss",
           "folder": "xcss",
           "slug": "primitives/xcss",
-          "id": "@atlaskit/primitives/xcss",
-          "status": {
-            "type": "beta"
-          }
+          "id": "@atlaskit/primitives/xcss"
         },
         {
           "title": "Responsive",
           "folder": "responsive",
           "slug": "primitives/responsive",
-          "id": "@atlaskit/primitives/responsive",
-          "status": {
-            "type": "beta"
-          }
+          "id": "@atlaskit/primitives/responsive"
         },
         {
           "title": "Text",

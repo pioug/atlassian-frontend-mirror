@@ -26,7 +26,10 @@ import type {
   EmojiUpload,
   ImageRepresentation,
 } from '../../../../types';
-import { toEmojiId } from '../../../../util/type-helpers';
+import {
+  isMediaRepresentation,
+  toEmojiId,
+} from '../../../../util/type-helpers';
 
 import {
   atlassianServiceEmojis,
@@ -36,6 +39,9 @@ import {
   missingMediaServiceEmoji,
   siteServiceConfig,
   loadedMediaEmoji,
+  loadedMediaEmojiWithLoadedAlt,
+  loadedMediaEmojiWithoutAlt,
+  standardBoomEmoji,
 } from '../../_test-data';
 import { Observable } from 'rxjs/Observable';
 
@@ -307,6 +313,83 @@ describe('SiteEmojiResource', () => {
       });
 
       return donePromise;
+    });
+  });
+
+  describe('#generateTokenisedMediaURLS', () => {
+    let tokenManagerStub: any;
+    beforeEach(() => {
+      tokenManagerStub = sinon.createStubInstance(TokenManager);
+      tokenManagerStub.getToken.returns({
+        clientId: 'foo',
+        jwt: 'bar',
+      });
+    });
+    it('tokenises mediaPath of representation and altRepresentatio with media jwt and client id', async () => {
+      const siteEmojiResource = new TestSiteEmojiResource(tokenManagerStub);
+      const { representation, altRepresentation } =
+        await siteEmojiResource.generateTokenisedMediaURLS(
+          loadedMediaEmojiWithLoadedAlt.representation,
+          loadedMediaEmojiWithLoadedAlt.altRepresentation,
+        );
+
+      expect(tokenManagerStub.getToken.calledOnce).toBeTruthy();
+      expect(isMediaRepresentation(representation)).toEqual(true);
+      expect(isMediaRepresentation(altRepresentation)).toEqual(true);
+
+      if (
+        isMediaRepresentation(representation) &&
+        isMediaRepresentation(altRepresentation)
+      ) {
+        expect(representation.mediaPath).toContain('token=bar&client=foo');
+        expect(altRepresentation.mediaPath).toContain('token=bar&client=foo');
+        expect(representation.width).toEqual(24);
+        expect(altRepresentation.width).toEqual(48);
+      }
+    });
+
+    it('tokenises mediaPath of representation with media jwt and client id', async () => {
+      const siteEmojiResource = new TestSiteEmojiResource(tokenManagerStub);
+      const { representation, altRepresentation } =
+        await siteEmojiResource.generateTokenisedMediaURLS(
+          loadedMediaEmojiWithoutAlt.representation,
+        );
+
+      expect(tokenManagerStub.getToken.calledOnce).toBeTruthy();
+      expect(isMediaRepresentation(representation)).toEqual(true);
+      expect(altRepresentation).toBeUndefined();
+
+      if (isMediaRepresentation(representation)) {
+        expect(representation.mediaPath).toContain('token=bar&client=foo');
+      }
+    });
+
+    it('returns original representation if token manager fails to get token', async () => {
+      tokenManagerStub.getToken.returns(Promise.reject('failed'));
+      const siteEmojiResource = new TestSiteEmojiResource(tokenManagerStub);
+      const { representation, altRepresentation } =
+        await siteEmojiResource.generateTokenisedMediaURLS(
+          loadedMediaEmojiWithoutAlt.representation,
+        );
+
+      expect(isMediaRepresentation(representation)).toEqual(true);
+      expect(altRepresentation).toBeUndefined();
+
+      if (isMediaRepresentation(representation)) {
+        expect(representation.mediaPath).not.toContain('token=');
+        expect(representation.mediaPath).not.toContain('client=');
+      }
+    });
+
+    it('returns original representation and does not call getToken if representation is not media', async () => {
+      const siteEmojiResource = new TestSiteEmojiResource(tokenManagerStub);
+      const { representation } =
+        await siteEmojiResource.generateTokenisedMediaURLS(
+          standardBoomEmoji.represenetation,
+        );
+
+      expect(tokenManagerStub.getToken.calledOnce).toBeFalsy();
+      expect(isMediaRepresentation(representation)).toEqual(false);
     });
   });
 

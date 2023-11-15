@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 
 import * as colors from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 
 const color: { [key: string]: string } = {
@@ -32,11 +31,7 @@ interface StyledProps {
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const Target = styled.button<StyledProps>`
   background-color: ${(p) =>
-    color[p.color] ||
-    themed({
-      light: token('color.background.brand.bold', colors.B400),
-      dark: token('color.background.brand.bold', colors.B100),
-    })};
+    color[p.color] || token('color.background.brand.bold', colors.B400)};
   border-radius: 3px;
   border: 0;
   box-sizing: initial;
@@ -53,11 +48,7 @@ export const Target = styled.button<StyledProps>`
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const BigTarget = styled.button<StyledProps>`
   background-color: ${(p) =>
-    color[p.color] ||
-    themed({
-      light: token('color.background.brand.bold', colors.B400),
-      dark: token('color.background.brand.bold', colors.B100),
-    })};
+    color[p.color] || token('color.background.brand.bold', colors.B400)};
   border-radius: 3px;
   border: 0;
   box-sizing: initial;

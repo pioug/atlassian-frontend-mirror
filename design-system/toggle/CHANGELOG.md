@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 13.0.0
+
+### Major Changes
+
+- [#41881](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41881) [`1de74609c13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1de74609c13) - Removed all remaining legacy theming logic from the Tag, Toggle and Tooltip components.
+
 ## 12.6.11
 
 ### Patch Changes

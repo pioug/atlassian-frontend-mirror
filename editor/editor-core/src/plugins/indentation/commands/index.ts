@@ -4,17 +4,16 @@ import type {
 } from '@atlaskit/editor-prosemirror/model';
 import type { IndentationMarkAttributes } from '@atlaskit/adf-schema';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { toggleBlockMark } from '../../../commands';
-import type { Command } from '../../../types/command';
+import { toggleBlockMark } from '@atlaskit/editor-common/commands';
+import type { Command } from '@atlaskit/editor-common/types';
 import type { IndentationInputMethod } from './utils';
 import { createAnalyticsDispatch } from './utils';
 import {
   INDENT_DIRECTION,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import getAttrsWithChangesRecorder from '../../../utils/getAttrsWithChangesRecorder';
-
-export const MAX_INDENTATION_LEVEL = 6;
+import getAttrsWithChangesRecorder from '../getAttrsWithChangesRecorder';
+import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
 
 export const isIndentationAllowed = (schema: Schema, node: PmNode) => {
   const {

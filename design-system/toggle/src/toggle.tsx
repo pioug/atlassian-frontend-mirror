@@ -10,7 +10,6 @@ import {
 import __noop from '@atlaskit/ds-lib/noop';
 import CloseIcon from '@atlaskit/icon/glyph/editor/close';
 import CheckIcon from '@atlaskit/icon/glyph/editor/done';
-import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import { getStyles } from './internal/styles';
 import { Size, ToggleProps } from './types';
@@ -53,7 +52,6 @@ const Toggle = memo(
       label,
     } = props;
 
-    const { mode } = useGlobalTheme();
     const isControlled = typeof isChecked === 'undefined';
     const [checked, setChecked] = useState(defaultChecked);
 
@@ -95,7 +93,7 @@ const Toggle = memo(
       'data-testid': testId ? testId : undefined,
     };
 
-    const toggleStyles = useMemo(() => getStyles(size, mode), [size, mode]);
+    const toggleStyles = useMemo(() => getStyles(size), [size]);
 
     return (
       <label {...controlProps} css={toggleStyles}>

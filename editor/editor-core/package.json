@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "189.3.20",
+  "version": "189.3.22",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -111,7 +111,7 @@
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/editor-shared-styles": "^2.8.0",
     "@atlaskit/editor-tables": "^2.3.0",
-    "@atlaskit/emoji": "^67.5.0",
+    "@atlaskit/emoji": "^67.6.0",
     "@atlaskit/empty-state": "^7.6.0",
     "@atlaskit/form": "^9.0.0",
     "@atlaskit/icon": "^21.12.0",
@@ -134,9 +134,9 @@
     "@atlaskit/textarea": "^4.7.0",
     "@atlaskit/textfield": "^5.6.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/toggle": "^12.6.0",
+    "@atlaskit/toggle": "^13.0.0",
     "@atlaskit/tokens": "^1.28.0",
-    "@atlaskit/tooltip": "^17.8.0",
+    "@atlaskit/tooltip": "^18.0.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/width-detector": "^4.1.0",
     "@babel/runtime": "^7.0.0",

@@ -55,6 +55,7 @@ describe('useFilterOptions', () => {
     expect(result.current).toEqual({
       filterOptions: [],
       fetchFilterOptions: expect.any(Function),
+      reset: expect.any(Function),
       totalCount: 0,
       pageCursor: undefined,
       status: 'empty',
@@ -132,6 +133,7 @@ describe('useFilterOptions', () => {
     expect(result.current).toEqual({
       filterOptions: fieldValuesResponseForProjectsMapped,
       fetchFilterOptions: expect.any(Function),
+      reset: expect.any(Function),
       totalCount: 12,
       pageCursor: 'YXJyYXljb25uZWN0aW9uOjM=',
       status: 'resolved',
@@ -193,6 +195,7 @@ describe('useFilterOptions', () => {
         },
       ],
       fetchFilterOptions: expect.any(Function),
+      reset: expect.any(Function),
       totalCount: 12,
       pageCursor: 'YXJyYXljb25uZWN0aW9uOjM2',
       status: 'resolved',
@@ -255,6 +258,7 @@ describe('useFilterOptions', () => {
         },
       ],
       fetchFilterOptions: expect.any(Function),
+      reset: expect.any(Function),
       totalCount: 27,
       pageCursor: 'YXJyYXljb25uZWN0aW9uOjQ=',
       status: 'resolved',
@@ -272,6 +276,7 @@ describe('useFilterOptions', () => {
     expect(result.current).toEqual({
       filterOptions: [],
       fetchFilterOptions: expect.any(Function),
+      reset: expect.any(Function),
       totalCount: 0,
       pageCursor: undefined,
       status: 'rejected',
@@ -291,6 +296,43 @@ describe('useFilterOptions', () => {
     expect(result.current).toEqual({
       ...result.current,
       status: 'rejected',
+    });
+  });
+
+  it('should reset hook params when the reset method is called', async () => {
+    const { result, waitForNextUpdate, getFieldValues } = setup();
+    getFieldValues.mockResolvedValue(fieldValuesResponseForProjects);
+
+    await result.current.fetchFilterOptions();
+
+    act(() => {
+      waitForNextUpdate();
+    });
+
+    expect(result.current).toEqual(
+      expect.objectContaining({
+        fetchFilterOptions: expect.any(Function),
+        reset: expect.any(Function),
+        totalCount: 12,
+        pageCursor: 'YXJyYXljb25uZWN0aW9uOjM=',
+        status: 'resolved',
+      }),
+    );
+
+    await result.current.reset();
+
+    act(() => {
+      waitForNextUpdate();
+    });
+
+    expect(result.current).toEqual({
+      filterOptions: [],
+      errors: [],
+      fetchFilterOptions: expect.any(Function),
+      reset: expect.any(Function),
+      totalCount: 0,
+      pageCursor: undefined,
+      status: 'empty',
     });
   });
 });

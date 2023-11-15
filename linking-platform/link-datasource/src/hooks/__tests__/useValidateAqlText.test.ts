@@ -21,6 +21,7 @@ describe('useValidateAqlText', () => {
     errorMessages: [''],
     errors: {},
   };
+  const mockFetchEvent = expect.any(Function);
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -47,7 +48,11 @@ describe('useValidateAqlText', () => {
       await act(async () => {
         validateAqlTextResponse = await validateAqlText(aqlText);
       });
-      expect(mockValidateAql).toBeCalledWith(workspaceId, { qlQuery: aqlText });
+      expect(mockValidateAql).toBeCalledWith(
+        workspaceId,
+        { qlQuery: aqlText },
+        mockFetchEvent,
+      );
       expect(validateAqlTextResponse?.isValid).toBe(expectedIsValid);
       expect(result.current.isValidAqlText).toEqual(expectedIsValid);
       expect(result.current.validateAqlTextError).toEqual(undefined);

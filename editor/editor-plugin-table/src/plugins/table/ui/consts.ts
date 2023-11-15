@@ -151,9 +151,12 @@ export const stickyHeaderBorderBottomWidth = 1;
 export const tableOverflowShadowWidth = 8;
 export const tableOverflowShadowWidthWide = 32;
 
+export const dropTargetsZIndex = 14;
+
 export const TABLE_SNAP_GAP = 9;
 export const TABLE_HIGHLIGHT_GAP = 10;
 export const TABLE_HIGHLIGHT_TOLERANCE = 2;
 export const STICKY_HEADER_TOGGLE_TOLERANCE_MS = 5;
 
 export const dragMenuDropdownWidth = 240;
+export const dropTargetExtendedWidth = 150;

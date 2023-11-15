@@ -61,7 +61,7 @@ describe('integration test', () => {
               parameters={getDefaultParameters()}
               onCancel={onCancel}
               onInsert={onInsert}
-              visibleColumnKeys={['myColumn']}
+              visibleColumnKeys={['assignee']}
             />
           </SmartCardProvider>
         </IntlProvider>

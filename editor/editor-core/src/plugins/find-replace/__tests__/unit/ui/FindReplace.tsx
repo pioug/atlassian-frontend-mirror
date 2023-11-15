@@ -152,6 +152,14 @@ describe('FindReplace', () => {
       expect(findReplace.find(textfieldCount).exists()).toBe(false);
     });
 
+    it('should have aria-live region', () => {
+      findReplace = mountComponent({
+        findText: '',
+        count: { index: 0, total: 0 },
+      });
+      expect(findReplace.find('div[aria-live="polite"]').exists()).toBe(true);
+    });
+
     it('should set focus to replace textfield when arrow down', () => {
       findReplace = mountComponent({
         findText: '',

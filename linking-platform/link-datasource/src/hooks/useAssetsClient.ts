@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { useDatasourceAnalyticsEvents } from '../analytics';
 import {
   fetchObjectSchema,
   fetchObjectSchemas,
@@ -51,6 +52,7 @@ export const useAssetsClient = (
   const [objectSchemasError, setObjectSchemasError] = useState<
     Error | undefined
   >();
+  const { fireEvent } = useDatasourceAnalyticsEvents();
 
   /*
    * We wrap this in nested try/catch blocks because we want to handle
@@ -62,7 +64,7 @@ export const useAssetsClient = (
       setLoading(true);
       setWorkspaceError(undefined);
       try {
-        const workspaceId = await getWorkspaceId();
+        const workspaceId = await getWorkspaceId(fireEvent);
         setWorkspaceId(workspaceId);
         // Check schema from initial parameters still exists and fetch name/permissions for schema select
         if (initialParameters?.schemaId) {
@@ -70,6 +72,7 @@ export const useAssetsClient = (
             const fetchedObjectSchema = await fetchObjectSchema(
               workspaceId,
               initialParameters?.schemaId,
+              fireEvent,
             );
             setExistingObjectSchema(fetchedObjectSchema);
           } catch (fetchObjectSchemaError) {
@@ -82,6 +85,8 @@ export const useAssetsClient = (
         try {
           const fetchedObjectSchemasResponse = await fetchObjectSchemas(
             workspaceId,
+            undefined,
+            fireEvent,
           );
           setObjectSchemas(fetchedObjectSchemasResponse.values);
           setTotalObjectSchemas(fetchedObjectSchemasResponse.total);
@@ -97,7 +102,7 @@ export const useAssetsClient = (
         setLoading(false);
       }
     })();
-  }, [initialParameters]);
+  }, [initialParameters, fireEvent]);
 
   return {
     workspaceId,

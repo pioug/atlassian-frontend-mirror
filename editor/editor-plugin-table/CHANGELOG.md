@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.30
+
+### Patch Changes
+
+- [#42908](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42908) [`f1df173bd21`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f1df173bd21) - Add new drop targets to table node, add new pragmatic drag and drop autoscroller
+
+## 5.3.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.28
+
+### Patch Changes
+
+- [#43155](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43155) [`9c7cabf1b12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c7cabf1b12) - ED-20671:Fixed drag handle not visible when drag menu is open
+
 ## 5.3.27
 
 ### Patch Changes

@@ -25,6 +25,7 @@ export interface FetchFilterOptionsProps {
 export interface FilterOptionsState {
   filterOptions: SelectOption[];
   fetchFilterOptions: (prop?: FetchFilterOptionsProps) => Promise<void>;
+  reset: () => void;
   totalCount: number;
   pageCursor?: string;
   status: 'empty' | 'loading' | 'resolved' | 'rejected' | 'loadingMore';
@@ -100,12 +101,21 @@ export const useFilterOptions = ({
     [cloudId, filterOptions, filterType, getFieldValues],
   );
 
+  const reset = useCallback(() => {
+    setStatus('empty');
+    setFilterOptions([]);
+    setTotalCount(0);
+    setNextPageCursor(undefined);
+    initialData.current = undefined;
+  }, []);
+
   return {
     filterOptions,
     fetchFilterOptions,
     totalCount,
     pageCursor: nextPageCursor,
     status,
+    reset,
     errors: status === 'rejected' ? errors : [],
   };
 };

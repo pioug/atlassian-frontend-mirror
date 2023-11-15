@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
@@ -22,6 +22,23 @@ export default () => {
     'status',
     'assignee',
   ];
+  const [selection, setSelection] = useState({
+    project: [],
+    issuetype: [],
+    status: [],
+    assignee: [],
+  });
+
+  const handleSelectionChange = useCallback(
+    (options, filter) => {
+      const updatedSelection = {
+        ...selection,
+        [filter]: options,
+      };
+      setSelection(updatedSelection);
+    },
+    [selection],
+  );
 
   return (
     <IntlProvider locale="en">
@@ -32,7 +49,10 @@ export default () => {
               filterType={filter}
               cloudId="my-cloud-id"
               key={filter}
-              selection={[]}
+              selection={selection[filter]}
+              onSelectionChange={options =>
+                handleSelectionChange(options, filter)
+              }
             />
           ))}
         </Flex>

@@ -194,25 +194,6 @@ describe('Snapshot Test', () => {
       const image = await takeElementScreenShot(page, pageSelector);
       expect(image).toMatchProdImageSnapshot();
     });
-
-    it('with theme provider on hover should match production example', async () => {
-      const url = getExampleUrl(
-        'design-system',
-        'tag',
-        'simple-tag-with-theme',
-        global.__BASEURL__,
-      );
-      const tag = querySelector({
-        attribute: 'data-testid',
-        suffixValue: 'linkTag',
-      });
-      const { page } = global;
-      await loadPage(page, url);
-      await page.waitForSelector(tag);
-      await page.hover(tag);
-      const image = await takeElementScreenShot(page, tag);
-      expect(image).toMatchProdImageSnapshot();
-    });
   });
 
   it('Removable avatar tag should match production example', async () => {
@@ -391,81 +372,5 @@ describe('Snapshot Test', () => {
 
     const image = await takeElementScreenShot(page, '#maxLengthTag');
     expect(image).toMatchProdImageSnapshot();
-  });
-
-  it('Removable Tag with theme provider should change bg color on remove button hover & removed when clicked', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'tag',
-      'removable-tag-with-theme',
-      global.__BASEURL__,
-    );
-    const tagId = 'removableTag';
-    const removableTag = querySelector({
-      attribute: 'data-testid',
-      suffixValue: tagId,
-    });
-    const removableTagCloseButton = querySelector({
-      attribute: 'data-testid',
-      prefixValue: 'close-button',
-      suffixValue: tagId,
-    });
-
-    const { page } = global;
-    await loadPage(page, url);
-
-    await page.waitForSelector(removableTag);
-    const beforeClickingRemoveButton = await takeElementScreenShot(
-      page,
-      removableTag,
-    );
-    expect(beforeClickingRemoveButton).toMatchProdImageSnapshot();
-
-    await page.hover(removableTagCloseButton);
-    const onRemoveButtonHover = await takeElementScreenShot(page, removableTag);
-    expect(onRemoveButtonHover).toMatchProdImageSnapshot();
-
-    await page.click(removableTagCloseButton);
-    await page.waitForSelector(removableTag, {
-      hidden: true,
-    });
-  });
-
-  it('Colored removable Tag with theme provider should change bg color on remove button hover & removed when clicked', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'tag',
-      'removable-tag-with-theme',
-      global.__BASEURL__,
-    );
-    const tagId = 'removableTagColor';
-    const removableTag = querySelector({
-      attribute: 'data-testid',
-      suffixValue: tagId,
-    });
-    const removableTagCloseButton = querySelector({
-      attribute: 'data-testid',
-      prefixValue: 'close-button',
-      suffixValue: tagId,
-    });
-
-    const { page } = global;
-    await loadPage(page, url);
-
-    await page.waitForSelector(removableTag);
-    const beforeClickingRemoveButton = await takeElementScreenShot(
-      page,
-      removableTag,
-    );
-    expect(beforeClickingRemoveButton).toMatchProdImageSnapshot();
-
-    await page.hover(removableTagCloseButton);
-    const onRemoveButtonHover = await takeElementScreenShot(page, removableTag);
-    expect(onRemoveButtonHover).toMatchProdImageSnapshot();
-
-    await page.click(removableTagCloseButton);
-    await page.waitForSelector(removableTag, {
-      hidden: true,
-    });
   });
 });

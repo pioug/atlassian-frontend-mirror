@@ -8,7 +8,7 @@ import {
   indent,
   backspace,
 } from '@atlaskit/editor-common/keymaps';
-import { isTextSelection } from '../../../utils';
+import { isTextSelection } from '@atlaskit/editor-common/utils';
 import { getIndentCommand, getOutdentCommand } from '../commands';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 

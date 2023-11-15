@@ -1,22 +1,22 @@
 import React from 'react';
 
-import { queryByAttribute, render } from '@testing-library/react';
+import { queryByAttribute, render, screen } from '@testing-library/react';
 
 import { UNSAFE_Text as Text } from '../../../index';
 
 describe('Text component', () => {
   it('should render given text', () => {
-    const { getByText } = render(<Text>Text</Text>);
-    expect(getByText('Text')).toBeInTheDocument();
+    render(<Text>Text</Text>);
+    expect(screen.getByText('Text')).toBeInTheDocument();
   });
 
   it('should not render redundant DOM nodes', () => {
-    const { getByTestId } = render(
+    render(
       <Text testId="test">
         <Text>Text</Text>
       </Text>,
     );
-    expect(getByTestId('test')).toMatchInlineSnapshot(`
+    expect(screen.getByTestId('test')).toMatchInlineSnapshot(`
       .emotion-0 {
         box-sizing: border-box;
         margin: var(--ds-space-0, 0px);
@@ -34,8 +34,8 @@ describe('Text component', () => {
   });
 
   it('should render with given test id', () => {
-    const { getByTestId } = render(<Text testId="test">Text</Text>);
-    expect(getByTestId('test')).toBeInTheDocument();
+    render(<Text testId="test">Text</Text>);
+    expect(screen.getByTestId('test')).toBeInTheDocument();
   });
 
   it('should render with id attribute', () => {
@@ -48,17 +48,15 @@ describe('Text component', () => {
 
   describe('"as" prop behaviour', () => {
     it('renders without errors when a valid "as" value is given', () => {
-      const { getByText } = render(<Text as="div">Text</Text>);
-      expect(getByText('Text')).toBeInTheDocument();
+      render(<Text as="div">Text</Text>);
+      expect(screen.getByText('Text')).toBeInTheDocument();
     });
 
     it('throws when an invalid "as" value is given', () => {
       // @ts-ignore purposefully providing an invalid value to test invariant behaviour
-      // TODO: Change this `as` to something that won't trip ESLint (DSP-14030)
-      // eslint-disable-next-line jsx-a11y/label-has-associated-control
-      expect(() => render(<Text as="label">Text</Text>)).toThrow(
+      expect(() => render(<Text as="address">Text</Text>)).toThrow(
         new Error(
-          'Invariant failed: @atlaskit/ds-explorations: Text received an invalid "as" value of "label"',
+          'Invariant failed: @atlaskit/ds-explorations: Text received an invalid "as" value of "address"',
         ),
       );
     });

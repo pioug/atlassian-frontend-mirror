@@ -12,7 +12,11 @@ import ChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
 import MatchCaseIcon from '@atlaskit/icon/glyph/emoji/keyboard';
 import Textfield from '@atlaskit/textfield';
-import { countStyles, sectionWrapperStyles } from './styles';
+import {
+  countStyles,
+  countWrapperStyles,
+  sectionWrapperStyles,
+} from './styles';
 import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import { FindReplaceTooltipButton } from './FindReplaceTooltipButton';
 import type { MatchCaseProps } from '../types';
@@ -309,11 +313,13 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
           onCompositionStart={this.handleCompositionStart}
           onCompositionEnd={this.handleCompositionEnd}
         />
-        {findText && (
-          <span data-testid="textfield-count" css={countStyles}>
-            {count.total === 0 ? this.noResultsFound : resultsCount}
-          </span>
-        )}
+        <div css={countWrapperStyles} aria-live="polite">
+          {findText && (
+            <span data-testid="textfield-count" css={countStyles}>
+              {count.total === 0 ? this.noResultsFound : resultsCount}
+            </span>
+          )}
+        </div>
         {allowMatchCase && (
           <FindReplaceTooltipButton
             title={this.matchCase}

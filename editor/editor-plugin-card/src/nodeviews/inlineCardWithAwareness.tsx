@@ -54,14 +54,15 @@ const InlineCard = ({
     return typeof pos === 'number' ? pos : undefined;
   }, [getPos]);
 
-  const { shouldShowLinkPulse } = useLinkUpgradeDiscoverability({
-    url,
-    linkPosition: linkPosition || -1,
-    cardContext: cardContext?.value,
-    pluginInjectionApi,
-    isOverlayEnabled,
-    isPulseEnabled,
-  });
+  const { shouldShowLinkPulse, shouldShowLinkOverlay } =
+    useLinkUpgradeDiscoverability({
+      url,
+      linkPosition: linkPosition || -1,
+      cardContext: cardContext?.value,
+      pluginInjectionApi,
+      isOverlayEnabled,
+      isPulseEnabled,
+    });
 
   const scrollContainer: HTMLElement | undefined = useMemo(
     () => findOverflowScrollParent(view.dom as HTMLElement) || undefined,
@@ -139,16 +140,19 @@ const InlineCard = ({
     ],
   );
 
-  // TODO: add proper show/hide conditions for overlay in EDM-8239
   const card = useMemo(
-    () =>
-      shouldShowLinkPulse ? (
-        <span
-          onMouseEnter={() => setIsOverlayVisible(true)}
-          onMouseLeave={() => setIsOverlayVisible(false)}
-          css={loaderWrapperStyles}
-          className="card"
-        >
+    () => (
+      <span
+        css={shouldShowLinkPulse && loaderWrapperStyles}
+        className="card"
+        {...(shouldShowLinkOverlay
+          ? {
+              onMouseEnter: () => setIsOverlayVisible(true),
+              onMouseLeave: () => setIsOverlayVisible(false),
+            }
+          : {})}
+      >
+        {shouldShowLinkPulse ? (
           <DiscoveryPulse
             localStorageKey={LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK}
             localStorageKeyExpirationInMs={ONE_DAY_IN_MILLISECONDS}
@@ -156,17 +160,12 @@ const InlineCard = ({
           >
             {innerCard}
           </DiscoveryPulse>
-        </span>
-      ) : (
-        <span
-          onMouseEnter={() => setIsOverlayVisible(true)}
-          onMouseLeave={() => setIsOverlayVisible(false)}
-          className="card"
-        >
-          {innerCard}
-        </span>
-      ),
-    [innerCard, shouldShowLinkPulse],
+        ) : (
+          innerCard
+        )}
+      </span>
+    ),
+    [shouldShowLinkPulse, shouldShowLinkOverlay, innerCard],
   );
 
   // [WS-2307]: we only render card wrapped into a Provider when the value is ready,

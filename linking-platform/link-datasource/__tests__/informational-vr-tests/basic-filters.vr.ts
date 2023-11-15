@@ -22,6 +22,38 @@ const options: OptionsType = {
 
 const filters = ['project', 'issuetype', 'status', 'assignee'];
 
+const selectOption = async (
+  page: Page,
+  filter: string,
+  optionsToClick: number = 2,
+  closeAfterSelect: boolean = true,
+) => {
+  await page.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
+  let optionType: string;
+
+  if (filter === 'project' || filter === 'issuetype') {
+    optionType = 'icon-label';
+  } else if (filter === 'status') {
+    optionType = 'lozenge--text';
+  } else {
+    optionType = 'avatar';
+  }
+
+  const components = await page
+    .locator(
+      `[data-testid="jlol-basic-filter-popup-select-option--${optionType}"]`,
+    )
+    .all();
+
+  for (let i = 0; i < optionsToClick; i++) {
+    await components[i].click();
+  }
+
+  if (closeAfterSelect) {
+    await page.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
+  }
+};
+
 snapshotInformational(BasicFiltersVR, {
   ...options,
 
@@ -43,6 +75,23 @@ snapshotInformational(WithModal, {
   },
 });
 
+snapshotInformational(WithModal, {
+  ...options,
+
+  prepare: async (page: Page) => {
+    await page.getByTestId('mode-toggle-basic').click();
+
+    await selectOption(page, 'project');
+    await selectOption(page, 'status');
+    await selectOption(page, 'issuetype');
+    await selectOption(page, 'assignee');
+  },
+  description: 'basic mode with basic filters with each filter selected',
+  featureFlags: {
+    'platform.linking-platform.datasource.show-jlol-basic-filters': true,
+  },
+});
+
 filters.forEach(filter => {
   snapshotInformational(BasicFiltersVR, {
     ...options,
@@ -51,6 +100,7 @@ filters.forEach(filter => {
       await component
         .getByTestId(`jlol-basic-filter-${filter}-trigger`)
         .click();
+
       const firstOption = page.locator('#react-select-2-option-0');
       await firstOption.waitFor({ state: 'visible' });
     },
@@ -61,12 +111,18 @@ filters.forEach(filter => {
     ...options,
 
     prepare: async (page: Page, component: Locator) => {
-      await component
-        .getByTestId(`jlol-basic-filter-${filter}-trigger`)
-        .click();
-      await page.locator('#react-select-2-option-0 span').first().click();
+      await selectOption(page, filter, 1, false);
     },
     description: `${filter} open and option selected`,
+  });
+
+  snapshotInformational(BasicFiltersVR, {
+    ...options,
+
+    prepare: async (page: Page, component: Locator) => {
+      await selectOption(page, filter);
+    },
+    description: `${filter} closed and multiple options selected`,
   });
 
   snapshotInformational(BasicFiltersVR, {

@@ -41,7 +41,7 @@
     "@atlaskit/activity": "^1.0.1",
     "@atlaskit/editor-core": "^189.3.0",
     "@atlaskit/editor-test-helpers": "^18.14.0",
-    "@atlaskit/emoji": "^67.5.0",
+    "@atlaskit/emoji": "^67.6.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.28.0",
     "@atlaskit/util-data-test": "^17.8.0",

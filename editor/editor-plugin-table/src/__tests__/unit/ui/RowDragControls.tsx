@@ -74,6 +74,7 @@ describe('NumberColumn', () => {
           hoverRows={jest.fn()}
           selectRow={jest.fn()}
           updateCellHoverLocation={jest.fn()}
+          tableWidth={760}
         />
       </IntlProvider>,
     );
@@ -110,6 +111,7 @@ describe('NumberColumn', () => {
           hoverRows={jest.fn()}
           selectRow={jest.fn()}
           updateCellHoverLocation={jest.fn()}
+          tableWidth={760}
         />
       </IntlProvider>,
     );

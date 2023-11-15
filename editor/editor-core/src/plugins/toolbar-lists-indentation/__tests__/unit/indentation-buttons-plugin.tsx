@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
@@ -16,7 +17,7 @@ import {
   layoutColumn,
   panel,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { pluginKey } from '../../pm-plugins/indentation-buttons';
+import { getIndentationButtonsState } from '../../pm-plugins/indentation-buttons';
 
 describe('Indentation buttons state', () => {
   const createEditor = createEditorFactory();
@@ -32,13 +33,20 @@ describe('Indentation buttons state', () => {
         allowLayouts: true,
         allowPanel: true,
       },
-      pluginKey,
     });
   };
 
   const setupEditor = (doc: DocBuilder) => {
-    const { editorView } = editor(doc);
-    const indentationState = pluginKey.getState(editorView.state)!;
+    const { editorView, editorAPI } = editor(doc);
+    const indentationState = getIndentationButtonsState(
+      editorView.state,
+      true,
+      editorAPI?.taskDecision.sharedState.currentState(),
+      editorAPI?.indentation.sharedState.currentState(),
+      editorAPI?.list.actions?.isInsideListItem as (
+        tr: Transaction,
+      ) => boolean | undefined,
+    );
     return indentationState;
   };
 

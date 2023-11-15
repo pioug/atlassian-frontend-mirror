@@ -91,3 +91,48 @@ describe('SplitButton: Accessibility', () => {
     await axe(view.container);
   });
 });
+
+describe('IconButton: Accessibility', () => {
+  const appearances: ComponentProps<typeof IconButton>['appearance'][] = [
+    'default',
+    'primary',
+    'warning',
+    'danger',
+    'subtle',
+  ];
+
+  appearances.forEach((appearance) => {
+    it(`should not fail an aXe audit with ${appearance} appearance`, async () => {
+      const view = render(
+        <IconButton
+          appearance={appearance}
+          // NOTE: right now without a label on the icon we fail
+          icon={<SettingsIcon label="Settings" />}
+        >
+          I am text that a user never sees (even in the accessibility tree) as
+          this currently gets overwritten in the useIconButton hook, but
+          currently we still require children. see
+          https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43158
+          for a fix
+        </IconButton>,
+      );
+
+      await axe(view.container);
+    });
+  });
+
+  it('should not fail an aXe audit when disabled', async () => {
+    const view = render(
+      // NOTE: right now without a label on the icon we fail
+      <IconButton isDisabled icon={<SettingsIcon label="Settings" />}>
+        I am text that a user never sees (even in the accessibility tree) as
+        this currently gets overwritten in the useIconButton hook, but currently
+        we still require children. see
+        https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43158
+        for a fix
+      </IconButton>,
+    );
+
+    await axe(view.container);
+  });
+});

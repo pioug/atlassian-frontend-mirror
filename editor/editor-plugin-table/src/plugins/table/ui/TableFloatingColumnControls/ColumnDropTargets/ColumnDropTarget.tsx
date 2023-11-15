@@ -65,6 +65,7 @@ export const ColumnDropTarget: React.FC<Props> = ({
         height: height && `${height}px`,
         marginTop: marginTop && `${marginTop}px`,
         pointerEvents: 'auto',
+        flexShrink: 0,
       }}
       data-drop-target-index={index}
       data-drop-target-localid={localId}

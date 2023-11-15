@@ -8,7 +8,6 @@ import {
   FileIdentifier,
   FileState,
   Identifier,
-  MediaBlobUrlAttrs,
   MediaClient,
   MediaStoreGetFileImageParams,
   RECENTS_COLLECTION,
@@ -31,7 +30,14 @@ import {
 } from '@atlaskit/media-common';
 import { getOrientation } from '@atlaskit/media-ui';
 import { MediaViewer } from '@atlaskit/media-viewer';
-import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import ReactDOM from 'react-dom';
 import {
   ImageLoadError,
@@ -155,19 +161,6 @@ export const FileCard = ({
   //---------------- State Initializer Functions -------------------//
   //----------------------------------------------------------------//
 
-  const { fileState } = useFileState(identifier.id, {
-    collectionName: identifier.collectionName,
-    occurrenceKey: identifier.occurrenceKey,
-  });
-  const prevFileState = usePrevious(fileState);
-  const fileStateValue: FileState | undefined = useMemo(() => {
-    if (fileState && fileState?.status !== 'error') {
-      return fileState;
-    }
-    return prevFileState;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fileState]);
-
   const ssrDataRef = useRef<MediaCardSsrData>();
   const ssrReliabilityRef = useRef<SSRStatus>({
     server: { status: 'unknown' },
@@ -186,31 +179,26 @@ export const FileCard = ({
     [cardElement, dimensions, identifier.collectionName, resizeMode],
   );
 
-  const mediaBlobUrlAttrs = useMemo<MediaBlobUrlAttrs | undefined>(() => {
-    const { id, collectionName: collection } = identifier;
-    const { mimeType, name, size } = getFileDetails(identifier, fileStateValue);
-    return contextId
-      ? {
-          id,
-          collection,
-          contextId,
-          mimeType,
-          name,
-          size,
-          ...(originalDimensions ||
-            getRequestedDimensions({ dimensions, element: cardElement })),
-          alt,
-        }
-      : undefined;
-  }, [
-    alt,
-    cardElement,
-    contextId,
-    dimensions,
-    fileStateValue,
-    identifier,
-    originalDimensions,
-  ]);
+  const getMediaBlobUrlAttrs = useCallback(
+    (fileState?: FileState) => {
+      const { id, collectionName: collection } = identifier;
+      const { mimeType, name, size } = getFileDetails(identifier, fileState);
+      return contextId
+        ? {
+            id,
+            collection,
+            contextId,
+            mimeType,
+            name,
+            size,
+            ...(originalDimensions ||
+              getRequestedDimensions({ dimensions, element: cardElement })),
+            alt,
+          }
+        : undefined;
+    },
+    [alt, cardElement, contextId, dimensions, identifier, originalDimensions],
+  );
 
   const getSSRPreview = (
     ssr: SSR,
@@ -232,7 +220,7 @@ export const FileCard = ({
           mediaClient,
           identifier.id,
           imageURLParams,
-          mediaBlobUrlAttrs,
+          getMediaBlobUrlAttrs(fileStateValue),
         );
       } catch (e: any) {
         ssrReliabilityRef.current[ssr] = {
@@ -255,6 +243,31 @@ export const FileCard = ({
     }
     return cardPreview;
   };
+
+  const [cardPreview, setCardPreview] = useState(cardPreviewInitializer);
+
+  // If cardPreview is available from local cache or external, `isCardVisible`
+  // should be true to avoid flickers during re-mount of the component
+  // should not be visible for SSR preview, otherwise we'll fire the metadata fetch from
+  // outside the viewport
+  const [isCardVisible, setIsCardVisible] = useState(
+    () => !isLazy || (cardPreview && !isSSRPreview(cardPreview)),
+  );
+  const { fileState } = useFileState(identifier.id, {
+    skipRemote: !isCardVisible,
+    collectionName: identifier.collectionName,
+    occurrenceKey: identifier.occurrenceKey,
+  });
+
+  const prevFileState = usePrevious(fileState);
+
+  const fileStateValue: FileState | undefined = useMemo(() => {
+    if (fileState && fileState?.status !== 'error') {
+      return fileState;
+    }
+    return prevFileState;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fileState]);
 
   //----------------------------------------------------------------//
   //------------ State, Refs & Initial Values ----------------------//
@@ -280,16 +293,6 @@ export const FileCard = ({
   useEffect(() => {
     setStatus('loading');
   }, [identifier]);
-
-  const [cardPreview, setCardPreview] = useState(cardPreviewInitializer);
-
-  // If cardPreview is available from local cache or external, `isCardVisible`
-  // should be true to avoid flickers during re-mount of the component
-  // should not be visible for SSR preview, otherwise we'll fire the metadata fetch from
-  // outside the viewport
-  const [isCardVisible, setIsCardVisible] = useState(
-    () => !isLazy || (!!cardPreview && !isSSRPreview(cardPreview)),
-  );
 
   const [isPlayingFile, setIsPlayingFile] = useState(false);
   const [shouldAutoplay, setShouldAutoplay] = useState(false);
@@ -584,7 +587,7 @@ export const FileCard = ({
         identifier.id,
         dimensions ?? {},
         imageURLParams,
-        mediaBlobUrlAttrs,
+        getMediaBlobUrlAttrs(fileStateValue),
       );
     },
   );
@@ -694,6 +697,7 @@ export const FileCard = ({
                 source = preview.source;
             }
             // We want to embed some meta context into dataURI for Copy/Paste to work.
+            const mediaBlobUrlAttrs = getMediaBlobUrlAttrs(fileStateValue);
             const dataURI = mediaBlobUrlAttrs
               ? addFileAttrsToUrl(preview.dataURI, mediaBlobUrlAttrs)
               : preview.dataURI;
@@ -747,7 +751,7 @@ export const FileCard = ({
           identifier.id,
           dimensions ?? {},
           imageURLParams,
-          mediaBlobUrlAttrs,
+          getMediaBlobUrlAttrs(fileStateValue),
           traceContext,
         );
 
@@ -991,6 +995,12 @@ export const FileCard = ({
     );
 
     if (
+      /**
+       * We need to check that the card is visible before switching to inline player
+       * in order to avoid race conditions of the ViewportDector being unmounted before
+       * it is able to set isCardVisible to true.
+       */
+      isCardVisible &&
       isVideo &&
       !isPlayingFile &&
       disableOverlay &&
@@ -1000,6 +1010,7 @@ export const FileCard = ({
       setIsPlayingFile(true);
     }
   }, [
+    isCardVisible,
     disableOverlay,
     fileAttributes.fileMediatype,
     fileStateValue,

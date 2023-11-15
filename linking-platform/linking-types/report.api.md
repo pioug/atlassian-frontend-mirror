@@ -39,10 +39,7 @@ export interface BooleanType {
 // @public (undocumented)
 export type DatasourceData = {
   items: DatasourceDataResponseItem[];
-  schema?: {
-    properties: DatasourceResponseSchemaProperty[];
-    defaultProperties?: string[];
-  };
+  schema?: DatasourceDataSchema;
   nextPageCursor?: string;
   totalCount?: number;
 };
@@ -74,16 +71,19 @@ export interface DatasourceDataResponseItem {
 }
 
 // @public (undocumented)
+export type DatasourceDataSchema = {
+  properties: DatasourceResponseSchemaProperty[];
+  defaultProperties?: string[];
+};
+
+// @public (undocumented)
 export type DatasourceDetails = {
   ari: string;
   id: string;
   name: string;
   description: string;
   parameters: DatasourceResponseParameter[];
-  schema: {
-    defaultProperties: string[];
-    properties: DatasourceResponseSchemaProperty[];
-  };
+  schema: DatasourceDetailsSchema;
 };
 
 // @public (undocumented)
@@ -94,6 +94,12 @@ export type DatasourceDetailsRequest = {
 // @public (undocumented)
 export interface DatasourceDetailsResponse
   extends DatasourceResponse<DatasourceDetails> {}
+
+// @public (undocumented)
+export type DatasourceDetailsSchema = {
+  properties: DatasourceResponseSchemaProperty[];
+  defaultProperties: string[];
+};
 
 // @public (undocumented)
 export type DatasourceMeta = {

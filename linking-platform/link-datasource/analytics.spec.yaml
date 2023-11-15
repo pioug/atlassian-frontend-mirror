@@ -64,6 +64,10 @@ attributes:
     filterType:
       type: ["project", "assignee", "issuetype", "status"]
       description: The basic filters available in jlol config modal
+  StatusCodeGroup: &StatusCodeGroup
+    statusCodeGroup:
+      type: ["1xx", "3xx", "4xx", '5xx', 'unknown']
+      description: The fetch request error response code group.
 
 events:
   # actionSubject action (actionSubjectId)
@@ -317,4 +321,88 @@ events:
             *PackageMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
+          ]
+  - getWorkspaceId success:
+      type: operational
+      description: Fired when fetching a workspace Id is successful.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+          ]
+  - getWorkspaceId failed:
+      type: operational
+      description: Fired when fetching a workspace Id fails.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *StatusCodeGroup,
+          ]
+  - validateAql success:
+      type: operational
+      description: Fired when making a request to validateAQL is successful.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+          ]
+  - validateAql failed:
+      type: operational
+      description: Fired when making a request to validateAQL fails.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *StatusCodeGroup,
+          ]
+  - objectSchema success:
+      type: operational
+      description: Fired when fetching an object schema is successful.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+          ]
+  - objectSchema failed:
+      type: operational
+      description: Fired when fetching an object schema fails.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *StatusCodeGroup,
+          ]
+  - objectSchemas success:
+      type: operational
+      description: Fired when fetching object schemas is successful.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+          ]
+  - objectSchemas failed:
+      type: operational
+      description: Fired when fetching object schemas fails.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *StatusCodeGroup,
           ]

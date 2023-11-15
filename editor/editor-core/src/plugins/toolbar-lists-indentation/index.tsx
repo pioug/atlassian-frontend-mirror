@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import type {
   FeatureFlags,
   NextEditorPlugin,
@@ -7,7 +7,7 @@ import type {
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import ToolbarListsIndentation from './ui';
 import { ToolbarSize } from '../../ui/Toolbar/types';
-import { createPlugin as indentationButtonsPlugin } from './pm-plugins/indentation-buttons';
+import { getIndentationButtonsState } from './pm-plugins/indentation-buttons';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
@@ -15,23 +15,33 @@ import type { IndentationButtons } from './pm-plugins/indentation-buttons';
 import type { ToolbarUiComponentFactoryParams } from '../../types';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { pluginKey as indentationButtonPluginKey } from './pm-plugins/indentation-buttons';
+import type { IndentationPlugin } from '../indentation';
+import type { TaskAndDecisionsPlugin } from '../tasks-and-decisions/types';
 
 type Config = {
   showIndentationButtons: boolean;
   allowHeadingAndParagraphIndentation: boolean;
 };
-const toolbarListsIndentationPlugin: NextEditorPlugin<
+
+type ToolbarListsIndentationPlugin = NextEditorPlugin<
   'toolbarListsIndentation',
   {
     pluginConfiguration: Config;
     dependencies: [
       FeatureFlagsPlugin,
       ListPlugin,
+      OptionalPlugin<IndentationPlugin>,
+      OptionalPlugin<TaskAndDecisionsPlugin>,
       OptionalPlugin<AnalyticsPlugin>,
     ];
     sharedState: IndentationButtons | undefined;
   }
-> = ({ config, api }) => {
+>;
+
+const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({
+  config,
+  api,
+}) => {
   const {
     showIndentationButtons = false,
     allowHeadingAndParagraphIndentation = false,
@@ -46,21 +56,6 @@ const toolbarListsIndentationPlugin: NextEditorPlugin<
         return undefined;
       }
       return indentationButtonPluginKey.getState(editorState);
-    },
-
-    pmPlugins() {
-      return [
-        {
-          name: 'indentationButtons',
-          plugin: ({ dispatch }) =>
-            indentationButtonsPlugin({
-              dispatch,
-              showIndentationButtons,
-              allowHeadingAndParagraphIndentation,
-              api,
-            }),
-        },
-      ];
     },
 
     primaryToolbarComponent({
@@ -86,6 +81,9 @@ const toolbarListsIndentationPlugin: NextEditorPlugin<
           editorView={editorView}
           showIndentationButtons={showIndentationButtons}
           pluginInjectionApi={api}
+          allowHeadingAndParagraphIndentation={
+            allowHeadingAndParagraphIndentation
+          }
         />
       );
     },
@@ -104,12 +102,13 @@ type PrimaryToolbarComponentProps = Pick<
   featureFlags: FeatureFlags;
   isSmall: boolean;
   showIndentationButtons?: boolean;
-  pluginInjectionApi?:
+  pluginInjectionApi:
     | ExtractInjectionAPI<typeof toolbarListsIndentationPlugin>
     | undefined;
+  allowHeadingAndParagraphIndentation: boolean;
 };
 
-function PrimaryToolbarComponent({
+export function PrimaryToolbarComponent({
   featureFlags,
   popupsMountPoint,
   popupsBoundariesElement,
@@ -120,11 +119,30 @@ function PrimaryToolbarComponent({
   editorView,
   showIndentationButtons,
   pluginInjectionApi,
+  allowHeadingAndParagraphIndentation,
 }: PrimaryToolbarComponentProps) {
-  const { listState, toolbarListsIndentationState } = useSharedPluginState(
-    pluginInjectionApi,
-    ['list', 'toolbarListsIndentation'],
-  );
+  const { listState, indentationState, taskDecisionState } =
+    useSharedPluginState(pluginInjectionApi, [
+      'list',
+      'indentation',
+      'taskDecision',
+    ]);
+
+  const toolbarListsIndentationState = useMemo(() => {
+    return getIndentationButtonsState(
+      editorView.state,
+      allowHeadingAndParagraphIndentation,
+      taskDecisionState,
+      indentationState,
+      pluginInjectionApi?.list.actions.isInsideListItem,
+    );
+  }, [
+    editorView.state,
+    allowHeadingAndParagraphIndentation,
+    taskDecisionState,
+    indentationState,
+    pluginInjectionApi?.list.actions.isInsideListItem,
+  ]);
 
   if (!listState) {
     return null;
@@ -146,6 +164,7 @@ function PrimaryToolbarComponent({
       showIndentationButtons={!!showIndentationButtons}
       indentDisabled={toolbarListsIndentationState!.indentDisabled}
       outdentDisabled={toolbarListsIndentationState!.outdentDisabled}
+      indentationStateNode={toolbarListsIndentationState?.node}
       pluginInjectionApi={pluginInjectionApi}
     />
   );

@@ -33,6 +33,13 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import {
+  autoScrollForElements,
+  autoScrollWindowForElements,
+} from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
+import { unsafeOverflowAutoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/unsafe-overflow/element';
 
 import { autoSizeTable, clearHoverSelection } from '../commands';
 import { getPluginState } from '../pm-plugins/plugin-factory';
@@ -52,9 +59,10 @@ import {
 } from '../pm-plugins/table-resizing/utils';
 import { hasTableBeenResized } from '../pm-plugins/table-resizing/utils/colgroup';
 import { updateControls } from '../pm-plugins/table-resizing/utils/dom';
-import type { PluginInjectionAPI } from '../types';
+import type { DraggableSourceData, PluginInjectionAPI } from '../types';
 import { TableCssClassName as ClassName, ShadowEvent } from '../types';
 import {
+  dropTargetExtendedWidth,
   tableOverflowShadowWidth,
   tableOverflowShadowWidthWide,
 } from '../ui/consts';
@@ -67,6 +75,7 @@ import {
   tablesHaveDifferentNoOfColumns,
 } from '../utils';
 
+import { ExternalDropTargets } from './ExternalDropTargets';
 import { OverflowShadowsObserver } from './OverflowShadowsObserver';
 import { TableContainer } from './TableContainer';
 import { TableStickyScrollbar } from './TableStickyScrollbar';
@@ -129,6 +138,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   private isInitialOverflowSent: boolean;
   private initialOverflowCaptureTimerId?: ReturnType<typeof setTimeout>;
 
+  private dragAndDropCleanupFn?: CleanupFn;
+
   constructor(props: ComponentProps) {
     super(props);
     const { options, containerWidth, getNode } = props;
@@ -160,7 +171,14 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   }
 
   componentDidMount() {
-    const { allowColumnResizing, eventDispatcher, options } = this.props;
+    const {
+      allowColumnResizing,
+      eventDispatcher,
+      options,
+      isDragAndDropEnabled,
+      getNode,
+    } = this.props;
+
     if (allowColumnResizing && this.wrapper && !isIE11) {
       this.wrapper.addEventListener('scroll', this.handleScrollDebounced, {
         passive: true,
@@ -173,6 +191,53 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
             this.props.view,
           );
         }
+      }
+
+      if (isDragAndDropEnabled) {
+        this.dragAndDropCleanupFn = combine(
+          autoScrollForElements({
+            element: this.wrapper,
+            canScroll: ({ source }) => {
+              const { localId, type } =
+                source.data as Partial<DraggableSourceData>;
+              const node = getNode();
+              return localId === node?.attrs.localId && type === 'table-column';
+            },
+          }),
+          autoScrollWindowForElements({
+            canScroll: ({ source }) => {
+              const { localId, type } =
+                source.data as Partial<DraggableSourceData>;
+              const node = getNode();
+              return localId === node?.attrs.localId && type === 'table-row';
+            },
+          }),
+          unsafeOverflowAutoScrollForElements({
+            element: this.wrapper,
+            canScroll: ({ source }) => {
+              const { localId } = source.data as Partial<DraggableSourceData>;
+              const node = getNode();
+              return localId === node?.attrs.localId;
+            },
+            getOverflow: () => ({
+              fromTopEdge: {
+                top: dropTargetExtendedWidth,
+                right: dropTargetExtendedWidth,
+                left: dropTargetExtendedWidth,
+              },
+              fromRightEdge: {
+                right: dropTargetExtendedWidth,
+                top: dropTargetExtendedWidth,
+                bottom: dropTargetExtendedWidth,
+              },
+              fromLeftEdge: {
+                top: dropTargetExtendedWidth,
+                left: dropTargetExtendedWidth,
+                bottom: dropTargetExtendedWidth,
+              },
+            }),
+          }),
+        );
       }
     }
 
@@ -207,9 +272,18 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   }
 
   componentWillUnmount() {
-    const { allowColumnResizing, eventDispatcher, options } = this.props;
+    const {
+      allowColumnResizing,
+      eventDispatcher,
+      options,
+      isDragAndDropEnabled,
+    } = this.props;
     if (this.wrapper && !isIE11) {
       this.wrapper.removeEventListener('scroll', this.handleScrollDebounced);
+    }
+
+    if (isDragAndDropEnabled && this.dragAndDropCleanupFn) {
+      this.dragAndDropCleanupFn();
     }
 
     if (getBooleanFF('platform.editor.table-sticky-scrollbar')) {
@@ -509,9 +583,18 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         )}
 
         {allowControls && rowControls}
-
-        {isDragAndDropEnabled && allowControls && colControls}
-
+        {isDragAndDropEnabled && (
+          <ExternalDropTargets
+            editorView={view}
+            node={node}
+            getScrollOffset={() => {
+              return this.wrapper?.scrollLeft || 0;
+            }}
+            getTableWrapperWidth={() => {
+              return this.wrapper?.clientWidth || 760;
+            }}
+          />
+        )}
         <div
           style={shadowStyle(showBeforeShadow)}
           className={ClassName.TABLE_LEFT_SHADOW}
@@ -544,7 +627,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
               }
             }
           }}
-        />
+        >
+          {allowControls && colControls}
+        </div>
         {getBooleanFF('platform.editor.table-sticky-scrollbar') && (
           <div
             className={ClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}

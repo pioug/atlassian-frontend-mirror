@@ -1,5 +1,12 @@
 # @atlaskit/linking-types
 
+## 8.5.0
+
+### Minor Changes
+
+- [#42504](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42504) [`8ee7afb2d85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ee7afb2d85) - Added DatasourceDataSchema model.
+  Used fields in the request for applying schema.
+
 ## 8.4.0
 
 ### Minor Changes

@@ -1,5 +1,7 @@
 import { request } from '@atlaskit/linking-common';
 
+import { EventKey } from '../analytics/generated/analytics.types';
+import createEventPayload from '../analytics/generated/create-event-payload';
 import {
   AqlValidateResponse,
   FetchObjectSchemaResponse,
@@ -14,7 +16,11 @@ import {
   PermissionError,
 } from './cmdbService.utils';
 
-export const getWorkspaceId = async () => {
+type AnalyticsFireEvent = <K extends EventKey>(
+  ...params: Parameters<typeof createEventPayload<K>>
+) => void;
+
+export const getWorkspaceId = async (fireEvent?: AnalyticsFireEvent) => {
   const url = '/rest/servicedesk/cmdb/latest/workspace';
 
   try {
@@ -28,12 +34,16 @@ export const getWorkspaceId = async () => {
     if (!workspaceDetailsResponse.results?.length) {
       throw new PermissionError('No workspace results found');
     }
+    fireEvent && fireEvent('operational.getWorkspaceId.success', {});
     return workspaceDetailsResponse.results[0].id;
   } catch (err) {
     let error = mapFetchErrors(err);
     if (error instanceof FetchError) {
-      // TODO Fire error operational event for workspace here before remapping to PermissionError
-      // Only 429 and 5xx errors will be treated as FetchErrors otherwise PermissionError
+      fireEvent &&
+        fireEvent('operational.getWorkspaceId.failed', {
+          statusCodeGroup: getStatusCodeGroup(error),
+        });
+      // Only 429 and5xx errors will be treated as FetchErrors otherwise PermissionError
       if (getStatusCodeGroup(error) !== '5xx' && error.statusCode !== 429) {
         error = new PermissionError('Failed to fetch workspace');
       }
@@ -45,10 +55,11 @@ export const getWorkspaceId = async () => {
 export const validateAql = async (
   workspaceId: string,
   data: { qlQuery: string },
+  fireEvent?: AnalyticsFireEvent,
 ) => {
   const url = `/gateway/api/jsm/assets/workspace/${workspaceId}/v1/aql/validate`;
   try {
-    return await request<AqlValidateResponse>(
+    const response = await request<AqlValidateResponse>(
       'post',
       url,
       {
@@ -58,10 +69,15 @@ export const validateAql = async (
       undefined,
       [200, 201, 202, 203, 204],
     );
+    fireEvent && fireEvent('operational.validateAql.success', {});
+    return response;
   } catch (err) {
     let error = mapFetchErrors(err);
     if (error instanceof FetchError) {
-      // TODO Fire error operational event for aql here before remapping to PermissionError
+      fireEvent &&
+        fireEvent('operational.validateAql.failed', {
+          statusCodeGroup: getStatusCodeGroup(error),
+        });
       if (error.statusCode === 401 || error.statusCode === 403) {
         error = new PermissionError('Failed to fetch object schemas');
       }
@@ -73,20 +89,26 @@ export const validateAql = async (
 export const fetchObjectSchema = async (
   workspaceId: string,
   schemaId: string,
+  fireEvent?: AnalyticsFireEvent,
 ) => {
   const url = `/gateway/api/jsm/assets/workspace/${workspaceId}/v1/objectschema/${schemaId}`;
   try {
-    return await request<FetchObjectSchemaResponse>(
+    const response = await request<FetchObjectSchemaResponse>(
       'get',
       url,
       undefined,
       undefined,
       [200, 201, 202, 203, 204],
     );
+    fireEvent && fireEvent('operational.objectSchema.success', {});
+    return response;
   } catch (err) {
     let error = mapFetchErrors(err);
     if (error instanceof FetchError) {
-      // TODO Fire error operational event for object schema here before remapping to PermissionError
+      fireEvent &&
+        fireEvent('operational.objectSchema.failed', {
+          statusCodeGroup: getStatusCodeGroup(error),
+        });
       if (error.statusCode === 401 || error.statusCode === 403) {
         error = new PermissionError('Failed to fetch object schemas');
       }
@@ -98,6 +120,7 @@ export const fetchObjectSchema = async (
 export const fetchObjectSchemas = async (
   workspaceId: string,
   query?: string,
+  fireEvent?: AnalyticsFireEvent,
 ) => {
   const queryParams = new URLSearchParams();
   queryParams.set('maxResults', '20');
@@ -105,17 +128,22 @@ export const fetchObjectSchemas = async (
   query && queryParams.set('query', query);
   const url = `/gateway/api/jsm/assets/workspace/${workspaceId}/v1/objectschema/list?${queryParams}`;
   try {
-    return await request<FetchObjectSchemasResponse>(
+    const response = await request<FetchObjectSchemasResponse>(
       'get',
       url,
       undefined,
       undefined,
       [200, 201, 202, 203, 204],
     );
+    fireEvent && fireEvent('operational.objectSchemas.success', {});
+    return response;
   } catch (err) {
     let error = mapFetchErrors(err);
     if (error instanceof FetchError) {
-      // TODO Fire error operational event for object schemas here before remapping to PermissionError
+      fireEvent &&
+        fireEvent('operational.objectSchemas.failed', {
+          statusCodeGroup: getStatusCodeGroup(error),
+        });
       if (error.statusCode === 401 || error.statusCode === 403) {
         error = new PermissionError('Failed to fetch object schemas');
       }

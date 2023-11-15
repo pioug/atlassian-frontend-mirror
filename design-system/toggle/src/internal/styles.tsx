@@ -3,7 +3,6 @@ import { css, SerializedStyles } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
-import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import { Size } from '../types';
@@ -33,8 +32,8 @@ const borderWidth = 2;
 const paddingUnitless = globalGridSize / 4;
 const transition = 'transform 0.2s ease';
 
-export const getStyles = (size: Size, mode: ThemeModes): SerializedStyles => {
-  const colors = getColors(mode);
+export const getStyles = (size: Size): SerializedStyles => {
+  const colors = getColors();
 
   // TODO: Use tokens and reorganize to alphasemantic ordering (DSP-11769 DSP-11770)
   /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview,@repo/internal/styles/consistent-style-ordering */
@@ -119,12 +118,12 @@ export const getStyles = (size: Size, mode: ThemeModes): SerializedStyles => {
       transform: 'initial',
       transition: transition,
 
-      bottom: `${2 * paddingUnitless}px`,
+      insetBlockEnd: `${2 * paddingUnitless}px`,
       height: `${getHeight({ size }) - paddingUnitless * 2}px`,
       width: `${getHeight({ size }) - paddingUnitless * 2}px`,
 
       // initially we set left as left-most position
-      left: `${2 * paddingUnitless}px`,
+      insetInlineStart: `${2 * paddingUnitless}px`,
     },
 
     '&[data-checked]::before': {
@@ -142,15 +141,15 @@ export const getStyles = (size: Size, mode: ThemeModes): SerializedStyles => {
     // icons - check and cross
     '> span': {
       position: 'absolute',
-      top: `${paddingUnitless}px`,
+      insetBlockStart: `${paddingUnitless}px`,
     },
 
     '>span:first-of-type': {
-      left: `3px`,
+      insetInlineStart: `3px`,
     },
 
     '>span:last-of-type': {
-      right: `3px`,
+      insetInlineEnd: `3px`,
     },
 
     ...(size === 'large' && {

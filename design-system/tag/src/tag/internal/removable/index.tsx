@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { forwardRef, memo, useCallback, useMemo, useState } from 'react';
+import { forwardRef, memo, useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -10,10 +10,9 @@ import {
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
 import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
-import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import { cssVar } from '../../../constants';
-import * as theme from '../../../theme';
+import * as styles from '../../../styles';
 import BaseTag from '../shared/base';
 import Before from '../shared/before';
 import Content from '../shared/content';
@@ -86,8 +85,6 @@ const RemovableTag = forwardRef<any, RemovableTagProps>(
     const [status, setStatus] = useState<TagStatus>(TagStatus.Showing);
     const [isHoverCloseButton, setIsHoverCloseButton] = useState(false);
 
-    const { mode } = useGlobalTheme();
-
     const onAfterRemoveActionWithAnalytics = useCallbackWithAnalytics(
       onAfterRemoveAction,
       {
@@ -155,23 +152,18 @@ const RemovableTag = forwardRef<any, RemovableTagProps>(
       />
     );
 
-    const hoverCloseButtonColors = useMemo(
-      () => ({
-        // Tag background color on hover
-        [cssVar.color.background.hover]:
-          theme.removalHoverBackgroundColors[mode],
-        // Tag background color on press
-        [cssVar.color.background.active]:
-          theme.removalActiveBackgroundColors[mode],
-        // The tag text on hover of remove button
-        [cssVar.color.text.default]: theme.removalTextColors[mode],
-        // 'elemBefore' text on press of remove button
-        [cssVar.color.text.active]: theme.removalTextColors[mode],
-        // The tag link text on hover of remove button
-        [cssVar.color.text.link]: theme.removalTextColors[mode],
-      }),
-      [mode],
-    );
+    const hoverCloseButtonColors = {
+      // Tag background color on hover
+      [cssVar.color.background.hover]: styles.removalHoverBackgroundColors,
+      // Tag background color on press
+      [cssVar.color.background.active]: styles.removalActiveBackgroundColors,
+      // The tag text on hover of remove button
+      [cssVar.color.text.default]: styles.removalTextColors,
+      // 'elemBefore' text on press of remove button
+      [cssVar.color.text.active]: styles.removalTextColors,
+      // The tag link text on hover of remove button
+      [cssVar.color.text.link]: styles.removalTextColors,
+    };
 
     return (
       <ExitingPersistence>

@@ -8,7 +8,6 @@ import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { getCellsInRow } from '@atlaskit/editor-tables/utils';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
 
 import type { DraggableSourceData } from '../../types';
 import {
@@ -109,14 +108,9 @@ export const createPlugin = (
             return localId === tableNode?.attrs.localId;
           },
           onDragStart: ({ location }) => {
-            autoScroller.start({ input: location.current.input });
             toggleDragMenu(false)(editorView.state, editorView.dispatch);
           },
           onDrag(event) {
-            autoScroller.updateInput({
-              input: event.location.current.input,
-            });
-
             const data = getDraggableDataFromEvent(event);
             // If no data can be found then it's most like we do not want to perform any drag actions
             if (!data) {
@@ -138,7 +132,6 @@ export const createPlugin = (
             );
           },
           onDrop(event) {
-            autoScroller.stop();
             const data = getDraggableDataFromEvent(event);
 
             // If no data can be found then it's most like we do not want to perform any drop action

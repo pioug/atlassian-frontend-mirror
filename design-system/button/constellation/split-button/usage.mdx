@@ -6,7 +6,7 @@ order: 2
 
 ## Usage
 
-Split buttons can simplify a UI with multiple similar actions when there’s a clear default action that will work for most people.
+Split buttons have one clear default action alongside a group of similar actions.
 
 ![Split button diagram. A caption follows this image.](./images/anatomy-split-button.png/)
 
@@ -25,18 +25,33 @@ The small menu is easy to miss and requires more focus, so expect people to use 
 
 When there isn’t a clear default action, present all options equally using a [basic dropdown menu](/components/dropdown-menu/examples) or [button group](/components/button-group/examples).
 
+<DoDont type="do">
+  Group related actions under the split button dropdown.
+</DoDont>
+
+<DoDont type="dont">
+  Don't use a split button to group actions that aren't directly related or
+  similar.
+</DoDont>
+
 ## Accessibility
 
-<!-- TODO review with a11y team and break into more scannable headings. Tooltip info may be better off in tooltop docs and linked to here. -->
+### Provide an accessible name for the dropdown icon button
 
-- Use a tooltip and an aria label (using the aria-label prop) to describe the actions behind the dropdown icon button. The text should say something like "More 'main action' actions."
-- Avoid disabling buttons and follow all [general button accessibility guidance](/components/button/usage#accessibility).
+Provide an accessible name (using the aria-label prop) to describe the actions behind the dropdown icon button. The text should say something like "More 'main action' actions."
+
+### Avoid disabling buttons
+
+Avoid disabling buttons and follow all [general button accessibility guidance](/components/button/usage#accessibility).
 
 ## Best practices
 
 <!-- TODO add do/don’ts and visuals throughout. -->
 
-- Try to keep the number of dropdown menus items to a minimum (less than six) to aid focus and comprehension.
+### Aim for fewer dropdown items
+
+Try to keep the number of dropdown menus items to a minimum (fewer than six) to aid focus and comprehension.
+
 - Remember that some users may miss the secondary action entirely, so ensure users aren’t required to interact with the secondary action to proceed. In other words, make sure the main action button allows people to proceed in most cases.
 
 ### Secondary actions should open a dropdown menu
@@ -45,14 +60,25 @@ In general, the secondary action button opens a dropdown menu.
 
 When the secondary action doesn’t open a dropdown menu, don’t use a dropdown icon like the chevron down. Make sure any icon button provides a clear and consistent signifier that relates to the purpose of that action.
 
-If you are customizing the secondary action menu (not a dropdown), strongly consider whether these actions are really directly related, with one being a clear default. In most cases, a separate button may be more appropriate than a split button with a custom icon.
+If you are customizing the secondary action menu (not a dropdown), strongly consider whether these actions are directly related, with one being a clear default. In most cases, a separate button may be more appropriate than a split button with a custom icon.
 
 ## Content guidelines
 
-<!-- TODO make scannable headings with do/don'ts (reuse from button docs?) -->
+### Use sentence case for labels
 
-- Don’t repeat the default action button as a dropdown menu item. Try to keep the number of menu items to a minimum.
-- Use sentence case (only capitalize the first letter) for all button actions and menu items, unless there’s a proper noun in the label.
+Use sentence case (only capitalize the first letter) for all button actions and menu items, unless there’s a proper noun in the label.
+
+### Don't repeat the default action in the dropdown
+
+Don’t include the default action as one of the dropdown menu items. This helps keep the number of items to a minimum.
+
+<DoDont type="do">
+  Use a clear and concise label for the main and secondary actions.
+</DoDont>
+
+<DoDont type="dont">
+  Don't repeat the main action as one of the dropdown items.
+</DoDont>
 
 ## Mobile guidelines
 

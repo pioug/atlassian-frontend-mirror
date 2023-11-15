@@ -57,6 +57,9 @@ export interface TaskDecisionPluginOptions
 
 export type TaskAndDecisionsSharedState = {
   focusedTaskItemLocalId: string | null;
+  indentDisabled: boolean;
+  outdentDisabled: boolean;
+  isInsideTask: boolean;
 };
 
 export type TaskAndDecisionsPlugin = NextEditorPlugin<

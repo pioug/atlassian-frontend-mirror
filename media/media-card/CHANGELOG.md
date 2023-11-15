@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 77.4.2
+
+### Patch Changes
+
+- [#43093](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43093) [`ccba4cddc23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccba4cddc23) - [ux] CXP-2736 Bug fix to ensure that a poster attribute is provided to videos for CardV2.
+
+## 77.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 77.4.0
 
 ### Minor Changes

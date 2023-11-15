@@ -1,16 +1,12 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
-  getIndentCommand as indentParagraphOrHeading,
-  getOutdentCommand as outdentParagraphOrHeading,
-} from '../../indentation/commands';
-import {
   getIndentCommand as indentTaskList,
   getUnindentCommand as outdentTaskList,
 } from '../../tasks-and-decisions/pm-plugins/keymaps';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 
-import { pluginKey as indentationButtonsPluginKey } from '../pm-plugins/indentation-buttons';
+import type { IndentationButtonNode } from '../pm-plugins/indentation-buttons';
 
 import type { ButtonName } from '../types';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -21,6 +17,7 @@ export const onItemActivated =
     pluginInjectionApi:
       | ExtractInjectionAPI<typeof toolbarListsIndentationPlugin>
       | undefined,
+    indentationStateNode: IndentationButtonNode | undefined,
   ) =>
   ({
     buttonName,
@@ -47,11 +44,9 @@ export const onItemActivated =
         break;
 
       case 'indent': {
-        const node = indentationButtonsPluginKey.getState(
-          editorView.state,
-        )?.node;
+        const node = indentationStateNode;
         if (node === 'paragraph_heading') {
-          indentParagraphOrHeading(pluginInjectionApi?.analytics?.actions)(
+          pluginInjectionApi?.indentation?.actions.indentParagraphOrHeading(
             INPUT_METHOD.TOOLBAR,
           )(editorView.state, editorView.dispatch);
         }
@@ -69,11 +64,9 @@ export const onItemActivated =
         break;
       }
       case 'outdent': {
-        const node = indentationButtonsPluginKey.getState(
-          editorView.state,
-        )?.node;
+        const node = indentationStateNode;
         if (node === 'paragraph_heading') {
-          outdentParagraphOrHeading(pluginInjectionApi?.analytics?.actions)(
+          pluginInjectionApi?.indentation?.actions.outdentParagraphOrHeading(
             INPUT_METHOD.TOOLBAR,
           )(editorView.state, editorView.dispatch);
         }

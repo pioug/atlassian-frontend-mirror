@@ -1,5 +1,17 @@
 # @atlaskit/link-picker
 
+## 1.30.4
+
+### Patch Changes
+
+- [#43264](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43264) [`b4e3b6f54bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4e3b6f54bd) - Explicitly set link picker to display block
+
+## 1.30.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.30.2
 
 ### Patch Changes

@@ -23,7 +23,13 @@ import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import messages from '../../messages';
-import { FlagEvent, FlagEventType, GiveKudosDrawerProps } from '../../types';
+import {
+  Flag,
+  FlagEvent,
+  FlagEventType,
+  GiveKudosDrawerProps,
+  isFlagEventTypeValue,
+} from '../../types';
 
 const iframeStyles = css({
   border: 0,
@@ -94,15 +100,17 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 
   const createFlagWithJsonStringifiedInput = useCallback(
     (flagEvent: FlagEvent) => {
-      if (flagEvent.eventType === FlagEventType.KUDOS_CREATED) {
+      const handleCreateOrFail = (addFlagConfig: Flag) => {
         closeDrawer();
         sendAnalytic('created', {});
-
-        if (!flagEvent.kudosUuid) {
-          return;
+        if (flagEvent.kudosUuid || flagEvent.jiraKudosUrl) {
+          addFlag && addFlag(addFlagConfig);
         }
-        addFlag &&
-          addFlag({
+      };
+
+      switch (flagEvent.eventType) {
+        case FlagEventType.KUDOS_CREATED:
+          handleCreateOrFail({
             title: <FormattedMessage {...messages.kudosCreatedFlag} />,
             id: `kudosCreatedFlag-${flagEvent.kudosUuid}`,
             description: (
@@ -126,15 +134,9 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
               />
             ),
           });
-      } else if (flagEvent.eventType === FlagEventType.JIRA_KUDOS_CREATED) {
-        closeDrawer();
-        sendAnalytic('created', {});
-        if (!flagEvent.kudosUuid || !flagEvent.jiraKudosUrl) {
-          return;
-        }
-
-        addFlag &&
-          addFlag({
+          break;
+        case FlagEventType.JIRA_KUDOS_CREATED:
+          handleCreateOrFail({
             title: <FormattedMessage {...messages.JiraKudosCreatedFlag} />,
             id: `kudosCreatedFlag-${flagEvent.kudosUuid}`,
             description: (
@@ -157,14 +159,9 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
               },
             ],
           });
-      } else if (flagEvent.eventType === FlagEventType.JIRA_KUDOS_FAILED) {
-        closeDrawer();
-        sendAnalytic('created', {});
-        if (!flagEvent.kudosUuid || !flagEvent.jiraKudosFormUrl) {
-          return;
-        }
-        addFlag &&
-          addFlag({
+          break;
+        case FlagEventType.JIRA_KUDOS_FAILED:
+          handleCreateOrFail({
             title: (
               <FormattedMessage {...messages.JiraKudosCreationFailedFlag} />
             ),
@@ -191,10 +188,16 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
               },
             ],
           });
-      } else if (flagEvent.eventType === FlagEventType.DIRTY) {
-        setIsDirty(true);
-      } else if (flagEvent.eventType === FlagEventType.CLOSE) {
-        closeDrawer();
+          break;
+        case FlagEventType.DIRTY:
+          setIsDirty(true);
+          break;
+        case FlagEventType.CLOSE:
+          closeDrawer();
+          break;
+        default:
+          // Not a known FlagEventType
+          return;
       }
     },
     [addFlag, closeDrawer, sendAnalytic, teamCentralBaseUrl],
@@ -245,7 +248,17 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
           closeDrawer();
         }
       } else {
-        createFlagWithJsonStringifiedInput(JSON.parse(event.data));
+        try {
+          const eventData = JSON.parse(event.data);
+          if (
+            eventData.eventType &&
+            isFlagEventTypeValue(eventData.eventType)
+          ) {
+            createFlagWithJsonStringifiedInput(eventData);
+          }
+        } catch (e) {
+          // Swallow any errors
+        }
       }
     },
     [

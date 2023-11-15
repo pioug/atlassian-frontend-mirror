@@ -23,20 +23,21 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 ## Basic
 
-Stack should be used to efficiently lay-out a group of elements vertically.
+Use a stack component to efficiently lay-out a group of elements vertically.
+
 Use the given props to configure display behavior using designs tokens, as shown in the more complex examples below.
 
 <Example Component={StackBasic} packageName="@atlaskit/primitives/stack" />
 
 ## Space
 
-Spacing between items can be controlled with the `space` prop.
+Control spacing between items with the `space` prop.
 
 <Example Component={StackSpaceBasic} packageName="@atlaskit/primitives/stack" />
 
 ## Alignment
 
-To control the alignment of items you can use the `alignBlock` and `alignInline` props which control alignment in the vertical and horizontal axis respectively.
+Control the alignment of items using the `alignBlock` and `alignInline` props which control alignment in the vertical and horizontal axis respectively.
 
 ### Block alignment
 
@@ -51,15 +52,13 @@ To control the alignment of items you can use the `alignBlock` and `alignInline`
 
 ## Spread
 
-Elements can be set to stay together, spaced at the given value (default behavior) or spread equally in the space available.
+Use the `spread` prop to set elements to stay together, spaced at the given value (default behavior) or spread equally in the space available.
 
 <Example Component={StackSpread} packageName="@atlaskit/primitives/stack" />
 
 ## Width control
 
-By default a `Stack` will have its width influenced by the context where it appears. To control the width the `grow` prop can be used with the values:
-
-To control that the `grow` prop can be used with the values:
+By default a `Stack` will have its width influenced by the context where it appears. To control the width use the `grow` prop with the values:
 
 - `hug` (default) to use space only as required by its children, or
 - `fill` to take all space provided by the parent element.
@@ -73,6 +72,8 @@ It's possible to control the rendered HTML element with the `as` prop.
 <Example Component={StackAs} packageName="@atlaskit/primitives/stack" />
 
 ## Practical use case
+
+An example of how a stack component might be used in product, using Atlassian Design System components.
 
 <Example
   Component={StackPracticalUseCase}

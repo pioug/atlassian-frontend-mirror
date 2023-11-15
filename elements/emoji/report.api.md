@@ -1193,7 +1193,10 @@ class SiteEmojiResource {
   deleteEmoji(emoji: EmojiDescription): Promise<boolean>;
   // (undocumented)
   findEmoji(emojiId: EmojiId): Promise<OptionalEmojiDescription>;
-  generateTokenisedMediaURL(emoji: EmojiDescription): Promise<string>;
+  generateTokenisedMediaURLS(
+    representation: EmojiRepresentation,
+    altRepresentation?: EmojiRepresentation,
+  ): Promise<TokenisedEmojiRepresentation>;
   hasUploadToken(): Promise<boolean>;
   loadMediaEmoji(
     emoji: EmojiDescription,
@@ -1275,6 +1278,12 @@ export interface Styles {
 
 // @public (undocumented)
 export const toEmojiId: (emoji: EmojiDescription) => EmojiId;
+
+// @public (undocumented)
+type TokenisedEmojiRepresentation = {
+  representation?: EmojiRepresentation;
+  altRepresentation?: EmojiRepresentation;
+};
 
 // @public (undocumented)
 class TokenManager {

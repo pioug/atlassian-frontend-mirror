@@ -9,6 +9,8 @@ export type {
   DatasourceDetails,
   DatasourceDetailsRequest,
   DatasourceDetailsResponse,
+  DatasourceDataSchema,
+  DatasourceDetailsSchema,
   DatasourceMeta,
   DatasourceParameters,
   DatasourceResponseParameter,

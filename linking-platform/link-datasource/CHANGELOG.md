@@ -1,5 +1,30 @@
 # @atlaskit/link-datasource
 
+## 1.17.2
+
+### Patch Changes
+
+- [#43143](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43143) [`de7541cc6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de7541cc6ab) - Reset filter selection when site selection changes and fixes a bug when selecting filter values.
+
+## 1.17.1
+
+### Patch Changes
+
+- [#43132](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43132) [`3e2792d125e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e2792d125e) - added operational events for Assets Config Modal
+- Updated dependencies
+
+## 1.17.0
+
+### Minor Changes
+
+- [#43023](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43023) [`312be02e858`](https://bitbucket.org/atlassian/atlassian-frontend/commits/312be02e858) - [ux] Basic filter dropdown button label now includes first selected item's name. If multiple items are selected then a badge now indicates the remaining number of items. Selected options are also reordered to the top of the select list.
+
+### Patch Changes
+
+- [#42504](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42504) [`8ee7afb2d85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ee7afb2d85) - Added DatasourceDataSchema model.
+  Used fields in the request for applying schema.
+- Updated dependencies
+
 ## 1.16.5
 
 ### Patch Changes

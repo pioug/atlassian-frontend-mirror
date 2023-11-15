@@ -4,9 +4,9 @@ description: A stack manages the vertical layout of direct children using flexbo
 order: 2
 ---
 
-Primitive components are building blocks for composing a user experience. A `Stack` primitive lays out UI elements vertically, and makes use of the built-in design guidance from the Atlassian Design System.
+Use the stack component in conjunction with other layout components such as [box](/components/primitives/box/usage) and [inline](/components/primitives/inline/usage) to easily create customized layouts, with built-in guidance from the Atlassian Design System.
 
-Stacks work by aligning content vertically on a page or layout, as a container that decides the vertical layout of its children. Stack components also decide the specifics of how the children are displayed, for example, where they are aligned or how much space is between child elements. Stack is purely for visual alignment, and should have no opinions about the functionality of its children.
+A stack component aligns content vertically on a page or layout, acting as a container that decides the vertical layout of its children. Stack components also decide the specifics of how the children are displayed, for example, where they are aligned or how much space is between child elements. Stack is purely for visual alignment, and should have no opinions about the functionality of its children.
 
 In its simplest form, `Stack` works like a flexbox column, with built-in design token support and guidance.
 
@@ -16,9 +16,9 @@ In its simplest form, `Stack` works like a flexbox column, with built-in design 
 </Stack>
 ```
 
-## Usage
+## Using stack
 
-A `Stack` is primarily a container element controlling how content is displayed and aligned vertically. Use stack any time you wish to lay out elements or components vertically.
+A stack is primarily a container element controlling how content is displayed and aligned vertically. Use stack any time you wish to lay out elements or components vertically.
 
 These props customize the spacing and styling of any child elements:
 
@@ -30,9 +30,6 @@ These props customize the spacing and styling of any child elements:
 
 ## Related
 
-- [Primitives](/components/primitives/overview)
-- [Box](/components/primitives/box/usage)
-- [Inline](/components/primitives/inline/usage)
-- [Grid](/components/primitives/grid/examples)
-- [Bleed](/components/primitives/bleed/examples)
-- [Flex](/components/primitives/flex/examples)
+- [Use box for a generic container with access to design tokens](/components/primitives/box/usage)
+- [Manage horizontal layout using an inline component](/components/primitives/inline/usage)
+- [Use design tokens in code with XCSS](/components/primitives/XCSS/usage)

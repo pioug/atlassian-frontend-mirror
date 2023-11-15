@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-import ReactDOM from 'react-dom';
-
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
@@ -121,13 +119,11 @@ export const TableFloatingColumnControls: React.FC<Props> = ({
       ? stickyHeader.top
       : undefined;
 
-  const mountTo = (tableRef && tableRef?.parentElement) || document.body;
-
   if (!tableActive) {
     return null;
   }
 
-  return ReactDOM.createPortal(
+  return (
     <div
       className={ClassName.DRAG_COLUMN_CONTROLS_WRAPPER}
       data-testid="table-floating-column-controls-wrapper"
@@ -155,8 +151,7 @@ export const TableFloatingColumnControls: React.FC<Props> = ({
           colWidths={colWidths}
         />
       )}
-    </div>,
-    mountTo,
+    </div>
   );
 };
 

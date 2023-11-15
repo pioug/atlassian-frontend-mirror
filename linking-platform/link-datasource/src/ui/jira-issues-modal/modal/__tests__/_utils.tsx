@@ -7,10 +7,6 @@ import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import {
-  JiraIssueDatasourceParameters,
-  JiraIssuesDatasourceAdf,
-} from '@atlaskit/link-datasource';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
@@ -25,7 +21,11 @@ import {
 import { getAvailableJiraSites } from '../../../../services/getAvailableJiraSites';
 import { IssueLikeDataTableView } from '../../../issue-like-table';
 import { IssueLikeDataTableViewProps } from '../../../issue-like-table/types';
-import { JiraIssuesConfigModalProps } from '../../types';
+import {
+  JiraIssueDatasourceParameters,
+  JiraIssuesConfigModalProps,
+  JiraIssuesDatasourceAdf,
+} from '../../types';
 import { JiraIssuesConfigModal } from '../index';
 
 jest.mock('../../../../services/getAvailableJiraSites', () => ({

@@ -9,6 +9,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { hoverCell, hoverRows, selectRow } from '../../commands';
 import { getPluginState } from '../../pm-plugins/plugin-factory';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
+import { TableCssClassName as ClassName } from '../../types';
 import type { CellHoverMeta } from '../../types';
 import { isSelectionUpdated } from '../../utils';
 
@@ -38,12 +39,23 @@ export interface Props {
 }
 
 interface State {
-  tableHeight: number;
+  tableWrapperWidth: number;
+  tableWrapperHeight: number;
 }
 
 export default class TableFloatingControls extends Component<Props, State> {
   static displayName = 'TableFloatingControls';
   private resizeObserver?: ResizeObserver;
+
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      tableWrapperWidth: 0,
+      /** Height needs to be tracked to re-render decorations correctly, do not remove */
+      tableWrapperHeight: 0,
+    };
+  }
 
   componentDidMount() {
     this.tryInitResizeObserver();
@@ -58,13 +70,23 @@ export default class TableFloatingControls extends Component<Props, State> {
   private tryInitResizeObserver() {
     let { tableRef } = this.props;
     if (tableRef && !this.resizeObserver && window?.ResizeObserver) {
+      const tableWrapper = tableRef.closest(
+        `.${ClassName.TABLE_NODE_WRAPPER}`,
+      ) as Element;
       this.resizeObserver = new ResizeObserver((entries) => {
         for (let entry of entries) {
-          const tableHeight = entry.contentRect.height;
-          this.setState({ tableHeight });
+          this.setState((prev) => {
+            return prev?.tableWrapperWidth === entry.contentRect.width &&
+              prev.tableWrapperHeight === entry.contentRect.height
+              ? prev
+              : {
+                  tableWrapperWidth: entry.contentRect.width,
+                  tableWrapperHeight: entry.contentRect.height,
+                };
+          });
         }
       });
-      this.resizeObserver.observe(tableRef);
+      this.resizeObserver.observe(tableWrapper);
     }
   }
 
@@ -84,12 +106,11 @@ export default class TableFloatingControls extends Component<Props, State> {
       stickyHeader,
       hoveredCell,
     } = this.props;
-    const tableHeight = this.state?.tableHeight;
-    const nextTableHeight = nextState?.tableHeight;
     return (
+      this.state.tableWrapperWidth !== nextState.tableWrapperWidth ||
+      this.state.tableWrapperHeight !== nextState.tableWrapperHeight ||
       ordering !== nextProps.ordering ||
       tableRef !== nextProps.tableRef ||
-      tableHeight !== nextTableHeight ||
       tableActive !== nextProps.tableActive ||
       isInDanger !== nextProps.isInDanger ||
       isResizing !== nextProps.isResizing ||
@@ -174,7 +195,7 @@ export default class TableFloatingControls extends Component<Props, State> {
                   tableActive={tableActive}
                   isInDanger={isInDanger}
                   isResizing={isResizing}
-                  hasHeaderRow={hasHeaderRow}
+                  tableWidth={this.state.tableWrapperWidth}
                   hoverRows={this.hoverRows}
                   selectRow={this.selectRow}
                   updateCellHoverLocation={this.updateCellHoverLocation}

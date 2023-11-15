@@ -82,6 +82,19 @@ export const RenderRealResourcedEmojis = (props: RenderRealEmojisProps) => {
         emojiProvider={props.emailProvider}
         fitToHeight={24}
       />
+      <p>
+        A resource emoji with a large fitToHeight rendering altRepresentation
+      </p>
+      <ResourcedEmoji
+        emojiId={{
+          id: emojiTest.id,
+          fallback: emojiTest.fallback,
+          shortName: emojiTest.shortName,
+        }}
+        showTooltip={true}
+        emojiProvider={props.emailProvider}
+        fitToHeight={80}
+      />
       <p>A resource emoji with a default fallback</p>
       <ResourcedEmoji
         emojiId={{

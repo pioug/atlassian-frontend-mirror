@@ -26,7 +26,7 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 ## Basic
 
-Inline should be used to layout a group of elements horizontally.
+Use an inline component to configure the layout of a group of elements horizontally.
 
 Use the given props to configure display behavior using design tokens, as shown in the more complex examples below.
 
@@ -34,7 +34,7 @@ Use the given props to configure display behavior using design tokens, as shown 
 
 ## Space
 
-Spacing between items can be controlled with the `space` prop:
+Control the spacing between items with the `space` prop.
 
 <Example
   Component={InlineSpaceBasic}
@@ -76,7 +76,7 @@ Elements can be set to stay together, spaced at the given value (default behavio
 
 ## Wrap
 
-When the number of items goes beyond the available space `shouldWrap` can be used to create new rows of content.
+When the number of items goes beyond the available space, use `shouldWrap` to create new rows of content.
 
 <Example Component={InlineWrap} packageName="@atlaskit/primitives/inline" />
 
@@ -92,7 +92,7 @@ For logically related elements it's possible to specify a `separator` character 
 ## Width control
 
 By default an `Inline` will have its width influenced by the context where it appears.
-To control the width, the `grow` prop can be used with the values:
+To control the width, use the `grow` prop with the values:
 
 - `hug` (default) to use space only as required by its children, or
 - `fill` to take all space provided by the parent element.
@@ -107,7 +107,7 @@ It's possible to control the rendered HTML element with the `as` prop.
 
 ## Practical use case
 
-An example of how an `Inline` might be used in product, using Atlassian Design System components.
+An example of how an inline component might be used in product, using Atlassian Design System components.
 
 <Example
   Component={InlinePracticalUseCase}

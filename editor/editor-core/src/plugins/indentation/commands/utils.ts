@@ -16,7 +16,7 @@ import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import type { GetAttrsChange } from '../../../utils/getAttrsWithChangesRecorder';
+import type { GetAttrsChange } from '../getAttrsWithChangesRecorder';
 
 // Analytics GAS v3 Utils
 export type PrevAttributes = IndentationMarkAttributes | undefined;

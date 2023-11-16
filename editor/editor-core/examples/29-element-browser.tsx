@@ -8,6 +8,7 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
 
+import { default as EditorContext } from '../src/ui/EditorContext';
 import { getCategories } from '../example-helpers/quick-insert-categories';
 import { useDefaultQuickInsertGetItems } from '../example-helpers/use-default-quickinsert-get-items';
 
@@ -56,4 +57,8 @@ const ElementBrowserComp = () => {
   );
 };
 
-export default () => <ElementBrowserComp />;
+export default () => (
+  <EditorContext>
+    <ElementBrowserComp />
+  </EditorContext>
+);

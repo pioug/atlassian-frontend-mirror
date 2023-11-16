@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 77.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 77.4.3
+
+### Patch Changes
+
+- [#43248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43248) [`38b1f08a5da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/38b1f08a5da) - [ux] CXP-2748 Bug fix in CardV2 so that the card correctly updates the file preview when a new identifier is passed to the component
+
 ## 77.4.2
 
 ### Patch Changes

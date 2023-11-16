@@ -24,17 +24,20 @@ type CustomProps = {
 };
 
 const CustomMenuList = ({
-  filterType,
-  isLoading,
-  isLoadingMore,
-  isError,
-  isEmpty,
-  errors,
-  showMore,
-  handleShowMore,
   children,
   ...props
-}: MenuListComponentProps<SelectOption, true> & CustomProps) => {
+}: MenuListComponentProps<SelectOption, true>) => {
+  const {
+    filterType,
+    isLoading,
+    isLoadingMore,
+    isError,
+    isEmpty,
+    errors,
+    showMore,
+    handleShowMore,
+  }: CustomProps = props.selectProps.menuListProps;
+
   const shouldDisplayShowMore = showMore && !isLoadingMore;
   const isLoadingMoreData = !shouldDisplayShowMore && isLoadingMore;
 

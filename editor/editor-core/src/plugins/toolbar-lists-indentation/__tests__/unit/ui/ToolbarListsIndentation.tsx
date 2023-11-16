@@ -19,7 +19,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import toolbarListsIndentationPlugin, {
   PrimaryToolbarComponent,
 } from '../../../';
-import indentationPlugin from '../../../../indentation';
+import { indentationPlugin } from '@atlaskit/editor-plugin-indentation';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import taskDecisionPlugin from '../../../../../plugins/tasks-and-decisions';
 import { listPlugin } from '@atlaskit/editor-plugin-list';

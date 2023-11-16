@@ -5,12 +5,10 @@ import {
   KeyboardEvent,
   ReactNode,
   useCallback,
-  useMemo,
 } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { useGlobalTheme } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 
 import { useTabList } from '../hooks';
@@ -25,6 +23,9 @@ const baseStyles = css({
   position: 'relative',
 });
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+const tabListStyles = getTabListStyles();
+
 /**
  * __TabList__
  *
@@ -35,7 +36,6 @@ const baseStyles = css({
  * - [Usage](https://atlassian.design/components/tabs/usage)
  */
 const TabList = ({ children }: TabListProps) => {
-  const { mode } = useGlobalTheme();
   const { tabsId, selected, onChange } = useTabList();
 
   const ref = createRef<HTMLDivElement>();
@@ -43,8 +43,6 @@ const TabList = ({ children }: TabListProps) => {
   // Don't include any conditional children
   const childrenArray = Children.toArray(children).filter(Boolean);
   const length = childrenArray.length;
-
-  const tabListStyles = useMemo(() => getTabListStyles(mode), [mode]);
 
   const selectTabByIndex = useCallback(
     (index: number) => {

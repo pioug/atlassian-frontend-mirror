@@ -1,18 +1,29 @@
 /** @jsx jsx */
-import { forwardRef, memo, Ref, useMemo } from 'react';
+import { forwardRef, memo, Ref } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import __noop from '@atlaskit/ds-lib/noop';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { DN600, N80, N900 } from '@atlaskit/theme/colors';
-import GlobalTheme from '@atlaskit/theme/components';
+import {
+  B100,
+  B300,
+  B400,
+  B50,
+  N10,
+  N100,
+  N20,
+  N30,
+  N40,
+  N70,
+  N80,
+  N900,
+  R300,
+} from '@atlaskit/theme/colors';
 import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
-import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
-import getRadioCustomProperties from './styles';
 import { RadioProps } from './types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
@@ -21,10 +32,6 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 const fontFamily = getFontFamily();
 
 const noop = __noop;
-
-type InnerProps = RadioProps & {
-  mode: ThemeModes;
-};
 
 const labelPaddingStyles = css({
   padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
@@ -35,20 +42,13 @@ const labelStyles = css({
   boxSizing: 'border-box',
   position: 'relative',
   alignItems: 'flex-start',
+  color: token('color.text', N900),
   fontFamily: fontFamily,
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '&[data-disabled]': {
     color: token('color.text.disabled', N80),
     cursor: 'not-allowed',
   },
-});
-
-const lightLabelStyles = css({
-  color: token('color.text', N900),
-});
-
-const darkLabelStyles = css({
-  color: token('color.text', DN600),
 });
 
 const radioStyles = css({
@@ -87,9 +87,13 @@ const radioStyles = css({
     -radio-dot-color and -radio-dot-opacity according to user interactions.
     All other variables are constant
   */
-  '--radio-background-color': 'var(--local-background)',
-  '--radio-border-color': 'var(--local-border)',
-  '--radio-dot-color': 'var(--local-dot-checked)',
+  '--radio-background-color': token('color.background.input', N10),
+  '--radio-border-color': getBooleanFF(
+    'platform.design-system-team.update-border-radio-checkbox_7askv',
+  )
+    ? token('color.border.bold', N100)
+    : token('color.border.input', N40),
+  '--radio-dot-color': token('color.icon.inverse', N10),
   '--radio-dot-opacity': 0,
 
   /* 24px * 7 / 12 === 14px height and width */
@@ -113,50 +117,67 @@ const radioStyles = css({
   },
 
   '&:hover': {
-    '--radio-background-color': 'var(--local-background-hover)',
-    '--radio-border-color': 'var(local-border-hover)',
+    '--radio-background-color': token('color.background.input.hovered', N30),
+    '--radio-border-color': getBooleanFF(
+      'platform.design-system-team.update-border-radio-checkbox_7askv',
+    )
+      ? token('color.border.bold', N100)
+      : token('color.border.input', N40),
   },
   '&:active': {
-    '--radio-background-color': 'var(--local-background-active)',
+    '--radio-background-color': token('color.background.input.pressed', N30),
   },
   '&:focus': {
-    '--radio-border-color': 'var(--local-border-focus)',
+    '--radio-border-color': token('color.border.focused', B100),
   },
 
   '&:checked': {
-    '--radio-background-color': 'var(--local-background-checked)',
-    '--radio-border-color': 'var(--local-background-checked)',
+    '--radio-background-color': token('color.background.selected.bold', B400),
+    '--radio-border-color': token('color.background.selected.bold', B400),
     '--radio-dot-opacity': 1,
   },
   '&:checked:hover': {
-    '--radio-background-color': 'var(--local-background-checked-hover)',
-    '--radio-border-color': 'var(--local-background-checked-hover)',
+    '--radio-background-color': token(
+      'color.background.selected.bold.hovered',
+      B300,
+    ),
+    '--radio-border-color': token(
+      'color.background.selected.bold.hovered',
+      B300,
+    ),
   },
   '&:checked:active': {
-    '--radio-background-color': 'var(--local-background-checked-active)',
-    '--radio-border-color': 'var(--local-border-hover)',
-    '--radio-dot-color': 'var(--local-dot-active)',
+    '--radio-background-color': token(
+      'color.background.selected.bold.pressed',
+      B50,
+    ),
+    '--radio-border-color': getBooleanFF(
+      'platform.design-system-team.update-border-radio-checkbox_7askv',
+    )
+      ? token('color.border.bold', N100)
+      : token('color.border.input', N40),
+    '--radio-dot-color': token('color.icon.inverse', B400),
   },
   '&:checked:focus': {
-    '--radio-border-color': 'var(--local-border-focus)',
+    '--radio-border-color': token('color.border.focused', B100),
   },
 
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '&[data-invalid], &:checked[data-invalid]': {
-    '--radio-border-color': 'var(--local-invalid)',
+    '--radio-border-color': token('color.icon.danger', R300),
   },
 
   '&:disabled, &:disabled:hover, &:disabled:focus, &:disabled:active, &:disabled[data-invalid]':
     {
       cursor: 'not-allowed',
-      '--radio-background-color': 'var(--local-background-disabled)',
-      '--radio-border-color': 'var(--local-border-disabled)',
-      '--radio-dot-color': 'var(--local-dot-disabled)',
+      '--radio-background-color': token('color.background.disabled', N20),
+      '--radio-border-color': token('color.border.disabled', N20),
+      '--radio-dot-color': token('color.icon.disabled', N70),
     },
 });
 
-const RadioWithMode = forwardRef(function Radio(
-  props: InnerProps,
+const InnerRadio = forwardRef(function Radio(
+  props: RadioProps,
   ref: Ref<HTMLInputElement>,
 ) {
   const {
@@ -166,7 +187,6 @@ const RadioWithMode = forwardRef(function Radio(
     isInvalid = false,
     isChecked = false,
     label,
-    mode,
     name,
     onChange = noop,
     value,
@@ -185,16 +205,11 @@ const RadioWithMode = forwardRef(function Radio(
     packageVersion,
   });
 
-  const radioCustomProperties = useMemo(
-    () => css(getRadioCustomProperties(mode)),
-    [mode],
-  );
-
   return (
     <label
       data-testid={testId && `${testId}--radio-label`}
       data-disabled={isDisabled ? 'true' : undefined}
-      css={[labelStyles, mode === 'light' ? lightLabelStyles : darkLabelStyles]}
+      css={labelStyles}
     >
       <input
         {...rest}
@@ -210,9 +225,7 @@ const RadioWithMode = forwardRef(function Radio(
         // isInvalid is used in a nonstandard way so cannot
         // use :invalid selector
         data-invalid={isInvalid ? 'true' : undefined}
-        // TODO radioCustomProperties can be defined at top of file when legacy theming removed
-        // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-        css={[radioStyles, radioCustomProperties]}
+        css={radioStyles}
         ref={ref}
       />
       {label ? <span css={labelPaddingStyles}>{label}</span> : null}
@@ -231,13 +244,7 @@ const RadioWithMode = forwardRef(function Radio(
  */
 const Radio = memo(
   forwardRef(function Radio(props: RadioProps, ref: Ref<HTMLInputElement>) {
-    return (
-      <GlobalTheme.Consumer>
-        {({ mode }: { mode: ThemeModes }) => (
-          <RadioWithMode {...props} ref={ref} mode={mode} />
-        )}
-      </GlobalTheme.Consumer>
-    );
+    return <InnerRadio {...props} ref={ref} />;
   }),
 );
 

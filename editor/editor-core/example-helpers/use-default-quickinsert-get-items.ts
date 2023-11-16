@@ -11,6 +11,12 @@ import { extensionProviderToQuickInsertProvider } from '../src/utils/extensions'
 import { getExampleExtensionProviders } from './get-example-extension-providers';
 import { find } from '@atlaskit/editor-common/quick-insert';
 
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import { usePresetContext } from '../src/presets/context';
+
+type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
+
 const ACTIONS = {} as EditorActions;
 const EMPTY: any[] = [];
 
@@ -24,7 +30,11 @@ const useDefaultQuickInsertProvider = (providers: ExtensionProvider) => {
 };
 
 export const useDefaultQuickInsertGetItems = () => {
-  const providers = React.useMemo(() => getExampleExtensionProviders(), []);
+  const editorApi = usePresetContext<StackPlugins>();
+  const providers = React.useMemo(
+    () => getExampleExtensionProviders(editorApi),
+    [editorApi],
+  );
   const quickInsertProvider = useDefaultQuickInsertProvider(providers);
 
   const [items] = useStateFromPromise<QuickInsertItem[]>(

@@ -7,6 +7,7 @@
  */
 //Italian (Italy)
 export default {
+  'fabric.linking.access_exists_description': "Richiedi l'accesso per visualizzare questo contenuto da {hostname}.",
   'fabric.linking.actions': 'Azioni',
   'fabric.linking.add_account': 'Aggiungi account',
   'fabric.linking.assigned_to': 'Assegnato a {context}',
@@ -37,18 +38,25 @@ export default {
   'fabric.linking.create_on_relative': 'Creazione: {context}',
   'fabric.linking.created_by': 'Creato da {context}',
   'fabric.linking.delete': 'Elimina',
+  'fabric.linking.direct_access_crossjoin': 'Unisciti ora',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Il tuo team usa {product} per collaborare; puoi iniziare a usarlo anche tu da subito!',
+  'fabric.linking.direct_access_title_crossjoin': 'Unisciti a {product} per visualizzare questo contenuto',
   'fabric.linking.download': 'Scarica',
   'fabric.linking.edit': 'Modifica',
   'fabric.linking.follow': 'Segui',
   'fabric.linking.forbidden_access': 'Accesso vietato',
   'fabric.linking.forbidden_description':
     "Non hai accesso a questa anteprima. Contatta l'amministratore del sito se devi accedere.",
+  'fabric.linking.forbidden_description_crossjoin': "Contatta l'amministratore per richiedere l'accesso a {hostname}.",
   'fabric.linking.forbidden_title_crossjoin': 'Non hai accesso a questo contenuto',
+  'fabric.linking.generic_error_message': 'Si è verificato un errore',
   'fabric.linking.go_back': 'Torna indietro',
   'fabric.linking.invalid_permissions': 'Contenuto soggetto a restrizioni',
   'fabric.linking.invalid_permissions_description':
     "Per visualizzare quest'anteprima devi richiedere l'accesso o provare con un altro account.",
   'fabric.linking.join_to_view': 'Unisciti a {context} per visualizzare questo ticket',
+  'fabric.linking.last_mentioned_in': 'Ultima menzione in',
   'fabric.linking.learn_more_about_smart_links': 'Scopri di più sui Link intelligenti.',
   'fabric.linking.link_safety_warning_message':
     'Il link {unsafeLinkText} porta a un altro sito, <a>actual link here</a>',
@@ -56,6 +64,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Aggiornato il {context}',
   'fabric.linking.modified_on_relative': 'Aggiornamento: {context}',
   'fabric.linking.more_actions': 'Altre azioni',
+  'fabric.linking.no_access_title_crossjoin': 'Unisciti a {product} per visualizzare questo contenuto',
   'fabric.linking.not_found_description':
     "Non è stato possibile trovare il link. Controlla l'URL e prova a modificarlo o a incollarlo di nuovo.",
   'fabric.linking.not_found_description_crossjoin':
@@ -82,9 +91,13 @@ export default {
   'fabric.linking.priority_trivial': 'Banale',
   'fabric.linking.priority_undefined': 'Non definita',
   'fabric.linking.read_time': '{context} minuti di lettura',
+  'fabric.linking.related': 'Correlate',
+  'fabric.linking.related_work_items_not_found': "Questo link non è menzionato da nessun'altra parte.",
   'fabric.linking.request_access': 'Richiedi accesso',
   'fabric.linking.request_access_crossjoin': 'Richiedi accesso',
   'fabric.linking.request_access_description': "Richiedi l'accesso a {context} per visualizzare questa anteprima.",
+  'fabric.linking.request_access_description_crossjoin':
+    "Il tuo team usa {product} per collaborare. Invia all'amministratore una richiesta di accesso.",
   'fabric.linking.request_access_pending': 'Accesso in sospeso',
   'fabric.linking.request_access_pending_crossjoin': 'In attesa di approvazione',
   'fabric.linking.request_access_pending_description': 'La tua richiesta di accesso è in sospeso.',

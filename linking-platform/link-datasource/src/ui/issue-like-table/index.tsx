@@ -77,7 +77,6 @@ const scrollableContainerStyles = css({
 });
 
 const tableStyles = css({
-  tableLayout: 'fixed',
   // These styles are needed to prevent thead bottom border from scrolling away.
   // This happens because it is sticky. https://stackoverflow.com/questions/50361698/border-style-do-not-work-with-sticky-position-element
   borderCollapse: 'separate',
@@ -442,6 +441,8 @@ export const IssueLikeDataTableView = ({
     onLoadDatasourceDetails,
   ]);
 
+  const shouldUseWidth = onColumnResize || columnCustomSizes;
+
   return (
     <div
       /* There is required contentEditable={true} in editor-card-plugin
@@ -459,7 +460,11 @@ export const IssueLikeDataTableView = ({
           : undefined
       }
     >
-      <Table css={tableStyles} data-testid={testId}>
+      <Table
+        css={tableStyles}
+        data-testid={testId}
+        style={shouldUseWidth ? { tableLayout: 'fixed' } : {}}
+      >
         <thead
           data-testid={testId && `${testId}--head`}
           css={[noDefaultBorderStyles, tableHeadStyles]}
@@ -513,7 +518,7 @@ export const IssueLikeDataTableView = ({
                   <TableHeading
                     key={key}
                     data-testid={`${key}-column-heading`}
-                    style={{ width }}
+                    style={shouldUseWidth ? { width } : { maxWidth: width }}
                   >
                     {heading}
                   </TableHeading>
@@ -546,7 +551,9 @@ export const IssueLikeDataTableView = ({
               ref={ref}
             >
               {cells.map(({ key: cellKey, content, width }, cellIndex) => {
-                let loadingRowStyle: React.CSSProperties = { width };
+                let loadingRowStyle: React.CSSProperties = shouldUseWidth
+                  ? { width }
+                  : { maxWidth: width };
                 // extra padding is required around skeleton loader to avoid vertical jumps when data loads
                 if (key?.includes('loading')) {
                   loadingRowStyle = {

@@ -7,6 +7,8 @@
  */
 //Japanese
 export default {
+  'fabric.linking.access_exists_description':
+    '{hostname} からこのコンテンツを閲覧するには、アクセス権をリクエストしてください。',
   'fabric.linking.actions': 'アクション',
   'fabric.linking.add_account': 'アカウントを追加',
   'fabric.linking.assigned_to': '割り当て先: {context}',
@@ -36,18 +38,26 @@ export default {
   'fabric.linking.create_on_relative': '作成日: {context}',
   'fabric.linking.created_by': '作成元: {context}',
   'fabric.linking.delete': '削除',
+  'fabric.linking.direct_access_crossjoin': '今すぐ参加する',
+  'fabric.linking.direct_access_description_crossjoin':
+    'あなたのチームは {product} を使用してコラボレーションしています。あなたも今すぐ使用を開始できます！',
+  'fabric.linking.direct_access_title_crossjoin': '{product} に参加してこのコンテンツを閲覧する',
   'fabric.linking.download': 'ダウンロード',
   'fabric.linking.edit': '編集',
   'fabric.linking.follow': 'フォロー',
   'fabric.linking.forbidden_access': 'アクセスは禁止されています。',
   'fabric.linking.forbidden_description':
     'このプレビューにアクセスできません。アクセスが必要な場合はサイト管理者にお問い合わせください。',
+  'fabric.linking.forbidden_description_crossjoin':
+    '{hostname} へのアクセス権をリクエストするには、管理者に連絡してください。',
   'fabric.linking.forbidden_title_crossjoin': 'このコンテンツへのアクセス権がありません',
+  'fabric.linking.generic_error_message': 'エラーが発生しました',
   'fabric.linking.go_back': '戻る',
   'fabric.linking.invalid_permissions': '制限付きコンテンツ',
   'fabric.linking.invalid_permissions_description':
     'このプレビューを表示するには、アクセスをリクエストするか別のアカウントで試してください。',
   'fabric.linking.join_to_view': '{context}に参加してこの課題を見る',
+  'fabric.linking.last_mentioned_in': '最近言及された場所',
   'fabric.linking.learn_more_about_smart_links': 'スマート リンクの詳細',
   'fabric.linking.link_safety_warning_message':
     'リンク {unsafeLinkText} をクリックすると別のサイトが開きます。<a>実際のリンク先</a>',
@@ -55,6 +65,7 @@ export default {
   'fabric.linking.modified_on_absolute': '更新日: {context}',
   'fabric.linking.modified_on_relative': '更新日: {context}',
   'fabric.linking.more_actions': 'その他のアクション',
+  'fabric.linking.no_access_title_crossjoin': '{product} に参加してこのコンテンツを閲覧する',
   'fabric.linking.not_found_description':
     'リンクが見つかりませんでした。URL を確認して編集するか、もう一度貼り付けてください。',
   'fabric.linking.not_found_description_crossjoin':
@@ -81,10 +92,14 @@ export default {
   'fabric.linking.priority_trivial': '軽度',
   'fabric.linking.priority_undefined': '未定義',
   'fabric.linking.read_time': '読了時間 {context} 分',
+  'fabric.linking.related': '関連',
+  'fabric.linking.related_work_items_not_found': 'このリンクは他のどこでも言及されていません。',
   'fabric.linking.request_access': 'アクセスをリクエスト',
   'fabric.linking.request_access_crossjoin': 'アクセス権をリクエスト',
   'fabric.linking.request_access_description':
     'このプレビューを表示するための{context}へのアクセスをリクエストします。',
+  'fabric.linking.request_access_description_crossjoin':
+    'あなたのチームは {product} を使用してコラボレーションしています。管理者にアクセス権をリクエストしてください。',
   'fabric.linking.request_access_pending': 'アクセス保留中',
   'fabric.linking.request_access_pending_crossjoin': '承認待ち',
   'fabric.linking.request_access_pending_description': 'アクセス リクエストは保留中です。',

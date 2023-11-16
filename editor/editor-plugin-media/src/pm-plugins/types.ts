@@ -101,3 +101,5 @@ export interface MediaPluginState {
 
   clone(): MediaPluginState;
 }
+
+export type EventInput = 'keyboard' | 'mouse' | 'floatingToolBar';

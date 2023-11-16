@@ -1,24 +1,21 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { shallow, ReactWrapper } from 'enzyme';
 import { ReactSerializer } from '../../../index';
 import { createSchema } from '@atlaskit/adf-schema';
 import {
   defaultSchemaConfig,
   getSchemaBasedOnStage,
+  defaultSchema as schema,
 } from '@atlaskit/adf-schema/schema-default';
-
-import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import { Heading } from '../../../react/nodes';
-import { Expand } from '../../../react/nodes';
-import { Emoji } from '../../../react/nodes';
-import { LayoutColumn } from '../../../react/nodes';
-import { Panel } from '../../../react/nodes';
-import { Table } from '../../../react/nodes';
-
 import {
+  Heading,
+  Expand,
+  Emoji,
+  LayoutColumn,
+  Panel,
+  Table,
   Extension,
   BodiedExtension,
   InlineExtension,
@@ -40,6 +37,10 @@ import * as layoutWithMedia from '../../__fixtures__/layout-with-media.json';
 import * as tableWithMedia from '../../__fixtures__/table-with-media.json';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import { screen, waitFor, within } from '@testing-library/react';
+
 const docFromSchema = schema.nodeFromJSON(doc);
 const headingDocFromSchema = schema.nodeFromJSON(headingDoc);
 const stage0schema = getSchemaBasedOnStage('stage0');
@@ -65,15 +66,6 @@ const getMediaSingle = (wrapper: ReactWrapper<any, any, any>) => {
 };
 
 describe('Renderer - ReactSerializer', () => {
-  const mountWithIntlReturnWrappers = (jsx: JSX.Element) => {
-    const componentWrapper = mountWithIntl(jsx);
-    const rootWrapper = (componentWrapper as any).getWrappingComponent();
-    return {
-      rootWrapper,
-      componentWrapper,
-    };
-  };
-
   beforeAll(async () => {
     /*
       Async nodes used need to be preloaded before testing, otherwise the first mount
@@ -81,6 +73,7 @@ describe('Renderer - ReactSerializer', () => {
     */
     await Promise.all([Emoji.preload()]);
   });
+
   describe('serializeFragment', () => {
     describe('with varied data consumer marks on extension nodes', () => {
       /**
@@ -89,13 +82,13 @@ describe('Renderer - ReactSerializer', () => {
        */
       it('should render document', () => {
         const reactSerializer = new ReactSerializer({});
-        const { rootWrapper: reactDoc } = mountWithIntlReturnWrappers(
+        const wrapper = mountWithIntl(
           reactSerializer.serializeFragment(
             dataConsumerDocFromSchema.content,
           ) as any,
         );
 
-        const root = reactDoc.find('div');
+        const root = wrapper.find('div');
         const extension = root.find(Extension);
         const bodiedExtension = root.find(BodiedExtension);
         const inlineExtension = root.find(InlineExtension);
@@ -117,17 +110,17 @@ describe('Renderer - ReactSerializer', () => {
         // inline Extension should be wrapped with span
         expect(inlineExtension.parent().get(0).type).toEqual('span');
 
-        reactDoc.unmount();
+        wrapper.unmount();
       });
     });
 
     it('should render document', () => {
       const reactSerializer = new ReactSerializer({});
-      const { rootWrapper: reactDoc } = mountWithIntlReturnWrappers(
+      const wrapper = mountWithIntl(
         reactSerializer.serializeFragment(docFromSchema.content) as any,
       );
 
-      const root = reactDoc.find('div');
+      const root = wrapper.find('div');
       const paragraph = root.find('p');
       const link = paragraph.find('a');
       const strong = link.find('strong');
@@ -140,7 +133,7 @@ describe('Renderer - ReactSerializer', () => {
       expect(link.text()).toEqual('Hello, World!');
       expect(link.props()).toHaveProperty('href', 'https://www.atlassian.com');
       expect(strong.text()).toEqual('World!');
-      reactDoc.unmount();
+      wrapper.unmount();
     });
     describe('unsupported nodes', () => {
       describe('block nodes', () => {
@@ -174,12 +167,12 @@ describe('Renderer - ReactSerializer', () => {
 
         it('should pass node value for unsupported block', () => {
           const reactSerializer = new ReactSerializer({});
-          const { rootWrapper: reactDoc } = mountWithIntlReturnWrappers(
+          const wrapper = mountWithIntl(
             reactSerializer.serializeFragment(
               unsupportBlockNode.content,
             ) as any,
           );
-          const unsupportedBlock = reactDoc.find('UnsupportedBlockNode');
+          const unsupportedBlock = wrapper.find('UnsupportedBlockNode');
           const unspportedBlockNodeProp = unsupportedBlock.prop(
             'node',
           ) as PMNode;
@@ -194,31 +187,33 @@ describe('Renderer - ReactSerializer', () => {
           const reactSerializer = new ReactSerializer({
             fireAnalyticsEvent: mockFireAnalyticsEvent,
           });
-          const { rootWrapper: reactDoc } = mountWithIntlReturnWrappers(
+          const wrapper = mountWithIntl(
             reactSerializer.serializeFragment(
               unsupportBlockNode.content,
             ) as any,
           );
-          const unsupportedBlock = reactDoc.find('UnsupportedBlockNode');
+          const unsupportedBlock = wrapper.find('UnsupportedBlockNode');
           const dispatchAnalyticsEventProp = unsupportedBlock.prop(
             'dispatchAnalyticsEvent',
           );
           expect(dispatchAnalyticsEventProp).toEqual(mockFireAnalyticsEvent);
+          wrapper.unmount();
         });
 
         it(`should have not dispatchAnalyticsEvent as prop for unsupported
               block when serializer is not enabled with analytics `, () => {
           const reactSerializer = new ReactSerializer({});
-          const { rootWrapper: reactDoc } = mountWithIntlReturnWrappers(
+          const wrapper = mountWithIntl(
             reactSerializer.serializeFragment(
               unsupportBlockNode.content,
             ) as any,
           );
-          const unsupportedBlock = reactDoc.find('UnsupportedBlockNode');
+          const unsupportedBlock = wrapper.find('UnsupportedBlockNode');
           const dispatchAnalyticsEventProp = unsupportedBlock.prop(
             'dispatchAnalyticsEvent',
           );
           expect(dispatchAnalyticsEventProp).toBeUndefined();
+          wrapper.unmount();
         });
       });
 
@@ -242,18 +237,19 @@ describe('Renderer - ReactSerializer', () => {
 
         it('should pass node value for unsupported inline', () => {
           const reactSerializer = new ReactSerializer({});
-          const { rootWrapper: reactDoc } = mountWithIntlReturnWrappers(
+          const wrapper = mountWithIntl(
             reactSerializer.serializeFragment(
               unsupportInlineNode.content,
             ) as any,
           );
-          const unsupportedInline = reactDoc.find('UnsupportedInlineNode');
+          const unsupportedInline = wrapper.find('UnsupportedInlineNode');
           const unspportedInlineNodeProp = unsupportedInline.prop(
             'node',
           ) as PMNode;
           expect(unspportedInlineNodeProp.toJSON()).toEqual(
             unsupportedNodeJson,
           );
+          wrapper.unmount();
         });
 
         it(`should have dispatchAnalyticsEvent as prop for unsupported
@@ -264,31 +260,33 @@ describe('Renderer - ReactSerializer', () => {
           const reactSerializer = new ReactSerializer({
             fireAnalyticsEvent: mockFireAnalyticsEvent,
           });
-          const { rootWrapper: reactDoc } = mountWithIntlReturnWrappers(
+          const wrapper = mountWithIntl(
             reactSerializer.serializeFragment(
               unsupportInlineNode.content,
             ) as any,
           );
-          const unsupportedInline = reactDoc.find('UnsupportedInlineNode');
+          const unsupportedInline = wrapper.find('UnsupportedInlineNode');
           const dispatchAnalyticsEventProp = unsupportedInline.prop(
             'dispatchAnalyticsEvent',
           );
           expect(dispatchAnalyticsEventProp).toEqual(mockFireAnalyticsEvent);
+          wrapper.unmount();
         });
 
         it(`should have not dispatchAnalyticsEvent as prop for unsupported
                 Inline when serializer is not enabled with analytics `, () => {
           const reactSerializer = new ReactSerializer({});
-          const { rootWrapper: reactDoc } = mountWithIntlReturnWrappers(
+          const wrapper = mountWithIntl(
             reactSerializer.serializeFragment(
               unsupportInlineNode.content,
             ) as any,
           );
-          const unsupportedInline = reactDoc.find('UnsupportedInlineNode');
+          const unsupportedInline = wrapper.find('UnsupportedInlineNode');
           const dispatchAnalyticsEventProp = unsupportedInline.prop(
             'dispatchAnalyticsEvent',
           );
           expect(dispatchAnalyticsEventProp).toBeUndefined();
+          wrapper.unmount();
         });
       });
     });
@@ -410,18 +408,20 @@ describe('Renderer - ReactSerializer', () => {
         it('media node has isInsideOfBlockNode as true', async () => {
           const reactSerializer = new ReactSerializer({});
 
-          const { componentWrapper, rootWrapper: reactDoc } =
-            mountWithIntlReturnWrappers(
-              reactSerializer.serializeFragment(
-                schema.nodeFromJSON(expandWithMedia).content,
-              ) as any,
-            );
-
-          await nextTick();
-          componentWrapper.update();
-          expect(getMediaSingle(reactDoc).prop('isInsideOfBlockNode')).toEqual(
-            true,
+          const { container } = renderWithIntl(
+            reactSerializer.serializeFragment(
+              schema.nodeFromJSON(expandWithMedia).content,
+            ) as any,
           );
+          // Pretty shitty test, as the original Enzyme test was checking isInsideOfBlockNode which has zero impact on actually rendered stuff in this test
+          await waitFor(() =>
+            expect(
+              container.querySelector('[data-node-type="mediaSingle"]'),
+            ).toHaveAttribute('data-width-type', 'percentage'),
+          );
+          expect(
+            container.querySelector('[data-node-type="mediaSingle"]'),
+          ).not.toHaveAttribute('data-width');
         });
       });
 
@@ -441,20 +441,18 @@ describe('Renderer - ReactSerializer', () => {
           });
           const reactSerializer = new ReactSerializer({});
 
-          const { rootWrapper: reactDoc, componentWrapper } =
-            mountWithIntlReturnWrappers(
-              reactSerializer.serializeFragment(
-                schemaWithUnsupportedNodes.nodeFromJSON(tableWithMedia).content,
-              ) as any,
-            );
+          const wrapper = mountWithIntl(
+            reactSerializer.serializeFragment(
+              schemaWithUnsupportedNodes.nodeFromJSON(tableWithMedia).content,
+            ) as any,
+          );
 
-          await nextTick();
-          await nextTick();
-          componentWrapper.update();
-
-          expect(
-            getMediaSingle(reactDoc).first().prop('isInsideOfBlockNode'),
-          ).toBeFalsy();
+          await waitFor(() =>
+            expect(
+              getMediaSingle(wrapper).first().prop('isInsideOfBlockNode'),
+            ).toBeFalsy(),
+          );
+          wrapper.unmount();
         });
       });
 
@@ -462,19 +460,19 @@ describe('Renderer - ReactSerializer', () => {
         it('media node has isInsideOfBlockNode as true', async () => {
           const reactSerializer = new ReactSerializer({});
 
-          const { rootWrapper: reactDoc, componentWrapper } =
-            mountWithIntlReturnWrappers(
-              reactSerializer.serializeFragment(
-                schema.nodeFromJSON(nestedExpandWithMedia).content,
-              ) as any,
-            );
-
-          await nextTick();
-          await nextTick();
-          componentWrapper.update();
-          expect(getMediaSingle(reactDoc).prop('isInsideOfBlockNode')).toEqual(
-            true,
+          const wrapper = mountWithIntl(
+            reactSerializer.serializeFragment(
+              schema.nodeFromJSON(nestedExpandWithMedia).content,
+            ) as any,
           );
+
+          await waitFor(() =>
+            expect(getMediaSingle(wrapper).prop('isInsideOfBlockNode')).toEqual(
+              true,
+            ),
+          );
+
+          wrapper.unmount();
         });
       });
 
@@ -482,19 +480,18 @@ describe('Renderer - ReactSerializer', () => {
         it('media node has isInsideOfBlockNode as true', async () => {
           const reactSerializer = new ReactSerializer({});
 
-          const { rootWrapper: reactDoc, componentWrapper } =
-            mountWithIntlReturnWrappers(
-              reactSerializer.serializeFragment(
-                schema.nodeFromJSON(layoutWithMedia).content,
-              ) as any,
-            );
-
-          await nextTick();
-          await nextTick();
-          componentWrapper.update();
-          expect(getMediaSingle(reactDoc).prop('isInsideOfBlockNode')).toEqual(
-            true,
+          const wrapper = mountWithIntl(
+            reactSerializer.serializeFragment(
+              schema.nodeFromJSON(layoutWithMedia).content,
+            ) as any,
           );
+
+          await waitFor(() =>
+            expect(getMediaSingle(wrapper).prop('isInsideOfBlockNode')).toEqual(
+              true,
+            ),
+          );
+          wrapper.unmount();
         });
       });
     });
@@ -505,18 +502,23 @@ describe('Renderer - ReactSerializer', () => {
           shouldOpenMediaViewer: false,
         });
 
-        const { rootWrapper: reactDoc, componentWrapper } =
-          mountWithIntlReturnWrappers(
-            reactSerializer.serializeFragment(
-              schema.nodeFromJSON(mediaGroupFragment).content,
-            ) as any,
-          );
+        const wrapper = mountWithIntl(
+          reactSerializer.serializeFragment(
+            schema.nodeFromJSON(mediaGroupFragment).content,
+          ) as any,
+        );
 
         // Media under media group takes 2 ticks to render.
-        await nextTick();
-        await nextTick();
-        componentWrapper.update();
-        expect(getMedia(reactDoc).prop('shouldOpenMediaViewer')).toEqual(false);
+        await new Promise(process.nextTick);
+        await new Promise(process.nextTick);
+        wrapper.update();
+
+        await waitFor(() =>
+          expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(
+            false,
+          ),
+        );
+        wrapper.unmount();
       });
 
       it('media node without parent has shouldOpenMediaViewer set to false', () => {
@@ -524,13 +526,14 @@ describe('Renderer - ReactSerializer', () => {
           shouldOpenMediaViewer: false,
         });
 
-        const { rootWrapper: reactDoc } = mountWithIntlReturnWrappers(
+        const wrapper = mountWithIntl(
           reactSerializer.serializeFragment(
             schema.nodeFromJSON(mediaFragment).content,
           ) as any,
         );
 
-        expect(getMedia(reactDoc).prop('shouldOpenMediaViewer')).toEqual(false);
+        expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(false);
+        wrapper.unmount();
       });
     });
 
@@ -540,18 +543,16 @@ describe('Renderer - ReactSerializer', () => {
           shouldOpenMediaViewer: true,
         });
 
-        const { rootWrapper: reactDoc, componentWrapper } =
-          mountWithIntlReturnWrappers(
-            reactSerializer.serializeFragment(
-              schema.nodeFromJSON(mediaGroupFragment).content,
-            ) as any,
-          );
+        const wrapper = mountWithIntl(
+          reactSerializer.serializeFragment(
+            schema.nodeFromJSON(mediaGroupFragment).content,
+          ) as any,
+        );
 
-        // Media under media group takes 2 ticks to render.
-        await nextTick();
-        await nextTick();
-        componentWrapper.update();
-        expect(getMedia(reactDoc).prop('shouldOpenMediaViewer')).toEqual(true);
+        await waitFor(() =>
+          expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(true),
+        );
+        wrapper.unmount();
       });
 
       it('media without parent has shouldOpenMediaViewer set to true', () => {
@@ -559,13 +560,14 @@ describe('Renderer - ReactSerializer', () => {
           shouldOpenMediaViewer: true,
         });
 
-        const { rootWrapper: reactDoc } = mountWithIntlReturnWrappers(
+        const wrapper = mountWithIntl(
           reactSerializer.serializeFragment(
             schema.nodeFromJSON(mediaFragment).content,
           ) as any,
         );
 
-        expect(getMedia(reactDoc).prop('shouldOpenMediaViewer')).toEqual(true);
+        expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(true);
+        wrapper.unmount();
       });
     });
 
@@ -573,33 +575,33 @@ describe('Renderer - ReactSerializer', () => {
       it('media node has shouldOpenMediaViewer set to undefined when parent is not mediaSingle', async () => {
         const reactSerializer = new ReactSerializer({});
 
-        const { rootWrapper: reactDoc, componentWrapper } =
-          mountWithIntlReturnWrappers(
-            reactSerializer.serializeFragment(
-              schema.nodeFromJSON(mediaGroupFragment).content,
-            ) as any,
-          );
-
-        await nextTick();
-        await nextTick();
-        componentWrapper.update();
-        expect(getMedia(reactDoc).prop('shouldOpenMediaViewer')).toEqual(
-          undefined,
+        const wrapper = mountWithIntl(
+          reactSerializer.serializeFragment(
+            schema.nodeFromJSON(mediaGroupFragment).content,
+          ) as any,
         );
+
+        await waitFor(() =>
+          expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(
+            undefined,
+          ),
+        );
+        wrapper.unmount();
       });
 
       it('media mode without parent has shouldOpenMediaViewer set to undefined', () => {
         const reactSerializer = new ReactSerializer({});
 
-        const { rootWrapper: reactDoc } = mountWithIntlReturnWrappers(
+        const wrapper = mountWithIntl(
           reactSerializer.serializeFragment(
             schema.nodeFromJSON(mediaFragment).content,
           ) as any,
         );
 
-        expect(getMedia(reactDoc).prop('shouldOpenMediaViewer')).toEqual(
+        expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(
           undefined,
         );
+        wrapper.unmount();
       });
     });
 
@@ -621,13 +623,14 @@ describe('Renderer - ReactSerializer', () => {
           media: { ssr },
         });
 
-        const reactDoc = mountWithIntl(
+        const wrapper = mountWithIntl(
           reactSerializer.serializeFragment(
             schema.nodeFromJSON(mediaFragment).content,
           ) as any,
         );
 
-        expect(getMedia(reactDoc).prop('ssr')).toEqual(ssr);
+        expect(getMedia(wrapper).prop('ssr')).toEqual(ssr);
+        wrapper.unmount();
       });
     });
   });
@@ -635,53 +638,53 @@ describe('Renderer - ReactSerializer', () => {
   describe('link mark', () => {
     it('has correct isMediaLink value when link mark is applied on media', () => {
       const reactSerializer = new ReactSerializer({ allowMediaLinking: true });
-      const reactDoc = shallow(
+      const wrapper = shallow(
         reactSerializer.serializeFragment(linksDocFromSchema.content) as any,
       );
-      expect(reactDoc.find('Link').first().prop('isMediaLink')).toEqual(true);
+      expect(wrapper.find('Link').first().prop('isMediaLink')).toEqual(true);
     });
 
     it('has correct isMediaLink value when link mark is not applied on media', () => {
       const reactSerializer = new ReactSerializer({ allowMediaLinking: true });
-      const reactDoc = shallow(
+      const wrapper = shallow(
         reactSerializer.serializeFragment(linksDocFromSchema.content)!,
       );
-      expect(reactDoc.find('Link').last().prop('isMediaLink')).toBeFalsy();
+      expect(wrapper.find('Link').last().prop('isMediaLink')).toBeFalsy();
     });
 
     it('does not render when allowMediaLinking is undefined', () => {
       const reactSerializer = new ReactSerializer({});
-      const reactDoc = shallow(
+      const wrapper = shallow(
         reactSerializer.serializeFragment(linksDocFromSchema.content)!,
       );
-      expect(reactDoc.find('Link')).toHaveLength(1);
+      expect(wrapper.find('Link')).toHaveLength(1);
     });
 
     it('does not render when allowMediaLinking is false', () => {
       const reactSerializer = new ReactSerializer({ allowMediaLinking: false });
-      const reactDoc = shallow(
+      const wrapper = shallow(
         reactSerializer.serializeFragment(linksDocFromSchema.content)!,
       );
-      expect(reactDoc.find('Link')).toHaveLength(1);
+      expect(wrapper.find('Link')).toHaveLength(1);
     });
 
     it('does render when allowMediaLinking is true', () => {
       const reactSerializer = new ReactSerializer({ allowMediaLinking: true });
-      const reactDoc = shallow(
+      const wrapper = shallow(
         reactSerializer.serializeFragment(linksDocFromSchema.content)!,
       );
-      expect(reactDoc.find('Link')).toHaveLength(2);
+      expect(wrapper.find('Link')).toHaveLength(2);
     });
   });
 
   describe('Heading IDs', () => {
     it('should render headings with unique ids based on node content', () => {
       const reactSerializer = new ReactSerializer({});
-      const reactDoc = shallow(
+      const wrapper = shallow(
         reactSerializer.serializeFragment(headingDocFromSchema.content) as any,
       );
 
-      const headings = reactDoc.find(Heading);
+      const headings = wrapper.find(Heading);
       expect(headings.at(0).prop('headingId')).toEqual('Heading-1');
       expect(headings.at(1).prop('headingId')).toEqual('Heading-2');
       expect(headings.at(2).prop('headingId')).toEqual('Heading-1.1');
@@ -700,11 +703,11 @@ describe('Renderer - ReactSerializer', () => {
       const reactSerializer = new ReactSerializer({
         disableHeadingIDs: true,
       });
-      const reactDoc = shallow(
+      const wrapper = shallow(
         reactSerializer.serializeFragment(headingDocFromSchema.content) as any,
       );
 
-      const headings = reactDoc.find(Heading);
+      const headings = wrapper.find(Heading);
       expect(headings.at(0).prop('headingId')).toEqual(undefined);
       expect(headings.at(1).prop('headingId')).toEqual(undefined);
       expect(headings.at(2).prop('headingId')).toEqual(undefined);
@@ -720,12 +723,12 @@ describe('Renderer - ReactSerializer', () => {
             allowNestedHeaderLinks: true,
           },
         });
-        const reactDoc = shallow(
+        const wrapper = shallow(
           reactSerializer.serializeFragment(
             nestedHeadingsDocFromSchema.content,
           ) as any,
         );
-        const expands = reactDoc.find(Expand);
+        const expands = wrapper.find(Expand);
         expect(expands.at(0).prop('nestedHeaderIds')).toEqual([
           'test1',
           'test2',
@@ -744,12 +747,12 @@ describe('Renderer - ReactSerializer', () => {
             allowNestedHeaderLinks: false,
           },
         });
-        const reactDoc = shallow(
+        const wrapper = shallow(
           reactSerializer.serializeFragment(
             nestedHeadingsDocFromSchema.content,
           ) as any,
         );
-        const expands = reactDoc.find(Expand);
+        const expands = wrapper.find(Expand);
         expect(expands.at(0).prop('nestedHeaderIds')).toBeUndefined();
         expect(expands.at(1).prop('nestedHeaderIds')).toBeUndefined();
         expect(expands.at(2).prop('nestedHeaderIds')).toBeUndefined();
@@ -759,12 +762,12 @@ describe('Renderer - ReactSerializer', () => {
         const reactSerializer = new ReactSerializer({
           allowHeadingAnchorLinks: true,
         });
-        const reactDoc = shallow(
+        const wrapper = shallow(
           reactSerializer.serializeFragment(
             nestedHeadingsDocFromSchema.content,
           ) as any,
         );
-        const expands = reactDoc.find(Expand);
+        const expands = wrapper.find(Expand);
         expect(expands.at(0).prop('nestedHeaderIds')).toBeUndefined();
         expect(expands.at(1).prop('nestedHeaderIds')).toBeUndefined();
         expect(expands.at(2).prop('nestedHeaderIds')).toBeUndefined();
@@ -777,65 +780,89 @@ describe('Renderer - ReactSerializer', () => {
           allowNestedHeaderLinks: true,
         },
       });
-      const { rootWrapper: reactDoc } = mountWithIntlReturnWrappers(
+      const wrapper = mountWithIntl(
         reactSerializer.serializeFragment(
           nestedHeadingsWithPanelLayoutTableDocFromSchema.content,
         ) as any,
       );
 
       it('should have a heading anchor within a table', () => {
-        const tableWithHeadingAnchor = reactDoc
+        const tableWithHeadingAnchor = wrapper
           .find(Table)
           .find('HeadingAnchor');
         expect(tableWithHeadingAnchor).toBeDefined();
       });
 
       it('should have heading anchor within a layout', () => {
-        const layoutWithHeadingAnchor = reactDoc
+        const layoutWithHeadingAnchor = wrapper
           .find(LayoutColumn)
           .find('HeadingAnchor');
         expect(layoutWithHeadingAnchor).toBeDefined();
       });
 
       it('should have heading anchor within a panel', () => {
-        const panelWithHeadingAnchor = reactDoc
+        const panelWithHeadingAnchor = wrapper
           .find(Panel)
           .find('HeadingAnchor');
         expect(panelWithHeadingAnchor).toBeDefined();
       });
+
+      wrapper.unmount();
     });
 
     describe('Legacy: Inside a table, layout, or panel', () => {
-      const reactSerializer = new ReactSerializer({
-        allowHeadingAnchorLinks: {
-          allowNestedHeaderLinks: false,
-        },
+      beforeEach(() => {
+        const reactSerializer = new ReactSerializer({
+          allowHeadingAnchorLinks: {
+            allowNestedHeaderLinks: false,
+          },
+        });
+        renderWithIntl(
+          reactSerializer.serializeFragment(
+            nestedHeadingsWithPanelLayoutTableDocFromSchema.content,
+          ) as any,
+        );
       });
-      const { rootWrapper: reactDoc } = mountWithIntlReturnWrappers(
-        reactSerializer.serializeFragment(
-          nestedHeadingsWithPanelLayoutTableDocFromSchema.content,
-        ) as any,
-      );
 
       it('should not have a heading anchor within a table', () => {
-        const tableWithHeadingAnchor = reactDoc
-          .find(Table)
-          .find('HeadingAnchor');
-        expect(tableWithHeadingAnchor.length).toBe(0);
+        const heading1 = screen.getByRole('heading', {
+          name: 'Col1',
+        });
+        expect(within(heading1).queryByRole('button')).not.toBeInTheDocument();
+        const heading2 = screen.getByRole('heading', {
+          name: 'Col 2',
+        });
+        expect(within(heading2).queryByRole('button')).not.toBeInTheDocument();
+        const heading3 = screen.getByRole('heading', {
+          name: 'Col3',
+        });
+        expect(within(heading3).queryByRole('button')).not.toBeInTheDocument();
       });
 
       it('should have heading anchor within a layout', () => {
-        const layoutWithHeadingAnchor = reactDoc
-          .find(LayoutColumn)
-          .find('HeadingAnchor');
-        expect(layoutWithHeadingAnchor.length).toBe(2); // we've got the legacy support this already
+        const heading1 = screen.getByRole('heading', {
+          name: 'Header inside Layout Copy',
+        });
+        expect(
+          within(heading1).getByRole('button', {
+            name: 'Copy link to heading',
+          }),
+        ).toBeEnabled(); // we've got the legacy support this already
+        const heading2 = screen.getByRole('heading', {
+          name: 'Header inside Layout 2 Copy',
+        });
+        expect(
+          within(heading2).getByRole('button', {
+            name: 'Copy link to heading',
+          }),
+        ).toBeEnabled(); // we've got the legacy support this already
       });
 
       it('should not have heading anchor within a panel', () => {
-        const panelWithHeadingAnchor = reactDoc
-          .find(Panel)
-          .find('HeadingAnchor');
-        expect(panelWithHeadingAnchor.length).toBe(0);
+        const heading = screen.getByRole('heading', {
+          name: 'Header in a Panel',
+        });
+        expect(within(heading).queryByRole('button')).not.toBeInTheDocument();
       });
     });
   });
@@ -925,12 +952,13 @@ describe('Renderer - ReactSerializer', () => {
     it('should add an extra column for numbered rows', () => {
       const reactSerializer = new ReactSerializer({});
       const tableFromSchema = schema.nodeFromJSON(tableDoc);
-      const reactDoc = mountWithIntl(
+      const wrapper = mountWithIntl(
         reactSerializer.serializeFragment(tableFromSchema.content) as any,
       );
 
-      expect(reactDoc.find('table').prop('data-number-column')).toEqual(true);
-      expect(reactDoc.find('table[data-number-column]').length).toEqual(1);
+      expect(wrapper.find('table').prop('data-number-column')).toEqual(true);
+      expect(wrapper.find('table[data-number-column]').length).toEqual(1);
+      wrapper.unmount();
     });
   });
 });

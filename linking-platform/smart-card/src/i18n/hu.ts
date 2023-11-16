@@ -7,6 +7,7 @@
  */
 //Hungarian
 export default {
+  'fabric.linking.access_exists_description': 'Kérj hozzáférést, hogy megtekinthesd ezt a tartalmat innen: {hostname}.',
   'fabric.linking.actions': 'Műveletek',
   'fabric.linking.add_account': 'Fiók hozzáadása',
   'fabric.linking.assigned_to': 'Hozzárendelve a következő személyhez: {context}',
@@ -38,18 +39,26 @@ export default {
   'fabric.linking.create_on_relative': 'Létrehozva: {context}',
   'fabric.linking.created_by': 'Létrehozta: {context}',
   'fabric.linking.delete': 'Törlés',
+  'fabric.linking.direct_access_crossjoin': 'Csatlakozás',
+  'fabric.linking.direct_access_description_crossjoin':
+    'A csapatod a(z) {product} terméket használja az együttműködésre, amelyet te is azonnal elkezdhetsz használni!',
+  'fabric.linking.direct_access_title_crossjoin': 'A tartalom megtekintéséhez csatlakozz: {product}',
   'fabric.linking.download': 'Letöltés',
   'fabric.linking.edit': 'Szerkesztés',
   'fabric.linking.follow': 'Követés',
   'fabric.linking.forbidden_access': 'Hozzáférés megtagadva',
   'fabric.linking.forbidden_description':
     'Nincs hozzáférésed ehhez az előnézethez. Lépj kapcsolatba a webhely adminisztrátorával, ha szükséged van hozzáférésre.',
+  'fabric.linking.forbidden_description_crossjoin':
+    'Fordulj az adminisztrátorhoz, és kérj tőle hozzáférést a következőhöz: {hostname}.',
   'fabric.linking.forbidden_title_crossjoin': 'Nincs hozzáférésed ehhez a tartalomhoz',
+  'fabric.linking.generic_error_message': 'Hiba történt',
   'fabric.linking.go_back': 'Vissza',
   'fabric.linking.invalid_permissions': 'Korlátozott tartalom',
   'fabric.linking.invalid_permissions_description':
     'Az előnézet megtekintéséhez hozzáférést kell kérned, vagy másik fiókba kell belépned.',
   'fabric.linking.join_to_view': 'Az ügy megtekintése érdekében csatlakozz ehhez: {context}',
+  'fabric.linking.last_mentioned_in': 'Legutóbb megemlítve itt:',
   'fabric.linking.learn_more_about_smart_links': 'További információ az okoslinkekről.',
   'fabric.linking.link_safety_warning_message':
     'A(z) {unsafeLinkText} link egy másik webhelyre visz: <a>actual link here</a>',
@@ -57,6 +66,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Frissítve ekkor: {context}',
   'fabric.linking.modified_on_relative': 'Frissítve: {context}',
   'fabric.linking.more_actions': 'További műveletek',
+  'fabric.linking.no_access_title_crossjoin': 'A tartalom megtekintéséhez csatlakozz: {product}',
   'fabric.linking.not_found_description':
     'Nem találtuk meg a linket. Ellenőrizd az URL-címet, és próbáld meg módosítani, vagy másold be újra.',
   'fabric.linking.not_found_description_crossjoin': 'Az oldal nem létezik, vagy módosították a link hozzáadása óta.',
@@ -82,10 +92,14 @@ export default {
   'fabric.linking.priority_trivial': 'Triviális',
   'fabric.linking.priority_undefined': 'Nincs meghatározva',
   'fabric.linking.read_time': '{context} perc olvasási idő',
+  'fabric.linking.related': 'Kapcsolódó',
+  'fabric.linking.related_work_items_not_found': 'Ez a link sehol máshol nincs megemlítve.',
   'fabric.linking.request_access': 'Hozzáférés kérése',
   'fabric.linking.request_access_crossjoin': 'Hozzáférés kérése',
   'fabric.linking.request_access_description':
     'Kérj hozzáférést a következő termékhez az előnézet megtekintése érdekében: {context}.',
+  'fabric.linking.request_access_description_crossjoin':
+    'A csapatod a(z) {product} terméket használja az együttműködésre. Ha hozzáférést szeretnél kapni, küldj egy kérelmet az adminisztrátorodnak.',
   'fabric.linking.request_access_pending': 'Hozzáférés függőben',
   'fabric.linking.request_access_pending_crossjoin': 'Függőben levő jóváhagyás',
   'fabric.linking.request_access_pending_description': 'A hozzáférési kérelmed függőben van.',

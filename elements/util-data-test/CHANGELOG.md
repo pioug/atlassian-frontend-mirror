@@ -1,5 +1,17 @@
 # @atlaskit/util-data-test
 
+## 17.8.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.31
+
+### Patch Changes
+
+- [#43229](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43229) [`a9f2e74b27b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9f2e74b27b) - Add replicated types from @atlaskit/task-decision to fix TS errors in AFM
+
 ## 17.8.30
 
 ### Patch Changes

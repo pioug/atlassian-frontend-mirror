@@ -15,6 +15,42 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { Command } from '@atlaskit/editor-common/types';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+
+// @public (undocumented)
+type IndentationInputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
+
+// @public (undocumented)
+export type IndentationPlugin = NextEditorPlugin<
+  'indentation',
+  {
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
+    actions: {
+      indentParagraphOrHeading: (
+        inputMethod: IndentationInputMethod,
+      ) => Command;
+      outdentParagraphOrHeading: (
+        inputMethod: IndentationInputMethod,
+      ) => Command;
+    };
+    sharedState: IndentationPluginSharedState | undefined;
+  }
+>;
+
+// @public (undocumented)
+export const indentationPlugin: IndentationPlugin;
+
+// @public (undocumented)
+type IndentationPluginSharedState = {
+  isIndentationAllowed: boolean;
+  indentDisabled: boolean;
+  outdentDisabled: boolean;
+};
+
 // (No @packageDocumentation comment for this package)
 ```
 

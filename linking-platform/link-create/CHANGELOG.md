@@ -1,5 +1,17 @@
 # @atlaskit/link-create
 
+## 1.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.9.1
+
+### Patch Changes
+
+- [#43170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43170) [`959e2b89af9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/959e2b89af9) - Change exit warning modal to show only when fields have been modified by user
+
 ## 1.9.0
 
 ### Minor Changes

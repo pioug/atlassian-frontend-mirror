@@ -1,5 +1,17 @@
 # @atlaskit/dynamic-table
 
+## 14.11.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.11.8
+
+### Patch Changes
+
+- [#42646](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42646) [`97c42c39867`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97c42c39867) - Fix screen reader announcements for table row
+
 ## 14.11.7
 
 ### Patch Changes

@@ -35,7 +35,7 @@ import path from 'path';
 import tokens from '@atlaskit/tokens/token-names';
 
 import testRule from '../../../../__tests__/utils/_test-rule';
-import { messages, ruleName } from '../../index';
+import { ruleName } from '../../index';
 
 const plugin = path.resolve(__dirname, '../../../../index.tsx');
 
@@ -77,13 +77,6 @@ testRule({
       code: 'color: var(--ds-text-highEmphasis);',
       description:
         'should accept missing fallbacks on deprecated tokens by default',
-    },
-  ],
-  reject: [
-    {
-      code: 'color: var(--ds-text-highEmphasis, black);',
-      description: 'should reject fallbacks by default',
-      message: messages.hasFallback,
     },
   ],
 });

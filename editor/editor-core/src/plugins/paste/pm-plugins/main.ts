@@ -123,26 +123,39 @@ export function createPlugin(
     openStart: number,
     openEnd: number,
   ): Slice | undefined {
-    let textInput: string = text;
-
-    const textSplitByCodeBlock = textInput.split(/```/);
-
-    for (let i = 0; i < textSplitByCodeBlock.length; i++) {
-      if (i % 2 === 0) {
-        textSplitByCodeBlock[i] = textSplitByCodeBlock[i].replace(
-          /\\/g,
-          '\\\\',
-        );
-      }
-    }
-
-    textInput = textSplitByCodeBlock.join('```');
+    let textInput: string = escapeBackslashExceptCodeblock(text);
 
     const doc = atlassianMarkDownParser.parse(escapeLinks(textInput));
     if (doc && doc.content) {
       return new Slice(doc.content, openStart, openEnd);
     }
     return;
+  }
+
+  function escapeBackslashExceptCodeblock(textInput: string): string {
+    const codeToken = '```';
+    if (!textInput.includes(codeToken)) {
+      return textInput.replace(/\\/g, '\\\\');
+    }
+    let isInsideCodeblock = false;
+    let textSplitByNewLine = textInput.split('\n');
+    // In the splitted array, we traverse through every line and check if it will be parsed as a codeblock.
+    textSplitByNewLine = textSplitByNewLine.map((text) => {
+      if (text === codeToken) {
+        isInsideCodeblock = !isInsideCodeblock;
+      } else if (text.startsWith(codeToken) && isInsideCodeblock === false) {
+        // if there is some text after the ``` mark , it gets counted as language attribute only at the start of codeblock
+        isInsideCodeblock = true;
+      }
+      if (!isInsideCodeblock) {
+        // only escape text which is not inside a codeblock
+        text = text.replace(/\\/g, '\\\\');
+      }
+      return text;
+    });
+    textInput = textSplitByNewLine.join('\n');
+
+    return textInput;
   }
 
   let extensionAutoConverter: ExtensionAutoConvertHandler;

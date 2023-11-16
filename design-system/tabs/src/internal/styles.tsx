@@ -1,9 +1,8 @@
 import { css, CSSObject, SerializedStyles } from '@emotion/react';
 
-import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
-import { getTabColors, getTabLineColor, getTabPanelFocusColor } from './colors';
+import { tabColors, tabLineColors, tabPanelFocusColor } from './colors';
 
 const tabLeftRightPadding = token('space.100', '8px');
 const tabTopBottomPadding = token('space.050', '4px');
@@ -25,13 +24,13 @@ const highContrastFocusRing = {
     },
 };
 
-const tabFocusStyles = (mode: ThemeModes): CSSObject => ({
-  boxShadow: `0 0 0 2px ${getTabPanelFocusColor(mode)} inset`,
+const tabFocusStyles = (): CSSObject => ({
+  boxShadow: `0 0 0 2px ${tabPanelFocusColor} inset`,
   borderRadius: token('border.radius', '3px'),
   outline: 'none',
 });
 
-const getTabPanelStyles = (mode: ThemeModes): CSSObject => ({
+const getTabPanelStyles = (): CSSObject => ({
   flexGrow: 1,
   /*
     NOTE min-height set to 0% because of Firefox bug
@@ -40,17 +39,17 @@ const getTabPanelStyles = (mode: ThemeModes): CSSObject => ({
   minHeight: '0%',
   display: 'flex',
   padding: `0 ${tabLeftRightPadding}`,
-  '&:focus-visible': tabFocusStyles(mode),
+  '&:focus-visible': tabFocusStyles(),
   '@supports not selector(*:focus-visible)': {
-    '&:focus': tabFocusStyles(mode),
+    '&:focus': tabFocusStyles(),
   },
   ...highContrastFocusRing,
 });
 
-export const getTabsStyles = (mode: ThemeModes): SerializedStyles =>
+export const getTabsStyles = (): SerializedStyles =>
   // eslint-disable-next-line @repo/internal/styles/no-exported-styles
   css({
-    '& [role="tabpanel"]': getTabPanelStyles(mode),
+    '& [role="tabpanel"]': getTabPanelStyles(),
     // The hidden attribute doesn't work on flex elements
     // Change display to be none
     // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
@@ -70,21 +69,21 @@ const tabLineStyles: CSSObject = {
   right: tabLeftRightPadding,
 };
 
-export const getTabListStyles = (mode: ThemeModes): SerializedStyles =>
+export const getTabListStyles = (): SerializedStyles =>
   // eslint-disable-next-line @repo/internal/styles/no-exported-styles
   css({
-    '& [role="tab"]': getTabStyles(mode),
+    '& [role="tab"]': getTabStyles(),
     fontWeight: token('font.weight.medium', '500'),
     '&::before': {
       ...tabLineStyles,
       height: underlineHeight,
       // This line is not a border so the selected line is visible in high contrast mode
-      backgroundColor: getTabLineColor(mode).lineColor,
+      backgroundColor: tabLineColors.lineColor,
     },
   });
 
-const tabPanelFocusStyles = (mode: ThemeModes): CSSObject => {
-  const colors = getTabColors(mode);
+const tabPanelFocusStyles = (): CSSObject => {
+  const colors = tabColors;
   return {
     boxShadow: `0 0 0 2px ${colors.focusBorderColor} inset`,
     borderRadius: token('border.radius', '3px'),
@@ -96,8 +95,8 @@ const tabPanelFocusStyles = (mode: ThemeModes): CSSObject => {
   };
 };
 
-export const getTabStyles = (mode: ThemeModes): CSSObject => {
-  const colors = getTabColors(mode);
+export const getTabStyles = (): CSSObject => {
+  const colors = tabColors;
   return {
     color: colors.labelColor,
     cursor: 'pointer',
@@ -114,9 +113,7 @@ export const getTabStyles = (mode: ThemeModes): CSSObject => {
       color: colors.hoverLabelColor,
       '&::after': {
         ...tabLineStyles,
-        borderBottom: `${underlineHeight} solid ${
-          getTabLineColor(mode).hoveredColor
-        }`,
+        borderBottom: `${underlineHeight} solid ${tabLineColors.hoveredColor}`,
         height: 0,
       },
     },
@@ -126,16 +123,14 @@ export const getTabStyles = (mode: ThemeModes): CSSObject => {
       color: colors.activeLabelColor,
       '&::after': {
         ...tabLineStyles,
-        borderBottom: `${underlineHeight} solid ${
-          getTabLineColor(mode).activeColor
-        }`,
+        borderBottom: `${underlineHeight} solid ${tabLineColors.activeColor}`,
         height: 0,
       },
     },
 
-    '&:focus-visible': tabPanelFocusStyles(mode),
+    '&:focus-visible': tabPanelFocusStyles(),
     '@supports not selector(*:focus-visible)': {
-      '&:focus': tabPanelFocusStyles(mode),
+      '&:focus': tabPanelFocusStyles(),
     },
     ...highContrastFocusRing,
 
@@ -144,9 +139,7 @@ export const getTabStyles = (mode: ThemeModes): CSSObject => {
       '&::after': {
         ...tabLineStyles,
         // This line is a border so it is visible in high contrast mode
-        borderBottom: `${underlineHeight} solid ${
-          getTabLineColor(mode).selectedColor
-        }`,
+        borderBottom: `${underlineHeight} solid ${tabLineColors.selectedColor}`,
         height: 0,
       },
     },

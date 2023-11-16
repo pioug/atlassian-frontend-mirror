@@ -50,11 +50,13 @@ export default {
     'Du har ikke tilgang til denne forhåndsvisningen. Ta kontakt med nettstedets administrator hvis du trenger tilgang.',
   'fabric.linking.forbidden_description_crossjoin': 'Kontakt administratoren for å be om tilgang til {hostname}.',
   'fabric.linking.forbidden_title_crossjoin': 'Du har ikke tilgang til dette innholdet',
+  'fabric.linking.generic_error_message': 'Det oppstod en feil',
   'fabric.linking.go_back': 'Gå tilbake',
   'fabric.linking.invalid_permissions': 'Begrenset innhold',
   'fabric.linking.invalid_permissions_description':
     'Du må be om tilgang eller prøve en annen konto for kunne se denne forhåndsvisningen.',
   'fabric.linking.join_to_view': 'Bli med {context} for å se denne saken',
+  'fabric.linking.last_mentioned_in': 'Sist omtalt i',
   'fabric.linking.learn_more_about_smart_links': 'Finn ut mer om smartkoblinger.',
   'fabric.linking.link_safety_warning_message':
     '{unsafeLinkText}-koblingen tar deg til et annet nettsted, <a>actual link here</a>',
@@ -89,6 +91,8 @@ export default {
   'fabric.linking.priority_trivial': 'Uviktig',
   'fabric.linking.priority_undefined': 'Udefinert',
   'fabric.linking.read_time': '{context} min å lese',
+  'fabric.linking.related': 'Beslektet',
+  'fabric.linking.related_work_items_not_found': 'Denne koblingen er ikke omtalt andre steder.',
   'fabric.linking.request_access': 'Be om tilgang',
   'fabric.linking.request_access_crossjoin': 'Be om tilgang',
   'fabric.linking.request_access_description': 'Be om tilgang til {context} for å se denne forhåndsvisningen.',

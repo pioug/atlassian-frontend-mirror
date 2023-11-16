@@ -10,7 +10,13 @@ export default {
   'link-create.unknown-error.description':
     'Обновите страницу и, если проблема возникнет снова, обратитесь в <a>поддержку Atlassian</a>.',
   'link-create.unknown-error.heading': 'Произошла ошибка',
+  'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Назад',
+  'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Забыть изменения',
+  'linkCreate.confirm-dismiss-dialog.modal.description':
+    'Если вы покинете эту страницу, ваша информация будет утеряна.',
+  'linkCreate.confirm-dismiss-dialog.modal.title': 'Изменения не будут сохранены',
   'linkCreate.createForm.button.close': 'Закрыть',
   'linkCreate.createForm.button.create': 'Создать',
+  'linkCreate.createForm.button.edit': 'Изменить',
   'linkCreate.modal.heading': 'Создание',
 };

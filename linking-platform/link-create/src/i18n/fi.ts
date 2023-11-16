@@ -10,7 +10,12 @@ export default {
   'link-create.unknown-error.description':
     'Päivitä sivu tai ota yhteyttä <a>Atlassian-tukeen</a>, jos ongelmat jatkuvat.',
   'link-create.unknown-error.heading': 'Jokin meni vikaan',
+  'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Siirry takaisin',
+  'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Hylkää',
+  'linkCreate.confirm-dismiss-dialog.modal.description': 'Emme voi tallentaa tietojasi, jos poistut tältä sivulta.',
+  'linkCreate.confirm-dismiss-dialog.modal.title': 'Muutoksiasi ei tallenneta',
   'linkCreate.createForm.button.close': 'Sulje',
   'linkCreate.createForm.button.create': 'Luo',
+  'linkCreate.createForm.button.edit': 'Muokkaa',
   'linkCreate.modal.heading': 'Luo uusi',
 };

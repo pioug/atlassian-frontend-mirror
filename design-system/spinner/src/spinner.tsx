@@ -8,9 +8,7 @@ import React, {
 import { css, jsx, keyframes } from '@emotion/react';
 
 import InteractionContext from '@atlaskit/interaction-context';
-import { DN500, DN900, N0, N500 } from '@atlaskit/theme/colors';
-import { useGlobalTheme } from '@atlaskit/theme/components';
-import { ThemeModes } from '@atlaskit/theme/types';
+import { N0, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { presetSizes } from './constants';
@@ -19,22 +17,10 @@ import { Appearance, SpinnerProps } from './types';
 /**
  * Returns the appropriate circle stroke color.
  */
-function getStrokeColor({
-  mode,
-  appearance,
-}: {
-  mode: ThemeModes;
-  appearance: Appearance;
-}): string {
-  if (mode === 'light') {
-    return appearance === 'inherit'
-      ? token('color.icon.subtle', N500)
-      : token('color.icon.inverse', N0);
-  }
-
+function getStrokeColor(appearance: Appearance): string {
   return appearance === 'inherit'
-    ? token('color.icon.subtle', DN900)
-    : token('color.icon.inverse', DN500);
+    ? token('color.icon.subtle', N500)
+    : token('color.icon.inverse', N0);
 }
 
 const rotate = keyframes({
@@ -127,11 +113,7 @@ export default React.memo(
 
     const animationDelay = `${delay}ms`;
 
-    const { mode } = useGlobalTheme();
-    const stroke = getStrokeColor({
-      mode,
-      appearance,
-    });
+    const stroke = getStrokeColor(appearance);
 
     const context = useContext(InteractionContext);
     useLayoutEffect(() => {

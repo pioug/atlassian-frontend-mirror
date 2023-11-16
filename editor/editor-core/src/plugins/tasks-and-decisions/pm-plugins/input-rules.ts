@@ -9,8 +9,11 @@ import {
 } from '@atlaskit/editor-prosemirror/state';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
 
-import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
-import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
+import {
+  createRule,
+  createPlugin,
+  leafNodeReplacementCharacter,
+} from '@atlaskit/prosemirror-input-rules';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {

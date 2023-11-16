@@ -7,6 +7,7 @@
  */
 //Turkish (Turkey)
 export default {
+  'fabric.linking.access_exists_description': '{hostname} üzerindeki bu içeriği görüntülemek için erişim talep edin.',
   'fabric.linking.actions': 'Eylemler',
   'fabric.linking.add_account': 'Hesap ekle',
   'fabric.linking.assigned_to': '{context} adlı kişiye atandı',
@@ -37,18 +38,26 @@ export default {
   'fabric.linking.create_on_relative': '{context} oluşturuldu',
   'fabric.linking.created_by': '{context} tarafından oluşturuldu',
   'fabric.linking.delete': 'Sil',
+  'fabric.linking.direct_access_crossjoin': 'Hemen katıl',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Takımınız iş birliği yapmak için {product} kullanıyor ve siz de hemen kullanmaya başlayabilirsiniz!',
+  'fabric.linking.direct_access_title_crossjoin': 'Bu içeriği görüntülemek için {product} ürününe katılın',
   'fabric.linking.download': 'İndir',
   'fabric.linking.edit': 'Düzenle',
   'fabric.linking.follow': 'Takip Et',
   'fabric.linking.forbidden_access': 'Erişiminiz yasak',
   'fabric.linking.forbidden_description':
     'Bu önizlemeye erişiminiz yok. Erişim gerekliyse site yöneticisiyle iletişime geçin.',
+  'fabric.linking.forbidden_description_crossjoin':
+    '{hostname} sitesine erişim talep etmek için yöneticinizle iletişime geçin.',
   'fabric.linking.forbidden_title_crossjoin': 'Bu içeriğe erişiminiz yok',
+  'fabric.linking.generic_error_message': 'Bir hata oluştu',
   'fabric.linking.go_back': 'Geri dön',
   'fabric.linking.invalid_permissions': 'Kısıtlanmış içerik',
   'fabric.linking.invalid_permissions_description':
     'Bu önizlemeyi görüntülemek için erişim izni talep etmeniz veya farklı bir hesap kullanmanız gerekir.',
   'fabric.linking.join_to_view': 'Bu konuyu görüntülemek için {context} ürününe katılın',
+  'fabric.linking.last_mentioned_in': 'En son şurada bahsedildi:',
   'fabric.linking.learn_more_about_smart_links': 'Akıllı Bağlantılar hakkında daha fazla bilgi edinin.',
   'fabric.linking.link_safety_warning_message':
     '{unsafeLinkText} bağlantısı sizi farklı bir siteye (<a>actual link here</a>) yönlendiriyor',
@@ -56,6 +65,7 @@ export default {
   'fabric.linking.modified_on_absolute': '{context} tarihinde güncellendi',
   'fabric.linking.modified_on_relative': '{context} güncellendi',
   'fabric.linking.more_actions': 'Daha fazla işlem',
+  'fabric.linking.no_access_title_crossjoin': 'Bu içeriği görüntülemek için {product} ürününe katılın',
   'fabric.linking.not_found_description':
     "Bağlantıyı bulamadık. URL'yi kontrol edin ve düzenlemeyi veya yeniden yapıştırmayı deneyin.",
   'fabric.linking.not_found_description_crossjoin':
@@ -82,9 +92,13 @@ export default {
   'fabric.linking.priority_trivial': 'Önemsiz',
   'fabric.linking.priority_undefined': 'Tanımlanmamış',
   'fabric.linking.read_time': '{context} dk. okuma süresi',
+  'fabric.linking.related': 'İlgili',
+  'fabric.linking.related_work_items_not_found': 'Bu bağlantıdan başka hiçbir yerde bahsedilmedi.',
   'fabric.linking.request_access': 'Erişim talep edin',
   'fabric.linking.request_access_crossjoin': 'Erişim talep edin',
   'fabric.linking.request_access_description': 'Bu önizlemeyi görüntülemek için {context} ürününe erişim talep edin.',
+  'fabric.linking.request_access_description_crossjoin':
+    'Takımınız iş birliği yapmak için {product} kullanıyor. Yöneticinize bir erişim talebi gönderin.',
   'fabric.linking.request_access_pending': 'Erişim bekleniyor',
   'fabric.linking.request_access_pending_crossjoin': 'Onay bekleniyor',
   'fabric.linking.request_access_pending_description': 'Erişim talebiniz beklemede.',

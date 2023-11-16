@@ -32,6 +32,7 @@ import type { SmartCardProps } from '@atlaskit/editor-plugin-card/src/nodeviews/
 import ResizableEmbedCard from '@atlaskit/editor-plugin-card/src/ui/ResizableEmbedCard';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { createCardContext } from '@atlaskit/editor-plugin-card/src/__tests__/unit/_helpers';
+import { act } from 'react-dom/test-utils';
 
 describe('EmbedCard', () => {
   const createEditor = createEditorFactory();
@@ -110,10 +111,11 @@ describe('EmbedCard', () => {
   });
 
   it('renders', () => {
-    const { cardComponent } = setup();
+    const { component, cardComponent } = setup();
 
     expect(cardComponent).toHaveLength(1);
     expect(cardComponent.prop('url')).toBe('https://some/url');
+    component.unmount();
   });
 
   it('should render EmbedResizeMessageListener', () => {
@@ -158,7 +160,9 @@ describe('EmbedCard', () => {
 
     expect(resizeListener).toHaveLength(1);
     const resizeListenerProps = resizeListener.props();
-    resizeListenerProps.onHeightUpdate(50);
+    act(() => {
+      resizeListenerProps.onHeightUpdate(50);
+    });
     component.update();
     const resizableEmbedCard = component.find(ResizableEmbedCard);
     expect(resizableEmbedCard.props().height).toEqual(50);
@@ -169,7 +173,9 @@ describe('EmbedCard', () => {
 
     expect(resizeListener).toHaveLength(1);
     const resizeListenerProps = resizeListener.props();
-    resizeListenerProps.onHeightUpdate(50);
+    act(() => {
+      resizeListenerProps.onHeightUpdate(50);
+    });
     expect(editorView.state).toEqualDocumentAndSelection(
       doc(
         embedCard({
@@ -187,7 +193,9 @@ describe('EmbedCard', () => {
 
     expect(resizeListener).toHaveLength(1);
     const resizeListenerProps = resizeListener.props();
-    resizeListenerProps.onHeightUpdate(50);
+    act(() => {
+      resizeListenerProps.onHeightUpdate(50);
+    });
     expect(editorView.state).toEqualDocumentAndSelection(
       doc(
         embedCard({
@@ -209,7 +217,9 @@ describe('EmbedCard', () => {
 
     expect(resizeListener).toHaveLength(1);
     const resizeListenerProps = resizeListener.props();
-    resizeListenerProps.onHeightUpdate(50);
+    act(() => {
+      resizeListenerProps.onHeightUpdate(50);
+    });
     expect(editorView.state).toEqualDocumentAndSelection(
       doc(
         embedCard({
@@ -290,7 +300,9 @@ describe('EmbedCard', () => {
       const { resizeListener, component } = setup({ allowResizing: false });
 
       const resizeListenerProps = resizeListener.props();
-      resizeListenerProps.onHeightUpdate(50);
+      act(() => {
+        resizeListenerProps.onHeightUpdate(50);
+      });
       component.update();
 
       const richMediaWrapper = component.find(RichMediaWrapper);
@@ -306,10 +318,12 @@ describe('EmbedCard', () => {
         expect(onResolve).toBeDefined();
         return;
       }
-      onResolve({
-        url: 'some-url',
-        title: 'some title',
-        aspectRatio: 0.42,
+      act(() => {
+        onResolve({
+          url: 'some-url',
+          title: 'some title',
+          aspectRatio: 0.42,
+        });
       });
       component.update();
       const richMediaWrapper = component.find(RichMediaWrapper);

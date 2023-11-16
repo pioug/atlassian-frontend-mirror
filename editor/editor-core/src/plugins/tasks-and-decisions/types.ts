@@ -19,6 +19,11 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { insertTaskDecisionCommand } from './commands';
+import type {
+  getIndentCommand,
+  getUnindentCommand,
+} from './pm-plugins/keymaps';
 
 export type TaskDecisionListType = 'taskList' | 'decisionList';
 
@@ -71,5 +76,10 @@ export type TaskAndDecisionsPlugin = NextEditorPlugin<
       OptionalPlugin<TypeAheadPlugin>,
       OptionalPlugin<AnalyticsPlugin>,
     ];
+    actions: {
+      insertTaskDecision: ReturnType<typeof insertTaskDecisionCommand>;
+      indentTaskList: ReturnType<typeof getIndentCommand>;
+      outdentTaskList: ReturnType<typeof getUnindentCommand>;
+    };
   }
 >;

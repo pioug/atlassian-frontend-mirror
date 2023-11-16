@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 0.3.0
+
+### Minor Changes
+
+- [#43108](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43108) [`b779a47b799`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b779a47b799) - ECA11Y-86: Added ability to resize media via keyboard and added announcer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.3
 
 ### Patch Changes

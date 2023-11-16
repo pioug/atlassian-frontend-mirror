@@ -13,6 +13,7 @@ import type { Dispatch } from '../../../event-dispatcher';
 import { EventDispatcher, createDispatch } from '../../../event-dispatcher';
 import EditorActions from '../../../actions';
 import EditorContext from '../../../ui/EditorContext';
+import { waitFor } from '@testing-library/react';
 
 describe(name, () => {
   const createEditor = createEditorFactory();
@@ -280,7 +281,7 @@ describe(name, () => {
     });
   });
 
-  it('should call performance.mark twice with appropriate arguments', () => {
+  it('should call performance.mark twice with appropriate arguments', async () => {
     const plugin = createPlugin({}, pluginKey);
     const key = (pluginKey as any).key;
     const mark = performance.mark as jest.Mock;
@@ -313,16 +314,18 @@ describe(name, () => {
     );
     dispatch(pluginKey, { cheese: '🧀' });
 
-    return setTimeoutPromise(() => {}, 0).then(() => {
+    await new Promise(process.nextTick);
+
+    await waitFor(() =>
       expect(mark.mock.calls.map((item) => item[0])).toEqual(
         expect.arrayContaining([
           `🦉${key}::WithPluginState::start`,
           `🦉${key}::WithPluginState::end`,
         ]),
-      );
+      ),
+    );
 
-      wrapper.unmount();
-      editorView.destroy();
-    });
+    wrapper.unmount();
+    editorView.destroy();
   });
 });

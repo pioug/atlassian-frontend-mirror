@@ -49,11 +49,13 @@ export default {
     'You don’t have access to this preview. Contact the site admin if you need access.',
   'fabric.linking.forbidden_description_crossjoin': 'Contact your admin to request access to {hostname}.',
   'fabric.linking.forbidden_title_crossjoin': "You don't have access to this content",
+  'fabric.linking.generic_error_message': 'An error occurred',
   'fabric.linking.go_back': 'Go back',
   'fabric.linking.invalid_permissions': 'Restricted content',
   'fabric.linking.invalid_permissions_description':
     "You'll need to request access or try a different account to view this preview.",
   'fabric.linking.join_to_view': 'Join {context} to view this issue',
+  'fabric.linking.last_mentioned_in': 'Last mentioned in',
   'fabric.linking.learn_more_about_smart_links': 'Learn more about Smart Links.',
   'fabric.linking.link_safety_warning_message':
     'The link {unsafeLinkText} is taking you to a different site, <a>actual link here</a>',
@@ -87,6 +89,8 @@ export default {
   'fabric.linking.priority_trivial': 'Trivial',
   'fabric.linking.priority_undefined': 'Undefined',
   'fabric.linking.read_time': '{context} min read',
+  'fabric.linking.related': 'Related',
+  'fabric.linking.related_work_items_not_found': 'This link is not mentioned anywhere else.',
   'fabric.linking.request_access': 'Request access',
   'fabric.linking.request_access_crossjoin': 'Request access',
   'fabric.linking.request_access_description': 'Request access to {context} view this preview.',

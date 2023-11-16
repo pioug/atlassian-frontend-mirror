@@ -10,8 +10,15 @@ import { ExampleEditor, LOCALSTORAGE_defaultDocKey } from './5-full-page';
 
 import decisionAdf from '../example-helpers/templates/decision.adf.json';
 import breakoutAdf from '../example-helpers/templates/breakout.adf.json';
-import { EditorActions, ContextPanel } from '../src';
+import type { EditorActions } from '../src';
+import { ContextPanel } from '../src';
 import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';
+
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import { usePresetContext } from '../src/presets/context';
+
+type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
 
 const isEmptyDoc = (adf: any) => adf.content.length === 0;
 
@@ -131,47 +138,45 @@ class TemplatePanel extends React.Component<
   }
 }
 
-class EditorWithSidebar extends React.Component {
-  sidebar = React.createRef<TemplatePanel>();
-
+const EditorWithSidebar = () => {
+  const sidebar = React.createRef<TemplatePanel>();
   // wire this up via ref so that we don't re-render the whole
   // editor each time the content changes, only the sidebar
-  onChange = async () => {
-    if (this.sidebar.current) {
-      this.sidebar.current.onChange();
+  const onChange = React.useCallback(async () => {
+    if (sidebar.current) {
+      sidebar.current.onChange();
     }
-  };
+  }, [sidebar]);
 
-  render() {
-    const defaultValue =
-      (localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) ||
-      undefined;
+  const editorApi = usePresetContext<StackPlugins>();
+  const defaultValue =
+    (localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) ||
+    undefined;
 
-    return (
-      <ExampleEditor
-        editorProps={{
-          onChange: this.onChange,
-          defaultValue,
-          extensionProviders: (editorActions) => [
-            getExampleExtensionProviders(editorActions),
-          ],
-          allowExtension: { allowAutoSave: true },
-          contextPanel: (
-            <WithEditorActions
-              render={(actions) => (
-                <TemplatePanel
-                  actions={actions}
-                  defaultValue={defaultValue ? JSON.parse(defaultValue) : null}
-                  ref={this.sidebar}
-                />
-              )}
+  const editorProps = React.useMemo(() => {
+    return {
+      onChange,
+      defaultValue,
+      extensionProviders: (editorActions: EditorActions | undefined) => [
+        getExampleExtensionProviders(editorApi, editorActions),
+      ],
+      allowExtension: { allowAutoSave: true },
+      contextPanel: (
+        <WithEditorActions
+          render={(actions) => (
+            <TemplatePanel
+              actions={actions}
+              defaultValue={defaultValue ? JSON.parse(defaultValue) : null}
+              ref={sidebar}
             />
-          ),
-        }}
-      />
-    );
-  }
-}
+          )}
+        />
+      ),
+    };
+  }, [sidebar, defaultValue, onChange, editorApi]);
+
+  return <ExampleEditor editorProps={editorProps} />;
+};
 
 export default function Example() {
   return (

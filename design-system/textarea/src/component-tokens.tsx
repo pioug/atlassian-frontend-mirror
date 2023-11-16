@@ -1,14 +1,6 @@
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
-  B100,
   B200,
-  DN10,
-  DN20,
-  DN200,
-  DN30,
-  DN40,
-  DN600,
-  DN90,
   N0,
   N10,
   N100,
@@ -22,74 +14,36 @@ import {
 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-export const disabledBackground = {
-  light: token('color.background.disabled', N20),
-  dark: token('color.background.disabled', DN20),
-};
+export const disabledBackground = token('color.background.disabled', N20);
+export const disabledBorder = token('color.border.disabled', N40);
+export const invalidBorderColor = token('color.border.danger', R400);
 
-export const disabledBorder = {
-  light: token('color.border.disabled', N40),
-  dark: token('color.border.disabled', DN40),
-};
+export const defaultBorderColor = token(
+  'color.border.input',
+  getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
+    ? N100
+    : N40,
+);
 
-export const invalidBorderColor = {
-  light: token('color.border.danger', R400),
-  dark: token('color.border.danger', R400),
-};
+export const defaultBorderColorFocus = token('color.border.focused', B200);
+export const defaultBackgroundColor = token('color.background.input', N10);
 
-export const defaultBorderColor = {
-  light: token(
-    'color.border.input',
-    getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-      ? N100
-      : N40,
-  ),
-  dark: token(
-    'color.border.input',
-    getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-      ? DN200
-      : DN40,
-  ),
-};
+export const defaultBackgroundColorHover = token(
+  'color.background.input.hovered',
+  N30,
+);
 
-export const defaultBorderColorFocus = {
-  light: token('color.border.focused', B200),
-  dark: token('color.border.focused', B100),
-};
+export const defaultBackgroundColorFocus = token(
+  'color.background.input.pressed',
+  N0,
+);
 
-export const defaultBackgroundColor = {
-  light: token('color.background.input', N10),
-  dark: token('color.background.input', DN10),
-};
+export const subtleBorderColorHover = token(
+  'color.border.input',
+  'transparent',
+);
 
-export const defaultBackgroundColorHover = {
-  light: token('color.background.input.hovered', N30),
-  dark: token('color.background.input.hovered', DN30),
-};
-
-export const defaultBackgroundColorFocus = {
-  light: token('color.background.input.pressed', N0),
-  dark: token('color.background.input.pressed', DN10),
-};
-
-export const subtleBorderColorHover = {
-  light: token('color.border.input', 'transparent'),
-  dark: token('color.border.input', 'transparent'),
-};
-
-export const placeholderTextColor = {
-  light: token('color.text.subtlest', N200),
-  dark: token('color.text.subtlest', DN200),
-};
-export const textColor = {
-  light: token('color.text', N900),
-  dark: token('color.text', DN600),
-};
-export const disabledTextColor = {
-  light: token('color.text.disabled', N70),
-  dark: token('color.text.disabled', DN90),
-};
-export const transparent = {
-  light: 'transparent',
-  dark: 'transparent',
-};
+export const placeholderTextColor = token('color.text.subtlest', N200);
+export const textColor = token('color.text', N900);
+export const disabledTextColor = token('color.text.disabled', N70);
+export const transparent = 'transparent';

@@ -7,6 +7,7 @@
  */
 //Ukrainian (Ukraine)
 export default {
+  'fabric.linking.access_exists_description': 'Надішліть запит на перегляд цього вмісту з {hostname}.',
   'fabric.linking.actions': 'Дії',
   'fabric.linking.add_account': 'Додати обліковий запис',
   'fabric.linking.assigned_to': 'Призначено для {context}',
@@ -38,18 +39,26 @@ export default {
   'fabric.linking.create_on_relative': 'Створено {context}',
   'fabric.linking.created_by': 'Автор: {context}',
   'fabric.linking.delete': 'Видалити',
+  'fabric.linking.direct_access_crossjoin': 'Приєднатися',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Ваша команда використовує {product} для співпраці, і ви можете почати роботу з продуктом просто зараз!',
+  'fabric.linking.direct_access_title_crossjoin': 'Приєднайтеся до {product}, щоб переглянути цей вміст',
   'fabric.linking.download': 'Завантажити',
   'fabric.linking.edit': 'Редагувати',
   'fabric.linking.follow': 'Підписатися',
   'fabric.linking.forbidden_access': 'У вас немає доступу',
   'fabric.linking.forbidden_description':
     'Ви не маєте доступу до цього вмісту. Якщо вам потрібен доступ, зверніться до адміністратора сайту.',
+  'fabric.linking.forbidden_description_crossjoin':
+    'Зверніться до адміністратора з проханням надати доступ до {hostname}.',
   'fabric.linking.forbidden_title_crossjoin': 'У вас немає доступу до цього вмісту',
+  'fabric.linking.generic_error_message': 'Сталася помилка',
   'fabric.linking.go_back': 'Назад',
   'fabric.linking.invalid_permissions': 'Вміст із обмеженим доступом',
   'fabric.linking.invalid_permissions_description':
     'Надішліть запит на доступ або ввійдіть в інший обліковий запис для попереднього перегляду.',
   'fabric.linking.join_to_view': 'Можна приєднатися до {context}, щоб переглянути цю проблему',
+  'fabric.linking.last_mentioned_in': 'Остання згадка:',
   'fabric.linking.learn_more_about_smart_links': 'Докладніше про смарт-посилання.',
   'fabric.linking.link_safety_warning_message':
     'За посиланням {unsafeLinkText} ви перейдете на інший сайт: <a>actual link here</a>',
@@ -57,6 +66,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Оновлено {context}',
   'fabric.linking.modified_on_relative': 'Оновлено {context}',
   'fabric.linking.more_actions': 'Інші дії',
+  'fabric.linking.no_access_title_crossjoin': 'Приєднайтеся до {product}, щоб переглянути цей вміст',
   'fabric.linking.not_found_description':
     'Не вдалося знайти посилання. Перевірте URL-адресу й спробуйте її відредагувати або вставити знову.',
   'fabric.linking.not_found_description_crossjoin':
@@ -83,10 +93,14 @@ export default {
   'fabric.linking.priority_trivial': 'Звичайний',
   'fabric.linking.priority_undefined': 'Не визначено',
   'fabric.linking.read_time': 'Текст на {context} хв',
+  'fabric.linking.related': 'Пов’язані ресурси',
+  'fabric.linking.related_work_items_not_found': 'Це посилання більше ніде не згадується.',
   'fabric.linking.request_access': 'Надіслати запит на доступ',
   'fabric.linking.request_access_crossjoin': 'Надіслати запит на доступ',
   'fabric.linking.request_access_description':
     'Надішліть запит на доступ до {context}, щоб попередньо переглянути продукт.',
+  'fabric.linking.request_access_description_crossjoin':
+    'Ваша команда використовує {product} для співпраці. Надішліть адміністратору запит на доступ до продукту.',
   'fabric.linking.request_access_pending': 'Очікується надання доступу',
   'fabric.linking.request_access_pending_crossjoin': 'Очікується підтвердження',
   'fabric.linking.request_access_pending_description': 'Ваш запит на надання доступу в очікуванні.',

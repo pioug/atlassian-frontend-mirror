@@ -1,9 +1,12 @@
 /** @jsx jsx */
+import { useMemo } from 'react';
+
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
 import { LoadingButton } from '@atlaskit/button';
 import SearchIcon from '@atlaskit/icon/glyph/editor/search';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
@@ -26,6 +29,11 @@ const formStyles = css({
   flex: 1,
 });
 
+const formWithMaxWidthStyles = css({
+  flex: 1,
+  maxWidth: 250,
+});
+
 export const BasicSearchInput = ({
   isDisabled,
   isSearching,
@@ -41,8 +49,22 @@ export const BasicSearchInput = ({
     onSearch(searchTerm);
   };
 
+  const showBasicFilters = useMemo(() => {
+    if (
+      getBooleanFF(
+        'platform.linking-platform.datasource.show-jlol-basic-filters',
+      )
+    ) {
+      return true;
+    }
+    return false;
+  }, []);
+
   return (
-    <form css={formStyles} onSubmit={handleFormSubmit}>
+    <form
+      css={showBasicFilters ? formWithMaxWidthStyles : formStyles}
+      onSubmit={handleFormSubmit}
+    >
       <Textfield
         elemAfterInput={
           <LoadingButton

@@ -35,6 +35,16 @@ Control spacing between items with the `space` prop.
 
 <Example Component={StackSpaceBasic} packageName="@atlaskit/primitives/stack" />
 
+## Reverse content
+
+`flex-direction: `column-reverse` is a pattern that has [accessibility concerns](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction#accessibility_concerns) so stack doesn't support it.
+
+If reversing content is required, we generally recommend to use JavaScript to reverse the JSX content thereby preserving the tabbing order.
+
+In situations where tabbing order changes based on different breakpoints, then we have [show](/components/primitives/responsive/show/examples) and [hide](/components/primitives/responsive/hide/examples) components that enable switching between different orderings of content.
+
+For non-tabbable content that needs to be reversed, `flex-direction: column-reverse` is supported in XCSS. However, please be aware that we may lint against this in the future.
+
 ## Alignment
 
 Control the alignment of items using the `alignBlock` and `alignInline` props which control alignment in the vertical and horizontal axis respectively.

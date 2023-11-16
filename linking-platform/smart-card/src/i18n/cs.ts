@@ -7,6 +7,7 @@
  */
 //Czech
 export default {
+  'fabric.linking.access_exists_description': 'Požádejte o přístup k zobrazení tohoto obsahu z webu {hostname}.',
   'fabric.linking.actions': 'Akce',
   'fabric.linking.add_account': 'Přidat účet',
   'fabric.linking.assigned_to': 'Přiřazeno k: {context}',
@@ -37,18 +38,26 @@ export default {
   'fabric.linking.create_on_relative': 'Vytvořeno: {context}',
   'fabric.linking.created_by': 'Vytvořil(a) {context}',
   'fabric.linking.delete': 'Odstranit',
+  'fabric.linking.direct_access_crossjoin': 'Připojit se',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Váš tým spolupracuje v {product} a vy můžete tento produkt hned začít používat také!',
+  'fabric.linking.direct_access_title_crossjoin': 'Chcete-li si zobrazit tento obsah, připojte se k produktu {product}',
   'fabric.linking.download': 'Stáhnout',
   'fabric.linking.edit': 'Upravit',
   'fabric.linking.follow': 'Sledovat',
   'fabric.linking.forbidden_access': 'Přístup byl odepřen',
   'fabric.linking.forbidden_description':
     'K tomuto náhledu nemáte přístup. Pokud potřebujete přístup, obraťte se na správce webu.',
+  'fabric.linking.forbidden_description_crossjoin':
+    'Pokud chcete požádat o přístup k webu {hostname}, kontaktujte správce.',
   'fabric.linking.forbidden_title_crossjoin': 'K tomuto obsahu nemáte přístup',
+  'fabric.linking.generic_error_message': 'Došlo k chybě',
   'fabric.linking.go_back': 'Přejít zpět',
   'fabric.linking.invalid_permissions': 'Omezený obsah',
   'fabric.linking.invalid_permissions_description':
     'Pokud si chcete zobrazit tento náhled, požádejte o přístup nebo vyzkoušejte jiný účet.',
   'fabric.linking.join_to_view': 'Chcete-li si zobrazit tento požadavek, připojte se ke službě {context}.',
+  'fabric.linking.last_mentioned_in': 'Naposledy zmíněno v:',
   'fabric.linking.learn_more_about_smart_links': 'Další informace o chytrých odkazech',
   'fabric.linking.link_safety_warning_message':
     'Odkaz {unsafeLinkText} vás přesměruje na jiný web (<a>actual link here</a>)',
@@ -56,6 +65,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Aktualizováno: {context}',
   'fabric.linking.modified_on_relative': 'Aktualizováno: {context}',
   'fabric.linking.more_actions': 'Další akce',
+  'fabric.linking.no_access_title_crossjoin': 'Chcete-li si zobrazit tento obsah, připojte se k produktu {product}',
   'fabric.linking.not_found_description':
     'Odkaz se nepodařilo najít. Zkontrolujte adresu URL a zkuste ji upravit nebo vložit znovu.',
   'fabric.linking.not_found_description_crossjoin': 'Stránka neexistuje nebo se po přidání tohoto odkazu mohla změnit.',
@@ -81,10 +91,14 @@ export default {
   'fabric.linking.priority_trivial': 'Triviální',
   'fabric.linking.priority_undefined': 'Nedefinováno',
   'fabric.linking.read_time': '{context} min. čtení',
+  'fabric.linking.related': 'Souvisící',
+  'fabric.linking.related_work_items_not_found': 'Tento odkaz není nikde jinde zmíněn.',
   'fabric.linking.request_access': 'Požádat o přístup',
   'fabric.linking.request_access_crossjoin': 'Požádat o přístup',
   'fabric.linking.request_access_description':
     'Pokud si chcete zobrazit tento náhled, požádejte o přístup k řešení {context}.',
+  'fabric.linking.request_access_description_crossjoin':
+    'Váš tým spolupracuje v {product}. Pošlete správci žádost o přístup.',
   'fabric.linking.request_access_pending': 'Čeká se na vyřízení přístupu',
   'fabric.linking.request_access_pending_crossjoin': 'Čeká na schválení',
   'fabric.linking.request_access_pending_description': 'Vaše žádost o přístup čeká na vyřízení.',

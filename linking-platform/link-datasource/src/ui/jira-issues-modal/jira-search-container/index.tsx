@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { Flex, xcss } from '@atlaskit/primitives';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { JiraSearchMethod } from '../../../common/types';
@@ -25,6 +26,10 @@ const inputContainerStyles = css({
   alignItems: 'baseline',
   display: 'flex',
   minHeight: '60px',
+});
+
+const basicSearchInputContainerStyles = xcss({
+  flexGrow: 1,
 });
 
 const DEFAULT_JQL_QUERY = 'created >= -30d order by created DESC';
@@ -138,7 +143,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
   return (
     <div css={inputContainerStyles}>
       {currentSearchMethod === 'basic' && (
-        <React.Fragment>
+        <Flex alignItems="center" xcss={basicSearchInputContainerStyles}>
           <BasicSearchInput
             isSearching={isSearching}
             onChange={handleBasicSearchChange}
@@ -148,7 +153,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
           {showBasicFilters && (
             <BasicFilters jql={jql} cloudId={cloudId || ''} />
           )}
-        </React.Fragment>
+        </Flex>
       )}
       {currentSearchMethod === 'jql' && (
         <JiraJQLEditor

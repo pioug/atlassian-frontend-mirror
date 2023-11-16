@@ -17,6 +17,7 @@ import Extension from '../../../../../plugins/extension/ui/Extension';
 import ExtensionComponent from '../../../../../plugins/extension/ui/Extension/ExtensionComponent';
 import Loadable from 'react-loadable';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { act } from 'react-dom/test-utils';
 
 const macroProviderPromise = Promise.resolve(macroProvider);
 const providerFactory = ProviderFactory.create({
@@ -237,19 +238,16 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
     const ExtensionHandlerComponent = ({ node }: any) => {
       return <div>Extension provider: {node.content}</div>;
     };
-
     const confluenceMacrosExtensionProvider = createFakeExtensionProvider(
       'fake.confluence',
       'expand',
       ExtensionHandlerComponent,
     );
-
     const providerFactory = ProviderFactory.create({
       extensionProvider: Promise.resolve(
         combineExtensionProviders([confluenceMacrosExtensionProvider]),
       ),
     });
-
     const extensionNode = {
       type: {
         name: 'extension',
@@ -261,7 +259,6 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
         parameters: {},
       },
     } as any;
-
     it('should use the extension handler from the provider in case there is no other available', async () => {
       const extension = mount(
         <Extension
@@ -274,35 +271,29 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
           pluginInjectionApi={undefined}
         />,
       );
-
-      await Loadable.preloadAll();
-
+      await act(async () => {
+        await Loadable.preloadAll();
+      });
       extension.update();
-
       expect(extension.find(ExtensionHandlerComponent).text()).toEqual(
         'Extension provider: Hello extension!',
       );
-
       extension.unmount();
     });
-
     it('should prioritize extension handlers (sync) over extension providers', async () => {
       const ExtensionCompontent = ({
         node,
       }: {
         node: ExtensionParams<any>;
       }) => <div>Extension handler: {node.content}</div>;
-
       const extensionHandlers: ExtensionHandlers = {
         'fake.confluence': (ext) => {
           if (ext.extensionKey === 'expand') {
             return <ExtensionCompontent node={ext} />;
           }
-
           return null;
         },
       };
-
       const extension = mount(
         <Extension
           editorView={view}
@@ -314,19 +305,15 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
           pluginInjectionApi={undefined}
         />,
       );
-
       expect(extension.find(ExtensionCompontent).text()).toEqual(
         'Extension handler: Hello extension!',
       );
-
       extension.unmount();
     });
-
     it('should fallback to extension provider in case extension handlers do not handle it', async () => {
       const extensionHandlers: ExtensionHandlers = {
         'fake.confluence': (node: any) => null,
       };
-
       const extension = mount(
         <Extension
           editorView={view}
@@ -338,15 +325,13 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
           pluginInjectionApi={undefined}
         />,
       );
-
-      await Loadable.preloadAll();
-
+      await act(async () => {
+        await Loadable.preloadAll();
+      });
       extension.update();
-
       expect(extension.find(ExtensionHandlerComponent).text()).toEqual(
         'Extension provider: Hello extension!',
       );
-
       extension.unmount();
     });
   });

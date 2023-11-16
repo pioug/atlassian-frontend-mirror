@@ -14,11 +14,10 @@ import {
   taskList,
   taskItem,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { pluginKey } from '../../../pm-plugins/indentation-buttons';
 import toolbarListsIndentationPlugin, {
   PrimaryToolbarComponent,
 } from '../../../';
-import indentationPlugin from '../../../../indentation';
+import { indentationPlugin } from '@atlaskit/editor-plugin-indentation';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -55,7 +54,6 @@ describe('Indentation buttons', () => {
         ])
         .add(indentationPlugin)
         .add([tasksAndDecisionsPlugin, { allowNestedTasks: true }]),
-      pluginKey,
     });
 
   const setupEditor = ({

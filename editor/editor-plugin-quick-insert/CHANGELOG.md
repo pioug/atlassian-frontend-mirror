@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 0.2.3
+
+### Patch Changes
+
+- [#43164](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43164) [`3aeedf55e29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3aeedf55e29) - [ED-20068] Move editSelectedExtension to ExtensionPluginActions
+
 ## 0.2.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-extension
 
+## 0.4.0
+
+### Minor Changes
+
+- [#43164](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43164) [`3aeedf55e29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3aeedf55e29) - [ED-20068] Move editSelectedExtension to ExtensionPluginActions
+
 ## 0.3.0
 
 ### Minor Changes

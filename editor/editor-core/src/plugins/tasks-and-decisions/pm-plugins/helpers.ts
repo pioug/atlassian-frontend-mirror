@@ -3,12 +3,12 @@ import type {
   NodeType,
   ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
-import {
+import type {
   EditorState,
   Selection,
-  TextSelection,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { liftTarget } from '@atlaskit/editor-prosemirror/transform';
 import {
@@ -18,7 +18,8 @@ import {
 
 import { findFarthestParentNode } from '../../../utils';
 import { stateKey } from './plugin-key';
-import { ACTIONS, TaskItemData } from './types';
+import type { TaskItemData } from './types';
+import { ACTIONS } from './types';
 
 export const isInsideTaskOrDecisionItem = (state: EditorState) => {
   const { decisionItem, taskItem } = state.schema.nodes;
@@ -45,7 +46,7 @@ export const isInsideDecision = (state: EditorState) => {
   return hasParentNodeOfType([decisionItem])(state.selection);
 };
 
-export const isTable = (node?: Node | null): Boolean => {
+export const isTable = (node?: Node | null): boolean => {
   if (!node) {
     return false;
   }

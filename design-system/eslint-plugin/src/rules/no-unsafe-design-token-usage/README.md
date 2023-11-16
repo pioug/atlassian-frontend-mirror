@@ -35,7 +35,13 @@ css`
 
 This rule comes with options to aid in migrating to design tokens.
 
-### shouldEnforceFallbacks
+### fallbackUsage
+
+- `forced`: Fallback values must always be provided
+- `none`: Fallback values must never be provided. (Fixer will remove is provided)
+- `optional`: Fallbacks are optional
+
+### shouldEnforceFallbacks (deprecated)
 
 When `true` the rule will mark token function usage as violations when fallbacks aren't defined.
 When `false` the rule will mark token function usage as violations when fallbacks are defined.

@@ -47,9 +47,6 @@
       "path": "../../people-and-teams/profilecard/tsconfig.app.json"
     },
     {
-      "path": "../task-decision/tsconfig.app.json"
-    },
-    {
       "path": "../../design-system/theme/tsconfig.app.json"
     },
     {

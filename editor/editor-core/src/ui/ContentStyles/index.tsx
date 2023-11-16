@@ -51,7 +51,7 @@ import { extensionStyles } from './extension';
 import { expandStyles } from './expand';
 import { MediaSharedClassNames } from '@atlaskit/editor-common/styles';
 import { findReplaceStyles } from '../../plugins/find-replace/styles';
-import { taskDecisionStyles } from '../../plugins/tasks-and-decisions/styles';
+import { taskDecisionStyles } from './tasks-and-decisions';
 import { statusStyles } from './status';
 import { dateStyles } from './date';
 import type { FeatureFlags } from '../../types/feature-flags';

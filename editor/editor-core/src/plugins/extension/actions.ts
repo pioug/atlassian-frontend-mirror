@@ -282,3 +282,27 @@ export const editExtension =
 
     return true;
   };
+
+type Props = {
+  editorViewRef: Record<'current', EditorView | null>;
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+};
+export const createEditSelectedExtensionAction =
+  ({ editorViewRef, editorAnalyticsAPI }: Props) =>
+  () => {
+    const { current: view } = editorViewRef;
+    if (!view) {
+      return false;
+    }
+
+    const { updateExtension, applyChangeToContextPanel } = getPluginState(
+      view.state,
+    );
+
+    return editExtension(
+      null,
+      applyChangeToContextPanel,
+      editorAnalyticsAPI,
+      updateExtension,
+    )(view.state, view.dispatch, view);
+  };

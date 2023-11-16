@@ -233,7 +233,7 @@ const ColorPickerButton = (props: Props) => {
       ? props.hexToPaletteColor(props.currentColor)
       : props.currentColor;
   const buttonStyle = (theme: ThemeProps) => css`
-    padding: 0 10px;
+    padding: ${token('space.075', '6px')} 10px;
     background-color: ${token(
       'color.background.neutral.subtle',
       'transparent',

@@ -11,8 +11,61 @@ import {
 } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { ThemeTokens } from './theme';
+import * as componentTokens from './component-tokens';
 import { TextAreaProps } from './types';
+
+const disabledRules = {
+  backgroundColor: componentTokens.disabledBackground,
+  backgroundColorFocus: componentTokens.disabledBackground,
+  backgroundColorHover: componentTokens.disabledBackground,
+  borderColor: componentTokens.disabledBorder,
+  borderColorFocus: componentTokens.defaultBorderColorFocus,
+  textColor: componentTokens.disabledTextColor,
+};
+
+const invalidRules = {
+  borderColor: componentTokens.invalidBorderColor,
+  borderColorFocus: componentTokens.defaultBorderColorFocus,
+  backgroundColor: componentTokens.defaultBackgroundColor,
+  backgroundColorFocus: componentTokens.defaultBackgroundColorFocus,
+  backgroundColorHover: componentTokens.defaultBackgroundColorHover,
+};
+
+const backgroundColor = {
+  standard: componentTokens.defaultBackgroundColor,
+  subtle: componentTokens.transparent,
+  none: componentTokens.transparent,
+};
+
+const backgroundColorFocus = {
+  standard: componentTokens.defaultBackgroundColorFocus,
+  subtle: componentTokens.defaultBackgroundColorFocus,
+  none: componentTokens.transparent,
+};
+
+const backgroundColorHover = {
+  standard: componentTokens.defaultBackgroundColorHover,
+  subtle: componentTokens.defaultBackgroundColorHover,
+  none: componentTokens.transparent,
+};
+
+const borderColor = {
+  standard: componentTokens.defaultBorderColor,
+  subtle: componentTokens.transparent,
+  none: componentTokens.transparent,
+};
+
+const borderColorFocus = {
+  standard: componentTokens.defaultBorderColorFocus,
+  subtle: componentTokens.defaultBorderColorFocus,
+  none: componentTokens.transparent,
+};
+
+const borderColorHover = {
+  standard: componentTokens.defaultBorderColor,
+  subtle: componentTokens.subtleBorderColorHover,
+  none: componentTokens.transparent,
+};
 
 export interface StyleProps {
   minimumRows: number | undefined;
@@ -53,47 +106,45 @@ const borderBoxMinHeightCompact = (
   return contentHeightCompact + compactVerticalPadding * 2 + borderHeight * 2;
 };
 
-const bgAndBorderColorStyles = (
-  props: ThemeTokens,
-  appearance: TextAreaProps['appearance'],
-) =>
+const bgAndBorderColorStyles = (appearance: TextAreaProps['appearance']) =>
+  appearance &&
   css({
     '&:focus': {
-      backgroundColor: props.backgroundColorFocus,
-      borderColor: props.borderColorFocus,
+      backgroundColor: backgroundColorFocus[appearance],
+      borderColor: borderColorFocus[appearance],
       boxShadow: getBooleanFF(
         'platform.design-system-team.border-checkbox_nyoiu',
       )
         ? `inset 0 0 0 ${token('border.width', '1px')} ${
-            props.borderColorFocus
+            borderColorFocus[appearance]
           }`
         : undefined,
     },
     '&:not(:focus)': {
-      backgroundColor: props.backgroundColor,
-      borderColor: props.borderColor,
+      backgroundColor: backgroundColor[appearance],
+      borderColor: borderColor[appearance],
     },
     // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     '&[data-invalid]:focus': {
-      backgroundColor: props.invalidRules.backgroundColorFocus,
-      borderColor: props.invalidRules.borderColorFocus,
+      backgroundColor: invalidRules.backgroundColorFocus,
+      borderColor: invalidRules.borderColorFocus,
       boxShadow: getBooleanFF(
         'platform.design-system-team.border-checkbox_nyoiu',
       )
         ? `inset 0 0 0 ${token('border.width', '1px')} ${
-            props.invalidRules.borderColorFocus
+            invalidRules.borderColorFocus
           }`
         : undefined,
     },
     // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     '&[data-invalid]:not(:focus)': {
-      backgroundColor: props.invalidRules.backgroundColor,
-      borderColor: props.invalidRules.borderColor,
+      backgroundColor: invalidRules.backgroundColor,
+      borderColor: invalidRules.borderColor,
       boxShadow: getBooleanFF(
         'platform.design-system-team.border-checkbox_nyoiu',
       )
         ? `inset 0 0 0 ${token('border.width', '1px')} ${
-            props.invalidRules.borderColor
+            invalidRules.borderColor
           }`
         : undefined,
     },
@@ -102,12 +153,12 @@ const bgAndBorderColorStyles = (
     ...(appearance === 'standard'
       ? {
           '&:disabled:focus': {
-            backgroundColor: props.disabledRules.backgroundColorFocus,
-            borderColor: props.disabledRules.borderColorFocus,
+            backgroundColor: disabledRules.backgroundColorFocus,
+            borderColor: disabledRules.borderColorFocus,
           },
           '&:disabled:not(:focus)': {
-            backgroundColor: props.disabledRules.backgroundColor,
-            borderColor: props.disabledRules.borderColor,
+            backgroundColor: disabledRules.backgroundColor,
+            borderColor: disabledRules.borderColor,
           },
         }
       : {}),
@@ -120,23 +171,26 @@ const placeholderStyle = (placeholderTextColor: string) =>
     },
   });
 
-const hoverBackgroundAndBorderStyles = (props: ThemeTokens) =>
+const hoverBackgroundAndBorderStyles = (
+  appearance: TextAreaProps['appearance'],
+) =>
+  appearance &&
   css({
     '&:hover:not(:read-only):not(:focus)': {
-      backgroundColor: props.backgroundColorHover,
-      borderColor: props.borderColorHover,
+      backgroundColor: backgroundColorHover[appearance],
+      borderColor: borderColorHover[appearance],
       '&:disabled': {
-        backgroundColor: props.disabledRules.backgroundColorHover,
+        backgroundColor: disabledRules.backgroundColorHover,
       },
       // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
       '&[data-invalid]': {
-        backgroundColor: props.invalidRules.backgroundColorHover,
-        borderColor: props.invalidRules.borderColor,
+        backgroundColor: invalidRules.backgroundColorHover,
+        borderColor: invalidRules.borderColor,
         boxShadow: getBooleanFF(
           'platform.design-system-team.border-checkbox_nyoiu',
         )
           ? `inset 0 0 0 ${token('border.width', '1px')} ${
-              props.invalidRules.borderColor
+              invalidRules.borderColor
             }`
           : undefined,
       },
@@ -240,19 +294,16 @@ export const getBaseStyles = ({
     { maxHeight },
   ]);
 
-export const themeStyles = (
-  props: ThemeTokens,
-  appearance: TextAreaProps['appearance'],
-) =>
+export const dynamicStyles = (appearance: TextAreaProps['appearance']) =>
   // eslint-disable-next-line @repo/internal/styles/no-exported-styles
   css([
-    bgAndBorderColorStyles(props, appearance),
-    hoverBackgroundAndBorderStyles(props),
-    placeholderStyle(props.placeholderTextColor),
+    bgAndBorderColorStyles(appearance),
+    hoverBackgroundAndBorderStyles(appearance),
+    placeholderStyle(componentTokens.placeholderTextColor),
     {
-      color: props.textColor,
+      color: componentTokens.textColor,
       '&:disabled': {
-        color: props.disabledRules.textColor,
+        color: disabledRules.textColor,
       },
     },
   ]);

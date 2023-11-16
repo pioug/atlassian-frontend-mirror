@@ -6,7 +6,7 @@ import BitbucketPullrequestsIcon from '@atlaskit/icon/glyph/bitbucket/pullreques
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { AtlassianIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 
 const containerStyles = xcss({
   display: 'flex',
@@ -34,27 +34,25 @@ const extraInfoStyles = xcss({
 
 export default function Example() {
   return (
-    <Box xcss={containerStyles}>
-      <Stack space="space.100">
-        <Box as="span">
-          Dropdown menu items in Modal are not accessible to keyboard/screen
-          readers in Safari
+    <Stack xcss={containerStyles} space="space.100">
+      <Text as="span">
+        Dropdown menu items in Modal are not accessible to keyboard/screen
+        readers in Safari
+      </Text>
+      <Box as="span">
+        <Lozenge appearance="new">Accelerate Cloud Accessibility</Lozenge>
+      </Box>
+      <Box xcss={extraInfoStyles}>
+        <Box xcss={inlineStyles}>
+          <AtlassianIcon appearance="brand" size="small" label="" />
+          <Heading level="h300">DSP-9786</Heading>
         </Box>
-        <Box as="span">
-          <Lozenge appearance="new">Accelerate Cloud Accessibility</Lozenge>
-        </Box>
-        <Box xcss={extraInfoStyles}>
-          <Box xcss={inlineStyles}>
-            <AtlassianIcon appearance="brand" size="small" label="" />
-            <Heading level="h300">DSP-9786</Heading>
-          </Box>
-          <Inline space="space.100" alignBlock="center">
-            <BitbucketPullrequestsIcon size="small" label="" />
-            <MoreIcon size="small" label="" />
-            <Avatar size="small" />
-          </Inline>
-        </Box>
-      </Stack>
-    </Box>
+        <Inline space="space.100" alignBlock="center">
+          <BitbucketPullrequestsIcon size="small" label="" />
+          <MoreIcon size="small" label="" />
+          <Avatar size="small" />
+        </Inline>
+      </Box>
+    </Stack>
   );
 }

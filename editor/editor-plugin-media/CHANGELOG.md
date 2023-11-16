@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-media
 
+## 0.4.0
+
+### Minor Changes
+
+- [#43108](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43108) [`b779a47b799`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b779a47b799) - ECA11Y-86: Added ability to resize media via keyboard and added announcer
+
+### Patch Changes
+
+- [#43379](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43379) [`482c025520d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/482c025520d) - ED-20763 Upgrade ADF schema version to 33.2.3 for MBE nodes.
+- Updated dependencies
+
 ## 0.3.17
 
 ### Patch Changes

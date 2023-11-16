@@ -950,6 +950,85 @@ describe('IssueLikeDataTableView', () => {
     };
   };
 
+  it('should not have column resizing handles when no onWidthChange was given', () => {
+    const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
+
+    const { queryByTestId } = setup({
+      onColumnResize: undefined,
+      items,
+      columns,
+      visibleColumnKeys,
+      columnCustomSizes: { id: 100, task: 200, emoji: 300 },
+      hasNextPage: false,
+    });
+
+    expect(queryByTestId('column-resize-handle')).toBeNull();
+  });
+
+  it('should use max-width when onWidthChange is not defined AND there are NO custom widths defined neither', () => {
+    const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
+
+    const { queryByTestId, queryAllByTestId } = setup({
+      onColumnResize: undefined,
+      items,
+      columns,
+      visibleColumnKeys,
+      columnCustomSizes: undefined,
+      hasNextPage: false,
+    });
+
+    expect(queryByTestId('task-column-heading')).toHaveStyle(
+      'max-width: 176px',
+    );
+    expect(queryAllByTestId('sometable--cell-1')[0]).toHaveStyle(
+      'max-width: 176px',
+    );
+    expect(queryByTestId('sometable')).not.toHaveStyle('table-layout: fixed');
+  });
+
+  it('should use max-width when in readonly mode AND there are NO custom widths defined either', () => {
+    const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
+
+    const { queryByTestId, queryAllByTestId } = setup({
+      onColumnResize: undefined,
+      onVisibleColumnKeysChange: undefined,
+      items,
+      columns,
+      visibleColumnKeys,
+      columnCustomSizes: undefined,
+      hasNextPage: false,
+    });
+
+    expect(queryByTestId('task-column-heading')).toHaveStyle(
+      'max-width: 176px',
+    );
+    expect(queryAllByTestId('sometable--cell-1')[0]).toHaveStyle(
+      'max-width: 176px',
+    );
+    expect(queryByTestId('sometable')).not.toHaveStyle('table-layout: fixed');
+  });
+
+  it('should use width when in readonly mode AND there ARE custom widths defined', () => {
+    const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
+
+    const { queryByTestId, queryAllByTestId } = setup({
+      onColumnResize: undefined,
+      onVisibleColumnKeysChange: undefined,
+      items,
+      columns,
+      visibleColumnKeys,
+      columnCustomSizes: { emoji: 300 },
+      hasNextPage: false,
+    });
+
+    expect(queryByTestId('task-column-heading')).toHaveStyle('width: 176px');
+    expect(queryAllByTestId('sometable--cell-1')[0]).toHaveStyle(
+      'width: 176px',
+    );
+    expect(queryByTestId('emoji-column-heading')).toHaveStyle('width: 300px');
+    expect(queryByTestId('sometable')).toHaveStyle('table-layout: fixed');
+  });
+
   it('should call onWidthChange when column resized', async () => {
     const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
 
@@ -1193,20 +1272,24 @@ describe('IssueLikeDataTableView', () => {
       ];
       const columns = prepColumns();
 
-      const { queryByTestId } = setup({
+      const { queryByTestId, queryAllByTestId } = setup({
         items,
         columns: [columns.summary, columns.status],
         visibleColumnKeys: ['summary', 'status'],
         hasNextPage: false,
+        onColumnResize: undefined,
         onVisibleColumnKeysChange: undefined,
       });
 
       expect(queryByTestId('summary-column-heading')).toHaveStyle({
-        width: '360px',
+        maxWidth: '360px',
       });
+      expect(queryAllByTestId('sometable--cell-0')[0]).toHaveStyle(
+        'max-width: 360px',
+      );
 
       expect(queryByTestId('status-column-heading')).toHaveStyle({
-        width: `${8 * 18}px`,
+        maxWidth: `${8 * 18}px`,
       });
     });
 
@@ -1221,15 +1304,16 @@ describe('IssueLikeDataTableView', () => {
         columns: [columns.name, columns.dob],
         visibleColumnKeys: ['name', 'dob'],
         hasNextPage: false,
+        onColumnResize: undefined,
         onVisibleColumnKeysChange: undefined,
       });
 
       expect(queryByTestId('name-column-heading')).toHaveStyle({
-        width: '176px',
+        maxWidth: '176px',
       });
 
       expect(queryByTestId('dob-column-heading')).toHaveStyle({
-        width: '112px',
+        maxWidth: '112px',
       });
     });
 
@@ -1239,7 +1323,7 @@ describe('IssueLikeDataTableView', () => {
       ];
       const columns = prepColumns();
 
-      const { queryByTestId } = setup({
+      const { queryByTestId, queryAllByTestId } = setup({
         items,
         columns: [columns.name, columns.dob],
         columnCustomSizes: { name: 100, dob: 200 },
@@ -1250,6 +1334,9 @@ describe('IssueLikeDataTableView', () => {
       expect(queryByTestId('name-column-heading')).toHaveStyle({
         width: '100px',
       });
+      expect(queryAllByTestId('sometable--cell-0')[0]).toHaveStyle(
+        'width: 100px',
+      );
 
       expect(queryByTestId('dob-column-heading')).toHaveStyle({
         width: '200px',

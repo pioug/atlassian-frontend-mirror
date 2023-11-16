@@ -1,5 +1,48 @@
 # @atlaskit/editor-core
 
+## 189.3.28
+
+### Patch Changes
+
+- [#43379](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43379) [`482c025520d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/482c025520d) - ED-20763 Upgrade ADF schema version to 33.2.3 for MBE nodes.
+- Updated dependencies
+
+## 189.3.27
+
+### Patch Changes
+
+- [#43060](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43060) [`f576ff89904`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f576ff89904) - ED-20278 Fix backslash duplication in codeBlock when pasting as plain text
+- [#43343](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43343) [`62499cd0af0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62499cd0af0) - Decouple tasks and decisions plugin from editor core.
+- Updated dependencies
+
+## 189.3.26
+
+### Patch Changes
+
+- [#43164](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43164) [`3aeedf55e29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3aeedf55e29) - [ED-20068] Move editSelectedExtension to ExtensionPluginActions
+- Updated dependencies
+
+## 189.3.25
+
+### Patch Changes
+
+- [#43274](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43274) [`d162c359ccf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d162c359ccf) - Move indentation plugin code from editor-core to editor-plugin-indentation.
+- Updated dependencies
+
+## 189.3.24
+
+### Patch Changes
+
+- [#42256](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42256) [`9c1a79051b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c1a79051b6) - Avoid submitting certain attributes for config panel analytic events
+
+## 189.3.23
+
+### Patch Changes
+
+- [#42651](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42651) [`92e9957a8bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92e9957a8bf) - [ux] [ECA11Y-148] Added screen reader announcement for Find and Replace search results count
+- [#43111](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43111) [`d71dda4f834`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d71dda4f834) - Decouple indentation plugin from editor-core.
+- Updated dependencies
+
 ## 189.3.22
 
 ### Patch Changes

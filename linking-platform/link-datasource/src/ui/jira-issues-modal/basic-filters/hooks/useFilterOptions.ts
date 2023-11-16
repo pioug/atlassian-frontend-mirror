@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
 import {
@@ -40,6 +40,7 @@ export const useFilterOptions = ({
   const [totalCount, setTotalCount] = useState<number>(0);
   const [status, setStatus] = useState<FilterOptionsState['status']>('empty');
   const [errors, setErrors] = useState<FilterOptionsState['errors']>([]);
+
   const [nextPageCursor, setNextPageCursor] = useState<string | undefined>(
     undefined,
   );
@@ -94,16 +95,23 @@ export const useFilterOptions = ({
         setNextPageCursor(mapFieldValuesToPageCursor(response));
         setStatus('resolved');
       } catch (error) {
-        setErrors([error]);
         setStatus('rejected');
+        setErrors([error]);
       }
     },
     [cloudId, filterOptions, filterType, getFieldValues],
   );
 
+  useEffect(() => {
+    if (status !== 'rejected' && errors.length !== 0) {
+      setErrors([]);
+    }
+  }, [errors.length, status]);
+
   const reset = useCallback(() => {
     setStatus('empty');
     setFilterOptions([]);
+    setErrors([]);
     setTotalCount(0);
     setNextPageCursor(undefined);
     initialData.current = undefined;
@@ -115,7 +123,7 @@ export const useFilterOptions = ({
     totalCount,
     pageCursor: nextPageCursor,
     status,
+    errors,
     reset,
-    errors: status === 'rejected' ? errors : [],
   };
 };

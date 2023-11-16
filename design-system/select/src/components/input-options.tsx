@@ -5,17 +5,10 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import RadioIcon from '@atlaskit/icon/glyph/radio';
 import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
-import { themed } from '@atlaskit/theme/components';
-import { ThemedValue } from '@atlaskit/theme/types';
 import {
-  B100,
-  B200,
   B300,
   B400,
   B75,
-  DN200,
-  DN10,
-  DN30,
   N20A,
   N0,
   N100,
@@ -73,13 +66,6 @@ const getPrimitiveStyles = (
   return [augmentedStyles, cx(bemClasses, className) as string];
 };
 
-// maintains function shape
-const backgroundColor = themed({
-  light: token('color.background.neutral', N0),
-  dark: token('color.background.neutral', DN10),
-});
-const transparent = themed({ light: 'transparent', dark: 'transparent' });
-
 // state of the parent option
 interface ControlProps {
   isActive?: boolean;
@@ -94,46 +80,24 @@ const getPrimaryColor = ({
   isDisabled,
   isFocused,
   isSelected,
-  ...rest
 }: ControlProps): string => {
-  let color: ThemedValue<string> = backgroundColor;
   if (isDisabled && isSelected) {
-    color = themed({
-      light: token('color.background.disabled', B75),
-      dark: token('color.background.disabled', DN200),
-    });
+    return token('color.background.disabled', B75);
   } else if (isDisabled) {
-    color = themed({
-      light: token('color.background.disabled', N20A),
-      dark: token('color.background.disabled', DN10),
-    });
+    return token('color.background.disabled', N20A);
   } else if (isSelected && isActive) {
-    color = themed({
-      light: token('color.background.selected.bold.pressed', B75),
-      dark: token('color.background.selected.bold.pressed', B200),
-    });
+    return token('color.background.selected.bold.pressed', B75);
   } else if (isActive) {
-    color = themed({
-      light: token('color.background.selected.pressed', B75),
-      dark: token('color.background.selected.pressed', B200),
-    });
+    return token('color.background.selected.pressed', B75);
   } else if (isFocused && isSelected) {
-    color = themed({
-      light: token('color.background.selected.bold.hovered', B300),
-      dark: token('color.background.selected.bold.hovered', B75),
-    });
+    return token('color.background.selected.bold.hovered', B300);
   } else if (isFocused) {
-    color = themed({
-      light: token('elevation.surface', N0),
-      dark: token('elevation.surface', DN30),
-    });
+    return token('elevation.surface', N0);
   } else if (isSelected) {
-    color = themed({
-      light: token('color.background.selected.bold', B400),
-      dark: token('color.background.selected.bold', B100),
-    });
+    return token('color.background.selected.bold', B400);
   }
-  return color(rest);
+
+  return token('color.background.neutral', N0);
 };
 
 // the secondary color represents the radio dot or checkmark
@@ -141,27 +105,16 @@ const getSecondaryColor = ({
   isActive,
   isDisabled,
   isSelected,
-  ...rest
 }: ControlProps): string => {
-  let color: ThemedValue<string> = themed({
-    light: token('elevation.surface', N0),
-    dark: token('elevation.surface', DN10),
-  });
-
   if (isDisabled && isSelected) {
-    color = themed({
-      light: token('color.text.disabled', N70),
-      dark: token('color.text.disabled', DN10),
-    });
+    return token('color.text.disabled', N70);
   } else if (isActive && isSelected && !isDisabled) {
-    color = themed({
-      light: token('elevation.surface', B400),
-      dark: token('elevation.surface', DN10),
-    });
+    return token('elevation.surface', B400);
   } else if (!isSelected) {
-    color = transparent;
+    return 'transparent';
   }
-  return color(rest);
+
+  return token('elevation.surface', N0);
 };
 
 // the border color surrounds the checkbox/radio
@@ -186,6 +139,7 @@ const getBorderColor = ({
   } else if (isSelected) {
     return token('color.background.selected.bold', B400);
   }
+
   return token('color.border.input', N100);
 };
 

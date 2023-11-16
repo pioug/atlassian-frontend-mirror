@@ -20,7 +20,6 @@ import {
 
 import { uuid } from '@atlaskit/adf-schema';
 
-import type { Command } from '../../../types';
 import {
   filterCommand as filter,
   isEmptySelectionAtStart,
@@ -28,7 +27,10 @@ import {
   deleteEmptyParagraphAndMoveBlockUp,
 } from '@atlaskit/editor-common/utils';
 
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type {
+  ExtractInjectionAPI,
+  Command,
+} from '@atlaskit/editor-common/types';
 import type {
   AnalyticsEventPayload,
   EditorAnalyticsAPI,

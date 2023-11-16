@@ -7,6 +7,7 @@
  */
 //Thai (Thailand)
 export default {
+  'fabric.linking.access_exists_description': 'ส่งคำขอการเข้าถึงเพื่อดูเนื้อหานี้จาก {hostname}',
   'fabric.linking.actions': 'การดำเนินการ',
   'fabric.linking.add_account': 'เพิ่มบัญชี',
   'fabric.linking.assigned_to': 'มอบหมายให้ {context} แล้ว',
@@ -37,18 +38,25 @@ export default {
   'fabric.linking.create_on_relative': 'สร้างเมื่อ {context}',
   'fabric.linking.created_by': 'สร้างโดย {context}',
   'fabric.linking.delete': 'ลบ',
+  'fabric.linking.direct_access_crossjoin': 'เข้าร่วมเลย',
+  'fabric.linking.direct_access_description_crossjoin':
+    'ทีมของคุณใช้ {product} ในการทำงานร่วมกันและคุณสามารถเริ่มใช้ได้เลยในตอนนี้!',
+  'fabric.linking.direct_access_title_crossjoin': 'เข้าร่วม {product} เพื่อดูเนื้อหานี้',
   'fabric.linking.download': 'ดาวน์โหลด',
   'fabric.linking.edit': 'แก้ไข',
   'fabric.linking.follow': 'ติดตาม',
   'fabric.linking.forbidden_access': 'คุณไม่มีสิทธิ์เข้าถึง',
   'fabric.linking.forbidden_description':
     'คุณไม่มีสิทธิ์เข้าถึงตัวอย่างนี้ โปรดติดต่อผู้ดูแลระบบเว็บไซต์หากคุณต้องการสิทธิ์การเข้าถึง',
+  'fabric.linking.forbidden_description_crossjoin': 'โปรดติดต่อผู้ดูแลระบบของคุณเพื่อส่งคำขอการเข้าถึง {hostname}',
   'fabric.linking.forbidden_title_crossjoin': 'คุณไม่มีสิทธิ์การเข้าถึงเนื้อหานี้',
+  'fabric.linking.generic_error_message': 'เกิดข้อผิดพลาด',
   'fabric.linking.go_back': 'ย้อนกลับ',
   'fabric.linking.invalid_permissions': 'เนื้อหาถูกจำกัด',
   'fabric.linking.invalid_permissions_description':
     'คุณอาจจำเป็นต้องร้องขอสิทธิ์การเข้าถึงหรือลองบัญชีอื่นเพื่อดูการแสดงตัวอย่างนี้',
   'fabric.linking.join_to_view': 'เข้าร่วม {context} เพื่อดูปัญหานี้',
+  'fabric.linking.last_mentioned_in': 'กล่าวถึงล่าสุดใน',
   'fabric.linking.learn_more_about_smart_links': 'เรียนรู้เพิ่มเติมเกี่ยวกับสมาร์ทลิงก์ (ลิงก์อัจฉริยะ)',
   'fabric.linking.link_safety_warning_message':
     'ลิงก์ {unsafeLinkText} จะนำคุณไปยังเว็บไซต์อื่น <a>ลิงก์จริงอยู่ที่นี่</a>',
@@ -56,6 +64,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'อัปเดตแล้วเมื่อ {context}',
   'fabric.linking.modified_on_relative': 'อัปเดต {context} แล้ว',
   'fabric.linking.more_actions': 'การดำเนินการเพิ่มเติม',
+  'fabric.linking.no_access_title_crossjoin': 'เข้าร่วม {product} เพื่อดูเนื้อหานี้',
   'fabric.linking.not_found_description': 'เราไม่พบลิงก์ ตรวจสอบ URL และลองแก้ไขหรือวางอีกครั้ง',
   'fabric.linking.not_found_description_crossjoin':
     'หน้าข้อมูลนี้ไม่มีอยู่ หรืออาจมีการเปลี่ยนแปลงหลังจากมีการเพิ่มลิงก์นี้',
@@ -81,9 +90,13 @@ export default {
   'fabric.linking.priority_trivial': 'ไม่สำคัญ',
   'fabric.linking.priority_undefined': 'ไม่ได้ระบุ',
   'fabric.linking.read_time': 'อ่าน {context} นาที',
+  'fabric.linking.related': 'เกี่ยวข้อง',
+  'fabric.linking.related_work_items_not_found': 'ลิงก์นี้ไม่ได้ถูกกล่าวถึงในที่อื่น',
   'fabric.linking.request_access': 'ส่งคำขอเพื่อเข้าถึง',
   'fabric.linking.request_access_crossjoin': 'ส่งคำขอการเข้าถึง',
   'fabric.linking.request_access_description': 'ส่งคำขอในการเข้าถึง {context} เพื่อดูตัวอย่างนี้',
+  'fabric.linking.request_access_description_crossjoin':
+    'ทีมของคุณใช้ {product} ในการทำงานร่วมกัน ส่งคำขอการเข้าถึงไปยังผู้ดูแลระบบของคุณ',
   'fabric.linking.request_access_pending': 'การเข้าถึงกำลังรอดำเนินการ',
   'fabric.linking.request_access_pending_crossjoin': 'รอการอนุมัติ',
   'fabric.linking.request_access_pending_description': 'คำขอการเข้าถึงของคุณกำลังรอดำเนินการ',

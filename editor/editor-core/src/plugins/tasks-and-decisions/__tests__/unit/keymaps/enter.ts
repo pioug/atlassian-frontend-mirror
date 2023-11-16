@@ -22,7 +22,7 @@ import sendKeyToPm, {
 } from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 import { grinEmoji } from '@atlaskit/util-data-test/emoji-samples';
-import { isEmptyTaskDecision } from '../../../../../plugins/tasks-and-decisions/pm-plugins/helpers';
+import { isEmptyTaskDecision } from '../../../pm-plugins/helpers';
 
 import { ListTypes } from './_helpers';
 

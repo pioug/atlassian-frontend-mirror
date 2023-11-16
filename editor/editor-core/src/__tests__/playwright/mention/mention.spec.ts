@@ -276,10 +276,10 @@ test.describe('feature name: Mention', () => {
     editor,
   }) => {
     fixTest({
-      jiraIssueId: 'ED-20853',
+      jiraIssueId: 'ED-20853, ED-20968',
       reason:
         'FIXME: This test was automatically skipped due to failure on 11/11/2023: https://product-fabric.atlassian.net/browse/ED-20853',
-      browsers: [BROWSERS.chromium],
+      browsers: [BROWSERS.chromium, BROWSERS.webkit],
     });
 
     const mentionModel = EditorMentionModel.from(editor);

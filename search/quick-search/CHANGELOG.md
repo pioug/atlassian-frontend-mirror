@@ -1,5 +1,11 @@
 # @atlaskit/quick-search
 
+## 8.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.4
 
 ### Patch Changes

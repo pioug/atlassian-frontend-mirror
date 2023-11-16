@@ -1,5 +1,6 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
 import type { AnnotationId, DocNode } from '@atlaskit/adf-schema';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
@@ -137,46 +138,40 @@ describe('Renderer', () => {
 
   describe('RendererWrapper', () => {
     it('should have a class describing the appearance', () => {
-      let wrapper: ReactWrapper;
-      act(() => {
-        wrapper = mount(<Renderer document={adf} appearance="full-page" />);
-      });
+      const wrapper = mount(<Renderer document={adf} appearance="full-page" />);
       expect(
         wrapper!.find('div.ak-renderer-wrapper.is-full-page'),
       ).toHaveLength(1);
+      wrapper.unmount();
     });
   });
 
   describe('annotationProvider', () => {
     it('should call the provider with ids inside of the document', () => {
-      act(() => {
-        mount(
-          <RendererDefaultComponent
-            annotationProvider={annotationProvider}
-            document={adf}
-            allowAnnotations
-          />,
-        );
-      });
+      const wrapper = mount(
+        <RendererDefaultComponent
+          annotationProvider={annotationProvider}
+          document={adf}
+          allowAnnotations
+        />,
+      );
 
       expect(getStateCallbackMock).toHaveBeenCalledWith(annotationsId);
+      wrapper.unmount();
     });
   });
 
   describe('when the allowAnnotations is enabled', () => {
     it('should render the SelectionComponentWrapper', () => {
-      let wrapper: ReactWrapper;
-      act(() => {
-        wrapper = mount(
-          <RendererDefaultComponent
-            annotationProvider={annotationProvider}
-            document={adf}
-            allowAnnotations={true}
-          />,
-        );
-      });
-
+      const wrapper = mount(
+        <RendererDefaultComponent
+          annotationProvider={annotationProvider}
+          document={adf}
+          allowAnnotations={true}
+        />,
+      );
       expect(wrapper!.find(SelectionComponentWrapper)).toHaveLength(1);
+      wrapper.unmount();
     });
   });
 

@@ -21,6 +21,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReactWrapper } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 
 const schema = getSchemaBasedOnStage('stage0');
 
@@ -65,6 +66,7 @@ describe('Renderer - React/Nodes/Table', () => {
     expect(table.find('table')).toHaveLength(1);
     expect(table.find('div[data-layout="full-width"]')).toHaveLength(1);
     expect(table.find('table').prop('data-number-column')).toEqual(true);
+    table.unmount();
   });
 
   it('should render table props', () => {
@@ -74,6 +76,7 @@ describe('Renderer - React/Nodes/Table', () => {
     expect(table.prop('isNumberColumnEnabled')).toEqual(true);
     expect(table.prop('columnWidths')).toEqual(columnWidths);
     expect(table.find(TableRow).prop('isNumberColumnEnabled')).toEqual(true);
+    table.unmount();
   });
 
   describe('should NOT render a colgroup when columnWidths is an empty array', () => {
@@ -90,6 +93,7 @@ describe('Renderer - React/Nodes/Table', () => {
               isNumberColumnEnabled: false,
             });
             expect(table.find('col')).toHaveLength(0);
+            table.unmount();
           },
           () => {
             const columnWidths: Array<number> = [];
@@ -99,6 +103,7 @@ describe('Renderer - React/Nodes/Table', () => {
               isNumberColumnEnabled: false,
             });
             expect(table.find('col')).toHaveLength(0);
+            table.unmount();
           },
           ff,
         ),
@@ -110,6 +115,7 @@ describe('Renderer - React/Nodes/Table', () => {
           isNumberColumnEnabled: false,
         });
         expect(table.find('col')).toHaveLength(0);
+        table.unmount();
       },
     );
   });
@@ -128,6 +134,7 @@ describe('Renderer - React/Nodes/Table', () => {
               isNumberColumnEnabled: false,
             });
             expect(table.find('col')).toHaveLength(3);
+            table.unmount();
           },
           () => {
             const columnWidths: Array<number> = [0, 0, 0];
@@ -137,6 +144,7 @@ describe('Renderer - React/Nodes/Table', () => {
               isNumberColumnEnabled: false,
             });
             expect(table.find('col')).toHaveLength(3);
+            table.unmount();
           },
           ff,
         ),
@@ -148,6 +156,7 @@ describe('Renderer - React/Nodes/Table', () => {
           isNumberColumnEnabled: false,
         });
         expect(table.find('col')).toHaveLength(0);
+        table.unmount();
       },
     );
   });
@@ -158,6 +167,7 @@ describe('Renderer - React/Nodes/Table', () => {
     expect(table.prop('isNumberColumnEnabled')).toEqual(true);
     expect(table.find(TableRow)).toHaveLength(1);
     expect(table.find(TableCell)).toHaveLength(3);
+    table.unmount();
   });
 
   describe('When number column is enabled', () => {
@@ -190,6 +200,7 @@ describe('Renderer - React/Nodes/Table', () => {
             index === 0 ? '' : `${index}`,
           );
         });
+        table.unmount();
       });
     });
     describe('When header row is disabled', () => {
@@ -219,6 +230,7 @@ describe('Renderer - React/Nodes/Table', () => {
         table.find('tr').forEach((row, index) => {
           expect(row.find('td').at(0).text()).toEqual(`${index + 1}`);
         });
+        table.unmount();
       });
     });
     it('should add an extra <col> node for number column', () => {
@@ -255,6 +267,7 @@ describe('Renderer - React/Nodes/Table', () => {
           );
         }
       });
+      table.unmount();
     });
 
     describe('should have the correct width for numbered column when no columnWidths', () => {
@@ -293,6 +306,7 @@ describe('Renderer - React/Nodes/Table', () => {
               );
             }
           });
+          table.unmount();
         },
         () => {
           const table = mountWithIntl(
@@ -314,6 +328,7 @@ describe('Renderer - React/Nodes/Table', () => {
             </Table>,
           );
           expect(table.find('col')).toHaveLength(0);
+          table.unmount();
         },
       );
     });
@@ -347,6 +362,7 @@ describe('Renderer - React/Nodes/Table', () => {
           `${columnWidths[index] - 1}px`,
         );
       });
+      table.unmount();
     });
   });
 
@@ -390,6 +406,7 @@ describe('Renderer - React/Nodes/Table', () => {
             expect(col.prop('style')!.width).toEqual(`${tableCellMinWidth}px`);
           }
         });
+        table.unmount();
       });
     });
     describe('when renderWidth is greater than table minimum allowed width', () => {
@@ -431,6 +448,7 @@ describe('Renderer - React/Nodes/Table', () => {
             expect(typeof col.prop('style')!.width).toEqual('undefined');
           }
         });
+        table.unmount();
       });
     });
   });
@@ -463,8 +481,10 @@ describe('Renderer - React/Nodes/Table', () => {
         const width = columnWidths[index] - columnWidths[index] * 0.2;
         expect(col.prop('style')!.width).toEqual(`${width}px`);
       });
+      table.unmount();
     });
   });
+
   describe('when renderWidth is 40% lower than table width', () => {
     it('should scale down columns widths by 30% and then overflow', () => {
       const columnWidths = [200, 200, 280];
@@ -493,6 +513,7 @@ describe('Renderer - React/Nodes/Table', () => {
         const width = columnWidths[index] - columnWidths[index] * 0.3;
         expect(col.prop('style')!.width).toEqual(`${width}px`);
       });
+      table.unmount();
     });
   });
 
@@ -554,9 +575,10 @@ describe('Renderer - React/Nodes/Table', () => {
       );
 
       const container = wrap.find(TableProcessor).instance();
-
-      container.setState({
-        tableOrderStatus: { columnIndex: 0, sortOrdered: SortOrder.ASC },
+      act(() => {
+        container.setState({
+          tableOrderStatus: { columnIndex: 0, sortOrdered: SortOrder.ASC },
+        });
       });
       wrap.update();
 
@@ -566,6 +588,7 @@ describe('Renderer - React/Nodes/Table', () => {
         sortOrdered: SortOrder.ASC,
       });
       expect(typeof firstRowProps.onSorting).toBe('function');
+      wrap.unmount();
     });
 
     describe('when header row is not enabled', () => {
@@ -604,6 +627,7 @@ describe('Renderer - React/Nodes/Table', () => {
         const firstRowProps = wrap.find(TableRow).first().props();
         expect(firstRowProps.tableOrderStatus).toBeUndefined();
         expect(firstRowProps.onSorting).toBeUndefined();
+        wrap.unmount();
       });
     });
 
@@ -642,6 +666,7 @@ describe('Renderer - React/Nodes/Table', () => {
         const firstRowProps = wrap.find(TableRow).first().props();
         expect(firstRowProps.tableOrderStatus).toBeUndefined();
         expect(firstRowProps.onSorting).toBeUndefined();
+        wrap.unmount();
       });
     });
 
@@ -678,6 +703,7 @@ describe('Renderer - React/Nodes/Table', () => {
         const firstRowProps = wrap.find(TableRow).first().props();
         expect(firstRowProps.tableOrderStatus).toBeUndefined();
         expect(firstRowProps.onSorting).toBeUndefined();
+        wrap.unmount();
       });
     });
 
@@ -775,8 +801,9 @@ describe('Renderer - React/Nodes/Table', () => {
           );
           const tableRowProps = wrap.find(TableRow).first().props();
 
-          tableRowProps.onSorting!(0, SortOrder.ASC);
-
+          act(() => {
+            tableRowProps.onSorting!(0, SortOrder.ASC);
+          });
           wrap.update();
 
           const sortPosition = wrap
@@ -787,6 +814,7 @@ describe('Renderer - React/Nodes/Table', () => {
             );
 
           expect(sortPosition).toEqual(expected);
+          wrap.unmount();
         },
       );
     });
@@ -873,9 +901,10 @@ describe('Renderer - React/Nodes/Table', () => {
     describe('when sorting on the first column', () => {
       it('should sort table by column A to Z', () => {
         const tableRowProps = wrap.find(TableRow).first().props();
-        tableRowProps.onSorting!(0, SortOrder.ASC);
+        act(() => {
+          tableRowProps.onSorting!(0, SortOrder.ASC);
+        });
         wrap.update();
-
         const tableState = [
           [' C', 'C'],
           ['!c', 'A nEw world'],
@@ -886,15 +915,15 @@ describe('Renderer - React/Nodes/Table', () => {
           ['bBBB', 'B'],
           ['C', 'A nEw world!'],
         ];
-
         expectTableOrder(tableState);
       });
 
       it('should sort table by column Z to A', () => {
         const tableRowProps = wrap.find(TableRow).first().props();
-        tableRowProps.onSorting!(0, SortOrder.DESC);
+        act(() => {
+          tableRowProps.onSorting!(0, SortOrder.DESC);
+        });
         wrap.update();
-
         const tableState = [
           [' C', 'C'],
           ['!c', 'A nEw world'],
@@ -905,15 +934,15 @@ describe('Renderer - React/Nodes/Table', () => {
           ['bBBB', 'B'],
           ['C', 'A nEw world!'],
         ].reverse();
-
         expectTableOrder(tableState);
       });
 
       it('should clear table order', () => {
         const tableRowProps = wrap.find(TableRow).first().props();
-        tableRowProps.onSorting!(0, SortOrder.NO_ORDER);
+        act(() => {
+          tableRowProps.onSorting!(0, SortOrder.NO_ORDER);
+        });
         wrap.update();
-
         const tableState = [
           ['Bbb', 'A'],
           ['bBBB', 'B'],
@@ -924,7 +953,6 @@ describe('Renderer - React/Nodes/Table', () => {
           ['!c', 'A nEw world'],
           ['C', 'A nEw world!'],
         ];
-
         expectTableOrder(tableState);
       });
     });
@@ -932,9 +960,10 @@ describe('Renderer - React/Nodes/Table', () => {
     describe('when sorting on the second column', () => {
       it('should sort table by column A to Z', () => {
         const tableRowProps = wrap.find(TableRow).first().props();
-        tableRowProps.onSorting!(1, SortOrder.ASC);
+        act(() => {
+          tableRowProps.onSorting!(1, SortOrder.ASC);
+        });
         wrap.update();
-
         const tableState = [
           ['BBb', ' '],
           ['1a', '@yolo'],
@@ -945,15 +974,14 @@ describe('Renderer - React/Nodes/Table', () => {
           ['a1', 'be@ns'],
           [' C', 'C'],
         ];
-
         expectTableOrder(tableState);
       });
-
       it('should sort table by column Z to A', () => {
         const tableRowProps = wrap.find(TableRow).first().props();
-        tableRowProps.onSorting!(1, SortOrder.DESC);
+        act(() => {
+          tableRowProps.onSorting!(1, SortOrder.DESC);
+        });
         wrap.update();
-
         const tableState = [
           ['BBb', ' '],
           ['1a', '@yolo'],
@@ -964,15 +992,14 @@ describe('Renderer - React/Nodes/Table', () => {
           ['a1', 'be@ns'],
           [' C', 'C'],
         ].reverse();
-
         expectTableOrder(tableState);
       });
-
       it('should clear table order', () => {
         const tableRowProps = wrap.find(TableRow).first().props();
-        tableRowProps.onSorting!(1, SortOrder.NO_ORDER);
+        act(() => {
+          tableRowProps.onSorting!(1, SortOrder.NO_ORDER);
+        });
         wrap.update();
-
         const tableState = [
           ['Bbb', 'A'],
           ['bBBB', 'B'],
@@ -983,7 +1010,6 @@ describe('Renderer - React/Nodes/Table', () => {
           ['!c', 'A nEw world'],
           ['C', 'A nEw world!'],
         ];
-
         expectTableOrder(tableState);
       });
     });
@@ -1008,6 +1034,7 @@ describe('Renderer - React/Nodes/Table', () => {
       expect(
         table.html().includes(shadowObserverClassNames.SENTINEL_RIGHT),
       ).toBeTruthy();
+      table.unmount();
     });
   });
 
@@ -1120,6 +1147,7 @@ describe('Renderer - React/Nodes/Table', () => {
 
           expect(tableContainer.prop('style')!.width).toBe(700);
           expect(tableContainer.prop('style')!.left).toBe(undefined);
+          wrap.unmount();
         },
         () => {
           const wrap = mountTable(tableNode, rendererWidth);
@@ -1130,6 +1158,7 @@ describe('Renderer - React/Nodes/Table', () => {
 
           expect(tableContainer.prop('style')!.width).toBe(960);
           expect(tableContainer.prop('style')!.left).toBe(-100);
+          wrap.unmount();
         },
       );
     });
@@ -1153,6 +1182,7 @@ describe('Renderer - React/Nodes/Table', () => {
           );
 
           expect(tableContainer.prop('style')!.width).toBe(1800);
+          wrap.unmount();
         },
         () => {
           const wrap = mountTable(
@@ -1167,6 +1197,7 @@ describe('Renderer - React/Nodes/Table', () => {
           );
 
           expect(tableContainer.prop('style')!.width).toBe('inherit');
+          wrap.unmount();
         },
       );
     });
@@ -1190,6 +1221,7 @@ describe('Renderer - React/Nodes/Table', () => {
           );
 
           expect(tableContainer.prop('style')!.width).toBe(900);
+          wrap.unmount();
         },
         () => {
           const wrap = mountTable(
@@ -1204,6 +1236,7 @@ describe('Renderer - React/Nodes/Table', () => {
           );
 
           expect(tableContainer.prop('style')!.width).toBe('inherit');
+          wrap.unmount();
         },
       );
     });
@@ -1223,6 +1256,7 @@ describe('Renderer - React/Nodes/Table', () => {
 
           expect(tableContainer.prop('style')!.width).toBe(600);
           expect(tableContainer.prop('style')!.left).toBe(undefined);
+          wrap.unmount();
         },
         () => {
           const wrap = mountTable(tableNode, rendererWidth);
@@ -1233,6 +1267,7 @@ describe('Renderer - React/Nodes/Table', () => {
 
           expect(tableContainer.prop('style')!.width).toBe(600);
           expect(tableContainer.prop('style')!.left).toBe(undefined);
+          wrap.unmount();
         },
       );
     });
@@ -1255,6 +1290,7 @@ describe('Renderer - React/Nodes/Table', () => {
           );
 
           checkColWidths(tableContainer, expectedWidths);
+          wrap.unmount();
         },
         () => {
           const wrap = mountTable(tableNode, rendererWidth, [420, 220, 320]);
@@ -1264,6 +1300,7 @@ describe('Renderer - React/Nodes/Table', () => {
           );
 
           checkColWidths(tableContainer, expectedWidths);
+          wrap.unmount();
         },
       );
     });
@@ -1286,6 +1323,7 @@ describe('Renderer - React/Nodes/Table', () => {
           );
 
           checkColWidths(tableContainer, expectedWidths);
+          wrap.unmount();
         },
         () => {
           const wrap = mountTable(tableNode, rendererWidth, colWidths);
@@ -1295,6 +1333,7 @@ describe('Renderer - React/Nodes/Table', () => {
           );
 
           checkColWidths(tableContainer, expectedWidths);
+          wrap.unmount();
         },
       );
     });
@@ -1321,6 +1360,7 @@ describe('Renderer - React/Nodes/Table', () => {
               );
 
               checkColWidths(tableContainer, expectedWidths([166, 166, 166]));
+              wrap.unmount();
             },
             () => {
               // should not scale down e.g. widths will be min width 48px
@@ -1331,6 +1371,7 @@ describe('Renderer - React/Nodes/Table', () => {
               );
 
               checkColMinWidths(tableContainer, [48, 48, 48]);
+              wrap.unmount();
             },
             ff,
           ),
@@ -1357,6 +1398,7 @@ describe('Renderer - React/Nodes/Table', () => {
                 `.${TableSharedCssClassName.TABLE_CONTAINER}`,
               );
               checkColWidths(tableContainer, expectedWidths([399, 399, 399]));
+              wrap.unmount();
             },
             () => {
               // expected to scale down
@@ -1366,6 +1408,7 @@ describe('Renderer - React/Nodes/Table', () => {
               );
 
               checkColMinWidths(tableContainer, [48, 48, 48]);
+              wrap.unmount();
             },
             ff,
           ),
@@ -1398,6 +1441,7 @@ describe('Renderer - React/Nodes/Table', () => {
                 );
 
                 checkColWidthsUndefined(tableContainer);
+                wrap.unmount();
               },
               () => {
                 const wrap = mountTable(
@@ -1412,6 +1456,7 @@ describe('Renderer - React/Nodes/Table', () => {
                 );
 
                 checkColWidthsUndefined(tableContainer);
+                wrap.unmount();
               },
               ff,
             ),
@@ -1428,6 +1473,7 @@ describe('Renderer - React/Nodes/Table', () => {
             );
 
             checkColWidthsUndefined(tableContainer);
+            wrap.unmount();
           },
         );
       });
@@ -1451,6 +1497,7 @@ describe('Renderer - React/Nodes/Table', () => {
           );
 
           checkColWidths(tableContainer, expectedNotScaledWidths);
+          wrap.unmount();
         },
         () => {
           const wrap = mountTable(tableNode, rendererWidth, colWidths);
@@ -1460,6 +1507,7 @@ describe('Renderer - React/Nodes/Table', () => {
           );
 
           checkColWidths(tableContainer, expectedScaleWidths);
+          wrap.unmount();
         },
       );
     });
@@ -1481,6 +1529,7 @@ describe('Renderer - React/Nodes/Table', () => {
           );
 
           checkColWidths(tableContainer, expectedScaleWidths);
+          wrap.unmount();
         },
         () => {
           const wrap = mountTable(tableNode, rendererWidth, [420, 220, 620]);
@@ -1490,6 +1539,7 @@ describe('Renderer - React/Nodes/Table', () => {
           );
 
           checkColWidths(tableContainer, expectedScaleWidths);
+          wrap.unmount();
         },
       );
     });

@@ -11,11 +11,15 @@ import {
   addLink,
   alignLeft,
   clearFormatting,
+  decreaseMediaSize,
+  increaseMediaSize,
   insertRule,
   navToEditorToolbar,
   navToFloatingToolbar,
   openHelp,
   pastePlainText,
+  quickDecreaseMediaSize,
+  quickIncreaseMediaSize,
   redo,
   setNormalText,
   toggleBlockQuote,
@@ -106,6 +110,26 @@ const messages = defineMessages({
     id: 'fabric.editor.checkUncheckActionItem',
     defaultMessage: 'Toggle action item',
     description: 'For Check/Uncheck Action item use shortcut',
+  },
+  increaseMediaSize: {
+    id: 'fabric.editor.increaseMediaSize',
+    defaultMessage: 'Increase media size',
+    description: 'For increase media size use shortcut',
+  },
+  decreaseMediaSize: {
+    id: 'fabric.editor.decreaseMediaSize',
+    defaultMessage: 'Decrease media size',
+    description: 'For decrease media size use shortcut',
+  },
+  quickIncreaseMediaSize: {
+    id: 'fabric.editor.quickIncreaseMediaSize',
+    defaultMessage: 'Increase media by 10px',
+    description: 'For increase media size by 10 pixels use shortcut',
+  },
+  quickDecreaseMediaSize: {
+    id: 'fabric.editor.quickDecreaseMediaSize',
+    defaultMessage: 'Decrease media by 10px',
+    description: 'For decrease media size by 10 pixels use shortcut',
   },
   altText: {
     id: 'fabric.editor.altText',
@@ -428,6 +452,26 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
     type: 'checkbox',
     keymap: () => toggleTaskItemCheckbox,
   },
+  {
+    name: formatMessage(messages.increaseMediaSize),
+    type: 'media',
+    keymap: () => increaseMediaSize,
+  },
+  {
+    name: formatMessage(messages.decreaseMediaSize),
+    type: 'media',
+    keymap: () => decreaseMediaSize,
+  },
+  {
+    name: formatMessage(messages.quickIncreaseMediaSize),
+    type: 'media',
+    keymap: () => quickIncreaseMediaSize,
+  },
+  {
+    name: formatMessage(messages.quickDecreaseMediaSize),
+    type: 'media',
+    keymap: () => quickDecreaseMediaSize,
+  },
 ];
 
 const imageAutoFormat: Format = {
@@ -513,6 +557,18 @@ export const getComponentFromKeymap = (keymap: Keymap) => {
           return (
             <span css={codeSm} key={`${keyParts}-${index}`}>
               {'⏎'}
+            </span>
+          );
+        } else if (part === 'ArrowRight') {
+          return (
+            <span css={codeSm} key={`${keyParts}-${index}`}>
+              →
+            </span>
+          );
+        } else if (part === 'ArrowLeft') {
+          return (
+            <span css={codeSm} key={`${keyParts}-${index}`}>
+              ←
             </span>
           );
         }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@atlaskit/link-test-helpers/jest';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
 
@@ -116,7 +117,7 @@ describe('Renderer - React/Nodes/BlockCard', () => {
         {
           type: 'table',
           properties: {
-            columns: [{ key: 'column-1' }, { key: 'column-2' }],
+            columns: [{ key: 'column-1' }, { key: 'column-2', width: 42 }],
           },
         },
       ],
@@ -133,19 +134,60 @@ describe('Renderer - React/Nodes/BlockCard', () => {
         </Provider>,
       );
       expect(node.find(Card).length).toBe(0);
-      expect(node.find(DatasourceTableView).length).toBe(1);
 
-      expect(node.find(DatasourceTableView).prop('datasourceId')).toEqual(
-        'mock-datasource-id',
-      );
-      expect(node.find(DatasourceTableView).prop('parameters')).toEqual({
-        cloudId: 'mock-cloud-id',
-        jql: 'JQL=MOCK',
+      const tableView = node.find(DatasourceTableView);
+      expect(tableView.length).toBe(1);
+      expect(tableView.props()).toEqual({
+        onVisibleColumnKeysChange: undefined,
+        onColumnResize: undefined,
+        url: 'https://extranet.atlassian.com/pages/viewpage.action?pageId=3088533424',
+        datasourceId: 'mock-datasource-id',
+        parameters: {
+          cloudId: 'mock-cloud-id',
+          jql: 'JQL=MOCK',
+        },
+        visibleColumnKeys: ['column-1', 'column-2'],
+        columnCustomSizes: {
+          'column-2': 42,
+        },
       });
-      expect(node.find(DatasourceTableView).prop('visibleColumnKeys')).toEqual([
-        'column-1',
-        'column-2',
-      ]);
+    });
+
+    it('should render a DatasourceTableView with undefined custom column sizes when none are defined in views', () => {
+      const datasourceAttributePropertiesNoCustomSizes: DatasourceAttributeProperties =
+        {
+          id: 'mock-datasource-id',
+          parameters: {
+            cloudId: 'mock-cloud-id',
+            jql: 'JQL=MOCK',
+          },
+          views: [
+            {
+              type: 'table',
+              properties: {
+                columns: [{ key: 'column-1' }, { key: 'column-2' }],
+              },
+            },
+          ],
+        };
+
+      node = mount(
+        <Provider client={new Client('staging')}>
+          <IntlProvider locale="en">
+            <BlockCard
+              url={url}
+              datasource={datasourceAttributePropertiesNoCustomSizes}
+              smartLinks={{ showServerActions: true }}
+            />
+          </IntlProvider>
+        </Provider>,
+      );
+
+      expect(node.find(Card).length).toBe(0);
+
+      const tableView = node.find(DatasourceTableView);
+      expect(tableView.length).toBe(1);
+      expect(tableView.prop('columnCustomSizes')).toBeUndefined();
     });
 
     it('should render inlineCard if jira issue datasource is provided with JQL but NOT a table view', () => {
@@ -161,11 +203,13 @@ describe('Renderer - React/Nodes/BlockCard', () => {
 
       node = mount(
         <Provider client={new Client('staging')}>
-          <BlockCard
-            url={url}
-            datasource={notRenderableDatasource}
-            smartLinks={{ showServerActions: true }}
-          />
+          <IntlProvider locale="en">
+            <BlockCard
+              url={url}
+              datasource={notRenderableDatasource}
+              smartLinks={{ showServerActions: true }}
+            />
+          </IntlProvider>
         </Provider>,
       );
 
@@ -192,16 +236,18 @@ describe('Renderer - React/Nodes/BlockCard', () => {
               </IntlProvider>
             </Provider>,
           );
-          expect(node.find(DatasourceTableView).prop('datasourceId')).toEqual(
+          const tableView = node.find(DatasourceTableView);
+          expect(tableView.prop('datasourceId')).toEqual(
             'd8b75300-dfda-4519-b6cd-e49abbd50401',
           );
-          expect(node.find(DatasourceTableView).prop('parameters')).toEqual({
+          expect(tableView.prop('parameters')).toEqual({
             cloudId: 'mock-cloud-id',
             jql: 'JQL=MOCK',
           });
-          expect(
-            node.find(DatasourceTableView).prop('visibleColumnKeys'),
-          ).toEqual(['column-1', 'column-2']);
+          expect(tableView.prop('visibleColumnKeys')).toEqual([
+            'column-1',
+            'column-2',
+          ]);
         },
         () => {
           node = mount(

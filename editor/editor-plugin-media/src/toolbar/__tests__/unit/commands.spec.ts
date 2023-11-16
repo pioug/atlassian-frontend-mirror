@@ -438,10 +438,12 @@ describe('commands', () => {
 
       const { state, dispatch } = editorView;
 
-      updateMediaSingleWidth(mockEditorAnalyticsAPI)(800, 'valid', 'center')(
-        state,
-        dispatch,
-      );
+      updateMediaSingleWidth(mockEditorAnalyticsAPI)(
+        800,
+        'valid',
+        'floatingToolBar',
+        'center',
+      )(state, dispatch);
 
       expect(editorView.state).toEqualDocumentAndSelection(
         doc(
@@ -457,10 +459,12 @@ describe('commands', () => {
 
       const { state, dispatch } = editorView;
 
-      updateMediaSingleWidth(mockEditorAnalyticsAPI)(1000, 'valid', 'center')(
-        state,
-        dispatch,
-      );
+      updateMediaSingleWidth(mockEditorAnalyticsAPI)(
+        1000,
+        'valid',
+        'floatingToolBar',
+        'center',
+      )(state, dispatch);
 
       expect(attachAnalyticsEvent).toBeCalled();
       expect(attachAnalyticsEvent).toHaveBeenCalledWith({

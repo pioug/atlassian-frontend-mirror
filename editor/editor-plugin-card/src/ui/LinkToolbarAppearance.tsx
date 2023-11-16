@@ -63,7 +63,7 @@ export class LinkToolbarAppearance extends React.Component<
       platform,
       editorAnalyticsApi,
       cardActions,
-      showUpgradeDiscoverability = false,
+      showUpgradeDiscoverability = true,
     } = this.props;
     const preview =
       allowEmbeds &&
@@ -176,7 +176,7 @@ export class LinkToolbarAppearance extends React.Component<
 
     const LinkToolbarButtons = (
       <LinkToolbarButtonGroup
-        key={LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR}
+        key="link-toolbar-button-group"
         options={options.map(option =>
           getButtonGroupOption(intl, dispatchCommand, {
             ...option,
@@ -199,12 +199,9 @@ export class LinkToolbarAppearance extends React.Component<
       )
     ) {
       return (
-        // This div is necessary because the toolbar uses :first-child to add margins and can't add margins to the pulse element
-        <div>
-          <DiscoveryPulse localStorageKey="toolbar-upgrade-pulse">
-            {LinkToolbarButtons}
-          </DiscoveryPulse>
-        </div>
+        <DiscoveryPulse localStorageKey={LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR}>
+          {LinkToolbarButtons}
+        </DiscoveryPulse>
       );
     }
 

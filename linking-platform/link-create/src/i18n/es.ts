@@ -10,7 +10,12 @@ export default {
   'link-create.unknown-error.description':
     'Actualiza la página o ponte en contacto con el <a>soporte de Atlassian</a> si sigue ocurriendo.',
   'link-create.unknown-error.heading': 'Se ha producido un error',
+  'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Volver',
+  'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Descartar',
+  'linkCreate.confirm-dismiss-dialog.modal.description': 'No podremos guardar tu información si sales de esta página.',
+  'linkCreate.confirm-dismiss-dialog.modal.title': 'Tus cambios no se guardarán',
   'linkCreate.createForm.button.close': 'Cerrar',
   'linkCreate.createForm.button.create': 'Crear',
+  'linkCreate.createForm.button.edit': 'Editar',
   'linkCreate.modal.heading': 'Crear nuevo',
 };

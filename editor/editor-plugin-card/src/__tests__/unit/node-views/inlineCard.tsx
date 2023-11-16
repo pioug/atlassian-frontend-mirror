@@ -34,6 +34,11 @@ import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { Card } from '@atlaskit/smart-card';
 
 import * as useLinkUpgradeDiscoverabilityHook from '../../../common/hooks/useLinkUpgradeDiscoverability';
+import {
+  LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR,
+  markLocalStorageKeyDiscovered,
+} from '../../../common/local-storage';
+import type { SmartCardProps } from '../../../nodeviews/genericCard';
 import { InlineCardComponent } from '../../../nodeviews/inlineCard';
 import { InlineCardWithAwareness } from '../../../nodeviews/inlineCardWithAwareness';
 import { createCardContext } from '../_helpers';
@@ -335,7 +340,7 @@ describe('inlineCard', () => {
       defaultSchema,
     );
 
-    const setup = () =>
+    const setup = (overrideProps: Partial<SmartCardProps> = {}) =>
       render(
         <InlineCardWithAwareness
           node={mockInlinePmNode}
@@ -344,6 +349,7 @@ describe('inlineCard', () => {
           cardContext={createCardContext()}
           useAlternativePreloader={false}
           isPulseEnabled={true}
+          {...overrideProps}
         />,
         { wrapper: TestWrapper },
       );
@@ -414,6 +420,104 @@ describe('inlineCard', () => {
           expires: expect.any(Number),
         });
       });
+
+      it('should invalidate the local storage key when the link is selected & shouldShowToolbarPulse is true & toolbar local storage key is not discovered', () => {
+        jest
+          .spyOn(useLinkUpgradeDiscoverabilityHook, 'default')
+          .mockReturnValue({
+            shouldShowLinkPulse: false,
+            shouldShowLinkOverlay: true,
+            shouldShowToolbarPulse: true,
+          });
+
+        expect(
+          localStorage.getItem(
+            '@atlaskit/editor-plugin-card_smart-link-upgrade-pulse',
+          ),
+        ).toBe(null);
+
+        const { getByTestId } = setup({ isSelected: true });
+
+        const cardElement = getByTestId('mockSmartCard');
+        expect(cardElement).toBeInTheDocument();
+
+        const localStorageValue = localStorage.getItem(
+          '@atlaskit/editor-plugin-card_smart-link-upgrade-pulse',
+        );
+        expect(localStorage).toBeDefined();
+
+        expect(JSON.parse(localStorageValue || '')).toMatchObject({
+          value: 'discovered',
+        });
+      });
+
+      it('should not invalidate the local storage key without expiration when the link is selected but shouldShowToolbarPulse is false', () => {
+        jest
+          .spyOn(useLinkUpgradeDiscoverabilityHook, 'default')
+          .mockReturnValue({
+            shouldShowLinkPulse: false,
+            shouldShowLinkOverlay: true,
+            shouldShowToolbarPulse: false,
+          });
+
+        const { getByTestId } = setup({ isSelected: true });
+
+        const cardElement = getByTestId('mockSmartCard');
+        expect(cardElement).toBeInTheDocument();
+
+        expect(
+          localStorage.getItem(
+            '@atlaskit/editor-plugin-card_smart-link-upgrade-pulse',
+          ),
+        ).toBe(null);
+      });
+
+      it('should not invalidate the local storage key without expiration when the link is selected but toolbar local storage key is discovered', () => {
+        jest
+          .spyOn(useLinkUpgradeDiscoverabilityHook, 'default')
+          .mockReturnValue({
+            shouldShowLinkPulse: false,
+            shouldShowLinkOverlay: true,
+            shouldShowToolbarPulse: true,
+          });
+
+        markLocalStorageKeyDiscovered(LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR);
+
+        const { getByTestId } = setup({ isSelected: true });
+
+        const cardElement = getByTestId('mockSmartCard');
+        expect(cardElement).toBeInTheDocument();
+
+        expect(
+          localStorage.getItem(
+            '@atlaskit/editor-plugin-card_smart-link-upgrade-pulse',
+          ),
+        ).toBe(null);
+      });
+
+      it.each([undefined, false])(
+        'should not invalidate the local storage key when the isSelected is %s',
+        isSelected => {
+          jest
+            .spyOn(useLinkUpgradeDiscoverabilityHook, 'default')
+            .mockReturnValue({
+              shouldShowLinkPulse: false,
+              shouldShowLinkOverlay: true,
+              shouldShowToolbarPulse: true,
+            });
+
+          const { getByTestId } = setup({ isSelected });
+
+          const cardElement = getByTestId('mockSmartCard');
+          expect(cardElement).toBeInTheDocument();
+
+          expect(
+            localStorage.getItem(
+              '@atlaskit/editor-plugin-card_smart-link-upgrade-pulse',
+            ),
+          ).toBe(null);
+        },
+      );
     });
 
     describe('isOverlayEnabled', () => {

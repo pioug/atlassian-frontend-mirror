@@ -93,6 +93,14 @@ export default function BlockCard(props: {
         ({ key }) => key,
       );
 
+      const columnCustomSizesEntries = tableView.properties?.columns
+        .filter((c): c is { key: string; width: number } => !!c.width)
+        .map<[string, number]>(({ key, width }) => [key, width]);
+
+      const columnCustomSizes = columnCustomSizesEntries?.length
+        ? Object.fromEntries<number>(columnCustomSizesEntries)
+        : undefined;
+
       const { datasource, layout } = props;
 
       return (
@@ -111,7 +119,7 @@ export default function BlockCard(props: {
                     datasourceId={datasource.id}
                     parameters={datasource.parameters}
                     visibleColumnKeys={visibleColumnKeys}
-                    onVisibleColumnKeysChange={undefined}
+                    columnCustomSizes={columnCustomSizes}
                     url={url}
                   />
                 </div>

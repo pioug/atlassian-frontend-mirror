@@ -4,7 +4,6 @@ import {
   Fragment,
   ReactNode,
   useCallback,
-  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -13,7 +12,6 @@ import { css, jsx } from '@emotion/react';
 
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
-import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import { TabListContext, TabPanelContext } from '../internal/context';
 import { getTabsStyles } from '../internal/styles';
@@ -28,6 +26,9 @@ const baseStyles = css({
   flexDirection: 'column',
   flexGrow: 1,
 });
+
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+const tabsStyles = getTabsStyles();
 
 const analyticsAttributes = {
   componentName: 'tabs',
@@ -83,8 +84,6 @@ const Tabs = (props: TabsProps) => {
     children,
     testId,
   } = props;
-  const { mode } = useGlobalTheme();
-
   const [selectedState, setSelected] = useState(
     SelectedType || defaultSelected || 0,
   );
@@ -135,8 +134,6 @@ const Tabs = (props: TabsProps) => {
           tabsId: id,
         }),
       );
-
-  const tabsStyles = useMemo(() => getTabsStyles(mode), [mode]);
 
   return (
     // Only styles that affect the Tabs container itself have been applied via primitives.

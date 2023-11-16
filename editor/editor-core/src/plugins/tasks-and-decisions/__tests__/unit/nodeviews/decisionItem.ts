@@ -12,7 +12,7 @@ import {
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 
-import { decisionItemNodeView } from '../../../../../plugins/tasks-and-decisions/nodeviews/decisionItem';
+import { decisionItemNodeView } from '../../../nodeviews/decisionItem';
 
 describe('Decision Item - NodeView', () => {
   const createEditor = createEditorFactory();

@@ -10,7 +10,13 @@ export default {
   'link-create.unknown-error.description':
     'Vernieuw de pagina of neem contact op met <a>Atlassian-support</a> als dit blijft gebeuren.',
   'link-create.unknown-error.heading': 'Er is iets misgegaan',
+  'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Teruggaan',
+  'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Wissen',
+  'linkCreate.confirm-dismiss-dialog.modal.description':
+    'We kunnen je gegevens niet opslaan als je deze pagina verlaat.',
+  'linkCreate.confirm-dismiss-dialog.modal.title': 'Je wijzigingen worden niet opgeslagen',
   'linkCreate.createForm.button.close': 'Sluiten',
   'linkCreate.createForm.button.create': 'Aanmaken',
+  'linkCreate.createForm.button.edit': 'Bewerken',
   'linkCreate.modal.heading': 'Nieuwe aanmaken',
 };

@@ -337,7 +337,9 @@ function createProviders(
   }
 
   if (withConfluenceMacrosExtensionProvider) {
-    providers.extensionProviders = [getConfluenceMacrosExtensionProvider()];
+    providers.extensionProviders = [
+      getConfluenceMacrosExtensionProvider(undefined),
+    ];
   }
 
   return providers;

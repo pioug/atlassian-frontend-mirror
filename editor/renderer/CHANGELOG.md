@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 108.15.24
+
+### Patch Changes
+
+- [#43379](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43379) [`482c025520d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/482c025520d) - ED-20763 Upgrade ADF schema version to 33.2.3 for MBE nodes.
+- Updated dependencies
+
+## 108.15.23
+
+### Patch Changes
+
+- [#43122](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43122) [`55046644e33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55046644e33) - Support datasources table custom column sizes
+
 ## 108.15.22
 
 ### Patch Changes

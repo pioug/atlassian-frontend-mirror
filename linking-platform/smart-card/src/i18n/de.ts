@@ -7,6 +7,8 @@
  */
 //German (Germany)
 export default {
+  'fabric.linking.access_exists_description':
+    'Bitten Sie Ihren Administrator um Zugriffsrechte für die Anzeige dieses Inhalts von {hostname}.',
   'fabric.linking.actions': 'Aktionen',
   'fabric.linking.add_account': 'Account hinzufügen',
   'fabric.linking.assigned_to': 'Zugewiesen an {context}',
@@ -37,18 +39,25 @@ export default {
   'fabric.linking.create_on_relative': 'Erstellt: {context}',
   'fabric.linking.created_by': 'Erstellt von {context}',
   'fabric.linking.delete': 'Löschen',
+  'fabric.linking.direct_access_crossjoin': 'Jetzt beitreten',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Ihr Team nutzt {product} bereits zur Zusammenarbeit und kann gleich loslegen!',
+  'fabric.linking.direct_access_title_crossjoin': 'Treten Sie {product} bei, um diesen Inhalt anzuzeigen',
   'fabric.linking.download': 'Herunterladen',
   'fabric.linking.edit': 'Bearbeiten',
   'fabric.linking.follow': 'Folgen',
   'fabric.linking.forbidden_access': 'Sie sind nicht zugriffsberechtigt',
   'fabric.linking.forbidden_description':
     'Sie haben keinen Zugriff auf diese Vorschau. Wenden Sie sich an Ihren Administrator, falls Sie noch Zugriff benötigen.',
+  'fabric.linking.forbidden_description_crossjoin': 'Bitten Sie Ihren Administrator um Zugriffsrechte für {hostname}.',
   'fabric.linking.forbidden_title_crossjoin': 'Sie haben keinen Zugriff auf diesen Inhalt',
+  'fabric.linking.generic_error_message': 'Ein Fehler ist aufgetreten',
   'fabric.linking.go_back': 'Zurück',
   'fabric.linking.invalid_permissions': 'Inhalt mit Beschränkungen',
   'fabric.linking.invalid_permissions_description':
     'Bitte senden Sie eine Zugriffsanfrage oder versuchen Sie, die Vorschau über ein anderes Konto anzusehen.',
   'fabric.linking.join_to_view': '{context} beitreten, um diesen Vorgang anzuzeigen',
+  'fabric.linking.last_mentioned_in': 'Zuletzt erwähnt in',
   'fabric.linking.learn_more_about_smart_links': 'Mehr über intelligente Links erfahren',
   'fabric.linking.link_safety_warning_message':
     'Über den Link {unsafeLinkText} gelangen Sie zu einer anderen Site, <a>actual link here</a>',
@@ -56,6 +65,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Aktualisiert am: {context}',
   'fabric.linking.modified_on_relative': 'Aktualisiert: {context}',
   'fabric.linking.more_actions': 'Weitere Aktionen',
+  'fabric.linking.no_access_title_crossjoin': 'Treten Sie {product} bei, um diesen Inhalt anzuzeigen',
   'fabric.linking.not_found_description':
     'Der Link konnte nicht gefunden werden. Überprüfen Sie die URL und versuchen Sie die Bearbeitung oder das Einfügen erneut.',
   'fabric.linking.not_found_description_crossjoin':
@@ -82,10 +92,14 @@ export default {
   'fabric.linking.priority_trivial': 'Unwesentlich',
   'fabric.linking.priority_undefined': 'Nicht definiert',
   'fabric.linking.read_time': 'Lesedauer: {context} Min.',
+  'fabric.linking.related': 'Zugehörig',
+  'fabric.linking.related_work_items_not_found': 'Dieser Link wird nirgendwo sonst erwähnt.',
   'fabric.linking.request_access': 'Zugriff anfordern',
   'fabric.linking.request_access_crossjoin': 'Zugriff anfordern',
   'fabric.linking.request_access_description':
     'Sie müssen Zugriff auf {context} anfordern, um diese Vorschau anzeigen zu können.',
+  'fabric.linking.request_access_description_crossjoin':
+    'Ihr Team verwendet {product} zur Zusammenarbeit. Senden Sie Ihrem Administrator eine Zugriffsanfrage.',
   'fabric.linking.request_access_pending': 'Zugriff ausstehend',
   'fabric.linking.request_access_pending_crossjoin': 'Genehmigung ausstehend',
   'fabric.linking.request_access_pending_description': 'Ihre Zugriffsanfrage ist ausstehend.',

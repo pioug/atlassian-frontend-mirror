@@ -10,7 +10,13 @@ export default {
   'link-create.unknown-error.description':
     'Refresh the page, or contact <a>Atlassian Support</a> if this keeps happening.',
   'link-create.unknown-error.heading': 'Something went wrong',
+  'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Go back',
+  'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Discard',
+  'linkCreate.confirm-dismiss-dialog.modal.description':
+    'We won’t be able to save your information if you move away from this page.',
+  'linkCreate.confirm-dismiss-dialog.modal.title': 'Your changes won’t be saved',
   'linkCreate.createForm.button.close': 'Close',
   'linkCreate.createForm.button.create': 'Create',
+  'linkCreate.createForm.button.edit': 'Edit',
   'linkCreate.modal.heading': 'Create new',
 };

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import type {
   FeatureFlags,
   NextEditorPlugin,
@@ -11,11 +11,9 @@ import { getIndentationButtonsState } from './pm-plugins/indentation-buttons';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
-import type { IndentationButtons } from './pm-plugins/indentation-buttons';
 import type { ToolbarUiComponentFactoryParams } from '../../types';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { pluginKey as indentationButtonPluginKey } from './pm-plugins/indentation-buttons';
-import type { IndentationPlugin } from '../indentation';
+import type { IndentationPlugin } from '@atlaskit/editor-plugin-indentation';
 import type { TaskAndDecisionsPlugin } from '../tasks-and-decisions/types';
 
 type Config = {
@@ -34,7 +32,6 @@ type ToolbarListsIndentationPlugin = NextEditorPlugin<
       OptionalPlugin<TaskAndDecisionsPlugin>,
       OptionalPlugin<AnalyticsPlugin>,
     ];
-    sharedState: IndentationButtons | undefined;
   }
 >;
 
@@ -50,13 +47,6 @@ const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({
 
   return {
     name: 'toolbarListsIndentation',
-
-    getSharedState(editorState) {
-      if (!editorState) {
-        return undefined;
-      }
-      return indentationButtonPluginKey.getState(editorState);
-    },
 
     primaryToolbarComponent({
       editorView,
@@ -128,21 +118,13 @@ export function PrimaryToolbarComponent({
       'taskDecision',
     ]);
 
-  const toolbarListsIndentationState = useMemo(() => {
-    return getIndentationButtonsState(
-      editorView.state,
-      allowHeadingAndParagraphIndentation,
-      taskDecisionState,
-      indentationState,
-      pluginInjectionApi?.list.actions.isInsideListItem,
-    );
-  }, [
+  const toolbarListsIndentationState = getIndentationButtonsState(
     editorView.state,
     allowHeadingAndParagraphIndentation,
     taskDecisionState,
     indentationState,
     pluginInjectionApi?.list.actions.isInsideListItem,
-  ]);
+  );
 
   if (!listState) {
     return null;

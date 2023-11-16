@@ -3494,6 +3494,7 @@ describe('Card V2', () => {
 
   describe('should update when a new identifier is provided', () => {
     it('for a new file identifier', async () => {
+      global.URL.createObjectURL = () => 'create-object-url-1';
       const mockedMediaApi = createMockedMediaApi();
       const identifier = {
         mediaItemType: 'file',
@@ -3521,11 +3522,13 @@ describe('Card V2', () => {
         ).toBeInTheDocument(),
       );
 
+      expect((img as HTMLImageElement).src).toContain('create-object-url-1');
       expect(
         screen.queryByText(fileMap.workingPdfWithRemotePreview.details.name),
       ).toBeInTheDocument();
       expect(screen.queryByText('04 Aug 2023, 01:40 AM')).toBeInTheDocument();
 
+      global.URL.createObjectURL = () => 'create-object-url-2';
       const newIdentifier = {
         mediaItemType: 'file',
         id: fileMap.workingJpegWithRemotePreview.id,
@@ -3552,12 +3555,16 @@ describe('Card V2', () => {
         ).toBeInTheDocument(),
       );
 
+      expect((newImg as HTMLImageElement).src).toContain('create-object-url-2');
       expect(
         await screen.findByText(
           fileMap.workingJpegWithRemotePreview.details.name,
         ),
       ).toBeInTheDocument();
       expect(screen.queryByText('11 Jan 2017, 04:48 AM')).toBeInTheDocument();
+
+      // reset createObjectURL
+      global.URL.createObjectURL = () => 'mock result of URL.createObjectURL()';
     });
 
     it('for a new external image identifier', async () => {

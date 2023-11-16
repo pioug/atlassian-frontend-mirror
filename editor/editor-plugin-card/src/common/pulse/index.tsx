@@ -64,5 +64,3 @@ export const DiscoveryPulse = ({
 
   return <Pulse {...pulseProps}>{children}</Pulse>;
 };
-
-export default Pulse;

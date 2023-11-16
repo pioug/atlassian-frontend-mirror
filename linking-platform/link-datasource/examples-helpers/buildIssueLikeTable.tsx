@@ -22,6 +22,7 @@ mockDatasourceFetchRequests();
 
 interface Props {
   isReadonly?: boolean;
+  canResizeColumns?: boolean;
 }
 
 const TableViewWrapper = styled.div`
@@ -32,7 +33,7 @@ const TableViewWrapper = styled.div`
   height: 100%;
 `;
 
-const ExampleBody = ({ isReadonly }: Props) => {
+const ExampleBody = ({ isReadonly, canResizeColumns = true }: Props) => {
   const parameters = useMemo<JiraIssueDatasourceParameters>(
     () => ({
       cloudId: 'some-cloud-id',
@@ -90,7 +91,9 @@ const ExampleBody = ({ isReadonly }: Props) => {
           onVisibleColumnKeysChange={
             isReadonly ? undefined : setVisibleColumnKeys
           }
-          onColumnResize={isReadonly ? undefined : onColumnResize}
+          onColumnResize={
+            isReadonly || !canResizeColumns ? undefined : onColumnResize
+          }
           columnCustomSizes={columnCustomSizes}
         />
       ) : (
@@ -100,11 +103,17 @@ const ExampleBody = ({ isReadonly }: Props) => {
   );
 };
 
-export const ExampleIssueLikeTable = ({ isReadonly }: Props) => {
+export const ExampleIssueLikeTable = ({
+  isReadonly,
+  canResizeColumns,
+}: Props) => {
   return (
     <IntlProvider locale="en">
       <SmartCardProvider client={new SmartLinkClient()}>
-        <ExampleBody isReadonly={isReadonly} />
+        <ExampleBody
+          isReadonly={isReadonly}
+          canResizeColumns={canResizeColumns}
+        />
       </SmartCardProvider>
     </IntlProvider>
   );

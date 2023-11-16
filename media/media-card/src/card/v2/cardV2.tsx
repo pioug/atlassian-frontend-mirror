@@ -26,9 +26,13 @@ export const CardV2Base = ({
   ...otherProps
 }: CardV2BaseProps & WrappedComponentProps) => {
   const innerContent = isFileIdentifier(identifier) ? (
-    <FileCard {...otherProps} identifier={identifier} />
+    <FileCard {...otherProps} identifier={identifier} key={identifier.id} />
   ) : (
-    <ExternalImageCard {...otherProps} identifier={identifier} />
+    <ExternalImageCard
+      {...otherProps}
+      identifier={identifier}
+      key={identifier.dataURI}
+    />
   );
   return otherProps.intl ? (
     innerContent

@@ -7,6 +7,7 @@
  */
 //Russian
 export default {
+  'fabric.linking.access_exists_description': 'Запросите доступ для просмотра контента на сайте {hostname}.',
   'fabric.linking.actions': 'Действия',
   'fabric.linking.add_account': 'Добавить аккаунт',
   'fabric.linking.assigned_to': 'Назначено пользователю {context}',
@@ -38,18 +39,25 @@ export default {
   'fabric.linking.create_on_relative': 'Создано: {context}',
   'fabric.linking.created_by': 'Создано: {context}',
   'fabric.linking.delete': 'Удалить',
+  'fabric.linking.direct_access_crossjoin': 'Присоединиться',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Ваша команда использует {product} для совместной работы, и вы можете начать использовать этот продукт прямо сейчас!',
+  'fabric.linking.direct_access_title_crossjoin': 'Присоединитесь к {product}, чтобы просмотреть контент',
   'fabric.linking.download': 'Скачать',
   'fabric.linking.edit': 'Изменить',
   'fabric.linking.follow': 'Подписаться',
   'fabric.linking.forbidden_access': 'Доступ запрещен',
   'fabric.linking.forbidden_description':
     'У вас нет доступа к предварительному просмотру. Если вам требуется доступ, обратитесь к администратору сайта.',
+  'fabric.linking.forbidden_description_crossjoin': 'Запросите у администратора доступ к сайту {hostname}.',
   'fabric.linking.forbidden_title_crossjoin': 'У вас нет доступа к этому контенту',
+  'fabric.linking.generic_error_message': 'Произошла ошибка',
   'fabric.linking.go_back': 'Вернуться назад',
   'fabric.linking.invalid_permissions': 'Контент с ограниченным доступом',
   'fabric.linking.invalid_permissions_description':
     'Для предварительного просмотра этого элемента запросите право доступа или попробуйте воспользоваться другим аккаунтом.',
   'fabric.linking.join_to_view': 'Для просмотра этой задачи выполните подключение к {context}',
+  'fabric.linking.last_mentioned_in': 'Последнее упоминание',
   'fabric.linking.learn_more_about_smart_links': 'Подробнее об интеллектуальных ссылках.',
   'fabric.linking.link_safety_warning_message':
     'При переходе по ссылке {unsafeLinkText} вы попадете на другой сайт, <a>actual link here</a>',
@@ -57,6 +65,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Обновлено {context}',
   'fabric.linking.modified_on_relative': 'Обновлено: {context}',
   'fabric.linking.more_actions': 'Другие действия',
+  'fabric.linking.no_access_title_crossjoin': 'Присоединитесь к {product}, чтобы просмотреть контент',
   'fabric.linking.not_found_description':
     'Не удалось найти ссылку. Проверьте URL-адрес и попробуйте изменить или вставить еще раз.',
   'fabric.linking.not_found_description_crossjoin': 'Страница не существует или была изменена после добавления ссылки.',
@@ -82,9 +91,13 @@ export default {
   'fabric.linking.priority_trivial': 'Тривиальный',
   'fabric.linking.priority_undefined': 'Не определен',
   'fabric.linking.read_time': 'Время чтения: {context} мин.',
+  'fabric.linking.related': 'Связанное',
+  'fabric.linking.related_work_items_not_found': 'Эта ссылка больше нигде не упоминается.',
   'fabric.linking.request_access': 'Запросить доступ',
   'fabric.linking.request_access_crossjoin': 'Запросить доступ',
   'fabric.linking.request_access_description': 'Запросите доступ к продукту {context} для предварительного просмотра.',
+  'fabric.linking.request_access_description_crossjoin':
+    'Ваша команда использует {product} для совместной работы. Запросите у администратора доступ.',
   'fabric.linking.request_access_pending': 'Ожидается предоставление доступа',
   'fabric.linking.request_access_pending_crossjoin': 'В ожидании подтверждения',
   'fabric.linking.request_access_pending_description': 'Ваш запрос на доступ ожидает рассмотрения.',

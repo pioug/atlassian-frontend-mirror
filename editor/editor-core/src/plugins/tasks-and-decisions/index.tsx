@@ -16,9 +16,16 @@ import { toolbarInsertBlockMessages as insertBlockMessages } from '@atlaskit/edi
 import { IconAction, IconDecision } from '@atlaskit/editor-common/quick-insert';
 
 import { stateKey as taskPluginKey } from './pm-plugins/plugin-key';
-import { insertTaskDecisionAction, getListTypes } from './commands';
+import {
+  insertTaskDecisionAction,
+  getListTypes,
+  insertTaskDecisionCommand,
+} from './commands';
 import inputRulePlugin from './pm-plugins/input-rules';
-import keymap from './pm-plugins/keymaps';
+import keymap, {
+  getIndentCommand,
+  getUnindentCommand,
+} from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
 import type { TaskAndDecisionsPlugin, TaskDecisionListType } from './types';
 import ToolbarDecision from './ui/ToolbarDecision';
@@ -90,6 +97,12 @@ const tasksAndDecisionsPlugin: TaskAndDecisionsPlugin = ({
       indentDisabled: itemIndex === 0 || indentLevel >= MAX_INDENTATION_LEVEL,
       outdentDisabled: indentLevel <= 1,
     };
+  },
+
+  actions: {
+    insertTaskDecision: insertTaskDecisionCommand(api?.analytics?.actions),
+    indentTaskList: getIndentCommand(api?.analytics?.actions),
+    outdentTaskList: getUnindentCommand(api?.analytics?.actions),
   },
 
   pmPlugins() {

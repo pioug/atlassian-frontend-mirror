@@ -7,6 +7,7 @@
  */
 //Dutch (Netherlands)
 export default {
+  'fabric.linking.access_exists_description': 'Vraag toegang aan om deze inhoud van {hostname} te bekijken.',
   'fabric.linking.actions': 'Acties',
   'fabric.linking.add_account': 'Account toevoegen',
   'fabric.linking.assigned_to': 'Toegewezen aan {context}',
@@ -37,18 +38,26 @@ export default {
   'fabric.linking.create_on_relative': 'Aangemaakt: {context}',
   'fabric.linking.created_by': 'Aangemaakt door {context}',
   'fabric.linking.delete': 'Verwijderen',
+  'fabric.linking.direct_access_crossjoin': 'Nu lid worden',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Je team gebruikt {product} om samen te werken. Je kunt er meteen mee aan de slag!',
+  'fabric.linking.direct_access_title_crossjoin': 'Word lid van {product} om deze inhoud te bekijken',
   'fabric.linking.download': 'Downloaden',
   'fabric.linking.edit': 'Bewerken',
   'fabric.linking.follow': 'Volgen',
   'fabric.linking.forbidden_access': 'Je hebt geen toegang',
   'fabric.linking.forbidden_description':
     'Je hebt geen toegang tot deze voorvertoning. Neem contact op met de sitebeheerder als je toegang nodig hebt.',
+  'fabric.linking.forbidden_description_crossjoin':
+    'Neem contact op met je beheerder om toegang aan te vragen tot {hostname}.',
   'fabric.linking.forbidden_title_crossjoin': 'Je hebt geen toegang tot deze inhoud',
+  'fabric.linking.generic_error_message': 'Er is een fout opgetreden',
   'fabric.linking.go_back': 'Teruggaan',
   'fabric.linking.invalid_permissions': 'Beperkte toegang',
   'fabric.linking.invalid_permissions_description':
     'Je moet om toegang vragen of een ander account proberen om deze voorvertoning te bekijken.',
   'fabric.linking.join_to_view': 'Word lid van {context} om deze issue te bekijken',
+  'fabric.linking.last_mentioned_in': 'Laatst vermeld in',
   'fabric.linking.learn_more_about_smart_links': 'Meer informatie over Smart Links.',
   'fabric.linking.link_safety_warning_message':
     'De link {unsafeLinkText} is gekoppeld aan een andere site, gebruik <a>actual link here</a>',
@@ -56,6 +65,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Bijgewerkt op {context}',
   'fabric.linking.modified_on_relative': 'Bijgewerkt: {context}',
   'fabric.linking.more_actions': 'Meer acties',
+  'fabric.linking.no_access_title_crossjoin': 'Word lid van {product} om deze inhoud te bekijken',
   'fabric.linking.not_found_description':
     'We konden de link niet vinden. Controleer de URL en probeer nogmaals te bewerken of plakken.',
   'fabric.linking.not_found_description_crossjoin':
@@ -82,9 +92,13 @@ export default {
   'fabric.linking.priority_trivial': 'Triviaal',
   'fabric.linking.priority_undefined': 'Niet gedefinieerd',
   'fabric.linking.read_time': '{context} min. leestijd',
+  'fabric.linking.related': 'Gerelateerd',
+  'fabric.linking.related_work_items_not_found': 'Deze link wordt nergens anders vermeld.',
   'fabric.linking.request_access': 'Toegang aanvragen',
   'fabric.linking.request_access_crossjoin': 'Toegang aanvragen',
   'fabric.linking.request_access_description': 'Vraag toegang aan tot {context} om deze voorvertoning te bekijken.',
+  'fabric.linking.request_access_description_crossjoin':
+    'Je team gebruikt {product} om samen te werken. Vraag je beheerder om toestemming.',
   'fabric.linking.request_access_pending': 'Toegang wordt behandeld',
   'fabric.linking.request_access_pending_crossjoin': 'Wachten op goedkeuring',
   'fabric.linking.request_access_pending_description': 'Je toegangsaanvraag wordt behandeld.',

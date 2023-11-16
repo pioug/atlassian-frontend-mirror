@@ -311,6 +311,20 @@ events:
         reason:
           type: [ "agg", "network", "unknown" ]
           description: The reason why basic filter search dropdown shows an error UI.
+  - dropdown opened (basicSearchDropdown):
+      type: ui
+      description: Fired when the basic filter dropdown is opened
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *BasicFilterFieldTypes,
+          ]
+        selectionCount:
+          type: "number"
+          description: The number of options selected when opening the dropdown
   # Assets Events
   - aqlEditor searched:
       type: ui

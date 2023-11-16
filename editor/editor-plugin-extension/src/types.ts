@@ -64,6 +64,7 @@ export type ExtensionPlugin = NextEditorPlugin<
       OptionalPlugin<ContextPanelPlugin>,
     ];
     actions: {
+      editSelectedExtension: () => boolean;
       api: () => ExtensionAPI;
       insertMacroFromMacroBrowser: InsertMacroFromMacroBrowser;
       runMacroAutoConvert: RunMacroAutoConvert;

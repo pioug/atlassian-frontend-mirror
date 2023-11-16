@@ -220,6 +220,9 @@ export const DraggableTableHeading = ({
 
   // Handling column resizing
   useEffect(() => {
+    if (!onWidthChange) {
+      return;
+    }
     const resizeHandle = columnResizeHandleRef.current;
     invariant(resizeHandle);
     const mainHeaderCell = mainHeaderCellRef.current;
@@ -280,18 +283,20 @@ export const DraggableTableHeading = ({
       ref={mainHeaderCellRef}
       data-testid={`${id}-column-heading`}
       style={{
-        width,
         cursor: 'grab',
+        ...(onWidthChange ? { width } : { maxWidth: width }),
       }}
     >
-      <div
-        ref={columnResizeHandleRef}
-        css={[resizerStyles, state.type === 'resizing' && resizingStyles]}
-        style={{
-          height: `${dndPreviewHeight}px`,
-        }}
-        data-testid="column-resize-handle"
-      ></div>
+      {onWidthChange ? (
+        <div
+          ref={columnResizeHandleRef}
+          css={[resizerStyles, state.type === 'resizing' && resizingStyles]}
+          style={{
+            height: `${dndPreviewHeight}px`,
+          }}
+          data-testid="column-resize-handle"
+        ></div>
+      ) : null}
       <div
         ref={dropTargetRef}
         css={[

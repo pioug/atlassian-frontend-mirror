@@ -10,7 +10,13 @@ export default {
   'link-create.unknown-error.description':
     'Uppdatera sidan eller kontakta <a>Atlassians support</a> om problemet kvarstår.',
   'link-create.unknown-error.heading': 'Något gick fel',
+  'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Gå tillbaka',
+  'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Kassera',
+  'linkCreate.confirm-dismiss-dialog.modal.description':
+    'Vi kan inte spara din information om du lämnar den här sidan.',
+  'linkCreate.confirm-dismiss-dialog.modal.title': 'Dina ändringar kommer inte att sparas',
   'linkCreate.createForm.button.close': 'Stäng',
   'linkCreate.createForm.button.create': 'Skapa',
+  'linkCreate.createForm.button.edit': 'Redigera',
   'linkCreate.modal.heading': 'Skapa ny',
 };

@@ -9,7 +9,12 @@
 export default {
   'link-create.unknown-error.description': '如果此问题依然存在，请刷新页面或联系 <a>Atlassian 支持团队</a>。',
   'link-create.unknown-error.heading': '出错了',
+  'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': '返回',
+  'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': '放弃',
+  'linkCreate.confirm-dismiss-dialog.modal.description': '如果您离开此页面，我们将无法保存您的信息。',
+  'linkCreate.confirm-dismiss-dialog.modal.title': '您的更改将不会保存',
   'linkCreate.createForm.button.close': '关闭',
   'linkCreate.createForm.button.create': '创建',
+  'linkCreate.createForm.button.edit': '编辑',
   'linkCreate.modal.heading': '新建',
 };

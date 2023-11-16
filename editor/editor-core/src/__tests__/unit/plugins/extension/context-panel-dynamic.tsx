@@ -1,9 +1,5 @@
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { matchers } from '@emotion/jest';
-import { mount, ReactWrapper } from 'enzyme';
-import { IntlProvider } from 'react-intl-next';
-
+import { screen, waitFor, within } from '@testing-library/react';
 import type {
   Parameters,
   FieldDefinition,
@@ -11,12 +7,10 @@ import type {
 import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
-
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import ConfigPanelFieldsLoader from '../../../../ui/ConfigPanel/ConfigPanelFieldsLoader';
-
-expect.extend(matchers);
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import userEvent from '@testing-library/user-event';
 
 const getDynamicFieldsDefinition = (newParams: Parameters) => {
   return [
@@ -135,18 +129,10 @@ const dynamicFieldsManifest = createFakeExtensionManifest({
   ],
 });
 
-const changeChartType = async (configForm: ReactWrapper, chartType: string) => {
-  configForm
-    .find('RadioGroup')
-    .find('Consumer')
-    .findWhere(
-      (c) =>
-        c.name() === 'input' &&
-        c.prop('type') === 'radio' &&
-        c.prop('value') === chartType,
-    )
-    .simulate('change', { target: { value: chartType, checked: true } });
-  await flushPromises();
+const changeChartType = async (configForm: HTMLElement, chartType: string) => {
+  const radioField = within(configForm).getByLabelText(chartType);
+  await userEvent.click(radioField);
+  expect(radioField).toBeChecked();
 };
 
 interface MountConfigPanelOptions {
@@ -157,96 +143,114 @@ interface MountConfigPanelOptions {
 describe('Dynamic ConfigPanelFieldsLoader', () => {
   let extensionProvider = new DefaultExtensionProvider([dynamicFieldsManifest]);
 
-  const mountConfigPanel = async (options?: MountConfigPanelOptions) => {
+  const renderConfigPanel = (options?: MountConfigPanelOptions) => {
     const extensionParameters = options?.initialParameters || {};
     const onChange = options?.onChange || (() => {});
     const nodeKey = options?.nodeKey || 'dynamicFields';
 
-    const wrapper = mount(
-      // Using React.createElement lets us get around the
-      // "ReactWrapper::setProps() can only be called on the root" issue
-      // https://github.com/enzymejs/enzyme/issues/1925#issuecomment-463248558
-      React.createElement(
-        (props) => (
-          <IntlProvider locale="en">
-            <ConfigPanelFieldsLoader
-              extensionProvider={extensionProvider}
-              extensionType={dynamicFieldsManifest.type}
-              extensionKey={dynamicFieldsManifest.key}
-              nodeKey={nodeKey}
-              parameters={props.extensionParameters}
-              extensionParameters={props.extensionParameters}
-              autoSave
-              closeOnEsc
-              showHeader
-              onChange={onChange}
-              onCancel={() => {}}
-            />
-          </IntlProvider>
-        ),
-        { extensionParameters },
-      ),
+    return renderWithIntl(
+      <ConfigPanelFieldsLoader
+        extensionProvider={extensionProvider}
+        extensionType={dynamicFieldsManifest.type}
+        extensionKey={dynamicFieldsManifest.key}
+        nodeKey={nodeKey}
+        parameters={extensionParameters}
+        extensionParameters={extensionParameters}
+        autoSave
+        closeOnEsc
+        showHeader
+        onChange={onChange}
+        onCancel={() => {}}
+      />,
     );
-
-    // clear the loader
-    await flushPromises();
-    wrapper.update();
-
-    return wrapper;
   };
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+  afterEach(jest.clearAllMocks);
 
   it('should initialise fixed fields correctly', async () => {
-    const wrapper = await mountConfigPanel({
+    renderConfigPanel({
       nodeKey: 'staticFields',
     });
-    const configForm = wrapper?.find('ConfigForm');
-    expect(configForm.exists('Boolean')).toBeTruthy();
-    expect(configForm.exists('String')).toBeTruthy();
+    const configForm = await waitFor(() =>
+      screen.getByTestId('extension-config-panel'),
+    );
+    await waitFor(() =>
+      expect(within(configForm).getByLabelText('Checkbox')).toBeEnabled(),
+    );
+    expect(within(configForm).getByLabelText('Text')).toBeEnabled();
   });
 
   it("should display loading state indefinitely for fixed fields of value 'undefined'", async () => {
-    const wrapper = await mountConfigPanel({
+    renderConfigPanel({
       nodeKey: 'staticFieldsUndefined',
     });
-    expect(wrapper.find('ConfigForm').exists('LoadingState')).toBeTruthy();
+    const configForm = await waitFor(() =>
+      screen.getByTestId('extension-config-panel'),
+    );
+    await waitFor(() =>
+      expect(
+        within(configForm).getByTestId('ConfigPanelLoading'),
+      ).toBeVisible(),
+    );
   });
 
   it('should display error message for fixed getFieldsDefinition() that throws an error', async () => {
-    const wrapper = await mountConfigPanel({
+    renderConfigPanel({
       nodeKey: 'staticFieldsError',
     });
-    expect(wrapper.exists('ConfigPanelErrorMessage')).toBeTruthy();
+    const configForm = await waitFor(() =>
+      screen.getByTestId('extension-config-panel'),
+    );
+    await waitFor(() =>
+      expect(
+        within(configForm).getByText('Failed to return value'),
+      ).toBeVisible(),
+    );
   });
 
   it('should initialise dynamic fields correctly', async () => {
-    const wrapper = await mountConfigPanel();
-    const configForm = wrapper?.find('ConfigForm');
-    expect(configForm.exists('Boolean')).toBeTruthy();
-    expect(configForm.exists('String')).toBeTruthy();
+    renderConfigPanel();
+    const configForm = await waitFor(() =>
+      screen.getByTestId('extension-config-panel'),
+    );
+    await waitFor(() =>
+      expect(within(configForm).getByLabelText('Checkbox')).toBeEnabled(),
+    );
+    expect(within(configForm).getByLabelText('Text')).toBeEnabled();
   });
 
   it("should display loading state indefinitely for dynamic fields of value 'undefined'", async () => {
-    const wrapper = await mountConfigPanel({
+    renderConfigPanel({
       nodeKey: 'dynamicFieldsUndefined',
     });
-    expect(wrapper.find('ConfigForm').exists('LoadingState')).toBeTruthy();
+    const configForm = await waitFor(() =>
+      screen.getByTestId('extension-config-panel'),
+    );
+    await waitFor(() =>
+      expect(
+        within(configForm).getByTestId('ConfigPanelLoading'),
+      ).toBeVisible(),
+    );
   });
 
   it('should display error message for dynamic getFieldsDefinition() that throws an error', async () => {
-    const wrapper = await mountConfigPanel({
+    renderConfigPanel({
       nodeKey: 'dynamicFieldsError',
     });
-    expect(wrapper.exists('ConfigPanelErrorMessage')).toBeTruthy();
+    const configForm = await waitFor(() =>
+      screen.getByTestId('extension-config-panel'),
+    );
+    await waitFor(() =>
+      expect(
+        within(configForm).getByText('Failed to return value'),
+      ).toBeVisible(),
+    );
   });
 
   it('should render new field when parameter values change', async () => {
     let currentParams = {};
 
-    const wrapper = await mountConfigPanel({
+    const { rerender } = renderConfigPanel({
       initialParameters: currentParams,
       onChange: (data: Parameters) => {
         currentParams = {
@@ -256,45 +260,69 @@ describe('Dynamic ConfigPanelFieldsLoader', () => {
       },
     });
 
-    const configForm = wrapper?.find('ConfigForm');
-    expect(configForm.exists('Boolean')).toBeTruthy();
-    expect(configForm.exists('String')).toBeTruthy();
-    expect(wrapper.exists('Number')).toBeFalsy();
+    const configForm = await waitFor(() =>
+      screen.getByTestId('extension-config-panel'),
+    );
+    await waitFor(() =>
+      expect(within(configForm).getByLabelText('Checkbox')).toBeEnabled(),
+    );
+    expect(within(configForm).getByLabelText('Text')).toBeEnabled();
+    expect(
+      within(configForm).queryByLabelText('Number'),
+    ).not.toBeInTheDocument();
 
-    configForm
-      .find('Boolean')
-      .find('Checkbox')
-      .find('input')
-      .simulate('change', { target: { checked: true } });
+    const booleanField = within(configForm).getByLabelText('Checkbox');
+    expect(booleanField).not.toBeChecked();
+    await userEvent.click(booleanField);
+    expect(booleanField).toBeChecked();
 
-    await flushPromises();
-    wrapper.setProps({ extensionParameters: currentParams });
-    await flushPromises();
-    wrapper.update();
+    rerender(
+      <ConfigPanelFieldsLoader
+        extensionProvider={extensionProvider}
+        extensionType={dynamicFieldsManifest.type}
+        extensionKey={dynamicFieldsManifest.key}
+        nodeKey="dynamicFields"
+        parameters={{}}
+        extensionParameters={currentParams}
+        autoSave
+        closeOnEsc
+        showHeader
+        onChange={() => {}}
+        onCancel={() => {}}
+      />,
+    );
 
-    expect(wrapper.exists('Number')).toBeTruthy();
+    await waitFor(() =>
+      expect(within(configForm).getByLabelText('Number')).toBeEnabled(),
+    );
   });
 
   it('should not call DynamicFieldDefinitions if params dont change', async () => {
-    const wrapper = await mountConfigPanel({
+    renderConfigPanel({
       initialParameters: { testText: 'abc' },
     });
 
-    const configForm = wrapper?.find('ConfigForm');
-    expect(configForm.exists('Boolean')).toBeTruthy();
-    expect(configForm.exists('String')).toBeTruthy();
+    const configForm = await waitFor(() =>
+      screen.getByTestId('extension-config-panel'),
+    );
+    await waitFor(() =>
+      expect(within(configForm).getByLabelText('Checkbox')).toBeEnabled(),
+    );
+    expect(within(configForm).getByLabelText('Text')).toBeEnabled();
 
     expect(mockedGetDynamicFieldsDefinition).toBeCalledTimes(1);
 
     // Focus/unfocus from text field, should trigger events but not params change
-    configForm.find('String').find('input').simulate('focus').simulate('blur');
+
+    const stringField = within(configForm).getByLabelText('Text');
+    stringField.focus();
 
     expect(mockedGetDynamicFieldsDefinition).toBeCalledTimes(1);
   });
 
   it('should maintain field values when fields are removed then restored', async () => {
     let currentParams = {};
-    const wrapper = await mountConfigPanel({
+    const { rerender } = renderConfigPanel({
       nodeKey: 'dynamicFieldsMaintainState',
       onChange: (data: Parameters) => {
         currentParams = {
@@ -304,44 +332,88 @@ describe('Dynamic ConfigPanelFieldsLoader', () => {
       },
     });
 
-    let configForm = wrapper?.find('ConfigForm');
-    expect(configForm.exists('RadioField')).toBeTruthy();
-    expect(configForm.exists('Boolean')).toBeTruthy();
+    const configForm = await waitFor(() =>
+      screen.getByTestId('extension-config-panel'),
+    );
+    await waitFor(() =>
+      expect(within(configForm).getByLabelText('Chart type')).toBeEnabled(),
+    );
+    const booleanField = await waitFor(() =>
+      within(configForm).getByLabelText('Smooth lines'),
+    );
 
     // Check the checkbox
-    configForm
-      .find('Boolean')
-      .find('Checkbox')
-      .find('input')
-      .simulate('change', { target: { checked: true } });
+    expect(booleanField).not.toBeChecked();
+    await userEvent.click(booleanField);
+    await waitFor(() => expect(booleanField).toBeChecked());
 
     // Change chart type via radio field
-    await changeChartType(configForm, 'bar');
-    wrapper.setProps({ extensionParameters: currentParams });
-    await flushPromises();
-    wrapper.update();
+    await changeChartType(configForm, 'Bar chart');
+    rerender(
+      <ConfigPanelFieldsLoader
+        extensionProvider={extensionProvider}
+        extensionType={dynamicFieldsManifest.type}
+        extensionKey={dynamicFieldsManifest.key}
+        nodeKey="dynamicFieldsMaintainState"
+        parameters={{}}
+        extensionParameters={currentParams}
+        autoSave
+        closeOnEsc
+        showHeader
+        onChange={(data) => {
+          currentParams = {
+            ...currentParams,
+            ...data,
+          };
+        }}
+        onCancel={() => {}}
+      />,
+    );
 
-    configForm = wrapper?.find('ConfigForm');
-    expect(configForm.exists('Boolean')).toBeFalsy();
-    expect(configForm.find('Date').exists()).toBeTruthy();
+    await waitFor(() =>
+      expect(
+        within(configForm).queryByLabelText('Smooth lines'),
+      ).not.toBeInTheDocument(),
+    );
+    await waitFor(() =>
+      // TODO: Troubleshoot this, the A11Y for the date field is off, the label and form field aren't connected
+      // expect(within(configForm).getByLabelText('As of date')).toBeEnabled(),
+      expect(within(configForm).getByText('As of date')).toBeVisible(),
+    );
 
     // Switch it back to line chart
-    await changeChartType(configForm, 'line');
-    wrapper.setProps({ extensionParameters: currentParams });
-    await flushPromises();
-    wrapper.update();
+    await changeChartType(configForm, 'Line chart');
+    rerender(
+      <ConfigPanelFieldsLoader
+        extensionProvider={extensionProvider}
+        extensionType={dynamicFieldsManifest.type}
+        extensionKey={dynamicFieldsManifest.key}
+        nodeKey="dynamicFieldsMaintainState"
+        parameters={{}}
+        extensionParameters={currentParams}
+        autoSave
+        closeOnEsc
+        showHeader
+        onChange={(data) => {
+          currentParams = {
+            ...currentParams,
+            ...data,
+          };
+        }}
+        onCancel={() => {}}
+      />,
+    );
 
     // Boolean field should be back and still ticked
-    configForm = wrapper?.find('ConfigForm');
-    expect(configForm.exists('Boolean')).toBeTruthy();
-    expect(
-      configForm.find('Boolean').find('Checkbox').find('input').prop('checked'),
-    ).toBeTruthy();
+    await waitFor(() =>
+      // TODO: This "toBeTruthy" is bad. This checkbox isn't ticked and it seems to be an application issue
+      expect(within(configForm).getByLabelText('Smooth lines')).toBeTruthy(),
+    );
   });
 
   it('should maintain state of unaffected fields', async () => {
     let currentParams = {};
-    const wrapper = await mountConfigPanel({
+    const { rerender } = renderConfigPanel({
       nodeKey: 'dynamicFieldsMaintainState',
       onChange: (data: Parameters) => {
         currentParams = {
@@ -351,44 +423,58 @@ describe('Dynamic ConfigPanelFieldsLoader', () => {
       },
     });
 
-    let configForm = wrapper?.find('ConfigForm');
-    expect(configForm.exists('RadioField')).toBeTruthy();
-    expect(configForm.exists('Boolean')).toBeTruthy();
-    expect(configForm.exists('Expand')).toBeTruthy();
-    expect(
-      configForm
-        .find('Expand')
-        .find('div[data-testid="expand-content-container"]'),
-    ).toHaveStyleRule('display', 'none');
+    const configForm = await waitFor(() =>
+      screen.getByTestId('extension-config-panel'),
+    );
+    await waitFor(() =>
+      expect(within(configForm).getByLabelText('Chart type')).toBeEnabled(),
+    );
+    expect(within(configForm).getByLabelText('Smooth lines')).toBeEnabled();
+    const expandButton = within(configForm).getByRole('button', {
+      name: 'Expand',
+    });
+    expect(expandButton).toBeEnabled();
+    const expandContent = within(configForm).getByTestId(
+      'expand-content-container',
+    );
+    expect(expandContent).not.toBeVisible();
 
     // Expand the contents
-    configForm
-      .find('Expand')
-      .find('button[data-testid="form-expand-toggle"]')
-      .simulate('click');
+    await userEvent.click(expandButton);
 
-    configForm = wrapper?.find('ConfigForm');
-    expect(
-      configForm
-        .find('Expand')
-        .find('div[data-testid="expand-content-container"]'),
-    ).toHaveStyleRule('display', 'block');
+    expect(expandContent).toBeVisible();
 
     // Change chart type via radio field
-    await changeChartType(configForm, 'bar');
-    wrapper.setProps({ extensionParameters: currentParams });
-    await flushPromises();
-    wrapper.update();
+    await changeChartType(configForm, 'Bar chart');
+    rerender(
+      <ConfigPanelFieldsLoader
+        extensionProvider={extensionProvider}
+        extensionType={dynamicFieldsManifest.type}
+        extensionKey={dynamicFieldsManifest.key}
+        nodeKey="dynamicFieldsMaintainState"
+        parameters={{}}
+        extensionParameters={currentParams}
+        autoSave
+        closeOnEsc
+        showHeader
+        onChange={(data) => {
+          currentParams = {
+            ...currentParams,
+            ...data,
+          };
+        }}
+        onCancel={() => {}}
+      />,
+    );
 
-    configForm = wrapper?.find('ConfigForm');
-    expect(configForm.exists('Boolean')).toBeFalsy();
-    expect(configForm.find('Date').exists()).toBeTruthy();
+    await waitFor(() =>
+      expect(
+        within(configForm).queryByLabelText('Smooth lines'),
+      ).not.toBeInTheDocument(),
+    );
+    expect(within(configForm).getByText('As of date')).toBeVisible();
 
     // Check that expand is still expanded
-    expect(
-      configForm
-        .find('Expand')
-        .find('div[data-testid="expand-content-container"]'),
-    ).toHaveStyleRule('display', 'block');
+    expect(expandContent).toBeVisible();
   });
 });

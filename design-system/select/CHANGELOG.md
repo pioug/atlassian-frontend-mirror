@@ -1,5 +1,15 @@
 # @atlaskit/select
 
+## 17.0.0
+
+### Major Changes
+
+- [#41866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41866) [`ed8b6957789`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed8b6957789) - Removes any usage of deprecated legacy theming APIs. These have been superseeded by design tokens.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.7.6
 
 ### Patch Changes

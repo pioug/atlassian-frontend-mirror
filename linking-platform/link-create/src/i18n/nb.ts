@@ -10,7 +10,13 @@ export default {
   'link-create.unknown-error.description':
     'Oppdater siden, eller kontakt <a>Atlassian-støtte</a> hvis problemet vedvarer.',
   'link-create.unknown-error.heading': 'Det oppstod en feil',
+  'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Gå tilbake',
+  'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Forkast',
+  'linkCreate.confirm-dismiss-dialog.modal.description':
+    'Vi vil ikke kunne lagre informasjonen din hvis du forlater denne siden.',
+  'linkCreate.confirm-dismiss-dialog.modal.title': 'Endringene dine blir ikke lagret',
   'linkCreate.createForm.button.close': 'Lukk',
   'linkCreate.createForm.button.create': 'Opprett',
+  'linkCreate.createForm.button.edit': 'Rediger',
   'linkCreate.modal.heading': 'Opprett ny',
 };

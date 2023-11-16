@@ -161,6 +161,9 @@
       "path": "../editor-plugin-image-upload/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-indentation/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-layout/tsconfig.app.json"
     },
     {

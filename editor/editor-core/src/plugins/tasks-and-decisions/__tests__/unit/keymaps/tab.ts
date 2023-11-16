@@ -35,7 +35,7 @@ import {
 } from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 
-import { keymapPlugin } from '../../../../../plugins/tasks-and-decisions/pm-plugins/keymaps';
+import { keymapPlugin } from '../../../pm-plugins/keymaps';
 
 import { ListTypes } from './_helpers';
 

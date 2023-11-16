@@ -1,10 +1,7 @@
 import React from 'react';
 
-import {
-  defineMessages,
-  WrappedComponentProps,
-  injectIntl,
-} from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { defineMessages, injectIntl } from 'react-intl-next';
 
 import { DecisionItem } from '@atlaskit/task-decision';
 

@@ -81,4 +81,6 @@ export { default as layoutColumn } from './layoutColumn';
 export { default as layoutSection } from './layoutSection';
 export { default as layoutSection_full } from './layoutSection_full';
 export { default as layoutSection_with_single_column } from './layoutSection_with_single_column';
+export { default as extensionFrame } from './extensionFrame';
+export { default as multiBodiedExtension } from './multiBodiedExtension';
 export { default as doc } from './doc';

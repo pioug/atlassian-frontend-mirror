@@ -9,7 +9,6 @@ import {
   toolbarListsIndentationPlugin,
   tasksAndDecisionsPlugin,
   alignmentPlugin,
-  indentationPlugin,
   customAutoformatPlugin,
   feedbackDialogPlugin,
   mobileDimensionsPlugin,
@@ -24,6 +23,7 @@ import {
 import { panelPlugin } from '@atlaskit/editor-plugin-panel';
 import { textColorPlugin } from '@atlaskit/editor-plugin-text-color';
 import { historyPlugin } from '@atlaskit/editor-plugin-history';
+import { indentationPlugin } from '@atlaskit/editor-plugin-indentation';
 import { statusPlugin } from '@atlaskit/editor-plugin-status';
 import { datePlugin } from '@atlaskit/editor-plugin-date';
 import { maxContentSizePlugin } from '@atlaskit/editor-plugin-max-content-size';

@@ -20,9 +20,10 @@ import {
 import { liftTarget } from '@atlaskit/editor-prosemirror/transform';
 import { uuid } from '@atlaskit/adf-schema';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import type { Command } from '../../types';
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type {
+  AnalyticsEventPayload,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -32,7 +33,7 @@ import {
   USER_CONTEXT,
 } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
+import type { TOOLBAR_MENU_TYPE, Command } from '@atlaskit/editor-common/types';
 import { stateKey as taskDecisionStateKey } from './pm-plugins/plugin-key';
 import type {
   AddItemAttrs,

@@ -92,3 +92,57 @@ testRule({
     },
   ],
 });
+
+testRule({
+  plugins: [plugin],
+  ruleName,
+  config: [true, { fallbackUsage: 'none' }],
+  accept: [
+    {
+      code: 'color: var(--ds-text);',
+      description: 'should allow tokens used without a fallback',
+    },
+    {
+      code: 'color: var(--ds-text-highEmphasis);',
+      description: 'should allow deprecated tokens used without a fallback',
+    },
+    {
+      code: `
+        background:
+          linear-gradient(
+            var(--ds-background-accent-blue),
+            var(--ds-background-accent-blue-bold)
+          );
+      `,
+      description:
+        'should allow tokens used without a fallback inside a function',
+    },
+  ],
+  reject: [
+    {
+      code: 'color: var(--ds-text, red);',
+      message: messages.hasFallback,
+      description: 'should not allow tokens used with a fallback',
+    },
+    {
+      code: 'color: var(--ds-text-highEmphasis, black);',
+      description: 'should not allow deprecated tokens used with a fallback',
+      message: messages.hasFallback,
+    },
+    {
+      code: `
+        background:
+          linear-gradient(
+            var(--ds-background-accent-blue, lightBlue),
+            var(--ds-background-accent-blue-bold, blue)
+          );
+      `,
+      description:
+        'should not allow tokens used with a fallback inside a function',
+      warnings: [
+        { message: messages.hasFallback },
+        { message: messages.hasFallback },
+      ],
+    },
+  ],
+});

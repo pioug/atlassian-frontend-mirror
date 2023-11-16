@@ -15,6 +15,7 @@ import { isToken } from '../utils/is-token';
 
 type PluginConfig = {
   shouldEnforceFallbacks: boolean;
+  fallbackUsage: 'forced' | 'optional' | 'none';
   /**
    * List of additional tokens that can be configured for the rule to accept.
    * Provided as a workaround for teams who need custom tokens for migration purposes.
@@ -23,10 +24,6 @@ type PluginConfig = {
    * Do not pass in the names of tokens from the @atlaskit/tokens package.
    */
   UNSAFE_ignoreTokens?: string[];
-};
-
-const defaultConfig: PluginConfig = {
-  shouldEnforceFallbacks: false,
 };
 
 const rule = createLintRule({
@@ -75,7 +72,12 @@ token('color.background.blanket');
     },
   },
   create(context) {
-    const config: PluginConfig = context.options[0] || defaultConfig;
+    const config: PluginConfig = { ...context.options[0] };
+
+    if (!config.fallbackUsage) {
+      config.fallbackUsage = config.shouldEnforceFallbacks ? 'forced' : 'none';
+    }
+
     const UNSAFE_ignoreTokens = new Set(config.UNSAFE_ignoreTokens);
 
     return {
@@ -135,17 +137,14 @@ token('color.background.blanket');
             return;
           }
 
-          if (
-            node.arguments.length < 2 &&
-            config.shouldEnforceFallbacks === true
-          ) {
+          if (node.arguments.length < 2 && config.fallbackUsage === 'forced') {
             context.report({
               messageId: 'tokenFallbackEnforced',
               node,
             });
           } else if (
             node.arguments.length > 1 &&
-            config.shouldEnforceFallbacks === false
+            config.fallbackUsage === 'none'
           ) {
             if (node.arguments[0].type === 'Literal') {
               const { value } = node.arguments[0];

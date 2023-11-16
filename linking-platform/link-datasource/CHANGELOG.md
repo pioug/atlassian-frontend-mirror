@@ -1,5 +1,31 @@
 # @atlaskit/link-datasource
 
+## 1.17.6
+
+### Patch Changes
+
+- [#43358](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43358) [`d275736284c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d275736284c) - Add analytics event when basic filter dropdown menu is opened.
+- [#43379](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43379) [`482c025520d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/482c025520d) - ED-20763 Upgrade ADF schema version to 33.2.3 for MBE nodes.
+
+## 1.17.5
+
+### Patch Changes
+
+- [#43340](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43340) [`bb87fcf2e29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb87fcf2e29) - Introduce new hook `useHydrateJqlQuery` that returns the JQL hydration state for each basic filter
+- Updated dependencies
+
+## 1.17.4
+
+### Patch Changes
+
+- [#43259](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43259) [`daddf8f775a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daddf8f775a) - Fixed scroll issue on selection and updated search input to have a max-width.
+
+## 1.17.3
+
+### Patch Changes
+
+- [#43122](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43122) [`5690dd4a0d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5690dd4a0d3) - When no onColumnResize is defined OR when columnCustomSizes in readonly more use max-width instead of width
+
 ## 1.17.2
 
 ### Patch Changes

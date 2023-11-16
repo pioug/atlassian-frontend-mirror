@@ -8,6 +8,7 @@ import BoxBasic from '../../examples/constellation/box/basic';
 import BoxPadding from '../../examples/constellation/box/padding';
 import BoxBackgroundColor from '../../examples/constellation/box/background-color';
 import BoxXcss from '../../examples/constellation/box/xcss';
+import BoxConditional from '../../examples/constellation/box/conditional-styles';
 import BoxPracticalUseCase from '../../examples/constellation/box/practical-use-case';
 
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
@@ -49,6 +50,12 @@ Box exposes an `xcss` prop. This prop accepts `xcss` function calls that contain
 For more information on XCSS, see the dedicated [XCSS documentation](/components/primitives/xcss).
 
 <Example Component={BoxXcss} packageName="@atlaskit/primitives/box" />
+
+## Conditional styles
+
+To achieve conditional styles, it is usually simpler to apply conditional behavior at the `xcss` object level, rather than applying conditional behavior to individual properties.
+
+<Example Component={BoxConditional} packageName="@atlaskit/primitives/box" />
 
 ## Practical use case
 

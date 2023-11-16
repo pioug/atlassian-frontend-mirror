@@ -9,6 +9,7 @@ import { getDefaultTokenValue, isToken } from '../../utils/tokens';
 
 type PluginFlags = {
   shouldEnsureFallbackUsage: boolean;
+  fallbackUsage: 'forced' | 'optional' | 'none';
 };
 
 type RuleMessage = {
@@ -51,6 +52,7 @@ const ruleBase: RuleBase = (isEnabled, flags = {}, context) => {
         actual: flags,
         possible: {
           shouldEnsureFallbackUsage: [true, false],
+          fallbackUsage: ['forced', 'optional', 'none'],
         },
         optional: true,
       },
@@ -60,7 +62,16 @@ const ruleBase: RuleBase = (isEnabled, flags = {}, context) => {
       return;
     }
 
-    const { shouldEnsureFallbackUsage = false } = flags as PluginFlags;
+    const { shouldEnsureFallbackUsage, fallbackUsage = 'optional' } =
+      flags as PluginFlags;
+
+    let fallbackUsageStrategy = fallbackUsage;
+
+    if (shouldEnsureFallbackUsage) {
+      fallbackUsageStrategy = 'forced';
+    } else if (shouldEnsureFallbackUsage === false) {
+      fallbackUsageStrategy = 'none';
+    }
 
     root.walkDecls(decl => {
       const parsedValue = valueParser(decl.value);
@@ -112,10 +123,15 @@ const ruleBase: RuleBase = (isEnabled, flags = {}, context) => {
         }
 
         const hasFallback = tail.some(node => !isToken(node));
-        const isError = shouldEnsureFallbackUsage !== hasFallback;
-        if (!isError) {
+
+        if (
+          fallbackUsageStrategy === 'optional' ||
+          (fallbackUsageStrategy === 'forced' && hasFallback) ||
+          (fallbackUsageStrategy === 'none' && !hasFallback)
+        ) {
           return;
         }
+
         if (context.fix && !hasFallback) {
           const defaultFallback = getDefaultTokenValue(head);
           if (defaultFallback) {
@@ -126,11 +142,11 @@ const ruleBase: RuleBase = (isEnabled, flags = {}, context) => {
             return;
           }
         }
-        const message = hasFallback
-          ? messages.hasFallback
-          : messages.missingFallback;
+
         stylelint.utils.report({
-          message,
+          message: hasFallback
+            ? messages.hasFallback
+            : messages.missingFallback,
           node: decl,
           word: node.value,
           result,

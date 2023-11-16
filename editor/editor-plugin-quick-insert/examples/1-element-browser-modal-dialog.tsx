@@ -9,6 +9,7 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import { EditorContext } from '@atlaskit/editor-core';
 import { useDefaultQuickInsertGetItems } from '@atlaskit/editor-core/example-helpers/use-default-quickinsert-get-items';
 import InlineDialog from '@atlaskit/inline-dialog/src/InlineDialog';
 
@@ -110,4 +111,8 @@ const ElementBrowserModalDialog = () => {
   );
 };
 
-export default () => <ElementBrowserModalDialog />;
+export default () => (
+  <EditorContext>
+    <ElementBrowserModalDialog />
+  </EditorContext>
+);

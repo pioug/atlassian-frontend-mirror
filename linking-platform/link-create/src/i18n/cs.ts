@@ -10,7 +10,13 @@ export default {
   'link-create.unknown-error.description':
     'Obnovte stránku nebo, pokud problém přetrvává, kontaktujte <a>podporu Atlassian</a>.',
   'link-create.unknown-error.heading': 'Něco se pokazilo',
+  'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Přejít zpět',
+  'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Zahodit',
+  'linkCreate.confirm-dismiss-dialog.modal.description':
+    'Pokud z této stránky odejdete, nebudeme moci uložit vaše informace.',
+  'linkCreate.confirm-dismiss-dialog.modal.title': 'Vaše změny se neuloží',
   'linkCreate.createForm.button.close': 'Zavřít',
   'linkCreate.createForm.button.create': 'Vytvořit',
+  'linkCreate.createForm.button.edit': 'Upravit',
   'linkCreate.modal.heading': 'Vytvořit novou položku',
 };

@@ -11,6 +11,7 @@ import {
   ValueType,
 } from '@atlaskit/select';
 
+import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
 import { useFilterOptions } from '../../hooks/useFilterOptions';
 import { BasicFilterFieldType, SelectOption } from '../../types';
 import CustomMenuList from '../menu-list';
@@ -45,6 +46,7 @@ const AsyncPopupSelect = ({
   isDisabled = false,
 }: AsyncPopupSelectProps) => {
   const { formatMessage } = useIntl();
+  const { fireEvent } = useDatasourceAnalyticsEvents();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedOptions, setSelectedOptions] =
@@ -170,6 +172,13 @@ const AsyncPopupSelect = ({
     }
   }, [fetchFilterOptions, searchTerm, sortOptionsOnPopupOpen, status]);
 
+  const handleMenuOpen = useCallback(() => {
+    fireEvent('ui.dropdown.opened.basicSearchDropdown', {
+      filterType,
+      selectionCount: selectedOptions.length,
+    });
+  }, [filterType, fireEvent, selectedOptions.length]);
+
   useEffect(() => {
     if (status === 'resolved') {
       sortOptionsOnResolve();
@@ -224,23 +233,21 @@ const AsyncPopupSelect = ({
       hideSelectedOptions={false}
       isLoading={isLoading}
       placeholder={formatMessage(asyncPopupSelectMessages.selectPlaceholder)}
+      menuListProps={{
+        filterType,
+        isError,
+        isEmpty,
+        isLoading,
+        isLoadingMore,
+        handleShowMore,
+        errors,
+        showMore: shouldDisplayShowMoreButton,
+      }}
       components={{
         /* @ts-expect-error - This component has stricter OptionType, hence a temp setup untill its made generic */
         Option: CheckboxOption,
         Control: CustomControl,
-        MenuList: props => (
-          <CustomMenuList
-            {...props}
-            filterType={filterType}
-            isError={isError}
-            isEmpty={isEmpty}
-            isLoading={isLoading}
-            isLoadingMore={isLoadingMore}
-            showMore={shouldDisplayShowMoreButton}
-            handleShowMore={handleShowMore}
-            errors={errors}
-          />
-        ),
+        MenuList: CustomMenuList,
         DropdownIndicator: CustomDropdownIndicator,
         LoadingIndicator: undefined, // disables the three ... indicator in the searchbox when picker is loading
         IndicatorSeparator: undefined, // disables the | separator between search input and icon
@@ -251,6 +258,7 @@ const AsyncPopupSelect = ({
       formatOptionLabel={formatOptionLabel}
       onChange={handleOptionSelection}
       onInputChange={handleInputChange}
+      onOpen={handleMenuOpen}
       target={({ isOpen, ...triggerProps }) => (
         <PopupTrigger
           {...triggerProps}

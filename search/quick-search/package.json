@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/quick-search",
-  "version": "8.1.4",
+  "version": "8.1.5",
   "description": "A quick-search component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,7 +33,7 @@
     "@atlaskit/analytics": "^8.1.0",
     "@atlaskit/avatar": "^21.4.0",
     "@atlaskit/item": "^12.1.0",
-    "@atlaskit/spinner": "^15.6.0",
+    "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.28.0",
     "@babel/runtime": "^7.0.0",

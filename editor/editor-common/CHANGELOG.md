@@ -1,5 +1,29 @@
 # @atlaskit/editor-common
 
+## 76.22.0
+
+### Minor Changes
+
+- [#43108](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43108) [`b779a47b799`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b779a47b799) - ECA11Y-86: Added ability to resize media via keyboard and added announcer
+
+### Patch Changes
+
+- [#42940](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42940) [`9ae428228c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ae428228c3) - ED-19168 fixed Grey highlight for chart color button
+- [#43379](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43379) [`482c025520d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/482c025520d) - ED-20763 Upgrade ADF schema version to 33.2.3 for MBE nodes.
+- Updated dependencies
+
+## 76.21.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 76.21.0
+
+### Minor Changes
+
+- [#43111](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43111) [`d71dda4f834`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d71dda4f834) - Decouple indentation plugin from editor-core.
+
 ## 76.20.1
 
 ### Patch Changes

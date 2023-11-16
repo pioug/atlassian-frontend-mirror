@@ -657,7 +657,7 @@ describe('Analytics: AsyncPopupSelect', () => {
     );
   });
 
-  it('should fire "ui.error.shown.basicSearchDropdown" with reason as networn when the error UI is shown', () => {
+  it('should fire "ui.error.shown.basicSearchDropdown" with reason as network when the error UI is shown', () => {
     const error = new Error('bla');
 
     const { onAnalyticFireEvent } = setup({
@@ -680,6 +680,72 @@ describe('Analytics: AsyncPopupSelect', () => {
           attributes: {
             filterType: 'status',
             reason: 'network',
+          },
+        },
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should fire "ui.dropdown.opened.basicSearchDropdown" with correct attributes when dropdown menu is opened with no selection', async () => {
+    const { onAnalyticFireEvent } = setup({
+      filterType: 'status',
+      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
+      openPicker: true,
+      status: 'resolved',
+    });
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          action: 'opened',
+          actionSubject: 'dropdown',
+          actionSubjectId: 'basicSearchDropdown',
+          attributes: {
+            filterType: 'status',
+            selectionCount: 0,
+          },
+        },
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should fire "ui.dropdown.opened.basicSearchDropdown" with correct attributes when dropdown menu is opened with selection', async () => {
+    const selectedOptions: SelectOption[] = [
+      {
+        appearance: 'success',
+        label: 'Canceled',
+        optionType: 'lozengeLabel',
+        value: 'Canceled',
+      },
+      {
+        appearance: 'success',
+        label: 'Canceled1',
+        optionType: 'lozengeLabel',
+        value: 'Canceled1',
+      },
+    ];
+
+    const { onAnalyticFireEvent } = setup({
+      filterType: 'status',
+      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
+      selection: selectedOptions,
+      openPicker: true,
+      status: 'resolved',
+    });
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          action: 'opened',
+          actionSubject: 'dropdown',
+          actionSubjectId: 'basicSearchDropdown',
+          attributes: {
+            filterType: 'status',
+            selectionCount: 2,
           },
         },
       },

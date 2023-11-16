@@ -42,6 +42,12 @@ import {
   mockAssetsClientFetchRequests,
 } from '@atlaskit/link-test-helpers/datasource';
 
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import { usePresetContext } from '../../src/presets/context';
+
+type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
+
 addGlobalEventEmitterListeners();
 mockDatasourceFetchRequests();
 mockAssetsClientFetchRequests();
@@ -147,6 +153,21 @@ function parseSafely<T>(input: string): T | {} {
     return {};
   }
 }
+
+const Comp = (props: any) => {
+  const editorApi = usePresetContext<StackPlugins>();
+  const extensionProviders = React.useCallback(
+    (editorActions?: EditorActions) => [
+      getExampleExtensionProviders(editorApi, editorActions),
+    ],
+    [editorApi],
+  );
+
+  return (
+    <KitchenSinkEditor {...props} extensionProviders={extensionProviders} />
+  );
+};
+
 export class KitchenSink extends React.Component<
   KitchenSinkProps,
   KitchenSinkState
@@ -261,7 +282,7 @@ export class KitchenSink extends React.Component<
   private dataProviders = ProviderFactory.create({
     ...getProviders(),
     mediaProvider,
-    extensionProvider: Promise.resolve(getExampleExtensionProviders()),
+    extensionProvider: Promise.resolve(getExampleExtensionProviders(undefined)),
   });
 
   private popupMountPoint?: HTMLElement | null;
@@ -497,7 +518,7 @@ export class KitchenSink extends React.Component<
                 narrow: this.state.vertical && this.state.showADF,
               })}
             >
-              <KitchenSinkEditor
+              <Comp
                 actions={this.props.actions}
                 locale={this.props.locale}
                 popupMountPoint={this.popupMountPoint}
@@ -512,9 +533,6 @@ export class KitchenSink extends React.Component<
                 disabled={this.state.disabled}
                 featureFlags={parseSafely(this.state.featureFlagInput)}
                 editorPlugins={this.editorPlugins()}
-                extensionProviders={(editorActions) => [
-                  getExampleExtensionProviders(editorActions),
-                ]}
               />
             </div>
             <div

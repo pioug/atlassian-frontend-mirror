@@ -9,7 +9,10 @@ import { Card as SmartCard } from '@atlaskit/smart-card';
 
 import useLinkUpgradeDiscoverability from '../common/hooks/useLinkUpgradeDiscoverability';
 import {
+  isLocalStorageKeyDiscovered,
   LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK,
+  LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR,
+  markLocalStorageKeyDiscovered,
   ONE_DAY_IN_MILLISECONDS,
 } from '../common/local-storage';
 import { DiscoveryPulse } from '../common/pulse';
@@ -37,6 +40,7 @@ const InlineCard = ({
   isOverlayEnabled,
   isPulseEnabled,
   pluginInjectionApi,
+  isSelected,
 }: SmartCardProps) => {
   const { url, data } = node.attrs;
 
@@ -54,7 +58,7 @@ const InlineCard = ({
     return typeof pos === 'number' ? pos : undefined;
   }, [getPos]);
 
-  const { shouldShowLinkPulse, shouldShowLinkOverlay } =
+  const { shouldShowLinkPulse, shouldShowToolbarPulse, shouldShowLinkOverlay } =
     useLinkUpgradeDiscoverability({
       url,
       linkPosition: linkPosition || -1,
@@ -63,6 +67,16 @@ const InlineCard = ({
       isOverlayEnabled,
       isPulseEnabled,
     });
+
+  // If the toolbar pulse has not yet been invalidated and this is a case where we will be showing it,
+  // we need to invalidate the link pulse too. Toolbar pulse will be invalidated in the corresponding component.
+  if (
+    isSelected &&
+    shouldShowToolbarPulse &&
+    !isLocalStorageKeyDiscovered(LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR)
+  ) {
+    markLocalStorageKeyDiscovered(LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK);
+  }
 
   const scrollContainer: HTMLElement | undefined = useMemo(
     () => findOverflowScrollParent(view.dom as HTMLElement) || undefined,

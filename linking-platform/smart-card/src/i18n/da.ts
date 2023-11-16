@@ -7,6 +7,7 @@
  */
 //Danish (Denmark)
 export default {
+  'fabric.linking.access_exists_description': 'Anmod om adgang til at se dette indhold fra {hostname}.',
   'fabric.linking.actions': 'Handlinger',
   'fabric.linking.add_account': 'Tilføj konto',
   'fabric.linking.assigned_to': 'Tildelt til {context}',
@@ -37,18 +38,25 @@ export default {
   'fabric.linking.create_on_relative': 'Oprettet: {context}',
   'fabric.linking.created_by': 'Oprettet af {context}',
   'fabric.linking.delete': 'Slet',
+  'fabric.linking.direct_access_crossjoin': 'Tilmeld dig nu',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Dit team bruger {product} til at samarbejde, og du kan begynde at bruge det med det samme!',
+  'fabric.linking.direct_access_title_crossjoin': 'Deltag i {product} for at se dette indhold',
   'fabric.linking.download': 'Hent',
   'fabric.linking.edit': 'Rediger',
   'fabric.linking.follow': 'Følg',
   'fabric.linking.forbidden_access': 'Du har ikke adgang',
   'fabric.linking.forbidden_description':
     'Du har ikke adgang til denne forhåndsvisning. Kontakt webstedets administrator, hvis du har brug for adgang.',
+  'fabric.linking.forbidden_description_crossjoin': 'Kontakt din administrator for at anmode om adgang til {hostname}.',
   'fabric.linking.forbidden_title_crossjoin': 'Du har ikke adgang til dette indhold',
+  'fabric.linking.generic_error_message': 'Der opstod en fejl',
   'fabric.linking.go_back': 'Gå tilbage',
   'fabric.linking.invalid_permissions': 'Begrænset indhold',
   'fabric.linking.invalid_permissions_description':
     'Anmod om adgang, eller prøv med en anden konto for at se denne forhåndsvisning.',
   'fabric.linking.join_to_view': 'Deltag i {context} for at se denne sag',
+  'fabric.linking.last_mentioned_in': 'Sidst omtalt i',
   'fabric.linking.learn_more_about_smart_links': 'Få mere at vide om intelligente links.',
   'fabric.linking.link_safety_warning_message':
     'Linket {unsafeLinkText} fører dig til et andet websted, <a>actual link here</a>',
@@ -56,6 +64,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Opdateret {context}',
   'fabric.linking.modified_on_relative': 'Opdateret: {context}',
   'fabric.linking.more_actions': 'Flere handlinger',
+  'fabric.linking.no_access_title_crossjoin': 'Deltag i {product} for at se dette indhold',
   'fabric.linking.not_found_description':
     'Vi kunne ikke finde linket. Kontrollér og rediger URL-adressen, eller indsæt den igen.',
   'fabric.linking.not_found_description_crossjoin':
@@ -82,9 +91,13 @@ export default {
   'fabric.linking.priority_trivial': 'Triviel',
   'fabric.linking.priority_undefined': 'Ikke defineret',
   'fabric.linking.read_time': 'Kan læses på {context} min.',
+  'fabric.linking.related': 'Relateret',
+  'fabric.linking.related_work_items_not_found': 'Dette link omtales ikke andre steder.',
   'fabric.linking.request_access': 'Anmod om adgang',
   'fabric.linking.request_access_crossjoin': 'Anmod om adgang',
   'fabric.linking.request_access_description': 'Anmod om adgang til {context} for at se denne forhåndsvisning.',
+  'fabric.linking.request_access_description_crossjoin':
+    'Dit team bruger {product} til at samarbejde. Send din administrator en anmodning om adgang.',
   'fabric.linking.request_access_pending': 'Afventer adgang',
   'fabric.linking.request_access_pending_crossjoin': 'Afventer godkendelse',
   'fabric.linking.request_access_pending_description': 'Din anmodning om adgang afventer behandling.',

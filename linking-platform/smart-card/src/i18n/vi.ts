@@ -7,6 +7,7 @@
  */
 //Vietnamese (Vietnam)
 export default {
+  'fabric.linking.access_exists_description': 'Yêu cầu quyền truy cập để xem nội dung này từ {hostname}.',
   'fabric.linking.actions': 'Hành động',
   'fabric.linking.add_account': 'Thêm tài khoản',
   'fabric.linking.assigned_to': 'Đã chỉ định cho {context}',
@@ -37,18 +38,26 @@ export default {
   'fabric.linking.create_on_relative': 'Đã tạo {context}',
   'fabric.linking.created_by': 'Được tạo bởi {context}',
   'fabric.linking.delete': 'Xóa',
+  'fabric.linking.direct_access_crossjoin': 'Tham gia ngay',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Nhóm của bạn sử dụng {product} để cộng tác và bạn có thể bắt đầu sử dụng sản phẩm này ngay lập tức!',
+  'fabric.linking.direct_access_title_crossjoin': 'Tham gia {product} để xem nội dung này',
   'fabric.linking.download': 'Tải xuống',
   'fabric.linking.edit': 'Chỉnh sửa',
   'fabric.linking.follow': 'Theo dõi',
   'fabric.linking.forbidden_access': 'Quyền truy cập của bạn bị cấm',
   'fabric.linking.forbidden_description':
     'Bạn không có quyền truy cập vào bản xem trước này. Hãy liên hệ với quản trị viên trang web nếu bạn cần quyền truy cập.',
+  'fabric.linking.forbidden_description_crossjoin':
+    'Hãy liên hệ với quản trị viên để yêu cầu cấp quyền truy cập vào {hostname}.',
   'fabric.linking.forbidden_title_crossjoin': 'Bạn không có quyền truy cập nội dung này',
+  'fabric.linking.generic_error_message': 'Đã xảy ra lỗi',
   'fabric.linking.go_back': 'Quay lại',
   'fabric.linking.invalid_permissions': 'Nội dung bị hạn chế',
   'fabric.linking.invalid_permissions_description':
     'Bạn cần có quyền truy cập hoặc thử một tài khoản khác để xem bản xem trước này.',
   'fabric.linking.join_to_view': 'Tham gia {context} để xem vấn đề này',
+  'fabric.linking.last_mentioned_in': 'Được nhắc đến lần gần đây nhất trong',
   'fabric.linking.learn_more_about_smart_links': 'Tìm hiểu thêm về Liên kết Thông minh.',
   'fabric.linking.link_safety_warning_message':
     'Liên kết {unsafeLinkText} sẽ đưa bạn đến một trang khác, <a>actual link here</a>',
@@ -56,6 +65,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Đã cập nhật trên {context}',
   'fabric.linking.modified_on_relative': 'Đã cập nhật {context}',
   'fabric.linking.more_actions': 'Hành động khác',
+  'fabric.linking.no_access_title_crossjoin': 'Tham gia {product} để xem nội dung này',
   'fabric.linking.not_found_description':
     'Chúng tôi không thể tìm thấy đường liên kết này. Hãy kiểm tra url và thử chỉnh sửa hoặc dán lại.',
   'fabric.linking.not_found_description_crossjoin':
@@ -82,9 +92,13 @@ export default {
   'fabric.linking.priority_trivial': 'Không đáng kể',
   'fabric.linking.priority_undefined': 'Chưa xác định',
   'fabric.linking.read_time': '{context} phút đọc',
+  'fabric.linking.related': 'Có liên quan',
+  'fabric.linking.related_work_items_not_found': 'Liên kết này chưa được nhắc đến ở bất cứ đâu.',
   'fabric.linking.request_access': 'Yêu cầu cấp quyền truy cập',
   'fabric.linking.request_access_crossjoin': 'Yêu cầu cấp quyền truy cập',
   'fabric.linking.request_access_description': 'Yêu cầu quyền truy cập để {context} xem bản xem trước này.',
+  'fabric.linking.request_access_description_crossjoin':
+    'Nhóm của bạn sử dụng {product} để cộng tác. Hãy gửi yêu cầu cho quản trị viên của bạn để được cấp quyền truy cập.',
   'fabric.linking.request_access_pending': 'Đang chờ xử lý quyền truy cập',
   'fabric.linking.request_access_pending_crossjoin': 'Đang chờ phê duyệt',
   'fabric.linking.request_access_pending_description': 'Đang chờ xử lý yêu cầu quyền truy cập của bạn.',

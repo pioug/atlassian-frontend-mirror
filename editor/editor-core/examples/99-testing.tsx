@@ -2,10 +2,8 @@ import React from 'react';
 import Button from '@atlaskit/button/standard-button';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
-import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 import { EmbedHelper } from '@atlaskit/media-integration-test-helpers/embed-helper';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
-import { SmartCardProvider } from '@atlaskit/link-provider';
 
 import {
   createEditorExampleForTests,
@@ -18,6 +16,44 @@ import { getDefaultLinkPickerOptions } from '../example-helpers/link-picker';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import type { EditorProps } from '../src/types/editor-props';
+
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { APIError } from '@atlaskit/linking-common';
+import { getData } from '@atlaskit/media-integration-test-helpers/card-client';
+
+import type { ResolveResponse } from '@atlaskit/smart-card/types';
+// copied from packages/media/media-integration-test-helpers/src/integration/smart-links-mock-client-utils.ts
+class MockedSmartCardClientNoTimeout extends CardClient {
+  mockRequest(
+    url: string,
+  ): Promise<ResolveResponse & { datasources?: Array<any> }> {
+    const data = getData(url)!;
+    return new Promise((resolve, reject) => {
+      const resolution = () => {
+        if (url.endsWith('fatal')) {
+          reject(new APIError('fatal', 'randomhost', 'It all went wrong'));
+        }
+        if (url.includes('errored')) {
+          reject(new Error('Ohhhh boy'));
+        } else {
+          resolve(data);
+        }
+      };
+
+      window.setTimeout(resolution, 0);
+    });
+  }
+
+  fetchData(url: string): Promise<ResolveResponse> {
+    return this.mockRequest(url);
+  }
+
+  async prefetchData(url: string): Promise<ResolveResponse | undefined> {
+    return this.mockRequest(url);
+  }
+}
+
+const cardClient = new MockedSmartCardClientNoTimeout('staging');
 
 const EditorTitle: React.FC<{ setDisabled: (arg: boolean) => void }> = ({
   setDisabled,

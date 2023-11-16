@@ -10,7 +10,13 @@ export default {
   'link-create.unknown-error.description':
     'รีเฟรชหน้าข้อมูล หรือติดต่อฝ่าย <a>สนับสนุน Atlassian</a> หากยังคงมีปัญหานี้เกิดขึ้น',
   'link-create.unknown-error.heading': 'เกิดข้อผิดพลาดบางอย่าง',
+  'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'ย้อนกลับ',
+  'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'ละทิ้ง',
+  'linkCreate.confirm-dismiss-dialog.modal.description':
+    'เราจะไม่สามารถบันทึกข้อมูลของคุณได้ หากคุณออกไปจากหน้าข้อมูลนี้',
+  'linkCreate.confirm-dismiss-dialog.modal.title': 'การเปลี่ยนแปลงของคุณจะไม่ได้รับการบันทึก',
   'linkCreate.createForm.button.close': 'ปิด',
   'linkCreate.createForm.button.create': 'สร้าง',
+  'linkCreate.createForm.button.edit': 'แก้ไข',
   'linkCreate.modal.heading': 'สร้างใหม่',
 };

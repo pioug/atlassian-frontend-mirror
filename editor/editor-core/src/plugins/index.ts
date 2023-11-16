@@ -9,7 +9,6 @@ export { default as tasksAndDecisionsPlugin } from './tasks-and-decisions';
 export { default as breakoutPlugin } from './breakout';
 export { default as alignmentPlugin } from './alignment';
 export { default as dataConsumerMarkPlugin } from './data-consumer';
-export { default as indentationPlugin } from './indentation';
 export { default as annotationPlugin } from './annotation';
 export { default as customAutoformatPlugin } from './custom-autoformat';
 export { default as feedbackDialogPlugin } from './feedback-dialog';

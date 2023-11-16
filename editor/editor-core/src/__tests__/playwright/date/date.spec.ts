@@ -5,6 +5,7 @@ import {
   editorTestCase as test,
   expect,
   fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 import { escapeKeydownAdf, taskDateAdf } from './date.spec.ts-fixtures';
 
@@ -113,6 +114,13 @@ test.describe('date: libra test - en-GB locale', () => {
   test('keyboard-accessibility.ts: Arrow up in textfield works on existing date', async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-20967',
+      reason:
+        'FIXME: This test was automatically skipped due to failure on 15/11/2023: https://product-fabric.atlassian.net/browse/ED-20967',
+      browsers: [BROWSERS.webkit],
+    });
+
     const popupModel = EditorPopupModel.from(editor);
     const nodes = EditorNodeContainerModel.from(editor);
     const inputModel = EditorDateInputModel.from(popupModel);

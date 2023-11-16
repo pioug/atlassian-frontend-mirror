@@ -40,6 +40,14 @@ import type { ResolvingMentionProvider } from '@atlaskit/mention/resource';
 
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
+import type {
+  PublicPluginAPI,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
+import { usePresetContext } from '../src/presets/context';
+
+type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
 
 export const content = css`
   padding: 0 20px;
@@ -187,6 +195,7 @@ interface PropOptions {
   inviteHandler?: (event: React.MouseEvent<HTMLElement>) => void;
   parentContainer: any;
   inviteToEditComponent?: React.ComponentType<InviteToEditComponentProps>;
+  editorApi: PublicPluginAPI<[OptionalPlugin<ExtensionPlugin>]> | undefined;
 }
 
 const editorProps = ({
@@ -196,6 +205,7 @@ const editorProps = ({
   inviteHandler,
   inviteToEditComponent,
   parentContainer,
+  editorApi,
 }: PropOptions): EditorProps => ({
   appearance: 'full-page',
   allowAnalyticsGASV3: true,
@@ -221,7 +231,7 @@ const editorProps = ({
     advanced: true,
   },
   extensionProviders: (editorActions) => [
-    getExampleExtensionProviders(editorActions),
+    getExampleExtensionProviders(editorApi, editorActions),
   ],
   allowExtension: { allowAutoSave: true, allowBreakout: true },
   macroProvider: Promise.resolve(macroProvider),
@@ -260,6 +270,38 @@ const editorProps = ({
   extensionHandlers: extensionHandlers,
 });
 
+const Comp = ({ parentContainer }: { parentContainer: HTMLElement }) => {
+  const editorApi = usePresetContext<StackPlugins>();
+  return (
+    <Editor
+      {...editorProps({
+        sessionId: 'morty',
+        mediaProvider: mediaProvider2,
+        mentionProvider: mentionProvider2,
+        parentContainer,
+        inviteToEditComponent: InviteToEditButton,
+        editorApi,
+      })}
+    />
+  );
+};
+
+const Comp2 = ({ parentContainer }: { parentContainer: HTMLElement }) => {
+  const editorApi = usePresetContext<StackPlugins>();
+
+  return (
+    <Editor
+      {...editorProps({
+        sessionId: 'rick',
+        mediaProvider: mediaProvider1,
+        parentContainer,
+        inviteToEditComponent: InviteToEditButton,
+        editorApi,
+      })}
+    />
+  );
+};
+
 class Example extends React.Component<Props> {
   render() {
     return (
@@ -269,14 +311,7 @@ class Example extends React.Component<Props> {
             <DropzoneEditorWrapper>
               {(parentContainer) => (
                 <EditorContext>
-                  <Editor
-                    {...editorProps({
-                      sessionId: 'rick',
-                      mediaProvider: mediaProvider1,
-                      parentContainer,
-                      inviteToEditComponent: InviteToEditButton,
-                    })}
-                  />
+                  <Comp2 parentContainer={parentContainer} />
                 </EditorContext>
               )}
             </DropzoneEditorWrapper>
@@ -285,15 +320,7 @@ class Example extends React.Component<Props> {
             <DropzoneEditorWrapper>
               {(parentContainer) => (
                 <EditorContext>
-                  <Editor
-                    {...editorProps({
-                      sessionId: 'morty',
-                      mediaProvider: mediaProvider2,
-                      mentionProvider: mentionProvider2,
-                      parentContainer,
-                      inviteToEditComponent: InviteToEditButton,
-                    })}
-                  />
+                  <Comp parentContainer={parentContainer} />
                 </EditorContext>
               )}
             </DropzoneEditorWrapper>

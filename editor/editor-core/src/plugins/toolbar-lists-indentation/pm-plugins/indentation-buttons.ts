@@ -2,7 +2,6 @@ import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
 import { getListItemAttributes } from '@atlaskit/editor-common/lists';
@@ -20,10 +19,6 @@ export interface IndentationButtons {
   outdentDisabled: boolean;
   node: IndentationButtonNode; // used to determine which indent/outdent function to call on button click, see '../ui/onItemActivated
 }
-
-export const pluginKey = new PluginKey<IndentationButtons>(
-  'indentationButtonsPlugin',
-);
 
 interface TaskDecisionState {
   isInsideTask: boolean;

@@ -11,18 +11,12 @@ import React, {
 import { css, jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import { useGlobalTheme } from '@atlaskit/theme/components';
 
-import { borderWidth, getBaseStyles, themeStyles } from './styles';
-import { Theme, ThemeTokens } from './theme';
+import { borderWidth, dynamicStyles, getBaseStyles } from './styles';
 import { TextAreaProps } from './types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
-
-interface InternalProps extends TextAreaProps {
-  tokens: ThemeTokens;
-}
 
 const analyticsParams = {
   componentName: 'textArea',
@@ -39,7 +33,7 @@ const setSmartHeight = (el: HTMLTextAreaElement) => {
   el.style.height = `${borderBoxHeight}px`;
 };
 
-const TextAreaWithTokens = forwardRef((props: InternalProps, ref) => {
+const InnerTextArea = forwardRef((props: TextAreaProps, ref) => {
   const ourRef = useRef<HTMLTextAreaElement | null>(null);
 
   const {
@@ -52,13 +46,11 @@ const TextAreaWithTokens = forwardRef((props: InternalProps, ref) => {
     isInvalid = false,
     isMonospaced = false,
     minimumRows = 2,
-    theme,
     testId,
     maxHeight = '50vh',
     onBlur,
     onFocus,
     onChange,
-    tokens,
     value,
     ...rest
   } = props;
@@ -127,11 +119,7 @@ const TextAreaWithTokens = forwardRef((props: InternalProps, ref) => {
     [minimumRows, resize, appearance, isMonospaced, maxHeight],
   );
 
-  const textAreaStyles = css([
-    baseStyles,
-    // not memoizing themeStyles as `tokens` is an unstable reference
-    themeStyles(tokens, appearance),
-  ]);
+  const textAreaStyles = css([baseStyles, dynamicStyles(appearance)]);
 
   return (
     <textarea
@@ -168,16 +156,7 @@ const TextArea = memo(
     props: TextAreaProps,
     ref: React.Ref<HTMLTextAreaElement>,
   ) {
-    const { mode } = useGlobalTheme();
-    return (
-      <Theme.Provider value={props.theme}>
-        <Theme.Consumer appearance={props.appearance || 'standard'} mode={mode}>
-          {(tokens: ThemeTokens) => (
-            <TextAreaWithTokens ref={ref} {...props} tokens={tokens} />
-          )}
-        </Theme.Consumer>
-      </Theme.Provider>
-    );
+    return <InnerTextArea ref={ref} {...props} />;
   }),
 );
 

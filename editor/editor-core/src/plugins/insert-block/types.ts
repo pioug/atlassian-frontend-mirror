@@ -21,6 +21,7 @@ import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { StatusPlugin } from '@atlaskit/editor-plugin-status';
 import type { PlaceholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text';
 import type { ExpandPlugin } from '@atlaskit/editor-plugin-expand';
+import type { TaskAndDecisionsPlugin } from '../tasks-and-decisions/types';
 
 export type InsertBlockPluginDependencies = [
   FeatureFlagsPlugin,
@@ -43,4 +44,5 @@ export type InsertBlockPluginDependencies = [
   OptionalPlugin<ExpandPlugin>,
   OptionalPlugin<PlaceholderTextPlugin>,
   OptionalPlugin<ExtensionPlugin>,
+  OptionalPlugin<TaskAndDecisionsPlugin>,
 ];

@@ -47,6 +47,7 @@ export interface CardProps extends CardNodeViewProps {
   isOverlayEnabled?: boolean;
   isPulseEnabled?: boolean;
   linkPosition?: number;
+  isSelected?: boolean;
 }
 
 export interface SmartCardProps extends CardProps {

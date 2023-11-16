@@ -290,9 +290,6 @@ export const FileCard = ({
   );
 
   const [status, setStatus] = useState<CardStatus>('loading');
-  useEffect(() => {
-    setStatus('loading');
-  }, [identifier]);
 
   const [isPlayingFile, setIsPlayingFile] = useState(false);
   const [shouldAutoplay, setShouldAutoplay] = useState(false);

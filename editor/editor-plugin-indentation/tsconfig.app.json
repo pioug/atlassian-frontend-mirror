@@ -31,5 +31,12 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__editor-plugin-indentation/app"
   },
-  "references": []
+  "references": [
+    {
+      "path": "../editor-common/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-analytics/tsconfig.app.json"
+    }
+  ]
 }

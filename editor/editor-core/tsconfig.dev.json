@@ -157,6 +157,9 @@
       "path": "../editor-plugin-expand/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-extension/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-feature-flags/tsconfig.app.json"
     },
     {
@@ -182,6 +185,9 @@
     },
     {
       "path": "../editor-plugin-image-upload/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-indentation/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-layout/tsconfig.app.json"
@@ -269,6 +275,9 @@
     },
     {
       "path": "../../linking-platform/link-test-helpers/tsconfig.app.json"
+    },
+    {
+      "path": "../../linking-platform/linking-common/tsconfig.app.json"
     },
     {
       "path": "../../design-system/logo/tsconfig.app.json"

@@ -7,6 +7,7 @@
  */
 //French (France)
 export default {
+  'fabric.linking.access_exists_description': "Demandez l'accès à {hostname} pour afficher ce contenu.",
   'fabric.linking.actions': 'Actions',
   'fabric.linking.add_account': 'Ajouter un compte',
   'fabric.linking.assigned_to': 'Assigné à {context}',
@@ -38,18 +39,26 @@ export default {
   'fabric.linking.create_on_relative': 'Créé : {context}',
   'fabric.linking.created_by': 'Création par : {context}',
   'fabric.linking.delete': 'Supprimer',
+  'fabric.linking.direct_access_crossjoin': 'Rejoindre sans plus attendre',
+  'fabric.linking.direct_access_description_crossjoin':
+    "Votre équipe utilise {product} pour collaborer, et vous pouvez commencer à l'utiliser tout de suite !",
+  'fabric.linking.direct_access_title_crossjoin': 'Rejoignez {product} pour voir ce contenu',
   'fabric.linking.download': 'Télécharger',
   'fabric.linking.edit': 'Modifier',
   'fabric.linking.follow': 'Suivre',
   'fabric.linking.forbidden_access': "Vous n'avez pas accès à cette ressource",
   'fabric.linking.forbidden_description':
     "Vous n'avez pas accès à cet aperçu. Contactez l'administrateur de site si vous avez besoin d'y accéder.",
+  'fabric.linking.forbidden_description_crossjoin':
+    "Contactez votre administrateur pour demander l'accès à {hostname}.",
   'fabric.linking.forbidden_title_crossjoin': "Vous n'avez pas accès à ce contenu",
+  'fabric.linking.generic_error_message': "Une erreur s'est produite",
   'fabric.linking.go_back': 'Retour',
   'fabric.linking.invalid_permissions': 'Contenu restreint',
   'fabric.linking.invalid_permissions_description':
     "Vous devrez demander l'accès ou essayer un autre compte pour afficher cet aperçu.",
   'fabric.linking.join_to_view': 'Rejoignez {context} pour consulter ce ticket',
+  'fabric.linking.last_mentioned_in': 'Dernière mention dans',
   'fabric.linking.learn_more_about_smart_links': 'En savoir plus sur les liens intelligents.',
   'fabric.linking.link_safety_warning_message':
     'Le lien {unsafeLinkText} essaie de vous rediriger vers un autre site, <a>actual link here</a>',
@@ -57,6 +66,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Mise à jour : {context}',
   'fabric.linking.modified_on_relative': 'Mise à jour : {context}',
   'fabric.linking.more_actions': "Plus d'actions",
+  'fabric.linking.no_access_title_crossjoin': 'Rejoignez {product} pour voir ce contenu',
   'fabric.linking.not_found_description':
     "Lien introuvable. Cliquez sur l'URL et essayez de la modifier, ou collez-la de nouveau.",
   'fabric.linking.not_found_description_crossjoin':
@@ -83,9 +93,13 @@ export default {
   'fabric.linking.priority_trivial': 'Superficielle',
   'fabric.linking.priority_undefined': 'Non définie',
   'fabric.linking.read_time': '{context} min de lecture',
+  'fabric.linking.related': 'Associé',
+  'fabric.linking.related_work_items_not_found': "Ce lien n'est mentionné nulle part ailleurs.",
   'fabric.linking.request_access': "Demander l'accès",
   'fabric.linking.request_access_crossjoin': "Demander l'accès",
   'fabric.linking.request_access_description': 'Demandez un accès à {context} pour voir cet aperçu.',
+  'fabric.linking.request_access_description_crossjoin':
+    "Votre équipe utilise {product} pour collaborer. Envoyez une demande d'accès à votre administrateur.",
   'fabric.linking.request_access_pending': 'Accès en attente',
   'fabric.linking.request_access_pending_crossjoin': 'Approbation en attente',
   'fabric.linking.request_access_pending_description': "Votre demande d'accès est en attente.",

@@ -533,6 +533,20 @@ const trackCellLocation = (view: EditorView, mouseEvent: Event) => {
     target as HTMLElement,
   ) as HTMLTableCellElement | null;
   const tableRef = getPluginState(view.state).tableRef;
+  const { hoveredCell, tableNode } = getPluginState(view.state);
+
+  const tableElement = closestElement(
+    target as HTMLElement,
+    'table',
+  ) as HTMLTableElement;
+
+  // hover will only trigger if target localId is the same with selected localId
+  if (
+    tableElement?.dataset?.tableLocalId &&
+    tableElement.dataset.tableLocalId !== tableNode?.attrs.localId
+  ) {
+    return;
+  }
 
   if (!maybeTableCell || !tableRef) {
     return;
@@ -544,7 +558,6 @@ const trackCellLocation = (view: EditorView, mouseEvent: Event) => {
     'tr',
   ) as HTMLTableRowElement;
   const rowIndex = rowElement && rowElement.rowIndex;
-  const { hoveredCell } = getPluginState(view.state);
 
   const colHeight = tableRef.offsetHeight;
   const colWidth = maybeTableCell.offsetWidth;

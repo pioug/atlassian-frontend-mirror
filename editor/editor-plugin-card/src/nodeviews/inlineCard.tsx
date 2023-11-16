@@ -9,6 +9,7 @@ import {
   findOverflowScrollParent,
   UnsupportedInline,
 } from '@atlaskit/editor-common/ui';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
@@ -177,6 +178,11 @@ export function InlineCardNodeView(
     enableInlineUpgradeFeatures &&
     (canBeUpgradedToEmbed || canBeUpgradedToBlock);
 
+  const isSelected =
+    view.state.selection instanceof NodeSelection &&
+    view.state.selection?.node?.type === view.state.schema.nodes.inlineCard &&
+    view.state.selection?.from === getPos();
+
   return (
     <WrappedInlineCardWithAwareness
       node={node}
@@ -187,6 +193,7 @@ export function InlineCardNodeView(
       isOverlayEnabled={isOverlayEnabled}
       isPulseEnabled={isPulseEnabled}
       pluginInjectionApi={pluginInjectionApi}
+      isSelected={isSelected}
     />
   );
 }

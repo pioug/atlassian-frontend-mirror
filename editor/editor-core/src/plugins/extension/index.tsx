@@ -18,6 +18,7 @@ import { createPlugin as createUniqueIdPlugin } from './pm-plugins/unique-id';
 import { getToolbarConfig } from './toolbar';
 import { getContextPanel } from './context-panel';
 import { createExtensionAPI } from './extension-api';
+import { createEditSelectedExtensionAction } from './actions';
 
 const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
@@ -113,6 +114,11 @@ const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) => {
       insertMacroFromMacroBrowser: insertMacroFromMacroBrowser(
         api?.analytics?.actions,
       ),
+
+      editSelectedExtension: createEditSelectedExtensionAction({
+        editorViewRef,
+        editorAnalyticsAPI: api?.analytics?.actions,
+      }),
       runMacroAutoConvert,
     },
 

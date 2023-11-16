@@ -16,8 +16,6 @@ import {
   wrapperStyle,
 } from '@atlaskit/editor-common/styles';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import { insertTaskDecisionCommand } from '../../../tasks-and-decisions/commands';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -431,18 +429,20 @@ export class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private insertTaskDecision =
-    (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
     (name: 'action' | 'decision', inputMethod: TOOLBAR_MENU_TYPE) =>
     (): boolean => {
       const {
         editorView: { state, dispatch },
+        pluginInjectionApi,
       } = this.props;
       const listType = name === 'action' ? 'taskList' : 'decisionList';
 
-      return insertTaskDecisionCommand(editorAnalyticsAPI)(
-        listType,
-        inputMethod,
-      )(state, dispatch);
+      return (
+        pluginInjectionApi?.taskDecision?.actions.insertTaskDecision(
+          listType,
+          inputMethod,
+        )(state, dispatch) ?? false
+      );
     };
 
   private insertHorizontalRule = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
@@ -542,9 +542,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
         break;
       case 'action':
       case 'decision':
-        this.insertTaskDecision(
-          this.props.pluginInjectionApi?.analytics?.actions,
-        )(item.value.name, inputMethod)();
+        this.insertTaskDecision(item.value.name, inputMethod)();
         break;
 
       case 'horizontalrule':

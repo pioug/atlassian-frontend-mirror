@@ -1,17 +1,12 @@
 import React from 'react';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
-import { ResourcedTaskItem, TaskItem } from '@atlaskit/task-decision';
-import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import type { TaskDecisionProvider } from '@atlaskit/task-decision';
 
-import Task from '../../../../../plugins/tasks-and-decisions/ui/Task';
-// avoid polluting test logs with error message in console
-// please ensure you fix it if you expect console.error to be thrown
-// eslint-disable-next-line no-console
-let consoleError = console.error;
+import Task from '../../../ui/Task';
 
-const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 const contextIdentifierProvider = Promise.resolve({
   objectId: 'abc',
   containerId: 'def',
@@ -20,97 +15,96 @@ const contextIdentifierProvider = Promise.resolve({
 describe('tasks and decisions task', () => {
   let providerFactory: ProviderFactory;
 
+  const subscribe = jest.fn();
+  const toggleTask = jest.fn();
+  const unsubscribe = jest.fn();
+  const actualProvider = {
+    subscribe,
+    toggleTask,
+    unsubscribe,
+  } as unknown as TaskDecisionProvider;
+
+  const mockTaskDecisionProvider = Promise.resolve(actualProvider);
+
   beforeEach(() => {
+    jest.clearAllMocks();
     providerFactory = new ProviderFactory();
-    // eslint-disable-next-line no-console
-    console.error = jest.fn();
   });
 
   afterEach(() => {
     providerFactory.destroy();
-    // eslint-disable-next-line no-console
-    console.error = consoleError;
   });
 
-  it('should render resourced task item', () => {
-    const task = mountWithIntl(<Task taskId="abcd-abcd-abcd" isDone />);
-    const resourcedTask = task.find(ResourcedTaskItem);
-
-    expect(resourcedTask.prop('taskId')).toEqual('abcd-abcd-abcd');
-    expect(resourcedTask.prop('isDone')).toEqual(true);
-    task.unmount();
-  });
-
-  it('should pass TaskDecisionProvider into resourced task item', () => {
-    providerFactory.setProvider('taskDecisionProvider', taskDecisionProvider);
-
-    const task = mountWithIntl(
-      <Task taskId="abcd-abcd-abcd" isDone providers={providerFactory} />,
+  it('should check the box, and toggle the state on the provider ', async () => {
+    providerFactory.setProvider(
+      'taskDecisionProvider',
+      mockTaskDecisionProvider,
     );
-    const resourcedTaskItem = task.find(ResourcedTaskItem);
-
-    expect(resourcedTaskItem.prop('taskDecisionProvider')).toEqual(
-      taskDecisionProvider,
-    );
-    task.unmount();
-  });
-
-  it('should pass ContextIdentifierProvider into resourced task item', async () => {
     providerFactory.setProvider(
       'contextIdentifierProvider',
       contextIdentifierProvider,
     );
-    const task = mountWithIntl(
+    const { getByRole } = renderWithIntl(
       <Task taskId="abcd-abcd-abcd" isDone providers={providerFactory} />,
     );
 
     await contextIdentifierProvider;
-    task.update();
-    const resourcedTaskItem = task.find(ResourcedTaskItem);
-    expect(resourcedTaskItem.prop('objectAri')).toEqual('abc');
-    task.unmount();
+    const checkbox = getByRole('checkbox') as HTMLInputElement;
+
+    await checkbox.click();
+
+    expect(checkbox.checked).toEqual(false);
+    expect(toggleTask).toHaveBeenCalledWith(
+      { localId: 'abcd-abcd-abcd', objectAri: 'abc' },
+      'TODO',
+    );
   });
 
-  it('should change state of task if onChange is triggered and all providers are passed in', async () => {
-    providerFactory.setProvider('taskDecisionProvider', taskDecisionProvider);
+  it('should uncheck the box, and toggle the state on the provider ', async () => {
+    providerFactory.setProvider(
+      'taskDecisionProvider',
+      mockTaskDecisionProvider,
+    );
     providerFactory.setProvider(
       'contextIdentifierProvider',
       contextIdentifierProvider,
     );
-    const task = mountWithIntl(
+    const { getByRole } = renderWithIntl(
+      <Task
+        taskId="abcd-abcd-abcd"
+        isDone={false}
+        providers={providerFactory}
+      />,
+    );
+
+    await contextIdentifierProvider;
+    const checkbox = getByRole('checkbox') as HTMLInputElement;
+
+    await checkbox.click();
+
+    expect(checkbox.checked).toEqual(true);
+    expect(toggleTask).toHaveBeenCalledWith(
+      { localId: 'abcd-abcd-abcd', objectAri: 'abc' },
+      'DONE',
+    );
+  });
+
+  it('should not toggle if there is no context identifier provider', async () => {
+    providerFactory.setProvider(
+      'taskDecisionProvider',
+      mockTaskDecisionProvider,
+    );
+
+    const { getByRole } = renderWithIntl(
       <Task taskId="abcd-abcd-abcd" isDone providers={providerFactory} />,
     );
 
     await contextIdentifierProvider;
-    task.find(TaskItem).find('input').simulate('change');
-    expect(task.find(TaskItem).prop('isDone')).toBe(false);
-    task.unmount();
-  });
+    const checkbox = getByRole('checkbox');
 
-  it('should not change state of task if no taskDecisionProvider', () => {
-    providerFactory.setProvider(
-      'contextIdentifierProvider',
-      contextIdentifierProvider,
-    );
-    const task = mountWithIntl(
-      <Task taskId="abcd-abcd-abcd" isDone providers={providerFactory} />,
-    );
+    await checkbox.click();
 
-    const taskItem = task.find(TaskItem);
-    taskItem.find('input').simulate('change');
-    expect(taskItem.prop('isDone')).toBe(true);
-    task.unmount();
-  });
-
-  it('should not change state of task if no contextIdentifierProvider', () => {
-    providerFactory.setProvider('taskDecisionProvider', taskDecisionProvider);
-    const task = mountWithIntl(
-      <Task taskId="abcd-abcd-abcd" isDone providers={providerFactory} />,
-    );
-
-    const taskItem = task.find(TaskItem);
-    taskItem.find('input').simulate('change');
-    expect(taskItem.prop('isDone')).toBe(true);
-    task.unmount();
+    expect(toggleTask).not.toHaveBeenCalled();
+    expect(subscribe).not.toHaveBeenCalled();
   });
 });

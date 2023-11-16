@@ -67,6 +67,9 @@ export class RankableTableRow extends React.Component<RankableTableRowProps> {
             {...restRowProps}
             {...provided.dragHandleProps}
             {...provided.draggableProps}
+            // It is necessary to prevent the passing of aria-labelledby
+            aria-labelledby={undefined}
+            aria-describedby={provided.dragHandleProps?.['aria-labelledby']}
             ref={this.innerRef(provided.innerRef)}
             style={{ ...provided.draggableProps.style, ...inlineStyles }}
             isHighlighted={isHighlighted || isRowHighlighted}

@@ -1,12 +1,10 @@
-import React, { Component, ReactElement } from 'react';
+import type { ReactElement } from 'react';
+import React, { Component } from 'react';
 
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import {
-  ContentRef,
-  ResourcedTaskItem,
-  TaskDecisionProvider,
-} from '@atlaskit/task-decision';
+import type { ContentRef, TaskDecisionProvider } from '@atlaskit/task-decision';
+import { ResourcedTaskItem } from '@atlaskit/task-decision';
 
 export interface Props {
   taskId: string;

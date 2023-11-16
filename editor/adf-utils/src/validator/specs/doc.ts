@@ -33,6 +33,7 @@ export default {
           'bodiedExtension_with_marks',
           'layoutSection_full',
           'layoutSection_with_single_column',
+          'multiBodiedExtension',
         ],
       ],
       allowUnsupportedBlock: true,

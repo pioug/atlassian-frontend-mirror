@@ -50,6 +50,16 @@ For a different space value between rows use the `rowSpace` prop.
   packageName="@atlaskit/primitives/inline"
 />
 
+## Reverse content
+
+`flex-direction: `row-reverse` is a pattern that has [accessibility concerns](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction#accessibility_concerns) so inline doesn't support it.
+
+If reversing content is required, we generally recommend to use JavaScript to reverse the JSX content thereby preserving the tabbing order.
+
+In situations where tabbing order changes based on different breakpoints, then we have [show](/components/primitives/responsive/hide/examples) and [hide](/components/primitives/responsive/hide/examples) components that enable switching between different orderings of content.
+
+For non-tabbable content that needs to be reversed, `flex-direction: row-reverse` is supported in XCSS. However, please be aware that we may lint against this in the future.
+
 ## Alignment
 
 To control the alignment of items you can use the `alignBlock` and `alignInline` props which control alignment in the vertical and horizontal axis respectively.

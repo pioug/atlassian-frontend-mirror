@@ -1,5 +1,4 @@
 import { findIndex, objectKeyToString, toggleTaskState } from './utils';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   BaseItem,
   DecisionState,
@@ -9,7 +8,7 @@ import type {
   RecentUpdatesId,
   TaskDecisionProvider,
   TaskState,
-} from '@atlaskit/task-decision';
+} from './types';
 
 export interface MockTaskDecisionResourceConfig {
   hasMore?: boolean;

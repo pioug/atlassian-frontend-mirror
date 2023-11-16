@@ -1,5 +1,43 @@
 # @atlaskit/editor-mobile-bridge
 
+## 189.3.28
+
+### Patch Changes
+
+- [#43379](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43379) [`482c025520d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/482c025520d) - ED-20763 Upgrade ADF schema version to 33.2.3 for MBE nodes.
+- Updated dependencies
+
+## 189.3.27
+
+### Patch Changes
+
+- [#43343](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43343) [`62499cd0af0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62499cd0af0) - Decouple tasks and decisions plugin from editor core.
+- Updated dependencies
+
+## 189.3.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.3.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.3.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.3.23
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 189.3.22
 
 ### Patch Changes

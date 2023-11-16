@@ -1,5 +1,5 @@
-import {
-  DefaultExtensionProvider,
+import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
+import type {
   ExtensionManifest,
   ExtensionModule,
   FieldDefinition,
@@ -11,24 +11,31 @@ import {
   NestedFieldDefinition,
   Parameters,
 } from '@atlaskit/editor-common/extensions';
+import type {
+  PublicPluginAPI,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 
 import { mockFieldResolver } from '../config-panel/confluence-fields-data-providers';
 
 import { cqlSerializer, cqlDeserializer } from '../config-panel/cql-helpers';
 
-import EditorActions from '../../src/actions';
-import { editSelectedExtension } from '../../src/extensions';
+import type EditorActions from '../../src/actions';
 
 const isNativeFieldType = (fieldType: string) => {
   return /^(enum|string|number|boolean|date|color)$/.test(fieldType);
 };
 
-const getMacrosManifestList = async (editorActions?: EditorActions) => {
+const getMacrosManifestList = async (
+  editorActions?: EditorActions,
+  api?: PublicPluginAPI<[OptionalPlugin<ExtensionPlugin>]>,
+) => {
   const response = await fetch('./editor-data/browse-macros.json');
   const data = await response.json();
 
   return data.macros.map((macro: LegacyMacroManifest) =>
-    transformLegacyMacrosToExtensionManifest(macro, editorActions),
+    transformLegacyMacrosToExtensionManifest(macro, editorActions, api),
   );
 };
 
@@ -136,6 +143,7 @@ const getExtensionBodyType = (macro: LegacyMacroManifest) => {
 const transformLegacyMacrosToExtensionManifest = (
   macro: LegacyMacroManifest,
   editorActions?: EditorActions,
+  api?: PublicPluginAPI<[OptionalPlugin<ExtensionPlugin>]>,
 ): ExtensionManifest => {
   const extensionKey = safeGetMacroName(macro);
 
@@ -173,7 +181,7 @@ const transformLegacyMacrosToExtensionManifest = (
     }
 
     editorActions.replaceSelection(node, true);
-    editSelectedExtension(editorActions);
+    api?.extension?.actions?.editSelectedExtension();
   };
 
   const asyncAction = () =>
@@ -631,8 +639,9 @@ const transformFieldType = (
 };
 
 export const getConfluenceMacrosExtensionProvider = async (
+  api: PublicPluginAPI<[OptionalPlugin<ExtensionPlugin>]> | undefined,
   editorActions?: EditorActions,
 ) => {
-  const manifests = await getMacrosManifestList(editorActions);
+  const manifests = await getMacrosManifestList(editorActions, api);
   return new DefaultExtensionProvider(manifests);
 };

@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.18.1
+
+### Patch Changes
+
+- [#43352](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43352) [`1a114b01fa4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a114b01fa4) - [ux] Fixed a UI issue in the pulse
+
 ## 4.18.0
 
 ### Minor Changes

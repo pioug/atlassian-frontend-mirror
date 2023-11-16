@@ -222,6 +222,18 @@ tester.run('no-unsafe-design-token-usage', rule, {
       ],
       code: `token('trello.color.background.accent.lime.subtle')`,
     },
+    {
+      options: [{ fallbackUsage: 'optional' }],
+      code: `token('elevation.shadow.raised')`,
+    },
+    {
+      options: [{ fallbackUsage: 'optional' }],
+      code: `token('elevation.shadow.raised', 'red')`,
+    },
+    {
+      options: [{ fallbackUsage: 'forced' }],
+      code: `token('elevation.shadow.raised', 'red')`,
+    },
   ],
   invalid: [
     {
@@ -305,6 +317,12 @@ tester.run('no-unsafe-design-token-usage', rule, {
     {
       // should error when a fallback is not supplied
       options: [{ shouldEnforceFallbacks: true }],
+      code: `css({ color: token('elevation.shadow.raised') })`,
+      errors: [{ messageId: 'tokenFallbackEnforced' }],
+    },
+    {
+      // should error when a fallback is not supplied
+      options: [{ fallbackUsage: 'forced' }],
       code: `css({ color: token('elevation.shadow.raised') })`,
       errors: [{ messageId: 'tokenFallbackEnforced' }],
     },

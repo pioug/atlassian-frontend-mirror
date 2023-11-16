@@ -7,6 +7,7 @@
  */
 //Swedish
 export default {
+  'fabric.linking.access_exists_description': 'Begär åtkomst för att visa det här innehållet från {hostname}.',
   'fabric.linking.actions': 'Åtgärder',
   'fabric.linking.add_account': 'Lägg till konto',
   'fabric.linking.assigned_to': 'Tilldelad till {context}',
@@ -37,18 +38,25 @@ export default {
   'fabric.linking.create_on_relative': 'Skapades {context}',
   'fabric.linking.created_by': 'Skapades av {context}',
   'fabric.linking.delete': 'Radera',
+  'fabric.linking.direct_access_crossjoin': 'Gå med nu',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Ditt team använder {product} för att samarbeta och du kan börja använda det direkt!',
+  'fabric.linking.direct_access_title_crossjoin': 'Anslut till {product} för att visa innehållet',
   'fabric.linking.download': 'Ladda ner',
   'fabric.linking.edit': 'Redigera',
   'fabric.linking.follow': 'Följ',
   'fabric.linking.forbidden_access': 'Din åtkomst är förbjuden',
   'fabric.linking.forbidden_description':
     'Du har inte behörighet för den här förhandsgranskningen. Kontakta webbplatsadministratören om du behöver åtkomst.',
+  'fabric.linking.forbidden_description_crossjoin': 'Kontakta administratören för att begära åtkomst till {hostname}.',
   'fabric.linking.forbidden_title_crossjoin': 'Du har inte åtkomst till det här innehållet',
+  'fabric.linking.generic_error_message': 'Ett fel inträffade',
   'fabric.linking.go_back': 'Gå tillbaka',
   'fabric.linking.invalid_permissions': 'Begränsat innehåll',
   'fabric.linking.invalid_permissions_description':
     'Du måste begära åtkomst eller försöka med ett annat konto för att visa förhandsgranskningen.',
   'fabric.linking.join_to_view': 'Anslut till {context} för att visa ärendet',
+  'fabric.linking.last_mentioned_in': 'Senast omnämnd i',
   'fabric.linking.learn_more_about_smart_links': 'Läs mer om smarta länkar.',
   'fabric.linking.link_safety_warning_message':
     'Länken {unsafeLinkText} tar dig till en annan webbplats, <a>actual link here</a>',
@@ -56,6 +64,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Uppdaterades {context}',
   'fabric.linking.modified_on_relative': 'Uppdaterades {context}',
   'fabric.linking.more_actions': 'Fler åtgärder',
+  'fabric.linking.no_access_title_crossjoin': 'Anslut till {product} för att visa innehållet',
   'fabric.linking.not_found_description':
     'Vi kunde inte hitta länken. Kontrollera URL-adressen och försök att redigera eller klistra in igen.',
   'fabric.linking.not_found_description_crossjoin':
@@ -82,9 +91,13 @@ export default {
   'fabric.linking.priority_trivial': 'Obetydlig',
   'fabric.linking.priority_undefined': 'Ej definierad',
   'fabric.linking.read_time': '{context} minuters läsning',
+  'fabric.linking.related': 'Relaterat',
+  'fabric.linking.related_work_items_not_found': 'Länken nämns inte någon annanstans.',
   'fabric.linking.request_access': 'Begär åtkomst',
   'fabric.linking.request_access_crossjoin': 'Begär åtkomst',
   'fabric.linking.request_access_description': 'Be om åtkomst till {context} för att visa förhandsgranskningen.',
+  'fabric.linking.request_access_description_crossjoin':
+    'Ditt team använder {product} för att samarbeta. Skicka en åtkomstförfrågan till din administratör.',
   'fabric.linking.request_access_pending': 'Väntar på åtkomst',
   'fabric.linking.request_access_pending_crossjoin': 'Väntar på godkännande',
   'fabric.linking.request_access_pending_description': 'Din åtkomstförfrågan väntar på svar.',

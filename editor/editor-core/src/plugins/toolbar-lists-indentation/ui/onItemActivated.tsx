@@ -1,9 +1,5 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import {
-  getIndentCommand as indentTaskList,
-  getUnindentCommand as outdentTaskList,
-} from '../../tasks-and-decisions/pm-plugins/keymaps';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 
 import type { IndentationButtonNode } from '../pm-plugins/indentation-buttons';
@@ -56,7 +52,7 @@ export const onItemActivated =
           );
         }
         if (node === 'taskList') {
-          indentTaskList(pluginInjectionApi?.analytics?.actions)(
+          pluginInjectionApi?.taskDecision?.actions.indentTaskList(
             INPUT_METHOD.TOOLBAR,
           )(editorView.state, editorView.dispatch);
         }
@@ -76,7 +72,7 @@ export const onItemActivated =
           );
         }
         if (node === 'taskList') {
-          outdentTaskList(pluginInjectionApi?.analytics?.actions)(
+          pluginInjectionApi?.taskDecision?.actions.outdentTaskList(
             INPUT_METHOD.TOOLBAR,
           )(editorView.state, editorView.dispatch);
         }

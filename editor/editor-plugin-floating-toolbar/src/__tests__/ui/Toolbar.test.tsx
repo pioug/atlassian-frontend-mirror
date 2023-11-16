@@ -1,6 +1,8 @@
 import React from 'react';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
+import { screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import {
   areSameItems,
@@ -23,9 +25,9 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points, import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points, import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 import type { Item } from '../../ui/Toolbar';
 import Toolbar from '../../ui/Toolbar';
@@ -61,9 +63,8 @@ describe('<Toolbar />', () => {
     );
 
   it('renders extension items if provided', async () => {
-    let wrapper;
     if (editorView.state.doc.firstChild) {
-      wrapper = mountWithIntl(
+      renderWithIntl(
         <Toolbar
           node={editorView.state.doc.firstChild}
           editorView={editorView}
@@ -79,23 +80,25 @@ describe('<Toolbar />', () => {
           api={undefined}
         />,
       );
-
-      await flushPromises();
-
-      wrapper.update();
     }
 
-    expect(
-      wrapper?.find('button[aria-label="Item with icon and label"]').length,
-    ).toEqual(1);
-    expect(
-      wrapper?.find('[tooltipContent="Item with icon and label"]').length,
-    ).toEqual(1);
+    const button = await waitFor(() =>
+      screen.getByRole('button', {
+        name: 'Item with icon and label',
+      }),
+    );
+    expect(button).toBeVisible();
 
-    wrapper
-      ?.find('button[aria-label="Item with icon and label"]')
-      .simulate('click');
-    expect(action).toHaveBeenCalledTimes(1);
+    userEvent.hover(button);
+    const tooltip = await waitFor(() =>
+      screen.getByRole('tooltip', {
+        name: 'Item with icon and label',
+      }),
+    );
+    expect(tooltip).toBeVisible();
+
+    userEvent.click(button);
+    await waitFor(() => expect(action).toHaveBeenCalledTimes(1));
   });
 
   it('does not render when no extension items provided', async () => {
@@ -124,8 +127,6 @@ describe('<Toolbar />', () => {
   });
 
   it('re-renders after node with different localId is selected', async () => {
-    let wrapper;
-
     const docNode = doc(
       table({ layout: 'full-width', localId: 'table1' })(
         tr(thEmpty, thEmpty, thEmpty),
@@ -159,54 +160,66 @@ describe('<Toolbar />', () => {
         ),
       );
 
-    if (editorView.state.doc.firstChild) {
-      wrapper = mountWithIntl(
-        <Toolbar
-          node={editorView.state.doc.firstChild}
-          editorView={editorView}
-          extensionsProvider={createTestExtensionProvider(action)}
-          items={[
-            {
-              type: 'extensions-placeholder',
-            },
-          ]}
-          dispatchAnalyticsEvent={jest.fn()}
-          dispatchCommand={jest.fn()}
-          featureFlags={featureFlags}
-          api={undefined}
-        />,
-      );
+    const { rerender } = renderWithIntl(
+      <Toolbar
+        node={editorView.state.doc.firstChild!}
+        editorView={editorView}
+        extensionsProvider={createTestExtensionProvider(action)}
+        items={[
+          {
+            type: 'extensions-placeholder',
+          },
+        ]}
+        dispatchAnalyticsEvent={jest.fn()}
+        dispatchCommand={jest.fn()}
+        featureFlags={featureFlags}
+        api={undefined}
+      />,
+    );
 
-      await flushPromises();
-
-      wrapper.update();
-    }
-
-    expect(
-      wrapper?.find('button[aria-label="Item with icon and label"]').length,
-    ).toEqual(1);
-    expect(
-      wrapper?.find('[tooltipContent="Item with icon and label"]').length,
-    ).toEqual(1);
+    const button = await waitFor(() =>
+      screen.getByRole('button', {
+        name: 'Item with icon and label',
+      }),
+    );
+    expect(button).toBeVisible();
+    userEvent.hover(button);
+    await waitFor(() =>
+      expect(
+        screen.getByRole('tooltip', {
+          name: 'Item with icon and label',
+        }),
+      ).toBeVisible(),
+    );
 
     // click button first time
-    wrapper
-      ?.find('button[aria-label="Item with icon and label"]')
-      .simulate('click');
+    await userEvent.click(button);
+
     expect(action).toHaveBeenCalledTimes(1);
     // first call to action, arg0 ADFEntity should match table1
     expect(action.mock.calls[0][0].attrs.localId).toEqual('table1');
 
     // update the node to table2
-    wrapper?.setProps({
-      node: editorView.state.doc.lastChild,
-    });
-    wrapper?.update();
+    rerender(
+      <Toolbar
+        node={editorView.state.doc.lastChild!}
+        editorView={editorView}
+        extensionsProvider={createTestExtensionProvider(action)}
+        items={[
+          {
+            type: 'extensions-placeholder',
+          },
+        ]}
+        dispatchAnalyticsEvent={jest.fn()}
+        dispatchCommand={jest.fn()}
+        featureFlags={featureFlags}
+        api={undefined}
+      />,
+    );
 
     // click button second time
-    wrapper
-      ?.find('button[aria-label="Item with icon and label"]')
-      .simulate('click');
+    await userEvent.click(button);
+
     expect(action).toHaveBeenCalledTimes(2);
     // second call to action, arg0 ADFEntity should match table2
     expect(action.mock.calls[1][0].attrs.localId).toEqual('table2');

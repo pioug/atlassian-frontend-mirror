@@ -122,10 +122,6 @@ export const ExternalImageCard = ({
 
   const [status, setStatus] =
     useState<ExternalImageCardStatus>('loading-preview');
-  useEffect(() => {
-    fireCommencedEventRef.current();
-    setStatus('loading-preview');
-  }, [fireCommencedEventRef, identifier]);
 
   const cardPreview: CardPreview = useMemo(
     () => ({
@@ -212,6 +208,10 @@ export const ExternalImageCard = ({
   //----------------------------------------------------------------//
   //------------------------ useEffects ----------------------------//
   //----------------------------------------------------------------//
+
+  useEffect(() => {
+    fireCommencedEventRef.current();
+  }, [fireCommencedEventRef]);
 
   useEffect(() => {
     const fireCopiedCardEvent = () => {

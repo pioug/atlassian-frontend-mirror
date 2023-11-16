@@ -1,5 +1,15 @@
 # @atlaskit/stylelint-design-system
 
+## 2.1.0
+
+### Minor Changes
+
+- [#43258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43258) [`0004d49c240`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0004d49c240) - Adds a new argument `fallbackUsage` which replaces `shouldEnforceFallbacks`. This new argument is an enum which represents the three possible states this rule can be configured with.
+
+  - `forced`: Fallbacks must always been in use
+  - `none`: Fallbacks must never been in use. (Fixer will remove any value provided )
+  - `optional`: (new) Fallbacks are optional
+
 ## 2.0.0
 
 ### Major Changes

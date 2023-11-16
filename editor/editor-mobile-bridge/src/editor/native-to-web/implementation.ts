@@ -22,7 +22,6 @@ import {
   setIsExpanded,
 } from '@atlaskit/editor-core/src/plugins/mobile-dimensions/commands';
 import { createTable } from '@atlaskit/editor-plugin-table/commands';
-import { insertTaskDecisionCommand } from '@atlaskit/editor-core/src/plugins/tasks-and-decisions/commands';
 import { dateToDateType } from '../../utils/dateToDateType';
 import type {
   TypeAheadHandler,
@@ -627,7 +626,7 @@ export default class WebBridgeImpl
         );
         return;
       case 'action':
-        insertTaskDecisionCommand(this.pluginInjectionApi?.analytics?.actions)(
+        this.pluginInjectionApi?.taskDecision.actions.insertTaskDecision(
           'taskList',
           inputMethod as InsertBlockInputMethodToolbar,
           undefined,
@@ -636,7 +635,7 @@ export default class WebBridgeImpl
         )(state, dispatch);
         return;
       case 'decision':
-        insertTaskDecisionCommand(this.pluginInjectionApi?.analytics?.actions)(
+        this.pluginInjectionApi?.taskDecision.actions.insertTaskDecision(
           'decisionList',
           inputMethod as InsertBlockInputMethodToolbar,
           undefined,

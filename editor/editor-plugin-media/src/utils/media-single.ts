@@ -41,7 +41,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type { MediaState } from '../types';
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 
-import { isImage } from './is-image';
+import { isImage } from './is-type';
 
 export interface MediaSingleState extends MediaState {
   dimensions: { width: number; height: number };

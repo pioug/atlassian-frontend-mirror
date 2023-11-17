@@ -339,31 +339,16 @@ describe('<LinkCreate />', () => {
       );
 
       ffTest(
-        'platform.linking-platform.link-create.outer-error-boundary',
-        ff =>
-          ffTest(
-            'platform.linking-platform.link-create.enable-edit',
-            async () => {
-              // when `enable-edit` flag is enabled, there's an additional <LinkCreatePluginsProvider />
-              // which will throw error outside of link create modal if `plugins` contains bad data
-              setUpLinkCreate({ plugins: 'error' as any });
+        'platform.linking-platform.link-create.enable-edit',
+        async () => {
+          // when `enable-edit` flag is enabled, there's an additional <LinkCreatePluginsProvider />
+          // which will throw error outside of link create modal if `plugins` contains bad data
+          setUpLinkCreate({ plugins: 'error' as any });
 
-              expect(
-                await screen.findByTestId('link-create-error-boundary-modal'),
-              ).toBeInTheDocument();
-            },
-            async () => {
-              setUpLinkCreate({ plugins: 'error' as any });
-
-              expect(
-                await screen.findByTestId('link-create-error-boundary-ui'),
-              ).toBeInTheDocument();
-              expect(
-                screen.queryByTestId('link-create-error-boundary-modal'),
-              ).not.toBeInTheDocument();
-            },
-            ff,
-          ),
+          expect(
+            await screen.findByTestId('link-create-error-boundary-modal'),
+          ).toBeInTheDocument();
+        },
         async () => {
           setUpLinkCreate({ plugins: 'error' as any });
 

@@ -20,12 +20,7 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-  browser,
-  ErrorReporter,
-  isInEmptyLine,
-  isInListItem,
-} from '@atlaskit/editor-common/utils';
+import { browser, ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import type {
   Node as PMNode,
@@ -71,17 +66,13 @@ import type {
 } from '../types';
 import type { PlaceholderType } from '../ui/Media/DropPlaceholder';
 import DropPlaceholder from '../ui/Media/DropPlaceholder';
+import { removeMediaNode, splitMediaGroup } from '../utils/media-common';
 import {
-  isInsidePotentialEmptyParagraph,
-  removeMediaNode,
-  splitMediaGroup,
-} from '../utils/media-common';
-import {
-  canInsertMediaInline,
   insertMediaGroupNode,
   insertMediaInlineNode,
 } from '../utils/media-files';
-import { insertMediaSingleNode, isMediaSingle } from '../utils/media-single';
+import { getMediaNodeInsertionType } from '../utils/media-inline';
+import { insertMediaSingleNode } from '../utils/media-single';
 
 import { MediaTaskManager } from './mediaTaskManager';
 import { stateKey } from './plugin-key';
@@ -417,40 +408,44 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       });
     }
 
-    if (isMediaSingle(state.schema, mediaStateWithContext.fileMimeType)) {
-      // read width state right before inserting to get up-to-date and define values
-      const widthPluginState: WidthPluginState | undefined =
-        this.pluginInjectionApi?.width.sharedState.currentState();
-
-      insertMediaSingleNode(
-        this.view,
-        mediaStateWithContext,
-        this.getInputMethod(pickerType),
-        collection,
-        this.mediaOptions && this.mediaOptions.alignLeftOnInsert,
-        this.newInsertionBehaviour,
-        widthPluginState,
-        editorAnalyticsAPI,
-      );
-    } else if (
-      getMediaFeatureFlag('mediaInline', this.mediaOptions?.featureFlags) &&
-      !isInEmptyLine(state) &&
-      (!isInsidePotentialEmptyParagraph(state) || isInListItem(state)) &&
-      canInsertMediaInline(state)
+    switch (
+      getMediaNodeInsertionType(
+        state,
+        this.mediaOptions?.featureFlags,
+        mediaStateWithContext.fileMimeType,
+      )
     ) {
-      insertMediaInlineNode(editorAnalyticsAPI)(
-        this.view,
-        mediaStateWithContext,
-        collection,
-        this.getInputMethod(pickerType),
-      );
-    } else {
-      insertMediaGroupNode(editorAnalyticsAPI)(
-        this.view,
-        [mediaStateWithContext],
-        collection,
-        this.getInputMethod(pickerType),
-      );
+      case 'inline':
+        insertMediaInlineNode(editorAnalyticsAPI)(
+          this.view,
+          mediaStateWithContext,
+          collection,
+          this.getInputMethod(pickerType),
+        );
+        break;
+      case 'block':
+        // read width state right before inserting to get up-to-date and define values
+        const widthPluginState: WidthPluginState | undefined =
+          this.pluginInjectionApi?.width.sharedState.currentState();
+        insertMediaSingleNode(
+          this.view,
+          mediaStateWithContext,
+          this.getInputMethod(pickerType),
+          collection,
+          this.mediaOptions && this.mediaOptions.alignLeftOnInsert,
+          this.newInsertionBehaviour,
+          widthPluginState,
+          editorAnalyticsAPI,
+        );
+        break;
+      case 'group':
+        insertMediaGroupNode(editorAnalyticsAPI)(
+          this.view,
+          [mediaStateWithContext],
+          collection,
+          this.getInputMethod(pickerType),
+        );
+        break;
     }
 
     // do events when media state changes

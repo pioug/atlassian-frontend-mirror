@@ -650,6 +650,8 @@ interface SmartLinksOptions {
   // (undocumented)
   frameStyle?: CardProps['frameStyle'];
   // (undocumented)
+  hideHoverPreview?: boolean;
+  // (undocumented)
   showAuthTooltip?: boolean;
   // (undocumented)
   showServerActions?: boolean;

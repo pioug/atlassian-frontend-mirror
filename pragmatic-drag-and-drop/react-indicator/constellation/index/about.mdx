@@ -6,7 +6,9 @@ description: An addon to display drag hitbox information on drop targets.
 
 import SectionMessage from '@atlaskit/section-message';
 import ClosestEdgeExample from '../../examples/constellation/closest-edge';
+import ConditionalExample from '../../examples/constellation/conditional';
 import GapExample from '../../examples/constellation/gap';
+import TreeItemExample from '../../examples/constellation/tree-item';
 
 <SectionMessage
   title="Positioning"
@@ -24,7 +26,7 @@ This package contains `react` components to display hitbox information. Hitbox i
 You do not _need_ to use these packages to display hitbox information, they have been created for your convenience. These packages embody our [design guidelines](/components/pragmatic-drag-and-drop/design-guidelines)
 
 - [`@atlaskit/pragmatic-drag-and-drop-hitbox/box`](/components/pragmatic-drag-and-drop/packages/indicator/box) displays a line relative to a _box_ (eg a `Card`)
-- Trees (coming soon)
+- [`@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item`](#tree-item) displays a line to indicate reordering, and a border is used to indicate a “make child” operation.
 
 ## Box
 
@@ -41,6 +43,10 @@ When performing reordering operations a drop indicator is used to communicate th
 Use `edge` to specify which edge of the drop target the drop indicator should be rendered on.
 
 <Example Component={ClosestEdgeExample} />
+
+In order to help people be successful with performance, we have made `edge` a _required_ prop. This will force you to only render the indicator when it is relevant (minimising `react` and DOM nodes)
+
+<Example Component={ConditionalExample} />
 
 ### Gap
 
@@ -66,3 +72,26 @@ There is also a version of the box indicator that does not include a terminal.
 ```ts
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box-without-terminal';
 ```
+
+## Tree item
+
+This package provides a `<DropIndicator/>` component to draw drop indicators in a tree. Lines are used to indicate reordering, and a border is used to indicate that an item will be made a child.
+
+```ts
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/tree-item';
+```
+
+When dragging an item a drop indicator is used to communicate the intended resting place of the `draggable` item.
+
+### Instruction
+
+The drop indicator will be positioned based on the `instruction` prop. The instructions available are:
+
+- **reorder-above**: the drop indicator line is rendered above the tree item.
+- **reorder-below**: the drop indicator line is rendered below the tree item.
+- **make-child**: a border will indicate that the item will be made a child.
+- **reparent**: the drop indicator line changes indentation to match the level the item will be dropped at.
+
+Any drag operation can also be blocked. When an operation is blocked, a warning color will be applied to the drop indicator.
+
+<Example Component={TreeItemExample} />

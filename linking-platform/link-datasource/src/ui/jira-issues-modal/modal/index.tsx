@@ -81,6 +81,12 @@ const dropdownContainerStyles = css({
   minHeight: '40px', // to prevent vertical shifting when site selector pops in
 });
 
+const tableContainerStyles = css({
+  borderTopLeftRadius: token('border.radius.200', '8px'),
+  borderTopRightRadius: token('border.radius.200', '8px'),
+  border: `1px solid ${token('color.border', N40)}`,
+});
+
 const contentContainerStyles = css({
   display: 'grid',
   maxHeight: '420px',
@@ -568,7 +574,7 @@ export const PlainJiraIssuesConfigModal = (
 
   const issueLikeDataTableView = useMemo(
     () => (
-      <div css={contentContainerStyles}>
+      <div css={[tableContainerStyles, contentContainerStyles]}>
         <IssueLikeDataTableView
           testId="jira-jql-datasource-table"
           status={status}
@@ -643,7 +649,7 @@ export const PlainJiraIssuesConfigModal = (
     } else if (status === 'empty' || !columns.length) {
       // persist the empty state when making the initial /data request which contains the columns
       return (
-        <div css={contentContainerStyles}>
+        <div css={[contentContainerStyles, !!jql && tableContainerStyles]}>
           {!!jql ? (
             <EmptyState testId={`jira-jql-datasource-modal--empty-state`} />
           ) : (

@@ -135,26 +135,6 @@ export const toggleTaskItemCheckbox = makeKeyMapWithCommon(
   'Mod-Alt-Enter',
 );
 
-export const increaseMediaSize = makeKeyMapWithCommon(
-  'increase image size',
-  'Mod-ArrowRight',
-);
-
-export const decreaseMediaSize = makeKeyMapWithCommon(
-  'increase image size',
-  'Mod-ArrowLeft',
-);
-
-export const quickIncreaseMediaSize = makeKeyMapWithCommon(
-  'quick increase image size',
-  'Mod-Shift-ArrowRight',
-);
-
-export const quickDecreaseMediaSize = makeKeyMapWithCommon(
-  'quick increase image size',
-  'Mod-Shift-ArrowLeft',
-);
-
 const arrowKeysMap: Record<string, string> = {
   // for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys
   ARROWLEFT: '\u2190',

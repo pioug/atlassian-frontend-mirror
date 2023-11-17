@@ -20,11 +20,11 @@ import FormAllOptions from '../../examples/constellation/form-all-options.tsx';
 
 ## Default
 
-A form consists of a group of related fields. You can customize the fields with components such as [text field](/components/textfield/examples), [range field](/components/form/examples#range-field), and [checkbox field](/components/form/examples#checkbox-field). You can also pass in default values. Submitting the form calls a callback function.
+A form is a group of related fields. You can customize the fields with components such as [text field](/components/textfield/examples), [range field](/components/form/examples#range-field), and [checkbox field](/components/form/examples#checkbox-field). You can also pass in default values. Submitting the form calls a callback function.
 
 Form is a wrapper that does not render anything itself. Instead, it passes props and information down into the `<form>` element and its children. This includes information about whether the form is `dirty`, `disabled`, `reset` or `submitting`.
 
-The form can be submitted when all fields are valid (see [validation](/components/form/examples#validation)). The current state of the fields is the single source of truth for form.
+People can submit the form when all fields are valid (see [validation](/components/form/examples#validation)). The current state of the fields is the single source of truth for the form.
 
 <Example Component={FormDefault} packageName="@atlaskit/form" />
 
@@ -59,13 +59,13 @@ You can also use form with other components, such as [datetime picker](/componen
 Each field is an entry in the form. Fields come with props that give more information about the field state.
 The state can be passed onto the inner component.
 
-When a user focusses on a field and starts changing content, the focus color becomes blue.
+When a user focuses on a field and starts changing content, the focus color becomes blue.
 
 <Example Component={FormField} packageName="@atlaskit/form" />
 
 ### Checkbox field
 
-This form field lets users select an item and submit this value through a [checkbox](/components/checkbox/examples) or [radio](/components/radio/examples) component. Users can check or uncheck this component.
+Use a [checkbox](/components/checkbox/examples) or [radio](/components/radio/examples) component when you want to let people choose from a small number of predefined options.
 
 By default, the value of a checkbox field is `true` or `false`. Use the `value` prop to pass a value when the field is checked. This will return an array that contains `value`.
 
@@ -79,7 +79,7 @@ Fieldset groups related fields under the same name or heading. Use `legend` to a
 
 ### Range field
 
-This form field lets users choose and submit a value on a range slider. This is a [range](/components/range/examples) that supports validation and required fields through the `isInvalid` and `isRequired` props respectively.
+Use a [range](/components/range/examples) slider when you want people to select from a predefined numeric range. This component supports validation and required fields through the `isInvalid` and `isRequired` props respectively.
 
 <Example Component={FormRangeField} packageName="@atlaskit/form" />
 
@@ -91,19 +91,19 @@ Use a form header to describe the contents of the form. This is the title and de
 
 ### Form section
 
-Use a form section to group related information together. This helps users understand the information they need to add. There can be multiple form sections in one form.
+Use a form section to group related information together, so that longer forms are easier to understand. There can be multiple form sections in one form.
 
 ### Form footer
 
-Use a Form footer to set the content at the end of the form. This is used for a [button](/components/button/examples) that submits the form. Contents should be left-aligned in single-page forms, flags, cards, and section messages with the primary button on the left. See the [button positioning](/components/form/usage#button-positioning) for more details.
+Use a form footer to set the content at the end of the form. This is used for a [button](/components/button/examples) that submits the form. Content should be left-aligned in single-page forms, flags, cards, and section messages with the primary button on the left. See the [button positioning](/components/form/usage#button-positioning) for more details.
 
-This is positioned after the last field in the body of the form. It can also be fixed to the bottom of viewport for longer forms.
+This is positioned after the last field in the form. It can also be fixed to the bottom of viewport for longer forms.
 
 <Example Component={FormLayout} packageName="@atlaskit/form" />
 
 ## Validation
 
-Use [validation and error messages](/content/writing-guidelines) to indicate when a form submission fails or requires additional information. Keep helper text as short as possible. For complex information, provide a link to more information in a new browser tab. Use the [messaging guidelines](/content/messaging-guidelines) for more help.
+Use [validation and error messages](/content/writing-guidelines) to indicate when a form submission fails or requires more information. Keep helper text as short as possible. For complex information, provide a link to more information in a new browser tab. Use the [messaging guidelines](/content/messaging-guidelines) for more help.
 
 When validating text fields in real-time, the message icons will switch depending on the message type. For example, the helper text turns into an error message when the user input doesn't fit the criteria. These error and warning messages disappear when the criteria is met.
 
@@ -129,7 +129,7 @@ For example, a [spinner](/components/spinner/examples) tells the user that somet
 
 On submission, the current state gets passed onto the `onSubmit` handler.
 
-For submission errors, the `onSubmit` handler should return an object. For example, if there is a problem with the password field, the object should contain the key and the error as the value. If the submission succeeds, the `onSubmit` handler should return `undefined`.
+For submission errors, the `onSubmit` handler should return an object. For example, if there's a problem with the password field, the object should contain the key and the error as the value. If the submission succeeds, the `onSubmit` handler should return `undefined`.
 
 The `onSubmit` handler can return synchronously or return a promise that resolves to the result. Note that the promise should resolve with the error, rather than reject with the error.
 
@@ -137,6 +137,6 @@ The `onSubmit` handler can return synchronously or return a promise that resolve
 
 ## Form with all fields and labels
 
-This form has every possible input and all required field labels.
+This form has every possible input, and all required field labels.
 
 <Example Component={FormAllOptions} packageName="@atlaskit/form" />

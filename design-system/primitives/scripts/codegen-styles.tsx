@@ -6,6 +6,7 @@ import { createPartialSignedArtifact } from '@atlassian/codegen';
 
 import { createBorderStylesFromTemplate } from './border-codegen-template';
 import { createColorStylesFromTemplate } from './color-codegen-template';
+import { createElevationStylesFromTemplate } from './elevation-codegen-template';
 import { createInverseColorMapTemplate } from './inverse-color-map-template';
 import { createStylesFromFileTemplate } from './misc-codegen-template';
 import { createSpacingStylesFromTemplate } from './spacing-codegen-template';
@@ -58,7 +59,7 @@ const sourceFns = [
         dependencies: [spacingTokensDependencyPath],
       },
     ),
-  // text color, background-color, border-color, shadow
+  // text color, background-color, border-color
   () =>
     createPartialSignedArtifact(
       options => options.map(createColorStylesFromTemplate).join('\n'),
@@ -76,6 +77,17 @@ const sourceFns = [
       'yarn workspace @atlaskit/primitives codegen-styles',
       {
         id: 'inverse-colors',
+        absoluteFilePath: targetPath,
+        dependencies: [colorTokensDependencyPath],
+      },
+    ),
+  // elevation (opacity, shadow, surface)
+  () =>
+    createPartialSignedArtifact(
+      options => options.map(createElevationStylesFromTemplate).join('\n'),
+      'yarn workspace @atlaskit/primitives codegen-styles',
+      {
+        id: 'elevation',
         absoluteFilePath: targetPath,
         dependencies: [colorTokensDependencyPath],
       },

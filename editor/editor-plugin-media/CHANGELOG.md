@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-media
 
+## 0.4.2
+
+### Patch Changes
+
+- [#43436](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43436) [`6bf14e25965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bf14e25965) - Revert "Resize media for the keyboard users"
+
+## 0.4.1
+
+### Patch Changes
+
+- [#43145](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43145) [`999af31b6ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/999af31b6ad) - [ux] [ED-20776] Change mediaInline node insertion logic behind 'platform.editor.media.inline-image.base-support' feature flag. With the flag on, Adding an image to a non-empty paragraph and list node inserts an media inline node, instead of media single node.
+- Updated dependencies
+
 ## 0.4.0
 
 ### Minor Changes

@@ -36,6 +36,11 @@ export const messages = defineMessages({
     defaultMessage: 'Insert column right',
     description: 'Inserts a new column to the right of selected column.',
   },
+  insertColumnDrag: {
+    id: 'fabric.editor.insertColumnDrag',
+    defaultMessage: 'Insert column',
+    description: 'Inserts a new column to the right of selected column.',
+  },
   removeColumns: {
     id: 'fabric.editor.removeColumns',
     defaultMessage: 'Delete {0, plural, one {column} other {columns}}',
@@ -44,6 +49,11 @@ export const messages = defineMessages({
   insertRow: {
     id: 'fabric.editor.insertRow',
     defaultMessage: 'Insert row below',
+    description: 'Inserts a new row below the selected row.',
+  },
+  insertRowDrag: {
+    id: 'fabric.editor.insertRowDrag',
+    defaultMessage: 'Insert row',
     description: 'Inserts a new row below the selected row.',
   },
   removeRows: {

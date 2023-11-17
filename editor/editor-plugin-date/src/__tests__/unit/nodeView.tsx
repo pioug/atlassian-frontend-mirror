@@ -6,10 +6,10 @@ import type { ReactWrapper } from 'enzyme';
 import { uuid } from '@atlaskit/adf-schema';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import tasksAndDecisionsPlugin from '@atlaskit/editor-core/src/plugins/tasks-and-decisions';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';

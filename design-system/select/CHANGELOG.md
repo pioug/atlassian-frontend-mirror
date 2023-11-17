@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.0
 
 ### Major Changes

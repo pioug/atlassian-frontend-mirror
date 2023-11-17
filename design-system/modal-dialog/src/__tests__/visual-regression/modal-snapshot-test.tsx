@@ -14,8 +14,6 @@ const modalBody = "[data-testid='modal--scrollable']";
 const selectBtn = '.single-select';
 const scrollToBottomBtn = "[data-testid='scrollDown']";
 const largeModalBtn = "[data-testid='large']";
-const booleanBtn = "[data-testid='boolean-trigger']";
-const autoFocusBtn = "[data-testid='autofocus-trigger']";
 const warningModalBtn = "[data-testid='warning']";
 const dangerModalBtn = "[data-testid='danger']";
 const visibilitySelector = '[data-testid="visibility--checkbox-label"]';
@@ -37,20 +35,6 @@ const mobileOptions = {
 };
 
 describe('Snapshot test', () => {
-  it('Basic example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'modal-dialog',
-      'default-modal',
-      global.__BASEURL__,
-    );
-
-    const page = await openModal(url, defaultOptions);
-
-    const image = await takeElementScreenShot(page, modalDialog);
-    expect(image).toMatchProdImageSnapshot();
-  });
-
   it('Body scroll should match (with bottom keyline only)', async () => {
     const url = getExampleUrl(
       'design-system',
@@ -230,41 +214,6 @@ describe('Snapshot test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Form example should match production', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'modal-dialog',
-      'form',
-      global.__BASEURL__,
-    );
-
-    const page = await openModal(url, defaultOptions);
-
-    const image = await takeElementScreenShot(page, modalDialog);
-    expect(image).toMatchProdImageSnapshot();
-  });
-
-  it('Form as container example should overflow correctly', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'modal-dialog',
-      'form-as-container',
-      global.__BASEURL__,
-    );
-
-    const page = await openModal(url, {
-      ...defaultOptions,
-      viewport: {
-        // Lower the height to make the Modal overflow
-        width: 800,
-        height: 400,
-      },
-    });
-
-    const image = await takeElementScreenShot(page, 'body');
-    expect(image).toMatchProdImageSnapshot();
-  });
-
   it('Multiple stacked modal example should match production', async () => {
     const url = getExampleUrl(
       'design-system',
@@ -332,40 +281,6 @@ describe('Snapshot test', () => {
     await page.waitForTimeout(1000);
     const image3 = await page.screenshot();
     expect(image3).toMatchProdImageSnapshot();
-  });
-
-  it('Autofocus on first button should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'modal-dialog',
-      'autofocus',
-      global.__BASEURL__,
-    );
-
-    const page = await openModal(url, {
-      ...defaultOptions,
-      triggerSelector: booleanBtn,
-    });
-
-    const image = await takeElementScreenShot(page, modalDialog);
-    expect(image).toMatchProdImageSnapshot();
-  });
-
-  it('Autofocus on first input should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'modal-dialog',
-      'autofocus',
-      global.__BASEURL__,
-    );
-
-    const page = await openModal(url, {
-      ...defaultOptions,
-      triggerSelector: autoFocusBtn,
-    });
-
-    const image = await takeElementScreenShot(page, modalDialog);
-    expect(image).toMatchProdImageSnapshot();
   });
 
   it('Warning modal appearance should match production example', async () => {
@@ -464,20 +379,6 @@ describe('Snapshot test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Modal with truncated long title should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'modal-dialog',
-      'multi-line-titles',
-      global.__BASEURL__,
-    );
-
-    const page = await openModal(url, defaultOptions);
-
-    const image = await takeElementScreenShot(page, 'body');
-    expect(image).toMatchProdImageSnapshot();
-  });
-
   it('Modal with multi-line title should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
@@ -533,24 +434,6 @@ describe('Snapshot test', () => {
 
     await page.waitForSelector(moreBorderRadiusSelector);
     await page.click(moreBorderRadiusSelector);
-
-    await page.click(openModalBtn);
-    await page.waitForSelector(modalDialog);
-
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
-
-  it('Modal with no focusable children should gain focus on its container', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'modal-dialog',
-      'custom-child',
-      global.__BASEURL__,
-    );
-
-    const { page } = global;
-    await loadPage(page, url);
 
     await page.click(openModalBtn);
     await page.waitForSelector(modalDialog);

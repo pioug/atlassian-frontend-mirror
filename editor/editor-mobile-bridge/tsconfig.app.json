@@ -120,6 +120,9 @@
       "path": "../editor-plugin-table/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-tasks-and-decisions/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-text-color/tsconfig.app.json"
     },
     {

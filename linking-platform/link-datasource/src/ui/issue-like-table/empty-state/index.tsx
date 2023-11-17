@@ -3,6 +3,7 @@ import { css, jsx } from '@emotion/react';
 
 import { Skeleton } from '@atlaskit/linking-common';
 import { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
+import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ScrollableContainerHeight, TableHeading } from '../styled';
@@ -31,16 +32,20 @@ const SkeletonComponent = ({ width, itemName }: SkeletonProps) => (
   />
 );
 
-const tableSidePadding = token('space.200', '16px');
-
 const tableBodyStyles = css({
   borderBottom: 0,
 });
 
 const cellStyles = css({
   paddingBlock: token('space.100', '12px'),
+  borderRight: `0.5px solid ${token('color.border', N40)}`,
+  borderBottom: `0.5px solid ${token('color.border', N40)}`,
+  '&:first-child': {
+    paddingLeft: `${token('space.100', '4px')}`,
+  },
   '&:last-child': {
-    paddingRight: token('space.100', '8px'),
+    borderRight: 0,
+    paddingRight: `${token('space.100', '4px')}`,
   },
 });
 
@@ -121,12 +126,9 @@ export default ({ isCompact, testId }: Props) => {
     <div
       style={{
         // the IssueLikeDataTableView wraps the table in a container with the styling below while modal doesn't
-        // the isCompact prop is applied to non-modal empty states which require additional padding
         // this maxHeight comes from scrollableContainerHeight
         maxHeight: ScrollableContainerHeight,
-        padding: isCompact
-          ? `0 ${tableSidePadding} 0 ${tableSidePadding}`
-          : '0',
+        padding: 0,
         boxSizing: 'border-box',
       }}
     >

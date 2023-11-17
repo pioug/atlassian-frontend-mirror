@@ -1,5 +1,17 @@
 # @atlaskit/media-avatar-picker
 
+## 24.3.17
+
+### Patch Changes
+
+- [#43370](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43370) [`27164a3be23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27164a3be23) - Fix imports for atlaskit buttons
+
+## 24.3.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.3.15
 
 ### Patch Changes

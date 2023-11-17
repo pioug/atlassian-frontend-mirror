@@ -25,9 +25,8 @@ const containerStyles = xcss({
   // borderWidth: 'border.width',
   // borderStyle: 'solid',
   // borderColor: 'color.border',
-
-  borderBottomLeftRadius: 4,
-  borderBottomRightRadius: 4,
+  borderBottomLeftRadius: 'border.radius.100',
+  borderBottomRightRadius: 'border.radius.100',
 });
 
 type ListState = {

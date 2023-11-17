@@ -26,7 +26,7 @@ const requiredValidator = (
   if (!data[key]) {
     return {
       ...errors,
-      [key]: `no ${key} value selected, please select a value.`,
+      [key]: `Please select a date to continue.`,
     };
   }
 
@@ -61,7 +61,7 @@ const FormDateTimePickerExample = () => {
             </Field>
             <Field
               name="preference"
-              label="Appointment preference"
+              label="Preferred appointment date & time"
               defaultValue=""
               isRequired
             >

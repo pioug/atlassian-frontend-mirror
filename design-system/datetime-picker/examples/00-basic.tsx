@@ -165,6 +165,7 @@ export default () => {
         id="timepicker-4"
         defaultValue="14:30"
         onChange={onChange}
+        timeFormat="HH:mm:ss A"
         timeIsEditable
       />
 

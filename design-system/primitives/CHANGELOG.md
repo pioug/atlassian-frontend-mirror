@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.11.0
+
+### Minor Changes
+
+- [#43366](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43366) [`f1d3719ea48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f1d3719ea48) - Tokenised values are now accepted in all border-radius, border-width, border-color, and opacity CSS properties in XCSS.
+
 ## 1.10.1
 
 ### Patch Changes

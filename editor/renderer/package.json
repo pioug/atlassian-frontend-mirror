@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "108.15.24",
+  "version": "108.16.2",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -37,7 +37,7 @@
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/editor-shared-styles": "^2.8.0",
     "@atlaskit/emoji": "^67.6.0",
-    "@atlaskit/icon": "^21.12.0",
+    "@atlaskit/icon": "^22.0.0",
     "@atlaskit/link-datasource": "^1.17.0",
     "@atlaskit/media-card": "^77.4.0",
     "@atlaskit/media-client": "^25.0.0",

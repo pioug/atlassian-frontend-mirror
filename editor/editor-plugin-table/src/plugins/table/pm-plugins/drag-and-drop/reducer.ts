@@ -14,6 +14,7 @@ export default (
         decorationSet: action.data.decorationSet,
         dropTargetType: action.data.type,
         dropTargetIndex: action.data.index,
+        isDragging: true,
       };
     case DragAndDropActionType.CLEAR_DROP_TARGET:
       return {
@@ -21,6 +22,7 @@ export default (
         decorationSet: action.data.decorationSet,
         dropTargetType: DropTargetType.NONE,
         dropTargetIndex: 0,
+        isDragging: false,
       };
     case DragAndDropActionType.TOGGLE_DRAG_MENU:
       return {

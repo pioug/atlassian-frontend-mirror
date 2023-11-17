@@ -7,7 +7,6 @@ import {
   insertBlockPlugin,
   jiraIssuePlugin,
   toolbarListsIndentationPlugin,
-  tasksAndDecisionsPlugin,
   alignmentPlugin,
   customAutoformatPlugin,
   feedbackDialogPlugin,
@@ -20,6 +19,7 @@ import {
   beforePrimaryToolbarPlugin,
   codeBidiWarningPlugin,
 } from '../plugins';
+import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 import { panelPlugin } from '@atlaskit/editor-plugin-panel';
 import { textColorPlugin } from '@atlaskit/editor-plugin-text-color';
 import { historyPlugin } from '@atlaskit/editor-plugin-history';

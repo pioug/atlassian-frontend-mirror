@@ -1,6 +1,4 @@
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { cloneTr } from './clone-tr';
 import { findTable } from './find';
@@ -162,7 +160,6 @@ export const moveRow =
       return tr;
     }
 
-    const anchor = tr.selection.anchor;
     const originalRowRanges = getSelectionRangeInRow(originRowIndex)(tr);
     const targetRowRanges = getSelectionRangeInRow(targetRowIndex)(tr);
     const indexesOriginRow = originalRowRanges?.indexes || [];
@@ -189,10 +186,5 @@ export const moveRow =
       newTable,
     );
 
-    if (getBooleanFF('platform.editor.table.drag-and-drop')) {
-      // Set selection inside a newly created table
-      return newTr.setSelection(TextSelection.create(newTr.doc, anchor));
-    } else {
-      return newTr;
-    }
+    return newTr;
   };

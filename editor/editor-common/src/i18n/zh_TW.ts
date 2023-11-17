@@ -202,7 +202,7 @@ export default {
   'fabric.editor.tables.adjustColumn': '調整欄',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage': '刪除 {nodeName} 將中斷與其連結的任何內容。',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': '刪除',
-  'fabric.editor.tables.resizeTable': '重新調整表格',
+  'fabric.editor.tables.resizeTable': '重新調整表格大小',
   'fabric.editor.task': '任務',
   'fabric.editor.text.formatting.off': '文字格式設定關閉',
   'fabric.editor.textStyles': '文字樣式',

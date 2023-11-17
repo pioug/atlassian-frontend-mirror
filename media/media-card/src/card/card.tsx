@@ -400,7 +400,8 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       !isPlayingFile &&
       disableOverlay &&
       useInlinePlayer &&
-      isVideoPlayable
+      isVideoPlayable &&
+      status !== 'error'
     ) {
       this.setState({
         isPlayingFile: true,
@@ -847,7 +848,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     analyticsEvent?: UIAnalyticsEvent,
   ) => {
     const { identifier, useInlinePlayer, shouldOpenMediaViewer } = this.props;
-    const { cardPreview } = this.state;
+    const { status, cardPreview } = this.state;
     const { metadata } = this;
 
     this.onClick(event, analyticsEvent);
@@ -857,7 +858,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     }
 
     const isVideo = metadata && (metadata as FileDetails).mediaType === 'video';
-    if (useInlinePlayer && isVideo && !!cardPreview) {
+    if (useInlinePlayer && isVideo && !!cardPreview && status !== 'error') {
       this.setState({
         isPlayingFile: true,
         shouldAutoplay: true,
@@ -886,8 +887,10 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     }
   };
 
-  onInlinePlayerError = () => {
+  onInlinePlayerError = (e: Error) => {
     this.setState({
+      error: new MediaCardError('error-file-state', e),
+      status: 'error',
       isPlayingFile: false,
     });
   };

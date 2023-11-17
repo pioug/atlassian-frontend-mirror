@@ -123,7 +123,7 @@ describe('share analytics', () => {
 
   describe('copyLinkButtonClicked', () => {
     it('should create event payload without origin id', () => {
-      expect(copyLinkButtonClicked(100)).toMatchObject({
+      expect(copyLinkButtonClicked({ start: 100 })).toMatchObject({
         eventType: 'ui',
         action: 'clicked',
         actionSubject: 'button',
@@ -138,10 +138,17 @@ describe('share analytics', () => {
       });
     });
 
-    it('should create event payload with origin id', () => {
+    it('should create event payload with origin id, content id, and content subtype', () => {
       const shareOrigin: OriginTracing = mockShareOrigin();
       expect(
-        copyLinkButtonClicked(100, 'issue', shareOrigin, undefined, 'ari'),
+        copyLinkButtonClicked({
+          start: 100,
+          shareContentType: 'issue',
+          shareOrigin,
+          ari: 'ari',
+          shareContentSubType: 'embed',
+          shareContentId: '123',
+        }),
       ).toMatchObject({
         eventType: 'ui',
         action: 'clicked',
@@ -154,7 +161,9 @@ describe('share analytics', () => {
           originIdGenerated: 'abc-123',
           shortUrl: undefined,
           originProduct: 'jest',
+          contentId: '123',
           contentType: 'issue',
+          contentSubType: 'embed',
           ari: 'ari',
         }),
       });
@@ -190,7 +199,7 @@ describe('share analytics', () => {
       },
     };
     it('should create event payload without share content type and origin id', () => {
-      expect(formShareSubmitted(100, data)).toMatchObject({
+      expect(formShareSubmitted({ start: 100, data })).toMatchObject({
         eventType: 'ui',
         action: 'clicked',
         actionSubject: 'button',
@@ -212,7 +221,9 @@ describe('share analytics', () => {
     });
 
     it('should create event payload without origin id', () => {
-      expect(formShareSubmitted(100, data, 'issue')).toMatchObject({
+      expect(
+        formShareSubmitted({ start: 100, data, shareContentType: 'issue' }),
+      ).toMatchObject({
         eventType: 'ui',
         action: 'clicked',
         actionSubject: 'button',
@@ -235,29 +246,34 @@ describe('share analytics', () => {
 
     it('should create event payload with origin id', () => {
       const shareOrigin: OriginTracing = mockShareOrigin();
-      expect(formShareSubmitted(100, data, 'issue', shareOrigin)).toMatchObject(
-        {
-          eventType: 'ui',
-          action: 'clicked',
-          actionSubject: 'button',
-          actionSubjectId: 'submitShare',
-          attributes: expect.objectContaining({
-            contentType: 'issue',
-            duration: expect.any(Number),
-            teamCount: 1,
-            userCount: 1,
-            emailCount: 1,
-            users: ['abc-123'],
-            teams: ['123-abc'],
-            packageVersion: expect.any(String),
-            packageName: expect.any(String),
-            isMessageEnabled: true,
-            messageLength: 12,
-            originIdGenerated: 'abc-123',
-            originProduct: 'jest',
-          }),
-        },
-      );
+      expect(
+        formShareSubmitted({
+          start: 100,
+          data,
+          shareContentType: 'issue',
+          shareOrigin,
+        }),
+      ).toMatchObject({
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'button',
+        actionSubjectId: 'submitShare',
+        attributes: expect.objectContaining({
+          contentType: 'issue',
+          duration: expect.any(Number),
+          teamCount: 1,
+          userCount: 1,
+          emailCount: 1,
+          users: ['abc-123'],
+          teams: ['123-abc'],
+          packageVersion: expect.any(String),
+          packageName: expect.any(String),
+          isMessageEnabled: true,
+          messageLength: 12,
+          originIdGenerated: 'abc-123',
+          originProduct: 'jest',
+        }),
+      });
       expect(shareOrigin.toAnalyticsAttributes).toHaveBeenCalledTimes(1);
       expect(shareOrigin.toAnalyticsAttributes).toHaveBeenCalledWith({
         hasGeneratedId: true,
@@ -266,29 +282,34 @@ describe('share analytics', () => {
 
     it('should create event payload with origin id', () => {
       const shareOrigin: OriginTracing = mockShareOrigin();
-      expect(formShareSubmitted(100, data, 'issue', shareOrigin)).toMatchObject(
-        {
-          eventType: 'ui',
-          action: 'clicked',
-          actionSubject: 'button',
-          actionSubjectId: 'submitShare',
-          attributes: expect.objectContaining({
-            contentType: 'issue',
-            duration: expect.any(Number),
-            teamCount: 1,
-            userCount: 1,
-            emailCount: 1,
-            users: ['abc-123'],
-            teams: ['123-abc'],
-            packageVersion: expect.any(String),
-            packageName: expect.any(String),
-            isMessageEnabled: true,
-            messageLength: 12,
-            originIdGenerated: 'abc-123',
-            originProduct: 'jest',
-          }),
-        },
-      );
+      expect(
+        formShareSubmitted({
+          start: 100,
+          data,
+          shareContentType: 'issue',
+          shareOrigin,
+        }),
+      ).toMatchObject({
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'button',
+        actionSubjectId: 'submitShare',
+        attributes: expect.objectContaining({
+          contentType: 'issue',
+          duration: expect.any(Number),
+          teamCount: 1,
+          userCount: 1,
+          emailCount: 1,
+          users: ['abc-123'],
+          teams: ['123-abc'],
+          packageVersion: expect.any(String),
+          packageName: expect.any(String),
+          isMessageEnabled: true,
+          messageLength: 12,
+          originIdGenerated: 'abc-123',
+          originProduct: 'jest',
+        }),
+      });
       expect(shareOrigin.toAnalyticsAttributes).toHaveBeenCalledTimes(1);
       expect(shareOrigin.toAnalyticsAttributes).toHaveBeenCalledWith({
         hasGeneratedId: true,
@@ -322,7 +343,12 @@ describe('share analytics', () => {
       const shareOrigin: OriginTracing = mockShareOrigin();
 
       expect(
-        formShareSubmitted(100, dataWithMembers, 'issue', shareOrigin),
+        formShareSubmitted({
+          start: 100,
+          data: dataWithMembers,
+          shareContentType: 'issue',
+          shareOrigin,
+        }),
       ).toMatchObject({
         eventType: 'ui',
         action: 'clicked',
@@ -359,7 +385,12 @@ describe('share analytics', () => {
       const shareOrigin: OriginTracing = mockShareOrigin();
 
       expect(
-        formShareSubmitted(100, dataWithMembers, 'issue', shareOrigin),
+        formShareSubmitted({
+          start: 100,
+          data: dataWithMembers,
+          shareContentType: 'issue',
+          shareOrigin,
+        }),
       ).toMatchObject({
         eventType: 'ui',
         action: 'clicked',
@@ -389,7 +420,7 @@ describe('share analytics', () => {
 
     it('should create event payload with isPublicLink attribute for public links', () => {
       expect(
-        formShareSubmitted(100, data, undefined, undefined, true),
+        formShareSubmitted({ start: 100, data, isPublicLink: true }),
       ).toMatchObject({
         eventType: 'ui',
         action: 'clicked',
@@ -401,9 +432,15 @@ describe('share analytics', () => {
       });
     });
 
-    it('should create event payload with contentSubType attribute when passed in', () => {
+    it('should create event payload with contentSubType and contentId attribute when passed in', () => {
       expect(
-        formShareSubmitted(100, data, 'page', undefined, false, 'embed'),
+        formShareSubmitted({
+          start: 100,
+          data,
+          shareContentType: 'page',
+          shareContentSubType: 'embed',
+          shareContentId: '123',
+        }),
       ).toMatchObject({
         eventType: 'ui',
         action: 'clicked',
@@ -412,6 +449,7 @@ describe('share analytics', () => {
         attributes: expect.objectContaining({
           contentType: 'page',
           contentSubType: 'embed',
+          contentId: '123',
         }),
       });
     });

@@ -19,10 +19,6 @@ const containerStyles = css({
   padding: token('space.200', '16px'),
 });
 
-const titleStyles = css({
-  marginBottom: token('space.200', '16px'),
-});
-
 export default function ModalDemo() {
   const focusRef = useRef<HTMLInputElement>(null);
   const [isOpen, setIsOpen] = useState('');
@@ -39,14 +35,18 @@ export default function ModalDemo() {
 
   return (
     <div css={containerStyles}>
-      <h4 css={titleStyles}>Variants</h4>
+      <h2>Variants</h2>
+      <p>
+        Using ModalDialog autoFocus prop, not to be confused with the HTML
+        autofocus attribute.
+      </p>
       <ButtonGroup>
         <Button testId="boolean-trigger" onClick={openRoot}>
           Boolean on dialog
         </Button>
 
         <Button testId="autofocus-trigger" onClick={openAutoFocus}>
-          using autoFocus attribute
+          using autoFocus prop
         </Button>
       </ButtonGroup>
 
@@ -84,18 +84,27 @@ export default function ModalDemo() {
         {isOpen === 'autoFocus' && (
           <ModalDialog autoFocus={focusRef} {...modalProps}>
             <ModalHeader>
-              <ModalTitle>input has autoFocus</ModalTitle>
+              <ModalTitle>input is automatically focused</ModalTitle>
             </ModalHeader>
             <ModalBody>
-              <label htmlFor="not">
-                This textbox should not be focused
-                <input id="not" type="text" value="" />
-              </label>
-              <br />
-              <label htmlFor="should">
-                This textbox should be focused
-                <input id="should" ref={focusRef} type="text" value="" />
-              </label>
+              <p>
+                Note: Usually the the first focusable element, preferably a
+                Close button at the top of the dialog, should be focused
+                initially. This test deviates only to properly test the
+                autofocus prop.
+              </p>
+              <div>
+                <label htmlFor="not">
+                  This textbox should not be focused
+                  <input id="not" type="text" value="" />
+                </label>
+              </div>
+              <div>
+                <label htmlFor="should">
+                  This textbox should be focused
+                  <input id="should" ref={focusRef} type="text" value="" />
+                </label>
+              </div>
             </ModalBody>
             <ModalFooter>
               <Button appearance="subtle">Secondary Action</Button>

@@ -56,7 +56,7 @@ export default function Example() {
             </ModalBody>
             <ModalFooter>
               <Button appearance="subtle">Secondary Action</Button>
-              <Button appearance="primary" onClick={closeModal} autoFocus>
+              <Button appearance="primary" onClick={closeModal}>
                 Close
               </Button>
             </ModalFooter>

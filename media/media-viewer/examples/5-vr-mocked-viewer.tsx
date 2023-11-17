@@ -1,6 +1,6 @@
 import React from 'react';
 import { canUseDOM } from 'exenv';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import ArrowRightIcon from '@atlaskit/icon/glyph/arrow-right';
 import DetailViewIcon from '@atlaskit/icon/glyph/detail-view';
 import { MediaClient, Identifier } from '@atlaskit/media-client';

@@ -15,6 +15,104 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { Command } from '@atlaskit/editor-common/types';
+import type { DecisionItemDefinition } from '@atlaskit/adf-schema';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { TaskItemDefinition } from '@atlaskit/adf-schema';
+import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+
+// @public (undocumented)
+type AddItemAttrs =
+  | Partial<DecisionItemDefinition['attrs']>
+  | Partial<TaskItemDefinition['attrs']>;
+
+// @public (undocumented)
+type AddItemTransactionCreator = (opts: {
+  state: EditorState;
+  tr: Transaction;
+  list: NodeType;
+  item: NodeType;
+  listLocalId: string;
+  itemLocalId: string;
+  itemAttrs?: AddItemAttrs;
+}) => Transaction | null;
+
+// @public (undocumented)
+const getIndentCommand: (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+) => (inputMethod?: IndentationInputMethod) => Command;
+
+// @public (undocumented)
+const getUnindentCommand: (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+) => (inputMethod?: IndentationInputMethod) => Command;
+
+// @public (undocumented)
+type IndentationInputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
+
+// @public (undocumented)
+const insertTaskDecisionCommand: (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+) => (
+  listType: TaskDecisionListType,
+  inputMethod?:
+    | INPUT_METHOD.FORMATTING
+    | INPUT_METHOD.QUICK_INSERT
+    | TOOLBAR_MENU_TYPE,
+  addItem?: AddItemTransactionCreator,
+  listLocalId?: string,
+  itemLocalId?: string,
+) => Command;
+
+// @public (undocumented)
+type TaskAndDecisionsSharedState = {
+  focusedTaskItemLocalId: null | string;
+  indentDisabled: boolean;
+  outdentDisabled: boolean;
+  isInsideTask: boolean;
+};
+
+// @public (undocumented)
+type TaskDecisionListType = 'decisionList' | 'taskList';
+
+// @public (undocumented)
+interface TaskDecisionPluginOptions extends LongPressSelectionPluginOptions {
+  // (undocumented)
+  allowNestedTasks?: boolean;
+  // (undocumented)
+  consumeTabs?: boolean;
+}
+
+// @public (undocumented)
+export type TasksAndDecisionsPlugin = NextEditorPlugin<
+  'taskDecision',
+  {
+    pluginConfiguration: TaskDecisionPluginOptions | undefined;
+    sharedState: TaskAndDecisionsSharedState | undefined;
+    dependencies: [
+      OptionalPlugin<TypeAheadPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+    ];
+    actions: {
+      insertTaskDecision: ReturnType<typeof insertTaskDecisionCommand>;
+      indentTaskList: ReturnType<typeof getIndentCommand>;
+      outdentTaskList: ReturnType<typeof getUnindentCommand>;
+    };
+  }
+>;
+
+// @public (undocumented)
+export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin;
+
 // (No @packageDocumentation comment for this package)
 ```
 
@@ -26,7 +124,8 @@
 
 ```json
 {
-  "react": "^16.8.0"
+  "react": "^16.8.0",
+  "react-intl-next": "npm:react-intl@^5.18.1"
 }
 ```
 

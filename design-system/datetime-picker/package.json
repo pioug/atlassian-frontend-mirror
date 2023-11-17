@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/datetime-picker",
-  "version": "12.10.6",
+  "version": "13.0.0",
   "description": "A date time picker allows the user to select an associated date and time.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/calendar": "^14.0.0",
     "@atlaskit/ds-lib": "^2.2.0",
-    "@atlaskit/icon": "^21.12.0",
+    "@atlaskit/icon": "^22.0.0",
     "@atlaskit/layering": "^0.2.0",
     "@atlaskit/locale": "^2.6.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",

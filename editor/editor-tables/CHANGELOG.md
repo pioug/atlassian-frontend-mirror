@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.3.15
+
+### Patch Changes
+
+- [#43255](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43255) [`6c1b3270538`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c1b3270538) - Remove setSelection from move commands as it's unnecessary
+
 ## 2.3.14
 
 ### Patch Changes

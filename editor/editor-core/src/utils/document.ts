@@ -15,10 +15,7 @@ import { getBreakoutMode } from './node-width';
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import { processRawValue, getStepRange } from '@atlaskit/editor-common/utils';
 
-export {
-  findFarthestParentNode,
-  isInEmptyLine,
-} from '@atlaskit/editor-common/utils';
+export { isInEmptyLine } from '@atlaskit/editor-common/utils';
 
 export function processRawFragmentValue(
   schema: Schema,

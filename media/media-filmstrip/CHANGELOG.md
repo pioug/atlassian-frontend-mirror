@@ -1,5 +1,11 @@
 # @atlaskit/media-filmstrip
 
+## 47.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 47.0.16
 
 ### Patch Changes

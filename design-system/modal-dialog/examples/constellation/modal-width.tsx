@@ -46,7 +46,7 @@ export default function Example() {
             </ModalBody>
             <ModalFooter>
               <Button appearance="subtle">Skip</Button>
-              <Button appearance="primary" onClick={closeModal} autoFocus>
+              <Button appearance="primary" onClick={closeModal}>
                 Get started
               </Button>
             </ModalFooter>

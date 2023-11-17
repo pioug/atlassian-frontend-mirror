@@ -14,7 +14,6 @@ import {
   addFileAttrsToUrl,
   globalMediaEventEmitter,
   imageResizeModeToFileImageMode,
-  isFileIdentifier,
   isImageRepresentationReady,
 } from '@atlaskit/media-client';
 import {
@@ -495,8 +494,7 @@ export const FileCard = ({
           fireNonCriticalErrorEventRef.current(error);
       }
       const fileImageMode = imageResizeModeToFileImageMode(resizeMode);
-      isFileIdentifier(identifier) &&
-        removeCardPreviewFromCache(identifier.id, fileImageMode);
+      removeCardPreviewFromCache(identifier.id, fileImageMode);
       setCardPreview(undefined);
     } else {
       if (!['complete', 'error', 'failed-processing'].includes(status)) {
@@ -560,7 +558,7 @@ export const FileCard = ({
     }
 
     const isVideo = metadata && (metadata as FileDetails).mediaType === 'video';
-    if (useInlinePlayer && isVideo && !!cardPreview) {
+    if (useInlinePlayer && isVideo && !!cardPreview && status !== 'error') {
       setIsPlayingFile(true);
       setShouldAutoplay(true);
     } else if (shouldOpenMediaViewer) {
@@ -1002,7 +1000,8 @@ export const FileCard = ({
       !isPlayingFile &&
       disableOverlay &&
       useInlinePlayer &&
-      isVideoPlayable
+      isVideoPlayable &&
+      status !== 'error'
     ) {
       setIsPlayingFile(true);
     }
@@ -1014,6 +1013,7 @@ export const FileCard = ({
     identifier,
     isBannedLocalPreview,
     isPlayingFile,
+    status,
     useInlinePlayer,
   ]);
 
@@ -1235,7 +1235,9 @@ export const FileCard = ({
             identifier={identifier}
             autoplay={!!shouldAutoplay}
             onFullscreenChange={onFullscreenChange}
-            onError={() => {
+            onError={(e) => {
+              setError(new MediaCardError('error-file-state', e));
+              setStatus('error');
               setIsPlayingFile(false);
             }}
             onClick={onCardClick}

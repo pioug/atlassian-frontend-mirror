@@ -309,10 +309,11 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     const {
       onShareSubmit,
       shareContentType,
+      shareContentSubType,
+      shareContentId,
       formShareOrigin,
       showFlags,
       isPublicLink,
-      shareContentSubType,
     } = this.props;
     if (!onShareSubmit) {
       return;
@@ -323,14 +324,15 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     this.setState({ isSharing: true });
 
     this.createAndFireEvent(
-      formShareSubmitted(
-        this.start,
+      formShareSubmitted({
+        start: this.start,
         data,
         shareContentType,
-        formShareOrigin,
+        shareOrigin: formShareOrigin,
         isPublicLink,
         shareContentSubType,
-      ),
+        shareContentId,
+      }),
     );
 
     onShareSubmit(data)
@@ -365,16 +367,24 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
   };
 
   handleCopyLink = () => {
-    const { copyLinkOrigin, shareContentType, isPublicLink, shareAri } =
-      this.props;
+    const {
+      copyLinkOrigin,
+      shareContentType,
+      shareContentSubType,
+      shareContentId,
+      isPublicLink,
+      shareAri,
+    } = this.props;
     this.createAndFireEvent(
-      copyLinkButtonClicked(
-        this.start,
+      copyLinkButtonClicked({
+        start: this.start,
         shareContentType,
-        copyLinkOrigin,
+        shareOrigin: copyLinkOrigin,
         isPublicLink,
-        shareAri,
-      ),
+        ari: shareAri,
+        shareContentSubType,
+        shareContentId,
+      }),
     );
   };
 

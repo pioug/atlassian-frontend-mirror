@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-date
 
+## 0.2.5
+
+### Patch Changes
+
+- [#43405](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43405) [`150827259db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/150827259db) - Extracting tasks and decisions code from editor-core to new plugin package.
+
 ## 0.2.4
 
 ### Patch Changes

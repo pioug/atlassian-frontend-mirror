@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { jsx } from '@emotion/react';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { ModalTransition } from '@atlaskit/modal-dialog';
 import {
   Avatar,

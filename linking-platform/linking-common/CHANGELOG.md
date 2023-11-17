@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.18.2
+
+### Patch Changes
+
+- [#43063](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43063) [`549ce93517c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/549ce93517c) - deprecate showHoverPreview feature flag prop
+
 ## 4.18.1
 
 ### Patch Changes

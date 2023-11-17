@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-text-formatting",
-  "version": "0.4.12",
+  "version": "0.4.13",
   "description": "Text-formatting plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -37,7 +37,7 @@
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/editor-shared-styles": "^2.8.0",
     "@atlaskit/editor-tables": "^2.3.0",
-    "@atlaskit/icon": "^21.12.0",
+    "@atlaskit/icon": "^22.0.0",
     "@atlaskit/prosemirror-input-rules": "^2.4.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",

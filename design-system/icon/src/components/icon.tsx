@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { memo, CSSProperties } from 'react';
 import { css, jsx } from '@emotion/react';
-import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import type { IconProps } from '../types';
 import { getBackground } from './utils';
@@ -103,7 +102,6 @@ export const Icon = memo(function Icon(props: IconProps) {
       }
     : { children: Glyph ? <Glyph role="presentation" /> : null };
   const dimensions = getIconSize({ width, height, size });
-  const { mode } = useGlobalTheme();
 
   return (
     <span
@@ -114,7 +112,7 @@ export const Icon = memo(function Icon(props: IconProps) {
       style={
         {
           '--icon-primary-color': primaryColor,
-          '--icon-secondary-color': secondaryColor || getBackground(mode),
+          '--icon-secondary-color': secondaryColor || getBackground(),
         } as CSSProperties
       }
       {...glyphProps}

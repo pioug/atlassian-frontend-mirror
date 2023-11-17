@@ -8,6 +8,8 @@ import {
   DatasourceResponseSchemaProperty,
   DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
+import { N40 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { AccessRequired } from '../../../common/error-state/access-required';
 import { ModalLoadingError } from '../../../common/error-state/modal-loading-error';
@@ -39,6 +41,12 @@ const emptyStateOverrideStyles = css({
   overflow: 'hidden',
 });
 
+const tableBordersStyles = css({
+  border: `1px solid ${token('color.border', N40)}`,
+  borderTopLeftRadius: token('border.radius.200', '8px'),
+  borderTopRightRadius: token('border.radius.200', '8px'),
+});
+
 export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
   const {
     status,
@@ -58,18 +66,20 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
 
   const issueLikeDataTableView = useMemo(
     () => (
-      <IssueLikeDataTableView
-        testId="asset-datasource-table"
-        status={status}
-        columns={columns}
-        items={responseItems}
-        hasNextPage={hasNextPage}
-        visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
-        onNextPage={onNextPage}
-        onLoadDatasourceDetails={loadDatasourceDetails}
-        onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-        parentContainerRenderInstanceId={modalRenderInstanceId}
-      />
+      <div css={tableBordersStyles}>
+        <IssueLikeDataTableView
+          testId="asset-datasource-table"
+          status={status}
+          columns={columns}
+          items={responseItems}
+          hasNextPage={hasNextPage}
+          visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
+          onNextPage={onNextPage}
+          onLoadDatasourceDetails={loadDatasourceDetails}
+          onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+          parentContainerRenderInstanceId={modalRenderInstanceId}
+        />
+      </div>
     ),
     [
       columns,
@@ -88,7 +98,7 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
   if (isFetchingInitialData) {
     // Placing this check first as it's a priority before all others
     return (
-      <div css={emptyStateOverrideStyles}>
+      <div css={[tableBordersStyles, emptyStateOverrideStyles]}>
         <EmptyState testId="assets-aql-datasource-modal--loading-state" />
       </div>
     );

@@ -45,7 +45,7 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
-import taskDecisionPlugin from '../../../../../plugins/tasks-and-decisions';
+import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 import { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
@@ -196,7 +196,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       .add(imageUploadPlugin)
       .add([statusPlugin, { menuDisabled: true }])
       .add(expandPlugin)
-      .add(taskDecisionPlugin)
+      .add(tasksAndDecisionsPlugin)
       .add([typeAheadPlugin, { createAnalyticsEvent }])
       .add(mentionsPlugin)
       .add(hyperlinkPlugin)

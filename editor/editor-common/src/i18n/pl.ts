@@ -184,7 +184,7 @@ export default {
   'fabric.editor.removeRows':
     '{0, plural, one {Usuń wiersz} few {Usuń wiersze} many {Usuń wiersze} other {Usuń wiersze}}',
   'fabric.editor.rightSidebar': 'Prawy pasek boczny',
-  'fabric.editor.rowControl': 'Zaznacz wiersz',
+  'fabric.editor.rowControl': 'Podświetl wiersz',
   'fabric.editor.saveButton': 'Zapisz',
   'fabric.editor.settingsLinks': 'Przejdź do preferencji łączy',
   'fabric.editor.single': 'Pojedyncza kolumna',

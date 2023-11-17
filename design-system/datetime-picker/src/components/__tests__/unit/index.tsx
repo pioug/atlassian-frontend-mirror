@@ -7,35 +7,35 @@ import {
 
 // ParseTime
 const correctTimes = [
-  '12:45am',
+  '12:45:15am',
   '12:45pm',
   '1:13pm',
-  '1:13 pm',
+  '1:23:45 pm',
   '1:13 PM ',
   ' 1:13 PM ',
   '2:33 p M ',
   '1',
   '113pm',
   '01',
-  '0113',
+  '123456',
   '01pm',
 ];
 
 const incorrectTimes = ['watermelon', '34675y83u4534ui59', '1111111'];
 
 const convertedTimes = [
-  { hour: 0, minute: 45 },
-  { hour: 12, minute: 45 },
-  { hour: 13, minute: 13 },
-  { hour: 13, minute: 13 },
-  { hour: 13, minute: 13 },
-  { hour: 13, minute: 13 },
-  { hour: 14, minute: 33 },
-  { hour: 1, minute: 0 },
-  { hour: 13, minute: 13 },
-  { hour: 1, minute: 0 },
-  { hour: 1, minute: 13 },
-  { hour: 13, minute: 0 },
+  { hour: 0, minute: 45, seconds: 15 },
+  { hour: 12, minute: 45, seconds: 0 },
+  { hour: 13, minute: 13, seconds: 0 },
+  { hour: 13, minute: 23, seconds: 45 },
+  { hour: 13, minute: 13, seconds: 0 },
+  { hour: 13, minute: 13, seconds: 0 },
+  { hour: 14, minute: 33, seconds: 0 },
+  { hour: 1, minute: 0, seconds: 0 },
+  { hour: 13, minute: 13, seconds: 0 },
+  { hour: 1, minute: 0, seconds: 0 },
+  { hour: 12, minute: 34, seconds: 56 },
+  { hour: 13, minute: 0, seconds: 0 },
 ];
 
 test('"isValid" - accept valid times.', () => {

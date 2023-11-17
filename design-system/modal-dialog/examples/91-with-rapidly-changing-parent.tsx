@@ -69,12 +69,7 @@ function Child() {
               <Button appearance="subtle" testId="subtle">
                 Secondary action
               </Button>
-              <Button
-                onClick={close}
-                appearance="primary"
-                testId="primary"
-                autoFocus
-              >
+              <Button onClick={close} appearance="primary" testId="primary">
                 Close
               </Button>
             </ModalFooter>

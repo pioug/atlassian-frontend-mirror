@@ -54,7 +54,7 @@ const colorsValidation = (data: Category, errors?: Record<string, string>) => {
     return (data.colors as Option).value === 'dog'
       ? {
           ...errors,
-          colors: `${(data.colors as Option).value} is not a color`,
+          colors: `${(data.colors as Option).value} is not a color.`,
         }
       : errors;
   }
@@ -65,7 +65,7 @@ const flavorValidation = (data: Category, errors?: Record<string, string>) => {
   if (data.icecream && data.icecream.length >= 3) {
     return {
       ...errors,
-      icecream: `${data.icecream.length} is too many flavors, don't be greedy, you get to pick 2.`,
+      icecream: `${data.icecream.length} is too many flavors, please select a maximum of 2 flavors.`,
     };
   }
 

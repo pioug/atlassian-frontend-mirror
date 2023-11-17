@@ -14,7 +14,6 @@ import { bind } from 'bind-event-listener';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import { Box, Inline } from '@atlaskit/primitives';
-import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import type { ProgressDotsProps } from '../types';
 
@@ -114,8 +113,6 @@ const ProgressDots: FC<ProgressDotsProps> = ({
     });
   }, [onSelect, handleKeyDown]);
 
-  const theme = useGlobalTheme();
-
   return (
     <Box
       style={
@@ -138,7 +135,7 @@ const ProgressDots: FC<ProgressDotsProps> = ({
           const isSelected = selectedIndex === index;
           const tabId = `${ariaLabel}${index}`;
           const panelId = `${ariaControls}${index}`;
-          const backgroundColor = getBgColor(appearance, isSelected)({ theme });
+          const backgroundColor = getBgColor(appearance, isSelected);
 
           return onSelect ? (
             <ButtonIndicator

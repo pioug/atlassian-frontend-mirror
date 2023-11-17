@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { memo } from 'react';
 import { css, jsx } from '@emotion/react';
-import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import type { SVGProps } from '../types';
 import { getBackground } from './utils';
@@ -26,14 +25,12 @@ const SVG = memo(function SVG({
   testId,
   children,
 }: SVGProps) {
-  const { mode } = useGlobalTheme();
-
   return (
     <svg
       viewBox="0 0 24 24"
       style={{
         color: primaryColor,
-        fill: secondaryColor || getBackground(mode),
+        fill: secondaryColor || getBackground(),
       }}
       css={[svgStyles, sizeStyleMap[size]]}
       data-testid={testId}

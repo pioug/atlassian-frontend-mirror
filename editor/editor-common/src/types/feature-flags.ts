@@ -217,15 +217,6 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Enable display of a preview modal on mouse over of inline smart card
-   *
-   * @see https://product-fabric.atlassian.net/browse/EDM-2860
-   * @default false
-   */
-  showHoverPreview?: boolean;
-
-  /**
-   * @description
    * Generic way of disabling spellcheck per browser by version range
    *
    * @see https://product-fabric.atlassian.net/browse/ED-14510

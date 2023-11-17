@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
+    "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/ssr": "*",

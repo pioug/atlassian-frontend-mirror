@@ -10,7 +10,7 @@ import { mount } from 'enzyme';
 import * as ufoWrapper from '../../../analytics/ufoExperiences';
 import { ErrorMessage } from '../../../errorMessage';
 import { MediaViewerError } from '../../../errors';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import {
   fakeIntl,
   smallImageFileId,

@@ -48,7 +48,7 @@
     "@atlaskit/editor-plugin-guideline": "^0.5.0",
     "@atlaskit/editor-plugin-selection": "^0.1.0",
     "@atlaskit/editor-plugin-width": "^0.2.0",
-    "@atlaskit/renderer": "^108.15.0",
+    "@atlaskit/renderer": "^108.16.0",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0"
   },

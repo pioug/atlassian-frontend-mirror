@@ -14,9 +14,22 @@ export const Table = styled.table`
 export const TableHeading = styled.th`
   position: relative;
   line-height: ${token('font.lineHeight.300', '16px')};
-  border-bottom: 2px solid ${token('color.background.accent.gray.subtler', N40)};
+  border-right: 0.5px solid ${token('color.border', N40)};
+  border-bottom: 2px solid ${token('color.border', N40)};
   height: calc(52px - ${token('space.050', '4px')} * 2 - 2px);
   vertical-align: bottom;
+
+  &.has-column-picker:nth-last-of-type(2) {
+    border-right: 0;
+  }
+
+  &:first-child {
+    padding-left: ${token('space.100', '4px')};
+  }
+
+  &:last-child {
+    border-right: 0;
+  }
 
   & [data-testid='datasource-header-content--container'] {
     width: 100%;

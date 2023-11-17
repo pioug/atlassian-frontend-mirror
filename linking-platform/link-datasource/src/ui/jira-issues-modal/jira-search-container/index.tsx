@@ -25,7 +25,7 @@ import { modeSwitcherMessages } from './messages';
 const inputContainerStyles = css({
   alignItems: 'baseline',
   display: 'flex',
-  minHeight: '60px',
+  minHeight: '72px',
 });
 
 const basicSearchInputContainerStyles = xcss({

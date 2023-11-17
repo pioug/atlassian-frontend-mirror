@@ -1,5 +1,24 @@
 # @atlaskit/editor-mobile-bridge
 
+## 189.3.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.3.30
+
+### Patch Changes
+
+- [#43405](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43405) [`150827259db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/150827259db) - Extracting tasks and decisions code from editor-core to new plugin package.
+- Updated dependencies
+
+## 189.3.29
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 189.3.28
 
 ### Patch Changes

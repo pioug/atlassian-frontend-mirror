@@ -884,6 +884,15 @@ const negativeSpaceMap: {
 };
 
 // @public (undocumented)
+type Opacity = keyof typeof opacityMap;
+
+// @public
+const opacityMap: {
+  readonly 'opacity.disabled': 'var(--ds-opacity-disabled)';
+  readonly 'opacity.loading': 'var(--ds-opacity-loading)';
+};
+
+// @public (undocumented)
 type SafeCSSObject = CSSPseudos &
   CSSAtRules &
   TokenisedProps &
@@ -1130,8 +1139,32 @@ type TokenisedProps = {
   backgroundColor?: BackgroundColor;
   blockSize?: AutoComplete<Dimension>;
   borderColor?: BorderColor;
+  borderBlockStartColor?: AutoComplete<BorderColor>;
+  borderBlockEndColor?: AutoComplete<BorderColor>;
+  borderInlineStartColor?: AutoComplete<BorderColor>;
+  borderInlineEndColor?: AutoComplete<BorderColor>;
+  borderBottomColor?: AutoComplete<BorderColor>;
+  borderLeftColor?: AutoComplete<BorderColor>;
+  borderRightColor?: AutoComplete<BorderColor>;
+  borderTopColor?: AutoComplete<BorderColor>;
   borderRadius?: BorderRadius;
+  borderStartStartRadius?: AutoComplete<BorderRadius>;
+  borderStartEndRadius?: AutoComplete<BorderRadius>;
+  borderEndStartRadius?: AutoComplete<BorderRadius>;
+  borderEndEndRadius?: AutoComplete<BorderRadius>;
+  borderBottomLeftRadius?: AutoComplete<BorderRadius>;
+  borderBottomRightRadius?: AutoComplete<BorderRadius>;
+  borderTopLeftRadius?: AutoComplete<BorderRadius>;
+  borderTopRightRadius?: AutoComplete<BorderRadius>;
   borderWidth?: BorderWidth;
+  borderBlockStartWidth?: AutoComplete<BorderWidth>;
+  borderBlockEndWidth?: AutoComplete<BorderWidth>;
+  borderInlineStartWidth?: AutoComplete<BorderWidth>;
+  borderInlineEndWidth?: AutoComplete<BorderWidth>;
+  borderBottomWidth?: AutoComplete<BorderWidth>;
+  borderLeftWidth?: AutoComplete<BorderWidth>;
+  borderRightWidth?: AutoComplete<BorderWidth>;
+  borderTopWidth?: AutoComplete<BorderWidth>;
   bottom?: AutoComplete<Space>;
   boxShadow?: Shadow;
   color?: TextColor;
@@ -1166,6 +1199,7 @@ type TokenisedProps = {
   minHeight?: AutoComplete<Dimension>;
   minInlineSize?: AutoComplete<Dimension>;
   minWidth?: AutoComplete<Dimension>;
+  opacity?: AutoComplete<Opacity> | number;
   outlineColor?: BorderColor;
   outlineOffset?: Space;
   outlineWidth?: BorderWidth;

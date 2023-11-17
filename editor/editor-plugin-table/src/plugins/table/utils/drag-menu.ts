@@ -194,11 +194,13 @@ export const getDragMenuConfig = (
       icon,
       onClick: (state: EditorState, dispatch?: CommandDispatch) => {
         if (canMove(index)) {
-          moveSource(
-            `table-${direction}`,
-            index!,
-            index! + offset,
-          )(state, dispatch);
+          requestAnimationFrame(() => {
+            moveSource(
+              `table-${direction}`,
+              index!,
+              index! + offset,
+            )(state, dispatch);
+          });
           return true;
         }
         return false;

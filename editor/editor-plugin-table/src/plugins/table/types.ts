@@ -291,6 +291,8 @@ export const TableCssClassName = {
 
   DRAG_CONTROLS_INSERT_BUTTON: `${tablePrefixSelector}-controls__drag-insert-button`,
   DRAG_CONTROLS_INSERT_BUTTON_INNER: `${tablePrefixSelector}-controls__drag-insert-button-inner`,
+  DRAG_CONTROLS_INSERT_BUTTON_INNER_COLUMN: `${tablePrefixSelector}-controls__drag-insert-button-inner-column`,
+  DRAG_CONTROLS_INSERT_BUTTON_INNER_ROW: `${tablePrefixSelector}-controls__drag-insert-button-inner-row`,
   DRAG_CONTROLS_INSERT_BUTTON_WRAP: `${tablePrefixSelector}-controls__drag-insert-button-wrap`,
 
   CONTROLS_INSERT_MARKER: `${tablePrefixSelector}-controls__insert-marker`,

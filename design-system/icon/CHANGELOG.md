@@ -1,5 +1,11 @@
 # @atlaskit/icon
 
+## 22.0.0
+
+### Major Changes
+
+- [#41812](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41812) [`48b3b440f51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48b3b440f51) - Removed all remaining legacy theming logic from the Icon and ProgressIndicator components.
+
 ## 21.12.8
 
 ### Patch Changes

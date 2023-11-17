@@ -1,4 +1,7 @@
 export interface LinkingPlatformFeatureFlags {
+  /**
+   * @deprecated Implementation removed in EDM-3632 - enable this feature using the showHoverPreview prop outside of LinkingPlatformFeatureFlags
+   */
   showHoverPreview?: boolean;
   useLinkPickerScrollingTabs?: boolean;
   /**

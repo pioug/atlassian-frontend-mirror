@@ -254,6 +254,7 @@ export const ShareDialogContainer: React_2.ForwardRefExoticComponent<
     | 'renderCustomTriggerButton'
     | 'shareAri'
     | 'shareClient'
+    | 'shareContentId'
     | 'shareContentSubType'
     | 'shareContentType'
     | 'shareFieldsFooter'
@@ -317,6 +318,7 @@ export type ShareDialogContainerProps = {
   shareAri: string;
   shareContentType: string;
   shareContentSubType?: string;
+  shareContentId?: string;
   shareLink?: string;
   shareTitle: string;
   shareFormTitle?: React.ReactNode;

@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 7.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.6.4
 
 ### Patch Changes

@@ -15,6 +15,7 @@ const defaultStyles = xcss({
   backgroundColor: 'color.background.success',
   border: '2px solid green',
   borderRadius: 'border.radius.050',
+  opacity: 'opacity.disabled',
 });
 
 export default () => (

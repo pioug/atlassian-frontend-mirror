@@ -11,4 +11,5 @@ export interface DragAndDropPluginState {
   isDragMenuOpen: boolean;
   dragMenuDirection?: TableDirection;
   dragMenuIndex: number;
+  isDragging: boolean;
 }

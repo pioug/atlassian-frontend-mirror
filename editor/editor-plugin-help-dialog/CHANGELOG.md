@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 0.3.2
+
+### Patch Changes
+
+- [#43436](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43436) [`6bf14e25965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bf14e25965) - Revert "Resize media for the keyboard users"
+
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.3.0
 
 ### Minor Changes

@@ -1,3 +1,5 @@
+// This file duplicates types in @atlaskit/task-decision
+// NOTE: if this is changed in the original package, this also needs to be modified
 export type DecisionState = 'DECIDED';
 export type TaskState = 'TODO' | 'DONE';
 

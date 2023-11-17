@@ -407,6 +407,8 @@ export default function Example() {
                   }
                   shareAri="ari"
                   shareContentType="issue"
+                  shareContentSubType="subtype"
+                  shareContentId="contentid"
                   shareFormTitle={
                     state.customTitle ? 'Custom Title' : undefined
                   }

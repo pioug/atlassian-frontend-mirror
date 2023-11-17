@@ -37,7 +37,7 @@ export default () => (
         <form {...formProps}>
           <Field
             name="username"
-            label="User name"
+            label="Username"
             isRequired
             defaultValue="hello"
           >
@@ -46,12 +46,12 @@ export default () => (
                 <TextField autoComplete="off" {...fieldProps} />
                 {!error && (
                   <HelperMessage>
-                    You can use letters, numbers & periods.
+                    You can use letters, numbers, and periods.
                   </HelperMessage>
                 )}
                 {error && (
                   <ErrorMessage>
-                    This user name is already in use, try another one.
+                    This username is already in use, try another one.
                   </ErrorMessage>
                 )}
               </Fragment>

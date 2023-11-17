@@ -1,5 +1,18 @@
 # @atlaskit/link-datasource
 
+## 1.17.8
+
+### Patch Changes
+
+- [#43419](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43419) [`27726a80705`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27726a80705) - [ux] Updated borders and added grid lines in datasource tables.
+
+## 1.17.7
+
+### Patch Changes
+
+- [#43413](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43413) [`73c1cebfd62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73c1cebfd62) - Move all logic to onOpen when opening the filter dropdown.
+- Updated dependencies
+
 ## 1.17.6
 
 ### Patch Changes

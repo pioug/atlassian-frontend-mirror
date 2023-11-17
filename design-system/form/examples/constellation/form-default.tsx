@@ -56,7 +56,7 @@ const FormDefaultExample = () => (
                   <TextField autoComplete="off" {...fieldProps} />
                   {!error && (
                     <HelperMessage>
-                      You can use letters, numbers and periods.
+                      You can use letters, numbers, and periods.
                     </HelperMessage>
                   )}
                   {error && (
@@ -83,7 +83,7 @@ const FormDefaultExample = () => (
                     <TextField type="password" {...fieldProps} />
                     {error && !valid && (
                       <HelperMessage>
-                        Use 8 or more characters with a mix of letters, numbers
+                        Use 8 or more characters with a mix of letters, numbers,
                         and symbols.
                       </HelperMessage>
                     )}

@@ -41,7 +41,7 @@ export default function Example() {
             </ModalBody>
             <ModalFooter>
               <Button appearance="subtle">Cancel</Button>
-              <Button appearance="danger" onClick={closeModal} autoFocus>
+              <Button appearance="danger" onClick={closeModal}>
                 Delete
               </Button>
             </ModalFooter>

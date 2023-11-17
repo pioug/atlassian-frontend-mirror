@@ -632,7 +632,7 @@ describe('ShareDialogContainer', () => {
 
         let finalPayload = wrapper
           .instance()
-          .decorateAnalytics(copyLinkButtonClicked(0));
+          .decorateAnalytics(copyLinkButtonClicked({ start: 0 }));
 
         expect(finalPayload).toMatchObject({
           eventType: 'ui',
@@ -649,7 +649,7 @@ describe('ShareDialogContainer', () => {
 
         finalPayload = wrapper
           .instance()
-          .decorateAnalytics(copyLinkButtonClicked(0));
+          .decorateAnalytics(copyLinkButtonClicked({ start: 0 }));
         expect(finalPayload).toMatchObject({
           eventType: 'ui',
           action: 'clicked',
@@ -718,7 +718,9 @@ describe('ShareDialogContainer', () => {
           mockCreateAnalyticsEvent.mockClear();
 
           // pretend we clicked on the copy link button
-          wrapper.instance().decorateAnalytics(copyLinkButtonClicked(0));
+          wrapper
+            .instance()
+            .decorateAnalytics(copyLinkButtonClicked({ start: 0 }));
 
           // then resolve later
           resolveShortening({

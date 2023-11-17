@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 189.3.31
+
+### Patch Changes
+
+- [#43419](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43419) [`27726a80705`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27726a80705) - [ux] Updated borders and added grid lines in datasource tables.
+
+## 189.3.30
+
+### Patch Changes
+
+- [#43405](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43405) [`150827259db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/150827259db) - Extracting tasks and decisions code from editor-core to new plugin package.
+- Updated dependencies
+
+## 189.3.29
+
+### Patch Changes
+
+- [#43063](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43063) [`3f200d22a99`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f200d22a99) - deprecate showHoverPreview feature flag prop
+
 ## 189.3.28
 
 ### Patch Changes

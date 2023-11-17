@@ -39,6 +39,7 @@ export const createPlugin = (
       dropTargetIndex: 0,
       isDragMenuOpen: false,
       dragMenuIndex: 0,
+      isDragging: false,
     })),
     key: pluginKey,
     appendTransaction: (transactions, oldState, newState) => {
@@ -160,11 +161,14 @@ export const createPlugin = (
             }
 
             const [sourceIndex] = sourceIndexes;
-            moveSource(
-              sourceType,
-              sourceIndex,
-              targetAdjustedIndex + (direction === -1 ? 0 : -1),
-            )(editorView.state, editorView.dispatch);
+
+            requestAnimationFrame(() => {
+              moveSource(
+                sourceType,
+                sourceIndex,
+                targetAdjustedIndex + (direction === -1 ? 0 : -1),
+              )(editorView.state, editorView.dispatch);
+            });
           },
         }),
       };

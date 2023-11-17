@@ -281,6 +281,7 @@ export const DraggableTableHeading = ({
   return (
     <TableHeading
       ref={mainHeaderCellRef}
+      className="has-column-picker"
       data-testid={`${id}-column-heading`}
       style={{
         cursor: 'grab',

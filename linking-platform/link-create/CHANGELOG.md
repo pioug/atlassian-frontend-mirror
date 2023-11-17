@@ -1,5 +1,12 @@
 # @atlaskit/link-create
 
+## 1.9.3
+
+### Patch Changes
+
+- [#43347](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43347) [`378d75bbaad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d75bbaad) - Clean up outer error boundary feature flag
+- Updated dependencies
+
 ## 1.9.2
 
 ### Patch Changes

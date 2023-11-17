@@ -24,7 +24,7 @@ export default {
   'fabric.editor.blockTitle': 'Kártya',
   'fabric.editor.blockquote': 'Idézet',
   'fabric.editor.blockquote.description': 'Idézet beszúrása',
-  'fabric.editor.blockquote2': 'Idézés',
+  'fabric.editor.blockquote2': 'Idézet',
   'fabric.editor.bold': 'Félkövér',
   'fabric.editor.bug': 'Hiba',
   'fabric.editor.canNotSortTable': '⚠️ Nem rendezhetsz egyesített cellákat tartalmazó táblázatot',

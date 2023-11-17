@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 10.8.23
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.8.22
 
 ### Patch Changes

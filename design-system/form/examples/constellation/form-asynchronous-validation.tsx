@@ -80,7 +80,7 @@ export default () => (
                   <TextField type="password" {...fieldProps} />
                   {error && (
                     <ErrorMessage>
-                      Password needs to be more than 8 characters.
+                      Please enter a password that's longer than 8 characters.
                     </ErrorMessage>
                   )}
                   {meta.validating && meta.dirty ? (

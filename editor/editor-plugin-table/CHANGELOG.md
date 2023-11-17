@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.35
+
+### Patch Changes
+
+- [#43255](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43255) [`404fa3bc44e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/404fa3bc44e) - Add requestAnimationFrame around move row/column command to fix an issue where selection would be lost
+- Updated dependencies
+
+## 5.3.34
+
+### Patch Changes
+
+- [#43176](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43176) [`08ef3d55edb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08ef3d55edb) - [ux] Increases size of insert row/column button for drag and drop
+
+## 5.3.33
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.32
 
 ### Patch Changes

@@ -481,7 +481,6 @@ const generateMediaSingleFloatingToolbar = (
                 updateMediaSingleWidth(pluginInjectionApi?.analytics?.actions)(
                   width,
                   validation,
-                  'floatingToolBar',
                   newLayout,
                 )(state, dispatch);
               }}

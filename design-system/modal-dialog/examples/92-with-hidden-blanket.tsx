@@ -33,12 +33,7 @@ export default function DefaultModal() {
               <Lorem count={2} />
             </ModalBody>
             <ModalFooter>
-              <Button
-                autoFocus
-                testId="primary"
-                appearance="primary"
-                onClick={close}
-              >
+              <Button testId="primary" appearance="primary" onClick={close}>
                 Close
               </Button>
             </ModalFooter>

@@ -202,6 +202,27 @@ describe('TimePicker', () => {
     expect(onChangeSpy).toBeCalledWith('15:32');
   });
 
+  it('should return PM time with default parseInputValue and custom timeFormat', () => {
+    const onChangeSpy = jest.fn();
+    render(
+      <TimePicker
+        timeIsEditable
+        onChange={onChangeSpy}
+        timeFormat="hh:mm:ss a"
+      />,
+    );
+
+    const createButton = screen.getByRole('button', {
+      name: 'Create Item',
+    });
+
+    fireEvent.click(createButton, {
+      target: { value: '11:22:33 pm' },
+    });
+
+    expect(onChangeSpy).toBeCalledWith('23:22:33');
+  });
+
   it('should correctly parseInputValue with custom timeFormat', () => {
     const onChangeSpy = jest.fn();
     const onParseInputValueSpy = jest
@@ -220,9 +241,7 @@ describe('TimePicker', () => {
       name: 'Create Item',
     });
     fireEvent.click(createButton, {
-      target: {
-        value: '3:32pm',
-      },
+      target: { value: '3:32pm' },
     });
 
     expect(onParseInputValueSpy).toBeCalledWith('3:32pm', 'HH--mm:A');

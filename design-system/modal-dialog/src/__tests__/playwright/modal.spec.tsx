@@ -7,6 +7,7 @@ const modalDialog = 'modal';
 const modalScrollable = 'modal--scrollable';
 const primaryBtn = 'primary';
 const secondaryBtn = 'secondary';
+const scrollBtn = 'scrollDown';
 
 test.describe('Default Modal', () => {
   test('Modal should move focus based on reading order, and be closed', async ({
@@ -68,11 +69,15 @@ test.describe('Modal Dialog Scroll', () => {
 
     const open = page.getByTestId(openModalBtn);
     const primary = page.getByTestId(primaryBtn);
+    const scroll = page.getByTestId(scrollBtn);
     const body = page.getByTestId(modalScrollable);
 
     await expect(open).toBeVisible();
     await open.click();
     await expect(page.getByTestId(modalDialog)).toBeVisible();
+    await expect(scroll).toBeFocused();
+
+    await page.keyboard.press('Tab');
     await expect(primary).toBeFocused();
 
     // Focus should go to content body,
@@ -81,7 +86,7 @@ test.describe('Modal Dialog Scroll', () => {
     await expect(body).toBeFocused();
 
     await page.keyboard.press('Tab');
-    await expect(page.getByTestId('scrollDown')).toBeFocused();
+    await expect(scroll).toBeFocused();
 
     // Focus should go back to primary action.
     await page.keyboard.press('Tab');
@@ -119,7 +124,7 @@ test.describe('Modal Dialog Scroll', () => {
     await open.click();
 
     await expect(page.getByTestId(modalDialog)).toBeVisible();
-    await expect(page.getByTestId(primaryBtn)).toBeFocused();
+    await expect(page.getByTestId(scrollBtn)).toBeFocused();
 
     const body = page.getByTestId(modalScrollable);
     await expect(body).toHaveAttribute('tabindex', '0');
@@ -154,4 +159,47 @@ test('Empty modals (no focusable children) should still lock focus', async ({
   await page.keyboard.press('Escape');
   await expect(open).toBeVisible();
   await expect(open).toBeFocused();
+});
+
+test.describe('Autofocus', () => {
+  test('should focus first focusable item when true', async ({ page }) => {
+    const open = page.getByTestId('boolean-trigger');
+    const modal = page.getByTestId(modalDialog);
+
+    await page.visitExample('design-system', 'modal-dialog', 'autofocus');
+
+    await expect(open).toBeVisible();
+    await open.click();
+    await expect(modal).toBeVisible();
+    await expect(
+      page.getByRole('button', { name: 'I am focused!' }),
+    ).toBeFocused();
+  });
+
+  test('should focus item specified by ref', async ({ page }) => {
+    const open = page.getByTestId('autofocus-trigger');
+    const modal = page.getByTestId(modalDialog);
+
+    await page.visitExample('design-system', 'modal-dialog', 'autofocus');
+
+    await expect(open).toBeVisible();
+    await open.click();
+    await expect(modal).toBeVisible();
+    await expect(
+      page.getByLabel('This textbox should be focused'),
+    ).toBeFocused();
+  });
+});
+
+test('Modal with no focusable children should gain focus on its container', async ({
+  page,
+}) => {
+  const open = page.getByTestId(openModalBtn);
+  const modal = page.getByTestId(modalDialog);
+
+  await page.visitExample('design-system', 'modal-dialog', 'custom-child');
+  await expect(open).toBeVisible();
+  await open.click();
+  await expect(modal).toBeVisible();
+  await expect(modal).toBeFocused();
 });

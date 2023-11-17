@@ -159,4 +159,5 @@ export const TABLE_HIGHLIGHT_TOLERANCE = 2;
 export const STICKY_HEADER_TOGGLE_TOLERANCE_MS = 5;
 
 export const dragMenuDropdownWidth = 240;
+export const dragTableInsertColumnButtonSize = 16;
 export const dropTargetExtendedWidth = 150;

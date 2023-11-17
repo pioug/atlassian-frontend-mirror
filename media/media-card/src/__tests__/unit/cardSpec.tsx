@@ -907,24 +907,32 @@ describe('Card', () => {
       expect(player.props().cardPreview).toBe(cardPreview);
     });
 
-    it('should set isPlayingFile=false when status is error', () => {
-      const fileState: FileState = {
-        id: 'some-id',
-        status: 'error',
-      };
-
+    it('should set isPlayingFile=false when an error occurrs in inline player', () => {
       const { component } = setup(undefined, {
         useInlinePlayer: true,
         disableOverlay: true,
       });
+
       component.setState({
         cardPreview: { dataURI: 'data-uri', source: 'remote' },
-        fileState: fileState,
+        fileState: {
+          id: 'some-id',
+          name: 'some-video.mp4',
+          mediaType: 'video',
+          mimeType: 'video/mp4',
+          size: 12345,
+          status: 'processed',
+          artifacts: {},
+        },
       });
 
-      expect(component.state('isPlayingFile')).toBeFalsy();
+      expect(component.state('isPlayingFile')).toBeTruthy();
+      expect(component.state('shouldAutoplay')).toBeFalsy();
 
-      //autoplay disabled when control bar is shown by default
+      // simulate an error in inline player
+      component.find(InlinePlayerLazy).props().onError();
+
+      expect(component.state('isPlayingFile')).toBeFalsy();
       expect(component.state('shouldAutoplay')).toBeFalsy();
     });
 

@@ -25,7 +25,7 @@ const containerStyles = css({
 });
 
 const titleStyles = css({
-  marginBottom: token('space.200', '16px'),
+  marginBlockEnd: token('space.200', '16px'),
 });
 
 export default function ModalDemo() {
@@ -60,7 +60,7 @@ export default function ModalDemo() {
             </ModalBody>
             <ModalFooter>
               <Button appearance="subtle">Secondary Action</Button>
-              <Button autoFocus appearance="primary" onClick={close}>
+              <Button appearance="primary" onClick={close}>
                 Close
               </Button>
             </ModalFooter>

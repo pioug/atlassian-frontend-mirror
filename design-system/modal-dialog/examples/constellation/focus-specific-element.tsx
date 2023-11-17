@@ -49,7 +49,7 @@ export default function Example() {
             </ModalBody>
             <ModalFooter>
               <Button appearance="subtle">Learn more</Button>
-              <Button appearance="primary" onClick={closeModal} autoFocus>
+              <Button appearance="primary" onClick={closeModal}>
                 Sign up
               </Button>
             </ModalFooter>

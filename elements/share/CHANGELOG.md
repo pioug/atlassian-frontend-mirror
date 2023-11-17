@@ -1,5 +1,17 @@
 # @atlaskit/share
 
+## 4.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.6.0
+
+### Minor Changes
+
+- [#43407](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43407) [`90c45674b3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90c45674b3a) - @atlaskit/share can be passed contentId & passes contentId+contentSubType to existing analytics events
+
 ## 4.5.4
 
 ### Patch Changes

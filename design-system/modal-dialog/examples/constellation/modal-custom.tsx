@@ -22,17 +22,17 @@ const imageStyles = css({
 });
 
 const headerStyles = css({
-  marginBottom: token('space.100', '8px'),
   color: 'inherit',
   fontSize: 20,
   fontStyle: 'inherit',
   fontWeight: 500,
   letterSpacing: '-0.008em',
   lineHeight: 1.2,
+  marginBlockEnd: token('space.100', '8px'),
 });
 
 const marginBottomStyles = css({
-  marginBottom: token('space.500', '40px'),
+  marginBlockEnd: token('space.500', '40px'),
 });
 
 const CustomModalContent = () => {
@@ -58,7 +58,7 @@ const CustomModalContent = () => {
         </p>
         <ButtonGroup>
           <Button appearance="subtle-link">Remind me later</Button>
-          <Button onClick={onClose} appearance="primary" autoFocus>
+          <Button onClick={onClose} appearance="primary">
             Switch to the new Jira
           </Button>
         </ButtonGroup>

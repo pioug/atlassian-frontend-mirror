@@ -22,6 +22,7 @@ import {
   columnControlsDecorationHeight,
   columnControlsSelectedZIndex,
   columnControlsZIndex,
+  dragTableInsertColumnButtonSize,
   insertLineWidth,
   lineMarkerSize,
   resizeHandlerAreaWidth,
@@ -185,8 +186,16 @@ export const dragInsertButtonWrapper = (props: ThemeProps) => css`
   .${ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER} {
     position: absolute;
     z-index: ${akEditorUnitZIndex + 10};
-    bottom: -5px;
-    left: 3px;
+  }
+
+  .${ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER_COLUMN} {
+    bottom: -3px;
+    left: 2px;
+  }
+
+  .${ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER_ROW} {
+    left: -3px;
+    bottom: -2px;
   }
 
   .${ClassName.DRAG_CONTROLS_INSERT_BUTTON} {
@@ -198,6 +207,8 @@ export const dragInsertButtonWrapper = (props: ThemeProps) => css`
       '#C1C7D0',
     )};
     border-radius: 50%;
+    height: ${dragTableInsertColumnButtonSize}px;
+    width: ${dragTableInsertColumnButtonSize}px;
   `)}
   }
 
@@ -872,6 +883,7 @@ export const resizeHandle = (props: ThemeProps) => css`
   }
 `;
 
+// Drag and Drop: drop target insert line
 export const insertLine = (props: ThemeProps) => css`
   .${ClassName.TABLE_CONTAINER} {
     td.${ClassName.WITH_FIRST_COLUMN_INSERT_LINE}::before {

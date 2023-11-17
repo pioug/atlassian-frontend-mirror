@@ -1,7 +1,7 @@
 import * as mocks from './image-navigatorSpec.mock';
 import React from 'react';
 import Spinner from '@atlaskit/spinner';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { Ellipsify } from '@atlaskit/media-ui';
 import ImageNavigator, {
   ImageNavigator as ImageNavigatorView,

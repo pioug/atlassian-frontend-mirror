@@ -18,7 +18,6 @@ import {
   safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
 
-import type { EventInput } from '../pm-plugins/types';
 import type { PixelEntryValidation } from '../ui/PixelEntry/types';
 import { getMediaInputResizeAnalyticsEvent } from '../utils/analytics';
 import { currentMediaNodeWithPos } from '../utils/current-media-node';
@@ -235,7 +234,6 @@ export const updateMediaSingleWidth =
   (
     width: number,
     validation: PixelEntryValidation,
-    input: EventInput,
     layout: RichMediaLayout,
   ): Command =>
   (state, dispatch) => {

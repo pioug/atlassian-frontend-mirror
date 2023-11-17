@@ -31,5 +31,30 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__editor-plugin-tasks-and-decisions/app"
   },
-  "references": []
+  "references": [
+    {
+      "path": "../../analytics/analytics-namespaced-context/tsconfig.app.json"
+    },
+    {
+      "path": "../../analytics/analytics-next/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-common/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-analytics/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-type-ahead/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/icon/tsconfig.app.json"
+    },
+    {
+      "path": "../input-rules/tsconfig.app.json"
+    },
+    {
+      "path": "../../elements/task-decision/tsconfig.app.json"
+    }
+  ]
 }

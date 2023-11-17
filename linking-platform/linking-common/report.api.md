@@ -335,7 +335,7 @@ export interface LinkingPlatformFeatureFlags {
   enableResolveMetadataForLinkAnalytics?: boolean;
   // @deprecated
   showAuthTooltip?: string;
-  // (undocumented)
+  // @deprecated (undocumented)
   showHoverPreview?: boolean;
   // @deprecated
   useLinkPickerAtlassianTabs?: boolean;

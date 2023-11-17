@@ -50,7 +50,10 @@ const ColumnPickerHeader = styled.th`
   position: sticky;
   right: calc(-1 * ${tableSidePadding});
   background-color: ${token('elevation.surface', '#FFF')};
-  border-bottom: 2px solid ${token('color.background.accent.gray.subtler', N40)}; /* It is required to have solid (not half-transparent) color because of this gradient business bellow */
+  border-bottom: 2px solid ${token('color.border', N40)}; /* It is required to have solid (not half-transparent) color because of this gradient business below */
+
+  padding-right: ${token('space.100', '4px')};
+
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
@@ -67,13 +70,24 @@ const truncatedCellStyles = css({
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
+  borderRight: `0.5px solid ${token('color.border', N40)}`,
+  borderBottom: `0.5px solid ${token('color.border', N40)}`,
+  '&:first-child': {
+    paddingLeft: `${token('space.100', '4px')}`,
+  },
+  '&:last-child': {
+    borderRight: 0,
+    paddingRight: `${token('space.100', '4px')}`,
+  },
+});
+
+const tableContainerStyles = css({
+  borderRadius: 'inherit',
 });
 
 const scrollableContainerStyles = css({
   overflow: 'auto',
-  padding: `0 ${tableSidePadding} 0 ${tableSidePadding}`,
   boxSizing: 'border-box',
-  borderRadius: token('border.radius.100', '3px'),
 });
 
 const tableStyles = css({
@@ -451,7 +465,10 @@ export const IssueLikeDataTableView = ({
        */
       contentEditable={false}
       ref={containerRef}
-      css={scrollableContainerHeight ? scrollableContainerStyles : null}
+      css={[
+        tableContainerStyles,
+        scrollableContainerHeight && scrollableContainerStyles,
+      ]}
       style={
         scrollableContainerHeight
           ? {
@@ -517,6 +534,9 @@ export const IssueLikeDataTableView = ({
                 return (
                   <TableHeading
                     key={key}
+                    className={
+                      !!onVisibleColumnKeysChange ? 'has-column-picker' : ''
+                    }
                     data-testid={`${key}-column-heading`}
                     style={shouldUseWidth ? { width } : { maxWidth: width }}
                   >

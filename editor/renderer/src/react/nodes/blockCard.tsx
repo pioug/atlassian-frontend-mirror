@@ -21,7 +21,6 @@ import { DatasourceTableView } from '@atlaskit/link-datasource';
 
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
 import { token } from '@atlaskit/tokens';
-import { akEditorRuleBorderRadius } from '@atlaskit/editor-shared-styles';
 import { N40 } from '@atlaskit/theme/colors';
 import {
   calcBreakoutWidth,
@@ -30,7 +29,7 @@ import {
 
 //  Temporary, until we add aspect ratio to the datasource table
 const datasourceContainerStyle = css({
-  borderRadius: `${token('border.radius.100', akEditorRuleBorderRadius)}`,
+  borderRadius: `${token('border.radius.200', '8px')}`,
   border: `1px solid ${token('color.border', N40)}`,
   marginLeft: '50%',
   transform: 'translateX(-50%)',

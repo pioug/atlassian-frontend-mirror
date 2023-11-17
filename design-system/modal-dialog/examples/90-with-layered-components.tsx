@@ -226,7 +226,7 @@ export default () => {
               >
                 Scroll to bottom
               </Button>
-              <Button autoFocus appearance="primary" onClick={close}>
+              <Button appearance="primary" onClick={close}>
                 Close
               </Button>
             </ModalFooter>

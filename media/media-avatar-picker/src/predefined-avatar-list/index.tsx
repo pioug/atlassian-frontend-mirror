@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import { AvatarList, Avatar } from '../avatar-list';
 
 import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import { predefinedAvatarsWrapperStyles } from './styles';
 import { useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';

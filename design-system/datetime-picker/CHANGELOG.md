@@ -1,5 +1,17 @@
 # @atlaskit/datetime-picker
 
+## 13.0.0
+
+### Major Changes
+
+- [#43269](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43269) [`c7ab5b9501c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7ab5b9501c) - This fixes it so that `<TimePicker timeEditable timeFormat="hh:mm:ss">` will return seconds when the timeformat includes seconds whereas previously it would strictly return `HH:mm` and not account for the `timeFormat`. It is still not flexible and does not return time in your `timeFormat` to avoid causing unexpected breaking changes as that `HH:mm` format has been there for so long.
+
+  There's a theoretical risk that `HH:mm` formats are expected back when `HH:mm:ss` format are used and unsed improperly, but any typical parsing of datetime should handle this change perfectly fine, with zero breaking change expected.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.10.6
 
 ### Patch Changes

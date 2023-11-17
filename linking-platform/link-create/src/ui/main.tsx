@@ -5,7 +5,6 @@ import { jsx } from '@emotion/react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { COMPONENT_NAME } from '../common/constants';
 import { LinkCreateWithModalProps } from '../common/types';
@@ -20,24 +19,15 @@ import { ErrorBoundary } from './link-create/error-boundary';
 
 const LinkCreateWithAnalyticsContext = withLinkCreateAnalyticsContext(
   memo(({ ...props }: LinkCreateWithModalProps) => {
-    if (
-      getBooleanFF('platform.linking-platform.link-create.outer-error-boundary')
-    ) {
-      return (
-        <ErrorBoundary
-          errorComponent={
-            <ErrorBoundaryModal
-              active={props.active}
-              onClose={props.onCancel}
-            />
-          }
-        >
-          <LinkCreate {...props} />
-        </ErrorBoundary>
-      );
-    }
-
-    return <LinkCreate {...props} />;
+    return (
+      <ErrorBoundary
+        errorComponent={
+          <ErrorBoundaryModal active={props.active} onClose={props.onCancel} />
+        }
+      >
+        <LinkCreate {...props} />
+      </ErrorBoundary>
+    );
   }),
 );
 

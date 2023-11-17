@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 108.16.2
+
+### Patch Changes
+
+- [#43419](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43419) [`27726a80705`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27726a80705) - [ux] Updated borders and added grid lines in datasource tables.
+
+## 108.16.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 108.16.0
+
+### Minor Changes
+
+- [#43063](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43063) [`df4cc6a4be0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df4cc6a4be0) - [ux] enable smart link hover previews by default in renderer and add opt-out prop hideHoverPreview to smart link options renderer prop
+
 ## 108.15.24
 
 ### Patch Changes

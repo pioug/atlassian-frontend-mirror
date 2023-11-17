@@ -146,31 +146,52 @@ export const shortUrlGenerated = (start: number, tooSlow: boolean) =>
     },
   );
 
-export const copyLinkButtonClicked = (
-  start: number,
-  shareContentType?: string,
-  shareOrigin?: OriginTracing,
+export const copyLinkButtonClicked = ({
+  start,
+  shareContentType,
+  shareContentSubType,
+  shareContentId,
+  shareOrigin,
   isPublicLink = false,
-  ari?: string,
-) =>
+  ari,
+}: {
+  start: number;
+  shareContentType?: string;
+  shareContentSubType?: string;
+  shareContentId?: string;
+  shareOrigin?: OriginTracing;
+  isPublicLink?: boolean;
+  ari?: string;
+}) =>
   createEvent('ui', ANALYTICS_SOURCE, 'clicked', 'button', 'copyShareLink', {
     source: ANALYTICS_SOURCE,
     duration: duration(start),
     shortUrl: undefined, // unknown at creation, will be filled later
     contentType: shareContentType,
+    contentSubType: shareContentSubType,
+    contentId: shareContentId,
     isPublicLink,
     ari,
     ...getOriginTracingAttributes(shareOrigin),
   });
 
-export const formShareSubmitted = (
-  start: number,
-  data: DialogContentState,
-  shareContentType?: string,
-  shareOrigin?: OriginTracing,
+export const formShareSubmitted = ({
+  start,
+  data,
+  shareContentType,
+  shareContentSubType,
+  shareContentId,
+  shareOrigin,
   isPublicLink = false,
-  shareContentSubType?: string,
-) => {
+}: {
+  start: number;
+  data: DialogContentState;
+  shareContentType?: string;
+  shareContentSubType?: string;
+  shareContentId?: string;
+  shareOrigin?: OriginTracing;
+  isPublicLink?: boolean;
+}) => {
   const users = extractIdsByType(data, isUser);
   const teams = extractIdsByType(data, isTeam);
   const teamUserCounts = extractMemberCountsFromTeams(data, isTeam);
@@ -185,6 +206,7 @@ export const formShareSubmitted = (
       ...getOriginTracingAttributes(shareOrigin),
       contentType: shareContentType,
       contentSubType: shareContentSubType,
+      contentId: shareContentId,
       duration: duration(start),
       emailCount: emails.length,
       teamCount: teams.length,

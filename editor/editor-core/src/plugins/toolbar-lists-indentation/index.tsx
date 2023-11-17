@@ -14,7 +14,7 @@ import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 import type { ToolbarUiComponentFactoryParams } from '../../types';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { IndentationPlugin } from '@atlaskit/editor-plugin-indentation';
-import type { TaskAndDecisionsPlugin } from '../tasks-and-decisions/types';
+import type { TasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 
 type Config = {
   showIndentationButtons: boolean;
@@ -29,7 +29,7 @@ type ToolbarListsIndentationPlugin = NextEditorPlugin<
       FeatureFlagsPlugin,
       ListPlugin,
       OptionalPlugin<IndentationPlugin>,
-      OptionalPlugin<TaskAndDecisionsPlugin>,
+      OptionalPlugin<TasksAndDecisionsPlugin>,
       OptionalPlugin<AnalyticsPlugin>,
     ];
   }

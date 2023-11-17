@@ -21,7 +21,7 @@ import toolbarListsIndentationPlugin, {
 } from '../../../';
 import { indentationPlugin } from '@atlaskit/editor-plugin-indentation';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
-import taskDecisionPlugin from '../../../../../plugins/tasks-and-decisions';
+import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import type { Props as ToolbarListsIndentationProps } from '../../../ui';
@@ -64,7 +64,7 @@ describe('ToolbarListsIndentation', () => {
         .add(listPlugin)
         .add(blockTypePlugin)
         .add(indentationPlugin)
-        .add(taskDecisionPlugin)
+        .add(tasksAndDecisionsPlugin)
         .add([
           toolbarListsIndentationPlugin,
           {
@@ -87,7 +87,7 @@ describe('ToolbarListsIndentation', () => {
         .add(listPlugin)
         .add(blockTypePlugin)
         .add(indentationPlugin)
-        .add(taskDecisionPlugin)
+        .add(tasksAndDecisionsPlugin)
         .add([
           toolbarListsIndentationPlugin,
           {

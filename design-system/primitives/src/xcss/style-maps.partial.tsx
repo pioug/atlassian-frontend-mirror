@@ -111,10 +111,81 @@ export const inverseColorMap = {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4f49a5a763f3c327f1d7ce5f2d030194>>
+ * @codegen <<SignedSource::8c10abde8168de6260b5aa120dd948bc>>
+ * @codegenId elevation
+ * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegenParams ["opacity", "shadow", "surface"]
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::f1021f8d47ab63374e371ce18db72a1c>>
+ */
+export const opacityMap = {
+  'opacity.disabled': token('opacity.disabled', '0.4'),
+  'opacity.loading': token('opacity.loading', '0.2'),
+} as const;
+
+export type Opacity = keyof typeof opacityMap;
+
+export const shadowMap = {
+  'elevation.shadow.overflow': token(
+    'elevation.shadow.overflow',
+    '0px 0px 8px #091e423f, 0px 0px 1px #091e424f',
+  ),
+  'elevation.shadow.overflow.perimeter': token(
+    'elevation.shadow.overflow.perimeter',
+    '#091e421f',
+  ),
+  'elevation.shadow.overflow.spread': token(
+    'elevation.shadow.overflow.spread',
+    '#091e4229',
+  ),
+  'elevation.shadow.overlay': token(
+    'elevation.shadow.overlay',
+    '0px 8px 12px #091e423f, 0px 0px 1px #091e424f',
+  ),
+  'elevation.shadow.raised': token(
+    'elevation.shadow.raised',
+    '0px 1px 1px #091e423f, 0px 0px 1px #091e4221',
+  ),
+} as const;
+
+export type Shadow = keyof typeof shadowMap;
+
+export const surfaceColorMap = {
+  'elevation.surface': token('elevation.surface', '#FFFFFF'),
+  'elevation.surface.hovered': token('elevation.surface.hovered', '#FAFBFC'),
+  'elevation.surface.pressed': token('elevation.surface.pressed', '#F4F5F7'),
+  'elevation.surface.overlay': token('elevation.surface.overlay', '#FFFFFF'),
+  'elevation.surface.overlay.hovered': token(
+    'elevation.surface.overlay.hovered',
+    '#FAFBFC',
+  ),
+  'elevation.surface.overlay.pressed': token(
+    'elevation.surface.overlay.pressed',
+    '#F4F5F7',
+  ),
+  'elevation.surface.raised': token('elevation.surface.raised', '#FFFFFF'),
+  'elevation.surface.raised.hovered': token(
+    'elevation.surface.raised.hovered',
+    '#FAFBFC',
+  ),
+  'elevation.surface.raised.pressed': token(
+    'elevation.surface.raised.pressed',
+    '#F4F5F7',
+  ),
+  'elevation.surface.sunken': token('elevation.surface.sunken', '#F4F5F7'),
+} as const;
+
+export type SurfaceColor = keyof typeof surfaceColorMap;
+
+/**
+ * @codegenEnd
+ */
+
+/**
+ * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::0f7982208166d5dae0e25517d29aeaef>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenParams ["border", "background", "shadow", "text", "fill", "surface"]
+ * @codegenParams ["border", "background", "text", "fill"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::f1021f8d47ab63374e371ce18db72a1c>>
  */
 export const borderColorMap = {
@@ -882,31 +953,6 @@ export const backgroundColorMap = {
 
 export type BackgroundColor = keyof typeof backgroundColorMap;
 
-export const shadowMap = {
-  'elevation.shadow.overflow': token(
-    'elevation.shadow.overflow',
-    '0px 0px 8px #091e423f, 0px 0px 1px #091e424f',
-  ),
-  'elevation.shadow.overflow.perimeter': token(
-    'elevation.shadow.overflow.perimeter',
-    '#091e421f',
-  ),
-  'elevation.shadow.overflow.spread': token(
-    'elevation.shadow.overflow.spread',
-    '#091e4229',
-  ),
-  'elevation.shadow.overlay': token(
-    'elevation.shadow.overlay',
-    '0px 8px 12px #091e423f, 0px 0px 1px #091e424f',
-  ),
-  'elevation.shadow.raised': token(
-    'elevation.shadow.raised',
-    '0px 1px 1px #091e423f, 0px 0px 1px #091e4221',
-  ),
-} as const;
-
-export type Shadow = keyof typeof shadowMap;
-
 export const textColorMap = {
   'color.text': token('color.text', '#172B4D'),
   'color.text.accent.lime': token('color.text.accent.lime', '#4C6B1F'),
@@ -1004,33 +1050,6 @@ export const fillMap = {
 } as const;
 
 export type Fill = keyof typeof fillMap;
-
-export const surfaceColorMap = {
-  'elevation.surface': token('elevation.surface', '#FFFFFF'),
-  'elevation.surface.hovered': token('elevation.surface.hovered', '#FAFBFC'),
-  'elevation.surface.pressed': token('elevation.surface.pressed', '#F4F5F7'),
-  'elevation.surface.overlay': token('elevation.surface.overlay', '#FFFFFF'),
-  'elevation.surface.overlay.hovered': token(
-    'elevation.surface.overlay.hovered',
-    '#FAFBFC',
-  ),
-  'elevation.surface.overlay.pressed': token(
-    'elevation.surface.overlay.pressed',
-    '#F4F5F7',
-  ),
-  'elevation.surface.raised': token('elevation.surface.raised', '#FFFFFF'),
-  'elevation.surface.raised.hovered': token(
-    'elevation.surface.raised.hovered',
-    '#FAFBFC',
-  ),
-  'elevation.surface.raised.pressed': token(
-    'elevation.surface.raised.pressed',
-    '#F4F5F7',
-  ),
-  'elevation.surface.sunken': token('elevation.surface.sunken', '#F4F5F7'),
-} as const;
-
-export type SurfaceColor = keyof typeof surfaceColorMap;
 
 /**
  * @codegenEnd
@@ -1200,8 +1219,32 @@ export type TokenisedProps = {
   backgroundColor?: BackgroundColor;
   blockSize?: AutoComplete<Dimension>;
   borderColor?: BorderColor;
+  borderBlockStartColor?: AutoComplete<BorderColor>;
+  borderBlockEndColor?: AutoComplete<BorderColor>;
+  borderInlineStartColor?: AutoComplete<BorderColor>;
+  borderInlineEndColor?: AutoComplete<BorderColor>;
+  borderBottomColor?: AutoComplete<BorderColor>;
+  borderLeftColor?: AutoComplete<BorderColor>;
+  borderRightColor?: AutoComplete<BorderColor>;
+  borderTopColor?: AutoComplete<BorderColor>;
   borderRadius?: BorderRadius;
+  borderStartStartRadius?: AutoComplete<BorderRadius>;
+  borderStartEndRadius?: AutoComplete<BorderRadius>;
+  borderEndStartRadius?: AutoComplete<BorderRadius>;
+  borderEndEndRadius?: AutoComplete<BorderRadius>;
+  borderBottomLeftRadius?: AutoComplete<BorderRadius>;
+  borderBottomRightRadius?: AutoComplete<BorderRadius>;
+  borderTopLeftRadius?: AutoComplete<BorderRadius>;
+  borderTopRightRadius?: AutoComplete<BorderRadius>;
   borderWidth?: BorderWidth;
+  borderBlockStartWidth?: AutoComplete<BorderWidth>;
+  borderBlockEndWidth?: AutoComplete<BorderWidth>;
+  borderInlineStartWidth?: AutoComplete<BorderWidth>;
+  borderInlineEndWidth?: AutoComplete<BorderWidth>;
+  borderBottomWidth?: AutoComplete<BorderWidth>;
+  borderLeftWidth?: AutoComplete<BorderWidth>;
+  borderRightWidth?: AutoComplete<BorderWidth>;
+  borderTopWidth?: AutoComplete<BorderWidth>;
   bottom?: AutoComplete<Space>;
   boxShadow?: Shadow;
   color?: TextColor;
@@ -1236,6 +1279,7 @@ export type TokenisedProps = {
   minHeight?: AutoComplete<Dimension>;
   minInlineSize?: AutoComplete<Dimension>;
   minWidth?: AutoComplete<Dimension>;
+  opacity?: AutoComplete<Opacity> | number;
   outlineColor?: BorderColor;
   outlineOffset?: Space;
   outlineWidth?: BorderWidth;

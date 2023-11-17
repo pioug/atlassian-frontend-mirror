@@ -1,5 +1,17 @@
 # @atlaskit/media-viewer
 
+## 48.2.3
+
+### Patch Changes
+
+- [#43370](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43370) [`27164a3be23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27164a3be23) - Fix imports for atlaskit buttons
+
+## 48.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 48.2.1
 
 ### Patch Changes

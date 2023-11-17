@@ -5,13 +5,10 @@ import { UnsupportedInline } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 
 import { CardErrorBoundary } from './fallback';
-import {
-  withSmartCardStorage,
-  WithSmartCardStorageProps,
-} from '../../ui/SmartCardStorage';
+import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
+import { withSmartCardStorage } from '../../ui/SmartCardStorage';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
-import { SmartLinksOptions } from '../../types/smartLinksOptions';
-import { useFeatureFlags } from '../../use-feature-flags';
+import type { SmartLinksOptions } from '../../types/smartLinksOptions';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 
 export interface InlineCardProps {
@@ -28,8 +25,8 @@ const InlineCard: React.FunctionComponent<
   const { url, data, eventHandlers, portal, smartLinks } = props;
   const onClick = getCardClickHandler(eventHandlers, url);
   const cardProps = { url, data, onClick, container: portal };
-  const featureFlags = useFeatureFlags();
-  const { showAuthTooltip, showServerActions, ssr } = smartLinks || {};
+  const { showAuthTooltip, hideHoverPreview, showServerActions, ssr } =
+    smartLinks || {};
   const analyticsData = {
     attributes: {
       location: 'renderer',
@@ -45,6 +42,7 @@ const InlineCard: React.FunctionComponent<
           appearance="inline"
           url={url}
           showAuthTooltip={showAuthTooltip}
+          showHoverPreview={!hideHoverPreview}
           showServerActions={showServerActions}
           onClick={onClick}
         />
@@ -71,7 +69,7 @@ const InlineCard: React.FunctionComponent<
         >
           <Card
             appearance="inline"
-            showHoverPreview={featureFlags?.showHoverPreview}
+            showHoverPreview={!hideHoverPreview}
             showAuthTooltip={showAuthTooltip}
             showServerActions={showServerActions}
             {...cardProps}

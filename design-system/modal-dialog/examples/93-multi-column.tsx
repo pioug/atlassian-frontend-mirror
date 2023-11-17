@@ -111,7 +111,7 @@ export default function Example() {
               <Button appearance="subtle" onClick={closeModal}>
                 Cancel
               </Button>
-              <Button appearance="primary" onClick={closeModal} autoFocus>
+              <Button appearance="primary" onClick={closeModal}>
                 Done
               </Button>
             </ModalFooter>

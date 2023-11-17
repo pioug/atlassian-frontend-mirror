@@ -2,6 +2,7 @@ import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -18,6 +19,7 @@ import {
   createRowInsertLine,
   updateDecorations,
 } from '../../utils';
+import { combineTransforms } from '../../utils/transforms';
 
 import { DragAndDropActionType } from './actions';
 import { DropTargetType } from './consts';
@@ -114,11 +116,31 @@ export const moveSource = (
         return tr.setMeta('addToHistory', false);
       }
 
+      const anchor = tr.selection.anchor;
+      const selectStartOfTable = (newTr: Transaction) =>
+        newTr.setSelection(TextSelection.create(newTr.doc, anchor));
+
       const isTableRow = sourceType === 'table-row';
-      const move = isTableRow ? moveRow : moveColumn;
-      const newTr = move(sourceIndex, targetIndex)(tr);
-      const select = isTableRow ? selectRow : selectColumn;
-      return select(targetIndex)(newTr);
+
+      if (isTableRow) {
+        return combineTransforms(
+          [
+            moveRow(sourceIndex, targetIndex),
+            selectStartOfTable,
+            selectRow(targetIndex),
+          ],
+          tr,
+        );
+      }
+
+      return combineTransforms(
+        [
+          moveColumn(sourceIndex, targetIndex),
+          selectStartOfTable,
+          selectColumn(targetIndex),
+        ],
+        tr,
+      );
     },
   );
 

@@ -26,7 +26,7 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:  
 
 ${code`
-type TaskAndDecisionsPlugin = NextEditorPlugin<
+type TasksAndDecisionsPlugin = NextEditorPlugin<
   'taskDecision',
   {
     pluginConfiguration: TaskDecisionPluginOptions | undefined;

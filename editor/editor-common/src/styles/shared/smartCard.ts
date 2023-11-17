@@ -104,7 +104,7 @@ export const smartCardStyles = css`
     .${DATASOURCE_INNER_CONTAINER_CLASSNAME} {
       cursor: pointer;
       background-color: ${token('color.background.neutral.subtle', N0)};
-      border-radius: ${token('border.radius.100', '3px')};
+      border-radius: ${token('border.radius.200', '8px')};
       border: 1px solid ${token('color.border', N40)};
     }
 

@@ -123,12 +123,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         : false,
     ),
 
-    showHoverPreview: Boolean(
-      typeof props.featureFlags?.showHoverPreview === 'boolean'
-        ? !!props.featureFlags?.showHoverPreview
-        : false,
-    ),
-
     floatingToolbarLinkSettingsButton:
       typeof props.featureFlags?.['floating-toolbar-link-settings-button'] ===
       'string'

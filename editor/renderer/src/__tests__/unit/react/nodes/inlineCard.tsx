@@ -1,9 +1,13 @@
 import React from 'react';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import '@atlaskit/link-test-helpers/jest';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
+import type { MockIntersectionObserverOpts } from '@atlaskit/link-test-helpers';
+import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
 
+import type { ResolveResponse } from '@atlaskit/smart-card';
 import { Card, Provider, Client } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 
@@ -20,22 +24,35 @@ jest.mock('@atlaskit/smart-card', () => {
   };
 });
 
-describe('Renderer - React/Nodes/InlineCard', () => {
-  const url =
-    'https://extranet.atlassian.com/pages/viewpage.action?pageId=3088533424';
-
-  const data = {
-    '@type': 'Document',
-    generator: {
-      '@type': 'Application',
-      name: 'Confluence',
-    },
-    url,
-    name: 'Founder Update 76: Hello, Trello!',
-    summary:
-      'Today is a big day for Atlassian – we have entered into an agreement to buy Trello. (boom)',
+jest.mock('@atlaskit/smart-card/ssr', () => {
+  const originalModule = jest.requireActual('@atlaskit/smart-card/ssr');
+  return {
+    ...originalModule,
+    CardSSR: jest.fn((props) => <originalModule.CardSSR {...props} />),
   };
+});
 
+const url =
+  'https://extranet.atlassian.com/pages/viewpage.action?pageId=3088533424';
+
+const data = {
+  '@context': {
+    '@vocab': 'https://www.w3.org/ns/activitystreams#',
+    atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+    schema: 'http://schema.org/',
+  },
+  '@type': 'Document',
+  generator: {
+    '@type': 'Application',
+    name: 'Confluence',
+  },
+  url,
+  name: 'Founder Update 76: Hello, Trello!',
+  summary:
+    'Today is a big day for Atlassian – we have entered into an agreement to buy Trello. (boom)',
+};
+
+describe('Renderer - React/Nodes/InlineCard', () => {
   let node: ReactWrapper;
 
   afterEach(() => {
@@ -107,15 +124,82 @@ describe('Renderer - React/Nodes/InlineCard', () => {
     );
     expect(node.find(Card).prop('showServerActions')).toEqual(true);
   });
+});
 
-  it('should use Card SSR component for ssr mode', () => {
+describe('Renderer - React/Nodes/InlineCard (RTL)', () => {
+  let mockGetEntries: jest.Mock;
+  let mockIntersectionObserverOpts: MockIntersectionObserverOpts;
+
+  beforeEach(() => {
+    mockGetEntries = jest
+      .fn()
+      .mockImplementation(() => [{ isIntersecting: true }]);
+    mockIntersectionObserverOpts = {
+      disconnect: jest.fn(),
+      getMockEntries: mockGetEntries,
+    };
+    window.IntersectionObserver = MockIntersectionObserverFactory(
+      mockIntersectionObserverOpts,
+    );
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it('should render with hover card if hideHoverPreview is not defined in smartLinks options', () => {
+    render(
+      <Provider client={new Client('staging')}>
+        <InlineCard url={url} />
+      </Provider>,
+    );
+
+    expect(Card).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        showHoverPreview: true,
+      }),
+      expect.anything(),
+    );
+  });
+
+  it('should not render with hover card if hideHoverPreview is defined in smartLinks options', () => {
+    render(
+      <Provider client={new Client('staging')}>
+        <InlineCard url={url} smartLinks={{ hideHoverPreview: true }} />
+      </Provider>,
+    );
+
+    expect(Card).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        showHoverPreview: false,
+      }),
+      expect.anything(),
+    );
+  });
+
+  it('should use Card SSR component for ssr mode', async () => {
     const mockedOnClick = jest.fn();
-    const mockedEvent = { target: {} };
     const mockEventHandlers: EventHandlers = {
       smartCard: { onClick: mockedOnClick },
     };
-    node = mount(
-      <Provider client={new Client('staging')}>
+
+    class CustomClient extends Client {
+      fetchData(url: string) {
+        return Promise.resolve({
+          data,
+          meta: {
+            visibility: 'public',
+            access: 'granted',
+            auth: [],
+            definitionId: 'd1',
+            key: 'object-provider',
+          },
+        } as ResolveResponse);
+      }
+    }
+
+    const { findByTestId } = render(
+      <Provider client={new CustomClient()}>
         <InlineCard
           url={url}
           smartLinks={{
@@ -128,17 +212,21 @@ describe('Renderer - React/Nodes/InlineCard', () => {
       </Provider>,
     );
 
-    expect(node.find(CardSSR).props()).toEqual({
-      url,
-      appearance: 'inline',
-      showAuthTooltip: true,
-      showServerActions: true,
-      onClick: expect.any(Function),
-    });
+    expect(CardSSR).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        url,
+        appearance: 'inline',
+        showAuthTooltip: true,
+        showServerActions: true,
+        showHoverPreview: true,
+        onClick: expect.any(Function),
+      }),
+      expect.anything(),
+    );
 
-    const onClick = node.find(CardSSR).prop('onClick');
-    onClick(mockedEvent);
-    expect(mockedOnClick).toHaveBeenCalledWith(mockedEvent, url);
+    const card = await findByTestId('inline-card-resolved-view');
+    fireEvent.click(card);
+    expect(mockedOnClick).toHaveBeenCalled();
   });
 });
 

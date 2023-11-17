@@ -25,6 +25,7 @@ export type TableFooterProps = {
 const FooterWrapper = styled.div`
   padding: 0 ${token('space.200', '16px')};
   box-sizing: border-box;
+  border-radius: inherit;
   background: ${token('color.background.input', N0)};
 `;
 

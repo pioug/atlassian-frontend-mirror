@@ -12,7 +12,7 @@ export default function Example() {
     <Stack space="space.100">
       <Box>
         <Text>
-          default: <Lozenge testId="default-lozenge">default</Lozenge>
+          default: <Lozenge testId="default-lozenge">Default</Lozenge>
         </Text>
       </Box>
 

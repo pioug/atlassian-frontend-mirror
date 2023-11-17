@@ -283,7 +283,10 @@ class TimePicker extends React.Component<TimePickerProps, State> {
         return; // do nothing, the main validation should happen in the form
       }
 
-      const formattedValue = format(sanitizedInput, 'HH:mm') || '';
+      const includesSeconds = !!(timeFormat && /[:.]?(s|ss)/.test(timeFormat));
+
+      const formatFormat = includesSeconds ? 'HH:mm:ss' : 'HH:mm';
+      const formattedValue = format(sanitizedInput, formatFormat) || '';
 
       this.setState({ value: formattedValue });
       this.props.onChange(formattedValue);

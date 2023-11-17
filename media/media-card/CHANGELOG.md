@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 77.4.5
+
+### Patch Changes
+
+- [#43072](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43072) [`4c4278b7415`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c4278b7415) - [ux] CXP-2744 Bug fix preventing an infinite loop from occurring when an error occurs in inline player
+- Updated dependencies
+
 ## 77.4.4
 
 ### Patch Changes

@@ -1,5 +1,25 @@
 # @atlaskit/editor-common
 
+## 76.22.3
+
+### Patch Changes
+
+- [#43419](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43419) [`27726a80705`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27726a80705) - [ux] Updated borders and added grid lines in datasource tables.
+- [#43436](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43436) [`6bf14e25965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bf14e25965) - Revert "Resize media for the keyboard users"
+- [#43176](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43176) [`08ef3d55edb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08ef3d55edb) - [ux] Updates message shown in the tooltip of insert row/column button for table with drag and drop enabled.
+
+## 76.22.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 76.22.1
+
+### Patch Changes
+
+- [#43063](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43063) [`108c97378e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/108c97378e9) - Clean up renderer feature flag 'showHoverPreview'. Hover previews are now on by default in renderer, and can be opted out of by using SmartLinksOptions.hideHoverPreview
+
 ## 76.22.0
 
 ### Minor Changes

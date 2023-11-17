@@ -2,6 +2,7 @@
 import type { SyntheticEvent } from 'react';
 import React from 'react';
 
+import classnames from 'classnames';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -14,6 +15,7 @@ import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { tableMarginTop } from '@atlaskit/editor-common/styles';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import type { TableDirection } from '../../types';
@@ -61,16 +63,19 @@ const getInsertLineWidth = (
   // but since we have an overflow on the left,
   // we should add an offset to make up for it.
   const LINE_OFFSET = 4;
+  const DRAG_LINE_OFFSET = 6;
   const { parentElement, offsetWidth } = tableRef;
   const parentOffsetWidth = parentElement!.offsetWidth;
   const { scrollLeft } = parentElement!;
   const diff = offsetWidth - parentOffsetWidth;
   const toolbarSize = isDragAndDropEnabled ? 0 : getToolbarSize(tableRef);
+  const lineOffset = isDragAndDropEnabled ? DRAG_LINE_OFFSET : LINE_OFFSET;
+
   return (
     Math.min(
       offsetWidth + toolbarSize,
       parentOffsetWidth + toolbarSize - Math.max(scrollLeft - diff, 0),
-    ) + LINE_OFFSET
+    ) + lineOffset
   );
 };
 
@@ -85,34 +90,42 @@ export const InsertButtonForDragAndDrop = ({
   intl: { formatMessage },
   hasStickyHeaders,
 }: ButtonProps & WrappedComponentProps) => {
+  const isRow = type === 'row';
+
   const content = (
     <Tooltip
       content={
         <ToolTipContent
-          description={formatMessage(tooltipMessageByType(type))}
-          keymap={type === 'row' ? addRowAfter : addColumnAfter}
+          description={formatMessage(
+            isRow ? messages.insertRowDrag : messages.insertColumnDrag,
+          )}
+          keymap={isRow ? addRowAfter : addColumnAfter}
         />
       }
       position="top"
     >
       <>
-        <div className={ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER}>
+        <div
+          className={classnames(ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER, {
+            [ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER_ROW]: isRow,
+            [ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER_COLUMN]: !isRow,
+          })}
+        >
           <button
             type="button"
             className={ClassName.DRAG_CONTROLS_INSERT_BUTTON}
             onMouseDown={onMouseDown}
           >
             <svg
-              width="10"
-              height="10"
-              viewBox="0 0 10 10"
+              className={ClassName.CONTROLS_BUTTON_ICON}
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M5.41667 4.58333V2.91667C5.41667 2.80616 5.37277 2.70018 5.29463 2.62204C5.21649 2.5439 5.11051 2.5 5 2.5C4.88949 2.5 4.78351 2.5439 4.70537 2.62204C4.62723 2.70018 4.58333 2.80616 4.58333 2.91667V4.58333H2.91667C2.80616 4.58333 2.70018 4.62723 2.62204 4.70537C2.5439 4.78351 2.5 4.88949 2.5 5C2.5 5.11051 2.5439 5.21649 2.62204 5.29463C2.70018 5.37277 2.80616 5.41667 2.91667 5.41667H4.58333V7.08333C4.58333 7.19384 4.62723 7.29982 4.70537 7.37796C4.78351 7.4561 4.88949 7.5 5 7.5C5.11051 7.5 5.21649 7.4561 5.29463 7.37796C5.37277 7.29982 5.41667 7.19384 5.41667 7.08333V5.41667H7.08333C7.19384 5.41667 7.29982 5.37277 7.37796 5.29463C7.4561 5.21649 7.5 5.11051 7.5 5C7.5 4.88949 7.4561 4.78351 7.37796 4.70537C7.29982 4.62723 7.19384 4.58333 7.08333 4.58333H5.41667Z"
+                d="M8.66667 7.33333V4.66667C8.66667 4.48986 8.59643 4.32029 8.47141 4.19526C8.34638 4.07024 8.17682 4 8 4C7.82318 4 7.65362 4.07024 7.52859 4.19526C7.40357 4.32029 7.33333 4.48986 7.33333 4.66667V7.33333H4.66667C4.48986 7.33333 4.32029 7.40357 4.19526 7.52859C4.07024 7.65362 4 7.82318 4 8C4 8.17682 4.07024 8.34638 4.19526 8.47141C4.32029 8.59643 4.48986 8.66667 4.66667 8.66667H7.33333V11.3333C7.33333 11.5101 7.40357 11.6797 7.52859 11.8047C7.65362 11.9298 7.82318 12 8 12C8.17682 12 8.34638 11.9298 8.47141 11.8047C8.59643 11.6797 8.66667 11.5101 8.66667 11.3333V8.66667H11.3333C11.5101 8.66667 11.6797 8.59643 11.8047 8.47141C11.9298 8.34638 12 8.17682 12 8C12 7.82318 11.9298 7.65362 11.8047 7.52859C11.6797 7.40357 11.5101 7.33333 11.3333 7.33333H8.66667Z"
                 fill="currentColor"
               />
             </svg>
@@ -122,23 +135,28 @@ export const InsertButtonForDragAndDrop = ({
           className={ClassName.CONTROLS_INSERT_LINE}
           style={
             type === 'row'
-              ? { width: getInsertLineWidth(tableRef, true), left: '14px' }
-              : { height: getInsertLineHeight(tableRef, hasStickyHeaders) - 11 }
+              ? {
+                  width: getInsertLineWidth(tableRef, true),
+                  left: token('space.150', '12px'),
+                }
+              : {
+                  height: getInsertLineHeight(tableRef, hasStickyHeaders) - 8,
+                  top: '-3px',
+                }
           }
         />
       </>
     </Tooltip>
   );
 
-  const floatingButtonClassName =
-    type === 'column'
-      ? ClassName.CONTROLS_FLOATING_BUTTON_COLUMN
-      : ClassName.CONTROLS_FLOATING_BUTTON_ROW;
+  const floatingButtonClassName = isRow
+    ? ClassName.CONTROLS_FLOATING_BUTTON_ROW
+    : ClassName.CONTROLS_FLOATING_BUTTON_COLUMN;
 
   return (
     <div className={floatingButtonClassName}>
       <div
-        className={`${ClassName.CONTROLS_INSERT_BUTTON_WRAP} ${ClassName.CONTROLS_INSERT_ROW}`}
+        className={`${ClassName.DRAG_CONTROLS_INSERT_BUTTON_WRAP} ${ClassName.CONTROLS_INSERT_ROW}`}
       >
         {content}
       </div>

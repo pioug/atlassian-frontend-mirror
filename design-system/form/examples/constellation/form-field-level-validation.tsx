@@ -33,10 +33,10 @@ const colors = [
 const userNameData = ['jsmith', 'mchan'];
 
 const errorMessages = {
-  shortUsername: 'Invalid username, needs to be more than 4 characters',
-  validUsername: 'Nice one, this username is available',
-  usernameInUse: 'Username already taken, try another one',
-  selectError: 'Please select a color',
+  shortUsername: 'Please enter a username longer than 4 characters.',
+  validUsername: 'Nice one, this username is available.',
+  usernameInUse: 'This username is already taken, try entering another one.',
+  selectError: 'Please select a color.',
 };
 
 const { shortUsername, validUsername, usernameInUse, selectError } =

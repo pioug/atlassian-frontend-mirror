@@ -20,9 +20,7 @@ import { IconImages } from '@atlaskit/editor-common/quick-insert';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
   EditorAppearance,
-  EditorContainerWidth,
   ExtractInjectionAPI,
-  NextEditorPluginFunctionOptionalConfigDefinition,
   PMPlugin,
   PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
@@ -83,12 +81,6 @@ export const mediaPlugin: MediaNextEditorPluginType = ({
   api,
 }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
-  const apiWidth =
-    api?.width as unknown as NextEditorPluginFunctionOptionalConfigDefinition<
-      'width',
-      { sharedState: EditorContainerWidth | undefined },
-      undefined
-    >;
 
   return {
     name: 'media',
@@ -227,13 +219,11 @@ export const mediaPlugin: MediaNextEditorPluginType = ({
         },
         {
           name: 'mediaKeymap',
-          plugin: ({ getIntl }) =>
+          plugin: () =>
             keymapPlugin(
               options,
               api?.analytics?.actions,
               api?.selection.actions,
-              apiWidth,
-              getIntl,
             ),
         },
       ];

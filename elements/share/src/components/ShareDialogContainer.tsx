@@ -45,7 +45,7 @@ import MessagesIntlProvider from './MessagesIntlProvider';
 import { ShareDialogWithTrigger } from './ShareDialogWithTrigger';
 import { optionDataToUsers } from './utils';
 
-const COPY_LINK_EVENT = copyLinkButtonClicked(0);
+const COPY_LINK_EVENT = copyLinkButtonClicked({ start: 0 });
 
 export const defaultConfig: ConfigResponse = {
   disableSharingToEmails: false,
@@ -386,6 +386,7 @@ export class ShareDialogContainerInternal extends React.Component<
       renderCustomTriggerButton,
       shareContentType,
       shareContentSubType,
+      shareContentId,
       shareFormTitle,
       shareFormHelperMessage,
       shouldCloseOnEscapePress,
@@ -433,6 +434,7 @@ export class ShareDialogContainerInternal extends React.Component<
             renderCustomTriggerButton={renderCustomTriggerButton}
             shareContentType={shareContentType}
             shareContentSubType={shareContentSubType}
+            shareContentId={shareContentId}
             shareFormTitle={shareFormTitle}
             shareFormHelperMessage={shareFormHelperMessage}
             copyLinkOrigin={this.getCopyLinkOriginTracing()}

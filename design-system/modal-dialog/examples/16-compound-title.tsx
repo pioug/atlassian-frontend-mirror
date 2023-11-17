@@ -90,7 +90,7 @@ export default function CompoundTitleModal() {
               <Button onClick={secondaryAction} appearance="subtle">
                 Secondary Action
               </Button>
-              <Button autoFocus onClick={close} appearance="primary">
+              <Button onClick={close} appearance="primary">
                 Close
               </Button>
             </ModalFooter>

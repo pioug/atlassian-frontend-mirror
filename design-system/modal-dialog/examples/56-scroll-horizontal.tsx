@@ -91,12 +91,7 @@ export default function ExampleScroll() {
               <Button appearance="subtle" testId="scrollDown">
                 Scroll to bottom
               </Button>
-              <Button
-                autoFocus
-                appearance="primary"
-                onClick={close}
-                testId="primary"
-              >
+              <Button appearance="primary" onClick={close} testId="primary">
                 Close
               </Button>
             </ModalFooter>

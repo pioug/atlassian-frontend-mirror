@@ -46,7 +46,7 @@ import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { codeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
-import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
+import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';

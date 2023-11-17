@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-date",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Date plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -60,6 +60,7 @@
     "@atlaskit/editor-plugin-quick-insert": "^0.2.0",
     "@atlaskit/editor-plugin-selection": "^0.1.0",
     "@atlaskit/editor-plugin-table": "^5.2.0",
+    "@atlaskit/editor-plugin-tasks-and-decisions": "^0.2.0",
     "@atlaskit/editor-plugin-type-ahead": "^0.7.0",
     "@atlaskit/editor-plugin-width": "^0.2.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

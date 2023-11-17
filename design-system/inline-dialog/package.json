@@ -55,7 +55,7 @@
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/button": "^16.16.0",
-    "@atlaskit/datetime-picker": "^12.10.0",
+    "@atlaskit/datetime-picker": "^13.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/modal-dialog": "^12.8.0",
     "@atlaskit/section-message": "^6.4.0",

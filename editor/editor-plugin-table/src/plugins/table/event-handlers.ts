@@ -587,7 +587,10 @@ export const withCellTracking =
     elementContentRects?: ElementContentRects,
   ) =>
   (view: EditorView, mouseEvent: Event): boolean => {
-    if (getPluginState(view.state).isDragAndDropEnabled) {
+    if (
+      getPluginState(view.state).isDragAndDropEnabled &&
+      !getDragDropPluginState(view.state).isDragging
+    ) {
       trackCellLocation(view, mouseEvent);
     }
     return eventHandler(view, mouseEvent, elementContentRects);

@@ -6,9 +6,9 @@ description: An addon to extract collision information from a user's drag.
 
 This package includes addons and utilities to extract additional information about the user's current drag.
 
-- **Closest edge:** Detects the [closest edge](/components/pragmatic-drag-and-drop/packages/hitbox/closest-edge) (`"top", "right", "bottom", "left"`) for a drop target being dragged over.
-- **Trees** (coming soon)
-- **Hitbox types:** A way to import the types of this package without any implementation (includes the `Edge` type).
+- **[Closest edge](#closest-edge):** Detects the closest edge (`"top", "right", "bottom", "left"`) for a drop target being dragged over.
+- **[Tree item](#tree-item):** Determines the operation (`"reorder-above", "reorder-below", "make-child", "reparent"`) to be performed when when a tree item is dropped.
+- **Hitbox types:** A way to import the types of this package without any implementation (includes the `Edge`, `Instruction`, and `ItemMode` types).
 
 ## Addons
 
@@ -46,6 +46,87 @@ dropTargetForElements({
   },
   onDrop: args => {
     const closestEdgeOfTarget: Edge | null = extractClosestEdge(args.self.data);
+  },
+});
+```
+
+### Tree item
+
+The tree item addon is used to know what operation should be performed when a tree item is dropped. The possible drag operations are:
+
+- **reorder-above**: the draggable item should be moved above the item it's dropped on.
+- **reorder-below**: the draggable item should be moved below the item it's dropped on.
+- **make-child**: the draggable item should be made a child of the item it's dropped on.
+- **reparent**: the level of the draggable item should change to a parent of the item it's dropped on.
+
+Any drag operation can also be blocked.
+
+Along with the drag position, the current level and the mode of the tree item being dragged over are used to determine the drag operation that should be performed. Below is a visual example of a tree hitbox demonstrating this:
+
+<img src="images/tree-hitbox.jpg" alt="Tree hitbox" />
+
+The `attachInstruction()` function adds a unique `Symbol` to your drop target's `data` object, which allows for type safe lookups with `extractInstruction()`. This addon leverages the fact that `getData()` is repeatedly called throughout a drag and drop operation.
+
+```ts
+type ItemMode = 'standard' | 'expanded' | 'last-in-group';
+```
+
+```ts
+type Instruction =
+  | {
+      type: 'reorder-above';
+      currentLevel: number;
+      indentPerLevel: number;
+    }
+  | {
+      type: 'reorder-below';
+      currentLevel: number;
+      indentPerLevel: number;
+    }
+  | {
+      type: 'make-child';
+      currentLevel: number;
+      indentPerLevel: number;
+    }
+  | {
+      type: 'reparent';
+      currentLevel: number;
+      indentPerLevel: number;
+      desiredLevel: number;
+    }
+  | {
+      type: 'instruction-blocked';
+      desired: Exclude<Instruction, { type: 'instruction-blocked' }>;
+    };
+```
+
+```ts
+import {
+  attachInstruction,
+  extractInstruction,
+  Instruction,
+} from '@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item';
+
+dropTargetForElements({
+  element: myElement,
+  getData: ({ input, element }) => {
+    // your base data you want to attach to the drop target
+    const data = {
+      itemId: 'A',
+    };
+    // this will 'attach' the instruction to your `data` object
+    return attachInstruction(data, {
+      input,
+      element,
+      currentLevel: 2,
+      indentPerLevel: 20,
+      mode: 'standard',
+      // you can specify instructions to block
+      block: ['reorder-below'],
+    });
+  },
+  onDrag: args => {
+    const instruction: Instruction | null = extractInstruction(args.self.data);
   },
 });
 ```
@@ -90,7 +171,7 @@ expect(
 
 ### `reorderWithEdge`
 
-Performances an array reorder operation that takes into account the closest `Edge`. `reorderWithEdge` uses `getReorderDestinationIndex` internally as well as `reorder` to reorder the array (`@atlaskit/pragmatic-drag-and-drop/util/reorder`)
+Performs an array reorder operation that takes into account the closest `Edge`. `reorderWithEdge` uses `getReorderDestinationIndex` internally as well as `reorder` to reorder the array (`@atlaskit/pragmatic-drag-and-drop/util/reorder`)
 
 ```ts
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';

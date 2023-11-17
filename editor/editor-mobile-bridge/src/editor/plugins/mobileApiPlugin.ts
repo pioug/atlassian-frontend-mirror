@@ -36,7 +36,7 @@ import type { TextColorPlugin } from '@atlaskit/editor-plugin-text-color';
 import type { DatePlugin } from '@atlaskit/editor-plugin-date';
 import type { ExpandPlugin } from '@atlaskit/editor-plugin-expand';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
-import type { TaskAndDecisionsPlugin } from '@atlaskit/editor-core/src/plugins/tasks-and-decisions/types';
+import type { TasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 import type EditorConfiguration from '../editor-configuration';
 import { toNativeBridge } from '../web-to-native';
 
@@ -156,7 +156,7 @@ export const mobileApiPlugin: NextEditorPlugin<
       StatusPlugin,
       TextColorPlugin,
       ExpandPlugin,
-      TaskAndDecisionsPlugin,
+      TasksAndDecisionsPlugin,
     ];
     pluginConfiguration: {
       editorConfiguration: EditorConfiguration;

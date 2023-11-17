@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useCallback, useEffect, useRef } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
@@ -21,6 +21,11 @@ import EmptyState from '../issue-like-table/empty-state';
 import { TableFooter } from '../table-footer';
 
 import { DatasourceTableViewProps } from './types';
+
+const containerStyles = css({
+  borderRadius: 'inherit',
+});
+
 const DatasourceTableViewWithoutAnalytics = ({
   datasourceId,
   parameters,
@@ -154,7 +159,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 
   return (
     // datasource-table classname is to exclude all children from being commentable - exclude list is in CFE
-    <div className="datasource-table">
+    <div css={containerStyles} className="datasource-table">
       {hasColumns ? (
         <IssueLikeDataTableView
           testId={'datasource-table-view'}

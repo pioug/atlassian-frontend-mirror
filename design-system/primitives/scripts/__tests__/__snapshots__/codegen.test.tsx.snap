@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@atlaskit/primitives bg styles are generated correctly 1`] = `
+exports[`@atlaskit/primitives background styles are generated correctly 1`] = `
 "export const backgroundColorMap = {
   'color.background.accent.lime.subtlest': token(
     'color.background.accent.lime.subtlest',
@@ -768,6 +768,78 @@ exports[`@atlaskit/primitives border styles are generated correctly 1`] = `
 } as const;
 
 export type BorderColor = keyof typeof borderColorMap;
+"
+`;
+
+exports[`@atlaskit/primitives opacity styles are generated correctly 1`] = `
+"export const opacityMap = {
+  'opacity.disabled': token('opacity.disabled', '0.4'),
+  'opacity.loading': token('opacity.loading', '0.2'),
+} as const;
+
+export type Opacity = keyof typeof opacityMap;
+"
+`;
+
+exports[`@atlaskit/primitives shadow styles are generated correctly 1`] = `
+"export const shadowMap = {
+  'elevation.shadow.overflow': token(
+    'elevation.shadow.overflow',
+    '0px 0px 8px #091e423f, 0px 0px 1px #091e424f',
+  ),
+  'elevation.shadow.overflow.perimeter': token(
+    'elevation.shadow.overflow.perimeter',
+    '#091e421f',
+  ),
+  'elevation.shadow.overflow.spread': token(
+    'elevation.shadow.overflow.spread',
+    '#091e4229',
+  ),
+  'elevation.shadow.overlay': token(
+    'elevation.shadow.overlay',
+    '0px 8px 12px #091e423f, 0px 0px 1px #091e424f',
+  ),
+  'elevation.shadow.raised': token(
+    'elevation.shadow.raised',
+    '0px 1px 1px #091e423f, 0px 0px 1px #091e4221',
+  ),
+} as const;
+
+export type Shadow = keyof typeof shadowMap;
+"
+`;
+
+exports[`@atlaskit/primitives spacing styles are generated correctly 1`] = `
+"export const spaceMap = {
+  'space.0': token('space.0', '0px'),
+  'space.025': token('space.025', '2px'),
+  'space.050': token('space.050', '4px'),
+  'space.075': token('space.075', '6px'),
+  'space.100': token('space.100', '8px'),
+  'space.150': token('space.150', '12px'),
+  'space.200': token('space.200', '16px'),
+  'space.250': token('space.250', '20px'),
+  'space.300': token('space.300', '24px'),
+  'space.400': token('space.400', '32px'),
+  'space.500': token('space.500', '40px'),
+  'space.600': token('space.600', '48px'),
+  'space.800': token('space.800', '64px'),
+  'space.1000': token('space.1000', '80px'),
+};
+export type Space = keyof typeof spaceMap;
+
+export const negativeSpaceMap = {
+  'space.negative.025': token('space.negative.025', '-2px'),
+  'space.negative.050': token('space.negative.050', '-4px'),
+  'space.negative.075': token('space.negative.075', '-6px'),
+  'space.negative.100': token('space.negative.100', '-8px'),
+  'space.negative.150': token('space.negative.150', '-12px'),
+  'space.negative.200': token('space.negative.200', '-16px'),
+  'space.negative.250': token('space.negative.250', '-20px'),
+  'space.negative.300': token('space.negative.300', '-24px'),
+  'space.negative.400': token('space.negative.400', '-32px'),
+};
+export type NegativeSpace = keyof typeof negativeSpaceMap;
 "
 `;
 

@@ -7,7 +7,7 @@ import {
   WrappedComponentProps,
   injectIntl,
 } from 'react-intl-next';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import ImageCropper from '../image-cropper';
 import Spinner from '@atlaskit/spinner';
 import {

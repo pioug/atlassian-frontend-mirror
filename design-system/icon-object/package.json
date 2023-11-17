@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-object",
-  "version": "6.3.7",
+  "version": "6.3.8",
   "description": "An object icon is used to represent an Atlassian-specific content type.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
     "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/icon": "^21.12.0",
+    "@atlaskit/icon": "^22.0.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

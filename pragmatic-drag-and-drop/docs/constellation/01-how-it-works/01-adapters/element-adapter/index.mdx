@@ -66,7 +66,7 @@ type GetFeedbackArgs = {
 
 ### Drag handles
 
-A _drag handle_ is the part of your `draggable` element that can dragged in order to drag the whole `draggable`. By default, the entire `draggable` acts as a _drag handle_. However, you can optionally mark a child element of a `draggable` element as the _drag handle_.
+A _drag handle_ is the part of your `draggable` element that can be dragged in order to drag the whole `draggable`. By default, the entire `draggable` acts as a _drag handle_. However, you can optionally mark a child element of a `draggable` element as the _drag handle_.
 
 ```ts
 draggable({
@@ -394,8 +394,11 @@ If you do nothing, then the browser will use a picture of the `draggable` elemen
 
 1. in `onGenerateDragPreview` make whatever visual changes you want to the `draggable` element and those changes will be captured in the drag preview
 2. in `onDragStart`:
+
    2a. revert changes of step 1. The user will never see the `draggable` element with the styles applied in `onGenerateDragPreview` due to paint timings
+
    2b. apply visual changes to the `draggable` element to make it clear to the user what element is being dragged
+
 3. in `onDrop` remove any visual changes you applied to the `draggable` element during the drag
 
 > [More information about how this technique works 🧑‍🔬](https://twitter.com/alexandereardon/status/1510826920023248900)
@@ -582,4 +585,4 @@ The trouble with this approach is that some pieces might not use the generic and
 
 ## Virtual lists
 
-For tips for working with virtual lists, see [Usage with virtualization](/components/pragmatic-drag-and-drop/usage-with-virtualization)
+For tips for working with virtual lists, see [Virtualization](/components/pragmatic-drag-and-drop/improving-performance/virtualization)

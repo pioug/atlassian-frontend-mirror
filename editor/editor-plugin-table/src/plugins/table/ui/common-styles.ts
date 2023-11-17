@@ -764,11 +764,6 @@ export const tableStyles = (
       }
     }
 
-    .${ClassName.CONTROLS_FLOATING_BUTTON_ROW}
-      .${ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER} {
-      bottom: -1px;
-    }
-
     .${ClassName.DRAG_HANDLE_BUTTON_CONTAINER} {
       cursor: grab;
       padding: 0;

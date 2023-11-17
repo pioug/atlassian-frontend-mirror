@@ -4,7 +4,7 @@ import { Component } from 'react';
 import FieldRange from '@atlaskit/range';
 import ScaleLargeIcon from '@atlaskit/icon/glyph/media-services/scale-large';
 import ScaleSmallIcon from '@atlaskit/icon/glyph/media-services/scale-small';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { sliderWrapperStyles } from './styles';
 
 export interface SliderProps {

@@ -161,7 +161,7 @@ const AsyncPopupSelect = ({
     }
   }, [fetchFilterOptions, pageCursor, searchTerm]);
 
-  const handleOpenPopup = useCallback(() => {
+  const handleMenuOpen = useCallback(() => {
     if (status === 'empty' || status === 'rejected') {
       // if user searches and gets status as rejected, we want the dropdown to try load the request with searchString when the user reopens the dropdown
       fetchFilterOptions({
@@ -170,14 +170,20 @@ const AsyncPopupSelect = ({
     } else if (status === 'resolved') {
       sortOptionsOnPopupOpen();
     }
-  }, [fetchFilterOptions, searchTerm, sortOptionsOnPopupOpen, status]);
 
-  const handleMenuOpen = useCallback(() => {
     fireEvent('ui.dropdown.opened.basicSearchDropdown', {
       filterType,
       selectionCount: selectedOptions.length,
     });
-  }, [filterType, fireEvent, selectedOptions.length]);
+  }, [
+    fetchFilterOptions,
+    filterType,
+    fireEvent,
+    searchTerm,
+    selectedOptions.length,
+    sortOptionsOnPopupOpen,
+    status,
+  ]);
 
   useEffect(() => {
     if (status === 'resolved') {
@@ -265,7 +271,6 @@ const AsyncPopupSelect = ({
           filterType={filterType}
           selectedOptions={selectedOptions}
           isSelected={isOpen}
-          onClick={handleOpenPopup}
           isDisabled={isDisabled}
         />
       )}

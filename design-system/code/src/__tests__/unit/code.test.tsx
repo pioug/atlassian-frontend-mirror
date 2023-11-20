@@ -2,8 +2,6 @@ import React from 'react';
 
 import { cleanup, render } from '@testing-library/react';
 
-import GlobalTheme from '@atlaskit/theme/components';
-
 import Code from '../../code';
 import { getColorPalette } from '../../internal/theme/get-theme';
 
@@ -31,35 +29,19 @@ describe('Code', () => {
   afterEach(cleanup);
   it('base case should render', () => {
     const { getByTestId } = render(codeJavascript);
-    expect(getByTestId(jsTestId)).toBeDefined();
+    expect(getByTestId(jsTestId)).toBeInTheDocument();
   });
   it('should render with jsx ', () => {
     const { getByTestId } = render(jsxInCode);
-    expect(getByTestId('jsx')).toBeDefined();
+    expect(getByTestId('jsx')).toBeInTheDocument();
     expect(getByTestId('valid').textContent === 'valid');
   });
 
-  describe('theming', () => {
-    it('should apply theme bg color (dark)', () => {
-      const { getByTestId } = render(
-        <GlobalTheme.Provider value={() => ({ mode: 'dark' })}>
-          <Code testId="theme">{javaCode}</Code>
-        </GlobalTheme.Provider>,
-      );
-      expect(getByTestId('theme')).toHaveStyle(
-        `background-color:
-        ${getColorPalette({ mode: 'dark' }).backgroundColor};`,
-      );
-    });
-
-    it('should fallback to default theme bg color', () => {
-      const { getByTestId } = render(<Code testId="theme">{javaCode}</Code>);
-      expect(getByTestId('theme')).toHaveStyle(
-        `background-color: ${
-          getColorPalette({ mode: 'light' }).backgroundColor
-        };`,
-      );
-    });
+  it('should have the correct bg color', () => {
+    const { getByTestId } = render(<Code testId="bg">{javaCode}</Code>);
+    expect(getByTestId('bg')).toHaveStyle(
+      `background-color: ${getColorPalette().backgroundColor};`,
+    );
   });
 
   it('should style code container with a red color', () => {

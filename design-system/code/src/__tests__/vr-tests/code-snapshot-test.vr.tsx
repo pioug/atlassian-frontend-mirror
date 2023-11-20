@@ -1,9 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
 import InlineCodeBasic from '../../../examples/01-inline-code-basic';
-import InlineCodeBasicDark from '../../../examples/02-inline-code-basic-dark';
 import CodeBlockBasic from '../../../examples/10-code-block-basic';
-import CodeBlockDarkTheme from '../../../examples/11-code-block-dark-theme';
 import CodeBlockSsr from '../../../examples/12-code-block-ssr';
 import CodeBlockHighlightingLongLines from '../../../examples/14-code-block-highlighting-long-lines';
 import CodeBlockEmpty from '../../../examples/21-code-block-empty';
@@ -41,7 +39,6 @@ snapshot(InlineCodeBasic, {
     },
   ],
 });
-snapshot(InlineCodeBasicDark);
 snapshot(CodeBlockBasic, {
   variants: [
     {
@@ -62,7 +59,6 @@ snapshot(CodeBlockBasic, {
     },
   ],
 });
-snapshot(CodeBlockDarkTheme);
 snapshot(CodeBlockSsr);
 snapshot(Applescript);
 snapshot(Clojure);

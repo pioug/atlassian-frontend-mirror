@@ -68,5 +68,6 @@
     {
       "path": "../width-detector/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

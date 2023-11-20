@@ -35,5 +35,6 @@
     {
       "path": "../ds-lib/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { variants } from '../../../utils/variants';
+import variants from '../../../utils/variants';
 
 /**
  * Validate expected HTML element / tag rendering from Button variants

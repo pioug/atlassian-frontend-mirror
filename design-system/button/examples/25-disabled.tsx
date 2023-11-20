@@ -6,7 +6,6 @@ import Checkbox from '@atlaskit/checkbox';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { Stack } from '@atlaskit/primitives';
 
-import appearances from '../src/utils/appearances';
 import variants from '../src/utils/variants';
 
 export default function DisabledExample() {
@@ -37,7 +36,7 @@ export default function DisabledExample() {
         isChecked={isDisabledTimer}
         onChange={() => setIsDisabledTimer((value) => !value)}
       />
-      {variants.map(({ name, Component }) => (
+      {variants.map(({ name, Component, appearances }) => (
         <Stack space="space.150" key={name}>
           <h2>{name}</h2>
           <table>
@@ -55,6 +54,7 @@ export default function DisabledExample() {
                   <th>{capitalize(appearance)}</th>
                   <td>
                     <Component
+                      // @ts-ignore
                       appearance={appearance}
                       isDisabled={isDisabled}
                       onClick={() => {
@@ -66,6 +66,7 @@ export default function DisabledExample() {
                   </td>
                   <td>
                     <Component
+                      // @ts-ignore
                       appearance={appearance}
                       iconAfter={<ChevronDownIcon label="" />}
                       isDisabled={isDisabled}
@@ -75,6 +76,7 @@ export default function DisabledExample() {
                   </td>
                   <td>
                     <Component
+                      // @ts-ignore
                       appearance={appearance}
                       isDisabled={isDisabled}
                       isSelected

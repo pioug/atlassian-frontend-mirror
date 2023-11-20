@@ -57,7 +57,7 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/button": "^16.16.0",
+    "@atlaskit/button": "^16.17.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

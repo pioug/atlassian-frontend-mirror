@@ -185,6 +185,13 @@ const AsyncPopupSelect = ({
     status,
   ]);
 
+  const handleMenuClose = useCallback(() => {
+    fireEvent('ui.dropdown.closed.basicSearchDropdown', {
+      filterType,
+      selectionCount: selectedOptions.length,
+    });
+  }, [filterType, fireEvent, selectedOptions.length]);
+
   useEffect(() => {
     if (status === 'resolved') {
       sortOptionsOnResolve();
@@ -209,6 +216,7 @@ const AsyncPopupSelect = ({
   }, [selectedOptions, selection]);
 
   const filterOptionsLength = filterOptions.length;
+  const isJQLHydrating = false;
   const isError = status === 'rejected';
   const isLoading = status === 'loading' || status === 'empty';
   const isLoadingMore = status === 'loadingMore';
@@ -265,6 +273,7 @@ const AsyncPopupSelect = ({
       onChange={handleOptionSelection}
       onInputChange={handleInputChange}
       onOpen={handleMenuOpen}
+      onClose={handleMenuClose}
       target={({ isOpen, ...triggerProps }) => (
         <PopupTrigger
           {...triggerProps}
@@ -272,6 +281,7 @@ const AsyncPopupSelect = ({
           selectedOptions={selectedOptions}
           isSelected={isOpen}
           isDisabled={isDisabled}
+          isLoading={isJQLHydrating}
         />
       )}
       footer={

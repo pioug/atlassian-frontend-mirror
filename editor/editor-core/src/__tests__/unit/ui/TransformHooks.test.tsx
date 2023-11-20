@@ -106,7 +106,7 @@ describe('TransformHooks', () => {
         };
       });
 
-      const { props, editorView } = await setupConfigPanel({
+      const { props, editorView, wrapper } = await setupConfigPanel({
         content,
         transformAfter,
         nodes: [
@@ -134,6 +134,7 @@ describe('TransformHooks', () => {
       expect(editorView.state.doc.firstChild?.attrs.parameters).toEqual(
         expectedParameters,
       );
+      wrapper.unmount();
     });
   });
 });

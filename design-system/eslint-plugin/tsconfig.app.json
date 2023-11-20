@@ -45,5 +45,6 @@
     {
       "path": "../codegen/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

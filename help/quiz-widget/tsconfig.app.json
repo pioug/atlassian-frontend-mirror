@@ -44,5 +44,6 @@
     {
       "path": "../../design-system/spinner/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

@@ -1,5 +1,17 @@
 # @atlaskit/button
 
+## 16.17.1
+
+### Patch Changes
+
+- [#42681](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42681) [`df138bd3900`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df138bd3900) - [ux] Update to divider colors and height in SplitButton (alpha)
+
+## 16.17.0
+
+### Minor Changes
+
+- [#43311](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43311) [`8764ee956ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8764ee956ae) - [ux] Remove `appearance` prop options `link` and `subtle-link` from the new Button (in Alpha). They are now reserved for the new LinkButton component
+
 ## 16.16.1
 
 ### Patch Changes

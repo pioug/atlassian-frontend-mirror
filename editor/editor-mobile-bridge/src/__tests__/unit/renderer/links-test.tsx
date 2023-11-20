@@ -1,7 +1,7 @@
 import { mount } from 'enzyme';
 import React from 'react';
 import type { DocNode } from '@atlaskit/adf-schema';
-import { ResolveResponse } from '@atlaskit/smart-card';
+import type { ResolveResponse } from '@atlaskit/smart-card';
 import {
   MobileSmartCardClient,
   createCardClient,
@@ -13,7 +13,7 @@ import {
   createMentionProvider,
 } from '../../../providers';
 import { FetchProxy } from '../../../utils/fetch-proxy';
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 import RendererBridgeImplementation from '../../../renderer/native-to-web/implementation';
 
 const mockIntersectionObserver = () => {
@@ -191,7 +191,7 @@ describe('renderer bridge: links', () => {
     mobileRenderer.unmount();
   });
 
-  it('should prevent WebView redirection when clicking smart links', async (done) => {
+  it('should prevent WebView redirection when clicking smart links', async () => {
     const mobileRenderer = mount(
       <MobileRenderer
         document={smartLinkADF}
@@ -221,6 +221,5 @@ describe('renderer bridge: links', () => {
     expect(mockMouseEvent.defaultPrevented).toEqual(true);
 
     mobileRenderer.unmount();
-    done();
   });
 });

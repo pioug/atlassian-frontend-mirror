@@ -1,5 +1,11 @@
 # @atlaskit/code
 
+## 15.0.0
+
+### Major Changes
+
+- [#41498](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41498) [`73adf14896c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73adf14896c) - Remove usage of legacy theming from the Code component and refactor where necessary to accomodate the updated API.
+
 ## 14.6.9
 
 ### Patch Changes

@@ -18,6 +18,7 @@ import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import Media from '../../../../react/nodes/media';
 import MediaGroup from '../../../../react/nodes/mediaGroup';
 import { MediaCardInternal } from '../../../../ui/MediaCard';
+import { act } from 'react-dom/test-utils';
 
 describe('MediaGroup', () => {
   let fixture: HTMLDivElement;
@@ -126,7 +127,9 @@ describe('MediaGroup', () => {
 
     expect(mediaGroup.find(FilmstripView)).toHaveLength(1);
 
-    await mediaProvider;
+    await act(async () => {
+      await mediaProvider;
+    });
     await nextTick();
     mediaGroup.update();
 

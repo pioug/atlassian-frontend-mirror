@@ -32,5 +32,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__eslint-plugin-platform/app"
   },
-  "references": []
+  "references": [],
+  "files": []
 }

@@ -1,10 +1,12 @@
 import React from 'react';
 
-import { UNSAFE_BUTTON } from '../../../../src';
+import { UNSAFE_LINK_BUTTON } from '../../../../src';
 
 const ButtonLinkExample = () => {
   return (
-    <UNSAFE_BUTTON appearance="link">Link appearance button</UNSAFE_BUTTON>
+    <UNSAFE_LINK_BUTTON appearance="link" href="/">
+      Link appearance button
+    </UNSAFE_LINK_BUTTON>
   );
 };
 

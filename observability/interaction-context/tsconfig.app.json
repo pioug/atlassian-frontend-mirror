@@ -31,5 +31,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__interaction-context/app"
   },
-  "references": []
+  "references": [],
+  "files": []
 }

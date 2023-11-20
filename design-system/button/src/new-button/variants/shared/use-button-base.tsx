@@ -18,7 +18,7 @@ import InteractionContext from '@atlaskit/interaction-context';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { useSplitButtonContext } from '../../containers/split-button/split-button-context';
-import { type CommonButtonProps } from '../types';
+import { type Appearance, type CommonButtonProps } from '../types';
 
 import blockEvents from './block-events';
 import { getXCSS } from './xcss';
@@ -54,10 +54,10 @@ export type UseButtonBaseArgs<TagName extends HTMLElement> = {
   hasIconBefore?: boolean;
   hasIconAfter?: boolean;
   shouldFitContainer?: boolean;
+  appearance?: Appearance;
 } & Pick<
   CommonButtonProps<TagName>,
   | 'analyticsContext'
-  | 'appearance'
   | 'autoFocus'
   | 'children'
   | 'interactionName'

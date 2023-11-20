@@ -2,8 +2,6 @@ import React from 'react';
 
 import { cleanup, render } from '@testing-library/react';
 
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
-
 import CodeBlock from '../../code-block';
 import { getColorPalette } from '../../internal/theme/get-theme';
 import { getLineNumWidth } from '../../internal/theme/styles';
@@ -29,7 +27,6 @@ const longCode = `// some code
 // 11
 `;
 
-const darkTheme = { mode: 'dark' } as const;
 const testId = 'code-test';
 
 describe('CodeBlock', () => {
@@ -52,29 +49,13 @@ describe('CodeBlock', () => {
     expect(container.querySelector('.linenumber')).not.toBeNull();
   });
 
-  describe('theming', () => {
-    it('should apply theme bg color (dark)', () => {
-      const { getByTestId } = render(
-        <AtlaskitThemeProvider mode="dark">
-          <CodeBlock text={code} testId="test" language="java" />
-        </AtlaskitThemeProvider>,
-      );
-      expect(getByTestId('test')).toHaveStyle(
-        `background-color:
-        ${getColorPalette(darkTheme).backgroundColor};`,
-      );
-    });
-
-    it('should apply theme bg color', () => {
-      const { getByTestId } = render(
-        <CodeBlock text={code} testId="test" language="java" />,
-      );
-      expect(getByTestId('test')).toHaveStyle(
-        `background-color: ${
-          getColorPalette({ mode: 'light' }).backgroundColor
-        };`,
-      );
-    });
+  it('should apply correct bg color', () => {
+    const { getByTestId } = render(
+      <CodeBlock text={code} testId="test" language="java" />,
+    );
+    expect(getByTestId('test')).toHaveStyle(
+      `background-color: ${getColorPalette().backgroundColor};`,
+    );
   });
 
   describe('LineNumber col size expands as expected', () => {

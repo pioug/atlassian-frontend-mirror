@@ -36,5 +36,6 @@
     {
       "path": "../../platform/feature-flags/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

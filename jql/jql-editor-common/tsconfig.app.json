@@ -38,5 +38,6 @@
     {
       "path": "../jql-autocomplete/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

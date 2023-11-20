@@ -32,5 +32,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__jql-parser/app"
   },
-  "references": []
+  "references": [],
+  "files": []
 }

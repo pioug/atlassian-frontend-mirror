@@ -72,5 +72,6 @@
     {
       "path": "../../design-system/width-detector/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

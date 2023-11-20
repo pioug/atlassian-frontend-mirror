@@ -46,5 +46,6 @@
     {
       "path": "../../techstack/eslint-utils/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

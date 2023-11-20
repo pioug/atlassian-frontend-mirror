@@ -47,5 +47,6 @@
     {
       "path": "../../design-system/tokens/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

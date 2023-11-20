@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.16.0
+
+### Minor Changes
+
+- [#43426](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43426) [`850d2e49924`](https://bitbucket.org/atlassian/atlassian-frontend/commits/850d2e49924) - Add feature flag for send steps queue
+
 ## 9.15.5
 
 ### Patch Changes

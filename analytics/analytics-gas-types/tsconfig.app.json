@@ -35,5 +35,6 @@
     {
       "path": "../analytics-next/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

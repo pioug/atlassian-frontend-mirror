@@ -10,6 +10,7 @@ import EditorConfiguration, {
 
 import { useProviders } from '../../hooks/use-providers';
 import WebBridgeImpl from '../../native-to-web';
+import { waitFor } from '@testing-library/react';
 
 const defaultValue = JSON.stringify({
   version: 1,
@@ -70,26 +71,31 @@ describe('Mobile Editor', () => {
     it('should pass editor configuration locale to Mobile Editor', () => {
       const result = mount(<App defaultValue={defaultValue} />);
       expect(result.find(MobileEditor).prop('locale')).toBe('fr');
+      result.unmount();
     });
 
     it('should call getBridge method when the app is mounted', () => {
-      mount(<App defaultValue={defaultValue} />);
+      const wrapper = mount(<App defaultValue={defaultValue} />);
       expect(getBridge).toHaveBeenCalledTimes(1);
+      wrapper.unmount();
     });
 
     it('should have called useEditorConfiguration on load', () => {
-      mount(<App defaultValue={defaultValue} />);
+      const wrapper = mount(<App defaultValue={defaultValue} />);
       expect(useEditorConfiguration).toHaveBeenCalledWith(bridge);
+      wrapper.unmount();
     });
 
     it('should have called useProviders on load', () => {
-      mount(<App defaultValue={defaultValue} />);
+      const wrapper = mount(<App defaultValue={defaultValue} />);
       expect(setResetProviders).toHaveBeenCalled();
+      wrapper.unmount();
     });
 
     it('should have called bridge.setResetProviders on load', () => {
-      mount(<App defaultValue={defaultValue} />);
+      const wrapper = mount(<App defaultValue={defaultValue} />);
       expect(useProviders).toHaveBeenCalled();
+      wrapper.unmount();
     });
   });
 
@@ -101,6 +107,7 @@ describe('Mobile Editor', () => {
       const style = wrapper.childAt(0).props().style;
 
       expect(style).toEqual({ minHeight: '46px' });
+      wrapper.unmount();
     });
 
     it('should not have a wrapper with min-height of "46px" for Android', () => {
@@ -110,6 +117,7 @@ describe('Mobile Editor', () => {
       const style = wrapper.childAt(0).props().style;
 
       expect(style).not.toEqual({ minHeight: '46px' });
+      wrapper.unmount();
     });
   });
 
@@ -127,13 +135,12 @@ describe('Mobile Editor', () => {
       getBridge.mockRestore();
     });
 
-    it('schema constructed by default(full editor) should include taskList', (done) => {
-      mount(<App defaultValue={defaultValue} />);
-
-      setImmediate(() => {
-        expect(!!bridge?.editorView?.state.schema.nodes.taskList).toBeTruthy();
-        done();
-      });
+    it('schema constructed by default(full editor) should include taskList', async () => {
+      const wrapper = mount(<App defaultValue={defaultValue} />);
+      await waitFor(() =>
+        expect(!!bridge?.editorView?.state.schema.nodes.taskList).toBeTruthy(),
+      );
+      wrapper.unmount();
     });
 
     it('schema re-constructed by compact editor should not include taskList', (done) => {

@@ -31,5 +31,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__react-experiment-framework/app"
   },
-  "references": []
+  "references": [],
+  "files": []
 }

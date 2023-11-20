@@ -35,5 +35,6 @@
     {
       "path": "../theme/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

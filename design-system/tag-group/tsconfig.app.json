@@ -31,5 +31,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__tag-group/app"
   },
-  "references": []
+  "references": [],
+  "files": []
 }

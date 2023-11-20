@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
-    "@atlaskit/button": "^16.16.0",
+    "@atlaskit/button": "^16.17.0",
     "@atlaskit/docs": "*",
     "@atlaskit/form": "^9.0.0",
     "@atlaskit/modal-dialog": "^12.8.0",
@@ -62,7 +62,7 @@
     "@atlaskit/range": "^7.1.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/textfield": "^5.6.0",
+    "@atlaskit/textfield": "^6.0.0",
     "@atlaskit/toggle": "^13.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

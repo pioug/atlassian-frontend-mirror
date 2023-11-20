@@ -325,6 +325,20 @@ events:
         selectionCount:
           type: "number"
           description: The number of options selected when opening the dropdown
+  - dropdown closed (basicSearchDropdown):
+      type: ui
+      description: Fired when the basic filter dropdown is closed
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *BasicFilterFieldTypes,
+          ]
+        selectionCount:
+          type: "number"
+          description: The number of options selected when closing the dropdown
   # Assets Events
   - aqlEditor searched:
       type: ui

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { variants } from '../../../utils/variants';
+import variants from '../../../utils/variants';
 
 variants.forEach(({ name, Component }) => {
   it(`${name} should not add unnecessary \`tabIndex={0}\` to enable focus`, async () => {

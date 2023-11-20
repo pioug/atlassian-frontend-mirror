@@ -9,14 +9,14 @@ import {
   createMentionProvider,
 } from '../../../providers';
 import { FetchProxy } from '../../../utils/fetch-proxy';
-import { sendToBridge as originalSendToBridge } from '../../../bridge-utils';
+import type { sendToBridge as originalSendToBridge } from '../../../bridge-utils';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { doc, p, text, date } from '@atlaskit/adf-utils/builders';
 import { render as renderTestingLib, cleanup } from '@testing-library/react';
 import { mount } from 'enzyme';
 import * as rendererHook from '../../hooks/use-set-renderer-content';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { IntlShape } from 'react-intl-next';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { IntlShape } from 'react-intl-next';
 import * as useTranslations from '../../../i18n/use-translations';
 import RendererBridgeImplementation from '../../native-to-web/implementation';
 
@@ -42,6 +42,7 @@ describe('renderer bridge', () => {
     fetchProxy.disable();
     cleanup();
   });
+
   describe('Intialize renderer', () => {
     afterEach(() => {
       jest.resetAllMocks();
@@ -60,7 +61,7 @@ describe('renderer bridge', () => {
           content: [],
         } as JSONDocNode;
       });
-      mount(
+      const wrapper = mount(
         <MobileRenderer
           // @ts-ignore
           document={'' as DocNode}
@@ -73,6 +74,7 @@ describe('renderer bridge', () => {
         />,
       );
       expect(useRendererContentSpy).toHaveBeenCalledTimes(1);
+      wrapper.unmount();
     });
 
     it('should have localise renderer', async () => {
@@ -101,6 +103,7 @@ describe('renderer bridge', () => {
 
       expect(basicRendererIntlProp.locale).toBe('pl');
       expect(basicRendererIntlProp.messages).toBe(messages);
+      result.unmount();
     });
   });
 

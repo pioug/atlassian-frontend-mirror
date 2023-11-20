@@ -31,5 +31,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__media-core/app"
   },
-  "references": []
+  "references": [],
+  "files": []
 }

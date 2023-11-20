@@ -752,4 +752,80 @@ describe('Analytics: AsyncPopupSelect', () => {
       EVENT_CHANNEL,
     );
   });
+
+  it('should fire "ui.dropdown.closed.basicSearchDropdown" with correct attributes when dropdown menu is closed with no selection', async () => {
+    const { onAnalyticFireEvent, queryByTestId } = setup({
+      filterType: 'status',
+      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
+      openPicker: true,
+      status: 'resolved',
+    });
+
+    const triggerButton = queryByTestId(`jlol-basic-filter-status-trigger`);
+
+    invariant(triggerButton);
+    fireEvent.click(triggerButton);
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          action: 'closed',
+          actionSubject: 'dropdown',
+          actionSubjectId: 'basicSearchDropdown',
+          attributes: {
+            filterType: 'status',
+            selectionCount: 0,
+          },
+        },
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should fire "ui.dropdown.closed.basicSearchDropdown" with correct attributes when dropdown menu is closed with selection', async () => {
+    const selectedOptions: SelectOption[] = [
+      {
+        appearance: 'success',
+        label: 'Canceled',
+        optionType: 'lozengeLabel',
+        value: 'Canceled',
+      },
+      {
+        appearance: 'success',
+        label: 'Canceled1',
+        optionType: 'lozengeLabel',
+        value: 'Canceled1',
+      },
+    ];
+
+    const { onAnalyticFireEvent, queryByTestId } = setup({
+      filterType: 'status',
+      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
+      selection: selectedOptions,
+      openPicker: true,
+      status: 'resolved',
+    });
+
+    const triggerButton = queryByTestId(`jlol-basic-filter-status-trigger`);
+
+    invariant(triggerButton);
+    fireEvent.click(triggerButton);
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          action: 'closed',
+          actionSubject: 'dropdown',
+          actionSubjectId: 'basicSearchDropdown',
+          attributes: {
+            filterType: 'status',
+            selectionCount: 2,
+          },
+        },
+      },
+      EVENT_CHANNEL,
+    );
+  });
 });

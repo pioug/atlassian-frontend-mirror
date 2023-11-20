@@ -1,5 +1,24 @@
 # @atlaskit/link-datasource
 
+## 1.17.11
+
+### Patch Changes
+
+- [#43451](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43451) [`50a08b74209`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50a08b74209) - Add loading state for the basic filter trigger button
+- Updated dependencies
+
+## 1.17.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.17.9
+
+### Patch Changes
+
+- [#43398](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43398) [`a7af91aa3fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7af91aa3fb) - Add analytics event when basic filter dropdown menu is closed.
+
 ## 1.17.8
 
 ### Patch Changes

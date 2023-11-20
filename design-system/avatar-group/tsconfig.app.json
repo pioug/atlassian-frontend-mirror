@@ -56,5 +56,6 @@
     {
       "path": "../tooltip/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

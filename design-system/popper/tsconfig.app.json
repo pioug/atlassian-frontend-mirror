@@ -34,5 +34,6 @@
     {
       "path": "../../in-product-testing/in-product-testing/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

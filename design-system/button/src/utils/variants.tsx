@@ -13,15 +13,21 @@ import LinkButton, {
 import LinkIconButton, {
   LinkIconButtonProps,
 } from '../new-button/variants/icon/link';
+import { buttonAppearances, linkButtonAppearances } from '../utils/appearances';
 
-export type Variant = {
-  name: string;
-  Component: typeof Button | typeof LinkButtonRender;
-  /**
-   * Expected element rendered as underlying button
-   */
-  elementType: typeof HTMLButtonElement | typeof HTMLAnchorElement;
-};
+export type Variant =
+  | {
+      name: 'Button';
+      Component: typeof Button;
+      elementType: typeof HTMLButtonElement;
+      appearances: typeof buttonAppearances;
+    }
+  | {
+      name: 'LinkButton';
+      Component: typeof LinkButtonRender;
+      elementType: typeof HTMLAnchorElement;
+      appearances: typeof linkButtonAppearances;
+    };
 
 // Add required default props to variants
 const LinkButtonRender = forwardRef(
@@ -78,16 +84,34 @@ const LinkIconButtonRender = forwardRef(
   ),
 );
 
-export const variants: Variant[] = [
+export const linkButtonVariants = [
+  {
+    name: 'LinkButton',
+    Component: LinkButtonRender,
+    elementType: HTMLAnchorElement,
+    appearances: linkButtonAppearances,
+  },
+  {
+    name: 'LinkIconButton',
+    Component: LinkIconButtonRender,
+    elementType: HTMLAnchorElement,
+    // TODO: Make specific to icon button
+    appearances: linkButtonAppearances,
+  },
+];
+
+const variants: Variant[] = [
   {
     name: 'Button',
     Component: Button,
     elementType: HTMLButtonElement,
+    appearances: buttonAppearances,
   },
   {
     name: 'LinkButton',
     Component: LinkButtonRender,
     elementType: HTMLAnchorElement,
+    appearances: linkButtonAppearances,
   },
   // TODO: Enable icon buttons in tests once it's ready
   // {
@@ -103,16 +127,3 @@ export const variants: Variant[] = [
 ];
 
 export default variants;
-
-export const linkButtonVariants = [
-  {
-    name: 'LinkButton',
-    Component: LinkButtonRender,
-    elementType: HTMLAnchorElement,
-  },
-  {
-    name: 'LinkIconButton',
-    Component: LinkIconButtonRender,
-    elementType: HTMLAnchorElement,
-  },
-];

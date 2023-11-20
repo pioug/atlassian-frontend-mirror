@@ -1,3 +1,6 @@
+// We don't really render stuff in this suite and it caused issues with Panel NodeView's rendering approach in a React 18 context
+jest.mock('react-dom');
+
 import type { IntlShape, MessageDescriptor } from 'react-intl-next';
 import { createIntl } from 'react-intl-next';
 
@@ -412,6 +415,7 @@ describe('getToolbarItems', () => {
       const colorPickerConfig = itemsWithCustomPanelEnabled.find(
         item => item.type === 'select' && item.selectType === 'color',
       );
+
       (colorPickerConfig as AnyFloatingToolbarColorPicker)!.onChange({
         label: 'Mintie',
         value: '#ABF5D1',
@@ -441,7 +445,6 @@ describe('getToolbarItems', () => {
         editorView.state,
         editorView.dispatch,
       );
-
       const payload: AnalyticsEventPayload = {
         action: ACTION.CHANGED_ICON,
         actionSubject: ACTION_SUBJECT.PANEL,
@@ -456,7 +459,6 @@ describe('getToolbarItems', () => {
         editorAPI?.analytics?.actions?.attachAnalyticsEvent,
       ).toHaveBeenCalledWith(payload, undefined);
     });
-
     it('Should trigger analytics when Icon is removed', () => {
       const removeEmojiButton = itemsWithCustomPanelEnabled.find(
         item =>
@@ -465,7 +467,6 @@ describe('getToolbarItems', () => {
       const emojiPickerConfig = itemsWithCustomPanelEnabled.find(
         item => item.type === 'select' && item.selectType === 'emoji',
       );
-
       (emojiPickerConfig as AnyFloatingToolbarEmojiPicker)!.onChange(emojiId)(
         editorView.state,
         editorView.dispatch,
@@ -474,7 +475,6 @@ describe('getToolbarItems', () => {
         editorView.state,
         editorView.dispatch,
       );
-
       const payload: AnalyticsEventPayload = {
         action: ACTION.REMOVE_ICON,
         actionSubject: ACTION_SUBJECT.PANEL,
@@ -490,7 +490,6 @@ describe('getToolbarItems', () => {
         undefined,
       );
     });
-
     it('Should not fire analytics when the same background color is selected', () => {
       const colorPickerConfig = itemsWithCustomPanelEnabled.find(
         item => item.type === 'select' && item.selectType === 'color',
@@ -498,23 +497,19 @@ describe('getToolbarItems', () => {
       expect(
         editorAPI?.analytics?.actions?.attachAnalyticsEvent,
       ).toHaveBeenCalledTimes(0);
-
       (colorPickerConfig as AnyFloatingToolbarColorPicker)!.onChange({
         label: 'Mintie',
         value: '#ABF5D1',
         border: DEFAULT_BORDER_COLOR,
       })(editorView.state, editorView.dispatch);
-
       expect(
         editorAPI?.analytics?.actions?.attachAnalyticsEvent,
       ).toHaveBeenCalledTimes(2);
-
       (colorPickerConfig as AnyFloatingToolbarColorPicker)!.onChange({
         label: 'Mintie',
         value: '#ABF5D1',
         border: DEFAULT_BORDER_COLOR,
       })(editorView.state, editorView.dispatch);
-
       expect(
         editorAPI?.analytics?.actions.attachAnalyticsEvent,
       ).toHaveBeenCalledTimes(3);
@@ -524,25 +519,20 @@ describe('getToolbarItems', () => {
         action: 'changedBackgroundColor',
       });
     });
-
     it('Should not fire analytics when same emoji is selected', () => {
       const emojiPickerConfig = itemsWithCustomPanelEnabled.find(
         item => item.type === 'select' && item.selectType === 'emoji',
       );
-
       expect(
         editorAPI?.analytics?.actions?.attachAnalyticsEvent,
       ).toHaveBeenCalledTimes(0);
-
       (emojiPickerConfig as AnyFloatingToolbarEmojiPicker)!.onChange(emojiId)(
         editorView.state,
         editorView.dispatch,
       );
-
       expect(
         editorAPI?.analytics?.actions?.attachAnalyticsEvent,
       ).toHaveBeenCalledTimes(2);
-
       (emojiPickerConfig as AnyFloatingToolbarEmojiPicker)!.onChange(emojiId)(
         editorView.state,
         editorView.dispatch,

@@ -11,7 +11,6 @@ import {
   type Spacing,
 } from '../src/new-button/variants/types';
 import OldButton from '../src/old-button/button';
-import appearances from '../src/utils/appearances';
 import spacing from '../src/utils/spacing';
 import variants, { type Variant } from '../src/utils/variants';
 
@@ -40,12 +39,17 @@ const ExampleRow = ({
   <tr>
     {showOldButton && <th>{capitalize(type)} button</th>}
     <td>
-      <Component appearance={appearance} spacing={spacing}>
+      <Component
+        // @ts-ignore
+        appearance={appearance}
+        spacing={spacing}
+      >
         {capitalize(appearance)}
       </Component>
     </td>
     <td>
       <Component
+        // @ts-ignore
         appearance={appearance}
         iconBefore={<ChevronDownIcon label="" />}
         iconAfter={<ChevronDownIcon label="" />}
@@ -54,17 +58,28 @@ const ExampleRow = ({
       </Component>
     </td>
     <td>
-      <Component appearance={appearance} isDisabled spacing={spacing}>
-        Button
-      </Component>
-    </td>
-    <td>
-      <Component appearance={appearance} isSelected spacing={spacing}>
+      <Component
+        // @ts-ignore
+        appearance={appearance}
+        isDisabled
+        spacing={spacing}
+      >
         Button
       </Component>
     </td>
     <td>
       <Component
+        // @ts-ignore
+        appearance={appearance}
+        isSelected
+        spacing={spacing}
+      >
+        Button
+      </Component>
+    </td>
+    <td>
+      <Component
+        // @ts-ignore
         appearance={appearance}
         isSelected
         isDisabled
@@ -74,12 +89,18 @@ const ExampleRow = ({
       </Component>
     </td>
     <td>
-      <Component appearance={appearance} overlay={overlay} spacing={spacing}>
+      <Component
+        // @ts-ignore
+        appearance={appearance}
+        overlay={overlay}
+        spacing={spacing}
+      >
         Button
       </Component>
     </td>
     <td>
       <Component
+        // @ts-ignore
         appearance={appearance}
         overlay={overlay}
         isDisabled
@@ -90,6 +111,7 @@ const ExampleRow = ({
     </td>
     <td>
       <Component
+        // @ts-ignore
         appearance={appearance}
         overlay={overlay}
         isSelected
@@ -100,6 +122,7 @@ const ExampleRow = ({
     </td>
     <td>
       <Component
+        // @ts-ignore
         appearance={appearance}
         overlay={overlay}
         isSelected
@@ -111,14 +134,23 @@ const ExampleRow = ({
     </td>
     <td>
       <Box xcss={shouldFitContainerStyles}>
-        <Component appearance={appearance} shouldFitContainer spacing={spacing}>
+        <Component
+          // @ts-ignore
+          appearance={appearance}
+          shouldFitContainer
+          spacing={spacing}
+        >
           Button
         </Component>
       </Box>
     </td>
     <td>
       <Box xcss={longLabelStyles}>
-        <Component appearance={appearance} spacing={spacing}>
+        <Component
+          // @ts-ignore
+          appearance={appearance}
+          spacing={spacing}
+        >
           Button with long label
         </Component>
       </Box>
@@ -139,62 +171,64 @@ export default function AppearancesExample() {
         onChange={() => setShowOldButton((value) => !value)}
       />
       <Stack space="space.200">
-        {variants.map(({ name, Component: NewButtonComponent }) => (
-          <Stack space="space.100" key={name}>
-            <h2>{name}</h2>
-            <table>
-              <thead>
-                <tr>
-                  {showOldButton && <th>Version</th>}
-                  <th>Default</th>
-                  <th>Icons</th>
-                  <th>Disabled</th>
-                  <th>Selected</th>
-                  <th>Disabled + Selected</th>
-                  <th>Overlay</th>
-                  <th>Disabled + Overlay</th>
-                  <th>Selected + Overlay</th>
-                  <th>Disabled + Overlay + Selected</th>
-                  <th>Should fit container</th>
-                  <th>Truncation</th>
-                </tr>
-              </thead>
-              <tbody>
-                {spacing.map((space) => (
-                  <Fragment key={space}>
-                    <tr>
-                      <th colSpan={columnCount}>
-                        <Box paddingBlock="space.150">
-                          <h3>{capitalize(space)} spacing</h3>
-                        </Box>
-                      </th>
-                    </tr>
-                    {appearances.map((appearance) => (
-                      <Fragment key={appearance}>
-                        {showOldButton && (
+        {variants.map(
+          ({ name, Component: NewButtonComponent, appearances }) => (
+            <Stack space="space.100" key={name}>
+              <h2>{name}</h2>
+              <table>
+                <thead>
+                  <tr>
+                    {showOldButton && <th>Version</th>}
+                    <th>Default</th>
+                    <th>Icons</th>
+                    <th>Disabled</th>
+                    <th>Selected</th>
+                    <th>Disabled + Selected</th>
+                    <th>Overlay</th>
+                    <th>Disabled + Overlay</th>
+                    <th>Selected + Overlay</th>
+                    <th>Disabled + Overlay + Selected</th>
+                    <th>Should fit container</th>
+                    <th>Truncation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {spacing.map((space) => (
+                    <Fragment key={space}>
+                      <tr>
+                        <th colSpan={columnCount}>
+                          <Box paddingBlock="space.150">
+                            <h3>{capitalize(space)} spacing</h3>
+                          </Box>
+                        </th>
+                      </tr>
+                      {appearances.map((appearance) => (
+                        <Fragment key={appearance}>
+                          {showOldButton && (
+                            <ExampleRow
+                              showOldButton={showOldButton}
+                              appearance={appearance}
+                              component={OldButton}
+                              spacing={space}
+                              type="old"
+                            />
+                          )}
                           <ExampleRow
                             showOldButton={showOldButton}
                             appearance={appearance}
-                            component={OldButton}
+                            component={NewButtonComponent}
                             spacing={space}
-                            type="old"
+                            type="new"
                           />
-                        )}
-                        <ExampleRow
-                          showOldButton={showOldButton}
-                          appearance={appearance}
-                          component={NewButtonComponent}
-                          spacing={space}
-                          type="new"
-                        />
-                      </Fragment>
-                    ))}
-                  </Fragment>
-                ))}
-              </tbody>
-            </table>
-          </Stack>
-        ))}
+                        </Fragment>
+                      ))}
+                    </Fragment>
+                  ))}
+                </tbody>
+              </table>
+            </Stack>
+          ),
+        )}
       </Stack>
     </Box>
   );

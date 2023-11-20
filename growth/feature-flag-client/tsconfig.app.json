@@ -32,5 +32,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__feature-flag-client/app"
   },
-  "references": []
+  "references": [],
+  "files": []
 }

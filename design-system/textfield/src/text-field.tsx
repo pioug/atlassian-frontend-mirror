@@ -4,7 +4,6 @@ import React, { forwardRef, memo, useCallback, useMemo, useRef } from 'react';
 import { jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import {
   containerStyles as getContainerStyles,
@@ -42,7 +41,6 @@ const Textfield = forwardRef((props: TextfieldProps, ref) => {
   } = props;
 
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const { mode } = useGlobalTheme();
 
   const handleOnFocus = usePlatformLeafEventHandler({
     fn: (event: React.FocusEvent<HTMLInputElement>) => {
@@ -103,11 +101,11 @@ const Textfield = forwardRef((props: TextfieldProps, ref) => {
   );
 
   const containerStyles = useMemo(
-    () => getContainerStyles(appearance, mode, width),
-    [appearance, mode, width],
+    () => getContainerStyles(appearance, width),
+    [appearance, width],
   );
 
-  const inputStyle = useMemo(() => getInputStyles(mode), [mode]);
+  const inputStyle = getInputStyles();
 
   return (
     /**

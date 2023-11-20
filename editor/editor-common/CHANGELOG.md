@@ -1,5 +1,25 @@
 # @atlaskit/editor-common
 
+## 76.22.6
+
+### Patch Changes
+
+- [#42221](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42221) [`1f49a73a590`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f49a73a590) - [ux] [ECA11Y-110] Selecting table columns, rows, whole table via shortcuts
+
+## 76.22.5
+
+### Patch Changes
+
+- [#41498](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41498) [`73adf14896c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73adf14896c) - Remove usage of legacy theming from the Code component and refactor where necessary to accomodate the updated API.
+- Updated dependencies
+
+## 76.22.4
+
+### Patch Changes
+
+- [#43434](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43434) [`3164f6d83de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3164f6d83de) - ED-20979 and ED-20878 scaffolding for inline image component
+- Updated dependencies
+
 ## 76.22.3
 
 ### Patch Changes

@@ -5,13 +5,12 @@ import capitalize from 'lodash/capitalize';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { Stack } from '@atlaskit/primitives';
 
-import appearances from '../src/utils/appearances';
 import variants from '../src/utils/variants';
 
 export default function AppearancesExample() {
   return (
     <Stack space="space.100" alignInline="start">
-      {variants.map(({ name, Component }) => (
+      {variants.map(({ name, Component, appearances }) => (
         <Stack space="space.150" key={name}>
           <h2>{name}</h2>
           <table>
@@ -28,10 +27,16 @@ export default function AppearancesExample() {
                 <tr key={appearance}>
                   <th>{capitalize(appearance)}</th>
                   <td>
-                    <Component appearance={appearance}>Default</Component>
+                    <Component
+                      // @ts-ignore
+                      appearance={appearance}
+                    >
+                      Default
+                    </Component>
                   </td>
                   <td>
                     <Component
+                      // @ts-ignore
                       appearance={appearance}
                       iconAfter={<ChevronDownIcon label="" />}
                     >
@@ -39,7 +44,11 @@ export default function AppearancesExample() {
                     </Component>
                   </td>
                   <td>
-                    <Component appearance={appearance} isSelected>
+                    <Component
+                      // @ts-ignore
+                      appearance={appearance}
+                      isSelected
+                    >
                       Selected
                     </Component>
                   </td>

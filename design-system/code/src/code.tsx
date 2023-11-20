@@ -1,9 +1,7 @@
 /** @jsx jsx */
-import React, { forwardRef, memo, useMemo } from 'react';
+import React, { forwardRef, memo } from 'react';
 
 import { css, jsx } from '@emotion/react';
-
-import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import CodeBidiWarning from './bidi-warning';
 import codeBidiWarningDecorator from './bidi-warning/bidi-warning-decorator';
@@ -21,8 +19,7 @@ import type { CodeProps } from './types';
  */
 const Code = memo(
   forwardRef<HTMLElement, CodeProps>(function Code({ testId, ...props }, ref) {
-    const theme = useGlobalTheme();
-    const styles = useMemo(() => css(getCodeStyles(theme)), [theme]);
+    const styles = css(getCodeStyles());
     const {
       children,
       codeBidiWarnings = true,

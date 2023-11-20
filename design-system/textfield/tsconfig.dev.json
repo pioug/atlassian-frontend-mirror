@@ -81,9 +81,6 @@
       "path": "../theme/tsconfig.app.json"
     },
     {
-      "path": "../toggle/tsconfig.app.json"
-    },
-    {
       "path": "../tokens/tsconfig.app.json"
     },
     {

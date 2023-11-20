@@ -104,6 +104,7 @@ describe('<Heading />', () => {
     afterEach(() => {
       window.location = locationBackup;
       mockCopyTextToClipboard.mockClear();
+      heading.unmount();
     });
 
     it('should call "fireAnalyticsEvent" with correct event data', () => {

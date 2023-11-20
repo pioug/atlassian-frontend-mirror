@@ -40,6 +40,7 @@ import { ParticipantsService } from '../participants/participants-service';
 import { errorCodeMapper } from '../errors/error-code-mapper';
 import type { InternalError } from '../errors/error-types';
 import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
+import { getCollabProviderFeatureFlag } from '../feature-flags';
 
 const logger = createLogger('Provider', 'black');
 
@@ -165,6 +166,10 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       this.onErrorHandled,
       this.metadataService,
       this.config.enableErrorOnFailedDocumentApply,
+      getCollabProviderFeatureFlag(
+        'sendStepsQueueFF',
+        this.config.featureFlags,
+      ),
     );
     this.namespaceService = new NamespaceService();
   }

@@ -7,7 +7,6 @@ import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import { ButtonGroup } from '../src';
 import Button from '../src/new-button/variants/default/button';
-import appearances from '../src/utils/appearances';
 import spacing from '../src/utils/spacing';
 import variants from '../src/utils/variants';
 
@@ -23,7 +22,7 @@ const ConstrainedRow = (props: { children: React.ReactNode }) => (
 export default function ButtonGroupExample() {
   return (
     <Stack alignInline="start" space="space.100">
-      {variants.map(({ name, Component }) => (
+      {variants.map(({ name, Component, appearances }) => (
         <Stack key={name} space="space.150">
           <h2>{name}</h2>
           {spacing.map((space) => (

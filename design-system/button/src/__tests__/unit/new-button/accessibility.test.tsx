@@ -11,29 +11,62 @@ import Button from '../../../new-button/variants/default/button';
 import IconButton from '../../../new-button/variants/icon/button';
 import variants from '../../../utils/variants';
 
-variants.forEach(({ name, Component }) => {
-  describe(`${name}: Accessibility`, () => {
-    it('should not fail an aXe audit', async () => {
-      const { container } = render(<Component>Save</Component>);
-      await axe(container);
-    });
+variants.forEach(({ name, Component, appearances }) =>
+  appearances.map((appearance) => {
+    describe(`${name}: '${appearance}' appearance accessibility`, () => {
+      it('should not fail an aXe audit', async () => {
+        const { container } = render(
+          <Component
+            // @ts-ignore
+            appearance={appearance}
+          >
+            Save
+          </Component>,
+        );
+        await axe(container);
+      });
 
-    it('should not fail an aXe audit when disabled', async () => {
-      const { container } = render(<Component isDisabled>Save</Component>);
-      await axe(container);
-    });
+      it('should not fail an aXe audit when disabled', async () => {
+        const { container } = render(
+          <Component
+            isDisabled
+            // @ts-ignore
+            appearance={appearance}
+          >
+            Save
+          </Component>,
+        );
+        await axe(container);
+      });
 
-    it('should not fail an aXe audit when selected', async () => {
-      const { container } = render(<Component isSelected>Save</Component>);
-      await axe(container);
-    });
+      it('should not fail an aXe audit when selected', async () => {
+        const { container } = render(
+          <Component
+            isSelected
+            // @ts-ignore
+            appearance={appearance}
+          >
+            Save
+          </Component>,
+        );
+        await axe(container);
+      });
 
-    it('should not fail an aXe audit with overlay', async () => {
-      const { container } = render(<Component overlay="Hello">Save</Component>);
-      await axe(container);
+      it('should not fail an aXe audit with overlay', async () => {
+        const { container } = render(
+          <Component
+            overlay="Hello"
+            // @ts-ignore
+            appearance={appearance}
+          >
+            Save
+          </Component>,
+        );
+        await axe(container);
+      });
     });
-  });
-});
+  }),
+);
 
 describe('ButtonGroup: Accessibility', () => {
   it('should not fail an aXe audit', async () => {
@@ -92,6 +125,7 @@ describe('SplitButton: Accessibility', () => {
   });
 });
 
+// TODO: Consolidate these aXe tests into the top variants loop above
 describe('IconButton: Accessibility', () => {
   const appearances: ComponentProps<typeof IconButton>['appearance'][] = [
     'default',

@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 108.16.3
+
+### Patch Changes
+
+- [#41498](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41498) [`73adf14896c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73adf14896c) - Remove usage of legacy theming from the Code component and refactor where necessary to accomodate the updated API.
+- Updated dependencies
+
 ## 108.16.2
 
 ### Patch Changes

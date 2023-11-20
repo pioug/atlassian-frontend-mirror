@@ -51,5 +51,6 @@
     {
       "path": "../../elements/user-picker/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

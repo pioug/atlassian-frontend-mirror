@@ -2,6 +2,7 @@
 export interface NCSFeatureFlags {
   testFF?: boolean;
   socketMessageMetricsFF?: boolean;
+  sendStepsQueueFF?: boolean;
 }
 
 export interface WithNCSFeatureFlags {

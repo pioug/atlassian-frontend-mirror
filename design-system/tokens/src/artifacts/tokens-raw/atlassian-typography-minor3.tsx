@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1ae3b7bd31e38fb0fcdff9803f28c2f0>>
+ * @codegen <<SignedSource::7c3297e2c28012af2c14ec56119b1bbb>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -106,7 +106,7 @@ const tokens = [
       "introduced": "1.14.0",
       "description": "Smaller body font."
     },
-    "value": "normal 400 12px/20px var(--ds-font-family-body)",
+    "value": "normal 400 12px/16px var(--ds-font-family-body)",
     "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
@@ -119,7 +119,7 @@ const tokens = [
       "value": {
         "fontWeight": "FontWeight400",
         "fontSize": "FontSize12",
-        "lineHeight": "LineHeight200",
+        "lineHeight": "LineHeight100",
         "fontFamily": "font.family.body",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing0"

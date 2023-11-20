@@ -1,38 +1,34 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import { render } from 'react-dom';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { render, unmountComponentAtNode } from 'react-dom';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { complexDocument as doc } from './__fixtures__/documents';
 import { getPosFromRange, resolvePos } from '../../index';
 import ReactSerializer from '../../../react/index';
-
-let container: HTMLElement | null;
-let reactAdf: JSX.Element;
-let docFromSchema: PMNode;
-const DOC_ROOT_OFFSET = 1;
-
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-
-  docFromSchema = schema.nodeFromJSON(doc);
-  const reactSerializer = new ReactSerializer({
-    surroundTextNodesWithTextWrapper: true,
-  });
-
-  reactAdf = reactSerializer.serializeFragment(docFromSchema.content)!;
-});
-
-afterEach(() => {
-  document.body.removeChild(container!);
-  container = null;
-});
+import { act } from 'react-dom/test-utils';
 
 describe('steps', () => {
+  const DOC_ROOT_OFFSET = 1;
+
+  let container: HTMLElement | null = document.createElement('div');
+  let docFromSchema: PMNode;
+  let reactAdf: JSX.Element;
+  let root: any; // Change to Root once we go full React 18
   let firstValidParagraphPosition: number;
   let firstValidParagraph: HTMLElement;
-  beforeEach(() => {
+
+  beforeEach(async () => {
+    container = document.createElement('div');
+    document.body.appendChild(container);
+
+    docFromSchema = schema.nodeFromJSON(doc);
+    const reactSerializer = new ReactSerializer({
+      surroundTextNodesWithTextWrapper: true,
+    });
+
+    reactAdf = reactSerializer.serializeFragment(docFromSchema.content)!;
+
     docFromSchema.descendants((node, pos) => {
       if (node.type.name === 'paragraph' && !firstValidParagraphPosition) {
         firstValidParagraphPosition = pos + DOC_ROOT_OFFSET;
@@ -40,10 +36,28 @@ describe('steps', () => {
 
       return false;
     });
-    render(<IntlProvider locale={'en'}>{reactAdf}</IntlProvider>, container);
+    if (process.env.IS_REACT_18) {
+      // @ts-ignore react-dom/client only available in react 18
+      // eslint-disable-next-line import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
+      const { createRoot } = await import('react-dom/client');
+      root = createRoot(container!);
+      act(() => {
+        root.render(<IntlProvider locale="en">{reactAdf}</IntlProvider>);
+      });
+    } else {
+      render(<IntlProvider locale="en">{reactAdf}</IntlProvider>, container);
+    }
     firstValidParagraph = container!.querySelector(
       `p[data-renderer-start-pos="${firstValidParagraphPosition}"]`,
     ) as HTMLElement;
+  });
+
+  afterEach(() => {
+    if (process.env.IS_REACT_18) {
+      root.unmount();
+    } else {
+      unmountComponentAtNode(container!);
+    }
   });
 
   describe('#getPosFromRange', () => {
@@ -51,17 +65,14 @@ describe('steps', () => {
       it('should calc the position', () => {
         const myRange = new Range();
         const PARENT_OFFSET = 1;
-
         myRange.setStart(firstValidParagraph, 0);
         myRange.setEnd(
           firstValidParagraph.nextElementSibling as HTMLElement,
           0,
         );
-
         const paragraphNode = docFromSchema.nodeAt(
           firstValidParagraphPosition - PARENT_OFFSET,
         )!;
-
         expect(getPosFromRange(myRange)).toEqual({
           from: firstValidParagraphPosition,
           to: firstValidParagraphPosition + paragraphNode.nodeSize,
@@ -73,15 +84,12 @@ describe('steps', () => {
       it('should calc the position', () => {
         const myRange = new Range();
         const PARENT_OFFSET = 1;
-
         myRange.setStart(firstValidParagraph, 0);
         myRange.setEnd(firstValidParagraph.childNodes[1] as HTMLElement, 0);
-
         const paragraphNode = docFromSchema.nodeAt(
           firstValidParagraphPosition - PARENT_OFFSET,
         )!;
         const textNode = paragraphNode.nodeAt(0)!;
-
         expect(getPosFromRange(myRange)).toEqual({
           from: firstValidParagraphPosition,
           to: firstValidParagraphPosition + textNode.nodeSize,
@@ -112,11 +120,9 @@ describe('steps', () => {
             }
           },
         );
-
         expect(codeBlockElements.length).toBe(codeBlockNodes.length);
         codeBlockElements.forEach((element, index) => {
           const node = codeBlockNodes[index];
-
           expect(resolvePos(element, 0)).toBe(false);
           expect(resolvePos(element, node.size)).toBe(false);
         });
@@ -126,7 +132,6 @@ describe('steps', () => {
     describe('when the node is a text element', () => {
       it('should return the same position as ProseMirror', () => {
         const firstChild = firstValidParagraph.childNodes[0];
-
         expect(firstChild).toBeInstanceOf(Text);
         expect(resolvePos(firstChild, 0)).toBe(firstValidParagraphPosition);
       });

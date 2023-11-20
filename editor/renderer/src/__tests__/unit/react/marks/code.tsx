@@ -28,7 +28,7 @@ describe('Renderer - React/Marks/Code', () => {
       </Code>,
     );
     expect(mark.html()).toContain(
-      `<code class="code css-1kr9mn8-Code" data-renderer-mark="true">This is code</code>`,
+      `<code class="code css-19lz4fb-Code" data-renderer-mark="true">This is code</code>`,
     );
     mark.unmount();
   });
@@ -43,7 +43,7 @@ describe('Renderer - React/Marks/Code', () => {
       </Code>,
     );
     expect(markWithArray.html()).toContain(
-      `<code class="code css-1kr9mn8-Code" data-renderer-mark="true">This is code</code>`,
+      `<code class="code css-19lz4fb-Code" data-renderer-mark="true">This is code</code>`,
     );
     markWithArray.unmount();
   });
@@ -64,7 +64,7 @@ describe('Renderer - React/Marks/Code', () => {
       </Code>,
     );
     expect(marks.html()).toContain(
-      `<code class="code css-1kr9mn8-Code" data-renderer-mark="true">This <span data-mark-type="confluenceInlineComment">is code</span></code>`,
+      `<code class="code css-19lz4fb-Code" data-renderer-mark="true">This <span data-mark-type="confluenceInlineComment">is code</span></code>`,
     );
     marks.unmount();
   });

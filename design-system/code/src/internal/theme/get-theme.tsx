@@ -1,9 +1,7 @@
 import memoizeOne from 'memoize-one';
 
 import * as colors from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
 import { codeFontFamily } from '@atlaskit/theme/constants';
-import type { Theme } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import type { CodeBlockTheme, CodeTheme } from './types';
@@ -12,216 +10,70 @@ import type { CodeBlockTheme, CodeTheme } from './types';
 // accessible color options for Teal and Yellow and +20A
 const T800 = '#067384';
 const Y1100 = '#7A5D1A';
-const PLUS20 = '#3A434E';
 
-export const getBaseTheme = (theme: Theme): CodeTheme => ({
+export const getBaseTheme = (): CodeTheme => ({
   fontFamily: codeFontFamily(),
   fontFamilyItalic: `SFMono-MediumItalic, ${codeFontFamily()}`,
-  backgroundColor: themed({
-    light: token('color.background.neutral', colors.N20),
-    dark: token('color.background.neutral', colors.DN50),
-  })({ theme }),
-  textColor: themed({
-    light: token('color.text', colors.N800),
-    dark: token('color.text', colors.DN800),
-  })({ theme }),
-  lineNumberColor: themed({
-    light: token('color.text.subtlest', colors.N400),
-    dark: token('color.text.subtlest', colors.DN400),
-  })({ theme }),
-  lineNumberBgColor: themed({
-    light: token('color.background.neutral', colors.N30),
-    dark: token('color.background.neutral', colors.DN20),
-  })({ theme }),
+  backgroundColor: token('color.background.neutral', colors.N20),
+  textColor: token('color.text', colors.N800),
+  lineNumberColor: token('color.text.subtlest', colors.N400),
+  lineNumberBgColor: token('color.background.neutral', colors.N30),
 });
 
-export const defaultBaseTheme = getBaseTheme({ mode: 'light' });
+export const defaultBaseTheme = getBaseTheme();
 
-export const getColorPalette = memoizeOne((theme: Theme): CodeBlockTheme => {
-  const akTheme = { theme };
+export const getColorPalette = memoizeOne((): CodeBlockTheme => {
   return {
-    highlightedLineBgColor: themed({
-      light: token('color.background.neutral', colors.N30),
-      dark: token('color.background.neutral', PLUS20),
-    })(akTheme),
-    highlightedLineBorderColor: themed({
-      light: token('color.border.focused', colors.B200),
-      dark: token('color.border.focused', colors.B100),
-    })(akTheme),
-    substringColor: themed({
-      light: token('color.text.subtlest', colors.N400),
-      dark: token('color.text.subtlest', colors.DN400),
-    })(akTheme),
-    keywordColor: themed({
-      light: token('color.text.accent.blue', colors.B400),
-      dark: token('color.text.accent.blue', colors.B75),
-    })(akTheme),
-    attributeColor: themed({
-      light: token('color.text.accent.teal', T800),
-      dark: token('color.text.accent.teal', colors.T200),
-    })(akTheme),
-    selectorTagColor: themed({
-      light: token('color.text.accent.blue', colors.B400),
-      dark: token('color.text.accent.blue', colors.B75),
-    })(akTheme),
-    docTagColor: themed({
-      light: token('color.text.accent.yellow', Y1100),
-      dark: token('color.text.accent.yellow', colors.Y300),
-    })(akTheme),
-    nameColor: themed({
-      light: token('color.text.accent.blue', colors.B400),
-      dark: token('color.text.accent.blue', colors.B75),
-    })(akTheme),
-    builtInColor: themed({
-      light: token('color.text.accent.blue', colors.B400),
-      dark: token('color.text.accent.blue', colors.B75),
-    })(akTheme),
-    literalColor: themed({
-      light: token('color.text.accent.blue', colors.B400),
-      dark: token('color.text.accent.blue', colors.B75),
-    })(akTheme),
-    bulletColor: themed({
-      light: token('color.text.accent.blue', colors.B400),
-      dark: token('color.text.accent.blue', colors.B75),
-    })(akTheme),
-    codeColor: themed({
-      light: token('color.text.accent.blue', colors.B400),
-      dark: token('color.text.accent.blue', colors.B75),
-    })(akTheme),
-    regexpColor: themed({
-      light: token('color.text.accent.teal', T800),
-      dark: token('color.text.accent.teal', colors.T200),
-    })(akTheme),
-    symbolColor: themed({
-      light: token('color.text.accent.teal', T800),
-      dark: token('color.text.accent.teal', colors.T200),
-    })(akTheme),
-    variableColor: themed({
-      light: token('color.text.accent.teal', T800),
-      dark: token('color.text.accent.teal', colors.T200),
-    })(akTheme),
-    templateVariableColor: themed({
-      light: token('color.text.accent.teal', T800),
-      dark: token('color.text.accent.teal', colors.T200),
-    })(akTheme),
-    linkColor: themed({
-      light: token('color.text.accent.purple', colors.P300),
-      dark: token('color.text.accent.purple', colors.P75),
-    })(akTheme),
-    selectorAttributeColor: themed({
-      light: token('color.text.accent.teal', T800),
-      dark: token('color.text.accent.teal', colors.T200),
-    })(akTheme),
-    selectorPseudoColor: themed({
-      light: token('color.text.accent.teal', T800),
-      dark: token('color.text.accent.teal', colors.T200),
-    })(akTheme),
-    typeColor: themed({
-      light: token('color.text.accent.teal', T800),
-      dark: token('color.text.accent.teal', colors.T100),
-    })(akTheme),
-    stringColor: themed({
-      light: token('color.text.accent.green', colors.G500),
-      dark: token('color.text.accent.green', colors.G200),
-    })(akTheme),
-    selectorIdColor: themed({
-      light: token('color.text.accent.teal', T800),
-      dark: token('color.text.accent.teal', colors.T100),
-    })(akTheme),
-    selectorClassColor: themed({
-      light: token('color.text.accent.teal', T800),
-      dark: token('color.text.accent.teal', colors.T100),
-    })(akTheme),
-    quoteColor: themed({
-      light: token('color.text.accent.teal', T800),
-      dark: token('color.text.accent.teal', colors.T100),
-    })(akTheme),
-    templateTagColor: themed({
-      light: token('color.text.accent.teal', T800),
-      dark: token('color.text.accent.teal', colors.T100),
-    })(akTheme),
-    titleColor: themed({
-      light: token('color.text.accent.purple', colors.P300),
-      dark: token('color.text.accent.purple', colors.P75),
-    })(akTheme),
-    sectionColor: themed({
-      light: token('color.text.accent.purple', colors.P300),
-      dark: token('color.text.accent.purple', colors.P75),
-    })(akTheme),
-    commentColor: themed({
-      light: token('color.text.subtlest', colors.N400),
-      dark: token('color.text.subtlest', colors.DN400),
-    })(akTheme),
-    metaKeywordColor: themed({
-      light: token('color.text.accent.green', colors.G500),
-      dark: token('color.text.accent.green', colors.G200),
-    })(akTheme),
-    metaColor: themed({
-      light: token('color.text.subtlest', colors.N400),
-      dark: token('color.text.subtlest', colors.DN400),
-    })(akTheme),
-    functionColor: themed({
-      light: token('color.text', colors.N800),
-      dark: token('color.text', colors.DN800),
-    })(akTheme),
-    numberColor: themed({
-      light: token('color.text.accent.blue', colors.B400),
-      dark: token('color.text.accent.blue', colors.B75),
-    })(akTheme),
-    prologColor: themed({
-      light: token('color.text.accent.blue', colors.B400),
-      dark: token('color.text.accent.blue', colors.B75),
-    })(akTheme),
-    cdataColor: themed({
-      light: token('color.text.subtlest', colors.N400),
-      dark: token('color.text.subtlest', colors.B75),
-    })(akTheme),
-    punctuationColor: themed({
-      light: token('color.text', colors.N800),
-      dark: token('color.text', colors.DN800),
-    })(akTheme),
-    propertyColor: themed({
-      light: token('color.text.accent.purple', colors.P300),
-      dark: token('color.text.accent.purple', colors.P75),
-    })(akTheme),
-    constantColor: themed({
-      light: token('color.text.accent.teal', T800),
-      dark: token('color.text.accent.teal', colors.T100),
-    })(akTheme),
-    booleanColor: themed({
-      light: token('color.text.accent.blue', colors.B400),
-      dark: token('color.text.accent.blue', colors.B75),
-    })(akTheme),
-    charColor: themed({
-      light: token('color.text', colors.N800),
-      dark: token('color.text', colors.DN800),
-    })(akTheme),
-    insertedColor: themed({
-      light: token('color.text.accent.green', colors.G500),
-      dark: token('color.text.accent.green', colors.B75),
-    })(akTheme),
-    deletedColor: themed({
-      light: token('color.text.accent.red', colors.R500),
-      dark: token('color.text.accent.red', colors.B75),
-    })(akTheme),
-    operatorColor: themed({
-      light: token('color.text', colors.N800),
-      dark: token('color.text', colors.B75),
-    })(akTheme),
-    atruleColor: themed({
-      light: token('color.text.accent.green', colors.G500),
-      dark: token('color.text.accent.green', colors.G200),
-    })(akTheme),
-    importantColor: themed({
-      light: token('color.text.accent.yellow', Y1100),
-      dark: token('color.text.accent.yellow', colors.Y300),
-    })(akTheme),
+    highlightedLineBgColor: token('color.background.neutral', colors.N30),
+    highlightedLineBorderColor: token('color.border.focused', colors.B200),
+    substringColor: token('color.text.subtlest', colors.N400),
+    keywordColor: token('color.text.accent.blue', colors.B400),
+    attributeColor: token('color.text.accent.teal', T800),
+    selectorTagColor: token('color.text.accent.blue', colors.B400),
+    docTagColor: token('color.text.accent.yellow', Y1100),
+    nameColor: token('color.text.accent.blue', colors.B400),
+    builtInColor: token('color.text.accent.blue', colors.B400),
+    literalColor: token('color.text.accent.blue', colors.B400),
+    bulletColor: token('color.text.accent.blue', colors.B400),
+    codeColor: token('color.text.accent.blue', colors.B400),
+    regexpColor: token('color.text.accent.teal', T800),
+    symbolColor: token('color.text.accent.teal', T800),
+    variableColor: token('color.text.accent.teal', T800),
+    templateVariableColor: token('color.text.accent.teal', T800),
+    linkColor: token('color.text.accent.purple', colors.P300),
+    selectorAttributeColor: token('color.text.accent.teal', T800),
+    selectorPseudoColor: token('color.text.accent.teal', T800),
+    typeColor: token('color.text.accent.teal', T800),
+    stringColor: token('color.text.accent.green', colors.G500),
+    selectorIdColor: token('color.text.accent.teal', T800),
+    selectorClassColor: token('color.text.accent.teal', T800),
+    quoteColor: token('color.text.accent.teal', T800),
+    templateTagColor: token('color.text.accent.teal', T800),
+    titleColor: token('color.text.accent.purple', colors.P300),
+    sectionColor: token('color.text.accent.purple', colors.P300),
+    commentColor: token('color.text.subtlest', colors.N400),
+    metaKeywordColor: token('color.text.accent.green', colors.G500),
+    metaColor: token('color.text.subtlest', colors.N400),
+    functionColor: token('color.text', colors.N800),
+    numberColor: token('color.text.accent.blue', colors.B400),
+    prologColor: token('color.text.accent.blue', colors.B400),
+    cdataColor: token('color.text.subtlest', colors.N400),
+    punctuationColor: token('color.text', colors.N800),
+    propertyColor: token('color.text.accent.purple', colors.P300),
+    constantColor: token('color.text.accent.teal', T800),
+    booleanColor: token('color.text.accent.blue', colors.B400),
+    charColor: token('color.text', colors.N800),
+    insertedColor: token('color.text.accent.green', colors.G500),
+    deletedColor: token('color.text.accent.red', colors.R500),
+    operatorColor: token('color.text', colors.N800),
+    atruleColor: token('color.text.accent.green', colors.G500),
+    importantColor: token('color.text.accent.yellow', Y1100),
   };
 });
 
-const getTheme = (theme: Theme): CodeBlockTheme => ({
-  ...getBaseTheme(theme),
-  ...getColorPalette(theme),
+const getTheme = (): CodeBlockTheme => ({
+  ...getBaseTheme(),
+  ...getColorPalette(),
 });
 
 export default getTheme;

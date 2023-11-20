@@ -1117,7 +1117,7 @@ export type BorderRadius = keyof typeof borderRadiusMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fc5fa2e6300ad8cc69d2ab1af222c4f5>>
+ * @codegen <<SignedSource::739812ebd4363d1b1782332b2ebffd2c>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight", "body", "ui"]
@@ -1192,7 +1192,7 @@ export const bodyTextMap = {
   ),
   'body.small': token(
     'font.body.small',
-    'normal 400 11px/20px var(--ds-font-family-body)',
+    'normal 400 11px/16px var(--ds-font-family-body)',
   ),
 };
 

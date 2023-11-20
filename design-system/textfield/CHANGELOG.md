@@ -1,5 +1,11 @@
 # @atlaskit/textfield
 
+## 6.0.0
+
+### Major Changes
+
+- [#42569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42569) [`df6d526f3c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df6d526f3c8) - Removed all remaining legacy theming logic from the TextField component.
+
 ## 5.6.8
 
 ### Patch Changes

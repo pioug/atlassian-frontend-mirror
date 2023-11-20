@@ -5,11 +5,6 @@ jest.mock('@atlaskit/editor-common/ui', () => {
   };
 });
 
-import React from 'react';
-
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { mount, ReactWrapper } from 'enzyme';
-
 jest.mock('@atlaskit/editor-common/hooks', () => {
   const fakeUseSharedPluginState = jest.fn().mockReturnValue({
     focusState: {
@@ -52,6 +47,14 @@ jest.mock('../../../ui/MediaPicker/PickerFacadeProvider.tsx', () => {
     });
 });
 
+import React from 'react';
+
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { render } from '@testing-library/react';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { mount, ReactWrapper } from 'enzyme';
+import { act } from 'react-dom/test-utils';
+
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import {
   Browser as BrowserComponent,
@@ -93,7 +96,7 @@ describe('MediaPickerComponents', () => {
   });
 
   it('should subscribe to mediaState.onPopupToggle on mount', () => {
-    mount(
+    render(
       <MediaPickerComponents
         editorDomElement={editorDomElement}
         mediaState={pluginState}
@@ -115,9 +118,13 @@ describe('MediaPickerComponents', () => {
         api={undefined}
       />,
     );
-    callback(true);
+    act(() => {
+      callback(true);
+    });
     expect(wrapper.state()).toHaveProperty('isPopupOpened', true);
-    callback(false);
+    act(() => {
+      callback(false);
+    });
     expect(wrapper.state()).toHaveProperty('isPopupOpened', false);
   });
 
@@ -191,11 +198,13 @@ describe('MediaPickerComponents', () => {
           api={undefined}
         />,
       );
-      wrapper.setState({
-        isPopupOpened: true,
-      });
-      wrapper.setState({
-        isPopupOpened: false,
+      act(() => {
+        wrapper.setState({
+          isPopupOpened: true,
+        });
+        wrapper.setState({
+          isPopupOpened: false,
+        });
       });
       expect(wrapper.find(DropzoneWrapper).prop('isActive')).toBeTruthy();
       expect(
@@ -212,8 +221,10 @@ describe('MediaPickerComponents', () => {
           api={undefined}
         />,
       );
-      wrapper.setState({
-        isPopupOpened: true,
+      act(() => {
+        wrapper.setState({
+          isPopupOpened: true,
+        });
       });
       expect(wrapper.find(DropzoneWrapper).prop('isActive')).toBeFalsy();
       expect(

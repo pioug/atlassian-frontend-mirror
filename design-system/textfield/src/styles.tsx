@@ -1,5 +1,16 @@
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { R400 } from '@atlaskit/theme/colors';
+import {
+  B200,
+  N0,
+  N10,
+  N100,
+  N200,
+  N30,
+  N40,
+  N70,
+  N900,
+  R400,
+} from '@atlaskit/theme/colors';
 import {
   codeFontFamily,
   fontFamily,
@@ -7,133 +18,104 @@ import {
   // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
-import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
-import * as componentTokens from './component-tokens';
 import { Appearance } from './types';
 
 const fontSize = getFontSize();
 const gridSize = getGridSize();
 
-const disabledRules = {
-  light: {
-    backgroundColor: componentTokens.disabledBackgroundColor.light,
-    backgroundColorHover: componentTokens.disabledBackgroundColor.light,
-    borderColor: componentTokens.disabledBackgroundColor.light,
-    textColor: componentTokens.disabledTextColor.light,
-  },
-  dark: {
-    backgroundColor: componentTokens.disabledBackgroundColor.dark,
-    backgroundColorHover: componentTokens.disabledBackgroundColor.dark,
-    borderColor: componentTokens.disabledBackgroundColor.dark,
-    textColor: componentTokens.disabledTextColor.dark,
-  },
-};
-
-const invalidRules = {
-  light: {
-    // ----
-    backgroundColor: componentTokens.defaultBackgroundColor.light,
-    backgroundColorHover: componentTokens.defaultBackgroundColorHover.light,
-    // ^--- the above values aren't used directly they remain because its exposed by the `textFieldColors` export
-    backgroundColorFocus: componentTokens.defaultBackgroundColorFocus.light,
-    borderColor: token('color.border.danger', R400),
-    borderColorFocus: componentTokens.defaultBorderColorFocus.light,
-  },
-  dark: {
-    // ----
-    backgroundColor: componentTokens.defaultBackgroundColor.dark,
-    backgroundColorHover: componentTokens.defaultBackgroundColorHover.dark,
-    // ^--- the above values aren't used directly they remain because its exposed by the `textFieldColors` export
-    backgroundColorFocus: componentTokens.defaultBackgroundColorFocus.dark,
-    borderColor: token('color.border.danger', R400),
-    borderColorFocus: componentTokens.defaultBorderColorFocus.dark,
-  },
-};
-
 const backgroundColor = {
-  standard: componentTokens.defaultBackgroundColor,
-  subtle: componentTokens.transparent,
-  none: componentTokens.transparent,
+  standard: token('color.background.input', N10),
+  subtle: 'transparent',
+  none: 'transparent',
 };
 
 const backgroundColorFocus = {
-  standard: componentTokens.defaultBackgroundColorFocus,
-  subtle: componentTokens.defaultBackgroundColorFocus,
-  none: componentTokens.transparent,
+  standard: token('color.background.input.pressed', N0),
+  subtle: token('color.background.input.pressed', N0),
+  none: 'transparent',
 };
 
 const backgroundColorHover = {
-  standard: componentTokens.defaultBackgroundColorHover,
-  subtle: componentTokens.defaultBackgroundColorHover,
-  none: componentTokens.transparent,
+  standard: token('color.background.input.hovered', N30),
+  subtle: token('color.background.input.hovered', N30),
+  none: 'transparent',
 };
 
 const borderColor = {
-  standard: componentTokens.defaultBorderColor,
-  subtle: componentTokens.transparent,
-  none: componentTokens.transparent,
+  standard: token(
+    'color.border.input',
+    getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
+      ? N100
+      : N40,
+  ),
+  subtle: 'transparent',
+  none: 'transparent',
 };
 
 const borderColorFocus = {
-  standard: componentTokens.defaultBorderColorFocus,
-  subtle: componentTokens.defaultBorderColorFocus,
-  none: componentTokens.transparent,
+  standard: token('color.border.focused', B200),
+  subtle: token('color.border.focused', B200),
+  none: 'transparent',
 };
 
 const borderColorHover = {
-  standard: componentTokens.defaultBorderColor,
-  subtle: componentTokens.subtleBorderColorHover,
-  none: componentTokens.transparent,
+  standard: token(
+    'color.border.input',
+    getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
+      ? N100
+      : N40,
+  ),
+  subtle: token('color.border.input', 'transparent'),
+  none: 'transparent',
 };
 
-const getContainerTextBgAndBorderColor = (
-  appearance: Appearance,
-  mode: ThemeModes,
-) => ({
-  backgroundColor: backgroundColor[appearance][mode],
-  borderColor: borderColor[appearance][mode],
-  color: componentTokens.textColor[mode],
+const getContainerTextBgAndBorderColor = (appearance: Appearance) => ({
+  backgroundColor: backgroundColor[appearance],
+  borderColor: borderColor[appearance],
+  color: token('color.text', N900),
   cursor: 'text',
   '&:hover:not([data-disabled])': {
-    backgroundColor: backgroundColorHover[appearance][mode],
-    borderColor: borderColorHover[appearance][mode],
+    backgroundColor: backgroundColorHover[appearance],
+    borderColor: borderColorHover[appearance],
   },
   '&:focus-within:not([data-disabled])': {
-    backgroundColor: backgroundColorFocus[appearance][mode],
-    borderColor: borderColorFocus[appearance][mode],
+    backgroundColor: backgroundColorFocus[appearance],
+    borderColor: borderColorFocus[appearance],
     boxShadow: getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
       ? `inset 0 0 0 ${token('border.width', '1px')} ${
-          borderColorFocus[appearance][mode]
+          borderColorFocus[appearance]
         }`
       : undefined,
   },
   '&[data-disabled]': {
-    color: disabledRules[mode].textColor,
+    color: token('color.text.disabled', N70),
     cursor: 'not-allowed',
     // Disabled background and border styles should not be applied to components that
     // have either no background or transparent background to begin with
     ...(appearance === 'standard' && {
-      backgroundColor: disabledRules[mode].backgroundColor,
-      borderColor: disabledRules[mode].borderColor,
+      backgroundColor: token('color.background.disabled', N10),
+      borderColor: token('color.background.disabled', N10),
     }),
   },
   '&[data-invalid], &[data-invalid]:hover': {
-    borderColor: invalidRules[mode].borderColor,
+    borderColor: token('color.border.danger', R400),
     boxShadow: getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-      ? `inset 0 0 0 ${token('border.width', '1px')} ${
-          invalidRules[mode].borderColor
-        }`
+      ? `inset 0 0 0 ${token('border.width', '1px')} ${token(
+          'color.border.danger',
+          R400,
+        )}`
       : undefined,
   },
   '&[data-invalid]:focus-within': {
-    backgroundColor: invalidRules[mode].backgroundColorFocus,
-    borderColor: invalidRules[mode].borderColorFocus,
+    backgroundColor: token('color.background.input.pressed', N0),
+    borderColor: token('color.border.focused', B200),
     boxShadow: getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-      ? `inset 0 0 0 ${token('border.width', '1px')} ${
-          invalidRules[mode].borderColorFocus
-        }`
+      ? `inset 0 0 0 ${token('border.width', '1px')} ${token(
+          'color.border.focused',
+          B200,
+        )}`
       : undefined,
   },
   '@media screen and (-ms-high-contrast: active)': {
@@ -162,12 +144,11 @@ const getMaxWidth = (width: string | number | undefined): number | string =>
 
 export const containerStyles = (
   appearance: Appearance,
-  mode: ThemeModes,
   width?: string | number,
 ) =>
   ({
     alignItems: 'center',
-    ...getContainerTextBgAndBorderColor(appearance, mode),
+    ...getContainerTextBgAndBorderColor(appearance),
     borderRadius: 3,
     borderWidth: getBooleanFF(
       'platform.design-system-team.border-checkbox_nyoiu',
@@ -193,7 +174,7 @@ export const containerStyles = (
     pointerEvents: 'auto',
   } as const);
 
-export const inputStyles = (mode: ThemeModes) =>
+export const inputStyles = () =>
   ({
     backgroundColor: 'transparent',
     border: 0,
@@ -221,7 +202,7 @@ export const inputStyles = (mode: ThemeModes) =>
       // Safari (WebKit) adds a -webkit-text-fill-color style to disabled inputs
       // which takes priority over color and makes the text unreadable. Need to
       // override it with the color we want.
-      WebkitTextFillColor: disabledRules[mode].textColor,
+      WebkitTextFillColor: token('color.text.disabled', N70),
     },
     // Hide the clear indicator on Edge (Windows only)
     '&::-ms-clear': {
@@ -234,9 +215,9 @@ export const inputStyles = (mode: ThemeModes) =>
       textOverflow: 'ellipsis',
     },
     '&::placeholder': {
-      color: componentTokens.placeholderTextColor[mode],
+      color: token('color.text.subtlest', N200),
       '&:disabled': {
-        color: disabledRules[mode].textColor,
+        color: token('color.text.disabled', N70),
       },
     },
     '@media screen and (-ms-high-contrast: active)': {
@@ -245,17 +226,3 @@ export const inputStyles = (mode: ThemeModes) =>
       },
     },
   } as const);
-
-// TODO: Remove when removing legacy theming.
-export const textFieldColors = {
-  backgroundColor,
-  backgroundColorFocus,
-  backgroundColorHover,
-  borderColor,
-  borderColorFocus,
-  borderColorHover,
-  placeholderTextColor: componentTokens.placeholderTextColor,
-  textColor: componentTokens.textColor,
-  invalidRules,
-  disabledRules,
-};

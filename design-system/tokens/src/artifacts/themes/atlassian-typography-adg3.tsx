@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::96cc62c830718e9d864db23c2575005d>>
+ * @codegen <<SignedSource::3440d4cd41486b7e2bc04c1fab9ebdfe>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -8,7 +8,7 @@ html[data-theme~="typography:typography-adg3"] {
   --ds-UNSAFE-textTransformUppercase: uppercase;
   --ds-font-body: normal 400 0.875rem/1.25rem var(--ds-font-family-body);
   --ds-font-body-large: normal 400 1rem/1.5rem var(--ds-font-family-body);
-  --ds-font-body-small: normal 400 0.6875rem/1.25rem var(--ds-font-family-body);
+  --ds-font-body-small: normal 400 0.6875rem/1rem var(--ds-font-family-body);
   --ds-font-code: normal 400 0.875em/1 var(--ds-font-family-code);
   --ds-font-heading-large: normal 500 1.5rem/1.75rem var(--ds-font-family-heading);
   --ds-font-heading-medium: normal 500 1.25rem/1.5rem var(--ds-font-family-heading);

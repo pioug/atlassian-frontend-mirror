@@ -34,5 +34,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__email-renderer/app"
   },
-  "references": []
+  "references": [],
+  "files": []
 }

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.36
+
+### Patch Changes
+
+- [#42221](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42221) [`1f49a73a590`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f49a73a590) - [ux] [ECA11Y-110] Selecting table columns, rows, whole table via shortcuts
+
 ## 5.3.35
 
 ### Patch Changes

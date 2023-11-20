@@ -3,8 +3,6 @@ import { memo, useCallback, useMemo } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { useGlobalTheme } from '@atlaskit/theme/components';
-
 import { useHighlightLines } from './internal/hooks/use-highlight';
 import { getCodeBlockStyles, getCodeBlockTheme } from './internal/theme/styles';
 import type { CodeBlockProps } from './internal/types';
@@ -34,11 +32,7 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
   shouldWrapLongLines = false,
 }) {
   const numLines = (text || '').split('\n').length;
-  const globalTheme = useGlobalTheme();
-  const theme = useMemo(
-    () => getCodeBlockTheme(globalTheme, numLines),
-    [globalTheme, numLines],
-  );
+  const theme = useMemo(() => getCodeBlockTheme(numLines), [numLines]);
 
   const getStyles = useMemo(() => getCodeBlockStyles(theme), [theme]);
   const styles = useMemo(

@@ -41,5 +41,6 @@
     {
       "path": "../notification-log-client/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

@@ -1,13 +1,24 @@
-import { type Appearance } from '../new-button/variants/types';
+import {
+  type ButtonAppearance,
+  type LinkButtonAppearance,
+} from '../new-button/variants/types';
 
-const appearances: Appearance[] = [
+const buttonAppearances: ButtonAppearance[] = [
   'default',
   'primary',
-  'link',
   'subtle',
-  'subtle-link',
   'warning',
   'danger',
 ];
 
-export default appearances;
+const linkButtonAppearances: LinkButtonAppearance[] = [
+  'default',
+  'primary',
+  'subtle',
+  'warning',
+  'danger',
+  'link',
+  'subtle-link',
+];
+
+export { buttonAppearances, linkButtonAppearances };

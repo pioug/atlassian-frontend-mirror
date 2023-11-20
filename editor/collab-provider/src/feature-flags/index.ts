@@ -8,6 +8,7 @@ import type {
 const defaultNCSFeatureFlags: Required<NCSFeatureFlags> = {
   testFF: false,
   socketMessageMetricsFF: false,
+  sendStepsQueueFF: false,
 };
 
 /**
@@ -18,6 +19,7 @@ const productKeys: ProductKeys = {
     testFF: 'confluence.frontend.collab.provider.testFF',
     socketMessageMetricsFF:
       'confluence.frontend.collab.provider.socketMessageMetricsFF',
+    sendStepsQueueFF: 'confluence.frontend.collab.provider.sendStepsQueueFF',
   },
 };
 

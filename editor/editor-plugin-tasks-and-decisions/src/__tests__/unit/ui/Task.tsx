@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { act } from 'react-dom/test-utils';
+
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
@@ -48,7 +50,9 @@ describe('tasks and decisions task', () => {
       <Task taskId="abcd-abcd-abcd" isDone providers={providerFactory} />,
     );
 
-    await contextIdentifierProvider;
+    await act(async () => {
+      await contextIdentifierProvider;
+    });
     const checkbox = getByRole('checkbox') as HTMLInputElement;
 
     await checkbox.click();
@@ -77,7 +81,9 @@ describe('tasks and decisions task', () => {
       />,
     );
 
-    await contextIdentifierProvider;
+    await act(async () => {
+      await contextIdentifierProvider;
+    });
     const checkbox = getByRole('checkbox') as HTMLInputElement;
 
     await checkbox.click();
@@ -99,7 +105,9 @@ describe('tasks and decisions task', () => {
       <Task taskId="abcd-abcd-abcd" isDone providers={providerFactory} />,
     );
 
-    await contextIdentifierProvider;
+    await act(async () => {
+      await contextIdentifierProvider;
+    });
     const checkbox = getByRole('checkbox');
 
     await checkbox.click();

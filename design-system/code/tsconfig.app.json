@@ -44,5 +44,6 @@
     {
       "path": "../visually-hidden/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

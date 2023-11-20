@@ -1,4 +1,5 @@
 jest.useFakeTimers();
+
 import React from 'react';
 import { mount } from 'enzyme';
 import type { DocNode } from '@atlaskit/adf-schema';
@@ -17,7 +18,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import * as FetchProxyUtils from '../../../utils/fetch-proxy';
 import { nativeBridgeAPI } from '../../web-to-native/implementation';
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 import { DocumentReflowDetector } from '../../../document-reflow-detector';
 import { eventDispatcher, EmitterEvents } from '../../dispatcher';
 import RendererBridgeImplementation from '../../../renderer/native-to-web/implementation';
@@ -67,6 +68,7 @@ let container: HTMLElement;
 let enableReflowMock = jest.fn();
 let disableReflowMock = jest.fn();
 let rendererBridge = new RendererBridgeImplementation();
+
 beforeEach(() => {
   container = document.createElement('div');
   document.body.appendChild(container);
@@ -247,43 +249,43 @@ describe('renderer bridge', () => {
 describe('Mobile Renderer', () => {
   it('should pass locale to Mobile Renderer', () => {
     const result = mount(<App document={initialDocument} />);
-
     expect(result.find(MobileRendererWrapper).prop('locale')).toBe('fr');
+    result.unmount();
   });
 
   it('should pass allowAnnotations to Mobile Renderer', () => {
     const result = mount(<App document={initialDocument} />);
-
     expect(result.find(MobileRendererWrapper).prop('allowAnnotations')).toBe(
       false,
     );
+    result.unmount();
   });
-
   it('should pass disableActions to Mobile Renderer', () => {
     const result = mount(<App document={initialDocument} />);
-
     expect(result.find(MobileRendererWrapper).prop('disableActions')).toBe(
       false,
     );
+    result.unmount();
   });
-
   it('should pass disableMediaLinking to Mobile Renderer', () => {
     const result = mount(<App document={initialDocument} />);
     expect(result.find(MobileRendererWrapper).prop('disableMediaLinking')).toBe(
       false,
     );
+    result.unmount();
   });
-
   it('should pass disableMediaLinking to Mobile Renderer', () => {
     const result = mount(<App document={initialDocument} />);
     expect(
       result.find(MobileRendererWrapper).prop('allowHeadingAnchorLinks'),
     ).toBe(false);
+    result.unmount();
   });
   it('should pass allowCustomPanels to Mobile Renderer', () => {
     const result = mount(<App document={initialDocument} />);
     expect(result.find(MobileRendererWrapper).prop('allowCustomPanels')).toBe(
       false,
     );
+    result.unmount();
   });
 });

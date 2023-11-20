@@ -31,5 +31,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__outbound-auth-flow-client/app"
   },
-  "references": []
+  "references": [],
+  "files": []
 }

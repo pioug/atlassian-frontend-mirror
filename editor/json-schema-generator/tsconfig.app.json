@@ -33,5 +33,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__json-schema-generator/app"
   },
-  "references": []
+  "references": [],
+  "files": []
 }

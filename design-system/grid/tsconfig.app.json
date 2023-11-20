@@ -35,5 +35,6 @@
     {
       "path": "../primitives/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

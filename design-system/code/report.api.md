@@ -22,7 +22,6 @@ import type { HTMLProps } from 'react';
 import { NamedExoticComponent } from 'react';
 import { default as React_2 } from 'react';
 import type { ReactNode } from 'react';
-import type { Theme } from '@atlaskit/theme/types';
 
 // @public
 export const Code: React_2.MemoExoticComponent<
@@ -426,13 +425,7 @@ export interface CodeProps extends HTMLProps<HTMLElement> {
 }
 
 // @public (undocumented)
-export const getCodeStyles: (
-  globalTheme:
-    | Theme
-    | {
-        theme: Theme;
-      },
-) => CSSObject;
+export const getCodeStyles: () => CSSObject;
 
 // @public (undocumented)
 export type Language = (typeof SUPPORTED_LANGUAGES)[number];

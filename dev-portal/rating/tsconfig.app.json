@@ -50,5 +50,6 @@
     {
       "path": "../../design-system/visually-hidden/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

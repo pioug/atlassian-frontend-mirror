@@ -6,7 +6,7 @@ import type { InteractionContextType } from '@atlaskit/interaction-context';
 // eslint-disable-next-line no-duplicate-imports
 import InteractionContext from '@atlaskit/interaction-context';
 
-import { variants } from '../../../utils/variants';
+import variants from '../../../utils/variants';
 
 const mockTraceInteraction = jest.fn();
 const mockHold = jest.fn();

@@ -9,6 +9,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 import Loadable from 'react-loadable';
+import { act } from 'react-dom/test-utils';
 
 describe('Renderer - React/Nodes/InlineExtension', () => {
   const providerFactory = ProviderFactory.create({});
@@ -179,7 +180,9 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
         />,
       );
 
-      await Loadable.preloadAll();
+      await act(async () => {
+        await Loadable.preloadAll();
+      });
 
       extension.update();
 
@@ -233,7 +236,9 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
         />,
       );
 
-      await Loadable.preloadAll();
+      await act(async () => {
+        await Loadable.preloadAll();
+      });
 
       extension.update();
 

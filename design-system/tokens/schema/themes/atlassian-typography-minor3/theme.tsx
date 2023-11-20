@@ -140,7 +140,7 @@ const typography: ValueSchema<
         value: {
           fontWeight: 'FontWeight400',
           fontSize: 'FontSize12',
-          lineHeight: 'LineHeight200',
+          lineHeight: 'LineHeight100',
           fontFamily: 'font.family.body',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',

@@ -3,7 +3,6 @@ import { type ReactNode } from 'react';
 
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import { fontSize as getFontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { SplitButtonContext } from './split-button-context';
@@ -14,16 +13,14 @@ import type {
 } from './types';
 import { getActions } from './utils';
 
-const fontSize: number = getFontSize();
-
-const defaultDividerHeight = 20 / fontSize + 'em';
+const defaultDividerHeight = '16px';
 
 const defaultDividerStyles = css({
   height: defaultDividerHeight,
   margin: `${token('space.075', '6px')} -0.5px`,
 });
 
-const compactDividerHeight = 16 / fontSize + 'em';
+const compactDividerHeight = '12px';
 
 const compactDividerStyles = css({
   height: compactDividerHeight,
@@ -37,28 +34,37 @@ const baseDividerStyles = css({
   zIndex: 2,
 });
 
-const disabledStyles = css({
-  backgroundColor: token('color.border', '#091E4224'),
+const dividerDisabledStyles = css({
+  backgroundColor: token('color.text.disabled', '#091E4224'),
   cursor: 'not-allowed',
 });
 
 const navigationDividerStyles = css({
   height: compactDividerHeight,
   margin: `${token('space.100', '8px')} -0.5px`,
-  backgroundColor: token('color.border', '#0052cc'),
+  backgroundColor: token('color.text.subtle', '#0052cc'),
+  opacity: 0.62,
 });
 
 const dividerAppearance: Record<
   SplitButtonContextAppearance,
   SerializedStyles
 > = {
-  default: css({ backgroundColor: token('color.text', '#172B4D') }),
-  primary: css({ backgroundColor: token('color.text.inverse', '#FFF') }),
+  default: css({
+    backgroundColor: token('color.text', '#172B4D'),
+    opacity: 0.51,
+  }),
+  primary: css({
+    backgroundColor: token('color.text.inverse', '#FFF'),
+    opacity: 0.64,
+  }),
   danger: css({
     backgroundColor: token('color.text.inverse', '#FFF'),
+    opacity: 0.66,
   }),
   warning: css({
     backgroundColor: token('color.text.warning.inverse', '#172B4D'),
+    opacity: 0.52,
   }),
   navigation: navigationDividerStyles,
 };
@@ -89,7 +95,7 @@ export const Divider = ({
         baseDividerStyles,
         dividerAppearance[appearance],
         dividerHeight[spacing],
-        isDisabled ? disabledStyles : undefined,
+        isDisabled ? dividerDisabledStyles : undefined,
       ]}
     />
   );
@@ -98,6 +104,7 @@ export const Divider = ({
 const splitButtonStyles = css({
   display: 'inline-flex',
   position: 'relative',
+  alignItems: 'center',
   whiteSpace: 'nowrap',
 });
 

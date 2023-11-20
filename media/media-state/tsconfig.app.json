@@ -35,5 +35,6 @@
     {
       "path": "../media-common/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

@@ -35,5 +35,6 @@
     {
       "path": "../jql-parser/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

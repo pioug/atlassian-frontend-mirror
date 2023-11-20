@@ -34,6 +34,7 @@ import { setEditingContextToContextPanel } from '../../plugins/extension/command
 import { getContextPanel } from '../../plugins/extension/context-panel';
 import { EditorActions, EditorContext } from '../..';
 import type { PublicProps } from '../../ui/ConfigPanel/ConfigPanelFieldsLoader';
+import { act } from 'react-dom/test-utils';
 
 const defaultTransformBefore: TransformBefore = (parameters) =>
   parameters && parameters.macroParams;
@@ -145,6 +146,7 @@ export const setupConfigPanel = async (
   const emitMock = jest.spyOn(eventDispatcher, 'emit');
 
   editorActions._privateRegisterEditor(editorView, eventDispatcher);
+
   const wrapper = mount(
     <IntlProvider locale="en">
       <EditorContext editorActions={editorActions}>
@@ -153,7 +155,9 @@ export const setupConfigPanel = async (
     </IntlProvider>,
   );
 
-  await flushPromises();
+  await act(async () => {
+    await flushPromises();
+  });
 
   wrapper.update();
 

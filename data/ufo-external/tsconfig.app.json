@@ -31,5 +31,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__ufo/app"
   },
-  "references": []
+  "references": [],
+  "files": []
 }

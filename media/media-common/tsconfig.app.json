@@ -43,5 +43,6 @@
     {
       "path": "../../design-system/section-message/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

@@ -31,5 +31,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__atlassian-notifications/app"
   },
-  "references": []
+  "references": [],
+  "files": []
 }

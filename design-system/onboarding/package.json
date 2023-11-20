@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/button": "^16.16.0",
+    "@atlaskit/button": "^16.17.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/heading": "^1.4.0",
     "@atlaskit/modal-dialog": "^12.8.0",

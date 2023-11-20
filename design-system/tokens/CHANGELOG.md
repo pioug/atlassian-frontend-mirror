@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.28.2
+
+### Patch Changes
+
+- [#43455](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43455) [`16586bd07a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16586bd07a0) - Updated `font.body.small` line height to 16px (1rem).
+
 ## 1.28.1
 
 ### Patch Changes

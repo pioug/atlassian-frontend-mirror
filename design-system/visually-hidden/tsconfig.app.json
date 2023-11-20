@@ -31,5 +31,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__visually-hidden/app"
   },
-  "references": []
+  "references": [],
+  "files": []
 }

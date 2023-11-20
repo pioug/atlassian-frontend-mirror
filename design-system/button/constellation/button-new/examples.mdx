@@ -59,31 +59,31 @@ The `danger` button appears as a final confirmation for a destructive action suc
 
 <Example Component={ButtonDanger} packageName="@atlaskit/button" />
 
-### Link
-
-<SectionMessage title="Caution" appearance="warning">
+<br />
+<SectionMessage title="Differs to legacy button" appearance="information">
   <p>
-    This appearance has been carried over from the legacy button, but may be
-    removed in the future and only supported on{' '}
-    <a href="#link-button">Link Buttons</a>. Please use with caution.
+    The following appearances are only supported on new{' '}
+    <a href="#link-button">Link Buttons</a>, however on the legacy button they
+    were available when using buttons as links such as:{' '}
+    <inlineCode>&lt;Button href="/home" appearance="link"&gt;</inlineCode>.
+  </p>
+  <br />
+  <p>
+    It's not necessary for <inlineCode>&lt;button&gt;</inlineCode> elements to
+    appear as text links. If your button is being used as a link in combination
+    with these appearances, reconsider your approach.
   </p>
 </SectionMessage>
 
-Use a `link` appearance for buttons that should look similar to inline text links. This is only recommended for usage with <a href="#link-button">Link Buttons</a>. Avoid using for regular Buttons that are not links.
+### Link
+
+Use a `link` appearance on buttons that should appear similar to inline text links. This is only supported for <a href="#link-button">Link Buttons</a>.
 
 <Example Component={ButtonLink} packageName="@atlaskit/button" />
 
 ### Subtle link
 
-<SectionMessage title="Caution" appearance="warning">
-  <p>
-    This appearance has been carried over from the legacy button, but may be
-    removed in the future and only supported on{' '}
-    <a href="#link-button">Link Buttons</a>. Please use with caution.
-  </p>
-</SectionMessage>
-
-Similar to a `subtle` button, but behaves like a `link` appearance button. Use a `subtle-link` button to avoid overwhelming the page with blue links.
+Similar to a `subtle` button, but behaves like a `link` appearance button. Use a `subtle-link` button to avoid overwhelming the page with blue links. This is only supported for <a href="#link-button">Link Buttons</a>.
 
 <Example Component={ButtonSubtleLink} packageName="@atlaskit/button" />
 

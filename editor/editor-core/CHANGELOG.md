@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 189.3.33
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.3.32
+
+### Patch Changes
+
+- [#42569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42569) [`df6d526f3c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df6d526f3c8) - Removed all remaining legacy theming logic from the TextField component.
+- Updated dependencies
+
 ## 189.3.31
 
 ### Patch Changes

@@ -72,5 +72,6 @@
     {
       "path": "../../data/ufo-external/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

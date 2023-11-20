@@ -2,8 +2,9 @@ import React from 'react';
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
-
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { act } from 'react-dom/test-utils';
+
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { RefsNode } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -119,7 +120,9 @@ describe('ExtensionsPlaceholder', () => {
         action,
         testContext,
       );
-      await flushPromises();
+      await act(async () => {
+        await flushPromises();
+      });
       wrapper.update();
 
       Object.keys(testItemSelectors).forEach(key => {
@@ -157,7 +160,9 @@ describe('ExtensionsPlaceholder', () => {
         action,
         testContext,
       );
-      await flushPromises();
+      await act(async () => {
+        await flushPromises();
+      });
       wrapper1.update();
       wrapper2.update();
       expect(wrapper1?.find(testItemSelectors.button).length).toBe(1);
@@ -175,7 +180,9 @@ describe('ExtensionsPlaceholder', () => {
       editorAPI,
     );
 
-    await flushPromises();
+    await act(async () => {
+      await flushPromises();
+    });
     wrapper.update();
 
     const buttonSelector = `button[aria-label="${testItemProps.tooltip}"]`;

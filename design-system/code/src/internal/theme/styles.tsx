@@ -1,7 +1,6 @@
 import type { CSSObject } from '@emotion/react';
 
-import { borderRadius } from '@atlaskit/theme/constants';
-import type { Theme } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 import {
   CODE_FONT_SIZE,
@@ -206,7 +205,7 @@ export const getBaseCodeStyles = (theme: CodeTheme) => ({
   backgroundColor: `var(${VAR_CODE_BG_COLOR},${theme.backgroundColor})`,
   color: theme.textColor,
   borderStyle: 'none',
-  borderRadius: `${borderRadius()}px`,
+  borderRadius: token('border.radius', '3px'),
 });
 
 /**
@@ -314,12 +313,8 @@ export const getCodeBlockStyles =
       },
   });
 
-export const getCodeStyles = (
-  globalTheme: Theme | { theme: Theme },
-): CSSObject => {
-  // Required to have proper compatibility with styled components interpolations
-  const akTheme = 'theme' in globalTheme ? globalTheme.theme : globalTheme;
-  const theme = getBaseTheme(akTheme);
+export const getCodeStyles = (): CSSObject => {
+  const theme = getBaseTheme();
   const baseStyles = getBaseCodeStyles(theme);
   return {
     ...baseStyles,
@@ -333,13 +328,10 @@ export const getCodeStyles = (
   };
 };
 
-export const getCodeBlockTheme = (
-  globalTheme: Theme,
-  maxLines?: number,
-): CodeBlockTheme => {
+export const getCodeBlockTheme = (maxLines?: number): CodeBlockTheme => {
   return {
-    ...getBaseTheme(globalTheme),
-    ...getColorPalette(globalTheme),
+    ...getBaseTheme(),
+    ...getColorPalette(),
     lineNumberWidth: maxLines ? getLineNumWidth(maxLines) : undefined,
   };
 };

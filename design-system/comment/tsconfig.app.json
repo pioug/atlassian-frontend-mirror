@@ -56,5 +56,6 @@
     {
       "path": "../tokens/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

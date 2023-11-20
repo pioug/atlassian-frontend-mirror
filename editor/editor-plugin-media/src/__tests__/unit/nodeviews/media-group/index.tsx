@@ -1,6 +1,9 @@
 // NOTE: for the purposes of this test we are mocking MediaNodeUpdater using __mocks__ version
 import React from 'react';
 
+import { screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -12,6 +15,8 @@ import { media, mediaGroup } from '@atlaskit/editor-test-helpers/doc-builder';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 import MediaGroup from '../../../../nodeviews/mediaGroup';
 import { MediaNodeUpdater } from '../../../../nodeviews/mediaNodeUpdater';
@@ -60,6 +65,10 @@ describe('nodeviews/mediaGroup', () => {
     pluginState.mediaClientConfig = (await mediaProvider).viewMediaClientConfig;
     jest.spyOn(mediaStateKey, 'getState').mockImplementation(() => pluginState);
     MockMediaNodeUpdater.mockReset(); // part of mocked class API, not original
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
   const setup = async ({
@@ -115,13 +124,27 @@ describe('nodeviews/mediaGroup', () => {
     const wrapper = mountWithIntl(<MediaGroup {...props} />);
 
     expect(wrapper.length).toEqual(1);
+    wrapper.unmount();
   });
 
   it('should get the position on component click', async () => {
-    const { wrapper, getPos } = await setup({});
-    const calledTimes = getPos.mock.calls.length;
-    wrapper.find('CardBase').prop('onClick')!({} as any);
-    expect(getPos).toHaveBeenCalledTimes(calledTimes + 1);
+    const getPosMock = jest.fn().mockReturnValue(1);
+    renderWithIntl(
+      <MediaGroup
+        view={view}
+        node={mediaGroup(mediaNode)(defaultSchema)}
+        getPos={getPosMock}
+        mediaProvider={mediaProvider}
+        headPos={1}
+        anchorPos={1}
+        mediaOptions={{}}
+      />,
+    );
+    const card = await waitFor(() => screen.getByTestId('media-card-view'));
+
+    expect(getPosMock).toHaveBeenCalledTimes(7);
+    await userEvent.click(card);
+    await waitFor(() => expect(getPosMock).toHaveBeenCalledTimes(8));
   });
 
   describe('Selection range with multiple cards', () => {
@@ -210,9 +233,5 @@ describe('nodeviews/mediaGroup', () => {
       expect(instances[1].updateNodeAttrs).toHaveBeenCalled();
       expect(instances).toHaveLength(2);
     });
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
   });
 });

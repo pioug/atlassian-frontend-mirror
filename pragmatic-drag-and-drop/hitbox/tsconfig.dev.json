@@ -38,5 +38,6 @@
     {
       "path": "../core/tsconfig.app.json"
     }
-  ]
+  ],
+  "files": []
 }

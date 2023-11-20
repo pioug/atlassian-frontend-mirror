@@ -39,7 +39,11 @@ export default function SpacingExample() {
                     </Component>
                   </td>
                   <td>
-                    <Component spacing={s} appearance="link">
+                    <Component
+                      spacing={s}
+                      // @ts-ignore
+                      appearance="link"
+                    >
                       Link
                     </Component>
                   </td>

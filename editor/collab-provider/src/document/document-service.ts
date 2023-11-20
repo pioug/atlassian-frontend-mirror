@@ -102,6 +102,7 @@ export class DocumentService {
     private onErrorHandled: (error: InternalError) => void,
     private metadataService: MetadataService,
     private enableErrorOnFailedDocumentApply: boolean = false,
+    private enableSendStepsQueue: boolean = false,
   ) {
     this.stepQueue = new StepQueueState();
   }
@@ -746,19 +747,44 @@ export class DocumentService {
       return;
     }
 
-    // Avoid reference issues using a
-    // method outside of the provider
-    // scope
-    throttledCommitStep({
-      broadcast: this.broadcast,
-      userId: this.getUserId()!,
-      clientId: this.clientId!,
-      steps: unconfirmedSteps,
-      version,
-      onStepsAdded: this.onStepsAdded,
-      onErrorHandled: this.onErrorHandled,
-      analyticsHelper: this.analyticsHelper,
-      emit: this.providerEmitCallback,
-    });
+    if (this.enableSendStepsQueue) {
+      // This is where we would call the sendStepsQueue instead of throttledCommitStep
+      // Only send 1% of events to avoid useless logging
+      if (Math.random() < 0.01) {
+        this.analyticsHelper?.sendActionEvent(
+          EVENT_ACTION.SEND_STEPS_QUEUE,
+          EVENT_STATUS.INFO,
+        );
+      }
+      // Avoid reference issues using a
+      // method outside of the provider
+      // scope
+      throttledCommitStep({
+        broadcast: this.broadcast,
+        userId: this.getUserId()!,
+        clientId: this.clientId!,
+        steps: unconfirmedSteps,
+        version,
+        onStepsAdded: this.onStepsAdded,
+        onErrorHandled: this.onErrorHandled,
+        analyticsHelper: this.analyticsHelper,
+        emit: this.providerEmitCallback,
+      });
+    } else {
+      // Avoid reference issues using a
+      // method outside of the provider
+      // scope
+      throttledCommitStep({
+        broadcast: this.broadcast,
+        userId: this.getUserId()!,
+        clientId: this.clientId!,
+        steps: unconfirmedSteps,
+        version,
+        onStepsAdded: this.onStepsAdded,
+        onErrorHandled: this.onErrorHandled,
+        analyticsHelper: this.analyticsHelper,
+        emit: this.providerEmitCallback,
+      });
+    }
   }
 }

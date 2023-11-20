@@ -2,7 +2,14 @@ import React from 'react';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-export type Appearance =
+export type ButtonAppearance =
+  | 'default'
+  | 'danger'
+  | 'primary'
+  | 'subtle'
+  | 'warning';
+
+export type LinkButtonAppearance =
   | 'default'
   | 'danger'
   | 'link'
@@ -10,6 +17,8 @@ export type Appearance =
   | 'subtle'
   | 'subtle-link'
   | 'warning';
+
+export type Appearance = ButtonAppearance | LinkButtonAppearance;
 
 export type Spacing = 'compact' | 'default' | 'none';
 
@@ -22,10 +31,6 @@ export type Spacing = 'compact' | 'default' | 'none';
 type Combine<First, Second> = Omit<First, keyof Second> & Second;
 
 export type CommonButtonProps<TagName extends HTMLElement> = {
-  /**
-   * The button style variation
-   */
-  appearance?: Appearance;
   /**
    * Set the button to autofocus on mount
    */
@@ -108,7 +113,12 @@ export type AdditionalHTMLElementPropsExtender<
 /**
  * Common additional props for button `<button>` variants
  */
-export type AdditionalButtonVariantProps = {};
+export type AdditionalButtonVariantProps = {
+  /**
+   * The button style variation
+   */
+  appearance?: ButtonAppearance;
+};
 
 /**
  * Combines common button props with additional HTML attributes.
@@ -135,6 +145,10 @@ export type CommonButtonVariantProps = AdditionalButtonVariantProps &
 export type AdditionalLinkVariantProps<
   RouterLinkConfig extends Record<string, any> = never,
 > = {
+  /**
+   * The button style variation
+   */
+  appearance?: LinkButtonAppearance;
   /**
    * Provides a URL for link buttons. When using an AppProvider with a configured router link component, a `RouterLinkConfig` object type can be provided for advanced usage. See the [Link Button routing example](https://atlassian.design/components/button/button-new/examples#routing) for more details.
    */

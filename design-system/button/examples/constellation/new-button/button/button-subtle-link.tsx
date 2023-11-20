@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { UNSAFE_BUTTON } from '../../../../src';
+import { UNSAFE_LINK_BUTTON } from '../../../../src';
 
-const ButtonSubtleLinkExample = () => {
+const ButtonLinkExample = () => {
   return (
-    <UNSAFE_BUTTON appearance="subtle-link">Subtle link button</UNSAFE_BUTTON>
+    <UNSAFE_LINK_BUTTON appearance="subtle-link" href="/">
+      Subtle link appearance button
+    </UNSAFE_LINK_BUTTON>
   );
 };
 
-export default ButtonSubtleLinkExample;
+export default ButtonLinkExample;

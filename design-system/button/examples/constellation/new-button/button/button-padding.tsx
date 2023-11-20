@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { ButtonGroup, UNSAFE_BUTTON } from '../../../../src';
+import {
+  ButtonGroup,
+  UNSAFE_BUTTON,
+  UNSAFE_LINK_BUTTON,
+} from '../../../../src';
 
 const ButtonPaddingExample = () => {
   return (
@@ -9,9 +13,9 @@ const ButtonPaddingExample = () => {
       <UNSAFE_BUTTON appearance="primary" spacing="compact">
         Compact
       </UNSAFE_BUTTON>
-      <UNSAFE_BUTTON spacing="none" appearance="subtle-link">
+      <UNSAFE_LINK_BUTTON href="/" spacing="none" appearance="subtle-link">
         None
-      </UNSAFE_BUTTON>
+      </UNSAFE_LINK_BUTTON>
     </ButtonGroup>
   );
 };

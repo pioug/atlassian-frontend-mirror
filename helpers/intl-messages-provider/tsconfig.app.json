@@ -31,5 +31,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__intl-messages-provider/app"
   },
-  "references": []
+  "references": [],
+  "files": []
 }

@@ -32,5 +32,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__in-product-testing/app"
   },
-  "references": []
+  "references": [],
+  "files": []
 }

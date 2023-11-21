@@ -10,8 +10,8 @@ export const loadingErrorMessages = defineMessages({
   accessRequired: {
     id: 'linkDataSource.jira-issues.accessRequired',
     description:
-      'Message letting user know that they do not have access to this site',
-    defaultMessage: "You don't have access to this site",
+      'Message letting user know that they do not have access to this content',
+    defaultMessage: "You don't have access to this content",
   },
   accessRequiredWithSite: {
     id: 'linkDataSource.jira-issues.accessRequiredWithSite',

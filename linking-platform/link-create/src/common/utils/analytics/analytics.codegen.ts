@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::af0139619517f37a8bca32ddb6b7d6e0>>
+ * @codegen <<SignedSource::be704bbbca0e49c927d1268b9a0f1d6a>>
  * @codegenCommand yarn workspace @atlaskit/link-create run codegen-analytics
  */
 export type PackageMetaDataType = {
@@ -18,11 +18,14 @@ export type LinkCreateAnalyticsContextType = {
   appearance: 'modal' | 'popup';
 };
 export type LinkCreateScreenViewedAttributesType = {};
+export type LinkCreateEditScreenViewedAttributesType = {};
 export type LinkCreateExitWarningScreenViewedAttributesType = {};
 export type ButtonClickedCreateAttributesType = {};
+export type ButtonClickedEditAttributesType = {};
 export type ButtonClickedCancelAttributesType = {};
 export type ButtonClickedConfirmAttributesType = {};
 export type ModalDialogClosedLinkCreateAttributesType = {};
+export type ModalDialogOpenedLinkCreateAttributesType = {};
 export type LinkCreateUnhandledErrorCaughtAttributesType = {
   browserInfo: string;
   error: string;
@@ -37,11 +40,14 @@ export type ObjectCreateFailedLinkCreateAttributesType = {
 };
 export type AnalyticsEventAttributes = {
   'screen.linkCreateScreen.viewed': LinkCreateScreenViewedAttributesType;
+  'screen.linkCreateEditScreen.viewed': LinkCreateEditScreenViewedAttributesType;
   'screen.linkCreateExitWarningScreen.viewed': LinkCreateExitWarningScreenViewedAttributesType;
   'ui.button.clicked.create': ButtonClickedCreateAttributesType;
+  'ui.button.clicked.edit': ButtonClickedEditAttributesType;
   'ui.button.clicked.cancel': ButtonClickedCancelAttributesType;
   'ui.button.clicked.confirm': ButtonClickedConfirmAttributesType;
   'ui.modalDialog.closed.linkCreate': ModalDialogClosedLinkCreateAttributesType;
+  'ui.modalDialog.opened.linkCreate': ModalDialogOpenedLinkCreateAttributesType;
   'operational.linkCreate.unhandledErrorCaught': LinkCreateUnhandledErrorCaughtAttributesType;
   'track.object.created.linkCreate': ObjectCreatedLinkCreateAttributesType;
   'track.object.createFailed.linkCreate': ObjectCreateFailedLinkCreateAttributesType;

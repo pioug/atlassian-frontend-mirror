@@ -88,7 +88,7 @@ const expectedEditedAssetsDatasourceBlockCard = datasourceBlockCard(
     id: '361d618a-3c04-40ad-9b27-3c8ea6927020',
     parameters: {
       workspaceId: '123',
-      schemaId: '1',
+      schemaId: '2',
       aql: 'Name LIKE A',
     },
   }),
@@ -185,16 +185,9 @@ test.describe('blockCard:datasource', () => {
     );
   });
 
-  // skipped on due to pipeline, DTR-1949
   test('should insert datasource from the /assets command', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'DTR-1949',
-      reason:
-        'FIXME: This test was skipped due to pipeline failure on 06/07/2023: https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-1949',
-    });
-
     const nodes = EditorNodeContainerModel.from(editor);
     const blockCardModel = EditorBlockCardModel.from(nodes.blockCard);
 

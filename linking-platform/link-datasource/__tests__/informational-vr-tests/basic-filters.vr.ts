@@ -85,6 +85,7 @@ snapshotInformational(WithModal, {
     await selectOption(page, 'status');
     await selectOption(page, 'issuetype');
     await selectOption(page, 'assignee');
+    await page.pause();
   },
   description: 'basic mode with basic filters with each filter selected',
   featureFlags: {
@@ -110,7 +111,7 @@ filters.forEach(filter => {
   snapshotInformational(BasicFiltersVR, {
     ...options,
 
-    prepare: async (page: Page, component: Locator) => {
+    prepare: async (page: Page, _component: Locator) => {
       await selectOption(page, filter, 1, false);
     },
     description: `${filter} open and option selected`,
@@ -119,7 +120,7 @@ filters.forEach(filter => {
   snapshotInformational(BasicFiltersVR, {
     ...options,
 
-    prepare: async (page: Page, component: Locator) => {
+    prepare: async (page: Page, _component: Locator) => {
       await selectOption(page, filter);
     },
     description: `${filter} closed and multiple options selected`,

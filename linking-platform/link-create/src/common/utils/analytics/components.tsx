@@ -8,7 +8,7 @@ import createEventPayload, {
   AnalyticsEventAttributes,
 } from './analytics.codegen';
 
-type ScreenViewedEventProps = {
+export type ScreenViewedEventProps = {
   screen: keyof {
     [Key in keyof AnalyticsEventAttributes as Key extends `screen.${infer ScreenName}.viewed`
       ? ScreenName

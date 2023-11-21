@@ -548,45 +548,17 @@ describe('DatePicker', () => {
         const dateValue = new Date('06/08/2018').toISOString();
         const onChangeSpy = jest.fn();
         const testId = 'clear--test';
+        const clearButtonTestId = `${testId}--clear--btn`;
+
         render(
           <DatePicker
             value={dateValue}
             onChange={onChangeSpy}
+            selectProps={{ testId: testId }}
             testId={testId}
           />,
         );
-        const clearButton = screen.getByLabelText('clear').parentElement;
-        if (!clearButton) {
-          throw new Error('Expected button to be non-null');
-        }
-
-        fireEvent.mouseOver(clearButton);
-        fireEvent.mouseMove(clearButton);
-        fireEvent.mouseDown(clearButton);
-
-        expect(onChangeSpy).toBeCalledWith('');
-        expect(screen.queryByTestId(`${testId}--popper--container`)).toBeNull();
-      },
-    );
-  });
-
-  describe('pressing the clear button while menu is open should clear the value and leave the menu open', () => {
-    ffTest(
-      'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
-      () => {
-        const dateValue = new Date('06/08/2018').toISOString();
-        const onChangeSpy = jest.fn();
-        const testId = 'clear--test';
-        render(
-          <DatePicker
-            value={dateValue}
-            onChange={onChangeSpy}
-            testId={testId}
-            defaultIsOpen
-          />,
-        );
-
-        const clearButton = screen.getByLabelText('clear').parentElement;
+        const clearButton = screen.getByTestId(clearButtonTestId);
         if (!clearButton) {
           throw new Error('Expected button to be non-null');
         }
@@ -598,7 +570,43 @@ describe('DatePicker', () => {
         expect(onChangeSpy).toBeCalledWith('');
         expect(
           screen.queryByTestId(`${testId}--popper--container`),
-        ).not.toBeNull();
+        ).not.toBeInTheDocument();
+      },
+    );
+  });
+
+  describe('pressing the clear button while menu is open should clear the value and leave the menu open', () => {
+    ffTest(
+      'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
+      () => {
+        const dateValue = new Date('06/08/2018').toISOString();
+        const onChangeSpy = jest.fn();
+        const testId = 'clear--test';
+        const clearBtnTestId = `${testId}--clear--btn`;
+
+        render(
+          <DatePicker
+            value={dateValue}
+            onChange={onChangeSpy}
+            testId={testId}
+            selectProps={{ testId: testId }}
+            defaultIsOpen
+          />,
+        );
+
+        const clearButton = screen.getByTestId(clearBtnTestId);
+        if (!clearButton) {
+          throw new Error('Expected button to be non-null');
+        }
+
+        fireEvent.mouseOver(clearButton);
+        fireEvent.mouseMove(clearButton);
+        fireEvent.mouseDown(clearButton);
+
+        expect(onChangeSpy).toBeCalledWith('');
+        expect(
+          screen.queryByTestId(`${testId}--popper--container`),
+        ).toBeInTheDocument();
       },
     );
   });

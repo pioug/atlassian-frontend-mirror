@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
+import { ModalTransition } from '@atlaskit/modal-dialog';
 
+import { Modal } from '../../../common/ui/ModalDialog';
 import { useEditPostCreateModal } from '../../../controllers/edit-post-create-context';
 import { useLinkCreatePlugins } from '../../../controllers/plugin-context';
 
@@ -10,6 +11,7 @@ type EditModalProps = {
   onCloseComplete?: React.ComponentProps<typeof Modal>['onCloseComplete'];
 };
 
+const SCREEN = 'linkCreateEditScreen';
 export const EditModal = ({ onClose, onCloseComplete }: EditModalProps) => {
   const { editViewPayload } = useEditPostCreateModal();
   const { activePlugin } = useLinkCreatePlugins();
@@ -17,16 +19,19 @@ export const EditModal = ({ onClose, onCloseComplete }: EditModalProps) => {
   return (
     <ModalTransition>
       {!!editViewPayload && (
-        <Modal
-          testId="link-create-edit-modal"
-          onClose={onClose}
-          shouldScrollInViewport={true}
-          width="calc(100vw - 120px)"
-          height="calc(100vh - 120px)"
-          onCloseComplete={onCloseComplete}
-        >
-          {activePlugin?.editView?.({ payload: editViewPayload, onClose })}
-        </Modal>
+        <>
+          <Modal
+            testId="link-create-edit-modal"
+            screen={SCREEN}
+            onClose={onClose}
+            shouldScrollInViewport={true}
+            width="calc(100vw - 120px)"
+            height="calc(100vh - 120px)"
+            onCloseComplete={onCloseComplete}
+          >
+            {activePlugin?.editView?.({ payload: editViewPayload, onClose })}
+          </Modal>
+        </>
       )}
     </ModalTransition>
   );

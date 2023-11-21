@@ -24,6 +24,7 @@ jest.mock('@atlaskit/editor-common/ui', () => ({
 }));
 
 import { fireEvent, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -521,6 +522,9 @@ describe('inlineCard', () => {
     });
 
     describe('isOverlayEnabled', () => {
+      const cardTestId = 'mockSmartCard';
+      const overlayTestId = 'inline-card-overlay';
+
       it('should not show overlay if value returned from useLinkUpgradeDiscoverability is false', () => {
         jest
           .spyOn(useLinkUpgradeDiscoverabilityHook, 'default')
@@ -532,66 +536,73 @@ describe('inlineCard', () => {
 
         const { getByTestId, queryByTestId } = setup();
 
-        const cardElement = getByTestId('mockSmartCard');
+        const cardElement = getByTestId(cardTestId);
         expect(cardElement).toBeInTheDocument();
 
         fireEvent.mouseEnter(cardElement);
-        expect(queryByTestId('inline-card-overlay')).toBeFalsy();
+        expect(queryByTestId(overlayTestId)).toBeFalsy();
       });
 
-      it('should not show overlay by default when useLinkUpgradeDiscoverability is true', () => {
-        jest
-          .spyOn(useLinkUpgradeDiscoverabilityHook, 'default')
-          .mockReturnValue({
-            shouldShowLinkPulse: true,
-            shouldShowLinkOverlay: true,
-            shouldShowToolbarPulse: true,
-          });
+      describe('when useLinkUpgradeDiscoverability is true', () => {
+        beforeEach(() => {
+          jest
+            .spyOn(useLinkUpgradeDiscoverabilityHook, 'default')
+            .mockReturnValue({
+              shouldShowLinkPulse: true,
+              shouldShowLinkOverlay: true,
+              shouldShowToolbarPulse: true,
+            });
+        });
 
-        const { getByTestId, queryByTestId } = setup();
+        it('does not show an overlay by default', () => {
+          const { getByTestId, queryByTestId } = setup();
 
-        const cardElement = getByTestId('mockSmartCard');
-        expect(cardElement).toBeInTheDocument();
-        expect(queryByTestId('inline-card-overlay')).toBeFalsy();
-      });
+          const cardElement = getByTestId(cardTestId);
+          expect(cardElement).toBeInTheDocument();
+          expect(queryByTestId(overlayTestId)).toBeFalsy();
+        });
 
-      it('should show overlay on mouse enter if value returned from useLinkUpgradeDiscoverability is true', () => {
-        jest
-          .spyOn(useLinkUpgradeDiscoverabilityHook, 'default')
-          .mockReturnValue({
-            shouldShowLinkPulse: true,
-            shouldShowLinkOverlay: true,
-            shouldShowToolbarPulse: true,
-          });
+        it('shows an overlay on mouse enter', () => {
+          const { getByTestId } = setup();
 
-        const { getByTestId } = setup();
+          const cardElement = getByTestId(cardTestId);
+          expect(cardElement).toBeInTheDocument();
 
-        const cardElement = getByTestId('mockSmartCard');
-        expect(cardElement).toBeInTheDocument();
+          fireEvent.mouseEnter(cardElement);
+          expect(getByTestId('inline-card-overlay-close')).toBeDefined();
+        });
 
-        fireEvent.mouseEnter(cardElement);
-        expect(getByTestId('inline-card-overlay-close')).toBeDefined();
-      });
+        it('hides an overlay on mouse leave', () => {
+          const { getByTestId, queryByTestId } = setup();
 
-      it('should hide overlay on mouse leave if value returned from useLinkUpgradeDiscoverability is true', () => {
-        jest
-          .spyOn(useLinkUpgradeDiscoverabilityHook, 'default')
-          .mockReturnValue({
-            shouldShowLinkPulse: true,
-            shouldShowLinkOverlay: true,
-            shouldShowToolbarPulse: true,
-          });
+          const cardElement = getByTestId(cardTestId);
+          expect(cardElement).toBeInTheDocument();
 
-        const { getByTestId, queryByTestId } = setup();
+          fireEvent.mouseEnter(cardElement);
+          expect(getByTestId('inline-card-overlay-close')).toBeDefined();
 
-        const cardElement = getByTestId('mockSmartCard');
-        expect(cardElement).toBeInTheDocument();
+          fireEvent.mouseLeave(cardElement);
+          expect(queryByTestId(overlayTestId)).toBeFalsy();
+        });
 
-        fireEvent.mouseEnter(cardElement);
-        expect(getByTestId('inline-card-overlay-close')).toBeDefined();
+        it('shows an overlay when node is selected', async () => {
+          const { findByTestId } = setup({ isSelected: true });
+          const overlay = await findByTestId(overlayTestId);
+          expect(overlay).toBeInTheDocument();
+        });
 
-        fireEvent.mouseLeave(cardElement);
-        expect(queryByTestId('inline-card-overlay')).toBeFalsy();
+        it('keeps an overlay opened after mouse leave if the card is selected', async () => {
+          const { findByTestId } = setup({ isSelected: true });
+
+          const card = await findByTestId(cardTestId);
+          await userEvent.hover(card);
+          await findByTestId(overlayTestId);
+
+          await userEvent.unhover(card);
+
+          const overlay = await findByTestId(overlayTestId);
+          expect(overlay).toBeInTheDocument();
+        });
       });
     });
   });

@@ -122,8 +122,6 @@ export const addColumnBefore = makeKeyMapWithCommon(
   'Add Column Before',
   'Ctrl-Alt-ArrowLeft',
 );
-export const selectColumn = makeKeyMapWithCommon('Select column', 'Ctrl-Space');
-export const selectRow = makeKeyMapWithCommon('Select row', 'Shift-Space');
 export const cut = makeKeyMapWithCommon('Cut', 'Mod-x');
 export const copy = makeKeyMapWithCommon('Copy', 'Mod-c');
 export const paste = makeKeyMapWithCommon('Paste', 'Mod-v');

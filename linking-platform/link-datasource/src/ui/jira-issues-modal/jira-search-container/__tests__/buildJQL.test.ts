@@ -82,7 +82,7 @@ describe('buildJQL', () => {
       expect(jql).toEqual('created >= -30d ORDER BY created DESC');
     });
 
-    it('should create correct jql when filterValues is empty', () => {
+    it('should create correct jql when filterValues is empty with search term provided', () => {
       const jql = buildJQL({
         rawSearch: 'test',
         filterValues: {},
@@ -93,7 +93,7 @@ describe('buildJQL', () => {
       );
     });
 
-    it('should create correct jql when basic filter values are emtpy', () => {
+    it('should create correct jql when both search term and basic filter values are empty', () => {
       const jql = buildJQL({
         rawSearch: '',
         filterValues: { assignee: [], issuetype: [], project: [], status: [] },

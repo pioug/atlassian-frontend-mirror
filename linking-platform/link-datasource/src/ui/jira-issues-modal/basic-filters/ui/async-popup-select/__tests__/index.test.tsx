@@ -532,7 +532,14 @@ describe('Testing AsyncPopupSelect', () => {
 
     fireEvent.click(firstOption);
 
-    expect(mockOnSelection).toHaveBeenNthCalledWith(1, expectedFirstSelection);
+    expect(mockOnSelection).toHaveBeenNthCalledWith(1, 'status', [
+      {
+        appearance: 'inprogress',
+        label: 'Authorize',
+        optionType: 'lozengeLabel',
+        value: 'Authorize',
+      },
+    ]);
 
     // since the parent is handling selection, we need the rerender with the first selection object
     rerender(
@@ -558,18 +565,13 @@ describe('Testing AsyncPopupSelect', () => {
 
     fireEvent.click(secondOption);
 
-    expect(mockOnSelection).toHaveBeenNthCalledWith(2, [
-      {
-        appearance: 'inprogress',
-        label: 'Authorize',
-        optionType: 'lozengeLabel',
-        value: 'Authorize',
-      },
+    expect(mockOnSelection).toHaveBeenNthCalledWith(2, 'status', [
+      ...expectedFirstSelection,
       {
         appearance: 'inprogress',
         label: 'Awaiting approval',
         optionType: 'lozengeLabel',
-        value: '"Awaiting approval"',
+        value: 'Awaiting approval',
       },
     ]);
   });
@@ -822,6 +824,37 @@ describe('Analytics: AsyncPopupSelect', () => {
           attributes: {
             filterType: 'status',
             selectionCount: 2,
+          },
+        },
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should fire "ui.button.clicked.basicSearchDropdown" with correct attributes when the show more button is clicked', async () => {
+    const { getByTestId, onAnalyticFireEvent } = setup({
+      filterType: 'assignee',
+      filterOptions: fieldValuesResponseForAssigneesMapped as SelectOption[],
+      openPicker: true,
+      status: 'resolved',
+      pageCursor: 'YXJyYXljb25uZWN0aW9uOjk=',
+    });
+
+    const showMoreButton = getByTestId(
+      'jlol-basic-filter-popup-select--show-more-button',
+    );
+    fireEvent.click(showMoreButton);
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          action: 'clicked',
+          actionSubject: 'button',
+          actionSubjectId: 'basicSearchDropdown',
+          attributes: {
+            filterType: 'assignee',
+            type: 'showMore',
           },
         },
       },

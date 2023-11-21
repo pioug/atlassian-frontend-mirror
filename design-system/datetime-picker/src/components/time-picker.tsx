@@ -34,6 +34,7 @@ import {
   EmptyComponent,
   placeholderDatetime,
 } from '../internal';
+import ClearIndicator from '../internal/clear-indicator';
 import FixedLayer from '../internal/fixed-layer';
 import parseTime from '../internal/parse-time';
 import { makeSingleValue } from '../internal/single-value';
@@ -75,7 +76,8 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps {
    */
   formatDisplayLabel?: (time: string, timeFormat: string) => string;
   /**
-   * The id of the field. Currently, react-select transforms this to have a `react-select-` prefix, and an `--input` suffix when applied to the input. For example, the id `my-input` would be transformed to `react-select-my-input--input`. Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release.
+   * Set the id of the field.
+   * Associates a `<label></label>` with the field.
    */
   id?: string;
   /**
@@ -421,7 +423,9 @@ class TimePicker extends React.Component<TimePickerProps, State> {
       DropdownIndicator: EmptyComponent,
       Menu: FixedLayerMenu,
       SingleValue,
-      ...(hideIcon && { ClearIndicator: EmptyComponent }),
+      ...(hideIcon
+        ? { ClearIndicator: EmptyComponent }
+        : { ClearIndicator: ClearIndicator }),
     };
 
     const renderIconContainer = Boolean(!hideIcon && value);
@@ -463,7 +467,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
           appearance={appearance}
           autoFocus={autoFocus}
           components={selectComponents}
-          instanceId={id}
+          inputId={id}
           isClearable
           isDisabled={isDisabled}
           menuIsOpen={isOpen && !isDisabled}

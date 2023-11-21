@@ -17,6 +17,8 @@ import {
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
 
+import useErrorLogger from './useErrorLogger';
+
 export interface onNextPageProps {
   isSchemaFromData?: boolean;
   shouldRequestFirstPage?: boolean;
@@ -72,6 +74,7 @@ export const useDatasourceTableState = ({
   fieldKeys = [],
 }: DatasourceTableStateProps): DatasourceTableState => {
   const { fireEvent } = useDatasourceAnalyticsEvents();
+  const { captureError } = useErrorLogger();
 
   const idFieldCount = 1;
   const keyFieldCount = 1;
@@ -134,13 +137,14 @@ export const useDatasourceTableState = ({
 
       newColumns.length > 0 && setColumns([...columns, ...newColumns]);
     } catch (e) {
+      captureError('loadDatasourceDetails', e);
       if (e instanceof Response && (e.status === 401 || e.status === 403)) {
         setStatus('unauthorized');
         return;
       }
       setStatus('rejected');
     }
-  }, [columns, datasourceId, getDatasourceDetails, parameters]);
+  }, [captureError, columns, datasourceId, getDatasourceDetails, parameters]);
 
   const applySchemaProperties = useCallback(
     (schema: DatasourceDataSchema, fieldKeys: string[]) => {
@@ -261,6 +265,7 @@ export const useDatasourceTableState = ({
         }
         setStatus('resolved');
       } catch (e: any) {
+        captureError('onNextPage', e);
         if (e instanceof Response && (e.status === 401 || e.status === 403)) {
           setStatus('unauthorized');
           return;
@@ -269,6 +274,7 @@ export const useDatasourceTableState = ({
       }
     },
     [
+      captureError,
       parameters,
       fieldKeys,
       nextCursor,

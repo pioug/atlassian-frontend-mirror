@@ -76,4 +76,25 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
       page.getByTestId('jlol-basic-filter-popup-select--show-more-button'),
     ).toBeHidden();
   });
+
+  test('should reload the datasource table when a filter is selected', async ({
+    page,
+  }) => {
+    await loadExample(page);
+
+    const initialDatasourceTable = await page.getByTestId(
+      'jlol-datasource-modal--initial-state-view',
+    );
+
+    await page.getByTestId('mode-toggle-basic').click();
+    await page.getByTestId('jlol-basic-filter-project-trigger').click();
+    await page.locator('#react-select-3-option-0 span').first().click();
+
+    // expect that the initial state view will no longer be visible
+    await expect(initialDatasourceTable).toBeHidden();
+    // expect that the datasource table will be visible
+    await expect(
+      page.getByTestId('jlol-basic-filter-project-trigger'),
+    ).toBeVisible();
+  });
 });

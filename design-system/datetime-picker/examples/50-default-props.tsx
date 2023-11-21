@@ -11,7 +11,7 @@ export default () => {
         DatePicker defaultValue defaultIsOpen
       </Label>
       <DatePicker
-        id="date"
+        id="react-select-date--input"
         defaultValue="2018-03-01"
         defaultIsOpen
         onChange={console.log}
@@ -21,7 +21,7 @@ export default () => {
         TimePicker defaultValue defaultIsOpen
       </Label>
       <TimePicker
-        id="time"
+        id="react-select-time--input"
         defaultValue="10:00am"
         defaultIsOpen
         onChange={console.log}
@@ -31,7 +31,7 @@ export default () => {
         DateTimePicker defaultValue
       </Label>
       <DateTimePicker
-        id="date-time"
+        id="react-select-date-time--input"
         defaultValue="2018-01-02T14:30-08:00"
         onChange={console.log}
       />

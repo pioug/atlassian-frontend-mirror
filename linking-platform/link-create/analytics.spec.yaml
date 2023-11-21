@@ -35,6 +35,13 @@ events:
         <<: *PackageMetaDataContext
         <<: *LinkCreateAnalyticContext
 
+  - linkCreateEditScreen viewed:
+      type: screen
+      description: fired when the link create edit modal is shown to the users
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkCreateAnalyticContext
+
   - linkCreateExitWarningScreen viewed:
       type: screen
       description: fired when the link create warning modal is shown to the users to warn them of losing their changes
@@ -49,9 +56,16 @@ events:
         <<: *PackageMetaDataContext
         <<: *LinkCreateAnalyticContext
 
+  - button clicked (edit):
+      type: ui
+      description: fired when the edit button is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkCreateAnalyticContext
+
   - button clicked (cancel):
       type: ui
-      description: fired when the create button is clicked
+      description: fired when the cancel button is clicked
       attributes:
         <<: *PackageMetaDataContext
         <<: *LinkCreateAnalyticContext
@@ -65,7 +79,15 @@ events:
 
   - modalDialog closed (linkCreate):
       type: ui
-      description: fired when the link create component is unmounted/dismissed for any reason
+      description: fired when a link create modal component is unmounted/dismissed for any reason
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkCreateAnalyticContext
+
+
+  - modalDialog opened (linkCreate):
+      type: ui
+      description: fired when a link create modal component is mounted
       attributes:
         <<: *PackageMetaDataContext
         <<: *LinkCreateAnalyticContext

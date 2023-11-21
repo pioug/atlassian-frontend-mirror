@@ -3,7 +3,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Flex, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import type { BasicFilterFieldType, SelectOption } from '../types';
+import type {
+  BasicFilterFieldType,
+  SelectedOptionsMap,
+  SelectOption,
+} from '../types';
 import { isValidJql } from '../utils';
 
 import AsyncPopupSelect from './async-popup-select';
@@ -18,16 +22,19 @@ const availableBasicFilterTypes: BasicFilterFieldType[] = [
 export interface BasicFilterContainerProps {
   jql: string;
   cloudId: string;
+  onChange: (selection: SelectedOptionsMap) => void;
 }
 
 const basicFilterContainerStyles = xcss({
   paddingLeft: token('space.100', '8px'),
 });
 
-const BasicFilterContainer = ({ jql, cloudId }: BasicFilterContainerProps) => {
-  const [selection, setSelection] = useState<{
-    [key in BasicFilterFieldType]?: SelectOption[];
-  }>({});
+const BasicFilterContainer = ({
+  jql,
+  cloudId,
+  onChange,
+}: BasicFilterContainerProps) => {
+  const [selection, setSelection] = useState<SelectedOptionsMap>({});
 
   useEffect(() => {
     if (isValidJql(jql)) {
@@ -36,14 +43,15 @@ const BasicFilterContainer = ({ jql, cloudId }: BasicFilterContainerProps) => {
   }, [jql]);
 
   const handleSelectionChange = useCallback(
-    (options: SelectOption[], filter: BasicFilterFieldType) => {
-      const updatedSelection = {
+    (filterType: BasicFilterFieldType, options: SelectOption[]) => {
+      const updatedSelection: SelectedOptionsMap = {
         ...selection,
-        [filter]: options,
+        [filterType]: options,
       };
       setSelection(updatedSelection);
+      onChange(updatedSelection);
     },
-    [selection],
+    [onChange, selection],
   );
 
   const handleReset = useCallback(() => {
@@ -65,7 +73,7 @@ const BasicFilterContainer = ({ jql, cloudId }: BasicFilterContainerProps) => {
           key={filter}
           selection={selection[filter] || []}
           isDisabled={!cloudId}
-          onSelectionChange={options => handleSelectionChange(options, filter)}
+          onSelectionChange={handleSelectionChange}
           onReset={handleReset}
         />
       ))}

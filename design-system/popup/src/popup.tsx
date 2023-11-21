@@ -1,8 +1,15 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
 /** @jsx jsx */
-import { FC, memo, useState } from 'react';
+import {
+  type Dispatch,
+  type FC,
+  memo,
+  type SetStateAction,
+  useState,
+} from 'react';
 
 import { jsx } from '@emotion/react';
+import memoizeOne from 'memoize-one';
 
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -36,6 +43,40 @@ export const Popup: FC<PopupProps> = memo(
     shouldRenderToParent = false,
   }: PopupProps) => {
     const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
+
+    /*
+     * Get a memoized functional ref for use within this Popup's Trigger.
+     * This is still very volatile to change as `prop.isOpen` will regularly change, but it's better than nothing.
+     * This is memoized within our component as to not be shared across all Popup instances, just this one.
+     *
+     * This is complex because the inputs are split across three different scopes:
+     *  - `props.isOpen`
+     *  - `useState.setTriggerRef`
+     *  - `renderProps.ref`
+     */
+    const [getMergedTriggerRef] = useState(() =>
+      memoizeOne(
+        (
+          ref:
+            | React.RefCallback<HTMLElement>
+            | React.MutableRefObject<HTMLElement>
+            | null,
+          setTriggerRef: Dispatch<SetStateAction<HTMLElement | null>>,
+          isOpen: boolean,
+        ) => {
+          return (node: HTMLElement | null) => {
+            if (node && isOpen) {
+              if (typeof ref === 'function') {
+                ref(node);
+              } else if (ref) {
+                ref.current = node;
+              }
+              setTriggerRef(node);
+            }
+          };
+        },
+      ),
+    );
 
     const renderPopperWrapper = (
       <UNSAFE_LAYERING
@@ -71,16 +112,7 @@ export const Popup: FC<PopupProps> = memo(
         <Reference>
           {({ ref }) => {
             return trigger({
-              ref: (node: HTMLElement | null) => {
-                if (node && isOpen) {
-                  if (typeof ref === 'function') {
-                    ref(node);
-                  } else {
-                    (ref as React.MutableRefObject<HTMLElement>).current = node;
-                  }
-                  setTriggerRef(node);
-                }
-              },
+              ref: getMergedTriggerRef(ref, setTriggerRef, isOpen),
               'aria-controls': id,
               'aria-expanded': isOpen,
               'aria-haspopup': true,

@@ -61,6 +61,7 @@ describe('PDFRenderer', () => {
             size: 1,
           }}
           src={''}
+          workerUrl="someUrl"
         />
       </IntlProvider>,
     );
@@ -99,6 +100,7 @@ describe('PDFRenderer', () => {
             size: 1,
           }}
           src={''}
+          workerUrl="someUrl"
         />
       </IntlProvider>,
     );
@@ -123,6 +125,7 @@ describe('PDFRenderer', () => {
             size: 1,
           }}
           src={''}
+          workerUrl="someUrl"
         />
       </IntlProvider>,
     );
@@ -151,6 +154,7 @@ describe('PDFRenderer', () => {
             size: 1,
           }}
           src={''}
+          workerUrl="someUrl"
           onClose={onClose}
         />
       </IntlProvider>,
@@ -179,6 +183,7 @@ describe('PDFRenderer', () => {
             size: 1,
           }}
           src={''}
+          workerUrl="someUrl"
           onSuccess={onSuccess}
         />
       </IntlProvider>,
@@ -214,6 +219,7 @@ describe('PDFRenderer', () => {
             size: 1,
           }}
           src={''}
+          workerUrl="someUrl"
         />
       </IntlProvider>,
     );

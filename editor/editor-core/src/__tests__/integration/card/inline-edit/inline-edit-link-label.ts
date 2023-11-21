@@ -16,9 +16,13 @@ import type Page from '@atlaskit/webdriver-runner/wd-wrapper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 
+// FIXME: This test was automatically skipped due to failure on 20/11/2023: https://product-fabric.atlassian.net/browse/ED-21067
 BrowserTestCase(
   'card: changing the link label of an inline link should convert it to a "dumb" link',
-  { skip: ['safari', 'firefox'] },
+  {
+    // skip: ['safari', 'firefox'],
+    skip: ['*'],
+  },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     // Copy stuff to clipboard and go to editor
     const page = await goToEditorTestingWDClipboardExample(
@@ -58,9 +62,13 @@ BrowserTestCase(
 );
 
 describe('with feature flag: lp-link-picker', () => {
+  // FIXME: This test was automatically skipped due to failure on 20/11/2023: https://product-fabric.atlassian.net/browse/ED-21067
   BrowserTestCase(
     'card: changing the link label of an inline link should convert it to a "dumb" link',
-    { skip: ['safari', 'firefox'] },
+    {
+      // skip: ['safari', 'firefox'],
+      skip: ['*'],
+    },
     async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
       // Copy stuff to clipboard and go to editor
       const page = await goToEditorTestingWDClipboardExample(

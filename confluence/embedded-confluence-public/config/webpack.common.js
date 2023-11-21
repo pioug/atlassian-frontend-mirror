@@ -1,4 +1,16 @@
+const crypto = require('crypto');
 const path = require('path');
+
+/**
+ * START HASH HACKS FOR NODE 18 COMPATIBILITY
+ * See: https://stackoverflow.com/a/69761823
+ */
+const createHashOriginal = crypto.createHash;
+crypto.createHash = algorithm =>
+  createHashOriginal(algorithm === 'md4' ? 'sha256' : algorithm);
+/**
+ * END HASH HACKS
+ */
 
 module.exports = {
   output: {

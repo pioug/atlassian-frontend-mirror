@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 108.16.5
+
+### Patch Changes
+
+- [#43362](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43362) [`e4cea0e13b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4cea0e13b9) - [ux] ED-20699 Use LCH color inversion method in dark mode, behind platform.editor.use-lch-for-color-inversion_1qv8ol feature flag.
+
+## 108.16.4
+
+### Patch Changes
+
+- [#43417](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43417) [`3f3c17f0273`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f3c17f0273) - ED-20971 Upgrade adf-schema package to ^34.0.0
+- Updated dependencies
+
 ## 108.16.3
 
 ### Patch Changes

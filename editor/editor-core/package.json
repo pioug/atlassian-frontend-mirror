@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "189.3.33",
+  "version": "189.3.35",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
-    "@atlaskit/adf-schema": "^33.2.3",
+    "@atlaskit/adf-schema": "^34.0.0",
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/analytics-namespaced-context": "^6.7.0",
     "@atlaskit/analytics-next": "^9.1.0",
@@ -166,7 +166,7 @@
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/analytics-listeners": "^8.7.0",
-    "@atlaskit/collab-provider": "9.16.0",
+    "@atlaskit/collab-provider": "9.16.1",
     "@atlaskit/dropdown-menu": "^12.1.0",
     "@atlaskit/editor-extension-dropbox": "^0.4.0",
     "@atlaskit/editor-palette": "1.5.2",

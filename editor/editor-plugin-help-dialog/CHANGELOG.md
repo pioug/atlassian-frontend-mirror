@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 0.3.4
+
+### Patch Changes
+
+- [#42221](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42221) [`7fd1f8bb312`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fd1f8bb312) - revert pr 42221
+
 ## 0.3.3
 
 ### Patch Changes

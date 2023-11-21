@@ -2,10 +2,10 @@ import {
   AggJqlBuilderFieldNode,
   Appearance,
   appearanceMap,
-  BasicFilterFieldType,
   ColorName,
   FieldValuesResponse,
   HydrateResponse,
+  SelectedOptionsMap,
   SelectOption,
 } from '../types';
 
@@ -37,7 +37,9 @@ function mapNodeToOption({
   try {
     const baseProps = {
       label: displayName,
-      value: jqlTerm,
+      // this ensures that the returned value is not wrapped in single and double quotes
+      // e.g. '"value"' -> 'value'
+      value: decodeURIComponent(jqlTerm).replace(/^"|"$/g, ''),
     };
 
     if (user) {
@@ -88,9 +90,7 @@ function mapNodeToOption({
 }
 
 export function mapHydrateResponseData({ data }: HydrateResponse) {
-  const transformedHydrateResponseData: {
-    [key in BasicFilterFieldType]?: SelectOption[];
-  } = {};
+  const transformedHydrateResponseData: SelectedOptionsMap = {};
 
   data?.jira?.jqlBuilder?.hydrateJqlQuery?.fields?.forEach(
     ({ jqlTerm, values = [] }) => {

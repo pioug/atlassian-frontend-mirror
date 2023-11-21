@@ -229,6 +229,28 @@ events:
       reason:
         type: [ "internal" ]
         description: The reason why datasource failed to render.
+  - datasource operationFailed:
+      type: operational
+      description: Fired when a generic operation failed
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+          ]
+        errorLocation:
+          type: string
+          required: false
+          description: Codebase location of the error to help debugging the source
+        traceId:
+          type: string
+          required: false
+          description: Trace id of an associated request
+        status:
+          type: number
+          required: false
+          description: HTTP status of an associated response
   - nextItem loaded:
       type: track
       description: Fired when user scrolls to the next page/list of the objects
@@ -339,6 +361,20 @@ events:
         selectionCount:
           type: "number"
           description: The number of options selected when closing the dropdown
+  - button clicked (basicSearchDropdown):
+      type: ui
+      description: Fired when the “show more” button inside the dropdown menu is clicked
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *BasicFilterFieldTypes,
+          ]
+        type:
+          type: ['showMore']
+          description: The type of the button
   # Assets Events
   - aqlEditor searched:
       type: ui

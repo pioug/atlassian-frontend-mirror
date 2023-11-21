@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
+import { useDebouncedCallback } from 'use-debounce';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Flex, xcss } from '@atlaskit/primitives';
@@ -10,6 +11,8 @@ import { Flex, xcss } from '@atlaskit/primitives';
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { JiraSearchMethod } from '../../../common/types';
 import { BasicFilters } from '../basic-filters';
+import { SelectedOptionsMap } from '../basic-filters/types';
+import { SEARCH_DEBOUNCE_MS } from '../basic-filters/ui/async-popup-select';
 import { isQueryTooComplex } from '../basic-filters/utils/isQueryTooComplex';
 import { BasicSearchInput } from '../basic-search-input';
 import { JiraJQLEditor } from '../jql-editor';
@@ -64,16 +67,16 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
   const { cloudId, jql: initialJql } = parameters || {};
 
   const { formatMessage } = useIntl();
+  const { fireEvent } = useDatasourceAnalyticsEvents();
 
   const [basicSearchTerm, setBasicSearchTerm] = useState('');
-
   const [currentSearchMethod, setCurrentSearchMethod] =
     useState<JiraSearchMethod>(initialSearchMethod);
   const [jql, setJql] = useState(initialJql || DEFAULT_JQL_QUERY);
   const [isComplexQuery, setIsComplexQuery] = useState(false);
   const [orderKey, setOrderKey] = useState<string | undefined>();
   const [orderDirection, setOrderDirection] = useState<string | undefined>();
-  const { fireEvent } = useDatasourceAnalyticsEvents();
+  const [filters, setFilters] = useState<SelectedOptionsMap>({});
 
   const onSearchMethodChange = useCallback(
     (searchMethod: JiraSearchMethod) => {
@@ -87,9 +90,16 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const rawSearch = e.currentTarget.value;
       setBasicSearchTerm(rawSearch);
-      setJql(buildJQL({ rawSearch, orderDirection, orderKey }));
+      setJql(
+        buildJQL({
+          rawSearch,
+          filterValues: filters,
+          orderDirection,
+          orderKey,
+        }),
+      );
     },
-    [orderDirection, orderKey],
+    [filters, orderDirection, orderKey],
   );
 
   const onQueryChange = useCallback((query: string) => {
@@ -116,13 +126,45 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
   const handleSearch = useCallback(() => {
     onSearch({ jql }, currentSearchMethod);
     setIsComplexQuery(isQueryTooComplex(jql));
-
     if (currentSearchMethod === 'basic') {
       fireEvent('ui.form.submitted.basicSearch', {});
     } else if (currentSearchMethod === 'jql') {
       fireEvent('ui.jqlEditor.searched', {});
     }
   }, [currentSearchMethod, fireEvent, jql, onSearch]);
+
+  const [debouncedBasicFilterSelectionChange] = useDebouncedCallback(
+    (filterValues: SelectedOptionsMap) => {
+      const jqlWithFilterValues = buildJQL({
+        rawSearch: basicSearchTerm,
+        filterValues,
+        orderDirection,
+        orderKey,
+      });
+
+      setJql(jqlWithFilterValues);
+      onSearch(
+        {
+          jql: jqlWithFilterValues,
+        },
+        currentSearchMethod,
+      );
+    },
+    SEARCH_DEBOUNCE_MS,
+  );
+
+  const handleBasicFilterSelectionChange = useCallback(
+    (filterValues: SelectedOptionsMap) => {
+      setFilters(filterValues);
+      debouncedBasicFilterSelectionChange(filterValues);
+    },
+    [debouncedBasicFilterSelectionChange],
+  );
+
+  useEffect(() => {
+    setIsComplexQuery(isQueryTooComplex(jql));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const showBasicFilters = useMemo(() => {
     if (
@@ -133,11 +175,6 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
       return true;
     }
     return false;
-  }, []);
-
-  useEffect(() => {
-    setIsComplexQuery(isQueryTooComplex(jql));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -151,7 +188,11 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
             searchTerm={basicSearchTerm}
           />
           {showBasicFilters && (
-            <BasicFilters jql={jql} cloudId={cloudId || ''} />
+            <BasicFilters
+              jql={jql}
+              cloudId={cloudId || ''}
+              onChange={handleBasicFilterSelectionChange}
+            />
           )}
         </Flex>
       )}

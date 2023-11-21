@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 6.2.9
+
+### Patch Changes
+
+- [#43374](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43374) [`f94795377e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f94795377e9) - Updating basic filter mocks to return regular string values from transformer
+
 ## 6.2.8
 
 ### Patch Changes

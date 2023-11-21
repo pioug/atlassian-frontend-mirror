@@ -16,6 +16,16 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
         }`,
         filename: `${cwd}/package.json`,
       },
+      // Root package.json, have all of the correct resolutions
+      {
+        code: `const foo = {
+                  "resolutions": {
+                      "@types/react": "18.2.28",
+                      "typescript": "4.9.5",
+                  }
+              }`,
+        filename: `${cwd}/package.json`,
+      },
       // Root package.json, have all of the correct resolutions with ~
       {
         code: `const foo = {

@@ -21,7 +21,7 @@ export default () => {
         Current time is: {value}
       </Label>
       <DateTimePicker
-        id="datetime"
+        id="react-select-datetime--input"
         value={value}
         onChange={onChange}
         timeIsEditable

@@ -101,7 +101,10 @@ export default class MyComponent extends Component<{}, State> {
                 />
                 {textAbove > 0 ? <Lorem count={textAbove} /> : null}
                 <Label htmlFor="react-select-above--input">Date</Label>
-                <DateTimePicker id="above" defaultValue={dateTimePickerValue} />
+                <DateTimePicker
+                  id="react-select-above--input"
+                  defaultValue={dateTimePickerValue}
+                />
                 <Label htmlFor="paragraphs-below">
                   Paragraphs below: {textBelow}
                 </Label>

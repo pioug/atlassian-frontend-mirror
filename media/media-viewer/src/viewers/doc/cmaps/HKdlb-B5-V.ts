@@ -1,0 +1,2 @@
+export const value: string =
+  'data:application/x-gzip-compressed;base64,H4sICH6ATWUAA0hLZGxiLUI1LVYuYmNtYXAAY34Q5JxfUFmUmZ5RomBoaWmga2RgYKngmJKflKoQXFlckppbrOCZl5xfVJBflFiSmqLH5ZiTowBWX6xQlFqcWlQGEgxOTVXQ0/fxdHb1C3Z9yOXhnZKTpOtkquuRyLPQm+GVHx/Da31GhteGDIyNTEyMjWxAzAXEfEAsBMRiQCwFxHIZDK/8AbAL5aeUAAAA';

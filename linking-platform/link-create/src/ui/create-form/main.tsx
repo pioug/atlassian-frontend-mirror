@@ -5,24 +5,19 @@ import { css, jsx } from '@emotion/react';
 import { MutableState, Tools } from 'final-form';
 import { Form, FormSpy } from 'react-final-form';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import {
-  ANALYTICS_CHANNEL,
   CREATE_FORM_MAX_WIDTH_IN_PX,
   LINK_CREATE_FORM_POST_CREATE_FIELD,
 } from '../../common/constants';
-import { ValidatorMap } from '../../common/types';
-import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { useExitWarningModal } from '../../controllers/exit-warning-modal-context';
 import { useFormContext } from '../../controllers/form-context';
 
 import { CreateFormFooter } from './form-footer';
 import { CreateFormLoader } from './form-loader';
-import { validateFormData } from './utils';
 
 const formStyles = css({
   maxWidth: `${CREATE_FORM_MAX_WIDTH_IN_PX}px`,
@@ -72,23 +67,11 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
   hideFooter,
   initialValues,
 }: CreateFormProps<FormData>) => {
-  const { createAnalyticsEvent } = useAnalyticsEvents();
-  const { getValidators, formErrorMessage, enableEditView } = useFormContext();
+  const { formErrorMessage, enableEditView } = useFormContext();
   const { setShouldShowWarning } = useExitWarningModal();
 
   const handleSubmit = useCallback(
     async (data: WithReservedFields<FormData>) => {
-      createAnalyticsEvent(
-        createEventPayload('ui.button.clicked.create', {}),
-      ).fire(ANALYTICS_CHANNEL);
-
-      const validators: ValidatorMap = getValidators();
-      const errors = validateFormData({ data, validators });
-
-      if (Object.keys(errors).length !== 0) {
-        return errors;
-      }
-
       if (getBooleanFF('platform.linking-platform.link-create.enable-edit')) {
         const {
           [LINK_CREATE_FORM_POST_CREATE_FIELD]: shouldEnableEditView,
@@ -107,15 +90,12 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
 
       return onSubmit(data);
     },
-    [createAnalyticsEvent, getValidators, onSubmit, enableEditView],
+    [onSubmit, enableEditView],
   );
 
   const handleCancel = useCallback(() => {
-    createAnalyticsEvent(
-      createEventPayload('ui.button.clicked.cancel', {}),
-    ).fire(ANALYTICS_CHANNEL);
     onCancel && onCancel();
-  }, [createAnalyticsEvent, onCancel]);
+  }, [onCancel]);
 
   if (isLoading) {
     return <CreateFormLoader />;

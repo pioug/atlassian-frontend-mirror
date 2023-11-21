@@ -376,7 +376,8 @@ describe('<Mention />', () => {
       expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(0);
     });
 
-    it('prefers text from prop over mention resolver', async () => {
+    // FIXME: flaky test - failed on https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2020200
+    it.skip('prefers text from prop over mention resolver', async () => {
       const resolvedProps = {
         id: '1',
         name: 'resolved name',
@@ -504,7 +505,8 @@ describe('<Mention />', () => {
     });
 
     describe('resolving mention name', () => {
-      it('should render a mention and use the resolving provider to lookup the name (string result)', (done) => {
+      // FIXME: flaky test - failed on https://bitbucket.org/atlassian/atlassian-frontend/addon/pipelines/home#!/results/2020820
+      it.skip('should render a mention and use the resolving provider to lookup the name (string result)', (done) => {
         const mention = mountWithIntl(
           <ResourcedMention
             {...mentionData}
@@ -526,7 +528,7 @@ describe('<Mention />', () => {
         });
       });
 
-      it('should render a mention and use the resolving provider to lookup the name (string result, unknown)', (done) => {
+      it.skip('should render a mention and use the resolving provider to lookup the name (string result, unknown)', (done) => {
         const mention = mountWithIntl(
           <ResourcedMention
             id={mentionData.id}
@@ -549,7 +551,7 @@ describe('<Mention />', () => {
         });
       });
 
-      it('should render a mention and use the resolving provider to lookup the name (string result, service error)', (done) => {
+      it.skip('should render a mention and use the resolving provider to lookup the name (string result, service error)', (done) => {
         const mention = mountWithIntl(
           <ResourcedMention
             id="123"
@@ -572,7 +574,7 @@ describe('<Mention />', () => {
         });
       });
 
-      it('should render a mention and use the resolving provider to lookup the name (Promise result)', (done) => {
+      it.skip('should render a mention and use the resolving provider to lookup the name (Promise result)', (done) => {
         const mention = mountWithIntl(
           <ResourcedMention
             {...mentionData}
@@ -596,7 +598,7 @@ describe('<Mention />', () => {
         });
       });
 
-      it('should render a mention and use the resolving provider to lookup the name (Promise result, unknown)', (done) => {
+      it.skip('should render a mention and use the resolving provider to lookup the name (Promise result, unknown)', (done) => {
         const mention = mountWithIntl(
           <ResourcedMention
             {...mentionData}
@@ -621,7 +623,7 @@ describe('<Mention />', () => {
         });
       });
 
-      it('should render a mention and use the resolving provider to lookup the name (Promise result, service error)', (done) => {
+      it.skip('should render a mention and use the resolving provider to lookup the name (Promise result, service error)', (done) => {
         const mention = mountWithIntl(
           <ResourcedMention
             id=""

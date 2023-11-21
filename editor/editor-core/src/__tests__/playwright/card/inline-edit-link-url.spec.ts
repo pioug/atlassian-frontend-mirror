@@ -29,7 +29,7 @@ test.describe('Inline card edit link', () => {
     );
 
     // wait for inline card to be ready
-    await inlineCardModel.waitForStable();
+    await inlineCardModel.waitForResolvedStable();
     await inlineCardModel.click();
 
     // edit inline card link

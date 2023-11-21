@@ -6,6 +6,7 @@ import {
   isRgb,
   rgbToHex,
   tableBackgroundColorPalette,
+  getDarkModeLCHColor,
 } from '@atlaskit/adf-schema';
 import { useThemeObserver } from '@atlaskit/tokens';
 import { SortOrder } from '@atlaskit/editor-common/types';
@@ -23,6 +24,7 @@ import { RendererCssClassName } from '../../consts';
 import { useIntl } from 'react-intl-next';
 import type { IntlShape } from 'react-intl-next';
 import { tableCellMessages } from '../../messages';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 type CellProps = CellAttributes & {
   children?: React.ReactNode;
@@ -179,7 +181,14 @@ const getStyle = ({
       // if we have a custom color, we need to check if we are in dark mode
       if (colorMode === 'dark') {
         // if we are in dark mode, we need to invert the color
-        style.backgroundColor = invertCustomColor(background);
+        // and if the feature flag is enabled we need to use the LCH conversion method
+        if (
+          getBooleanFF('platform.editor.use-lch-for-color-inversion_1qv8ol')
+        ) {
+          style.backgroundColor = getDarkModeLCHColor(background);
+        } else {
+          style.backgroundColor = invertCustomColor(background);
+        }
       } else {
         // if we are in light mode, we can just set the color
         style.backgroundColor = background;

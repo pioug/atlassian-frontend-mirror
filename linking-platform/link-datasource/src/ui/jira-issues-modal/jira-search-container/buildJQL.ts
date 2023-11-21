@@ -14,15 +14,13 @@ import {
   print,
 } from '@atlaskit/jql-ast';
 
-import { BasicFilterFieldType, SelectOption } from '../basic-filters/types';
+import { SelectedOptionsMap } from '../basic-filters/types';
 
 type BuildJQLInput = {
   rawSearch: string;
   orderDirection?: string;
   orderKey?: string;
-  filterValues?: {
-    [key in BasicFilterFieldType]?: SelectOption[];
-  };
+  filterValues?: SelectedOptionsMap;
 };
 
 const fuzzySearchRegExp = /^"(.+)"$/;

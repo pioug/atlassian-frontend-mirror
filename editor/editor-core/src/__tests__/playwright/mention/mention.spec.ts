@@ -337,6 +337,13 @@ test.describe('feature name: Mention', () => {
   test('mention-3.ts: users with same first name should not be selected if space', async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-21068',
+      reason:
+        'FIXME: This test was automatically skipped due to failure on 20/11/2023: https://product-fabric.atlassian.net/browse/ED-21068',
+      browsers: [BROWSERS.webkit],
+    });
+
     const mentionModel = EditorMentionModel.from(editor);
     const awoodsLocator = await mentionModel.mentionItemByName('awoods');
     const fatimaLocator = await mentionModel.mentionItemByName('Fatima');

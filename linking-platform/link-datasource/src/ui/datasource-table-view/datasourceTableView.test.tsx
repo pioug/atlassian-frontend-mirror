@@ -284,7 +284,7 @@ describe('DatasourceTableView', () => {
       const { getByText } = setup({ status: 'unauthorized' });
 
       expect(
-        getByText("You don't have access to this site"),
+        getByText("You don't have access to this content"),
       ).toBeInTheDocument();
     });
   });

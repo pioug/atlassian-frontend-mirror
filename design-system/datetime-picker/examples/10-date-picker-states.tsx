@@ -13,19 +13,23 @@ function now(day: number) {
 export default () => {
   return (
     <div>
-      <Label htmlFor="react-select-datepicker-1--input">Stock</Label>
+      <Label htmlFor="react-select-datepicker-1-input">Stock</Label>
       <DatePicker
-        id="datepicker-1"
+        id="react-select-datepicker-1-input"
         onChange={console.log}
         testId={'datepicker-1'}
       />
 
       <Label htmlFor="react-select-disabled--input">Disabled input</Label>
-      <DatePicker id="disabled" isDisabled onChange={console.log} />
+      <DatePicker
+        id="react-select-disabled--input"
+        isDisabled
+        onChange={console.log}
+      />
 
       <Label htmlFor="react-select-disabled-dates--input">Disabled dates</Label>
       <DatePicker
-        id="disabled-dates"
+        id="react-select-disabled-dates--input"
         minDate={now(8)}
         maxDate={now(28)}
         onChange={console.log}
@@ -33,7 +37,7 @@ export default () => {
 
       <Label htmlFor="react-select-custom--input">Custom date format</Label>
       <DatePicker
-        id="custom"
+        id="react-select-custom--input"
         dateFormat="DD/MMM/YY"
         selectProps={{
           placeholder: 'e.g. 31/Dec/18',

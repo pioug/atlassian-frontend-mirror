@@ -1,5 +1,11 @@
 # @atlaskit/media-viewer
 
+## 48.2.5
+
+### Patch Changes
+
+- [#43120](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43120) [`bb652412109`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb652412109) - Removed use of unpkg for pdf rendering in Media Viewer
+
 ## 48.2.4
 
 ### Patch Changes

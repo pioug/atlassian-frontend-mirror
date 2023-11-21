@@ -19,7 +19,7 @@ import LegacyButtonWithIconAfter from '../../examples/constellation/legacy-butto
 
 ## Default
 
-The default form of a button, used for most cases. They are not impactful enough to represent the primary action in a container.
+Use default buttons for most actions that aren't the main call to action for a page or container. Default buttons are less visually prominent than primary buttons.
 
 <Example Component={LegacyButtonDefault} packageName="@atlaskit/button" />
 
@@ -31,14 +31,14 @@ The default form of a button, used for most cases. They are not impactful enough
 
 ### Primary
 
-Use a `primary` button to call attention to an action on a [form](/patterns/forms) or to highlight the strongest call to action on a page.
+Use a primary button to call attention to a [form](/patterns/forms) submission or to highlight the most important call to action on a page.
 Primary buttons should only appear once per container (not including the application header or in a [modal dialog](/components/modal-dialog)). Not every screen requires a primary button.
 
 <Example Component={LegacyButtonPrimary} packageName="@atlaskit/button" />
 
 ### Subtle
 
-Use a `subtle` button with a `primary` button for secondary actions, such as “Cancel".
+Use a `subtle` button with a primary button for secondary actions, such as “Cancel".
 
 <Example Component={LegacyButtonSubtle} packageName="@atlaskit/button" />
 
@@ -50,19 +50,24 @@ Use a `link` button to navigate to another page. These should open in the same w
 
 ### Subtle link
 
-Similar to a `subtle` button, but behaves like a `link` button. Use a `subtle link` button to avoid overwhelming the page with blue links.
+Similar to a `subtle` button, but looks like a `link` button. Use a `subtle link` button to avoid overwhelming the page with blue links.
+
+Make sure your designs have clear affordances for interactable areas and elements.
+
+Because there is no color affordance, this style of button relies on the context around it to show that it can be interacted with.
 
 <Example Component={LegacyButtonSubtleLink} packageName="@atlaskit/button" />
 
 ### Warning
 
-A `warning` button appears before we request the user to take action, usually in anticipation of a significant change. These are found mostly in confirmation modals.
+Warning buttons often confirm actions that might cause a significant change or a loss of data.
+Typically, the warning appearance alerts people of a problem that might happen if they proceed.
 
 <Example Component={LegacyButtonWarning} packageName="@atlaskit/button" />
 
 ### Danger
 
-The `danger` button appears as a final confirmation for a destructive action such as deleting. These are found mostly in confirmation modals.
+The `danger` button appears as a final confirmation for a destructive and irreversible action, such as deleting.
 
 <Example Component={LegacyButtonDanger} packageName="@atlaskit/button" />
 
@@ -70,9 +75,12 @@ The `danger` button appears as a final confirmation for a destructive action suc
 
 ### Disabled
 
-Set `isDisabled` to disable a button that isn’t usable. Disabled buttons can cause accessibility issues as disabled elements are not in the tab order so wherever possible we recommend avoid using `isDisabled`, especially for form submissions.
+Disabled buttons can cause accessibility issues (disabled elements are not in the tab order) so wherever possible, avoid using `isDisabled`.
+Instead, use validation or other techniques to show what's needed to proceed.
 
-You should never put a tooltip on a disabled button. For more information see our [usage guidelines](/components/button/usage#do-not-put-tooltips-on-disabled-buttons).
+Never disable a form submission button.
+
+Never put a tooltip on a disabled button. For more information see our [usage guidelines](/components/button/usage#do-not-put-tooltips-on-disabled-buttons).
 
 <Example Component={LegacyButtonDisabled} packageName="@atlaskit/button" />
 
@@ -98,17 +106,15 @@ Buttons can have various spacing. Default spacing is used for most use cases, co
 
 ## Full width
 
-Buttons can be expanded to full width to fill its parent container.
+Buttons can expand to full width to fill the parent container.
 
 <Example Component={LegacyButtonFullWidth} packageName="@atlaskit/button" />
 
 ## Button with icon
 
-Buttons may include an icon before or after the text.
-
 ### Icon before
 
-Display an icon before the text.
+Button with an icon before the text.
 
 <Example
   Component={LegacyButtonWithIconBefore}
@@ -117,7 +123,7 @@ Display an icon before the text.
 
 ### Icon after
 
-Display an icon after the text.
+Button with an icon after the text.
 
 <Example Component={LegacyButtonWithIconAfter} packageName="@atlaskit/button" />
 
@@ -136,11 +142,12 @@ import Button from '@atlaskit/button';
 <PrimaryButton component={Link}>Your Work</PrimaryButton>;
 ```
 
-## Custom theme button
+## Custom theme button (not recommended)
 
-Avoid using this component. It is intended for deprecation when our alternative, bounded and performant solution is ready. It exists for those already using custom theming, which is hard to use and has performance issues.
-
+Avoid using this component. It will be deprecated when our alternative, safer theming solution is ready.
 Latest versions of button use design tokens. These have theming and dark mode support built in.
+
+Custom theme button is only for people already using custom theming to refer to, which is hard to use and has performance issues.
 
 ```js
 import { CustomThemeButton } from '@atlaskit/button';

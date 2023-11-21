@@ -17,7 +17,7 @@ export default () => {
         <input id="text3" type="text" />
         <DatePicker
           autoFocus={false}
-          id="value1"
+          id="react-select-value1-input"
           onChange={(date: string) => {
             setDate(date);
           }}
@@ -36,9 +36,9 @@ export default () => {
       <Label htmlFor="text1"> first field</Label>
       <input id="text1" type="text" />
       <br />
-      <Label htmlFor="react-select-custom--input">Custom date format</Label>
+      <Label htmlFor="react-select-custom-input">Custom date format</Label>
       <DatePicker
-        id="custom"
+        id="react-select-custom-input"
         dateFormat="DD/MMM/YY"
         selectProps={{
           placeholder: 'e.g. 31/Dec/18',

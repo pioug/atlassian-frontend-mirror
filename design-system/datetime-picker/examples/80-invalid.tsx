@@ -8,15 +8,27 @@ export default () => {
   return (
     <div>
       <Label htmlFor="react-select-time--input">TimePicker - isInvalid</Label>
-      <TimePicker id="time" onChange={console.log} isInvalid />
+      <TimePicker
+        id="react-select-time--input"
+        onChange={console.log}
+        isInvalid
+      />
 
       <Label htmlFor="react-select-date--input">DatePicker - isInvalid</Label>
-      <DatePicker id="date" onChange={console.log} isInvalid />
+      <DatePicker
+        id="react-select-date--input"
+        onChange={console.log}
+        isInvalid
+      />
 
       <Label htmlFor="react-select-datetime--input">
         DateTimePicker - isInvalid
       </Label>
-      <DateTimePicker id="datetime" onChange={console.log} isInvalid />
+      <DateTimePicker
+        id="react-select-datetime--input"
+        onChange={console.log}
+        isInvalid
+      />
     </div>
   );
 };

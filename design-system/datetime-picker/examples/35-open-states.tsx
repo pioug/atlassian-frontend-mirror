@@ -9,7 +9,7 @@ export default () => {
     <div>
       <h3>DatePicker</h3>
       <Label htmlFor="react-select-is-open--input">Always open</Label>
-      <DatePicker id="is-open" isOpen />
+      <DatePicker id="react-select-is-open--input" isOpen />
     </div>
   );
 };

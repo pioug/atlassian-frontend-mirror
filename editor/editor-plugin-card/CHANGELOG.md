@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 0.13.6
+
+### Patch Changes
+
+- [#43035](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43035) [`705854f13b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/705854f13b3) - [ux] Show inline card overlay on selected (behind feature flag)
+- [#43417](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43417) [`3f3c17f0273`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f3c17f0273) - ED-20971 Upgrade adf-schema package to ^34.0.0
+- [#43496](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43496) [`290e75ca7f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/290e75ca7f2) - Fixes uncaught error when using arrow keys to move selection into inline card.
+- Updated dependencies
+
 ## 0.13.5
 
 ### Patch Changes

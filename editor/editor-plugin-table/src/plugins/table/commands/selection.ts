@@ -17,15 +17,8 @@ import type {
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import {
-  findTable,
-  isColumnSelected,
-  isRowSelected,
-  isTableSelected,
-  selectedRect,
-} from '@atlaskit/editor-tables/utils';
+import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 
-import { selectColumn, selectRow } from '../commands/misc';
 import type tablePlugin from '../index';
 import { getClosestSelectionRect } from '../toolbar';
 
@@ -82,60 +75,6 @@ export const arrowRightFromTable =
     } else if (selection instanceof TextSelection) {
       return arrowRightFromText(editorSelectionAPI)(selection)(state, dispatch);
     }
-    return false;
-  };
-
-export const selectColumns =
-  (
-    editorSelectionAPI:
-      | ExtractInjectionAPI<typeof tablePlugin>['selection']
-      | undefined,
-  ) =>
-  (): Command =>
-  (state, dispatch) => {
-    const { selection } = state;
-    const table = findTable(selection);
-    const rect = selectedRect(state);
-
-    if (table && isRowSelected(rect.top)(selection)) {
-      return selectFullTable(editorSelectionAPI)({
-        node: table.node,
-        startPos: table.start,
-        dir: TableSelectionDirection.BottomToTop,
-      })(state, dispatch);
-    }
-
-    if (table && rect) {
-      return selectColumn(rect.left)(state, dispatch);
-    }
-
-    return false;
-  };
-
-export const selectRows =
-  (
-    editorSelectionAPI:
-      | ExtractInjectionAPI<typeof tablePlugin>['selection']
-      | undefined,
-  ) =>
-  (): Command =>
-  (state, dispatch) => {
-    const { selection } = state;
-    const table = findTable(selection);
-    const rect = selectedRect(state);
-
-    if (table && isColumnSelected(rect.left)(selection)) {
-      return selectFullTable(editorSelectionAPI)({
-        node: table.node,
-        startPos: table.start,
-        dir: TableSelectionDirection.BottomToTop,
-      })(state, dispatch);
-    }
-
-    if (table && rect) {
-      return selectRow(rect.top)(state, dispatch);
-    }
-
     return false;
   };
 

@@ -444,7 +444,7 @@ describe('Field', () => {
     await user.click(screen.getByLabelText('clear'));
 
     // placeholder text appears after default value has been cleared
-    expect(screen.getByText('select a value')).toBeTruthy();
+    expect(screen.getByText('select a value')).toBeInTheDocument();
     expect(screen.queryAllByText('a default value')).toHaveLength(0);
   });
 
@@ -530,6 +530,7 @@ describe('Field', () => {
       <Form onSubmit={jest.fn()}>
         {() => (
           <Field
+            testId="field-id"
             name="username"
             id="username"
             label="User name"
@@ -543,8 +544,7 @@ describe('Field', () => {
       </Form>,
     );
 
-    const label = screen.getByText('User name');
-
+    const label = screen.getByTestId('field-id--label');
     expect(screen.getByTestId('text-field')).toHaveAttribute(
       'aria-labelledby',
       'username-label',
@@ -573,10 +573,8 @@ describe('Field', () => {
     expect(button).toHaveTextContent('submit');
 
     await user.click(button);
-    await waitFor(() =>
-      expect(screen.getByText('submitting')).toBeInTheDocument(),
-    );
-    await waitFor(() => expect(screen.getByText('submit')).toBeInTheDocument());
+    await expect(button).toHaveTextContent('submitting');
+    await expect(button).toHaveTextContent('submit');
   });
 
   it('should disable all fields in form when iDisabled is set to true', () => {
@@ -598,8 +596,8 @@ describe('Field', () => {
       </Form>,
     );
 
-    expect(screen.getByTestId('text-field')).toHaveAttribute('disabled');
-    expect(screen.getByRole('button')).toHaveAttribute('disabled');
+    expect(screen.getByTestId('text-field')).toBeDisabled();
+    expect(screen.getByRole('button')).toBeDisabled();
   });
 
   it('should never render with undefined fieldProp value', async () => {
@@ -913,17 +911,17 @@ describe('Field', () => {
     it('should hide required asterisk from assistive technologies', async () => {
       render(jsx());
 
-      const asterisk = screen.getByText('*');
+      const asterisks = screen.getAllByText('*');
 
-      expect(asterisk).toHaveAttribute('aria-hidden', 'true');
+      expect(asterisks[1]).toHaveAttribute('aria-hidden', 'true');
     });
 
     it('should have title for required asterisk', async () => {
       render(jsx());
 
-      const asterisk = screen.getByText('*');
+      const asterisks = screen.getAllByText('*');
 
-      expect(asterisk).toHaveAttribute('title', 'required');
+      expect(asterisks[1]).toHaveAttribute('title', 'required');
     });
 
     it('should set elementAfterLabel with field when field is required', () => {
@@ -1004,20 +1002,15 @@ describe('Field', () => {
     );
 
     // too short password
-    await waitFor(() =>
-      expect(
-        screen.queryByText('Password needs to be more than 8 characters.'),
-      ).toBeInTheDocument(),
-    );
+    expect(
+      await screen.findByText('Password needs to be more than 8 characters.'),
+    ).toBeInTheDocument();
 
     await user.clear(password);
     await user.keyboard(`long enough`);
 
     // eventually a good password
-    await waitFor(() =>
-      expect(screen.queryByText('Awesome password!')).toBeInTheDocument(),
-    );
-    await waitFor(() => promise);
+    expect(await screen.findByText('Awesome password!')).toBeInTheDocument();
   });
 
   it('should correctly update form state with a nested object of usernames', async () => {
@@ -1114,8 +1107,8 @@ describe('Field', () => {
 
     // check that the most recent error message is visible - should be the sync validation error
     setTimeout(() => {
-      expect(screen.queryByText('Username is in use')).toBeFalsy();
-      expect(screen.queryByText('Too short')).toBeTruthy();
+      expect(screen.queryByText('Username is in use')).not.toBeInTheDocument();
+      expect(screen.queryByText('Too short')).toBeInTheDocument();
       done();
     });
   });
@@ -1217,22 +1210,22 @@ describe('Field', () => {
     const button = screen.getByTestId('ChangeKeyButton');
 
     // Start with the defaultValue
-    expect(textField).toHaveAttribute('value', 'default value');
+    expect(textField).toHaveValue('default value');
 
     // Change the field's value
     await user.clear(textField);
     await user.keyboard(`changed value`);
 
-    expect(textField).toHaveAttribute('value', 'changed value');
+    expect(textField).toHaveValue('changed value');
 
     // Change the key prop
     await user.click(button);
 
-    expect(textField).toHaveAttribute('value', 'changed value');
+    expect(textField).toHaveValue('changed value');
 
     // Change key prop again (to exclude case when value was removed with second click)
     await user.click(button);
 
-    expect(textField).toHaveAttribute('value', 'changed value');
+    expect(textField).toHaveValue('changed value');
   });
 });

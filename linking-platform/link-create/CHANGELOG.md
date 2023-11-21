@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 1.9.5
+
+### Patch Changes
+
+- [#43257](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43257) [`cf4d4a94b14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf4d4a94b14) - EDM-8493: fire analytics event for modal screens and buttons associated with link-create edit flow
+
 ## 1.9.4
 
 ### Patch Changes

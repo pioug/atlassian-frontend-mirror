@@ -35,7 +35,7 @@ export default () => {
         Start date (past 30 days)
       </Label>
       <DatePicker
-        id="start-date"
+        id="react-select-start-date--input"
         onChange={(date: string) => setStartDate(date)}
         value={startDate}
         minDate={earliestDateString}
@@ -46,7 +46,7 @@ export default () => {
 
       <Label htmlFor="react-select-end-date--input">End date</Label>
       <DatePicker
-        id="end-date"
+        id="react-select-end-date--input"
         value={endDate}
         minDate={startDate || earliestDateString}
         maxDate={latestDateString}

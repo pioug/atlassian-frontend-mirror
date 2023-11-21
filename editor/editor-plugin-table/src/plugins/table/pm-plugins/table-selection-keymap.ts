@@ -2,8 +2,6 @@ import {
   bindKeymapWithCommand,
   moveLeft,
   moveRight,
-  selectColumn,
-  selectRow,
   shiftArrowUp,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -14,8 +12,6 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   arrowLeftFromTable,
   arrowRightFromTable,
-  selectColumns,
-  selectRows,
   shiftArrowUpFromTable,
 } from '../commands/selection';
 import type tablePlugin from '../index';
@@ -46,18 +42,6 @@ export function tableSelectionKeymapPlugin(
       list,
     );
   }
-
-  bindKeymapWithCommand(
-    selectColumn.common!,
-    selectColumns(editorSelectionAPI)(),
-    list,
-  );
-
-  bindKeymapWithCommand(
-    selectRow.common!,
-    selectRows(editorSelectionAPI)(),
-    list,
-  );
 
   return keymap(list) as SafePlugin;
 }

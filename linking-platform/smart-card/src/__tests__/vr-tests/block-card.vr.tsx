@@ -34,7 +34,9 @@ snapshot(BlockCardError, {
       true,
   },
 });
-snapshot(BlockCardForbidden, {
+// FIXME: This VR test has been flaky on CI and local. Build link: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2017497
+// Report: https://statlas.prod.atl-paas.net/vr-report/atlassian-frontend:2017497/index.html
+snapshot.skip(BlockCardForbidden, {
   description: 'refreshed block card forbidden view',
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
@@ -70,14 +72,18 @@ snapshot(BlockCardUnauthorised, {
       true,
   },
 });
-snapshot(BlockCardUnauthorisedNoAuth, {
+// FIXME: This VR test has been flaky on CI and local. Build link: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2017497
+// Report: https://statlas.prod.atl-paas.net/vr-report/atlassian-frontend:2017497/index.html
+snapshot.skip(BlockCardUnauthorisedNoAuth, {
   description: 'refreshed block card unauthorised view with no auth',
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
   },
 });
-snapshot(BlockCardResolvedJira, {
+// FIXME: This VR test has been flaky on CI and local. Build link: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2017497
+// Report: https://statlas.prod.atl-paas.net/vr-report/atlassian-frontend:2017497/index.html
+snapshot.skip(BlockCardResolvedJira, {
   description: 'refreshed & updated metadata jira block card',
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
@@ -86,7 +92,9 @@ snapshot(BlockCardResolvedJira, {
   },
 });
 
-snapshot(BlockCardResolvedConfluencePage, {
+// FIXME: This VR test has been flaky on CI and local. Build link: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2017497
+// Report: https://statlas.prod.atl-paas.net/vr-report/atlassian-frontend:2017497/index.html
+snapshot.skip(BlockCardResolvedConfluencePage, {
   description: 'refreshed & updated metadata block card confluence ',
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':

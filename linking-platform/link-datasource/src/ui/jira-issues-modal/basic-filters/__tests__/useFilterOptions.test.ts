@@ -240,19 +240,19 @@ describe('useFilterOptions', () => {
       filterOptions: [
         {
           label: 'Awaiting approval',
-          value: '"Awaiting approval"',
+          value: 'Awaiting approval',
           optionType: 'lozengeLabel',
           appearance: 'inprogress',
         },
         {
           label: 'Awaiting implementation',
-          value: '"Awaiting implementation"',
+          value: 'Awaiting implementation',
           optionType: 'lozengeLabel',
           appearance: 'inprogress',
         },
         {
           label: 'Awaiting implementation',
-          value: '"Awaiting implementation"',
+          value: 'Awaiting implementation',
           optionType: 'lozengeLabel',
           appearance: 'inprogress',
         },

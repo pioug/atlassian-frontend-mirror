@@ -9,9 +9,9 @@ export default () => {
 
   return (
     <div>
-      <Label htmlFor="react-select-timepicker--input">TimePicker - times</Label>
+      <Label htmlFor="react-select-timepicker-input">TimePicker - times</Label>
       <TimePicker
-        id="timepicker"
+        id="react-select-timepicker-input"
         times={times}
         selectProps={{ classNamePrefix: 'timepicker-select' }}
         testId={'timePicker'}
@@ -19,7 +19,7 @@ export default () => {
       <Label htmlFor="react-select-datetimepicker--input">
         DateTimePicker - times
       </Label>
-      <DateTimePicker id="datetimepicker" times={times} />
+      <DateTimePicker id="react-select-datetimepicker--input" times={times} />
     </div>
   );
 };

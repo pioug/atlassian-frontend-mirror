@@ -10,8 +10,9 @@ import {
 import {
   getDocument,
   GlobalWorkerOptions,
-  version,
+  CMapCompressionType,
 } from 'pdfjs-dist/legacy/build/pdf';
+import { cmap } from './cmaps';
 import type { PDFDocumentProxy } from 'pdfjs-dist/legacy/build/pdf';
 import { css, Global } from '@emotion/react';
 import { ZoomControls } from '../../zoomControls';
@@ -23,6 +24,8 @@ import ErrorMessage from '../../errorMessage';
 import { MediaViewerError } from '../../errors';
 import { ZoomLevel } from '../../domain/zoomLevel';
 import { processError } from './processError';
+import { pdfJs } from './pdfJs';
+import { extractCompressedBase64 } from './extractCompressedBase64';
 
 export const pdfViewerClassName = 'pdfViewer';
 
@@ -98,21 +101,32 @@ const globalStyles = css`
 /* eslint-enable @atlaskit/design-system/ensure-design-token-usage/preview */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 
-GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${version}/legacy/build/pdf.worker.min.js`; // TODO: use web workers instead of fake worker.
-
 export type Props = {
   item: FileState;
   src: string;
+  workerUrl?: string;
   onClose?: () => void;
   onSuccess?: () => void;
   onError?: (error: MediaViewerError) => void;
 };
+
+class CmapFacotry {
+  constructor() {}
+  async fetch({ name }: { name: string }) {
+    const { value } = await cmap[name]();
+    const data = await extractCompressedBase64(value);
+    return { cMapData: data, compressionType: CMapCompressionType.BINARY };
+  }
+}
+
+let defaultWorkerUrl = '';
 
 export const PDFRenderer = ({
   src,
   onClose,
   onSuccess,
   onError,
+  workerUrl,
   item,
 }: Props) => {
   const [zoomLevel, setZoomLevel] = useState<ZoomLevel>(new ZoomLevel(1));
@@ -131,10 +145,15 @@ export const PDFRenderer = ({
     let isSubscribed = true;
     const fetchDoc = async () => {
       try {
+        if (!workerUrl && !defaultWorkerUrl) {
+          const blob = await extractCompressedBase64(pdfJs, 'blob');
+          defaultWorkerUrl = URL.createObjectURL(blob);
+        }
+        GlobalWorkerOptions.workerSrc = workerUrl ?? defaultWorkerUrl;
+
         docRef.current = await getDocument({
           url: src,
-          cMapUrl: `https://unpkg.com/pdfjs-dist@${version}/cmaps/`,
-          cMapPacked: true,
+          CMapReaderFactory: CmapFacotry,
         }).promise;
         isSubscribed && setDocOutcome(Outcome.successful(docRef.current));
       } catch (error) {
@@ -155,7 +174,7 @@ export const PDFRenderer = ({
         docRef.current.destroy();
       }
     };
-  }, [src]);
+  }, [src, workerUrl]);
 
   useEffect(() => {
     if (docOutcome.status !== 'SUCCESSFUL' || !pdfWrapperRef.current) {

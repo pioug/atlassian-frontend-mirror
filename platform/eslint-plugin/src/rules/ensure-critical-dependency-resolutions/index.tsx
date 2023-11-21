@@ -6,9 +6,9 @@ import { getObjectPropertyAsObject } from '../util/handle-ast-object';
 
 // Here we only need to specify the major and minor versions
 // In matchMinorVersion, we will check if the versions in resolutions fall in the right ranges.
-const DESIRED_PKG_VERSIONS: Record<string, string> = {
-  typescript: '4.9',
-  '@types/react': '16.14',
+const DESIRED_PKG_VERSIONS: Record<string, string[]> = {
+  typescript: ['4.9'],
+  '@types/react': ['16.14', '18.2'],
 };
 
 const matchMinorVersion = (
@@ -90,14 +90,16 @@ const rule: Rule.RuleModule = {
         const isRootPackageJson = fileName.endsWith(`${rootDir}/package.json`);
 
         if (packageResolutions !== null) {
-          for (const [key, value] of Object.entries(DESIRED_PKG_VERSIONS)) {
+          for (const [key, values] of Object.entries(DESIRED_PKG_VERSIONS)) {
             if (
-              !verifyResolutionFromObject(
-                packageResolutions as ObjectExpression,
-                key,
-                value,
-                !isRootPackageJson,
-              )
+              !values.some((value) => {
+                return verifyResolutionFromObject(
+                  packageResolutions as ObjectExpression,
+                  key,
+                  value,
+                  !isRootPackageJson,
+                );
+              })
             ) {
               return context.report({
                 node,

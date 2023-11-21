@@ -1,10 +1,8 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 
-import { LinkCreateProps, Validator, ValidatorMap } from '../../common/types';
+import { LinkCreateProps } from '../../common/types';
 
 interface FormContextType {
-  getValidators: () => ValidatorMap;
-  assignValidator: (name: string, validators: Validator[]) => void;
   setFormErrorMessage: (errorMessage?: string) => void;
   formErrorMessage?: string;
   /**
@@ -16,8 +14,6 @@ interface FormContextType {
 }
 
 export const FormContext = createContext<FormContextType>({
-  assignValidator: () => {},
-  getValidators: () => ({}),
   setFormErrorMessage: () => {},
   enableEditView: undefined,
 });
@@ -26,23 +22,6 @@ const FormContextProvider: React.FC<{
   enableEditView?: (editButtonClicked: boolean) => void;
 }> = ({ enableEditView, children }) => {
   const [error, setError] = useState<string | undefined>();
-  const [validators, setValidators] = useState<Record<string, Validator[]>>({});
-
-  // Add validators to the form
-  const assignValidator = useCallback(
-    (name: string, fieldValidators: Validator[]) => {
-      setValidators(prevValidators => ({
-        ...prevValidators,
-        [name]: fieldValidators,
-      }));
-    },
-    [],
-  );
-
-  // Returns a validator function array
-  const getValidators = useCallback(() => {
-    return validators;
-  }, [validators]);
 
   // Sets the form footer error message
   const setFormErrorMessage = useCallback(
@@ -55,8 +34,6 @@ const FormContextProvider: React.FC<{
   return (
     <FormContext.Provider
       value={{
-        assignValidator,
-        getValidators,
         setFormErrorMessage,
         formErrorMessage: error,
         enableEditView,

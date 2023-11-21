@@ -21,16 +21,24 @@ export default () => {
       <Label htmlFor="react-select-time--input">
         TimePicker - timeFormat (h:mm a)
       </Label>
-      <TimePicker id="time" onChange={console.log} timeFormat="h:mm a" />
+      <TimePicker
+        id="react-select-time--input"
+        onChange={console.log}
+        timeFormat="h:mm a"
+      />
       <Label htmlFor="react-select-date--input">
         DatePicker - dateFormat (DD/MM/YYYY)
       </Label>
-      <DatePicker id="date" onChange={console.log} dateFormat="DD/MM/YYYY" />
+      <DatePicker
+        id="react-select-date--input"
+        onChange={console.log}
+        dateFormat="DD/MM/YYYY"
+      />
       <Label htmlFor="react-select-datetime--input">
         DateTimePicker - dateFormat (HH:mm) & timeFormat (Do MMMM YYYY)
       </Label>
       <DateTimePicker
-        id="date"
+        id="react-select-datetime--input"
         onChange={console.log}
         timeFormat="HH:mm"
         dateFormat="Do MMMM YYYY"

@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.11.5
+
+### Patch Changes
+
+- [#40944](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40944) [`c6b7d977655`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6b7d977655) - Memoize the Popup Trigger's ref to avoid unnecessary renders.
+
 ## 1.11.4
 
 ### Patch Changes

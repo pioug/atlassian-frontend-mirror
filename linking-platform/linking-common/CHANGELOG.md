@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.19.0
+
+### Minor Changes
+
+- [#43497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43497) [`049969f8eb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/049969f8eb1) - Added a `getTraceId` to extract traceId from a `Response`.
+
 ## 4.18.2
 
 ### Patch Changes

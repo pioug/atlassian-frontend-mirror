@@ -1,5 +1,17 @@
+const crypto = require('crypto');
 const { moduleResolveMapBuilder } = require('@atlassian/multi-entry-tools');
 const { PORT } = require('./utils');
+
+/**
+ * START HASH HACKS FOR NODE 18 COMPATIBILITY
+ * See: https://stackoverflow.com/a/69761823
+ */
+const createHashOriginal = crypto.createHash;
+crypto.createHash = (algorithm) =>
+  createHashOriginal(algorithm === 'md4' ? 'sha256' : algorithm);
+/**
+ * END HASH HACKS
+ */
 
 const createBaseEditorMobileBridgeWebpackConfig = async (args, config) => {
   const mode = typeof args.mode === 'undefined' ? 'development' : args.mode;

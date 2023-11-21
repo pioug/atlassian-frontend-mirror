@@ -30,7 +30,7 @@ export default () => {
   });
 
   const handleSelectionChange = useCallback(
-    (options, filter) => {
+    (filter, options) => {
       const updatedSelection = {
         ...selection,
         [filter]: options,
@@ -50,9 +50,7 @@ export default () => {
               cloudId="my-cloud-id"
               key={filter}
               selection={selection[filter]}
-              onSelectionChange={options =>
-                handleSelectionChange(options, filter)
-              }
+              onSelectionChange={handleSelectionChange}
             />
           ))}
         </Flex>

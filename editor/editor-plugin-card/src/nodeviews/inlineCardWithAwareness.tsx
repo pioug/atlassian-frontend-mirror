@@ -40,13 +40,12 @@ const InlineCard = ({
   isOverlayEnabled,
   isPulseEnabled,
   pluginInjectionApi,
-  isSelected,
+  isSelected = false,
 }: SmartCardProps) => {
   const { url, data } = node.attrs;
 
-  // A complete show/hide logic for the overlay will be implemented
-  // in EDM-8239 and EDM-8241
-  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+  // BEGIN: Awareness (To be revisited in EDM-8508)
+  const [isHovered, setIsHovered] = useState(false);
 
   const linkPosition = useMemo(() => {
     if (!getPos || typeof getPos === 'boolean') {
@@ -77,6 +76,7 @@ const InlineCard = ({
   ) {
     markLocalStorageKeyDiscovered(LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK);
   }
+  // END: Awareness
 
   const scrollContainer: HTMLElement | undefined = useMemo(
     () => findOverflowScrollParent(view.dom as HTMLElement) || undefined,
@@ -125,26 +125,23 @@ const InlineCard = ({
 
   const innerCard = useMemo(
     () => (
-      <InlineCardOverlay isVisible={isOverlayVisible} url={url}>
-        <SmartCard
-          key={url}
-          url={url}
-          data={data}
-          appearance="inline"
-          onClick={() => {}}
-          container={scrollContainer}
-          onResolve={onResolve}
-          onError={onError}
-          inlinePreloaderStyle={
-            useAlternativePreloader ? 'on-right-without-skeleton' : undefined
-          }
-          showServerActions={showServerActions}
-        />
-      </InlineCardOverlay>
+      <SmartCard
+        key={url}
+        url={url}
+        data={data}
+        appearance="inline"
+        onClick={() => {}}
+        container={scrollContainer}
+        onResolve={onResolve}
+        onError={onError}
+        inlinePreloaderStyle={
+          useAlternativePreloader ? 'on-right-without-skeleton' : undefined
+        }
+        showServerActions={showServerActions}
+      />
     ),
     [
       data,
-      isOverlayVisible,
       onError,
       onResolve,
       scrollContainer,
@@ -154,33 +151,44 @@ const InlineCard = ({
     ],
   );
 
+  // BEGIN: Awareness (To be revisited in EDM-8508)
+  const cardWithOverlay = useMemo(
+    () =>
+      shouldShowLinkOverlay ? (
+        <InlineCardOverlay
+          isSelected={isSelected}
+          isVisible={isHovered || isSelected}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          url={url}
+        >
+          {innerCard}
+        </InlineCardOverlay>
+      ) : (
+        innerCard
+      ),
+    [innerCard, isHovered, isSelected, shouldShowLinkOverlay, url],
+  );
+
   const card = useMemo(
     () => (
-      <span
-        css={shouldShowLinkPulse && loaderWrapperStyles}
-        className="card"
-        {...(shouldShowLinkOverlay
-          ? {
-              onMouseEnter: () => setIsOverlayVisible(true),
-              onMouseLeave: () => setIsOverlayVisible(false),
-            }
-          : {})}
-      >
+      <span css={shouldShowLinkPulse && loaderWrapperStyles} className="card">
         {shouldShowLinkPulse ? (
           <DiscoveryPulse
             localStorageKey={LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK}
             localStorageKeyExpirationInMs={ONE_DAY_IN_MILLISECONDS}
-            discoveryMode={'start'}
+            discoveryMode="start"
           >
-            {innerCard}
+            {cardWithOverlay}
           </DiscoveryPulse>
         ) : (
-          innerCard
+          cardWithOverlay
         )}
       </span>
     ),
-    [shouldShowLinkPulse, shouldShowLinkOverlay, innerCard],
+    [shouldShowLinkPulse, cardWithOverlay],
   );
+  // END: Awareness
 
   // [WS-2307]: we only render card wrapped into a Provider when the value is ready,
   // otherwise if we got data, we can render the card directly since it doesn't need the Provider

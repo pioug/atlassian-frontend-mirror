@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-rule
 
+## 0.1.7
+
+### Patch Changes
+
+- [#43417](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43417) [`3f3c17f0273`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f3c17f0273) - ED-20971 Upgrade adf-schema package to ^34.0.0
+
 ## 0.1.6
 
 ### Patch Changes

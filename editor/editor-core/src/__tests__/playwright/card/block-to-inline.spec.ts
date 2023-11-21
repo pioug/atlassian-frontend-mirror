@@ -36,7 +36,7 @@ test.describe('blockCard', () => {
     await blockCardModel.click();
     await floatingToolbarModel.waitForStable();
     await floatingToolbarModel.toInline();
-    await inlineCardModel.waitForStable();
+    await inlineCardModel.waitForResolvedStable();
 
     const expectedInlineCard = inlineCard({
       data: {
@@ -71,7 +71,7 @@ test.describe('blockCard', () => {
     await blockCardModel.click();
     await floatingToolbarModel.waitForStable();
     await floatingToolbarModel.toInline();
-    await inlineCardModel.waitForStable();
+    await inlineCardModel.waitForResolvedStable();
 
     await expect(editor).toHaveSelection({
       anchor: 5,

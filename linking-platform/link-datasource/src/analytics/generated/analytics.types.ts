@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::7b6bf74dbad7e14356c81bb8d6285cbe>>
+ * @codegen <<SignedSource::4e6414d2c19c29a67f20beee73d4b788>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type PackageMetaDataType = {
@@ -64,6 +64,11 @@ export type DatasourceRenderSuccessAttributesType = {
   display: 'table';
 };
 export type DatasourceRenderFailureAttributesType = {};
+export type DatasourceOperationFailedAttributesType = {
+  errorLocation: string | null;
+  traceId: string | null;
+  status: number | null;
+};
 export type NextItemLoadedAttributesType = {
   destinationObjectTypes: unknown[];
   extensionKey: string | null;
@@ -113,6 +118,10 @@ export type DropdownOpenedBasicSearchDropdownAttributesType = {
 export type DropdownClosedBasicSearchDropdownAttributesType = {
   filterType: 'project' | 'assignee' | 'issuetype' | 'status';
   selectionCount: number;
+};
+export type ButtonClickedBasicSearchDropdownAttributesType = {
+  filterType: 'project' | 'assignee' | 'issuetype' | 'status';
+  type: 'showMore';
 };
 export type AqlEditorSearchedAttributesType = {};
 export type GetWorkspaceIdSuccessAttributesType = {};
@@ -170,6 +179,9 @@ export type AnalyticsEventAttributes = {
    * Fired when an inserted datasource fails to render */
   'operational.datasource.renderFailure': DatasourceRenderFailureAttributesType;
   /**
+   * Fired when a generic operation failed */
+  'operational.datasource.operationFailed': DatasourceOperationFailedAttributesType;
+  /**
    * Fired when user scrolls to the next page/list of the objects */
   'track.nextItem.loaded': NextItemLoadedAttributesType;
   /**
@@ -193,6 +205,9 @@ export type AnalyticsEventAttributes = {
   /**
    * Fired when the basic filter dropdown is closed */
   'ui.dropdown.closed.basicSearchDropdown': DropdownClosedBasicSearchDropdownAttributesType;
+  /**
+   * Fired when the “show more” button inside the dropdown menu is clicked */
+  'ui.button.clicked.basicSearchDropdown': ButtonClickedBasicSearchDropdownAttributesType;
   /**
    * Fired when search is initiated via the search icon or enter key press for aql editor input field. */
   'ui.aqlEditor.searched': AqlEditorSearchedAttributesType;

@@ -4,11 +4,16 @@ import { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { ButtonGroup } from '@atlaskit/button';
 import LoadingButton from '@atlaskit/button/loading-button';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
+
+import { ANALYTICS_CHANNEL } from '../../../common/constants';
+import { Button } from '../../../common/ui/Button';
+import createEventPayload from '../../../common/utils/analytics/analytics.codegen';
 
 import { EditButton } from './edit-button';
 import { messages } from './messages';
@@ -44,6 +49,7 @@ export function CreateFormFooter({
   testId,
 }: CreateFormFooterProps) {
   const intl = useIntl();
+  const { createAnalyticsEvent } = useAnalyticsEvents();
 
   return (
     <footer data-testid={`${testId}-footer`} css={formFooterWrapperStyles}>
@@ -59,6 +65,7 @@ export function CreateFormFooter({
       <ButtonGroup>
         <Button
           type="button"
+          actionSubjectId="cancel"
           appearance="subtle"
           onClick={handleCancel}
           testId={`${testId}-button-cancel`}
@@ -76,6 +83,11 @@ export function CreateFormFooter({
             appearance="primary"
             isLoading={submitting}
             testId={`${testId}-button-submit`}
+            onClick={() => {
+              createAnalyticsEvent(
+                createEventPayload('ui.button.clicked.create', {}),
+              ).fire(ANALYTICS_CHANNEL);
+            }}
           >
             {intl.formatMessage(messages.create)}
           </LoadingButton>

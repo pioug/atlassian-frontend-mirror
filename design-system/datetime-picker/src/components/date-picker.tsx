@@ -39,6 +39,7 @@ import {
   padToTwo,
   placeholderDatetime,
 } from '../internal';
+import ClearIndicator from '../internal/clear-indicator';
 import FixedLayer from '../internal/fixed-layer';
 import { makeSingleValue } from '../internal/single-value';
 import { Appearance, Spacing } from '../types';
@@ -93,9 +94,8 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps {
    */
   icon?: React.ComponentType<DropdownIndicatorProps<OptionType>>;
   /**
-   * The id of the field. Currently, react-select transforms this to have a `react-select-` prefix, and an `--input` suffix when applied to the input. For example, the id `my-input` would be transformed to `react-select-my-input--input`.
-   *
-   * Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release.
+   * Set the id of the field.
+   * Associates a `<label></label>` with the field.
    */
   id?: string;
   /**
@@ -674,7 +674,9 @@ class DatePicker extends Component<DatePickerProps, State> {
       DropdownIndicator: dropDownIcon,
       Menu,
       SingleValue,
-      ...(!showClearIndicator && { ClearIndicator: EmptyComponent }),
+      ...(showClearIndicator
+        ? { ClearIndicator: ClearIndicator }
+        : { ClearIndicator: EmptyComponent }),
     };
 
     const { styles: selectStyles = {} } = selectProps;
@@ -727,7 +729,7 @@ class DatePicker extends Component<DatePickerProps, State> {
           menuIsOpen={menuIsOpen}
           closeMenuOnSelect
           autoFocus={autoFocus}
-          instanceId={id}
+          inputId={id}
           isDisabled={isDisabled}
           onBlur={this.onSelectBlur}
           onFocus={this.onSelectFocus}

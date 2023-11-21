@@ -17,7 +17,7 @@ export default () => {
         Custom date format and parseInputValue prop
       </Label>
       <DatePicker
-        id="custom-parser"
+        id="react-select-custom-parser--input"
         dateFormat="DD/MM/YY"
         parseInputValue={parseInputValue}
         selectProps={{

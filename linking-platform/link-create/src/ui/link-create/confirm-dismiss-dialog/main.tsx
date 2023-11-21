@@ -3,7 +3,7 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import Modal, {
+import {
   ModalBody,
   ModalFooter,
   ModalHeader,
@@ -12,7 +12,7 @@ import Modal, {
 } from '@atlaskit/modal-dialog';
 
 import { Button } from '../../../common/ui/Button';
-import { ScreenViewedEvent } from '../../../common/utils/analytics/components';
+import { Modal } from '../../../common/ui/ModalDialog';
 import { useLinkCreateCallback } from '../../../controllers/callback-context';
 
 import messages from './messages';
@@ -46,10 +46,10 @@ export const ConfirmDismissDialog = ({
         <AnalyticsContext data={context}>
           <Modal
             testId="link-create-confirm-dismiss-dialog"
+            screen={screen}
             onClose={onCancelDismiss}
             width="small"
           >
-            <ScreenViewedEvent screen={screen} />
             <ModalHeader>
               <ModalTitle>{intl.formatMessage(messages.title)}</ModalTitle>
             </ModalHeader>

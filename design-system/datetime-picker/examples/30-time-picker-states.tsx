@@ -10,7 +10,6 @@ export default () => {
       <Label htmlFor="timepicker-1--input">Stock</Label>
       <TimePicker
         onChange={console.log}
-        id="timepicker-1"
         testId="timepicker-1"
         selectProps={{
           classNamePrefix: 'timepicker-select',
@@ -19,14 +18,7 @@ export default () => {
       />
 
       <Label htmlFor="timepicker-2--input">Disabled input</Label>
-      <TimePicker
-        id="timepicker-2"
-        isDisabled
-        onChange={console.log}
-        selectProps={{
-          inputId: 'timepicker-2--input',
-        }}
-      />
+      <TimePicker id="timepicker-2--input" isDisabled onChange={console.log} />
     </div>
   );
 };

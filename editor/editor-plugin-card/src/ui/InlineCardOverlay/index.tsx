@@ -1,8 +1,16 @@
 /** @jsx jsx */
 import type { FC } from 'react';
-import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { css, jsx } from '@emotion/react';
+import debounce from 'lodash/debounce';
 import { useIntl } from 'react-intl-next';
 
 import { browser } from '@atlaskit/editor-common/utils';
@@ -14,8 +22,19 @@ import { token } from '@atlaskit/tokens';
 import { messages } from '../../messages';
 
 import type { InlineCardOverlayProps } from './types';
+import {
+  getChildElement,
+  getInlineCardAvailableWidth,
+  getOverlayWidths,
+} from './utils';
 
+const DEBOUNCE_IN_MS = 5;
+const ESTIMATED_MIN_WIDTH_IN_PX = 16;
 const PADDING_IN_PX = 2;
+const OVERLAY_CLASSNAME = 'ak-editor-card-overlay';
+const OVERLAY_LABEL_CLASSNAME = 'ak-editor-card-overlay-label';
+const OVERLAY_MARKER_CLASSNAME = 'ak-editor-card-overlay-marker';
+const TEXT_NODE_SELECTOR = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].join(',');
 
 const containerStyles = css({
   position: 'relative',
@@ -28,9 +47,11 @@ const linkStyles = css({
 });
 
 const overlayStyles = css({
+  // Visibility is set directly on element via style prop
+  display: 'inline-flex',
+
   // Positioning
   position: 'relative',
-  display: 'inline-flex',
   flexWrap: 'nowrap',
   alignItems: 'center',
   alignSelf: 'stretch',
@@ -103,63 +124,136 @@ const markerStyles = css({
 
 const InlineCardOverlay: FC<InlineCardOverlayProps> = ({
   children,
-  isToolbarOpen = false,
+  isSelected = false,
   isVisible = false,
   testId = 'inline-card-overlay',
   url,
+  ...props
 }) => {
+  const [showOverlay, setShowOverlay] = useState(true);
   const [showLabel, setShowLabel] = useState(true);
   const [overlayWidth, setOverlayWidth] = useState(0);
 
-  const containerRef = useRef<HTMLSpanElement>(null);
-  const markerRef = useRef<HTMLSpanElement>(null);
-  const overlayRef = useRef<HTMLAnchorElement>(null);
-  const labelRef = useRef<HTMLSpanElement>(null);
+  const maxOverlayWidth = useRef(0);
+  const minOverlayWidth = useRef(ESTIMATED_MIN_WIDTH_IN_PX);
+  const parentWidth = useRef(0);
 
-  useLayoutEffect(() => {
-    if (!isVisible) {
-      // Reset to default state for width calculation when the component become visible.
-      setShowLabel(true);
+  const containerRef = useRef<HTMLSpanElement>(null);
+
+  const setVisibility = useCallback(() => {
+    if (!containerRef.current || !maxOverlayWidth.current) {
+      return;
+    }
+
+    const marker = getChildElement(
+      containerRef,
+      `.${OVERLAY_MARKER_CLASSNAME}`,
+    );
+    if (!marker) {
       return;
     }
 
     try {
-      // Get the width of the available space to display overlay
-      const start = containerRef?.current?.getBoundingClientRect()?.left ?? 0;
-      const end = markerRef?.current?.getBoundingClientRect()?.left ?? 0;
-      const availableWidth = end - start - PADDING_IN_PX;
+      // Get the width of the available space to display overlay.
+      // This is the width of the inline link itself. If the inline
+      // is wrapped to the next line, this is width of the last line.
+      const availableWidth =
+        getInlineCardAvailableWidth(containerRef.current, marker) -
+        PADDING_IN_PX;
 
-      // Get overlay width and label width
-      const overlayWidth =
-        overlayRef?.current?.getBoundingClientRect()?.width ?? 0;
+      // If available width is less than the min width of overlay, don't show overlay.
+      const canShowOverlay = availableWidth > minOverlayWidth.current;
+      setShowOverlay(canShowOverlay);
 
-      // Show label if there is enough space to display
-      const shouldShowLabel =
-        availableWidth > 0 && overlayWidth > 0
-          ? availableWidth > overlayWidth
-          : false;
-      setShowLabel(shouldShowLabel);
+      if (!canShowOverlay) {
+        return;
+      }
 
-      // We use relative positioning and need to set
-      // negative margin left (ltr) as the width of the overlay
-      // to make the overlay position on top of inline link.
-      const labelWidth = labelRef?.current?.getBoundingClientRect()?.width ?? 0;
-      const newOverlayWidth = shouldShowLabel
-        ? overlayWidth
-        : overlayWidth - labelWidth;
-      setOverlayWidth(newOverlayWidth);
+      // Otherwise, check if overlay can be show in full context with label and icon.
+      const canShowLabel =
+        availableWidth > maxOverlayWidth.current + PADDING_IN_PX;
+      setShowLabel(canShowLabel);
+      setOverlayWidth(
+        canShowLabel ? maxOverlayWidth.current : minOverlayWidth.current,
+      );
     } catch {
-      // If something goes wrong, play it safe by hiding label so that
-      // the component does not look too janky.
-      setShowLabel(false);
+      // If something goes wrong, hide the overlay all together.
+      setShowOverlay(false);
     }
-  }, [isVisible]);
+  }, []);
+
+  useLayoutEffect(() => {
+    // Using useLayoutEffect here.
+    // 1) We want all to be able to determine whether to display label before
+    //    the overlay becomes visible.
+    // 2) We need to wait for the refs to be assigned to be able to do determine
+    //    the width of the overlay.
+    if (!containerRef.current) {
+      return;
+    }
+
+    if (!maxOverlayWidth.current) {
+      const overlay = getChildElement(containerRef, `.${OVERLAY_CLASSNAME}`);
+      const label = getChildElement(
+        containerRef,
+        `.${OVERLAY_LABEL_CLASSNAME}`,
+      );
+
+      if (overlay && label) {
+        // Set overlay max (label + icon) and min (icon only) width.
+        // This should run only once.
+        const { max, min } = getOverlayWidths(overlay, label);
+        maxOverlayWidth.current = max;
+        minOverlayWidth.current = min;
+      }
+    }
+
+    if (isVisible) {
+      setVisibility();
+    }
+  }, [setVisibility, isVisible]);
+
+  useEffect(() => {
+    // Find the closest block parent to observe size change
+    const parent = containerRef?.current?.closest(TEXT_NODE_SELECTOR);
+    if (!parent) {
+      return;
+    }
+
+    const updateOverlay = debounce(entries => {
+      if (!isVisible) {
+        return;
+      }
+
+      const size = entries?.[0]?.contentBoxSize?.[0]?.inlineSize;
+      if (!size) {
+        return;
+      }
+
+      if (!parentWidth.current) {
+        parentWidth.current = size;
+      }
+
+      if (parentWidth.current === size) {
+        return;
+      }
+
+      parentWidth.current = size;
+      setVisibility();
+    }, DEBOUNCE_IN_MS);
+
+    const observer = new ResizeObserver(updateOverlay);
+    observer.observe(parent);
+    return () => {
+      observer.disconnect();
+    };
+  }, [isVisible, setVisibility]);
 
   const intl = useIntl();
   const label: string = intl.formatMessage(messages.inlineOverlay);
 
   const icon = useMemo(() => {
-    const IconComponent = isToolbarOpen
+    const IconComponent = isSelected
       ? HipchatChevronUpIcon
       : HipchatChevronDownIcon;
 
@@ -167,30 +261,35 @@ const InlineCardOverlay: FC<InlineCardOverlayProps> = ({
       <IconComponent
         label={label}
         size="small"
-        testId={`${testId}-${isToolbarOpen ? 'open' : 'close'}`}
+        testId={`${testId}-${isSelected ? 'open' : 'close'}`}
       />
     );
-  }, [isToolbarOpen, label, testId]);
+  }, [isSelected, label, testId]);
 
   return (
-    <span css={containerStyles} ref={containerRef}>
+    <span {...props} css={containerStyles} ref={containerRef}>
       {children}
-      {isVisible && (
+      {isVisible && showOverlay && (
         <React.Fragment>
-          <span aria-hidden="true" css={markerStyles} ref={markerRef} />
+          <span
+            aria-hidden="true"
+            className={OVERLAY_MARKER_CLASSNAME}
+            css={markerStyles}
+          />
           <a
+            className={OVERLAY_CLASSNAME}
             css={[overlayStyles, browser.safari && safariOverlayStyles]}
             style={{ marginLeft: -overlayWidth }}
             data-testid={testId}
             href={url}
             onClick={e => e.preventDefault()}
-            ref={overlayRef}
+            tabIndex={-1}
           >
             {showLabel && (
               <span
+                className={OVERLAY_LABEL_CLASSNAME}
                 css={textStyles}
                 data-testid={`${testId}-label`}
-                ref={labelRef}
               >
                 {label}
               </span>

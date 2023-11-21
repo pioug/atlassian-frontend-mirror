@@ -10,7 +10,7 @@ import {
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import Modal, {
+import {
   ModalBody,
   ModalHeader,
   ModalTitle,
@@ -25,6 +25,7 @@ import {
   LinkCreatePlugin,
   LinkCreateWithModalProps,
 } from '../../common/types';
+import { Modal } from '../../common/ui/ModalDialog';
 import { LinkCreateCallbackProvider } from '../../controllers/callback-context';
 import { EditPostCreateModalProvider } from '../../controllers/edit-post-create-context';
 import {
@@ -41,9 +42,9 @@ import { ConfirmDismissDialog } from './confirm-dismiss-dialog';
 import { EditModal } from './edit-modal';
 import { ErrorBoundary } from './error-boundary';
 import { messages } from './messages';
-import TrackMount from './track-mount';
 
 export const TEST_ID = 'link-create';
+const SCREEN_ID = 'linkCreateScreen';
 
 type LinkCreateContentProps = {
   plugins: LinkCreatePlugin[];
@@ -130,6 +131,7 @@ const LinkCreateWithModal = ({
         {active && (
           <Modal
             testId="link-create-modal"
+            screen={SCREEN_ID}
             onClose={handleCancel}
             shouldScrollInViewport={true}
             onOpenComplete={onOpenComplete}
@@ -144,7 +146,6 @@ const LinkCreateWithModal = ({
             <ModalBody>
               <Box testId={testId}>
                 <ErrorBoundary>
-                  <TrackMount />
                   <LinkCreateContent plugins={plugins} entityKey={entityKey} />
                 </ErrorBoundary>
               </Box>

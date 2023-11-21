@@ -41,7 +41,7 @@ const getClosestInlineCardPos = (
       direction === 'up' ? coord.top - lookupPixel : coord.bottom + lookupPixel,
   })?.inside;
 
-  if (nearPos) {
+  if (typeof nearPos === 'number' && nearPos > -1) {
     const newNode = state.doc.nodeAt(nearPos);
     if (newNode) {
       if (

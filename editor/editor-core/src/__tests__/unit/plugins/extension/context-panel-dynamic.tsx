@@ -378,7 +378,7 @@ describe('Dynamic ConfigPanelFieldsLoader', () => {
     await waitFor(() =>
       // TODO: Troubleshoot this, the A11Y for the date field is off, the label and form field aren't connected
       // expect(within(configForm).getByLabelText('As of date')).toBeEnabled(),
-      expect(within(configForm).getByText('As of date')).toBeVisible(),
+      expect(within(configForm).getAllByText('As of date')[1]).toBeVisible(),
     );
 
     // Switch it back to line chart
@@ -472,7 +472,7 @@ describe('Dynamic ConfigPanelFieldsLoader', () => {
         within(configForm).queryByLabelText('Smooth lines'),
       ).not.toBeInTheDocument(),
     );
-    expect(within(configForm).getByText('As of date')).toBeVisible();
+    expect(within(configForm).getAllByText('As of date')[1]).toBeVisible();
 
     // Check that expand is still expanded
     expect(expandContent).toBeVisible();

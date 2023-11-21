@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-border",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Border plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -35,7 +35,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^33.2.3",
+    "@atlaskit/adf-schema": "^34.0.0",
     "@atlaskit/editor-common": "^76.22.0",
     "@babel/runtime": "^7.0.0"
   },

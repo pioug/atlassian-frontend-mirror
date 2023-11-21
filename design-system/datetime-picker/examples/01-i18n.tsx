@@ -40,6 +40,7 @@ export default () => {
     <div>
       <Label htmlFor="locale">Locale</Label>
       <LocaleSelect
+        id="locale"
         onLocaleChange={handleLocaleChange}
         defaultLocale={{ value: 'ja-JP', label: '日本語 (日本)' }}
       />
@@ -66,9 +67,11 @@ export default () => {
       />
 
       <h3>Date picker</h3>
-      <Label htmlFor="react-select-datepicker-1--input">Default</Label>
+      <Label htmlFor="react-select-datepicker-1--input">
+        Select date (default)
+      </Label>
       <DatePicker
-        id="datepicker-1"
+        id="react-select-datepicker-1--input"
         onChange={onChange}
         locale={locale}
         testId={'date-picker'}
@@ -77,9 +80,11 @@ export default () => {
       />
 
       <h3>Time picker</h3>
-      <Label htmlFor="react-select-timepicker-1--input">Default</Label>
+      <Label htmlFor="react-select-timepicker-1--input">
+        Select time (default)
+      </Label>
       <TimePicker
-        id="timepicker-1"
+        id="react-select-timepicker-1--input"
         onChange={onChange}
         selectProps={{ classNamePrefix: 'time-picker--select' }}
         locale={locale}
@@ -88,7 +93,7 @@ export default () => {
       />
 
       <h3>Date / time picker</h3>
-      <Label htmlFor="react-select-timepicker-1--input">Default</Label>
+      <Label htmlFor="datetimepicker-1">Date / time picker (default)</Label>
       <DateTimePicker
         id="datetimepicker-1"
         onChange={onChange}

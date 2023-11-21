@@ -1,29 +1,29 @@
-import { ssr_hydrate } from '@atlaskit/elements-test-helpers';
+import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 
-describe('SSR - Task Inline ', () => {
+describe('SSR - Task Inline', () => {
+  const examplePath = require.resolve('./samples/_task-inline.tsx');
+
   beforeEach(() => {
-    jest.spyOn(global.console, 'error');
+    jest.spyOn(global.console, 'error').mockImplementation(() => {});
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
-    jest.restoreAllMocks();
+    // Clean-up SSR Emotion styles
+    cleanup();
+    // Reset mock data
+    jest.clearAllMocks();
   });
 
   test('rendering and hydration are ok', async () => {
-    await ssr_hydrate(__dirname, './samples/_task-inline.tsx');
+    const elem = document.createElement('div');
+    const { html, styles } = await ssr(examplePath);
 
-    // ignore warnings caused by emotion's server-side rendering approach
-    // @ts-ignore
+    elem.innerHTML = html;
+    await hydrateWithAct(examplePath, elem, styles);
+
+    // No other errors from e.g. hydrate
     // eslint-disable-next-line no-console
-    const mockCalls = console.error.mock.calls.filter(
-      ([f, s]: string[]) =>
-        !(
-          f ===
-            'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
-          s === 'style'
-        ),
-    );
+    const mockCalls = (console.error as jest.Mock).mock.calls;
     expect(mockCalls).toHaveLength(0);
   });
 });

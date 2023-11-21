@@ -1,6 +1,4 @@
 /** @jsx jsx */
-import { Fragment, useEffect, useMemo } from 'react';
-
 import { css, jsx } from '@emotion/react';
 import { Field } from 'react-final-form';
 
@@ -12,8 +10,7 @@ import {
 } from '@atlaskit/form';
 import { token } from '@atlaskit/tokens';
 
-import { validateSubmitErrors } from '../../common/utils/form';
-import { useFormContext } from '../form-context';
+import { shouldShowValidationErrors } from '../../common/utils/form';
 
 import { CreateFieldProps } from './types';
 
@@ -31,55 +28,50 @@ export function CreateField({
   testId,
   children,
 }: CreateFieldProps) {
-  const { assignValidator } = useFormContext();
-
-  useEffect(() => {
-    if (validators) {
-      assignValidator(name, validators);
-    }
-  }, [name, validators, assignValidator]);
-
-  const fieldId = useMemo(
-    () => (id ? id : `link-create-field-${name}`),
-    [id, name],
-  );
+  const fieldId = id ? id : `link-create-field-${name}`;
 
   return (
-    <div css={fieldWrapperStyles} data-testid={testId}>
-      <Field name={name}>
-        {({ input, meta }) => {
-          const isInvalid = validateSubmitErrors(meta);
-          const { submitError } = meta;
+    <Field
+      name={name}
+      validate={value => {
+        return (validators ?? []).find(validator => {
+          return !validator.isValid(value);
+        })?.errorMessage;
+      }}
+    >
+      {({ input, meta }) => {
+        const isInvalid = shouldShowValidationErrors(meta);
+        const { submitError, error } = meta;
+        const hasError = !!submitError || !!error;
 
-          return (
-            <Fragment>
-              {label && (
-                <Label
-                  htmlFor={fieldId}
-                  id={`${fieldId}-label`}
-                  testId={`${testId}-label`}
-                >
-                  {label}
-                  {isRequired && <RequiredAsterisk />}
-                </Label>
-              )}
+        return (
+          <div css={fieldWrapperStyles} data-testid={testId}>
+            {label && (
+              <Label
+                htmlFor={fieldId}
+                id={`${fieldId}-label`}
+                testId={`${testId}-label`}
+              >
+                {label}
+                {isRequired && <RequiredAsterisk />}
+              </Label>
+            )}
 
-              {children({ ...input, fieldId, isInvalid })}
+            {children({ ...input, fieldId, isInvalid })}
 
-              {!submitError && validationHelpText && (
-                <HelperMessage testId={`${testId}-helper-message`}>
-                  {validationHelpText}
-                </HelperMessage>
-              )}
-              {submitError && isInvalid && (
-                <ErrorMessage testId={`${testId}-error-message`}>
-                  {submitError}
-                </ErrorMessage>
-              )}
-            </Fragment>
-          );
-        }}
-      </Field>
-    </div>
+            {!hasError && validationHelpText && (
+              <HelperMessage testId={`${testId}-helper-message`}>
+                {validationHelpText}
+              </HelperMessage>
+            )}
+            {hasError && isInvalid && (
+              <ErrorMessage testId={`${testId}-error-message`}>
+                {submitError || error}
+              </ErrorMessage>
+            )}
+          </div>
+        );
+      }}
+    </Field>
   );
 }

@@ -100,14 +100,18 @@ export default () => {
   return (
     <div>
       <h3>Date picker</h3>
-      <Label htmlFor="react-select-datepicker-1--input">Default</Label>
-      <DatePicker id="datepicker-1" onChange={onChange} />
+      <Label htmlFor="react-select-datepicker-1-input">
+        Select date (default)
+      </Label>
+      <DatePicker id="react-select-datepicker-1-input" onChange={onChange} />
 
-      <Label htmlFor="react-select-datepicker-2--input">Controlled Value</Label>
+      <Label htmlFor="react-select-datepicker-2--input">
+        Select date (controlled value)
+      </Label>
       <Controlled initialValue="2018-01-02">
         {({ value, onValueChange, onBlur }) => (
           <DatePicker
-            id="datepicker-2"
+            id="react-select-datepicker-2--input"
             value={value}
             onChange={onValueChange}
             onBlur={onBlur}
@@ -116,31 +120,37 @@ export default () => {
       </Controlled>
 
       <Label htmlFor="react-select-datepicker-3--input">
-        Uncontrolled (defaultValue)
+        Select date (uncontrolled, defaultValue)
       </Label>
       <DatePicker
-        id="datepicker-3"
+        id="react-select-datepicker-3--input"
         defaultValue="2018-01-02"
         onChange={onChange}
       />
 
       <h3>Time picker</h3>
-      <Label htmlFor="react-select-timepicker-1--input">Default</Label>
+      <Label htmlFor="react-select-timepicker-input">
+        Select time (default)
+      </Label>
       <TimePicker
-        id="timepicker-1"
+        id="react-select-timepicker-input"
         testId="timepicker-1"
         onChange={onChange}
-        selectProps={{ classNamePrefix: 'timepicker-select' }}
+        selectProps={{
+          classNamePrefix: 'timepicker-select',
+        }}
       />
 
       <Label htmlFor="react-select-timepicker-2--input">
-        Controlled (value, isOpen)
+        Select time (value, isOpen)
       </Label>
       <Controlled initialValue="14:30">
         {({ value, onValueChange, isOpen, onBlur }) => (
           <TimePicker
-            selectProps={{ classNamePrefix: 'timepicker-select' }}
-            id="timepicker-2"
+            selectProps={{
+              inputId: 'react-select-timepicker-2--input',
+              classNamePrefix: 'timepicker-select',
+            }}
             value={value}
             onChange={onValueChange}
             onBlur={onBlur}
@@ -150,19 +160,25 @@ export default () => {
       </Controlled>
 
       <Label htmlFor="react-select-timepicker-3--input">
-        Uncontrolled (defaultValue)
+        Select time (uncontrolled, defaultValue)
       </Label>
       <TimePicker
-        selectProps={{ classNamePrefix: 'timepicker-select' }}
-        id="timepicker-3"
+        selectProps={{
+          classNamePrefix: 'timepicker-select',
+        }}
+        id="react-select-timepicker-3--input"
         defaultValue="14:30"
         onChange={onChange}
       />
 
-      <Label htmlFor="react-select-timepicker-4--input">Editable times</Label>
+      <Label htmlFor="react-select-timepicker-4--input">
+        Select time (editable)
+      </Label>
       <TimePicker
-        selectProps={{ classNamePrefix: 'timepicker-select' }}
-        id="timepicker-4"
+        selectProps={{
+          classNamePrefix: 'timepicker-select',
+        }}
+        id="react-select-timepicker-4--input"
         defaultValue="14:30"
         onChange={onChange}
         timeFormat="HH:mm:ss A"
@@ -170,49 +186,53 @@ export default () => {
       />
 
       <h3>Date / time picker</h3>
-      <Label htmlFor="react-select-datetimepicker-1--input">Default</Label>
+      <Label htmlFor="react-select-datetimepicker-1--input">
+        Date / time picker (default)
+      </Label>
       <DateTimePicker
-        id="datetimepicker-1"
         onChange={onChange}
         testId={'dateTimePicker'}
+        id="react-select-datetimepicker-1--input"
       />
 
       <Label htmlFor="react-select-datetimepicker-2--input">
-        Controlled (UTC-08:00)
+        Date / time picker (controlled (UTC-08:00))
       </Label>
       <Controlled initialValue="2018-01-02T14:30-08:00">
         {({ value, onValueChange }) => (
           <DateTimePicker
-            id="datetimepicker-2"
             value={value}
             onChange={onValueChange}
+            id="react-select-datetimepicker-2--input"
           />
         )}
       </Controlled>
 
       <Label htmlFor="react-select-datetimepicker-3--input">
-        Uncontrolled (UTC+10:00)
+        Date / time picker (uncontrolled (UTC+10:00))
       </Label>
       <DateTimePicker
-        id="datetimepicker-3"
+        id="react-select-datetimepicker-3--input"
         defaultValue="2018-01-02T14:30+10:00"
         onChange={onChange}
       />
 
       <Label htmlFor="react-select-datetimepicker-4--input">
-        Editable times (UTC+10:00)
+        Date / time picker (editable times (UTC+10:00))
       </Label>
       <DateTimePicker
-        id="datetimepicker-4"
+        id="react-select-datetimepicker-4--input"
         defaultValue="2018-01-02T14:30+10:00"
         onChange={onChange}
         timeIsEditable
       />
-
-      <Label htmlFor="react-select-datetimepicker-5--input">
-        Editable times with value (UTC+10:00)
+      <Label htmlFor="react-select-datetimepicker-input">
+        Date / time picker (editable times with value (UTC+10:00))
       </Label>
-      <DateTimePicker id="datetimepicker-5" onChange={(v) => setValue(v)} />
+      <DateTimePicker
+        onChange={(v) => setValue(v)}
+        id="react-select-datetimepicker-input"
+      />
       <pre>{value}</pre>
     </div>
   );

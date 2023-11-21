@@ -138,8 +138,11 @@ describe('<LinkCreate />', () => {
     const rerender = (props?: Partial<LinkCreateWithModalProps>) =>
       renderResult.rerender(<Component {...props} />);
 
+    const unmount = () => renderResult.unmount();
+
     return {
       rerender,
+      unmount,
     };
   };
 
@@ -147,6 +150,30 @@ describe('<LinkCreate />', () => {
     setUpLinkCreate();
 
     expect(screen.getByTestId(testId)).toBeInTheDocument();
+  });
+
+  it('should fire modal dialog analytics on mount and unmount', async () => {
+    const { unmount } = setUpLinkCreate();
+
+    expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
+      payload: {
+        eventType: 'ui',
+        actionSubject: 'modalDialog',
+        actionSubjectId: 'linkCreate',
+        action: 'opened',
+      },
+    });
+
+    unmount();
+
+    expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
+      payload: {
+        eventType: 'ui',
+        actionSubject: 'modalDialog',
+        actionSubjectId: 'linkCreate',
+        action: 'closed',
+      },
+    });
   });
 
   it('should hide LinkCreate when `active` changes from `true` to `false`', async () => {
@@ -760,6 +787,13 @@ describe('<LinkCreate />', () => {
             ).toBeInTheDocument();
           });
           expect(onCloseCompleteMock).not.toHaveBeenCalled();
+          expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
+            payload: {
+              eventType: 'screen',
+              name: 'linkCreateEditScreen',
+              action: 'viewed',
+            },
+          });
 
           expect(onSubmitSpy).toBeCalled();
           expect(onCreateMock).toBeCalledWith(

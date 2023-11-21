@@ -44,7 +44,7 @@ test.describe('card', () => {
       inlineCardModel,
     );
 
-    await inlineCardModel.waitForStable();
+    await inlineCardModel.waitForResolvedStable();
     await inlineCardModel.click();
     await floatingToolbarModel.unlink();
 
@@ -83,7 +83,7 @@ test.describe('card', () => {
         inlineCardModel,
       );
 
-      await inlineCardModel.waitForStable();
+      await inlineCardModel.waitForResolvedStable();
       await inlineCardModel.click();
       await floatingToolbarModel.unlink();
 

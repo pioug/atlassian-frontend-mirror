@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.4.0
+
+### Minor Changes
+
+- [#43563](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43563) [`51f9f6e2f10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51f9f6e2f10) - Add @types/react v18.2 to critical deps whitelist
+
 ## 0.3.0
 
 ### Minor Changes

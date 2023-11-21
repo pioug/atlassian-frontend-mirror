@@ -159,6 +159,7 @@ export function InlineCardNodeView(
     );
   }
 
+  // BEGIN: Awareness (To be revisited in EDM-8508)
   const editorState = view.state;
   const linkPosition =
     getPos && typeof getPos() === 'number' ? getPos() : undefined;
@@ -182,6 +183,7 @@ export function InlineCardNodeView(
     view.state.selection instanceof NodeSelection &&
     view.state.selection?.node?.type === view.state.schema.nodes.inlineCard &&
     view.state.selection?.from === getPos();
+  // END: Awareness
 
   return (
     <WrappedInlineCardWithAwareness

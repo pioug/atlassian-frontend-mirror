@@ -1,5 +1,14 @@
 # @atlaskit/datetime-picker
 
+## 13.0.1
+
+### Patch Changes
+
+- [#40391](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40391) [`4300c9d6f18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4300c9d6f18) - Associate the label with the `Date` / `Time` picker and the clear button.
+  Add hidden span to the Label component.
+  This allows to associate a label with a clear button.
+  Unit tests update.
+
 ## 13.0.0
 
 ### Major Changes

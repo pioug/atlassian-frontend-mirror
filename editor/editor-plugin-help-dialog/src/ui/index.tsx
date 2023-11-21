@@ -17,8 +17,6 @@ import {
   openHelp,
   pastePlainText,
   redo,
-  selectColumn,
-  selectRow,
   setNormalText,
   toggleBlockQuote,
   toggleBold,
@@ -113,16 +111,6 @@ const messages = defineMessages({
     id: 'fabric.editor.altText',
     defaultMessage: 'Alt text',
     description: 'Alternative text for image.',
-  },
-  selectTableRow: {
-    id: 'fabric.editor.selectTableRow',
-    defaultMessage: 'Select table row',
-    description: 'Hint for selecting a table row using a shortcut',
-  },
-  selectTableColumn: {
-    id: 'fabric.editor.selectTableColumn',
-    defaultMessage: 'Select table column',
-    description: 'Hint for selecting a table column using a shortcut',
   },
   closeHelpDialog: {
     id: 'fabric.editor.closeHelpDialog',
@@ -440,16 +428,6 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
     type: 'checkbox',
     keymap: () => toggleTaskItemCheckbox,
   },
-  {
-    name: formatMessage(messages.selectTableRow),
-    type: 'table',
-    keymap: () => selectRow,
-  },
-  {
-    name: formatMessage(messages.selectTableColumn),
-    type: 'table',
-    keymap: () => selectColumn,
-  },
 ];
 
 const imageAutoFormat: Format = {
@@ -525,7 +503,7 @@ export const getComponentFromKeymap = (keymap: Keymap) => {
               {part}
             </span>
           );
-        } else if (['f9', 'f10', 'space'].indexOf(part.toLowerCase()) >= 0) {
+        } else if (['f9', 'f10'].indexOf(part.toLowerCase()) >= 0) {
           return (
             <span css={codeLg} key={`${keyParts}-${index}`}>
               {part}

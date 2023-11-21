@@ -33,7 +33,7 @@ test.describe('card', () => {
       inlineCardModel,
     );
 
-    await inlineCardModel.waitForStable();
+    await inlineCardModel.waitForResolvedStable();
 
     const boundingBox = await nodes.inlineCard.boundingBox();
     expect(boundingBox).not.toBe(null);

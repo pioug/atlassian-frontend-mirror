@@ -1,10 +1,16 @@
 import React, { useMemo } from 'react';
-import { isHex, isRgb, rgbToHex } from '@atlaskit/adf-schema';
+import {
+  isHex,
+  isRgb,
+  rgbToHex,
+  getDarkModeLCHColor,
+} from '@atlaskit/adf-schema';
 import type { TextColorAttributes } from '@atlaskit/adf-schema';
 import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import type { MarkProps } from '../types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 /**
  * This function is duplicated in
@@ -73,7 +79,12 @@ export default function TextColor(props: MarkProps<TextColorAttributes>) {
   } else {
     if (colorMode === 'dark') {
       // if we have a custom color, we need to check if we are in dark mode
-      paletteColorValue = invertCustomColor(props.color);
+      // and if the feature flag is enabled we need to use the LCH conversion method
+      if (getBooleanFF('platform.editor.use-lch-for-color-inversion_1qv8ol')) {
+        paletteColorValue = getDarkModeLCHColor(props.color);
+      } else {
+        paletteColorValue = invertCustomColor(props.color);
+      }
     } else {
       // if we are in light mode, we can just set the color
       paletteColorValue = props.color;

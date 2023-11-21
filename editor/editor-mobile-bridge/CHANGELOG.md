@@ -1,5 +1,18 @@
 # @atlaskit/editor-mobile-bridge
 
+## 189.3.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.3.35
+
+### Patch Changes
+
+- [#43417](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43417) [`3f3c17f0273`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f3c17f0273) - ED-20971 Upgrade adf-schema package to ^34.0.0
+- Updated dependencies
+
 ## 189.3.34
 
 ### Patch Changes

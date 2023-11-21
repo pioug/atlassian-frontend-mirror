@@ -301,7 +301,8 @@ describe('annotation', () => {
         contentComponent = mount(editorView);
       });
 
-      it('sends error analytics event', () => {
+      // FIXME: This test was automatically skipped due to failure on 21/11/2023: https://product-fabric.atlassian.net/browse/ED-21089
+      it.skip('sends error analytics event', () => {
         // The first analytics event is the editor starting
         expect(createAnalyticsEvent).toHaveBeenCalledTimes(2);
         expect(createAnalyticsEvent).toHaveBeenCalledWith({

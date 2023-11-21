@@ -1,5 +1,34 @@
 # @atlaskit/link-datasource
 
+## 1.18.1
+
+### Patch Changes
+
+- [#43497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43497) [`049969f8eb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/049969f8eb1) - Added error logging to the datasource try catches.
+- Updated dependencies
+
+## 1.18.0
+
+### Minor Changes
+
+- [#43374](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43374) [`0d93cf12d25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d93cf12d25) - Selecting and unselecting filters causes search to occur and datasource table to refresh
+
+### Patch Changes
+
+- [#43417](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43417) [`3f3c17f0273`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f3c17f0273) - ED-20971 Upgrade adf-schema package to ^34.0.0
+
+## 1.17.13
+
+### Patch Changes
+
+- [#43512](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43512) [`b84de957bd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b84de957bd4) - Add analytics event when basic filter dropdown show more button is clicked.
+
+## 1.17.12
+
+### Patch Changes
+
+- [#43542](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43542) [`35f5f821eb7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35f5f821eb7) - [ux] Updated Access Required message from 'site' to 'content' when a url is not provided
+
 ## 1.17.11
 
 ### Patch Changes

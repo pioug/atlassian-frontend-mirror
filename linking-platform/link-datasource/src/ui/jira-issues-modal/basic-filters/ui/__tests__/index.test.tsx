@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, within } from '@testing-library/react';
+import { fireEvent, render, waitFor, within } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
@@ -29,6 +29,7 @@ const setup = ({
   totalCount,
   status,
   fetchFilterOptions,
+  onChange = jest.fn(),
 }: Partial<
   BasicFilterContainerProps &
     FilterOptionsState & {
@@ -41,12 +42,17 @@ const setup = ({
     status: status || 'empty',
     totalCount: totalCount || 0,
     fetchFilterOptions: fetchFilterOptions || jest.fn(),
+    onChange: onChange || jest.fn(),
     reset: jest.fn(),
   });
 
   const renderResult = render(
     <IntlProvider locale="en">
-      <BasicFilterContainer cloudId={cloudId as string} jql={jql as string} />
+      <BasicFilterContainer
+        cloudId={cloudId as string}
+        jql={jql as string}
+        onChange={onChange}
+      />
     </IntlProvider>,
   );
 
@@ -63,13 +69,16 @@ const setup = ({
 };
 
 describe('Testing BasicFilterContainer', () => {
+  const statusFilterOptions = {
+    filterType: 'status' as BasicFilterFieldType,
+    filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
+    openPicker: true,
+    status: 'resolved' as FilterOptionsState['status'],
+    onChange: jest.fn(),
+  };
+
   it('should render options with those selected ordered first on menu reopen', async () => {
-    const { findByTestId } = setup({
-      filterType: 'status',
-      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
-      openPicker: true,
-      status: 'resolved',
-    });
+    const { findByTestId } = setup(statusFilterOptions);
 
     const selectMenu = await findByTestId(
       'jlol-basic-filter-popup-select--menu',
@@ -132,12 +141,7 @@ describe('Testing BasicFilterContainer', () => {
   });
 
   it('should apply selection for each filter correctly', async () => {
-    const { findByTestId, container, rerender } = setup({
-      filterType: 'status',
-      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
-      openPicker: true,
-      status: 'resolved',
-    });
+    const { findByTestId, container, rerender } = setup(statusFilterOptions);
 
     const statusSelectMenu = await findByTestId(
       'jlol-basic-filter-popup-select--menu',
@@ -160,12 +164,17 @@ describe('Testing BasicFilterContainer', () => {
       filterOptions: fieldValuesResponseForProjectsMapped,
       status: 'resolved',
       fetchFilterOptions: jest.fn(),
+      onChange: jest.fn(),
       reset: jest.fn(),
     });
 
     rerender(
       <IntlProvider locale="en">
-        <BasicFilterContainer cloudId={'cloudId'} jql={''} />
+        <BasicFilterContainer
+          cloudId={'cloudId'}
+          jql={''}
+          onChange={jest.fn()}
+        />
       </IntlProvider>,
     );
 
@@ -191,12 +200,7 @@ describe('Testing BasicFilterContainer', () => {
   });
 
   it('should reset filter labels when the cloudId changes', async () => {
-    const { findByTestId, rerender } = setup({
-      filterType: 'status',
-      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
-      openPicker: true,
-      status: 'resolved',
-    });
+    const { findByTestId, rerender } = setup(statusFilterOptions);
 
     const selectMenu = await findByTestId(
       'jlol-basic-filter-popup-select--menu',
@@ -223,7 +227,11 @@ describe('Testing BasicFilterContainer', () => {
 
     rerender(
       <IntlProvider locale="en">
-        <BasicFilterContainer cloudId={'newCloudId'} jql={''} />
+        <BasicFilterContainer
+          cloudId={'newCloudId'}
+          jql={''}
+          onChange={jest.fn()}
+        />
       </IntlProvider>,
     );
 
@@ -231,12 +239,7 @@ describe('Testing BasicFilterContainer', () => {
   });
 
   it('should reset search term when the cloudId changes', async () => {
-    const { findByTestId, rerender, container } = setup({
-      filterType: 'status',
-      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
-      openPicker: true,
-      status: 'resolved',
-    });
+    const { findByTestId, rerender, container } = setup(statusFilterOptions);
 
     const input = container.parentElement?.querySelector(
       '#jlol-basic-filter-popup-select--input',
@@ -257,7 +260,11 @@ describe('Testing BasicFilterContainer', () => {
 
     rerender(
       <IntlProvider locale="en">
-        <BasicFilterContainer cloudId={'newCloudId'} jql={''} />
+        <BasicFilterContainer
+          cloudId={'newCloudId'}
+          jql={''}
+          onChange={jest.fn()}
+        />
       </IntlProvider>,
     );
 
@@ -266,5 +273,70 @@ describe('Testing BasicFilterContainer', () => {
     expect(
       container.parentElement?.querySelector('[data-value="hello"]'),
     ).toBeNull();
+  });
+
+  it('should trigger onChange when a filter is selected or deselected', async () => {
+    const onChange = jest.fn();
+
+    const { findByTestId } = setup({
+      ...statusFilterOptions,
+      onChange,
+    });
+
+    const selectMenu = await findByTestId(
+      'jlol-basic-filter-popup-select--menu',
+    );
+
+    const [_, secondOption, thirdOption] = within(selectMenu).queryAllByTestId(
+      'jlol-basic-filter-popup-select-option--lozenge',
+    );
+
+    fireEvent.click(secondOption);
+    await waitFor(() =>
+      expect(onChange).toHaveBeenNthCalledWith(1, {
+        status: [
+          {
+            appearance: 'inprogress',
+            label: 'Awaiting approval',
+            optionType: 'lozengeLabel',
+            value: 'Awaiting approval',
+          },
+        ],
+      }),
+    );
+
+    fireEvent.click(thirdOption);
+    await waitFor(() =>
+      expect(onChange).toHaveBeenNthCalledWith(2, {
+        status: [
+          {
+            appearance: 'inprogress',
+            label: 'Awaiting approval',
+            optionType: 'lozengeLabel',
+            value: 'Awaiting approval',
+          },
+          {
+            appearance: 'inprogress',
+            label: 'Awaiting implementation',
+            optionType: 'lozengeLabel',
+            value: 'Awaiting implementation',
+          },
+        ],
+      }),
+    );
+
+    fireEvent.click(secondOption);
+    await waitFor(() =>
+      expect(onChange).toHaveBeenNthCalledWith(3, {
+        status: [
+          {
+            appearance: 'inprogress',
+            label: 'Awaiting implementation',
+            optionType: 'lozengeLabel',
+            value: 'Awaiting implementation',
+          },
+        ],
+      }),
+    );
   });
 });

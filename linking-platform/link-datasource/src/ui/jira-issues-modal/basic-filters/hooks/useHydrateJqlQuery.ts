@@ -1,13 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
-import { BasicFilterFieldType, SelectOption } from '../types';
+import { SelectedOptionsMap } from '../types';
 import { mapHydrateResponseData } from '../utils/transformers';
 
 export interface HydrateJqlState {
-  hydratedOptions: {
-    [key in BasicFilterFieldType]?: SelectOption[];
-  };
+  hydratedOptions: SelectedOptionsMap;
   fetchHydratedJqlOptions: () => Promise<void>;
   status: 'empty' | 'loading' | 'resolved' | 'rejected';
   errors: unknown[];

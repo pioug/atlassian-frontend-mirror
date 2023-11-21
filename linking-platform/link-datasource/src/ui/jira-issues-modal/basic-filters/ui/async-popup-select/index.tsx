@@ -27,7 +27,10 @@ export interface AsyncPopupSelectProps {
   filterType: BasicFilterFieldType;
   cloudId: string;
   selection: SelectOption[];
-  onSelectionChange?: (selection: SelectOption[]) => void;
+  onSelectionChange?: (
+    filterType: BasicFilterFieldType,
+    options: SelectOption[],
+  ) => void;
   onReset?: () => void;
   isDisabled?: boolean;
 }
@@ -95,9 +98,9 @@ const AsyncPopupSelect = ({
 
   const handleOptionSelection = useCallback(
     (newValue: ValueType<SelectOption, true>) => {
-      onSelectionChange(newValue as SelectOption[]);
+      onSelectionChange(filterType, newValue as SelectOption[]);
     },
-    [onSelectionChange],
+    [filterType, onSelectionChange],
   );
 
   const sortOptionsOnPopupOpen = useCallback(() => {
@@ -158,8 +161,12 @@ const AsyncPopupSelect = ({
         pageCursor,
         searchString: searchTerm,
       });
+      fireEvent('ui.button.clicked.basicSearchDropdown', {
+        filterType,
+        type: 'showMore',
+      });
     }
-  }, [fetchFilterOptions, pageCursor, searchTerm]);
+  }, [fetchFilterOptions, filterType, fireEvent, pageCursor, searchTerm]);
 
   const handleMenuOpen = useCallback(() => {
     if (status === 'empty' || status === 'rejected') {

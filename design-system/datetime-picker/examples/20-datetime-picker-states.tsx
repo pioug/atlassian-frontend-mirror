@@ -8,31 +8,37 @@ export default () => {
   return (
     <div>
       <Label htmlFor="react-select-stock--input">Stock</Label>
-      <DateTimePicker id="stock" onChange={console.log} />
+      <DateTimePicker id="react-select-stock--input" onChange={console.log} />
 
       <Label htmlFor="react-select-stock-value--input">Stock with value</Label>
       <DateTimePicker
-        id="stock-value"
+        id="react-select-stock-value--input"
         onChange={console.log}
         defaultValue="2020-10-10"
       />
 
       <Label htmlFor="react-select-disabled--input">Disabled input</Label>
-      <DateTimePicker id="disabled" isDisabled onChange={console.log} />
+      <DateTimePicker
+        id="react-select-disabled--input"
+        isDisabled
+        onChange={console.log}
+      />
 
       <Label htmlFor="react-select-disabled-value--input">
         Disabled input with value
       </Label>
       <DateTimePicker
-        id="disabled-value"
+        id="react-select-disabled-value--input"
         isDisabled
         onChange={console.log}
         defaultValue="2020-10-10"
       />
 
-      <Label htmlFor="react-select-custom--input">Custom date format</Label>
+      <Label htmlFor="react-select-custom-date--input">
+        Custom date format
+      </Label>
       <DateTimePicker
-        id="custom"
+        id="react-select-custom-date--input"
         onChange={console.log}
         dateFormat="DD/MMM/YY"
         datePickerSelectProps={{
@@ -44,7 +50,7 @@ export default () => {
         Custom date format with value
       </Label>
       <DateTimePicker
-        id="custom-value"
+        id="react-select-custom-value--input"
         onChange={console.log}
         dateFormat="DD/MMM/YY"
         datePickerSelectProps={{

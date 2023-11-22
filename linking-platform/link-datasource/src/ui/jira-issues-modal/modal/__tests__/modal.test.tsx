@@ -1,17 +1,29 @@
 import React from 'react';
 
 import { JQLEditorProps } from '@atlassianlabs/jql-editor';
-import { act, fireEvent, waitFor } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
+import {
+  fieldValuesResponseForStatusesMapped,
+  mockSiteData,
+} from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { LINK_TYPE_TEST_ID } from '../../../issue-like-table/render-type/link';
 import { IssueLikeDataTableViewProps } from '../../../issue-like-table/types';
+import { useFilterOptions } from '../../basic-filters/hooks/useFilterOptions';
+import { SelectOption } from '../../basic-filters/types';
 import JiraIssuesConfigModal from '../../index'; // Using async one to test lazy integration at the same time
 import { JiraIssuesDatasourceAdf } from '../../types';
 
@@ -31,6 +43,9 @@ import {
 } from './_utils';
 
 mockSimpleIntersectionObserver(); // for smart link rendering
+
+jest.mock('../../basic-filters/hooks/useFilterOptions');
+jest.useFakeTimers();
 
 describe('JiraIssuesConfigModal', () => {
   const prevWindowLocation = window.location;
@@ -53,6 +68,33 @@ describe('JiraIssuesConfigModal', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+  });
+
+  describe('when no Jira instances are returned', () => {
+    it('should not show insert button, mode switcher, or search bar, and show the no instances content', async () => {
+      asMock(getAvailableJiraSites).mockReturnValue([]);
+      asMock(useDatasourceTableState).mockReturnValue(getDefaultHookState());
+      const { queryByTestId, getByTestId } = render(
+        <IntlProvider locale="en">
+          <JiraIssuesConfigModal
+            datasourceId={'some-jira-jql-datasource-id'}
+            onCancel={jest.fn()}
+            onInsert={jest.fn()}
+          />
+        </IntlProvider>,
+      );
+      const insertButton = queryByTestId(
+        'jira-jql-datasource-modal--insert-button',
+      );
+      const modeSwitcher = queryByTestId('mode-toggle-container');
+      const searchBar = queryByTestId('jira-search-container');
+      expect(insertButton).not.toBeInTheDocument();
+      expect(modeSwitcher).not.toBeInTheDocument();
+      expect(searchBar).not.toBeInTheDocument();
+      await waitFor(() => {
+        getByTestId('no-jira-instances-content');
+      });
+    });
   });
 
   it('should call onCancel when cancel button is clicked', async () => {
@@ -166,6 +208,10 @@ describe('JiraIssuesConfigModal', () => {
               actions: ['query updated'],
               searchCount: 1,
               searchMethod: 'datasource_basic_filter',
+              projectBasicFilterSelectionCount: 0,
+              statusBasicFilterSelectionCount: 0,
+              issuetypeBasicFilterSelectionCount: 0,
+              assigneeBasicFilterSelectionCount: 0,
             },
           },
         );
@@ -196,6 +242,87 @@ describe('JiraIssuesConfigModal', () => {
         );
       });
     });
+  });
+
+  describe('should call insert with correct basic filter selection count attributes when a selection is made', () => {
+    asMock(useFilterOptions).mockReturnValue({
+      filterOptions: fieldValuesResponseForStatusesMapped as SelectOption[],
+      status: 'resolved',
+      fetchFilterOptions: jest.fn(),
+      reset: jest.fn(),
+    });
+
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      async () => {
+        const {
+          getJiraModalTitleText,
+          getByTestId,
+          assertInsertResult,
+          queryByTestId,
+          findByTestId,
+        } = await setup({
+          parameters: {
+            cloudId: '67899',
+            jql: 'status = done',
+          },
+        });
+        await getJiraModalTitleText();
+
+        act(() => {
+          fireEvent.click(getByTestId('mode-toggle-basic'));
+        });
+
+        // open the status dropdown
+        const triggerButton = queryByTestId(`jlol-basic-filter-status-trigger`);
+        invariant(triggerButton);
+        fireEvent.click(triggerButton);
+
+        const statusSelectMenu = await findByTestId(
+          'jlol-basic-filter-popup-select--menu',
+        );
+        const [firstStatus, secondStatus] = within(
+          statusSelectMenu,
+        ).queryAllByTestId('jlol-basic-filter-popup-select-option--lozenge');
+        fireEvent.click(firstStatus); // select the first status
+        fireEvent.click(secondStatus); // select the second status
+
+        jest.advanceTimersByTime(350);
+
+        assertInsertResult(
+          {
+            cloudId: '67899',
+            jql: 'status in (Authorize, "Awaiting approval") and created >= -30d ORDER BY created DESC',
+            jqlUrl:
+              'https://hello.atlassian.net/issues/?jql=status%20in%20(Authorize,%20%22Awaiting%20approval%22)%20and%20created%20%3E=%20-30d%20ORDER%20BY%20created%20DESC',
+          },
+          {
+            attributes: {
+              actions: ['query updated'],
+              searchCount: 1,
+              searchMethod: 'datasource_basic_filter',
+              projectBasicFilterSelectionCount: 0,
+              statusBasicFilterSelectionCount: 2,
+              issuetypeBasicFilterSelectionCount: 0,
+              assigneeBasicFilterSelectionCount: 0,
+            },
+          },
+        );
+      },
+      async () => {
+        const { getJiraModalTitleText, getByTestId, queryByTestId } =
+          await setup();
+        await getJiraModalTitleText();
+
+        act(() => {
+          fireEvent.click(getByTestId('mode-toggle-basic'));
+        });
+
+        expect(
+          queryByTestId('jlol-basic-filter-container'),
+        ).not.toBeInTheDocument();
+      },
+    );
   });
 
   it('should provide parameters to JQLEditor', async () => {

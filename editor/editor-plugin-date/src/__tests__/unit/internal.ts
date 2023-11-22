@@ -111,6 +111,11 @@ describe('dates', () => {
       const result = isDatePossiblyValid(date);
       expect(result).toEqual(true);
     });
+    it('should return true when date contains dashes', () => {
+      const date = '1-1-2020';
+      const result = isDatePossiblyValid(date);
+      expect(result).toEqual(true);
+    });
     it('should return true when date contains commas', () => {
       const date = '1,1,2020';
       const result = isDatePossiblyValid(date);

@@ -18,7 +18,10 @@ export type FindReplacePlugin = NextEditorPlugin<
   'findReplace',
   {
     pluginConfiguration: Config;
-    dependencies: [FeatureFlagsPlugin, OptionalPlugin<AnalyticsPlugin>];
+    dependencies: [
+      OptionalPlugin<FeatureFlagsPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+    ];
   }
 >;
 

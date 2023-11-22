@@ -15,6 +15,7 @@ import type {
   ReferenceEntity,
   ExtensionParams,
   Parameters,
+  MultiBodiedExtensionActions,
 } from '@atlaskit/editor-common/extensions';
 
 import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
@@ -27,6 +28,7 @@ import type {
   PluginInjectionAPIWithDependency,
   EditorAppearance,
 } from '@atlaskit/editor-common/types';
+import MultiBodiedExtension from './MultiBodiedExtension';
 
 export interface Props {
   editorView: EditorView;
@@ -46,6 +48,7 @@ export interface State {
   _privateProps?: {
     __hideFrame?: boolean;
   };
+  activeChildIndex?: number; // Holds the currently active Frame/Tab/Card
 }
 
 export default class ExtensionComponent extends Component<Props, State> {
@@ -98,9 +101,22 @@ export default class ExtensionComponent extends Component<Props, State> {
       references,
       editorAppearance,
       pluginInjectionApi,
+      getPos,
     } = this.props;
-    const extensionHandlerResult = this.tryExtensionHandler();
 
+    if (node.type.name === 'multiBodiedExtension') {
+      return (
+        <MultiBodiedExtension
+          node={node}
+          editorView={editorView}
+          getPos={getPos}
+          handleContentDOMRef={handleContentDOMRef}
+          tryExtensionHandler={this.tryExtensionHandler.bind(this)}
+        />
+      );
+    }
+
+    const extensionHandlerResult = this.tryExtensionHandler(undefined);
     switch (node.type.name) {
       case 'extension':
       case 'bodiedExtension':
@@ -183,10 +199,12 @@ export default class ExtensionComponent extends Component<Props, State> {
     }
   };
 
-  private tryExtensionHandler() {
+  private tryExtensionHandler(
+    actions: MultiBodiedExtensionActions | undefined,
+  ) {
     const { node } = this.props;
     try {
-      const extensionContent = this.handleExtension(node);
+      const extensionContent = this.handleExtension(node, actions);
       if (extensionContent && React.isValidElement(extensionContent)) {
         return extensionContent;
       }
@@ -199,7 +217,10 @@ export default class ExtensionComponent extends Component<Props, State> {
     return null;
   }
 
-  private handleExtension = (pmNode: PMNode) => {
+  private handleExtension = (
+    pmNode: PMNode,
+    actions: MultiBodiedExtensionActions | undefined,
+  ) => {
     const { extensionHandlers, editorView } = this.props;
     const { extensionType, extensionKey, parameters, text } = pmNode.attrs;
     const isBodiedExtension = pmNode.type.name === 'bodiedExtension';
@@ -216,7 +237,8 @@ export default class ExtensionComponent extends Component<Props, State> {
       type: pmNode.type.name as
         | 'extension'
         | 'inlineExtension'
-        | 'bodiedExtension',
+        | 'bodiedExtension'
+        | 'multiBodiedExtension',
       extensionType,
       extensionKey,
       parameters,
@@ -229,7 +251,7 @@ export default class ExtensionComponent extends Component<Props, State> {
 
     if (extensionHandlers && extensionHandlers[extensionType]) {
       const render = getExtensionRenderer(extensionHandlers[extensionType]);
-      result = render(node, editorView.state.doc);
+      result = render(node, editorView.state.doc, actions);
     }
 
     if (!result) {
@@ -243,7 +265,19 @@ export default class ExtensionComponent extends Component<Props, State> {
 
       if (extensionHandlerFromProvider) {
         const NodeRenderer = extensionHandlerFromProvider;
-        return <NodeRenderer node={node} references={this.props.references} />;
+        if (node.type === 'multiBodiedExtension') {
+          return (
+            <NodeRenderer
+              node={node}
+              references={this.props.references}
+              actions={actions}
+            />
+          );
+        } else {
+          return (
+            <NodeRenderer node={node} references={this.props.references} />
+          );
+        }
       }
     }
 

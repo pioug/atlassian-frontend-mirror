@@ -1,16 +1,20 @@
 import React from 'react';
 
-import Loadable, { LoadingComponentProps } from 'react-loadable';
+import type { LoadingComponentProps } from 'react-loadable';
+import Loadable from 'react-loadable';
 
 import { getExtensionKeyAndNodeKey, resolveImport } from './manifest-helpers';
-import {
+import type {
   ExtensionKey,
   ExtensionParams,
   ExtensionProvider,
   ExtensionType,
   Parameters,
 } from './types';
-import { ReferenceEntity } from './types/extension-handler';
+import type {
+  MultiBodiedExtensionActions,
+  ReferenceEntity,
+} from './types/extension-handler';
 
 export async function getExtensionModuleNode(
   extensionProvider: ExtensionProvider,
@@ -84,7 +88,11 @@ export function getNodeRenderer<T extends Parameters>(
   extensionKey: ExtensionKey,
 ) {
   return Loadable<
-    { node: ExtensionParams<T>; references?: ReferenceEntity[] },
+    {
+      node: ExtensionParams<T>;
+      references?: ReferenceEntity[];
+      actions?: MultiBodiedExtensionActions;
+    },
     any
   >({
     loader: () => {

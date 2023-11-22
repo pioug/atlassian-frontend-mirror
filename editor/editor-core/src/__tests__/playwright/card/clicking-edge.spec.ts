@@ -27,10 +27,11 @@ test.describe('card', () => {
     editor,
   }) => {
     const nodes = EditorNodeContainerModel.from(editor);
-    const inlineCardModel = EditorInlineCardModel.from(nodes.inlineCard);
+    const inlineCardsModel = EditorInlineCardModel.from(nodes.inlineCard);
+    const inlineCardModel = inlineCardsModel.card(0);
     const floatingToolbarModel = EditorFloatingToolbarModel.from(
       editor,
-      inlineCardModel,
+      inlineCardsModel,
     );
 
     await inlineCardModel.waitForResolvedStable();

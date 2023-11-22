@@ -31,7 +31,7 @@ type ToolbarListsIndentationPlugin = NextEditorPlugin<
   {
     pluginConfiguration: Config;
     dependencies: [
-      FeatureFlagsPlugin,
+      OptionalPlugin<FeatureFlagsPlugin>,
       ListPlugin,
       OptionalPlugin<AnalyticsPlugin>,
     ];

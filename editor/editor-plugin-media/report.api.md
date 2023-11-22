@@ -156,7 +156,7 @@ export type MediaPlugin = NextEditorPlugin<
   {
     pluginConfiguration: MediaOptions | undefined;
     dependencies: [
-      FeatureFlagsPlugin,
+      OptionalPlugin<FeatureFlagsPlugin>,
       OptionalPlugin<AnalyticsPlugin>,
       GuidelinePlugin,
       GridPlugin,

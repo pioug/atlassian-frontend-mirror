@@ -31,7 +31,6 @@ import type {
   PluginInjectionAPIWithDependency,
   EditorAppearance,
 } from '@atlaskit/editor-common/types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface Props {
   node: PmNode;
@@ -62,15 +61,10 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
     hideFrame,
     editorAppearance,
   } = props;
-  let isMultiBodiedExtension = false;
-  if (getBooleanFF('platform.editor.multi-bodied-extension_0rygg')) {
-    isMultiBodiedExtension = true;
-  }
 
-  //TODO: clean-up after removing multi-bodied-extension FF
-  const hasBody =
-    node.type.name === 'bodiedExtension' ||
-    (isMultiBodiedExtension && node.type.name === 'multiBodiedExtension');
+  const hasBody = ['bodiedExtension', 'multiBodiedExtension'].includes(
+    node.type.name,
+  );
 
   const isMobile = editorAppearance === 'mobile';
   const hasChildren = !!children;

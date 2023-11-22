@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 76.22.8
+
+### Patch Changes
+
+- [#43139](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43139) [`633ac70ce16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/633ac70ce16) - Removed floatingToolbarLinkSettingsButton feature flag
+
 ## 76.22.7
 
 ### Patch Changes

@@ -50,7 +50,10 @@ export type HyperlinkPlugin = NextEditorPlugin<
   'hyperlink',
   {
     pluginConfiguration: HyperlinkPluginOptions | undefined;
-    dependencies: [FeatureFlagsPlugin, OptionalPlugin<AnalyticsPlugin>];
+    dependencies: [
+      OptionalPlugin<FeatureFlagsPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+    ];
     actions: {
       prependToolbarButtons: PrependToolbarButtons;
       hideLinkToolbar: HideLinkToolbar;

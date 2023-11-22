@@ -1,11 +1,15 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
-import { Parameters } from './extension-parameters';
+import type { Parameters } from './extension-parameters';
 
 export interface ExtensionParams<T extends Parameters> {
   extensionKey: string;
   extensionType: string;
-  type?: 'extension' | 'inlineExtension' | 'bodiedExtension';
+  type?:
+    | 'extension'
+    | 'inlineExtension'
+    | 'bodiedExtension'
+    | 'multiBodiedExtension';
   parameters?: T;
   content?: object | string; // This would be the original Atlassian Document Format
   localId?: string;
@@ -15,6 +19,7 @@ export interface ExtensionParams<T extends Parameters> {
 export type ExtensionHandler<T extends Parameters = Parameters> = (
   ext: ExtensionParams<T>,
   doc: object,
+  actions?: MultiBodiedExtensionActions,
 ) => JSX.Element | null;
 
 export type OnSaveCallback<T extends Parameters = Parameters> = (
@@ -68,6 +73,16 @@ export interface ExtensionHandlers<T extends Parameters = any> {
 
 export type ReferenceEntity = {
   [prop: string]: ADFEntity | Object;
+};
+
+//Update action api once finalised
+export type MultiBodiedExtensionActions = {
+  changeActive: (index: number) => boolean;
+  addChild: () => boolean;
+  getChildrenCount: () => number;
+  removeChild: (index: number) => boolean;
+  updateParameters: (parameters: Parameters) => boolean;
+  getChildren(): Array<ADFEntity>;
 };
 
 // DEPRECATED

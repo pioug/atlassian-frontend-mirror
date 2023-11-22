@@ -31,11 +31,10 @@ describe('PrimarySplitButton', () => {
             <IconButton
               ref={triggerRef as Ref<HTMLButtonElement>}
               {...triggerProps}
-              icon={<ChevronDownIcon label="Open link issue options" />}
+              icon={ChevronDownIcon}
+              label="Open link issue options"
               onClick={secondaryActionClickMock}
-            >
-              ''
-            </IconButton>
+            />
           )}
         >
           <DropdownItemGroup>
@@ -63,11 +62,10 @@ describe('PrimarySplitButton', () => {
             <IconButton
               ref={triggerRef as Ref<HTMLButtonElement>}
               {...triggerProps}
-              icon={<ChevronDownIcon label="Open link issue options" />}
+              icon={ChevronDownIcon}
+              label="Open link issue options"
               onClick={secondaryActionClickMock}
-            >
-              ''
-            </IconButton>
+            />
           )}
         >
           <DropdownItemGroup>

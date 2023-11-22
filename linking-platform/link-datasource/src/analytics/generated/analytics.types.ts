@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::4e6414d2c19c29a67f20beee73d4b788>>
+ * @codegen <<SignedSource::650bd05729c6d9d8eb143f643a8c34c2>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type PackageMetaDataType = {
@@ -51,6 +51,10 @@ export type ButtonClickedCancelAttributesType = {
   destinationObjectTypes: unknown[];
   extensionKey: string | null;
   actions: unknown[];
+  projectBasicFilterSelectionCount: number;
+  statusBasicFilterSelectionCount: number;
+  issuetypeBasicFilterSelectionCount: number;
+  assigneeBasicFilterSelectionCount: number;
 };
 export type LinkClickedSingleItemAttributesType = {
   extensionKey: string | null;

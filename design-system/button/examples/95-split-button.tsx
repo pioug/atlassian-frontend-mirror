@@ -47,15 +47,10 @@ export default () => {
                   <IconButton
                     ref={triggerRef as Ref<HTMLButtonElement>}
                     {...triggerProps}
-                    icon={
-                      <ChevronDownIcon
-                        label="Open link issue options"
-                        size="small"
-                      />
-                    }
-                  >
-                    ''
-                  </IconButton>
+                    icon={ChevronDownIcon}
+                    label="Open link issue options"
+                    UNSAFE_size="small"
+                  />
                 )}
               >
                 <DropdownItemGroup>
@@ -71,10 +66,10 @@ export default () => {
                   <IconButton
                     ref={triggerRef as Ref<HTMLButtonElement>}
                     {...triggerProps}
-                    icon={<ChevronDownIcon label="See options" size="small" />}
-                  >
-                    ''
-                  </IconButton>
+                    icon={ChevronDownIcon}
+                    label="See options"
+                    UNSAFE_size="small"
+                  />
                 )}
               >
                 <DropdownItemGroup>
@@ -90,10 +85,10 @@ export default () => {
                   <IconButton
                     ref={triggerRef as Ref<HTMLButtonElement>}
                     {...triggerProps}
-                    icon={<ChevronDownIcon label="See options" size="small" />}
-                  >
-                    ''
-                  </IconButton>
+                    icon={ChevronDownIcon}
+                    label="See options"
+                    UNSAFE_size="small"
+                  />
                 )}
               >
                 <DropdownItemGroup>
@@ -109,10 +104,10 @@ export default () => {
                   <IconButton
                     ref={triggerRef as Ref<HTMLButtonElement>}
                     {...triggerProps}
-                    icon={<ChevronDownIcon label="See options" size="small" />}
-                  >
-                    ''
-                  </IconButton>
+                    icon={ChevronDownIcon}
+                    label="See options"
+                    UNSAFE_size="small"
+                  />
                 )}
               >
                 <DropdownItemGroup>
@@ -128,10 +123,10 @@ export default () => {
                   <IconButton
                     ref={triggerRef as Ref<HTMLButtonElement>}
                     {...triggerProps}
-                    icon={<ChevronDownIcon label="See options" size="small" />}
-                  >
-                    ''
-                  </IconButton>
+                    icon={ChevronDownIcon}
+                    label="See options"
+                    UNSAFE_size="small"
+                  />
                 )}
               >
                 <DropdownItemGroup>
@@ -149,10 +144,9 @@ export default () => {
                   <IconButton
                     ref={triggerRef as Ref<HTMLButtonElement>}
                     {...triggerProps}
-                    icon={<ChevronDownIcon label="See options" />}
-                  >
-                    ''
-                  </IconButton>
+                    icon={ChevronDownIcon}
+                    label="See options"
+                  />
                 )}
               >
                 <DropdownItemGroup>
@@ -168,10 +162,9 @@ export default () => {
                   <IconButton
                     ref={triggerRef as Ref<HTMLButtonElement>}
                     {...triggerProps}
-                    icon={<ChevronDownIcon label="See options" />}
-                  >
-                    ''
-                  </IconButton>
+                    icon={ChevronDownIcon}
+                    label="See options"
+                  />
                 )}
               >
                 <DropdownItemGroup>
@@ -187,10 +180,9 @@ export default () => {
                   <IconButton
                     ref={triggerRef as Ref<HTMLButtonElement>}
                     {...triggerProps}
-                    icon={<ChevronDownIcon label="See options" />}
-                  >
-                    ''
-                  </IconButton>
+                    icon={ChevronDownIcon}
+                    label="See options"
+                  />
                 )}
               >
                 <DropdownItemGroup>
@@ -206,10 +198,9 @@ export default () => {
                   <IconButton
                     ref={triggerRef as Ref<HTMLButtonElement>}
                     {...triggerProps}
-                    icon={<ChevronDownIcon label="See options" />}
-                  >
-                    ''
-                  </IconButton>
+                    icon={ChevronDownIcon}
+                    label="See options"
+                  />
                 )}
               >
                 <DropdownItemGroup>
@@ -225,10 +216,9 @@ export default () => {
                   <IconButton
                     ref={triggerRef as Ref<HTMLButtonElement>}
                     {...triggerProps}
-                    icon={<ChevronDownIcon label="See options" />}
-                  >
-                    ''
-                  </IconButton>
+                    icon={ChevronDownIcon}
+                    label="See options"
+                  />
                 )}
               >
                 <DropdownItemGroup>
@@ -248,46 +238,46 @@ export default () => {
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={<SettingsIcon label="Secondary action" size="small" />}
-              >
-                Secondary action
-              </IconButton>
+                icon={SettingsIcon}
+                label="Secondary action"
+                UNSAFE_size="small"
+              />
             </SplitButton>
             <SplitButton appearance="primary" spacing="compact">
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={<SettingsIcon label="Secondary action" size="small" />}
-              >
-                Secondary action
-              </IconButton>
+                icon={SettingsIcon}
+                label="Secondary action"
+                UNSAFE_size="small"
+              />
             </SplitButton>
             <SplitButton appearance="warning" spacing="compact">
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={<SettingsIcon label="Secondary action" size="small" />}
-              >
-                Secondary action
-              </IconButton>
+                icon={SettingsIcon}
+                label="Secondary action"
+                UNSAFE_size="small"
+              />
             </SplitButton>
             <SplitButton appearance="danger" spacing="compact">
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={<SettingsIcon label="Secondary action" size="small" />}
-              >
-                Secondary action
-              </IconButton>
+                icon={SettingsIcon}
+                label="Secondary action"
+                UNSAFE_size="small"
+              />
             </SplitButton>
             <SplitButton isDisabled spacing="compact">
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={<SettingsIcon label="Secondary action" size="small" />}
-              >
-                Secondary action
-              </IconButton>
+                icon={SettingsIcon}
+                label="Secondary action"
+                UNSAFE_size="small"
+              />
             </SplitButton>
           </Inline>
           <Inline space="space.150">
@@ -295,46 +285,41 @@ export default () => {
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={<SettingsIcon label="Secondary action" />}
-              >
-                Secondary action
-              </IconButton>
+                icon={SettingsIcon}
+                label="Secondary action"
+              />
             </SplitButton>
             <SplitButton appearance="primary">
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={<SettingsIcon label="Secondary action" />}
-              >
-                Secondary action
-              </IconButton>
+                icon={SettingsIcon}
+                label="Secondary action"
+              />
             </SplitButton>
             <SplitButton appearance="warning">
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={<SettingsIcon label="Secondary action" />}
-              >
-                Secondary action
-              </IconButton>
+                icon={SettingsIcon}
+                label="Secondary action"
+              />
             </SplitButton>
             <SplitButton appearance="danger">
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={<SettingsIcon label="Secondary action" />}
-              >
-                Secondary action
-              </IconButton>
+                icon={SettingsIcon}
+                label="Secondary action"
+              />
             </SplitButton>
             <SplitButton isDisabled>
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={<SettingsIcon label="Secondary action" />}
-              >
-                Secondary action
-              </IconButton>
+                icon={SettingsIcon}
+                label="Secondary action"
+              />
             </SplitButton>
           </Inline>
         </Stack>
@@ -394,16 +379,14 @@ const ConfluenceEditorTopBarExample = () => {
         <Inline space="space.150">
           <IconButton
             appearance="subtle"
-            icon={<EditorSearchIcon label="Search" />}
-          >
-            Search
-          </IconButton>
+            icon={EditorSearchIcon}
+            label="Search"
+          />
           <IconButton
             appearance="subtle"
-            icon={<UnlockFilledIcon label="Lock" />}
-          >
-            Lock
-          </IconButton>
+            icon={UnlockFilledIcon}
+            label="Lock"
+          />
           <SplitButton appearance="primary">
             <Tooltip content="Update with current settings">
               {(tooltipProps) => <Button {...tooltipProps}>Update</Button>}
@@ -412,18 +395,16 @@ const ConfluenceEditorTopBarExample = () => {
               {(tooltipProps) => (
                 <IconButton
                   {...tooltipProps}
-                  icon={<SettingsIcon label="" size="medium" />}
+                  icon={SettingsIcon}
+                  label="Show update page dialog"
+                  UNSAFE_size="medium"
                   onClick={open}
-                >
-                  Show update page dialog
-                </IconButton>
+                />
               )}
             </Tooltip>
           </SplitButton>
           <Button appearance="subtle">Close</Button>
-          <IconButton appearance="subtle" icon={<MoreIcon label="" />}>
-            Menu
-          </IconButton>
+          <IconButton appearance="subtle" icon={MoreIcon} label="Menu" />
         </Inline>
       </Box>
       <ModalTransition>
@@ -460,10 +441,9 @@ const JiraIssueViewActionsExample = () => {
             <IconButton
               ref={triggerRef as Ref<HTMLButtonElement>}
               {...triggerProps}
-              icon={<ChevronDownIcon label="Open link issue options" />}
-            >
-              ''
-            </IconButton>
+              icon={ChevronDownIcon}
+              label="Open link issue options"
+            />
           )}
           placement="bottom-end"
         >

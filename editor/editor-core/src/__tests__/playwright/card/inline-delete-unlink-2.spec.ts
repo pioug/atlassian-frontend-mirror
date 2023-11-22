@@ -38,10 +38,11 @@ test.describe('card', () => {
     await editor.page.getByText(inlineCard.linkPicker.itemTitle).click();
 
     const nodes = EditorNodeContainerModel.from(editor);
-    const inlineCardModel = EditorInlineCardModel.from(nodes.inlineCard);
+    const inlineCardsModel = EditorInlineCardModel.from(nodes.inlineCard);
+    const inlineCardModel = inlineCardsModel.card(0);
     const floatingToolbarModel = EditorFloatingToolbarModel.from(
       editor,
-      inlineCardModel,
+      inlineCardsModel,
     );
 
     await inlineCardModel.waitForResolvedStable();
@@ -77,10 +78,11 @@ test.describe('card', () => {
       await editor.page.getByText(inlineCard.linkPicker.itemTitle).click();
 
       const nodes = EditorNodeContainerModel.from(editor);
-      const inlineCardModel = EditorInlineCardModel.from(nodes.inlineCard);
+      const inlineCardsModel = EditorInlineCardModel.from(nodes.inlineCard);
+      const inlineCardModel = inlineCardsModel.card(0);
       const floatingToolbarModel = EditorFloatingToolbarModel.from(
         editor,
-        inlineCardModel,
+        inlineCardsModel,
       );
 
       await inlineCardModel.waitForResolvedStable();

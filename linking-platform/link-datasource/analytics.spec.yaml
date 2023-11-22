@@ -187,6 +187,18 @@ events:
             *ExtensionKey,
             *Actions,
           ]
+        projectBasicFilterSelectionCount:
+          type: number
+          description: The number of selections made in the project basic filter dropdown
+        statusBasicFilterSelectionCount:
+          type: number
+          description: The number of selections made in the status basic filter dropdown
+        issuetypeBasicFilterSelectionCount:
+          type: number
+          description: The number of selections made in the issuetype basic filter dropdown
+        assigneeBasicFilterSelectionCount:
+          type: number
+          description: The number of selections made in the assignee basic filter dropdown
   - link clicked (singleItem):
       type: ui
       description: Fired when user clicks on datasource items

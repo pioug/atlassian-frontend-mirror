@@ -62,7 +62,7 @@ function isCursorInLastDateSegment(cursorPos: number, date: string): boolean {
 export function isDatePossiblyValid(date: string): boolean {
   for (const c of date) {
     const isNumber = c >= '0' && c <= '9';
-    const isValidPunctuation = '. ,/'.indexOf(c) !== -1;
+    const isValidPunctuation = '. ,/-'.indexOf(c) !== -1;
     if (!(isNumber || isValidPunctuation)) {
       return false;
     }

@@ -19,6 +19,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
   FeatureFlags,
   NextEditorPlugin,
+  OptionalPlugin,
   PerformanceTracking,
 } from '@atlaskit/editor-common/types';
 import {
@@ -124,7 +125,7 @@ export type AnalyticsPlugin = NextEditorPlugin<
       attachAnalyticsEvent: CreateAttachPayloadIntoTransaction | null;
       performanceTracking: PerformanceTracking | undefined;
     };
-    dependencies: [FeatureFlagsPlugin];
+    dependencies: [OptionalPlugin<FeatureFlagsPlugin>];
     actions: EditorAnalyticsAPI;
   }
 >;

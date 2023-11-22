@@ -39,7 +39,19 @@
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
+      "path": "../editor-common/tsconfig.app.json"
+    },
+    {
       "path": "../editor-core/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-history/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-type-ahead/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-test-helpers/tsconfig.app.json"
     },
     {
       "path": "../../design-system/tokens/tsconfig.app.json"

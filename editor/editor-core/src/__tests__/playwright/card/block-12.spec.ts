@@ -1,9 +1,9 @@
 import {
   editorTestCase as test,
   EditorNodeContainerModel,
+  EditorBlockCardModel,
   expect,
 } from '@af/editor-libra';
-import { EditorCardModel } from '@af/editor-libra/page-models';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   datasourceBlockCard,
@@ -27,16 +27,16 @@ test.describe('blockCard', () => {
     editor,
   }) => {
     const nodes = EditorNodeContainerModel.from(editor);
+    const blockCardModel = EditorBlockCardModel.from(nodes.blockCard);
 
-    const cardModel = EditorCardModel.from(nodes.blockCard);
-    await cardModel.waitForInlineCardStable();
+    await blockCardModel.waitForStable();
 
     const expectedBlockCard = datasourceBlockCard(
       blockCardDatasourceWithUrlAdf.content[0].attrs,
     );
     await expect(editor).toMatchDocument(doc(expectedBlockCard()));
-    await expect(cardModel.inlineCard).toHaveText('0 Issues');
-    await expect(cardModel.inlineCard).toHaveAttribute(
+    await expect(blockCardModel.inlineCard).toHaveText('0 Issues');
+    await expect(blockCardModel.inlineCard).toHaveAttribute(
       'href',
       blockCardDatasourceWithUrlAdf.content[0].attrs.url,
     );

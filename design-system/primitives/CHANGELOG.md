@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.12.0
+
+### Minor Changes
+
+- [#43616](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43616) [`6a89d1fcf6b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a89d1fcf6b) - Add missing tokenised XCSS properties for borderBlockColor, borderBlockWidth, borderInlineColor, borderInlineWidth
+
 ## 1.11.1
 
 ### Patch Changes

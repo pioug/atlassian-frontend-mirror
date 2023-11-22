@@ -136,5 +136,13 @@ describe('panel plugin -> keymap', () => {
         doc(panel({ panelType: 'info' })(p()), blockquote(p('text'))),
       );
     });
+
+    it('should not merge two blockquotes, when entering backspace in an empty blockquote', () => {
+      const { editorView } = editor(doc(blockquote(p()), blockquote(p())));
+
+      sendKeyToPm(editorView, 'Backspace');
+
+      expect(editorView.state.doc).toEqualDocument(doc(blockquote(p())));
+    });
   });
 });

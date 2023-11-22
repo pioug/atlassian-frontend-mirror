@@ -44,6 +44,10 @@
   },
   "devDependencies": {
     "@af/visual-regression": "*",
+    "@atlaskit/adf-schema": "^34.0.0",
+    "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
+    "@atlaskit/editor-plugin-history": "^0.1.0",
+    "@atlaskit/editor-plugin-type-ahead": "^0.7.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

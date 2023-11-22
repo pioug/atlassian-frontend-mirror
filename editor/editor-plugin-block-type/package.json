@@ -56,11 +56,16 @@
   },
   "devDependencies": {
     "@af/visual-regression": "*",
+    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
+    "@atlaskit/editor-plugin-quick-insert": "^0.2.0",
+    "@atlaskit/editor-plugin-type-ahead": "^0.7.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.4.3",
     "react-dom": "^16.8.0",
     "typescript": "~4.9.5",
     "wait-for-expect": "^1.2.0"

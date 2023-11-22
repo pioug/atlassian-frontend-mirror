@@ -11,7 +11,12 @@ import { Flex, xcss } from '@atlaskit/primitives';
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { JiraSearchMethod } from '../../../common/types';
 import { BasicFilters } from '../basic-filters';
-import { SelectedOptionsMap } from '../basic-filters/types';
+import { useHydrateJqlQuery } from '../basic-filters/hooks/useHydrateJqlQuery';
+import {
+  BasicFilterFieldType,
+  SelectedOptionsMap,
+  SelectOption,
+} from '../basic-filters/types';
 import { SEARCH_DEBOUNCE_MS } from '../basic-filters/ui/async-popup-select';
 import { isQueryTooComplex } from '../basic-filters/utils/isQueryTooComplex';
 import { BasicSearchInput } from '../basic-search-input';
@@ -49,7 +54,13 @@ export interface SearchContainerProps {
   isSearching?: boolean;
   onSearch: (
     query: JiraIssueDatasourceParametersQuery,
-    searchMethod: JiraSearchMethod,
+    {
+      searchMethod,
+      basicFilterSelections,
+    }: {
+      searchMethod: JiraSearchMethod;
+      basicFilterSelections: SelectedOptionsMap;
+    },
   ) => void;
   initialSearchMethod: JiraSearchMethod;
   onSearchMethodChange: (searchMethod: JiraSearchMethod) => void;
@@ -76,8 +87,26 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
   const [isComplexQuery, setIsComplexQuery] = useState(false);
   const [orderKey, setOrderKey] = useState<string | undefined>();
   const [orderDirection, setOrderDirection] = useState<string | undefined>();
-  const [filters, setFilters] = useState<SelectedOptionsMap>({});
+  const [filterSelections, setFilterSelections] = useState<SelectedOptionsMap>(
+    {},
+  );
 
+  const showBasicFilters = useMemo(() => {
+    if (
+      getBooleanFF(
+        'platform.linking-platform.datasource.show-jlol-basic-filters',
+      )
+    ) {
+      return true;
+    }
+    return false;
+  }, []);
+
+  const {
+    hydratedOptions,
+    fetchHydratedJqlOptions,
+    status: basicFilterHydrationStatus,
+  } = useHydrateJqlQuery(cloudId || '', jql);
   const onSearchMethodChange = useCallback(
     (searchMethod: JiraSearchMethod) => {
       onSearchMethodChangeCallback(searchMethod);
@@ -93,13 +122,13 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
       setJql(
         buildJQL({
           rawSearch,
-          filterValues: filters,
+          filterValues: filterSelections,
           orderDirection,
           orderKey,
         }),
       );
     },
-    [filters, orderDirection, orderKey],
+    [filterSelections, orderDirection, orderKey],
   );
 
   const onQueryChange = useCallback((query: string) => {
@@ -124,14 +153,35 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
   }, []);
 
   const handleSearch = useCallback(() => {
-    onSearch({ jql }, currentSearchMethod);
-    setIsComplexQuery(isQueryTooComplex(jql));
+    onSearch(
+      { jql },
+      {
+        searchMethod: currentSearchMethod,
+        basicFilterSelections: filterSelections,
+      },
+    );
+
     if (currentSearchMethod === 'basic') {
       fireEvent('ui.form.submitted.basicSearch', {});
     } else if (currentSearchMethod === 'jql') {
       fireEvent('ui.jqlEditor.searched', {});
+
+      const isCurrentQueryComplex = isQueryTooComplex(jql);
+      setIsComplexQuery(isCurrentQueryComplex);
+
+      if (showBasicFilters && !isCurrentQueryComplex) {
+        fetchHydratedJqlOptions();
+      }
     }
-  }, [currentSearchMethod, fireEvent, jql, onSearch]);
+  }, [
+    currentSearchMethod,
+    fetchHydratedJqlOptions,
+    filterSelections,
+    fireEvent,
+    jql,
+    onSearch,
+    showBasicFilters,
+  ]);
 
   const [debouncedBasicFilterSelectionChange] = useDebouncedCallback(
     (filterValues: SelectedOptionsMap) => {
@@ -147,7 +197,10 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
         {
           jql: jqlWithFilterValues,
         },
-        currentSearchMethod,
+        {
+          searchMethod: currentSearchMethod,
+          basicFilterSelections: filterSelections,
+        },
       );
     },
     SEARCH_DEBOUNCE_MS,
@@ -155,30 +208,53 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 
   const handleBasicFilterSelectionChange = useCallback(
     (filterValues: SelectedOptionsMap) => {
-      setFilters(filterValues);
+      setFilterSelections(filterValues);
       debouncedBasicFilterSelectionChange(filterValues);
     },
     [debouncedBasicFilterSelectionChange],
   );
 
   useEffect(() => {
-    setIsComplexQuery(isQueryTooComplex(jql));
+    const isCurrentQueryComplex = isQueryTooComplex(jql);
+
+    setIsComplexQuery(isCurrentQueryComplex);
+
+    if (
+      showBasicFilters &&
+      !isCurrentQueryComplex &&
+      jql !== DEFAULT_JQL_QUERY
+    ) {
+      fetchHydratedJqlOptions();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const showBasicFilters = useMemo(() => {
-    if (
-      getBooleanFF(
-        'platform.linking-platform.datasource.show-jlol-basic-filters',
-      )
-    ) {
-      return true;
+  useEffect(() => {
+    if (basicFilterHydrationStatus === 'resolved') {
+      setFilterSelections(hydratedOptions);
     }
-    return false;
-  }, []);
+  }, [hydratedOptions, basicFilterHydrationStatus]);
+
+  const handleSelectionChange = useCallback(
+    (filterType: BasicFilterFieldType, options: SelectOption[]) => {
+      const updatedSelection: SelectedOptionsMap = {
+        ...filterSelections,
+        [filterType]: options,
+      };
+      setFilterSelections(updatedSelection);
+      handleBasicFilterSelectionChange(updatedSelection);
+    },
+    [handleBasicFilterSelectionChange, filterSelections],
+  );
+
+  const handleBasicFiltersReset = useCallback(() => {
+    if (Object.keys(filterSelections).length > 0) {
+      setFilterSelections({});
+    }
+  }, [filterSelections]);
 
   return (
-    <div css={inputContainerStyles}>
+    <div css={inputContainerStyles} data-testid="jira-search-container">
       {currentSearchMethod === 'basic' && (
         <Flex alignItems="center" xcss={basicSearchInputContainerStyles}>
           <BasicSearchInput
@@ -189,9 +265,11 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
           />
           {showBasicFilters && (
             <BasicFilters
-              jql={jql}
               cloudId={cloudId || ''}
-              onChange={handleBasicFilterSelectionChange}
+              onChange={handleSelectionChange}
+              selections={filterSelections}
+              onReset={handleBasicFiltersReset}
+              isJQLHydrating={basicFilterHydrationStatus === 'loading'}
             />
           )}
         </Flex>

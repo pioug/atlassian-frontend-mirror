@@ -1,7 +1,6 @@
 import { link } from '@atlaskit/adf-schema';
 import type {
   DocBuilder,
-  FeatureFlags,
   NextEditorPlugin,
 } from '@atlaskit/editor-common/types';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -105,20 +104,6 @@ const expectedResult = {
 };
 
 // So we don't introduce another plugin dependency to this package
-const mockFeatureFlagsPlugin: NextEditorPlugin<
-  'featureFlags',
-  {
-    pluginConfiguration: FeatureFlags;
-    sharedState: FeatureFlags;
-  }
-> = ({ config }) => ({
-  name: 'featureFlags',
-  getSharedState() {
-    return config;
-  },
-});
-
-// So we don't introduce another plugin dependency to this package
 const mockLinkPlugin: NextEditorPlugin<'hyperlink'> = ({ config }) => ({
   name: 'hyperlink',
   marks() {
@@ -133,7 +118,6 @@ describe('Tasks and decisions', () => {
     editorFactory({
       doc,
       preset: new Preset<LightEditorPlugin>()
-        .add([mockFeatureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add(tasksAndDecisionsPlugin)
         .add(mockLinkPlugin),

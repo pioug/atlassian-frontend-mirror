@@ -9,6 +9,7 @@ export type {
   TransformBefore,
   TransformAfter,
   ReferenceEntity,
+  MultiBodiedExtensionActions,
   // DEPRECATED
   ParametersGetter,
   AsyncParametersGetter,

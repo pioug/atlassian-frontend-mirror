@@ -56,10 +56,13 @@ import {
 } from '../../../services/getAvailableJiraSites';
 import { AccessRequired } from '../../common/error-state/access-required';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
+import { NoInstancesView } from '../../common/error-state/no-instances';
 import { NoResults } from '../../common/error-state/no-results';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
 import LinkRenderType from '../../issue-like-table/render-type/link';
 import { ColumnSizesMap } from '../../issue-like-table/types';
+import { SelectedOptionsMap } from '../basic-filters/types';
+import { availableBasicFilterTypes } from '../basic-filters/ui';
 import { InitialStateView } from '../initial-state-view';
 import { JiraSearchContainer } from '../jira-search-container';
 import { ModeSwitcher } from '../mode-switcher';
@@ -161,7 +164,9 @@ export const PlainJiraIssuesConfigModal = (
     visibleColumnKeys: initialVisibleColumnKeys,
   } = props;
 
-  const [availableSites, setAvailableSites] = useState<Site[]>([]);
+  const [availableSites, setAvailableSites] = useState<Site[] | undefined>(
+    undefined,
+  );
   const [currentViewMode, setCurrentViewMode] =
     useState<JiraIssueViewModes>(viewMode);
   const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
@@ -178,6 +183,7 @@ export const PlainJiraIssuesConfigModal = (
     useState<JiraSearchMethod>(initialSearchMethod);
   const searchMethodSearchedWith = useRef<JiraSearchMethod | null>(null);
   const visibleColumnCount = useRef(visibleColumnKeys?.length || 0);
+  const basicFilterSelectionsSearchedWith = useRef<SelectedOptionsMap>({});
 
   const parameters = useMemo<JiraIssueDatasourceParameters | undefined>(
     () =>
@@ -227,13 +233,13 @@ export const PlainJiraIssuesConfigModal = (
 
   const selectedJiraSite = useMemo<Site | undefined>(() => {
     if (cloudId) {
-      return availableSites.find(jiraSite => jiraSite.cloudId === cloudId);
+      return availableSites?.find(jiraSite => jiraSite.cloudId === cloudId);
     } else {
       const currentlyLoggedInSiteUrl = window.location.origin;
       return (
-        availableSites.find(
+        availableSites?.find(
           jiraSite => jiraSite.url === currentlyLoggedInSiteUrl,
-        ) || availableSites[0]
+        ) || availableSites?.[0]
       );
     }
   }, [availableSites, cloudId]);
@@ -261,6 +267,7 @@ export const PlainJiraIssuesConfigModal = (
     !!totalCount && totalCount !== 1 && currentViewMode === 'issue';
 
   const isDataReady = (visibleColumnKeys || []).length > 0;
+  const hasNoJiraSites = availableSites && availableSites.length === 0;
 
   useEffect(() => {
     const shouldStartUfoExperience = status === 'loading';
@@ -382,10 +389,17 @@ export const PlainJiraIssuesConfigModal = (
   const onSearch = useCallback(
     (
       newParameters: JiraIssueDatasourceParametersQuery,
-      searchMethod: JiraSearchMethod,
+      {
+        searchMethod,
+        basicFilterSelections,
+      }: {
+        searchMethod: JiraSearchMethod;
+        basicFilterSelections: SelectedOptionsMap;
+      },
     ) => {
       searchCount.current++;
       searchMethodSearchedWith.current = searchMethod;
+      basicFilterSelectionsSearchedWith.current = basicFilterSelections;
 
       if (jql !== newParameters.jql) {
         userInteractionActions.current.add(DatasourceAction.QUERY_UPDATED);
@@ -438,6 +452,15 @@ export const PlainJiraIssuesConfigModal = (
         return;
       }
 
+      const filterSelectionCount = availableBasicFilterTypes.reduce(
+        (current, filter) => ({
+          ...current,
+          [`${filter}BasicFilterSelectionCount`]:
+            basicFilterSelectionsSearchedWith.current[filter]?.length || 0,
+        }),
+        {},
+      );
+
       const insertButtonClickedEvent = analyticsEvent.update({
         actionSubjectId: 'insert',
         attributes: {
@@ -448,6 +471,9 @@ export const PlainJiraIssuesConfigModal = (
           searchCount: searchCount.current,
           searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
           actions: Array.from(userInteractionActions.current),
+          ...(searchMethodSearchedWith.current === 'basic'
+            ? { ...filterSelectionCount }
+            : {}),
         },
         eventType: 'ui',
       });
@@ -694,9 +720,7 @@ export const PlainJiraIssuesConfigModal = (
         <ModalHeader>
           <ModalTitle>
             <div css={dropdownContainerStyles}>
-              {availableSites.length < 2 ? (
-                <FormattedMessage {...modalMessages.insertIssuesTitle} />
-              ) : (
+              {availableSites && availableSites.length > 1 ? (
                 <Fragment>
                   <FormattedMessage
                     {...modalMessages.insertIssuesTitleManySites}
@@ -708,36 +732,46 @@ export const PlainJiraIssuesConfigModal = (
                     testId="jira-jql-datasource-modal--site-selector"
                   />
                 </Fragment>
+              ) : (
+                <FormattedMessage {...modalMessages.insertIssuesTitle} />
               )}
             </div>
           </ModalTitle>
-          <ModeSwitcher
-            isCompact
-            options={[
-              {
-                label: formatMessage(modalMessages.issueViewModeLabel),
-                value: 'issue' as JiraIssueViewModes,
-              },
-              {
-                label: formatMessage(modalMessages.countViewModeLabel),
-                value: 'count' as JiraIssueViewModes,
-              },
-            ]}
-            onOptionValueChange={handleViewModeChange}
-            selectedOptionValue={currentViewMode}
-          />
+          {!hasNoJiraSites && (
+            <ModeSwitcher
+              isCompact
+              options={[
+                {
+                  label: formatMessage(modalMessages.issueViewModeLabel),
+                  value: 'issue' as JiraIssueViewModes,
+                },
+                {
+                  label: formatMessage(modalMessages.countViewModeLabel),
+                  value: 'count' as JiraIssueViewModes,
+                },
+              ]}
+              onOptionValueChange={handleViewModeChange}
+              selectedOptionValue={currentViewMode}
+            />
+          )}
         </ModalHeader>
         <ModalBody>
-          <JiraSearchContainer
-            isSearching={status === 'loading'}
-            parameters={parameters}
-            onSearch={onSearch}
-            initialSearchMethod={initialSearchMethod}
-            onSearchMethodChange={setCurrentSearchMethod}
-          />
-          {currentViewMode === 'count'
-            ? renderCountModeContent()
-            : renderIssuesModeContent()}
+          {!hasNoJiraSites ? (
+            <Fragment>
+              <JiraSearchContainer
+                isSearching={status === 'loading'}
+                parameters={parameters}
+                onSearch={onSearch}
+                initialSearchMethod={initialSearchMethod}
+                onSearchMethodChange={setCurrentSearchMethod}
+              />
+              {currentViewMode === 'count'
+                ? renderCountModeContent()
+                : renderIssuesModeContent()}
+            </Fragment>
+          ) : (
+            <NoInstancesView />
+          )}
         </ModalBody>
         <ModalFooter>
           {shouldShowIssueCount && (
@@ -762,14 +796,16 @@ export const PlainJiraIssuesConfigModal = (
           <Button appearance="default" onClick={onCancelClick}>
             <FormattedMessage {...modalMessages.cancelButtonText} />
           </Button>
-          <Button
-            appearance="primary"
-            onClick={onInsertPressed}
-            isDisabled={isInsertDisabled}
-            testId="jira-jql-datasource-modal--insert-button"
-          >
-            <FormattedMessage {...modalMessages.insertIssuesButtonText} />
-          </Button>
+          {!hasNoJiraSites && (
+            <Button
+              appearance="primary"
+              onClick={onInsertPressed}
+              isDisabled={isInsertDisabled}
+              testId="jira-jql-datasource-modal--insert-button"
+            >
+              <FormattedMessage {...modalMessages.insertIssuesButtonText} />
+            </Button>
+          )}
         </ModalFooter>
       </Modal>
     </ModalTransition>

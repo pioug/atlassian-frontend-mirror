@@ -28,6 +28,7 @@ import type { Providers } from '@atlaskit/editor-common/provider-factory';
 
 // import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 
+import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';
 import {
   TTI_SEVERITY_THRESHOLD_DEFAULTS,
   TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS,
@@ -79,6 +80,9 @@ import {
   mediaMock,
 } from '@atlaskit/media-test-helpers/media-mock';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import { usePresetContext } from '../src/presets/context';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 
 const BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD = 2000;
 const BROWSER_FREEZE_DEGRADED_SEVERITY_THRESHOLD = 3000;
@@ -758,9 +762,19 @@ export function FullPageExample(props: ExampleProps) {
   const mediaProps = media?.featureFlags
     ? media.featureFlags
     : defaultMediaFeatureFlags;
-
+  type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
+  const editorApi = usePresetContext<StackPlugins>();
   const passedEditorProps: EditorProps = {
     ...editorProps,
+    extensionProviders: (editorActions?: EditorActions) => [
+      getExampleExtensionProviders(editorApi, editorActions),
+    ],
+    allowExtension: {
+      allowAutoSave: true,
+      allowExtendFloatingToolbars: true,
+    },
+    allowFragmentMark: true,
+    insertMenuItems: [],
     featureFlags,
     defaultValue: doc || localDraft,
   };

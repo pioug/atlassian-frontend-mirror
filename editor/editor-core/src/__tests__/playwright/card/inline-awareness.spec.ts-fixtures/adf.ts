@@ -6,6 +6,15 @@ export const inlineCardAdf = {
       type: 'paragraph',
       content: [
         {
+          type: 'text',
+          text: 'Click Me',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
           type: 'inlineCard',
           attrs: {
             url: 'https://inlineCardTestUrl',

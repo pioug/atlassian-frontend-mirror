@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-date
 
+## 0.2.8
+
+### Patch Changes
+
+- [#43694](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43694) [`fa3d07e4692`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa3d07e4692) - [ux] [ED-20697] Fix issue where dates with dashes were being incorrectly marked as invalid
+
 ## 0.2.7
 
 ### Patch Changes

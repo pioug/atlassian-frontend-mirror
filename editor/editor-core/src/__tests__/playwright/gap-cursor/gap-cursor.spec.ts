@@ -5,92 +5,173 @@ import {
   EditorExtensionDeleteConfirmationModel,
   editorTestCase as test,
   expect,
+  EditorGapCursorModel,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { connectedExtensionAdf } from './__fixtures__/adf-documents';
+import {
+  connectedExtensionADF,
+  infoPanelADF,
+  listWithCodeBlockADF,
+} from './gap-cursor.spec.ts-fixtures';
 
-test.use({
-  editorProps: {
-    appearance: 'full-page',
-    allowExtension: {
-      allowAutoSave: true,
-    },
-    allowFragmentMark: true,
-  },
-});
-
-test.describe('gap-cursor: ', () => {
-  test.use({
-    adf: connectedExtensionAdf,
-  });
-  test(`should stay where it was after confirmation dialog closed`, async ({
-    editor,
-  }) => {
-    let nodes = EditorNodeContainerModel.from(editor);
-    await nodes.extension.first().waitFor({ state: 'visible' });
-    await expect(nodes.extension).toHaveCount(2);
-
-    // Initialise the floating toolbar model for extension
-    const dataSourceExtensionModel = EditorExtensionModel.from(
-      nodes.extension.first(),
-    );
-    const floatingToolbarModel = EditorFloatingToolbarModel.from(
+test.describe('Gap-cursor: ', () => {
+  test.describe('Connected extension', () => {
+    test.use({
+      editorProps: {
+        appearance: 'full-page',
+        allowExtension: {
+          allowAutoSave: true,
+        },
+        allowFragmentMark: true,
+      },
+      adf: connectedExtensionADF,
+    });
+    test(`should stay where it was after confirmation dialog closed`, async ({
       editor,
-      dataSourceExtensionModel,
-    );
+    }) => {
+      let nodes = EditorNodeContainerModel.from(editor);
+      await nodes.extension.first().waitFor({ state: 'visible' });
+      await expect(nodes.extension).toHaveCount(2);
 
-    // Click extension
-    await dataSourceExtensionModel.waitForStable();
-    await dataSourceExtensionModel.clickTitle();
+      // Initialise the floating toolbar model for extension
+      const dataSourceExtensionModel = EditorExtensionModel.from(
+        nodes.extension.first(),
+      );
+      const floatingToolbarModel = EditorFloatingToolbarModel.from(
+        editor,
+        dataSourceExtensionModel,
+      );
 
-    // Click remove button on the floating toobar of the extension
-    await floatingToolbarModel.waitForStable();
-    await floatingToolbarModel.remove();
+      // Click extension
+      await dataSourceExtensionModel.waitForStable();
+      await dataSourceExtensionModel.clickTitle();
 
-    // Initialize Delete Confirmation Modal
-    const confirmationModal =
-      EditorExtensionDeleteConfirmationModel.from(editor);
-    await confirmationModal.waitForStable();
+      // Click remove button on the floating toobar of the extension
+      await floatingToolbarModel.waitForStable();
+      await floatingToolbarModel.remove();
 
-    // Validate if the consumer extension - listed in the modal
-    await expect(confirmationModal.consumerList).toHaveCount(1);
-    expect(await confirmationModal.consumerList.nth(0).innerText()).toEqual(
-      'Test Name 2',
-    );
+      // Initialize Delete Confirmation Modal
+      const confirmationModal =
+        EditorExtensionDeleteConfirmationModel.from(editor);
+      await confirmationModal.waitForStable();
 
-    // Click checkbox on the confirmation dialog
-    await confirmationModal.checkbox.isEditable();
-    await confirmationModal.checkbox.click();
+      // Validate if the consumer extension - listed in the modal
+      await expect(confirmationModal.consumerList).toHaveCount(1);
+      expect(await confirmationModal.consumerList.nth(0).innerText()).toEqual(
+        'Test Name 2',
+      );
 
-    // Click Delete on the confirmation dialog
-    await confirmationModal.confirm();
-    await editor.waitForEditorStable();
+      // Click checkbox on the confirmation dialog
+      await confirmationModal.checkbox.isEditable();
+      await confirmationModal.checkbox.click();
 
-    // Validate if both the extensions are deleted from the page
-    const updatedNodes = EditorNodeContainerModel.from(editor);
-    await expect(updatedNodes.extension).toHaveCount(0);
+      // Click Delete on the confirmation dialog
+      await confirmationModal.confirm();
+      await editor.waitForEditorStable();
 
-    // Validate document status
-    await expect(editor).toMatchDocument(
-      doc(
-        p(
-          "Trying to delete the below extension will result in a confirmation dialog, because it's being used as a data source for the extension at the bottom",
+      // Validate if both the extensions are deleted from the page
+      const updatedNodes = EditorNodeContainerModel.from(editor);
+      await expect(updatedNodes.extension).toHaveCount(0);
+
+      // Validate document status
+      await expect(editor).toMatchDocument(
+        doc(
+          p(
+            "Trying to delete the below extension will result in a confirmation dialog, because it's being used as a data source for the extension at the bottom",
+          ),
+          p('localId: a, b'),
+          p(
+            'The below extension ⌄⌄⌄ contains a dataConsumer and is linked to the above extension ^b^ ',
+          ),
+          p('localId: c, d '),
         ),
-        p('localId: a, b'),
-        p(
-          'The below extension ⌄⌄⌄ contains a dataConsumer and is linked to the above extension ^b^ ',
-        ),
-        p('localId: c, d '),
-      ),
-    );
+      );
 
-    // Gap cursor should be at position 165
-    await expect(editor).toHaveSelection({
-      type: 'text',
-      anchor: 165,
-      head: 165,
+      // Gap cursor should be at position 165
+      await expect(editor).toHaveSelection({
+        type: 'text',
+        anchor: 165,
+        head: 165,
+      });
+    });
+  });
+  test.describe('Comment Editor', () => {
+    test.use({
+      editorProps: {
+        appearance: 'comment',
+        allowPanel: true,
+      },
+      adf: infoPanelADF,
+    });
+    test('gap-cursor: should display to left of block node after hitting left key for comment editor', async ({
+      editor,
+    }) => {
+      await editor.selection.set({ anchor: 2, head: 2 });
+      await editor.keyboard.press('ArrowLeft');
+      await editor.keyboard.press('ArrowLeft');
+      const gapCursorModel = EditorGapCursorModel.from(editor);
+      await expect(gapCursorModel.span).toBeVisible();
+    });
+    test('gap-cursor: should display to right of block node after hitting right key for comment editor', async ({
+      editor,
+    }) => {
+      await editor.selection.set({ anchor: 2, head: 2 });
+      await editor.keyboard.press('ArrowRight');
+      await editor.keyboard.press('ArrowRight');
+      const gapCursorModel = EditorGapCursorModel.from(editor);
+      await expect(gapCursorModel.span).toBeVisible();
+    });
+  });
+  test.describe('Full Page Editor', () => {
+    test.use({
+      editorProps: {
+        appearance: 'full-page',
+        allowPanel: true,
+      },
+      adf: infoPanelADF,
+    });
+    test('gap-cursor: should display to left of block node after hitting left key for full-page editor', async ({
+      editor,
+    }) => {
+      await editor.selection.set({ anchor: 2, head: 2 });
+      await editor.keyboard.press('ArrowLeft');
+      await editor.keyboard.press('ArrowLeft');
+      const gapCursorModel = EditorGapCursorModel.from(editor);
+      await expect(gapCursorModel.span).toBeVisible();
+    });
+    test('gap-cursor: should display to right of block node after hitting right key for full-page editor', async ({
+      editor,
+    }) => {
+      await editor.selection.set({ anchor: 2, head: 2 });
+      await editor.keyboard.press('ArrowRight');
+      await editor.keyboard.press('ArrowRight');
+      const gapCursorModel = EditorGapCursorModel.from(editor);
+      await expect(gapCursorModel.span).toBeVisible();
+    });
+  });
+  test.describe('Code Block', () => {
+    test.use({
+      editorProps: {
+        appearance: 'full-page',
+      },
+      adf: listWithCodeBlockADF,
+    });
+    test(`gap-cursor: should display next to codeblock when clicked list item with a code block`, async ({
+      editor,
+    }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const gapCursorModel = EditorGapCursorModel.from(editor);
+      await nodes.bulletList.first().click({
+        // The click should be right before the list item (at the marker)
+        // and there is no element to allows us target it
+        position: {
+          x: 0,
+          y: 0,
+        },
+      });
+      await expect(gapCursorModel.span).toBeVisible();
     });
   });
 });

@@ -421,12 +421,7 @@ const generateToolbarItems =
             { type: 'separator' },
           ],
         },
-        ...getSettingsButtonGroup(
-          state,
-          featureFlags,
-          intl,
-          editorAnalyticsApi,
-        ),
+        ...getSettingsButtonGroup(intl, editorAnalyticsApi),
         {
           id: 'editor.link.delete',
           focusEditoronEnter: true,
@@ -542,24 +537,19 @@ const getUnlinkButtonGroup = (
 };
 
 const getSettingsButtonGroup = (
-  state: EditorState,
-  featureFlags: FeatureFlags,
   intl: IntlShape,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ): FloatingToolbarItem<Command>[] => {
-  const { floatingToolbarLinkSettingsButton } = featureFlags;
-  return floatingToolbarLinkSettingsButton === 'true'
-    ? [
-        {
-          id: 'editor.link.settings',
-          type: 'button',
-          icon: CogIcon,
-          title: intl.formatMessage(linkToolbarMessages.settingsLink),
-          onClick: openLinkSettings(editorAnalyticsApi),
-        },
-        { type: 'separator' },
-      ]
-    : [];
+  return [
+    {
+      id: 'editor.link.settings',
+      type: 'button',
+      icon: CogIcon,
+      title: intl.formatMessage(linkToolbarMessages.settingsLink),
+      onClick: openLinkSettings(editorAnalyticsApi),
+    },
+    { type: 'separator' },
+  ];
 };
 
 const getDatasourceButtonGroup = (

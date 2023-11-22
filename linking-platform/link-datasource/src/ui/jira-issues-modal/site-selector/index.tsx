@@ -13,7 +13,7 @@ import { Site } from '../../../services/getAvailableJiraSites';
 import { siteSelectorMessages } from './messages';
 
 export interface JiraSiteSelectorProps {
-  availableSites: Site[];
+  availableSites: Site[] | undefined;
   onSiteSelection: (selectedSite: Site) => void;
   selectedJiraSite?: Site;
   testId?: string;
@@ -32,7 +32,7 @@ export const JiraSiteSelector = (props: JiraSiteSelectorProps) => {
   const { formatMessage } = useIntl();
 
   const onChange = (newValue: ValueType<OptionType>) => {
-    const selectedSite = availableSites.find(
+    const selectedSite = availableSites?.find(
       site => site.cloudId === newValue?.value,
     );
 
@@ -43,7 +43,7 @@ export const JiraSiteSelector = (props: JiraSiteSelectorProps) => {
 
   const availableSitesOptions = useMemo(
     () =>
-      availableSites.map(site => ({
+      availableSites?.map(site => ({
         label: site.displayName,
         value: site.cloudId,
       })),
@@ -60,7 +60,7 @@ export const JiraSiteSelector = (props: JiraSiteSelectorProps) => {
       <Select
         css={selectStyles}
         classNamePrefix={testId}
-        isLoading={availableSites.length === 0}
+        isLoading={!availableSites}
         onChange={onChange}
         options={availableSitesOptions}
         placeholder={formatMessage(siteSelectorMessages.chooseSite)}

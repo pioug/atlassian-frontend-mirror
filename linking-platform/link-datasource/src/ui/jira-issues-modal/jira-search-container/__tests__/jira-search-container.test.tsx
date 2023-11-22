@@ -19,9 +19,12 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
 import { useFilterOptions } from '../../basic-filters/hooks/useFilterOptions';
+import { useHydrateJqlQuery } from '../../basic-filters/hooks/useHydrateJqlQuery';
 import { BasicFilterFieldType, SelectOption } from '../../basic-filters/types';
 import { JiraIssueDatasourceParameters } from '../../types';
 import { JiraSearchContainer, SearchContainerProps } from '../index';
+
+jest.mock('../../basic-filters/hooks/useHydrateJqlQuery');
 
 jest.mock('../../basic-filters/hooks/useFilterOptions');
 
@@ -55,6 +58,13 @@ const initialParameters: JiraIssueDatasourceParameters = {
 };
 
 const setup = (propsOverride: Partial<SearchContainerProps> = {}) => {
+  const mockFetchHydratedJqlOptions = jest.fn();
+  asMock(useHydrateJqlQuery).mockReturnValue({
+    fetchHydratedJqlOptions: mockFetchHydratedJqlOptions,
+    hydratedOptions: {},
+    status: 'resolved',
+  });
+
   const mockOnSearch = jest.fn();
   const mockOnSearchMethodChange = jest.fn();
   const component = render(
@@ -81,6 +91,7 @@ const setup = (propsOverride: Partial<SearchContainerProps> = {}) => {
     mockOnSearch,
     mockOnSearchMethodChange,
     getLatestJQLEditorProps,
+    mockFetchHydratedJqlOptions,
   };
 };
 
@@ -210,7 +221,10 @@ describe('JiraSearchContainer', () => {
       {
         jql: 'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
       },
-      'basic',
+      {
+        searchMethod: 'basic',
+        basicFilterSelections: {},
+      },
     );
     expect(
       getByTestId('mode-toggle-basic').querySelector('input'),
@@ -257,7 +271,10 @@ describe('JiraSearchContainer', () => {
       {
         jql: 'some-query',
       },
-      'jql',
+      {
+        searchMethod: 'jql',
+        basicFilterSelections: {},
+      },
     );
   });
 
@@ -284,7 +301,10 @@ describe('JiraSearchContainer', () => {
       {
         jql: 'some-query',
       },
-      'jql',
+      {
+        searchMethod: 'jql',
+        basicFilterSelections: {},
+      },
     );
     // re-render the component with count view mode
     rerender(
@@ -319,7 +339,10 @@ describe('JiraSearchContainer', () => {
       {
         jql: 'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
       },
-      'basic',
+      {
+        searchMethod: 'basic',
+        basicFilterSelections: {},
+      },
     );
   });
 
@@ -424,7 +447,7 @@ describe('JiraSearchContainer', () => {
     );
   });
 
-  describe('should show basic filter container based on FF value', () => {
+  describe('BasicFilterContainer: should show basic filter container based on FF value', () => {
     ffTest(
       'platform.linking-platform.datasource.show-jlol-basic-filters',
       () => {
@@ -478,7 +501,7 @@ describe('JiraSearchContainer', () => {
     );
   });
 
-  describe('should disable basic mode on search when the query is complex based on FF', () => {
+  describe('BasicFilterContainer: should disable basic mode on search when the query is complex based on FF', () => {
     ffTest(
       'platform.linking-platform.datasource.show-jlol-basic-filters',
       () => {
@@ -530,7 +553,7 @@ describe('JiraSearchContainer', () => {
     );
   });
 
-  describe('should disable basic mode when the modal loads if the query is complex based on FF', () => {
+  describe('BasicFilterContainer: should disable basic mode when the modal loads if the query is complex based on FF', () => {
     ffTest(
       'platform.linking-platform.datasource.show-jlol-basic-filters',
       () => {
@@ -560,7 +583,441 @@ describe('JiraSearchContainer', () => {
     );
   });
 
-  describe('should persist filter values when calling onSearch after an input is entered', () => {
+  describe('BasicFilterContainer: should render options with those selected ordered first on menu reopen', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      async () => {
+        const renderResult = setup({
+          parameters: {
+            cloudId: 'test-cloud-id',
+            filter: 'status',
+          },
+        });
+        const { findByTestId } = renderResult;
+
+        const { triggerButton } = setupBasicFilter(renderResult);
+
+        const selectMenu = await findByTestId(
+          'jlol-basic-filter-popup-select--menu',
+        );
+
+        const initialLozengeOptions = within(selectMenu).queryAllByTestId(
+          'jlol-basic-filter-popup-select-option--lozenge',
+        );
+        const secondOption = initialLozengeOptions[1];
+
+        // Select second option ('Awaiting approval' lozenge)
+        fireEvent.click(secondOption);
+
+        // Close menu
+        fireEvent.click(triggerButton!);
+
+        // Check that the ordering has NOT yet have changed
+        const expectedTextContentsOnClose = [
+          'Authorize',
+          'Awaiting approval',
+          'Awaiting implementation',
+          'Canceled',
+          'Closed',
+        ];
+
+        expectedTextContentsOnClose.forEach((expectedTextContent, index) => {
+          expect(initialLozengeOptions[index]).toHaveTextContent(
+            expectedTextContent,
+          );
+        });
+
+        // Reopen menu
+        fireEvent.click(triggerButton!);
+
+        const selectMenu2 = await findByTestId(
+          'jlol-basic-filter-popup-select--menu',
+        );
+        const updatedLozengeOptions = within(selectMenu2).queryAllByTestId(
+          'jlol-basic-filter-popup-select-option--lozenge',
+        );
+
+        // Check that the ordering has been updated on reopen
+        const expectedTextContentsOnReopen = [
+          'Awaiting approval',
+          'Authorize',
+          'Awaiting implementation',
+          'Canceled',
+          'Closed',
+        ];
+
+        expectedTextContentsOnReopen.forEach((expectedTextContent, index) => {
+          expect(updatedLozengeOptions[index]).toHaveTextContent(
+            expectedTextContent,
+          );
+        });
+      },
+      () => {
+        const { queryByTestId, getByTestId, mockOnSearchMethodChange } =
+          setup();
+
+        // switch to basic search because default is JQL
+        // in current implementation JQL doesn't have basic filters
+        fireEvent.click(getByTestId('mode-toggle-basic'));
+        expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
+
+        expect(
+          queryByTestId('jlol-basic-filter-container'),
+        ).not.toBeInTheDocument();
+      },
+    );
+  });
+
+  describe('BasicFilterContainer: should apply selection for each filter correctly', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      async () => {
+        const renderResult = setup({
+          parameters: {
+            cloudId: 'test-cloud-id',
+            filter: 'status',
+          },
+        });
+        const { findByTestId, queryByTestId } = renderResult;
+
+        setupBasicFilter(renderResult);
+
+        const statusSelectMenu = await findByTestId(
+          'jlol-basic-filter-popup-select--menu',
+        );
+
+        const [firstStatus] = within(statusSelectMenu).queryAllByTestId(
+          'jlol-basic-filter-popup-select-option--lozenge',
+        );
+        fireEvent.click(firstStatus);
+
+        // Close menu
+        const statusTriggerButton = await findByTestId(
+          `jlol-basic-filter-status-trigger`,
+        );
+        fireEvent.click(statusTriggerButton);
+
+        expect(queryByTestId('jlol-basic-filter-container')).toHaveTextContent(
+          'ProjectTypeStatus: AuthorizeAssignee',
+        );
+
+        const projectTriggerButton = await findByTestId(
+          `jlol-basic-filter-project-trigger`,
+        );
+        fireEvent.click(projectTriggerButton);
+
+        const projectSelectMenu = await findByTestId(
+          'jlol-basic-filter-popup-select--menu',
+        );
+
+        const [firstProject] = within(projectSelectMenu).queryAllByTestId(
+          'jlol-basic-filter-popup-select-option--lozenge',
+        );
+        fireEvent.click(firstProject);
+        // Close menu
+        fireEvent.click(projectTriggerButton);
+
+        expect(queryByTestId('jlol-basic-filter-container')).toHaveTextContent(
+          'Project: AuthorizeTypeStatus: AuthorizeAssignee',
+        );
+      },
+      () => {
+        const { queryByTestId, getByTestId, mockOnSearchMethodChange } =
+          setup();
+
+        // switch to basic search because default is JQL
+        // in current implementation JQL doesn't have basic filters
+        fireEvent.click(getByTestId('mode-toggle-basic'));
+        expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
+
+        expect(
+          queryByTestId('jlol-basic-filter-container'),
+        ).not.toBeInTheDocument();
+      },
+    );
+  });
+
+  describe('BasicFilterContainer: should reset filter labels when the cloudId changes', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      async () => {
+        const renderResult = setup({
+          parameters: {
+            cloudId: 'test-cloud-id',
+            filter: 'status',
+          },
+        });
+        const { findByTestId, queryByTestId, mockOnSearch, rerender } =
+          renderResult;
+
+        setupBasicFilter(renderResult);
+
+        const statusSelectMenu = await findByTestId(
+          'jlol-basic-filter-popup-select--menu',
+        );
+
+        const [firstStatus] = within(statusSelectMenu).queryAllByTestId(
+          'jlol-basic-filter-popup-select-option--lozenge',
+        );
+        fireEvent.click(firstStatus);
+
+        // Close menu
+        const statusTriggerButton = await findByTestId(
+          `jlol-basic-filter-status-trigger`,
+        );
+        fireEvent.click(statusTriggerButton);
+
+        expect(queryByTestId('jlol-basic-filter-container')).toHaveTextContent(
+          'ProjectTypeStatus: AuthorizeAssignee',
+        );
+
+        rerender(
+          <AnalyticsListener
+            channel={EVENT_CHANNEL}
+            onEvent={onAnalyticFireEvent}
+          >
+            <IntlProvider locale="en">
+              <JiraSearchContainer
+                onSearch={mockOnSearch}
+                onSearchMethodChange={jest.fn()}
+                initialSearchMethod={'jql'}
+                parameters={{ ...initialParameters, jql: 'another-jql' }}
+              />
+            </IntlProvider>
+          </AnalyticsListener>,
+        );
+
+        expect(queryByTestId('jlol-basic-filter-container')).toHaveTextContent(
+          'ProjectTypeStatus',
+        );
+      },
+      () => {
+        const { queryByTestId, getByTestId, mockOnSearchMethodChange } =
+          setup();
+
+        // switch to basic search because default is JQL
+        // in current implementation JQL doesn't have basic filters
+        fireEvent.click(getByTestId('mode-toggle-basic'));
+        expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
+
+        expect(
+          queryByTestId('jlol-basic-filter-container'),
+        ).not.toBeInTheDocument();
+      },
+    );
+  });
+
+  describe('BasicFilterContainer: should reset search term when the cloudId changes', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      async () => {
+        const renderResult = setup({
+          parameters: {
+            cloudId: 'test-cloud-id',
+            filter: 'status',
+          },
+        });
+        const { container, mockOnSearch, rerender, queryByTestId } =
+          renderResult;
+
+        const { triggerButton } = setupBasicFilter(renderResult);
+
+        const input = container.parentElement?.querySelector(
+          '#jlol-basic-filter-popup-select--input',
+        );
+        invariant(input);
+
+        fireEvent.change(input, { target: { value: 'hello' } });
+
+        expect(
+          container.parentElement?.querySelector('[data-value="hello"]'),
+        ).not.toBeNull();
+
+        // Close menu
+        fireEvent.click(triggerButton!);
+
+        rerender(
+          <AnalyticsListener
+            channel={EVENT_CHANNEL}
+            onEvent={onAnalyticFireEvent}
+          >
+            <IntlProvider locale="en">
+              <JiraSearchContainer
+                onSearch={mockOnSearch}
+                onSearchMethodChange={jest.fn()}
+                initialSearchMethod={'jql'}
+                parameters={{ ...initialParameters, jql: 'another-jql' }}
+              />
+            </IntlProvider>
+          </AnalyticsListener>,
+        );
+
+        // Open menu
+        const newInstaceOfTriggerButton = queryByTestId(
+          `jlol-basic-filter-status-trigger`,
+        );
+
+        invariant(newInstaceOfTriggerButton);
+        fireEvent.click(newInstaceOfTriggerButton);
+
+        expect(
+          container.parentElement?.querySelector('[data-value="hello"]'),
+        ).toBeNull();
+      },
+      () => {
+        const { queryByTestId, getByTestId, mockOnSearchMethodChange } =
+          setup();
+
+        // switch to basic search because default is JQL
+        // in current implementation JQL doesn't have basic filters
+        fireEvent.click(getByTestId('mode-toggle-basic'));
+        expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
+
+        expect(
+          queryByTestId('jlol-basic-filter-container'),
+        ).not.toBeInTheDocument();
+      },
+    );
+  });
+
+  describe('BasicFilterContainer: should call fetchHydratedJqlOptions on search if query is not complex', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      async () => {
+        const renderResult = setup({
+          parameters: {
+            cloudId: 'test-cloud-id',
+            filter: 'status',
+          },
+        });
+        const {
+          getByTestId,
+          getLatestJQLEditorProps,
+          mockFetchHydratedJqlOptions,
+        } = renderResult;
+
+        // switch to jql search
+        act(() => {
+          fireEvent.click(getByTestId('mode-toggle-jql'));
+        });
+
+        act(() => {
+          getLatestJQLEditorProps().onSearch!('some-query', {
+            represents: '',
+            errors: [],
+            query: undefined,
+          });
+        });
+
+        expect(mockFetchHydratedJqlOptions).toHaveBeenCalledTimes(1);
+      },
+      () => {
+        const renderResult = setup();
+
+        const { queryByTestId } = renderResult;
+        setupBasicFilter({ ...renderResult, openPicker: false });
+
+        expect(
+          queryByTestId('jlol-basic-filter-container'),
+        ).not.toBeInTheDocument();
+      },
+    );
+  });
+
+  describe('BasicFilterContainer: should not call fetchHydratedJqlOptions on search if query mode is basic', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      async () => {
+        const renderResult = setup({
+          parameters: {
+            cloudId: 'test-cloud-id',
+            filter: 'status',
+          },
+        });
+        const {
+          getByTestId,
+          getByPlaceholderText,
+          mockFetchHydratedJqlOptions,
+        } = renderResult;
+
+        setupBasicFilter({
+          ...renderResult,
+          filterType: 'project',
+          openPicker: false,
+        });
+
+        fireEvent.click(getByTestId('mode-toggle-basic'));
+        const basicTextInput = getByPlaceholderText(
+          'Search for issues by keyword',
+        );
+        fireEvent.change(basicTextInput, {
+          target: { value: 'testing' },
+        });
+
+        fireEvent.click(
+          getByTestId('jira-jql-datasource-modal--basic-search-button'),
+        );
+
+        expect(mockFetchHydratedJqlOptions).toHaveBeenCalledTimes(0);
+      },
+    );
+  });
+
+  describe('BasicFilterContainer: should call fetchHydratedJqlOptions on initial dialog render if query is not complex and is not the default JQL query', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      async () => {
+        const renderResult = setup({
+          parameters: {
+            cloudId: 'test-cloud-id',
+            jql: 'status=DONE',
+          },
+        });
+        const { mockFetchHydratedJqlOptions } = renderResult;
+
+        expect(mockFetchHydratedJqlOptions).toHaveBeenCalledTimes(1);
+      },
+      () => {
+        const renderResult = setup();
+
+        const { queryByTestId } = renderResult;
+        setupBasicFilter({ ...renderResult, openPicker: false });
+
+        expect(
+          queryByTestId('jlol-basic-filter-container'),
+        ).not.toBeInTheDocument();
+      },
+    );
+  });
+
+  describe('BasicFilterContainer: should not call fetchHydratedJqlOptions on initial dialog render if query is the default JQL query', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      async () => {
+        const renderResult = setup({
+          parameters: {
+            cloudId: 'test-cloud-id',
+            jql: 'created >= -30d order by created DESC',
+          },
+        });
+        const { mockFetchHydratedJqlOptions } = renderResult;
+
+        expect(mockFetchHydratedJqlOptions).toHaveBeenCalledTimes(0);
+      },
+      () => {
+        const renderResult = setup();
+
+        const { queryByTestId } = renderResult;
+        setupBasicFilter({ ...renderResult, openPicker: false });
+
+        expect(
+          queryByTestId('jlol-basic-filter-container'),
+        ).not.toBeInTheDocument();
+      },
+    );
+  });
+
+  describe('BasicFilterContainer: should persist filter values when calling onSearch after an input is entered', () => {
     ffTest(
       'platform.linking-platform.datasource.show-jlol-basic-filters',
       async () => {
@@ -606,7 +1063,19 @@ describe('JiraSearchContainer', () => {
           {
             jql: '(text ~ "testing*" or summary ~ "testing*") and status in (Authorize) ORDER BY created DESC',
           },
-          'basic',
+          {
+            searchMethod: 'basic',
+            basicFilterSelections: {
+              status: [
+                {
+                  appearance: 'inprogress',
+                  label: 'Authorize',
+                  optionType: 'lozengeLabel',
+                  value: 'Authorize',
+                },
+              ],
+            },
+          },
         );
       },
       () => {
@@ -625,7 +1094,7 @@ describe('JiraSearchContainer', () => {
     );
   });
 
-  describe('should update jql query in JQL mode when the query changes in basic mode', () => {
+  describe('BasicFilterContainer: should update jql query in JQL mode when the query changes in basic mode', () => {
     ffTest(
       'platform.linking-platform.datasource.show-jlol-basic-filters',
       async () => {
@@ -674,7 +1143,19 @@ describe('JiraSearchContainer', () => {
           {
             jql: expectedJql,
           },
-          'basic',
+          {
+            searchMethod: 'basic',
+            basicFilterSelections: {
+              status: [
+                {
+                  appearance: 'inprogress',
+                  label: 'Authorize',
+                  optionType: 'lozengeLabel',
+                  value: 'Authorize',
+                },
+              ],
+            },
+          },
         );
 
         fireEvent.click(getByTestId('mode-toggle-jql'));

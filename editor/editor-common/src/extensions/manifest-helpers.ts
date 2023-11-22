@@ -1,6 +1,6 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
-import {
+import type {
   ExtensionKey,
   ExtensionManifest,
   ExtensionModuleAction,
@@ -9,8 +9,8 @@ import {
   ExtensionType,
   Module,
 } from './types/extension-manifest';
-import { ESModule } from './types/extension-manifest-common';
-import { Parameters } from './types/extension-parameters';
+import type { ESModule } from './types/extension-manifest-common';
+import type { Parameters } from './types/extension-parameters';
 
 export const FORGE_EXTENSION_TYPE = 'com.atlassian.ecosystem';
 
@@ -89,6 +89,21 @@ export function buildNode<T extends Parameters>(
         {
           type: 'paragraph',
           content: [],
+        },
+      ],
+    };
+  } else if (node.type === 'multiBodiedExtension') {
+    return {
+      ...extension,
+      content: [
+        {
+          type: 'extensionFrame',
+          content: [
+            {
+              type: 'paragraph',
+              content: [],
+            },
+          ],
         },
       ],
     };

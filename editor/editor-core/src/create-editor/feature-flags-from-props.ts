@@ -123,13 +123,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         : false,
     ),
 
-    floatingToolbarLinkSettingsButton:
-      typeof props.featureFlags?.['floating-toolbar-link-settings-button'] ===
-      'string'
-        ? props.featureFlags['floating-toolbar-link-settings-button'] ||
-          undefined
-        : undefined,
-
     disableSpellcheckByBrowser: getSpellCheck(props.featureFlags!),
 
     // Including fallback to props.featureFlags so that mobile feature flags

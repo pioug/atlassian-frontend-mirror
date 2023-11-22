@@ -41,7 +41,10 @@ export type ListPlugin = NextEditorPlugin<
   'list',
   {
     pluginConfiguration: ListPluginOptions | undefined;
-    dependencies: [FeatureFlagsPlugin, OptionalPlugin<AnalyticsPlugin>];
+    dependencies: [
+      OptionalPlugin<FeatureFlagsPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+    ];
     actions: {
       isInsideListItem: IsInsideListItem;
       findRootParentListNode: FindRootParentListNode;

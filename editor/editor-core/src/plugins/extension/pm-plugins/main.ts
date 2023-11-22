@@ -381,6 +381,14 @@ const createPlugin = (
           extensionNodeViewOptions,
           pluginInjectionApi,
         ),
+        multiBodiedExtension: ExtensionNodeView(
+          portalProviderAPI,
+          eventDispatcher,
+          providerFactory,
+          extensionHandlers,
+          extensionNodeViewOptions,
+          pluginInjectionApi,
+        ),
       },
       handleClickOn: createSelectionClickHandler(
         ['extension', 'bodiedExtension'],

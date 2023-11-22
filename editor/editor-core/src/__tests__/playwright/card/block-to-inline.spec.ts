@@ -25,7 +25,8 @@ test.describe('blockCard', () => {
   test('should switch to inline mode', async ({ editor }) => {
     const nodes = EditorNodeContainerModel.from(editor);
     const blockCardModel = EditorBlockCardModel.from(nodes.blockCard);
-    const inlineCardModel = EditorInlineCardModel.from(nodes.inlineCard);
+    const inlineCardsModel = EditorInlineCardModel.from(nodes.inlineCard);
+    const inlineCardModel = inlineCardsModel.card(0);
     const floatingToolbarModel = EditorFloatingToolbarModel.from(
       editor,
       blockCardModel,
@@ -60,7 +61,8 @@ test.describe('blockCard', () => {
   }) => {
     const nodes = EditorNodeContainerModel.from(editor);
     const blockCardModel = EditorBlockCardModel.from(nodes.blockCard);
-    const inlineCardModel = EditorInlineCardModel.from(nodes.inlineCard);
+    const inlineCardsModel = EditorInlineCardModel.from(nodes.inlineCard);
+    const inlineCardModel = inlineCardsModel.card(0);
     const floatingToolbarModel = EditorFloatingToolbarModel.from(
       editor,
       blockCardModel,

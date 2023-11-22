@@ -1,5 +1,7 @@
 import React from 'react';
 
+import VisuallyHidden from '@atlaskit/visually-hidden';
+
 import Content from '../shared/content';
 import useButtonBase, {
   type UseButtonBaseArgs,
@@ -28,12 +30,11 @@ const useIconButton = <TagName extends HTMLElement>({
   appearance,
   autoFocus,
   buttonType,
-  icon,
+  icon: Icon,
   interactionName,
   isDisabled,
   isSelected,
-  // TODO: Will potentially remove children prop from IconButton
-  // children,
+  label,
   onClick,
   onMouseDownCapture,
   onMouseUpCapture,
@@ -48,6 +49,7 @@ const useIconButton = <TagName extends HTMLElement>({
   ref,
   shouldFitContainer,
   spacing,
+  UNSAFE_size,
 }: UseIconButtonArgs<TagName>): UseIconButtonReturn<TagName> => {
   const hasOverlay = Boolean(overlay);
 
@@ -62,7 +64,8 @@ const useIconButton = <TagName extends HTMLElement>({
      */
     children: (
       <Content type="icon" hasOverlay={hasOverlay}>
-        {icon}
+        <Icon label="" size={UNSAFE_size} />
+        <VisuallyHidden>{label}</VisuallyHidden>
       </Content>
     ),
     interactionName,

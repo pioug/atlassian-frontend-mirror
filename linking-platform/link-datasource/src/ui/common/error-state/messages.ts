@@ -56,4 +56,16 @@ export const loadingErrorMessages = defineMessages({
       'Error state message letting the user know we were unable the load the requested list of results',
     defaultMessage: 'Unable to load results',
   },
+  noAccessToJiraSitesTitle: {
+    id: 'linkDataSource.jira-issues.no.jira.sites.access.title',
+    description:
+      'Title that shows in the modal when user has no access to any Jira sites',
+    defaultMessage: "You don't have access to any Jira sites",
+  },
+  noAccessToJiraSitesDescription: {
+    id: 'linkDataSource.jira-issues.no.jira.sites.access.description',
+    description:
+      'Description that shows in the modal when user has no access to any Jira sites',
+    defaultMessage: 'To request access, contact your admin.',
+  },
 });

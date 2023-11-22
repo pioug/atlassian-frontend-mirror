@@ -1,6 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
 import {
+  DefaultCreateWithEditButton,
   DefaultCreateWithModal,
   DefaultCreateWithModalTitle,
 } from '../../examples/vr/vr-create-modal';
@@ -31,3 +32,9 @@ const options: OptionsType = {
 
 snapshot(DefaultCreateWithModal, options);
 snapshot(DefaultCreateWithModalTitle, options);
+snapshot(DefaultCreateWithEditButton, {
+  featureFlags: {
+    'platform.linking-platform.link-create.enable-edit': true,
+  },
+  ...options,
+});

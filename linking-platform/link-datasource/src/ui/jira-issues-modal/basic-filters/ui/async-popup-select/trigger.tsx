@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useCallback } from 'react';
 
 import styled from '@emotion/styled';
 import { FormattedMessage } from 'react-intl-next';
@@ -50,46 +50,66 @@ export const LoadingStateAnimationWrapper = styled.div({
 const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
   ({ filterType, isSelected, isDisabled, isLoading, selectedOptions }, ref) => {
     const [firstOption] = selectedOptions || [];
-    const testId = `jlol-basic-filter-${filterType}-trigger`;
 
     const hasOptions = selectedOptions && selectedOptions.length > 0;
     const showButtonLoading = !isDisabled && isLoading;
 
-    if (showButtonLoading) {
-      return (
+    const LoadingButton = useCallback(
+      () => (
         <LoadingStateAnimationWrapper>
-          <Button iconAfter={<Spinner size={'xsmall'} />} testId={testId}>
+          <Button iconAfter={<Spinner size={'xsmall'} />}>
             <FormattedMessage
               {...asyncPopupSelectMessages[`${filterType}Label`]}
             />
           </Button>
         </LoadingStateAnimationWrapper>
-      );
-    }
+      ),
+      [filterType],
+    );
 
+    const DefaultButton = useCallback(
+      () => (
+        <Button
+          appearance="default"
+          isSelected={isSelected || hasOptions}
+          isDisabled={isDisabled}
+          iconAfter={<ChevronDownIcon label="" />}
+        >
+          <Flex>
+            <Box xcss={triggerButtonLabelStyles}>
+              <FormattedMessage
+                {...asyncPopupSelectMessages[`${filterType}Label`]}
+              />
+              {firstOption && <>: {firstOption.label}</>}
+            </Box>
+            {selectedOptions && selectedOptions.length > 1 && (
+              <Flex xcss={badgeStyles} alignItems="center">
+                <Badge appearance="primary">
+                  +{selectedOptions.length - 1}
+                </Badge>
+              </Flex>
+            )}
+          </Flex>
+        </Button>
+      ),
+      [
+        filterType,
+        firstOption,
+        hasOptions,
+        isDisabled,
+        isSelected,
+        selectedOptions,
+      ],
+    );
+
+    /**
+     * We had an issue with the popup component referencing a stale DOM ref for the trigger button.
+     * Hence introducing a Box to make sure ref is always the same and only content is refreshed on re-renders
+     */
     return (
-      <Button
-        ref={ref}
-        appearance="default"
-        isSelected={isSelected || hasOptions}
-        isDisabled={isDisabled}
-        testId={testId}
-        iconAfter={<ChevronDownIcon label="" />}
-      >
-        <Flex>
-          <Box xcss={triggerButtonLabelStyles}>
-            <FormattedMessage
-              {...asyncPopupSelectMessages[`${filterType}Label`]}
-            />
-            {firstOption && <>: {firstOption.label}</>}
-          </Box>
-          {selectedOptions && selectedOptions.length > 1 && (
-            <Flex xcss={badgeStyles} alignItems="center">
-              <Badge appearance="primary">+{selectedOptions.length - 1}</Badge>
-            </Flex>
-          )}
-        </Flex>
-      </Button>
+      <Box ref={ref} testId={`jlol-basic-filter-${filterType}-trigger`}>
+        {showButtonLoading ? <LoadingButton /> : <DefaultButton />}
+      </Box>
     );
   },
 );

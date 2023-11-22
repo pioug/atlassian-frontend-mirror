@@ -53,7 +53,7 @@ export const EditButton = () => {
             submit();
           }}
         >
-          {intl.formatMessage(messages.edit)}
+          {intl.formatMessage(messages.createAndOpen)}
         </LoadingButton>
       )}
     </FormSpy>

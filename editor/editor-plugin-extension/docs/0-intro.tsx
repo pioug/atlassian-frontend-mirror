@@ -29,7 +29,7 @@ type ExtensionPlugin = NextEditorPlugin<
   {
     pluginConfiguration: ExtensionPluginOptions | undefined;
     dependencies: [
-      FeatureFlagsPlugin,
+      OptionalPlugin<FeatureFlagsPlugin>,
       WidthPlugin,
       DecorationsPlugin,
       OptionalPlugin<ContextPanelPlugin>,

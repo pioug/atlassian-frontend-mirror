@@ -1,21 +1,30 @@
-import { ComponentType } from 'react';
+import type { ComponentType } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
-import { ExtensionParams, UpdateExtension } from './extension-handler';
-import {
+import type {
+  ExtensionParams,
+  MultiBodiedExtensionActions,
+  UpdateExtension,
+} from './extension-handler';
+import type {
   ExtensionIconModule,
   MaybeESModule,
 } from './extension-manifest-common';
-import { ContextualToolbar } from './extension-manifest-toolbar-item';
-import { Parameters } from './extension-parameters';
-import { FieldDefinition, Option, UserFieldContext } from './field-definitions';
+import type { ContextualToolbar } from './extension-manifest-toolbar-item';
+import type { Parameters } from './extension-parameters';
+import type {
+  FieldDefinition,
+  Option,
+  UserFieldContext,
+} from './field-definitions';
 
 export type ExtensionType = string;
 export type ExtensionKey = string;
 export type ExtensionModuleKey = string;
 export type ExtensionComponentProps<T extends Parameters = Parameters> = {
   node: ExtensionParams<T>;
+  actions?: MultiBodiedExtensionActions;
   [key: string]: any; // many renderers pass their own context through too
 };
 
@@ -60,7 +69,11 @@ export type ExtensionModule<T extends Parameters = Parameters> = {
 export type DynamicFieldDefinitions<T> = (parameters: T) => FieldDefinition[];
 
 export type ExtensionModuleNode<T extends Parameters = Parameters> = {
-  type: 'extension' | 'inlineExtension' | 'bodiedExtension';
+  type:
+    | 'extension'
+    | 'inlineExtension'
+    | 'bodiedExtension'
+    | 'multiBodiedExtension';
   render: () => ExtensionComponentModule<T>;
   update?: UpdateExtension<T>;
   getFieldsDefinition?: (

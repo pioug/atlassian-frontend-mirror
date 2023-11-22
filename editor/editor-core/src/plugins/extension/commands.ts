@@ -1,6 +1,7 @@
 import {
   removeSelectedNode,
   removeParentNodeOfType,
+  findParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { ExtensionLayout } from '@atlaskit/adf-schema';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -17,6 +18,10 @@ import type {
   TransformAfter,
 } from '@atlaskit/editor-common/src/extensions';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 export function updateState(state: Partial<ExtensionState>) {
   return createCommand({
@@ -76,7 +81,7 @@ export const updateExtensionLayout = (layout: ExtensionLayout) =>
     const selectedExtension = getSelectedExtension(state, true);
 
     if (selectedExtension) {
-      const trWithNewNodeMarkup = tr.setNodeMarkup(
+      const trWithNewNodeMarkup: Transaction = tr.setNodeMarkup(
         selectedExtension.pos,
         undefined,
         {
@@ -101,7 +106,7 @@ export const removeExtension = () =>
       if (getSelectedExtension(state)) {
         return removeSelectedNode(tr);
       } else {
-        return removeParentNodeOfType(state.schema.nodes.bodiedExtension)(tr);
+        return checkAndRemoveExtensionNode(state, tr);
       }
     },
   );
@@ -116,3 +121,18 @@ export const removeDescendantNodes = (sourceNode?: PMNode) =>
       return sourceNode ? removeConnectedNodes(state, sourceNode) : tr;
     },
   );
+
+export const checkAndRemoveExtensionNode = (
+  state: EditorState,
+  tr: Transaction,
+) => {
+  let nodeType = state.schema.nodes.bodiedExtension;
+  if (
+    findParentNodeOfType(state.schema.nodes.multiBodiedExtension)(
+      state.selection,
+    )
+  ) {
+    nodeType = state.schema.nodes.multiBodiedExtension;
+  }
+  return removeParentNodeOfType(nodeType)(tr);
+};

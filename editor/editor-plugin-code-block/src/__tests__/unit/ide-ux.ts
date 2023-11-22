@@ -10,11 +10,7 @@ import {
   INDENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type {
-  DocBuilder,
-  FeatureFlags,
-  NextEditorPlugin,
-} from '@atlaskit/editor-common/types';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -48,20 +44,6 @@ const createIndentationAttributes = (
     }),
   });
 
-// So we don't introduce another plugin dependency to this package
-const mockFeatureFlagsPlugin: NextEditorPlugin<
-  'featureFlags',
-  {
-    pluginConfiguration: FeatureFlags;
-    sharedState: FeatureFlags;
-  }
-> = ({ config }) => ({
-  name: 'featureFlags',
-  getSharedState() {
-    return config;
-  },
-});
-
 describe('IDE UX plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: jest.Mock<UIAnalyticsEvent>;
@@ -71,7 +53,6 @@ describe('IDE UX plugin', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
-        .add([mockFeatureFlagsPlugin, {}])
         .add(decorationsPlugin)
         .add(compositionPlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])

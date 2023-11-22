@@ -21,7 +21,8 @@ export const prepareSetupForInlineAndBlockCard = async (page: Page) => {
     blockCard.waitForStable();
   });
   inlineCardLocators.map((cardLocator) => {
-    const card = EditorInlineCardModel.from(cardLocator);
+    const cards = EditorInlineCardModel.from(cardLocator);
+    const card = cards.card(0);
     card.waitForStable();
   });
 };

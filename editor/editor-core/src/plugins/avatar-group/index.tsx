@@ -17,7 +17,10 @@ const avatarGroup: NextEditorPlugin<
   'avatarGroup',
   {
     pluginConfiguration: Config;
-    dependencies: [FeatureFlagsPlugin, OptionalPlugin<AnalyticsPlugin>];
+    dependencies: [
+      OptionalPlugin<FeatureFlagsPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+    ];
   }
 > = ({ config: props, api }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};

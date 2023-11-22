@@ -1,7 +1,12 @@
 import {
+  buildNode,
   FORGE_EXTENSION_TYPE,
   getExtensionKeyAndNodeKey,
 } from '../../manifest-helpers';
+import type {
+  ExtensionManifest,
+  ExtensionModuleActionObject,
+} from '../../types/extension-manifest';
 
 describe('manifest-helpers', () => {
   describe('getExtensionKeyAndNodeKey', () => {
@@ -33,5 +38,61 @@ describe('manifest-helpers', () => {
         expect(result).toEqual(expectedResult);
       },
     );
+  });
+
+  describe('buildNode', () => {
+    describe('when build a multiBodiedExtension', () => {
+      it('should create a default extension frame', () => {
+        const fakeAction: ExtensionModuleActionObject = {
+          key: 'fake-action-key',
+          type: 'node',
+          parameters: {
+            one: 'um',
+            two: 'dois',
+          },
+        };
+        const fakeManifest: ExtensionManifest = {
+          type: 'multiBodiedExtension',
+          key: 'fakeKeyManifest',
+          title: 'fakeManifest',
+          icons: {
+            '48': () => Promise.resolve(() => null),
+          },
+          modules: {
+            nodes: {
+              'fake-action-key': {
+                type: 'multiBodiedExtension',
+                render: () => Promise.resolve(() => null),
+              },
+            },
+          },
+        };
+
+        const result = buildNode(fakeAction, fakeManifest);
+
+        expect(result).toEqual({
+          type: 'multiBodiedExtension',
+          attrs: {
+            extensionKey: 'fakeKeyManifest:fake-action-key',
+            extensionType: 'multiBodiedExtension',
+            parameters: {
+              one: 'um',
+              two: 'dois',
+            },
+          },
+          content: [
+            {
+              type: 'extensionFrame',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        });
+      });
+    });
   });
 });

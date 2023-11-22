@@ -25,36 +25,53 @@ import {
   TokenisedProps,
 } from './style-maps.partial';
 
+type StrictTokensMap = {
+  [p in keyof TokenisedProps]:
+    | typeof backgroundColorMap
+    | typeof dimensionMap
+    | typeof borderColorMap
+    | typeof borderRadiusMap
+    | typeof borderWidthMap
+    | typeof layerMap
+    | typeof opacityMap
+    | typeof spaceMap
+    | typeof shadowMap
+    | typeof textColorMap;
+};
 const tokensMap = {
   backgroundColor: backgroundColorMap,
   blockSize: dimensionMap,
-  borderColor: borderColorMap,
-  borderBlockStartColor: borderColorMap,
+  borderBlockColor: borderColorMap,
   borderBlockEndColor: borderColorMap,
-  borderInlineStartColor: borderColorMap,
-  borderInlineEndColor: borderColorMap,
+  borderBlockEndWidth: borderWidthMap,
+  borderBlockStartColor: borderColorMap,
+  borderBlockStartWidth: borderWidthMap,
+  borderBlockWidth: borderWidthMap,
   borderBottomColor: borderColorMap,
-  borderLeftColor: borderColorMap,
-  borderRightColor: borderColorMap,
-  borderTopColor: borderColorMap,
-  borderRadius: borderRadiusMap,
-  borderStartStartRadius: borderRadiusMap,
-  borderStartEndRadius: borderRadiusMap,
-  borderEndStartRadius: borderRadiusMap,
-  borderEndEndRadius: borderRadiusMap,
   borderBottomLeftRadius: borderRadiusMap,
   borderBottomRightRadius: borderRadiusMap,
+  borderBottomWidth: borderWidthMap,
+  borderColor: borderColorMap,
+  borderEndEndRadius: borderRadiusMap,
+  borderEndStartRadius: borderRadiusMap,
+  borderInlineColor: borderColorMap,
+  borderInlineEndColor: borderColorMap,
+  borderInlineEndWidth: borderWidthMap,
+  borderInlineStartColor: borderColorMap,
+  borderInlineStartWidth: borderWidthMap,
+  borderInlineWidth: borderWidthMap,
+  borderLeftColor: borderColorMap,
+  borderLeftWidth: borderWidthMap,
+  borderRadius: borderRadiusMap,
+  borderRightColor: borderColorMap,
+  borderRightWidth: borderWidthMap,
+  borderStartEndRadius: borderRadiusMap,
+  borderStartStartRadius: borderRadiusMap,
+  borderTopColor: borderColorMap,
   borderTopLeftRadius: borderRadiusMap,
   borderTopRightRadius: borderRadiusMap,
-  borderWidth: borderWidthMap,
-  borderBlockStartWidth: borderWidthMap,
-  borderBlockEndWidth: borderWidthMap,
-  borderInlineStartWidth: borderWidthMap,
-  borderInlineEndWidth: borderWidthMap,
-  borderBottomWidth: borderWidthMap,
-  borderLeftWidth: borderWidthMap,
-  borderRightWidth: borderWidthMap,
   borderTopWidth: borderWidthMap,
+  borderWidth: borderWidthMap,
   bottom: spaceMap,
   boxShadow: shadowMap,
   color: textColorMap,
@@ -69,6 +86,7 @@ const tokensMap = {
   insetInline: spaceMap,
   insetInlineEnd: spaceMap,
   insetInlineStart: spaceMap,
+  left: spaceMap,
   margin: spaceMap,
   marginBlock: spaceMap,
   marginBlockEnd: spaceMap,
@@ -80,7 +98,6 @@ const tokensMap = {
   marginLeft: spaceMap,
   marginRight: spaceMap,
   marginTop: spaceMap,
-  left: spaceMap,
   maxBlockSize: dimensionMap,
   maxHeight: dimensionMap,
   maxInlineSize: dimensionMap,
@@ -90,9 +107,9 @@ const tokensMap = {
   minInlineSize: dimensionMap,
   minWidth: dimensionMap,
   opacity: opacityMap,
+  outlineColor: borderColorMap,
   outlineOffset: spaceMap,
   outlineWidth: borderWidthMap,
-  outlineColor: borderColorMap,
   padding: spaceMap,
   paddingBlock: spaceMap,
   paddingBlockEnd: spaceMap,
@@ -109,7 +126,7 @@ const tokensMap = {
   top: spaceMap,
   width: dimensionMap,
   zIndex: layerMap,
-} as const;
+} as const satisfies StrictTokensMap;
 
 type StyleMapKey = keyof typeof tokensMap;
 type TokensMapKey = keyof (typeof tokensMap)[StyleMapKey];

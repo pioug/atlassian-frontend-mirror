@@ -22,13 +22,14 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { InputTracking } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 
 // @public (undocumented)
 export type BasePlugin = NextEditorPlugin<
   'base',
   {
     pluginConfiguration: BasePluginOptions | undefined;
-    dependencies: [FeatureFlagsPlugin];
+    dependencies: [OptionalPlugin<FeatureFlagsPlugin>];
     sharedState: BasePluginState;
     actions: {
       setKeyboardHeight: typeof setKeyboardHeight;

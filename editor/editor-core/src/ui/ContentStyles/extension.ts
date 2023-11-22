@@ -11,8 +11,14 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const extensionStyles = css`
+  .multiBodiedExtensionView-content-wrap.${akEditorSelectedNodeClassName}:not(.danger) {
+    ${getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Blanket])}
+  }
+
   .extensionView-content-wrap,
+  .multiBodiedExtensionView-content-wrap,
   .bodiedExtensionView-content-wrap {
     margin: ${blockNodesVerticalMargin} 0;
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 
 import { Flex, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -8,11 +8,10 @@ import type {
   SelectedOptionsMap,
   SelectOption,
 } from '../types';
-import { isValidJql } from '../utils';
 
 import AsyncPopupSelect from './async-popup-select';
 
-const availableBasicFilterTypes: BasicFilterFieldType[] = [
+export const availableBasicFilterTypes: BasicFilterFieldType[] = [
   'project',
   'issuetype',
   'status',
@@ -20,9 +19,11 @@ const availableBasicFilterTypes: BasicFilterFieldType[] = [
 ];
 
 export interface BasicFilterContainerProps {
-  jql: string;
   cloudId: string;
-  onChange: (selection: SelectedOptionsMap) => void;
+  selections: SelectedOptionsMap;
+  onChange: (filterType: BasicFilterFieldType, options: SelectOption[]) => void;
+  onReset: () => void;
+  isJQLHydrating: boolean;
 }
 
 const basicFilterContainerStyles = xcss({
@@ -30,53 +31,32 @@ const basicFilterContainerStyles = xcss({
 });
 
 const BasicFilterContainer = ({
-  jql,
   cloudId,
   onChange,
+  selections,
+  onReset,
+  isJQLHydrating,
 }: BasicFilterContainerProps) => {
-  const [selection, setSelection] = useState<SelectedOptionsMap>({});
-
-  useEffect(() => {
-    if (isValidJql(jql)) {
-      // hydrate hook call goes in here
-    }
-  }, [jql]);
-
-  const handleSelectionChange = useCallback(
-    (filterType: BasicFilterFieldType, options: SelectOption[]) => {
-      const updatedSelection: SelectedOptionsMap = {
-        ...selection,
-        [filterType]: options,
-      };
-      setSelection(updatedSelection);
-      onChange(updatedSelection);
-    },
-    [onChange, selection],
-  );
-
-  const handleReset = useCallback(() => {
-    if (Object.keys(selection).length > 0) {
-      setSelection({});
-    }
-  }, [selection]);
-
   return (
     <Flex
       xcss={basicFilterContainerStyles}
       gap="space.100"
       testId="jlol-basic-filter-container"
     >
-      {availableBasicFilterTypes.map((filter: BasicFilterFieldType) => (
-        <AsyncPopupSelect
-          cloudId={cloudId}
-          filterType={filter}
-          key={filter}
-          selection={selection[filter] || []}
-          isDisabled={!cloudId}
-          onSelectionChange={handleSelectionChange}
-          onReset={handleReset}
-        />
-      ))}
+      {availableBasicFilterTypes.map((filter: BasicFilterFieldType) => {
+        return (
+          <AsyncPopupSelect
+            cloudId={cloudId}
+            filterType={filter}
+            key={filter}
+            selection={selections[filter] || []}
+            isJQLHydrating={isJQLHydrating}
+            isDisabled={!cloudId}
+            onSelectionChange={onChange}
+            onReset={onReset}
+          />
+        );
+      })}
     </Flex>
   );
 };

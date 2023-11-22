@@ -1,5 +1,16 @@
 # @atlaskit/link-datasource
 
+## 1.19.0
+
+### Minor Changes
+
+- [#43353](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43353) [`6f08647add6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f08647add6) - [ux] Adds new UI in modal for case where user has no Jira instances connected to their account.
+
+### Patch Changes
+
+- [#43536](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43536) [`a55b74ae54e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a55b74ae54e) - Basic filter selection state has been moved to the jira-search-container component. Basic filter select labels will now be hydrated on the initial opening of the modal, and on any following searches where the JQL is deemed to not be complex.
+- Updated dependencies
+
 ## 1.18.1
 
 ### Patch Changes

@@ -49,7 +49,7 @@ import type { EditorProps } from '../src';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createTestExtensionProvider } from '@atlaskit/editor-test-helpers/create-test-extension-provider';
 import { createExtensionFramesProvider } from '../src/__tests__/visual-regression/common/__helpers__/extensionFrameManifest';
-import { getConfluenceMacrosExtensionProvider } from './confluence-macros';
+import { getXProductExtensionProvider } from './fake-x-product-extensions';
 import {
   mockAssetsClientFetchRequests,
   mockDatasourceFetchRequests,
@@ -337,9 +337,9 @@ function createProviders(
   }
 
   if (withConfluenceMacrosExtensionProvider) {
-    providers.extensionProviders = [
-      getConfluenceMacrosExtensionProvider(undefined),
-    ];
+    providers.extensionProviders = (editorActions?: EditorActions) => {
+      return [getXProductExtensionProvider()];
+    };
   }
 
   return providers;

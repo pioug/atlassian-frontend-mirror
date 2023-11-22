@@ -4,6 +4,7 @@ import parser from 'prettier/parser-babel';
 
 import TextArea from '@atlaskit/textarea';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import EditorContext from '../src/ui/EditorContext';
 import { DevTools } from '../example-helpers/DevTools';
@@ -172,6 +173,13 @@ const nodeTypes: Record<string, NodeMapping> = {
   dataConsumer: { name: 'dataConsumer', attrs: ['sources'] },
 };
 nodeTypes.link = nodeTypes.a;
+
+if (getBooleanFF('platform.editor.multi-bodied-extension_0rygg')) {
+  nodeTypes.multiBodiedExtension = {
+    name: 'multiBodiedExtension',
+    attrs: ['extensionKey', 'extensionType', 'parameters', 'text', 'layout'],
+  };
+}
 
 const buildMarks = (marks: Array<any>, leaf: string): string | undefined => {
   const mark = marks.pop();

@@ -17,77 +17,57 @@ export default () => (
           <SplitButtonWithSlots
             spacing="compact"
             primaryAction={<Button>Split button</Button>}
-            secondaryAction={
-              <IconButton icon={<ChevronDown label="" />}>MEOW</IconButton>
-            }
+            secondaryAction={<IconButton icon={ChevronDown} label="Options" />}
           />
           <SplitButtonWithSlots
             appearance="primary"
             spacing="compact"
             primaryAction={<Button>Split button</Button>}
-            secondaryAction={
-              <IconButton icon={<ChevronDown label="" />}>MEOW</IconButton>
-            }
+            secondaryAction={<IconButton icon={ChevronDown} label="Options" />}
           />
           <SplitButtonWithSlots
             appearance="warning"
             spacing="compact"
             primaryAction={<Button>Split button</Button>}
-            secondaryAction={
-              <IconButton icon={<ChevronDown label="" />}>MEOW</IconButton>
-            }
+            secondaryAction={<IconButton icon={ChevronDown} label="Options" />}
           />
           <SplitButtonWithSlots
             appearance="danger"
             spacing="compact"
             primaryAction={<Button>Split button</Button>}
-            secondaryAction={
-              <IconButton icon={<ChevronDown label="" />}>MEOW</IconButton>
-            }
+            secondaryAction={<IconButton icon={ChevronDown} label="Options" />}
           />
           <SplitButtonWithSlots
             isDisabled
             spacing="compact"
             primaryAction={<Button>Split button</Button>}
-            secondaryAction={
-              <IconButton icon={<ChevronDown label="" />}>MEOW</IconButton>
-            }
+            secondaryAction={<IconButton icon={ChevronDown} label="Options" />}
           />
         </Inline>
         <Inline space="space.150">
           <SplitButtonWithSlots
             primaryAction={<Button>Split button</Button>}
-            secondaryAction={
-              <IconButton icon={<ChevronDown label="" />}>MEOW</IconButton>
-            }
+            secondaryAction={<IconButton icon={ChevronDown} label="Options" />}
           />
           <SplitButtonWithSlots
             appearance="primary"
             primaryAction={<Button>Split button</Button>}
-            secondaryAction={
-              <IconButton icon={<ChevronDown label="" />}>MEOW</IconButton>
-            }
+            secondaryAction={<IconButton icon={ChevronDown} label="Options" />}
           />
           <SplitButtonWithSlots
             appearance="warning"
             primaryAction={<Button>Split button</Button>}
-            secondaryAction={
-              <IconButton icon={<ChevronDown label="" />}>MEOW</IconButton>
-            }
+            secondaryAction={<IconButton icon={ChevronDown} label="Options" />}
           />
           <SplitButtonWithSlots
             appearance="danger"
             primaryAction={<Button>Split button</Button>}
-            secondaryAction={
-              <IconButton icon={<ChevronDown label="" />}>MEOW</IconButton>
-            }
+            secondaryAction={<IconButton icon={ChevronDown} label="Options" />}
           />
           <SplitButtonWithSlots
             isDisabled
             primaryAction={<Button>Split button</Button>}
-            secondaryAction={
-              <IconButton icon={<ChevronDown label="" />}>MEOW</IconButton>
-            }
+            secondaryAction={<IconButton icon={ChevronDown} label="Options" />}
           />
         </Inline>
       </Stack>

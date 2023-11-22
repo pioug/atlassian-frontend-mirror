@@ -84,7 +84,7 @@ export type CreatePayload = {
    * https://stash.atlassian.com/projects/JIRACLOUD/repos/jira-frontend/browse/src/packages/issue-create/issue-create-embed/src/ui/index.tsx
    * https://stash.atlassian.com/projects/JIRACLOUD/repos/jira-frontend/pull-requests/103587/overview?commentId=5778323
    */
-  ari: string | undefined;
+  ari?: string | undefined;
 
   /** The object identifier for the resource created by the create plugin (for analytics) */
   objectId: string;

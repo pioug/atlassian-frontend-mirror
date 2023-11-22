@@ -18,7 +18,12 @@ export type LinkButtonAppearance =
   | 'subtle-link'
   | 'warning';
 
-export type Appearance = ButtonAppearance | LinkButtonAppearance;
+export type IconButtonAppearance = 'default' | 'primary' | 'subtle';
+
+export type Appearance =
+  | ButtonAppearance
+  | LinkButtonAppearance
+  | IconButtonAppearance;
 
 export type Spacing = 'compact' | 'default' | 'none';
 
@@ -67,11 +72,11 @@ export type CommonButtonProps<TagName extends HTMLElement> = {
    */
   spacing?: Spacing;
   /**
-   * Text content to be rendered in the button. Required so that screen readers always have an accessible label provided for the button.
+   * Text content to be rendered in the button. Required so that screen readers always have an accessible label provided for the button
    */
   children: React.ReactNode;
   /**
-   * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
+   * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests
    */
   testId?: string;
   /**
@@ -121,7 +126,7 @@ export type AdditionalButtonVariantProps = {
 };
 
 /**
- * Combines common button props with additional HTML attributes.
+ * Combines common button props with additional HTML attributes
  */
 export type CombinedButtonProps<
   TagName extends HTMLElement,

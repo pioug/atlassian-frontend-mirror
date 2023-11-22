@@ -24,7 +24,7 @@ import type { ExpandPlugin } from '@atlaskit/editor-plugin-expand';
 import type { TasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 
 export type InsertBlockPluginDependencies = [
-  FeatureFlagsPlugin,
+  OptionalPlugin<FeatureFlagsPlugin>,
   TypeAheadPlugin,
   OptionalPlugin<TablePlugin>,
   OptionalPlugin<HyperlinkPlugin>,

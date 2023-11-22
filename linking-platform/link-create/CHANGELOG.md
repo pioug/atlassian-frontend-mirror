@@ -1,5 +1,15 @@
 # @atlaskit/link-create
 
+## 1.10.0
+
+### Minor Changes
+
+- [#43692](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43692) [`6f2a46c60f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f2a46c60f3) - NOISSUE Make undefinable ari optional in link create payload
+
+### Patch Changes
+
+- [#43685](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43685) [`315e88c6400`](https://bitbucket.org/atlassian/atlassian-frontend/commits/315e88c6400) - EDM-8558: rename label of edit button to 'create + open'
+
 ## 1.9.5
 
 ### Patch Changes

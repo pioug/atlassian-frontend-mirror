@@ -34,7 +34,7 @@ type AnalyticsPlugin = NextEditorPlugin<
       createAnalyticsEvent: CreateUIAnalyticsEvent | null;
       attachAnalyticsEvent: CreateAttachPayloadIntoTransaction | null;
     };
-    dependencies: [FeatureFlagsPlugin];
+    dependencies: [OptionalPlugin<FeatureFlagsPlugin>];
     actions: EditorAnalyticsAPI;
   }
 >;

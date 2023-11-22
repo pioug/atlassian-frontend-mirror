@@ -51,6 +51,7 @@ export default () => {
               key={filter}
               selection={selection[filter]}
               onSelectionChange={handleSelectionChange}
+              isJQLHydrating={false}
             />
           ))}
         </Flex>

@@ -49,7 +49,7 @@ export type CardPlugin = NextEditorPlugin<
   {
     pluginConfiguration: CardPluginOptions;
     dependencies: [
-      FeatureFlagsPlugin,
+      OptionalPlugin<FeatureFlagsPlugin>,
       OptionalPlugin<AnalyticsPlugin>,
       WidthPlugin,
       DecorationsPlugin,

@@ -48,7 +48,10 @@ export type HyperlinkPlugin = NextEditorPlugin<
   'hyperlink',
   {
     pluginConfiguration: HyperlinkPluginOptions | undefined;
-    dependencies: [FeatureFlagsPlugin, OptionalPlugin<AnalyticsPlugin>];
+    dependencies: [
+      OptionalPlugin<FeatureFlagsPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+    ];
     actions: {
       /**
        * Add items to the left of the hyperlink floating toolbar

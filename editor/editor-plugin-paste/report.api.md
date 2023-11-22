@@ -46,7 +46,7 @@ export type PastePlugin = NextEditorPlugin<
   {
     pluginConfiguration: PastePluginOptions;
     dependencies: [
-      FeatureFlagsPlugin,
+      OptionalPlugin<FeatureFlagsPlugin>,
       OptionalPlugin<ListPlugin>,
       BetterTypeHistoryPlugin,
       OptionalPlugin<CardPlugin>,

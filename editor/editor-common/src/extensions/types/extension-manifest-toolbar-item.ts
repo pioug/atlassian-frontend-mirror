@@ -1,7 +1,7 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
-import { ExtensionAPI } from './extension-handler';
-import { ExtensionIconModule } from './extension-manifest-common';
+import type { ExtensionAPI } from './extension-handler';
+import type { ExtensionIconModule } from './extension-manifest-common';
 
 export type ToolbarButtonAction = (
   contextNode: ADFEntity,
@@ -44,7 +44,11 @@ export type ExtensionModuleToolbarButtonWithLabel = {
 
 export type ExtensionNodeContext = {
   type: 'extension';
-  nodeType: 'extension' | 'inlineExtension' | 'bodiedExtension';
+  nodeType:
+    | 'extension'
+    | 'inlineExtension'
+    | 'bodiedExtension'
+    | 'multiBodiedExtension';
   extensionKey: string | string[];
   extensionType?: string;
 };

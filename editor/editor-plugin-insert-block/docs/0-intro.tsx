@@ -31,7 +31,7 @@ type InsertBlockPlugin = NextEditorPlugin<
   {
     pluginConfiguration: InsertBlockOptions | undefined;
     dependencies: [
-      FeatureFlagsPlugin,
+      OptionalPlugin<FeatureFlagsPlugin>,
       TypeAheadPlugin,
       OptionalPlugin<TablePlugin>,
       OptionalPlugin<HyperlinkPlugin>,

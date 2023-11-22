@@ -32,7 +32,7 @@ export type ExpandPlugin = NextEditorPlugin<
   {
     pluginConfiguration: ExpandPluginOptions_2 | undefined;
     dependencies: [
-      FeatureFlagsPlugin,
+      OptionalPlugin<FeatureFlagsPlugin>,
       DecorationsPlugin,
       SelectionPlugin,
       OptionalPlugin<AnalyticsPlugin>,

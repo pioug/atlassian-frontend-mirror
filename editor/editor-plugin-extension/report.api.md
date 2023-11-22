@@ -57,7 +57,7 @@ export type ExtensionPlugin = NextEditorPlugin<
     pluginConfiguration: ExtensionPluginOptions | undefined;
     dependencies: [
       OptionalPlugin<AnalyticsPlugin>,
-      FeatureFlagsPlugin,
+      OptionalPlugin<FeatureFlagsPlugin>,
       WidthPlugin,
       DecorationsPlugin,
       OptionalPlugin<ContextPanelPlugin>,

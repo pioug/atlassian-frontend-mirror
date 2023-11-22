@@ -123,10 +123,9 @@ export const primaryItemsWithPrimarySplitButton = [
         <IconButton
           ref={triggerRef as Ref<HTMLButtonElement>}
           {...triggerProps}
-          icon={<ChevronDownIcon label="Open link issue options" />}
-        >
-          ''
-        </IconButton>
+          icon={ChevronDownIcon}
+          label="Open link issue options"
+        />
       )}
     >
       <DropdownItemGroup>
@@ -144,12 +143,9 @@ export const primaryItemsWithPrimarySplitButton = [
           ref={triggerRef as Ref<HTMLButtonElement>}
           {...triggerProps}
           isSelected
-          icon={
-            <ChevronDownIcon label="Select what sort of something to open" />
-          }
-        >
-          ''
-        </IconButton>
+          icon={ChevronDownIcon}
+          label="Select what sort of something to open"
+        />
       )}
     >
       <DropdownItemGroup>

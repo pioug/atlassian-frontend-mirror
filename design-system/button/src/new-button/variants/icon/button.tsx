@@ -7,7 +7,8 @@ import { type CommonButtonVariantProps } from '../types';
 import { type CommonIconButtonProps } from './types';
 import useIconButton from './use-icon-button';
 
-export type IconButtonProps = CommonIconButtonProps & CommonButtonVariantProps;
+export type IconButtonProps = CommonIconButtonProps &
+  Omit<CommonButtonVariantProps, 'children' | 'appearance'>;
 
 /**
  * __Icon Button__
@@ -30,8 +31,8 @@ const IconButton = React.memo(
       isDisabled,
       isSelected,
       icon,
-      children,
       interactionName,
+      label,
       overlay,
       onClick,
       onMouseDownCapture,
@@ -45,6 +46,7 @@ const IconButton = React.memo(
       onClickCapture,
       type = 'button',
       testId,
+      UNSAFE_size,
       ...rest
     }: IconButtonProps,
     ref: React.Ref<HTMLButtonElement>,
@@ -58,11 +60,12 @@ const IconButton = React.memo(
       appearance,
       autoFocus,
       buttonType: 'button',
-      children,
+      children: null, // Set in hook.
       icon,
       interactionName,
       isDisabled,
       isSelected,
+      label,
       onClick,
       onMouseDownCapture,
       onMouseUpCapture,
@@ -76,6 +79,7 @@ const IconButton = React.memo(
       overlay,
       ref,
       spacing,
+      UNSAFE_size,
     });
 
     return (

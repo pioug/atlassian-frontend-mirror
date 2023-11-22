@@ -213,34 +213,6 @@ describe('Feature Flags from Props', () => {
     });
   });
 
-  describe('floating toolbar link settings button', () => {
-    it('should add the FF value', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {
-            'floating-toolbar-link-settings-button': 'true',
-          },
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          floatingToolbarLinkSettingsButton: 'true',
-        }),
-      );
-    });
-
-    it('should default to undefined if nothing passed in', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {},
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          floatingToolbarLinkSettingsButton: undefined,
-        }),
-      );
-    });
-  });
-
   describe('restartNumberedLists', () => {
     it('should add the FF value', () => {
       expect(

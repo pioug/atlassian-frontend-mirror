@@ -27,6 +27,7 @@ export interface AsyncPopupSelectProps {
   filterType: BasicFilterFieldType;
   cloudId: string;
   selection: SelectOption[];
+  isJQLHydrating: boolean;
   onSelectionChange?: (
     filterType: BasicFilterFieldType,
     options: SelectOption[],
@@ -44,6 +45,7 @@ const AsyncPopupSelect = ({
   filterType,
   cloudId,
   selection,
+  isJQLHydrating,
   onSelectionChange = () => {},
   onReset: resetSelection = () => {},
   isDisabled = false,
@@ -223,7 +225,6 @@ const AsyncPopupSelect = ({
   }, [selectedOptions, selection]);
 
   const filterOptionsLength = filterOptions.length;
-  const isJQLHydrating = false;
   const isError = status === 'rejected';
   const isLoading = status === 'loading' || status === 'empty';
   const isLoadingMore = status === 'loadingMore';

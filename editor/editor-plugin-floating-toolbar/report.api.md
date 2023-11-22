@@ -40,7 +40,7 @@ export type FloatingToolbarPlugin = NextEditorPlugin<
   'floatingToolbar',
   {
     dependencies: [
-      FeatureFlagsPlugin,
+      OptionalPlugin<FeatureFlagsPlugin>,
       DecorationsPlugin,
       OptionalPlugin<ContextPanelPlugin>,
       OptionalPlugin<ExtensionPlugin>,

@@ -20,6 +20,7 @@ import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { PerformanceTracking } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
@@ -33,7 +34,7 @@ export type AnalyticsPlugin = NextEditorPlugin<
       attachAnalyticsEvent: CreateAttachPayloadIntoTransaction | null;
       performanceTracking: PerformanceTracking | undefined;
     };
-    dependencies: [FeatureFlagsPlugin];
+    dependencies: [OptionalPlugin<FeatureFlagsPlugin>];
     actions: EditorAnalyticsAPI;
   }
 >;

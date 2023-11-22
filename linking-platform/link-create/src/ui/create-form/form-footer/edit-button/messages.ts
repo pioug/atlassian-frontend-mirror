@@ -1,9 +1,10 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages = defineMessages({
-  edit: {
-    id: 'linkCreate.createForm.button.edit',
-    defaultMessage: 'Edit',
-    description: 'Button to edit the Create object',
+  createAndOpen: {
+    id: 'linkCreate.createForm.button.createAndOpen',
+    defaultMessage: 'Create + Open',
+    description:
+      'Button to create the object and subsequently open a screen to edit',
   },
 });

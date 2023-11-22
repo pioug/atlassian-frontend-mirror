@@ -1,22 +1,25 @@
 import React from 'react';
 import memoizeOne from 'memoize-one';
 
-import { RendererContext } from '../react/types';
-import { ExtensionLayout } from '@atlaskit/adf-schema';
+import type { RendererContext } from '../react/types';
+import type { ExtensionLayout } from '@atlaskit/adf-schema';
 import { getNodeRenderer } from '@atlaskit/editor-common/extensions';
 import type {
   ExtensionHandlers,
   ExtensionProvider,
+  MultiBodiedExtensionActions,
 } from '@atlaskit/editor-common/extensions';
-import {
-  WithProviders,
-  ProviderFactory,
-} from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
-import { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
+import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 
 export interface Props {
-  type: 'extension' | 'inlineExtension' | 'bodiedExtension';
+  type:
+    | 'extension'
+    | 'inlineExtension'
+    | 'bodiedExtension'
+    | 'multiBodiedExtension';
   extensionHandlers?: ExtensionHandlers;
   providers?: ProviderFactory;
   rendererContext: RendererContext;
@@ -61,7 +64,10 @@ export default class ExtensionRenderer extends React.Component<Props, State> {
 
   getNodeRenderer = memoizeOne(getNodeRenderer);
 
-  renderExtensionNode = (extensionProvider?: ExtensionProvider | null) => {
+  renderExtensionNode = (
+    extensionProvider?: ExtensionProvider | null,
+    actions?: MultiBodiedExtensionActions,
+  ) => {
     const {
       extensionHandlers,
       rendererContext,
@@ -102,8 +108,11 @@ export default class ExtensionRenderer extends React.Component<Props, State> {
           extensionType,
           extensionKey,
         );
-
-        result = <NodeRenderer node={node} />;
+        if (node.type === 'multiBodiedExtension') {
+          result = <NodeRenderer node={node} actions={actions} />;
+        } else {
+          result = <NodeRenderer node={node} />;
+        }
       }
     } catch (e) {
       /** We don't want this error to block renderer */

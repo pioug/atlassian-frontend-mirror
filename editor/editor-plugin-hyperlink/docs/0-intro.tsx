@@ -31,7 +31,7 @@ export type HyperlinkPlugin = NextEditorPlugin<
   {
     pluginConfiguration: HyperlinkPluginOptions | undefined;
     dependencies: [
-      FeatureFlagsPlugin,
+      OptionalPlugin<FeatureFlagsPlugin>,
       OptionalPlugin<AnalyticsPlugin>,
     ];
     actions: {

@@ -51,26 +51,28 @@ export default function LinkButtonExample() {
       <h2>Outside AppProvider, without router link component defined</h2>
       <ButtonGroup>
         <LinkButton href="/home">LinkButton</LinkButton>
-        <LinkIconButton href="/home" icon={<AddIcon label="" />}>
-          LinkIconButton
-        </LinkIconButton>
+        <LinkIconButton href="/home" icon={AddIcon} label="Link icon button" />
       </ButtonGroup>
       <h2>Inside AppProvider, without router link component defined</h2>
       <AppProvider>
         <ButtonGroup>
           <LinkButton href="/home">LinkButton</LinkButton>
-          <LinkIconButton href="/home" icon={<AddIcon label="" />}>
-            LinkIconButton
-          </LinkIconButton>
+          <LinkIconButton
+            href="/home"
+            icon={AddIcon}
+            label="Link icon button"
+          />
         </ButtonGroup>
       </AppProvider>
       <AppProvider routerLinkComponent={MyRouterLinkComponent}>
         <h2>Inside AppProvider with router link component defined</h2>
         <ButtonGroup>
           <LinkButton href="/home">LinkButton</LinkButton>
-          <LinkIconButton href="/home" icon={<AddIcon label="" />}>
-            LinkIconButton
-          </LinkIconButton>
+          <LinkIconButton
+            href="/home"
+            icon={AddIcon}
+            label="Link icon button"
+          />
           <LinkButton<MyRouterLinkConfig>
             href={{
               to: '/home',

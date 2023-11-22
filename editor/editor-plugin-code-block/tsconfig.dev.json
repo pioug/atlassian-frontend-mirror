@@ -51,10 +51,19 @@
       "path": "../editor-plugin-analytics/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-block-type/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-composition/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-decorations/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-indentation/tsconfig.app.json"
     },
     {
       "path": "../editor-test-helpers/tsconfig.app.json"

@@ -2,6 +2,8 @@ import {
   extension,
   bodiedExtension,
   inlineExtension,
+  multiBodiedExtension,
+  extensionFrame,
 } from '@atlaskit/adf-schema';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -19,6 +21,7 @@ import { getToolbarConfig } from './toolbar';
 import { getContextPanel } from './context-panel';
 import { createExtensionAPI } from './extension-api';
 import { createEditSelectedExtensionAction } from './actions';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
@@ -30,7 +33,7 @@ const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) => {
     name: 'extension',
 
     nodes() {
-      return [
+      const extensionNodes = [
         {
           name: 'extension',
           node: extension,
@@ -44,6 +47,19 @@ const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) => {
           node: inlineExtension,
         },
       ];
+
+      // Revert to returning all nodes without local variable, once FF is removed
+      if (getBooleanFF('platform.editor.multi-bodied-extension_0rygg')) {
+        extensionNodes.push({
+          name: 'extensionFrame',
+          node: extensionFrame,
+        });
+        extensionNodes.push({
+          name: 'multiBodiedExtension',
+          node: multiBodiedExtension,
+        });
+      }
+      return extensionNodes;
     },
 
     pmPlugins() {

@@ -246,16 +246,6 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Show link settings button in the Floating toolbar
-   *
-   * @see https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3199172609/POP+Some+users+need+to+work+with+URLs+to+get+their+job+done
-   * @see https://product-fabric.atlassian.net/browse/EDM-3268
-   * @default null
-   */
-  floatingToolbarLinkSettingsButton?: string;
-
-  /**
-   * @description
    * Allow numbered lists to start from any number greater than 0, not just 1
    *
    * @see https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3257270398/MAKE+PP+Restart+Numbered+Lists

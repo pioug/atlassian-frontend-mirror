@@ -15,7 +15,7 @@ import { sendTransaction } from './events/send-transaction';
 import { addSynchronyErrorAnalytics } from './analytics';
 import { nativeCollabProviderPlugin } from './native-collab-provider-plugin';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 export { pluginKey };
 
 const providerBuilder: ProviderBuilder =
@@ -40,7 +40,10 @@ const collabEditPlugin: NextEditorPlugin<
   'collabEdit',
   {
     pluginConfiguration: PrivateCollabEditOptions;
-    dependencies: [FeatureFlagsPlugin, OptionalPlugin<typeof analyticsPlugin>];
+    dependencies: [
+      OptionalPlugin<FeatureFlagsPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+    ];
   }
 > = ({ config: options, api }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};

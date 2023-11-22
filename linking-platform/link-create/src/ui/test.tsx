@@ -21,6 +21,8 @@ jest.mock('@atlaskit/linking-common/sentry', () => ({
   captureException: jest.fn(),
 }));
 
+const editButtonLabel = 'Create + Open';
+
 const CreatePluginForm = () => {
   const { onCreate, onFailure, onCancel } = useLinkCreateCallback();
 
@@ -661,7 +663,7 @@ describe('<LinkCreate />', () => {
             await screen.findByRole('button', { name: 'Create' }),
           ).toBeInTheDocument();
           expect(
-            screen.queryByRole('button', { name: 'Edit' }),
+            screen.queryByRole('button', { name: editButtonLabel }),
           ).not.toBeInTheDocument();
         },
         async () => {
@@ -674,7 +676,7 @@ describe('<LinkCreate />', () => {
             await screen.findByRole('button', { name: 'Create' }),
           ).toBeInTheDocument();
           expect(
-            screen.queryByRole('button', { name: 'Edit' }),
+            screen.queryByRole('button', { name: editButtonLabel }),
           ).not.toBeInTheDocument();
         },
       );
@@ -693,7 +695,7 @@ describe('<LinkCreate />', () => {
             await screen.findByRole('button', { name: 'Create' }),
           ).toBeInTheDocument();
           expect(
-            await screen.findByRole('button', { name: 'Edit' }),
+            await screen.findByRole('button', { name: editButtonLabel }),
           ).toBeInTheDocument();
         },
         async () => {
@@ -706,7 +708,7 @@ describe('<LinkCreate />', () => {
             await screen.findByRole('button', { name: 'Create' }),
           ).toBeInTheDocument();
           expect(
-            screen.queryByRole('button', { name: 'Edit' }),
+            screen.queryByRole('button', { name: editButtonLabel }),
           ).not.toBeInTheDocument();
         },
       );
@@ -771,7 +773,7 @@ describe('<LinkCreate />', () => {
           });
 
           const editButton = await screen.findByRole('button', {
-            name: 'Edit',
+            name: editButtonLabel,
           });
 
           await userEvent.click(editButton);
@@ -838,7 +840,7 @@ describe('<LinkCreate />', () => {
             await screen.findByRole('button', { name: 'Create' }),
           ).toBeInTheDocument();
           expect(
-            screen.queryByRole('button', { name: 'Edit' }),
+            screen.queryByRole('button', { name: editButtonLabel }),
           ).not.toBeInTheDocument();
         },
       );
@@ -892,7 +894,7 @@ describe('<LinkCreate />', () => {
             name: 'Create',
           });
           expect(
-            screen.queryByRole('button', { name: 'Edit' }),
+            screen.queryByRole('button', { name: editButtonLabel }),
           ).not.toBeInTheDocument();
 
           await userEvent.click(createButton);
@@ -956,7 +958,7 @@ describe('<LinkCreate />', () => {
           });
 
           expect(
-            screen.queryByRole('button', { name: 'Edit' }),
+            screen.queryByRole('button', { name: editButtonLabel }),
           ).not.toBeInTheDocument();
 
           await userEvent.click(closeButton);
@@ -987,7 +989,7 @@ describe('<LinkCreate />', () => {
           await waitFor(async () => {
             userEvent.click(
               await screen.findByRole('button', {
-                name: 'Edit',
+                name: editButtonLabel,
               }),
             );
           });
@@ -995,14 +997,14 @@ describe('<LinkCreate />', () => {
           // Enters submitting state
           await waitFor(() => {
             expect(
-              screen.getByRole('button', { name: 'Edit' }),
+              screen.getByRole('button', { name: editButtonLabel }),
             ).toHaveAttribute('aria-busy', 'true');
           });
 
           // Exits sumitting state
           await waitFor(() => {
             expect(
-              screen.getByRole('button', { name: 'Edit' }),
+              screen.getByRole('button', { name: editButtonLabel }),
             ).toHaveAttribute('aria-busy', 'false');
             expect(onSubmitSpy).toBeCalled();
           });
@@ -1027,7 +1029,7 @@ describe('<LinkCreate />', () => {
             await screen.findByRole('button', { name: 'Create' }),
           ).toBeInTheDocument();
           expect(
-            screen.queryByRole('button', { name: 'Edit' }),
+            screen.queryByRole('button', { name: editButtonLabel }),
           ).not.toBeInTheDocument();
         },
       );

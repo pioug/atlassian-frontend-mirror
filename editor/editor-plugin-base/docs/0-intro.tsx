@@ -29,7 +29,7 @@ export type BasePlugin = NextEditorPlugin<
   'base',
   {
     pluginConfiguration: BasePluginOptions | undefined;
-    dependencies: [FeatureFlagsPlugin];
+    dependencies: [OptionalPlugin<FeatureFlagsPlugin>];
     sharedState: BasePluginState;
   }
 >;

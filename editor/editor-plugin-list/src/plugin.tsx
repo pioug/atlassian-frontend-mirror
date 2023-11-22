@@ -44,7 +44,7 @@ import { isInsideListItem } from './utils/selection';
  * from `@atlaskit/editor-core`.
  */
 export const listPlugin: ListPlugin = ({ config: options, api }) => {
-  const featureFlags = api?.featureFlags.sharedState.currentState() || {};
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
   const editorAnalyticsAPI = api?.analytics?.actions;
 
   return {

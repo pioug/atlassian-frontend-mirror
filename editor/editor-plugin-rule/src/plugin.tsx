@@ -26,7 +26,10 @@ export type RulePlugin = NextEditorPlugin<
   'rule',
   {
     pluginConfiguration: undefined;
-    dependencies: [FeatureFlagsPlugin, OptionalPlugin<AnalyticsPlugin>];
+    dependencies: [
+      OptionalPlugin<FeatureFlagsPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+    ];
     actions: {
       insertHorizontalRule: ReturnType<typeof insertHorizontalRule>;
     };

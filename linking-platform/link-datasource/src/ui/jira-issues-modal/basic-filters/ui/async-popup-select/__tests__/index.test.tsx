@@ -61,6 +61,7 @@ const setup = ({
           selection={selection || []}
           onSelectionChange={onSelectionChange || mockOnSelectionChange}
           isDisabled={isDisabled}
+          isJQLHydrating={false}
         />
       </IntlProvider>
     </AnalyticsListener>,
@@ -110,7 +111,9 @@ describe('Testing AsyncPopupSelect', () => {
       filterType => {
         const { queryByTestId } = setup({ filterType, isDisabled: true });
 
-        const button = queryByTestId(`jlol-basic-filter-${filterType}-trigger`);
+        const box = queryByTestId(`jlol-basic-filter-${filterType}-trigger`);
+        const button = box?.querySelector('button');
+        invariant(button);
 
         expect(button).toBeDisabled();
       },
@@ -549,6 +552,7 @@ describe('Testing AsyncPopupSelect', () => {
           cloudId={''}
           onSelectionChange={mockOnSelection}
           selection={expectedFirstSelection}
+          isJQLHydrating={false}
         />
       </IntlProvider>,
     );

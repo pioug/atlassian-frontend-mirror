@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.17.2
+
+### Patch Changes
+
+- [#43263](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43263) [`09f29df6245`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09f29df6245) - Update IconButton API to be bounded with unsafe fallback for icon sizing
+
 ## 16.17.1
 
 ### Patch Changes

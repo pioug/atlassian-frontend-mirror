@@ -169,27 +169,20 @@ export function HyperlinkAddToolbarWithState({
 }
 
 const getSettingsButtonGroup = (
-  state: EditorState,
   intl: IntlShape,
-  featureFlags: FeatureFlags,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-): FloatingToolbarItem<Command>[] => {
-  const { floatingToolbarLinkSettingsButton } = featureFlags;
-  return floatingToolbarLinkSettingsButton === 'true'
-    ? [
-        { type: 'separator' },
-        {
-          id: 'editor.link.settings',
-          type: 'button',
-          icon: CogIcon,
-          title: intl.formatMessage(linkToolbarCommonMessages.settingsLink),
-          onClick: openLinkSettings(editorAnalyticsApi),
-          href: 'https://id.atlassian.com/manage-profile/link-preferences',
-          target: '_blank',
-        },
-      ]
-    : [];
-};
+): FloatingToolbarItem<Command>[] => [
+  { type: 'separator' },
+  {
+    id: 'editor.link.settings',
+    type: 'button',
+    icon: CogIcon,
+    title: intl.formatMessage(linkToolbarCommonMessages.settingsLink),
+    onClick: openLinkSettings(editorAnalyticsApi),
+    href: 'https://id.atlassian.com/manage-profile/link-preferences',
+    target: '_blank',
+  },
+];
 
 export const getToolbarConfig =
   (
@@ -308,12 +301,7 @@ export const getToolbarConfig =
                   },
                 ],
               },
-              ...getSettingsButtonGroup(
-                state,
-                intl,
-                featureFlags,
-                editorAnalyticsApi,
-              ),
+              ...getSettingsButtonGroup(intl, editorAnalyticsApi),
             ],
             scrollable: true,
           };

@@ -1,3 +1,4 @@
+import { manifest as fakeTabs } from './fake-tabs';
 import { manifest as jqlTable } from './jql-table';
 import { manifest as loremIpsum } from './lorem-ipsum';
 import { manifest as awesomeExtension } from './awesome';
@@ -10,6 +11,7 @@ import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 export const getXProductExtensionProvider = () =>
   new DefaultExtensionProvider<any>(
     [
+      fakeTabs,
       jqlTable,
       loremIpsum,
       awesomeExtension,

@@ -204,6 +204,7 @@ export const getToolbarConfig =
         state.schema.nodes.extension,
         state.schema.nodes.inlineExtension,
         state.schema.nodes.bodiedExtension,
+        state.schema.nodes.multiBodiedExtension,
       ];
 
       const editButtonArray = editButton(

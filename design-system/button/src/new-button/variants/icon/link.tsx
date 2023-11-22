@@ -9,7 +9,8 @@ import useIconButton from './use-icon-button';
 
 export type LinkIconButtonProps<
   RouterLinkConfig extends Record<string, any> = never,
-> = CommonIconButtonProps & CommonLinkVariantProps<RouterLinkConfig>;
+> = CommonIconButtonProps &
+  Omit<CommonLinkVariantProps<RouterLinkConfig>, 'children' | 'appearance'>;
 
 const LinkIconButtonBase = <
   RouterLinkConfig extends Record<string, any> = never,
@@ -22,8 +23,8 @@ const LinkIconButtonBase = <
     isDisabled,
     isSelected,
     icon,
-    children,
     interactionName,
+    label,
     overlay,
     onClick,
     onMouseDownCapture,
@@ -46,11 +47,12 @@ const LinkIconButtonBase = <
     appearance,
     autoFocus,
     buttonType: 'link',
-    children,
+    children: null, // Set in hook.
     icon,
     interactionName,
     isDisabled,
     isSelected,
+    label,
     onClick,
     onMouseDownCapture,
     onMouseUpCapture,

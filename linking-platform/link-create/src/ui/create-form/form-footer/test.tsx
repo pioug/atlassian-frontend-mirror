@@ -21,6 +21,8 @@ jest.mock('../../../controllers/form-context', () => {
   };
 });
 
+const editButtonLabel = 'Create + Open';
+
 describe('FormFooter', () => {
   it('should find the FormFooter error by its id if formErrorMessage is defined', async () => {
     const testId = 'link-create-form';
@@ -78,7 +80,7 @@ describe('FormFooter', () => {
       'submit',
     );
     expect(
-      screen.queryByRole('button', { name: 'Edit' }),
+      screen.queryByRole('button', { name: editButtonLabel }),
     ).not.toBeInTheDocument();
   });
 
@@ -117,7 +119,7 @@ describe('FormFooter', () => {
       const submitButton = screen.getByRole('button', { name: 'Create' });
       expect(submitButton).toHaveAttribute('type', 'submit');
 
-      const editButton = screen.getByRole('button', { name: 'Edit' });
+      const editButton = screen.getByRole('button', { name: editButtonLabel });
       expect(editButton).toHaveAttribute('type', 'button');
 
       editButton.click();
@@ -161,7 +163,7 @@ describe('FormFooter', () => {
         'submit',
       );
       expect(
-        screen.queryByRole('button', { name: 'Edit' }),
+        screen.queryByRole('button', { name: editButtonLabel }),
       ).not.toBeInTheDocument();
     },
   );
@@ -201,7 +203,7 @@ describe('FormFooter', () => {
       const submitButton = screen.getByRole('button', { name: 'Create' });
       expect(submitButton).toHaveAttribute('type', 'submit');
 
-      const editButton = screen.getByRole('button', { name: 'Edit' });
+      const editButton = screen.getByRole('button', { name: editButtonLabel });
       expect(editButton).toHaveAttribute('type', 'button');
 
       submitButton.click();
@@ -243,7 +245,7 @@ describe('FormFooter', () => {
       const submitButton = screen.getByRole('button', { name: 'Create' });
       expect(submitButton).toHaveAttribute('type', 'submit');
       expect(
-        screen.queryByRole('button', { name: 'Edit' }),
+        screen.queryByRole('button', { name: editButtonLabel }),
       ).not.toBeInTheDocument();
 
       submitButton.click();

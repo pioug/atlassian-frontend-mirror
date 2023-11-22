@@ -7,8 +7,6 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { selectNode } from '@atlaskit/editor-common/selection';
 import type {
   DocBuilder,
-  FeatureFlags,
-  NextEditorPlugin,
   PublicPluginAPI,
 } from '@atlaskit/editor-common/types';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -45,20 +43,6 @@ import type { PresetLayout } from '../../types';
 
 import { buildLayoutForWidths, layouts } from './_utils';
 
-// So we don't introduce another plugin dependency to this package
-const mockFeatureFlagsPlugin: NextEditorPlugin<
-  'featureFlags',
-  {
-    pluginConfiguration: FeatureFlags;
-    sharedState: FeatureFlags;
-  }
-> = ({ config }) => ({
-  name: 'featureFlags',
-  getSharedState() {
-    return config;
-  },
-});
-
 describe('layout actions', () => {
   const createEditor = createProsemirrorEditorFactory();
 
@@ -68,7 +52,6 @@ describe('layout actions', () => {
   const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     const preset = new Preset<LightEditorPlugin>()
-      .add([mockFeatureFlagsPlugin, {}])
       .add(decorationsPlugin)
       .add(layoutPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }]);

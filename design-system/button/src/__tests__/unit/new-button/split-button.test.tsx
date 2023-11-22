@@ -22,10 +22,9 @@ describe('SplitButton', () => {
         <Button onClick={primaryActionClickMock}>Primary action</Button>
         <IconButton
           onClick={secondaryActionClickMock}
-          icon={<SettingsIcon label="Secondary action" size="small" />}
-        >
-          Secondary action
-        </IconButton>
+          icon={SettingsIcon}
+          label="Secondary action"
+        />
       </SplitButton>,
     );
 
@@ -43,10 +42,10 @@ describe('SplitButton', () => {
         <Button onClick={primaryActionClickMock}>Primary action</Button>
         <IconButton
           onClick={secondaryActionClickMock}
-          icon={<SettingsIcon label="Secondary action" size="small" />}
-        >
-          Secondary action
-        </IconButton>
+          icon={SettingsIcon}
+          label="Secondary action"
+          UNSAFE_size="small"
+        />
       </SplitButton>,
     );
 

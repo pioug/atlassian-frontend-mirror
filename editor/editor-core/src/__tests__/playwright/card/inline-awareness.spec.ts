@@ -26,8 +26,9 @@ test.describe('inline card awareness', () => {
     editor,
   }) => {
     const nodes = EditorNodeContainerModel.from(editor);
-    const inlineCardModel = EditorInlineCardModel.from(nodes.inlineCard.nth(0));
-    await inlineCardModel.waitForResolvedStable();
+    const inlineCardsModel = EditorInlineCardModel.from(nodes.inlineCard);
+    const inlineCardModel = inlineCardsModel.card(0);
+    await inlineCardModel.waitForStable();
     await inlineCardModel.hover();
 
     await expect(inlineCardModel.overlay).toBeVisible();
@@ -39,7 +40,8 @@ test.describe('inline card awareness', () => {
     editor,
   }) => {
     const nodes = EditorNodeContainerModel.from(editor);
-    const inlineCardModel = EditorInlineCardModel.from(nodes.inlineCard.nth(1));
+    const inlineCardsModel = EditorInlineCardModel.from(nodes.inlineCard);
+    const inlineCardModel = inlineCardsModel.card(1);
     await inlineCardModel.waitForResolvedStable();
     await inlineCardModel.hover();
 
@@ -52,15 +54,18 @@ test.describe('inline card awareness', () => {
     editor,
   }) => {
     const nodes = EditorNodeContainerModel.from(editor);
-    const inlineCardModel = EditorInlineCardModel.from(nodes.inlineCard.nth(1));
+    const inlineCardsModel = EditorInlineCardModel.from(nodes.inlineCard);
+    const inlineCardModel = inlineCardsModel.card(1);
     const floatingToolbarModel = EditorFloatingToolbarModel.from(
       editor,
-      inlineCardModel,
+      inlineCardsModel,
     );
     await inlineCardModel.waitForResolvedStable();
     await inlineCardModel.click();
     await floatingToolbarModel.waitForStable();
-    await nodes.paragraph.first().hover();
+
+    // element being accessed "outside" of must be away from editor toolbar (which can overlay focus)
+    await editor.page.getByText('Click Me');
 
     await expect(floatingToolbarModel.isVisible()).toBeTruthy();
     await expect(inlineCardModel.overlay).toBeVisible();
@@ -72,10 +77,11 @@ test.describe('inline card awareness', () => {
     editor,
   }) => {
     const nodes = EditorNodeContainerModel.from(editor);
-    const inlineCardModel = EditorInlineCardModel.from(nodes.inlineCard.nth(1));
+    const inlineCardsModel = EditorInlineCardModel.from(nodes.inlineCard);
+    const inlineCardModel = inlineCardsModel.card(1);
     const floatingToolbarModel = EditorFloatingToolbarModel.from(
       editor,
-      inlineCardModel,
+      inlineCardsModel,
     );
     await inlineCardModel.waitForResolvedStable();
     await inlineCardModel.click();
@@ -83,9 +89,11 @@ test.describe('inline card awareness', () => {
 
     await expect(inlineCardModel.overlay).toBeVisible();
 
-    await nodes.paragraph.first().click();
+    // element being clicked "outside" of must be away from editor toolbar (which can overlay focus) and
+    // force: true is required to prevent toolbar intercepting click event
+    // eslint-disable-next-line playwright/no-force-option
+    await editor.page.getByText('Click Me').click({ force: true });
     await expect(floatingToolbarModel.toolbar).toBeHidden();
-
     await expect(inlineCardModel.overlay).toBeHidden();
   });
 });

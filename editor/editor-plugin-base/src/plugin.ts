@@ -6,6 +6,7 @@ import type {
   BrowserFreezetracking,
   InputTracking,
   NextEditorPlugin,
+  OptionalPlugin,
   PMPluginFactory,
 } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
@@ -45,7 +46,7 @@ export type BasePlugin = NextEditorPlugin<
   'base',
   {
     pluginConfiguration: BasePluginOptions | undefined;
-    dependencies: [FeatureFlagsPlugin];
+    dependencies: [OptionalPlugin<FeatureFlagsPlugin>];
     sharedState: BasePluginState;
     actions: {
       setKeyboardHeight: typeof setKeyboardHeight;

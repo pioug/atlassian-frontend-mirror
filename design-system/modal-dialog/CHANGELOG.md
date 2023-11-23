@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.9.0
+
+### Minor Changes
+
+- [#43674](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43674) [`4061f5b29f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4061f5b29f8) - [ux] shouldReturnFocus now can accept ref as a value to return focus to a specified element on modal close.
+
 ## 12.8.5
 
 ### Patch Changes

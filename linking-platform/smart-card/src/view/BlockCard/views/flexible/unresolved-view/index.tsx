@@ -8,9 +8,9 @@ import FlexibleCard from '../../../../FlexibleCard';
 import { InternalFooterBlock } from '../../../../FlexibleCard/components/blocks';
 import {
   FlexibleCardUiOptions,
-  getFooterBlockOptions,
   PreviewBlockOptions,
   getTitleBlockOptions,
+  FooterBlockOptions,
 } from '../utils';
 import { UnresolvedViewProps } from './types';
 
@@ -40,7 +40,7 @@ const UnresolvedView: FC<UnresolvedViewProps> = ({
     <CustomBlock>{children}</CustomBlock>
     {showPreview && <PreviewBlock {...PreviewBlockOptions} />}
     <InternalFooterBlock
-      {...getFooterBlockOptions()}
+      {...FooterBlockOptions}
       actions={actions}
       testId="smart-block-card-footer"
     />

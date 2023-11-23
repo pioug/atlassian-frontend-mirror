@@ -33,6 +33,7 @@ const RowDropTarget = ({ index, localId, style }: RowDropTargetProps) => {
           data.indexes?.indexOf(index) === -1
         );
       },
+      getIsSticky: () => true,
       getData({ input, element }) {
         const data = {
           localId,

@@ -152,10 +152,10 @@ describe('HoverCardResolvedView', () => {
     };
 
     it('renders hover card blocks', async () => {
-      const { findByTestId } = setup();
+      const { findAllByTestId, findByTestId } = setup();
       jest.runAllTimers();
       const titleBlock = await findByTestId('smart-block-title-resolved-view');
-      await findByTestId('smart-block-metadata-resolved-view');
+      await findAllByTestId('smart-block-metadata-resolved-view');
       const snippetBlock = await findByTestId(
         'smart-block-snippet-resolved-view',
       );
@@ -290,42 +290,24 @@ describe('HoverCardResolvedView', () => {
     });
   });
 
-  describe('image preview display position - first or 3rd position, depending on the FF  ', () => {
-    ffTest(
-      'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-      async () => {
-        const { findByTestId } = setup({
-          mockResponse: mockBaseResponseWithPreview as JsonLd.Response,
-        });
-        const container = await findByTestId('smart-links-container');
-        const imagePreview = await findByTestId(
-          'smart-block-preview-resolved-view',
-        );
-        expect(container.firstElementChild).toBe(imagePreview);
-      },
-      async () => {
-        const { findByTestId } = setup({
-          mockResponse: mockBaseResponseWithPreview as JsonLd.Response,
-        });
-        const container = await findByTestId('smart-links-container');
-        const imagePreview = await findByTestId(
-          'smart-block-preview-resolved-view',
-        );
-        //is displayed after title & metadata blocks
-        expect(container.children[2]).toBe(imagePreview);
-      },
+  it('image preview display position - first or 3rd position', async () => {
+    const { findByTestId } = setup({
+      mockResponse: mockBaseResponseWithPreview as JsonLd.Response,
+    });
+    const container = await findByTestId('smart-links-container');
+    const imagePreview = await findByTestId(
+      'smart-block-preview-resolved-view',
     );
+    expect(container.firstElementChild).toBe(imagePreview);
   });
 
   describe('metadata', () => {
     it('renders correctly for confluence links', async () => {
       const { findByTestId } = setup();
       await findByTestId('authorgroup-metadata-element');
-      const createdBy = await findByTestId('createdby-metadata-element');
       const commentCount = await findByTestId('commentcount-metadata-element');
       const reactCount = await findByTestId('reactcount-metadata-element');
 
-      expect(createdBy.textContent).toBe('Created by Michael Schrute');
       expect(commentCount.textContent).toBe('4');
       expect(reactCount.textContent).toBe('8');
     });
@@ -334,7 +316,7 @@ describe('HoverCardResolvedView', () => {
       const { findByTestId } = setup({
         mockResponse: mockJiraResponse as JsonLd.Response,
       });
-      await findByTestId('authorgroup-metadata-element');
+      await findByTestId('assignedtogroup-metadata-element');
       const priority = await findByTestId('priority-metadata-element');
       const state = await findByTestId('state-metadata-element');
 
@@ -348,55 +330,26 @@ describe('HoverCardResolvedView', () => {
       });
       const titleBlock = await findByTestId('smart-block-title-resolved-view');
       const modifiedOn = await findByTestId('modifiedon-metadata-element');
-      const createdBy = await findByTestId('createdby-metadata-element');
+      await findByTestId('authorgroup-metadata-element');
 
       expect(titleBlock.textContent?.trim()).toBe('I love cheese');
       expect(modifiedOn.textContent).toBe('Updated on Jan 1, 2022');
-      expect(createdBy.textContent).toBe('Created by Michael Schrute');
     });
 
-    describe('elements rendered in top block or bottom metadata block, depending on the FF  ', () => {
-      ffTest(
-        'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-        async () => {
-          const { findAllByTestId, findByTestId } = setup({
-            mockResponse: mockConfluenceResponse as JsonLd.Response,
-          });
-          const metadataElements = await findAllByTestId(
-            'smart-block-metadata-resolved-view',
-          );
-          const commentCount = await findByTestId(
-            'commentcount-metadata-element',
-          );
-          const reactCount = await findByTestId('reactcount-metadata-element');
-          expect(metadataElements.length).toEqual(2);
-          expect(metadataElements[1].children).toContain(
-            commentCount.parentElement,
-          );
-          expect(metadataElements[1].children).toContain(
-            reactCount.parentElement,
-          );
-        },
-        async () => {
-          const { findAllByTestId, findByTestId } = setup({
-            mockResponse: mockConfluenceResponse as JsonLd.Response,
-          });
-          const metadataElements = await findAllByTestId(
-            'smart-block-metadata-resolved-view',
-          );
-          const commentCount = await findByTestId(
-            'commentcount-metadata-element',
-          );
-          const reactCount = await findByTestId('reactcount-metadata-element');
-          expect(metadataElements.length).toEqual(1);
-          expect(metadataElements[0]).toContainElement(
-            commentCount.parentElement,
-          );
-          expect(metadataElements[0]).toContainElement(
-            reactCount.parentElement,
-          );
-        },
+    it('elements rendered in top block or bottom metadata block', async () => {
+      const { findAllByTestId, findByTestId } = setup({
+        mockResponse: mockConfluenceResponse as JsonLd.Response,
+      });
+      const metadataElements = await findAllByTestId(
+        'smart-block-metadata-resolved-view',
       );
+      const commentCount = await findByTestId('commentcount-metadata-element');
+      const reactCount = await findByTestId('reactcount-metadata-element');
+      expect(metadataElements.length).toEqual(2);
+      expect(metadataElements[1].children).toContain(
+        commentCount.parentElement,
+      );
+      expect(metadataElements[1].children).toContain(reactCount.parentElement);
     });
   });
 

@@ -232,6 +232,9 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
   useEffect(() => {
     if (basicFilterHydrationStatus === 'resolved') {
       setFilterSelections(hydratedOptions);
+      if (hydratedOptions.basicInputTextValue) {
+        setBasicSearchTerm(hydratedOptions.basicInputTextValue);
+      }
     }
   }, [hydratedOptions, basicFilterHydrationStatus]);
 

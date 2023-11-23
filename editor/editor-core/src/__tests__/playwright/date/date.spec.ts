@@ -7,7 +7,7 @@ import {
   fixTest,
   BROWSERS,
 } from '@af/editor-libra';
-import { escapeKeydownAdf, taskDateAdf } from './date.spec.ts-fixtures';
+import { taskDateAdf } from './date.spec.ts-fixtures';
 
 test.describe('date: libra test', () => {
   test.use({
@@ -385,15 +385,5 @@ test.describe('date: libra test - format date', () => {
   test(`Format date in task item`, async ({ editor }) => {
     const nodes = EditorNodeContainerModel.from(editor);
     await expect(nodes.actionList).toHaveText(/Aug 15, 2017/);
-  });
-});
-
-test.describe('date: escape-keydown', () => {
-  test.use({
-    adf: escapeKeydownAdf,
-    editorProps: {
-      appearance: 'full-page',
-      allowDate: true,
-    },
   });
 });

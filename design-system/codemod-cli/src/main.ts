@@ -158,15 +158,35 @@ const runTransform = async (
 
   const transformPath = getTransformPath(transform);
 
-  // Limit CPUs to 8 to prevent issues when running on CI with a large amount of cpus
-  const args = [
-    `--transform=${transformPath}`,
-    `--ignore-pattern=${flags.ignorePattern}`,
-    `--parser=${flags.parser}`,
-    `--extensions=${flags.extensions}`,
-    '--cpus=8',
-    ...codemodDirs,
-  ];
+  const args = Object.keys(flags).reduce(
+    (acc, key) => {
+      if (
+        ![
+          'transform',
+          'parser',
+          'extensions',
+          'ignorePattern',
+          'logger',
+          'packages',
+          'sinceRef',
+          'preset',
+          'failOnError',
+        ].includes(key)
+      ) {
+        acc.unshift(`--${key}=${flags[key as keyof Flags]}`);
+      }
+      return acc;
+    },
+    [
+      `--transform=${transformPath}`,
+      `--ignore-pattern=${flags.ignorePattern}`,
+      `--parser=${flags.parser}`,
+      `--extensions=${flags.extensions}`,
+      // Limit CPUs to 8 to prevent issues when running on CI with a large amount of cpus
+      '--cpus=8',
+      ...codemodDirs,
+    ],
+  );
 
   if (flags.failOnError) {
     args.unshift('--fail-on-error');

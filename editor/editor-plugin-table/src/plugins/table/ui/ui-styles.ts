@@ -222,16 +222,15 @@ export const dragInsertButtonWrapper = (props: ThemeProps) => css`
 
 export const dragCornerControlButton = (props: ThemeProps) => css`
   .${ClassName.DRAG_CORNER_BUTTON} {
-    width: 12px;
-    height: 12px;
+    width: 24px;
+    height: 24px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-end;
+    align-items: flex-end;
     position: absolute;
-    top: ${token('space.negative.075', '-6px')};
-    left: ${token('space.075', '6px')};
-    background-color: ${token('elevation.surface', '#FFF')};
-    border-radius: 50%;
+    top: ${token('space.negative.250', '-20px')};
+    left: ${token('space.negative.100', '-8px')};
+    background-color: transparent;
     border: none;
     padding: 0;
     outline: none;
@@ -239,24 +238,38 @@ export const dragCornerControlButton = (props: ThemeProps) => css`
 
     &.active .${ClassName.DRAG_CORNER_BUTTON_INNER} {
       background-color: ${token('color.border.selected', '#0C66E4')};
-      border-color: ${token('color.border.selected', '#0C66E4')};
+      width: 10px;
+      height: 10px;
+      border-width: 2px;
+      border-radius: 4px;
+      top: ${token('space.075', '6px')};
+      left: ${token('space.075', '6px')};
     }
 
     &:hover {
       cursor: pointer;
 
       .${ClassName.DRAG_CORNER_BUTTON_INNER} {
-        border-color: ${token('color.border.selected', '#0C66E4')};
+        width: 10px;
+        height: 10px;
+        border-width: 2px;
+        border-radius: 4px;
+        top: ${token('space.075', '6px')};
+        left: ${token('space.075', '6px')};
       }
     }
   }
 
   .${ClassName.DRAG_CORNER_BUTTON_INNER} {
-    border: 1px solid
-      ${token('color.background.accent.gray.subtler', '#DCDFE4')};
-    border-radius: 50%;
-    width: 6px;
-    height: 6px;
+    border: 1px solid ${token('color.border.inverse', '#FFF')};
+    background-color: ${token(
+      'color.background.accent.gray.subtler',
+      '#DCDFE4',
+    )};
+    border-radius: 2px;
+    width: 5px;
+    height: 5px;
+    position: relative;
   }
 `;
 
@@ -384,15 +397,23 @@ export const OverflowShadow = (props: ThemeProps) => css`
         }px)`};
   }
   .${ClassName.WITH_CONTROLS} {
-    .${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
-      height: calc(100% - ${tableMarginTopWithControl}px);
-      top: ${tableMarginTopWithControl}px;
-    }
+    ${overflowShadowWidhoutDnD()}
     .${ClassName.TABLE_LEFT_SHADOW} {
       border-left: 1px solid ${tableBorderColor(props)};
     }
   }
 `;
+
+const overflowShadowWidhoutDnD = () => {
+  if (!getBooleanFF('platform.editor.table.drag-and-drop')) {
+    return css`
+      .${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
+        height: calc(100% - ${tableMarginTopWithControl}px);
+        top: ${tableMarginTopWithControl}px;
+      }
+    `;
+  }
+};
 
 const columnHeaderButton = (props: ThemeProps, cssString?: string) => {
   if (getBooleanFF('platform.editor.table.column-controls-styles-updated')) {

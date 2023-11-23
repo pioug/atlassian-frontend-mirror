@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-table
 
+## 5.4.0
+
+### Minor Changes
+
+- [#43732](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43732) [`d6f43e8a9d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f43e8a9d1) - Added alternative sticky header logic which is much simplier and can be toggled using platform.editor.table.alternative-sticky-header-logic
+
+### Patch Changes
+
+- [#43802](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43802) [`e5c615c29fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5c615c29fd) - Changed the row drop targets to be sticky to avoid insertion line flashing
+- [#43582](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43582) [`ac1084d92a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac1084d92a6) - [ux] ED-20911: Updated the styles for corner table select button.
+- Updated dependencies
+
+## 5.3.39
+
+### Patch Changes
+
+- [#43553](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43553) [`827197275fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/827197275fc) - [ux] Fixes position of table overflow shadows when drag and drop enabled.
+
 ## 5.3.38
 
 ### Patch Changes

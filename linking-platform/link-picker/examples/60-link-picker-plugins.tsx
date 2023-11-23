@@ -88,12 +88,7 @@ function LinkPickerPlugins() {
 
 export default function LinkPickerPluginsWrapper() {
   return (
-    <SmartCardProvider
-      client={smartCardClient}
-      featureFlags={{
-        useLinkPickerScrollingTabs: true,
-      }}
-    >
+    <SmartCardProvider client={smartCardClient}>
       <LinkPickerPlugins />
     </SmartCardProvider>
   );

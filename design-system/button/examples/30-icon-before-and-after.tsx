@@ -9,6 +9,7 @@ import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import GraphLineIcon from '@atlaskit/icon/glyph/graph-line';
 import LightbulbIcon from '@atlaskit/icon/glyph/lightbulb';
 import MoreIcon from '@atlaskit/icon/glyph/more';
+import { type Size } from '@atlaskit/icon/types';
 import { Stack } from '@atlaskit/primitives';
 
 import { ButtonGroup } from '../src';
@@ -25,6 +26,8 @@ const icons = [
   MoreIcon,
 ];
 
+const iconSizes: Size[] = ['small', 'medium', 'large', 'xlarge'];
+
 export default function ButtonsWithIconBeforeOrAfterExample() {
   return (
     <Stack space="space.200" alignInline="start">
@@ -37,17 +40,13 @@ export default function ButtonsWithIconBeforeOrAfterExample() {
 
               return (
                 <ButtonGroup key={icon.name}>
-                  <Button iconBefore={<Icon label="" />} spacing={s}>
+                  <Button iconBefore={Icon} spacing={s}>
                     Icon before
                   </Button>
-                  <Button iconAfter={<Icon label="" />} spacing={s}>
+                  <Button iconAfter={Icon} spacing={s}>
                     Icon after
                   </Button>
-                  <Button
-                    iconBefore={<Icon label="" />}
-                    iconAfter={<Icon label="" />}
-                    spacing={s}
-                  >
+                  <Button iconBefore={Icon} iconAfter={Icon} spacing={s}>
                     Icon before
                   </Button>
                 </ButtonGroup>
@@ -55,6 +54,25 @@ export default function ButtonsWithIconBeforeOrAfterExample() {
             })}
           </Stack>
         </Stack>
+      ))}
+      <h2>Unsafe icon sizing</h2>
+      {iconSizes.map((size) => (
+        <ButtonGroup key={size}>
+          <Button iconBefore={AddIcon} UNSAFE_iconBefore_size={size}>
+            Icon before
+          </Button>
+          <Button iconAfter={AddIcon} UNSAFE_iconAfter_size={size}>
+            Icon after
+          </Button>
+          <Button
+            iconBefore={AddIcon}
+            UNSAFE_iconBefore_size={size}
+            iconAfter={AddIcon}
+            UNSAFE_iconAfter_size={size}
+          >
+            Icon before
+          </Button>
+        </ButtonGroup>
       ))}
     </Stack>
   );

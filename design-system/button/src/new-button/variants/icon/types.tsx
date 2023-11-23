@@ -1,8 +1,6 @@
-import React from 'react';
+import { type Size } from '@atlaskit/icon/types';
 
-import { type IconProps, type Size } from '@atlaskit/icon/types';
-
-import { type IconButtonAppearance } from '../types';
+import { type IconButtonAppearance, type IconProp } from '../types';
 
 export type CommonIconButtonProps = {
   /**
@@ -12,7 +10,7 @@ export type CommonIconButtonProps = {
   /**
    * Places an icon within the button
    */
-  icon: React.ComponentType<IconProps>;
+  icon: IconProp;
   /**
    * Provide an accessible label, often used by screen readers
    */
@@ -20,7 +18,7 @@ export type CommonIconButtonProps = {
   /**
    * Set the size of the icon
    *
-   * Set to UNSAFE as it will be removed in future in favour of a 100% bounded API
+   * This is UNSAFE as it will be removed in future in favor of a 100% bounded API
    */
   UNSAFE_size?: Size;
 };

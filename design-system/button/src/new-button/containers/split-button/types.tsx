@@ -1,9 +1,6 @@
 import type { Appearance, Spacing } from '../../variants/types';
 
-export type SplitButtonAppearance = Extract<
-  Appearance,
-  'default' | 'primary' | 'danger' | 'warning'
->;
+export type SplitButtonAppearance = Extract<Appearance, 'default' | 'primary'>;
 
 export type SplitButtonContextAppearance = SplitButtonAppearance | 'navigation';
 

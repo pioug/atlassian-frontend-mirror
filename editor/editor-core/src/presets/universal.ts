@@ -4,9 +4,7 @@ import {
   collabEditPlugin,
   dataConsumerMarkPlugin,
   extensionPlugin,
-  insertBlockPlugin,
   jiraIssuePlugin,
-  toolbarListsIndentationPlugin,
   alignmentPlugin,
   customAutoformatPlugin,
   feedbackDialogPlugin,
@@ -25,6 +23,7 @@ import { textColorPlugin } from '@atlaskit/editor-plugin-text-color';
 import { historyPlugin } from '@atlaskit/editor-plugin-history';
 import { indentationPlugin } from '@atlaskit/editor-plugin-indentation';
 import { statusPlugin } from '@atlaskit/editor-plugin-status';
+import { insertBlockPlugin } from '@atlaskit/editor-plugin-insert-block';
 import { datePlugin } from '@atlaskit/editor-plugin-date';
 import { maxContentSizePlugin } from '@atlaskit/editor-plugin-max-content-size';
 import { captionPlugin } from '@atlaskit/editor-plugin-caption';
@@ -43,6 +42,7 @@ import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import { layoutPlugin } from '@atlaskit/editor-plugin-layout';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugin-toolbar-lists-indentation';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { saveOnEnterPlugin } from '@atlaskit/editor-plugin-save-on-enter';

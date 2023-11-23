@@ -55,6 +55,28 @@ describe('main', () => {
     );
   });
 
+  it('should contain a custom option if supplied', async () => {
+    (hasTransform as jest.Mock).mockImplementation(() => true);
+    // @ts-expect-error
+    await main([mockPath], { ...mockFlags, foo: 'bar' });
+
+    expect(AutoComplete).not.toHaveBeenCalled();
+    expect(spawn).toHaveBeenLastCalledWith(
+      expect.stringContaining('jscodeshift'),
+      [
+        '--fail-on-error',
+        '--foo=bar',
+        `--transform=${mockFlags.transform}`,
+        `--ignore-pattern=${mockFlags.ignorePattern}`,
+        `--parser=${mockFlags.parser}`,
+        `--extensions=${mockFlags.extensions}`,
+        '--cpus=8',
+        mockPath,
+      ],
+      expect.anything(),
+    );
+  });
+
   it('should not prompt for a transform if supplied', async () => {
     (hasTransform as jest.Mock).mockImplementation(() => true);
     await main([mockPath], mockFlags);

@@ -33,7 +33,7 @@
     "@atlaskit/button": "^16.17.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.28.0",
+    "@atlaskit/tokens": "^1.29.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/styled": "^11.0.0"
   },

@@ -12,6 +12,7 @@ import type {
   AuthCallback,
   BroadcastIncomingPayload,
   ReconcileResponse,
+  Permit,
 } from './types';
 import { createLogger, getProduct, getSubProduct } from './helpers/utils';
 import {
@@ -22,11 +23,11 @@ import {
 import { EVENT_ACTION, EVENT_STATUS } from './helpers/const';
 import type { Socket } from 'socket.io-client';
 import ReconnectHelper from './connectivity/reconnect-helper';
-import { UFOExperience } from '@atlaskit/ufo';
+import type { UFOExperience } from '@atlaskit/ufo';
 import { createDocInitExp } from './analytics/ufo';
 import { socketIOReasons } from './disconnected-reason-mapper';
 import Network from './connectivity/network';
-import AnalyticsHelper from './analytics/analytics-helper';
+import type AnalyticsHelper from './analytics/analytics-helper';
 import type {
   CatchUpFailedError,
   ConnectionError,
@@ -183,6 +184,9 @@ export class Channel extends Emitter<ChannelEvent> {
     // We should use `connect` for better cross platform compatibility(Mobile/Web).
     this.socket.on('connect', this.onConnect);
     this.socket.on('data', this.onReceiveData);
+    this.socket.on('permission', (permit: Permit) => {
+      this.emit('permission', permit);
+    });
     this.socket.on('steps:added', (data: StepsPayload) => {
       this.emit('steps:added', data);
     });

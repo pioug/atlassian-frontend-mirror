@@ -51,45 +51,19 @@ describe('FlexibleResolvedView', () => {
     expect(footerBlock.children[1]?.textContent?.trim()).toBe('Open preview');
     expect(previewBlock).toBeDefined();
   });
-  describe('elements like Comments & reactions rendered in top block or bottom metadata block, depending on the FF  ', () => {
-    ffTest(
-      'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-      async () => {
-        const { findAllByTestId } = renderComponent();
-        const metadataElements = await findAllByTestId(
-          'smart-block-metadata-resolved-view',
-        );
 
-        const bottomMetadataElements = await findAllByTestId(
-          'smart-element-badge',
-        );
-        const reactCount = bottomMetadataElements[0];
-        const commentCount = bottomMetadataElements[1];
-        expect(metadataElements.length).toEqual(2);
-        expect(metadataElements[1].children).toContain(
-          reactCount.parentElement,
-        );
-        expect(metadataElements[1].children).toContain(
-          commentCount.parentElement,
-        );
-      },
-      async () => {
-        const { findAllByTestId } = renderComponent();
-        const metadataElements = await findAllByTestId(
-          'smart-block-metadata-resolved-view',
-        );
-        const topMetadataElements = await findAllByTestId(
-          'smart-element-badge',
-        );
-        const reactCount = topMetadataElements[0];
-        const commentCount = topMetadataElements[1];
-        expect(metadataElements.length).toEqual(1);
-        expect(metadataElements[0]).toContainElement(
-          commentCount.parentElement,
-        );
-        expect(metadataElements[0]).toContainElement(reactCount.parentElement);
-      },
+  it('elements like Comments & reactions rendered in top block or bottom metadata block', async () => {
+    const { findAllByTestId } = renderComponent();
+    const metadataElements = await findAllByTestId(
+      'smart-block-metadata-resolved-view',
     );
+
+    const bottomMetadataElements = await findAllByTestId('smart-element-badge');
+    const reactCount = bottomMetadataElements[0];
+    const commentCount = bottomMetadataElements[1];
+    expect(metadataElements.length).toEqual(2);
+    expect(metadataElements[1].children).toContain(reactCount.parentElement);
+    expect(metadataElements[1].children).toContain(commentCount.parentElement);
   });
 
   describe('renders server actions', () => {

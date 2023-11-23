@@ -97,7 +97,7 @@ export interface ModalDialogProps {
    * focus lock mode. If true, focus will be returned to the element that had focus before focus lock
    * was activated. If false, focus remains where it was when the FocusLock was deactivated.
    */
-  shouldReturnFocus?: boolean;
+  shouldReturnFocus?: boolean | RefObject<HTMLElement>;
 
   /**
    * Will remove the blanket tinted background color.

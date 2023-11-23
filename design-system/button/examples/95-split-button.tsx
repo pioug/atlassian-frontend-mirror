@@ -78,44 +78,6 @@ export default () => {
                 </DropdownItemGroup>
               </DropdownMenu>
             </SplitButton>
-            <SplitButton appearance="warning" spacing="compact">
-              <Button>Primary action</Button>
-              <DropdownMenu
-                trigger={({ triggerRef, ...triggerProps }) => (
-                  <IconButton
-                    ref={triggerRef as Ref<HTMLButtonElement>}
-                    {...triggerProps}
-                    icon={ChevronDownIcon}
-                    label="See options"
-                    UNSAFE_size="small"
-                  />
-                )}
-              >
-                <DropdownItemGroup>
-                  <DropdownItem>Option one</DropdownItem>
-                  <DropdownItem>Option two</DropdownItem>
-                </DropdownItemGroup>
-              </DropdownMenu>
-            </SplitButton>
-            <SplitButton appearance="danger" spacing="compact">
-              <Button>Primary action</Button>
-              <DropdownMenu
-                trigger={({ triggerRef, ...triggerProps }) => (
-                  <IconButton
-                    ref={triggerRef as Ref<HTMLButtonElement>}
-                    {...triggerProps}
-                    icon={ChevronDownIcon}
-                    label="See options"
-                    UNSAFE_size="small"
-                  />
-                )}
-              >
-                <DropdownItemGroup>
-                  <DropdownItem>Option one</DropdownItem>
-                  <DropdownItem>Option two</DropdownItem>
-                </DropdownItemGroup>
-              </DropdownMenu>
-            </SplitButton>
             <SplitButton isDisabled spacing="compact">
               <Button>Primary action</Button>
               <DropdownMenu
@@ -156,42 +118,6 @@ export default () => {
               </DropdownMenu>
             </SplitButton>
             <SplitButton appearance="primary">
-              <Button>Primary action</Button>
-              <DropdownMenu
-                trigger={({ triggerRef, ...triggerProps }) => (
-                  <IconButton
-                    ref={triggerRef as Ref<HTMLButtonElement>}
-                    {...triggerProps}
-                    icon={ChevronDownIcon}
-                    label="See options"
-                  />
-                )}
-              >
-                <DropdownItemGroup>
-                  <DropdownItem>Option one</DropdownItem>
-                  <DropdownItem>Option two</DropdownItem>
-                </DropdownItemGroup>
-              </DropdownMenu>
-            </SplitButton>
-            <SplitButton appearance="warning">
-              <Button>Primary action</Button>
-              <DropdownMenu
-                trigger={({ triggerRef, ...triggerProps }) => (
-                  <IconButton
-                    ref={triggerRef as Ref<HTMLButtonElement>}
-                    {...triggerProps}
-                    icon={ChevronDownIcon}
-                    label="See options"
-                  />
-                )}
-              >
-                <DropdownItemGroup>
-                  <DropdownItem>Option one</DropdownItem>
-                  <DropdownItem>Option two</DropdownItem>
-                </DropdownItemGroup>
-              </DropdownMenu>
-            </SplitButton>
-            <SplitButton appearance="danger">
               <Button>Primary action</Button>
               <DropdownMenu
                 trigger={({ triggerRef, ...triggerProps }) => (
@@ -252,24 +178,6 @@ export default () => {
                 UNSAFE_size="small"
               />
             </SplitButton>
-            <SplitButton appearance="warning" spacing="compact">
-              <Button>Primary action</Button>
-              <IconButton
-                onClick={open}
-                icon={SettingsIcon}
-                label="Secondary action"
-                UNSAFE_size="small"
-              />
-            </SplitButton>
-            <SplitButton appearance="danger" spacing="compact">
-              <Button>Primary action</Button>
-              <IconButton
-                onClick={open}
-                icon={SettingsIcon}
-                label="Secondary action"
-                UNSAFE_size="small"
-              />
-            </SplitButton>
             <SplitButton isDisabled spacing="compact">
               <Button>Primary action</Button>
               <IconButton
@@ -290,22 +198,6 @@ export default () => {
               />
             </SplitButton>
             <SplitButton appearance="primary">
-              <Button>Primary action</Button>
-              <IconButton
-                onClick={open}
-                icon={SettingsIcon}
-                label="Secondary action"
-              />
-            </SplitButton>
-            <SplitButton appearance="warning">
-              <Button>Primary action</Button>
-              <IconButton
-                onClick={open}
-                icon={SettingsIcon}
-                label="Secondary action"
-              />
-            </SplitButton>
-            <SplitButton appearance="danger">
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
@@ -365,7 +257,7 @@ const boxStyles = xcss({
   paddingInlineEnd: 'space.200',
   display: 'flex',
   justifyContent: 'flex-end',
-  maxWidth: '896px',
+  maxWidth: '500px',
 });
 
 const ConfluenceEditorTopBarExample = () => {
@@ -435,7 +327,7 @@ const JiraIssueViewActionsExample = () => {
       <Button>Attach</Button>
       <Button>Create issue in epic</Button>
       <SplitButton appearance="default">
-        <Button iconBefore={<LinkIcon label="" />}>Link issue</Button>
+        <Button iconBefore={LinkIcon}>Link issue</Button>
         <DropdownMenu
           trigger={({ triggerRef, ...triggerProps }) => (
             <IconButton

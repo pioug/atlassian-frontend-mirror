@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 189.4.2
+
+### Patch Changes
+
+- [#43765](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43765) [`58e4cda8826`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58e4cda8826) - ED-21102 Set focus on editor when inserting item by pressing enter from Element browser
+- [#43757](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43757) [`e2719bd82fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2719bd82fd) - Fix allowMatchCase editor prop for ComposableEditor.
+- [#43661](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43661) [`ebf781502ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ebf781502ed) - Extract toolbar-lists-indentation plugin code from editor-core and move into @atlaskit/editor-plugin-toolbar-lists-indentation.
+- Updated dependencies
+
+## 189.4.1
+
+### Patch Changes
+
+- [#43507](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43507) [`a9695768de6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9695768de6) - Extracted insert block plugin code from editor-core to @atlaskit/editor-plugin-insert-block
+- Updated dependencies
+
+## 189.4.0
+
+### Minor Changes
+
+- [#43569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43569) [`8c40410ca78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c40410ca78) - ED-20043: MultiBodied Extension changes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 189.3.38
 
 ### Patch Changes

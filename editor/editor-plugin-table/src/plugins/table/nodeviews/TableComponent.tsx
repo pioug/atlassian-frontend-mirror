@@ -552,6 +552,15 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
     const isNested = isTableNested(view.state, tablePos);
 
+    const topStickyShadowPosition = isDragAndDropEnabled
+      ? this.state.stickyHeader &&
+        this.state.stickyHeader.top + this.state.stickyHeader.padding + 2
+      : this.state.stickyHeader &&
+        this.state.stickyHeader.top +
+          this.state.stickyHeader.padding +
+          shadowPadding +
+          2;
+
     return (
       <TableContainer
         className={classnames(ClassName.TABLE_CONTAINER, {
@@ -605,12 +614,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
             style={{
               visibility:
                 showBeforeShadow && hasHeaderRow ? 'visible' : 'hidden',
-              top: `${
-                this.state.stickyHeader.top +
-                this.state.stickyHeader.padding +
-                shadowPadding +
-                2
-              }px`,
+              top: `${topStickyShadowPosition}px`,
+              paddingBottom: `${isDragAndDropEnabled ? '1px' : ''}`,
             }}
           />
         )}
@@ -670,12 +675,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
               style={{
                 visibility:
                   showAfterShadow && hasHeaderRow ? 'visible' : 'hidden',
-                top: `${
-                  this.state.stickyHeader.top +
-                  this.state.stickyHeader.padding +
-                  shadowPadding +
-                  2
-                }px`,
+                top: `${topStickyShadowPosition}px`,
+                paddingBottom: `${isDragAndDropEnabled ? '1px' : ''}`,
               }}
             />
           </div>

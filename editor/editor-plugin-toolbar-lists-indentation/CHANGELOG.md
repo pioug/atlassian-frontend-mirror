@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 0.2.0
+
+### Minor Changes
+
+- [#43661](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43661) [`ebf781502ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ebf781502ed) - Extract toolbar-lists-indentation plugin code from editor-core and move into @atlaskit/editor-plugin-toolbar-lists-indentation.
+
 ## 0.1.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.17.0
+
+### Minor Changes
+
+- [#43813](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43813) [`417f8592c91`](https://bitbucket.org/atlassian/atlassian-frontend/commits/417f8592c91) - block view only steps and metadata traffic
+
 ## 9.16.1
 
 ### Patch Changes

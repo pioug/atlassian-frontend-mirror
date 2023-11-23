@@ -38,19 +38,15 @@ export default function TruncationExample() {
               <Component>{label}</Component>
             </ContrainedWidthCell>
             <ContrainedWidthCell>
-              <Component iconBefore={<ChevronDownIcon label="" />}>
-                {label}
-              </Component>
+              <Component iconBefore={ChevronDownIcon}>{label}</Component>
             </ContrainedWidthCell>
             <ContrainedWidthCell>
-              <Component iconAfter={<ChevronDownIcon label="" />}>
-                {label}
-              </Component>
+              <Component iconAfter={ChevronDownIcon}>{label}</Component>
             </ContrainedWidthCell>
             <ContrainedWidthCell>
               <Component
-                iconBefore={<ChevronDownIcon label="" />}
-                iconAfter={<ChevronDownIcon label="" />}
+                iconBefore={ChevronDownIcon}
+                iconAfter={ChevronDownIcon}
               >
                 {label}
               </Component>

@@ -38,7 +38,7 @@ export default function AppearancesExample() {
                     <Component
                       // @ts-ignore
                       appearance={appearance}
-                      iconAfter={<ChevronDownIcon label="" />}
+                      iconAfter={ChevronDownIcon}
                     >
                       Icon after
                     </Component>

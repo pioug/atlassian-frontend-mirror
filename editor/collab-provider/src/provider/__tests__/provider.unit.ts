@@ -69,8 +69,9 @@ import type { InternalError } from '../../errors/error-types';
 import {
   NCS_ERROR_CODE,
   ProviderInitialisationError,
+  INTERNAL_ERROR_CODE,
 } from '../../errors/error-types';
-import { INTERNAL_ERROR_CODE } from '../../errors/error-types';
+import type { Permit } from '../../types';
 
 const testProviderConfig = {
   url: `http://provider-url:66661`,
@@ -1644,6 +1645,36 @@ describe('Provider', () => {
         expect(provider.getMetadata()).toEqual(sampleMetadata);
         expect(setMetadataSpy).toBeCalledWith(sampleMetadata);
       });
+    });
+  });
+
+  describe('View Permission Only', () => {
+    it('Should block view only steps metadata', () => {
+      const provider = createSocketIOCollabProvider({
+        ...testProviderConfig,
+        featureFlags: {
+          blockViewOnlyFF: true,
+        },
+      });
+      const setMetadataSpy = jest.spyOn(
+        (provider as any).metadataService,
+        'setMetadata',
+      );
+      const getIsNamespaceLockedSpy = jest.spyOn(
+        (provider as any).namespaceService,
+        'getIsNamespaceLocked',
+      );
+      provider.initialize(() => editorState);
+      const permissionResponse: Permit = {
+        isPermittedToView: true,
+        isPermittedToEdit: false,
+      };
+      channel.emit('permission', permissionResponse);
+      provider.send(null, null, {} as any);
+      provider.setMetadata({});
+      provider.setTitle('title');
+      expect(setMetadataSpy).toBeCalledTimes(0);
+      expect(getIsNamespaceLockedSpy).toBeCalledTimes(0);
     });
   });
 });

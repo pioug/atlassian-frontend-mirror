@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import { separatorCss } from '../../../styled';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const elementGap = '0.5rem';
 
@@ -26,21 +25,14 @@ export const metadataBlockCss = css`
       margin-left: ${elementGap};
     }
   }
-  ${getBooleanFF(
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-  )
-    ? `[data-smart-element-group] {
-       line-height: 1rem;
-    }`
-    : ``}
+
+  [data-smart-element-group] {
+    line-height: 1rem;
+  }
 `;
 
 export const footerBlockCss = css`
-  ${!getBooleanFF(
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-  )
-    ? `padding-top: 0.25rem;`
-    : `height: 1.5rem;`}
+  height: 1.5rem;
 `;
 
 export const hiddenSnippetStyles = css`

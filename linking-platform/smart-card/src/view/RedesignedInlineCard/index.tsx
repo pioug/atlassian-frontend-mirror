@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { InlineCardProps } from './types';
 import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
@@ -16,6 +16,7 @@ import { useFeatureFlag } from '@atlaskit/link-provider';
 import { getExtensionKey } from '../../state/helpers';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { SmartLinkStatus } from '../../constants';
 
 export {
   InlineCardResolvedView,
@@ -55,6 +56,31 @@ export const InlineCard: FC<InlineCardProps> = ({
     showHoverPreview = Boolean(showHoverPreviewFlag);
   }
 
+  const resolvedProps =
+    status === SmartLinkStatus.Resolved
+      ? extractInlineProps(cardDetails as JsonLd.Data.BaseData, renderers)
+      : {};
+
+  useEffect(() => {
+    switch (status) {
+      case SmartLinkStatus.Resolved:
+        onResolve?.({
+          url,
+          title: resolvedProps.title,
+        });
+        break;
+      case SmartLinkStatus.Errored:
+      case SmartLinkStatus.Fallback:
+      case SmartLinkStatus.Forbidden:
+      case SmartLinkStatus.NotFound:
+      case SmartLinkStatus.Unauthorized:
+        if (onError) {
+          onError({ status, url });
+        }
+        break;
+    }
+  }, [onError, onResolve, status, url, resolvedProps.title]);
+
   switch (status) {
     case 'pending':
     case 'resolving':
@@ -68,18 +94,6 @@ export const InlineCard: FC<InlineCardProps> = ({
         />
       );
     case 'resolved':
-      const resolvedProps = extractInlineProps(
-        cardDetails as JsonLd.Data.BaseData,
-        renderers,
-      );
-
-      if (onResolve) {
-        onResolve({
-          url,
-          title: resolvedProps.title,
-        });
-      }
-
       return (
         <InlineCardResolvedView
           {...resolvedProps}
@@ -93,10 +107,6 @@ export const InlineCard: FC<InlineCardProps> = ({
         />
       );
     case 'unauthorized':
-      if (onError) {
-        onError({ url, status });
-      }
-
       const provider = extractProvider(cardDetails as JsonLd.Data.BaseData);
       return (
         <InlineCardUnauthorizedView
@@ -114,10 +124,6 @@ export const InlineCard: FC<InlineCardProps> = ({
         />
       );
     case 'forbidden':
-      if (onError) {
-        onError({ url, status });
-      }
-
       const providerForbidden = extractProvider(
         cardDetails as JsonLd.Data.BaseData,
       );
@@ -151,10 +157,6 @@ export const InlineCard: FC<InlineCardProps> = ({
         />
       );
     case 'not_found':
-      if (onError) {
-        onError({ url, status });
-      }
-
       const providerNotFound = extractProvider(
         cardDetails as JsonLd.Data.BaseData,
       );
@@ -172,10 +174,6 @@ export const InlineCard: FC<InlineCardProps> = ({
     case 'fallback':
     case 'errored':
     default:
-      if (onError) {
-        onError({ url, status });
-      }
-
       return (
         <CardLinkView
           link={url}

@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { loadingPlaceholderClassName } from '../../index';
-import { SmartLinkSize, SmartLinkTheme } from '../../constants';
+import { SmartLinkSize } from '../../constants';
 import { FlexibleUiOptions } from '../FlexibleCard/types';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -16,9 +16,6 @@ export const flexibleUiOptions: FlexibleUiOptions = {
   size: SmartLinkSize.Medium,
   hideHoverCardPreviewButton: false,
   zIndex: HOVER_CARD_Z_INDEX + 1,
-  ...(!getBooleanFF(
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-  ) && { theme: SmartLinkTheme.Black, hidePadding: true }),
 };
 
 export const CARD_WIDTH_REM = 24;
@@ -39,11 +36,6 @@ export const HoverCardContainer = css`
   border-width: 0;
   box-sizing: border-box;
   width: ${CARD_WIDTH_REM}rem;
-  ${!getBooleanFF(
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-  )
-    ? `padding: 1rem;`
-    : ``}
 
   .${loadingPlaceholderClassName} {
     display: none;

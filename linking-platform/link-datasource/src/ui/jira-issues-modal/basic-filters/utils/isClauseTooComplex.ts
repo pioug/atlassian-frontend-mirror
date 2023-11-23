@@ -8,7 +8,7 @@ import {
 
 import { fuzzyCharacter } from '../../jira-search-container/buildJQL';
 
-const removeFuzzyCharacter = (value?: string) => {
+export const removeFuzzyCharacter = (value?: string) => {
   if (value?.endsWith(fuzzyCharacter)) {
     return value.slice(0, -1);
   }

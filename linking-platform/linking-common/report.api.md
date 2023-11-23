@@ -339,7 +339,7 @@ export interface LinkingPlatformFeatureFlags {
   showHoverPreview?: boolean;
   // @deprecated
   useLinkPickerAtlassianTabs?: boolean;
-  // (undocumented)
+  // @deprecated (undocumented)
   useLinkPickerScrollingTabs?: boolean;
   // @deprecated
   useLozengeAction?: string;

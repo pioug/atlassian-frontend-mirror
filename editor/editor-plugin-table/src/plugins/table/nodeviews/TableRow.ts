@@ -6,6 +6,7 @@ import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../pm-plugins/plugin-key';
@@ -28,6 +29,12 @@ import { getTop, getTree } from '../utils/dom';
 import { supportedHeaderRow } from '../utils/nodes';
 
 import TableNodeView from './TableNodeViewBase';
+
+interface SentinelData {
+  isIntersecting: boolean;
+  boundingClientRect: DOMRectReadOnly | null;
+  rootBounds: DOMRectReadOnly | null;
+}
 
 // limit scroll event calls
 const HEADER_ROW_SCROLL_THROTTLE_TIMEOUT = 200;
@@ -80,6 +87,21 @@ export default class TableRow
     top?: HTMLElement | null;
     bottom?: HTMLElement | null;
   } = {};
+  private sentinelData: {
+    top: SentinelData;
+    bottom: SentinelData;
+  } = {
+    top: {
+      isIntersecting: false,
+      boundingClientRect: null,
+      rootBounds: null,
+    },
+    bottom: {
+      isIntersecting: false,
+      boundingClientRect: null,
+      rootBounds: null,
+    },
+  };
   private stickyRowHeight?: number;
   private listening = false;
   private padding: number = 0;
@@ -327,71 +349,196 @@ export default class TableRow
   }
 
   private createIntersectionObserver() {
-    this.intersectionObserver = new IntersectionObserver(
-      (entries: IntersectionObserverEntry[], _: IntersectionObserver) => {
-        const tree = getTree(this.dom);
-        if (!tree) {
-          return;
-        }
-        const { table } = tree;
+    if (getBooleanFF('platform.editor.table.alternative-sticky-header-logic')) {
+      this.intersectionObserver = new IntersectionObserver(
+        (entries: IntersectionObserverEntry[], _: IntersectionObserver) => {
+          // IMPORTANT: please try and avoid using entry.rootBounds it's terribly inconsistent. For example; sometimes it may return
+          // 0 height. In safari it will multiply all values by the window scale factor, however chrome & firfox won't.
+          // This is why i just get the scroll view bounding rect here and use it, and fallback to the entry.rootBounds if needed.
+          const rootBounds = (
+            this.editorScrollableElement as Element
+          )?.getBoundingClientRect?.();
 
-        if (table.rows.length < 2) {
-          // ED-19307 - When there's only one row in a table the top & bottom sentinels become inverted. This creates some nasty visiblity
-          // toggling side-effects because the intersection observers gets confused.
-          return;
-        }
+          entries.forEach((entry) => {
+            const { target, isIntersecting, boundingClientRect } = entry;
+            // This observer only every looks at the top/bottom sentinels, we can assume if it's not one then it's the other.
+            const targetKey = target.classList.contains(
+              ClassName.TABLE_STICKY_SENTINEL_TOP,
+            )
+              ? 'top'
+              : 'bottom';
+            // Cache the latest sentinel information
+            this.sentinelData[targetKey] = {
+              isIntersecting,
+              boundingClientRect,
+              rootBounds: rootBounds ?? entry.rootBounds,
+            };
+            // Keep the other sentinels rootBounds in sync with this latest one
+            this.sentinelData[
+              targetKey === 'top' ? 'bottom' : targetKey
+            ].rootBounds = rootBounds ?? entry.rootBounds;
+          });
+          this.refreshStickyState();
+        },
+        { threshold: 0, root: this.editorScrollableElement as Element },
+      );
+    } else {
+      this.intersectionObserver = new IntersectionObserver(
+        (entries: IntersectionObserverEntry[], _: IntersectionObserver) => {
+          const tree = getTree(this.dom);
+          if (!tree) {
+            return;
+          }
+          const { table } = tree;
 
-        entries.forEach((entry) => {
-          const target = entry.target as HTMLElement;
-
-          // if the rootBounds has 0 height, e.g. confluence preview mode, we do nothing.
-          if (entry.rootBounds?.height === 0) {
+          if (table.rows.length < 2) {
+            // ED-19307 - When there's only one row in a table the top & bottom sentinels become inverted. This creates some nasty visiblity
+            // toggling side-effects because the intersection observers gets confused.
             return;
           }
 
-          if (target.classList.contains(ClassName.TABLE_STICKY_SENTINEL_TOP)) {
-            const sentinelIsBelowScrollArea =
-              (entry.rootBounds?.bottom || 0) < entry.boundingClientRect.bottom;
+          entries.forEach((entry) => {
+            const target = entry.target as HTMLElement;
 
-            if (!entry.isIntersecting && !sentinelIsBelowScrollArea) {
-              tree && this.makeHeaderRowSticky(tree, entry.rootBounds?.top);
-              this.lastStickyTimestamp = Date.now();
-            } else {
-              table && this.makeRowHeaderNotSticky(table);
+            // if the rootBounds has 0 height, e.g. confluence preview mode, we do nothing.
+            if (entry.rootBounds?.height === 0) {
+              return;
             }
-          }
 
-          if (
-            target.classList.contains(ClassName.TABLE_STICKY_SENTINEL_BOTTOM)
-          ) {
-            const sentinelIsAboveScrollArea =
-              entry.boundingClientRect.top - this.dom.offsetHeight <
-              (entry.rootBounds?.top || 0);
+            if (
+              target.classList.contains(ClassName.TABLE_STICKY_SENTINEL_TOP)
+            ) {
+              const sentinelIsBelowScrollArea =
+                (entry.rootBounds?.bottom || 0) <
+                entry.boundingClientRect.bottom;
 
-            if (table && !entry.isIntersecting && sentinelIsAboveScrollArea) {
-              // Not a perfect solution, but need to this code specific for FireFox ED-19177
-              if (browser.gecko) {
-                if (
-                  this.lastStickyTimestamp &&
-                  Date.now() - this.lastStickyTimestamp >
-                    STICKY_HEADER_TOGGLE_TOLERANCE_MS
-                ) {
+              if (!entry.isIntersecting && !sentinelIsBelowScrollArea) {
+                tree && this.makeHeaderRowSticky(tree, entry.rootBounds?.top);
+                this.lastStickyTimestamp = Date.now();
+              } else {
+                table && this.makeRowHeaderNotSticky(table);
+              }
+            }
+
+            if (
+              target.classList.contains(ClassName.TABLE_STICKY_SENTINEL_BOTTOM)
+            ) {
+              const sentinelIsAboveScrollArea =
+                entry.boundingClientRect.top - this.dom.offsetHeight <
+                (entry.rootBounds?.top || 0);
+
+              if (table && !entry.isIntersecting && sentinelIsAboveScrollArea) {
+                // Not a perfect solution, but need to this code specific for FireFox ED-19177
+                if (browser.gecko) {
+                  if (
+                    this.lastStickyTimestamp &&
+                    Date.now() - this.lastStickyTimestamp >
+                      STICKY_HEADER_TOGGLE_TOLERANCE_MS
+                  ) {
+                    this.makeRowHeaderNotSticky(table);
+                  }
+                } else {
                   this.makeRowHeaderNotSticky(table);
                 }
-              } else {
-                this.makeRowHeaderNotSticky(table);
+              } else if (entry.isIntersecting && sentinelIsAboveScrollArea) {
+                tree && this.makeHeaderRowSticky(tree, entry?.rootBounds?.top);
+                this.lastStickyTimestamp = Date.now();
               }
-            } else if (entry.isIntersecting && sentinelIsAboveScrollArea) {
-              tree && this.makeHeaderRowSticky(tree, entry?.rootBounds?.top);
-              this.lastStickyTimestamp = Date.now();
             }
-          }
-          return;
-        });
-      },
-      { root: this.editorScrollableElement as Element },
+            return;
+          });
+        },
+        { root: this.editorScrollableElement as Element },
+      );
+    }
+  }
+
+  private refreshStickyState() {
+    const tree = getTree(this.dom);
+    if (!tree) {
+      return;
+    }
+    const { table } = tree;
+    const shouldStick = this.isHeaderSticky();
+    if (this.isSticky !== shouldStick) {
+      if (shouldStick) {
+        // The rootRect is kept in sync across sentinels so it doesn't matter which one we use.
+        const rootRect =
+          this.sentinelData.top.rootBounds ??
+          this.sentinelData.bottom.rootBounds;
+        this.makeHeaderRowSticky(tree, rootRect?.top);
+      } else {
+        this.makeRowHeaderNotSticky(table);
+      }
+    }
+  }
+
+  private isHeaderSticky() {
+    /*
+    # Overview
+      I'm going to list all the view states associated with the sentinels and when they should trigger sticky headers.
+      The format of the states are;    {top|bottom}:{in|above|below}
+      ie sentinel:view-position -- both "above" and "below" are equal to out of the viewport
+
+      For example; "top:in" means top sentinel is within the viewport. "bottom:above" means the bottom sentinel is
+      above and out of the viewport
+
+      This will hopefully simplify things and make it easier to determine when sticky should/shouldn't be triggered.
+
+    # States
+      top:in / bottom:in - NOT sticky
+      top:in / bottom:above - NOT sticky - NOTE: This is an inversion clause
+      top:in / bottom:below - NOT sticky
+      top:above / bottom:in - STICKY
+      top:above / bottom:above - NOT sticky
+      top:above / bottom:below - STICKY
+      top:below / bottom:in - NOT sticky - NOTE: This is an inversion clause
+      top:below / bottom:above - NOT sticky - NOTE: This is an inversion clause
+      top:below / bottom:below - NOT sticky
+
+    # Summary
+      The only time the header should be sticky is when the top sentinel is above the view and the bottom sentinel
+      is in or below it.
+    */
+
+    const { top: sentinelTop, bottom: sentinelBottom } = this.sentinelData;
+    // The rootRect is kept in sync across sentinels so it doesn't matter which one we use.
+    const rootBounds = sentinelTop.rootBounds ?? sentinelBottom.rootBounds;
+
+    if (
+      !rootBounds ||
+      !sentinelTop.boundingClientRect ||
+      !sentinelBottom.boundingClientRect
+    ) {
+      return false;
+    }
+
+    // Normalize the sentinels to y points
+    // Since the sentinels are actually rects 1px high we want make sure we normalise the inner most values closest to the table.
+    const sentinelTopY = sentinelTop.boundingClientRect.bottom;
+    const sentinelBottomY = sentinelBottom.boundingClientRect.top;
+
+    // If header row height is more than 50% of viewport height don't do this
+    const isRowHeaderTooLarge =
+      this.stickyRowHeight && this.stickyRowHeight > window.innerHeight * 0.5;
+
+    const isTopSentinelAboveScrollArea =
+      !sentinelTop.isIntersecting && sentinelTopY <= rootBounds.top;
+
+    const isBottomSentinelInOrBelowScrollArea =
+      sentinelBottom.isIntersecting || sentinelBottomY > rootBounds.bottom;
+
+    // This makes sure that the top sentinel is actually above the bottom sentinel, and that they havn't inverted.
+    const isTopSentinelAboveBottomSentinel = sentinelTopY < sentinelBottomY;
+
+    return (
+      isTopSentinelAboveScrollArea &&
+      isBottomSentinelInOrBelowScrollArea &&
+      isTopSentinelAboveBottomSentinel &&
+      !isRowHeaderTooLarge
     );
   }
+
   /* receive external events */
 
   private onTablePluginState(state: TablePluginState) {

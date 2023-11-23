@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type IconProps } from '@atlaskit/icon/types';
 
 export type ButtonAppearance =
   | 'default'
@@ -26,6 +27,8 @@ export type Appearance =
   | IconButtonAppearance;
 
 export type Spacing = 'compact' | 'default' | 'none';
+
+export type IconProp = React.ComponentType<IconProps>;
 
 // Similar to {...A, ...B}
 // 1. Remove all overlapping types from First

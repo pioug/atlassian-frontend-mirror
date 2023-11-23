@@ -1,3 +1,5 @@
+// The full list of languages that can potentially be supported is found in
+// https://prismjs.com/#supported-languages
 export const SUPPORTED_LANGUAGES = [
   {
     name: 'PHP',
@@ -395,6 +397,26 @@ export const SUPPORTED_LANGUAGES = [
     name: 'SplunkSPL',
     alias: ['splunk-spl'],
     value: 'splunk-spl',
+  },
+  {
+    name: 'Dockerfile',
+    alias: ['docker', 'dockerfile'],
+    value: 'dockerfile',
+  },
+  {
+    name: 'HCL',
+    alias: ['hcl', 'terraform'],
+    value: 'hcl',
+  },
+  {
+    name: 'NGINX',
+    alias: ['nginx'],
+    value: 'nginx',
+  },
+  {
+    name: 'Protocol Buffers',
+    alias: ['protobuf', 'proto'],
+    value: 'protobuf',
   },
 ] as const;
 

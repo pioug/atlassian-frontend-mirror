@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 108.17.0
+
+### Minor Changes
+
+- [#43569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43569) [`8c40410ca78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c40410ca78) - ED-20043: MultiBodied Extension changes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 108.16.5
 
 ### Patch Changes

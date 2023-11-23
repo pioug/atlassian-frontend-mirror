@@ -9,6 +9,10 @@ jest.mock('@atlaskit/tokens/rename-mapping', (): RenameMap[] => [
     state: 'deleted',
     replacement: 'elevation.shadow.overlay',
   },
+  {
+    path: 'color.deprecated.without.replacement',
+    state: 'deprecated',
+  },
 ]);
 
 import path from 'path';
@@ -16,7 +20,7 @@ import path from 'path';
 import tokens from '@atlaskit/tokens/token-names';
 
 import testRule from '../../../../__tests__/utils/_test-rule';
-import { ruleName } from '../../index';
+import { messages, ruleName } from '../../index';
 
 const plugin = path.resolve(__dirname, '../../../../index.tsx');
 
@@ -24,7 +28,7 @@ type Token = keyof typeof tokens | string;
 type RenameMap = {
   path: string;
   state: 'deprecated' | 'deleted';
-  replacement: Token;
+  replacement?: Token;
 };
 
 testRule({
@@ -54,6 +58,13 @@ testRule({
     {
       code: 'color: var(--ds-text);',
       description: 'should accept non-deprecated token',
+    },
+  ],
+  reject: [
+    {
+      code: 'color: var(--ds-deprecated-without-replacement);',
+      description: 'should error against deprecated tokens',
+      message: messages.deprecatedToken('--ds-deprecated-without-replacement'),
     },
   ],
 });

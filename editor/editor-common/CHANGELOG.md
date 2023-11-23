@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 76.23.1
+
+### Patch Changes
+
+- [#43507](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43507) [`a9695768de6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9695768de6) - Extracted insert block plugin code from editor-core to @atlaskit/editor-plugin-insert-block
+
+## 76.23.0
+
+### Minor Changes
+
+- [#43569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43569) [`8c40410ca78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c40410ca78) - ED-20043: MultiBodied Extension changes
+
 ## 76.22.8
 
 ### Patch Changes

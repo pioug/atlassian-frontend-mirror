@@ -9,7 +9,6 @@ import {
   AtlassianLinkPickerPlugin,
   Scope,
 } from '@atlassian/link-picker-atlassian-plugin';
-import { useForgeSearchProviders } from '@atlassian/link-picker-plugins';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';
 import { LinkPicker, LinkPickerProps } from '../src';
@@ -46,7 +45,6 @@ function CustomEndPoints() {
 
   const handleToggle = () => setIsOpen(!isOpen);
 
-  const { plugins: forgePlugins, isLoading } = useForgeSearchProviders();
   const plugins = useMemo(
     () => [
       new AtlassianLinkPickerPlugin({
@@ -56,9 +54,8 @@ function CustomEndPoints() {
           'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',
         activityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',
       }),
-      ...forgePlugins,
     ],
-    [forgePlugins],
+    [],
   );
 
   const linkPickerInPopup = (
@@ -69,7 +66,6 @@ function CustomEndPoints() {
       content={({ update }) => (
         <LinkPicker
           plugins={plugins}
-          isLoadingPlugins={isLoading}
           url={link.url}
           displayText={link.displayText}
           onSubmit={handleSubmit}
@@ -111,12 +107,7 @@ function CustomEndPoints() {
 
 export default function ForgePluginsWrapper() {
   return (
-    <SmartCardProvider
-      client={smartCardClient}
-      featureFlags={{
-        useLinkPickerScrollingTabs: true,
-      }}
-    >
+    <SmartCardProvider client={smartCardClient}>
       <CustomEndPoints />
     </SmartCardProvider>
   );

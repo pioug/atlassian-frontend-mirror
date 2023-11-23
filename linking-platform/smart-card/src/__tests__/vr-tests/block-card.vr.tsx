@@ -88,7 +88,6 @@ snapshot.skip(BlockCardResolvedJira, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -99,7 +98,6 @@ snapshot.skip(BlockCardResolvedConfluencePage, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -108,7 +106,6 @@ snapshot(BlockCardResolvedTrelloWithImagePreview, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -117,7 +114,6 @@ snapshot(BlockCardResolvedAtlas, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -126,7 +122,6 @@ snapshot(BlockCardResolvedBitbucket, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -135,7 +130,6 @@ snapshot(BlockCardForbiddenViews, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
     'platform.linking-platform.smart-card.cross-join': true,
   },
 });

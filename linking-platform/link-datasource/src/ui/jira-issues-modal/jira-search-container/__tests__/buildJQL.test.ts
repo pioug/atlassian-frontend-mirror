@@ -102,6 +102,49 @@ describe('buildJQL', () => {
       expect(jql).toEqual('created >= -30d ORDER BY created DESC');
     });
 
+    it('should create correct jql when one of the filters have value and other are empty', () => {
+      const jql = buildJQL({
+        rawSearch: '',
+        filterValues: {
+          assignee: [],
+          issuetype: [],
+          project: [
+            {
+              label: 'Commitment Register',
+              value: 'Commitment Register',
+              optionType: 'iconLabel',
+              icon: '',
+            },
+          ],
+          status: [],
+        },
+      });
+
+      expect(jql).toEqual(
+        'project in ("Commitment Register") ORDER BY created DESC',
+      );
+    });
+
+    it('should create correct jql when one of the filters have value and other are not defined', () => {
+      const jql = buildJQL({
+        rawSearch: '',
+        filterValues: {
+          project: [
+            {
+              label: 'Commitment Register',
+              value: 'Commitment Register',
+              optionType: 'iconLabel',
+              icon: '',
+            },
+          ],
+        },
+      });
+
+      expect(jql).toEqual(
+        'project in ("Commitment Register") ORDER BY created DESC',
+      );
+    });
+
     it.each<[BasicFilterFieldType]>([
       ['project'],
       ['assignee'],
@@ -121,9 +164,7 @@ describe('buildJQL', () => {
           },
         });
 
-        expect(jql).toEqual(
-          `${filterType} in (hello) and created >= -30d ORDER BY created DESC`,
-        );
+        expect(jql).toEqual(`${filterType} in (hello) ORDER BY created DESC`);
       },
     );
 
@@ -150,7 +191,7 @@ describe('buildJQL', () => {
         });
 
         expect(jql).toEqual(
-          `${filterType} in (hello, world) and created >= -30d ORDER BY created DESC`,
+          `${filterType} in (hello, world) ORDER BY created DESC`,
         );
       },
     );
@@ -195,7 +236,51 @@ describe('buildJQL', () => {
       });
 
       expect(jql).toEqual(
-        `project in (\"Commitment Register\") and assignee in (\"Mike Dao\") and issuetype in (\"[CTB]Bug\") and status in (Progress) and created >= -30d ORDER BY created DESC`,
+        `project in (\"Commitment Register\") and assignee in (\"Mike Dao\") and issuetype in (\"[CTB]Bug\") and status in (Progress) ORDER BY created DESC`,
+      );
+    });
+
+    it('should create jql with all fields when rawSearch and all filter field values are supplied', () => {
+      const jql = buildJQL({
+        rawSearch: 'test',
+        filterValues: {
+          project: [
+            {
+              label: 'Commitment Register',
+              value: 'Commitment Register',
+              optionType: 'iconLabel',
+              icon: '',
+            },
+          ],
+          assignee: [
+            {
+              label: 'Mike Dao',
+              value: 'Mike Dao',
+              optionType: 'avatarLabel',
+              avatar: '',
+            },
+          ],
+          issuetype: [
+            {
+              label: '[CTB]Bug',
+              value: '[CTB]Bug',
+              optionType: 'iconLabel',
+              icon: '',
+            },
+          ],
+          status: [
+            {
+              label: 'Progress',
+              value: 'Progress',
+              optionType: 'lozengeLabel',
+              appearance: 'inprogress',
+            },
+          ],
+        },
+      });
+
+      expect(jql).toEqual(
+        `(text ~ \"test*\" or summary ~ \"test*\") and project in (\"Commitment Register\") and assignee in (\"Mike Dao\") and issuetype in (\"[CTB]Bug\") and status in (Progress) ORDER BY created DESC`,
       );
     });
   });

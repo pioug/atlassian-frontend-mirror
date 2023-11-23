@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1fbec9c28e57884ce02a116bc065ff9d>>
+ * @codegen <<SignedSource::3955d8a73e8c898ae06461a68d8b5cee>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -416,9 +416,10 @@ const tokens = [
   {
     "attributes": {
       "group": "letterSpacing",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "0",
     "filePath": "schema/themes/atlassian-typography-adg3/letter-spacing.tsx",
@@ -426,9 +427,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "letterSpacing",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LetterSpacing0"
     },
@@ -443,9 +445,10 @@ const tokens = [
   {
     "attributes": {
       "group": "letterSpacing",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "-0.003em",
     "filePath": "schema/themes/atlassian-typography-adg3/letter-spacing.tsx",
@@ -453,9 +456,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "letterSpacing",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LetterSpacing100"
     },
@@ -470,9 +474,10 @@ const tokens = [
   {
     "attributes": {
       "group": "letterSpacing",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "-0.006em",
     "filePath": "schema/themes/atlassian-typography-adg3/letter-spacing.tsx",
@@ -480,9 +485,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "letterSpacing",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LetterSpacing200"
     },
@@ -497,9 +503,10 @@ const tokens = [
   {
     "attributes": {
       "group": "letterSpacing",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "-0.008em",
     "filePath": "schema/themes/atlassian-typography-adg3/letter-spacing.tsx",
@@ -507,9 +514,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "letterSpacing",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LetterSpacing300"
     },
@@ -524,9 +532,10 @@ const tokens = [
   {
     "attributes": {
       "group": "letterSpacing",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "-0.01em",
     "filePath": "schema/themes/atlassian-typography-adg3/letter-spacing.tsx",
@@ -534,9 +543,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "letterSpacing",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LetterSpacing400"
     },
@@ -619,9 +629,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontFamily",
-      "state": "experimental",
+      "state": "deprecated",
       "introduced": "1.14.0",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
@@ -629,9 +640,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontFamily",
-        "state": "experimental",
+        "state": "deprecated",
         "introduced": "1.14.0",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontFamilyWebSans"
     },
@@ -646,9 +658,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontFamily",
-      "state": "experimental",
+      "state": "deprecated",
       "introduced": "1.14.0",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
     "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
@@ -656,9 +669,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontFamily",
-        "state": "experimental",
+        "state": "deprecated",
         "introduced": "1.14.0",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontFamilyWebMono"
     },
@@ -673,9 +687,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontFamily",
-      "state": "experimental",
+      "state": "deprecated",
       "introduced": "1.14.0",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
@@ -683,9 +698,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontFamily",
-        "state": "experimental",
+        "state": "deprecated",
         "introduced": "1.14.0",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontFamilyWebSans"
     },
@@ -700,9 +716,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontFamily",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
     "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
@@ -710,9 +727,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontFamily",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontFamilyWebMono"
     },
@@ -727,9 +745,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontFamily",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
@@ -737,9 +756,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontFamily",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LegacyFontFamilyWebSans"
     },
@@ -754,9 +774,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontFamily",
-      "state": "experimental",
+      "state": "deprecated",
       "introduced": "1.14.0",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "Charlie Sans",
     "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
@@ -764,9 +785,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontFamily",
-        "state": "experimental",
+        "state": "deprecated",
         "introduced": "1.14.0",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontFamilyCharlie"
     },
@@ -781,9 +803,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontSize",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "11px",
     "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
@@ -791,9 +814,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontSize",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LegacyFontSize11"
     },
@@ -808,9 +832,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontSize",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "12px",
     "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
@@ -818,9 +843,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontSize",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontSize12"
     },
@@ -835,9 +861,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontSize",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "14px",
     "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
@@ -845,9 +872,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontSize",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontSize14"
     },
@@ -862,9 +890,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontSize",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "16px",
     "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
@@ -872,9 +901,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontSize",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontSize16"
     },
@@ -889,9 +919,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontSize",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "20px",
     "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
@@ -899,9 +930,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontSize",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontSize20"
     },
@@ -916,9 +948,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontSize",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "24px",
     "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
@@ -926,9 +959,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontSize",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontSize24"
     },
@@ -943,9 +977,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontSize",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "29px",
     "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
@@ -953,9 +988,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontSize",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LegacyFontSize29"
     },
@@ -970,9 +1006,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontSize",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "35px",
     "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
@@ -980,9 +1017,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontSize",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LegacyFontSize35"
     },
@@ -997,9 +1035,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontWeight",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "700",
     "filePath": "schema/themes/atlassian-typography-adg3/font-weight.tsx",
@@ -1007,9 +1046,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontWeight",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontWeight700"
     },
@@ -1024,9 +1064,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontWeight",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "500",
     "filePath": "schema/themes/atlassian-typography-adg3/font-weight.tsx",
@@ -1034,9 +1075,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontWeight",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontWeight500"
     },
@@ -1051,9 +1093,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontWeight",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "400",
     "filePath": "schema/themes/atlassian-typography-adg3/font-weight.tsx",
@@ -1061,9 +1104,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontWeight",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontWeight400"
     },
@@ -1078,9 +1122,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontWeight",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "600",
     "filePath": "schema/themes/atlassian-typography-adg3/font-weight.tsx",
@@ -1088,9 +1133,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontWeight",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontWeight600"
     },
@@ -1105,9 +1151,10 @@ const tokens = [
   {
     "attributes": {
       "group": "lineHeight",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Used single-line text."
+      "description": "Used single-line text.",
+      "deprecated": "1.29.0"
     },
     "value": "1",
     "filePath": "schema/themes/atlassian-typography-adg3/line-height.tsx",
@@ -1115,9 +1162,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "lineHeight",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Used single-line text."
+        "description": "Used single-line text.",
+        "deprecated": "1.29.0"
       },
       "value": "LineHeight1"
     },
@@ -1132,9 +1180,10 @@ const tokens = [
   {
     "attributes": {
       "group": "lineHeight",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "16px",
     "filePath": "schema/themes/atlassian-typography-adg3/line-height.tsx",
@@ -1142,9 +1191,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "lineHeight",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LineHeight100"
     },
@@ -1159,9 +1209,10 @@ const tokens = [
   {
     "attributes": {
       "group": "lineHeight",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "20px",
     "filePath": "schema/themes/atlassian-typography-adg3/line-height.tsx",
@@ -1169,9 +1220,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "lineHeight",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LineHeight200"
     },
@@ -1186,9 +1238,10 @@ const tokens = [
   {
     "attributes": {
       "group": "lineHeight",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "24px",
     "filePath": "schema/themes/atlassian-typography-adg3/line-height.tsx",
@@ -1196,9 +1249,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "lineHeight",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LineHeight300"
     },
@@ -1213,9 +1267,10 @@ const tokens = [
   {
     "attributes": {
       "group": "lineHeight",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "28px",
     "filePath": "schema/themes/atlassian-typography-adg3/line-height.tsx",
@@ -1223,9 +1278,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "lineHeight",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LineHeight400"
     },
@@ -1240,9 +1296,10 @@ const tokens = [
   {
     "attributes": {
       "group": "lineHeight",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "32px",
     "filePath": "schema/themes/atlassian-typography-adg3/line-height.tsx",
@@ -1250,9 +1307,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "lineHeight",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LineHeight500"
     },
@@ -1267,9 +1325,10 @@ const tokens = [
   {
     "attributes": {
       "group": "lineHeight",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "40px",
     "filePath": "schema/themes/atlassian-typography-adg3/line-height.tsx",
@@ -1277,9 +1336,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "lineHeight",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LineHeight700"
     },

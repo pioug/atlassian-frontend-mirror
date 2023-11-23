@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.42.6",
+  "version": "26.42.7",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,18 +38,18 @@
     "@atlaskit/link-analytics": "^8.3.0",
     "@atlaskit/link-client-extension": "^1.8.0",
     "@atlaskit/link-extractors": "^1.2.0",
-    "@atlaskit/linking-common": "^4.19.0",
+    "@atlaskit/linking-common": "^4.20.0",
     "@atlaskit/linking-types": "^8.5.0",
     "@atlaskit/logo": "^13.14.0",
     "@atlaskit/lozenge": "^11.4.0",
-    "@atlaskit/modal-dialog": "^12.8.0",
+    "@atlaskit/modal-dialog": "^12.9.0",
     "@atlaskit/outbound-auth-flow-client": "^3.4.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/popup": "^1.11.0",
     "@atlaskit/primitives": "^1.12.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.28.0",
+    "@atlaskit/tokens": "^1.29.0",
     "@atlaskit/tooltip": "^18.0.0",
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",
@@ -142,9 +142,6 @@
       "type": "boolean"
     },
     "platform.linking-platform.smart-card.show-smart-links-refreshed-design": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.smart-card.enable-better-metadata_iojwg": {
       "type": "boolean"
     },
     "platform.linking-platform.smart-card.fix-is-trusted-pop": {

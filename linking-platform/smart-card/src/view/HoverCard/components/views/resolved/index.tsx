@@ -23,17 +23,11 @@ import {
   metadataBlockCss,
 } from './styled';
 import FlexibleCard from '../../../../FlexibleCard';
-import {
-  getSimulatedMetadata,
-  getSimulatedBetterMetadata,
-} from '../../../utils';
+import { getSimulatedBetterMetadata } from '../../../utils';
 import { LinkAction } from '../../../../../state/hooks-external/useSmartLinkActions';
 import { CustomActionItem } from '../../../../FlexibleCard/components/blocks/types';
 import ImagePreview from '../../ImagePreview';
-import {
-  extractMetadata,
-  elementNamesToItems,
-} from '../../../../../extractors/hover/extractMetadata';
+import { elementNamesToItems } from '../../../../../extractors/hover/extractMetadata';
 import { HoverCardResolvedProps } from './types';
 import { messages } from '../../../../../messages';
 import { FormattedMessage } from 'react-intl-next';
@@ -110,30 +104,15 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
 
   const data = cardState.details?.data as JsonLd.Data.BaseData;
   const { topPrimary, topSecondary, bottomPrimary } = useMemo(() => {
-    if (
-      getBooleanFF(
-        'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-      )
-    ) {
-      const betterMetadata = getSimulatedBetterMetadata(extensionKey, data);
-      return {
-        topPrimary: elementNamesToItems(
-          betterMetadata.topMetadataBlock.primary,
-        ),
-        topSecondary: elementNamesToItems(
-          betterMetadata.topMetadataBlock.secondary,
-        ),
-        bottomPrimary: elementNamesToItems(
-          betterMetadata.bottomMetadataBlock.primary,
-        ),
-      };
-    }
-
-    const metadata = extractMetadata(getSimulatedMetadata(extensionKey, data));
+    const betterMetadata = getSimulatedBetterMetadata(extensionKey, data);
     return {
-      topPrimary: metadata.primary,
-      topSecondary: metadata.secondary,
-      bottomPrimary: [],
+      topPrimary: elementNamesToItems(betterMetadata.topMetadataBlock.primary),
+      topSecondary: elementNamesToItems(
+        betterMetadata.topMetadataBlock.secondary,
+      ),
+      bottomPrimary: elementNamesToItems(
+        betterMetadata.bottomMetadataBlock.primary,
+      ),
     };
   }, [data, extensionKey]);
 
@@ -151,9 +130,7 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
 
   return (
     <FlexibleCard {...flexibleCardProps}>
-      {getBooleanFF(
-        'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-      ) && imagePreview}
+      {imagePreview}
       <TitleBlock
         {...titleBlockProps}
         metadataPosition={SmartLinkPosition.Top}
@@ -163,32 +140,21 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
         secondary={topSecondary}
         overrideCss={metadataBlockCss}
         maxLines={1}
-        size={SmartLinkSize.Large}
-        {...(getBooleanFF(
-          'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-        ) && { size: SmartLinkSize.Medium })}
+        size={SmartLinkSize.Medium}
       />
       {!imagePreview && <SnippetBlock />}
-      {!getBooleanFF(
-        'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-      ) && imagePreview}
-
       <SnippetBlock
         testId={'hidden-snippet'}
         onRender={onSnippetRender}
         blockRef={snippetBlockRef}
         overrideCss={hiddenSnippetStyles}
       />
-      {getBooleanFF(
-        'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-      ) && (
-        <MetadataBlock
-          primary={bottomPrimary}
-          size={SmartLinkSize.Large}
-          overrideCss={metadataBlockCss}
-          maxLines={1}
-        />
-      )}
+      <MetadataBlock
+        primary={bottomPrimary}
+        size={SmartLinkSize.Large}
+        overrideCss={metadataBlockCss}
+        maxLines={1}
+      />
       {getBooleanFF(
         'platform.linking-platform.smart-card.enable-hover-card-related-urls',
       ) && <RelatedUrlsBlock url={url} size={SmartLinkSize.Small} />}

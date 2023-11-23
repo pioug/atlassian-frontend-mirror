@@ -56,8 +56,8 @@ export default function ButtonGroupExample() {
       <ConstrainedRow>
         <ButtonGroup>
           <Button>Good times</Button>
-          <Button iconAfter={<AudioIcon label="" />}>Boogie</Button>
-          <Button iconAfter={<AudioIcon label="" />}>Boogie more</Button>
+          <Button iconAfter={AudioIcon}>Boogie</Button>
+          <Button iconAfter={AudioIcon}>Boogie more</Button>
         </ButtonGroup>
       </ConstrainedRow>
     </Stack>

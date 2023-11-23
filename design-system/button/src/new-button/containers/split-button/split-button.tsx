@@ -5,6 +5,8 @@ import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { heights } from '../../variants/shared/xcss';
+
 import { SplitButtonContext } from './split-button-context';
 import type {
   SplitButtonAppearance,
@@ -13,25 +15,19 @@ import type {
 } from './types';
 import { getActions } from './utils';
 
-const defaultDividerHeight = '16px';
-
-const defaultDividerStyles = css({
-  height: defaultDividerHeight,
-  margin: `${token('space.075', '6px')} -0.5px`,
-});
-
-const compactDividerHeight = '12px';
-
-const compactDividerStyles = css({
-  height: compactDividerHeight,
-  margin: `${token('space.050', '4px')} -0.5px`,
-});
-
 const baseDividerStyles = css({
   display: 'inline-flex',
   width: '1px',
   position: 'relative',
   zIndex: 2,
+});
+
+const defaultDividerStyles = css({
+  height: heights.default,
+});
+
+const compactDividerStyles = css({
+  height: heights.compact,
 });
 
 const dividerDisabledStyles = css({
@@ -40,7 +36,7 @@ const dividerDisabledStyles = css({
 });
 
 const navigationDividerStyles = css({
-  height: compactDividerHeight,
+  height: '16px',
   margin: `${token('space.100', '8px')} -0.5px`,
   backgroundColor: token('color.text.subtle', '#0052cc'),
   opacity: 0.62,
@@ -57,14 +53,6 @@ const dividerAppearance: Record<
   primary: css({
     backgroundColor: token('color.text.inverse', '#FFF'),
     opacity: 0.64,
-  }),
-  danger: css({
-    backgroundColor: token('color.text.inverse', '#FFF'),
-    opacity: 0.66,
-  }),
-  warning: css({
-    backgroundColor: token('color.text.warning.inverse', '#172B4D'),
-    opacity: 0.52,
   }),
   navigation: navigationDividerStyles,
 };
@@ -93,8 +81,8 @@ export const Divider = ({
     <div
       css={[
         baseDividerStyles,
-        dividerAppearance[appearance],
         dividerHeight[spacing],
+        dividerAppearance[appearance],
         isDisabled ? dividerDisabledStyles : undefined,
       ]}
     />

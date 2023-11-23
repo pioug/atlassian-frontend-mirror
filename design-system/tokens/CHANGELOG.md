@@ -1,5 +1,15 @@
 # @atlaskit/tokens
 
+## 1.29.0
+
+### Minor Changes
+
+- [#43538](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43538) [`c10b408a053`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c10b408a053) - Deprecate typography base tokens.
+
+### Patch Changes
+
+- [#43718](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43718) [`8aebcad547a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8aebcad547a) - Deprecated tokens are now warned against even when a replacement token has not been specified
+
 ## 1.28.2
 
 ### Patch Changes

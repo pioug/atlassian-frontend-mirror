@@ -19,7 +19,10 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
 import { useFilterOptions } from '../../basic-filters/hooks/useFilterOptions';
-import { useHydrateJqlQuery } from '../../basic-filters/hooks/useHydrateJqlQuery';
+import {
+  HydrateJqlState,
+  useHydrateJqlQuery,
+} from '../../basic-filters/hooks/useHydrateJqlQuery';
 import { BasicFilterFieldType, SelectOption } from '../../basic-filters/types';
 import { JiraIssueDatasourceParameters } from '../../types';
 import { JiraSearchContainer, SearchContainerProps } from '../index';
@@ -57,11 +60,17 @@ const initialParameters: JiraIssueDatasourceParameters = {
   jql: '',
 };
 
-const setup = (propsOverride: Partial<SearchContainerProps> = {}) => {
+const setup = (
+  propsOverride: Partial<
+    SearchContainerProps & {
+      hydratedOptions: HydrateJqlState['hydratedOptions'];
+    }
+  > = {},
+) => {
   const mockFetchHydratedJqlOptions = jest.fn();
   asMock(useHydrateJqlQuery).mockReturnValue({
     fetchHydratedJqlOptions: mockFetchHydratedJqlOptions,
-    hydratedOptions: {},
+    hydratedOptions: propsOverride.hydratedOptions || {},
     status: 'resolved',
   });
 
@@ -1170,6 +1179,35 @@ describe('JiraSearchContainer', () => {
         // in current implementation JQL doesn't have basic filters
         fireEvent.click(getByTestId('mode-toggle-basic'));
         expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
+
+        expect(
+          queryByTestId('jlol-basic-filter-container'),
+        ).not.toBeInTheDocument();
+      },
+    );
+  });
+  describe('BasicFilterContainer: should pre-populate basic mode search text hydrate returns input text', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      async () => {
+        const renderResult = setup({
+          hydratedOptions: {
+            basicInputTextValue: 'hello',
+          },
+        });
+
+        const { queryByTestId } = renderResult;
+        setupBasicFilter({ ...renderResult, openPicker: false });
+
+        expect(
+          queryByTestId('jira-jql-datasource-modal--basic-search-input'),
+        ).toHaveValue('hello');
+      },
+      () => {
+        const renderResult = setup();
+
+        const { queryByTestId } = renderResult;
+        setupBasicFilter({ ...renderResult, openPicker: false });
 
         expect(
           queryByTestId('jlol-basic-filter-container'),

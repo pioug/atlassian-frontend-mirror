@@ -5,7 +5,7 @@ import type {
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { Emitter } from '../emitter';
 import { Channel } from '../channel';
-import type { Config, InitialDraft } from '../types';
+import type { Config, InitialDraft, Permit } from '../types';
 import type {
   CollabEditProvider,
   CollabEvents,
@@ -68,6 +68,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   // It determines if the provider should initialize immediately and will only be true if:
   // the feature flag is enabled and the initial draft fetched from NCS is also passed in the config.
   private isBufferingEnabled: boolean = false;
+
+  private permit: Permit = {};
 
   // SessionID is the unique socket-session.
   private sessionId?: string;
@@ -231,6 +233,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         this.updateDocumentAndMetadata({ doc, version, metadata });
       })
       .on('restore', this.documentService.onRestore)
+      .on('permission', (permit: Permit) => {
+        this.permit = Object.assign(this.permit, permit);
+      })
       .on('steps:added', this.documentService.onStepsAdded)
       .on('metadata:changed', this.metadataService.onMetadataChanged)
       .on('participant:telepointer', (payload) =>
@@ -387,6 +392,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     newState: EditorState,
   ) {
     try {
+      if (this.isViewOnly()) {
+        return;
+      }
       // Don't send steps while the document is locked (eg. when restoring the document)
       if (this.namespaceService.getIsNamespaceLocked()) {
         logger('The document is temporary locked');
@@ -427,6 +435,19 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       }
     }
   };
+
+  private isViewOnly() {
+    return (
+      getCollabProviderFeatureFlag(
+        'blockViewOnlyFF',
+        this.config.featureFlags,
+      ) &&
+      this.permit &&
+      // isPermittedToEdit or isPermittedToView can be undefined, must use `===` here.
+      this.permit.isPermittedToEdit === false &&
+      this.permit.isPermittedToView === true
+    );
+  }
 
   /**
    * Send messages, such as telepointers, to NCS and other participants. Only used for telepointer data (text and node selections) in the editor and JWM. JWM does some weird serialisation stuff on the node selections.
@@ -514,6 +535,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    */
   setTitle(title: string, broadcast?: boolean) {
     try {
+      if (this.isViewOnly()) {
+        return;
+      }
       this.metadataService.setTitle(title, broadcast);
     } catch (error) {
       this.analyticsHelper?.sendErrorEvent(error, 'Error while setting title');
@@ -547,6 +571,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    */
   setMetadata(metadata: Metadata) {
     try {
+      if (this.isViewOnly()) {
+        return;
+      }
       this.metadataService.setMetadata(metadata);
     } catch (error) {
       this.analyticsHelper?.sendErrorEvent(

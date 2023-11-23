@@ -1,5 +1,5 @@
-import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
-import { TrackAEP, UIAEP } from './utils';
+import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
+import type { TrackAEP, UIAEP } from './utils';
 
 type OpenAEP = UIAEP<
   ACTION.OPENED,
@@ -29,7 +29,25 @@ type ClickedElementBrowserCategory = TrackAEP<
   undefined
 >;
 
+type OpenPlusMenuCategory = UIAEP<
+  ACTION.OPENED,
+  ACTION_SUBJECT.PLUS_MENU,
+  undefined,
+  undefined,
+  undefined
+>;
+
+type ClosePlusMenuCategory = UIAEP<
+  ACTION.CLOSED,
+  ACTION_SUBJECT.PLUS_MENU,
+  undefined,
+  undefined,
+  undefined
+>;
+
 export type ElementBrowserEventPayload =
   | OpenAEP
   | CloseAEP
-  | ClickedElementBrowserCategory;
+  | ClickedElementBrowserCategory
+  | OpenPlusMenuCategory
+  | ClosePlusMenuCategory;

@@ -1,10 +1,22 @@
 # @atlaskit/button
 
+## 16.17.4
+
+### Patch Changes
+
+- [#43835](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43835) [`eba86990eef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eba86990eef) - Update new Button (in closed beta) API for `iconBefore` and `iconAfter` to be bounded with unsafe fallbacks for icon sizing
+
+## 16.17.3
+
+### Patch Changes
+
+- [#43714](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43714) [`d4c4a73a30a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4c4a73a30a) - [ux] Updates supported SplitButton (closed beta) appearances to be 'default' or 'primary'. Makes dividers full height to match existing uses outside of navigation contexts.
+
 ## 16.17.2
 
 ### Patch Changes
 
-- [#43263](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43263) [`09f29df6245`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09f29df6245) - Update IconButton API to be bounded with unsafe fallback for icon sizing
+- [#43263](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43263) [`09f29df6245`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09f29df6245) - Update IconButton (in closed beta) API to be bounded with unsafe fallback for icon sizing
 
 ## 16.17.1
 

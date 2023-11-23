@@ -15,6 +15,16 @@ import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mocks, waitFor } from '../../../utils/mocks';
 import { IntlProvider } from 'react-intl-next';
 
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+  getBooleanFF: jest
+    .fn()
+    .mockImplementation(
+      (flag) =>
+        flag ===
+        'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
+    ),
+}));
+
 mockSimpleIntersectionObserver();
 
 describe('smart-card: card states, inline', () => {
@@ -195,6 +205,27 @@ describe('smart-card: card states, inline', () => {
         await waitForElement(() => getByText('I love cheese'));
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
+      });
+
+      it('should call onResolve if provided', async () => {
+        const mockOnResolve = jest.fn();
+        const { findByTestId } = render(
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card
+                appearance="inline"
+                url={mockUrl}
+                onResolve={mockOnResolve}
+              />
+            </Provider>
+          </IntlProvider>,
+        );
+        await findByTestId('inline-card-resolved-view');
+
+        expect(mockFetch).toBeCalled();
+        expect(mockFetch).toBeCalledTimes(1);
+        expect(mockOnResolve).toBeCalled();
+        expect(mockOnResolve).toBeCalledTimes(1);
       });
     });
 

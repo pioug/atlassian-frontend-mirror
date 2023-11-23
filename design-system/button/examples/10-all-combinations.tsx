@@ -51,8 +51,14 @@ const ExampleRow = ({
       <Component
         // @ts-ignore
         appearance={appearance}
-        iconBefore={<ChevronDownIcon label="" />}
-        iconAfter={<ChevronDownIcon label="" />}
+        // @ts-ignore
+        iconBefore={
+          type === 'old' ? <ChevronDownIcon label="" /> : ChevronDownIcon
+        }
+        // @ts-ignore
+        iconAfter={
+          type === 'old' ? <ChevronDownIcon label="" /> : ChevronDownIcon
+        }
       >
         Button
       </Component>

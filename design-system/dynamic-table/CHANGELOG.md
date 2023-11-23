@@ -1,5 +1,12 @@
 # @atlaskit/dynamic-table
 
+## 14.11.10
+
+### Patch Changes
+
+- [#43686](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43686) [`da342e5ab42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da342e5ab42) - Remove extraneous `span` from head cell.
+- [#43686](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43686) [`da342e5ab42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da342e5ab42) - test
+
 ## 14.11.9
 
 ### Patch Changes

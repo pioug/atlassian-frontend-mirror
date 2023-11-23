@@ -102,37 +102,6 @@ export const getSimulatedBetterMetadata = (
   }
 };
 
-export const getSimulatedMetadata = (
-  cardDetails?: JsonLd.Response,
-): SimulatedMetadata => {
-  const baseMetadata: ElementItem[] = [
-    { name: ElementName.ModifiedOn },
-    { name: ElementName.AttachmentCount },
-    { name: ElementName.CommentCount },
-    { name: ElementName.ReactCount },
-    { name: ElementName.SubscriberCount },
-    { name: ElementName.ViewCount },
-    { name: ElementName.VoteCount },
-    { name: ElementName.ChecklistProgress },
-    { name: ElementName.DueOn },
-  ];
-  const topMetadata: ElementItem[] =
-    cardDetails?.data &&
-    extractOwnedBy(cardDetails?.data as JsonLd.Data.BaseData)
-      ? [{ name: ElementName.OwnedBy }, ...baseMetadata]
-      : [{ name: ElementName.ModifiedBy }, ...baseMetadata];
-
-  const titleMetadata: ElementItem[] = [
-    { name: ElementName.AuthorGroup },
-    { name: ElementName.Priority },
-    { name: ElementName.State },
-  ];
-  return {
-    titleMetadata,
-    topMetadata,
-  };
-};
-
 type SimulatedMetadata = {
   titleMetadata: ElementItem[];
   topMetadata: ElementItem[];
@@ -152,11 +121,7 @@ export const getTitleBlockOptions = (): Partial<TitleBlockProps> => ({
   position: SmartLinkPosition.Center,
   overrideCss: titleBlockCss,
   hideRetry: true,
-  size: getBooleanFF(
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-  )
-    ? SmartLinkSize.Large
-    : undefined,
+  size: SmartLinkSize.Large,
 });
 
 export const PreviewBlockOptions: Partial<PreviewBlockProps> = {
@@ -164,12 +129,6 @@ export const PreviewBlockOptions: Partial<PreviewBlockProps> = {
   ignoreContainerPadding: true,
 };
 
-// Due to the use of getBooleanFF(), this has to be a function.
-// Make this a const object after ff cleanup.
-export const getFooterBlockOptions = (): Partial<FooterBlockProps> => ({
-  overrideCss: getBooleanFF(
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-  )
-    ? footerBlockCss
-    : undefined,
-});
+export const FooterBlockOptions: Partial<FooterBlockProps> = {
+  overrideCss: footerBlockCss,
+};

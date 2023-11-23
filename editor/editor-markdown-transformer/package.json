@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^34.0.0",
-    "@atlaskit/editor-common": "^76.22.0",
+    "@atlaskit/editor-common": "^76.23.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@babel/runtime": "^7.0.0",
     "markdown-it": "^12.3.2",

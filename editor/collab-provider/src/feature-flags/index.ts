@@ -9,6 +9,7 @@ const defaultNCSFeatureFlags: Required<NCSFeatureFlags> = {
   testFF: false,
   socketMessageMetricsFF: false,
   sendStepsQueueFF: false,
+  blockViewOnlyFF: false,
 };
 
 /**
@@ -20,6 +21,7 @@ const productKeys: ProductKeys = {
     socketMessageMetricsFF:
       'confluence.frontend.collab.provider.socketMessageMetricsFF',
     sendStepsQueueFF: 'confluence.frontend.collab.provider.sendStepsQueueFF',
+    blockViewOnlyFF: 'confluence.frontend.collab.provider.blockViewOnlyFF',
   },
 };
 

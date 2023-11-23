@@ -108,6 +108,14 @@ Print all help text to the command line
 
 - `@atlaskit/codemod-cli --help`
 
+### Custom options
+
+All options are passed to the transformer, which means you can supply custom options that are not listed here.
+
+**examples:**
+
+- `npx @atlaskit/codemod-cli --foo bar /project/src/file.js`
+
 ---
 
 ## Testing locally

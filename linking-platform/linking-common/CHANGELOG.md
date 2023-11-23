@@ -1,5 +1,15 @@
 # @atlaskit/linking-common
 
+## 4.20.0
+
+### Minor Changes
+
+- [#43724](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43724) [`60bbae163c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60bbae163c8) - Deprecate useLinkPickerScrollingTabs ff from type
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.19.0
 
 ### Minor Changes

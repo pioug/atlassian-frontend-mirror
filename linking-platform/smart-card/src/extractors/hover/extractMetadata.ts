@@ -2,7 +2,6 @@ import { ElementName } from '../../constants';
 import { ElementItem } from '../../view/FlexibleCard/components/blocks/types';
 import { MetadataOptions } from '../../view/HoverCard/types';
 import { JsonLd } from 'json-ld-types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const AvatarGroupsWithNamePrefix = [
   ElementName.AssignedToGroup,
@@ -18,12 +17,11 @@ export const elementNamesToItems = (elementNames: string[]): ElementItem[] => {
         ({
           name: elementName,
           testId: `${elementName.toLowerCase()}-metadata-element`,
-          ...(getBooleanFF(
-            'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-          ) &&
-            AvatarGroupsWithNamePrefix.includes(elementName as ElementName) && {
-              showNamePrefix: true,
-            }),
+          ...(AvatarGroupsWithNamePrefix.includes(
+            elementName as ElementName,
+          ) && {
+            showNamePrefix: true,
+          }),
         } as ElementItem),
     );
 };

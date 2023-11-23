@@ -13,6 +13,10 @@ jest.mock('@atlaskit/tokens/rename-mapping', () => ({
       replacement: 'tokenName.new',
     },
     {
+      path: 'testing.no.replacement',
+      state: 'deprecated',
+    },
+    {
       path: 'tokenName.test.defaults',
       state: 'deprecated',
       replacement: 'tokenName.foo.[default]',
@@ -59,6 +63,11 @@ tester.run('no-deprecated-design-token-usage', rule, {
       code: `token('${oldTokenName}');`,
       output: `token('${newTokenName}');`,
       errors: [{ messageId: 'tokenRenamed' }],
+    },
+    // Warnings are triggered for deprecated tokens with no replacement
+    {
+      code: `token('testing.no.replacement');`,
+      errors: [{ messageId: 'tokenDeprecated' }],
     },
     // Ensures that [defaults] are correctly omitted in user-facing messages
     {

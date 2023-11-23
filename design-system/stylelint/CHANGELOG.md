@@ -1,5 +1,12 @@
 # @atlaskit/stylelint-design-system
 
+## 2.1.1
+
+### Patch Changes
+
+- [#43718](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43718) [`8aebcad547a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8aebcad547a) - Deprecated tokens are now warned against even when a replacement token has not been specified
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

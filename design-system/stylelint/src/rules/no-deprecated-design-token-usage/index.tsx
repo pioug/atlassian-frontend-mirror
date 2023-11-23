@@ -8,12 +8,15 @@ import { isFunction, isWord } from '../../utils/rules';
 
 type RuleMessage = {
   invalidToken: RuleMessageFunc;
+  deprecatedToken: RuleMessageFunc;
 };
 
 export const ruleName = 'design-system/no-deprecated-design-token-usage';
 export const messages = stylelint.utils.ruleMessages(ruleName, {
   invalidToken: (name, replacement) =>
     `The token '${name}' has been deprecated. Please use ${replacement} instead.`,
+  deprecatedToken: name =>
+    `The token '${name}' is deprecated, Please refer to the changelog for guidance on how to migrate. https://atlassian.design/components/tokens/changelog`,
 } as RuleMessage);
 
 const isDeprecatedToken = (node: valueParser.Node): boolean =>
@@ -47,24 +50,39 @@ const ruleBase: RuleBase = (isEnabled, flags = {}, context) => {
         }
 
         if (isDeprecatedToken(head)) {
-          const replacement = getCSSCustomProperty(
-            renameMapping.find(
-              ({ path }) => getCSSCustomProperty(path) === head.value,
-            )!.replacement,
+          const tokenMeta = renameMapping.find(
+            ({ path }) => getCSSCustomProperty(path) === head.value,
           );
 
-          if (context.fix) {
-            decl.value = decl.value.replace(head.value, replacement);
+          if (!tokenMeta) {
             return;
-          } else {
-            return stylelint.utils.report({
-              message: messages.invalidToken(head.value, replacement),
-              node: decl,
-              word: node.value,
-              result,
-              ruleName,
-            });
           }
+
+          if (tokenMeta.replacement) {
+            const replacement = getCSSCustomProperty(tokenMeta.replacement);
+
+            if (context.fix) {
+              decl.value = decl.value.replace(head.value, replacement);
+              return;
+            } else {
+              return stylelint.utils.report({
+                message: messages.invalidToken(head.value, replacement),
+                node: decl,
+                word: node.value,
+                result,
+                ruleName,
+              });
+            }
+          }
+
+          // No replacement specified
+          return stylelint.utils.report({
+            message: messages.deprecatedToken(head.value),
+            node: decl,
+            word: node.value,
+            result,
+            ruleName,
+          });
         }
       });
     });

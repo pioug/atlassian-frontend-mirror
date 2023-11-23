@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 26.42.7
+
+### Patch Changes
+
+- [#43690](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43690) [`7ee7fe5d8f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ee7fe5d8f2) - Better metadata feature flag cleanup for platform.linking-platform.smart-card.enable-better-metadata_iojwg
+- [#43820](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43820) [`4c692bf28b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c692bf28b8) - change onResolve prop so it now invokes the callback inside a useEffect, only invoking it on render rather than slightly before it for inline cards, bringing it in line with other card views'
+- Updated dependencies
+
 ## 26.42.6
 
 ### Patch Changes

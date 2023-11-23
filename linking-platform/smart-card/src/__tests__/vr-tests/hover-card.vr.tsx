@@ -67,7 +67,6 @@ snapshot(HoverCardWithPreview, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -78,7 +77,6 @@ snapshot(HoverCardForSlackMessage, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -89,7 +87,6 @@ snapshot(HoverCardConfluence, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -100,7 +97,6 @@ snapshot(HoverCardAssignedJiraIssue, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -111,7 +107,6 @@ snapshot(HoverCardUnassignedJiraIssue, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -122,7 +117,6 @@ snapshot(HoverCardJiraProject, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -141,7 +135,6 @@ snapshot.skip(HoverCardForbiddenJira, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
     'platform.linking-platform.smart-card.cross-join': true,
   },
 });
@@ -161,7 +154,6 @@ snapshot.skip(HoverCardForbiddenJira, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
     'platform.linking-platform.smart-card.cross-join': true,
   },
 });
@@ -181,7 +173,6 @@ snapshot.skip(HoverCardForbiddenJira, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
     'platform.linking-platform.smart-card.cross-join': true,
   },
 });
@@ -201,7 +192,6 @@ snapshot.skip(HoverCardForbiddenJira, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
     'platform.linking-platform.smart-card.cross-join': true,
   },
 });
@@ -221,7 +211,6 @@ snapshot.skip(HoverCardForbiddenJira, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
     'platform.linking-platform.smart-card.cross-join': true,
   },
 });
@@ -241,7 +230,6 @@ snapshot.skip(HoverCardForbiddenJira, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
     'platform.linking-platform.smart-card.cross-join': true,
   },
 });
@@ -256,7 +244,6 @@ snapshot.skip(HoverCardForbiddenJira, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
     'platform.linking-platform.smart-card.cross-join': true,
   },
 });

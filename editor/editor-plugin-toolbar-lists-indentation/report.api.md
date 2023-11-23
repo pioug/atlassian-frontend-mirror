@@ -15,6 +15,40 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+/// <reference types="react" />
+
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { IndentationPlugin } from '@atlaskit/editor-plugin-indentation';
+import type { ListPlugin } from '@atlaskit/editor-plugin-list';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { TasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
+
+// @public (undocumented)
+type Config = {
+  showIndentationButtons: boolean;
+  allowHeadingAndParagraphIndentation: boolean;
+};
+
+// @public (undocumented)
+export type ToolbarListsIndentationPlugin = NextEditorPlugin<
+  'toolbarListsIndentation',
+  {
+    pluginConfiguration: Config;
+    dependencies: [
+      OptionalPlugin<FeatureFlagsPlugin>,
+      ListPlugin,
+      OptionalPlugin<IndentationPlugin>,
+      OptionalPlugin<TasksAndDecisionsPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+    ];
+  }
+>;
+
+// @public (undocumented)
+export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin;
+
 // (No @packageDocumentation comment for this package)
 ```
 
@@ -26,7 +60,8 @@
 
 ```json
 {
-  "react": "^16.8.0"
+  "react": "^16.8.0",
+  "react-intl-next": "npm:react-intl@^5.18.1"
 }
 ```
 

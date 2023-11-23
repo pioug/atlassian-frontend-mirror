@@ -37,6 +37,7 @@ import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import { usePresetContext } from '../../../presets/context';
 import type { FindReplacePlugin } from './../../../plugins/find-replace';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 export interface FullPageToolbarProps {
   appearance?: EditorAppearance;
@@ -66,7 +67,11 @@ export const EditorToolbar = React.memo(
     const [shouldSplitToolbar, setShouldSplitToolbar] = useState(false);
     const editorAPI =
       usePresetContext<
-        [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<FindReplacePlugin>]
+        [
+          OptionalPlugin<AnalyticsPlugin>,
+          OptionalPlugin<FindReplacePlugin>,
+          OptionalPlugin<FeatureFlagsPlugin>,
+        ]
       >();
 
     // When primary toolbar components is undefined, do not show two line editor toolbar
@@ -136,7 +141,13 @@ export const EditorToolbar = React.memo(
             editorView={props.editorView}
             containerElement={props.containerElement}
             dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-            featureFlags={props.featureFlags}
+            // `allowMatchCase` comes through the preset, but not the feature flags
+            // prop with the `ComposableEditor` - grab the FFs from the editor API
+            // instead until we clean this up.
+            featureFlags={
+              editorAPI?.featureFlags?.sharedState.currentState() ??
+              props.featureFlags
+            }
             editorAnalyticsAPI={editorAPI?.analytics?.actions}
           />
         ) : null}

@@ -86,8 +86,6 @@ describe('SplitButton: Accessibility', () => {
   const appearances: ComponentProps<typeof SplitButton>['appearance'][] = [
     'default',
     'primary',
-    'warning',
-    'danger',
   ];
 
   appearances.forEach((appearance) => {

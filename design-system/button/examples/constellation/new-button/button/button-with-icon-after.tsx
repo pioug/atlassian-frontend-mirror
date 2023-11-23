@@ -6,10 +6,7 @@ import { UNSAFE_BUTTON } from '../../../../src';
 
 const ButtonIconAfterExample = () => {
   return (
-    <UNSAFE_BUTTON
-      iconAfter={<StarFilledIcon label="" size="medium" />}
-      appearance="primary"
-    >
+    <UNSAFE_BUTTON iconAfter={StarFilledIcon} appearance="primary">
       Icon after
     </UNSAFE_BUTTON>
   );

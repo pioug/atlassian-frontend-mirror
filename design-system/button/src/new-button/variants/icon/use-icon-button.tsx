@@ -58,10 +58,6 @@ const useIconButton = <TagName extends HTMLElement>({
     appearance,
     autoFocus,
     buttonType,
-    /**
-     * TODO: Have not finished IconButton yet. It also needs a required accessible
-     * label - likely implemented using VisuallyHidden
-     */
     children: (
       <Content type="icon" hasOverlay={hasOverlay}>
         <Icon label="" size={UNSAFE_size} />

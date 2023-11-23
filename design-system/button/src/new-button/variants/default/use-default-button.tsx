@@ -28,8 +28,10 @@ const useDefaultButton = <TagName extends HTMLElement>({
   appearance,
   autoFocus,
   buttonType,
-  iconBefore,
-  iconAfter,
+  iconBefore: IconBefore,
+  UNSAFE_iconBefore_size,
+  iconAfter: IconAfter,
+  UNSAFE_iconAfter_size,
   interactionName,
   isDisabled,
   isSelected,
@@ -58,15 +60,15 @@ const useDefaultButton = <TagName extends HTMLElement>({
     buttonType,
     children: (
       <Fragment>
-        {iconBefore && (
+        {IconBefore && (
           <Content type="icon" hasOverlay={hasOverlay}>
-            {iconBefore}
+            <IconBefore label="" size={UNSAFE_iconBefore_size} />
           </Content>
         )}
         {children && <Content hasOverlay={hasOverlay}>{children}</Content>}
-        {iconAfter && (
+        {IconAfter && (
           <Content type="icon" hasOverlay={hasOverlay}>
-            {iconAfter}
+            <IconAfter label="" size={UNSAFE_iconAfter_size} />
           </Content>
         )}
       </Fragment>
@@ -88,8 +90,8 @@ const useDefaultButton = <TagName extends HTMLElement>({
     ref,
     shouldFitContainer,
     spacing,
-    hasIconBefore: Boolean(iconBefore),
-    hasIconAfter: Boolean(iconAfter),
+    hasIconBefore: Boolean(IconBefore),
+    hasIconAfter: Boolean(IconAfter),
   });
 
   return baseProps;

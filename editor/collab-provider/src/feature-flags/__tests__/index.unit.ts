@@ -10,6 +10,7 @@ describe('Feature flags', () => {
         testFF: true,
         socketMessageMetricsFF: true,
         sendStepsQueueFF: true,
+        blockViewOnlyFF: true,
       },
       'confluence',
     );
@@ -17,6 +18,7 @@ describe('Feature flags', () => {
       'confluence.frontend.collab.provider.testFF',
       'confluence.frontend.collab.provider.socketMessageMetricsFF',
       'confluence.frontend.collab.provider.sendStepsQueueFF',
+      'confluence.frontend.collab.provider.blockViewOnlyFF',
     ]);
   });
 

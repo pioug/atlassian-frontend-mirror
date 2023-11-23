@@ -10,7 +10,10 @@ export interface Props {
   scrollableElement?: HTMLElement;
   isOpen?: boolean;
   onOpenChange?: (attrs: any) => void;
-  onItemActivated?: (attrs: any) => void;
+  onItemActivated?: (attrs: {
+    item: MenuItem;
+    shouldCloseMenu?: boolean;
+  }) => void;
   onMouseEnter?: (attrs: any) => void;
   onMouseLeave?: (attrs: any) => void;
   fitWidth?: number;

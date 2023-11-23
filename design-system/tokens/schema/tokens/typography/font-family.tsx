@@ -10,49 +10,55 @@ const font: AttributeSchema<FontFamilyTokenSchema<BaseToken>> = {
       sans: {
         attributes: {
           group: 'fontFamily',
-          state: 'active',
+          state: 'deprecated',
           introduced: '0.10.33',
           description: 'Helpful guidance goes here',
+          deprecated: '1.29.0',
         },
       },
       monospace: {
         attributes: {
           group: 'fontFamily',
-          state: 'active',
+          state: 'deprecated',
           introduced: '0.10.33',
           description: 'Helpful guidance goes here',
+          deprecated: '1.29.0',
         },
       },
       code: {
         attributes: {
           group: 'fontFamily',
-          state: 'experimental',
+          state: 'deprecated',
           introduced: '1.14.0',
           description: 'Helpful guidance goes here',
+          deprecated: '1.29.0',
         },
       },
       brand: {
         attributes: {
           group: 'fontFamily',
-          state: 'experimental',
+          state: 'deprecated',
           introduced: '1.14.0',
           description: 'Helpful guidance goes here',
+          deprecated: '1.29.0',
         },
       },
       heading: {
         attributes: {
           group: 'fontFamily',
-          state: 'experimental',
+          state: 'deprecated',
           introduced: '1.14.0',
           description: 'Helpful guidance goes here',
+          deprecated: '1.29.0',
         },
       },
       body: {
         attributes: {
           group: 'fontFamily',
-          state: 'experimental',
+          state: 'deprecated',
           introduced: '1.14.0',
           description: 'Helpful guidance goes here',
+          deprecated: '1.29.0',
         },
       },
     },

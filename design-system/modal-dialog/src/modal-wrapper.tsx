@@ -120,6 +120,19 @@ const ModalWrapper = (props: ModalDialogProps) => {
     </Blanket>
   );
 
+  let returnFocus = true;
+  let onDeactivation: (node: HTMLElement) => void;
+
+  if ('boolean' === typeof shouldReturnFocus) {
+    returnFocus = shouldReturnFocus;
+  } else {
+    onDeactivation = () => {
+      window.setTimeout(() => {
+        shouldReturnFocus.current?.focus();
+      }, 0);
+    };
+  }
+
   return (
     <UNSAFE_LAYERING
       isDisabled={
@@ -139,7 +152,8 @@ const ModalWrapper = (props: ModalDialogProps) => {
               <FocusLock
                 autoFocus={autoFocusLock}
                 disabled={!isForeground}
-                returnFocus={shouldReturnFocus}
+                returnFocus={returnFocus}
+                onDeactivation={onDeactivation}
                 whiteList={whiteListElements}
               >
                 {/* Ensures scroll events are blocked on the document body and locked */}

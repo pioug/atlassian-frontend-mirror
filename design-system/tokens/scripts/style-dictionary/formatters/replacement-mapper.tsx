@@ -7,7 +7,11 @@ import sortTokens from '../sort-tokens';
 const formatter: Format['formatter'] = ({ dictionary }) => {
   const tokens = sortTokens(
     dictionary.allTokens.filter(
-      (token) => token.attributes && token.attributes.replacement,
+      (token) =>
+        token.attributes &&
+        (token.attributes.state === 'experimental' ||
+          token.attributes.state === 'deprecated' ||
+          token.attributes.state === 'deleted'),
     ),
   ).map((token) => ({
     path: token.path.join('.'),
@@ -21,7 +25,7 @@ type Token = keyof typeof tokens | string;
 type RenameMap = {
   path: string;
   state: 'experimental' | 'deprecated' | 'deleted';
-  replacement: Token;
+  replacement?: Token;
 }
 
 const replacementMapper: RenameMap[] = ${JSON.stringify(tokens, null, 2)};

@@ -28,20 +28,14 @@ export default function ButtonAlignmentExample() {
                 </Box>
                 <Box>
                   <Box as="span">Text before with icon</Box>
-                  <Component
-                    iconBefore={<ChevronDownIcon label="" />}
-                    spacing={space}
-                  >
+                  <Component iconBefore={ChevronDownIcon} spacing={space}>
                     Button
                   </Component>
                   <Box as="span">Text after with icon</Box>
                 </Box>
                 <Box>
                   <Box as="span">Text before with icon</Box>
-                  <Component
-                    iconAfter={<ChevronDownIcon label="" />}
-                    spacing={space}
-                  >
+                  <Component iconAfter={ChevronDownIcon} spacing={space}>
                     Button
                   </Component>
                   <Box as="span">Text after with icon</Box>

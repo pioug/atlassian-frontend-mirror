@@ -203,3 +203,23 @@ test('Modal with no focusable children should gain focus on its container', asyn
   await expect(modal).toBeVisible();
   await expect(modal).toBeFocused();
 });
+
+test('Focus should return to item specified by ref after modal is closed', async ({
+  page,
+}) => {
+  const openModal = page.getByTestId('open-modal');
+  const closeModal = page.getByTestId('close-modal');
+  const focusOnModalClose = page.getByTestId('return-focus-element');
+
+  await page.visitExample(
+    'design-system',
+    'modal-dialog',
+    'focus-to-ref-on-modal-close',
+  );
+  await expect(openModal).toBeVisible();
+  await expect(focusOnModalClose).toBeVisible();
+  await openModal.click();
+  await expect(closeModal).toBeVisible();
+  await closeModal.click();
+  await expect(focusOnModalClose).toBeFocused();
+});

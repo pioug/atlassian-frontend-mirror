@@ -836,6 +836,26 @@ export const SUPPORTED_LANGUAGES: readonly [
     readonly alias: readonly ['splunk-spl'];
     readonly value: 'splunk-spl';
   },
+  {
+    readonly name: 'Dockerfile';
+    readonly alias: readonly ['docker', 'dockerfile'];
+    readonly value: 'dockerfile';
+  },
+  {
+    readonly name: 'HCL';
+    readonly alias: readonly ['hcl', 'terraform'];
+    readonly value: 'hcl';
+  },
+  {
+    readonly name: 'NGINX';
+    readonly alias: readonly ['nginx'];
+    readonly value: 'nginx';
+  },
+  {
+    readonly name: 'Protocol Buffers';
+    readonly alias: readonly ['protobuf', 'proto'];
+    readonly value: 'protobuf';
+  },
 ];
 
 // @public (undocumented)

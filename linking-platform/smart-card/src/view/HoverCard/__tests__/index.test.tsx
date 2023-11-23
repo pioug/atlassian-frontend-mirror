@@ -148,7 +148,7 @@ describe('HoverCard', () => {
     const analyticsSpy = jest.fn();
     setGlobalTheme({ colorMode: 'dark' });
 
-    const { queryByTestId, findByTestId } = render(
+    const { findAllByTestId, queryByTestId, findByTestId } = render(
       <AnalyticsListener
         channel={analytics.ANALYTICS_CHANNEL}
         onEvent={analyticsSpy}
@@ -178,6 +178,7 @@ describe('HoverCard', () => {
     await event.hover(element);
 
     return {
+      findAllByTestId,
       findByTestId,
       queryByTestId,
       element,
@@ -1146,7 +1147,6 @@ describe('HoverCard', () => {
           switch (flag) {
             case 'platform.linking-platform.smart-card.cross-join':
             case 'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-            case 'platform.linking-platform.smart-card.enable-better-metadata_iojwg':
               return true;
           }
         });
@@ -1471,14 +1471,15 @@ describe('HoverCard', () => {
 
         it('does not propagate event to parent when clicking inside hover card content on a flexui link', async () => {
           const mockOnClick = jest.fn();
-          const { findByTestId, event } = await renderComponent({
-            mockOnClick,
-          });
+          const { findAllByTestId, findByTestId, event } =
+            await renderComponent({
+              mockOnClick,
+            });
 
-          const metadataBlock = await findByTestId(
+          const metadataBlock = await findAllByTestId(
             'smart-block-metadata-resolved-view',
           );
-          await event.click(metadataBlock);
+          await event.click(metadataBlock[0]);
 
           const previewButton = await findByTestId(
             'smart-footer-block-resolved-view',
@@ -1518,7 +1519,7 @@ describe('HoverCard', () => {
           },
         };
 
-        const { findByTestId, queryByTestId } = render(
+        const { findAllByTestId, findByTestId, queryByTestId } = render(
           <Provider client={mockClient} storeOptions={storeOptions}>
             <Card appearance="inline" url={mockUrl} showHoverPreview={true} />
           </Provider>,
@@ -1535,6 +1536,7 @@ describe('HoverCard', () => {
         await waitFor(() => expect(mockFetch).toBeCalledTimes(1));
 
         return {
+          findAllByTestId,
           findByTestId,
           queryByTestId,
           resolveFetch,
@@ -1544,13 +1546,13 @@ describe('HoverCard', () => {
       };
 
       it('should render hover card correctly', async () => {
-        const { findByTestId, queryByTestId, resolveFetch } =
+        const { findAllByTestId, findByTestId, queryByTestId, resolveFetch } =
           await setupWithSSR();
 
         await findByTestId('hover-card-loading-view');
         resolveFetch(mockConfluenceResponse);
 
-        await findByTestId('smart-block-metadata-resolved-view');
+        await findAllByTestId('smart-block-metadata-resolved-view');
         const titleBlock = await findByTestId(
           'smart-block-title-resolved-view',
         );
@@ -1715,11 +1717,12 @@ describe('HoverCard', () => {
             <div data-testid={testId}>Hover on me</div>
           </HoverCard>
         );
-        const { findByTestId, analyticsSpy, event } = await setup({
-          testId,
-          component: hoverCardComponent,
-        });
-        await findByTestId('smart-block-metadata-resolved-view');
+        const { findAllByTestId, findByTestId, analyticsSpy, event } =
+          await setup({
+            testId,
+            component: hoverCardComponent,
+          });
+        await findAllByTestId('smart-block-metadata-resolved-view');
         const link = await findByTestId('smart-element-link');
 
         await event.click(link);
@@ -1851,9 +1854,9 @@ describe('HoverCard', () => {
     commonTests(standaloneSetUp);
 
     it('should render a hover card over a div', async () => {
-      const { findByTestId } = await standaloneSetUp();
+      const { findAllByTestId, findByTestId } = await standaloneSetUp();
       const titleBlock = await findByTestId('smart-block-title-resolved-view');
-      await findByTestId('smart-block-metadata-resolved-view');
+      await findAllByTestId('smart-block-metadata-resolved-view');
       const snippetBlock = await findByTestId(
         'smart-block-snippet-resolved-view',
       );
@@ -1979,12 +1982,13 @@ describe('HoverCard', () => {
 
       it('should fire link clicked event with correct attributes', async () => {
         const spy = jest.spyOn(analytics, 'uiCardClickedEvent');
-        const { findByTestId, analyticsSpy, event } = await setup({
-          testId,
-          component: hoverCardComponent,
-        });
+        const { findAllByTestId, findByTestId, analyticsSpy, event } =
+          await setup({
+            testId,
+            component: hoverCardComponent,
+          });
 
-        await findByTestId('smart-block-metadata-resolved-view');
+        await findAllByTestId('smart-block-metadata-resolved-view');
 
         const link = await findByTestId('smart-element-link');
         await event.click(link);

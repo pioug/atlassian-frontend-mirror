@@ -1,5 +1,15 @@
 # @atlaskit/codemod-cli
 
+## 0.17.0
+
+### Minor Changes
+
+- [#43699](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43699) [`82e6819e04b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82e6819e04b) - Update the codemod-cli to accept custom options, e.g. `npx @atlaskit/codemod-cli --foo bar /project/src/file.js`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.16.0
 
 ### Minor Changes

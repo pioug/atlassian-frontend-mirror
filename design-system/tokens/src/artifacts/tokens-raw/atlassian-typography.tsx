@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e95de29cabce142a19e4a4c6780c2555>>
+ * @codegen <<SignedSource::a717b92c24abaed420317701890abc95>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -389,9 +389,10 @@ const tokens = [
   {
     "attributes": {
       "group": "letterSpacing",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "0",
     "filePath": "schema/themes/atlassian-typography/letter-spacing.tsx",
@@ -399,9 +400,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "letterSpacing",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LetterSpacing0"
     },
@@ -416,9 +418,10 @@ const tokens = [
   {
     "attributes": {
       "group": "letterSpacing",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "0",
     "filePath": "schema/themes/atlassian-typography/letter-spacing.tsx",
@@ -426,9 +429,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "letterSpacing",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LetterSpacing0"
     },
@@ -443,9 +447,10 @@ const tokens = [
   {
     "attributes": {
       "group": "letterSpacing",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "0",
     "filePath": "schema/themes/atlassian-typography/letter-spacing.tsx",
@@ -453,9 +458,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "letterSpacing",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LetterSpacing0"
     },
@@ -470,9 +476,10 @@ const tokens = [
   {
     "attributes": {
       "group": "letterSpacing",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "0",
     "filePath": "schema/themes/atlassian-typography/letter-spacing.tsx",
@@ -480,9 +487,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "letterSpacing",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LetterSpacing0"
     },
@@ -497,9 +505,10 @@ const tokens = [
   {
     "attributes": {
       "group": "letterSpacing",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "0",
     "filePath": "schema/themes/atlassian-typography/letter-spacing.tsx",
@@ -507,9 +516,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "letterSpacing",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "LetterSpacing0"
     },
@@ -592,9 +602,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontFamily",
-      "state": "experimental",
+      "state": "deprecated",
       "introduced": "1.14.0",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography/font-family.tsx",
@@ -602,9 +613,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontFamily",
-        "state": "experimental",
+        "state": "deprecated",
         "introduced": "1.14.0",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontFamilyWebSans"
     },
@@ -619,9 +631,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontFamily",
-      "state": "experimental",
+      "state": "deprecated",
       "introduced": "1.14.0",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
     "filePath": "schema/themes/atlassian-typography/font-family.tsx",
@@ -629,9 +642,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontFamily",
-        "state": "experimental",
+        "state": "deprecated",
         "introduced": "1.14.0",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontFamilyWebMono"
     },
@@ -646,9 +660,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontFamily",
-      "state": "experimental",
+      "state": "deprecated",
       "introduced": "1.14.0",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography/font-family.tsx",
@@ -656,9 +671,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontFamily",
-        "state": "experimental",
+        "state": "deprecated",
         "introduced": "1.14.0",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontFamilyWebSans"
     },
@@ -673,9 +689,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontFamily",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
     "filePath": "schema/themes/atlassian-typography/font-family.tsx",
@@ -683,9 +700,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontFamily",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontFamilyWebMono"
     },
@@ -700,9 +718,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontFamily",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography/font-family.tsx",
@@ -710,9 +729,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontFamily",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.10.33",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontFamilyWebSans"
     },
@@ -727,9 +747,10 @@ const tokens = [
   {
     "attributes": {
       "group": "fontFamily",
-      "state": "experimental",
+      "state": "deprecated",
       "introduced": "1.14.0",
-      "description": "Helpful guidance goes here"
+      "description": "Helpful guidance goes here",
+      "deprecated": "1.29.0"
     },
     "value": "Charlie Sans",
     "filePath": "schema/themes/atlassian-typography/font-family.tsx",
@@ -737,9 +758,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "fontFamily",
-        "state": "experimental",
+        "state": "deprecated",
         "introduced": "1.14.0",
-        "description": "Helpful guidance goes here"
+        "description": "Helpful guidance goes here",
+        "deprecated": "1.29.0"
       },
       "value": "FontFamilyCharlie"
     },

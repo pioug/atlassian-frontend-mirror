@@ -19,6 +19,7 @@ import ButtonPadding from '../../examples/constellation/new-button/button/button
 import ButtonFullWidth from '../../examples/constellation/new-button/button/button-full-width';
 import ButtonWithIconBefore from '../../examples/constellation/new-button/button/button-with-icon-before';
 import ButtonWithIconAfter from '../../examples/constellation/new-button/button/button-with-icon-after';
+import ButtonWithIconBeforeSize from '../../examples/constellation/new-button/button/button-with-icon-before-size';
 import ButtonTruncation from '../../examples/constellation/new-button/button/button-truncation';
 import ButtonOverlay from '../../examples/constellation/new-button/button/button-overlay';
 
@@ -172,6 +173,20 @@ Display an icon before the text.
 Display an icon after the text.
 
 <Example Component={ButtonWithIconAfter} packageName="@atlaskit/button" />
+
+### Overriding icon size
+
+To override the default icon size, use `UNSAFE_iconBefore_size` or `UNSAFE_iconAfter_size`.
+
+<SectionMessage title="Caution" appearance="warning">
+  <p>
+    This is an UNSAFE prop which will be removed in a later version. There are
+    plans to revise iconography to provide consistent sizing at which point this
+    will no longer be necessary.
+  </p>
+</SectionMessage>
+
+<Example Component={ButtonWithIconBeforeSize} packageName="@atlaskit/button" />
 
 ## Truncation
 

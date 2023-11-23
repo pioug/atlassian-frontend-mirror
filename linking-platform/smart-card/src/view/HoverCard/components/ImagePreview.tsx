@@ -4,7 +4,6 @@ import extractPreview from '../../../extractors/flexible/extract-preview';
 import { PreviewBlock } from '../../FlexibleCard/components/blocks';
 import { getTransitionStyles, getPreviewBlockStyles } from '../styled';
 import { ImagePreviewProps } from '../types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const ImagePreview: React.FC<ImagePreviewProps> = ({
   data,
@@ -40,9 +39,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
   return showPreview && data && extractPreview(data) ? (
     <PreviewBlock
       onError={onPreviewError}
-      {...(getBooleanFF(
-        'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-      ) && { ignoreContainerPadding: true })}
+      ignoreContainerPadding={true}
       overrideCss={previewCss}
       onTransitionEnd={onPreviewTransitionEnd}
       blockRef={previewBlockRef}

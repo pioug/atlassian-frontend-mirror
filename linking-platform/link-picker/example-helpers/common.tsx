@@ -34,11 +34,7 @@ export function PageWrapper({
   );
 
   return (
-    <SmartCardProvider
-      featureFlags={{
-        useLinkPickerScrollingTabs: true,
-      }}
-    >
+    <SmartCardProvider>
       <div className="example" style={{ padding: 50 }}>
         {languagePicker}
         <IntlProvider locale={locale}>{children}</IntlProvider>

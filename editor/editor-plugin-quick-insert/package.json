@@ -36,13 +36,13 @@
   },
   "dependencies": {
     "@atlaskit/button": "^16.17.0",
-    "@atlaskit/editor-common": "^76.22.0",
+    "@atlaskit/editor-common": "^76.23.0",
     "@atlaskit/editor-plugin-type-ahead": "^0.7.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/icon": "^22.0.0",
-    "@atlaskit/modal-dialog": "^12.8.0",
+    "@atlaskit/modal-dialog": "^12.9.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.28.0",
+    "@atlaskit/tokens": "^1.29.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

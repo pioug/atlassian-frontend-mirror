@@ -17,6 +17,8 @@ const rule = createLintRule({
     fixable: 'code',
     type: 'problem',
     messages: {
+      tokenDeprecated:
+        'The token "{{name}}" is deprecated, Please refer to the changelog for guidance on how to migrate. https://atlassian.design/components/tokens/changelog',
       tokenRenamed:
         'The token "{{name}}" is deprecated in favour of "{{replacement}}".',
     },
@@ -46,7 +48,12 @@ const rule = createLintRule({
           .filter((t) => t.state === 'deprecated')
           .find((t) => getTokenId(t.path) === tokenKey);
 
-        if (migrationMeta) {
+        if (!migrationMeta) {
+          return;
+        }
+
+        if (migrationMeta.replacement) {
+          // Replacement specified, apply fixer
           const replacement = getTokenId(migrationMeta.replacement);
 
           context.report({
@@ -59,6 +66,20 @@ const rule = createLintRule({
             fix: (fixer) =>
               fixer.replaceText(node.arguments[0], `'${replacement}'`),
           });
+          return;
+        }
+
+        // No replacement specified
+        if (
+          migrationMeta.state === 'deprecated' &&
+          !migrationMeta.replacement
+        ) {
+          context.report({
+            messageId: 'tokenDeprecated',
+            node,
+            data: { name: tokenKey },
+          });
+
           return;
         }
       },

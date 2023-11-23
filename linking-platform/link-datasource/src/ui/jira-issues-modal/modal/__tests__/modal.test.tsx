@@ -292,9 +292,9 @@ describe('JiraIssuesConfigModal', () => {
         assertInsertResult(
           {
             cloudId: '67899',
-            jql: 'status in (Authorize, "Awaiting approval") and created >= -30d ORDER BY created DESC',
+            jql: 'status in (Authorize, "Awaiting approval") ORDER BY created DESC',
             jqlUrl:
-              'https://hello.atlassian.net/issues/?jql=status%20in%20(Authorize,%20%22Awaiting%20approval%22)%20and%20created%20%3E=%20-30d%20ORDER%20BY%20created%20DESC',
+              'https://hello.atlassian.net/issues/?jql=status%20in%20(Authorize,%20%22Awaiting%20approval%22)%20ORDER%20BY%20created%20DESC',
           },
           {
             attributes: {

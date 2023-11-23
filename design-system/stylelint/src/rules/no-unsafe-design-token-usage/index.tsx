@@ -87,23 +87,29 @@ const ruleBase: RuleBase = (isEnabled, flags = {}, context) => {
         }
 
         if (isDeletedToken(head)) {
-          const replacement = getCSSCustomProperty(
-            renameMapping.find(
-              ({ path }) => getCSSCustomProperty(path) === head.value,
-            )!.replacement,
+          const tokenMeta = renameMapping.find(
+            ({ path }) => getCSSCustomProperty(path) === head.value,
           );
 
-          if (context.fix) {
-            decl.value = decl.value.replace(head.value, replacement);
+          if (!tokenMeta) {
             return;
-          } else {
-            return stylelint.utils.report({
-              message: messages.tokenRemoved(head.value, replacement),
-              node: decl,
-              word: node.value,
-              result,
-              ruleName,
-            });
+          }
+
+          if (tokenMeta.replacement) {
+            const replacement = getCSSCustomProperty(tokenMeta.replacement);
+
+            if (context.fix) {
+              decl.value = decl.value.replace(head.value, replacement);
+              return;
+            } else {
+              return stylelint.utils.report({
+                message: messages.tokenRemoved(head.value, replacement),
+                node: decl,
+                word: node.value,
+                result,
+                ruleName,
+              });
+            }
           }
         }
 

@@ -11,7 +11,7 @@ import {
   selectTable,
 } from '@atlaskit/editor-tables/utils';
 
-import { clearHoverSelection, hoverTable } from '../../../commands';
+import { clearHoverSelection } from '../../../commands';
 import { TableCssClassName as ClassName } from '../../../types';
 
 import type { CornerControlProps } from './types';
@@ -24,11 +24,6 @@ const DragCornerControlsComponent = ({
   const handleOnClick = () => {
     const { state, dispatch } = editorView;
     dispatch(selectTable(state.tr).setMeta('addToHistory', false));
-  };
-
-  const handleMouseOver = () => {
-    const { state, dispatch } = editorView;
-    hoverTable()(state, dispatch);
   };
 
   const handleMouseOut = () => {
@@ -54,7 +49,6 @@ const DragCornerControlsComponent = ({
       aria-label={formatMessage(messages.cornerControl)}
       type="button"
       onClick={handleOnClick}
-      onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
       contentEditable={false}
     >

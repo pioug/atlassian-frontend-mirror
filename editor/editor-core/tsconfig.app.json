@@ -164,6 +164,9 @@
       "path": "../editor-plugin-indentation/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-insert-block/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-layout/tsconfig.app.json"
     },
     {
@@ -228,6 +231,9 @@
     },
     {
       "path": "../editor-plugin-text-formatting/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-toolbar-lists-indentation/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-type-ahead/tsconfig.app.json"

@@ -3,6 +3,9 @@ export interface LinkingPlatformFeatureFlags {
    * @deprecated Implementation removed in EDM-3632 - enable this feature using the showHoverPreview prop outside of LinkingPlatformFeatureFlags
    */
   showHoverPreview?: boolean;
+  /**
+   * @deprecated Implementation removed in EDM-8573
+   */
   useLinkPickerScrollingTabs?: boolean;
   /**
    * Enable an experiment on clickable State element on Hover Preview for Jira issue link.

@@ -31,10 +31,7 @@ export default function SpacingExample() {
                     <Component spacing={s}>Default</Component>
                   </td>
                   <td>
-                    <Component
-                      spacing={s}
-                      iconAfter={<ChevronDownIcon label="" />}
-                    >
+                    <Component spacing={s} iconAfter={ChevronDownIcon}>
                       Icon
                     </Component>
                   </td>

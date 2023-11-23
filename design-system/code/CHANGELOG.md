@@ -1,5 +1,11 @@
 # @atlaskit/code
 
+## 15.1.0
+
+### Minor Changes
+
+- [#42903](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42903) [`96e3a0ee5b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96e3a0ee5b7) - [ux] Add support for Dockerfile, HCL, NGINX and Protobuf languages
+
 ## 15.0.0
 
 ### Major Changes

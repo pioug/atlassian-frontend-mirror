@@ -20,7 +20,7 @@
                 "colspan": 1,
                 "rowspan": 1,
                 "colwidth": [
-                  129
+                  128
                 ],
                 "background": null
               },
@@ -36,7 +36,7 @@
                 "colspan": 2,
                 "rowspan": 1,
                 "colwidth": [
-                  422,
+                  423,
                   128
                 ],
                 "background": null
@@ -58,8 +58,8 @@
                 "colspan": 3,
                 "rowspan": 1,
                 "colwidth": [
-                  129,
-                  422,
+                  128,
+                  423,
                   128
                 ],
                 "background": null
@@ -81,7 +81,7 @@
                 "colspan": 1,
                 "rowspan": 2,
                 "colwidth": [
-                  129
+                  128
                 ],
                 "background": null
               },
@@ -97,7 +97,7 @@
                 "colspan": 1,
                 "rowspan": 1,
                 "colwidth": [
-                  422
+                  423
                 ],
                 "background": null
               },
@@ -134,7 +134,7 @@
                 "colspan": 1,
                 "rowspan": 1,
                 "colwidth": [
-                  422
+                  423
                 ],
                 "background": null
               },

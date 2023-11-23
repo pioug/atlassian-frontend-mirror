@@ -5,6 +5,7 @@ import {
   tableSharedStyle,
 } from '@atlaskit/editor-common/styles';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import { browser } from '@atlaskit/editor-common/utils';
 import {
   akEditorSelectedNodeClassName,
   akEditorSmallZIndex,
@@ -246,6 +247,26 @@ const tableStickyHeaderColumnControlsDecorationsStyle = (
   }
 };
 
+const tableStickyHeaderFirefoxFixStyle = (
+  props: ThemeProps & { featureFlags?: FeatureFlags },
+) => {
+  /*
+    This is MAGIC!
+    This fixes a bug which occurs in firefox when the first row becomes sticky.
+    see https://product-fabric.atlassian.net/browse/ED-19177
+  */
+  if (
+    browser.gecko &&
+    getBooleanFF('platform.editor.table.alternative-sticky-header-logic')
+  ) {
+    return css`
+      .${ClassName.TABLE_STICKY} > tbody::before {
+        content: '';
+      }
+    `;
+  }
+};
+
 const tableRowControlStyles = () => {
   return getBooleanFF('platform.editor.table.drag-and-drop')
     ? css`
@@ -401,6 +422,8 @@ export const tableStyles = (
     }
 
     ${tableStickyHeaderColumnControlsDecorationsStyle(props)}
+
+    ${tableStickyHeaderFirefoxFixStyle(props)}
 
     .${ClassName.TABLE_STICKY}
       .${ClassName.ROW_CONTROLS}

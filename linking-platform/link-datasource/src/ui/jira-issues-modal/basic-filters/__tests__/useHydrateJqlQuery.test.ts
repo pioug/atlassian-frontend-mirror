@@ -22,7 +22,7 @@ jest.mock('../../../../services/useBasicFilterAGG', () => {
 });
 
 describe('useHydrateJqlQuery', () => {
-  const setup = () => {
+  const setup = (jql: string = mockJql) => {
     jest.resetAllMocks();
     const getHydratedJQL = jest
       .fn()
@@ -32,7 +32,7 @@ describe('useHydrateJqlQuery', () => {
     });
 
     const { result, waitForNextUpdate, rerender } = renderHook(() =>
-      useHydrateJqlQuery(mockCloudId, mockJql),
+      useHydrateJqlQuery(mockCloudId, jql),
     );
     return {
       getHydratedJQL,
@@ -87,6 +87,34 @@ describe('useHydrateJqlQuery', () => {
       errors: [],
     });
   });
+
+  it.each<string>([
+    'text=hello',
+    'text=hello or summary=world',
+    'text=hello or summary=world or key=EDM-123',
+    'text ~ "hello*" or summary ~ "hello*" ORDER BY created DESC',
+    'text ~ "hello*" or summary ~ "world*" ORDER BY created DESC',
+  ])(
+    'should return correct basicInputTextValue value when jql is %s',
+    async jql => {
+      const { result, waitForNextUpdate } = setup(jql);
+      await result.current.fetchHydratedJqlOptions();
+
+      act(() => {
+        waitForNextUpdate();
+      });
+
+      expect(result.current).toEqual({
+        hydratedOptions: {
+          basicInputTextValue: 'hello',
+          ...hydrateJqlStandardResponseMapped,
+        },
+        fetchHydratedJqlOptions: expect.any(Function),
+        status: 'resolved',
+        errors: [],
+      });
+    },
+  );
 
   it('should return status as rejected when getHydratedJql throws error', async () => {
     const { result, waitForNextUpdate, getHydratedJQL } = setup();

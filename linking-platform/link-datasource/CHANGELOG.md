@@ -1,5 +1,25 @@
 # @atlaskit/link-datasource
 
+## 1.19.3
+
+### Patch Changes
+
+- [#43787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43787) [`a9738b4c894`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9738b4c894) - Logic to parse text value from JQL and pre-populate input box in basic mode.
+- Updated dependencies
+
+## 1.19.2
+
+### Patch Changes
+
+- [#43713](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43713) [`2fa24eb9ab7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fa24eb9ab7) - Update JQL generation logic to create query to search for all issues when only filter values are present.
+- Updated dependencies
+
+## 1.19.1
+
+### Patch Changes
+
+- [#43693](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43693) [`01533fad7e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01533fad7e6) - Add basic filter selection count to insert event.
+
 ## 1.19.0
 
 ### Minor Changes

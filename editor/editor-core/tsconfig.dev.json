@@ -184,10 +184,7 @@
       "path": "../editor-plugin-hyperlink/tsconfig.app.json"
     },
     {
-      "path": "../editor-plugin-image-upload/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-indentation/tsconfig.app.json"
+      "path": "../editor-plugin-insert-block/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-layout/tsconfig.app.json"

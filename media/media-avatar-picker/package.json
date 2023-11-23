@@ -38,11 +38,11 @@
     "@atlaskit/flag": "^15.2.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/media-ui": "^25.0.0",
-    "@atlaskit/modal-dialog": "^12.8.0",
+    "@atlaskit/modal-dialog": "^12.9.0",
     "@atlaskit/range": "^7.1.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.28.0",
+    "@atlaskit/tokens": "^1.29.0",
     "@atlaskit/visually-hidden": "^1.2.0",
     "@babel/runtime": "^7.0.0",
     "exenv": "^1.2.2"

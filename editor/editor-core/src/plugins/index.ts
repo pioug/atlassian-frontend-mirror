@@ -1,9 +1,7 @@
 export { default as clearMarksOnChangeToEmptyDocumentPlugin } from './clear-marks-on-change-to-empty-document';
 export { default as collabEditPlugin } from './collab-edit';
 export { default as extensionPlugin } from './extension';
-export { default as insertBlockPlugin } from './insert-block';
 export { default as jiraIssuePlugin } from './jira-issue';
-export { default as toolbarListsIndentationPlugin } from './toolbar-lists-indentation';
 export { default as pastePlugin } from './paste';
 export { default as breakoutPlugin } from './breakout';
 export { default as alignmentPlugin } from './alignment';

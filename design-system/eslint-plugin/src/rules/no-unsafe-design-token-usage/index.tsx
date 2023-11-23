@@ -184,7 +184,11 @@ token('color.background.blanket');
             .filter((t) => t.state === 'deleted')
             .find((t) => getTokenId(t.path) === tokenKey);
 
-          if (typeof tokenKey === 'string' && deletedMigrationMeta) {
+          if (
+            typeof tokenKey === 'string' &&
+            deletedMigrationMeta &&
+            deletedMigrationMeta.replacement
+          ) {
             const cleanTokenKey = getTokenId(deletedMigrationMeta.replacement);
 
             context.report({
@@ -200,15 +204,18 @@ token('color.background.blanket');
             return;
           }
 
-          const experimentalMigrationMeta = renameMapping
+          const tokenMeta = renameMapping
             .filter((t) => t.state === 'experimental')
             .find((t) => getTokenId(t.path) === tokenKey);
 
           const tokenNames = Object.keys(tokens);
 
-          if (typeof tokenKey === 'string' && experimentalMigrationMeta) {
-            const replacementValue = experimentalMigrationMeta.replacement;
-
+          if (
+            typeof tokenKey === 'string' &&
+            tokenMeta &&
+            tokenMeta.replacement
+          ) {
+            const replacementValue = tokenMeta.replacement;
             const isReplacementAToken = tokenNames.includes(replacementValue);
 
             context.report({

@@ -1,7 +1,7 @@
 import { JsonLd } from 'json-ld-types';
 import { ElementName } from '../../../../../constants';
 import { ElementItem } from '../../../../FlexibleCard/components/blocks/types';
-import { getSimulatedBetterMetadata, getSimulatedMetadata } from '../utils';
+import { getSimulatedBetterMetadata } from '../utils';
 import {
   mockJiraResponse,
   mockBaseResponse,
@@ -109,53 +109,5 @@ describe('getSimulatedBetterMetadata', () => {
       expect(metadata.topMetadata).toEqual(defaultTopMetadata);
       expect(metadata.bottomMetadata).toEqual(defaultBottomMetadata);
     });
-  });
-});
-
-describe('getSimulatedMetadata', () => {
-  it('should return default metadata when no ownedBy data is present ', () => {
-    const metadata = getSimulatedMetadata(mockBaseResponse as JsonLd.Response);
-    expect(metadata.titleMetadata).toEqual([
-      { name: ElementName.AuthorGroup },
-      { name: ElementName.Priority },
-      { name: ElementName.State },
-    ]);
-    expect(metadata.topMetadata).toEqual([
-      { name: ElementName.ModifiedBy },
-      { name: ElementName.ModifiedOn },
-      { name: ElementName.AttachmentCount },
-      { name: ElementName.CommentCount },
-      { name: ElementName.ReactCount },
-      { name: ElementName.SubscriberCount },
-      { name: ElementName.ViewCount },
-      { name: ElementName.VoteCount },
-      { name: ElementName.ChecklistProgress },
-      { name: ElementName.DueOn },
-    ]);
-    expect(metadata.bottomMetadata).toBeUndefined();
-  });
-
-  it('should return default metadata with ownedBy element if owned by data is present ', () => {
-    const metadata = getSimulatedMetadata(
-      mockConfluenceResponseWithOwnedBy as JsonLd.Response,
-    );
-    expect(metadata.titleMetadata).toEqual([
-      { name: ElementName.AuthorGroup },
-      { name: ElementName.Priority },
-      { name: ElementName.State },
-    ]);
-    expect(metadata.topMetadata).toEqual([
-      { name: ElementName.OwnedBy },
-      { name: ElementName.ModifiedOn },
-      { name: ElementName.AttachmentCount },
-      { name: ElementName.CommentCount },
-      { name: ElementName.ReactCount },
-      { name: ElementName.SubscriberCount },
-      { name: ElementName.ViewCount },
-      { name: ElementName.VoteCount },
-      { name: ElementName.ChecklistProgress },
-      { name: ElementName.DueOn },
-    ]);
-    expect(metadata.bottomMetadata).toBeUndefined();
   });
 });

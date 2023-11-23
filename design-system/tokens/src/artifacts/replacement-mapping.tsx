@@ -12,7 +12,7 @@
  * These changes will then be picked up by our tooling which will attempt to
  * migrate as many of these renames as possible.
  *
- * @codegen <<SignedSource::424b7eccf34d7d646da64d4755658ae1>>
+ * @codegen <<SignedSource::97a5e3ceb873d28e0118b88f5dc3e800>>
  * @codegenCommand yarn build tokens
  */
 import tokens from './token-names';
@@ -21,9 +21,82 @@ type Token = keyof typeof tokens | string;
 type RenameMap = {
   path: string;
   state: 'experimental' | 'deprecated' | 'deleted';
-  replacement: Token;
+  replacement?: Token;
 }
 
-const replacementMapper: RenameMap[] = [];
+const replacementMapper: RenameMap[] = [
+  {
+    "path": "border.width.0",
+    "state": "experimental"
+  },
+  {
+    "path": "font.body.[default]",
+    "state": "experimental"
+  },
+  {
+    "path": "font.body.large",
+    "state": "experimental"
+  },
+  {
+    "path": "font.body.small",
+    "state": "experimental"
+  },
+  {
+    "path": "font.code.[default]",
+    "state": "experimental"
+  },
+  {
+    "path": "font.heading.large",
+    "state": "experimental"
+  },
+  {
+    "path": "font.heading.medium",
+    "state": "experimental"
+  },
+  {
+    "path": "font.heading.small",
+    "state": "experimental"
+  },
+  {
+    "path": "font.heading.xlarge",
+    "state": "experimental"
+  },
+  {
+    "path": "font.heading.xsmall",
+    "state": "experimental"
+  },
+  {
+    "path": "font.heading.xxlarge",
+    "state": "experimental"
+  },
+  {
+    "path": "font.heading.xxsmall",
+    "state": "experimental"
+  },
+  {
+    "path": "font.ui.[default]",
+    "state": "experimental"
+  },
+  {
+    "path": "font.ui.small",
+    "state": "experimental"
+  },
+  {
+    "path": "font.family.body",
+    "state": "experimental"
+  },
+  {
+    "path": "font.family.code",
+    "state": "experimental"
+  },
+  {
+    "path": "font.family.heading",
+    "state": "experimental"
+  },
+  {
+    "path": "font.family.brand",
+    "state": "experimental"
+  }
+];
 
 export default replacementMapper;

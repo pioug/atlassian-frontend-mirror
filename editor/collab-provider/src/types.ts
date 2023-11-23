@@ -227,6 +227,13 @@ export type NamespaceStatus = {
   waitTimeInMs?: number;
 };
 
+export type Permit = {
+  reason?: string;
+  isPermittedToView?: boolean;
+  isPermittedToEdit?: boolean;
+  maintenanceMode?: boolean;
+};
+
 export type ChannelEvent = {
   connected: {
     sid: string;
@@ -243,6 +250,7 @@ export type ChannelEvent = {
   'steps:commit': StepsPayload & { userId: string };
   'steps:added': StepsPayload;
   'metadata:changed': Metadata;
+  permission: Permit;
   error: InternalError;
   disconnect: { reason: string };
   status: NamespaceStatus;

@@ -54,6 +54,8 @@ export const buildJQL = (input: BuildJQLInput): string => {
   } = input;
 
   const trimmedRawSearch = rawSearch.trim();
+  const hasFilterSelectionValues =
+    filterValues && Object.values(filterValues).some(value => value.length > 0);
 
   if (!query) {
     return '';
@@ -91,9 +93,9 @@ export const buildJQL = (input: BuildJQLInput): string => {
     query.appendClause(orClause, COMPOUND_OPERATOR_AND);
   }
 
-  if (filterValues) {
+  if (hasFilterSelectionValues) {
     Object.entries(filterValues).forEach(([key, filterFieldValues]) => {
-      if (!key || filterFieldValues.length === 0) {
+      if (filterFieldValues.length === 0) {
         return;
       }
 
@@ -111,7 +113,7 @@ export const buildJQL = (input: BuildJQLInput): string => {
     });
   }
 
-  if (!trimmedRawSearch) {
+  if (!trimmedRawSearch && !hasFilterSelectionValues) {
     const created = constructTerminalClause(
       'created',
       OPERATOR_GT_EQUALS,

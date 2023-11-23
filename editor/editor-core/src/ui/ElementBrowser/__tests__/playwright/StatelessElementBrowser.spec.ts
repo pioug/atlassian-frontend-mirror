@@ -24,6 +24,8 @@ test.describe('StatelessElementBrowser', () => {
     await keyboard.type('Code Snippet');
     await keyboard.press('Enter');
 
-    await expect(editor).toHaveDocument(doc(code_block()()));
+    // ED-21102 to check if the editor has focus
+    await keyboard.type('Hello World');
+    await expect(editor).toHaveDocument(doc(code_block()('Hello World')));
   });
 });

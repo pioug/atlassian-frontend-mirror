@@ -19,11 +19,7 @@ export const metadataBlockCss = css`
   }
 `;
 export const titleBlockCss = css`
-  ${getBooleanFF(
-    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-  )
-    ? `gap: 0.5em;`
-    : ``}
+  gap: 0.5em;
   ${getBooleanFF(
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
   )

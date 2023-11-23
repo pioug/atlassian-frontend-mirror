@@ -16,13 +16,14 @@ jest.mock('@atlaskit/editor-plugin-scroll-into-view');
 jest.mock('@atlaskit/editor-plugin-history');
 jest.mock('@atlaskit/editor-plugin-placeholder-text');
 jest.mock('@atlaskit/editor-plugin-analytics');
+jest.mock('@atlaskit/editor-plugin-insert-block');
 
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import { helpDialogPlugin } from '@atlaskit/editor-plugin-help-dialog';
+import { insertBlockPlugin } from '@atlaskit/editor-plugin-insert-block';
 
 import {
-  insertBlockPlugin,
   feedbackDialogPlugin,
   mobileDimensionsPlugin,
   findReplacePlugin,

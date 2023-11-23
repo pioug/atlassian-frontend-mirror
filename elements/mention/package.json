@@ -44,7 +44,7 @@
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/lozenge": "^11.4.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.28.0",
+    "@atlaskit/tokens": "^1.29.0",
     "@atlaskit/tooltip": "^18.0.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/util-service-support": "^6.2.0",

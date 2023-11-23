@@ -15,6 +15,85 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
+import type { CodeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
+import type { DatePlugin } from '@atlaskit/editor-plugin-date';
+import type { EmojiPlugin } from '@atlaskit/editor-plugin-emoji';
+import type { ExpandPlugin } from '@atlaskit/editor-plugin-expand';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
+import type { ImageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';
+import type { LayoutPlugin } from '@atlaskit/editor-plugin-layout';
+import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
+import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { PanelPlugin } from '@atlaskit/editor-plugin-panel';
+import type { PlaceholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text';
+import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
+import type { RulePlugin } from '@atlaskit/editor-plugin-rule';
+import type { StatusPlugin } from '@atlaskit/editor-plugin-status';
+import type { TablePlugin } from '@atlaskit/editor-plugin-table';
+import type { TasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+
+// @public (undocumented)
+interface InsertBlockOptions {
+  // (undocumented)
+  allowExpand?: boolean;
+  // (undocumented)
+  allowTables?: boolean;
+  // (undocumented)
+  horizontalRuleEnabled?: boolean;
+  // (undocumented)
+  insertMenuItems?: any;
+  // (undocumented)
+  nativeStatusSupported?: boolean;
+  // (undocumented)
+  replacePlusMenuWithElementBrowser?: boolean;
+  // (undocumented)
+  showElementBrowserLink?: boolean;
+}
+
+// @public (undocumented)
+export type InsertBlockPlugin = NextEditorPlugin<
+  'insertBlock',
+  {
+    pluginConfiguration: InsertBlockOptions | undefined;
+    dependencies: InsertBlockPluginDependencies;
+  }
+>;
+
+// @public (undocumented)
+export const insertBlockPlugin: InsertBlockPlugin;
+
+// @public (undocumented)
+type InsertBlockPluginDependencies = [
+  OptionalPlugin<FeatureFlagsPlugin>,
+  TypeAheadPlugin,
+  OptionalPlugin<TablePlugin>,
+  OptionalPlugin<HyperlinkPlugin>,
+  OptionalPlugin<DatePlugin>,
+  OptionalPlugin<BlockTypePlugin>,
+  OptionalPlugin<AnalyticsPlugin>,
+  OptionalPlugin<ImageUploadPlugin>,
+  OptionalPlugin<EmojiPlugin>,
+  OptionalPlugin<QuickInsertPlugin>,
+  OptionalPlugin<RulePlugin>,
+  OptionalPlugin<CodeBlockPlugin>,
+  OptionalPlugin<PanelPlugin>,
+  OptionalPlugin<MediaPlugin>,
+  OptionalPlugin<MentionsPlugin>,
+  OptionalPlugin<StatusPlugin>,
+  OptionalPlugin<LayoutPlugin>,
+  OptionalPlugin<ExpandPlugin>,
+  OptionalPlugin<PlaceholderTextPlugin>,
+  OptionalPlugin<ExtensionPlugin>,
+  OptionalPlugin<TasksAndDecisionsPlugin>,
+];
+
 // (No @packageDocumentation comment for this package)
 ```
 
@@ -26,7 +105,9 @@
 
 ```json
 {
-  "react": "^16.8.0"
+  "react": "^16.8.0",
+  "react-dom": "^16.8.0",
+  "react-intl-next": "npm:react-intl@^5.18.1"
 }
 ```
 

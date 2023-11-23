@@ -44,7 +44,7 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
           {content}
         </button>
       ) : (
-        <span>{content}</span>
+        content
       )}
     </HeadCell>
   );

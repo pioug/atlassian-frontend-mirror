@@ -68,7 +68,7 @@ export default function DisabledExample() {
                     <Component
                       // @ts-ignore
                       appearance={appearance}
-                      iconAfter={<ChevronDownIcon label="" />}
+                      iconAfter={ChevronDownIcon}
                       isDisabled={isDisabled}
                     >
                       Icon after

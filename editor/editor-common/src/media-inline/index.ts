@@ -1,2 +1,3 @@
-export { MediaInlineImageCard } from './MediaInlineImageCard';
-export { shouldShowInlineImage } from './shouldShowInlineImage';
+export { MediaInlineImageCard } from './media-inline-image-card';
+export { shouldShowInlineImage } from './utils';
+export { InlineImageWrapper } from './inline-image-wrapper';

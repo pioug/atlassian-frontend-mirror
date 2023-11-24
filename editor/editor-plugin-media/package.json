@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-media",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "Media plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -54,7 +54,7 @@
     "@atlaskit/form": "^9.0.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/media-card": "^77.4.0",
-    "@atlaskit/media-client": "^25.0.0",
+    "@atlaskit/media-client": "^25.1.0",
     "@atlaskit/media-client-react": "^1.4.0",
     "@atlaskit/media-common": "^11.0.0",
     "@atlaskit/media-filmstrip": "^47.0.0",
@@ -132,6 +132,9 @@
       "type": "boolean"
     },
     "platform.editor.media.inline-image.base-support": {
+      "type": "boolean"
+    },
+    "platform.editor.media.grouped-layout": {
       "type": "boolean"
     },
     "platform.media-experience.media-viewer-v2_hgsii": {

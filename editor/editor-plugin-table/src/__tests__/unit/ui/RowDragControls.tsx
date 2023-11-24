@@ -46,7 +46,7 @@ describe('NumberColumn', () => {
         .add(widthPlugin)
         .add(guidelinePlugin)
         .add(selectionPlugin)
-        .add([tablePlugin, { tableOptions }]),
+        .add([tablePlugin, { tableOptions, dragAndDropEnabled: true }]),
       pluginKey: pluginKey,
     });
 
@@ -60,7 +60,7 @@ describe('NumberColumn', () => {
           tr(td({})(p('\n\n\n\n\n')), tdEmpty, tdEmpty),
         ),
       ),
-      { dragAndDropEnabled: true },
+      {},
     );
     const ref = editorView.dom.querySelector('table');
 

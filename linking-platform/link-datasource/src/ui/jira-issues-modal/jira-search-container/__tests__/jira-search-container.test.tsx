@@ -136,6 +136,17 @@ const setupBasicFilter = ({
   return { triggerButton };
 };
 
+const commonBasicFilterFeatureFlagFalsyTest = () => {
+  const { queryByTestId, getByTestId, mockOnSearchMethodChange } = setup();
+
+  // switch to basic search because default is JQL
+  // in current implementation JQL doesn't have basic filters
+  fireEvent.click(getByTestId('mode-toggle-basic'));
+  expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
+
+  expect(queryByTestId('jlol-basic-filter-container')).not.toBeInTheDocument();
+};
+
 describe('JiraSearchContainer', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -233,6 +244,7 @@ describe('JiraSearchContainer', () => {
       {
         searchMethod: 'basic',
         basicFilterSelections: {},
+        isQueryComplex: false,
       },
     );
     expect(
@@ -283,7 +295,48 @@ describe('JiraSearchContainer', () => {
       {
         searchMethod: 'jql',
         basicFilterSelections: {},
+        isQueryComplex: false,
       },
+    );
+  });
+
+  describe('should call onSearch with JQL user input with correct isQueryComplex value if the query is complex', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      () => {
+        const { getByTestId, mockOnSearch, getLatestJQLEditorProps } = setup();
+
+        // switch to jql search
+        act(() => {
+          fireEvent.click(getByTestId('mode-toggle-jql'));
+        });
+
+        act(() => {
+          getLatestJQLEditorProps().onUpdate!('resoulution=none', {
+            represents: '',
+            errors: [],
+            query: undefined,
+          });
+        });
+
+        getLatestJQLEditorProps().onSearch!('resoulution=none', {
+          represents: '',
+          errors: [],
+          query: undefined,
+        });
+
+        expect(mockOnSearch).toHaveBeenCalledWith(
+          {
+            jql: 'resoulution=none',
+          },
+          {
+            searchMethod: 'jql',
+            basicFilterSelections: {},
+            isQueryComplex: true,
+          },
+        );
+      },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
     );
   });
 
@@ -313,6 +366,7 @@ describe('JiraSearchContainer', () => {
       {
         searchMethod: 'jql',
         basicFilterSelections: {},
+        isQueryComplex: false,
       },
     );
     // re-render the component with count view mode
@@ -351,6 +405,7 @@ describe('JiraSearchContainer', () => {
       {
         searchMethod: 'basic',
         basicFilterSelections: {},
+        isQueryComplex: false,
       },
     );
   });
@@ -494,19 +549,7 @@ describe('JiraSearchContainer', () => {
           queryByTestId('jlol-basic-filter-issuetype-trigger'),
         ).toBeInTheDocument();
       },
-      () => {
-        const { queryByTestId, getByTestId, mockOnSearchMethodChange } =
-          setup();
-
-        // switch to basic search because default is JQL
-        // in current implementation JQL doesn't have basic filters
-        fireEvent.click(getByTestId('mode-toggle-basic'));
-        expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
-
-        expect(
-          queryByTestId('jlol-basic-filter-container'),
-        ).not.toBeInTheDocument();
-      },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
     );
   });
 
@@ -661,19 +704,7 @@ describe('JiraSearchContainer', () => {
           );
         });
       },
-      () => {
-        const { queryByTestId, getByTestId, mockOnSearchMethodChange } =
-          setup();
-
-        // switch to basic search because default is JQL
-        // in current implementation JQL doesn't have basic filters
-        fireEvent.click(getByTestId('mode-toggle-basic'));
-        expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
-
-        expect(
-          queryByTestId('jlol-basic-filter-container'),
-        ).not.toBeInTheDocument();
-      },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
     );
   });
 
@@ -730,19 +761,7 @@ describe('JiraSearchContainer', () => {
           'Project: AuthorizeTypeStatus: AuthorizeAssignee',
         );
       },
-      () => {
-        const { queryByTestId, getByTestId, mockOnSearchMethodChange } =
-          setup();
-
-        // switch to basic search because default is JQL
-        // in current implementation JQL doesn't have basic filters
-        fireEvent.click(getByTestId('mode-toggle-basic'));
-        expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
-
-        expect(
-          queryByTestId('jlol-basic-filter-container'),
-        ).not.toBeInTheDocument();
-      },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
     );
   });
 
@@ -800,19 +819,7 @@ describe('JiraSearchContainer', () => {
           'ProjectTypeStatus',
         );
       },
-      () => {
-        const { queryByTestId, getByTestId, mockOnSearchMethodChange } =
-          setup();
-
-        // switch to basic search because default is JQL
-        // in current implementation JQL doesn't have basic filters
-        fireEvent.click(getByTestId('mode-toggle-basic'));
-        expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
-
-        expect(
-          queryByTestId('jlol-basic-filter-container'),
-        ).not.toBeInTheDocument();
-      },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
     );
   });
 
@@ -873,19 +880,7 @@ describe('JiraSearchContainer', () => {
           container.parentElement?.querySelector('[data-value="hello"]'),
         ).toBeNull();
       },
-      () => {
-        const { queryByTestId, getByTestId, mockOnSearchMethodChange } =
-          setup();
-
-        // switch to basic search because default is JQL
-        // in current implementation JQL doesn't have basic filters
-        fireEvent.click(getByTestId('mode-toggle-basic'));
-        expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
-
-        expect(
-          queryByTestId('jlol-basic-filter-container'),
-        ).not.toBeInTheDocument();
-      },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
     );
   });
 
@@ -920,16 +915,7 @@ describe('JiraSearchContainer', () => {
 
         expect(mockFetchHydratedJqlOptions).toHaveBeenCalledTimes(1);
       },
-      () => {
-        const renderResult = setup();
-
-        const { queryByTestId } = renderResult;
-        setupBasicFilter({ ...renderResult, openPicker: false });
-
-        expect(
-          queryByTestId('jlol-basic-filter-container'),
-        ).not.toBeInTheDocument();
-      },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
     );
   });
 
@@ -969,6 +955,7 @@ describe('JiraSearchContainer', () => {
 
         expect(mockFetchHydratedJqlOptions).toHaveBeenCalledTimes(0);
       },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
     );
   });
 
@@ -986,16 +973,7 @@ describe('JiraSearchContainer', () => {
 
         expect(mockFetchHydratedJqlOptions).toHaveBeenCalledTimes(1);
       },
-      () => {
-        const renderResult = setup();
-
-        const { queryByTestId } = renderResult;
-        setupBasicFilter({ ...renderResult, openPicker: false });
-
-        expect(
-          queryByTestId('jlol-basic-filter-container'),
-        ).not.toBeInTheDocument();
-      },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
     );
   });
 
@@ -1013,16 +991,7 @@ describe('JiraSearchContainer', () => {
 
         expect(mockFetchHydratedJqlOptions).toHaveBeenCalledTimes(0);
       },
-      () => {
-        const renderResult = setup();
-
-        const { queryByTestId } = renderResult;
-        setupBasicFilter({ ...renderResult, openPicker: false });
-
-        expect(
-          queryByTestId('jlol-basic-filter-container'),
-        ).not.toBeInTheDocument();
-      },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
     );
   });
 
@@ -1074,6 +1043,7 @@ describe('JiraSearchContainer', () => {
           },
           {
             searchMethod: 'basic',
+            isQueryComplex: false,
             basicFilterSelections: {
               status: [
                 {
@@ -1087,19 +1057,7 @@ describe('JiraSearchContainer', () => {
           },
         );
       },
-      () => {
-        const { queryByTestId, getByTestId, mockOnSearchMethodChange } =
-          setup();
-
-        // switch to basic search because default is JQL
-        // in current implementation JQL doesn't have basic filters
-        fireEvent.click(getByTestId('mode-toggle-basic'));
-        expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
-
-        expect(
-          queryByTestId('jlol-basic-filter-container'),
-        ).not.toBeInTheDocument();
-      },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
     );
   });
 
@@ -1154,6 +1112,7 @@ describe('JiraSearchContainer', () => {
           },
           {
             searchMethod: 'basic',
+            isQueryComplex: false,
             basicFilterSelections: {
               status: [
                 {
@@ -1171,19 +1130,7 @@ describe('JiraSearchContainer', () => {
 
         expect(getLatestJQLEditorProps().query).toEqual(expectedJql);
       },
-      () => {
-        const { queryByTestId, getByTestId, mockOnSearchMethodChange } =
-          setup();
-
-        // switch to basic search because default is JQL
-        // in current implementation JQL doesn't have basic filters
-        fireEvent.click(getByTestId('mode-toggle-basic'));
-        expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
-
-        expect(
-          queryByTestId('jlol-basic-filter-container'),
-        ).not.toBeInTheDocument();
-      },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
     );
   });
   describe('BasicFilterContainer: should pre-populate basic mode search text hydrate returns input text', () => {
@@ -1203,16 +1150,7 @@ describe('JiraSearchContainer', () => {
           queryByTestId('jira-jql-datasource-modal--basic-search-input'),
         ).toHaveValue('hello');
       },
-      () => {
-        const renderResult = setup();
-
-        const { queryByTestId } = renderResult;
-        setupBasicFilter({ ...renderResult, openPicker: false });
-
-        expect(
-          queryByTestId('jlol-basic-filter-container'),
-        ).not.toBeInTheDocument();
-      },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
     );
   });
 });
@@ -1276,7 +1214,7 @@ describe('Analytics: JiraSearchContainer', () => {
     });
   });
 
-  it('should fire "ui.jqlEditor.searched" when search is initiated via jql input', () => {
+  it('should fire "ui.jqlEditor.searched" with correct attributes when search is initiated via jql input and query is not complex', () => {
     const { getLatestJQLEditorProps, getByTestId } = setup();
 
     fireEvent.click(getByTestId('mode-toggle-jql'));
@@ -1292,11 +1230,53 @@ describe('Analytics: JiraSearchContainer', () => {
         payload: {
           action: 'searched',
           actionSubject: 'jqlEditor',
-          attributes: {},
+          attributes: {
+            isQueryComplex: false,
+          },
           eventType: 'ui',
         },
       },
       EVENT_CHANNEL,
+    );
+  });
+
+  describe('should fire "ui.jqlEditor.searched" with correct attributes when search is initiated via jql input and query is complex', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      () => {
+        const { getLatestJQLEditorProps, getByTestId } = setup();
+
+        fireEvent.click(getByTestId('mode-toggle-jql'));
+
+        act(() => {
+          getLatestJQLEditorProps().onUpdate!('resoulution=none', {
+            represents: '',
+            errors: [],
+            query: undefined,
+          });
+        });
+
+        getLatestJQLEditorProps().onSearch!('resoulution=done', {
+          represents: '',
+          errors: [],
+          query: undefined,
+        });
+
+        expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+          {
+            payload: {
+              action: 'searched',
+              actionSubject: 'jqlEditor',
+              attributes: {
+                isQueryComplex: true,
+              },
+              eventType: 'ui',
+            },
+          },
+          EVENT_CHANNEL,
+        );
+      },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
     );
   });
 });

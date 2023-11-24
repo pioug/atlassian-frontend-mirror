@@ -105,15 +105,37 @@ export interface MediaFileArtifacts {
   // (undocumented)
   'document.pdf'?: MediaFileArtifact;
   // (undocumented)
+  'document.txt'?: MediaFileArtifact;
+  // (undocumented)
+  'image.gif'?: MediaFileArtifact;
+  // (undocumented)
   'image.jpg'?: MediaFileArtifact;
   // (undocumented)
   'image.png'?: MediaFileArtifact;
   // (undocumented)
+  'poster.jpg'?: MediaFileArtifact;
+  // (undocumented)
+  'poster_1280.jpg'?: MediaFileArtifact;
+  // (undocumented)
+  'poster_640.jpg'?: MediaFileArtifact;
+  // (undocumented)
+  'poster_hd.jpg'?: MediaFileArtifact;
+  // (undocumented)
   'thumb.jpg'?: MediaFileArtifact;
+  // (undocumented)
+  'thumb_120.jpg'?: MediaFileArtifact;
+  // (undocumented)
+  'thumb_320.jpg'?: MediaFileArtifact;
+  // (undocumented)
+  'thumb_large.jpg'?: MediaFileArtifact;
+  // (undocumented)
+  'video.mp4'?: MediaFileArtifact;
   // (undocumented)
   'video_1280.mp4'?: MediaFileArtifact;
   // (undocumented)
   'video_640.mp4'?: MediaFileArtifact;
+  // (undocumented)
+  'video_hd.mp4'?: MediaFileArtifact;
 }
 
 // @public (undocumented)

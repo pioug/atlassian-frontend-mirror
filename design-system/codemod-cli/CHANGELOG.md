@@ -1,5 +1,11 @@
 # @atlaskit/codemod-cli
 
+## 0.17.1
+
+### Patch Changes
+
+- [#43812](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43812) [`15c0e36ba0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15c0e36ba0f) - Update button codemods to adapt new API changes for IconButton.
+
 ## 0.17.0
 
 ### Minor Changes

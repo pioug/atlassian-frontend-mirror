@@ -2,8 +2,9 @@
 import { ReactNode, useCallback } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { MutableState, Tools } from 'final-form';
+import { FORM_ERROR, MutableState, Tools } from 'final-form';
 import { Form, FormSpy } from 'react-final-form';
+import { useIntl } from 'react-intl-next';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives';
@@ -13,6 +14,8 @@ import {
   CREATE_FORM_MAX_WIDTH_IN_PX,
   LINK_CREATE_FORM_POST_CREATE_FIELD,
 } from '../../common/constants';
+import messages from '../../common/messages';
+import { useLinkCreateCallback } from '../../controllers/callback-context';
 import { useExitWarningModal } from '../../controllers/exit-warning-modal-context';
 import { useFormContext } from '../../controllers/form-context';
 
@@ -39,11 +42,31 @@ type DisallowReservedFields<T> = T & {
 
 type OmitReservedFields<T> = Omit<T, keyof ReservedFields>;
 
+type Errors = Record<string, string>;
+
 export interface CreateFormProps<FormData> {
+  /**
+   * Should resolve to void, or resolve to an object of
+   * keys (field names) with error messages (key values)
+   */
+  onSubmit: (
+    data: OmitReservedFields<FormData>,
+  ) => void | Errors | Promise<void | Errors>;
+  /**
+   * Children to render in the form (form fields)
+   */
   children: ReactNode;
+  /**
+   * Test id to render on the form element
+   */
   testId?: string;
-  onSubmit: (data: OmitReservedFields<FormData>) => void;
+  /**
+   * Callback when the cancel button is fired
+   */
   onCancel?: () => void;
+  /**
+   * Renders a spinner when true
+   */
   isLoading?: boolean;
   /**
    * Hides the rendering of the footer buttons
@@ -67,8 +90,11 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
   hideFooter,
   initialValues,
 }: CreateFormProps<FormData>) => {
-  const { formErrorMessage, enableEditView } = useFormContext();
+  const { setFormErrorMessage, formErrorMessage, enableEditView } =
+    useFormContext();
+  const intl = useIntl();
   const { setShouldShowWarning } = useExitWarningModal();
+  const { onFailure } = useLinkCreateCallback();
 
   const handleSubmit = useCallback(
     async (data: WithReservedFields<FormData>) => {
@@ -85,12 +111,43 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
          */
         enableEditView?.(!!shouldEnableEditView);
 
+        /**
+         * This is the onSubmit handler provided by the plugin
+         * It will be async, and it will likely involve awaiting `onCreate` (the adopters handler)
+         */
         return onSubmit(formData);
       }
 
       return onSubmit(data);
     },
     [onSubmit, enableEditView],
+  );
+
+  const handleSubmitWithErrorHandling: typeof handleSubmit = useCallback(
+    async (...args) => {
+      try {
+        /**
+         * Clear any error message that may have been set by async select fields
+         * This will immediately remove any indication of an error, but the form likely will fail to submit,
+         * it will be likely a 400 because the user probably could not set all fields anyway
+         */
+        setFormErrorMessage();
+        return await handleSubmit(...args);
+      } catch (error) {
+        /**
+         * Notify link create of failed experience
+         */
+        onFailure?.(error);
+
+        /**
+         * Return a generic message for react final form to render
+         */
+        return {
+          [FORM_ERROR]: intl.formatMessage(messages.genericErrorMessage),
+        };
+      }
+    },
+    [handleSubmit, setFormErrorMessage, intl, onFailure],
   );
 
   const handleCancel = useCallback(() => {
@@ -103,7 +160,13 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
 
   return (
     <Form<WithReservedFields<FormData>>
-      onSubmit={handleSubmit}
+      onSubmit={
+        getBooleanFF(
+          'platform.linking-platform.link-create.better-observability',
+        )
+          ? handleSubmitWithErrorHandling
+          : handleSubmit
+      }
       initialValues={initialValues}
       mutators={{
         setField: <K extends keyof FormData>(
@@ -115,7 +178,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
         },
       }}
     >
-      {({ submitting, ...formProps }) => {
+      {({ submitting, submitError, ...formProps }) => {
         return (
           <form
             onSubmit={formProps.handleSubmit}
@@ -140,7 +203,19 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
             <Box>{children}</Box>
             {!hideFooter && (
               <CreateFormFooter
-                formErrorMessage={formErrorMessage}
+                /**
+                 * We will prefer to render the error message connected to
+                 * react final form state (submitError) otherwise we can
+                 * default to the `formErrorMessage` that we sometimes use with our own
+                 * "form context" (only currently used for AsyncSelect field reporting failed loading)
+                 */
+                formErrorMessage={
+                  getBooleanFF(
+                    'platform.linking-platform.link-create.better-observability',
+                  )
+                    ? submitError || formErrorMessage
+                    : formErrorMessage
+                }
                 handleCancel={handleCancel}
                 submitting={submitting}
                 testId={testId}

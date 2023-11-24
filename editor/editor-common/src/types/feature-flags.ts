@@ -256,16 +256,6 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Force the Popup placement if the space does not accomodate the Popup fitHeight
-   *
-   * @see https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3158246501/PP+Link+Picker+-+Standalone
-   * @see https://product-fabric.atlassian.net/browse/EDM-2577
-   * @default false
-   */
-  preventPopupOverflow?: boolean;
-
-  /**
-   * @description
    * Enable the new editor media resize experience.
    *
    * @see https://product-fabric.atlassian.net/browse/ED-18316

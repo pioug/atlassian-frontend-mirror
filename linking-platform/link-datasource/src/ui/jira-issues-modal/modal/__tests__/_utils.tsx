@@ -196,6 +196,7 @@ export const getInsertAnalyticPayload = <
         searchCount: 0,
         searchMethod: null,
         totalItemCount: 3,
+        isQueryComplex: false,
         ...override?.attributes,
       },
     },

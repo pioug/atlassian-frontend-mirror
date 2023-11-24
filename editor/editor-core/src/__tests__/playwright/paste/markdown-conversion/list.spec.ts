@@ -520,7 +520,6 @@ some final text
 - Fourth item
 
 some final text`),
-        p(),
         p('consectetur adipiscing elit.'),
       ),
     );
@@ -547,7 +546,6 @@ some final text`),
 - Fourth item
 
 some final text`),
-        p(),
         p('consectetur adipiscing elit.'),
       ),
     );
@@ -579,8 +577,7 @@ some final text`),
           li(p('Third item')),
           li(p('Fourth item')),
         ),
-        p('some final text'),
-        p('consectetur adipiscing elit.'),
+        p('some final textconsectetur adipiscing elit.'),
       ),
     );
 
@@ -608,8 +605,7 @@ some initial text
 - Fourth item
 
 some final text
-`),
-        p('consectetur adipiscing elit.'),
+consectetur adipiscing elit.`),
       ),
     );
 
@@ -635,7 +631,6 @@ some final text
 - Fourth item
 
 some final text`),
-        p(),
         p('consectetur adipiscing elit.'),
       ),
     );

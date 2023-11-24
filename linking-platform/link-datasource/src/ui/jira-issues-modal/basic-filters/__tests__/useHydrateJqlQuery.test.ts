@@ -116,6 +116,23 @@ describe('useHydrateJqlQuery', () => {
     },
   );
 
+  it('should not include basicInputTextValue if the value is undefined', async () => {
+    const { result, waitForNextUpdate } = setup(
+      'created >= -30d order by created DESC',
+    );
+    await result.current.fetchHydratedJqlOptions();
+
+    act(() => {
+      waitForNextUpdate();
+    });
+
+    expect(result.current.hydratedOptions).not.toEqual(
+      expect.objectContaining({
+        basicInputTextValue: undefined,
+      }),
+    );
+  });
+
   it('should return status as rejected when getHydratedJql throws error', async () => {
     const { result, waitForNextUpdate, getHydratedJQL } = setup();
     getHydratedJQL.mockRejectedValue(new Error('error'));

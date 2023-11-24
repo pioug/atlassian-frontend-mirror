@@ -2,14 +2,19 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { buildLayoutButtons } from '@atlaskit/editor-common/card';
+import {
+  alignmentIcons,
+  buildLayoutButtons,
+  layoutToMessages,
+  wrappingIcons,
+} from '@atlaskit/editor-common/card';
 import {
   calcMinWidth,
   DEFAULT_IMAGE_HEIGHT,
@@ -18,8 +23,10 @@ import {
 import commonMessages, { cardMessages } from '@atlaskit/editor-common/messages';
 import type {
   Command,
+  DropdownOptions,
   ExtractInjectionAPI,
   FloatingToolbarConfig,
+  FloatingToolbarDropdown,
   FloatingToolbarItem,
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
@@ -70,6 +77,7 @@ import {
 } from './commands';
 import { FilePreviewItem } from './filePreviewItem';
 import { shouldShowImageBorder } from './imageBorder';
+import { LayoutGroup } from './layout-group';
 import { getLinkingToolbar, shouldShowMediaLinkToolbar } from './linking';
 import { LinkToolbarAppearance } from './linking-toolbar-appearance';
 import {
@@ -77,6 +85,7 @@ import {
   downloadMedia,
   getMaxToolbarWidth,
   getPixelWidthOfElement,
+  getSelectedLayoutIcon,
   getSelectedMediaSingle,
   removeMediaGroupNode,
 } from './utils';
@@ -339,11 +348,10 @@ const generateMediaSingleFloatingToolbar = (
   if (allowAdvancedToolBarOptions) {
     const widthPlugin = pluginInjectionApi?.width;
     let isChangingLayoutDisabled = false;
+    const selectedNode = getSelectedMediaSingle(state);
 
     if (getBooleanFF('platform.editor.media.extended-resize-experience')) {
       const contentWidth = widthPlugin?.sharedState.currentState()?.lineLength;
-      const selectedNode = getSelectedMediaSingle(state);
-
       const selectedNodeMaxWidth = pluginState.currentMaxWidth || contentWidth;
 
       if (
@@ -367,10 +375,37 @@ const generateMediaSingleFloatingToolbar = (
       true,
       isChangingLayoutDisabled,
     );
-    toolbarButtons = [...toolbarButtons, ...layoutButtons];
+    if (getBooleanFF('platform.editor.media.grouped-layout') && selectedNode) {
+      const selectedLayoutIcon = getSelectedLayoutIcon(
+        [...alignmentIcons, ...wrappingIcons],
+        selectedNode.node,
+      );
 
-    if (layoutButtons.length) {
-      toolbarButtons.push({ type: 'separator' });
+      if (selectedLayoutIcon && layoutButtons.length) {
+        const options: DropdownOptions<Command> = {
+          render: props => {
+            return <LayoutGroup layoutButtons={layoutButtons} {...props} />;
+          },
+          width: 156,
+          height: 32,
+        };
+        const trigger: FloatingToolbarDropdown<Command> = {
+          id: 'media-single-layout',
+          testId: 'media-single-layout-dropdown-trigger',
+          type: 'dropdown',
+          options: options,
+          title: intl.formatMessage(layoutToMessages[selectedLayoutIcon.value]),
+          icon: selectedLayoutIcon.icon,
+        };
+
+        toolbarButtons = [...toolbarButtons, trigger, { type: 'separator' }];
+      }
+    } else {
+      toolbarButtons = [...toolbarButtons, ...layoutButtons];
+
+      if (layoutButtons.length) {
+        toolbarButtons.push({ type: 'separator' });
+      }
     }
 
     // Pixel Entry Toolbar Support

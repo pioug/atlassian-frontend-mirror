@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 189.4.5
+
+### Patch Changes
+
+- [#43282](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43282) [`ea6aae16859`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea6aae16859) - Fixed extra paragraph added on pasting codeblock and modified relevant testcases
+
+## 189.4.4
+
+### Patch Changes
+
+- [#42839](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42839) [`7324375d4fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7324375d4fa) - [ux] Cleansup feature flag `prevent-popup-overflow` so that it is permanently enabled when `lp-link-picker` flag is enabled, improving the positioning of the link picker.
+- Updated dependencies
+
+## 189.4.3
+
+### Patch Changes
+
+- [#43825](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43825) [`b21c6c1caa8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b21c6c1caa8) - [ux] [ED-20885] Group layout buttons in mediaSingle floating toolbar into a dropdown
+
 ## 189.4.2
 
 ### Patch Changes

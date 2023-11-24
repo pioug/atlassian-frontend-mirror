@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-date
 
+## 0.2.9
+
+### Patch Changes
+
+- [#43549](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43549) [`8f05c711498`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f05c711498) - ED-20957 Fixed issue with adding date node inside a codeblock
+
 ## 0.2.8
 
 ### Patch Changes

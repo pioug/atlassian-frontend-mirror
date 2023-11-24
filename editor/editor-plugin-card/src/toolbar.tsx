@@ -208,7 +208,7 @@ export const floatingToolbar = (
       ? FLOATING_TOOLBAR_LINKPICKER_CLASSNAME
       : undefined;
 
-    const { lpLinkPicker, preventPopupOverflow } = featureFlags;
+    const { lpLinkPicker } = featureFlags;
 
     const isLinkPickerEnabled = !!lpLinkPicker;
 
@@ -216,7 +216,7 @@ export const floatingToolbar = (
       title: intl.formatMessage(messages.card),
       className,
       nodeType,
-      preventPopupOverflow,
+      preventPopupOverflow: isLinkPickerEnabled,
       ...toolbarOffset,
       getDomRef: view => {
         const element = findDomRefAtPos(

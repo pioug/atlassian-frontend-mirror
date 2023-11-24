@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.19.4
+
+### Patch Changes
+
+- [#43869](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43869) [`a46528b1133`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a46528b1133) - Update jql searched and insert click analytics events with isQueryComplex attribute.
+
 ## 1.19.3
 
 ### Patch Changes

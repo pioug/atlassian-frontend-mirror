@@ -5,6 +5,7 @@ const toggleClickThrough = "[data-testid='allow-click-through']";
 const increment = "[data-testid='increment']";
 const countIncrementClicked = "[data-testid='count-increment-clicked']";
 const countBlanketClicked = "[data-testid='count-blanket-clicked']";
+const childHeading = "[data-testid='child-heading']";
 
 test('can click through un-tinted blanket when click through allowed', async ({
   page,
@@ -56,8 +57,11 @@ test('blanket should not register onClick event if click through disallowed and 
   await page.visitExample('design-system', 'blanket', 'variants');
   await page.click(toggleClickThrough);
 
-  /**
-   * TODO: Start selecting text in the child and then drag off to the blanket
-   */
+  // ensure click count is zero
   await expect(page.locator(countBlanketClicked).first()).toHaveText('0');
+
+  await page.dragAndDrop(childHeading, increment, { force: true });
+
+  // ensure click count remains zero
+  await expect(page.locator(countIncrementClicked).first()).toHaveText('0');
 });

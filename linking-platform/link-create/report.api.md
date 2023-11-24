@@ -18,6 +18,7 @@
 /// <reference types="react" />
 
 import { AsyncSelectProps as AsyncSelectProps_2 } from '@atlaskit/select';
+import { FORM_ERROR } from 'final-form';
 import { GroupType } from '@atlaskit/select';
 import { jsx } from '@emotion/react';
 import { MemoExoticComponent } from 'react';
@@ -39,7 +40,7 @@ export function AsyncSelect<T = OptionType>({
   validationHelpText,
   testId,
   defaultOption: propsDefaultValue,
-  loadOptions,
+  loadOptions: loadOptionsFn,
   ...restProps
 }: AsyncSelectProps<T>): jsx.JSX.Element;
 
@@ -81,17 +82,14 @@ export function CreateFormLoader({
 
 // @public (undocumented)
 export interface CreateFormProps<FormData> {
-  // (undocumented)
   children: ReactNode;
   hideFooter?: boolean;
   initialValues?: DisallowReservedFields<FormData>;
-  // (undocumented)
   isLoading?: boolean;
-  // (undocumented)
   onCancel?: () => void;
-  // (undocumented)
-  onSubmit: (data: OmitReservedFields<FormData>) => void;
-  // (undocumented)
+  onSubmit: (
+    data: OmitReservedFields<FormData>,
+  ) => Errors | Promise<Errors | void> | void;
   testId?: string;
 }
 
@@ -114,6 +112,11 @@ export type EditViewProps = {
   payload: CreatePayload;
   onClose: () => void;
 };
+
+// @public (undocumented)
+type Errors = Record<string, string>;
+
+export { FORM_ERROR };
 
 // @public
 export const FormSpy: <T extends Record<string, unknown>>({
@@ -139,7 +142,7 @@ export const LinkCreateCallbackProvider: React_2.FC<LinkCreateCallbackProviderPr
 interface LinkCreateCallbackProviderProps {
   onCancel?: () => void;
   onCreate?: (result: CreatePayload) => Promise<void> | void;
-  onFailure?: (error: Error) => void;
+  onFailure?: (error: unknown) => void;
 }
 
 // @public (undocumented)

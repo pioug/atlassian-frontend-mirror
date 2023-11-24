@@ -3,6 +3,7 @@ import {
   PRINT_SETTINGS,
   entryPointsMapping,
   BUTTON_TYPES,
+  NEW_BUTTON_ENTRY_POINT,
 } from '../utils/constants';
 
 const transformer = (file: FileInfo, api: API): string => {
@@ -23,7 +24,16 @@ const transformer = (file: FileInfo, api: API): string => {
   }
 
   buttonImports.forEach((node) => {
-    const { specifiers } = node.node;
+    const { specifiers, source } = node.node;
+    if (
+      [
+        ...Object.values(entryPointsMapping),
+        NEW_BUTTON_ENTRY_POINT,
+        '@atlaskit/button/types',
+      ].includes(source.value as string)
+    ) {
+      return fileSource.toSource(PRINT_SETTINGS);
+    }
 
     const defaultSpecifier = specifiers?.find(
       (specifier) => specifier.type === 'ImportDefaultSpecifier',

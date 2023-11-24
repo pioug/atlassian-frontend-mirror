@@ -204,7 +204,7 @@ const datePlugin: DatePlugin = ({ config: options = {}, api }) => ({
         keyshortcut: '//',
         icon: () => <IconDate />,
         action(insert, state) {
-          const tr = createDate(true)(insert, state);
+          const tr = createDate(true)(state);
 
           api?.analytics?.actions?.attachAnalyticsEvent?.({
             action: ACTION.INSERTED,

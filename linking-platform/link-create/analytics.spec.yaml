@@ -10,9 +10,9 @@ context:
     packageVersion:
       type: string
       description: version of the package the event was fired from
-    source:
+    component:
       type: ['linkCreate']
-      description: the name of the ui source the event originated from (linkCreate)
+      description: the name of the component the event originated from (linkCreate)
     componentName:
       type: ['linkCreate']
       description: the name of the component the event originated from (linkCreate)
@@ -122,9 +122,35 @@ events:
 
   - object createFailed (linkCreate):
       type: track
-      description: fired when the object creation fails
+      description: "[DEPRECATED] prefer `operation failed (linkCreate)` — fired when the object creation fails"
       attributes:
         <<: *PackageMetaDataContext
         failureType:
           type: string
           description: the name of the failure
+
+  - operation failed (linkCreate):
+      type: operational
+      description: fired when a failure has occured in the link create experience
+      attributes:
+        <<: *PackageMetaDataContext
+        errorType:
+          type: string
+          description: the name of the error
+          required: false
+        experienceStatus:
+          type: ['SUCCEEDED', 'FAILED']
+        previousExperienceStatus:
+          type: ['STARTED', 'SUCCEEDED', 'FAILED']
+        path:
+          type: string
+          required: false
+          description: The path of the network request if the failure is a Reponse
+        status:
+          type: number
+          required: false
+          description: The status code returned for the network request if the failure is a Response
+        traceId:
+          type: string
+          required: false
+          description: The x-trace-id header associated with the network request if the failure is a Response

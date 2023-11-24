@@ -82,17 +82,19 @@ const LinkCreateWithModal = ({
     async (result: CreatePayload) => {
       // Reset the form error message
       setFormErrorMessage(undefined);
+
       if (onCreate) {
         await onCreate(result);
       }
     },
     [onCreate, setFormErrorMessage],
   );
-
   const handleFailure = useCallback(
-    (error: Error) => {
+    (error: unknown) => {
       // Set the form error message
-      setFormErrorMessage(error.message);
+      if (error instanceof Error) {
+        setFormErrorMessage(error.message);
+      }
       onFailure && onFailure(error);
     },
     [onFailure, setFormErrorMessage],
@@ -123,8 +125,20 @@ const LinkCreateWithModal = ({
 
   return (
     <LinkCreateCallbackProvider
-      onCreate={handleCreate}
-      onFailure={handleFailure}
+      onCreate={
+        getBooleanFF(
+          'platform.linking-platform.link-create.better-observability',
+        )
+          ? onCreate
+          : handleCreate
+      }
+      onFailure={
+        getBooleanFF(
+          'platform.linking-platform.link-create.better-observability',
+        )
+          ? onFailure
+          : handleFailure
+      }
       onCancel={handleCancel}
     >
       <ModalTransition>

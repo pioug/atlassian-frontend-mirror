@@ -68,6 +68,10 @@ attributes:
     statusCodeGroup:
       type: ["1xx", "3xx", "4xx", '5xx', 'unknown']
       description: The fetch request error response code group.
+  IsQueryComplex: &IsQueryComplex
+    isQueryComplex:
+          type: "boolean"
+          description: Indicates if the JQL query was complex.
 
 events:
   # actionSubject action (actionSubjectId)
@@ -109,6 +113,7 @@ events:
             *PackageMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
+            *IsQueryComplex,
           ]
   - form submitted (basicSearch):
       type: ui
@@ -172,6 +177,7 @@ events:
             *SearchMethod,
             *ExtensionKey,
             *Actions,
+            *IsQueryComplex,
           ]
   - button clicked (cancel):
       type: ui

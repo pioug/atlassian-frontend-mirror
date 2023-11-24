@@ -1,6 +1,5 @@
 import type {
   Schema,
-  Node,
   Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
@@ -712,13 +711,7 @@ export function createPlugin(
           slice.content.childCount &&
           slice.content.lastChild!.type === schema.nodes.codeBlock
         ) {
-          slice = new Slice(
-            slice.content.append(
-              Fragment.from(schema.nodes.paragraph.createAndFill() as Node),
-            ),
-            slice.openStart,
-            1,
-          );
+          slice = new Slice(slice.content, 0, 0);
         }
         return slice;
       },

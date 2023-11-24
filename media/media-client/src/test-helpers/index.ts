@@ -67,3 +67,19 @@ export {
   defaultMediaPickerAuthProvider,
 } from './mediaPickerAuthProvider';
 export { fakeMediaClient } from './fakeMediaClient';
+
+export type {
+  CreateMockedMediaApiResult,
+  SetFileItems,
+  GetFileItem,
+} from './MockedMediaApi';
+export {
+  createMockedMediaApi,
+  copy,
+  getIdentifier,
+  createProcessingFileItem,
+  createEmptyFileItem,
+  createUploadingFileState,
+  createFileState,
+  createErrorFileState,
+} from './MockedMediaApi';

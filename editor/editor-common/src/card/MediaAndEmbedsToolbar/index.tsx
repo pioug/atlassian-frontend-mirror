@@ -1,11 +1,16 @@
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
-import {
+import type {
   RichMediaLayout as MediaSingleLayout,
   RichMediaAttributes,
 } from '@atlaskit/adf-schema';
-import { Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
-import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type {
+  Node,
+  NodeType,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { DEFAULT_EMBED_CARD_WIDTH } from '@atlaskit/editor-shared-styles';
 import EditorAlignImageCenter from '@atlaskit/icon/glyph/editor/align-image-center';
@@ -17,11 +22,11 @@ import WrapLeftIcon from '@atlaskit/icon/glyph/editor/media-wrap-left';
 import WrapRightIcon from '@atlaskit/icon/glyph/editor/media-wrap-right';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
+import type { EditorAnalyticsAPI } from '../../analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  EditorAnalyticsAPI,
   EVENT_TYPE,
 } from '../../analytics';
 import { insideTable } from '../../core-utils';
@@ -53,12 +58,15 @@ type WidthPluginDependencyApi =
   | PluginDependenciesAPI<WidthPluginType>
   | undefined;
 
-type IconMap = Array<
-  | { id?: string; value: string; icon: React.ComponentClass<any> }
-  | { value: 'separator' }
->;
+export type LayoutIcon = {
+  id?: string;
+  value: string;
+  icon: React.ComponentClass<any>;
+};
 
-const alignmentIcons: IconMap = [
+export type IconMap = Array<LayoutIcon | { value: 'separator' }>;
+
+export const alignmentIcons: LayoutIcon[] = [
   {
     id: 'editor.media.alignLeft',
     value: 'align-start',
@@ -76,17 +84,17 @@ const alignmentIcons: IconMap = [
   },
 ];
 
-const wrappingIcons: IconMap = [
+export const wrappingIcons: LayoutIcon[] = [
   { id: 'editor.media.wrapLeft', value: 'wrap-left', icon: WrapLeftIcon },
   { id: 'editor.media.wrapRight', value: 'wrap-right', icon: WrapRightIcon },
 ];
 
-const breakoutIcons: IconMap = [
+const breakoutIcons: LayoutIcon[] = [
   { value: 'wide', icon: WideIcon },
   { value: 'full-width', icon: FullWidthIcon },
 ];
 
-const layoutToMessages: Record<string, any> = {
+export const layoutToMessages: Record<string, any> = {
   'wrap-left': toolbarMessages.wrapLeft,
   center: commonMessages.alignImageCenter,
   'wrap-right': toolbarMessages.wrapRight,

@@ -8,12 +8,17 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
 
+import { getPluginState as getDragDropPluginState } from '../../pm-plugins/drag-and-drop/plugin-factory';
 import { getPluginState } from '../../pm-plugins/plugin-factory';
 import type { TableDirection } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 import { hasMergedCellsInColumn, hasMergedCellsInRow } from '../../utils';
 import { DragPreview } from '../DragPreview';
-import { DragHandleDisabledIcon, DragHandleIcon } from '../icons';
+import {
+  DragHandleDisabledIcon,
+  DragHandleIcon,
+  MinimisedHandleIcon,
+} from '../icons';
 
 type DragHandleAppearance = 'default' | 'selected' | 'disabled' | 'danger';
 
@@ -48,8 +53,19 @@ export const DragHandle = ({
   const [previewContainer, setPreviewContainer] = useState<HTMLElement | null>(
     null,
   );
-  const { isDragAndDropEnabled } = getPluginState(editorView.state);
+  const { isDragAndDropEnabled, hoveredColumns, hoveredRows } = getPluginState(
+    editorView.state,
+  );
+
+  const { dragMenuDirection } = getDragDropPluginState(editorView.state);
+
   const { selection } = editorView.state;
+
+  const isRowHovered = direction === 'row' && hoveredRows.length > 0;
+  const isColumnHovered = direction === 'column' && hoveredColumns.length > 0;
+  const isRowSelected = dragMenuDirection === 'row' && direction === 'row';
+  const isColumnSelected =
+    dragMenuDirection === 'column' && direction === 'column';
 
   const hasMergedCells = useMemo(
     () =>
@@ -102,6 +118,24 @@ export const DragHandle = ({
     hasMergedCells,
   ]);
 
+  const handleIcon = useMemo(() => {
+    switch (true) {
+      // select but hover to other cells
+      case isRowHovered:
+      case isColumnHovered:
+      case isRowSelected || isColumnSelected: // when handle selected
+        return hasMergedCells ? <DragHandleDisabledIcon /> : <DragHandleIcon />;
+      default:
+        return <MinimisedHandleIcon />;
+    }
+  }, [
+    isRowHovered,
+    isRowSelected,
+    isColumnHovered,
+    isColumnSelected,
+    hasMergedCells,
+  ]);
+
   return (
     <button
       className={classnames(
@@ -122,7 +156,7 @@ export const DragHandle = ({
       onMouseUp={onMouseUp}
       onClick={onClick}
     >
-      {hasMergedCells ? <DragHandleDisabledIcon /> : <DragHandleIcon />}
+      {handleIcon}
       {previewContainer &&
         previewWidth !== undefined &&
         previewHeight !== undefined &&

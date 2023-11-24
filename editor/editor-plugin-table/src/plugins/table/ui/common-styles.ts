@@ -30,7 +30,6 @@ import { TableCssClassName as ClassName } from '../types';
 
 import {
   columnControlsDecorationHeight,
-  dropTargetExtendedWidth,
   resizeHandlerAreaWidth,
   resizeLineWidth,
   rowControlsZIndex,
@@ -736,7 +735,6 @@ export const tableStyles = (
       display: grid;
       align-items: center;
       position: absolute;
-      left: -${dropTargetExtendedWidth + 4}px;
       z-index: ${akEditorUnitZIndex};
 
       .${ClassName.DRAG_ROW_FLOATING_INSERT_DOT_WRAPPER} {
@@ -749,7 +747,7 @@ export const tableStyles = (
       .${ClassName.DRAG_ROW_FLOATING_INSERT_DOT} {
         position: absolute;
         bottom: -3px;
-        left: 6px;
+        left: 2px;
         background-color: ${token(
           'color.background.accent.gray.subtler',
           '#C1C7D0',
@@ -800,13 +798,27 @@ export const tableStyles = (
       align-items: center;
       outline: none !important;
 
+      &.${ClassName.DRAG_HANDLE_DISABLED} {
+        & > svg {
+          & > rect.${ClassName.DRAG_HANDLE_MINIMISED} {
+            fill: ${token('color.background.accent.gray.subtler', '#DCDFE4')};
+          }
+          & > rect {
+            fill: ${token('color.background.accent.gray.subtlest', '#F4F5F7')};
+          }
+          & > g > rect {
+            fill: ${token('color.icon.disabled', '#BFDBF847')};
+          }
+        }
+      }
+
       &:not(.${ClassName.DRAG_HANDLE_DISABLED}) {
         & > svg {
           rect {
-            fill: ${token('color.background.accent.gray.subtlest', '#F1F2F4')};
+            fill: ${token('color.background.accent.gray.subtler', '#DCDFE4')};
           }
           g {
-            fill: ${token('color.icon.subtle', '#626F86')};
+            fill: ${token('color.icon.subtle', '#626f86')};
           }
         }
 

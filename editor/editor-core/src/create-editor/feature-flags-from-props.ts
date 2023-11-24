@@ -130,11 +130,5 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
     restartNumberedLists:
       normalizedFeatureFlags.restartNumberedLists === true ||
       props.featureFlags?.restartNumberedLists === true,
-
-    preventPopupOverflow: Boolean(
-      typeof props.featureFlags?.['prevent-popup-overflow'] === 'boolean'
-        ? !!props.featureFlags?.['prevent-popup-overflow']
-        : false,
-    ),
   };
 }

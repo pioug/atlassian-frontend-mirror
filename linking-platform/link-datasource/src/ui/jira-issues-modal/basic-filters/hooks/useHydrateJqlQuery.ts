@@ -45,7 +45,9 @@ export const useHydrateJqlQuery = (
 
       const mappedValues = {
         ...mapHydrateResponseData(response),
-        basicInputTextValue: removeFuzzyCharacter(textFieldValue),
+        ...(textFieldValue
+          ? { basicInputTextValue: removeFuzzyCharacter(textFieldValue) }
+          : {}),
       };
 
       setHydratedOptions(mappedValues);

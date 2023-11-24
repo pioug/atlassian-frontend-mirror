@@ -37,6 +37,9 @@
       "path": "tsconfig.app.json"
     },
     {
+      "path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+    },
+    {
       "path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
     },
     {
@@ -59,6 +62,9 @@
     },
     {
       "path": "../../design-system/popup/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/select/tsconfig.app.json"
     },
     {
       "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"

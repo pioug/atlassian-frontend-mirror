@@ -5,6 +5,8 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import EmptyState from '@atlaskit/empty-state';
 
+import commonMessages from '../../messages';
+
 import ErrorSVG from './error-svg';
 import messages from './messages';
 
@@ -17,7 +19,7 @@ export const ErrorBoundaryUI = () => {
     <EmptyState
       maxImageWidth={82}
       testId={'link-create-error-boundary-ui'}
-      header={intl.formatMessage(messages.heading)}
+      header={intl.formatMessage(commonMessages.genericErrorMessage)}
       description={
         <FormattedMessage
           {...messages.description}

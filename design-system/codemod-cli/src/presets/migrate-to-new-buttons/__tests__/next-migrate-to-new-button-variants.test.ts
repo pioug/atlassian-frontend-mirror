@@ -1,5 +1,6 @@
 import { defineInlineTest } from 'jscodeshift/src/testUtils';
 import transformer from '../codemods/next-migrate-to-new-button-variants';
+import { eslintDisableComment } from '../utils/constants';
 
 describe('migrate-to-new-button-variants', () => {
   defineInlineTest(
@@ -46,17 +47,67 @@ describe('migrate-to-new-button-variants', () => {
     `,
     'should replace default button with link button if it has both href and icon prop',
   );
+
   defineInlineTest(
     transformer,
     {},
     `import Button from '@atlaskit/button/standard-button';
-    const App = () => (<Button iconBefore={icon} />);
+    const App = () => (<Button iconBefore={MoreIcon} />);
     `,
     `import { UNSAFE_ICON_BUTTON as IconButton } from '@atlaskit/button/unsafe';
-    const App = () => (<IconButton icon={icon} />);
+    const App = () => (<IconButton icon={MoreIcon} />);
     `,
-    'should replace default button with icon button',
+    'should replace default button with icon button, rename the iconBefore prop',
   );
+
+  defineInlineTest(
+    transformer,
+    {},
+    `import Button from '@atlaskit/button/standard-button';
+    const App = () => (<Button iconBefore={<MoreIcon />} />);
+    `,
+    `import { UNSAFE_ICON_BUTTON as IconButton } from '@atlaskit/button/unsafe';
+    const App = () => (<IconButton icon={MoreIcon} />);
+    `,
+    'should replace default button with icon button, rename the iconBefore prop, and replace the JSX element with just identifier',
+  );
+
+  defineInlineTest(
+    transformer,
+    {},
+    `import Button from '@atlaskit/button/standard-button';
+    const App = () => (<Button iconBefore={<MoreIcon label="more icon" size="small" />} />);
+    `,
+    `import { UNSAFE_ICON_BUTTON as IconButton } from '@atlaskit/button/unsafe';
+    const App = () => (<IconButton icon={MoreIcon} label="more icon" UNSAFE_size="small" />);
+    `,
+    'should replace default button with icon button, rename the iconBefore prop, and move the props from the icon component to IconButton props',
+  );
+
+  defineInlineTest(
+    transformer,
+    {},
+    `import Button from '@atlaskit/button/standard-button';
+    const App = () => (<Button iconBefore={<MoreIcon label="more icon" size="small" />}>Button with icon before</Button>);
+    `,
+    `import { UNSAFE_BUTTON as Button } from '@atlaskit/button/unsafe';
+    const App = () => (<Button iconBefore={MoreIcon} label="more icon" UNSAFE_size="small">Button with icon before</Button>);
+    `,
+    'should replace default button with new button, move the props from the icon component to Button props',
+  );
+
+  // TODO: uncomment this
+  // defineInlineTest(
+  //   transformer,
+  //   {},
+  //   `import Button from '@atlaskit/button/standard-button';
+  //   const App = () => (<Button iconBefore={<MoreIcon label="more icon" size="small" primaryColor="blue" />} />);
+  //   `,
+  //   `import { Button } from '@atlaskit/button/standard-button';
+  //   const App = () => (<Button iconBefore={<MoreIcon label="more icon" size="small" primaryColor="blue" />} />);
+  //   `,
+  //   'should not migrate button if unsupported props applied in the icon component',
+  // );
 
   defineInlineTest(
     transformer,
@@ -177,5 +228,30 @@ const App = () => (
         render(Button);
         `,
     'should only replace the import if the button is used in a call expression',
+  );
+  defineInlineTest(
+    transformer,
+    { allowUnsafeImport: true },
+    `import Button from '@atlaskit/button/standard-button';
+const App = () => (<Button>Button</Button>);
+`,
+    `// ${eslintDisableComment}
+import { UNSAFE_BUTTON as Button } from '@atlaskit/button/unsafe';
+const App = () => (<Button>Button</Button>);
+`,
+    'should add eslint-disable if allow unsafe import is provided in options',
+  );
+  defineInlineTest(
+    transformer,
+    { allowUnsafeImport: true },
+    `// ${eslintDisableComment}
+import { UNSAFE_BUTTON as Button } from '@atlaskit/button/unsafe';
+const App = () => (<Button>Button</Button>);
+`,
+    `// ${eslintDisableComment}
+import { UNSAFE_BUTTON as Button } from '@atlaskit/button/unsafe';
+const App = () => (<Button>Button</Button>);
+`,
+    'should not add eslint-disable if it is already there',
   );
 });

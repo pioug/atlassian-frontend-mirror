@@ -12,13 +12,24 @@ export type MediaFileArtifact = {
 };
 
 export interface MediaFileArtifacts {
-  'video_1280.mp4'?: MediaFileArtifact;
-  'video_640.mp4'?: MediaFileArtifact;
-  'document.pdf'?: MediaFileArtifact;
-  'audio.mp3'?: MediaFileArtifact;
-  'thumb.jpg'?: MediaFileArtifact;
   'image.png'?: MediaFileArtifact;
   'image.jpg'?: MediaFileArtifact;
+  'image.gif'?: MediaFileArtifact;
+  'thumb.jpg'?: MediaFileArtifact;
+  'thumb_120.jpg'?: MediaFileArtifact;
+  'thumb_320.jpg'?: MediaFileArtifact;
+  'thumb_large.jpg'?: MediaFileArtifact;
+  'document.pdf'?: MediaFileArtifact;
+  'document.txt'?: MediaFileArtifact;
+  'audio.mp3'?: MediaFileArtifact;
+  'video.mp4'?: MediaFileArtifact;
+  'video_640.mp4'?: MediaFileArtifact;
+  'video_1280.mp4'?: MediaFileArtifact;
+  'video_hd.mp4'?: MediaFileArtifact;
+  'poster.jpg'?: MediaFileArtifact;
+  'poster_640.jpg'?: MediaFileArtifact;
+  'poster_1280.jpg'?: MediaFileArtifact;
+  'poster_hd.jpg'?: MediaFileArtifact;
 }
 
 type BaseFileState = {

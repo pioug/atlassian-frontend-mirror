@@ -3,16 +3,24 @@ import type {
   FileInfo,
   ImportDefaultSpecifier,
   ImportSpecifier,
-  JSXElement,
+  Options,
 } from 'jscodeshift';
+import { addCommentBefore } from '@atlaskit/codemod-utils';
+
 import {
   PRINT_SETTINGS,
   NEW_BUTTON_VARIANTS,
   entryPointsMapping,
   NEW_BUTTON_ENTRY_POINT,
+  eslintDisableComment,
 } from '../utils/constants';
 
-const transformer = (file: FileInfo, api: API): string => {
+import {
+  generateNewElement,
+  moveSizeAndLabelAttributes,
+} from '../utils/generate-new-button-element';
+
+const transformer = (file: FileInfo, api: API, options: Options): string => {
   const j = api.jscodeshift;
   const fileSource = j(file.source);
 
@@ -66,33 +74,6 @@ const transformer = (file: FileInfo, api: API): string => {
       .find(j.ImportSpecifier)
       .filter((path) => path.node.imported.name === variant).length > 0;
 
-  const generateNewElement = (
-    variant: (typeof NEW_BUTTON_VARIANTS)[keyof typeof NEW_BUTTON_VARIANTS]['as'],
-    element: JSXElement,
-  ) => {
-    const { attributes } = element.openingElement;
-    if (variant === NEW_BUTTON_VARIANTS.icon.as) {
-      const attr = attributes?.filter(
-        (attribute) =>
-          attribute.type === 'JSXAttribute' &&
-          (attribute.name.name === 'iconBefore' ||
-            attribute.name.name === 'iconAfter'),
-      );
-      if (attr?.length && attr[0].type === 'JSXAttribute') {
-        attr[0].name.name = 'icon';
-      }
-    }
-    // self closing if it's an icon button or icon link button
-    const isSelfClosing =
-      variant === NEW_BUTTON_VARIANTS.icon.as ||
-      variant === NEW_BUTTON_VARIANTS.linkIcon.as;
-    return j.jsxElement(
-      j.jsxOpeningElement(j.jsxIdentifier(variant), attributes, isSelfClosing),
-      isSelfClosing ? null : j.jsxClosingElement(j.jsxIdentifier(variant)),
-      element.children,
-    );
-  };
-
   let hasLinkIconButton = checkIfVariantAlreadyImported(
     NEW_BUTTON_VARIANTS.linkIcon.import,
   );
@@ -127,14 +108,27 @@ const transformer = (file: FileInfo, api: API): string => {
       buttonAttributes.includes('iconAfter');
     const isLinkIconButton =
       hasHref && hasIcon && element.value.children?.length === 0;
+
     const isLinkButton = hasHref && !isLinkIconButton;
+    // TODO: add checks for unsupported icon props except label and size, e.g. primaryColor, testId, or spread props
+    // and don't migrate these buttons.
     const isIconButton =
       !hasHref && hasIcon && element.value.children?.length === 0;
+
+    const isDefaultButtonWithAnIcon =
+      !isLinkIconButton && !isIconButton && hasIcon;
+
+    // TODO: add checks for unsupported icon props except label and size, e.g. primaryColor, testId, or spread props
+    // and don't migrate these buttons.
+    if (isDefaultButtonWithAnIcon) {
+      moveSizeAndLabelAttributes(element.value, j);
+    }
+
     if (isLinkIconButton) {
       hasLinkIconButton = true;
 
       j(element).replaceWith(
-        generateNewElement(NEW_BUTTON_VARIANTS.linkIcon.as, element.value),
+        generateNewElement(NEW_BUTTON_VARIANTS.linkIcon.as, element.value, j),
       );
     }
 
@@ -142,7 +136,7 @@ const transformer = (file: FileInfo, api: API): string => {
       hasIconButton = true;
 
       j(element).replaceWith(
-        generateNewElement(NEW_BUTTON_VARIANTS.icon.as, element.value),
+        generateNewElement(NEW_BUTTON_VARIANTS.icon.as, element.value, j),
       );
     }
 
@@ -150,7 +144,7 @@ const transformer = (file: FileInfo, api: API): string => {
       hasLinkButton = true;
 
       j(element).replaceWith(
-        generateNewElement(NEW_BUTTON_VARIANTS.link.as, element.value),
+        generateNewElement(NEW_BUTTON_VARIANTS.link.as, element.value, j),
       );
     }
   });
@@ -192,7 +186,7 @@ const transformer = (file: FileInfo, api: API): string => {
         path.node.source.value === entryPointsMapping.Button,
     );
 
-  const leftButtons =
+  const remainingDefaultButtons =
     fileSource
       .find(j.JSXElement)
       .filter(
@@ -208,8 +202,8 @@ const transformer = (file: FileInfo, api: API): string => {
           .includes(specifierIdentifier),
       ).length > 0;
 
-  if (specifiers.length || leftButtons) {
-    if (leftButtons) {
+  if (specifiers.length || remainingDefaultButtons) {
+    if (remainingDefaultButtons) {
       specifiers.push(
         j.importSpecifier(
           j.identifier(NEW_BUTTON_VARIANTS.default.import),
@@ -220,6 +214,21 @@ const transformer = (file: FileInfo, api: API): string => {
     oldButtonImport.replaceWith(
       j.importDeclaration(specifiers, j.stringLiteral(NEW_BUTTON_ENTRY_POINT)),
     );
+
+    if (
+      NEW_BUTTON_ENTRY_POINT.includes('unsafe') &&
+      options?.allowUnsafeImport === true
+    ) {
+      addCommentBefore(
+        j,
+        fileSource
+          .find(j.ImportDeclaration)
+          .filter((path) => path.node.source.value === NEW_BUTTON_ENTRY_POINT),
+        eslintDisableComment,
+        'line',
+        '',
+      );
+    }
   }
 
   return fileSource.toSource(PRINT_SETTINGS);

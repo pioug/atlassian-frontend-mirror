@@ -1,5 +1,11 @@
 # @atlaskit/media-state
 
+## 1.0.3
+
+### Patch Changes
+
+- [#43817](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43817) [`048aca70499`](https://bitbucket.org/atlassian/atlassian-frontend/commits/048aca70499) - Updated Internal File Artifact Definitions
+
 ## 1.0.2
 
 ### Patch Changes

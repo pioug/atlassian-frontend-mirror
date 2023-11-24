@@ -22,6 +22,8 @@ test('DynamicTable elements should be able to be identified, interacted and sort
   page,
 }) => {
   await page.visitExample('design-system', 'dynamic-table', 'testing');
+
+  // Check for visibility.
   await expect(page.locator(table).first()).toBeVisible();
   await expect(page.locator(tableHead).first()).toBeVisible();
   await expect(page.locator(tableHeadCell).first()).toBeVisible();
@@ -29,6 +31,8 @@ test('DynamicTable elements should be able to be identified, interacted and sort
   await expect(page.locator(tableRowJ).first()).toBeVisible();
   await expect(page.locator(tableRowT).first()).toBeVisible();
   await expect(page.locator(tableRowJa).first()).toBeVisible();
+
+  // Check for content without sorting.
   await expect(page.locator(tableHeadName).first()).toHaveText('Name');
   await expect(page.locator(tableHeadParty).first()).toHaveText('Party');
   await expect(page.locator(tableHeadTerm).first()).toHaveText('Term');
@@ -42,7 +46,11 @@ test('DynamicTable elements should be able to be identified, interacted and sort
   await expect(
     page.locator(`${tableRowJa} > ${tableCell3}`).first(),
   ).toHaveText('3');
+
+  // Sort by name.
   await page.locator(tableHeadNameSortButton).first().click();
+
+  // Check for visibility & content after sorting.
   await expect(page.locator(tableRowA).first()).toBeVisible();
   await expect(page.locator(`${tableRowA} > ${tableCell0}`).first()).toHaveText(
     'Abraham Lincoln',

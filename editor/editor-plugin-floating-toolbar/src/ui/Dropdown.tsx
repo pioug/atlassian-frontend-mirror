@@ -236,11 +236,17 @@ export default class Dropdown extends Component<Props, State> {
           '[data-role="droplistContent"]',
         );
         if (dropList) {
-          const keyboardEvent = new KeyboardEvent('keydown', {
-            bubbles: true,
-            key: 'ArrowDown',
-          });
-          dropList.dispatchEvent(keyboardEvent);
+          // Add setTimeout so that if a dropdown item has tooltip,
+          // the tooltip won't be rendered until next render cycle
+          // when the droplist is correctly positioned.
+          // This makes tooltip appears at the correct position for the first dropdown item.
+          setTimeout(() => {
+            const keyboardEvent = new KeyboardEvent('keydown', {
+              bubbles: true,
+              key: 'ArrowDown',
+            });
+            dropList.dispatchEvent(keyboardEvent);
+          }, 0);
         }
       }
     }

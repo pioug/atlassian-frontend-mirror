@@ -413,6 +413,98 @@ describe('JiraIssuesConfigModal', () => {
         queryByTestId('jira-jql-datasource-modal-total-issues-count'),
       ).toBeNull();
     });
+
+    describe('should call onInsert with new JQL and isQueryComplex=true when the query is complex', () => {
+      ffTest(
+        'platform.linking-platform.datasource.show-jlol-basic-filters',
+        async () => {
+          const { assertInsertResult, searchWithNewJql } = await setup();
+
+          searchWithNewJql('resolution=done');
+
+          assertInsertResult(
+            {
+              jql: 'resolution=done',
+              jqlUrl: 'https://hello.atlassian.net/issues/?jql=resolution=done',
+            },
+            {
+              attributes: {
+                actions: ['query updated'],
+                searchCount: 1,
+                searchMethod: 'datasource_search_query',
+                isQueryComplex: true,
+              },
+            },
+          );
+        },
+        async () => {
+          const { assertInsertResult, searchWithNewJql } = await setup();
+
+          searchWithNewJql('resolution=done');
+
+          assertInsertResult(
+            {
+              jql: 'resolution=done',
+              jqlUrl: 'https://hello.atlassian.net/issues/?jql=resolution=done',
+            },
+            {
+              attributes: {
+                actions: ['query updated'],
+                searchCount: 1,
+                searchMethod: 'datasource_search_query',
+                isQueryComplex: false,
+              },
+            },
+          );
+        },
+      );
+    });
+
+    describe('should call onInsert with new JQL and isQueryComplex=false when the query is not complex', () => {
+      ffTest(
+        'platform.linking-platform.datasource.show-jlol-basic-filters',
+        async () => {
+          const { assertInsertResult, searchWithNewJql } = await setup();
+
+          searchWithNewJql('status=done');
+
+          assertInsertResult(
+            {
+              jql: 'status=done',
+              jqlUrl: 'https://hello.atlassian.net/issues/?jql=status=done',
+            },
+            {
+              attributes: {
+                actions: ['query updated'],
+                searchCount: 1,
+                searchMethod: 'datasource_search_query',
+                isQueryComplex: false,
+              },
+            },
+          );
+        },
+        async () => {
+          const { assertInsertResult, searchWithNewJql } = await setup();
+
+          searchWithNewJql('status=done');
+
+          assertInsertResult(
+            {
+              jql: 'status=done',
+              jqlUrl: 'https://hello.atlassian.net/issues/?jql=status=done',
+            },
+            {
+              attributes: {
+                actions: ['query updated'],
+                searchCount: 1,
+                searchMethod: 'datasource_search_query',
+                isQueryComplex: false,
+              },
+            },
+          );
+        },
+      );
+    });
   });
 
   describe('when onNextPage is called from IssueLikeDataTableView', () => {

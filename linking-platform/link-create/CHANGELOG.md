@@ -1,5 +1,38 @@
 # @atlaskit/link-create
 
+## 1.11.0
+
+### Minor Changes
+
+- [#43513](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43513) [`3b056e3b332`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b056e3b332) - ### Improved Observability
+
+  Improves observability over failure cases when plugins call `onFailure()`, or throw an error to be caught by `<LinkCreate />`'s internal error boundary.
+
+  When `platform.linking-platform.link-create.better-observability` feature flag is enabled, errors provided via `onFailure()` from plugins no longer play a role in displaying an error message to users in the `<CreateForm />`.
+
+  ### Improved Create Form error handling
+
+  Allows plugins to return an object of error messages in the `onSubmit()` handler provided to the `CreateForm`.
+  To set a generic error, use the newly exposed `FORM_ERROR` [see react-final-form](https://final-form.org/docs/react-final-form/types/FormProps#submission-errors) to define an error message on the object resolved `onSubmit`.
+
+  Example:
+
+  ```tsx
+  import { FORM_ERROR } from '@atlaskit/link-create'
+
+  <CreateForm onSubmit={(data) => {
+    return {
+      [FORM_ERROR]: "Something bad happened!"
+    }
+  } />
+  ```
+
+  The error message returned by the plugin will be displayed in the form footer when the `platform.linking-platform.link-create.better-observability` feature flag is enabled.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.10.0
 
 ### Minor Changes

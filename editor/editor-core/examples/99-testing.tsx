@@ -90,6 +90,8 @@ const EditorWithTitleFocusBehavior: React.FC<EditorProps> = (props) => {
 };
 
 export default function EditorExampleForIntegrationTests({ clipboard = true }) {
+  const urlParams = new URLSearchParams(window.location.search);
+  const disableClipboard = Boolean(urlParams.get('disableClipboard'));
   return createEditorExampleForTests<any>(
     (props, nonSerializableProps, lifecycleHandlers, withCollab) => {
       const { onMount, onChange, onDestroy } = lifecycleHandlers;
@@ -221,6 +223,6 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
         return editorContent;
       }
     },
-    { clipboard },
+    { clipboard: disableClipboard ? false : clipboard },
   );
 }

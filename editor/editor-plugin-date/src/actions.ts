@@ -16,6 +16,7 @@ import type {
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
+import { canInsert } from '@atlaskit/editor-prosemirror/utils';
 
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { DatePluginState } from './pm-plugins/types';
@@ -24,21 +25,27 @@ import { isToday } from './utils/internal';
 
 export const createDate =
   (isQuickInsertAction?: boolean) =>
-  (
-    insert: (
-      node: Node | Object | string,
-      opts?: { selectInlineNode: boolean },
-    ) => Transaction,
-    state: EditorState,
-  ): Transaction => {
+  (state: EditorState): Transaction => {
     const dateNode = state.schema.nodes.date.createChecked({
       timestamp: todayTimestampInUTC(),
     });
-    const space = state.schema.text(' ');
+    const fragment = Fragment.fromArray([dateNode, state.schema.text(' ')]);
 
-    const tr = insert(Fragment.from([dateNode, space]), {
-      selectInlineNode: true,
-    });
+    const tr = state.tr;
+    const insertable = canInsert(tr.selection.$from, fragment);
+    if (!insertable) {
+      const parentSelection = NodeSelection.create(
+        tr.doc,
+        tr.selection.from - tr.selection.$anchor.parentOffset - 1,
+      );
+      tr.insert(parentSelection.to, fragment).setSelection(
+        NodeSelection.create(tr.doc, parentSelection.to + 1),
+      );
+    } else {
+      tr.insert(tr.selection.from, fragment).setSelection(
+        NodeSelection.create(tr.doc, tr.selection.from - fragment.size),
+      );
+    }
     const newPluginState: DatePluginState = {
       isQuickInsertAction,
       showDatePickerAt: tr.selection.from,

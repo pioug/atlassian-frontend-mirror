@@ -70,9 +70,6 @@
     },
     {
       "path": "../tokens/tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/test-tooling/webdriver-runner/tsconfig.app.json"
     }
   ]
 }

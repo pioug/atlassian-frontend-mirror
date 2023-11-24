@@ -102,6 +102,24 @@ describe('buildJQL', () => {
       expect(jql).toEqual('created >= -30d ORDER BY created DESC');
     });
 
+    it('should create the default query when filterValues contains key other than those in availableBasicFilterTypes', () => {
+      const jql = buildJQL({
+        rawSearch: '',
+        filterValues: {
+          wrongKey: [
+            {
+              label: 'Commitment Register',
+              value: 'Commitment Register',
+              optionType: 'iconLabel',
+              icon: '',
+            },
+          ],
+        } as any,
+      });
+
+      expect(jql).toEqual('created >= -30d ORDER BY created DESC');
+    });
+
     it('should create correct jql when one of the filters have value and other are empty', () => {
       const jql = buildJQL({
         rawSearch: '',

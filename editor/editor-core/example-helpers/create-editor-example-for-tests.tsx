@@ -342,6 +342,26 @@ function createProviders(
     };
   }
 
+  if (opts.annotation) {
+    const isToolbarAbove =
+      typeof props.annotationProviders === 'object'
+        ? props.annotationProviders.inlineComment.isToolbarAbove
+        : undefined;
+    providers.annotationProviders = {
+      inlineComment: {
+        createComponent: ExampleCreateInlineCommentComponent,
+        viewComponent: ExampleViewInlineCommentComponent,
+        getState: async (ids: string[]) =>
+          ids.map((id) => ({
+            annotationType: AnnotationTypes.INLINE_COMMENT,
+            id,
+            state: { resolved: false },
+          })),
+        isToolbarAbove,
+      },
+    };
+  }
+
   return providers;
 }
 

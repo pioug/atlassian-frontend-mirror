@@ -60,6 +60,15 @@ import { ThemeProps, ThemeTokens } from '@atlaskit/button';
   defineInlineTest(
     transformer,
     {},
+    `import { UNSAFE_LINK_BUTTON as LinkButton } from '@atlaskit/button/unsafe';
+    import CustomThemeButton from '@atlaskit/button/custom-theme-button';`,
+    `import { UNSAFE_LINK_BUTTON as LinkButton } from '@atlaskit/button/unsafe';
+    import CustomThemeButton from '@atlaskit/button/custom-theme-button';`,
+    'should not modify import path',
+  );
+  defineInlineTest(
+    transformer,
+    {},
     `import { LoadingButtonProps } from '@atlaskit/button/loading-button';`,
     `import { LoadingButtonProps } from '@atlaskit/button/loading-button';`,
     'should not split the type imports',

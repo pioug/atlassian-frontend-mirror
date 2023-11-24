@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::650bd05729c6d9d8eb143f643a8c34c2>>
+ * @codegen <<SignedSource::32dd97482f811937fcb07590b84179dd>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type PackageMetaDataType = {
@@ -22,7 +22,9 @@ export type ModalReadyDatasourceAttributesType = {
   instancesCount: number | null;
   schemasCount: number | null;
 };
-export type JqlEditorSearchedAttributesType = {};
+export type JqlEditorSearchedAttributesType = {
+  isQueryComplex: boolean;
+};
 export type FormSubmittedBasicSearchAttributesType = {};
 export type EmptyResultShownDatasourceAttributesType = {};
 export type ErrorShownAttributesType = {
@@ -45,6 +47,7 @@ export type ButtonClickedInsertAttributesType = {
     | null;
   extensionKey: string | null;
   actions: unknown[];
+  isQueryComplex: boolean;
 };
 export type ButtonClickedCancelAttributesType = {
   searchCount: number;

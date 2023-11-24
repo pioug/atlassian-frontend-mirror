@@ -94,6 +94,14 @@ export function mapHydrateResponseData({ data }: HydrateResponse) {
 
   data?.jira?.jqlBuilder?.hydrateJqlQuery?.fields?.forEach(
     ({ jqlTerm, values = [] }) => {
+      /**
+       * Currently, the hydrate query does not support text field in JQL and returns as {} object.
+       * Hence we check if a valid jqlTerm is available
+       */
+      if (!jqlTerm) {
+        return;
+      }
+
       const options =
         values
           .map(({ values }) =>

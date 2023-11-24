@@ -80,7 +80,7 @@ export const captureException = async (
         'jira-release': (window as any).BUILD_KEY,
         // Confluence environment variables
         'confluence-frontend-version': (window as any).__buildInfo
-          .FRONTEND_VERSION,
+          ?.FRONTEND_VERSION,
         packageName,
         ...tags,
       });

@@ -49,3 +49,6 @@ export const BUTTON_TYPES = [
   'CustomThemeButtonProps',
   'CustomThemeButtonOwnProps',
 ];
+
+export const eslintDisableComment =
+  'eslint-disable-next-line @atlaskit/design-system/no-banned-imports';

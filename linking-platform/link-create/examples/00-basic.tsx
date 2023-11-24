@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
+import fetchMock from 'fetch-mock/cjs/client';
 import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
@@ -13,10 +14,27 @@ import LinkCreate, {
 } from '../src';
 import { CreatePayload } from '../src/common/types';
 
+const fetchMockNetworkRequest = () => {
+  const search = new URLSearchParams(window.location.search);
+
+  if (search.get('disableFetchMock') !== 'true') {
+    fetchMock.get(
+      '*',
+      [
+        { label: 'Option 1', value: 'option-1' },
+        { label: 'Option 2', value: 'option-2' },
+      ],
+      { delay: 20 },
+    );
+  }
+};
+
+fetchMockNetworkRequest();
+
 const ENTITY_KEY = 'object-name';
 
 function MockPluginForm() {
-  const { onCreate, onFailure, onCancel } = useLinkCreateCallback();
+  const { onCreate, onCancel } = useLinkCreateCallback();
 
   type MockOptions = {
     label: string;
@@ -48,31 +66,21 @@ function MockPluginForm() {
     [],
   );
 
-  const initialValues: MockedFormData = {
-    asyncSelectName: null,
-  };
-
-  const mockLoadOptions = useCallback(async () => {
-    const exampleOptions = [
-      { label: 'Option 1', value: 'option-1' },
-      { label: 'Option 2', value: 'option-2' },
-    ];
-
-    try {
-      return exampleOptions;
-    } catch (error) {
-      if (error instanceof Error) {
-        onFailure && onFailure(error);
-      }
-      return [];
+  /**
+   * Must be stable callback otherwise re-render will trigger re-fetch
+   */
+  const mockLoadOptions = useCallback(async (query: string) => {
+    const res = await fetch(`/options?filter=${query}`);
+    if (!res.ok) {
+      throw res;
     }
-  }, [onFailure]);
+    return res.json();
+  }, []);
 
   return (
     <div>
       This is a mocked plugin.
       <CreateForm<MockedFormData>
-        initialValues={initialValues}
         onSubmit={mockHandleSubmit}
         onCancel={onCancel}
       >
@@ -90,13 +98,13 @@ function MockPluginForm() {
           name={'asyncSelectName'}
           label={'Select an Option'}
           validators={[mockValidator]}
-          defaultOptions={true}
           loadOptions={mockLoadOptions}
         ></AsyncSelect>
       </CreateForm>
     </div>
   );
 }
+
 function CreateBasic() {
   const [link, setLink] = useState<string | null>();
   const [ari, setAri] = useState<string | null>();

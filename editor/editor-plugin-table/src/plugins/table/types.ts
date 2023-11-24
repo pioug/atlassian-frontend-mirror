@@ -330,6 +330,9 @@ export const TableCssClassName = {
   /** disabled classes */
   DRAG_HANDLE_DISABLED: `${tablePrefixSelector}-drag-handle-disabled`,
 
+  /** minimised handle class */
+  DRAG_HANDLE_MINIMISED: `${tablePrefixSelector}-drag-handle-minimised`,
+
   /** Other classes */
   NUMBERED_COLUMN: `${tablePrefixSelector}-numbered-column`,
   NUMBERED_COLUMN_BUTTON: `${tablePrefixSelector}-numbered-column__button`,

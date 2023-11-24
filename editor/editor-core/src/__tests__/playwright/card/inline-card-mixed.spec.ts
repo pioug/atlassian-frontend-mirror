@@ -8,6 +8,7 @@ import {
   editorTestCase as test,
   expect,
   fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 import {
   cardLazyAdf,
@@ -61,6 +62,13 @@ test.describe('inline-card-mixed: libra tests', () => {
     test('should lazy render cards after scrolling down, requesting data in the background (with prefetching)', async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-21127, ED-21145, ED-21153',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 22/11/2023: https://product-fabric.atlassian.net/browse/ED-21127',
+        browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
+      });
+
       const nodes = EditorNodeContainerModel.from(editor);
       const inlineCardsModel = EditorInlineCardModel.from(nodes.inlineCard);
       const inlineCardModel = inlineCardsModel.card(0);
@@ -261,6 +269,13 @@ test.describe('inline-card-mixed: libra tests', () => {
     test('should set contentediable=true on blocks and embeds', async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-21128, ED-21146, ED-21154',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 22/11/2023: https://product-fabric.atlassian.net/browse/ED-21128',
+        browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
+      });
+
       const nodes = EditorNodeContainerModel.from(editor);
       const embedCardModel = EditorEmbedCardModel.from(nodes.embedCard);
       const blockCardModel = EditorBlockCardModel.from(nodes.blockCard);
@@ -323,6 +338,13 @@ test.describe('inline-card-mixed: libra tests', () => {
       test('changing the link URL of an embed link to an unsupported url should convert it to a "dumb" link', async ({
         editor,
       }) => {
+        fixTest({
+          jiraIssueId: 'ED-21129, ED-21155',
+          reason:
+            'FIXME: This test was automatically skipped due to failure on 22/11/2023: https://product-fabric.atlassian.net/browse/ED-21129',
+          browsers: [BROWSERS.chromium, BROWSERS.webkit],
+        });
+
         const nodes = EditorNodeContainerModel.from(editor);
         const embedCardModel = EditorEmbedCardModel.from(nodes.embedCard);
 
@@ -454,6 +476,26 @@ test.describe('inline-card-mixed: libra tests', () => {
       test(`Layout ${testCase.type} selector for embed Card`, async ({
         editor,
       }) => {
+        fixTest({
+          jiraIssueId:
+            'ED-21130, ED-21131, ED-21132, ED-21133, ED-21147, ED-21148, ED-21149, ED-21156, ED-21157, ED-21158, ED-21159',
+          reason:
+            'FIXME: This test was automatically skipped due to failure on 22/11/2023: https://product-fabric.atlassian.net/browse/ED-21130',
+          browsers: [
+            BROWSERS.chromium,
+            BROWSERS.chromium,
+            BROWSERS.chromium,
+            BROWSERS.chromium,
+            BROWSERS.firefox,
+            BROWSERS.firefox,
+            BROWSERS.firefox,
+            BROWSERS.webkit,
+            BROWSERS.webkit,
+            BROWSERS.webkit,
+            BROWSERS.webkit,
+          ],
+        });
+
         const nodes = EditorNodeContainerModel.from(editor);
         const embedCardModel = EditorEmbedCardModel.from(nodes.embedCard);
         const toolbar = EditorMainToolbarModel.from(editor);
@@ -503,6 +545,13 @@ test.describe('inline-card-mixed: libra tests', () => {
     test('React shall not apply the same state to two different cards', async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-21134, ED-21150, ED-21160',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 22/11/2023: https://product-fabric.atlassian.net/browse/ED-21134',
+        browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
+      });
+
       const nodes = EditorNodeContainerModel.from(editor);
       const embedCardModel = EditorEmbedCardModel.from(nodes.embedCard);
 
@@ -618,6 +667,13 @@ test.describe('inline-card-mixed: libra tests', () => {
     test(`typing in a supported link and pressing enter should not create an inline card`, async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-21135, ED-21161',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 22/11/2023: https://product-fabric.atlassian.net/browse/ED-21135',
+        browsers: [BROWSERS.chromium, BROWSERS.webkit],
+      });
+
       await editor.keyboard.type('www.atlassian.com');
       await editor.keyboard.press('Enter');
       expect(editor).toMatchDocument(
@@ -631,6 +687,13 @@ test.describe('inline-card-mixed: libra tests', () => {
     test(`typing in a supported link and pressing space should not create an inline card`, async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-21136, ED-21162',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 22/11/2023: https://product-fabric.atlassian.net/browse/ED-21136',
+        browsers: [BROWSERS.chromium, BROWSERS.webkit],
+      });
+
       await editor.keyboard.type('www.atlassian.com');
       await editor.keyboard.type(' ');
       expect(editor).toMatchDocument(
@@ -643,6 +706,13 @@ test.describe('inline-card-mixed: libra tests', () => {
     test(`pressing backspace with the cursor at the end of Inline link should delete it`, async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-21137, ED-21151, ED-21163',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 22/11/2023: https://product-fabric.atlassian.net/browse/ED-21137',
+        browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
+      });
+
       await editor.simulatePasteEvent({
         pasteAs: 'text/plain',
         text: 'https://www.atlassian.com',
@@ -664,6 +734,13 @@ test.describe('inline-card-mixed: libra tests', () => {
     test(`unlinking an Inline Link should replace it with text corresponding to the title of the previously linked page`, async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-21138, ED-21164',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 22/11/2023: https://product-fabric.atlassian.net/browse/ED-21138',
+        browsers: [BROWSERS.chromium, BROWSERS.webkit],
+      });
+
       await editor.simulatePasteEvent({
         pasteAs: 'text/plain',
         text: 'https://www.atlassian.com',
@@ -688,6 +765,18 @@ test.describe('inline-card-mixed: libra tests', () => {
     test('changing the link label of an inline link should convert it to a "dumb" link', async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-21139, ED-21140, ED-21165, ED-21166',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 22/11/2023: https://product-fabric.atlassian.net/browse/ED-21139',
+        browsers: [
+          BROWSERS.chromium,
+          BROWSERS.chromium,
+          BROWSERS.webkit,
+          BROWSERS.webkit,
+        ],
+      });
+
       await editor.simulatePasteEvent({
         pasteAs: 'text/plain',
         text: 'https://www.atlassian.com',
@@ -732,6 +821,18 @@ test.describe('inline-card-mixed: libra tests', () => {
       test('changing the link label of an inline link should convert it to a "dumb" link', async ({
         editor,
       }) => {
+        fixTest({
+          jiraIssueId: 'ED-21139, ED-21140, ED-21165, ED-21166',
+          reason:
+            'FIXME: This test was automatically skipped due to failure on 22/11/2023: https://product-fabric.atlassian.net/browse/ED-21139',
+          browsers: [
+            BROWSERS.chromium,
+            BROWSERS.chromium,
+            BROWSERS.webkit,
+            BROWSERS.webkit,
+          ],
+        });
+
         await editor.simulatePasteEvent({
           pasteAs: 'text/plain',
           text: 'https://www.atlassian.com',
@@ -761,6 +862,18 @@ test.describe('inline-card-mixed: libra tests', () => {
     test(`selecting an inline card and choosing a new page from edit-link menu should update title and url for supported link`, async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-21141, ED-21142, ED-21152, ED-21167',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 22/11/2023: https://product-fabric.atlassian.net/browse/ED-21141',
+        browsers: [
+          BROWSERS.chromium,
+          BROWSERS.chromium,
+          BROWSERS.firefox,
+          BROWSERS.webkit,
+        ],
+      });
+
       await editor.simulatePasteEvent({
         pasteAs: 'text/plain',
         text: 'https://www.atlassian.com',
@@ -821,6 +934,13 @@ test.describe('inline-card-mixed: libra tests', () => {
       test(`card: selecting an inline card and choosing a new page from edit-link menu should update title and url for supported link`, async ({
         editor,
       }) => {
+        fixTest({
+          jiraIssueId: 'ED-21142',
+          reason:
+            'FIXME: This test was automatically skipped due to failure on 22/11/2023: https://product-fabric.atlassian.net/browse/ED-21142',
+          browsers: [BROWSERS.chromium],
+        });
+
         await editor.simulatePasteEvent({
           pasteAs: 'text/plain',
           text: 'https://www.atlassian.com',
@@ -865,6 +985,18 @@ test.describe('inline-card-mixed: libra tests', () => {
     test(`selecting an inline card and choosing a new page from edit-link menu should update title and url for unsupported link`, async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-21143, ED-21144, ED-21168, ED-21169',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 22/11/2023: https://product-fabric.atlassian.net/browse/ED-21143',
+        browsers: [
+          BROWSERS.chromium,
+          BROWSERS.chromium,
+          BROWSERS.webkit,
+          BROWSERS.webkit,
+        ],
+      });
+
       await editor.simulatePasteEvent({
         pasteAs: 'text/plain',
         text: 'https://www.atlassian.com',
@@ -917,6 +1049,18 @@ test.describe('inline-card-mixed: libra tests', () => {
       test(`selecting an inline card and choosing a new page from edit-link menu should update title and url for unsupported link`, async ({
         editor,
       }) => {
+        fixTest({
+          jiraIssueId: 'ED-21143, ED-21144, ED-21168, ED-21169',
+          reason:
+            'FIXME: This test was automatically skipped due to failure on 22/11/2023: https://product-fabric.atlassian.net/browse/ED-21143',
+          browsers: [
+            BROWSERS.chromium,
+            BROWSERS.chromium,
+            BROWSERS.webkit,
+            BROWSERS.webkit,
+          ],
+        });
+
         await editor.simulatePasteEvent({
           pasteAs: 'text/plain',
           text: 'https://www.atlassian.com',

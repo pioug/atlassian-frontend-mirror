@@ -4,7 +4,13 @@ export {
   getLinkMetadataFromTransaction,
   commandWithMetadata,
 } from './utils';
-export { default as buildLayoutButtons } from './MediaAndEmbedsToolbar';
+export {
+  default as buildLayoutButtons,
+  alignmentIcons,
+  wrappingIcons,
+  layoutToMessages,
+} from './MediaAndEmbedsToolbar';
+export type { IconMap, LayoutIcon } from './MediaAndEmbedsToolbar';
 export type {
   OptionConfig,
   CardPluginActions,

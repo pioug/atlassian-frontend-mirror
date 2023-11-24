@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.7.6
+
+### Patch Changes
+
+- [#43874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43874) [`71d228970ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71d228970ef) - Enrol packages to push model in JFE
+
 ## 19.7.5
 
 ### Patch Changes

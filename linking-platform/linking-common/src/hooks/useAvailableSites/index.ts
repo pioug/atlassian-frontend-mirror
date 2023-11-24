@@ -9,6 +9,7 @@ import {
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { ANALYTICS_CHANNEL } from '../../common/utils/constants';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useIsMounted } from '../useIsMounted';
 
 const defaultProducts = [
   AvailableSitesProductType.WHITEBOARD,
@@ -25,6 +26,7 @@ const defaultProducts = [
   AvailableSitesProductType.STATUS_PAGE,
   AvailableSitesProductType.ATLAS,
 ];
+
 export const useAvailableSites = ({
   gatewayBaseUrl,
 }: {
@@ -67,8 +69,57 @@ export const useAvailableSites = ({
         });
       }
     };
+
     fetchSites();
   }, [createAnalyticsEvent, gatewayBaseUrl]);
+
+  return state;
+};
+
+export const useAvailableSitesV2 = ({
+  gatewayBaseUrl,
+}: {
+  gatewayBaseUrl?: string;
+}) => {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
+  const isMounted = useIsMounted();
+  const [state, setState] = useState<{
+    data: AvailableSite[];
+    loading: boolean;
+    error?: unknown;
+  }>({
+    data: [],
+    loading: true,
+  });
+
+  useEffect(() => {
+    const fetchSites = async () => {
+      try {
+        const { sites } = await getAvailableSites({
+          products: defaultProducts,
+          gatewayBaseUrl,
+        });
+
+        if (isMounted()) {
+          setState({
+            data: sites,
+            loading: false,
+            error: undefined,
+          });
+        }
+      } catch (error: unknown) {
+        if (isMounted()) {
+          setState({
+            data: [],
+            loading: false,
+            error,
+          });
+        }
+      }
+    };
+
+    fetchSites();
+  }, [createAnalyticsEvent, gatewayBaseUrl, isMounted]);
 
   return state;
 };

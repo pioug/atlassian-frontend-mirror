@@ -4,7 +4,10 @@ import type {
   MediaBaseAttributes,
   RichMediaLayout,
 } from '@atlaskit/adf-schema';
+import type { LayoutIcon } from '@atlaskit/editor-common/card';
 import { wrappedLayouts } from '@atlaskit/editor-common/media-single';
+import { nonWrappedLayouts } from '@atlaskit/editor-common/utils';
+import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
   findParentNodeOfType,
@@ -126,4 +129,16 @@ export const getMaxToolbarWidth = () => {
     maxToolbarFitWidth = toolbarWidth;
   }
   return maxToolbarFitWidth;
+};
+
+export const getSelectedLayoutIcon = (
+  layoutIcons: LayoutIcon[],
+  selectedNode: ProseMirrorNode,
+) => {
+  const selectedLayout = selectedNode.attrs.layout;
+  return layoutIcons.find(
+    icon =>
+      icon.value ===
+      (nonWrappedLayouts.includes(selectedLayout) ? 'center' : selectedLayout),
+  );
 };

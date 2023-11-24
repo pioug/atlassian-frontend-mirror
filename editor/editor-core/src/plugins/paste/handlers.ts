@@ -1233,6 +1233,7 @@ export function handleRichText(
         'panel',
         'nestedExpand',
         'decisionList',
+        'codeBlock',
       ].includes(slice.content.lastChild?.type?.name || '');
       if (insideTableCell(state) && shouldUpdateCursorPosAfterPaste) {
         const nextPos = tr.doc.resolve(tr.mapping.map(selection.$from.pos));

@@ -60,6 +60,7 @@ export interface SearchContainerProps {
     }: {
       searchMethod: JiraSearchMethod;
       basicFilterSelections: SelectedOptionsMap;
+      isQueryComplex: boolean;
     },
   ) => void;
   initialSearchMethod: JiraSearchMethod;
@@ -153,20 +154,24 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
   }, []);
 
   const handleSearch = useCallback(() => {
+    const isCurrentQueryComplex = isQueryTooComplex(jql);
+
     onSearch(
       { jql },
       {
         searchMethod: currentSearchMethod,
         basicFilterSelections: filterSelections,
+        isQueryComplex: isCurrentQueryComplex,
       },
     );
 
     if (currentSearchMethod === 'basic') {
       fireEvent('ui.form.submitted.basicSearch', {});
     } else if (currentSearchMethod === 'jql') {
-      fireEvent('ui.jqlEditor.searched', {});
+      fireEvent('ui.jqlEditor.searched', {
+        isQueryComplex: isCurrentQueryComplex,
+      });
 
-      const isCurrentQueryComplex = isQueryTooComplex(jql);
       setIsComplexQuery(isCurrentQueryComplex);
 
       if (showBasicFilters && !isCurrentQueryComplex) {
@@ -193,6 +198,8 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
       });
 
       setJql(jqlWithFilterValues);
+      const isCurrentQueryComplex = isQueryTooComplex(jqlWithFilterValues);
+
       onSearch(
         {
           jql: jqlWithFilterValues,
@@ -200,6 +207,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
         {
           searchMethod: currentSearchMethod,
           basicFilterSelections: filterSelections,
+          isQueryComplex: isCurrentQueryComplex,
         },
       );
     },
@@ -231,9 +239,11 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 
   useEffect(() => {
     if (basicFilterHydrationStatus === 'resolved') {
-      setFilterSelections(hydratedOptions);
-      if (hydratedOptions.basicInputTextValue) {
-        setBasicSearchTerm(hydratedOptions.basicInputTextValue);
+      const { basicInputTextValue, ...hydratedFilterOptions } = hydratedOptions;
+
+      setFilterSelections(hydratedFilterOptions);
+      if (basicInputTextValue) {
+        setBasicSearchTerm(basicInputTextValue);
       }
     }
   }, [hydratedOptions, basicFilterHydrationStatus]);

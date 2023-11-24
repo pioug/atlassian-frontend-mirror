@@ -194,7 +194,7 @@ export const getToolbarConfig =
     const { formatMessage } = intl;
     const linkState: HyperlinkState | undefined = stateKey.getState(state);
     const editorAnalyticsApi = pluginInjectionApi?.analytics?.actions;
-    const { lpLinkPicker, preventPopupOverflow } = featureFlags;
+    const { lpLinkPicker } = featureFlags;
 
     if (linkState && linkState.activeLinkMark) {
       const { activeLinkMark } = linkState;
@@ -327,7 +327,7 @@ export const getToolbarConfig =
 
           return {
             ...hyperLinkToolbar,
-            preventPopupOverflow,
+            preventPopupOverflow: !!lpLinkPicker,
             height: popupHeight,
             width: RECENT_SEARCH_WIDTH_IN_PX,
             items: [

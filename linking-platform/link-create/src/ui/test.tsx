@@ -4,12 +4,15 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
-import '@atlaskit/link-test-helpers/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import { flushPromises } from '@atlaskit/link-test-helpers';
+import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { captureException } from '@atlaskit/linking-common/sentry';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import {
+  ffTest,
+  getCurrentFeatureFlag,
+} from '@atlassian/feature-flags-test-utils';
 
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
 import { LinkCreatePlugin, LinkCreateWithModalProps } from '../common/types';
@@ -23,7 +26,7 @@ jest.mock('@atlaskit/linking-common/sentry', () => ({
 
 const editButtonLabel = 'Create + Open';
 
-const CreatePluginForm = () => {
+const CreatePluginForm: React.ComponentType = jest.fn(() => {
   const { onCreate, onFailure, onCancel } = useLinkCreateCallback();
 
   return (
@@ -59,7 +62,7 @@ const CreatePluginForm = () => {
       </Button>
     </div>
   );
-};
+});
 
 describe('<LinkCreate />', () => {
   let onCreateMock: jest.Mock;
@@ -263,6 +266,115 @@ describe('<LinkCreate />', () => {
     expect(onFailureMock).toBeCalled();
   });
 
+  describe('it should dispatch operational analytics when a plugin calls `onFailure` and can still proceed to succeed the experience', () => {
+    ffTest(
+      'platform.linking-platform.link-create.better-observability',
+      ff =>
+        // eslint-disable-next-line @atlaskit/platform/ensure-test-runner-arguments
+        ffTest(
+          'platform.linking-platform.link-create.enable-sentry-client',
+          async () => {
+            setUpLinkCreate();
+
+            screen.getByTestId('error-button').click();
+            expect(onFailureMock).toBeCalledTimes(1);
+
+            expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
+              payload: {
+                eventType: 'operational',
+                action: 'failed',
+                actionSubject: 'operation',
+                actionSubjectId: 'linkCreate',
+                attributes: {
+                  errorType: 'Error',
+                  path: null,
+                  status: null,
+                  traceId: null,
+                  experienceStatus: 'FAILED',
+                  previousExperienceStatus: 'STARTED',
+                },
+              },
+            });
+
+            if (getCurrentFeatureFlag()?.[1]) {
+              expect(captureException).toHaveBeenCalledTimes(1);
+              expect(captureException).toHaveBeenCalledWith(
+                expect.any(Error),
+                'link-create',
+              );
+            } else {
+              expect(captureException).not.toHaveBeenCalled();
+            }
+
+            screen.getByTestId('submit-button').click();
+
+            expect(onCreateMock).toBeCalledWith(
+              expect.objectContaining({
+                url: 'https://www.atlassian.com',
+                objectId: '123',
+                objectType: 'page',
+                data: { spaceName: 'space' },
+                ari: 'example-ari',
+              }),
+            );
+
+            expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
+              payload: {
+                eventType: 'track',
+                action: 'created',
+                actionSubject: 'object',
+                actionSubjectId: 'linkCreate',
+              },
+            });
+
+            /**
+             * Could technically still fail the experience again after creation if we want to
+             */
+            screen.getByTestId('error-button').click();
+            expect(onFailureMock).toBeCalledTimes(2);
+
+            expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
+              payload: {
+                eventType: 'operational',
+                action: 'failed',
+                actionSubject: 'operation',
+                actionSubjectId: 'linkCreate',
+                attributes: {
+                  errorType: 'Error',
+                  path: null,
+                  status: null,
+                  traceId: null,
+                  experienceStatus: 'FAILED',
+                  previousExperienceStatus: 'SUCCEEDED',
+                },
+              },
+            });
+
+            // the onCreate callback is awaited
+            await flushPromises();
+          },
+          undefined,
+          ff,
+        ),
+      async () => {
+        setUpLinkCreate();
+
+        screen.getByTestId('error-button').click();
+        expect(onFailureMock).toBeCalledTimes(1);
+
+        expect(captureException).not.toHaveBeenCalled();
+        expect(onAnalyticsEventMock).not.toBeFiredWithAnalyticEventOnce({
+          payload: {
+            eventType: 'operational',
+            action: 'failed',
+            actionSubject: 'operation',
+            actionSubjectId: 'linkCreate',
+          },
+        });
+      },
+    );
+  });
+
   it('should trigger the callback onCancel when it close the form', async () => {
     setUpLinkCreate();
     screen.getByTestId('close-button').click();
@@ -327,6 +439,148 @@ describe('<LinkCreate />', () => {
       ).toBeInTheDocument();
     });
 
+    describe('errors are correctly captured by error boundary', () => {
+      describe('when triggered by link create', () => {
+        ffTest(
+          'platform.linking-platform.link-create.better-observability',
+          ff =>
+            ffTest(
+              'platform.linking-platform.link-create.enable-sentry-client',
+              async () => {
+                setUpLinkCreate({
+                  entityKey: 'undefined' as any,
+                });
+
+                expect(
+                  await screen.findByTestId('link-create-error-boundary-ui'),
+                ).toBeInTheDocument();
+
+                if (getCurrentFeatureFlag()![1]) {
+                  expect(captureException).toHaveBeenCalledTimes(1);
+                  expect(captureException).toHaveBeenCalledWith(
+                    expect.any(Error),
+                    'link-create',
+                  );
+                } else {
+                  expect(captureException).not.toHaveBeenCalled();
+                }
+
+                expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
+                  payload: {
+                    eventType: 'operational',
+                    action: 'failed',
+                    actionSubject: 'operation',
+                    actionSubjectId: 'linkCreate',
+                    attributes: {
+                      errorType: 'Error',
+                      path: null,
+                      status: null,
+                      traceId: null,
+                      experienceStatus: 'FAILED',
+                      previousExperienceStatus: 'STARTED',
+                    },
+                  },
+                });
+              },
+              async () => {
+                setUpLinkCreate({
+                  entityKey: 'undefined' as any,
+                });
+              },
+              ff,
+            ),
+          async () => {
+            setUpLinkCreate({
+              entityKey: 'undefined' as any,
+            });
+
+            expect(
+              await screen.findByTestId('link-create-error-boundary-ui'),
+            ).toBeInTheDocument();
+            expect(captureException).not.toHaveBeenCalled();
+            expect(onAnalyticsEventMock).not.toBeFiredWithAnalyticEventOnce({
+              payload: {
+                eventType: 'operational',
+                action: 'failed',
+                actionSubject: 'operation',
+                actionSubjectId: 'linkCreate',
+              },
+            });
+          },
+        );
+      });
+
+      describe('when response thrown by a plugin render, captured by error boundary, sends analytics but not captured to sentry', () => {
+        beforeEach(() => {
+          asMock(CreatePluginForm).mockImplementationOnce(() => {
+            const response = new Response(null, {
+              status: 500,
+              headers: { 'x-trace-id': 'some-traceid' },
+            });
+            Object.defineProperty(response, 'url', {
+              value: 'https://atlassian.com/gateway/api',
+            });
+            throw response;
+          });
+        });
+
+        ffTest(
+          'platform.linking-platform.link-create.better-observability',
+          ff =>
+            // eslint-disable-next-line @atlaskit/platform/ensure-test-runner-arguments
+            ffTest(
+              'platform.linking-platform.link-create.enable-sentry-client',
+              async () => {
+                setUpLinkCreate();
+
+                expect(
+                  await screen.findByTestId('link-create-error-boundary-ui'),
+                ).toBeInTheDocument();
+
+                /**
+                 * Should never send response to sentry
+                 */
+                expect(captureException).not.toHaveBeenCalled();
+                expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
+                  payload: {
+                    eventType: 'operational',
+                    action: 'failed',
+                    actionSubject: 'operation',
+                    actionSubjectId: 'linkCreate',
+                    attributes: {
+                      errorType: 'NetworkError',
+                      path: '/gateway/api',
+                      status: 500,
+                      traceId: 'some-traceid',
+                      experienceStatus: 'FAILED',
+                      previousExperienceStatus: 'STARTED',
+                    },
+                  },
+                });
+              },
+              undefined,
+              ff,
+            ),
+          async () => {
+            setUpLinkCreate();
+
+            expect(
+              await screen.findByTestId('link-create-error-boundary-ui'),
+            ).toBeInTheDocument();
+            expect(captureException).not.toHaveBeenCalled();
+            expect(onAnalyticsEventMock).not.toBeFiredWithAnalyticEventOnce({
+              payload: {
+                eventType: 'operational',
+                action: 'failed',
+                actionSubject: 'operation',
+                actionSubjectId: 'linkCreate',
+              },
+            });
+          },
+        );
+      });
+    });
+
     describe('should display outer error boundary on unhandled error outside the link create modal', () => {
       // should capture exception to sentry when error boundary is hit
       ffTest(
@@ -337,7 +591,7 @@ describe('<LinkCreate />', () => {
           setUpLinkCreate({ plugins: 'error' as any });
 
           expect(captureException).toHaveBeenCalledWith(
-            expect.any(Error),
+            expect.any(TypeError),
             'link-create',
           );
           expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
@@ -616,7 +870,7 @@ describe('<LinkCreate />', () => {
 
       const onSubmit = useCallback(async () => {
         try {
-          onSubmitSpy();
+          await onSubmitSpy();
           await onCreate?.({
             url: 'https://atlassian.com',
             objectId: 'someId',
@@ -973,26 +1227,27 @@ describe('<LinkCreate />', () => {
       );
     });
 
-    describe('should NOT trigger the edit flow if the form fails to submit', () => {
+    describe('should NOT trigger the edit flow if the form fails to submit (does not call onCreate)', () => {
       ffTest(
         'platform.linking-platform.link-create.enable-edit',
         async () => {
-          onSubmitSpy.mockImplementation(() => {
-            throw new Error('Something went wrong!');
-          });
+          onSubmitSpy.mockImplementation(
+            () =>
+              new Promise((_, rej) => {
+                setTimeout(rej, 1000);
+              }),
+          );
 
           setUpLinkCreate({
             plugins: [pluginWithEdit],
             onComplete: onCompleteMock,
           });
 
-          await waitFor(async () => {
-            userEvent.click(
-              await screen.findByRole('button', {
-                name: editButtonLabel,
-              }),
-            );
-          });
+          await userEvent.click(
+            await screen.findByRole('button', {
+              name: editButtonLabel,
+            }),
+          );
 
           // Enters submitting state
           await waitFor(() => {

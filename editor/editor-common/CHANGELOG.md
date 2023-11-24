@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 76.23.4
+
+### Patch Changes
+
+- [#43900](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43900) [`663463557aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/663463557aa) - [ED-20984] Add placeholder code for inline image wrapper
+
+## 76.23.3
+
+### Patch Changes
+
+- [#42839](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42839) [`7324375d4fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7324375d4fa) - [ux] Cleansup feature flag `prevent-popup-overflow` so that it is permanently enabled when `lp-link-picker` flag is enabled, improving the positioning of the link picker.
+- Updated dependencies
+
+## 76.23.2
+
+### Patch Changes
+
+- [#43825](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43825) [`b21c6c1caa8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b21c6c1caa8) - [ux] [ED-20885] Group layout buttons in mediaSingle floating toolbar into a dropdown
+
 ## 76.23.1
 
 ### Patch Changes

@@ -146,6 +146,10 @@ const DragControlsComponent = ({
     [updateCellHoverLocation],
   );
 
+  const rowIndexes = useMemo(() => {
+    return [rowIndex!];
+  }, [rowIndex]);
+
   const handleMouseOver = useCallback(() => {
     hoverRows([rowIndex!]);
   }, [hoverRows, rowIndex]);
@@ -163,10 +167,12 @@ const DragControlsComponent = ({
       style={{
         gridTemplateRows: heights,
         gridTemplateColumns: isDragging
-          ? `${dropTargetExtendedWidth}px 24px ${tableWidth}px`
-          : `${dropTargetExtendedWidth}px 24px`,
+          ? `${dropTargetExtendedWidth}px 28px ${tableWidth}px`
+          : 'none',
+        left: isDragging ? `-${dropTargetExtendedWidth + 2}px` : `-2px`,
       }}
       onMouseMove={handleMouseMove}
+      contentEditable={false}
     >
       {!isResizing &&
         rowsParams.map(({ startIndex, endIndex }, index) => (
@@ -225,7 +231,7 @@ const DragControlsComponent = ({
         >
           <DragHandle
             tableLocalId={currentNodeLocalId}
-            indexes={[rowIndex!]}
+            indexes={rowIndexes}
             previewWidth={tableWidth}
             previewHeight={rowHeights[rowIndex!]}
             appearance={

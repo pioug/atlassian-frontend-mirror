@@ -1,3 +1,5 @@
+export { FORM_ERROR } from 'final-form';
+
 export type { CreateFormProps } from './ui/index';
 export type {
   LinkCreateProps,

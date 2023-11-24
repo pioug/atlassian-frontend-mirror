@@ -1,10 +1,14 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
+import { flushPromises } from '@atlaskit/link-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { Validator } from '../../common/types';
+import { LinkCreateCallbackProvider } from '../../controllers/callback-context';
 import { FormContextProvider } from '../../controllers/form-context';
 
 import { AsyncSelect } from './async-select';
@@ -36,64 +40,74 @@ describe('<CreateForm />', () => {
       Omit<CreateFormProps<{}>, 'testId' | 'onSubmit' | 'onCancel'>
     >,
   ) => {
-    return render(
+    const onCreate = jest.fn();
+    const onFailure = jest.fn();
+
+    render(
       <IntlProvider locale="en">
         <FormContextProvider>
-          <CreateForm
-            onSubmit={handleSubmitMock}
-            onCancel={handleCancelMock}
-            testId={testId}
-            {...createFormProps}
-          >
-            {children}
-          </CreateForm>
+          <LinkCreateCallbackProvider onCreate={onCreate} onFailure={onFailure}>
+            <CreateForm
+              onSubmit={handleSubmitMock}
+              onCancel={handleCancelMock}
+              testId={testId}
+              {...createFormProps}
+            >
+              {children}
+            </CreateForm>
+          </LinkCreateCallbackProvider>
         </FormContextProvider>
       </IntlProvider>,
     );
+
+    return {
+      onCreate,
+      onFailure,
+    };
   };
 
   it('should render the form', async () => {
-    const { getByTestId } = setUpCreateForm();
-    expect(getByTestId(testId)).toBeTruthy();
+    setUpCreateForm();
+    expect(screen.getByTestId(testId)).toBeTruthy();
   });
 
   it('should submit the form the form when Create button is clicked', async () => {
-    const { getByTestId } = setUpCreateForm();
+    setUpCreateForm();
 
-    await userEvent.click(getByTestId('link-create-form-button-submit'));
+    await userEvent.click(screen.getByTestId('link-create-form-button-submit'));
     expect(handleSubmitMock).toBeCalled();
   });
 
   it('should cancel the form the form when cancel button is clicked', async () => {
-    const { getByTestId } = setUpCreateForm();
+    setUpCreateForm();
 
-    await userEvent.click(getByTestId('link-create-form-button-cancel'));
+    await userEvent.click(screen.getByTestId('link-create-form-button-cancel'));
     expect(handleCancelMock).toBeCalled();
   });
 
   it('should hide the footer buttons when the prop is passed', async () => {
-    const { queryByTestId } = setUpCreateForm(undefined, { hideFooter: true });
-    expect(queryByTestId('link-create-form-button-cancel')).toBeNull();
-    expect(queryByTestId('link-create-form-button-submit')).toBeNull();
+    setUpCreateForm(undefined, { hideFooter: true });
+    expect(screen.queryByTestId('link-create-form-button-cancel')).toBeNull();
+    expect(screen.queryByTestId('link-create-form-button-submit')).toBeNull();
   });
 
   it('should display a form loader when isLoading props is provided', async () => {
-    const { getByTestId, queryByTestId } = setUpCreateForm(undefined, {
+    setUpCreateForm(undefined, {
       isLoading: true,
     });
-    expect(getByTestId('link-create-form-loader')).toBeTruthy();
-    expect(queryByTestId('link-create-form')).toBeNull();
+    expect(screen.getByTestId('link-create-form-loader')).toBeTruthy();
+    expect(screen.queryByTestId('link-create-form')).toBeNull();
   });
 
   describe('TextField', () => {
     it('should render TextField inside the form', async () => {
       const textFieldTestId = 'link-create-text-field';
 
-      const { getByTestId } = setUpCreateForm(
+      setUpCreateForm(
         <TextField name="title" label="Title" testId={textFieldTestId} />,
       );
 
-      expect(getByTestId(textFieldTestId)).toBeTruthy();
+      expect(screen.getByTestId(textFieldTestId)).toBeTruthy();
     });
 
     it('should render error message when TextField validator fails', async () => {
@@ -104,7 +118,7 @@ describe('<CreateForm />', () => {
         errorMessage: 'Something goes wrong',
       };
 
-      const { getByTestId, getByText } = setUpCreateForm(
+      setUpCreateForm(
         <TextField
           name="title"
           label="Title"
@@ -113,8 +127,10 @@ describe('<CreateForm />', () => {
         />,
       );
 
-      await userEvent.click(getByTestId('link-create-form-button-submit'));
-      expect(getByText('Something goes wrong')).toBeTruthy();
+      await userEvent.click(
+        screen.getByTestId('link-create-form-button-submit'),
+      );
+      expect(screen.getByText('Something goes wrong')).toBeTruthy();
     });
 
     it('should hide error message after user makes changes', async () => {
@@ -125,7 +141,7 @@ describe('<CreateForm />', () => {
         errorMessage: 'Something goes wrong',
       };
 
-      const { getByLabelText, getByTestId, queryByTestId } = setUpCreateForm(
+      setUpCreateForm(
         <TextField
           name="title"
           label="Title"
@@ -134,15 +150,17 @@ describe('<CreateForm />', () => {
         />,
       );
 
-      await userEvent.click(getByTestId('link-create-form-button-submit'));
+      await userEvent.click(
+        screen.getByTestId('link-create-form-button-submit'),
+      );
       expect(
-        queryByTestId(`${textFieldTestId}-error-message`),
+        screen.queryByTestId(`${textFieldTestId}-error-message`),
       ).toBeInTheDocument();
 
-      await userEvent.type(getByLabelText(/title/i), 'test');
+      await userEvent.type(screen.getByLabelText(/title/i), 'test');
 
       expect(
-        queryByTestId(`${textFieldTestId}-error-message`),
+        screen.queryByTestId(`${textFieldTestId}-error-message`),
       ).not.toBeInTheDocument();
     });
   });
@@ -151,11 +169,11 @@ describe('<CreateForm />', () => {
     it('should render AsyncSelect inside the form', async () => {
       const asyncSelectTestId = 'link-create-async-select';
 
-      const { getByTestId } = setUpCreateForm(
+      setUpCreateForm(
         <AsyncSelect name="title" label="Title" testId={asyncSelectTestId} />,
       );
 
-      expect(getByTestId(asyncSelectTestId)).toBeTruthy();
+      expect(screen.getByTestId(asyncSelectTestId)).toBeTruthy();
     });
 
     it('should render error message when AsyncSelect validator fails', async () => {
@@ -166,7 +184,7 @@ describe('<CreateForm />', () => {
         errorMessage: 'Something goes wrong',
       };
 
-      const { getByTestId, getByText } = setUpCreateForm(
+      setUpCreateForm(
         <AsyncSelect
           name="title"
           label="Title"
@@ -175,8 +193,51 @@ describe('<CreateForm />', () => {
         />,
       );
 
-      await userEvent.click(getByTestId('link-create-form-button-submit'));
-      expect(getByText('Something goes wrong')).toBeTruthy();
+      await userEvent.click(
+        screen.getByTestId('link-create-form-button-submit'),
+      );
+      expect(screen.getByText('Something goes wrong')).toBeTruthy();
     });
+
+    ffTest(
+      'platform.linking-platform.link-create.better-observability',
+      /** Should render an error message in the form footer if async select loadOptions function rejects */
+      async () => {
+        const loadOptions = jest.fn(async () => {
+          throw new Response(null, { status: 500 });
+        });
+
+        const { onFailure } = setUpCreateForm(
+          <AsyncSelect name="title" label="Title" loadOptions={loadOptions} />,
+        );
+
+        await act(async () => {
+          await flushPromises();
+        });
+
+        const errorMessage = screen.getByTestId('link-create-form-error');
+        expect(errorMessage).toBeInTheDocument();
+        expect(errorMessage).toHaveTextContent('Something went wrong');
+        expect(onFailure).toHaveBeenCalledWith(expect.any(Response));
+      },
+      /** Does not render an error message to footer by default when async select fails to load */
+      async () => {
+        const loadOptions = jest.fn(async () => {
+          throw new Response(null, { status: 500 });
+        });
+
+        const { onFailure } = setUpCreateForm(
+          <AsyncSelect name="title" label="Title" loadOptions={loadOptions} />,
+        );
+
+        await act(async () => {
+          await flushPromises();
+        });
+
+        const errorMessage = screen.queryByTestId('link-create-form-error');
+        expect(errorMessage).not.toBeInTheDocument();
+        expect(onFailure).not.toHaveBeenCalled();
+      },
+    );
   });
 });

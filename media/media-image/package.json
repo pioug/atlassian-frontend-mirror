@@ -42,7 +42,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/media-client": "^25.0.0",
+    "@atlaskit/media-client": "^25.1.0",
     "@atlaskit/media-client-react": "^1.4.0",
     "@babel/runtime": "^7.0.0"
   },

@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 25.1.0
+
+### Minor Changes
+
+- [#43817](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43817) [`048aca70499`](https://bitbucket.org/atlassian/atlassian-frontend/commits/048aca70499) - new Mocked Media Api utility for tests
+
 ## 25.0.3
 
 ### Patch Changes

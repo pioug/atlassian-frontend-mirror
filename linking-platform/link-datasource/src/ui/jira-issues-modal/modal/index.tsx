@@ -184,6 +184,7 @@ export const PlainJiraIssuesConfigModal = (
   const searchMethodSearchedWith = useRef<JiraSearchMethod | null>(null);
   const visibleColumnCount = useRef(visibleColumnKeys?.length || 0);
   const basicFilterSelectionsSearchedWith = useRef<SelectedOptionsMap>({});
+  const isSearchedWithComplexQuery = useRef<boolean>(false);
 
   const parameters = useMemo<JiraIssueDatasourceParameters | undefined>(
     () =>
@@ -392,14 +393,17 @@ export const PlainJiraIssuesConfigModal = (
       {
         searchMethod,
         basicFilterSelections,
+        isQueryComplex,
       }: {
         searchMethod: JiraSearchMethod;
         basicFilterSelections: SelectedOptionsMap;
+        isQueryComplex: boolean;
       },
     ) => {
       searchCount.current++;
       searchMethodSearchedWith.current = searchMethod;
       basicFilterSelectionsSearchedWith.current = basicFilterSelections;
+      isSearchedWithComplexQuery.current = isQueryComplex;
 
       if (jql !== newParameters.jql) {
         userInteractionActions.current.add(DatasourceAction.QUERY_UPDATED);
@@ -471,6 +475,7 @@ export const PlainJiraIssuesConfigModal = (
           searchCount: searchCount.current,
           searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
           actions: Array.from(userInteractionActions.current),
+          isQueryComplex: isSearchedWithComplexQuery.current,
           ...(searchMethodSearchedWith.current === 'basic'
             ? { ...filterSelectionCount }
             : {}),

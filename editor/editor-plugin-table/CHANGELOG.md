@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-table
 
+## 5.4.3
+
+### Patch Changes
+
+- [#43839](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43839) [`55860bbc9f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55860bbc9f5) - ED-20974:Fixed the cursor not easy to move to before table when drag handle is visible.
+
+## 5.4.2
+
+### Patch Changes
+
+- [#43514](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43514) [`a420cd85815`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a420cd85815) - add minimised handle and add drag handle icon
+- [#43838](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43838) [`b0a7c5c4669`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0a7c5c4669) - [ux] Adds a mousemove handle to ensure that a column drag handle is shown when we hover over cells in the first row.
+
+## 5.4.1
+
+### Patch Changes
+
+- [#43829](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43829) [`40e78202328`](https://bitbucket.org/atlassian/atlassian-frontend/commits/40e78202328) - The table autoscroller has been updated to fix a bug which occured when rows were dragged to the bottom of the table, it would jump up.
+
 ## 5.4.0
 
 ### Minor Changes

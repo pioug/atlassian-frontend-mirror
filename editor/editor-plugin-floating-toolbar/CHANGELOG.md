@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 0.7.11
+
+### Patch Changes
+
+- [#43825](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43825) [`135446e0465`](https://bitbucket.org/atlassian/atlassian-frontend/commits/135446e0465) - [ED-20885] Add setTimeout to make sure a tooltip for a dropdown item renders at the correct position
+
 ## 0.7.10
 
 ### Patch Changes

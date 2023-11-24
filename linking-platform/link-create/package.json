@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-create",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "The driver component of meta creation flow",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -40,7 +40,7 @@
     "@atlaskit/form": "^9.0.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/intl-messages-provider": "^1.0.0",
-    "@atlaskit/linking-common": "^4.20.0",
+    "@atlaskit/linking-common": "^4.21.0",
     "@atlaskit/modal-dialog": "^12.9.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/primitives": "^1.12.0",
@@ -59,6 +59,7 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
+    "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/link-test-helpers": "^6.2.0",
     "@atlaskit/visual-regression": "*",
@@ -120,6 +121,9 @@
       "type": "boolean"
     },
     "platform.linking-platform.link-create.enable-sentry-client": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.link-create.better-observability": {
       "type": "boolean"
     }
   }

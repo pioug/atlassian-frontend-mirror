@@ -36,7 +36,7 @@
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/button": "^16.17.0",
     "@atlaskit/icon": "^22.0.0",
-    "@atlaskit/media-client": "^25.0.0",
+    "@atlaskit/media-client": "^25.1.0",
     "@atlaskit/media-client-react": "^1.4.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/textfield": "^6.0.0",

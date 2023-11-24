@@ -112,7 +112,7 @@ test.describe('paste: libra', () => {
       html: '<div class="ak-renderer-document"><p data-renderer-start-pos="1">hello</p><div class="code-block"><span data-ds--code--code-block=""><code><span class="linenumber react-syntax-highlighter-line-number">1</span><span>world</span></code></span></div></div>',
     });
     await expect(editor).toHaveDocument(
-      doc(p('hello'), code_block({})('world'), p()),
+      doc(p('hello'), code_block({})('world')),
     );
   });
 

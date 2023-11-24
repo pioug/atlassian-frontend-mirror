@@ -8,6 +8,7 @@ import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 
 import {
   clearHoverSelection,
+  hoverCell,
   hoverColumns,
   selectColumn,
 } from '../../../commands';
@@ -92,6 +93,29 @@ export const ColumnControls = ({
     hoverColumns([colIndex!])(state, dispatch);
   }, [colIndex, editorView]);
 
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      const isParentDragControls = (e.nativeEvent.target as Element).closest(
+        `.${ClassName.DRAG_COLUMN_CONTROLS}`,
+      );
+      const colIndex = (e.nativeEvent.target as Element).getAttribute(
+        'data-start-index',
+      );
+
+      // avoid updating if event target is not related
+      if (!isParentDragControls || !colIndex) {
+        return;
+      }
+
+      // update hovered cell location
+      const { state, dispatch } = editorView;
+      if (tableActive && hoveredCell?.colIndex !== Number(colIndex)) {
+        hoverCell(hoveredCell?.rowIndex, Number(colIndex))(state, dispatch);
+      }
+    },
+    [editorView, hoveredCell?.colIndex, hoveredCell?.rowIndex, tableActive],
+  );
+
   const handleMouseOut = useCallback(() => {
     if (tableActive) {
       const { state, dispatch } = editorView;
@@ -104,8 +128,15 @@ export const ColumnControls = ({
     toggleDragMenu(undefined, 'column', colIndex)(state, dispatch);
   }, [editorView, colIndex]);
 
+  const colIndexes = useMemo(() => {
+    return [colIndex!];
+  }, [colIndex]);
+
   return (
-    <div className={ClassName.DRAG_COLUMN_CONTROLS}>
+    <div
+      className={ClassName.DRAG_COLUMN_CONTROLS}
+      onMouseMove={handleMouseMove}
+    >
       <div
         className={ClassName.DRAG_COLUMN_CONTROLS_INNER}
         data-testid="table-floating-column-controls"
@@ -160,7 +191,7 @@ export const ColumnControls = ({
               <DragHandle
                 direction="column"
                 tableLocalId={localId || ''}
-                indexes={[hoveredCell.colIndex!]}
+                indexes={colIndexes}
                 previewWidth={hoveredCell.colWidth}
                 previewHeight={hoveredCell.colHeight}
                 appearance={

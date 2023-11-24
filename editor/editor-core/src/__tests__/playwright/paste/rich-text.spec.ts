@@ -54,7 +54,7 @@ test.describe('paste', () => {
       });
       await editor.waitForEditorStable();
       await expect(editor).toHaveDocument(
-        doc(code_block({ language: null, uniqueId: null })('hello there'), p()),
+        doc(code_block({ language: null, uniqueId: null })('hello there')),
       );
     });
   });
@@ -90,10 +90,7 @@ test.describe('paste', () => {
             localId: 'abc-123',
           })(
             tr(
-              th({ colspan: 1, rowspan: 1 })(
-                code_block({})('hello there'),
-                p(),
-              ),
+              th({ colspan: 1, rowspan: 1 })(code_block({})('hello there')),
               th({ colspan: 1, rowspan: 1 })(p()),
               th({ colspan: 1, rowspan: 1 })(p()),
             ),

@@ -37,6 +37,49 @@ describe('mapHydrateResponseData', () => {
 
     expect(mappedOptions).toEqual(hydrateJqlEmptyResponseMapped);
   });
+
+  it('should only include fields with valid jqlTerm and values properties', () => {
+    const mappedOptions = mapHydrateResponseData({
+      data: {
+        jira: {
+          jqlBuilder: {
+            hydrateJqlQuery: {
+              fields: [
+                {} as any,
+                {
+                  jqlTerm: 'status',
+                  values: [
+                    {
+                      values: [
+                        {
+                          displayName: 'Done',
+                          jqlTerm: 'Done',
+                          statusCategory: {
+                            colorName: 'GREEN',
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        },
+      },
+    });
+
+    expect(mappedOptions).toEqual({
+      status: [
+        {
+          appearance: 'success',
+          label: 'Done',
+          optionType: 'lozengeLabel',
+          value: 'Done',
+        },
+      ],
+    });
+  });
 });
 
 describe('mapFieldValuesToFilterOptions', () => {

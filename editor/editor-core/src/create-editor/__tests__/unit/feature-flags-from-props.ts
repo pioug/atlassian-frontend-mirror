@@ -240,32 +240,4 @@ describe('Feature Flags from Props', () => {
       );
     });
   });
-
-  describe('prevent popup overflow', () => {
-    it('should add the FF value', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {
-            ['prevent-popup-overflow']: true,
-          },
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          preventPopupOverflow: true,
-        }),
-      );
-    });
-
-    it('should default to false if nothing passed in', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {},
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          preventPopupOverflow: false,
-        }),
-      );
-    });
-  });
 });

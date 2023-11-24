@@ -48,6 +48,7 @@ export const isToolbarVisible = (
    * 4. Pasting link, media or text containing media(note: markdown link and images are allowed)
    * 5. Content is pasted in a nested node(i.e. inside a table, panel etc.).
    *    (grandParent node should be root doc for showing up the toolbar)
+   * 6. Cursor is inside the codeblock.
    */
   if (!getBooleanFF('platform.editor.paste-options-toolbar')) {
     return false;
@@ -57,12 +58,13 @@ export const isToolbarVisible = (
   if (hasRuleNode(lastContentPasted.pastedSlice, state.schema)) {
     return false;
   }
-
+  const parentNodeType = $from.parent?.type;
   const grandParentNodeType = $from.node($from.depth - 1)?.type;
 
   if (
     grandParentNodeType &&
     grandParentNodeType.name === state.schema.nodes.doc.name &&
+    parentNodeType.name !== state.schema.nodes.codeBlock.name &&
     !isPastedFromFabricEditor(lastContentPasted.pasteSource) &&
     !hasLinkMark(lastContentPasted.pastedSlice) &&
     !hasMediaNode(lastContentPasted.pastedSlice)

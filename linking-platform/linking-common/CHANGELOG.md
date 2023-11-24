@@ -1,5 +1,20 @@
 # @atlaskit/linking-common
 
+## 4.21.0
+
+### Minor Changes
+
+- [#43513](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43513) [`316615d4cfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/316615d4cfa) - Exposes a v2 version of available sites hook: `useAvailableSitesV2()`.
+  The v2 hook changes the `error` field returned to be of type `unknown`.
+
+  The value can be any error that could be caught in process of fetching available sites including:
+
+  - `Response` if `!response.ok`
+  - `TypeError` if something goes wrong when attempting to fetch
+  - or anything else
+
+  The v2 hook does not currently send any analytics events.
+
 ## 4.20.0
 
 ### Minor Changes

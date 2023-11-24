@@ -215,9 +215,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           unsafeOverflowAutoScrollForElements({
             element: this.wrapper,
             canScroll: ({ source }) => {
-              const { localId } = source.data as Partial<DraggableSourceData>;
+              const { localId, type } =
+                source.data as Partial<DraggableSourceData>;
               const node = getNode();
-              return localId === node?.attrs.localId;
+              return localId === node?.attrs.localId && type === 'table-column';
             },
             getOverflow: () => ({
               fromTopEdge: {

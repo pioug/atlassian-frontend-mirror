@@ -35,4 +35,6 @@ test('Flag and Flag actions should be able to be identified and clicked by data-
   await page.locator(dismissFlag).first().click();
   await expect(page.locator(flagTestId1).first()).toBeVisible();
   await expect(page.locator(flagActionTestId1).first()).toBeVisible();
+  await expect(page.locator(flagTestId2)).toHaveCount(0);
+  await expect(page.locator(flagActionTestId2)).toHaveCount(0);
 });

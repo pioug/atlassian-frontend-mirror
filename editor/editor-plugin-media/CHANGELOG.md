@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-media
 
+## 0.4.6
+
+### Patch Changes
+
+- [#43825](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43825) [`b21c6c1caa8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b21c6c1caa8) - [ux] [ED-20885] Group layout buttons in mediaSingle floating toolbar into a dropdown
+
 ## 0.4.5
 
 ### Patch Changes

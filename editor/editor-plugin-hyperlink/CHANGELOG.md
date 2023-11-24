@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 0.6.2
+
+### Patch Changes
+
+- [#42839](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/42839) [`7324375d4fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7324375d4fa) - [ux] Cleansup feature flag `prevent-popup-overflow` so that it is permanently enabled when `lp-link-picker` flag is enabled, improving the positioning of the link picker.
+
 ## 0.6.1
 
 ### Patch Changes

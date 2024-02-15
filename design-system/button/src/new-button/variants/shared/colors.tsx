@@ -38,7 +38,6 @@ const values: Values = {
       active: 'color.background.neutral.pressed',
       // @ts-expect-error
       disabled: token('color.background.disabled', colors.N20A),
-
       // @ts-expect-error
       selected: token('color.background.selected', colors.N700),
     },
@@ -91,8 +90,10 @@ const values: Values = {
   },
   color: {
     default: {
-      default: 'color.text',
-      active: 'color.text',
+      // @ts-expect-error
+      default: token('color.text', colors.N500),
+      // @ts-expect-error
+      active: token('color.text', colors.B400),
       disabled: 'color.text.disabled',
       // @ts-expect-error
       selected: token('color.text.selected', colors.N20),
@@ -117,23 +118,29 @@ const values: Values = {
     },
     link: {
       default: 'color.link',
-      hover: 'color.link',
+      // @ts-expect-error
+      hover: token('color.link', colors.B300),
       active: 'color.link.pressed',
       disabled: 'color.text.disabled',
       // @ts-expect-error
       selected: token('color.text.selected', colors.N20),
     },
     subtle: {
-      default: 'color.text',
-      active: 'color.text',
+      // @ts-expect-error
+      default: token('color.text', colors.N500),
+      // @ts-expect-error
+      active: token('color.text', colors.B400),
       disabled: 'color.text.disabled',
       // @ts-expect-error
       selected: token('color.text.selected', colors.N20),
     },
     'subtle-link': {
-      default: 'color.text.subtle',
-      hover: 'color.text.subtle',
-      active: 'color.text',
+      // @ts-expect-error
+      default: token('color.text.subtle', colors.N200),
+      // @ts-expect-error
+      hover: token('color.text.subtle', colors.N90),
+      // @ts-expect-error
+      active: token('color.text', colors.N400),
       disabled: 'color.text.disabled',
       // @ts-expect-error
       selected: token('color.text.selected', colors.N20),

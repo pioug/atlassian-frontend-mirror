@@ -19,12 +19,17 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { UnsupportedInline } from '@atlaskit/editor-common/ui';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type {
+  Decoration,
+  DecorationSource,
+  EditorView,
+} from '@atlaskit/editor-prosemirror/view';
 import type {
   DatasourceAdf,
   DatasourceAdfView,
 } from '@atlaskit/link-datasource';
 import { DatasourceTableView } from '@atlaskit/link-datasource';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { DatasourceErrorBoundary } from '../datasourceErrorBoundary';
 import type { cardPlugin } from '../index';
@@ -224,6 +229,41 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
         this.update(this.node, []); // required to update the width when page is resized.
       }
     });
+  }
+
+  // Need this function to check if the datasource attribute was added or not to a blockCard.
+  // If not, we return false so we can get the node to re-render properly as a block node instead.
+  // Otherwise, the node view will still consider the node as a Datasource and render a such.
+  validUpdate(currentNode: PMNode, newNode: PMNode) {
+    if (
+      getBooleanFF(
+        'platform.linking-platform.enable-datasource-appearance-toolbar',
+      )
+    ) {
+      return !!newNode.attrs?.datasource;
+    }
+    return true;
+  }
+
+  update(
+    node: PMNode,
+    decorations: ReadonlyArray<Decoration>,
+    _innerDecorations?: DecorationSource,
+    validUpdate: (currentNode: PMNode, newNode: PMNode) => boolean = () => true,
+  ) {
+    if (
+      getBooleanFF(
+        'platform.linking-platform.enable-datasource-appearance-toolbar',
+      )
+    ) {
+      return super.update(
+        node,
+        decorations,
+        _innerDecorations,
+        this.validUpdate,
+      );
+    }
+    return super.update(node, decorations, _innerDecorations, validUpdate);
   }
 
   createDomRef(): HTMLElement {

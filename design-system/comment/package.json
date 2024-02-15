@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/comment",
-  "version": "10.9.0",
+  "version": "10.9.1",
   "description": "A comment displays discussions and user feedback.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,8 +27,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.3.0",
-    "@atlaskit/ds-explorations": "^3.2.0",
+    "@atlaskit/button": "^17.4.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/lozenge": "^11.6.0",
     "@atlaskit/primitives": "^2.0.0",

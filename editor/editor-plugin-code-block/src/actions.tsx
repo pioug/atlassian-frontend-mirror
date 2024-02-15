@@ -232,6 +232,7 @@ function contentAllowedInCodeBlock(state: EditorState): boolean {
       node.type === state.schema.nodes.orderedList ||
       node.type === state.schema.nodes.paragraph ||
       node.isInline ||
+      node.type === state.schema.nodes.panel ||
       node.isText);
   });
 

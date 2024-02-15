@@ -34,18 +34,6 @@
   "references": [
     {
       "path": "tsconfig.app.json"
-    },
-    {
-      "path": "../editor-common/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-paste/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-test-helpers/tsconfig.app.json"
-    },
-    {
-      "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
     }
   ]
 }

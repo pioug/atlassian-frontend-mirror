@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 192.1.3
+
+### Patch Changes
+
+- [#66507](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66507) [`11f834b7f691`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/11f834b7f691) - [ux] issue/ECA11Y-58 Added correct color contrast for layout border and fixing vr test
+- Updated dependencies
+
+## 192.1.2
+
+### Patch Changes
+
+- [#71072](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71072) [`f4c21a1b915c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f4c21a1b915c) - Added Statsig experiment to table selector
+
 ## 192.1.0
 
 ### Minor Changes

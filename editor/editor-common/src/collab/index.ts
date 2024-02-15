@@ -351,12 +351,19 @@ export interface CollabEventTelepointerData {
 
 export type CollabTelepointerPayload = CollabEventTelepointerData;
 
+type ProviderParticipantPermitLevel = {
+  isPermittedToView?: boolean;
+  isPermittedToComment?: boolean;
+  isPermittedToEdit?: boolean;
+};
+
 export interface CollabParticipant {
   lastActive: number;
   sessionId: string;
   avatar: string;
   name: string;
   cursorPos?: number;
+  permit?: ProviderParticipantPermitLevel;
 }
 
 export type ProviderParticipant = CollabParticipant & {

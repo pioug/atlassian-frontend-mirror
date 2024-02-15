@@ -99,6 +99,7 @@ export class DocumentService {
     private onErrorHandled: (error: InternalError) => void,
     private metadataService: MetadataService,
     private enableErrorOnFailedDocumentApply: boolean = false,
+    private reconcileOnRecovery: boolean = false,
   ) {
     this.stepQueue = new StepQueueState();
   }
@@ -354,9 +355,14 @@ export class DocumentService {
   };
 
   // Triggered when page recovery has emitted an 'init' event on a page client is currently connected to.
-  onRestore = ({ doc, version, metadata }: CollabInitPayload) => {
-    // Preserve the unconfirmed steps to prevent data loss.
+  onRestore = async ({ doc, version, metadata }: CollabInitPayload) => {
+    // We preserve these as they will be lost apon this.updateDocument. This is because we are using document recovery.
+    // We can then reconcile the document with the preserved state.
     const unconfirmedSteps = this.getUnconfirmedSteps();
+    let currentState;
+    if (this.reconcileOnRecovery) {
+      currentState = await this.getCurrentState();
+    }
 
     try {
       // Reset the editor,
@@ -373,8 +379,14 @@ export class DocumentService {
       });
       this.metadataService.updateMetadata(metadata);
 
-      // Re-apply the unconfirmed steps, not 100% of them can be applied, if document is changed significantly.
-      if (unconfirmedSteps?.length) {
+      // If there are unconfirmed steps, attempt to reconcile our current state with with recovered document
+      if (
+        unconfirmedSteps?.length &&
+        this.reconcileOnRecovery &&
+        currentState
+      ) {
+        await this.fetchReconcile(JSON.stringify(currentState.content));
+      } else if (unconfirmedSteps?.length) {
         this.applyLocalSteps(unconfirmedSteps);
       }
 

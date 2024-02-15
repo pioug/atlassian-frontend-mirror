@@ -127,8 +127,9 @@ export enum SELECTION_POSITION {
   RIGHT = 'right',
 }
 
-interface NonRequiredAttributes {
+export interface NonRequiredAttributes {
   insertLocation?: string;
+  insertedLocation?: string;
   nodeLocation?: string;
   changeFromLocation?: string;
   selectionType?: SELECTION_TYPE;

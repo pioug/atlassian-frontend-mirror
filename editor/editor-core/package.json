@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "192.1.0",
+  "version": "192.1.3",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -45,8 +45,8 @@
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
-    "@atlaskit/button": "^17.3.0",
-    "@atlaskit/editor-common": "^77.4.0",
+    "@atlaskit/button": "^17.4.0",
+    "@atlaskit/editor-common": "^77.5.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-plugins": "^1.4.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
@@ -89,7 +89,7 @@
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/analytics-listeners": "^8.9.1",
     "@atlaskit/checkbox": "^13.0.0",
-    "@atlaskit/collab-provider": "9.22.7",
+    "@atlaskit/collab-provider": "9.22.8",
     "@atlaskit/dropdown-menu": "^12.5.0",
     "@atlaskit/editor-plugin-card": "^1.0.0",
     "@atlaskit/editor-plugin-editor-viewmode": "^1.0.0",
@@ -202,9 +202,6 @@
     "platform.editor.table.increase-shadow-visibility_lh89r": {
       "type": "boolean",
       "referenceOnly": "true"
-    },
-    "platform.editor.insert-block.table-selector-button": {
-      "type": "boolean"
     },
     "platform.editor.paste-options-toolbar": {
       "type": "boolean"

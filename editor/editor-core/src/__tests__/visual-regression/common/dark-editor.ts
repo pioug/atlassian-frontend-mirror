@@ -24,7 +24,9 @@ describe('Snapshot Test: Dark Editor', () => {
     });
   });
 
-  it('should correctly render dark mode in mobile editor', async () => {
+  // FIXME: TimeoutError: waiting for function failed: timeout 3000ms exceeded
+  // Build: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2427533/steps/%7B6a39d646-d4bc-4e24-ab08-a1969e0dbe6e%7D/test-report
+  it.skip('should correctly render dark mode in mobile editor', async () => {
     await waitForLoadedBackgroundImages(page, emojiSelectors.standard, 10000);
     await waitForAllMedia(page, 5);
     await snapshot(page, { tolerance: 0.05, useUnsafeThreshold: true });

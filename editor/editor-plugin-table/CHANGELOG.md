@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 7.3.5
+
+### Patch Changes
+
+- [#72850](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72850) [`5099580a0330`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5099580a0330) - Adds analytics for sort options in table's Drag handle menu
+- Updated dependencies
+
 ## 7.3.4
 
 ### Patch Changes

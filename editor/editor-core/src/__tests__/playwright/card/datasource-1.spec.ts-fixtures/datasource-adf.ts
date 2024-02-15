@@ -35,3 +35,30 @@ export const blockCardDatasourceAdf = {
     },
   ],
 };
+
+export const blockCardGenericDatasourceAdf = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'blockCard',
+      attrs: {
+        url: 'https://inlineCardTestUrl/generic-datasource',
+        datasource: {
+          id: 'some-datasource-id',
+          parameters: {
+            foo: 'bar',
+          },
+          views: [
+            {
+              type: 'table',
+              properties: {
+                columns: [{ key: 'key' }],
+              },
+            },
+          ],
+        },
+      },
+    },
+  ],
+};

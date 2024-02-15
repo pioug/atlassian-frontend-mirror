@@ -300,6 +300,7 @@ export const DragMenu = React.memo(
       targetCellPosition,
       selectionRect,
       editorAnalyticsAPI,
+      pluginConfig?.isHeaderRowRequired,
     );
 
     const { menuItems, menuCallback } = convertToDropdownItems(

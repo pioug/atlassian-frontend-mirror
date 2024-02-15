@@ -4,6 +4,8 @@ describe('DocumentService onRestore', () => {
   let dummyPayload: any;
   let provider: any;
   let getUnconfirmedStepsSpy: any;
+  let fetchReconcileSpy: any;
+  let getCurrentStateSpy: any;
   let sendActionEventSpy: any;
   let sendErrorEventSpy: any;
   let onErrorHandledSpy: any;
@@ -27,6 +29,8 @@ describe('DocumentService onRestore', () => {
     provider = new Provider(testConfig);
     const pds = provider.documentService;
     getUnconfirmedStepsSpy = jest.spyOn(pds, 'getUnconfirmedSteps');
+    fetchReconcileSpy = jest.spyOn(pds, 'fetchReconcile');
+    getCurrentStateSpy = jest.spyOn(pds, 'getCurrentState');
     onErrorHandledSpy = jest.spyOn(pds, 'onErrorHandled');
     applyLocalStepsSpy = jest.spyOn(
       provider.documentService,
@@ -111,6 +115,39 @@ describe('DocumentService onRestore', () => {
         provider.documentService.onRestore(dummyPayload);
         expect(applyLocalStepsSpy).toBeCalledTimes(1);
         expect(applyLocalStepsSpy).toBeCalledWith(['test', 'test']);
+      });
+
+      describe('when reconcile on recovery featureflag is on', () => {
+        beforeEach(() => {
+          provider.documentService.reconcileOnRecovery = true;
+          getCurrentStateSpy.mockReturnValue({ content: 'something' });
+          fetchReconcileSpy.mockReturnValue('thing');
+        });
+
+        afterEach(() => {
+          provider.documentService.reconcileOnRecovery = false;
+        });
+
+        it('doesnt call applyLocalSteps', async () => {
+          await provider.documentService.onRestore(dummyPayload);
+          expect(applyLocalStepsSpy).toBeCalledTimes(0);
+        });
+
+        it('calls reconcile', async () => {
+          await provider.documentService.onRestore(dummyPayload);
+          expect(getCurrentStateSpy).toBeCalledTimes(1);
+          expect(fetchReconcileSpy).toBeCalledTimes(1);
+        });
+
+        it('fires analytics with correct unconfirmedSteps length', async () => {
+          await provider.documentService.onRestore(dummyPayload);
+          expect(sendActionEventSpy).toBeCalledTimes(1);
+          expect(sendActionEventSpy).toBeCalledWith(
+            'reinitialiseDocument',
+            'SUCCESS',
+            { hasTitle: true, numUnconfirmedSteps: 2 },
+          );
+        });
       });
     });
   });

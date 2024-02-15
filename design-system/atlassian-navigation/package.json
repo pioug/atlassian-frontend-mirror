@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
-    "@atlaskit/button": "^17.3.0",
+    "@atlaskit/button": "^17.4.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/logo": "*",

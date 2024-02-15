@@ -73,7 +73,8 @@ export const emptyMultipleCellsWithAnalytics =
     inputMethod:
       | INPUT_METHOD.CONTEXT_MENU
       | INPUT_METHOD.KEYBOARD
-      | INPUT_METHOD.FLOATING_TB,
+      | INPUT_METHOD.FLOATING_TB
+      | INPUT_METHOD.TABLE_CONTEXT_MENU,
     targetCellPosition?: number,
   ) =>
     withEditorAnalyticsAPI(({ selection }) => {
@@ -164,7 +165,10 @@ export const splitCellWithAnalytics =
 export const setColorWithAnalytics =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
   (
-    inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+    inputMethod:
+      | INPUT_METHOD.CONTEXT_MENU
+      | INPUT_METHOD.FLOATING_TB
+      | INPUT_METHOD.TABLE_CONTEXT_MENU,
     cellColor: string,
     targetCellPosition?: number,
   ) =>
@@ -257,7 +261,8 @@ export const insertColumnWithAnalytics =
       | INPUT_METHOD.CONTEXT_MENU
       | INPUT_METHOD.BUTTON
       | INPUT_METHOD.SHORTCUT
-      | INPUT_METHOD.FLOATING_TB,
+      | INPUT_METHOD.FLOATING_TB
+      | INPUT_METHOD.TABLE_CONTEXT_MENU,
     position: number,
   ) =>
     withEditorAnalyticsAPI((state) => {
@@ -285,7 +290,8 @@ export const deleteRowsWithAnalytics =
       | INPUT_METHOD.CONTEXT_MENU
       | INPUT_METHOD.BUTTON
       | INPUT_METHOD.FLOATING_TB
-      | INPUT_METHOD.SHORTCUT,
+      | INPUT_METHOD.SHORTCUT
+      | INPUT_METHOD.TABLE_CONTEXT_MENU,
     rect: Rect,
     isHeaderRowRequired: boolean,
   ) =>
@@ -320,7 +326,8 @@ export const deleteColumnsWithAnalytics =
       | INPUT_METHOD.CONTEXT_MENU
       | INPUT_METHOD.BUTTON
       | INPUT_METHOD.FLOATING_TB
-      | INPUT_METHOD.SHORTCUT,
+      | INPUT_METHOD.SHORTCUT
+      | INPUT_METHOD.TABLE_CONTEXT_MENU,
     rect: Rect,
   ) =>
     withEditorAnalyticsAPI(({ selection }) => {
@@ -500,7 +507,10 @@ export const toggleTableLayoutWithAnalytics = (
 export const sortColumnWithAnalytics =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
   (
-    inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+    inputMethod:
+      | INPUT_METHOD.CONTEXT_MENU
+      | INPUT_METHOD.FLOATING_TB
+      | INPUT_METHOD.TABLE_CONTEXT_MENU,
     columnIndex: number,
     sortOrder: SortOrder,
   ) =>
@@ -526,7 +536,10 @@ export const sortColumnWithAnalytics =
 export const distributeColumnsWidthsWithAnalytics =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
   (
-    inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+    inputMethod:
+      | INPUT_METHOD.CONTEXT_MENU
+      | INPUT_METHOD.FLOATING_TB
+      | INPUT_METHOD.TABLE_CONTEXT_MENU,
     { resizeState, table, attributes }: ResizeStateWithAnalytics,
   ) => {
     return withEditorAnalyticsAPI(() => {

@@ -9,12 +9,14 @@ describe('Feature flags', () => {
       {
         testFF: true,
         blockViewOnly: true,
+        reconcileOnRecovery: true,
       },
       'confluence',
     );
     expect(result).toEqual([
       'confluence.frontend.collab.provider.testFF',
       'confluence.frontend.ncs.block-view-only',
+      'confluence.frontend.ncs.reconcile-on-recovery',
     ]);
   });
 

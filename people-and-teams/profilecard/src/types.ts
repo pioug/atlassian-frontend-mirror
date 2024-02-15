@@ -132,6 +132,7 @@ export interface ProfileCardTriggerProps {
   addFlag?: (flag: any) => void;
   ariaLabel?: string;
   ariaLabelledBy?: string;
+  prepopulatedData?: PrepopulatedData;
 }
 
 export interface ProfileCardTriggerState {
@@ -451,4 +452,9 @@ export interface ClientOverrides {
   userClient?: UserProfileCardClient;
   teamClient?: TeamProfileCardClient;
   teamCentralClient?: TeamCentralCardClient;
+}
+
+/** This interface represents the data that is prepopulated in the profile card. **/
+export interface PrepopulatedData {
+  fullName?: string;
 }

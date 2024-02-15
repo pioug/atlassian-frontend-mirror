@@ -129,7 +129,8 @@ type TableClearAEP = TableAEP<
     inputMethod:
       | INPUT_METHOD.KEYBOARD
       | INPUT_METHOD.CONTEXT_MENU
-      | INPUT_METHOD.FLOATING_TB;
+      | INPUT_METHOD.FLOATING_TB
+      | INPUT_METHOD.TABLE_CONTEXT_MENU;
   } & HorizontalAndVerticalCells &
     TotalRowAndColCount,
   undefined
@@ -146,7 +147,10 @@ type TableMergeSplitAEP = TableAEP<
 type TableColorAEP = TableAEP<
   TABLE_ACTION.COLORED,
   {
-    inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB;
+    inputMethod:
+      | INPUT_METHOD.CONTEXT_MENU
+      | INPUT_METHOD.FLOATING_TB
+      | INPUT_METHOD.TABLE_CONTEXT_MENU;
   } & { cellColor: string } & AllCellInfo,
   undefined
 >;
@@ -183,7 +187,8 @@ type TableAddRowOrColumnAEP = TableAEP<
       | INPUT_METHOD.CONTEXT_MENU
       | INPUT_METHOD.BUTTON
       | INPUT_METHOD.KEYBOARD
-      | INPUT_METHOD.FLOATING_TB;
+      | INPUT_METHOD.FLOATING_TB
+      | INPUT_METHOD.TABLE_CONTEXT_MENU;
     position: number;
   } & TotalRowAndColCount,
   undefined
@@ -196,7 +201,8 @@ type TableDeleteRowOrColumnAEP = TableAEP<
       | INPUT_METHOD.CONTEXT_MENU
       | INPUT_METHOD.BUTTON
       | INPUT_METHOD.FLOATING_TB
-      | INPUT_METHOD.SHORTCUT;
+      | INPUT_METHOD.SHORTCUT
+      | INPUT_METHOD.TABLE_CONTEXT_MENU;
     position: number;
     count: number;
   } & TotalRowAndColCount,
@@ -206,7 +212,10 @@ type TableDeleteRowOrColumnAEP = TableAEP<
 type TableDistributeColumnsWidthsAEP = TableAEP<
   TABLE_ACTION.DISTRIBUTED_COLUMNS_WIDTHS,
   {
-    inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB;
+    inputMethod:
+      | INPUT_METHOD.CONTEXT_MENU
+      | INPUT_METHOD.FLOATING_TB
+      | INPUT_METHOD.TABLE_CONTEXT_MENU;
     position: number;
     count: number;
   } & TotalRowAndColCount,
@@ -219,6 +228,7 @@ type TableSortColumnAEP = TableAEP<
     inputMethod:
       | INPUT_METHOD.SHORTCUT
       | INPUT_METHOD.CONTEXT_MENU
+      | INPUT_METHOD.TABLE_CONTEXT_MENU
       | INPUT_METHOD.BUTTON
       | INPUT_METHOD.FLOATING_TB
       | INPUT_METHOD.KEYBOARD;

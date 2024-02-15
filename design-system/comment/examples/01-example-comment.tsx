@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
+import { Text } from '@atlaskit/primitives';
 
 import Comment, {
   CommentAction,
@@ -21,10 +22,10 @@ export default () => (
       restrictedTo="Restricted to Admins Only"
       time={<CommentTime>30 August, 2016</CommentTime>}
       content={
-        <p>
+        <Text>
           Content goes here. This can include <a href="/link">links</a> and
           other content.
-        </p>
+        </Text>
       }
       actions={[
         <CommentAction>Reply</CommentAction>,

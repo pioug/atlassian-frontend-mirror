@@ -4,7 +4,7 @@ import type {
   ACTION_SUBJECT_ID,
   INPUT_METHOD,
 } from './enums';
-import type { TrackAEP } from './utils';
+import type { NonRequiredAttributes, TrackAEP } from './utils';
 
 export enum DELETE_DIRECTION {
   BACKWARD = 'backward',
@@ -120,7 +120,8 @@ type ListInsertedAEP = TrackAEP<
     listStartNumber?: number;
     joinScenario?: JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST;
   },
-  undefined
+  undefined,
+  NonRequiredAttributes
 >;
 
 type ListContentSanitizedAEP = TrackAEP<

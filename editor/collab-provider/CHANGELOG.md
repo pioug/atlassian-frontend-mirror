@@ -1,5 +1,12 @@
 # @atlaskit/collab-provider
 
+## 9.22.8
+
+### Patch Changes
+
+- [#71421](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71421) [`27695a18c13c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/27695a18c13c) - Update the recovery process to use reconcile instead of applying local steps
+- Updated dependencies
+
 ## 9.22.7
 
 ### Patch Changes

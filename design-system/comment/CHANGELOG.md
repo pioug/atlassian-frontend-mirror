@@ -1,5 +1,12 @@
 # @atlaskit/comment
 
+## 10.9.1
+
+### Patch Changes
+
+- [#70067](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70067) [`eade79144064`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eade79144064) - Internal change to use @atlaskit/primitives Text component.
+- Updated dependencies
+
 ## 10.9.0
 
 ### Minor Changes

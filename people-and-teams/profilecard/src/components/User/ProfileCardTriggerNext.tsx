@@ -7,6 +7,8 @@ import React, {
   useState,
 } from 'react';
 
+import { useIntl } from 'react-intl-next';
+
 import {
   AnalyticsEventPayload,
   useAnalyticsEvents,
@@ -16,6 +18,7 @@ import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
 import filterActionsInner from '../../internal/filterActions';
+import getLabelMessage from '../../internal/getLabelMessage';
 import { CardWrapper } from '../../styled/Card';
 import {
   ProfileCardAction,
@@ -43,8 +46,10 @@ export default function ProfilecardTriggerNext({
   onReportingLinesClick,
   ariaLabel,
   ariaLabelledBy,
+  prepopulatedData,
 }: ProfileCardTriggerProps) {
   const { createAnalyticsEvent } = useAnalyticsEvents();
+  const { formatMessage } = useIntl();
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const showDelay = trigger === 'click' ? 0 : DELAY_MS_SHOW;
@@ -112,12 +117,11 @@ export default function ProfilecardTriggerNext({
         }, hideDelay),
       );
     }
-    setTriggeredUsingKeyboard(false);
   }, [hideDelay, hideTimer, showTimer, isTriggeredUsingKeyboard]);
 
   const handleKeyboardClose = useCallback(
     (event: React.KeyboardEvent) => {
-      if (event.key !== 'Escape') {
+      if (event.key && event.key !== 'Escape') {
         return;
       }
       if (triggerRef.current) {
@@ -300,6 +304,7 @@ export default function ProfilecardTriggerNext({
   );
   const profilecardProps: ProfilecardProps = {
     userId: userId,
+    fullName: prepopulatedData?.fullName,
     isCurrentUser: data?.isCurrentUser,
     clientFetchProfile: clientFetchProfile,
     ...data,
@@ -356,7 +361,11 @@ export default function ProfilecardTriggerNext({
               data-testid={testId}
               role="button"
               tabIndex={0}
-              aria-label={ariaLabel}
+              aria-label={getLabelMessage(
+                ariaLabel,
+                profilecardProps.fullName,
+                formatMessage,
+              )}
               aria-labelledby={ariaLabelledBy}
             >
               {children}

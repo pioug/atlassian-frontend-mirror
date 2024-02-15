@@ -18,7 +18,7 @@ import {
   gridMediumMaxWidth,
   SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-import { N40A, N50A } from '@atlaskit/theme/colors';
+import { N80A, N90A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN };
@@ -37,7 +37,7 @@ export const layoutStyles = css`
         flex: 1;
         min-width: 0;
         border: ${akEditorSelectedBorderSize}px solid
-          ${token('color.border', N40A)};
+          ${token('color.border.bold', N80A)};
         border-radius: 4px;
         padding: ${LAYOUT_COLUMN_PADDING}px;
         box-sizing: border-box;
@@ -125,7 +125,7 @@ export const layoutStyles = css`
       &.selected [data-layout-column],
       &:hover [data-layout-column] {
         border: ${akEditorSelectedBorderSize}px solid
-          ${token('color.border', N50A)};
+          ${token('color.border.bold', N90A)};
       }
 
       &.selected.danger > [data-layout-column] {

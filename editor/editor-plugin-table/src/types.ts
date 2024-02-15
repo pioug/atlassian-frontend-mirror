@@ -40,7 +40,8 @@ export type InsertRowMethods =
   | INPUT_METHOD.BUTTON
   | INPUT_METHOD.SHORTCUT
   | INPUT_METHOD.KEYBOARD
-  | INPUT_METHOD.FLOATING_TB;
+  | INPUT_METHOD.FLOATING_TB
+  | INPUT_METHOD.TABLE_CONTEXT_MENU;
 
 export interface PluginConfig {
   advanced?: boolean;

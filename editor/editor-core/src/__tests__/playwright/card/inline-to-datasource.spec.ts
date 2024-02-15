@@ -57,10 +57,26 @@ test.describe('inlineCard', () => {
         datasourceBlockCard({
           datasource: {
             id: 'd8b75300-dfda-4519-b6cd-e49abbd50401',
-            parameters: {},
+            parameters: {
+              foo: 'bar',
+            },
             views: [
               {
                 type: 'table',
+                properties: {
+                  columns: [
+                    { key: 'key' },
+                    { key: 'type' },
+                    { key: 'summary' },
+                    { key: 'description' },
+                    { key: 'assignee' },
+                    { key: 'people' },
+                    { key: 'priority' },
+                    { key: 'labels' },
+                    { key: 'status' },
+                    { key: 'created' },
+                  ],
+                },
               },
             ],
           },

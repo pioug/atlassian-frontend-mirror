@@ -49,6 +49,7 @@ import {
   TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type { DatasourceAdfView, InlineCardAdf } from '@atlaskit/smart-card';
 
 import type { CardPluginState, Request } from '../types';
@@ -547,16 +548,34 @@ export const setSelectedCardAppearance: (
     return false;
   }
 
-  if (appearanceForNodeType(selectedNode.type) === appearance) {
-    return false;
+  let attrs;
+  if (
+    getBooleanFF(
+      'platform.linking-platform.enable-datasource-appearance-toolbar',
+    )
+  ) {
+    if (
+      appearanceForNodeType(selectedNode.type) === appearance &&
+      !selectedNode.attrs.datasource
+    ) {
+      return false;
+    }
+
+    attrs = getAttrsForAppearance(appearance, selectedNode);
+  } else {
+    if (appearanceForNodeType(selectedNode.type) === appearance) {
+      return false;
+    }
+
+    const isEmbed = appearance === 'embed';
+    attrs = isEmbed
+      ? {
+          ...selectedNode.attrs,
+          layout: 'center',
+        }
+      : selectedNode.attrs;
   }
-  const isEmbed = appearance === 'embed';
-  const attrs = isEmbed
-    ? {
-        ...selectedNode.attrs,
-        layout: 'center',
-      }
-    : selectedNode.attrs;
+
   const { from, to } = state.selection;
   const nodeType = getLinkNodeType(appearance, state.schema.nodes as LinkNodes);
   const tr = state.tr.setNodeMarkup(from, nodeType, attrs, selectedNode.marks);
@@ -695,4 +714,25 @@ export const insertDatasource = (
     sourceEvent,
   });
   view.dispatch(tr.scrollIntoView());
+};
+
+/**
+ * Get attributes for new Card Appearance
+ */
+export const getAttrsForAppearance = (
+  appearance: CardAppearance,
+  selectedNode: Node,
+) => {
+  if (appearance === 'embed') {
+    return {
+      ...selectedNode.attrs,
+      layout: 'center',
+    };
+  }
+
+  if (selectedNode.attrs.datasource) {
+    return { url: selectedNode.attrs.url };
+  }
+
+  return selectedNode.attrs;
 };

@@ -5,7 +5,10 @@ import {
   SELECTION_POSITION,
   SELECTION_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import type {
+  Selection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
@@ -62,9 +65,40 @@ export function findInsertLocation(selection: Selection): string {
   return parentNodeInfo ? parentNodeInfo.node.type.name : name;
 }
 
+export function findInsertedLocation(
+  oldSelection: Selection,
+  newSelection: Selection,
+): string {
+  const { schema } = newSelection.$from.doc.type;
+  const {
+    nodes: { paragraph, table },
+  } = schema;
+
+  if (oldSelection instanceof CellSelection) {
+    return table.name;
+  }
+
+  const insertLocationInfo = findParentNode(node => node.type !== paragraph)(
+    oldSelection,
+  );
+
+  let parentNodePos = newSelection.$from.doc.resolve(
+    insertLocationInfo?.start || 0,
+  );
+
+  // Keep going one level above the attempted insert position till we find a node that contains the current cursor position in it's range
+  while (parentNodePos.end() < newSelection.$from.pos) {
+    parentNodePos = newSelection.$from.doc.resolve(
+      parentNodePos.start(Math.max(parentNodePos.depth - 1, 0)),
+    );
+  }
+  return parentNodePos.node().type.name;
+}
+
 export function getStateContext(
   selection: Selection,
   payload: AnalyticsEventPayload,
+  tr: Transaction,
 ): AnalyticsEventPayload {
   if (!payload.attributes) {
     return payload;
@@ -75,7 +109,15 @@ export function getStateContext(
     payload.attributes.selectionPosition = position;
   }
   const insertLocation = findInsertLocation(selection);
-
+  if (
+    payload.action === ACTION.INSERTED &&
+    payload.actionSubject !== ACTION_SUBJECT.ANNOTATION
+  ) {
+    payload.attributes.insertedLocation = findInsertedLocation(
+      selection,
+      tr.selection,
+    );
+  }
   if (
     payload.action === ACTION.INSERTED &&
     payload.actionSubject === ACTION_SUBJECT.DOCUMENT &&

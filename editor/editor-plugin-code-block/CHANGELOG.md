@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-code-block
 
+## 1.0.1
+
+### Patch Changes
+
+- [#73044](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73044) [`0fff4efc0417`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fff4efc0417) - [ux] ED-22131 Fixed selection placement when codeblock inserted through quick-insert inside panel
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

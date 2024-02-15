@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-analytics
 
+## 1.0.1
+
+### Patch Changes
+
+- [#72295](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72295) [`eefc8788ab31`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eefc8788ab31) - ED-22046 Add insertedLocation attribute for analytics in node insertion
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

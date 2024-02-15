@@ -279,6 +279,15 @@ export type FeatureFlags = {
    * @default false
    */
   tableDragAndDrop?: boolean;
+
+  /**
+   * @description
+   * Enables the table selector button and popup in toolbar
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-21435
+   * @default false
+   */
+  tableSelector?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

@@ -26,9 +26,9 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^35.5.1",
     "@atlaskit/adf-utils": "^19.0.0",
-    "@atlaskit/button": "^17.3.0",
+    "@atlaskit/button": "^17.4.0",
     "@atlaskit/checkbox": "^13.0.0",
-    "@atlaskit/editor-common": "^77.4.0",
+    "@atlaskit/editor-common": "^77.5.0",
     "@atlaskit/editor-palette": "1.5.2",
     "@atlaskit/editor-plugin-context-panel": "^1.0.0",
     "@atlaskit/editor-plugin-copy-button": "^1.0.0",

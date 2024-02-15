@@ -499,7 +499,7 @@ export class Channel extends Emitter<ChannelEvent> {
           metadata,
         });
       } else {
-        // Page is been just restored, need to fix all the participants as well.
+        // Page has just been restored, need to fix all the participants as well.
         const { doc, version, userId, metadata }: InitPayload = data;
         this.emit('restore', {
           doc,

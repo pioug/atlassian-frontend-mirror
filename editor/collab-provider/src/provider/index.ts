@@ -163,6 +163,10 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       this.emitCallback,
       this.channel.sendMetadata,
     );
+    const reconcileOnRecovery = getCollabProviderFeatureFlag(
+      'reconcileOnRecovery',
+      this.config.featureFlags,
+    );
     this.documentService = new DocumentService(
       this.participantsService,
       this.analyticsHelper,
@@ -174,6 +178,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       this.onErrorHandled,
       this.metadataService,
       this.config.enableErrorOnFailedDocumentApply,
+      reconcileOnRecovery,
     );
     this.namespaceService = new NamespaceService();
     this.api = new Api(config, this.documentService, this.channel);

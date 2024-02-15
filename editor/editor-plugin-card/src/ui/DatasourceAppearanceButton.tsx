@@ -29,6 +29,7 @@ export interface DatasourceAppearanceButtonProps {
   editorView?: EditorView;
   editorState: EditorState;
   cardContext?: CardContext;
+  selected?: boolean;
 }
 
 const buttonStyles = css({
@@ -41,6 +42,7 @@ const DatasourceAppearanceButtonWithCardContext = ({
   url,
   editorView,
   editorState,
+  selected,
 }: DatasourceAppearanceButtonProps) => {
   const { datasourceId, parameters } = useFetchDatasourceInfo({
     isRegularCardNode: true,
@@ -87,13 +89,14 @@ const DatasourceAppearanceButtonWithCardContext = ({
   }
 
   const buttonLabel = intl.formatMessage(messages.datasourceAppearanceTitle);
+
   return (
     <Flex>
       <Button
         css={buttonStyles}
         title={buttonLabel}
         icon={<TableIcon label={buttonLabel} />}
-        selected={false}
+        selected={selected}
         onClick={onChangeAppearance}
         testId={'card-datasource-appearance-button'}
       />
@@ -107,6 +110,7 @@ export const DatasourceAppearanceButton = ({
   url,
   editorView,
   editorState,
+  selected,
 }: DatasourceAppearanceButtonProps) => {
   return (
     <CardContextProvider>
@@ -118,6 +122,7 @@ export const DatasourceAppearanceButton = ({
           editorView={editorView}
           editorState={editorState}
           cardContext={cardContext}
+          selected={selected}
         />
       )}
     </CardContextProvider>

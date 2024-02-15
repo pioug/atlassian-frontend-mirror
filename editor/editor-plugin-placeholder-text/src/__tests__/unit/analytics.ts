@@ -43,6 +43,7 @@ describe('placeholder text', () => {
         actionSubjectId: 'placeholderText',
         inputMethod: 'quickInsert',
         insertLocation: 'doc',
+        insertedLocation: 'doc',
         selectionPosition: 'end',
         selectionType: 'cursor',
       },

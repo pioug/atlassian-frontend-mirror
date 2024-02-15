@@ -353,7 +353,6 @@ describe('createPluginsList', () => {
       nativeStatusSupported: false,
       replacePlusMenuWithElementBrowser: false,
       showElementBrowserLink: false,
-      tableSelectorSupported: false,
     };
 
     createPluginsList(props);

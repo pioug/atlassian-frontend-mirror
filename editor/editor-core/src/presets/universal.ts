@@ -394,9 +394,7 @@ export default function createUniversalPreset(
         allowExpand: isExpandInsertionEnabled(props),
         insertMenuItems: props.insertMenuItems,
         horizontalRuleEnabled: props.allowRule,
-        tableSelectorSupported:
-          getBooleanFF('platform.editor.insert-block.table-selector-button') &&
-          isFullPage,
+        tableSelectorSupported: featureFlags?.tableSelector && isFullPage,
         nativeStatusSupported: !statusMenuDisabled,
         showElementBrowserLink:
           (props.elementBrowser && props.elementBrowser.showModal) || false,

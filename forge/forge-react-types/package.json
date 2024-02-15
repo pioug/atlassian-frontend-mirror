@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@atlaskit/badge": "^15.2.0",
-    "@atlaskit/button": "^17.3.0",
+    "@atlaskit/button": "^17.4.0",
     "@atlaskit/checkbox": "^13.0.0",
     "@atlaskit/code": "^15.1.0",
     "@atlaskit/dynamic-table": "^14.14.0",

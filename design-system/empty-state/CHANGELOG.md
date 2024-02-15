@@ -1,5 +1,12 @@
 # @atlaskit/empty-state
 
+## 7.7.1
+
+### Patch Changes
+
+- [#72130](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72130) [`b037e5451037`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b037e5451037) - Update new button text color fallback for default theme (non-token) to match that of old button current text color
+- Updated dependencies
+
 ## 7.7.0
 
 ### Minor Changes

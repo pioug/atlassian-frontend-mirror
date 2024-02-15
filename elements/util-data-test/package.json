@@ -71,7 +71,7 @@
     "@atlaskit/emoji": "67.6.9",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/mention": "22.1.10",
-    "@atlaskit/profilecard": "^19.10.0",
+    "@atlaskit/profilecard": "^19.11.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.37.0",
     "@atlaskit/user-picker": "10.16.1",

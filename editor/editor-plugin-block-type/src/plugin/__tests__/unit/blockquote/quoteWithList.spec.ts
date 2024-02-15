@@ -6,6 +6,7 @@ import {
   tableCell as tableCellAdf,
   tableRow as tableRowAdf,
 } from '@atlaskit/adf-schema';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
@@ -26,9 +27,12 @@ import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { layoutPlugin } from '@atlaskit/editor-plugin-layout';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { mediaPlugin } from '@atlaskit/editor-plugin-media';
+import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
@@ -49,6 +53,8 @@ import {
   ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { insertText } from '@atlaskit/editor-test-helpers/transactions';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import type { BlockTypeState } from '../../../../index';
@@ -58,14 +64,16 @@ import { pluginKey as blockTypePluginKey } from '../../../pm-plugins/main';
 
 const createEditor = createProsemirrorEditorFactory();
 const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+let createAnalyticsEvent: jest.Mock<UIAnalyticsEvent>;
 const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
   attachAnalyticsEvent,
   fireAnalyticsEvent: jest.fn(),
 };
 const editor = (doc: DocBuilder) => {
+  createAnalyticsEvent = createAnalyticsEventMock();
   const preset = new Preset<LightEditorPlugin>()
     .add(mockNodesPlugin)
-    .add([analyticsPlugin, {}])
+    .add([analyticsPlugin, { createAnalyticsEvent }])
     .add(contentInsertionPlugin)
     .add(editorDisabledPlugin)
     .add(decorationsPlugin)
@@ -81,7 +89,9 @@ const editor = (doc: DocBuilder) => {
     .add(focusPlugin)
     .add(selectionPlugin)
     .add([mediaPlugin, { allowMediaSingle: true }])
-    .add(blockTypePlugin);
+    .add(blockTypePlugin)
+    .add(typeAheadPlugin)
+    .add(quickInsertPlugin);
 
   return createEditor<BlockTypeState, PluginKey, typeof preset>({
     doc,
@@ -164,6 +174,46 @@ describe('insertions of blockquote', () => {
         )(state, dispatch);
         expect(editorView.state.doc).toEqualDocument(test.outputWithoutFF);
       }
+    },
+  );
+});
+
+describe('analytics event for list in quotes', () => {
+  ffTest(
+    'platform.editor.allow-list-in-blockquote',
+    () => {
+      const { editorView } = editor(doc(blockquote(p('{<>}'))));
+
+      insertText(editorView, '- ');
+
+      expect(createAnalyticsEvent).toBeCalledWith(
+        expect.objectContaining({
+          action: 'inserted',
+          actionSubject: 'list',
+          actionSubjectId: 'bulletedList',
+          attributes: expect.objectContaining({
+            insertedLocation: 'blockquote',
+            nodeLocation: 'blockquote',
+          }),
+        }),
+      );
+    },
+    async () => {
+      const { typeAheadTool } = editor(doc(blockquote(p('{<>}'))));
+      await typeAheadTool.searchQuickInsert('bullet')?.insert({ index: 0 });
+
+      expect(createAnalyticsEvent).toHaveBeenNthCalledWith(
+        2,
+        expect.objectContaining({
+          action: 'inserted',
+          actionSubject: 'list',
+          actionSubjectId: 'bulletedList',
+          attributes: expect.objectContaining({
+            insertedLocation: 'doc',
+            nodeLocation: 'blockquote',
+          }),
+        }),
+      );
     },
   );
 });

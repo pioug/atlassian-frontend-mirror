@@ -34,8 +34,8 @@
     "./styles": "./src/styles.ts"
   },
   "dependencies": {
-    "@atlaskit/button": "^17.3.0",
-    "@atlaskit/editor-common": "^77.4.0",
+    "@atlaskit/button": "^17.4.0",
+    "@atlaskit/editor-common": "^77.5.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
     "@atlaskit/editor-prosemirror": "3.0.0",

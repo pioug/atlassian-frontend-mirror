@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { Text } from '@atlaskit/primitives';
 
 import Comment, { CommentAction, CommentAuthor, CommentEdited } from '../src';
 

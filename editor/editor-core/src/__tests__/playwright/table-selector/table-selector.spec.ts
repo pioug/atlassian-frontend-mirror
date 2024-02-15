@@ -22,9 +22,9 @@ test.use({
     allowTables: {
       advanced: true,
     },
-  },
-  platformFeatureFlags: {
-    'platform.editor.insert-block.table-selector-button': true,
+    featureFlags: {
+      'table-selector': true,
+    },
   },
 });
 

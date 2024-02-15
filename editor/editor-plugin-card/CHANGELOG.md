@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-card
 
+## 1.0.1
+
+### Patch Changes
+
+- [#71504](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71504) [`8beedb8b48db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8beedb8b48db) - [ux] Enable switch view from Datasource to back smart links behind ff platform.linking-platform.enable-datasource-appearance-toolbar
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

@@ -20,7 +20,10 @@ import {
   taskList,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { infoPanelADF } from './panel.spec.ts-fixtures';
+import {
+  infoPanelADF,
+  infoPanelADFWithContentsAbove,
+} from './panel.spec.ts-fixtures';
 
 test.describe('Enable Media, action, code-block, rule and decision inside panel', () => {
   test.use({
@@ -216,5 +219,35 @@ test.describe('Resizing media inside and outside panel', () => {
     await expect(editor.page.locator('.gridLine').first()).toBeVisible();
 
     await editor.page.mouse.up();
+  });
+});
+
+test.describe('Inserting codeblock inside a panel with other contents above', () => {
+  test.use({
+    editorProps: {
+      appearance: 'full-page',
+      allowPanel: true,
+    },
+    platformFeatureFlags: {
+      'platform.editor.allow-extended-panel': true,
+    },
+    adf: infoPanelADFWithContentsAbove,
+  });
+
+  test('should insert code snippet inside a panel with selection check', async ({
+    editor,
+  }) => {
+    await editor.selection.set({ anchor: 10, head: 10 });
+    await editor.keyboard.type('/Code');
+    await editor.keyboard.press('Enter');
+
+    await expect(editor).toMatchDocument(
+      doc(p('para 1'), panel({ panelType: 'info' })(code_block({})())),
+    );
+    await expect(editor).toHaveSelection({
+      type: 'text',
+      anchor: 10,
+      head: 10,
+    });
   });
 });

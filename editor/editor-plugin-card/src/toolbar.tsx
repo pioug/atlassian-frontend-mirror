@@ -20,7 +20,10 @@ import {
   buildLayoutButtons,
   commandWithMetadata,
 } from '@atlaskit/editor-common/card';
-import type { CardOptions } from '@atlaskit/editor-common/card';
+import type {
+  CardOptions,
+  CardPluginActions,
+} from '@atlaskit/editor-common/card';
 import commonMessages, {
   linkMessages,
   linkToolbarMessages,
@@ -55,7 +58,7 @@ import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import type { CardPlatform } from '@atlaskit/smart-card';
+import type { CardAppearance, CardPlatform } from '@atlaskit/smart-card';
 
 import { changeSelectedCardToText } from './pm-plugins/doc';
 import { pluginKey } from './pm-plugins/main';
@@ -377,6 +380,10 @@ const generateToolbarItems =
         hoverDecoration,
         node.attrs.datasource.id,
         state,
+        cardOptions,
+        currentAppearance,
+        platform,
+        pluginInjectionApi?.card?.actions,
       );
     } else {
       const { inlineCard } = state.schema.nodes;
@@ -451,6 +458,7 @@ const generateToolbarItems =
         }
         toolbarItems.unshift(...alignmentOptions);
       }
+
       const {
         allowBlockCards,
         allowEmbeds,
@@ -576,13 +584,17 @@ const getSettingsButtonGroup = (
 };
 
 const getDatasourceButtonGroup = (
-  metadata: { url: string; title: string } | {},
+  metadata: { [key: string]: string },
   intl: IntlShape,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
   node: Node,
   hoverDecoration: HoverDecorationHandler | undefined,
   datasourceId: string,
   state: EditorState,
+  cardOptions: CardOptions | undefined,
+  currentAppearance: CardAppearance | undefined,
+  platform?: CardPlatform,
+  cardActions?: CardPluginActions | undefined,
 ): FloatingToolbarItem<Command>[] => {
   const toolbarItems: Array<FloatingToolbarItem<Command>> = [];
 
@@ -598,6 +610,61 @@ const getDatasourceButtonGroup = (
         onClick: editDatasource(datasourceId, editorAnalyticsApi),
         testId: 'datasource-edit-button',
       },
+      { type: 'separator' },
+    );
+  }
+
+  // Smart card view buttons only allowed for non-config datasources
+  if (
+    getBooleanFF(
+      'platform.linking-platform.enable-datasource-appearance-toolbar',
+    ) &&
+    !isDatasourceConfigEditable(datasourceId) &&
+    cardOptions
+  ) {
+    const { allowBlockCards, allowEmbeds, showUpgradeDiscoverability } =
+      cardOptions;
+
+    const { url } = metadata;
+
+    toolbarItems.push(
+      {
+        type: 'custom',
+        fallback: [],
+        render: editorView => {
+          return (
+            <LinkToolbarAppearance
+              key="link-appearance"
+              url={url}
+              intl={intl}
+              currentAppearance={currentAppearance}
+              editorView={editorView}
+              editorState={state}
+              allowEmbeds={allowEmbeds}
+              allowBlockCards={allowBlockCards}
+              platform={platform}
+              editorAnalyticsApi={editorAnalyticsApi}
+              cardActions={cardActions}
+              showUpgradeDiscoverability={showUpgradeDiscoverability}
+              isDatasourceView
+            />
+          );
+        },
+      },
+      {
+        type: 'custom',
+        fallback: [],
+        render: editorView => (
+          <DatasourceAppearanceButton
+            intl={intl}
+            editorAnalyticsApi={editorAnalyticsApi}
+            url={url}
+            editorView={editorView}
+            editorState={state}
+            selected={true}
+          />
+        ),
+      } satisfies FloatingToolbarItem<never>,
       { type: 'separator' },
     );
   }

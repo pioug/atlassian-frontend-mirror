@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
@@ -258,13 +252,6 @@ const Actions = ({
     [fireAnalyticsWithDuration],
   );
 
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  useEffect(() => {
-    if (actions.length > 0 && buttonRef.current && isTriggeredUsingKeyboard) {
-      buttonRef.current.focus();
-    }
-  }, [isTriggeredUsingKeyboard, actions.length]);
-
   if (!actions || actions.length === 0) {
     return null;
   }
@@ -292,7 +279,7 @@ const Actions = ({
                 onActionClick(action, args, event, index)
               }
               href={action.link}
-              ref={index === 0 ? buttonRef : undefined}
+              autoFocus={index === 0 && isTriggeredUsingKeyboard}
             >
               {action.label}
               {isKudos && (

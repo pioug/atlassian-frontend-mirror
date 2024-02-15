@@ -39,17 +39,17 @@ import HipchatChevronDoubleDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-d
 import HipchatChevronDoubleUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-double-up';
 
 import {
-  clearMultipleCells,
-  insertColumn,
-  insertRow,
-  sortByColumn,
-} from '../commands';
-import { deleteColumnsCommand } from '../commands/delete';
+  deleteColumnsWithAnalytics,
+  deleteRowsWithAnalytics,
+  distributeColumnsWidthsWithAnalytics,
+  emptyMultipleCellsWithAnalytics,
+  insertColumnWithAnalytics,
+  insertRowWithAnalytics,
+  sortColumnWithAnalytics,
+} from '../commands-with-analytics';
 import { moveSourceWithAnalytics } from '../pm-plugins/drag-and-drop/commands-with-analytics';
-import { distributeColumnsWidths } from '../pm-plugins/table-resizing/commands';
 import { getNewResizeStateFromSelectedColumns } from '../pm-plugins/table-resizing/utils/resize-state';
 import { getClosestSelectionRect } from '../toolbar';
-import { deleteRows } from '../transforms';
 import type { DraggableData, DraggableType, TableDirection } from '../types';
 import {
   AddColLeftIcon,
@@ -145,6 +145,8 @@ export interface DragMenuConfig extends DropdownOptionT<Command> {
   keymap?: string;
 }
 
+const defaultSelectionRect = { left: 0, top: 0, right: 0, bottom: 0 };
+
 export const getDragMenuConfig = (
   direction: TableDirection,
   getEditorContainerWidth: GetEditorContainerWidth,
@@ -156,6 +158,7 @@ export const getDragMenuConfig = (
   targetCellPosition?: number,
   selectionRect?: Rect,
   editorAnalyticsAPI?: EditorAnalyticsAPI,
+  isHeaderRowRequired?: boolean,
 ): DragMenuConfig[] => {
   const addOptions =
     direction === 'row'
@@ -282,9 +285,18 @@ export const getDragMenuConfig = (
       icon,
       onClick: (state: EditorState, dispatch?: CommandDispatch) => {
         if (direction === 'row') {
-          insertRow(index! + offset, true)(state, dispatch);
+          insertRowWithAnalytics(editorAnalyticsAPI)(
+            INPUT_METHOD.TABLE_CONTEXT_MENU,
+            {
+              index: (index ?? 0) + offset,
+              moveCursorToInsertedRow: true,
+            },
+          )(state, dispatch);
         } else {
-          insertColumn(getEditorContainerWidth)(index! + offset)(
+          insertColumnWithAnalytics(
+            getEditorContainerWidth,
+            editorAnalyticsAPI,
+          )(INPUT_METHOD.TABLE_CONTEXT_MENU, (index ?? 0) + offset)(
             state,
             dispatch,
             editorView,
@@ -310,8 +322,10 @@ export const getDragMenuConfig = (
               );
 
               if (newResizeState) {
-                const { resizeState, table } = newResizeState;
-                distributeColumnsWidths(resizeState, table)(state, dispatch);
+                distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI)(
+                  INPUT_METHOD.TABLE_CONTEXT_MENU,
+                  newResizeState,
+                )(state, dispatch);
                 return true;
               }
               return false;
@@ -325,7 +339,10 @@ export const getDragMenuConfig = (
       id: 'clear_cells',
       title: 'Clear cells',
       onClick: (state: EditorState, dispatch?: CommandDispatch) => {
-        clearMultipleCells(targetCellPosition)(state, dispatch);
+        emptyMultipleCellsWithAnalytics(editorAnalyticsAPI)(
+          INPUT_METHOD.TABLE_CONTEXT_MENU,
+          targetCellPosition,
+        )(state, dispatch);
         return true;
       },
       icon: CrossCircleIcon,
@@ -336,9 +353,16 @@ export const getDragMenuConfig = (
       title: `Delete ${direction}`,
       onClick: (state: EditorState, dispatch?: CommandDispatch) => {
         if (direction === 'row') {
-          dispatch?.(deleteRows(selectionRect!, false)(state.tr));
+          deleteRowsWithAnalytics(editorAnalyticsAPI)(
+            INPUT_METHOD.TABLE_CONTEXT_MENU,
+            selectionRect ?? defaultSelectionRect,
+            !!isHeaderRowRequired,
+          )(state, dispatch);
         } else {
-          deleteColumnsCommand(selectionRect!)(state, dispatch);
+          deleteColumnsWithAnalytics(editorAnalyticsAPI)(
+            INPUT_METHOD.TABLE_CONTEXT_MENU,
+            selectionRect ?? defaultSelectionRect,
+          )(state, dispatch, editorView);
         }
         return true;
       },
@@ -375,7 +399,11 @@ export const getDragMenuConfig = (
       disabled: hasMergedCellsInTable,
       icon,
       onClick: (state: EditorState, dispatch?: CommandDispatch) => {
-        sortByColumn(index!, order)(state, dispatch);
+        sortColumnWithAnalytics(editorAnalyticsAPI)(
+          INPUT_METHOD.TABLE_CONTEXT_MENU,
+          index ?? 0,
+          order,
+        )(state, dispatch);
         return true;
       },
     })),

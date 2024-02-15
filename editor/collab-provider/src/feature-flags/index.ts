@@ -8,6 +8,7 @@ import type {
 const defaultNCSFeatureFlags: Required<NCSFeatureFlags> = {
   testFF: false,
   blockViewOnly: false,
+  reconcileOnRecovery: false,
 };
 
 /**
@@ -17,6 +18,7 @@ const productKeys: ProductKeys = {
   confluence: {
     testFF: 'confluence.frontend.collab.provider.testFF',
     blockViewOnly: 'confluence.frontend.ncs.block-view-only',
+    reconcileOnRecovery: 'confluence.frontend.ncs.reconcile-on-recovery',
   },
 };
 

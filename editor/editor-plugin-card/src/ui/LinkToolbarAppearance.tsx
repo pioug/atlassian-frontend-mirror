@@ -45,6 +45,7 @@ export interface LinkToolbarAppearanceProps {
   platform?: CardPlatform;
   cardActions: CardPluginActions | undefined;
   showUpgradeDiscoverability?: boolean;
+  isDatasourceView?: boolean;
 }
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class LinkToolbarAppearance extends React.Component<
@@ -67,6 +68,7 @@ export class LinkToolbarAppearance extends React.Component<
       editorAnalyticsApi,
       cardActions,
       showUpgradeDiscoverability = true,
+      isDatasourceView,
     } = this.props;
     const preview =
       allowEmbeds &&
@@ -121,7 +123,7 @@ export class LinkToolbarAppearance extends React.Component<
       onClick:
         cardActions?.setSelectedCardAppearance('block', editorAnalyticsApi) ??
         defaultCommand,
-      selected: currentAppearance === 'block',
+      selected: currentAppearance === 'block' && !isDatasourceView,
       testId: 'block-appearance',
       disabled: !isBlockCardLinkSupportedInParent,
       tooltip: isBlockCardLinkSupportedInParent
@@ -145,7 +147,7 @@ export class LinkToolbarAppearance extends React.Component<
             action: ACTION.CHANGED_TYPE,
           },
         ),
-        selected: !currentAppearance,
+        selected: !currentAppearance && !isDatasourceView,
         testId: 'url-appearance',
       },
       {

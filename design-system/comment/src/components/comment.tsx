@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 import Stack from '@atlaskit/primitives/stack';
+import Box from '@atlaskit/primitives/text';
 
 import type { CommentProps } from '../types';
 
@@ -65,13 +65,12 @@ const Comment: FC<CommentProps> = ({
         <Stack space="space.075">
           <Stack space="space.050">
             <Header testId={testId && `${testId}-header`} {...headerProps} />
-            <Text
-              as="div"
+            <Box
               testId={testId && `${testId}-content`}
-              color={isSaving || isError ? 'disabled' : 'color.text'}
+              color={isSaving || isError ? 'color.text.disabled' : 'color.text'}
             >
               {content}
-            </Text>
+            </Box>
           </Stack>
           <Footer testId={testId && `${testId}-footer`} {...footerProps} />
           {afterContent}

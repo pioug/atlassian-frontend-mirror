@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 77.5.0
+
+### Minor Changes
+
+- [#72295](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72295) [`eefc8788ab31`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eefc8788ab31) - ED-22046 Add insertedLocation attribute for analytics in node insertion
+
+### Patch Changes
+
+- [#72850](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72850) [`5099580a0330`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5099580a0330) - Adds analytics for sort options in table's Drag handle menu
+- Updated dependencies
+
+## 77.4.5
+
+### Patch Changes
+
+- [#71072](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71072) [`f4c21a1b915c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f4c21a1b915c) - Added Statsig experiment to table selector
+- [#73298](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73298) [`93409ad5925e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93409ad5925e) - extended CollabParticipant to support user types
+
 ## 77.4.4
 
 ### Patch Changes

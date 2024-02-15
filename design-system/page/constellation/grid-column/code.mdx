@@ -2,10 +2,12 @@
 order: 1
 title: Grid column
 description: Grid column is a building block for content sections of a page.
+props:
+  packageName: '@atlaskit/page'
+  exports:
+    - GridColumn
 ---
-
-import GridColumnProps from '!!extract-react-types-loader!../../src/extract-react-types/grid-column';
 
 ## Props
 
-<PropsTable heading="" props={GridColumnProps} />
+<TSMorphProps exportName="GridColumn" packageName="@atlaskit/page" />

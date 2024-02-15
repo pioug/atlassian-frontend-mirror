@@ -1,14 +1,15 @@
 import React from 'react';
+
+import { fireEvent, screen } from '@testing-library/react';
 import type { ReactWrapper } from 'enzyme';
 
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { fireEvent, screen } from '@testing-library/react';
+import { doc, extension, p } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p, extension } from '@atlaskit/editor-test-helpers/doc-builder';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 import FullPage from '../../../ui/Appearance/FullPage';
 import EditorContext from '../../../ui/EditorContext';

@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/email-renderer",
-  "version": "8.5.2",
+  "version": "8.5.12",
   "description": "Email renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -22,22 +22,37 @@
   },
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./apply-marks": "./src/apply-marks.ts",
+    "./create-tag": "./src/create-tag.ts",
+    "./date-helper": "./src/date-helper.ts",
+    "./escape-html-string": "./src/escape-html-string.ts",
+    "./interfaces": "./src/interfaces.ts",
+    "./mark-serializers": "./src/mark-serializers.ts",
+    "./media-util": "./src/media-util.ts",
+    "./node-serializers": "./src/node-serializers.ts",
+    "./serialize-style": "./src/serialize-style.ts",
+    "./serializer": "./src/serializer.ts",
+    "./table-util": "./src/table-util.ts"
+  },
   "atlassian": {
     "team": "Editor: ADF",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "continuous",
     "website": {
       "name": "Email Renderer"
-    }
+    },
+    "runReact18": false
   },
   "scripts": {
     "ak-postbuild": "ts-node --project ./tsconfig.ts-node.json ./build/ts-to-css.ts",
     "build:images": "ts-node --files --project ./tsconfig.ts-node.json ./src/static/generator/generate.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^34.0.0",
-    "@atlaskit/editor-prosemirror": "1.1.0",
+    "@atlaskit/adf-schema": "^35.5.1",
+    "@atlaskit/editor-prosemirror": "3.0.0",
+    "@atlaskit/theme": "^12.6.0",
     "@babel/runtime": "^7.0.0",
     "date-fns": "^2.17.0",
     "juice": "^7.0.0",

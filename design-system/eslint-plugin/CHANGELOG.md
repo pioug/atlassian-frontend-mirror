@@ -1,5 +1,172 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.26.0
+
+### Minor Changes
+
+- [#71429](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71429) [`457122c5d002`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/457122c5d002) - Add some ESLint rules from Compiled CSS-in-JS, and adapt them for the UI Styling Standard.
+
+  Rules added:
+
+  - `no-empty-styled-expression`: ban `styled({})` usages
+  - `no-exported-css` and `no-exported-keyframes`: ban `css` and `keyframes` function calls that are exported
+  - `no-invalid-css-map`: ban usages of the Compiled/`@atlaskit/css` `cssMap` function call that are not valid
+
+  Changes made:
+
+  - Add them to monorepo, modify to use the existing utility functions
+  - Add support for CSS-in-JS libraries other than Compiled (styled-components, Emotion, `@atlaskit/css`, etc.) and `xcss` where appropriate
+
+## 8.25.2
+
+### Patch Changes
+
+- [#71361](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71361) [`0f3be2c76337`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0f3be2c76337) - `use-primitives` no longer reports elements that have empty style objects.
+
+## 8.25.1
+
+### Patch Changes
+
+- [#67941](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67941) [`0b1def807516`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0b1def807516) - Now rule is aplicable only to ButtonGroup ImportSpecifiers
+
+## 8.25.0
+
+### Minor Changes
+
+- [#70369](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70369) [`611434ce1fe5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/611434ce1fe5) - ensure-design-token-usage no longer errors on color properties defined in SVG JSX elements.
+
+## 8.24.0
+
+### Minor Changes
+
+- [#70036](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70036) [`667c0a990b15`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/667c0a990b15) - Allow linting of multiple property style objects in use-primitives rule.
+
+## 8.23.4
+
+### Patch Changes
+
+- [#69370](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69370) [`e14e79732cd4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e14e79732cd4) - Add local-cx-xcss rule, which ensures that the `cx()` function (if imported from `@compiled/react` or `@atlaskit/css`) is only used within the `xcss` prop.
+
+  Internal changes: Also refactored the utility functions used by `no-css-tagged-template-expression`.
+
+## 8.23.3
+
+### Patch Changes
+
+- [#69222](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69222) [`a1c52086fdb9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1c52086fdb9) - Address issues in consistent-css-prop-usage hoisting and naming fixers
+- Updated dependencies
+
+## 8.23.2
+
+### Patch Changes
+
+- [#65758](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65758) [`16e6a0fbe125`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/16e6a0fbe125) - Internal refactor of `use-primitves` rule. There should be no change to consumers of the rule.
+
+## 8.23.1
+
+### Patch Changes
+
+- [#68093](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68093) [`4c5371a76547`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c5371a76547) - Wrap ensure-design-token-usage with an error boudary to stop it breaking issue-automat CI.
+
+## 8.23.0
+
+### Minor Changes
+
+- [#68090](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68090) [`251d7c1fca48`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/251d7c1fca48) - Modified fix naming convention for consistent-css-prop-usage rule to align with camelCase convention
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.22.0
+
+### Minor Changes
+
+- [#63589](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63589) [`f59d997d1913`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f59d997d1913) - Implemented new fixers for cssOnTopOfModule and cssAtBottomOfModule violation cases
+
+## 8.21.0
+
+### Minor Changes
+
+- [#66250](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66250) [`6ff74a16aee7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6ff74a16aee7) - Introducing new rule to encourage adding/referencing accessible name to a ButtonGroup component.
+
+## 8.20.0
+
+### Minor Changes
+
+- [#66409](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66409) [`f6c48f4a67c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f6c48f4a67c1) - Implemented functionality for the consistent-css-prop-usage rule to account for cssMap usages
+
+### Patch Changes
+
+- [#66604](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66604) [`3205b1daf57f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3205b1daf57f) - Refactor internal logic of `use-primitives` to better handle cases it will not suggest transformations for, based on the value of CSS properties.
+
+## 8.19.2
+
+### Patch Changes
+
+- [#66118](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66118) [`93988e6fd035`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93988e6fd035) - `use-primitives` now handles tokenised padding/margin properties. This change is guarded by a config flag and not enabled by default.
+
+## 8.19.1
+
+### Patch Changes
+
+- [#65221](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65221) [`a2ba22904ca0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a2ba22904ca0) - Allow for @atlaskit/design-system/use-primitives lint rule to take a configuration object.
+
+## 8.19.0
+
+### Minor Changes
+
+- [#64899](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64899) [`442878c001f9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/442878c001f9) - Add `no-unsafe-style-overrides`. This rule marks any usage of unsafe style overrides as violations, such as usage of `css`, `theme`, and `cssFn` props.
+
+## 8.18.1
+
+### Patch Changes
+
+- [#64857](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64857) [`1be24644c029`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1be24644c029) - `use-primitives` is now capable of converting styled components. This is guarded by a config flag so this release is only a patch.
+
+## 8.18.0
+
+### Minor Changes
+
+- [#65123](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65123) [`f3b62a2c6bdd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3b62a2c6bdd) - Add new rule to warn of rollout of required `headingLevel` prop in the `SpotlightCard` component of the onboarding package.
+
+## 8.17.0
+
+### Minor Changes
+
+- [#64660](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64660) [`52bbf4498c2a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52bbf4498c2a) - Internal update to use the latest version of the `@atlaskit/tokens` package. The `no-unsafe-design-token-usage` rule should no longer error on typography tokens.
+
+## 8.16.0
+
+### Minor Changes
+
+- [#58402](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58402) [`2b1a12e5936f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2b1a12e5936f) - Re-work `use-primitives` lint rule to only suggest `Box`, and only trigger a violation styles contain one style property and the style value can be mapped to a token.
+
+## 8.15.5
+
+### Patch Changes
+
+- [#63526](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63526) [`cae958047771`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cae958047771) - Internal change to how typography tokens are imported. There is no expected behaviour change.
+- Updated dependencies
+
+## 8.15.4
+
+### Patch Changes
+
+- [#63768](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63768) [`56342fba2b72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56342fba2b72) - Fixes an issue with the `use-drawer-label` rule where named imports such as type imports from `@atlaskit/drawer` could incorrectly report an error.
+
+## 8.15.3
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 8.15.2
+
+### Patch Changes
+
+- [#57118](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57118) [`b9bd80957181`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9bd80957181) - Upgrade Emotion v10 (@emotion/core) to Emotion v11 (@emotion/react). No behaviour change expected.
+
 ## 8.15.1
 
 ### Patch Changes

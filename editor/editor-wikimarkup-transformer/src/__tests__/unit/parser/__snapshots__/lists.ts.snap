@@ -2492,6 +2492,113 @@ Object {
 }
 `;
 
+exports[`JIRA wiki markup - Lists should lift action list inside an orderedList 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "order": 1,
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "item 1",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+    Object {
+      "attrs": Object {
+        "localId": "0f945022-3cd7-4243-bc48-ea5cf8d8e03f",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "localId": "be22aa5c-18e2-4658-a7e0-ff60dcad4fa7",
+            "state": "TODO",
+          },
+          "content": Array [
+            Object {
+              "text": "task 1",
+              "type": "text",
+            },
+          ],
+          "type": "taskItem",
+        },
+        Object {
+          "attrs": Object {
+            "localId": "99fbd0cd-4d0a-45aa-9003-e6e61c697454",
+          },
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "localId": "93d93d4b-0eae-4d66-9e5e-5d4bd5bf821f",
+                "state": "TODO",
+              },
+              "content": Array [
+                Object {
+                  "text": "sub-task 1",
+                  "type": "text",
+                },
+              ],
+              "type": "taskItem",
+            },
+          ],
+          "type": "taskList",
+        },
+        Object {
+          "attrs": Object {
+            "localId": "b1e6f046-0def-4652-9b9d-25c1617a488e",
+            "state": "TODO",
+          },
+          "content": Array [
+            Object {
+              "text": "task 2 ",
+              "type": "text",
+            },
+          ],
+          "type": "taskItem",
+        },
+      ],
+      "type": "taskList",
+    },
+    Object {
+      "attrs": Object {
+        "order": 1,
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "item 2",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`JIRA wiki markup - Lists should not be a list item if it follows by a line break 1`] = `
 Object {
   "content": Array [

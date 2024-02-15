@@ -11,7 +11,13 @@ jest.mock('../../../components/creatable', () => ({
 }));
 
 jest.mock('../../../components/components', () => ({
-  getComponents: jest.fn(),
+  getComponents: jest
+    .fn()
+    .mockImplementation((multi?: boolean, anchor?: React.ComponentType<any>) =>
+      jest
+        .requireActual('../../../components/components')
+        .getComponents(multi, anchor),
+    ),
 }));
 
 jest.mock('../../../components/MessagesIntlProvider', () =>
@@ -52,6 +58,7 @@ jest.mock('@atlaskit/select', () => ({
 
 import Select, { CreatableSelect } from '@atlaskit/select';
 import { shallow, mount } from 'enzyme';
+
 import React from 'react';
 import { ConcurrentExperience, UFOExperience, ufologger } from '@atlaskit/ufo';
 import { getComponents } from '../../../components/components';
@@ -61,6 +68,7 @@ import { getStyles } from '../../../components/styles';
 import { UserPickerWithoutAnalytics } from '../../../components/UserPicker';
 import { User, UserPickerProps } from '../../../types';
 import { MockConcurrentExperienceInstance } from '../_testUtils';
+import { fireEvent, render } from '@testing-library/react';
 
 const getStylesMock = getStyles as jest.MockedFunction<typeof getStyles>;
 
@@ -221,6 +229,47 @@ describe('UserPicker', () => {
         'STARTED',
         'FAILED',
       ]);
+    });
+  });
+
+  /**
+   * Tests the workaround for user-pickers in react-beautiful-dnd, which calls
+   * preventDefault on mouseDownCapture, preventing react-select from detecting clicks
+   **/
+  describe('default picker with a parent calling preventDefault onMouseDownCapture', () => {
+    const renderUserPickerWithPreventDefault = (
+      props: Partial<UserPickerProps> = {},
+    ) =>
+      render(
+        <div onMouseDownCapture={(e) => e.preventDefault()}>
+          <UserPickerWithoutAnalytics
+            fieldId="test"
+            UNSAFE_hasDraggableParentComponent={true}
+            {...props}
+          />
+        </div>,
+      );
+
+    it('should open and close Select when UNSAFE_hasDraggableParentComponent set to true', async () => {
+      const onOpenMock = jest.fn();
+      const onCloseMock = jest.fn();
+      const { getByText } = renderUserPickerWithPreventDefault({
+        options,
+        onOpen: onOpenMock,
+        onClose: onCloseMock,
+      });
+
+      const selectValueContainer = getByText(
+        'Enter people or teams...',
+      ).parentElement;
+
+      // Open user picker
+      fireEvent.mouseDown(selectValueContainer!);
+      expect(onOpenMock).toHaveBeenCalledTimes(1);
+
+      // Close user picker
+      fireEvent.mouseDown(selectValueContainer!);
+      expect(onCloseMock).toHaveBeenCalledTimes(1);
     });
   });
 });

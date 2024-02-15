@@ -1,9 +1,9 @@
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 
-import { EditorAppearance, EditorProps } from '../../src/editor';
-import { EditorActions } from '../../src';
-import { Message } from '../adf-url';
+import type { EditorActions } from '../../src';
+import type { EditorAppearance, EditorProps } from '../../src/editor';
+import type { Message } from '../adf-url';
 
 export interface ExampleProps {
   onTitleChange?: (title: string) => void;

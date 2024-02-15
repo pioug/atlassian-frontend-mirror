@@ -2,6 +2,8 @@ import React from 'react';
 
 import { parseISO } from 'date-fns';
 
+import { Label } from '@atlaskit/form';
+
 import { DatePicker } from '../src';
 
 function now(day: number) {
@@ -23,12 +25,16 @@ const disabledDates = [now(10), now(11), now(12)];
 
 export default () => {
   return (
-    <DatePicker
-      minDate={now(8)}
-      maxDate={now(28)}
-      disabled={disabledDates}
-      disabledDateFilter={weekendFilter}
-      onChange={console.log}
-    />
+    <>
+      <Label htmlFor="datepicker">Date picker</Label>
+      <DatePicker
+        id="datepicker"
+        minDate={now(8)}
+        maxDate={now(28)}
+        disabled={disabledDates}
+        disabledDateFilter={weekendFilter}
+        onChange={console.log}
+      />
+    </>
   );
 };

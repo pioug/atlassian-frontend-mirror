@@ -1,13 +1,14 @@
-import React, { PureComponent } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { RadioGroup } from '@atlaskit/radio';
 import Select, { OptionType, ValueType } from '@atlaskit/select';
 import Textfield from '@atlaskit/textfield';
 
 import Form, {
+  ErrorMessage,
   Field,
   FormFooter,
   FormHeader,
@@ -114,20 +115,32 @@ export default class LayoutExample extends PureComponent<void, State> {
                   id="project"
                   label="Project"
                   isRequired
+                  validate={async (value) => {
+                    if (value) {
+                      return undefined;
+                    }
+
+                    return new Promise((resolve) =>
+                      setTimeout(resolve, 300),
+                    ).then(() => 'Please select a project');
+                  }}
                 >
-                  {({ fieldProps: { id, ...rest } }) => (
-                    <Select
-                      id={`${id}-select`}
-                      options={[
-                        { label: 'Atlaskit', value: 'brisbane' },
-                        { label: 'Bitbucket', value: 'bb' },
-                        { label: 'Confluence', value: 'conf' },
-                        { label: 'Jira', value: 'jra' },
-                        { label: 'Stride', value: 'stride' },
-                      ]}
-                      placeholder="Choose a project&hellip;"
-                      {...rest}
-                    />
+                  {({ fieldProps: { id, ...rest }, error }) => (
+                    <Fragment>
+                      <Select
+                        id={`${id}-select`}
+                        options={[
+                          { label: 'Atlaskit', value: 'brisbane' },
+                          { label: 'Bitbucket', value: 'bb' },
+                          { label: 'Confluence', value: 'conf' },
+                          { label: 'Jira', value: 'jra' },
+                          { label: 'Stride', value: 'stride' },
+                        ]}
+                        placeholder="Choose a project&hellip;"
+                        {...rest}
+                      />
+                      {error && <ErrorMessage>{error}</ErrorMessage>}
+                    </Fragment>
                   )}
                 </Field>
 
@@ -135,7 +148,7 @@ export default class LayoutExample extends PureComponent<void, State> {
                   {({ fieldProps }) => <Textfield {...fieldProps} />}
                 </Field>
 
-                <Field name="access-level" label="Access level">
+                <Field name="access-level">
                   {({ fieldProps: { value, ...others } }) => (
                     <Checkbox
                       label="This is a private repository"
@@ -190,7 +203,7 @@ export default class LayoutExample extends PureComponent<void, State> {
               </FormSection>
 
               <FormFooter>
-                <ButtonGroup>
+                <ButtonGroup label="Form submit options">
                   <Button appearance="subtle" id="create-repo-cancel">
                     Cancel
                   </Button>

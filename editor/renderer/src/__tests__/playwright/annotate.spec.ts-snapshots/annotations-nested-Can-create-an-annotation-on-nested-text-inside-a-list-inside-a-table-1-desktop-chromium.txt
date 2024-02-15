@@ -1,0 +1,239 @@
+{
+  "doc": {
+    "version": 1,
+    "type": "doc",
+    "content": [
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mi nisl, venenatis eget auctor vitae, venenatis quis lorem. Suspendisse maximus tortor vel dui tincidunt cursus. "
+          }
+        ]
+      },
+      {
+        "type": "layoutSection",
+        "content": [
+          {
+            "type": "layoutColumn",
+            "attrs": {
+              "width": 50
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mi nisl, venenatis eget auctor vitae, venenatis quis lorem. Suspendisse maximus tortor vel dui tincidunt cursus. "
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "layoutColumn",
+            "attrs": {
+              "width": 50
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mi nisl, venenatis eget auctor vitae, venenatis quis lorem. Suspendisse maximus tortor vel dui tincidunt cursus. "
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "isNumberColumnEnabled": false,
+          "layout": "default"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {},
+                "content": [
+                  {
+                    "type": "heading",
+                    "attrs": {
+                      "level": 1
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Big heading inside this table!"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {},
+                "content": [
+                  {
+                    "type": "panel",
+                    "attrs": {
+                      "panelType": "info"
+                    },
+                    "content": [
+                      {
+                        "type": "bulletList",
+                        "content": [
+                          {
+                            "type": "listItem",
+                            "content": [
+                              {
+                                "type": "paragraph",
+                                "content": [
+                                  {
+                                    "type": "text",
+                                    "text": "Hello",
+                                    "marks": [
+                                      {
+                                        "type": "annotation",
+                                        "attrs": {
+                                          "id": "fake-id-1",
+                                          "annotationType": "inlineComment"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "listItem",
+                            "content": [
+                              {
+                                "type": "paragraph",
+                                "content": [
+                                  {
+                                    "type": "text",
+                                    "text": "World",
+                                    "marks": [
+                                      {
+                                        "type": "annotation",
+                                        "attrs": {
+                                          "id": "fake-id-1",
+                                          "annotationType": "inlineComment"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "orderedList",
+                        "attrs": {
+                          "order": 1
+                        },
+                        "content": [
+                          {
+                            "type": "listItem",
+                            "content": [
+                              {
+                                "type": "paragraph",
+                                "content": [
+                                  {
+                                    "type": "text",
+                                    "text": "Hello",
+                                    "marks": [
+                                      {
+                                        "type": "annotation",
+                                        "attrs": {
+                                          "id": "fake-id-1",
+                                          "annotationType": "inlineComment"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "listItem",
+                            "content": [
+                              {
+                                "type": "paragraph",
+                                "content": [
+                                  {
+                                    "type": "text",
+                                    "text": "World",
+                                    "marks": [
+                                      {
+                                        "type": "annotation",
+                                        "attrs": {
+                                          "id": "fake-id-1",
+                                          "annotationType": "inlineComment"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {},
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "step": {
+    "stepType": "addMark",
+    "mark": {
+      "type": "annotation",
+      "attrs": {
+        "id": "fake-id-1",
+        "annotationType": "inlineComment"
+      }
+    },
+    "from": 586,
+    "to": 630
+  }
+}

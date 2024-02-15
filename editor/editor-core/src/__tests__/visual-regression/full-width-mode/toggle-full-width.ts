@@ -1,26 +1,28 @@
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import { layoutSelectors } from '@atlaskit/editor-test-helpers/page-objects/layouts';
+import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
+import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
+  Appearance,
+  initEditorWithAdf,
   initFullPageEditorWithAdf,
   snapshot,
   updateEditorProps,
-  initEditorWithAdf,
-  Appearance,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import mixedContentAdf from './__fixtures__/mixed-content.adf.json';
+
+import resizedTableInExt from '../table/__fixtures__/nested-table-inside-bodied-ext.adf.json';
+
 import layoutWithBreakoutAdf from './__fixtures__/layout-with-breakout.adf.json';
 import breakoutAdf from './__fixtures__/mixed-content-with-breakout.adf.json';
-import resizedTableAdf from './__fixtures__/resized-table.adf.json';
-import resizedTableWideAdf from './__fixtures__/resized-table-wide.adf.json';
+import mixedContentAdf from './__fixtures__/mixed-content.adf.json';
 import resizedTableFullWidthAdf from './__fixtures__/resized-table-full-width.adf.json';
-import resizedTableInLayout from './__fixtures__/resized-table-in-layout.adf.json';
-import resizedTableInExt from '../table/__fixtures__/nested-table-inside-bodied-ext.adf.json';
 import resizedTableFWM from './__fixtures__/resized-table-fwm.adf.json';
-import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
-import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
-import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
-import { layoutSelectors } from '@atlaskit/editor-test-helpers/page-objects/layouts';
+import resizedTableInLayout from './__fixtures__/resized-table-in-layout.adf.json';
+import resizedTableWideAdf from './__fixtures__/resized-table-wide.adf.json';
+import resizedTableAdf from './__fixtures__/resized-table.adf.json';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
 type ToggleFullWidthOptions = {
@@ -104,8 +106,7 @@ describe('Snapshot Test: Toggle between full-width and default mode', () => {
   });
 
   describe('Breakout', () => {
-    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-    it.skip('hides breakout buttons in full-width mode and shows them in default mode', async () => {
+    it('hides breakout buttons in full-width mode and shows them in default mode', async () => {
       await initEditor(breakoutAdf);
       await page.waitForSelector(layoutSelectors.content);
       await page.click(layoutSelectors.content);
@@ -148,8 +149,7 @@ describe('Snapshot Test: Toggle between full-width and default mode', () => {
         },
       });
 
-    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-    it.skip('scales columns up correctly when going default -> full-width', async () => {
+    it('scales columns up correctly when going default -> full-width', async () => {
       await initEditor(resizedTableAdf, tableViewport);
       await toggleFullWidthModeForTable();
     });
@@ -159,20 +159,17 @@ describe('Snapshot Test: Toggle between full-width and default mode', () => {
       await toggleFullWidthModeForTable();
     });
 
-    // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-    it.skip('scales table inside layouts correctly', async () => {
+    it('scales table inside layouts correctly', async () => {
       await initEditor(resizedTableInLayout, tableViewport);
       await toggleFullWidthModeForTable();
     });
 
-    // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-    it.skip('scales table inside extension correctly', async () => {
+    it('scales table inside extension correctly', async () => {
       await initEditor(resizedTableInExt, tableViewport);
       await toggleFullWidthModeForTable();
     });
 
-    // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-    describe.skip('breakout modes', () => {
+    describe('breakout modes', () => {
       const breakoutModes = [
         { name: 'wide', adf: resizedTableWideAdf },
         { name: 'full-width', adf: resizedTableFullWidthAdf },

@@ -67,7 +67,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
   );
 
   const renderHeader = () => (
-    <Header className="embed-header">
+    <Header className="embed-header" frameStyle={frameStyle}>
       <IconWrapper isPlaceholder={isPlaceholder}>
         {!isPlaceholder && icon}
       </IconWrapper>
@@ -80,6 +80,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
       </TextWrapper>
     </Header>
   );
+
   const renderContent = () => (
     <Content
       data-testid="embed-content-wrapper"

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styled from '@emotion/styled';
-import { FormatDateOptions, useIntl } from 'react-intl-next';
+import { FormatDateOptions, IntlShape, useIntl } from 'react-intl-next';
 
 import { DateTimeType, DateType, TimeType } from '@atlaskit/linking-types';
 
@@ -31,12 +31,11 @@ const DateTimeWrapper = styled.span`
   font-size: ${FieldTextFontSize};
 `;
 
-const DateTimeRenderType = ({
-  value,
-  testId = DATETIME_TYPE_TEST_ID,
-  display = 'datetime',
-}: DateProps) => {
-  const intl = useIntl();
+export function getFormattedDate(
+  value: string,
+  display: string = 'datetime',
+  formatDate: IntlShape['formatDate'],
+): string {
   /* In some cases we get a value of `2023-12-20` which when parsed by JS assumes meantime timezone, causing the date
     to be one day off in some timezones. We want it to display the date without converting timezones and a solution
    is to replace the hyphens with slashes. So it should be 20th Dec regardless of the timezone in this case.
@@ -48,7 +47,7 @@ const DateTimeRenderType = ({
   const date = new Date(dateValue);
 
   if (!value || isNaN(date.getTime())) {
-    return <></>;
+    return '';
   }
 
   const options: Record<typeof display, FormatDateOptions> = {
@@ -57,10 +56,19 @@ const DateTimeRenderType = ({
     datetime: { ...dateOptions, ...timeOptions },
   };
 
-  const formattedString = intl.formatDate(
-    date,
-    options[display] || options['date'],
-  );
+  return formatDate(date, options[display] || options['date']);
+}
+
+const DateTimeRenderType = ({
+  value,
+  testId = DATETIME_TYPE_TEST_ID,
+  display = 'datetime',
+}: DateProps) => {
+  const intl = useIntl();
+  const formattedString = getFormattedDate(value, display, intl.formatDate);
+  if (formattedString === '') {
+    return <></>;
+  }
 
   return (
     <DateTimeWrapper data-testid={testId}>{formattedString}</DateTimeWrapper>

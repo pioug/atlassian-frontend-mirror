@@ -1,5 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-
 import { css } from '@emotion/react';
 
 import type { TableLayout } from '@atlaskit/adf-schema';
@@ -14,17 +12,11 @@ import {
   akEditorFullWidthLayoutWidth,
   akEditorSelectedNodeClassName,
   akEditorTableBorder,
-  akEditorTableBorderDark,
   akEditorTableNumberColumnWidth,
   akEditorTableToolbar,
-  akEditorTableToolbarDark,
   akEditorWideLayoutWidth,
-  getTableCellBackgroundDarkModeColors,
   overflowShadow,
 } from '@atlaskit/editor-shared-styles';
-import { DN20 } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
-import type { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import browser from '../../utils/browser';
@@ -64,11 +56,11 @@ export const TableSharedCssClassName = {
   TABLE_RESIZER_CONTAINER: `${tablePrefixSelector}-resizer-container`,
 };
 
-const tableSharedStyle = (props: ThemeProps) => css`
+const tableSharedStyle = () => css`
   ${tableCellBackgroundStyleOverride()}
   .${TableSharedCssClassName.TABLE_CONTAINER} {
     position: relative;
-    margin: 0 auto ${tableMarginBottom}px;
+    margin: 0 auto ${token('space.200', '16px')};
     box-sizing: border-box;
 
     /**
@@ -92,12 +84,12 @@ const tableSharedStyle = (props: ThemeProps) => css`
   }
 
   .${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table {
-    margin: ${tableMarginTop}px 0 0 0;
+    margin: ${token('space.300', '24px')} 0 0 0;
   }
 
   .${TableSharedCssClassName.TABLE_CONTAINER} > table,
   .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table {
-    margin: ${tableMarginTop}px ${tableMarginSides}px 0 0;
+    margin: ${token('space.300', '24px')} ${token('space.100', '8px')} 0 0;
   }
 
   /* avoid applying styles to nested tables (possible via extensions) */
@@ -106,16 +98,7 @@ const tableSharedStyle = (props: ThemeProps) => css`
   .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table {
     border-collapse: collapse;
     border: ${tableCellBorderWidth}px solid
-      ${themed({
-        light: token(
-          'color.background.accent.gray.subtler',
-          akEditorTableBorder,
-        ),
-        dark: token(
-          'color.background.accent.gray.subtler',
-          akEditorTableBorderDark,
-        ),
-      })(props)};
+      ${token('color.background.accent.gray.subtler', akEditorTableBorder)};
     table-layout: fixed;
     font-size: 1em;
     width: 100%;
@@ -144,25 +127,14 @@ const tableSharedStyle = (props: ThemeProps) => css`
         font-weight: normal;
         vertical-align: top;
         border: 1px solid
-          ${themed({
-            light: token(
-              'color.background.accent.gray.subtler',
-              akEditorTableBorder,
-            ),
-            dark: token(
-              'color.background.accent.gray.subtler',
-              akEditorTableBorderDark,
-            ),
-          })(props)};
+          ${token('color.background.accent.gray.subtler', akEditorTableBorder)};
         border-right-width: 0;
         border-bottom-width: 0;
-        padding: ${tableCellPadding}px;
+        padding: ${token('space.100', '8px')};
         /* https://stackoverflow.com/questions/7517127/borders-not-shown-in-firefox-with-border-collapse-on-table-position-relative-o */
         ${browser.gecko || browser.ie || (browser.mac && browser.chrome)
           ? 'background-clip: padding-box;'
           : ''}
-
-        ${themed({ dark: getTableCellBackgroundDarkModeColors })(props)};
 
         > :first-child:not(style),
         > style:first-child + * {
@@ -181,24 +153,24 @@ const tableSharedStyle = (props: ThemeProps) => css`
 
         th p:not(:first-of-type),
         td p:not(:first-of-type) {
-          margin-top: 12px;
+          margin-top: ${token('space.150', '12px')};
         }
       }
       th {
-        background-color: ${themed({
-          light: token('color.background.neutral', akEditorTableToolbar),
-          dark: token('color.background.neutral', akEditorTableToolbarDark),
-        })(props)};
+        background-color: ${token(
+          'color.background.accent.gray.subtlest',
+          akEditorTableToolbar,
+        )};
         text-align: left;
 
         /* only apply this styling to codeblocks in default background headercells */
         /* TODO this needs to be overhauled as it relies on unsafe selectors */
         &:not([style]):not(.danger) {
           .${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}:not(.danger) {
-            background-color: ${themed({
-              light: token('elevation.surface.raised', 'rgb(235, 237, 240)'),
-              dark: token('elevation.surface.raised', 'rgb(36, 47, 66)'),
-            })(props)};
+            background-color: ${token(
+              'elevation.surface.raised',
+              'rgb(235, 237, 240)',
+            )};
 
             :not(.${akEditorSelectedNodeClassName}) {
               box-shadow: 0px 0px 0px 1px
@@ -207,52 +179,46 @@ const tableSharedStyle = (props: ThemeProps) => css`
 
             .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} {
               background-image: ${overflowShadow({
-                background: themed({
-                  light: token(
-                    'color.background.neutral',
-                    'rgb(235, 237, 240)',
-                  ),
-                  dark: token('color.background.neutral', 'rgb(36, 47, 66)'),
-                })(props),
+                background: token(
+                  'color.background.neutral',
+                  'rgb(235, 237, 240)',
+                ),
                 leftCoverWidth: token('space.300', '24px'),
               })};
 
-              background-color: ${themed({
-                light: token('color.background.neutral', 'rgb(235, 237, 240)'),
-                dark: token('color.background.neutral', 'rgb(36, 47, 66)'),
-              })(props)};
+              background-color: ${token(
+                'color.background.neutral',
+                'rgb(235, 237, 240)',
+              )};
             }
 
             .${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER} {
-              background-color: ${themed({
-                light: token('color.background.neutral', 'rgb(226, 229, 233)'),
-                dark: token('color.background.neutral', DN20),
-              })(props)};
+              background-color: ${token(
+                'color.background.neutral',
+                'rgb(226, 229, 233)',
+              )};
             }
 
             /* this is only relevant to the element taken care of by renderer */
             > [data-ds--code--code-block] {
               background-image: ${overflowShadow({
-                background: themed({
-                  light: token(
-                    'color.background.neutral',
-                    'rgb(235, 237, 240)',
-                  ),
-                  dark: token('color.background.neutral', 'rgb(36, 47, 66)'),
-                })(props),
+                background: token(
+                  'color.background.neutral',
+                  'rgb(235, 237, 240)',
+                ),
                 leftCoverWidth: token('space.300', '24px'),
               })}!important;
 
-              background-color: ${themed({
-                light: token('color.background.neutral', 'rgb(235, 237, 240)'),
-                dark: token('color.background.neutral', 'rgb(36, 47, 66)'),
-              })(props)}!important;
+              background-color: ${token(
+                'color.background.neutral',
+                'rgb(235, 237, 240)',
+              )}!important;
 
               // selector lives inside @atlaskit/code
-              --ds--code--line-number-bg-color: ${themed({
-                light: token('color.background.neutral', 'rgb(226, 229, 233)'),
-                dark: token('color.background.neutral', DN20),
-              })(props)};
+              --ds--code--line-number-bg-color: ${token(
+                'color.background.neutral',
+                'rgb(226, 229, 233)',
+              )};
             }
           }
         }

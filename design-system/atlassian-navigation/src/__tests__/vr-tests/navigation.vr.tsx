@@ -4,7 +4,6 @@ import {
   CustomProductHomeExample,
   NavExample,
   NavigationSkeletonExample,
-  PrimarySplitButtonNavExample,
   ResponsiveCreateHomeAndSearchExample,
   SkeletonButtonsExample,
   ThemedSkeletonButtonsExample,
@@ -18,26 +17,6 @@ snapshot(NavExample, {
       name: 'default',
       environment: {},
     },
-    {
-      name: 'light mode',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-    {
-      name: 'dark mode',
-      environment: {
-        colorScheme: 'dark',
-      },
-    },
-  ],
-  featureFlags: {
-    'platform.design-system-team.icon-button-spacing-fix_o1zc5': true,
-  },
-});
-
-snapshot(PrimarySplitButtonNavExample, {
-  variants: [
     {
       name: 'light mode',
       environment: {

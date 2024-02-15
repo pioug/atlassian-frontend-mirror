@@ -1,4 +1,4 @@
-import { catchup, rebaseSteps } from '../catchup';
+import { catchup, rebaseSteps, removeConfirmedSteps } from '../catchup';
 import type { CatchupOptions } from '../../types';
 import { StepMap } from '@atlaskit/editor-prosemirror/transform';
 import AnalyticsHelper from '../../analytics/analytics-helper';
@@ -257,6 +257,72 @@ describe('Catchup ', () => {
       const res = rebaseSteps(steps, mapping);
       expect(res).toHaveLength(0);
       expect(steps[0].map).toBeCalledWith(mapping);
+    });
+  });
+
+  describe('removeConfirmedSteps', () => {
+    it('Should return full array of unconfirmedSteps if clientIds not returned by server', () => {
+      const unconfirmedSteps = ['step1', 'step2', 'step3', 'step4'];
+      const serverStepMaps = [
+        { ranges: [0, 1, 2], inverted: false },
+        { ranges: [0, 1, 2], inverted: false },
+        { ranges: [0, 1, 2], inverted: false },
+      ];
+      const clientId = 'my-client-Id';
+      const slicedUnconfirmedSteps = removeConfirmedSteps(
+        // @ts-ignore - mock steps
+        unconfirmedSteps,
+        serverStepMaps,
+        clientId,
+      );
+      expect(slicedUnconfirmedSteps).toEqual([
+        'step1',
+        'step2',
+        'step3',
+        'step4',
+      ]);
+    });
+
+    it('Should return full array of unconfirmedSteps if no matches for clientId', () => {
+      const unconfirmedSteps = ['step1', 'step2', 'step3', 'step4'];
+      const serverStepMaps = [
+        { ranges: [0, 1, 2], inverted: false, clientId: '123' },
+        { ranges: [0, 1, 2], inverted: false, clientId: '456' },
+        { ranges: [0, 1, 2], inverted: false, clientId: '789' },
+      ];
+      const clientId = 'my-client-Id';
+      const slicedUnconfirmedSteps = removeConfirmedSteps(
+        // @ts-ignore - mock steps
+        unconfirmedSteps,
+        serverStepMaps,
+        clientId,
+      );
+      expect(slicedUnconfirmedSteps).toEqual([
+        'step1',
+        'step2',
+        'step3',
+        'step4',
+      ]);
+    });
+
+    it('Should return sliced array of unconfirmedSteps if clientId is returned by server', () => {
+      const unconfirmedSteps = ['step1', 'step2', 'step3', 'step4'];
+      const serverStepMaps = [
+        { ranges: [0, 1, 2], inverted: false, clientId: '123' },
+        { ranges: [0, 1, 2], inverted: false, clientId: 'my-client-Id' },
+        { ranges: [0, 1, 2], inverted: false, clientId: '456' },
+        { ranges: [0, 1, 2], inverted: false, clientId: 'my-client-Id' },
+        { ranges: [0, 1, 2], inverted: false, clientId: '123' },
+      ];
+      const clientId = 'my-client-Id';
+      const slicedUnconfirmedSteps = removeConfirmedSteps(
+        // @ts-ignore - mock steps
+        unconfirmedSteps,
+        serverStepMaps,
+        clientId,
+      );
+      // clientId appears 2 times, so we expect first 2 unconfirmedSteps to be dropped
+      expect(slicedUnconfirmedSteps).toEqual(['step3', 'step4']);
     });
   });
 });

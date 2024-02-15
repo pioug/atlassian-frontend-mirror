@@ -1,10 +1,12 @@
 import React from 'react';
 
 import { fireEvent, screen, within } from '@testing-library/dom';
+import { act } from '@testing-library/react';
 
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
-
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { renderWithIntl } from '../../__tests__/_testing-library';
 
 import { ReactionsDialog, ReactionsDialogProps } from './ReactionsDialog';
@@ -42,10 +44,10 @@ const mockHandleCloseReactionsDialog = jest.fn();
 
 const { findByText, findByRole, queryAllByText, queryAllByRole } = screen;
 
-const renderReactionsDialog = (
+const renderReactionsDialog = async (
   extraProps: Partial<ReactionsDialogProps> = {},
 ) => {
-  return renderWithIntl(
+  renderWithIntl(
     <ReactionsDialog
       reactions={reactionsData.slice(0, 4)}
       emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
@@ -54,17 +56,20 @@ const renderReactionsDialog = (
       {...extraProps}
     />,
   );
+  return await act(async () => {
+    await flushPromises();
+  });
 };
 
 it('should display reactions count', async () => {
-  renderReactionsDialog();
+  await renderReactionsDialog();
 
   const totalCommentCount = await findByText('40 reactions');
   expect(totalCommentCount).toBeTruthy();
 });
 
 it('should display a list of reaction tabs', async () => {
-  renderReactionsDialog();
+  await renderReactionsDialog();
 
   const reactionsList = await findByRole('tablist');
   expect(reactionsList).toBeDefined();
@@ -79,7 +84,7 @@ it('should display a list of reaction tabs', async () => {
 });
 
 it('should display an emoji and count for each tab in the reaction list', async () => {
-  renderReactionsDialog();
+  await renderReactionsDialog();
 
   const reactionsList = await findByRole('tablist');
   expect(reactionsList).toBeDefined();
@@ -95,7 +100,7 @@ it('should display an emoji and count for each tab in the reaction list', async 
 });
 
 it('should display the emoji and emoji name for the selected reaction', async () => {
-  renderReactionsDialog();
+  await renderReactionsDialog();
 
   const reactionView = await findByRole('tabpanel');
   expect(reactionView).toBeDefined();
@@ -106,7 +111,7 @@ it('should display the emoji and emoji name for the selected reaction', async ()
 });
 
 it('should alphabetically sort users for the selected reaction', async () => {
-  renderReactionsDialog();
+  await renderReactionsDialog();
 
   const names = queryAllByText(/\w*\s\w*-test/);
 
@@ -119,14 +124,16 @@ it('should alphabetically sort users for the selected reaction', async () => {
 
 it('should fire handleSelectReaction when a reaction is selected', async () => {
   const spy = jest.fn();
-  renderReactionsDialog({ handleSelectReaction: spy });
+  await renderReactionsDialog({ handleSelectReaction: spy });
 
   const reactionsList = await findByRole('tablist');
   expect(reactionsList).toBeDefined();
 
   const elements = queryAllByRole('tab');
 
-  fireEvent.click(elements[0]);
+  await act(async () => {
+    await fireEvent.click(elements[0]);
+  });
 
   expect(spy).toHaveBeenCalled();
 });

@@ -1,10 +1,13 @@
 /** @jsx jsx */
 import React from 'react';
+
 import { jsx } from '@emotion/react';
+
+import type EditorActions from '../../../actions';
+import type { RenderOnClickHandler } from '../../Addon/types';
+import type { AddonActions } from '../types';
+
 import { dropdown } from './styles';
-import { RenderOnClickHandler } from '../../Addon/types';
-import EditorActions from '../../../actions';
-import { AddonActions } from '../types';
 
 export interface Props {
   onClick: (

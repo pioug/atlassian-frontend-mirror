@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 import Tooltip, { TooltipPrimitive } from '../../src';
@@ -19,10 +19,10 @@ const InlineDialog = styled(TooltipPrimitive)`
 `;
 
 export default () => (
-  <Tooltip component={InlineDialog} content="Hello World">
+  <Tooltip component={InlineDialog} content="This is a tooltip">
     {(tooltipProps) => (
       <Button appearance="primary" {...tooltipProps}>
-        Hover Over Me
+        Hover over me
       </Button>
     )}
   </Tooltip>

@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/mobile-header",
-  "version": "6.1.5",
+  "version": "6.1.8",
   "description": "A React component rendering a mobile header",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -21,19 +21,22 @@
     }
   },
   "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./styled": "./src/styled.ts"
+  },
   "atlassian": {
     "team": "Bitbucket: CoreX",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {
       "name": "Mobile Header"
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^16.17.0",
+    "@atlaskit/button": "^17.3.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/styled": "^11.0.0"
   },

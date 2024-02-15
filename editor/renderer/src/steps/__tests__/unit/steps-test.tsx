@@ -1,12 +1,12 @@
-import React from 'react';
-import { IntlProvider } from 'react-intl-next';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import { render, unmountComponentAtNode } from 'react-dom';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { complexDocument as doc } from './__fixtures__/documents';
-import { getPosFromRange, resolvePos } from '../../index';
-import ReactSerializer from '../../../react/index';
+import React from 'react';
+import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
+import { IntlProvider } from 'react-intl-next';
+import ReactSerializer from '../../../react/index';
+import { getPosFromRange, resolvePos } from '../../index';
+import { complexDocument as doc } from './__fixtures__/documents';
 
 describe('steps', () => {
   const DOC_ROOT_OFFSET = 1;
@@ -36,7 +36,7 @@ describe('steps', () => {
 
       return false;
     });
-    if (process.env.IS_REACT_18) {
+    if (process.env.IS_REACT_18 === 'true') {
       // @ts-ignore react-dom/client only available in react 18
       // eslint-disable-next-line import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
       const { createRoot } = await import('react-dom/client');
@@ -53,7 +53,7 @@ describe('steps', () => {
   });
 
   afterEach(() => {
-    if (process.env.IS_REACT_18) {
+    if (process.env.IS_REACT_18 === 'true') {
       root.unmount();
     } else {
       unmountComponentAtNode(container!);

@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -19,14 +19,13 @@ import Modal, {
 
 const wrapperStyles = css({
   display: 'flex',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  marginRight: 'auto',
   alignItems: 'center',
   color: token('color.text.subtlest', N200),
   cursor: 'help',
+  marginInlineEnd: 'auto',
 });
 
-const marginLeftStyles = css({ marginLeft: token('space.200', '16px') });
+const marginLeftStyles = css({ marginInlineStart: token('space.200', '16px') });
 
 export default function Example() {
   const [isOpen, setIsOpen] = useState(false);

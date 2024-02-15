@@ -1,18 +1,18 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type {
+  EditorPluginInjectionAPI,
+  EditorPresetBuilder,
+} from '@atlaskit/editor-common/preset';
+import { GUTTER_SIZE_MOBILE_IN_PX } from '@atlaskit/editor-common/utils';
+import type { ScrollGutterPluginOptions } from '@atlaskit/editor-plugins/base';
+import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type';
+
+import type { DefaultPresetPluginOptions } from '../../src/presets/default';
 import type { EditorPlugin, EditorProps } from '../types';
 import type { EditorPluginFeatureProps } from '../types/editor-props';
-
-import type { BlockTypePluginOptions } from '@atlaskit/editor-plugin-block-type';
-import type { ScrollGutterPluginOptions } from '@atlaskit/editor-plugin-base';
-import { GUTTER_SIZE_MOBILE_IN_PX } from '@atlaskit/editor-common/utils';
-import type { DefaultPresetPluginOptions } from '../presets/default';
-import type { EditorPresetProps } from '../presets/types';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
+
 import { createFeatureFlagsFromProps } from './feature-flags-from-props';
-import type {
-  EditorPresetBuilder,
-  EditorPluginInjectionAPI,
-} from '@atlaskit/editor-common/preset';
 
 const isCodeBlockAllowed = (
   options?: Pick<BlockTypePluginOptions, 'allowBlockType'>,
@@ -52,7 +52,7 @@ export function getScrollGutterOptions(
 export function getDefaultPresetOptionsFromEditorProps(
   props: EditorProps,
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
-): EditorPresetProps & DefaultPresetPluginOptions & EditorPluginFeatureProps {
+): DefaultPresetPluginOptions & EditorPluginFeatureProps {
   const appearance = props.appearance;
   const isMobile = appearance === 'mobile';
 
@@ -109,11 +109,9 @@ export function getDefaultPresetOptionsFromEditorProps(
         props.elementBrowser && props.elementBrowser.emptyStateHandler,
     },
     selection: { useLongPressSelection: false },
-    cardOptions,
     hyperlinkOptions: {
       editorAppearance: props.appearance,
       linkPicker: props.linking?.linkPicker,
-      cardOptions,
       platform: isMobile ? 'mobile' : 'web',
     },
     codeBlock: {

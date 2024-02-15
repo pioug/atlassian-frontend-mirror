@@ -1,9 +1,12 @@
-import type { EditorPlugin } from '@atlaskit/editor-common/types';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { render } from '@testing-library/react';
 import React from 'react';
-import Editor from '../../editor';
+
+import { render } from '@testing-library/react';
+
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { EditorPlugin } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+
+import Editor from '../../editor';
 
 describe('dangerouslyAppendPlugins', () => {
   it('should add functionality to the editor', () => {

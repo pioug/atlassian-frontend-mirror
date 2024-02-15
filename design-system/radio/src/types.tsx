@@ -48,7 +48,7 @@ type OwnProps = {
    */
   label?: ReactNode;
   /**
-   * onChange event handler, passed into the props of each `Radio` Component instantiated within `RadioGroup`.
+   * OnChange event handler, passed into the props of each `Radio` Component instantiated within `RadioGroup`.
    */
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -76,7 +76,7 @@ type Combine<First, Second> = Omit<First, keyof Second> & Second;
 export type RadioProps = Combine<
   Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
-    'aria-label' | 'disabled' | 'required' | 'checked' | 'value'
+    'aria-label' | 'disabled' | 'required' | 'checked' | 'value' | 'crossOrigin'
   >,
   OwnProps
 > &
@@ -138,7 +138,7 @@ export interface ExtractReactTypeProps extends WithAnalyticsEventsProps {
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
    * we have two different `testId`s generated based on the one you pass to the Radio component:
    * - `{testId}--radio-input` to check if it got changed to checked/unchecked.
-   * - `{testId}--radio-label` to click the input
+   * - `{testId}--radio-label` to click the input.
    */
   testId?: string;
   /**

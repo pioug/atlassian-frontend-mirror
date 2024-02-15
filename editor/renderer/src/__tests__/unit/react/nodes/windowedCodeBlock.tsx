@@ -7,9 +7,9 @@ import { nextTick as flushLazyModuleFetching } from '@atlaskit/editor-test-helpe
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockIntersectionObserver } from '@atlaskit/editor-test-helpers/mock-intersection-observer';
 
+import { act } from 'react-dom/test-utils';
 import WindowedCodeBlock from '../../../../react/nodes/codeBlock/windowedCodeBlock';
 import { selectors } from '../../../__helpers/page-objects/_codeblock';
-import { act } from 'react-dom/test-utils';
 
 const textSample = 'const fn = () => {}';
 
@@ -19,22 +19,47 @@ const getLightWeightCodeBlock = () =>
 const getAkCodeBlock = () =>
   document.querySelector(selectors.designSystemCodeBlock);
 
-const render = (overrides = {}) => {
-  const dom = document.createElement('div');
-  document.body.appendChild(dom);
-  renderToDOM(
-    <IntlProvider locale="en">
-      <WindowedCodeBlock
-        language="javascript"
-        allowCopyToClipboard={false}
-        text={textSample}
-        codeBidiWarningTooltipEnabled={true}
-        {...overrides}
-      />
-    </IntlProvider>,
-    dom,
-  );
-  return { cleanup: () => dom.remove() };
+const render = async (overrides = {}) => {
+  const container = document.createElement('div');
+  document.body.appendChild(container);
+  if (process.env.IS_REACT_18 === 'true') {
+    // @ts-ignore react-dom/client only available in react 18
+    // eslint-disable-next-line import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
+    const { createRoot } = await import('react-dom/client');
+    const root = createRoot(container!);
+    act(() => {
+      root.render(
+        <IntlProvider locale="en">
+          <WindowedCodeBlock
+            language="javascript"
+            allowCopyToClipboard={false}
+            text={textSample}
+            codeBidiWarningTooltipEnabled={true}
+            {...overrides}
+          />
+        </IntlProvider>,
+      );
+    });
+  } else {
+    act(() => {
+      renderToDOM(
+        <IntlProvider locale="en">
+          <WindowedCodeBlock
+            language="javascript"
+            allowCopyToClipboard={false}
+            text={textSample}
+            codeBidiWarningTooltipEnabled={true}
+            {...overrides}
+          />
+        </IntlProvider>,
+        container,
+      );
+    });
+  }
+
+  return {
+    cleanup: () => container.remove(),
+  };
 };
 
 describe('Renderer - React/Nodes/WindowedCodeBlock', () => {
@@ -42,7 +67,6 @@ describe('Renderer - React/Nodes/WindowedCodeBlock', () => {
   // observes whether it is in the viewport or not. We mock it out here in jsdom
   // to control whether WindowedCodeBlock believes it's in the viewport for tests.
   const mockObserver = new MockIntersectionObserver();
-  let cleanup: ReturnType<typeof render>['cleanup'];
 
   beforeAll(() => {
     mockObserver.setup();
@@ -52,10 +76,8 @@ describe('Renderer - React/Nodes/WindowedCodeBlock', () => {
   });
 
   describe('when not in viewport', () => {
-    it('should render LightWeightCodeBlock and not render AkCodeBlock', () => {
-      act(() => {
-        ({ cleanup } = render());
-      });
+    it('should render LightWeightCodeBlock and not render AkCodeBlock', async () => {
+      const { cleanup } = await render();
 
       act(() => {
         mockObserver.triggerIntersect({ isIntersecting: false });
@@ -80,11 +102,8 @@ describe('Renderer - React/Nodes/WindowedCodeBlock', () => {
   });
 
   describe('when in viewport', () => {
-    // https://product-fabric.atlassian.net/browse/ED-15729
     it.skip('should initially render LightWeightCodeBlock and eventually render AkCodeBlock', async () => {
-      act(() => {
-        ({ cleanup } = render());
-      });
+      const { cleanup } = await render();
       act(() => {
         mockObserver.triggerIntersect({ isIntersecting: true });
       });
@@ -111,11 +130,9 @@ describe('Renderer - React/Nodes/WindowedCodeBlock', () => {
   });
 
   describe("when transitioning from 'not in viewport' to 'in viewport'", () => {
-    // https://product-fabric.atlassian.net/browse/ED-15729
     it.skip('should initially render LightWeightCodeBlock and eventually render AkCodeBlock', async () => {
-      act(() => {
-        ({ cleanup } = render());
-      });
+      const { cleanup } = await render();
+
       act(() => {
         mockObserver.triggerIntersect({ isIntersecting: false });
       });

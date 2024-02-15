@@ -30,7 +30,7 @@ const createExample = (
         display: 'inline-block',
       }}
     >
-      <LinkPicker onSubmit={NOOP} onCancel={NOOP} {...props} />
+      <LinkPicker onSubmit={NOOP} {...props} />
     </div>
   );
 };
@@ -51,6 +51,9 @@ const createWidthExample = (
 };
 
 export const DefaultExample = createExample();
+export const WithCancelExample = createExample({
+  onCancel: NOOP,
+});
 
 export const DisableWidthExample = createWidthExample({
   plugins: undefined,

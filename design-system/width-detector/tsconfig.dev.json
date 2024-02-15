@@ -36,6 +36,9 @@
       "path": "tsconfig.app.json"
     },
     {
+      "path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+    },
+    {
       "path": "../button/tsconfig.app.json"
     },
     {
@@ -46,9 +49,6 @@
     },
     {
       "path": "../../../build/test-tooling/ssr/tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/test-tooling/webdriver-runner/tsconfig.app.json"
     }
   ]
 }

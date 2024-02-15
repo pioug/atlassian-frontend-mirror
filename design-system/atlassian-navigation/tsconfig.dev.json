@@ -63,9 +63,6 @@
       "path": "../drawer/tsconfig.app.json"
     },
     {
-      "path": "../dropdown-menu/tsconfig.app.json"
-    },
-    {
       "path": "../ds-lib/tsconfig.app.json"
     },
     {

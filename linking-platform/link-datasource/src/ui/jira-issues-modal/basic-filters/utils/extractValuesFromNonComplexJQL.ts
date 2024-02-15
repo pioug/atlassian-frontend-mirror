@@ -21,15 +21,26 @@ export type ResultMap = {
 };
 
 const getFieldValues = (operand: Operand): string[] => {
+  const mapValuesFromList = (value: Operand): string | undefined => {
+    if (value.operandType === OPERAND_TYPE_VALUE) {
+      return value.value;
+    }
+    // we only support EMPTY keyword atm, hence making sure if operandType is a KEYWORD, then its an EMPTY keyword
+    if (
+      value.operandType === OPERAND_TYPE_KEYWORD &&
+      value.value === OPERAND_EMPTY
+    ) {
+      return value.value;
+    }
+
+    return undefined;
+  };
+
   switch (operand.operandType) {
     case OPERAND_TYPE_LIST:
       return operand.values
-        .map(
-          value =>
-            (value.operandType === OPERAND_TYPE_VALUE && value.value) ||
-            undefined,
-        )
-        .filter((value: string | undefined): value is string => !!value);
+        .map(mapValuesFromList)
+        .filter((value): value is string => !!value);
     case OPERAND_TYPE_VALUE:
       return operand.value ? [operand.value] : [];
     case OPERAND_TYPE_KEYWORD:

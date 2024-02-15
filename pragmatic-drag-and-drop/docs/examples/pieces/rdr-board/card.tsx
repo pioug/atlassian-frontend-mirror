@@ -23,9 +23,15 @@ import DropdownMenu, {
 } from '@atlaskit/dropdown-menu';
 // eslint-disable-next-line @atlaskit/design-system/no-banned-imports
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import StoryIcon16 from '@atlaskit/icon-object/glyph/story/16';
 import PullRequestIcon from '@atlaskit/icon/glyph/bitbucket/pullrequests';
 import MoreIcon from '@atlaskit/icon/glyph/more';
-import StoryIcon16 from '@atlaskit/icon-object/glyph/story/16';
+import {
+  attachClosestEdge,
+  Edge,
+  extractClosestEdge,
+} from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
 import {
   draggable,
   dropTargetForElements,
@@ -33,12 +39,6 @@ import {
 import { dropTargetForFiles } from '@atlaskit/pragmatic-drag-and-drop/adapter/file';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
-import {
-  attachClosestEdge,
-  Edge,
-  extractClosestEdge,
-} from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
-import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 import { useBoardContext } from './board-context';

@@ -36,7 +36,8 @@ const LoadingButton = React.forwardRef(function LoadingButton(
       {...rest}
       ref={ref}
       appearance={appearance}
-      aria-busy={isLoading}
+      // No need to render aria-disabled when it is false
+      aria-disabled={isLoading || undefined}
       isDisabled={isDisabled}
       isSelected={isSelected}
       overlay={

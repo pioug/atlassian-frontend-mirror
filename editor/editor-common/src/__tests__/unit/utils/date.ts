@@ -1,4 +1,5 @@
-import { createIntl, IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
+import { createIntl } from 'react-intl-next';
 
 import {
   isPastDate,
@@ -122,12 +123,12 @@ describe('@atlaskit/editor-common date utils', () => {
       });
 
       describe('and is from the same year', () => {
-        it('should return the date in ddd, MMM DD us format', () => {
+        it('should return the date in MMM DD YYYY us format', () => {
           dateNowMockFn.mockImplementation(() => 1324075326000); // 16 December 2011 22:42:06
           const oneYearOldInUTC = Date.UTC(2011, 1, 1).toString();
 
           expect(timestampToTaskContext(oneYearOldInUTC, intl)).toEqual(
-            'Tue, Feb 1',
+            'Feb 1, 2011',
           );
         });
       });
@@ -182,7 +183,7 @@ describe('@atlaskit/editor-common date utils', () => {
 
           it('should give a date for UTC -7', () => {
             expect(timestampToTaskContext(timestampJun16, intl)).toEqual(
-              'Tue, Jun 16',
+              'Jun 16, 2020',
             );
           });
         });

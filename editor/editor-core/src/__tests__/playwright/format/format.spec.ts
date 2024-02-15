@@ -1,22 +1,22 @@
-import { editorTestCase as test, expect } from '@af/editor-libra';
+import { expect, editorTestCase as test } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  doc,
-  p,
-  a as link,
-  strong,
-  em,
-  strike,
   code,
+  doc,
+  em,
   h1,
   h2,
   h3,
   h4,
   h5,
   h6,
+  a as link,
+  p,
+  strike,
+  strong,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-test.describe('format.ts ', () => {
+test.describe('format.ts', () => {
   test.use({
     editorProps: {
       appearance: 'full-page',

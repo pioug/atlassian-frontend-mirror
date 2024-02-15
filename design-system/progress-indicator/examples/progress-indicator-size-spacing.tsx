@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Text from '@atlaskit/ds-explorations/text';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
 

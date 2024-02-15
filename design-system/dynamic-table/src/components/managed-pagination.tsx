@@ -12,6 +12,7 @@ interface ManagedPaginationProps {
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   i18n?: I18nShape;
   testId?: string;
+  isDisabled?: boolean;
 }
 
 export default class ManagedPagination extends React.Component<ManagedPaginationProps> {
@@ -24,7 +25,7 @@ export default class ManagedPagination extends React.Component<ManagedPagination
   };
 
   render() {
-    const { total, value = 1, i18n, testId } = this.props;
+    const { total, value = 1, i18n, testId, isDisabled } = this.props;
     const pages = [...Array(total)].map((_, index) => index + 1);
     // Pagination accepts array now thus selectedIndex starts with 0
     // So, we are substracting value by one thus not breaking dynamic table
@@ -32,6 +33,7 @@ export default class ManagedPagination extends React.Component<ManagedPagination
     return (
       <Pagination
         selectedIndex={selectedIndex}
+        isDisabled={isDisabled}
         label={i18n?.label}
         nextLabel={i18n?.next}
         previousLabel={i18n?.prev}

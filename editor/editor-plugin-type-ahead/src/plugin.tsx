@@ -16,20 +16,15 @@ import {
   fireAnalyticsEvent,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type {
-  EditorAnalyticsAPI,
-  FireAnalyticsCallback,
-} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { Command, TypeAheadItem } from '@atlaskit/editor-common/types';
-import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { insertTypeAheadItem } from './commands/insert-type-ahead-item';
-import { updateSelectedIndex } from './commands/update-selected-index';
-import type { CloseSelectionOptions } from './constants';
 import { inputRulePlugin } from './pm-plugins/input-rules';
 import { createPlugin as createInsertItemPlugin } from './pm-plugins/insert-item-plugin';
 import { pluginKey as typeAheadPluginKey } from './pm-plugins/key';
@@ -42,10 +37,8 @@ import type {
   TypeAheadHandler,
   TypeAheadInputMethod,
   TypeAheadPlugin,
-  TypeAheadPluginState,
 } from './types';
-import { useItemInsert } from './ui/hooks/use-item-insert';
-import { TypeAheadPopup } from './ui/TypeAheadPopup';
+import { ContentComponent } from './ui/ContentComponent';
 import {
   findHandler,
   getPluginState,
@@ -54,115 +47,6 @@ import {
   isTypeAheadAllowed,
   isTypeAheadOpen,
 } from './utils';
-
-type TypeAheadMenuType = {
-  typeAheadState: TypeAheadPluginState;
-  editorView: EditorView;
-  popupMountRef: PopupMountPointReference;
-  fireAnalyticsCallback: FireAnalyticsCallback;
-};
-
-const TypeAheadMenu: React.FC<TypeAheadMenuType> = React.memo(
-  ({ editorView, popupMountRef, typeAheadState, fireAnalyticsCallback }) => {
-    const isOpen = typeAheadState.decorationSet.find().length > 0;
-    const {
-      triggerHandler,
-      items,
-      selectedIndex,
-      decorationElement,
-      decorationSet,
-      query,
-    } = typeAheadState;
-
-    const [onItemInsert, onTextInsert, onItemMatch] = useItemInsert(
-      triggerHandler!,
-      editorView,
-      items,
-    );
-    const setSelectedItem = React.useCallback(
-      ({ index: nextIndex }) => {
-        queueMicrotask(() => {
-          updateSelectedIndex(nextIndex)(editorView.state, editorView.dispatch);
-        });
-      },
-      [editorView],
-    );
-    const insertItem = React.useCallback(
-      (mode: SelectItemMode = SelectItemMode.SELECTED, index: number) => {
-        queueMicrotask(() => {
-          onItemInsert({ mode, index, query });
-        });
-      },
-      [onItemInsert, query],
-    );
-
-    const cancel = React.useCallback(
-      ({
-        setSelectionAt,
-        addPrefixTrigger,
-        forceFocusOnEditor,
-      }: {
-        setSelectionAt: CloseSelectionOptions;
-        addPrefixTrigger: boolean;
-        forceFocusOnEditor: boolean;
-      }) => {
-        const fullQuery = addPrefixTrigger
-          ? `${triggerHandler?.trigger}${query}`
-          : query;
-        onTextInsert({ forceFocusOnEditor, setSelectionAt, text: fullQuery });
-      },
-      [triggerHandler, onTextInsert, query],
-    );
-
-    React.useEffect(() => {
-      if (!isOpen || !query) {
-        return;
-      }
-
-      const isLastCharSpace = query[query.length - 1] === ' ';
-      if (!isLastCharSpace) {
-        return;
-      }
-
-      const result = onItemMatch({
-        mode: SelectItemMode.SPACE,
-        query: query.trim(),
-      });
-
-      if (!result) {
-        return;
-      }
-    }, [isOpen, query, onItemMatch]);
-
-    if (
-      !isOpen ||
-      !triggerHandler ||
-      !(decorationElement instanceof HTMLElement) ||
-      items.length === 0
-    ) {
-      return null;
-    }
-
-    return (
-      <TypeAheadPopup
-        editorView={editorView}
-        popupsMountPoint={popupMountRef.current?.popupsMountPoint}
-        popupsBoundariesElement={popupMountRef.current?.popupsBoundariesElement}
-        popupsScrollableElement={popupMountRef.current?.popupsScrollableElement}
-        anchorElement={decorationElement}
-        triggerHandler={triggerHandler}
-        fireAnalyticsCallback={fireAnalyticsCallback}
-        items={items}
-        selectedIndex={selectedIndex}
-        setSelectedItem={setSelectedItem}
-        onItemInsert={insertItem}
-        decorationSet={decorationSet}
-        isEmptyQuery={!query}
-        cancel={cancel}
-      />
-    );
-  },
-);
 
 const createOpenAtTransaction =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
@@ -372,16 +256,27 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ config: options, api }) => {
           isOpen: false,
           isAllowed: false,
           currentHandler: undefined,
+          decorationSet: DecorationSet.empty,
+          decorationElement: null,
+          triggerHandler: undefined,
+          items: [],
+          selectedIndex: 0,
         };
       }
 
       const isOpen = isTypeAheadOpen(editorState);
+      const state = getPluginState(editorState);
 
       return {
         query: getTypeAheadQuery(editorState) || '',
         currentHandler: getTypeAheadHandler(editorState),
         isOpen,
         isAllowed: !isOpen,
+        decorationSet: state?.decorationSet ?? DecorationSet.empty,
+        decorationElement: state?.decorationElement ?? null,
+        triggerHandler: state?.triggerHandler,
+        items: state?.items ?? [],
+        selectedIndex: state?.selectedIndex ?? 0,
       };
     },
     actions: {
@@ -410,21 +305,11 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ config: options, api }) => {
       };
 
       return (
-        <WithPluginState
-          plugins={{ typeAheadState: typeAheadPluginKey }}
-          render={({ typeAheadState }) => {
-            if (!typeAheadState) {
-              return null;
-            }
-            return (
-              <TypeAheadMenu
-                editorView={editorView}
-                popupMountRef={popupMountRef}
-                typeAheadState={typeAheadState}
-                fireAnalyticsCallback={fireAnalyticsCallback}
-              />
-            );
-          }}
+        <ContentComponent
+          editorView={editorView}
+          popupMountRef={popupMountRef}
+          api={api}
+          fireAnalyticsCallback={fireAnalyticsCallback}
         />
       );
     },

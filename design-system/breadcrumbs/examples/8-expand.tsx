@@ -8,7 +8,7 @@ export default () => (
     <p>Should automatically collapse if there are more than 5 items</p>
     <div style={{ maxWidth: '500px', border: '1px solid black' }}>
       <p>Exactly 5 items</p>
-      <Breadcrumbs maxItems={5}>
+      <Breadcrumbs maxItems={5} label="Breadcrumbs with five items">
         <BreadcrumbsItem href="/item" text="Item" />
         <BreadcrumbsItem href="/item" text="Another item" />
         <BreadcrumbsItem href="/item" text="A third item" />
@@ -21,7 +21,7 @@ export default () => (
     </div>
     <div style={{ maxWidth: '500px', border: '1px solid black' }}>
       <p>6 items</p>
-      <Breadcrumbs maxItems={5}>
+      <Breadcrumbs maxItems={5} label="Breadcrumbs with six items">
         <BreadcrumbsItem href="/item" text="Item" />
         <BreadcrumbsItem href="/item" text="Another item" />
         <BreadcrumbsItem href="/item" text="A third item" />

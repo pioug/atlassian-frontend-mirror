@@ -1,10 +1,10 @@
-import { expect } from '@af/integration-testing';
 import {
   EditorMainToolbarModel,
   EditorNodeContainerModel,
   EditorTableModel,
   editorTestCase as test,
 } from '@af/editor-libra';
+import { expect } from '@af/integration-testing';
 
 const inlineCardLongNameSlowResolveUrl =
   'https://inlineCardTestUrl/longNameSlowResolve';

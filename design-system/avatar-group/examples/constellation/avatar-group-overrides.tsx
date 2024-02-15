@@ -3,7 +3,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { AppearanceType, SizeType } from '@atlaskit/avatar';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 import {

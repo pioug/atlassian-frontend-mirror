@@ -1,8 +1,6 @@
 import type { ADFStage } from '@atlaskit/editor-common/validator';
-import {
-  PuppeteerPage,
-  waitForLoadedBackgroundImages,
-} from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 
 import { emojiSelectors } from '../__helpers/page-objects/_emoji';
 import { selectors as rendererSelectors } from '../__helpers/page-objects/_renderer';
@@ -10,11 +8,7 @@ import { selectors as rendererSelectors } from '../__helpers/page-objects/_rende
 import * as panelsADF from './__fixtures__/renderer-panels.adf.json';
 import { initRendererWithADF, snapshot } from './_utils';
 
-const initRenderer = async (
-  page: PuppeteerPage,
-  isDarkTheme: boolean,
-  adfStage: ADFStage,
-) => {
+const initRenderer = async (page: PuppeteerPage, adfStage: ADFStage) => {
   await initRendererWithADF(page, {
     appearance: 'full-page',
     viewport: { width: 1040, height: 400 },
@@ -23,7 +17,6 @@ const initRenderer = async (
       adfStage,
       allowCustomPanels: adfStage === 'stage0',
     },
-    themeMode: isDarkTheme ? 'dark' : 'light',
   });
 };
 
@@ -42,25 +35,12 @@ describe('Snapshot Test: Panels', () => {
     await snapshot(page);
   });
 
-  describe('Light theme', () => {
-    it(`should render custom panels as info panel when not supported`, async () => {
-      await initRenderer(page, false, 'final');
-    });
-
-    it(`should render regular and custom panels types correctly`, async () => {
-      await initRenderer(page, false, 'stage0');
-      await waitForLoadedBackgroundImages(page, emojiSelectors.standard);
-    });
+  it(`should render custom panels as info panel when not supported`, async () => {
+    await initRenderer(page, 'final');
   });
 
-  describe('Dark theme', () => {
-    it(`should render custom panels as info panel when not supported`, async () => {
-      await initRenderer(page, true, 'final');
-    });
-
-    it(`should render regular and custom panels types correctly`, async () => {
-      await initRenderer(page, true, 'stage0');
-      await waitForLoadedBackgroundImages(page, emojiSelectors.standard);
-    });
+  it(`should render regular and custom panels types correctly`, async () => {
+    await initRenderer(page, 'stage0');
+    await waitForLoadedBackgroundImages(page, emojiSelectors.standard);
   });
 });

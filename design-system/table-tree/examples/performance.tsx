@@ -3,6 +3,7 @@ import { PureComponent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { Label } from '@atlaskit/form';
 import Select from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
@@ -47,11 +48,11 @@ const performanceTweakContainerStyles = css({
   width: '450px',
   padding: token('space.250', '20px'),
   position: 'fixed',
-  right: token('space.0', '0px'),
-  bottom: token('space.0', '0px'),
   background: token('elevation.surface', 'rgba(100%, 100%, 100%, 0.8)'),
   border: `5px solid ${token('color.border', 'rgba(0, 0, 0, 0.8)')}`,
   borderWidth: '5px 0 0 5px',
+  insetBlockEnd: token('space.0', '0px'),
+  insetInlineEnd: token('space.0', '0px'),
 });
 
 const childCountPerItem = 100;
@@ -146,7 +147,7 @@ export default class extends PureComponent {
         </TableTree>
         <div css={performanceTweakContainerStyles}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div>Tree children per item:</div>
+            <Label htmlFor="select">Tree children per item</Label>
             <div
               style={{
                 width: '90px',
@@ -155,6 +156,7 @@ export default class extends PureComponent {
             >
               <Select
                 autoFocus={false}
+                inputId="select"
                 menuPosition="fixed"
                 options={childCountOptions}
                 onChange={this.handleItemsCountChange as any}

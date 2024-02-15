@@ -7,6 +7,7 @@ import { css, jsx } from '@emotion/react';
 import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
+import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import type { DropdownOptionT } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
@@ -17,8 +18,6 @@ import { B400 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
-
-import messages from './messages';
 
 export const menuItemDimensions = {
   width: 175,

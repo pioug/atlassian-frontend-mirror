@@ -1,18 +1,32 @@
 import React, { useRef } from 'react';
 
-import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu, {
+  DropdownItem,
+  DropdownItemGroup,
+} from '@atlaskit/dropdown-menu';
+// eslint-disable-next-line @atlaskit/design-system/no-banned-imports
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 
-import { DragHandleDropdownMenu } from '../src/drag-handle-dropdown-menu';
+import { DragHandleButton } from '../src/drag-handle-button';
 
 export default function DragHandleDropdownMenuExample() {
-  const triggerRef = useRef<HTMLButtonElement>(null);
+  // This ref can be used to set your `dragHandle` when calling `draggable()`
+  const myRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <DragHandleDropdownMenu triggerRef={triggerRef} label="Reorder">
+    <DropdownMenu
+      trigger={({ triggerRef, ...triggerProps }) => (
+        <DragHandleButton
+          ref={mergeRefs([myRef, triggerRef])}
+          {...triggerProps}
+          label="Reorder"
+        />
+      )}
+    >
       <DropdownItemGroup>
         <DropdownItem>Move up</DropdownItem>
         <DropdownItem>Move down</DropdownItem>
       </DropdownItemGroup>
-    </DragHandleDropdownMenu>
+    </DropdownMenu>
   );
 }

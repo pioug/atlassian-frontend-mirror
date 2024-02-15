@@ -9,14 +9,14 @@ const nonComplexCases: [string, boolean][] = [
   // empty jql
   ['', false],
 
-  // jql with no field clause
+  // default jql
+  ['order by created DESC', false],
+
+  // jql with order by other than created field
   ['ORDER BY assignee asc', false],
 
-  // default jql
-  ['created >= -30d order by created DESC', false],
-
   // default jql with test, summary fields
-  ['text ~ "testing*" or summary ~ "testing*" ORDER BY status ASC', false],
+  ['text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC', false],
 
   // default jql with test, summary and key fields and order by DESC
   [
@@ -31,17 +31,17 @@ const nonComplexCases: [string, boolean][] = [
   ],
 
   // default jql with a valid field
-  ['project in (123) and created >= -30d order by created DESC', false],
+  ['project in (123) order by created DESC', false],
 
   // default jql with all valid fields
   [
-    'project in ("Commitment Register") and assignee in ("Mike Dao") and issuetype in ("[CTB]Bug") and status in (Progress) and created >= -30d ORDER BY created DESC',
+    'project in ("Commitment Register") and assignee in ("Mike Dao") and type in ("[CTB]Bug") and status in (Progress) ORDER BY created DESC',
     false,
   ],
 
   // default jql with all valid fields and multiple values
   [
-    'project in ("Commitment Register", "Commitment Register") and assignee in ("Mike Dao", "Mike Dao") and issuetype in ("[CTB]Bug", "[CTB]Bug") and status in (Progress, Progress) and created >= -30d ORDER BY created DESC',
+    'project in ("Commitment Register", "Commitment Register") and assignee in ("Mike Dao", "Mike Dao") and type in ("[CTB]Bug", "[CTB]Bug") and status in (Progress, Progress) ORDER BY created DESC',
     false,
   ],
 
@@ -52,10 +52,19 @@ const nonComplexCases: [string, boolean][] = [
   ],
 
   // valid field with = operator
-  ['project = 123 and created >= -30d order by created DESC', false],
+  ['project = 123 order by created DESC', false],
 ];
 
 const complexCases: [string, boolean][] = [
+  // previous default jql
+  ['created >= -30d order by created DESC', true],
+
+  // previous default jql with test, summary fields
+  [
+    'text ~ "testing*" or summary ~ "testing*" and created >= -30d ORDER BY status ASC',
+    true,
+  ],
+
   // jql with invalid order by field
   ['project in (ABC, DEF) and ORDER BY test asc', true],
 
@@ -79,6 +88,10 @@ const complexCases: [string, boolean][] = [
 
   // jql with NOT IN operator
   ['project NOT IN ("(Deprecated) Koopa Troopas")', true],
+
+  // added as part of issuetype to type change
+  ['issuetype in (Bug) ORDER BY created DESC', true],
+  ['issuetype = Bug ORDER BY created DESC', true],
 ];
 
 const allFieldsCases: [string, boolean][] = [
@@ -90,15 +103,16 @@ const allFieldsCases: [string, boolean][] = [
 
   ['assignee in membersOf(apac)', false],
   ['assignee = 123', false],
+  ['assignee = currentUser()', false],
   ['assignee is 123', true],
   ['assignee ~ 123', true],
   ['assignee > 123', true],
 
-  ['issuetype in (123)', false],
-  ['issuetype = 123', false],
-  ['issuetype is 123', true],
-  ['issuetype ~ 123', true],
-  ['issuetype > 123', true],
+  ['type in (123)', false],
+  ['type = 123', false],
+  ['type is 123', true],
+  ['type ~ 123', true],
+  ['type > 123', true],
 
   ['status in (123)', false],
   ['status = 123', false],
@@ -124,7 +138,7 @@ const allFieldsCases: [string, boolean][] = [
   ['key is 123', true],
   ['key > 123', true],
 
-  ['created >= 123', false],
+  ['created >= 123', true],
   ['created = 123', true],
   ['created in (123)', true],
   ['created ~ 123', true],

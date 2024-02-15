@@ -1,5 +1,17 @@
 # @atlaskit/analytics-namespaced-context
 
+## 6.9.0
+
+### Minor Changes
+
+- [#66015](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66015) [`fc1f1eafbc0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fc1f1eafbc0d) - Add AI Mate analytics listener and namespaced context
+
+## 6.8.0
+
+### Minor Changes
+
+- [#65162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65162) [`8374b2b32c18`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8374b2b32c18) - Add PostOffice analytics listener and namespaced context
+
 ## 6.7.4
 
 ### Patch Changes

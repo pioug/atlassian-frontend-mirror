@@ -1,15 +1,14 @@
 import {
-  editorTestCase as test,
-  expect,
   EditorMainToolbarModel,
-  EditorTableModel,
   EditorNodeContainerModel,
+  EditorTableModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  doc,
   code_block,
+  doc,
   table,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -44,7 +43,7 @@ test.describe('code-block with gap-cursor', () => {
     await keyboard.press('ArrowLeft');
 
     //insert code snippet from toolbar
-    await toolbar.clickAt('Insert /');
+    await toolbar.clickAt('Insert elements');
     await editor.waitForEditorStable();
     await keyboard.type('Code Snippet');
     await keyboard.press('Enter');

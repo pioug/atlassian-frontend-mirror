@@ -12,7 +12,6 @@ import { jsx } from '@emotion/react';
 import memoizeOne from 'memoize-one';
 
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
@@ -79,13 +78,7 @@ export const Popup: FC<PopupProps> = memo(
     );
 
     const renderPopperWrapper = (
-      <UNSAFE_LAYERING
-        isDisabled={
-          getBooleanFF('platform.design-system-team.layering_popup_1cnzt')
-            ? false
-            : true
-        }
-      >
+      <UNSAFE_LAYERING isDisabled={false}>
         <PopperWrapper
           content={content}
           isOpen={isOpen}

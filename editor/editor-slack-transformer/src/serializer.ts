@@ -2,7 +2,7 @@ import {
   MarkdownSerializer as PMMarkdownSerializer,
   MarkdownSerializerState as PMMarkdownSerializerState,
 } from '@atlaskit/editor-prosemirror/markdown';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { escapeMarkdown } from './util';
 
@@ -68,8 +68,12 @@ const unsupportedNodes = {
   inlineExtension(state: MarkdownSerializerState) {
     state.write('[inline extension]');
   },
-  mediaInline(state: MarkdownSerializerState) {
-    state.write('[inline file attached]');
+  mediaInline(state: MarkdownSerializerState, node: PMNode) {
+    const content =
+      node.attrs?.type === 'image'
+        ? '[inline image attached]'
+        : '[inline file attached]';
+    state.write(content);
   },
   extension(state: MarkdownSerializerState, node: PMNode) {
     state.write('[extension]');

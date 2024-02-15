@@ -79,7 +79,7 @@ describe('Select', () => {
       await user.click(screen.getByText('Select...'));
       expect(
         screen.queryByText(/overwrite native ariaLiveMessages onFocus method/),
-      ).toBeNull();
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -92,6 +92,99 @@ describe('Select', () => {
       // Displays the provided value
       expect(screen.getByText('0')).toBeInTheDocument();
     });
+
+    //default value is there, no placeholder, no passed aria == no aria describedby
+    it('should have no id aria-describedby', () => {
+      render(<AtlaskitSelect options={OPTIONS} value={OPTIONS[0]} />);
+
+      expect(screen.getByRole('combobox')).not.toHaveAttribute(
+        'aria-describedby',
+      );
+    });
+
+    //default value is there, no placeholder, yes passed aria == yes aria describedby --> passed aria
+    it('should show passed id as aria-describedby', () => {
+      render(
+        <AtlaskitSelect
+          options={OPTIONS}
+          value={OPTIONS[0]}
+          aria-describedby="descriptive-id"
+        />,
+      );
+
+      const element = screen
+        .getByRole('combobox')
+        .getAttribute('aria-describedby');
+      expect(element).toBe(`descriptive-id`);
+    });
+
+    //default value is yes there, yes placeholder, yes passed aria == yes aria describedby --> passed aria
+    it('should show passed id as aria-describedby', () => {
+      render(
+        <AtlaskitSelect
+          options={OPTIONS}
+          value={OPTIONS[0]}
+          placeholder="Placeholder"
+          aria-describedby="descriptive-id"
+        />,
+      );
+
+      const element = screen
+        .getByRole('combobox')
+        .getAttribute('aria-describedby');
+      expect(element).toBe(`descriptive-id`);
+    });
+
+    //default value is not there, yes placeholder, yes passed aria == yes aria describedby --> passed aria, placeholder
+    it('should show placeholder id and passed id as aria-describedby', () => {
+      render(
+        <AtlaskitSelect
+          options={OPTIONS}
+          placeholder="Placeholder"
+          aria-describedby="descriptive-id"
+        />,
+      );
+
+      const placeholder = screen.queryByText('Placeholder');
+      expect(placeholder).toBeInTheDocument();
+      const placeholderId = placeholder?.id;
+      const element = screen
+        .getByRole('combobox')
+        .getAttribute('aria-describedby');
+      expect(element).toBe(`${placeholderId} descriptive-id`);
+    });
+
+    //default value is not there, yes placeholder, no passed aria == yes aria describedby --> placeholder
+    it('should show placeholder id as aria-describedby', () => {
+      render(<AtlaskitSelect options={OPTIONS} placeholder="Placeholder" />);
+
+      const placeholder = screen.queryByText('Placeholder');
+      expect(placeholder).toBeInTheDocument();
+      const placeholderId = placeholder?.id;
+      const element = screen
+        .getByRole('combobox')
+        .getAttribute('aria-describedby');
+      expect(element).toBe(placeholderId);
+    });
+  });
+
+  it('should show placeholder id and passed aria-describedby as aria-describedby when isSearchable is false', () => {
+    render(
+      <AtlaskitSelect
+        options={OPTIONS}
+        placeholder="Placeholder"
+        isSearchable={false}
+        aria-describedby="descriptionId"
+      />,
+    );
+
+    const placeholder = screen.queryByText('Placeholder');
+    expect(placeholder).toBeInTheDocument();
+    const placeholderId = placeholder?.id;
+    const element = screen
+      .getByRole('combobox')
+      .getAttribute('aria-describedby');
+    expect(element).toBe(`${placeholderId} descriptionId`);
   });
 
   describe('multi value select', () => {
@@ -310,7 +403,7 @@ describe('Select', () => {
   });
 
   /**
-   * filterOption is getting called multiple for a change in inputValue
+   * FilterOption is getting called multiple for a change in inputValue.
    */
   it.skip('should call filterOption when input of select is changed', async () => {
     const filterOptionSpy = jest.fn();

@@ -1,10 +1,11 @@
 import {
-  editorTestCase as test,
-  expect,
-  EditorNodeContainerModel,
-  EditorMediaSingleNextModel,
   EditorFloatingToolbarModel,
+  EditorMediaSingleNextModel,
+  EditorNodeContainerModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import {
   legacyExternalImage,
   threeExternalImages,

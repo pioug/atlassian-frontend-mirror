@@ -1,12 +1,13 @@
 import {
   EditorNodeContainerModel,
   EditorTableModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import {
-  tableWith3rows5Cols,
   tableWith30rows5Cols,
+  tableWith3rows5Cols,
   tableWithParagraphsBeforeIt,
 } from './__fixtures__/overflown-tables-adfs';
 
@@ -16,11 +17,11 @@ test.use({
     allowTables: {
       advanced: true,
     },
+    featureFlags: {
+      'sticky-scrollbar': true,
+    },
   },
   adf: tableWith30rows5Cols,
-  platformFeatureFlags: {
-    'platform.editor.table-sticky-scrollbar': true,
-  },
 });
 
 test.describe('Table sticky scrollbar', () => {
@@ -32,7 +33,7 @@ test.describe('Table sticky scrollbar', () => {
       const tableModel = EditorTableModel.from(nodes.table);
       const stickyScrollbar = await tableModel.stickyScrollbar();
 
-      expect(await stickyScrollbar.isVisible()).toBeTruthy();
+      await expect(stickyScrollbar.stickyScrollbar).toBeVisible();
     });
 
     test('when top and bottom parts of the table are outside of the viewport', async ({
@@ -44,7 +45,7 @@ test.describe('Table sticky scrollbar', () => {
       await cell.click();
       const stickyScrollbar = await tableModel.stickyScrollbar();
 
-      expect(await stickyScrollbar.isVisible()).toBeTruthy();
+      await expect(stickyScrollbar.stickyScrollbar).toBeVisible();
     });
   });
 
@@ -61,7 +62,7 @@ test.describe('Table sticky scrollbar', () => {
         const tableModel = EditorTableModel.from(nodes.table);
         const stickyScrollbar = await tableModel.stickyScrollbar();
 
-        expect(await stickyScrollbar.isHidden()).toBeTruthy();
+        await expect(stickyScrollbar.stickyScrollbar).toBeHidden();
       });
     });
 
@@ -77,7 +78,7 @@ test.describe('Table sticky scrollbar', () => {
         const tableModel = EditorTableModel.from(nodes.table);
         const stickyScrollbar = await tableModel.stickyScrollbar();
 
-        expect(await stickyScrollbar.isHidden()).toBeTruthy();
+        await expect(stickyScrollbar.stickyScrollbar).toBeHidden();
       });
     });
   });

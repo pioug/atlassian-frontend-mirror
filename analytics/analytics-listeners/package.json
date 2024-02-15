@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/analytics-listeners",
-  "version": "8.7.5",
+  "version": "8.9.1",
   "description": "Fabric analytics listeners to be used by the products",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -21,9 +21,15 @@
     }
   },
   "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./FabricAnalyticsListeners": "./src/FabricAnalyticsListeners.tsx",
+    "./GenericAnalyticsListener": "./src/GenericAnalyticsListener.tsx",
+    "./analytics-web-client-wrapper": "./src/analytics-web-client-wrapper.ts",
+    "./types": "./src/types.ts"
+  },
   "atlassian": {
     "team": "UIP Frontend Observability",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "productPushConsumption": [
       "jira"
@@ -34,8 +40,8 @@
   },
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.1.0",
-    "@atlaskit/analytics-namespaced-context": "^6.7.0",
-    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/analytics-namespaced-context": "^6.9.0",
+    "@atlaskit/analytics-next": "^9.2.0",
     "@babel/runtime": "^7.0.0",
     "lodash": "^4.17.21"
   },
@@ -43,6 +49,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@atlaskit/tokens": "^1.37.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
     "jest-in-case": "^1.0.2",

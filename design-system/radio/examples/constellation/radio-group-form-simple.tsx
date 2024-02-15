@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Form, { Field, FieldProps, FormFooter } from '@atlaskit/form';
 
 import { RadioGroup } from '../../src';

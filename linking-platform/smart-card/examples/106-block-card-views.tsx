@@ -154,6 +154,7 @@ const render = (
   client: ProviderProps['client'],
   title: string,
   description?: string,
+  useLegacyBlockCard: boolean = false,
 ) => (
   <React.Fragment>
     <h6>{title}</h6>
@@ -162,9 +163,96 @@ const render = (
       appearance="block"
       client={client}
       url="https://site.atlassian.net/browse/key-1"
+      useLegacyBlockCard={useLegacyBlockCard}
     />
   </React.Fragment>
 );
+
+function BlockCardViews({
+  useLegacyBlockCard,
+}: {
+  useLegacyBlockCard: boolean;
+}) {
+  return (
+    <React.Fragment>
+      <h6 css={subHeaderCSS}>Resolving View</h6>
+      <BlockCardResolvingView />
+      {render(
+        new ResolvedClient(),
+        '[Resolved]',
+        undefined,
+        useLegacyBlockCard,
+      )}
+      {render(
+        new ForbiddenClient(),
+        '[Forbidden] Default',
+        undefined,
+        useLegacyBlockCard,
+      )}
+      {render(
+        new ForbiddenWithSiteRequestAccessClient(),
+        '[Forbidden] Site - Request Access',
+        "I don't have access to the site, but I can request access",
+        useLegacyBlockCard,
+      )}
+      {render(
+        new ForbiddenWithSitePendingRequestClient(),
+        '[Forbidden] Site - Pending Request',
+        "I don't have access to the site, but I’ve already requested access and I’m waiting",
+        useLegacyBlockCard,
+      )}
+      {render(
+        new ForbiddenWithSiteDeniedRequestClient(),
+        '[Forbidden] Site - Denied Request',
+        "I don't have access to the site, and my previous request was denied",
+        useLegacyBlockCard,
+      )}
+      {render(
+        new ForbiddenWithSiteDirectAccessClient(),
+        '[Forbidden] Site - Direct Access',
+        "I don't have access to the site, but I can join directly",
+        useLegacyBlockCard,
+      )}
+      {render(
+        new ForbiddenWithObjectRequestAccessClient(),
+        '[Forbidden] Object - Request Access',
+        'I have access to the site, but not the object',
+        useLegacyBlockCard,
+      )}
+      {render(
+        new ForbiddenWithSiteForbiddenClient(),
+        '[Forbidden] Forbidden',
+        "When you don't have access to the site, and you can’t request access",
+        useLegacyBlockCard,
+      )}
+      {render(
+        new NotFoundClient(),
+        '[Not Found] Default',
+        undefined,
+        useLegacyBlockCard,
+      )}
+      {render(
+        new NotFoundWithSiteAccessExistsClient(),
+        '[Not Found] Access Exists',
+        'I have access to the site, but not the object or object is not-found',
+        useLegacyBlockCard,
+      )}
+      {render(
+        new UnAuthClient(),
+        '[Unauthorized]',
+        undefined,
+        useLegacyBlockCard,
+      )}
+      {render(
+        new UnAuthClientWithNoAuthFlow(),
+        '[Unauthorized] No auth flow',
+        undefined,
+        useLegacyBlockCard,
+      )}
+      {render(new ErroredClient(), '[Error]', undefined, useLegacyBlockCard)}
+    </React.Fragment>
+  );
+}
 
 export default () => {
   return (
@@ -217,52 +305,9 @@ export default () => {
             ]}
           />
           <h2 css={headerCSS}>Views</h2>
-          <h6 css={subHeaderCSS}>Resolving View</h6>
-          <BlockCardResolvingView />
-          {render(new ResolvedClient(), '[Resolved]')}
-          {render(new ForbiddenClient(), '[Forbidden] Default')}
-          {render(
-            new ForbiddenWithSiteRequestAccessClient(),
-            '[Forbidden] Site - Request Access',
-            "I don't have access to the site, but I can request access",
-          )}
-          {render(
-            new ForbiddenWithSitePendingRequestClient(),
-            '[Forbidden] Site - Pending Request',
-            "I don't have access to the site, but I’ve already requested access and I’m waiting",
-          )}
-          {render(
-            new ForbiddenWithSiteDeniedRequestClient(),
-            '[Forbidden] Site - Denied Request',
-            "I don't have access to the site, and my previous request was denied",
-          )}
-          {render(
-            new ForbiddenWithSiteDirectAccessClient(),
-            '[Forbidden] Site - Direct Access',
-            "I don't have access to the site, but I can join directly",
-          )}
-          {render(
-            new ForbiddenWithObjectRequestAccessClient(),
-            '[Forbidden] Object - Request Access',
-            'I have access to the site, but not the object',
-          )}
-          {render(
-            new ForbiddenWithSiteForbiddenClient(),
-            '[Forbidden] Forbidden',
-            "When you don't have access to the site, and you can’t request access",
-          )}
-          {render(new NotFoundClient(), '[Not Found] Default')}
-          {render(
-            new NotFoundWithSiteAccessExistsClient(),
-            '[Not Found] Access Exists',
-            'I have access to the site, but not the object or object is not-found',
-          )}
-          {render(new UnAuthClient(), '[Unauthorized]')}
-          {render(
-            new UnAuthClientWithNoAuthFlow(),
-            '[Unauthorized] No auth flow',
-          )}
-          {render(new ErroredClient(), '[Error]')}
+          <BlockCardViews useLegacyBlockCard={false} />
+          <h2 css={headerCSS}>Views (with useLegacyBlockCard)</h2>
+          <BlockCardViews useLegacyBlockCard={true} />
         </div>
       </Page>
     </IntlProvider>

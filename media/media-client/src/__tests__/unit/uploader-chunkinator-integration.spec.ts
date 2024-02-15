@@ -1,10 +1,5 @@
 import { AuthProvider, MediaApiConfig } from '@atlaskit/media-core';
-import {
-  uploadFile,
-  UploadableFileUpfrontIds,
-  MediaStore,
-  MediaChunksProbe,
-} from '../..';
+import { uploadFile, UploadableFileUpfrontIds, MediaStore } from '../..';
 
 jest.mock('../../constants', () => ({
   __esModule: true,
@@ -21,14 +16,6 @@ describe('Uploader', () => {
     id: 'some-file-id',
     occurrenceKey: 'some-occurrence-key',
     deferredUploadId: Promise.resolve('some-upload-id'),
-  };
-
-  const data: MediaChunksProbe = {
-    results: {
-      ['some-etag']: {
-        exists: true,
-      },
-    },
   };
 
   const authProvider: AuthProvider = () =>
@@ -49,14 +36,11 @@ describe('Uploader', () => {
 
     const uploadChunk = jest.fn().mockReturnValue(Promise.resolve());
 
-    const probeChunks = jest.fn().mockReturnValue(Promise.resolve({ data }));
-
     const appendChunksToUpload = jest.fn().mockReturnValue(Promise.resolve(1));
     const mediaStore: Partial<MediaStore> = {
       createFileFromUpload,
       appendChunksToUpload,
       uploadChunk,
-      probeChunks,
     };
     const cancel = jest.fn();
 

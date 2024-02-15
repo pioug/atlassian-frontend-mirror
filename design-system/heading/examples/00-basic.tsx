@@ -19,7 +19,6 @@ export default () => {
         <Heading level="h100">h100</Heading>
       </Stack>
       <Stack testId="headings" space="space.100">
-        <style>{`:root { --ds-font-family-heading: sans-serif; }`}</style>
         <Heading variant="xxlarge">xxlarge</Heading>
         <Heading variant="xlarge">xlarge</Heading>
         <Heading variant="large">large</Heading>

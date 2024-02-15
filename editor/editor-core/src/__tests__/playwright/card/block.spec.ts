@@ -1,27 +1,28 @@
 import {
-  editorTestCase as test,
-  EditorNodeContainerModel,
-  EditorBlockCardModel,
   EditorBlockCardDatasourceModel,
+  EditorBlockCardModel,
   EditorColumnPickerPopupMenu,
   EditorFloatingToolbarModel,
+  EditorNodeContainerModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  p,
   a,
-  doc,
-  inlineCard,
   blockCard,
   datasourceBlockCard,
+  doc,
+  inlineCard,
+  p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import {
   blockCardAdf,
-  unAuth,
-  multipleBlockCards,
   blockCardDatasource,
   multipleBlockCardDatasource,
+  multipleBlockCards,
+  unAuth,
 } from './block.spec.ts-fixtures';
 
 test.describe('block card', () => {

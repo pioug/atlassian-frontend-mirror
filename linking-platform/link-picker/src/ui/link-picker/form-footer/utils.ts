@@ -4,6 +4,7 @@ import { LinkPickerState, LinkSearchListItemData } from '../../../common/types';
 
 export const checkSubmitDisabled = (
   isLoading: boolean,
+  isSubmitting: boolean,
   error: unknown | null,
   url: string,
   queryState: LinkPickerState | null,
@@ -16,6 +17,9 @@ export const checkSubmitDisabled = (
    * This should effectively be the validation function for the form, ie if the form
    * could be submitted, then it should not be disabled
    */
+  if (isSubmitting) {
+    return true;
+  }
   if (url && normalizeUrl(url)) {
     return false;
   }

@@ -1,5 +1,7 @@
 import React, { Fragment, useState } from 'react';
 
+import { Label } from '@atlaskit/form';
+
 import Range from '../src';
 
 function ControlledRange() {
@@ -7,7 +9,13 @@ function ControlledRange() {
 
   return (
     <Fragment>
-      <Range step={1} value={value} onChange={(value) => setValue(value)} />
+      <Label htmlFor="range-controlled">Controlled</Label>
+      <Range
+        id="range-controlled"
+        step={1}
+        value={value}
+        onChange={(value) => setValue(value)}
+      />
       <p>The current value is: {value}</p>
     </Fragment>
   );

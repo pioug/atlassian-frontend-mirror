@@ -1,25 +1,32 @@
 // Original source from Compiled https://github.com/atlassian-labs/compiled/blob/master/packages/eslint-plugin/src/utils/create-no-tagged-template-expression-rule/index.ts
 // eslint-disable-next-line import/no-extraneous-dependencies
-import type { Rule, Scope } from 'eslint';
+import type { Rule } from 'eslint';
+
+import {
+  CSS_IN_JS_IMPORTS,
+  SupportedNameChecker,
+} from '../../utils/is-supported-import';
 
 import { generate } from './generate';
 import { getTaggedTemplateExpressionOffset } from './get-tagged-template-expression-offset';
 import { toArguments } from './to-arguments';
 
-type Node = Rule.Node;
-type Reference = Scope.Reference;
 type RuleModule = Rule.RuleModule;
 type RuleFixer = Rule.RuleFixer;
 
+const IMPORT_SOURCES = [
+  CSS_IN_JS_IMPORTS.compiled,
+  CSS_IN_JS_IMPORTS.emotionReact,
+  CSS_IN_JS_IMPORTS.emotionCore,
+  CSS_IN_JS_IMPORTS.styledComponents,
+];
+
 export const createNoTaggedTemplateExpressionRule =
-  (
-    isUsage: (node: Node, references: Reference[]) => boolean,
-    messageId: string,
-  ): RuleModule['create'] =>
+  (isUsage: SupportedNameChecker, messageId: string): RuleModule['create'] =>
   (context) => ({
     TaggedTemplateExpression(node) {
       const { references } = context.getScope();
-      if (!isUsage(node.tag as Rule.Node, references)) {
+      if (!isUsage(node.tag, references, IMPORT_SOURCES)) {
         return;
       }
 

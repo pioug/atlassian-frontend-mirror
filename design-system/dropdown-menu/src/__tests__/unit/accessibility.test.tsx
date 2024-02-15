@@ -13,11 +13,25 @@ import DropdownMenu, {
   DropdownItemRadioGroup,
 } from '../../index';
 
+it('Basic Closed DropdownMenu should not fail aXe audit', async () => {
+  const { container } = render(
+    <DropdownMenu trigger="Page actions">
+      <DropdownItemGroup title="Example title">
+        <DropdownItem>Move</DropdownItem>
+        <DropdownItem>Clone</DropdownItem>
+        <DropdownItem>Delete</DropdownItem>
+      </DropdownItemGroup>
+      <DropdownItemGroup title="Example title2">
+        <DropdownItem>Hi</DropdownItem>
+      </DropdownItemGroup>
+    </DropdownMenu>,
+  );
+  await axe(container);
+});
+
 it('Basic DropdownMenu should not fail aXe audit', async () => {
   const { container } = render(
-    // TODO: Add a test case with DropdownMenu open by default
-    // https://product-fabric.atlassian.net/browse/DSP-11814
-    <DropdownMenu trigger="Page actions">
+    <DropdownMenu trigger="Page actions" isOpen>
       <DropdownItemGroup title="Example title">
         <DropdownItem>Move</DropdownItem>
         <DropdownItem>Clone</DropdownItem>

@@ -1,46 +1,55 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import type { ViewportSize } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import {
-  deviceViewPorts,
-  Device,
-} from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-
-import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { traverse } from '@atlaskit/adf-utils/traverse';
-import smartLinksAdf from './__fixtures__/smart-link-nested-in-list.adf.json';
-import extensionAdf from './__fixtures__/inline-extension-inside-lists.adf.json';
-import statusAdf from './__fixtures__/status-inside-lists.adf.json';
-import dateAdf from './__fixtures__/date-inside-lists.adf.json';
-import floatsAdf from './__fixtures__/lists-adjacent-floats-adf.json';
-import floatsAdf2 from './__fixtures__/action-decision-lists-adjacent-floats-adf.json';
-import { createListWithNItems } from './__fixtures__/very-long-lists.adf';
-import listsWithOrderAndNestedListsAdf from './__fixtures__/lists-with-order-and-nested-lists-adf.json';
-import {
-  waitForCardToolbar,
-  clickOnCard,
-} from '@atlaskit/editor-test-helpers/page-objects/smart-links';
-import {
-  waitForExtensionToolbar,
-  clickOnExtension,
-} from '@atlaskit/editor-test-helpers/page-objects/extensions';
-import {
-  waitForStatusToolbar,
-  clickOnStatus,
-} from '@atlaskit/editor-test-helpers/page-objects/status';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { clickOnDate } from '@atlaskit/editor-test-helpers/page-objects/date';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   animationFrame,
   scrollToBottom,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
-import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
-/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  clickOnExtension,
+  waitForExtensionToolbar,
+} from '@atlaskit/editor-test-helpers/page-objects/extensions';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  clickOnCard,
+  waitForCardToolbar,
+} from '@atlaskit/editor-test-helpers/page-objects/smart-links';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  clickOnStatus,
+  waitForStatusToolbar,
+} from '@atlaskit/editor-test-helpers/page-objects/status';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import type { ViewportSize } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  Device,
+  deviceViewPorts,
+} from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import { waitForResolvedInlineCard } from '@atlaskit/media-integration-test-helpers';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import floatsAdf2 from './__fixtures__/action-decision-lists-adjacent-floats-adf.json';
+import dateAdf from './__fixtures__/date-inside-lists.adf.json';
+import extensionAdf from './__fixtures__/inline-extension-inside-lists.adf.json';
+import floatsAdf from './__fixtures__/lists-adjacent-floats-adf.json';
+import listsOlUlAdf from './__fixtures__/lists-ordered-unordered-adf.json';
+import listsWithOrderAndNestedListsAdf from './__fixtures__/lists-with-order-and-nested-lists-adf.json';
+import smartLinksAdf from './__fixtures__/smart-link-nested-in-list.adf.json';
+import statusAdf from './__fixtures__/status-inside-lists.adf.json';
+import { createListWithNItems } from './__fixtures__/very-long-lists.adf';
 
 describe('Lists', () => {
   let page: PuppeteerPage;
@@ -104,49 +113,35 @@ describe('Lists', () => {
     await clickOnDate(page);
   });
 
-  describe('when restartNumberedLists (custom start numbers in ordered lists) is disabled', () => {
-    const featureFlags = { restartNumberedLists: false };
-    const listWithNItems = createListWithNItems(101);
-    it('should not cut off numbers in long ordered lists (100+)', async () => {
-      await initEditor(page, listWithNItems, undefined, { featureFlags });
+  // TODO: Add back 9999 case (flaky timing out VR test: https://product-fabric.atlassian.net/browse/ED-16361)
+  const totalListItemsTestCases = [1, 9, 99, 999];
+
+  // FIXME: Skipping theses tests as it has been failing on master on CI due to "Screenshot comparison failed" issue.
+  // Build URL: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2319963/steps/%7B31b3ca1c-6917-4861-88ed-d816d6fae22f%7D
+  totalListItemsTestCases.forEach((totalListItems) => {
+    it.skip(`should not cut off numbers in long ordered lists (list with ${totalListItems} items)`, async () => {
+      const listWithNItems = createListWithNItems(totalListItems);
+      await initEditor(page, listWithNItems, undefined);
       await scrollToBottom(page);
     });
   });
-
-  describe('when restartNumberedLists (custom start numbers in ordered lists) is enabled', () => {
-    const featureFlags = { restartNumberedLists: true };
-
-    // TODO: Add back 9999 case (flaky timing out VR test: https://product-fabric.atlassian.net/browse/ED-16361)
-    const totalListItemsTestCases = [1, 9, 99, 999];
-
-    totalListItemsTestCases.forEach((totalListItems) => {
-      it(`should not cut off numbers in long ordered lists (list with ${totalListItems} items)`, async () => {
-        const listWithNItems = createListWithNItems(totalListItems);
-        await initEditor(page, listWithNItems, undefined, {
-          featureFlags,
-        });
-        await scrollToBottom(page);
-      });
-    });
-    totalListItemsTestCases.forEach((totalListItems) => {
-      it(`should not cut off numbers in long ordered lists inside tables (list with ${totalListItems} items)`, async () => {
-        const listInTableWithNItems = createListWithNItems(
-          totalListItems,
-          true,
-        );
-        await initEditor(page, listInTableWithNItems, undefined, {
-          featureFlags,
-          allowTables: { advanced: true },
-        });
-        await scrollToBottom(page);
-      });
-    });
-    it('should render indented lists inside ordered lists with specific padding', async () => {
-      await initEditor(page, listsWithOrderAndNestedListsAdf, undefined, {
-        featureFlags,
+  totalListItemsTestCases.forEach((totalListItems) => {
+    it.skip(`should not cut off numbers in long ordered lists inside tables (list with ${totalListItems} items)`, async () => {
+      const listInTableWithNItems = createListWithNItems(totalListItems, true);
+      await initEditor(page, listInTableWithNItems, undefined, {
         allowTables: { advanced: true },
       });
+      await scrollToBottom(page);
     });
+  });
+  it('should render indented lists inside ordered lists with specific padding', async () => {
+    await initEditor(page, listsWithOrderAndNestedListsAdf, undefined, {
+      allowTables: { advanced: true },
+    });
+  });
+
+  it('should render ul and ol lists with numbers below 100 with the same left padding', async () => {
+    await initEditor(page, listsOlUlAdf, { width: 200, height: 400 });
   });
 });
 

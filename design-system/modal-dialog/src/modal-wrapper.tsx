@@ -151,7 +151,13 @@ const ModalWrapper = (props: ModalDialogProps) => {
             >
               <FocusLock
                 autoFocus={autoFocusLock}
-                disabled={!isForeground}
+                disabled={
+                  getBooleanFF(
+                    'platform.design-system-team.multiple-modal-inappropriate-focus_z5u4j',
+                  )
+                    ? undefined
+                    : !isForeground
+                }
                 returnFocus={returnFocus}
                 onDeactivation={onDeactivation}
                 whiteList={whiteListElements}

@@ -1,5 +1,282 @@
 # @atlaskit/editor-plugin-card
 
+## 1.0.0
+
+### Major Changes
+
+- [#72386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72386) [`0c52b0be40c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c52b0be40c1) - This changeset exists to bump all editor plugins that currently don't have a major version. This is to address an issue with Jira plugin consumption.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.16.11
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+- Updated dependencies
+
+## 0.16.10
+
+### Patch Changes
+
+- [#71056](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71056) [`eb723312de15`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb723312de15) - Remove `platform.linking-platform.datasource-jira_issues` feature flag from editor.
+
+## 0.16.9
+
+### Patch Changes
+
+- [#70152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70152) [`53ed3673df28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53ed3673df28) - Updating adf-schema version to 35.5.1
+- Updated dependencies
+
+## 0.16.8
+
+### Patch Changes
+
+- [#70612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70612) [`87457cd97d6b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87457cd97d6b) - Added a "datasource appearance" button to the toolbar and renamed an internal export.
+- Updated dependencies
+
+## 0.16.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.16.6
+
+### Patch Changes
+
+- [#68535](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68535) [`9d9c89e4ff0c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d9c89e4ff0c) - Implement smart-card actionOptions prop within editor and expose prop to editor and renderer
+- Updated dependencies
+
+## 0.16.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.16.4
+
+### Patch Changes
+
+- [#67576](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67576) [`c03238aac8d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c03238aac8d2) - Export some plugin types to allow fix the build type
+- Updated dependencies
+
+## 0.16.3
+
+### Patch Changes
+
+- [#66961](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66961) [`2e4913393f85`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e4913393f85) - Add logic to prevent showing datasource edit button in toolbar if datasource does not support editing.
+- Updated dependencies
+
+## 0.16.2
+
+### Patch Changes
+
+- [#67238](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67238) [`40533849b2ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40533849b2ec) - [ED-21835] Change EditorAPI type to always union with undefined
+
+## 0.16.1
+
+### Patch Changes
+
+- [#66364](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66364) [`212c782cb7a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/212c782cb7a6) - No longer require `cardOptions` to be passed to the hyperlink plugin configuration, it exposes a new optional way to skip analytics via the prependToolbarButtons action.
+- Updated dependencies
+
+## 0.16.0
+
+### Minor Changes
+
+- [#65019](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65019) [`7290a6f8d435`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7290a6f8d435) - Adding lpLinkPicker param to card and hyperlink plugins instead of using feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.15.3
+
+### Patch Changes
+
+- [#65031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65031) [`a00094111b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a00094111b5a) - ED-21609 Update adf-schema to 35.3.0
+- Updated dependencies
+
+## 0.15.2
+
+### Patch Changes
+
+- [#65152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65152) [`7b55d001d263`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7b55d001d263) - remove unused css and small refactor
+
+## 0.15.1
+
+### Patch Changes
+
+- [#64861](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64861) [`87c2c502ea93`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87c2c502ea93) - [UX] scale icon size based on font size in discoverability overlay
+- [#64817](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64817) [`afa680b9f6bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/afa680b9f6bb) - change background color for active state of discoverability overlay to match color of smart link active state
+- Updated dependencies
+
+## 0.15.0
+
+### Minor Changes
+
+- [#64107](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64107) [`0372daafc639`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0372daafc639) - [ux] Refresh the inline card discoverability overlay design:
+
+  - changed color, text size, font, padding, overlay behaviour
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.14.25
+
+### Patch Changes
+
+- [#63612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63612) [`30f0f85d5af6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30f0f85d5af6) - Disable datasource table resize button when the component is nested inside another component.
+- Updated dependencies
+
+## 0.14.24
+
+### Patch Changes
+
+- [#63549](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63549) [`c2147cd56a94`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c2147cd56a94) - Fix inconsistency of discoverability pulse
+- Updated dependencies
+
+## 0.14.23
+
+### Patch Changes
+
+- [#63354](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63354) [`0b49755d1170`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0b49755d1170) - [ux] Include embed card frame as part of its width when frameStyle is set to "show" and show embed frame by default in renderer
+
+## 0.14.22
+
+### Patch Changes
+
+- [#61458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61458) [`f69cbc65f2ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f69cbc65f2ea) - Avoid mutating state directly
+
+## 0.14.21
+
+### Patch Changes
+
+- [#62165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62165) [`b44ac0968d79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b44ac0968d79) - [ED-21562] Bump @atlaskit/adf-schema to 35.2.0 for border mark update
+- [#62149](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62149) [`f1c2b0309389`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f1c2b0309389) - Fix to bump up Jira Issues priority in the quick action menu list.
+- Updated dependencies
+
+## 0.14.20
+
+### Patch Changes
+
+- [#61628](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61628) [`c1b054119172`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1b054119172) - Fixed an issue where link deleteMethod attribute was set as unknown when changing a link to datasource table.
+
+## 0.14.19
+
+### Patch Changes
+
+- [#60660](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60660) [`102ad9375609`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/102ad9375609) - Fixed an issue where link creationMethod attribute was set as unknown when inserting via datasource config modal.
+
+## 0.14.18
+
+### Patch Changes
+
+- [#60441](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60441) [`13892b95e918`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/13892b95e918) - [ux] Refactoring of the inline card with awareness solution (behind a FF)
+
+## 0.14.17
+
+### Patch Changes
+
+- [#60808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60808) [`f509a21be124`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f509a21be124) - ED-21506: @atlaskit/adf-schema upgraded to 35.1.1 to support renderer for MBE
+- Updated dependencies
+
+## 0.14.16
+
+### Patch Changes
+
+- [#58246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58246) [`a381b2599716`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a381b2599716) - ED-21371 Update adf-schema to 35.1.0
+- Updated dependencies
+
+## 0.14.15
+
+### Patch Changes
+
+- [#58798](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58798) [`8e489065dff2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e489065dff2) - Workaround for inline overlay showing incorrectly on undo.
+
+## 0.14.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.14.13
+
+### Patch Changes
+
+- [#57192](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57192) [`cb7776f514cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb7776f514cb) - Fix issue like table and assets editor plugin card not translated issue
+
+## 0.14.12
+
+### Patch Changes
+
+- [#58979](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58979) [`e1db19a2208c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e1db19a2208c) - [ux] Passing isHovering prop to the SmartCard when user hovers on the "Change view" overlay
+- Updated dependencies
+
+## 0.14.11
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+- [#58969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58969) [`297598de20d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/297598de20d6) - ED-20809: removes web driver project reference
+- Updated dependencies
+
+## 0.14.10
+
+### Patch Changes
+
+- [#58193](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58193) [`4bf69e3255f8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4bf69e3255f8) - NO-ISSUE Added the capability to override the default card type of inline when inserting links, so we can have Loom links convert to embed cards
+- Updated dependencies
+
+## 0.14.9
+
+### Patch Changes
+
+- [#58763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58763) [`0fdbd64522bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fdbd64522bf) - update ADF schema
+- Updated dependencies
+
+## 0.14.8
+
+### Patch Changes
+
+- [#58076](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58076) [`e22c68b4b316`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e22c68b4b316) - Fix an overlay causing wrapped inline card to jump
+
+## 0.14.7
+
+### Patch Changes
+
+- [#56898](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56898) [`32d7fcd969d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32d7fcd969d5) - Analytics even 'pulse viewed' is added to inline card with awareness (behind a FF)
+
+## 0.14.6
+
+### Patch Changes
+
+- [#57368](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57368) [`d69503f13a52`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d69503f13a52) - [ux] Changed the datasource layout resize button will show only when editor is in "full-page" mode
+- Updated dependencies
+
+## 0.14.5
+
+### Patch Changes
+
+- [#56790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56790) [`ff577a7969d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff577a7969d4) - ED-21266: Updated @atlaskit/adf-schema to 34.0.1
+- Updated dependencies
+
+## 0.14.4
+
+### Patch Changes
+
+- [#56625](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56625) [`1df300977e9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1df300977e9a) - [ux] Always show link icon when showing 'change view' overlay in editor. Do not show if the overlay will cover the whole link including the icon.
+
+## 0.14.3
+
+### Patch Changes
+
+- [#43494](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43494) [`7c59a134595`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c59a134595) - [ux] Show inline card upgrade discoverability overlay on insertion. The functionality behind the inline switcher feature flag
+
 ## 0.14.2
 
 ### Patch Changes

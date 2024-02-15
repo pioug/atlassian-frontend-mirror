@@ -1,17 +1,17 @@
 import {
-  editorTestCase as test,
-  expect,
-  EditorNodeContainerModel,
   EditorActionListModel,
+  EditorNodeContainerModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
-import { simpleActionListWithShortText } from './__fixtures__/base-adfs';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   taskItem,
   taskList,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { simpleActionListWithShortText } from './__fixtures__/base-adfs';
 
 test.describe('when pressing arrow key to focus checkbox at the simple action list with short text', () => {
   test.use({

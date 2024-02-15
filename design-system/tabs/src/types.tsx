@@ -42,11 +42,11 @@ export interface TabPanelProps {
  */
 export interface TabData {
   /**
-   * String to be put inside a tab
+   * String to be put inside a tab.
    */
   label?: string;
   /**
-   * String to be put inside a tab panel
+   * String to be put inside a tab panel.
    */
   content?: ReactNode;
   /**
@@ -131,7 +131,7 @@ export type TabAttributesType = {
    */
   id: string;
   /**
-   * The id of the tab panel that this tab links.
+   * The ID of the tab panel that this tab links.
    */
   'aria-controls': string;
   /**

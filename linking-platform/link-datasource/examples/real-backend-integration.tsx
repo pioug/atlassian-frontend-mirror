@@ -16,6 +16,7 @@ import {
 } from '@atlaskit/link-provider';
 import { forceBaseUrl } from '@atlaskit/link-test-helpers/datasource';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
+import LocaleSelect, { Locale } from '@atlaskit/locale/LocaleSelect';
 import { Card } from '@atlaskit/smart-card';
 
 import {
@@ -43,6 +44,7 @@ export default () => {
   >(undefined);
   const toggleIsOpen = () => setShowModal(prevOpenState => !prevOpenState);
   const closeModal = () => setShowModal(false);
+  const [locale, setLocale] = useState('en');
 
   const onInsert = (adf: InlineCardAdf | JiraIssuesDatasourceAdf) => {
     if (adf.type === 'blockCard') {
@@ -91,7 +93,10 @@ export default () => {
   }, [generatedAdf, parameters, visibleColumnKeys]);
 
   return (
-    <IntlProvider locale="en">
+    <IntlProvider locale={locale}>
+      <LocaleSelect
+        onLocaleChange={(locale: Locale) => setLocale(locale.value)}
+      />
       <SmartCardProvider client={new SmartCardClient('staging')}>
         <Button appearance="primary" onClick={toggleIsOpen}>
           Toggle Modal

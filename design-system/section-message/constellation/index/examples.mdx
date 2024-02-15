@@ -11,7 +11,7 @@ import SectionMessageActions from '../../examples/constellation/section-message-
 
 ## Appearance
 
-By default, all section message come with an icon and an area for content. A `title` and `actions` can also be added.
+By default, all section message come with an icon and an area for content. You can also add a `title` and `actions`.
 
 ### Information
 
@@ -22,50 +22,40 @@ The `information` section message is the default appearance used to signify a ch
   packageName="@atlaskit/section-message"
 />
 
-### Success
-
-Use a `success` section message to let the user know that an action or event has happened successfully.
-
-Not a common use case for section messages.
-
-<Example
-  Component={SectionMessageSuccess}
-  packageName="@atlaskit/section-message"
-/>
-
 ### Warning
 
-Use a `warning` section message to help users:
+Use a `warning` section message to help people:
 
 - avoid errors
 - manage authentication issues
 - take the actions needed to avoid potentially dangerous actions
 - feel certain they're making the decision, for example, in confirmation modals
 
-These are the most common use cases for section messages.
-
-<a href="/content/writing-guidelines/writing-a-warning-message/">
-  Learn more about writing warning messages
-</a>
+[How to write warning messages](/content/writing-guidelines/writing-a-warning-message/)
 
 <Example
   Component={SectionMessageWarning}
   packageName="@atlaskit/section-message"
 />
 
+### Success
+
+Use a `success` section message to let the user know that an action or event has happened successfully.
+
+<Example
+  Component={SectionMessageSuccess}
+  packageName="@atlaskit/section-message"
+/>
+
 ### Error
 
-Use an `error` section message to let the user know when:
+Use an `error` section message to let people know when:
 
 - something destructive or critical has happened
 - access has been denied
 - there are connectivity issues
 
-Not a common use case for section messages.
-
-<a href="/content/writing-guidelines/writing-error-messages/">
-  Learn more about writing error messages
-</a>
+[How to write error messages](/content/writing-guidelines/writing-error-messages/)
 
 <Example
   Component={SectionMessageError}
@@ -83,7 +73,7 @@ Use a `discovery` section message to signify an update to the UI or provide info
 
 ## Actions
 
-Use the `actions` prop to let users act on the content in the section message.
+Use the `actions` prop to let people act on the content in the section message.
 
 The `SectionMessageAction` component is designed to work with the `actions` prop. In most cases you should use the section message action, but you can also use any JSX element in the `actions` array.
 

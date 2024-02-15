@@ -14,9 +14,9 @@ import {
 import InlineEdit from '../../src';
 
 const containerStyles = xcss({
-  paddingTop: 'space.100',
-  paddingRight: 'space.100',
-  paddingBottom: 'space.600',
+  paddingBlockStart: 'space.100',
+  paddingInlineEnd: 'space.100',
+  paddingBlockEnd: 'space.600',
   width: '70%',
 });
 
@@ -39,14 +39,14 @@ const InlineEditCustomTextareaExample = () => {
     <Box xcss={containerStyles}>
       <InlineEdit
         defaultValue={editValue}
-        label="Inline edit textarea (keeps edit view on blur)"
+        label="Send feedback"
         editView={({ errorMessage, ...fieldProps }, ref) => (
           // @ts-ignore - textarea does not pass through ref as a prop
           <TextArea {...fieldProps} ref={ref} />
         )}
         readView={() => (
           <Box xcss={readViewContainerStyles}>
-            {editValue || 'Click to enter a value'}
+            {editValue || 'Tell us about your experience'}
           </Box>
         )}
         onConfirm={setEditValue}

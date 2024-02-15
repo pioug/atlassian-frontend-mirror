@@ -13,6 +13,7 @@ export default {
   'feedback-collector.can-be-contacted.label':
     'Ano, týmy Atlassian mě mohou kontaktovat ohledně mých zkušeností a pomoci s vylepšováním produktů a služeb společnosti Atlassian. Potvrzuji, že znám <a>Zásady ochrany osobních údajů společnosti Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Zrušit',
+  'feedback-collector.default.custom.textarea.label': 'Co si myslíte?',
   'feedback-collector.enrol-in-research.label': 'Chci se zúčastnit produktového průzkumu',
   'feedback-collector.feedback-title': 'Sdělte nám svůj názor',
   'feedback-collector.form.bug.label': 'Popsat chybu nebo problém',
@@ -26,6 +27,7 @@ export default {
   'feedback-collector.option.default.placeholder': 'Vyberte jednu možnost.',
   'feedback-collector.option.question.label': 'Položit otázku',
   'feedback-collector.option.suggestion.label': 'Navrhnout zlepšení',
+  'feedback-collector.required.fields.summary': 'Povinná pole jsou označena hvězdičkou.',
   'feedback-collector.submit-button.label': 'Odeslat zpětnou vazbu',
   'feedback-collector.success-flag.description': 'Vaše cenná zpětná vazba nám pomáhá neustále zlepšovat naše produkty.',
   'feedback-collector.success-flag.title': 'Díky!',

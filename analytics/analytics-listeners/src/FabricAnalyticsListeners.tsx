@@ -13,6 +13,8 @@ import RecentWorkAnalyticsListener from './recentWork/RecentWorkAnalyticsListene
 import AtlasAnalyticsListener from './atlas/AtlasAnalyticsListener';
 import CrossFlowAnalyticsListener from './cross-flow/CrossFlowAnalyticsListener';
 import LinkingPlatformAnalyticsListener from './linkingPlatform/LinkingPlatformAnalyticsListener';
+import PostOfficeAnalyticsListener from './postOffice/PostOfficeAnalyticsListener';
+import AIMateAnalyticsListener from './aiMate/AIMateAnalyticsListener';
 
 export type Props = {
   /** Children! */
@@ -35,6 +37,8 @@ const listenerMap = {
   [FabricChannel.atlas]: AtlasAnalyticsListener,
   [FabricChannel.crossFlow]: CrossFlowAnalyticsListener,
   [FabricChannel.linkingPlatform]: LinkingPlatformAnalyticsListener,
+  [FabricChannel.postOffice]: PostOfficeAnalyticsListener,
+  [FabricChannel.aiMate]: AIMateAnalyticsListener,
 };
 
 class FabricAnalyticsListeners extends React.Component<Props> {

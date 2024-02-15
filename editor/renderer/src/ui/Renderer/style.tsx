@@ -1,14 +1,13 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import type { Theme } from '@emotion/react';
 import { css } from '@emotion/react';
-import { themed } from '@atlaskit/theme/components';
 import { fontFamily, fontSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
-import type { ThemeProps } from '@atlaskit/theme/types';
 
-import { token } from '@atlaskit/tokens';
+import { getGlobalTheme, token } from '@atlaskit/tokens';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
+import { mediaInlineImageStyles } from '@atlaskit/editor-common/media-inline';
 import {
   tableSharedStyle,
   columnLayoutSharedStyle,
@@ -32,6 +31,7 @@ import {
   tableCellPadding,
   textColorStyles,
   codeBlockInListSafariFix,
+  SmartCardSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
 
 import { shadowClassNames } from '@atlaskit/editor-common/ui';
@@ -41,9 +41,7 @@ import {
   editorFontSize,
   blockNodesVerticalMargin,
   akEditorTableToolbar,
-  akEditorTableToolbarDark,
   akEditorTableBorder,
-  akEditorTableBorderDark,
   akEditorTableNumberColumnWidth,
   gridMediumMaxWidth,
   akEditorFullWidthLayoutWidth,
@@ -71,7 +69,9 @@ export type RendererWrapperProps = {
 
 export const TELEPOINTER_ID = 'ai-streaming-telepointer';
 
-const telepointerStyles = (themeProps: ThemeProps) => {
+const telepointerStyles = () => {
+  const { colorMode } = getGlobalTheme();
+
   return css`
     #${TELEPOINTER_ID} {
       display: inline-block;
@@ -80,20 +80,9 @@ const telepointerStyles = (themeProps: ThemeProps) => {
       height: 25px;
       background: linear-gradient(
         45deg,
-        ${themed({
-            light: '#F8E6A0',
-            dark: '#F5CD47',
-          })(themeProps)} -12.02%,
-        ${themed({
-            light: '#8BDBE5',
-            dark: '#60C6D2',
-          })(themeProps)}
-          19.18%,
-        ${themed({
-            light: '#0C66E4',
-            dark: '#388BFF',
-          })(themeProps)}
-          71.87%
+        ${colorMode === 'dark' ? '#f5cd47' : '#f8e6a0'} -12.02%,
+        ${colorMode === 'dark' ? '#60c6d2' : '#8bdbe5'} 19.18%,
+        ${colorMode === 'dark' ? '#388bff' : '#0c66e4'} 71.87%
       );
       margin-left: ${token('space.025', '2px')};
 
@@ -114,15 +103,8 @@ const telepointerStyles = (themeProps: ThemeProps) => {
         color: ${token('color.text.inverse', 'white')};
         background: linear-gradient(
           45deg,
-          ${themed({
-              light: '#8BDBE5',
-              dark: '#60C6D2',
-            })(themeProps)} -57%,
-          ${themed({
-              light: '#0C66E4',
-              dark: '#388BFF',
-            })(themeProps)}
-            71.87%
+          ${colorMode === 'dark' ? '#60c6d2' : '#8bdbe5'} -57%,
+          ${colorMode === 'dark' ? '#388bff' : '#0c66e4'} 71.87%
         );
       }
     }
@@ -197,6 +179,16 @@ const headingAnchorStyle = (headingTag: string) =>
           opacity: 1;
           transform: none !important;
         }
+      }
+    }
+
+    /**
+     * Adds the visibility of the button when in focus through keyboard navigation.
+     */
+    .${HeadingAnchorWrapperClassName} {
+      button:focus {
+        opacity: 1;
+        transform: none !important;
       }
     }
   `;
@@ -372,7 +364,7 @@ const tableSortableColumnStyle = ({
 
 const fullPageStyles = (
   { appearance }: RendererWrapperProps,
-  { theme }: ThemeProps,
+  { theme }: { [index: string]: any },
 ) => {
   if (appearance !== 'full-page' && appearance !== 'mobile') {
     return '';
@@ -473,10 +465,7 @@ export const rendererStyles =
     return css`
       font-size: ${editorFontSize(themeProps)}px;
       line-height: 1.5rem;
-      color: ${themed({
-        light: token('color.text', colors.N800),
-        dark: token('color.text', '#B8C7E0'),
-      })(themeProps)};
+      color: ${token('color.text', colors.N800)};
 
       .${RendererCssClassName.DOCUMENT}::after {
         // we add a clearfix after ak-renderer-document in order to
@@ -492,7 +481,11 @@ export const rendererStyles =
       ${fullPageStyles(wrapperProps, themeProps)}
       ${fullWidthStyles(wrapperProps)}
 
-    & h1 {
+      .${RendererCssClassName.DOCUMENT} {
+        ${mediaInlineImageStyles}
+      }
+
+      & h1 {
         ${headingAnchorStyle('h1')}
       }
 
@@ -535,22 +528,19 @@ export const rendererStyles =
       }
 
       & span[data-placeholder] {
-        color: ${themed({
-          light: token('color.text.subtlest', colors.N200),
-          dark: token('color.text.subtlest', colors.DN200),
-        })(themeProps)};
+        color: ${token('color.text.subtlest', colors.N200)};
       }
 
-      ${telepointerStyles(themeProps)}
+      ${telepointerStyles()}
       ${whitespaceSharedStyles};
       ${blockquoteSharedStyles};
-      ${headingsSharedStyles(themeProps)};
-      ${ruleSharedStyles(themeProps)};
+      ${headingsSharedStyles()};
+      ${ruleSharedStyles()};
       ${paragraphSharedStyles};
       ${listsSharedStyles};
       ${indentationSharedStyles};
       ${blockMarksSharedStyles};
-      ${codeMarkSharedStyles(themeProps)};
+      ${codeMarkSharedStyles()};
       ${shadowSharedStyle};
       ${dateSharedStyle};
       ${textColorStyles};
@@ -566,15 +556,9 @@ export const rendererStyles =
       }
 
       & span.date-node {
-        background: ${themed({
-          light: token('color.background.neutral', colors.N30A),
-          dark: token('color.background.neutral', colors.DN70),
-        })(themeProps)};
+        background: ${token('color.background.neutral', colors.N30A)};
         border-radius: ${token('border.radius.100', '3px')};
-        color: ${themed({
-          light: token('color.text', colors.N800),
-          dark: token('color.text', colors.DN600),
-        })(themeProps)};
+        color: ${token('color.text', colors.N800)};
         padding: ${token('space.025', '2px')} ${token('space.050', '4px')};
         margin: 0 1px;
         transition: background 0.3s;
@@ -662,7 +646,7 @@ export const rendererStyles =
         }
       }
 
-      ${tableSharedStyle(themeProps)}
+      ${tableSharedStyle()}
 
       .${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER} {
         z-index: 0;
@@ -710,27 +694,18 @@ export const rendererStyles =
 
         table[data-number-column='true'] {
           .${RendererCssClassName.NUMBER_COLUMN} {
-            background-color: ${themed({
-              light: token('color.background.neutral', akEditorTableToolbar),
-              dark: token('color.background.neutral', akEditorTableToolbarDark),
-            })(themeProps)};
+            background-color: ${token(
+              'color.background.neutral',
+              akEditorTableToolbar,
+            )};
             border-right: 1px solid
-              ${themed({
-                light: token(
-                  'color.background.accent.gray.subtler',
-                  akEditorTableBorder,
-                ),
-                dark: token(
-                  'color.background.accent.gray.subtler',
-                  akEditorTableBorderDark,
-                ),
-              })(themeProps)};
+              ${token(
+                'color.background.accent.gray.subtler',
+                akEditorTableBorder,
+              )};
             width: ${akEditorTableNumberColumnWidth}px;
             text-align: center;
-            color: ${themed({
-              light: token('color.text.subtlest', colors.N200),
-              dark: token('color.text.subtlest', colors.DN400),
-            })(themeProps)};
+            color: ${token('color.text.subtlest', colors.N200)};
             font-size: ${relativeFontSizeToBase16(fontSize())};
           }
 
@@ -747,27 +722,9 @@ export const rendererStyles =
         z-index: ${akEditorStickyHeaderZIndex};
 
         border-right: 1px solid
-          ${themed({
-            light: token(
-              'color.background.accent.gray.subtler',
-              akEditorTableBorder,
-            ),
-            dark: token(
-              'color.background.accent.gray.subtler',
-              akEditorTableBorderDark,
-            ),
-          })(themeProps)};
+          ${token('color.background.accent.gray.subtler', akEditorTableBorder)};
         border-bottom: 1px solid
-          ${themed({
-            light: token(
-              'color.background.accent.gray.subtler',
-              akEditorTableBorder,
-            ),
-            dark: token(
-              'color.background.accent.gray.subtler',
-              akEditorTableBorderDark,
-            ),
-          })(themeProps)};
+          ${token('color.background.accent.gray.subtler', akEditorTableBorder)};
 
         /* this is to compensate for the table border */
         transform: translateX(-1px);
@@ -791,46 +748,13 @@ export const rendererStyles =
       .sticky th,
       .sticky td {
         box-shadow: 0px 1px
-            ${themed({
-              light: token(
-                'color.background.accent.gray.subtler',
-                akEditorTableBorder,
-              ),
-              dark: token(
-                'color.background.accent.gray.subtler',
-                akEditorTableBorderDark,
-              ),
-            })(themeProps)},
-          0px -0.5px ${themed({
-              light: token(
-                'color.background.accent.gray.subtler',
-                akEditorTableBorder,
-              ),
-              dark: token(
-                'color.background.accent.gray.subtler',
-                akEditorTableBorderDark,
-              ),
-            })(themeProps)},
-          inset -1px 0px ${themed({
-              light: token(
-                'color.background.accent.gray.subtler',
-                akEditorTableToolbar,
-              ),
-              dark: token(
-                'color.background.accent.gray.subtler',
-                akEditorTableToolbarDark,
-              ),
-            })(themeProps)},
-          0px -1px ${themed({
-              light: token(
-                'color.background.accent.gray.subtler',
-                akEditorTableToolbar,
-              ),
-              dark: token(
-                'color.background.accent.gray.subtler',
-                akEditorTableToolbarDark,
-              ),
-            })(themeProps)};
+            ${token(
+              'color.background.accent.gray.subtler',
+              akEditorTableBorder,
+            )},
+          0px -0.5px ${token('color.background.accent.gray.subtler', akEditorTableBorder)},
+          inset -1px 0px ${token('color.background.accent.gray.subtler', akEditorTableToolbar)},
+          0px -1px ${token('color.background.accent.gray.subtler', akEditorTableToolbar)};
       }
 
       /* this will remove jumpiness caused in Chrome for sticky headers */
@@ -908,7 +832,9 @@ export const rendererStyles =
         }
       }
 
-      & :not([data-node-type='decisionList']) > li {
+      &:not([data-node-type='decisionList']) > li,
+      // This prevents https://product-fabric.atlassian.net/browse/ED-20924
+      &:not(.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}) > li {
         ${browser.safari ? codeBlockInListSafariFix : ''}
       }
     `;

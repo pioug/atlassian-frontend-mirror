@@ -25,6 +25,13 @@ import { NotificationsPopup } from './shared/notifications-popup';
 import { ProfilePopup } from './shared/profile-popup';
 import { SwitcherPopup } from './shared/switcher-popup';
 
+const drawerLabelText = {
+  search: 'Search drawer',
+  settings: 'Settings drawer',
+};
+
+const { search, settings } = drawerLabelText;
+
 const ProductHomeExample = () => (
   <ProductHome
     onClick={console.log}
@@ -53,8 +60,8 @@ const SearchDrawer = () => {
         tooltip="Search"
         label="Search"
       />
-      <Drawer isOpen={isOpen} onClose={onClose}>
-        search drawer
+      <Drawer label={search} isOpen={isOpen} onClose={onClose}>
+        {search}
       </Drawer>
     </Fragment>
   );
@@ -74,8 +81,8 @@ const SettingsDrawer = () => {
   return (
     <Fragment>
       <Settings isSelected={isOpen} onClick={onClick} tooltip="Settings" />
-      <Drawer isOpen={isOpen} onClose={onClose}>
-        settings drawer
+      <Drawer label={settings} isOpen={isOpen} onClose={onClose}>
+        {settings}
       </Drawer>
     </Fragment>
   );

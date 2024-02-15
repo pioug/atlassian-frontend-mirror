@@ -26,7 +26,7 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Đặt cấu hình cột',
   'linkDataSource.jira-issues.accessInstructions':
     'Để yêu cầu quyền truy cập, hãy liên hệ với quản trị viên trang web của bạn.',
-  'linkDataSource.jira-issues.accessRequired': 'Bạn không có quyền truy cập vào trang web này',
+  'linkDataSource.jira-issues.accessRequired': 'Bạn không có quyền truy cập nội dung này',
   'linkDataSource.jira-issues.accessRequiredWithSite': 'Bạn không có quyền truy cập vào trang web sau đây:',
   'linkDataSource.jira-issues.checkConnection': 'Kiểm tra kết nối của bạn rồi làm mới hoặc thử lại sau.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
@@ -43,14 +43,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Chèn vấn đề Jira từ',
   'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, other {vấn đề}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Trình xem Vấn đề',
+  'linkDataSource.jira-issues.no.jira.sites.access.description':
+    'Hãy liên hệ với quản trị viên để yêu cầu quyền truy cập.',
+  'linkDataSource.jira-issues.no.jira.sites.access.title': 'Bạn không có quyền truy cập vào bất kỳ trang Jira nào',
   'linkDataSource.jira-issues.noResultsFound': 'Không tìm thấy kết quả',
   'linkDataSource.jira-issues.refresh': 'Làm mới',
   'linkDataSource.jira-issues.unableToLoadItems': 'Không thể tải được các mục',
   'linkDataSource.jira-issues.unableToLoadResults': 'Không tải được kết quả',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Tìm hiểu cách tìm kiếm bằng JQL',
-  'linkDataSource.modal-initial-state.searchDescription':
-    'Sử dụng JQL (Ngôn ngữ Đặt câu hỏi trên Jira) để tìm kiếm các vấn đề.',
   'linkDataSource.modal-initial-state.searchTitle': 'Tìm kiếm vấn đề Jira',
   'linkDataSource.render-type.boolean.false': 'Không',
   'linkDataSource.render-type.boolean.true': 'Có',

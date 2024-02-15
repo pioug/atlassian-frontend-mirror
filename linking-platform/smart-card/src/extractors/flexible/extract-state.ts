@@ -7,6 +7,7 @@ import {
   InvokeRequestAction,
   SmartLinkActionType,
 } from '@atlaskit/linking-types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   CardDetails,
   InvokeRequestWithCardDetails,
@@ -15,7 +16,8 @@ import { getExtensionKey } from '../../state/helpers';
 import extractServerAction from './extract-server-action';
 import { extractLink } from '@atlaskit/link-extractors';
 import { extractPreviewAction } from './actions/extract-preview-action';
-import { ServerActionOptions } from '../../view/FlexibleCard/types';
+import { CardAction, type CardActionOptions } from '../../view/Card/types';
+import { canShowAction } from '../../utils/actions/can-show-action';
 
 const toInvokeRequest = (
   extensionKey: string,
@@ -40,7 +42,6 @@ const toInvokeRequest = (
 const extractAction = (
   response?: JsonLd.Response,
   id?: string,
-  options?: ServerActionOptions,
 ): LinkLozengeInvokeActions | undefined => {
   const extensionKey = getExtensionKey(response);
   const data = response?.data as JsonLd.Data.BaseData;
@@ -81,14 +82,13 @@ const extractAction = (
     ? {
         read,
         update,
-        showFeatureDiscovery: options?.showStateActionFeatureDiscovery,
       }
     : undefined;
 };
 
 const extractState = (
   response?: JsonLd.Response,
-  showServerActions?: boolean | ServerActionOptions,
+  actionOptions?: CardActionOptions,
   id?: string,
 ): LinkLozenge | undefined => {
   if (!response || !response.data) {
@@ -96,19 +96,21 @@ const extractState = (
   }
 
   const lozenge = extractLozenge(response?.data as JsonLd.Data.BaseData);
+
   if (!lozenge) {
     return;
   }
 
-  if (!showServerActions) {
+  if (
+    !canShowAction(CardAction.ChangeStatusAction, actionOptions) ||
+    getBooleanFF(
+      'platform.linking-platform.smart-card.disable-jira-status-action',
+    )
+  ) {
     return lozenge;
   }
 
-  const action = extractAction(
-    response,
-    id,
-    typeof showServerActions === 'boolean' ? undefined : showServerActions,
-  );
+  const action = extractAction(response, id);
   return { ...lozenge, action };
 };
 

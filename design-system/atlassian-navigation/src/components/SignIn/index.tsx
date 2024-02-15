@@ -17,16 +17,18 @@ import { SignInProps } from './types';
 export const SignIn = (props: SignInProps) => {
   const { tooltip, ...iconButtonProps } = props;
   return (
-    <IconButton
-      icon={
-        <SignInIcon
-          label={typeof tooltip === 'string' ? tooltip : 'Sign-in Icon'}
-        />
-      }
-      tooltip={tooltip}
-      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-      {...iconButtonProps}
-    />
+    <div role="listitem">
+      <IconButton
+        icon={
+          <SignInIcon
+            label={typeof tooltip === 'string' ? tooltip : 'Sign-in Icon'}
+          />
+        }
+        tooltip={tooltip}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+        {...iconButtonProps}
+      />
+    </div>
   );
 };
 

@@ -6,9 +6,9 @@ import { css, jsx } from '@emotion/react';
 
 type Alignment = 'start' | 'end';
 
-interface TagGroupProps {
+export interface TagGroupProps {
   /**
-   * Whether the tags should be left-aligned or right-aligned.
+   * Sets whether the tags should be aligned to the start or the end of the component.
    */
   alignment?: Alignment;
   /**

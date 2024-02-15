@@ -1,16 +1,19 @@
 import { css } from '@emotion/react';
+
+import { decisionListSelector, taskListSelector } from '@atlaskit/adf-schema';
+import { tableFullPageEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
+import { tableMarginFullWidthMode } from '@atlaskit/editor-plugins/table/ui/consts';
 import {
+  akEditorContextPanelWidth,
   akEditorFullWidthLayoutWidth,
   akEditorGutterPadding,
   akEditorSwoopCubicBezier,
   akLayoutGutterOffset,
   ATLASSIAN_NAVIGATION_HEIGHT,
-  akEditorContextPanelWidth,
 } from '@atlaskit/editor-shared-styles';
-import { taskListSelector, decisionListSelector } from '@atlaskit/adf-schema';
+import { token } from '@atlaskit/tokens';
+
 import { createEditorContentStyle } from '../../ContentStyles';
-import { tableFullPageEditorStyles } from '@atlaskit/editor-plugin-table/ui/common-styles';
-import { tableMarginFullWidthMode } from '@atlaskit/editor-plugin-table/ui/consts';
 import { scrollbarStyles } from '../../styles';
 
 const SWOOP_ANIMATION = `0.5s ${akEditorSwoopCubicBezier}`;
@@ -75,6 +78,9 @@ export const editorContentAreaHideContainer = css`
     .extension-container {
       display: none;
     }
+    .multiBodiedExtension--container {
+      display: none;
+    }
   }
 `;
 
@@ -84,6 +90,11 @@ const editorContentAreaContainerStyle = (containerWidth: number) => css`
     .pm-table-container,
     .code-block,
     .extension-container {
+      max-width: ${containerWidth -
+      TOTAL_PADDING -
+      tableMarginFullWidthMode * 2}px;
+    }
+    .multiBodiedExtension--container {
       max-width: ${containerWidth -
       TOTAL_PADDING -
       tableMarginFullWidthMode * 2}px;
@@ -153,7 +164,7 @@ const editorContentArea = css`
     }
 
     > p:last-child {
-      margin-bottom: 24px;
+      margin-bottom: ${token('space.300', '24px')};
     }
   }
 

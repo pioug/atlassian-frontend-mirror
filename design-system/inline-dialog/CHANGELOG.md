@@ -1,5 +1,17 @@
 # @atlaskit/inline-dialog
 
+## 14.0.2
+
+### Patch Changes
+
+- [#69022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69022) [`395c74147990`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/395c74147990) - Migrate packages to use declarative entry points
+
+## 14.0.1
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
 ## 14.0.0
 
 ### Major Changes

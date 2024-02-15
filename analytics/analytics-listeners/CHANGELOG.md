@@ -1,5 +1,31 @@
 # @atlaskit/analytics-listeners
 
+## 8.9.1
+
+### Patch Changes
+
+- [#67410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67410) [`155e3b00ce67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/155e3b00ce67) - Migrate @atlaskit/analytics-listeners to use declarative entry points
+
+## 8.9.0
+
+### Minor Changes
+
+- [#66015](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66015) [`fc1f1eafbc0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fc1f1eafbc0d) - Add AI Mate analytics listener and namespaced context
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.8.0
+
+### Minor Changes
+
+- [#65162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65162) [`8374b2b32c18`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8374b2b32c18) - Add PostOffice analytics listener and namespaced context
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.7.5
 
 ### Patch Changes

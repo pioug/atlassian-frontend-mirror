@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import ExperimentalTreeItem from '../../examples/11-experimental-tree-item';
+import ExperimentalTreeItem from '../../examples/11-tree-item';
 
 snapshot(ExperimentalTreeItem, {
   variants: [

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Select, { ValueType } from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 
@@ -8,7 +8,9 @@ import Form, {
   ErrorMessage,
   Field,
   FormFooter,
+  FormHeader,
   HelperMessage,
+  RequiredAsterisk,
   ValidMessage,
 } from '../src';
 
@@ -19,15 +21,15 @@ interface Option {
 }
 
 const colors = [
-  { label: 'blue', value: 'blue' },
-  { label: 'red', value: 'red' },
-  { label: 'purple', value: 'purple' },
-  { label: 'black', value: 'black' },
-  { label: 'white', value: 'white' },
-  { label: 'gray', value: 'gray' },
-  { label: 'yellow', value: 'yellow' },
-  { label: 'orange', value: 'orange' },
-  { label: 'teal', value: 'teal' },
+  { label: 'Blue', value: 'blue' },
+  { label: 'Red', value: 'red' },
+  { label: 'Purple', value: 'purple' },
+  { label: 'Black', value: 'black' },
+  { label: 'White', value: 'white' },
+  { label: 'Gray', value: 'gray' },
+  { label: 'Yellow', value: 'yellow' },
+  { label: 'Orange', value: 'orange' },
+  { label: 'Teal', value: 'teal' },
 ];
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -70,6 +72,12 @@ export default class extends Component<{}> {
         <Form onSubmit={this.handleSubmit}>
           {({ formProps }) => (
             <form {...formProps}>
+              <FormHeader title="Register and select a color">
+                <p aria-hidden="true">
+                  Required fields are marked with an asterisk{' '}
+                  <RequiredAsterisk />
+                </p>
+              </FormHeader>
               <Field
                 name="username"
                 label="Username"
@@ -79,7 +87,7 @@ export default class extends Component<{}> {
               >
                 {({ fieldProps, error, valid }) => (
                   <Fragment>
-                    <TextField {...fieldProps} />
+                    <TextField {...fieldProps} autoComplete="username" />
                     {!error && !valid && (
                       <HelperMessage>
                         Should be more than 4 characters

@@ -28,9 +28,9 @@ export default {
   'fabric.linking.connect_to': 'Připojit k {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Připojit k: {context}',
   'fabric.linking.connect_unauthorised_account_description':
-    'Propojte {context} a Atlassian a budete moci sledovat další podrobnosti o své práci a spolupracovat na jednom místě.',
+    'Připojte svůj účet {context} a spolupracujte pomocí všech produktů Atlassian.',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    'Připojte Atlassian a budete moci sledovat další podrobnosti o své práci a spolupracovat na jednom místě.',
+    'Připojte svůj účet a spolupracujte pomocí všech produktů Atlassian.',
   'fabric.linking.continue': 'Pokračovat',
   'fabric.linking.copy_url_to_clipboard': 'Kopírovat odkaz',
   'fabric.linking.couldnt_load_link': 'Tento odkaz se z neznámého důvodu nepodařilo načíst.',
@@ -58,6 +58,7 @@ export default {
     'Pokud si chcete zobrazit tento náhled, požádejte o přístup nebo vyzkoušejte jiný účet.',
   'fabric.linking.join_to_view': 'Chcete-li si zobrazit tento požadavek, připojte se ke službě {context}.',
   'fabric.linking.last_mentioned_in': 'Naposledy zmíněno v:',
+  'fabric.linking.learn_more_about_connecting_account': 'Další informace o propojení účtu s produkty Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Další informace o chytrých odkazech',
   'fabric.linking.link_safety_warning_message':
     'Odkaz {unsafeLinkText} vás přesměruje na jiný web (<a>actual link here</a>)',

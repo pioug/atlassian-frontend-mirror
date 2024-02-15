@@ -1,4 +1,5 @@
 import React from 'react';
+
 import SectionMessage from '@atlaskit/section-message';
 
 function AlternativePackagesMessage({

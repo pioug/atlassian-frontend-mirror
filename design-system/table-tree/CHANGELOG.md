@@ -1,5 +1,29 @@
 # @atlaskit/table-tree
 
+## 9.6.12
+
+### Patch Changes
+
+- [#65882](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65882) [`9629b57b6108`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9629b57b6108) - [ux] Updated buttons in table-tree to consume new icon buttons.
+
+## 9.6.11
+
+### Patch Changes
+
+- [#63677](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63677) [`f320c8ce5039`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f320c8ce5039) - This package has been added to the Jira push model.
+
+## 9.6.10
+
+### Patch Changes
+
+- [#62386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62386) [`ac40d033cc90`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ac40d033cc90) - [ux] Remove aria-busy and add more table grid semantics
+
+## 9.6.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.6.8
 
 ### Patch Changes

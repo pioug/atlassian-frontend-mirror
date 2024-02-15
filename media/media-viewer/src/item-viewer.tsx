@@ -111,12 +111,20 @@ export class ItemViewerBase extends React.Component<Props, State> {
     wasStatusProcessing: false,
   };
 
+  isMounted = false;
+
   private traceContext: MediaTraceContext = { traceId: getRandomHex(8) };
+
+  safeSetState = (newState: State) => {
+    if (this.isMounted) {
+      this.setState(newState);
+    }
+  };
 
   UNSAFE_componentWillReceiveProps(nextProps: Props) {
     if (this.needsReset(this.props, nextProps)) {
       this.release();
-      this.setState(initialState);
+      this.safeSetState(initialState);
     }
   }
 
@@ -127,10 +135,12 @@ export class ItemViewerBase extends React.Component<Props, State> {
   }
 
   componentWillUnmount() {
+    this.isMounted = false;
     this.release();
   }
 
   componentDidMount() {
+    this.isMounted = true;
     this.init(this.props);
   }
 
@@ -152,7 +162,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
   };
 
   private onLoadFail = (mediaViewerError: MediaViewerError) => {
-    this.setState({
+    this.safeSetState({
       item: Outcome.failed(mediaViewerError),
     });
   };
@@ -173,7 +183,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
   };
 
   private onExternalImgError = () => {
-    this.setState({
+    this.safeSetState({
       item: Outcome.failed(
         new MediaViewerError('imageviewer-external-onerror'),
       ),
@@ -385,7 +395,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
       // external images do not need to talk to our backend,
       // so therefore no need for media-client subscriptions.
       // just set a successful outcome of type "external-image".
-      this.setState({
+      this.safeSetState({
         item: Outcome.successful('external-image'),
       });
       return;
@@ -405,12 +415,12 @@ export class ItemViewerBase extends React.Component<Props, State> {
       .subscribe({
         next: (file) => {
           this.updateFileStateFlag(file);
-          this.setState({
+          this.safeSetState({
             item: Outcome.successful(file),
           });
         },
         error: (error: Error) => {
-          this.setState({
+          this.safeSetState({
             item: Outcome.failed(
               new MediaViewerError('itemviewer-fetch-metadata', error),
             ),

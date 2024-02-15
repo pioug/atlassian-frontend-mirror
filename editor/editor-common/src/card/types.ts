@@ -35,6 +35,7 @@ export type QueueCardsFromTransactionAction = (
   analyticsAction?: ACTION,
   normalizeLinkText?: boolean,
   sourceEvent?: UIAnalyticsEvent | null | undefined,
+  appearance?: CardAppearance,
 ) => Transaction;
 export type HideLinkToolbarAction = (tr: Transaction) => Transaction;
 export type ChangeSelectedCardToLink = (

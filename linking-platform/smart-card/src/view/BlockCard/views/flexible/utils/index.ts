@@ -1,4 +1,3 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { JsonLd } from 'json-ld-types';
 import {
   ElementName,
@@ -14,6 +13,7 @@ import { ElementItem } from '../../../../FlexibleCard/components/blocks/types';
 import { extractOwnedBy } from '../../../../../extractors/flexible/utils';
 import { getExtensionKey } from '../../../../../state/helpers';
 import { footerBlockCss, titleBlockCss } from '../styled';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const baseTopMetadata: ElementItem[] = [
   { name: ElementName.ModifiedOn },
@@ -48,6 +48,23 @@ export const getSimulatedBetterMetadata = (
   const defaultBottomMetadata = baseBottomMetaData;
 
   switch (extensionKey) {
+    case 'bitbucket-object-provider':
+    case 'native-bitbucket-object-provider':
+      const isFile = data['@type'].includes('schema:DigitalDocument');
+      return {
+        titleMetadata: defaultTitleMetadata,
+        topMetadata:
+          getBooleanFF(
+            'platform.linking-platform.extractor.improve-bitbucket-file-links',
+          ) && isFile
+            ? [
+                { name: ElementName.LatestCommit },
+                { name: ElementName.CollaboratorGroup },
+                { name: ElementName.ModifiedOn },
+              ]
+            : defaultTopMetadata,
+        bottomMetadata: defaultBottomMetadata,
+      };
     case 'confluence-object-provider':
       return {
         titleMetadata: defaultTitleMetadata,
@@ -110,19 +127,13 @@ type SimulatedMetadata = {
 
 export const FlexibleCardUiOptions: FlexibleUiOptions = { hideElevation: true };
 
-// Due to the use of getBooleanFF(), this has to be a function.
-// Make this a const object after ff cleanup.
-export const getTitleBlockOptions = (): Partial<TitleBlockProps> => ({
-  anchorTarget: getBooleanFF(
-    'platform.linking-platform.smart-card.enable-block-card-clicks-opening-in-same-tab',
-  )
-    ? '_self'
-    : undefined,
+export const titleBlockOptions: Partial<TitleBlockProps> = {
+  anchorTarget: '_self',
   position: SmartLinkPosition.Center,
   overrideCss: titleBlockCss,
   hideRetry: true,
   size: SmartLinkSize.Large,
-});
+};
 
 export const PreviewBlockOptions: Partial<PreviewBlockProps> = {
   placement: MediaPlacement.Right,

@@ -1,18 +1,19 @@
 import {
   EditorMediaSingleModel,
   EditorNodeContainerModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import { oneImage, imageWithCaption } from './caption.spec.ts-fixtures';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  doc,
-  p,
-  mediaSingle,
-  media,
   caption,
+  doc,
+  media,
+  mediaSingle,
+  p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { imageWithCaption, oneImage } from './caption.spec.ts-fixtures';
 
 test.describe('Caption', () => {
   test.describe('inserting.ts', () => {

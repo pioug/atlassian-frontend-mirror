@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 
 import { Block, Centered, RetryContainer } from '../examples-utils';
 import { ExitingPersistence, SlideIn } from '../src';
@@ -21,7 +21,7 @@ export default () => {
   return (
     <RetryContainer>
       <div css={{ textAlign: 'center' }}>
-        <ButtonGroup>
+        <ButtonGroup label="Motion options">
           <Button onClick={() => setIsIn((prev) => !prev)}>
             {isIn ? 'Exit' : 'Enter'}
           </Button>

@@ -4,14 +4,14 @@ exports[`ArticlesListItem Should match snapshot 1`] = `
 .emotion-3 {
   position: relative;
   box-sizing: border-box;
-  padding: var(--ds-space-100,8px);
+  padding: var(--ds-space-100, 8px);
   display: block;
   -webkit-text-decoration: none;
   text-decoration: none;
   cursor: pointer;
-  color: var(--ds-text-subtlest,#6B778C);
+  color: var(--ds-text-subtlest, #6B778C);
   border-radius: 3px;
-  background-color: var(--ds-background-neutral-subtle,transparent);
+  background-color: var(--ds-background-neutral-subtle, transparent);
 }
 
 .emotion-3:hover,
@@ -25,15 +25,15 @@ exports[`ArticlesListItem Should match snapshot 1`] = `
 }
 
 .emotion-3:focus {
-  box-shadow: var(--ds-border-focused,#4C9AFF) 0px 0px 0px 2px inset;
+  box-shadow: var(--ds-border-focused, #4C9AFF) 0px 0px 0px 2px inset;
 }
 
 .emotion-3:hover {
-  background-color: var(--ds-background-neutral-subtle-hovered,#EBECF0);
+  background-color: var(--ds-background-neutral-subtle-hovered, #EBECF0);
 }
 
 .emotion-3:active {
-  background-color: var(--ds-background-neutral-subtle-pressed,#DEEBFF);
+  background-color: var(--ds-background-neutral-subtle-pressed, #DEEBFF);
 }
 
 .emotion-1 {
@@ -44,20 +44,20 @@ exports[`ArticlesListItem Should match snapshot 1`] = `
 .emotion-0 {
   -webkit-text-decoration: none;
   text-decoration: none;
-  color: var(--ds-text,#172B4D);
+  color: var(--ds-text, #172B4D);
   font-size: 14px;
   font-weight: 600;
   display: inline-block;
-  line-height: var(--ds-font-lineHeight-200,20px);
+  line-height: var(--ds-font-lineHeight-200, 20px);
   white-space: normal;
   overflow-x: hidden;
-  margin-bottom: var(--ds-space-100,8px);
+  margin-bottom: var(--ds-space-100, 8px);
 }
 
 .emotion-2 {
   display: block;
-  line-height: var(--ds-font-lineHeight-200,20px);
-  color: var(--ds-text-subtle,#505F79);
+  line-height: var(--ds-font-lineHeight-200, 20px);
+  color: var(--ds-text-subtle, #505F79);
   margin: 0;
 }
 

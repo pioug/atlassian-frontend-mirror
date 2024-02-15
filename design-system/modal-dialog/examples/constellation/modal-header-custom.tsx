@@ -3,9 +3,8 @@ import { useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button, { IconButton } from '@atlaskit/button/new';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Modal, {
@@ -31,12 +30,12 @@ const CustomHeader = () => {
       <h1 css={headingStyles} id={titleId}>
         Custom modal header
       </h1>
-      <Button appearance="link" onClick={onClose}>
-        <CrossIcon
-          label="Close Modal"
-          primaryColor={token('color.text.subtle', N500)}
-        />
-      </Button>
+      <IconButton
+        appearance="subtle"
+        icon={CrossIcon}
+        label="Close Modal"
+        onClick={onClose}
+      />
     </div>
   );
 };

@@ -13,3 +13,8 @@ exports[`ADF => WikiMarkup - BlockQuote should convert blockquote node with a si
 with a single paragraph
 and hardbreaks{quote}"
 `;
+
+exports[`ADF => WikiMarkup - BlockQuote should convert list inside a blockquote 1`] = `
+"{quote}* item 1
+* item 2{quote}"
+`;

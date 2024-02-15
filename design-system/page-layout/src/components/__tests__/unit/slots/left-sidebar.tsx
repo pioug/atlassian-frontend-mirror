@@ -55,7 +55,7 @@ describe('Left sidebar', () => {
       );
     });
 
-    it('should call onCollapse callback when ResizeButton is clicked', () => {
+    it('should call onLeftSidebarCollapse callback when ResizeButton is clicked', () => {
       const fn = jest.fn();
       const { getByTestId } = render(
         <PageLayout testId="grid" onLeftSidebarCollapse={fn}>
@@ -77,7 +77,7 @@ describe('Left sidebar', () => {
       );
     });
 
-    it('should always call the latest onCollapse function', () => {
+    it('should always call the latest onLeftSidebarCollapse function', () => {
       const ordered: string[] = [];
       function App() {
         const [onCollapse, setOnCollapse] = useState<() => void>(
@@ -86,7 +86,7 @@ describe('Left sidebar', () => {
           },
         );
 
-        // immediately setting `onCollapse` to a new function in the first render
+        // immediately setting `onLeftSidebarCollapse` to a new function in the first render
         useEffect(() => {
           setOnCollapse(function setState() {
             return () => ordered.push('second fn');
@@ -113,7 +113,7 @@ describe('Left sidebar', () => {
       expect(ordered).toEqual(['second fn']);
     });
 
-    it('should still call onCollapse even if re-rendered during the transition', () => {
+    it('should still call onLeftSidebarCollapse even if re-rendered during the transition', () => {
       const ordered: string[] = [];
       function App() {
         ordered.push('render');
@@ -144,7 +144,7 @@ describe('Left sidebar', () => {
       expect(ordered).toEqual(['render', 'render', 'collapse']);
     });
 
-    it('should abort onCollapse if unmounted during transition', () => {
+    it('should abort onLeftSidebarCollapse if unmounted during transition', () => {
       const ordered: string[] = [];
       function App() {
         useEffect(() => {
@@ -186,7 +186,7 @@ describe('Left sidebar', () => {
       expect(ordered).toEqual(['mounted', 'unmounted']);
     });
 
-    it('should flush onCollapse if expanded during transition', () => {
+    it('should flush onLeftSidebarCollapse if expanded during transition', () => {
       const ordered: string[] = [];
       function App() {
         return (
@@ -256,7 +256,7 @@ describe('Left sidebar', () => {
       );
     });
 
-    it('should call onExpand callback when ResizeButton is clicked in collapsed state', () => {
+    it('should call onLeftSidebarExpand callback when ResizeButton is clicked in collapsed state', () => {
       const fn = jest.fn();
       const { getByTestId } = render(
         <PageLayout testId="grid" onLeftSidebarExpand={fn}>
@@ -283,7 +283,7 @@ describe('Left sidebar', () => {
       );
     });
 
-    it('should always call the latest onExpand function', () => {
+    it('should always call the latest onLeftSidebarExpand function', () => {
       const ordered: string[] = [];
       function App() {
         const [onExpand, setOnExpand] = useState<() => void>(
@@ -292,7 +292,7 @@ describe('Left sidebar', () => {
           },
         );
 
-        // immediately setting `onCollapse` to a new function in the first render
+        // immediately setting `onLeftSidebarExpand` to a new function in the first render
         useEffect(() => {
           setOnExpand(function setState() {
             return () => ordered.push('second fn');
@@ -324,7 +324,7 @@ describe('Left sidebar', () => {
       expect(ordered).toEqual(['second fn']);
     });
 
-    it('should still call onExpand even if re-rendered during the transition', () => {
+    it('should still call onLeftSidebarExpand even if re-rendered during the transition', () => {
       const ordered: string[] = [];
       function App() {
         ordered.push('render');
@@ -359,7 +359,7 @@ describe('Left sidebar', () => {
       expect(ordered).toEqual(['render', 'render', 'expand']);
     });
 
-    it('should abort onExpand if unmounted during transition', () => {
+    it('should abort onLeftSidebarExpand if unmounted during transition', () => {
       const ordered: string[] = [];
       function App() {
         useEffect(() => {
@@ -401,7 +401,7 @@ describe('Left sidebar', () => {
       expect(ordered).toEqual(['mounted', 'unmounted']);
     });
 
-    it('should flush onExpand if collapsed during transition', () => {
+    it('should flush onLeftSidebarExpand if collapsed during transition', () => {
       const ordered: string[] = [];
       function App() {
         return (
@@ -586,6 +586,33 @@ describe('Left sidebar', () => {
       fireEvent.mouseUp(handle);
       completeAnimations();
       expect(resizeEnd).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not move the LeftSidebar when GrabArea is right-clicked', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200}>
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+      const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+
+      // { button: 2 } indicates a right-click. Only 0 (default) triggers a resize.
+      fireEvent.mouseDown(handle, { clientX: 200, button: 2 });
+      fireEvent.mouseMove(document, {
+        clientX: 250,
+        clientY: 0,
+      });
+      completeAnimations();
+
+      expect(getDimension('leftSidebarWidth')).toEqual('240px');
+
+      fireEvent.mouseUp(handle);
+      completeAnimations();
     });
 
     it('should not move the LeftSidebar when GrabArea is clicked to the right', () => {

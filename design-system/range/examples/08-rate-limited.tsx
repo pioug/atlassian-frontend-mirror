@@ -3,6 +3,8 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 
+import { Label } from '@atlaskit/form';
+
 import Range from '../src';
 
 function RateLimitedRange() {
@@ -43,7 +45,9 @@ function RateLimitedRange() {
 
   return (
     <Fragment>
+      <Label htmlFor="range-limited">Range limited</Label>
       <Range
+        id="range-limited"
         step={1}
         value={value}
         onChange={(currentValue) => {

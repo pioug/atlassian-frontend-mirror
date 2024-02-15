@@ -1,6 +1,6 @@
 import React, { Fragment, MouseEvent } from 'react';
 
-import Button from '@atlaskit/button';
+import { LinkButton } from '@atlaskit/button/new';
 import Icon from '@atlaskit/icon';
 import { Box } from '@atlaskit/primitives';
 
@@ -16,13 +16,17 @@ const Example = () => {
           useDeprecatedApi={false}
           description={
             <Fragment>
-              <Button appearance="link" href="/feedback" spacing="none">
+              <LinkButton
+                appearance="subtle-link"
+                href="/feedback"
+                spacing="none"
+              >
                 Give feedback
-              </Button>
+              </LinkButton>
               {' ∙ '}
-              <Button appearance="link" href="/learn" spacing="none">
+              <LinkButton appearance="subtle-link" href="/learn" spacing="none">
                 Learn more
-              </Button>
+              </LinkButton>
             </Fragment>
           }
         >
@@ -36,13 +40,17 @@ const Example = () => {
           iconBefore={<Icon label="" glyph={SampleIcon} />}
           description={
             <Fragment>
-              <Button appearance="link" href="/feedback" spacing="none">
+              <LinkButton
+                appearance="subtle-link"
+                href="/feedback"
+                spacing="none"
+              >
                 Give feedback
-              </Button>
+              </LinkButton>
               {' ∙ '}
-              <Button appearance="link" href="/learn" spacing="none">
+              <LinkButton appearance="subtle-link" href="/learn" spacing="none">
                 Learn more
-              </Button>
+              </LinkButton>
             </Fragment>
           }
         >

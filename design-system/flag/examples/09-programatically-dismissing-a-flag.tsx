@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Box from '@atlaskit/primitives/box';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 

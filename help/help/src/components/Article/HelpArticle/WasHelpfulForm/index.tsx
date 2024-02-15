@@ -1,3 +1,6 @@
+/** @jsx jsx */
+/** @jsxFrag */
+
 import React, { useState } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import {
@@ -17,6 +20,7 @@ import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
+import { jsx } from '@emotion/react';
 
 import { messages } from '../../../../messages';
 import { ArticleFeedback } from '../../../../model/Article';

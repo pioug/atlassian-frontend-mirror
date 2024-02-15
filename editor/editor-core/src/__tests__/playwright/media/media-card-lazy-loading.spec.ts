@@ -1,11 +1,12 @@
 import {
-  editorTestCase as test,
-  EditorNodeContainerModel,
+  BROWSERS,
   EditorMediaSingleModel,
+  EditorNodeContainerModel,
   expect,
   fixTest,
-  BROWSERS,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import { mediaCardLazyLoad } from './__fixtures__/adf-documents';
 
 test.use({

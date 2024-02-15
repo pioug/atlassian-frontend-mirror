@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import * as colors from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';

@@ -1,16 +1,21 @@
 ---
 order: 1
+props:
+  packageName: '@atlaskit/breadcrumbs'
+  exports:
+    - default
+    - BreadcrumbsItem
 ---
-
-import BreadcrumbsProps from '!!extract-react-types-loader!../../extract-react-types/breadcrumbs-props';
-import BreadcrumbsItemProps from '!!extract-react-types-loader!../../src/components/breadcrumbs-item';
 
 ## Props
 
 ### Breadcrumbs props
 
-<PropsTable heading="" props={BreadcrumbsProps} />
+<TSMorphProps packageName="@atlaskit/breadcrumbs" exportName="default" />
 
 ### Breadcrumbs item props
 
-<PropsTable heading="" props={BreadcrumbsItemProps} />
+<TSMorphProps
+  packageName="@atlaskit/breadcrumbs"
+  exportName="BreadcrumbsItem"
+/>

@@ -1,12 +1,13 @@
-import { snapshotInformational } from '@af/visual-regression';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import type { Page, Locator } from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
+
 import {
   EditorDividerModel,
   EditorGapCursorModel,
   EditorNodeContainerModel,
   EditorPageModel,
 } from '@af/editor-libra/page-models';
+import { snapshotInformational } from '@af/visual-regression';
 
 import { CONTENT_AREA_TEST_ID } from '../../../ui/Appearance/FullPage/FullPageContentArea';
 
@@ -20,12 +21,12 @@ snapshotInformational(EditorGapCursorDefault, {
   selector: {
     byTestId: CONTENT_AREA_TEST_ID,
   },
-  prepare: async (page: Page, component: Locator) => {
+  prepare: async (page: Page) => {
     const editor = await EditorPageModel.from({ page });
     const nodes = EditorNodeContainerModel.from(editor);
     await nodes.codeBlock.click();
-    editor.keyboard.press('ArrowRight');
-    editor.keyboard.press('ArrowRight');
+    await editor.keyboard.press('ArrowRight');
+    await editor.keyboard.press('ArrowRight');
     const gapCursor = EditorGapCursorModel.from(editor);
     await gapCursor.waitForStable();
   },
@@ -36,12 +37,12 @@ snapshotInformational(EditorGapCursorDefault, {
   selector: {
     byTestId: CONTENT_AREA_TEST_ID,
   },
-  prepare: async (page: Page, component: Locator) => {
+  prepare: async (page: Page) => {
     const editor = await EditorPageModel.from({ page });
     const nodes = EditorNodeContainerModel.from(editor);
     await nodes.panel.click();
-    editor.keyboard.press('ArrowLeft');
-    editor.keyboard.press('ArrowLeft');
+    await editor.keyboard.press('ArrowLeft');
+    await editor.keyboard.press('ArrowLeft');
     const gapCursor = EditorGapCursorModel.from(editor);
     await gapCursor.waitForStable();
   },
@@ -52,13 +53,13 @@ snapshotInformational(EditorGapCursorDefault, {
   selector: {
     byTestId: CONTENT_AREA_TEST_ID,
   },
-  prepare: async (page: Page, component: Locator) => {
+  prepare: async (page: Page) => {
     const editor = await EditorPageModel.from({ page });
     const nodes = EditorNodeContainerModel.from(editor);
     await nodes.panel.click();
-    editor.keyboard.press('ArrowLeft');
-    editor.keyboard.press('ArrowLeft');
-    editor.keyboard.press('ArrowUp');
+    await editor.keyboard.press('ArrowLeft');
+    await editor.keyboard.press('ArrowLeft');
+    await editor.keyboard.press('ArrowUp');
     const gapCursor = EditorGapCursorModel.from(editor);
     await gapCursor.waitForStable();
   },
@@ -69,13 +70,13 @@ snapshotInformational(EditorGapCursorDefault, {
   selector: {
     byTestId: CONTENT_AREA_TEST_ID,
   },
-  prepare: async (page: Page, component: Locator) => {
+  prepare: async (page: Page) => {
     const editor = await EditorPageModel.from({ page });
     const nodes = EditorNodeContainerModel.from(editor);
     await nodes.codeBlock.click();
-    editor.keyboard.press('ArrowRight');
-    editor.keyboard.press('ArrowRight');
-    editor.keyboard.press('ArrowDown');
+    await editor.keyboard.press('ArrowRight');
+    await editor.keyboard.press('ArrowRight');
+    await editor.keyboard.press('ArrowDown');
     const gapCursor = EditorGapCursorModel.from(editor);
     await gapCursor.waitForStable();
   },
@@ -90,8 +91,8 @@ snapshotInformational(EditorGapCursorLayout, {
     const editor = await EditorPageModel.from({ page });
     const nodes = EditorNodeContainerModel.from(editor);
     await nodes.status.click();
-    editor.keyboard.press('ArrowRight');
-    editor.keyboard.press('ArrowRight');
+    await editor.keyboard.press('ArrowRight');
+    await editor.keyboard.press('ArrowRight');
     const gapCursor = EditorGapCursorModel.from(editor);
     await gapCursor.waitForStable();
   },
@@ -109,7 +110,7 @@ snapshotInformational(EditorGapCursorLayout, {
     await p.click();
     const divider = EditorDividerModel.from(nodes.divider.nth(0));
     await divider.select();
-    editor.keyboard.press('ArrowLeft');
+    await editor.keyboard.press('ArrowLeft');
     const gapCursor = EditorGapCursorModel.from(editor);
     await gapCursor.waitForStable();
   },
@@ -127,7 +128,7 @@ snapshotInformational(EditorGapCursorLayout, {
     await p.click();
     const divider = EditorDividerModel.from(nodes.divider.nth(0));
     await divider.select();
-    editor.keyboard.press('ArrowRight');
+    await editor.keyboard.press('ArrowRight');
     const gapCursor = EditorGapCursorModel.from(editor);
     await gapCursor.waitForStable();
   },
@@ -145,14 +146,13 @@ snapshotInformational(EditorGapCursorLayout, {
     await p.click();
     const divider = EditorDividerModel.from(nodes.divider.nth(1));
     await divider.select();
-    editor.keyboard.press('ArrowLeft');
+    await editor.keyboard.press('ArrowLeft');
     const gapCursor = EditorGapCursorModel.from(editor);
     await gapCursor.waitForStable();
   },
 });
 
-// Skipped flaky test
-snapshotInformational.skip(EditorGapCursorLayout, {
+snapshotInformational(EditorGapCursorLayout, {
   description: 'Gap cursor after last divider',
   selector: {
     byTestId: CONTENT_AREA_TEST_ID,
@@ -164,7 +164,7 @@ snapshotInformational.skip(EditorGapCursorLayout, {
     await p.click();
     const divider = EditorDividerModel.from(nodes.divider.nth(1));
     await divider.select();
-    editor.keyboard.press('ArrowRight');
+    await editor.keyboard.press('ArrowRight');
     const gapCursor = EditorGapCursorModel.from(editor);
     await gapCursor.waitForStable();
   },

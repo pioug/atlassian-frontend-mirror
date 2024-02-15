@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/color-picker",
-  "version": "3.1.9",
+  "version": "3.2.3",
   "description": "Jira Color Picker Component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -22,22 +22,25 @@
   },
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Jira Software: Roadmaps",
+    "team": "AAIS: Chronos",
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Color Picker"
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/icon": "^22.0.0",
-    "@atlaskit/select": "^17.0.0",
+    "@atlaskit/select": "^17.1.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
-    "@atlaskit/tooltip": "^18.0.0",
+    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tooltip": "^18.1.0",
     "@babel/runtime": "^7.0.0",
-    "memoize-one": "^6.0.0",
-    "styled-components": "^3.2.6"
+    "@emotion/react": "^11.7.1",
+    "memoize-one": "^6.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"

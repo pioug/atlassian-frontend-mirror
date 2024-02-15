@@ -4,8 +4,7 @@ import {
   MediaWithPixelWidthFullWidth,
 } from '../__helpers/rendererComponents';
 
-// FIXME: Screenshot mismatch on CI https://product-fabric.atlassian.net/browse/ED-19604
-snapshot.skip(MediaWithPixelWidth, {
+snapshot(MediaWithPixelWidth, {
   variants: [
     {
       name: 'desktop',
@@ -18,5 +17,4 @@ snapshot.skip(MediaWithPixelWidth, {
   ],
 });
 
-// FIXME: Screenshot mismatch on CI https://product-fabric.atlassian.net/browse/ED-19604
-snapshot.skip(MediaWithPixelWidthFullWidth);
+snapshot(MediaWithPixelWidthFullWidth);

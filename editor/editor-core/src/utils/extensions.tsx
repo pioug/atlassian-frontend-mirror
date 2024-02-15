@@ -1,5 +1,16 @@
 import React from 'react';
+
 import Loadable from 'react-loadable';
+
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  fireAnalyticsEvent,
+  INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import {
   getQuickInsertItemsFromModule,
   resolveImport,
@@ -8,22 +19,13 @@ import type {
   ExtensionProvider,
   MenuItem,
 } from '@atlaskit/editor-common/extensions';
-import { combineProviders } from '@atlaskit/editor-common/provider-helpers';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import {
+import type {
   QuickInsertItem,
   QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-  INPUT_METHOD,
-  fireAnalyticsEvent,
-} from '@atlaskit/editor-common/analytics';
+import { combineProviders } from '@atlaskit/editor-common/provider-helpers';
 
-import EditorActions from '../actions';
+import type EditorActions from '../actions';
 
 /**
  * Utils to send analytics event when a extension is inserted using quickInsert

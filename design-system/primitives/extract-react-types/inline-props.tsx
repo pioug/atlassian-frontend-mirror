@@ -3,6 +3,7 @@ import { ElementType, ReactNode } from 'react';
 import type {
   AlignBlock,
   AlignInline,
+  BasePrimitiveProps,
   Grow,
   Spread,
 } from '../src/components/types';
@@ -23,7 +24,7 @@ type Space =
   | 'space.800'
   | 'space.1000';
 
-interface InlineProps<T extends ElementType = 'div'> {
+type InlineProps<T extends ElementType = 'div'> = {
   /**
    * The DOM element to render as the Inline. Defaults to `div`.
    */
@@ -83,6 +84,6 @@ interface InlineProps<T extends ElementType = 'div'> {
    * Forwarded ref element
    */
   ref?: React.ComponentPropsWithRef<T>['ref'];
-}
+} & BasePrimitiveProps;
 
 export default function Inline(_: InlineProps) {}

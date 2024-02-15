@@ -1,5 +1,327 @@
 # @atlaskit/link-datasource
 
+## 1.22.5
+
+### Patch Changes
+
+- [#72501](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72501) [`0257e7b1b408`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0257e7b1b408) - Fix attribute for auth analytics events uses meta.extensionKey instead of auth.key
+- Updated dependencies
+
+## 1.22.4
+
+### Patch Changes
+
+- [#71047](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71047) [`931a7edba41e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/931a7edba41e) - update window.location usage to be compatible with SSR
+
+## 1.22.3
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+- [#70460](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70460) [`2f37600156ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f37600156ae) - The internal composition of a component in this package has changed. There is no expected change in behaviour.
+- Updated dependencies
+
+## 1.22.2
+
+### Patch Changes
+
+- [#70489](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70489) [`8bf6a93203db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8bf6a93203db) - Define analytics events to fire when provider Authentication succeeds or fail.
+- [#70400](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70400) [`933b3c1e55d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/933b3c1e55d4) - [ux] css styling for Avatar group styles is increased in specificity for inserting and rendering from Jira Issues modal to ensure that editor css does not apply to the component
+- Updated dependencies
+
+## 1.22.1
+
+### Patch Changes
+
+- [#70152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70152) [`53ed3673df28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53ed3673df28) - Updating adf-schema version to 35.5.1
+
+## 1.22.0
+
+### Minor Changes
+
+- [#70612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70612) [`87457cd97d6b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87457cd97d6b) - Exported `buildDatasourceAdf` utility.
+
+## 1.21.0
+
+### Minor Changes
+
+- [#67808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67808) [`0a06727747b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a06727747b2) - [ux] Adding new auth UI/UX to enable users to connect 3P datasource accounts.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.20.0
+
+### Minor Changes
+
+- [#67414](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67414) [`e1ad52cb07b8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e1ad52cb07b8) - [ux] Change to display multiple avatar images of users in a group component rather than on new lines
+
+## 1.19.46
+
+### Patch Changes
+
+- [#69638](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69638) [`41429d7a17d8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/41429d7a17d8) - Update DatasourceTableView error states refresh button to reset with shouldForceRequest
+- Updated dependencies
+
+## 1.19.45
+
+### Patch Changes
+
+- [#68840](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68840) [`7d055de94e3d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7d055de94e3d) - Replaced `@atlassianlabs/jql-editor` dependency with `@atlaskit/jql-editor`
+- Updated dependencies
+
+## 1.19.44
+
+### Patch Changes
+
+- [#67222](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67222) [`c8245836a600`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c8245836a600) - Fix search race condition in Assets Config Modal
+
+## 1.19.43
+
+### Patch Changes
+
+- [#68194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68194) [`c1d4a8fecc4e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1d4a8fecc4e) - bump json-ld-types to version 3.11.0
+
+## 1.19.42
+
+### Patch Changes
+
+- [#67168](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67168) [`aa400684d082`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa400684d082) - [ux] Updating modal insert button to show 'Update table' when editing existing table
+- [#63918](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63918) [`ab7df781854a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab7df781854a) - Updating mode switcher toggle with drop down for issue/count view
+
+## 1.19.41
+
+### Patch Changes
+
+- [#65779](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65779) [`a68623048896`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a68623048896) - Improve handling of column resizing and remove standard table css styles bleeding to datasource table when it is inside table
+
+## 1.19.40
+
+### Patch Changes
+
+- [#64455](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64455) [`fcb3bcdbead3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fcb3bcdbead3) - Fixes issue duplication in list of links after adding columns through the config modal by checking responseItems for duplications
+
+## 1.19.39
+
+### Patch Changes
+
+- [#65031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65031) [`a00094111b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a00094111b5a) - ED-21609 Update adf-schema to 35.3.0
+
+## 1.19.38
+
+### Patch Changes
+
+- [#63865](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63865) [`3626f73af8aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3626f73af8aa) - added tooltips to datasource table items
+- Updated dependencies
+
+## 1.19.37
+
+### Patch Changes
+
+- [#64237](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64237) [`60749f37a107`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/60749f37a107) - [ux] Revert issue duplication in list of links due to infinite loop bug
+
+## 1.19.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.19.35
+
+### Patch Changes
+
+- [#63616](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63616) [`01ee02f34d54`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01ee02f34d54) - Fixes issue duplication in list of links after adding columns through the config modal.
+
+## 1.19.34
+
+### Patch Changes
+
+- [#62410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62410) [`57566ae14827`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/57566ae14827) - Added a global analytics context that adds `component` to context of all analytic events to generate `componentHierarchy` attribute.
+
+## 1.19.33
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.19.32
+
+### Patch Changes
+
+- [#62165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62165) [`b44ac0968d79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b44ac0968d79) - [ED-21562] Bump @atlaskit/adf-schema to 35.2.0 for border mark update
+
+## 1.19.31
+
+### Patch Changes
+
+- [#61273](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61273) [`95284bcc1fe4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/95284bcc1fe4) - Update the default JQL query to remove usage of `created` field.
+
+## 1.19.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.19.29
+
+### Patch Changes
+
+- [#60321](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60321) [`73b1cdac3c9b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73b1cdac3c9b) - Sort unselected options in column picker alphabetically.
+- Updated dependencies
+
+## 1.19.28
+
+### Patch Changes
+
+- [#60808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60808) [`f509a21be124`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f509a21be124) - ED-21506: @atlaskit/adf-schema upgraded to 35.1.1 to support renderer for MBE
+
+## 1.19.27
+
+### Patch Changes
+
+- [#58246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58246) [`a381b2599716`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a381b2599716) - ED-21371 Update adf-schema to 35.1.0
+
+## 1.19.26
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
+## 1.19.25
+
+### Patch Changes
+
+- [#59956](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59956) [`df18ff69a316`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df18ff69a316) - Fix issue where assignee total count was wrong when clicking on show more button.
+- [#59897](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59897) [`48e22f03d838`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48e22f03d838) - Converted spacing values to corresponding space tokens
+
+## 1.19.24
+
+### Patch Changes
+
+- [#57192](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57192) [`cb7776f514cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb7776f514cb) - Fix issue like table and assets editor plugin card not translated issue
+
+## 1.19.23
+
+### Patch Changes
+
+- [#57785](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57785) [`846c9ef4fb27`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/846c9ef4fb27) - Update AQL validation hook for Assets Config Modal
+- Updated dependencies
+
+## 1.19.22
+
+### Patch Changes
+
+- [#59059](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59059) [`9b56935315f5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b56935315f5) - Add logic to append selected site url to dropdown icon urls if they are not absolute urls.
+
+## 1.19.21
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 1.19.20
+
+### Patch Changes
+
+- [#58763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58763) [`0fdbd64522bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fdbd64522bf) - update ADF schema
+
+## 1.19.19
+
+### Patch Changes
+
+- [#58449](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58449) [`246a75e8b14f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/246a75e8b14f) - Swap mode switcher toggle order to put basic first and remove beta tag from the config modal search prompt view.
+
+## 1.19.18
+
+### Patch Changes
+
+- [#57736](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57736) [`d8193e501bcc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d8193e501bcc) - [ux] Changes behavior of datasource modal to persist query changes on insert without needing to click search.
+
+## 1.19.17
+
+### Patch Changes
+
+- [#58033](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58033) [`e833dd7a4e2f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e833dd7a4e2f) - [ux] Updated datasource tables to always have a background.
+
+## 1.19.16
+
+### Patch Changes
+
+- [#58204](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58204) [`f800efb5148e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f800efb5148e) - Design/Bug fixes for basic filters(after design review).
+
+## 1.19.15
+
+### Patch Changes
+
+- [#56962](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56962) [`b21600324544`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b21600324544) - [ux] Updated styling of datasource table in Assets Config Modal
+- Updated dependencies
+
+## 1.19.14
+
+### Patch Changes
+
+- [#57894](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57894) [`81bd6e9856b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/81bd6e9856b2) - Fix flaky basic filter test.
+
+## 1.19.13
+
+### Patch Changes
+
+- [#57773](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57773) [`a2e16053a3dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a2e16053a3dd) - Added group icon and clear search text when popup opens.
+- [#57739](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57739) [`c1ca80ef5958`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1ca80ef5958) - Update filter tigger button logic to show hydration loader only if the filter has value.
+- [#57513](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57513) [`e0ce3402d2c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0ce3402d2c9) - [ux] make schema drop down selector wider
+- Updated dependencies
+
+## 1.19.12
+
+### Patch Changes
+
+- [#57143](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57143) [`9b8b89c7c87e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b8b89c7c87e) - Remove redundant selection handler for basic filter selection.
+
+## 1.19.11
+
+### Patch Changes
+
+- [#57357](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57357) [`8562891352fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8562891352fd) - Update jql query field from issuetype to type.
+
+## 1.19.10
+
+### Patch Changes
+
+- [#56769](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56769) [`dccc142da2de`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dccc142da2de) - Changing cloud ids with site selector resets previous JiraIssuesModal table results, basic search filters, and jql to default.
+- [#57035](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57035) [`63ab16a4d4a7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/63ab16a4d4a7) - Update config modal logic to open in basic mode if the query is not complex.
+
+## 1.19.9
+
+### Patch Changes
+
+- [#56564](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56564) [`b26cc1ff959d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b26cc1ff959d) - Add `Unassigned` option for Assignee filter dropdown.
+
+## 1.19.8
+
+### Patch Changes
+
+- [#55010](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/55010) [`2b36c74cc7ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b36c74cc7ac) - Adds inner box shadow to datasource table scroll container
+
+## 1.19.7
+
+### Patch Changes
+
+- [#56736](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56736) [`4372f34080e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4372f34080e4) - Remove incorrect analytics attributes and move them to insert click.
+- [#56790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56790) [`ff577a7969d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff577a7969d4) - ED-21266: Updated @atlaskit/adf-schema to 34.0.1
+
+## 1.19.6
+
+### Patch Changes
+
+- [#56508](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56508) [`39157c94842a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39157c94842a) - Fix a bug in mapHydrateResponseData which include all fields from hydrate response
+
+## 1.19.5
+
+### Patch Changes
+
+- [#43878](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43878) [`0eaf28a90c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0eaf28a90c3) - Fix an issue where undefined value for basicInputTextValue was breaking build JQL logic.
+
 ## 1.19.4
 
 ### Patch Changes

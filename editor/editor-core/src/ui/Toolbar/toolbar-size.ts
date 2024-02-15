@@ -1,6 +1,7 @@
-import { ToolbarBreakPoint } from './toolbar-types';
-import { EditorAppearance } from '../../types';
+import type { EditorAppearance } from '../../types';
 import { isFullPage } from '../../utils/is-full-page';
+
+import type { ToolbarBreakPoint } from './toolbar-types';
 import { ToolbarSize, ToolbarWidths, ToolbarWidthsFullPage } from './types';
 
 // Toolbar sizes for full page editor a little bit different, because it has more buttons e.g. actions button...

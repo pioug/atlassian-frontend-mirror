@@ -12,9 +12,10 @@ const HoverCardControl: FC<HoverCardDelayProps> = ({
   hideHoverCardPreviewButton,
   isHoverPreview,
   isAuthTooltip,
-  showServerActions,
+  actionOptions,
   testId,
   url,
+  delay = FLEXIBLE_HOVER_CARD_CAN_OPEN_DELAY,
 }) => {
   const [canOpen, setCanOpen] = useState(true);
   const mouseStopTimer = useRef<ReturnType<typeof setTimeout>>();
@@ -64,9 +65,9 @@ const HoverCardControl: FC<HoverCardDelayProps> = ({
         if (canOpen !== canOpenOnElement) {
           setCanOpen(Boolean(canOpenOnElement));
         }
-      }, FLEXIBLE_HOVER_CARD_CAN_OPEN_DELAY);
+      }, delay);
     },
-    [isAuthTooltip, isHoverPreview, canOpen],
+    [isAuthTooltip, isHoverPreview, canOpen, delay],
   );
 
   return (
@@ -75,10 +76,7 @@ const HoverCardControl: FC<HoverCardDelayProps> = ({
       canOpen={canOpen}
       closeOnChildClick={true}
       hidePreviewButton={hideHoverCardPreviewButton}
-      // EDM-6709 extends the internal prop for showServerActions type to be
-      // an object. If we decide to use expose the type for hover preview
-      // remove the Boolean() conversion here.
-      showServerActions={Boolean(showServerActions)}
+      actionOptions={actionOptions}
       url={url}
     >
       <span

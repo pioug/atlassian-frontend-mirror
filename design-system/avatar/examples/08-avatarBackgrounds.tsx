@@ -6,7 +6,6 @@ import { B500, N0, N20, N800 } from '@atlaskit/theme/colors';
 
 import { avatarUrl } from '../examples-util/data';
 import { Code, Note } from '../examples-util/helpers';
-import nucleusImage from '../examples-util/nucleus.png';
 import Avatar, { AppearanceType, PresenceType, StatusType } from '../src';
 
 const exampleColors = [N800, B500, N20, N0];
@@ -59,7 +58,7 @@ const ColorColumn = ({
       presence={presence}
       appearance={appearance}
       size="xlarge"
-      name="John Smith ACME co"
+      name="John Smith ACME Co."
     />
     <Avatar
       onClick={console.log}
@@ -69,6 +68,7 @@ const ColorColumn = ({
       status={status}
       presence={presence}
       appearance={appearance}
+      name="John Smith ACME Co."
     />
   </div>
 );
@@ -102,7 +102,7 @@ export default () => (
         <ColorColumn
           key={index}
           borderColor={color}
-          src={nucleusImage}
+          src={avatarUrl}
           appearance="square"
           status={statuses[index]}
         />

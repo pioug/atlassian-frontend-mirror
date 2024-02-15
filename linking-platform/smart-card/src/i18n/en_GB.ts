@@ -27,9 +27,9 @@ export default {
   'fabric.linking.connect_to': 'Connect to {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Connect to {context}',
   'fabric.linking.connect_unauthorised_account_description':
-    'Connect {context} to Atlassian to view more details of your work and collaborate from one place.',
+    'Connect your {context} account to collaborate on work across Atlassian products.',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    'Connect to Atlassian to view more details of your work and collaborate from one place.',
+    'Connect your account to collaborate on work across Atlassian products.',
   'fabric.linking.continue': 'Continue',
   'fabric.linking.copy_url_to_clipboard': 'Copy link',
   'fabric.linking.couldnt_load_link': "We couldn't load this link for an unknown reason.",
@@ -56,6 +56,8 @@ export default {
     "You'll need to request access or try a different account to view this preview.",
   'fabric.linking.join_to_view': 'Join {context} to view this issue',
   'fabric.linking.last_mentioned_in': 'Last mentioned in',
+  'fabric.linking.learn_more_about_connecting_account':
+    'Learn more about connecting your account to Atlassian products.',
   'fabric.linking.learn_more_about_smart_links': 'Learn more about Smart Links.',
   'fabric.linking.link_safety_warning_message':
     'The link {unsafeLinkText} is taking you to a different site, <a>actual link here</a>',

@@ -5,6 +5,8 @@ tester.run('ensure-design-token-usage', rule, {
   valid: [
     `
     import Drawer from '@atlaskit/drawer';
+    import type { Something } from '@atlaskit/drawer';
+
     <Drawer label="Drawer accessible name">
       Children
     </Drawer>

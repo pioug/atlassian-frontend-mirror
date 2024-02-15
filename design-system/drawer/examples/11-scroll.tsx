@@ -5,7 +5,7 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 import Drawer from '../src';

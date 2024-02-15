@@ -1,26 +1,26 @@
 import {
-  EditorPopupModel,
   EditorNodeContainerModel,
+  EditorPopupModel,
   EditorTableModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import {
-  nestedInExtension,
-  documentWithMergedCells,
-  simpleTable,
-} from './__fixtures__/base-adfs';
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
+  bodiedExtension,
   doc,
   table,
-  tr,
   td,
   tdEmpty,
   thEmpty,
-  bodiedExtension,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import {
+  documentWithMergedCells,
+  nestedInExtension,
+  simpleTable,
+} from './__fixtures__/base-adfs';
 
 test.describe('when table has merged cells', () => {
   test.use({
@@ -104,7 +104,7 @@ test.describe('when table is nested inside bodied extension', () => {
     adf: nestedInExtension,
   });
 
-  test('Should delete a row ', async ({ editor }) => {
+  test('Should delete a row', async ({ editor }) => {
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
 

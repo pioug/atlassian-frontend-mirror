@@ -1,7 +1,6 @@
 import './card-states.card.test.mock';
 
 import { SmartLinkActionType } from '@atlaskit/linking-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { JsonLd } from 'json-ld-types';
 
 import * as analytics from '../../../utils/analytics';
@@ -16,6 +15,7 @@ import { Provider } from '../../..';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
 import { IntlProvider } from 'react-intl-next';
+import type { CardActionOptions } from '../../Card/types';
 
 const mockUrl = 'https://some.url';
 
@@ -407,7 +407,6 @@ describe('smart-card: card states, block', () => {
       );
     });
   });
-
   describe('render method: withUrl and new FF', () => {
     describe('> state: loading', () => {
       it('block: should render loading state initially', async () => {
@@ -427,6 +426,34 @@ describe('smart-card: card states, block', () => {
         expect(loadingView).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
+      });
+
+      it(`block: shouldn't render loading state initially if useLegacyBlockCard passed`, async () => {
+        const { queryByTestId, getByTestId } = render(
+          <IntlProvider locale="en">
+            <Provider
+              client={mockClient}
+              featureFlags={{ enableFlexibleBlockCard: true }}
+            >
+              <Card
+                appearance="block"
+                url={mockUrl}
+                useLegacyBlockCard={true}
+              />
+            </Provider>
+          </IntlProvider>,
+        );
+
+        const oldLoadingView = await waitFor(() =>
+          getByTestId('block-card-resolving-view'),
+        );
+        expect(oldLoadingView).toBeTruthy();
+
+        const smartLoadingView = await waitFor(
+          () => queryByTestId('smart-block-resolving-view'),
+          { timeout: 1000 },
+        );
+        expect(smartLoadingView).toBeNull();
       });
     });
 
@@ -551,7 +578,10 @@ describe('smart-card: card states, block', () => {
         const resolvedLinkText = 'I love cheese';
         const actionElementTestId = 'smart-element-lozenge--trigger';
 
-        const renderWithShowServerActions = (showServerActions?: boolean) =>
+        const renderWithShowServerActions = (
+          showServerActions?: boolean,
+          actionOptions?: CardActionOptions,
+        ) =>
           render(
             <IntlProvider locale="en">
               <Provider
@@ -563,6 +593,7 @@ describe('smart-card: card states, block', () => {
                 <Card
                   appearance="block"
                   showServerActions={showServerActions}
+                  actionOptions={actionOptions}
                   url={mockUrl}
                 />
               </Provider>
@@ -618,13 +649,38 @@ describe('smart-card: card states, block', () => {
           expect(actionElement).not.toBeInTheDocument();
         });
 
-        it('block: does not render with server actions when showServerActions is not provided', async () => {
+        it('block: does render with server actions when showServerActions and action options are not provided', async () => {
           const { findByText, queryByTestId } = renderWithShowServerActions();
 
           await findByText(resolvedLinkText);
           const actionElement = queryByTestId(actionElementTestId);
 
-          expect(actionElement).not.toBeInTheDocument();
+          expect(actionElement).toBeTruthy();
+        });
+
+        it('block: does render with server actions when showServerActions is not provided and action options are not hidden', async () => {
+          const { findByText, queryByTestId } = renderWithShowServerActions(
+            undefined,
+            { hide: false },
+          );
+
+          await findByText(resolvedLinkText);
+          const actionElement = queryByTestId(actionElementTestId);
+
+          expect(actionElement).toBeTruthy();
+        });
+
+        // testing that action options takes precendence over showServerActions
+        it('block: does render with server actions when showServerActions is false and action options are not hidden', async () => {
+          const { findByText, queryByTestId } = renderWithShowServerActions(
+            false,
+            { hide: false },
+          );
+
+          await findByText(resolvedLinkText);
+          const actionElement = queryByTestId(actionElementTestId);
+
+          expect(actionElement).toBeTruthy();
         });
 
         it('block: renders with server actions and fires click event when showServerActions is true', async () => {
@@ -658,7 +714,9 @@ describe('smart-card: card states, block', () => {
             getByTestId('smart-block-forbidden-view'),
           );
           expect(frame).toBeTruthy();
-          const forbiddenLink = await waitFor(() => getByText(mockUrl));
+          const forbiddenLink = await waitFor(() =>
+            getByText('Restricted content'),
+          );
           expect(forbiddenLink).toBeTruthy();
           const forbiddenLinkButton = await waitFor(() =>
             getByTestId('smart-action-connect-other-account'),
@@ -694,7 +752,9 @@ describe('smart-card: card states, block', () => {
             getByTestId('smart-block-forbidden-view'),
           );
           expect(frame).toBeTruthy();
-          const forbiddenLink = await waitFor(() => getByText(mockUrl));
+          const forbiddenLink = await waitFor(() =>
+            getByText('Restricted content'),
+          );
           const forbiddenLinkButton = container.querySelector('button');
           expect(forbiddenLink).toBeTruthy();
           expect(forbiddenLinkButton).toBeFalsy();
@@ -760,10 +820,6 @@ describe('smart-card: card states, block', () => {
                 'Your team uses Jira to collaborate. Send your admin a request for access.',
               button: 'Request access',
             },
-            {
-              description: 'Request access to Jira view this preview.',
-              button: 'Request access',
-            },
           ],
           [
             "site - pending request: I don't have access to the site, but I've already requested access and I'm waiting",
@@ -774,9 +830,6 @@ describe('smart-card: card states, block', () => {
                 'Your request to access site.atlassian.net is awaiting admin approval.',
               button: 'Pending approval',
             },
-            {
-              description: 'Your access request is pending.',
-            },
           ],
           [
             "site - denied request: I don't have access to the site, and my previous request was denied",
@@ -785,10 +838,6 @@ describe('smart-card: card states, block', () => {
               title: "You don't have access to this content",
               description:
                 "Your admin didn't approve your request to view Jira pages from site.atlassian.net.",
-            },
-            {
-              description:
-                'Your access request was denied. Contact the site admin if you still need access.',
             },
           ],
           [
@@ -800,11 +849,6 @@ describe('smart-card: card states, block', () => {
                 'Your team uses Jira to collaborate and you can start using it right away!',
               button: 'Join now',
             },
-            {
-              description:
-                "You've been approved, so you can join Jira right away.",
-              button: 'Join Jira',
-            },
           ],
           [
             'object - request Access: I have access to the site, but not the object',
@@ -815,10 +859,6 @@ describe('smart-card: card states, block', () => {
                 'Request access to view this content from site.atlassian.net.',
               button: 'Request access',
             },
-            {
-              description:
-                "You'll need to request access or try a different account to view this preview.",
-            },
           ],
           [
             'not found, access exists: I have access to the site, but not the object or object is not-found',
@@ -827,10 +867,6 @@ describe('smart-card: card states, block', () => {
               title: "We can't show you this Jira page",
               description:
                 "The page doesn't exist or it may have changed after this link was added.",
-            },
-            {
-              description:
-                "We couldn't find the link. Check the url and try editing or paste again.",
             },
           ],
           [
@@ -841,57 +877,26 @@ describe('smart-card: card states, block', () => {
               description:
                 'Contact your admin to request access to site.atlassian.net.',
             },
-            {
-              description:
-                'You don’t have access to this preview. Contact the site admin if you need access.',
-            },
           ],
         ])(
           '%s',
-          (
-            name: string,
-            context: ContextProp,
-            expected: ContentProps,
-            expectedFFOff: ContentProps,
-          ) => {
-            ffTest(
-              'platform.linking-platform.smart-card.cross-join',
-              async () => {
-                const { container, findByText, queryByTestId } = await setup(
-                  mockResponse(context),
-                );
+          (name: string, context: ContextProp, expected: ContentProps) =>
+            async () => {
+              const { container, findByText, queryByTestId } = await setup(
+                mockResponse(context),
+              );
 
-                if (expected!.title) {
-                  expect(await findByText(expected.title)).toBeVisible();
-                }
-                expect(container).toHaveTextContent(expected.description);
-                if (expected.button) {
-                  expect(await findByText(expected.button)).toBeVisible();
-                }
-                expect(
-                  queryByTestId('smart-element-icon'),
-                ).not.toBeInTheDocument();
-              },
-              async () => {
-                const { findByText, findByTestId } = await setup(
-                  mockResponse(context),
-                );
-
-                if (expectedFFOff.title) {
-                  expect(await findByText(expectedFFOff.title)).toBeVisible();
-                }
-                expect(
-                  await findByText(expectedFFOff.description),
-                ).toBeVisible();
-                if (expectedFFOff.button) {
-                  expect(await findByText(expectedFFOff.button)).toBeVisible();
-                }
-                expect(
-                  await findByTestId('smart-element-icon'),
-                ).toBeInTheDocument();
-              },
-            );
-          },
+              if (expected!.title) {
+                expect(await findByText(expected.title)).toBeVisible();
+              }
+              expect(container).toHaveTextContent(expected.description);
+              if (expected.button) {
+                expect(await findByText(expected.button)).toBeVisible();
+              }
+              expect(
+                queryByTestId('smart-element-icon'),
+              ).not.toBeInTheDocument();
+            },
         );
       });
     });
@@ -1007,7 +1012,10 @@ describe('smart-card: card states, block', () => {
       });
 
       it('block: renders not found card when link not found', async () => {
-        mockFetch.mockImplementationOnce(async () => mocks.notFound);
+        mockFetch.mockImplementationOnce(async () => ({
+          ...mocks.notFound,
+          data: { ...mocks.notFound.data, generator: mockGenerator },
+        }));
         const { getByText, getByTestId } = render(
           <Provider
             client={mockClient}
@@ -1020,7 +1028,9 @@ describe('smart-card: card states, block', () => {
           getByTestId('smart-block-not-found-view'),
         );
         expect(frame).toBeTruthy();
-        const link = await waitFor(() => getByText(mockUrl));
+        const link = await waitFor(() =>
+          getByText("We can't show you this Jira page"),
+        );
         expect(link).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);

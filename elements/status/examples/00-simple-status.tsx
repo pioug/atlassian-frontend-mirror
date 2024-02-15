@@ -13,6 +13,7 @@ const StatusInParagraph = ({ text, color }: { text: string; color: Color }) => (
 );
 
 export default () => (
+  // eslint-disable-next-line @atlaskit/design-system/prefer-primitives, @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
   <div css={containerStyles} id="container">
     <StatusInParagraph text="Unavailable" color="neutral" />
     <StatusInParagraph text="New" color="purple" />

@@ -1,9 +1,10 @@
 import { CardState } from '../../state/types';
 import { InvokeHandler } from '../../model/invoke-handler';
-import {
+import type {
   CardPlatform,
   EmbedIframeUrlType,
   OnResolveCallback,
+  CardActionOptions,
 } from '../Card/types';
 import { ReactNode } from 'react';
 import { ActionProps } from '../BlockCard/components/Action';
@@ -28,7 +29,7 @@ export type EmbedCardProps = {
   onError?: OnErrorCallback;
   testId?: string;
   inheritDimensions?: boolean;
-  showActions?: boolean;
+  actionOptions?: CardActionOptions;
   onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
   onIframeFocus?: () => void;
   iframeUrlType?: EmbedIframeUrlType;

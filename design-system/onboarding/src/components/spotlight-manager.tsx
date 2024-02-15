@@ -39,12 +39,12 @@ export { SpotlightContext, SpotlightStateConsumer as SpotlightConsumer };
 
 interface SpotlightManagerProps {
   /**
-   * Boolean prop for toggling blanket transparency
+   * Boolean prop for toggling blanket transparency.
    */
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   blanketIsTinted?: boolean;
   /**
-   * Typically the app, or a section of the app
+   * Typically the app, or a section of the app.
    */
   children: ReactNode;
   /**

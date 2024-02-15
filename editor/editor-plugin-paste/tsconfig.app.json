@@ -36,7 +36,13 @@
       "path": "../editor-common/tsconfig.app.json"
     },
     {
+      "path": "../editor-markdown-transformer/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-analytics/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-annotation/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-better-type-history/tsconfig.app.json"
@@ -55,6 +61,21 @@
     },
     {
       "path": "../editor-plugin-media/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-tables/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-client/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-common/tsconfig.app.json"
+    },
+    {
+      "path": "../../platform/feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../../linking-platform/smart-card/tsconfig.app.json"
     }
   ]
 }

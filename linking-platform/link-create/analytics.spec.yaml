@@ -84,7 +84,6 @@ events:
         <<: *PackageMetaDataContext
         <<: *LinkCreateAnalyticContext
 
-
   - modalDialog opened (linkCreate):
       type: ui
       description: fired when a link create modal component is mounted
@@ -122,14 +121,14 @@ events:
 
   - object createFailed (linkCreate):
       type: track
-      description: "[DEPRECATED] prefer `operation failed (linkCreate)` — fired when the object creation fails"
+      description: '[DEPRECATED] prefer `operation failed (linkCreate)` — fired when the object creation fails'
       attributes:
         <<: *PackageMetaDataContext
         failureType:
           type: string
           description: the name of the failure
 
-  - operation failed (linkCreate):
+  - linkCreateExperience failed:
       type: operational
       description: fired when a failure has occured in the link create experience
       attributes:
@@ -137,6 +136,10 @@ events:
         errorType:
           type: string
           description: the name of the error
+          required: false
+        errorMessage:
+          type: string
+          description: the message of the error if available
           required: false
         experienceStatus:
           type: ['SUCCEEDED', 'FAILED']
@@ -154,3 +157,6 @@ events:
           type: string
           required: false
           description: The x-trace-id header associated with the network request if the failure is a Response
+        isSLOFailure:
+          type: boolean
+          description: Whether the failure should be considered for affecting SLO (should we ignore the failure)

@@ -39,49 +39,10 @@
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
-      "path": "../editor-common/tsconfig.app.json"
-    },
-    {
       "path": "../editor-core/tsconfig.app.json"
     },
     {
-      "path": "../editor-plugin-analytics/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-content-insertion/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-emoji/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-feature-flags/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-guideline/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-selection/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-table/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-type-ahead/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-width/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-test-helpers/tsconfig.app.json"
-    },
-    {
       "path": "../../design-system/tokens/tsconfig.app.json"
-    },
-    {
-      "path": "../../elements/util-data-test/tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/test-tooling/webdriver-runner/tsconfig.app.json"
     }
   ]
 }

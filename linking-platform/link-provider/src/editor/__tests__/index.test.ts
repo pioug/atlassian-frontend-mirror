@@ -72,6 +72,15 @@ const getMockProvidersResponse = ({
         },
       ],
     },
+    {
+      key: 'jpd-views-service-object-provider',
+      patterns: [
+        {
+          source:
+            '^https:\\/\\/.*?\\/jira\\/polaris\\/share\\/\\w+|^https:\\/\\/.*?\\/jira\\/discovery\\/share\\/views\\/[\\w-]+(\\?selectedIssue=[\\w-]+&issueViewLayout=sidebar&issueViewSection=[\\w-]+)?$',
+        },
+      ],
+    },
   ],
   ...(userPreferences
     ? {
@@ -362,6 +371,14 @@ describe('providers > editor', () => {
     [
       'Polaris anonymous resolved view',
       'https://polaris-v0.jira-dev.com/secure/JiraProductDiscoveryAnonymous.jspa?hash=b2029c50914309acb37699615b1137da5',
+    ],
+    [
+      'Polaris published view',
+      'https://polaris-v0.jira-dev.com/jira/discovery/share/views/c722b7ce-cd8a-4f0c-838c-7add80ba3277',
+    ],
+    [
+      'Polaris published view with idea opened in sidebar',
+      'https://polaris-v0.jira-dev.com/jira/discovery/share/views/c722b7ce-cd8a-4f0c-838c-7add80ba3277?selectedIssue=SO-2&issueViewLayout=sidebar&issueViewSection=overview',
     ],
     [
       'Jira work management (JWM) timeline view',

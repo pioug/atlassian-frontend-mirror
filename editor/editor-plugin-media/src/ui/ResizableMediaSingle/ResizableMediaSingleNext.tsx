@@ -523,6 +523,7 @@ class ResizableMediaSingleNext extends React.Component<
           this.state.guidelines,
         ),
         parentNode: $pos ? $pos.parent.type.name : undefined,
+        inputMethod: 'mouse',
       });
       if (event) {
         dispatchAnalyticsEvent(event);

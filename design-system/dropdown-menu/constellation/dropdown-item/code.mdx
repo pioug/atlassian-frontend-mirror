@@ -2,10 +2,12 @@
 title: Dropdown item
 description: A dropdown item is an action a user can perform displayed in a group.
 order: 1
+props:
+  packageName: '@atlaskit/dropdown-menu'
+  exports:
+    - DropdownItem
 ---
-
-import DropdownItemProps from '!!extract-react-types-loader!../../src/dropdown-menu-item';
 
 ## Props
 
-<PropsTable heading="" props={DropdownItemProps} />
+<TSMorphProps exportName="DropdownItem" packageName="@atlaskit/dropdown-menu" />

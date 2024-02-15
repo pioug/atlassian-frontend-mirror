@@ -1,9 +1,12 @@
 export type {
-  ListPlugin,
-  ListPluginOptions,
   FindRootParentListNode,
-  ListState,
+  IndentList,
   InputMethod,
+  IsInsideListItem,
+  ListPlugin,
+  ListState,
+  OutdentList,
+  ToggleBulletList,
+  ToggleOrderedList,
 } from './types';
 export { listPlugin } from './plugin';
-export { toggleList } from './commands';

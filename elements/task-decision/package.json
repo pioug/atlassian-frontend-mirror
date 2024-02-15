@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/task-decision",
-  "version": "17.9.3",
+  "version": "17.9.7",
   "description": "Tasks and decisions react components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -22,24 +22,30 @@
   },
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./constants": "./src/constants.ts",
+    "./type-helpers": "./src/type-helpers.ts",
+    "./types": "./src/types.ts"
+  },
   "atlassian": {
     "team": "Editor: AI",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {
       "name": "Task Decision"
-    }
+    },
+    "runReact18": false
   },
   "config": {
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/analytics-namespaced-context": "^6.7.0",
-    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/analytics-namespaced-context": "^6.9.0",
+    "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/platform-feature-flags": "^0.2.2",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@atlaskit/util-service-support": "^6.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -51,12 +57,14 @@
     "url-search-params": "^0.10.0"
   },
   "devDependencies": {
-    "@atlaskit/analytics-listeners": "^8.7.0",
+    "@atlaskit/analytics-listeners": "^8.9.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/util-data-test": "^17.8.0",
+    "@atlaskit/util-data-test": "^17.9.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/jest": "^11.8.0",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.4.3",
     "@types/url-search-params": "^0.10.0",
     "date-fns": "^2.17.0",
     "enzyme": "^3.10.0",

@@ -1,28 +1,31 @@
 /* eslint-disable no-console */
 /** @jsx jsx */
-import URLSearchParams from 'url-search-params';
-import { css, jsx } from '@emotion/react';
 import React, { Fragment } from 'react';
+
+import { css, jsx } from '@emotion/react';
+import URLSearchParams from 'url-search-params';
+
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-
-import { Editor } from './../src';
-import EditorContext from './../src/ui/EditorContext';
-import { LOCALSTORAGE_defaultTitleKey } from './5-full-page';
-import WithEditorActions from './../src/ui/WithEditorActions';
+import type { Provider } from '@atlaskit/collab-provider';
+import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
+import Flag from '@atlaskit/flag';
+import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
-import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
-import { Provider } from '@atlaskit/collab-provider';
-import { EditorActions } from '../src';
+
 import { TitleInput } from '../example-helpers/PageElements';
-import Flag from '@atlaskit/flag';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import type { EditorActions } from '../src';
+import { Editor } from '../src';
+import EditorContext from '../src/ui/EditorContext';
+import WithEditorActions from '../src/ui/WithEditorActions';
+
+import { LOCALSTORAGE_defaultTitleKey } from './5-full-page';
 
 export const getRandomUser = () => {
   return Math.floor(Math.random() * 10000).toString();

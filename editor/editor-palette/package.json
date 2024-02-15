@@ -13,9 +13,10 @@
     "inPublicMirror": true,
     "website": {
       "name": "Editor Palette"
-    }
+    },
+    "runReact18": false
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -34,7 +35,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {

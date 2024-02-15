@@ -1,8 +1,6 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
 import { CardProps } from '../view/Card';
 
 export const isCardWithData = (props: CardProps) => !!props.data;
@@ -276,16 +274,6 @@ export const getIframeSandboxAttribute = (isTrusted: boolean) => {
 
   const sandboxPermissions =
     'allow-downloads allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts';
-
-  const allowStorageAccess = 'allow-storage-access-by-user-activation';
-
-  if (
-    getBooleanFF(
-      'platform.linking-platform.smart-card.iframes-allow-storage-access-by-user-activation',
-    )
-  ) {
-    return `${sandboxPermissions} ${allowStorageAccess}`;
-  }
 
   return sandboxPermissions;
 };

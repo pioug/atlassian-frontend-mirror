@@ -32,6 +32,7 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__media-client/app"
   },
+  "files": ["../../../typings/rusha.d.ts", "../../../typings/fetch-mock.d.ts"],
   "references": [
     {
       "path": "../chunkinator/tsconfig.app.json"

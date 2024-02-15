@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 22.1.10
+
+### Patch Changes
+
+- [#57137](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57137) [`9b9900944973`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b9900944973) - Remove legacy theming logic from @atlaskit/date, @atlaskit/mention, @atlaskit/task-decision and @atlaskit/user-picker.
+
 ## 22.1.9
 
 ### Patch Changes

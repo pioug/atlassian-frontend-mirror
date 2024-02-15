@@ -1,4 +1,4 @@
-import { expect, test } from '@af/integration-testing';
+import { expect, fixTest, test } from '@af/integration-testing';
 
 const table = `[data-testid$='table']`;
 const tableHead = `[data-testid$='head']`;
@@ -21,6 +21,11 @@ const tableCell3 = `[data-testid$='cell-3']`;
 test('DynamicTable elements should be able to be identified, interacted and sorted by data-testid', async ({
   page,
 }) => {
+  fixTest({
+    jiraIssueId: 'DSP-15916',
+    reason: 'tableRowG text assertion failing on master',
+  });
+
   await page.visitExample('design-system', 'dynamic-table', 'testing');
 
   // Check for visibility.

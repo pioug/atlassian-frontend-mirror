@@ -5,8 +5,8 @@ import { CustomThemeButtonProps } from '@atlaskit/button/types';
 
 export const MAX_PICKER_HEIGHT = 102;
 
-const StyledButton: React.StatelessComponent<CustomThemeButtonProps> =
-  React.forwardRef<HTMLElement, CustomThemeButtonProps>((props, ref) => (
+const StyledButton = React.forwardRef<HTMLElement, CustomThemeButtonProps>(
+  (props, ref) => (
     <Button
       ref={ref}
       {...props}
@@ -24,6 +24,7 @@ const StyledButton: React.StatelessComponent<CustomThemeButtonProps> =
         };
       }}
     />
-  ));
+  ),
+);
 
 export default StyledButton;

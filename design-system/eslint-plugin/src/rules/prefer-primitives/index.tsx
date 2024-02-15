@@ -2,10 +2,9 @@
 import type { Rule } from 'eslint';
 import { Identifier, isNodeOfType, JSXElement } from 'eslint-codemod-utils';
 
-import { validPrimitiveElements } from '../use-primitives/utils';
 import { createLintRule } from '../utils/create-rule';
 
-import { shouldSuggest } from './utils';
+import { shouldSuggest, validPrimitiveElements } from './utils';
 
 const primitiveDocsUrl = 'https://go.atlassian.com/dst-prefer-primitives';
 

@@ -1,14 +1,14 @@
 import {
-  EditorNodeContainerModel,
   EditorExpandModel,
-  editorTestCase as test,
+  EditorNodeContainerModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 
 import {
-  expandWithParagraph,
   closedExpand,
   doubleExpand,
+  expandWithParagraph,
 } from './selection.spec.ts-fixtures/adf';
 
 test.describe('Selection', () => {

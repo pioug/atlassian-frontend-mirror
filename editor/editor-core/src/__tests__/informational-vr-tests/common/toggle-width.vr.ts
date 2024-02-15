@@ -1,13 +1,15 @@
-import { snapshotInformational } from '@af/visual-regression';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Page } from '@playwright/test';
+
 import { EditorPageModel } from '@af/editor-libra/page-models';
+import { snapshotInformational } from '@af/visual-regression';
 // eslint-disable-next-line
 import { deviceViewPorts } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import { CONTENT_AREA_TEST_ID } from '../../../ui/Appearance/FullPage/FullPageContentArea';
+
 import {
-  EditorFullWidth,
   EditorFullPage,
+  EditorFullWidth,
 } from './toggle-width-fixtures/toggle-width.fixtures';
 
 snapshotInformational(EditorFullWidth, {

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 import { Block, Centered } from '../examples-utils';
@@ -25,7 +25,7 @@ export default () => {
   return (
     <div>
       <div css={{ textAlign: 'center' }}>
-        <ButtonGroup>
+        <ButtonGroup label="Products options">
           <Button onClick={() => setProducts(products)}>Reset</Button>
         </ButtonGroup>
       </div>

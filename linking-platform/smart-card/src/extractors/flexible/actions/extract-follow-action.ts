@@ -4,16 +4,18 @@ import type { JsonLd } from 'json-ld-types';
 
 import { ServerActionProp } from '../../../state/flexible-ui-context/types';
 import { getExtensionKey } from '../../../state/helpers';
-import { ServerActionOptions } from '../../../view/FlexibleCard/types';
 
 import extractServerAction from '../extract-server-action';
 
+import { CardAction, type CardActionOptions } from '../../../view/Card/types';
+import { canShowAction } from '../../../utils/actions/can-show-action';
+
 const extractFollowAction = (
   response?: JsonLd.Response,
-  showServerActions?: boolean | ServerActionOptions,
+  actionOptions?: CardActionOptions,
   id?: string,
 ): ServerActionProp<boolean> | undefined => {
-  if (!showServerActions) {
+  if (!canShowAction(CardAction.FollowAction, actionOptions)) {
     return;
   }
 

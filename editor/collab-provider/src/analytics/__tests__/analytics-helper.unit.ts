@@ -8,8 +8,9 @@ import {
   name as packageName,
   version as packageVersion,
 } from '../../version-wrapper';
-import type { InternalError } from '../../errors/error-types';
-import { CustomError, NCS_ERROR_CODE } from '../../errors/error-types';
+import type { InternalError } from '../../errors/internal-errors';
+import { NCS_ERROR_CODE } from '../../errors/ncs-errors';
+import { CustomError } from '../../errors/custom-errors';
 
 describe('Analytics helper function', () => {
   const fakeAnalyticsWebClient: AnalyticsWebClient = {
@@ -141,6 +142,7 @@ describe('Analytics helper function', () => {
         errorCode: 'HEAD_VERSION_UPDATE_FAILED',
         errorStatus: 409,
         errorMessage: 'Meaningful Context-Aware Error Message',
+        originalErrorMessage: undefined,
       },
       nonPrivacySafeAttributes: {
         error: stepRejectedError,
@@ -174,6 +176,7 @@ describe('Analytics helper function', () => {
         documentAri: fakeDocumentAri,
         errorName: 'Error',
         errorMessage: 'Meaningful Context-Aware Error Message',
+        originalErrorMessage: undefined,
         extraKey: 1, // The extra key here <---------------------------------------
       },
       nonPrivacySafeAttributes: {
@@ -264,6 +267,7 @@ describe('Analytics helper function', () => {
         errorCode: 'HEAD_VERSION_UPDATE_FAILED',
         errorStatus: 409,
         errorMessage: 'Meaningful Context-Aware Error Message',
+        originalErrorMessage: undefined,
       },
       nonPrivacySafeAttributes: {
         error: stepRejectedError,

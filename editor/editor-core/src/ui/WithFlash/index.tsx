@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import React from 'react';
+
 import { css, jsx, keyframes } from '@emotion/react';
+
 import { R100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

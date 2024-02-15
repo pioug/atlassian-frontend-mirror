@@ -1,5 +1,11 @@
 # @atlaskit/spinner
 
+## 16.0.1
+
+### Patch Changes
+
+- [#68812](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68812) [`91d4a48c1430`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91d4a48c1430) - Support better loading state for assistive tech
+
 ## 16.0.0
 
 ### Major Changes

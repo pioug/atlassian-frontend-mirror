@@ -75,6 +75,7 @@ export default class EmojiNode extends PureComponent<EmojiProps, {}> {
           fallback,
           shortName,
         })}
+        editorEmoji={true}
       />
     );
   };

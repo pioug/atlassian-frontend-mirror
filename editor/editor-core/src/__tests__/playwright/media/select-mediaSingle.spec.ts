@@ -1,10 +1,11 @@
 import {
-  editorTestCase as test,
-  expect,
-  EditorNodeContainerModel,
   EditorMediaSingleModel,
+  EditorNodeContainerModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import { threeImages, oneImage } from './__fixtures__/adf-documents';
+
+import { oneImage, threeImages } from './__fixtures__/adf-documents';
 import { table3x3MediaSingle } from './table-mediaSingle.spec.ts-fixtures/adf-table3x3-mediaSingle';
 
 test.use({
@@ -32,13 +33,14 @@ test.describe('media single', () => {
 
     const mediaSingleModel = EditorMediaSingleModel.from(mediaSingle);
 
-    expect(await mediaSingleModel.isSelected()).toBe(true);
+    await expect(mediaSingleModel.selected).toBeVisible();
   });
 
   test('should select the media while using arrow left/right', async ({
     editor,
   }) => {
     const { mediaSingle } = EditorNodeContainerModel.from(editor);
+    const mediaSingleModel = EditorMediaSingleModel.from(mediaSingle);
 
     await test.step('make sure there is only one image in the document', async () => {
       expect(await mediaSingle.count()).toBe(1);
@@ -47,14 +49,11 @@ test.describe('media single', () => {
     await mediaSingle.first().click();
     await editor.keyboard.press('ArrowLeft');
 
-    // In the gap cursor
-    const mediaSingleModelGap = EditorMediaSingleModel.from(mediaSingle);
-    expect(await mediaSingleModelGap.isSelected()).toBe(false);
+    await expect(mediaSingleModel.selected).toBeHidden();
 
     await editor.keyboard.press('ArrowRight');
 
-    const mediaSingleModel = EditorMediaSingleModel.from(mediaSingle);
-    expect(await mediaSingleModel.isSelected()).toBe(true);
+    await expect(mediaSingleModel.selected).toBeVisible();
   });
 });
 
@@ -65,6 +64,9 @@ test.describe('media single', () => {
 
   test('should highlight the media on text selection', async ({ editor }) => {
     const { mediaSingle } = EditorNodeContainerModel.from(editor);
+    const firstImageModel = EditorMediaSingleModel.from(mediaSingle.first());
+    const secondImageModel = EditorMediaSingleModel.from(mediaSingle.nth(1));
+    const thirdImageModel = EditorMediaSingleModel.from(mediaSingle.nth(2));
 
     await test.step('make sure there are 3 images in the document', async () => {
       expect(await mediaSingle.count()).toBe(3);
@@ -72,14 +74,11 @@ test.describe('media single', () => {
 
     await editor.selection.set({ anchor: 0, head: 5 });
 
-    const firstImageModel = EditorMediaSingleModel.from(mediaSingle.first());
-    expect(await firstImageModel.isSelected()).toBe(true);
+    await expect(firstImageModel.selected).toBeVisible();
 
-    const secondImageModel = EditorMediaSingleModel.from(mediaSingle.nth(1));
-    expect(await secondImageModel.isSelected()).toBe(true);
+    await expect(secondImageModel.selected).toBeVisible();
 
-    const thirdImageModel = EditorMediaSingleModel.from(mediaSingle.nth(2));
-    expect(await thirdImageModel.isSelected()).toBe(false);
+    await expect(thirdImageModel.selected).toBeHidden();
   });
 });
 
@@ -105,6 +104,6 @@ test.describe('media single inside table', () => {
     await editor.keyboard.press('Shift+ArrowRight');
 
     const firstImageModel = EditorMediaSingleModel.from(mediaSingle.first());
-    expect(await firstImageModel.isSelected()).toBe(true);
+    await expect(firstImageModel.selected).toBeVisible();
   });
 });

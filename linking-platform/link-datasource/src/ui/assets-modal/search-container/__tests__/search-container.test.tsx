@@ -4,10 +4,17 @@ import { render, RenderOptions, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
+import {
+  useValidateAqlText,
+  UseValidateAqlTextState,
+} from '../../../../hooks/useValidateAqlText';
 import { ObjectSchema } from '../../../../types/assets/types';
 import { AssetsSearchContainer, InitialSearchData } from '../index';
+
+jest.mock('../../../../hooks/useValidateAqlText');
 
 const onAnalyticFireEvent = jest.fn();
 
@@ -18,6 +25,14 @@ const AssetsSearchContainerWrapper: RenderOptions<{}>['wrapper'] = ({
     <IntlProvider locale="en">{children}</IntlProvider>
   </AnalyticsListener>
 );
+
+const mockValidateAqlText = jest.fn();
+const mockDebouncedValidation = jest.fn();
+const getUseValidateAqlTextDefaultHookState: UseValidateAqlTextState = {
+  lastValidationResult: { type: 'valid', validatedAql: 'aql search valid' },
+  validateAqlText: mockValidateAqlText,
+  debouncedValidation: mockDebouncedValidation,
+};
 
 describe('AssetsSearchContainer', () => {
   const searchButtonTestId = 'assets-datasource-modal--aql-search-button';
@@ -35,6 +50,9 @@ describe('AssetsSearchContainer', () => {
     initialSearchData: InitialSearchData,
   ) => {
     let renderFunction = render;
+    asMock(useValidateAqlText).mockReturnValue(
+      getUseValidateAqlTextDefaultHookState,
+    );
     const renderComponent = () =>
       renderFunction(
         <AssetsSearchContainer

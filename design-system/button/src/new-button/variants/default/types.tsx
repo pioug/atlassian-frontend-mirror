@@ -1,30 +1,30 @@
-import { type Size } from '@atlaskit/icon/types';
-
-import { type IconProp } from '../types';
+import { type IconProp, type IconSize } from '../types';
 
 export type CommonDefaultButtonProps = {
   /**
-   * Places an icon within the button, after the button's text
+   * Text content to be rendered in the button. Required so that screen readers always have an accessible label provided for the button.
+   */
+  children: React.ReactNode;
+  /**
+   * Places an icon within the button, after the button's text.
    */
   iconAfter?: IconProp;
   /**
-   * Set the size of the icon after.
-   *
+   * Set the size of the icon after. `medium` is default, so it does not need to be specified.
    * This is UNSAFE as it will be removed in future in favor of a 100% bounded API
    */
-  UNSAFE_iconAfter_size?: Size;
+  UNSAFE_iconAfter_size?: IconSize;
   /**
-   * Places an icon within the button, before the button's text
+   * Places an icon within the button, before the button's text.
    */
   iconBefore?: IconProp;
   /**
-   * Set the size of the icon before.
-   *
+   * Set the size of the icon before. `medium` is default, so it does not need to be specified.
    * This is UNSAFE as it will be removed in future in favor of a 100% bounded API
    */
-  UNSAFE_iconBefore_size?: Size;
+  UNSAFE_iconBefore_size?: IconSize;
   /**
-   * Option to fit button width to its parent width
+   * Option to fit button width to its parent width.
    */
   shouldFitContainer?: boolean;
 };

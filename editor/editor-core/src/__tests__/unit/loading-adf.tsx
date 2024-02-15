@@ -1,23 +1,23 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import patchEditorViewForJSDOM from '@atlaskit/editor-test-helpers/jsdom-fixtures';
-import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import patchEditorViewForJSDOM from '@atlaskit/editor-test-helpers/jsdom-fixtures';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
-
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import {
-  fullValidJsonSchema,
   fullInvalidJsonSchema,
-  stage0ValidJsonSchema,
+  fullValidJsonSchema,
   stage0InvalidJsonSchema,
+  stage0ValidJsonSchema,
 } from '@atlassian/adf-schema-json';
 
 import { Editor } from '../../index';
@@ -214,6 +214,10 @@ const invalidReferenceAdfUnloadable = [
   'invalid/table-without-cells.json',
   'invalid/mediaSingle-with-empty-attrs.json',
   'invalid/mediaSingle-with-empty-content.json',
+  // to be removed after list inside blockquote is fully supported in PM Schema. See https://product-fabric.atlassian.net/browse/ED-21452
+  'invalid/blockquote-with-list-inside.json',
+  // to be removed after code snippet inside panel is fully supported inin PM Schema
+  'invalid/panel-with-codeBlock.json',
 ];
 
 const invalidReferenceAdfEmptyDocument = ['invalid/doc-without-version.json'];

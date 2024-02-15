@@ -1,10 +1,10 @@
-import React from 'react';
-import AnalyticsContext from '../../analytics/analyticsContext';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import React from 'react';
+import AnalyticsContext from '../../analytics/analyticsContext';
 import { ElementSelection } from './element-selection';
 
 export const useSelectAllTrap = <
@@ -28,7 +28,7 @@ export const useSelectAllTrap = <
 
       const modKey = mac ? e.metaKey : e.ctrlKey;
 
-      if (!modKey || e.code !== 'KeyA') {
+      if (!modKey || e.code !== 'KeyA' || e.shiftKey) {
         return;
       }
 

@@ -28,7 +28,7 @@ import PageLayoutLeftSidebarWithKeyboardExpand from '../../examples/constellatio
   packageName="@atlaskit/page-layout"
 />
 
-Here is a customisable and more interactive example to demonstrate the page layout slots.
+This is a customisable and more interactive example to demonstrate the page layout slots.
 
 <Example
   Component={PageLayoutInteractive}
@@ -38,7 +38,7 @@ Here is a customisable and more interactive example to demonstrate the page layo
 
 ## Integrated
 
-`PageLayout` is designed to work in tandem with our other navigation components, `@atlaskit/atlassian-navigation` and `@atlaskit/side-navigation`. Here we have an example where these components are used together.
+`PageLayout` is designed to work in tandem with the [Atlassian navigation](/components/atlassian-navigation/examples) and [side navigation](/components/side-navigation/examples) components. This is an example where these components are used together.
 
 <Example
   Component={PageLayoutIntegration}
@@ -48,16 +48,16 @@ Here is a customisable and more interactive example to demonstrate the page layo
 
 ## Left sidebar
 
-The left sidebar houses all the navigation components for the **current** space a user is in. `PageLayout` lets a user choose to resize and/or collapse/expand the sidebar allowing a user to get more screen space to do work and for a certain level of personalisation.
+The left sidebar houses all the navigation components for the current space a user is in. `PageLayout` lets people choose to resize, collapse or expand the sidebar. This lets people get more screen space to do work when needed.
 
 The left sidebar:
 
-- can be resized using mouse or keyboard
-- can be expanded/collapsed using mouse or keyboard
+- can be resized using a mouse or a keyboard
+- can be expanded/collapsed using a mouse or a keyboard
 - has a 'Flyout' feature when hovering over collapsed sidebar to quickly see navigation items
 - uses appropriate accessibility APIs to let users with assistive technologies interact with the left sidebar
 
-You can see the left sidebar can be resized and even collapsed to give more screen space to the main content:
+In this example, the left sidebar can be resized and even collapsed to give more screen space to the main content:
 
 <Example
   Component={PageLayoutResizeSidebar}
@@ -67,7 +67,7 @@ You can see the left sidebar can be resized and even collapsed to give more scre
 
 ### Locking the sidebar open
 
-In some circumstances you may want to prevent the sidebar flyout from collapsing, such as when a pop-up menu has been opened inside the sidebar. The `useLeftSidebarFlyoutLock` hook is purpose-made for this situation.
+Use the `useLeftSidebarFlyoutLock` hook to prevent the sidebar flyout from collapsing in some situations, such as when a pop-up menu has been opened inside the sidebar.
 
 <Example
   Component={PageLayoutLockedSidebar}
@@ -77,7 +77,7 @@ In some circumstances you may want to prevent the sidebar flyout from collapsing
 
 ### Left sidebar without resize
 
-If you just need a left sidebar slot without any resize functionality, use the lighter-weight `LeftSidebarWithoutResize` component instead of the `LeftSidebar` component.
+If you need a left sidebar slot without any resize functionality, use the lighter-weight `LeftSidebarWithoutResize` component instead of the `LeftSidebar` component.
 
 ### Programatically toggling with a keyboard shortcut
 
@@ -108,7 +108,7 @@ The context is only available within the `LeftSidebar` component, so ensure your
 
 Skip links are hidden links that appear on focus and allow people to skip content on the page. We recommend implementing skip links for pages with complex navigation layouts as they allow people navigating by keyboard to skip to different sections of the page.
 
-Page layout automatically generates a global skip link menu based on the sections included inside `PageLayout`. To add a section to the skip link menu, give it an id to allow focus to be placed on the element, and a skipLinkTitle for the text used to describe the section. Screen readers will read the skipLinkTitle with the text 'skip to' prepended for context.
+Page layout automatically generates a global skip link menu based on the sections included inside `PageLayout`. To add a section to the skip link menu, give it an ID to allow focus to be placed on the element, and a skipLinkTitle for the text used to describe the section. Screen readers will read the skipLinkTitle with the text 'skip to' prepended for context.
 
 ### Behavior
 
@@ -144,18 +144,6 @@ You can choose the position the link will show up in the menu by using the optio
   packageName="@atlaskit/page-layout"
 />
 
-### Accessibility
-
-Make sure there are **no more than 4 or 5 elements** in the skip link menu unless absolutely necessary. Too many options increases cognitive load and requires too many tab presses to bypass the skip link menu.
-
-A skip link menu should be **present** for pages where a substantial number of tab presses is required to reach the main content. A log-in page may not require a skip link menu, but on any page with top and/or side navigation people will expect to be able to skip to the main content.
-
-Keep the list consistent. If a section of the UI (such as a side panel) is in a skip link menu on one page it should be in the skip links menu on all pages where it appears.
-
-Names for the sections must be understandable, including for screen reader users. 'Top navigation' does not describe the purpose of the navigation element, while 'Jira navigation' or 'global navigation' is more descriptive.
-
-All skip link text needs to be translated for different locales. This includes section skip link labels, as well as the 'skip to:' text at the top of the panel.
-
 ## Server side rendering
 
 Here is an example of a server-rendered page.
@@ -178,6 +166,6 @@ Here is an example of a server-rendered page.
 - `BANNER_HEIGHT`
 - `LEFT_SIDEBAR_FLYOUT_WIDTH`
 
-Always use these variabels instead of accessing the CSS variable names directly because these variables have sensible fallback values baked into them. Accessing the variables directly runs the risk of setting the intended styles to "unset" which can cause unintended styling issues.
+Always use these variables instead of accessing the CSS variable names directly because these variables have sensible fallback values baked into them. Accessing the variables directly runs the risk of setting the intended styles to "unset" which can cause unintended styling issues.
 
 See the [server rendered example](#server-side-rendering) for a more complete example of how to use these variables.

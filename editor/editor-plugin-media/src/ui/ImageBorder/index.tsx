@@ -6,6 +6,7 @@ import type { IntlShape } from 'react-intl-next';
 
 import type { BorderMarkAttributes } from '@atlaskit/adf-schema';
 import { BorderIcon } from '@atlaskit/editor-common/icons';
+import { imageBorderMessages as messages } from '@atlaskit/editor-common/media';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { Popup } from '@atlaskit/editor-common/ui';
 import {
@@ -23,7 +24,6 @@ import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import Tooltip from '@atlaskit/tooltip';
 
-import { messages } from './messages';
 import {
   buttonStyle,
   buttonWrapperStyle,
@@ -124,6 +124,7 @@ const ImageBorder = ({
                 <Tooltip key={idx} content={name}>
                   <span css={buttonWrapperStyle}>
                     <button
+                      type="button"
                       css={buttonStyle(value === size)}
                       aria-label={name}
                       role="radio"

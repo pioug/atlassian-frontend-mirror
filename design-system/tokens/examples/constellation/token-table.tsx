@@ -9,6 +9,7 @@ import DropdownMenu, {
   DropdownItemGroup,
 } from '@atlaskit/dropdown-menu';
 import DynamicTable from '@atlaskit/dynamic-table';
+import { Box, xcss } from '@atlaskit/primitives';
 import { N50A, N60A } from '@atlaskit/theme/colors';
 
 import token from '../../src/get-token';
@@ -82,8 +83,8 @@ const nameWrapperStyles = css({
   alignItems: 'center',
 });
 
-const avatarWrapperStyles = css({
-  marginInlineEnd: '8px',
+const avatarWrapperStyles = xcss({
+  marginInlineEnd: 'space.100',
 });
 
 interface President {
@@ -101,9 +102,9 @@ const rows = presidents.map((president: President, index: number) => ({
       key: president.name,
       content: (
         <span css={nameWrapperStyles}>
-          <div css={avatarWrapperStyles}>
+          <Box xcss={avatarWrapperStyles}>
             <Avatar name={president.name} size="medium" />
-          </div>
+          </Box>
           {president.name}
         </span>
       ),

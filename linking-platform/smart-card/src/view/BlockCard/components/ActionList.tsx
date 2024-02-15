@@ -11,6 +11,7 @@ import MoreIcon from '@atlaskit/icon/glyph/more';
 
 import { ActionProps, Action } from './Action';
 import { gs, mq } from '../../common/utils';
+import { di } from 'react-magnetic-di';
 
 export interface ActionListProps {
   /* An array of action props, which will generate action buttons with the first passed appearing on the left (in LTR reading) */
@@ -18,6 +19,8 @@ export interface ActionListProps {
 }
 
 export const ActionList = ({ items }: ActionListProps) => {
+  di(DropdownMenu);
+
   const actionsToShow = items.slice(0, 2);
   const actionsToList = items.slice(2, items.length);
 

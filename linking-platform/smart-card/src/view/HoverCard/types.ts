@@ -7,6 +7,7 @@ import { AnalyticsHandler } from '../../utils/types';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { MouseEventHandler, ReactElement } from 'react';
 import { JsonLd } from 'json-ld-types';
+import type { CardActionOptions } from '../Card/types';
 
 export interface HoverCardProps extends WithAnalyticsEventsProps {
   /**
@@ -48,9 +49,16 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
   hidePreviewButton?: boolean;
 
   /**
-   * Determines whether to show available server actions.
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6348 Internal documentation for deprecation (no external access)}
+   *
+   * Prefer 'actionOptions' prop. Determines whether to show available server actions.
    */
   showServerActions?: boolean;
+
+  /**
+   * Configure visibility of server and client actions
+   */
+  actionOptions?: CardActionOptions;
 
   /**
    * Z-index that the hover card should be displayed in.
@@ -106,7 +114,13 @@ export type HoverCardContentProps = {
   url: string;
   onMouseEnter?: MouseEventHandler;
   onMouseLeave?: MouseEventHandler;
-  showServerActions?: boolean;
+  actionOptions?: CardActionOptions;
+};
+
+export type ContentContainerProps = React.HTMLAttributes<HTMLDivElement> & {
+  isAIEnabled?: boolean;
+  showPrism?: boolean;
+  testId?: string;
 };
 
 export type ImagePreviewProps = {

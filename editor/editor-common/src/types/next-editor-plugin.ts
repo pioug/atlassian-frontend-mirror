@@ -104,10 +104,6 @@ export type PluginInjectionAPI<
   >;
 };
 
-export type PluginInjectionAPIWithDependency<
-  Plugin extends NextEditorPlugin<any, any>,
-> = PublicPluginAPI<[Plugin]>;
-
 export type PluginInjectionAPIWithDependencies<
   Plugins extends NextEditorPlugin<any, any>[],
 > = PublicPluginAPI<Plugins>;
@@ -266,29 +262,35 @@ export type CreatePluginDependenciesAPI<
   >
     ? PluginDependenciesAPI<Plugin> | undefined
     : Plugin extends NextEditorPlugin<any, any>
-    ? PluginDependenciesAPI<Plugin>
+    ? PluginDependenciesAPI<Plugin> | undefined
     : never;
 };
 
-export type PluginAsArray<Plugin> =
+export type PluginWithConfiguration<Plugin> =
   undefined extends ExtractPluginConfiguration<Plugin>
     ? [Plugin, ExtractPluginConfiguration<Plugin>?]
     : [Plugin, ExtractPluginConfiguration<Plugin>];
 
-export type AllEditorPresetPluginTypes =
-  | PluginAsArray<any>
+export type MaybePluginName<T extends string> = [T];
+export type PresetPlugin =
+  | PluginWithConfiguration<any>
   | NextEditorPlugin<any, any>;
 
-type ExtractNextEditorPlugin<Plugin> = Plugin extends PluginAsArray<any>
-  ? Plugin[0]
-  : never;
+export type MaybePlugin<T extends PresetPlugin> = T | undefined;
+
+export type AllEditorPresetPluginTypes =
+  | PresetPlugin
+  | MaybePlugin<NextEditorPlugin<any, any>>;
+
+type ExtractNextEditorPlugin<Plugin> =
+  Plugin extends PluginWithConfiguration<any> ? Plugin[0] : never;
 
 export type VerifyPluginDependencies<
   Plugin,
   PluginsStack extends AllEditorPresetPluginTypes[],
 > = ExtractPluginDependencies<Plugin> extends []
   ? // Plugin has no dependencies
-    Plugin extends PluginAsArray<any> | NextEditorPlugin<any, any>
+    Plugin extends PluginWithConfiguration<any> | NextEditorPlugin<any, any>
     ? Plugin
     : never
   : // Plugin has dependencies
@@ -337,16 +339,16 @@ type CheckBasicPlugin<Plugin> = Plugin extends (
   ? CheckTupleRequirements<
       Plugin,
       ExtractPluginConfiguration<Plugin>,
-      PluginAsArray<Plugin>
+      PluginWithConfiguration<Plugin>
     >
   : never;
 
 export type ExtractPluginNameFromAllBuilderPlugins<
-  Plugin extends AllEditorPresetPluginTypes,
+  Plugin extends PresetPlugin,
 > = Plugin extends Array<any>
-  ? Plugin extends [infer MaybePlugin, ...any]
-    ? MaybePlugin extends NextEditorPlugin<any, any>
-      ? ExtractPluginName<MaybePlugin>
+  ? Plugin extends [infer MPlugin, ...any]
+    ? MPlugin extends NextEditorPlugin<any, any>
+      ? ExtractPluginName<MPlugin>
       : never
     : never
   : Plugin extends NextEditorPlugin<any, any>
@@ -366,16 +368,13 @@ export type PublicPluginAPI<PluginList extends NextEditorPlugin<any, any>[]> =
 export type ExtractNextEditorPlugins<
   Plugins extends AllEditorPresetPluginTypes[],
 > = {
-  [PluginNumber in keyof Plugins]: Plugins[PluginNumber] extends NextEditorPlugin<
-    infer Name,
-    infer Metadata
+  [PluginNumber in keyof Plugins]: Plugins[PluginNumber] extends MaybePlugin<
+    NextEditorPlugin<infer Name, infer Metadata>
   >
     ? NextEditorPlugin<Name, Metadata>
-    : Plugins[PluginNumber] extends [
-        NextEditorPlugin<infer Name, infer Metadata>,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        any,
-      ]
+    : Plugins[PluginNumber] extends MaybePlugin<
+        NextEditorPlugin<infer Name, infer Metadata>
+      >
     ? NextEditorPlugin<Name, Metadata>
     : never;
 };

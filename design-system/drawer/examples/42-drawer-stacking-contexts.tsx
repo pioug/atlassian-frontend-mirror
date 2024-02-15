@@ -4,7 +4,7 @@ import { Component, SyntheticEvent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { N20, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

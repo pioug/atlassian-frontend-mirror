@@ -13,8 +13,8 @@ const SpotlightCardActionsBeforeExample = () => {
         { text: 'Dismiss', onClick: __noop, appearance: 'subtle' },
       ]}
     >
-      Quickly switch between your most recent projects by selecting the project
-      name and icon.
+      Select the project name and icon to quickly switch between your most
+      recent projects.
     </SpotlightCard>
   );
 };

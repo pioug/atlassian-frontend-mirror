@@ -15,16 +15,19 @@ import {
   CellMeasurer,
   CellMeasurerCache,
 } from 'react-virtualized/dist/commonjs/CellMeasurer';
+import type { ListRowRenderer } from 'react-virtualized/dist/commonjs/List';
 import { List } from 'react-virtualized/dist/commonjs/List';
 
-import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import {
+  SelectItemMode,
+  typeAheadListMessages,
+} from '@atlaskit/editor-common/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
 
 import { updateSelectedIndex } from '../commands/update-selected-index';
 import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../constants';
-import { typeAheadListMessages } from '../messages';
 import type { TypeAheadHandler, TypeAheadItem } from '../types';
 import { getTypeAheadListAriaLabels, moveSelectedIndex } from '../utils';
 
@@ -289,7 +292,7 @@ const TypeAheadListComponent = React.memo(
       items.length,
     ]);
 
-    const renderRow = ({ index, key, style, parent }: any) => {
+    const renderRow: ListRowRenderer = ({ index, key, style, parent }) => {
       const currentItem = items[index];
       return (
         <CellMeasurer

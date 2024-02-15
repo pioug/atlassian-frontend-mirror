@@ -45,9 +45,6 @@
       "path": "../editor-plugin-decorations/tsconfig.app.json"
     },
     {
-      "path": "../editor-plugin-feature-flags/tsconfig.app.json"
-    },
-    {
       "path": "../editor-plugin-selection/tsconfig.app.json"
     },
     {
@@ -58,6 +55,9 @@
     },
     {
       "path": "../../design-system/icon/tsconfig.app.json"
+    },
+    {
+      "path": "../../platform/feature-flags/tsconfig.app.json"
     },
     {
       "path": "../../design-system/tooltip/tsconfig.app.json"

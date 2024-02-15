@@ -7,8 +7,6 @@ import {
   tallImage,
   wideTransparentImage,
 } from '@atlaskit/media-test-helpers';
-import { ThemeModes } from '@atlaskit/theme/types';
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 import { Checkbox } from '@atlaskit/checkbox';
 import Select from '@atlaskit/select';
@@ -17,7 +15,9 @@ import TrashIcon from '@atlaskit/icon/glyph/trash';
 import EditIcon from '@atlaskit/icon/glyph/edit';
 import { CardAction, CardStatus } from '../src';
 import { CardView } from '../src/card/cardView';
+import { CardViews } from '../src/card/v2/cardviews';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { IntlProvider } from 'react-intl-next';
 import { Y75 } from '@atlaskit/theme/colors';
 import { MainWrapper, mediaCardErrorState } from '../example-helpers';
@@ -72,9 +72,12 @@ interface State {
   withBgColorAndIcon: boolean;
   withTransparency: boolean;
   error: string;
-  themeMode: ThemeModes;
 }
-
+const LoadedCardView = getBooleanFF(
+  'platform.media-experience.card-views-refactor_b91lr',
+)
+  ? CardViews
+  : CardView;
 class Example extends React.Component<{}, State> {
   state: State = {
     disableOverlay: false,
@@ -90,7 +93,6 @@ class Example extends React.Component<{}, State> {
     withBgColorAndIcon: false,
     withTransparency: false,
     error: '',
-    themeMode: 'light',
   };
 
   render() {
@@ -131,161 +133,149 @@ class Example extends React.Component<{}, State> {
     ];
 
     return (
-      <AtlaskitThemeProvider mode={this.state.themeMode}>
-        <MainWrapper>
-          <div css={styledContainerStyles}>
-            <div css={checkboxesContainerStyles}>
-              <Checkbox
-                label="Mobile dark mode"
-                isChecked={this.state.themeMode === 'dark'}
-                onChange={(e) => {
-                  this.setState({
-                    themeMode: e.currentTarget.checked ? 'dark' : 'light',
-                  });
-                }}
-                name="mobileDarkMode"
-              />
-              <Checkbox
-                value="withDataURI"
-                label="Has withDataURI?"
-                isChecked={this.state.withDataURI}
-                onChange={this.onCheckboxChange}
-                name="withDataURI"
-              />
-              <Checkbox
-                value="withMetadata"
-                label="Has withMetadata?"
-                isChecked={this.state.withMetadata}
-                onChange={this.onCheckboxChange}
-                name="withMetadata"
-              />
-              <Checkbox
-                value="disableOverlay"
-                label="Disable overlay?"
-                isChecked={this.state.disableOverlay}
-                onChange={this.onCheckboxChange}
-                name="disableOverlay"
-              />
-              <Checkbox
-                value="selectable"
-                label="Is selectable?"
-                isChecked={this.state.selectable}
-                onChange={this.onCheckboxChange}
-                name="selectable"
-              />
-              <Checkbox
-                value="selected"
-                label="Is selected?"
-                isChecked={this.state.selected}
-                onChange={this.onCheckboxChange}
-                name="selected"
-              />
-              <Checkbox
-                value="hasActions"
-                label="Has Actions?"
-                isChecked={this.state.hasActions}
-                onChange={this.onCheckboxChange}
-                name="hasActions"
-              />
-              <Checkbox
-                value="hasManyActions"
-                label="Has many Actions?"
-                isChecked={this.state.hasManyActions}
-                onChange={this.onCheckboxChange}
-                name="hasManyActions"
-              />
-              <Checkbox
-                value="isExternalImage"
-                label="Is external image?"
-                isChecked={this.state.isExternalImage}
-                onChange={this.onCheckboxChange}
-                name="isExternalImage"
-              />
-              <Checkbox
-                value="useBigCard"
-                label="Use Big Card?"
-                isChecked={this.state.useBigCard}
-                onChange={(event) => {
-                  this.setState({ shouldRenderCard: false }, () =>
-                    this.setState({ shouldRenderCard: true }),
-                  );
-                  this.onCheckboxChange(event);
-                }}
-                name="useBigCard"
-              />
-              <Checkbox
-                value="withBgColorAndIcon"
-                label="Highlight title box?"
-                isChecked={this.state.withBgColorAndIcon}
-                onChange={this.onCheckboxChange}
-                name="withBgColorAndIcon"
-              />
-              <Checkbox
-                value="withTransparency"
-                label="Has transparency"
-                isChecked={this.state.withTransparency}
-                onChange={this.onCheckboxChange}
-                name="withTransparency"
-              />
-            </div>
-            <table css={styledTableStyles}>
-              <thead>
-                <tr>
-                  <th key="first-column" />
-                  <th colSpan={statuses.length}>Status</th>
-                </tr>
-                <tr>
-                  <th key="first-column">Media Type</th>
-                  {statuses.map((status) => (
-                    <th key={`${status}-column`}>
-                      {status}
-                      {status === 'error' && (
-                        <div css={selectWrapperStyles}>
-                          <Select
-                            options={errorOptions}
-                            onChange={this.onRadioGroupSelect}
-                            defaultValue={errorOptions[0]}
-                          />
-                        </div>
-                      )}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {/* TODO: remove this IntlProvider https://product-fabric.atlassian.net/browse/BMPT-139 */}
-                <IntlProvider locale={'en'}>
-                  <React.Fragment>
-                    {mediaTypes.map(([mediaType, mimeType]) => (
-                      <tr key={`${mediaType}-row`}>
-                        <th
-                          style={{
-                            textAlign: 'right',
-                            lineHeight: '100%',
-                            verticalAlign: 'middle',
-                          }}
-                        >
-                          {mediaType}
-                        </th>
-                        {statuses.map((status) => (
-                          <td key={`${status}-entry-${mediaType}`}>
-                            {this.renderCardImageView(
-                              status,
-                              mediaType,
-                              mimeType,
-                              this.setSelected,
-                            )}
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-                  </React.Fragment>
-                </IntlProvider>
-              </tbody>
-            </table>
+      <MainWrapper>
+        <div css={styledContainerStyles}>
+          <div css={checkboxesContainerStyles}>
+            <Checkbox
+              value="withDataURI"
+              label="Has withDataURI?"
+              isChecked={this.state.withDataURI}
+              onChange={this.onCheckboxChange}
+              name="withDataURI"
+            />
+            <Checkbox
+              value="withMetadata"
+              label="Has withMetadata?"
+              isChecked={this.state.withMetadata}
+              onChange={this.onCheckboxChange}
+              name="withMetadata"
+            />
+            <Checkbox
+              value="disableOverlay"
+              label="Disable overlay?"
+              isChecked={this.state.disableOverlay}
+              onChange={this.onCheckboxChange}
+              name="disableOverlay"
+            />
+            <Checkbox
+              value="selectable"
+              label="Is selectable?"
+              isChecked={this.state.selectable}
+              onChange={this.onCheckboxChange}
+              name="selectable"
+            />
+            <Checkbox
+              value="selected"
+              label="Is selected?"
+              isChecked={this.state.selected}
+              onChange={this.onCheckboxChange}
+              name="selected"
+            />
+            <Checkbox
+              value="hasActions"
+              label="Has Actions?"
+              isChecked={this.state.hasActions}
+              onChange={this.onCheckboxChange}
+              name="hasActions"
+            />
+            <Checkbox
+              value="hasManyActions"
+              label="Has many Actions?"
+              isChecked={this.state.hasManyActions}
+              onChange={this.onCheckboxChange}
+              name="hasManyActions"
+            />
+            <Checkbox
+              value="isExternalImage"
+              label="Is external image?"
+              isChecked={this.state.isExternalImage}
+              onChange={this.onCheckboxChange}
+              name="isExternalImage"
+            />
+            <Checkbox
+              value="useBigCard"
+              label="Use Big Card?"
+              isChecked={this.state.useBigCard}
+              onChange={(event) => {
+                this.setState({ shouldRenderCard: false }, () =>
+                  this.setState({ shouldRenderCard: true }),
+                );
+                this.onCheckboxChange(event);
+              }}
+              name="useBigCard"
+            />
+            <Checkbox
+              value="withBgColorAndIcon"
+              label="Highlight title box?"
+              isChecked={this.state.withBgColorAndIcon}
+              onChange={this.onCheckboxChange}
+              name="withBgColorAndIcon"
+            />
+            <Checkbox
+              value="withTransparency"
+              label="Has transparency"
+              isChecked={this.state.withTransparency}
+              onChange={this.onCheckboxChange}
+              name="withTransparency"
+            />
           </div>
-        </MainWrapper>
-      </AtlaskitThemeProvider>
+          <table css={styledTableStyles}>
+            <thead>
+              <tr>
+                <th key="first-column" />
+                <th colSpan={statuses.length}>Status</th>
+              </tr>
+              <tr>
+                <th key="first-column">Media Type</th>
+                {statuses.map((status) => (
+                  <th key={`${status}-column`}>
+                    {status}
+                    {status === 'error' && (
+                      <div css={selectWrapperStyles}>
+                        <Select
+                          options={errorOptions}
+                          onChange={this.onRadioGroupSelect}
+                          defaultValue={errorOptions[0]}
+                        />
+                      </div>
+                    )}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {/* TODO: remove this IntlProvider https://product-fabric.atlassian.net/browse/BMPT-139 */}
+              <IntlProvider locale={'en'}>
+                <React.Fragment>
+                  {mediaTypes.map(([mediaType, mimeType]) => (
+                    <tr key={`${mediaType}-row`}>
+                      <th
+                        style={{
+                          textAlign: 'right',
+                          lineHeight: '100%',
+                          verticalAlign: 'middle',
+                        }}
+                      >
+                        {mediaType}
+                      </th>
+                      {statuses.map((status) => (
+                        <td key={`${status}-entry-${mediaType}`}>
+                          {this.renderCardImageView(
+                            status,
+                            mediaType,
+                            mimeType,
+                            this.setSelected,
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </React.Fragment>
+              </IntlProvider>
+            </tbody>
+          </table>
+        </div>
+      </MainWrapper>
     );
   }
 
@@ -370,7 +360,7 @@ class Example extends React.Component<{}, State> {
 
     return (
       <CardViewWrapper wrapperDimensions={wrapperDimensions}>
-        <CardView
+        <LoadedCardView
           status={status}
           mediaItemType="file"
           metadata={withMetadata ? metadata : undefined}

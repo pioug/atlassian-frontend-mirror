@@ -34,6 +34,7 @@ export {
   TABLE_ACTION,
   TABLE_BREAKOUT,
   TABLE_OVERFLOW_CHANGE_TRIGGER,
+  TABLE_STATUS,
   TARGET_SELECTION_SOURCE,
   TOOLBAR_ACTION_SUBJECT_ID,
   TRIGGER_METHOD,
@@ -73,6 +74,7 @@ export type {
   InsertEventPayload,
   InsertSmartLinkAEP,
   ListEventPayload,
+  MediaSwitchType,
   MediaAltTextActionType,
   MediaEventPayload,
   MediaLinkAEP,
@@ -125,6 +127,7 @@ export type {
   UpdatedFragmentMarkNameAEP,
   UpdatedSourceAEP,
   UpdatedTargetAEP,
+  OverflowStateInfo,
 } from './types';
 export type { EditorAnalyticsAPI } from './api';
 export {

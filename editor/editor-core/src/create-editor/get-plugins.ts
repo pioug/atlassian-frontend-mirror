@@ -1,8 +1,3 @@
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type {
-  EditorState,
-  Transaction,
-} from '@atlaskit/editor-prosemirror/state';
 import type { IntlShape } from 'react-intl-next';
 
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -11,6 +6,11 @@ import type {
   ReactHookFactory,
   UIComponentFactory,
 } from '@atlaskit/editor-common/types';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 import type { Dispatch, EventDispatcher } from '../event-dispatcher';
 import type { EditorReactContext } from '../types/editor-react-context';

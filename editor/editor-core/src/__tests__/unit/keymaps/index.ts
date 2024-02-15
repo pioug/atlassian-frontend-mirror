@@ -1,12 +1,12 @@
-import { browser } from '@atlaskit/editor-common/utils';
 import {
-  tooltip,
-  findShortcutByDescription,
   findKeymapByDescription,
-  toggleBold,
-  makeKeyMapWithCommon,
+  findShortcutByDescription,
   makeKeymap,
+  makeKeyMapWithCommon,
+  toggleBold,
+  tooltip,
 } from '@atlaskit/editor-common/keymaps';
+import { browser } from '@atlaskit/editor-common/utils';
 
 describe('keymaps', () => {
   [true, false].forEach((isMac) => {

@@ -1,22 +1,22 @@
-import type { RefObject, ReactElement } from 'react';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { ReactElement, RefObject } from 'react';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ReactHookFactory } from '@atlaskit/editor-common/types';
+import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type EditorActions from '../actions';
 import type { EventDispatcher } from '../event-dispatcher';
-import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type {
+  ContentComponents,
   PrimaryToolbarComponents,
   ReactComponents,
 } from '../types/editor-props';
-import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import type { UIComponentFactory } from '../types/ui-components';
-
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
 
 import type { EditorAppearance } from './editor-appearance';
@@ -44,7 +44,7 @@ export interface EditorAppearanceComponentProps {
   primaryToolbarIconBefore?: ReactElement;
   secondaryToolbarComponents?: UIComponentFactory[];
 
-  customContentComponents?: ReactComponents;
+  customContentComponents?: ContentComponents;
   customPrimaryToolbarComponents?: PrimaryToolbarComponents;
   customSecondaryToolbarComponents?: ReactComponents;
   insertMenuItems?: MenuItem[];

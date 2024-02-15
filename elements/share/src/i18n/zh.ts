@@ -19,6 +19,7 @@ export default {
   'fabric.elements.share.form.no-permissions': '您无法共享。',
   'fabric.elements.share.form.public.send': '发送公共链接',
   'fabric.elements.share.form.public.share': '分享公开链接',
+  'fabric.elements.share.form.required-field.summary': '必填字段标有星号',
   'fabric.elements.share.form.retry': '重试',
   'fabric.elements.share.form.send': '发送',
   'fabric.elements.share.form.share': '共享',

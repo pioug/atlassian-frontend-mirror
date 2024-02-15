@@ -4,18 +4,12 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import UndoIcon from '@atlaskit/icon/glyph/editor/undo';
-import { useGlobalTheme } from '@atlaskit/theme/components';
 import { h400 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { SpotlightCard } from '../src';
 
 import welcomeImage from './assets/this-is-new-jira.png';
-
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const lightH400Styles = css(h400({ theme: { mode: 'light' } }));
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const darkH400Styles = css(h400({ theme: { mode: 'dark' } }));
 
 const wrapperStyles = css({
   display: 'flex',
@@ -28,15 +22,18 @@ const wrapperStyles = css({
   flexWrap: 'wrap',
 });
 
-const semiboldStyles = css({
-  color: 'inherit',
-});
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+const semiboldStyles = css([
+  css(h400({ theme: { mode: 'light' } })),
+  {
+    color: 'inherit',
+  },
+]);
 
 const copy =
   'Quickly switch between your most recent projects by selecting the project name and icon.';
 
 export default () => {
-  const { mode } = useGlobalTheme();
   return (
     <div css={wrapperStyles} data-testid="spotlight-examples">
       <SpotlightCard
@@ -57,14 +54,7 @@ export default () => {
       </SpotlightCard>
       <SpotlightCard
         actionsBeforeElement={
-          <p
-            css={[
-              mode === 'light' ? lightH400Styles : darkH400Styles,
-              semiboldStyles,
-            ]}
-          >
-            Try clicking the project name.
-          </p>
+          <p css={semiboldStyles}>Try clicking the project name.</p>
         }
         width={275}
       >

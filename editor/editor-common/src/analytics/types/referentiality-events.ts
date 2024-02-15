@@ -1,5 +1,5 @@
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from './enums';
-import { OperationalAEP } from './utils';
+import type { ACTION, ACTION_SUBJECT } from './enums';
+import type { OperationalAEP } from './utils';
 
 export type InitialiseFragmentMarksAEP = OperationalAEP<
   ACTION.INITIALISED_FRAGMENT_MARK,
@@ -9,8 +9,7 @@ export type InitialiseFragmentMarksAEP = OperationalAEP<
     duration: number;
     docSize: number;
     count: number;
-  },
-  EVENT_TYPE.OPERATIONAL
+  }
 >;
 
 export type ConnectedNodesAEP = OperationalAEP<
@@ -24,8 +23,7 @@ export type ConnectedNodesAEP = OperationalAEP<
     sourceNodeType: string;
     targetNodeType: string;
     type: string;
-  },
-  EVENT_TYPE.OPERATIONAL
+  }
 >;
 
 export type DisconnectedSourceAEP = OperationalAEP<
@@ -36,8 +34,7 @@ export type DisconnectedSourceAEP = OperationalAEP<
     docSize: number;
     duration: number;
     targetNodeType: string;
-  },
-  EVENT_TYPE.OPERATIONAL
+  }
 >;
 
 export type DisconnectedTargetAEP = OperationalAEP<
@@ -49,8 +46,7 @@ export type DisconnectedTargetAEP = OperationalAEP<
     duration: number;
     sourceNodeType: string;
     targetNodeType: string;
-  },
-  EVENT_TYPE.OPERATIONAL
+  }
 >;
 
 export type GotConnectionsAEP = OperationalAEP<
@@ -61,8 +57,7 @@ export type GotConnectionsAEP = OperationalAEP<
     count: number;
     docSize: number;
     duration: number;
-  },
-  EVENT_TYPE.OPERATIONAL
+  }
 >;
 
 export type UpdatedFragmentMarkNameAEP = OperationalAEP<
@@ -72,8 +67,7 @@ export type UpdatedFragmentMarkNameAEP = OperationalAEP<
   {
     duration: number;
     nodeType: string;
-  },
-  EVENT_TYPE.OPERATIONAL
+  }
 >;
 
 export type UpdatedSourceAEP = OperationalAEP<
@@ -86,8 +80,7 @@ export type UpdatedSourceAEP = OperationalAEP<
     newSourceNodeType: string;
     oldSourceNodeType: string;
     type: UPDATED_TYPE;
-  },
-  EVENT_TYPE.OPERATIONAL
+  }
 >;
 
 export type UPDATED_TYPE = 'update' | 'replaceAndUpdate';
@@ -103,8 +96,7 @@ export type UpdatedTargetAEP = OperationalAEP<
     oldTargetNodeType: string;
     sourceNodeType: string;
     type: UPDATED_TYPE;
-  },
-  EVENT_TYPE.OPERATIONAL
+  }
 >;
 
 export type ReferentialityEventPayload =

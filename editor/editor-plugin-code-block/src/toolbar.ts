@@ -1,5 +1,3 @@
-import { defineMessages } from 'react-intl-next';
-
 import commonMessages, {
   codeBlockButtonMessages,
 } from '@atlaskit/editor-common/messages';
@@ -36,15 +34,6 @@ import type { CodeBlockState } from './pm-plugins/main-state';
 
 import type { CodeBlockPlugin } from './index';
 
-export const messages = defineMessages({
-  selectLanguage: {
-    id: 'fabric.editor.selectLanguage',
-    defaultMessage: 'Select language',
-    description:
-      'Code blocks display software code. A prompt to select the software language the code is written in.',
-  },
-});
-
 const languageList = createLanguageList(DEFAULT_LANGUAGES);
 
 export const getToolbarConfig =
@@ -53,7 +42,7 @@ export const getToolbarConfig =
     api: ExtractInjectionAPI<CodeBlockPlugin> | undefined,
   ): FloatingToolbarHandler =>
   (state, { formatMessage }) => {
-    const { hoverDecoration } = api?.decorations.actions ?? {};
+    const { hoverDecoration } = api?.decorations?.actions ?? {};
     const editorAnalyticsAPI = api?.analytics?.actions;
 
     const codeBlockState: CodeBlockState | undefined =
@@ -91,7 +80,7 @@ export const getToolbarConfig =
       selectType: 'list',
       onChange: option => changeLanguage(editorAnalyticsAPI)(option.value),
       defaultValue,
-      placeholder: formatMessage(messages.selectLanguage),
+      placeholder: formatMessage(codeBlockButtonMessages.selectLanguage),
       options,
       filterOption: languageListFilter,
     };

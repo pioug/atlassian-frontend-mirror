@@ -181,6 +181,8 @@ export const buildTypeAheadInsertedPayload = (
   mentionList?: MentionDescription[],
   query?: string,
   contextIdentifierProvider?: ContextIdentifierProvider,
+  taskListId?: string,
+  taskItemId?: string,
 ): GasPayload => {
   const { queryLength, spaceInQuery } = extractAttributesFromQuery(query);
   let analyticsPayload = buildAnalyticsPayload(
@@ -209,6 +211,8 @@ export const buildTypeAheadInsertedPayload = (
         isTeamType(mention.userType) && mention.context
           ? mention.context.includesYou
           : null,
+      taskListId,
+      taskItemId,
     },
   );
 

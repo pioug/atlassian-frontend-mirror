@@ -1,11 +1,12 @@
 import {
-  editorTestCase as test,
-  EditorExpandModel,
-  expect,
-  EditorNodeContainerModel,
-  fixTest,
   BROWSERS,
+  EditorExpandModel,
+  EditorNodeContainerModel,
+  expect,
+  fixTest,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import { expandAdf } from './tab-navigation.spec.ts-fixtures/adf';
 
 test.use({

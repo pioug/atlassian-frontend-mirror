@@ -18,30 +18,34 @@ import React from 'react';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
 
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
+import type { DocNode } from '@atlaskit/adf-schema';
 import { a, b, doc, heading, p, text } from '@atlaskit/adf-utils/builders';
-import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context';
-import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import type { Props } from '../../../ui/Renderer';
-import Renderer, { Renderer as BaseRenderer } from '../../../ui/Renderer';
-import type { RendererAppearance } from '../../../ui/Renderer/types';
-import * as renderDocumentModule from '../../../render-document';
-import Loadable from 'react-loadable';
-import { initialDoc } from '../../__fixtures__/initial-doc';
-import { invalidDoc } from '../../__fixtures__/invalid-doc';
-import { intlRequiredDoc } from '../../__fixtures__/intl-required-doc';
-import { tableLayout } from '../../__fixtures__/table';
-import * as linkDoc from '../../__fixtures__/links.adf.json';
-import { Media } from '../../../react/nodes';
-import { IntlProvider } from 'react-intl-next';
-import { measureTTI } from '@atlaskit/editor-common/utils';
 import type {
   GasPurePayload,
   GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
+import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { measureTTI } from '@atlaskit/editor-common/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
+import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { render, waitFor } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+import { Media } from '../../../react/nodes';
+import * as renderDocumentModule from '../../../render-document';
+import type { Props } from '../../../ui/Renderer';
+import Renderer, { Renderer as BaseRenderer } from '../../../ui/Renderer';
+import type { RendererAppearance } from '../../../ui/Renderer/types';
+import { initialDoc } from '../../__fixtures__/initial-doc';
+import { intlRequiredDoc } from '../../__fixtures__/intl-required-doc';
+import { invalidDoc } from '../../__fixtures__/invalid-doc';
+import * as linkDoc from '../../__fixtures__/links.adf.json';
+import { tableLayout } from '../../__fixtures__/table';
 import { setupMultipleRendersTestHelper } from '../../__helpers/render';
 
 const mockMeasureTTI = measureTTI as jest.Mock<typeof measureTTI>;
@@ -128,8 +132,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
         renderer.unmount();
       });
 
-      // TODO: test skipped because unstable
-      it.skip('should setup a default IntlProvider with locale "en"', () => {
+      it('should setup a default IntlProvider with locale "en"', () => {
         const renderer = initRenderer(intlRequiredDoc, {
           useSpecBasedValidator: true,
         });
@@ -211,6 +214,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
         expect(renderer.text()).toContain(captionText);
       });
     });
+
     describe('marks', () => {
       const docWithStage0Mark = {
         type: 'doc',
@@ -248,7 +252,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
     });
 
     describe('alt text', () => {
-      const docWithAltText = {
+      const docWithAltText: DocNode = {
         version: 1,
         type: 'doc',
         content: [
@@ -277,6 +281,21 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
           },
         ],
       };
+      const mediaProvider: MediaProvider = {
+        viewMediaClientConfig: getDefaultMediaClientConfig(),
+      };
+      let providerFactory: ProviderFactory;
+      beforeEach(() => {
+        providerFactory = new ProviderFactory();
+        providerFactory.setProvider(
+          'mediaProvider',
+          Promise.resolve(mediaProvider),
+        );
+      });
+
+      afterEach(() => {
+        providerFactory.destroy();
+      });
 
       it.each<[string, boolean]>([
         [
@@ -288,16 +307,27 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
           false,
         ],
       ])('%s', async (_, altTextFlag: boolean) => {
-        renderer = initRenderer(docWithAltText, {
-          allowAltTextOnImages: altTextFlag,
-        });
-        // need to preload and update to make LoadableComponent removed and media rendered
-        await Loadable.preloadAll();
-        renderer.update();
+        const { container } = render(
+          <Renderer
+            document={docWithAltText}
+            allowAltTextOnImages={altTextFlag}
+            dataProviders={providerFactory}
+          />,
+        );
 
-        expect(
-          renderer.find('MediaCardInternal[alt="This is an alt text"]').length,
-        ).toBe(altTextFlag ? 1 : 0);
+        if (altTextFlag) {
+          await waitFor(() =>
+            expect(
+              container.querySelector('[data-node-type="media"]'),
+            ).toHaveAttribute('data-alt', 'This is an alt text'),
+          );
+        } else {
+          await waitFor(() =>
+            expect(
+              container.querySelector('[data-node-type="media"]'),
+            ).not.toHaveAttribute('data-alt', 'This is an alt text'),
+          );
+        }
       });
     });
 

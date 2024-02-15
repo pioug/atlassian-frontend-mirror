@@ -9,17 +9,22 @@ import pageHeaderCountDont from './images/page-header-dont-2.png';
 
 ## Usage
 
-Use a page header to create a consistent experience at the top of a full page. The page header provides the core information users need when viewing the page.
+The page header helps people understand what the page is for, and what to expect on the rest of the page. Use a page header to create a consistent experience at the top of a full page.
 
 ## Anatomy
 
-![Page header anatomy](images/page-header-anatomy.png)
+![In this example page header, the title, breadcrumbs and search options are left-aligned, and the action buttons are right-aligned next to the title.](images/page-header-anatomy.png)
 
 1. **Page grid:** The content area where the page header sits. Each page requires grid spacing to be set to account for page size and fixed/fluid pages.
-2. **Breadcrumbs:** [Breadcrumbs](/components/breadcrumbs/examples) are an optional navigation aid that shows users their current location in relation to the rest of the site.
-3. **Title:** Page title summarizes the page content. The title wraps onto multiple lines when using fluid grid alignment and truncates when using fixed grid alignment.
+2. **Breadcrumbs:** [Breadcrumbs](/components/breadcrumbs/examples) are an optional navigation aid that shows people their current location in relation to the rest of the site.
+3. **Title:** The page title summarizes the page content. The title wraps onto multiple lines when using fluid grid alignment and truncates when using fixed grid alignment.
 4. **Actions:** This area contains buttons that modify the page and its content. Use primary, secondary, subtle, compact, or other buttons defined in the [button guidelines](/components/button/examples).
-5. **Search bar and filters:** The search and filter bar allows users to refine the page content using [search](/components/textfield/examples) or [select](/components/select/examples).
+5. **Search bar and filters:** The search and filter bar allows people to refine the page content using [search](/components/textfield/examples) or [select](/components/select/examples).
+
+## Accessibility
+
+- Avoid truncating the text as much as possible.
+- `innerRef` exists so that people can set the focus to the DOM element of the title.
 
 ## Best practices
 
@@ -27,7 +32,7 @@ Use a page header to create a consistent experience at the top of a full page. T
   type="do"
   image={{
     url: pageHeaderCountDo,
-    alt: 'Page that has one page header at the top',
+    alt: 'Page that has one page header at the top. The header is "All open" and shows open Jira issues.',
   }}
 >
   Use one page header per page.
@@ -37,7 +42,7 @@ Use a page header to create a consistent experience at the top of a full page. T
   type="dont"
   image={{
     url: pageHeaderCountDont,
-    alt: 'Page that contains multiple page headers',
+    alt: 'Page that contains multiple page headers. The headers are "All open" and "Design" and show the header being misused to create multiple sections.',
   }}
 >
   Use multiple page headers in one page.
@@ -67,9 +72,4 @@ Use a page header to create a consistent experience at the top of a full page. T
 ## Content guidelines
 
 - Headings should be sentence case unless they include proper nouns.
-- Headings should be short and let users know what to expect on the page.
-
-## Accessibility
-
-- Avoid truncating the text as much as possible.
-- `innerRef` exists for users to set the focus to the DOM element of the title.
+- Headings should be short and let people know what to expect on the page.

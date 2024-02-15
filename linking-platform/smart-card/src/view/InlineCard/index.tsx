@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { InlineCardProps } from './types';
 import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
 import { JsonLd } from 'json-ld-types';
-import { extractRequestAccessContext } from '../../extractors/common/context';
+import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
 import { CardLinkView } from '../LinkView';
 import { InlineCardErroredView } from './ErroredView';
 import { InlineCardForbiddenView } from './ForbiddenView';
@@ -13,6 +13,8 @@ import { InlineCardUnauthorizedView } from './UnauthorisedView';
 import { extractProvider } from '@atlaskit/link-extractors';
 import { useFeatureFlag } from '@atlaskit/link-provider';
 import { getExtensionKey } from '../../state/helpers';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { SmartLinkStatus } from '../../constants';
 
 export {
   InlineCardResolvedView,
@@ -30,6 +32,7 @@ export const InlineCard: FC<InlineCardProps> = ({
   handleAuthorize,
   handleFrameClick,
   isSelected,
+  isHovered,
   renderers,
   onResolve,
   onError,
@@ -37,17 +40,45 @@ export const InlineCard: FC<InlineCardProps> = ({
   inlinePreloaderStyle,
   showHoverPreview,
   showAuthTooltip,
-  showServerActions,
+  actionOptions,
 }) => {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
+
   const { status, details } = cardState;
   const cardDetails = (details && details.data) || getEmptyJsonLd();
   const extensionKey = getExtensionKey(details);
   const testIdWithStatus = testId ? `${testId}-${status}-view` : undefined;
 
   const showHoverPreviewFlag = useFeatureFlag('showHoverPreview');
+
   if (showHoverPreview === undefined && showHoverPreviewFlag !== undefined) {
     showHoverPreview = Boolean(showHoverPreviewFlag);
   }
+
+  const resolvedProps =
+    status === SmartLinkStatus.Resolved
+      ? extractInlineProps(cardDetails as JsonLd.Data.BaseData, renderers)
+      : {};
+
+  useEffect(() => {
+    switch (status) {
+      case SmartLinkStatus.Resolved:
+        onResolve?.({
+          url,
+          title: resolvedProps.title,
+        });
+        break;
+      case SmartLinkStatus.Errored:
+      case SmartLinkStatus.Fallback:
+      case SmartLinkStatus.Forbidden:
+      case SmartLinkStatus.NotFound:
+      case SmartLinkStatus.Unauthorized:
+        if (onError) {
+          onError({ status, url });
+        }
+        break;
+    }
+  }, [onError, onResolve, status, url, resolvedProps.title]);
 
   switch (status) {
     case 'pending':
@@ -62,35 +93,20 @@ export const InlineCard: FC<InlineCardProps> = ({
         />
       );
     case 'resolved':
-      const resolvedProps = extractInlineProps(
-        cardDetails as JsonLd.Data.BaseData,
-        renderers,
-      );
-
-      if (onResolve) {
-        onResolve({
-          url,
-          title: resolvedProps.title,
-        });
-      }
-
       return (
         <InlineCardResolvedView
           {...resolvedProps}
           id={id}
           showHoverPreview={showHoverPreview}
-          showServerActions={showServerActions}
+          actionOptions={actionOptions}
           link={url}
           isSelected={isSelected}
+          isHovered={isHovered}
           onClick={handleFrameClick}
           testId={testIdWithStatus}
         />
       );
     case 'unauthorized':
-      if (onError) {
-        onError({ url, status });
-      }
-
       const provider = extractProvider(cardDetails as JsonLd.Data.BaseData);
       return (
         <InlineCardUnauthorizedView
@@ -108,19 +124,17 @@ export const InlineCard: FC<InlineCardProps> = ({
         />
       );
     case 'forbidden':
-      if (onError) {
-        onError({ url, status });
-      }
-
       const providerForbidden = extractProvider(
         cardDetails as JsonLd.Data.BaseData,
       );
       const cardMetadata = details?.meta ?? getForbiddenJsonLd().meta;
-      const requestAccessContext = extractRequestAccessContext({
+      const requestAccessContext = extractRequestAccessContextImproved({
         jsonLd: cardMetadata,
         url,
-        context: providerForbidden?.text,
+        product: providerForbidden?.text ?? '',
+        createAnalyticsEvent,
       });
+
       return (
         <InlineCardForbiddenView
           url={url}
@@ -131,13 +145,10 @@ export const InlineCard: FC<InlineCardProps> = ({
           onAuthorise={handleAuthorize}
           testId={testIdWithStatus}
           requestAccessContext={requestAccessContext}
+          showHoverPreview={showHoverPreview}
         />
       );
     case 'not_found':
-      if (onError) {
-        onError({ url, status });
-      }
-
       const providerNotFound = extractProvider(
         cardDetails as JsonLd.Data.BaseData,
       );
@@ -149,15 +160,12 @@ export const InlineCard: FC<InlineCardProps> = ({
           message="Can't find link"
           onClick={handleFrameClick}
           testId={testIdWithStatus || 'inline-card-not-found-view'}
+          showHoverPreview={showHoverPreview}
         />
       );
     case 'fallback':
     case 'errored':
     default:
-      if (onError) {
-        onError({ url, status });
-      }
-
       return (
         <CardLinkView
           link={url}

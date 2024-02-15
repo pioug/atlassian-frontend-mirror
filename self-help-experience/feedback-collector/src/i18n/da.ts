@@ -13,6 +13,7 @@ export default {
   'feedback-collector.can-be-contacted.label':
     'Ja, Atlassian-teams kan kontakte mig for at lære om mine oplevelser med at forbedre Atlassian-produkter og -tjenester. Jeg accepterer <a>Atlassians politik om beskyttelse af personlige oplysninger</a>.',
   'feedback-collector.cancel-button.label': 'Annuller',
+  'feedback-collector.default.custom.textarea.label': 'Hvad tænker du på?',
   'feedback-collector.enrol-in-research.label': 'Jeg vil gerne deltage i produktundersøgelser',
   'feedback-collector.feedback-title': 'Del dine meninger',
   'feedback-collector.form.bug.label': 'Beskriv fejlen eller problemet',
@@ -26,6 +27,7 @@ export default {
   'feedback-collector.option.default.placeholder': 'Vælg en svarmulighed',
   'feedback-collector.option.question.label': 'Stille et spørgsmål',
   'feedback-collector.option.suggestion.label': 'Foreslå en forbedring',
+  'feedback-collector.required.fields.summary': 'Påkrævede felter er markeret med en stjerne',
   'feedback-collector.submit-button.label': 'Send feedback',
   'feedback-collector.success-flag.description': 'Din feedback hjælper os med at forbedre vores produkter.',
   'feedback-collector.success-flag.title': 'Tak!',

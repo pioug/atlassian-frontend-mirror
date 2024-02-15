@@ -13,14 +13,12 @@ import {
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
-import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import {
-  draggable,
-  dropTargetForElements,
-  monitorForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
-import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
+import DropdownMenu, {
+  DropdownItem,
+  DropdownItemGroup,
+} from '@atlaskit/dropdown-menu';
+// eslint-disable-next-line @atlaskit/design-system/no-banned-imports
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import {
   attachClosestEdge,
   Edge,
@@ -28,8 +26,15 @@ import {
 } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
 import { announce } from '@atlaskit/pragmatic-drag-and-drop-live-region';
-import { DragHandleDropdownMenu } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-dropdown-menu';
+import { DragHandleButton } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-button';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
+import {
+  draggable,
+  dropTargetForElements,
+  monitorForElements,
+} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
 
 const itemStyles = css({
   display: 'flex',
@@ -103,7 +108,15 @@ function Item({
 
   return (
     <div ref={elementRef} css={itemStyles}>
-      <DragHandleDropdownMenu triggerRef={dragHandleRef} label="Reorder">
+      <DropdownMenu
+        trigger={({ triggerRef, ...triggerProps }) => (
+          <DragHandleButton
+            ref={mergeRefs([dragHandleRef, triggerRef])}
+            {...triggerProps}
+            label="Reorder"
+          />
+        )}
+      >
         <DropdownItemGroup>
           <DropdownItem onClick={moveUp} isDisabled={isFirstItem}>
             Move up
@@ -112,7 +125,7 @@ function Item({
             Move down
           </DropdownItem>
         </DropdownItemGroup>
-      </DragHandleDropdownMenu>
+      </DropdownMenu>
       <span>{children}</span>
       {closestEdge && <DropIndicator edge={closestEdge} />}
     </div>

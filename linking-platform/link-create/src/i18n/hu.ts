@@ -16,6 +16,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': 'A módosításaidat nem mentjük',
   'linkCreate.createForm.button.close': 'Bezárás',
   'linkCreate.createForm.button.create': 'Létrehozás',
-  'linkCreate.createForm.button.edit': 'Szerkesztés',
+  'linkCreate.createForm.button.createAndOpen': 'Létrehozás és megnyitás',
   'linkCreate.modal.heading': 'Új létrehozása',
 };

@@ -8,54 +8,50 @@ import {
 } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+const DOC_START_POS = 0;
+
 function isNodeContentEmpty(maybeNode?: PMNode): boolean {
   return maybeNode?.content.size === 0 || maybeNode?.textContent === '';
 }
 
 function findEmptySelectableParentNodePosition(
   $pos: ResolvedPos,
-  isValidPosition: ($pos: ResolvedPos) => boolean,
 ): ResolvedPos | null {
   const { doc } = $pos;
 
-  if ($pos.pos + 1 > doc.content.size) {
+  if ($pos.pos > doc.content.size) {
     return null;
+  }
+
+  if (isCurrentNodeAtomOrEmptySelectable($pos)) {
+    return $pos;
   }
 
   if ($pos.nodeBefore !== null) {
-    if (isValidPosition($pos)) {
-      return $pos;
-    }
-
-    // We can not use `$pos.before()` because ProseMirror throws an error when depth is zero.
-    const currentPosIndex = $pos.index();
-    if (currentPosIndex === 0) {
-      return null;
-    }
-    const previousIndex = currentPosIndex - 1;
-    const $previousPos = $pos.doc.resolve($pos.posAtIndex(previousIndex));
-    if (isValidPosition($previousPos)) {
-      return $previousPos;
-    }
-
     return null;
   }
 
-  if (isValidPosition($pos)) {
+  if ($pos.depth === 0 && $pos.pos === 0) {
     return $pos;
   }
 
   const positionLevelUp = $pos.before();
   const resolvedPositionLevelUp = doc.resolve(positionLevelUp);
 
-  return findEmptySelectableParentNodePosition(
-    resolvedPositionLevelUp,
-    isValidPosition,
-  );
+  return findEmptySelectableParentNodePosition(resolvedPositionLevelUp);
 }
 
-const checkPositionNode = ($pos: ResolvedPos): boolean => {
-  const maybeNode = $pos.nodeAfter;
+const isCurrentNodeAtomOrEmptySelectable = ($pos: ResolvedPos): boolean => {
+  //ED-20209: Using $resolvedJustBeforeNodePos so that $resolvedJustBeforeNodePos.nodeAfter return the node at $pos.pos even if that is an atomic node
+  if ($pos.pos === DOC_START_POS) {
+    return false;
+  }
+
+  const justBeforeNodePos = $pos.pos - 1;
+
+  const $resolvedjustBeforePos = $pos.doc.resolve(justBeforeNodePos);
+  const maybeNode = $resolvedjustBeforePos.nodeAfter;
+
   if (!maybeNode || !maybeNode.isBlock) {
     return false;
   }
@@ -78,21 +74,41 @@ function findNextSelectionPosition({
 }): ResolvedPos | null {
   const direction = $anchor.pos < $targetHead.pos ? 'down' : 'up';
 
-  const maybeNextPosition = findEmptySelectableParentNodePosition(
-    $targetHead,
-    checkPositionNode,
-  );
+  //ED-20209: If the targetHead position is just before some node, Then return $targetHead and not select any node.
+  let maybeNode = null;
 
-  if (maybeNextPosition && maybeNextPosition.nodeAfter) {
-    const nodeAfter = maybeNextPosition.nodeAfter;
-    const pos = maybeNextPosition.pos;
+  if ($targetHead.pos !== DOC_START_POS) {
+    const justBeforeHeadPos = $targetHead.pos - 1;
+    const $resolvedJustBeforeHeadPos = doc.resolve(justBeforeHeadPos);
+    maybeNode = $resolvedJustBeforeHeadPos.nodeAfter;
+  }
 
-    const nextPositionToSelect =
-      direction === 'down'
-        ? Math.min(nodeAfter.nodeSize + pos, doc.content.size)
-        : Math.max(pos, 0);
+  if (maybeNode === null) {
+    maybeNode = $targetHead.nodeAfter;
+    if (maybeNode !== null) {
+      $targetHead = doc.resolve($targetHead.pos + 1);
+    } else {
+      return null;
+    }
+  }
 
-    return doc.resolve(nextPositionToSelect);
+  const maybeNextPosition = findEmptySelectableParentNodePosition($targetHead);
+
+  if (maybeNextPosition) {
+    const justBeforeMaybeNextPos = maybeNextPosition.pos - 1;
+    if (direction === 'up') {
+      return doc.resolve(Math.max(justBeforeMaybeNextPos, 0));
+    } else {
+      const maybeNextNode = doc.resolve(justBeforeMaybeNextPos).nodeAfter;
+      if (maybeNextNode) {
+        return doc.resolve(
+          Math.min(
+            justBeforeMaybeNextPos + maybeNextNode.nodeSize,
+            doc.content.size,
+          ),
+        );
+      }
+    }
   }
 
   return null;
@@ -140,5 +156,6 @@ export const onCreateSelectionBetween = (
     $anchor.pos,
     $nextHeadPosition.pos,
   );
+
   return forcedTextSelection;
 };

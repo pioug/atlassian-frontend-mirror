@@ -1,5 +1,72 @@
 # @atlaskit/pragmatic-drag-and-drop-react-accessibility
 
+## 0.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.5.0
+
+### Minor Changes
+
+- [#59748](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59748) [`70d293a2f8b8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70d293a2f8b8) - Removed the `DragHandleDropdownMenu` and `DragHandleDropdownMenuSmall` exports. Composition with `DropdownMenu` should be used instead.
+
+  This decision was made to avoid the risk of mismatched versions of `@atlaskit/dropdown-menu`,
+  which could occur when this package was bringing in a different version to the main one installed.
+  It is also preferable to encourage composition,
+  which allows for greater flexibility and control for consumers.
+
+  **Before**
+
+  ```tsx
+  import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+  import { DragHandleDropdownMenu } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-dropdown-menu';
+
+  function MyComponent() {
+    const myRef = useRef<HTMLButtonElement>(null);
+    return (
+      <DragHandleDropdownMenu triggerRef={myRef} label="Reorder">
+        <DropdownItemGroup>
+          <DropdownItem>Move up</DropdownItem>
+          <DropdownItem>Move down</DropdownItem>
+        </DropdownItemGroup>
+      </DragHandleDropdownMenu>
+    );
+  }
+  ```
+
+  **After**
+
+  ```tsx
+  import DropdownMenu, {
+    DropdownItem,
+    DropdownItemGroup,
+  } from '@atlaskit/dropdown-menu';
+  import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+  import { DragHandleButton } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-button';
+
+  function MyComponent() {
+    const myRef = useRef<HTMLButtonElement>(null);
+    return (
+      <DropdownMenu
+        trigger={({ triggerRef, ...triggerProps }) => (
+          <DragHandleButton
+            ref={mergeRefs([myRef, triggerRef])}
+            {...triggerProps}
+            label="Reorder"
+          />
+        )}
+      >
+        <DropdownItemGroup>
+          <DropdownItem>Move up</DropdownItem>
+          <DropdownItem>Move down</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>
+    );
+  }
+  ```
+
 ## 0.4.1
 
 ### Patch Changes

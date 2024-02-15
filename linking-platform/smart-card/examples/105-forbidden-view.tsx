@@ -2,11 +2,9 @@ import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 import { Label } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
-import { InlineCardForbiddenView } from '../src/view/InlineCard/ForbiddenView';
-import { InlineCardForbiddenView as RedesignedInlineCardForbiddenView } from '../src/view/RedesignedInlineCard/ForbiddenView';
+import { InlineCardForbiddenView as ForbiddenView } from '../src/view/InlineCard/ForbiddenView';
 
 import { IntlProvider } from 'react-intl-next';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 class Example extends React.Component {
   state = {
     url: 'https://product-fabric.atlassian.net/browse/MSW-524',
@@ -17,12 +15,6 @@ class Example extends React.Component {
   };
 
   render() {
-    const ForbiddenView = getBooleanFF(
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-    )
-      ? RedesignedInlineCardForbiddenView
-      : InlineCardForbiddenView;
-
     return (
       <IntlProvider locale={'en'}>
         <Page>

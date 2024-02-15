@@ -28,9 +28,9 @@ export default {
   'fabric.linking.connect_to': 'เชื่อมต่อกับ {name}',
   'fabric.linking.connect_unauthorised_account_action': 'เชื่อมต่อกับ {context}',
   'fabric.linking.connect_unauthorised_account_description':
-    'เชื่อมต่อ {context} กับ Atlassian เพื่อดูรายละเอียดเพิ่มเติมของงานของคุณและทำงานร่วมกันจากที่เดียว',
+    'เชื่อมต่อบัญชี {context} ของคุณเพื่อทำงานร่วมกันในผลิตภัณฑ์ต่าง ๆ ของ Atlassian',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    'เชื่อมต่อไปยัง Atlassian เพื่อดูรายละเอียดเพิ่มเติมของงานของคุณและทำงานร่วมกันจากที่เดียว',
+    'เชื่อมต่อบัญชีของคุณเพื่อทำงานร่วมกันในผลิตภัณฑ์ต่าง ๆ ของ Atlassian',
   'fabric.linking.continue': 'ดำเนินการต่อ',
   'fabric.linking.copy_url_to_clipboard': 'คัดลอกลิงก์',
   'fabric.linking.couldnt_load_link': 'เราไม่สามารถโหลดลิงก์นี้ได้ด้วยเหตุผลที่ไม่อาจทราบได้',
@@ -57,6 +57,8 @@ export default {
     'คุณอาจจำเป็นต้องร้องขอสิทธิ์การเข้าถึงหรือลองบัญชีอื่นเพื่อดูการแสดงตัวอย่างนี้',
   'fabric.linking.join_to_view': 'เข้าร่วม {context} เพื่อดูปัญหานี้',
   'fabric.linking.last_mentioned_in': 'กล่าวถึงล่าสุดใน',
+  'fabric.linking.learn_more_about_connecting_account':
+    'เรียนรู้เพิ่มเติมเกี่ยวกับการเชื่อมต่อบัญชีของคุณกับผลิตภัณฑ์ของ Atlassian',
   'fabric.linking.learn_more_about_smart_links': 'เรียนรู้เพิ่มเติมเกี่ยวกับสมาร์ทลิงก์ (ลิงก์อัจฉริยะ)',
   'fabric.linking.link_safety_warning_message':
     'ลิงก์ {unsafeLinkText} จะนำคุณไปยังเว็บไซต์อื่น <a>ลิงก์จริงอยู่ที่นี่</a>',

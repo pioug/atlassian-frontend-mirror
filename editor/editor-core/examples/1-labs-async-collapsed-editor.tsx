@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl-next';
-import CollapsedEditor from './../src/CollapsedEditor';
+
+import CollapsedEditor from '../src/CollapsedEditor';
 
 export interface State {
   isExpanded: boolean;

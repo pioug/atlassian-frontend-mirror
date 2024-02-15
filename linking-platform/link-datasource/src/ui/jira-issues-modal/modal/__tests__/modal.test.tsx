@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { JQLEditorProps } from '@atlassianlabs/jql-editor';
 import {
   act,
   fireEvent,
@@ -11,6 +10,7 @@ import {
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
+import { JQLEditorProps } from '@atlaskit/jql-editor';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import {
   fieldValuesResponseForStatusesMapped,
@@ -18,6 +18,7 @@ import {
 } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { LINK_TYPE_TEST_ID } from '../../../issue-like-table/render-type/link';
@@ -45,6 +46,7 @@ import {
 mockSimpleIntersectionObserver(); // for smart link rendering
 
 jest.mock('../../basic-filters/hooks/useFilterOptions');
+jest.mock('@atlaskit/platform-feature-flags');
 jest.useFakeTimers();
 
 describe('JiraIssuesConfigModal', () => {
@@ -130,31 +132,10 @@ describe('JiraIssuesConfigModal', () => {
     it('should reset hooks state', async () => {
       const hookState = getDefaultHookState();
       const { selectNewJiraInstanceSite } = await setup({ hookState });
-
       await selectNewJiraInstanceSite();
-
       expect(hookState.reset).toHaveBeenCalledWith({
         shouldForceRequest: true,
       });
-    });
-
-    it('should produce ADF with new cloudId', async () => {
-      const { assertInsertResult, selectNewJiraInstanceSite } = await setup();
-
-      await selectNewJiraInstanceSite();
-
-      assertInsertResult(
-        {
-          cloudId: '67899',
-          jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
-        },
-        {
-          attributes: {
-            actions: ['instance updated'],
-            searchCount: 0,
-          },
-        },
-      );
     });
   });
 
@@ -210,7 +191,7 @@ describe('JiraIssuesConfigModal', () => {
               searchMethod: 'datasource_basic_filter',
               projectBasicFilterSelectionCount: 0,
               statusBasicFilterSelectionCount: 0,
-              issuetypeBasicFilterSelectionCount: 0,
+              typeBasicFilterSelectionCount: 0,
               assigneeBasicFilterSelectionCount: 0,
             },
           },
@@ -287,7 +268,7 @@ describe('JiraIssuesConfigModal', () => {
         fireEvent.click(firstStatus); // select the first status
         fireEvent.click(secondStatus); // select the second status
 
-        jest.advanceTimersByTime(350);
+        jest.advanceTimersByTime(500);
 
         assertInsertResult(
           {
@@ -303,7 +284,7 @@ describe('JiraIssuesConfigModal', () => {
               searchMethod: 'datasource_basic_filter',
               projectBasicFilterSelectionCount: 0,
               statusBasicFilterSelectionCount: 2,
-              issuetypeBasicFilterSelectionCount: 0,
+              typeBasicFilterSelectionCount: 0,
               assigneeBasicFilterSelectionCount: 0,
             },
           },
@@ -340,11 +321,10 @@ describe('JiraIssuesConfigModal', () => {
   });
 
   it('should display a placeholder smart link if there is no jql', async () => {
-    const { getByLabelText, getByText } = await setup({
+    const { getByText } = await setup({
       parameters: { cloudId: '67899', jql: '' },
+      viewMode: 'count',
     });
-
-    getByLabelText('Count view').click();
 
     expect(getByText('### Issues')).toBeInTheDocument();
   });
@@ -384,12 +364,11 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should show a smart link in count view', async () => {
-      const { searchWithNewJql, getByLabelText, queryByTestId, findByText } =
-        await setup();
+      const { searchWithNewJql, queryByTestId, findByText } = await setup({
+        viewMode: 'count',
+      });
 
       searchWithNewJql('different-query');
-
-      getByLabelText('Count view').click();
       expect(await findByText('55 Issues')).toBeTruthy();
 
       const card = queryByTestId(`${LINK_TYPE_TEST_ID}-resolved-view`);
@@ -401,12 +380,11 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should not show footer issue count in count view', async () => {
-      const { searchWithNewJql, getByLabelText, queryByTestId, findByText } =
-        await setup();
+      const { searchWithNewJql, queryByTestId, findByText } = await setup({
+        viewMode: 'count',
+      });
 
       searchWithNewJql('different-query');
-
-      getByLabelText('Count view').click();
       expect(await findByText('55 Issues')).toBeTruthy();
 
       expect(
@@ -544,46 +522,51 @@ describe('JiraIssuesConfigModal', () => {
   });
 
   describe('when there is no parameters yet', () => {
-    it('should display default InitialState (JQL mode)', async () => {
-      const { queryByTestId, getByRole, getByText, getByTestId } = await setup({
-        hookState: getEmptyHookState(),
-        parameters: undefined,
-      });
-      expect(
-        queryByTestId('jlol-datasource-modal--initial-state-view'),
-      ).toBeTruthy();
-      expect(
-        getByText('Use JQL (Jira Query Language) to search for issues.'),
-      ).toBeInTheDocument();
-      expect(
-        getByRole('link', { name: 'Learn how to search with JQL' }),
-      ).toHaveAttribute(
-        'href',
-        'https://support.atlassian.com/jira-service-management-cloud/docs/use-advanced-search-with-jira-query-language-jql/',
-      );
-      expect(
-        getByTestId('mode-toggle-jql').querySelector('input'),
-      ).toBeChecked();
-    });
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      async () => {
+        const { queryByRole, getByText, getByTestId, queryByText } =
+          await setup({
+            hookState: getEmptyHookState(),
+            parameters: undefined,
+          });
 
-    it('should display InitialState (Basic mode)', async () => {
-      const { queryByRole, getByText, getByTestId } = await setup({
-        hookState: getEmptyHookState(),
-        parameters: undefined,
-      });
-      act(() => {
-        fireEvent.click(getByTestId('mode-toggle-basic'));
-      });
-      expect(
-        getByTestId('mode-toggle-basic').querySelector('input'),
-      ).toBeChecked();
-      expect(
-        getByText('Search by keyword for issues to insert.'),
-      ).toBeInTheDocument();
-      expect(
-        queryByRole('link', { name: 'Learn how to search with JQL' }),
-      ).not.toBeInTheDocument();
-    });
+        expect(
+          getByTestId('mode-toggle-basic').querySelector('input'),
+        ).toBeChecked();
+        expect(
+          getByText('Search by keyword for issues to insert.'),
+        ).toBeInTheDocument();
+
+        expect(queryByText('Beta')).not.toBeInTheDocument();
+        expect(
+          queryByRole('link', { name: 'Learn how to search with JQL' }),
+        ).not.toBeInTheDocument();
+      },
+      async () => {
+        const { queryByTestId, getByRole, getByText, getByTestId } =
+          await setup({
+            hookState: getEmptyHookState(),
+            parameters: undefined,
+          });
+        expect(
+          queryByTestId('jlol-datasource-modal--initial-state-view'),
+        ).toBeTruthy();
+        expect(
+          getByText('Use JQL (Jira Query Language) to search for issues.'),
+        ).toBeInTheDocument();
+        expect(getByText('Beta')).toBeInTheDocument();
+        expect(
+          getByRole('link', { name: 'Learn how to search with JQL' }),
+        ).toHaveAttribute(
+          'href',
+          'https://support.atlassian.com/jira-service-management-cloud/docs/use-advanced-search-with-jira-query-language-jql/',
+        );
+        expect(
+          getByTestId('mode-toggle-jql').querySelector('input'),
+        ).toBeChecked();
+      },
+    );
 
     it('should not display issue count', async () => {
       const { queryByTestId } = await setup({
@@ -663,11 +646,12 @@ describe('JiraIssuesConfigModal', () => {
   describe('when only one issue is returned', () => {
     it('should call LinkRenderType with the correct url', async () => {
       const hookState = getSingleIssueHookState();
-      const { queryByTestId, getByText } = await setup({
+      const { switchMode, queryByTestId, getByText } = await setup({
         hookState,
       });
 
-      expect(IssueLikeDataTableView).not.toHaveBeenCalled();
+      expect(IssueLikeDataTableView).toHaveBeenCalled();
+      switchMode('count');
 
       await waitFor(() =>
         getByText(
@@ -739,27 +723,34 @@ describe('JiraIssuesConfigModal', () => {
 
     it('should call onInsert with inline card ADF upon Insert button press', async () => {
       const hookState = getSingleIssueHookState();
-      const { onInsert, getByRole } = await setup({
+      const { getByText, onInsert, getByRole } = await setup({
         hookState,
+        viewMode: 'count',
       });
 
+      await waitFor(() =>
+        getByText(
+          'EDM-5941: Implement mapping between data type and visual component',
+        ),
+      );
       const button = getByRole('button', { name: 'Insert issues' });
       act(() => {
         button.click();
       });
 
       expect(onInsert).toHaveBeenCalledWith(
-        {
+        expect.objectContaining({
           type: 'inlineCard',
           attrs: {
             url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
           },
-        },
+        }),
         expect.objectContaining(
           getInsertAnalyticPayload({
             attributes: {
               display: 'inline',
               totalItemCount: 1,
+              actions: ['display view changed'],
             },
           }),
         ),
@@ -789,7 +780,7 @@ describe('JiraIssuesConfigModal', () => {
         expect.objectContaining(
           getInsertAnalyticPayload({
             attributes: {
-              display: 'inline',
+              display: 'datasource_table',
               totalItemCount: 1,
             },
           }),
@@ -814,7 +805,7 @@ describe('JiraIssuesConfigModal', () => {
         expect.objectContaining(
           getInsertAnalyticPayload({
             attributes: {
-              display: 'inline',
+              display: 'datasource_table',
               totalItemCount: 1,
             },
           }),
@@ -887,6 +878,47 @@ describe('JiraIssuesConfigModal', () => {
       expect(button).not.toBeDisabled();
     });
 
+    it('should call onInsert with query from search bar even if user did not click search previously', async () => {
+      const { onInsert, getByRole, getByTestId, getByPlaceholderText } =
+        await setup();
+      act(() => {
+        fireEvent.click(getByTestId('mode-toggle-basic'));
+      });
+      const basicTextInput = getByPlaceholderText(
+        'Search for issues by keyword',
+      );
+      fireEvent.change(basicTextInput, {
+        target: { value: 'testing' },
+      });
+
+      const button = getByRole('button', { name: 'Insert issues' });
+      button.click();
+      expect(onInsert).toHaveBeenCalledWith(
+        {
+          type: 'blockCard',
+          attrs: {
+            url: 'https://hello.atlassian.net/issues/?jql=text%20~%20%22testing*%22%20or%20summary%20~%20%22testing*%22%20ORDER%20BY%20created%20DESC',
+            datasource: {
+              id: 'some-jira-jql-datasource-id',
+              parameters: {
+                cloudId: '67899',
+                jql: 'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
+              },
+              views: [
+                {
+                  type: 'table',
+                  properties: {
+                    columns: [{ key: 'myColumn' }],
+                  },
+                },
+              ],
+            },
+          },
+        } as JiraIssuesDatasourceAdf,
+        expect.objectContaining(getInsertAnalyticPayload({})),
+      );
+    });
+
     it('should call onInsert with datasource ADF upon Insert button press', async () => {
       const { onInsert, getByRole } = await setup();
       const button = getByRole('button', { name: 'Insert issues' });
@@ -918,9 +950,7 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should call onInsert with inlineCard ADF upon Insert button press in count view mode', async () => {
-      const { onInsert, findByLabelText, findByRole } = await setup();
-      const countViewToggle = await findByLabelText('Count view');
-      countViewToggle.click();
+      const { onInsert, findByRole } = await setup({ viewMode: 'count' });
 
       const insertIssuesButton = await findByRole('button', {
         name: 'Insert issues',
@@ -939,6 +969,37 @@ describe('JiraIssuesConfigModal', () => {
             attributes: {
               actions: ['display view changed'],
               display: 'datasource_inline',
+            },
+          }),
+        ),
+      );
+    });
+
+    it('should render inlineCard ADF with firstIssueUrl upon Insert button press in count view mode', async () => {
+      const hookState = getSingleIssueHookState();
+      const { onInsert, findByRole } = await setup({
+        hookState,
+        viewMode: 'count',
+      });
+
+      const insertIssuesButton = await findByRole('button', {
+        name: 'Insert issues',
+      });
+      insertIssuesButton.click();
+
+      expect(onInsert).toHaveBeenCalledWith(
+        {
+          type: 'inlineCard',
+          attrs: {
+            url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
+          },
+        } as InlineCardAdf,
+        expect.objectContaining(
+          getInsertAnalyticPayload({
+            attributes: {
+              totalItemCount: 1,
+              actions: ['display view changed'],
+              display: 'inline',
             },
           }),
         ),
@@ -1137,12 +1198,9 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should not show no results screen in count view mode', async () => {
-      const { getByLabelText, getByRole, queryByText, onInsert } = await setup({
+      const { getByRole, queryByText, onInsert } = await setup({
         hookState: { ...getDefaultHookState(), responseItems: [] },
-      });
-
-      act(() => {
-        fireEvent.click(getByLabelText('Count view'));
+        viewMode: 'count',
       });
 
       expect(queryByText('No results found')).not.toBeInTheDocument();
@@ -1163,19 +1221,29 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should not show network error message in count view mode', async () => {
-      const { getByLabelText, queryByText } = await setup({
+      const { queryByText } = await setup({
         hookState: { ...getErrorHookState() },
-      });
-
-      act(() => {
-        fireEvent.click(getByLabelText('Count view'));
+        viewMode: 'count',
       });
 
       expect(queryByText('Unable to load results')).not.toBeInTheDocument();
     });
 
+    it('should show no results message on a 403 aka forbidden status', async () => {
+      const { getByRole, getByTestId } = await setup({
+        hookState: { ...getErrorHookState(), status: 'forbidden' },
+      });
+
+      // issue view
+      expect(
+        getByTestId('jira-jql-datasource-modal--no-results'),
+      ).toBeInTheDocument();
+      // button is still clickable since users are able to insert on no results found
+      expect(getByRole('button', { name: 'Insert issues' })).not.toBeDisabled();
+    });
+
     it('should show unauthorized error message', async () => {
-      const { getByLabelText, getByRole, getByText } = await setup({
+      const { switchMode, getByRole, getByText } = await setup({
         hookState: { ...getErrorHookState(), status: 'unauthorized' },
       });
 
@@ -1186,7 +1254,7 @@ describe('JiraIssuesConfigModal', () => {
       expect(getByRole('button', { name: 'Insert issues' })).toBeDisabled();
 
       // count view
-      fireEvent.click(getByLabelText('Count view'));
+      switchMode('count');
       expect(
         getByText("You don't have access to the following site:"),
       ).toBeInTheDocument();
@@ -1232,6 +1300,76 @@ describe('JiraIssuesConfigModal', () => {
           getByText("You don't have access to this content"),
         ).toBeInTheDocument();
       });
+    });
+  });
+
+  describe('when opening the modal, it should set the correct mode based on FF', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      async () => {
+        const { getByTestId } = await setup({
+          hookState: getEmptyHookState(),
+          parameters: undefined,
+        });
+        expect(
+          getByTestId('mode-toggle-basic').querySelector('input'),
+        ).toBeChecked();
+      },
+      async () => {
+        const { getByTestId } = await setup({
+          hookState: getEmptyHookState(),
+          parameters: undefined,
+        });
+        expect(
+          getByTestId('mode-toggle-jql').querySelector('input'),
+        ).toBeChecked();
+      },
+    );
+  });
+
+  describe('when ff is on initialstate should be based on the query', () => {
+    it('should default to jql mode if query is complex ', async () => {
+      asMock(getBooleanFF).mockReturnValue(true);
+      const { getByTestId } = await setup({
+        hookState: getEmptyHookState(),
+        parameters: {
+          cloudId: '131231',
+          jql: 'project in (ABC, DEF) and ORDER BY test asc',
+        },
+      });
+
+      expect(
+        getByTestId('mode-toggle-jql').querySelector('input'),
+      ).toBeChecked();
+    });
+    it('should default to jql mode if query contains created field and it is complex', async () => {
+      asMock(getBooleanFF).mockReturnValue(true);
+      const { getByTestId } = await setup({
+        hookState: getEmptyHookState(),
+        parameters: {
+          cloudId: '131231',
+          jql: 'created >= -30d order by created DESC',
+        },
+      });
+
+      expect(
+        getByTestId('mode-toggle-jql').querySelector('input'),
+      ).toBeChecked();
+    });
+
+    it('should default to basic mode if query is not complex ', async () => {
+      asMock(getBooleanFF).mockReturnValue(true);
+      const { getByTestId } = await setup({
+        hookState: getEmptyHookState(),
+        parameters: {
+          cloudId: '131231',
+          jql: 'order by created DESC',
+        },
+      });
+
+      expect(
+        getByTestId('mode-toggle-basic').querySelector('input'),
+      ).toBeChecked();
     });
   });
 });

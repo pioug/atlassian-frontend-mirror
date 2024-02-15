@@ -1,8 +1,6 @@
 /** @jsx jsx */
 
 import React from 'react';
-import { themed, useGlobalTheme } from '@atlaskit/theme/components';
-import { borderRadius } from '@atlaskit/theme/constants';
 import {
   R50,
   R500,
@@ -22,9 +20,6 @@ import {
   N30A,
   N800,
   N40,
-  DN60,
-  DN70,
-  DN800,
 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { jsx } from '@emotion/react';
@@ -38,83 +33,56 @@ export type Props = React.HTMLProps<HTMLSpanElement> & {
 
 type ColoursTuple = [string, string, string];
 
-export const resolveColors = (
-  color?: Color,
-): { light: ColoursTuple; dark: ColoursTuple } => {
+export const resolveColors = (color?: Color): ColoursTuple => {
   switch (color) {
     case 'red': {
-      const colorArray = [
+      return [
         token('color.background.accent.red.subtlest', R50),
         token('color.text.accent.red', R500),
         token('color.background.accent.red.subtler', R75),
-      ] as ColoursTuple;
-      return { light: colorArray, dark: colorArray };
+      ];
     }
     case 'yellow': {
-      const colorArray = [
+      return [
         token('color.background.accent.yellow.subtlest', Y50),
         token('color.text.accent.yellow', Y500),
         token('color.background.accent.yellow.subtler', Y75),
-      ] as ColoursTuple;
-      return {
-        light: colorArray,
-        dark: colorArray,
-      };
+      ];
     }
     case 'blue': {
-      const colorArray = [
+      return [
         token('color.background.accent.blue.subtlest', B50),
         token('color.text.accent.blue', B500),
         token('color.background.accent.blue.subtler', B75),
-      ] as ColoursTuple;
-      return {
-        light: colorArray,
-        dark: colorArray,
-      };
+      ];
     }
     case 'green': {
-      const colorArray = [
+      return [
         token('color.background.accent.green.subtlest', G50),
         token('color.text.accent.green', G500),
         token('color.background.accent.green.subtler', G75),
-      ] as ColoursTuple;
-      return {
-        light: colorArray,
-        dark: colorArray,
-      };
+      ];
     }
     case 'purple': {
-      const colorArray = [
+      return [
         token('color.background.accent.purple.subtlest', P50),
         token('color.text.accent.purple', P500),
         token('color.background.accent.purple.subtler', P75),
-      ] as ColoursTuple;
-      return {
-        light: colorArray,
-        dark: colorArray,
-      };
+      ];
     }
     case 'grey':
     default:
-      return {
-        light: [
-          token('color.background.neutral', N30A),
-          token('color.text', N800),
-          token('color.background.neutral.hovered', N40),
-        ],
-        dark: [
-          token('color.background.neutral', DN70),
-          token('color.text', DN800),
-          token('color.background.neutral.hovered', DN60),
-        ],
-      };
+      return [
+        token('color.background.neutral', N30A),
+        token('color.text', N800),
+        token('color.background.neutral.hovered', N40),
+      ];
   }
 };
 
 export const DateLozenge = (props: Props) => {
-  const theme = useGlobalTheme();
-  let colors = themed(resolveColors(props.color))({ theme });
-  if (colors === '') {
+  let colors = resolveColors(props.color);
+  if ((colors as unknown as string) === '') {
     colors = ['', '', ''];
   }
   const [background, color, hoverBackground]: ColoursTuple = colors;
@@ -122,7 +90,7 @@ export const DateLozenge = (props: Props) => {
   return (
     <span
       css={{
-        borderRadius: borderRadius(),
+        borderRadius: token('border.radius', '3px'),
         padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
         margin: '0 1px',
         position: 'relative',

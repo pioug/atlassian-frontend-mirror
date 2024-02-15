@@ -35,7 +35,7 @@ describe('getThemeStyles', () => {
         let results = await getThemeStyles({
           light: 'legacy-light',
           spacing: 'spacing',
-          typography: 'typography',
+          typography: 'typography-adg3',
         });
 
         // Check that CSS is defined for each result
@@ -51,14 +51,14 @@ describe('getThemeStyles', () => {
             attrs: { 'data-theme': 'dark-increased-contrast' },
           },
           { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-          { id: 'typography', attrs: { 'data-theme': 'typography' } },
+          { id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
         ]);
       },
       async () => {
         let results = await getThemeStyles({
           light: 'legacy-light',
           spacing: 'spacing',
-          typography: 'typography',
+          typography: 'typography-adg3',
         });
 
         // Check that CSS is defined for each result
@@ -70,7 +70,7 @@ describe('getThemeStyles', () => {
           { id: 'legacy-light', attrs: { 'data-theme': 'legacy-light' } },
           { id: 'dark', attrs: { 'data-theme': 'dark' } },
           { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-          { id: 'typography', attrs: { 'data-theme': 'typography' } },
+          { id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
         ]);
       },
     );
@@ -128,7 +128,7 @@ describe('getThemeStyles', () => {
           light: 'light',
           UNSAFE_themeOptions,
           spacing: 'spacing',
-          typography: 'typography',
+          typography: 'typography-adg3',
         });
         // Check that CSS is defined for each result
         results.forEach((result) => {
@@ -147,7 +147,7 @@ describe('getThemeStyles', () => {
             attrs: { 'data-theme': 'dark-increased-contrast' },
           },
           { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-          { id: 'typography', attrs: { 'data-theme': 'typography' } },
+          { id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
           {
             id: 'light',
             attrs: {
@@ -171,7 +171,7 @@ describe('getThemeStyles', () => {
           light: 'light',
           UNSAFE_themeOptions,
           spacing: 'spacing',
-          typography: 'typography',
+          typography: 'typography-adg3',
         });
         // Check that CSS is defined for each result
         results.forEach((result) => {
@@ -182,7 +182,7 @@ describe('getThemeStyles', () => {
           { id: 'light', attrs: { 'data-theme': 'light' } },
           { id: 'dark', attrs: { 'data-theme': 'dark' } },
           { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-          { id: 'typography', attrs: { 'data-theme': 'typography' } },
+          { id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
           {
             id: 'light',
             attrs: {
@@ -254,14 +254,14 @@ describe('getThemeStyles', () => {
       dark: 'dark',
       light: 'light',
       spacing: 'spacing',
-      typography: 'typography',
+      typography: 'typography-adg3',
     });
 
     expect(getThemeData(results)).toEqual([
       { id: 'light', attrs: { 'data-theme': 'light' } },
       { id: 'dark', attrs: { 'data-theme': 'dark' } },
       { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-      { id: 'typography', attrs: { 'data-theme': 'typography' } },
+      { id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
       {
         id: 'light-new-input-border',
         attrs: { 'data-theme': 'light-new-input-border' },
@@ -282,7 +282,7 @@ describe('getThemeStyles', () => {
           dark: 'dark',
           light: 'light',
           spacing: 'spacing',
-          typography: 'typography',
+          typography: 'typography-adg3',
         });
 
         expect(getThemeData(results)).toEqual([
@@ -292,7 +292,7 @@ describe('getThemeStyles', () => {
             attrs: { 'data-theme': 'light-increased-contrast' },
           },
           { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-          { id: 'typography', attrs: { 'data-theme': 'typography' } },
+          { id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
         ]);
       },
       async () => {
@@ -301,13 +301,13 @@ describe('getThemeStyles', () => {
           dark: 'dark',
           light: 'light',
           spacing: 'spacing',
-          typography: 'typography',
+          typography: 'typography-adg3',
         });
 
         expect(getThemeData(results)).toEqual([
           { id: 'light', attrs: { 'data-theme': 'light' } },
           { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-          { id: 'typography', attrs: { 'data-theme': 'typography' } },
+          { id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
         ]);
       },
     );
@@ -322,7 +322,7 @@ describe('getThemeStyles', () => {
           light: 'dark',
           dark: 'dark',
           spacing: 'spacing',
-          typography: 'typography',
+          typography: 'typography-adg3',
         });
 
         expect(getThemeData(results)).toEqual([
@@ -332,7 +332,7 @@ describe('getThemeStyles', () => {
             attrs: { 'data-theme': 'dark-increased-contrast' },
           },
           { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-          { id: 'typography', attrs: { 'data-theme': 'typography' } },
+          { id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
         ]);
       },
       async () => {
@@ -341,13 +341,13 @@ describe('getThemeStyles', () => {
           light: 'dark',
           dark: 'dark',
           spacing: 'spacing',
-          typography: 'typography',
+          typography: 'typography-adg3',
         });
 
         expect(getThemeData(results)).toEqual([
           { id: 'dark', attrs: { 'data-theme': 'dark' } },
           { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-          { id: 'typography', attrs: { 'data-theme': 'typography' } },
+          { id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
         ]);
       },
     );
@@ -402,7 +402,9 @@ describe('getThemeStyles', () => {
             attrs: { 'data-theme': 'light-increased-contrast' },
           },
           { id: 'light', attrs: { 'data-theme': 'light' } },
+          { id: 'light-future', attrs: { 'data-theme': 'light-future' } },
           { id: 'dark', attrs: { 'data-theme': 'dark' } },
+          { id: 'dark-future', attrs: { 'data-theme': 'dark-future' } },
           {
             id: 'dark-increased-contrast',
             attrs: { 'data-theme': 'dark-increased-contrast' },
@@ -410,7 +412,6 @@ describe('getThemeStyles', () => {
           { id: 'legacy-light', attrs: { 'data-theme': 'legacy-light' } },
           { id: 'legacy-dark', attrs: { 'data-theme': 'legacy-dark' } },
           { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-          { id: 'typography', attrs: { 'data-theme': 'typography' } },
           { id: 'shape', attrs: { 'data-theme': 'shape' } },
           { id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
           {
@@ -437,11 +438,12 @@ describe('getThemeStyles', () => {
 
         expect(getThemeData(results)).toEqual([
           { id: 'light', attrs: { 'data-theme': 'light' } },
+          { id: 'light-future', attrs: { 'data-theme': 'light-future' } },
           { id: 'dark', attrs: { 'data-theme': 'dark' } },
+          { id: 'dark-future', attrs: { 'data-theme': 'dark-future' } },
           { id: 'legacy-light', attrs: { 'data-theme': 'legacy-light' } },
           { id: 'legacy-dark', attrs: { 'data-theme': 'legacy-dark' } },
           { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-          { id: 'typography', attrs: { 'data-theme': 'typography' } },
           { id: 'shape', attrs: { 'data-theme': 'shape' } },
           { id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
           {

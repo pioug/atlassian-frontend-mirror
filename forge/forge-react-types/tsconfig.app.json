@@ -1,0 +1,114 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+  "exclude": [
+    "**/docs/**/*",
+    "**/__tests__/**/*",
+    "**/vr-tests/**/*",
+    "**/__perf__/**/*",
+    "**/*.test.*",
+    "**/test.*",
+    "**/test-*",
+    "**/examples.ts",
+    "**/examples.tsx",
+    "**/examples/*.ts",
+    "**/examples/*.tsx",
+    "**/examples/**/*.ts",
+    "**/examples/**/*.tsx",
+    "**/storybook/**/*",
+    "**/constellation/**/*",
+    ".storybook/*",
+    "./__fixtures__/**/*",
+    "./__generated__/**/*",
+    "./mocks/**/*",
+    "./__mocks__/**/*",
+    "**/mock.*",
+    "**/codemods/**/*.ts",
+    "**/codemods/**/*.tsx"
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "../../../tsDist/@atlaskit__forge-react-types/app"
+  },
+  "references": [
+    {
+      "path": "../../design-system/badge/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/button/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/checkbox/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/code/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/dynamic-table/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/form/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/heading/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/lozenge/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/modal-dialog/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/primitives/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/progress-bar/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/progress-tracker/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/radio/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/range/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/section-message/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/select/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/spinner/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tabs/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tag/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tag-group/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/textarea/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/textfield/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/toggle/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tooltip/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/codegen/tsconfig.app.json"
+    },
+    {
+      "path": "../forge-ui/tsconfig.app.json"
+    }
+  ],
+  "files": []
+}

@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { DraggableLocation } from 'react-beautiful-dnd';
 
-import type { DragLocation } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import type { DragLocation } from '@atlaskit/pragmatic-drag-and-drop/types';
 
 import { DraggableData, isDraggableData } from '../draggable/data';
 import { DroppableData, isDroppableData } from '../droppable/data';

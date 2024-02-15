@@ -10,11 +10,10 @@ export type LocaleState = {
 export const useMessages = (
   locale: string,
   loaderFn: (locale: string) => Promise<I18NMessages | undefined>,
-  defaultMessages?: I18NMessages,
 ): I18NMessages | undefined => {
   const [localeState, setLocaleState] = useState<LocaleState>({
     locale: 'en',
-    messages: defaultMessages,
+    messages: {},
   });
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export const useMessages = (
         if (current) {
           setLocaleState({
             locale,
-            messages,
+            messages: messages ?? {},
           });
         }
       });

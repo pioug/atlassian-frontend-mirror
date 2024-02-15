@@ -128,6 +128,33 @@ export default function Example() {
         </Section>
 
         <Section>
+          <h4>Profilecard triggered for customer account</h4>
+          <span>
+            Lorem ipsum{' '}
+            <ProfileCardTrigger
+              {...defaultProps}
+              userId="3"
+              resourceClient={getMockProfileClient(10, 0, {
+                accountType: 'customer',
+              })}
+              trigger="click"
+              actions={[
+                {
+                  label: 'View profile',
+                  id: 'view-profile',
+                  callback: () => {},
+                  shouldRender: (data: any) =>
+                    data && data.accountType !== 'customer',
+                },
+              ]}
+            >
+              <strong>click me</strong>
+            </ProfileCardTrigger>{' '}
+            dolor sit amet
+          </span>
+        </Section>
+
+        <Section>
           <h4>Counting clicks of parent container</h4>
           {/**
            * If the user clicks on the trigger then we don't want that click

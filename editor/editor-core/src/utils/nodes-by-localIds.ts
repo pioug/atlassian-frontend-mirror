@@ -1,5 +1,5 @@
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 export const findNodePosByFragmentLocalIds = (

@@ -14,12 +14,14 @@ const lineHeightContainerStyles = xcss({
 export default () => {
   return (
     <Stack space="space.300">
-      <Heading level="h400" as="h3">
+      <Heading level="h400" as="h2">
         Text examples
       </Heading>
       <Stack space="space.200">
         <Box>
-          <Heading level="h300">Font size</Heading>
+          <Heading level="h300" as="h3">
+            Font size
+          </Heading>
           <Inline space="space.200" testId="font-sizes">
             {(
               [
@@ -40,7 +42,7 @@ export default () => {
           </Inline>
         </Box>
         <Box>
-          <Heading level="h300" as="h4">
+          <Heading level="h300" as="h3">
             Font weight
           </Heading>
           <Inline space="space.200" testId="font-weights">
@@ -54,7 +56,7 @@ export default () => {
           </Inline>
         </Box>
         <Box>
-          <Heading level="h300" as="h4">
+          <Heading level="h300" as="h3">
             Line height
           </Heading>
           <Inline space="space.200" testId="line-heights" alignBlock="center">
@@ -79,7 +81,7 @@ export default () => {
           </Inline>
         </Box>
         <Box>
-          <Heading level="h300" as="h4">
+          <Heading level="h300" as="h3">
             Testing
           </Heading>
           <Stack space="space.050" testId="testing">

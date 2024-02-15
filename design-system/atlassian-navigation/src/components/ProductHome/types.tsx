@@ -5,13 +5,13 @@ import { LogoProps } from '@atlaskit/logo';
 export interface ProductHomeProps {
   /**
    * The product icon.
-   * Expected to be an Icon from the Atlaskit Logo package. Visible on smaller screen sizes
+   * Expected to be an Icon from the Atlaskit Logo package. Visible on smaller screen sizes.
    */
   icon: ComponentType<Partial<LogoProps>>;
 
   /**
    * The product logo,
-   * visible on larger screen sizes
+   * visible on larger screen sizes.
    */
   logo: ComponentType<Partial<LogoProps>>;
 
@@ -41,7 +41,7 @@ export interface ProductHomeProps {
    */
   siteTitle?: string;
 
-  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
+  /* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
   /**
     A `testId` prop is provided for specified elements,
     which is a unique string that appears as a data attribute `data-testid` in the rendered code,
@@ -55,6 +55,7 @@ export interface ProductHomeProps {
     - Site title - `{testId}-site-title`
    */
   testId?: string;
+  /* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
 }
 
 export interface CustomProductHomeProps {
@@ -100,11 +101,11 @@ export interface CustomProductHomeProps {
   href?: string;
 
   /**
-   * Name of the site that appears next to the logo
+   * Name of the site that appears next to the logo.
    */
   siteTitle?: string;
 
-  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
+  /* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
   /**
     A `testId` prop is provided for specified elements,
     which is a unique string that appears as a data attribute `data-testid` in the rendered code,
@@ -118,4 +119,5 @@ export interface CustomProductHomeProps {
     - Site title - `{testId}-site-title`
    */
   testId?: string;
+  /* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
 }

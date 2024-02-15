@@ -1,5 +1,109 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 1.0.0
+
+### Major Changes
+
+- [#72386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72386) [`0c52b0be40c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c52b0be40c1) - This changeset exists to bump all editor plugins that currently don't have a major version. This is to address an issue with Jira plugin consumption.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.8.3
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+
+## 0.8.2
+
+### Patch Changes
+
+- [#70152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70152) [`53ed3673df28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53ed3673df28) - Updating adf-schema version to 35.5.1
+
+## 0.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.8.0
+
+### Minor Changes
+
+- [#66364](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66364) [`212c782cb7a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/212c782cb7a6) - No longer require `cardOptions` to be passed to the hyperlink plugin configuration, it exposes a new optional way to skip analytics via the prependToolbarButtons action.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.7.0
+
+### Minor Changes
+
+- [#65019](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65019) [`7290a6f8d435`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7290a6f8d435) - Adding lpLinkPicker param to card and hyperlink plugins instead of using feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.6.11
+
+### Patch Changes
+
+- [#65031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65031) [`a00094111b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a00094111b5a) - ED-21609 Update adf-schema to 35.3.0
+- Updated dependencies
+
+## 0.6.10
+
+### Patch Changes
+
+- [#62165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62165) [`b44ac0968d79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b44ac0968d79) - [ED-21562] Bump @atlaskit/adf-schema to 35.2.0 for border mark update
+
+## 0.6.9
+
+### Patch Changes
+
+- [#60808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60808) [`f509a21be124`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f509a21be124) - ED-21506: @atlaskit/adf-schema upgraded to 35.1.1 to support renderer for MBE
+
+## 0.6.8
+
+### Patch Changes
+
+- [#58246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58246) [`a381b2599716`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a381b2599716) - ED-21371 Update adf-schema to 35.1.0
+
+## 0.6.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.6.6
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 0.6.5
+
+### Patch Changes
+
+- [#58193](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58193) [`4bf69e3255f8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4bf69e3255f8) - NO-ISSUE Added the capability to override the default card type of inline when inserting links, so we can have Loom links convert to embed cards
+- Updated dependencies
+
+## 0.6.4
+
+### Patch Changes
+
+- [#58763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58763) [`0fdbd64522bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fdbd64522bf) - update ADF schema
+
+## 0.6.3
+
+### Patch Changes
+
+- [#56790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56790) [`ff577a7969d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff577a7969d4) - ED-21266: Updated @atlaskit/adf-schema to 34.0.1
+
 ## 0.6.2
 
 ### Patch Changes

@@ -1,27 +1,29 @@
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import type { ViewportSize } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { layoutMessages as toolbarMessages } from '@atlaskit/editor-common/messages';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
-  deviceViewPorts,
-  Device,
-} from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+  clickOnLayoutColumn,
+  layoutSelectors,
+  toggleBreakout,
+  waitForBreakoutNestedLayout,
+  waitForLayoutChange,
+  waitForLayoutToolbar,
+} from '@atlaskit/editor-test-helpers/page-objects/layouts';
+import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   initFullPageEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import tableIn2ColAdf from './__fixtures__/table-in-2-col-layout.adf.json';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { layoutMessages as toolbarMessages } from '@atlaskit/editor-common/messages';
-import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
-import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
-/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import type { ViewportSize } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
-  toggleBreakout,
-  waitForLayoutChange,
-  clickOnLayoutColumn,
-  waitForLayoutToolbar,
-  waitForBreakoutNestedLayout,
-  layoutSelectors,
-} from '@atlaskit/editor-test-helpers/page-objects/layouts';
+  Device,
+  deviceViewPorts,
+} from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import tableIn2ColAdf from './__fixtures__/table-in-2-col-layout.adf.json';
+
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
 describe('Snapshot Test: Nested table inside layouts', () => {
   let page: PuppeteerPage;

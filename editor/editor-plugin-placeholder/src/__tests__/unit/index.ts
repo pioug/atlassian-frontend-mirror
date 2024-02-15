@@ -83,7 +83,7 @@ describe('placeholder', () => {
       };
       expectPlaceHolderWithText(editorView, defaultPlaceholder);
 
-      editorAPI.typeAhead.actions.open({
+      editorAPI.typeAhead?.actions.open({
         triggerHandler: fakeTriggerHandler,
         inputMethod: INPUT_METHOD.KEYBOARD,
       });

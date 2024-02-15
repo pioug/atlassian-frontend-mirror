@@ -1,4 +1,10 @@
-import LogoProps from '!!extract-react-types-loader!../../extract-react-types/logo';
+---
+props:
+  packageName: '@atlaskit/logo'
+  exports:
+    - AtlassianLogo
+---
+
 import SectionMessage from '@atlaskit/section-message';
 import { Code } from '@atlaskit/code';
 
@@ -11,4 +17,4 @@ import { Code } from '@atlaskit/code';
   <Code>appearance</Code> prop should be used instead.
 </SectionMessage>
 
-<PropsTable heading="" props={LogoProps} />
+<TSMorphProps packageName="@atlaskit/logo" exportName="AtlassianLogo" />

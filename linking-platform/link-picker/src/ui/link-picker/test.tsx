@@ -1,7 +1,7 @@
 import React from 'react';
 
 import '@testing-library/jest-dom/extend-expect';
-import { screen } from '@testing-library/dom';
+import { screen, within } from '@testing-library/dom';
 import { act, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
@@ -12,6 +12,7 @@ import {
   ManualPromise,
   renderWithIntl as render,
 } from '@atlaskit/link-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import mockedPluginData from '../../__tests__/__helpers/mock-plugin-data';
 import {
@@ -20,6 +21,7 @@ import {
   UnstableMockLinkPickerPlugin,
 } from '../../__tests__/__helpers/mock-plugins';
 
+import { messages as formFooterMessages } from './form-footer';
 import { messages as resultsListMessages } from './search-results/link-search-list';
 
 import { LinkPicker, LinkPickerProps, testIds } from './index';
@@ -59,7 +61,6 @@ describe('<LinkPicker />', () => {
     ...props
   }: Partial<LinkPickerProps> & { scrollingTabs?: boolean } = {}) => {
     const onSubmitMock: LinkPickerProps['onSubmit'] = jest.fn();
-    const onCancelMock: LinkPickerProps['onCancel'] = jest.fn();
     const onContentResize: LinkPickerProps['onContentResize'] = jest.fn();
 
     const { rerender } = render(
@@ -67,7 +68,6 @@ describe('<LinkPicker />', () => {
         url={url}
         onSubmit={onSubmitMock}
         plugins={plugins ?? []}
-        onCancel={onCancelMock}
         onContentResize={onContentResize}
         featureFlags={{ scrollingTabs }}
         {...props}
@@ -81,7 +81,6 @@ describe('<LinkPicker />', () => {
             url={url}
             onSubmit={onSubmitMock}
             plugins={plugins ?? []}
-            onCancel={onCancelMock}
             onContentResize={onContentResize}
             featureFlags={{ scrollingTabs }}
             {...props}
@@ -92,7 +91,6 @@ describe('<LinkPicker />', () => {
 
     return {
       onSubmitMock,
-      onCancelMock,
       onContentResize,
       testIds,
       rerenderLinkPicker,
@@ -100,27 +98,56 @@ describe('<LinkPicker />', () => {
   };
 
   describe('with no plugins', () => {
-    it('should submit with valid url in the input field', async () => {
-      const { onSubmitMock, testIds } = setupLinkPicker();
+    describe('should submit with valid url in the input field when form uses onSubmitCapture', () => {
+      ffTest(
+        'platform.linking-platform.link-picker.use-onsubmitcapture',
+        async () => {
+          const { onSubmitMock, testIds } = setupLinkPicker();
 
-      await user.type(
-        screen.getByTestId(testIds.urlInputField),
-        'www.atlassian.com',
-      );
-      fireEvent.submit(screen.getByTestId(testIds.urlInputField));
+          await user.type(
+            screen.getByTestId(testIds.urlInputField),
+            'www.atlassian.com',
+          );
+          fireEvent.submit(screen.getByTestId(testIds.urlInputField));
 
-      expect(onSubmitMock).toHaveBeenCalledTimes(1);
-      expect(onSubmitMock).toHaveBeenCalledWith(
-        {
-          url: 'http://www.atlassian.com',
-          title: null,
-          displayText: null,
-          rawUrl: 'www.atlassian.com',
-          meta: {
-            inputMethod: 'manual',
-          },
+          expect(onSubmitMock).toHaveBeenCalledTimes(1);
+          expect(onSubmitMock).toHaveBeenCalledWith(
+            {
+              url: 'http://www.atlassian.com',
+              title: null,
+              displayText: null,
+              rawUrl: 'www.atlassian.com',
+              meta: {
+                inputMethod: 'manual',
+              },
+            },
+            expect.any(UIAnalyticsEvent),
+          );
         },
-        expect.any(UIAnalyticsEvent),
+        // This test is exactly the same as above; ffTest doesn't allow passing in a non-inline function.
+        async () => {
+          const { onSubmitMock, testIds } = setupLinkPicker();
+
+          await user.type(
+            screen.getByTestId(testIds.urlInputField),
+            'www.atlassian.com',
+          );
+          fireEvent.submit(screen.getByTestId(testIds.urlInputField));
+
+          expect(onSubmitMock).toHaveBeenCalledTimes(1);
+          expect(onSubmitMock).toHaveBeenCalledWith(
+            {
+              url: 'http://www.atlassian.com',
+              title: null,
+              displayText: null,
+              rawUrl: 'www.atlassian.com',
+              meta: {
+                inputMethod: 'manual',
+              },
+            },
+            expect.any(UIAnalyticsEvent),
+          );
+        },
       );
     });
 
@@ -157,10 +184,10 @@ describe('<LinkPicker />', () => {
       );
     });
 
-    it('should render a Field (URL field) with correct aria-describedby prop', async () => {
+    it('should render a Field (URL field) with NO aria-describedby prop', async () => {
       const screenReaderDescriptionId = 'search-recent-links-field-description';
       const { testIds } = setupLinkPicker();
-      expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute(
+      expect(screen.getByTestId(testIds.urlInputField)).not.toHaveAttribute(
         'aria-describedby',
         screenReaderDescriptionId,
       );
@@ -212,11 +239,20 @@ describe('<LinkPicker />', () => {
     });
 
     it('should handle event when cancel button is clicked', async () => {
-      const { testIds, onCancelMock } = setupLinkPicker();
+      const onCancelMock: LinkPickerProps['onCancel'] = jest.fn();
+      const { testIds } = setupLinkPicker({ onCancel: onCancelMock });
 
       await user.click(screen.getByTestId(testIds.cancelButton));
 
       expect(onCancelMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not render cancel button if onCancel is not provided', async () => {
+      const { testIds } = setupLinkPicker();
+
+      const cancelButton = screen.queryByTestId(testIds.cancelButton);
+
+      expect(cancelButton).not.toBeInTheDocument();
     });
 
     it('should NOT display a no-results search message', async () => {
@@ -316,6 +352,112 @@ describe('<LinkPicker />', () => {
         rerender,
       };
     };
+
+    it('should render a Field (URL field) with correct aria props', async () => {
+      const { testIds } = setupWithGenericPlugin();
+
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute(
+        'role',
+        'combobox',
+      );
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute(
+        'aria-describedby',
+        'search-recent-links-field-description',
+      );
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute(
+        'aria-expanded',
+        'true',
+      );
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute(
+        'aria-controls',
+        'link-picker-search-list',
+      );
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute(
+        'aria-autocomplete',
+        'list',
+      );
+    });
+
+    describe('with submit in progress', () => {
+      it('should not fire submit callback when link is pressed', async () => {
+        const initialResultPromise = Promise.resolve({
+          value: { data: mockedPluginData.slice(0, 3) },
+          done: true,
+        });
+        const plugin = new MockLinkPickerGeneratorPlugin([
+          initialResultPromise,
+        ]);
+        const { testIds, onSubmitMock } = setupWithGenericPlugin({
+          url: '',
+          plugins: [plugin],
+          isSubmitting: true,
+        });
+
+        await asyncAct(() => initialResultPromise);
+
+        await user.click(screen.getAllByTestId(testIds.searchResultItem)[1]);
+
+        expect(onSubmitMock).toHaveBeenCalledTimes(0);
+      });
+
+      it('should have aria-readonly attributes on form elements', async () => {
+        const initialResultPromise = Promise.resolve({
+          value: { data: mockedPluginData.slice(0, 3) },
+          done: true,
+        });
+        const plugin = new MockLinkPickerGeneratorPlugin([
+          initialResultPromise,
+        ]);
+        const { testIds } = setupWithGenericPlugin({
+          url: '',
+          plugins: [plugin],
+          isSubmitting: true,
+        });
+
+        await asyncAct(() => initialResultPromise);
+
+        const rootLinkPicker = screen.getByTestId(testIds.linkPicker);
+        const listboxes = within(rootLinkPicker).getAllByRole('listbox');
+        for (const list of listboxes) {
+          expect(list).toHaveAttribute('aria-readonly', 'true');
+        }
+      });
+
+      it('should not submit when navigated to via keyboard and enter is pressed', async () => {
+        const initialResultPromise = Promise.resolve({
+          value: { data: mockedPluginData.slice(0, 3) },
+          done: true,
+        });
+        const plugin = new MockLinkPickerGeneratorPlugin([
+          initialResultPromise,
+        ]);
+        const { testIds, onSubmitMock } = setupWithGenericPlugin({
+          url: '',
+          plugins: [plugin],
+          isSubmitting: true,
+        });
+
+        await asyncAct(() => initialResultPromise);
+        act(() => {
+          // Set first item to active
+          fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+            keyCode: 40,
+          });
+        });
+        act(() => {
+          // Set second item to active
+          fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+            keyCode: 40,
+          });
+        });
+        act(() => {
+          // Submit
+          fireEvent.submit(screen.getByTestId(testIds.urlInputField));
+        });
+
+        expect(onSubmitMock).toHaveBeenCalledTimes(0);
+      });
+    });
 
     describe('loading', () => {
       it('should show a spinner when `isLoadingPlugins` is true', async () => {
@@ -1541,6 +1683,7 @@ describe('<LinkPicker />', () => {
       });
 
       it('should hide footer buttons when plugin throws unauthentication errors', async () => {
+        const onCancelMock: LinkPickerProps['onCancel'] = jest.fn();
         const plugins = [
           new UnstableMockLinkPickerPlugin({
             tabKey: 'tab1',
@@ -1551,6 +1694,7 @@ describe('<LinkPicker />', () => {
 
         const { testIds } = setupWithGenericPlugin({
           plugins,
+          onCancel: onCancelMock,
         });
 
         await screen.findByTestId(testIds.linkPicker);
@@ -1659,5 +1803,145 @@ describe('<LinkPicker />', () => {
     await user.click(actionButton);
 
     expect(mockActionCallback).toHaveBeenCalledTimes(1);
+  });
+
+  describe('with submit in progress', () => {
+    it('should not fire submit callback when form submitted', async () => {
+      const { onSubmitMock, testIds, rerenderLinkPicker } = setupLinkPicker();
+
+      await user.type(
+        screen.getByTestId(testIds.urlInputField),
+        'www.atlassian.com',
+      );
+      fireEvent.submit(screen.getByTestId(testIds.urlInputField));
+
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        {
+          url: 'http://www.atlassian.com',
+          title: null,
+          displayText: null,
+          rawUrl: 'www.atlassian.com',
+          meta: {
+            inputMethod: 'manual',
+          },
+        },
+        expect.any(UIAnalyticsEvent),
+      );
+
+      rerenderLinkPicker({
+        isSubmitting: true,
+      });
+      fireEvent.submit(screen.getByTestId(testIds.urlInputField));
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not fire submit callback when Insert button pressed', async () => {
+      const { onSubmitMock, testIds, rerenderLinkPicker } = setupLinkPicker();
+
+      await user.type(
+        screen.getByTestId(testIds.urlInputField),
+        'www.atlassian.com',
+      );
+      fireEvent.click(screen.getByTestId(testIds.insertButton));
+
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        {
+          url: 'http://www.atlassian.com',
+          title: null,
+          displayText: null,
+          rawUrl: 'www.atlassian.com',
+          meta: {
+            inputMethod: 'manual',
+          },
+        },
+        expect.any(UIAnalyticsEvent),
+      );
+
+      rerenderLinkPicker({
+        isSubmitting: true,
+      });
+      fireEvent.click(screen.getByTestId(testIds.insertButton));
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not fire cancel callback when Cancel button pressed', async () => {
+      const onCancelMock: LinkPickerProps['onCancel'] = jest.fn();
+      const { testIds } = setupLinkPicker({
+        onCancel: onCancelMock,
+        isSubmitting: true,
+      });
+
+      await user.type(
+        screen.getByTestId(testIds.urlInputField),
+        'www.atlassian.com',
+      );
+      fireEvent.click(screen.getByTestId(testIds.cancelButton));
+      fireEvent.click(screen.getByTestId(testIds.cancelButton));
+
+      expect(onCancelMock).toHaveBeenCalledTimes(0);
+    });
+
+    it('should not clear input text when clear button pressed', async () => {
+      const { testIds } = setupLinkPicker({
+        url: 'https://www.google.com',
+        isSubmitting: true,
+      });
+
+      await user.click(screen.getByTestId(testIds.clearUrlButton));
+
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveValue(
+        'https://www.google.com',
+      );
+    });
+
+    it('should not change input text when typing', async () => {
+      const { testIds } = setupLinkPicker({
+        url: 'https://www.google.com',
+        isSubmitting: true,
+      });
+
+      await user.type(screen.getByTestId(testIds.urlInputField), '/about');
+
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveValue(
+        'https://www.google.com',
+      );
+    });
+
+    it('should have aria-readonly attributes on form elements', async () => {
+      const { testIds } = setupLinkPicker({
+        url: 'https://www.google.com',
+        isSubmitting: true,
+      });
+
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute(
+        'aria-readonly',
+        'true',
+      );
+    });
+
+    it('should have an accessible status message during submit', async () => {
+      const { testIds, rerenderLinkPicker } = setupLinkPicker({
+        url: 'https://www.google.com',
+        isSubmitting: true,
+      });
+
+      const submitStatusMessage = screen.getByTestId(
+        testIds.submitStatusA11yIndicator,
+      );
+      expect(submitStatusMessage).toHaveTextContent(
+        formFooterMessages.submittingStatusMessage.defaultMessage,
+      );
+
+      rerenderLinkPicker({
+        url: 'https://www.google.com',
+        isSubmitting: false,
+      });
+
+      expect(
+        screen.queryByTestId(testIds.submitStatusA11yIndicator),
+      ).not.toBeInTheDocument();
+    });
   });
 });

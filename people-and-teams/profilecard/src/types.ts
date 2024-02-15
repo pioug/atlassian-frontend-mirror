@@ -14,6 +14,7 @@ import UserProfileCardClient from './client/UserProfileCardClient';
 export interface ApiClientResponse {
   User: {
     id: string;
+    accountType: string;
     isBot: boolean;
     isCurrentUser: boolean;
     avatarUrl: string | null;
@@ -63,6 +64,7 @@ export interface ProfileCardClientData {
   status: StatusType;
   statusModifiedDate?: number | null;
   customLozenges?: LozengeProps[];
+  accountType?: string;
 }
 
 export interface ReportingLinesUserPII {
@@ -125,9 +127,11 @@ export interface ProfileCardTriggerProps {
   onReportingLinesClick?: (user: ReportingLinesUser) => void;
   position?: ProfilecardTriggerPosition;
   trigger?: TriggerType;
-  children?: React.ReactNode;
+  children: React.ReactNode;
   testId?: string;
   addFlag?: (flag: any) => void;
+  ariaLabel?: string;
+  ariaLabelledBy?: string;
 }
 
 export interface ProfileCardTriggerState {
@@ -307,6 +311,7 @@ export interface ProfilecardProps {
   isLoading?: boolean;
   hasError?: boolean;
   errorType?: ProfileCardErrorType;
+  accountType?: string;
   status?: StatusType;
   isBot?: boolean;
   avatarUrl?: string;
@@ -345,6 +350,7 @@ export interface ProfilecardProps {
   // Allow consumers to pass in custom lozenges that will be displayed under the heading
   customLozenges?: LozengeProps[];
   openKudosDrawer?: () => void;
+  isTriggeredUsingKeyboard?: boolean;
 }
 
 export type AnalyticsFromDuration = (duration: number) => AnalyticsEventPayload;

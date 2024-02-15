@@ -3,7 +3,6 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import type { TOOLBAR_ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 export enum IconTypes {
   strong = 'strong',
@@ -32,5 +31,4 @@ export type MenuIconState = {
 
 export type IconHookProps = {
   isToolbarDisabled?: boolean;
-  editorState: EditorState;
 } & WrappedComponentProps;

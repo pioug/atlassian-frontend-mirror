@@ -3,13 +3,13 @@ import { FC, useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
-import { token } from '@atlaskit/tokens';
+import Button from '@atlaskit/button/new';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import Popup from '../src';
 
-const contentStyles = css({
-  margin: token('space.200', '16px'),
+const contentStyles = xcss({
+  margin: 'space.200',
 });
 
 type PopupExampleProps = {
@@ -33,7 +33,7 @@ const PopupExample: FC<PopupExampleProps> = ({ name }) => {
     <Popup
       isOpen={isOpen}
       onClose={onClose}
-      content={() => <div css={contentStyles}>content</div>}
+      content={() => <Box xcss={contentStyles}>content</Box>}
       trigger={(triggerProps) => (
         <Button {...triggerProps} onClick={onClick}>
           {isOpen ? 'Close' : 'Open'} {name} popup

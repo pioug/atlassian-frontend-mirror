@@ -14,10 +14,7 @@ import type {
   SetSelectionRelativeToNode,
 } from '@atlaskit/editor-common/selection';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
-import type {
-  ExtractInjectionAPI,
-  FeatureFlags,
-} from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type {
   getPosHandler,
   getPosHandlerNode,
@@ -110,7 +107,6 @@ export class ExpandNodeView implements NodeView {
   intl: IntlShape;
   allowInteractiveExpand: boolean = true;
   isMobile: boolean = false;
-  featureFlags: FeatureFlags;
   api: ExtractInjectionAPI<ExpandPlugin> | undefined;
   constructor(
     node: PmNode,
@@ -118,22 +114,22 @@ export class ExpandNodeView implements NodeView {
     getPos: getPosHandlerNode,
     getIntl: () => IntlShape,
     isMobile: boolean,
-    featureFlags: FeatureFlags,
     private selectNearNode: SetSelectionRelativeToNode | undefined,
     api: ExtractInjectionAPI<ExpandPlugin> | undefined,
+    allowInteractiveExpand: boolean = true,
   ) {
     this.intl = getIntl();
     const { dom, contentDOM } = DOMSerializer.renderSpec(
       document,
       toDOM(node, this.intl),
     );
+    this.allowInteractiveExpand = allowInteractiveExpand;
     this.getPos = getPos;
     this.view = view;
     this.node = node;
     this.dom = dom as HTMLElement;
     this.contentDOM = contentDOM as HTMLElement;
     this.isMobile = isMobile;
-    this.featureFlags = featureFlags;
     this.api = api;
     this.icon = this.dom.querySelector<HTMLElement>(
       `.${expandClassNames.icon}`,
@@ -218,16 +214,12 @@ export class ExpandNodeView implements NodeView {
     ReactDOM.render(
       <ExpandIconButton
         intl={intl}
-        allowInteractiveExpand={this.isAllowInteractiveExpandEnabled()}
+        allowInteractiveExpand={this.allowInteractiveExpand}
         expanded={__expanded}
       ></ExpandIconButton>,
       this.icon,
     );
   }
-
-  private isAllowInteractiveExpandEnabled = () => {
-    return this.featureFlags && !!this.featureFlags.interactiveExpand;
-  };
 
   private handleClick = (event: Event) => {
     const pos = this.getPos();
@@ -239,7 +231,7 @@ export class ExpandNodeView implements NodeView {
     const { state, dispatch } = this.view;
 
     if (closestElement(target, `.${expandClassNames.icon}`)) {
-      if (!this.isAllowInteractiveExpandEnabled()) {
+      if (!this.allowInteractiveExpand) {
         return;
       }
       event.stopPropagation();
@@ -336,7 +328,7 @@ export class ExpandNodeView implements NodeView {
       return;
     }
 
-    if (this.isAllowInteractiveExpandEnabled()) {
+    if (this.allowInteractiveExpand) {
       const { state, dispatch } = this.view;
       toggleExpandExpanded(this.api?.analytics?.actions)(pos, this.node.type)(
         state,
@@ -583,13 +575,13 @@ export class ExpandNodeView implements NodeView {
 export default function ({
   getIntl,
   isMobile,
-  featureFlags,
   api,
+  allowInteractiveExpand = true,
 }: {
   getIntl: () => IntlShape;
   isMobile: boolean;
-  featureFlags: FeatureFlags;
   api: ExtractInjectionAPI<ExpandPlugin> | undefined;
+  allowInteractiveExpand: boolean;
 }) {
   return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView =>
     new ExpandNodeView(
@@ -598,8 +590,8 @@ export default function ({
       getPos as getPosHandlerNode,
       getIntl,
       isMobile,
-      featureFlags,
       api?.selection?.actions?.selectNearNode,
       api,
+      allowInteractiveExpand,
     );
 }

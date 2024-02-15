@@ -10,7 +10,7 @@ export type FlexibleBlockCardProps = Pick<
   | 'onError'
   | 'onResolve'
   | 'renderers'
-  | 'showServerActions'
+  | 'actionOptions'
   | 'testId'
   | 'url'
 >;

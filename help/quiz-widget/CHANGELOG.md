@@ -1,5 +1,17 @@
 # @atlaskit/quiz-widget
 
+## 2.1.7
+
+### Patch Changes
+
+- [#61323](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61323) [`e9e3532437e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9e3532437e8) - Converted spacing values to corresponding space tokens
+
+## 2.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.5
 
 ### Patch Changes

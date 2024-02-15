@@ -4,6 +4,7 @@ import type {
 } from '@atlaskit/pragmatic-drag-and-drop/types';
 
 import { ElementGetFeedbackArgs } from '../internal-types';
+import { getInternalConfig } from '../shared/configuration';
 
 import { getScrollBy } from './get-scroll-by';
 import { UnsafeOverflowAutoScrollArgs } from './types';
@@ -46,10 +47,13 @@ export function tryOverflowScrollElements<DragType extends AllDragTypes>({
       continue;
     }
 
+    const config = getInternalConfig(entry.getConfiguration?.(feedback));
+
     const scrollBy = getScrollBy({
       entry,
       input,
       timeSinceLastFrame,
+      config,
     });
 
     if (scrollBy) {

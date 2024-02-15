@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Editor } from '../../../index';
 import defaultTableAdf from '../../visual-regression/table/__fixtures__/default-table.adf.json';
 import nestedTableAdf from '../../visual-regression/table/__fixtures__/nested-table-inside-columns.adf.json';

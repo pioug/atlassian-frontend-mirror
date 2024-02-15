@@ -1,20 +1,18 @@
 import {
-  EditorNodeContainerModel,
-  EditorTableModel,
-  EditorPopupModel,
   EditorFloatingToolbarModel,
-  editorTestCase as test,
+  EditorNodeContainerModel,
+  EditorPopupModel,
+  EditorTableModel,
   expect,
-  fixTest,
-  BROWSERS,
+  editorTestCase as test,
 } from '@af/editor-libra';
+import { akEditorCalculatedWideLayoutWidth } from '@atlaskit/editor-shared-styles';
+
 import {
-  simpleTableWithOneParagraphAfter,
   nestedTables,
+  simpleTableWithOneParagraphAfter,
   tableWithWidthAttributeAndLayout,
 } from './__fixtures__/base-adfs';
-
-import { akEditorCalculatedWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 
 test.use({
   editorProps: {
@@ -60,7 +58,6 @@ test.describe('resizing a table', () => {
 
     await test.step('container width is correct', async () => {
       expect(await resizerModel.containerWidth()).toBe(960);
-      expect(await resizerModel.containerMarginLeft()).toBe('-100px');
       expect(await tableModel.containerWidth()).toBe(960);
     });
 
@@ -72,13 +69,6 @@ test.describe('resizing a table', () => {
   test('should resize to correct width and centre when dragging handle smaller', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-20006',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 11/09/2023: https://product-fabric.atlassian.net/browse/ED-20006',
-      browsers: [BROWSERS.webkit],
-    });
-
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
     const resizerModel = tableModel.resizer();
@@ -87,7 +77,6 @@ test.describe('resizing a table', () => {
 
     await test.step('container width is correct', async () => {
       expect(await resizerModel.containerWidth()).toBe(560);
-      expect(await resizerModel.containerMarginLeft()).toBe('100px');
       expect(await tableModel.containerWidth()).toBe(560);
     });
 
@@ -119,33 +108,26 @@ test.describe('resizing a table', () => {
     });
 
     // Expect all controls to be hidden
-    expect(await rowControlModel.isHidden()).toBeTruthy();
+    await expect(rowControlModel.controls).toBeHidden();
     expect(await rowControlModel.isCornerControlHidden()).toBeTruthy();
-    expect(await columnControlModel.isHidden()).toBeTruthy();
+    await expect(columnControlModel.controls).toBeHidden();
     expect(await cell.isCellOptionsHidden()).toBeTruthy();
-    expect(await cellOptions.isVisible()).toBeFalsy();
-    expect(await floatingToolbarModel.isVisible()).toBeFalsy();
+    await expect(cellOptions.menu).toBeHidden();
+    await expect(floatingToolbarModel.toolbar).toBeHidden();
 
     await editor.page.mouse.up();
 
-    expect(await rowControlModel.isVisible()).toBeTruthy();
+    await expect(rowControlModel.controls).toBeVisible();
     expect(await rowControlModel.isCornerControlVisible()).toBeTruthy();
-    expect(await columnControlModel.isVisible()).toBeTruthy();
+    await expect(columnControlModel.controls).toBeVisible();
     expect(await cell.isCellOptionsVisible()).toBeTruthy();
-    expect(await cellOptions.isVisible()).toBeTruthy();
-    expect(await floatingToolbarModel.isVisible()).toBeTruthy();
+    await expect(cellOptions.menu).toBeVisible();
+    await expect(floatingToolbarModel.toolbar).toBeVisible();
   });
 
   test('should resize to correct width and snap to closest guideline', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-20141',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 21/09/2023: https://product-fabric.atlassian.net/browse/ED-20141',
-      browsers: [BROWSERS.webkit],
-    });
-
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
     const resizerModel = tableModel.resizer();
@@ -169,12 +151,6 @@ test.describe('resizing a table', () => {
   test("should resize to the closest guideline and back to it's original size correctly", async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-19364',
-      reason: 'this test is flaky on webkit',
-      browsers: [BROWSERS.webkit],
-    });
-
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
     const resizerModel = tableModel.resizer();

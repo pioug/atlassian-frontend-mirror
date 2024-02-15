@@ -19,9 +19,9 @@ const InlineEditableTextfieldCompactExample = () => {
       <InlineEditableTextfield
         testId="editable-text-field"
         defaultValue={editValue}
-        label="Inline editable textfield"
+        label="Team name"
         onConfirm={(value) => setEditValue(value)}
-        placeholder="Click to enter text"
+        placeholder="Enter your team name"
         isCompact
       />
     </div>

@@ -6,7 +6,7 @@
  * This allows users to compose their themes and only use the tokens that are requested.
  * When a new theme is created, the import should automatically be added to the map
  *
- * @codegen <<SignedSource::a21941d8f8cea58425b92ce9b8bfcd4e>>
+ * @codegen <<SignedSource::6c438d052bfcec2f42bfb917a01beef9>>
  * @codegenCommand yarn build tokens
  */
 
@@ -18,6 +18,11 @@ const themeImportsMap: Record<ThemeIds | ThemeOverrideIds, () => Promise<{ defau
       /* webpackChunkName: "@atlaskit-internal_atlassian-light" */
       './themes/atlassian-light'
     ),
+  'light-future': () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_atlassian-light-future" */
+      './themes/atlassian-light-future'
+    ),
   'light-increased-contrast': () =>
     import(
       /* webpackChunkName: "@atlaskit-internal_atlassian-light-increased-contrast" */
@@ -27,6 +32,11 @@ const themeImportsMap: Record<ThemeIds | ThemeOverrideIds, () => Promise<{ defau
     import(
       /* webpackChunkName: "@atlaskit-internal_atlassian-dark" */
       './themes/atlassian-dark'
+    ),
+  'dark-future': () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_atlassian-dark-future" */
+      './themes/atlassian-dark-future'
     ),
   'dark-increased-contrast': () =>
     import(
@@ -67,11 +77,6 @@ const themeImportsMap: Record<ThemeIds | ThemeOverrideIds, () => Promise<{ defau
     import(
       /* webpackChunkName: "@atlaskit-internal_atlassian-dark-new-input-border" */
       './themes/atlassian-dark-new-input-border'
-    ),
-  'typography': () =>
-    import(
-      /* webpackChunkName: "@atlaskit-internal_atlassian-typography" */
-      './themes/atlassian-typography'
     ),
   'typography-minor3': () =>
     import(

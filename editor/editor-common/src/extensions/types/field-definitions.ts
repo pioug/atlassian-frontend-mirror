@@ -11,7 +11,7 @@ export type Option = {
   icon?: string | React.ReactNode;
 };
 
-import { Props as SmartUserPickerProps } from '@atlaskit/smart-user-picker';
+import type { Props as SmartUserPickerProps } from '@atlaskit/smart-user-picker';
 
 export type UserFieldContext = Pick<
   SmartUserPickerProps,
@@ -111,7 +111,7 @@ export interface NumberField extends BaseFieldDefinition {
 
 export interface BooleanField extends BaseFieldDefinition {
   type: 'boolean';
-  defaultValue?: boolean;
+  defaultValue?: boolean | string;
   style?: 'checkbox' | 'toggle';
 }
 
@@ -147,6 +147,7 @@ interface BaseCustomField extends BaseFieldDefinition {
   style?: 'select';
   options: {
     isCreatable?: boolean;
+    formatCreateLabel?: (inputValue: string) => React.ReactNode;
     resolver: FieldHandlerLink;
   };
   placeholder?: string;

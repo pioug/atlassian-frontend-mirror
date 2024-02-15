@@ -27,7 +27,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -41,7 +41,6 @@
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",

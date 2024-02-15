@@ -7,7 +7,6 @@ import { expandClassNames } from '@atlaskit/editor-common/styles';
 import type {
   EditorAppearance,
   ExtractInjectionAPI,
-  FeatureFlags,
 } from '@atlaskit/editor-common/types';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -31,8 +30,8 @@ export const createPlugin = (
   getIntl: () => IntlShape,
   appearance: EditorAppearance = 'full-page',
   useLongPressSelection: boolean = false,
-  featureFlags: FeatureFlags,
   api: ExtractInjectionAPI<ExpandPlugin> | undefined,
+  allowInteractiveExpand: boolean = true,
 ) => {
   const state = createPluginState(dispatch, {});
   const isMobile = appearance === 'mobile';
@@ -42,8 +41,18 @@ export const createPlugin = (
     key: pluginKey,
     props: {
       nodeViews: {
-        expand: ExpandNodeView({ getIntl, isMobile, featureFlags, api }),
-        nestedExpand: ExpandNodeView({ getIntl, isMobile, featureFlags, api }),
+        expand: ExpandNodeView({
+          getIntl,
+          isMobile,
+          api,
+          allowInteractiveExpand,
+        }),
+        nestedExpand: ExpandNodeView({
+          getIntl,
+          isMobile,
+          api,
+          allowInteractiveExpand,
+        }),
       },
       handleKeyDown(_view, event) {
         return containsClass(

@@ -1,4 +1,4 @@
-import {
+import type {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
@@ -6,9 +6,9 @@ import {
   OperationalAEP,
 } from '@atlaskit/editor-common/analytics';
 
-import { AEP } from './enums';
+import type { AEP } from './enums';
 
-import {
+import type {
   PropsDifference,
   SEVERITY,
   ShallowPropsDifference,
@@ -18,7 +18,7 @@ import type {
   UnsupportedContentPayload,
   UnsupportedContentTooltipPayload,
 } from '@atlaskit/editor-common/utils';
-import { SortOrder } from '@atlaskit/editor-common/types';
+import type { SortOrder } from '@atlaskit/editor-common/types';
 
 export enum PLATFORM {
   NATIVE = 'mobileNative',
@@ -76,9 +76,6 @@ export type ComponentCrashErrorAEP = OperationalAEP<
     errorStack?: string;
     componentStack?: string;
     errorRethrown?: boolean;
-  },
-  {
-    errorStack?: string;
   }
 >;
 
@@ -104,6 +101,7 @@ type RendererUnsupportedContentLevelsTrackingSucceeded = AEP<
     unsupportedContentLevelPercentage: number;
     unsupportedNodesCount: number;
     supportedNodesCount: number;
+    unsupportedNodeTypeCount: Record<string, number>;
   },
   EVENT_TYPE.OPERATIONAL
 >;

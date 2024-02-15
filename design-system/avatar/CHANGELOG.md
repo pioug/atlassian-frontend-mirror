@@ -1,5 +1,29 @@
 # @atlaskit/avatar
 
+## 21.4.6
+
+### Patch Changes
+
+- [#70213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70213) [`31068e587071`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/31068e587071) - [ux] Removes decorative images of presence and status from view of assistive technologies. The presence and status are announced as part of the labeling of the parent component and therefore no longer necessary.
+
+## 21.4.5
+
+### Patch Changes
+
+- [#67339](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67339) [`33c37b4c2c1e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/33c37b4c2c1e) - [ux] Remove nested images introduced in 21.4.3
+
+## 21.4.4
+
+### Patch Changes
+
+- [#64854](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64854) [`61b09a38c764`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61b09a38c764) - [ux] Adds label to custom avatars using the render prop API.
+
+## 21.4.3
+
+### Patch Changes
+
+- [#63807](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63807) [`538c46e739b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/538c46e739b6) - [ux] Add accessible name to non-interactive avatars. If you are a making a test that relies on there being only a single element containing the avatar's expected text, skipping any elements with a `hidden` attribute will narrow down your search to only the visible element; this will make the test act the same as it would before this change.
+
 ## 21.4.2
 
 ### Patch Changes

@@ -4,34 +4,33 @@ order: 2
 
 ## Usage
 
-Tags are used to visually label UI objects for quick recognition and navigation. They can be used for various types of objects, including: free form text, predefined text, rules, or contacts.
-
-Keep in mind that tags increase the amount of visual noise, particularly when combined with other visual labelling elements, so use them in moderation.
+Use tags to label UI objects for quick recognition and navigation. They can be used for various types of objects, including: free form text, predefined text, rules, or contacts.
 
 Tags are designed to be displayed within a [tag group](/components/tag-group). They can be rendered flat, as links, or with a close button.
 
 ## Best practices
 
-- Tags can increase the amount of visual noise on a screen, particularly when combined with other visual elements, so use them in moderation.
+- Keep in mind that tags increase the amount of cognitive noise, particularly when combined with other labelling elements, so use them in moderation.
 - Custom color tags can be used to organize a large amount of content. For example, using epic tags for organizing issues in a Jira backlog.
 
 ## Behavior
 
 ### Removing tags
 
-Tags can be permanent or removable (by displaying the remove icon). Depending how the tag is aligned, the flow of the removal will move towards that alignment.
+Tags can be permanent or removable (by displaying the remove icon). When a tag is removed, the tags will realign towards their direction of alignment (aligned to the start or end).
 
-**Align left:**
+**Align to the start:**
 
-![Removing tags that align left](images/removing-tags-left-to-right.png)
+![Tags aligned to the start in a left-aligned reading order are aligned horizontally from the left.](images/removing-tags-left-to-right.png)
 
-**Align right:**
+**Align to the end:**
 
-![Removing tags that align right](images/removing-tags-right-to-left.png)
+![Tags aligned to the end in a left-aligned reading order are aligned horizontally from the right.](images/removing-tags-right-to-left.png)
 
 ## Content guidelines
 
-When writing tags, avoid line-wrapping, and follow the [writing guidelines](/content/writing-style).
+- When writing tags, avoid line wrapping, and follow the [writing guidelines](/content/writing-style).
+- If the tag content isn't user generated, keep labels short to avoid truncation.
 
 ## Related
 

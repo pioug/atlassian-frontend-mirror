@@ -1,6 +1,8 @@
 import React from 'react';
-import { default as FullPageExample } from './5-full-page';
+
 import { exampleDocument } from '../example-helpers/example-doc-with-unsupported';
+
+import { default as FullPageExample } from './5-full-page';
 
 const editorProps = {
   defaultValue: exampleDocument,

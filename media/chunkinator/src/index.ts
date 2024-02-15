@@ -5,11 +5,9 @@ export type {
   ChunkinatorResponse,
   Options,
   HashingFunction,
-  ProbingFunction,
   UploadingFunction,
   ProcessingFunction,
   Callbacks,
   Chunk,
   HashedBlob,
-  ProbedBlob,
 } from './domain';

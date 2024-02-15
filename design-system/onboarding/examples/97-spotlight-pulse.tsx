@@ -2,7 +2,8 @@
 
 import { jsx } from '@emotion/react';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/new';
 
 import { SpotlightManager, SpotlightPulse, SpotlightTarget } from '../src';
 
@@ -14,7 +15,7 @@ const SpotlightPulseExample = () => {
   return (
     <div data-testid="spotlight-pulse-example">
       <SpotlightManager>
-        <ButtonGroup>
+        <ButtonGroup label="Pulse spotlight options">
           <SpotlightTarget name="pulse-true">
             <SpotlightPulse radius={3}>
               <Button>This displays a pulse</Button>

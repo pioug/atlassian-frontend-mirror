@@ -1,23 +1,26 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
 import React from 'react';
+
+import { jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
+
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
+import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-document';
 
-import { Editor } from './../src';
-import EditorContext from './../src/ui/EditorContext';
-import WithEditorActions from './../src/ui/WithEditorActions';
-import ToolsDrawer from '../example-helpers/ToolsDrawer';
-import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import { DevTools } from '../example-helpers/DevTools';
-import { wrapper, content } from './5-full-page';
-import { EditorActions } from '../src';
+import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
+import ToolsDrawer from '../example-helpers/ToolsDrawer';
+import type { EditorActions } from '../src';
+import { Editor } from '../src';
+import EditorContext from '../src/ui/EditorContext';
+import WithEditorActions from '../src/ui/WithEditorActions';
+
+import { content, wrapper } from './5-full-page';
 
 // eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');

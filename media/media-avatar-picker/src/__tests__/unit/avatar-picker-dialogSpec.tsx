@@ -365,4 +365,12 @@ describe('Avatar Picker Dialog', () => {
     component.find('form').simulate('submit');
     expect(component.find('#avatar-picker-error')).toHaveLength(0);
   });
+
+  it('should have h1 heading with id associated with modal', () => {
+    const component = renderWithProps({ avatars: [] });
+    const modal = component.find('section[role="dialog"]');
+    const heading = component.find('h1');
+
+    expect(modal.prop('aria-labelledby')).toBe(heading.prop('id'));
+  });
 });

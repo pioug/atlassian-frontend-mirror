@@ -4,7 +4,7 @@ import type { FormEvent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
-import { defineMessages, injectIntl } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
@@ -13,6 +13,7 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { dateMessages as messages } from '@atlaskit/editor-common/messages';
 import { ErrorMessage } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
@@ -48,15 +49,6 @@ export interface InputProps {
 export interface InputState {
   inputText: string;
 }
-
-const messages = defineMessages({
-  invalidDateError: {
-    id: 'fabric.editor.invalidDateError',
-    defaultMessage: 'Enter a valid date',
-    description:
-      'Error message when the date typed in is invalid, requesting they inputs a new date',
-  },
-});
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class DatePickerInput extends React.Component<

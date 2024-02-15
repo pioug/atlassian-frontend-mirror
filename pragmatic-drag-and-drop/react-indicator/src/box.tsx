@@ -10,7 +10,6 @@ import type { CSSProperties } from 'react';
 import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/types';
-import { token } from '@atlaskit/tokens';
 
 import type { DropIndicatorProps } from './box-without-terminal';
 import { line } from './constants';
@@ -35,10 +34,7 @@ const lineStyles = css({
     height: terminalSize,
     boxSizing: 'border-box',
     position: 'absolute',
-    border: `${line.thickness}px solid ${token(
-      'color.border.selected',
-      '#0c66e4',
-    )}`,
+    border: `${line.thickness}px solid ${line.backgroundColor}`,
     borderRadius: '50%',
   },
 });

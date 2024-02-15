@@ -1,19 +1,16 @@
-import {
-  PuppeteerPage,
-  emulateDevice,
-} from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { emulateDevice } from '@atlaskit/visual-regression/helper';
+import type { Viewport } from 'puppeteer';
+import { selectors } from '../../__helpers/page-objects/_renderer';
 import { initRendererWithADF, snapshot } from '../_utils';
+import type { Alignment } from './_heading-utils';
 import {
-  Alignment,
   getAlignmentADF,
   propsWithHeadingLinksEnabled,
 } from './_heading-utils';
-import { selectors } from '../../__helpers/page-objects/_renderer';
-import { Viewport } from 'puppeteer';
 
 // Headings with anchor links enabled
-// FIXME: flaky test https://product-fabric.atlassian.net/browse/ED-13530
-describe.skip('Headings with links on mobile', () => {
+describe('Headings with links on mobile', () => {
   let page: PuppeteerPage;
 
   // Test alignment options (center and right add a wrapper element)

@@ -82,7 +82,7 @@ export const logException = async (
         'jira-release': (window as any).BUILD_KEY,
         // Confluence environment variables
         'confluence-frontend-version': (window as any).__buildInfo
-          .FRONTEND_VERSION,
+          ?.FRONTEND_VERSION,
         ...tags,
       });
       // Explicitly remove the breadcrumbs as it's too likely to log UGC/PII to side-step the hub integrations not being respected

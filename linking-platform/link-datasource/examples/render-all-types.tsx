@@ -10,6 +10,7 @@ import * as AdfTable from '../examples-helpers/adfTable.json';
 import * as Image from '../examples-helpers/images.json';
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';
 import { fallbackRenderType } from '../src/ui/issue-like-table/render-type';
+import { DatasourceTypeWithOnlyValues } from '../src/ui/issue-like-table/types';
 
 const ContainerWrapper = styled.div`
   width: 70%;
@@ -32,121 +33,197 @@ const tableRowStyles = css({
 interface Item {
   style?: React.CSSProperties;
   type: DatasourceType['type'];
-  variations: DatasourceType['value'][];
+  variations: DatasourceType['value'][][];
 }
 
 const items: Item[] = [
   {
     type: 'number',
-    variations: [123, 123.456, -98, -98.777],
+    variations: [[123], [123.456], [-98], [-98.777]],
   },
   {
     type: 'date',
-    variations: ['11/11/2023', '2023-04-20T23:00:00.000Z'],
+    variations: [['11/11/2023'], ['2023-04-20T23:00:00.000Z']],
   },
   {
     type: 'time',
-    variations: ['11/11/2023', '2023-04-20T23:00:00.000Z'],
+    variations: [['11/11/2023'], ['2023-04-20T23:00:00.000Z']],
   },
   {
     type: 'datetime',
-    variations: ['11/11/2023', '2023-04-20T23:00:00.000Z'],
+    variations: [['11/11/2023'], ['2023-04-20T23:00:00.000Z']],
   },
   {
     type: 'string',
-    variations: ['Hello World'],
+    variations: [['Hello World']],
   },
   {
     type: 'string',
     variations: [
-      'This is the first string in an array.',
-      'This is the second string in an array.',
-      'Array of strings will have line breaks.',
+      ['This is the first string in an array.'],
+      ['This is the second string in an array.'],
+      ['Array of strings will have line breaks.'],
     ],
   },
   {
     type: 'boolean',
-    variations: [true, false],
+    variations: [[true], [false]],
   },
   {
     type: 'status',
     variations: [
-      {
-        style: {
-          appearance: 'default',
+      [
+        {
+          style: {
+            appearance: 'default',
+          },
+          text: 'Default',
         },
-        text: 'Default',
-      },
-      {
-        style: {
-          appearance: 'inprogress',
+      ],
+      [
+        {
+          style: {
+            appearance: 'inprogress',
+          },
+          text: 'In Progress',
         },
-        text: 'In Progress',
-      },
+      ],
     ],
   },
   {
     type: 'link',
     variations: [
-      {
-        text: 'Atlassian Website',
-        url: '#',
-      },
-      {
-        url: 'https://app.asana.com/',
-      },
-      {
-        text: 'EDM-5941',
-        url: '#',
-        style: {
-          appearance: 'key',
+      [
+        {
+          text: 'Atlassian Website',
+          url: '#',
         },
-      },
-      {
-        url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
-      },
-      {
-        url: 'https://link-that-does-not-resolve.com',
-      },
+      ],
+      [
+        {
+          url: 'https://app.asana.com/',
+        },
+      ],
+      [
+        {
+          text: 'EDM-5941',
+          url: '#',
+          style: {
+            appearance: 'key',
+          },
+        },
+      ],
+      [
+        {
+          url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
+        },
+      ],
+      [
+        {
+          url: 'https://link-that-does-not-resolve.com',
+        },
+      ],
     ],
   },
   {
     type: 'icon',
     variations: [
-      {
-        source: Image.trello,
-      },
+      [
+        {
+          source: Image.trello,
+        },
+      ],
     ],
   },
   {
     type: 'user',
     variations: [
-      {},
-      {
-        avatarSource: Image.trello,
-      },
-      {
-        avatarSource: Image.trello,
-        displayName: 'Trello',
-      },
+      [{}],
+      [
+        {
+          avatarSource: Image.trello,
+        },
+      ],
+      [
+        {
+          avatarSource: Image.trello,
+          displayName: 'Trello',
+        },
+      ],
+      [
+        {
+          avatarSource: Image.trello,
+          displayName: 'Trello',
+        },
+        {
+          avatarSource: Image.trello,
+          displayName: 'Trello',
+        },
+        {
+          avatarSource: Image.trello,
+          displayName: 'Trello',
+        },
+        {
+          avatarSource: Image.trello,
+          displayName: 'Trello',
+        },
+        {
+          avatarSource: Image.trello,
+          displayName: 'Trello',
+        },
+      ],
+      [
+        {
+          avatarSource: Image.trello,
+          displayName: 'Trello',
+        },
+        {
+          avatarSource: Image.trello,
+          displayName: 'Trello',
+        },
+        {
+          avatarSource: Image.trello,
+          displayName: 'Trello',
+        },
+        {
+          avatarSource: Image.trello,
+          displayName: 'Trello',
+        },
+        {
+          avatarSource: Image.trello,
+          displayName: 'Trello',
+        },
+        {
+          avatarSource: Image.trello,
+          displayName: 'Trello',
+        },
+        {
+          avatarSource: Image.trello,
+          displayName: 'Trello',
+        },
+      ],
     ],
   },
   {
     type: 'tag',
     variations: [
-      {
-        text: 'Simple Tag',
-      },
+      [
+        {
+          text: 'Simple Tag',
+        },
+      ],
     ],
   },
   {
     type: 'richtext',
     style: { maxWidth: '250px' },
     variations: [
-      {
-        type: 'adf',
-        text: JSON.stringify(AdfTable.default),
-      },
+      [
+        {
+          type: 'adf',
+          text: JSON.stringify(AdfTable.default),
+        },
+      ],
     ],
   },
 ];
@@ -173,8 +250,8 @@ export default () => {
                       <RenderDiv key={index}>
                         {fallbackRenderType({
                           type: item.type,
-                          value: variation,
-                        } as DatasourceType)}
+                          values: variation,
+                        } as DatasourceTypeWithOnlyValues)}
                       </RenderDiv>
                     ))}
                   </td>

@@ -153,27 +153,20 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
     );
 
     return (
-      <>
-        <IconTitleWrapper style={{ color: titleColor }} data-testid={testId}>
-          {link ? (
-            <LinkAppearance
-              href={link}
-              onClick={this.handleClick}
-              onKeyPress={this.handleKeyPress}
-            >
-              {titlePart}
-            </LinkAppearance>
-          ) : (
-            titlePart
-          )}
-          {rightSide ? (
-            <NoLinkAppearance>
-              {this.props.rightSideSpacer && ' - '}
-              {rightSide}
-            </NoLinkAppearance>
-          ) : null}
-        </IconTitleWrapper>
-      </>
+      <IconTitleWrapper style={{ color: titleColor }} data-testid={testId}>
+        {link ? (
+          <LinkAppearance
+            href={link}
+            onClick={this.handleClick}
+            onKeyPress={this.handleKeyPress}
+          >
+            {titlePart}
+          </LinkAppearance>
+        ) : (
+          titlePart
+        )}
+        {rightSide ? <NoLinkAppearance>{rightSide}</NoLinkAppearance> : null}
+      </IconTitleWrapper>
     );
   }
 }

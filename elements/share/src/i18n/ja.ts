@@ -19,6 +19,7 @@ export default {
   'fabric.elements.share.form.no-permissions': '共有できません。',
   'fabric.elements.share.form.public.send': '公開リンクを送信',
   'fabric.elements.share.form.public.share': '公開リンクを共有',
+  'fabric.elements.share.form.required-field.summary': '必須フィールドにはアスタリスクが付いています',
   'fabric.elements.share.form.retry': '再試行',
   'fabric.elements.share.form.send': '送信',
   'fabric.elements.share.form.share': '共有',

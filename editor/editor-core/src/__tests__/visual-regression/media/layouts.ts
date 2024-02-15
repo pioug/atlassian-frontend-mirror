@@ -1,33 +1,34 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import type { EditorProps } from '../../../types';
-
-import {
-  changeMediaLayout,
-  waitForMediaToBeLoaded,
-  clickMediaInPosition,
-  mediaSingleLayouts,
-  MediaLayout,
-} from '@atlaskit/editor-test-helpers/page-objects/media';
-import {
-  clickEditableContent,
   animationFrame,
+  clickEditableContent,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
-
-/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
-import * as singleCellTable from './__fixtures__/single-cell-table-adf.json';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import {
+  changeMediaLayout,
+  clickMediaInPosition,
+  MediaLayout,
+  mediaSingleLayouts,
+  waitForMediaToBeLoaded,
+} from '@atlaskit/editor-test-helpers/page-objects/media';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import type { EditorProps } from '../../../types';
+
 import columnLayoutAdf from './__fixtures__/3-column-layout-with-image.adf.json';
 import mediaSingleAdf from './__fixtures__/mediaSingle-image-wrap-with-text.adf.json';
 import mediaSingleForIndividualLayoutAdf from './__fixtures__/mediaSingle-layouts-on-individual-media.adf.json';
+import * as singleCellTable from './__fixtures__/single-cell-table-adf.json';
 import singleCellTableWithMultipleMediaAdf from './__fixtures__/single-cell-table-with-multiple-media.adf.json';
 
 describe('Snapshot Test: Media', () => {
@@ -183,8 +184,7 @@ describe('Snapshot Test: Media', () => {
         MediaLayout.wrapLeft,
         MediaLayout.wrapRight,
       ]) {
-        // TODO: Unskip tests (skipped due to CI reporting slight diff, couldnt repro locally: https://product-fabric.atlassian.net/browse/ED-16362)
-        it.skip(`using layout ${MediaLayout[layout]}`, async () => {
+        it(`using layout ${MediaLayout[layout]}`, async () => {
           await changeMediaLayout(page, layout);
           await animationFrame(page);
           await snapshot(page, undefined, undefined, {

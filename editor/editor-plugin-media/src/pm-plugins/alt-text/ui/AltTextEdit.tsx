@@ -20,25 +20,30 @@ import {
   fireAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
 import { escape, ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { PanelTextInput } from '@atlaskit/editor-common/ui';
-import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
-import { RECENT_SEARCH_WIDTH_IN_PX } from '@atlaskit/editor-common/ui';
-import { ErrorMessage } from '@atlaskit/editor-common/ui';
+import { altTextMessages as messages } from '@atlaskit/editor-common/media';
+import {
+  FloatingToolbarButton as Button,
+  ErrorMessage,
+  PanelTextInput,
+  RECENT_SEARCH_WIDTH_IN_PX,
+} from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
-import { N100, N30, N80, R400 } from '@atlaskit/theme/colors';
+import { N200, N30, N80, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { closeMediaAltTextMenu, updateAltText } from '../commands';
-import { messages } from '../messages';
+import {
+  closeMediaAltTextMenu,
+  closeMediaAltTextMenuAndSave,
+} from '../commands';
 
 export const CONTAINER_WIDTH_IN_PX = RECENT_SEARCH_WIDTH_IN_PX;
 export const MAX_ALT_TEXT_LENGTH = 510; // double tweet length
 
 const supportText = css`
-  color: ${token('color.text.subtlest', N100)};
+  color: ${token('color.text.subtlest', N200)};
   font-size: ${relativeFontSizeToBase16(12)};
   padding: ${token('space.150', '12px')} ${token('space.500', '40px')};
   line-height: 20px;
@@ -83,6 +88,8 @@ const clearText = css`
 
 type Props = {
   view: EditorView;
+  nodeType: 'mediaSingle' | 'mediaInline';
+  mediaType: 'file' | 'image' | 'external';
   value?: string;
   altTextValidator?: (value: string) => string[];
   onEscape?: () => void;
@@ -126,13 +133,13 @@ export class AltTextEditComponent extends React.Component<
 
   componentWillUnmount() {
     this.fireAnalytics(ACTION.CLOSED);
-    if (!this.prevValue && this.props.value) {
+    if (!this.prevValue && this.state.lastValue) {
       this.fireAnalytics(ACTION.ADDED);
     }
-    if (this.prevValue && !this.props.value) {
+    if (this.prevValue && !this.state.lastValue) {
       this.fireAnalytics(ACTION.CLEARED);
     }
-    if (this.prevValue && this.prevValue !== this.props.value) {
+    if (this.prevValue && this.prevValue !== this.state.lastValue) {
       this.fireAnalytics(ACTION.EDITED);
     }
   }
@@ -231,11 +238,19 @@ export class AltTextEditComponent extends React.Component<
 
   private closeMediaAltTextMenu = () => {
     const { view } = this.props;
-    closeMediaAltTextMenu(view.state, view.dispatch);
+
+    if (this.state.validationErrors.length === 0) {
+      closeMediaAltTextMenuAndSave(this.state.lastValue || '')(
+        view.state,
+        view.dispatch,
+      );
+    } else {
+      closeMediaAltTextMenu(view.state, view.dispatch);
+    }
   };
 
   private fireAnalytics(actionType: MediaAltTextActionType) {
-    const { createAnalyticsEvent } = this.props;
+    const { createAnalyticsEvent, nodeType, mediaType } = this.props;
     if (createAnalyticsEvent && this.fireCustomAnalytics) {
       this.fireCustomAnalytics({
         payload: {
@@ -243,6 +258,10 @@ export class AltTextEditComponent extends React.Component<
           actionSubject: ACTION_SUBJECT.MEDIA,
           actionSubjectId: ACTION_SUBJECT_ID.ALT_TEXT,
           eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            type: nodeType,
+            mediaType,
+          },
         },
       });
     }
@@ -258,12 +277,6 @@ export class AltTextEditComponent extends React.Component<
     onEscape?.();
   };
 
-  private updateAltText = (newAltText: string) => {
-    const { view } = this.props;
-    const newValue = newAltText.length === 0 ? '' : newAltText;
-    updateAltText(newValue)(view.state, view.dispatch);
-  };
-
   private handleOnChange = (newAltText: string) => {
     const validationErrors = this.getValidationErrors(newAltText);
 
@@ -276,26 +289,17 @@ export class AltTextEditComponent extends React.Component<
         errorsArea?.setAttribute('aria-live', 'assertive');
       }
     }
-    this.setState(
-      {
-        showClearTextButton: Boolean(newAltText),
-        validationErrors,
-        lastValue: newAltText,
-      },
-      () => {
-        if (!validationErrors || !validationErrors.length) {
-          this.updateAltText(newAltText);
-        }
-      },
-    );
+    this.setState({
+      showClearTextButton: Boolean(newAltText),
+      validationErrors,
+      lastValue: newAltText,
+    });
   };
 
-  private handleOnBlur = () => {
-    // Handling the trimming onBlur() because PanelTextInput doesn't sync
-    // defaultValue properly during unmount
-    const { value } = this.props;
-    const newValue = (this.state.lastValue || value || '').trim();
-    this.handleOnChange(newValue);
+  private handleOnBlur = (e: FocusEvent) => {
+    // prevent other selection transaction gets triggered
+    e.stopPropagation();
+    this.closeMediaAltTextMenu();
   };
 
   private handleClearText = () => {

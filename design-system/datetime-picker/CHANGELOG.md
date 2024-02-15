@@ -1,5 +1,47 @@
 # @atlaskit/datetime-picker
 
+## 13.0.8
+
+### Patch Changes
+
+- [#70959](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70959) [`689672b7c5b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/689672b7c5b0) - [ux] Returns focus to input after pressing `Esc` when inside the calendar popup in a date picker.
+
+## 13.0.7
+
+### Patch Changes
+
+- [#69022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69022) [`395c74147990`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/395c74147990) - Migrate packages to use declarative entry points
+
+## 13.0.6
+
+### Patch Changes
+
+- [#63677](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63677) [`f320c8ce5039`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f320c8ce5039) - This package has been added to the Jira push model.
+
+## 13.0.5
+
+### Patch Changes
+
+- [#61141](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61141) [`57a79a328287`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/57a79a328287) - Revert the solution with the hidden span in the Label which was merged in scope of DST-11061.
+
+## 13.0.4
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
+## 13.0.3
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 13.0.2
+
+### Patch Changes
+
+- [#58458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58458) [`536478cdcf0b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/536478cdcf0b) - Made some tiny tweaks to the weekday header so its height is now an integer.
+
 ## 13.0.1
 
 ### Patch Changes

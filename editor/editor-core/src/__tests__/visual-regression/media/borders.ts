@@ -1,20 +1,22 @@
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import {
+  clickMediaInPosition,
+  scrollToMedia,
+  waitForMediaToBeLoaded,
+} from '@atlaskit/editor-test-helpers/page-objects/media';
 import {
   Appearance,
   initEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import {
-  scrollToMedia,
-  waitForMediaToBeLoaded,
-  clickMediaInPosition,
-} from '@atlaskit/editor-test-helpers/page-objects/media';
-import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
+
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import borderADF from './__fixtures__/media-border.adf.json';
+import type { EditorProps } from '../../../types';
+
 import borderADFWithLink from './__fixtures__/media-border-with-link.adf.json';
 import borderADFWithinTable from './__fixtures__/media-border-within-table.adf.json';
-import type { EditorProps } from '../../../types';
+import borderADF from './__fixtures__/media-border.adf.json';
 
 describe('Snapshot Test: Media Border Mark', () => {
   let page: PuppeteerPage;

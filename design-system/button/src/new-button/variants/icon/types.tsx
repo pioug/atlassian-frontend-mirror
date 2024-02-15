@@ -1,24 +1,29 @@
-import { type Size } from '@atlaskit/icon/types';
-
-import { type IconButtonAppearance, type IconProp } from '../types';
+import {
+  type IconButtonAppearance,
+  type IconProp,
+  type IconSize,
+} from '../types';
 
 export type CommonIconButtonProps = {
   /**
-   * The button style variation
+   * The button style variation.
    */
   appearance?: IconButtonAppearance;
   /**
-   * Places an icon within the button
+   * Places an icon within the button.
    */
   icon: IconProp;
   /**
-   * Provide an accessible label, often used by screen readers
+   * Provide an accessible label, often used by screen readers.
    */
   label: string;
   /**
-   * Set the size of the icon
-   *
-   * This is UNSAFE as it will be removed in future in favor of a 100% bounded API
+   * Set the shape of the icon, defaults to square with rounded corners.
    */
-  UNSAFE_size?: Size;
+  shape?: 'default' | 'circle';
+  /**
+   * Set the size of the icon. `medium` is default, so it does not need to be specified.
+   * This is UNSAFE as it will be removed in future in favor of a 100% bounded API.
+   */
+  UNSAFE_size?: IconSize;
 };

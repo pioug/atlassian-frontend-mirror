@@ -157,6 +157,7 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
 
   const calcDimensions = (mediaContainerWidth: number) => {
     const containerWidth = getMediaContainerWidth(mediaContainerWidth, layout);
+
     const maxWidth = containerWidth;
     const maxHeight = (height / width) * maxWidth;
     const cardDimensions = {

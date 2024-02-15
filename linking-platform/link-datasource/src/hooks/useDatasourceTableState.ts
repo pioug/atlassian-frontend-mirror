@@ -10,6 +10,7 @@ import {
   DatasourceDataRequest,
   DatasourceDataResponseItem,
   DatasourceDataSchema,
+  DatasourceMeta,
   DatasourceParameters,
   DatasourceResponseSchemaProperty,
   DatasourceTableStatusType,
@@ -57,6 +58,8 @@ export interface DatasourceTableState {
   destinationObjectTypes: string[];
   /** Used as an indicated of which provider type is being used - originates from ORS */
   extensionKey?: string;
+  /** Auth info used to connect to the provider account. */
+  authDetails?: DatasourceMeta['auth'];
 }
 
 export interface DatasourceTableStateProps {
@@ -79,6 +82,7 @@ export const useDatasourceTableState = ({
   const idFieldCount = 1;
   const keyFieldCount = 1;
 
+  const [initialEmptyArray] = useState([]);
   const [defaultVisibleColumnKeys, setDefaultVisibleColumnKeys] = useState<
     DatasourceTableState['defaultVisibleColumnKeys']
   >([]);
@@ -89,6 +93,9 @@ export const useDatasourceTableState = ({
     properties: [],
   });
   const [status, setStatus] = useState<DatasourceTableState['status']>('empty');
+  const [authDetails, setAuthDetails] = useState<
+    DatasourceTableState['authDetails']
+  >([]);
   const [responseItems, setResponseItems] = useState<
     DatasourceTableState['responseItems']
   >([]);
@@ -115,14 +122,15 @@ export const useDatasourceTableState = ({
 
     try {
       const {
-        meta: { access },
+        meta: { access, auth },
         data: { schema },
       } = await getDatasourceDetails(datasourceId, {
         parameters,
       });
 
-      if (access === 'forbidden' || access === 'unauthorized') {
-        setStatus('unauthorized');
+      if (access === 'unauthorized' || access === 'forbidden') {
+        setStatus(access);
+        setAuthDetails(auth || initialEmptyArray);
         return;
       }
 
@@ -138,13 +146,27 @@ export const useDatasourceTableState = ({
       newColumns.length > 0 && setColumns([...columns, ...newColumns]);
     } catch (e) {
       captureError('loadDatasourceDetails', e);
-      if (e instanceof Response && (e.status === 401 || e.status === 403)) {
+
+      if (e instanceof Response && e.status === 401) {
         setStatus('unauthorized');
         return;
       }
+
+      if (e instanceof Response && e.status === 403) {
+        setStatus('forbidden');
+        return;
+      }
+
       setStatus('rejected');
     }
-  }, [captureError, columns, datasourceId, getDatasourceDetails, parameters]);
+  }, [
+    captureError,
+    columns,
+    datasourceId,
+    getDatasourceDetails,
+    parameters,
+    initialEmptyArray,
+  ]);
 
   const applySchemaProperties = useCallback(
     (schema: DatasourceDataSchema, fieldKeys: string[]) => {
@@ -213,7 +235,7 @@ export const useDatasourceTableState = ({
 
       try {
         const {
-          meta: { access, destinationObjectTypes, extensionKey },
+          meta: { access, destinationObjectTypes, extensionKey, auth },
           data: { items, nextPageCursor, totalCount, schema },
         } = await getDatasourceData(
           datasourceId,
@@ -221,8 +243,9 @@ export const useDatasourceTableState = ({
           shouldForceRequest,
         );
 
-        if (access === 'forbidden' || access === 'unauthorized') {
-          setStatus('unauthorized');
+        if (access === 'unauthorized' || access === 'forbidden') {
+          setStatus(access);
+          setAuthDetails(auth || initialEmptyArray);
           return;
         }
 
@@ -232,7 +255,14 @@ export const useDatasourceTableState = ({
         setNextCursor(nextPageCursor);
 
         setResponseItems(currentResponseItems => {
-          if (shouldRequestFirstPage) {
+          // FIXME EDM-8977 (https://product-fabric.atlassian.net/browse/EDM-8977)
+          // once the onNextPage and reset loop issue has been thoroughly investigated
+          // in the above card, remove this isEqual check, ensure onNextPage isn't called twice
+          const hasIdenticalResponseItems = isEqual(
+            currentResponseItems,
+            items,
+          );
+          if (hasIdenticalResponseItems || shouldRequestFirstPage) {
             return items;
           }
           return [...currentResponseItems, ...items];
@@ -266,10 +296,17 @@ export const useDatasourceTableState = ({
         setStatus('resolved');
       } catch (e: any) {
         captureError('onNextPage', e);
-        if (e instanceof Response && (e.status === 401 || e.status === 403)) {
+
+        if (e instanceof Response && e.status === 401) {
           setStatus('unauthorized');
           return;
         }
+
+        if (e instanceof Response && e.status === 403) {
+          setStatus('forbidden');
+          return;
+        }
+
         setStatus('rejected');
       }
     },
@@ -280,27 +317,34 @@ export const useDatasourceTableState = ({
       nextCursor,
       getDatasourceData,
       datasourceId,
-      responseItems?.length,
+      responseItems,
       applySchemaProperties,
       fireEvent,
       fullSchema,
+      initialEmptyArray,
     ],
   );
 
-  const reset = useCallback((options?: ResetOptions) => {
-    setStatus('empty');
-    setResponseItems([]);
-    setHasNextPage(true);
-    setNextCursor(undefined);
-    setTotalCount(undefined);
-    setLastRequestedFieldKeys([]);
-    setFullSchema({ properties: [] });
-    setShouldForceRequest(options?.shouldForceRequest || false);
-    if (options?.shouldResetColumns) {
-      setColumns([]);
-      setDefaultVisibleColumnKeys([]);
-    }
-  }, []);
+  const reset = useCallback(
+    (options?: ResetOptions) => {
+      setResponseItems(initialEmptyArray);
+      setHasNextPage(true);
+      setNextCursor(undefined);
+      setTotalCount(undefined);
+      setLastRequestedFieldKeys(initialEmptyArray);
+      setAuthDetails(initialEmptyArray);
+      setFullSchema({ properties: initialEmptyArray });
+      setShouldForceRequest(options?.shouldForceRequest || false);
+      if (options?.shouldResetColumns) {
+        setColumns(initialEmptyArray);
+        setDefaultVisibleColumnKeys(initialEmptyArray);
+      }
+
+      // setting the status earlier is triggering useEffects without all reset state values, hence placing this as the last state reset item
+      setStatus('empty');
+    },
+    [initialEmptyArray],
+  );
 
   // this takes care of requesting /data initially
   useEffect(() => {
@@ -366,5 +410,6 @@ export const useDatasourceTableState = ({
     totalCount,
     extensionKey,
     destinationObjectTypes,
+    authDetails,
   };
 };

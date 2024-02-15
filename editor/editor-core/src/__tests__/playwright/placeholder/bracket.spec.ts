@@ -1,9 +1,10 @@
 import {
-  editorTestCase as test,
-  expect,
-  EditorTitleFocusModel,
   EditorBracketPlaceholderModel,
+  EditorTitleFocusModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import {
   bracketPlaceholder,
   bracketSecondParagraphPlaceholder,

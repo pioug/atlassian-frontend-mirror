@@ -1,11 +1,18 @@
 import type { ReactElement } from 'react';
 
+import { css } from '@emotion/react';
+
+import { hexToRgba } from '@atlaskit/adf-schema';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type {
   EditorState,
+  ReadonlyTransaction,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import * as themeColors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import type { Providers } from '../provider-factory';
 
@@ -453,3 +460,97 @@ export interface CollabAnalyticsProps {
 export interface CollabEventLocalStepData {
   steps: Array<Step>;
 }
+
+export interface Color {
+  solid: string;
+  selection: string;
+}
+
+// TODO: https://product-fabric.atlassian.net/browse/DSP-7269
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+export const colors: Color[] = [
+  themeColors.R100,
+  themeColors.R300,
+  themeColors.R500,
+  themeColors.Y100,
+  themeColors.Y300,
+  themeColors.Y500,
+  themeColors.G100,
+  themeColors.G300,
+  themeColors.G500,
+  themeColors.T100,
+  themeColors.T300,
+  themeColors.T500,
+  themeColors.B100,
+  themeColors.B300,
+  themeColors.B500,
+  themeColors.P100,
+  themeColors.P300,
+  themeColors.P500,
+  themeColors.N70,
+  themeColors.N200,
+  themeColors.N800,
+].map((solid) => ({
+  solid,
+  selection: hexToRgba(solid, 0.2)!,
+}));
+
+const telepointerColorStyle = (color: Color, index: number) => `
+  &.color-${index} {
+    background-color: ${color.selection};
+    &::after {
+      background-color: ${color.solid};
+      color: ${token('color.text.inverse', '#fff')};
+      border-color: ${color.solid};
+    }
+  }
+`;
+
+export const TELEPOINTER_DIM_CLASS = 'telepointer-dim';
+
+export const telepointerStyle = css`
+  .ProseMirror .telepointer {
+    position: relative;
+    transition: opacity 200ms;
+
+    &.telepointer-selection {
+      line-height: 1.2;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    &.telepointer-selection-badge::after {
+      content: attr(data-initial);
+      position: absolute;
+      display: block;
+      top: -14px;
+      font-size: ${relativeFontSizeToBase16(9)};
+      padding: ${token('space.025', '2px')};
+      color: ${token('color.text.inverse', 'white')};
+      left: -1px;
+      border-radius: 2px 2px 2px 0;
+      line-height: initial;
+    }
+
+    &.${TELEPOINTER_DIM_CLASS} {
+      opacity: 0.2;
+    }
+
+    ${colors.map((color, index) => telepointerColorStyle(color, index))};
+  }
+`;
+
+const tintKey = 'collab:isDirtyTransaction';
+
+export const isDirtyTransaction = (
+  tr: Transaction | ReadonlyTransaction,
+): boolean => {
+  return Boolean(tr.getMeta(tintKey));
+};
+/*
+ * This function is used to mark which commands that are dispatching
+ * unnecessary changes on Editor.
+ */
+export const tintDirtyTransaction = (tr: Transaction) => {
+  tr.setMeta(tintKey, true);
+};

@@ -20,6 +20,15 @@ export { messages as statusMessages } from './status';
 export { messages as dateMessages } from './date';
 export { toolbarMessages as layoutMessages } from './layout';
 export { messages as indentationMessages } from './indentation';
+export { avatarGroupMessages } from './avatar-group';
+export { findReplaceMessages } from './find-replace';
+export { textColorMessages } from './text-color';
+export { tasksAndDecisionsMessages } from './tasks-and-decsisions';
+export { placeholderTextMessages } from './placeholder-text';
+export { pasteOptionsToolbarMessages } from './paste-options-toolbar';
+export { panelMessages } from './panel';
+export { mentionMessages } from './mentions';
+export { helpDialogMessages } from './help-dialog';
 
 export default defineMessages({
   layoutFixedWidth: {

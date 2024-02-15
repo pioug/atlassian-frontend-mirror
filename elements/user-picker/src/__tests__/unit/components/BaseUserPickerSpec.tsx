@@ -266,32 +266,51 @@ describe('BaseUserPicker', () => {
     expect(input).toHaveTextContent(custom);
   });
 
-  it('should pass custom no options message to picker', async () => {
-    const customMessage = 'Custom';
-    const { container } = render(
-      getBasePickerWithoutAnalytics({ noOptionsMessage: () => customMessage }),
-    );
+  describe('noOptionsMessage', () => {
+    it('should pass custom no options component to picker', async () => {
+      const customMessage = 'No options found';
+      const { container } = render(
+        getBasePickerWithoutAnalytics({
+          noOptionsMessage: () => <div>{customMessage}</div>,
+        }),
+      );
 
-    await selectEvent.openMenu(
-      container.querySelectorAll('#test')[0] as HTMLElement,
-    );
+      await selectEvent.openMenu(
+        container.querySelectorAll('#test')[0] as HTMLElement,
+      );
 
-    expect(container).toHaveTextContent(customMessage);
-  });
+      expect(container).toHaveTextContent(customMessage);
+    });
 
-  it('should pass custom no options component to picker', async () => {
-    const customMessage = 'No options found';
-    const { container } = render(
-      getBasePickerWithoutAnalytics({
-        noOptionsMessage: () => <div>{customMessage}</div>,
-      }),
-    );
+    it('should pass custom no options message to picker', async () => {
+      const customMessage = 'Custom';
+      const { container } = render(
+        getBasePickerWithoutAnalytics({
+          noOptionsMessage: () => customMessage,
+        }),
+      );
 
-    await selectEvent.openMenu(
-      container.querySelectorAll('#test')[0] as HTMLElement,
-    );
+      await selectEvent.openMenu(
+        container.querySelectorAll('#test')[0] as HTMLElement,
+      );
 
-    expect(container).toHaveTextContent(customMessage);
+      expect(container).toHaveTextContent(customMessage);
+    });
+
+    it('should pass custom no options react node to picker', async () => {
+      const customMessage = 'No options found';
+      const { container } = render(
+        getBasePickerWithoutAnalytics({
+          noOptionsMessage: <div>{customMessage}</div>,
+        }),
+      );
+
+      await selectEvent.openMenu(
+        container.querySelectorAll('#test')[0] as HTMLElement,
+      );
+
+      expect(container).toHaveTextContent(customMessage);
+    });
   });
 
   it('should show loadOptionsErrorMessage on server error', async () => {

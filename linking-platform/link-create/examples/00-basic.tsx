@@ -33,7 +33,7 @@ fetchMockNetworkRequest();
 
 const ENTITY_KEY = 'object-name';
 
-function MockPluginForm() {
+function ExampleCustomPluginForm() {
   const { onCreate, onCancel } = useLinkCreateCallback();
 
   type MockOptions = {
@@ -79,7 +79,7 @@ function MockPluginForm() {
 
   return (
     <div>
-      This is a mocked plugin.
+      This is an example plugin.
       <CreateForm<MockedFormData>
         onSubmit={mockHandleSubmit}
         onCancel={onCancel}
@@ -99,32 +99,27 @@ function MockPluginForm() {
           label={'Select an Option'}
           validators={[mockValidator]}
           loadOptions={mockLoadOptions}
-        ></AsyncSelect>
+        />
       </CreateForm>
     </div>
   );
 }
+const exampleCustomPlugin = {
+  group: {
+    label: 'test',
+    icon: 'test-icon',
+    key: 'mock-plugin',
+  },
+  label: 'My Plugin Object',
+  icon: 'icon',
+  key: ENTITY_KEY,
+  form: <ExampleCustomPluginForm />,
+};
 
 function CreateBasic() {
   const [link, setLink] = useState<string | null>();
   const [ari, setAri] = useState<string | null>();
   const [active, setActive] = useState(false);
-
-  const mockPlugin = () => {
-    return {
-      group: {
-        label: 'test',
-        icon: 'test-icon',
-        key: 'mock-plugin',
-      },
-      label: 'label',
-      icon: 'icon',
-      key: ENTITY_KEY,
-      form: <MockPluginForm />,
-    };
-  };
-
-  const plugins = [mockPlugin()];
 
   const handleCreate = useCallback(async (payload: CreatePayload) => {
     await new Promise<void>(resolve => {
@@ -180,7 +175,7 @@ function CreateBasic() {
       </Button>
       <LinkCreate
         active={active}
-        plugins={plugins}
+        plugins={[exampleCustomPlugin]}
         testId="link-create"
         triggeredFrom="example"
         entityKey={ENTITY_KEY}

@@ -1,46 +1,49 @@
 /** @jsx jsx */
-import { jsx, useTheme } from '@emotion/react';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import {
-  WidthConsumer,
-  ContextPanelConsumer,
-} from '@atlaskit/editor-common/ui';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { ReactElement } from 'react';
 import React, { useImperativeHandle, useRef } from 'react';
+
+import { jsx, useTheme } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
+
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ReactHookFactory } from '@atlaskit/editor-common/types';
+import {
+  ContextPanelConsumer,
+  WidthConsumer,
+} from '@atlaskit/editor-common/ui';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type EditorActions from '../../../actions';
 import type { EventDispatcher } from '../../../event-dispatcher';
 import type {
-  ReactComponents,
+  ContentComponents,
   EditorAppearance,
+  ReactComponents,
   UIComponentFactory,
 } from '../../../types';
+import type { FeatureFlags } from '../../../types/feature-flags';
 import { ClickAreaBlock } from '../../Addon';
 import ContextPanel from '../../ContextPanel';
 import PluginSlot from '../../PluginSlot';
+
 import {
   contentArea,
   editorContentAreaStyle,
-  sidebarArea,
-  ScrollContainer,
   editorContentGutterStyle,
   positionedOverEditorStyle,
+  ScrollContainer,
+  sidebarArea,
 } from './StyledComponents';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
-import type { ThemeProps } from '@atlaskit/theme/types';
-import type { ReactHookFactory } from '@atlaskit/editor-common/types';
-import type { FeatureFlags } from '../../../types/feature-flags';
 
 interface FullPageEditorContentAreaProps {
   appearance: EditorAppearance | undefined;
   contentComponents: UIComponentFactory[] | undefined;
   pluginHooks: ReactHookFactory[] | undefined;
   contextPanel: ReactComponents | undefined;
-  customContentComponents: ReactComponents | undefined;
+  customContentComponents: ContentComponents | undefined;
   disabled: boolean | undefined;
   dispatchAnalyticsEvent: DispatchAnalyticsEvent | undefined;
   editorActions: EditorActions | undefined;
@@ -66,7 +69,7 @@ const Content = React.forwardRef<
   ScrollContainerRefs,
   FullPageEditorContentAreaProps & WrappedComponentProps
 >((props, ref) => {
-  const theme: ThemeProps = useTheme();
+  const theme: { [index: string]: any } = useTheme();
   const fullWidthMode = props.appearance === 'full-width';
   const scrollContainerRef = useRef(null);
   const contentAreaRef = useRef(null);
@@ -125,7 +128,10 @@ const Content = React.forwardRef<
                       ].join(' ')}
                       ref={contentAreaRef}
                     >
-                      {props.customContentComponents}
+                      {!!props.customContentComponents &&
+                      'before' in props.customContentComponents
+                        ? props.customContentComponents.before
+                        : props.customContentComponents}
                       <PluginSlot
                         editorView={props.editorView}
                         editorActions={props.editorActions}
@@ -144,6 +150,10 @@ const Content = React.forwardRef<
                         wrapperElement={props.wrapperElement}
                       />
                       {props.editorDOMElement}
+                      {!!props.customContentComponents &&
+                      'after' in props.customContentComponents
+                        ? props.customContentComponents.after
+                        : null}
                     </div>
                   </div>
                 </ClickAreaBlock>

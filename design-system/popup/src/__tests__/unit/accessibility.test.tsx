@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 
 import Popup from '../../index';
 

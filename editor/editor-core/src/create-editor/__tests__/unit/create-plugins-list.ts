@@ -1,53 +1,50 @@
-jest.mock('../../../plugins');
-jest.mock('@atlaskit/editor-plugin-hyperlink');
-jest.mock('@atlaskit/editor-plugin-placeholder');
-jest.mock('@atlaskit/editor-plugin-selection');
-jest.mock('@atlaskit/editor-plugin-code-block');
-jest.mock('@atlaskit/editor-plugin-layout');
-jest.mock('@atlaskit/editor-plugin-submit-editor');
-jest.mock('@atlaskit/editor-plugin-quick-insert');
-jest.mock('@atlaskit/editor-plugin-card');
-jest.mock('@atlaskit/editor-plugin-table');
-jest.mock('@atlaskit/editor-plugin-context-panel');
-jest.mock('@atlaskit/editor-plugin-help-dialog');
-jest.mock('@atlaskit/editor-plugin-media');
-jest.mock('@atlaskit/editor-plugin-status');
-jest.mock('@atlaskit/editor-plugin-scroll-into-view');
-jest.mock('@atlaskit/editor-plugin-history');
-jest.mock('@atlaskit/editor-plugin-placeholder-text');
-jest.mock('@atlaskit/editor-plugin-analytics');
-jest.mock('@atlaskit/editor-plugin-insert-block');
+jest.mock('@atlaskit/editor-plugins/hyperlink');
+jest.mock('@atlaskit/editor-plugins/feedback-dialog');
+jest.mock('@atlaskit/editor-plugins/placeholder');
+jest.mock('@atlaskit/editor-plugins/selection');
+jest.mock('@atlaskit/editor-plugins/code-block');
+jest.mock('@atlaskit/editor-plugins/layout');
+jest.mock('@atlaskit/editor-plugins/submit-editor');
+jest.mock('@atlaskit/editor-plugins/quick-insert');
+jest.mock('@atlaskit/editor-plugins/card');
+jest.mock('@atlaskit/editor-plugins/table');
+jest.mock('@atlaskit/editor-plugins/context-panel');
+jest.mock('@atlaskit/editor-plugins/help-dialog');
+jest.mock('@atlaskit/editor-plugins/media');
+jest.mock('@atlaskit/editor-plugins/status');
+jest.mock('@atlaskit/editor-plugins/scroll-into-view');
+jest.mock('@atlaskit/editor-plugins/history');
+jest.mock('@atlaskit/editor-plugins/placeholder-text');
+jest.mock('@atlaskit/editor-plugins/analytics');
+jest.mock('@atlaskit/editor-plugins/insert-block');
+jest.mock('@atlaskit/editor-plugins/find-replace');
 
-import { tablesPlugin } from '@atlaskit/editor-plugin-table';
-import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
-import { helpDialogPlugin } from '@atlaskit/editor-plugin-help-dialog';
-import { insertBlockPlugin } from '@atlaskit/editor-plugin-insert-block';
+import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
+import { cardPlugin } from '@atlaskit/editor-plugins/card';
+import { codeBlockPlugin } from '@atlaskit/editor-plugins/code-block';
+import { contextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
+import { feedbackDialogPlugin } from '@atlaskit/editor-plugins/feedback-dialog';
+import { findReplacePlugin } from '@atlaskit/editor-plugins/find-replace';
+import { helpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
+import { historyPlugin } from '@atlaskit/editor-plugins/history';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugins/hyperlink';
+import { insertBlockPlugin } from '@atlaskit/editor-plugins/insert-block';
+import { layoutPlugin } from '@atlaskit/editor-plugins/layout';
+import { mediaPlugin } from '@atlaskit/editor-plugins/media';
+import { placeholderPlugin } from '@atlaskit/editor-plugins/placeholder';
+import { placeholderTextPlugin } from '@atlaskit/editor-plugins/placeholder-text';
+import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
+import { scrollIntoViewPlugin } from '@atlaskit/editor-plugins/scroll-into-view';
+import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
+import { statusPlugin } from '@atlaskit/editor-plugins/status';
+import { submitEditorPlugin } from '@atlaskit/editor-plugins/submit-editor';
+import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 
-import {
-  feedbackDialogPlugin,
-  mobileDimensionsPlugin,
-  findReplacePlugin,
-} from '../../../plugins';
-import { historyPlugin } from '@atlaskit/editor-plugin-history';
-import { statusPlugin } from '@atlaskit/editor-plugin-status';
-import { mediaPlugin } from '@atlaskit/editor-plugin-media';
-import { scrollIntoViewPlugin } from '@atlaskit/editor-plugin-scroll-into-view';
-import { cardPlugin } from '@atlaskit/editor-plugin-card';
-import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
-import { placeholderPlugin } from '@atlaskit/editor-plugin-placeholder';
-import { layoutPlugin } from '@atlaskit/editor-plugin-layout';
-import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
-import { codeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
-import { submitEditorPlugin } from '@atlaskit/editor-plugin-submit-editor';
-import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
-import { placeholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { EditorProps } from '../../../types';
 import createPluginsListBase, {
   getScrollGutterOptions,
 } from '../../create-plugins-list';
 import { createPreset } from '../../create-preset';
-
-import type { EditorProps } from '../../../types';
 
 const createPluginsList = (props: EditorProps, prevProps?: EditorProps) => {
   createPluginsListBase(createPreset(props, prevProps), props);
@@ -166,65 +163,15 @@ describe('createPluginsList', () => {
     expect(layoutPlugin).toHaveBeenCalled();
   });
 
-  it('should initialise hyperlink with `linking.smartLinks` if provided', () => {
-    const smartLinks = { allowEmbeds: true };
+  it('should initialise hyperlink with link picker plugins', () => {
     const linkPickerPlugins: Array<never> = [];
 
     createPluginsList({
-      linking: { smartLinks, linkPicker: { plugins: linkPickerPlugins } },
-    });
-
-    expect(hyperlinkPlugin).toHaveBeenCalledWith({
-      config: expect.objectContaining({
-        cardOptions: {
-          allowEmbeds: true,
-        },
-        linkPicker: {
-          plugins: linkPickerPlugins,
-        },
-      }),
-    });
-  });
-
-  it('should initialise hyperlink, falling back to `smartLinks` prop if `linking.smartLinks` is not provided', () => {
-    const smartLinks = { allowEmbeds: true };
-    const linkPickerPlugins: Array<never> = [];
-
-    createPluginsList({
-      smartLinks,
       linking: { linkPicker: { plugins: linkPickerPlugins } },
     });
 
     expect(hyperlinkPlugin).toHaveBeenCalledWith({
       config: expect.objectContaining({
-        cardOptions: {
-          allowEmbeds: true,
-        },
-        linkPicker: {
-          plugins: linkPickerPlugins,
-        },
-      }),
-    });
-  });
-
-  it('should initialise hyperlink, preferring `linking.smartLinks` over `smartLinks` prop if both are provided', () => {
-    const smartLinks = { allowEmbeds: true };
-    const linkingSmartLinks = { allowEmbeds: false };
-    const linkPickerPlugins: Array<never> = [];
-
-    createPluginsList({
-      smartLinks,
-      linking: {
-        smartLinks: linkingSmartLinks,
-        linkPicker: { plugins: linkPickerPlugins },
-      },
-    });
-
-    expect(hyperlinkPlugin).toHaveBeenCalledWith({
-      config: expect.objectContaining({
-        cardOptions: {
-          allowEmbeds: false,
-        },
         linkPicker: {
           plugins: linkPickerPlugins,
         },
@@ -242,14 +189,14 @@ describe('createPluginsList', () => {
 
     expect(cardPlugin).toHaveBeenCalledWith(
       expect.objectContaining({
-        config: {
+        config: expect.objectContaining({
           allowEmbeds: true,
           platform: 'web',
           fullWidthMode: false,
           linkPicker: {
             plugins: linkPickerPlugins,
           },
-        },
+        }),
       }),
     );
   });
@@ -265,14 +212,14 @@ describe('createPluginsList', () => {
 
     expect(cardPlugin).toHaveBeenCalledWith(
       expect.objectContaining({
-        config: {
+        config: expect.objectContaining({
           allowEmbeds: true,
           platform: 'web',
           fullWidthMode: false,
           linkPicker: {
             plugins: linkPickerPlugins,
           },
-        },
+        }),
       }),
     );
   });
@@ -292,14 +239,14 @@ describe('createPluginsList', () => {
 
     expect(cardPlugin).toHaveBeenCalledWith(
       expect.objectContaining({
-        config: {
+        config: expect.objectContaining({
           allowEmbeds: false,
           platform: 'web',
           fullWidthMode: false,
           linkPicker: {
             plugins: linkPickerPlugins,
           },
-        },
+        }),
       }),
     );
   });
@@ -376,7 +323,9 @@ describe('createPluginsList', () => {
       packageVersion: '1.1.1',
     };
     createPluginsList({ feedbackInfo });
-    expect(feedbackDialogPlugin).toBeCalledWith({ config: feedbackInfo });
+    expect(feedbackDialogPlugin).toBeCalledWith({
+      config: { coreVersion: '0.0.0', ...feedbackInfo },
+    });
   });
 
   it('should always add insertBlockPlugin to the editor with insertMenuItems', () => {
@@ -404,6 +353,7 @@ describe('createPluginsList', () => {
       nativeStatusSupported: false,
       replacePlusMenuWithElementBrowser: false,
       showElementBrowserLink: false,
+      tableSelectorSupported: false,
     };
 
     createPluginsList(props);
@@ -419,18 +369,6 @@ describe('createPluginsList', () => {
   it('should not add historyPlugin to non-mobile editor', () => {
     createPluginsList({ appearance: 'full-page' });
     expect(historyPlugin).not.toHaveBeenCalled();
-  });
-
-  describe('mobileDimensionsPlugin', () => {
-    it('should add mobileDimensionsPlugin to mobile editor', () => {
-      createPluginsList({ appearance: 'mobile' });
-      expect(mobileDimensionsPlugin).toHaveBeenCalled();
-    });
-
-    it('should not add mobileDimensionsPlugin to non-mobile editor', () => {
-      createPluginsList({ appearance: 'full-page' });
-      expect(mobileDimensionsPlugin).not.toHaveBeenCalled();
-    });
   });
 
   it('should add contextPanelPlugin by default', () => {

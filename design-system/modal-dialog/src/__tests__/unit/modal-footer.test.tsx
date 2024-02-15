@@ -20,7 +20,7 @@ describe('<ModalFooter />', () => {
       </ModalDialog>,
     );
 
-    expect(queryByTestId('modal--footer')).not.toBeNull();
+    expect(queryByTestId('modal--footer')).toBeInTheDocument();
   });
 
   it('should be accessible using a user-defined test id', () => {
@@ -30,8 +30,8 @@ describe('<ModalFooter />', () => {
       </ModalDialog>,
     );
 
-    expect(queryByTestId('modal--footer')).toBeNull();
-    expect(queryByTestId('my-footer')).not.toBeNull();
+    expect(queryByTestId('modal--footer')).not.toBeInTheDocument();
+    expect(queryByTestId('my-footer')).toBeInTheDocument();
   });
 
   it('should render custom footer', () => {
@@ -41,7 +41,7 @@ describe('<ModalFooter />', () => {
       </ModalDialog>,
     );
 
-    expect(queryByTestId('custom-footer')).not.toBeNull();
+    expect(queryByTestId('custom-footer')).toBeInTheDocument();
   });
 
   it('should invoke onClose callback on custom footer', () => {

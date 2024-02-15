@@ -1,15 +1,16 @@
 import {
-  editorTestCase as test,
-  EditorNodeContainerModel,
   EditorFloatingToolbarModel,
   EditorHyperlinkModel,
-  expect,
-  EditorTypeAheadModel,
   EditorLinkPickerModel,
+  EditorNodeContainerModel,
+  EditorTypeAheadModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import { basicHyperlinkAdf } from './__fixtures__/basic-hyperlink-adf';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { p, a, doc } from '@atlaskit/editor-test-helpers/doc-builder';
+import { a, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { basicHyperlinkAdf } from './__fixtures__/basic-hyperlink-adf';
 
 test.use({
   adf: basicHyperlinkAdf,

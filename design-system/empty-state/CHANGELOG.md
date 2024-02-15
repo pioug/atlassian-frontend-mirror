@@ -1,5 +1,17 @@
 # @atlaskit/empty-state
 
+## 7.7.0
+
+### Minor Changes
+
+- [#70568](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70568) [`f1279b936714`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f1279b936714) - [ux] Button group inside empty-state now have default label and possibility to accept a dynamic one.
+
+## 7.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.6.4
 
 ### Patch Changes

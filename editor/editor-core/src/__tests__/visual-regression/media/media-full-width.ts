@@ -1,10 +1,11 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { initFullPageEditorWithAdf } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import * as mediaAdf from './__fixtures__/media-full-width.adf.json';
 
 async function initEditor(page: PuppeteerPage, screenWidth: Device) {

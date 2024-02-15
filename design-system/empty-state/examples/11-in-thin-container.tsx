@@ -3,7 +3,7 @@ import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button, { LinkButton } from '@atlaskit/button/new';
 import { N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -36,9 +36,9 @@ const secondaryAction = (
 );
 
 const tertiaryAction = (
-  <Button appearance="subtle-link" href="#" target="_blank">
+  <LinkButton appearance="subtle-link" href="#" target="_blank">
     Tertiary action
-  </Button>
+  </LinkButton>
 );
 
 const props = {

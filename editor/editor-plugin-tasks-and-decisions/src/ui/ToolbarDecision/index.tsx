@@ -36,10 +36,14 @@ const ToolbarDecision = ({
     if (!editorView) {
       return false;
     }
-    insertTaskDecisionCommand(editorAPI?.analytics?.actions)('decisionList')(
-      editorView.state,
-      editorView.dispatch,
-    );
+    const getContextIdentifier = () =>
+      editorAPI?.contextIdentifier?.sharedState.currentState()
+        ?.contextIdentifierProvider;
+
+    insertTaskDecisionCommand(
+      editorAPI?.analytics?.actions,
+      getContextIdentifier,
+    )('decisionList')(editorView.state, editorView.dispatch);
     return true;
   };
 

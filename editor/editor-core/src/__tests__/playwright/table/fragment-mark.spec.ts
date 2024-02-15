@@ -1,10 +1,11 @@
 import {
-  EditorTableModel,
-  EditorNodeContainerModel,
   EditorExtensionModel,
-  editorTestCase as test,
+  EditorNodeContainerModel,
+  EditorTableModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import { withFragmentMark } from './__fixtures__/with-fragment-mark';
 
 test.use({
@@ -37,7 +38,7 @@ test.describe('when fragment mark is applied', () => {
 
     await editor.selection.set({ anchor: 1, head: 1 });
 
-    const breakoutButton = await editor.page.locator('[aria-label="Go wide"]');
+    const breakoutButton = editor.page.locator('[aria-label="Go wide"]');
 
     await test.step('make sure the table is not overflowed already', async () => {
       expect(await tableModel.containerWidth()).toBe(760);

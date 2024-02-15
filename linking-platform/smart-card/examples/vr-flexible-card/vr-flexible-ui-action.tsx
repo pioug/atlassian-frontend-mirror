@@ -3,11 +3,11 @@ import { css, jsx } from '@emotion/react';
 
 import TrashIcon from '@atlaskit/icon/glyph/trash';
 
-import VRTestWrapper from '../utils/vr-test-wrapper';
 import { SmartLinkSize } from '../../src';
 import { DeleteAction } from '../../src/view/FlexibleCard/components/actions';
 import { exampleTokens, getContext } from '../utils/flexible-ui';
 import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
+import VRTestWrapper from '../utils/vr-test-wrapper';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const containerStyles = css`

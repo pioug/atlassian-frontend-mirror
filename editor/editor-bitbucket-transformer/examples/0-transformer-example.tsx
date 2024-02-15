@@ -101,9 +101,6 @@ class TransformerPanels extends React.PureComponent<Props, State> {
               smartLinks={{
                 provider: this.cardProviderPromise,
               }}
-              featureFlags={{
-                'restart-numbered-lists': true,
-              }}
             />
           </div>
         </SmartCardProvider>

@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
 import FocusRing from '@atlaskit/focus-ring';
 import Heading from '@atlaskit/heading';
@@ -16,10 +16,6 @@ import {
   UNSAFE_InteractionSurface as InteractionSurface,
   UNSAFE_Text as Text,
 } from '../src';
-
-const containerStyles = xcss({
-  width: 'size.500',
-});
 
 const fieldsetStyles = xcss({
   flex: '1 1 100%',
@@ -49,7 +45,7 @@ const focusRingBoxStyles = xcss({
 
 export default () => {
   return (
-    <Box xcss={containerStyles} padding="space.100" testId="all">
+    <Box padding="space.100" testId="all">
       <Stack space="space.200">
         <Heading level="h400">Current ADS Buttons</Heading>
         <Inline space="space.200">
@@ -161,6 +157,7 @@ export default () => {
                 onClick={() => console.log('hello')}
                 xcss={focusRingBoxStyles}
                 padding="space.050"
+                aria-label="progress indicator"
               >
                 <InteractionSurface>
                   <Fragment />
@@ -170,8 +167,10 @@ export default () => {
           ))}
         </Inline>
         <Heading level="h400">Textfield / input spikes</Heading>
-        <Inline space="space.200">
-          <Textfield />
+        <Stack space="space.200">
+          <label htmlFor="textfield">Textfield</label>
+          <Textfield id="textfield" />
+          <label htmlFor="input">Input</label>
           <Box
             as="fieldset"
             padding="space.100"
@@ -180,7 +179,7 @@ export default () => {
             xcss={fieldsetStyles}
           >
             <input
-              id="textfield"
+              id="input"
               pattern="\d+"
               style={{
                 padding: 0,
@@ -192,7 +191,7 @@ export default () => {
               }}
             />
           </Box>
-        </Inline>
+        </Stack>
       </Stack>
     </Box>
   );

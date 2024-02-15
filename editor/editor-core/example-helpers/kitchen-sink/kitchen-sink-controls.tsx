@@ -1,20 +1,21 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
 import React from 'react';
+
+import { jsx } from '@emotion/react';
+
 import Button from '@atlaskit/button/custom-theme-button';
 import Select from '@atlaskit/select';
 
-import { EditorAppearance } from '../../src/types';
+import type { EditorAppearance } from '../../src/types';
 import FullWidthToggle from '../full-width-toggle';
+
+import { formatAppearanceOption } from './format-appearance-options';
 import {
   appearanceControl,
   controls,
   kitchenSinkControl,
 } from './kitchen-sink-styles';
-import { formatAppearanceOption } from './format-appearance-options';
 import { selectStyles } from './select-styles';
-
-export type Theme = 'light' | 'dark';
 
 export interface AppearanceOption {
   label: string;
@@ -35,8 +36,6 @@ export interface KitchenSinkControlsProps {
   editorEnabled: boolean;
   errors: any[];
   errorsEnabled: boolean;
-  theme: Theme;
-  themeOptions: Option<Theme>[];
   validating: boolean;
   vertical: boolean;
   scrubContent: boolean;
@@ -45,7 +44,6 @@ export interface KitchenSinkControlsProps {
   onLoadDocument(opt: any): void;
   onCopyLink(): void;
   onFullWidthChange(fullWidth: boolean): void;
-  onThemeChange(theme: Theme): void;
   onOrientationChange(vertical: boolean): void;
   onEditorToggle(enabled: boolean): void;
   onErrorToggle(enabled: boolean): void;
@@ -61,7 +59,6 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
       editorEnabled,
       errorsEnabled,
       sanitizePrivateContent,
-      theme,
       onAdfToggle,
       onEditorToggle,
       onErrorToggle,
@@ -69,7 +66,6 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
       onOrientationChange,
       onScrubToggle,
       onSanitizePrivateContent,
-      onThemeChange,
       scrubContent,
       vertical,
     } = props;
@@ -97,10 +93,6 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
     const onAdfToggleCb = React.useCallback(
       () => onAdfToggle(!adfEnabled),
       [adfEnabled, onAdfToggle],
-    );
-    const onLegacyDarkThemeChange = React.useCallback(
-      () => onThemeChange(theme !== 'dark' ? 'dark' : 'light'),
-      [theme, onThemeChange],
     );
 
     const onSanitizePrivateContentCb = React.useCallback(
@@ -134,16 +126,6 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
               onFullWidthChange={props.onFullWidthChange}
             />
           </div>
-          <Button
-            appearance="primary"
-            isSelected={theme === 'dark'}
-            onClick={onLegacyDarkThemeChange}
-            css={kitchenSinkControl}
-            className="legacy-theme-changer"
-          >
-            Mobile dark mode
-            {theme === 'dark' ? ' activated' : ' deactivated'}
-          </Button>
           <Button onClick={onOrientationChangeCb} css={kitchenSinkControl}>
             Display {!props.vertical ? 'Vertical' : 'Horizontal'}
           </Button>

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 
 import Table, {
   Cell,

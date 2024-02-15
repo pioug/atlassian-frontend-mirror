@@ -186,6 +186,7 @@ describe('CardView', () => {
       mediaItemType: 'file',
       progress: 0.5,
       selected: true,
+      shouldOpenMediaViewer: false,
       metadata,
       alt: 'some-image',
       resizeMode: 'crop',
@@ -522,6 +523,20 @@ describe('CardView', () => {
       expect(titleBoxE).toHaveLength(0);
     });
 
+    it(`should render TitleBox with the overridden creation date`, () => {
+      const metadata: FileDetails = {
+        id: 'some-id',
+        name: 'some-file-name',
+        createdAt: 123456,
+      };
+      const card = shallowCardViewBase({
+        metadata,
+        overriddenCreationDate: 123,
+      });
+
+      expect(card.find(TitleBox).props().createdAt).toBe(123);
+    });
+
     it(`should not render FailedTitleBox when there is an error state or dataURI fails to load`, () => {
       const metadata: FileDetails = {
         id: 'some-id',
@@ -667,6 +682,7 @@ describe('CardView', () => {
         onImageLoad: jest.fn(),
         nativeLazyLoad: true,
         forceSyncDisplay: true,
+        shouldOpenMediaViewer: false,
       };
       const component = shallowCardViewBase(cardProps);
       const imageRenderer = component.find(ImageRenderer);

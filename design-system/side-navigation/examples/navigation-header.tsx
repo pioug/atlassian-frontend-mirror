@@ -4,6 +4,7 @@ import { Box } from '@atlaskit/primitives';
 
 import { CustomItemComponentProps, Header, NavigationHeader } from '../src';
 
+import NextGenProjectIcon from './common/next-gen-project-icon';
 import RocketIcon from './common/sample-logo';
 
 const InteractiveContainer = ({
@@ -45,7 +46,7 @@ const Example = () => {
       <NavigationHeader>
         <Header
           component={InteractiveContainer}
-          iconBefore={<RocketIcon />}
+          iconBefore={<NextGenProjectIcon />}
           description="Next-gen software"
         >
           Concise Systems

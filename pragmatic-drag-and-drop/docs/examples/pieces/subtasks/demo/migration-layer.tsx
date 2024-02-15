@@ -1,12 +1,12 @@
 import React, { useCallback, useState } from 'react';
 
-import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
 import {
   DragDropContext,
   Draggable,
   Droppable,
   OnDragEndResponder,
 } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
+import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
 
 import { initialData } from '../data';
 import { Subtask, SubtaskProps } from '../primitives/subtask';

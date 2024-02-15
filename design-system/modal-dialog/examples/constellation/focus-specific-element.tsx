@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Field } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 

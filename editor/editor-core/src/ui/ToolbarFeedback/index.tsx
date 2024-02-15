@@ -1,44 +1,46 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
-import ReactDOM from 'react-dom';
 import { PureComponent } from 'react';
+
+import { jsx } from '@emotion/react';
 import PropTypes from 'prop-types';
-import Spinner from '@atlaskit/spinner';
-import { Popup } from '@atlaskit/editor-common/ui';
+import ReactDOM from 'react-dom';
+
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
-
-import type { ToolbarButtonRef } from '../ToolbarButton';
-import ToolbarButton from '../ToolbarButton';
-import withOuterListeners from '../with-outer-listeners';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-
-import {
-  wrapper,
-  buttonContent,
-  confirmationPopup,
-  confirmationText,
-  confirmationHeader,
-  confirmationImg,
-} from './styles';
 import type { AnalyticsDispatch } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
-  EVENT_TYPE,
   ACTION_SUBJECT_ID,
+  EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { createDispatch } from '../../event-dispatcher';
-import { openFeedbackDialog } from '../../plugins/feedback-dialog';
-import type { FeedbackInfo } from '../../types';
-import type { DeprecationWarning } from '../../utils/deprecation-warnings';
-import deprecationWarnings from '../../utils/deprecation-warnings';
-import pickBy from '../../utils/pick-by';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+  FeedbackInfo,
+  PublicPluginAPI,
+} from '@atlaskit/editor-common/types';
+import { Popup } from '@atlaskit/editor-common/ui';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils';
+import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-identifier';
+import type { FeedbackDialogPlugin } from '@atlaskit/editor-plugins/feedback-dialog';
+import Spinner from '@atlaskit/spinner';
 
+import { createDispatch } from '../../event-dispatcher';
 import { usePresetContext } from '../../presets/context';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import type { BasePlugin } from '@atlaskit/editor-plugin-base';
+import deprecationWarnings from '../../utils/deprecation-warnings';
+import type { DeprecationWarning } from '../../utils/deprecation-warnings';
+import ToolbarButton from '../ToolbarButton';
+import type { ToolbarButtonRef } from '../ToolbarButton';
+import withOuterListeners from '../with-outer-listeners';
+
+import {
+  buttonContent,
+  confirmationHeader,
+  confirmationImg,
+  confirmationPopup,
+  confirmationText,
+  wrapper,
+} from './styles';
 
 const PopupWithOutsideListeners = withOuterListeners(Popup);
 const POPUP_HEIGHT = 388;
@@ -101,10 +103,15 @@ declare global {
   }
 }
 
-const isNullOrUndefined = (attr: string) => attr === null || attr === undefined;
-
 type ToolbarFeedbackInternalProps = Props & {
-  api: PublicPluginAPI<[OptionalPlugin<BasePlugin>]> | undefined;
+  api:
+    | PublicPluginAPI<
+        [
+          OptionalPlugin<ContextIdentifierPlugin>,
+          OptionalPlugin<FeedbackDialogPlugin>,
+        ]
+      >
+    | undefined;
 };
 
 class ToolbarFeedbackInternal extends PureComponent<
@@ -137,14 +144,14 @@ class ToolbarFeedbackInternal extends PureComponent<
 
   // Create a FeedbackInfo instance from props.
   private getFeedbackInfo = (): FeedbackInfo => {
-    const isFeedbackInfoAttr = (attr: string) =>
-      ['product', 'packageVersion', 'packageName', 'labels'].indexOf(attr) >= 0;
+    const { product, packageVersion, packageName, labels } = this.props;
 
-    return pickBy(
-      (key: string, value: any) =>
-        isFeedbackInfoAttr(key) && !isNullOrUndefined(value),
-      this.props,
-    );
+    return {
+      ...(product !== undefined && { product }),
+      ...(packageVersion !== undefined && { packageVersion }),
+      ...(packageName !== undefined && { packageName }),
+      ...(labels !== undefined && { labels }),
+    };
   };
 
   render() {
@@ -226,11 +233,12 @@ class ToolbarFeedbackInternal extends PureComponent<
       jiraIssueCollectorScriptLoading: true,
       showOptOutOption: false,
     });
-    const basePluginState = this.props.api?.base?.sharedState.currentState();
+    const contentId =
+      this.props.api?.contextIdentifier?.sharedState.currentState()
+        ?.contextIdentifierProvider?.objectId;
     const sessionId = window.localStorage.getItem('awc.session.id')?.toString();
-    const contentId = basePluginState?.contextIdentifier?.objectId;
     const tabId = window.sessionStorage['awc.tab.id'];
-    await openFeedbackDialog({
+    await this.props.api?.feedbackDialog?.actions.openFeedbackDialog({
       ...this.getFeedbackInfo(),
       sessionId,
       contentId,
@@ -268,6 +276,12 @@ class ToolbarFeedbackInternal extends PureComponent<
 }
 
 export default function ToolbarFeedback(props: Props) {
-  const api = usePresetContext<[OptionalPlugin<BasePlugin>]>();
+  const api =
+    usePresetContext<
+      [
+        OptionalPlugin<ContextIdentifierPlugin>,
+        OptionalPlugin<FeedbackDialogPlugin>,
+      ]
+    >();
   return <ToolbarFeedbackInternal api={api} {...props} />;
 }

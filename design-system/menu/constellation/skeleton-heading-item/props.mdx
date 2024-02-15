@@ -2,10 +2,12 @@
 title: Skeleton heading item
 description: Skeleton placeholders for menu headings.
 order: 1
+props:
+  packageName: '@atlaskit/menu'
+  exports:
+    - SkeletonHeadingItem
 ---
-
-import SkeletonHeaderProps from '!!extract-react-types-loader!../../src/menu-item/skeleton-heading-item';
 
 ## Props
 
-<PropsTable heading="" props={SkeletonHeaderProps} />
+<TSMorphProps exportName="SkeletonHeadingItem" packageName="@atlaskit/menu" />

@@ -20,7 +20,7 @@ mockDatasourceFetchRequests({
 
 const parameters = {
   cloudId: '44444',
-  jql: 'created >= -30d order by created DESC',
+  jql: 'order by created DESC',
 };
 
 export const JiraIssuesConfigModalUnauthorizedEditState = () => (

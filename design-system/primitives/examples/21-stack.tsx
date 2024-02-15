@@ -24,23 +24,35 @@ const spaceItems = [
   'space.1000',
 ] as const;
 
+const blockStyles = xcss({ borderRadius: 'border.radius.050' });
+const Block = () => (
+  <Box
+    xcss={blockStyles}
+    padding="space.200"
+    backgroundColor="color.background.discovery.bold"
+  />
+);
+
 const containerStyles = xcss({
   display: 'flex',
   borderRadius: 'border.radius.050',
 });
-const blockStyles = xcss({ borderRadius: 'border.radius.050' });
 
 /**
- * Stack permutations
+ * Stack permutations.
  */
 export default () => (
   <Box padding="space.200">
     <Stack space="space.400">
       <Stack space="space.300" alignInline="start">
-        <Heading level="h700">Stack</Heading>
+        <Heading variant="large" as="h2">
+          Stack
+        </Heading>
         <section>
           <Stack space="space.100">
-            <Heading level="h500">Align Block</Heading>
+            <Heading variant="medium" as="h3">
+              Align Block
+            </Heading>
             <Inline spread="space-between" space="space.400">
               {alignBlockItems.map(alignBlock => (
                 <Stack key={alignBlock} space="space.050" alignInline="center">
@@ -55,21 +67,9 @@ export default () => (
                     }}
                   >
                     <Stack space="space.050" alignBlock={alignBlock}>
-                      <Box
-                        xcss={blockStyles}
-                        padding="space.200"
-                        backgroundColor="color.background.discovery.bold"
-                      />
-                      <Box
-                        xcss={blockStyles}
-                        padding="space.200"
-                        backgroundColor="color.background.discovery.bold"
-                      />
-                      <Box
-                        xcss={blockStyles}
-                        padding="space.200"
-                        backgroundColor="color.background.discovery.bold"
-                      />
+                      <Block />
+                      <Block />
+                      <Block />
                     </Stack>
                   </Box>
                 </Stack>
@@ -80,7 +80,9 @@ export default () => (
 
         <section>
           <Stack space="space.100">
-            <Heading level="h500">Spread</Heading>
+            <Heading variant="medium" as="h3">
+              Spread
+            </Heading>
             <Inline spread="space-between" space="space.400">
               {spreadItems.map(spread => (
                 <Stack key={spread} space="space.050" alignInline="start">
@@ -95,21 +97,9 @@ export default () => (
                     }}
                   >
                     <Stack space="space.050" spread={spread}>
-                      <Box
-                        xcss={blockStyles}
-                        padding="space.200"
-                        backgroundColor="color.background.discovery.bold"
-                      />
-                      <Box
-                        xcss={blockStyles}
-                        padding="space.200"
-                        backgroundColor="color.background.discovery.bold"
-                      />
-                      <Box
-                        xcss={blockStyles}
-                        padding="space.200"
-                        backgroundColor="color.background.discovery.bold"
-                      />
+                      <Block />
+                      <Block />
+                      <Block />
                     </Stack>
                   </Box>
                 </Stack>
@@ -119,7 +109,9 @@ export default () => (
         </section>
 
         <section>
-          <Heading level="h500">Align Inline</Heading>
+          <Heading variant="medium" as="h3">
+            Align Inline
+          </Heading>
           <Inline space="space.100">
             {alignInlineItems.map(alignInline => (
               <Stack key={alignInline} alignInline="center">
@@ -137,21 +129,9 @@ export default () => (
                     alignInline={alignInline}
                     space="space.050"
                   >
-                    <Box
-                      xcss={blockStyles}
-                      padding="space.200"
-                      backgroundColor="color.background.discovery.bold"
-                    />
-                    <Box
-                      xcss={blockStyles}
-                      padding="space.200"
-                      backgroundColor="color.background.discovery.bold"
-                    />
-                    <Box
-                      xcss={blockStyles}
-                      padding="space.200"
-                      backgroundColor="color.background.discovery.bold"
-                    />
+                    <Block />
+                    <Block />
+                    <Block />
                   </Stack>
                 </Box>
               </Stack>
@@ -161,7 +141,9 @@ export default () => (
 
         <section>
           <Stack space="space.100">
-            <Heading level="h500">Space</Heading>
+            <Heading variant="medium" as="h3">
+              Space
+            </Heading>
             <Inline space="space.200" spread="space-between">
               {spaceItems.map(space => (
                 <Stack key={space} space="space.100" alignInline="center">
@@ -172,16 +154,8 @@ export default () => (
                     backgroundColor="color.background.neutral"
                   >
                     <Stack space={space}>
-                      <Box
-                        xcss={blockStyles}
-                        padding="space.200"
-                        backgroundColor="color.background.discovery.bold"
-                      />
-                      <Box
-                        xcss={blockStyles}
-                        padding="space.200"
-                        backgroundColor="color.background.discovery.bold"
-                      />
+                      <Block />
+                      <Block />
                     </Stack>
                   </Box>
                 </Stack>

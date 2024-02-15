@@ -10,7 +10,7 @@ export const mockHydrateJqlResponse: HydrateResponse = {
         hydrateJqlQuery: {
           fields: [
             {
-              jqlTerm: 'issuetype',
+              jqlTerm: 'type',
               values: [
                 {
                   values: [

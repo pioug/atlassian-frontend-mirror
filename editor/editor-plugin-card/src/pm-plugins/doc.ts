@@ -231,6 +231,7 @@ export const queueCardsFromChangedTr = (
   analyticsAction?: ACTION,
   normalizeLinkText: boolean = true,
   sourceEvent: UIAnalyticsEvent | null | undefined = undefined,
+  appearance: CardAppearance = 'inline',
 ): Transaction => {
   const { schema } = state;
   const { link } = schema.marks;
@@ -252,7 +253,7 @@ export const queueCardsFromChangedTr = (
       requests.push({
         url: linkMark.attrs.href,
         pos,
-        appearance: 'inline',
+        appearance,
         compareLinkText: normalizeLinkText,
         source,
         analyticsAction,
@@ -611,8 +612,8 @@ export const getLinkNodeType = (
   }
 };
 
-// Apply an update made from the datasource edit modal to a card
-export const updateCardFromDatasourceModal = (
+// Apply an update made from a datasource ui interaction
+export const updateCardViaDatasource = (
   state: EditorState,
   node: Node,
   newAdf: DatasourceAdf | InlineCardAdf,
@@ -648,10 +649,6 @@ export const updateCardFromDatasourceModal = (
           ...node.attrs,
           ...newAdf.attrs,
         });
-        addLinkMetadata(state.selection, tr, {
-          action: ACTION.UPDATED,
-          sourceEvent,
-        });
       }
     } else {
       // inline or blockCard to datasource
@@ -660,11 +657,12 @@ export const updateCardFromDatasourceModal = (
   } else if (newAdf.type === 'inlineCard') {
     // card type to inlineCard
     tr.setNodeMarkup(from, schemaNodes.inlineCard, newAdf.attrs);
-    addLinkMetadata(state.selection, tr, {
-      action: ACTION.UPDATED,
-      sourceEvent,
-    });
   }
+
+  addLinkMetadata(state.selection, tr, {
+    action: ACTION.UPDATED,
+    sourceEvent,
+  });
 
   hideDatasourceModal(tr);
   view.dispatch(tr.scrollIntoView());

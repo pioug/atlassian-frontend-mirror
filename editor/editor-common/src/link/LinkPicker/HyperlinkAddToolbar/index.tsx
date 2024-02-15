@@ -1,19 +1,16 @@
 import React from 'react';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { LinkPickerProps } from '@atlaskit/link-picker';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { LinkPickerProps } from '@atlaskit/link-picker';
 
 import { INPUT_METHOD } from '../../../analytics';
 import type { HyperlinkState } from '../../../link';
-import { ProviderFactory, WithProviders } from '../../../provider-factory';
-import type {
-  Command,
-  FeatureFlags,
-  LinkInputType,
-  LinkPickerOptions,
-} from '../../../types';
-import { EditorLinkPicker, EditorLinkPickerProps } from '../EditorLinkPicker';
+import type { ProviderFactory } from '../../../provider-factory';
+import { WithProviders } from '../../../provider-factory';
+import type { Command, LinkInputType, LinkPickerOptions } from '../../../types';
+import type { EditorLinkPickerProps } from '../EditorLinkPicker';
+import { EditorLinkPicker } from '../EditorLinkPicker';
 
 import HyperlinkAddToolbarComp from './HyperlinkAddToolbar';
 
@@ -28,7 +25,7 @@ export interface HyperlinkAddToolbarProps
     inputMethod: LinkInputType,
     analytic?: UIAnalyticsEvent | null | undefined,
   ) => void;
-  featureFlags: FeatureFlags;
+  lpLinkPicker: boolean;
   linkPickerOptions?: LinkPickerOptions;
   displayText?: string;
   displayUrl?: string;
@@ -64,7 +61,7 @@ export function HyperlinkAddToolbar({
   view,
   onCancel,
   invokeMethod,
-  featureFlags,
+  lpLinkPicker,
   onClose,
   onEscapeCallback,
   onClickAwayCallback,
@@ -77,8 +74,6 @@ export function HyperlinkAddToolbar({
       providers={['activityProvider', 'searchProvider']}
       providerFactory={providerFactory}
       renderNode={({ activityProvider, searchProvider }) => {
-        const { lpLinkPicker } = featureFlags;
-
         if (lpLinkPicker) {
           return (
             <EditorLinkPicker

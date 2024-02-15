@@ -13,17 +13,20 @@ const cases: [string, ResultMap][] = [
   ['status = EMPTY', { status: ['empty'] }],
   ['status = empty', { status: ['empty'] }],
   ['status in (done, todo)', { status: ['done', 'todo'] }],
+  ['assignee in (empty, bob)', { assignee: ['empty', 'bob'] }],
+  ['assignee in (EMPTY, bob)', { assignee: ['empty', 'bob'] }],
+  ['assignee in (EMPTY)', { assignee: ['empty'] }],
   ['ORDER BY assignee asc', {}],
   [
     'text = "testing" or summary = "testing"',
     { text: ['testing'], summary: ['testing'] },
   ],
   [
-    'text ~ "testing" or summary ~ "testing" ORDER BY status ASC',
+    'text ~ "testing" or summary ~ "testing" ORDER BY created DESC',
     { text: ['testing'], summary: ['testing'] },
   ],
   [
-    'text ~ "testing*" or summary ~ "testing*" ORDER BY status ASC',
+    'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
     { text: ['testing*'], summary: ['testing*'] },
   ],
   [
@@ -35,23 +38,21 @@ const cases: [string, ResultMap][] = [
     },
   ],
   [
-    'project in ("Commitment Register") and assignee in ("Mike Dao") and issuetype in ("[CTB]Bug") and status in (Progress) and created >= -30d ORDER BY created DESC',
+    'project in ("Commitment Register") and assignee in ("Mike Dao") and type in ("[CTB]Bug") and status in (Progress) ORDER BY created DESC',
     {
       assignee: ['Mike Dao'],
       project: ['Commitment Register'],
-      issuetype: ['[CTB]Bug'],
+      type: ['[CTB]Bug'],
       status: ['Progress'],
-      created: ['-30d'],
     },
   ],
   [
-    'project in ("Commitment Register", "Commitment Register1") and assignee in ("Mike Dao", "Mike Dao1") and issuetype in ("[CTB]Bug", "[CTB]Bug1") and status in (Progress, Progress1) and created >= -30d ORDER BY created DESC',
+    'project in ("Commitment Register", "Commitment Register1") and assignee in ("Mike Dao", "Mike Dao1") and type in ("[CTB]Bug", "[CTB]Bug1") and status in (Progress, Progress1) ORDER BY created DESC',
     {
       assignee: ['Mike Dao', 'Mike Dao1'],
       project: ['Commitment Register', 'Commitment Register1'],
-      issuetype: ['[CTB]Bug', '[CTB]Bug1'],
+      type: ['[CTB]Bug', '[CTB]Bug1'],
       status: ['Progress', 'Progress1'],
-      created: ['-30d'],
     },
   ],
   // invalid cases

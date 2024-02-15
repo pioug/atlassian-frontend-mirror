@@ -6,8 +6,8 @@
  * specific implementation behaviour surrounding `build`
  */
 
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 type BasicDogConfig = { lovesTreats?: boolean; treatsPerBite?: number };
 

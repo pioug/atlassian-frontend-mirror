@@ -37,8 +37,7 @@ async function setup(url: string) {
 }
 
 describe('Media SSR Renderer', () => {
-  // FIXME: This test was automatically skipped due to failure on 05/08/2023: https://product-fabric.atlassian.net/browse/ED-19360
-  it.skip('Media SSR Renderer tests', async () => {
+  it('Media SSR Renderer tests', async () => {
     const url = getURL();
     const { image } = await setup(url);
 

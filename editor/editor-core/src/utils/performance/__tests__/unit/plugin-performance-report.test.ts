@@ -2,11 +2,12 @@
 import { MockPerformanceEntry } from '@atlaskit/editor-test-helpers/mock-performance-entry';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockPerformanceObserverEntryList } from '@atlaskit/editor-test-helpers/mock-performance-observer-entry-list';
+
 import { PluginPerformanceReport } from '../../plugin-performance-report';
 import {
+  EVENT_NAME_ON_CHANGE,
   EVENT_NAME_STATE_APPLY,
   EVENT_NAME_UPDATE_STATE,
-  EVENT_NAME_ON_CHANGE,
 } from '../../track-transactions';
 
 describe('PluginPerformanceReport.fromEntry', () => {

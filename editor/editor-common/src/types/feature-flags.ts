@@ -246,22 +246,39 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Allow numbered lists to start from any number greater than 0, not just 1
-   *
-   * @see https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3257270398/MAKE+PP+Restart+Numbered+Lists
-   * @see https://product-fabric.atlassian.net/browse/ED-15210
-   * @default false
-   */
-  restartNumberedLists?: boolean;
-
-  /**
-   * @description
    * Enable the new editor media resize experience.
    *
    * @see https://product-fabric.atlassian.net/browse/ED-18316
    * @default false
    */
   extendedMediaResizeExperience?: boolean | undefined;
+
+  /**
+   * @description
+   * Enables the sticky scrollbar for tables
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-19773
+   * @default false
+   */
+  stickyScrollbar?: boolean | undefined;
+
+  /**
+   * @description
+   * Enables the resizing performance optimisation for tables
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-21725
+   * @default false
+   */
+  tableResizePerformance?: boolean | undefined;
+
+  /**
+   * @description
+   * Enables the drag and drop rows/columns for tables
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-21807
+   * @default false
+   */
+  tableDragAndDrop?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

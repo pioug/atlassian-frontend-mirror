@@ -32,6 +32,7 @@
     "outDir": "../../../tsDist/@atlaskit__blanket/app",
     "types": ["@emotion/react/types/css-prop"]
   },
+  "files": ["../../../typings/node.d.ts"],
   "references": [
     {
       "path": "../../analytics/analytics-next/tsconfig.app.json"

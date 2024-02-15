@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import FocusRing from '@atlaskit/focus-ring';
 import { Label } from '@atlaskit/form';
 import {
@@ -38,20 +38,20 @@ const searchTerm: { [key: string]: string } = {
 const containerStyles = css({
   textAlign: 'center',
   '> *': {
-    marginRight: token('space.025', '2px'),
+    marginInlineEnd: token('space.025', '2px'),
   },
 });
 
 const centeredContainerStyles = css({
   width: '100%',
   maxWidth: '500px',
-  marginBottom: token('space.800', '56px'),
-  paddingBottom: token('space.100', '8px'),
   borderRadius: token('border.radius.100', '3px'),
   boxShadow: token(
     'elevation.shadow.overlay',
     `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`,
   ),
+  marginBlockEnd: token('space.800', '56px'),
+  paddingBlockEnd: token('space.100', '8px'),
 });
 
 const logoContainerStyles = css({
@@ -66,12 +66,12 @@ const logoContainerStyles = css({
 
 const headerStyles = css({
   margin: token('space.0', '0px'),
-  marginLeft: token('space.100', '8px'),
   fontWeight: 300,
+  marginInlineStart: token('space.100', '8px'),
 });
 
 const inputContainerStyles = css({
-  marginTop: token('space.300', '24px'),
+  marginBlockStart: token('space.300', '24px'),
   textAlign: 'start',
 });
 

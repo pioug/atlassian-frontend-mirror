@@ -18,7 +18,7 @@ export const hydrateJqlStandardResponse = {
         hydrateJqlQuery: {
           fields: [
             {
-              jqlTerm: 'issuetype',
+              jqlTerm: 'type',
               values: [
                 {
                   values: [
@@ -116,7 +116,7 @@ export const hydrateJqlStandardResponse = {
 };
 
 export const hydrateJqlStandardResponseMapped = {
-  issuetype: [
+  type: [
     {
       icon: alert,
       label: 'Category',
@@ -378,6 +378,67 @@ export const fieldValuesResponseForTypesMapped = [
     label: '[System] Service',
     optionType: 'iconLabel',
     value: '[System] Service',
+  },
+];
+
+export const fieldValuesResponseForTypesWithRelativeUrls = {
+  data: {
+    jira: {
+      jqlBuilder: {
+        fieldValues: {
+          totalCount: 12,
+          pageInfo: {
+            endCursor: 'YXJyYXljb25uZWN0aW9uOjQ=',
+          },
+          edges: [
+            {
+              node: {
+                jqlTerm: '"[System] Change"',
+                displayName: '[System] Change',
+                issueTypes: [
+                  {
+                    avatar: {
+                      small:
+                        '/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium',
+                    },
+                  },
+                ],
+              },
+            },
+
+            {
+              node: {
+                jqlTerm: '"Bug"',
+                displayName: 'Bug',
+                issueTypes: [
+                  {
+                    avatar: {
+                      small:
+                        'https://hello.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium',
+                    },
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+};
+
+export const fieldValuesResponseForTypesWithRelativeUrlsMapped = [
+  {
+    icon: 'https://forge-smart-link-battleground.jira-dev.com/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium',
+    label: '[System] Change',
+    optionType: 'iconLabel',
+    value: '[System] Change',
+  },
+  {
+    icon: 'https://hello.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium',
+    label: 'Bug',
+    optionType: 'iconLabel',
+    value: 'Bug',
   },
 ];
 

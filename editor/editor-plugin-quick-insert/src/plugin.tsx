@@ -152,7 +152,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({
       },
       getSuggestions: searchOptions => {
         const { lazyDefaultItems, providedItems } =
-          api?.quickInsert.sharedState.currentState() ?? {};
+          api?.quickInsert?.sharedState.currentState() ?? {};
         return getQuickInsertSuggestions(
           searchOptions,
           lazyDefaultItems,

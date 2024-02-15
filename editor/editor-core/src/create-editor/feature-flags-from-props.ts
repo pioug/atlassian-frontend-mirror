@@ -1,7 +1,8 @@
-import type { EditorProps } from '../types';
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
-import type { FeatureFlags } from '../types/feature-flags';
+
+import type { EditorProps } from '../types';
 import type { DisableSpellcheckByBrowser } from '../types/browser';
+import type { FeatureFlags } from '../types/feature-flags';
 
 function verifyJSON(json: string) {
   try {
@@ -124,11 +125,5 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
     ),
 
     disableSpellcheckByBrowser: getSpellCheck(props.featureFlags!),
-
-    // Including fallback to props.featureFlags so that mobile feature flags
-    // are included (they are not kebab cased)
-    restartNumberedLists:
-      normalizedFeatureFlags.restartNumberedLists === true ||
-      props.featureFlags?.restartNumberedLists === true,
   };
 }

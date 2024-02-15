@@ -62,6 +62,32 @@ const mockWithActions = () => {
   return handler;
 };
 
+const mockLifecycle = () => {
+  const handler = jest.fn().mockResolvedValue(true);
+
+  const pendingState: CardState = { status: 'pending' };
+  const resolvingState: CardState = { status: 'resolving' };
+  const resolvedState: CardState = {
+    details: mocks.success,
+    status: 'resolved',
+  };
+
+  mocked(useSmartCardState)
+    .mockImplementationOnce(() => pendingState)
+    .mockImplementationOnce(() => resolvingState)
+    .mockImplementationOnce(() => resolvedState);
+
+  const props = {
+    icon: {},
+    actions: [
+      { id: 'comment', text: 'Comment', promise: handler },
+      { id: 'preview', text: 'Preview', promise: handler },
+    ],
+  };
+
+  mocked(extractBlockProps).mockImplementation(() => props);
+};
+
 describe(useSmartLinkActions.name, () => {
   afterEach(() => {
     jest.clearAllMocks();
@@ -127,5 +153,39 @@ describe(useSmartLinkActions.name, () => {
 
     result.current?.[1].invoke();
     expect(actionHandler).toHaveBeenCalledTimes(1);
+  });
+
+  it('returns no actions when actionOptions.hide is true', () => {
+    mockWithActions();
+
+    const { result } = renderHook(() =>
+      useSmartLinkActions({
+        url,
+        appearance,
+        analyticsHandler: analytics,
+        actionOptions: { hide: true },
+      }),
+    );
+
+    expect(result.current).toEqual([]);
+  });
+
+  it('returns actions as expected when useSmartCardState changes', () => {
+    mockLifecycle();
+
+    const { result, rerender } = renderHook(() =>
+      useSmartLinkActions({ url, appearance, analyticsHandler: analytics }),
+    );
+
+    // pending state
+    expect(result.current).toEqual([]);
+    rerender();
+
+    // resolving state
+    expect(result.current).toEqual([]);
+    rerender();
+
+    // resolved state
+    expect(result.current).toHaveLength(2);
   });
 });

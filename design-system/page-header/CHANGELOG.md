@@ -1,5 +1,11 @@
 # @atlaskit/page-header
 
+## 10.4.5
+
+### Patch Changes
+
+- [#70460](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70460) [`2f37600156ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f37600156ae) - The internal composition of a component in this package has changed. There is no expected change in behaviour.
+
 ## 10.4.4
 
 ### Patch Changes

@@ -4,6 +4,7 @@ import type { IntlShape } from 'react-intl-next';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { addAltText, ToolTipContent } from '@atlaskit/editor-common/keymaps';
+import { altTextMessages as messages } from '@atlaskit/editor-common/media';
 import { MediaSharedClassNames as ClassNames } from '@atlaskit/editor-common/styles';
 import type {
   Command,
@@ -16,12 +17,13 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { openMediaAltTextMenu } from '../pm-plugins/alt-text/commands';
-import { messages } from '../pm-plugins/alt-text/messages';
 import AltTextEdit, {
   CONTAINER_WIDTH_IN_PX,
 } from '../pm-plugins/alt-text/ui/AltTextEdit';
 import type { MediaToolbarBaseConfig } from '../types';
-import { getMediaNodeFromSelection } from '../utils/media-common';
+import { getMediaSingleOrInlineNodeFromSelection } from '../utils/media-common';
+
+import { getNodeType } from './commands';
 
 const testId = 'alt-text-edit-button';
 
@@ -30,7 +32,7 @@ export const altTextButton = (
   state: EditorState,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): FloatingToolbarButton<Command> => {
-  const mediaNode = getMediaNodeFromSelection(state);
+  const mediaNode = getMediaSingleOrInlineNodeFromSelection(state);
   const message =
     mediaNode && mediaNode.attrs.alt ? messages.editAltText : messages.altText;
   const title = intl.formatMessage(message);
@@ -56,8 +58,8 @@ export const altTextEditComponent = (
       if (!view) {
         return null;
       }
-
-      const mediaNode = getMediaNodeFromSelection(view.state);
+      const state = view.state;
+      const mediaNode = getMediaSingleOrInlineNodeFromSelection(state);
 
       if (!mediaNode) {
         return null;
@@ -79,10 +81,14 @@ export const altTextEditComponent = (
         }
       };
 
+      const type = getNodeType(state);
+
       return (
         <AltTextEdit
           view={view}
           key={idx}
+          nodeType={type}
+          mediaType={mediaNode.attrs.type}
           value={mediaNode.attrs.alt}
           altTextValidator={options && options.altTextValidator}
           onEscape={handleEsc}

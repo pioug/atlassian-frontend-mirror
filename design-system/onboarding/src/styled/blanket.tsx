@@ -1,15 +1,9 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { DN90A, N100A } from '@atlaskit/theme/colors';
-import { themed, useGlobalTheme } from '@atlaskit/theme/components';
+import { N100A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
-
-const backgroundColor = themed({
-  light: token('color.blanket', N100A),
-  dark: token('color.blanket', DN90A),
-});
 
 // IE11 and Edge: z-index needed because fixed position calculates z-index relative
 // to body instead of nearest stacking context (Portal in our case).
@@ -37,7 +31,6 @@ type BlanketProps = {
  * @internal
  */
 const Blanket = (props: BlanketProps) => {
-  const theme = useGlobalTheme();
   return (
     <div
       css={blanketStyles}
@@ -45,7 +38,7 @@ const Blanket = (props: BlanketProps) => {
         {
           ...props.style,
           backgroundColor: props.isTinted
-            ? backgroundColor({ theme })
+            ? token('color.blanket', N100A)
             : 'transparent',
         } as React.CSSProperties
       }

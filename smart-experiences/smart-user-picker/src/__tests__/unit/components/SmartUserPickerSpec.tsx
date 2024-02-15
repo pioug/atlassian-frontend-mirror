@@ -595,6 +595,7 @@ describe('SmartUserPicker', () => {
       includeGroups: false,
       includeTeams: false,
       includeUsers: true,
+      includeNonLicensedUsers: false,
       maxNumberOfResults: 100,
       query: '',
       searchQueryFilter: undefined,

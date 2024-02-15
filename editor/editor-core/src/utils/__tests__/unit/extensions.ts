@@ -1,16 +1,16 @@
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type {
   ExtensionManifest,
   ExtensionModule,
   ExtensionProvider,
 } from '@atlaskit/editor-common/extensions';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
 
-import { extensionProviderToQuickInsertProvider } from '../../extensions';
 import type EditorActions from '../../../actions';
+import { extensionProviderToQuickInsertProvider } from '../../extensions';
 
 function replaceCustomQuickInsertModules(
   manifest: ExtensionManifest,

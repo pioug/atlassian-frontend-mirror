@@ -1,4 +1,4 @@
-import EventEmitter from 'events';
+import { EventEmitter } from 'events';
 import type { QuickInsertItemId } from '@atlaskit/editor-common/provider-factory';
 
 export type allowListPayloadType = Set<QuickInsertItemId>;
@@ -37,7 +37,7 @@ export class BridgeEventEmitter {
     event: T,
     listener: (payload: GetPayload<T>) => void,
   ): EventEmitter {
-    return this.emitter.off(event, listener);
+    return this.emitter.removeListener(event, listener);
   }
 
   listeners(event: EventTypes) {

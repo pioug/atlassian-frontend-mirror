@@ -31,13 +31,13 @@ If set to `mouse`, the tooltip will display next to the mouse pointer. Use `mous
 
 ## Custom component
 
-The tooltip component accepts a component prop, which enables users to customize the look and feel of the tooltip area. Never put links or other interactable components in tooltips because this isn't accessible.
+The tooltip component accepts a component prop, which enables people to customize the look and feel of the tooltip area. Never put links or other interactable components in tooltips because this isn't accessible.
 
 <Example Component={TooltipComponent} packageName="@atlaskit/tooltip" />
 
 ## Accessibility issues using 'title'
 
-A `Tooltip` is often used to specify extra information when a user hovers over an element, which matches the behavior of the HTML `title` attribute. Avoid using the HTML `title` attribute in any children of `Tooltip` or you may see double tooltips displayed. In addition, the `title` attribute is not supported consistently across screenreaders, and is inaccessible to all keyboard-only users and mobile phone users.
+A `Tooltip` is often used to specify extra information when a person hovers or keyboard focuses on an element, which matches the behavior of the HTML `title` attribute. Avoid using the HTML `title` attribute in any children of `Tooltip` or you may see double tooltips displayed. In addition, the `title` attribute isn't supported consistently across screen readers, and is inaccessible to all keyboard-only users and mobile phone users.
 
 <Example Component={TooltipAvoidTitle} packageName="@atlaskit/tooltip" />
 

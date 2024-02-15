@@ -1,16 +1,16 @@
 import {
-  editorTestCase as test,
-  EditorNodeContainerModel,
   EditorMediaFloatingToolbarModel,
+  EditorNodeContainerModel,
   EditorUploadMediaModel,
-  FileResourcesAvailable,
   expect,
+  FileResourcesAvailable,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
-  mediaSingle,
   media,
+  mediaSingle,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
@@ -66,7 +66,7 @@ test.describe('media-single: alt-text', () => {
             id: expect.any(String),
             collection: 'MediaServicesSample',
             type: 'file',
-            alt: 'Some Alt Lol',
+            alt: 'test-image-9kb.jpgSome Alt Lol',
           })(),
         ),
       ),

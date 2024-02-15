@@ -1,18 +1,19 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  snapshot,
-  initFullPageEditorWithAdf,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import adf from './__fixtures__/custom-panel.json';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { waitForEmojisToLoad } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { waitForEmojisToLoad } from '@atlaskit/editor-test-helpers/page-objects/emoji';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import adf from './__fixtures__/custom-panel.json';
 
 describe('Custom panel looks correct for fullpage:', () => {
   let page: PuppeteerPage;
@@ -30,8 +31,7 @@ describe('Custom panel looks correct for fullpage:', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 24/05/2023: https://product-fabric.atlassian.net/browse/ED-18044
-  it.skip('default custom panel light mode', async () => {
+  it('default custom panel light mode', async () => {
     await initFullPageEditorWithAdf(
       page,
       adf,
@@ -41,21 +41,6 @@ describe('Custom panel looks correct for fullpage:', () => {
         allowPanel,
       },
       'light',
-    );
-    await waitForEmojisToLoad(page);
-    await page.waitForSelector(panelSelectors.panel);
-  });
-
-  it('default custom panel dark mode', async () => {
-    await initFullPageEditorWithAdf(
-      page,
-      adf,
-      Device.LaptopMDPI,
-      undefined,
-      {
-        allowPanel,
-      },
-      'dark',
     );
     await waitForEmojisToLoad(page);
     await page.waitForSelector(panelSelectors.panel);

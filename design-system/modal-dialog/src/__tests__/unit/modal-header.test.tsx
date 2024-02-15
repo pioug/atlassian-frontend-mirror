@@ -21,7 +21,7 @@ describe('<ModalHeader />', () => {
       </ModalDialog>,
     );
 
-    expect(queryByTestId('modal--header')).not.toBeNull();
+    expect(queryByTestId('modal--header')).toBeInTheDocument();
   });
 
   it('should be accessible using a user-defined test id', () => {
@@ -31,8 +31,8 @@ describe('<ModalHeader />', () => {
       </ModalDialog>,
     );
 
-    expect(queryByTestId('modal--header')).toBeNull();
-    expect(queryByTestId('my-header')).not.toBeNull();
+    expect(queryByTestId('modal--header')).not.toBeInTheDocument();
+    expect(queryByTestId('my-header')).toBeInTheDocument();
   });
 
   it('should render custom header', () => {
@@ -42,7 +42,7 @@ describe('<ModalHeader />', () => {
       </ModalDialog>,
     );
 
-    expect(queryByTestId('custom-header')).not.toBeNull();
+    expect(queryByTestId('custom-header')).toBeInTheDocument();
   });
 
   it('should invoke onClose callback on custom header', () => {

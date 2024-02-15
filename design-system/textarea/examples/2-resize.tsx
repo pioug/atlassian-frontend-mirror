@@ -3,7 +3,8 @@ import { useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/new';
 
 import TextArea from '../src';
 import { TextAreaProps } from '../src/types';
@@ -23,44 +24,65 @@ export default () => {
   const exampleProps = {
     value: text,
     onChange: handleChange,
-    name: 'area',
   };
 
   return (
     <div id="resize" css={wrapperStyles}>
-      {/* Buttons are required to test resize works when
+      <div>
+        {/* Buttons are required to test resize works when
       the value prop is changed, rather than only onChange events */}
-      <ButtonGroup>
-        <Button onClick={() => setText('')} testId="clearTextButton">
-          Clear
-        </Button>
-        <Button
-          appearance="primary"
-          onClick={() => setText(longText)}
-          testId="insertTextButton"
-        >
-          Insert text
-        </Button>
-      </ButtonGroup>
-
-      <p>Resize: auto</p>
-      <TextArea {...exampleProps} resize="auto" testId="autoResizeTextArea" />
-      <p>Resize: vertical</p>
+        <ButtonGroup label="Textarea fields controls">
+          <Button onClick={() => setText('')} testId="clearTextButton">
+            Clear
+          </Button>
+          <Button
+            appearance="primary"
+            onClick={() => setText(longText)}
+            testId="insertTextButton"
+          >
+            Insert text
+          </Button>
+        </ButtonGroup>
+      </div>
+      <label htmlFor="auto">Resize: auto</label>
       <TextArea
         {...exampleProps}
+        name="auto"
+        id="auto"
+        resize="auto"
+        testId="autoResizeTextArea"
+      />
+      <label htmlFor="vertical">Resize: vertical</label>
+      <TextArea
+        {...exampleProps}
+        name="vertical"
+        id="vertical"
         resize="vertical"
         testId="verticalResizeTextArea"
       />
-      <p>Resize: horizontal</p>
+      <label htmlFor="horizontal">Resize: horizontal</label>
       <TextArea
         {...exampleProps}
+        name="horizontal"
+        id="horizontal"
         resize="horizontal"
         testId="horizontalResizeTextArea"
       />
-      <p>Resize: smart (default)</p>
-      <TextArea {...exampleProps} name="area" testId="smartResizeTextArea" />
-      <p>Resize: none</p>
-      <TextArea {...exampleProps} resize="none" testId="noneResizeTextArea" />
+      <label htmlFor="smart">Resize: smart (default)</label>
+      <TextArea
+        {...exampleProps}
+        name="smart"
+        id="smart"
+        testId="smartResizeTextArea"
+      />
+      <label htmlFor="none">Resize: none</label>
+      <TextArea
+        {...exampleProps}
+        name="none"
+        id="none"
+        resize="none"
+        testId="noneResizeTextArea"
+      />
     </div>
   );
 };

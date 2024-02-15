@@ -27,11 +27,13 @@ describe('@atlaskit comments', () => {
 
     describe('props', () => {
       describe('avatar prop', () => {
+        const testId = 'testId';
+
         it('should render the avatar in the correct location', () => {
-          const avatar = <Avatar src="test/src" />;
+          const avatar = <Avatar src="test/src" testId={testId} />;
           render(<CommentLayout avatar={avatar} />);
 
-          const avatarImg = screen.getByRole('img');
+          const avatarImg = screen.getByTestId(`${testId}--image`);
 
           expect(avatarImg).toBeInTheDocument();
           expect(avatarImg).toHaveAttribute('src', 'test/src');
@@ -72,8 +74,8 @@ describe('@atlaskit comments', () => {
         const child = screen.getByTestId('child');
 
         expect(child).toBeInTheDocument();
-        expect(child.textContent).toBe('child');
-        expect(screen.getByTestId('parent').textContent).toContain('parent');
+        expect(child).toHaveTextContent('child');
+        expect(screen.getByTestId('parent')).toHaveTextContent(/parent/);
       });
 
       it('should render multiple adjacent siblings', () => {
@@ -87,8 +89,8 @@ describe('@atlaskit comments', () => {
           </CommentLayout>,
         );
 
-        expect(screen.getByTestId('parent').textContent).toContain('child1');
-        expect(screen.getByTestId('parent').textContent).toContain('child2');
+        expect(screen.getByTestId('parent')).toHaveTextContent(/child1/);
+        expect(screen.getByTestId('parent')).toHaveTextContent(/child2/);
         expect(screen.getByTestId('parent').childElementCount).toBe(2);
       });
 

@@ -1,7 +1,9 @@
-import { mount } from 'enzyme';
 import React from 'react';
-import EditorContext from '../../../ui/EditorContext';
+
+import { mount } from 'enzyme';
+
 import EditorActions from '../../../actions';
+import EditorContext from '../../../ui/EditorContext';
 import WithEditorActions from '../../../ui/WithEditorActions';
 
 describe('WithEditorActions', () => {

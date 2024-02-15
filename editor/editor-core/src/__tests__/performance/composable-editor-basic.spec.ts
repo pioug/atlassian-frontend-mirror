@@ -1,6 +1,6 @@
-import { editorPerformanceTestCase as test, expect } from '@af/editor-libra';
+import { expect, editorPerformanceTestCase as test } from '@af/editor-libra';
 
-test.describe('@composable-editor', () => {
+test.describe('@composable-editor__basic', () => {
   test.describe('Editor - Performance', () => {
     test.describe('full-page', () => {
       test.use({
@@ -9,6 +9,7 @@ test.describe('@composable-editor', () => {
         },
         editorPerformanceTestOptions: {
           editorVersion: 'composable',
+          performanceTestType: 'react-profile',
         },
       });
 

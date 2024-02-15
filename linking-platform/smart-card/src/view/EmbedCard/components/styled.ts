@@ -1,14 +1,10 @@
 import styled from '@emotion/styled';
-import {
-  borderRadius as akBorderRadius,
-  fontFamily,
-} from '@atlaskit/theme/constants';
+import { fontFamily } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { gs as gridSize } from '../../common/utils';
 import { FrameStyle } from '../types';
 import { N40 } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const className = 'media-card-frame';
@@ -23,10 +19,8 @@ export interface WrapperProps {
 }
 
 export const borderRadius = `
-  border-radius: ${akBorderRadius()}px;
+  border-radius: ${token('border.radius', '3px')};
 `;
-
-const BACKGROUND_COLOR_DARK = '#262B31';
 
 const wrapperBorderRadius = `
   border-radius: ${token('border.radius.200', '8px')};
@@ -99,29 +93,11 @@ function selected({ isSelected, frameStyle }: WrapperProps) {
       height: 100%;
       width: 100%;
       left: 0;
-      ${
-        getBooleanFF(
-          'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-        )
-          ? wrapperBorderRadius
-          : borderRadius
-      }
+      ${wrapperBorderRadius}
     }
     `
     : isSelected && frameStyle === 'hide'
-    ? `
-        ${
-          getBooleanFF(
-            'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-          )
-            ? contentBorderRadius
-            : `box-shadow: 0 0 0 3px ${token(
-                'color.border.selected',
-                colors.B100,
-              )};
-              ${borderRadius}`
-        }
-      `
+    ? contentBorderRadius
     : '';
 }
 
@@ -129,13 +105,7 @@ const height = ({ inheritDimensions }: WrapperProps) =>
   inheritDimensions ? 'height: 100%;' : `height: ${gridSize(54)}`;
 
 const wrapperStyles = (props: WrapperProps) => `
-  ${
-    getBooleanFF(
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-    )
-      ? wrapperBorderRadius
-      : borderRadius
-  }
+  ${wrapperBorderRadius}
   ${minWidth(props)}
   ${maxWidth(props)}
   ${getInteractiveStyles(props)}
@@ -156,47 +126,30 @@ const wrapperStyles = (props: WrapperProps) => `
     content: '';
     transition: background 0.3s, box-shadow 0.3s;
     position: absolute;
-    width: calc(100% + ${token('space.200', '16px')});
     height: calc(100% + ${token('space.100', '8px')});
-    left: ${token('space.negative.100', '-8px')};
-    ${
-      getBooleanFF(
-        'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-      )
-        ? wrapperBorderRadius
-        : `background: transparent;
-           ${borderRadius}`
-    }
+    ${wrapperBorderRadius}
+
+    ${wrapperSizing(props)}
   }
 `;
 
-const visibleStyles = `
-  ${
-    getBooleanFF(
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-    )
-      ? ``
-      : `background-color: ${token(
-          'color.background.neutral.subtle',
-          colors.N30,
-        )};`
-  }
+// if frameStyle !== 'show' then set the width of the frame to be
+// 100% of the content +16px and position it left -8px to make it appear
+// outside the container
+const wrapperSizing = ({ frameStyle }: WrapperProps) =>
+  getBooleanFF('platform.editor.show-embed-card-frame-renderer') &&
+  frameStyle === 'show'
+    ? `
+    box-sizing: border-box;
+    width: 100%;`
+    : `
+    width: calc(100% + ${token('space.200', '16px')});
+    left: ${token('space.negative.100', '-8px')};`;
 
+const visibleStyles = `
   &:after {
-    ${
-      getBooleanFF(
-        'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-      )
-        ? `border: 1px solid ${token('color.border', N40)};
-           background-color: ${themed({
-             light: token('elevation.surface.raised', 'white'),
-             dark: token('elevation.surface.raised', BACKGROUND_COLOR_DARK),
-           })()};`
-        : `background: ${token(
-            'color.background.neutral',
-            colors.N30,
-          )} !important;`
-    }
+    border: 1px solid ${token('color.border', N40)};
+    background-color: ${token('elevation.surface.raised', 'white')};
   }
   .embed-header {
     opacity: 1;
@@ -218,6 +171,10 @@ export const Wrapper = styled.div<WrapperProps>`
   margin-top: 10px;
 `;
 
+export interface HeaderProps {
+  frameStyle?: FrameStyle;
+}
+
 export const embedHeaderHeight = 32;
 export const Header = styled.div`
   height: ${embedHeaderHeight}px;
@@ -229,6 +186,15 @@ export const Header = styled.div`
   color: ${token('color.icon', colors.N300)};
   opacity: 0;
   transition: 300ms opacity cubic-bezier(0.15, 1, 0.3, 1);
+
+  ${({ frameStyle }: HeaderProps) =>
+    getBooleanFF('platform.editor.show-embed-card-frame-renderer') &&
+    frameStyle === 'show'
+      ? `
+        box-sizing: border-box;
+        padding: 0 ${token('space.100', '8px')};
+      `
+      : ''}
 `;
 
 export interface PlaceholderProps {
@@ -277,12 +243,8 @@ export interface ContentProps {
 // the internal contents of the `iframe` should
 // manage scrolling behaviour.
 export const Content = styled.div`
-  ${getBooleanFF(
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-  )
-    ? `${contentBorderRadius};
-       border: 1px solid ${token('color.border', N40)};`
-    : borderRadius}
+  ${contentBorderRadius};
+  border: 1px solid ${token('color.border', N40)};
   background-color: ${token('elevation.surface.raised', 'white')};
   position: absolute;
   z-index: 1;
@@ -300,28 +262,17 @@ export const Content = styled.div`
     margin: 0 auto;
   }
 
-  ${({ isInteractive }: ContentProps) => {
-    if (
-      isInteractive &&
-      !getBooleanFF(
-        'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-      )
-    ) {
-      return `
-          .${className}:hover & {
-            box-shadow: ${token(
-              'elevation.shadow.overlay',
-              '0 4px 8px -2px rgba(23, 43, 77, 0.32), 0 0 1px rgba(23, 43, 77, 0.25)',
-            )};
-          }
-        `;
-    } else {
-      return '';
-    }
-  }};
-
   ${({ allowScrollBar }: ContentProps) =>
     allowScrollBar ? 'overflow: auto;' : 'overflow: hidden;'}
+
+  ${({ frameStyle }: ContentProps) =>
+    getBooleanFF('platform.editor.show-embed-card-frame-renderer') &&
+    frameStyle === 'show'
+      ? `
+        width: calc(100% - ${token('space.200', '16px')} - 2px);
+        margin: 0 ${token('space.100', '8px')} ${token('space.100', '8px')};
+      `
+      : ''}
 
   ${({ frameStyle }: ContentProps) =>
     frameStyle === 'hide'

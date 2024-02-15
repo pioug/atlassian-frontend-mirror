@@ -7,7 +7,7 @@ const SpotlightCardRichTextExample = () => {
     <SpotlightCard>
       <div>
         All your <strong>Projects</strong> and <strong>Issues</strong>,
-        including those just created, can be found in the sidebar.
+        including the ones you've just created can be found in the sidebar.
       </div>
     </SpotlightCard>
   );

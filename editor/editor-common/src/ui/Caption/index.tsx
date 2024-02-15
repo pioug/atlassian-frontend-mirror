@@ -10,7 +10,7 @@ import { token } from '@atlaskit/tokens';
 import { messages } from './messages';
 
 const captionWrapperStyle = css`
-  margin-top: 8px;
+  margin-top: ${token('space.100', '8px')};
   text-align: center;
   position: relative;
   color: ${token('color.text.subtle', N400)};

@@ -393,3 +393,143 @@ Object {
   "version": 1,
 }
 `;
+
+exports[`JSONTransformer: encode should serialize media nodes/marks as ProseMirror does 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "alt": "Good day",
+            "collection": "",
+            "height": 128,
+            "id": "foo media single",
+            "type": "file",
+            "width": 256,
+          },
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "href": "https://atlassian.com",
+              },
+              "type": "link",
+            },
+            Object {
+              "attrs": Object {
+                "color": "#091e4224",
+                "size": 2,
+              },
+              "type": "border",
+            },
+          ],
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": 321,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "alt": "Good day",
+            "collection": "",
+            "height": 128,
+            "id": "foo media single",
+            "type": "file",
+            "width": 256,
+          },
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "href": "https://atlassian.com",
+              },
+              "type": "link",
+            },
+            Object {
+              "attrs": Object {
+                "color": "#091e4224",
+                "size": 2,
+              },
+              "type": "border",
+            },
+          ],
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "alt": "Good day",
+            "collection": "",
+            "height": 456,
+            "id": "foo file",
+            "type": "file",
+            "width": 123,
+          },
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "href": "https://atlassian.com",
+              },
+              "type": "link",
+            },
+            Object {
+              "attrs": Object {
+                "color": "#091e4224",
+                "size": 2,
+              },
+              "type": "border",
+            },
+          ],
+          "type": "mediaInline",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "alt": "Good day",
+            "collection": "",
+            "height": 456,
+            "id": "foo image",
+            "type": "image",
+            "width": 123,
+          },
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "href": "https://atlassian.com",
+              },
+              "type": "link",
+            },
+            Object {
+              "attrs": Object {
+                "color": "#091e4224",
+                "size": 3,
+              },
+              "type": "border",
+            },
+          ],
+          "type": "mediaInline",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;

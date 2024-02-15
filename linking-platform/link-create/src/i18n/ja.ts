@@ -16,6 +16,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': '変更は保存されません',
   'linkCreate.createForm.button.close': '閉じる',
   'linkCreate.createForm.button.create': '作成',
-  'linkCreate.createForm.button.edit': '編集',
+  'linkCreate.createForm.button.createAndOpen': '作成して開く',
   'linkCreate.modal.heading': '新規作成',
 };

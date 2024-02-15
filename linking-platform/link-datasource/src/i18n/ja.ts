@@ -27,7 +27,7 @@ export default {
   'linkDataSource.column-picker.tooltip': '列を設定',
   'linkDataSource.jira-issues.accessInstructions':
     'アクセス権をリクエストするには、サイト管理者にお問い合わせください。',
-  'linkDataSource.jira-issues.accessRequired': 'このサイトへのアクセス権がありません',
+  'linkDataSource.jira-issues.accessRequired': 'このコンテンツへのアクセス権がありません',
   'linkDataSource.jira-issues.accessRequiredWithSite': '次のサイトへのアクセス権がありません。',
   'linkDataSource.jira-issues.checkConnection': '接続を確認して更新するか、後でもう一度お試しください。',
   'linkDataSource.jira-issues.checkConnectionWithSource':
@@ -44,13 +44,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': '次のサイトから Jira 課題を挿入する',
   'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, other {課題}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': '課題ビュー',
+  'linkDataSource.jira-issues.no.jira.sites.access.description':
+    'アクセスをリクエストするには、管理者にお問い合わせください。',
+  'linkDataSource.jira-issues.no.jira.sites.access.title': 'Jira サイトへのアクセス権がありません',
   'linkDataSource.jira-issues.noResultsFound': '結果が見つかりません',
   'linkDataSource.jira-issues.refresh': '更新',
   'linkDataSource.jira-issues.unableToLoadItems': 'アイテムを読み込めません',
   'linkDataSource.jira-issues.unableToLoadResults': '結果を読み込めません',
   'linkDataSource.modal-initial-state.beta': 'ベータ版',
   'linkDataSource.modal-initial-state.learnMoreLink': 'JQL による検索の詳細',
-  'linkDataSource.modal-initial-state.searchDescription': 'JQL（Jira クエリ言語）を使用して課題を検索します。',
   'linkDataSource.modal-initial-state.searchTitle': 'Jira の課題を検索',
   'linkDataSource.render-type.boolean.false': 'いいえ',
   'linkDataSource.render-type.boolean.true': 'はい',

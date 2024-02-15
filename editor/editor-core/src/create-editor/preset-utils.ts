@@ -1,4 +1,5 @@
 import type { EditorPlugin } from '@atlaskit/editor-common/types';
+
 import type { EditorProps } from '../types/editor-props';
 
 const EMPTY: EditorPlugin[] = [];

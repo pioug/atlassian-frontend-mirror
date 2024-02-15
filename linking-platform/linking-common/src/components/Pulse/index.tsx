@@ -2,6 +2,7 @@
 import { css, jsx, keyframes } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
+import { SyntheticEvent, useRef } from 'react';
 
 const pulseKeyframes = keyframes`
 to {
@@ -21,25 +22,42 @@ const commonStyles = css`
 
 export interface PulseProps {
   children: JSX.Element;
-  isDiscovered?: boolean;
+  showPulse?: boolean;
   onAnimationIteration?: React.AnimationEventHandler<HTMLSpanElement>;
   onAnimationStart?: React.AnimationEventHandler<HTMLSpanElement>;
+  testId?: string;
 }
 
 export const Pulse = ({
   children,
-  isDiscovered = false,
+  showPulse = false,
   onAnimationIteration,
   onAnimationStart,
+  testId,
 }: PulseProps) => {
+  // this ref is to persist the animation through rerenders
+  const pulseStarted = useRef<boolean>(false);
+  if (showPulse) {
+    pulseStarted.current = true;
+  }
+
+  const stopPropagation = (e: SyntheticEvent) => {
+    e.stopPropagation();
+  };
+
   return (
     <div
-      data-testid="discovery-pulse"
-      css={[commonStyles, !isDiscovered && pulseStyles]}
+      data-testid={testId ?? 'discovery-pulse'}
+      css={[commonStyles, pulseStarted.current && pulseStyles]}
       onAnimationIteration={onAnimationIteration}
       onAnimationStart={onAnimationStart}
     >
-      {children}
+      <span
+        onAnimationIteration={stopPropagation}
+        onAnimationStart={stopPropagation}
+      >
+        {children}
+      </span>
     </div>
   );
 };

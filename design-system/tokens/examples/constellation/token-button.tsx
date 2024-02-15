@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 
 const TokenButtonCodeBlock = `import { B300, B400, B500, N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

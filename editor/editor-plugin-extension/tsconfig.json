@@ -7,6 +7,8 @@
     "docs/**/*.tsx",
     "examples/**/*.ts",
     "examples/**/*.tsx",
+    "example-utils/**/*.ts",
+    "example-utils/**/*.tsx",
     "src/**/*.ts",
     "src/**/*.tsx"
   ],

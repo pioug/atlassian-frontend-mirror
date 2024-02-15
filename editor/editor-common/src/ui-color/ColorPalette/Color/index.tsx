@@ -47,6 +47,7 @@ class Color extends PureComponent<Props> {
       <Tooltip content={label}>
         <span css={buttonWrapperStyle}>
           <button
+            type="button"
             css={buttonStyle}
             aria-label={label}
             role="radio"

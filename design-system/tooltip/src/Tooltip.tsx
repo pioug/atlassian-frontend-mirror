@@ -1,8 +1,5 @@
-/** @jsx jsx */
-
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafSyntheticEventHandler } from '@atlaskit/analytics-next';
@@ -19,6 +16,7 @@ import { Placement, Popper } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
+import { register } from './internal/drag-manager';
 import { API, Entry, show, Source } from './internal/tooltip-manager';
 import useUniqueId from './internal/use-unique-id';
 import TooltipContainer from './TooltipContainer';
@@ -164,8 +162,38 @@ function Tooltip({
     [abort],
   );
 
+  const isDraggingRef = useRef(false);
+
+  useEffect(() => {
+    return register({
+      onRegister({ isDragging }) {
+        isDraggingRef.current = isDragging;
+      },
+      onDragStart() {
+        /**
+         * Hiding any visible tooltips when a drag starts because otherwise it
+         * looks janky (disappears and reappears), and is not required.
+         */
+        apiRef.current?.requestHide({ isImmediate: true });
+        isDraggingRef.current = true;
+      },
+      onDragEnd() {
+        isDraggingRef.current = false;
+      },
+    });
+  }, []);
+
   const showTooltip = useCallback(
     (source: Source) => {
+      /**
+       * Prevent tooltips from being shown during a drag. This can occur with
+       * the native drag and drop API, where some pointer events can fire
+       * when they should not and lead to jank with tooltips.
+       */
+      if (isDraggingRef.current) {
+        return;
+      }
+
       if (apiRef.current && !apiRef.current.isActive()) {
         abort();
       }
@@ -397,17 +425,31 @@ function Tooltip({
     }
   }, [shouldRenderTooltipContainer, tooltipId]);
 
+  const hiddenContent = (
+    <span
+      data-testid={testId ? `${testId}-hidden` : undefined}
+      hidden
+      id={tooltipId}
+    >
+      {typeof content === 'function' ? content({}) : content}
+    </span>
+  );
+
   return (
-    <React.Fragment>
+    <>
       {typeof children === 'function' ? (
         // once we deprecate the wrapped approach, we can put the aria
         // attribute back into the tooltipTriggerProps and make it required
         // instead of optional in `types`
-        children({
-          ...tooltipTriggerProps,
-          'aria-describedby': tooltipId,
-          ref: setDirectRef,
-        })
+        <>
+          {children({
+            ...tooltipTriggerProps,
+            'aria-describedby': tooltipId,
+            ref: setDirectRef,
+          })}
+          {/* render a hidden tooltip content for screen readers to announce */}
+          {shouldRenderTooltipContainer && hiddenContent}
+        </>
       ) : (
         <CastTargetContainer
           {...tooltipTriggerProps}
@@ -415,8 +457,11 @@ function Tooltip({
           role="presentation"
         >
           {children}
+          {/* render a hidden tooltip content for screen readers to announce */}
+          {shouldRenderTooltipContainer && hiddenContent}
         </CastTargetContainer>
       )}
+
       {shouldRenderTooltipContainer ? (
         <Portal zIndex={tooltipZIndex}>
           <Popper
@@ -463,7 +508,6 @@ function Tooltip({
                           }
                           onMouseOut={onMouseOut}
                           onMouseOver={onMouseOverTooltip}
-                          id={tooltipId}
                         >
                           {typeof content === 'function'
                             ? content({ update })
@@ -478,7 +522,7 @@ function Tooltip({
           </Popper>
         </Portal>
       ) : null}
-    </React.Fragment>
+    </>
   );
 }
 

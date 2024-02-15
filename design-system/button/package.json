@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/button",
-  "version": "16.17.4",
+  "version": "17.3.2",
   "description": "A button triggers an event or action. They let users know what will happen next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,6 +25,9 @@
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Button",
       "category": "Components",
@@ -33,7 +36,7 @@
           "title": "Button (new)",
           "id": "button-new",
           "status": {
-            "type": "closed-beta"
+            "type": "beta"
           },
           "sortKey": 1
         },
@@ -41,22 +44,30 @@
           "title": "Icon button",
           "id": "icon-button",
           "status": {
-            "type": "draft"
+            "type": "beta"
           },
           "sortKey": 2
-        },
-        {
-          "title": "Button group",
-          "id": "button-group",
-          "sortKey": 3
         },
         {
           "title": "Split button",
           "id": "split-button",
           "status": {
-            "type": "draft"
+            "type": "beta"
+          },
+          "sortKey": 3
+        },
+        {
+          "title": "Link button",
+          "id": "link-button",
+          "status": {
+            "type": "beta"
           },
           "sortKey": 4
+        },
+        {
+          "title": "Button group",
+          "id": "button-group",
+          "sortKey": 5
         }
       ]
     }
@@ -66,26 +77,20 @@
     "./custom-theme-button": "./src/entry-points/custom-theme-button.tsx",
     "./loading-button": "./src/entry-points/loading-button.tsx",
     "./standard-button": "./src/entry-points/standard-button.tsx",
-    "./unsafe": "./src/entry-points/unsafe.tsx",
+    "./new": "./src/entry-points/new.tsx",
     "./types": "./src/entry-points/types.tsx",
     ".": "./src/index.tsx"
   },
-  "platform-feature-flags": {
-    "platform.design-system-team.icon-button-spacing-fix_o1zc5": {
-      "type": "boolean"
-    }
-  },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/focus-ring": "^1.3.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/interaction-context": "^2.1.0",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^1.12.0",
+    "@atlaskit/primitives": "^2.0.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@atlaskit/visually-hidden": "^1.2.4",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
@@ -97,10 +102,9 @@
     "@af/accessibility-testing": "*",
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/app-provider": "^0.4.0",
+    "@atlaskit/app-provider": "^1.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",

@@ -9,7 +9,7 @@ import { InternalFooterBlock } from '../../../../FlexibleCard/components/blocks'
 import {
   FlexibleCardUiOptions,
   PreviewBlockOptions,
-  getTitleBlockOptions,
+  titleBlockOptions,
   FooterBlockOptions,
 } from '../utils';
 import { UnresolvedViewProps } from './types';
@@ -36,7 +36,7 @@ const UnresolvedView: FC<UnresolvedViewProps> = ({
     ui={FlexibleCardUiOptions}
     url={url}
   >
-    <TitleBlock {...getTitleBlockOptions()} hideIcon={!!title} text={title} />
+    <TitleBlock {...titleBlockOptions} hideIcon={!!title} text={title} />
     <CustomBlock>{children}</CustomBlock>
     {showPreview && <PreviewBlock {...PreviewBlockOptions} />}
     <InternalFooterBlock

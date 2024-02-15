@@ -50,9 +50,9 @@ describe('extractors.access.context', () => {
       }),
     ).toMatchObject({
       accessType: 'DIRECT_ACCESS',
-      titleMessageKey: 'direct_access_title_crossjoin',
-      descriptiveMessageKey: 'direct_access_description_crossjoin',
-      callToActionMessageKey: 'direct_access_crossjoin',
+      titleMessageKey: 'direct_access_title',
+      descriptiveMessageKey: 'direct_access_description',
+      callToActionMessageKey: 'direct_access',
       action: {
         buttonAppearance: 'default',
         id: 'direct_access',
@@ -77,9 +77,9 @@ describe('extractors.access.context', () => {
       }),
     ).toMatchObject({
       accessType: 'REQUEST_ACCESS',
-      titleMessageKey: 'default_no_access_title_crossjoin',
-      descriptiveMessageKey: 'request_access_description_crossjoin',
-      callToActionMessageKey: 'request_access_crossjoin',
+      titleMessageKey: 'default_no_access_title',
+      descriptiveMessageKey: 'request_access_description',
+      callToActionMessageKey: 'request_access',
       action: {
         buttonAppearance: 'default',
         id: 'request_access',
@@ -104,9 +104,9 @@ describe('extractors.access.context', () => {
       }),
     ).toMatchObject({
       accessType: 'PENDING_REQUEST_EXISTS',
-      titleMessageKey: 'request_access_pending_title_crossjoin',
-      descriptiveMessageKey: 'request_access_pending_description_crossjoin',
-      callToActionMessageKey: 'request_access_pending_crossjoin',
+      titleMessageKey: 'request_access_pending_title',
+      descriptiveMessageKey: 'request_access_pending_description',
+      callToActionMessageKey: 'request_access_pending',
       action: {
         buttonAppearance: 'default',
         id: 'request_access_pending',
@@ -131,8 +131,8 @@ describe('extractors.access.context', () => {
       }),
     ).toMatchObject({
       accessType: 'FORBIDDEN',
-      titleMessageKey: 'forbidden_title_crossjoin',
-      descriptiveMessageKey: 'forbidden_description_crossjoin',
+      titleMessageKey: 'forbidden_title',
+      descriptiveMessageKey: 'forbidden_description',
       hostname: 'visit.url.com',
     });
   });
@@ -151,8 +151,8 @@ describe('extractors.access.context', () => {
       }),
     ).toMatchObject({
       accessType: 'DENIED_REQUEST_EXISTS',
-      titleMessageKey: 'forbidden_title_crossjoin',
-      descriptiveMessageKey: 'request_denied_description_crossjoin',
+      titleMessageKey: 'forbidden_title',
+      descriptiveMessageKey: 'request_denied_description',
       hostname: 'visit.url.com',
     });
   });
@@ -171,8 +171,8 @@ describe('extractors.access.context', () => {
       }),
     ).toMatchObject({
       accessType: 'ACCESS_EXISTS',
-      titleMessageKey: 'forbidden_title_crossjoin',
-      descriptiveMessageKey: 'access_exists_description_crossjoin',
+      titleMessageKey: 'forbidden_title',
+      descriptiveMessageKey: 'access_exists_description',
       action: {
         buttonAppearance: 'default',
         id: 'access_exists',
@@ -201,8 +201,8 @@ describe('extractors.access.context', () => {
       }),
     ).toMatchObject({
       accessType: 'ACCESS_EXISTS',
-      titleMessageKey: 'not_found_title_crossjoin',
-      descriptiveMessageKey: 'not_found_description_crossjoin',
+      titleMessageKey: 'not_found_title',
+      descriptiveMessageKey: 'not_found_description',
       hostname: 'visit.url.com',
     });
   });

@@ -1,0 +1,16 @@
+/** @jsx jsx */
+import React from 'react';
+import { jsx } from '@emotion/react';
+import { DiProvider, injectable } from 'react-magnetic-di';
+
+import DropdownMenu from '@atlaskit/dropdown-menu';
+
+const mockDropdownMenu = injectable(DropdownMenu, (props) => (
+  <DropdownMenu {...props} isOpen={true} />
+));
+
+const VrExpandDropdownMenuWrapper: React.FC<{}> = ({ children }) => {
+  return <DiProvider use={[mockDropdownMenu]}>{children}</DiProvider>;
+};
+
+export default VrExpandDropdownMenuWrapper;

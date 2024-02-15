@@ -5,19 +5,13 @@ import type {
   EventDispatcher,
 } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-import type {
-  ContextIdentifierProvider,
-  ProviderFactory,
-} from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   createSelectionClickHandler,
   GapCursorSelection,
 } from '@atlaskit/editor-common/selection';
-import type {
-  Command,
-  ExtractInjectionAPI,
-} from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getStepRange } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type {
@@ -58,20 +52,6 @@ function nodesBetweenChanged(
 
   tr.doc.nodesBetween(stepRange.from, stepRange.to, f, startPos);
 }
-
-const setContextIdentifierProvider =
-  (provider: ContextIdentifierProvider | undefined): Command =>
-  (state, dispatch) => {
-    if (dispatch) {
-      dispatch(
-        state.tr.setMeta(stateKey, {
-          action: ACTIONS.SET_CONTEXT_PROVIDER,
-          data: provider,
-        }),
-      );
-    }
-    return true;
-  };
 
 export function createPlugin(
   portalProviderAPI: PortalProviderAPI,
@@ -260,12 +240,6 @@ export function createPlugin(
         let newPluginState = pluginState;
 
         switch (action) {
-          case ACTIONS.SET_CONTEXT_PROVIDER:
-            newPluginState = {
-              ...pluginState,
-              contextIdentifierProvider: data,
-            };
-            break;
           case ACTIONS.FOCUS_BY_LOCALID:
             newPluginState = {
               ...pluginState,
@@ -277,33 +251,6 @@ export function createPlugin(
         dispatch(stateKey, newPluginState);
         return newPluginState;
       },
-    },
-    view(editorView) {
-      const providerHandler = (
-        name: string,
-        providerPromise?: Promise<ContextIdentifierProvider>,
-      ) => {
-        if (name === 'contextIdentifierProvider') {
-          if (!providerPromise) {
-            setContextIdentifierProvider(undefined)(
-              editorView.state,
-              editorView.dispatch,
-            );
-          } else {
-            (providerPromise as Promise<ContextIdentifierProvider>).then(
-              provider => {
-                setContextIdentifierProvider(provider)(
-                  editorView.state,
-                  editorView.dispatch,
-                );
-              },
-            );
-          }
-        }
-      };
-      providerFactory.subscribe('contextIdentifierProvider', providerHandler);
-
-      return {};
     },
     key: stateKey,
     /*

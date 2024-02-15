@@ -1,10 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initFullPageEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 
 import * as adjacentDecisionsAdf from './__fixtures__/adjacent-decisions-adf.json';
 

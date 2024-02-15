@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Flex } from '@atlaskit/primitives';
+import { Flex, xcss } from '@atlaskit/primitives';
 import { components, MenuListComponentProps } from '@atlaskit/select';
 import Spinner from '@atlaskit/spinner';
+import { token } from '@atlaskit/tokens';
 
 import { FilterOptionsState } from '../../hooks/useFilterOptions';
 import { BasicFilterFieldType, SelectOption } from '../../types';
@@ -11,6 +12,10 @@ import ShowMoreButton from '../async-popup-select/showMoreButton';
 import CustomErrorMessage from './errorMessage';
 import CustomDropdownLoadingMessage from './loadingMessage';
 import CustomNoOptionsMessage from './noOptionsMessage';
+
+const inlineSpinnerStyles = xcss({
+  paddingTop: token('space.075', '6px'),
+});
 
 type CustomProps = {
   isError?: boolean;
@@ -42,7 +47,7 @@ const CustomMenuList = ({
   const isLoadingMoreData = !shouldDisplayShowMore && isLoadingMore;
 
   const InlineSpinner = () => (
-    <Flex justifyContent="center">
+    <Flex justifyContent="center" xcss={inlineSpinnerStyles}>
       <Spinner size="medium" />
     </Flex>
   );

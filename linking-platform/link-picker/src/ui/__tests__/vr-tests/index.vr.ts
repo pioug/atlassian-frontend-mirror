@@ -9,6 +9,7 @@ import {
   ErrorBoundaryExample,
   LargePaddingUsingTokensExample,
   VaryingPaddingsExample,
+  WithCancelExample,
   ZeroPaddingExample,
 } from '../../examples';
 
@@ -36,6 +37,7 @@ const allVariantsOptions: OptionsType = {
 };
 
 snapshot(DefaultExample, allVariantsOptions);
+snapshot(WithCancelExample, allVariantsOptions);
 snapshot(ErrorBoundaryExample, {
   ...allVariantsOptions,
   featureFlags: {

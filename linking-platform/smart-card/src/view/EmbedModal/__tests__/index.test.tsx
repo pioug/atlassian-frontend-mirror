@@ -489,8 +489,7 @@ describe('EmbedModal', () => {
       expect(onResize).toHaveBeenCalledTimes(1);
     });
 
-    // FIXME: tests have been flaky on master : https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1699306/steps/%7B471b866c-c4ba-4b44-8da1-03fdb6d863a4%7D/test-report
-    it.skip('dispatches analytics event on open url on a new tab', async () => {
+    it('dispatches analytics event on open url on a new tab', async () => {
       const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
       const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
       uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);
@@ -499,6 +498,13 @@ describe('EmbedModal', () => {
         analytics,
         url: 'https://link-url',
       });
+
+      // Wait for stable and clear all ufo experience calls right before act.
+      await findByTestId(testId);
+      await flushPromises();
+      ufoStartSpy.mockReset();
+      ufoSucceedSpy.mockReset();
+
       const button = await findByTestId(`${testId}-url-button`);
       await user.click(button);
       await flushPromises();
@@ -527,6 +533,7 @@ describe('EmbedModal', () => {
         eventType: 'operational',
       });
 
+      expect(ufoStartSpy).toHaveBeenCalledTimes(1);
       expect(ufoStartSpy).toBeCalledWith(
         'smart-link-action-invocation',
         EXPERIENCE_TEST_ID,
@@ -537,6 +544,7 @@ describe('EmbedModal', () => {
           invokeType: 'client',
         },
       );
+      expect(ufoSucceedSpy).toHaveBeenCalledTimes(1);
       expect(ufoSucceedSpy).toBeCalledWith(
         'smart-link-action-invocation',
         EXPERIENCE_TEST_ID,
@@ -544,8 +552,7 @@ describe('EmbedModal', () => {
       expect(ufoStartSpy).toHaveBeenCalledBefore(ufoSucceedSpy as jest.Mock);
     });
 
-    // FIXME: Failing master on 28/09/23 https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1729854/steps/%7B8c63fd9a-e483-4890-8485-806d4e8a7337%7D/test-report
-    it.skip('dispatches analytics event on download url', async () => {
+    it('dispatches analytics event on download url', async () => {
       const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
       const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
       uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);
@@ -555,6 +562,13 @@ describe('EmbedModal', () => {
         analytics,
         download: url,
       });
+
+      // Wait for stable and clear all ufo experience calls right before act.
+      await findByTestId(testId);
+      await flushPromises();
+      ufoStartSpy.mockReset();
+      ufoSucceedSpy.mockReset();
+
       const button = await findByTestId(`${testId}-download-button`);
       await user.click(button);
       await flushPromises();

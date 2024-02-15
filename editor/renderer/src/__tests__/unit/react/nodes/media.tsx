@@ -1,34 +1,51 @@
-import * as mocks from './media.mock';
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import Loadable from 'react-loadable';
 
+import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { MediaType } from '@atlaskit/adf-schema';
 import type { CardEvent } from '@atlaskit/media-card';
-import { Card } from '@atlaskit/media-card';
-import { sleep, nextTick } from '@atlaskit/media-test-helpers';
 import type {
   FileIdentifier,
   ExternalImageIdentifier,
 } from '@atlaskit/media-client';
-
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { Card } from '@atlaskit/media-card';
+import {
+  sleep,
+  nextTick,
+  getDefaultMediaClientConfig,
+} from '@atlaskit/media-test-helpers';
+import * as mocks from './media.mock';
 import Media from '../../../../react/nodes/media';
+import type { MediaCardProps } from '../../../../ui/MediaCard';
 import {
   MediaCard,
-  MediaCardInternal,
   getListOfIdentifiersFromDoc,
   getClipboardAttrs,
+  MediaCardView,
 } from '../../../../ui/MediaCard';
 import type { MediaSSR } from '../../../../types/mediaOptions';
-import type { MediaClientConfig } from '@atlaskit/media-core';
 
 const doc = require('../../../../../examples/helper/media-layout.adf.json');
 
-jest.mock('@atlaskit/media-card', () => {
-  return {
-    Card: () => <div>Card</div>,
-    CardLoading: () => <div>CardLoading</div>,
-  };
-});
+import {
+  MediaClientContext,
+  MediaClientProvider,
+} from '@atlaskit/media-client-react';
+import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
+
+const MediaCardWithProvider = (props: MediaCardProps & ImageLoaderProps) => {
+  return (
+    <MediaClientContext.Provider value={mocks.mockMediaClient}>
+      <MediaCard {...props} />
+    </MediaClientContext.Provider>
+  );
+};
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -43,11 +60,14 @@ describe('Media', () => {
       collection: 'MediaServicesSample',
     },
   };
-  const mediaProvider = {
-    viewMediaClientConfig: {
-      authProvider: jest.fn(),
-    },
+
+  const mediaClientConfig = getDefaultMediaClientConfig();
+
+  const mediaProvider: MediaProvider = {
+    viewMediaClientConfig: mediaClientConfig,
   };
+
+  let providerFactory: ProviderFactory;
 
   const createFileIdentifier = (
     index = 0,
@@ -81,11 +101,10 @@ describe('Media', () => {
       },
     ];
     const card = mount(
-      <MediaCard
+      <MediaCardWithProvider
         type="file"
         id={await identifier.id}
         collection={identifier.collectionName}
-        mediaProvider={mediaProvider as any}
         rendererContext={{
           adDoc: {
             content,
@@ -93,8 +112,10 @@ describe('Media', () => {
         }}
       />,
     );
-    card.setState({ imageStatus: 'complete' });
-    card.update();
+
+    const mediaCard = card.find(MediaCard);
+    mediaCard.setState({ imageStatus: 'complete' });
+    mediaCard.update();
     return card;
   };
 
@@ -103,10 +124,9 @@ describe('Media', () => {
     extraProps?: Object,
   ) => {
     const card = mount(
-      <MediaCard
+      <MediaCardWithProvider
         type="external"
         url={indentifier.dataURI}
-        mediaProvider={mediaProvider as any}
         rendererContext={{
           adDoc: {
             content: [
@@ -125,50 +145,105 @@ describe('Media', () => {
         {...extraProps}
       />,
     );
-    card.setState({ imageStatus: 'complete' });
-    card.update();
+    const mediaCard = card.find(MediaCard);
+    mediaCard.setState({ imageStatus: 'complete' });
+    mediaCard.update();
     return card;
   };
 
-  it('should render a media component with the proper props', () => {
-    const mediaComponent = mount(
-      <Media
-        type={mediaNode.attrs.type as MediaType}
-        id={mediaNode.attrs.id}
-        marks={[]}
-        isLinkMark={() => false}
-        isBorderMark={() => false}
-        collection={mediaNode.attrs.collection}
-      />,
+  const renderFileCard = (identifier: FileIdentifier, adDocContent?: any) => {
+    const content = adDocContent ?? [
+      {
+        attrs: {
+          collection: identifier.collectionName,
+          height: 580,
+          id: identifier.id,
+          type: 'file',
+          width: 1021,
+        },
+        type: 'media',
+      },
+    ];
+    const component = (
+      <MediaCardWithProvider
+        type="file"
+        id={identifier.id}
+        collection={identifier.collectionName}
+        rendererContext={{
+          adDoc: {
+            content,
+          },
+        }}
+        imageStatus="complete"
+      />
     );
+    return render(component);
+  };
 
-    expect(mediaComponent.find(MediaCard).length).toEqual(1);
-    mediaComponent.unmount();
+  beforeEach(() => {
+    providerFactory = new ProviderFactory();
+    providerFactory.setProvider(
+      'mediaProvider',
+      Promise.resolve(mediaProvider),
+    );
   });
 
-  it('should render a media component with alt text if FF is on', () => {
-    const mediaComponent = mount(
-      <Media
-        type={mediaNode.attrs.type as MediaType}
-        id={mediaNode.attrs.id}
-        collection={mediaNode.attrs.collection}
-        alt="test"
-        marks={[]}
-        isLinkMark={() => false}
-        isBorderMark={() => false}
-        allowAltTextOnImages={true}
-      />,
-    );
-
-    const mediaCard = mediaComponent.find(MediaCard);
-    expect(mediaCard.length).toEqual(1);
-    expect(mediaCard.prop('alt')).toBe('test');
-    mediaComponent.unmount();
+  afterEach(() => {
+    providerFactory.destroy();
+    jest.clearAllMocks();
   });
 
-  it('event handlers are not called when media is linked', () => {
+  it('should render a media component with the proper props', async () => {
+    const { container } = render(
+      <MediaClientProvider clientConfig={mediaClientConfig}>
+        <Media
+          type={mediaNode.attrs.type as MediaType}
+          id={mediaNode.attrs.id}
+          marks={[]}
+          isLinkMark={() => false}
+          isBorderMark={() => false}
+          collection={mediaNode.attrs.collection}
+          providers={providerFactory}
+        />
+      </MediaClientProvider>,
+    );
+
+    expect(screen.getByTestId('media-card-loading')).toBeVisible();
+
+    await waitFor(() =>
+      expect(
+        container.querySelector('[data-node-type="media"]'),
+      ).toHaveAttribute('data-id', '5556346b-b081-482b-bc4a-4faca8ecd2de'),
+    );
+  });
+
+  it('should render a media component with alt text if FF is on', async () => {
+    const { container } = render(
+      <MediaClientProvider clientConfig={mediaClientConfig}>
+        <Media
+          type={mediaNode.attrs.type as MediaType}
+          id={mediaNode.attrs.id}
+          collection={mediaNode.attrs.collection}
+          alt="test"
+          marks={[]}
+          isLinkMark={() => false}
+          isBorderMark={() => false}
+          allowAltTextOnImages={true}
+          providers={providerFactory}
+        />
+      </MediaClientProvider>,
+    );
+
+    await waitFor(() =>
+      expect(
+        container.querySelector('[data-node-type="media"]'),
+      ).toHaveAttribute('data-alt', 'test'),
+    );
+  });
+
+  it('event handlers are not called when media is linked', async () => {
     const mediaOnClick = jest.fn();
-    const mediaComponent = mount(
+    render(
       <Media
         type={mediaNode.attrs.type as MediaType}
         id={mediaNode.attrs.id}
@@ -181,15 +256,15 @@ describe('Media', () => {
         eventHandlers={{ media: { onClick: mediaOnClick } }}
       />,
     );
-    mediaComponent.find('a[data-block-link]').simulate('click');
-    const mediaCardProps = mediaComponent.find(MediaCard).props();
-    expect(mediaCardProps.eventHandlers).toEqual(undefined);
+
+    await userEvent.click(screen.getByRole('link', { name: '' }));
+
     expect(mediaOnClick).not.toHaveBeenCalled();
   });
 
-  it('calls the link handlers when linked media is clicked', () => {
+  it('calls the link handlers when linked media is clicked', async () => {
     const linkOnClick = jest.fn();
-    const mediaComponent = mount(
+    render(
       <Media
         type={mediaNode.attrs.type as MediaType}
         id={mediaNode.attrs.id}
@@ -202,36 +277,49 @@ describe('Media', () => {
         eventHandlers={{ link: { onClick: linkOnClick } }}
       />,
     );
-    mediaComponent.find('a[data-block-link]').simulate('click');
-    expect(linkOnClick).toHaveBeenCalled();
-  });
 
-  it('calls event handlers', () => {
-    const mediaOnClick = jest.fn();
-    const mediaComponent = mount(
-      <Media
-        type={mediaNode.attrs.type as MediaType}
-        id={mediaNode.attrs.id}
-        collection={mediaNode.attrs.collection}
-        alt="test"
-        marks={[]}
-        isLinkMark={() => false}
-        isBorderMark={() => false}
-        allowAltTextOnImages={true}
-        eventHandlers={{ media: { onClick: mediaOnClick } }}
-      />,
+    await userEvent.click(screen.getByRole('link', { name: '' }));
+
+    expect(linkOnClick).toHaveBeenCalledTimes(1);
+    expect(linkOnClick).toHaveBeenCalledWith(
+      expect.anything(),
+      'http://atlassian.com',
     );
-    const mediaCardProps = mediaComponent.find(MediaCard).props();
-    expect(mediaCardProps.eventHandlers).toEqual({
-      media: { onClick: mediaOnClick },
-    });
-    expect(mediaOnClick).not.toHaveBeenCalled();
   });
 
-  it('fires analytics on linked media', () => {
+  it('calls the click handler for media nodes without a link', async () => {
+    const mediaOnClick = jest.fn();
+    render(
+      <MediaClientProvider clientConfig={mediaClientConfig}>
+        <Media
+          type={mediaNode.attrs.type as MediaType}
+          id={mediaNode.attrs.id}
+          collection={mediaNode.attrs.collection}
+          marks={[]}
+          isLinkMark={() => false}
+          isBorderMark={() => false}
+          eventHandlers={{ media: { onClick: mediaOnClick } }}
+          providers={providerFactory}
+        />
+      </MediaClientProvider>,
+    );
+
+    await act(async () => {
+      await Loadable.preloadAll();
+    });
+
+    const cardView = await waitFor(() =>
+      screen.getByTestId('media-file-card-view'),
+    );
+    await userEvent.click(cardView);
+
+    expect(mediaOnClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('fires analytics on linked media', async () => {
     const mediaOnClick = jest.fn();
     const fireAnalyticsEvent = jest.fn();
-    const mediaComponent = mount(
+    render(
       <Media
         type={mediaNode.attrs.type as MediaType}
         id={mediaNode.attrs.id}
@@ -245,8 +333,10 @@ describe('Media', () => {
         eventHandlers={{ media: { onClick: mediaOnClick } }}
       />,
     );
-    mediaComponent.find('a[data-block-link]').simulate('click');
 
+    await userEvent.click(screen.getByRole('link', { name: '' }));
+
+    expect(fireAnalyticsEvent).toHaveBeenCalledTimes(1);
     expect(fireAnalyticsEvent).toHaveBeenCalledWith({
       action: 'visited',
       actionSubject: 'media',
@@ -259,28 +349,35 @@ describe('Media', () => {
     });
   });
 
-  it('should render a media component without alt text if FF is off', () => {
-    const mediaComponent = mount(
-      <Media
-        type={mediaNode.attrs.type as MediaType}
-        id={mediaNode.attrs.id}
-        collection={mediaNode.attrs.collection}
-        alt="test"
-        marks={[]}
-        isLinkMark={() => false}
-        isBorderMark={() => false}
-        allowAltTextOnImages={false}
-      />,
+  it('should render a media component without alt text if FF is off', async () => {
+    const { container } = render(
+      <MediaClientProvider clientConfig={mediaClientConfig}>
+        <Media
+          type={mediaNode.attrs.type as MediaType}
+          id={mediaNode.attrs.id}
+          collection={mediaNode.attrs.collection}
+          alt="test"
+          marks={[]}
+          isLinkMark={() => false}
+          isBorderMark={() => false}
+          allowAltTextOnImages={false}
+          providers={providerFactory}
+        />
+      </MediaClientProvider>,
     );
 
-    const mediaCard = mediaComponent.find(MediaCard);
-    expect(mediaCard.length).toEqual(1);
-    expect(mediaCard.prop('alt')).toBeFalsy();
-    mediaComponent.unmount();
+    await waitFor(() =>
+      expect(
+        container.querySelector('[data-node-type="media"]'),
+      ).toBeInTheDocument(),
+    );
+    expect(
+      container.querySelector('[data-node-type="media"]'),
+    ).not.toHaveAttribute('data-alt');
   });
 
   it('should render a media component with external image', () => {
-    const mediaComponent = mount(
+    render(
       <Media
         type="external"
         url="http://image.jpg"
@@ -290,8 +387,7 @@ describe('Media', () => {
       />,
     );
 
-    expect(mediaComponent.find(MediaCard).length).toEqual(1);
-    mediaComponent.unmount();
+    expect(screen.getByTestId('media-card-loading')).toBeVisible();
   });
 
   describe('Media SSR', () => {
@@ -371,7 +467,9 @@ describe('Media', () => {
           alt: expectedAltText,
           allowAltTextOnImages: allowAltTextOnImages,
         });
-        await sleep(0);
+        await act(async () => {
+          await sleep(0);
+        });
 
         const card = mediaCard.find(Card);
         expect(card.length).toEqual(1);
@@ -382,21 +480,19 @@ describe('Media', () => {
 
     it('should pass shouldOpenMediaViewer=true if there is no onClick callback', () => {
       const cardWithOnClick = mount(
-        <MediaCard
-          type="file"
-          id="1"
-          eventHandlers={{ media: { onClick: jest.fn() } }}
-        />,
+        <MediaClientProvider clientConfig={mediaClientConfig}>
+          <MediaCard
+            type="file"
+            id="1"
+            eventHandlers={{ media: { onClick: jest.fn() } }}
+          />
+        </MediaClientProvider>,
       );
-      const cardWithoutOnClick = mount(<MediaCard type="file" id="1" />);
-
-      // force media mediaClientConfig to be resolved
-      cardWithOnClick
-        .find(MediaCardInternal)
-        .setState({ mediaClientConfig: {} });
-      cardWithoutOnClick
-        .find(MediaCardInternal)
-        .setState({ mediaClientConfig: {} });
+      const cardWithoutOnClick = mount(
+        <MediaClientProvider clientConfig={mediaClientConfig}>
+          <MediaCard type="file" id="1" />
+        </MediaClientProvider>,
+      );
 
       expect(
         cardWithOnClick.find(Card).prop('shouldOpenMediaViewer'),
@@ -404,55 +500,58 @@ describe('Media', () => {
       expect(
         cardWithoutOnClick.find(Card).prop('shouldOpenMediaViewer'),
       ).toBeTruthy();
+      cardWithOnClick.unmount();
+      cardWithoutOnClick.unmount();
     });
 
     it('should pass shouldOpenMediaViewer=true if renderer appearance is not mobile', () => {
       const cardMobile = mount(
-        <MediaCard type="file" id="1" rendererAppearance={'mobile'} />,
+        <MediaClientProvider clientConfig={mediaClientConfig}>
+          <MediaCard type="file" id="1" rendererAppearance={'mobile'} />
+        </MediaClientProvider>,
       );
-      const cardNoMobile = mount(<MediaCard type="file" id="1" />);
-
-      // force media mediaClientConfig to be resolved
-      cardMobile.find(MediaCardInternal).setState({ mediaClientConfig: {} });
-      cardNoMobile.find(MediaCardInternal).setState({ mediaClientConfig: {} });
+      const cardNoMobile = mount(
+        <MediaClientProvider clientConfig={mediaClientConfig}>
+          <MediaCard type="file" id="1" />
+        </MediaClientProvider>,
+      );
 
       expect(
         cardNoMobile.find(Card).prop('shouldOpenMediaViewer'),
       ).toBeTruthy();
       expect(cardMobile.find(Card).prop('shouldOpenMediaViewer')).toBeFalsy();
+      cardMobile.unmount();
+      cardNoMobile.unmount();
     });
 
     it('should pass shouldOpenMediaViewer=true if property shouldOpenMediaViewer is set to true', () => {
       const cardWithOnClick = mount(
-        <MediaCard
-          type="file"
-          id="1"
-          shouldOpenMediaViewer={true}
-          eventHandlers={{ media: { onClick: jest.fn() } }}
-        />,
+        <MediaClientProvider clientConfig={mediaClientConfig}>
+          <MediaCard
+            type="file"
+            id="1"
+            shouldOpenMediaViewer={true}
+            eventHandlers={{ media: { onClick: jest.fn() } }}
+          />
+        </MediaClientProvider>,
       );
 
       const cardMobile = mount(
-        <MediaCard
-          type="file"
-          id="1"
-          shouldOpenMediaViewer={true}
-          rendererAppearance={'mobile'}
-        />,
+        <MediaClientProvider clientConfig={mediaClientConfig}>
+          <MediaCard
+            type="file"
+            id="1"
+            shouldOpenMediaViewer={true}
+            rendererAppearance={'mobile'}
+          />
+        </MediaClientProvider>,
       );
 
       const cardWithoutOnClick = mount(
-        <MediaCard type="file" id="1" shouldOpenMediaViewer={true} />,
+        <MediaClientProvider clientConfig={mediaClientConfig}>
+          <MediaCard type="file" id="1" shouldOpenMediaViewer={true} />
+        </MediaClientProvider>,
       );
-
-      // force media mediaClientConfig to be resolved
-      cardWithOnClick
-        .find(MediaCardInternal)
-        .setState({ mediaClientConfig: {} });
-      cardWithoutOnClick
-        .find(MediaCardInternal)
-        .setState({ mediaClientConfig: {} });
-      cardMobile.find(MediaCardInternal).setState({ mediaClientConfig: {} });
 
       expect(
         cardWithOnClick.find(Card).prop('shouldOpenMediaViewer'),
@@ -461,37 +560,37 @@ describe('Media', () => {
         cardWithoutOnClick.find(Card).prop('shouldOpenMediaViewer'),
       ).toBeTruthy();
       expect(cardMobile.find(Card).prop('shouldOpenMediaViewer')).toBeTruthy();
+      cardWithOnClick.unmount();
+      cardWithoutOnClick.unmount();
+      cardMobile.unmount();
     });
 
     it('should pass shouldOpenMediaViewer=false if property shouldOpenMediaViewer is set to false', () => {
       const cardWithOnClick = mount(
-        <MediaCard
-          type="file"
-          id="1"
-          shouldOpenMediaViewer={false}
-          eventHandlers={{ media: { onClick: jest.fn() } }}
-        />,
+        <MediaClientProvider clientConfig={mediaClientConfig}>
+          <MediaCard
+            type="file"
+            id="1"
+            shouldOpenMediaViewer={false}
+            eventHandlers={{ media: { onClick: jest.fn() } }}
+          />
+        </MediaClientProvider>,
       );
       const cardWithoutOnClick = mount(
-        <MediaCard type="file" id="1" shouldOpenMediaViewer={false} />,
+        <MediaClientProvider clientConfig={mediaClientConfig}>
+          <MediaCard type="file" id="1" shouldOpenMediaViewer={false} />
+        </MediaClientProvider>,
       );
       const cardMobile = mount(
-        <MediaCard
-          type="file"
-          id="1"
-          shouldOpenMediaViewer={false}
-          rendererAppearance={'mobile'}
-        />,
+        <MediaClientProvider clientConfig={mediaClientConfig}>
+          <MediaCard
+            type="file"
+            id="1"
+            shouldOpenMediaViewer={false}
+            rendererAppearance={'mobile'}
+          />
+        </MediaClientProvider>,
       );
-
-      // force media mediaClientConfig to be resolved
-      cardWithOnClick
-        .find(MediaCardInternal)
-        .setState({ mediaClientConfig: {} });
-      cardWithoutOnClick
-        .find(MediaCardInternal)
-        .setState({ mediaClientConfig: {} });
-      cardMobile.find(MediaCardInternal).setState({ mediaClientConfig: {} });
 
       expect(
         cardWithOnClick.find(Card).prop('shouldOpenMediaViewer'),
@@ -500,18 +599,23 @@ describe('Media', () => {
         cardWithoutOnClick.find(Card).prop('shouldOpenMediaViewer'),
       ).toBeFalsy();
       expect(cardMobile.find(Card).prop('shouldOpenMediaViewer')).toBeFalsy();
+      cardWithOnClick.unmount();
+      cardWithoutOnClick.unmount();
+      cardMobile.unmount();
     });
 
     it('should call passed onClick', () => {
       const onClick = jest.fn();
       const cardWithOnClick = mount(
-        <MediaCard type="file" id="1" eventHandlers={{ media: { onClick } }} />,
+        <MediaClientProvider clientConfig={mediaClientConfig}>
+          <MediaCard
+            type="file"
+            id="1"
+            eventHandlers={{ media: { onClick } }}
+          />
+        </MediaClientProvider>,
       );
 
-      // force media mediaClientConfig to be resolved
-      cardWithOnClick
-        .find(MediaCardInternal)
-        .setState({ mediaClientConfig: {} });
       const cardComponent = cardWithOnClick.find(Card);
       const event: CardEvent = {
         event: {} as any,
@@ -522,18 +626,21 @@ describe('Media', () => {
       };
       cardComponent.props().onClick!(event);
       expect(onClick).toHaveBeenCalledWith(event, undefined);
+      cardWithOnClick.unmount();
     });
 
     it('should not call passed onClick when inline video is enabled and its a video file', () => {
       const onClick = jest.fn();
       const cardWithOnClick = mount(
-        <MediaCard type="file" id="1" eventHandlers={{ media: { onClick } }} />,
+        <MediaClientProvider clientConfig={mediaClientConfig}>
+          <MediaCard
+            type="file"
+            id="1"
+            eventHandlers={{ media: { onClick } }}
+          />
+        </MediaClientProvider>,
       );
 
-      // force media mediaClientConfig to be resolved
-      cardWithOnClick
-        .find(MediaCardInternal)
-        .setState({ mediaClientConfig: {} });
       const cardComponent = cardWithOnClick.find(Card);
       const event: CardEvent = {
         event: {} as any,
@@ -544,13 +651,16 @@ describe('Media', () => {
       };
       cardComponent.props().onClick!(event);
       expect(onClick).not.toHaveBeenCalled();
+      cardWithOnClick.unmount();
     });
 
     it('should save fileState as a component state', async () => {
       const fileIdentifier = createFileIdentifier();
       const component = await mountFileCard(fileIdentifier);
 
-      await nextTick();
+      await act(async () => {
+        await nextTick();
+      });
       component.update();
       expect(mocks.mockMediaClient.file.getCurrentState).toBeCalled();
       expect(mocks.mockMediaClient.file.getCurrentState).toBeCalledWith(
@@ -561,19 +671,22 @@ describe('Media', () => {
       );
       await nextTick();
       component.update();
-      expect(component.find(MediaCardInternal).state('fileState')).toEqual({
+      expect(component.find(MediaCardView).state('fileState')).toEqual({
         id: 'file-id',
         mediaType: 'image',
         name: 'file_name',
         status: 'processed',
       });
+      component.unmount();
     });
 
     it('should save fileState when id changes', async () => {
       const fileIdentifier = createFileIdentifier();
       const component = await mountFileCard(fileIdentifier);
 
-      await nextTick();
+      await act(async () => {
+        await nextTick();
+      });
       component.update();
 
       component.setProps({
@@ -583,6 +696,7 @@ describe('Media', () => {
       await nextTick();
       component.update();
       expect(mocks.mockMediaClient.file.getCurrentState).toBeCalledTimes(2);
+      component.unmount();
     });
 
     describe('populates identifier cache for the page mediaClientConfig', () => {
@@ -590,7 +704,9 @@ describe('Media', () => {
         const fileIdentifier = createFileIdentifier();
         const mediaFileCard = await mountFileCard(fileIdentifier);
 
-        await sleep(0);
+        await act(async () => {
+          await sleep(0);
+        });
         mediaFileCard.update();
 
         expect(mediaFileCard.find(Card).at(0).props()).toHaveProperty(
@@ -606,7 +722,10 @@ describe('Media', () => {
         const externalIdentifier = createExternalIdentifier();
         const mediaExternalCard = mountExternalCard(externalIdentifier);
 
-        await sleep(0);
+        await act(async () => {
+          await sleep(0);
+        });
+
         mediaExternalCard.update();
 
         expect(mediaExternalCard.find(Card).at(0).props()).toHaveProperty(
@@ -626,7 +745,7 @@ describe('Media', () => {
             attrs: {
               collection: fileIdentifier.collectionName,
               height: 580,
-              id: await fileIdentifier.id,
+              id: fileIdentifier.id,
               type: 'file',
               width: 1021,
             },
@@ -636,54 +755,90 @@ describe('Media', () => {
             attrs: {
               collection: fileIdentifier2.collectionName,
               height: 580,
-              id: await fileIdentifier2.id,
+              id: fileIdentifier2.id,
               type: 'file',
               width: 1021,
             },
             type: 'media',
           },
         ];
-        const mediaFileCard = await mountFileCard(fileIdentifier, adDocContent);
-        const mediaFileCard2 = await mountFileCard(
-          fileIdentifier2,
-          adDocContent,
+        const { container } = renderFileCard(fileIdentifier, adDocContent);
+
+        await waitFor(() =>
+          expect(
+            container.querySelectorAll('div[data-node-type="media"]'),
+          ).toHaveLength(1),
+        );
+        let mediaNodes = container.querySelectorAll(
+          'div[data-node-type="media"]',
+        );
+        expect(mediaNodes[0]).toHaveAttribute(
+          'data-id',
+          'b9d94b5f-e06c-4a80-bfda-000000000001',
+        );
+        expect(mediaNodes[0]).toHaveAttribute('data-type', 'file');
+        expect(mediaNodes[0]).toHaveAttribute('data-collection', 'collection1');
+
+        // Render is not idempotent
+        render(
+          <MediaClientProvider clientConfig={mediaClientConfig}>
+            <MediaCard
+              type="file"
+              id={fileIdentifier2.id}
+              collection={fileIdentifier2.collectionName}
+              rendererContext={{
+                adDoc: {
+                  content: adDocContent,
+                },
+              }}
+              imageStatus="complete"
+            />
+          </MediaClientProvider>,
         );
 
-        await sleep(0);
-        mediaFileCard.update();
-        mediaFileCard2.update();
+        await waitFor(() =>
+          expect(
+            document.body.querySelectorAll('div[data-node-type="media"]'),
+          ).toHaveLength(2),
+        );
+        mediaNodes = document.body.querySelectorAll(
+          'div[data-node-type="media"]',
+        );
+        expect(mediaNodes[0]).toHaveAttribute(
+          'data-id',
+          'b9d94b5f-e06c-4a80-bfda-000000000001',
+        );
+        expect(mediaNodes[0]).toHaveAttribute('data-type', 'file');
+        expect(mediaNodes[0]).toHaveAttribute('data-collection', 'collection1');
 
-        expect(mediaFileCard.find(Card).at(0).props().mediaViewerItems).toEqual(
-          [fileIdentifier],
+        await waitFor(() =>
+          expect(mediaNodes[1]).toHaveAttribute(
+            'data-id',
+            'b9d94b5f-e06c-4a80-bfda-000000000002',
+          ),
         );
-        expect(
-          mediaFileCard2.find(Card).at(0).props().mediaViewerItems,
-        ).toEqual([fileIdentifier, fileIdentifier2]);
-
-        mediaFileCard.setProps({});
-        expect(mediaFileCard.find(Card).at(0).props()).toHaveProperty(
-          'mediaViewerItems',
-        );
-        expect(mediaFileCard.find(Card).at(0).props().mediaViewerItems).toEqual(
-          [fileIdentifier, fileIdentifier2],
-        );
-        mediaFileCard.unmount();
-        mediaFileCard2.unmount();
+        expect(mediaNodes[1]).toHaveAttribute('data-type', 'file');
+        expect(mediaNodes[1]).toHaveAttribute('data-collection', 'collection2');
       });
 
       it('should update the list on re-render if new external cards are added', async () => {
         const fileIdentifier = createFileIdentifier(1);
         const externalIdentifier = createExternalIdentifier(1);
         const mediaFileCard = await mountFileCard(fileIdentifier);
-        const mediaExternalCard = mountExternalCard(externalIdentifier);
 
-        await sleep(0);
+        await act(async () => {
+          await new Promise(process.nextTick);
+        });
         mediaFileCard.update();
-        mediaExternalCard.update();
-
         expect(mediaFileCard.find(Card).at(0).props().mediaViewerItems).toEqual(
           [fileIdentifier],
         );
+
+        const mediaExternalCard = mountExternalCard(externalIdentifier);
+        await act(async () => {
+          await new Promise(process.nextTick);
+        });
+        mediaExternalCard.update();
         expect(
           mediaExternalCard.find(Card).at(0).props().mediaViewerItems,
         ).toEqual([fileIdentifier, externalIdentifier]);
@@ -709,7 +864,9 @@ describe('Media', () => {
         const mediaExternalCard0 = mountExternalCard(externalIdentifier0);
         const mediaExternalCard1 = mountExternalCard(externalIdentifier1);
 
-        await sleep(0);
+        await act(async () => {
+          await sleep(0);
+        });
         mediaFileCard0.update();
         mediaFileCard1.update();
         mediaExternalCard0.update();
@@ -737,7 +894,9 @@ describe('Media', () => {
       const fileIdentifier = createFileIdentifier();
       const mediaFileCard = await mountFileCard(fileIdentifier);
 
-      await sleep();
+      await act(async () => {
+        await sleep();
+      });
       mediaFileCard.update();
       expect(mediaFileCard.find('[data-node-type="media"]')).toHaveLength(1);
       expect(mediaFileCard.find('[data-node-type="media"]').props()).toEqual(
@@ -751,6 +910,7 @@ describe('Media', () => {
           'data-collection': 'MediaServicesSample',
         }),
       );
+      mediaFileCard.unmount();
     });
   });
 

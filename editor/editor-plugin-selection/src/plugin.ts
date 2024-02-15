@@ -64,6 +64,7 @@ export const selectionPlugin: SelectionPlugin = ({ config: options }) => ({
     const pluginState = selectionPluginKey.getState(editorState);
     return {
       selectionRelativeToNode: pluginState?.selectionRelativeToNode,
+      selection: pluginState?.selection,
     };
   },
 

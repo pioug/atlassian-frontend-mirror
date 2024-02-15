@@ -15,6 +15,7 @@ import {
 
 import { ClassNames, jsx } from '@emotion/react';
 import { CSSInterpolation } from '@emotion/serialize';
+import { useUIDSeed } from 'react-uid';
 
 import { UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { B300, N0, N70A } from '@atlaskit/theme/colors';
@@ -45,7 +46,6 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 export interface CustomAvatarProps {
   /**
    * This is used in render props so is okay to be defined.
-   * eslint-disable-next-line consistent-props-definitions
    */
   'aria-label'?: string;
   tabIndex?: number;
@@ -301,6 +301,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
     const customStatusNode = isValidElement(status) ? status : null;
     const isValidIconSize = size !== 'xxlarge' && size !== 'xsmall';
     const lastAnalytics = useRef(analyticsContext);
+    const uuid = useUIDSeed()('avatar');
 
     useEffect(() => {
       lastAnalytics.current = analyticsContext;
@@ -336,7 +337,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
         analyticsEvent.context.push(context);
 
         /**
-         * Replicating the logic in the `withAnalyticsEvents` HOC
+         * Replicating the logic in the `withAnalyticsEvents` HOC.
          */
         const clone: UIAnalyticsEvent | null = analyticsEvent.clone();
         if (clone) {
@@ -370,19 +371,22 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 
     // add presence or status to the label by default if presence and status are passed as a string
     // if status or presence are nodes this is not added to the label by default
-    const generateDefaultLabel = () => {
-      if (!name && !status && !presence) {
-        return;
-      }
+    const defaultLabel = [
+      name,
+      isStatus && !customStatusNode && `(${status})`,
+      isPresence && !customPresenceNode && `(${presence})`,
+    ]
+      .filter(Boolean)
+      .join(' ');
 
-      return `${name || ''} ${
-        isStatus && !customStatusNode ? `(${status})` : ''
-      } ${isPresence && !customPresenceNode ? `(${presence})` : ''}`;
-    };
+    const isInteractive = onClick || href || isDisabled;
+    const containerShouldBeImage = Boolean(!isInteractive && defaultLabel);
 
     return (
       <AvatarContainer
         data-testid={testId}
+        role={containerShouldBeImage ? 'img' : undefined}
+        aria-labelledby={containerShouldBeImage ? `${uuid}-label` : undefined}
         style={{
           display: 'inline-block',
           position: 'relative',
@@ -404,12 +408,14 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
               }),
               ...componentProps(),
               ...(testId && getTestId(testId, children)),
-              ...((onClick || href) && {
-                'aria-label': label || generateDefaultLabel(),
+              ...((isInteractive || children) && {
+                'aria-label': label || defaultLabel,
               }),
               children: (
                 <AvatarImage
-                  alt={name}
+                  // Only pass in the name if an image is provded and the
+                  // container is not being used as an `img` role
+                  alt={!containerShouldBeImage && src ? name : undefined}
                   appearance={appearance!}
                   size={size!}
                   src={src}
@@ -450,6 +456,11 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
             {customStatusNode}
           </StatusWrapper>
         )}
+        {containerShouldBeImage ? (
+          <span id={`${uuid}-label`} hidden>
+            {defaultLabel}
+          </span>
+        ) : undefined}
       </AvatarContainer>
     );
   },

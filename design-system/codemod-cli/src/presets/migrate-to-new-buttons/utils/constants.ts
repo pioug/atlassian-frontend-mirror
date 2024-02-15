@@ -3,31 +3,15 @@ export const PRINT_SETTINGS = {
 };
 
 export const NEW_BUTTON_VARIANTS: {
-  [key: string]: {
-    import: string;
-    as: string;
-  };
+  [key: string]: string;
 } = {
-  default: {
-    import: 'UNSAFE_BUTTON',
-    as: 'Button',
-  },
-  link: {
-    import: 'UNSAFE_LINK_BUTTON',
-    as: 'LinkButton',
-  },
-  icon: {
-    import: 'UNSAFE_ICON_BUTTON',
-    as: 'IconButton',
-  },
-  linkIcon: {
-    import: 'UNSAFE_LINK_ICON_BUTTON',
-    as: 'LinkIconButton',
-  },
+  default: 'Button',
+  link: 'LinkButton',
+  icon: 'IconButton',
+  linkIcon: 'LinkIconButton',
 };
 
-export const NEW_BUTTON_ENTRY_POINT = '@atlaskit/button/unsafe';
-
+export const NEW_BUTTON_ENTRY_POINT = '@atlaskit/button/new';
 export const entryPointsMapping: { [key: string]: string } = {
   Button: '@atlaskit/button/standard-button',
   LoadingButton: '@atlaskit/button/loading-button',
@@ -36,8 +20,6 @@ export const entryPointsMapping: { [key: string]: string } = {
 };
 
 export const BUTTON_TYPES = [
-  'Appearance',
-  'Spacing',
   'BaseOwnProps',
   'BaseProps',
   'ButtonProps',
@@ -50,5 +32,14 @@ export const BUTTON_TYPES = [
   'CustomThemeButtonOwnProps',
 ];
 
-export const eslintDisableComment =
-  'eslint-disable-next-line @atlaskit/design-system/no-banned-imports';
+export const unsupportedProps = ['component', 'css', 'style'];
+
+export const linkButtonMissingHrefComment = `"link" and "subtle-link" appearances are only available in LinkButton, please either provide a href prop then migrate to LinkButton, or remove the appearance from the default button.`;
+
+export const iconPropsNoLongerSupportedComment = `"glyph", "primaryColor", "secondaryColor" and "testId" are no longer supported in button icons, please refactor the code and/or revisit the UI.`;
+
+export const buttonPropsNoLongerSupportedComment = `Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.`;
+
+export const migrateFitContainerButtonToDefaultButtonComment = `Migrated to a default button with text which is from the icon label.`;
+
+export const migrateFitContainerButtonToIconButtonComment = `"shouldFitContainer" is not available in icon buttons, please consider using a default button with text.`;

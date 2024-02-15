@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
 import { Box } from '@atlaskit/primitives';
 
@@ -9,8 +9,8 @@ import PageHeader from '../../src';
 
 const breadcrumbs = (
   <Breadcrumbs onExpand={__noop}>
-    <BreadcrumbsItem text="Some project" key="Some project" />
-    <BreadcrumbsItem text="Parent page" key="Parent page" />
+    <BreadcrumbsItem text="Project" key="Project" />
+    <BreadcrumbsItem text="Design System" key="Design System" />
   </Breadcrumbs>
 );
 
@@ -29,9 +29,9 @@ const PageHeaderFocusHeadingExample = () => {
 
   return (
     <Box>
-      <Button onClick={onClick}>Focus on heading</Button>
+      <Button onClick={onClick}>Focus on the heading</Button>
       <PageHeader breadcrumbs={breadcrumbs} innerRef={innerRef}>
-        Title describing the content
+        Task: Improve accessibility for the page header
       </PageHeader>
     </Box>
   );

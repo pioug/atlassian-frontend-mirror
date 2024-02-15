@@ -1,5 +1,11 @@
 # @atlaskit/react-experiment-framework
 
+## 0.8.3
+
+### Patch Changes
+
+- [#67949](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67949) [`4ceb213f9313`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4ceb213f9313) - Migrate packages to use declarative entry points
+
 ## 0.8.2
 
 ### Patch Changes

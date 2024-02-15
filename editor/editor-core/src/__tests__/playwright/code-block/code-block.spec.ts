@@ -1,15 +1,14 @@
 import {
-  editorTestCase as test,
-  expect,
-  EditorMainToolbarModel,
-  EditorNodeContainerModel,
   EditorCodeBlockModel,
   EditorFloatingToolbarModel,
+  EditorMainToolbarModel,
+  EditorNodeContainerModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, code_block } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { code_block, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 
 const appearances: EditorAppearance[] = ['comment', 'full-page'];
 
@@ -53,12 +52,12 @@ appearances.forEach((appearance) => {
     await editor.keyboard.press('ArrowRight');
 
     await editor.keyboard.type('test paragraph');
-    expect(await codeBlockToolbar.isHidden()).toBe(true);
+    await expect(codeBlockToolbar.languageDropdown).toBeHidden();
 
     // Focus code block again
     await codeBlock.focus();
 
-    expect(await codeBlockToolbar.isVisible()).toBe(true);
+    await expect(codeBlockToolbar.languageDropdown).toBeVisible();
     expect(await codeBlockToolbar.currentLanguage()).toBe('JavaScript');
   });
 

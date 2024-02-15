@@ -37,9 +37,6 @@
     },
     {
       "path": "../editor-plugin-analytics/tsconfig.app.json"
-    },
-    {
-      "path": "../../platform/feature-flags/tsconfig.app.json"
     }
   ]
 }

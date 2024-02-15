@@ -6,7 +6,6 @@ describe('chunkinator', () => {
   let file: Blob;
   let options: Options;
   let hashingFunction: jest.Mock;
-  let probingFunction: jest.Mock;
   let uploadingFunction: jest.Mock;
   let processingFunction: jest.Mock;
   let onProgress: jest.Mock<(progress: number) => void>;
@@ -18,10 +17,6 @@ describe('chunkinator', () => {
     hashingFunction = jest.fn();
     hashingFunction.mockName('hashingFunction');
     hashingFunction.mockReturnValue(Promise.resolve('random-hash'));
-
-    probingFunction = jest.fn();
-    probingFunction.mockName('probingFunction');
-    probingFunction.mockReturnValue(Promise.resolve([false]));
 
     uploadingFunction = jest.fn();
     uploadingFunction.mockName('uploadingFunction');
@@ -35,8 +30,6 @@ describe('chunkinator', () => {
       chunkSize: 5,
       hashingConcurrency: 1,
       hashingFunction,
-      probingBatchSize: 1,
-      probingFunction,
       uploadingConcurrency: 1,
       uploadingFunction,
       processingBatchSize: 2,
@@ -48,7 +41,6 @@ describe('chunkinator', () => {
     const observable = chunkinator(file, options, { onProgress });
     await observable.toPromise();
     expect(hashingFunction).toHaveBeenCalledTimes(3);
-    expect(probingFunction).toHaveBeenCalledTimes(3);
     expect(uploadingFunction).toHaveBeenCalledTimes(3);
     expect(processingFunction).toHaveBeenCalledTimes(2);
   });
@@ -60,7 +52,6 @@ describe('chunkinator', () => {
         ...options,
         chunkSize: 3,
         hashingConcurrency: 2,
-        probingBatchSize: 2,
         uploadingConcurrency: 2,
         processingBatchSize: 3,
       },
@@ -68,20 +59,12 @@ describe('chunkinator', () => {
     );
     await observable.toPromise();
     expect(hashingFunction).toHaveBeenCalledTimes(5);
-    expect(probingFunction).toHaveBeenCalledTimes(3);
     expect(uploadingFunction).toHaveBeenCalledTimes(5);
     expect(processingFunction).toHaveBeenCalledTimes(2);
   });
 
   it('should reject when the hashing has failed', async () => {
     hashingFunction.mockReturnValue(Promise.reject('some-error'));
-    const observable = chunkinator(file, options, { onProgress });
-
-    return expect(observable.toPromise()).rejects.toEqual('some-error');
-  });
-
-  it('should reject when the probing has failed', async () => {
-    probingFunction.mockReturnValue(Promise.reject('some-error'));
     const observable = chunkinator(file, options, { onProgress });
 
     return expect(observable.toPromise()).rejects.toEqual('some-error');
@@ -118,13 +101,11 @@ describe('chunkinator', () => {
     expect(processingFunction.mock.calls[0][0]).toStrictEqual([
       {
         blob: new Blob(['12345']),
-        exists: false,
         hash: 'random-hash-5',
         partNumber: 1,
       },
       {
         blob: new Blob(['67890']),
-        exists: false,
         hash: 'random-hash-5',
         partNumber: 2,
       },
@@ -132,7 +113,6 @@ describe('chunkinator', () => {
     expect(processingFunction.mock.calls[1][0]).toStrictEqual([
       {
         blob: new Blob(['12345']),
-        exists: false,
         hash: 'random-hash-5',
         partNumber: 3,
       },
@@ -171,7 +151,6 @@ describe('chunkinator', () => {
       options.processingBatchSize === 0
         ? 0
         : Math.ceil(totalChunks / options.processingBatchSize);
-
     const observable = chunkinator(file, options, { onProgress });
     const callback = jest.fn();
     await observable.toPromise().then(callback);

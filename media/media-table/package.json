@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/media-table",
-  "version": "15.0.13",
+  "version": "15.0.16",
   "description": "Table UI component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -34,22 +34,22 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/button": "^16.17.0",
-    "@atlaskit/dynamic-table": "^14.11.0",
+    "@atlaskit/analytics-next": "^9.2.0",
+    "@atlaskit/button": "^17.3.0",
+    "@atlaskit/dynamic-table": "^14.14.0",
     "@atlaskit/icon": "^22.0.0",
-    "@atlaskit/media-client": "^25.1.0",
-    "@atlaskit/media-client-react": "^1.4.0",
-    "@atlaskit/media-ui": "^25.0.0",
+    "@atlaskit/media-client": "^26.2.0",
+    "@atlaskit/media-client-react": "^2.0.0",
+    "@atlaskit/media-ui": "^25.1.0",
     "@atlaskit/media-viewer": "^48.2.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
-    "@atlaskit/tooltip": "^18.0.0",
+    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tooltip": "^18.1.0",
     "@babel/runtime": "^7.0.0",
     "memoize-one": "^6.0.0"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^34.1.2",
+    "@atlaskit/media-core": "^34.2.0",
     "@emotion/react": "^11.7.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@atlaskit/icon-file-type": "^6.4.0",
-    "@atlaskit/media-core": "^34.1.0",
+    "@atlaskit/media-core": "^34.2.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/range": "^7.1.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

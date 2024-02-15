@@ -129,7 +129,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
             ),
             icon: (
               <SuccessIcon
-                label="success"
+                label={intl.formatMessage(messages.successIconLabel)}
                 primaryColor={token('color.icon.success', G300)}
               />
             ),
@@ -144,7 +144,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
             ),
             icon: (
               <SuccessIcon
-                label="success"
+                label={intl.formatMessage(messages.successIconLabel)}
                 primaryColor={token('color.icon.success', G300)}
               />
             ),
@@ -200,7 +200,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
           return;
       }
     },
-    [addFlag, closeDrawer, sendAnalytic, teamCentralBaseUrl],
+    [addFlag, closeDrawer, sendAnalytic, teamCentralBaseUrl, intl],
   );
 
   const messageListener = useCallback(
@@ -237,7 +237,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
               ),
               icon: (
                 <SuccessIcon
-                  label="success"
+                  label={intl.formatMessage(messages.successIconLabel)}
                   primaryColor={token('color.icon.success', G300)}
                 />
               ),
@@ -268,6 +268,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
       addFlag,
       teamCentralBaseUrl,
       createFlagWithJsonStringifiedInput,
+      intl,
     ],
   );
 
@@ -345,7 +346,9 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
     return (
       <div css={sidebarDivStyles}>
         <Button onClick={handleCloseDrawerClicked} css={sidebarButtonStyles}>
-          <ArrowLeft label="Close drawer" />
+          <ArrowLeft
+            label={intl.formatMessage(messages.closeDrawerButtonLabel)}
+          />
         </Button>
       </div>
     );
@@ -391,7 +394,9 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
           {isCloseConfirmModalOpen && (
             <Modal onClose={closeWarningModal} width="small">
               <ModalHeader>
-                <ModalTitle>Confirm Close</ModalTitle>
+                <ModalTitle>
+                  <FormattedMessage {...messages.confirmCloseTitle} />
+                </ModalTitle>
               </ModalHeader>
               <ModalBody>
                 <FormattedMessage {...messages.unsavedKudosWarning} />

@@ -64,7 +64,7 @@ export default defineMessages({
   red: {
     id: 'fabric.theme.red',
     defaultMessage: 'Red',
-    description: 'Name of a color',
+    description: 'Name of a color.',
   },
   orange: {
     id: 'fabric.theme.orange',

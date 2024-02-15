@@ -19,7 +19,7 @@ const headerWrapperStyles = css`
 
 export const getFormHeaderTitleStyles = (theme: Theme) => css`
   ${h500(theme)}
-  line-height: ${token('font.lineHeight.500', '32px')};
+  line-height: 32px;
   margin-right: ${token('space.400', '32px')};
   margin-top: ${token('space.400', '32px')};
   overflow: hidden;
@@ -31,7 +31,7 @@ export const getFormHeaderTitleStyles = (theme: Theme) => css`
   }
 `;
 
-export const ShareHeader: React.StatelessComponent<Props> = ({ title }) => {
+export const ShareHeader: React.FunctionComponent<Props> = ({ title }) => {
   const theme = useTheme();
 
   return (

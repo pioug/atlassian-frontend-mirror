@@ -47,9 +47,7 @@ describe('Unauthorised View', () => {
       </IntlProvider>,
     );
 
-    expect(container.textContent).toEqual(
-      `${testUrl} - Connect your 3P account`,
-    );
+    expect(container.textContent).toEqual(`${testUrl}Connect your 3P account`);
   });
 
   it('should not redirect user if they do not click on the authorize button', () => {

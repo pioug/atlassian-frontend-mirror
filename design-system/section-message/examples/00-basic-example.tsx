@@ -6,22 +6,20 @@ import SectionMessage, { SectionMessageAction } from '../src';
 
 const Example = () => (
   <SectionMessage
-    title="The Modern Prometheus"
+    title="Editing is restricted"
     testId="section-message"
     actions={[
-      <SectionMessageAction href="https://en.wikipedia.org/wiki/Mary_Shelley">
-        Mary
+      <SectionMessageAction href="https://https://atlassian.design/">
+        Request edit access
       </SectionMessageAction>,
-      <SectionMessageAction href="https://en.wikipedia.org/wiki/Villa_Diodati">
-        Villa Diodatti
+      <SectionMessageAction href="https://confluence.atlassian.com/jirasoftwareserver/permissions-overview-939938996.html">
+        About permissions
       </SectionMessageAction>,
     ]}
   >
     <Text>
-      You will rejoice to hear that no disaster has accompanied the commencement
-      of an enterprise which you have regarded with such evil forebodings. I
-      arrived here yesterday, and my first task is to assure my dear sister of
-      my welfare and increasing confidence in the success of my undertaking.
+      You're not allowed to change these restrictions. It's either due to the
+      restrictions on the page, or permission settings for this space.
     </Text>
   </SectionMessage>
 );

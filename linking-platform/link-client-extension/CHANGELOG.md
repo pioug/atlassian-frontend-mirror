@@ -1,5 +1,17 @@
 # @atlaskit/link-client-extension
 
+## 1.8.2
+
+### Patch Changes
+
+- [#68194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68194) [`c1d4a8fecc4e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1d4a8fecc4e) - bump json-ld-types to version 3.11.0
+
+## 1.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.8.0
 
 ### Minor Changes

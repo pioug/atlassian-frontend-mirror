@@ -1,4 +1,10 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { typeInEditor } from '@atlaskit/editor-test-helpers/page-objects/editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  clickToolbarMenu,
+  ToolbarMenuItem,
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initFullPageEditorWithAdf,
@@ -8,17 +14,10 @@ import {
   waitForInlineCardSelection,
   waitForResolvedInlineCard,
 } from '@atlaskit/media-integration-test-helpers';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { typeInEditor } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  clickToolbarMenu,
-  ToolbarMenuItem,
-} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-
-import cardAppearanceAdf from './__fixtures__/card-appearance-adf.json';
 import blankAdf from './__fixtures__/blank-adf.json';
+import cardAppearanceAdf from './__fixtures__/card-appearance-adf.json';
 
 const typeParagraphs = async (page: PuppeteerPage, lines = 6) => {
   for (let i = 0; i < 6; i++) {
@@ -126,8 +125,7 @@ describe('Card toolbar:', () => {
     await snapshot(page);
   });
 
-  //FIXES: Failing on https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2046012
-  it.skip('repositions the popup to bottom when new link picker is enabled', async () => {
+  it('repositions the popup to bottom when new link picker is enabled', async () => {
     await initFullPageEditorWithAdf(
       page,
       blankAdf,

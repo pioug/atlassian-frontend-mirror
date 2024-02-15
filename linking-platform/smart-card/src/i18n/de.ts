@@ -29,9 +29,9 @@ export default {
   'fabric.linking.connect_to': 'Mit {name} verbinden',
   'fabric.linking.connect_unauthorised_account_action': 'Mit {context} verbinden',
   'fabric.linking.connect_unauthorised_account_description':
-    'Verbinden Sie {context} mit Atlassian, damit mehr Details zu Ihrer Arbeit und Zusammenarbeit an einem zentralen Ort angezeigt werden.',
+    'Verbinden Sie Ihr {context}-Konto, um an verschiedenen Atlassian-Produkten mitzuarbeiten.',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    'Mit Atlassian verbinden, damit mehr Details zu Ihrer Arbeit und Zusammenarbeit an einem zentralen Ort angezeigt werden.',
+    'Verbinden Sie Ihr Konto, um an verschiedenen Atlassian-Produkten mitzuarbeiten.',
   'fabric.linking.continue': 'Weiter',
   'fabric.linking.copy_url_to_clipboard': 'Link kopieren',
   'fabric.linking.couldnt_load_link': 'Dieser Link konnte aus unbekannten Gründen nicht geladen werden.',
@@ -58,6 +58,8 @@ export default {
     'Bitte senden Sie eine Zugriffsanfrage oder versuchen Sie, die Vorschau über ein anderes Konto anzusehen.',
   'fabric.linking.join_to_view': '{context} beitreten, um diesen Vorgang anzuzeigen',
   'fabric.linking.last_mentioned_in': 'Zuletzt erwähnt in',
+  'fabric.linking.learn_more_about_connecting_account':
+    'Weitere Informationen zum Verbinden Ihres Kontos mit Atlassian-Produkten',
   'fabric.linking.learn_more_about_smart_links': 'Mehr über intelligente Links erfahren',
   'fabric.linking.link_safety_warning_message':
     'Über den Link {unsafeLinkText} gelangen Sie zu einer anderen Site, <a>actual link here</a>',

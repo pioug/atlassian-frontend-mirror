@@ -99,7 +99,7 @@ describe('@atlaskit/dynamic-table', () => {
       expect(body).not.toBeInTheDocument();
     });
 
-    it('should render RankableTableBody if table is rankable', () => {
+    it('should render RankableTableBody if table is rankable', async () => {
       render(
         <DynamicTableStateless
           rowsPerPage={2}
@@ -111,11 +111,25 @@ describe('@atlaskit/dynamic-table', () => {
         />,
       );
 
-      const body = screen.queryByTestId(`${testId}--body`);
-      const rankableBody = screen.getByTestId(testId);
+      {
+        // A non-rankable table body will render initially, due to lazy loading.
 
-      expect(body).not.toBeInTheDocument();
-      expect(rankableBody).toBeInTheDocument();
+        const body = screen.getByTestId(`${testId}--body`);
+        const rankableBody = screen.queryByTestId(testId);
+
+        expect(body).toBeInTheDocument();
+        expect(rankableBody).not.toBeInTheDocument();
+      }
+
+      {
+        // The rankable table body will replace the initial one after it loads.
+
+        const body = screen.queryByTestId(`${testId}--body`);
+        const rankableBody = await screen.findByTestId(testId);
+
+        expect(body).not.toBeInTheDocument();
+        expect(rankableBody).toBeInTheDocument();
+      }
     });
 
     it('should display paginated data', () => {
@@ -204,7 +218,7 @@ describe('@atlaskit/dynamic-table', () => {
           })),
         }));
 
-        const { getByRole, getAllByTestId, getByTestId } = render(
+        render(
           <DynamicTableStateless
             head={newHead}
             rows={newRows}
@@ -212,12 +226,12 @@ describe('@atlaskit/dynamic-table', () => {
           />,
         );
 
-        const thead = getByTestId(`${testId}--head`);
-        const sortButton = getByRole('button');
+        const thead = screen.getByTestId(`${testId}--head`);
+        const sortButton = screen.getByRole('button');
         const trTestIdPattern = new RegExp(`${testId}--row`);
-        const trList = getAllByTestId(trTestIdPattern);
+        const trList = screen.getAllByTestId(trTestIdPattern);
         const tdTestIdPattern = new RegExp(`${testId}--cell`);
-        const tdList = getAllByTestId(tdTestIdPattern);
+        const tdList = screen.getAllByTestId(tdTestIdPattern);
 
         fireEvent.click(thead);
         expect(theadOnClick).toHaveBeenCalled();
@@ -284,6 +298,15 @@ describe('@atlaskit/dynamic-table', () => {
           const spinner = screen.getByTestId(`${testId}--loadingSpinner`);
           expect(spinner).toHaveAttribute('data-size', 'small');
         });
+
+        it('should have inert table when isLoading', () => {
+          render(
+            <DynamicTableStateless rows={rows} testId={testId} isLoading />,
+          );
+
+          const table = screen.getByRole('table');
+          expect(table).toHaveAttribute('inert');
+        });
       });
 
       describe('without rows (empty)', () => {
@@ -342,8 +365,8 @@ describe('@atlaskit/dynamic-table', () => {
       });
 
       it('should run onSort when clicked', async () => {
-        const { getAllByRole } = render(jsx);
-        const sortButton = getAllByRole('button')[0];
+        render(jsx);
+        const sortButton = screen.getAllByRole('button')[0];
 
         await userEvent.click(sortButton);
         expect(onSort).toHaveBeenCalledTimes(1);
@@ -351,8 +374,8 @@ describe('@atlaskit/dynamic-table', () => {
       });
 
       it('should run onSort with space key pressed', async () => {
-        const { getAllByRole } = render(jsx);
-        const sortButton = getAllByRole('button')[0];
+        render(jsx);
+        const sortButton = screen.getAllByRole('button')[0];
 
         await userEvent.type(sortButton, '{space}');
 
@@ -361,8 +384,8 @@ describe('@atlaskit/dynamic-table', () => {
       });
 
       it('should run onSort with enter key pressed', async () => {
-        const { getAllByRole } = render(jsx);
-        const sortButton = getAllByRole('button')[0];
+        render(jsx);
+        const sortButton = screen.getAllByRole('button')[0];
 
         // Must be done this way because userEvent fires both a click event and
         // a keyDown event. By focusing and using the keyboard, we bypass this
@@ -375,8 +398,8 @@ describe('@atlaskit/dynamic-table', () => {
       });
 
       it('onSetPage', () => {
-        const { getByTestId } = render(jsx);
-        const paginationFirstButton = getByTestId(
+        render(jsx);
+        const paginationFirstButton = screen.getByTestId(
           `${testId}--pagination--page-0`,
         );
         fireEvent.click(paginationFirstButton);
@@ -412,14 +435,12 @@ describe('@atlaskit/dynamic-table', () => {
     });
 
     it('should sort data', () => {
-      const { getAllByRole, getAllByTestId } = render(
-        <DynamicTable head={head} rows={rows} testId={testId} />,
-      );
-      const sortButton = getAllByRole('button')[0];
+      render(<DynamicTable head={head} rows={rows} testId={testId} />);
+      const sortButton = screen.getAllByRole('button')[0];
       fireEvent.click(sortButton);
 
-      const firstNameColumn = getAllByTestId(`${testId}--cell-0`);
-      const lastNameColumn = getAllByTestId(`${testId}--cell-1`);
+      const firstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
+      const lastNameColumn = screen.getAllByTestId(`${testId}--cell-1`);
 
       expect(firstNameColumn[0]).toContainHTML('Barack');
       expect(lastNameColumn[0]).toContainHTML('Obama');
@@ -430,15 +451,15 @@ describe('@atlaskit/dynamic-table', () => {
     });
 
     it('should sort numeric data correctly, listed before strings or empty values', () => {
-      const { getAllByRole, getAllByTestId } = render(
+      render(
         <DynamicTable head={headNumeric} rows={rowsNumeric} testId={testId} />,
       );
 
-      const sortNumberColumnButton = getAllByRole('button')[1];
+      const sortNumberColumnButton = screen.getAllByRole('button')[1];
       fireEvent.click(sortNumberColumnButton);
 
-      const firstNameColumn = getAllByTestId(`${testId}--cell-0`);
-      const arbitraryNumeric = getAllByTestId(`${testId}--cell-1`);
+      const firstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
+      const arbitraryNumeric = screen.getAllByTestId(`${testId}--cell-1`);
 
       expect(firstNameColumn[0]).toContainHTML('Negative One');
       expect(arbitraryNumeric[0]).toContainHTML('-1');
@@ -451,14 +472,14 @@ describe('@atlaskit/dynamic-table', () => {
     });
 
     it('should sort grouped numbers in strings', () => {
-      const { getAllByRole, getAllByTestId } = render(
+      render(
         <DynamicTable head={headNumeric} rows={rowsNumeric} testId={testId} />,
       );
 
-      const sortNumberColumnButton = getAllByRole('button')[1];
+      const sortNumberColumnButton = screen.getAllByRole('button')[1];
       fireEvent.click(sortNumberColumnButton);
 
-      const arbitraryNumeric = getAllByTestId(`${testId}--cell-1`);
+      const arbitraryNumeric = screen.getAllByTestId(`${testId}--cell-1`);
 
       expect(arbitraryNumeric[5]).toContainHTML('1');
       expect(arbitraryNumeric[6]).toContainHTML('5');
@@ -466,15 +487,15 @@ describe('@atlaskit/dynamic-table', () => {
     });
 
     it('should preserve sorting, even after updating table dynamically', () => {
-      const { getAllByRole, getAllByTestId, rerender } = render(
+      const { rerender } = render(
         <DynamicTable head={head} rows={rows} testId={testId} />,
       );
 
-      const sortButton = getAllByRole('button')[0];
+      const sortButton = screen.getAllByRole('button')[0];
       fireEvent.click(sortButton);
 
-      const firstNameColumn = getAllByTestId(`${testId}--cell-0`);
-      const lastNameColumn = getAllByTestId(`${testId}--cell-1`);
+      const firstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
+      const lastNameColumn = screen.getAllByTestId(`${testId}--cell-1`);
       expect(firstNameColumn[0]).toContainHTML('Barack');
       expect(lastNameColumn[0]).toContainHTML('Obama');
 
@@ -493,8 +514,8 @@ describe('@atlaskit/dynamic-table', () => {
       const newRows = [...rows, newData];
       rerender(<DynamicTable head={head} rows={newRows} testId={testId} />);
 
-      const updatedFirstNameColumn = getAllByTestId(`${testId}--cell-0`);
-      const updatedLastNameColumn = getAllByTestId(`${testId}--cell-1`);
+      const updatedFirstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
+      const updatedLastNameColumn = screen.getAllByTestId(`${testId}--cell-1`);
 
       expect(updatedFirstNameColumn[0]).toContainHTML('Abraham');
       expect(updatedLastNameColumn[0]).toContainHTML('Lincon');

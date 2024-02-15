@@ -85,7 +85,7 @@ export default class LinkSearchList extends PureComponent<Props, {}> {
 
     if (isLoading) {
       loadingContent = (
-        <div css={spinnerContainer}>
+        <div data-testid={`${id}-loading`} css={spinnerContainer}>
           <Spinner size="medium" />
         </div>
       );

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Select, {
   components,
   OptionProps,
@@ -102,7 +102,7 @@ const CustomColorOption = ({
 );
 
 /**
- * NOT: this is not declared inline with the Select
+ * NOTE: this is not declared inline with the Select
  * If you declare inline you'll have issues with refs
  */
 const CustomValueOption = ({

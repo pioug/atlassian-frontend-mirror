@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { G300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

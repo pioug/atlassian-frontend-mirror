@@ -1,5 +1,17 @@
 # @atlassian/give-kudos
 
+## 2.1.0
+
+### Minor Changes
+
+- [#65577](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65577) [`757870c8a6d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/757870c8a6d4) - localise all strings in package
+
+## 2.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.3
 
 ### Patch Changes

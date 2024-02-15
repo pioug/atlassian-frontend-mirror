@@ -3,7 +3,7 @@ import React from 'react';
 import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import Button from '../src/new-button/variants/default/button';
+import Button from '../src/new';
 
 export default function AutoFocusExample() {
   return (

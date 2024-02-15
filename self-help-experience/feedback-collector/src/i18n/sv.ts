@@ -13,6 +13,7 @@ export default {
   'feedback-collector.can-be-contacted.label':
     'Ja, Atlassian-team får kontakta mig för att lära sig om mina erfarenheter i syfte att förbättra Atlassians produkter och tjänster. Jag bekräftar <a>Atlassians sekretesspolicy</a>',
   'feedback-collector.cancel-button.label': 'Avbryt',
+  'feedback-collector.default.custom.textarea.label': 'Undrade du något?',
   'feedback-collector.enrol-in-research.label': 'Jag vill delta i produktundersökningar',
   'feedback-collector.feedback-title': 'Dela dina åsikter',
   'feedback-collector.form.bug.label': 'Beskriv buggen eller problemet',
@@ -26,6 +27,7 @@ export default {
   'feedback-collector.option.default.placeholder': 'Välj en',
   'feedback-collector.option.question.label': 'Ställ en fråga',
   'feedback-collector.option.suggestion.label': 'Föreslå en förbättring',
+  'feedback-collector.required.fields.summary': 'Obligatoriska fält är markerade med en asterisk',
   'feedback-collector.submit-button.label': 'Skicka feedback',
   'feedback-collector.success-flag.description':
     'Din värdefulla feedback hjälper oss att ständigt förbättra våra produkter.',

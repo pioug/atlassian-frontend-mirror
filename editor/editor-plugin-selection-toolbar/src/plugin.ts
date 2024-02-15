@@ -5,9 +5,11 @@ import type {
   Command,
   FloatingToolbarItem,
   NextEditorPlugin,
+  OptionalPlugin,
   SelectionToolbarGroup,
   SelectionToolbarHandler,
 } from '@atlaskit/editor-common/types';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -28,6 +30,7 @@ export const selectionToolbarPlugin: NextEditorPlugin<
        */
       preferenceToolbarAboveSelection?: boolean;
     };
+    dependencies: [OptionalPlugin<EditorViewModePlugin>];
   }
 > = options => {
   let __selectionToolbarHandlers: SelectionToolbarHandler[] = [];
@@ -69,9 +72,17 @@ export const selectionToolbarPlugin: NextEditorPlugin<
                     // We only want to set selectionStable to true if the editor has focus
                     // to prevent the toolbar from showing when the editor is blurred
                     // due to a click outside the editor.
+
+                    const editorViewModePlugin =
+                      options.api?.editorViewMode?.sharedState.currentState();
+                    const isViewModeEnabled =
+                      editorViewModePlugin?.mode === 'view';
+
                     view.dispatch(
                       view.state.tr.setMeta(selectionToolbarPluginKey, {
-                        selectionStable: view.hasFocus(),
+                        selectionStable: !isViewModeEnabled
+                          ? view.hasFocus()
+                          : true,
                       }),
                     );
                   },

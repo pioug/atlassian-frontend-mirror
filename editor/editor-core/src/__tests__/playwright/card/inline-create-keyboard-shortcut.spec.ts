@@ -1,21 +1,18 @@
 import {
-  editorTestCase as test,
-  expect,
-  EditorMainToolbarModel,
-  EditorLinkPickerModel,
   EditorFloatingToolbarModel,
-  EditorNodeContainerModel,
   EditorInlineCardModel,
-  fixTest,
-  BROWSERS,
+  EditorLinkPickerModel,
+  EditorMainToolbarModel,
+  EditorNodeContainerModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  p,
+  a,
   doc,
   inlineCard,
-  a,
+  p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.describe('with feature flag: lp-link-picker', () => {
@@ -113,13 +110,6 @@ test.describe('with feature flag: lp-link-picker', () => {
   test(`card: inserting a link with CMD + K with keyboard should retain display text and insert a link`, async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-20829',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 09/11/2023: https://product-fabric.atlassian.net/browse/ED-20829',
-      browsers: [BROWSERS.webkit],
-    });
-
     const nodes = EditorNodeContainerModel.from(editor);
     const inlineCardModel = EditorInlineCardModel.from(nodes.inlineCard);
     const floatingToolbarModel = EditorFloatingToolbarModel.from(
@@ -153,13 +143,6 @@ test.describe('with feature flag: lp-link-picker', () => {
   test(`card: inserting a link with CMD + K with click should retain display text and insert a link`, async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-20829',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 09/11/2023: https://product-fabric.atlassian.net/browse/ED-20829',
-      browsers: [BROWSERS.webkit],
-    });
-
     const nodes = EditorNodeContainerModel.from(editor);
     const inlineCardModel = EditorInlineCardModel.from(nodes.inlineCard);
     const floatingToolbarModel = EditorFloatingToolbarModel.from(

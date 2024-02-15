@@ -12,13 +12,11 @@ import type {
 
 type Config = TextColorPluginConfig | boolean;
 
-export type TextColorPluginDependencies = [OptionalPlugin<AnalyticsPlugin>];
-
 export type TextColorPlugin = NextEditorPlugin<
   'textColor',
   {
     pluginConfiguration: Config | undefined;
-    dependencies: TextColorPluginDependencies;
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
     actions: {
       changeColor: (color: string) => Command;
     };

@@ -16,6 +16,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': 'Değişiklikleriniz kaydedilmeyecek',
   'linkCreate.createForm.button.close': 'Kapat',
   'linkCreate.createForm.button.create': 'Oluştur',
-  'linkCreate.createForm.button.edit': 'Düzenle',
+  'linkCreate.createForm.button.createAndOpen': 'Oluştur + Aç',
   'linkCreate.modal.heading': 'Yenisini oluşturun',
 };

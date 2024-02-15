@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button';
+import Button, { IconButton } from '@atlaskit/button/new';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -21,7 +21,7 @@ const SpotlightHeadingAfterElement = () => {
   return (
     <SpotlightManager>
       <SpotlightTarget name="codesandbox">
-        <Button iconBefore={<CodeSandboxIcon />} />
+        <IconButton icon={CodeSandboxIcon} label="codesandbox" />
       </SpotlightTarget>
       <div style={{ marginTop: token('space.200', '16px') }}>
         <Button appearance="primary" onClick={() => start()}>
@@ -33,10 +33,12 @@ const SpotlightHeadingAfterElement = () => {
         {isSpotlightActive && (
           <Spotlight
             headingAfterElement={
-              <Button
-                iconBefore={<CrossIcon label="Close" primaryColor={N0} />}
+              <IconButton
+                // TODO: (from codemod) "glyph", "primaryColor", "secondaryColor" and "testId" are no longer supported in button icons, please refactor the code and/or revisit the UI.
+                icon={CrossIcon}
                 appearance="subtle"
                 onClick={() => end()}
+                label="Close"
               />
             }
             actions={[

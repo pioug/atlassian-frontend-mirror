@@ -50,17 +50,17 @@ export function keymapPlugin(
   );
   bindKeymapWithEditorCommand(
     outdentList.common!,
-    outdentListCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD, featureFlags),
+    outdentListCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD),
     list,
   );
   bindKeymapWithCommand(
     enter.common!,
-    enterKeyCommand(editorAnalyticsAPI)(featureFlags),
+    enterKeyCommand(editorAnalyticsAPI)(),
     list,
   );
   bindKeymapWithCommand(
     backspace.common!,
-    backspaceKeyCommand(editorAnalyticsAPI)(featureFlags),
+    backspaceKeyCommand(editorAnalyticsAPI)(),
     list,
   );
 

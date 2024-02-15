@@ -218,7 +218,7 @@ export const createPlugin = (
         if (headingLevel > -1 && event.altKey) {
           if (browser.mac && event.metaKey) {
             return (
-              editorAPI?.core.actions.execute(
+              editorAPI?.core?.actions.execute(
                 autoformatHeading(headingLevel, editorAnalyticsApi),
               ) ?? false
             );
@@ -228,7 +228,7 @@ export const createPlugin = (
             altKeyLocation !== event.DOM_KEY_LOCATION_RIGHT
           ) {
             return (
-              editorAPI?.core.actions.execute(
+              editorAPI?.core?.actions.execute(
                 autoformatHeading(headingLevel, editorAnalyticsApi),
               ) ?? false
             );

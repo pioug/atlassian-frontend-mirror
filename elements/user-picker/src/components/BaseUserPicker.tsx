@@ -48,6 +48,13 @@ export type BaseUserPickerProps = UserPickerProps & {
   components: any;
   width: string | number;
   name?: string;
+  // eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
+  /**
+   * @deprecated This is a temporary prop to enable user-pickers to work in Draggable elements in react-beautiful-dnd.
+   * See https://product-fabric.atlassian.net/browse/DSP-15701 for more details.
+   * It may be removed in a future minor or patch when a longer-term workaround is found.
+   */
+  UNSAFE_hasDraggableParentComponent?: boolean;
 };
 
 const loadingMessage = () => null;
@@ -130,6 +137,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       inputValue: props.search || '',
       resolving: false,
       showError: false,
+      initialFocusHandled: false,
     };
     this.optionsShownUfoExperienceInstance =
       userPickerOptionsShownUfoExperience.getInstance(uuidv4());
@@ -366,6 +374,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     this.abortOptionsShownUfoExperience();
     this.setState({
       menuIsOpen: false,
+      initialFocusHandled: false,
       options: [],
     });
   };
@@ -450,9 +459,12 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     }
   };
 
-  private focusedOptionObserver = new MutationObserver(
-    this.focusedOptionObserverCallback,
-  );
+  // for SSR, MutationObserver not existed in node, need to check its existence first
+  // using typeof MutationObserver to check if MutationObserver is function, it is undefined in node
+  // if it is node environment, focusedOptionObserver will be falsy value.
+  private focusedOptionObserver =
+    typeof MutationObserver === 'function' &&
+    new MutationObserver(this.focusedOptionObserverCallback);
 
   componentDidUpdate(_: UserPickerProps, prevState: UserPickerState) {
     const { menuIsOpen, options, resolving, count, inputValue } = this.state;
@@ -469,7 +481,8 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
             'aria-activedescendant',
             menuRef.children[0].id,
           );
-        this.focusedOptionObserver.observe(menuRef, observerOptions);
+        this.focusedOptionObserver &&
+          this.focusedOptionObserver.observe(menuRef, observerOptions);
       }
       if (!this.session) {
         // session should have been created onFocus
@@ -494,7 +507,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         )
       ) {
         this.selectRef.select.inputRef.removeAttribute('aria-activedescendant');
-        this.focusedOptionObserver.disconnect();
+        this.focusedOptionObserver && this.focusedOptionObserver.disconnect();
       }
     }
 
@@ -591,6 +604,24 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     return ariaLabels.reduce((obj, key) => ({ ...obj, [key]: props[key] }), {});
   }
 
+  private handleClickDraggableParentComponent = () => {
+    if (this.state.initialFocusHandled) {
+      // As <Select /> is already focused, calling this.selectRef.current.focus() again no longer triggers its own handlers (i.e. onMenuOpen, onMenuClose)
+      // We have to manually handle the open and close states of the dropdown menu based on a user's click from this point onwards to prevent the bug
+      if (this.state.menuIsOpen) {
+        this.handleClose();
+      } else {
+        this.handleOpen();
+      }
+    } else if (!this.state.menuIsOpen) {
+      // Trigger focus state when ValueContainer is clicked for the first time
+      // The focused state will then invoke <Select /> instance's own handlers (e.g. onMenuOpen, onMenuClose)
+      // to manage the state of the dropdown menu
+      this.focus();
+      this.setState(() => ({ initialFocusHandled: true }));
+    }
+  };
+
   render() {
     const {
       isMulti,
@@ -622,6 +653,8 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       ariaLabel,
       name,
       header,
+      required,
+      UNSAFE_hasDraggableParentComponent,
     } = this.props;
 
     const {
@@ -643,6 +676,8 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         aria-labelledby={ariaLabelledBy}
         aria-label={ariaLabel}
         aria-live={ariaLive}
+        aria-required={required} // This has been added as a safety net.
+        required={required}
         ref={this.handleSelectRef}
         isMulti={isMulti}
         options={this.getOptions()}
@@ -667,7 +702,11 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         blurInputOnSelect={!isMulti}
         closeMenuOnSelect={!isMulti}
         noOptionsMessage={
-          showError ? loadOptionsErrorMessage : noOptionsMessage
+          showError
+            ? loadOptionsErrorMessage
+            : typeof noOptionsMessage === 'function'
+            ? noOptionsMessage
+            : () => noOptionsMessage
         }
         footer={footer}
         openMenuOnFocus
@@ -694,6 +733,9 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         header={header}
         {...this.ariaProps}
         {...pickerProps}
+        {...(UNSAFE_hasDraggableParentComponent && {
+          onValueContainerClick: this.handleClickDraggableParentComponent,
+        })}
       />
     );
   }

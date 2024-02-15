@@ -112,6 +112,8 @@ export interface Props {
   anonymousFeedback?: boolean;
   /** Optional custom label for select field */
   selectLabel?: string;
+  /** Optional custom label for TextArea when showTypeField is false*/
+  customTextAreaLabel?: string;
 }
 
 const MAX_SUMMARY_LENGTH_CHARS = 100;
@@ -513,6 +515,7 @@ export default class FeedbackCollector extends Component<Props> {
             : anonymousFeedback
         }
         selectLabel={this.props.selectLabel}
+        customTextAreaLabel={this.props.customTextAreaLabel}
       />
     );
   }

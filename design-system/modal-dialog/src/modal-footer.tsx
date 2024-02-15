@@ -11,17 +11,12 @@ import { keylineHeight, padding } from './internal/constants';
 
 const footerStyles = css({
   display: 'flex',
-
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  padding,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  paddingTop: `${padding - keylineHeight}px`,
-
+  padding: padding,
   position: 'relative',
   alignItems: 'center',
   justifyContent: 'flex-end',
-
   gap: token('space.100', '8px'),
+  paddingBlockStart: `${padding - keylineHeight}px`,
 });
 
 export interface ModalFooterProps {

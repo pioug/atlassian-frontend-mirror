@@ -125,7 +125,7 @@ export function PrimaryToolbarComponent({
     allowHeadingAndParagraphIndentation,
     taskDecisionState,
     indentationState,
-    pluginInjectionApi?.list.actions.isInsideListItem,
+    pluginInjectionApi?.list?.actions.isInsideListItem,
   );
 
   if (!listState) {

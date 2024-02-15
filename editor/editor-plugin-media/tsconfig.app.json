@@ -51,6 +51,9 @@
       "path": "../editor-plugin-analytics/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-context-identifier/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-decorations/tsconfig.app.json"
     },
     {
@@ -118,6 +121,9 @@
     },
     {
       "path": "../../platform/feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/primitives/tsconfig.app.json"
     },
     {
       "path": "../../design-system/textfield/tsconfig.app.json"

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-client-extension",
-  "version": "1.8.0",
+  "version": "1.8.2",
   "description": "Extension methods for linking platform client",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -15,7 +15,7 @@
       "name": "LinkClientExtension"
     }
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -34,14 +34,14 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/linking-common": "^4.21.0",
-    "@atlaskit/linking-types": "^8.5.0",
+    "@atlaskit/linking-common": "^5.3.0",
+    "@atlaskit/linking-types": "^8.6.0",
     "@babel/runtime": "^7.0.0",
-    "json-ld-types": "^3.9.1",
+    "json-ld-types": "^3.11.0",
     "lru_map": "^0.4.1"
   },
   "peerDependencies": {
-    "@atlaskit/link-provider": "^1.6.4",
+    "@atlaskit/link-provider": "^1.7.0",
     "react": "^16.8.0"
   },
   "devDependencies": {

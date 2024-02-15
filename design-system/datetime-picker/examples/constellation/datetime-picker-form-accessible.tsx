@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import Form, { Field, FormFooter } from '@atlaskit/form';
 
 import { DateTimePicker } from '../../src';

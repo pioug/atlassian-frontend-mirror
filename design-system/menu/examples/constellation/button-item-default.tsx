@@ -13,7 +13,7 @@ const ImgIcon = ({ src, alt }: { src: string; alt: string }) => (
 );
 
 export default () => (
-  <Box data-testid="button-items">
+  <Box testId="button-items">
     <ButtonItem isSelected>Activate</ButtonItem>
     <ButtonItem isDisabled>Activate</ButtonItem>
     <ButtonItem>Activate</ButtonItem>

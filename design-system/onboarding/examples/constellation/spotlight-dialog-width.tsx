@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button, { IconButton } from '@atlaskit/button/new';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import VidFullScreenOnIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
 import { N0 } from '@atlaskit/theme/colors';
@@ -86,15 +87,15 @@ const SpotlightDialogWidth = () => {
 
   return (
     <SpotlightManager>
-      <ButtonGroup>
+      <ButtonGroup label="Choose spotlight options">
         <SpotlightTarget name="codesandbox">
-          <Button iconBefore={<CodeSandboxIcon />} />
+          <IconButton icon={CodeSandboxIcon} label="codesandbox" />
         </SpotlightTarget>
         <SpotlightTarget name="copy">
-          <Button iconBefore={<CopyIcon label="Copy" />} />
+          <IconButton icon={CopyIcon} label="Copy" />
         </SpotlightTarget>
         <SpotlightTarget name="expand">
-          <Button iconBefore={<VidFullScreenOnIcon label="Full screen" />} />
+          <IconButton icon={VidFullScreenOnIcon} label="Full screen" />
         </SpotlightTarget>
       </ButtonGroup>
       <div style={{ marginTop: token('space.200', '16px') }}>

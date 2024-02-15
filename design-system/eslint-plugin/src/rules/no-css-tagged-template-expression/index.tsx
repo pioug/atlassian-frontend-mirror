@@ -1,7 +1,7 @@
 import { createLintRule } from '../utils/create-rule';
+import { isCss } from '../utils/is-supported-import';
 
 import { createNoTaggedTemplateExpressionRule } from './create-no-tagged-template-expression-rule';
-import { isSupportedImport } from './is-supported-import';
 
 const rule = createLintRule({
   meta: {
@@ -19,7 +19,7 @@ const rule = createLintRule({
     },
   },
   create: createNoTaggedTemplateExpressionRule(
-    isSupportedImport('css'),
+    isCss,
     'unexpectedTaggedTemplate',
   ),
 });

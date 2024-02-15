@@ -15,7 +15,7 @@ export default class Item extends Component<any> {
 
   render() {
     // eslint-disable-next-line react/prop-types
-    const { depth, data, render } = this.props;
+    const { depth, data, render, loadingLabel } = this.props;
 
     const renderedRow = render(data);
     if (!renderedRow) {
@@ -25,6 +25,7 @@ export default class Item extends Component<any> {
     return cloneElement(renderedRow, {
       depth,
       data,
+      loadingLabel,
       renderChildren: () => (
         <div id={toItemId(itemId)}>
           <Items
@@ -32,6 +33,7 @@ export default class Item extends Component<any> {
             depth={depth}
             items={items}
             render={render}
+            loadingLabel={loadingLabel}
           />
         </div>
       ),

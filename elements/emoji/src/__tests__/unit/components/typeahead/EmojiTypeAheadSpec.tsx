@@ -1,13 +1,15 @@
-import React from 'react';
-import type { ReactWrapper } from 'enzyme';
-import * as sinon from 'sinon';
-import { waitUntil } from '@atlaskit/elements-test-helpers';
 import type {
   AnalyticsEventPayload,
   CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import React, { createRef } from 'react';
 import waitForExpect from 'wait-for-expect';
 
+import {
+  getEmojiTypeAheadItemById,
+  getSelectedEmojiTypeAheadItem,
+  isEmojiTypeAheadItemSelected,
+} from '../../_emoji-selectors';
 import {
   atlassianBoomEmoji,
   blackFlagEmoji,
@@ -17,36 +19,29 @@ import {
   openMouthEmoji,
   standardBoomEmoji,
 } from '../../_test-data';
-import {
-  hasSelector,
-  getEmojiTypeAheadItemById,
-  getSelectedEmojiTypeAheadItem,
-  isEmojiTypeAheadItemSelected,
-} from '../../_emoji-selectors';
 
-import { defaultListLimit } from '../../../../util/constants';
+import { RenderResult, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import EmojiTypeAhead, {
   Props,
 } from '../../../../components/typeahead/EmojiTypeAhead';
-import EmojiTypeAheadComponent from '../../../../components/typeahead/EmojiTypeAheadComponent';
 import type { OnLifecycle } from '../../../../components/typeahead/EmojiTypeAheadComponent';
-import EmojiTypeAheadItem from '../../../../components/typeahead/EmojiTypeAheadItem';
-import type { OptionalEmojiDescription, OnEmojiEvent } from '../../../../types';
-import { toEmojiId } from '../../../../util/type-helpers';
-import type { Props as TypeAheadProps } from '../../../../components/typeahead/EmojiTypeAhead';
-import type { State as TypeAheadState } from '../../../../components/typeahead/EmojiTypeAheadComponent';
+import type { OnEmojiEvent, OptionalEmojiDescription } from '../../../../types';
 import {
+  recordFailed,
+  recordSucceeded,
   typeaheadCancelledEvent,
   typeaheadRenderedEvent,
   typeaheadSelectedEvent,
-  recordSucceeded,
-  recordFailed,
   ufoExperiences,
 } from '../../../../util/analytics';
-import { mountWithIntl } from '../../_enzyme';
+import { defaultListLimit } from '../../../../util/constants';
+import { renderWithIntl } from '../../_testing-library';
 
-function setupTypeAhead(props?: Props): Promise<ReactWrapper<any, any>> {
-  const component = mountWithIntl(
+const emojiTypeAheadRef = createRef<EmojiTypeAhead>();
+
+const setupTypeAhead = async (props?: Partial<Props>): Promise<RenderResult> =>
+  renderWithIntl(
     <EmojiTypeAhead
       emojiProvider={
         props && props.emojiProvider
@@ -54,14 +49,10 @@ function setupTypeAhead(props?: Props): Promise<ReactWrapper<any, any>> {
           : getEmojiResourcePromise()
       }
       query=""
+      ref={emojiTypeAheadRef}
       {...props}
     />,
   );
-
-  return waitUntil(() => hasSelector(component, EmojiTypeAheadComponent)).then(
-    () => component,
-  );
-}
 
 const getCreateAnalyticsSpy = (
   spy: (payload: AnalyticsEventPayload) => void,
@@ -94,18 +85,16 @@ const withEmojiIds = ({ attributes, ...rest }: AnalyticsEventPayload) => ({
 
 const allEmojis = newEmojiRepository().all().emojis;
 
-const leftClick = {
-  button: 0,
+const findEmojiItems = async (container: RenderResult['container']) => {
+  await screen.findAllByRole('img'); // Make sure they're all loaded
+  return container.querySelectorAll('.ak-emoji-typeahead-item');
 };
 
-const findEmojiItems = (component: ReactWrapper) =>
-  component.update() && component.find(EmojiTypeAheadItem);
-const itemsVisibleCount = (component: ReactWrapper) =>
-  findEmojiItems(component).length;
-const itemsVisible = (component: ReactWrapper) =>
-  itemsVisibleCount(component) > 0;
-const doneLoading = (component: ReactWrapper<TypeAheadProps, TypeAheadState>) =>
-  component.update() && !component.state('loading');
+const itemsVisibleCount = async (container: RenderResult['container']) =>
+  (await findEmojiItems(container)).length;
+
+const itemsVisible = async (container: RenderResult['container']) =>
+  (await itemsVisibleCount(container)) > 0;
 
 describe('EmojiTypeAhead', () => {
   const emojiRecordUFO = ufoExperiences['emoji-selection-recorded'];
@@ -113,95 +102,80 @@ describe('EmojiTypeAhead', () => {
   const ufoEmojiRecordedSuccessSpy = jest.spyOn(emojiRecordUFO, 'success');
   const ufoEmojiRecordedFailureSpy = jest.spyOn(emojiRecordUFO, 'failure');
 
-  beforeEach(() => {
-    ufoEmojiRecordedStartSpy.mockClear();
-    ufoEmojiRecordedSuccessSpy.mockClear();
-    ufoEmojiRecordedFailureSpy.mockClear();
+  afterEach(jest.clearAllMocks);
+
+  it('should display max emoji by default', async () => {
+    const { container } = await setupTypeAhead();
+    const emojiItems = await findEmojiItems(container);
+    expect(emojiItems).toHaveLength(defaultListLimit);
   });
-  it('should display max emoji by default', () =>
-    setupTypeAhead().then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        expect(findEmojiItems(component).length).toEqual(defaultListLimit);
-      }),
-    ));
 
-  it('should limit results to those matching "thumbs"', () =>
-    setupTypeAhead({
+  it('should limit results to those matching "thumbs"', async () => {
+    const { container } = await setupTypeAhead({
       query: 'thumbs',
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        expect(findEmojiItems(component).length).toEqual(2);
-      }),
-    ));
+    });
+    const emojiItems = await findEmojiItems(container);
+    expect(emojiItems.length).toEqual(2);
+  });
 
-  it('should limit result to matching "ball"', () =>
-    setupTypeAhead({
+  it('should limit result to matching "ball"', async () => {
+    const { container } = await setupTypeAhead({
       query: 'ball',
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        expect(findEmojiItems(component).length).toEqual(2);
-      }),
-    ));
+    });
+    const emojiItems = await findEmojiItems(container);
+    expect(emojiItems.length).toEqual(2);
+  });
 
-  it('should change selection when navigating next', () =>
-    setupTypeAhead().then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        const defaultEmojiShown = () =>
-          findEmojiItems(component).length === defaultListLimit;
-        const secondItemSelected = () =>
-          isEmojiTypeAheadItemSelected(component, allEmojis[1].id);
-        expect(defaultEmojiShown()).toEqual(true);
+  it('should change selection when navigating next', async () => {
+    const { container } = await setupTypeAhead();
 
-        const instance = component.instance() as EmojiTypeAhead;
-        instance.selectNext();
+    const emojiItems = await findEmojiItems(container);
+    expect(emojiItems).toHaveLength(defaultListLimit);
 
-        expect(secondItemSelected()).toEqual(true);
-      }),
-    ));
+    // First emoji selected
+    await isEmojiTypeAheadItemSelected(container, allEmojis[0].shortName);
+    emojiTypeAheadRef.current?.selectNext();
+    // Second emoji selected
+    await waitFor(() =>
+      isEmojiTypeAheadItemSelected(container, allEmojis[1].shortName),
+    );
+  });
 
-  it('should change selection when navigating previous', () =>
-    setupTypeAhead().then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        const defaultEmojiShown = () =>
-          findEmojiItems(component).length === defaultListLimit;
-        const lastItemSelected = () =>
-          isEmojiTypeAheadItemSelected(
-            component,
-            allEmojis[defaultListLimit - 1].id,
-          );
-        expect(defaultEmojiShown()).toEqual(true);
+  it('should change selection when navigating previous', async () => {
+    const { container } = await setupTypeAhead();
 
-        const instance = component.instance() as EmojiTypeAhead;
-        instance.selectPrevious();
+    const emojiItems = await findEmojiItems(container);
+    expect(emojiItems).toHaveLength(defaultListLimit);
 
-        expect(lastItemSelected()).toEqual(true);
-      }),
-    ));
+    emojiTypeAheadRef.current?.selectPrevious();
+    // Last emoji selected
+    await waitFor(() =>
+      isEmojiTypeAheadItemSelected(
+        container,
+        allEmojis[defaultListLimit - 1].shortName,
+      ),
+    );
+  });
 
-  it('should choose current selection when chooseCurrentSelection called', () => {
+  it('should choose current selection when chooseCurrentSelection called', async () => {
     let choseEmoji: OptionalEmojiDescription;
-    return setupTypeAhead({
+    const { container } = await setupTypeAhead({
       onSelection: (_emojiId, emoji) => {
         choseEmoji = emoji;
       },
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        const defaultEmojiShown = () =>
-          findEmojiItems(component).length === defaultListLimit;
-        const secondItemSelected = () =>
-          isEmojiTypeAheadItemSelected(component, allEmojis[1].id);
-        const chooseSecondItem = () =>
-          choseEmoji && choseEmoji.id === allEmojis[1].id;
-        expect(defaultEmojiShown()).toEqual(true);
+    });
 
-        const instance = component.instance() as EmojiTypeAhead;
-        instance.selectNext();
-        expect(secondItemSelected()).toEqual(true);
+    const emojiItems = await findEmojiItems(container);
+    expect(emojiItems).toHaveLength(defaultListLimit);
 
-        instance.chooseCurrentSelection();
-        expect(chooseSecondItem()).toEqual(true);
-      }),
+    emojiTypeAheadRef.current?.selectNext();
+    // Second emoji selected
+    await waitFor(() =>
+      isEmojiTypeAheadItemSelected(container, allEmojis[1].shortName),
     );
+
+    emojiTypeAheadRef.current?.chooseCurrentSelection();
+    await waitFor(() => expect(choseEmoji?.id).toEqual(allEmojis[1].id));
   });
 
   it('should choose clicked selection when item clicked', async () => {
@@ -211,15 +185,16 @@ describe('EmojiTypeAhead', () => {
     const emojiProvider = getEmojiResourcePromise();
     let selectionRecorded = false;
 
-    const component = await setupTypeAhead({
+    const { container } = await setupTypeAhead({
       emojiProvider,
       onSelection: (_emojiId, emoji) => {
         choseEmoji = emoji;
       },
       createAnalyticsEvent: getCreateAnalyticsSpy(fireEventSpy),
-    } as Props);
+    });
 
-    await waitUntil(() => doneLoading(component));
+    const emojiItems = await findEmojiItems(container);
+    expect(emojiItems).toHaveLength(defaultListLimit);
 
     const provider = await emojiProvider;
 
@@ -228,16 +203,13 @@ describe('EmojiTypeAhead', () => {
       return Promise.resolve();
     };
 
-    const defaultEmojiShown = () =>
-      findEmojiItems(component).length === defaultListLimit;
-    const chooseThirdItem = () =>
-      choseEmoji && choseEmoji.id === allEmojis[2].id;
+    const item = await getEmojiTypeAheadItemById(
+      container,
+      allEmojis[2].shortName,
+    );
+    await userEvent.click(item);
 
-    expect(defaultEmojiShown()).toEqual(true);
-
-    const item = getEmojiTypeAheadItemById(component, allEmojis[2].id);
-    item.simulate('mousedown', leftClick);
-    expect(chooseThirdItem()).toEqual(true);
+    expect(choseEmoji?.shortName).toEqual(allEmojis[2].shortName);
     expect(fireEventSpy).toHaveBeenCalledWith(
       expect.objectContaining(
         withEmojiIds(
@@ -253,7 +225,7 @@ describe('EmojiTypeAhead', () => {
       ),
     );
 
-    await waitUntil(() => selectionRecorded);
+    await waitFor(() => expect(selectionRecorded).toBe(true));
     expect(fireEventSpy).toHaveBeenLastCalledWith(
       expect.objectContaining(withSessionId(recordSucceeded('typeahead'))),
     );
@@ -269,11 +241,11 @@ describe('EmojiTypeAhead', () => {
     const emojiProvider = getEmojiResourcePromise();
     let failureOccurred = false;
 
-    const component = await setupTypeAhead({
+    const { container } = await setupTypeAhead({
       createAnalyticsEvent: getCreateAnalyticsSpy(fireEventSpy),
       emojiProvider,
-    } as Props);
-    await waitUntil(() => doneLoading(component));
+    });
+    await findEmojiItems(container);
 
     const provider = await emojiProvider;
 
@@ -282,10 +254,13 @@ describe('EmojiTypeAhead', () => {
       return Promise.reject({ code: 403, reason: 'Forbidden' });
     };
 
-    const item = getEmojiTypeAheadItemById(component, allEmojis[2].id);
-    item.simulate('mousedown', leftClick);
+    const item = await getEmojiTypeAheadItemById(
+      container,
+      allEmojis[2].shortName,
+    );
+    await userEvent.click(item);
 
-    await waitUntil(() => failureOccurred);
+    await waitFor(() => expect(failureOccurred).toBe(true));
     await waitForExpect(() => {
       expect(fireEventSpy).toHaveBeenLastCalledWith(
         expect.objectContaining(withSessionId(recordFailed('typeahead'))),
@@ -297,418 +272,393 @@ describe('EmojiTypeAhead', () => {
     });
   });
 
-  it('should record selection on EmojiProvider even with no onSelection property', (done) => {
+  it('should record selection on EmojiProvider even with no onSelection property', async () => {
     const emojiResourcePromise = getEmojiResourcePromise();
-    return setupTypeAhead({
+    const { container } = await setupTypeAhead({
       emojiProvider: emojiResourcePromise,
-    }).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        const defaultEmojiShown = () =>
-          findEmojiItems(component).length === defaultListLimit;
-        expect(defaultEmojiShown()).toEqual(true);
+    });
 
-        const item = getEmojiTypeAheadItemById(component, allEmojis[2].id);
-        item.simulate('mousedown', leftClick);
+    const emojiItems = await findEmojiItems(container);
+    expect(emojiItems).toHaveLength(defaultListLimit);
 
-        // now ensure the MockEmojiProvider was called and records selection
-        emojiResourcePromise.then((provider) => {
-          expect(provider.recordedSelections).toHaveLength(1);
-          expect(provider.recordedSelections[0].shortName).toEqual(
-            allEmojis[2].shortName,
-          );
-          done();
-        });
-      }),
+    const item = await getEmojiTypeAheadItemById(
+      container,
+      allEmojis[2].shortName,
+    );
+    await userEvent.click(item);
+
+    // now ensure the MockEmojiProvider was called and records selection
+    const provider = await emojiResourcePromise;
+
+    expect(provider.recordedSelections).toHaveLength(1);
+    expect(provider.recordedSelections[0].shortName).toEqual(
+      allEmojis[2].shortName,
     );
   });
 
-  it('should record selection on EmojiProvider and call onSelection property', (done) => {
+  it('should record selection on EmojiProvider and call onSelection property', async () => {
     let choseEmoji: OptionalEmojiDescription;
 
     const emojiResourcePromise = getEmojiResourcePromise();
-    return setupTypeAhead({
+    const { container } = await setupTypeAhead({
       emojiProvider: emojiResourcePromise,
       onSelection: (_emojiId, emoji) => {
         choseEmoji = emoji;
       },
-    }).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        const defaultEmojiShown = () =>
-          findEmojiItems(component).length === defaultListLimit;
-        const chooseThirdItem = () =>
-          choseEmoji && choseEmoji.id === allEmojis[2].id;
-        expect(defaultEmojiShown()).toEqual(true);
+    });
 
-        const item = getEmojiTypeAheadItemById(component, allEmojis[2].id);
-        item.simulate('mousedown', leftClick);
-        expect(chooseThirdItem()).toEqual(true);
+    const emojiItems = await findEmojiItems(container);
+    expect(emojiItems).toHaveLength(defaultListLimit);
 
-        // now ensure the MockEmojiProvider was also called and records selection
-        emojiResourcePromise.then((provider) => {
-          expect(provider.recordedSelections).toHaveLength(1);
-          expect(provider.recordedSelections[0].shortName).toEqual(
-            allEmojis[2].shortName,
-          );
-          done();
-        });
-      }),
+    const item = await getEmojiTypeAheadItemById(
+      container,
+      allEmojis[2].shortName,
+    );
+    await userEvent.click(item);
+    expect(choseEmoji?.id).toEqual(allEmojis[2].id);
+
+    // now ensure the MockEmojiProvider was also called and records selection
+    const provider = await emojiResourcePromise;
+    expect(provider.recordedSelections).toHaveLength(1);
+    expect(provider.recordedSelections[0].shortName).toEqual(
+      allEmojis[2].shortName,
     );
   });
 
-  it('should fire onOpen on initial display', () => {
-    const onOpen = sinon.spy();
-    const onClose = sinon.spy();
+  it('should fire onOpen on initial display', async () => {
+    const onOpen = jest.fn();
+    const onClose = jest.fn();
 
-    return setupTypeAhead({
+    const { container } = await setupTypeAhead({
       onOpen: onOpen as OnLifecycle,
       onClose: onClose as OnLifecycle,
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        const defaultEmojiShown = () =>
-          findEmojiItems(component).length === defaultListLimit;
-        expect(defaultEmojiShown()).toEqual(true);
-        expect(onOpen.callCount).toEqual(1);
-        expect(onClose.callCount).toEqual(0);
-      }),
-    );
+    });
+
+    const emojiItems = await findEmojiItems(container);
+    expect(emojiItems).toHaveLength(defaultListLimit);
+
+    expect(onOpen).toHaveBeenCalledTimes(1);
+    expect(onClose).not.toHaveBeenCalled();
   });
 
-  it('should fire onOpen when first result shown', () => {
-    const onOpen = sinon.spy();
-    const onClose = sinon.spy();
+  it('should fire onOpen when first result shown', async () => {
+    const onOpen = jest.fn();
+    const onClose = jest.fn();
+    const emojiProvider = getEmojiResourcePromise();
 
-    return setupTypeAhead({
+    const { rerender, container } = await setupTypeAhead({
       onOpen: onOpen as OnLifecycle,
       onClose: onClose as OnLifecycle,
       query: 'zeroresults',
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        const noEmojiShown = () => findEmojiItems(component).length === 0;
-        const defaultEmojiShown = () =>
-          findEmojiItems(component).length === defaultListLimit;
-        expect(noEmojiShown()).toEqual(true);
-        expect(onOpen.callCount).toEqual(1);
-        expect(onClose.callCount).toEqual(1);
-        component.setProps({ query: '' });
+      emojiProvider,
+    });
 
-        return waitUntil(() => itemsVisible(component)).then(() => {
-          expect(defaultEmojiShown()).toEqual(true);
-          expect(onOpen.callCount).toEqual(2);
-          expect(onClose.callCount).toEqual(1);
-        });
-      }),
+    let emojiItems = container.querySelectorAll('.ak-emoji-typeahead-item');
+    expect(emojiItems.length).toBe(0);
+
+    await waitFor(() => expect(onOpen).toHaveBeenCalledTimes(1));
+    expect(onClose).toHaveBeenCalledTimes(1);
+    rerender(
+      <EmojiTypeAhead
+        emojiProvider={emojiProvider}
+        query=""
+        ref={emojiTypeAheadRef}
+        onOpen={onOpen as OnLifecycle}
+        onClose={onClose as OnLifecycle}
+      />,
     );
+
+    emojiItems = await findEmojiItems(container);
+    await waitFor(async () => expect(await itemsVisible(container)).toBe(true));
+
+    expect(emojiItems).toHaveLength(defaultListLimit);
+    expect(onOpen).toHaveBeenCalledTimes(2);
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 
-  it('should fire onClose when no matches', () => {
-    const onOpen = sinon.spy();
-    const onClose = sinon.spy();
+  it('should fire onClose when no matches', async () => {
+    const onOpen = jest.fn();
+    const onClose = jest.fn();
 
-    return setupTypeAhead({
+    const emojiProvider = getEmojiResourcePromise();
+    const { rerender, container } = await setupTypeAhead({
       onOpen: onOpen as OnLifecycle,
       onClose: onClose as OnLifecycle,
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        const defaultEmojiShown = () =>
-          findEmojiItems(component).length === defaultListLimit;
-        const noEmojiShown = () => findEmojiItems(component).length === 0;
-        expect(defaultEmojiShown()).toEqual(true);
-        expect(onOpen.callCount).toEqual(1);
-        expect(onClose.callCount).toEqual(0);
-        component.setProps({ query: 'zeroresults' });
+      emojiProvider,
+    });
 
-        return waitUntil(() => !itemsVisible(component)).then(() => {
-          expect(noEmojiShown()).toEqual(true);
-          expect(onOpen.callCount).toEqual(1);
-          expect(onClose.callCount).toEqual(1);
-        });
-      }),
+    let emojiItems = await findEmojiItems(container);
+    expect(emojiItems).toHaveLength(defaultListLimit);
+
+    expect(onOpen).toHaveBeenCalledTimes(1);
+    expect(onClose).not.toHaveBeenCalled();
+
+    rerender(
+      <EmojiTypeAhead
+        emojiProvider={emojiProvider}
+        query="zeroresults"
+        ref={emojiTypeAheadRef}
+        onOpen={onOpen as OnLifecycle}
+        onClose={onClose as OnLifecycle}
+      />,
     );
+
+    await waitFor(() =>
+      expect(
+        container.querySelector('.ak-emoji-typeahead-item'),
+      ).not.toBeInTheDocument(),
+    );
+    expect(onOpen).toHaveBeenCalledTimes(1);
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 
-  it('should fire cancelled analytic when unmounted', () => {
+  it('should fire cancelled analytic when unmounted', async () => {
     const fireEventSpy: (payload: AnalyticsEventPayload) => void = jest.fn();
 
-    return setupTypeAhead({
+    const { unmount } = await setupTypeAhead({
       createAnalyticsEvent: getCreateAnalyticsSpy(fireEventSpy),
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        expect(fireEventSpy).toHaveBeenCalledWith(
-          withEmojiIds(
-            withSessionId(typeaheadRenderedEvent(expect.any(Number))),
-          ),
-        );
-        component.unmount();
-        expect(fireEventSpy).toHaveBeenCalledWith(
-          withEmojiIds(
-            withSessionId(typeaheadCancelledEvent(expect.any(Number))),
-          ),
-        );
-      }),
+    });
+    await waitFor(() =>
+      expect(fireEventSpy).toHaveBeenCalledWith(
+        withEmojiIds(withSessionId(typeaheadRenderedEvent(expect.any(Number)))),
+      ),
+    );
+    unmount();
+    expect(fireEventSpy).toHaveBeenCalledWith(
+      withEmojiIds(withSessionId(typeaheadCancelledEvent(expect.any(Number)))),
     );
   });
 
-  it('should find two matches when querying "boom"', () =>
+  it('should find two matches when querying "boom"', async () => {
     // Confirm initial state for later conflicting shortName tests
-    setupTypeAhead({
+    const { container } = await setupTypeAhead({
       query: 'boom',
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        expect(findEmojiItems(component).length).toEqual(2);
-      }),
-    ));
+    });
 
-  it('should highlight emojis by matching on id then falling back to shortName', () => {
-    const standardBoomId = toEmojiId(standardBoomEmoji);
-
-    return setupTypeAhead({
-      query: 'boom',
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        const item = getEmojiTypeAheadItemById(component, standardBoomEmoji.id);
-        item.prop('onMouseMove')(
-          standardBoomId,
-          standardBoomEmoji,
-          item.simulate('mouseover'),
-        );
-        expect(
-          isEmojiTypeAheadItemSelected(component, standardBoomEmoji.id),
-        ).toEqual(true);
-      }),
-    );
+    const emojiItems = await findEmojiItems(container);
+    expect(emojiItems).toHaveLength(2);
   });
 
-  it('should highlight correct emoji regardless of conflicting shortName', () => {
-    const atlassianBoomId = toEmojiId(atlassianBoomEmoji);
-
-    return setupTypeAhead({
+  it('should highlight emojis by matching on id then falling back to shortName', async () => {
+    const { container } = await setupTypeAhead({
       query: 'boom',
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        const item = getEmojiTypeAheadItemById(
-          component,
-          atlassianBoomEmoji.id,
-        );
-        item.prop('onMouseMove')(
-          atlassianBoomId,
-          atlassianBoomEmoji,
-          item.simulate('mouseover'),
-        );
-        expect(
-          isEmojiTypeAheadItemSelected(component, atlassianBoomEmoji.id),
-        ).toEqual(true);
-      }),
+    });
+    await findEmojiItems(container);
+
+    const item = await getEmojiTypeAheadItemById(
+      container,
+      standardBoomEmoji.shortName,
     );
+    userEvent.hover(item);
+
+    await isEmojiTypeAheadItemSelected(container, standardBoomEmoji.shortName);
   });
 
-  it('should retain selected match across search refinement', () => {
-    const blackFlagId = toEmojiId(blackFlagEmoji);
+  it('should highlight correct emoji regardless of conflicting shortName', async () => {
+    const { container } = await setupTypeAhead({
+      query: 'boom',
+    });
+    await findEmojiItems(container);
 
-    return setupTypeAhead({
+    const item = await getEmojiTypeAheadItemById(
+      container,
+      atlassianBoomEmoji.shortName,
+    );
+    await userEvent.hover(item);
+
+    await isEmojiTypeAheadItemSelected(container, atlassianBoomEmoji.shortName);
+  });
+
+  it('should retain selected match across search refinement', async () => {
+    const emojiProvider = getEmojiResourcePromise();
+    const { container, rerender } = await setupTypeAhead({
       query: 'fla',
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        let item = getEmojiTypeAheadItemById(component, blackFlagId.id);
-        item.prop('onMouseMove')(
-          blackFlagId,
-          blackFlagEmoji,
-          item.simulate('mouseover'),
-        );
-        expect(isEmojiTypeAheadItemSelected(component, blackFlagId.id)).toEqual(
-          true,
-        );
+      emojiProvider,
+    });
+    await findEmojiItems(container);
 
-        const itemCount = itemsVisibleCount(component);
-        component.setProps({ query: 'flag_b' });
-
-        return waitUntil(() => itemsVisibleCount(component) < itemCount).then(
-          () => {
-            expect(
-              isEmojiTypeAheadItemSelected(component, blackFlagId.id),
-            ).toEqual(true);
-          },
-        );
-      }),
+    let item = await getEmojiTypeAheadItemById(
+      container,
+      blackFlagEmoji.shortName,
     );
+    await userEvent.hover(item);
+
+    await isEmojiTypeAheadItemSelected(container, blackFlagEmoji.shortName);
+
+    const itemCount = await itemsVisibleCount(container);
+    rerender(
+      <EmojiTypeAhead
+        emojiProvider={emojiProvider}
+        query="flag_b"
+        ref={emojiTypeAheadRef}
+      />,
+    );
+
+    await waitFor(async () =>
+      expect((await findEmojiItems(container)).length).toBeLessThan(itemCount),
+    );
+
+    await isEmojiTypeAheadItemSelected(container, blackFlagEmoji.shortName);
   });
 
-  it('should default to exact ascii selection first', () =>
-    setupTypeAhead({
+  it('should default to exact ascii selection first', async () => {
+    const { container } = await setupTypeAhead({
       query: ':O',
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        expect(itemsVisibleCount(component) > 1).toEqual(true);
-        expect(
-          isEmojiTypeAheadItemSelected(component, openMouthEmoji.id),
-        ).toEqual(true);
-      }),
-    ));
+    });
+    expect((await itemsVisibleCount(container)) > 1).toEqual(true);
+    await isEmojiTypeAheadItemSelected(container, openMouthEmoji.shortName);
+  });
 
-  it('should fire onSelection if a query ends in a colon and has an exact match with one emoji shortName', () => {
-    const onSelection = sinon.spy();
+  it('should fire onSelection if a query ends in a colon and has an exact match with one emoji shortName', async () => {
+    const onSelection = jest.fn();
     const fireEventSpy: (payload: AnalyticsEventPayload) => void = jest.fn();
 
-    return setupTypeAhead({
+    const { container } = await setupTypeAhead({
       onSelection: onSelection as OnEmojiEvent,
       query: ':grin:',
       createAnalyticsEvent: getCreateAnalyticsSpy(fireEventSpy),
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        expect(onSelection.callCount).toEqual(1);
-        expect(fireEventSpy).toHaveBeenCalledWith(
-          expect.objectContaining(
-            withEmojiIds(
-              withSessionId(
-                typeaheadSelectedEvent(
-                  true,
-                  expect.any(Number),
-                  grinEmoji,
-                  [grinEmoji],
-                  ':grin:',
-                  true,
-                ),
+    });
+    await findEmojiItems(container);
+
+    expect(onSelection).toHaveBeenCalledTimes(1);
+    await waitFor(() =>
+      expect(fireEventSpy).toHaveBeenCalledWith(
+        expect.objectContaining(
+          withEmojiIds(
+            withSessionId(
+              typeaheadSelectedEvent(
+                true,
+                expect.any(Number),
+                grinEmoji,
+                [grinEmoji],
+                ':grin:',
+                true,
               ),
             ),
           ),
-        );
-      }),
+        ),
+      ),
     );
   });
 
-  it('should not fire onSelection if a query ends in a colon and more than one emoji has an exact shortName match', () => {
-    const onSelection = sinon.spy();
+  it('should not fire onSelection if a query ends in a colon and more than one emoji has an exact shortName match', async () => {
+    const onSelection = jest.fn();
 
-    return setupTypeAhead({
+    const { container } = await setupTypeAhead({
       onSelection: onSelection as OnEmojiEvent,
       query: ':boom:',
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        expect(itemsVisibleCount(component) > 1).toEqual(true);
-        expect(onSelection.callCount).toEqual(0);
-      }),
-    );
+    });
+    expect((await itemsVisibleCount(container)) > 1).toEqual(true);
+    expect(onSelection).not.toHaveBeenCalled();
   });
 
-  it('should not fire onSelection if a query ends in a colon and an odd number of emoji have an exact shortName match', () => {
-    const onSelection = sinon.spy();
+  it('should not fire onSelection if a query ends in a colon and an odd number of emoji have an exact shortName match', async () => {
+    const onSelection = jest.fn();
 
-    return setupTypeAhead({
+    const { container } = await setupTypeAhead({
       onSelection: onSelection as OnEmojiEvent,
       query: ':ftfy:',
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        expect(
-          itemsVisibleCount(component) > 1 &&
-            itemsVisibleCount(component) % 2 === 1,
-        ).toEqual(true);
-        expect(onSelection.callCount).toEqual(0);
-      }),
-    );
+    });
+    expect(
+      (await itemsVisibleCount(container)) > 1 &&
+        (await itemsVisibleCount(container)) % 2 === 1,
+    ).toEqual(true);
+    expect(onSelection).not.toHaveBeenCalled();
   });
 
-  it('should not fire onSelection if a query ends in a colon and no emojis have an exact shortName match', () => {
-    const onSelection = sinon.spy();
+  it('should not fire onSelection if a query ends in a colon and no emojis have an exact shortName match', async () => {
+    const onSelection = jest.fn();
 
-    return setupTypeAhead({
+    await setupTypeAhead({
       onSelection: onSelection as OnEmojiEvent,
       query: ':blah:',
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        const noEmojiShown = () => findEmojiItems(component).length === 0;
-        expect(noEmojiShown()).toEqual(true);
-        expect(onSelection.callCount).toEqual(0);
-      }),
-    );
+    });
+    expect(screen.queryByRole('img')).not.toBeInTheDocument();
+    expect(onSelection).not.toHaveBeenCalled();
   });
 
-  it('should perform case insensitive exact shortName matching', () => {
-    const onSelection = sinon.spy();
+  it('should perform case insensitive exact shortName matching', async () => {
+    const onSelection = jest.fn();
 
-    return setupTypeAhead({
+    await setupTypeAhead({
       onSelection: onSelection as OnEmojiEvent,
       query: ':GRIN:',
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        expect(onSelection.callCount).toEqual(1);
-      }),
-    );
+    });
+    await waitFor(() => expect(onSelection).toHaveBeenCalledTimes(1));
   });
 
-  it('should display emojis without skin tone variations by default', () => {
-    return setupTypeAhead({
+  it('should display emojis without skin tone variations by default', async () => {
+    const { container } = await setupTypeAhead({
       query: 'raised_hand',
-    } as Props).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        expect(itemsVisibleCount(component) === 1).toEqual(true);
-        const typeaheadEmoji =
-          getSelectedEmojiTypeAheadItem(component).prop('emoji');
-        expect(typeaheadEmoji.shortName).toEqual(':raised_hand:');
-      }),
-    );
+    });
+    expect((await itemsVisibleCount(container)) === 1).toEqual(true);
+    const typeaheadEmoji = await getSelectedEmojiTypeAheadItem(container);
+    expect(typeaheadEmoji).toHaveAttribute('data-emoji-id', ':raised_hand:');
   });
 
-  it('should display emojis using the skin tone preference provided by the EmojiResource', () => {
+  it('should display emojis using the skin tone preference provided by the EmojiResource', async () => {
     const emojiProvider = getEmojiResourcePromise();
     emojiProvider.then((provider) => provider.setSelectedTone(1));
 
-    return setupTypeAhead({
+    const { container } = await setupTypeAhead({
       emojiProvider,
       query: 'raised_hand',
-    }).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        expect(itemsVisibleCount(component) === 1).toEqual(true);
-        const typeaheadEmoji =
-          getSelectedEmojiTypeAheadItem(component).prop('emoji');
-        expect(typeaheadEmoji.shortName).toEqual(':raised_hand::skin-tone-2:');
-      }),
+    });
+    expect((await itemsVisibleCount(container)) === 1).toEqual(true);
+    const typeaheadEmoji = await getSelectedEmojiTypeAheadItem(container);
+    expect(typeaheadEmoji).toHaveAttribute(
+      'data-emoji-id',
+      ':raised_hand::skin-tone-2:',
     );
   });
 
-  it('should include skin tone details for analytics', () => {
+  it('should include skin tone details for analytics', async () => {
     let choseEmoji: OptionalEmojiDescription;
     const emojiProvider = getEmojiResourcePromise();
     emojiProvider.then((provider) => provider.setSelectedTone(5));
     const fireEventSpy = jest.fn();
 
-    return setupTypeAhead({
+    const { container } = await setupTypeAhead({
       emojiProvider,
       query: 'raised_hand',
       createAnalyticsEvent: getCreateAnalyticsSpy(fireEventSpy),
       onSelection: (_emojiId, emoji) => {
         choseEmoji = emoji;
       },
-    }).then((component) =>
-      waitUntil(() => doneLoading(component)).then(() => {
-        expect(itemsVisibleCount(component) === 1).toEqual(true);
-        const typeaheadEmoji =
-          getSelectedEmojiTypeAheadItem(component).prop('emoji');
-        expect(typeaheadEmoji.shortName).toEqual(':raised_hand::skin-tone-6:');
-        const item = getEmojiTypeAheadItemById(component, '270b-1f3ff');
-        item.simulate('mousedown', leftClick);
-        expect(fireEventSpy).toHaveBeenCalledWith(
-          expect.objectContaining(
-            withEmojiIds(
-              withSessionId(
-                typeaheadSelectedEvent(
-                  false,
-                  expect.any(Number),
-                  choseEmoji!,
-                  [choseEmoji!],
-                  'raised_hand',
-                  false,
-                ),
-              ),
+    });
+    expect((await itemsVisibleCount(container)) === 1).toEqual(true);
+    const typeaheadEmoji = await getSelectedEmojiTypeAheadItem(container);
+    expect(typeaheadEmoji).toHaveAttribute(
+      'data-emoji-id',
+      ':raised_hand::skin-tone-6:',
+    );
+    const item = await getEmojiTypeAheadItemById(
+      container,
+      ':raised_hand::skin-tone-6:',
+    );
+    await userEvent.click(item);
+    expect(fireEventSpy).toHaveBeenCalledWith(
+      expect.objectContaining(
+        withEmojiIds(
+          withSessionId(
+            typeaheadSelectedEvent(
+              false,
+              expect.any(Number),
+              choseEmoji!,
+              [choseEmoji!],
+              'raised_hand',
+              false,
             ),
           ),
-        );
-        expect(fireEventSpy).toHaveBeenCalledWith(
-          expect.objectContaining({
-            attributes: expect.objectContaining({
-              skinToneModifier: 'dark',
-              baseEmojiId: '270b',
-            }),
-          }),
-        );
+        ),
+      ),
+    );
+    expect(fireEventSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        attributes: expect.objectContaining({
+          skinToneModifier: 'dark',
+          baseEmojiId: '270b',
+        }),
       }),
     );
   });

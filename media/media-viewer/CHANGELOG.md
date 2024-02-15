@@ -1,5 +1,66 @@
 # @atlaskit/media-viewer
 
+## 48.2.15
+
+### Patch Changes
+
+- [#72472](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72472) [`575bba0b9bbf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/575bba0b9bbf) - Fixed issue where quickly switching between images in Media Viewer would result in broken preview.
+
+## 48.2.14
+
+### Patch Changes
+
+- [#69045](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69045) [`284fc8e26be1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/284fc8e26be1) - Fixed potential memory leak by checking for mounting before updating state
+- Updated dependencies
+
+## 48.2.13
+
+### Patch Changes
+
+- [#67727](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67727) [`c8d355ea7dc0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c8d355ea7dc0) - fix incorrect data url fetch for pdf assets
+
+## 48.2.12
+
+### Patch Changes
+
+- [#62989](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62989) [`fc7dfc86e9d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fc7dfc86e9d9) - [ux] Filename in header is no longer displayed in "title case" format (capital first letter)
+
+## 48.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 48.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 48.2.9
+
+### Patch Changes
+
+- [#57473](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57473) [`100f90575744`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/100f90575744) - Remove legacy theming logic from @atlaskit/media-avatar-picker, @atlaskit/media-card, @atlaskit/media-ui and @atlaskit/media-viewer.
+
+## 48.2.8
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 48.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 48.2.6
+
+### Patch Changes
+
+- [#56641](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56641) [`abc1714faf21`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abc1714faf21) - Bug fix to ensure that PDFRenderer uses the latest version of the `onError` and `onSuccess` callbacks, and not just their initial values
+
 ## 48.2.5
 
 ### Patch Changes

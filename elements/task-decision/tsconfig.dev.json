@@ -30,8 +30,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "composite": true,
-    "outDir": "../../../tsDist/@atlaskit__task-decision/dev",
-    "types": ["@emotion/react/types/css-prop"]
+    "outDir": "../../../tsDist/@atlaskit__task-decision/dev"
   },
   "references": [
     {
@@ -51,9 +50,6 @@
     },
     {
       "path": "../../../build/test-tooling/ssr/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/theme/tsconfig.app.json"
     },
     {
       "path": "../util-data-test/tsconfig.app.json"

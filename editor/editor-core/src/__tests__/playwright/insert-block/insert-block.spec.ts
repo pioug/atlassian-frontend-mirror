@@ -1,9 +1,9 @@
 import {
-  editorTestCase as test,
-  expect,
+  EditorEmojiPickerModel,
   EditorMainToolbarModel,
   EditorPopupModel,
-  EditorEmojiPickerModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 
 test.describe('insert-block:', () => {
@@ -68,7 +68,7 @@ test.describe('insert-block: with new extensions', () => {
       editor,
     }) => {
       const toolbar = EditorMainToolbarModel.from(editor);
-      const insertMenuButton = await toolbar.menuItemByLabel('Insert /');
+      const insertMenuButton = await toolbar.menuItemByLabel('Insert elements');
       await insertMenuButton.click();
       const dropdownList = EditorPopupModel.from(editor);
 

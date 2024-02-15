@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/react-experiment-framework",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "Experimentation React components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -21,9 +21,16 @@
     }
   },
   "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./CohortTracker": "./src/CohortTracker.ts",
+    "./ExperimentContext": "./src/ExperimentContext.ts",
+    "./ExperimentController": "./src/ExperimentController.tsx",
+    "./asExperiment": "./src/asExperiment.tsx",
+    "./types": "./src/types.ts"
+  },
   "atlassian": {
     "team": "Growth: Groot",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {
       "name": "React Experiment Framework"

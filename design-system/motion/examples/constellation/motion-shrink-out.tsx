@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
@@ -16,7 +16,7 @@ const MotionShrinkOutExample = () => {
   return (
     <div>
       <div css={containerStyles}>
-        <ButtonGroup>
+        <ButtonGroup label="Products options">
           <Button onClick={() => setProducts(products)}>Reset</Button>
         </ButtonGroup>
       </div>

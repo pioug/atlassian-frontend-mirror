@@ -29,9 +29,9 @@ export default {
   'fabric.linking.connect_to': 'Підключення до {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Підключитися до {context}',
   'fabric.linking.connect_unauthorised_account_description':
-    'Підключіть обліковий запис {context} до Atlassian, щоб переглядати більше відомостей про роботу й співпрацювати на одному ресурсі.',
+    'Підключіть свій обліковий запис {context}, щоб співпрацювати з іншими в продуктах Atlassian.',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    'Підключіться до Atlassian, щоб переглядати більше відомостей про роботу й співпрацювати на одному ресурсі.',
+    'Підключіть свій обліковий запис, щоб співпрацювати з іншими в продуктах Atlassian.',
   'fabric.linking.continue': 'Продовжити',
   'fabric.linking.copy_url_to_clipboard': 'Скопіюйте посилання',
   'fabric.linking.couldnt_load_link': 'Не вдалося завантажити це посилання.',
@@ -59,6 +59,8 @@ export default {
     'Надішліть запит на доступ або ввійдіть в інший обліковий запис для попереднього перегляду.',
   'fabric.linking.join_to_view': 'Можна приєднатися до {context}, щоб переглянути цю проблему',
   'fabric.linking.last_mentioned_in': 'Остання згадка:',
+  'fabric.linking.learn_more_about_connecting_account':
+    'Докладніше про підключення облікового запису до продуктів Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Докладніше про смарт-посилання.',
   'fabric.linking.link_safety_warning_message':
     'За посиланням {unsafeLinkText} ви перейдете на інший сайт: <a>actual link here</a>',

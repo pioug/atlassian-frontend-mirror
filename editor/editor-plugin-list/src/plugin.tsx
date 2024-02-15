@@ -3,7 +3,7 @@ import React from 'react';
 import {
   bulletList,
   listItem,
-  orderedList,
+  listItemWithTask,
   orderedListWithOrder,
 } from '@atlaskit/adf-schema';
 import {
@@ -20,6 +20,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import { listMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   indentList,
@@ -55,8 +56,7 @@ export const listPlugin: ListPlugin = ({ config: options, api }) => {
     },
     commands: {
       indentList: indentList(editorAnalyticsAPI),
-      outdentList: inputMethod =>
-        outdentList(editorAnalyticsAPI)(inputMethod, featureFlags),
+      outdentList: inputMethod => outdentList(editorAnalyticsAPI)(inputMethod),
       toggleOrderedList: toggleOrderedListCommand(editorAnalyticsAPI),
       toggleBulletList: toggleBulletListCommand(editorAnalyticsAPI),
     },
@@ -69,15 +69,16 @@ export const listPlugin: ListPlugin = ({ config: options, api }) => {
     },
 
     nodes() {
+      const listItemNode = getBooleanFF('platform.editor.allow-action-in-list')
+        ? listItemWithTask
+        : listItem;
       return [
         { name: 'bulletList', node: bulletList },
         {
           name: 'orderedList',
-          node: options?.restartNumberedLists
-            ? orderedListWithOrder
-            : orderedList,
+          node: orderedListWithOrder,
         },
-        { name: 'listItem', node: listItem },
+        { name: 'listItem', node: listItemNode },
       ];
     },
 
@@ -90,7 +91,7 @@ export const listPlugin: ListPlugin = ({ config: options, api }) => {
         {
           name: 'listInputRule',
           plugin: ({ schema, featureFlags }) =>
-            inputRulePlugin(schema, featureFlags, api?.analytics?.actions),
+            inputRulePlugin(schema, api?.analytics?.actions),
         },
         {
           name: 'listKeymap',

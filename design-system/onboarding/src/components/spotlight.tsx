@@ -7,15 +7,15 @@ import { SpotlightConsumer } from './spotlight-manager';
 
 export interface SpotlightProps {
   /**
-   * Buttons to render in the footer
+   * Buttons to render in the footer.
    */
   actions?: Actions;
   /**
-   * An optional node to be rendered beside the footer actions
+   * An optional node to be rendered beside the footer actions.
    */
   actionsBeforeElement?: ReactNode;
   /**
-   * The elements rendered in the modal
+   * The elements rendered in the modal.
    */
   children?: ReactNode;
   /**
@@ -35,62 +35,62 @@ export interface SpotlightProps {
     | 'left middle'
     | 'left bottom';
   /**
-   * The width of the dialog in pixels. Min 160 - Max 600
+   * The width of the dialog in pixels. The minimum possible width is 160px and the maximum width is 600px.
    */
   dialogWidth?: number;
   /**
-   * Optional element rendered below the body
+   * Optional element rendered below the body.
    */
   footer?: ComponentType<any>;
   /**
-   * Optional element rendered above the body
+   * Optional element rendered above the body.
    */
   header?: ComponentType<any>;
   /**
-   * Heading text rendered above the body
+   * Heading text rendered above the body.
    */
   heading?: string;
   /**
-   * An optional element rendered to the right of the heading
+   * An optional element rendered to the right of the heading.
    */
   headingAfterElement?: ReactNode;
   /**
-   * Path to the the your image
+   * Path to the image.
    */
   image?: string;
   /**
-   * Whether or not to display a pulse animation around the spotlighted element
+   * Whether or not to display a pulse animation around the spotlighted element.
    */
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   pulse?: boolean;
   /**
-   * The name of the SpotlightTarget
+   * The name of the SpotlightTarget.
    */
   target?: string;
   /**
-   * The spotlight target node
+   * The spotlight target node.
    */
   targetNode?: HTMLElement;
   /**
-   * The background color of the element being highlighted
+   * The background color of the element being highlighted.
    */
   targetBgColor?: string;
   /**
-   * Function to fire when a user clicks on the cloned target
+   * Function to fire when a person clicks on the cloned target.
    */
   targetOnClick?: (eventData: {
     event: MouseEvent<HTMLElement>;
     target?: string;
   }) => void;
   /**
-   * The border-radius of the element being highlighted
+   * The border radius of the element being highlighted.
    */
   targetRadius?: number;
   /**
-   * Alternative element to render than the wrapped target
+   * Alternative element to render than the wrapped target.
    */
   targetReplacement?: ComponentType<any>;
-  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
+  /* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
   /**
     This prop is a unique string that appears as an attribute `data-testid` in the rendered HTML output serving as a hook for automated tests.
     As this component is composed of multiple components we use this `testId` as a prefix:
@@ -101,6 +101,7 @@ export interface SpotlightProps {
     Defaults to `"spotlight"`.
    */
   testId?: string;
+  /* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
 }
 
 /**

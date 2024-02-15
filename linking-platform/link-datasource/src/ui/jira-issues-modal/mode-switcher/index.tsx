@@ -7,15 +7,16 @@ import { N0, N20, N30A, N60, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
+export interface ModeSwitcherPropsOption<T extends string = string> {
+  label: string;
+  value: T;
+  disabled?: boolean;
+  tooltipText?: string;
+}
 export interface ModeSwitcherProps<T extends string = string> {
   isCompact?: boolean;
   isDisabled?: boolean;
-  options: {
-    label: string;
-    value: T;
-    disabled?: boolean;
-    tooltipText?: string;
-  }[];
+  options: ModeSwitcherPropsOption<T>[];
   onOptionValueChange: (selectedOptionValue: T) => void;
   selectedOptionValue?: string;
 }
@@ -28,7 +29,7 @@ const modeSwitcherStyles = css({
   display: 'inline-flex',
   gap: token('space.050', '4px'),
   lineHeight: token('space.200', '16px'),
-  padding: token('space.075', '6px'),
+  padding: token('space.050', '4px'),
   '&:disabled': {
     opacity: '0.5',
   },

@@ -1,11 +1,10 @@
-import React, { MouseEvent, RefObject } from 'react';
+import React, { MouseEvent } from 'react';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { CardDimensions, CardAppearance } from '../../../types';
 import { Breakpoint } from '../common';
 import { MediaCardCursor } from '../../../types';
-import { GlobalThemeTokens } from '@atlaskit/theme/components';
 
 export interface WrapperProps {
   testId?: string;
@@ -25,7 +24,6 @@ export interface WrapperProps {
   isPlayButtonClickable: boolean;
   isTickBoxSelectable: boolean;
   shouldDisplayTooltip: boolean;
-  innerRef?: RefObject<HTMLDivElement>;
+  innerRef?: React.Ref<HTMLDivElement>;
   children?: JSX.Element;
-  theme?: GlobalThemeTokens;
 }

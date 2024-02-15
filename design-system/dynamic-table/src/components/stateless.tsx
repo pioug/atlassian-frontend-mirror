@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, lazy, Suspense, useEffect, useState } from 'react';
 
 import {
   createAndFireEvent,
@@ -20,18 +20,20 @@ import {
   EmptyViewWithFixedHeight,
 } from '../styled/empty-body';
 import {
+  HeadType,
   StatelessProps as Props,
   RankEnd,
   RankStart,
   RowCellType,
+  RowType,
   SortOrderType,
 } from '../types';
 
 import Body from './body';
+import { ErrorBoundary } from './error-boundary';
 import LoadingContainer from './loading-container';
 import LoadingContainerAdvanced from './loading-container-advanced';
 import ManagedPagination from './managed-pagination';
-import RankableTableBody from './rankable/body';
 import TableHead from './table-head';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
@@ -179,6 +181,7 @@ class DynamicTable extends React.Component<Props, State> {
       sortKey,
       sortOrder,
       isLoading,
+      loadingLabel,
       isRankable,
       isRankingDisabled,
       paginationi18n,
@@ -234,7 +237,7 @@ class DynamicTable extends React.Component<Props, State> {
 
     const spinnerSize = this.getSpinnerSize();
     const emptyBody = this.renderEmptyBody();
-    const canRank = isRankable && !sortKey;
+
     return (
       <>
         <LoadingContainerAdvanced
@@ -242,12 +245,14 @@ class DynamicTable extends React.Component<Props, State> {
           spinnerSize={spinnerSize}
           targetRef={() => this.tableBody.current}
           testId={testId}
+          loadingLabel={loadingLabel}
         >
           <Table
             isFixedSize={isFixedSize}
             aria-label={label}
             hasDataRow={rowsExist}
             testId={testId}
+            isLoading={isLoading}
           >
             {!!caption && <Caption>{caption}</Caption>}
             {head && (
@@ -261,27 +266,26 @@ class DynamicTable extends React.Component<Props, State> {
                 testId={testId}
               />
             )}
-            {rowsExist &&
-              (canRank ? (
-                <RankableTableBody
-                  {...bodyProps}
-                  isRanking={this.state.isRanking}
-                  onRankStart={this.onRankStartHandler}
-                  onRankEnd={this.onRankEndHandler}
-                  isRankingDisabled={isRankingDisabled || isLoading || false}
-                />
-              ) : (
-                <Body {...bodyProps} />
-              ))}
+            {rowsExist && (
+              <TableBody
+                {...bodyProps}
+                isRankable={this.props.isRankable}
+                isRanking={this.state.isRanking}
+                onRankStart={this.onRankStartHandler}
+                onRankEnd={this.onRankEndHandler}
+                isRankingDisabled={isRankingDisabled || isLoading || false}
+              />
+            )}
           </Table>
         </LoadingContainerAdvanced>
         {totalPages <= 1 ? null : ( // only show pagination if there's MORE than 1 page
-          <PaginationWrapper>
+          <PaginationWrapper testId={testId}>
             <ManagedPagination
               value={getPageNumber}
               onChange={this.onSetPageHandler}
               total={totalPages}
               i18n={paginationi18n}
+              isDisabled={isLoading}
               testId={testId}
             />
           </PaginationWrapper>
@@ -291,6 +295,7 @@ class DynamicTable extends React.Component<Props, State> {
             isLoading={isLoading}
             spinnerSize={LARGE}
             testId={testId}
+            loadingLabel={loadingLabel}
           >
             {emptyBody}
           </LoadingContainer>
@@ -299,6 +304,79 @@ class DynamicTable extends React.Component<Props, State> {
     );
   }
 }
+
+type TableBodyProps = {
+  highlightedRowIndex?: number | number[];
+  rows?: RowType[];
+  head?: HeadType;
+  sortKey?: string;
+  sortOrder?: SortOrderType;
+  rowsPerPage?: number;
+  page?: number;
+  isFixedSize: boolean;
+  onPageRowsUpdate?: (pageRows: RowType[]) => void;
+  isTotalPagesControlledExternally: boolean;
+  testId?: string;
+
+  isRankable?: boolean;
+  isRanking: boolean;
+  onRankStart: (rankStart: RankStart) => void;
+  onRankEnd: (rankEnd: RankEnd) => void;
+  isRankingDisabled: boolean;
+};
+
+const RankableTableBody = lazy(
+  () =>
+    import(
+      /* webpackChunkName: '@atlaskit-internal_dynamic-table' */ './rankable/body'
+    ),
+);
+
+const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
+  function TableBody(
+    {
+      isRankable = false,
+      isRanking,
+      onRankStart,
+      onRankEnd,
+      isRankingDisabled,
+      ...bodyProps
+    },
+    ref,
+  ) {
+    const canRank = isRankable && !bodyProps.sortKey;
+
+    /**
+     * React 16 does not support SSR for lazy components,
+     * so we avoid rendering the `Suspense` on the server.
+     */
+    const [canRenderRankable, setCanRenderRankable] = useState(false);
+    useEffect(() => {
+      if (canRank) {
+        setCanRenderRankable(true);
+      }
+    }, [canRank]);
+
+    const nonRankableBody = <Body ref={ref} {...bodyProps} />;
+
+    return canRank && canRenderRankable ? (
+      <ErrorBoundary fallback={nonRankableBody}>
+        <Suspense fallback={nonRankableBody}>
+          <RankableTableBody
+            ref={ref}
+            {...bodyProps}
+            isRanking={isRanking}
+            onRankStart={onRankStart}
+            onRankEnd={onRankEnd}
+            isRankingDisabled={isRankingDisabled}
+          />
+        </Suspense>
+      </ErrorBoundary>
+    ) : (
+      nonRankableBody
+    );
+  },
+);
 
 export { DynamicTable as DynamicTableWithoutAnalytics };
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');

@@ -1,2 +1,7 @@
 export { mentionsPlugin } from './plugin';
-export type { MentionPluginConfig, MentionsPlugin } from './types';
+export type {
+  MentionPluginConfig,
+  MentionsPlugin,
+  MentionPluginOptions,
+  MentionSharedState,
+} from './types';

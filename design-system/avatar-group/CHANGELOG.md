@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 9.5.0
+
+### Minor Changes
+
+- [#61786](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61786) [`937861329875`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/937861329875) - Added the `shouldPopupRenderToParent` prop which determines if `shouldRenderToParent` is applied to the avatar group's popup.
+
 ## 9.4.6
 
 ### Patch Changes

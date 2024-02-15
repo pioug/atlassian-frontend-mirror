@@ -1,16 +1,18 @@
 import React from 'react';
-import prettier from 'prettier/standalone';
-import parser from 'prettier/parser-babel';
 
-import TextArea from '@atlaskit/textarea';
+import parser from 'prettier/parser-babel';
+import prettier from 'prettier/standalone';
+
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import TextArea from '@atlaskit/textarea';
 
-import EditorContext from '../src/ui/EditorContext';
 import { DevTools } from '../example-helpers/DevTools';
 import { evaluateDocBuilderExpression } from '../example-helpers/evaluate-doc-builder-expression';
-import WithEditorActions from '../src/ui/WithEditorActions';
 import type { EditorActions } from '../src';
+import EditorContext from '../src/ui/EditorContext';
+import WithEditorActions from '../src/ui/WithEditorActions';
+
 import { ExampleEditor as FullPageEditor } from './5-full-page';
 
 interface DocBuilderState {
@@ -177,7 +179,14 @@ nodeTypes.link = nodeTypes.a;
 if (getBooleanFF('platform.editor.multi-bodied-extension_0rygg')) {
   nodeTypes.multiBodiedExtension = {
     name: 'multiBodiedExtension',
-    attrs: ['extensionKey', 'extensionType', 'parameters', 'text', 'layout'],
+    attrs: [
+      'extensionKey',
+      'extensionType',
+      'parameters',
+      'text',
+      'layout',
+      'localId',
+    ],
   };
 }
 

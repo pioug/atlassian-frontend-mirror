@@ -1,13 +1,10 @@
+import { waitFor } from '@testing-library/react';
 import { act, renderHook } from '@testing-library/react-hooks';
 
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import { validateAql } from '../../services/cmdbService';
-import { AqlValidateResponse } from '../../types/assets/types';
-import {
-  AqlValidationResponse,
-  useValidateAqlText,
-} from '../useValidateAqlText';
+import { SEARCH_DEBOUNCE, useValidateAqlText } from '../useValidateAqlText';
 
 jest.mock('../../services/cmdbService');
 
@@ -21,75 +18,178 @@ describe('useValidateAqlText', () => {
     errorMessages: [''],
     errors: {},
   };
-  const mockFetchEvent = expect.any(Function);
+  const mockFireEvent = expect.any(Function);
 
   beforeEach(() => {
     jest.resetAllMocks();
+    jest.useFakeTimers();
   });
 
-  it('should return initial state on mount', async () => {
-    const { result } = renderHook(() => useValidateAqlText(workspaceId));
-    expect(result.current.isValidAqlText).toEqual(false);
-    expect(result.current.validateAqlTextError).toEqual(undefined);
-    expect(result.current.validateAqlTextLoading).toEqual(false);
-    expect(result.current.validateAqlText).toEqual(expect.any(Function));
+  afterEach(() => {
+    jest.clearAllTimers();
   });
 
-  it.each([true, false])(
-    'should return correct boolean when validateAql response is "%s"',
-    async expectedIsValid => {
-      mockValidateAql.mockResolvedValue({
-        ...mockAqlValidateResponse,
-        isValid: expectedIsValid,
-      });
-      const { result } = renderHook(() => useValidateAqlText(workspaceId));
-      const validateAqlText = result.current.validateAqlText;
-      let validateAqlTextResponse: AqlValidationResponse | undefined;
-      await act(async () => {
-        validateAqlTextResponse = await validateAqlText(aqlText);
-      });
-      expect(mockValidateAql).toBeCalledWith(
+  it('should set the validation result to idle when initial query is empty', () => {
+    const { result } = renderHook(() => useValidateAqlText(workspaceId, ''));
+    expect(result.current.lastValidationResult.type).toEqual('idle');
+  });
+
+  it('should set the validation result to loading when initial query is NOT empty', () => {
+    const { result } = renderHook(() =>
+      useValidateAqlText(workspaceId, aqlText),
+    );
+    expect(result.current.lastValidationResult).toEqual(
+      expect.objectContaining({
+        type: 'loading',
+      }),
+    );
+  });
+
+  it('should not call the validation if the query is emtpy', async () => {
+    const { result } = renderHook(() => useValidateAqlText(workspaceId, ''));
+    await act(async () => {
+      result.current.debouncedValidation('');
+      jest.advanceTimersByTime(SEARCH_DEBOUNCE);
+    });
+    await waitFor(() => {
+      expect(mockValidateAql).not.toHaveBeenCalled();
+      expect(result.current.lastValidationResult.type).toEqual('idle');
+    });
+  });
+
+  it('should update the query correctly if entered after the debounce time', async () => {
+    const { result } = renderHook(() => useValidateAqlText(workspaceId, ''));
+
+    await act(async () => {
+      result.current.debouncedValidation(aqlText);
+      jest.advanceTimersByTime(SEARCH_DEBOUNCE);
+    });
+    await waitFor(() => {
+      expect(mockValidateAql).toHaveBeenCalledTimes(1);
+    });
+
+    await act(async () => {
+      result.current.debouncedValidation('new query');
+      jest.advanceTimersByTime(SEARCH_DEBOUNCE);
+    });
+    await waitFor(() => {
+      expect(mockValidateAql).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  it('should correctly set loading state and debounce the query validation call', async () => {
+    const { result } = renderHook(() => useValidateAqlText(workspaceId, ''));
+    expect(result.current.lastValidationResult).toEqual(
+      expect.objectContaining({
+        type: 'idle',
+      }),
+    );
+    await act(async () => {
+      result.current.debouncedValidation(aqlText);
+    });
+    expect(result.current.lastValidationResult).toEqual(
+      expect.objectContaining({
+        type: 'loading',
+      }),
+    );
+    await act(async () => {
+      result.current.debouncedValidation(`${aqlText}asdasd`);
+      result.current.debouncedValidation(`${aqlText}asd8a90`);
+      result.current.debouncedValidation(`${aqlText}80823`);
+      jest.advanceTimersByTime(400);
+    });
+    await waitFor(() => {
+      expect(mockValidateAql).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('should return valid when validateAql returns isValid = true', async () => {
+    mockValidateAql.mockResolvedValue(mockAqlValidateResponse);
+    const { result } = renderHook(() => useValidateAqlText(workspaceId, ''));
+    const validateAqlText = result.current.validateAqlText;
+    let validateAqlTextResponse: 'error' | undefined;
+    await act(async () => {
+      validateAqlTextResponse = await validateAqlText(aqlText);
+    });
+    await waitFor(() => {
+      expect(result.current.lastValidationResult).toEqual(
+        expect.objectContaining({
+          type: 'valid',
+          validatedAql: aqlText,
+        }),
+      );
+      expect(validateAqlTextResponse).toEqual(undefined);
+      expect(mockValidateAql).toHaveBeenCalledWith(
         workspaceId,
         { qlQuery: aqlText },
-        mockFetchEvent,
+        mockFireEvent,
       );
-      expect(validateAqlTextResponse?.isValid).toBe(expectedIsValid);
-      expect(result.current.isValidAqlText).toEqual(expectedIsValid);
-      expect(result.current.validateAqlTextError).toEqual(undefined);
-    },
-  );
+    });
+  });
 
-  it('should return false and an error when validateAql rejects', async () => {
+  it('should return invalid when validateAql rejects', async () => {
     const mockError = new Error();
     mockValidateAql.mockRejectedValue(mockError);
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useValidateAqlText(workspaceId),
-    );
-    act(() => {
-      result.current.validateAqlText(aqlText);
+    const { result } = renderHook(() => useValidateAqlText(workspaceId, ''));
+    const validateAqlText = result.current.validateAqlText;
+    let validateAqlTextResponse: 'error' | undefined;
+    await act(async () => {
+      validateAqlTextResponse = await validateAqlText(aqlText);
     });
-    await waitForNextUpdate();
-    expect(result.current.isValidAqlText).toBe(false);
-    expect(result.current.validateAqlTextError).toBe(mockError);
+    await waitFor(() => {
+      expect(result.current.lastValidationResult).toEqual(
+        expect.objectContaining({
+          type: 'invalid',
+          error: '',
+        }),
+      );
+      expect(validateAqlTextResponse).toEqual('error');
+    });
   });
 
-  it('should return false and an error when validateAql rejects with a non error type', async () => {
+  it('should return invalid when validateAql rejects with a non error type', async () => {
     const mockError = { error: 'fake error message' };
     mockValidateAql.mockRejectedValue(mockError);
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useValidateAqlText(workspaceId),
-    );
-    act(() => {
-      result.current.validateAqlText(aqlText);
+    const { result } = renderHook(() => useValidateAqlText(workspaceId, ''));
+    const validateAqlText = result.current.validateAqlText;
+    let validateAqlTextResponse: 'error' | undefined;
+    await act(async () => {
+      validateAqlTextResponse = await validateAqlText(aqlText);
     });
-    await waitForNextUpdate();
-    expect(result.current.isValidAqlText).toBe(false);
-    expect(result.current.validateAqlTextError?.message).toEqual(
-      `Unexpected error occured`,
-    );
+    await waitFor(() => {
+      expect(result.current.lastValidationResult).toEqual(
+        expect.objectContaining({
+          type: 'invalid',
+          error: '',
+        }),
+      );
+      expect(validateAqlTextResponse).toEqual('error');
+    });
   });
 
-  it('should return false and an error message when validateAql return error iql message in server response', async () => {
+  it('should return invalid when validateAql returns isValid = false', async () => {
+    mockValidateAql.mockResolvedValue({
+      ...mockAqlValidateResponse,
+      isValid: false,
+    });
+    const { result } = renderHook(() => useValidateAqlText(workspaceId, ''));
+    const validateAqlText = result.current.validateAqlText;
+    let validateAqlTextResponse: 'error' | undefined;
+    await act(async () => {
+      validateAqlTextResponse = await validateAqlText(aqlText);
+    });
+    await waitFor(() => {
+      expect(result.current.lastValidationResult).toEqual(
+        expect.objectContaining({
+          type: 'invalid',
+          error: '',
+        }),
+      );
+      expect(validateAqlTextResponse).toEqual('error');
+    });
+  });
+
+  it('should return invalid and an error message when validateAql return error iql message in server response', async () => {
     mockValidateAql.mockResolvedValue({
       ...mockAqlValidateResponse,
       isValid: false,
@@ -97,38 +197,20 @@ describe('useValidateAqlText', () => {
         iql: 'A validation error message',
       },
     });
-    const { result } = renderHook(() => useValidateAqlText(workspaceId));
+    const { result } = renderHook(() => useValidateAqlText(workspaceId, ''));
     const validateAqlText = result.current.validateAqlText;
-    let validateAqlTextResponse: AqlValidationResponse | undefined;
+    let validateAqlTextResponse: 'error' | undefined;
     await act(async () => {
       validateAqlTextResponse = await validateAqlText(aqlText);
     });
-    expect(validateAqlTextResponse?.isValid).toBe(false);
-    expect(validateAqlTextResponse?.message).toBe('A validation error message');
-    expect(result.current.isValidAqlText).toBe(false);
-  });
-
-  it('should correctly set validateAqlTextLoading when validateAql is called', async () => {
-    let validateAqlResolveFn: (
-      value: AqlValidateResponse | PromiseLike<AqlValidateResponse>,
-    ) => void = () => {};
-    const deferredPromise = new Promise(
-      resolve => (validateAqlResolveFn = resolve),
-    );
-    mockValidateAql.mockReturnValue(deferredPromise);
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useValidateAqlText(workspaceId),
-    );
-
-    const validateAqlText = result.current.validateAqlText;
-    act(() => {
-      validateAqlText(aqlText);
+    await waitFor(() => {
+      expect(result.current.lastValidationResult).toEqual(
+        expect.objectContaining({
+          type: 'invalid',
+          error: 'A validation error message',
+        }),
+      );
+      expect(validateAqlTextResponse).toEqual('error');
     });
-    expect(result.current.validateAqlTextLoading).toBe(true);
-    act(() => {
-      validateAqlResolveFn(mockAqlValidateResponse);
-    });
-    await waitForNextUpdate();
-    expect(result.current.validateAqlTextLoading).toBe(false);
   });
 });

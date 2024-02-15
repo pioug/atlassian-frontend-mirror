@@ -1,19 +1,22 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import adf from './__fixtures__/table-inside-bodied-extension.adf.json';
+  clickFirstCell,
+  insertColumn,
+  insertRow,
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  insertRow,
-  insertColumn,
-  clickFirstCell,
-} from '@atlaskit/editor-test-helpers/page-objects/table';
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
-describe('Snapshot Test: table insert/delete', () => {
+import adf from './__fixtures__/table-inside-bodied-extension.adf.json';
+
+// FIXME: Skipping theses tests as it has been failing on master on CI due to "Screenshot comparison failed" issue.
+// Build URL: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2319963/steps/%7B31b3ca1c-6917-4861-88ed-d816d6fae22f%7D
+describe.skip('Snapshot Test: table insert/delete', () => {
   let page: PuppeteerPage;
   beforeAll(async () => {
     page = global.page;

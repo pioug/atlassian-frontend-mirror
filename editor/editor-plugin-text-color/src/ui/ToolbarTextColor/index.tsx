@@ -3,7 +3,7 @@ import React from 'react';
 
 import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
-import { defineMessages, injectIntl } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 import type {
   AnalyticsEventPayload,
@@ -20,6 +20,7 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { textColorMessages as messages } from '@atlaskit/editor-common/messages';
 import {
   expandIconWrapperStyle,
   separatorStyles,
@@ -56,14 +57,6 @@ import {
 
 const EXPERIMENT_NAME: string = 'editor.toolbarTextColor.moreColors';
 const EXPERIMENT_GROUP_CONTROL: string = 'control';
-
-export const messages = defineMessages({
-  textColor: {
-    id: 'fabric.editor.textColor',
-    defaultMessage: 'Text color',
-    description: '',
-  },
-});
 
 export interface State {
   isOpen: boolean;
@@ -150,7 +143,6 @@ export class ToolbarTextColor extends React.Component<
           handleEscapeKeydown={this.hideonEsc}
           zIndex={akEditorMenuZIndex}
           fitWidth={fitWidth}
-          onOpenChange={this.onOpenChange}
           closeOnTab={true}
           arrowKeyNavigationProviderOptions={{
             type: ArrowKeyNavigationType.COLOR,
@@ -222,14 +214,6 @@ export class ToolbarTextColor extends React.Component<
       </span>
     );
   }
-
-  private onOpenChange = (attrs: any) => {
-    this.handleOpenChange({
-      isOpen: attrs.isOpen,
-      logCloseEvent: true,
-      event: attrs.event,
-    });
-  };
 
   private changeTextColor = (
     color: string,

@@ -10,7 +10,7 @@ export interface Slicenator {
 
 export interface HashinatorOptions {
   concurrency: number;
-  hasher?: HashingFunction;
+  hasher: HashingFunction;
 }
 
 export interface SlicedBlob {
@@ -29,10 +29,6 @@ export interface Hashinator {
   ): Observable<HashedBlob>;
 }
 
-export interface ProbedBlob extends HashedBlob {
-  exists: boolean;
-}
-
 export interface UploadinatorOptions {
   concurrency: number;
   uploader: UploadingFunction;
@@ -44,9 +40,9 @@ export interface UploadinatorProgress {
 
 export interface Uploadinator {
   (
-    probedBlobs$: Observable<ProbedBlob>,
+    blobs$: Observable<HashedBlob>,
     options: UploadinatorOptions,
-  ): Observable<ProbedBlob>;
+  ): Observable<HashedBlob>;
 }
 
 export interface ProcessinatorOptions {
@@ -55,10 +51,9 @@ export interface ProcessinatorOptions {
 }
 
 export interface Processinator {
-  (
-    probedBlobs$: Observable<ProbedBlob>,
-    options: ProcessinatorOptions,
-  ): Observable<ProbedBlob[]>;
+  (blobs$: Observable<HashedBlob>, options: ProcessinatorOptions): Observable<
+    HashedBlob[]
+  >;
 }
 
 // Public
@@ -72,16 +67,13 @@ export interface Callbacks {
 }
 
 export type HashingFunction = (blob: Blob) => Promise<string>;
-export type ProbingFunction = (chunks: Chunk[]) => Promise<boolean[]>;
 export type UploadingFunction = (chunk: Chunk) => Promise<void>;
-export type ProcessingFunction = (probedBlobs: Chunk[]) => Promise<void>;
+export type ProcessingFunction = (blobs: Chunk[]) => Promise<void>;
 
 export interface Options {
   chunkSize: number;
   hashingConcurrency: number;
-  hashingFunction?: HashingFunction;
-  probingBatchSize: number;
-  probingFunction: ProbingFunction;
+  hashingFunction: HashingFunction;
   uploadingConcurrency: number;
   uploadingFunction: UploadingFunction;
   processingBatchSize: number;
@@ -90,7 +82,7 @@ export interface Options {
 
 export type ChunkinatorFile = string | Blob;
 
-export type ChunkinatorResponse = Observable<ProbedBlob[]>;
+export type ChunkinatorResponse = Observable<HashedBlob[]>;
 
 export interface Chunkinator {
   (

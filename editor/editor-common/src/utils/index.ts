@@ -192,6 +192,8 @@ export {
   isParagraphNode,
   isListItemNode,
   isBulletList,
+  isOrderedList,
+  isOrderedListContinuous,
 } from './list';
 
 export {
@@ -472,6 +474,8 @@ export function isInEmptyLine(state: EditorState) {
 export { dedupe } from './dedupe';
 
 export { createWrapSelectionTransaction } from './create-wrap-selection-transaction';
+export { transformNodeIntoListItem } from './insert-node-into-ordered-list';
+
 export { wrapSelectionIn } from './wrap-selection-in';
 
 export { toJSON, nodeToJSON } from './nodes';

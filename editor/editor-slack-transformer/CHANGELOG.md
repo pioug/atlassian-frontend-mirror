@@ -1,5 +1,23 @@
 # @atlaskit/editor-slack-transformer
 
+## 3.3.2
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+
+## 3.3.1
+
+### Patch Changes
+
+- [#70084](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70084) [`4d651eb93ab5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d651eb93ab5) - Add editor-plugin-annotation pr and create shared utils for it in editor-test-helpers
+
+## 3.3.0
+
+### Minor Changes
+
+- [#70008](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70008) [`0aa6be50ddd3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0aa6be50ddd3) - Added support for inline image
+
 ## 3.2.9
 
 ### Patch Changes

@@ -1,18 +1,21 @@
 /** @jsx jsx */
 import type { RefObject } from 'react';
 import React, { useEffect, useState } from 'react';
+
 import { css, jsx } from '@emotion/react';
-import { N30 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
-import {
-  akEditorToolbarKeylineHeight,
-  akEditorMenuZIndex,
-} from '@atlaskit/editor-shared-styles';
+
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
+import {
+  akEditorMenuZIndex,
+  akEditorToolbarKeylineHeight,
+} from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 export const TableControlsPadding = 20;
 
-const mainToolbarWrapperStyle = css`
+const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
+
+const mainToolbarWrapperStyle = (isTwoLineEditorToolbar = false) => css`
   position: relative;
   align-items: center;
   padding: ${token('space.100', '8px')} ${token('space.100', '8px')} 0;
@@ -27,6 +30,25 @@ const mainToolbarWrapperStyle = css`
     > style:first-child + * {
       margin-left: 0;
     }
+    ${isTwoLineEditorToolbar &&
+    `
+        @media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px) {
+          flex-direction: column-reverse;
+          align-items: end;
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        //make this more explicit for a toolbar
+        > *:nth-child(1) {
+          @media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px) {
+            > div:nth-child(2) {
+              justify-content: flex-end;
+              display: flex;
+            }
+          }
+        }
+    `}
   }
 
   .block-type-btn {
@@ -44,13 +66,14 @@ const stickyToolbarWrapperStyle = css`
   transition: box-shadow ease-in-out 0.2s;
   &.show-keyline {
     box-shadow: 0 ${akEditorToolbarKeylineHeight}px 0 0
-      ${token('color.border', N30)};
+      ${token('color.background.accent.gray.subtlest', '#F1F2F4')};
   }
 `;
 
 type StickyToolbarProps = {
   externalToolbarRef?: RefObject<HTMLElement>;
   offsetTop?: number;
+  twoLineEditorToolbar?: boolean;
 };
 
 const StickyToolbar: React.FC<StickyToolbarProps> = (props) => {
@@ -70,7 +93,7 @@ const StickyToolbar: React.FC<StickyToolbarProps> = (props) => {
   return (
     <div
       css={[
-        mainToolbarWrapperStyle,
+        mainToolbarWrapperStyle(props.twoLineEditorToolbar),
         stickyToolbarWrapperStyle,
         css`
           top: ${top}px;
@@ -84,8 +107,15 @@ const StickyToolbar: React.FC<StickyToolbarProps> = (props) => {
   );
 };
 
-const FixedToolbar: React.FC = (props) => (
-  <div css={mainToolbarWrapperStyle} data-testid="ak-editor-main-toolbar">
+type FixedToolbarProps = {
+  twoLineEditorToolbar?: boolean;
+};
+
+const FixedToolbar: React.FC<FixedToolbarProps> = (props) => (
+  <div
+    css={mainToolbarWrapperStyle(props.twoLineEditorToolbar)}
+    data-testid="ak-editor-main-toolbar"
+  >
     {props.children}
   </div>
 );
@@ -118,28 +148,47 @@ const getStickyParameters = (configuration: UseStickyToolbarType) => {
 
 type MainToolbarProps = {
   useStickyToolbar?: UseStickyToolbarType;
+  twoLineEditorToolbar?: boolean;
 };
 
 export const MainToolbar: React.FC<MainToolbarProps> = ({
   useStickyToolbar,
+  twoLineEditorToolbar,
   children,
 }) => {
   if (useStickyToolbar) {
     return (
-      <StickyToolbar {...getStickyParameters(useStickyToolbar)}>
+      <StickyToolbar
+        {...getStickyParameters(useStickyToolbar)}
+        twoLineEditorToolbar={twoLineEditorToolbar}
+      >
         {children}
       </StickyToolbar>
     );
   }
-  return <FixedToolbar>{children}</FixedToolbar>;
+  return (
+    <FixedToolbar twoLineEditorToolbar={twoLineEditorToolbar}>
+      {children}
+    </FixedToolbar>
+  );
 };
 
-export const mainToolbarCustomComponentsSlotStyle = css`
+export const mainToolbarCustomComponentsSlotStyle = (
+  isTwoLineEditorToolbar = false,
+) => css`
   display: flex;
   justify-content: flex-end;
   align-items: center;
   flex-grow: 1;
   padding-right: ${token('space.250', '20px')};
+  ${isTwoLineEditorToolbar &&
+  `
+    @media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px) {
+      {
+        padding-right: 0;
+      }
+    }
+  `}
   > div {
     display: flex;
     flex-shrink: 0;

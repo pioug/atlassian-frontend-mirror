@@ -19,6 +19,13 @@ import { HelpPopup } from './help-popup';
 import { NotificationsPopup } from './notifications-popup';
 import { ProfilePopup } from './profile-popup';
 
+const drawerLabelText = {
+  search: 'Search drawer',
+  settings: 'Settings drawer',
+};
+
+const { search, settings } = drawerLabelText;
+
 const ProductHomeExample = () => (
   <ProductHome icon={JiraIcon} logo={JiraLogo} siteTitle="Extranet" />
 );
@@ -43,8 +50,8 @@ const SearchDrawer = () => {
         tooltip="Search"
         label="Search"
       />
-      <Drawer isOpen={isOpen} onClose={onClose}>
-        <div>search drawer</div>
+      <Drawer label={search} isOpen={isOpen} onClose={onClose}>
+        <div>{search}</div>
       </Drawer>
     </Fragment>
   );
@@ -64,8 +71,8 @@ const SettingsDrawer = () => {
   return (
     <Fragment>
       <Settings isSelected={isOpen} onClick={onClick} tooltip="Settings" />
-      <Drawer isOpen={isOpen} onClose={onClose}>
-        settings drawer
+      <Drawer label={settings} isOpen={isOpen} onClose={onClose}>
+        {settings}
       </Drawer>
     </Fragment>
   );

@@ -1,4 +1,8 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import adfHeadingsNestedExpands from '../../__fixtures__/headings-nested-expands.adf.json';
+import adfHeadingsNestedLayout from '../../__fixtures__/headings-nested-layout.adf.json';
+import adfHeadingsNestedPanel from '../../__fixtures__/headings-nested-panel.adf.json';
+import adfHeadingsNestedTable from '../../__fixtures__/headings-nested-table.adf.json';
 import { initRendererWithADF } from '../_utils';
 import {
   hoverOnHeadingWithLinkThenSnapshot,
@@ -6,14 +10,9 @@ import {
   propsWithHeadingLinksEnabledWithHash,
   spoofMediaQuery,
 } from './_heading-utils';
-import adfHeadingsNestedLayout from '../../__fixtures__/headings-nested-layout.adf.json';
-import adfHeadingsNestedPanel from '../../__fixtures__/headings-nested-panel.adf.json';
-import adfHeadingsNestedTable from '../../__fixtures__/headings-nested-table.adf.json';
-import adfHeadingsNestedExpands from '../../__fixtures__/headings-nested-expands.adf.json';
 
 // Headings with anchor links enabled which are nested inside other container nodes
-// FIXME: flaky test https://product-fabric.atlassian.net/browse/ED-13530
-describe.skip('Nested headings with links', () => {
+describe('Nested headings with links', () => {
   let page: PuppeteerPage;
 
   const setPage = () => (page = global.page);

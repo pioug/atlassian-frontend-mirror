@@ -10,7 +10,7 @@ import {
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 import { B50, N30A, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -30,7 +30,6 @@ const iconButtonStyles = css({
   display: 'flex',
   width: '40px',
   height: '40px',
-  marginBottom: token('space.200', '16px'),
   padding: token('space.0', '0px'),
   alignItems: 'center',
   justifyContent: 'center',
@@ -41,6 +40,7 @@ const iconButtonStyles = css({
   cursor: 'pointer',
   fontSize: 'inherit',
   lineHeight: 1,
+  marginBlockEnd: token('space.200', '16px'),
   '&:hover': {
     backgroundColor: token('color.background.neutral.subtle.hovered', N30A),
   },

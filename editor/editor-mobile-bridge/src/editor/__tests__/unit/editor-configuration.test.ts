@@ -137,18 +137,6 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isCustomPanelEditable()).toEqual(true);
   });
 
-  it('should set the restartNumberedLists value and retain the rest with default values', () => {
-    const editorConfig = new MobileEditorConfiguration(
-      '{"restartNumberedLists": true}',
-    );
-
-    expect(editorConfig.getMode()).toEqual('light');
-    expect(editorConfig.getLocale()).toEqual(locale);
-    expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
-    expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
-    expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
-  });
-
   it('should clone and update the current configuration with the new configuration', () => {
     const newConfig = '{"locale":"zh", "mode": "light"}';
     const originalEditorConfig = new MobileEditorConfiguration(

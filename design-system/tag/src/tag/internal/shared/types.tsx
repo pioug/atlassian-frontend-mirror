@@ -4,15 +4,15 @@ import { AppearanceType, TagColor } from '../../../types';
 
 export interface SimpleTagProps {
   /**
-   * Set whether tags should be rounded.
+   * Set whether tags are rounded.
    */
   appearance?: AppearanceType;
   /**
-   * The color theme to apply, setting both background and text color.
+   * The color theme to apply. This sets both the background and text color.
    */
   color?: TagColor;
   /**
-   * Component to be rendered before the Tag.
+   * The component to be rendered before the tag.
    */
   elemBefore?: ReactNode;
   /**
@@ -21,7 +21,7 @@ export interface SimpleTagProps {
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   text: string;
   /**
-   * uri or path. If provided, the tag will be a link.
+   * URI or path. If provided, the tag will be a link.
    */
   href?: string;
   /* A link component to be used instead of our standard anchor. The styling of
@@ -29,7 +29,7 @@ export interface SimpleTagProps {
   linkComponent?: ComponentType<any>;
 
   /**
-   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    */
   testId?: string;
 }

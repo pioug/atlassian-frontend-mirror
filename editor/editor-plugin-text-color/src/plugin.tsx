@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { textColor } from '@atlaskit/adf-schema';
-import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 
 import { changeColor } from './commands/change-color';
 import type {
@@ -13,7 +12,7 @@ import {
   pluginKey as textColorPluginKey,
 } from './pm-plugins/main';
 import type { TextColorPlugin } from './types';
-import ToolbarTextColor from './ui/ToolbarTextColor';
+import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
 
 const pluginConfig = (
   textColorConfig?: TextColorPluginConfig | boolean,
@@ -69,23 +68,15 @@ export const textColorPlugin: TextColorPlugin = ({
       disabled,
     }) {
       return (
-        <WithPluginState
-          plugins={{
-            textColor: textColorPluginKey,
-          }}
-          render={({ textColor }) => (
-            <ToolbarTextColor
-              pluginState={textColor!}
-              isReducedSpacing={isToolbarReducedSpacing}
-              editorView={editorView}
-              popupsMountPoint={popupsMountPoint}
-              popupsBoundariesElement={popupsBoundariesElement}
-              popupsScrollableElement={popupsScrollableElement}
-              dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-              disabled={disabled}
-              pluginInjectionApi={api}
-            />
-          )}
+        <PrimaryToolbarComponent
+          isReducedSpacing={isToolbarReducedSpacing}
+          editorView={editorView}
+          popupsMountPoint={popupsMountPoint}
+          popupsBoundariesElement={popupsBoundariesElement}
+          popupsScrollableElement={popupsScrollableElement}
+          dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+          disabled={disabled}
+          api={api}
         />
       );
     },

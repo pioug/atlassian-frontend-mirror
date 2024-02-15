@@ -79,7 +79,7 @@ export type InlineProps<T extends ElementType = 'div'> = {
   children: ReactNode;
 
   /**
-   * Forwarded ref element
+   * Forwarded ref element.
    */
   ref?: React.ComponentPropsWithRef<T>['ref'];
 } & BasePrimitiveProps;
@@ -133,6 +133,7 @@ const Inline = memo(
         separator,
         xcss,
         testId,
+        role,
         children: rawChildren,
       }: InlineProps<T>,
       ref: Ref<any>,
@@ -162,6 +163,7 @@ const Inline = memo(
       return (
         <Flex
           as={as}
+          role={role}
           alignItems={alignItems}
           justifyContent={justifyContent}
           direction="row"

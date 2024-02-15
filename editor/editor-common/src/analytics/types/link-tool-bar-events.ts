@@ -9,9 +9,6 @@ export type RecentActivitiesPerfAEP = OperationalAEP<
     duration: number;
     count: number;
     errorCode?: number;
-  },
-  {
-    error?: string;
   }
 >;
 
@@ -23,9 +20,6 @@ export type QuickSearchPerfAEP = OperationalAEP<
     duration: number;
     count: number;
     errorCode?: number;
-  },
-  {
-    error?: string;
   }
 >;
 

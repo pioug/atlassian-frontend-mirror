@@ -45,6 +45,7 @@ type State = {
   includeUsers: boolean;
   includeGroups: boolean;
   includeTeams: boolean;
+  includeNonLicensedUsers: boolean;
   isFilterOn: boolean;
   isMulti: boolean;
   isPrefetchOn: boolean;
@@ -78,6 +79,7 @@ const SmartUserPickerCustomizableExample = () => {
     includeUsers: true,
     includeGroups: false,
     includeTeams: true,
+    includeNonLicensedUsers: false,
     isFilterOn: false,
     isMulti: true,
     isPrefetchOn: false,
@@ -141,6 +143,7 @@ const SmartUserPickerCustomizableExample = () => {
       | 'includeUsers'
       | 'includeGroups'
       | 'includeTeams'
+      | 'includeNonLicensedUsers'
       | 'isPrefetchOn'
       | 'bootstrapOptions'
       | 'isMulti'
@@ -319,6 +322,10 @@ const SmartUserPickerCustomizableExample = () => {
       {createText('childObjectId', 'large')}
       {createBoolean('includeUsers', 'include Users (includeUsers)')}
       {createBoolean('includeTeams', 'include Teams (includeTeams)')}
+      {createBoolean(
+        'includeNonLicensedUsers',
+        'include Non Licensed Users (includeNonLicensedUsers)',
+      )}
       {createBoolean('isPrefetchOn', 'Prefetch')}
       {createBoolean('bootstrapOptions', 'bootstrapOptions')}
       {createBoolean('isMulti', 'isMulti')}
@@ -419,6 +426,7 @@ const SmartUserPickerCustomizableExample = () => {
             includeUsers={state.includeUsers}
             includeGroups={state.includeGroups}
             includeTeams={state.includeTeams}
+            includeNonLicensedUsers={state.includeNonLicensedUsers}
             fieldId={state.fieldId}
             onChange={onChange}
             onInputChange={onInputChange}

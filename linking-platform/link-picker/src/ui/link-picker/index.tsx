@@ -2,6 +2,7 @@
 import {
   ChangeEvent,
   FormEvent,
+  Fragment,
   KeyboardEvent,
   memo,
   useCallback,
@@ -10,7 +11,7 @@ import {
 } from 'react';
 
 import { jsx } from '@emotion/react';
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage, MessageDescriptor, useIntl } from 'react-intl-next';
 
 import { UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
@@ -90,8 +91,11 @@ export interface LinkPickerProps {
     arg: OnSubmitParameter,
     analytic?: UIAnalyticsEvent | null,
   ) => void;
-  /** Callback to fire when the cancel button is clicked. */
-  onCancel: () => void;
+  /**
+   * Callback to fire when the cancel button is clicked.
+   * If not provided, cancel button is not displayed.
+   */
+  onCancel?: () => void;
   /** Callback to fire when content is changed inside the link picker e.g. items, when loading, tabs */
   onContentResize?: () => void;
   /** The url of the linked resource for editing. */
@@ -118,8 +122,27 @@ export interface LinkPickerProps {
   component?: React.ComponentType<
     Partial<LinkPickerProps> & { children: React.ReactElement }
   >;
+  /** Allows for customisation of text in the link picker. */
+  customMessages?: CustomLinkPickerMessages;
   featureFlags?: Record<string, unknown>;
+  /** Controls showing a "submission in-progres" UX */
+  isSubmitting?: boolean;
 }
+
+type CustomLinkPickerMessages = {
+  /** Label for the link input field */
+  linkLabel?: MessageDescriptor;
+  /** Aria label for the link input field */
+  linkAriaLabel?: MessageDescriptor;
+  /** Placeholder for the link input field */
+  linkPlaceholder?: MessageDescriptor;
+  /** Label for the link display text field */
+  linkTextLabel?: MessageDescriptor;
+  /** Placeholder for the link display text field */
+  linkTextPlaceholder?: MessageDescriptor;
+  /** Label for the submit button */
+  submitButtonLabel?: MessageDescriptor;
+};
 
 const initState: PickerState = {
   url: '',
@@ -186,6 +209,8 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
       displayText: initDisplayText,
       hideDisplayText,
       featureFlags,
+      customMessages,
+      isSubmitting = false,
     }: LinkPickerProps) => {
       const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -234,6 +259,11 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 
       const handleChangeUrl = useCallback(
         (e: ChangeEvent<HTMLInputElement>) => {
+          if (isSubmitting) {
+            // Prevent changing url while submitting
+            return;
+          }
+
           /** Any on change event is triggered by manual input or paste, so source is null */
           trackAttribute('linkFieldContentInputSource', null);
           dispatch({
@@ -242,7 +272,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
             preventHidingRecents: false,
           });
         },
-        [dispatch, trackAttribute],
+        [dispatch, trackAttribute, isSubmitting],
       );
 
       const handleChangeText = useCallback(
@@ -266,9 +296,13 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
       );
 
       const handleUrlClear = useCallback(() => {
+        if (isSubmitting) {
+          // Prevent clearing url while submitting
+          return;
+        }
         trackAttribute('linkFieldContentInputSource', null);
         handleClear('url');
-      }, [trackAttribute, handleClear]);
+      }, [trackAttribute, handleClear, isSubmitting]);
 
       const handleInsert = useCallback(
         (url: string, title: string | null, inputType: LinkInputType) => {
@@ -301,6 +335,11 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 
       const handleSelected = useCallback(
         (objectId: string) => {
+          if (isSubmitting) {
+            // Prevent changing selection while submitting
+            return;
+          }
+
           const selectedItem = items?.find(item => item.objectId === objectId);
 
           if (selectedItem) {
@@ -318,12 +357,17 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
             handleInsert(url, name, 'typeAhead');
           }
         },
-        [handleInsert, trackAttribute, items, activePlugin],
+        [handleInsert, trackAttribute, items, activePlugin, isSubmitting],
       );
 
       const handleSubmit = useCallback(
-        (event?: FormEvent<HTMLFormElement>) => {
+        (event?: FormEvent<HTMLFormElement>): void => {
           event?.preventDefault();
+          if (isSubmitting) {
+            // Prevent submit while submitting
+            return;
+          }
+
           if (isSelectedItem && selectedItem) {
             return handleInsert(
               selectedItem.url,
@@ -341,7 +385,14 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
             invalidUrl: true,
           });
         },
-        [dispatch, handleInsert, isSelectedItem, selectedItem, url],
+        [
+          dispatch,
+          handleInsert,
+          isSelectedItem,
+          selectedItem,
+          url,
+          isSubmitting,
+        ],
       );
 
       const handleTabChange = useCallback(
@@ -363,6 +414,10 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
       );
 
       const handleSearchListOnChange = (id: string) => {
+        if (isSubmitting) {
+          // Prevent changing item while submitting
+          return;
+        }
         const index = items?.findIndex(item => item.objectId === id);
         if (typeof index === 'number') {
           const item = items?.[index];
@@ -448,6 +503,18 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
       const ariaActiveDescendant =
         selectedIndex > -1 ? `link-search-list-item-${selectedIndex}` : '';
 
+      const a11yList =
+        isActivePlugin || isLoadingPlugins
+          ? ({
+              role: 'combobox',
+              'aria-expanded': true,
+              'aria-autocomplete': 'list',
+              'aria-controls': linkSearchListId,
+              'aria-activedescendant': ariaActiveDescendant,
+              'aria-describedby': screenReaderDescriptionId,
+            } as const)
+          : undefined;
+
       // Added workaround with a screen reader Announcer specifically for VoiceOver + Safari
       // as the Aria design pattern for combobox does not work in this case
       // for details: https://a11y-internal.atlassian.net/browse/AK-740
@@ -459,39 +526,63 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
         <form
           data-testid={testIds.linkPicker}
           css={rootContainerStyles}
-          onSubmit={handleSubmit}
+          // Use onSubmitCapture instead of onSubmit when FF enabled so that any possible parent form isn't submitted
+          onSubmit={
+            getBooleanFF(
+              'platform.linking-platform.link-picker.use-onsubmitcapture',
+            )
+              ? undefined
+              : handleSubmit
+          }
+          onSubmitCapture={
+            getBooleanFF(
+              'platform.linking-platform.link-picker.use-onsubmitcapture',
+            )
+              ? handleSubmit
+              : undefined
+          }
         >
           <TrackMount />
-          {screenReaderText && (
-            <Announcer
-              ariaLive="assertive"
-              text={screenReaderText}
-              ariaRelevant="additions"
-              delay={250}
-            />
+          {isActivePlugin && screenReaderText && (
+            <Fragment>
+              <Announcer
+                ariaLive="assertive"
+                text={screenReaderText}
+                ariaRelevant="additions"
+                delay={250}
+              />
+              <VisuallyHidden id={screenReaderDescriptionId}>
+                {customMessages?.linkAriaLabel ? (
+                  <FormattedMessage {...customMessages.linkAriaLabel} />
+                ) : (
+                  <FormattedMessage {...messages.linkAriaLabel} />
+                )}
+              </VisuallyHidden>
+            </Fragment>
           )}
-          <VisuallyHidden id={screenReaderDescriptionId}>
-            <FormattedMessage {...messages.linkAriaLabel} />
-          </VisuallyHidden>
           <LinkInputField
-            role="combobox"
-            autoComplete="off"
             name="url"
+            autoComplete="off"
             testId={testIds.urlInputField}
-            label={intl.formatMessage(messages.linkLabel)}
-            placeholder={intl.formatMessage(messages.linkPlaceholder)}
+            label={
+              customMessages?.linkLabel
+                ? intl.formatMessage(customMessages.linkLabel)
+                : intl.formatMessage(messages.linkLabel)
+            }
+            placeholder={
+              customMessages?.linkPlaceholder
+                ? intl.formatMessage(customMessages?.linkPlaceholder)
+                : intl.formatMessage(messages.linkPlaceholder)
+            }
             value={url}
             autoFocus
             clearLabel={intl.formatMessage(formMessages.clearLink)}
-            aria-expanded
-            aria-autocomplete="list"
-            aria-controls={linkSearchListId}
-            aria-activedescendant={ariaActiveDescendant}
-            aria-describedby={screenReaderDescriptionId}
             error={
               invalidUrl ? intl.formatMessage(formMessages.linkInvalid) : null
             }
             spotlightTargetName="link-picker-search-field-spotlight-target"
+            aria-readonly={isSubmitting}
+            {...a11yList}
             onClear={handleUrlClear}
             onKeyDown={handleKeyDown}
             onChange={handleChangeUrl}
@@ -502,11 +593,18 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
               name="displayText"
               testId={testIds.textInputField}
               value={displayText}
-              label={intl.formatMessage(linkTextMessages.linkTextLabel)}
-              placeholder={intl.formatMessage(
-                linkTextMessages.linkTextPlaceholder,
-              )}
+              label={
+                customMessages?.linkTextLabel
+                  ? intl.formatMessage(customMessages.linkTextLabel)
+                  : intl.formatMessage(linkTextMessages.linkTextLabel)
+              }
+              placeholder={
+                customMessages?.linkTextPlaceholder
+                  ? intl.formatMessage(customMessages?.linkTextPlaceholder)
+                  : intl.formatMessage(linkTextMessages.linkTextPlaceholder)
+              }
               clearLabel={intl.formatMessage(linkTextMessages.clearLinkText)}
+              readOnly={isSubmitting}
               onClear={handleClear}
               onChange={handleChangeText}
             />
@@ -518,6 +616,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
               activePlugin={activePlugin}
               isLoadingResults={isLoadingResults}
               isLoadingPlugins={isLoadingPlugins}
+              isSubmitting={isSubmitting}
               linkSearchListId={linkSearchListId}
               error={error}
               featureFlags={featureFlags}
@@ -537,6 +636,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
             items={items}
             /** If the results section appears to be loading, impact whether the submit button is disabled */
             isLoading={isLoadingResults || !!isLoadingPlugins}
+            isSubmitting={isSubmitting}
             queryState={queryState}
             url={url}
             isEditing={isEditing}
@@ -551,6 +651,11 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
               getBooleanFF(
                 'platform.linking-platform.link-picker.enable-jira-create',
               )
+            }
+            customSubmitButtonLabel={
+              customMessages?.submitButtonLabel
+                ? customMessages.submitButtonLabel
+                : undefined
             }
           />
         </form>

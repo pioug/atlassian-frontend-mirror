@@ -126,14 +126,14 @@ describe('Calendar', () => {
       expect(headingContainer).not.toHaveAttribute('aria-live');
 
       const previousMonthButton = renderResult.getByTestId(
-        `${testId}--previous-month-icon`,
+        `${testId}--previous-month`,
       );
       fireEvent.click(previousMonthButton);
 
       expect(headingContainer).toHaveAttribute('aria-live');
     });
 
-    it('should label previous/next buttons with next/previous month/year', () => {
+    it('should include accessible text for previous and next arrow buttons', () => {
       const firstMonth = 1;
       const lastMonth = 12;
 
@@ -141,44 +141,33 @@ describe('Calendar', () => {
         month: firstMonth,
       });
 
-      expect(
-        firstMonthRenderResult.getByTestId(`${testId}--previous-month-icon`),
-      ).toHaveAttribute(
-        'aria-label',
-        expect.stringMatching(/, December 2018$/),
-      );
+      const firstMonthPreviousDescriptiveText =
+        firstMonthRenderResult.getByText(/, December 2018$/);
+      expect(firstMonthPreviousDescriptiveText).toBeInTheDocument();
 
-      expect(
-        firstMonthRenderResult.getByTestId(`${testId}--next-month-icon`),
-      ).toHaveAttribute(
-        'aria-label',
-        expect.stringMatching(/, February 2019$/),
-      );
+      const firstMonthNextDescriptiveText =
+        firstMonthRenderResult.getByText(/, February 2019$/);
+      expect(firstMonthNextDescriptiveText).toBeInTheDocument();
 
       firstMonthRenderResult.unmount();
 
-      const { renderResult: lastMonthResnderResult } = setup({
+      const { renderResult: lastMonthRenderResult } = setup({
         month: lastMonth,
       });
 
-      expect(
-        lastMonthResnderResult.getByTestId(`${testId}--previous-month-icon`),
-      ).toHaveAttribute(
-        'aria-label',
-        expect.stringMatching(/, November 2019$/),
-      );
+      const lastMonthPreviousDescriptiveText =
+        lastMonthRenderResult.getByText(/, November 2019$/);
+      expect(lastMonthPreviousDescriptiveText).toBeInTheDocument();
 
-      expect(
-        lastMonthResnderResult.getByTestId(`${testId}--next-month-icon`),
-      ).toHaveAttribute('aria-label', expect.stringMatching(/, January 2020$/));
+      const lastMonthNextDescriptiveText =
+        lastMonthRenderResult.getByText(/, January 2020$/);
+      expect(lastMonthNextDescriptiveText).toBeInTheDocument();
     });
 
     it('should switch to previous month when clicked on left arrow button', () => {
       const { renderResult, props } = setup();
 
-      fireEvent.click(
-        renderResult.getByTestId(`${testId}--previous-month-icon`),
-      );
+      fireEvent.click(renderResult.getByTestId(`${testId}--previous-month`));
 
       expect(
         renderResult.getByTestId(`${testId}--current-month-year`),
@@ -198,7 +187,7 @@ describe('Calendar', () => {
     it('should switch to next month when clicked on right arrow button', () => {
       const { renderResult, props } = setup();
 
-      fireEvent.click(renderResult.getByTestId(`${testId}--next-month-icon`));
+      fireEvent.click(renderResult.getByTestId(`${testId}--next-month`));
 
       expect(
         renderResult.getByTestId(`${testId}--current-month-year`),
@@ -228,16 +217,16 @@ describe('Calendar', () => {
       );
     });
 
-    it('should have default aria labels on month arrow buttons', () => {
+    it('should have hidden span elements on month arrow buttons for representing labels', () => {
       const { renderResult } = setup();
 
       expect(
-        renderResult.getByTestId(`${testId}--previous-month-icon`),
-      ).toHaveAttribute('aria-label', expect.stringMatching(/^Previous month/));
+        renderResult.getByTestId(`${testId}--previous-month`),
+      ).toHaveTextContent(/^Previous month/);
 
       expect(
-        renderResult.getByTestId(`${testId}--next-month-icon`),
-      ).toHaveAttribute('aria-label', expect.stringMatching(/^Next month/));
+        renderResult.getByTestId(`${testId}--next-month`),
+      ).toHaveTextContent(/^Next month/);
     });
   });
 

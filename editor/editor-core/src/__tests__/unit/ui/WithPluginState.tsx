@@ -1,19 +1,22 @@
-import { name } from '../../../version-wrapper';
-import { mount } from 'enzyme';
 import React from 'react';
+
+import { waitFor } from '@testing-library/react';
+import { mount } from 'enzyme';
+
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import WithPluginState from '../../../ui/WithPluginState';
-import type { EditorPlugin } from '../../../types/editor-plugin';
-import type { Dispatch } from '../../../event-dispatcher';
-import { EventDispatcher, createDispatch } from '../../../event-dispatcher';
+
 import EditorActions from '../../../actions';
+import type { Dispatch } from '../../../event-dispatcher';
+import { createDispatch, EventDispatcher } from '../../../event-dispatcher';
+import type { EditorPlugin } from '../../../types/editor-plugin';
 import EditorContext from '../../../ui/EditorContext';
-import { waitFor } from '@testing-library/react';
+import WithPluginState from '../../../ui/WithPluginState';
+import { name } from '../../../version-wrapper';
 
 describe(name, () => {
   const createEditor = createEditorFactory();

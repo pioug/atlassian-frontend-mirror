@@ -7,9 +7,9 @@ import customLogo from '../shared/assets/custom-logo-wide.png';
 const CustomHome = () => (
   <CustomProductHome
     href="#"
-    iconAlt="Atlassian Documentation"
+    iconAlt="Atlassian documentation home"
     iconUrl={customIcon}
-    logoAlt="Atlassian Documentation"
+    logoAlt="Atlassian documentation home"
     logoUrl={customLogo}
     logoMaxWidth={300}
   />

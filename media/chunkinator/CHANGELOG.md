@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.0.0
+
+### Major Changes
+
+- [#70414](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70414) [`2125e318f970`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2125e318f970) - Adding the option to use SHA256 for file uploads to ensure Media is FedRAMP compliant. If not specified the system will default to SHA1 to preserve backwards compatibiilty.
+
+## 5.0.0
+
+### Major Changes
+
+- [#60352](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60352) [`ff9488b450dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ff9488b450dd) - WHAT: Media has removed the ability to probe for existing file chunks.  
+  WHY: This is to support the work to deprecate SHA1 usage and make the Media Platform comply with FedRAMP moderate controls.
+  HOW: Remove any calls you have directly to probing, instead upload all files directly. If you upload files via MediaPicker no changes are required.
+
 ## 4.2.4
 
 ### Patch Changes

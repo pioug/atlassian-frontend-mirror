@@ -1,37 +1,44 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/react';
-import { token } from '@atlaskit/tokens';
-import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import { jsx } from '@emotion/react';
 
+import Button, { ButtonGroup } from '@atlaskit/button';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type {
   ExtractPublicEditorAPI,
   PublicPluginAPI,
 } from '@atlaskit/editor-common/types';
-import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { createDefaultPreset } from '@atlaskit/editor-core/labs-next';
-import { cardPlugin } from '@atlaskit/editor-plugin-card';
-import { gridPlugin } from '@atlaskit/editor-plugin-grid';
-import type { ListPlugin } from '@atlaskit/editor-plugin-list';
-import { listPlugin } from '@atlaskit/editor-plugin-list';
-
-import Button, { ButtonGroup } from '@atlaskit/button';
-import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
-
 import { EditorContext } from '@atlaskit/editor-core';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { DevTools } from '../example-helpers/DevTools';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
+import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { cardPlugin } from '@atlaskit/editor-plugins/card';
+import { decorationsPlugin } from '@atlaskit/editor-plugins/decorations';
+import { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar';
+import { gridPlugin } from '@atlaskit/editor-plugins/grid';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugins/hyperlink';
+import type { ListPlugin } from '@atlaskit/editor-plugins/list';
+import { listPlugin } from '@atlaskit/editor-plugins/list';
+import { widthPlugin } from '@atlaskit/editor-plugins/width';
+import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import { Box, xcss } from '@atlaskit/primitives';
 
-const editorStyles = css({
-  margin: token('space.100', '8px'),
+import { DevTools } from '../example-helpers/DevTools';
+
+const editorStyles = xcss({
+  margin: 'space.100',
 });
 
 const smartCardClient = new ConfluenceCardClient('stg');
 
 const createPreset = () =>
   createDefaultPreset({ featureFlags: {}, paste: {} })
+    .add(widthPlugin)
+    .add(decorationsPlugin)
+    .add(floatingToolbarPlugin)
+    .add(hyperlinkPlugin)
     .add(gridPlugin)
     .add([cardPlugin, { platform: 'web' }])
     .add(listPlugin);
@@ -42,11 +49,11 @@ interface ListToolbarProps {
 
 function ListToolbar({ editorApi }: ListToolbarProps) {
   const { listState } = useSharedPluginState(editorApi, ['list']);
-  const toggleOrderedList = editorApi?.list.commands.toggleOrderedList(
+  const toggleOrderedList = editorApi?.list?.commands.toggleOrderedList(
     INPUT_METHOD.TOOLBAR,
   );
 
-  const toggleBulletList = editorApi?.list.commands.toggleBulletList(
+  const toggleBulletList = editorApi?.list?.commands.toggleBulletList(
     INPUT_METHOD.TOOLBAR,
   );
 
@@ -55,7 +62,7 @@ function ListToolbar({ editorApi }: ListToolbarProps) {
       <Button
         isDisabled={listState?.bulletListDisabled}
         onClick={() => {
-          editorApi?.core.actions.execute(toggleBulletList);
+          editorApi?.core?.actions.execute(toggleBulletList);
         }}
         isSelected={listState?.bulletListActive}
       >
@@ -64,7 +71,7 @@ function ListToolbar({ editorApi }: ListToolbarProps) {
       <Button
         isDisabled={listState?.orderedListDisabled}
         onClick={() => {
-          editorApi?.core.actions.execute(toggleOrderedList);
+          editorApi?.core?.actions.execute(toggleOrderedList);
         }}
         isSelected={listState?.orderedListActive}
       >
@@ -78,7 +85,7 @@ function FormattingToolbar({ editorApi }: ToolbarProps) {
   const { textFormattingState } = useSharedPluginState(editorApi, [
     'textFormatting',
   ]);
-  const toggleStrong = editorApi?.textFormatting.commands.toggleStrong(
+  const toggleStrong = editorApi?.textFormatting?.commands.toggleStrong(
     INPUT_METHOD.TOOLBAR,
   );
 
@@ -86,7 +93,7 @@ function FormattingToolbar({ editorApi }: ToolbarProps) {
     <Button
       isDisabled={textFormattingState?.strongDisabled}
       onClick={() => {
-        editorApi?.core.actions.execute(toggleStrong);
+        editorApi?.core?.actions.execute(toggleStrong);
       }}
       isSelected={textFormattingState?.strongActive}
     >
@@ -104,7 +111,7 @@ interface ToolbarProps {
 function Toolbar({ editorApi }: ToolbarProps) {
   const { hyperlinkState } = useSharedPluginState(editorApi, ['hyperlink']);
 
-  const showLinkToolbarAction = editorApi?.hyperlink.commands.showLinkToolbar(
+  const showLinkToolbarAction = editorApi?.hyperlink?.commands.showLinkToolbar(
     INPUT_METHOD.TOOLBAR,
   );
 
@@ -117,7 +124,7 @@ function Toolbar({ editorApi }: ToolbarProps) {
         appearance="link"
         isDisabled={hyperlinkState?.activeLinkMark !== undefined}
         onClick={() => {
-          editorApi?.core.actions.execute(showLinkToolbarAction);
+          editorApi?.core?.actions.execute(showLinkToolbarAction);
         }}
       >
         {hyperlinkState?.activeLinkMark ? 'Active Link' : 'Insert Link'}
@@ -126,7 +133,7 @@ function Toolbar({ editorApi }: ToolbarProps) {
       <Button
         appearance="primary"
         onClick={() => {
-          editorApi?.core.actions.execute(({ tr }) => {
+          editorApi?.core?.actions.execute(({ tr }) => {
             return tr.insertText('*Knowing where ones towel is.*');
           });
         }}
@@ -137,7 +144,7 @@ function Toolbar({ editorApi }: ToolbarProps) {
       <Button
         appearance="primary"
         onClick={() => {
-          editorApi?.core.actions.blur();
+          editorApi?.core?.actions.blur();
         }}
       >
         Blur
@@ -146,7 +153,7 @@ function Toolbar({ editorApi }: ToolbarProps) {
       <Button
         appearance="primary"
         onClick={() => {
-          editorApi?.core.actions.focus();
+          editorApi?.core?.actions.focus();
         }}
       >
         Focus
@@ -156,10 +163,10 @@ function Toolbar({ editorApi }: ToolbarProps) {
 }
 
 export function ComposableEditorWithToolbar() {
-  const { preset, editorApi } = usePreset(createPreset, []);
+  const { preset, editorApi } = usePreset(createPreset);
 
   return (
-    <div css={editorStyles}>
+    <Box xcss={editorStyles}>
       <Toolbar editorApi={editorApi} />
       <ComposableEditor
         appearance="chromeless"
@@ -168,7 +175,7 @@ export function ComposableEditorWithToolbar() {
           smartLinks: { provider: Promise.resolve(cardProviderStaging) },
         }}
       />
-    </div>
+    </Box>
   );
 }
 

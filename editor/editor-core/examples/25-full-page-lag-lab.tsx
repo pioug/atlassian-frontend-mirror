@@ -1,11 +1,16 @@
 /** @jsx jsx */
+import { format } from 'url';
+
 import React from 'react';
+
 import { css, jsx } from '@emotion/react';
+
 import Button from '@atlaskit/button/standard-button';
 import Drawer from '@atlaskit/drawer';
-import { format } from 'url';
+
+import type EditorActions from '../src/actions';
+
 import { default as FullPageExample } from './5-full-page';
-import EditorActions from '../src/actions';
 
 // helper function to read url args
 const readUrlParams = () => {

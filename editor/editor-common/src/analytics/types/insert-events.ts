@@ -97,7 +97,10 @@ type InsertTableAEP = InsertAEP<
       | INPUT_METHOD.TOOLBAR
       | INPUT_METHOD.INSERT_MENU
       | INPUT_METHOD.FORMATTING
+      | INPUT_METHOD.PICKER
       | INPUT_METHOD.SHORTCUT;
+    totalRowCount?: number;
+    totalColumnCount?: number;
   },
   undefined
 >;
@@ -280,7 +283,7 @@ type InsertNodeViaExtensionAPIAEP = InsertAEP<
     inputMethod: INPUT_METHOD.EXTENSION_API;
 
     // referentiality specific info
-    hasReferentiality: Boolean;
+    hasReferentiality: boolean;
     nodeTypesReferenced?: string[];
     // /referentiality
 

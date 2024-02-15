@@ -1,18 +1,19 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import adf from './__fixtures__/full-width-table.adf.json';
-import tableWithFirstColumnMerged from './__fixtures__/table-3x3-with-two-cells-merged-on-first-row.adf.json';
-import tableWithBottomRightColMerged from './__fixtures__/table-3x3-with-two-cells-merged-bottom-right-column.json';
+  clickFirstCell,
+  tableSelectors,
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  tableSelectors,
-  clickFirstCell,
-} from '@atlaskit/editor-test-helpers/page-objects/table';
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import adf from './__fixtures__/full-width-table.adf.json';
+import tableWithBottomRightColMerged from './__fixtures__/table-3x3-with-two-cells-merged-bottom-right-column.json';
+import tableWithFirstColumnMerged from './__fixtures__/table-3x3-with-two-cells-merged-on-first-row.adf.json';
 
 describe('Delete in table:', () => {
   let page: PuppeteerPage;

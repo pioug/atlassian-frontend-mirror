@@ -19,6 +19,7 @@ import {
 } from '@atlaskit/editor-common/card';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { isTextAtPos, LinkAction } from '@atlaskit/editor-common/link';
+import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
 import type {
   Command,
   EditorCommand,
@@ -147,6 +148,7 @@ export function insertLink(
   displayText?: string,
   source?: LinkInputType,
   sourceEvent?: UIAnalyticsEvent | null | undefined,
+  appearance: CardAppearance = 'inline',
 ): Command {
   return (state, dispatch) => {
     const link = state.schema.marks.link;
@@ -183,6 +185,7 @@ export function insertLink(
             ACTION.INSERTED,
             false,
             sourceEvent,
+            appearance,
           );
         } else {
           addLinkMetadata(state.selection, tr, {
@@ -225,6 +228,7 @@ export type InsertLink = (
   displayText?: string,
   cardsAvailable?: boolean,
   sourceEvent?: UIAnalyticsEvent | null | undefined,
+  appearance?: CardAppearance,
 ) => Command;
 
 export const insertLinkWithAnalytics = (
@@ -237,6 +241,7 @@ export const insertLinkWithAnalytics = (
   displayText?: string,
   cardsAvailable: boolean = false,
   sourceEvent: UIAnalyticsEvent | null | undefined = undefined,
+  appearance?: CardAppearance,
 ) => {
   // If smart cards are available, we send analytics for hyperlinks when a smart link is rejected.
   if (cardsAvailable && !title && !displayText) {
@@ -248,12 +253,24 @@ export const insertLinkWithAnalytics = (
       displayText,
       inputMethod,
       sourceEvent,
+      appearance,
     );
   }
   return withAnalytics(
     editorAnalyticsApi,
     getLinkCreationAnalyticsEvent(inputMethod, href),
-  )(insertLink(from, to, href, title, displayText, inputMethod, sourceEvent));
+  )(
+    insertLink(
+      from,
+      to,
+      href,
+      title,
+      displayText,
+      inputMethod,
+      sourceEvent,
+      appearance,
+    ),
+  );
 };
 
 export function removeLink(

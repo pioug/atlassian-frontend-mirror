@@ -1,9 +1,5 @@
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type {
-  Command,
-  HigherOrderCommand,
-} from '@atlaskit/editor-common/types';
 
 /**
  * Creates a filter that checks if the node at a given number of parents above the current
@@ -26,18 +22,4 @@ const isNthParentOfType = (
   };
 };
 
-const withScrollIntoView: HigherOrderCommand =
-  (command: Command): Command =>
-  (state, dispatch, view) =>
-    command(
-      state,
-      (tr) => {
-        tr.scrollIntoView();
-        if (dispatch) {
-          dispatch(tr);
-        }
-      },
-      view,
-    );
-
-export { isNthParentOfType, withScrollIntoView };
+export { isNthParentOfType };

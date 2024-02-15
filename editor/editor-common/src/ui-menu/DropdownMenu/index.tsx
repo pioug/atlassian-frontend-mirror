@@ -8,18 +8,16 @@ import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import type { CustomItemComponentProps } from '@atlaskit/menu';
 import { CustomItem, MenuGroup, Section } from '@atlaskit/menu';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { B100, DN600, DN80, N70, N900 } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
-import type { ThemeProps } from '@atlaskit/theme/types';
+import { B100, N70, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import type { PositionType } from '@atlaskit/tooltip';
 import Tooltip from '@atlaskit/tooltip';
 
 import { DropdownMenuSharedCssClassName } from '../../styles';
-import DropList from '../../ui/DropList';
-import Popup from '../../ui/Popup';
 import { KeyDownHandlerContext } from '../../ui-menu/ToolbarArrowKeyNavigationProvider';
 import { withReactEditorViewOuterListeners } from '../../ui-react';
+import DropList from '../../ui/DropList';
+import Popup from '../../ui/Popup';
 import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
 import { ArrowKeyNavigationType } from '../ArrowKeyNavigationProvider/types';
 
@@ -39,75 +37,56 @@ const focusedMenuItemStyle = css`
   outline: none;
 `;
 
-const buttonStyles =
-  (isActive?: boolean, submenuActive?: boolean) => (theme: ThemeProps) => {
-    if (isActive) {
-      /**
-       * Hack for item to imitate old dropdown-menu selected styles
-       */
-      return css`
-        > span,
-        > span:hover,
-        > span:active {
-          background: ${token('color.background.selected', '#6c798f')};
-          color: ${token('color.text', '#fff')};
-        }
-        :focus > span[aria-disabled='false'] {
-          ${focusedMenuItemStyle};
-        }
-        :focus-visible,
-        :focus-visible > span[aria-disabled='false'] {
-          outline: none;
-        }
-      `;
-    } else {
-      return css`
-        > span:hover[aria-disabled='false'] {
-          color: ${themed({
-            light: token('color.text', N900),
-            dark: token('color.text', DN600),
-          })(theme)};
-          background-color: ${themed({
-            light: token(
-              'color.background.neutral.subtle.hovered',
-              'rgb(244, 245, 247)',
-            ),
-            dark: token(
-              'color.background.neutral.subtle.hovered',
-              'rgb(59, 71, 92)',
-            ),
-          })(theme)};
-        }
-        ${!submenuActive &&
-        `
+const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
+  if (isActive) {
+    /**
+     * Hack for item to imitate old dropdown-menu selected styles
+     */
+    return css`
+      > span,
+      > span:hover,
+      > span:active {
+        background: ${token('color.background.selected', '#6c798f')};
+        color: ${token('color.text', '#fff')};
+      }
+      :focus > span[aria-disabled='false'] {
+        ${focusedMenuItemStyle};
+      }
+      :focus-visible,
+      :focus-visible > span[aria-disabled='false'] {
+        outline: none;
+      }
+    `;
+  } else {
+    return css`
+      > span:hover[aria-disabled='false'] {
+        color: ${token('color.text', N900)};
+        background-color: ${token(
+          'color.background.neutral.subtle.hovered',
+          'rgb(244, 245, 247)',
+        )};
+      }
+      ${!submenuActive &&
+      `
           > span:active[aria-disabled='false'] {
-            background-color: ${themed({
-              light: token(
-                'color.background.neutral.subtle.pressed',
-                'rgb(179, 212, 255)',
-              ),
-              dark: token(
-                'color.background.neutral.subtle.pressed',
-                'rgb(179, 212, 255)',
-              ),
-            })(theme)};
+            background-color: ${token(
+              'color.background.neutral.subtle.pressed',
+              'rgb(179, 212, 255)',
+            )};
           }`}
-        > span[aria-disabled='true'] {
-          color: ${themed({
-            light: token('color.text.disabled', N70),
-            dark: token('color.text.disabled', DN80),
-          })(theme)};
-        }
-        :focus > span[aria-disabled='false'] {
-          ${focusedMenuItemStyle};
-        }
-        :focus-visible,
-        :focus-visible > span[aria-disabled='false'] {
-          outline: none;
-        }
-      `; // The default focus-visible style is removed to ensure consistency across browsers
-    }
-  };
+      > span[aria-disabled='true'] {
+        color: ${token('color.text.disabled', N70)};
+      }
+      :focus > span[aria-disabled='false'] {
+        ${focusedMenuItemStyle};
+      }
+      :focus-visible,
+      :focus-visible > span[aria-disabled='false'] {
+        outline: none;
+      }
+    `; // The default focus-visible style is removed to ensure consistency across browsers
+  }
+};
 
 const DropListWithOutsideListeners: any =
   withReactEditorViewOuterListeners(DropList);
@@ -330,7 +309,7 @@ const DropdownMenuItemCustomComponent = React.forwardRef<
   );
 });
 
-function DropdownMenuItem({
+export function DropdownMenuItem({
   item,
   onItemActivated,
   shouldUseDefaultRole,
@@ -360,9 +339,7 @@ function DropdownMenuItem({
 
   const dropListItem = (
     <div
-      css={(theme: ThemeProps) =>
-        buttonStyles(item.isActive, submenuActive)({ theme })
-      }
+      css={() => buttonStyles(item.isActive, submenuActive)}
       tabIndex={-1}
       aria-disabled={item.isDisabled ? 'true' : 'false'}
       onMouseDown={_handleSubmenuActive}
@@ -409,6 +386,7 @@ function DropdownMenuItem({
 export const DropdownMenuWithKeyboardNavigation: React.FC<any> = React.memo(
   ({ ...props }) => {
     const keyDownHandlerContext = useContext(KeyDownHandlerContext);
+
     // This context is to handle the tab, Arrow Right/Left key events for dropdown.
     // Default context has the void callbacks for above key events
     return (

@@ -73,6 +73,9 @@
       "path": "../dynamic-table/tsconfig.app.json"
     },
     {
+      "path": "../form/tsconfig.app.json"
+    },
+    {
       "path": "../grid/tsconfig.app.json"
     },
     {

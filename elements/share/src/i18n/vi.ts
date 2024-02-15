@@ -19,6 +19,7 @@ export default {
   'fabric.elements.share.form.no-permissions': 'Bạn không có khả năng chia sẻ.',
   'fabric.elements.share.form.public.send': 'Gửi liên kết công khai',
   'fabric.elements.share.form.public.share': 'Chia sẻ liên kết công khai',
+  'fabric.elements.share.form.required-field.summary': 'Các trường bắt buộc được đánh dấu bằng dấu sao',
   'fabric.elements.share.form.retry': 'Thử lại',
   'fabric.elements.share.form.send': 'Gửi',
   'fabric.elements.share.form.share': 'Chia sẻ',

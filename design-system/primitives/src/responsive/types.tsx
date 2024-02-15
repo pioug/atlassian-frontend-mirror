@@ -10,14 +10,14 @@ import { media } from './media-helper';
 export type Breakpoint = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 /**
- * All supported media queries for use as keys, eg. in `xcss({ [MediaQuery]: { … } })`
+ * All supported media queries for use as keys, eg. in `xcss({ [MediaQuery]: { … } })`.
  *
  * TODO: Should this have `media.above.xxs`?  This is explicitly `@media all`, which I believe is just additional specificity (which could lead to some mistakes)
  */
 export type MediaQuery = (typeof media.above)[Breakpoint];
 
 /**
- * An object type mapping a value to each breakpoint (optionally)
+ * An object type mapping a value to each breakpoint (optionally).
  */
 export type ResponsiveObject<T> = Partial<Record<Breakpoint, T>>;
 
@@ -51,7 +51,7 @@ export type BreakpointConfig = {
    */
   gridMargin: ReturnType<typeof token>;
   /**
-   * The min-width used in media queries
+   * The min-width used in media queries.
    */
   min: `${number}rem`;
   /**

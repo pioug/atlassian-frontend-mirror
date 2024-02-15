@@ -1,15 +1,19 @@
 /** @jsx jsx */
 import React from 'react';
+
 import { css, jsx } from '@emotion/react';
+
 import Spinner from '@atlaskit/spinner';
-import { EditorAppearance } from './../src/editor';
+import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
+
+import SidebarContainer from '../example-helpers/SidebarContainer';
+import type { EditorAppearance } from '../src/editor';
+
+import { InviteToEditButton } from './3-collab';
 import FullPageExample, {
   getAppearance,
   LOCALSTORAGE_defaultDocKey,
 } from './5-full-page';
-import { InviteToEditButton } from './3-collab';
-import SidebarContainer from '../example-helpers/SidebarContainer';
-import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 
 const disabledBlanket = css`
   position: absolute;

@@ -291,9 +291,6 @@ export const metadataWrapperStyles = css`
 `;
 
 export const metadataFileNameStyles = css`
-  &::first-letter {
-    text-transform: uppercase;
-  }
   ${ellipsis()};
 `;
 

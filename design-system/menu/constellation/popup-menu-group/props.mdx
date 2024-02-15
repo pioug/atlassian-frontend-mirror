@@ -2,10 +2,12 @@
 title: Popup menu group
 description: A menu group for rendering menus within popup containers.
 order: 1
+props:
+  packageName: '@atlaskit/menu'
+  exports:
+    - PopupMenuGroup
 ---
-
-import PopupMenuGroupProps from '!!extract-react-types-loader!../../src/menu-section/popup-menu-group';
 
 ## Props
 
-<PropsTable heading="" props={PopupMenuGroupProps} />
+<TSMorphProps exportName="PopupMenuGroup" packageName="@atlaskit/menu" />

@@ -1,4 +1,4 @@
-import EditorActions from '../../actions';
+import type EditorActions from '../../actions';
 
 export type RenderOnClickHandler = (
   editorActions: EditorActions,

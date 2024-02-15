@@ -115,7 +115,7 @@ export interface DropdownMenuProps<
   children?: ReactNode;
 
   /**
-   * If true, a Spinner is rendered instead of the items
+   * If true, a Spinner is rendered instead of the items.
    */
   isLoading?: boolean;
 
@@ -193,6 +193,10 @@ export interface DropdownMenuProps<
    * Defaults to `layers.modal()` from `@atlaskit/theme` which is 510.
    */
   zIndex?: number;
+  /**
+   * Provide an accessible label via aria-label, used by assistive technologies.
+   */
+  label?: string;
 }
 
 export interface DropdownItemProps {
@@ -324,7 +328,7 @@ export interface DropdownItemCheckboxProps {
   defaultSelected?: boolean;
 
   /**
-   * Unique id of a checkbox
+   * Unique id of a checkbox.
    */
   id: string;
 
@@ -383,7 +387,7 @@ export interface DropdownItemRadioProps {
   defaultSelected?: boolean;
 
   /**
-   * Unique id of a checkbox
+   * Unique id of a checkbox.
    */
   id: string;
 

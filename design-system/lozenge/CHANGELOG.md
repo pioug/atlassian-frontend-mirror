@@ -1,5 +1,33 @@
 # @atlaskit/lozenge
 
+## 11.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.6.1
+
+### Patch Changes
+
+- [#69022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69022) [`395c74147990`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/395c74147990) - Migrate packages to use declarative entry points
+
+## 11.6.0
+
+### Minor Changes
+
+- [#64300](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64300) [`436936ea8914`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/436936ea8914) - Export prop types
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.5.0
+
+### Minor Changes
+
+- [#57070](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57070) [`96de6e4e4ca2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/96de6e4e4ca2) - Lozenge now uses height: min-content so it doesn't stretch when directly used as a flex / grid item.
+
 ## 11.4.6
 
 ### Patch Changes

@@ -34,6 +34,7 @@ import {
   startUfoExperience,
 } from '../../utils/ufoExperiences';
 import { useCurrentValueRef } from '../../utils/useCurrentValueRef';
+import { getDefaultCardDimensions } from '../../utils/cardDimensions';
 import { usePrevious } from '../../utils/usePrevious';
 import {
   fireCommencedEvent,
@@ -42,6 +43,7 @@ import {
   fireScreenEvent,
 } from '../cardAnalytics';
 import { CardViewV2 } from './cardViewV2';
+import { performanceNow } from './performance';
 
 type ExternalImageCardStatus = 'loading-preview' | 'complete' | 'error';
 
@@ -89,8 +91,9 @@ export const ExternalImageCard = ({
   onMouseEnter,
   createAnalyticsEvent,
 }: ExternalImageCardBaseProps) => {
+  const cardDimensions = dimensions || getDefaultCardDimensions(appearance);
   const internalOccurrenceKey = useMemo(() => generateUniqueId(), []);
-  const timeElapsedTillCommenced = useMemo(() => performance.now(), []);
+  const timeElapsedTillCommenced = useMemo(() => performanceNow(), []);
 
   // Generate unique traceId for file
   const traceContext = useMemo<MediaTraceContext>(
@@ -123,11 +126,11 @@ export const ExternalImageCard = ({
   const [status, setStatus] =
     useState<ExternalImageCardStatus>('loading-preview');
 
-  const cardPreview: CardPreview = useMemo(
+  const cardPreview = useMemo(
     () => ({
       dataURI: identifier.dataURI,
       orientation: 1,
-      source: 'external',
+      source: 'external' as const,
     }),
     [identifier.dataURI],
   );
@@ -160,7 +163,7 @@ export const ExternalImageCard = ({
   //----------------------------------------------------------------//
 
   const fireOperationalEventRef = useCurrentValueRef(() => {
-    const timeElapsedTillEvent = performance.now();
+    const timeElapsedTillEvent = performanceNow();
     const durationSinceCommenced =
       timeElapsedTillEvent - timeElapsedTillCommenced;
 
@@ -306,14 +309,13 @@ export const ExternalImageCard = ({
         metadata={metadata}
         cardPreview={cardPreview}
         alt={alt}
-        appearance={appearance}
         resizeMode={resizeMode}
-        dimensions={dimensions}
+        dimensions={cardDimensions}
         actions={actions}
         selectable={selectable}
         selected={selected}
         onClick={(
-          event: React.MouseEvent<HTMLDivElement>,
+          event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>,
           analyticsEvent?: UIAnalyticsEvent,
         ) => {
           if (onClick) {
@@ -352,7 +354,6 @@ export const ExternalImageCard = ({
         }}
         innerRef={setCardElement}
         testId={testId}
-        featureFlags={featureFlags}
         titleBoxBgColor={titleBoxBgColor}
         titleBoxIcon={titleBoxIcon}
         onImageError={(newCardPreview?: CardPreview) => {

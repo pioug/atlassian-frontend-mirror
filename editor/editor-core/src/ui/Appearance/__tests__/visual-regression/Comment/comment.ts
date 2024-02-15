@@ -1,10 +1,10 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initCommentEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import { createDocumentWithParagraphs } from '../__fixtures/paragraph-content';
 
 describe('Comment', () => {

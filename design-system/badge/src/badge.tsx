@@ -11,6 +11,7 @@ import type { BadgeProps, ThemeAppearance } from './types';
 const boxStyles = xcss({
   borderRadius: 'border.radius.200',
   display: 'inline-flex',
+  blockSize: 'min-content',
 });
 
 /**

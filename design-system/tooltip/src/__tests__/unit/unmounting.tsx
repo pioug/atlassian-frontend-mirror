@@ -9,7 +9,7 @@ describe('Unmounting tooltip', () => {
     jest.useFakeTimers();
   });
 
-  afterAll(() => {
+  afterEach(() => {
     jest.useRealTimers();
   });
 

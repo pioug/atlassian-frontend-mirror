@@ -1,6 +1,6 @@
-import { isNthParentOfType } from '../../../utils/commands';
+import { uuid } from '@atlaskit/adf-schema';
 import { findCutBefore } from '@atlaskit/editor-common/commands';
-
+import type { Command } from '@atlaskit/editor-common/types';
 import {
   filterCommand as filter,
   isEmptySelectionAtStart,
@@ -9,17 +9,16 @@ import {
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
+  doc,
+  li,
   p,
   table,
-  tr,
   td,
+  tr,
   ul,
-  li,
-  doc,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { uuid } from '@atlaskit/adf-schema';
 
-import type { Command } from '@atlaskit/editor-common/types';
+import { isNthParentOfType } from '../../../utils/commands';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

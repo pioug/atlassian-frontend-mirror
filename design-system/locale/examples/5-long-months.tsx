@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
+import { Label } from '@atlaskit/form';
+
 import { LocalizationProvider, createLocalizationProvider } from '../src';
 import LocaleSelect, { Locale } from '../src/LocaleSelect';
 
@@ -32,7 +34,7 @@ export default class Example extends Component<Props, State> {
     const l10n = this.props.l10n || this.state.l10n;
     return (
       <Fragment>
-        <h3>Long Months</h3>
+        <h2>Long Months</h2>
         <ul>
           {l10n.getMonthsLong().map((month) => (
             <li key={month}>{month}</li>
@@ -40,7 +42,10 @@ export default class Example extends Component<Props, State> {
         </ul>
 
         {this.props.l10n ? undefined : (
-          <LocaleSelect onLocaleChange={this.onLocaleChange} />
+          <>
+            <Label htmlFor="locale">Locale</Label>
+            <LocaleSelect id="locale" onLocaleChange={this.onLocaleChange} />
+          </>
         )}
       </Fragment>
     );

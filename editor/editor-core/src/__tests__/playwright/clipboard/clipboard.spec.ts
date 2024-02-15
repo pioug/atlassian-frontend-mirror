@@ -1,18 +1,19 @@
 import {
   EditorNodeContainerModel,
-  editorTestCase as test,
-  expect,
   EditorTableModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
   table,
-  tr,
   td,
   th,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { emptyParagraphUnderneathTable } from './clipboard.spec.ts-fixtures';
 
 test.describe('Clipboard', () => {

@@ -1,10 +1,15 @@
 import React from 'react';
 
+import { Label } from '@atlaskit/form';
+import { Stack } from '@atlaskit/primitives';
+
 import Toggle from '../src';
 
 export default () => (
-  <div>
-    <Toggle size="large" />
-    <Toggle size="large" defaultChecked />
-  </div>
+  <Stack>
+    <Label htmlFor="large-default">Large (Default)</Label>
+    <Toggle id="large-default" size="large" />
+    <Label htmlFor="large-checked">Large (Checked)</Label>
+    <Toggle id="large-checked" size="large" defaultChecked />
+  </Stack>
 );

@@ -5,17 +5,21 @@ import { css, jsx } from '@emotion/react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
-import { packageMetaData } from '../../analytics/constants';
+import { componentMetadata } from '../../analytics/constants';
 import { startUfoExperience } from '../../analytics/ufoExperiences';
 import { useColumnPickerRenderedFailedUfoExperience } from '../../analytics/ufoExperiences/hooks/useColumnPickerRenderedFailedUfoExperience';
 import { useDataRenderedUfoExperience } from '../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
+import { fetchMessagesForLocale } from '../../common/utils/locale/fetch-messages-for-locale';
 import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
+import i18nEN from '../../i18n/en';
 import { ScrollableContainerHeight } from '../../ui/issue-like-table/styled';
 import { AccessRequired } from '../common/error-state/access-required';
 import { LoadingError } from '../common/error-state/loading-error';
 import { NoResults } from '../common/error-state/no-results';
+import { ProviderAuthRequired } from '../common/error-state/provider-auth-required';
 import { IssueLikeDataTableView } from '../issue-like-table';
 import EmptyState from '../issue-like-table/empty-state';
 import { TableFooter } from '../table-footer';
@@ -47,6 +51,7 @@ const DatasourceTableViewWithoutAnalytics = ({
     loadDatasourceDetails,
     extensionKey = null,
     destinationObjectTypes,
+    authDetails,
   } = useDatasourceTableState({
     datasourceId,
     parameters,
@@ -137,59 +142,84 @@ const DatasourceTableViewWithoutAnalytics = ({
   });
 
   const forcedReset = useCallback(() => {
+    reset({ shouldForceRequest: true });
+  }, [reset]);
+
+  const onRefresh = useCallback(() => {
     fireEvent('ui.button.clicked.sync', {
       extensionKey,
       destinationObjectTypes,
     });
 
-    reset({ shouldForceRequest: true });
-  }, [destinationObjectTypes, extensionKey, fireEvent, reset]);
+    forcedReset();
+  }, [destinationObjectTypes, extensionKey, fireEvent, forcedReset]);
 
-  if (status === 'resolved' && !responseItems.length) {
-    return <NoResults onRefresh={reset} />;
+  const handleErrorRefresh = useCallback(() => {
+    reset({ shouldForceRequest: true });
+  }, [reset]);
+
+  if (
+    (status === 'resolved' && !responseItems.length) ||
+    status === 'forbidden'
+  ) {
+    return <NoResults onRefresh={handleErrorRefresh} />;
   }
 
   if (status === 'unauthorized') {
-    return <AccessRequired url={url} />;
+    return authDetails?.length && authDetails.length > 0 ? (
+      <ProviderAuthRequired
+        auth={authDetails}
+        extensionKey={extensionKey}
+        onAuthSuccess={forcedReset}
+        onAuthError={forcedReset}
+      />
+    ) : (
+      <AccessRequired url={url} />
+    );
   }
 
   if (status === 'rejected') {
-    return <LoadingError onRefresh={reset} />;
+    return <LoadingError onRefresh={handleErrorRefresh} />;
   }
 
   return (
-    // datasource-table classname is to exclude all children from being commentable - exclude list is in CFE
-    <div css={containerStyles} className="datasource-table">
-      {hasColumns ? (
-        <IssueLikeDataTableView
-          testId={'datasource-table-view'}
-          hasNextPage={hasNextPage}
-          items={responseItems}
-          onNextPage={onNextPage}
-          onLoadDatasourceDetails={loadDatasourceDetails}
-          status={status}
-          columns={columns}
-          visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
-          onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-          columnCustomSizes={columnCustomSizes}
-          onColumnResize={onColumnResize}
-          scrollableContainerHeight={ScrollableContainerHeight}
-          parentContainerRenderInstanceId={tableRenderInstanceId}
-          extensionKey={extensionKey}
+    <IntlMessagesProvider
+      defaultMessages={i18nEN}
+      loaderFn={fetchMessagesForLocale}
+    >
+      {/* datasource-table classname is to exclude all children from being commentable - exclude list is in CFE*/}
+      <div css={containerStyles} className="datasource-table">
+        {hasColumns ? (
+          <IssueLikeDataTableView
+            testId={'datasource-table-view'}
+            hasNextPage={hasNextPage}
+            items={responseItems}
+            onNextPage={onNextPage}
+            onLoadDatasourceDetails={loadDatasourceDetails}
+            status={status}
+            columns={columns}
+            visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
+            onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+            columnCustomSizes={columnCustomSizes}
+            onColumnResize={onColumnResize}
+            scrollableContainerHeight={ScrollableContainerHeight}
+            parentContainerRenderInstanceId={tableRenderInstanceId}
+            extensionKey={extensionKey}
+          />
+        ) : (
+          <EmptyState testId="datasource-table-view-skeleton" isCompact />
+        )}
+        <TableFooter
+          itemCount={isDataReady ? totalCount : undefined}
+          onRefresh={onRefresh}
+          isLoading={!isDataReady || status === 'loading'}
+          url={url}
         />
-      ) : (
-        <EmptyState testId="datasource-table-view-skeleton" isCompact />
-      )}
-      <TableFooter
-        itemCount={isDataReady ? totalCount : undefined}
-        onRefresh={forcedReset}
-        isLoading={!isDataReady || status === 'loading'}
-        url={url}
-      />
-    </div>
+      </div>
+    </IntlMessagesProvider>
   );
 };
 
-export const DatasourceTableView = withAnalyticsContext(packageMetaData)(
-  DatasourceTableViewWithoutAnalytics,
-);
+export const DatasourceTableView = withAnalyticsContext(
+  componentMetadata.tableView,
+)(DatasourceTableViewWithoutAnalytics);

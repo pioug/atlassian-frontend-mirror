@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
+
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 const optionStyle = css`

@@ -37,7 +37,7 @@ type ResponsiveHideProps = {
        * Apply CSS to hide this specifically **below** this breakpoint.
        * The smallest breakpoint is not included as it would never be shown and this would not be performant.
        *
-       * @important do not mix `above` and `below` (TypeScript should prevent this)
+       * @important do not mix `above` and `below` (TypeScript should prevent this).
        */
       below: Exclude<Breakpoint, 'xxs'>;
     }
@@ -46,7 +46,7 @@ type ResponsiveHideProps = {
        * Apply CSS to hide this specifically **above** this breakpoint.
        * The smallest breakpoint is not included as it would always be shown and this would not be performant.
        *
-       * @important do not mix `above` and `below` (TypeScript should prevent this)
+       * @important do not mix `above` and `below` (TypeScript should prevent this).
        */
 
       above: Exclude<Breakpoint, 'xxs'>;

@@ -1,14 +1,14 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 
 import Tooltip from '../../src';
 
 export default () => (
-  <Tooltip content="Hello World">
+  <Tooltip content="This is a tooltip">
     {(tooltipProps) => (
       <Button appearance="primary" {...tooltipProps}>
-        Hover over me
+        Hover or keyboard focus on me
       </Button>
     )}
   </Tooltip>

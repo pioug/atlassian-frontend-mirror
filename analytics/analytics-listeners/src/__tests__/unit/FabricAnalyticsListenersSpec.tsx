@@ -9,7 +9,9 @@ import {
   DummyNotificationsComponent,
   DummyPeopleTeamsComponent,
   DummyCrossFlowComponent,
+  DummyPostOfficeComponent,
   IncorrectEventType,
+  DummyAIMateComponent,
 } from '../../../examples/helpers';
 import AtlaskitListener from '../../atlaskit/AtlaskitListener';
 import FabricElementsListener from '../../fabric/FabricElementsListener';
@@ -20,6 +22,8 @@ import PeopleTeamsAnalyticsListener from '../../peopleTeams/PeopleTeamsAnalytics
 import { AnalyticsWebClient, FabricChannel } from '../../types';
 import NotificationsAnalyticsListener from '../../notifications/NotificationsAnalyticsListener';
 import CrossFlowAnalyticsListener from '../../cross-flow/CrossFlowAnalyticsListener';
+import PostOfficeAnalyticsListener from '../../postOffice/PostOfficeAnalyticsListener';
+import AIMateAnalyticsListener from '../../aiMate/AIMateAnalyticsListener';
 
 declare const global: any;
 
@@ -43,6 +47,12 @@ const DummyNotificationsCompWithAnalytics = createComponentWithAnalytics(
 );
 const DummyCrossFlowCompWithAnalytics = createComponentWithAnalytics(
   FabricChannel.crossFlow,
+);
+const DummyPostOfficeCompWithAnalytics = createComponentWithAnalytics(
+  FabricChannel.postOffice,
+);
+const DummyAIMateCompWithAnalytics = createComponentWithAnalytics(
+  FabricChannel.aiMate,
 );
 const AtlaskitIncorrectEventType = IncorrectEventType(FabricChannel.atlaskit);
 
@@ -213,6 +223,23 @@ describe('<FabricAnalyticsListeners />', () => {
       );
 
       const navigationListener = component.find(NavigationListener);
+
+      expect(navigationListener).toHaveLength(1);
+      expect(navigationListener.props()).toEqual(
+        expect.objectContaining({
+          client: analyticsWebClientMock,
+        }),
+      );
+    });
+
+    it('should render a PostOfficeListener', () => {
+      const component = shallow(
+        <FabricAnalyticsListeners client={analyticsWebClientMock}>
+          <div>Child</div>
+        </FabricAnalyticsListeners>,
+      );
+
+      const navigationListener = component.find(PostOfficeAnalyticsListener);
 
       expect(navigationListener).toHaveLength(1);
       expect(navigationListener.props()).toEqual(
@@ -668,6 +695,106 @@ describe('<FabricAnalyticsListeners />', () => {
       const dummyComponent = analyticsListener.find(
         DummyNotificationsComponent,
       );
+      expect(dummyComponent).toHaveLength(1);
+
+      dummyComponent.simulate('click');
+    });
+  });
+
+  describe('<PostOfficeAnalyticsListener />', () => {
+    it('should listen and fire a UI event with analyticsWebClient', () => {
+      const compOnClick = jest.fn();
+      const component = mount(
+        <FabricAnalyticsListeners client={analyticsWebClientMock}>
+          <DummyPostOfficeCompWithAnalytics onClick={compOnClick} />
+        </FabricAnalyticsListeners>,
+      );
+
+      const analyticsListener = component.find(PostOfficeAnalyticsListener);
+      expect(analyticsListener.props()).toHaveProperty(
+        'client',
+        analyticsWebClientMock,
+      );
+
+      const dummyComponent = analyticsListener.find(DummyPostOfficeComponent);
+      expect(dummyComponent).toHaveLength(1);
+
+      dummyComponent.simulate('click');
+
+      expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+    });
+
+    it('should listen and fire a UI event with analyticsWebClient as Promise', (done) => {
+      analyticsWebClientMock.sendUIEvent = jest.fn(() => {
+        done();
+      });
+
+      const compOnClick = jest.fn();
+      const component = mount(
+        <FabricAnalyticsListeners
+          client={Promise.resolve(analyticsWebClientMock)}
+        >
+          <DummyPostOfficeCompWithAnalytics onClick={compOnClick} />
+        </FabricAnalyticsListeners>,
+      );
+
+      const analyticsListener = component.find(PostOfficeAnalyticsListener);
+      expect(analyticsListener.props()).toHaveProperty(
+        'client',
+        Promise.resolve(analyticsWebClientMock),
+      );
+
+      const dummyComponent = analyticsListener.find(DummyPostOfficeComponent);
+      expect(dummyComponent).toHaveLength(1);
+
+      dummyComponent.simulate('click');
+    });
+  });
+
+  describe('<AIMateAnalyticsListener />', () => {
+    it('should listen and fire a UI event with analyticsWebClient', () => {
+      const compOnClick = jest.fn();
+      const component = mount(
+        <FabricAnalyticsListeners client={analyticsWebClientMock}>
+          <DummyAIMateCompWithAnalytics onClick={compOnClick} />
+        </FabricAnalyticsListeners>,
+      );
+
+      const analyticsListener = component.find(AIMateAnalyticsListener);
+      expect(analyticsListener.props()).toHaveProperty(
+        'client',
+        analyticsWebClientMock,
+      );
+
+      const dummyComponent = analyticsListener.find(DummyAIMateComponent);
+      expect(dummyComponent).toHaveLength(1);
+
+      dummyComponent.simulate('click');
+
+      expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+    });
+
+    it('should listen and fire a UI event with analyticsWebClient as Promise', (done) => {
+      analyticsWebClientMock.sendUIEvent = jest.fn(() => {
+        done();
+      });
+
+      const compOnClick = jest.fn();
+      const component = mount(
+        <FabricAnalyticsListeners
+          client={Promise.resolve(analyticsWebClientMock)}
+        >
+          <DummyAIMateCompWithAnalytics onClick={compOnClick} />
+        </FabricAnalyticsListeners>,
+      );
+
+      const analyticsListener = component.find(AIMateAnalyticsListener);
+      expect(analyticsListener.props()).toHaveProperty(
+        'client',
+        Promise.resolve(analyticsWebClientMock),
+      );
+
+      const dummyComponent = analyticsListener.find(DummyAIMateComponent);
       expect(dummyComponent).toHaveLength(1);
 
       dummyComponent.simulate('click');

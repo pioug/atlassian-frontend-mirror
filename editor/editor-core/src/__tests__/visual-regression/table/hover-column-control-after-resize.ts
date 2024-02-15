@@ -1,21 +1,22 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import adf from '../common/__fixtures__/noData-adf.json';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  resizeColumn,
-  insertTable,
+  clickFirstCell,
   hoverColumnControls,
   insertColumn,
-  clickFirstCell,
+  insertTable,
+  resizeColumn,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import adf from '../common/__fixtures__/noData-adf.json';
 
 describe('Snapshot Test: table resizing', () => {
   describe('Re-sizing', () => {

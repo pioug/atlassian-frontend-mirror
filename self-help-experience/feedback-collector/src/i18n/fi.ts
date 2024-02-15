@@ -13,6 +13,7 @@ export default {
   'feedback-collector.can-be-contacted.label':
     'Kyllä, Atlassian-tiimit voivat ottaa minuun yhteyttä ja pyytää lisätietoja kokemuksistani Atlassian-tuotteiden ja ‑palveluiden parantamista varten. Hyväksyn <a>Atlassianin tietosuojakäytännön</a>.',
   'feedback-collector.cancel-button.label': 'Peruuta',
+  'feedback-collector.default.custom.textarea.label': 'Mitä mietit?',
   'feedback-collector.enrol-in-research.label': 'Haluan osallistua tuotetutkimukseen',
   'feedback-collector.feedback-title': 'Jaa ajatuksesi',
   'feedback-collector.form.bug.label': 'Kuvaile bugia tai ongelmaa',
@@ -26,6 +27,7 @@ export default {
   'feedback-collector.option.default.placeholder': 'Valitse yksi',
   'feedback-collector.option.question.label': 'esittää kysymyksen',
   'feedback-collector.option.suggestion.label': 'ehdottaa parannusta',
+  'feedback-collector.required.fields.summary': 'Pakolliset kentät on merkitty tähdellä',
   'feedback-collector.submit-button.label': 'Lähetä palaute',
   'feedback-collector.success-flag.description':
     'Arvokkaan palautteesi avulla voimme jatkuvasti parantaa tuotteitamme.',

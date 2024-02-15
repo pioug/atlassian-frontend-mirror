@@ -1,5 +1,11 @@
 # @atlaskit/json-schema-generator
 
+## 3.3.7
+
+### Patch Changes
+
+- [#69779](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69779) [`8dd71b2e0653`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8dd71b2e0653) - Updated bin property to string as the package name and bin name matches. https://yarnpkg.com/configuration/manifest#bin
+
 ## 3.3.6
 
 ### Patch Changes

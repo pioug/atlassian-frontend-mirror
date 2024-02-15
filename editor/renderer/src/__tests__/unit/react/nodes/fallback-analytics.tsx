@@ -22,8 +22,7 @@ describe('Renderer - Fallback analytics', () => {
     },
     context: [
       {
-        packageName: '@atlaskit/fabric',
-        packageVersion: '0.0.0',
+        component: 'datasource',
       },
     ],
   };

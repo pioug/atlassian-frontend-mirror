@@ -1,117 +1,117 @@
 import React from 'react';
-import { injectIntl } from 'react-intl-next';
+
 import PropTypes from 'prop-types';
-import type { Transaction, Plugin } from '@atlaskit/editor-prosemirror/state';
-import {
-  EditorState,
-  Selection,
-  TextSelection,
-} from '@atlaskit/editor-prosemirror/state';
-import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
+
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type {
-  ContextIdentifierProvider,
-  ProviderFactory,
-} from '@atlaskit/editor-common/provider-factory';
-import { editorMessages } from './messages';
-
-import type { ErrorReporter, SEVERITY } from '@atlaskit/editor-common/utils';
-import {
-  browser,
-  getAnalyticsEventSeverity,
-  getResponseEndTime,
-  measureRender,
-  startMeasure,
-  stopMeasure,
-  shouldForceTracking,
-  processRawValue,
-  analyticsEventKey,
-} from '@atlaskit/editor-common/utils';
-
-import {
-  ExperienceStore,
-  EditorExperience,
-  RELIABILITY_INTERVAL,
-} from '@atlaskit/editor-common/ufo';
-import type {
-  Transformer,
-  AllEditorPresetPluginTypes,
-} from '@atlaskit/editor-common/types';
-
-import type { Dispatch } from '../event-dispatcher';
-import { createDispatch, EventDispatcher } from '../event-dispatcher';
-import { freezeUnsafeTransactionProperties } from '../utils/performance/safer-transactions';
-import { RenderTracking } from '../utils/performance/components/RenderTracking';
-import {
-  findChangedNodesFromTransaction,
-  validateNodes,
-  validNode,
-} from '../utils/nodes';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   fireAnalyticsEvent,
   FULL_WIDTH_MODE,
-  PLATFORMS,
   getAnalyticsEventsFromTransaction,
+  PLATFORMS,
 } from '@atlaskit/editor-common/analytics';
-import { createFeatureFlagsFromProps } from './feature-flags-from-props';
+import type { SimplifiedNode } from '@atlaskit/editor-common/analytics';
+import type {
+  AnalyticsDispatch,
+  AnalyticsEventPayload,
+  DispatchAnalyticsEvent,
+  FireAnalyticsCallback,
+  PluginPerformanceReportData,
+  UfoSessionCompletePayloadAEP,
+} from '@atlaskit/editor-common/analytics';
+import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
+import type {
+  ContextIdentifierProvider,
+  ProviderFactory,
+} from '@atlaskit/editor-common/provider-factory';
+import type {
+  AllEditorPresetPluginTypes,
+  Transformer,
+} from '@atlaskit/editor-common/types';
+import {
+  EditorExperience,
+  ExperienceStore,
+  RELIABILITY_INTERVAL,
+} from '@atlaskit/editor-common/ufo';
+import { EDIT_AREA_ID } from '@atlaskit/editor-common/ui';
+import type { ErrorReporter, SEVERITY } from '@atlaskit/editor-common/utils';
+import { countNodes } from '@atlaskit/editor-common/utils';
+import {
+  analyticsEventKey,
+  browser,
+  getAnalyticsEventSeverity,
+  getResponseEndTime,
+  measureRender,
+  processRawValue,
+  shouldForceTracking,
+  startMeasure,
+  stopMeasure,
+} from '@atlaskit/editor-common/utils';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
+import {
+  EditorState,
+  Selection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
+
+import { createDispatch, EventDispatcher } from '../event-dispatcher';
+import type { Dispatch } from '../event-dispatcher';
+import type { SetEditorAPI } from '../presets/context';
 import type {
   EditorAppearance,
   EditorConfig,
-  EditorReactContext,
   EditorPlugin,
   EditorProps,
+  EditorReactContext,
 } from '../types';
 import type { EditorNextProps } from '../types/editor-props';
 import type { FeatureFlags } from '../types/feature-flags';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-import type { SetEditorAPI } from '../presets/context';
+import { getNodesCount } from '../utils/document';
+import { isFullPage } from '../utils/is-full-page';
+import {
+  findChangedNodesFromTransaction,
+  validateNodes,
+  validNode,
+} from '../utils/nodes';
+import { RenderTracking } from '../utils/performance/components/RenderTracking';
+import measurements from '../utils/performance/measure-enum';
+import { PluginPerformanceObserver } from '../utils/performance/plugin-performance-observer';
+import { freezeUnsafeTransactionProperties } from '../utils/performance/safer-transactions';
+import {
+  EVENT_NAME_DISPATCH_TRANSACTION,
+  EVENT_NAME_ON_CHANGE,
+  EVENT_NAME_STATE_APPLY,
+  EVENT_NAME_UPDATE_STATE,
+  EVENT_NAME_VIEW_STATE_UPDATED,
+  TransactionTracker,
+} from '../utils/performance/track-transactions';
+
+import {
+  DEFAULT_SAMPLING_RATE_VALID_TRANSACTIONS,
+  PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+  PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+} from './consts';
 import {
   createErrorReporter,
   createPMPlugins,
   processPluginsList,
 } from './create-editor';
-import type { SimplifiedNode } from '../utils/document-logger';
-import { getDocStructure } from '../utils/document-logger';
-import { isFullPage } from '../utils/is-full-page';
-import measurements from '../utils/performance/measure-enum';
-import { getNodesCount } from '../utils/document';
-import { createSchema } from './create-schema';
-import { PluginPerformanceObserver } from '../utils/performance/plugin-performance-observer';
-import { getParticipantsCount } from '../plugins/collab-edit/get-participants-count';
-import {
-  EVENT_NAME_DISPATCH_TRANSACTION,
-  EVENT_NAME_STATE_APPLY,
-  EVENT_NAME_UPDATE_STATE,
-  EVENT_NAME_VIEW_STATE_UPDATED,
-  EVENT_NAME_ON_CHANGE,
-  TransactionTracker,
-} from '../utils/performance/track-transactions';
-import { countNodes } from '@atlaskit/editor-common/utils';
 import createPluginsList from './create-plugins-list';
-import {
-  PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
-  PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
-  DEFAULT_SAMPLING_RATE_VALID_TRANSACTIONS,
-} from './consts';
-import type {
-  UfoSessionCompletePayloadAEP,
-  FireAnalyticsCallback,
-  AnalyticsDispatch,
-  AnalyticsEventPayload,
-  DispatchAnalyticsEvent,
-  PluginPerformanceReportData,
-} from '@atlaskit/editor-common/analytics';
+import { createSchema } from './create-schema';
+import { createFeatureFlagsFromProps } from './feature-flags-from-props';
+import { editorMessages } from './messages';
 import ReactEditorViewContext from './ReactEditorViewContext';
-import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
-import { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
-import { EDIT_AREA_ID } from '@atlaskit/editor-common/ui';
 
 export interface EditorViewProps {
   editorProps: EditorProps | EditorNextProps;
@@ -228,17 +228,18 @@ export class ReactEditorView<T = {}> extends React.Component<
 
   private pluginInjectionAPI: EditorPluginInjectionAPI;
 
-  private onPluginObservation = (
-    report: PluginPerformanceReportData,
-    editorState: EditorState,
-  ) => {
+  private onPluginObservation = (report: PluginPerformanceReportData) => {
     this.dispatchAnalyticsEvent({
       action: ACTION.TRANSACTION_DISPATCHED,
       actionSubject: ACTION_SUBJECT.EDITOR,
       eventType: EVENT_TYPE.OPERATIONAL,
       attributes: {
         report,
-        participants: getParticipantsCount(editorState),
+        participants:
+          this.pluginInjectionAPI
+            .api()
+            .collabEdit?.sharedState.currentState()
+            .participants.size() || 1,
       },
     });
   };
@@ -280,7 +281,13 @@ export class ReactEditorView<T = {}> extends React.Component<
       getEditorView: this.getEditorView,
     });
 
-    props.setEditorApi?.(this.pluginInjectionAPI.api());
+    const api = this.pluginInjectionAPI.api();
+    props.setEditorApi?.(api);
+
+    if (props.editorProps.editorActions) {
+      // @ts-expect-error
+      props.editorProps.editorActions.__EDITOR_INTERNALS_DO_NOT_USE__API = api;
+    }
 
     this.eventDispatcher = new EventDispatcher();
 
@@ -291,7 +298,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 
     this.transactionTracker = new TransactionTracker();
     this.pluginPerformanceObserver = new PluginPerformanceObserver((report) =>
-      this.onPluginObservation(report, this.editorState),
+      this.onPluginObservation(report),
     )
       .withPlugins(() => this.getPluginNames())
       .withNodeCounts(() => this.countNodes())

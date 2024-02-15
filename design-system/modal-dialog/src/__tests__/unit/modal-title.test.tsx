@@ -26,7 +26,7 @@ describe('<ModalTitle />', () => {
     expect(element.getAttribute('aria-labelledby')!).toBe(titleId);
 
     const content = getByTestId('test--title-text');
-    expect(content.getAttribute('id')).toBe(titleId);
+    expect(content).toHaveAttribute('id', titleId);
   });
 
   it('modal dialog should use aria-labelledby to reference the text in a custom header component', () => {
@@ -53,7 +53,7 @@ describe('<ModalTitle />', () => {
     );
 
     const element = getByTestId('test');
-    expect(element.getAttribute('aria-labelledby')).toBe(titleId);
+    expect(element).toHaveAttribute('aria-labelledby', titleId);
 
     const text = element.querySelector(`#${titleId}`)!;
     expect(text).not.toBeNull();

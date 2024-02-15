@@ -13,6 +13,7 @@ export default {
   'feedback-collector.can-be-contacted.label':
     'Evet, Atlassian takımları Atlassian ürünlerini ve hizmetlerini iyileştirmek üzere deneyimlerimi öğrenmek için benimle iletişime geçebilir. <a>Atlassian Gizlilik Politikası</a> hükümlerini onaylıyorum.',
   'feedback-collector.cancel-button.label': 'İptal',
+  'feedback-collector.default.custom.textarea.label': 'Düşüncelerinizi paylaşın',
   'feedback-collector.enrol-in-research.label': 'Ürün araştırmasına katılmak istiyorum',
   'feedback-collector.feedback-title': 'Düşüncelerinizi paylaşın',
   'feedback-collector.form.bug.label': 'Hatayı veya sorunu açıklayın',
@@ -26,6 +27,7 @@ export default {
   'feedback-collector.option.default.placeholder': 'Birini seçin',
   'feedback-collector.option.question.label': 'Soru sormak',
   'feedback-collector.option.suggestion.label': 'Bir iyileştirme önermek',
+  'feedback-collector.required.fields.summary': 'Gerekli alanlar yıldız işaretiyle belirtilmiştir',
   'feedback-collector.submit-button.label': 'Geri bildirim gönder',
   'feedback-collector.success-flag.description':
     'Değerli geri bildirimleriniz, ürünlerimizi sürekli olarak iyileştirmemize yardımcı oluyor.',

@@ -3,6 +3,7 @@ import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { CardState } from '../../state/types';
 import { InlinePreloaderStyle, OnErrorCallback } from '../types';
 import { AnalyticsFacade } from '../../state/analytics';
+import type { CardActionOptions } from '../Card/types';
 
 export type InlineCardProps = {
   id: string;
@@ -11,6 +12,7 @@ export type InlineCardProps = {
   handleAuthorize: (() => void) | undefined;
   handleFrameClick: EventHandler<MouseEvent | KeyboardEvent>;
   isSelected?: boolean;
+  isHovered?: boolean;
   testId?: string;
   onResolve?: (data: { url?: string; title?: string }) => void;
   onError?: OnErrorCallback;
@@ -18,6 +20,6 @@ export type InlineCardProps = {
   renderers?: CardProviderRenderers;
   showHoverPreview?: boolean;
   showAuthTooltip?: boolean;
-  showServerActions?: boolean;
+  actionOptions?: CardActionOptions;
   analytics: AnalyticsFacade;
 };

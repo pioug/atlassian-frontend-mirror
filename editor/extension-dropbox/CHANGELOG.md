@@ -1,5 +1,29 @@
 # @atlaskit/editor-extension-dropbox
 
+## 0.4.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.4.9
+
+### Patch Changes
+
+- [#66759](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66759) [`906578f1ea5d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/906578f1ea5d) - [ux] ED-21787: Migrating few CSS entries to space and color tokens
+
+## 0.4.8
+
+### Patch Changes
+
+- [#67410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67410) [`155e3b00ce67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/155e3b00ce67) - Migrate @atlaskit/editor-extension-dropbox to use declarative entry points
+
+## 0.4.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.4.6
 
 ### Patch Changes

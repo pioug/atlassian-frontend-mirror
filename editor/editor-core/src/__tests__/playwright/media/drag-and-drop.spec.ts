@@ -1,13 +1,13 @@
 import {
   EditorUploadMediaModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
-  mediaSingle,
   media,
+  mediaSingle,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
@@ -34,6 +34,7 @@ test.describe('Media drag and drop', () => {
             __fileMimeType: 'image/jpg',
             __fileName: 'test-image-9kb',
             __fileSize: 8751,
+            alt: 'test-image-9kb',
             collection: 'MediaServicesSample',
             id: expect.any(String),
             type: 'file',

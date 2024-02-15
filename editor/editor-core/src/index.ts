@@ -15,7 +15,20 @@ export type {
   PresenceProvider,
 } from '@atlaskit/mention/resource';
 export { TeamMentionResource } from '@atlaskit/mention/team-resource';
-export { AnnotationUpdateEmitter } from './plugins/annotation';
+/**
+ * @deprecated
+ * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+ * This is here while we work to extract the annotation plugin.
+ * Please use the export from `@atlaskit/editor-common/annotation`.
+ */
+export { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
+export type { UpdateEvent } from '@atlaskit/editor-common/annotation';
+/**
+ * @deprecated
+ * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+ * This is here while we work to extract the annotation plugin.
+ * Please use the export from `@atlaskit/editor-plugins/annotation`.
+ */
 export type {
   AnnotationProviders,
   InlineCommentAnnotationProvider,
@@ -25,8 +38,7 @@ export type {
   AnnotationState,
   AnnotationTypeProvider,
   InlineCommentState,
-  UpdateEvent,
-} from './plugins/annotation';
+} from '@atlaskit/editor-plugins/annotation';
 // Used in mobile bridge
 export type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 export {
@@ -72,9 +84,9 @@ export type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
  * @deprecated
  * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
  * This is here while we work to extract the media plugin.
- * Please use the export from `@atlaskit/editor-plugin-media/types`.
+ * Please use the export from `@atlaskit/editor-plugins/media/types`.
  */
-export type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
+export type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
 export type {
   /**
    * @deprecated Use QuickInsertItem from @atlaskit/editor-common/provider-factory instead

@@ -1,0 +1,78 @@
+@startuml
+skinparam responseMessageBelowArrow true
+skinparam ParticipantPadding 10
+title JQL Editor Initialisation Sequence Diagram
+
+participant JQLEditor << React >> #fbeead
+participant JQLEditorPortalProvider << React >> #fbeead
+participant JQLEditorCore << React >> #fbeead
+participant AutocompletePlugin << JS >> #fbadad
+participant ReactPluginView << JS >> #fbadad
+participant JQLEditorView << React >> #fbeead
+
+note over AutocompletePlugin
+  This process applies to any
+  plugin which renders a React
+  component (not just Autocomplete).
+end note
+
+activate JQLEditor #c5e3f5
+
+JQLEditor -> JQLEditorPortalProvider ++ #c5e3f5 : render
+ref over JQLEditorPortalProvider
+    Exposes methods to create and
+    destroy portals for React components.
+end ref
+
+JQLEditorPortalProvider -> JQLEditorCore ++ #c5e3f5 : render
+ref over JQLEditorCore
+    Initialises our plugins and
+    Prosemirror EditorState.
+end ref
+
+|||
+JQLEditorPortalProvider --> JQLEditorCore: useJQLEditorPortalContext
+|||
+
+ref over JQLEditorCore
+  Read onCreatePortal and
+  onDestroyPortal methods from
+  portal context and pass down
+  to our plugin view.
+end ref
+
+JQLEditorCore -> JQLEditorCore ++ #47a4dc : init EditorState
+
+JQLEditorCore -> AutocompletePlugin ++ #c5e3f5 : construct
+
+AutocompletePlugin -> ReactPluginView ++ #c5e3f5 : construct
+ReactPluginView --> AutocompletePlugin: plugin view
+
+AutocompletePlugin -> ReactPluginView: init
+
+ref over ReactPluginView
+  Create React component
+  and pass up the chain
+  using onCreatePortal
+end ref
+ReactPluginView -> JQLEditorPortalProvider: onCreatePortal
+deactivate ReactPluginView
+
+ref over JQLEditorPortalProvider
+  Store components in state
+  and render them into the
+  editor as React portals
+end ref
+
+return plugin
+
+return EditorState.create()
+
+JQLEditorCore -> JQLEditorView ++ #c5e3f5 : render
+
+ref over JQLEditorView
+    Binds our Prosemirror
+    EditorState to the DOM.
+end ref
+
+@enduml

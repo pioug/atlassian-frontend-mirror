@@ -115,8 +115,6 @@ export const mediaViewerExampleColumnStyles = css`
   flex: 1;
 
   > div {
-    width: initial;
-    height: initial;
   }
 `;
 

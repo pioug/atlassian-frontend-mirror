@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
+import { flushSync } from 'react-dom';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { defineMessages, injectIntl } from 'react-intl-next';
 
@@ -15,8 +16,8 @@ import { isSafeUrl } from '@atlaskit/adf-schema';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
+import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import { N200, N90 } from '@atlaskit/theme/colors';
 import { fontSizeSmall } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -283,7 +284,9 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
       this.props.activityProvider,
       this.props.searchProvider,
     ]);
-    this.setState({ activityProvider, searchProvider });
+
+    // loadInitialLinkSearchResult and updateInput rely on activityProvider being set in state
+    flushSync(() => this.setState({ activityProvider, searchProvider }));
 
     await this.loadInitialLinkSearchResult();
   }
@@ -365,9 +368,6 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
           count: -1,
           errorCode: err.status,
         },
-        nonPrivacySafeAttributes: {
-          error: err.message,
-        },
         eventType: EVENT_TYPE.OPERATIONAL,
       });
       return [];
@@ -379,6 +379,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
       this.fireCustomAnalytics({ payload });
     }
   }
+
   private async loadInitialLinkSearchResult() {
     const { displayUrl, activityProvider } = this.state;
     try {
@@ -494,9 +495,6 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
           duration,
           count: -1,
           errorCode: err.status,
-        },
-        nonPrivacySafeAttributes: {
-          error: err.message,
         },
         eventType: EVENT_TYPE.OPERATIONAL,
       });
@@ -617,7 +615,11 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     const screenReaderText = browser.safari && this.getScreenReaderText();
 
     return (
-      <div aria-label="Hyperlink Edit" className="recent-list">
+      <div
+        aria-label="Hyperlink Edit"
+        className="recent-list"
+        data-testid="hyperlink-add-toolbar"
+      >
         <div
           css={[
             container,

@@ -1,5 +1,47 @@
 # @atlaskit/modal-dialog
 
+## 12.10.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.10.4
+
+### Patch Changes
+
+- [#68278](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68278) [`291b54998410`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/291b54998410) - Reset iframe to have auto pointer-events in modal under feature flag
+
+## 12.10.3
+
+### Patch Changes
+
+- [#60920](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60920) [`a77a99360fa2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a77a99360fa2) - Revert previous modal gutter change.
+
+## 12.10.2
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
+## 12.10.1
+
+### Patch Changes
+
+- [#58698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58698) [`222c15fb9a38`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/222c15fb9a38) - Modal gutter is now 64px instead of 60px. This means the modal now displays slightly lower than before and will be slightly more inset when at max width/height.
+
+## 12.10.0
+
+### Minor Changes
+
+- [#57627](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57627) [`bef9748d9db2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bef9748d9db2) - [ux] We are testing default return focus on modal close behind a feature flag. This change returns focus to the element which triggered the modal to open. If this fix is successful, it will be available in a later release.
+
+## 12.9.1
+
+### Patch Changes
+
+- [#43918](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43918) [`d100ca42f46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d100ca42f46) - Push model consumption configuration done for these packages
+
 ## 12.9.0
 
 ### Minor Changes

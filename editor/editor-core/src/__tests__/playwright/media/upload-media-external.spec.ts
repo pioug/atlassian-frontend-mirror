@@ -1,14 +1,14 @@
 import {
-  editorTestCase as test,
   EditorMediaSingleModel,
   EditorNodeContainerModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
-  mediaSingle,
   media,
+  mediaSingle,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.use({

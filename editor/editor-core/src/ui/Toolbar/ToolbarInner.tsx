@@ -1,9 +1,13 @@
 /** @jsx jsx */
 import React from 'react';
+
 import { css, jsx } from '@emotion/react';
-import EditorActions from '../../actions';
-import { ToolbarInnerProps } from './toolbar-types';
+
 import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
+
+import type EditorActions from '../../actions';
+
+import type { ToolbarInnerProps } from './toolbar-types';
 
 const toolbarComponentsWrapper = css`
   display: flex;

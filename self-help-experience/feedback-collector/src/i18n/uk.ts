@@ -13,6 +13,7 @@ export default {
   'feedback-collector.can-be-contacted.label':
     'Так, команди Atlassian можуть зв’язуватися зі мною щодо моєї роботи з продуктами й службами Atlassian із метою вдосконалення їх. Я погоджуюся з <a>Політикою конфіденційності Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Скасувати',
+  'feedback-collector.default.custom.textarea.label': 'Поділіться враженнями',
   'feedback-collector.enrol-in-research.label': 'Я хочу взяти участь у дослідженні продукту',
   'feedback-collector.feedback-title': 'Розкажіть, що ви думаєте',
   'feedback-collector.form.bug.label': 'Опишіть несправність або проблему',
@@ -26,6 +27,7 @@ export default {
   'feedback-collector.option.default.placeholder': 'Вибрати один',
   'feedback-collector.option.question.label': 'Поставити запитання',
   'feedback-collector.option.suggestion.label': 'Запропонувати покращення',
+  'feedback-collector.required.fields.summary': 'Обов’язкові поля позначені зірочкою',
   'feedback-collector.submit-button.label': 'Надіслати відгук',
   'feedback-collector.success-flag.description': 'Ваші відгуки допомагають нам постійно покращувати продукти.',
   'feedback-collector.success-flag.title': 'Дякую!',

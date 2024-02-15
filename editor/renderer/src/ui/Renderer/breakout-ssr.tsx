@@ -142,8 +142,8 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any) {
          * The mutation observer is only called once per added node.
          * The above condition only deals with direct children of <div class="ak-renderer-document" />
          * When it is initially called on the direct children, not all the sub children have loaded.
-         * So nested media elements which are not immediately loaded as sub children are not availabe in the above conditional.
-         * Thus adding this conditional to deal with all meida elements directly.
+         * So nested media elements which are not immediately loaded as sub children are not available in the above conditional.
+         * Thus adding this conditional to deal with all media elements directly.
          */
         (item.target as HTMLElement).dataset.nodeType === MEDIA_NODE_TYPE
       ) {
@@ -171,9 +171,13 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any) {
 
     const mode = card.dataset.mode || card.dataset.layout || '';
     const width = card.dataset.width;
+    const isPixelBasedResizing = card.dataset.widthType === 'pixel';
+
     if (WIDE_LAYOUT_MODES.includes(mode)) {
       card.style.width = '100%';
-    } else if (width) {
+    } else if (width && !isPixelBasedResizing) {
+      // Pixel based resizing has width set in pixels based on its width attribute
+      // Thus, no need to override for non-wide layouts
       card.style.width = `${width}%`;
     }
   };

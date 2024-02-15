@@ -1,4 +1,6 @@
-export const asyncPopupSelectMessages = {
+import { defineMessages } from 'react-intl-next';
+
+export const asyncPopupSelectMessages = defineMessages({
   selectPlaceholder: {
     id: 'linkDataSource.basic-filter.dropdown.select.placeholder',
     description: 'Placeholder text to be displayed for the search input box.',
@@ -19,9 +21,9 @@ export const asyncPopupSelectMessages = {
     description: 'Label to be displayed for status filter dropdown button.',
     defaultMessage: 'Status',
   },
-  issuetypeLabel: {
-    id: 'linkDataSource.basic-filter.issuetype.label',
-    description: 'Label to be displayed for issuetype filter dropdown button.',
+  typeLabel: {
+    id: 'linkDataSource.basic-filter.type.label',
+    description: 'Label to be displayed for type filter dropdown button.',
     defaultMessage: 'Type',
   },
   assigneeLabel: {
@@ -34,4 +36,4 @@ export const asyncPopupSelectMessages = {
     defaultMessage: 'Show more',
     description: 'The text to show more options in dropdown',
   },
-};
+});

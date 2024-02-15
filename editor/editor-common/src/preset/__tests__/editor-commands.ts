@@ -43,9 +43,9 @@ describe('editor-commands', () => {
     }
   > = ({ api }) => {
     // Typing should work here
-    api?.one.commands.testCommandWithMeta(42)({ tr: 0 as any });
+    api?.one?.commands.testCommandWithMeta(42)({ tr: 0 as any });
     // @ts-expect-error notATestCommand shouldn't exist on `commands`
-    api?.one.commands.notATestCommand?.(0)({ tr: 0 as any });
+    api?.one?.commands.notATestCommand?.(0)({ tr: 0 as any });
 
     return {
       name: 'two',
@@ -65,7 +65,7 @@ describe('editor-commands', () => {
     }
   > = ({ api }) => {
     // Typing should work here
-    api?.one.commands.testCommand({ tr: 0 as any });
+    api?.one?.commands.testCommand({ tr: 0 as any });
 
     return {
       name: 'three',

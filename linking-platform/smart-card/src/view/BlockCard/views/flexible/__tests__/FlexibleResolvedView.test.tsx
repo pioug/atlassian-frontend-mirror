@@ -7,7 +7,6 @@ import FlexibleResolvedView from '../FlexibleResolvedView';
 import { mockAnalytics } from '../../../../../utils/mocks';
 import { mockConfluenceResponse } from './__mocks__/blockCardMocks';
 import MockAtlasProject from '../../../../../__fixtures__/atlas-project';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('FlexibleResolvedView', () => {
   const url = 'https://some.url';
@@ -66,36 +65,18 @@ describe('FlexibleResolvedView', () => {
     expect(metadataElements[1].children).toContain(commentCount.parentElement);
   });
 
-  describe('renders server actions', () => {
-    ffTest(
-      'platform.linking-platform.smart-card.follow-button',
-      async () => {
-        const { findByTestId } = renderComponent({
-          cardState: {
-            status: 'resolved',
-            details: MockAtlasProject,
-          } as CardState,
-          showServerActions: true,
-        });
-        await findByTestId('smart-footer-block-resolved-view');
+  it('renders server actions', async () => {
+    const { findByTestId } = renderComponent({
+      cardState: {
+        status: 'resolved',
+        details: MockAtlasProject,
+      } as CardState,
+      actionOptions: { hide: false },
+    });
+    await findByTestId('smart-footer-block-resolved-view');
 
-        const followAction = await findByTestId('smart-action-follow-action');
-        expect(followAction).toBeInTheDocument();
-        expect(followAction.textContent).toEqual('Follow');
-      },
-      async () => {
-        const { findByTestId, queryByTestId } = renderComponent({
-          cardState: {
-            status: 'resolved',
-            details: MockAtlasProject,
-          } as CardState,
-          showServerActions: true,
-        });
-        await findByTestId('smart-footer-block-resolved-view');
-
-        const followAction = queryByTestId('smart-action-follow-action');
-        expect(followAction).not.toBeInTheDocument();
-      },
-    );
+    const followAction = await findByTestId('smart-action-follow-action');
+    expect(followAction).toBeInTheDocument();
+    expect(followAction.textContent).toEqual('Follow');
   });
 });

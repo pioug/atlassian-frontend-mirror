@@ -100,6 +100,57 @@ const findFixedProblematicNodePosition = (
   return null;
 };
 
+const isSelectionLineShortcutWhenCursorIsInsideInlineNode = (
+  view: EditorView,
+  event: KeyboardEvent,
+): boolean => {
+  if (!event.shiftKey || !event.metaKey) {
+    return false;
+  }
+
+  const selection = view.state.selection;
+  if (!(selection instanceof TextSelection)) {
+    return false;
+  }
+
+  if (!selection.$cursor) {
+    return false;
+  }
+
+  const isSelectingInlineNodeForward =
+    event.key === 'ArrowRight' &&
+    Boolean(selection.$cursor.nodeAfter?.isInline);
+  const isSelectingInlineNodeBackward =
+    event.key === 'ArrowLeft' &&
+    Boolean(selection.$cursor.nodeBefore?.isInline);
+
+  return isSelectingInlineNodeForward || isSelectingInlineNodeBackward;
+};
+
+const isNavigatingVerticallyWhenCursorIsInsideInlineNode = (
+  view: EditorView,
+  event: KeyboardEvent,
+): boolean => {
+  if (event.shiftKey || event.metaKey) {
+    return false;
+  }
+  const selection = view.state?.selection;
+  if (!(selection instanceof TextSelection)) {
+    return false;
+  }
+
+  if (!selection.$cursor) {
+    return false;
+  }
+
+  const isNavigatingInlineNodeDownward =
+    event.key === 'ArrowDown' &&
+    Boolean(selection.$cursor.nodeBefore?.isInline) &&
+    Boolean(selection.$cursor.nodeAfter?.isInline);
+
+  return isNavigatingInlineNodeDownward;
+};
+
 export const onKeydown = (view: EditorView, event: Event): boolean => {
   /*
    * This workaround is needed for some specific situations.
@@ -108,6 +159,14 @@ export const onKeydown = (view: EditorView, event: Event): boolean => {
    */
   if (!(event instanceof KeyboardEvent)) {
     return false;
+  }
+
+  if (isSelectionLineShortcutWhenCursorIsInsideInlineNode(view, event)) {
+    return true;
+  }
+
+  if (isNavigatingVerticallyWhenCursorIsInsideInlineNode(view, event)) {
+    return true;
   }
 
   if (!event.shiftKey || event.ctrlKey || event.metaKey) {

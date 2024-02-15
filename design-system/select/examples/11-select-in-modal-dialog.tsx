@@ -7,7 +7,7 @@ import Modal, {
   ModalHeader,
   ModalFooter,
 } from '@atlaskit/modal-dialog';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
 
 import Select from '../src';

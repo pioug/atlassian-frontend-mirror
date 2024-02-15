@@ -3,11 +3,7 @@ import { Checkbox } from '@atlaskit/checkbox';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
 import { EmbedCardResolvedView } from '../src/view/EmbedCard/views/ResolvedView';
-import { EmbedCardUnauthorisedView } from '../src/view/EmbedCard/views/UnauthorisedView';
-import { EmbedCardForbiddenView } from '../src/view/EmbedCard/views/ForbiddenView';
-import { EmbedCardNotFoundView } from '../src/view/EmbedCard/views/NotFoundView';
 import { IntlProvider } from 'react-intl-next';
-import { mockAnalytics } from '../src/utils/mocks';
 import { FrameStyle } from '../src/view/EmbedCard/types';
 
 const previewUrl = 'https://www.youtube.com/embed/uhHyh55n5l0';
@@ -64,42 +60,6 @@ export default () => {
               }}
               isSelected={isSelected}
               frameStyle={frameStyle}
-            />
-          </div>
-          <div style={cardWrapperStyles}>
-            EmbedCardUnauthorisedView
-            <EmbedCardUnauthorisedView
-              analytics={mockAnalytics}
-              link={previewUrl}
-              isSelected={isSelected}
-              context={{
-                text: 'Dropbox',
-                icon: 'https://www.dropbox.com/static/30168/images/favicon.ico',
-              }}
-              onAuthorise={() => {}}
-            />
-          </div>
-          <div style={cardWrapperStyles}>
-            EmbedCardForbiddenView
-            <EmbedCardForbiddenView
-              isSelected={isSelected}
-              link={previewUrl}
-              context={{
-                text: 'Dropbox',
-                icon: 'https://www.dropbox.com/static/30168/images/favicon.ico',
-              }}
-              onAuthorise={() => {}}
-            />
-          </div>
-          <div style={cardWrapperStyles}>
-            EmbedCardNotFoundView
-            <EmbedCardNotFoundView
-              isSelected={isSelected}
-              link={previewUrl}
-              context={{
-                text: 'Dropbox',
-                icon: 'https://www.dropbox.com/static/30168/images/favicon.ico',
-              }}
             />
           </div>
         </div>

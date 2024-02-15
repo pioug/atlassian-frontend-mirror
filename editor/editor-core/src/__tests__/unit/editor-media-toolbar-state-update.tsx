@@ -1,12 +1,13 @@
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import React from 'react';
-import Editor from '../../editor';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+
+import Editor from '../../editor';
 
 jest.mock('../../ui/Toolbar/hooks', () => ({
   ...jest.requireActual<Object>('../../ui/Toolbar/hooks'),

@@ -1,5 +1,11 @@
 # @atlaskit/jql-ast
 
+## 3.1.0
+
+### Minor Changes
+
+- [#69661](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69661) [`f825ec2f9792`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f825ec2f9792) - Added a new creator for JASTs, allowing you to create a full JQL AST from scratch without the overhead of parsing a string.
+
 ## 3.0.0
 
 ### Major Changes

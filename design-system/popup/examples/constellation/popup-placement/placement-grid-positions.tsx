@@ -1,68 +1,67 @@
 /* eslint-disable @repo/internal/styles/no-exported-styles */
-import { css, SerializedStyles } from '@emotion/react';
-
 import { Placement } from '@atlaskit/popper';
+import { xcss, XCSS } from '@atlaskit/primitives';
 
 export const placementGridPositions: {
-  [placement in Placement]: SerializedStyles;
+  [placement in Placement]: XCSS;
 } = {
-  'top-start': css({
+  'top-start': xcss({
     gridColumn: 2,
     gridRow: 1,
   }),
-  top: css({
+  top: xcss({
     gridColumn: 3,
     gridRow: 1,
   }),
-  'top-end': css({
+  'top-end': xcss({
     gridColumn: 4,
     gridRow: 1,
   }),
-  'bottom-start': css({
+  'bottom-start': xcss({
     gridColumn: 2,
     gridRow: 5,
   }),
-  bottom: css({
+  bottom: xcss({
     gridColumn: 3,
     gridRow: 5,
   }),
-  'bottom-end': css({
+  'bottom-end': xcss({
     gridColumn: 4,
     gridRow: 5,
   }),
-  'right-start': css({
+  'right-start': xcss({
     gridColumn: 5,
     gridRow: 2,
   }),
-  right: css({
+  right: xcss({
     gridColumn: 5,
     gridRow: 3,
   }),
-  'right-end': css({
+  'right-end': xcss({
     gridColumn: 5,
     gridRow: 4,
   }),
-  'left-start': css({
+  'left-start': xcss({
     gridColumn: 1,
     gridRow: 2,
   }),
-  left: css({
+  left: xcss({
     gridColumn: 1,
     gridRow: 3,
   }),
-  'left-end': css({
+  'left-end': xcss({
     gridColumn: 1,
     gridRow: 4,
   }),
-  'auto-start': css({
+  'auto-start': xcss({
     gridColumn: 3,
     gridRow: 2,
   }),
-  auto: css({
+  auto: xcss({
     gridColumn: 3,
     gridRow: 3,
   }),
-  'auto-end': css({
+  'auto-end': xcss({
     gridColumn: 3,
     gridRow: 4,
   }),

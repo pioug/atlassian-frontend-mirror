@@ -26,6 +26,8 @@ export class AsyncMediaViewer extends React.PureComponent<
   static MediaViewer?: MediaViewerWithMediaClientConfigComponent;
   static MediaViewerErrorBoundary?: MediaViewerErrorBoundaryComponent;
 
+  isMounted = false;
+
   state: AsyncMediaViewerState = {
     // Set state value to equal to current static value of this class.
     MediaViewer: AsyncMediaViewer.MediaViewer,
@@ -55,16 +57,25 @@ export class AsyncMediaViewer extends React.PureComponent<
         AsyncMediaViewer.MediaViewerErrorBoundary =
           mediaViewerErrorBoundaryModule.default;
 
-        this.setState({
-          MediaViewer: MediaViewerWithClient,
-          MediaViewerErrorBoundary: AsyncMediaViewer.MediaViewerErrorBoundary,
-        });
+        if (this.isMounted) {
+          this.setState({
+            MediaViewer: MediaViewerWithClient,
+            MediaViewerErrorBoundary: AsyncMediaViewer.MediaViewerErrorBoundary,
+          });
+        }
       } catch (error) {
         // TODO [MS-2277]: Add operational error to catch async import error
       }
     }
   }
 
+  componentDidMount() {
+    this.isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this.isMounted = false;
+  }
   render() {
     const { MediaViewer, MediaViewerErrorBoundary } = this.state;
     if (!MediaViewer || !MediaViewerErrorBoundary) {

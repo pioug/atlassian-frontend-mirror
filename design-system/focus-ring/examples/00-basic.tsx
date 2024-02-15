@@ -1,13 +1,9 @@
 /** @jsx jsx */
-// This component has accessibility issues. Do not use without assistance from
-// the Atlassian Design System accessibility team.
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button';
-import { ProgressIndicator } from '@atlaskit/progress-indicator';
-import SectionMessage from '@atlaskit/section-message';
+import Button from '@atlaskit/button/new';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
@@ -38,13 +34,8 @@ export default () => {
     }
   }, []);
 
-  const [index, setSelectedIndex] = useState(0);
   return (
     <div data-testid="outerDiv" css={stackStyles}>
-      <SectionMessage appearance="warning">
-        This component has accessibility issues. Do not use without support from
-        the Atlassian Design System accessibility team.
-      </SectionMessage>
       <Button>AK Button</Button>
       <FocusRing>
         <button type="button" ref={buttonRef} css={baseStyles}>
@@ -62,12 +53,6 @@ export default () => {
           placeholder="Native Textfield"
         />
       </FocusRing>
-      <ProgressIndicator
-        values={[1, 2, 3, 4]}
-        onSelect={({ index: selected }) => setSelectedIndex(selected)}
-        selectedIndex={index}
-        testId="focus-test"
-      />
     </div>
   );
 };

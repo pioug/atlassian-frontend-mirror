@@ -4,6 +4,7 @@ jest.mock('../../workerHasher');
 import { SimpleHasher } from '../../simpleHasher';
 import { WorkerHasher } from '../../workerHasher';
 import { createHasher, destroyHasher } from '../../hasherCreator';
+import { ChunkHashAlgorithm } from '@atlaskit/media-core';
 
 describe('createHasher', () => {
   const SimpleHasherStub: jest.Mock<SimpleHasher> = SimpleHasher as any;
@@ -16,7 +17,7 @@ describe('createHasher', () => {
   });
 
   it('should create WorkerHasher by default', async () => {
-    const hasher = await createHasher();
+    const hasher = await createHasher(ChunkHashAlgorithm.Sha1);
     expect(hasher).toEqual(WorkerHasherStub.mock.instances[0]);
   });
 
@@ -25,7 +26,7 @@ describe('createHasher', () => {
       throw new Error('some-error');
     });
 
-    const hasher = await createHasher();
+    const hasher = await createHasher(ChunkHashAlgorithm.Sha1);
     expect(hasher).toEqual(SimpleHasherStub.mock.instances[0]);
   });
 });

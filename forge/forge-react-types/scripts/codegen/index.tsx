@@ -1,0 +1,1 @@
+export { generateComponentPropTypes } from './componentPropTypes';

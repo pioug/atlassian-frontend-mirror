@@ -26,7 +26,3 @@ export const getSelectionObserverEnabled = (): boolean =>
 export const getMediaImageResize = (): boolean => {
   return getQueryParams().get('enableMediaResize') === 'true';
 };
-
-export const getRestartNumberedLists = (): boolean => {
-  return getQueryParams().get('restartNumberedLists') === 'true';
-};

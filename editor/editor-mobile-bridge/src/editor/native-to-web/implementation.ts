@@ -16,11 +16,11 @@ import type {
   TypeAheadItem,
 } from '@atlaskit/editor-common/provider-factory';
 import { EditorActions } from '@atlaskit/editor-core';
-import { clearEditorContent } from '@atlaskit/editor-core/src/commands';
+import { clearEditorContent } from '@atlaskit/editor-common/commands';
 import {
   setMobilePaddingTop,
   setIsExpanded,
-} from '@atlaskit/editor-core/src/plugins/mobile-dimensions/commands';
+} from '../editor-plugins/mobile-dimensions/commands';
 import { createTable } from '@atlaskit/editor-plugin-table/commands';
 import { dateToDateType } from '../../utils/dateToDateType';
 import type {
@@ -253,8 +253,8 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.core.actions.execute(
-        this.pluginInjectionApi?.textFormatting.commands.toggleStrong(
+      this.pluginInjectionApi?.core?.actions.execute(
+        this.pluginInjectionApi?.textFormatting?.commands.toggleStrong(
           inputMethod,
         ),
       );
@@ -265,8 +265,8 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.core.actions.execute(
-        this.pluginInjectionApi?.textFormatting.commands.toggleEm(inputMethod),
+      this.pluginInjectionApi?.core?.actions.execute(
+        this.pluginInjectionApi?.textFormatting?.commands.toggleEm(inputMethod),
       );
     }
   }
@@ -275,8 +275,8 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.core.actions.execute(
-        this.pluginInjectionApi?.textFormatting.commands.toggleUnderline(
+      this.pluginInjectionApi?.core?.actions.execute(
+        this.pluginInjectionApi?.textFormatting?.commands.toggleUnderline(
           inputMethod,
         ),
       );
@@ -287,8 +287,8 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.core.actions.execute(
-        this.pluginInjectionApi?.textFormatting.commands.toggleCode(
+      this.pluginInjectionApi?.core?.actions.execute(
+        this.pluginInjectionApi?.textFormatting?.commands.toggleCode(
           inputMethod,
         ),
       );
@@ -299,8 +299,8 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.core.actions.execute(
-        this.pluginInjectionApi?.textFormatting.commands.toggleStrike(
+      this.pluginInjectionApi?.core?.actions.execute(
+        this.pluginInjectionApi?.textFormatting?.commands.toggleStrike(
           inputMethod,
         ),
       );
@@ -311,8 +311,8 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.core.actions.execute(
-        this.pluginInjectionApi?.textFormatting.commands.toggleSuperscript(
+      this.pluginInjectionApi?.core?.actions.execute(
+        this.pluginInjectionApi?.textFormatting?.commands.toggleSuperscript(
           inputMethod,
         ),
       );
@@ -323,8 +323,8 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.core.actions.execute(
-        this.pluginInjectionApi?.textFormatting.commands.toggleSubscript(
+      this.pluginInjectionApi?.core?.actions.execute(
+        this.pluginInjectionApi?.textFormatting?.commands.toggleSubscript(
           inputMethod,
         ),
       );
@@ -344,7 +344,7 @@ export default class WebBridgeImpl
     inputMethod: InsertBlockInputMethodToolbar = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.statusBridgeState && this.editorView) {
-      this.pluginInjectionApi?.status.actions.updateStatus(inputMethod, {
+      this.pluginInjectionApi?.status?.actions.updateStatus(inputMethod, {
         text,
         color,
         localId: uuid,
@@ -354,7 +354,7 @@ export default class WebBridgeImpl
 
   onStatusPickerDismissed() {
     if (this.statusBridgeState && this.editorView) {
-      this.pluginInjectionApi?.status.actions.commitStatusPicker()(
+      this.pluginInjectionApi?.status?.actions.commitStatusPicker()(
         this.editorView,
       );
     }
@@ -510,8 +510,8 @@ export default class WebBridgeImpl
     inputMethod: BlockTypeInputMethod = INPUT_METHOD.INSERT_MENU,
   ) {
     if (this.editorView) {
-      this.pluginInjectionApi?.core.actions.execute(
-        this.pluginInjectionApi?.blockType.commands.setTextLevel(
+      this.pluginInjectionApi?.core?.actions.execute(
+        this.pluginInjectionApi?.blockType?.commands.setTextLevel(
           blockType as TextBlockTypes,
           inputMethod,
         ),
@@ -520,35 +520,27 @@ export default class WebBridgeImpl
   }
 
   onOrderedListSelected(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
-    if (this.listBridgeState && this.editorView) {
-      this.pluginInjectionApi?.core.actions.execute(
-        this.pluginInjectionApi?.list?.commands?.toggleOrderedList(inputMethod),
-      );
-    }
+    this.pluginInjectionApi?.core?.actions.execute(
+      this.pluginInjectionApi?.list?.commands?.toggleOrderedList(inputMethod),
+    );
   }
 
   onBulletListSelected(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
-    if (this.listBridgeState && this.editorView) {
-      this.pluginInjectionApi?.core.actions.execute(
-        this.pluginInjectionApi?.list?.commands?.toggleBulletList(inputMethod),
-      );
-    }
+    this.pluginInjectionApi?.core?.actions.execute(
+      this.pluginInjectionApi?.list?.commands?.toggleBulletList(inputMethod),
+    );
   }
 
   onIndentList(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
-    if (this.listBridgeState && this.editorView) {
-      this.pluginInjectionApi?.core.actions.execute(
-        this.pluginInjectionApi?.list?.commands?.indentList(inputMethod),
-      );
-    }
+    this.pluginInjectionApi?.core?.actions.execute(
+      this.pluginInjectionApi?.list?.commands?.indentList(inputMethod),
+    );
   }
 
   onOutdentList(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
-    if (this.listBridgeState && this.editorView) {
-      this.pluginInjectionApi?.core.actions.execute(
-        this.pluginInjectionApi?.list?.commands?.outdentList(inputMethod),
-      );
-    }
+    this.pluginInjectionApi?.core?.actions.execute(
+      this.pluginInjectionApi?.list?.commands?.outdentList(inputMethod),
+    );
   }
 
   onLinkUpdate(
@@ -568,7 +560,7 @@ export default class WebBridgeImpl
       (!isLinkAtPos(from)(state) && from === to) ||
       !isTextAtPos(from)(state)
     ) {
-      this.pluginInjectionApi?.hyperlink.actions.insertLink(
+      this.pluginInjectionApi?.hyperlink?.actions.insertLink(
         inputMethod,
         from,
         to,
@@ -587,7 +579,7 @@ export default class WebBridgeImpl
         }
       : { leftBound: from, rightBound: to };
 
-    return this.pluginInjectionApi?.hyperlink.actions.updateLink(
+    return this.pluginInjectionApi?.hyperlink?.actions.updateLink(
       url,
       text || url,
       leftBound,
@@ -609,24 +601,23 @@ export default class WebBridgeImpl
 
     switch (type) {
       case 'blockquote':
-        this.pluginInjectionApi?.blockType.actions.insertBlockQuote(
+        this.pluginInjectionApi?.blockType?.actions.insertBlockQuote(
           inputMethod,
         )(state, dispatch);
         return;
       case 'codeblock':
-        this.pluginInjectionApi?.codeBlock.actions.insertCodeBlock(inputMethod)(
-          state,
-          dispatch,
-        );
+        this.pluginInjectionApi?.codeBlock?.actions.insertCodeBlock(
+          inputMethod,
+        )(state, dispatch);
         return;
       case 'panel':
-        this.pluginInjectionApi?.panel.actions.insertPanel(inputMethod)(
+        this.pluginInjectionApi?.panel?.actions.insertPanel(inputMethod)(
           state,
           dispatch,
         );
         return;
       case 'action':
-        this.pluginInjectionApi?.taskDecision.actions.insertTaskDecision(
+        this.pluginInjectionApi?.taskDecision?.actions.insertTaskDecision(
           'taskList',
           inputMethod as InsertBlockInputMethodToolbar,
           undefined,
@@ -635,7 +626,7 @@ export default class WebBridgeImpl
         )(state, dispatch);
         return;
       case 'decision':
-        this.pluginInjectionApi?.taskDecision.actions.insertTaskDecision(
+        this.pluginInjectionApi?.taskDecision?.actions.insertTaskDecision(
           'decisionList',
           inputMethod as InsertBlockInputMethodToolbar,
           undefined,
@@ -667,7 +658,7 @@ export default class WebBridgeImpl
       return;
     }
 
-    this.pluginInjectionApi?.mention.actions.openTypeAhead(
+    this.pluginInjectionApi?.mention?.actions.openTypeAhead(
       INPUT_METHOD.TOOLBAR,
     );
   }
@@ -676,7 +667,7 @@ export default class WebBridgeImpl
     if (!this.editorView) {
       return;
     }
-    this.pluginInjectionApi?.emoji.actions.openTypeAhead(INPUT_METHOD.TOOLBAR);
+    this.pluginInjectionApi?.emoji?.actions.openTypeAhead(INPUT_METHOD.TOOLBAR);
   }
 
   insertTypeAheadItem(
@@ -822,7 +813,7 @@ export default class WebBridgeImpl
 
   setKeyboardControlsHeight(height: string) {
     if (this.editorView) {
-      this.pluginInjectionApi?.base.actions?.setKeyboardHeight(+height)(
+      this.pluginInjectionApi?.base?.actions?.setKeyboardHeight(+height)(
         this.editorView.state,
         this.editorView.dispatch,
       );
@@ -1093,15 +1084,17 @@ export default class WebBridgeImpl
     if (!this.editorView) {
       return;
     }
-    return this.pluginInjectionApi?.status.actions.updateStatus(
+    return this.pluginInjectionApi?.status?.actions.updateStatus(
       INPUT_METHOD.TOOLBAR,
       status,
     )(this.editorView.state, this.editorView.dispatch);
   }
 
   removeStatus(showStatusPickerAt: number) {
-    return this.pluginInjectionApi?.core.actions.execute(
-      this.pluginInjectionApi?.status.commands.removeStatus(showStatusPickerAt),
+    return this.pluginInjectionApi?.core?.actions.execute(
+      this.pluginInjectionApi?.status?.commands.removeStatus(
+        showStatusPickerAt,
+      ),
     );
   }
 

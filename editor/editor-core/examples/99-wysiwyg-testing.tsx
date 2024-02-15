@@ -1,16 +1,19 @@
 import React from 'react';
+
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
-import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import { ReactRenderer, RendererProps } from '@atlaskit/renderer';
-import { MentionProvider } from '@atlaskit/mention/types';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
+import type { MentionProvider } from '@atlaskit/mention/types';
+import type { RendererProps } from '@atlaskit/renderer';
+import { ReactRenderer } from '@atlaskit/renderer';
+import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+
 import { Editor } from '../src';
-import { EditorProps } from '../src/editor';
+import type { EditorProps } from '../src/editor';
 
 function useRendererProviderFactory() {
   return React.useMemo(() => {

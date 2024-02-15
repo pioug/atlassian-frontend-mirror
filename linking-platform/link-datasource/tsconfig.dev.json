@@ -55,6 +55,9 @@
       "path": "../../design-system/form/tsconfig.app.json"
     },
     {
+      "path": "../../jql/jql-editor/tsconfig.app.json"
+    },
+    {
       "path": "../../jql/jql-editor-autocomplete-rest/tsconfig.app.json"
     },
     {
@@ -74,6 +77,9 @@
     },
     {
       "path": "../../design-system/locale/tsconfig.app.json"
+    },
+    {
+      "path": "../../teamwork-ecosystem/outbound-auth-flow-client/tsconfig.app.json"
     },
     {
       "path": "../../platform/feature-flags/tsconfig.app.json"
@@ -101,6 +107,9 @@
     },
     {
       "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/width-detector/tsconfig.app.json"
     },
     {
       "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"

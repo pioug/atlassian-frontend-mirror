@@ -212,4 +212,41 @@ describe('Empty state', () => {
 
     expect(screen.getByRole('heading', { level: 6 })).toBeInTheDocument();
   });
+  it('button group should have default label value', async () => {
+    const primary = <Button testId="primary-action" />;
+    const secondary = <Button testId="secondary-action" />;
+    const props = {
+      header: 'Test header',
+      primaryAction: primary,
+      secondaryAction: secondary,
+      testId: 'empty-state-test',
+    };
+    render(<EmptyState {...props} />);
+    const buttonGroupContainer = screen.getByTestId(
+      `${props.testId}-button-group`,
+    );
+
+    expect(buttonGroupContainer).toHaveAttribute('aria-label');
+    expect(buttonGroupContainer.getAttribute('aria-label')).toBeTruthy();
+  });
+  it('button group should receive dynamic label value', async () => {
+    const primary = <Button testId="primary-action" />;
+    const secondary = <Button testId="secondary-action" />;
+    const props = {
+      header: 'Test header',
+      primaryAction: primary,
+      secondaryAction: secondary,
+      testId: 'empty-state-test',
+      buttonGroupLabel: 'Actions container',
+    };
+    render(<EmptyState {...props} />);
+    const buttonGroupContainer = screen.getByTestId(
+      `${props.testId}-button-group`,
+    );
+
+    expect(buttonGroupContainer).toHaveAttribute(
+      'aria-label',
+      props.buttonGroupLabel,
+    );
+  });
 });

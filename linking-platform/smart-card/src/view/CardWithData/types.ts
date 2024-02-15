@@ -1,5 +1,9 @@
 import { EventHandler, MouseEvent, KeyboardEvent } from 'react';
-import { CardAppearance, OnResolveCallback } from '../Card/types';
+import type {
+  CardAppearance,
+  OnResolveCallback,
+  CardActionOptions,
+} from '../Card/types';
 import { JsonLd } from 'json-ld-types';
 import { InlinePreloaderStyle } from '../types';
 
@@ -11,6 +15,12 @@ export interface CardWithDataContentProps {
   isSelected?: boolean;
   testId?: string;
   onResolve?: OnResolveCallback;
+  /**
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6348 Internal documentation for deprecation (no external access)}
+   *
+   * Prefer 'actionOptions' prop. Determines whether to show available server actions.
+   */
   showActions?: boolean;
+  actionOptions?: CardActionOptions;
   inlinePreloaderStyle?: InlinePreloaderStyle;
 }

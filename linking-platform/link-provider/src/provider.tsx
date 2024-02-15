@@ -19,6 +19,7 @@ export function SmartCardProvider({
   children,
   renderers,
   featureFlags,
+  isAdminHubAIEnabled,
 }: CardProviderProps) {
   const parentContext = useContext(SmartCardContext);
 
@@ -62,8 +63,16 @@ export function SmartCardProvider({
         getPreview,
       },
       featureFlags,
+      isAdminHubAIEnabled,
     };
-  }, [customClient, customAuthFlow, renderers, featureFlags, store]);
+  }, [
+    customClient,
+    customAuthFlow,
+    isAdminHubAIEnabled,
+    renderers,
+    featureFlags,
+    store,
+  ]);
 
   return (
     <SmartCardContext.Provider value={parentContext || providerValue}>

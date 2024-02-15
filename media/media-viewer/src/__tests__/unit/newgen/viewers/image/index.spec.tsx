@@ -172,24 +172,42 @@ describe('ImageViewer', () => {
   });
 
   it('should not update state when image fetch request is cancelled', async () => {
-    const response = Promise.reject(new Error('request_cancelled'));
+    const abort = jest.fn();
+    class FakeAbortController {
+      abort = abort;
+      signal = {
+        aborted: true,
+      };
+    }
+    (global as any).AbortController = FakeAbortController;
+
+    const response = Promise.reject(new Error('Error: User aborted request'));
     const { component } = setup(response);
 
     const previousContent = component.state().content;
     expect(previousContent).toEqual({ state: { status: 'PENDING' } });
 
-    await awaitError(response, 'request_cancelled');
+    await awaitError(response, 'Error: User aborted request');
 
     expect(component.state().content).toEqual(previousContent);
   });
 
   it('should not call `onLoad` callback when image fetch request is cancelled', async () => {
-    const response = Promise.reject(new Error('request_cancelled'));
+    const abort = jest.fn();
+    class FakeAbortController {
+      abort = abort;
+      signal = {
+        aborted: true,
+      };
+    }
+    (global as any).AbortController = FakeAbortController;
+
+    const response = Promise.reject(new Error('Error: User aborted request'));
     const { component } = setup(response);
 
     expect(component.props().onLoad).not.toHaveBeenCalled();
 
-    await awaitError(response, 'request_cancelled');
+    await awaitError(response, 'Error: User aborted request');
 
     expect(component.props().onLoad).not.toHaveBeenCalled();
   });
@@ -198,6 +216,9 @@ describe('ImageViewer', () => {
     const abort = jest.fn();
     class FakeAbortController {
       abort = abort;
+      signal = {
+        aborted: true,
+      };
     }
     (global as any).AbortController = FakeAbortController;
     const response: any = new Promise(() => {});

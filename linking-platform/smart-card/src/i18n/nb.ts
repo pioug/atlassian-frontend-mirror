@@ -28,9 +28,9 @@ export default {
   'fabric.linking.connect_to': 'Koble til {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Koble til {context}',
   'fabric.linking.connect_unauthorised_account_description':
-    'Koble {context} til Atlassian for å se flere detaljer for arbeidet ditt og samarbeide på ett sted.',
+    'Koble til {context}-kontoen din for å samarbeide mellom flere Atlassian-produkter.',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    'Koble til Atlassian for å se flere detaljer for arbeidet ditt og samarbeide på ett sted.',
+    'Koble til kontoen din for å samarbeide mellom flere Atlassian-produkter.',
   'fabric.linking.continue': 'Fortsett',
   'fabric.linking.copy_url_to_clipboard': 'Kopier kobling',
   'fabric.linking.couldnt_load_link': 'Vi kan ikke laste inn denne koblingen av ukjent grunn.',
@@ -57,6 +57,7 @@ export default {
     'Du må be om tilgang eller prøve en annen konto for kunne se denne forhåndsvisningen.',
   'fabric.linking.join_to_view': 'Bli med {context} for å se denne saken',
   'fabric.linking.last_mentioned_in': 'Sist omtalt i',
+  'fabric.linking.learn_more_about_connecting_account': 'Finn ut mer om å koble kontoen din til Atlassian-produkter.',
   'fabric.linking.learn_more_about_smart_links': 'Finn ut mer om smartkoblinger.',
   'fabric.linking.link_safety_warning_message':
     '{unsafeLinkText}-koblingen tar deg til et annet nettsted, <a>actual link here</a>',

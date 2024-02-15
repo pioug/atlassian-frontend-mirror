@@ -2,7 +2,1049 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
-    "types": ["cypress"],
+    "types": [
+      "cypress"
+    ],
+    "paths": {
+      "@atlaskit/activity-provider/types": [
+        "../activity-provider/src/types.ts"
+      ],
+      "@atlaskit/activity-provider": [
+        "../activity-provider/src/index.ts"
+      ],
+      "@atlaskit/adf-utils/builders": [
+        "../adf-utils/src/builders.ts"
+      ],
+      "@atlaskit/adf-utils/empty-adf": [
+        "../adf-utils/src/empty-adf.ts"
+      ],
+      "@atlaskit/adf-utils/scrub": [
+        "../adf-utils/src/scrub.ts"
+      ],
+      "@atlaskit/adf-utils/transforms": [
+        "../adf-utils/src/transforms.ts"
+      ],
+      "@atlaskit/adf-utils/traverse": [
+        "../adf-utils/src/traverse.ts"
+      ],
+      "@atlaskit/adf-utils/validator": [
+        "../adf-utils/src/validator.ts"
+      ],
+      "@atlaskit/adf-utils/types": [
+        "../adf-utils/src/types/index.ts"
+      ],
+      "@atlaskit/adf-utils/validatorTypes": [
+        "../adf-utils/src/types/validatorTypes.ts"
+      ],
+      "@atlaskit/adf-utils": [
+        "../adf-utils/src"
+      ],
+      "@atlaskit/analytics-listeners/FabricAnalyticsListeners": [
+        "../../analytics/analytics-listeners/src/FabricAnalyticsListeners.tsx"
+      ],
+      "@atlaskit/analytics-listeners/GenericAnalyticsListener": [
+        "../../analytics/analytics-listeners/src/GenericAnalyticsListener.tsx"
+      ],
+      "@atlaskit/analytics-listeners/analytics-web-client-wrapper": [
+        "../../analytics/analytics-listeners/src/analytics-web-client-wrapper.ts"
+      ],
+      "@atlaskit/analytics-listeners/types": [
+        "../../analytics/analytics-listeners/src/types.ts"
+      ],
+      "@atlaskit/analytics-listeners": [
+        "../../analytics/analytics-listeners/src/index.ts"
+      ],
+      "@atlaskit/analytics-namespaced-context/MediaAnalyticsContext": [
+        "../../analytics/analytics-namespaced-context/src/MediaAnalyticsContext.tsx"
+      ],
+      "@atlaskit/analytics-namespaced-context/NavigationAnalyticsContext": [
+        "../../analytics/analytics-namespaced-context/src/NavigationAnalyticsContext.tsx"
+      ],
+      "@atlaskit/analytics-namespaced-context/PeopleTeamsAnalyticsContext": [
+        "../../analytics/analytics-namespaced-context/src/PeopleTeamsAnalyticsContext.tsx"
+      ],
+      "@atlaskit/analytics-namespaced-context/RecentWorkAnalyticsContext": [
+        "../../analytics/analytics-namespaced-context/src/RecentWorkAnalyticsContext.tsx"
+      ],
+      "@atlaskit/analytics-namespaced-context/AtlasAnalyticsContext": [
+        "../../analytics/analytics-namespaced-context/src/AtlasAnalyticsContext.tsx"
+      ],
+      "@atlaskit/analytics-namespaced-context/LinkingPlatformAnalyticsContext": [
+        "../../analytics/analytics-namespaced-context/src/LinkingPlatformAnalyticsContext.tsx"
+      ],
+      "@atlaskit/analytics-namespaced-context/PostOfficeAnalyticsContext": [
+        "../../analytics/analytics-namespaced-context/src/PostOfficeAnalyticsContext.tsx"
+      ],
+      "@atlaskit/analytics-namespaced-context": [
+        "../../analytics/analytics-namespaced-context/src/index.ts"
+      ],
+      "@atlaskit/analytics-next/types": [
+        "../../analytics/analytics-next/src/types.ts"
+      ],
+      "@atlaskit/analytics-next/AnalyticsContext": [
+        "../../analytics/analytics-next/src/components/AnalyticsContext/index.tsx"
+      ],
+      "@atlaskit/analytics-next/AnalyticsListener": [
+        "../../analytics/analytics-next/src/components/AnalyticsListener/index.tsx"
+      ],
+      "@atlaskit/analytics-next/AnalyticsErrorBoundary": [
+        "../../analytics/analytics-next/src/components/AnalyticsErrorBoundary.tsx"
+      ],
+      "@atlaskit/analytics-next/withAnalyticsEvents": [
+        "../../analytics/analytics-next/src/hocs/withAnalyticsEvents.tsx"
+      ],
+      "@atlaskit/analytics-next/withAnalyticsContext": [
+        "../../analytics/analytics-next/src/hocs/withAnalyticsContext.tsx"
+      ],
+      "@atlaskit/analytics-next/usePlatformLeafEventHandler": [
+        "../../analytics/analytics-next/src/hooks/usePlatformLeafEventHandler.ts"
+      ],
+      "@atlaskit/analytics-next/useAnalyticsEvents": [
+        "../../analytics/analytics-next/src/hooks/useAnalyticsEvents.ts"
+      ],
+      "@atlaskit/analytics-next/useCallbackWithAnalytics": [
+        "../../analytics/analytics-next/src/hooks/useCallbackWithAnalytics.ts"
+      ],
+      "@atlaskit/analytics-next/usePatchedProps": [
+        "../../analytics/analytics-next/src/hooks/usePatchedProps.ts"
+      ],
+      "@atlaskit/analytics-next/AnalyticsEvent": [
+        "../../analytics/analytics-next/src/events/AnalyticsEvent.ts"
+      ],
+      "@atlaskit/analytics-next/UIAnalyticsEvent": [
+        "../../analytics/analytics-next/src/events/UIAnalyticsEvent.ts"
+      ],
+      "@atlaskit/analytics-next/createAndFireEvents": [
+        "../../analytics/analytics-next/src/utils/createAndFireEvent.ts"
+      ],
+      "@atlaskit/analytics-next": [
+        "../../analytics/analytics-next/src/index.ts"
+      ],
+      "@atlaskit/button/button-group": [
+        "../../design-system/button/src/entry-points/button-group.tsx"
+      ],
+      "@atlaskit/button/custom-theme-button": [
+        "../../design-system/button/src/entry-points/custom-theme-button.tsx"
+      ],
+      "@atlaskit/button/loading-button": [
+        "../../design-system/button/src/entry-points/loading-button.tsx"
+      ],
+      "@atlaskit/button/standard-button": [
+        "../../design-system/button/src/entry-points/standard-button.tsx"
+      ],
+      "@atlaskit/button/new": [
+        "../../design-system/button/src/entry-points/new.tsx"
+      ],
+      "@atlaskit/button/types": [
+        "../../design-system/button/src/entry-points/types.tsx"
+      ],
+      "@atlaskit/button": [
+        "../../design-system/button/src/index.tsx"
+      ],
+      "@atlaskit/codeshifts": [
+        "../../../build/dev/codeshifts/src"
+      ],
+      "@atlaskit/code/types": [
+        "../../design-system/code/src/entry-points/types.tsx"
+      ],
+      "@atlaskit/code/bidi-warning": [
+        "../../design-system/code/src/bidi-warning/index.tsx"
+      ],
+      "@atlaskit/code/bidi-warning-decorator": [
+        "../../design-system/code/src/bidi-warning/bidi-warning-decorator.tsx"
+      ],
+      "@atlaskit/code/block": [
+        "../../design-system/code/src/entry-points/block.tsx"
+      ],
+      "@atlaskit/code/inline": [
+        "../../design-system/code/src/entry-points/inline.tsx"
+      ],
+      "@atlaskit/code/constants": [
+        "../../design-system/code/src/entry-points/constants.tsx"
+      ],
+      "@atlaskit/code": [
+        "../../design-system/code/src/index.tsx"
+      ],
+      "@atlaskit/codemod-cli/cli": [
+        "../../design-system/codemod-cli/src/cli.ts"
+      ],
+      "@atlaskit/codemod-cli/filepath": [
+        "../../design-system/codemod-cli/src/filepath.ts"
+      ],
+      "@atlaskit/codemod-cli/main": [
+        "../../design-system/codemod-cli/src/main.ts"
+      ],
+      "@atlaskit/codemod-cli/sinceRef": [
+        "../../design-system/codemod-cli/src/sinceRef.ts"
+      ],
+      "@atlaskit/codemod-cli/transforms": [
+        "../../design-system/codemod-cli/src/transforms.ts"
+      ],
+      "@atlaskit/codemod-cli/types": [
+        "../../design-system/codemod-cli/src/types.ts"
+      ],
+      "@atlaskit/codemod-cli/utils": [
+        "../../design-system/codemod-cli/src/utils.ts"
+      ],
+      "@atlaskit/codemod-cli": [
+        "../../design-system/codemod-cli/src/index.ts"
+      ],
+      "@atlaskit/code-insights": [
+        "../../monorepo-tooling/code-insights/src/index.ts"
+      ],
+      "@atlaskit/codemod-utils": [
+        "../../monorepo-tooling/codemod-utils/src/index.ts"
+      ],
+      "@atlaskit/custom-steps": [
+        "../custom-steps/src/index.ts"
+      ],
+      "@atlaskit/editor-json-transformer/markOverrideRules": [
+        "../editor-json-transformer/src/markOverrideRules.ts"
+      ],
+      "@atlaskit/editor-json-transformer/sanitize": [
+        "../editor-json-transformer/src/sanitize.ts"
+      ],
+      "@atlaskit/editor-json-transformer/types": [
+        "../editor-json-transformer/src/types.ts"
+      ],
+      "@atlaskit/editor-json-transformer": [
+        "../editor-json-transformer/src/index.ts"
+      ],
+      "@atlaskit/editor-palette": [
+        "../editor-palette/src/index.ts"
+      ],
+      "@atlaskit/editor-shared-styles/consts": [
+        "../editor-shared-styles/src/consts/index.ts"
+      ],
+      "@atlaskit/editor-shared-styles/selection": [
+        "../editor-shared-styles/src/selection/index.ts"
+      ],
+      "@atlaskit/editor-shared-styles/shortcut": [
+        "../editor-shared-styles/src/shortcut/index.ts"
+      ],
+      "@atlaskit/editor-shared-styles/scrollbar": [
+        "../editor-shared-styles/src/scrollbar-styles.ts"
+      ],
+      "@atlaskit/editor-shared-styles": [
+        "../editor-shared-styles/src/index.ts"
+      ],
+      "@atlaskit/editor-tables/cell-bookmark": [
+        "../editor-tables/src/cell-bookmark.ts"
+      ],
+      "@atlaskit/editor-tables/cell-selection": [
+        "../editor-tables/src/cell-selection.ts"
+      ],
+      "@atlaskit/editor-tables/pm-plugins": [
+        "../editor-tables/src/pm-plugins.ts"
+      ],
+      "@atlaskit/editor-tables/table-map": [
+        "../editor-tables/src/table-map.ts"
+      ],
+      "@atlaskit/editor-tables/types": [
+        "../editor-tables/src/types.ts"
+      ],
+      "@atlaskit/editor-tables/utils": [
+        "../editor-tables/src/utils.ts"
+      ],
+      "@atlaskit/editor-tables": [
+        "../editor-tables/src/index.ts"
+      ],
+      "@atlaskit/emoji/admin": [
+        "../../elements/emoji/src/admin.ts"
+      ],
+      "@atlaskit/emoji/element": [
+        "../../elements/emoji/src/element.ts"
+      ],
+      "@atlaskit/emoji/picker": [
+        "../../elements/emoji/src/picker.ts"
+      ],
+      "@atlaskit/emoji/resource": [
+        "../../elements/emoji/src/resource.ts"
+      ],
+      "@atlaskit/emoji/typeahead": [
+        "../../elements/emoji/src/typeahead.ts"
+      ],
+      "@atlaskit/emoji/types": [
+        "../../elements/emoji/src/types.ts"
+      ],
+      "@atlaskit/emoji/utils": [
+        "../../elements/emoji/src/utils.ts"
+      ],
+      "@atlaskit/emoji": [
+        "../../elements/emoji/src/index.ts"
+      ],
+      "@atlaskit/icon/base": [
+        "../../design-system/icon/src/entry-points/base.tsx"
+      ],
+      "@atlaskit/icon/constants": [
+        "../../design-system/icon/src/entry-points/constants.tsx"
+      ],
+      "@atlaskit/icon/metadata": [
+        "../../design-system/icon/src/entry-points/metadata.tsx"
+      ],
+      "@atlaskit/icon/svg": [
+        "../../design-system/icon/src/entry-points/svg.tsx"
+      ],
+      "@atlaskit/icon/types": [
+        "../../design-system/icon/src/entry-points/types.tsx"
+      ],
+      "@atlaskit/icon/glyph": [
+        "../../design-system/icon/glyph"
+      ],
+      "@atlaskit/icon": [
+        "../../design-system/icon/src/index.tsx"
+      ],
+      "@atlaskit/icon-object/metadata": [
+        "../../design-system/icon-object/src/entry-points/metadata.tsx"
+      ],
+      "@atlaskit/icon-object/glyph": [
+        "../../design-system/icon-object/glyph"
+      ],
+      "@atlaskit/icon-object": [
+        "../../design-system/icon-object/src/index.tsx"
+      ],
+      "@atlaskit/icon-file-type/metadata": [
+        "../../media/icon-file-type/src/entry-points/metadata.ts"
+      ],
+      "@atlaskit/icon-file-type/glyph": [
+        "../../media/icon-file-type/glyph"
+      ],
+      "@atlaskit/icon-file-type": [
+        "../../media/icon-file-type/src/index.ts"
+      ],
+      "@atlaskit/in-product-testing": [
+        "../../in-product-testing/in-product-testing/src/index.ts"
+      ],
+      "@atlaskit/in-product-testing-sample": [
+        "../../in-product-testing/in-product-testing-sample/src/index.ts"
+      ],
+      "@atlaskit/link-datasource": [
+        "../../linking-platform/link-datasource/src/index.ts"
+      ],
+      "@atlaskit/link-picker": [
+        "../../linking-platform/link-picker/src/index.ts"
+      ],
+      "@atlaskit/media-card/types": [
+        "../../media/media-card/src/types.ts"
+      ],
+      "@atlaskit/media-card/classnames": [
+        "../../media/media-card/src/classnames.ts"
+      ],
+      "@atlaskit/media-card": [
+        "../../media/media-card/src/index.ts"
+      ],
+      "@atlaskit/media-client/constants": [
+        "../../media/media-client/src/constants.ts"
+      ],
+      "@atlaskit/media-client/test-helpers": [
+        "../../media/media-client/src/test-helpers/index.ts"
+      ],
+      "@atlaskit/media-client": [
+        "../../media/media-client/src/index.ts"
+      ],
+      "@atlaskit/media-client-react/test-helpers": [
+        "../../media/media-client-react/src/test-helpers/index.ts"
+      ],
+      "@atlaskit/media-client-react": [
+        "../../media/media-client-react/src/index.ts"
+      ],
+      "@atlaskit/media-common/downloadUrl": [
+        "../../media/media-common/src/downloadUrl.ts"
+      ],
+      "@atlaskit/media-common/mediaFeatureFlags": [
+        "../../media/media-common/src/mediaFeatureFlags/index.ts"
+      ],
+      "@atlaskit/media-common/analytics": [
+        "../../media/media-common/src/analytics/index.ts"
+      ],
+      "@atlaskit/media-common/docs": [
+        "../../media/media-common/src/docs/index.ts"
+      ],
+      "@atlaskit/media-common/mediaTypeUtils": [
+        "../../media/media-common/src/mediaTypeUtils/index.ts"
+      ],
+      "@atlaskit/media-common/test-helpers": [
+        "../../media/media-common/src/test-helpers/index.ts"
+      ],
+      "@atlaskit/media-common": [
+        "../../media/media-common/src/index.ts"
+      ],
+      "@atlaskit/media-file-preview": [
+        "../../media/media-file-preview/src/index.ts"
+      ],
+      "@atlaskit/media-picker/types": [
+        "../../media/media-picker/src/types.ts"
+      ],
+      "@atlaskit/media-picker": [
+        "../../media/media-picker/src/index.ts"
+      ],
+      "@atlaskit/media-ui/classNames": [
+        "../../media/media-ui/src/classNames.ts"
+      ],
+      "@atlaskit/media-ui/media-type-icon": [
+        "../../media/media-ui/src/media-type-icon.tsx"
+      ],
+      "@atlaskit/media-ui/mime-type-icon": [
+        "../../media/media-ui/src/mime-type-icon.tsx"
+      ],
+      "@atlaskit/media-ui/truncateText": [
+        "../../media/media-ui/src/truncateText.tsx"
+      ],
+      "@atlaskit/media-ui/messages": [
+        "../../media/media-ui/src/messages.ts"
+      ],
+      "@atlaskit/media-ui/modalSpinner": [
+        "../../media/media-ui/src/modalSpinner.tsx"
+      ],
+      "@atlaskit/media-ui/browser": [
+        "../../media/media-ui/src/browser.tsx"
+      ],
+      "@atlaskit/media-ui/codeViewer": [
+        "../../media/media-ui/src/codeViewer.ts"
+      ],
+      "@atlaskit/media-ui/util": [
+        "../../media/media-ui/src/util.ts"
+      ],
+      "@atlaskit/media-ui/errorIcon": [
+        "../../media/media-ui/src/errorIcon.tsx"
+      ],
+      "@atlaskit/media-ui/types": [
+        "../../media/media-ui/src/types.ts"
+      ],
+      "@atlaskit/media-ui/formatDate": [
+        "../../media/media-ui/src/formatDate.ts"
+      ],
+      "@atlaskit/media-ui/locales": [
+        "../../media/media-ui/src/locales.ts"
+      ],
+      "@atlaskit/media-ui": [
+        "../../media/media-ui/src/index.ts"
+      ],
+      "@atlaskit/mention/_constants": [
+        "../../elements/mention/src/_constants.ts"
+      ],
+      "@atlaskit/mention/element": [
+        "../../elements/mention/src/element.ts"
+      ],
+      "@atlaskit/mention/i18n": [
+        "../../elements/mention/src/i18n.ts"
+      ],
+      "@atlaskit/mention/item": [
+        "../../elements/mention/src/item.ts"
+      ],
+      "@atlaskit/mention/resource": [
+        "../../elements/mention/src/resource.ts"
+      ],
+      "@atlaskit/mention/shared-styles": [
+        "../../elements/mention/src/shared-styles.ts"
+      ],
+      "@atlaskit/mention/team-resource": [
+        "../../elements/mention/src/team-resource.ts"
+      ],
+      "@atlaskit/mention/typeahead": [
+        "../../elements/mention/src/typeahead.ts"
+      ],
+      "@atlaskit/mention/types": [
+        "../../elements/mention/src/types.ts"
+      ],
+      "@atlaskit/mention": [
+        "../../elements/mention/src/index.ts"
+      ],
+      "@atlaskit/menu/button-item": [
+        "../../design-system/menu/src/entry-points/menu-item/button-item.tsx"
+      ],
+      "@atlaskit/menu/link-item": [
+        "../../design-system/menu/src/entry-points/menu-item/link-item.tsx"
+      ],
+      "@atlaskit/menu/custom-item": [
+        "../../design-system/menu/src/entry-points/menu-item/custom-item.tsx"
+      ],
+      "@atlaskit/menu/heading-item": [
+        "../../design-system/menu/src/entry-points/menu-item/heading-item.tsx"
+      ],
+      "@atlaskit/menu/skeleton-item": [
+        "../../design-system/menu/src/entry-points/menu-item/skeleton-item.tsx"
+      ],
+      "@atlaskit/menu/skeleton-heading-item": [
+        "../../design-system/menu/src/entry-points/menu-item/skeleton-heading-item.tsx"
+      ],
+      "@atlaskit/menu/section": [
+        "../../design-system/menu/src/entry-points/menu-section/section.tsx"
+      ],
+      "@atlaskit/menu/menu-group": [
+        "../../design-system/menu/src/entry-points/menu-section/menu-group.tsx"
+      ],
+      "@atlaskit/menu/popup-menu-group": [
+        "../../design-system/menu/src/entry-points/menu-section/popup-menu-group.tsx"
+      ],
+      "@atlaskit/menu/types": [
+        "../../design-system/menu/src/types.tsx"
+      ],
+      "@atlaskit/menu": [
+        "../../design-system/menu/src/index.tsx"
+      ],
+      "@atlaskit/platform-feature-flags": [
+        "../../platform/feature-flags/src/index.ts"
+      ],
+      "@atlaskit/profilecard/client": [
+        "../../people-and-teams/profilecard/src/client/index.ts"
+      ],
+      "@atlaskit/profilecard/messages": [
+        "../../people-and-teams/profilecard/src/messages.ts"
+      ],
+      "@atlaskit/profilecard/i18n": [
+        "../../people-and-teams/profilecard/src/i18n/index.ts"
+      ],
+      "@atlaskit/profilecard/team": [
+        "../../people-and-teams/profilecard/src/components/Team/index.ts"
+      ],
+      "@atlaskit/profilecard/types": [
+        "../../people-and-teams/profilecard/src/types.ts"
+      ],
+      "@atlaskit/profilecard/user": [
+        "../../people-and-teams/profilecard/src/components/User/index.ts"
+      ],
+      "@atlaskit/profilecard/mocks": [
+        "../../people-and-teams/profilecard/src/mocks/index.ts"
+      ],
+      "@atlaskit/profilecard": [
+        "../../people-and-teams/profilecard/src/index.ts"
+      ],
+      "@atlaskit/smart-card/ssr": [
+        "../../linking-platform/smart-card/src/ssr.tsx"
+      ],
+      "@atlaskit/smart-card/in-product": [
+        "../../linking-platform/smart-card/src/in-product.ts"
+      ],
+      "@atlaskit/smart-card/client": [
+        "../../linking-platform/smart-card/src/client/index.ts"
+      ],
+      "@atlaskit/smart-card/types": [
+        "../../linking-platform/smart-card/src/types.ts"
+      ],
+      "@atlaskit/smart-card/hooks": [
+        "../../linking-platform/smart-card/src/hooks.ts"
+      ],
+      "@atlaskit/smart-card/hover-card": [
+        "../../linking-platform/smart-card/src/hoverCard.ts"
+      ],
+      "@atlaskit/smart-card/link-url": [
+        "../../linking-platform/smart-card/src/linkUrl.ts"
+      ],
+      "@atlaskit/smart-card": [
+        "../../linking-platform/smart-card/src/index.ts"
+      ],
+      "@atlaskit/smart-user-picker/option": [
+        "../../smart-experiences/smart-user-picker/src/option.ts"
+      ],
+      "@atlaskit/smart-user-picker": [
+        "../../smart-experiences/smart-user-picker/src/index.ts"
+      ],
+      "@atlaskit/spinner/constants": [
+        "../../design-system/spinner/src/constants.tsx"
+      ],
+      "@atlaskit/spinner/spinner": [
+        "../../design-system/spinner/src/spinner.tsx"
+      ],
+      "@atlaskit/spinner/types": [
+        "../../design-system/spinner/src/types.tsx"
+      ],
+      "@atlaskit/spinner": [
+        "../../design-system/spinner/src/index.tsx"
+      ],
+      "@atlaskit/task-decision/constants": [
+        "../../elements/task-decision/src/constants.ts"
+      ],
+      "@atlaskit/task-decision/type-helpers": [
+        "../../elements/task-decision/src/type-helpers.ts"
+      ],
+      "@atlaskit/task-decision/types": [
+        "../../elements/task-decision/src/types.ts"
+      ],
+      "@atlaskit/task-decision": [
+        "../../elements/task-decision/src/index.ts"
+      ],
+      "@atlaskit/textfield": [
+        "../../design-system/textfield/src/index.tsx"
+      ],
+      "@atlaskit/theme/deprecated-provider-please-do-not-use": [
+        "../../design-system/theme/src/deprecated-provider-please-do-not-use.tsx"
+      ],
+      "@atlaskit/theme/color-palettes": [
+        "../../design-system/theme/src/color-palettes.tsx"
+      ],
+      "@atlaskit/theme/colors": [
+        "../../design-system/theme/src/colors.tsx"
+      ],
+      "@atlaskit/theme/components": [
+        "../../design-system/theme/src/components.tsx"
+      ],
+      "@atlaskit/theme/constants": [
+        "../../design-system/theme/src/constants.tsx"
+      ],
+      "@atlaskit/theme/elevation": [
+        "../../design-system/theme/src/elevation.tsx"
+      ],
+      "@atlaskit/theme/types": [
+        "../../design-system/theme/src/types.tsx"
+      ],
+      "@atlaskit/theme/typography": [
+        "../../design-system/theme/src/typography.tsx"
+      ],
+      "@atlaskit/theme": [
+        "../../design-system/theme/src"
+      ],
+      "@atlaskit/tokens/custom-themes": [
+        "../../design-system/tokens/src/entry-points/custom-themes.tsx"
+      ],
+      "@atlaskit/tokens/figma/atlassian-light.json": [
+        "../../design-system/tokens/figma/atlassian-light.json"
+      ],
+      "@atlaskit/tokens/figma/atlassian-dark.json": [
+        "../../design-system/tokens/figma/atlassian-dark.json"
+      ],
+      "@atlaskit/tokens/palettes-raw": [
+        "../../design-system/tokens/src/entry-points/palettes-raw.tsx"
+      ],
+      "@atlaskit/tokens/tokens-raw": [
+        "../../design-system/tokens/src/entry-points/tokens-raw.tsx"
+      ],
+      "@atlaskit/tokens/token-ids": [
+        "../../design-system/tokens/src/entry-points/token-ids.tsx"
+      ],
+      "@atlaskit/tokens/token-names": [
+        "../../design-system/tokens/src/entry-points/token-names.tsx"
+      ],
+      "@atlaskit/tokens/token-order": [
+        "../../design-system/tokens/src/entry-points/token-order.tsx"
+      ],
+      "@atlaskit/tokens/token-default-values": [
+        "../../design-system/tokens/src/entry-points/token-default-values.tsx"
+      ],
+      "@atlaskit/tokens/rename-mapping": [
+        "../../design-system/tokens/src/entry-points/rename-mapping.tsx"
+      ],
+      "@atlaskit/tokens/babel-plugin": [
+        "../../design-system/tokens/src/entry-points/babel-plugin.tsx"
+      ],
+      "@atlaskit/tokens/css-type-schema": [
+        "../../design-system/tokens/src/entry-points/css-type-schema.codegen.tsx"
+      ],
+      "@atlaskit/tokens": [
+        "../../design-system/tokens/src/index.tsx"
+      ],
+      "@atlaskit/tooltip/Tooltip": [
+        "../../design-system/tooltip/src/Tooltip.tsx"
+      ],
+      "@atlaskit/tooltip/TooltipContainer": [
+        "../../design-system/tooltip/src/TooltipContainer.tsx"
+      ],
+      "@atlaskit/tooltip/TooltipPrimitive": [
+        "../../design-system/tooltip/src/TooltipPrimitive.tsx"
+      ],
+      "@atlaskit/tooltip/types": [
+        "../../design-system/tooltip/src/types.tsx"
+      ],
+      "@atlaskit/tooltip/utilities": [
+        "../../design-system/tooltip/src/utilities.ts"
+      ],
+      "@atlaskit/tooltip": [
+        "../../design-system/tooltip/src/index.ts"
+      ],
+      "@atlaskit/ufo/global-stream-buffer": [
+        "../../data/ufo-external/src/global-stream-buffer/index.ts"
+      ],
+      "@atlaskit/ufo/logger": [
+        "../../data/ufo-external/src/logger/index.ts"
+      ],
+      "@atlaskit/ufo/platform-client": [
+        "../../data/ufo-external/src/platform-client/index.ts"
+      ],
+      "@atlaskit/ufo/types": [
+        "../../data/ufo-external/src/types.ts"
+      ],
+      "@atlaskit/ufo": [
+        "../../data/ufo-external/src/index.ts"
+      ],
+      "@atlaskit/width-detector/WidthDetector": [
+        "../../design-system/width-detector/src/WidthDetector.tsx"
+      ],
+      "@atlaskit/width-detector": [
+        "../../design-system/width-detector/src/index.ts"
+      ],
+      "@atlaskit/media-core/auth": [
+        "../../media/media-core/src/auth.ts"
+      ],
+      "@atlaskit/media-core": [
+        "../../media/media-core/src/index.ts"
+      ],
+      "@atlaskit/media-test-helpers/renderWithIntl": [
+        "../../media/media-test-helpers/src/renderWithIntl.tsx"
+      ],
+      "@atlaskit/media-test-helpers/smart-card-state": [
+        "../../media/media-test-helpers/src/smart-card-state.ts"
+      ],
+      "@atlaskit/media-test-helpers/fakeMediaClient": [
+        "../../media/media-test-helpers/src/fakeMediaClient.ts"
+      ],
+      "@atlaskit/media-test-helpers/media-mock": [
+        "../../media/media-test-helpers/src/mocks/media-mock.ts"
+      ],
+      "@atlaskit/media-test-helpers/images": [
+        "../../media/media-test-helpers/src/images.tsx"
+      ],
+      "@atlaskit/media-test-helpers/jestHelpers": [
+        "../../media/media-test-helpers/src/jestHelpers.ts"
+      ],
+      "@atlaskit/media-test-helpers/collectionNames": [
+        "../../media/media-test-helpers/src/collectionNames.ts"
+      ],
+      "@atlaskit/media-test-helpers/exampleMediaItems": [
+        "../../media/media-test-helpers/src/exampleMediaItems.ts"
+      ],
+      "@atlaskit/media-test-helpers/exampleMediaFeatureFlags": [
+        "../../media/media-test-helpers/src/example-mediaFeatureFlags.ts"
+      ],
+      "@atlaskit/media-test-helpers/globalEventEmitterListeners": [
+        "../../media/media-test-helpers/src/globalEventEmitterListeners.ts"
+      ],
+      "@atlaskit/media-test-helpers/mediaPickerAuthProvider": [
+        "../../media/media-test-helpers/src/mediaPickerAuthProvider.ts"
+      ],
+      "@atlaskit/media-test-helpers/getAuthFromContextProvider": [
+        "../../media/media-test-helpers/src/getAuthFromContextProvider.ts"
+      ],
+      "@atlaskit/media-test-helpers/mockData": [
+        "../../media/media-test-helpers/src/utils/mockData.ts"
+      ],
+      "@atlaskit/media-test-helpers": [
+        "../../media/media-test-helpers/src/index.tsx"
+      ],
+      "@atlaskit/util-data-test/emoji-constants": [
+        "../../elements/util-data-test/src/emoji-constants/index.ts"
+      ],
+      "@atlaskit/util-data-test/emoji-samples": [
+        "../../elements/util-data-test/src/emoji-test/emoji-samples.ts"
+      ],
+      "@atlaskit/util-data-test/emoji-types": [
+        "../../elements/util-data-test/src/emoji/types.ts"
+      ],
+      "@atlaskit/util-data-test/filter-to-searchable": [
+        "../../elements/util-data-test/src/emoji-test/filter-to-searchable.ts"
+      ],
+      "@atlaskit/util-data-test/get-atlassian-emojis": [
+        "../../elements/util-data-test/src/emoji/get-atlassian-emojis.ts"
+      ],
+      "@atlaskit/util-data-test/get-emoji-provider": [
+        "../../elements/util-data-test/src/emoji/get-emoji-provider.ts"
+      ],
+      "@atlaskit/util-data-test/get-emoji-repository": [
+        "../../elements/util-data-test/src/emoji/get-emoji-repository.ts"
+      ],
+      "@atlaskit/util-data-test/get-emoji-resource-standard-atlassian": [
+        "../../elements/util-data-test/src/emoji/get-emoji-resource-standard-atlassian.ts"
+      ],
+      "@atlaskit/util-data-test/get-emoji-resource-usage-clear": [
+        "../../elements/util-data-test/src/emoji/get-emoji-resource-usage-clear.ts"
+      ],
+      "@atlaskit/util-data-test/get-emoji-resource": [
+        "../../elements/util-data-test/src/emoji/get-emoji-resource.ts"
+      ],
+      "@atlaskit/util-data-test/get-emojis": [
+        "../../elements/util-data-test/src/emoji/get-emojis.ts"
+      ],
+      "@atlaskit/util-data-test/get-mock-profilecard-client": [
+        "../../elements/util-data-test/src/profilecard/get-mock-profilecard-client.ts"
+      ],
+      "@atlaskit/util-data-test/get-standard-emojis": [
+        "../../elements/util-data-test/src/emoji/get-standard-emojis.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-atlassian-emojis": [
+        "../../elements/util-data-test/src/emoji-test/get-test-atlassian-emojis.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-atlassian-service-emojis": [
+        "../../elements/util-data-test/src/emoji-test/get-test-atlassian-service-emojis.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-site-emojis": [
+        "../../elements/util-data-test/src/emoji-test/get-test-site-emojis.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-site-service-emojis": [
+        "../../elements/util-data-test/src/emoji-test/get-test-site-service-emojis.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-emoji-resource": [
+        "../../elements/util-data-test/src/emoji-test/get-test-emoji-resource.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-emoji-resource-from-repository": [
+        "../../elements/util-data-test/src/emoji-test/get-test-emoji-resource-from-repository.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-emoji-resource-non-uploading": [
+        "../../elements/util-data-test/src/emoji-test/get-test-emoji-resource-non-uploading.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-emoji-repository": [
+        "../../elements/util-data-test/src/emoji-test/get-test-emoji-repository.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-site-emoji-repository": [
+        "../../elements/util-data-test/src/emoji-test/get-test-site-emoji-repository.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-emojis": [
+        "../../elements/util-data-test/src/emoji-test/get-test-emojis.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-searchable-emojis": [
+        "../../elements/util-data-test/src/emoji-test/get-test-searchable-emojis.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-standard-emojis": [
+        "../../elements/util-data-test/src/emoji-test/get-test-standard-emojis.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-standard-service-emojis": [
+        "../../elements/util-data-test/src/emoji-test/get-test-standard-service-emojis.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-image-emoji": [
+        "../../elements/util-data-test/src/emoji-test/get-test-image-emoji.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-sprite-emoji": [
+        "../../elements/util-data-test/src/emoji-test/get-test-sprite-emoji.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-site-emoji-foo": [
+        "../../elements/util-data-test/src/emoji-test/get-test-site-emoji-foo.ts"
+      ],
+      "@atlaskit/util-data-test/get-test-site-emoji-wtf": [
+        "../../elements/util-data-test/src/emoji-test/get-test-site-emoji-wtf.ts"
+      ],
+      "@atlaskit/util-data-test/logged-user": [
+        "../../elements/util-data-test/src/emoji/logged-user.ts"
+      ],
+      "@atlaskit/util-data-test/logger": [
+        "../../elements/util-data-test/src/logger.ts"
+      ],
+      "@atlaskit/util-data-test/media-emoji": [
+        "../../elements/util-data-test/src/emoji-test/media-emoji.ts"
+      ],
+      "@atlaskit/util-data-test/media-service-emoji": [
+        "../../elements/util-data-test/src/emoji-test/media-service-emoji.ts"
+      ],
+      "@atlaskit/util-data-test/mention-story-data": [
+        "../../elements/util-data-test/src/mention/mention-story-data.ts"
+      ],
+      "@atlaskit/util-data-test/mention-test-data": [
+        "../../elements/util-data-test/src/mention/mention-test-data.ts"
+      ],
+      "@atlaskit/util-data-test/mock-mention-resource": [
+        "../../elements/util-data-test/src/mention/mock-mention-resource.ts"
+      ],
+      "@atlaskit/util-data-test/mock-emoji-resource": [
+        "../../elements/util-data-test/src/emoji/mock-emoji-resource.ts"
+      ],
+      "@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory": [
+        "../../elements/util-data-test/src/emoji/mock-non-uploading-emoji-resource-factory.ts"
+      ],
+      "@atlaskit/util-data-test/mock-presence-resource": [
+        "../../elements/util-data-test/src/mention/mock-presence-resource.ts"
+      ],
+      "@atlaskit/util-data-test/profilecard-data": [
+        "../../elements/util-data-test/src/profilecard/profilecard-data.ts"
+      ],
+      "@atlaskit/util-data-test/task-decision-story-data": [
+        "../../elements/util-data-test/src/task-decision/task-decision-story-data.ts"
+      ],
+      "@atlaskit/util-data-test/presence-data": [
+        "../../elements/util-data-test/src/mention/presence-data.ts"
+      ],
+      "@atlaskit/util-data-test/slack-data": [
+        "../../elements/util-data-test/src/slack-data/index.ts"
+      ],
+      "@atlaskit/util-data-test/user-picker": [
+        "../../elements/util-data-test/src/user-picker/index.ts"
+      ],
+      "@atlaskit/util-data-test/user-picker-data": [
+        "../../elements/util-data-test/src/user-picker/user-picker-data.ts"
+      ],
+      "@atlaskit/util-data-test": [
+        "../../elements/util-data-test/src"
+      ],
+      "@atlaskit/visual-regression": [
+        "../../../build/test-tooling/visual-regression/src"
+      ],
+      "@atlassian/feature-flags-test-utils": [
+        "../../platform/feature-flags-test-utils/src/index.ts"
+      ],
+      "@atlaskit/editor-common/event-dispatcher": [
+        "src/event-dispatcher/index.ts"
+      ],
+      "@atlaskit/editor-common/extensions": [
+        "src/extensions.ts"
+      ],
+      "@atlaskit/editor-common/extensibility": [
+        "src/extensibility/index.ts"
+      ],
+      "@atlaskit/editor-common/normalize-feature-flags": [
+        "src/normalize-feature-flags.ts"
+      ],
+      "@atlaskit/editor-common/messages": [
+        "src/messages/index.ts"
+      ],
+      "@atlaskit/editor-common/provider-factory": [
+        "src/provider-factory.ts"
+      ],
+      "@atlaskit/editor-common/styles": [
+        "src/styles/index.ts"
+      ],
+      "@atlaskit/editor-common/validator": [
+        "src/validator.ts"
+      ],
+      "@atlaskit/editor-common/in-product": [
+        "src/in-product.ts"
+      ],
+      "@atlaskit/editor-common/type-ahead": [
+        "src/type-ahead/index.ts"
+      ],
+      "@atlaskit/editor-common/ufo": [
+        "src/ufo/index.ts"
+      ],
+      "@atlaskit/editor-common/insert": [
+        "src/insert/index.ts"
+      ],
+      "@atlaskit/editor-common/types": [
+        "src/types/index.ts"
+      ],
+      "@atlaskit/editor-common/ui": [
+        "src/ui/index.tsx"
+      ],
+      "@atlaskit/editor-common/utils": [
+        "src/utils/index.ts"
+      ],
+      "@atlaskit/editor-common/card": [
+        "src/card/index.ts"
+      ],
+      "@atlaskit/editor-common/collab": [
+        "src/collab/index.ts"
+      ],
+      "@atlaskit/editor-common/emoji": [
+        "src/emoji.ts"
+      ],
+      "@atlaskit/editor-common/mention": [
+        "src/mention.ts"
+      ],
+      "@atlaskit/editor-common/provider-helpers": [
+        "src/provider-helpers/index.ts"
+      ],
+      "@atlaskit/editor-common/icons": [
+        "src/icons/index.ts"
+      ],
+      "@atlaskit/editor-common/safe-plugin": [
+        "src/safe-plugin/index.ts"
+      ],
+      "@atlaskit/editor-common/panel": [
+        "src/panel.ts"
+      ],
+      "@atlaskit/editor-common/analytics": [
+        "src/analytics/index.ts"
+      ],
+      "@atlaskit/editor-common/error-boundary": [
+        "src/ui/ErrorBoundary/index.tsx"
+      ],
+      "@atlaskit/editor-common/portal-provider": [
+        "src/ui/PortalProvider/index.tsx"
+      ],
+      "@atlaskit/editor-common/react-node-view": [
+        "src/react-node-view/index.tsx"
+      ],
+      "@atlaskit/editor-common/with-plugin-state": [
+        "src/with-plugin-state/index.tsx"
+      ],
+      "@atlaskit/editor-common/node-width": [
+        "src/node-width/index.ts"
+      ],
+      "@atlaskit/editor-common/keymaps": [
+        "src/keymaps/index.tsx"
+      ],
+      "@atlaskit/editor-common/ui-menu": [
+        "src/ui-menu/index.tsx"
+      ],
+      "@atlaskit/editor-common/ui-react": [
+        "src/ui-react/index.ts"
+      ],
+      "@atlaskit/editor-common/ui-color": [
+        "src/ui-color/index.ts"
+      ],
+      "@atlaskit/editor-common/transforms": [
+        "src/transforms/index.ts"
+      ],
+      "@atlaskit/editor-common/core-utils": [
+        "src/core-utils/index.ts"
+      ],
+      "@atlaskit/editor-common/selection": [
+        "src/selection/index.ts"
+      ],
+      "@atlaskit/editor-common/preset": [
+        "src/preset/index.ts"
+      ],
+      "@atlaskit/editor-common/hooks": [
+        "src/hooks/index.ts"
+      ],
+      "@atlaskit/editor-common/media-inline": [
+        "src/media-inline/index.ts"
+      ],
+      "@atlaskit/editor-common/media-single": [
+        "src/media-single/index.ts"
+      ],
+      "@atlaskit/editor-common/monitoring": [
+        "src/monitoring/index.ts"
+      ],
+      "@atlaskit/editor-common/paste": [
+        "src/paste/index.ts"
+      ],
+      "@atlaskit/editor-common/resizer": [
+        "src/resizer/index.ts"
+      ],
+      "@atlaskit/editor-common/editor-analytics": [
+        "src/editor-analytics/index.ts"
+      ],
+      "@atlaskit/editor-common/selection-based-node-view": [
+        "src/selection-based-node-view/index.ts"
+      ],
+      "@atlaskit/editor-common/guideline": [
+        "src/guideline/index.ts"
+      ],
+      "@atlaskit/editor-common/quick-insert": [
+        "src/quick-insert/index.ts"
+      ],
+      "@atlaskit/editor-common/link": [
+        "src/link/index.ts"
+      ],
+      "@atlaskit/editor-common/mark": [
+        "src/mark/index.ts"
+      ],
+      "@atlaskit/editor-common/commands": [
+        "src/commands/index.ts"
+      ],
+      "@atlaskit/editor-common/clipboard": [
+        "src/clipboard/index.ts"
+      ],
+      "@atlaskit/editor-common/lists": [
+        "src/lists/index.ts"
+      ],
+      "@atlaskit/editor-common/element-browser": [
+        "src/element-browser/index.ts"
+      ],
+      "@atlaskit/editor-common/floating-toolbar": [
+        "src/floating-toolbar/index.ts"
+      ],
+      "@atlaskit/editor-common/copy-button": [
+        "src/copy-button/index.ts"
+      ],
+      "@atlaskit/editor-common/legacy-rank-plugins": [
+        "src/rank.ts"
+      ],
+      "@atlaskit/editor-common/indentation": [
+        "src/indentation/index.ts"
+      ],
+      "@atlaskit/editor-common/annotation": [
+        "src/annotation/index.ts"
+      ],
+      "@atlaskit/editor-common": [
+        "./src"
+      ]
+    }
   },
   "include": [
     "src/**/*.ts",
@@ -10,8 +1052,9 @@
     "./docs/**/*.ts",
     "./docs/**/*.tsx",
     "test-helpers/**/*.ts",
-    "test-helpers/**/*.tsx"
-, "../editor-core/src/utils/__tests__/unit/table.ts"  ],
+    "test-helpers/**/*.tsx",
+    "../editor-core/src/utils/__tests__/unit/table.ts"
+  ],
   "exclude": [
     "node_modules",
     "src/json-schema",

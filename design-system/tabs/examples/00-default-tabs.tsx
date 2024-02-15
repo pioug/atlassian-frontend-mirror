@@ -21,16 +21,16 @@ export default function defaultTabs() {
           <Tab>Tab 4</Tab>
         </TabList>
         <TabPanel>
-          <Panel>One</Panel>
+          <Panel>This is the content area of the first tab.</Panel>
         </TabPanel>
         <TabPanel>
-          <Panel>Two</Panel>
+          <Panel>This is the content area of the second tab.</Panel>
         </TabPanel>
         <TabPanel>
-          <Panel>Three</Panel>
+          <Panel>This is the content area of the third tab.</Panel>
         </TabPanel>
         <TabPanel>
-          <Panel>Four</Panel>
+          <Panel>This is the content area of the fourth tab.</Panel>
         </TabPanel>
       </Tabs>
     </Box>

@@ -1,5 +1,9 @@
 /** @jsx jsx */
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
+
+import { css, jsx } from '@emotion/react';
+
+import Button from '@atlaskit/button/standard-button';
 import Modal, {
   ModalBody,
   ModalFooter,
@@ -7,10 +11,8 @@ import Modal, {
   ModalTitle,
   ModalTransition,
 } from '@atlaskit/modal-dialog';
-import Button from '@atlaskit/button/standard-button';
-import { Editor } from '../src';
 
-import { css, jsx } from '@emotion/react';
+import { Editor } from '../src';
 
 const bodyStyles = css`
   margin-top: 2rem;

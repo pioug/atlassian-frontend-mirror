@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import Select from '@atlaskit/select';
 
@@ -40,12 +40,18 @@ export default class InlineDialogDatepickerExample extends Component<
 
     const content = (
       <div style={{ width: '300px' }}>
-        <p>
-          <Select options={options} classNamePrefix="react-select" />
-        </p>
-        <p>
-          <DatePicker testId="date-picker" />
-        </p>
+        <div>
+          <label htmlFor="select">Select</label>
+          <Select
+            inputId="select"
+            options={options}
+            classNamePrefix="react-select"
+          />
+        </div>
+        <div>
+          <label htmlFor="datepicker">Date picker</label>
+          <DatePicker id="datepicker" testId="date-picker" />
+        </div>
       </div>
     );
 

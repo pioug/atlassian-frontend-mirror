@@ -1,8 +1,10 @@
-import { mountWithIntl } from '../../__helpers/enzyme';
 import React from 'react';
+
 import Tooltip from '@atlaskit/tooltip';
-import ToolbarHelp from '../../../ui/ToolbarHelp';
+
 import EditorContext from '../../../ui/EditorContext';
+import ToolbarHelp from '../../../ui/ToolbarHelp';
+import { mountWithIntl } from '../../__helpers/enzyme';
 
 describe('@atlaskit/editor-core/ui/ToolbarHelp', () => {
   const mountWithEditorContext = (props = {}) => {

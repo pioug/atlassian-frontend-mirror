@@ -9,6 +9,7 @@ interface ItemsProps<Item = any> {
   depth: number;
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   items?: Item[];
+  loadingLabel?: string;
   render: (arg: Item) => React.ReactNode;
 }
 
@@ -41,18 +42,19 @@ export default class Items<Item> extends Component<ItemsProps<Item>, State> {
   };
 
   renderLoader() {
-    const { depth, items } = this.props;
+    const { depth, items, loadingLabel } = this.props;
     return (
       <LoaderItem
         isCompleting={!!(items && items.length)}
         onComplete={this.handleLoaderComplete}
         depth={depth + 1}
+        loadingLabel={loadingLabel}
       />
     );
   }
 
   renderItems() {
-    const { render, items, depth = 0 } = this.props;
+    const { render, items, loadingLabel, depth = 0 } = this.props;
     return (
       items &&
       items.map((itemData, index) => (
@@ -61,6 +63,7 @@ export default class Items<Item> extends Component<ItemsProps<Item>, State> {
           depth={depth + 1}
           key={(itemData && (itemData as any).id) || index}
           render={render}
+          loadingLabel={loadingLabel}
         />
       ))
     );
@@ -68,13 +71,6 @@ export default class Items<Item> extends Component<ItemsProps<Item>, State> {
 
   render() {
     const { isLoaderShown } = this.state;
-    const busyAttrs = isLoaderShown
-      ? ({ 'aria-busy': true, 'aria-live': 'polite' } as const)
-      : {};
-    return (
-      <div {...busyAttrs}>
-        {isLoaderShown ? this.renderLoader() : this.renderItems()}
-      </div>
-    );
+    return isLoaderShown ? this.renderLoader() : this.renderItems();
   }
 }

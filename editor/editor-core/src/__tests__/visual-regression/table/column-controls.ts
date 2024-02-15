@@ -1,29 +1,30 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  getSelectorForTableCell,
-  selectCellOption,
-  tableSelectors,
-  selectColumn,
-  clickFirstCell,
-  grabResizeHandle,
-  hoverColumnControls,
-} from '@atlaskit/editor-test-helpers/page-objects/table';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   pressKeyDown,
   pressKeyUp,
 } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  clickFirstCell,
+  getSelectorForTableCell,
+  grabResizeHandle,
+  hoverColumnControls,
+  selectCellOption,
+  selectColumn,
+  tableSelectors,
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import adf from './__fixtures__/default-table.adf.json';
 import adfTableWithoutTableHeader from './__fixtures__/table-without-table-header.adf.json';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Table context menu: merge-split cells', () => {
   let page: PuppeteerPage;
@@ -64,8 +65,7 @@ describe('Table context menu: merge-split cells', () => {
     await initEditor(adf);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 08/08/2023: https://product-fabric.atlassian.net/browse/ED-19395
-  it.skip(`should render column controls for each column regardless of merged cells in the first row`, async () => {
+  it(`should render column controls for each column regardless of merged cells in the first row`, async () => {
     const from = getSelectorForTableCell({
       row: 1,
       cell: 1,

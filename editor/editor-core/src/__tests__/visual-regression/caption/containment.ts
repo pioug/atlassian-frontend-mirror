@@ -1,22 +1,23 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  snapshot,
-  initFullPageEditorWithAdf,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickMediaInPosition,
   waitForMediaToBeLoaded,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
-import captionWrappedTable from './__fixtures__/caption-wrapped-table.adf.json';
-import captionWrappedSkinnyTable from './__fixtures__/caption-wrapped-skinny-table.adf.json';
-import captionWrappedLayout from './__fixtures__/caption-wrapped-layout.adf.json';
-import captionWrappedExpand from './__fixtures__/caption-wrapped-expand.adf.json';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import captionWrappedExpand from './__fixtures__/caption-wrapped-expand.adf.json';
+import captionWrappedLayout from './__fixtures__/caption-wrapped-layout.adf.json';
+import captionWrappedSkinnyTable from './__fixtures__/caption-wrapped-skinny-table.adf.json';
+import captionWrappedTable from './__fixtures__/caption-wrapped-table.adf.json';
 
 async function initEditor(page: PuppeteerPage, adf: object) {
   await initFullPageEditorWithAdf(page, adf, Device.LaptopMDPI, undefined, {

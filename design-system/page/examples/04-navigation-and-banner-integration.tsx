@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import Banner from '@atlaskit/banner';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { AtlassianIcon } from '@atlaskit/logo';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Navigation, { AkNavigationItem } from '@atlaskit/navigation';

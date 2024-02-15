@@ -3,6 +3,7 @@ import React from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
+import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import type { ConfirmationDialogProps } from '@atlaskit/editor-common/types';
 import Modal, {
   ModalBody,
@@ -10,8 +11,6 @@ import Modal, {
   ModalHeader,
   ModalTitle,
 } from '@atlaskit/modal-dialog';
-
-import messages from './messages';
 
 export const SimpleModal = (
   props: ConfirmationDialogProps & WrappedComponentProps,

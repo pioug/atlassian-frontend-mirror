@@ -56,18 +56,19 @@ export const getThemePreferences = (
 export const getThemeOverridePreferences = (
   themeState: ThemeState,
 ): ThemeIdsWithOverrides[] => {
-  const { colorMode, dark, light } = themeState;
+  const { colorMode } = themeState;
 
   const themeOverridePreferences: ThemeIdsWithOverrides[] = [];
 
-  const themePreferences: ThemeIdsWithOverrides[] =
-    colorMode === 'auto' ? [light, dark] : [themeState[colorMode]];
-
   if (getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')) {
-    themePreferences.includes('light') &&
+    if (colorMode === 'auto') {
       themeOverridePreferences.push('light-new-input-border');
-    themePreferences.includes('dark') &&
       themeOverridePreferences.push('dark-new-input-border');
+    } else if (colorMode === 'dark') {
+      themeOverridePreferences.push('dark-new-input-border');
+    } else {
+      themeOverridePreferences.push('light-new-input-border');
+    }
   }
 
   return [...new Set(themeOverridePreferences)];

@@ -2,10 +2,15 @@
 title: Dropdown item checkbox
 description: A dropdown item checkbox lets users select items from a list of options.
 order: 1
+props:
+  packageName: '@atlaskit/dropdown-menu'
+  exports:
+    - DropdownItemCheckbox
 ---
-
-import DropdownItemCheckboxProps from '!!extract-react-types-loader!../../src/checkbox/dropdown-item-checkbox';
 
 ## Props
 
-<PropsTable heading="" props={DropdownItemCheckboxProps} />
+<TSMorphProps
+  exportName="DropdownItemCheckbox"
+  packageName="@atlaskit/dropdown-menu"
+/>

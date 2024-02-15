@@ -1,16 +1,13 @@
 import {
-  EditorTableModel,
   EditorNodeContainerModel,
   EditorPopupModel,
-  editorTestCase as test,
+  EditorTableModel,
   expect,
-  fixTest,
-  BROWSERS,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import {
-  tableWithScoll,
-  simpleTableWithScroll,
-} from './__fixtures__/base-adfs';
+
+import { tableWithScoll } from './__fixtures__/base-adfs';
+import { simpleTableWithScroll } from './sticky-header.spec.ts-fixtures';
 
 test.use({
   editorProps: {
@@ -32,7 +29,7 @@ test.describe('sticky header', () => {
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 
-      const scrollAnchor = await nodes.table.locator('[localid="scroll-here"]');
+      const scrollAnchor = nodes.table.locator('[localid="scroll-here"]');
       await scrollAnchor.scrollIntoViewIfNeeded();
 
       await test.step('set selection in header row first cell and expect fixed contextual button to show', async () => {
@@ -66,12 +63,6 @@ test.describe('sticky header', () => {
     test('should sync width with table when parent scroll container is resized', async ({
       editor,
     }) => {
-      fixTest({
-        jiraIssueId: 'ED-19015',
-        reason:
-          'Test timeout of 30000ms exceeded. locator.hover: Target closed',
-        browsers: [BROWSERS.webkit],
-      });
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 
@@ -102,16 +93,10 @@ test.describe('sticky header', () => {
   test.describe('numbered columns', () => {
     // ED-16817: Adding column from cell options scrolls table back to top as it resets selection to first cell in new column
     // This causes the sticky header to reset. There were issues with the numbered column syncing with sticky header.
-    test('sticky numbered column header should have top style reset when adding column from cell options', async ({
+    // FIXME: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2257574/steps/%7B7f583bb9-62c8-45f0-9ce4-9dce1a495739%7D/test-report
+    test.skip('sticky numbered column header should have top style reset when adding column from cell options', async ({
       editor,
     }) => {
-      fixTest({
-        jiraIssueId: 'ED-19256, ED-19267, ED-19278',
-        reason:
-          'FIXME: This test was automatically skipped due to failure on 28/07/2023: https://product-fabric.atlassian.net/browse/ED-19256',
-        browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
-      });
-
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 
@@ -132,17 +117,10 @@ test.describe('sticky header', () => {
     test('should be visible when sticky header is enabled', async ({
       editor,
     }) => {
-      fixTest({
-        jiraIssueId: 'ED-19605',
-        reason:
-          'FIXME: This test was automatically skipped due to failure on 18/08/2023: https://product-fabric.atlassian.net/browse/ED-19605',
-        browsers: [BROWSERS.webkit],
-      });
-
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 
-      const scrollAnchor = await nodes.table.locator('[localid="scroll-here"]');
+      const scrollAnchor = nodes.table.locator('[localid="scroll-here"]');
       await scrollAnchor.scrollIntoViewIfNeeded();
 
       const columnControls = await tableModel.columnControls({ index: 0 });
@@ -157,22 +135,16 @@ test.describe('sticky header', () => {
       adf: simpleTableWithScroll,
       platformFeatureFlags: { 'platform.editor.custom-table-width': true },
     });
-    // FIXME: Test is failing on master on 22/09/23: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1707466/steps/%7B5d950a71-3106-4e63-83e2-5b812353912e%7D/test-report
-    test.skip('should sync width with table while table is resizing', async ({
+
+    test('should sync width with table while table is resizing', async ({
       editor,
     }) => {
-      fixTest({
-        jiraIssueId: 'ED-19805',
-        reason: 'Flaky test on firefox',
-        browsers: [BROWSERS.firefox],
-      });
-
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
       const resizerModel = tableModel.resizer();
 
-      const bottom = await editor.page.getByText('Bottom');
-      bottom.scrollIntoViewIfNeeded();
+      const bottom = editor.page.getByText('Bottom');
+      await bottom.scrollIntoViewIfNeeded();
 
       const cell = await tableModel.cell(23);
       await cell.click();
@@ -194,6 +166,52 @@ test.describe('sticky header', () => {
       const rowBox = await nodes.table.locator('tr.sticky').boundingBox();
 
       expect(tableBox?.width).toEqual(rowBox?.width);
+    });
+  });
+
+  test.describe('table with scroll', () => {
+    test.use({
+      adf: simpleTableWithScroll,
+    });
+    test('Sticky header should correctly toggle on and off', async ({
+      editor,
+    }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table);
+
+      const stickyModel = await tableModel.stickyHeader();
+
+      await expect(tableModel.tableElement).not.toHaveClass('pm-table-sticky');
+      await expect(stickyModel.stickyRow).toBeHidden();
+
+      const bottom = editor.page.getByText('Bottom');
+      await bottom.scrollIntoViewIfNeeded();
+
+      await expect(tableModel.tableElement).toHaveClass('pm-table-sticky');
+      await expect(stickyModel.stickyRow).toBeVisible();
+    });
+
+    test('Sticky header should still correctly toggle on and off, after a column has been added', async ({
+      editor,
+    }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table);
+
+      const stickyModel = await tableModel.stickyHeader();
+
+      await expect(tableModel.tableElement).not.toHaveClass('pm-table-sticky');
+      await expect(stickyModel.stickyRow).toBeHidden();
+
+      const cell = await tableModel.cell(0);
+      await cell.click();
+      const shortcuts = await tableModel.shortcuts(editor.keyboard);
+      await shortcuts.insertColumnAtRight();
+
+      const bottom = editor.page.getByText('Bottom');
+      await bottom.scrollIntoViewIfNeeded();
+
+      await expect(tableModel.tableElement).toHaveClass('pm-table-sticky');
+      await expect(stickyModel.stickyRow).toBeVisible();
     });
   });
 });

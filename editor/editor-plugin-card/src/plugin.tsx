@@ -2,6 +2,7 @@ import React from 'react';
 
 import { blockCard, embedCard, inlineCard } from '@atlaskit/adf-schema';
 import type { CardPluginActions } from '@atlaskit/editor-common/card';
+import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import {
   IconDatasourceAssetsObjects,
@@ -19,14 +20,10 @@ import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-too
 import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
-import {
-  ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
-  JIRA_LIST_OF_LINKS_DATASOURCE_ID,
-} from '@atlaskit/link-datasource';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
 
 import { createEventsQueue } from './analytics/create-events-queue';
 import type { CardPluginEvent } from './analytics/types';
-import { messages } from './messages';
 import { hideLinkToolbar, showDatasourceModal } from './pm-plugins/actions';
 import {
   changeSelectedCardToLink,
@@ -67,8 +64,6 @@ export type CardPlugin = NextEditorPlugin<
  * from `@atlaskit/editor-core`.
  */
 export const cardPlugin: CardPlugin = ({ config: options, api }) => {
-  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
-
   const cardPluginEvents = createEventsQueue<CardPluginEvent>();
 
   return {
@@ -147,6 +142,7 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
       popupsScrollableElement,
       popupsBoundariesElement,
     }) {
+      const breakoutEnabled = options.editorAppearance === 'full-page';
       return (
         <>
           <EditorSmartCardEvents editorView={editorView} />
@@ -154,13 +150,15 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
             cardPluginEvents={cardPluginEvents}
             editorView={editorView}
           />
-          <LayoutButton
-            api={api}
-            editorView={editorView}
-            mountPoint={popupsMountPoint}
-            scrollableElement={popupsScrollableElement}
-            boundariesElement={popupsBoundariesElement}
-          />
+          {breakoutEnabled && (
+            <LayoutButton
+              api={api}
+              editorView={editorView}
+              mountPoint={popupsMountPoint}
+              scrollableElement={popupsScrollableElement}
+              boundariesElement={popupsBoundariesElement}
+            />
+          )}
           <DatasourceModalWithState api={api} editorView={editorView} />
         </>
       );
@@ -176,7 +174,7 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
     pluginsOptions: {
       floatingToolbar: floatingToolbar(
         options,
-        featureFlags,
+        options.lpLinkPicker ?? false,
         options.platform,
         options.linkPicker,
         api,
@@ -187,21 +185,20 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
           return quickInsertArray;
         }
 
-        if (canRenderDatasource(JIRA_LIST_OF_LINKS_DATASOURCE_ID)) {
-          quickInsertArray.push({
-            id: 'datasource',
-            title: formatMessage(messages.datasourceJiraIssue),
-            description: formatMessage(messages.datasourceJiraIssueDescription),
-            categories: ['external-content', 'development'],
-            keywords: ['jira'],
-            icon: () => <IconDatasourceJiraIssue />,
-            action(insert) {
-              const tr = insert(undefined);
-              showDatasourceModal('jira')(tr);
-              return tr;
-            },
-          });
-        }
+        quickInsertArray.push({
+          id: 'datasource',
+          title: formatMessage(messages.datasourceJiraIssue),
+          description: formatMessage(messages.datasourceJiraIssueDescription),
+          categories: ['external-content', 'development'],
+          keywords: ['jira'],
+          featured: true,
+          icon: () => <IconDatasourceJiraIssue />,
+          action(insert) {
+            const tr = insert(undefined);
+            showDatasourceModal('jira')(tr);
+            return tr;
+          },
+        });
 
         if (canRenderDatasource(ASSETS_LIST_OF_LINKS_DATASOURCE_ID)) {
           quickInsertArray.push({

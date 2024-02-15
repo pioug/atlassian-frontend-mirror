@@ -13,6 +13,7 @@ export default {
   'feedback-collector.can-be-contacted.label':
     'Igen, az Atlassian csapatai felvehetik velem a kapcsolatot, hogy kikérjék a véleményemet az Atlassian termékeinek és szolgáltatásainak fejlesztéséről. Elfogadom az <a>Atlassian adatvédelmi nyilatkozatát</a>.',
   'feedback-collector.cancel-button.label': 'Mégse',
+  'feedback-collector.default.custom.textarea.label': 'Mi jár a fejedben?',
   'feedback-collector.enrol-in-research.label': 'Szeretnék részt venni a termékekkel kapcsolatos kutatásban',
   'feedback-collector.feedback-title': 'Oszd meg a véleményedet',
   'feedback-collector.form.bug.label': 'Írd le a hibát vagy az ügyet',
@@ -26,6 +27,7 @@ export default {
   'feedback-collector.option.default.placeholder': 'Válassz egyet',
   'feedback-collector.option.question.label': 'Kérdést feltenni',
   'feedback-collector.option.suggestion.label': 'Fejlesztéssel kapcsolatos javaslatot tenni',
+  'feedback-collector.required.fields.summary': 'A kötelező mezők csillaggal vannak megjelölve',
   'feedback-collector.submit-button.label': 'Visszajelzés elküldése',
   'feedback-collector.success-flag.description':
     'Értékes visszajelzésed segítségével folyamatosan fejlesztjük termékeinket.',

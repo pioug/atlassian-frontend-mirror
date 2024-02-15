@@ -1,9 +1,12 @@
 /** @jsx jsx */
 
+import { useMemo } from 'react';
+
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
 
 import Lozenge from '@atlaskit/lozenge';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -65,33 +68,48 @@ const methodToDescriptionMessage: Record<JiraSearchMethod, MessageDescriptor> =
 const jqlSupportDocumentLink =
   'https://support.atlassian.com/jira-service-management-cloud/docs/use-advanced-search-with-jira-query-language-jql/';
 
-export const InitialStateView = ({ searchMethod }: InitialStateViewProps) => (
-  <div
-    css={initialStateViewContainerStyles}
-    data-testid="jlol-datasource-modal--initial-state-view"
-  >
-    <div css={svgAndTextsWrapperStyles}>
-      <InitialStateSVG />
-      <div css={searchTitleStyles}>
-        <div css={betaTagStyles}>
-          <Lozenge appearance="new">
-            <FormattedMessage {...initialStateViewMessages.beta} />
-          </Lozenge>
+export const InitialStateView = ({ searchMethod }: InitialStateViewProps) => {
+  const showBasicFilters = useMemo(() => {
+    if (
+      getBooleanFF(
+        'platform.linking-platform.datasource.show-jlol-basic-filters',
+      )
+    ) {
+      return true;
+    }
+    return false;
+  }, []);
+
+  return (
+    <div
+      css={initialStateViewContainerStyles}
+      data-testid="jlol-datasource-modal--initial-state-view"
+    >
+      <div css={svgAndTextsWrapperStyles}>
+        <InitialStateSVG />
+        <div css={searchTitleStyles}>
+          {!showBasicFilters && (
+            <div css={betaTagStyles}>
+              <Lozenge appearance="new">
+                <FormattedMessage {...initialStateViewMessages.beta} />
+              </Lozenge>
+            </div>
+          )}
+          <FormattedMessage {...initialStateViewMessages.searchTitle} />
         </div>
-        <FormattedMessage {...initialStateViewMessages.searchTitle} />
+        <div css={mainTextStyles}>
+          <FormattedMessage {...methodToDescriptionMessage[searchMethod]} />
+        </div>
+        {searchMethod === 'jql' ? (
+          <a
+            href={jqlSupportDocumentLink}
+            target="_blank"
+            css={learnMoreLinkStyles}
+          >
+            <FormattedMessage {...initialStateViewMessages.learnMoreLink} />
+          </a>
+        ) : null}
       </div>
-      <div css={mainTextStyles}>
-        <FormattedMessage {...methodToDescriptionMessage[searchMethod]} />
-      </div>
-      {searchMethod === 'jql' ? (
-        <a
-          href={jqlSupportDocumentLink}
-          target="_blank"
-          css={learnMoreLinkStyles}
-        >
-          <FormattedMessage {...initialStateViewMessages.learnMoreLink} />
-        </a>
-      ) : null}
     </div>
-  </div>
-);
+  );
+};

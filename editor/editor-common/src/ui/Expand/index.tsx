@@ -13,8 +13,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import {
   B300,
-  DN50,
-  DN600,
   N200,
   N200A,
   N300A,
@@ -23,10 +21,8 @@ import {
   N50A,
   N90,
 } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
-import type { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 export const messages = defineMessages({
@@ -58,17 +54,14 @@ const EXPAND_COLLAPSED_BACKGROUND = token(
   'color.background.neutral.subtle',
   'transparent',
 );
-const EXPAND_SELECTED_BACKGROUND = themed({
-  light: token('elevation.surface', 'rgba(255, 255, 255, 0.6)'),
-  dark: token('elevation.surface', 'rgba(9, 10, 11, 0.29)'),
-});
+const EXPAND_SELECTED_BACKGROUND = token(
+  'elevation.surface',
+  'rgba(255, 255, 255, 0.6)',
+);
 
 const EXPAND_FOCUSED_BORDER_COLOR = token('color.border.focused', B300);
 const EXPAND_COLLAPSED_BORDER_COLOR = 'transparent';
-const EXPAND_EXPANDED_BORDER_COLOR = themed({
-  light: token('color.border', N40A),
-  dark: token('color.border', DN50),
-});
+const EXPAND_EXPANDED_BORDER_COLOR = token('color.border', N40A);
 
 export interface StyleProps {
   expanded?: boolean;
@@ -83,10 +76,10 @@ export const ExpandIconWrapper = ({
 }: React.HTMLAttributes<HTMLDivElement> & { expanded: boolean }) => {
   return (
     <div
-      css={(props: ThemeProps) =>
+      css={() =>
         expanded
-          ? [expandIconWrapperStyle(props), expandIconWrapperExpandedStyle]
-          : expandIconWrapperStyle(props)
+          ? [expandIconWrapperStyle(), expandIconWrapperExpandedStyle]
+          : expandIconWrapperStyle()
       }
     >
       {children}
@@ -94,13 +87,10 @@ export const ExpandIconWrapper = ({
   );
 };
 
-const expandIconWrapperStyle = (props: ThemeProps) => css`
+const expandIconWrapperStyle = () => css`
   cursor: pointer;
   display: flex;
-  color: ${themed({
-    light: token('color.icon', N90),
-    dark: token('color.icon', '#d9dde3'),
-  })(props)};
+  color: ${token('color.icon', N90)};
   border-radius: ${token('border.radius.100', '4px')};
   width: 24px;
   height: 24px;
@@ -148,19 +138,19 @@ const containerStyles = (styleProps: StyleProps) => {
       : 0;
   const margin = `${marginTop} ${marginHorizontal} ${marginBottom}`;
 
-  return (themeProps: ThemeProps) => css`
+  return () => css`
     border-width: 1px;
     border-style: solid;
     border-color: ${focused
       ? EXPAND_FOCUSED_BORDER_COLOR
       : expanded
-      ? EXPAND_EXPANDED_BORDER_COLOR(themeProps)
+      ? EXPAND_EXPANDED_BORDER_COLOR
       : EXPAND_COLLAPSED_BORDER_COLOR};
     border-radius: ${BORDER_RADIUS};
     min-height: 25px;
     background: ${!expanded
       ? EXPAND_COLLAPSED_BACKGROUND
-      : EXPAND_SELECTED_BACKGROUND(themeProps)};
+      : EXPAND_SELECTED_BACKGROUND};
     margin: ${margin};
 
     transition: background 0.3s ${akEditorSwoopCubicBezier},
@@ -171,12 +161,8 @@ const containerStyles = (styleProps: StyleProps) => {
       // TODO: Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
       // This is because the default state already uses the same token and, as such, the hover style won't change anything.
       // https://product-fabric.atlassian.net/browse/DSP-4152
-      border: 1px solid
-        ${themed({
-          light: token('color.border', N50A),
-          dark: token('color.border', DN50),
-        })(themeProps)};
-      background: ${EXPAND_SELECTED_BACKGROUND(themeProps)};
+      border: 1px solid ${token('color.border', N50A)};
+      background: ${EXPAND_SELECTED_BACKGROUND};
     }
 
     td > :not(style):first-child,
@@ -186,7 +172,7 @@ const containerStyles = (styleProps: StyleProps) => {
   `;
 };
 
-const contentStyles = (styleProps: StyleProps) => (themeProps: ThemeProps) =>
+const contentStyles = (styleProps: StyleProps) => () =>
   css`
     padding-top: ${styleProps.expanded
       ? token('space.100', '8px')
@@ -221,16 +207,13 @@ const contentStyles = (styleProps: StyleProps) => (themeProps: ThemeProps) =>
       : ''}
   `;
 
-const titleInputStyles = (props: ThemeProps) => css`
+const titleInputStyles = () => css`
   outline: none;
   border: none;
   font-size: ${relativeFontSizeToBase16(fontSize())};
   line-height: ${akEditorLineHeight};
   font-weight: normal;
-  color: ${themed({
-    light: token('color.text.subtlest', N200A),
-    dark: token('color.text.subtlest', DN600),
-  })(props)};
+  color: ${token('color.text.subtlest', N200A)};
   background: transparent;
   display: flex;
   flex: 1;
@@ -238,18 +221,12 @@ const titleInputStyles = (props: ThemeProps) => css`
   width: 100%;
 
   &::placeholder {
-    opacity: ${themed({
-      light: 1,
-      dark: 0.6,
-    })(props)};
-    color: ${themed({
-      light: token('color.text.subtlest', N200),
-      dark: token('color.text.subtlest', DN600),
-    })(props)};
+    opacity: 1;
+    color: ${token('color.text.subtlest', N200)};
   }
 `;
 
-const titleContainerStyles = (props: ThemeProps) => css`
+const titleContainerStyles = () => css`
   padding: 0;
   display: flex;
   align-items: flex-start;
@@ -257,10 +234,7 @@ const titleContainerStyles = (props: ThemeProps) => css`
   border: none;
   font-size: ${relativeFontSizeToBase16(fontSize())};
   width: 100%;
-  color: ${themed({
-    light: token('color.text.subtle', N300A),
-    dark: token('color.text.subtle', DN600),
-  })(props)};
+  color: ${token('color.text.subtle', N300A)};
   overflow: hidden;
   cursor: pointer;
 

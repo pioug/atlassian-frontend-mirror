@@ -47,6 +47,7 @@ export interface InsertBlockOptions {
   nativeStatusSupported?: boolean;
   replacePlusMenuWithElementBrowser?: boolean;
   showElementBrowserLink?: boolean;
+  tableSelectorSupported?: boolean;
 }
 
 /**
@@ -193,6 +194,9 @@ function ToolbarInsertBlockWithInjectionApi({
       isTypeAheadAllowed={Boolean(typeAheadState?.isAllowed)}
       editorView={editorView}
       tableSupported={!!editorView.state.schema.nodes.table}
+      tableSelectorSupported={
+        options.tableSelectorSupported && !!editorView.state.schema.nodes.table
+      }
       actionSupported={!!editorView.state.schema.nodes.taskItem}
       mentionsSupported={!!(mentionState && mentionState.mentionProvider)}
       mentionsDisabled={!!(mentionState && !mentionState.canInsertMention)}
@@ -222,7 +226,7 @@ function ToolbarInsertBlockWithInjectionApi({
         !hyperlinkState.canInsertLink ||
         !!hyperlinkState.activeLinkMark
       }
-      emojiDisabled={!emojiState || !emojiState.emojiProvider}
+      emojiDisabled={!emojiState || !providers.emojiProvider}
       emojiProvider={providers.emojiProvider}
       nativeStatusSupported={options.nativeStatusSupported}
       horizontalRuleEnabled={options.horizontalRuleEnabled}

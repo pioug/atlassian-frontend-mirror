@@ -1,5 +1,5 @@
 import WikiMarkupTransformer from '../../../index';
-import { Context } from '../../../interfaces';
+import type { Context } from '../../../interfaces';
 
 describe('JIRA wiki markup - Issue key (smart card)', () => {
   const testCases: Array<[string, string]> = [
@@ -42,8 +42,12 @@ describe('JIRA wiki markup - Issue key (smart card)', () => {
       'this {noformat}ABC-10{noformat} is not a smart card',
     ],
     [
-      'should not parse issues inside a color macro',
-      'this {color:red}ABC-10{color} is not a smart card',
+      'should parse issues inside a color macro',
+      'this {color:red}ABC-10{color} is a smart card',
+    ],
+    [
+      'should parse issues inside a list, inside a color macro',
+      '- this {color:red}ABC-10{color} is a smart card',
     ],
     [
       'should not parse issues inside a code macro',

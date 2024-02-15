@@ -1,9 +1,9 @@
 import {
-  EditorPopupModel,
   EditorNodeContainerModel,
+  EditorPopupModel,
   EditorTableModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -15,10 +15,10 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import {
-  defaultTableResizedWithOverflow,
   defaultTableResizedWithoutOverflow,
-  mergedColumnsResized,
+  defaultTableResizedWithOverflow,
   fixedWidthTableWith50Columns,
+  mergedColumnsResized,
 } from './__fixtures__/distribute-documents';
 
 test.use({
@@ -48,7 +48,7 @@ test.describe('columns should distribute correctly', () => {
       await keyboard.up('Shift');
 
       const cellOptions = await toCell.options(EditorPopupModel.from(editor));
-      await cellOptions.disributeColumns();
+      await cellOptions.distributeColumns();
 
       await expect(editor).toMatchDocument(
         doc(
@@ -83,7 +83,7 @@ test.describe('columns should distribute correctly', () => {
       const cellOptions = await firstCell.options(
         EditorPopupModel.from(editor),
       );
-      await cellOptions.disributeColumns();
+      await cellOptions.distributeColumns();
 
       await expect(editor).toMatchDocument(
         doc(
@@ -114,7 +114,7 @@ test.describe('columns should distribute correctly', () => {
       const cellOptions = await firstCell.options(
         EditorPopupModel.from(editor),
       );
-      await cellOptions.disributeColumns();
+      await cellOptions.distributeColumns();
 
       await expect(editor).toMatchDocument(
         doc(
@@ -134,7 +134,7 @@ test.describe('columns should distribute correctly', () => {
       adf: mergedColumnsResized,
     });
 
-    test('when cells from two columns are selected ', async ({ editor }) => {
+    test('when cells from two columns are selected', async ({ editor }) => {
       const keyboard = editor.keyboard;
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
@@ -148,7 +148,7 @@ test.describe('columns should distribute correctly', () => {
       await keyboard.up('Shift');
 
       const cellOptions = await toCell.options(EditorPopupModel.from(editor));
-      await cellOptions.disributeColumns();
+      await cellOptions.distributeColumns();
 
       await expect(editor).toMatchDocumentSnapshot();
     });
@@ -169,7 +169,7 @@ test.describe('columns should distribute correctly', () => {
       const cellOptions = await firstCell.options(
         EditorPopupModel.from(editor),
       );
-      await cellOptions.disributeColumns();
+      await cellOptions.distributeColumns();
 
       const tableWidth = await tableModel.bodyWidth();
 
@@ -204,7 +204,7 @@ test.describe('columns should distribute correctly', () => {
         const cellOptions = await firstCell.options(
           EditorPopupModel.from(editor),
         );
-        await cellOptions.disributeColumns();
+        await cellOptions.distributeColumns();
 
         const cellBox = await firstCell.getBoundingBox();
         const tableWidth = await tableModel.bodyWidth();

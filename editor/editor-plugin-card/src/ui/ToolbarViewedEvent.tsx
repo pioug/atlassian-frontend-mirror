@@ -1,33 +1,17 @@
 import React, { useEffect } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { getResolvedAttributes } from '@atlaskit/link-analytics/resolved-attributes';
 import type { CardContext } from '@atlaskit/link-provider';
 
+import { getResolvedAttributesFromStore } from '../utils';
+
 import { CardContextProvider } from './CardContextProvider';
-import {
-  EditorAnalyticsContext,
-  EditorAnalyticsContextProps,
-} from './EditorAnalyticsContext';
+import type { EditorAnalyticsContextProps } from './EditorAnalyticsContext';
+import { EditorAnalyticsContext } from './EditorAnalyticsContext';
 
 type ToolbarViewedEventProps = {
   url?: string;
   display: string | null;
-};
-
-const getResolvedAttributesFromStore = (
-  url: string,
-  display: string | null,
-  store?: CardContext['store'],
-) => {
-  if (!store) {
-    return {};
-  }
-
-  const urlState = store.getState()[url];
-  const displayCategory = display === 'url' ? 'link' : undefined;
-
-  return getResolvedAttributes({ url, displayCategory }, urlState?.details);
 };
 
 /**

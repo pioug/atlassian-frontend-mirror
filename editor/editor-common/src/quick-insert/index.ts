@@ -25,5 +25,7 @@ export {
   IconFallback,
   IconDatasourceJiraIssue,
   IconDatasourceAssetsObjects,
+  IconLoom,
 } from './assets';
 export { memoProcessQuickInsertItems, find } from './utils';
+export { messages } from './messages';

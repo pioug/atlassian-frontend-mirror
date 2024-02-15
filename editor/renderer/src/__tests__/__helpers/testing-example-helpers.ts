@@ -1,17 +1,13 @@
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { getExampleUrl } from '@atlaskit/visual-regression/helper';
-import { Props } from '../../ui/Renderer';
+import type { Props } from '../../ui/Renderer';
 import { selectors } from './page-objects/_renderer';
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { ThemeModes } from '@atlaskit/theme';
-import { GasPurePayload } from '@atlaskit/analytics-gas-types';
+import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
 
 export type RendererPropsOverrides = { [T in keyof Props]?: Props[T] } & {
   showSidebar?: boolean;
   withRendererActions?: boolean;
   mockInlineComments?: boolean;
-  themeMode?: ThemeModes;
 };
 
 export async function mountRenderer(

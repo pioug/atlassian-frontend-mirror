@@ -3,17 +3,14 @@ import React from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
   withAnalyticsContext,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { DN50, N0, N30A, N60A } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
-import { borderRadius } from '@atlaskit/theme/constants';
-import type { ThemeProps } from '@atlaskit/theme/types';
+import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -25,15 +22,15 @@ import {
   editorAnalyticsChannel,
   EVENT_TYPE,
 } from '../../analytics';
-import { default as Popup } from '../../ui/Popup';
-import type { Position as PopupPosition } from '../../ui/Popup/utils';
-import { default as withOuterListeners } from '../../ui/with-outer-listeners';
 import type { PaletteColor, PaletteTooltipMessages } from '../../ui-color';
 import {
   ColorPalette,
   DEFAULT_BORDER_COLOR,
   getSelectedRowAndColumnFromPalette,
 } from '../../ui-color';
+import { default as Popup } from '../../ui/Popup';
+import type { Position as PopupPosition } from '../../ui/Popup/utils';
+import { default as withOuterListeners } from '../../ui/with-outer-listeners';
 import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
 import { ArrowKeyNavigationType } from '../ArrowKeyNavigationProvider/types';
 
@@ -49,12 +46,9 @@ const colorPickerExpandContainer = css`
 // Control the size of color picker buttons and preview
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4134
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-const colorPickerWrapper = (theme: ThemeProps) => css`
-  border-radius: ${borderRadius()}px;
-  background-color: ${themed({
-    light: token('elevation.surface.overlay', N0),
-    dark: token('elevation.surface.overlay', DN50),
-  })(theme)};
+const colorPickerWrapper = () => css`
+  border-radius: ${token('border.radius', '3px')};
+  background-color: ${token('elevation.surface.overlay', N0)};
   box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};
   padding: ${token('space.100', '8px')} 0px;
 `;
@@ -63,6 +57,7 @@ const colorPickerWrapper = (theme: ThemeProps) => css`
 type Props = WithAnalyticsEventsProps & {
   currentColor?: string;
   title?: string;
+  isAriaExpanded?: boolean;
   onChange?: (color: PaletteColor) => void;
   colorPalette: PaletteColor[];
   placement: string;
@@ -82,6 +77,7 @@ type Props = WithAnalyticsEventsProps & {
    * To prevent this use skipFocusButtonAfterPick.
    */
   skipFocusButtonAfterPick?: boolean;
+  absoluteOffset?: PopupPosition;
 };
 
 const ColorPaletteWithListeners = withOuterListeners(ColorPalette);
@@ -192,6 +188,7 @@ const ColorPickerButton = (props: Props) => {
         offset={[0, 10]}
         alignX={props.alignX}
         mountTo={props.setDisableParentScroll ? props.mountPoint : undefined}
+        absoluteOffset={props.absoluteOffset}
         // Confluence inline comment editor has z-index: 500
         // if the toolbar is scrollable, this will be mounted in the root editor
         // we need an index of > 500 to display over it
@@ -232,7 +229,7 @@ const ColorPickerButton = (props: Props) => {
     props.currentColor && props.hexToPaletteColor
       ? props.hexToPaletteColor(props.currentColor)
       : props.currentColor;
-  const buttonStyle = (theme: ThemeProps) => css`
+  const buttonStyle = () => css`
     padding: ${token('space.075', '6px')} 10px;
     background-color: ${token(
       'color.background.neutral.subtle',
@@ -249,7 +246,7 @@ const ColorPickerButton = (props: Props) => {
       align-self: center;
       content: '';
       border: 1px solid ${DEFAULT_BORDER_COLOR};
-      border-radius: ${borderRadius()}px;
+      border-radius: ${token('border.radius', '3px')};
       background-color: ${currentColor || 'transparent'};
       width: ${props.size?.width || '14px'};
       height: ${props.size?.height || '14px'};
@@ -257,10 +254,7 @@ const ColorPickerButton = (props: Props) => {
       margin: 0px ${token('space.025', '2px')};
     }
     &:hover {
-      background: ${themed({
-        light: token('color.background.neutral.subtle.hovered', N30A),
-        dark: token('color.background.neutral.subtle.hovered', N30A),
-      })(theme)};
+      background: ${token('color.background.neutral.subtle.hovered', N30A)};
     }
   `;
 
@@ -270,6 +264,7 @@ const ColorPickerButton = (props: Props) => {
         <Button
           ref={buttonRef}
           aria-label={title}
+          aria-expanded={props.isAriaExpanded ? isPopupOpen : undefined}
           spacing="compact"
           onClick={togglePopup}
           onKeyDown={(event: React.KeyboardEvent) => {
@@ -285,6 +280,7 @@ const ColorPickerButton = (props: Props) => {
               <ExpandIcon label="" />
             </span>
           }
+          data-selected-color={props.currentColor}
         />
       </Tooltip>
       {renderPopup()}

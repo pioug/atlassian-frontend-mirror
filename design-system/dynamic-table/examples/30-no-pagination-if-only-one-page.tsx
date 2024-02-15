@@ -3,7 +3,7 @@ import React from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 
 import DynamicTable from '../src';
 
@@ -42,8 +42,14 @@ export default class extends React.Component<{}, State> {
     return (
       <div>
         <Button onClick={this.toggleData}>Toggle 5 or 15 rows</Button>
-        <p>Enter the number of rows to show per page: </p>
-        <input value={this.state.numRows} onChange={this.handleNumRowsChange} />
+        <label htmlFor="rows" style={{ display: 'block' }}>
+          Number of rows per page
+        </label>
+        <input
+          id="rows"
+          value={this.state.numRows}
+          onChange={this.handleNumRowsChange}
+        />
         <p>We're trying to show {this.state.numRows} rows</p>
         <DynamicTable
           caption={caption}

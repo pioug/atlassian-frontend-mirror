@@ -24,7 +24,7 @@ describe('extractFollowAction', () => {
 
   it('returns follow action', () => {
     const response = generateResponse([TEST_FOLLOW_ACTION]);
-    const action = extractFollowAction(response, true, id);
+    const action = extractFollowAction(response, { hide: false }, id);
 
     expect(action).toEqual({
       action: {
@@ -46,7 +46,7 @@ describe('extractFollowAction', () => {
 
   it('returns unfollow action', () => {
     const response = generateResponse([TEST_UNFOLLOW_ACTION]);
-    const action = extractFollowAction(response, true, id);
+    const action = extractFollowAction(response, { hide: false }, id);
 
     expect(action).toEqual({
       action: {
@@ -71,7 +71,7 @@ describe('extractFollowAction', () => {
       TEST_FOLLOW_ACTION,
       TEST_UNFOLLOW_ACTION,
     ]);
-    const action = extractFollowAction(response, true, id);
+    const action = extractFollowAction(response, { hide: false }, id);
 
     expect(action).toEqual({
       action: {
@@ -91,23 +91,45 @@ describe('extractFollowAction', () => {
     });
   });
 
-  it('returns undefined when showServerActions is false', () => {
+  it('returns follow action if actionOptions is undefined', () => {
     const response = generateResponse([TEST_FOLLOW_ACTION]);
-    const action = extractFollowAction(response, false, id);
+    const action = extractFollowAction(response, undefined, id);
+
+    expect(action).toEqual({
+      action: {
+        action: {
+          actionType: SmartLinkActionType.FollowEntityAction,
+          resourceIdentifiers: {
+            ari: 'some-resource-identifier',
+          },
+        },
+        providerKey: 'object-provider',
+        reload: {
+          id: 'some-id',
+          url: 'https://my.url.com',
+        },
+      },
+      value: true,
+    });
+  });
+
+  it('returns undefined when action options are hidden', () => {
+    const response = generateResponse([TEST_FOLLOW_ACTION]);
+    const action = extractFollowAction(response, { hide: true }, id);
 
     expect(action).toBeUndefined();
   });
 
   it('returns undefined without server actions', () => {
     const response = generateResponse();
-    const action = extractFollowAction(response, true, id);
+    const action = extractFollowAction(response, { hide: false }, id);
 
     expect(action).toBeUndefined();
   });
 
   it('returns undefined without follow or unfollow server actions', () => {
     const response = generateResponse([TEST_STATUS_UPDATE_ACTION]);
-    const action = extractFollowAction(response, true, id);
+    const action = extractFollowAction(response, { hide: false }, id);
 
     expect(action).toBeUndefined();
   });
@@ -150,7 +172,7 @@ describe('extractFollowAction', () => {
         },
         meta: TEST_RESOLVED_META_DATA,
       },
-      true,
+      { hide: false },
       id,
     );
 

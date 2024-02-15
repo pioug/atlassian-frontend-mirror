@@ -60,7 +60,7 @@ describe('EditorPluginInjectionAPI', () => {
           dependencies: [typeof plugin1];
         }
       > = ({ api }) => {
-        api?.one.actions.lol();
+        api?.one?.actions.lol();
         return {
           name: 'two',
         };
@@ -106,7 +106,7 @@ describe('EditorPluginInjectionAPI', () => {
           name: 'two',
 
           checkCurrentState: () => {
-            api?.one.sharedState.currentState();
+            api?.one?.sharedState.currentState();
           },
         };
       };
@@ -154,7 +154,7 @@ describe('EditorPluginInjectionAPI', () => {
           dependencies: [typeof plugin1];
         }
       > = ({ api }) => {
-        api?.one.sharedState.onChange(fakeOnChange);
+        api?.one?.sharedState.onChange(fakeOnChange);
         return {
           name: 'two',
         };
@@ -218,7 +218,7 @@ describe('EditorPluginInjectionAPI', () => {
             dependencies: [typeof plugin1];
           }
         > = ({ api }) => {
-          api?.one.sharedState.onChange(fakeOnChange);
+          api?.one?.sharedState.onChange(fakeOnChange);
           return {
             name: 'two',
           };
@@ -395,7 +395,7 @@ describe('EditorPluginInjectionAPI', () => {
 
       coreAPI.onEditorPluginInitialized(plugin1({ api, config: undefined }));
 
-      api.core.actions.execute(api?.one?.commands?.updateTransaction);
+      api.core?.actions.execute(api?.one?.commands?.updateTransaction);
       expect(fakeTr.insertText).toHaveBeenCalledWith('hello');
       expect(fakeDispatch).toHaveBeenCalledWith(42);
     });

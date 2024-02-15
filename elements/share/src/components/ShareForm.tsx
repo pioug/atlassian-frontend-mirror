@@ -10,10 +10,11 @@ import {
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/custom-theme-button';
-import Form from '@atlaskit/form';
+import Form, { RequiredAsterisk } from '@atlaskit/form';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
-import { R400 } from '@atlaskit/theme/colors';
+import { N300, R400 } from '@atlaskit/theme/colors';
+import { fontSizeSmall } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -72,6 +73,12 @@ const integrationWrapperStyles = css`
 const integrationIconWrapperStyles = css`
   margin-bottom: ${token('space.negative.075', '-6px')};
   margin-right: 5px;
+`;
+
+const requiredFieldInfoStyles = css`
+  margin-bottom: ${token('space.200', '16px')};
+  color: ${token('color.text.subtle', N300)};
+  font-size: ${fontSizeSmall()}px;
 `;
 
 const integrationTabText = (integrationName: string) => (
@@ -139,6 +146,10 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       <AnalyticsContext data={{ source: ANALYTICS_SOURCE }}>
         <form {...formProps}>
           {showTitle && <ShareHeader title={title} />}
+          <div css={requiredFieldInfoStyles}>
+            <FormattedMessage {...messages.requiredFieldSummary} />
+            <RequiredAsterisk />
+          </div>
           <div css={formFieldStyles}>
             <UserPickerField
               onInputChange={onUserInputChange}

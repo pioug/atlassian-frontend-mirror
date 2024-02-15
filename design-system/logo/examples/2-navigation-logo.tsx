@@ -16,6 +16,7 @@ import {
   JiraServiceManagementIcon,
   JiraSoftwareIcon,
   JiraWorkManagementIcon,
+  LoomIcon,
   OpsgenieIcon,
   StatuspageIcon,
   TrelloIcon,
@@ -31,6 +32,7 @@ const logoOptions = [
   JiraServiceManagementIcon,
   JiraSoftwareIcon,
   JiraWorkManagementIcon,
+  LoomIcon,
   OpsgenieIcon,
   StatuspageIcon,
   TrelloIcon,
@@ -52,12 +54,12 @@ const wrapperDivStyles = css({
   display: 'flex',
   width: '40px',
   height: '40px',
-  marginRight: token('space.250', '20px'),
   alignItems: 'center',
   justifyContent: 'center',
   background: 'var(--background)',
   borderRadius: token('border.radius.circle', '50%'),
   color: 'var(--color)',
+  marginInlineEnd: token('space.250', '20px'),
 });
 
 const WrapperDiv = ({ color, background, children }: WrapperDivProps) => {

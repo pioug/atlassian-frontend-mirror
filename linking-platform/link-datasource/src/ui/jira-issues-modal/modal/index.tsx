@@ -9,7 +9,7 @@ import {
 } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl-next';
+import { FormattedMessage, FormattedNumber } from 'react-intl-next';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
@@ -17,6 +17,7 @@ import {
   withAnalyticsContext,
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
+import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
 import { Link } from '@atlaskit/linking-types';
 import Modal, {
@@ -26,6 +27,7 @@ import Modal, {
   ModalTitle,
   ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import LinkUrl from '@atlaskit/smart-card/link-url';
 import { B400, N0, N40, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -34,11 +36,11 @@ import {
   EVENT_CHANNEL,
   useDatasourceAnalyticsEvents,
 } from '../../../analytics';
-import { packageMetaData } from '../../../analytics/constants';
+import { componentMetadata } from '../../../analytics/constants';
 import type {
   AnalyticsContextAttributesType,
   AnalyticsContextType,
-  PackageMetaDataType,
+  ComponentMetaDataType,
 } from '../../../analytics/generated/analytics.types';
 import { DatasourceAction, DatasourceDisplay } from '../../../analytics/types';
 import { startUfoExperience } from '../../../analytics/ufoExperiences';
@@ -46,35 +48,40 @@ import { useColumnPickerRenderedFailedUfoExperience } from '../../../analytics/u
 import { useDataRenderedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
 import { mapSearchMethod } from '../../../analytics/utils';
 import type { JiraSearchMethod } from '../../../common/types';
+import { buildDatasourceAdf } from '../../../common/utils/adf';
+import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import {
   onNextPageProps,
   useDatasourceTableState,
 } from '../../../hooks/useDatasourceTableState';
-import {
-  getAvailableJiraSites,
-  Site,
-} from '../../../services/getAvailableJiraSites';
+import i18nEN from '../../../i18n/en';
+import { getAvailableJiraSites } from '../../../services/getAvailableJiraSites';
 import { AccessRequired } from '../../common/error-state/access-required';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
 import { NoInstancesView } from '../../common/error-state/no-instances';
 import { NoResults } from '../../common/error-state/no-results';
-import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
+import {
+  EmptyState,
+  IssueLikeDataTableView,
+  scrollableContainerShadowsCssComponents,
+} from '../../issue-like-table';
 import LinkRenderType from '../../issue-like-table/render-type/link';
 import { ColumnSizesMap } from '../../issue-like-table/types';
 import { SelectedOptionsMap } from '../basic-filters/types';
 import { availableBasicFilterTypes } from '../basic-filters/ui';
+import { isQueryTooComplex } from '../basic-filters/utils/isQueryTooComplex';
 import { InitialStateView } from '../initial-state-view';
 import { JiraSearchContainer } from '../jira-search-container';
-import { ModeSwitcher } from '../mode-switcher';
 import { JiraSiteSelector } from '../site-selector';
 import {
   JiraIssueDatasourceParameters,
   JiraIssueDatasourceParametersQuery,
   JiraIssuesConfigModalProps,
-  JiraIssuesDatasourceAdf,
   JiraIssueViewModes,
+  Site,
 } from '../types';
 
+import { DisplayViewDropDown } from './display-view-dropdown/display-view-drop-down';
 import { modalMessages } from './messages';
 
 const dropdownContainerStyles = css({
@@ -98,6 +105,13 @@ const contentContainerStyles = css({
     'color.background.accent.gray.subtler',
     N40,
   )}`,
+  backgroundImage: scrollableContainerShadowsCssComponents.backgroundImage,
+  backgroundPosition:
+    scrollableContainerShadowsCssComponents.backgroundPosition,
+  backgroundRepeat: scrollableContainerShadowsCssComponents.backgroundRepeat,
+  backgroundSize: scrollableContainerShadowsCssComponents.backgroundSize,
+  backgroundAttachment:
+    scrollableContainerShadowsCssComponents.backgroundAttachment,
 });
 
 const placeholderSmartLinkStyles = css({
@@ -106,7 +120,7 @@ const placeholderSmartLinkStyles = css({
   boxShadow:
     '0px 1px 1px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31)',
   color: token('color.text.brand', B400),
-  padding: '0px 2px',
+  padding: `0px ${token('space.025', '2px')}`,
 });
 
 const issueCountStyles = css({
@@ -122,12 +136,12 @@ const getDisplayValue = (
   currentViewMode: JiraIssueViewModes,
   itemCount: number,
 ) => {
-  if (currentViewMode === 'count') {
-    return DatasourceDisplay.DATASOURCE_INLINE;
+  if (currentViewMode === 'issue') {
+    return DatasourceDisplay.DATASOURCE_TABLE;
   }
-  return itemCount > 1
-    ? DatasourceDisplay.DATASOURCE_TABLE
-    : DatasourceDisplay.INLINE;
+  return itemCount === 1
+    ? DatasourceDisplay.INLINE
+    : DatasourceDisplay.DATASOURCE_INLINE;
 };
 
 /**
@@ -171,6 +185,9 @@ export const PlainJiraIssuesConfigModal = (
     useState<JiraIssueViewModes>(viewMode);
   const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
   const [jql, setJql] = useState(initialParameters?.jql);
+  const [searchBarJql, setSearchBarJql] = useState<string | undefined>(
+    initialParameters?.jql,
+  );
   const [visibleColumnKeys, setVisibleColumnKeys] = useState(
     initialVisibleColumnKeys,
   );
@@ -178,7 +195,12 @@ export const PlainJiraIssuesConfigModal = (
   // analytics related parameters
   const searchCount = useRef(0);
   const userInteractionActions = useRef<Set<DatasourceAction>>(new Set());
-  const initialSearchMethod: JiraSearchMethod = 'jql'; // TODO EDM-7688 This where we can add feature that decides if it's basic or jql based on JQL content (Regexp)
+  const initialSearchMethod: JiraSearchMethod =
+    getBooleanFF(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+    ) && !isQueryTooComplex(initialParameters?.jql || '')
+      ? 'basic'
+      : 'jql';
   const [currentSearchMethod, setCurrentSearchMethod] =
     useState<JiraSearchMethod>(initialSearchMethod);
   const searchMethodSearchedWith = useRef<JiraSearchMethod | null>(null);
@@ -228,7 +250,6 @@ export const PlainJiraIssuesConfigModal = (
     fieldKeys: visibleColumnKeys,
   });
 
-  const { formatMessage } = useIntl();
   const { fireEvent } = useDatasourceAnalyticsEvents();
   const { current: modalRenderInstanceId } = useRef(uuidv4());
 
@@ -236,7 +257,10 @@ export const PlainJiraIssuesConfigModal = (
     if (cloudId) {
       return availableSites?.find(jiraSite => jiraSite.cloudId === cloudId);
     } else {
-      const currentlyLoggedInSiteUrl = window.location.origin;
+      let currentlyLoggedInSiteUrl: string | undefined;
+      if (typeof window.location !== 'undefined') {
+        currentlyLoggedInSiteUrl = window.location.origin;
+      }
       return (
         availableSites?.find(
           jiraSite => jiraSite.url === currentlyLoggedInSiteUrl,
@@ -437,7 +461,7 @@ export const PlainJiraIssuesConfigModal = (
   const onSiteSelection = useCallback(
     (site: Site) => {
       userInteractionActions.current.add(DatasourceAction.INSTANCE_UPDATED);
-
+      setJql('');
       setCloudId(site.cloudId);
       reset({ shouldForceRequest: true });
     },
@@ -455,6 +479,14 @@ export const PlainJiraIssuesConfigModal = (
       if (!isParametersSet || !jql || !selectedJiraSite) {
         return;
       }
+
+      // During insertion, we want the JQL of the datasource to be whatever is in the search bar,
+      // even if the user didn't previously click search
+      const upToDateJql = searchBarJql ?? jql;
+      const upToDateJqlUrl =
+        selectedJiraSite &&
+        jql &&
+        `${selectedJiraSite.url}/issues/?jql=${encodeURI(upToDateJql)}`;
 
       const filterSelectionCount = availableBasicFilterTypes.reduce(
         (current, filter) => ({
@@ -508,52 +540,39 @@ export const PlainJiraIssuesConfigModal = (
 
       if (currentViewMode === 'count') {
         macroInsertedEvent?.fire(EVENT_CHANNEL);
+        const url = responseItems.length === 1 ? firstIssueUrl : upToDateJqlUrl;
         onInsert(
           {
             type: 'inlineCard',
             attrs: {
-              url: jqlUrl,
-            },
-          } as InlineCardAdf,
-          consumerEvent,
-        );
-      } else if (responseItems.length === 1 && firstIssueUrl) {
-        macroInsertedEvent?.fire(EVENT_CHANNEL);
-        onInsert(
-          {
-            type: 'inlineCard',
-            attrs: {
-              url: firstIssueUrl,
+              url,
             },
           } as InlineCardAdf,
           consumerEvent,
         );
       } else {
         onInsert(
-          {
-            type: 'blockCard',
-            attrs: {
-              url: jqlUrl,
-              datasource: {
-                id: datasourceId,
-                parameters: {
-                  cloudId,
-                  jql, // TODO support non JQL type
-                },
-                views: [
-                  {
-                    type: 'table',
-                    properties: {
-                      columns: visibleColumnKeys?.map(key => ({
-                        key,
-                        width: columnCustomSizes?.[key],
-                      })),
-                    },
-                  },
-                ],
+          buildDatasourceAdf<JiraIssueDatasourceParameters>(
+            {
+              id: datasourceId,
+              parameters: {
+                cloudId,
+                jql: upToDateJql, // TODO support non JQL type
               },
+              views: [
+                {
+                  type: 'table',
+                  properties: {
+                    columns: (visibleColumnKeys || []).map(key => ({
+                      key,
+                      width: columnCustomSizes?.[key],
+                    })),
+                  },
+                },
+              ],
             },
-          } as JiraIssuesDatasourceAdf,
+            upToDateJqlUrl,
+          ),
           consumerEvent,
         );
       }
@@ -567,12 +586,12 @@ export const PlainJiraIssuesConfigModal = (
       visibleColumnKeys,
       currentViewMode,
       retrieveUrlForSmartCardRender,
-      responseItems.length,
       onInsert,
-      jqlUrl,
       datasourceId,
       cloudId,
       columnCustomSizes,
+      searchBarJql,
+      responseItems,
     ],
   );
 
@@ -658,16 +677,27 @@ export const PlainJiraIssuesConfigModal = (
         </div>
       );
     } else {
-      const urlWithEncodedJql = `${selectedJiraSiteUrl}/issues/?jql=${encodeURI(
-        jql,
-      )}`;
+      let url;
+      if (responseItems.length === 1 && retrieveUrlForSmartCardRender()) {
+        url = retrieveUrlForSmartCardRender();
+      } else {
+        url = `${selectedJiraSiteUrl}/issues/?jql=${encodeURI(jql)}`;
+      }
+
       return (
         <div css={smartLinkContainerStyles}>
-          <LinkRenderType url={urlWithEncodedJql} />
+          <LinkRenderType url={url} />
         </div>
       );
     }
-  }, [jql, selectedJiraSite?.url, status, urlBeingEdited]);
+  }, [
+    jql,
+    selectedJiraSite?.url,
+    status,
+    urlBeingEdited,
+    responseItems,
+    retrieveUrlForSmartCardRender,
+  ]);
 
   const renderIssuesModeContent = useCallback(() => {
     const selectedJiraSiteUrl = selectedJiraSite?.url;
@@ -675,7 +705,7 @@ export const PlainJiraIssuesConfigModal = (
       return <ModalLoadingError url={jqlUrl} />;
     } else if (status === 'unauthorized') {
       return <AccessRequired url={selectedJiraSiteUrl || urlBeingEdited} />;
-    } else if (resolvedWithNoResults) {
+    } else if (resolvedWithNoResults || status === 'forbidden') {
       return <NoResults />;
     } else if (status === 'empty' || !columns.length) {
       // persist the empty state when making the initial /data request which contains the columns
@@ -690,15 +720,6 @@ export const PlainJiraIssuesConfigModal = (
       );
     }
 
-    const firstIssueUrl = retrieveUrlForSmartCardRender();
-    if (responseItems.length === 1 && firstIssueUrl) {
-      return (
-        <div css={smartLinkContainerStyles}>
-          <LinkRenderType url={firstIssueUrl} />
-        </div>
-      );
-    }
-
     return issueLikeDataTableView;
   }, [
     columns.length,
@@ -707,113 +728,108 @@ export const PlainJiraIssuesConfigModal = (
     jql,
     jqlUrl,
     resolvedWithNoResults,
-    responseItems.length,
-    retrieveUrlForSmartCardRender,
     selectedJiraSite?.url,
     status,
     urlBeingEdited,
   ]);
 
   return (
-    <ModalTransition>
-      <Modal
-        testId="jira-jql-datasource-modal"
-        onClose={onCancel}
-        width="calc(100% - 80px)"
-        shouldScrollInViewport={true}
-      >
-        <ModalHeader>
-          <ModalTitle>
-            <div css={dropdownContainerStyles}>
-              {availableSites && availableSites.length > 1 ? (
-                <Fragment>
-                  <FormattedMessage
-                    {...modalMessages.insertIssuesTitleManySites}
-                  />
-                  <JiraSiteSelector
-                    availableSites={availableSites}
-                    onSiteSelection={onSiteSelection}
-                    selectedJiraSite={selectedJiraSite}
-                    testId="jira-jql-datasource-modal--site-selector"
-                  />
-                </Fragment>
-              ) : (
-                <FormattedMessage {...modalMessages.insertIssuesTitle} />
-              )}
-            </div>
-          </ModalTitle>
-          {!hasNoJiraSites && (
-            <ModeSwitcher
-              isCompact
-              options={[
-                {
-                  label: formatMessage(modalMessages.issueViewModeLabel),
-                  value: 'issue' as JiraIssueViewModes,
-                },
-                {
-                  label: formatMessage(modalMessages.countViewModeLabel),
-                  value: 'count' as JiraIssueViewModes,
-                },
-              ]}
-              onOptionValueChange={handleViewModeChange}
-              selectedOptionValue={currentViewMode}
-            />
-          )}
-        </ModalHeader>
-        <ModalBody>
-          {!hasNoJiraSites ? (
-            <Fragment>
-              <JiraSearchContainer
-                isSearching={status === 'loading'}
-                parameters={parameters}
-                onSearch={onSearch}
-                initialSearchMethod={initialSearchMethod}
-                onSearchMethodChange={setCurrentSearchMethod}
+    <IntlMessagesProvider
+      defaultMessages={i18nEN}
+      loaderFn={fetchMessagesForLocale}
+    >
+      <ModalTransition>
+        <Modal
+          testId="jira-jql-datasource-modal"
+          onClose={onCancel}
+          width="calc(100% - 80px)"
+          shouldScrollInViewport={true}
+        >
+          <ModalHeader>
+            <ModalTitle>
+              <div css={dropdownContainerStyles}>
+                {availableSites && availableSites.length > 1 ? (
+                  <Fragment>
+                    <FormattedMessage
+                      {...modalMessages.insertIssuesTitleManySites}
+                    />
+                    <JiraSiteSelector
+                      availableSites={availableSites}
+                      onSiteSelection={onSiteSelection}
+                      selectedJiraSite={selectedJiraSite}
+                      testId="jira-jql-datasource-modal--site-selector"
+                    />
+                  </Fragment>
+                ) : (
+                  <FormattedMessage {...modalMessages.insertIssuesTitle} />
+                )}
+              </div>
+            </ModalTitle>
+            {!hasNoJiraSites && (
+              <DisplayViewDropDown
+                onViewModeChange={handleViewModeChange}
+                viewMode={currentViewMode}
               />
-              {currentViewMode === 'count'
-                ? renderCountModeContent()
-                : renderIssuesModeContent()}
-            </Fragment>
-          ) : (
-            <NoInstancesView />
-          )}
-        </ModalBody>
-        <ModalFooter>
-          {shouldShowIssueCount && (
-            <div
-              data-testid="jira-jql-datasource-modal-total-issues-count"
-              css={issueCountStyles}
-            >
-              <LinkUrl
-                href={jqlUrl}
-                target="_blank"
-                testId="item-count-url"
-                style={{ color: token('color.text.accent.gray', N800) }}
-              >
-                <FormattedNumber value={totalCount} />{' '}
-                <FormattedMessage
-                  {...modalMessages.issueText}
-                  values={{ totalCount }}
+            )}
+          </ModalHeader>
+          <ModalBody>
+            {!hasNoJiraSites ? (
+              <Fragment>
+                <JiraSearchContainer
+                  setSearchBarJql={setSearchBarJql}
+                  searchBarJql={searchBarJql}
+                  isSearching={status === 'loading'}
+                  parameters={parameters}
+                  onSearch={onSearch}
+                  initialSearchMethod={initialSearchMethod}
+                  onSearchMethodChange={setCurrentSearchMethod}
+                  site={selectedJiraSite}
                 />
-              </LinkUrl>
-            </div>
-          )}
-          <Button appearance="default" onClick={onCancelClick}>
-            <FormattedMessage {...modalMessages.cancelButtonText} />
-          </Button>
-          {!hasNoJiraSites && (
-            <Button
-              appearance="primary"
-              onClick={onInsertPressed}
-              isDisabled={isInsertDisabled}
-              testId="jira-jql-datasource-modal--insert-button"
-            >
-              <FormattedMessage {...modalMessages.insertIssuesButtonText} />
+                {currentViewMode === 'count'
+                  ? renderCountModeContent()
+                  : renderIssuesModeContent()}
+              </Fragment>
+            ) : (
+              <NoInstancesView />
+            )}
+          </ModalBody>
+          <ModalFooter>
+            {shouldShowIssueCount && (
+              <div
+                data-testid="jira-jql-datasource-modal-total-issues-count"
+                css={issueCountStyles}
+              >
+                <LinkUrl
+                  href={jqlUrl}
+                  target="_blank"
+                  testId="item-count-url"
+                  style={{ color: token('color.text.accent.gray', N800) }}
+                >
+                  <FormattedNumber value={totalCount} />{' '}
+                  <FormattedMessage
+                    {...modalMessages.issueText}
+                    values={{ totalCount }}
+                  />
+                </LinkUrl>
+              </div>
+            )}
+            <Button appearance="default" onClick={onCancelClick}>
+              <FormattedMessage {...modalMessages.cancelButtonText} />
             </Button>
-          )}
-        </ModalFooter>
-      </Modal>
-    </ModalTransition>
+            {!hasNoJiraSites && (
+              <Button
+                appearance="primary"
+                onClick={onInsertPressed}
+                isDisabled={isInsertDisabled}
+                testId="jira-jql-datasource-modal--insert-button"
+              >
+                <FormattedMessage {...modalMessages.insertIssuesButtonText} />
+              </Button>
+            )}
+          </ModalFooter>
+        </Modal>
+      </ModalTransition>
+    </IntlMessagesProvider>
   );
 };
 
@@ -821,8 +837,8 @@ const analyticsContextAttributes: AnalyticsContextAttributesType = {
   dataProvider: 'jira-issues',
 };
 
-const analyticsContextData: AnalyticsContextType & PackageMetaDataType = {
-  ...packageMetaData,
+const analyticsContextData: AnalyticsContextType & ComponentMetaDataType = {
+  ...componentMetadata.configModal,
   source: 'datasourceConfigModal',
 };
 

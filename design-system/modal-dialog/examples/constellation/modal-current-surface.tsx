@@ -3,7 +3,7 @@ import { Fragment, useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 import Modal, {
@@ -20,8 +20,8 @@ const containerStyles = css({
 
 const stickyStyles = css({
   position: 'sticky',
-  top: 0,
-  left: 0,
+  insetBlockStart: 0,
+  insetInlineStart: 0,
 });
 
 const currentSurfaceStyles = css({

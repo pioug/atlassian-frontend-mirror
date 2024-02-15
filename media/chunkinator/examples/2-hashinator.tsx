@@ -2,12 +2,14 @@ import React, { ChangeEvent } from 'react';
 import { hashinator } from '../src/hashinator';
 import { slicenator } from '../src/slicenator';
 import { HashedBlob } from '../src/domain';
+import { sha1Hasher } from '../example-helpers/Sha1Hasher';
 
 const onChange = (e: ChangeEvent<HTMLInputElement>) => {
   const { currentTarget } = e;
   const files = currentTarget.files;
   const blobsObservable = slicenator(files![0], { size: 10 });
   const hashedBlobsObservable = hashinator(blobsObservable, {
+    hasher: sha1Hasher,
     concurrency: 2,
   });
 

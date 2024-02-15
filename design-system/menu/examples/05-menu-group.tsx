@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Archive24Icon from '@atlaskit/icon-file-type/glyph/archive/24';
+import Blog24Icon from '@atlaskit/icon-object/glyph/blog/24';
 import ArrowRightIcon from '@atlaskit/icon/glyph/arrow-right';
 import EditFilledIcon from '@atlaskit/icon/glyph/edit-filled';
 import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
@@ -7,8 +9,6 @@ import PresenceActiveIcon from '@atlaskit/icon/glyph/presence-active';
 import StarIcon from '@atlaskit/icon/glyph/star';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 import TrashIcon from '@atlaskit/icon/glyph/trash';
-import Archive24Icon from '@atlaskit/icon-file-type/glyph/archive/24';
-import Blog24Icon from '@atlaskit/icon-object/glyph/blog/24';
 import { token } from '@atlaskit/tokens';
 
 import {

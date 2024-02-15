@@ -1,10 +1,15 @@
 ---
 title: Heading level provider
 description: The Heading level provider injectes the heading level to all Heading components below it in the component tree.
+props:
+  packageName: '@atlaskit/heading'
+  exports:
+    - HeadingContextProvider
 ---
-
-import HeadingContextProvider from '!!extract-react-types-loader!../../src/heading-context';
 
 ## Props
 
-<PropsTable heading="" props={HeadingContextProvider} />
+<TSMorphProps
+  exportName="HeadingContextProvider"
+  packageName="@atlaskit/heading"
+/>

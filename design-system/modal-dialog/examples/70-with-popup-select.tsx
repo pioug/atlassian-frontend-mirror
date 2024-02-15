@@ -1,10 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button, { IconButton } from '@atlaskit/button/new';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { PopupSelect } from '@atlaskit/select';
-import { N500 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
 
 import ModalDialog, {
   ModalBody,
@@ -39,13 +37,12 @@ export default function ModalWithPopupSelect() {
           <ModalDialog onClose={close}>
             <ModalHeader>
               <ModalTitle>Modal with popup select</ModalTitle>
-              <Button onClick={close} appearance="link">
-                <CrossIcon
-                  label="Close Modal"
-                  primaryColor={token('color.text.subtle', N500)}
-                  size="small"
-                />
-              </Button>
+              <IconButton
+                onClick={close}
+                icon={CrossIcon}
+                label="Close Modal"
+                UNSAFE_size="small"
+              />
             </ModalHeader>
             <ModalBody>
               <PopupSelect

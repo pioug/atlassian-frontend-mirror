@@ -14,8 +14,22 @@ import invariant from 'tiny-invariant';
 
 import Avatar from '@atlaskit/avatar';
 import Badge from '@atlaskit/badge';
-import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu, {
+  DropdownItem,
+  DropdownItemGroup,
+} from '@atlaskit/dropdown-menu';
+// eslint-disable-next-line @atlaskit/design-system/no-banned-imports
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import Lozenge from '@atlaskit/lozenge';
+import {
+  attachClosestEdge,
+  Edge,
+  extractClosestEdge,
+} from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import { getReorderDestinationIndex } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/get-reorder-destination-index';
+import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
+import { DragHandleButton } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-button';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
 import {
   draggable,
   dropTargetForElements,
@@ -25,15 +39,6 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { offsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/offset-from-pointer';
 import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
-import {
-  attachClosestEdge,
-  Edge,
-  extractClosestEdge,
-} from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
-import { getReorderDestinationIndex } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/get-reorder-destination-index';
-import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
-import { DragHandleDropdownMenu } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-dropdown-menu';
-import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
 import { Box, Grid, Inline, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -117,14 +122,14 @@ function ListItem({ itemData }: { itemData: ItemData }) {
   const ref = useRef<HTMLDivElement>(null);
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null);
 
-  const triggerRef = useRef<HTMLButtonElement>(null);
+  const dragHandleRef = useRef<HTMLButtonElement>(null);
 
   const [draggableState, setDraggableState] =
     useState<DraggableState>(idleState);
 
   useEffect(() => {
     invariant(ref.current);
-    invariant(triggerRef.current);
+    invariant(dragHandleRef.current);
 
     const element = ref.current;
 
@@ -134,7 +139,7 @@ function ListItem({ itemData }: { itemData: ItemData }) {
       registerItem({ id: itemData.id, element }),
       draggable({
         element,
-        dragHandle: triggerRef.current,
+        dragHandle: dragHandleRef.current,
         getInitialData() {
           return { ...dragData, index: getItemIndex(itemData) };
         },
@@ -225,12 +230,17 @@ function ListItem({ itemData }: { itemData: ItemData }) {
             draggableState.type === 'dragging' && listItemDisabledStyles,
           ]}
         >
-          <DragHandleDropdownMenu
-            triggerRef={triggerRef}
-            label={`Reorder ${itemData.label}`}
+          <DropdownMenu
+            trigger={({ triggerRef, ...triggerProps }) => (
+              <DragHandleButton
+                ref={mergeRefs([dragHandleRef, triggerRef])}
+                {...triggerProps}
+                label={`Reorder ${itemData.label}`}
+              />
+            )}
           >
             <LazyDropdownContent itemData={itemData} />
-          </DragHandleDropdownMenu>
+          </DropdownMenu>
           <Box xcss={itemLabelStyles}>{itemData.label}</Box>
           <Inline alignBlock="center" space="space.100">
             <Badge>{1}</Badge>

@@ -75,6 +75,7 @@ export const PrimaryButton = forwardRef<HTMLElement, PrimaryButtonProps>(
           } as React.CSSProperties
         }
         css={[buttonBaseStyles, isHighlighted && buttonHighlightedStyles]}
+        role="listitem"
       >
         <Button
           appearance="primary"

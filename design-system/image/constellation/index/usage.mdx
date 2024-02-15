@@ -9,3 +9,5 @@ The `Image` component can be used interchangeably with the native `img` element.
 ## Best practices
 
 - Use the `Image` component when your image requires different sources for light and dark modes.
+
+- Avoid applying css directly to `Image`. This is not supported, and will be deprecated in favor of `xcss` in future. In most cases it should be possible to apply styling to a containing element instead.

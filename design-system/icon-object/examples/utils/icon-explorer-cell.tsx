@@ -2,7 +2,7 @@ import React, { useRef, useState, ComponentType, FC } from 'react';
 import styled from '@emotion/styled';
 
 import Textfield from '@atlaskit/textfield';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Modal, {
   ModalTransition,
   ModalBody,

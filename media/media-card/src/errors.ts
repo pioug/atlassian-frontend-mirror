@@ -15,6 +15,7 @@ export type MediaCardErrorPrimaryReason =
   | 'upload'
   | 'metadata-fetch'
   | 'error-file-state'
+  | 'failed-processing'
   | RemotePreviewPrimaryReason
   | LocalPreviewPrimaryReason
   | ImageLoadPrimaryReason

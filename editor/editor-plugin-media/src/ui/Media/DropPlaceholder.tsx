@@ -4,14 +4,13 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { hexToRgba } from '@atlaskit/adf-schema';
+import { dropPlaceholderMessages } from '@atlaskit/editor-common/media';
 import DocumentFilledIcon from '@atlaskit/icon/glyph/document-filled';
 import { B200, B300, B400 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { FILE_WIDTH, MEDIA_HEIGHT } from '../../nodeviews/mediaNodeView/media';
-
-import { dropPlaceholderMessages } from './drop-placeholder-messages';
 
 const iconWrapper = css`
   color: ${token('color.icon.accent.blue', hexToRgba(B400, 0.4) || B400)};

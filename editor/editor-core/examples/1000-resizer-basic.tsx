@@ -1,15 +1,14 @@
 /** @jsx jsx */
 import type { SyntheticEvent } from 'react';
-import { useCallback, useState, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+
 import { jsx } from '@emotion/react';
 
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
-import type { HandleSize, HandleResize } from '@atlaskit/editor-common/resizer';
-
+import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
+import { resizerStyles } from '@atlaskit/editor-common/styles';
 import { RadioGroup } from '@atlaskit/radio';
 import type { OptionsPropType } from '@atlaskit/radio/types';
-
-import { resizerStyles } from '@atlaskit/editor-common/styles';
 
 const options: OptionsPropType = [
   { name: 'small', value: 'small', label: 'Small handler' },

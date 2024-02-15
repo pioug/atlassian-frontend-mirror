@@ -1,20 +1,39 @@
 import { css } from '@emotion/react';
 
 import {
-  blockNodesVerticalMargin,
-  akEditorSelectedBorderSize,
-  akEditorDeleteBorder,
   akEditorDeleteBackground,
-  SelectionStyle,
-  getSelectionStyles,
+  akEditorDeleteBorder,
+  akEditorSelectedBorderSize,
   akEditorSelectedNodeClassName,
+  blockNodesVerticalMargin,
+  getSelectionStyles,
+  SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const extensionStyles = css`
-  .multiBodiedExtensionView-content-wrap.${akEditorSelectedNodeClassName}:not(.danger) {
-    ${getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Blanket])}
+  .multiBodiedExtensionView-content-wrap {
+    &.danger > span > .multiBodiedExtension--container {
+      box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px
+        ${token('color.border.danger', akEditorDeleteBorder)};
+      background-color: ${token(
+        'color.background.danger',
+        akEditorDeleteBackground,
+      )};
+    }
+    &:not(.danger).${akEditorSelectedNodeClassName} {
+      & > span > .multiBodiedExtension--container {
+        ${getSelectionStyles([
+          SelectionStyle.BoxShadow,
+          SelectionStyle.Blanket,
+        ])}
+      }
+    }
+    .multiBodiedExtension--container {
+      width: 100%;
+      max-width: 100%; // ensure width can't go over 100%;
+    }
   }
 
   .extensionView-content-wrap,

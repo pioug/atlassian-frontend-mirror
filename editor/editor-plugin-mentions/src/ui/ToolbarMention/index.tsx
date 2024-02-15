@@ -3,11 +3,10 @@ import React, { PureComponent } from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
+import { mentionMessages as messages } from '@atlaskit/editor-common/messages';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import MentionIcon from '@atlaskit/icon/glyph/editor/mention';
-
-import { messages } from '../../messages';
 
 interface Props {
   onInsertMention: () => void;

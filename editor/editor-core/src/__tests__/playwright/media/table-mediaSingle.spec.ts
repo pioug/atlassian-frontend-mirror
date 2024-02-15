@@ -1,21 +1,20 @@
 import {
-  editorTestCase as test,
   EditorNodeContainerModel,
-  EditorUploadMediaModel,
   EditorTableModel,
+  EditorUploadMediaModel,
   expect,
-  fixTest,
-  BROWSERS,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
-  table,
-  tr,
-  td,
   mediaSingle,
   p,
+  table,
+  td,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { table3x3 } from './table-mediaSingle.spec.ts-fixtures/adf-table3x3';
 
 test.describe('Media tables', () => {
@@ -35,13 +34,6 @@ test.describe('Media tables', () => {
     });
 
     test('can insert into table', async ({ editor }) => {
-      fixTest({
-        jiraIssueId: 'ED-19291',
-        reason:
-          'FIXME: This test was automatically skipped due to failure on 29/07/2023: https://product-fabric.atlassian.net/browse/ED-19291',
-        browsers: [BROWSERS.webkit],
-      });
-
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 
@@ -82,13 +74,6 @@ test.describe('Media tables', () => {
     });
 
     test('can insert into table', async ({ editor }) => {
-      fixTest({
-        jiraIssueId: 'ED-19291',
-        reason:
-          'FIXME: This test was automatically skipped due to failure on 29/07/2023: https://product-fabric.atlassian.net/browse/ED-19291',
-        browsers: [BROWSERS.webkit],
-      });
-
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 
@@ -154,7 +139,7 @@ test.describe('Media tables', () => {
       expect(await tableModel.hasOverflowed()).toBeFalsy();
     });
   });
-  test.describe('Full Page when custom-table-width is enabled, extended-resize-experience is enabled ', () => {
+  test.describe('Full Page when custom-table-width is enabled, extended-resize-experience is enabled', () => {
     test.use({
       adf: table3x3,
       editorProps: {

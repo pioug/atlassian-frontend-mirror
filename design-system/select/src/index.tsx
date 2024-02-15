@@ -9,6 +9,8 @@ export { default as AsyncSelect } from './entry-points/async-select';
 export { default as CreatableSelect } from './entry-points/creatable-select';
 export { default as AsyncCreatableSelect } from './entry-points/async-creatable-select';
 
+export { isOptionsGrouped } from './utils/grouped-options-announcement';
+
 export { default as CheckboxSelect } from './CheckboxSelect';
 export { default as CountrySelect } from './CountrySelect';
 export { default as RadioSelect } from './RadioSelect';

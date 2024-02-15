@@ -1,20 +1,21 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { act } from 'react-dom/test-utils';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
-import { SelectionInlineCommentMounter } from '../../mounter';
-import type { Position } from '../../../types';
-import type { ApplyAnnotation } from '../../../../../actions/index';
-import * as DraftMock from '../../../draft';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import {
   ACTION,
   ACTION_SUBJECT,
-  EVENT_TYPE,
   ACTION_SUBJECT_ID,
+  EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
+import { render } from '@testing-library/react';
+import React from 'react';
+import { act } from 'react-dom/test-utils';
+import type { ApplyAnnotation } from '../../../../../actions/index';
+import * as DraftMock from '../../../draft';
+import type { Position } from '../../../types';
+import { SelectionInlineCommentMounter } from '../../mounter';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
+
 jest.mock('../../../draft');
 
 describe('Annotations: SelectionInlineCommentMounter', () => {
@@ -31,7 +32,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
     isAnnotationAllowed = true,
   ) => {
     const wrapperDOM = {
-      current: container,
+      current: container!,
     } as React.RefObject<HTMLDivElement>;
     let onCreateCallback: Function = () => {};
     let applyDraftModeCallback: Function = () => {};
@@ -56,9 +57,13 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
         createAnalyticsEvent={fakeCreateAnalyticsEvent}
         clearAnnotationDraft={fakeClearAnnotationDraft}
       />,
-      container,
+      { container: container! },
     );
-    return { onCreateCallback, applyDraftModeCallback, onCloseCallback };
+    return {
+      onCreateCallback,
+      applyDraftModeCallback,
+      onCloseCallback,
+    };
   };
 
   beforeEach(() => {
@@ -79,7 +84,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
   describe('on mounting', () => {
     it('should render the prop component', () => {
       renderMounter();
-      expect(container!.querySelector('[data-dummy]')).not.toBeNull();
+      expect(document.querySelector('[data-dummy]')).not.toBeNull();
     });
   });
 

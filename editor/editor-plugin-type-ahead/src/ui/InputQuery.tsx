@@ -12,7 +12,10 @@ import type { IntlShape } from 'react-intl-next';
 import { useIntl } from 'react-intl-next';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 
-import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import {
+  SelectItemMode,
+  typeAheadListMessages,
+} from '@atlaskit/editor-common/type-ahead';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
@@ -23,7 +26,7 @@ import {
   TYPE_AHEAD_DECORATION_ELEMENT_ID,
   TYPE_AHEAD_POPUP_CONTENT_CLASS,
 } from '../constants';
-import { typeAheadListMessages } from '../messages';
+import type { TypeAheadItem } from '../types';
 import { getPluginState } from '../utils';
 
 import { AssistiveText } from './AssistiveText';
@@ -51,7 +54,7 @@ const isNavigationKey = (event: KeyboardEvent): boolean => {
 const isUndoRedoShortcut = (
   event: KeyboardEvent,
 ): 'historyUndo' | 'historyRedo' | false => {
-  const key = keyNameNormalized(event as any);
+  const key = keyNameNormalized(event);
 
   if (event.ctrlKey && key === 'y') {
     return 'historyRedo';
@@ -98,10 +101,10 @@ type InputQueryProps = {
   onUndoRedo?: (inputType: 'historyUndo' | 'historyRedo') => boolean;
   reopenQuery?: string;
   editorView: EditorView;
-  items: any[];
+  items: TypeAheadItem[];
 };
 
-export const InputQuery: React.FC<InputQueryProps> = React.memo(
+export const InputQuery = React.memo(
   ({
     triggerQueryPrefix,
     cancel,
@@ -115,7 +118,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
     onUndoRedo,
     editorView,
     items,
-  }) => {
+  }: InputQueryProps) => {
     const ref = useRef<HTMLSpanElement>(document.createElement('span'));
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [query, setQuery] = useState<string | null>(null);
@@ -137,7 +140,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
 
     const checkKeyEvent = useCallback(
       (event: KeyboardEvent) => {
-        const key = keyNameNormalized(event as any);
+        const key = keyNameNormalized(event);
         const sel = document.getSelection();
         const raw = ref.current?.textContent || '';
         const text = cleanedInputContent();
@@ -280,7 +283,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
       };
 
       const keyDown = (event: KeyboardEvent) => {
-        const key = keyNameNormalized(event as any);
+        const key = keyNameNormalized(event);
 
         if (
           ['ArrowLeft', 'ArrowRight'].includes(key) &&
@@ -341,6 +344,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
         if (
           browser.chrome &&
           !(window.getSelection()?.type === 'Range') &&
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           !('sourceCapabilities' in event && (event as any).sourceCapabilities)
         ) {
           return;
@@ -396,15 +400,19 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
           }
         }
       };
-      let onInput: Function | null = null;
+      let onInput: (e: Event) => void = () => {};
 
       if (browser.safari) {
         // On Safari, for reasons beyond my understanding,
         // The undo behavior is totally different from other browsers
         // That why we need to have an specific branch only for Safari.
-        const onInput = (e: InputEvent) => {
+        const onInput = (e: Event) => {
           const { target } = e;
-          if (e.isComposing || !(target instanceof HTMLElement)) {
+          if (
+            !(e instanceof InputEvent) ||
+            e.isComposing ||
+            !(target instanceof HTMLElement)
+          ) {
             return;
           }
 
@@ -419,22 +427,22 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
           }
         };
 
-        element.addEventListener('input', onInput as any);
+        element.addEventListener('input', onInput);
       }
 
       element.addEventListener('focusout', onFocusOut);
       element.addEventListener('focusin', onFocusIn);
       element.addEventListener('keydown', keyDown);
-      element.addEventListener('beforeinput', beforeinput as any);
+      element.addEventListener('beforeinput', beforeinput);
 
       return () => {
         element.removeEventListener('focusout', onFocusOut);
         element.removeEventListener('focusin', onFocusIn);
         element.removeEventListener('keydown', keyDown);
-        element.removeEventListener('beforeinput', beforeinput as any);
+        element.removeEventListener('beforeinput', beforeinput);
 
         if (browser.safari) {
-          element.removeEventListener('input', onInput as any);
+          element.removeEventListener('input', onInput);
         }
       };
     }, [

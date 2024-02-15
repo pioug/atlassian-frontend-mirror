@@ -1,23 +1,22 @@
 import { css } from '@emotion/react';
 
 import {
-  panelSharedStyles,
   PanelSharedCssClassName,
+  panelSharedStyles,
 } from '@atlaskit/editor-common/panel';
 import {
-  SelectionStyle,
-  getSelectionStyles,
   akEditorDeleteBackground,
   akEditorDeleteBackgroundWithOpacity,
   akEditorDeleteBorder,
-  akEditorSelectedBorderSize,
   akEditorDeleteIconColor,
+  akEditorSelectedBorderSize,
   akEditorSelectedNodeClassName,
+  getSelectionStyles,
+  SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-import type { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
-export const panelStyles = (props: ThemeProps) => css`
+export const panelStyles = () => css`
   .ProseMirror {
     .${PanelSharedCssClassName.prefix} {
       cursor: pointer;
@@ -58,7 +57,7 @@ export const panelStyles = (props: ThemeProps) => css`
       }
     }
 
-    ${panelSharedStyles(props)};
+    ${panelSharedStyles()};
   }
 
   .${PanelSharedCssClassName.prefix}.${akEditorSelectedNodeClassName}:not(.danger) {

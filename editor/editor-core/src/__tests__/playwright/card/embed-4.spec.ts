@@ -1,7 +1,8 @@
-import { editorTestCase as test, expect } from '@af/editor-libra';
-import { embedCardAdf } from './embed-4.spec.ts-fixtures/adf';
+import { expect, editorTestCase as test } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { p, doc, embedCard } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, embedCard, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { embedCardAdf } from './embed-4.spec.ts-fixtures/adf';
 
 test.use({
   adf: embedCardAdf,
@@ -20,9 +21,7 @@ test.describe('card', () => {
     editor,
   }) => {
     // wait for block card to be ready
-    const blockCardLocator = await editor.page.locator(
-      '.block-card-resolved-view',
-    );
+    const blockCardLocator = editor.page.locator('.block-card-resolved-view');
     await expect(blockCardLocator).toBeVisible();
 
     // If the data for the embed card is missing it will fall back to block card

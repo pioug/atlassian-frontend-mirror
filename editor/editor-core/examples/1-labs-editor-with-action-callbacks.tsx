@@ -1,6 +1,7 @@
 import React from 'react';
-import Editor from './../src/EditorWithActions';
+
 import { EditorContext } from '../src';
+import Editor from '../src/EditorWithActions';
 
 export default function Example() {
   return (

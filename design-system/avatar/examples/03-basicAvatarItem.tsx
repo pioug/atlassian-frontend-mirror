@@ -37,7 +37,13 @@ export default () => {
           <h1>onClick</h1>
           {data.map((user, index) => (
             <AvatarItem
-              avatar={<Avatar presence={user.presence} status={user.status} />}
+              avatar={
+                <Avatar
+                  name={user.name}
+                  presence={user.presence}
+                  status={user.status}
+                />
+              }
               key={user.email}
               onClick={console.log}
               primaryText={user.name}
@@ -51,7 +57,13 @@ export default () => {
           <h1>href</h1>
           {data.map((user, index) => (
             <AvatarItem
-              avatar={<Avatar presence={user.presence} status={user.status} />}
+              avatar={
+                <Avatar
+                  name={user.name}
+                  presence={user.presence}
+                  status={user.status}
+                />
+              }
               key={user.email}
               href="#"
               primaryText={user.name}
@@ -67,7 +79,13 @@ export default () => {
           <h1>non-interactive</h1>
           {data.map((user, index) => (
             <AvatarItem
-              avatar={<Avatar presence={user.presence} status={user.status} />}
+              avatar={
+                <Avatar
+                  name={user.name}
+                  presence={user.presence}
+                  status={user.status}
+                />
+              }
               key={user.email}
               primaryText={user.name}
               secondaryText={user.email}
@@ -80,7 +98,13 @@ export default () => {
           <h1>disabled</h1>
           {data.map((user, index) => (
             <AvatarItem
-              avatar={<Avatar presence={user.presence} status={user.status} />}
+              avatar={
+                <Avatar
+                  name={user.name}
+                  presence={user.presence}
+                  status={user.status}
+                />
+              }
               key={user.email}
               primaryText={user.name}
               secondaryText={user.email}

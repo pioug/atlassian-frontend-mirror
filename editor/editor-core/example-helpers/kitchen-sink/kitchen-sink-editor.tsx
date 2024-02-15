@@ -1,12 +1,18 @@
 /** @jsx jsx */
+import React from 'react';
+
 import { jsx } from '@emotion/react';
 
-import React from 'react';
-import { popupWrapper, PopUps } from './kitchen-sink-styles';
-import { EditorAppearance, EditorPlugin, EditorProps } from '../../src/types';
-import EditorActions from '../../src/actions';
-import { ValidatingKitchenSinkEditor } from './validating-kitchen-sink-editor';
+import type EditorActions from '../../src/actions';
+import type {
+  EditorAppearance,
+  EditorPlugin,
+  EditorProps,
+} from '../../src/types';
+
+import { PopUps, popupWrapper } from './kitchen-sink-styles';
 import { KitchenSinkToolbar } from './kitchen-sink-toolbar';
+import { ValidatingKitchenSinkEditor } from './validating-kitchen-sink-editor';
 
 type Theme = 'light' | 'dark';
 
@@ -28,7 +34,7 @@ export interface KitchenSinkEditorProps {
   editorPlugins?: EditorPlugin[];
 }
 
-export const KitchenSinkEditor: React.StatelessComponent<KitchenSinkEditorProps> =
+export const KitchenSinkEditor: React.FunctionComponent<KitchenSinkEditorProps> =
   React.memo((props) => {
     const { actions, locale, loadLocale } = props;
 

@@ -26,9 +26,9 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
       '[default]': {
         attributes: {
           group: 'typography',
-          state: 'experimental',
+          state: 'active',
           introduced: '1.14.0',
-          description: 'Used for monospace and code.',
+          description: 'ALPHA - Use with caution. Used for monospace and code.',
         },
       },
     },
@@ -36,61 +36,64 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
       xxlarge: {
         attributes: {
           group: 'typography',
-          state: 'experimental',
+          state: 'active',
           introduced: '1.14.0',
-          description: 'TBD',
+          description: 'ALPHA - Use with caution. Use for main headings.',
           responsiveSmallerVariant: 'font.heading.xlarge',
         },
       },
       xlarge: {
         attributes: {
           group: 'typography',
-          state: 'experimental',
+          state: 'active',
           introduced: '1.14.0',
-          description: 'TBD',
+          description: 'ALPHA - Use with caution. Use for main headings.',
           responsiveSmallerVariant: 'font.heading.large',
         },
       },
       large: {
         attributes: {
           group: 'typography',
-          state: 'experimental',
+          state: 'active',
           introduced: '1.14.0',
-          description: 'TBD',
+          description: 'ALPHA - Use with caution. Use for main headings.',
           responsiveSmallerVariant: 'font.heading.medium',
         },
       },
       medium: {
         attributes: {
           group: 'typography',
-          state: 'experimental',
+          state: 'active',
           introduced: '1.14.0',
-          description: 'TBD',
+          description:
+            'ALPHA - Use with caution. Use for less important headings.',
           responsiveSmallerVariant: 'font.heading.small',
         },
       },
       small: {
         attributes: {
           group: 'typography',
-          state: 'experimental',
+          state: 'active',
           introduced: '1.14.0',
-          description: 'TBD',
+          description:
+            'ALPHA - Use with caution. Use for less important headings.',
         },
       },
       xsmall: {
         attributes: {
           group: 'typography',
-          state: 'experimental',
+          state: 'active',
           introduced: '1.14.0',
-          description: 'TBD',
+          description: 'ALPHA - Use with caution. Use for smaller headings.',
         },
       },
       xxsmall: {
         attributes: {
           group: 'typography',
-          state: 'experimental',
+          state: 'active',
           introduced: '1.14.0',
-          description: 'TBD',
+          description:
+            'ALPHA - Use with caution. Smallest heading size available.',
         },
       },
     },
@@ -98,18 +101,19 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
       small: {
         attributes: {
           group: 'typography',
-          state: 'experimental',
+          state: 'active',
           introduced: '1.14.0',
           description:
-            'Single-line non-wrapping supporting text like that in a smaller label.',
+            'ALPHA - Use with caution. Single-line non-wrapping supporting text like that in a smaller label.',
         },
       },
       '[default]': {
         attributes: {
           group: 'typography',
-          state: 'experimental',
+          state: 'active',
           introduced: '1.14.0',
-          description: 'Single-line non-wrapping text like that in a button.',
+          description:
+            'ALPHA - Use with caution. Single-line non-wrapping text like that in a button.',
         },
       },
     },
@@ -117,26 +121,26 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
       large: {
         attributes: {
           group: 'typography',
-          state: 'experimental',
+          state: 'active',
           introduced: '1.14.0',
           description:
-            'Larger body font or default body font for text rich experiences.',
+            'ALPHA - Use with caution. Larger body font or default body font for text rich experiences.',
         },
       },
       small: {
         attributes: {
           group: 'typography',
-          state: 'experimental',
+          state: 'active',
           introduced: '1.14.0',
-          description: 'Smaller body font.',
+          description: 'ALPHA - Use with caution. Smaller body font.',
         },
       },
       '[default]': {
         attributes: {
           group: 'typography',
-          state: 'experimental',
+          state: 'active',
           introduced: '1.14.0',
-          description: 'The default body font.',
+          description: 'ALPHA - Use with caution. The default body font.',
         },
       },
     },

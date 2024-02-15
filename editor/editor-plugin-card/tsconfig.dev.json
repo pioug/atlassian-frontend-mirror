@@ -36,9 +36,6 @@
       "path": "tsconfig.app.json"
     },
     {
-      "path": "../../analytics/analytics-next/tsconfig.app.json"
-    },
-    {
       "path": "../../design-system/button/tsconfig.app.json"
     },
     {
@@ -54,19 +51,7 @@
       "path": "../editor-test-helpers/tsconfig.app.json"
     },
     {
-      "path": "../../design-system/icon/tsconfig.app.json"
-    },
-    {
-      "path": "../../linking-platform/link-datasource/tsconfig.app.json"
-    },
-    {
       "path": "../../linking-platform/link-provider/tsconfig.app.json"
-    },
-    {
-      "path": "../../linking-platform/link-test-helpers/tsconfig.app.json"
-    },
-    {
-      "path": "../../linking-platform/linking-common/tsconfig.app.json"
     },
     {
       "path": "../../design-system/logo/tsconfig.app.json"
@@ -75,25 +60,10 @@
       "path": "../../media/media-integration-test-helpers/tsconfig.app.json"
     },
     {
-      "path": "../../media/media-test-helpers/tsconfig.app.json"
-    },
-    {
-      "path": "../../platform/feature-flags/tsconfig.app.json"
-    },
-    {
-      "path": "../../linking-platform/smart-card/tsconfig.app.json"
-    },
-    {
       "path": "../synchrony-test-helpers/tsconfig.app.json"
     },
     {
       "path": "../../design-system/tokens/tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/test-tooling/webdriver-runner/tsconfig.app.json"
-    },
-    {
-      "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
     }
   ]
 }

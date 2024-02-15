@@ -22,6 +22,18 @@ export default {
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {⁣⁢Insert object؜⁪⁭‌؜‌⁯⁮؜⁭؜⁮⁪⁡⁬؜⁪⁫⁠⁪⁭⁪‌⁣⁤} other {⁣⁢Insert objects؜⁪⁭‌؜‌⁯⁮؜⁭؜⁮⁪⁡⁬؜⁪⁫⁠⁪⁭⁪‌⁣⁤}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': '⁣⁢Insert objects from⁫‍؜‌⁭⁠⁬؜⁠؜⁪⁡‌⁬⁯⁯‍⁯⁪⁫⁣⁤',
+  'linkDataSource.basic-filter.assignee.label': '⁣⁢Assignee‍⁮⁪⁫‌؜⁮؜‌⁡⁫⁪‍؜‌⁡⁫⁫⁠⁭⁡؜⁠⁮⁪⁠⁠⁣⁤',
+  'linkDataSource.basic-filter.dropdown.select.assignee.unassigned': '⁣⁢Unassigned⁮⁬⁬⁡⁮⁡‌‌⁯⁪؜‍⁪‌⁪⁪⁣⁤',
+  'linkDataSource.basic-filter.dropdown.select.placeholder': '⁣⁢Search⁯‍⁠؜⁡⁡⁯⁬‍⁬⁠⁭⁭⁮⁡⁭⁬⁮⁫⁮⁣⁤',
+  'linkDataSource.basic-filter.error-message': '⁣⁢Something went wrong⁬⁮⁫⁯⁫⁫⁪⁬‍؜⁬⁫⁯⁬⁫⁮⁪⁡⁮⁭⁭⁣⁤',
+  'linkDataSource.basic-filter.footer.pagination-details':
+    '⁣⁢{currentDisplayCount} of {totalCount}⁡⁪⁫⁡⁮⁪‍⁯؜⁬⁯⁯⁫⁮⁭⁯؜؜‍‍؜‌⁣⁤',
+  'linkDataSource.basic-filter.loading-message': '⁣⁢Loading...⁫⁠⁬⁮؜‌‌⁭⁡⁮⁡؜؜⁡؜⁡‍⁯⁭‍⁯⁪⁠⁣⁤',
+  'linkDataSource.basic-filter.no-options-message': '⁣⁢No matches found⁫⁠⁯⁫؜⁬‍⁪‍⁫⁮⁫؜⁬⁪⁯⁪⁭⁯‍⁣⁤',
+  'linkDataSource.basic-filter.project.label': '⁣⁢Project‌⁪⁭⁭⁪‍⁠⁫‌⁠⁭⁡⁪⁡⁯‍⁪⁮⁫⁮⁡⁪⁣⁤',
+  'linkDataSource.basic-filter.showMoreButton': '⁣⁢Show more⁭⁮⁠؜⁪⁮⁫⁯⁪⁭‍؜⁪⁬⁪⁮⁮⁡⁮⁡⁫؜‌⁣⁤',
+  'linkDataSource.basic-filter.status.label': '⁣⁢Status⁬‌⁬⁬‍؜⁭⁪⁠⁯؜⁯؜؜⁯⁫⁭⁯⁬⁭⁯⁫⁡⁯‍⁣⁤',
+  'linkDataSource.basic-filter.type.label': '⁣⁢Type⁭‍⁠⁪⁬⁫⁪؜⁫⁯⁪⁭⁭⁭⁫‍⁡‍⁠⁭⁣⁤',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1':
     '⁣⁢Your search returned too many results.⁡⁬⁫؜⁠⁯؜⁬⁡‌⁯⁫⁮⁪⁡‌‍‍؜⁫⁬⁭‌⁯⁣⁤',
   'linkDataSource.column-picker.no-all-items-shown-message.line-2':
@@ -30,7 +42,7 @@ export default {
   'linkDataSource.column-picker.tooltip': '⁣⁢Configure columns⁠⁮؜‍⁫⁠⁪⁠؜⁪‍⁪⁫⁪⁮⁫‌؜⁪⁮⁡⁮؜⁡⁣⁤',
   'linkDataSource.jira-issues.accessInstructions':
     '⁣⁢To request access, contact your site administrator.⁪⁬⁪⁫⁫⁬⁮⁡⁯⁪⁮⁪⁯؜⁯⁫⁫⁮؜⁬⁣⁤',
-  'linkDataSource.jira-issues.accessRequired': "⁣⁢You don't have access to this site⁪⁡⁭⁠‌‌⁮⁠⁯⁯⁡⁪⁬؜‌⁫⁬⁯‌؜⁭⁭⁭⁮‍⁣⁤",
+  'linkDataSource.jira-issues.accessRequired': "⁣⁢You don't have access to this content⁠⁪‍⁬⁠⁫⁯⁫⁮⁬⁫⁪⁡⁠⁮⁭⁭⁯‌⁭⁬⁭⁭‌‌⁠⁣⁤",
   'linkDataSource.jira-issues.accessRequiredWithSite':
     "⁣⁢You don't have access to the following site:‍⁮⁠⁮⁡⁡⁫⁪⁫⁡‌⁫⁪⁠⁬‍⁮⁭⁭‌⁮⁡⁫‌؜⁣⁤",
   'linkDataSource.jira-issues.checkConnection':
@@ -53,14 +65,20 @@ export default {
     '{totalCount, plural, one {⁣⁢issue⁯‌⁬⁠⁭⁡⁡⁭⁪⁯⁠‌⁮‌‍⁫؜⁫⁭⁮؜⁯⁣⁤} other {⁣⁢issues⁯‌⁬⁠⁭⁡⁡⁭⁪⁯⁠‌⁮‌‍⁫؜⁫⁭⁮؜⁯⁣⁤}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': '⁣⁢Issue view⁡⁡‌؜⁭⁪⁫⁭⁯⁭⁯؜⁫⁡⁡⁯⁬؜⁬⁯⁮‌⁣⁤',
   'linkDataSource.jira-issues.configmodal.placeholder.issues': '⁣⁢### Issues؜؜⁮⁪⁡‌⁯⁮⁡؜‍⁡⁮‌‍⁬⁯؜⁮⁭⁪⁪⁠⁡⁫؜⁣⁤',
+  'linkDataSource.jira-issues.no.jira.sites.access.description':
+    '⁣⁢To request access, contact your admin.⁬⁮⁭⁠⁪‌‍‍⁠⁯⁡⁬⁫⁭⁬؜؜‌⁪‌‌؜⁡؜⁪⁭⁡⁭⁣⁤',
+  'linkDataSource.jira-issues.no.jira.sites.access.title':
+    "⁣⁢You don't have access to any Jira sites‍‍؜⁠⁮؜⁫؜⁠⁡‍⁪⁡⁯⁬‌⁡⁣⁤",
   'linkDataSource.jira-issues.noResultsFound': '⁣⁢No results found؜⁮؜‌⁬⁡⁮⁯⁭⁡⁪‍⁭⁯؜⁡⁮؜؜⁡⁠⁣⁤',
   'linkDataSource.jira-issues.refresh': '⁣⁢Refresh؜⁠⁫⁯؜⁬⁠⁡⁡⁮⁬⁫⁯⁡⁫⁪‍⁭⁭⁪⁪⁭؜⁫؜⁣⁤',
   'linkDataSource.jira-issues.unableToLoadItems': '⁣⁢Unable to load items⁪⁮⁠⁠⁮⁭⁭⁪⁫⁠‌‌⁠‌⁯⁮⁯‌⁠⁠⁯؜؜⁫⁣⁤',
   'linkDataSource.jira-issues.unableToLoadResults': '⁣⁢Unable to load results؜؜‌⁠‌⁡⁪⁫⁯⁪⁬⁫⁪⁮⁮؜‍⁪⁯⁬‍⁠‌‌⁣⁤',
   'linkDataSource.modal-initial-state.beta': '⁣⁢Beta⁠؜‌⁠⁠⁪⁬⁯⁮⁯؜⁭⁡⁡⁠⁡⁬‌⁯⁮⁣⁤',
   'linkDataSource.modal-initial-state.learnMoreLink': '⁣⁢Learn how to search with JQL⁠⁬⁫⁪⁠⁡⁬‍⁬⁠⁡⁡⁮⁮⁫‍⁯‍؜‌⁬⁭⁪⁣⁤',
-  'linkDataSource.modal-initial-state.searchDescription':
-    '⁣⁢Use JQL (Jira Query Language) to search for issues.⁯‌‌⁫‌⁯⁭⁪⁭⁡⁪‌⁠⁮⁫⁭⁫‌⁮⁫‍⁣⁤',
+  'linkDataSource.modal-initial-state.searchDescription-basic':
+    '⁣⁢Search by keyword for issues to insert.⁪⁯؜⁬⁭⁮‌⁯؜⁡⁡⁪⁬؜⁮⁯⁫‌⁯⁣⁤',
+  'linkDataSource.modal-initial-state.searchDescription-jql':
+    '⁣⁢Use JQL (Jira Query Language) to search for issues.⁪⁫⁯⁡⁡⁪⁡⁡⁡⁬⁡⁬؜⁡‌⁠⁫⁡⁫⁡⁫⁯⁮⁣⁤',
   'linkDataSource.modal-initial-state.searchTitle': '⁣⁢Search for Jira issues⁠⁯⁬؜⁬⁡⁭⁭‌‍⁮⁫⁫⁭⁪⁡‍⁪⁬‍⁫⁣⁤',
   'linkDataSource.render-type.boolean.false': '⁣⁢No⁪⁡⁠؜⁡⁮⁡⁫؜⁮⁯⁠⁯⁠⁮⁭⁪⁠⁫؜⁪⁣⁤',
   'linkDataSource.render-type.boolean.true': '⁣⁢Yes‍⁫⁫⁬⁠⁡⁠⁡⁪⁬⁡⁭⁭⁡‍⁫⁫؜‍⁪⁪؜⁮⁬⁣⁤',

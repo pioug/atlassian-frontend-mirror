@@ -1,6 +1,8 @@
 import React, { ReactElement, RefObject } from 'react';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
+import type { CardBaseProps } from './card';
 
 import { CardDimensions } from '../types';
 
@@ -18,3 +20,6 @@ export type InlinePlayerWrapperProps = {
     | undefined;
   children?: JSX.Element[] | ReactElement<any, any> | null | any;
 };
+
+export type CardWithMediaClientConfigProps =
+  WithMediaClientConfigProps<CardBaseProps>;

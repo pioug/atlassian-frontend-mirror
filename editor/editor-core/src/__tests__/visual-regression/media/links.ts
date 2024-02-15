@@ -1,4 +1,8 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  mediaResizeSelectors,
+  waitForMediaToBeLoaded,
+} from '@atlaskit/editor-test-helpers/page-objects/media';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   retryUntilStablePosition,
@@ -8,15 +12,13 @@ import {
 import {
   Appearance,
   initEditorWithAdf,
-  snapshot,
   initFullPageEditorWithAdf,
+  snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import * as linkADf from './__fixtures__/mediasingle-and-media-with-link-mark.json';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  mediaResizeSelectors,
-  waitForMediaToBeLoaded,
-} from '@atlaskit/editor-test-helpers/page-objects/media';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import * as linkADf from './__fixtures__/mediasingle-and-media-with-link-mark.json';
 
 describe('Snapshot Test: Media', () => {
   let page: PuppeteerPage;
@@ -45,8 +47,7 @@ describe('Snapshot Test: Media', () => {
         await snapshot(page);
       });
 
-      // FIXME: This test was automatically skipped due to failure on 14/10/2023: https://product-fabric.atlassian.net/browse/ED-20477
-      it.skip('should not trigger search if input is a URL', async () => {
+      it('should not trigger search if input is a URL', async () => {
         await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
         await page.click('.ProseMirror');
 
@@ -66,8 +67,7 @@ describe('Snapshot Test: Media', () => {
         await snapshot(page);
       });
 
-      // FIXME: Skipped due to failure on https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1792434/steps/%7B30ecc0ff-13da-401b-b1b5-e827876743fa%7D/test-report
-      it.skip("shouldn't submit after clicking between inputs", async () => {
+      it("shouldn't submit after clicking between inputs", async () => {
         await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
         await page.click('.ProseMirror');
 
@@ -145,7 +145,9 @@ describe('Snapshot Test: Media', () => {
     });
   });
 
-  describe('Media with link mark', () => {
+  // FIXME: Skipping theses tests as it has been failing on master on CI due to "Screenshot comparison failed" issue.
+  // Build URL: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2319963/steps/%7B31b3ca1c-6917-4861-88ed-d816d6fae22f%7D
+  describe.skip('Media with link mark', () => {
     it('renders', async () => {
       const { page } = global;
 

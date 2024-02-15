@@ -2,8 +2,9 @@ import {
   startMeasure as startMeasureWithMark,
   stopMeasure as stopMeasureWithMark,
 } from '@atlaskit/editor-common/utils';
-import { TransactionTracker } from '../../track-transactions';
 import { getTimeSince } from '@atlaskit/editor-common/utils';
+
+import { TransactionTracker } from '../../track-transactions';
 
 jest.mock('@atlaskit/editor-common/utils', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),

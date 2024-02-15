@@ -208,6 +208,7 @@ export type DatasourceMeta = {
 
 export type DatasourceTableStatusType =
   | 'empty'
+  | 'forbidden'
   | 'loading'
   | 'resolved'
   | 'rejected'

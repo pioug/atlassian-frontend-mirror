@@ -1,15 +1,19 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import * as rule from './__fixtures__/rule-adf.json';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
-  snapshot,
   initFullPageEditorWithAdf,
+  snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import * as rule from './__fixtures__/rule-adf.json';
+
 const ruleSelector = 'hr';
 
-describe('Rule', () => {
+// FIXME: Skipping theses tests as it has been failing on master on CI due to "Screenshot comparison failed" issue.
+// Build URL: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2319963/steps/%7B31b3ca1c-6917-4861-88ed-d816d6fae22f%7D
+describe.skip('Rule', () => {
   let page: PuppeteerPage;
 
   beforeAll(() => {

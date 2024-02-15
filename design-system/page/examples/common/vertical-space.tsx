@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
-const verticalSpaceStyles = css({
-  marginBottom: token('space.300', '24px'),
+const verticalSpaceStyles = xcss({
+  marginBlockEnd: 'space.300',
 });
 
-const VerticalSpace = () => <div css={verticalSpaceStyles} />;
+const VerticalSpace = () => <Box xcss={verticalSpaceStyles} />;
 
 export default VerticalSpace;

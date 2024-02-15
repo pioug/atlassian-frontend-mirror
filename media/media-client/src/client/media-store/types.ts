@@ -8,12 +8,7 @@ import { MediaTraceContext } from '@atlaskit/media-common';
 
 import { MediaFileArtifacts } from '@atlaskit/media-state';
 
-import {
-  MediaItemDetails,
-  MediaChunksProbe,
-  MediaFile,
-  MediaUpload,
-} from '../../models/media';
+import { MediaItemDetails, MediaFile, MediaUpload } from '../../models/media';
 
 import {
   ClientOptions,
@@ -22,6 +17,7 @@ import {
   RequestParams,
   RequestMetadata,
 } from '../../utils/request/types';
+import { ChunkHashAlgorithm } from '@atlaskit/media-core';
 
 export interface ResponseFileItem {
   id: string;
@@ -60,6 +56,7 @@ export type MediaStoreRequestOptions = RequestMetadata & {
   readonly body?: any;
   readonly clientOptions?: ClientOptions;
   readonly traceContext?: MediaTraceContext;
+  readonly ChunkhashAlgorithm?: ChunkHashAlgorithm;
 };
 
 export type MediaStoreCreateFileFromUploadParams = {
@@ -197,6 +194,7 @@ export interface MediaApi {
     createUpTo: number,
     collectionName?: string,
     traceContext?: MediaTraceContext,
+    chunkChunkHashAlgorithm?: ChunkHashAlgorithm,
   ) => Promise<MediaStoreResponse<MediaUpload[]>>;
 
   uploadChunk: (
@@ -207,13 +205,6 @@ export interface MediaApi {
     collectionName?: string,
     traceContext?: MediaTraceContext,
   ) => Promise<void>;
-
-  probeChunks: (
-    chunks: string[],
-    uploadId: string,
-    collectionName?: string,
-    traceContext?: MediaTraceContext,
-  ) => Promise<MediaStoreResponse<MediaChunksProbe>>;
 
   createFileFromUpload: (
     body: MediaStoreCreateFileFromUploadBody,

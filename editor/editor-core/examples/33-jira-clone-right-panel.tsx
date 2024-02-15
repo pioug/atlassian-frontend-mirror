@@ -1,17 +1,20 @@
 /** @jsx jsx */
-import { useState, Fragment } from 'react';
+import { Fragment, useState } from 'react';
+
 import { css, jsx } from '@emotion/react';
+
 import { NavigationSkeleton as TopNavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
+import Button from '@atlaskit/button';
+import ChevronDown from '@atlaskit/icon/glyph/chevron-down';
+import FeedbackIcon from '@atlaskit/icon/glyph/feedback';
+import LikeIcon from '@atlaskit/icon/glyph/like';
+import MoreIcon from '@atlaskit/icon/glyph/more';
+import ShareIcon from '@atlaskit/icon/glyph/share';
+import WatchFilledIcon from '@atlaskit/icon/glyph/watch-filled';
 import { RightSidebar, TopNavigation } from '@atlaskit/page-layout';
+
 import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';
-import Button from '@atlaskit/button';
-import MoreIcon from '@atlaskit/icon/glyph/more';
-import FeedbackIcon from '@atlaskit/icon/glyph/feedback';
-import WatchFilledIcon from '@atlaskit/icon/glyph/watch-filled';
-import LikeIcon from '@atlaskit/icon/glyph/like';
-import ShareIcon from '@atlaskit/icon/glyph/share';
-import ChevronDown from '@atlaskit/icon/glyph/chevron-down';
 
 const rightSideContainer = css`
   overflow: hidden auto;

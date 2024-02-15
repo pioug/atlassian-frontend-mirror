@@ -1,14 +1,9 @@
 import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import {
-  layers as akLayers,
-  colors,
-  themed,
-  typography,
-} from '@atlaskit/theme';
+import { N100A, N20 } from '@atlaskit/theme/colors';
+import { layers as akLayers } from '@atlaskit/theme/constants';
+import { h500 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 // @atlaskit/navigation has a specific z-index, so we need to layer the header
@@ -56,7 +51,7 @@ export const MobilePageHeaderContent = styled.div<{
   topOffset: number | undefined;
 }>`
   align-items: center;
-  background-color: ${themed({ light: colors.N20, dark: colors.DN10 })};
+  background-color: ${token('color.background.neutral', N20)};
   box-sizing: border-box;
   display: flex;
   height: ${mobileHeaderHeight}px;
@@ -82,7 +77,7 @@ const opacityOut = keyframes`
 export const FakeBlanket = styled.div<{
   isOpen: boolean;
 }>`
-  background: ${colors.N100A};
+  background: ${token('color.blanket', N100A)};
   bottom: 0;
   left: 0;
   position: fixed;
@@ -96,7 +91,7 @@ export const FakeBlanket = styled.div<{
 export const PageHeading = styled.h1`
   flex-grow: 1;
   margin-left: ${token('space.100', '8px')};
-  ${typography.h500};
+  ${h500};
   && {
     margin-top: 0;
   }

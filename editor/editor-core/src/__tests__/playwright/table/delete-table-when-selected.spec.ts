@@ -1,19 +1,19 @@
 import {
   EditorNodeContainerModel,
   EditorTableModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
-import { simpleTable } from './__fixtures__/base-adfs';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  doc,
-  strong,
   a,
-  p,
+  doc,
   em,
+  p,
+  strong,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { simpleTable } from './__fixtures__/base-adfs';
 
 test.use({
   editorProps: {

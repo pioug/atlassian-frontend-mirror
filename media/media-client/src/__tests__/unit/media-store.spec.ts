@@ -4,7 +4,6 @@ import {
   CreatedTouchedFile,
   MediaStore,
   MediaUpload,
-  MediaChunksProbe,
   MediaFile,
   MediaStoreGetFileParams,
   ItemsPayload,
@@ -138,7 +137,34 @@ describe('MediaStore', () => {
         expect(response).toEqual({ data });
 
         expect(fetchMock).toHaveBeenCalledWith(
-          `${baseUrl}/upload?createUpTo=${createUpTo}`,
+          `${baseUrl}/upload?createUpTo=${createUpTo}&hashAlgorithm=sha1`,
+          {
+            method: 'POST',
+            headers: {
+              'X-Client-Id': clientId,
+              Authorization: `Bearer ${token}`,
+              Accept: 'application/json',
+            },
+          },
+        );
+      });
+
+      it('should include optional upload algorithm when calling POST /upload', async () => {
+        const createUpTo = 1;
+        const data: MediaUpload[] = [
+          { id: 'some-upload-id', created: 123, expires: 456 },
+        ];
+
+        fetchMock.once(JSON.stringify({ data }), {
+          status: 201,
+          statusText: 'Created',
+        });
+
+        const response = await mediaStore.createUpload(createUpTo);
+        expect(response).toEqual({ data });
+
+        expect(fetchMock).toHaveBeenCalledWith(
+          `${baseUrl}/upload?createUpTo=${createUpTo}&hashAlgorithm=sha1`,
           {
             method: 'POST',
             headers: {
@@ -162,7 +188,7 @@ describe('MediaStore', () => {
           authContext: {
             collectionName: 'my-collection',
           },
-          params: { createUpTo: 1 },
+          params: { createUpTo: 1, hashAlgorithm: 'sha1' },
           headers: {
             Accept: 'application/json',
           },
@@ -227,7 +253,7 @@ describe('MediaStore', () => {
             endpoint: '/upload',
             headers: { Accept: 'application/json' },
             method: 'POST',
-            params: { createUpTo: 1 },
+            params: { createUpTo: 1, hashAlgorithm: 'sha1' },
             traceContext: {
               traceId: 'test-trace-id',
               spanId: expect.any(String),
@@ -315,124 +341,6 @@ describe('MediaStore', () => {
             headers: undefined,
             method: 'PUT',
             params: { partNumber: 191, uploadId: 'test-upload-id' },
-            traceContext: {
-              traceId: 'test-trace-id',
-              spanId: expect.any(String),
-            },
-          }),
-          undefined,
-        );
-      });
-    });
-
-    describe('probeChunks', () => {
-      const testUploadId = 'test-upload-id';
-
-      it.each([[`?uploadId=${testUploadId}`, testUploadId]])(
-        'should POST to /chunk/probe endpoint with correct query %s',
-        async (query, uploadId) => {
-          const etag = 'some-etag';
-          const chunks = [etag];
-          const data: MediaChunksProbe = {
-            results: {
-              [etag]: {
-                exists: true,
-              },
-            },
-          };
-
-          fetchMock.once(JSON.stringify({ data }), {
-            status: 200,
-            statusText: 'Ok',
-          });
-
-          const response = await mediaStore.probeChunks(chunks, uploadId);
-
-          expect(response).toEqual({ data });
-
-          expect(fetchMock).toHaveBeenCalledWith(
-            `${baseUrl}/chunk/probe${query}`,
-            {
-              method: 'POST',
-              headers: {
-                'X-Client-Id': clientId,
-                Authorization: `Bearer ${token}`,
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ chunks }),
-            },
-          );
-        },
-      );
-
-      it('should fail if response is malformed JSON', async () => {
-        const etag = 'some-etag';
-        const chunks = [etag];
-        const uploadId = 'test-upload-id';
-
-        fetchMock.once('Invalid Body', {
-          status: 200,
-          statusText: 'Ok',
-        });
-
-        try {
-          await mediaStore.probeChunks(chunks, uploadId);
-        } catch (err) {
-          // @ts-expect-error
-          if (!isRequestError(err)) {
-            // @ts-expect-error
-            return expect(isRequestError(err)).toBeTruthy();
-          }
-
-          expect(err.attributes).toMatchObject({
-            reason: 'serverInvalidBody',
-            method: 'POST',
-            endpoint: '/chunk/probe',
-            statusCode: 200,
-            innerError: expect.any(Error),
-          });
-        }
-
-        expect.assertions(1);
-      });
-
-      it('calls request with traceContext', async () => {
-        const etag = 'some-etag';
-        const chunks = [etag];
-        const data: MediaChunksProbe = {
-          results: {
-            [etag]: {
-              exists: true,
-            },
-          },
-        };
-
-        fetchMock.once(JSON.stringify({ data }), {
-          status: 200,
-          statusText: 'Ok',
-        });
-
-        await mediaStore.probeChunks(chunks, 'test-upload-id', undefined, {
-          traceId: 'test-trace-id',
-        });
-
-        expect(requestModuleMock).toBeCalledWith(
-          `${baseUrl}/chunk/probe`,
-          expect.objectContaining({
-            auth: {
-              baseUrl: 'http://some-host',
-              clientId: 'some-client-id',
-              token: 'some-token',
-            },
-            clientOptions: undefined,
-            endpoint: '/chunk/probe',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            method: 'POST',
-            params: { uploadId: 'test-upload-id' },
             traceContext: {
               traceId: 'test-trace-id',
               spanId: expect.any(String),
@@ -820,7 +728,7 @@ describe('MediaStore', () => {
 
         expect(response).toEqual({ data });
         expect(fetchMock).toHaveBeenCalledWith(
-          `${baseUrl}/upload/createWithFiles`,
+          `${baseUrl}/upload/createWithFiles?hashAlgorithm=sha1`,
           {
             method: 'POST',
             headers: {
@@ -931,7 +839,7 @@ describe('MediaStore', () => {
               'Content-Type': 'application/json',
             },
             method: 'POST',
-            params: undefined,
+            params: { hashAlgorithm: 'sha1' },
             traceContext: {
               traceId: 'test-trace-id',
               spanId: expect.any(String),
@@ -946,6 +854,21 @@ describe('MediaStore', () => {
       it('should return the file image preview url based on the file id', async () => {
         const collection = 'some-collection';
         const url = await mediaStore.getFileImageURL('1234', { collection });
+        expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
+          collectionName: collection,
+        });
+        expect(url).toEqual(
+          `${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
+        );
+      });
+
+      it('should return the same file image preview url if given explicit undefined in params', async () => {
+        const collection = 'some-collection';
+        const url = await mediaStore.getFileImageURL('1234', {
+          collection,
+          'max-age': undefined,
+          mode: undefined,
+        });
         expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
           collectionName: collection,
         });

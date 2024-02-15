@@ -1,5 +1,4 @@
-import core from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import type { Collection, JSCodeshift } from 'jscodeshift';
 
 import { getNamedSpecifier, removeImport } from '@atlaskit/codemod-utils';
 
@@ -13,7 +12,7 @@ const ENTRYPOINT_PATH = `${PACKAGE_PATH}/components`;
 const DEPRECATED_ENTRYPOINT = `${PACKAGE_PATH}/deprecated-provider-please-do-not-use`;
 
 const cleanUpImports = (
-  j: core.JSCodeshift,
+  j: JSCodeshift,
   source: Collection<Node>,
   namedImport: string,
   packagePath: string,
@@ -37,7 +36,7 @@ const cleanUpImports = (
 };
 
 export const wrapAkThemeProvider = (
-  j: core.JSCodeshift,
+  j: JSCodeshift,
   source: Collection<Node>,
 ) => {
   const namedImportFromEntrypoint = getNamedSpecifier(

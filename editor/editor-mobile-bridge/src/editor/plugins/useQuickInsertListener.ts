@@ -43,7 +43,7 @@ export const useQuickInsertListener = (
     }
 
     // Listen for the quick-insert plugin state to initialise and then populate the quick insert items in mobile bridge state
-    const defaultItems = quickInsertState.lazyDefaultItems();
+    const defaultItems = [quickInsertState.lazyDefaultItems()];
     const processedItems = memoProcessQuickInsertItems(defaultItems, intl);
     if (processedItems) {
       const extendedActions = {

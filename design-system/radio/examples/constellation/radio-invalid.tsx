@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import Form, { ErrorMessage, Field, FormFooter } from '@atlaskit/form';
 
 import { RadioGroup } from '../../src';

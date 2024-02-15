@@ -5,7 +5,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
 
-import Button from '@atlaskit/button';
+import Button, { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/glyph/add';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
@@ -76,7 +76,7 @@ const CustomThemeEditor = ({
       ))}
       <Box>
         <Button
-          iconBefore={<AddIcon label="" />}
+          iconBefore={AddIcon}
           onClick={() => {
             // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             theme.push({ name: 'color.text', value: '#ffffff' });
@@ -204,10 +204,11 @@ const TokenSelect = ({
         )}
       </Stack>
       <Box xcss={xcss({ flexShrink: '0' })}>
-        <Button
-          iconBefore={<CrossIcon label="remove" />}
+        <IconButton
+          icon={CrossIcon}
           appearance="subtle"
           onClick={onRemove}
+          label="remove"
         />
       </Box>
     </Inline>

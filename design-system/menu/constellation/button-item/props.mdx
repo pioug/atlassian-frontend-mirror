@@ -2,10 +2,12 @@
 title: Button item
 description: A menu item wrapped in an button tag.
 order: 1
+props:
+  packageName: '@atlaskit/menu'
+  exports:
+    - ButtonItem
 ---
-
-import ButtonItemProps from '!!extract-react-types-loader!../../src/menu-item/button-item';
 
 ## Props
 
-<PropsTable heading="" props={ButtonItemProps} />
+<TSMorphProps exportName="ButtonItem" packageName="@atlaskit/menu" />

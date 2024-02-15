@@ -10,10 +10,7 @@ import {
   withAnalyticsContext,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import { DN50, DN600, N0, N50A, N60A, N900 } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
-import { borderRadius } from '@atlaskit/theme/constants';
-import type { ThemeProps } from '@atlaskit/theme/types';
+import { N0, N50A, N60A, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Layer from '../Layer';
@@ -62,17 +59,11 @@ class DropList extends Component<Props> {
   `;
 
   /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-  private menuWrapper = (theme: ThemeProps) => {
+  private menuWrapper = () => {
     return css`
-      color: ${themed({
-        light: token('color.text', N900),
-        dark: token('color.text', DN600),
-      })(theme)};
-      background-color: ${themed({
-        light: token('elevation.surface.overlay', N0),
-        dark: token('elevation.surface.overlay', DN50),
-      })(theme)};
-      border-radius: ${borderRadius()}px;
+      color: ${token('color.text', N900)};
+      background-color: ${token('elevation.surface.overlay', N0)};
+      border-radius: ${token('border.radius', '3px')};
       box-shadow: ${token(
         'elevation.shadow.overlay',
         `0 4px 8px calc(-1 * 2px) ${N50A}, 0 0 1px ${N60A}`,
@@ -168,7 +159,7 @@ class DropList extends Component<Props> {
 
     let layerContent = isOpen ? (
       <div
-        css={(theme: ThemeProps) => this.menuWrapper({ theme: theme })}
+        css={this.menuWrapper}
         data-role="droplistContent"
         data-testid={testId && `${testId}--content`}
         ref={this.handleContentRef}

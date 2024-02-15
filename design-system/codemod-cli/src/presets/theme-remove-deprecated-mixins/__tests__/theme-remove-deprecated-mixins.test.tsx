@@ -77,15 +77,11 @@ const Foo = css\`
     );
 
     expect(result).toMatchInlineSnapshot(`
-      "import { themed } from \\"@atlaskit/theme/components\\";
-        import { token } from \\"@atlaskit/tokens\\";
-        import { N0, DN30 } from '@atlaskit/theme/colors';
+      "import { token } from \\"@atlaskit/tokens\\";
+        import { N0 } from '@atlaskit/theme/colors';
 
         const Foo = (props) => css\`
-          background: \${themed({
-          light: token(\\"elevation.surface\\", N0),
-          dark: token(\\"elevation.surface\\", DN30)
-        })};
+          background: \${token(\\"elevation.surface\\", N0)};
         \`;"
     `);
   });
@@ -125,17 +121,13 @@ const Foo = (props) => css\`
     );
 
     expect(result).toMatchInlineSnapshot(`
-      "import { themed } from \\"@atlaskit/theme/components\\";
-      import { token } from \\"@atlaskit/tokens\\";
-      import { N50, N30, N0, DN30 } from '@atlaskit/theme/colors';
+      "import { token } from \\"@atlaskit/tokens\\";
+      import { N50, N30, N0 } from '@atlaskit/theme/colors';
 
       const Foo = (props) => css\`
         color: \${N50};
         border-color: \${N30};
-        background: \${themed({
-        light: token(\\"elevation.surface\\", N0),
-        dark: token(\\"elevation.surface\\", DN30)
-      })(props)};
+        background: \${token(\\"elevation.surface\\", N0)};
       \`;"
     `);
   });
@@ -153,15 +145,11 @@ const Foo = (props) => css\`
     );
 
     expect(result).toMatchInlineSnapshot(`
-      "import { themed } from \\"@atlaskit/theme/components\\";
-      import { token } from '@atlaskit/tokens';
-      import { N30, DN70 } from '@atlaskit/theme/colors';
+      "import { token } from '@atlaskit/tokens';
+      import { N30 } from '@atlaskit/theme/colors';
 
       const Foo = (props) => css\`
-        background-color: \${themed({
-        light: token(\\"color.background.danger\\", N30),
-        dark: token(\\"color.background.danger\\", DN70)
-      })(props)};
+        background-color: \${token(\\"color.background.danger\\", N30)};
       \`;"
     `);
   });
@@ -270,15 +258,11 @@ const Foo = css\`
       );
 
       expect(result).toMatchInlineSnapshot(`
-        "import { themed } from \\"@atlaskit/theme/components\\";
-        import { token } from \\"@atlaskit/tokens\\";
-        import { N30, DN70 } from '@atlaskit/theme/colors';
+        "import { token } from \\"@atlaskit/tokens\\";
+        import { N30 } from '@atlaskit/theme/colors';
 
         const Foo = css\`
-          background-color: \${themed({
-          light: token(\\"color.background.neutral.hovered\\", N30),
-          dark: token(\\"color.background.neutral.hovered\\", DN70)
-        })};
+          background-color: \${token(\\"color.background.neutral.hovered\\", N30)};
         \`;"
       `);
     });
@@ -295,15 +279,11 @@ const Foo = css\`
       );
 
       expect(result).toMatchInlineSnapshot(`
-        "import { themed } from \\"@atlaskit/theme/components\\";
-        import { token } from \\"@atlaskit/tokens\\";
+        "import { token } from \\"@atlaskit/tokens\\";
         import * as colors from '@atlaskit/theme/colors';
 
         const Foo = css\`
-          background-color: \${themed({
-          light: token(\\"color.background.neutral.hovered\\", colors.N30),
-          dark: token(\\"color.background.neutral.hovered\\", colors.DN70)
-        })};
+          background-color: \${token(\\"color.background.neutral.hovered\\", colors.N30)};
         \`;"
       `);
     });
@@ -322,15 +302,11 @@ const Foo = (props) => css\`
       );
 
       expect(result).toMatchInlineSnapshot(`
-        "import { themed } from \\"@atlaskit/theme/components\\";
-        import { token } from \\"@atlaskit/tokens\\";
+        "import { token } from \\"@atlaskit/tokens\\";
         import { colors } from '@atlaskit/theme';
 
         const Foo = (props) => css\`
-          background: \${themed({
-          light: token(\\"elevation.surface\\", colors.N0),
-          dark: token(\\"elevation.surface\\", colors.DN30)
-        })};
+          background: \${token(\\"elevation.surface\\", colors.N0)};
         \`;"
       `);
     });
@@ -402,15 +378,11 @@ const Foo = (props) => css\`
       );
 
       expect(result).toMatchInlineSnapshot(`
-        "import { themed } from \\"@atlaskit/theme/components\\";
-        import { token } from \\"@atlaskit/tokens\\";
+        "import { token } from \\"@atlaskit/tokens\\";
         import { colors } from '@atlaskit/theme';
 
         const Foo = (props) => css\`
-          background: \${themed({
-          light: token(\\"elevation.surface\\", colors.N0),
-          dark: token(\\"elevation.surface\\", colors.DN30)
-        })(props)};
+          background: \${token(\\"elevation.surface\\", colors.N0)};
         \`;"
       `);
     });
@@ -428,15 +400,11 @@ const Foo = (props) => css\`
       );
 
       expect(result).toMatchInlineSnapshot(`
-        "import { themed } from \\"@atlaskit/theme/components\\";
-        import { token } from '@atlaskit/tokens';
+        "import { token } from '@atlaskit/tokens';
         import { colors } from '@atlaskit/theme';
 
         const Foo = (props) => css\`
-          background-color: \${themed({
-          light: token(\\"color.background.danger\\", colors.N30),
-          dark: token(\\"color.background.danger\\", colors.DN70)
-        })(props)};
+          background-color: \${token(\\"color.background.danger\\", colors.N30)};
         \`;"
       `);
     });

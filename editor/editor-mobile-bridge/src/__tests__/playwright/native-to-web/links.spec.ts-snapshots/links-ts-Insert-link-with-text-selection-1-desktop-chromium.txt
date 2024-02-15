@@ -1,0 +1,27 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "this is a text"
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://www.google.com",
+                "__confluenceMetadata": null
+              }
+            }
+          ],
+          "text": "Atlassian"
+        }
+      ]
+    }
+  ]
+}

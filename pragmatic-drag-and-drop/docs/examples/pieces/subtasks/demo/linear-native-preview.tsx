@@ -4,8 +4,8 @@ import { RefObject, useRef } from 'react';
 import { css, jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
 
-import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
 
 import { useFlashOnDrop } from '../../hooks/use-flash-on-drop';
 import { DragState, useSortableField } from '../../hooks/use-sortable-field';

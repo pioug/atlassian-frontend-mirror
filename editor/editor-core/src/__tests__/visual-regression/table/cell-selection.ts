@@ -1,17 +1,18 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import adf from './__fixtures__/table-with-text-and-empty-row.json';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  multiCellTableSelectionTopLeftToBottomRight,
   multiCellTableSelectionBottomRightToFirstCell,
   multiCellTableSelectionBottomRightToMiddleTopCell,
+  multiCellTableSelectionTopLeftToBottomRight,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import adf from './__fixtures__/table-with-text-and-empty-row.json';
 
 describe('multi cell table selection', () => {
   let page: PuppeteerPage;

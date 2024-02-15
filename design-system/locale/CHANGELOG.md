@@ -1,5 +1,23 @@
 # @atlaskit/locale
 
+## 2.6.4
+
+### Patch Changes
+
+- [#69022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69022) [`395c74147990`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/395c74147990) - Migrate packages to use declarative entry points
+
+## 2.6.3
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
+## 2.6.2
+
+### Patch Changes
+
+- [#43918](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43918) [`d100ca42f46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d100ca42f46) - Push model consumption configuration done for these packages
+
 ## 2.6.1
 
 ### Patch Changes

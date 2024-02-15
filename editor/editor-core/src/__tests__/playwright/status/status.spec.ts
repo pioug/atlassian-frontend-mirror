@@ -1,29 +1,29 @@
 import {
-  editorTestCase as test,
-  expect,
+  BROWSERS,
   EditorEmojiModel,
-  EditorNodeContainerModel,
   EditorMentionModel,
+  EditorNodeContainerModel,
   EditorPopupModel,
   EditorStatusModel,
+  expect,
   fixTest,
-  BROWSERS,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
-  p,
   emoji,
   mention,
+  p,
   panel,
   status,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { statusAdf, statusWithTextAdf } from './status.spec.ts-fixtures';
 
 const endShortcut = process.platform === 'darwin' ? 'Meta+ArrowRight' : 'End';
 
-test.describe('status: ', () => {
+test.describe('status:', () => {
   test.use({
     editorProps: {
       appearance: 'full-page',
@@ -217,7 +217,7 @@ test.describe('status: ', () => {
     );
   });
 
-  test.describe('without text ', () => {
+  test.describe('without text', () => {
     test.use({
       adf: statusAdf,
     });
@@ -235,7 +235,7 @@ test.describe('status: ', () => {
     });
   });
 
-  test.describe('with text ', () => {
+  test.describe('with text', () => {
     test.use({
       adf: statusWithTextAdf,
     });

@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
+import { Label } from '@atlaskit/form';
 import LocaleSelect, { Locale } from '@atlaskit/locale/LocaleSelect';
+import { Stack } from '@atlaskit/primitives';
 import Select, { ValueType } from '@atlaskit/select';
 
 import Calendar from '../src';
@@ -40,7 +42,7 @@ export default () => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <Calendar
         disabled={['2020-12-04']}
         defaultPreviouslySelected={['2020-12-06']}
@@ -59,22 +61,26 @@ export default () => {
         weekStartDay={weekStartDay}
         testId="test"
       />
-      <LocaleSelect onLocaleChange={handleLocaleChange} />
-      <Select<WeekStartDayOption>
-        inputId="week-start-day"
-        styles={styles}
-        options={[
-          { label: 'Sunday', value: 0 },
-          { label: 'Monday', value: 1 },
-          { label: 'Tuesday', value: 2 },
-          { label: 'Wednesday', value: 3 },
-          { label: 'Thursday', value: 4 },
-          { label: 'Friday', value: 5 },
-          { label: 'Saturday', value: 6 },
-        ]}
-        placeholder="Choose start day of the week"
-        onChange={handleWeekStartDayChange}
-      />
-    </div>
+      <Stack>
+        <Label htmlFor="locale">Locale</Label>
+        <LocaleSelect id="locale" onLocaleChange={handleLocaleChange} />
+        <Label htmlFor="week-start-day">Week Start Day</Label>
+        <Select<WeekStartDayOption>
+          inputId="week-start-day"
+          styles={styles}
+          options={[
+            { label: 'Sunday', value: 0 },
+            { label: 'Monday', value: 1 },
+            { label: 'Tuesday', value: 2 },
+            { label: 'Wednesday', value: 3 },
+            { label: 'Thursday', value: 4 },
+            { label: 'Friday', value: 5 },
+            { label: 'Saturday', value: 6 },
+          ]}
+          placeholder="Choose start day of the week"
+          onChange={handleWeekStartDayChange}
+        />
+      </Stack>
+    </React.Fragment>
   );
 };

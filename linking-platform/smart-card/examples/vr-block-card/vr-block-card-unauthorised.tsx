@@ -3,6 +3,14 @@ import React from 'react';
 import { UnAuthClient } from '../utils/custom-client';
 import VRCardView from '../utils/vr-card-view';
 
-export default () => (
+export const BlockCardUnauthorisedView = () => (
   <VRCardView appearance="block" client={new UnAuthClient()} />
+);
+
+export const BlockCardUnauthorisedViewLegacy = () => (
+  <VRCardView
+    appearance="block"
+    client={new UnAuthClient()}
+    useLegacyBlockCard={true}
+  />
 );

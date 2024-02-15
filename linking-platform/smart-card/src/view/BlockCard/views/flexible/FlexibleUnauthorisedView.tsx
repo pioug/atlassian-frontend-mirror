@@ -3,7 +3,10 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { useCallback, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { getExtensionKey } from '../../../../state/helpers';
+import {
+  getExtensionKey,
+  hasAuthScopeOverrides,
+} from '../../../../state/helpers';
 import { ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { AuthorizeAction } from '../../actions/flexible/AuthorizeAction';
 import { FlexibleBlockCardProps } from './types';
@@ -35,6 +38,9 @@ const FlexibleUnauthorisedView = ({
   const extensionKey = getExtensionKey(cardState?.details) ?? '';
   const data = cardState.details?.data as JsonLd.Data.BaseData;
   const providerName = extractProvider(data)?.text;
+  const isProductIntegrationSupported = hasAuthScopeOverrides(
+    cardState?.details,
+  );
 
   const handleAuthorize = useCallback(() => {
     if (onAuthorize) {
@@ -51,6 +57,7 @@ const FlexibleUnauthorisedView = ({
       onAuthorize ? (
         <UnauthorisedViewContent
           providerName={providerName}
+          isProductIntegrationSupported={isProductIntegrationSupported}
           analytics={analytics}
           testId={testId}
         />
@@ -64,7 +71,13 @@ const FlexibleUnauthorisedView = ({
           values={{ context: providerName }}
         />
       ),
-    [analytics, onAuthorize, providerName, testId],
+    [
+      analytics,
+      isProductIntegrationSupported,
+      onAuthorize,
+      providerName,
+      testId,
+    ],
   );
 
   const actions = useMemo<ActionItem[]>(

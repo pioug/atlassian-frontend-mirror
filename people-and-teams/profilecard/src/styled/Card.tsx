@@ -166,7 +166,7 @@ export const DisabledInfo = styled.div`
   font-size: ${fontSizeSmall}px;
   color: ${labelTextColor};
   margin: ${token('space.150', '12px')} 0 0 0;
-  line-height: ${token('font.lineHeight.100', '16px')};
+  line-height: 16px;
 `;
 
 export const FullNameLabel = styled.h2`
@@ -277,7 +277,7 @@ export const CardContainer = styled.div`
 export const DetailsLabel = styled.div`
   display: flex;
   align-items: center;
-  line-height: ${token('font.lineHeight.300', '24px')};
+  line-height: 24px;
   font-size: ${gridSize() * 1.5}px;
   margin: ${token('space.200', '16px')} 0 0 0;
   white-space: nowrap;

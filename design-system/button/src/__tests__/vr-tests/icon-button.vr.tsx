@@ -1,9 +1,9 @@
 import { snapshot } from '@af/visual-regression';
 
-import IconButtonAppearanceExample from '../../../examples/80-icon-button';
+import IconButtonExample from '../../../examples/07-icon-button';
 
 import { themeVariants } from './utils';
 
-snapshot(IconButtonAppearanceExample, {
+snapshot(IconButtonExample, {
   variants: themeVariants,
 });

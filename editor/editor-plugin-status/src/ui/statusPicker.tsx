@@ -141,7 +141,6 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
   componentDidUpdate(
     prevProps: Readonly<Props>,
     prevState: Readonly<State>,
-    _snapshot?: any,
   ): void {
     const element = this.props.target;
 

@@ -397,7 +397,7 @@ describe('getToolbarItems', () => {
           .add([analyticsPlugin, {}]),
         providerFactory,
       }));
-      jest.spyOn(editorAPI?.analytics?.actions, 'attachAnalyticsEvent');
+      jest.spyOn(editorAPI?.analytics!.actions, 'attachAnalyticsEvent');
 
       itemsWithCustomPanelEnabled = getToolbarItems(
         dummyFormatMessage,

@@ -86,6 +86,11 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
   isLoading?: boolean;
 
   /**
+   * Accessible name for loading states spinner. Can be used for internationalization. Default is "Loading table".
+   */
+  loadingLabel?: string;
+
+  /**
    * Displays columns as their initial width regardless of the content that loads in.
    */
   isFixedSize?: boolean;
@@ -226,6 +231,11 @@ export interface StatefulProps extends WithAnalyticsEventsProps {
    * Displays a loading spinner overlaid on top of the current page.
    */
   isLoading?: boolean;
+
+  /**
+   * Accessible name for loading states spinner. Can be used for internationalization. Default is "Loading table".
+   */
+  loadingLabel?: string;
 
   /**
    * Displays columns as their initial width regardless of the content that loads in.

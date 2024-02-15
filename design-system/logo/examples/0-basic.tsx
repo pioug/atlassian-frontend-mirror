@@ -34,6 +34,8 @@ import {
   JiraWorkManagementIcon,
   JiraWorkManagementLogo,
   JiraWorkManagementWordmark,
+  LoomIcon,
+  LoomLogo,
   OpsgenieIcon,
   OpsgenieLogo,
   OpsgenieWordmark,
@@ -180,6 +182,17 @@ export default () => (
           </td>
           <td>
             <JiraWorkManagementIcon />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <LoomLogo />
+          </td>
+          <td>
+            <Fragment />
+          </td>
+          <td>
+            <LoomIcon />
           </td>
         </tr>
         <tr>

@@ -3,6 +3,7 @@ import { EditorCardProvider } from '..';
 import { LinkAppearance, ProviderPattern, UserPreferences } from '../types';
 import { mocks } from './__fixtures__/mocks';
 import { Datasource } from '@atlaskit/linking-common';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 type PatternsProviderResponse = {
   providers: Provider[];
@@ -76,6 +77,15 @@ const getMockProvidersResponse = ({
         {
           source:
             '^https:\\/\\/.*?\\/jira\\/polaris\\/projects\\/[^\\/]+?\\/ideas\\/view\\/\\d+$|^https:\\/\\/.*?\\/secure\\/JiraProductDiscoveryAnonymous\\.jspa\\?hash=\\w+|^https:\\/\\/.*?\\/jira\\/polaris\\/share\\/\\w+',
+        },
+      ],
+    },
+    {
+      key: 'jpd-views-service-object-provider',
+      patterns: [
+        {
+          source:
+            '^https:\\/\\/.*?\\/jira\\/polaris\\/share\\/\\w+|^https:\\/\\/.*?\\/jira\\/discovery\\/share\\/views\\/[\\w-]+(\\?selectedIssue=[\\w-]+&issueViewLayout=sidebar&issueViewSection=[\\w-]+)?$',
         },
       ],
     },
@@ -328,6 +338,49 @@ describe('providers > editor', () => {
     },
   );
 
+  describe.each<[string, string]>([
+    ['Youtube Video', 'https://www.youtube.com/watch?v=Hd0JflMdqyM'],
+    ['Youtube Video Mobile', 'https://m.youtube.com/watch?v=Hd0JflMdqyM'],
+    ['Youtube Short', 'https://www.youtube.com/shorts/_RVT1ZM2W9A'],
+    ['Youtu.be link', 'https://youtu.be/fFGS4zZWGoA'],
+    ['Youtube.ch link', 'https://www.youtube.ch/watch?v=w7ejDZ8SWv8'],
+  ])(
+    'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
+    async (_, url) => {
+      ffTest(
+        'platform.linking-platform.embed-youtube-by-default',
+        async () => {
+          const provider = new EditorCardProvider();
+          mockFetch.mockResolvedValueOnce({
+            json: async () => getMockProvidersResponse(),
+            ok: true,
+          });
+          // Mocking call to /resolve/batch
+          mockFetch.mockResolvedValueOnce({
+            json: async () => [{ body: mocks.success, status: 200 }],
+            ok: true,
+          });
+          const adf = await provider.resolve(url, 'inline', false);
+          expect(adf).toEqual(expectedEmbedAdf(url));
+        },
+        async () => {
+          const provider = new EditorCardProvider();
+          mockFetch.mockResolvedValueOnce({
+            json: async () => getMockProvidersResponse(),
+            ok: true,
+          });
+          // Mocking call to /resolve/batch
+          mockFetch.mockResolvedValueOnce({
+            json: async () => [{ body: mocks.success, status: 200 }],
+            ok: true,
+          });
+          const adf = await provider.resolve(url, 'inline', false);
+          expect(adf).toEqual(expectedInlineAdf(url));
+        },
+      );
+    },
+  );
+
   it.each<[string, string]>([
     [
       'A whiteboard',
@@ -371,6 +424,22 @@ describe('providers > editor', () => {
     [
       'A database with a savedViewId query parameter that has a valid UUID',
       'https://pug.jira-dev.com/wiki/spaces/~448762021/database/452927129132?savedViewId=8fb8c642-803d-59fe-8d1c-066610e860c6',
+    ],
+    [
+      'A database with a savedViewId query parameter that is all-entries',
+      'https://pug.jira-dev.com/wiki/spaces/~448762021/database/452927129132?savedViewId=all-entries',
+    ],
+    [
+      'A database with a savedViewId query parameter that is default',
+      'https://pug.jira-dev.com/wiki/spaces/~448762021/database/452927129132?savedViewId=default',
+    ],
+    [
+      'A database with an unsavedView query parameter that has a valid UUID',
+      'https://pug.jira-dev.com/wiki/spaces/~448762021/database/452927129132?unsavedView=7b7b1118-86b2-427d-ac31-ae09141ab3e6',
+    ],
+    [
+      'A database with both a savedViewId and unsavedView query parameter',
+      'https://pug.jira-dev.com/wiki/spaces/~448762021/database/452927129132?savedViewId=7318ab9e-6269-4997-9941-5c92f86e5d56&unsavedView=7b7b1118-86b2-427d-ac31-ae09141ab3e6',
     ],
   ])(
     'returns embedCard when %s confluence database is inserted, calling /providers endpoint',
@@ -454,6 +523,14 @@ describe('providers > editor', () => {
     [
       'Polaris anonymous resolved view',
       'https://polaris-v0.jira-dev.com/secure/JiraProductDiscoveryAnonymous.jspa?hash=b2029c50914309acb37699615b1137da5',
+    ],
+    [
+      'Polaris published view',
+      'https://polaris-v0.jira-dev.com/jira/discovery/share/views/c722b7ce-cd8a-4f0c-838c-7add80ba3277',
+    ],
+    [
+      'Polaris published view with idea opened in sidebar',
+      'https://polaris-v0.jira-dev.com/jira/discovery/share/views/c722b7ce-cd8a-4f0c-838c-7add80ba3277?selectedIssue=SO-2&issueViewLayout=sidebar&issueViewSection=overview',
     ],
     [
       'Jira work management (JWM) timeline view',

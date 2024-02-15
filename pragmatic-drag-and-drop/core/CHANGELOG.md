@@ -1,5 +1,15 @@
 # @atlaskit/pragmatic-drag-and-drop
 
+## 0.25.0
+
+### Minor Changes
+
+- [#59458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59458) [`7d6a69cfa61c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7d6a69cfa61c) - Adding workaround for Safari bug.
+
+  In Safari (and iOS) if the element used for generating a native drag preview has opacity applied, then the native drag preview can include elements underneath the drag preview element.
+
+  Pragmatic drag and drop now includes a workaround for this Safari bug.
+
 ## 0.24.0
 
 ### Minor Changes

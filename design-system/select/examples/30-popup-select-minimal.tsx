@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { PopupSelect } from '../src';
 
 const options = [

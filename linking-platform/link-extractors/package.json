@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-extractors",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Functions for extracting props from JSON-LD",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -16,7 +16,7 @@
       "category": "Components"
     }
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -36,9 +36,10 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/logo": "^13.14.0",
+    "@atlaskit/logo": "^13.15.0",
+    "@atlaskit/platform-feature-flags": "^0.2.1",
     "@babel/runtime": "^7.0.0",
-    "json-ld-types": "^3.9.1"
+    "json-ld-types": "^3.11.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
@@ -48,6 +49,7 @@
     "@atlaskit/link-test-helpers": "^6.2.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@atlassian/feature-flags-test-utils": "^0.2.0",
     "typescript": "~4.9.5"
   },
   "techstack": {
@@ -83,6 +85,11 @@
         "static",
         "emotion"
       ]
+    }
+  },
+  "platform-feature-flags": {
+    "platform.linking-platform.extractor.improve-bitbucket-file-links": {
+      "type": "boolean"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"

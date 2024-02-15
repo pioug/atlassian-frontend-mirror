@@ -93,10 +93,22 @@
       "path": "../../media/media-client/tsconfig.app.json"
     },
     {
+      "path": "../../media/media-client-react/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-common/tsconfig.app.json"
+    },
+    {
       "path": "../../media/media-core/tsconfig.app.json"
     },
     {
+      "path": "../../media/media-file-preview/tsconfig.app.json"
+    },
+    {
       "path": "../../media/media-picker/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-ui/tsconfig.app.json"
     },
     {
       "path": "../../elements/mention/tsconfig.app.json"

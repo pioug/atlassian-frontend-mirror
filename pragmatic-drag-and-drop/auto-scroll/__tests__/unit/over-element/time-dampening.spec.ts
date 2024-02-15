@@ -11,7 +11,7 @@ import {
   autoScrollForElements,
   autoScrollWindowForElements,
 } from '../../../src/entry-point/element';
-import { defaultConfig } from '../../../src/shared/configuration';
+import { getInternalConfig } from '../../../src/shared/configuration';
 import {
   advanceTimersToNextFrame,
   appendToBody,
@@ -31,6 +31,7 @@ setStartSystemTime();
 
 beforeEach(reset);
 
+const defaultConfig = getInternalConfig();
 const maxScrollPerFrame = defaultConfig.maxPixelScrollPerSecond / 60;
 
 beforeEach(() => {

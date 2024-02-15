@@ -20,13 +20,9 @@ export interface PresenceProps {
    */
   children?: ReactNode;
   /**
-   * The type of presence indicator to show
+   * The type of presence indicator to show.
    */
   presence?: Presence;
-  /**
-   * Test Id
-   */
-  testId?: string;
 }
 
 const BusyIndicator = (
@@ -92,13 +88,9 @@ const AvatarPresence: FC<PresenceProps> = ({
   children,
   presence,
 }: PresenceProps) => (
-  <IconWrapper
-    bgColor={borderColor}
-    label={typeof presence === 'string' ? presence : undefined}
-  >
+  <IconWrapper bgColor={borderColor}>
     {presence ? (
       <svg
-        aria-hidden="true"
         height="100%"
         version="1.1"
         viewBox="0 0 8 8"

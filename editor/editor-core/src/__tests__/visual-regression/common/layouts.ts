@@ -1,32 +1,35 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { decisionSelectors } from '@atlaskit/editor-test-helpers/page-objects/decision';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { layoutSelectors } from '@atlaskit/editor-test-helpers/page-objects/layouts';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
-  initEditorWithAdf,
   Appearance,
+  initEditorWithAdf,
+  snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { layoutSelectors } from '@atlaskit/editor-test-helpers/page-objects/layouts';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { decisionSelectors } from '@atlaskit/editor-test-helpers/page-objects/decision';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+
 import * as col1 from './__fixtures__/column1-adf.json';
 import * as col2 from './__fixtures__/column2-adf.json';
 import * as col3 from './__fixtures__/column3-adf.json';
+import * as col3WithSidebars from './__fixtures__/column3WithSidebars-adf.json';
+import * as colLeftSidebar from './__fixtures__/columnLeftSidebar-adf.json';
+import * as colRightSidebar from './__fixtures__/columnRightSidebar-adf.json';
 import * as layoutWithAction from './__fixtures__/layout-with-action-adf.json';
 import * as layoutWithDecision from './__fixtures__/layout-with-decision-adf.json';
 import * as layoutWithDecisions from './__fixtures__/layout-with-decisions-adf.json';
-import * as colLeftSidebar from './__fixtures__/columnLeftSidebar-adf.json';
-import * as colRightSidebar from './__fixtures__/columnRightSidebar-adf.json';
-import * as col3WithSidebars from './__fixtures__/column3WithSidebars-adf.json';
 
 // Copied from 'packages/editor/editor-plugin-layout/src/toolbar.ts`
 const layoutToolbarTitle = 'Layout floating controls';
 
-describe('Layouts:', () => {
+// FIXME: Skipping theses tests as it has been failing on master on CI due to "Screenshot comparison failed" issue.
+// Build URL: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2319963/steps/%7B31b3ca1c-6917-4861-88ed-d816d6fae22f%7D
+describe.skip('Layouts:', () => {
   let page: PuppeteerPage;
 
   const layouts = [

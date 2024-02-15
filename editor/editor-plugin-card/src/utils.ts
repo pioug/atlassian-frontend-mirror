@@ -3,6 +3,12 @@ import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { getResolvedAttributes } from '@atlaskit/link-analytics/resolved-attributes';
+import {
+  ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+  JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+} from '@atlaskit/link-datasource';
+import type { CardContext } from '@atlaskit/link-provider';
 
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { CardInfo, CardPluginState } from './types';
@@ -103,3 +109,25 @@ export const isBlockSupportedAtPosition = (
     Fragment.from(editorState.schema.nodes.blockCard.createChecked({})),
     currentAppearance,
   );
+
+export const getResolvedAttributesFromStore = (
+  url: string,
+  display: string | null,
+  store?: CardContext['store'],
+) => {
+  if (!store) {
+    return {};
+  }
+  const urlState = store?.getState()[url];
+  const displayCategory = display === 'url' ? 'link' : undefined;
+  return getResolvedAttributes({ url, displayCategory }, urlState?.details);
+};
+
+export const isDatasourceConfigEditable = (datasourceId: string) => {
+  const datasourcesWithConfigModal = [
+    JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+    ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+  ];
+
+  return datasourcesWithConfigModal.includes(datasourceId);
+};

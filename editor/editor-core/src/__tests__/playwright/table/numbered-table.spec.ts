@@ -1,21 +1,22 @@
 import {
-  editorTestCase as test,
-  expect,
   EditorFloatingToolbarModel,
-  EditorTableModel,
   EditorNodeContainerModel,
+  EditorTableModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import {
   simpleTable,
   simpleTableAndNumberedTable,
 } from '../table/__fixtures__/base-adfs';
 import {
+  largeOverflowedTable,
+  nestedTable,
+  resizedBothTableAndColumn,
   resizedColumnWithDefaultWidth,
   resizedTableWithDefaultColumn,
-  resizedBothTableAndColumn,
-  largeOverflowedTable,
   smallOverflowedTable,
-  nestedTable,
 } from '../table/__fixtures__/numbered-table-adfs';
 
 test.use({
@@ -73,6 +74,7 @@ const testCases = [
 testCases.forEach(({ title, adf, expectation }) => {
   const expectationText = (expectation: boolean) =>
     expectation ? 'should overflow' : 'should not overflow';
+  // eslint-disable-next-line playwright/valid-title
   test.describe(title, () => {
     test.use({
       adf: adf,

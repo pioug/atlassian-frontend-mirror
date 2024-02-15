@@ -7,7 +7,7 @@ export type Size = 'regular' | 'large';
 
 export interface ToggleProps extends WithAnalyticsEventsProps {
   /**
-   * If the toggle is disabled or not. This prevents any interaction.
+   * Sets if the toggle is disabled or not. This prevents any interaction. Keep in mind that disabled toggles will not be available to screen readers.
    */
   isDisabled?: boolean;
   /**
@@ -57,14 +57,14 @@ export interface ToggleProps extends WithAnalyticsEventsProps {
   testId?: string;
 
   /**
-   * Additional information to be included in the `context` of analytics events that come from button
+   * Additional information to be included in the `context` of analytics events that come from button.
    */
   analyticsContext?: Record<string, any>;
 
   /**
-   * Whether the toggle is initially checked or not
-   * After initial mount whether the component is checked or not is
-   * controlled by the component
+   * Whether the toggle is initially checked or not.
+   * After the initial interaction, whether the component is checked or not is
+   * controlled by the component.
    */
   defaultChecked?: boolean;
 
@@ -79,7 +79,14 @@ export interface ToggleProps extends WithAnalyticsEventsProps {
   /**
    * Text to be used as aria-label of toggle component.
    *
-   * Use when there is not visible label that you can pair toggle with
+   * Use this when there is no visible label for the toggle.
    */
   label?: string;
+
+  /**
+   * Use this when you need to provide an extended description about how the toggle works using aria-describedby.
+   *
+   * It's important to use this prop if the meaning of the toggle with the only a label would be unclear to people who use assistive technology.
+   */
+  descriptionId?: string;
 }

@@ -226,7 +226,7 @@ describe('ProfileCardTrigger', () => {
     expect(queryByTestId('profilecard')).toBeDefined();
   });
 
-  it('should set role="button" when trigger is "click"', () => {
+  it('should set role="button"', () => {
     const { getByTestId, queryByTestId } = renderWithIntl(
       <>
         <ProfileCardTrigger
@@ -247,28 +247,5 @@ describe('ProfileCardTrigger', () => {
     const triggerSpan = getByTestId('profilecard-trigger');
 
     expect(triggerSpan.getAttribute('role')).toEqual('button');
-  });
-
-  it('should not set role="button" when trigger is "hover"', () => {
-    const { getByTestId, queryByTestId } = renderWithIntl(
-      <>
-        <ProfileCardTrigger
-          {...defaultProps}
-          resourceClient={mockResourceClient as ProfileClient}
-          trigger="hover"
-          testId="profilecard-trigger"
-        >
-          <span data-testid="test-inner-trigger">This is the trigger</span>
-        </ProfileCardTrigger>
-      </>,
-    );
-
-    expect(queryByTestId('profilecard')).toBe(null);
-    expect(getByTestId('test-inner-trigger')).toBeDefined();
-    expect(getByTestId('profilecard-trigger')).toBeDefined();
-
-    const triggerSpan = getByTestId('profilecard-trigger');
-
-    expect(triggerSpan.getAttribute('role')).toEqual('');
   });
 });

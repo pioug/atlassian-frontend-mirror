@@ -28,7 +28,7 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Configurar columnas',
   'linkDataSource.jira-issues.accessInstructions':
     'Para solicitar acceso, ponte en contacto con tu administrador del sitio.',
-  'linkDataSource.jira-issues.accessRequired': 'No tienes acceso a este sitio',
+  'linkDataSource.jira-issues.accessRequired': 'No tienes acceso a este contenido',
   'linkDataSource.jira-issues.accessRequiredWithSite': 'No tienes acceso al siguiente sitio:',
   'linkDataSource.jira-issues.checkConnection':
     'Comprueba tu conexión y, luego, actualiza o vuelve a intentarlo más tarde.',
@@ -46,13 +46,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Insertar incidencias de Jira desde',
   'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {incidencia} other {incidencias}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Vista de la incidencia',
+  'linkDataSource.jira-issues.no.jira.sites.access.description':
+    'Para solicitar acceso, ponte en contacto con tu administrador.',
+  'linkDataSource.jira-issues.no.jira.sites.access.title': 'No tienes acceso a ningún sitio de Jira',
   'linkDataSource.jira-issues.noResultsFound': 'No se han encontrado resultados',
   'linkDataSource.jira-issues.refresh': 'Actualizar',
   'linkDataSource.jira-issues.unableToLoadItems': 'No se han podido cargar los elementos',
   'linkDataSource.jira-issues.unableToLoadResults': 'No se pueden cargar los resultados',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Más información sobre cómo buscar con JQL',
-  'linkDataSource.modal-initial-state.searchDescription': 'Utiliza JQL (Jira Query Language) para buscar incidencias.',
   'linkDataSource.modal-initial-state.searchTitle': 'Buscar incidencias de Jira',
   'linkDataSource.render-type.boolean.false': 'No',
   'linkDataSource.render-type.boolean.true': 'Sí',

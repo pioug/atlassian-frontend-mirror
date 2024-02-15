@@ -1,8 +1,6 @@
 import { token } from '@atlaskit/tokens';
-import { tokens } from '../../../../utils/token';
 import { css } from '@emotion/react';
 import { N40 } from '@atlaskit/theme/colors';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 // in editor prosemirror adds padding-left so we need to overwrite it
 // renderer overwrites the margin-right so we need to add it here
@@ -20,13 +18,10 @@ export const metadataBlockCss = css`
 `;
 export const titleBlockCss = css`
   gap: 0.5em;
-  ${getBooleanFF(
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-  )
-    ? `[data-smart-element="Title"] {
-          font-weight: 600;
-        }`
-    : ``}
+
+  [data-smart-element='Title'] {
+    font-weight: 600;
+  }
 `;
 
 export const footerBlockCss = css`
@@ -42,21 +37,9 @@ export const footerBlockCss = css`
   }
 `;
 
-const flexibleBlockCardElevationStyle = css`
-  border-radius: 1.5px;
-  box-shadow: ${tokens.elevation};
-  margin: ${token('space.025', '2px')};
-`;
-
-const refreshedFlexibleBlockCardStyle = css`
+export const flexibleBlockCardStyle = css`
   & > div {
     border-radius: ${token('border.radius.200', '8px')};
     border: 1px solid ${token('color.border', N40)};
   }
 `;
-
-export const flexibleBlockCardStyle = getBooleanFF(
-  'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-)
-  ? refreshedFlexibleBlockCardStyle
-  : flexibleBlockCardElevationStyle;

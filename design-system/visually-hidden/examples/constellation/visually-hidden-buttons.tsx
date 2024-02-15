@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/new';
 
 import VisuallyHidden from '../../src';
 
@@ -10,7 +11,7 @@ const VisuallyHiddenButtonsExample = () => {
   return (
     <ToggleVisuallyHidden id="buttons-example">
       {isVisible => (
-        <ButtonGroup>
+        <ButtonGroup label="Buttons with hidden content">
           <Button>
             Read more
             {isVisible ? (

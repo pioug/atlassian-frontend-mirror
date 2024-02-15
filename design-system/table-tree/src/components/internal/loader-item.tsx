@@ -10,6 +10,7 @@ interface LoaderItemProps {
   depth: number;
   onComplete: (...args: any[]) => void;
   isCompleting?: boolean;
+  loadingLabel?: string;
 }
 
 export default class LoaderItem extends Component<LoaderItemProps, any> {
@@ -39,13 +40,17 @@ export default class LoaderItem extends Component<LoaderItemProps, any> {
   }
 
   render() {
-    const { depth } = this.props;
+    const { depth, loadingLabel } = this.props;
     const { phase } = this.state;
     return phase === 'loading' ? (
       <TreeRowContainer>
         <CommonCell indent={`calc(${indentBase} * ${depth})`} width="100%">
           <LoaderItemContainer isRoot={depth === 1}>
-            <Spinner size="small" testId="table-tree-spinner" />
+            <Spinner
+              size="small"
+              testId="table-tree-spinner"
+              label={loadingLabel}
+            />
           </LoaderItemContainer>
         </CommonCell>
       </TreeRowContainer>

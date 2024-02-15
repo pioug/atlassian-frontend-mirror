@@ -6,7 +6,7 @@ import Range from '../../src';
 
 const RangeDefaultExample = () => (
   <>
-    <Label htmlFor="range-input">Choose range</Label>
+    <Label htmlFor="range-input">Adjust volume</Label>
     <Range id="range-input" step={1} min={1} max={100} />
   </>
 );

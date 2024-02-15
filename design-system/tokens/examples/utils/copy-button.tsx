@@ -3,7 +3,7 @@ import { useLayoutEffect, useRef, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -55,7 +55,7 @@ const CopyButton = ({
     >
       {({ onClick, ...tooltipProps }) => (
         <Button
-          iconBefore={<CopyIcon label="" />}
+          iconBefore={CopyIcon}
           onClick={(e) => {
             onClick(e);
             onCopy();

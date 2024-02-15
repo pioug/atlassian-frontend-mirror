@@ -3,13 +3,11 @@ import { memo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import ArrowleftIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import ArrowrightIcon from '@atlaskit/icon/glyph/chevron-right-large';
 import { Box, Inline } from '@atlaskit/primitives';
-import { N700 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
 
 import useUniqueId from '../../internal/hooks/use-unique-id';
 import { TabIndex } from '../../types';
@@ -70,20 +68,14 @@ const Header = memo<HeaderProps>(function Header({
   return (
     <Box paddingInline="space.100">
       <Inline space="space.0" alignBlock="center" spread="space-between">
-        <Button
+        <IconButton
           appearance="subtle"
           spacing="none"
           tabIndex={tabIndex}
           onClick={handlePrevMonthInteraction}
           testId={testId && `${testId}--previous-month`}
-          iconBefore={
-            <ArrowleftIcon
-              label={`${previousMonthLabel}, ${previousHeading}`}
-              size="medium"
-              primaryColor={token('color.icon', N700)}
-              testId={testId && `${testId}--previous-month-icon`}
-            />
-          }
+          icon={ArrowleftIcon}
+          label={`${previousMonthLabel}, ${previousHeading}`}
         />
         {/* This is required to ensure that the new month/year is announced when the previous/next month buttons are activated */}
         <Box
@@ -100,20 +92,14 @@ const Header = memo<HeaderProps>(function Header({
             {`${monthLongTitle} ${year}`}
           </Heading>
         </Box>
-        <Button
+        <IconButton
           appearance="subtle"
           spacing="none"
           tabIndex={tabIndex}
           onClick={handleNextMonthInteraction}
           testId={testId && `${testId}--next-month`}
-          iconBefore={
-            <ArrowrightIcon
-              label={`${nextMonthLabel}, ${nextHeading}`}
-              size="medium"
-              primaryColor={token('color.icon', N700)}
-              testId={testId && `${testId}--next-month-icon`}
-            />
-          }
+          icon={ArrowrightIcon}
+          label={`${nextMonthLabel}, ${nextHeading}`}
         />
       </Inline>
     </Box>

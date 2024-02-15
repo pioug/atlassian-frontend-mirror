@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration",
-  "version": "0.17.6",
+  "version": "0.17.7",
   "description": "Migration layer for quickly moving from react-beautiful-dnd to @atlaskit/pragmatic-drag-and-drop.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,11 +34,11 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/pragmatic-drag-and-drop": "^0.24.0",
+    "@atlaskit/pragmatic-drag-and-drop": "^0.25.0",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^0.12.0",
     "@atlaskit/pragmatic-drag-and-drop-live-region": "^0.5.0",
     "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^0.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "bind-event-listener": "^2.1.1",

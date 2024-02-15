@@ -49,14 +49,16 @@ import { MediaCardCursor } from '../types';
 import { Wrapper } from './ui/wrapper';
 import { fileCardImageViewSelector } from './classnames';
 
+import OpenMediaViewerButton from './ui/openMediaViewerButton/openMediaViewerButton';
 export interface CardViewOwnProps extends SharedCardProps {
   readonly status: CardStatus;
   readonly mediaItemType: MediaItemType;
   readonly mediaCardCursor?: MediaCardCursor;
   readonly metadata?: FileDetails;
   readonly error?: MediaCardError;
+  readonly shouldOpenMediaViewer: boolean;
   readonly onClick?: (
-    event: React.MouseEvent<HTMLDivElement>,
+    event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>,
     analyticsEvent?: UIAnalyticsEvent,
   ) => void;
   readonly onMouseEnter?: (event: MouseEvent<HTMLDivElement>) => void;
@@ -68,6 +70,7 @@ export interface CardViewOwnProps extends SharedCardProps {
   // handle the HTML element internally. There is no standard way to do this.
   // Therefore, we restrict the use of refs to callbacks only, not RefObjects.
   readonly innerRef?: (instance: HTMLDivElement | null) => void;
+  readonly openMediaViewerButtonRef?: React.Ref<HTMLButtonElement>;
   readonly onImageLoad: (cardPreview: CardPreview) => void;
   readonly onImageError: (cardPreview: CardPreview) => void;
   readonly nativeLazyLoad?: boolean;
@@ -75,6 +78,7 @@ export interface CardViewOwnProps extends SharedCardProps {
   // Used to disable animation for testing purposes
   disableAnimation?: boolean;
   shouldHideTooltip?: boolean;
+  overriddenCreationDate?: number;
 }
 
 export interface CardViewState {
@@ -211,14 +215,15 @@ export class CardViewBase extends React.Component<
   }
 
   private renderTitleBox() {
-    const { metadata, titleBoxBgColor, titleBoxIcon } = this.props;
+    const { metadata, titleBoxBgColor, titleBoxIcon, overriddenCreationDate } =
+      this.props;
     const { name, createdAt } = metadata || {};
 
     return (
       !!name && (
         <TitleBox
           name={name}
-          createdAt={createdAt}
+          createdAt={overriddenCreationDate ?? createdAt}
           breakpoint={this.breakpoint}
           titleBoxIcon={titleBoxIcon}
           titleBoxBgColor={titleBoxBgColor}
@@ -258,12 +263,16 @@ export class CardViewBase extends React.Component<
       forceSyncDisplay,
     } = this.props;
 
+    const { name } = this.props.metadata || {};
+
+    const altText = alt || name;
+
     return (
       !!cardPreview && (
         <ImageRenderer
           cardPreview={cardPreview}
           mediaType={mediaType}
-          alt={alt}
+          alt={altText}
           resizeMode={resizeMode}
           onDisplayImage={onDisplayImage}
           onImageLoad={this.onImageLoad}
@@ -327,6 +336,8 @@ export class CardViewBase extends React.Component<
       cardPreview,
       mediaCardCursor,
       shouldHideTooltip,
+      openMediaViewerButtonRef = null,
+      shouldOpenMediaViewer,
     } = this.props;
 
     const { name } = metadata || {};
@@ -343,30 +354,39 @@ export class CardViewBase extends React.Component<
     const shouldDisplayTooltip = !disableOverlay && !shouldHideTooltip;
 
     return (
-      <Wrapper
-        testId={testId || 'media-card-view'}
-        dimensions={dimensions}
-        appearance={appearance}
-        onClick={onClick}
-        onMouseEnter={onMouseEnter}
-        innerRef={this.divRef}
-        breakpoint={this.breakpoint}
-        mediaCardCursor={mediaCardCursor}
-        disableOverlay={!!disableOverlay}
-        selected={!!selected}
-        displayBackground={shouldDisplayBackground}
-        isPlayButtonClickable={isPlayButtonClickable}
-        isTickBoxSelectable={isTickBoxSelectable}
-        shouldDisplayTooltip={shouldDisplayTooltip}
-      >
-        {shouldDisplayTooltip ? (
-          <Tooltip content={name} position="bottom" tag={'div'}>
-            {this.renderContents()}
-          </Tooltip>
-        ) : (
-          this.renderContents()
+      <React.Fragment>
+        {shouldOpenMediaViewer && (
+          <OpenMediaViewerButton
+            fileName={name ?? ''}
+            innerRef={openMediaViewerButtonRef}
+            onClick={onClick}
+          />
         )}
-      </Wrapper>
+        <Wrapper
+          testId={testId || 'media-card-view'}
+          dimensions={dimensions}
+          appearance={appearance}
+          onClick={onClick}
+          onMouseEnter={onMouseEnter}
+          innerRef={this.divRef}
+          breakpoint={this.breakpoint}
+          mediaCardCursor={mediaCardCursor}
+          disableOverlay={!!disableOverlay}
+          selected={!!selected}
+          displayBackground={shouldDisplayBackground}
+          isPlayButtonClickable={isPlayButtonClickable}
+          isTickBoxSelectable={isTickBoxSelectable}
+          shouldDisplayTooltip={shouldDisplayTooltip}
+        >
+          {shouldDisplayTooltip ? (
+            <Tooltip content={name} position="bottom" tag={'div'}>
+              {this.renderContents()}
+            </Tooltip>
+          ) : (
+            this.renderContents()
+          )}
+        </Wrapper>
+      </React.Fragment>
     );
   }
 

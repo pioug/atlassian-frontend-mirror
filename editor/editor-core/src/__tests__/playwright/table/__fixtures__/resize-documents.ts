@@ -2,9 +2,9 @@
 import {
   doc,
   table,
-  tr,
   td,
   th,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 export const tableWithRowSpan = {

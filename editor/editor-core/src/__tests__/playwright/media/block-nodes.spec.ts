@@ -1,11 +1,12 @@
-import { editorTestCase as test, expect } from '@af/editor-libra';
+import { expect, editorTestCase as test } from '@af/editor-libra';
+
 import {
   adfMediaSingleWithLinkInALayoutColumn,
-  adfMediaSingleWithLinkInATable,
   adfMediaSingleWithLinkInAListItem,
-  adfMediaSingleWithLinkInAnExpand,
-  adfMediaSingleWithLinkMarkInABodiedExtension,
   adfMediaSingleWithLinkInANestedExpand,
+  adfMediaSingleWithLinkInAnExpand,
+  adfMediaSingleWithLinkInATable,
+  adfMediaSingleWithLinkMarkInABodiedExtension,
 } from './block-nodes.spec.ts-fixtures';
 
 test.describe('media inside block nodes', () => {

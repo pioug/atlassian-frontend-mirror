@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import { IconButton } from '@atlaskit/button/new';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Popup from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
@@ -33,12 +33,13 @@ const DropdownMenuZIndex = () => {
         </Box>
       )}
       trigger={(triggerProps) => (
-        <Button
+        <IconButton
           {...triggerProps}
           isSelected={isOpen}
           onClick={() => setIsOpen(!isOpen)}
           value="Add"
-          iconBefore={<MediaServicesAddCommentIcon label="Add" />}
+          icon={MediaServicesAddCommentIcon}
+          label="Add"
           testId="popup--trigger"
         />
       )}

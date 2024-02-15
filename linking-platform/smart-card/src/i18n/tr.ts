@@ -28,9 +28,9 @@ export default {
   'fabric.linking.connect_to': '{name} hesabını bağlan',
   'fabric.linking.connect_unauthorised_account_action': '{context} hesabını bağlayın',
   'fabric.linking.connect_unauthorised_account_description':
-    "Çalışmanızla ilgili daha fazla ayrıntıyı bir arada görmek ve tek bir yerden iş birliği yapmak için {context} hesabını Atlassian'a bağlayın.",
+    'Atlassian ürünlerindeki çalışmalarda iş birliği yapmak için {context} hesabınızı bağlayın.',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    "Çalışmanızla ilgili daha fazla ayrıntıyı bir arada görmek ve tek bir yerden iş birliği yapmak için Atlassian'a bağlanın.",
+    'Atlassian ürünlerindeki çalışmalarda iş birliği yapmak için hesabınızı bağlayın.',
   'fabric.linking.continue': 'Devam',
   'fabric.linking.copy_url_to_clipboard': 'Bağlantıyı kopyalayın',
   'fabric.linking.couldnt_load_link': 'Bilinmeyen bir nedenden dolayı bu bağlantıyı yükleyemedik.',
@@ -58,6 +58,8 @@ export default {
     'Bu önizlemeyi görüntülemek için erişim izni talep etmeniz veya farklı bir hesap kullanmanız gerekir.',
   'fabric.linking.join_to_view': 'Bu konuyu görüntülemek için {context} ürününe katılın',
   'fabric.linking.last_mentioned_in': 'En son şurada bahsedildi:',
+  'fabric.linking.learn_more_about_connecting_account':
+    'Hesabınızı Atlassian ürünlerine bağlamak hakkında daha fazla bilgi edinin.',
   'fabric.linking.learn_more_about_smart_links': 'Akıllı Bağlantılar hakkında daha fazla bilgi edinin.',
   'fabric.linking.link_safety_warning_message':
     '{unsafeLinkText} bağlantısı sizi farklı bir siteye (<a>actual link here</a>) yönlendiriyor',

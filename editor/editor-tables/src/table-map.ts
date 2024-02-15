@@ -195,7 +195,35 @@ export class TableMap {
   }
 
   isPosMerged(pos: number): boolean {
-    return this.map.filter((cellPos) => cellPos === pos).length > 1;
+    return this.map.includes(pos, this.map.indexOf(pos) + 1);
+  }
+
+  isCellMerged(row: number, col: number) {
+    return (
+      this.isCellMergedTopLeft(row, col) ||
+      this.isCellMergedBottomRight(row, col)
+    );
+  }
+
+  isCellMergedTopLeft(row: number, col: number) {
+    const pos = this.map[row * this.width + col];
+    return (
+      // top
+      (row > 0 && pos === this.map[(row - 1) * this.width + col]) ||
+      // left
+      (col > 0 && pos === this.map[row * this.width + (col - 1)])
+    );
+  }
+
+  isCellMergedBottomRight(row: number, col: number) {
+    const pos = this.map[row * this.width + col];
+    return (
+      // bottom
+      (row < this.height - 1 &&
+        pos === this.map[(row + 1) * this.width + col]) ||
+      // right
+      (col < this.width - 1 && pos === this.map[row * this.width + (col + 1)])
+    );
   }
 
   // :: (number, string, number) → ?number

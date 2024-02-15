@@ -1,16 +1,17 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   Appearance,
   initEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import gapCursorTable from './__fixtures__/gap-cursor-table-adf.json';
 import paragraph from './__fixtures__/paragraph-of-text.adf.json';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 let page: PuppeteerPage;
 

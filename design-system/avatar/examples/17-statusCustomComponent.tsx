@@ -29,31 +29,37 @@ const DivPresence = styled.div`
 export default () => (
   <Block heading="Custom div as status">
     <Avatar
+      name="xxlarge"
       size="xxlarge"
       appearance="square"
       status={<DivPresence>1</DivPresence>}
     />
     <Avatar
+      name="xlarge"
       size="xlarge"
       appearance="square"
       status={<DivPresence>1</DivPresence>}
     />
     <Avatar
+      name="large"
       size="large"
       appearance="square"
       status={<DivPresence>1</DivPresence>}
     />
     <Avatar
+      name="medium"
       size="medium"
       appearance="square"
       status={<DivPresence>1</DivPresence>}
     />
     <Avatar
+      name="small"
       size="small"
       appearance="square"
       status={<DivPresence>1</DivPresence>}
     />
     <Avatar
+      name="xsmall"
       size="xsmall"
       appearance="square"
       status={<DivPresence>1</DivPresence>}

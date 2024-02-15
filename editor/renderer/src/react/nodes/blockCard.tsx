@@ -44,10 +44,18 @@ export default function BlockCard(props: {
   rendererAppearance?: RendererAppearance;
   smartLinks?: SmartLinksOptions;
   layout?: string;
+  isNodeNested?: boolean;
 }) {
-  const { url, data, eventHandlers, portal, rendererAppearance, smartLinks } =
-    props;
-  const { showServerActions } = smartLinks || {};
+  const {
+    url,
+    data,
+    eventHandlers,
+    portal,
+    rendererAppearance,
+    smartLinks,
+    isNodeNested,
+  } = props;
+  const { showServerActions, actionOptions } = smartLinks || {};
   const onClick = getCardClickHandler(eventHandlers, url);
 
   const platform = useMemo(
@@ -61,6 +69,8 @@ export default function BlockCard(props: {
     onClick,
     container: portal,
     isDatasource: !!props.datasource,
+    actionOptions,
+    showServerActions,
   };
 
   const analyticsData = {
@@ -112,7 +122,12 @@ export default function BlockCard(props: {
               {({ width }) => (
                 <div
                   css={datasourceContainerStyle}
-                  style={{ width: calcBreakoutWidth(layout, width) }}
+                  data-testid="renderer-datasource-table"
+                  style={{
+                    width: isNodeNested
+                      ? '100%'
+                      : calcBreakoutWidth(layout, width),
+                  }}
                 >
                   <DatasourceTableView
                     datasourceId={datasource.id}
@@ -146,9 +161,7 @@ export default function BlockCard(props: {
         >
           <Card
             appearance="block"
-            showActions={rendererAppearance !== 'mobile'}
             platform={platform}
-            showServerActions={showServerActions}
             {...cardProps}
             onError={onError}
           />

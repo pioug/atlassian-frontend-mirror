@@ -27,6 +27,8 @@ const useLinkUpgradeDiscoverability = ({
   isOverlayEnabled,
 }: LinkUpgradeDiscoverabilityProps) => {
   const [urlState, setUrlState] = useState(cardContext?.store?.getState()[url]);
+  const { overlayCandidatePosition, inlineCardAwarenessCandidatePosition } =
+    pluginInjectionApi?.card?.sharedState?.currentState() || {};
 
   useEffect(() => {
     const unsubscribe = cardContext?.store?.subscribe(() => {
@@ -46,24 +48,22 @@ const useLinkUpgradeDiscoverability = ({
   }, [cardContext?.extractors, url, urlState?.status]);
 
   const shouldShowLinkPulse = useMemo(() => {
-    const awarenessCandidatePosition =
-      pluginInjectionApi?.card?.sharedState?.currentState()
-        ?.inlineCardAwarenessCandidatePosition;
-
     return (
       isPulseEnabled &&
-      linkPosition === awarenessCandidatePosition &&
+      linkPosition === inlineCardAwarenessCandidatePosition &&
       canBeUpgradedToEmbed
     );
   }, [
     canBeUpgradedToEmbed,
     isPulseEnabled,
     linkPosition,
-    pluginInjectionApi?.card?.sharedState,
+    inlineCardAwarenessCandidatePosition,
   ]);
 
   const shouldShowLinkOverlay =
     urlState?.status === 'resolved' && isOverlayEnabled;
+
+  const isLinkMostRecentlyInserted = overlayCandidatePosition === linkPosition;
 
   const shouldShowToolbarPulse = useMemo(
     () =>
@@ -77,6 +77,7 @@ const useLinkUpgradeDiscoverability = ({
     shouldShowToolbarPulse,
     shouldShowLinkPulse,
     shouldShowLinkOverlay,
+    isLinkMostRecentlyInserted,
   };
 };
 

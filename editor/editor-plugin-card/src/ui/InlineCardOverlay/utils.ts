@@ -1,3 +1,5 @@
+import type { Size } from '@atlaskit/icon';
+
 /**
  * Find a child element inside a ref.
  */
@@ -21,6 +23,13 @@ export const getInlineCardAvailableWidth = (
   return end - start;
 };
 
+export const isOneLine = (startEl: HTMLElement, endEl: HTMLElement) => {
+  const start = startEl.getBoundingClientRect().top;
+  const end = endEl.getBoundingClientRect().top;
+
+  return start === end;
+};
+
 /**
  * Get max and min width of an overlay.
  * (Mainly here to make the component unit testable.)
@@ -33,4 +42,14 @@ export const getOverlayWidths = (
   const min = max - labelEl.getBoundingClientRect().width;
 
   return { max, min };
+};
+
+export const getIconSize = (labelEl: HTMLElement): Size => {
+  const h2FontSizePx = 20;
+  const fontSize =
+    window && parseFloat(window.getComputedStyle(labelEl).fontSize);
+  if (!fontSize || fontSize < h2FontSizePx) {
+    return 'small';
+  }
+  return 'medium';
 };

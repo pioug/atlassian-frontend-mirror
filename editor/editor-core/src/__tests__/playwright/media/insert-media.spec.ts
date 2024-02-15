@@ -2,18 +2,19 @@ import {
   EditorMediaGroupModel,
   EditorNodeContainerModel,
   EditorUploadMediaModel,
+  expect,
   FileResourcesAvailable,
   editorTestCase as test,
-  expect,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
-  mediaSingle,
-  mediaGroup,
   media,
+  mediaGroup,
+  mediaSingle,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { simpleMediaGroup } from './insert-media.spec.ts-fixtures';
 
 test.describe('media-group: inserting', () => {
@@ -257,6 +258,7 @@ test.describe('media-single: inserting', () => {
             width: expect.any(Number),
             height: expect.any(Number),
             id: expect.any(String),
+            alt: 'test-image-9kb.jpg',
             collection: 'MediaServicesSample',
             type: 'file',
           })(),
@@ -336,6 +338,7 @@ test.describe('media-single: inserting', () => {
               width: expect.any(Number),
               height: expect.any(Number),
               id: expect.any(String),
+              alt: 'test-image-9kb.jpg',
               collection: 'MediaServicesSample',
               type: 'file',
             })(),

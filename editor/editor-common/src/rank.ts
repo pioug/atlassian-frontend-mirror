@@ -154,7 +154,7 @@ export const rankEditorPlugins = {
     'taskItem',
     'extension',
     'bodiedExtension',
-    'multiBodiedExtension', // Check with Lego Team if there is a different file to include the ranks, since this file is deprecated
+    'multiBodiedExtension',
     'inlineExtension',
     'layoutSection',
     'layoutColumn',

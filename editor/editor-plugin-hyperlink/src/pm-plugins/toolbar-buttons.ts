@@ -15,6 +15,12 @@ type HyperlinkToolbarItemsState = {
   items: GetToolbarItems;
   onEscapeCallback: ((tr: Transaction) => Transaction) | undefined;
   onInsertLinkCallback: QueueCardsFromTransactionAction | undefined;
+  /**
+   * If you are mounting your own items to the hyperlink toolbar you may decide
+   * you want to replace the hyperlink analytics with your own
+   * Defaults to false.
+   */
+  skipAnalytics?: boolean;
 };
 
 export const toolbarKey = new PluginKey<HyperlinkToolbarItemsState | undefined>(
@@ -38,6 +44,7 @@ export const prependToolbarButtons = ({
   items,
   onEscapeCallback,
   onInsertLinkCallback,
+  skipAnalytics,
   view,
 }: PrependToolbarButtonsProps) => {
   const {
@@ -45,7 +52,12 @@ export const prependToolbarButtons = ({
     dispatch,
   } = view;
 
-  tr.setMeta(toolbarKey, { items, onEscapeCallback, onInsertLinkCallback });
+  tr.setMeta(toolbarKey, {
+    items,
+    onEscapeCallback,
+    onInsertLinkCallback,
+    skipAnalytics,
+  });
   dispatch(tr);
 };
 

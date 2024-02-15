@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/status",
-  "version": "1.4.5",
+  "version": "1.4.7",
   "description": "Fabric Status React Components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -15,22 +15,22 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor: Scarlet",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {
       "name": "Status"
-    }
+    },
+    "runReact18": false
   },
   "config": {
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/icon": "^22.0.0",
-    "@atlaskit/lozenge": "^11.4.0",
+    "@atlaskit/lozenge": "^11.6.0",
     "@atlaskit/textfield": "^6.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -72,5 +72,10 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./element": "./src/element.ts",
+    "./picker": "./src/picker.ts"
+  }
 }

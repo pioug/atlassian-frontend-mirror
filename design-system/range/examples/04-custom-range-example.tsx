@@ -1,10 +1,14 @@
 import React, { Fragment } from 'react';
 
+import { Label } from '@atlaskit/form';
+
 import Range from '../src';
 
 const CustomValues = () => (
   <Fragment>
+    <Label htmlFor="range-custom">Custom</Label>
     <Range
+      id="range-custom"
       defaultValue={480}
       min={40}
       max={500}

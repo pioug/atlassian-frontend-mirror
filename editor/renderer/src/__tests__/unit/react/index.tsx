@@ -40,6 +40,7 @@ import type { AnalyticsEventPayload } from '../../../analytics/events';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { screen, waitFor, within } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 
 const docFromSchema = schema.nodeFromJSON(doc);
 const headingDocFromSchema = schema.nodeFromJSON(headingDoc);
@@ -509,19 +510,17 @@ describe('Renderer - ReactSerializer', () => {
         );
 
         // Media under media group takes 2 ticks to render.
-        await new Promise(process.nextTick);
-        await new Promise(process.nextTick);
+        await act(async () => {
+          await new Promise(process.nextTick);
+          await new Promise(process.nextTick);
+        });
         wrapper.update();
 
-        await waitFor(() =>
-          expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(
-            false,
-          ),
-        );
+        expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(false);
         wrapper.unmount();
       });
 
-      it('media node without parent has shouldOpenMediaViewer set to false', () => {
+      it('media node without parent has shouldOpenMediaViewer set to false', async () => {
         const reactSerializer = new ReactSerializer({
           shouldOpenMediaViewer: false,
         });
@@ -531,6 +530,13 @@ describe('Renderer - ReactSerializer', () => {
             schema.nodeFromJSON(mediaFragment).content,
           ) as any,
         );
+
+        // Media under media group takes 2 ticks to render.
+        await act(async () => {
+          await new Promise(process.nextTick);
+          await new Promise(process.nextTick);
+        });
+        wrapper.update();
 
         expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(false);
         wrapper.unmount();
@@ -549,9 +555,14 @@ describe('Renderer - ReactSerializer', () => {
           ) as any,
         );
 
-        await waitFor(() =>
-          expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(true),
-        );
+        // Media under media group takes 2 ticks to render.
+        await act(async () => {
+          await new Promise(process.nextTick);
+          await new Promise(process.nextTick);
+        });
+        wrapper.update();
+
+        expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(true);
         wrapper.unmount();
       });
 

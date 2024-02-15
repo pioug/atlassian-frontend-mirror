@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import ModalDialog, {
   ModalBody,

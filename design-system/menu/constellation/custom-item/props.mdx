@@ -2,10 +2,12 @@
 title: Custom item
 description: A customizable menu item component.
 order: 1
+props:
+  packageName: '@atlaskit/menu'
+  exports:
+    - CustomItem
 ---
-
-import CustomItemProps from '!!extract-react-types-loader!../../extract-react-types/custom-item-hack-for-ert';
 
 ## Props
 
-<PropsTable heading="" props={CustomItemProps} />
+<TSMorphProps exportName="CustomItem" packageName="@atlaskit/menu" />

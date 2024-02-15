@@ -2,16 +2,17 @@
 
 import { useCallback, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 import Flag, { FlagGroup, FlagProps } from '@atlaskit/flag';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import { GiveKudosLauncher } from '../src';
 
-const buttonWrapperStyles = css({
-  margin: '16px',
+const buttonWrapperStyles = xcss({
+  margin: 'space.200',
 });
 
 export default function Example() {
@@ -39,9 +40,9 @@ export default function Example() {
 
   return (
     <IntlProvider key={'en'} locale={'en'}>
-      <div css={buttonWrapperStyles}>
+      <Box xcss={buttonWrapperStyles}>
         <Button onClick={openGiveKudos}>Give Kudos</Button>
-      </div>
+      </Box>
       <GiveKudosLauncher
         testId={'giveKudosLauncher'}
         isOpen={isOpen}

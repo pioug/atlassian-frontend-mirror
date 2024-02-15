@@ -119,7 +119,7 @@ export function createPlugin({
       },
 
       handleDOMEvents: {
-        compositionend: (view, event: any) => {
+        compositionend: (view, event) => {
           return false;
         },
 

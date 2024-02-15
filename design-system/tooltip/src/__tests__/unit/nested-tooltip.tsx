@@ -8,7 +8,7 @@ beforeEach(() => {
   jest.useFakeTimers();
 });
 
-afterAll(() => {
+afterEach(() => {
   jest.useRealTimers();
 });
 

@@ -1,5 +1,108 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.0.0
+
+### Major Changes
+
+- [#72386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72386) [`0c52b0be40c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c52b0be40c1) - This changeset exists to bump all editor plugins that currently don't have a major version. This is to address an issue with Jira plugin consumption.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.7.4
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+- [#70460](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70460) [`2f37600156ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f37600156ae) - The internal composition of a component in this package has changed. There is no expected change in behaviour.
+
+## 0.7.3
+
+### Patch Changes
+
+- [#71136](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71136) [`c803fea1e6a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c803fea1e6a4) - Move all plugin translations to editor-common
+- Updated dependencies
+
+## 0.7.2
+
+### Patch Changes
+
+- [#70152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70152) [`53ed3673df28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53ed3673df28) - Updating adf-schema version to 35.5.1
+
+## 0.7.1
+
+### Patch Changes
+
+- [#70741](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70741) [`7c1487568202`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c1487568202) - ED-21973: Fix for MBE side panel config params update
+
+## 0.7.0
+
+### Minor Changes
+
+- [#68640](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68640) [`e173cb423c75`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e173cb423c75) - Migrate extension plugin to useSharedPluginState from WithPluginState. Adds new dependency on BasePlugin.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.6.3
+
+### Patch Changes
+
+- [#68264](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68264) [`daa71f6aa162`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/daa71f6aa162) - [ux] ED-21883: Updated MultiBodied Extension related CSS and selections
+- Updated dependencies
+
+## 0.6.2
+
+### Patch Changes
+
+- [#68501](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68501) [`c813e900fdde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c813e900fdde) - ED-21735: Added extension config panel support for MBE
+
+## 0.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.6.0
+
+### Minor Changes
+
+- [#67100](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67100) [`55cdf07c41cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/55cdf07c41cb) - Allow create label formatting for custom fields from extension
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.5.2
+
+### Patch Changes
+
+- [#66759](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66759) [`906578f1ea5d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/906578f1ea5d) - [ux] ED-21787: Migrating few CSS entries to space and color tokens
+
+## 0.5.1
+
+### Patch Changes
+
+- [#67238](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67238) [`40533849b2ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40533849b2ec) - [ED-21835] Change EditorAPI type to always union with undefined
+
+## 0.5.0
+
+### Minor Changes
+
+- [#65712](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65712) [`963b53c64eee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/963b53c64eee) - Extract code for extension plugin from editor-core to @atlaskit/editor-plugin-extension
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.4.1
 
 ### Patch Changes

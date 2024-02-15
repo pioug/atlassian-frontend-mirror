@@ -128,9 +128,6 @@ test('no double calls for created in flushed effects', () => {
             // the new monitor would not be executed for the current event
             // So this test passed before the protection was added to only iterate
             // over active monitors
-
-            // Current react typings not aware of flushSync
-            // @ts-expect-error
             ReactDOM.flushSync(() => {
               setIsDragging(true);
             });

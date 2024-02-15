@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 
-import { packageMetaData } from '../../constants';
+import { componentMetadata } from '../../constants';
 import { useDatasourceAnalyticsEvents } from '../../index';
 
 const DatasourceRenderFailedAnalyticsWrapper = withAnalyticsContext(
-  packageMetaData,
+  componentMetadata.generic,
 )((props: any) => {
   const { fireEvent } = useDatasourceAnalyticsEvents();
 

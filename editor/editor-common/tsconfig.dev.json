@@ -66,7 +66,13 @@
       "path": "../../linking-platform/link-picker/tsconfig.app.json"
     },
     {
+      "path": "../../media/media-client/tsconfig.app.json"
+    },
+    {
       "path": "../../media/media-core/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-file-preview/tsconfig.app.json"
     },
     {
       "path": "../../media/media-test-helpers/tsconfig.app.json"

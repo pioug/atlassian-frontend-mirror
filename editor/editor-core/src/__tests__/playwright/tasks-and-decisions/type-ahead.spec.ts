@@ -1,9 +1,9 @@
 import {
-  editorTestCase as test,
-  EditorNodeContainerModel,
   EditorActionListModel,
   EditorDecisionListModel,
+  EditorNodeContainerModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 
 test.describe('Task Items: feat TypeAhead', () => {

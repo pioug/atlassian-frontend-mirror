@@ -39,6 +39,9 @@
       "path": "../accessibility-testing/tsconfig.app.json"
     },
     {
+      "path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+    },
+    {
       "path": "../atlassian-navigation/tsconfig.app.json"
     },
     {
@@ -94,9 +97,6 @@
     },
     {
       "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/test-tooling/webdriver-runner/tsconfig.app.json"
     }
   ]
 }

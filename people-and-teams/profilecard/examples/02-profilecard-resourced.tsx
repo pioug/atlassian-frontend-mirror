@@ -29,6 +29,7 @@ const defaultProps = {
     {
       label: 'View profile',
       id: 'view-profile',
+      shouldRender: (data: any) => data && data.accountType !== 'customer',
       callback: () => {},
     },
   ],
@@ -46,6 +47,7 @@ export default function Example() {
         label: 'View profile - ' + Date.now(),
         id: 'view-profile - ' + Date.now(),
         callback: () => {},
+        shouldRender: (data: any) => data && data.accountType !== 'customer',
       },
     ]);
   };
@@ -69,7 +71,6 @@ export default function Example() {
             </Button>
           </ButtonGroup>
         </Wrap>
-
         <Wrap>
           <ProfileCardResourced
             {...defaultProps}
@@ -92,6 +93,15 @@ export default function Example() {
           <ProfileCardResourced
             {...defaultProps}
             userId="error:NotFound"
+            actions={actions}
+            resourceClient={resourceClient}
+          />
+        </Wrap>
+        <br /> Customer account
+        <Wrap>
+          <ProfileCardResourced
+            {...defaultProps}
+            userId="3"
             actions={actions}
             resourceClient={resourceClient}
           />

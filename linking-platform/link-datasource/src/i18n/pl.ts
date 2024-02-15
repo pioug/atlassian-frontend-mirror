@@ -27,7 +27,7 @@ export default {
   'linkDataSource.column-picker.search': 'Wyszukaj pola',
   'linkDataSource.column-picker.tooltip': 'Konfiguruj kolumny',
   'linkDataSource.jira-issues.accessInstructions': 'Aby poprosić o dostęp, skontaktuj się z administratorem witryny.',
-  'linkDataSource.jira-issues.accessRequired': 'Nie masz dostępu do tej witryny',
+  'linkDataSource.jira-issues.accessRequired': 'Nie masz dostępu do tej treści',
   'linkDataSource.jira-issues.accessRequiredWithSite': 'Nie masz dostępu do następującej witryny:',
   'linkDataSource.jira-issues.checkConnection': 'Sprawdź połączenie i odśwież stronę lub spróbuj ponownie później.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
@@ -45,14 +45,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.issue':
     '{totalCount, plural, one {zgłoszenie} few {zgłoszenia} many {zgłoszeń} other {zgłoszenia}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Widok zgłoszenia',
+  'linkDataSource.jira-issues.no.jira.sites.access.description':
+    'Aby poprosić o dostęp, skontaktuj się z administratorem.',
+  'linkDataSource.jira-issues.no.jira.sites.access.title': 'Nie masz dostępu do żadnej witryny Jira',
   'linkDataSource.jira-issues.noResultsFound': 'Nie znaleziono wyników',
   'linkDataSource.jira-issues.refresh': 'Odśwież',
   'linkDataSource.jira-issues.unableToLoadItems': 'Nie można załadować elementów',
   'linkDataSource.jira-issues.unableToLoadResults': 'Nie można załadować wyników',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Dowiedz się, jak wyszukiwać przy użyciu zapytań JQL',
-  'linkDataSource.modal-initial-state.searchDescription':
-    'Użyj zapytań w języku JQL (Jira Query Language), aby wyszukiwać zgłoszenia.',
   'linkDataSource.modal-initial-state.searchTitle': 'Wyszukaj zgłoszenia Jira',
   'linkDataSource.render-type.boolean.false': 'Nie',
   'linkDataSource.render-type.boolean.true': 'Tak',

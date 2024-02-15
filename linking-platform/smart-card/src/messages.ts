@@ -7,27 +7,23 @@ export type RequestAccessMessageKey =
   | 'request_access'
   | 'request_access_description'
   | 'request_access_pending'
+  | 'request_access_pending_title'
   | 'request_access_pending_description'
   | 'request_denied_description'
-  //cross join types to be cleaned up in EDM-7977
-  | 'default_no_access_title_crossjoin'
-  | 'direct_access_title_crossjoin'
-  | 'direct_access_description_crossjoin'
-  | 'direct_access_crossjoin'
-  | 'request_access_description_crossjoin'
-  | 'request_access_crossjoin'
-  | 'request_access_pending_title_crossjoin'
-  | 'request_access_pending_description_crossjoin'
-  | 'request_access_pending_crossjoin'
-  | 'request_denied_description_crossjoin'
-  | 'access_exists_description_crossjoin'
-  | 'not_found_description_crossjoin'
-  | 'not_found_title_crossjoin';
-// | 'forbidden_access_crossjoin'
-// | 'forbidden_description_crossjoin';
+  | 'default_no_access_title'
+  | 'direct_access_title'
+  | 'direct_access_description'
+  | 'direct_access'
+  | 'access_exists_description'
+  | 'not_found_description'
+  | 'not_found_title';
 
 export type MessageKey =
   | 'assigned_to'
+  | 'ai_summarize'
+  | 'ai_summarized'
+  | 'ai_summarized_info'
+  | 'ai_summarizing'
   | 'cannot_find_link'
   | 'connect_link_account_card'
   | 'connect_link_account_card_name'
@@ -52,6 +48,7 @@ export type MessageKey =
   | 'delete'
   | 'edit'
   | 'learn_more_about_smart_links'
+  | 'learn_more_about_connecting_account'
   | 'loading'
   | 'link_safety_warning_message'
   | 'modified_by'
@@ -133,6 +130,27 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.add_account',
     defaultMessage: 'Add account',
     description: 'Allows to add a new account',
+  },
+  ai_summarize: {
+    id: 'fabric.linking.ai_summarize',
+    defaultMessage: 'Summarize',
+    description: 'Action to summarize link resource content with AI',
+  },
+  ai_summarized: {
+    id: 'fabric.linking.ai_summarized',
+    defaultMessage: 'Summarized by Atlassian Intelligence',
+    description: 'Shown with the content summarised by AI.',
+  },
+  ai_summarized_info: {
+    id: 'fabric.linking.ai_summarized_info',
+    defaultMessage: 'Information quality may vary. <a>Learn more</a>',
+    description: 'Additional info about the content summarised by AI.',
+  },
+  ai_summarizing: {
+    id: 'fabric.linking.ai_summarizing',
+    defaultMessage: 'Atlassian Intelligence is working...',
+    description:
+      'Shown when AI summary is summarising the link resource content.',
   },
   assigned_to: {
     id: 'fabric.linking.assigned_to',
@@ -224,14 +242,14 @@ export const messages: Messages = defineMessages({
   connect_unauthorised_account_description: {
     id: 'fabric.linking.connect_unauthorised_account_description',
     defaultMessage:
-      'Connect {context} to Atlassian to view more details of your work and collaborate from one place.',
+      'Connect your {context} account to collaborate on work across Atlassian products.',
     description:
       'Shown when a user does not have access to a link, but can connect their external account to view the link on card view.',
   },
   connect_unauthorised_account_description_no_provider: {
     id: 'fabric.linking.connect_unauthorised_account_description_no_provider',
     defaultMessage:
-      'Connect to Atlassian to view more details of your work and collaborate from one place.',
+      'Connect your account to collaborate on work across Atlassian products.',
     description:
       'Shown when a user does not have access to a link, but can connect their external account to view the link on card view and we do not have the providers name.',
   },
@@ -285,12 +303,6 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Follow',
     description: 'Click to follow a project.',
   },
-  forbidden_description: {
-    id: 'fabric.linking.forbidden_description',
-    defaultMessage:
-      'You don’t have access to this preview. Contact the site admin if you need access.',
-    description: 'Informs the user that they cannot view this content.',
-  },
   go_back: {
     id: 'fabric.linking.go_back',
     defaultMessage: 'Go back',
@@ -319,6 +331,13 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Learn more about Smart Links.',
     description: 'An anchor link to redirect user to a page about Smart Links.',
   },
+  learn_more_about_connecting_account: {
+    id: 'fabric.linking.learn_more_about_connecting_account',
+    defaultMessage:
+      'Learn more about connecting your account to Atlassian products.',
+    description:
+      'An anchor link to redirect user to a page about authorization with 3rd party accounts.',
+  },
   loading: {
     id: 'fabric.linking.loading',
     defaultMessage: 'Loading...',
@@ -343,18 +362,6 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.more_actions',
     defaultMessage: 'More actions',
     description: 'Allows the users to see more link actions',
-  },
-  not_found_description: {
-    id: 'fabric.linking.not_found_description',
-    defaultMessage:
-      "We couldn't find the link. Check the url and try editing or paste again.",
-    description:
-      'Error case for when a provided item is not found within the list of items',
-  },
-  not_found_title: {
-    id: 'fabric.linking.not_found_title',
-    defaultMessage: "Uh oh. We can't find this link!",
-    description: 'Error case for when a provided link is not found',
   },
   open_issue_in_jira: {
     id: 'fabric.linking.open_issue_in_jira',
@@ -473,28 +480,6 @@ export const messages: Messages = defineMessages({
     description:
       'Message shown when a user does not have permissions to view an item',
   },
-  request_access: {
-    id: 'fabric.linking.request_access',
-    defaultMessage: 'Request access',
-    description: 'Allows the user to request access to a product or service',
-  },
-  request_access_description: {
-    id: 'fabric.linking.request_access_description',
-    defaultMessage: 'Request access to {context} view this preview.',
-    description: 'Allows the user to request access to a product',
-  },
-  request_access_pending: {
-    id: 'fabric.linking.request_access_pending',
-    defaultMessage: 'Access pending',
-    description:
-      'Allows the user to try an action again with their current account',
-  },
-  request_access_pending_description: {
-    id: 'fabric.linking.request_access_pending_description',
-    defaultMessage: 'Your access request is pending.',
-    description:
-      'Informs the user that their request to view this content is pending',
-  },
   request_access_to_view: {
     id: 'fabric.linking.request_access_to_view',
     defaultMessage: 'Request access to {context} to view this issue',
@@ -505,13 +490,6 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Your access request was denied',
     description:
       'The user had request access but the request was denied by a product or service',
-  },
-  request_denied_description: {
-    id: 'fabric.linking.request_denied_description',
-    defaultMessage:
-      'Your access request was denied. Contact the site admin if you still need access.',
-    description:
-      'Informs the user that their request to view this content was denied',
   },
   retry: {
     id: 'fabric.linking.retry',
@@ -624,105 +602,101 @@ export const messages: Messages = defineMessages({
     description:
       "We have a link in our preview modals to the original document. This is for when we don't know the provider name",
   },
-  /**
-   * Temp messages to put behind a feature flag for the cross join stream, replace the messages with the message of the same
-   * title (without _crossjoin) during cleanup in EDM-7977 [https://product-fabric.atlassian.net/browse/EDM-7977].
-   */
-  default_no_access_title_crossjoin: {
-    id: 'fabric.linking.no_access_title_crossjoin',
+  default_no_access_title: {
+    id: 'fabric.linking.no_access_title',
     defaultMessage: 'Join {product} to view this content',
     description:
       'Informs the user that they dont have access to certain content',
   },
 
-  direct_access_title_crossjoin: {
-    id: 'fabric.linking.direct_access_title_crossjoin',
+  direct_access_title: {
+    id: 'fabric.linking.direct_access_title',
     defaultMessage: 'Join {product} to view this content',
     description:
       'Informs the user that they have access to this product, and can sign up or join right away.',
   },
-  direct_access_description_crossjoin: {
-    id: 'fabric.linking.direct_access_description_crossjoin',
+  direct_access_description: {
+    id: 'fabric.linking.direct_access_description',
     defaultMessage:
       'Your team uses {product} to collaborate and you can start using it right away!',
     description:
       'Informs the user that they have access to this product, and can sign up or join right away.',
   },
-  direct_access_crossjoin: {
-    id: 'fabric.linking.direct_access_crossjoin',
+  direct_access: {
+    id: 'fabric.linking.direct_access',
     defaultMessage: 'Join now',
     description: 'Allows the user join the product or service immediately',
   },
 
-  request_access_description_crossjoin: {
-    id: 'fabric.linking.request_access_description_crossjoin',
+  request_access_description: {
+    id: 'fabric.linking.request_access_description',
     defaultMessage:
       'Your team uses {product} to collaborate. Send your admin a request for access.',
     description:
       'Informs the user to request access to a product by talking to the website administrator',
   },
-  request_access_crossjoin: {
-    id: 'fabric.linking.request_access_crossjoin',
+  request_access: {
+    id: 'fabric.linking.request_access',
     defaultMessage: 'Request access',
     description: 'Allows the user to request access to a product or service',
   },
 
-  request_access_pending_title_crossjoin: {
-    id: 'fabric.linking.request_access_pending_title_crossjoin',
+  request_access_pending_title: {
+    id: 'fabric.linking.request_access_pending_title',
     defaultMessage: 'Access to {product} is pending',
     description:
       'Informs the user that their request to view this content is pending',
   },
-  request_access_pending_description_crossjoin: {
-    id: 'fabric.linking.request_access_pending_description_crossjoin',
+  request_access_pending_description: {
+    id: 'fabric.linking.request_access_pending_description',
     defaultMessage:
       'Your request to access {hostname} is awaiting admin approval.',
     description:
       'Informs the user that their request to view this content is pending website administrator approval',
   },
-  request_access_pending_crossjoin: {
-    id: 'fabric.linking.request_access_pending_crossjoin',
+  request_access_pending: {
+    id: 'fabric.linking.request_access_pending',
     defaultMessage: 'Pending approval',
     description:
       'Informs the user that their request to view this content is pending',
   },
 
-  request_denied_description_crossjoin: {
-    id: 'fabric.linking.request_denied_description_crossjoin',
+  request_denied_description: {
+    id: 'fabric.linking.request_denied_description',
     defaultMessage:
       "Your admin didn't approve your request to view {product} pages from {hostname}.",
     description:
       'Informs the user that their request to view this content was denied',
   },
 
-  access_exists_description_crossjoin: {
+  access_exists_description: {
     id: 'fabric.linking.access_exists_description',
     defaultMessage: 'Request access to view this content from {hostname}.',
     description:
       'Informs the user to contact the website administrator to request access to a product',
   },
 
-  not_found_description_crossjoin: {
-    id: 'fabric.linking.not_found_description_crossjoin',
+  not_found_description: {
+    id: 'fabric.linking.not_found_description',
     defaultMessage:
       "The page doesn't exist or it may have changed after this link was added.",
     description:
       'Error case for when a provided item is not found within the list of items',
   },
-  not_found_title_crossjoin: {
-    id: 'fabric.linking.not_found_title_crossjoin',
+  not_found_title: {
+    id: 'fabric.linking.not_found_title',
     defaultMessage: "We can't show you this {product} page",
     description: 'Error case for when a provided link is not found',
   },
 
-  forbidden_title_crossjoin: {
-    id: 'fabric.linking.forbidden_title_crossjoin',
+  forbidden_title: {
+    id: 'fabric.linking.forbidden_title',
     defaultMessage: "You don't have access to this content",
     description:
       'Informs the user that they do not have access to the linked content.',
   },
-  forbidden_description_crossjoin: {
-    id: 'fabric.linking.forbidden_description_crossjoin',
+  forbidden_description: {
+    id: 'fabric.linking.forbidden_description',
     defaultMessage: 'Contact your admin to request access to {hostname}.',
     description:
       'Informs the user that they must contact the site administrator for access.',

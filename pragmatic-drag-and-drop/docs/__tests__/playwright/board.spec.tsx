@@ -30,8 +30,8 @@ test.describe('board', () => {
     await page.visitExample('pragmatic-drag-and-drop', 'docs', 'board');
     await page.waitForSelector('[draggable="true"]');
 
-    const dragHandle = await getColumnHeader(page, 'trello');
-    const dropTarget = await getColumnHeader(page, 'jira');
+    const dragHandle = getColumnHeader(page, 'trello');
+    const dropTarget = getColumnHeader(page, 'jira');
 
     expect(await getColumnOrder(page)).toEqual([
       'Confluence',
@@ -53,8 +53,8 @@ test.describe('board', () => {
     await page.waitForSelector('[draggable="true"]');
 
     // Both ids correspond to elements in the first column
-    const dragHandle = await getItem(page, 'id:1');
-    const dropTarget = await getItem(page, 'id:5');
+    const dragHandle = getItem(page, 'id:1');
+    const dropTarget = getItem(page, 'id:5');
 
     const initialCardOrder = await getCardOrder(page, 'confluence');
     expect(initialCardOrder.indexOf('item-id:1')).toBe(0);
@@ -72,9 +72,9 @@ test.describe('board', () => {
     await page.waitForSelector('[draggable="true"]');
 
     // Corresponds to an element in the first column
-    const dragHandle = await getItem(page, 'id:5');
+    const dragHandle = getItem(page, 'id:5');
     // Corresponds to an element in the third column
-    const dropTarget = await getItem(page, 'id:23');
+    const dropTarget = getItem(page, 'id:23');
 
     const initialCardOrderFirstColumn = await getCardOrder(page, 'confluence');
     const initialCardOrderThirdColumn = await getCardOrder(page, 'trello');

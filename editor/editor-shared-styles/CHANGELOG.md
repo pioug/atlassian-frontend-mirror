@@ -1,5 +1,23 @@
 # @atlaskit/editor-shared-styles
 
+## 2.9.0
+
+### Minor Changes
+
+- [#64679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64679) [`0d0b1219b1b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d0b1219b1b9) - Fix insert column button and line above toolbar popups
+
+## 2.8.3
+
+### Patch Changes
+
+- [#63606](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63606) [`196f99e732d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/196f99e732d6) - [ux] Add support for drag handle for sticky header in table
+
+## 2.8.2
+
+### Patch Changes
+
+- [#59829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59829) [`3120b36a9f2c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3120b36a9f2c) - Converted spacing values to the corresponding space tokens
+
 ## 2.8.1
 
 ### Patch Changes

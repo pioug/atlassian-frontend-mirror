@@ -11,7 +11,7 @@ import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { EditorContext } from '@atlaskit/editor-core';
 import { useDefaultQuickInsertGetItems } from '@atlaskit/editor-core/example-helpers/use-default-quickinsert-get-items';
-import InlineDialog from '@atlaskit/inline-dialog/src/InlineDialog';
+import InlineDialog from '@atlaskit/inline-dialog';
 
 import ModalElementBrowser from '../src/ui/ModalElementBrowser/ModalElementBrowser';
 

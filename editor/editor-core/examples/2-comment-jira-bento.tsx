@@ -1,22 +1,25 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl-next';
+
 import Button from '@atlaskit/button/standard-button';
 import Form, { Field, FormFooter } from '@atlaskit/form';
-
 import Textfield from '@atlaskit/textfield';
-
-import { Editor, EditorProps } from './../src';
-import EditorContext from './../src/ui/EditorContext';
-import WithEditorActions from './../src/ui/WithEditorActions';
-import CollapsedEditor from '../src/ui/CollapsedEditor';
-import ToolbarHelp from '../src/ui/ToolbarHelp';
 import {
   currentUser,
   getEmojiProvider,
 } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import { mediaProvider } from './5-full-page';
+
 import { MockActivityResource } from '../example-helpers/activity-provider';
+import { Editor } from '../src';
+import type { EditorProps } from '../src';
+import CollapsedEditor from '../src/ui/CollapsedEditor';
+import EditorContext from '../src/ui/EditorContext';
+import ToolbarHelp from '../src/ui/ToolbarHelp';
+import WithEditorActions from '../src/ui/WithEditorActions';
+
+import { mediaProvider } from './5-full-page';
 
 export type Props = {
   editorProps?: EditorProps;

@@ -1,8 +1,9 @@
 import {
   EditorNodeContainerModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import { layoutAdf } from './selection.spec.ts-fixtures';
 
 test.describe('Layout Selection', () => {

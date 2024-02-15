@@ -1984,14 +1984,6 @@ export const validDocument = {
           },
         },
       ],
-      marks: [
-        {
-          type: 'link',
-          attrs: {
-            href: 'http://www.google.com',
-          },
-        },
-      ],
     },
     {
       type: 'bodiedExtension',
@@ -4169,14 +4161,6 @@ map.put(3, 10);`,
             type: 'file',
             id: '5556346b-b081-482b-bc4a-4faca8ecd2de',
             collection: 'MediaServicesSample',
-          },
-        },
-      ],
-      marks: [
-        {
-          type: 'link',
-          attrs: {
-            href: 'http://www.google.com',
           },
         },
       ],

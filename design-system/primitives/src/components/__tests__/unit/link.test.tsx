@@ -10,6 +10,16 @@ import { xcss } from '../../../xcss/xcss';
 import UNSAFE_LINK from '../../link';
 
 const testId = 'test-link';
+const styles = xcss({
+  backgroundColor: 'color.background.brand.bold',
+  padding: 'space.100',
+  paddingBlock: 'space.100',
+  paddingBlockStart: 'space.100',
+  paddingBlockEnd: 'space.100',
+  paddingInline: 'space.100',
+  paddingInlineStart: 'space.100',
+  paddingInlineEnd: 'space.100',
+});
 
 type MyRouterLinkConfig = {
   to: string;
@@ -231,6 +241,41 @@ describe('Link', () => {
 
     const styles = getComputedStyle(screen.getByTestId(testId));
     expect(styles.getPropertyValue('text-transform')).toBe('uppercase');
+  });
+
+  test('`xcss` should result in expected css', () => {
+    render(
+      <UNSAFE_LINK
+        href="/required"
+        testId={testId}
+        backgroundColor="elevation.surface"
+        padding="space.0"
+        paddingBlock="space.0"
+        paddingBlockStart="space.0"
+        paddingBlockEnd="space.0"
+        paddingInline="space.0"
+        paddingInlineStart="space.0"
+        paddingInlineEnd="space.0"
+        xcss={styles}
+      >
+        child
+      </UNSAFE_LINK>,
+    );
+    const element = screen.getByTestId(testId);
+    expect(element).toBeInTheDocument();
+
+    expect(element).toHaveCompiledCss({
+      // Every value in here overrides the props values
+      // eg. `props.padding="space.0"` is overridden by `xcss.padding: 'space.100'`
+      backgroundColor: 'var(--ds-surface, #FFFFFF)',
+      padding: 'var(--ds-space-100, 8px)',
+      paddingBlock: 'var(--ds-space-100, 8px)',
+      paddingBlockStart: 'var(--ds-space-100, 8px)',
+      paddingBlockEnd: 'var(--ds-space-100, 8px)',
+      paddingInline: 'var(--ds-space-100, 8px)',
+      paddingInlineStart: 'var(--ds-space-100, 8px)',
+      paddingInlineEnd: 'var(--ds-space-100, 8px)',
+    });
   });
 
   describe('external link attributes `target` and `rel`', () => {

@@ -1,5 +1,41 @@
 # @atlaskit/form
 
+## 9.0.7
+
+### Patch Changes
+
+- [#70460](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70460) [`2f37600156ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f37600156ae) - The internal composition of a component in this package has changed. There is no expected change in behaviour.
+
+## 9.0.6
+
+### Patch Changes
+
+- [#68013](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68013) [`a23882ab49f8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a23882ab49f8) - Upgrade depdendency `final-form` for bugfix.
+
+## 9.0.5
+
+### Patch Changes
+
+- [#61141](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61141) [`57a79a328287`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/57a79a328287) - Revert the solution with the hidden span in the Label which was merged in scope of DST-11061.
+
+## 9.0.4
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
+## 9.0.3
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 9.0.2
+
+### Patch Changes
+
+- [#58458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58458) [`536478cdcf0b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/536478cdcf0b) - Updated Form messages to have a small gap between the icon and message text.
+
 ## 9.0.1
 
 ### Patch Changes

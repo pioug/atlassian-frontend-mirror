@@ -66,6 +66,12 @@ export class PlaceholderTextNodeView implements NodeView {
 
       view.dispatch(tr);
 
+      if (!view.hasFocus()) {
+        window.requestAnimationFrame(() => {
+          view.focus();
+        });
+      }
+
       return true;
     }
 

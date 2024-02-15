@@ -1,5 +1,17 @@
 # @atlaskit/progress-bar
 
+## 2.0.1
+
+### Patch Changes
+
+- [#69022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69022) [`395c74147990`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/395c74147990) - Migrate packages to use declarative entry points
+
+## 2.0.0
+
+### Major Changes
+
+- [#52318](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/52318) [`71ad9704d42f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/71ad9704d42f) - Removed all remaining legacy theming logic from the ProgressBar component.
+
 ## 1.0.2
 
 ### Patch Changes

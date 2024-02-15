@@ -25,9 +25,13 @@ import type { EmbedCardNodeViewProps } from '../nodeviews/embedCard';
 import { EmbedCard } from '../nodeviews/embedCard';
 import { InlineCardNodeView } from '../nodeviews/inlineCard';
 import type { CardPluginOptions, CardPluginState } from '../types';
-import { isEmbedSupportedAtPosition } from '../utils';
+import {
+  isBlockSupportedAtPosition,
+  isEmbedSupportedAtPosition,
+} from '../utils';
 
 import {
+  clearOverlayCandidate,
   setCardLayoutAndDatasourceTableRef,
   setDatasourceTableRef,
 } from './actions';
@@ -44,6 +48,17 @@ export { pluginKey } from './plugin-key';
 
 const LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK = 'smart-link-upgrade-pulse';
 
+const handleAwarenessOverlay = (view: EditorView): void => {
+  const currentState = getPluginState(view.state);
+  const overlayCandidatePos = currentState?.overlayCandidatePosition;
+  if (overlayCandidatePos) {
+    currentState.removeOverlay?.();
+    const tr = view.state.tr;
+    clearOverlayCandidate(tr);
+    view.dispatch(tr);
+  }
+};
+
 export const createPlugin =
   (
     options: CardPluginOptions,
@@ -58,6 +73,7 @@ export const createPlugin =
       allowResizing,
       useAlternativePreloader,
       fullWidthMode,
+      actionOptions,
       showServerActions,
       cardPluginEvents,
       showUpgradeDiscoverability,
@@ -68,11 +84,16 @@ export const createPlugin =
     const enableInlineUpgradeFeatures =
       !!showUpgradeDiscoverability && platform !== 'mobile';
 
+    const shouldUseUpgradeFeatures =
+      getBooleanFF('platform.linking-platform.smart-card.inline-switcher') &&
+      enableInlineUpgradeFeatures;
+
     const inlineCardViewProducer = getInlineNodeViewProducer({
       pmPluginFactoryParams,
       Component: InlineCardNodeView,
       extraComponentProps: {
         useAlternativePreloader,
+        actionOptions,
         showServerActions,
         enableInlineUpgradeFeatures,
         allowEmbeds,
@@ -118,11 +139,7 @@ export const createPlugin =
             return pluginStateWithUpdatedPos;
           }
 
-          if (
-            !getBooleanFF(
-              'platform.linking-platform.smart-card.inline-switcher',
-            )
-          ) {
+          if (!shouldUseUpgradeFeatures) {
             return reducer(pluginStateWithUpdatedPos, meta);
           }
 
@@ -137,21 +154,23 @@ export const createPlugin =
             LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK,
           );
 
-          if (
-            meta.type !== 'RESOLVE' ||
-            !enableInlineUpgradeFeatures ||
-            isSmartLinkPulseDiscovered ||
-            !isSingleInlineLink
-          ) {
+          if (meta.type !== 'RESOLVE' || !isSingleInlineLink) {
             return newState;
           }
 
           const linkPosition = pluginState.requests[0].pos;
+          const canBeUpgradedToBlock =
+            allowBlockCards &&
+            isBlockSupportedAtPosition(linkPosition, prevEditorState, 'inline');
           const canBeUpgradedToEmbed =
             allowEmbeds &&
             isEmbedSupportedAtPosition(linkPosition, prevEditorState, 'inline');
 
-          if (canBeUpgradedToEmbed) {
+          if (canBeUpgradedToBlock || canBeUpgradedToEmbed) {
+            newState.overlayCandidatePosition = linkPosition;
+          }
+
+          if (!isSmartLinkPulseDiscovered && canBeUpgradedToEmbed) {
             newState.inlineCardAwarenessCandidatePosition = linkPosition;
           }
 
@@ -192,6 +211,7 @@ export const createPlugin =
               ) as HTMLElement;
 
               const { node } = selection;
+
               const isDatasource = !!node?.attrs?.datasource;
 
               const shouldUpdateTableRef =
@@ -201,14 +221,18 @@ export const createPlugin =
               if (isDatasource && shouldUpdateTableRef) {
                 // since we use the plugin state, which is a shared state, we need to update the datasourceTableRef, layout on each selection
                 const layout = node?.attrs?.layout || 'center';
+                const isNested = selection.$anchor.depth > 0;
 
-                // we use cardAction to set the same meta, hence, we will need to combine both layout+datasourceTableRef in one transaction
-                dispatch(
-                  setCardLayoutAndDatasourceTableRef({
-                    datasourceTableRef,
-                    layout,
-                  })(tr),
-                );
+                // we want to disable resize button when datasource table is nested by not setting then datasourceTableRef on selection
+                if (!isNested) {
+                  // we use cardAction to set the same meta, hence, we will need to combine both layout+datasourceTableRef in one transaction
+                  dispatch(
+                    setCardLayoutAndDatasourceTableRef({
+                      datasourceTableRef,
+                      layout,
+                    })(tr),
+                  );
+                }
               }
             } else {
               if (currentState?.datasourceTableRef) {
@@ -277,6 +301,7 @@ export const createPlugin =
               pmPluginFactoryParams;
             const reactComponentProps: BlockCardNodeViewProps = {
               platform,
+              actionOptions,
               showServerActions,
             };
             const hasIntlContext = true;
@@ -288,6 +313,18 @@ export const createPlugin =
                 platform !== 'mobile' &&
                 canRenderDatasource(node?.attrs?.datasource?.id)
               ) {
+                const datasourcePosition =
+                  typeof getPos === 'function' && getPos();
+
+                const datasourceResolvedPosition =
+                  datasourcePosition &&
+                  view.state.doc.resolve(datasourcePosition);
+
+                const isNodeNested = !!(
+                  datasourceResolvedPosition &&
+                  datasourceResolvedPosition.depth > 0
+                );
+
                 return new Datasource({
                   node,
                   view,
@@ -296,6 +333,7 @@ export const createPlugin =
                   eventDispatcher,
                   hasIntlContext,
                   pluginInjectionApi,
+                  isNodeNested,
                 }).init();
               } else {
                 return inlineCardViewProducer(node, view, getPos, decorations);
@@ -328,6 +366,8 @@ export const createPlugin =
               fullWidthMode,
               dispatchAnalyticsEvent,
               pluginInjectionApi,
+              actionOptions,
+              showServerActions,
             };
             const hasIntlContext = true;
             return new EmbedCard(
@@ -344,6 +384,16 @@ export const createPlugin =
             ).init();
           },
         },
+        ...(shouldUseUpgradeFeatures && {
+          handleKeyDown: (view: EditorView): boolean => {
+            handleAwarenessOverlay(view);
+            return false;
+          },
+          handleClick: (view: EditorView): boolean => {
+            handleAwarenessOverlay(view);
+            return false;
+          },
+        }),
       },
 
       key: pluginKey,

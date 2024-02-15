@@ -63,7 +63,7 @@ export interface EmptyStateProps {
    */
   tertiaryAction?: ReactNode;
   /**
-   * A hook for automated testing
+   * A hook for automated testing.
    */
   testId?: string;
   /**
@@ -81,4 +81,8 @@ export interface EmptyStateProps {
    * Only set `height` if you want the image to resize down on smaller devices.
    */
   imageHeight?: number;
+  /**
+   * Accessible name for the action buttons group of empty state. Can be used for internationalization. Default is "Button group".
+   */
+  buttonGroupLabel?: string;
 }

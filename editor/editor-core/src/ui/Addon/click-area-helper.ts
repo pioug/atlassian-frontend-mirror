@@ -1,7 +1,8 @@
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { closestElement } from '@atlaskit/editor-common/utils';
-import { setSelectionTopLevelBlocks } from '@atlaskit/editor-common/selection';
+import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import { addParagraphAtEnd } from '@atlaskit/editor-common/commands';
+import { setSelectionTopLevelBlocks } from '@atlaskit/editor-common/selection';
+import { closestElement } from '@atlaskit/editor-common/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 // we ignore all of the clicks made inside <div class="ak-editor-content-area" /> (but not clicks on the node itself)
 const insideContentArea = (ref: HTMLElement | null): boolean => {
@@ -159,6 +160,8 @@ const outsideProsemirrorEditorClickHandler = (
     view.posAtCoords.bind(view),
     isEditorFocused,
   );
+
+  tintDirtyTransaction(tr);
 
   if (!tr.docChanged && !tr.selectionSet) {
     return;

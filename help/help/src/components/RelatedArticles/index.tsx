@@ -1,3 +1,6 @@
+/** @jsx jsx */
+/** @jsxFrag */
+
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   UIAnalyticsEvent,
@@ -17,6 +20,8 @@ import { DividerLine } from '../../util/styled';
 import { RelatedArticlesTitle } from './styled';
 import useCancellablePromise from '../../util/hooks/cancellablePromise';
 import { usePrevious } from '../../util/hooks/previous';
+
+import { jsx } from '@emotion/react';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

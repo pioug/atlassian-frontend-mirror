@@ -55,6 +55,9 @@
       "path": "../../design-system/popper/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/primitives/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/select/tsconfig.app.json"
     },
     {

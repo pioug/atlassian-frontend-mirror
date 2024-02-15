@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
@@ -11,11 +11,7 @@ const DropdownMenuCustomTrigger = () => {
       placement="bottom-end"
       testId="lite-mode-ddm"
       trigger={({ triggerRef, ...triggerProps }) => (
-        <Button
-          ref={triggerRef}
-          {...triggerProps}
-          iconBefore={<MoreIcon label="" />}
-        >
+        <Button ref={triggerRef} {...triggerProps} iconBefore={MoreIcon}>
           Click to open
         </Button>
       )}

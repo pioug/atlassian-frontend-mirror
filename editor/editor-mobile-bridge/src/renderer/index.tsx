@@ -14,12 +14,9 @@ import { getEmptyADF } from '@atlaskit/adf-utils/empty-adf';
 import { fetchProxy } from '../utils/fetch-proxy';
 import getBridge from './native-to-web/bridge-initialiser';
 import useRendererConfiguration from './hooks/use-renderer-configuration';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { Serialized } from '../types';
-import {
-  getEnableLegacyMobileMacros,
-  getRestartNumberedLists,
-} from '../query-param-reader';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { Serialized } from '../types';
+import { getEnableLegacyMobileMacros } from '../query-param-reader';
 import { eventHandlers } from './event-handlers';
 import { handleAnalyticsEvent } from './renderer-analytics-client';
 
@@ -67,9 +64,6 @@ export const App: React.FC<AppProps> = (props) => {
       onWillLocaleChange={onWillLocaleChange}
       rendererBridge={rendererBridge}
       allowCustomPanels={rendererConfiguration.isCustomPanelEnabled()}
-      featureFlags={{
-        restartNumberedLists: getRestartNumberedLists(),
-      }}
     />
   );
 };

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import noop from '@atlaskit/ds-lib/noop';
 import { token } from '@atlaskit/tokens';
 
@@ -46,7 +46,7 @@ export default () => {
 
   return (
     <div style={{ width: '100%', textAlign: 'center' }}>
-      <ButtonGroup>
+      <ButtonGroup label="Content updates">
         <Popup
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}

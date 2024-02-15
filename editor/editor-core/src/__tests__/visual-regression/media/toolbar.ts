@@ -1,9 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  Appearance,
-  initEditorWithAdf,
-  snapshot,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import { scrollToBottom } from '@atlaskit/editor-test-helpers/page-objects/editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickMediaInPosition,
@@ -12,16 +10,19 @@ import {
   waitForMediaToBeLoaded,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import mediaSingleAdf from './__fixtures__/mediaSingle-image.adf.json';
 import mediaSingleVideoAlignmentAdf from './__fixtures__/mediaSingle-video-alignment.adf.json';
 import mediaSingleVideoWrapAdf from './__fixtures__/mediaSingle-video-wrap.adf.json';
 import videoInsideExpandAdf from './__fixtures__/video-inside-expand-toolbar.adf.json';
-import mediaSingleAdf from './__fixtures__/mediaSingle-image.adf.json';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { scrollToBottom } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 describe('Snapshot Test: Media', () => {
   let page: PuppeteerPage;
@@ -50,8 +51,7 @@ describe('Snapshot Test: Media', () => {
       await page.click(mediaImageSelector);
     });
 
-    // TODO: Unskip flaky tests (ED-15254)
-    describe.skip('Media Single', () => {
+    describe('Media Single', () => {
       it('should show add link button', async () => {
         await makeSnapshot(page);
       });
@@ -96,8 +96,7 @@ describe('Snapshot Test: Media', () => {
         await makeSnapshot(page);
       });
 
-      // TODO: Unskip flaky tests (ED-15254)
-      it.skip('should show error message when entering invalid link', async () => {
+      it('should show error message when entering invalid link', async () => {
         await page.waitForSelector('[aria-label="Add link"]');
         await page.click('[aria-label="Add link"]');
         await waitForActivityItems(page, 5);

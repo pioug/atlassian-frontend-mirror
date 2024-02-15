@@ -1,23 +1,24 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  snapshot,
-  initFullPageEditorWithAdf,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickMediaInPosition,
   waitForMediaToBeLoaded,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
-import mediaWithCaption from './__fixtures__/media-with-caption.adf.json';
-import mediaWithCaptionWrapRight from './__fixtures__/media-with-caption-wrap-right.adf.json';
-import mediaWithCaptionWrapLeft from './__fixtures__/media-with-caption-wrap-left.adf.json';
-import mediaWithCaptionAlignStart from './__fixtures__/media-with-caption-align-start.adf.json';
-import mediaWithCaptionAlignEnd from './__fixtures__/media-with-caption-align-end.adf.json';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import mediaWithCaptionAlignEnd from './__fixtures__/media-with-caption-align-end.adf.json';
+import mediaWithCaptionAlignStart from './__fixtures__/media-with-caption-align-start.adf.json';
+import mediaWithCaptionWrapLeft from './__fixtures__/media-with-caption-wrap-left.adf.json';
+import mediaWithCaptionWrapRight from './__fixtures__/media-with-caption-wrap-right.adf.json';
+import mediaWithCaption from './__fixtures__/media-with-caption.adf.json';
 
 async function initEditor(page: PuppeteerPage, adf: Object) {
   await initFullPageEditorWithAdf(page, adf, Device.LaptopMDPI, undefined, {

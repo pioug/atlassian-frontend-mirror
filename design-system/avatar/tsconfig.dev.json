@@ -55,10 +55,22 @@
       "path": "../ds-lib/tsconfig.app.json"
     },
     {
+      "path": "../form/tsconfig.app.json"
+    },
+    {
+      "path": "../primitives/tsconfig.app.json"
+    },
+    {
+      "path": "../range/tsconfig.app.json"
+    },
+    {
       "path": "../section-message/tsconfig.app.json"
     },
     {
       "path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+    },
+    {
+      "path": "../textfield/tsconfig.app.json"
     },
     {
       "path": "../theme/tsconfig.app.json"

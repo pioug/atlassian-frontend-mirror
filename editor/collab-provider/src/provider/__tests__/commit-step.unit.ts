@@ -1,14 +1,18 @@
-import { commitStep, throttledCommitStep } from '../commit-step';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import {
+  commitStepQueue,
+  readyToCommit,
+  RESET_READYTOCOMMIT_INTERVAL_MS,
+} from '../commit-step';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { createSocketIOCollabProvider } from '../../socket-io-provider';
-import { Slice } from '@atlaskit/editor-prosemirror/model';
-import { AcknowledgementResponseTypes } from '../../types';
 import { EVENT_STATUS } from '../../helpers/const';
+import { createSocketIOCollabProvider } from '../../socket-io-provider';
+import { AcknowledgementResponseTypes } from '../../types';
 
 // create editor state
 const { collab: collabPlugin } = jest.requireActual(
@@ -35,31 +39,13 @@ const createTestHelpers = () => {
   // to access a private variable within this function block
 
   // pre set commitStep with necessary functions
-  const presetCommitStep = (
+  const presetCommitStepQueue = (
     steps: any,
     version = 1,
     userId = 'user1',
     clientId = 'client1',
   ) => {
-    commitStep({
-      broadcast: provider['channel'].broadcast,
-      steps,
-      version,
-      userId,
-      clientId,
-      onStepsAdded: provider['documentService'].onStepsAdded,
-      onErrorHandled: provider['documentService']['onErrorHandled'],
-      analyticsHelper: provider['analyticsHelper'],
-      emit: emitMock,
-    });
-  };
-  const presetThrottledCommit = (
-    steps: any,
-    version = 1,
-    userId = 'user1',
-    clientId = 'client1',
-  ) => {
-    throttledCommitStep({
+    commitStepQueue({
       broadcast: provider['channel'].broadcast,
       steps,
       version,
@@ -73,8 +59,7 @@ const createTestHelpers = () => {
   };
 
   return {
-    presetCommitStep,
-    presetThrottledCommit,
+    presetCommitStepQueue,
     broadcastSpy: jest.spyOn(provider['channel'], 'broadcast'),
     onStepsAddedSpy: jest.spyOn(provider['documentService'], 'onStepsAdded'),
     errorEventSpy: jest.spyOn(
@@ -93,9 +78,10 @@ const createTestHelpers = () => {
   };
 };
 
-describe('commitStep', () => {
+describe('commitStepQueue', () => {
+  jest.useFakeTimers();
   const {
-    presetCommitStep,
+    presetCommitStepQueue,
     broadcastSpy,
     onStepsAddedSpy,
     errorEventSpy,
@@ -105,11 +91,21 @@ describe('commitStep', () => {
 
   beforeEach(() => {
     provider.initialize(() => editorState);
+    jest.runOnlyPendingTimers(); // running pending timers will set `readyToCommit` flag to true
   });
-  afterEach(() => jest.clearAllMocks());
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it(`Resets readyToCommit flag after ${RESET_READYTOCOMMIT_INTERVAL_MS}`, () => {
+    presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+    expect(readyToCommit).toBe(false);
+    jest.advanceTimersByTime(RESET_READYTOCOMMIT_INTERVAL_MS);
+    expect(readyToCommit).toBe(true);
+  });
 
   it('Adds cliendIds and userIds to steps before broadcast', () => {
-    presetCommitStep([fakeStep], 1, 'user1', 'client1');
+    presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
     expect(broadcastSpy).toBeCalledTimes(1);
     expect(broadcastSpy).toBeCalledWith(
@@ -134,7 +130,7 @@ describe('commitStep', () => {
       throw new Error('Darn it!');
     });
 
-    presetCommitStep([fakeStep], 1, 'user1', 'client1');
+    presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
     expect(broadcastSpy).toBeCalledTimes(1);
     expect(broadcastSpy).toThrow('Darn it!');
@@ -176,19 +172,19 @@ describe('commitStep', () => {
 
     describe('on successful response', () => {
       beforeEach(() => {
+        jest.runOnlyPendingTimers();
         broadcastMockImplementation({ type: 'SUCCESS', version: 2 });
         jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
 
-        presetCommitStep([fakeStep], 1, 'user1', 'client1');
+        presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
       });
 
       afterEach(() => {
         jest.spyOn(global.Math, 'random').mockRestore();
       });
 
-      it('onStepsAdded called with correct data', async () => {
-        expect(onStepsAddedSpy).toBeCalledTimes(1);
-        expect(onStepsAddedSpy).toBeCalledWith({
+      it('onStepsAdded called with correct data after ACK', async () => {
+        const steps = {
           steps: [
             {
               clientId: 'client1',
@@ -199,11 +195,26 @@ describe('commitStep', () => {
             },
           ],
           version: 2,
-        });
+        };
+        expect(readyToCommit).toBe(false);
+        presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+        expect(readyToCommit).toBe(false);
+        presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+        expect(readyToCommit).toBe(false);
+
+        expect(onStepsAddedSpy).toBeCalledTimes(1);
+        expect(onStepsAddedSpy).toBeCalledWith(steps);
+
+        expect(readyToCommit).toBe(false);
+        jest.advanceTimersByTime(RESET_READYTOCOMMIT_INTERVAL_MS);
+        expect(readyToCommit).toBe(true);
+        presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+        expect(onStepsAddedSpy).toBeCalledTimes(2);
+        expect(onStepsAddedSpy).toBeCalledWith(steps);
       });
 
       it('analytics action event sent', () => {
-        expect(actionEventSpy).toBeCalledTimes(1);
+        expect(actionEventSpy).toBeCalledTimes(2);
         expect(actionEventSpy).toBeCalledWith(
           'addSteps',
           EVENT_STATUS.SUCCESS_10x_SAMPLED,
@@ -248,7 +259,7 @@ describe('commitStep', () => {
 
       it('onErrorHandled called with correct response error', () => {
         broadcastMockErrorWithCode('Some weird stuff going on');
-        presetCommitStep([fakeStep], 1, 'user1', 'client1');
+        presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
         expect(onErrorHandledSpy).toBeCalledTimes(1);
         expect(onErrorHandledSpy).toBeCalledWith({
@@ -262,7 +273,7 @@ describe('commitStep', () => {
 
       it('commit attempt & failure event emitted', () => {
         broadcastMockErrorWithCode('Some weird stuff going on');
-        presetCommitStep([fakeStep], 1, 'user1', 'client1');
+        presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
         expect(emitMock).toBeCalledTimes(2);
         expect(emitMock.mock.calls).toMatchInlineSnapshot(`
@@ -288,9 +299,9 @@ describe('commitStep', () => {
       describe('analytics action event send with', () => {
         it('unknown/no response error code', () => {
           broadcastMockErrorWithCode('Some weird stuff going on');
-          presetCommitStep([fakeStep], 1, 'user1', 'client1');
+          presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
-          expect(actionEventSpy).toBeCalledTimes(1);
+          expect(actionEventSpy).toBeCalledTimes(2);
           expect(actionEventSpy).toBeCalledWith('addSteps', 'FAILURE', {
             latency: 0,
             type: 'ERROR',
@@ -299,7 +310,7 @@ describe('commitStep', () => {
 
         it('head version failed response error code', () => {
           broadcastMockErrorWithCode('HEAD_VERSION_UPDATE_FAILED');
-          presetCommitStep([fakeStep], 1, 'user1', 'client1');
+          presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
           expect(actionEventSpy).toBeCalledTimes(2);
           expect(actionEventSpy).toHaveBeenNthCalledWith(
@@ -313,20 +324,12 @@ describe('commitStep', () => {
           );
         });
 
-        it('version number exists response error code', () => {
-          broadcastMockErrorWithCode('VERSION_NUMBER_ALREADY_EXISTS');
-          presetCommitStep([fakeStep], 1, 'user1', 'client1');
-
-          expect(actionEventSpy).toBeCalledTimes(2);
-          expect(actionEventSpy).toHaveBeenNthCalledWith(
-            2,
-            'addSteps',
-            'FAILURE',
-            {
-              latency: 0,
-              type: 'REJECTED',
-            },
-          );
+        it('not ready to commit', () => {
+          presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+          presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+          presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+          presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+          expect(onStepsAddedSpy).toBeCalledTimes(0);
         });
       });
 
@@ -334,7 +337,7 @@ describe('commitStep', () => {
         describe('with step related error code', () => {
           it('when head version update failed', () => {
             broadcastMockErrorWithCode('HEAD_VERSION_UPDATE_FAILED');
-            presetCommitStep([fakeStep], 1, 'user1', 'client1');
+            presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
             expect(errorEventSpy).toBeCalledTimes(1);
             expect(errorEventSpy).toBeCalledWith(
@@ -348,9 +351,9 @@ describe('commitStep', () => {
 
           it('when head version update failed', () => {
             broadcastMockErrorWithCode('VERSION_NUMBER_ALREADY_EXISTS');
-            presetCommitStep([fakeStep], 1, 'user1', 'client1');
+            presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
-            expect(errorEventSpy).toBeCalledTimes(1);
+            expect(errorEventSpy).toBeCalledTimes(3);
             expect(errorEventSpy).toBeCalledWith(
               {
                 data: { code: 'VERSION_NUMBER_ALREADY_EXISTS', status: 500 },
@@ -363,7 +366,7 @@ describe('commitStep', () => {
 
         it('non steps related errors', () => {
           broadcastMockErrorWithCode('Naaniiii?');
-          presetCommitStep([fakeStep], 1, 'user1', 'client1');
+          presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
           expect(errorEventSpy).toBeCalledTimes(2);
           // inside onErrorHandled
@@ -392,9 +395,9 @@ describe('commitStep', () => {
     describe('analytics error event sent on unknown response', () => {
       it('with error type', () => {
         broadcastMockImplementation({ type: 'not really sure what' });
-        presetCommitStep([fakeStep], 1, 'user1', 'client1');
+        presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
-        expect(errorEventSpy).toBeCalledTimes(1);
+        expect(errorEventSpy).toBeCalledTimes(3);
         expect(errorEventSpy).toBeCalledWith(
           new Error('Response type: not really sure what'),
           'Error while adding steps - Invalid Acknowledgement',
@@ -408,7 +411,7 @@ describe('commitStep', () => {
             cb({});
           },
         );
-        presetCommitStep([fakeStep], 1, 'user1', 'client1');
+        presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
         expect(errorEventSpy).toBeCalledTimes(1);
         expect(errorEventSpy).toBeCalledWith(

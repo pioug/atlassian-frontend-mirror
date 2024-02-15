@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b3ceb703addd40fe781df7b89d7772de>>
+ * @codegen <<SignedSource::7e7682a077bd4735a11d99a880446147>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -85,14 +85,14 @@ const tokens = [
     ]
   },
   {
-    "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "value": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "attributes": {
       "group": "fontFamily"
     },
     "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+      "value": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
       "attributes": {
         "group": "fontFamily"
       }

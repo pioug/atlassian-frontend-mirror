@@ -5,7 +5,6 @@ import {
   getNodeSelectionAnalyticsPayload,
   getRangeSelectionAnalyticsPayload,
   isIgnored as isIgnoredByGapCursor,
-  isSelectionAtEndOfNode,
   isSelectionAtStartOfNode,
 } from '@atlaskit/editor-common/selection';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
@@ -320,7 +319,20 @@ export const isSelectionAtStartOfParentNode = (
 export const isSelectionAtEndOfParentNode = (
   $pos: ResolvedPos,
   selection: Selection,
-) => isSelectionAtEndOfNode($pos, findSelectableContainerParent(selection));
+) => {
+  const isAtTheEndOfCurrentLevel =
+    $pos.parent.content.size === $pos.parentOffset;
+  if (!isAtTheEndOfCurrentLevel) {
+    return false;
+  }
+
+  if ($pos.depth === 0 || NodeSelection.isSelectable($pos.parent)) {
+    return isAtTheEndOfCurrentLevel;
+  }
+
+  const $after = $pos.doc.resolve($pos.after());
+  return $after.parent.content.size === $after.parentOffset;
+};
 
 export {
   getNodeSelectionAnalyticsPayload,

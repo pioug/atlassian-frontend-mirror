@@ -1,5 +1,6 @@
 import React from 'react';
-import { EditorAppearanceComponentProps } from '../../types';
+
+import type { EditorAppearanceComponentProps } from '../../types';
 import { MobileAppearance } from '../AppearanceComponents/Mobile';
 import PluginSlot from '../PluginSlot';
 

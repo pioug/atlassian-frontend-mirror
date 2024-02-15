@@ -1,10 +1,11 @@
 import React, { Suspense } from 'react';
 
 import {
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
@@ -23,6 +24,7 @@ import { cardTriggered, fireEvent } from '../../util/analytics';
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from '../../util/config';
 
 import { ProfileCardLazy } from './lazyProfileCard';
+import ProfilecardTriggerNext from './ProfileCardTriggerNext';
 import UserLoadingState from './UserLoadingState';
 
 class ProfilecardTrigger extends React.PureComponent<
@@ -321,7 +323,7 @@ class ProfilecardTrigger extends React.PureComponent<
                 {...this.containerListeners}
                 ref={ref}
                 data-testid={this.props.testId}
-                role={this.props.trigger !== 'hover' ? 'button' : ''}
+                role="button"
                 tabIndex={0}
               >
                 {this.props.children}
@@ -363,4 +365,14 @@ class ProfilecardTrigger extends React.PureComponent<
   }
 }
 
-export default withAnalyticsEvents()(ProfilecardTrigger);
+const ProfilecardTriggerLegacy = withAnalyticsEvents()(ProfilecardTrigger);
+
+export default function ProfilecardTriggerSwitch(
+  props: ProfileCardTriggerProps,
+) {
+  return getBooleanFF('platform.profile-card-trigger-next') ? (
+    <ProfilecardTriggerNext {...props} />
+  ) : (
+    <ProfilecardTriggerLegacy {...props} />
+  );
+}

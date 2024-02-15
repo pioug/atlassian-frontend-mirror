@@ -1,8 +1,9 @@
 import React from 'react';
 
 import type { WrappedComponentProps } from 'react-intl-next';
-import { defineMessages, injectIntl } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
+import { placeholderTextMessages as messages } from '@atlaskit/editor-common/messages';
 import { PanelTextInput } from '@atlaskit/editor-common/ui';
 
 import type { Coordinates } from '../FloatingToolbar';
@@ -11,14 +12,6 @@ import FloatingToolbar, {
   getOffsetParent,
   handlePositionCalculatedWith,
 } from '../FloatingToolbar';
-
-export const messages = defineMessages({
-  placeholderTextPlaceholder: {
-    id: 'fabric.editor.placeholderTextPlaceholder',
-    defaultMessage: 'Add placeholder text',
-    description: '',
-  },
-});
 
 export interface Props {
   getNodeFromPos: (pos: number) => Node;

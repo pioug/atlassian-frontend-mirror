@@ -1,8 +1,7 @@
+import { render } from '@testing-library/react';
 import React from 'react';
-import { render } from 'react-dom';
-import { updateWindowSelectionAroundDraft, dataAttributes } from '../../dom';
+import { dataAttributes, updateWindowSelectionAroundDraft } from '../../dom';
 
-let container: HTMLElement | null;
 let createRangeMock: jest.SpyInstance;
 let rangeMock: {
   setStart: jest.Mock;
@@ -10,8 +9,6 @@ let rangeMock: {
 };
 
 beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
   createRangeMock = jest.spyOn(document, 'createRange');
 
   rangeMock = {
@@ -25,8 +22,6 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  document.body.removeChild(container!);
-  container = null;
   rangeMock.setStart.mockReset();
   rangeMock.setEndAfter.mockReset();
   createRangeMock.mockRestore();
@@ -91,7 +86,6 @@ describe('Annotations: draft/dom', () => {
                 </mark>
               </p>
             </div>,
-            container,
           );
         });
 

@@ -2,10 +2,12 @@
 title: Radio group
 description: A radio group presents a list of options where only one choice can be selected.
 order: 1
+props:
+  packageName: '@atlaskit/radio'
+  exports:
+    - RadioGroup
 ---
-
-import RadioGroupProps from '!!extract-react-types-loader!../../src/radio-group';
 
 ## Props
 
-<PropsTable heading="" props={RadioGroupProps} />
+<TSMorphProps exportName="RadioGroup" packageName="@atlaskit/radio" />

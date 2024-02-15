@@ -19,6 +19,7 @@ export default {
   'fabric.elements.share.form.no-permissions': '공유할 권한이 없습니다.',
   'fabric.elements.share.form.public.send': '공개 링크 보내기',
   'fabric.elements.share.form.public.share': '공개 링크 공유',
+  'fabric.elements.share.form.required-field.summary': '필수 필드는 별표로 표시되어 있습니다',
   'fabric.elements.share.form.retry': '다시 시도',
   'fabric.elements.share.form.send': '보내기',
   'fabric.elements.share.form.share': '공유',

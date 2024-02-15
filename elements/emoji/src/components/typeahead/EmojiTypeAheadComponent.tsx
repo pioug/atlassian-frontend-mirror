@@ -1,33 +1,34 @@
 /** @jsx jsx */
-import { PureComponent } from 'react';
 import type {
   AnalyticsEventPayload,
   CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import uuid from 'uuid';
 import { jsx } from '@emotion/react';
+import { PureComponent } from 'react';
+import { flushSync } from 'react-dom';
+import uuid from 'uuid';
 import type {
   EmojiProvider,
   OnEmojiProviderChange,
 } from '../../api/EmojiResource';
-import { defaultListLimit } from '../../util/constants';
-import { toEmojiId } from '../../util/type-helpers';
+import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import {
+  SearchSort,
   type EmojiDescription,
   type EmojiSearchResult,
   type OnEmojiEvent,
   type SearchOptions,
-  SearchSort,
   type ToneSelection,
 } from '../../types';
-import debug from '../../util/logger';
 import {
   typeaheadCancelledEvent,
-  typeaheadSelectedEvent,
   typeaheadRenderedEvent,
+  typeaheadSelectedEvent,
   ufoExperiences,
 } from '../../util/analytics';
-import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
+import { defaultListLimit } from '../../util/constants';
+import debug from '../../util/logger';
+import { toEmojiId } from '../../util/type-helpers';
 import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
 
 import EmojiList from './EmojiTypeAheadList';
@@ -264,10 +265,14 @@ export default class EmojiTypeAheadComponent extends PureComponent<
       visible,
     );
 
-    this.setState({
-      emojis: emojis,
-      visible,
-      loading: false,
+    // Synchronously flush state update, because there is some analytics in fireSelectionEvent
+    // that relies on emojis being set to determine the position
+    flushSync(() => {
+      this.setState({
+        emojis: emojis,
+        visible,
+        loading: false,
+      });
     });
 
     if (isFullShortName(query)) {
@@ -305,7 +310,6 @@ export default class EmojiTypeAheadComponent extends PureComponent<
     const { emojis } = this.state;
 
     this.selected = true;
-
     this.fireAnalyticsEvent(
       typeaheadSelectedEvent(
         exactMatch || this.pressed,

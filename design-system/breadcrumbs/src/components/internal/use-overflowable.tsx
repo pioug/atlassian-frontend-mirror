@@ -3,19 +3,33 @@ import { useEffect, useState } from 'react';
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default function useOverflowable(
   truncationWidth: number | undefined,
-  buttonRef: any,
+  buttonRefCurrent: HTMLButtonElement | null,
+  iconWidthAllowance: number,
 ) {
-  const [hasOverflow, setOverflow] = useState(false);
-  // Recalculate hasOverflow on every render cycle
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    if (truncationWidth && buttonRef.current) {
-      const shouldOverflow = buttonRef.current.clientWidth >= truncationWidth;
+  // Default to true to match hasOverflow = true default in Step component.
+  // This should ensure the icon never appears and then quickly disappears
+  const [hasOverflow, setOverflow] = useState(true);
+  const [showTooltip, setShowTooltip] = useState(false);
 
-      if (shouldOverflow !== hasOverflow) {
-        setOverflow(shouldOverflow);
-      }
+  // Need to recalculate on every render cycle as text/icons/width changing will change the outcome
+  useEffect(() => {
+    if (truncationWidth && buttonRefCurrent) {
+      // Calculate if the button width will be larger than the truncation width after allowing for icon widths.
+      // The button having a width greater than the truncationWidth, with icons, indicates the icons should be hidden to avoid going over the width limit
+      const shouldOverflow =
+        buttonRefCurrent.clientWidth + iconWidthAllowance > truncationWidth;
+
+      // The button width can already be equal to the truncationWidth which is an indicator that truncation is occurring and a tooltip should be displayed
+      const shouldShowTooltip =
+        buttonRefCurrent.clientWidth + iconWidthAllowance >= truncationWidth;
+
+      setOverflow(shouldOverflow);
+      setShowTooltip(shouldShowTooltip);
+    } else {
+      setOverflow(false);
+      setShowTooltip(false);
     }
-  });
-  return hasOverflow;
+  }, [truncationWidth, buttonRefCurrent, iconWidthAllowance]);
+
+  return [hasOverflow, showTooltip];
 }

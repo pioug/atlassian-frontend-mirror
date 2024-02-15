@@ -29,4 +29,6 @@ export enum FabricChannel {
   atlas = 'atlas',
   crossFlow = 'crossFlow',
   linkingPlatform = 'linkingPlatform',
+  postOffice = 'postOffice',
+  aiMate = 'aiMate',
 }

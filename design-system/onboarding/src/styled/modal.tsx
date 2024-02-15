@@ -1,9 +1,9 @@
+/* eslint-disable @atlaskit/design-system/no-nested-styles */
 /** @jsx jsx */
 import { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { useGlobalTheme } from '@atlaskit/theme/components';
 import { h600 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
@@ -14,28 +14,25 @@ type ModalActionContainerProps = {
   children: ReactNode;
 };
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const lightH600Styles = css(h600({ theme: { mode: 'light' } }));
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const darkH600Styles = css(h600({ theme: { mode: 'dark' } }));
-
 const modalBodyStyles = css({
-  padding: `${token('space.500', '40px')} ${token('space.250', '20px')}`,
+  padding: `${token('space.500', '40px')} ${token('space.200', '16px')}`,
   textAlign: 'center',
 });
 
-const modalHeadingStyles = css({
-  marginBottom: token('space.100', '8px'),
-  color: 'inherit',
-});
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+const modalHeadingStyles = css([
+  css(h600({ theme: { mode: 'light' } })),
+  {
+    marginBottom: token('space.100', '8px'),
+    color: 'inherit',
+  },
+]);
 
 const modalImageStyles = css({
   width: '100%',
   height: 'auto',
-  borderTopLeftRadius: token('border.radius', '3px'),
-  borderTopRightRadius: token('border.radius', '3px'),
-  // TODO: Use new breakpoints
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+  borderStartEndRadius: token('border.radius', '3px'),
+  borderStartStartRadius: token('border.radius', '3px'),
   '@media (min-width: 320px) and (max-width: 480px)': {
     borderRadius: 0,
   },
@@ -75,17 +72,7 @@ export const ModalBody = ({ children }: { children: ReactNode }) => (
  * @internal
  */
 export const ModalHeading = ({ children }: { children: ReactNode }) => {
-  const { mode } = useGlobalTheme();
-  return (
-    <h4
-      css={[
-        mode === 'light' ? lightH600Styles : darkH600Styles,
-        modalHeadingStyles,
-      ]}
-    >
-      {children}
-    </h4>
-  );
+  return <h4 css={modalHeadingStyles}>{children}</h4>;
 };
 
 /**

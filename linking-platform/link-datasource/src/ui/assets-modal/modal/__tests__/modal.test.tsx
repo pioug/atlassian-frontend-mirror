@@ -15,7 +15,6 @@ import {
   getErrorDatasourceTableHookState,
   getLoadingDatasourceTableHookState,
   getSingleAssetHookState,
-  geValidateAqlTextDefaultHookState,
   setup,
 } from './_utils';
 
@@ -36,6 +35,7 @@ describe('AssetsConfigModal', () => {
 
   it('should show loading skeletons and disable insert button when fetching workspace and initial data', async () => {
     const { getByRole, getByTestId } = await setup({
+      parameters: undefined,
       assetsClientHookState: getAssetsClientLoadingHookState(),
     });
     expect(
@@ -47,6 +47,7 @@ describe('AssetsConfigModal', () => {
   it('should show "access-required" and disable insert button when workspace fetch fails with PermissionError', async () => {
     const mockError = new PermissionError('workspace error');
     const { getByTestId, getByRole } = await setup({
+      parameters: undefined,
       assetsClientHookState: getAssetsClientErrorHookState({
         workspaceError: mockError,
       }),
@@ -58,6 +59,7 @@ describe('AssetsConfigModal', () => {
   it('should show "modal-loading-error" and disable insert button when workspace fetch fails with FetchError', async () => {
     const mockError = new FetchError(500, 'workspace error');
     const { getByTestId, getByRole } = await setup({
+      parameters: undefined,
       assetsClientHookState: getAssetsClientErrorHookState({
         workspaceError: mockError,
       }),
@@ -71,6 +73,7 @@ describe('AssetsConfigModal', () => {
   it('should show "access-required" and disable insert button when object schemas fetch fails with PermissionError', async () => {
     const mockError = new PermissionError('object schemas error');
     const { getByTestId, getByRole } = await setup({
+      parameters: undefined,
       assetsClientHookState: getAssetsClientErrorHookState({
         objectSchemasError: mockError,
       }),
@@ -98,6 +101,7 @@ describe('AssetsConfigModal', () => {
   it('should show "access-required" and disable insert button when existing object schema fetch fails with PermissionError', async () => {
     const mockError = new PermissionError('object schemas error');
     const { getByTestId, getByRole } = await setup({
+      parameters: undefined,
       assetsClientHookState: getAssetsClientErrorHookState({
         existingObjectSchemaError: mockError,
       }),
@@ -135,8 +139,7 @@ describe('AssetsConfigModal', () => {
           },
           context: [
             {
-              packageName: '@atlaskit/fabric',
-              packageVersion: '0.0.0',
+              component: 'datasourceConfigModal',
               source: 'datasourceConfigModal',
               attributes: { dataProvider: 'jsm-assets' },
             },
@@ -163,8 +166,8 @@ describe('AssetsConfigModal', () => {
     it('should disable insert button', async () => {
       const { getByRole } = await setup({
         visibleColumnKeys: undefined,
-        parameters: { workspaceId: '', aql: '', schemaId: '' },
         datasourceTableHookState: getEmptyDatasourceTableHookState(),
+        parameters: undefined,
       });
       await waitFor(() => {
         expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
@@ -176,11 +179,10 @@ describe('AssetsConfigModal', () => {
     it('should disable insert button', async () => {
       const { getByRole } = await setup({
         visibleColumnKeys: undefined,
-        parameters: { workspaceId: 'abc123', aql: 'cool', schemaId: '123' },
         datasourceTableHookState: getLoadingDatasourceTableHookState(),
       });
       await waitFor(() => {
-        expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+        expect(getByRole('button', { name: 'Update table' })).toBeDisabled();
       });
     });
   });
@@ -192,7 +194,7 @@ describe('AssetsConfigModal', () => {
         const { getByRole, onInsert } = await setup({
           datasourceTableHookState,
         });
-        const insertButton = getByRole('button', { name: 'Insert object' });
+        const insertButton = getByRole('button', { name: 'Update table' });
 
         await waitFor(() => {
           expect(insertButton).toBeEnabled();
@@ -221,7 +223,7 @@ describe('AssetsConfigModal', () => {
         const { getByRole, onInsert } = await setup({
           datasourceTableHookState,
         });
-        const insertButton = getByRole('button', { name: 'Insert object' });
+        const insertButton = getByRole('button', { name: 'Update table' });
         await waitFor(() => {
           expect(insertButton).toBeEnabled();
           insertButton.click();
@@ -241,7 +243,7 @@ describe('AssetsConfigModal', () => {
           datasourceTableHookState,
         });
         await waitFor(() => {
-          const insertButton = getByRole('button', { name: 'Insert object' });
+          const insertButton = getByRole('button', { name: 'Update table' });
 
           expect(insertButton).toBeEnabled();
           insertButton.click();
@@ -255,8 +257,8 @@ describe('AssetsConfigModal', () => {
         });
       });
       it('should insert blockCard adf when more than 1 asset is returned', async () => {
-        const { getByRole, onInsert } = await setup();
-        const insertButton = getByRole('button', { name: 'Insert objects' });
+        const { getByRole, onInsert } = await setup({});
+        const insertButton = getByRole('button', { name: 'Update table' });
         await waitFor(() => {
           expect(insertButton).toBeEnabled();
           insertButton.click();
@@ -294,7 +296,7 @@ describe('AssetsConfigModal', () => {
         const { getByRole, onInsert } = await setup({
           visibleColumnKeys: undefined,
         });
-        const insertButton = getByRole('button', { name: 'Insert objects' });
+        const insertButton = getByRole('button', { name: 'Update table' });
         await waitFor(() => {
           expect(insertButton).toBeEnabled();
           insertButton.click();
@@ -339,7 +341,7 @@ describe('AssetsConfigModal', () => {
             responseItems: [],
           },
         });
-        const insertButton = getByRole('button', { name: 'Insert objects' });
+        const insertButton = getByRole('button', { name: 'Update table' });
         await waitFor(() => {
           expect(insertButton).toBeEnabled();
           insertButton.click();
@@ -378,6 +380,7 @@ describe('AssetsConfigModal', () => {
     it("should show insert button with 'Insert object' text when only one asset is returned", async () => {
       const datasourceTableHookState = getSingleAssetHookState();
       const { getByRole } = await setup({
+        parameters: undefined,
         datasourceTableHookState,
       });
       const insertButton = getByRole('button', {
@@ -391,6 +394,7 @@ describe('AssetsConfigModal', () => {
     it("should show insert button with 'Insert objects' text when more than one asset is returned", async () => {
       const datasourceTableHookState = getDefaultDataSourceTableHookState();
       const { getByRole } = await setup({
+        parameters: undefined,
         datasourceTableHookState,
       });
       const insertButton = getByRole('button', {
@@ -398,6 +402,17 @@ describe('AssetsConfigModal', () => {
       });
       await waitFor(() => {
         expect(insertButton).toBeInTheDocument();
+      });
+    });
+
+    it("should show insert button with 'Update table' text when editing existing table", async () => {
+      const { getByRole } = await setup();
+      const insertButton = getByRole('button', {
+        name: 'Update table',
+      });
+      await waitFor(() => {
+        expect(insertButton).toBeInTheDocument();
+        expect(insertButton).toBeEnabled();
       });
     });
   });
@@ -412,7 +427,7 @@ describe('AssetsConfigModal', () => {
       });
       await waitFor(() => {
         expect(getByText('No results found')).toBeInTheDocument();
-        expect(getByRole('button', { name: 'Insert objects' })).toBeEnabled();
+        expect(getByRole('button', { name: 'Update table' })).toBeEnabled();
       });
     });
   });
@@ -420,6 +435,7 @@ describe('AssetsConfigModal', () => {
   describe('when an error occurs on data request', () => {
     it('should show network error message', async () => {
       const { getByRole, getByText } = await setup({
+        parameters: undefined,
         datasourceTableHookState: getErrorDatasourceTableHookState(),
       });
       await waitFor(() => {
@@ -444,7 +460,10 @@ describe('AssetsConfigModal', () => {
       await searchButton.click();
       await waitFor(() => {
         expect(mockReset).toBeCalledTimes(1);
-        expect(mockReset).toHaveBeenCalledWith({ shouldResetColumns: true });
+        expect(mockReset).toHaveBeenCalledWith({
+          shouldResetColumns: true,
+          shouldForceRequest: true,
+        });
       });
     });
   });
@@ -452,10 +471,6 @@ describe('AssetsConfigModal', () => {
   describe('when handling column resetting in search query', () => {
     it('should reset columns when search has changed', async () => {
       const mockReset = jest.fn();
-      const mockValidateAqlText = jest.fn().mockResolvedValue({
-        isValid: true,
-        message: null,
-      });
 
       const { getByTestId } = await setup({
         parameters: {
@@ -466,10 +481,6 @@ describe('AssetsConfigModal', () => {
           ...getDefaultDataSourceTableHookState(),
           reset: mockReset,
         },
-        validateAqlTextHookState: {
-          ...geValidateAqlTextDefaultHookState(),
-          validateAqlText: mockValidateAqlText,
-        },
       });
 
       // Change the AQL query to something else
@@ -479,13 +490,6 @@ describe('AssetsConfigModal', () => {
       fireEvent.focus(textInput);
       fireEvent.change(textInput, {
         target: { value: 'objectType = "test aql query"' },
-      });
-
-      await waitFor(() => {
-        expect(mockValidateAqlText).toBeCalledTimes(1);
-        expect(mockValidateAqlText).toBeCalledWith(
-          'objectType = "test aql query"',
-        );
       });
 
       // Click on search button once the query is valid and button is enabled
@@ -500,7 +504,10 @@ describe('AssetsConfigModal', () => {
       // Reset of columns should be applied because query has changed
       await waitFor(() => {
         expect(mockReset).toBeCalledTimes(1);
-        expect(mockReset).toHaveBeenCalledWith({ shouldResetColumns: true });
+        expect(mockReset).toHaveBeenCalledWith({
+          shouldResetColumns: true,
+          shouldForceRequest: true,
+        });
       });
     });
 

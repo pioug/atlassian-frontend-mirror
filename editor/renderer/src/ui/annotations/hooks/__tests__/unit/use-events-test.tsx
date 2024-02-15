@@ -1,28 +1,17 @@
-import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
+import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
+import type { AnnotationState } from '@atlaskit/editor-common/types';
 import {
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
 } from '@atlaskit/editor-common/types';
-import type { AnnotationState } from '@atlaskit/editor-common/types';
-import { AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema';
+import React from 'react';
+import { render, unmountComponentAtNode } from 'react-dom';
+import { act } from 'react-dom/test-utils';
 import {
+  useAnnotationClickEvent,
   useAnnotationStateByTypeEvent,
   useHasFocusEvent,
-  useAnnotationClickEvent,
 } from '../../use-events';
-
-let container: HTMLElement | null;
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  document.body.removeChild(container!);
-  container = null;
-});
 
 function createFakeAnnotationState(
   id: string,
@@ -57,8 +46,19 @@ function createFakeAnnotationStateWithOtherType(
 describe('Annotations: Hooks/useEvents', () => {
   const fakeId = 'fakeId';
   let updateSubscriberFake: AnnotationUpdateEmitter;
+  let container: HTMLElement | null;
+  let root: any; // Change to Root once we go full React 18
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    container = document.createElement('div');
+    document.body.appendChild(container);
+    if (process.env.IS_REACT_18 === 'true') {
+      // @ts-ignore react-dom/client only available in react 18
+      // eslint-disable-next-line import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
+      const { createRoot } = await import('react-dom/client');
+      root = createRoot(container!);
+    }
+
     jest.spyOn(AnnotationUpdateEmitter.prototype, 'off');
     jest.spyOn(AnnotationUpdateEmitter.prototype, 'on');
     updateSubscriberFake = new AnnotationUpdateEmitter();
@@ -66,6 +66,9 @@ describe('Annotations: Hooks/useEvents', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+
+    document.body.removeChild(container!);
+    container = null;
   });
 
   describe('#useHasFocusEvent', () => {
@@ -89,7 +92,13 @@ describe('Annotations: Hooks/useEvents', () => {
     it('should listen for the focus events', () => {
       expect(updateSubscriberFake.on).toHaveBeenCalledTimes(0);
 
-      render(<CustomComp />, container);
+      if (process.env.IS_REACT_18 === 'true') {
+        act(() => {
+          root.render(<CustomComp />);
+        });
+      } else {
+        render(<CustomComp />, container);
+      }
 
       expect(updateSubscriberFake.on).toHaveBeenCalledWith(
         AnnotationUpdateEvent.SET_ANNOTATION_FOCUS,
@@ -105,10 +114,20 @@ describe('Annotations: Hooks/useEvents', () => {
       it('should stop listen for the focus events', () => {
         expect(updateSubscriberFake.off).toHaveBeenCalledTimes(0);
 
-        render(<CustomComp />, container);
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(<CustomComp />);
+          });
+        } else {
+          render(<CustomComp />, container);
+        }
 
         act(() => {
-          unmountComponentAtNode(container!);
+          if (process.env.IS_REACT_18 === 'true') {
+            root.unmount();
+          } else {
+            unmountComponentAtNode(container!);
+          }
         });
 
         expect(updateSubscriberFake.off).toHaveBeenCalledWith(
@@ -126,7 +145,13 @@ describe('Annotations: Hooks/useEvents', () => {
       it('should set hasFocus to false', () => {
         expect(fakeFunction).toHaveBeenCalledTimes(0);
 
-        render(<CustomComp />, container);
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(<CustomComp />);
+          });
+        } else {
+          render(<CustomComp />, container);
+        }
 
         expect(fakeFunction).toHaveBeenCalledTimes(1);
         expect(fakeFunction).toHaveBeenCalledWith(false);
@@ -156,7 +181,13 @@ describe('Annotations: Hooks/useEvents', () => {
       it('should not set hasFocus when the id is different', () => {
         expect(fakeFunction).toHaveBeenCalledTimes(0);
 
-        render(<CustomComp />, container);
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(<CustomComp />);
+          });
+        } else {
+          render(<CustomComp />, container);
+        }
 
         expect(fakeFunction).toHaveBeenCalledWith(false);
 
@@ -174,7 +205,13 @@ describe('Annotations: Hooks/useEvents', () => {
       it('should set hasFocus for the id emitted', () => {
         expect(fakeFunction).toHaveBeenCalledTimes(0);
 
-        render(<CustomComp />, container);
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(<CustomComp />);
+          });
+        } else {
+          render(<CustomComp />, container);
+        }
 
         expect(fakeFunction).toHaveBeenCalledWith(false);
 
@@ -209,7 +246,13 @@ describe('Annotations: Hooks/useEvents', () => {
     it('should listen for SET_ANNOTATION_STATE', () => {
       expect(updateSubscriberFake.on).toHaveBeenCalledTimes(0);
 
-      render(<CustomComp />, container);
+      if (process.env.IS_REACT_18 === 'true') {
+        act(() => {
+          root.render(<CustomComp />);
+        });
+      } else {
+        render(<CustomComp />, container);
+      }
 
       expect(updateSubscriberFake.on).toHaveBeenCalledWith(
         AnnotationUpdateEvent.SET_ANNOTATION_STATE,
@@ -221,10 +264,20 @@ describe('Annotations: Hooks/useEvents', () => {
       it('should stop listen for SET_ANNOTATION_STATE', () => {
         expect(updateSubscriberFake.off).toHaveBeenCalledTimes(0);
 
-        render(<CustomComp />, container);
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(<CustomComp />);
+          });
+        } else {
+          render(<CustomComp />, container);
+        }
 
         act(() => {
-          unmountComponentAtNode(container!);
+          if (process.env.IS_REACT_18 === 'true') {
+            root.unmount();
+          } else {
+            unmountComponentAtNode(container!);
+          }
         });
 
         expect(updateSubscriberFake.off).toHaveBeenCalledWith(
@@ -238,7 +291,13 @@ describe('Annotations: Hooks/useEvents', () => {
       it('should not set the state when the type is different', () => {
         expect(fakeFunction).toHaveBeenCalledTimes(0);
 
-        render(<CustomComp />, container);
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(<CustomComp />);
+          });
+        } else {
+          render(<CustomComp />, container);
+        }
 
         expect(fakeFunction).toHaveBeenCalledWith({});
 
@@ -260,7 +319,13 @@ describe('Annotations: Hooks/useEvents', () => {
       it('should not set the state if the current state is empty', () => {
         expect(fakeFunction).toHaveBeenCalledTimes(0);
 
-        render(<CustomComp />, container);
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(<CustomComp />);
+          });
+        } else {
+          render(<CustomComp />, container);
+        }
 
         expect(fakeFunction).toHaveBeenCalledWith({});
 
@@ -282,7 +347,13 @@ describe('Annotations: Hooks/useEvents', () => {
       it('should set the state for the id emitted', () => {
         expect(fakeFunction).toHaveBeenCalledTimes(0);
 
-        render(<CustomComp />, container);
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(<CustomComp />);
+          });
+        } else {
+          render(<CustomComp />, container);
+        }
 
         expect(fakeFunction).toHaveBeenCalledWith({});
 
@@ -305,7 +376,13 @@ describe('Annotations: Hooks/useEvents', () => {
         const nullid = null;
         expect(fakeFunction).toHaveBeenCalledTimes(0);
 
-        render(<CustomComp />, container);
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(<CustomComp />);
+          });
+        } else {
+          render(<CustomComp />, container);
+        }
 
         expect(fakeFunction).toHaveBeenCalledWith({});
 
@@ -346,7 +423,13 @@ describe('Annotations: Hooks/useEvents', () => {
     it('should listen for ON_ANNOTATION_CLICK', () => {
       expect(updateSubscriberFake.on).toHaveBeenCalledTimes(0);
 
-      render(<CustomComp />, container);
+      if (process.env.IS_REACT_18 === 'true') {
+        act(() => {
+          root.render(<CustomComp />);
+        });
+      } else {
+        render(<CustomComp />, container);
+      }
 
       expect(updateSubscriberFake.on).toHaveBeenCalledWith(
         AnnotationUpdateEvent.ON_ANNOTATION_CLICK,
@@ -358,10 +441,20 @@ describe('Annotations: Hooks/useEvents', () => {
       it('should stop listen for ON_ANNOTATION_CLICK', () => {
         expect(updateSubscriberFake.off).toHaveBeenCalledTimes(0);
 
-        render(<CustomComp />, container);
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(<CustomComp />);
+          });
+        } else {
+          render(<CustomComp />, container);
+        }
 
         act(() => {
-          unmountComponentAtNode(container!);
+          if (process.env.IS_REACT_18 === 'true') {
+            root.unmount();
+          } else {
+            unmountComponentAtNode(container!);
+          }
         });
 
         expect(updateSubscriberFake.off).toHaveBeenCalledWith(
@@ -376,7 +469,13 @@ describe('Annotations: Hooks/useEvents', () => {
         const annotationIds = ['lol1', 'lol2'];
         expect(fakeFunction).toHaveBeenCalledTimes(0);
 
-        render(<CustomComp />, container);
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(<CustomComp />);
+          });
+        } else {
+          render(<CustomComp />, container);
+        }
 
         expect(fakeFunction).toHaveBeenCalledWith(null);
 

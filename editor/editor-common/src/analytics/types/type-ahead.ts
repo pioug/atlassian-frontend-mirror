@@ -16,8 +16,7 @@ type TypeAheadRenderedAEP = OperationalAEP<
     time?: number;
     items?: number;
     initial?: boolean;
-  },
-  undefined
+  }
 >;
 
 type TypeAheadItemViewedAEP = OperationalAEP<
@@ -27,8 +26,7 @@ type TypeAheadItemViewedAEP = OperationalAEP<
   {
     index?: number;
     items?: number;
-  },
-  undefined
+  }
 >;
 
 type TypeAheadAEP<ActionSubjectID, Attributes> = UIAEP<
@@ -91,3 +89,5 @@ export type TypeAheadPayload =
   | TypeAheadQuickInsertAEP
   | TypeAheadRenderedAEP
   | TypeAheadItemViewedAEP;
+
+export type EventInput = 'keyboard' | 'mouse' | 'floatingToolBar';

@@ -120,3 +120,28 @@ export const mockJiraResponse = {
     },
   },
 };
+
+export const mockBBFileResponse = {
+  meta: {
+    ...mockBaseResponse.meta,
+    key: 'bitbucket-object-provider',
+  },
+  data: {
+    ...mockBaseResponse.data,
+    '@type': ['schema:DigitalDocument'],
+    'atlassian:updatedBy': {
+      '@type': 'Person',
+      icon: {
+        '@type': 'Image',
+        url: 'avatar_url',
+      },
+      name: 'Michael Schrute',
+    },
+    'atlassian:latestCommit': {
+      name: '1b4hf3g',
+      '@type': 'atlassian:SourceCodeCommit',
+      summary: 'commit message',
+    },
+    updated: '2022-01-01T12:13:15.531+1000',
+  },
+};

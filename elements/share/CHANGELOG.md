@@ -1,5 +1,96 @@
 # @atlaskit/share
 
+## 4.13.0
+
+### Minor Changes
+
+- [#71584](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71584) [`7962a0e6599c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7962a0e6599c) - [ux] Added new `userPickerCustomHeader` and `noOptionsMessage` prop to Share Dialog. `userPickerCustomHeader` adds custom header to User Picker Option List and `noOptionsMessage` renders a custom message when the user picker returns an empty options list.
+
+## 4.12.3
+
+### Patch Changes
+
+- [#71144](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71144) [`d8feaa592375`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d8feaa592375) - This package has been added to the Jira push model.
+
+## 4.12.2
+
+### Patch Changes
+
+- [#70711](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70711) [`73d31ce3b4a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73d31ce3b4a4) - Fix for autofocussing the trigger on dialog close
+
+## 4.12.1
+
+### Patch Changes
+
+- [#67206](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67206) [`277421c217ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/277421c217ae) - PTC-8511 ENGHEALTH-5595 fix deprecated token
+
+## 4.12.0
+
+### Minor Changes
+
+- [#68081](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68081) [`196b8c2c77d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/196b8c2c77d5) - [ux] PTC-8597 Add visual instruction for required field
+- [#67525](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67525) [`835694a1696a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/835694a1696a) - Add third party sources to user invited and access requested event attributes
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.11.0
+
+### Minor Changes
+
+- [#67391](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67391) [`b569a250dbf5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b569a250dbf5) - Allow WorkspaceARI prop to be passed to component
+
+## 4.10.0
+
+### Minor Changes
+
+- [#67129](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67129) [`ecdf504e06ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ecdf504e06ab) - Removed aria-expanded from share button, added aria-haspopup='dialog' to share button
+
+## 4.9.0
+
+### Minor Changes
+
+- [#65564](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65564) [`a6abbb0d08f5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a6abbb0d08f5) - Set autoFoucus to false for CopyLinkButton status message
+
+## 4.8.0
+
+### Minor Changes
+
+- [#64902](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64902) [`3104089c23f8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3104089c23f8) - Removed aria props from CopyLinkButton so that screen reader won't identify it as a collapsed button
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.7.2
+
+### Patch Changes
+
+- [#60464](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60464) [`a30f9a5f3e0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a30f9a5f3e0d) - Removing unused dependencies
+
+## 4.7.1
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
+## 4.7.0
+
+### Minor Changes
+
+- [#59712](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59712) [`229363c1c1b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/229363c1c1b3) - Add required attribute to the user-picker components and add its consumption in the share component.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.6.1
 
 ### Patch Changes

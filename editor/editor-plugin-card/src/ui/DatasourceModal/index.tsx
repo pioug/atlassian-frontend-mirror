@@ -24,7 +24,7 @@ import type {
 import { hideDatasourceModal } from '../../pm-plugins/actions';
 import {
   insertDatasource,
-  updateCardFromDatasourceModal,
+  updateCardViaDatasource,
 } from '../../pm-plugins/doc';
 import { useFetchDatasourceInfo } from '../useFetchDatasourceInfo';
 
@@ -72,8 +72,9 @@ export const DatasourceModal = ({
           },
         }));
       }
+
       if (existingNode) {
-        updateCardFromDatasourceModal(
+        updateCardViaDatasource(
           view.state,
           existingNode,
           newAdf,

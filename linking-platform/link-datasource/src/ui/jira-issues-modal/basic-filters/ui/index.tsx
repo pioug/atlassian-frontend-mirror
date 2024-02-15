@@ -1,28 +1,30 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { Flex, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
+import type { Site } from '../../types';
 import type {
   BasicFilterFieldType,
   SelectedOptionsMap,
   SelectOption,
 } from '../types';
+import { extractValuesFromNonComplexJQL } from '../utils/extractValuesFromNonComplexJQL';
 
 import AsyncPopupSelect from './async-popup-select';
 
 export const availableBasicFilterTypes: BasicFilterFieldType[] = [
   'project',
-  'issuetype',
+  'type',
   'status',
   'assignee',
 ];
 
 export interface BasicFilterContainerProps {
-  cloudId: string;
+  jql: string;
+  site?: Site;
   selections: SelectedOptionsMap;
   onChange: (filterType: BasicFilterFieldType, options: SelectOption[]) => void;
-  onReset: () => void;
   isJQLHydrating: boolean;
 }
 
@@ -31,12 +33,19 @@ const basicFilterContainerStyles = xcss({
 });
 
 const BasicFilterContainer = ({
-  cloudId,
+  jql,
+  site,
   onChange,
   selections,
-  onReset,
   isJQLHydrating,
 }: BasicFilterContainerProps) => {
+  const extractedFilterValues = useMemo(
+    () => (isJQLHydrating ? extractValuesFromNonComplexJQL(jql) : {}),
+    [isJQLHydrating, jql],
+  );
+
+  const { cloudId } = site || {};
+
   return (
     <Flex
       xcss={basicFilterContainerStyles}
@@ -44,16 +53,18 @@ const BasicFilterContainer = ({
       testId="jlol-basic-filter-container"
     >
       {availableBasicFilterTypes.map((filter: BasicFilterFieldType) => {
+        const shouldShowHydrationLoader =
+          isJQLHydrating && extractedFilterValues[filter]?.length > 0;
+
         return (
           <AsyncPopupSelect
-            cloudId={cloudId}
+            site={site}
             filterType={filter}
             key={filter}
             selection={selections[filter] || []}
-            isJQLHydrating={isJQLHydrating}
+            isJQLHydrating={shouldShowHydrationLoader}
             isDisabled={!cloudId}
             onSelectionChange={onChange}
-            onReset={onReset}
           />
         );
       })}

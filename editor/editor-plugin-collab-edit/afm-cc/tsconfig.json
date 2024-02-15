@@ -1,0 +1,34 @@
+{
+    "extends": "../../../../tsconfig.entry-points.confluence.json",
+    "compilerOptions": {
+        "target": "es5",
+        "composite": true,
+        "outDir": "../dist",
+        "rootDir": "../",
+        "baseUrl": "../"
+    },
+    "include": [
+        "../src/**/*.ts",
+        "../src/**/*.tsx"
+    ],
+    "exclude": [
+        "../src/**/__tests__/*",
+        "../src/**/*.test.*",
+        "../src/**/test.*",
+        "../src/**/examples.*"
+    ],
+    "references": [
+        {
+            "path": "../../editor-common/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../prosemirror-collab/afm-cc/tsconfig.json"
+        }
+    ]
+}

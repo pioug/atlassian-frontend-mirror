@@ -230,6 +230,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
         return this.getTaskItemProps(node, path);
       case 'embedCard':
         return this.getEmbedCardProps(node, path);
+      case 'blockCard':
+        return this.getBlockCardProps(node, path);
       case 'expand':
         return this.getExpandProps(node, path);
       case 'unsupportedBlock':
@@ -533,6 +535,13 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     };
   }
 
+  private getBlockCardProps(node: Node, path: Array<Node> = []) {
+    return {
+      ...this.getProps(node),
+      isNodeNested: path.length > 0,
+    };
+  }
+
   private getMediaGroupProps(node: Node) {
     return {
       ...this.getProps(node),
@@ -547,6 +556,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private getMediaInlineProps(node: Node) {
     return {
       ...this.getProps(node),
+      ssr: this.media?.ssr,
     };
   }
 

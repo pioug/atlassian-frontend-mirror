@@ -4,6 +4,6 @@ import SectionMessage from '../../src';
 
 export default () => (
   <SectionMessage appearance="success">
-    <p>File has been uploaded.</p>
+    <p>The file has been uploaded.</p>
   </SectionMessage>
 );

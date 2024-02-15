@@ -1,5 +1,11 @@
 # @atlaskit/analytics
 
+## 8.1.4
+
+### Patch Changes
+
+- [#65917](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65917) [`589f74422630`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/589f74422630) - Migrate @atlaskit/analytics to use declarative entry points
+
 ## 8.1.3
 
 ### Patch Changes

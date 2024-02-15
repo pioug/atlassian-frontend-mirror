@@ -52,6 +52,9 @@
       "path": "../ds-lib/tsconfig.app.json"
     },
     {
+      "path": "../form/tsconfig.app.json"
+    },
+    {
       "path": "../../media/icon-file-type/tsconfig.app.json"
     },
     {
@@ -77,6 +80,9 @@
     },
     {
       "path": "../theme/tsconfig.app.json"
+    },
+    {
+      "path": "../toggle/tsconfig.app.json"
     },
     {
       "path": "../tokens/tsconfig.app.json"

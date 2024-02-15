@@ -15,8 +15,6 @@ import { CardAppearance, Provider, TitleBlock } from '../../..';
 import { Card } from '../../Card';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { fakeFactory, mocks } from '../../../utils/mocks';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 mockSimpleIntersectionObserver();
 
@@ -178,107 +176,41 @@ describe('`link clicked`', () => {
         );
       });
 
-      describe('should fire with `clickOutcome` = `clickThrough` if the event default behaviour is prevented', () => {
-        ffTest(
-          'platform.linking-platform.smart-card.enable-block-card-clicks-opening-in-same-tab',
-          async () => {
-            const { spy, user, link } = await setup({
-              onClick: (e) => {
-                e.preventDefault();
-              },
-            });
-
-            await user.click(link);
-
-            /**
-             * Old block cards render links with target blank, causing the link to open in new tab
-             * This is not the case for inline + embed appearances + block(flexible) when the FF is enabled
-             */
-            const getTestCaseClickOutcome = () => {
-              if (testCase === 'block') {
-                return 'clickThroughNewTabOrWindow';
-              }
-              return 'clickThrough';
-            };
-
-            expect(spy).toBeFiredWithAnalyticEventOnce(
-              {
-                payload: {
-                  action: 'clicked',
-                  actionSubject: 'link',
-                  eventType: 'ui',
-                  attributes: {
-                    clickType: 'left',
-                    clickOutcome: getTestCaseClickOutcome(),
-                    defaultPrevented: true,
-                    keysHeld: [],
-                  },
-                },
-              },
-              ANALYTICS_CHANNEL,
-            );
-
-            /**
-             * The ffTest function throws an error when the FF is not retrieved but we don't need to
-             * retrieve the flag when block(flexible) is not the appearance
-             * The following if conditional can be removed when not using ffTest
-             */
-            if (testCase !== 'block(flexible)') {
-              // eslint-disable-next-line
-              getBooleanFF(
-                'platform.linking-platform.smart-card.enable-block-card-clicks-opening-in-same-tab',
-              );
-            }
+      it('should fire with `clickOutcome` = `clickThrough` if the event default behaviour is prevented', async () => {
+        const { spy, user, link } = await setup({
+          onClick: (e) => {
+            e.preventDefault();
           },
-          async () => {
-            const { spy, user, link } = await setup({
-              onClick: (e) => {
-                e.preventDefault();
+        });
+
+        await user.click(link);
+
+        /**
+         * Old block cards render links with target blank, causing the link to open in new tab
+         * This is not the case for inline + embed appearances + block(flexible) when the FF is enabled
+         */
+        const getTestCaseClickOutcome = () => {
+          if (testCase === 'block') {
+            return 'clickThroughNewTabOrWindow';
+          }
+          return 'clickThrough';
+        };
+
+        expect(spy).toBeFiredWithAnalyticEventOnce(
+          {
+            payload: {
+              action: 'clicked',
+              actionSubject: 'link',
+              eventType: 'ui',
+              attributes: {
+                clickType: 'left',
+                clickOutcome: getTestCaseClickOutcome(),
+                defaultPrevented: true,
+                keysHeld: [],
               },
-            });
-
-            await user.click(link);
-
-            /**
-             * Block cards render links with target blank, causing the link to open in new tab
-             * This is not the case for inline + embed appearances
-             */
-            const getTestCaseClickOutcome = () => {
-              if (testCase === 'block' || testCase === 'block(flexible)') {
-                return 'clickThroughNewTabOrWindow';
-              }
-              return 'clickThrough';
-            };
-
-            expect(spy).toBeFiredWithAnalyticEventOnce(
-              {
-                payload: {
-                  action: 'clicked',
-                  actionSubject: 'link',
-                  eventType: 'ui',
-                  attributes: {
-                    clickType: 'left',
-                    clickOutcome: getTestCaseClickOutcome(),
-                    defaultPrevented: true,
-                    keysHeld: [],
-                  },
-                },
-              },
-              ANALYTICS_CHANNEL,
-            );
-
-            /**
-             * The ffTest function throws an error when the FF is not retrieved but we don't need to
-             * retrieve the flag when block(flexible) is not the appearance
-             * The following if conditional can be removed when not using ffTest
-             */
-            if (testCase !== 'block(flexible)') {
-              // eslint-disable-next-line
-              getBooleanFF(
-                'platform.linking-platform.smart-card.enable-block-card-clicks-opening-in-same-tab',
-              );
-            }
+            },
           },
+          ANALYTICS_CHANNEL,
         );
       });
 

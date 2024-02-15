@@ -1,18 +1,20 @@
 /** @jsx jsx */
 import React, { Fragment } from 'react';
+
 import { css, jsx } from '@emotion/react';
-import PluginSlot from '../PluginSlot';
-import { createEditorContentStyle } from '../ContentStyles';
-import type { MaxContentSizePluginState } from '@atlaskit/editor-plugin-max-content-size';
-import type {
-  EditorAppearanceComponentProps,
-  EditorAppearance,
-} from '../../types';
-import { scrollbarStyles } from '../styles';
-import WithFlash from '../WithFlash';
-import { usePresetContext } from '../../presets/context';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { MaxContentSizePluginState } from '@atlaskit/editor-plugins/max-content-size';
+
+import { usePresetContext } from '../../presets/context';
+import type {
+  EditorAppearance,
+  EditorAppearanceComponentProps,
+} from '../../types';
+import { createEditorContentStyle } from '../ContentStyles';
+import PluginSlot from '../PluginSlot';
+import { scrollbarStyles } from '../styles';
+import WithFlash from '../WithFlash';
 
 const chromelessEditor = css`
   line-height: 20px;
@@ -96,7 +98,9 @@ export default class Editor extends React.Component<
             className="ak-editor-content-area"
             featureFlags={featureFlags}
           >
-            {customContentComponents}
+            {customContentComponents && 'before' in customContentComponents
+              ? customContentComponents.before
+              : customContentComponents}
             <PluginSlot
               editorView={editorView}
               editorActions={editorActions}
@@ -114,6 +118,9 @@ export default class Editor extends React.Component<
               pluginHooks={pluginHooks}
             />
             {editorDOMElement}
+            {customContentComponents && 'after' in customContentComponents
+              ? customContentComponents.after
+              : null}
           </ContentArea>
         </div>
       </WithFlash>

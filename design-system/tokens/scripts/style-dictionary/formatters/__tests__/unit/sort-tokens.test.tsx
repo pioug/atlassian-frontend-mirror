@@ -2,7 +2,7 @@ import type { TransformedToken } from 'style-dictionary';
 
 import sortTokens from '../../../sort-tokens';
 
-type Group = 'spacing' | 'paint' | 'fontWeight' | 'palette';
+type Group = 'spacing' | 'paint' | 'fontWeight' | 'palette' | 'typography';
 type PaletteCategory =
   | 'red'
   | 'orange'
@@ -307,6 +307,37 @@ describe('sortTokens', () => {
       );
       expect(result[0].name).toEqual('color.palette.Blue100');
       expect(result[1].name).toEqual('color.palette.Blue100A');
+    });
+  });
+
+  describe('typography tokens', () => {
+    it('are sorted from largest to smallest', () => {
+      const result = fakeTokens(
+        [
+          'font.medium',
+          'font.large',
+          'font.xxlarge',
+          'font.xxsmall',
+          'font.small',
+        ],
+        { group: 'typography' },
+      );
+      expect(result[0].name).toEqual('font.xxlarge');
+      expect(result[1].name).toEqual('font.large');
+      expect(result[2].name).toEqual('font.medium');
+      expect(result[3].name).toEqual('font.small');
+      expect(result[4].name).toEqual('font.xxsmall');
+    });
+
+    it('are sorted heading -> body -> ui -> code', () => {
+      const result = fakeTokens(
+        ['font.body', 'font.code', 'font.ui', 'font.heading'],
+        { group: 'typography' },
+      );
+      expect(result[0].name).toEqual('font.heading');
+      expect(result[1].name).toEqual('font.body');
+      expect(result[2].name).toEqual('font.ui');
+      expect(result[3].name).toEqual('font.code');
     });
   });
 });

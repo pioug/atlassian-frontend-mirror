@@ -1,13 +1,16 @@
 /** @jsx jsx */
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+
 import { jsx } from '@emotion/react';
 
-import { EditorAppearanceComponentProps } from '../../../types';
-import { fullPageEditorWrapper } from './StyledComponents';
 import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
+import { browser } from '@atlaskit/editor-common/utils';
+
+import type { EditorAppearanceComponentProps } from '../../../types';
+
 import { FullPageContentArea } from './FullPageContentArea';
 import { FullPageToolbar } from './FullPageToolbar';
-import { browser } from '@atlaskit/editor-common/utils';
+import { fullPageEditorWrapper } from './StyledComponents';
 
 const useShowKeyline = (
   contentAreaRef: React.MutableRefObject<ScrollContainerRefs | null>,

@@ -30,6 +30,7 @@ import {
   placeholder,
   status,
   table,
+  tableSelector,
 } from './item';
 import { messages } from './messages';
 import { shallowEquals } from './shallow-equals';
@@ -38,6 +39,7 @@ import { sortItems } from './sort-items';
 export interface CreateItemsConfig {
   isTypeAheadAllowed?: boolean;
   tableSupported?: boolean;
+  tableSelectorSupported?: boolean;
   mediaUploadsEnabled?: boolean;
   mediaSupported?: boolean;
   imageUploadSupported?: boolean;
@@ -97,6 +99,7 @@ const createInsertBlockItems = (
   const {
     isTypeAheadAllowed,
     tableSupported,
+    tableSelectorSupported,
     mediaUploadsEnabled,
     mediaSupported,
     imageUploadSupported,
@@ -193,6 +196,16 @@ const createInsertBlockItems = (
       table({
         content: formatMessage(messages.table),
         tooltipDescription: formatMessage(messages.tableDescription),
+        disabled: false,
+      }),
+    );
+  }
+
+  if (tableSupported && tableSelectorSupported) {
+    items.push(
+      tableSelector({
+        content: formatMessage(messages.tableSelector),
+        tooltipDescription: formatMessage(messages.tableSelectorDescription),
         disabled: false,
       }),
     );
@@ -326,9 +339,19 @@ const createInsertBlockItems = (
     );
   }
 
-  const buttonItems = items.slice(0, numberOfButtons).map(buttonToItem);
+  const numButtonsWithoutTableSelector =
+    tableSupported && tableSelectorSupported
+      ? numberOfButtons + 1
+      : numberOfButtons;
 
-  const remainingItems = items.slice(numberOfButtons);
+  const buttonItems = items
+    .slice(0, numButtonsWithoutTableSelector)
+    .map(buttonToItem);
+
+  const remainingItems = items
+    .slice(numButtonsWithoutTableSelector)
+    .filter(({ value: { name } }) => name !== 'table selector');
+
   const dropdownItems = (
     !isNewMenuEnabled ? sortItems(remainingItems) : remainingItems
   ).map(buttonToDropdownItem(formatMessage(messages.insertMenu)));

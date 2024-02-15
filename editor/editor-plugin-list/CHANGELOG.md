@@ -1,5 +1,189 @@
 # @atlaskit/editor-plugin-list
 
+## 3.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.8
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+
+## 3.1.7
+
+### Patch Changes
+
+- [#71503](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71503) [`2e81432d605a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e81432d605a) - [ux] ED-21943 Fixed outdent behaviour when multiple lists at same level including TaskList, and add relevant testcases.
+
+## 3.1.6
+
+### Patch Changes
+
+- [#70152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70152) [`53ed3673df28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53ed3673df28) - Updating adf-schema version to 35.5.1
+
+## 3.1.5
+
+### Patch Changes
+
+- [#67576](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67576) [`c03238aac8d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c03238aac8d2) - Export some plugin types to allow fix the build type
+- Updated dependencies
+
+## 3.1.4
+
+### Patch Changes
+
+- [#67238](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67238) [`40533849b2ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40533849b2ec) - [ED-21835] Change EditorAPI type to always union with undefined
+
+## 3.1.3
+
+### Patch Changes
+
+- [#66804](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66804) [`107c6d15dda7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/107c6d15dda7) - ED-21802 Disable insert inside nested task list through toolbar and keybinding.
+
+## 3.1.2
+
+### Patch Changes
+
+- [#65603](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65603) [`ac8d4b09e18e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ac8d4b09e18e) - ED-21609 Node nesting: Use the new nodespec for list and panel when respective FF's are enabled
+
+## 3.1.1
+
+### Patch Changes
+
+- [#65031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65031) [`a00094111b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a00094111b5a) - ED-21609 Update adf-schema to 35.3.0
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [#63553](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63553) [`e022e5359b7a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e022e5359b7a) - [ux] ED-21352: Support more edge cases for ordered list auto-join improvements. These improvements are guarded behind platform.editor.ordered-list-auto-join-improvements_mrlv5.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.1
+
+### Patch Changes
+
+- [#62165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62165) [`b44ac0968d79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b44ac0968d79) - [ED-21562] Bump @atlaskit/adf-schema to 35.2.0 for border mark update
+
+## 3.0.0
+
+### Major Changes
+
+- [#59319](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59319) [`d2e34e936bf2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2e34e936bf2) - [ED-15859] Clean up restartNumberedLists feature flag and set this feature as the default behaviour for ordered lists. Currently this feature is only rolled out in Confluence so this change will roll it out to all other products which adopt this version.
+
+## 2.0.0
+
+### Major Changes
+
+- [#61903](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61903) [`fb2eb9474b05`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb2eb9474b05) - WHAT?
+  Removing `toggleList` from public exports.
+
+  WHY?
+  It is an antipattern to export utilities from a plugin package.
+
+  The preferred approach is using the editor API.
+
+  HOW DO I WORKAROUND IT?
+  This can be accessed via the commands of the list plugin using the editor API.
+
+  Example to toggle bullet list:
+
+  ```ts
+  editorAPI?.core.actions.execute(
+    editorAPI?.list.commands.toggleBulletList(INPUT_METHOD.TOOLBAR),
+  );
+  ```
+
+  Example to toggle ordered list:
+
+  ```ts
+  editorAPI?.core.actions.execute(
+    editorAPI?.list.commands.toggleOrderedList(INPUT_METHOD.TOOLBAR),
+  );
+  ```
+
+## 1.4.7
+
+### Patch Changes
+
+- [#60973](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60973) [`0d9d4d239318`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d9d4d239318) - [ux] [ED-21530] Fix bug in list styling where unordered and ordered lists have different left padding when restart numbered lists feature flag is enabled
+- Updated dependencies
+
+## 1.4.6
+
+### Patch Changes
+
+- [#60808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60808) [`f509a21be124`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f509a21be124) - ED-21506: @atlaskit/adf-schema upgraded to 35.1.1 to support renderer for MBE
+
+## 1.4.5
+
+### Patch Changes
+
+- [#58246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58246) [`a381b2599716`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a381b2599716) - ED-21371 Update adf-schema to 35.1.0
+
+## 1.4.4
+
+### Patch Changes
+
+- [#59963](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59963) [`37ba1559975c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/37ba1559975c) - [ux] [ED-21459] Fix bug in restart numbered lists where additional list spacing for numbers above 100 is added to both ordered lists and unordered lists, where it should just apply to ordered lists.
+
+## 1.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.4.2
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 1.4.1
+
+### Patch Changes
+
+- [#58763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58763) [`0fdbd64522bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fdbd64522bf) - update ADF schema
+
+## 1.4.0
+
+### Minor Changes
+
+- [#56675](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56675) [`772ad8f687be`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/772ad8f687be) - [ux] [ED-20249] If `platform.editor.ordered-list-auto-join-improvements_mrlv5`` is enabled only auto-join lists together if the order numbers match up.
+
+  Eg.
+
+  1. A list item
+
+  -
+
+  50. Another list item
+
+  Should NOT auto join to be 1 & 2 in a single list however...
+
+  49. A list item
+
+  -
+
+  50. Another list item
+
+  Should join to be 49 & 50 in a single list.
+
+  This also only applies when the `restartNumberedLists` feature flag is enabled.
+
+## 1.3.7
+
+### Patch Changes
+
+- [#56790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56790) [`ff577a7969d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff577a7969d4) - ED-21266: Updated @atlaskit/adf-schema to 34.0.1
+
 ## 1.3.6
 
 ### Patch Changes

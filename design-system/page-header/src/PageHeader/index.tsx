@@ -39,11 +39,11 @@ export type PageHeaderProps = {
    */
   innerRef?: (element: HTMLElement) => void;
   /**
-   * Prevent the title from wrapping across lines. This should be avoided.
+   * Prevent the title from wrapping across lines. Avoid using this wherever possible, as truncation can make page headings inaccessible.
    */
   truncateTitle?: boolean;
   /**
-   * Used as id of inner h1 tag. This is exposed so the header text can be used as label of other element by aria-labeledby
+   * Used as the ID of the inner h1 tag. This is exposed so the header text can be used as label of other elements by aria-labelledby.
    */
   id?: string;
 };

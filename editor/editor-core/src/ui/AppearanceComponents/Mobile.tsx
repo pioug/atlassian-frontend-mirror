@@ -1,23 +1,42 @@
 /** @jsx jsx */
-import React, { useCallback, forwardRef } from 'react';
+import React, { forwardRef, useCallback } from 'react';
+
 import { css, jsx } from '@emotion/react';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { BasePlugin, BasePluginState } from '@atlaskit/editor-plugin-base';
-import type {
-  MaxContentSizePluginState,
-  MaxContentSizePlugin,
-} from '@atlaskit/editor-plugin-max-content-size';
-import type { MobileDimensionsPluginState } from '../../plugins/mobile-dimensions/types';
-import type { MobileDimensionsPlugin } from '../../plugins/mobile-dimensions';
-import WithFlash from '../WithFlash';
-import { createEditorContentStyle } from '../ContentStyles';
-import { ClickAreaMobile as ClickArea } from '../Addon';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { FeatureFlags } from '../../types/feature-flags';
-import { usePresetContext } from '../../presets/context';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+  BasePlugin,
+  BasePluginState,
+} from '@atlaskit/editor-plugins/base';
+import type {
+  MaxContentSizePlugin,
+  MaxContentSizePluginState,
+} from '@atlaskit/editor-plugins/max-content-size';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import { usePresetContext } from '../../presets/context';
+import type { FeatureFlags } from '../../types/feature-flags';
+import { ClickAreaMobile as ClickArea } from '../Addon';
+import { createEditorContentStyle } from '../ContentStyles';
+import WithFlash from '../WithFlash';
+
+// Only mobile bridge is using this appearance. We have some plans to decouple the appearances from editor-core. So it doesn't make sense to move this plugin to a separated package for now.
+// Copied packages/editor/editor-mobile-bridge/src/editor/editor-plugins/mobile-dimensions/index.ts
+type MobileDimensionsPlugin = NextEditorPlugin<
+  'mobileDimensions',
+  { sharedState: MobileDimensionsPluginState | undefined }
+>;
+// Copied from packages/editor/editor-mobile-bridge/src/editor/editor-plugins/mobile-dimensions/types.ts
+type MobileDimensionsPluginState = {
+  /** Current value of window.innerHeight, on Android this changes when keyboards shows/hides */
+  windowHeight: number;
+  /** Current value of padding top set from native (see WebBridge abstract class implementation) */
+  mobilePaddingTop: number;
+  /** Hybrid editor is always expanded, compact editor is collapsed or expanded */
+  isExpanded: boolean;
+};
 const mobileEditor = css`
   min-height: 30px;
   width: 100%;

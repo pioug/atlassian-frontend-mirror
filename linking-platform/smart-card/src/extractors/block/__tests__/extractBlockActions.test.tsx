@@ -7,8 +7,10 @@ import {
   TEST_DOCUMENT_WITH_ACTIONS,
   TEST_DOCUMENT_WITH_PREVIEW,
   TEST_DOCUMENT,
+  TEST_DOCUMENT_WITH_MULTIPLE_ACTIONS,
 } from '../../common/__mocks__/jsonld';
 import { mockAnalytics } from '../../../utils/mocks';
+import { CardAction } from '../../../view/Card/types';
 
 describe('extractors.block.extractBlockActions', () => {
   let handleInvoke: jest.Mock;
@@ -57,6 +59,68 @@ describe('extractors.block.extractBlockActions', () => {
     expect(props).toEqual([
       {
         id: 'preview-content',
+        promise: expect.any(Function),
+        text: expect.any(Object),
+      },
+    ]);
+  });
+
+  it('should return no actions when actionOptions.hide is true', () => {
+    const props = extractBlockActions(
+      blockCardProps,
+      TEST_DOCUMENT_WITH_PREVIEW,
+      {
+        handleInvoke,
+        analytics: mockAnalytics,
+        actionOptions: { hide: true },
+      },
+      'web',
+    );
+
+    expect(props).toEqual([]);
+  });
+
+  it('should return actions when actionOptions.hide is false and actionOptions.exclude is empty', () => {
+    const props = extractBlockActions(
+      blockCardProps,
+      TEST_DOCUMENT_WITH_MULTIPLE_ACTIONS,
+      {
+        handleInvoke,
+        analytics: mockAnalytics,
+        actionOptions: { hide: false, exclude: [] },
+      },
+      'web',
+    );
+
+    expect(props).toEqual([
+      {
+        id: 'view-content',
+        promise: expect.any(Function),
+        text: expect.any(Object),
+      },
+      {
+        id: 'download-content',
+        promise: expect.any(Function),
+        text: expect.any(Object),
+      },
+    ]);
+  });
+
+  it('should not return action when excluded in actionOptions', () => {
+    const props = extractBlockActions(
+      blockCardProps,
+      TEST_DOCUMENT_WITH_MULTIPLE_ACTIONS,
+      {
+        handleInvoke,
+        analytics: mockAnalytics,
+        actionOptions: { hide: false, exclude: [CardAction.ViewAction] },
+      },
+      'web',
+    );
+
+    expect(props).toEqual([
+      {
+        id: 'download-content',
         promise: expect.any(Function),
         text: expect.any(Object),
       },

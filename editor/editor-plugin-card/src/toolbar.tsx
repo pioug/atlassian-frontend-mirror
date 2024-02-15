@@ -31,12 +31,11 @@ import {
   FLOATING_TOOLBAR_LINKPICKER_CLASSNAME,
   richMediaClassName,
 } from '@atlaskit/editor-common/styles';
+import { FloatingToolbarItem } from '@atlaskit/editor-common/types';
 import type {
   Command,
   ExtractInjectionAPI,
-  FeatureFlags,
   FloatingToolbarHandler,
-  FloatingToolbarItem,
   LinkPickerOptions,
   PluginDependenciesAPI,
 } from '@atlaskit/editor-common/types';
@@ -61,6 +60,7 @@ import type { CardPlatform } from '@atlaskit/smart-card';
 import { changeSelectedCardToText } from './pm-plugins/doc';
 import { pluginKey } from './pm-plugins/main';
 import type { CardPluginState } from './types';
+import { DatasourceAppearanceButton } from './ui/DatasourceAppearanceButton';
 import {
   editDatasource,
   EditDatasourceButton,
@@ -76,6 +76,7 @@ import {
   appearanceForNodeType,
   displayInfoForCard,
   findCardInfo,
+  isDatasourceConfigEditable,
   titleUrlPairFromNode,
 } from './utils';
 
@@ -176,7 +177,7 @@ export const openLinkSettings =
 
 export const floatingToolbar = (
   cardOptions: CardOptions,
-  featureFlags: FeatureFlags,
+  lpLinkPicker: boolean,
   platform?: CardPlatform,
   linkPickerOptions?: LinkPickerOptions,
   pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
@@ -208,8 +209,6 @@ export const floatingToolbar = (
       ? FLOATING_TOOLBAR_LINKPICKER_CLASSNAME
       : undefined;
 
-    const { lpLinkPicker } = featureFlags;
-
     const isLinkPickerEnabled = !!lpLinkPicker;
 
     return {
@@ -234,10 +233,10 @@ export const floatingToolbar = (
 
       items: generateToolbarItems(
         state,
-        featureFlags,
         intl,
         providerFactory,
         cardOptions,
+        lpLinkPicker,
         platform,
         linkPickerOptions,
         pluginInjectionApi,
@@ -322,10 +321,10 @@ const getToolbarViewedItem = (
 const generateToolbarItems =
   (
     state: EditorState,
-    featureFlags: FeatureFlags,
     intl: IntlShape,
     providerFactory: ProviderFactory,
     cardOptions: CardOptions,
+    lpLinkPicker: boolean,
     platform?: CardPlatform,
     linkPicker?: LinkPickerOptions,
     pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
@@ -365,8 +364,8 @@ const generateToolbarItems =
           providerFactory,
           linkPicker,
           node,
-          featureFlags,
           pluginInjectionApi,
+          lpLinkPicker,
         }),
       ];
     } else if (shouldRenderDatasourceToolbar) {
@@ -461,6 +460,13 @@ const generateToolbarItems =
       // This code will be executed only for appearances such as "inline", "block" & "embed"
       // For url appearance, please see HyperlinkToolbarAppearanceProps
       if (currentAppearance) {
+        const showDatasourceAppearance =
+          getBooleanFF(
+            'platform.linking-platform.enable-datasource-appearance-toolbar',
+          ) &&
+          allowDatasource &&
+          url;
+
         toolbarItems.unshift(
           ...getToolbarViewedItem(url, currentAppearance),
           {
@@ -478,11 +484,28 @@ const generateToolbarItems =
                 allowBlockCards={allowBlockCards}
                 platform={platform}
                 editorAnalyticsApi={editorAnalyticsApi}
-                cardActions={pluginInjectionApi?.card.actions}
+                cardActions={pluginInjectionApi?.card?.actions}
                 showUpgradeDiscoverability={showUpgradeDiscoverability}
               />
             ),
           },
+          ...(showDatasourceAppearance
+            ? [
+                {
+                  type: 'custom',
+                  fallback: [],
+                  render: editorView => (
+                    <DatasourceAppearanceButton
+                      intl={intl}
+                      editorAnalyticsApi={editorAnalyticsApi}
+                      url={url}
+                      editorView={editorView}
+                      editorState={state}
+                    />
+                  ),
+                } satisfies FloatingToolbarItem<never>,
+              ]
+            : []),
           {
             type: 'separator',
           },
@@ -561,22 +584,26 @@ const getDatasourceButtonGroup = (
   datasourceId: string,
   state: EditorState,
 ): FloatingToolbarItem<Command>[] => {
-  const toolbarItems: Array<FloatingToolbarItem<Command>> = [
-    {
-      id: 'editor.edit.datasource',
-      type: 'button',
-      icon: SmallerEditIcon,
-      metadata: metadata,
-      className: 'datasource-edit',
-      title: intl.formatMessage(linkToolbarMessages.editDatasource),
-      onClick: editDatasource(datasourceId, editorAnalyticsApi),
-      testId: 'datasource-edit-button',
-    },
-  ];
+  const toolbarItems: Array<FloatingToolbarItem<Command>> = [];
+
+  if (isDatasourceConfigEditable(datasourceId)) {
+    toolbarItems.push(
+      {
+        id: 'editor.edit.datasource',
+        type: 'button',
+        icon: SmallerEditIcon,
+        metadata: metadata,
+        className: 'datasource-edit',
+        title: intl.formatMessage(linkToolbarMessages.editDatasource),
+        onClick: editDatasource(datasourceId, editorAnalyticsApi),
+        testId: 'datasource-edit-button',
+      },
+      { type: 'separator' },
+    );
+  }
 
   if (node?.attrs?.url) {
     toolbarItems.push(
-      { type: 'separator' },
       {
         id: 'editor.link.openLink',
         type: 'button',
@@ -586,11 +613,11 @@ const getDatasourceButtonGroup = (
         title: intl.formatMessage(linkMessages.openLink),
         onClick: visitCardLink(editorAnalyticsApi),
       },
+      { type: 'separator' },
     );
   }
 
   toolbarItems.push(
-    { type: 'separator' },
     {
       type: 'copy-button',
       items: [

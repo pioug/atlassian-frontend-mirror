@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-notifications
 
+## 0.4.3
+
+### Patch Changes
+
+- [#66000](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66000) [`c220c7a6e5f6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c220c7a6e5f6) - Migrate @atlaskit/atlassian-notifications to use declarative entry points
+
 ## 0.4.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop",
-  "version": "0.24.0",
+  "version": "0.25.0",
   "description": "The core Pragmatic drag and drop framework, enabling flexible and fast drag and drop for any experience on any tech stack",
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",

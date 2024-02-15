@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { B500, N300 } from '@atlaskit/theme/colors';
 import { css, jsx } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 import BookIcon from '../glyph/book';
 import ArrowUpIcon from '../glyph/arrow-up';
@@ -69,7 +69,7 @@ export default () => {
         style={{ backgroundColor: isColorFlipped ? 'inherit' : 'white' }}
       >
         <Button
-          appearance="subtle-link"
+          appearance="subtle"
           onClick={() => setIsColorFlipped(!isColorFlipped)}
         >
           Change colour

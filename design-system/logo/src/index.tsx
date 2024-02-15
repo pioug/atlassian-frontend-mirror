@@ -53,6 +53,7 @@ export {
   JiraWorkManagementWordmark,
   JiraWorkManagementIcon,
 } from './jira-work-management-logo';
+export { LoomIcon, LoomLogo } from './loom-logo';
 export {
   OpsGenieIcon,
   OpsGenieLogo,

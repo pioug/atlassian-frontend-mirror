@@ -1,25 +1,28 @@
 import countBy from 'lodash/countBy';
-import throttle from 'lodash/throttle';
 import { ADD_STEPS_TYPE, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
-import {
-  AcknowledgementResponseTypes,
+import type {
   AddStepAcknowledgementPayload,
   ChannelEvent,
   StepsPayload,
 } from '../types';
+import { AcknowledgementResponseTypes } from '../types';
 import type {
   CollabCommitStatusEventPayload,
   CollabEvents,
   StepJson,
 } from '@atlaskit/editor-common/collab';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
-import { NCS_ERROR_CODE } from '../errors/error-types';
-import AnalyticsHelper from '../analytics/analytics-helper';
-import type { InternalError } from '../errors/error-types';
+import { NCS_ERROR_CODE } from '../errors/ncs-errors';
+import { createLogger } from '../helpers/utils';
+import type AnalyticsHelper from '../analytics/analytics-helper';
+import type { InternalError } from '../errors/internal-errors';
 
-const SEND_STEPS_THROTTLE = 500; // 0.5 second
+const logger = createLogger('commit-step', 'black');
 
-export const commitStep = ({
+export let readyToCommit = true;
+export const RESET_READYTOCOMMIT_INTERVAL_MS = 5000;
+
+export const commitStepQueue = ({
   broadcast,
   steps,
   version,
@@ -44,6 +47,18 @@ export const commitStep = ({
   analyticsHelper?: AnalyticsHelper;
   emit: (evt: keyof CollabEvents, data: CollabCommitStatusEventPayload) => void;
 }) => {
+  if (!readyToCommit) {
+    logger('Not ready to commit, skip');
+    return;
+  }
+  // Block other sending request, before ACK
+  readyToCommit = false;
+
+  const timer = setTimeout(() => {
+    readyToCommit = true;
+    logger('reset readyToCommit by timer');
+  }, RESET_READYTOCOMMIT_INTERVAL_MS);
+
   const stepsWithClientAndUserId = steps.map((step) => ({
     ...step.toJSON(),
     clientId,
@@ -62,6 +77,19 @@ export const commitStep = ({
       },
       (response: AddStepAcknowledgementPayload) => {
         const latency = new Date().getTime() - start;
+
+        if (timer) {
+          clearTimeout(timer);
+          if (latency <= 400) {
+            setTimeout(() => {
+              readyToCommit = true;
+              logger('reset readyToCommit');
+            }, 100);
+          } else {
+            readyToCommit = true;
+            logger('reset readyToCommit');
+          }
+        }
 
         if (response.type === AcknowledgementResponseTypes.SUCCESS) {
           onStepsAdded({
@@ -130,12 +158,3 @@ export const commitStep = ({
     emit('commit-status', { status: 'failure', version });
   }
 };
-
-export const throttledCommitStep = throttle<typeof commitStep>(
-  commitStep,
-  SEND_STEPS_THROTTLE,
-  {
-    leading: false,
-    trailing: true,
-  },
-);

@@ -17,13 +17,13 @@ const containerStyles = css({
   display: 'flex',
   boxSizing: 'border-box',
   height: HORIZONTAL_GLOBAL_NAV_HEIGHT,
-  paddingRight: token('space.150', '12px'),
-  paddingLeft: token('space.150', '12px'),
   position: 'relative',
   alignItems: 'center',
   justifyContent: 'space-between',
   flexShrink: 0,
-  borderBottom: `1px solid ${token('color.border', N30)}`,
+  borderBlockEnd: `1px solid ${token('color.border', N30)}`,
+  paddingInlineEnd: token('space.150', '12px'),
+  paddingInlineStart: token('space.150', '12px'),
 });
 
 const leftStyles = css({
@@ -44,9 +44,13 @@ const rightStyles = css({
   flexShrink: 0,
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > *': {
-    marginRight: token('space.050', '4px'),
     flexShrink: 0,
+    marginInlineEnd: token('space.050', '4px'),
   },
+});
+
+const noRightMarginStyles = css({
+  marginInlineEnd: 0,
 });
 
 const analyticsData = {
@@ -120,11 +124,13 @@ export const AtlassianNavigation = (props: AtlassianNavigationProps) => {
             data-testid={testId && `${testId}-secondary-actions`}
           >
             {Search && <Search />}
-            {Notifications && <Notifications />}
-            {Help && <Help />}
-            {Settings && <Settings />}
-            {SignIn && <SignIn />}
-            {Profile && <Profile />}
+            <div role="list" css={[rightStyles, noRightMarginStyles]}>
+              {Notifications && <Notifications />}
+              {Help && <Help />}
+              {Settings && <Settings />}
+              {SignIn && <SignIn />}
+              {Profile && <Profile />}
+            </div>
           </div>
         </header>
       </NavigationAnalyticsContext>

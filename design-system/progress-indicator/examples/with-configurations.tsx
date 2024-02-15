@@ -5,7 +5,7 @@ import { jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Text from '@atlaskit/ds-explorations/text';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
@@ -102,8 +102,10 @@ const ProgressIndicatorDots = () => {
         <Stack space="space.400">
           <SpreadInlineLayout>
             <Stack space="space.150">
-              <Box xcss={headingStyles}>Appearance</Box>
-              <ButtonGroup>
+              <Box id="appearance-title" xcss={headingStyles}>
+                Appearance
+              </Box>
+              <ButtonGroup titleId="appearance-title">
                 {appearances.map((app) => (
                   <Button
                     isSelected={selectedAppearance === app}
@@ -117,8 +119,10 @@ const ProgressIndicatorDots = () => {
               </ButtonGroup>
             </Stack>
             <Stack space="space.150">
-              <Box xcss={headingStyles}>Spacing</Box>
-              <ButtonGroup>
+              <Box id="spacing-title" xcss={headingStyles}>
+                Spacing
+              </Box>
+              <ButtonGroup titleId="spacing-title">
                 {spacing.map((spc) => (
                   <Button
                     isSelected={selectedSpacing === spc}
@@ -132,8 +136,10 @@ const ProgressIndicatorDots = () => {
               </ButtonGroup>
             </Stack>
             <Stack space="space.150">
-              <Box xcss={headingStyles}>Size</Box>
-              <ButtonGroup>
+              <Box id="size-title" xcss={headingStyles}>
+                Size
+              </Box>
+              <ButtonGroup titleId="size-title">
                 {sizes.map((sz) => (
                   <Button
                     isSelected={selectedSize === sz}

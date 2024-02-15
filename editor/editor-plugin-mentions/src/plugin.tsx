@@ -7,7 +7,6 @@ import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconMention } from '@atlaskit/editor-common/quick-insert';
-import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ELEMENTS_CHANNEL } from '@atlaskit/mention/resource';
@@ -20,7 +19,7 @@ import type {
   MentionSharedState,
   MentionsPlugin,
 } from './types';
-import ToolbarMention from './ui/ToolbarMention';
+import { SecondaryToolbarComponent } from './ui/SecondaryToolbarComponent';
 
 const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
   let sessionId = uuid();
@@ -44,6 +43,7 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
     mentionInsertDisplayName: options?.insertDisplayName,
     HighlightComponent: options?.HighlightComponent,
     fireEvent,
+    api,
   });
 
   return {
@@ -64,30 +64,12 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
     },
 
     secondaryToolbarComponent({ editorView, disabled }) {
-      const openMentionTypeAhead = () => {
-        api?.typeAhead?.actions?.open({
-          triggerHandler: typeAhead,
-          inputMethod: INPUT_METHOD.INSERT_MENU,
-        });
-      };
-
       return (
-        <WithPluginState
+        <SecondaryToolbarComponent
           editorView={editorView}
-          plugins={{
-            mentionState: mentionPluginKey,
-          }}
-          render={({ mentionState = {} }) =>
-            !mentionState.mentionProvider ? null : (
-              <ToolbarMention
-                editorView={editorView}
-                onInsertMention={openMentionTypeAhead}
-                isDisabled={
-                  disabled || api?.typeAhead.actions.isAllowed(editorView.state)
-                }
-              />
-            )
-          }
+          api={api}
+          disabled={disabled}
+          typeAhead={typeAhead}
         />
       );
     },
@@ -134,7 +116,7 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
               return false;
             }
 
-            api?.typeAhead.actions.openAtTransaction({
+            api?.typeAhead?.actions.openAtTransaction({
               triggerHandler: typeAhead,
               inputMethod: INPUT_METHOD.QUICK_INSERT,
             })(tr);

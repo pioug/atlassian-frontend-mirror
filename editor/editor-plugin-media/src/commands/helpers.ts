@@ -1,5 +1,6 @@
 import type { MediaAttributes } from '@atlaskit/adf-schema';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
@@ -14,7 +15,7 @@ import type {
  * Though it is not of type mediaSingle, it shares the same `findMediaSingleNode` method
  *
  */
-export const findMediaSingleNode = (
+export const findMediaNode = (
   mediaPluginState: MediaPluginState,
   id: string,
 ): MediaNodeWithPosHandler | null => {
@@ -41,7 +42,7 @@ export const findMediaSingleNode = (
   );
 };
 
-export const findAllMediaSingleNodes = (
+export const findAllMediaNodes = (
   mediaPluginState: MediaPluginState,
   id: string,
 ): MediaNodeWithPosHandler[] => {
@@ -58,7 +59,7 @@ export const isMediaNode = (pos: number, state: EditorState) => {
   return node && ['media', 'mediaInline'].includes(node.type.name);
 };
 
-export const updateAllMediaSingleNodesAttrs =
+export const updateAllMediaNodesAttrs =
   (id: string, attrs: object): Command =>
   (state, dispatch) => {
     const mediaPluginState = mediaPluginKey.getState(state);
@@ -68,7 +69,7 @@ export const updateAllMediaSingleNodesAttrs =
     }
 
     let mediaNodes: MediaNodeWithPosHandler[];
-    mediaNodes = findAllMediaSingleNodes(mediaPluginState, id);
+    mediaNodes = findAllMediaNodes(mediaPluginState, id);
 
     const validMediaNodePositions: number[] = mediaNodes.reduce<number[]>(
       (acc, { getPos }) => {
@@ -98,6 +99,8 @@ export const updateAllMediaSingleNodesAttrs =
 
     tr.setMeta('addToHistory', false);
 
+    tintDirtyTransaction(tr);
+
     if (dispatch) {
       dispatch(tr);
     }
@@ -126,7 +129,7 @@ export const updateCurrentMediaNodeAttrs =
     return true;
   };
 
-export const updateMediaSingleNodeAttrs =
+export const updateMediaNodeAttrs =
   (id: string, attrs: object): Command =>
   (state, dispatch) => {
     const mediaPluginState = mediaPluginKey.getState(state);
@@ -135,7 +138,7 @@ export const updateMediaSingleNodeAttrs =
       return false;
     }
 
-    const mediaNodeWithPos = findMediaSingleNode(mediaPluginState, id);
+    const mediaNodeWithPos = findMediaNode(mediaPluginState, id);
 
     if (!mediaNodeWithPos) {
       return false;

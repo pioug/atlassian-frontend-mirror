@@ -1,9 +1,24 @@
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+  NodeType,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
+import { CellSelection } from '../cell-selection';
+import { TableMap } from '../table-map';
+import type { MoveOptions } from '../types';
+
+import { determineTableHeaderStateFromTableNode } from './analyse-table';
 import { cloneTr } from './clone-tr';
 import { findTable } from './find';
 import { getSelectionRangeInRow } from './get-selection-range-in-row';
-import { isValidReorder, moveTableRow } from './reorder-utils';
+import { normalizeDirection } from './normalize-direction';
+import { isValidReorder } from './reorder-utils';
+import type { TableNodeCache } from './table-node-types';
+import { tableNodeTypes } from './table-node-types';
 
 // :: (originRowIndex: number, targetRowIndex: targetColumnIndex, options?: MovementOptions) → (tr: Transaction) → Transaction
 // Returns a new transaction that moves the origin row to the target index;
@@ -150,9 +165,14 @@ import { isValidReorder, moveTableRow } from './reorder-utils';
 // ```
 export const moveRow =
   (
-    originRowIndex: number,
+    state: EditorState,
+    originRowIndex: number | number[],
     targetRowIndex: number,
-    options = { tryToFit: false, direction: 0 },
+    options: MoveOptions = {
+      tryToFit: false,
+      direction: 0,
+      selectAfterMove: false,
+    },
   ) =>
   (tr: Transaction): Transaction => {
     const table = findTable(tr.selection);
@@ -160,31 +180,170 @@ export const moveRow =
       return tr;
     }
 
-    const originalRowRanges = getSelectionRangeInRow(originRowIndex)(tr);
+    // normalize the origin index to an array since move row support moving both a single & multiple rows in a single action.
+    if (!Array.isArray(originRowIndex)) {
+      originRowIndex = [originRowIndex];
+    }
+
+    if (originRowIndex.includes(targetRowIndex)) {
+      return tr;
+    }
+
+    const tableMap = TableMap.get(table.node);
+    const [originMin, originMax] = originRowIndex.reduce(
+      ([min, max], cur) => [Math.min(min, cur), Math.max(max, cur)],
+      [Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER],
+    );
+
+    const originalRowRanges = getSelectionRangeInRow(originMin, originMax)(tr);
     const targetRowRanges = getSelectionRangeInRow(targetRowIndex)(tr);
     const indexesOriginRow = originalRowRanges?.indexes || [];
     const indexesTargetRow = targetRowRanges?.indexes || [];
 
-    if (indexesOriginRow.includes(targetRowIndex)) {
+    if (
+      originMin < 0 ||
+      originMin === Number.MAX_SAFE_INTEGER ||
+      originMax >= tableMap.height ||
+      originMax === Number.MIN_SAFE_INTEGER ||
+      // The target index cannot be within the origin bounds
+      (targetRowIndex >= originMin && targetRowIndex <= originMax)
+    ) {
       return tr;
     }
 
     if (!options.tryToFit && indexesTargetRow.length > 1) {
-      isValidReorder(originRowIndex, targetRowIndex, indexesTargetRow, 'row');
+      isValidReorder(originMin, targetRowIndex, indexesTargetRow, 'row');
     }
 
-    const newTable = moveTableRow(
-      table,
-      indexesOriginRow,
-      indexesTargetRow,
-      options.direction,
+    const types = tableNodeTypes(state.schema);
+    const direction = normalizeDirection(originMin, targetRowIndex, options);
+    const actualTargetIndex = Math[direction === 'start' ? 'min' : 'max'](
+      ...indexesTargetRow,
     );
 
-    const newTr = cloneTr(tr).replaceWith(
-      table.pos,
-      table.pos + table.node.nodeSize,
-      newTable,
+    const originPositions = indexesOriginRow.map(
+      (index) => tableMap.positionAt(index, 0, table.node) + table.pos,
     );
 
-    return newTr;
+    const originNodes = originPositions.reduce<{ pos: number; node: PMNode }[]>(
+      (acc, pos) => {
+        const node = tr.doc.nodeAt(tr.mapping.map(pos));
+        if (node) {
+          return [...acc, { pos, node }];
+        }
+        return acc;
+      },
+      [],
+    );
+
+    const targetPos =
+      tableMap.positionAt(actualTargetIndex, 0, table.node) + table.pos;
+    const targetNode = tr.doc.nodeAt(tr.mapping.map(targetPos));
+
+    if (originNodes?.length && targetNode) {
+      const newTr = cloneTr(tr);
+
+      const { rowHeaderEnabled, columnHeaderEnabled } =
+        determineTableHeaderStateFromTableNode(table.node, tableMap, types);
+
+      if (rowHeaderEnabled && (originMin === 0 || actualTargetIndex === 0)) {
+        // This block is handling the situation where a row is moved in/out of the header position. If the header row option
+        // is enabled then;
+        // When a row is moved out, the row will be converted to a normal row and the row below it will become the header.
+        // When a row is moved in, the old row header needs to be made normal, and the incoming row needs to be made a header.
+        // This section only manages what happens to the other row, no the one being moved.
+        const nearHeaderPos =
+          tableMap.positionAt(
+            originMin === 0 ? originMax + 1 : actualTargetIndex,
+            0,
+            table.node,
+          ) + table.pos;
+        const nearHeaderNode = newTr.doc.nodeAt(
+          newTr.mapping.map(nearHeaderPos),
+        );
+
+        if (nearHeaderNode) {
+          nearHeaderNode.forEach((node, offset, index) => {
+            const start = newTr.mapping.map(nearHeaderPos + 1 + offset);
+            newTr.setNodeMarkup(
+              start,
+              actualTargetIndex !== 0 || (columnHeaderEnabled && index === 0)
+                ? types.header_cell
+                : types.cell,
+              node.attrs,
+            );
+          });
+        }
+      }
+
+      const insertPos =
+        direction === 'end'
+          ? newTr.mapping.map(targetPos + targetNode.nodeSize, 1)
+          : newTr.mapping.map(targetPos, -1);
+
+      newTr.insert(
+        insertPos,
+        originNodes.map(({ node }, index) =>
+          normalizeRowNode(
+            node,
+            rowHeaderEnabled && actualTargetIndex === 0 && index === 0,
+            columnHeaderEnabled,
+            types,
+          ),
+        ),
+      );
+
+      // IMPORTANT: We need to perform the selection between the insert/delete. This is because the delete could cause
+      // the current selection to be pushed out of the table resulting in an invalid selection range outside of the table
+      if (options.selectAfterMove) {
+        const offset = direction === 'end' ? 1 : 0;
+        const selectionRange = getSelectionRangeInRow(
+          actualTargetIndex + offset,
+          actualTargetIndex + offset + originNodes.length - 1,
+        )(newTr);
+
+        if (selectionRange) {
+          newTr.setSelection(
+            new CellSelection(selectionRange.$anchor, selectionRange.$head),
+          );
+        }
+      }
+
+      originNodes.forEach(({ pos, node }) => {
+        newTr.delete(
+          newTr.mapping.map(pos, 1),
+          newTr.mapping.map(pos + node.nodeSize, -1),
+        );
+      });
+
+      return newTr;
+    }
+
+    return tr;
   };
+
+/**
+ * This ensures the row node cell type correctly reflect what they should be.
+ * @returns A copy of the rowNode
+ */
+function normalizeRowNode(
+  rowNode: PMNode,
+  rowHeaderEnabled: boolean,
+  columnHeaderEnabled: boolean,
+  types: TableNodeCache,
+): PMNode {
+  let content: PMNode[] = [];
+  rowNode.forEach((node: PMNode, offset: number, index: number) => {
+    const newTargetType: NodeType =
+      rowHeaderEnabled || (columnHeaderEnabled && index === 0)
+        ? types.header_cell
+        : types.cell;
+    content.push(
+      node.type !== newTargetType
+        ? newTargetType.create(node.attrs, node.content, node.marks)
+        : node,
+    );
+  });
+
+  return rowNode.type.create(rowNode.attrs, content, rowNode.marks);
+}

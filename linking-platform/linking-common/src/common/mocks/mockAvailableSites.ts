@@ -5,12 +5,20 @@ import {
   mockedAvailableSitesResultWithGatewayBaseUrl,
 } from './available-sites-result';
 
-export const mockAvailableSites = () => {
-  const fetchAvailableSiteEndpoint = /\/gateway\/api\/available-sites/;
+const fetchAvailableSiteEndpoint = /\/gateway\/api\/available-sites/;
 
-  fetchMock.post(fetchAvailableSiteEndpoint, mockedAvailableSitesResult, {
-    delay: 10,
-  });
+export const mockAvailableSites = (responseData?: any) => {
+  fetchMock.post(
+    fetchAvailableSiteEndpoint,
+    responseData || mockedAvailableSitesResult,
+    {
+      delay: 10,
+    },
+  );
+};
+
+export const resetMockAvailableSites = () => {
+  fetchMock.reset(fetchAvailableSiteEndpoint);
 };
 
 /**

@@ -1,5 +1,77 @@
 # @atlaskit/tokens
 
+## 1.37.1
+
+### Patch Changes
+
+- [#72557](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72557) [`0c78c9c18cb7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c78c9c18cb7) - Fix font family not preferencing apple system fonts on macOS
+
+## 1.37.0
+
+### Minor Changes
+
+- [#71146](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71146) [`3e20d00d3d46`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e20d00d3d46) - Moves tokens codemods into the tokens package.
+
+## 1.36.0
+
+### Minor Changes
+
+- [#71486](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71486) [`a79fa3261943`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a79fa3261943) - Undeprecate font weight tokens
+
+## 1.35.0
+
+### Minor Changes
+
+- [#68163](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68163) [`de75cc685652`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de75cc685652) - Font UI weight token value changed to medium weight
+
+## 1.34.1
+
+### Patch Changes
+
+- [#68792](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68792) [`89564a857049`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89564a857049) - Add light border as default option
+
+## 1.34.0
+
+### Minor Changes
+
+- [#67463](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67463) [`caac5b953575`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/caac5b953575) - Fixed an issue where typography tokens referenced font family tokens that may not exist on a page, causing fallbacks to break.
+
+## 1.33.0
+
+### Minor Changes
+
+- [#63526](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63526) [`e8835feffae9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e8835feffae9) - Internal change to improve token sorting logic for typography tokens. Typography tokens are now marked as active though they are still in development and not recommend for use without prior approval from ADS.
+
+## 1.32.0
+
+### Minor Changes
+
+- [#63504](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63504) [`668f6aa3ca86`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/668f6aa3ca86) - Adds an entrypoint `@atlaskit/tokens/css-type-schema` containing a type definition for css values contrained to tokens.
+
+## 1.31.0
+
+### Minor Changes
+
+- [#62155](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62155) [`d88ffee39278`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d88ffee39278) - Added new themes for ads-vision-lab
+
+## 1.30.0
+
+### Minor Changes
+
+- [#59752](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59752) [`df0bbb7c4cc1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df0bbb7c4cc1) - Removed minor-second typography theme: `typography`. ADG3 and Minor third themes remain as the two typography themes.
+
+## 1.29.2
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 1.29.1
+
+### Patch Changes
+
+- [#57118](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57118) [`b9bd80957181`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9bd80957181) - Upgrade Emotion v10 (@emotion/core) to Emotion v11 (@emotion/react). No behaviour change expected.
+
 ## 1.29.0
 
 ### Minor Changes

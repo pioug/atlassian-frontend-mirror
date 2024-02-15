@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/share",
-  "version": "4.6.1",
+  "version": "4.13.0",
   "description": "Fabric Share Element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -24,6 +24,9 @@
   "atlassian": {
     "team": "People and Teams Collective",
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Share"
     }
@@ -38,23 +41,23 @@
     "access": "private"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/button": "^16.17.0",
-    "@atlaskit/dropdown-menu": "^12.1.0",
-    "@atlaskit/form": "^9.0.0",
+    "@atlaskit/analytics-next": "^9.2.0",
+    "@atlaskit/button": "^17.3.0",
+    "@atlaskit/dropdown-menu": "^12.5.0",
+    "@atlaskit/form": "^9.0.3",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/popper": "^5.5.4",
-    "@atlaskit/popup": "^1.11.0",
+    "@atlaskit/popup": "^1.12.0",
     "@atlaskit/portal": "^4.4.0",
-    "@atlaskit/smart-user-picker": "^6.3.0",
+    "@atlaskit/smart-user-picker": "^6.7.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/tabs": "^14.0.0",
     "@atlaskit/textarea": "^5.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
-    "@atlaskit/tooltip": "^18.0.0",
+    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/ufo": "^0.2.0",
-    "@atlaskit/user-picker": "^10.12.0",
+    "@atlaskit/user-picker": "^10.16.0",
     "@atlaskit/util-service-support": "^6.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -69,14 +72,13 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/editor-test-helpers": "^18.14.0",
+    "@atlaskit/editor-test-helpers": "^18.18.0",
     "@atlaskit/flag": "^15.2.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
-    "enzyme-react-intl": "^2.0.6",
     "react": "^16.8.0",
     "typescript": "~4.9.5"
   },

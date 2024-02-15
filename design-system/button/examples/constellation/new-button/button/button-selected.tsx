@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { UNSAFE_BUTTON } from '../../../../src';
-
+import Button from '../../../../src/new';
 const ButtonSelectedExample = () => {
-  return <UNSAFE_BUTTON isSelected>Selected button</UNSAFE_BUTTON>;
+  return <Button isSelected>Selected button</Button>;
 };
 
 export default ButtonSelectedExample;

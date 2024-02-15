@@ -2,36 +2,38 @@
 title: Motion
 description: A set of utilities to apply motion in your application.
 order: 1
+props:
+  packageName: '@atlaskit/motion'
+  exports:
+    - FadeIn
+    - SlideIn
+    - ZoomIn
+    - ShrinkOut
+    - StaggeredEntrance
+    - ExitingPersistence
 ---
 
 import SectionMessage from '@atlaskit/section-message';
 
-import FadeInProps from '!!extract-react-types-loader!../../src/entering/fade-in';
-import SlideInProps from '!!extract-react-types-loader!../../src/entering/slide-in';
-import ZoomInProps from '!!extract-react-types-loader!../../src/entering/zoom-in';
-import ShrinkOutProps from '!!extract-react-types-loader!../../src/entering/shrink-out';
-import StaggeredEntranceProps from '!!extract-react-types-loader!../../src/entering/staggered-entrance';
-import ExitingPersistenceProps from '!!extract-react-types-loader!../../src/entering/exiting-persistence';
-
-## <FadeIn />
+## `<FadeIn />`
 
 Useful for fading in one or more elements.
 
-<PropsTable heading="" props={FadeInProps} />
+<TSMorphProps exportName="FadeIn" packageName="@atlaskit/motion" />
 
-## <SlideIn />
+## `<SlideIn />`
 
 Will slide an element into position, generally used for things that appear from outside of the viewport into view.
 
-<PropsTable heading="" props={SlideInProps} />
+<TSMorphProps exportName="SlideIn" packageName="@atlaskit/motion" />
 
-## <ZoomIn />
+## `<ZoomIn />`
 
 Will over zoom an element into position.
 
-<PropsTable heading="" props={ZoomInProps} />
+<TSMorphProps exportName="ZoomIn" packageName="@atlaskit/motion" />
 
-## <ShrinkOut />
+## `<ShrinkOut />`
 
 <SectionMessage appearance="warning">
   This motion only has an exiting motion. StaggeredEntrance will have no effect.
@@ -40,16 +42,16 @@ Will over zoom an element into position.
 Will shrink an element down to nothing when exiting.
 Works best with flex children as collapsing margins can come with undesired behavior.
 
-<PropsTable heading="" props={ShrinkOutProps} />
+<TSMorphProps exportName="ShrinkOut" packageName="@atlaskit/motion" />
 
-## <StaggeredEntrance />
+## `<StaggeredEntrance />`
 
 Useful for staggering an entering motion over many elements.
 
-<PropsTable heading="" props={StaggeredEntranceProps} />
+<TSMorphProps exportName="StaggeredEntrance" packageName="@atlaskit/motion" />
 
-## <ExitingPersistence />
+## `<ExitingPersistence />`
 
 Useful for enabling elements to persist and animate away when they are removed from the DOM.
 
-<PropsTable heading="" props={ExitingPersistenceProps} />
+<TSMorphProps exportName="ExitingPersistence" packageName="@atlaskit/motion" />

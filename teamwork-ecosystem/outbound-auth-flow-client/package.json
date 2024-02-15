@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/outbound-auth-flow-client",
-  "version": "3.4.4",
+  "version": "3.4.5",
   "description": "Front-end library for starting outbound auth flows",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -23,7 +23,6 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Ecosystem Capabilities",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "productPushConsumption": [
       "jira"
@@ -43,5 +42,10 @@
     "fabric",
     "ui"
   ],
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./error": "./src/error.ts",
+    "./types": "./src/types.ts"
+  }
 }

@@ -13,7 +13,6 @@ import {
   doc,
   hr,
   li,
-  ol,
   p,
   panel,
   ul,
@@ -150,36 +149,6 @@ describe('rule', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(ul(li(p('aa')), li(p('b'))), hr(), ul(li(p('b')), li(p('cc')))),
-        );
-      });
-    });
-
-    describe('orderlist', () => {
-      it('should split list when rule inserts in the end of an item', async () => {
-        const { editorView, typeAheadTool } = editor(
-          doc(ol()(li(p('aa')), li(p('bb {<>}')), li(p('cc')))),
-        );
-
-        await typeAheadTool.searchQuickInsert('divider')?.insert({ index: 0 });
-
-        expect(editorView.state.doc).toEqualDocument(
-          doc(ol()(li(p('aa')), li(p('bb '))), hr(), ol()(li(p('cc')))),
-        );
-      });
-
-      it('should split list when rule inserts in the middle of an item', async () => {
-        const { editorView, typeAheadTool } = editor(
-          doc(ol()(li(p('aa')), li(p('b{<>}b')), li(p('cc')))),
-        );
-
-        await typeAheadTool.searchQuickInsert('divider')?.insert({ index: 0 });
-
-        expect(editorView.state.doc).toEqualDocument(
-          doc(
-            ol()(li(p('aa')), li(p('b'))),
-            hr(),
-            ol()(li(p('b')), li(p('cc'))),
-          ),
         );
       });
     });

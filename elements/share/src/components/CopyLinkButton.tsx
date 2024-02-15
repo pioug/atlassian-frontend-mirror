@@ -116,7 +116,7 @@ export class CopyLinkButton extends React.Component<Props, State> {
         appearance="subtle-link"
         iconBefore={iconBefore || <LinkFilledIcon label="" size="medium" />}
         onClick={this.handleClick}
-        {...triggerProps}
+        ref={triggerProps.ref}
       >
         {children || copyLinkButtonText}
       </Button>
@@ -139,6 +139,7 @@ export class CopyLinkButton extends React.Component<Props, State> {
         <HiddenInput ref={this.inputRef} text={this.props.link} />
         <Popup
           zIndex={Z_INDEX}
+          autoFocus={false}
           content={() => (
             <InlineDialogContentWrapper>
               <div css={messageContainerStyle} data-testid="message-container">

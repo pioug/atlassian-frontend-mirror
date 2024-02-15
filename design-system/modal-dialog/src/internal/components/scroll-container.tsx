@@ -31,11 +31,11 @@ const baseStyles = css({
 });
 
 const topKeylineStyles = css({
-  borderTop: `${keylineHeight}px solid ${keylineColor}`,
+  borderBlockStart: `${keylineHeight}px solid ${keylineColor}`,
 });
 
 const bottomKeylineStyles = css({
-  borderBottom: `${keylineHeight}px solid ${keylineColor}`,
+  borderBlockEnd: `${keylineHeight}px solid ${keylineColor}`,
 });
 
 interface ScrollContainerProps {

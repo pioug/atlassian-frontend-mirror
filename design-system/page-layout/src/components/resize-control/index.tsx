@@ -129,8 +129,11 @@ const ResizeControl = ({
       return;
     }
 
-    // TODO: should only a primary pointer be able to start a resize?
-    // Keeping as is for now, but worth considering
+    // Only allow left (primary) clicks to trigger resize as we've received
+    // bug reports about right click unexpectedly beginning a resize.
+    if (event.button !== 0) {
+      return;
+    }
 
     // It is possible for a mousedown to fire during a resize
     // Example: the user presses another pointer button while dragging

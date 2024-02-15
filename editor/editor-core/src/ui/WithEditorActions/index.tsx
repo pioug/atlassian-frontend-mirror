@@ -1,6 +1,8 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
-import EditorActions from '../../actions';
+
+import type EditorActions from '../../actions';
 
 export interface WithEditorActionsProps {
   render(actions: EditorActions): React.ReactElement<any> | null;

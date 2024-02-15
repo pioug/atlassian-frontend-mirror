@@ -2,17 +2,16 @@ import React from 'react';
 
 import LinkIcon from '@atlaskit/icon/glyph/link';
 
-import { UNSAFE_BUTTON } from '../../../../src';
-
+import Button from '../../../../src/new';
 const ButtonIconBeforeSizeExample = () => {
   return (
-    <UNSAFE_BUTTON
+    <Button
       iconBefore={LinkIcon}
       appearance="warning"
       UNSAFE_iconBefore_size="small"
     >
       Icon with size override
-    </UNSAFE_BUTTON>
+    </Button>
   );
 };
 

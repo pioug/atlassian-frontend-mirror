@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -89,7 +89,7 @@ const inlineBleedMap = {
  * - [Examples](https://atlassian.design/components/primitives/bleed/examples)
  * - [Code](https://atlassian.design/components/primitives/bleed/code)
  */
-const Bleed = memo(
+const Bleed = React.memo(
   ({ children, testId, inline, block, all, xcss }: BleedProps) => {
     const xcssStyles = xcss && parseXcss(xcss);
     return (

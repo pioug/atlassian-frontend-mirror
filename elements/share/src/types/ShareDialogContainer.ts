@@ -169,4 +169,6 @@ export type ShareDialogContainerProps = {
   copyTooltipText?: string;
   /* disable looking up users and teams */
   isBrowseUsersDisabled?: boolean;
+  /* Atlassian resource identifier of the workspace initiating the share */
+  workspaceAri?: string;
 };

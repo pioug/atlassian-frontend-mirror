@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-navigation",
-  "version": "2.9.2",
+  "version": "3.2.0",
   "description": "A horizontal navigation component for Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,27 +22,37 @@
   },
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
+  "af:exports": {
+    ".": "./src/index.tsx",
+    "./skeleton": "./src/skeleton.tsx",
+    "./skeleton-help-button": "./src/skeleton-help-button.tsx",
+    "./skeleton-settings-button": "./src/skeleton-settings-button.tsx",
+    "./skeleton-notification-button": "./src/skeleton-notification-button.tsx",
+    "./skeleton-switcher-button": "./src/skeleton-switcher-button.tsx"
+  },
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Atlassian navigation",
       "category": "Components"
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-namespaced-context": "^6.7.0",
-    "@atlaskit/button": "^16.17.0",
+    "@atlaskit/analytics-namespaced-context": "^6.9.0",
+    "@atlaskit/button": "^17.3.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/logo": "*",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/popup": "^1.11.0",
-    "@atlaskit/primitives": "^1.12.0",
+    "@atlaskit/popup": "^1.12.0",
+    "@atlaskit/primitives": "^2.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
-    "@atlaskit/tooltip": "^18.0.0",
+    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/width-detector": "^4.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -55,12 +65,12 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/dropdown-menu": "^12.1.0",
+    "@atlaskit/dropdown-menu": "^12.5.0",
     "@atlaskit/notification-indicator": "*",
     "@atlaskit/notification-log-client": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "@atlassian/feature-flags-test-utils": "^0.1.1",
+    "@atlassian/feature-flags-test-utils": "^0.2.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
     "jest-axe": "^8.0.0",
@@ -97,9 +107,6 @@
       "type": "boolean"
     },
     "platform.design-system-team.border-checkbox_nyoiu": {
-      "type": "boolean"
-    },
-    "platform.design-system-team.icon-button-spacing-fix_o1zc5": {
       "type": "boolean"
     }
   }

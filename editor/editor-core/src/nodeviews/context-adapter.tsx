@@ -2,10 +2,8 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import {
-  default as AnalyticsReactContext,
-  AnalyticsReactContextInterface,
-} from '@atlaskit/analytics-next-stable-react-context';
+import type { AnalyticsReactContextInterface } from '@atlaskit/analytics-next-stable-react-context';
+import { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stable-react-context';
 import { SmartCardContext } from '@atlaskit/link-provider';
 import type { CardContext as CardContextType } from '@atlaskit/link-provider';
 

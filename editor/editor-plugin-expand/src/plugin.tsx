@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { expand, nestedExpand } from '@atlaskit/adf-schema';
+import {
+  expand,
+  extendedNestedExpand,
+  nestedExpand,
+} from '@atlaskit/adf-schema';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -10,53 +14,28 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconExpand } from '@atlaskit/editor-common/quick-insert';
-import type {
-  EditorAppearance,
-  LongPressSelectionPluginOptions,
-  NextEditorPlugin,
-  OptionalPlugin,
-} from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { createExpandNode, insertExpand } from './commands';
 import { expandKeymap } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { getToolbarConfig } from './toolbar';
-
-interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
-  allowInsertion?: boolean;
-  appearance?: EditorAppearance;
-}
-
-export type ExpandPlugin = NextEditorPlugin<
-  'expand',
-  {
-    pluginConfiguration: ExpandPluginOptions | undefined;
-    dependencies: [
-      OptionalPlugin<FeatureFlagsPlugin>,
-      DecorationsPlugin,
-      SelectionPlugin,
-      OptionalPlugin<AnalyticsPlugin>,
-    ];
-    actions: {
-      insertExpand: ReturnType<typeof insertExpand>;
-    };
-  }
->;
+import type { ExpandPlugin } from './types';
 
 export const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
-  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
   return {
     name: 'expand',
 
     nodes() {
+      const nestedExpandNode = getBooleanFF(
+        'platform.editor.allow-extended-nested-expand',
+      )
+        ? extendedNestedExpand
+        : nestedExpand;
       return [
         { name: 'expand', node: expand },
-        { name: 'nestedExpand', node: nestedExpand },
+        { name: 'nestedExpand', node: nestedExpandNode },
       ];
     },
 
@@ -74,8 +53,8 @@ export const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
               getIntl,
               options.appearance,
               options.useLongPressSelection,
-              featureFlags,
               api,
+              options.allowInteractiveExpand ?? true,
             );
           },
         },

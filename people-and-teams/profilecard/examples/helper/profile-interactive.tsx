@@ -4,8 +4,7 @@ import styled from '@emotion/styled';
 // @ts-ignore
 import uid from 'uid';
 
-import { N0, N800 } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
+import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ProfileCard } from '../../src';
@@ -19,10 +18,7 @@ import {
 
 const StoryWrapper = styled.div`
   label {
-    color: ${themed({
-      light: token('color.text', N800),
-      dark: token('color.text', N0),
-    })};
+    color: ${token('color.text', N800)};
     margin-right: 10px;
     -webkit-user-select: none;
   }

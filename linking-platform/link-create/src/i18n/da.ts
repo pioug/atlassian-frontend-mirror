@@ -16,6 +16,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': 'Dine ændringer gemmes ikke',
   'linkCreate.createForm.button.close': 'Luk',
   'linkCreate.createForm.button.create': 'Opret',
-  'linkCreate.createForm.button.edit': 'Rediger',
+  'linkCreate.createForm.button.createAndOpen': 'Opret + Åbn',
   'linkCreate.modal.heading': 'Opret ny',
 };

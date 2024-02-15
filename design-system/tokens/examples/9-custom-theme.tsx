@@ -4,9 +4,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/new';
 import Calendar from '@atlaskit/calendar';
 import Checkbox from '@atlaskit/checkbox';
+import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import InlineMessage from '@atlaskit/inline-message';
 import Lozenge from '@atlaskit/lozenge';
@@ -34,18 +36,18 @@ import getFigmaVariableScript from './utils/get-figma-variable-script';
 const colorContainerStyles = css({
   boxSizing: 'border-box',
   height: '72px',
-  paddingTop: '28px',
   position: 'relative',
   flex: 1,
+  paddingBlockStart: '28px',
   textAlign: 'center',
   transition: 'all 0.2s',
   '&:hover': {
     height: '80px',
-    marginTop: '-8px',
-    paddingTop: '8px',
     borderRadius: '3px 3px 0 0',
+    marginBlockStart: '-8px',
+    paddingBlockStart: '8px',
     span: {
-      bottom: 8,
+      insetBlockEnd: 8,
       opacity: 1,
     },
     p: {
@@ -279,9 +281,9 @@ export default () => {
                     as="p"
                     xcss={xcss({
                       width: '100%',
-                      paddingTop: 'space.100',
+                      paddingBlockStart: 'space.100',
                       position: 'absolute',
-                      top: 'space.0',
+                      insetBlockStart: 'space.0',
                       transition: 'all 0.2s',
                     })}
                   >
@@ -298,8 +300,8 @@ export default () => {
                     boxSizing: 'border-box',
                     width: '100%',
                     position: 'absolute',
-                    bottom: 'space.0',
-                    left: 'space.0',
+                    insetBlockEnd: 'space.0',
+                    insetInlineStart: 'space.0',
                     opacity: 0,
                     textAlign: 'center',
                     transition: 'all 0.3s',
@@ -372,11 +374,9 @@ export default () => {
             <Stack space="space.100">
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a href="#">Test link</a>
-              <ButtonGroup>
+              <ButtonGroup label="Button examples">
                 <Button appearance="primary">Primary button</Button>
-                <Button selected={true} isSelected={true}>
-                  Selected button
-                </Button>
+                <Button isSelected={true}>Selected button</Button>
               </ButtonGroup>
               <Stack>
                 <Checkbox
@@ -393,7 +393,9 @@ export default () => {
                   isChecked={true}
                 />
               </Stack>
+              <Label htmlFor="select-custom-theme">Select example</Label>
               <Select
+                inputId="select-custom-theme"
                 menuIsOpen={true}
                 defaultValue={{ label: 'One', value: 'one' }}
                 options={[

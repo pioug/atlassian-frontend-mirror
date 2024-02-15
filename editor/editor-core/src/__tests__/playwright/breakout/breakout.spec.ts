@@ -1,17 +1,16 @@
 import {
   EditorBreakoutModel,
   EditorCodeBlockFloatingToolbarModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   breakout,
-  layoutSection,
-  layoutColumn,
   code_block,
   doc,
+  layoutColumn,
+  layoutSection,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
@@ -29,7 +28,7 @@ test.describe('breakout', () => {
   }) => {
     const breakoutModel = EditorBreakoutModel.from(editor);
     await editor.typeAhead.searchAndInsert('code');
-    await test.step('change layout to wide ', async () => {
+    await test.step('change layout to wide', async () => {
       await breakoutModel.toWide();
     });
     await expect(editor).toMatchDocument(
@@ -42,10 +41,10 @@ test.describe('breakout', () => {
   }) => {
     const breakoutModel = EditorBreakoutModel.from(editor);
     await editor.typeAhead.searchAndInsert('code');
-    await test.step('change layout to wide ', async () => {
+    await test.step('change layout to wide', async () => {
       await breakoutModel.toWide();
     });
-    await test.step('change layout to full-width ', async () => {
+    await test.step('change layout to full-width', async () => {
       await breakoutModel.toFullWidth();
     });
     await expect(editor).toHaveDocument(
@@ -58,13 +57,13 @@ test.describe('breakout', () => {
   }) => {
     const breakoutModel = EditorBreakoutModel.from(editor);
     await editor.typeAhead.searchAndInsert('code');
-    await test.step('change layout to wide ', async () => {
+    await test.step('change layout to wide', async () => {
       await breakoutModel.toWide();
     });
-    await test.step('change layout to full-width ', async () => {
+    await test.step('change layout to full-width', async () => {
       await breakoutModel.toFullWidth();
     });
-    await test.step('change layout to center ', async () => {
+    await test.step('change layout to center', async () => {
       await breakoutModel.toCenter();
     });
     await expect(editor).toHaveDocument(doc(code_block({})()));
@@ -77,20 +76,17 @@ test.describe('breakout', () => {
     await editor.waitForEditorStable();
     const codeBlockModelFirst =
       EditorCodeBlockFloatingToolbarModel.from(editor);
-    const codeBlockBreakoutLocatorFirst =
-      await codeBlockModelFirst.breakoutGoWideButton;
+
+    await expect(codeBlockModelFirst.breakoutGoWideButton).toBeVisible();
+
     await editor.keyboard.press('ArrowRight');
     await editor.keyboard.press('ArrowRight');
+    await expect(codeBlockModelFirst.breakoutGoWideButton).toBeHidden();
     await editor.keyboard.press('Enter');
 
     await editor.typeAhead.searchAndInsert('code');
-    const codeBlockModelSecond =
-      EditorCodeBlockFloatingToolbarModel.from(editor);
-    const codeBlockBreakoutLocatorSecond =
-      await codeBlockModelSecond.breakoutGoWideButton;
-    await editor.waitForEditorStable();
-    expect(codeBlockBreakoutLocatorFirst).not.toBeInSight();
-    await expect(codeBlockBreakoutLocatorSecond).toBeVisible();
+
+    await expect(codeBlockModelFirst.breakoutGoWideButton).toBeVisible();
   });
 
   test('breakout: should be able to delete last character inside a "wide" codeBlock preserving the node', async ({
@@ -98,7 +94,7 @@ test.describe('breakout', () => {
   }) => {
     const breakoutModel = EditorBreakoutModel.from(editor);
     await editor.typeAhead.searchAndInsert('code');
-    await test.step('change layout to wide ', async () => {
+    await test.step('change layout to wide', async () => {
       await breakoutModel.toWide();
     });
     await editor.keyboard.type('a');
@@ -113,7 +109,7 @@ test.describe('breakout', () => {
   }) => {
     const breakoutModel = EditorBreakoutModel.from(editor);
     await editor.typeAhead.searchAndInsert('layouts');
-    await test.step('change layout to wide ', async () => {
+    await test.step('change layout to wide', async () => {
       await breakoutModel.toWide();
     });
     await editor.keyboard.type('a');

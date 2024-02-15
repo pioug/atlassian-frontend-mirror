@@ -5,7 +5,7 @@ import { FC, ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import { presidents } from './numerical';
 
@@ -29,12 +29,12 @@ const NameWrapper: FC<{ children: ReactNode }> = ({ children }) => (
   <span css={nameWrapperStyles}>{children}</span>
 );
 
-const avatarWrapperStyles = css({
-  marginRight: token('space.100', '8px'),
+const avatarWrapperStyles = xcss({
+  marginInlineEnd: 'space.100',
 });
 
 const AvatarWrapper: FC<{ children: ReactNode }> = ({ children }) => (
-  <div css={avatarWrapperStyles}>{children}</div>
+  <Box xcss={avatarWrapperStyles}>{children}</Box>
 );
 
 export const caption = 'Sample Numerical Data';

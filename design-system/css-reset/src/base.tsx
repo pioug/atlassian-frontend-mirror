@@ -22,10 +22,10 @@ export default evaluateInner`
     background-color: ${token('elevation.surface', '#fff')};
     color: ${token('color.text', colors.N800)};
     font-family: ${fontFamily};
-    font-size: ${token('font.size.100', '14px')};
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: ${token('font.lineHeight.200', '1.42857142857143')};
+    line-height: 1.42857142857143;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     text-decoration-skip-ink: auto;
   }

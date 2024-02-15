@@ -20,7 +20,7 @@ class CustomClient extends Client {
   }
 }
 
-export default () => (
+export const BlockCardJira = () => (
   <div>
     <h4>Jira Unassigned Issue</h4>
     <VRCardView
@@ -39,6 +39,32 @@ export default () => (
       appearance="block"
       client={new CustomClient()}
       url={JiraProject.data.url}
+    />
+  </div>
+);
+
+export const BlockCardJiraLegacy = () => (
+  <div>
+    <h4>Jira Unassigned Issue</h4>
+    <VRCardView
+      appearance="block"
+      client={new CustomClient()}
+      url={JiraIssue.data.url}
+      useLegacyBlockCard={true}
+    />
+    <h4>Jira Assigned To issue</h4>
+    <VRCardView
+      appearance="block"
+      client={new CustomClient()}
+      url={JiraIssueAssigned.data.url}
+      useLegacyBlockCard={true}
+    />
+    <h4>Jira Project</h4>
+    <VRCardView
+      appearance="block"
+      client={new CustomClient()}
+      url={JiraProject.data.url}
+      useLegacyBlockCard={true}
     />
   </div>
 );

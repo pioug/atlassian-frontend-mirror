@@ -10,10 +10,17 @@ import {
 } from '@atlaskit/link-extractors';
 import { extractLinkIcon } from '../icon';
 import { extractIsSupportTheming } from '../../common/meta/extractIsSupportTheming';
+import { CardAction, type CardActionOptions } from '../../../view/Card/types';
+import { canShowAction } from '../../../utils/actions/can-show-action';
 
 export const extractPreviewAction = (
   response: JsonLd.Response,
+  actionOptions?: CardActionOptions,
 ): PreviewActionData | undefined => {
+  if (!canShowAction(CardAction.PreviewAction, actionOptions)) {
+    return;
+  }
+
   const data = response.data as JsonLd.Data.BaseData;
   const meta = response.meta as JsonLd.Meta.BaseMeta;
 

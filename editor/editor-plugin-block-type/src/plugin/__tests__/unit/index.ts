@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import {
   codeBlock as codeBlockAdf,
   panel as panelAdf,
@@ -5,6 +6,7 @@ import {
   tableCell as tableCellAdf,
   tableRow as tableRowAdf,
 } from '@atlaskit/adf-schema';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -12,7 +14,6 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type {
   DocBuilder,
   NextEditorPlugin,
@@ -73,6 +74,7 @@ describe('block-type', () => {
   const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
   const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
     attachAnalyticsEvent,
+    fireAnalyticsEvent: jest.fn(),
   };
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
@@ -89,7 +91,7 @@ describe('block-type', () => {
   it('should be able to change to normal text', () => {
     const { editorView, editorAPI } = editor(doc(h1('te{<>}xt')));
 
-    editorAPI?.core.actions.execute(setBlockType('normal'));
+    editorAPI?.core?.actions.execute(setBlockType('normal'));
     expect(editorView.state.doc).toEqualDocument(doc(p('text')));
   });
 
@@ -98,7 +100,7 @@ describe('block-type', () => {
 
     it(`should be able to change to heading${level}`, () => {
       const { editorView, editorAPI } = editor(doc(p('te{<>}xt')));
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         setBlockType(`heading${level}` as TextBlockTypes),
       );
       expect(editorView.state.doc).toEqualDocument(doc(builder('text')));
@@ -124,7 +126,7 @@ describe('block-type', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch(editorView.state.tr.setSelection(sel as any));
 
-    editorAPI?.core.actions.execute(setBlockType('normal'));
+    editorAPI?.core?.actions.execute(setBlockType('normal'));
 
     expect(editorView.state.doc).toEqualDocument(
       doc(
@@ -159,7 +161,7 @@ describe('block-type', () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       dispatch(editorView.state.tr.setSelection(sel as any));
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         setBlockType(`heading${level}` as TextBlockTypes),
       );
 
@@ -225,13 +227,13 @@ describe('block-type', () => {
 
   it('should be able to identify normal', () => {
     const { editorAPI } = editor(doc(p('te{<>}xt')));
-    const pluginState = editorAPI.blockType.sharedState.currentState()!;
+    const pluginState = editorAPI.blockType?.sharedState.currentState()!;
     expect(pluginState.currentBlockType.name).toBe('normal');
   });
 
   it('should have all of the present blocks type panel, blockQuote, codeBlock in availableWrapperBlockTypes', () => {
     const { editorAPI } = editor(doc(p('te{<>}xt')));
-    const pluginState = editorAPI.blockType.sharedState.currentState()!;
+    const pluginState = editorAPI.blockType?.sharedState.currentState()!;
     expect(pluginState.availableWrapperBlockTypes.length).toBe(3);
     expect(
       pluginState.availableWrapperBlockTypes.some(
@@ -252,31 +254,31 @@ describe('block-type', () => {
 
   it('should be able to identify normal even if there are multiple blocks', () => {
     const { editorAPI } = editor(doc(p('te{<}xt'), p('text'), p('te{>}xt')));
-    const pluginState = editorAPI.blockType.sharedState.currentState()!;
+    const pluginState = editorAPI.blockType?.sharedState.currentState()!;
     expect(pluginState.currentBlockType.name).toBe('normal');
   });
 
   it('should set currentBlockType to Other if there are blocks of multiple types', () => {
     const { editorAPI } = editor(doc(p('te{<}xt'), h1('text'), p('te{>}xt')));
-    const pluginState = editorAPI.blockType.sharedState.currentState()!;
+    const pluginState = editorAPI.blockType?.sharedState.currentState()!;
     expect(pluginState.currentBlockType.name).toBe('other');
   });
 
   it('should be able to identify heading1', () => {
     const { editorAPI } = editor(doc(h1('te{<>}xt')));
-    const pluginState = editorAPI.blockType.sharedState.currentState()!;
+    const pluginState = editorAPI.blockType?.sharedState.currentState()!;
     expect(pluginState.currentBlockType.name).toBe('heading1');
   });
 
   it('should be able to identify heading2', () => {
     const { editorAPI } = editor(doc(h2('te{<>}xt')));
-    const pluginState = editorAPI.blockType.sharedState.currentState()!;
+    const pluginState = editorAPI.blockType?.sharedState.currentState()!;
     expect(pluginState.currentBlockType.name).toBe('heading2');
   });
 
   it('should be able to identify heading3', () => {
     const { editorAPI } = editor(doc(h3('te{<>}xt')));
-    const pluginState = editorAPI.blockType.sharedState.currentState()!;
+    const pluginState = editorAPI.blockType?.sharedState.currentState()!;
     expect(pluginState.currentBlockType.name).toBe('heading3');
   });
 
@@ -284,7 +286,7 @@ describe('block-type', () => {
     const { editorView, editorAPI } = editor(doc(p('te{<>}xt')));
     const { state, dispatch } = editorView;
 
-    editorAPI?.core.actions.execute(setBlockType('normal'));
+    editorAPI?.core?.actions.execute(setBlockType('normal'));
     insertBlockQuoteWithAnalytics(INPUT_METHOD.TOOLBAR, mockEditorAnalyticsAPI)(
       state,
       dispatch,
@@ -295,7 +297,7 @@ describe('block-type', () => {
   it('should not toggle block type', () => {
     const { editorView, editorAPI } = editor(doc(p('te{<>}xt')));
 
-    editorAPI?.core.actions.execute(setBlockType('normal'));
+    editorAPI?.core?.actions.execute(setBlockType('normal'));
 
     expect(editorView.state.doc).toEqualDocument(doc(p('text')));
   });
@@ -303,7 +305,7 @@ describe('block-type', () => {
   it('should be able to change block types when selecting two nodes', () => {
     const { editorView, editorAPI } = editor(doc(p('li{<}ne1'), p('li{>}ne2')));
 
-    editorAPI?.core.actions.execute(setBlockType('heading1'));
+    editorAPI?.core?.actions.execute(setBlockType('heading1'));
 
     expect(editorView.state.doc).toEqualDocument(doc(h1('line1'), h1('line2')));
   });
@@ -348,7 +350,7 @@ describe('block-type', () => {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     eventDispatcher.on((blockTypePluginKey as any).key, spy);
-    editorAPI?.core.actions.execute(setBlockType('heading1'));
+    editorAPI?.core?.actions.execute(setBlockType('heading1'));
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith({
@@ -362,7 +364,7 @@ describe('block-type', () => {
       it('does not convert to a paragraph', () => {
         const { editorView, editorAPI } = editor(doc(h1('text')));
 
-        editorAPI?.core.actions.execute(setBlockType('heading1'));
+        editorAPI?.core?.actions.execute(setBlockType('heading1'));
         expect(editorView.state.doc).toEqualDocument(doc(h1('text')));
       });
     });
@@ -419,25 +421,25 @@ describe('block-type', () => {
   describe('blockTypesDisabled', () => {
     it('should be false if current selection has no wrapper', () => {
       const { editorAPI } = editor(doc(p('text{<>}')));
-      const pluginState = editorAPI.blockType.sharedState.currentState()!;
+      const pluginState = editorAPI.blockType?.sharedState.currentState()!;
       expect(pluginState.blockTypesDisabled).toBe(false);
     });
 
     it('should be false if current selection is wrapped in panel', () => {
       const { editorAPI } = editor(doc(panel()(p('text{<>}'))));
-      const pluginState = editorAPI.blockType.sharedState.currentState()!;
+      const pluginState = editorAPI.blockType?.sharedState.currentState()!;
       expect(pluginState.blockTypesDisabled).toBe(false);
     });
 
     it('should be true if current selection is wrapped in blockquote', () => {
       const { editorAPI } = editor(doc(blockquote(p('text{<>}'))));
-      const pluginState = editorAPI.blockType.sharedState.currentState()!;
+      const pluginState = editorAPI.blockType?.sharedState.currentState()!;
       expect(pluginState.blockTypesDisabled).toBe(true);
     });
 
     it('should be true if current selection is wrapped in codeblock', () => {
       const { editorAPI } = editor(doc(code_block()('testing{<>}')));
-      const pluginState = editorAPI.blockType.sharedState.currentState()!;
+      const pluginState = editorAPI.blockType?.sharedState.currentState()!;
       expect(pluginState.blockTypesDisabled).toBe(true);
     });
   });

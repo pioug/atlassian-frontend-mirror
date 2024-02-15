@@ -1,0 +1,15 @@
+{
+  "name": "Light future",
+  "tokens": {
+    "Light future/color.background.disabled": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for backgrounds of elements in a disabled state."
+      },
+      "value": "#28311B"
+    }
+  },
+  "renameMap": {}
+}

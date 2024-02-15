@@ -12,7 +12,7 @@ export type SkeletonPrimaryButtonProps = {
    */
   children?: ReactNode;
   /**
-   * Sets the appearance of the skeleton button to look like a dropdown button
+   * Sets the appearance of the skeleton button to look like a dropdown button.
    */
   isDropdownButton?: boolean;
   /**

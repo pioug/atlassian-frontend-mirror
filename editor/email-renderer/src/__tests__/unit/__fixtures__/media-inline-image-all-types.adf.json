@@ -1,0 +1,213 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "h1 "
+        },
+        {
+          "type": "mediaInline",
+          "attrs": {
+            "type": "image",
+            "id": "media-type-image",
+            "collection": "MediaServicesSample",
+            "width": 1000,
+            "height": 500
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "h2 "
+        },
+        {
+          "type": "mediaInline",
+          "attrs": {
+            "type": "image",
+            "id": "media-type-image",
+            "collection": "MediaServicesSample",
+            "width": 800,
+            "height": 200
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "h3 "
+        },
+        {
+          "type": "mediaInline",
+          "attrs": {
+            "type": "image",
+            "id": "media-type-image",
+            "collection": "MediaServicesSample",
+            "width": 500,
+            "height": 500
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 4
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "h4 "
+        },
+        {
+          "type": "mediaInline",
+          "attrs": {
+            "type": "image",
+            "id": "media-type-image",
+            "collection": "MediaServicesSample",
+            "width": 200,
+            "height": 200
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 5
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "h5 "
+        },
+        {
+          "type": "mediaInline",
+          "attrs": {
+            "type": "image",
+            "id": "media-type-image",
+            "collection": "MediaServicesSample",
+            "width": 50,
+            "height": 100
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 6
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "h6 "
+        },
+        {
+          "type": "mediaInline",
+          "attrs": {
+            "type": "image",
+            "id": "media-type-image",
+            "collection": "MediaServicesSample",
+            "width": 800,
+            "height": 400
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "mediaInline",
+          "attrs": {
+            "type": "image",
+            "id": "media-type-image",
+            "collection": "MediaServicesSample",
+            "width": 800,
+            "height": 400
+          }
+        },
+        {
+          "type": "text",
+          "text": " here is some text "
+        },
+        {
+          "type": "mediaInline",
+          "attrs": {
+            "type": "image",
+            "id": "media-type-image",
+            "collection": "MediaServicesSample",
+            "width": 200,
+            "height": 200
+          },
+          "marks": [
+            {
+              "type": "border",
+              "attrs": {
+                "color": "#758195",
+                "size": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " with some images "
+        },
+        {
+          "type": "mediaInline",
+          "attrs": {
+            "type": "image",
+            "id": "media-type-image",
+            "collection": "MediaServicesSample",
+            "width": 1000,
+            "height": 1000
+          },
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://www.atlassian.com"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " with some other images "
+        },
+        {
+          "type": "mediaInline",
+          "attrs": {
+            "type": "image",
+            "id": "media-type-image",
+            "collection": "MediaServicesSample",
+            "alt": "test",
+            "width": 500,
+            "height": 250
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -17,7 +17,7 @@ export const inlineCardAdf = {
         {
           type: 'inlineCard',
           attrs: {
-            url: 'https://inlineCardTestUrl',
+            url: 'https://inlineCardTestUrl/shortName',
           },
         },
       ],

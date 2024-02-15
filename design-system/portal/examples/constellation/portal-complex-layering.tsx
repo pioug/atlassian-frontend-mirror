@@ -3,7 +3,7 @@ import { Fragment, type ReactNode, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Flag, { FlagGroup } from '@atlaskit/flag';
 import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 import InlineDialog from '@atlaskit/inline-dialog';

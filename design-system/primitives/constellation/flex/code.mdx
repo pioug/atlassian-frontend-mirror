@@ -2,6 +2,10 @@
 title: Flex
 description: A flex implements the CSS flexbox API.
 order: 1
+props:
+  packageName: '@atlaskit/primitives'
+  exports:
+    - Flex
 ---
 
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
@@ -12,8 +16,6 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
   directoryName="primitives"
 />
 
-import ERTFlex from '!!extract-react-types-loader!../../extract-react-types/flex-props';
-
 ## Props
 
-<PropsTable heading="" props={ERTFlex} />
+<TSMorphProps exportName="Flex" packageName="@atlaskit/primitives" />

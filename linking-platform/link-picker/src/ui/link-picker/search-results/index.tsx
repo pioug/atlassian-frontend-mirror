@@ -35,6 +35,7 @@ export type SearchResultsProps = {
   tabs: { tabTitle: string }[];
   isLoadingPlugins?: boolean;
   isLoadingResults: boolean;
+  isSubmitting?: boolean;
   activeTab: number;
   handleTabChange: (activeTab: number) => void;
   handleSearchListOnChange: (id: string) => void;
@@ -56,6 +57,7 @@ export const SearchResults = ({
   activePlugin,
   isLoadingPlugins,
   isLoadingResults,
+  isSubmitting,
   handleTabChange,
   handleSearchListOnChange,
   featureFlags,
@@ -117,6 +119,7 @@ export const SearchResults = ({
             <LinkSearchList
               id={linkSearchListId}
               role="listbox"
+              ariaReadOnly={isSubmitting}
               items={items}
               isLoading={isLoadingResults}
               selectedIndex={selectedIndex}

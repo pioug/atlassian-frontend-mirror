@@ -1,5 +1,36 @@
 # @atlaskit/emoji
 
+## 67.6.9
+
+### Patch Changes
+
+- [#64647](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64647) [`f2cd17119b76`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2cd17119b76) - [ECA11Y-15] Fixing screen reader announcement for Emoji
+
+## 67.6.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 67.6.7
+
+### Patch Changes
+
+- [#60436](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60436) [`baaebe9763d8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/baaebe9763d8) - [ED-21053] Bumped jest version to pull in latest jsom patches
+- Updated dependencies
+
+## 67.6.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 67.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 67.6.4
 
 ### Patch Changes

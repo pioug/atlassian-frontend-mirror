@@ -1,7 +1,10 @@
-import { render, RenderResult, fireEvent } from '@testing-library/react';
 import React from 'react';
-import { browser } from '@atlaskit/editor-common/utils';
+
+import type { RenderResult } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
+
 import { PanelTextInput } from '@atlaskit/editor-common/ui';
+import { browser } from '@atlaskit/editor-common/utils';
 
 const noop = () => {};
 

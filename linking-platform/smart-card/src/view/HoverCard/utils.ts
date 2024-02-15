@@ -1,7 +1,8 @@
-import { JsonLd } from 'json-ld-types';
+import type { JsonLd } from 'json-ld-types';
 import { ElementName } from '../../constants';
 import { extractType } from '@atlaskit/link-extractors';
 import { extractOwnedBy } from '../../extractors/flexible/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const getSimulatedMetadata = (
   extensionKey: string = '',
@@ -155,6 +156,25 @@ export const getSimulatedBetterMetadata = (
           },
         };
       }
+      if (
+        getBooleanFF(
+          'platform.linking-platform.extractor.improve-bitbucket-file-links',
+        ) &&
+        types?.includes('schema:DigitalDocument')
+      ) {
+        return {
+          ...defaultMetadata,
+          topMetadataBlock: {
+            primary: [
+              ElementName.LatestCommit,
+              ElementName.CollaboratorGroup,
+              ElementName.ModifiedOn,
+            ],
+            secondary: [],
+            subtitle: [],
+          },
+        };
+      }
       return {
         ...defaultMetadata,
         topMetadataBlock: {
@@ -278,3 +298,15 @@ export const getSimulatedBetterMetadata = (
       return defaultMetadata;
   }
 };
+
+export const getIsAISummaryEnabled = (
+  isAdminHubAIEnabled: boolean = false,
+  response?: JsonLd.Response,
+) =>
+  Boolean(
+    getBooleanFF(
+      'platform.linking-platform.smart-card.hover-card-ai-summaries',
+    ) &&
+      isAdminHubAIEnabled &&
+      response?.meta?.supportedFeatures?.includes('AISummary'),
+  );

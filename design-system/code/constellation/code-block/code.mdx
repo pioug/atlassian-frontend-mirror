@@ -2,10 +2,12 @@
 title: Code block
 description: A code block highlights an entire block of code and keeps the formatting.
 order: 1
+props:
+  packageName: '@atlaskit/code'
+  exports:
+    - CodeBlock
 ---
-
-import CodeBlockProps from '!!extract-react-types-loader!../../src/extract-react-types/code-block';
 
 ## Props
 
-<PropsTable heading="" props={CodeBlockProps} />
+<TSMorphProps packageName="@atlaskit/code" exportName="CodeBlock" />

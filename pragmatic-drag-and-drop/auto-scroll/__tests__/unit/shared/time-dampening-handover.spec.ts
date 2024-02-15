@@ -10,7 +10,7 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 
 import { autoScrollForElements } from '../../../src/entry-point/element';
 import { unsafeOverflowAutoScrollForElements } from '../../../src/entry-point/unsafe-overflow/element';
-import { defaultConfig } from '../../../src/shared/configuration';
+import { getInternalConfig } from '../../../src/shared/configuration';
 import {
   advanceTimersToNextFrame,
   appendToBody,
@@ -29,6 +29,7 @@ setStartSystemTime();
 
 beforeEach(reset);
 
+const defaultConfig = getInternalConfig();
 const maxScrollPerFrame = defaultConfig.maxPixelScrollPerSecond / 60;
 
 it('should dampen the acceleration of auto scrolling [new drag] - up', () => {

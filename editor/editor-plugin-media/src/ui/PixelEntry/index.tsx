@@ -6,12 +6,12 @@ import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
+import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media';
 import Form, { Field } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 import Tooltip from '@atlaskit/tooltip';
 
 import { PIXELENTRY_MIGRATION_BUTTON_TESTID } from './constants';
-import { messages } from './messages';
 import {
   pixelEntryForm,
   pixelEntryHiddenSubmit,

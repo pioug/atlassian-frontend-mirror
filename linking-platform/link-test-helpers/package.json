@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-test-helpers",
-  "version": "6.2.9",
+  "version": "6.2.14",
   "description": "Collection of test helpers used in linking platform examples and specs",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -12,7 +12,7 @@
     "inPublicMirror": false,
     "releaseModel": "continuous"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -35,13 +35,13 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/linking-types": "^8.5.0",
+    "@atlaskit/linking-types": "^8.6.0",
     "@babel/runtime": "^7.0.0",
     "@jest/globals": "^26.4.2",
     "@testing-library/react": "^12.1.5",
     "fetch-mock": "^8.0.0",
     "jest-diff": "^26.4.2",
-    "json-ld-types": "^3.9.1",
+    "json-ld-types": "^3.11.0",
     "lodash": "^4.17.21",
     "react-intl-next": "npm:react-intl@^5.18.1"
   },

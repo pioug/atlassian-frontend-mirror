@@ -19,6 +19,8 @@ import Media from '../../../../react/nodes/media';
 import MediaGroup from '../../../../react/nodes/mediaGroup';
 import { MediaCardInternal } from '../../../../ui/MediaCard';
 import { act } from 'react-dom/test-utils';
+import { MediaClientContext } from '@atlaskit/media-client-react';
+import * as mocks from './media.mock';
 
 describe('MediaGroup', () => {
   let fixture: HTMLDivElement;
@@ -55,7 +57,7 @@ describe('MediaGroup', () => {
   });
 
   it('should not render a FilmstripView component if it has only one media node', () => {
-    const mediaGroup = shallow(
+    const mediaGroup = mount(
       <MediaGroup>
         <Media
           id={imageFileId.id}
@@ -100,28 +102,30 @@ describe('MediaGroup', () => {
       media: { onClick },
     } as EventHandlers;
     const mediaGroup = mount(
-      <MediaGroup eventHandlers={eventHandlers}>
-        <Media
-          id={imageFileId.id}
-          type={imageFileId.mediaItemType}
-          occurrenceKey="001"
-          marks={[]}
-          isLinkMark={() => false}
-          isBorderMark={() => false}
-          collection={imageFileId.collectionName}
-          providers={providerFactory}
-        />
-        <Media
-          id={imageFileId.id}
-          type={imageFileId.mediaItemType}
-          occurrenceKey="001"
-          marks={[]}
-          isLinkMark={() => false}
-          isBorderMark={() => false}
-          collection={imageFileId.collectionName}
-          providers={providerFactory}
-        />
-      </MediaGroup>,
+      <MediaClientContext.Provider value={mocks.mockMediaClient}>
+        <MediaGroup eventHandlers={eventHandlers}>
+          <Media
+            id={imageFileId.id}
+            type={imageFileId.mediaItemType}
+            occurrenceKey="001"
+            marks={[]}
+            isLinkMark={() => false}
+            isBorderMark={() => false}
+            collection={imageFileId.collectionName}
+            providers={providerFactory}
+          />
+          <Media
+            id={imageFileId.id}
+            type={imageFileId.mediaItemType}
+            occurrenceKey="001"
+            marks={[]}
+            isLinkMark={() => false}
+            isBorderMark={() => false}
+            collection={imageFileId.collectionName}
+            providers={providerFactory}
+          />
+        </MediaGroup>
+      </MediaClientContext.Provider>,
       { attachTo: fixture },
     );
 

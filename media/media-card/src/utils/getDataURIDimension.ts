@@ -6,6 +6,12 @@ import { isValidPercentageUnit } from './isValidPercentageUnit';
 import { containsPixelUnit } from './containsPixelUnit';
 import { NumericalCardDimensions } from '@atlaskit/media-common';
 
+/**
+ * ************************************************
+ * For Card v1
+ * ************************************************
+ */
+
 export type getDataURIDimensionOptions = {
   element?: Element | null;
   dimensions?: CardDimensions;
@@ -39,6 +45,50 @@ export const getRequestedDimensions = (
 ): NumericalCardDimensions => {
   const width = getDataURIDimension('width', options);
   const height = getDataURIDimension('height', options);
+  return {
+    width,
+    height,
+  };
+};
+
+/**
+ * ************************************************
+ * For Card v2
+ * ************************************************
+ */
+
+type ResolveCardDimensionOptions = {
+  element?: Element | null;
+  dimensions?: CardDimensions;
+};
+
+// Same as getDataURIDimension but without Retina factor
+export const resolveCardPreviewDimension = (
+  dimensionName: ElementDimension,
+  { dimensions, element }: ResolveCardDimensionOptions,
+): number => {
+  const dimensionValue = dimensions?.[dimensionName] || '';
+
+  if (isValidPercentageUnit(dimensionValue) && element) {
+    return getElementDimension(element, dimensionName);
+  }
+
+  if (typeof dimensionValue === 'number') {
+    return dimensionValue;
+  }
+
+  if (containsPixelUnit(`${dimensionValue}`)) {
+    return parseInt(`${dimensionValue}`, 10);
+  }
+
+  return defaultImageCardDimensions[dimensionName];
+};
+
+export const resolveCardPreviewDimensions = (
+  options: ResolveCardDimensionOptions,
+): NumericalCardDimensions => {
+  const width = resolveCardPreviewDimension('width', options);
+  const height = resolveCardPreviewDimension('height', options);
   return {
     width,
     height,

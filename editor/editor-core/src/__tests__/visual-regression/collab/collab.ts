@@ -1,14 +1,14 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { waitForElementCount } from '@atlaskit/visual-regression/helper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mainToolbarSelector } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
+  Appearance,
   editorSelector,
   initEditorWithAdf,
-  Appearance,
+  snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { waitForElementCount } from '@atlaskit/visual-regression/helper';
 
 async function waitForCollabAvatars(page: PuppeteerPage) {
   // Wait for both editors (and their toolbars)

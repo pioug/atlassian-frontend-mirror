@@ -1,19 +1,19 @@
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import { SelectionRange } from '../types';
+import type { SelectionRange } from '../types';
 
 import { getCellsInColumn } from './get-cells-in-column';
 import { getCellsInRow } from './get-cells-in-row';
 
 // Returns a range of rectangular selection spanning all merged cells around a column at index `columnIndex`.
 export const getSelectionRangeInColumn =
-  (columnIndex: number) =>
+  (startColIndex: number, endColIndex: number = startColIndex) =>
   (tr: Transaction): SelectionRange | undefined => {
-    let startIndex = columnIndex;
-    let endIndex = columnIndex;
+    let startIndex = startColIndex;
+    let endIndex = endColIndex;
 
     // looking for selection start column (startIndex)
-    for (let i = columnIndex; i >= 0; i--) {
+    for (let i = startColIndex; i >= 0; i--) {
       const cells = getCellsInColumn(i)(tr.selection);
       if (cells) {
         cells.forEach((cell) => {
@@ -28,7 +28,7 @@ export const getSelectionRangeInColumn =
       }
     }
     // looking for selection end column (endIndex)
-    for (let i = columnIndex; i <= endIndex; i++) {
+    for (let i = startColIndex; i <= endIndex; i++) {
       const cells = getCellsInColumn(i)(tr.selection);
       if (cells) {
         cells.forEach((cell) => {

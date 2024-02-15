@@ -112,7 +112,9 @@ describe('Block card views - Forbidden', () => {
         testId="forbidden-view"
       />,
     );
-    const span = queryByText('Request access to Jira view this preview.');
+    const span = queryByText(
+      'Your team uses Jira to collaborate. Send your admin a request for access.',
+    );
     expect(span).not.toBeNull();
   });
 
@@ -143,6 +145,7 @@ describe('Block card views - Forbidden', () => {
   it('should show correct text if request access type is PENDING_REQUEST_EXISTS', () => {
     const requestAccessContext = {
       descriptiveMessageKey: 'request_access_pending_description',
+      hostname: 'Jira',
     };
     const { queryByText } = renderWithIntl(
       <BlockCardForbiddenView
@@ -152,7 +155,9 @@ describe('Block card views - Forbidden', () => {
         testId="forbidden-view"
       />,
     );
-    const span = queryByText('Your access request is pending.');
+    const span = queryByText(
+      'Your request to access Jira is awaiting admin approval.',
+    );
     expect(span).not.toBeNull();
   });
 
@@ -176,6 +181,7 @@ describe('Block card views - Forbidden', () => {
     const props = getResolvedProps();
     const requestAccessContext = {
       descriptiveMessageKey: 'forbidden_description',
+      hostname: 'Jira',
     };
     const { queryByText } = renderWithIntl(
       <BlockCardForbiddenView
@@ -185,9 +191,7 @@ describe('Block card views - Forbidden', () => {
         testId="forbidden-view"
       />,
     );
-    const span = queryByText(
-      'You don’t have access to this preview. Contact the site admin if you need access.',
-    );
+    const span = queryByText('Contact your admin to request access to Jira.');
     expect(span).not.toBeNull();
   });
 
@@ -212,6 +216,7 @@ describe('Block card views - Forbidden', () => {
     const props = getResolvedProps();
     const requestAccessContext = {
       descriptiveMessageKey: 'request_denied_description',
+      hostname: 'Jira',
     };
     const { queryByText } = renderWithIntl(
       <BlockCardForbiddenView
@@ -222,7 +227,7 @@ describe('Block card views - Forbidden', () => {
       />,
     );
     const span = queryByText(
-      'Your access request was denied. Contact the site admin if you still need access.',
+      "Your admin didn't approve your request to view Jira pages from Jira.",
     );
     expect(span).not.toBeNull();
   });

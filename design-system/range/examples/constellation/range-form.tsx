@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Form, { FormFooter, HelperMessage, RangeField } from '@atlaskit/form';
 
 import Range from '../../src';
@@ -14,12 +14,17 @@ export default function TextFieldFormExample() {
     >
       {({ formProps }: any) => (
         <form {...formProps}>
-          <RangeField label="Field label" name="example-text" defaultValue={50}>
+          <RangeField
+            label="Adjust brightness"
+            name="example-text"
+            defaultValue={50}
+          >
             {({ fieldProps }) => (
               <>
                 <Range {...fieldProps} />
                 <HelperMessage>
-                  Help or instruction text goes here
+                  Move the slider to set your preferred brightness level, then
+                  press submit.
                 </HelperMessage>
               </>
             )}

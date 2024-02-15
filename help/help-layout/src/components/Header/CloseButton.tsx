@@ -53,6 +53,7 @@ export const CloseButton: React.FC<Props & WrappedComponentProps> = ({
         <Button
           onClick={handleOnClick}
           appearance="subtle"
+          aria-label={formatMessage(messages.help_panel_header_close_button)}
           iconBefore={
             <EditorCloseIcon
               label={formatMessage(messages.help_panel_header_close)}

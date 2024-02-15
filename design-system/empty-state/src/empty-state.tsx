@@ -36,6 +36,7 @@ import type { EmptyStateProps } from './types';
  * ```
  */
 const EmptyState = ({
+  buttonGroupLabel,
   description,
   header,
   headingLevel = 4,
@@ -56,7 +57,10 @@ const EmptyState = ({
   const actionsContainer =
     primaryAction || secondaryAction || isLoading ? (
       <ActionsContainer>
-        <ButtonGroup>
+        <ButtonGroup
+          label={buttonGroupLabel || 'Button group'}
+          testId={testId && `${testId}-button-group`}
+        >
           {secondaryAction}
           {primaryAction}
         </ButtonGroup>

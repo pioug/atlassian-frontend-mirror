@@ -5,4 +5,5 @@ export type {
   TypeAheadPlugin,
   TypeAheadPluginOptions,
   TypeAheadPluginState,
+  TypeAheadPluginSharedState,
 } from './types';

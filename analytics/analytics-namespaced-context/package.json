@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/analytics-namespaced-context",
-  "version": "6.7.4",
+  "version": "6.9.0",
   "description": "Provides a namespace for AnalyticsContext data (@atlaskit/analytics-next)",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -28,6 +28,7 @@
     "./RecentWorkAnalyticsContext": "./src/RecentWorkAnalyticsContext.tsx",
     "./AtlasAnalyticsContext": "./src/AtlasAnalyticsContext.tsx",
     "./LinkingPlatformAnalyticsContext": "./src/LinkingPlatformAnalyticsContext.tsx",
+    "./PostOfficeAnalyticsContext": "./src/PostOfficeAnalyticsContext.tsx",
     ".": "./src/index.ts"
   },
   "atlassian": {
@@ -41,7 +42,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/analytics-next": "^9.2.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

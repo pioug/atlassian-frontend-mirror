@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { IconTable } from '@atlaskit/editor-common/icons';
 import {
   IconAction,
   IconCode,
@@ -11,22 +12,21 @@ import {
   IconExpand,
   IconFallback,
   IconHeading,
+  IconImages,
   IconLayout,
-  IconList,
   IconLink,
+  IconList,
   IconListNumber,
-  IconQuote,
-  IconStatus,
+  IconLoom,
+  IconMention,
   IconPanel,
+  IconPanelError,
   IconPanelNote,
   IconPanelSuccess,
   IconPanelWarning,
-  IconPanelError,
-  IconMention,
-  IconImages,
+  IconQuote,
+  IconStatus,
 } from '@atlaskit/editor-common/quick-insert';
-
-import { IconTable } from '@atlaskit/editor-common/icons';
 
 const iconWrapper = {
   display: 'grid',
@@ -66,6 +66,7 @@ const QuickInsertIconsExample = () => {
     IconPanelError,
     IconMention,
     IconImages,
+    IconLoom,
   ];
   return (
     <div style={iconWrapper}>

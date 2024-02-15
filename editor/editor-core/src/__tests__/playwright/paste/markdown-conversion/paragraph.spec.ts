@@ -1,19 +1,18 @@
 import {
   EditorFloatingToolbarModel,
   EditorPasteModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   a,
-  p,
-  doc,
   code,
+  doc,
   h1,
-  mediaSingle,
   media,
+  mediaSingle,
+  p,
   strong,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
@@ -25,7 +24,7 @@ import {
   gapCursorIssueDocument,
   multiLineTextDocument,
   singleLineTextDocument,
-} from './../__fixtures__/adf-document';
+} from '../__fixtures__/adf-document';
 
 test.use({
   editorProps: {
@@ -422,7 +421,7 @@ test.describe('paragraph', () => {
     await floatingToolbarModel.waitForStable();
     await floatingToolbarModel.toggleOptionsButton();
 
-    expect(await floatingToolbarModel.richTextOption.isHidden()).toEqual(true);
+    await expect(floatingToolbarModel.richTextOption).toBeHidden();
 
     await floatingToolbarModel.clickAsMarkdown();
     await expect(editor).toHaveSelection({
@@ -493,7 +492,7 @@ test.describe('paragraph', () => {
     await floatingToolbarModel.waitForStable();
     await floatingToolbarModel.toggleOptionsButton();
 
-    expect(await floatingToolbarModel.richTextOption.isHidden()).toEqual(true);
+    await expect(floatingToolbarModel.richTextOption).toBeHidden();
 
     await floatingToolbarModel.clickAsMarkdown();
     await expect(editor).toHaveSelection({
@@ -600,11 +599,11 @@ test.describe('Cursor position tests: paste at gapcursor', () => {
       editor,
       editorPasteModel,
     );
-    expect(await floatingToolbarModel.isVisible()).toEqual(true);
+    await expect(floatingToolbarModel.toolbar).toBeVisible();
   });
 });
 
-test.describe('On empty-page paste: ', () => {
+test.describe('On empty-page paste:', () => {
   test.use({
     adf: emptyDocument,
   });
@@ -1212,7 +1211,7 @@ test.describe('paste text in newline after heading', () => {
     await floatingToolbarModel.waitForStable();
     await floatingToolbarModel.toggleOptionsButton();
 
-    expect(await floatingToolbarModel.richTextOption.isHidden()).toEqual(true);
+    await expect(floatingToolbarModel.richTextOption).toBeHidden();
     await floatingToolbarModel.clickAsMarkdown();
     await expect(editor).toHaveSelection({
       type: 'text',
@@ -1320,6 +1319,7 @@ test.describe('image', () => {
             id: '',
             type: 'external',
             url: 'image1.png',
+            alt: 'alt-text-1',
           })(),
         ),
         p(' '),
@@ -1329,6 +1329,7 @@ test.describe('image', () => {
             id: '',
             type: 'external',
             url: 'image2.png',
+            alt: 'alt-text-2',
           })(),
         ),
         p(' ipsum dolor sit amet.'),

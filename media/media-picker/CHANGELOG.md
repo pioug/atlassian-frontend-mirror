@@ -1,5 +1,27 @@
 # @atlaskit/media-picker
 
+## 66.3.0
+
+### Minor Changes
+
+- [#70414](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70414) [`2125e318f970`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2125e318f970) - Adding the option to use SHA256 for file uploads to ensure Media is FedRAMP compliant. If not specified the system will default to SHA1 to preserve backwards compatibiilty.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 66.2.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 66.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 66.2.10
 
 ### Patch Changes

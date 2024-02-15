@@ -1,5 +1,23 @@
 # @atlaskit/breadcrumbs
 
+## 12.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.4
+
+### Patch Changes
+
+- [#57057](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57057) [`5cf29a7b6787`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5cf29a7b6787) - Fixed an issue where breadcrumbs could infinitely resize and render if its text approached the `truncationWidth`. Improved the logic for how truncation occurs to better take into account icons. Improved the logic for when tooltips are displayed to be more accurate.
+
+## 12.0.3
+
+### Patch Changes
+
+- [#56918](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56918) [`35fdd0f6b801`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35fdd0f6b801) - Fixes an issue where style="--max-width: undefinedpx;" is applied to breadcrumb items when a value for truncationWidth is missing.
+
 ## 12.0.2
 
 ### Patch Changes

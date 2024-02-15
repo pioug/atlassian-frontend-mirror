@@ -125,4 +125,10 @@ describe('Page Layout Accessibility', () => {
     const container = screen.getByTestId('integrated-layout-pageLayout');
     await axe(container);
   });
+
+  it('Main content slot has role="main', async () => {
+    renderPageLayout();
+    const main = screen.getByTestId(`${testId}-main`);
+    expect(main).toHaveAttribute('role', 'main');
+  });
 });

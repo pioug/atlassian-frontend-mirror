@@ -38,10 +38,28 @@
       "path": "tsconfig.app.json"
     },
     {
+      "path": "../../analytics/analytics-listeners/tsconfig.app.json"
+    },
+    {
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/inline-message/tsconfig.app.json"
+    },
+    {
       "path": "../media-client/tsconfig.app.json"
+    },
+    {
+      "path": "../media-client-react/tsconfig.app.json"
+    },
+    {
+      "path": "../media-common/tsconfig.app.json"
+    },
+    {
+      "path": "../media-file-preview/tsconfig.app.json"
+    },
+    {
+      "path": "../media-test-data/tsconfig.app.json"
     },
     {
       "path": "../media-test-helpers/tsconfig.app.json"

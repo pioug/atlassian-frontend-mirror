@@ -1,12 +1,11 @@
 /** @jsx jsx */
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { G400, N200, R400 } from '@atlaskit/theme/colors';
-import { ThemeProps } from '@atlaskit/theme/types';
 import { h200 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
@@ -18,8 +17,8 @@ const validColor = css`
   color: ${token('color.text.success', G400)};
 `;
 
-const messageStyle = (props: ThemeProps) => css`
-  ${h200(props)} font-weight: normal;
+const messageStyle = () => css`
+  ${h200()} font-weight: normal;
   color: ${token('color.text.subtlest', N200)};
   margin-top: ${token('space.050', '4px')};
   display: flex;
@@ -42,8 +41,8 @@ export const HelperMessage = ({ children }: Props) => (
 
 export const ErrorMessage = ({ children }: Props) => (
   <div
-    css={(theme: ThemeProps) => {
-      return [messageStyle(theme), errorColor];
+    css={() => {
+      return [messageStyle(), errorColor];
     }}
   >
     <span css={iconWrapperStyle}>
@@ -55,8 +54,8 @@ export const ErrorMessage = ({ children }: Props) => (
 
 export const ValidMessage = ({ children }: Props) => (
   <div
-    css={(theme: ThemeProps) => {
-      return [messageStyle(theme), validColor];
+    css={() => {
+      return [messageStyle(), validColor];
     }}
   >
     <span css={iconWrapperStyle}>

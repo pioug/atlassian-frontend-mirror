@@ -1,5 +1,221 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.0.0
+
+### Major Changes
+
+- [#72386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72386) [`0c52b0be40c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c52b0be40c1) - This changeset exists to bump all editor plugins that currently don't have a major version. This is to address an issue with Jira plugin consumption.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.19
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+
+## 0.2.18
+
+### Patch Changes
+
+- [#70152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70152) [`53ed3673df28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53ed3673df28) - Updating adf-schema version to 35.5.1
+
+## 0.2.17
+
+### Patch Changes
+
+- [#70164](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70164) [`a6438ad5ed9d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a6438ad5ed9d) - ED-21974 Pasting node into panel should replace the selected text
+
+## 0.2.16
+
+### Patch Changes
+
+- [#69736](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69736) [`febb7827b916`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/febb7827b916) - ED-21619 Set correct cursor position on pasting a rule inside panel
+- Updated dependencies
+
+## 0.2.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.14
+
+### Patch Changes
+
+- [#68219](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68219) [`39c60998e4d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/39c60998e4d7) - ED-21894 Allow partial taskLists to be copied and pasted into a listItem
+
+## 0.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.12
+
+### Patch Changes
+
+- [#68721](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68721) [`0c420c1e6b96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c420c1e6b96) - ED-21618 Replace selected decision in panel on pasting another decision
+
+## 0.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.10
+
+### Patch Changes
+
+- [#67922](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67922) [`cd95401d8cde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd95401d8cde) - ED-21865 Set correct cursor position when decision is pasted inside panel
+
+## 0.2.9
+
+### Patch Changes
+
+- [#66826](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66826) [`5e9f6778a15a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e9f6778a15a) - [ux] resolved a bug where the cursor mispalced after pasting the media into the panel
+- [#67283](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67283) [`4f10a52c6e39`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f10a52c6e39) - ED-21613 handle incorrect cursor position - when task is copied into a list
+- Updated dependencies
+
+## 0.2.8
+
+### Patch Changes
+
+- [#66495](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66495) [`8d310bc51505`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d310bc51505) - ED-21623: Fixing paste behaviour for nested codeblock in panel
+
+## 0.2.7
+
+### Patch Changes
+
+- [#64972](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64972) [`a72ac4c06038`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a72ac4c06038) - ED-21627 Fixed issue with parsing of task as string - when pasting into an existing task
+
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.4
+
+### Patch Changes
+
+- [#65802](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65802) [`438ead060875`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/438ead060875) - Ensure all editor plugins are marked as singletons
+
+## 0.2.3
+
+### Patch Changes
+
+- [#64592](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64592) [`21e21d79ce84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/21e21d79ce84) - fix copy pasting content from expands inside a table so only selected content is pasted
+- [#65031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65031) [`a00094111b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a00094111b5a) - ED-21609 Update adf-schema to 35.3.0
+- Updated dependencies
+
+## 0.2.2
+
+### Patch Changes
+
+- [#64216](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64216) [`582a3eef15ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/582a3eef15ae) - ED-20824 Fix copy paste issues with multi-level list inside blockquote
+- Updated dependencies
+
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.0
+
+### Minor Changes
+
+- [#63830](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63830) [`a21d2c99bd13`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a21d2c99bd13) - Move code for editor paste plugin from editor-core to @atlaskit/editor-plugin-paste
+
+## 0.1.22
+
+### Patch Changes
+
+- [#63348](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63348) [`2d6eebf2ed74`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d6eebf2ed74) - Extract annotation plugin from editor-core to @atlaskit/editor-plugin-annotation.
+- Updated dependencies
+
+## 0.1.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.1.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.1.19
+
+### Patch Changes
+
+- [#62165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62165) [`b44ac0968d79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b44ac0968d79) - [ED-21562] Bump @atlaskit/adf-schema to 35.2.0 for border mark update
+
+## 0.1.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.1.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.1.16
+
+### Patch Changes
+
+- [#60808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60808) [`f509a21be124`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f509a21be124) - ED-21506: @atlaskit/adf-schema upgraded to 35.1.1 to support renderer for MBE
+
+## 0.1.15
+
+### Patch Changes
+
+- [#58246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58246) [`a381b2599716`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a381b2599716) - ED-21371 Update adf-schema to 35.1.0
+
+## 0.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.1.12
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+- Updated dependencies
+
+## 0.1.11
+
+### Patch Changes
+
+- [#58763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58763) [`0fdbd64522bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fdbd64522bf) - update ADF schema
+
+## 0.1.10
+
+### Patch Changes
+
+- [#56790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56790) [`ff577a7969d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff577a7969d4) - ED-21266: Updated @atlaskit/adf-schema to 34.0.1
+
 ## 0.1.9
 
 ### Patch Changes

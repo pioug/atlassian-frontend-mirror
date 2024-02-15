@@ -1,5 +1,17 @@
 # @atlaskit/popup
 
+## 1.12.0
+
+### Minor Changes
+
+- [#70664](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70664) [`776e5ba8fc41`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/776e5ba8fc41) - Enable layering in popup and dropdown to support nested navigation
+
+## 1.11.6
+
+### Patch Changes
+
+- [#67435](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67435) [`7949bd7f5cb6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7949bd7f5cb6) - Support to disable pointer-events on iframe when popup is open to fix issue of clicking on iframe won't close popup
+
 ## 1.11.5
 
 ### Patch Changes

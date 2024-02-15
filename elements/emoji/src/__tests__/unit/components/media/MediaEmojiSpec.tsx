@@ -1,16 +1,15 @@
-import React from 'react';
-import { act } from '@testing-library/react';
-import { mockReactDomWarningGlobal } from '../../_testing-library';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { mountWithIntl } from '../../_enzyme';
+import { screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 import type { EmojiProvider } from '../../../../api/EmojiResource';
 import { CachingMediaEmoji } from '../../../../components/common/CachingEmoji';
 import Emoji from '../../../../components/common/Emoji';
 import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';
 import EmojiPicker from '../../../../components/picker/EmojiPicker';
-import EmojiPickerList from '../../../../components/picker/EmojiPickerList';
 import EmojiTypeAhead from '../../../../components/typeahead/EmojiTypeAhead';
 import { hasSelector } from '../../_emoji-selectors';
+import { mountWithIntl } from '../../_enzyme';
 import {
   getEmojiResourcePromiseFromRepository,
   mediaEmoji,
@@ -18,11 +17,14 @@ import {
   newSiteEmojiRepository,
 } from '../../_test-data';
 import {
+  mockReactDomWarningGlobal,
+  renderWithIntl,
+} from '../../_testing-library';
+import {
   emojisVisible,
-  setupPicker,
   findEmojiPreview,
+  setupPicker,
 } from '../picker/_emoji-picker-test-helpers';
-import { EmojiPreviewComponent } from '../../../../../src/components/common/EmojiPreviewComponent';
 
 describe('Media Emoji Handling across components', () => {
   mockReactDomWarningGlobal();
@@ -50,50 +52,51 @@ describe('Media Emoji Handling across components', () => {
 
   describe('<EmojiPicker/>', () => {
     it('Media emoji rendered in picker', async () => {
-      const component = mountWithIntl<any, any>(
+      const { container } = renderWithIntl(
         <EmojiPicker emojiProvider={emojiProvider} />,
       );
-      await waitUntil(() => hasSelector(component, EmojiPickerList));
-      const list = component.find(EmojiPickerList);
-      expect(list.length).toEqual(1);
+      // Wait until loaded
+      await screen.findByLabelText('Emoji picker');
 
-      await waitUntil(() => emojisVisible(component, list));
-      const emojiDescription = component.find(Emoji).prop('emoji');
-      expect(emojiDescription).toEqual(mediaEmoji);
-      expect(component.find(CachingMediaEmoji).length).toEqual(1);
+      const list = screen.getByRole('grid', { name: 'Emojis' });
+      const emojis = await emojisVisible(list);
+      expect(emojis).toHaveLength(1);
+
+      const emoji = emojis[0];
+      expect(emoji).toHaveAttribute('aria-label', ':media:');
+
+      screen.debug(screen.getByRole('gridcell'));
+
+      // CachingMediaEmoji
+      expect(container.querySelectorAll('img.emoji')).toHaveLength(1);
     });
 
     it('Media emoji rendered in picker preview', async () => {
-      const component = await setupPicker({ emojiProvider });
-      await waitUntil(() => hasSelector(component, EmojiPickerList));
-      const list = component.find(EmojiPickerList);
-      expect(list.length).toEqual(1);
-      await waitUntil(() => emojisVisible(component, list));
-      const emoji = component.find(Emoji);
-      const emojiDescription = emoji.prop('emoji');
-      expect(emojiDescription).toEqual(mediaEmoji);
-      expect(list.find(CachingMediaEmoji).length).toEqual(1);
+      const { container } = await setupPicker({ emojiProvider });
 
-      act(() => {
-        // Hover to force preview
-        const img = emoji.find({ role: 'button' }).last();
-        img.simulate('mouseenter');
-      });
-      await waitUntil(() => findEmojiPreview(component));
+      const list = screen.getByRole('grid', { name: 'Emojis' });
+      const emojis = await emojisVisible(list);
+      expect(emojis).toHaveLength(1);
 
-      let preview = component.find(EmojiPreviewComponent);
-      expect(preview.length).toEqual(1);
+      const emoji = emojis[0];
+      expect(emoji).toHaveAttribute('aria-label', ':media:');
 
-      await waitUntil(() =>
-        hasSelector(
-          component,
-          Emoji,
-          (preview = component.find(EmojiPreviewComponent)),
-        ),
-      );
-      const previewEmojiDescription = preview.find(Emoji).prop('emoji');
-      expect(previewEmojiDescription).toEqual(mediaEmoji);
-      expect(preview.find(CachingMediaEmoji).length).toEqual(1);
+      expect(container.querySelectorAll('img.emoji')).toHaveLength(1);
+
+      // Hover to force preview
+      await userEvent.hover(emoji);
+
+      const emojiPreview = await findEmojiPreview();
+      expect(emojiPreview).toBeVisible();
+
+      const previewEmojiDescription =
+        within(emojiPreview).getAllByRole('img')[0];
+      expect(previewEmojiDescription).toHaveAttribute('aria-label', ':media:');
+
+      // CachingMediaEmoji
+      expect(
+        previewEmojiDescription.querySelectorAll('img.emoji'),
+      ).toHaveLength(1);
     });
   });
 

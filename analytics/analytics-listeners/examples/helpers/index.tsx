@@ -11,6 +11,7 @@ import {
   withAnalyticsContext,
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 import React from 'react';
 import { FabricChannel } from '../../src/types';
 
@@ -27,7 +28,11 @@ const CustomButton = ({
   onClick: React.MouseEventHandler<HTMLDivElement>;
   text?: string;
 }) => (
-  <div id="dummy" onClick={onClick} style={{ paddingBottom: 12 }}>
+  <div
+    id="dummy"
+    onClick={onClick}
+    style={{ paddingBottom: token('space.150', '12px') }}
+  >
     <Button>{text || 'Test'}</Button>
   </div>
 );
@@ -143,6 +148,25 @@ export class DummyCrossFlowComponent extends React.Component<Props> {
   }
 }
 
+export class DummyPostOfficeComponent extends React.Component<Props> {
+  render() {
+    return (
+      <CustomButton
+        text={FabricChannel.postOffice}
+        onClick={this.props.onClick}
+      />
+    );
+  }
+}
+
+export class DummyAIMateComponent extends React.Component<Props> {
+  render() {
+    return (
+      <CustomButton text={FabricChannel.aiMate} onClick={this.props.onClick} />
+    );
+  }
+}
+
 class MyButton extends React.Component<Props> {
   static displayName = 'MyButton';
   render() {
@@ -166,6 +190,8 @@ const componentChannels = {
   [FabricChannel.atlas]: DummyAtlasComponent,
   [FabricChannel.linkingPlatform]: DummyLinkingPlatformComponent,
   [FabricChannel.crossFlow]: DummyCrossFlowComponent,
+  [FabricChannel.postOffice]: DummyPostOfficeComponent,
+  [FabricChannel.aiMate]: DummyAIMateComponent,
 };
 
 export const createComponentWithAnalytics = (channel: FabricChannel) =>

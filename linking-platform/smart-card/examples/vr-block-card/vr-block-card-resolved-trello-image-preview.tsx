@@ -10,6 +10,14 @@ class CustomClient extends Client {
   }
 }
 
-export default () => (
+export const BlockCardTrello = () => (
   <VRCardView appearance="block" client={new CustomClient()} />
+);
+
+export const BlockCardTrelloLegacy = () => (
+  <VRCardView
+    appearance="block"
+    client={new CustomClient()}
+    useLegacyBlockCard={true}
+  />
 );

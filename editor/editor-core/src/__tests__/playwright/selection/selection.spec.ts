@@ -1,9 +1,10 @@
 import {
-  editorTestCase as test,
-  expect,
   BROWSERS,
+  expect,
   fixTest,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import {
   blockNodesDocument,
   selectableNodesDocument,

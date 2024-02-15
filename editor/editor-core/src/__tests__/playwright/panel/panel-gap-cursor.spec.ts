@@ -1,18 +1,19 @@
 import {
-  editorTestCase as test,
-  expect,
-  EditorPanelModel,
   EditorEmojiModel,
   EditorNodeContainerModel,
+  EditorPanelModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import { singleInfoPanel } from './__fixtures__/adf-documents-panel';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
-  panel,
-  p,
   emoji,
+  p,
+  panel,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { singleInfoPanel } from './__fixtures__/adf-documents-panel';
 
 test.describe('Panel - Gap cursor - Type-ahead', () => {
   test.use({

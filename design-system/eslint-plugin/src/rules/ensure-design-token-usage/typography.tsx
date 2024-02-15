@@ -1,6 +1,6 @@
 import { CallExpression, EslintNode, isNodeOfType } from 'eslint-codemod-utils';
 
-import { typography as typographyTokens } from '@atlaskit/tokens/tokens-raw';
+import { typographyAdg3 as typographyTokens } from '@atlaskit/tokens/tokens-raw';
 
 const typographyProperties = [
   'fontSize',

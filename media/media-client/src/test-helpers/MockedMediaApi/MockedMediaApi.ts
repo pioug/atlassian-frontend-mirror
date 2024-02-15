@@ -1,24 +1,24 @@
 import { MediaApi, ResponseFileItem } from '../../client/media-store';
 import { getMediaFile, normaliseInput } from './helpers';
 
-export interface SetFileItems {
-  (fileItems: ResponseFileItem | ResponseFileItem[]): void;
+export interface SetItems {
+  (fileItems?: ResponseFileItem | ResponseFileItem[]): void;
 }
-export interface GetFileItem {
+export interface GetItem {
   (id: string): ResponseFileItem | undefined;
 }
 
 export interface CreateMockedMediaApiResult {
   mediaApi: MediaApi;
-  setFileItems: SetFileItems;
-  getFileItem: GetFileItem;
+  setItems: SetItems;
+  getItem: GetItem;
 }
 
 const getMediaApi = ({
-  getFileItem,
+  getItem,
 }: {
-  setFileItems: SetFileItems;
-  getFileItem: GetFileItem;
+  setItems: SetItems;
+  getItem: GetItem;
 }): MediaApi => ({
   // --------------------------------------------------------
   // UPLOAD ENDPOINTS - None is supported
@@ -26,10 +26,6 @@ const getMediaApi = ({
 
   touchFiles: async ({ descriptors }) => {
     throw new Error('500 - MockedMediaApi.touchFiles: method not implemented');
-  },
-
-  probeChunks: async (...args) => {
-    throw new Error('500 - MockedMediaApi.probeChunks: method not implemented');
   },
 
   uploadChunk: async (_etag, _blob, uploadId) => {
@@ -66,7 +62,7 @@ const getMediaApi = ({
   // --------------------------------------------------------
 
   getFile: async (fileId) => {
-    const fileItem = getFileItem(fileId);
+    const fileItem = getItem(fileId);
     if (!fileItem) {
       throw new Error('404 - MockedMediaApi.getFile: file not found');
     }
@@ -76,7 +72,7 @@ const getMediaApi = ({
   },
   getItems: async (ids) => {
     const items = ids
-      .map((id) => getFileItem(id))
+      .map((id) => getItem(id))
       .filter((fileState): fileState is ResponseFileItem => !!fileState);
 
     return { data: { items } };
@@ -98,14 +94,11 @@ const getMediaApi = ({
       '500 - MockedMediaApi.getFileImageURL: method not implemented',
     );
   },
-  // TODO
-  getFileImageURLSync: () => {
-    throw new Error(
-      '500 - MockedMediaApi.getFileImageURLSync: method not implemented',
-    );
+  getFileImageURLSync: (id) => {
+    return `image-url-sync-${id}`;
   },
   getFileBinaryURL: async (id) => {
-    const fileItem = getFileItem(id);
+    const fileItem = getItem(id);
     if (!fileItem) {
       throw new Error('404 - MockedMediaApi.getFileBinaryURL: file not found');
     }
@@ -129,7 +122,7 @@ const getMediaApi = ({
   // BINARY ENDPOINTS
   // --------------------------------------------------------
   getImage: async (fileId) => {
-    const fileItem = getFileItem(fileId);
+    const fileItem = getItem(fileId);
     if (!fileItem) {
       throw new Error('404 - MockedMediaApi.getImage: file not found');
     }
@@ -148,7 +141,7 @@ const getMediaApi = ({
   // TODO
   copyFileWithToken: async (body) => {
     const fileId = body.sourceFile.id;
-    const fileItem = getFileItem(fileId);
+    const fileItem = getItem(fileId);
     if (!fileItem) {
       throw new Error('404 - MockedMediaApi.copyFileWithToken: file not found');
     }
@@ -185,9 +178,9 @@ export const createMockedMediaApi = (
 ): CreateMockedMediaApiResult => {
   const storedFileItems = new Map<string, ResponseFileItem>();
 
-  const getFileItem: GetFileItem = (fileId) => storedFileItems.get(fileId);
+  const getItem: GetItem = (fileId) => storedFileItems.get(fileId);
 
-  const setFileItems: SetFileItems = (fileItems) => {
+  const setItems: SetItems = (fileItems) => {
     const normalised = normaliseInput(fileItems);
     normalised.forEach((fileItem) =>
       storedFileItems.set(fileItem.id, fileItem),
@@ -195,14 +188,17 @@ export const createMockedMediaApi = (
   };
 
   if (initialFileItems) {
-    setFileItems(initialFileItems);
+    setItems(initialFileItems);
   }
 
-  const mediaApi = getMediaApi({ setFileItems, getFileItem });
+  const mediaApi = getMediaApi({
+    setItems,
+    getItem,
+  });
 
   return {
-    setFileItems,
-    getFileItem,
+    setItems,
+    getItem,
     mediaApi,
   };
 };

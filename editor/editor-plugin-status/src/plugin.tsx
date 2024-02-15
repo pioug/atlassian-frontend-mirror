@@ -15,24 +15,20 @@ import type {
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 
 import type { UpdateStatus } from './actions';
 import {
   commitStatusPicker,
   createStatus,
   removeStatus,
-  updateStatus,
   updateStatusWithAnalytics,
 } from './actions';
 import { keymapPlugin } from './pm-plugins/keymap';
-import type { ClosingPayload } from './pm-plugins/plugin';
 import createStatusPlugin from './pm-plugins/plugin';
 import { pluginKey } from './pm-plugins/plugin-key';
-import type { StatusPluginOptions, StatusState, StatusType } from './types';
-import StatusPicker from './ui/statusPicker';
+import type { StatusPluginOptions, StatusState } from './types';
+import { ContentComponent } from './ui/ContentComponent';
 
 export type StatusPlugin = NextEditorPlugin<
   'status',
@@ -46,6 +42,7 @@ export type StatusPlugin = NextEditorPlugin<
     commands: {
       removeStatus: typeof removeStatus;
     };
+    sharedState: StatusState | undefined;
   }
 >;
 
@@ -76,6 +73,21 @@ const baseStatusPlugin: StatusPlugin = ({ config: options, api }) => ({
     removeStatus,
   },
 
+  getSharedState(state) {
+    if (!state) {
+      return undefined;
+    }
+    const pluginState = pluginKey.getState(state);
+
+    return pluginState
+      ? {
+          isNew: pluginState.isNew,
+          showStatusPickerAt: pluginState.showStatusPickerAt,
+          focusStatusInput: pluginState.focusStatusInput,
+        }
+      : undefined;
+  },
+
   contentComponent({
     editorView,
     popupsMountPoint,
@@ -83,57 +95,15 @@ const baseStatusPlugin: StatusPlugin = ({ config: options, api }) => ({
     popupsScrollableElement,
   }) {
     const domAtPos = editorView.domAtPos.bind(editorView);
+
     return (
-      <WithPluginState
-        plugins={{
-          statusState: pluginKey,
-        }}
-        render={({ statusState = {} as StatusState }) => {
-          const { showStatusPickerAt } = statusState;
-          if (typeof showStatusPickerAt !== 'number') {
-            return null;
-          }
-
-          const target = findDomRefAtPos(
-            showStatusPickerAt,
-            domAtPos,
-          ) as HTMLElement;
-
-          const statusNode: any =
-            editorView.state.doc.nodeAt(showStatusPickerAt);
-
-          if (!statusNode || statusNode.type.name !== 'status') {
-            return null;
-          }
-
-          const { text, color, localId } = statusNode.attrs;
-
-          return (
-            <StatusPicker
-              isNew={statusState.isNew}
-              focusStatusInput={statusState.focusStatusInput}
-              target={target}
-              defaultText={text}
-              defaultColor={color}
-              defaultLocalId={localId}
-              mountTo={popupsMountPoint}
-              boundariesElement={popupsBoundariesElement}
-              scrollableElement={popupsScrollableElement}
-              onSelect={(status: StatusType) => {
-                updateStatus(status)(editorView.state, editorView.dispatch);
-              }}
-              onTextChanged={(status: StatusType) => {
-                updateStatus(status)(editorView.state, editorView.dispatch);
-              }}
-              closeStatusPicker={(closingPayload?: ClosingPayload) => {
-                commitStatusPicker(closingPayload)(editorView);
-              }}
-              onEnter={() => {
-                commitStatusPicker()(editorView);
-              }}
-            />
-          );
-        }}
+      <ContentComponent
+        domAtPos={domAtPos}
+        api={api}
+        editorView={editorView}
+        popupsMountPoint={popupsMountPoint}
+        popupsBoundariesElement={popupsBoundariesElement}
+        popupsScrollableElement={popupsScrollableElement}
       />
     );
   },

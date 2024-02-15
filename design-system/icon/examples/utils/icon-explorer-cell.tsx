@@ -3,7 +3,8 @@ import { useRef, useState, ComponentType, FC } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Textfield from '@atlaskit/textfield';
-import Button from '@atlaskit/button/standard-button';
+import { Box } from '@atlaskit/primitives';
+import Button, { IconButton } from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 import Modal, {
   ModalTransition,
@@ -11,19 +12,6 @@ import Modal, {
   ModalFooter,
 } from '@atlaskit/modal-dialog';
 import Tooltip from '@atlaskit/tooltip';
-import { N30A } from '@atlaskit/theme/colors';
-
-const iconExplorerButtonStyles = css({
-  '&,&:hover,&:active,&:focus': {
-    display: 'block',
-    borderRadius: token('border.radius', '4px'),
-    color: 'inherit',
-    lineHeight: 0,
-  },
-  '&:hover': {
-    background: token('color.background.neutral.hovered', N30A),
-  },
-});
 
 const iconModalHeaderStyles = css({
   display: 'flex',
@@ -118,19 +106,20 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
     </Modal>
   );
 
+  const ExampleIcon = () => <Icon label={componentName} />;
   return (
-    <div>
+    <Box padding="space.050">
       <Tooltip content={componentName}>
-        <Button
-          css={iconExplorerButtonStyles}
+        <IconButton
+          icon={ExampleIcon}
+          label="example icon"
           onClick={openModal}
           appearance="subtle"
-        >
-          <Icon label={componentName} size="medium" />
-        </Button>
+          UNSAFE_size="large"
+        />
       </Tooltip>
       <ModalTransition>{isModalOpen ? modal : null}</ModalTransition>
-    </div>
+    </Box>
   );
 };
 

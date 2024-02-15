@@ -8,21 +8,25 @@
  */
 /** @jsx jsx */
 import React from 'react';
+
+import { css, jsx } from '@emotion/react';
+
+import type { EmojiProvider } from '@atlaskit/emoji/resource';
 import TextArea from '@atlaskit/textarea';
-import EditorContext from '../src/ui/EditorContext';
-import WithEditorActions from '../src/ui/WithEditorActions';
-import { EditorActions } from '../src';
-import ToolbarHelp from '../src/ui/ToolbarHelp';
-import { Editor } from './../src';
 import {
-  getEmojiProvider,
   currentUser,
+  getEmojiProvider,
 } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+
+import type { EditorActions } from '../src';
+import { Editor } from '../src';
+import EditorContext from '../src/ui/EditorContext';
+import ToolbarHelp from '../src/ui/ToolbarHelp';
+import WithEditorActions from '../src/ui/WithEditorActions';
+
 import { mediaProvider } from './5-full-page';
-import { EmojiProvider } from '@atlaskit/emoji/resource';
-import { css, jsx } from '@emotion/react';
 
 interface AdfState {
   isValidAdf: boolean;

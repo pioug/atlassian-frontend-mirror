@@ -180,6 +180,14 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 
           return true;
         },
+      fireAnalyticsEvent: (payload: AnalyticsEventPayload) => {
+        const { createAnalyticsEvent } =
+          api?.analytics?.sharedState.currentState() ?? {};
+        if (!createAnalyticsEvent) {
+          return;
+        }
+        fireAnalyticsEvent(createAnalyticsEvent)({ payload });
+      },
     },
 
     usePluginHook({ editorView }) {

@@ -1,5 +1,101 @@
 # @atlaskit/user-picker
 
+## 10.16.1
+
+### Patch Changes
+
+- [#70460](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70460) [`2f37600156ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f37600156ae) - The internal composition of a component in this package has changed. There is no expected change in behaviour.
+
+## 10.16.0
+
+### Minor Changes
+
+- [#69969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69969) [`c9939127a605`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c9939127a605) - [ux] Render the custom byline instead of email for external users.
+- [#70375](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70375) [`723e4a0302b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/723e4a0302b6) - [ux] Adding tooltip to option shown on hover
+
+## 10.15.0
+
+### Minor Changes
+
+- [#68878](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68878) [`6c49996cd842`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6c49996cd842) - update user recommendations api to return user's title
+
+### Patch Changes
+
+- [#69272](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69272) [`35f47019f443`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35f47019f443) - Migrate packages to use declarative entry points
+- Updated dependencies
+
+## 10.14.0
+
+### Minor Changes
+
+- [#67525](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67525) [`835694a1696a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/835694a1696a) - Add third party sources to user invited and access requested event attributes
+
+## 10.13.6
+
+### Patch Changes
+
+- [#66699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66699) [`1a2d36021791`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a2d36021791) - PTC-8552 avatar on selected users should be presentational, for screen readers
+
+## 10.13.5
+
+### Patch Changes
+
+- [#63677](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63677) [`f320c8ce5039`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f320c8ce5039) - This package has been added to the Jira push model.
+
+## 10.13.4
+
+### Patch Changes
+
+- [#64330](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64330) [`797c300a51d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/797c300a51d4) - Minor internal refactor to reduce bundle size
+
+## 10.13.3
+
+### Patch Changes
+
+- [#61371](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61371) [`eae2cd4f6dc2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eae2cd4f6dc2) - Adds new prop, UNSAFE_hasDraggableParentComponent, as a workaround when using user pickers inside of a react-beautiful-dnd Draggable.
+
+## 10.13.2
+
+### Patch Changes
+
+- [#60464](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60464) [`a30f9a5f3e0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a30f9a5f3e0d) - Removing unused dependencies
+
+## 10.13.1
+
+### Patch Changes
+
+- [#60025](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60025) [`5127b5ed9cdb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5127b5ed9cdb) - Added test for required attribute
+
+## 10.13.0
+
+### Minor Changes
+
+- [#59712](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59712) [`229363c1c1b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/229363c1c1b3) - Add required attribute to the user-picker components and add its consumption in the share component.
+
+## 10.12.7
+
+### Patch Changes
+
+- [#58511](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58511) [`25cdcae132b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/25cdcae132b5) - Fix for user picker correctly rendering noOptionsMessage when provided a react node
+
+## 10.12.6
+
+### Patch Changes
+
+- [#57137](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57137) [`9b9900944973`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b9900944973) - Remove legacy theming logic from @atlaskit/date, @atlaskit/mention, @atlaskit/task-decision and @atlaskit/user-picker.
+
+## 10.12.5
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 10.12.4
+
+### Patch Changes
+
+- [#58426](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58426) [`24ada9dfb10d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/24ada9dfb10d) - Add defensive code for MutationObserver in node to avoid ssr error
+
 ## 10.12.3
 
 ### Patch Changes

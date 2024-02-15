@@ -1,4 +1,4 @@
-import {
+import type {
   CardPluginAction,
   CardPluginState,
   HideDatasourceModal,
@@ -110,6 +110,23 @@ const hideDatasourceModal = (state: CardPluginState) => {
   };
 };
 
+const clearOverlayCandidate = (state: CardPluginState) => {
+  return {
+    ...state,
+    overlayCandidatePosition: undefined,
+  };
+};
+
+const registerRemoveOverlayOnInsertedLink = (
+  state: CardPluginState,
+  action: { callback: () => void },
+) => {
+  return {
+    ...state,
+    removeOverlay: action.callback,
+  };
+};
+
 export default (
   state: CardPluginState,
   action: CardPluginAction,
@@ -138,5 +155,9 @@ export default (
       return showDatasourceModal(state, action);
     case 'HIDE_DATASOURCE_MODAL':
       return hideDatasourceModal(state);
+    case 'CLEAR_OVERLAY_CANDIDATE':
+      return clearOverlayCandidate(state);
+    case 'REGISTER_REMOVE_OVERLAY_ON_INSERTED_LINK':
+      return registerRemoveOverlayOnInsertedLink(state, action);
   }
 };

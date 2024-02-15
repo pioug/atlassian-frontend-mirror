@@ -1,7 +1,8 @@
 jest.autoMockOff();
 
-import { createTransformer } from '../utils';
 import { removeConfigPanelWidthProp } from '../migrates/remove-config-panel-width-prop';
+import { createTransformer } from '../utils';
+
 // This stays as require() since changing to import will trigger a linter error
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 

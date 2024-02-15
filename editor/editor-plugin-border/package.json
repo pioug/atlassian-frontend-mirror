@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-border",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "Border plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -9,14 +9,12 @@
   },
   "atlassian": {
     "team": "Editor: Media Experience Porygon",
+    "singleton": true,
     "inPublicMirror": false,
     "releaseModel": "continuous",
-    "website": {
-      "name": "EditorPluginBorder",
-      "category": "Components"
-    }
+    "runReact18": false
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -35,8 +33,8 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^34.0.0",
-    "@atlaskit/editor-common": "^76.23.0",
+    "@atlaskit/adf-schema": "^35.5.1",
+    "@atlaskit/editor-common": "^77.4.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
@@ -46,7 +44,6 @@
     "@af/visual-regression": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",

@@ -49,7 +49,7 @@ export function expandKeymap(
       }
       const { selection } = state;
       const selectionSharedState: SelectionSharedState =
-        api?.selection.sharedState.currentState() || {};
+        api?.selection?.sharedState.currentState() || {};
       const { selectionRelativeToNode } = selectionSharedState;
 
       if (
@@ -71,7 +71,7 @@ export function expandKeymap(
       }
       const { selection } = state;
       const selectionSharedState: SelectionSharedState =
-        api?.selection.sharedState.currentState() || {};
+        api?.selection?.sharedState.currentState() || {};
       const { selectionRelativeToNode } = selectionSharedState;
 
       if (

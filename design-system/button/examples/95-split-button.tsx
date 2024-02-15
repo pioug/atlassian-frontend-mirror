@@ -1,4 +1,4 @@
-import React, { Ref, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import DropdownMenu, {
   DropdownItem,
@@ -10,7 +10,6 @@ import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
 import LinkIcon from '@atlaskit/icon/glyph/link';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import PageIcon from '@atlaskit/icon/glyph/page';
-import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import UnlockFilledIcon from '@atlaskit/icon/glyph/unlock-filled';
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import Modal, {
@@ -23,9 +22,7 @@ import Modal, {
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
-import { SplitButton } from '../src/new-button/containers/split-button';
-import Button from '../src/new-button/variants/default/button';
-import IconButton from '../src/new-button/variants/icon/button';
+import Button, { IconButton, SplitButton } from '../src/new';
 
 export default () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,14 +39,13 @@ export default () => {
           <Inline space="space.250">
             <SplitButton spacing="compact">
               <Button>Primary action</Button>
-              <DropdownMenu
+              <DropdownMenu<HTMLButtonElement>
                 trigger={({ triggerRef, ...triggerProps }) => (
                   <IconButton
-                    ref={triggerRef as Ref<HTMLButtonElement>}
+                    ref={triggerRef}
                     {...triggerProps}
                     icon={ChevronDownIcon}
                     label="Open link issue options"
-                    UNSAFE_size="small"
                   />
                 )}
               >
@@ -61,14 +57,13 @@ export default () => {
             </SplitButton>
             <SplitButton appearance="primary" spacing="compact">
               <Button>Primary action</Button>
-              <DropdownMenu
+              <DropdownMenu<HTMLButtonElement>
                 trigger={({ triggerRef, ...triggerProps }) => (
                   <IconButton
-                    ref={triggerRef as Ref<HTMLButtonElement>}
+                    ref={triggerRef}
                     {...triggerProps}
                     icon={ChevronDownIcon}
                     label="See options"
-                    UNSAFE_size="small"
                   />
                 )}
               >
@@ -80,14 +75,13 @@ export default () => {
             </SplitButton>
             <SplitButton isDisabled spacing="compact">
               <Button>Primary action</Button>
-              <DropdownMenu
+              <DropdownMenu<HTMLButtonElement>
                 trigger={({ triggerRef, ...triggerProps }) => (
                   <IconButton
-                    ref={triggerRef as Ref<HTMLButtonElement>}
+                    ref={triggerRef}
                     {...triggerProps}
                     icon={ChevronDownIcon}
                     label="See options"
-                    UNSAFE_size="small"
                   />
                 )}
               >
@@ -101,10 +95,10 @@ export default () => {
           <Inline space="space.150">
             <SplitButton>
               <Button>Primary action</Button>
-              <DropdownMenu
+              <DropdownMenu<HTMLButtonElement>
                 trigger={({ triggerRef, ...triggerProps }) => (
                   <IconButton
-                    ref={triggerRef as Ref<HTMLButtonElement>}
+                    ref={triggerRef}
                     {...triggerProps}
                     icon={ChevronDownIcon}
                     label="See options"
@@ -119,10 +113,10 @@ export default () => {
             </SplitButton>
             <SplitButton appearance="primary">
               <Button>Primary action</Button>
-              <DropdownMenu
+              <DropdownMenu<HTMLButtonElement>
                 trigger={({ triggerRef, ...triggerProps }) => (
                   <IconButton
-                    ref={triggerRef as Ref<HTMLButtonElement>}
+                    ref={triggerRef}
                     {...triggerProps}
                     icon={ChevronDownIcon}
                     label="See options"
@@ -137,10 +131,10 @@ export default () => {
             </SplitButton>
             <SplitButton isDisabled>
               <Button>Primary action</Button>
-              <DropdownMenu
+              <DropdownMenu<HTMLButtonElement>
                 trigger={({ triggerRef, ...triggerProps }) => (
                   <IconButton
-                    ref={triggerRef as Ref<HTMLButtonElement>}
+                    ref={triggerRef}
                     {...triggerProps}
                     icon={ChevronDownIcon}
                     label="See options"
@@ -164,27 +158,25 @@ export default () => {
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={SettingsIcon}
+                icon={ChevronDownIcon}
                 label="Secondary action"
-                UNSAFE_size="small"
               />
             </SplitButton>
             <SplitButton appearance="primary" spacing="compact">
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={SettingsIcon}
+                icon={ChevronDownIcon}
                 label="Secondary action"
-                UNSAFE_size="small"
+                shape="circle" // intentionally ignored as not supported in split button
               />
             </SplitButton>
             <SplitButton isDisabled spacing="compact">
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={SettingsIcon}
+                icon={ChevronDownIcon}
                 label="Secondary action"
-                UNSAFE_size="small"
               />
             </SplitButton>
           </Inline>
@@ -193,7 +185,7 @@ export default () => {
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={SettingsIcon}
+                icon={ChevronDownIcon}
                 label="Secondary action"
               />
             </SplitButton>
@@ -201,7 +193,7 @@ export default () => {
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={SettingsIcon}
+                icon={ChevronDownIcon}
                 label="Secondary action"
               />
             </SplitButton>
@@ -209,7 +201,7 @@ export default () => {
               <Button>Primary action</Button>
               <IconButton
                 onClick={open}
-                icon={SettingsIcon}
+                icon={ChevronDownIcon}
                 label="Secondary action"
               />
             </SplitButton>
@@ -222,6 +214,11 @@ export default () => {
         <Stack space="space.150">
           <Heading level="h600">Jira issue view actions</Heading>
           <JiraIssueViewActionsExample />
+        </Stack>
+        <Stack space="space.150">
+          <Heading level="h600">With wrappers example</Heading>
+
+          <WithWrappersExample />
         </Stack>
       </Stack>
       <ModalTransition>
@@ -287,9 +284,8 @@ const ConfluenceEditorTopBarExample = () => {
               {(tooltipProps) => (
                 <IconButton
                   {...tooltipProps}
-                  icon={SettingsIcon}
+                  icon={ChevronDownIcon}
                   label="Show update page dialog"
-                  UNSAFE_size="medium"
                   onClick={open}
                 />
               )}
@@ -328,10 +324,10 @@ const JiraIssueViewActionsExample = () => {
       <Button>Create issue in epic</Button>
       <SplitButton appearance="default">
         <Button iconBefore={LinkIcon}>Link issue</Button>
-        <DropdownMenu
+        <DropdownMenu<HTMLButtonElement>
           trigger={({ triggerRef, ...triggerProps }) => (
             <IconButton
-              ref={triggerRef as Ref<HTMLButtonElement>}
+              ref={triggerRef}
               {...triggerProps}
               icon={ChevronDownIcon}
               label="Open link issue options"
@@ -348,6 +344,75 @@ const JiraIssueViewActionsExample = () => {
             </DropdownItem>
           </DropdownItemGroup>
         </DropdownMenu>
+      </SplitButton>
+    </Inline>
+  );
+};
+
+const WithWrappersExample = () => {
+  return (
+    <Inline space="space.100">
+      <SplitButton appearance="default">
+        <div>
+          <Button iconBefore={LinkIcon}>Link issue</Button>
+        </div>
+        <div>
+          <DropdownMenu<HTMLButtonElement>
+            trigger={({ triggerRef, ...triggerProps }) => (
+              <IconButton
+                ref={triggerRef}
+                {...triggerProps}
+                icon={ChevronDownIcon}
+                label="Open link issue options"
+              />
+            )}
+            placement="bottom-end"
+          >
+            <DropdownItemGroup>
+              <DropdownItem elemBefore={<PageIcon label="" />}>
+                Link Confluence page
+              </DropdownItem>
+              <DropdownItem elemBefore={<WorldIcon label="" />}>
+                Add web link
+              </DropdownItem>
+            </DropdownItemGroup>
+          </DropdownMenu>
+        </div>
+      </SplitButton>
+      <SplitButton appearance="primary">
+        <div>
+          <div>
+            <span>
+              <div>
+                <Button iconBefore={LinkIcon}>Link issue</Button>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div>
+          <span>
+            <DropdownMenu<HTMLButtonElement>
+              trigger={({ triggerRef, ...triggerProps }) => (
+                <IconButton
+                  ref={triggerRef}
+                  {...triggerProps}
+                  icon={ChevronDownIcon}
+                  label="Open link issue options"
+                />
+              )}
+              placement="bottom-end"
+            >
+              <DropdownItemGroup>
+                <DropdownItem elemBefore={<PageIcon label="" />}>
+                  Link Confluence page
+                </DropdownItem>
+                <DropdownItem elemBefore={<WorldIcon label="" />}>
+                  Add web link
+                </DropdownItem>
+              </DropdownItemGroup>
+            </DropdownMenu>
+          </span>
+        </div>
       </SplitButton>
     </Inline>
   );

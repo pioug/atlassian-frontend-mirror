@@ -19,6 +19,7 @@ export default {
   'fabric.elements.share.form.no-permissions': 'คุณไม่มีสิทธิ์ในการแชร์',
   'fabric.elements.share.form.public.send': 'ส่งลิงก์สาธารณะ',
   'fabric.elements.share.form.public.share': 'แชร์ลิงก์สาธารณะ',
+  'fabric.elements.share.form.required-field.summary': 'ช่องที่จำเป็นต้องระบุจะมีเครื่องหมายดอกจัน',
   'fabric.elements.share.form.retry': 'ลองอีกครั้ง',
   'fabric.elements.share.form.send': 'ส่ง',
   'fabric.elements.share.form.share': 'แชร์',

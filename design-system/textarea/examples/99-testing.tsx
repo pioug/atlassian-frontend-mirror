@@ -8,7 +8,12 @@ const wrapperStyles = css({
 });
 export default () => (
   <div css={wrapperStyles}>
-    <p>Basic:</p>
-    <TextArea value="I have a data-testid" testId="MyTextAreaTestId" />
+    <label htmlFor="basic">Basic</label>
+    <TextArea
+      name="basic"
+      id="basic"
+      value="I have a data-testid"
+      testId="MyTextAreaTestId"
+    />
   </div>
 );

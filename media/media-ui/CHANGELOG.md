@@ -1,5 +1,41 @@
 # @atlaskit/media-ui
 
+## 25.1.0
+
+### Minor Changes
+
+- [#69045](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69045) [`b4de23a94d1f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b4de23a94d1f) - Added new intl message for button to open Media viewer in Media Card
+
+## 25.0.13
+
+### Patch Changes
+
+- [#64367](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64367) [`92a5d4b3f616`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92a5d4b3f616) - fix selection issue of media inline card
+
+## 25.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.11
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
+## 25.0.10
+
+### Patch Changes
+
+- [#57473](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57473) [`100f90575744`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/100f90575744) - Remove legacy theming logic from @atlaskit/media-avatar-picker, @atlaskit/media-card, @atlaskit/media-ui and @atlaskit/media-viewer.
+
+## 25.0.9
+
+### Patch Changes
+
+- [#56822](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56822) [`77f4fbf44e93`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77f4fbf44e93) - ECA11Y-78: Added announce for the selected file
+
 ## 25.0.8
 
 ### Patch Changes

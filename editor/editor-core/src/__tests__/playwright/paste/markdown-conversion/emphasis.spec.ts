@@ -1,23 +1,22 @@
 import {
   EditorFloatingToolbarModel,
   EditorPasteModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  p,
-  doc,
   code,
-  strong,
+  doc,
   em,
+  p,
+  strong,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import {
   emptyDocument,
   multiLineTextDocument,
-} from './../__fixtures__/adf-document';
+} from '../__fixtures__/adf-document';
 
 test.use({
   editorProps: {
@@ -955,7 +954,7 @@ test.describe('Cursor position tests: Paste markdown text with escape characters
   });
 });
 
-test.describe('On Paste: ', () => {
+test.describe('On Paste:', () => {
   test.use({
     adf: emptyDocument,
   });
@@ -1159,12 +1158,12 @@ test.describe('On Paste: ', () => {
     await floatingToolbarModel.toggleOptionsButton();
     await floatingToolbarModel.optionsPopup.waitFor({ state: 'visible' });
 
-    expect(await floatingToolbarModel.optionsPopup.isVisible()).toEqual(true);
+    await expect(floatingToolbarModel.optionsPopup).toBeVisible();
     await editor.page.mouse.move(0, 0); //move cursor to outside of toolbar
     await editor.page.mouse.down();
 
     await floatingToolbarModel.optionsPopup.waitFor({ state: 'hidden' });
-    expect(await floatingToolbarModel.optionsPopup.isVisible()).toEqual(false);
+    await expect(floatingToolbarModel.optionsPopup).toBeHidden();
   });
 
   test(`pasting plain-text, then key press should dismiss the toolbar`, async ({

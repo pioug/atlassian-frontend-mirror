@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { type Direction, ExitingPersistence, SlideIn } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
@@ -18,7 +18,7 @@ const MotionSlideInExample = () => {
   return (
     <RetryContainer>
       <div css={containerStyles}>
-        <ButtonGroup>
+        <ButtonGroup label="Motion options">
           <Button
             onClick={() => setFromIndex((prev) => (prev + 1) % forms.length)}
           >

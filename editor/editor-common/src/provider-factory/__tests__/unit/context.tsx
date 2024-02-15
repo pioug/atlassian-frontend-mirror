@@ -1,43 +1,13 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 
-import { act, create, ReactTestRenderer } from 'react-test-renderer';
+import { act, renderHook } from '@testing-library/react-hooks';
 
 import { ProviderFactoryProvider, useProvider } from '../../context';
-import { MediaProvider } from '../../media-provider';
+import type { MediaProvider } from '../../media-provider';
 import ProviderFactory from '../../provider-factory';
-
-const Child: FunctionComponent<{
-  mediaProvider: Promise<MediaProvider> | undefined;
-}> = () => {
-  return <div />;
-};
-
-function TestUseProvider() {
-  const mediaProvider = useProvider('mediaProvider');
-  return <Child mediaProvider={mediaProvider} />;
-}
-
-function setupFactory() {
-  let testRenderer: ReactTestRenderer;
-
-  afterEach(() => {
-    testRenderer.unmount();
-  });
-
-  return (providerFactory = new ProviderFactory()): ReactTestRenderer => {
-    testRenderer = create(
-      <ProviderFactoryProvider value={providerFactory}>
-        <TestUseProvider />
-      </ProviderFactoryProvider>,
-    );
-
-    return testRenderer;
-  };
-}
 
 describe('useProvider', () => {
   let providerFactory: ProviderFactory;
-  const setup = setupFactory();
 
   afterEach(() => {
     if (providerFactory) {
@@ -45,15 +15,20 @@ describe('useProvider', () => {
     }
   });
 
-  it('should pass media provider to child after been set', () => {
+  it('should return media provider after been set', async () => {
     const mediaProvider = {} as MediaProvider;
     providerFactory = new ProviderFactory();
-    const testRenderer = setup(providerFactory);
 
-    let child = testRenderer.root.findByType(Child);
-    expect(child.props.mediaProvider).toBeUndefined();
+    const { result } = renderHook(() => useProvider('mediaProvider'), {
+      wrapper: ({ children }) => (
+        <ProviderFactoryProvider value={providerFactory}>
+          {children}
+        </ProviderFactoryProvider>
+      ),
+    });
 
-    // Set the provider
+    expect(result.current).toBeUndefined();
+
     act(() => {
       providerFactory.setProvider(
         'mediaProvider',
@@ -61,8 +36,7 @@ describe('useProvider', () => {
       );
     });
 
-    child = testRenderer.root.findByType(Child);
-    expect(child.props.mediaProvider).resolves.toBe(mediaProvider);
+    expect(result.current).resolves.toBe(mediaProvider);
   });
 
   it('should unsubscribe when unmount ', () => {
@@ -72,15 +46,20 @@ describe('useProvider', () => {
       'mediaProvider',
       Promise.resolve(mediaProvider),
     );
+
     const unsubscribeSpy = jest.spyOn(providerFactory, 'unsubscribe');
-    const testRenderer = setup(providerFactory);
+
+    const { unmount } = renderHook(() => useProvider('mediaProvider'), {
+      wrapper: ({ children }) => (
+        <ProviderFactoryProvider value={providerFactory}>
+          {children}
+        </ProviderFactoryProvider>
+      ),
+    });
 
     expect(unsubscribeSpy).not.toHaveBeenCalled();
 
-    // Unmount the component
-    act(() => {
-      testRenderer.unmount();
-    });
+    unmount();
 
     expect(unsubscribeSpy).toHaveBeenCalledWith(
       'mediaProvider',
@@ -88,7 +67,7 @@ describe('useProvider', () => {
     );
   });
 
-  it('should pass media provider to child when already exist', () => {
+  it('should return media provider when already exist', async () => {
     const mediaProvider = {} as MediaProvider;
     providerFactory = new ProviderFactory();
     providerFactory.setProvider(
@@ -96,13 +75,14 @@ describe('useProvider', () => {
       Promise.resolve(mediaProvider),
     );
 
-    let testRenderer: ReactTestRenderer | null = null;
-
-    act(() => {
-      testRenderer = setup(providerFactory);
+    const { result } = renderHook(() => useProvider('mediaProvider'), {
+      wrapper: ({ children }) => (
+        <ProviderFactoryProvider value={providerFactory}>
+          {children}
+        </ProviderFactoryProvider>
+      ),
     });
 
-    const child = testRenderer!.root.findByType(Child);
-    expect(child.props.mediaProvider).resolves.toBe(mediaProvider);
+    expect(result.current).resolves.toBe(mediaProvider);
   });
 });

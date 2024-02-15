@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { UNSAFE_BUTTON } from '../../../../src';
-
+import Button from '../../../../src/new';
 const ButtonDisabledExample = () => {
   return (
-    <UNSAFE_BUTTON appearance="primary" isDisabled>
+    <Button appearance="primary" isDisabled>
       Disabled button
-    </UNSAFE_BUTTON>
+    </Button>
   );
 };
 

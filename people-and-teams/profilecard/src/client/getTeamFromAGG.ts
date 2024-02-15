@@ -1,5 +1,3 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
 import type { Team } from '../types';
 
 import { AGGQuery } from './graphqlUtils';
@@ -73,25 +71,14 @@ export const GATEWAY_QUERY_V2 = `query TeamCard($teamId: ID!, $siteId: String!) 
     }
   }
 }`;
-export const GATEWAY_QUERY = `query TeamCard($teamId: ID!) {
-  Team: team {
-    team(id: $teamId) {
-      ${TEAM_FRAGMENT}
-    }
-  }
-}`;
 
 type TeamQueryVariables = { teamId: string; siteId?: string };
 
 export const buildGatewayQuery = ({ teamId, siteId }: TeamQueryVariables) => ({
-  query: getBooleanFF('platform.teams.site-scoped.m1')
-    ? GATEWAY_QUERY_V2
-    : GATEWAY_QUERY,
+  query: GATEWAY_QUERY_V2,
   variables: {
     teamId: idToAri(teamId),
-    ...(getBooleanFF('platform.teams.site-scoped.m1')
-      ? { siteId: siteId || 'None' }
-      : {}),
+    siteId: siteId || 'None',
   },
 });
 

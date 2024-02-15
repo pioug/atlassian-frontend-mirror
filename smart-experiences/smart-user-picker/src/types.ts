@@ -27,6 +27,7 @@ export interface RecommendationRequest {
   includeUsers?: boolean;
   includeGroups?: boolean;
   includeTeams?: boolean;
+  includeNonLicensedUsers?: boolean;
 }
 
 type OnError = (
@@ -142,6 +143,10 @@ export interface SmartProps {
    * Whether to include users in the resultset. @default true
    */
   includeUsers?: boolean;
+  /**
+   * Whether to include non licensed users in the resultset. @default false
+   */
+  includeNonLicensedUsers?: boolean;
   /**
    * An identifier of the closest context object, e.g. issueId, pageId, pullRequestId.
    * Used for analytics. Optional, but please include if available.

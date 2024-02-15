@@ -4,11 +4,11 @@ import { createContext, FC, Fragment, ReactNode, useContext } from 'react';
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
-import { token } from '@atlaskit/tokens';
-
 import {
   BodyText,
   bodyTextStylesMap,
+  FontWeight,
+  fontWeightStylesMap,
   inverseColorMap,
   TextColor,
   textColorStylesMap,
@@ -22,21 +22,38 @@ import type { BasePrimitiveProps } from './types';
 const asAllowlist = ['span', 'p', 'strong', 'em'] as const;
 type AsElement = (typeof asAllowlist)[number];
 
-type Variant = BodyText | UiText;
+type TextPropsBody = {
+  /**
+   * Text variant.
+   */
+  variant?: BodyText;
+  /**
+   * The number of lines to limit the provided text to. Text will be truncated with an ellipsis.
+   *
+   * When `maxLines={1}`, `wordBreak` defaults to `break-all` to match the behaviour of `text-overflow: ellipsis`.
+   *
+   * Only available for `body` text variants.
+   */
+  maxLines?: number;
+};
 
-export interface TextProps extends BasePrimitiveProps {
+type TextPropsUi = {
+  /**
+   * Text variant.
+   */
+  variant: UiText;
+  maxLines?: never;
+};
+
+type TextPropsBase = {
   /**
    * HTML tag to be rendered. Defaults to `span`.
    */
   as?: AsElement;
   /**
-   * Elements rendered within the Text element
+   * Elements rendered within the Text element.
    */
   children: ReactNode;
-  /**
-   * Text variant
-   */
-  variant?: Variant;
   /**
    * Token representing text color with a built-in fallback value.
    * Will apply inverse text color automatically if placed within a Box with backgroundColor.
@@ -44,19 +61,22 @@ export interface TextProps extends BasePrimitiveProps {
    */
   color?: TextColor;
   /**
-   * The HTML id attribute https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id
+   * The [HTML `id` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id).
    */
   id?: string;
   /**
-   * Truncates text with an ellipsis when text overflows its parent container
-   * (i.e. `width` has been set on parent that is shorter than text length).
-   */
-  shouldTruncate?: boolean;
-  /**
-   * Text align https://developer.mozilla.org/en-US/docs/Web/CSS/text-align
+   * The [HTML `text-align` attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align).
    */
   textAlign?: TextAlign;
-}
+  /**
+   * The [HTML `font-weight` attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight).
+   */
+  weight?: FontWeight;
+};
+
+export type TextProps = TextPropsBase &
+  Omit<BasePrimitiveProps, 'xcss'> &
+  (TextPropsBody | TextPropsUi);
 
 // We're doing this because our CSS reset can add top margins to elements such as `p` which is totally insane.
 // Long term we should remove those instances from the reset - it should be a reset to 0.
@@ -68,7 +88,7 @@ const resetStyles = css({
 const variantStyles = { ...bodyTextStylesMap, ...uiTextStylesMap };
 
 const strongStyles = css({
-  fontWeight: token('font.weight.bold', 'bold'),
+  fontWeight: 'bold',
 });
 
 const emStyles = css({
@@ -82,16 +102,20 @@ const textAlignMap = {
   start: css({ textAlign: 'start' }),
 };
 
-const truncateStyles = css({
+const truncationStyles = css({
+  display: '-webkit-box',
   overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
+  WebkitBoxOrient: 'vertical',
 });
+
+const wordBreakMap = {
+  breakAll: css({ wordBreak: 'break-all' }),
+};
 
 /**
  * Custom hook designed to abstract the parsing of the color props and make it clearer in the future how color is reconciled between themes and tokens.
  */
-const useColor = (colorProp: TextColor): NonNullable<TextColor> => {
+const useColor = (colorProp: TextColor): TextColor => {
   const surface = useSurface();
   const inverseTextColor =
     inverseColorMap[surface as keyof typeof inverseColorMap];
@@ -120,29 +144,30 @@ const useHasTextAncestor = () => useContext(HasTextAncestorContext);
 const Text: FC<TextProps> = ({ children, ...props }) => {
   const {
     as: asElement,
-    color: colorProp,
-    shouldTruncate = false,
+    color: colorProp = 'color.text',
     textAlign,
     testId,
     id,
     variant = 'body',
+    weight,
   } = props;
 
-  let Component = asElement;
-  if (!Component) {
-    if (variant.includes('body')) {
-      Component = 'p';
-    } else {
-      // ui text and default => span
-      Component = 'span';
-    }
-  }
+  // body variants -> p
+  // ui variants -> span
+  const Component = asElement || (variant.includes('body') ? 'p' : 'span');
 
   invariant(
     asAllowlist.includes(Component),
     `@atlaskit/primitives: Text received an invalid "as" value of "${Component}"`,
   );
-  const color = useColor(colorProp!);
+
+  // Remove the ability to bypass typescript errors for maxLines
+  let maxLines;
+  if ('maxLines' in props && variant.includes('body')) {
+    maxLines = props.maxLines;
+  }
+
+  const color = useColor(colorProp);
   const isWrapped = useHasTextAncestor();
 
   /**
@@ -159,11 +184,16 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
         resetStyles,
         variant && variantStyles[variant],
         color && textColorStylesMap[color],
-        shouldTruncate && truncateStyles,
+        maxLines && truncationStyles,
+        maxLines === 1 && wordBreakMap.breakAll,
         textAlign && textAlignMap[textAlign],
+        weight && fontWeightStylesMap[weight],
         asElement === 'em' && emStyles,
         asElement === 'strong' && strongStyles,
       ]}
+      style={{
+        WebkitLineClamp: maxLines,
+      }}
       data-testid={testId}
       id={id}
     >

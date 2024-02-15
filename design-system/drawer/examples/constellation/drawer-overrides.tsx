@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import Drawer from '../../src';
@@ -12,8 +12,8 @@ const sidebarOverrideStyles = xcss({
   display: 'flex',
   width: '64px',
   height: '100vh',
-  paddingTop: 'space.300',
-  paddingBottom: 'space.200',
+  paddingBlockStart: 'space.300',
+  paddingBlockEnd: 'space.200',
   alignItems: 'center',
   flexBasis: 'auto',
   flexDirection: 'column',

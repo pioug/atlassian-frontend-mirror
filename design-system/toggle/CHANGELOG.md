@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 13.0.2
+
+### Patch Changes
+
+- [#66257](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66257) [`5d82e9131bc5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d82e9131bc5) - Support aria-describedby on toggle
+
 ## 13.0.1
 
 ### Patch Changes

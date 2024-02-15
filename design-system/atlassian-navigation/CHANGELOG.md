@@ -1,5 +1,63 @@
 # @atlaskit/atlassian-navigation
 
+## 3.2.0
+
+### Minor Changes
+
+- [#70040](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70040) [`d18ec4d7ce20`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d18ec4d7ce20) - [ux] Tidy up of the `platform.design-system-team.icon-button-spacing-fix_o1zc5` Platform Feature Flag which applies a small adjustment to icon spacing for buttons using `iconBefore` and `iconAfter` props. Small visual adjustment is to be expected — keep this in mind when reviewing any VR tests breaking. The spacing around the icons will be reduced.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.1
+
+### Patch Changes
+
+- [#69022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69022) [`395c74147990`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/395c74147990) - Migrate packages to use declarative entry points
+
+## 3.1.0
+
+### Minor Changes
+
+- [#65982](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65982) [`d36b4575ba4b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d36b4575ba4b) - Accessibility changes: improving semantics for better readability for screen readers.
+
+## 3.0.3
+
+### Patch Changes
+
+- [#63677](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63677) [`f320c8ce5039`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f320c8ce5039) - This package has been added to the Jira push model.
+
+## 3.0.2
+
+### Patch Changes
+
+- [#61177](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61177) [`c8b7446ec45b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c8b7446ec45b) - [ux] Removes opacity from dropdown chevrons to support better color contrast
+
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.0
+
+### Major Changes
+
+- [#59797](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59797) [`ea972e5bd62f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea972e5bd62f) - Removing PrimarySplitButton which relies on (about to be removed) UNSAFE exports from @atlaskit/button. See LDR https://hello.atlassian.net/l/cp/xNFyPqkm
+
+## 2.10.0
+
+### Minor Changes
+
+- [#56868](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56868) [`73ad379b73c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73ad379b73c6) - [ux] Add proper labels to icon buttons.
+
 ## 2.9.2
 
 ### Patch Changes

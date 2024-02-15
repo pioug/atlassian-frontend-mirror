@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import type { IntlShape } from 'react-intl-next';
 
+import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
@@ -27,8 +28,10 @@ import type { CardContext } from '@atlaskit/link-provider';
 import type { CardPlatform } from '@atlaskit/smart-card';
 
 import { LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR } from '../common/local-storage';
-import { DiscoveryPulse } from '../common/pulse';
 import { shouldRenderToolbarPulse } from '../toolbar';
+import { getResolvedAttributesFromStore } from '../utils';
+
+import { DiscoveryPulse } from './Pulse';
 
 export interface LinkToolbarAppearanceProps {
   intl: IntlShape;
@@ -198,10 +201,23 @@ export class LinkToolbarAppearance extends React.Component<
         showUpgradeDiscoverability,
       )
     ) {
+      const resolvedAnalyticsAttributes = getResolvedAttributesFromStore(
+        url || '',
+        currentAppearance || null,
+        cardContext?.store,
+      );
+
       return (
-        <DiscoveryPulse localStorageKey={LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR}>
-          {LinkToolbarButtons}
-        </DiscoveryPulse>
+        <AnalyticsContext
+          data={{ attributes: { ...resolvedAnalyticsAttributes } }}
+        >
+          <DiscoveryPulse
+            localStorageKey={LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR}
+            testId="toolbar-discovery-pulse"
+          >
+            {LinkToolbarButtons}
+          </DiscoveryPulse>
+        </AnalyticsContext>
       );
     }
 

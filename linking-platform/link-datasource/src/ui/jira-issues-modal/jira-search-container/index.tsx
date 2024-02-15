@@ -17,14 +17,14 @@ import {
   SelectedOptionsMap,
   SelectOption,
 } from '../basic-filters/types';
-import { SEARCH_DEBOUNCE_MS } from '../basic-filters/ui/async-popup-select';
 import { isQueryTooComplex } from '../basic-filters/utils/isQueryTooComplex';
 import { BasicSearchInput } from '../basic-search-input';
 import { JiraJQLEditor } from '../jql-editor';
-import { ModeSwitcher } from '../mode-switcher';
+import { ModeSwitcher, ModeSwitcherPropsOption } from '../mode-switcher';
 import {
   JiraIssueDatasourceParameters,
   JiraIssueDatasourceParametersQuery,
+  Site,
 } from '../types';
 
 import { buildJQL } from './buildJQL';
@@ -40,7 +40,7 @@ const basicSearchInputContainerStyles = xcss({
   flexGrow: 1,
 });
 
-const DEFAULT_JQL_QUERY = 'created >= -30d order by created DESC';
+export const DEFAULT_JQL_QUERY = 'ORDER BY created DESC';
 export const ALLOWED_ORDER_BY_KEYS = [
   'key',
   'summary',
@@ -49,7 +49,8 @@ export const ALLOWED_ORDER_BY_KEYS = [
   'created',
 ];
 
-const JiraSearchMethodSwitcher = ModeSwitcher<JiraSearchMethod>;
+export const FILTER_SELECTION_DEBOUNCE_MS = 500;
+
 export interface SearchContainerProps {
   isSearching?: boolean;
   onSearch: (
@@ -66,6 +67,9 @@ export interface SearchContainerProps {
   initialSearchMethod: JiraSearchMethod;
   onSearchMethodChange: (searchMethod: JiraSearchMethod) => void;
   parameters?: JiraIssueDatasourceParameters;
+  searchBarJql?: string;
+  setSearchBarJql: (jql: string) => void;
+  site?: Site;
 }
 
 export const JiraSearchContainer = (props: SearchContainerProps) => {
@@ -75,8 +79,11 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
     onSearch,
     onSearchMethodChange: onSearchMethodChangeCallback,
     initialSearchMethod,
+    setSearchBarJql,
+    searchBarJql = DEFAULT_JQL_QUERY,
+    site,
   } = props;
-  const { cloudId, jql: initialJql } = parameters || {};
+  const { cloudId: currentCloudId } = parameters || {};
 
   const { formatMessage } = useIntl();
   const { fireEvent } = useDatasourceAnalyticsEvents();
@@ -84,7 +91,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
   const [basicSearchTerm, setBasicSearchTerm] = useState('');
   const [currentSearchMethod, setCurrentSearchMethod] =
     useState<JiraSearchMethod>(initialSearchMethod);
-  const [jql, setJql] = useState(initialJql || DEFAULT_JQL_QUERY);
+  const [cloudId, setCloudId] = useState(currentCloudId);
   const [isComplexQuery, setIsComplexQuery] = useState(false);
   const [orderKey, setOrderKey] = useState<string | undefined>();
   const [orderDirection, setOrderDirection] = useState<string | undefined>();
@@ -103,11 +110,39 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
     return false;
   }, []);
 
+  const modeSwitcherOptionsMap: Record<
+    JiraSearchMethod,
+    ModeSwitcherPropsOption<JiraSearchMethod>
+  > = useMemo(
+    () => ({
+      jql: { label: 'JQL', value: 'jql' },
+      basic: {
+        label: formatMessage(modeSwitcherMessages.basicTextSearchLabel),
+        value: 'basic',
+        disabled: isComplexQuery,
+        tooltipText: isComplexQuery
+          ? formatMessage(
+              modeSwitcherMessages.basicModeSwitchDisabledTooltipText,
+            )
+          : '',
+      },
+    }),
+    [formatMessage, isComplexQuery],
+  );
+
+  const modeSwitcherOptions = useMemo(
+    () =>
+      showBasicFilters
+        ? [modeSwitcherOptionsMap.basic, modeSwitcherOptionsMap.jql]
+        : [modeSwitcherOptionsMap.jql, modeSwitcherOptionsMap.basic],
+    [modeSwitcherOptionsMap, showBasicFilters],
+  );
+
   const {
     hydratedOptions,
     fetchHydratedJqlOptions,
     status: basicFilterHydrationStatus,
-  } = useHydrateJqlQuery(cloudId || '', jql);
+  } = useHydrateJqlQuery(cloudId || '', searchBarJql);
   const onSearchMethodChange = useCallback(
     (searchMethod: JiraSearchMethod) => {
       onSearchMethodChangeCallback(searchMethod);
@@ -120,7 +155,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const rawSearch = e.currentTarget.value;
       setBasicSearchTerm(rawSearch);
-      setJql(
+      setSearchBarJql(
         buildJQL({
           rawSearch,
           filterValues: filterSelections,
@@ -129,35 +164,38 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
         }),
       );
     },
-    [filterSelections, orderDirection, orderKey],
+    [setSearchBarJql, filterSelections, orderDirection, orderKey],
   );
 
-  const onQueryChange = useCallback((query: string) => {
-    // determine if order keys have been set so they can be saved and persisted when changes occur in basic search
-    const fragments =
-      query
-        ?.split(/(^| )(order by)( |$)/i)
-        .map(item => item.trim())
-        .filter(Boolean) ?? [];
+  const onQueryChange = useCallback(
+    (query: string) => {
+      // determine if order keys have been set so they can be saved and persisted when changes occur in basic search
+      const fragments =
+        query
+          ?.split(/(^| )(order by)( |$)/i)
+          .map(item => item.trim())
+          .filter(Boolean) ?? [];
 
-    const hasOrder = fragments.at(-2)?.toLowerCase() === 'order by';
-    const key = hasOrder ? fragments.at(-1)?.split(' ').at(-2) : undefined;
-    const order = hasOrder ? fragments.at(-1)?.split(' ').at(-1) : undefined;
+      const hasOrder = fragments.at(-2)?.toLowerCase() === 'order by';
+      const key = hasOrder ? fragments.at(-1)?.split(' ').at(-2) : undefined;
+      const order = hasOrder ? fragments.at(-1)?.split(' ').at(-1) : undefined;
 
-    // TODO: confirm if these are the only order keys we want to preserve - existing whiteboard logic
-    if (key && ALLOWED_ORDER_BY_KEYS.includes(key)) {
-      setOrderKey(key);
-      setOrderDirection(order);
-    }
+      // TODO: confirm if these are the only order keys we want to preserve - existing whiteboard logic
+      if (key && ALLOWED_ORDER_BY_KEYS.includes(key)) {
+        setOrderKey(key);
+        setOrderDirection(order);
+      }
 
-    setJql(query);
-  }, []);
+      setSearchBarJql(query);
+    },
+    [setSearchBarJql],
+  );
 
   const handleSearch = useCallback(() => {
-    const isCurrentQueryComplex = isQueryTooComplex(jql);
+    const isCurrentQueryComplex = isQueryTooComplex(searchBarJql);
 
     onSearch(
-      { jql },
+      { jql: searchBarJql },
       {
         searchMethod: currentSearchMethod,
         basicFilterSelections: filterSelections,
@@ -183,7 +221,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
     fetchHydratedJqlOptions,
     filterSelections,
     fireEvent,
-    jql,
+    searchBarJql,
     onSearch,
     showBasicFilters,
   ]);
@@ -197,7 +235,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
         orderKey,
       });
 
-      setJql(jqlWithFilterValues);
+      setSearchBarJql(jqlWithFilterValues);
       const isCurrentQueryComplex = isQueryTooComplex(jqlWithFilterValues);
 
       onSearch(
@@ -211,26 +249,31 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
         },
       );
     },
-    SEARCH_DEBOUNCE_MS,
+    FILTER_SELECTION_DEBOUNCE_MS,
   );
 
   const handleBasicFilterSelectionChange = useCallback(
-    (filterValues: SelectedOptionsMap) => {
-      setFilterSelections(filterValues);
-      debouncedBasicFilterSelectionChange(filterValues);
+    (filterType: BasicFilterFieldType, options: SelectOption[]) => {
+      const updatedSelection: SelectedOptionsMap = {
+        ...filterSelections,
+        [filterType]: options,
+      };
+
+      setFilterSelections(updatedSelection);
+      debouncedBasicFilterSelectionChange(updatedSelection);
     },
-    [debouncedBasicFilterSelectionChange],
+    [debouncedBasicFilterSelectionChange, filterSelections],
   );
 
   useEffect(() => {
-    const isCurrentQueryComplex = isQueryTooComplex(jql);
+    const isCurrentQueryComplex = isQueryTooComplex(searchBarJql);
 
     setIsComplexQuery(isCurrentQueryComplex);
 
     if (
       showBasicFilters &&
       !isCurrentQueryComplex &&
-      jql !== DEFAULT_JQL_QUERY
+      searchBarJql !== DEFAULT_JQL_QUERY
     ) {
       fetchHydratedJqlOptions();
     }
@@ -248,23 +291,17 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
     }
   }, [hydratedOptions, basicFilterHydrationStatus]);
 
-  const handleSelectionChange = useCallback(
-    (filterType: BasicFilterFieldType, options: SelectOption[]) => {
-      const updatedSelection: SelectedOptionsMap = {
-        ...filterSelections,
-        [filterType]: options,
-      };
-      setFilterSelections(updatedSelection);
-      handleBasicFilterSelectionChange(updatedSelection);
-    },
-    [handleBasicFilterSelectionChange, filterSelections],
-  );
-
-  const handleBasicFiltersReset = useCallback(() => {
-    if (Object.keys(filterSelections).length > 0) {
+  useEffect(() => {
+    if (currentCloudId !== cloudId) {
+      setBasicSearchTerm('');
+      setSearchBarJql(DEFAULT_JQL_QUERY);
+      setIsComplexQuery(false);
+      setOrderKey(undefined);
+      setOrderDirection(undefined);
       setFilterSelections({});
+      setCloudId(currentCloudId);
     }
-  }, [filterSelections]);
+  }, [currentCloudId, cloudId, setSearchBarJql]);
 
   return (
     <div css={inputContainerStyles} data-testid="jira-search-container">
@@ -278,10 +315,10 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
           />
           {showBasicFilters && (
             <BasicFilters
-              cloudId={cloudId || ''}
-              onChange={handleSelectionChange}
+              jql={searchBarJql}
+              site={site}
+              onChange={handleBasicFilterSelectionChange}
               selections={filterSelections}
-              onReset={handleBasicFiltersReset}
               isJQLHydrating={basicFilterHydrationStatus === 'loading'}
             />
           )}
@@ -293,25 +330,13 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
           isSearching={isSearching}
           onChange={onQueryChange}
           onSearch={handleSearch}
-          query={jql}
+          query={searchBarJql}
         />
       )}
-      <JiraSearchMethodSwitcher
+      <ModeSwitcher
         onOptionValueChange={onSearchMethodChange}
         selectedOptionValue={currentSearchMethod}
-        options={[
-          { label: 'JQL', value: 'jql' },
-          {
-            label: formatMessage(modeSwitcherMessages.basicTextSearchLabel),
-            value: 'basic',
-            disabled: isComplexQuery,
-            tooltipText: isComplexQuery
-              ? formatMessage(
-                  modeSwitcherMessages.basicModeSwitchDisabledTooltipText,
-                )
-              : '',
-          },
-        ]}
+        options={modeSwitcherOptions}
       />
     </div>
   );

@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl-next';
 export const messages = defineMessages({
   toolbarLabel: {
     id: 'fabric.editor.toolbarLabel',
-    defaultMessage: 'Editor toolbar',
+    defaultMessage: 'Editor',
     description: 'Label for the ARIA region landmark',
   },
   pageActionsLabel: {

@@ -19,12 +19,13 @@ import { IconButtonProps } from './types';
  */
 export const IconButton = forwardRef<HTMLElement, IconButtonProps>(
   (props: IconButtonProps, ref: Ref<HTMLElement>) => {
-    const { icon, testId, tooltip, ...buttonProps } = props;
+    const { icon, label, testId, tooltip, ...buttonProps } = props;
     const theme = useTheme();
 
     const button = (
       <Button
         appearance="primary"
+        aria-label={label}
         testId={testId}
         iconBefore={icon}
         ref={ref}

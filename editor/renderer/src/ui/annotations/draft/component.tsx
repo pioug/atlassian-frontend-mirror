@@ -1,22 +1,23 @@
 /** @jsx jsx */
-import React, { Fragment, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 
-import { InsertDraftPosition, Position } from '../types';
+import type { Position } from '../types';
+import { InsertDraftPosition } from '../types';
 import { AnnotationsDraftContext } from '../context';
 import { splitText, calcTextSplitOffset, findTextString } from './text';
 import { calcInsertDraftPositionOnText } from './position';
 import { dataAttributes } from './dom';
 
 import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
-import { ThemeProps } from '@atlaskit/theme/types';
 
-const markStyles = (props: ThemeProps) => css`
+const markStyles = () => css`
   color: inherit;
   background-color: unset;
   -webkit-tap-highlight-color: transparent;
 
-  ${AnnotationSharedCSSByState(props).focus};
+  ${AnnotationSharedCSSByState().focus};
 `;
 
 export const AnnotationDraft: React.FC<{ draftPosition: Position }> = ({

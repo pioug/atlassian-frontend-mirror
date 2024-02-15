@@ -20,6 +20,16 @@ export type ButtonGroupProps = {
    * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    */
   testId?: string;
+  /**
+   * Refers to an aria-label attribute. Sets an accessible name for ButtonGroup wrapper to announce it to users of assistive technology.
+   * Usage of either this, or the `titleId` attribute is strongly recommended.
+   */
+  label?: string;
+  /**
+   * Id referenced by the ButtonGroup wrapper's aria-labelledby attribute. This id should be assigned to the group-button title element.
+   * Usage of either this, or the `label` attribute is strongly recommended.
+   */
+  titleId?: string;
 };
 
 const buttonGroupStyles = css({
@@ -35,9 +45,17 @@ export default function ButtonGroup({
   appearance,
   children,
   testId,
+  label,
+  titleId,
 }: ButtonGroupProps) {
   return (
-    <div css={buttonGroupStyles} data-testid={testId}>
+    <div
+      css={buttonGroupStyles}
+      data-testid={testId}
+      role="group"
+      aria-label={label}
+      aria-labelledby={titleId}
+    >
       {/* flatten children to apply correct styles in the case where a child is an array of elements */}
       {React.Children.map(React.Children.toArray(children), (child, idx) => {
         if (!child) {

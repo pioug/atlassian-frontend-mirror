@@ -8,11 +8,13 @@ Use headings to create section and subsection titles on a page.
 
 ## Accessibility
 
-Nest headings by their rank (or level).
+Consistent and clear hierarchy helps people navigate the page. Use headings and titles to outline the page so people can understand the page structure.
 
 The most important heading has the rank 1 (`<h1>`), the least important heading rank 6 (`<h6>`).
 Headings with an equal or higher rank start a new section, headings with a lower rank start new subsections that are part of the higher ranked section.
-There should **only be one rank 1 (`<h1>`) heading per page** consisting of the name or main purpose of the overall site/platform.
+There should **only be one rank 1 (`<h1>`) heading per page** which explains main purpose of the page.
 
-Skipping heading ranks can be confusing and should be avoided where possible: make sure that a `<h2>` is **not** followed directly by an `<h4>`, for example.
+Never skip lower heading levels. For example, a `<h2>` should not be followed by an `<h4>`. It should be followed by an `<h3>` (for a lower section in the hierarchy), or another `<h2>` (for a section of the same level of importance).
 It is ok to skip ranks when closing subsections, for instance, a `<h2>` beginning a new section, can follow an `<h4>` as it closes the previous section.
+
+Text should be a minimum of 3:1 color contrast when it is 24px or larger, and 4.5:1 color contrast when is under 24px. Use color="inverse" for headings placed on a dark surface for better color contrast.

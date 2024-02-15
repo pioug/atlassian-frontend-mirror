@@ -24,7 +24,7 @@ export default () => (
     <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Non-interactive tags</caption>
       <tr>
-        <th></th>
+        <td></td>
         <th>Standard</th>
         {colors.map((color) => (
           <th key={color}>
@@ -60,7 +60,7 @@ export default () => (
     <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Link tags</caption>
       <tr>
-        <th></th>
+        <td></td>
         <th>Standard</th>
         {colors.map((color) => (
           <th key={`${color}-link-title`}>
@@ -109,7 +109,7 @@ export default () => (
     <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Removable tags</caption>
       <tr>
-        <th></th>
+        <td></td>
         <th>Standard</th>
         {colors.map((color) => (
           <th key={`${color}-removable-title`}>
@@ -153,7 +153,7 @@ export default () => (
     <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Removable + link tags</caption>
       <tr>
-        <th></th>
+        <td></td>
         <th>Standard</th>
         {colors.map((color) => (
           <th key={`${color}-removable-link-title`}>
@@ -204,7 +204,7 @@ export default () => (
     <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Link + Element before tags</caption>
       <tr>
-        <th></th>
+        <td></td>
         <th>Standard</th>
         {colors.map((color) => (
           <th key={`${color}-link-element-before-title`}>
@@ -266,7 +266,7 @@ export default () => (
     <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Removable + Link + Element before tags</caption>
       <tr>
-        <th></th>
+        <td></td>
         <th>Standard</th>
         {colors.map((color) => (
           <th key={`${color}-removable-link-element-before-title`}>

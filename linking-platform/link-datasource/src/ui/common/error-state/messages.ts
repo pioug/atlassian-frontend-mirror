@@ -68,4 +68,25 @@ export const loadingErrorMessages = defineMessages({
       'Description that shows in the modal when user has no access to any Jira sites',
     defaultMessage: 'To request access, contact your admin.',
   },
+  authScreenHeaderText: {
+    id: 'linkDataSource.datasource.table.authScreenHeaderText',
+    defaultMessage: 'Connect your account',
+    description: 'Header text to be displayed in the auth screen UI.',
+  },
+  authScreenDescriptionText: {
+    id: 'linkDataSource.datasource.table.authScreenDescriptionText',
+    defaultMessage:
+      'Connect your account to collaborate on work across Atlassian products.',
+    description: 'Description text to be displayed in the auth screen UI.',
+  },
+  learnMoreAboutSmartLinks: {
+    id: 'linkDataSource.datasource.table.learnMoreAboutSmartLinks',
+    defaultMessage: 'Learn more about Smart Links.',
+    description: 'An anchor link to redirect user to a page about Smart Links.',
+  },
+  authConnectButtonText: {
+    id: 'linkDataSource.datasource.table.authConnectButtonText',
+    defaultMessage: 'Connect',
+    description: 'Label for the authentication button.',
+  },
 });

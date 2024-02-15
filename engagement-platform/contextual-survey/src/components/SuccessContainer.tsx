@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import { G300 } from '@atlaskit/theme/colors';

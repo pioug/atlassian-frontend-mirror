@@ -39,6 +39,12 @@
       "path": "../accessibility-testing/tsconfig.app.json"
     },
     {
+      "path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+    },
+    {
+      "path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+    },
+    {
       "path": "../../analytics/analytics-next/tsconfig.app.json"
     },
     {
@@ -57,10 +63,16 @@
       "path": "../icon/tsconfig.app.json"
     },
     {
+      "path": "../primitives/tsconfig.app.json"
+    },
+    {
       "path": "../progress-indicator/tsconfig.app.json"
     },
     {
       "path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+    },
+    {
+      "path": "../tabs/tsconfig.app.json"
     },
     {
       "path": "../theme/tsconfig.app.json"
@@ -70,9 +82,6 @@
     },
     {
       "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/test-tooling/webdriver-runner/tsconfig.app.json"
     }
   ]
 }

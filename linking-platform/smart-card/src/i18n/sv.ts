@@ -28,9 +28,9 @@ export default {
   'fabric.linking.connect_to': 'Anslut till {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Anslut till {context}',
   'fabric.linking.connect_unauthorised_account_description':
-    'Anslut {context} till Atlassian för att se mer information om ditt arbete och samarbete på ett och samma ställe.',
+    'Anslut ditt {context}-konto för att samarbeta kring projekt i flera Atlassian-produkter.',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    'Anslut till Atlassian för att se mer information om ditt arbete och samarbete på ett och samma ställe.',
+    'Anslut ditt konto för att samarbeta kring projekt i flera Atlassian-produkter.',
   'fabric.linking.continue': 'Fortsätt',
   'fabric.linking.copy_url_to_clipboard': 'Kopiera länk',
   'fabric.linking.couldnt_load_link': 'Vi kunde inte läsa in den här länken av okänd anledning.',
@@ -57,6 +57,7 @@ export default {
     'Du måste begära åtkomst eller försöka med ett annat konto för att visa förhandsgranskningen.',
   'fabric.linking.join_to_view': 'Anslut till {context} för att visa ärendet',
   'fabric.linking.last_mentioned_in': 'Senast omnämnd i',
+  'fabric.linking.learn_more_about_connecting_account': 'Läs mer om att ansluta ditt konto till Atlassian-produkter.',
   'fabric.linking.learn_more_about_smart_links': 'Läs mer om smarta länkar.',
   'fabric.linking.link_safety_warning_message':
     'Länken {unsafeLinkText} tar dig till en annan webbplats, <a>actual link here</a>',

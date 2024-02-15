@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { ButtonGroup, UNSAFE_BUTTON } from '../../../../src';
+import { ButtonGroup } from '../../../../src';
+import Button from '../../../../src/new';
 
 const ButtonGroupAppearanceExample = () => {
   return (
     <ButtonGroup appearance="primary">
-      <UNSAFE_BUTTON>First button</UNSAFE_BUTTON>
-      <UNSAFE_BUTTON>Second button</UNSAFE_BUTTON>
-      <UNSAFE_BUTTON>Third button</UNSAFE_BUTTON>
+      <Button>First button</Button>
+      <Button>Second button</Button>
+      <Button>Third button</Button>
     </ButtonGroup>
   );
 };

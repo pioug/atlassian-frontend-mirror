@@ -7,11 +7,21 @@ import VRCardView from '../utils/vr-card-view';
 const containerStyles = css`
   width: 760px;
 `;
-export default () => (
+export const BlockCardNotFoundSiteAccessExists = () => (
   <VRCardView
     appearance="block"
     client={new NotFoundWithSiteAccessExistsClient()}
     overrideCss={containerStyles}
     url="https://site.atlassian.net/browse/key-1"
+  />
+);
+
+export const BlockCardNotFoundSiteAccessExistsLegacy = () => (
+  <VRCardView
+    appearance="block"
+    client={new NotFoundWithSiteAccessExistsClient()}
+    overrideCss={containerStyles}
+    url="https://site.atlassian.net/browse/key-1"
+    useLegacyBlockCard={true}
   />
 );

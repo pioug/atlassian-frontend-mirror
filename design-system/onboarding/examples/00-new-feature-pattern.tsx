@@ -35,7 +35,7 @@ const NewFeature = () => {
   return (
     <div css={wrapperStyles}>
       <SpotlightManager blanketIsTinted={false}>
-        <ButtonGroup>
+        <ButtonGroup label="Choose the option">
           <SpotlightTarget name="button">
             <SpotlightPulse radius={borderRadius()}>
               <Button onClick={toggleIsSpotlightVisible}>

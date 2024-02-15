@@ -1,21 +1,18 @@
 import React from 'react';
 
-import {
-  ButtonGroup,
-  UNSAFE_BUTTON,
-  UNSAFE_LINK_BUTTON,
-} from '../../../../src';
+import { ButtonGroup } from '../../../../src';
+import Button, { LinkButton } from '../../../../src/new';
 
 const ButtonPaddingExample = () => {
   return (
     <ButtonGroup>
-      <UNSAFE_BUTTON appearance="primary">Default</UNSAFE_BUTTON>
-      <UNSAFE_BUTTON appearance="primary" spacing="compact">
+      <Button appearance="primary">Default</Button>
+      <Button appearance="primary" spacing="compact">
         Compact
-      </UNSAFE_BUTTON>
-      <UNSAFE_LINK_BUTTON href="/" spacing="none" appearance="subtle-link">
+      </Button>
+      <LinkButton href="/" spacing="none" appearance="subtle-link">
         None
-      </UNSAFE_LINK_BUTTON>
+      </LinkButton>
     </ButtonGroup>
   );
 };

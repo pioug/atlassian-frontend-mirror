@@ -1,11 +1,12 @@
 /** @jsx jsx */
-import { Component, ComponentType, ReactNode } from 'react';
+import { Component, ComponentType } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import CodeBlock from '@atlaskit/code/block';
+import { Fieldset, Label } from '@atlaskit/form';
+import { Grid } from '@atlaskit/primitives';
 import Select, { ValueType } from '@atlaskit/select';
-import { token } from '@atlaskit/tokens';
 
 import * as Logos from '../src';
 import type { LogoProps as ConstantProps } from '../src/types';
@@ -39,17 +40,6 @@ const files: File[] = [
   { label: 'Icon', value: 'Icon' },
   { label: 'Wordmark', value: 'Wordmark' },
 ];
-
-const selectWrapperStyles = css({
-  display: 'inline-block',
-  width: '200px',
-  padding: token('space.250', '20px'),
-});
-
-const SelectWrapper = ({ children }: { children: ReactNode }) => {
-  return <div css={selectWrapperStyles}>{children}</div>;
-};
-
 export default class GetPath extends Component<any, any> {
   state = {
     selectedProduct: products[0],
@@ -78,31 +68,38 @@ export default class GetPath extends Component<any, any> {
 
     return (
       <div>
-        <p>Select the product and the component you want to fetch from:</p>
-        <SelectWrapper>
-          <Select
-            options={productOptions}
-            value={selectedProduct}
-            onChange={(product: ValueType<Product>) =>
-              this.setState({ selectedProduct: product })
-            }
+        <Fieldset legend="Select the product and the component you want to fetch from">
+          <Grid templateColumns="1fr 1fr" gap="space.200">
+            <div>
+              <Label htmlFor="product">Product</Label>
+              <Select
+                inputId="product"
+                options={productOptions}
+                value={selectedProduct}
+                onChange={(product: ValueType<Product>) =>
+                  this.setState({ selectedProduct: product })
+                }
+              />
+            </div>
+            <div>
+              <Label htmlFor="logo">Logo</Label>
+              <Select
+                inputId="logo"
+                options={fileOptions}
+                value={selectedFile}
+                onChange={(file: ValueType<File>) =>
+                  this.setState({ selectedFile: file })
+                }
+              />
+            </div>
+          </Grid>
+          <p>Use the following import statement to render the logo</p>
+          <CodeBlock
+            language="javascript"
+            text={`import { ${name} } from '@atlaskit/logo'`}
           />
-        </SelectWrapper>
-        <SelectWrapper>
-          <Select
-            options={fileOptions}
-            value={selectedFile}
-            onChange={(file: ValueType<File>) =>
-              this.setState({ selectedFile: file })
-            }
-          />
-        </SelectWrapper>
-        <p>This import statement will render the image below:</p>
-        <CodeBlock
-          language="javascript"
-          text={`import { ${name} } from '@atlaskit/logo'`}
-        />
-        <OurComponent />
+          <OurComponent />
+        </Fieldset>
       </div>
     );
   }

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 import invariant from 'tiny-invariant';
 
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { monitorForFiles } from '@atlaskit/pragmatic-drag-and-drop/adapter/file';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/types';
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { monitorForFiles } from '@atlaskit/pragmatic-drag-and-drop/adapter/file';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 
 import { ColumnMap, ColumnType, getData, Person } from './data/people';
 import Board from './pieces/board-with-overflow-scroll/board';

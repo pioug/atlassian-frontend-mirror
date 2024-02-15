@@ -16,6 +16,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': 'Tus cambios no se guardarán',
   'linkCreate.createForm.button.close': 'Cerrar',
   'linkCreate.createForm.button.create': 'Crear',
-  'linkCreate.createForm.button.edit': 'Editar',
+  'linkCreate.createForm.button.createAndOpen': 'Crear + Abrir',
   'linkCreate.modal.heading': 'Crear nuevo',
 };

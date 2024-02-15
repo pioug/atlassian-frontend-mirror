@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/editor-plugin-selection",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "Selection plugin for @atlaskit/editor-core",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -17,38 +17,22 @@
   "atlassian": {
     "team": "Editor: Lego",
     "releaseModel": "continuous",
-    "singleton": true
+    "singleton": true,
+    "runReact18": false
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^76.23.0",
-    "@atlaskit/editor-prosemirror": "1.1.0",
-    "@atlaskit/editor-shared-styles": "^2.7.0",
-    "@atlaskit/editor-tables": "^2.3.10",
+    "@atlaskit/editor-common": "^77.4.0",
+    "@atlaskit/editor-prosemirror": "3.0.0",
+    "@atlaskit/editor-shared-styles": "^2.9.0",
+    "@atlaskit/editor-tables": "^2.5.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@af/editor-libra": "*",
-    "@af/visual-regression": "*",
-    "@atlaskit/editor-plugin-analytics": "^0.3.0",
-    "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
-    "@atlaskit/editor-plugin-focus": "^0.2.1",
-    "@atlaskit/editor-plugin-grid": "^0.3.0",
-    "@atlaskit/editor-plugin-guideline": "^0.5.1",
-    "@atlaskit/editor-plugin-rule": "^0.1.2",
-    "@atlaskit/editor-plugin-width": "^0.2.2",
-    "@atlaskit/media-integration-test-helpers": "^3.0.0",
-    "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "@testing-library/react": "^12.1.5",
-    "react-dom": "^16.8.0",
-    "typescript": "~4.9.5",
-    "wait-for-expect": "^1.2.0"
+    "typescript": "~4.9.5"
   },
   "techstack": {
     "@atlassian/frontend": {
@@ -89,5 +73,15 @@
     ".": "./src/index.ts",
     "./types": "./src/types.ts"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
+  "stricter": {
+    "no-unused-dependencies": {
+      "checkDevDependencies": true
+    }
+  },
+  "platform-feature-flags": {
+    "platform.editor.change-navigation-for-atom-nodes": {
+      "type": "boolean"
+    }
+  }
 }

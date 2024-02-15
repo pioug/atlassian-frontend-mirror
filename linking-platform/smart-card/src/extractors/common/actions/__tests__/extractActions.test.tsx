@@ -5,8 +5,10 @@ import { IntlProvider } from 'react-intl-next';
 import { extractClientActions } from '../extractActions';
 import {
   TEST_DOCUMENT_WITH_ACTIONS,
+  TEST_DOCUMENT_WITH_MULTIPLE_ACTIONS,
   TEST_VIEW_ACTION,
 } from '../../__mocks__/jsonld';
+import { CardAction } from '../../../../view/Card/types';
 
 describe('extractBlockActionPropsFromJSONLD()', () => {
   const handler = jest.fn();
@@ -39,6 +41,25 @@ describe('extractBlockActionPropsFromJSONLD()', () => {
     expect(extractClientActions(document as any, handler)).toEqual([
       {
         id: 'view-content',
+        text: expect.any(Object),
+        promise: expect.any(Function),
+      },
+    ]);
+  });
+
+  it('should not return an excluded action', () => {
+    const document = {
+      ...TEST_DOCUMENT_WITH_MULTIPLE_ACTIONS,
+    };
+
+    expect(
+      extractClientActions(document as any, handler, {
+        hide: false,
+        exclude: [CardAction.ViewAction],
+      }),
+    ).toEqual([
+      {
+        id: 'download-content',
         text: expect.any(Object),
         promise: expect.any(Function),
       },

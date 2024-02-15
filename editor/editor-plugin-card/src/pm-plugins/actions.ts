@@ -1,10 +1,10 @@
-import { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { DatasourceModalType } from '@atlaskit/editor-common/types';
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { SmartLinkEvents } from '@atlaskit/smart-card';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { SmartLinkEvents } from '@atlaskit/smart-card';
 
-import { CardInfo, CardPluginAction, Request } from '../types';
-import { DatasourceTableLayout } from '../ui/LayoutButton/types';
+import type { CardInfo, CardPluginAction, Request } from '../types';
+import type { DatasourceTableLayout } from '../ui/LayoutButton/types';
 
 import { pluginKey } from './plugin-key';
 
@@ -32,6 +32,13 @@ export const registerCard = (info: CardInfo) => (tr: Transaction) =>
     type: 'REGISTER',
     info,
   });
+
+export const registerRemoveOverlay =
+  (callback: () => void) => (tr: Transaction) =>
+    cardAction(tr, {
+      type: 'REGISTER_REMOVE_OVERLAY_ON_INSERTED_LINK',
+      callback,
+    });
 
 export const registerSmartCardEvents =
   (smartLinkEvents: SmartLinkEvents) => (tr: Transaction) =>
@@ -91,3 +98,6 @@ export const showDatasourceModal =
 
 export const hideDatasourceModal = (tr: Transaction) =>
   cardAction(tr, { type: 'HIDE_DATASOURCE_MODAL' });
+
+export const clearOverlayCandidate = (tr: Transaction) =>
+  cardAction(tr, { type: 'CLEAR_OVERLAY_CANDIDATE' });

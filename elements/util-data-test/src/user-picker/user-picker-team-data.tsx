@@ -10,6 +10,7 @@ export const userPickerTeamData: Team[] = [
     fixed: false,
     description: 'This team has a custom icon',
     lozenge: <ChevronRight />,
+    tooltip: 'This team has a custom icon',
   },
   {
     id: 'team-custom-icon-and-byline',

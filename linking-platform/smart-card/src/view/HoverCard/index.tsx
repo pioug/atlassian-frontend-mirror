@@ -7,10 +7,13 @@ import { useSmartLinkAnalytics } from '../../state/analytics';
 import { HoverCardComponent } from './components/HoverCardComponent';
 import { HoverCardInternalProps, HoverCardProps } from './types';
 import { CardDisplay } from '../../constants';
+import { di } from 'react-magnetic-di';
 
 const HoverCardWithErrorBoundary: FC<
   HoverCardProps & HoverCardInternalProps
 > = (props) => {
+  di(HoverCardComponent);
+
   const { url, id, children } = props;
 
   const analytics = useSmartLinkAnalytics(url, undefined, id);

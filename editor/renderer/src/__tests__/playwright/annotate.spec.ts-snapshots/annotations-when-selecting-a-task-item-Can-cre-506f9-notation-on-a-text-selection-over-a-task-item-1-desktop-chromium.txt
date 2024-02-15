@@ -1,0 +1,63 @@
+{
+  "doc": {
+    "version": 1,
+    "type": "doc",
+    "content": [
+      {
+        "type": "taskList",
+        "attrs": {
+          "localId": "9d733924-c4a6-4290-a507-3d8be4aacd9b"
+        },
+        "content": [
+          {
+            "type": "taskItem",
+            "attrs": {
+              "localId": "e580c4d0-4a27-43a0-8321-f52d16f7d788",
+              "state": "TODO"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Task Item "
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "E",
+            "marks": [
+              {
+                "type": "annotation",
+                "attrs": {
+                  "id": "fake-id-1",
+                  "annotationType": "inlineComment"
+                }
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "text": "nd"
+          }
+        ]
+      }
+    ]
+  },
+  "step": {
+    "stepType": "addMark",
+    "mark": {
+      "type": "annotation",
+      "attrs": {
+        "id": "fake-id-1",
+        "annotationType": "inlineComment"
+      }
+    },
+    "from": 15,
+    "to": 16
+  }
+}

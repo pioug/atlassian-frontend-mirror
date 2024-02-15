@@ -1,5 +1,23 @@
 # @atlaskit/link-analytics
 
+## 8.3.9
+
+### Patch Changes
+
+- [#68194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68194) [`c1d4a8fecc4e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1d4a8fecc4e) - bump json-ld-types to version 3.11.0
+
+## 8.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.7
+
+### Patch Changes
+
+- [#59541](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59541) [`5cd5311a0014`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5cd5311a0014) - Enrol packages to push model in JFE
+
 ## 8.3.6
 
 ### Patch Changes

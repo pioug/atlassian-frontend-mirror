@@ -19,7 +19,7 @@ class CustomClient extends Client {
   }
 }
 
-export default () => (
+export const BlockCardAtlas = () => (
   <div>
     <h4>Project</h4>
     <VRCardView
@@ -32,6 +32,24 @@ export default () => (
       appearance="block"
       client={new CustomClient()}
       url={AtlasProject.data.url}
+    />
+  </div>
+);
+export const BlockCardAtlasLegacy = () => (
+  <div>
+    <h4>Project</h4>
+    <VRCardView
+      appearance="block"
+      client={new CustomClient()}
+      url={AtlasProject.data.url}
+      useLegacyBlockCard={true}
+    />
+    <h4>AtlasGoal</h4>
+    <VRCardView
+      appearance="block"
+      client={new CustomClient()}
+      url={AtlasProject.data.url}
+      useLegacyBlockCard={true}
     />
   </div>
 );

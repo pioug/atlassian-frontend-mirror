@@ -1,5 +1,70 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 1.0.0
+
+### Major Changes
+
+- [#72386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72386) [`0c52b0be40c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c52b0be40c1) - This changeset exists to bump all editor plugins that currently don't have a major version. This is to address an issue with Jira plugin consumption.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.13
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+
+## 0.2.12
+
+### Patch Changes
+
+- [#71136](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71136) [`c803fea1e6a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c803fea1e6a4) - Move all plugin translations to editor-common
+- Updated dependencies
+
+## 0.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.10
+
+### Patch Changes
+
+- [#67238](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67238) [`40533849b2ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40533849b2ec) - [ED-21835] Change EditorAPI type to always union with undefined
+
+## 0.2.9
+
+### Patch Changes
+
+- [#65802](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65802) [`438ead060875`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/438ead060875) - Ensure all editor plugins are marked as singletons
+
+## 0.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.7
+
+### Patch Changes
+
+- [#61923](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61923) [`04e38cfe9e90`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/04e38cfe9e90) - Remove legacy theming logic from all Editor plugin packages. Theming is still available via the @atlaskit/tokens package.
+
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.4
 
 ### Patch Changes

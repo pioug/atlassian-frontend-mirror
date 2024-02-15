@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 
 import styled from '@emotion/styled';
 
-import Button from '@atlaskit/button';
+import Button, { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/glyph/editor/add';
 import { token } from '@atlaskit/tokens';
 
@@ -55,11 +55,12 @@ export default () => {
       <p>Icon</p>
       <Tooltip content="Save">
         {(tooltipProps) => (
-          <Button
+          <IconButton
             aria-label="Add"
-            iconBefore={<AddIcon label="" />}
+            icon={AddIcon}
             testId="add"
             {...tooltipProps}
+            label=""
           />
         )}
       </Tooltip>
@@ -114,16 +115,16 @@ export default () => {
               handleOnMouseDown(e);
             }}
           >
-            Click to toggle tooltip
+            Activate to toggle tooltip
           </Button>
         )}
       </Tooltip>
 
       <p>Component in content</p>
-      <Tooltip component={InlineDialog} content="Hello World">
+      <Tooltip component={InlineDialog} content="This is a tooltip">
         {(tooltipProps) => (
           <Button appearance="primary" {...tooltipProps}>
-            Hover Over Me
+            Hover over me
           </Button>
         )}
       </Tooltip>

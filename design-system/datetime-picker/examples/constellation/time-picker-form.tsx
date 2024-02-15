@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import Form, { Field, FormFooter, HelperMessage } from '@atlaskit/form';
 
 import { TimePicker } from '../../src';

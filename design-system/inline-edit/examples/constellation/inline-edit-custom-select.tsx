@@ -16,9 +16,9 @@ import {
 import InlineEdit from '../../src';
 
 const containerStyles = xcss({
-  paddingTop: 'space.100',
-  paddingRight: 'space.100',
-  paddingBottom: 'space.600',
+  paddingBlockStart: 'space.100',
+  paddingInlineEnd: 'space.100',
+  paddingBlockEnd: 'space.600',
 });
 
 const fontSize = getFontSize();
@@ -50,8 +50,8 @@ const selectOptions = [
   { label: 'Design', value: 'Design' },
   { label: 'HTML', value: 'HTML' },
   { label: 'Javascript', value: 'Javascript' },
-  { label: 'User Experience', value: 'User Experience' },
-  { label: 'User Research', value: 'User Research' },
+  { label: 'User experience', value: 'User experience' },
+  { label: 'User research', value: 'User research' },
 ];
 
 const InlineEditCustomSelectExample = () => {
@@ -83,7 +83,7 @@ const InlineEditCustomSelectExample = () => {
         )}
         readView={() =>
           editValue && editValue.length === 0 ? (
-            <Box xcss={readViewContainerStyles}>Click to select options</Box>
+            <Box xcss={readViewContainerStyles}>Select options</Box>
           ) : (
             <Box xcss={tagGroupContainerStyles}>
               <Group>

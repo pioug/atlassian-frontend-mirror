@@ -1,4 +1,4 @@
-import { editorTestCase as test, expect, fixTest } from '@af/editor-libra';
+import { expect, fixTest, editorTestCase as test } from '@af/editor-libra';
 
 // Height + Padding
 const DEFAULT_LIST_HEIGHT = 380;
@@ -73,6 +73,7 @@ test.describe('typeahead - at different view sizes', () => {
     );
   });
 
+  // eslint-disable-next-line playwright/expect-expect
   test('typeahead should not be clipped on smaller window size', async ({
     editor,
   }) => {
@@ -91,6 +92,7 @@ test.describe('typeahead - at different view sizes', () => {
     //await expect(editor.typeAhead.popup).toBeInViewport();
   });
 
+  // eslint-disable-next-line playwright/expect-expect
   test('typeahead should not be clipped on smaller window with text above it', async ({
     editor,
   }) => {

@@ -34,7 +34,7 @@ const wrapperStyles = css({
   },
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '&&': {
-    marginLeft: token('space.150', '12px'),
+    marginInlineStart: token('space.150', '12px'),
   },
 });
 
@@ -72,7 +72,11 @@ export const Create = ({
   const theme = useTheme();
 
   return (
-    <div css={wrapperStyles} data-testid="create-button-wrapper">
+    <div
+      css={wrapperStyles}
+      role="listitem"
+      data-testid="create-button-wrapper"
+    >
       <TooltipSwitch buttonTooltip={buttonTooltip}>
         <Button
           id="createGlobalItem"

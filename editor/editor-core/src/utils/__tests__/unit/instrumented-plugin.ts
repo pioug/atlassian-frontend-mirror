@@ -1,10 +1,11 @@
-import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { createSchema } from '@atlaskit/adf-schema';
 import { defaultSchemaConfig } from '@atlaskit/adf-schema/schema-default';
+import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
 import { InstrumentedPlugin } from '../../performance/instrumented-plugin';
 import { TransactionTracker } from '../../performance/track-transactions';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 beforeEach(() => {
   performance.measure = jest.fn();

@@ -1,5 +1,580 @@
 # @atlaskit/editor-plugin-table
 
+## 7.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.3
+
+### Patch Changes
+
+- [#70829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70829) [`18955263bc9a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/18955263bc9a) - ED-17638: Marked permittedLayouts as deprecated
+
+## 7.3.2
+
+### Patch Changes
+
+- [#72081](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72081) [`4487160917d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4487160917d2) - [ux] ED-22052: adds button type attribute to non atlaskit button instances
+
+## 7.3.1
+
+### Patch Changes
+
+- [#69911](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69911) [`50161fb5966e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/50161fb5966e) - [ux] Added keyboard shortcut to drag handle and keyboard navigation for drag menu
+- Updated dependencies
+
+## 7.3.0
+
+### Minor Changes
+
+- [#63203](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63203) [`2bf8f7ffabfd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2bf8f7ffabfd) - ECA11Y-194: Stop keyboard column resizing when table updated or lost focus
+
+## 7.2.3
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+- [#70707](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70707) [`01c10b920070`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01c10b920070) - [ux] Move options in drag menu now have disabled state when target has merged cells.
+- Updated dependencies
+
+## 7.2.2
+
+### Patch Changes
+
+- [#70342](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70342) [`6862cba17f31`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6862cba17f31) - Fix drop functionality when dragging in overflown table
+
+## 7.2.1
+
+### Patch Changes
+
+- [#70802](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70802) [`ee58189e1b0e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee58189e1b0e) - ED-21911 Adding custom paste handling for content copied from MBE frames.
+
+## 7.2.0
+
+### Minor Changes
+
+- [#70702](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70702) [`de0d7031a536`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de0d7031a536) - remove drag and drop nodesize limit
+
+### Patch Changes
+
+- [#70152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70152) [`53ed3673df28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53ed3673df28) - Updating adf-schema version to 35.5.1
+- Updated dependencies
+
+## 7.1.4
+
+### Patch Changes
+
+- [#70084](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70084) [`4d651eb93ab5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d651eb93ab5) - Add editor-plugin-annotation pr and create shared utils for it in editor-test-helpers
+- Updated dependencies
+
+## 7.1.3
+
+### Patch Changes
+
+- [#70368](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70368) [`77021a60ef37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77021a60ef37) - Add button background css reset to drag handle button to fix issue on safari where the background can be seen through the svg graphic
+
+## 7.1.2
+
+### Patch Changes
+
+- [#70109](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70109) [`ecf39362df41`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ecf39362df41) - The drag preview size will now match the same size of the selection row/col region when a drag is started.
+
+## 7.1.1
+
+### Patch Changes
+
+- [#69625](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69625) [`67d7971c6ddf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/67d7971c6ddf) - [ux] Tables DnD now supports dragging multiple rows/columns in a single drag using multi-select
+- [#69338](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69338) [`da642bc0799f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/da642bc0799f) - Fix unable to drop when table sticky header shows
+- [#69050](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69050) [`9affe9831bd2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9affe9831bd2) - [ux] Adds a clickable zone around drag handles to allow columns/rows to be selected outside of small drag handle button.
+- [#69226](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69226) [`eb9cd91f1bdb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb9cd91f1bdb) - ED-21807: Replace Dnd LD feature flag with Statsig experiment
+- Updated dependencies
+
+## 7.1.0
+
+### Minor Changes
+
+- [#69232](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69232) [`93c8f231aa82`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93c8f231aa82) - Optimized the table move column logic to perform individual insert/deletes per row
+- [#68790](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68790) [`c6d8affc52d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6d8affc52d1) - Support maybeAdd plugins in usePreset. Add typing support for universal preset.
+
+  Now when using the editor API with the universal preset
+
+### Patch Changes
+
+- [#68693](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68693) [`f664d35cc135`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f664d35cc135) - Fix incorrect drag handle position after deleting row in table
+- [#68011](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68011) [`f19b64a46694`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f19b64a46694) - Remove check for header for column insert keyboard shortcut
+- [#68926](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68926) [`fceb32f94798`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fceb32f94798) - [ux] update drag menu's insert row's icons
+- Updated dependencies
+
+## 7.0.3
+
+### Patch Changes
+
+- [#68585](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68585) [`453395005d42`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/453395005d42) - [ux] Fixed a bug where a table nested in expand has showdows after clicking breakout button.
+
+## 7.0.2
+
+### Patch Changes
+
+- [#67831](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67831) [`6027f6646d15`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6027f6646d15) - Fix table scroll when pressing CMD+A to select all
+
+## 7.0.1
+
+### Patch Changes
+
+- [#67948](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67948) [`28fcdf6793a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/28fcdf6793a4) - Expand/collapse for panel and table color pickers
+
+## 7.0.0
+
+### Major Changes
+
+- [#67703](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67703) [`d5303cb0f0cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d5303cb0f0cb) - When a table is inserted via the table selector popup, an analytics event should be sent with the totalRowCount and totalColumnCount and the input method picker. Removed ASCII and TYPEAHEAD inputMethod from table selector command.
+
+## 6.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.0
+
+### Minor Changes
+
+- [#67400](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67400) [`191436e36f93`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/191436e36f93) - Optimised the table move row logic to perform insert/delete steps rather than an entire table replacement
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.0
+
+### Major Changes
+
+- [#67764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67764) [`392964912fad`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/392964912fad) - Fixed incorrectly imported dependencies from src in the editor-plugin-table
+
+### Patch Changes
+
+- [#67255](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67255) [`f73d19be272d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f73d19be272d) - Set pointer events to none on column controls while dragging. Fixes issue where column controls prevent drop targets from showing.
+
+## 5.8.6
+
+### Patch Changes
+
+- [#67239](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67239) [`4b543688dfcb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4b543688dfcb) - [ux] ED-21242: Fixed some menu item not full visible on drag menu"
+- Updated dependencies
+
+## 5.8.5
+
+### Patch Changes
+
+- [#67238](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67238) [`40533849b2ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40533849b2ec) - [ED-21835] Change EditorAPI type to always union with undefined
+
+## 5.8.4
+
+### Patch Changes
+
+- [#67113](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67113) [`7160ae19d9e5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7160ae19d9e5) - [ux] Adds localisation for table drag handle menu options
+- [#66456](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66456) [`f67ea3106bb9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f67ea3106bb9) - Add support for i18n for drag handles
+
+## 5.8.3
+
+### Patch Changes
+
+- [#66462](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66462) [`241abc835673`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/241abc835673) - Add autoscroll to editor page to fix table drag and drop
+
+## 5.8.2
+
+### Patch Changes
+
+- [#66678](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66678) [`dcfaed76166a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcfaed76166a) - Update insert row / column plus icon for table
+
+## 5.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.0
+
+### Minor Changes
+
+- [#57215](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57215) [`73841c209537`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73841c209537) - [ux] ECA11Y-107: Add basic keyboard navigation for resize sliders
+
+### Patch Changes
+
+- [#66092](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66092) [`b436457c489f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b436457c489f) - [ux] ED-21241: Add new menu items to the drag handle menus
+- Updated dependencies
+
+## 5.7.10
+
+### Patch Changes
+
+- [#66128](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66128) [`a276b9ce0b8f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a276b9ce0b8f) - Add data test ids to elements, introduce table tests
+- [#66453](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66453) [`a43a37f6b703`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a43a37f6b703) - [ux] Updates color of insert line when drop target has merged cells.
+- Updated dependencies
+
+## 5.7.9
+
+### Patch Changes
+
+- [#65636](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65636) [`de5fd6bce7c5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de5fd6bce7c5) - [ux] update offset so multiple lines row drag preview could be looks properly
+
+## 5.7.8
+
+### Patch Changes
+
+- [#65572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65572) [`a13e13b8eb7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a13e13b8eb7d) - [ux] Increases drag menu width by 10px to ensure "Move column right" option fits on one line.
+- [#65031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65031) [`a00094111b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a00094111b5a) - ED-21609 Update adf-schema to 35.3.0
+- Updated dependencies
+
+## 5.7.7
+
+### Patch Changes
+
+- [#64359](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64359) [`e728a3537d3b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e728a3537d3b) - [ux] Adds table shortcust to move row or column and to delete row or column when drag and drop enabled
+
+## 5.7.6
+
+### Patch Changes
+
+- [#64679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64679) [`0d0b1219b1b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d0b1219b1b9) - Fix insert column button and line above toolbar popups
+- Updated dependencies
+
+## 5.7.5
+
+### Patch Changes
+
+- [#64179](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64179) [`3754cce9321d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3754cce9321d) - setup table resizing performance experiment
+- [#63857](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63857) [`9f15ea30d592`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f15ea30d592) - [ux] fix zindex for sticky scrollbar
+- Updated dependencies
+
+## 5.7.4
+
+### Patch Changes
+
+- [#63287](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63287) [`8b58c452f126`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b58c452f126) - ED-20334 Cleaned reference for feature flag 'platform.editor.table-update-colwidths-after-column-is-deleted'and refactored code for it.
+
+## 5.7.3
+
+### Patch Changes
+
+- [#63290](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63290) [`52ea8e908f57`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52ea8e908f57) - ED-19613: Cleaned references for feature flag: platform.editor.table-remove-update-resize-handles_djvab.
+- [#63606](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63606) [`196f99e732d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/196f99e732d6) - [ux] Add support for drag handle for sticky header in table
+- [#61531](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61531) [`4f1e82618f55`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f1e82618f55) - [ux] fix in danger selection been re-calcuate with merged cells
+- Updated dependencies
+
+## 5.7.2
+
+### Patch Changes
+
+- [#63416](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63416) [`cfa23683ae92`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cfa23683ae92) - update floating tool bar button
+- [#63569](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63569) [`bf5ed730bc99`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bf5ed730bc99) - Use start position to calculate insert column buttons to cater for merged cells
+
+## 5.7.1
+
+### Patch Changes
+
+- [#63516](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63516) [`8fdf2e7a3737`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8fdf2e7a3737) - [ux] Added an adjustment value to the guidelines visible filtering method to exclude guidelines which may be visible but are not snapable.
+- Updated dependencies
+
+## 5.7.0
+
+### Minor Changes
+
+- [#62416](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62416) [`9f3c36680d89`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f3c36680d89) - [ux] Updated table context menu styling.
+
+## 5.6.7
+
+### Patch Changes
+
+- [#61923](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61923) [`04e38cfe9e90`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/04e38cfe9e90) - Remove legacy theming logic from all Editor plugin packages. Theming is still available via the @atlaskit/tokens package.
+- Updated dependencies
+
+## 5.6.6
+
+### Patch Changes
+
+- [#62165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62165) [`b44ac0968d79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b44ac0968d79) - [ED-21562] Bump @atlaskit/adf-schema to 35.2.0 for border mark update
+- Updated dependencies
+
+## 5.6.5
+
+### Patch Changes
+
+- [#58893](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58893) [`ed82b25d516b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed82b25d516b) - [ux] [ECA11Y-110] Selecting table columns and rows via shortcuts
+
+## 5.6.4
+
+### Patch Changes
+
+- [#61812](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61812) [`1d1776f9f6bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1d1776f9f6bf) - Fix issue where inserting column via drag menu introduces a scroll
+
+## 5.6.3
+
+### Patch Changes
+
+- [#59319](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59319) [`d2e34e936bf2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2e34e936bf2) - [ED-15859] Clean up restartNumberedLists feature flag and set this feature as the default behaviour for ordered lists. Currently this feature is only rolled out in Confluence so this change will roll it out to all other products which adopt this version.
+
+## 5.6.2
+
+### Patch Changes
+
+- [#61138](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61138) [`d3a57afcd62b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3a57afcd62b) - Cleaned references for feature flag: platform.editor.table.update-table-resizer-styles
+
+## 5.6.1
+
+### Patch Changes
+
+- [#61294](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61294) [`70b236bfd951`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70b236bfd951) - remove raf from sticky scrollbar handler to fix jittery behaviour
+
+## 5.6.0
+
+### Minor Changes
+
+- [#60937](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60937) [`fd6ea5aa5a6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fd6ea5aa5a6e) - Added new table analytics to cover moving row/column scenarios
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.5.13
+
+### Patch Changes
+
+- [#60425](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60425) [`0caaaa7105f9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0caaaa7105f9) - [ux] Fix drag menu position and anchor element
+
+## 5.5.12
+
+### Patch Changes
+
+- [#60612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60612) [`7edc766361a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7edc766361a2) - Created an EditorCommad on table plugin to insert a table of custom size
+
+## 5.5.11
+
+### Patch Changes
+
+- [#60830](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60830) [`5472a318103f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5472a318103f) - force colgroup to update after column drop to ensure the correct column width is shown
+- [#60767](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60767) [`737f3666a35d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/737f3666a35d) - Ensure the target that is being pasted is a table
+- [#60717](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60717) [`15f7bd8c548a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15f7bd8c548a) - disable sort in drag menu when there is merged cell in table
+
+## 5.5.10
+
+### Patch Changes
+
+- [#60808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60808) [`f509a21be124`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f509a21be124) - ED-21506: @atlaskit/adf-schema upgraded to 35.1.1 to support renderer for MBE
+- Updated dependencies
+
+## 5.5.9
+
+### Patch Changes
+
+- [#60800](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60800) [`ec9a5b53bdc0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec9a5b53bdc0) - only show white overflay on numbered columns when sticky headers is active
+- [#60696](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60696) [`edd1af912ca8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/edd1af912ca8) - remove column controls when sticky header is active
+
+## 5.5.8
+
+### Patch Changes
+
+- [#60644](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60644) [`513c52530ec8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/513c52530ec8) - add distribute column logic to drag menu
+- Updated dependencies
+
+## 5.5.7
+
+### Patch Changes
+
+- [#60463](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60463) [`fc3ba048ce0b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fc3ba048ce0b) - - increase drag handle z-index to prevent overlap from column resize decoration
+  - update drag corner button to match updated designs
+
+## 5.5.6
+
+### Patch Changes
+
+- [#58246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58246) [`a381b2599716`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a381b2599716) - ED-21371 Update adf-schema to 35.1.0
+- Updated dependencies
+
+## 5.5.5
+
+### Patch Changes
+
+- [#59951](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59951) [`a42a17e8af1b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a42a17e8af1b) - ED-21106: Remove nonPrivacySafeAttributes from editor operational events
+- [#59453](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59453) [`e23de3e96559`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e23de3e96559) - Fix drop table row/column next to merged cells
+
+## 5.5.4
+
+### Patch Changes
+
+- [#60278](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60278) [`bc2785a02329`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc2785a02329) - Selection of multiple rows / column should remain when clicking the drag handle
+- [#60323](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60323) [`e0c900d97140`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0c900d97140) - Fix undo of drag and drop using keyboard
+
+## 5.5.3
+
+### Patch Changes
+
+- [#59569](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59569) [`dffa156814cd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dffa156814cd) - [ux] re-implement feature with fixed handle when drag menu off and fix issue when numbered column enabled.
+- [#60153](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60153) [`5764d44cc93b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5764d44cc93b) - Cleaned references for feature flag: platform.editor.table.overflow-state-analytics
+
+## 5.5.2
+
+### Patch Changes
+
+- [#60256](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60256) [`e5e06beb51e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e5e06beb51e1) - Fixed a regression in the drag handles where they would reset to the previous position after the user drops a row from the top to bottom of the table.
+
+## 5.5.1
+
+### Patch Changes
+
+- [#59829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59829) [`3120b36a9f2c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3120b36a9f2c) - Converted spacing values to the corresponding space tokens
+
+## 5.5.0
+
+### Minor Changes
+
+- [#56823](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56823) [`d2fbdf3b6822`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2fbdf3b6822) - [ux] ECA11Y-111: Keyboard accessibility of table resizer
+
+## 5.4.25
+
+### Patch Changes
+
+- [#58565](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58565) [`1f112c9375db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1f112c9375db) - replace table sticky scrollbar platform feature flag with an editorFeatureFlag
+
+## 5.4.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.4.23
+
+### Patch Changes
+
+- [#59370](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59370) [`eb7463620368`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb7463620368) - [ux] ED-21355:When table drag and drop enable not show cell options on table toolbar.
+
+## 5.4.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.4.21
+
+### Patch Changes
+
+- [#59392](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59392) [`d0da8be30b97`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0da8be30b97) - Reduce width of drag handle to ensure it doesn't overlap editable space
+
+## 5.4.20
+
+### Patch Changes
+
+- [#59135](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59135) [`0f0de3fcf207`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0f0de3fcf207) - Drag and drop inside tables will now be disabled if the table nodeSize exceeds 20000
+
+## 5.4.19
+
+### Patch Changes
+
+- [#59403](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59403) [`4edf50cbdc01`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4edf50cbdc01) - Fixed DnD preview bug which was impacting safari when the preview snapshot was taken, other html elements below the preview zone would be included.
+
+## 5.4.18
+
+### Patch Changes
+
+- [#59374](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59374) [`7c5ff172f275`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c5ff172f275) - Fix firefox issue with dragging when child element has pointer elements blocked
+- [#59400](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59400) [`92bff40b42a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92bff40b42a1) - revert changes to make drag handle visible when menu is open
+
+## 5.4.17
+
+### Patch Changes
+
+- [#59009](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59009) [`f7e9d874ff37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f7e9d874ff37) - Fix table expand selection when `platform.editor.table-shift-click-selection-backward` FF is enabled
+- [#58768](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58768) [`a300aa54a8e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a300aa54a8e9) - [ux] Fixes resize handle state when column is in danger
+
+## 5.4.16
+
+### Patch Changes
+
+- [#58843](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58843) [`630177f9bf2e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/630177f9bf2e) - [ux] add selected handle and also keep hover handle
+
+## 5.4.15
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+- [#59075](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59075) [`f149e1b3253c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f149e1b3253c) - Fixed the apperance of a globe icon which occurs when dragging a column which generates a preview with 0px area. The preview width and height are now calculate when needed, rather then using the cached hovered cell value.
+- [#58846](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58846) [`99f05f5ee5b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/99f05f5ee5b5) - normalise cell positions as table maps are offsets for rowOrColumMoved event
+- [#58451](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58451) [`174737fc3054`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/174737fc3054) - The table drag handles will now correctly display after dropping a row/column when previously the handle would disappear
+- Updated dependencies
+
+## 5.4.14
+
+### Patch Changes
+
+- [#58816](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58816) [`ce6fd55ca7ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce6fd55ca7ec) - Disable pointer events for SVG file in drag handle which fixes an issue where the selection would move outside of table
+
+## 5.4.13
+
+### Patch Changes
+
+- [#58379](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58379) [`985c068738e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/985c068738e8) - [ux] Add a util to convert cell index into actula colIndex to fix column drag handle position.
+- Updated dependencies
+
+## 5.4.12
+
+### Patch Changes
+
+- [#58717](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58717) [`d65ee171dc89`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d65ee171dc89) - Return focus to editor when a mouse up event on drag handle is called - this allows copying of table selection to still work
+- [#58763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58763) [`0fdbd64522bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fdbd64522bf) - update ADF schema
+- Updated dependencies
+
+## 5.4.11
+
+### Patch Changes
+
+- [#58433](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58433) [`4d8e164d7760`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d8e164d7760) - fix shift + click to expand column / row selection bug when `platform.editor.table.drag-and-drop` is enabled
+
+## 5.4.10
+
+### Patch Changes
+
+- [#58174](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58174) [`b409282ab2b8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b409282ab2b8) - Check pasted slice is a table element before trying to access table map
+
+## 5.4.9
+
+### Patch Changes
+
+- [#58068](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58068) [`3f88811fe28a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f88811fe28a) - Disable move commands in floating menu when there are merged cells
+
+## 5.4.8
+
+### Patch Changes
+
+- [#57815](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57815) [`5cd97624a19d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5cd97624a19d) - Replace getBooleanFF calls inside stylesheets and replace with isDragAndDrop table option - fixes column controls not rendering in comments
+
+## 5.4.7
+
+### Patch Changes
+
+- [#56725](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56725) [`4401801c484b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4401801c484b) - Add new rowOrColumnMoved event to table plugin, behind a feature flag
+
+## 5.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.4.5
+
+### Patch Changes
+
+- [#56956](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56956) [`5fc2be1d6859`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fc2be1d6859) - fix hover to other column and rows handle icon not show minimised when drag menu open
+- [#56619](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56619) [`12b429f6bd9b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12b429f6bd9b) - remove blue border highlight in table when hover over row and column handle in drag and drop FF on
+
+## 5.4.4
+
+### Patch Changes
+
+- [#56790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56790) [`ff577a7969d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff577a7969d4) - ED-21266: Updated @atlaskit/adf-schema to 34.0.1
+- Updated dependencies
+
 ## 5.4.3
 
 ### Patch Changes

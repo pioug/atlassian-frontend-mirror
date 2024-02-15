@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import CodeBlock from '@atlaskit/code/block';
 import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { Label } from '@atlaskit/form';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 import Range from '@atlaskit/range';
 
@@ -13,7 +14,15 @@ const Example = () => {
   return (
     <Stack space="space.0">
       <Text>SectionMessage expands to fill the space available to it.</Text>
-      <Range min={100} max={800} onChange={setWidth} step={1} value={width} />
+      <Label htmlFor="resize-message">Resize message</Label>
+      <Range
+        id="resize-message"
+        min={100}
+        max={800}
+        onChange={setWidth}
+        step={1}
+        value={width}
+      />
       <Box xcss={xcss({ maxWidth: `${width}px` })}>
         <SectionMessage
           title="The Modern Prometheus"

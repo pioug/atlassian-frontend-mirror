@@ -1,24 +1,14 @@
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import {
-  DatasourceAdf,
-  DatasourceAdfView,
-  InlineCardAdf,
-} from '@atlaskit/linking-common/types';
-export interface AssetsDatasourceParameters {
+import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
+
+export type AssetsDatasourceParameters = {
   workspaceId: string;
   aql: string;
   schemaId: string;
-}
-export interface AssetsDatasourceAdf extends DatasourceAdf {
-  attrs: {
-    url?: string;
-    datasource: {
-      id: string;
-      parameters: AssetsDatasourceParameters;
-      views: DatasourceAdfView[];
-    };
-  };
-}
+};
+
+export type AssetsDatasourceAdf = DatasourceAdf<AssetsDatasourceParameters>;
+
 export interface AssetsConfigModalProps {
   datasourceId: string;
   visibleColumnKeys?: string[];

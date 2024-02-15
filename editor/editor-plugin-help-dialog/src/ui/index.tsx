@@ -3,7 +3,7 @@ import { useCallback, useEffect } from 'react';
 
 import { jsx } from '@emotion/react';
 import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
-import { defineMessages, FormattedMessage, injectIntl } from 'react-intl-next';
+import { FormattedMessage, injectIntl } from 'react-intl-next';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import {
@@ -11,6 +11,9 @@ import {
   addLink,
   alignLeft,
   clearFormatting,
+  decreaseMediaSize,
+  focusTableResizer,
+  increaseMediaSize,
   insertRule,
   navToEditorToolbar,
   navToFloatingToolbar,
@@ -43,6 +46,7 @@ import {
   annotationMessages,
   blockTypeMessages,
   listMessages,
+  helpDialogMessages as messages,
   toolbarInsertBlockMessages,
   toolbarMessages,
   undoRedoMessages,
@@ -57,6 +61,7 @@ import AkModalDialog, {
   ModalTransition,
   useModal,
 } from '@atlaskit/modal-dialog';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { closeHelpCommand } from '../commands';
 import type { HelpDialogPlugin } from '../types';
@@ -66,6 +71,7 @@ import {
   codeMd,
   codeSm,
   column,
+  componentFromKeymapWrapperStyles,
   content,
   contentWrapper,
   dialogHeader,
@@ -73,57 +79,9 @@ import {
   header,
   line,
   row,
+  shortcutsArray,
   title,
 } from './styles';
-
-const messages = defineMessages({
-  editorHelp: {
-    id: 'fabric.editor.editorHelp',
-    defaultMessage: 'Editor help',
-    description: 'Title of editor help dialog.',
-  },
-  helpDialogTips: {
-    id: 'fabric.editor.helpDialogTips',
-    defaultMessage: 'Press {keyMap} to quickly open this dialog at any time',
-    description: 'Hint about how to open a dialog quickly using a shortcut.',
-  },
-  keyboardShortcuts: {
-    id: 'fabric.editor.keyboardShortcuts',
-    defaultMessage: 'Keyboard shortcuts',
-    description: '',
-  },
-  markdown: {
-    id: 'fabric.editor.markdown',
-    defaultMessage: 'Markdown',
-    description: 'It is a name of popular markup language.',
-  },
-  pastePlainText: {
-    id: 'fabric.editor.pastePlainText',
-    defaultMessage: 'Paste plain text',
-    description: '',
-  },
-  CheckUncheckActionItem: {
-    id: 'fabric.editor.checkUncheckActionItem',
-    defaultMessage: 'Toggle action item',
-    description: 'For Check/Uncheck Action item use shortcut',
-  },
-  altText: {
-    id: 'fabric.editor.altText',
-    defaultMessage: 'Alt text',
-    description: 'Alternative text for image.',
-  },
-  closeHelpDialog: {
-    id: 'fabric.editor.closeHelpDialog',
-    defaultMessage: 'Close help dialog',
-    description: '',
-  },
-  // TODO: Move it inside quick insert plugin
-  quickInsert: {
-    id: 'fabric.editor.quickInsert',
-    defaultMessage: 'Quick insert',
-    description: 'Name of a feature, which let you insert items quickly.',
-  },
-});
 
 export interface Format {
   name: string;
@@ -428,6 +386,87 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
     type: 'checkbox',
     keymap: () => toggleTaskItemCheckbox,
   },
+  ...(getBooleanFF('platform.editor.a11y.table-selection_9uv33')
+    ? [
+        {
+          name: formatMessage(messages.selectTableRow),
+          type: 'table',
+          autoFormatting: () => (
+            <span css={shortcutsArray}>
+              <span>
+                <span css={codeSm}>{browser.mac ? '⌘' : 'Ctrl'}</span>
+                {' + '}
+                <span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+                {' + '}
+                <span css={codeMd}>Shift</span>
+                {' + '}
+                <span css={codeSm}>←</span>
+              </span>
+              <span>
+                <span css={codeSm}>{browser.mac ? '⌘' : 'Ctrl'}</span>
+                {' + '}
+                <span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+                {' + '}
+                <span css={codeMd}>Shift</span>
+                {' + '}
+                <span css={codeSm}>→</span>
+              </span>
+            </span>
+          ),
+        },
+        {
+          name: formatMessage(messages.selectTableColumn),
+          type: 'table',
+          autoFormatting: () => (
+            <span css={shortcutsArray}>
+              <span>
+                <span css={codeSm}>{browser.mac ? '⌘' : 'Ctrl'}</span>
+                {' + '}
+                <span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+                {' + '}
+                <span css={codeMd}>Shift</span>
+                {' + '}
+                <span css={codeSm}>↑</span>
+              </span>
+              <span>
+                <span css={codeSm}>{browser.mac ? '⌘' : 'Ctrl'}</span>
+                {' + '}
+                <span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+                {' + '}
+                <span css={codeMd}>Shift</span>
+                {' + '}
+                <span css={codeSm}>↓</span>
+              </span>
+            </span>
+          ),
+        },
+      ]
+    : []),
+];
+
+const resizeInformationFormatting: (intl: IntlShape) => Format[] = ({
+  formatMessage,
+}) => [
+  {
+    name: formatMessage(messages.increaseSize),
+    type: 'media',
+    keymap: () => increaseMediaSize,
+  },
+  {
+    name: formatMessage(messages.decreaseSize),
+    type: 'media',
+    keymap: () => decreaseMediaSize,
+  },
+];
+
+const focusTableResizeHandleFormatting: (intl: IntlShape) => Format[] = ({
+  formatMessage,
+}) => [
+  {
+    name: formatMessage(messages.focusTableResizeHandle),
+    type: 'navigation',
+    keymap: () => focusTableResizer,
+  },
 ];
 
 const imageAutoFormat: Format = {
@@ -464,6 +503,10 @@ const getKeyParts = (keymap: Keymap) => {
   return shortcut.replace(/\-(?=.)/g, ' + ').split(' ');
 };
 
+const isAnyA11yResizeFeatureFlagEnabled =
+  getBooleanFF('platform.editor.a11y-media-resizing_b5v0o') ||
+  getBooleanFF('platform.editor.a11y-table-resizing_uapcv');
+
 export const getSupportedFormatting = (
   schema: Schema,
   intl: IntlShape,
@@ -479,13 +522,19 @@ export const getSupportedFormatting = (
     ...(imageEnabled ? [imageAutoFormat] : []),
     ...(quickInsertEnabled ? [quickInsertAutoFormat(intl)] : []),
     ...otherFormatting(intl),
+    ...(isAnyA11yResizeFeatureFlagEnabled
+      ? resizeInformationFormatting(intl)
+      : []),
+    ...(getBooleanFF('platform.editor.a11y-table-resizing_uapcv')
+      ? focusTableResizeHandleFormatting(intl)
+      : []),
   ];
 };
 
 export const getComponentFromKeymap = (keymap: Keymap) => {
   const keyParts = getKeyParts(keymap);
   return (
-    <span>
+    <span css={componentFromKeymapWrapperStyles}>
       {keyParts.map((part, index) => {
         if (part === '+') {
           return <span key={`${keyParts}-${index}`}>{' + '}</span>;

@@ -21,4 +21,9 @@ export const messages = defineMessages({
     defaultMessage: 'Close',
     description: '',
   },
+  help_panel_header_close_button: {
+    id: 'helpPanel.header.close.button',
+    defaultMessage: 'Close Help Panel',
+    description: '',
+  },
 });

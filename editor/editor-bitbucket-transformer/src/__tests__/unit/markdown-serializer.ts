@@ -476,7 +476,7 @@ describe('BitbucketTransformer: serializer', () => {
       );
     });
 
-    describe('custom start numbers (restartNumberedLists)', () => {
+    describe('custom start numbers', () => {
       it('with list with order (1) should serialize', () => {
         expect(
           markdownSerializer.serialize(

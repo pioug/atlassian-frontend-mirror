@@ -11,7 +11,7 @@ import FlagActions from '../../examples/constellation/flag-actions';
 
 ## Default
 
-The default flag type includes a dismiss button. All flags require a `title` and an `icon`. Make sure the icon and color match the intent of your message, such as warning, error, information, or success.
+All flags require a `title` and an `icon`. Make sure the icon and color match the intent of your message, such as warning, error, information, or success. A dismiss button will auto-display on the first flag in a `FlagGroup` or when the `appearance` prop is set.
 
 Flags are often used within a [flag group](./flag-group/examples).
 
@@ -25,28 +25,32 @@ Use `actions` to show a clickable action at the bottom of the flag. For flags wh
 
 ## Appearance
 
-Unlike normal flags, setting an `appearance` gives the flag a bold color. Bold appearance flags don't have a dismiss button, so they require a more direct interaction from the user.
+Unlike normal flags, setting an `appearance` gives the flag a bold color. Bold appearance flags don't have a dismiss button, so they require a more direct interaction from people.
 
 ### Information
 
-Information messages alert the user to additional information without requiring an action. Inform the user about something that might help or impact them. Then, let them get back to work. Info messages are also used for loading states.
+Information messages alert people to additional information without requiring an action. You can also use them for loading states.
 
 <Example Component={FlagInfo} packageName="@atlaskit/flag" />
 
 ### Warning
 
-Warning messages appear before we request the user to take action. This is usually in anticipation of a significant change. Have empathy for the user. Inform, but don't alarm. If the warning comes before an action, clearly communicate what will happen if they proceed, and provide an alternative where possible.
+Warning messages appear before we request people to take action. This is usually in anticipation of a significant change.
+
+Never set warning flags to auto dismiss. Give people enough time to read your message and decide what to do.
 
 <Example Component={FlagWarning} packageName="@atlaskit/flag" />
 
 ### Error
 
-Error messages let the user know that something has gone wrong after they've tried to do something or if there are connectivity issues. Explain the problem and provide the user with a next step or an alternative. Keep the message simple and direct, and avoid confusing the user with technical details. If it's our fault, own up to it.
+Error messages let people know that something has gone wrong after they've tried to do something or if there are connectivity issues.
+
+Never set error flags to auto dismiss. Give people enough time to read your message and understand the problem.
 
 <Example Component={FlagError} packageName="@atlaskit/flag" />
 
 ### Success
 
-Success messages let people know they have completed an action. For these messages, it's best to confirm the outcome and let people continue. If they have just created something, give them an option to view it.
+Success messages let people know they have completed an action.
 
 <Example Component={FlagSuccess} packageName="@atlaskit/flag" />

@@ -219,11 +219,13 @@ export const mediaPlugin: MediaNextEditorPluginType = ({
         },
         {
           name: 'mediaKeymap',
-          plugin: () =>
+          plugin: ({ getIntl }) =>
             keymapPlugin(
               options,
               api?.analytics?.actions,
-              api?.selection.actions,
+              api?.selection?.actions,
+              api?.width,
+              getIntl,
             ),
         },
       ];
@@ -357,6 +359,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({
             allowAltTextOnImages: options && options.allowAltTextOnImages,
             altTextValidator: options && options.altTextValidator,
             fullWidthEnabled: options && options.fullWidthEnabled,
+            allowMediaInlineImages: options && options.allowMediaInlineImages,
           },
           api,
         ),

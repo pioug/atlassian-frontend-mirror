@@ -63,7 +63,7 @@ export default class Example extends Component<Props, State> {
       : parsedDate.toISOString();
     return (
       <Fragment>
-        <h3>Date Parser</h3>
+        <h2>Date Parser</h2>
         <Label htmlFor="input">Input</Label>
         <TextField
           id="input"
@@ -75,7 +75,10 @@ export default class Example extends Component<Props, State> {
         <TextField id="output" value={parsedDateISO} isReadOnly isDisabled />
 
         {this.props.l10n ? undefined : (
-          <LocaleSelect onLocaleChange={this.onLocaleChange} />
+          <>
+            <Label htmlFor="locale">Locale</Label>
+            <LocaleSelect id="locale" onLocaleChange={this.onLocaleChange} />
+          </>
         )}
       </Fragment>
     );

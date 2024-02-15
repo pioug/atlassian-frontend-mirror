@@ -1,5 +1,123 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.0.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.22
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+
+## 3.0.21
+
+### Patch Changes
+
+- [#70152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70152) [`53ed3673df28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53ed3673df28) - Updating adf-schema version to 35.5.1
+
+## 3.0.20
+
+### Patch Changes
+
+- [#68217](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68217) [`bfd8d2ded4aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfd8d2ded4aa) - [ux] correctly delete the decision list inside panel having only one decision item.
+
+## 3.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.18
+
+### Patch Changes
+
+- [#67857](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67857) [`9f1035441959`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f1035441959) - [ED-21835] Change EditorAPI type to always union with undefined
+- Updated dependencies
+
+## 3.0.17
+
+### Patch Changes
+
+- [#67557](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67557) [`124d0c6d5286`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/124d0c6d5286) - Migrating block-type, text-color, and text-formatting to use useSharedPluginState rather than WithPluginState. Removing unused option on default preset. Adding formattingIsPresent prop to TextFormattingState.
+- Updated dependencies
+
+## 3.0.16
+
+### Patch Changes
+
+- [#67238](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67238) [`40533849b2ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40533849b2ec) - [ED-21835] Change EditorAPI type to always union with undefined
+
+## 3.0.15
+
+### Patch Changes
+
+- [#65802](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65802) [`438ead060875`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/438ead060875) - Ensure all editor plugins are marked as singletons
+
+## 3.0.14
+
+### Patch Changes
+
+- [#65031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65031) [`a00094111b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a00094111b5a) - ED-21609 Update adf-schema to 35.3.0
+- Updated dependencies
+
+## 3.0.13
+
+### Patch Changes
+
+- [#61923](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61923) [`04e38cfe9e90`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/04e38cfe9e90) - Remove legacy theming logic from all Editor plugin packages. Theming is still available via the @atlaskit/tokens package.
+
+## 3.0.12
+
+### Patch Changes
+
+- [#62165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62165) [`b44ac0968d79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b44ac0968d79) - [ED-21562] Bump @atlaskit/adf-schema to 35.2.0 for border mark update
+
+## 3.0.11
+
+### Patch Changes
+
+- [#60534](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60534) [`191a38f1ea23`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/191a38f1ea23) - ED-20966 Use blockQuoteWithList PMNode when 'allow-list-in-blockquote' FF is enabled
+- Updated dependencies
+
+## 3.0.10
+
+### Patch Changes
+
+- [#60808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60808) [`f509a21be124`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f509a21be124) - ED-21506: @atlaskit/adf-schema upgraded to 35.1.1 to support renderer for MBE
+
+## 3.0.9
+
+### Patch Changes
+
+- [#58246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58246) [`a381b2599716`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a381b2599716) - ED-21371 Update adf-schema to 35.1.0
+
+## 3.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.7
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 3.0.6
+
+### Patch Changes
+
+- [#58763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58763) [`0fdbd64522bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fdbd64522bf) - update ADF schema
+
+## 3.0.5
+
+### Patch Changes
+
+- [#56790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56790) [`ff577a7969d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff577a7969d4) - ED-21266: Updated @atlaskit/adf-schema to 34.0.1
+
 ## 3.0.4
 
 ### Patch Changes

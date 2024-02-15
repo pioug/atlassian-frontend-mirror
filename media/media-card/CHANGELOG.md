@@ -1,5 +1,184 @@
 # @atlaskit/media-card
 
+## 77.10.0
+
+### Minor Changes
+
+- [#72258](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72258) [`31cecb8f314b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/31cecb8f314b) - ECA11Y-78: removed feature flag
+
+## 77.9.0
+
+### Minor Changes
+
+- [#71201](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71201) [`1b48cdd3c074`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b48cdd3c074) - ED-21767 export inline image analytic function.
+
+## 77.8.0
+
+### Minor Changes
+
+- [#69045](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69045) [`c181471c1afb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c181471c1afb) - Made media card keyboard accessible when media viewer is enabled
+
+### Patch Changes
+
+- Updated dependencies
+
+## 77.7.7
+
+### Patch Changes
+
+- [#70446](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70446) [`f5cf78271e82`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5cf78271e82) - Card v2 updates use of return value from Hook
+- Updated dependencies
+
+## 77.7.6
+
+### Patch Changes
+
+- [#70361](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70361) [`00f64ae9f383`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/00f64ae9f383) - Added failed-processing as error primary reason in Card v2
+
+## 77.7.5
+
+### Patch Changes
+
+- [#70034](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70034) [`0cf829b2ca1f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0cf829b2ca1f) - Updated prop names from Preview Hook
+- Updated dependencies
+
+## 77.7.4
+
+### Patch Changes
+
+- [#69809](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69809) [`8c7fda062747`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8c7fda062747) - Unskip MediaCardV2 tests for processing status
+
+## 77.7.3
+
+### Patch Changes
+
+- [#69372](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69372) [`c5868970426f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c5868970426f) - Simplified status set in Card v2
+- Updated dependencies
+
+## 77.7.2
+
+### Patch Changes
+
+- [#65817](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65817) [`3be0ec786219`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3be0ec786219) - Added data test preview source
+- Updated dependencies
+
+## 77.7.1
+
+### Patch Changes
+
+- [#67886](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67886) [`18c0c2f52a54`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/18c0c2f52a54) - CXP-2880 remove isBannedLocalPreview state from fileCard
+
+## 77.7.0
+
+### Minor Changes
+
+- [#66422](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66422) [`e26fc35ce110`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e26fc35ce110) - [CXP-2840] Added `DateOverrideContext` to fix inconsistent creation time in film strip (JRACLOUD-77568)
+
+## 77.6.7
+
+### Patch Changes
+
+- [#65749](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65749) [`1b2e73df14b4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b2e73df14b4) - Updated Preview Hook usage
+- Updated dependencies
+
+## 77.6.6
+
+### Patch Changes
+
+- [#62664](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62664) [`d9ad2c26fedf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d9ad2c26fedf) - Media Card uses preview hook from public package
+
+## 77.6.5
+
+### Patch Changes
+
+- [#61878](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61878) [`7392ec59e8d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7392ec59e8d7) - Reorganised preview resolution logic in preview hook
+
+## 77.6.4
+
+### Patch Changes
+
+- [#61611](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61611) [`fd753abb6b83`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fd753abb6b83) - [ED-21557] Add optional chaining in the unsubscribe to avoid tests cases failing in React 18
+
+## 77.6.3
+
+### Patch Changes
+
+- [#61545](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61545) [`7eff3f03b521`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7eff3f03b521) - Reorganised logic of Previe Hook
+
+## 77.6.2
+
+### Patch Changes
+
+- [#60690](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60690) [`4a6ece928910`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4a6ece928910) - [ux] Media Inline Card displays the file name when failed to process and enables Media Viewer to download it
+
+## 77.6.1
+
+### Patch Changes
+
+- [#60393](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60393) [`7f40d5c65a95`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7f40d5c65a95) - Isolated analytics resources for preview hook
+
+## 77.6.0
+
+### Minor Changes
+
+- [#60120](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60120) [`90b15e5dd475`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/90b15e5dd475) - Extract CardView logic into individual "view" components
+
+### Patch Changes
+
+- [#60464](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60464) [`a30f9a5f3e0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a30f9a5f3e0d) - Removing unused dependencies
+
+## 77.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 77.5.1
+
+### Patch Changes
+
+- [#59746](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59746) [`8412c1b3563d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8412c1b3563d) - isolated dependencies of usePreviewHook (not includes analytics)
+
+## 77.5.0
+
+### Minor Changes
+
+- [#59081](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59081) [`ddeb216a6c03`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ddeb216a6c03) - remove extra react loadable breakdown as it is unnecessary
+
+## 77.4.10
+
+### Patch Changes
+
+- [#58827](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58827) [`d0041df63a34`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0041df63a34) - Small code refactor
+
+## 77.4.9
+
+### Patch Changes
+
+- [#57473](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57473) [`100f90575744`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/100f90575744) - Remove legacy theming logic from @atlaskit/media-avatar-picker, @atlaskit/media-card, @atlaskit/media-ui and @atlaskit/media-viewer.
+
+## 77.4.8
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+- [#58813](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58813) [`28b2b3f41843`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/28b2b3f41843) - Internal components use useMediaClient hook
+- [#56822](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56822) [`77f4fbf44e93`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77f4fbf44e93) - ECA11Y-78: Added announce for the selected file
+- [#58473](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58473) [`7c4103bcdc2c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c4103bcdc2c) - refactored use of card dimensions and requested dimensions in card V2
+
+## 77.4.7
+
+### Patch Changes
+
+- [#57119](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57119) [`c64d6ef23ba4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c64d6ef23ba4) - Replaces the return type of internal preview hook to include the attributes for the ssr script
+- Updated dependencies
+
+## 77.4.6
+
+### Patch Changes
+
+- [#56636](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56636) [`eb1b7736ff9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb1b7736ff9d) - Moved preview fetch logic from internal component into an internal hook
+
 ## 77.4.5
 
 ### Patch Changes

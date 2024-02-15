@@ -17,6 +17,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': 'Je wijzigingen worden niet opgeslagen',
   'linkCreate.createForm.button.close': 'Sluiten',
   'linkCreate.createForm.button.create': 'Aanmaken',
-  'linkCreate.createForm.button.edit': 'Bewerken',
+  'linkCreate.createForm.button.createAndOpen': 'Aanmaken en openen',
   'linkCreate.modal.heading': 'Nieuwe aanmaken',
 };

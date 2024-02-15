@@ -1,15 +1,16 @@
 /** @jsx jsx */
 import type { SyntheticEvent } from 'react';
-import React from 'react';
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { jsx } from '@emotion/react';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import type {
+  ContextIdentifierProvider,
+  ProviderFactory,
+} from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { MediaBorderGapFiller } from '@atlaskit/editor-common/ui';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { MediaCardProps, MediaProvider } from '../../../ui/MediaCard';
 import { MediaCard } from '../../../ui/MediaCard';
 import type {
@@ -51,7 +52,7 @@ type Providers = {
 };
 export default class Media extends PureComponent<MediaProps, {}> {
   private renderCard = (providers: Providers = {}) => {
-    const { mediaProvider, contextIdentifierProvider } = providers;
+    const { contextIdentifierProvider } = providers;
     const {
       allowAltTextOnImages,
       alt,
@@ -82,7 +83,6 @@ export default class Media extends PureComponent<MediaProps, {}> {
         }}
       >
         <MediaCard
-          mediaProvider={mediaProvider}
           contextIdentifierProvider={contextIdentifierProvider}
           {...this.props}
           shouldOpenMediaViewer={shouldOpenMediaViewer}

@@ -10,10 +10,10 @@ export type {
 export type { EditorReactContext } from './editor-react-context';
 export type {
   EditorProps,
-  FeedbackInfo,
   ReactComponents,
   ExtensionProvidersProp,
   PrimaryToolbarComponents,
+  ContentComponents,
 } from './editor-props';
 export type { EditorAppearanceComponentProps } from './editor-appearance-component';
 export type { Command, CommandDispatch } from './command';

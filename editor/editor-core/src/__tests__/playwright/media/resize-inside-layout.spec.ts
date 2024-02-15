@@ -1,28 +1,29 @@
 import type { EditorPageInterface } from '@af/editor-libra';
 import {
-  editorTestCase as test,
+  EditorBreakoutModel,
+  EditorMainToolbarModel,
+  EditorMediaSingleModel,
   EditorNodeContainerModel,
   EditorUploadMediaModel,
-  EditorMediaSingleModel,
-  EditorMainToolbarModel,
-  EditorBreakoutModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
+  breakout,
   doc,
-  mediaSingle,
-  layoutSection,
   layoutColumn,
+  layoutSection,
+  li,
+  mediaSingle,
   p,
   ul,
-  li,
-  breakout,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import {
-  layoutWithTwoColumns,
-  layoutWithThreeColumns,
   layoutWithRightSideBar,
+  layoutWithThreeColumns,
+  layoutWithTwoColumns,
   mediaSingleInsideListWithinLayoutAdf,
 } from './__fixtures__/adf-documents';
 
@@ -134,7 +135,7 @@ test.describe('when media is inside a layout with two columns', () => {
   test.describe('and has wide breakout', () => {
     test('should resize the media single', async ({ editor }) => {
       const breakoutModel = EditorBreakoutModel.from(editor);
-      await test.step('change layout to wide ', async () => {
+      await test.step('change layout to wide', async () => {
         await breakoutModel.toWide();
       });
 
@@ -147,7 +148,7 @@ test.describe('when media is inside a layout with two columns', () => {
   test.describe('and has full-width breakout', () => {
     test('should resize the media single', async ({ editor }) => {
       const breakoutModel = EditorBreakoutModel.from(editor);
-      await test.step('change layout to wide ', async () => {
+      await test.step('change layout to wide', async () => {
         await breakoutModel.toWide();
       });
       await test.step('change layout to full width', async () => {
@@ -225,7 +226,7 @@ test.describe('when media is inside a layout with three columns', () => {
   test.describe('and has wide breakout', () => {
     test('should resize the media single', async ({ editor }) => {
       const breakoutModel = EditorBreakoutModel.from(editor);
-      await test.step('change layout to wide ', async () => {
+      await test.step('change layout to wide', async () => {
         await breakoutModel.toWide();
       });
 
@@ -238,7 +239,7 @@ test.describe('when media is inside a layout with three columns', () => {
   test.describe('and has full-width breakout', () => {
     test('should resize the media single', async ({ editor }) => {
       const breakoutModel = EditorBreakoutModel.from(editor);
-      await test.step('change layout to wide ', async () => {
+      await test.step('change layout to wide', async () => {
         await breakoutModel.toWide();
       });
 
@@ -313,7 +314,7 @@ test.describe('when media is inside a layout with right side bar', () => {
   test.describe('and has wide breakout', () => {
     test('should resize the media single', async ({ editor }) => {
       const breakoutModel = EditorBreakoutModel.from(editor);
-      await test.step('change layout to wide ', async () => {
+      await test.step('change layout to wide', async () => {
         await breakoutModel.toWide();
       });
 
@@ -326,7 +327,7 @@ test.describe('when media is inside a layout with right side bar', () => {
   test.describe('and has full-width breakout', () => {
     test('should resize the media single', async ({ editor }) => {
       const breakoutModel = EditorBreakoutModel.from(editor);
-      await test.step('change layout to wide ', async () => {
+      await test.step('change layout to wide', async () => {
         await breakoutModel.toWide();
       });
 

@@ -24,10 +24,9 @@ import { getButtonProps, getCustomElement, getLinkProps } from './utilities';
 const avatarItemStyles = css({
   minWidth: 0,
   maxWidth: '100%',
-  paddingLeft: token('space.100', '8px'),
   flex: '1 1 100%',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   lineHeight: '1.4',
+  paddingInlineStart: token('space.100', '8px'),
 });
 
 export interface CustomAvatarItemProps {
@@ -69,7 +68,7 @@ export interface AvatarItemProps {
    */
   href?: string;
   /**
-   * Disable the item from being interactive
+   * Disable the item from being interactive.
    */
   isDisabled?: boolean;
   /**
@@ -93,7 +92,7 @@ export interface AvatarItemProps {
    */
   isTruncationDisabled?: boolean;
   /**
-   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    */
   testId?: string;
 }

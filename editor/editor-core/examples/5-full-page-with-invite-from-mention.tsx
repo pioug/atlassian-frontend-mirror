@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { mentionResourceProviderWithInviteFromMentionExperiment } from '@atlaskit/util-data-test/mention-story-data';
+
 import { default as FullPageExample } from './5-full-page';
 
 const editorProps = {

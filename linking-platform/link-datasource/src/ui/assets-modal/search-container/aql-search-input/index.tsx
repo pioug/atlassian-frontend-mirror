@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment, useCallback, useRef, useState } from 'react';
+import { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
@@ -16,25 +16,14 @@ import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { useValidateAqlText } from '../../../../hooks/useValidateAqlText';
+import {
+  AqlValidationResult,
+  useValidateAqlText,
+} from '../../../../hooks/useValidateAqlText';
 import { aqlKey } from '../../../../types/assets/types';
 import { FieldContainer } from '../styled';
 
 import { searchInputMessages } from './messages';
-
-/* Meta isn't exported in @atlaskit/form
-Taken from packages/design-system/form/src/field.tsx */
-interface Meta {
-  dirty: boolean;
-  dirtySinceLastSubmit: boolean;
-  submitFailed: boolean;
-  submitting: boolean;
-  touched: boolean;
-  valid: boolean;
-  error?: string;
-  submitError?: boolean;
-  validating?: boolean;
-}
 
 const buttonBaseStyles = css({
   display: 'flex',
@@ -59,19 +48,13 @@ const searchButtonStyles = css({
   marginRight: token('space.075', '6px'),
 });
 
-export const SEARCH_DEBOUNCE_MS = 350;
-
-const renderValidatorIcon = (
-  value: string | undefined,
-  error: string | undefined,
-  meta: Meta,
-) => {
-  if (value && meta?.validating) {
+const renderValidatorIcon = (lastValidationResult: AqlValidationResult) => {
+  if (lastValidationResult.type === 'loading') {
     return (
       <Spinner size="medium" testId="assets-datasource-modal--aql-validating" />
     );
   }
-  if (value && error) {
+  if (lastValidationResult.type === 'invalid') {
     return (
       <CrossCircleIcon
         label="label"
@@ -81,7 +64,7 @@ const renderValidatorIcon = (
       />
     );
   }
-  if (value && meta.valid) {
+  if (lastValidationResult.type === 'valid') {
     return (
       <CheckCircleIcon
         label="label"
@@ -107,66 +90,24 @@ export const AqlSearchInput = ({
   isSearching,
 }: AqlSearchInputProps) => {
   const { formatMessage } = useIntl();
-  const timeout = useRef<Function>();
-  const lastValue = useRef<string | undefined>(value);
-  const lastResult = useRef<Promise<string | undefined>>(
-    Promise.resolve(undefined),
+
+  const { debouncedValidation, lastValidationResult } = useValidateAqlText(
+    workspaceId,
+    value,
   );
-  const [message, setMessage] = useState<string | null>(null);
-
-  const { validateAqlText } = useValidateAqlText(workspaceId);
-
-  // Validation expects undefined when valid and a string as an error message when invalid
-  const handleValidation = useCallback(
-    async (newUnvalidatedQlQuery: string | undefined) => {
-      if (!newUnvalidatedQlQuery) {
-        return undefined;
-      }
-      const validation = await validateAqlText(newUnvalidatedQlQuery);
-      setMessage(validation.message);
-      return validation.isValid ? undefined : 'invalid';
-    },
-    [validateAqlText],
-  );
-
-  /* Debounce async validation for input, validation is also called on every field change
-  in a form so we need to also memoize. The async validate function is expected to either:
-  Immediately return a promise (which is then collected into an array, every single time validation is run),
-  or immediately return either undefined or an error message */
-  const debouncedMemoizedValidation = (value: string | undefined) =>
-    new Promise<string | undefined>(resolve => {
-      if (timeout.current) {
-        timeout.current();
-      }
-      if (value !== lastValue.current) {
-        const timerId = setTimeout(() => {
-          lastValue.current = value;
-          lastResult.current = handleValidation(value);
-          resolve(lastResult.current);
-        }, SEARCH_DEBOUNCE_MS);
-        timeout.current = () => {
-          clearTimeout(timerId);
-          resolve('debouncing');
-        };
-      } else {
-        resolve(lastResult.current);
-      }
-    });
 
   return (
     <FieldContainer>
-      <Field
-        name={aqlKey}
-        defaultValue={value}
-        validate={debouncedMemoizedValidation}
-      >
-        {({ fieldProps, meta, error }) => (
+      <Field name={aqlKey} defaultValue={value} validate={debouncedValidation}>
+        {({ fieldProps }) => (
           <Fragment>
             <Textfield
               {...fieldProps}
               elemBeforeInput={
-                <span style={{ paddingLeft: 6, width: 24 }}>
-                  {renderValidatorIcon(fieldProps.value, error, meta)}
+                <span
+                  style={{ paddingLeft: token('space.075', '6px'), width: 24 }}
+                >
+                  {renderValidatorIcon(lastValidationResult)}
                 </span>
               }
               elemAfterInput={
@@ -201,20 +142,17 @@ export const AqlSearchInput = ({
                     spacing="none"
                     testId="assets-datasource-modal--aql-search-button"
                     type="submit"
-                    isDisabled={
-                      fieldProps.value.trim() === '' ||
-                      meta.validating ||
-                      !meta.valid
-                    }
+                    isDisabled={lastValidationResult.type !== 'valid'}
                   />
                 </Fragment>
               }
               placeholder={formatMessage(searchInputMessages.placeholder)}
               testId={testId}
             />
-            {fieldProps.value && error && message && (
-              <ErrorMessage>{message}</ErrorMessage>
-            )}
+            {lastValidationResult.type === 'invalid' &&
+              lastValidationResult.error && (
+                <ErrorMessage>{lastValidationResult.error}</ErrorMessage>
+              )}
           </Fragment>
         )}
       </Field>

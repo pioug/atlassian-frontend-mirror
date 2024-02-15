@@ -49,6 +49,7 @@ const lightH200Styles = css(h200({ theme: { mode: 'light' } }));
 const messageStyles = css({
   display: 'flex',
   justifyContent: 'baseline',
+  gap: token('space.050', '4px'),
   fontFamily: `${fontFamily}`,
   fontWeight: 'normal',
   marginBlockStart: token('space.050', '4px'),

@@ -1,5 +1,106 @@
 # @atlaskit/link-create
 
+## 1.14.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.14.2
+
+### Patch Changes
+
+- [#68142](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68142) [`eeee0117234f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eeee0117234f) - EDM-9179: under FF update form error messages and move error messages from form footer to fields
+
+## 1.14.1
+
+### Patch Changes
+
+- [#68013](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68013) [`a23882ab49f8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a23882ab49f8) - Upgrade depdendency `final-form` for bugfix.
+
+## 1.14.0
+
+### Minor Changes
+
+- [#66763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66763) [`496a3feac442`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/496a3feac442) - Update `LinkPickerPlugin` Type to take a generic `entityKey` type
+
+## 1.13.3
+
+### Patch Changes
+
+- [#64291](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64291) [`c44535acbea9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c44535acbea9) - remove platform.linking-platform.link-create.tmp-fix-translations to permanently return undefined in the loaderFn when dynamic import of locale messages fail.
+
+## 1.13.2
+
+### Patch Changes
+
+- [#64870](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64870) [`0f1f6c106355`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0f1f6c106355) - Adds analytics attribute to help exclude expected errors from SLIs, behind ff
+- Updated dependencies
+
+## 1.13.1
+
+### Patch Changes
+
+- [#63626](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63626) [`e71c8f5f586e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e71c8f5f586e) - loaderFn returns undefined if failed to dynamicaly import locale messages - fixes issue in Jira where default English replaces languages chunk.
+- Updated dependencies
+
+## 1.13.0
+
+### Minor Changes
+
+- [#63972](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63972) [`3fe8708a6cf0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3fe8708a6cf0) - Log error message on experience failure for debugging purposes, when ff is enabled.
+
+## 1.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.12.0
+
+### Minor Changes
+
+- [#60340](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60340) [`480de4a70eed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/480de4a70eed) - EDM-8657: remove platform.linking-platform.link-create.enable-edit feature flag, to permanently enable the use of create and open (edit) flow in link create / link create confluence.
+
+## 1.11.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.11.5
+
+### Patch Changes
+
+- [#59772](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59772) [`64c93d86d9fa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64c93d86d9fa) - Cleans up FF: platform.linking-platform.link-create.confirm-dismiss-dialog permanently enabling the exit warning dialog
+- Updated dependencies
+
+## 1.11.4
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
+## 1.11.3
+
+### Patch Changes
+
+- [#57917](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57917) [`61a45bf00e72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61a45bf00e72) - Enrol @atlaskit/link-create to push model in Jira Frontend.
+- Updated dependencies
+
+## 1.11.2
+
+### Patch Changes
+
+- [#57729](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57729) [`3778c5a24fc1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3778c5a24fc1) - Fix bug with available sites filtering in Jira Create plugin
+- Updated dependencies
+
+## 1.11.1
+
+### Patch Changes
+
+- [#56657](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56657) [`3d2d5c5602fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d2d5c5602fb) - remove actionSubjectId from operational analytics event
+
 ## 1.11.0
 
 ### Minor Changes

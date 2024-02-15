@@ -1,12 +1,10 @@
 import React from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import TextArea from '../src';
-
-import { docsText } from './common';
 
 const wrapperStyles = xcss({
   maxWidth: '500px',
@@ -23,64 +21,56 @@ export default () => {
 
   return (
     <Stack xcss={wrapperStyles} space="space.100">
-      <Label htmlFor="disabled">
-        Disabled
-        <TextArea
-          id="disabled"
-          value="hello"
-          name="text"
-          isDisabled
-          isCompact
-          testId="disabledTextArea"
-        />
-      </Label>
+      <Label htmlFor="disabled">Disabled</Label>
+      <TextArea
+        id="disabled"
+        value="hello"
+        name="text"
+        isDisabled
+        isCompact
+        testId="disabledTextArea"
+      />
 
-      <Label htmlFor="invalidTextArea">
-        Invalid & Compact
-        <TextArea
-          id="invalidTextArea"
-          name="area"
-          isInvalid
-          isCompact
-          testId="invalidTextArea"
-        />
-      </Label>
+      <Label htmlFor="invalidTextArea">Invalid & Compact</Label>
+      <TextArea
+        id="invalidTextArea"
+        name="area"
+        isInvalid
+        isCompact
+        testId="invalidTextArea"
+      />
 
-      <Label htmlFor="minimumRowsTextArea">
-        Resize:smart
-        <TextArea
-          id="minimumRowsTextArea"
-          resize="smart"
-          name="area"
-          defaultValue={docsText}
-          testId="minimumRowsTextArea"
-        />
-      </Label>
+      <Label htmlFor="minimumRowsTextArea">Resize:smart</Label>
+      <TextArea
+        id="minimumRowsTextArea"
+        resize="smart"
+        name="area"
+        defaultValue="The default export of @atlaskit/textarea is a hybrid uncontrolled/controlled component; it is uncontrolled by default, but can be optionally controlled by setting the value prop. To set a default value for TextArea while leaving component uncontrolled, specify a defaultValue prop."
+        testId="minimumRowsTextArea"
+      />
 
-      <Label htmlFor="monospacedTextArea">
-        Monospaced & MinimumRows: 3
-        <TextArea
-          id="monospacedTextArea"
-          name="area"
-          isMonospaced
-          defaultValue="Text in monospaced code font"
-          testId="monospacedTextArea"
-          minimumRows={3}
-        />
-      </Label>
+      <Label htmlFor="monospacedTextArea">Monospaced & MinimumRows: 3</Label>
+      <TextArea
+        id="monospacedTextArea"
+        name="area"
+        isMonospaced
+        defaultValue="Text in monospaced code font"
+        testId="monospacedTextArea"
+        minimumRows={3}
+      />
 
       <Label htmlFor="autoResizeTextArea">
         Resize: auto, MaxHeight: 20vh & ReadOnly
-        <TextArea
-          id="autoResizeTextArea"
-          resize="auto"
-          maxHeight="20vh"
-          name="area"
-          isReadOnly
-          defaultValue="The default text is readonly"
-          testId="autoResizeTextArea"
-        />
       </Label>
+      <TextArea
+        id="autoResizeTextArea"
+        resize="auto"
+        maxHeight="20vh"
+        name="area"
+        isReadOnly
+        defaultValue="The default text is readonly"
+        testId="autoResizeTextArea"
+      />
 
       <Box id="smart">
         <Label htmlFor="smartArea">Focus & required</Label>
@@ -92,9 +82,11 @@ export default () => {
           }}
         />
       </Box>
-      <Button onClick={focus} type="button" style={{ alignSelf: 'flex-start' }}>
-        focus
-      </Button>
+      <Box>
+        <Button onClick={focus} type="button">
+          focus
+        </Button>
+      </Box>
     </Stack>
   );
 };

@@ -1,30 +1,30 @@
-import React from 'react';
+/** @jsx jsx */
 import { MenuListComponentProps, OptionProps } from '@atlaskit/select';
 import { Color } from '../types';
 import ColorCard from './ColorCard';
 import { getWidth } from '../utils';
-import {
-  ColorPaletteContainer,
-  ColorCardWrapper,
-} from '../styled/ColorPalette';
+import { COLOR_CARD_SIZE } from '../constants';
+import { token } from '@atlaskit/tokens';
+import { css, jsx } from '@emotion/react';
 
 export const MenuList = (props: MenuListComponentProps<Color>) => {
   const {
-    cx,
     selectProps: { cols },
     innerRef,
-    ...rest
+    children,
   } = props;
 
   return (
-    <ColorPaletteContainer
+    <div
+      css={colorPaletteContainerStyles}
       role="radiogroup"
       style={{
         maxWidth: cols ? getWidth(cols) : undefined,
       }}
-      innerRef={innerRef!}
-      {...rest}
-    />
+      ref={innerRef!}
+    >
+      {children}
+    </div>
   );
 };
 
@@ -38,8 +38,7 @@ export const Option = (props: OptionProps<Color>) => {
   } = props;
 
   return (
-    // @ts-expect-error - known issue: https://github.com/mui/material-ui/issues/13921. TS treats styled components to be different from HTMLDivElement
-    <ColorCardWrapper {...innerProps}>
+    <div css={colorCardWrapperStyles} {...innerProps}>
       <ColorCard
         label={label}
         value={value}
@@ -50,10 +49,22 @@ export const Option = (props: OptionProps<Color>) => {
         onKeyDown={(value) => onOptionKeyDown(value)}
         isTabbing={isTabbing}
       />
-    </ColorCardWrapper>
+    </div>
   );
 };
 
 export const DropdownIndicator = () => null;
 
 export const Placeholder = () => null;
+
+const colorCardWrapperStyles = css({
+  display: 'flex',
+  margin: token('space.025', '2px'),
+  height: `${COLOR_CARD_SIZE}px`,
+});
+
+const colorPaletteContainerStyles = css({
+  display: 'flex',
+  flexWrap: 'wrap',
+  padding: token('space.050', '4px'),
+});

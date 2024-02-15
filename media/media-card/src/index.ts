@@ -23,10 +23,18 @@ export type {
 } from './types';
 
 export { Card } from './card';
-export { MediaInlineCard } from './inline';
+export {
+  MediaInlineCard,
+  fireFailedMediaInlineEvent,
+  fireSucceededMediaInlineEvent,
+} from './inline';
+
+export { MediaCardError } from './errors';
+
 export { CardLoading } from './utils/lightCards/cardLoading';
 export { CardError } from './utils/lightCards/cardError';
 export { defaultImageCardDimensions } from './utils/cardDimensions';
 export { fileCardImageViewSelector } from './card/classnames';
 export { inlinePlayerClassName } from './card/inlinePlayerWrapperStyles';
 export { newFileExperienceClassName } from './card/cardConstants';
+export { DateOverrideContext } from './dateOverrideContext';

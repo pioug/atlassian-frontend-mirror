@@ -8,46 +8,6 @@ import {
 
 import { findIdentifierInParentScope } from '../utils/find-in-parent';
 
-export const getLinkItemImportName = (scope: Scope.Scope): string | null => {
-  let traversingScope: Scope.Scope | null = scope;
-
-  let matchedVariable: Scope.Variable | undefined;
-  while (traversingScope && traversingScope.type !== 'global') {
-    matchedVariable = traversingScope.variables.find(
-      (variable: Scope.Variable) => {
-        const def: Scope.Definition = variable.defs?.[0];
-
-        if (
-          !def ||
-          !def?.node ||
-          !isNodeOfType(def.node, 'ImportSpecifier') ||
-          !def.parent ||
-          !isNodeOfType(def.parent, 'ImportDeclaration')
-        ) {
-          return;
-        }
-
-        return (
-          def.parent.source.value === '@atlaskit/menu' &&
-          def.node.imported.name === 'LinkItem'
-        );
-      },
-    );
-
-    if (matchedVariable) {
-      break;
-    }
-
-    traversingScope = traversingScope.upper;
-  }
-
-  if (!matchedVariable) {
-    return null;
-  } else {
-    return matchedVariable.defs?.[0].node.local.name;
-  }
-};
-
 const invalidHrefValues = ['', '#', null, undefined];
 
 export const hrefHasInvalidValue = (

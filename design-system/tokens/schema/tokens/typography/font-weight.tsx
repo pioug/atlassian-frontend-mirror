@@ -10,37 +10,33 @@ const font: AttributeSchema<FontWeightTokenSchema<BaseToken>> = {
       regular: {
         attributes: {
           group: 'fontWeight',
-          state: 'deprecated',
+          state: 'active',
           introduced: '0.10.33',
           description: 'Helpful guidance goes here',
-          deprecated: '1.29.0',
         },
       },
       medium: {
         attributes: {
           group: 'fontWeight',
-          state: 'deprecated',
+          state: 'active',
           introduced: '0.10.33',
           description: 'Helpful guidance goes here',
-          deprecated: '1.29.0',
         },
       },
       semibold: {
         attributes: {
           group: 'fontWeight',
-          state: 'deprecated',
+          state: 'active',
           introduced: '0.10.33',
           description: 'Helpful guidance goes here',
-          deprecated: '1.29.0',
         },
       },
       bold: {
         attributes: {
           group: 'fontWeight',
-          state: 'deprecated',
+          state: 'active',
           introduced: '0.10.33',
           description: 'Helpful guidance goes here',
-          deprecated: '1.29.0',
         },
       },
     },

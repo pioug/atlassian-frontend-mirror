@@ -19,6 +19,7 @@ export default {
   'fabric.elements.share.form.no-permissions': 'Du har inte möjlighet att dela.',
   'fabric.elements.share.form.public.send': 'Skicka offentlig länk',
   'fabric.elements.share.form.public.share': 'Dela offentlig länk',
+  'fabric.elements.share.form.required-field.summary': 'Obligatoriska fält är markerade med en asterisk',
   'fabric.elements.share.form.retry': 'Försök igen',
   'fabric.elements.share.form.send': 'Skicka',
   'fabric.elements.share.form.share': 'Dela',

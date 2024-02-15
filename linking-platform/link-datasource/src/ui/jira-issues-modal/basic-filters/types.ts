@@ -1,10 +1,6 @@
 import { ReactElement } from 'react';
 
-export type BasicFilterFieldType =
-  | 'project'
-  | 'assignee'
-  | 'issuetype'
-  | 'status';
+export type BasicFilterFieldType = 'project' | 'assignee' | 'type' | 'status';
 
 export interface OptionBase {
   label: string;

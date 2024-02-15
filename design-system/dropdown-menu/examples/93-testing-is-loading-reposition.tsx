@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Inline from '@atlaskit/primitives/inline';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';

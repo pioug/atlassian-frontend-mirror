@@ -328,7 +328,7 @@ export class UserPickerFieldComponent extends React.Component<
                 {...commonPickerProps}
                 {...smartUserPickerProps}
                 aria-labelledby={USER_PICKER_ARIA_LABEL}
-                aria-required={true}
+                required={true}
                 addMoreMessage={addMoreMessage}
                 placeholder={
                   <span id={USER_PICKER_FIELD_PLACEHOLDER}>

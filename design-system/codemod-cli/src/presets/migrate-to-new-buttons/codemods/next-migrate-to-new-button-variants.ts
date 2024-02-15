@@ -3,7 +3,6 @@ import type {
   FileInfo,
   ImportDefaultSpecifier,
   ImportSpecifier,
-  Options,
 } from 'jscodeshift';
 import { addCommentBefore } from '@atlaskit/codemod-utils';
 
@@ -12,15 +11,21 @@ import {
   NEW_BUTTON_VARIANTS,
   entryPointsMapping,
   NEW_BUTTON_ENTRY_POINT,
-  eslintDisableComment,
+  linkButtonMissingHrefComment,
+  buttonPropsNoLongerSupportedComment,
+  unsupportedProps,
 } from '../utils/constants';
-
 import {
   generateNewElement,
   moveSizeAndLabelAttributes,
 } from '../utils/generate-new-button-element';
+import { ifHasUnsupportedProps } from '../utils/has-unsupported-props';
+import { checkIfVariantAlreadyImported } from '../utils/if-variant-already-imported';
+import { renameDefaultButtonToLegacyButtonImport } from '../utils/rename-default-button-to-legacy-button';
+import { migrateFitContainerIconButton } from '../utils/migrate-fit-container-icon-button';
+import { importTypesFromNewEntryPoint } from '../utils/import-types-from-new-entry-point';
 
-const transformer = (file: FileInfo, api: API, options: Options): string => {
+const transformer = (file: FileInfo, api: API): string => {
   const j = api.jscodeshift;
   const fileSource = j(file.source);
 
@@ -46,42 +51,20 @@ const transformer = (file: FileInfo, api: API, options: Options): string => {
 
   const specifierIdentifier = defaultButtonImport.get(0).node.local.name;
 
-  const attributes = fileSource
-    .find(j.JSXElement)
-    .filter(
-      (path) =>
-        path.value.openingElement.name.type === 'JSXIdentifier' &&
-        path.value.openingElement.name.name === specifierIdentifier,
-    )
-    .find(j.JSXAttribute);
-
-  const hasCustomComponent =
-    attributes.filter((attribute) => attribute.node.name.name === 'component')
-      .length > 0;
-
-  const hasCssProp =
-    attributes.filter((attribute) => attribute.node.name.name === 'css')
-      .length > 0;
-
-  if (hasCustomComponent || hasCssProp) {
-    return fileSource.toSource(PRINT_SETTINGS);
-  }
-
-  const checkIfVariantAlreadyImported = (variant: string): boolean =>
-    fileSource
-      .find(j.ImportDeclaration)
-      .filter((path) => path.node.source.value === NEW_BUTTON_ENTRY_POINT)
-      .find(j.ImportSpecifier)
-      .filter((path) => path.node.imported.name === variant).length > 0;
-
   let hasLinkIconButton = checkIfVariantAlreadyImported(
-    NEW_BUTTON_VARIANTS.linkIcon.import,
+    NEW_BUTTON_VARIANTS.linkIcon,
+    fileSource,
+    j,
   );
   let hasLinkButton = checkIfVariantAlreadyImported(
-    NEW_BUTTON_VARIANTS.link.import,
+    NEW_BUTTON_VARIANTS.link,
+    fileSource,
+    j,
   );
   let hasIconButton = checkIfVariantAlreadyImported(
-    NEW_BUTTON_VARIANTS.icon.import,
+    NEW_BUTTON_VARIANTS.icon,
+    fileSource,
+    j,
   );
 
   const allButtons = fileSource
@@ -91,8 +74,11 @@ const transformer = (file: FileInfo, api: API, options: Options): string => {
         path.value.openingElement.name.type === 'JSXIdentifier' &&
         path.value.openingElement.name.name === specifierIdentifier,
     );
+  const buttonsWithoutUnsupportedProps = allButtons.filter(
+    (path) => !ifHasUnsupportedProps(path.value.openingElement.attributes),
+  );
 
-  allButtons.forEach((element) => {
+  buttonsWithoutUnsupportedProps.forEach((element) => {
     const { attributes } = element.value.openingElement;
     if (!attributes) {
       return;
@@ -103,32 +89,45 @@ const transformer = (file: FileInfo, api: API, options: Options): string => {
     );
 
     const hasHref = buttonAttributes.includes('href');
+
     const hasIcon =
       buttonAttributes.includes('iconBefore') ||
       buttonAttributes.includes('iconAfter');
+
+    const hasNoChildren = element.value.children?.length === 0;
+    const isFitContainerIconButton =
+      hasIcon &&
+      hasNoChildren &&
+      buttonAttributes.includes('shouldFitContainer');
     const isLinkIconButton =
-      hasHref && hasIcon && element.value.children?.length === 0;
+      hasHref && hasIcon && hasNoChildren && !isFitContainerIconButton;
 
     const isLinkButton = hasHref && !isLinkIconButton;
-    // TODO: add checks for unsupported icon props except label and size, e.g. primaryColor, testId, or spread props
-    // and don't migrate these buttons.
-    const isIconButton =
-      !hasHref && hasIcon && element.value.children?.length === 0;
+    let isIconButton =
+      !hasHref && hasIcon && hasNoChildren && !isFitContainerIconButton;
 
     const isDefaultButtonWithAnIcon =
-      !isLinkIconButton && !isIconButton && hasIcon;
+      !isLinkIconButton &&
+      !isIconButton &&
+      !isFitContainerIconButton &&
+      hasIcon;
 
-    // TODO: add checks for unsupported icon props except label and size, e.g. primaryColor, testId, or spread props
-    // and don't migrate these buttons.
     if (isDefaultButtonWithAnIcon) {
       moveSizeAndLabelAttributes(element.value, j);
+    }
+
+    if (isFitContainerIconButton) {
+      const migratedToIconButton = migrateFitContainerIconButton(element, j);
+      if (migratedToIconButton) {
+        isIconButton = true;
+      }
     }
 
     if (isLinkIconButton) {
       hasLinkIconButton = true;
 
       j(element).replaceWith(
-        generateNewElement(NEW_BUTTON_VARIANTS.linkIcon.as, element.value, j),
+        generateNewElement(NEW_BUTTON_VARIANTS.linkIcon, element.value, j),
       );
     }
 
@@ -136,7 +135,7 @@ const transformer = (file: FileInfo, api: API, options: Options): string => {
       hasIconButton = true;
 
       j(element).replaceWith(
-        generateNewElement(NEW_BUTTON_VARIANTS.icon.as, element.value, j),
+        generateNewElement(NEW_BUTTON_VARIANTS.icon, element.value, j),
       );
     }
 
@@ -144,39 +143,40 @@ const transformer = (file: FileInfo, api: API, options: Options): string => {
       hasLinkButton = true;
 
       j(element).replaceWith(
-        generateNewElement(NEW_BUTTON_VARIANTS.link.as, element.value, j),
+        generateNewElement(NEW_BUTTON_VARIANTS.link, element.value, j),
+      );
+    }
+
+    const linkAppearanceAttribute = attributes.find(
+      (node) =>
+        node.type === 'JSXAttribute' &&
+        node.value?.type === 'StringLiteral' &&
+        node?.name?.name === 'appearance' &&
+        (node?.value?.value === 'link' || node?.value?.value === 'subtle-link'),
+    );
+    if (!hasHref && linkAppearanceAttribute) {
+      addCommentBefore(
+        j,
+        j(linkAppearanceAttribute),
+        linkButtonMissingHrefComment,
+        'line',
       );
     }
   });
 
-  const specifiers: (ImportSpecifier | ImportDefaultSpecifier)[] = [];
-
-  if (hasLinkButton) {
-    specifiers.push(
-      j.importSpecifier(
-        j.identifier(NEW_BUTTON_VARIANTS.link.import),
-        j.identifier(NEW_BUTTON_VARIANTS.link.as),
-      ),
-    );
-  }
-
-  if (hasIconButton) {
-    specifiers.push(
-      j.importSpecifier(
-        j.identifier(NEW_BUTTON_VARIANTS.icon.import),
-        j.identifier(NEW_BUTTON_VARIANTS.icon.as),
-      ),
-    );
-  }
-
-  if (hasLinkIconButton) {
-    specifiers.push(
-      j.importSpecifier(
-        j.identifier(NEW_BUTTON_VARIANTS.linkIcon.import),
-        j.identifier(NEW_BUTTON_VARIANTS.linkIcon.as),
-      ),
-    );
-  }
+  // modify import declarations
+  let specifiers: (ImportDefaultSpecifier | ImportSpecifier)[] = [];
+  [
+    hasLinkButton ? 'link' : null,
+    hasIconButton ? 'icon' : null,
+    hasLinkIconButton ? 'linkIcon' : null,
+  ].forEach((variant) => {
+    if (variant) {
+      specifiers.push(
+        j.importSpecifier(j.identifier(NEW_BUTTON_VARIANTS[variant])),
+      );
+    }
+  });
 
   const oldButtonImport = fileSource
     .find(j.ImportDeclaration)
@@ -192,7 +192,8 @@ const transformer = (file: FileInfo, api: API, options: Options): string => {
       .filter(
         (path) =>
           path.value.openingElement.name.type === 'JSXIdentifier' &&
-          path.value.openingElement.name.name === specifierIdentifier,
+          path.value.openingElement.name.name === specifierIdentifier &&
+          !ifHasUnsupportedProps(path.value.openingElement.attributes),
       ).length > 0 ||
     fileSource
       .find(j.CallExpression)
@@ -201,35 +202,73 @@ const transformer = (file: FileInfo, api: API, options: Options): string => {
           .map((argument) => argument.type === 'Identifier' && argument?.name)
           .includes(specifierIdentifier),
       ).length > 0;
-
-  if (specifiers.length || remainingDefaultButtons) {
-    if (remainingDefaultButtons) {
-      specifiers.push(
-        j.importSpecifier(
-          j.identifier(NEW_BUTTON_VARIANTS.default.import),
-          j.identifier(specifierIdentifier),
-        ),
-      );
-    }
-    oldButtonImport.replaceWith(
-      j.importDeclaration(specifiers, j.stringLiteral(NEW_BUTTON_ENTRY_POINT)),
+  if (remainingDefaultButtons) {
+    specifiers.push(
+      j.importDefaultSpecifier(j.identifier(NEW_BUTTON_VARIANTS.default)),
     );
+  }
 
+  // update import path for types imports
+  specifiers = importTypesFromNewEntryPoint(
+    buttonImports,
+    specifiers,
+    j,
+    fileSource,
+  );
+
+  const buttonsWithUnsupportedProps = allButtons.filter((path) =>
+    ifHasUnsupportedProps(path.value.openingElement.attributes),
+  );
+  if (buttonsWithUnsupportedProps.length) {
+    // add comment to all buttons with unsupported props: "component", "style", "css"
+    buttonsWithUnsupportedProps.forEach((element) => {
+      const attribute = element.value.openingElement.attributes?.find(
+        (node) =>
+          node.type === 'JSXAttribute' &&
+          typeof node.name.name === 'string' &&
+          unsupportedProps.includes(node.name.name),
+      );
+      if (attribute) {
+        addCommentBefore(
+          j,
+          j(attribute),
+          buttonPropsNoLongerSupportedComment,
+          'line',
+        );
+      }
+    });
+
+    // rename all buttons with unsupported props to LegacyButton if default new button is imported
     if (
-      NEW_BUTTON_ENTRY_POINT.includes('unsafe') &&
-      options?.allowUnsafeImport === true
+      specifiers.find(
+        (specifier) => specifier.type === 'ImportDefaultSpecifier',
+      )
     ) {
-      addCommentBefore(
+      renameDefaultButtonToLegacyButtonImport(
+        oldButtonImport,
+        buttonsWithUnsupportedProps,
         j,
-        fileSource
-          .find(j.ImportDeclaration)
-          .filter((path) => path.node.source.value === NEW_BUTTON_ENTRY_POINT),
-        eslintDisableComment,
-        'line',
-        '',
       );
     }
   }
+
+  if (specifiers.length) {
+    oldButtonImport.replaceWith(
+      j.importDeclaration(specifiers, j.stringLiteral(NEW_BUTTON_ENTRY_POINT)),
+    );
+  }
+
+  // remove empty import declarations
+  fileSource
+    .find(j.ImportDeclaration)
+    .filter(
+      (path) =>
+        (path.node.source.value === '@atlaskit/button' ||
+          path.node.source.value === '@atlaskit/button/types') &&
+        !!path.node.specifiers &&
+        path.node.specifiers.length === 0,
+    )
+    .remove();
 
   return fileSource.toSource(PRINT_SETTINGS);
 };

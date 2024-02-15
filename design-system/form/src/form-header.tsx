@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { Box, xcss } from '@atlaskit/primitives';
 import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
 import { h700 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -29,8 +30,8 @@ const formHeaderContentStyles = css({
   marginBlockStart: token('space.100', '8px'),
 });
 
-const formHeaderDescriptionStyles = css({
-  marginBlockStart: token('space.100', '8px'),
+const formHeaderDescriptionStyles = xcss({
+  marginBlockStart: 'space.100',
 });
 
 const formHeaderTitleStyles = css({
@@ -54,7 +55,7 @@ const FormHeaderContent = ({ children }: { children: ReactNode }) => {
 };
 
 const FormHeaderDescription = ({ children }: { children: ReactNode }) => {
-  return <div css={formHeaderDescriptionStyles}>{children}</div>;
+  return <Box xcss={formHeaderDescriptionStyles}>{children}</Box>;
 };
 
 const FormHeaderTitle = ({ children }: { children: ReactNode }) => {
@@ -66,14 +67,14 @@ const FormHeaderWrapper = ({ children }: { children?: ReactNode }) => {
 };
 
 /**
- * __Form header__
+ * __Form header__.
  *
  * A form header contains the form component's heading and subheadings. This provides the correct padding
  * and styling for it.
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
- * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
+ * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout).
  */
 const FormHeader = ({ children, description, title }: FormHeaderProps) => {
   return (

@@ -1,5 +1,7 @@
 import React from 'react';
-import ClipboardPolyfill, * as clipboard from 'clipboard-polyfill';
+
+import type ClipboardPolyfill from 'clipboard-polyfill';
+import * as clipboard from 'clipboard-polyfill';
 
 const Clipboard: typeof ClipboardPolyfill = clipboard as any;
 

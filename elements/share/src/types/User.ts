@@ -1,10 +1,10 @@
 export type UserWithId = {
-  type: 'user' | 'group' | 'team' | 'custom';
+  type: 'user' | 'group' | 'team' | 'custom' | 'external_user';
   id: string;
 };
 
 export type UserWithEmail = {
-  type: 'user';
+  type: 'user' | 'external_user';
   email: string;
 };
 

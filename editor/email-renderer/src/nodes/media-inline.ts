@@ -1,9 +1,17 @@
-import { MediaMetaDataContextItem, NodeSerializerOpts } from '../interfaces';
+import type {
+  MediaMetaDataContextItem,
+  NodeSerializerOpts,
+} from '../interfaces';
 import { createTag } from '../create-tag';
-import { createClassName } from '../styles/util';
+import {
+  createClassName,
+  getInlineImageSizeFromParentNode,
+} from '../styles/util';
 import { getIconFromMediaType } from '../media-util';
-import { createContentId, IconString } from '../static';
+import { createContentId } from '../static';
+import type { IconString } from '../static';
 import { N30 } from '@atlaskit/adf-schema';
+import { applyMarks } from '../apply-marks';
 
 const className = createClassName('mediaInline');
 
@@ -35,19 +43,65 @@ export const styles = `
   margin-left: 4px;
   vertical-align: middle;
 }
+.${className}-inline-image-wrapper {
+  display: inline-flex;
+  overflow: hidden;
+  max-width: 100%;
+  align-items: center;
+  background-color: ${N30};
+}
 `;
 
 export default function mediaInline(node: NodeSerializerOpts) {
   const { context, attrs } = node;
+  const metadata = context?.hydration?.mediaMetaData?.[attrs.id];
 
-  // Without metadata, we render a generic lozenge
-  if (!context?.hydration?.mediaMetaData?.[attrs.id]) {
-    return renderLozenge();
+  if (attrs.type === 'image') {
+    return renderInlineImage(node, metadata);
   }
 
-  const metadata = context?.hydration?.mediaMetaData?.[attrs.id];
   return renderLozenge(metadata);
 }
+
+/**
+ *
+ * @param node The mediaInline node with type 'image'
+ * @param metadata Hydrated metadata that describes the file, it is only used to pass through to renderLozenge if file id cannot be found.
+ * @returns html string that renders inline image
+ */
+const renderInlineImage = (
+  node: NodeSerializerOpts,
+  metadata?: MediaMetaDataContextItem,
+) => {
+  const { width, height, id, alt } = node.attrs;
+
+  if (!id) {
+    return renderLozenge(metadata);
+  }
+
+  const { size, shift } = getInlineImageSizeFromParentNode(node);
+
+  const aspectRatio = width && height ? width / height : undefined;
+  const calculatedWidth =
+    !width || !aspectRatio ? size : Math.round(aspectRatio * size);
+
+  const image = createTag('img', {
+    src: `cid:${id}`,
+    width: calculatedWidth,
+    height: size,
+    ...(alt && { alt }),
+  });
+  const inlineImageWrapper = createTag(
+    'span',
+    {
+      class: `${className}-inline-image-wrapper`,
+      style: `height: ${size}px; width: ${calculatedWidth}px; transform: translateY(${shift}px);`,
+    },
+    image,
+  );
+
+  return applyMarks(node.marks, inlineImageWrapper);
+};
 
 const renderLozenge = (metadata?: MediaMetaDataContextItem) => {
   let iconType;

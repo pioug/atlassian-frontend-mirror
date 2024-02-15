@@ -16,6 +16,7 @@ import {
   inputWrapper,
   RecentSearch,
 } from '@atlaskit/editor-common/link';
+import { mediaLinkToolbarMessages } from '@atlaskit/editor-common/media';
 import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { ErrorMessage } from '@atlaskit/editor-common/ui';
@@ -30,8 +31,6 @@ import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import EditorUnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import { mediaLinkToolbarMessages } from './media-linking-toolbar-messages';
 
 export type Props = {
   intl: IntlShape;

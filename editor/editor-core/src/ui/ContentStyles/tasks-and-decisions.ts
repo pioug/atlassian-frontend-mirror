@@ -2,12 +2,12 @@ import { css } from '@emotion/react';
 
 import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles';
 import {
-  SelectionStyle,
-  getSelectionStyles,
   akEditorDeleteBackgroundWithOpacity,
   akEditorDeleteBorder,
   akEditorSelectedBorderSize,
   akEditorSelectedNodeClassName,
+  getSelectionStyles,
+  SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 

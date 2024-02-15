@@ -1,0 +1,96 @@
+{
+  "name": "@atlaskit/css",
+  "version": "0.0.3",
+  "description": "Style components backed by Atlassian Design System design tokens powered by Compiled CSS-in-JS.",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "Design System Team",
+    "inPublicMirror": false,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "CSS",
+      "category": "Components"
+    }
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@atlaskit/tokens": "^1.37.0",
+    "@babel/runtime": "^7.0.0",
+    "@compiled/react": "^0.16.8"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@af/integration-testing": "*",
+    "@af/visual-regression": "*",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@testing-library/react": "^12.1.5",
+    "react-dom": "^16.8.0",
+    "typescript": "~4.9.5",
+    "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "code-structure": [
+        "tangerine-next"
+      ],
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": [
+        "file-and-folder-level"
+      ]
+    },
+    "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
+      "analytics": [
+        "analytics-next"
+      ],
+      "design-tokens": [
+        "color"
+      ],
+      "theming": [
+        "react-context"
+      ],
+      "ui-components": [
+        "lite-mode"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ],
+      "styling": [
+        "static",
+        "emotion"
+      ],
+      "imports": [
+        "import-no-extraneous-disable-for-examples-and-docs"
+      ]
+    }
+  },
+  "homepage": "https://atlaskit.atlassian.com/packages/design-system/styling",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+}

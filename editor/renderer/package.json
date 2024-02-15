@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "108.17.0",
+  "version": "109.4.4",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -21,38 +21,39 @@
     "releaseModel": "continuous",
     "website": {
       "name": "Renderer"
-    }
+    },
+    "runReact18": false
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^34.0.0",
+    "@atlaskit/adf-schema": "^35.5.1",
     "@atlaskit/adf-utils": "^19.0.0",
-    "@atlaskit/analytics-listeners": "^8.7.0",
-    "@atlaskit/analytics-namespaced-context": "^6.7.0",
-    "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/button": "^16.17.0",
+    "@atlaskit/analytics-listeners": "^8.9.0",
+    "@atlaskit/analytics-namespaced-context": "^6.9.0",
+    "@atlaskit/analytics-next": "^9.2.0",
+    "@atlaskit/button": "^17.3.0",
     "@atlaskit/code": "^15.1.0",
-    "@atlaskit/editor-common": "^76.23.0",
+    "@atlaskit/editor-common": "^77.4.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-palette": "1.5.2",
-    "@atlaskit/editor-prosemirror": "1.1.0",
-    "@atlaskit/editor-shared-styles": "^2.8.0",
+    "@atlaskit/editor-prosemirror": "3.0.0",
+    "@atlaskit/editor-shared-styles": "^2.9.0",
     "@atlaskit/emoji": "^67.6.0",
     "@atlaskit/icon": "^22.0.0",
-    "@atlaskit/link-datasource": "^1.19.0",
-    "@atlaskit/media-card": "^77.4.0",
-    "@atlaskit/media-client": "^25.1.0",
-    "@atlaskit/media-client-react": "^1.4.0",
+    "@atlaskit/link-datasource": "^1.22.0",
+    "@atlaskit/media-card": "^77.10.0",
+    "@atlaskit/media-client": "^26.2.0",
+    "@atlaskit/media-client-react": "^2.0.0",
     "@atlaskit/media-common": "^11.0.0",
     "@atlaskit/media-filmstrip": "^47.0.0",
-    "@atlaskit/media-ui": "^25.0.0",
+    "@atlaskit/media-ui": "^25.1.0",
     "@atlaskit/media-viewer": "^48.2.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/smart-card": "^26.42.0",
+    "@atlaskit/smart-card": "^26.47.0",
     "@atlaskit/status": "^1.4.0",
     "@atlaskit/task-decision": "^17.9.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
-    "@atlaskit/tooltip": "^18.0.0",
+    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tooltip": "^18.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "lodash": "^4.17.21",
@@ -62,28 +63,30 @@
     "uuid": "^3.1.0"
   },
   "peerDependencies": {
-    "@atlaskit/link-provider": "^1.6.2",
-    "@atlaskit/media-core": "^34.1.2",
+    "@atlaskit/link-provider": "^1.7.0",
+    "@atlaskit/media-core": "^34.2.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
+    "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/analytics-gas-types": "^5.1.0",
     "@atlaskit/css-reset": "^6.6.0",
-    "@atlaskit/link-provider": "^1.6.0",
+    "@atlaskit/link-provider": "^1.7.0",
     "@atlaskit/link-test-helpers": "^6.2.0",
-    "@atlaskit/media-core": "^34.1.0",
+    "@atlaskit/media-core": "^34.2.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/mention": "^22.1.0",
     "@atlaskit/navigation-next": "^9.0.0",
-    "@atlaskit/util-data-test": "^17.8.0",
+    "@atlaskit/util-data-test": "^17.9.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.4.3",
     "@types/react-loadable": "^5.4.1",
     "ajv": "^6.12.6",
     "enzyme": "^3.10.0",
@@ -116,12 +119,6 @@
     "platform.editor.custom-table-width": {
       "type": "boolean"
     },
-    "platform.editor.disable-default-width-table-scaling-renderer": {
-      "type": "boolean"
-    },
-    "platform.editor.custom-table-width-scale-down-undefined-column_nkyvx": {
-      "type": "boolean"
-    },
     "platform.editor.table.increase-shadow-visibility_lh89r": {
       "type": "boolean"
     },
@@ -129,7 +126,7 @@
       "type": "boolean",
       "referenceOnly": "true"
     },
-    "platform.editor.use-lch-for-color-inversion_1qv8ol": {
+    "platform.editor.show-embed-card-frame-renderer": {
       "type": "boolean"
     }
   }

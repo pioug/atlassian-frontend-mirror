@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/arrow-left';
 import ArrowRightCircleIcon from '@atlaskit/icon/glyph/arrow-right';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
@@ -36,8 +36,8 @@ const Tracker = ({
   const trackerItems = createTrackerItems(itemsNumber, currentStage);
   return <ProgressTracker testId="tracker" items={trackerItems} />;
 };
-const PrevIcon = <ArrowLeftCircleIcon label="prev" />;
-const NextIcon = <ArrowRightCircleIcon label="next" />;
+const PrevIcon = () => <ArrowLeftCircleIcon label="prev" />;
+const NextIcon = () => <ArrowRightCircleIcon label="next" />;
 const MAX_STAGES = 5;
 
 export default () => {
@@ -48,7 +48,6 @@ export default () => {
       <Tracker itemsNumber={itemsNumber} currentStage={currentStage} />
       <Box xcss={borderBottomStyles}>
         <Button
-          className="button"
           onClick={() => {
             setCurrentStage(0);
             setItemsNumber(3);
@@ -58,7 +57,6 @@ export default () => {
         </Button>
         <Button
           testId="button--prev"
-          className="button"
           appearance="subtle"
           onClick={() => setCurrentStage(Math.max(currentStage - 1, 0))}
           iconBefore={PrevIcon}
@@ -80,14 +78,12 @@ export default () => {
       <Inline space="space.100">
         <Button
           testId="button--add"
-          className="button"
           onClick={() => setItemsNumber(Math.min(itemsNumber + 1, MAX_STAGES))}
         >
           Add Stage
         </Button>
         <Button
           testId="button--remove"
-          className="button"
           onClick={() => {
             setItemsNumber(Math.max(itemsNumber - 1, 1));
             setCurrentStage(Math.min(itemsNumber - 1, currentStage));

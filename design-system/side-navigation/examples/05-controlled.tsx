@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { Label } from '@atlaskit/form';
 import FilterIcon from '@atlaskit/icon/glyph/filter';
 import WorkIcon from '@atlaskit/icon/glyph/folder';
 import CustomerIcon from '@atlaskit/icon/glyph/person';
@@ -61,7 +62,9 @@ const ControlledExample = () => {
     <AppFrame
       content={
         <Box padding="space.400" xcss={containerStyles}>
+          <Label htmlFor="nav-select">Select a navigation item</Label>
           <Select<Option>
+            inputId="nav-select"
             onChange={(value) => setStack((value as Option).value || [])}
             options={[
               { label: 'Root', value: [] },

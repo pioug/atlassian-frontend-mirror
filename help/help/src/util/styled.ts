@@ -1,10 +1,10 @@
 /** @jsx jsx */
 
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { keyframes } from '@emotion/core';
 import { WHATS_NEW_ITEM_TYPES } from '../model/WhatsNew';
 
 export const DividerLine = styled.div`

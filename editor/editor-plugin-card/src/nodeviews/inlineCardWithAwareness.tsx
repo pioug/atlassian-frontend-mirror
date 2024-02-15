@@ -1,38 +1,19 @@
-/** @jsx jsx */
-import { memo, useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
 import rafSchedule from 'raf-schd';
 
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
-import useLinkUpgradeDiscoverability from '../common/hooks/useLinkUpgradeDiscoverability';
-import {
-  isLocalStorageKeyDiscovered,
-  LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK,
-  LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR,
-  markLocalStorageKeyDiscovered,
-  ONE_DAY_IN_MILLISECONDS,
-} from '../common/local-storage';
-import { DiscoveryPulse } from '../common/pulse';
-import { registerCard } from '../pm-plugins/actions';
-import InlineCardOverlay from '../ui/InlineCardOverlay';
+import { registerCard, registerRemoveOverlay } from '../pm-plugins/actions';
+import { AwarenessWrapper } from '../ui/AwarenessWrapper';
 
 import type { SmartCardProps } from './genericCard';
-
-// editor adds a standard line-height that is bigger than an inline smart link
-// due to that the link has a bit of white space around it, which doesn't look right when there is pulse around it
-const loaderWrapperStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '.loader-wrapper': {
-    lineHeight: 'normal',
-  },
-});
 
 const InlineCard = ({
   node,
   cardContext,
+  actionOptions,
   showServerActions,
   useAlternativePreloader,
   view,
@@ -44,39 +25,9 @@ const InlineCard = ({
 }: SmartCardProps) => {
   const { url, data } = node.attrs;
 
-  // BEGIN: Awareness (To be revisited in EDM-8508)
   const [isHovered, setIsHovered] = useState(false);
-
-  const linkPosition = useMemo(() => {
-    if (!getPos || typeof getPos === 'boolean') {
-      return undefined;
-    }
-
-    const pos = getPos();
-
-    return typeof pos === 'number' ? pos : undefined;
-  }, [getPos]);
-
-  const { shouldShowLinkPulse, shouldShowToolbarPulse, shouldShowLinkOverlay } =
-    useLinkUpgradeDiscoverability({
-      url,
-      linkPosition: linkPosition || -1,
-      cardContext: cardContext?.value,
-      pluginInjectionApi,
-      isOverlayEnabled,
-      isPulseEnabled,
-    });
-
-  // If the toolbar pulse has not yet been invalidated and this is a case where we will be showing it,
-  // we need to invalidate the link pulse too. Toolbar pulse will be invalidated in the corresponding component.
-  if (
-    isSelected &&
-    shouldShowToolbarPulse &&
-    !isLocalStorageKeyDiscovered(LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR)
-  ) {
-    markLocalStorageKeyDiscovered(LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK);
-  }
-  // END: Awareness
+  const [isInserted, setIsInserted] = useState(false);
+  const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);
 
   const scrollContainer: HTMLElement | undefined = useMemo(
     () => findOverflowScrollParent(view.dom as HTMLElement) || undefined,
@@ -100,14 +51,22 @@ const InlineCard = ({
           return;
         }
 
-        view.dispatch(
-          registerCard({
-            title,
-            url,
-            pos,
-          })(view.state.tr),
-        );
+        const tr = view.state.tr;
+
+        registerCard({
+          title,
+          url,
+          pos,
+        })(tr);
+
+        registerRemoveOverlay(() => setIsInserted(false))(tr);
+
+        view.dispatch(tr);
       })();
+
+      if (title) {
+        setIsResolvedViewRendered(true);
+      }
     },
     [view, getPos],
   );
@@ -123,6 +82,26 @@ const InlineCard = ({
     [onResolve],
   );
 
+  // Begin Upgrade Awareness related code
+  const markMostRecentlyInsertedLink = useCallback(
+    (isLinkMostRecentlyInserted: boolean) => {
+      if (isOverlayEnabled) {
+        setIsInserted(isLinkMostRecentlyInserted);
+      }
+    },
+    [isOverlayEnabled],
+  );
+
+  const setOverlayHoveredStyles = useCallback(
+    (isHovered: boolean) => {
+      if (isOverlayEnabled) {
+        setIsHovered(isHovered);
+      }
+    },
+    [isOverlayEnabled],
+  );
+  //  End Upgrade Awareness related code
+
   const innerCard = useMemo(
     () => (
       <SmartCard
@@ -137,58 +116,60 @@ const InlineCard = ({
         inlinePreloaderStyle={
           useAlternativePreloader ? 'on-right-without-skeleton' : undefined
         }
+        actionOptions={actionOptions}
         showServerActions={showServerActions}
+        isHovered={isHovered}
       />
     ),
     [
       data,
+      isHovered,
       onError,
       onResolve,
       scrollContainer,
-      showServerActions,
       url,
       useAlternativePreloader,
+      actionOptions,
+      showServerActions,
     ],
   );
 
-  // BEGIN: Awareness (To be revisited in EDM-8508)
-  const cardWithOverlay = useMemo(
-    () =>
-      shouldShowLinkOverlay ? (
-        <InlineCardOverlay
-          isSelected={isSelected}
-          isVisible={isHovered || isSelected}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          url={url}
-        >
-          {innerCard}
-        </InlineCardOverlay>
-      ) : (
-        innerCard
-      ),
-    [innerCard, isHovered, isSelected, shouldShowLinkOverlay, url],
-  );
-
-  const card = useMemo(
-    () => (
-      <span css={shouldShowLinkPulse && loaderWrapperStyles} className="card">
-        {shouldShowLinkPulse ? (
-          <DiscoveryPulse
-            localStorageKey={LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK}
-            localStorageKeyExpirationInMs={ONE_DAY_IN_MILLISECONDS}
-            discoveryMode="start"
-          >
-            {cardWithOverlay}
-          </DiscoveryPulse>
-        ) : (
-          cardWithOverlay
-        )}
-      </span>
-    ),
-    [shouldShowLinkPulse, cardWithOverlay],
-  );
-  // END: Awareness
+  const card = useMemo(() => {
+    return isOverlayEnabled || isPulseEnabled ? (
+      <AwarenessWrapper
+        isOverlayEnabled={isOverlayEnabled}
+        isPulseEnabled={isPulseEnabled}
+        cardContext={cardContext}
+        getPos={getPos}
+        isHovered={isHovered}
+        isInserted={isInserted}
+        url={url}
+        isSelected={isSelected}
+        isResolvedViewRendered={isResolvedViewRendered}
+        markMostRecentlyInsertedLink={markMostRecentlyInsertedLink}
+        pluginInjectionApi={pluginInjectionApi}
+        setOverlayHoveredStyles={setOverlayHoveredStyles}
+      >
+        {innerCard}
+      </AwarenessWrapper>
+    ) : (
+      <span className="card">{innerCard}</span>
+    );
+  }, [
+    cardContext,
+    getPos,
+    innerCard,
+    isHovered,
+    isInserted,
+    isOverlayEnabled,
+    isPulseEnabled,
+    isResolvedViewRendered,
+    isSelected,
+    markMostRecentlyInsertedLink,
+    pluginInjectionApi,
+    setOverlayHoveredStyles,
+    url,
+  ]);
 
   // [WS-2307]: we only render card wrapped into a Provider when the value is ready,
   // otherwise if we got data, we can render the card directly since it doesn't need the Provider

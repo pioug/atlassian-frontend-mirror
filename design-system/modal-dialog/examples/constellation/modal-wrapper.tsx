@@ -1,6 +1,6 @@
 import React, { Fragment, useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Field, HelperMessage } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 

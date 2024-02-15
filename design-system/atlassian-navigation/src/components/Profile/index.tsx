@@ -1,5 +1,8 @@
+import React, { forwardRef, Ref } from 'react';
+
 import { IconButton } from '../IconButton';
-import { IconButtonProps } from '../IconButton/types';
+
+import { ProfileProps } from './types';
 
 /**
  * __Profile__
@@ -10,8 +13,25 @@ import { IconButtonProps } from '../IconButton/types';
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#profile)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const Profile = IconButton;
+export const Profile = forwardRef<HTMLElement, ProfileProps>(
+  (props: ProfileProps, ref: Ref<HTMLElement>) => {
+    const { label: labelProp, tooltip } = props;
+    const label =
+      labelProp ||
+      (typeof tooltip === 'string' ? tooltip : 'Your profile and settings');
+
+    // All other implementations of IconButton within the components are using spread props, so
+    // to use explicit props could cause regressions.
+    // TODO: Remove these spread props for better static analysis
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+    return (
+      <div role="listitem">
+        <IconButton label={label} ref={ref} {...props} />
+      </div>
+    );
+  },
+);
 
 // This exists only to extract props.
 // eslint-disable-next-line @repo/internal/react/use-noop
-export default (props: IconButtonProps) => {};
+export default (props: ProfileProps) => {};

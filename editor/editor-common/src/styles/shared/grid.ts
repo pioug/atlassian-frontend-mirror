@@ -9,8 +9,14 @@ export const GRID_GUTTER = 12;
 export const gridStyles = css`
   .gridParent {
     width: calc(100% + ${GRID_GUTTER * 2}px);
-    margin-left: -${GRID_GUTTER}px;
-    margin-right: -${GRID_GUTTER}px;
+    margin-left: ${token(
+      'space.negative.150',
+      '-12px',
+    )}; // Negative GRID_GUTTER
+    margin-right: ${token(
+      'space.negative.150',
+      '-12px',
+    )}; // Negative GRID_GUTTER
     transform: scale(1);
     z-index: ${akEditorGridLineZIndex};
   }

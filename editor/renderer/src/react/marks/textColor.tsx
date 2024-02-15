@@ -1,53 +1,10 @@
 import React, { useMemo } from 'react';
-import {
-  isHex,
-  isRgb,
-  rgbToHex,
-  getDarkModeLCHColor,
-} from '@atlaskit/adf-schema';
+import { getDarkModeLCHColor } from '@atlaskit/adf-schema';
 import type { TextColorAttributes } from '@atlaskit/adf-schema';
 import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import type { MarkProps } from '../types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
-/**
- * This function is duplicated in
- * - @atlaskit/adf-schema
- * - ../nodes/tableCell.tsx
- * it takes a color string, and if the color string is a hex or rgb value
- * it will invert the color and return the inverted color.
- */
-function invertCustomColor(customColor: string) {
-  let hex: string;
-
-  if (isHex(customColor)) {
-    hex = customColor;
-  } else if (isRgb(customColor)) {
-    hex = rgbToHex(customColor)!;
-
-    if (hex === null) {
-      // in some cases the rgb color is invalid, in this case we just return the color
-      // See https://product-fabric.atlassian.net/browse/DTR-2003 for a ticket to improve the isRgb function
-      // to align with the rgbToHex function
-      return customColor;
-    }
-  } else {
-    return customColor;
-  }
-  const hexWithoutHash = hex!.replace('#', '');
-
-  // This inverts the hex color by
-  // 1. converting the hex code to a number
-  // 2. XORing it with 0xffffff
-  // 3. Converting the result back to hex
-  // 4. Removing the leading 1 from the result
-  return `#${(Number(`0x1${hexWithoutHash}`) ^ 0xffffff)
-    .toString(16)
-    .substring(1)
-    .toUpperCase()}`;
-}
 
 export default function TextColor(props: MarkProps<TextColorAttributes>) {
   const { colorMode } = useThemeObserver();
@@ -79,12 +36,7 @@ export default function TextColor(props: MarkProps<TextColorAttributes>) {
   } else {
     if (colorMode === 'dark') {
       // if we have a custom color, we need to check if we are in dark mode
-      // and if the feature flag is enabled we need to use the LCH conversion method
-      if (getBooleanFF('platform.editor.use-lch-for-color-inversion_1qv8ol')) {
-        paletteColorValue = getDarkModeLCHColor(props.color);
-      } else {
-        paletteColorValue = invertCustomColor(props.color);
-      }
+      paletteColorValue = getDarkModeLCHColor(props.color);
     } else {
       // if we are in light mode, we can just set the color
       paletteColorValue = props.color;

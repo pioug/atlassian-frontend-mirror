@@ -1,21 +1,22 @@
 import {
-  editorTestCase as test,
-  expect,
-  EditorTableModel,
   EditorNodeContainerModel,
+  EditorTableModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  p,
+  code_block,
   doc,
   emoji,
-  code_block,
+  p,
   table,
-  tr,
+  tdEmpty,
   th,
   thEmpty,
-  tdEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { emojiWithsimpleTable } from './__fixtures__/adf-document';
 test.use({
   editorProps: {

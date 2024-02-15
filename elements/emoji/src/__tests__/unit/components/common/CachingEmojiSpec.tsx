@@ -1,18 +1,18 @@
+import { fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
+import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 import * as sinon from 'sinon';
-import { fireEvent } from '@testing-library/react';
-import CachingEmoji from '../../../../components/common/CachingEmoji';
 import EmojiResource from '../../../../api/EmojiResource';
-import { EmojiContextProvider } from '../../../../context/EmojiContextProvider';
-import { imageEmoji, mediaEmoji } from '../../_test-data';
+import CachingEmoji from '../../../../components/common/CachingEmoji';
+import { EmojiContext } from '../../../../components/common/internal-types';
 import type { EmojiContextType } from '../../../../context/EmojiContext';
+import { EmojiContextProvider } from '../../../../context/EmojiContextProvider';
 import type { EmojiDescription } from '../../../../types';
 import { ufoExperiences } from '../../../../util/analytics';
-import * as constants from '../../../../util/constants';
 import * as samplingUfo from '../../../../util/analytics/samplingUfo';
-import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 import browserSupport from '../../../../util/browser-support';
-import { mountWithIntl } from '../../_enzyme';
+import * as constants from '../../../../util/constants';
+import { imageEmoji, mediaEmoji } from '../../_test-data';
 import { renderWithIntl } from '../../_testing-library';
 
 jest.mock('../../../../util/constants', () => {
@@ -111,7 +111,7 @@ describe('<CachingEmoji />', () => {
           mediaEmoji,
         );
 
-        const image = result.queryByAltText(':media:');
+        const image = await result.findByAltText(':media:');
 
         expect(image).toHaveAttribute(
           'src',
@@ -146,11 +146,10 @@ describe('<CachingEmoji />', () => {
           emojiContextValue,
           mediaEmoji,
         );
-        const image = result.queryByAltText(':media:');
-        expect(image).not.toBeNull();
-        if (image) {
-          fireEvent(image as Element, new Event('load'));
-        }
+        const image = await result.findByAltText(':media:');
+
+        fireEvent(image as Element, new Event('load'));
+
         expect(startSpy).toHaveBeenCalled();
         expect(successSpy).toHaveBeenCalled();
       });
@@ -184,12 +183,10 @@ describe('<CachingEmoji />', () => {
           mediaEmoji,
         );
 
-        const image = result.queryByAltText(':media:');
+        const image = await result.findByAltText(':media:');
 
-        expect(image).not.toBeNull();
-        if (image) {
-          fireEvent(image as Element, new Event('error'));
-        }
+        fireEvent(image as Element, new Event('error'));
+
         expect(startSpy).toHaveBeenCalled();
         expect(successSpy).not.toHaveBeenCalled();
         expect(failureSpy).toHaveBeenCalled();
@@ -228,12 +225,18 @@ describe('<CachingEmoji />', () => {
         expect(abortSpy).toHaveBeenCalled();
       });
 
-      it('should fail rendered emoji UFO experience on render issue', () => {
+      it('should fail rendered emoji UFO experience on render issue', async () => {
+        const renderError = new Error(`I'm error`);
         const emojiContext = {
           emoji: {
-            emojiProvider: emojiProviderStub,
+            emojiProvider: {
+              optimisticMediaRendering: jest.fn().mockReturnValue(true),
+              getMediaEmojiDescriptionURLWithInlineToken: jest
+                .fn()
+                .mockRejectedValueOnce(renderError),
+            },
           },
-        };
+        } as unknown as EmojiContext;
         const experience = ufoExperiences['emoji-rendered'].getInstance(
           mediaEmoji.id || mediaEmoji.shortName,
         );
@@ -241,28 +244,14 @@ describe('<CachingEmoji />', () => {
         const startSpy = jest.spyOn(experience, 'start');
         const failureSpy = jest.spyOn(experience, 'failure');
 
-        emojiProviderStub.optimisticMediaRendering.returns(true);
-        emojiProviderStub.getMediaEmojiDescriptionURLWithInlineToken.returns(
-          Promise.resolve({
-            ...mediaEmoji,
-            representation: {
-              ...mediaEmoji.representation,
-              mediaPath: `${mediaEmoji.representation.mediaPath}&token=abc&client=def`,
-            },
-          }),
-        );
-
-        const component = mountWithIntl(
+        renderWithIntl(
           <EmojiContextProvider emojiContextValue={emojiContext}>
             <CachingEmoji emoji={mediaEmoji} />
           </EmojiContextProvider>,
         );
 
-        const renderError = new Error(`I'm error`);
-        component.find('CachingMediaEmoji').simulateError(renderError);
-
         expect(startSpy).toHaveBeenCalled();
-        expect(failureSpy).toHaveBeenCalled();
+        await waitFor(() => expect(failureSpy).toHaveBeenCalled());
       });
     });
   });

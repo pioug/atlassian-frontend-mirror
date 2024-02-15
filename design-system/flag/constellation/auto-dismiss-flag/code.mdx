@@ -2,10 +2,12 @@
 title: Auto dismiss flag
 description: A flag that is dismissed automatically after eight seconds.
 order: 1
+props:
+  packageName: '@atlaskit/flag'
+  exports:
+    - AutoDismissFlag
 ---
-
-import AutoDismissFlagProps from '!!extract-react-types-loader!../../src/auto-dismiss-flag';
 
 ## Props
 
-<PropsTable heading="" props={AutoDismissFlagProps} />
+<TSMorphProps exportName="AutoDismissFlag" packageName="@atlaskit/flag" />

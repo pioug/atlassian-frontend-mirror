@@ -11,8 +11,6 @@ import Tabs, { Tab, TabList, TabPanel } from '../../src';
 
 const panelStyles = css({
   display: 'flex',
-  marginTop: token('space.200', '16px'),
-  marginBottom: token('space.100', '8px'),
   padding: token('space.400', '32px'),
   alignItems: 'center',
   justifyContent: 'center',
@@ -23,6 +21,8 @@ const panelStyles = css({
   color: token('color.text.subtlest', N200),
   fontSize: '4em',
   fontWeight: 500,
+  marginBlockEnd: token('space.100', '8px'),
+  marginBlockStart: token('space.200', '16px'),
 });
 
 export const Panel = ({ children }: { children: ReactNode }) => (
@@ -43,13 +43,13 @@ const TabTooltipExample = () => (
       <TooltipTab label="Tab 3" tooltip="Tooltip for tab 3" />
     </TabList>
     <TabPanel>
-      <Panel>One</Panel>
+      <Panel>This is the content area of the first tab.</Panel>
     </TabPanel>
     <TabPanel>
-      <Panel>Two</Panel>
+      <Panel>This is the content area of the second tab.</Panel>
     </TabPanel>
     <TabPanel>
-      <Panel>Three</Panel>
+      <Panel>This is the content area of the third tab.</Panel>
     </TabPanel>
   </Tabs>
 );

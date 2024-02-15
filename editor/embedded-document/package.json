@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/embedded-document",
-  "version": "0.9.11",
+  "version": "0.9.17",
   "description": "DEPRECATED Embedded Document component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -22,22 +22,25 @@
   },
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
   "atlassian": {
     "team": "Editor: Collaboration",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "continuous",
     "website": {
       "name": "embedded-document",
       "deprecated": "This package is no longer being used and will not be actively maintained"
-    }
+    },
+    "runReact18": false
   },
   "dependencies": {
-    "@atlaskit/button": "^16.17.0",
-    "@atlaskit/editor-common": "^76.23.0",
-    "@atlaskit/editor-core": "^189.4.0",
-    "@atlaskit/editor-shared-styles": "^2.8.0",
-    "@atlaskit/renderer": "^108.17.0",
+    "@atlaskit/button": "^17.3.0",
+    "@atlaskit/editor-common": "^77.4.0",
+    "@atlaskit/editor-core": "^192.1.0",
+    "@atlaskit/editor-shared-styles": "^2.9.0",
+    "@atlaskit/renderer": "^109.4.0",
     "@atlaskit/util-service-support": "^6.2.0",
     "@babel/runtime": "^7.0.0"
   },

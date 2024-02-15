@@ -1,5 +1,11 @@
 # @atlaskit/tag-group
 
+## 10.2.6
+
+### Patch Changes
+
+- [#61319](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61319) [`864383d2cc09`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/864383d2cc09) - Exports type of tag group to resolve lint error when using code gen
+
 ## 10.2.5
 
 ### Patch Changes

@@ -2,10 +2,11 @@
 export const getTranslations = async (locale: string) => {
   let messages = {};
   if (!locale.includes('en')) {
+    // duplicated in platform/packages/editor/renderer/examples/helper/get-translations.ts
     messages = await Promise.all([
       import(`../src/i18n/${locale}`),
-      import(`@atlaskit/mention/src/i18n/${locale}`),
-      import(`@atlaskit/status/src/i18n/${locale}`),
+      import(`../../../elements/mention/src/i18n/${locale}`),
+      import(`../../../elements/status/src/i18n/${locale}`),
       import(`../../editor-common/src/i18n/${locale}`),
     ]).then((modules) =>
       modules.reduce(

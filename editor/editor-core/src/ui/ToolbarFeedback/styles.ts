@@ -1,8 +1,9 @@
 import { css } from '@emotion/react';
-import { borderRadius } from '@atlaskit/theme/constants';
-import { N60A, N400, P400 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { N400, N60A, P400 } from '@atlaskit/theme/colors';
+import { borderRadius } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 export const buttonContent = css`
   display: flex;
@@ -38,15 +39,15 @@ export const confirmationText = css`
   line-height: 22px;
   color: ${token('color.text.subtle', N400)};
   margin-top: 30px;
-  padding: 20px;
+  padding: ${token('space.250', '20px')};
   & > div {
     width: 240px;
   }
   & > div:first-of-type {
-    margin-bottom: 12px;
+    margin-bottom: ${token('space.150', '12px')};
   }
   & > div:nth-of-type(2) {
-    margin-bottom: 20px;
+    margin-bottom: ${token('space.250', '20px')};
   }
 `;
 

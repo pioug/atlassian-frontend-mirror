@@ -104,15 +104,9 @@ const LinkCreateWithModal = ({
   const [showExitWarning, setShowExitWarning] = useState(false);
 
   const handleCancel = useCallback(() => {
-    if (
-      getBooleanFF(
-        'platform.linking-platform.link-create.confirm-dismiss-dialog',
-      )
-    ) {
-      if (getShouldShowWarning() && !showExitWarning) {
-        setShowExitWarning(true);
-        return;
-      }
+    if (getShouldShowWarning() && !showExitWarning) {
+      setShowExitWarning(true);
+      return;
     }
 
     onCancel?.();
@@ -167,101 +161,78 @@ const LinkCreateWithModal = ({
           </Modal>
         )}
       </ModalTransition>
-      {getBooleanFF('platform.linking-platform.link-create.enable-edit') &&
-        onComplete && (
-          <EditModal onCloseComplete={onCloseComplete} onClose={onComplete} />
-        )}
-      {getBooleanFF(
-        'platform.linking-platform.link-create.confirm-dismiss-dialog',
-      ) && (
-        <ConfirmDismissDialog
-          active={showExitWarning}
-          onClose={handleCloseExitWarning}
-        />
+      {onComplete && (
+        <EditModal onCloseComplete={onCloseComplete} onClose={onComplete} />
       )}
+      <ConfirmDismissDialog
+        active={showExitWarning}
+        onClose={handleCloseExitWarning}
+      />
     </LinkCreateCallbackProvider>
   );
 };
 
 const LinkCreateModal = (props: LinkCreateWithModalProps) => {
-  if (getBooleanFF('platform.linking-platform.link-create.enable-edit')) {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const shouldCallCloseComplete = useRef(!props.active);
+  const shouldCallCloseComplete = useRef(!props.active);
 
-    // modal calls onCloseComplete in a useEffect(), so we can track whether
-    // or not we should execute it based on the active prop in a
-    // useLayoutEffect() which will be run before child useEffect()s
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useLayoutEffect(() => {
-      // onCloseComplete should only be called when it is not active
-      shouldCallCloseComplete.current = !props.active;
-    }, [props.active]);
-
-    return (
-      <LinkCreatePluginsProvider
-        plugins={props.plugins}
-        entityKey={props.entityKey}
-      >
-        {pluginsProvider => (
-          <EditPostCreateModalProvider active={!!props.active}>
-            {({
-              setEditViewPayload,
-              editViewPayload,
-              shouldActivateEditView,
-              enableEditView,
-            }) => (
-              <FormContextProvider
-                enableEditView={
-                  pluginsProvider?.activePlugin?.editView && props?.onComplete
-                    ? enableEditView
-                    : undefined
-                }
-              >
-                <ExitWarningModalProvider>
-                  <LinkCreateWithModal
-                    {...props}
-                    active={props.active && !editViewPayload}
-                    onCreate={async payload => {
-                      await props.onCreate?.(payload);
-
-                      // if onComplete exists then there is an edit flow
-                      if (props.onComplete) {
-                        if (shouldActivateEditView()) {
-                          //edit button is pressed
-                          setEditViewPayload(payload);
-                        } else {
-                          //create button is pressed
-                          props.onComplete();
-                        }
-                      }
-                    }}
-                    onCloseComplete={(...args) => {
-                      if (shouldCallCloseComplete.current) {
-                        props.onCloseComplete?.(...args);
-                      }
-                    }}
-                  />
-                </ExitWarningModalProvider>
-              </FormContextProvider>
-            )}
-          </EditPostCreateModalProvider>
-        )}
-      </LinkCreatePluginsProvider>
-    );
-  }
+  // modal calls onCloseComplete in a useEffect(), so we can track whether
+  // or not we should execute it based on the active prop in a
+  // useLayoutEffect() which will be run before child useEffect()s
+  useLayoutEffect(() => {
+    // onCloseComplete should only be called when it is not active
+    shouldCallCloseComplete.current = !props.active;
+  }, [props.active]);
 
   return (
-    <FormContextProvider>
-      <ExitWarningModalProvider>
-        <LinkCreateWithModal
-          {...props}
-          onCreate={async payload => {
-            await props.onCreate?.(payload);
-            props.onComplete?.();
-          }}
-        />
-      </ExitWarningModalProvider>
-    </FormContextProvider>
+    <LinkCreatePluginsProvider
+      plugins={props.plugins}
+      entityKey={props.entityKey}
+    >
+      {pluginsProvider => (
+        <EditPostCreateModalProvider active={!!props.active}>
+          {({
+            setEditViewPayload,
+            editViewPayload,
+            shouldActivateEditView,
+            enableEditView,
+          }) => (
+            <FormContextProvider
+              enableEditView={
+                pluginsProvider?.activePlugin?.editView && props?.onComplete
+                  ? enableEditView
+                  : undefined
+              }
+            >
+              <ExitWarningModalProvider>
+                <LinkCreateWithModal
+                  {...props}
+                  active={props.active && !editViewPayload}
+                  onCreate={async payload => {
+                    await props.onCreate?.(payload);
+
+                    // if onComplete exists then there is an edit flow
+                    if (props.onComplete) {
+                      if (shouldActivateEditView()) {
+                        //edit button is pressed
+                        setEditViewPayload(payload);
+                      } else {
+                        //create button is pressed
+                        props.onComplete();
+                      }
+                    }
+                  }}
+                  onCloseComplete={(...args) => {
+                    if (shouldCallCloseComplete.current) {
+                      props.onCloseComplete?.(...args);
+                    }
+                  }}
+                />
+              </ExitWarningModalProvider>
+            </FormContextProvider>
+          )}
+        </EditPostCreateModalProvider>
+      )}
+    </LinkCreatePluginsProvider>
   );
 };
 

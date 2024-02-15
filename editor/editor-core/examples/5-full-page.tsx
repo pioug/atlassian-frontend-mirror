@@ -1,19 +1,22 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
-import { css, jsx } from '@emotion/react';
 import React, { Fragment } from 'react';
-import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
-import { MockActivityResource } from '../example-helpers/activity-provider';
-import { createSearchProvider, Scope } from '@atlassian/search-provider';
-import ExamplesErrorBoundary from '../example-helpers/ExamplesErrorBoundary';
+
+import { css, jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
-import Flag from '@atlaskit/flag';
-import Warning from '@atlaskit/icon/glyph/warning';
-
-import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/standard-button';
+import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import {
+  TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS,
+  TTI_SEVERITY_THRESHOLD_DEFAULTS,
+} from '@atlaskit/editor-common/utils';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
+import type { PanelPluginConfig } from '@atlaskit/editor-plugins/panel';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -21,68 +24,60 @@ import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
+import Flag from '@atlaskit/flag';
+import Warning from '@atlaskit/icon/glyph/warning';
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
-import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { Providers } from '@atlaskit/editor-common/provider-factory';
-
-// import { tablesPlugin } from '@atlaskit/editor-plugin-table';
-
-import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';
-import {
-  TTI_SEVERITY_THRESHOLD_DEFAULTS,
-  TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS,
-} from '@atlaskit/editor-common/utils';
-
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
-
-import {
-  currentUser,
-  getEmojiProvider,
-} from '@atlaskit/util-data-test/get-emoji-provider';
-import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
-
-import { Editor } from './../src';
-import type {
-  EditorProps,
-  // EditorPlugin,
-} from './../src/editor';
-import EditorContext from './../src/ui/EditorContext';
-import WithEditorActions from './../src/ui/WithEditorActions';
-import { fromLocation, encode, amend, check } from '../example-helpers/adf-url';
-import * as FeatureFlagUrl from '../example-helpers/feature-flag-url';
-import { copy } from '../example-helpers/copy';
-import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
-import { DevTools } from '../example-helpers/DevTools';
-import { TitleInput } from '../example-helpers/PageElements';
-import type { EditorActions } from './../src';
-import type { PanelPluginConfig } from '@atlaskit/editor-plugin-panel';
-import {
-  PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
-  PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
-} from '../src/create-editor/consts';
-import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
-import {
-  DEFAULT_MODE,
-  LOCALSTORAGE_defaultMode,
-} from '../example-helpers/example-constants';
-import type {
-  ExampleProps,
-  EditorState,
-  ExampleRendererProps,
-  ExampleEditorProps,
-} from '../example-helpers/full-page/types';
-import { ReactRenderer } from '@atlaskit/renderer';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
 import {
   isMediaMockOptedIn,
   mediaMock,
 } from '@atlaskit/media-test-helpers/media-mock';
-import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import { ReactRenderer } from '@atlaskit/renderer';
+import {
+  currentUser,
+  getEmojiProvider,
+} from '@atlaskit/util-data-test/get-emoji-provider';
+import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+import { createSearchProvider, Scope } from '@atlassian/search-provider';
+
+import { MockActivityResource } from '../example-helpers/activity-provider';
+import { amend, check, encode, fromLocation } from '../example-helpers/adf-url';
+import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
+import { copy } from '../example-helpers/copy';
+import { DevTools } from '../example-helpers/DevTools';
+import {
+  DEFAULT_MODE,
+  LOCALSTORAGE_defaultMode,
+} from '../example-helpers/example-constants';
+import ExamplesErrorBoundary from '../example-helpers/ExamplesErrorBoundary';
+import * as FeatureFlagUrl from '../example-helpers/feature-flag-url';
+import type {
+  EditorState,
+  ExampleEditorProps,
+  ExampleProps,
+  ExampleRendererProps,
+} from '../example-helpers/full-page/types';
+import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';
+import { TitleInput } from '../example-helpers/PageElements';
+import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
+import type { EditorActions } from '../src';
+import { Editor } from '../src';
+import {
+  PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+  PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+} from '../src/create-editor/consts';
+import type {
+  EditorProps,
+  // EditorPlugin,
+} from '../src/editor';
 import { usePresetContext } from '../src/presets/context';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
+import EditorContext from '../src/ui/EditorContext';
+import WithEditorActions from '../src/ui/WithEditorActions';
 
 const BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD = 2000;
 const BROWSER_FREEZE_DEGRADED_SEVERITY_THRESHOLD = 3000;

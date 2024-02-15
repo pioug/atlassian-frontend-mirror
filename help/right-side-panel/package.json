@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/right-side-panel",
-  "version": "1.2.5",
+  "version": "1.2.7",
   "description": "A cross-product right-side-panel component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -22,17 +22,22 @@
   },
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
   "atlassian": {
     "team": "Self-Help Experiences",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Right Side Panel"
     }
   },
   "dependencies": {
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/styled": "^10.0.7",
     "exenv": "^1.2.2",

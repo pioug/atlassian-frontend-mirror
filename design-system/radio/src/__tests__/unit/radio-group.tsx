@@ -267,6 +267,64 @@ describe('@atlaskit/radio', () => {
           expect(value).toBe('1');
         });
       });
+
+      describe('testId prop', () => {
+        it('is set on RadioGroup and Radio options', () => {
+          const { getByTestId, getAllByTestId } = render(
+            <RadioGroup testId="some-test-id" options={sampleOptions} />,
+          );
+
+          const radioGroup = getByTestId('some-test-id');
+          expect(radioGroup).toBeTruthy();
+
+          const radioInput = getAllByTestId('some-test-id--radio-input');
+          expect(radioInput).toBeTruthy();
+          expect(radioInput.length).toBe(3);
+
+          const radioLabel = getAllByTestId('some-test-id--radio-label');
+          expect(radioLabel).toBeTruthy();
+          expect(radioLabel.length).toBe(3);
+        });
+
+        it('prefers `testId` set on Radio options over RadioGroup prop', () => {
+          const { getByTestId, getAllByTestId } = render(
+            <RadioGroup
+              testId="should-only-be-set-on-root-element"
+              options={[
+                {
+                  name: 'test',
+                  testId: 'should-be-set-on-children',
+                  value: '1',
+                  label: 'one',
+                },
+                {
+                  name: 'test',
+                  testId: 'should-be-set-on-children',
+                  value: '2',
+                  label: 'two',
+                },
+              ]}
+            />,
+          );
+
+          const ignoredTestId = getByTestId(
+            'should-only-be-set-on-root-element',
+          );
+          expect(ignoredTestId).toBeTruthy();
+
+          const radioInput = getAllByTestId(
+            'should-be-set-on-children--radio-input',
+          );
+          expect(radioInput).toBeTruthy();
+          expect(radioInput.length).toBe(2);
+
+          const radioLabel = getAllByTestId(
+            'should-be-set-on-children--radio-label',
+          );
+          expect(radioLabel).toBeTruthy();
+          expect(radioLabel.length).toBe(2);
+        });
+      });
     });
   });
 });

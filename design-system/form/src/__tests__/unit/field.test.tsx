@@ -911,17 +911,17 @@ describe('Field', () => {
     it('should hide required asterisk from assistive technologies', async () => {
       render(jsx());
 
-      const asterisks = screen.getAllByText('*');
+      const asterisks = screen.getByText('*');
 
-      expect(asterisks[1]).toHaveAttribute('aria-hidden', 'true');
+      expect(asterisks).toHaveAttribute('aria-hidden', 'true');
     });
 
     it('should have title for required asterisk', async () => {
       render(jsx());
 
-      const asterisks = screen.getAllByText('*');
+      const asterisks = screen.getByText('*');
 
-      expect(asterisks[1]).toHaveAttribute('title', 'required');
+      expect(asterisks).toHaveAttribute('title', 'required');
     });
 
     it('should set elementAfterLabel with field when field is required', () => {

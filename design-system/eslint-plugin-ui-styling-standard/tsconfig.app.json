@@ -1,0 +1,37 @@
+{
+  "extends": "../../../tsconfig.node.json",
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+  "exclude": [
+    "**/docs/**/*",
+    "**/__tests__/**/*",
+    "**/vr-tests/**/*",
+    "**/__perf__/**/*",
+    "**/*.test.*",
+    "**/test.*",
+    "**/test-*",
+    "**/examples.ts",
+    "**/examples.tsx",
+    "**/examples/*.ts",
+    "**/examples/*.tsx",
+    "**/examples/**/*.ts",
+    "**/examples/**/*.tsx",
+    "**/storybook/**/*",
+    "**/constellation/**/*",
+    ".storybook/*",
+    "./__fixtures__/**/*",
+    "./__generated__/**/*",
+    "./mocks/**/*",
+    "./__mocks__/**/*",
+    "**/mock.*",
+    "**/codemods/**/*.ts",
+    "**/codemods/**/*.tsx"
+  ],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "lib": ["ES2021.String"],
+    "composite": true,
+    "outDir": "../../../tsDist/@atlaskit__eslint-plugin-ui-styling-standard/app"
+  },
+  "references": [],
+  "files": []
+}

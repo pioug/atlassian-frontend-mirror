@@ -7,7 +7,6 @@ import {
   CompoundClause,
   JastBuilder,
   OPERATOR_EQUALS,
-  OPERATOR_GT_EQUALS,
   OPERATOR_IN,
   OPERATOR_LIKE,
   OrderByField,
@@ -29,7 +28,7 @@ type ClauseMap = {
 const allowedFields: string[] = [
   // basic filter fields
   'assignee',
-  'issuetype',
+  'type',
   'project',
   'status',
 
@@ -37,9 +36,6 @@ const allowedFields: string[] = [
   'text',
   'summary',
   'key',
-
-  // orderby field
-  'created',
 ];
 
 const fallbackOperators = [OPERATOR_IN];
@@ -48,9 +44,8 @@ const fieldSpecificOperators: Record<string, string[]> = {
   text: [OPERATOR_LIKE, OPERATOR_EQUALS],
   summary: [OPERATOR_LIKE, OPERATOR_EQUALS],
   key: [OPERATOR_EQUALS],
-  created: [OPERATOR_GT_EQUALS],
   project: [OPERATOR_IN, OPERATOR_EQUALS],
-  issuetype: [OPERATOR_IN, OPERATOR_EQUALS],
+  type: [OPERATOR_IN, OPERATOR_EQUALS],
   status: [OPERATOR_IN, OPERATOR_EQUALS],
   assignee: [OPERATOR_IN, OPERATOR_EQUALS],
 };

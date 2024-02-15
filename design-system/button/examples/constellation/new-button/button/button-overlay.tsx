@@ -3,8 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { Inline, Stack } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 
-import { UNSAFE_BUTTON } from '../../../../src';
-
+import Button from '../../../../src/new';
 const ButtonOverlayExample = () => {
   const [isOverlayActive, setIsOverlayActive] = useState(true);
 
@@ -25,9 +24,7 @@ const ButtonOverlayExample = () => {
         />
         <label htmlFor="show-overlay">Show overlay</label>
       </Inline>
-      <UNSAFE_BUTTON overlay={isOverlayActive ? 'Overlay' : undefined}>
-        Button
-      </UNSAFE_BUTTON>
+      <Button overlay={isOverlayActive ? 'Overlay' : undefined}>Button</Button>
     </Stack>
   );
 };

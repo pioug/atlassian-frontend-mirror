@@ -1,11 +1,10 @@
 import {
   EditorNodeContainerModel,
   EditorTableModel,
-  editorTestCase as test,
   expect,
-  fixTest,
-  BROWSERS,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import { tablesWithDifferentColumns } from './__fixtures__/base-adfs';
 
 const MIN_COLUMN_WIDTH = 48;
@@ -32,13 +31,6 @@ test.describe('resizing a table', () => {
   test('should limit minimum width if resizing in 3 column', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-20321',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 05/10/2023: https://product-fabric.atlassian.net/browse/ED-20321',
-      browsers: [BROWSERS.webkit],
-    });
-
     const nodes = EditorNodeContainerModel.from(editor);
     const tableLocator = nodes.table.nth(0);
     const threeColumnTable = EditorTableModel.from(tableLocator);
@@ -59,13 +51,6 @@ test.describe('resizing a table', () => {
   test('should limit minimum width if resizing in 2 column', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-19850',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 04/09/2023: https://product-fabric.atlassian.net/browse/ED-19850',
-      browsers: [BROWSERS.webkit],
-    });
-
     const nodes = EditorNodeContainerModel.from(editor);
     const tableLocator = nodes.table.nth(1);
     const twoColumnTable = EditorTableModel.from(tableLocator);
@@ -84,13 +69,6 @@ test.describe('resizing a table', () => {
   test('should limit minimum width if resizing in 1 column', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-20258',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 29/09/2023: https://product-fabric.atlassian.net/browse/ED-20258',
-      browsers: [BROWSERS.webkit],
-    });
-
     const nodes = EditorNodeContainerModel.from(editor);
     const tableLocator = nodes.table.nth(2);
     const oneColumnTable = EditorTableModel.from(tableLocator);

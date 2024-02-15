@@ -30,7 +30,6 @@ import type {
   TextFormattingState,
 } from '@atlaskit/editor-common/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import BoldIcon from '@atlaskit/icon/glyph/editor/bold';
 import ItalicIcon from '@atlaskit/icon/glyph/editor/italic';
@@ -44,7 +43,6 @@ import {
   toggleSuperscriptWithAnalytics,
   toggleUnderlineWithAnalytics,
 } from '../../../commands';
-import { pluginKey as textFormattingPluginKey } from '../../../pm-plugins/plugin-key';
 import type { IconHookProps, MenuIconItem, MenuIconState } from '../types';
 import { IconTypes } from '../types';
 
@@ -54,7 +52,7 @@ const withToolbarInputMethod = (
 
 type BuildIconProps = {
   isToolbarDisabled: boolean;
-  textFormattingPluginState: TextFormattingState;
+  textFormattingState: TextFormattingState | undefined;
   schema: Schema;
 } & WrappedComponentProps;
 
@@ -179,13 +177,10 @@ const buildMenuIconState =
   (iconMark: IconTypes) =>
   ({
     schema,
-    textFormattingPluginState,
-  }: Pick<
-    BuildIconProps,
-    'schema' | 'textFormattingPluginState'
-  >): MenuIconState => {
+    textFormattingState,
+  }: Pick<BuildIconProps, 'schema' | 'textFormattingState'>): MenuIconState => {
     const hasPluginState = Boolean(
-      Object.keys(textFormattingPluginState || {}).length,
+      Object.keys(textFormattingState || {}).length,
     );
     const markSchema = IconsMarkSchema[iconMark];
     const hasSchemaMark = Boolean(schema.marks[markSchema]);
@@ -200,17 +195,11 @@ const buildMenuIconState =
     }
 
     const isActive =
-      textFormattingPluginState[
-        `${iconMark}Active` as keyof TextFormattingState
-      ];
+      textFormattingState?.[`${iconMark}Active` as keyof TextFormattingState];
     const isDisabled =
-      textFormattingPluginState[
-        `${iconMark}Disabled` as keyof TextFormattingState
-      ];
+      textFormattingState?.[`${iconMark}Disabled` as keyof TextFormattingState];
     const isHidden =
-      textFormattingPluginState[
-        `${iconMark}Hidden` as keyof TextFormattingState
-      ];
+      textFormattingState?.[`${iconMark}Hidden` as keyof TextFormattingState];
 
     return {
       isActive: Boolean(isActive),
@@ -228,13 +217,13 @@ const buildIcon = (
 
   return ({
     schema,
-    textFormattingPluginState,
+    textFormattingState,
     intl,
     isToolbarDisabled,
   }: BuildIconProps): MenuIconItem | null => {
     const iconState = getState({
       schema,
-      textFormattingPluginState,
+      textFormattingState,
     });
 
     const { isActive, isDisabled, isHidden, hasSchemaMark } = iconState;
@@ -258,31 +247,22 @@ const buildIcon = (
   };
 };
 
-const useTextFormattingPluginState = (
-  editorState: EditorState,
-): TextFormattingState =>
-  useMemo(() => {
-    const pluginState = textFormattingPluginKey.getState(editorState);
-
-    // TODO: ED-13910 for reasons that goes beyond my knowledge. This is the only way to make the current unit tests happy. Even thought this was wrong before
-    return pluginState!;
-  }, [editorState]);
-
 interface FormattingIconHookProps extends IconHookProps {
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+  textFormattingState: TextFormattingState | undefined;
+  schema: Schema;
 }
 
 export const useFormattingIcons = ({
   isToolbarDisabled,
-  editorState,
+  textFormattingState,
+  schema,
   intl,
   editorAnalyticsAPI,
 }: FormattingIconHookProps): Array<MenuIconItem | null> => {
-  const textFormattingPluginState = useTextFormattingPluginState(editorState);
-  const { schema } = editorState;
   const props = {
     schema,
-    textFormattingPluginState,
+    textFormattingState,
     intl,
     isToolbarDisabled: Boolean(isToolbarDisabled),
   };
@@ -331,26 +311,23 @@ export const useFormattingIcons = ({
 };
 
 type Props = {
-  editorState: EditorState;
+  textFormattingState: TextFormattingState | undefined;
   iconTypeList: IconTypes[];
 };
 export const useHasFormattingActived = ({
-  editorState,
   iconTypeList,
+  textFormattingState,
 }: Props) => {
-  const textFormattingPluginState = useTextFormattingPluginState(editorState);
   const hasActiveFormatting = useMemo(() => {
-    if (!textFormattingPluginState) {
+    if (!textFormattingState) {
       return false;
     }
 
     return iconTypeList.some(
       iconType =>
-        textFormattingPluginState[
-          `${iconType}Active` as keyof TextFormattingState
-        ],
+        textFormattingState[`${iconType}Active` as keyof TextFormattingState],
     );
-  }, [textFormattingPluginState, iconTypeList]);
+  }, [textFormattingState, iconTypeList]);
 
   return hasActiveFormatting;
 };

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview */
 import { mountWithIntl } from '../helpers/_enzyme';
 import TextField from '@atlaskit/textfield';
 import React from 'react';

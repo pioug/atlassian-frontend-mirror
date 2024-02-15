@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 
 import { DynamicTableStateless } from '../src';
 import { SortOrderType } from '../src/types';
@@ -27,7 +27,7 @@ const ControlledSorting = () => {
 
   return (
     <div>
-      <ButtonGroup>
+      <ButtonGroup label="Paging navigation">
         <Button
           isDisabled={pageNumber === 1}
           onClick={() => navigateTo(pageNumber - 1)}

@@ -1,9 +1,11 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { useMemo, useContext, useState, useRef } from 'react';
+import type { ComponentProps } from 'react';
 import { Card, EmbedResizeMessageListener } from '@atlaskit/smart-card';
 import { SmartCardContext } from '@atlaskit/link-provider';
 import type { SmartLinksOptions } from '../../types/smartLinksOptions';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   WidthConsumer,
@@ -74,19 +76,26 @@ export default function EmbedCard(props: {
   } = props;
   const embedIframeRef = useRef(null);
   const onClick = getCardClickHandler(eventHandlers, url);
+  const { showServerActions, actionOptions } = smartLinks || {};
 
   const platform = useMemo(
     () => getPlatform(rendererAppearance),
     [rendererAppearance],
   );
-  const cardProps = {
+
+  const cardProps: Partial<ComponentProps<typeof Card>> = {
     url,
     data,
     onClick,
     container: portal,
     platform,
-    showActions: platform === 'web',
-    frameStyle: smartLinks?.frameStyle,
+    frameStyle:
+      smartLinks?.frameStyle ??
+      (getBooleanFF('platform.editor.show-embed-card-frame-renderer')
+        ? 'show'
+        : undefined),
+    actionOptions,
+    showServerActions,
   };
 
   const [liveHeight, setLiveHeight] = useState<number | null>(null);

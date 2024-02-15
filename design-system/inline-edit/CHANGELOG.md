@@ -1,5 +1,36 @@
 # @atlaskit/inline-edit
 
+## 13.0.7
+
+### Patch Changes
+
+- [#65569](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65569) [`bd5d46cc5c52`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bd5d46cc5c52) - Fixes an issue introduced by 12.3.5 that could lead to a page refresh in some cases when event bubbling caused the wrapping form to submit to the current page.
+
+## 13.0.6
+
+### Patch Changes
+
+- [#63597](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63597) [`b0b29dd45567`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b0b29dd45567) - [ux] Migrated action buttons in inline-edit to consume new icon buttons.
+- Updated dependencies
+
+## 13.0.5
+
+### Patch Changes
+
+- [#67296](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67296) [`8b0a2a9e0969`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b0a2a9e0969) - This package has been added to the Jira push model.
+
+## 13.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.3
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
 ## 13.0.2
 
 ### Patch Changes

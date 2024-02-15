@@ -52,7 +52,7 @@ export type HeadingProps =
            * It's important to note that the final DOM may be impacted by the parent heading level context because of inferred accessibility level correction.
            * Therefore, it is recommended to check the final DOM to confirm the actual rendered HTML element.
            */
-          level?:
+          level:
             | 'h900'
             | 'h800'
             | 'h700'
@@ -76,7 +76,7 @@ export type HeadingProps =
            *
            * This prop will only work if the typography theme is applied.
            */
-          variant?: HeadingVariant;
+          variant: HeadingVariant;
         }
     );
 /* eslint-enable jsdoc/require-asterisk-prefix */

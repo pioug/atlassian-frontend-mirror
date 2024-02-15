@@ -1,55 +1,52 @@
-import type AnalyticsHelper from '../analytics/analytics-helper';
-import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import type {
-  CatchupResponse,
-  ReconcileResponse,
-  ChannelEvent,
-  StepsPayload,
-} from '../types';
-import type {
-  SyncUpErrorFunction,
   ResolvedEditorState,
+  SyncUpErrorFunction,
 } from '@atlaskit/editor-common/collab';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import type AnalyticsHelper from '../analytics/analytics-helper';
+import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import type { MetadataService } from '../metadata/metadata-service';
+import type {
+  CatchupResponse,
+  ChannelEvent,
+  ReconcileResponse,
+  StepsPayload,
+} from '../types';
 
-import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
 import type {
   CollabEvents,
   CollabInitPayload,
   StepJson,
 } from '@atlaskit/editor-common/collab';
+import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
 
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import type { UGCFreeStepDetails } from '../helpers/utils';
-import { createLogger, getStepUGCFreeDetails, sleep } from '../helpers/utils';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import throttle from 'lodash/throttle';
-import { throttledCommitStep } from '../provider/commit-step';
 import {
   MEASURE_NAME,
   startMeasure,
   stopMeasure,
 } from '../analytics/performance';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import type { InternalError } from '../errors/internal-errors';
+import { INTERNAL_ERROR_CODE } from '../errors/internal-errors';
+import type { UGCFreeStepDetails } from '../helpers/utils';
+import { createLogger, getStepUGCFreeDetails, sleep } from '../helpers/utils';
+import type { ParticipantsService } from '../participants/participants-service';
 import {
   MAX_STEP_REJECTED_ERROR,
   MAX_STEP_REJECTED_ERROR_AGGRESSIVE,
 } from '../provider';
+import { commitStepQueue } from '../provider/commit-step';
 import { catchup } from './catchup';
-import type { ParticipantsService } from '../participants/participants-service';
 import { StepQueueState } from './step-queue-state';
-import type { InternalError } from '../errors/error-types';
 
-import {
-  CantSyncUpError,
-  INTERNAL_ERROR_CODE,
-  UpdateDocumentError,
-} from '../errors/error-types';
+import { CantSyncUpError, UpdateDocumentError } from '../errors/custom-errors';
 
 const CATCHUP_THROTTLE = 1 * 1000; // 1 second
 
@@ -102,7 +99,6 @@ export class DocumentService {
     private onErrorHandled: (error: InternalError) => void,
     private metadataService: MetadataService,
     private enableErrorOnFailedDocumentApply: boolean = false,
-    private enableSendStepsQueue: boolean = false,
   ) {
     this.stepQueue = new StepQueueState();
   }
@@ -160,7 +156,7 @@ export class DocumentService {
     } finally {
       this.stepQueue.resumeQueue();
       this.processQueue();
-      this.sendStepsFromCurrentState(); // this will eventually retry catchup as it calls commitStep which will either catchup on onStepsAdded or onErrorHandled
+      this.sendStepsFromCurrentState(); // this will eventually retry catchup as it calls commitStepQueue which will either catchup on onStepsAdded or onErrorHandled
       this.stepRejectCounter = 0;
     }
   };
@@ -479,9 +475,13 @@ export class DocumentService {
       metadata,
       ...(reserveCursor ? { reserveCursor } : {}),
     });
+    this.updateDocumentAnalytics(doc, version);
+  };
+
+  private updateDocumentAnalytics = (doc: any, version: number) => {
     const updatedVersion = this.getCurrentPmVersion();
+    const isDocContentValid = this.validatePMJSONDocument(doc);
     if (this.getCurrentPmVersion() !== version) {
-      const isDocContentValid = this.validatePMJSONDocument(doc);
       const error = new UpdateDocumentError('Failed to update the document', {
         newVersion: version,
         editorVersion: updatedVersion,
@@ -509,6 +509,18 @@ export class DocumentService {
         throw error;
       }
       // Otherwise just fail silently for now
+    } else {
+      this.analyticsHelper?.sendActionEvent(
+        EVENT_ACTION.UPDATE_DOCUMENT,
+        EVENT_STATUS.SUCCESS,
+        {
+          newVersion: version,
+          editorVersion: updatedVersion,
+          isDocTruthy: !!doc,
+          docHasContent: doc?.content?.length >= 1,
+          isDocContentValid,
+        },
+      );
     }
   };
 
@@ -601,7 +613,7 @@ export class DocumentService {
               "Can't sync up with Collab Service: unable to send unconfirmed steps and max retry reached",
               {
                 unconfirmedStepsInfo: unconfirmedStepsInfoUGCRemoved
-                  ? unconfirmedStepsInfoUGCRemoved.toString()
+                  ? JSON.stringify(unconfirmedStepsInfoUGCRemoved)
                   : 'Unable to generate UGC removed step info',
               },
             );
@@ -722,7 +734,7 @@ export class DocumentService {
     sendAnalyticsEvent?: boolean,
   ) {
     const unconfirmedStepsData = sendableSteps(newState);
-    const version = getVersion(newState);
+    const version = getVersion(newState) || 0; // To mimic the default value customisation introduced in the prosemirror-collab fork
 
     // Don't send any steps before we're ready.
     if (!unconfirmedStepsData) {
@@ -747,44 +759,26 @@ export class DocumentService {
       return;
     }
 
-    if (this.enableSendStepsQueue) {
-      // This is where we would call the sendStepsQueue instead of throttledCommitStep
-      // Only send 1% of events to avoid useless logging
-      if (Math.random() < 0.01) {
-        this.analyticsHelper?.sendActionEvent(
-          EVENT_ACTION.SEND_STEPS_QUEUE,
-          EVENT_STATUS.INFO,
-        );
-      }
-      // Avoid reference issues using a
-      // method outside of the provider
-      // scope
-      throttledCommitStep({
-        broadcast: this.broadcast,
-        userId: this.getUserId()!,
-        clientId: this.clientId!,
-        steps: unconfirmedSteps,
-        version,
-        onStepsAdded: this.onStepsAdded,
-        onErrorHandled: this.onErrorHandled,
-        analyticsHelper: this.analyticsHelper,
-        emit: this.providerEmitCallback,
-      });
-    } else {
-      // Avoid reference issues using a
-      // method outside of the provider
-      // scope
-      throttledCommitStep({
-        broadcast: this.broadcast,
-        userId: this.getUserId()!,
-        clientId: this.clientId!,
-        steps: unconfirmedSteps,
-        version,
-        onStepsAdded: this.onStepsAdded,
-        onErrorHandled: this.onErrorHandled,
-        analyticsHelper: this.analyticsHelper,
-        emit: this.providerEmitCallback,
-      });
+    // Only send 1% of events to avoid useless logging
+    if (Math.random() < 0.01) {
+      this.analyticsHelper?.sendActionEvent(
+        EVENT_ACTION.SEND_STEPS_QUEUE,
+        EVENT_STATUS.INFO,
+      );
     }
+    // Avoid reference issues using a
+    // method outside of the provider
+    // scope
+    commitStepQueue({
+      broadcast: this.broadcast,
+      userId: this.getUserId()!,
+      clientId: this.clientId!,
+      steps: unconfirmedSteps,
+      version,
+      onStepsAdded: this.onStepsAdded,
+      onErrorHandled: this.onErrorHandled,
+      analyticsHelper: this.analyticsHelper,
+      emit: this.providerEmitCallback,
+    });
   }
 }

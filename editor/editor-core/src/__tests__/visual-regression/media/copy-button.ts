@@ -1,4 +1,5 @@
 import { _getCopyButtonTestSuite } from '../../../../src/__tests__/visual-regression/copy-button/_getCopyButtonTestSuite';
+
 import * as mediaAdf from './__fixtures__/media.adf.json';
 
 _getCopyButtonTestSuite({

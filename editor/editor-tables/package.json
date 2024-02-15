@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/editor-tables",
-  "version": "2.3.15",
+  "version": "2.5.4",
   "description": "A package that contains common classes and utility functions for editor tables",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -24,18 +24,17 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor: Jenga",
-    "deprecatedAutoEntryPoints": true,
     "singleton": true,
     "releaseModel": "continuous"
   },
   "dependencies": {
-    "@atlaskit/editor-prosemirror": "1.1.0",
+    "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/platform-feature-flags": "^0.2.4",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "@atlassian/feature-flags-test-utils": "^0.1.2"
+    "@atlassian/feature-flags-test-utils": "^0.2.0"
   },
   "techstack": {
     "@atlassian/frontend": {
@@ -62,5 +61,14 @@
     "platform.editor.table-shift-click-selection-backward": {
       "type": "boolean"
     }
+  },
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./cell-bookmark": "./src/cell-bookmark.ts",
+    "./cell-selection": "./src/cell-selection.ts",
+    "./pm-plugins": "./src/pm-plugins.ts",
+    "./table-map": "./src/table-map.ts",
+    "./types": "./src/types.ts",
+    "./utils": "./src/utils.ts"
   }
 }

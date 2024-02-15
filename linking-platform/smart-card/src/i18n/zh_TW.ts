@@ -26,9 +26,9 @@ export default {
   'fabric.linking.connect_to': '連結至 {name}',
   'fabric.linking.connect_unauthorised_account_action': '連結至 {context}',
   'fabric.linking.connect_unauthorised_account_description':
-    '將 {context} 連結至 Atlassian，以從單一位置檢視更多工作的詳細資料，並進行協作。',
+    '連接您的 {context} 帳戶，以在各個 Atlassian 產品上的工作協同合作。',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    '連結至 Atlassian 以從單一位置檢視更多工作的詳細資料並進行協作。',
+    '連接您的帳戶，以在各個 Atlassian 產品上的工作協同合作。',
   'fabric.linking.continue': '繼續',
   'fabric.linking.copy_url_to_clipboard': '複製連結',
   'fabric.linking.couldnt_load_link': '基於不明原因，我們無法載入此連結。',
@@ -52,6 +52,7 @@ export default {
   'fabric.linking.invalid_permissions_description': '您需要請求存取或嘗試不同的帳戶，來檢視此預覽。',
   'fabric.linking.join_to_view': '加入 {context} 以查看此議題',
   'fabric.linking.last_mentioned_in': '最後提及位置：',
+  'fabric.linking.learn_more_about_connecting_account': '進一步了解如何將您的帳戶連接至 Atlassian 產品。',
   'fabric.linking.learn_more_about_smart_links': '深入了解智慧連結。',
   'fabric.linking.link_safety_warning_message': '此連結 {unsafeLinkText} 會帶您前往不同的網站，<a>actual link here</a>',
   'fabric.linking.loading': '正在載入...',

@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 
 import Modal, {
   ModalBody,
@@ -23,7 +23,7 @@ export default function ExampleAppearance() {
 
   return (
     <div>
-      <ButtonGroup>
+      <ButtonGroup label="Choose modal appearance">
         {appearances.map((name) => (
           <Button
             key={`${name}-trigger`}

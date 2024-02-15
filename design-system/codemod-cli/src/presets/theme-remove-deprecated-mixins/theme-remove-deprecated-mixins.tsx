@@ -1,7 +1,6 @@
 import core, { API, Collection, FileInfo } from 'jscodeshift';
 import {
   hasImportDeclaration,
-  hasImportSpecifier,
   getImportDeclaration,
   insertImportSpecifier,
 } from '@codeshift/utils';
@@ -25,24 +24,13 @@ function insertTokenImport(j: core.JSCodeshift, source: Collection<any>) {
   source.get().node.program.body.unshift(newImport);
 }
 
-function insertThemedImport(j: core.JSCodeshift, source: Collection<any>) {
-  if (hasImportSpecifier(j, source, 'themed', '@atlaskit/theme/components')) {
-    return;
-  }
-
-  const newImport = j.importDeclaration(
-    [j.importSpecifier(j.identifier('themed'))],
-    j.stringLiteral('@atlaskit/theme/components'),
-  );
-
-  source.get().node.program.body.unshift(newImport);
-}
-
-function buildToken(j: core.JSCodeshift, tokenId: string, node: any) {
-  const callExpr = j.callExpression(
-    j.identifier('token'),
-    [j.stringLiteral(tokenId), node].filter(Boolean),
-  );
+function buildToken(j: core.JSCodeshift, tokenId: string = '', node: any) {
+  const callExpr = tokenId
+    ? j.callExpression(
+        j.identifier('token'),
+        [j.stringLiteral(tokenId), node].filter(Boolean),
+      )
+    : node;
 
   return callExpr;
 }
@@ -55,26 +43,6 @@ function isDecendantOfTokenMethod(j: core.JSCodeshift, path: any): boolean {
 
 const isDeprecatedApi = (identifierName: string) =>
   Object.keys(colorReplacements).includes(identifierName);
-
-function buildThemedNode(
-  j: core.JSCodeshift,
-  tokenId: string = '',
-  fallbackLight: any,
-  fallbackDark: any,
-) {
-  return j.callExpression(j.identifier('themed'), [
-    j.objectExpression([
-      j.objectProperty(
-        j.identifier('light'),
-        tokenId ? buildToken(j, tokenId, fallbackLight) : fallbackLight,
-      ),
-      j.objectProperty(
-        j.identifier('dark'),
-        tokenId ? buildToken(j, tokenId, fallbackDark) : fallbackDark,
-      ),
-    ]),
-  ]);
-}
 
 function replaceIdentifiers(
   j: core.JSCodeshift,
@@ -131,37 +99,21 @@ function replaceIdentifiers(
         '@atlaskit/theme/colors',
       );
 
-      // Requires themed function
       if (isDynamicReplacement) {
-        const themedNode = buildThemedNode(
+        const token = buildToken(
           j,
           tokenId,
           j.identifier(replacement.importSpecifiers[0]),
-          j.identifier(replacement.importSpecifiers[1]),
         );
-
-        insertThemedImport(j, source);
-        insertImportSpecifier(
-          j,
-          source,
-          j.importSpecifier(j.identifier(replacement.importSpecifiers[1])),
-          '@atlaskit/theme/colors',
-        );
-
-        if (isDecendantOfToken && isDecendantOfCallExpression) {
-          const callExpression = identifier.parent;
-          tokenParentNode.replace(
-            j.callExpression(themedNode, callExpression.value.arguments),
-          );
-          return;
-        }
 
         if (isDecendantOfToken) {
-          tokenParentNode.replace(themedNode);
+          tokenParentNode.replace(token);
           return;
         }
 
-        identifier.replace(themedNode);
+        (isDecendantOfCallExpression ? identifier.parent : identifier).replace(
+          token,
+        );
         return;
       }
 
@@ -221,37 +173,25 @@ function replaceMemberExpressions(
 
       insertTokenImport(j, source);
 
-      // Requires themed function
       if (isDynamicReplacement) {
-        const themedNode = buildThemedNode(
+        const token = buildToken(
           j,
           tokenId,
           j.memberExpression(
             j.identifier(memberExpression.value.object.name),
             j.identifier(replacement.importSpecifiers[0]),
           ),
-          j.memberExpression(
-            j.identifier(memberExpression.value.object.name),
-            j.identifier(replacement.importSpecifiers[1]),
-          ),
         );
 
-        insertThemedImport(j, source);
-
-        if (isDecendantOfToken && isDecendantOfCallExpression) {
-          const callExpression = identifier.parent.parent;
-          tokenParentNode.replace(
-            j.callExpression(themedNode, callExpression.value.arguments),
-          );
-          return;
-        }
-
         if (isDecendantOfToken) {
-          tokenParentNode.replace(themedNode);
+          tokenParentNode.replace(token);
           return;
         }
 
-        memberExpression.replace(themedNode);
+        (isDecendantOfCallExpression
+          ? memberExpression.parent
+          : memberExpression
+        ).replace(token);
         return;
       }
 

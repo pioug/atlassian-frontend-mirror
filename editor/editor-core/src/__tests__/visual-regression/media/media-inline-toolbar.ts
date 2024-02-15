@@ -1,9 +1,11 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
   initFullPageEditorWithAdf,
+  snapshot,
+  waitForStablePositionThenSnapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import mediaInlineAdf from './__fixtures__/mediaInline.adf.json';
 
 describe('Media Inline Toolbar:', () => {
@@ -40,27 +42,30 @@ describe('Media Inline Toolbar:', () => {
     await page.mouse.move(0, 0);
   });
 
-  afterEach(async () => {
-    await snapshot(page);
-  });
-
   it('should display buttons in the correct order', async () => {
-    await page.waitForSelector('[aria-label="Media floating controls"]');
+    const selector = '[aria-label="Media floating controls"]';
+    await page.waitForSelector(selector);
+    await waitForStablePositionThenSnapshot(page, selector);
   });
 
   it('should display view switcher dropdown correctly', async () => {
     await page.click('span[aria-label="Expand dropdown menu"]');
+    const selector = '[aria-label="Media floating controls"]';
     await page.waitForSelector(
       '[aria-label="Popup"][data-editor-popup="true"]',
     );
+    await waitForStablePositionThenSnapshot(page, selector);
   });
 
-  it.skip('should open media viewer when preview button clicked', async () => {
+  it('should open media viewer when preview button clicked', async () => {
     await page.click('[data-testid="file-preview-toolbar-button"]');
     await page.waitForSelector('[data-testid="media-viewer-error"]');
+    await snapshot(page);
   });
 
   it('should show red border while hovering over the delete button', async () => {
+    const selector = '[aria-label="Media floating controls"]';
     await page.hover('[data-testid="media-toolbar-remove-button"]');
+    await waitForStablePositionThenSnapshot(page, selector);
   });
 });

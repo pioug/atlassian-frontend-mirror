@@ -6,7 +6,6 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 
 import type { insertExpand } from './commands';
@@ -24,6 +23,12 @@ export type ExpandPluginAction = {
 
 export interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
   allowInsertion?: boolean;
+  /**
+   * Allows the expand button to toggle. Previously this was set via the editor prop featureFlag (`interactiveExpand`)
+   *
+   * Defaults to true
+   */
+  allowInteractiveExpand?: boolean;
   appearance?: EditorAppearance;
 }
 
@@ -32,7 +37,6 @@ export type ExpandPlugin = NextEditorPlugin<
   {
     pluginConfiguration: ExpandPluginOptions | undefined;
     dependencies: [
-      OptionalPlugin<FeatureFlagsPlugin>,
       DecorationsPlugin,
       SelectionPlugin,
       OptionalPlugin<AnalyticsPlugin>,

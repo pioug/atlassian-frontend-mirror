@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { Fragment, useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import TableTree from '../src';

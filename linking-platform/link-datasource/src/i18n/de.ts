@@ -28,7 +28,7 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Spalten konfigurieren',
   'linkDataSource.jira-issues.accessInstructions':
     'Wenden Sie sich an Ihren Site-Administrator, um Zugriff zu beantragen.',
-  'linkDataSource.jira-issues.accessRequired': 'Sie haben keinen Zugriff auf diese Site.',
+  'linkDataSource.jira-issues.accessRequired': 'Sie haben keinen Zugriff auf diesen Inhalt',
   'linkDataSource.jira-issues.accessRequiredWithSite': 'Sie haben auf folgende Site keinen Zugriff:',
   'linkDataSource.jira-issues.checkConnection':
     'Überprüfen Sie Ihre Verbindung und aktualisieren Sie dann die Seite oder versuchen Sie es später erneut.',
@@ -46,14 +46,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-Vorgänge von folgender Site einfügen:',
   'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {Vorgang} other {Vorgänge}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Vorgangsansicht',
+  'linkDataSource.jira-issues.no.jira.sites.access.description':
+    'Wenden Sie sich an Ihren Administrator, um Zugriff anzufordern.',
+  'linkDataSource.jira-issues.no.jira.sites.access.title': 'Sie haben keinen Zugriff auf Jira-Sites',
   'linkDataSource.jira-issues.noResultsFound': 'Keine Ergebnisse gefunden',
   'linkDataSource.jira-issues.refresh': 'Aktualisieren',
   'linkDataSource.jira-issues.unableToLoadItems': 'Elemente konnten nicht geladen werden',
   'linkDataSource.jira-issues.unableToLoadResults': 'Ergebnisse konnten nicht geladen werden',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Weitere Informationen zur Suche mit JQL',
-  'linkDataSource.modal-initial-state.searchDescription':
-    'Suchen Sie mithilfe von JQL (Jira-Abfragesprache) nach Vorgängen.',
   'linkDataSource.modal-initial-state.searchTitle': 'Nach Jira-Vorgängen suchen',
   'linkDataSource.render-type.boolean.false': 'Nein',
   'linkDataSource.render-type.boolean.true': 'Ja',

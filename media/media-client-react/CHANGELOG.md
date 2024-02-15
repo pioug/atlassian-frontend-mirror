@@ -1,5 +1,21 @@
 # @atlaskit/media-client-react
 
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.0
+
+### Major Changes
+
+- [#57027](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57027) [`9412be3e0467`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9412be3e0467) - breaking change: MockedMediaClientProvider now accepts an instance of Media Store as prop instead of a store initializer
+
+### Patch Changes
+
+- [#57027](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57027) [`4659c1089fe6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4659c1089fe6) - useFileState hook skips backend subscription if there is already a file state in the Media Store
+
 ## 1.4.0
 
 ### Minor Changes

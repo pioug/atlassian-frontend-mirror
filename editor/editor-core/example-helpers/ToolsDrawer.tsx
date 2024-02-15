@@ -1,31 +1,32 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
 import React from 'react';
+
+import { jsx } from '@emotion/react';
+
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import Button from '@atlaskit/button/custom-theme-button';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { EmojiResource } from '@atlaskit/emoji/resource';
+import Tooltip from '@atlaskit/tooltip';
 import {
   currentUser,
   getEmojiProvider,
 } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import Button from '@atlaskit/button/custom-theme-button';
-import Tooltip from '@atlaskit/tooltip';
+
+import { MentionResource, TeamMentionResource } from '../src';
+import { toJSON } from '../src/utils';
 
 import { MockActivityResource } from './activity-provider';
-import { content, buttonGroup } from './styles';
 import imageUploadHandler from './imageUpload';
-
-import { TeamMentionResource, MentionResource } from '../src';
-import { EmojiResource } from '@atlaskit/emoji/resource';
-import { toJSON } from '../src/utils';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
-
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { buttonGroup, content } from './styles';
 
 const mediaMock = createEditorMediaMock();
 const rejectedPromise = Promise.reject(

@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll
 
+## 0.6.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.6.5
 
 ### Patch Changes

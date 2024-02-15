@@ -1,5 +1,17 @@
 # @atlaskit/linking-types
 
+## 8.6.0
+
+### Minor Changes
+
+- [#68611](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68611) [`22434a653486`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/22434a653486) - Added a SupportedFeature type
+
+## 8.5.1
+
+### Patch Changes
+
+- [#57736](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57736) [`d8193e501bcc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d8193e501bcc) - [ux] Changes behavior of datasource modal to persist query changes on insert without needing to click search.
+
 ## 8.5.0
 
 ### Minor Changes

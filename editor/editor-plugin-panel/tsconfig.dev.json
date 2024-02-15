@@ -36,9 +36,6 @@
       "path": "tsconfig.app.json"
     },
     {
-      "path": "../../analytics/analytics-next/tsconfig.app.json"
-    },
-    {
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
@@ -52,9 +49,6 @@
     },
     {
       "path": "../editor-plugin-decorations/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-emoji/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-feature-flags/tsconfig.app.json"

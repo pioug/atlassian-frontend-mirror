@@ -241,9 +241,12 @@ class ControlOption<
   }
 }
 
-export const CheckboxOption: FC<OptionProps<OptionType, true>> = (props) => (
-  <ControlOption<OptionType, true> Icon={CheckboxIcon} {...props} />
+export const CheckboxOption = <OptionT extends OptionType>(
+  props: OptionProps<OptionT, true>,
+): JSX.Element => (
+  <ControlOption<OptionT, true> Icon={CheckboxIcon} {...props} />
 );
+
 export const RadioOption: FC<OptionProps> = (props) => (
   <ControlOption Icon={RadioIcon} {...props} />
 );

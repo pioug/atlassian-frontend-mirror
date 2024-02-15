@@ -1,18 +1,18 @@
+import { datePlugin } from '@atlaskit/editor-plugins/date';
+import * as date from '@atlaskit/editor-plugins/date';
+import { tablesPlugin } from '@atlaskit/editor-plugins/table';
+import * as table from '@atlaskit/editor-plugins/table';
+
 import createUniversalPreset from '../../universal';
 
-import { tablesPlugin } from '@atlaskit/editor-plugin-table';
-import * as table from '@atlaskit/editor-plugin-table';
-import { datePlugin } from '@atlaskit/editor-plugin-date';
-import * as date from '@atlaskit/editor-plugin-date';
-
-jest.mock('@atlaskit/editor-plugin-table', () => ({
+jest.mock('@atlaskit/editor-plugins/table', () => ({
   __esModule: true,
-  ...jest.requireActual('@atlaskit/editor-plugin-table'),
+  ...jest.requireActual('@atlaskit/editor-plugins/table'),
 }));
 
-jest.mock('@atlaskit/editor-plugin-date', () => ({
+jest.mock('@atlaskit/editor-plugins/date', () => ({
   __esModule: true,
-  ...jest.requireActual('@atlaskit/editor-plugin-date'),
+  ...jest.requireActual('@atlaskit/editor-plugins/date'),
 }));
 
 describe('createUniversalPreset', () => {
@@ -45,7 +45,7 @@ describe('createUniversalPreset', () => {
       'floatingToolbar',
       'selection',
       'codeBlock',
-      'dataConsumerPlugin',
+      'dataConsumer',
       'list',
       'contextPanel',
       'scrollIntoView',
@@ -85,7 +85,7 @@ describe('createUniversalPreset', () => {
 
   describe('table', () => {
     beforeEach(() => {
-      jest.mock('@atlaskit/editor-plugin-table');
+      jest.mock('@atlaskit/editor-plugins/table');
     });
 
     it('should add tablePlugin if allowTables is true', () => {
@@ -132,7 +132,7 @@ describe('createUniversalPreset', () => {
 
   describe('date', () => {
     beforeEach(() => {
-      jest.mock('@atlaskit/editor-plugin-date');
+      jest.mock('@atlaskit/editor-plugins/date');
     });
 
     it('should add datePlugin if allowDate is true', () => {

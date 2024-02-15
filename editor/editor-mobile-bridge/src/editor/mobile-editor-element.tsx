@@ -34,7 +34,6 @@ import {
   getAllowCaptions,
   getMediaImageResize,
   getAllowMediaInline,
-  getRestartNumberedLists,
 } from '../query-param-reader';
 import { useEditorLifecycle } from './hooks/use-editor-life-cycle';
 import { usePluginListeners } from './hooks/use-plugin-listeners';
@@ -57,7 +56,8 @@ export interface MobileEditorProps extends EditorProps {
   locale?: string;
 }
 
-// Editor options. Keep as external cost to prevent unnecessary re-renders;
+// Editor options.
+// Keep as external cost to prevent unnecessary re-renders;
 const getLayoutOptions = memoizeOne(
   (featureFlags: { [featureFlag: string]: string | boolean } | undefined) => ({
     allowBreakout: true,
@@ -197,7 +197,6 @@ export function MobileEditor(props: MobileEditorProps) {
   // Editor config overrides feature flags from props
   const extendedFeatureFlags: FeatureFlags = {
     ...featureFlags,
-    restartNumberedLists: getRestartNumberedLists(),
     enableViewUpdateSubscription: true,
   };
 

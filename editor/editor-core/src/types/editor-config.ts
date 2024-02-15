@@ -1,12 +1,11 @@
 import type {
-  EditorState,
-  Transaction,
-} from '@atlaskit/editor-prosemirror/state';
-
-import type {
   ReactHookFactory,
   UIComponentFactory,
 } from '@atlaskit/editor-common/types';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 import type { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
 

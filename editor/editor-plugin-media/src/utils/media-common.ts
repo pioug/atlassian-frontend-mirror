@@ -25,6 +25,7 @@ import { findPositionOfNodeBefore } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isMediaBlobUrl } from '@atlaskit/media-client';
 
+import { getMediaPluginState } from '../pm-plugins/main';
 import type {
   MediaState,
   getPosHandler as ProsemirrorGetPosHandler,
@@ -59,6 +60,12 @@ export const isSelectionMediaSingleNode = (state: EditorState): boolean => {
   const { node } = state.selection as NodeSelection;
 
   return node && node.type === state.schema.nodes.mediaSingle;
+};
+
+export const isSelectionMediaInlineNode = (state: EditorState): boolean => {
+  const { node } = state.selection as NodeSelection;
+
+  return node && node.type === state.schema.nodes.mediaInline;
 };
 
 export const posOfPrecedingMediaGroup = (
@@ -288,4 +295,36 @@ export const getMediaNodeFromSelection = (
   }
 
   return null;
+};
+
+export const getMediaInlineNodeFromSelection = (
+  state: EditorState,
+): PMNode | null => {
+  if (!isSelectionMediaInlineNode(state)) {
+    return null;
+  }
+
+  const tr = state.tr;
+  const pos = tr.selection.from;
+  const mediaNode = tr.doc.nodeAt(pos);
+
+  return mediaNode;
+};
+
+export const isMediaSingleOrInlineNodeSelected = (state: EditorState) => {
+  const { allowInlineImages } = getMediaPluginState(state);
+  return (
+    isSelectionMediaSingleNode(state) ||
+    (allowInlineImages && isSelectionMediaInlineNode(state))
+  );
+};
+
+export const getMediaSingleOrInlineNodeFromSelection = (
+  state: EditorState,
+): PMNode | null => {
+  const { allowInlineImages } = getMediaPluginState(state);
+  const mediaNode =
+    getMediaNodeFromSelection(state) ||
+    (allowInlineImages && getMediaInlineNodeFromSelection(state));
+  return mediaNode || null;
 };

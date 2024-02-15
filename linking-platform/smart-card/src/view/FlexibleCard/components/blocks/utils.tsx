@@ -140,6 +140,19 @@ const isElementOrElementGroup = (node: React.ReactNode) =>
   React.isValidElement(node) &&
   (isFlexibleUiElement(node) || node.type === ElementGroup);
 
+export const getActionGroupStyles = (
+  size: SmartLinkSize,
+): SerializedStyles | undefined => {
+  if (size === SmartLinkSize.XLarge) {
+    // The biggest height of the action button exceeds the max line-height
+    // of the elements causing the action on the block with x-large size to
+    // get cut at the bottom.
+    return css`
+      max-height: 2rem;
+    `;
+  }
+};
+
 export const filterActionItems = (
   items: ActionItem[] = [],
   context?: FlexibleUiDataContext,

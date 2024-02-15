@@ -1,11 +1,14 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl-next';
-import WithEditorActions from './../src/ui/WithEditorActions';
-import EditorContext from './../src/ui/EditorContext';
+
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
-import { KitchenSink } from '../example-helpers/kitchen-sink/kitchen-sink';
+
 import { DevTools } from '../example-helpers/DevTools';
+import { KitchenSink } from '../example-helpers/kitchen-sink/kitchen-sink';
 import enMessages from '../src/i18n/en';
+import EditorContext from '../src/ui/EditorContext';
+import WithEditorActions from '../src/ui/WithEditorActions';
 
 addGlobalEventEmitterListeners();
 

@@ -19,9 +19,9 @@ const InlineEditNoActionsExample = () => {
       <InlineEditableTextfield
         testId="editable-text-field"
         defaultValue={editValue}
-        label="Inline editable textfield"
+        label="Postcode"
         onConfirm={(value) => setEditValue(value)}
-        placeholder="Click to enter text"
+        placeholder="Enter your postcode"
         hideActionButtons
       />
     </div>

@@ -1,9 +1,9 @@
 import { useCallback, useEffect } from 'react';
 
+import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { cancelUnhandled } from '@atlaskit/pragmatic-drag-and-drop/addon/cancel-unhandled';
 import type { DragLocationHistory } from '@atlaskit/pragmatic-drag-and-drop/types';
-import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
 
 import { isDraggableData } from '../../draggable/data';
 import { isDroppableData } from '../../droppable/data';

@@ -1,5 +1,36 @@
 # @atlaskit/help
 
+## 7.2.20
+
+### Patch Changes
+
+- [#72381](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72381) [`613a669ad9bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/613a669ad9bb) - Enrolling help packages to push model in JFE.
+
+## 7.2.19
+
+### Patch Changes
+
+- [#67949](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67949) [`4ceb213f9313`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4ceb213f9313) - Migrate packages to use declarative entry points
+- Updated dependencies
+
+## 7.2.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.17
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
+## 7.2.16
+
+### Patch Changes
+
+- [#57178](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57178) [`018d8853290a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/018d8853290a) - Upgrade Emotion v10 (@emotion/core) to Emotion v11 (@emotion/react). No behaviour change expected.
+
 ## 7.2.15
 
 ### Patch Changes

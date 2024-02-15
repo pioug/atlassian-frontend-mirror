@@ -26,9 +26,9 @@ export default {
   'fabric.linking.connect_to': '连接到 {name}',
   'fabric.linking.connect_unauthorised_account_action': '连接到 {context}',
   'fabric.linking.connect_unauthorised_account_description':
-    '将 {context} 连接到 Atlassian，在一个位置集中查看工作的更多详情并开展协作。',
+    '关联您的 {context} 帐户，以便跨 Atlassian 产品协作处理工作。',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    '连接到 Atlassian，在一个位置集中查看工作的更多详情并开展协作。',
+    '关联您的帐户，以便跨 Atlassian 产品协作处理工作。',
   'fabric.linking.continue': '继续',
   'fabric.linking.copy_url_to_clipboard': '复制链接',
   'fabric.linking.couldnt_load_link': '由于未知原因，无法加载此链接。',
@@ -52,6 +52,7 @@ export default {
   'fabric.linking.invalid_permissions_description': '您需要请求访问权限或尝试使用其他帐户来查看此预览。',
   'fabric.linking.join_to_view': '加入{context}以查看此事务',
   'fabric.linking.last_mentioned_in': '上次提及位置',
+  'fabric.linking.learn_more_about_connecting_account': '了解有关将您的帐户关联到 Atlassian 产品的信息。',
   'fabric.linking.learn_more_about_smart_links': '了解有关智能链接的更多信息。',
   'fabric.linking.link_safety_warning_message': '{unsafeLinkText} 链接会将您带到其他站点，<a>actual link here</a>',
   'fabric.linking.loading': '正在加载...',

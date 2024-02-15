@@ -1,9 +1,7 @@
 import { css } from '@emotion/react';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-import { themed } from '@atlaskit/theme/components';
-import type { Theme } from '@atlaskit/theme/types';
-import { DN50, N200, N20A } from '@atlaskit/theme/colors';
+import { N200, N20A } from '@atlaskit/theme/colors';
 import checkboxTheme from './theme';
 
 /*
@@ -36,7 +34,7 @@ export const taskStyles = css`
   position: relative;
 `;
 
-export const decisionStyles = (theme: Theme) =>
+export const decisionStyles = () =>
   css`
     display: flex;
     flex-direction: row;
@@ -44,10 +42,7 @@ export const decisionStyles = (theme: Theme) =>
     padding: ${token('space.100', '8px')};
     padding-left: ${token('space.150', '12px')};
     border-radius: ${token('border.radius.100', '3px')};
-    background-color: ${themed({
-      light: token('color.background.neutral', N20A),
-      dark: token('color.background.neutral', DN50),
-    })({ theme })};
+    background-color: ${token('color.background.neutral', N20A)};
     position: relative;
 
     .decision-item {
@@ -72,227 +67,157 @@ export const placeholderStyles = (offset: number) =>
  * To be used until mobile editor does not require legacy themed() API anymore,
  * which will allow migration to use @atlaskit/checkbox instead
  */
-export const checkboxStyles =
-  (isRenderer: boolean | undefined) => (theme: Theme) =>
-    css`
-      flex: 0 0 24px;
-      width: 24px;
-      height: 24px;
-      position: relative;
-      align-self: start;
+export const checkboxStyles = (isRenderer: boolean | undefined) =>
+  css`
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    align-self: start;
 
-      & > input[type='checkbox'] {
-        width: 16px;
-        height: 16px;
-        z-index: 1;
-        cursor: pointer;
-        outline: none;
-        margin: 0;
-        opacity: 0;
+    & > input[type='checkbox'] {
+      width: 16px;
+      height: 16px;
+      z-index: 1;
+      cursor: pointer;
+      outline: none;
+      margin: 0;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      &[disabled] {
+        cursor: default;
+      }
+
+      + span {
+        width: 24px;
+        height: 24px;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-
-        &[disabled] {
-          cursor: default;
-        }
-
-        + span {
-          width: 24px;
-          height: 24px;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-
-        + span > svg {
-          box-sizing: border-box;
-          display: inline;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          max-width: unset;
-          max-height: unset;
-          position: absolute;
-          overflow: hidden;
-          color: ${themed({
-            light: checkboxTheme.light.boxColor.rest,
-            dark: checkboxTheme.dark.boxColor.rest,
-          })({ theme })};
-          transition: color 0.2s ease-in-out, fill 0.2s ease-in-out;
-          path:first-of-type {
-            visibility: hidden;
-          }
-          rect:first-of-type {
-            stroke: ${themed({
-              light: checkboxTheme.light.borderColor.rest,
-              dark: checkboxTheme.dark.borderColor.rest,
-            })({ theme })};
-            stroke-width: ${getBooleanFF(
-              'platform.design-system-team.update-border-radio-checkbox_7askv',
-            )
-              ? 1
-              : 2};
-            transition: stroke 0.2s ease-in-out;
-          }
-        }
-
-        &&:focus + span > svg,
-        &&:checked:focus + span > svg {
-          rect:first-of-type {
-            stroke: ${themed({
-              light: checkboxTheme.light.borderColor.focused,
-              dark: checkboxTheme.dark.borderColor.focused,
-            })({ theme })};
-          }
-        }
-
-        &:hover + span > svg {
-          color: ${themed({
-            light: checkboxTheme.light.boxColor.hovered,
-            dark: checkboxTheme.dark.boxColor.hovered,
-          })({ theme })};
-          rect:first-of-type {
-            stroke: ${themed({
-              light: checkboxTheme.light.borderColor.hovered,
-              dark: checkboxTheme.dark.borderColor.hovered,
-            })({ theme })};
-          }
-        }
-
-        &:checked:hover + span > svg {
-          color: ${themed({
-            light: checkboxTheme.light.boxColor.hoveredAndChecked,
-            dark: checkboxTheme.dark.boxColor.hoveredAndChecked,
-          })({ theme })};
-          fill: ${themed({
-            light: checkboxTheme.light.tickColor.checked,
-            dark: checkboxTheme.dark.tickColor.checked,
-          })({ theme })};
-          rect:first-of-type {
-            stroke: ${themed({
-              light: checkboxTheme.light.borderColor.hoveredAndChecked,
-              dark: checkboxTheme.dark.borderColor.hoveredAndChecked,
-            })({ theme })};
-          }
-        }
-
-        &:checked {
-          + span > svg {
-            path:first-of-type {
-              visibility: visible;
-            }
-            color: ${themed({
-              light: checkboxTheme.light.boxColor.checked,
-              dark: checkboxTheme.dark.boxColor.checked,
-            })({ theme })};
-            fill: ${themed({
-              light: checkboxTheme.light.tickColor.checked,
-              dark: checkboxTheme.dark.tickColor.checked,
-            })({ theme })};
-            rect:first-of-type {
-              stroke: ${themed({
-                light: checkboxTheme.light.borderColor.checked,
-                dark: checkboxTheme.dark.borderColor.checked,
-              })({ theme })};
-            }
-          }
-        }
-
-        &:active + span > svg {
-          color: ${themed({
-            light: checkboxTheme.light.boxColor.active,
-            dark: checkboxTheme.dark.boxColor.active,
-          })({ theme })};
-          rect:first-of-type {
-            stroke: ${themed({
-              light: checkboxTheme.light.borderColor.active,
-              dark: checkboxTheme.dark.borderColor.active,
-            })({ theme })};
-          }
-        }
-
-        &:checked:active + span > svg {
-          color: ${themed({
-            light: checkboxTheme.light.boxColor.active,
-            dark: checkboxTheme.dark.boxColor.active,
-          })({ theme })};
-          fill: ${themed({
-            light: checkboxTheme.light.tickColor.activeAndChecked,
-            dark: checkboxTheme.dark.tickColor.activeAndChecked,
-          })({ theme })};
-          rect:first-of-type {
-            stroke: ${themed({
-              light: checkboxTheme.light.borderColor.active,
-              dark: checkboxTheme.dark.borderColor.active,
-            })({ theme })};
-          }
-        }
-
-        &:disabled + span > svg,
-        &:disabled:hover + span > svg,
-        &:disabled:focus + span > svg,
-        &:disabled:active + span > svg {
-          color: ${themed({
-            light: checkboxTheme.light.boxColor.disabled,
-            dark: checkboxTheme.dark.boxColor.disabled,
-          })({ theme })};
-          rect:first-of-type {
-            stroke: ${themed({
-              light: checkboxTheme.light.borderColor.disabled,
-              dark: checkboxTheme.dark.borderColor.disabled,
-            })({ theme })};
-          }
-        }
-
-        &:disabled:checked + span > svg {
-          fill: ${themed({
-            light: checkboxTheme.light.tickColor.disabledAndChecked,
-            dark: checkboxTheme.dark.tickColor.disabledAndChecked,
-          })({ theme })};
-        }
-
-        &:focus + span > svg rect:first-of-type {
-          stroke: ${themed({
-            light: checkboxTheme.light.boxColor.checked,
-            dark: checkboxTheme.dark.boxColor.checked,
-          })({ theme })};
-        }
-        &:checked:focus + span {
-          & > svg {
-            rect:first-of-type {
-              stroke: ${themed({
-                light: checkboxTheme.light.borderColor.focused,
-                dark: checkboxTheme.dark.borderColor.focused,
-              })({ theme })};
-            }
-          }
-        }
-
-        ${isRenderer
-          ? css`
-              &:focus + span > svg,
-              &:checked:focus + span > svg {
-                rect:first-of-type {
-                  stroke: ${themed({
-                    light: checkboxTheme.light.borderColor.focused,
-                    dark: checkboxTheme.dark.borderColor.focused,
-                  })({ theme })};
-                }
-              }
-            `
-          : css`
-              &:active:focus + span > svg,
-              &:checked:active:focus + span > svg {
-                rect:first-of-type {
-                  stroke: ${themed({
-                    light: checkboxTheme.light.borderColor.focused,
-                    dark: checkboxTheme.dark.borderColor.focused,
-                  })({ theme })};
-                }
-              }
-            `}
       }
-    `;
+
+      + span > svg {
+        box-sizing: border-box;
+        display: inline;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: unset;
+        max-height: unset;
+        position: absolute;
+        overflow: hidden;
+        color: ${checkboxTheme.light.boxColor.rest};
+        transition: color 0.2s ease-in-out, fill 0.2s ease-in-out;
+        path:first-of-type {
+          visibility: hidden;
+        }
+        rect:first-of-type {
+          stroke: ${checkboxTheme.light.borderColor.rest};
+          stroke-width: ${getBooleanFF(
+            'platform.design-system-team.update-border-radio-checkbox_7askv',
+          )
+            ? 1
+            : 2};
+          transition: stroke 0.2s ease-in-out;
+        }
+      }
+
+      &&:focus + span > svg,
+      &&:checked:focus + span > svg {
+        rect:first-of-type {
+          stroke: ${checkboxTheme.light.borderColor.focused};
+        }
+      }
+
+      &:hover + span > svg {
+        color: ${checkboxTheme.light.boxColor.hovered};
+        rect:first-of-type {
+          stroke: ${checkboxTheme.light.borderColor.hovered};
+        }
+      }
+
+      &:checked:hover + span > svg {
+        color: ${checkboxTheme.light.boxColor.hoveredAndChecked};
+        fill: ${checkboxTheme.light.tickColor.checked};
+        rect:first-of-type {
+          stroke: ${checkboxTheme.light.borderColor.hoveredAndChecked};
+        }
+      }
+
+      &:checked {
+        + span > svg {
+          path:first-of-type {
+            visibility: visible;
+          }
+          color: ${checkboxTheme.light.boxColor.checked};
+          fill: ${checkboxTheme.light.tickColor.checked};
+          rect:first-of-type {
+            stroke: ${checkboxTheme.light.borderColor.checked};
+          }
+        }
+      }
+
+      &:active + span > svg {
+        color: ${checkboxTheme.light.boxColor.active};
+        rect:first-of-type {
+          stroke: ${checkboxTheme.light.borderColor.active};
+        }
+      }
+
+      &:checked:active + span > svg {
+        color: ${checkboxTheme.light.boxColor.active};
+        fill: ${checkboxTheme.light.tickColor.activeAndChecked};
+        rect:first-of-type {
+          stroke: ${checkboxTheme.light.borderColor.active};
+        }
+      }
+
+      &:disabled + span > svg,
+      &:disabled:hover + span > svg,
+      &:disabled:focus + span > svg,
+      &:disabled:active + span > svg {
+        color: ${checkboxTheme.light.boxColor.disabled};
+        rect:first-of-type {
+          stroke: ${checkboxTheme.light.borderColor.disabled};
+        }
+      }
+
+      &:disabled:checked + span > svg {
+        fill: ${checkboxTheme.light.tickColor.disabledAndChecked};
+      }
+
+      &:focus + span > svg rect:first-of-type {
+        stroke: ${checkboxTheme.light.boxColor.checked};
+      }
+      &:checked:focus + span {
+        & > svg {
+          rect:first-of-type {
+            stroke: ${checkboxTheme.light.borderColor.focused};
+          }
+        }
+      }
+
+      ${isRenderer
+        ? css`
+            &:focus + span > svg,
+            &:checked:focus + span > svg {
+              rect:first-of-type {
+                stroke: ${checkboxTheme.light.borderColor.focused};
+              }
+            }
+          `
+        : css`
+            &:active:focus + span > svg,
+            &:checked:active:focus + span > svg {
+              rect:first-of-type {
+                stroke: ${checkboxTheme.light.borderColor.focused};
+              }
+            }
+          `}
+    }
+  `;

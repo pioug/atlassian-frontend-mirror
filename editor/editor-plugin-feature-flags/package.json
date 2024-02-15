@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/editor-plugin-feature-flags",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Feature flags plugin for @atlaskit/editor-core",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -24,11 +24,12 @@
   "atlassian": {
     "team": "Editor: Lego",
     "singleton": true,
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "runReact18": false
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^76.23.0",
-    "@atlaskit/editor-prosemirror": "1.1.0",
+    "@atlaskit/editor-common": "^77.4.0",
+    "@atlaskit/editor-prosemirror": "3.0.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {},

@@ -1,5 +1,17 @@
 # @atlaskit/status
 
+## 1.4.7
+
+### Patch Changes
+
+- [#70896](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70896) [`af5e296fa0f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af5e296fa0f4) - Migrate @atlaskit/status to use declarative entry points.
+
+## 1.4.6
+
+### Patch Changes
+
+- [#66759](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66759) [`906578f1ea5d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/906578f1ea5d) - [ux] ED-21787: Migrating few CSS entries to space and color tokens
+
 ## 1.4.5
 
 ### Patch Changes

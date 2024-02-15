@@ -2,7 +2,7 @@
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import { IconButton } from '@atlaskit/button/new';
 import ConfirmIcon from '@atlaskit/icon/glyph/check';
 import CancelIcon from '@atlaskit/icon/glyph/cross';
 import { B400, N0, N20A, N30A, N50A, N60A } from '@atlaskit/theme/colors';
@@ -69,20 +69,22 @@ const Buttons = ({
   return (
     <div css={buttonsContainerStyles}>
       <div css={buttonWrapperBaseStyles}>
-        <Button
+        <IconButton
           aria-label={confirmButtonLabel}
           type="submit"
-          iconBefore={<ConfirmIcon label={confirmButtonLabel} size="small" />}
-          shouldFitContainer
+          icon={ConfirmIcon}
+          UNSAFE_size="small"
           onMouseDown={onMouseDown}
+          label={confirmButtonLabel}
         />
       </div>
       <div css={buttonWrapperBaseStyles}>
-        <Button
+        <IconButton
           aria-label={cancelButtonLabel}
-          iconBefore={<CancelIcon label={cancelButtonLabel} size="small" />}
+          icon={CancelIcon}
+          UNSAFE_size="small"
+          label={cancelButtonLabel}
           onClick={onCancelClick}
-          shouldFitContainer
           onMouseDown={onMouseDown}
         />
       </div>

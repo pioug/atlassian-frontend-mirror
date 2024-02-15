@@ -1,12 +1,19 @@
 import React, { Profiler } from 'react';
+
 //import ReactDOM from 'react-dom';
 // @ts-expect-error TS7016: Could not find a declaration file for module 'react-dom/profiling'
 import ReactDOM from 'react-dom/profiling';
+
+import { FabricChannel } from '@atlaskit/analytics-listeners';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+
 import type { EditorNextProps } from '../src/types/editor-props';
-import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+import { version } from '../src/version-wrapper';
 
 type LibraReactPerformanceEntry = {
   id: string;
@@ -16,14 +23,21 @@ type LibraReactPerformanceEntry = {
   startTime: number;
   commitTime: number;
 };
+type EditorOperationalEvent = {
+  payload: unknown;
+};
 type WindowForTesting = Window & {
   __mountEditor?: (
     props: EditorNextProps,
     opts: Record<string, boolean>,
   ) => void;
-  __unmountEditor?: () => Array<LibraReactPerformanceEntry>;
+  __unmountEditor?: () => {
+    reactPerformanceData: Array<LibraReactPerformanceEntry>;
+    editorOperationalEvents: Array<EditorOperationalEvent>;
+  };
   __editorView?: EditorView | null;
   __TextSelection?: TextSelection | null;
+  __buildInfo?: { EDITOR_VERSION?: string } | null;
 };
 
 const RawEditor = (props: EditorNextProps) => {
@@ -56,7 +70,8 @@ function createEditorExampleForTests() {
   if (win.__mountEditor) {
     return;
   }
-  const reactPeformanceData: Array<LibraReactPerformanceEntry> = [];
+  const reactPerformanceData: Array<LibraReactPerformanceEntry> = [];
+  const editorOperationalEvents: Array<EditorOperationalEvent> = [];
   const onRender = (
     id: string,
     phase: string,
@@ -74,7 +89,19 @@ function createEditorExampleForTests() {
       commitTime,
     };
 
-    reactPeformanceData.push(entry);
+    reactPerformanceData.push(entry);
+  };
+  const onAnalyticsEvent = (
+    { payload }: UIAnalyticsEvent,
+    channel: string | undefined,
+  ) => {
+    if (
+      channel !== FabricChannel.editor ||
+      payload.eventType !== 'operational'
+    ) {
+      return;
+    }
+    editorOperationalEvents.push({ payload });
   };
   const mountEditor = (
     props: EditorNextProps,
@@ -87,28 +114,43 @@ function createEditorExampleForTests() {
       return;
     }
 
-    ReactDOM.render(
-      <Profiler id="EditorMainComponent" onRender={onRender}>
-        <RawEditor {...props} />
-      </Profiler>,
-      target,
-    );
+    if (props.performanceTracking) {
+      ReactDOM.render(
+        <Profiler id="EditorMainComponent" onRender={onRender}>
+          <AnalyticsListener
+            onEvent={onAnalyticsEvent}
+            channel={FabricChannel.editor}
+          >
+            <RawEditor {...props} />
+          </AnalyticsListener>
+        </Profiler>,
+        target,
+      );
+    } else {
+      ReactDOM.render(
+        <Profiler id="EditorMainComponent" onRender={onRender}>
+          <RawEditor {...props} />
+        </Profiler>,
+        target,
+      );
+    }
   };
 
   const unmountEditor = () => {
     const target = document.getElementById('editor-container');
 
     if (!target) {
-      return [];
+      return { reactPerformanceData: [], editorOperationalEvents: [] };
     }
 
     ReactDOM.unmountComponentAtNode(target);
 
-    return reactPeformanceData;
+    return { reactPerformanceData, editorOperationalEvents };
   };
 
   win.__mountEditor = mountEditor;
   win.__unmountEditor = unmountEditor;
+  win.__buildInfo = { EDITOR_VERSION: version };
 }
 
 export default function EditorExampleForIntegrationTests() {

@@ -31,6 +31,7 @@ export type {
   EmptyFile,
   MediaStoreErrorReason,
   MediaStoreErrorAttributes,
+  MediaApi,
 } from './client/media-store';
 
 export { UploadController } from './upload-controller';
@@ -53,7 +54,6 @@ export type {
   MediaRepresentations,
   MediaItemDetails,
   MediaUpload,
-  MediaChunksProbe,
 } from './models/media';
 
 export { getArtifactUrl } from './models/artifacts';
@@ -218,3 +218,5 @@ export type {
 export { RECENTS_COLLECTION, MAX_RESOLUTION } from './constants';
 
 export { getFileStreamsCache } from './file-streams-cache';
+
+export { ChunkHashAlgorithm } from '@atlaskit/media-core';

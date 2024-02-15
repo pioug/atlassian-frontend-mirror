@@ -1,10 +1,10 @@
 import React from 'react';
-import { RendererContext } from '../types';
+import type { RendererContext } from '../types';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
-import { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
+import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 export interface Props {
   extensionHandlers?: ExtensionHandlers;
@@ -18,7 +18,7 @@ export interface Props {
   marks?: PMMark[];
 }
 
-const InlineExtension: React.StatelessComponent<Props> = (props) => {
+const InlineExtension: React.FunctionComponent<Props> = (props) => {
   const { text } = props;
 
   return (

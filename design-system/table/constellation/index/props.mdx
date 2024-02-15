@@ -1,17 +1,22 @@
-import TableProps from '!!extract-react-types-loader!../../extract-react-types/table.tsx';
-import RowProps from '!!extract-react-types-loader!../../extract-react-types/row.tsx';
-import CellProps from '!!extract-react-types-loader!../../extract-react-types/cell.tsx';
+---
+props:
+  packageName: '@atlaskit/table'
+  exports:
+    - default
+    - Row
+    - Cell
+---
 
 ## Props
 
 ### Table props
 
-<PropsTable heading="" props={TableProps} />
+<TSMorphProps exportName="default" packageName="@atlaskit/table" />
 
 ### Row props
 
-<PropsTable heading="Row props" props={RowProps} />
+<TSMorphProps exportName="Row" packageName="@atlaskit/table" />
 
 ### Cell props
 
-<PropsTable heading="Cell props" props={CellProps} />
+<TSMorphProps exportName="Cell" packageName="@atlaskit/table" />

@@ -140,6 +140,7 @@ export type FloatingToolbarButton<T extends {}> = {
     | undefined;
   tabIndex?: number | null | undefined;
   focusEditoronEnter?: boolean; // To focus the editor when button is pressed default value - false
+  supportsViewMode?: boolean; // TODO: MODES-3950 Clean up this floating toolbar view mode logic
 };
 
 export type FloatingToolbarInput<T extends {}> = {
@@ -173,7 +174,7 @@ export type FloatingToolbarCustom<T extends {}> = {
     view?: EditorView,
     idx?: number,
     dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-  ) => React.ComponentClass | React.SFC | React.ReactElement<any> | null;
+  ) => React.ComponentClass | React.FC | React.ReactElement<any> | null;
   hidden?: boolean;
 };
 
@@ -182,6 +183,7 @@ type FloatingToolbarSelectBase<T extends {}, V = SelectOption> = {
   type: 'select';
   selectType: 'list' | 'emoji' | 'date' | 'color';
   title?: string;
+  isAriaExpanded?: boolean;
   options: V[];
   hidden?: boolean;
   hideExpandIcon?: boolean;
@@ -340,6 +342,7 @@ export interface FloatingToolbarConfig {
    */
   focusTrap?: boolean;
   preventPopupOverflow?: boolean;
+  mediaAssistiveMessage?: string;
 }
 
 export type FloatingToolbarHandler = (

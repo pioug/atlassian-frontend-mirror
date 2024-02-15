@@ -15,6 +15,7 @@ import { ContentFooter } from '../components/ContentFooter';
 import { IconProps } from '../../common/Icon';
 import { handleClickCommon } from '../utils/handlers';
 import { Link } from '../components/Link';
+import type { CardActionOptions } from '../../Card/types';
 
 const textBylineProps = { ...messages.connect_link_account_card_description };
 
@@ -23,7 +24,7 @@ export interface UnauthorizedViewProps {
   context?: { icon?: React.ReactNode; text: string };
   isSelected?: boolean;
   testId?: string;
-  showActions?: boolean;
+  actionOptions?: CardActionOptions;
   icon: IconProps;
   link?: string;
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
@@ -34,7 +35,7 @@ export const UnauthorizedView = ({
   isSelected = false,
   actions = [],
   testId = 'block-card-unauthorized-view',
-  showActions = true,
+  actionOptions,
   link = '',
   onClick = () => {},
 }: UnauthorizedViewProps) => {
@@ -60,7 +61,7 @@ export const UnauthorizedView = ({
         </div>
         <ContentFooter>
           <Provider name={context.text} icon={context.icon} />
-          {showActions && <ActionList items={actions} />}
+          {!actionOptions?.hide && <ActionList items={actions} />}
         </ContentFooter>
       </Content>
     </Frame>

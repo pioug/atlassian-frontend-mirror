@@ -15,15 +15,17 @@ import { createLintRule } from '../utils/create-rule';
 
 import { RuleConfig } from './types';
 
-const declarationSuffix = 'Styles';
-
 type IdentifierWithParent = Scope.Reference['identifier'] &
   Rule.NodeParentExtension;
+
+// File-level tracking of styles hoisted from the cssOnTopOfModule/cssAtBottomOfModule fixers
+let hoistedCss: string[] = [];
 
 function isCssCallExpression(
   node: EslintNode,
   cssFunctions: string[],
 ): node is CallExpression {
+  cssFunctions = [...cssFunctions, 'cssMap'];
   return !!(
     isNodeOfType(node, 'CallExpression') &&
     node.callee &&
@@ -44,15 +46,56 @@ function findSpreadProperties(node: ObjectExpression): SpreadElement[] {
   );
 }
 
+const getProgramNode = (expression: any) => {
+  while (expression.parent.type !== 'Program') {
+    expression = expression.parent;
+  }
+  return expression.parent;
+};
+
+// TODO: This can be optimised by implementing a fixer at the very end (Program:exit) and handling all validations at once
+/**
+ * Generates the declarator string when fixing the cssOnTopOfModule/cssAtBottomOfModule cases.
+ * When `styles` already exists, `styles_1, styles_2, ..., styles_X` are incrementally created for each unhoisted style.
+ * The generated `styles` varibale declaration names must be manually modified to be more informative at the discretion of owning teams.
+ */
+const getDeclaratorString = (context: Rule.RuleContext) => {
+  let scope = context.getScope();
+
+  // Get to ModuleScope
+  while (scope && scope.upper && scope.upper.type !== 'global') {
+    scope = scope?.upper;
+  }
+  const variables = scope.variables
+    .map((variable) => variable.name)
+    .concat(hoistedCss);
+  let count = 2;
+  let declaratorName = 'styles';
+
+  // Base case
+  if (!variables.includes(declaratorName)) {
+    return declaratorName;
+  } else {
+    // If styles already exists, increment the number
+    while (variables.includes(`${declaratorName}${count}`)) {
+      count++;
+    }
+  }
+
+  // Keep track of it by adding it to the hoistedCss global array
+  hoistedCss = [...hoistedCss, `${declaratorName}${count}`];
+  return `${declaratorName}${count}`;
+};
+
 function analyzeIdentifier(
   context: Rule.RuleContext,
   sourceIdentifier: Scope.Reference['identifier'],
   configuration: Required<RuleConfig>,
 ) {
   const scope = context.getScope();
-  const [identifier] =
-    (getIdentifierInParentScope(scope, sourceIdentifier.name)
-      ?.identifiers as IdentifierWithParent[]) || [];
+  const [identifier] = (getIdentifierInParentScope(scope, sourceIdentifier.name)
+    ?.identifiers ?? []) as IdentifierWithParent[];
+
   if (!identifier || !identifier.parent) {
     // Identifier isn't in the module, skip!
     return;
@@ -75,6 +118,14 @@ function analyzeIdentifier(
         configuration.stylesPlacement === 'bottom'
           ? 'cssAtBottomOfModule'
           : 'cssOnTopOfModule',
+      fix: (fixer) => {
+        return fixCssNotInModuleScope(
+          fixer,
+          context,
+          configuration,
+          identifier,
+        );
+      },
     });
     return;
   }
@@ -108,10 +159,83 @@ function analyzeIdentifier(
   }
 }
 
+/**
+ * Fixer for the cssOnTopOfModule/cssAtBottomOfModule violation cases.
+ * This deals with Identifiers and Expressions passed from the traverseExpressionWithConfig() function.
+ * @param fixer The ESLint RuleFixer object
+ * @param context The context of the node
+ * @param configuration The configuration of the rule, determining whether the fix is implmeneted at the top or bottom of the module
+ * @param node Either an IdentifierWithParent node. Expression, or SpreadElement that we handle
+ * @param cssAttributeName An optional parameter only added when we fix an ObjectExpression
+ */
+const fixCssNotInModuleScope = (
+  fixer: Rule.RuleFixer,
+  context: Rule.RuleContext,
+  configuration: Required<RuleConfig>,
+  node: Rule.Node | Expression | SpreadElement,
+  cssAttributeName?: String | undefined,
+) => {
+  const sourceCode = context.getSourceCode();
+
+  // Get the program node in order to properly position the hoisted styles
+  const programNode = getProgramNode(node);
+  let fixerNodePlacement = programNode;
+
+  if (configuration.stylesPlacement === 'bottom') {
+    // The last value is the bottom of the file
+    fixerNodePlacement = programNode.body[programNode.body.length - 1];
+  } else {
+    // Place after the last ImportDeclaration
+    fixerNodePlacement =
+      programNode.body.length === 1
+        ? programNode.body[0]
+        : programNode.body.find(
+            (node: Rule.Node) => node.type !== 'ImportDeclaration',
+          );
+  }
+
+  let moduleString;
+  let implementFixer: Rule.Fix[] = [];
+
+  if (node.type === 'Identifier') {
+    const identifier = node as IdentifierWithParent;
+    const declarator = identifier.parent.parent;
+    moduleString = sourceCode.getText(declarator);
+    implementFixer.push(fixer.remove(declarator));
+  } else {
+    const declarator = getDeclaratorString(context);
+    const text = sourceCode.getText(node);
+
+    // If this has been passed, then we know it's an ObjectExpression
+    if (cssAttributeName) {
+      moduleString = `const ${declarator} = ${cssAttributeName}(${text});`;
+    } else {
+      moduleString = moduleString = `const ${declarator} = ${text};`;
+    }
+    implementFixer.push(fixer.replaceText(node, declarator));
+  }
+
+  return [
+    ...implementFixer,
+    // Insert the node either before or after
+    configuration.stylesPlacement === 'bottom'
+      ? fixer.insertTextAfter(fixerNodePlacement, '\n' + moduleString)
+      : fixer.insertTextBefore(fixerNodePlacement, moduleString + '\n'),
+  ];
+};
+
+/**
+ * Handle different cases based on what's been passed in the css-related JSXAttribute
+ * @param context the context of the node
+ * @param expression the expression of the JSXAttribute value
+ * @param configuration what css-related functions to account for (eg. css, xcss, cssMap), and whether to detect bottom vs top expressions
+ * @param cssAttributeName used to encapsulate ObjectExpressions when cssOnTopOfModule/cssAtBottomOfModule violations are triggered
+ */
 const traverseExpressionWithConfig = (
   context: Rule.RuleContext,
   expression: Expression | SpreadElement,
   configuration: Required<RuleConfig>,
+  cssAttributeName?: string,
 ) => {
   function traverseExpression(expression: Expression | SpreadElement) {
     switch (expression.type) {
@@ -142,8 +266,8 @@ const traverseExpressionWithConfig = (
         traverseExpression(expression.alternate);
         break;
 
-      case 'CallExpression':
       case 'ObjectExpression':
+      case 'CallExpression':
       case 'TaggedTemplateExpression':
       case 'TemplateLiteral':
         // We've found elements that shouldn't be here! Report an error.
@@ -153,6 +277,32 @@ const traverseExpressionWithConfig = (
             configuration.stylesPlacement === 'bottom'
               ? 'cssAtBottomOfModule'
               : 'cssOnTopOfModule',
+          fix: (fixer) => {
+            // Don't fix CallExpressions unless they're from cssFunctions or cssMap
+            if (
+              expression.type === 'CallExpression' &&
+              !isCssCallExpression(expression, configuration.cssFunctions)
+            ) {
+              return [];
+            }
+
+            if (expression.type === 'ObjectExpression') {
+              return fixCssNotInModuleScope(
+                fixer,
+                context,
+                configuration,
+                expression,
+                cssAttributeName,
+              );
+            }
+
+            return fixCssNotInModuleScope(
+              fixer,
+              context,
+              configuration,
+              expression,
+            );
+          },
         });
         break;
 
@@ -195,7 +345,9 @@ const rule = createLintRule({
       context.options[0],
     );
 
-    const callSelector = mergedConfig.cssFunctions
+    const declarationSuffix = 'Styles';
+    const callSelectorFunctions = [...mergedConfig.cssFunctions, 'cssMap'];
+    const callSelector = callSelectorFunctions
       .map((fn) => `CallExpression[callee.name=${fn}]`)
       .join(',');
     return {
@@ -208,7 +360,9 @@ const rule = createLintRule({
         const identifier = node.parent.id;
         if (
           identifier.type === 'Identifier' &&
-          identifier.name.endsWith(declarationSuffix)
+          (identifier.name.endsWith(declarationSuffix) ||
+            identifier.name.startsWith(declarationSuffix.toLowerCase()) ||
+            identifier.name === declarationSuffix.toLowerCase())
         ) {
           // Already prefixed! Nothing to do.
           return;
@@ -248,6 +402,9 @@ const rule = createLintRule({
       JSXAttribute(node: any) {
         const { name, value } = node;
 
+        // Always reset to empty array
+        hoistedCss = [];
+
         if (
           name.type === 'JSXIdentifier' &&
           mergedConfig.cssFunctions.includes(name.name)
@@ -265,7 +422,12 @@ const rule = createLintRule({
             return;
           }
 
-          traverseExpressionWithConfig(context, value.expression, mergedConfig);
+          traverseExpressionWithConfig(
+            context,
+            value.expression,
+            mergedConfig,
+            name.name,
+          );
         }
       },
     };

@@ -6,6 +6,7 @@ import { JsonLd } from 'json-ld-types';
 import { fireEvent, render } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   mockBaseResponseWithErrorPreview,
@@ -34,6 +35,7 @@ import { CardState } from '@atlaskit/linking-common';
 import { useSmartCardState } from '../../../../../../state/store';
 import { extractBlockProps } from '../../../../../../extractors/block';
 import MockAtlasProject from '../../../../../../__fixtures__/atlas-project';
+import mockAtlasProjectWithAiSummary from '../../../../../../__fixtures__/atlas-project-with-ai-summary';
 import { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import useRelatedUrls, {
   RelatedUrlsResponse,
@@ -50,6 +52,20 @@ jest.mock('../../../../../../state/store', () => ({
 jest.mock('../../../../../../extractors/block', () => ({
   extractBlockProps: jest.fn(),
 }));
+
+const mockGetBooleanFF = getBooleanFF as jest.Mock;
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+  ...jest.requireActual('@atlaskit/platform-feature-flags'),
+  getBooleanFF: jest.fn(),
+}));
+
+let isAiSummaryFFEnabled = false;
+mockGetBooleanFF.mockImplementation(
+  (key) =>
+    key === 'platform.linking-platform.smart-card.hover-card-ai-summaries' &&
+    isAiSummaryFFEnabled,
+);
 
 jest.mock('@atlaskit/link-provider', () => ({
   useSmartLinkContext: () => ({
@@ -88,12 +104,18 @@ describe('HoverCardResolvedView', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+    isAiSummaryFFEnabled = false;
   });
 
   const setup = ({
     mockResponse = mockConfluenceResponse as JsonLdDatasourceResponse,
     cardActions = [],
-  }: { mockResponse?: JsonLd.Response; cardActions?: LinkAction[] } = {}) => {
+    isAISummaryEnabled,
+  }: {
+    mockResponse?: JsonLd.Response;
+    cardActions?: LinkAction[];
+    isAISummaryEnabled?: boolean;
+  } = {}) => {
     const cardState = getCardState({
       data: mockResponse.data,
       meta: mockResponse.meta,
@@ -112,7 +134,7 @@ describe('HoverCardResolvedView', () => {
               flexibleCardProps={{
                 cardState: cardState,
                 children: {},
-                showServerActions: true,
+                actionOptions: { hide: false },
                 url: url,
               }}
               onActionClick={jest.fn()}
@@ -120,6 +142,7 @@ describe('HoverCardResolvedView', () => {
               url={url}
               titleBlockProps={titleBlockProps}
               cardActions={cardActions}
+              isAISummaryEnabled={isAISummaryEnabled}
             />
           </IntlProvider>
           ,
@@ -193,83 +216,105 @@ describe('HoverCardResolvedView', () => {
       expect(queryByTestId('smart-block-preview-resolved-view')).toBeNull();
     });
 
-    it('renders CustomAction other than "preview-content" correctly', async () => {
-      mockWithActions();
+    describe('footer actions', () => {
+      it('renders CustomAction other than "preview-content" correctly', async () => {
+        mockWithActions();
 
-      const { result } = renderHook(() =>
-        useSmartLinkActions({ url, appearance: CardDisplay.HoverCardPreview }),
-      );
-      const cardActions = result.current;
+        const { result } = renderHook(() =>
+          useSmartLinkActions({
+            url,
+            appearance: CardDisplay.HoverCardPreview,
+          }),
+        );
+        const cardActions = result.current;
 
-      const { findByTestId } = setup({ cardActions });
+        const { findByTestId } = setup({ cardActions });
 
-      await findByTestId('smart-element-group-actions');
+        await findByTestId('smart-element-group-actions');
 
-      // correctly renders action other than preview
-      const commentAction = await findByTestId('comment');
-      expect(commentAction).toBeDefined();
-      expect(commentAction.textContent).toBe('Comment');
-    });
+        // correctly renders action other than preview
+        const commentAction = await findByTestId('comment');
+        expect(commentAction).toBeDefined();
+        expect(commentAction.textContent).toBe('Comment');
+      });
 
-    it('renders PreviewAction correctly', async () => {
-      mockWithActions();
+      it('renders PreviewAction correctly', async () => {
+        mockWithActions();
 
-      const { result } = renderHook(() =>
-        useSmartLinkActions({
-          url,
-          appearance: CardDisplay.HoverCardPreview,
-        }),
-      );
-      const cardActions = result.current;
+        const { result } = renderHook(() =>
+          useSmartLinkActions({
+            url,
+            appearance: CardDisplay.HoverCardPreview,
+          }),
+        );
+        const cardActions = result.current;
 
-      const { findByTestId } = setup({ cardActions });
+        const { findByTestId } = setup({ cardActions });
 
-      await findByTestId('smart-element-group-actions');
+        await findByTestId('smart-element-group-actions');
 
-      // correctly renders preview action
-      const previewAction = await findByTestId('preview-content');
-      expect(previewAction).toBeDefined();
-      expect(previewAction.textContent).toBe('Open preview');
-    });
+        // correctly renders preview action
+        const previewAction = await findByTestId('preview-content');
+        expect(previewAction).toBeDefined();
+        expect(previewAction.textContent).toBe('Open preview');
+      });
 
-    describe('renders FollowAction', () => {
-      ffTest(
-        'platform.linking-platform.smart-card.follow-button',
-        async () => {
-          mockWithActions(MockAtlasProject);
-          const { result } = renderHook(() =>
-            useSmartLinkActions({
-              url,
-              appearance: CardDisplay.HoverCardPreview,
-            }),
-          );
+      it('renders FollowAction', async () => {
+        mockWithActions(MockAtlasProject);
+        const { result } = renderHook(() =>
+          useSmartLinkActions({
+            url,
+            appearance: CardDisplay.HoverCardPreview,
+          }),
+        );
+        const { findByTestId } = setup({
+          cardActions: result.current,
+          mockResponse: MockAtlasProject,
+        });
+        await findByTestId('smart-element-group-actions');
+
+        const action = await findByTestId('smart-action-follow-action');
+        expect(action?.textContent).toEqual('Follow');
+      });
+
+      describe('with AI Summary FF enabled', () => {
+        beforeEach(() => {
+          isAiSummaryFFEnabled = true;
+        });
+
+        it('renders AISummary block with actions when AI is enabled and AISummary is enabled', async () => {
+          mockWithActions(mockAtlasProjectWithAiSummary);
           const { findByTestId } = setup({
-            cardActions: result.current,
-            mockResponse: MockAtlasProject,
+            mockResponse: mockAtlasProjectWithAiSummary,
+            isAISummaryEnabled: true,
           });
-          await findByTestId('smart-element-group-actions');
 
-          const action = await findByTestId('smart-action-follow-action');
-          expect(action?.textContent).toEqual('Follow');
-        },
-        async () => {
-          mockWithActions(MockAtlasProject);
-          const { result } = renderHook(() =>
-            useSmartLinkActions({
-              url,
-              appearance: CardDisplay.HoverCardPreview,
-            }),
+          await findByTestId('smart-ai-summary-block-resolved-view');
+          const aiSummaryAction = await findByTestId(
+            'smart-ai-summary-block-ai-summary-action',
           );
-          const { findByTestId, queryByTestId } = setup({
-            cardActions: result.current,
-            mockResponse: MockAtlasProject,
-          });
-          await findByTestId('smart-element-group-actions');
+          expect(aiSummaryAction?.textContent).toEqual('Summarize');
+        });
+      });
 
-          const action = queryByTestId('smart-action-follow-action');
-          expect(action).not.toBeInTheDocument();
-        },
-      );
+      describe('with AI Summary FF disabled', () => {
+        beforeEach(() => {
+          isAiSummaryFFEnabled = false;
+        });
+
+        it('does not render AISummary block', async () => {
+          const { queryByTestId } = setup({
+            mockResponse: mockAtlasProjectWithAiSummary,
+          });
+
+          expect(
+            queryByTestId('smart-ai-summary-block-resolved-view'),
+          ).toBeNull();
+          expect(
+            queryByTestId('smart-ai-summary-block-ai-summary-action'),
+          ).toBeNull();
+        });
+      });
     });
 
     describe('renders RelatedUrlsBlock', () => {

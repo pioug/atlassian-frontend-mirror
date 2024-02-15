@@ -1,9 +1,7 @@
 import {
-  editorTestCase as test,
-  expect,
   EditorTypeAheadModel,
-  fixTest,
-  BROWSERS,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 
 test.use({
@@ -20,17 +18,10 @@ test.describe('Quick Insert', () => {
   test('should set selection to after the inserted node', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-20350, ED-20351',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 07/10/2023: https://product-fabric.atlassian.net/browse/ED-20350',
-      browsers: [BROWSERS.chromium, BROWSERS.webkit],
-    });
-
     const toolbar = editor.page.getByRole('toolbar', {
-      name: 'Editor toolbar',
+      name: 'Editor',
     });
-    await toolbar.locator(`button[aria-label*="Insert /"]`).click();
+    await toolbar.locator(`button[aria-label*="Insert elements"]`).click();
     await toolbar
       .locator(`button[data-testid*="view-more-elements-item"]`)
       .click();

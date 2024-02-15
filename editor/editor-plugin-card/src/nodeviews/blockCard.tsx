@@ -82,7 +82,8 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
   };
 
   render() {
-    const { node, cardContext, platform, showServerActions } = this.props;
+    const { node, cardContext, platform, actionOptions, showServerActions } =
+      this.props;
     const { url, data } = node.attrs;
 
     const cardInner = (
@@ -96,8 +97,8 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
           onClick={this.onClick}
           onResolve={this.onResolve}
           onError={this.onError}
-          showActions={platform === 'web'}
           platform={platform}
+          actionOptions={actionOptions}
           showServerActions={showServerActions}
         />
         {this.gapCursorSpan()}
@@ -123,7 +124,7 @@ const WrappedBlockCard = Card(BlockCardComponent, UnsupportedBlock);
 
 export type BlockCardNodeViewProps = Pick<
   SmartCardProps,
-  'platform' | 'showServerActions'
+  'platform' | 'actionOptions' | 'showServerActions'
 >;
 
 export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
@@ -158,7 +159,8 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
   }
 
   render() {
-    const { platform, showServerActions } = this.reactComponentProps;
+    const { platform, actionOptions, showServerActions } =
+      this.reactComponentProps;
 
     return (
       <WrappedBlockCard
@@ -166,6 +168,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
         view={this.view}
         getPos={this.getPos}
         platform={platform}
+        actionOptions={actionOptions}
         showServerActions={showServerActions}
       />
     );

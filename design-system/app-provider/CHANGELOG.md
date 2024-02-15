@@ -1,5 +1,11 @@
 # @atlaskit/app-provider
 
+## 1.0.0
+
+### Major Changes
+
+- [#69683](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69683) [`203c0f3c8b03`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/203c0f3c8b03) - Stable v1 release of app provider
+
 ## 0.4.0
 
 ### Minor Changes

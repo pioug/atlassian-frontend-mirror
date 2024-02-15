@@ -317,6 +317,76 @@ describe('BitbucketTransformer: parser', () => {
         doc(blockquote(p('text'))),
       );
     });
+    it('should support unordered list inside blockquote', () => {
+      expect(
+        parse(
+          '<blockquote><ul><li><p>item 1</p></li><li><p>item 2</p></li></ul></blockquote>',
+        ),
+      ).toEqualDocument(doc(blockquote(ul(li(p('item 1')), li(p('item 2'))))));
+    });
+    it('should support ordered list inside blockquote', () => {
+      expect(
+        parse(
+          '<blockquote><ol><li><p>item 1</p></li><li><p>item 2</p></li></ol></blockquote>',
+        ),
+      ).toEqualDocument(
+        doc(blockquote(ol()(li(p('item 1')), li(p('item 2'))))),
+      );
+    });
+    it('should support custom ordered list inside blockquote', () => {
+      expect(
+        parse(
+          '<blockquote><ol start="9"><li><p>item 1</p></li><li><p>item 2</p></li></ol></blockquote>',
+        ),
+      ).toEqualDocument(
+        doc(blockquote(ol({ order: 9 })(li(p('item 1')), li(p('item 2'))))),
+      );
+    });
+    it('should set order to 1 for negative order for custom ordered list inside blockquote', () => {
+      expect(
+        parse(
+          '<blockquote><ol start="-2"><li><p>item 1</p></li><li><p>item 2</p></li></ol></blockquote>',
+        ),
+      ).toEqualDocument(
+        doc(blockquote(ol({ order: 1 })(li(p('item 1')), li(p('item 2'))))),
+      );
+    });
+    it('should support codeblock inside a list within a blockquote', () => {
+      const js = code_block({ language: 'javascript' });
+      expect(
+        parse(
+          '<blockquote><ol start="9"><li><p>item 1</p></li><li><div class="codehilite language-javascript"><pre><span></span>    foo\n       bar</pre></div></li></ol></blockquote>',
+        ),
+      ).toEqualDocument(
+        doc(
+          blockquote(
+            ol({ order: 9 })(li(p('item 1')), li(js('    foo\n       bar'))),
+          ),
+        ),
+      );
+    });
+    it('should support nested list within a blockquote', () => {
+      expect(
+        parse(`
+        <blockquote>
+          <ul>
+            <li>level 1
+              <ul>
+                <li>level 1.1</li>
+                <li>level 1.2</li>
+              </ul>
+            </li>
+          </ul>
+      </blockquote>
+    `),
+      ).toEqualDocument(
+        doc(
+          blockquote(
+            ul(li(p('level 1'), ul(li(p('level 1.1')), li(p('level 1.2'))))),
+          ),
+        ),
+      );
+    });
   });
 
   describe('lists', () => {
@@ -332,7 +402,7 @@ describe('BitbucketTransformer: parser', () => {
       ).toEqualDocument(doc(ol()(li(p('foo')), li(p('bar')))));
     });
 
-    describe('custom start numbers (restartNumberedLists)', () => {
+    describe('custom start numbers', () => {
       it('that are ordered starting from 99 should be parsed (start from 99)', () => {
         expect(
           parse('<ol start="99">' + '<li>foo</li>' + '<li>bar</li>' + '</ol>'),

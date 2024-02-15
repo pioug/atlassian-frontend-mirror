@@ -27,7 +27,7 @@ class CustomClient extends Client {
   }
 }
 
-export default () => (
+export const BlockCardBitbucket = () => (
   <div>
     <h4>Branch</h4>
     <VRCardView
@@ -64,6 +64,53 @@ export default () => (
       appearance="block"
       client={new CustomClient()}
       url={BitbucketRepository1.data.url}
+    />
+  </div>
+);
+
+export const BlockCardBitbucketLegacy = () => (
+  <div>
+    <h4>Branch</h4>
+    <VRCardView
+      appearance="block"
+      client={new CustomClient()}
+      url={BitbucketBranch.data.url}
+      useLegacyBlockCard={true}
+    />
+    <h4>Commit</h4>
+    <VRCardView
+      appearance="block"
+      client={new CustomClient()}
+      url={BitbucketCommit.data.url}
+      useLegacyBlockCard={true}
+    />
+    <h4>File</h4>
+    <VRCardView
+      appearance="block"
+      client={new CustomClient()}
+      url={BitbucketFile1.data.url}
+      useLegacyBlockCard={true}
+    />
+    <h4>Project</h4>
+    <VRCardView
+      appearance="block"
+      client={new CustomClient()}
+      url={BitbucketProject.data.url}
+      useLegacyBlockCard={true}
+    />
+    <h4>Pull request</h4>
+    <VRCardView
+      appearance="block"
+      client={new CustomClient()}
+      url={BitbucketPullRequest1.data.url}
+      useLegacyBlockCard={true}
+    />
+    <h4>Repository</h4>
+    <VRCardView
+      appearance="block"
+      client={new CustomClient()}
+      url={BitbucketRepository1.data.url}
+      useLegacyBlockCard={true}
     />
   </div>
 );

@@ -20,7 +20,6 @@ import FocusRing from '@atlaskit/focus-ring';
 import type { InteractionContextType } from '@atlaskit/interaction-context';
 // eslint-disable-next-line no-duplicate-imports
 import InteractionContext from '@atlaskit/interaction-context';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -45,24 +44,18 @@ type ButtonBaseProps = BaseProps & {
 };
 
 const iconBeforeSpacingFixStyle = css({
-  marginLeft: token('space.negative.025', '-2px'),
+  marginInlineStart: token('space.negative.025', '-2px'),
 });
 
 const iconAfterSpacingFixStyle = css({
-  marginRight: token('space.negative.025', '-2px'),
+  marginInlineEnd: token('space.negative.025', '-2px'),
 });
 
 const getSpacingFix = (
   children: ReactNode,
   spacingStyles: SerializedStyles,
 ): null | SerializedStyles => {
-  if (
-    !getBooleanFF(
-      'platform.design-system-team.icon-button-spacing-fix_o1zc5',
-    ) ||
-    !children ||
-    getIfVisuallyHiddenChildren(children)
-  ) {
+  if (!children || getIfVisuallyHiddenChildren(children)) {
     return null;
   }
 
@@ -188,7 +181,7 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
     /**
      * HACK: Spinner needs to have different colours in the "new" tokens design compared to the old design.
      * For now, while we support both, these styles reach into Spinner when a theme is set, applies the right color.
-     * Ticket to remove: https://product-fabric.atlassian.net/browse/DSP-2067
+     * Ticket to remove: https://product-fabric.atlassian.net/browse/DSP-2067.
      */
     var spinnerHackCss = {};
     if (isSelected || isDisabled || appearance === 'warning') {
@@ -237,17 +230,7 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
               {iconBefore}
             </span>
           ) : null}
-          {!getBooleanFF(
-            'platform.design-system-team.icon-button-spacing-fix_o1zc5',
-          ) && children ? (
-            <span css={[fadeStyles, getContentStyle({ spacing })]}>
-              {children}
-            </span>
-          ) : null}
-          {getBooleanFF(
-            'platform.design-system-team.icon-button-spacing-fix_o1zc5',
-          ) &&
-            getChildren(children, [fadeStyles, getContentStyle({ spacing })])}
+          {getChildren(children, [fadeStyles, getContentStyle({ spacing })])}
           {iconAfter ? (
             <span
               css={[

@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import { IconButton } from '@atlaskit/button/new';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 
 import Popup from '../src';
@@ -22,11 +22,12 @@ export default () => {
       placement="bottom-start"
       content={() => <div css={popupStyles} />}
       trigger={(triggerProps) => (
-        <Button
+        <IconButton
           {...triggerProps}
           isSelected={isOpen}
           onClick={() => setIsOpen(!isOpen)}
-          iconBefore={<MediaServicesAddCommentIcon label="Add" />}
+          icon={MediaServicesAddCommentIcon}
+          label="Add"
         />
       )}
     />

@@ -1,38 +1,39 @@
-import { editorTestCase as test, expect } from '@af/editor-libra';
-import {
-  documentWithTextAndSimpleTable,
-  documentWithTextAndComplexTable,
-  documentWithSimpleTableAndText,
-  documentWithComplexTableAndText,
-  documentWithParagraphsInTableCell,
-} from './rich-text.spec.ts-fixtures';
+import { expect, editorTestCase as test } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  doc,
-  p,
-  table,
-  tr,
-  th,
-  td,
-  h2,
-  ul,
-  emoji,
-  unsupportedInline,
-  blockCard,
-  em,
   alignment,
+  blockCard,
   code,
-  inlineCard,
   code_block,
+  doc,
+  em,
+  emoji,
+  h2,
+  inlineCard,
   li,
   mention,
   nestedExpand,
+  p,
   panel,
   strong,
+  table,
   taskItem,
   taskList,
+  td,
+  th,
+  tr,
+  ul,
   underline,
+  unsupportedInline,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import {
+  documentWithComplexTableAndText,
+  documentWithParagraphsInTableCell,
+  documentWithSimpleTableAndText,
+  documentWithTextAndComplexTable,
+  documentWithTextAndSimpleTable,
+} from './rich-text.spec.ts-fixtures';
 
 test.describe('paste', () => {
   test.describe('tables - documentWithTextAndSimpleTable', () => {

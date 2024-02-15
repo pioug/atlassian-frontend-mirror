@@ -1,14 +1,17 @@
 /** @jsx jsx */
+import React from 'react';
+
 import { jsx } from '@emotion/react';
 
-import React from 'react';
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
-import { ReactRenderer } from '@atlaskit/renderer';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import { rendererPadding } from './kitchen-sink-styles';
-import type { EditorAppearance } from '../../src/types';
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
+import { ReactRenderer } from '@atlaskit/renderer';
+
+import type { EditorAppearance } from '../../src/types';
+
+import { rendererPadding } from './kitchen-sink-styles';
 
 export interface KitchenSinkRendererProps {
   appearance: EditorAppearance;
@@ -19,7 +22,7 @@ export interface KitchenSinkRendererProps {
   featureFlags: Record<string, boolean>;
 }
 
-export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererProps> =
+export const KitchenSinkRenderer: React.FunctionComponent<KitchenSinkRendererProps> =
   React.memo((props) => {
     const smartCardClient = React.useMemo(() => new CardClient('stg'), []);
 

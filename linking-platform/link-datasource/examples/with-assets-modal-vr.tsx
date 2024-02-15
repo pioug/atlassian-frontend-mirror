@@ -33,7 +33,7 @@ const visibleColumnKeys = [
 ];
 
 export default () => {
-  mockAssetsClientFetchRequests();
+  mockAssetsClientFetchRequests({ delayedResponse: false });
   return (
     <IntlProvider locale="en">
       <SmartCardProvider client={new SmartLinkClient()}>

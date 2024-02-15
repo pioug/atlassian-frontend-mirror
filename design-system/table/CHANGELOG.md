@@ -1,5 +1,23 @@
 # @atlaskit/table
 
+## 0.4.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.4.19
+
+### Patch Changes
+
+- [#65875](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65875) [`98e49fd3f04d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/98e49fd3f04d) - [ux] Updated buttons in table to consume new buttons.
+
+## 0.4.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.4.17
 
 ### Patch Changes

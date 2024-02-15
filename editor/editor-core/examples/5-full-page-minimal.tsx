@@ -1,15 +1,15 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { borderRadius } from '@atlaskit/theme/constants';
 import {
   akEditorCodeBackground,
   akEditorCodeBlockPadding,
   akEditorCodeFontFamily,
 } from '@atlaskit/editor-shared-styles';
+import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { Editor } from './../src';
+import { Editor } from '../src';
 
 export const wrapper: any = css`
   height: 500px;

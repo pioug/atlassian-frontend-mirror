@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { token } from '@atlaskit/tokens';
 
 const PropertyViewerContainer = styled.span`
   display: inline-block;
-  margin: 2px;
-  padding: 0 4px;
+  margin: ${token('space.025', '2px')};
+  padding: 0 ${token('space.050', '4px')};
   border-radius: 5px;
   box-shadow: 1px 1px 2px #888;
   border: 1px solid #888;

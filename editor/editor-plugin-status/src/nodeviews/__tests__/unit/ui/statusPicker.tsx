@@ -1,6 +1,12 @@
 import React from 'react';
 
-import { fireEvent as reactFireEvent, render } from '@testing-library/react';
+import {
+  act,
+  fireEvent as reactFireEvent,
+  render,
+} from '@testing-library/react';
+import type { Stub } from 'raf-stub';
+import createStub from 'raf-stub';
 import { IntlProvider } from 'react-intl-next';
 
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
@@ -48,6 +54,7 @@ describe('StatusPicker', () => {
   });
 
   const mountStatusPicker = () =>
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
     render(
       <StatusPicker
         target={document.getElementById('first')}
@@ -113,6 +120,7 @@ describe('StatusPicker', () => {
     expect(fireEvent).toBeCalledWith(FABRIC_CHANNEL);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const registerDocumentListeners = (map: Record<any, any> = {}) => {
     document.addEventListener = jest.fn((event, cb) => {
       map[event] = cb;
@@ -124,9 +132,11 @@ describe('StatusPicker', () => {
       const wrapper = mountStatusPicker();
       wrapper.unmount();
       assertAnalyticsPayload(
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
         createPayloadPopupOpened('opened', '12345', 'purple', 5, 'new'),
       );
       assertAnalyticsPayload(
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
         createPayloadPopupClosed('closed', '12345', 'purple', 5, 'new'),
       );
     });
@@ -134,6 +144,7 @@ describe('StatusPicker', () => {
     it('should fire statusPopup.closed for previous Status instance and statusPopup.opened for the new Status', () => {
       const wrapper = mountStatusPicker();
       wrapper.rerender(
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
         <StatusPicker
           closeStatusPicker={closeStatusPicker}
           onSelect={onSelect}
@@ -150,21 +161,32 @@ describe('StatusPicker', () => {
       wrapper.unmount();
 
       assertAnalyticsPayload(
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
         createPayloadPopupOpened('opened', '12345', 'purple', 5, 'new'),
       );
       assertAnalyticsPayload(
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
         createPayloadPopupClosed('closed', '12345', 'purple', 5, 'new'),
       );
       assertAnalyticsPayload(
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
         createPayloadPopupOpened('opened', '45678', 'red', 3, 'update'),
       );
       assertAnalyticsPayload(
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
         createPayloadPopupClosed('closed', '45678', 'red', 3, 'update'),
       );
     });
   });
 
   describe('StatusPicker callbacks', () => {
+    let raf: Stub;
+    beforeEach(() => {
+      raf = createStub();
+      jest.spyOn(global, 'requestAnimationFrame').mockImplementation(raf.add);
+    });
+    afterEach(() => jest.clearAllMocks());
+
     it('should fire props.onEnter callback when Enter is pressed in the input field', () => {
       const wrapper = mountStatusPicker();
       const input = wrapper.getByLabelText('Set a status');
@@ -178,19 +200,31 @@ describe('StatusPicker', () => {
     });
 
     it('should fire props.onEnter callback when Escape is pressed in the input field', () => {
-      const map: any = {};
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const map: { keydown?: (event: any) => void } = {};
       registerDocumentListeners(map);
 
       mountStatusPicker();
-      map.keydown({ code: 'Escape', preventDefault, stopPropagation });
+
+      act(() => {
+        raf.flush();
+      });
+
+      map.keydown?.({ code: 'Escape', preventDefault, stopPropagation });
 
       expect(preventDefault).toHaveBeenCalled();
       expect(onEnter).toHaveBeenCalled();
     });
+
     describe('close status picker', () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let windowSpy: jest.MockInstance<any, any[]>;
-      let map: any;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let map: { click?: (event: any) => void } = {};
+      let raf: Stub;
       beforeEach(() => {
+        raf = createStub();
+        jest.spyOn(global, 'requestAnimationFrame').mockImplementation(raf.add);
         windowSpy = jest.spyOn(window, 'getSelection');
         registerListenersAndMountPicker();
       });
@@ -204,8 +238,11 @@ describe('StatusPicker', () => {
 
       it('should fire props.close callback when user clicks outside the popup', () => {
         windowSpy.mockImplementation(() => null);
+        act(() => {
+          raf.flush();
+        });
         // simulate user clicking outside the popup
-        map.click({ ...event, target: document.createElement('BUTTON') });
+        map.click?.({ ...event, target: document.createElement('BUTTON') });
         expect(preventDefault).toHaveBeenCalled();
         expect(closeStatusPicker).toHaveBeenCalled();
       });
@@ -214,8 +251,11 @@ describe('StatusPicker', () => {
         windowSpy.mockImplementation(() => ({
           key: 'here',
         }));
+        act(() => {
+          raf.flush();
+        });
         // simulate user clicking outside the popup
-        map.click({ ...event, target: document.createElement('BUTTON') });
+        map.click?.({ ...event, target: document.createElement('BUTTON') });
         expect(preventDefault).toHaveBeenCalled();
         expect(closeStatusPicker).not.toHaveBeenCalled();
       });

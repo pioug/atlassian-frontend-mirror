@@ -41,6 +41,8 @@ import {
   JiraWorkManagementIcon,
   JiraWorkManagementLogo,
   JiraWorkManagementWordmark,
+  LoomIcon,
+  LoomLogo,
   OpsgenieIcon,
   OpsgenieLogo,
   OpsgenieWordmark,
@@ -128,6 +130,7 @@ export default () => (
           JiraWorkManagementWordmark,
           JiraWorkManagementIcon,
         )}
+        {buildRows(LoomLogo, null, LoomIcon)}
         {buildRows(OpsgenieLogo, OpsgenieWordmark, OpsgenieIcon)}
         {buildRows(StatuspageLogo, StatuspageWordmark, StatuspageIcon)}
         {buildRows(TrelloLogo, TrelloWordmark, TrelloIcon)}

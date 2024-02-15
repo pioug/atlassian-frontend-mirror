@@ -1,10 +1,11 @@
 import { components, MultiValueProps } from '@atlaskit/select';
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { FormattedMessage } from 'react-intl-next';
+import { Option, User } from '../types';
 import { messages } from './i18n';
 import { isChildInput } from './utils';
-import { User, Option } from '../types';
+import ValueContainerWrapper from './ValueContainerWrapper';
 
 export type State = {
   valueSize: number;
@@ -86,7 +87,7 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
         ? React.cloneElement(child as React.ReactElement, { placeholder })
         : child,
     );
-    return <>{children}</>;
+    return <Fragment>{children}</Fragment>;
   };
 
   private renderChildren = () => {
@@ -117,16 +118,24 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
     return this.addPlaceholder(addMoreMessage);
   };
 
+  onValueContainerClick = this.props.selectProps.onValueContainerClick;
+
   render() {
     const { children, innerProps, ...valueContainerProps } = this.props;
     const props = {
       ...valueContainerProps,
       innerProps: this.valueContainerInnerProps,
     };
+
     return (
-      <components.ValueContainer {...props}>
-        {this.renderChildren()}
-      </components.ValueContainer>
+      <ValueContainerWrapper
+        isEnabled={this.onValueContainerClick}
+        onMouseDown={this.onValueContainerClick}
+      >
+        <components.ValueContainer {...props}>
+          {this.renderChildren()}
+        </components.ValueContainer>
+      </ValueContainerWrapper>
     );
   }
 }

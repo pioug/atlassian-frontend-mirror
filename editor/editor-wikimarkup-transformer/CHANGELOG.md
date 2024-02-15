@@ -1,5 +1,95 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.2.39
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+
+## 11.2.38
+
+### Patch Changes
+
+- [#70152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70152) [`53ed3673df28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53ed3673df28) - Updating adf-schema version to 35.5.1
+
+## 11.2.37
+
+### Patch Changes
+
+- [#70084](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70084) [`4d651eb93ab5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d651eb93ab5) - Add editor-plugin-annotation pr and create shared utils for it in editor-test-helpers
+
+## 11.2.36
+
+### Patch Changes
+
+- [#70027](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70027) [`995c21770b0e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/995c21770b0e) - Allow link key to be parsed inside colour macro.
+
+## 11.2.35
+
+### Patch Changes
+
+- [#70481](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70481) [`7d54a51fcc1b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7d54a51fcc1b) - Revert node-nesting changes in wiki-transformer
+
+## 11.2.34
+
+### Patch Changes
+
+- [#65965](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65965) [`ac054cbef9cd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ac054cbef9cd) - Migrate @atlaskit/editor-wikimarkup-transformer to use declarative entry points
+
+## 11.2.33
+
+### Patch Changes
+
+- [#66546](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66546) [`6c0462257e75`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6c0462257e75) - ED-21612 Add support for rendering taskList inside bullet/ordered lists
+
+## 11.2.32
+
+### Patch Changes
+
+- [#65031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65031) [`a00094111b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a00094111b5a) - ED-21609 Update adf-schema to 35.3.0
+
+## 11.2.31
+
+### Patch Changes
+
+- [#62165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62165) [`b44ac0968d79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b44ac0968d79) - [ED-21562] Bump @atlaskit/adf-schema to 35.2.0 for border mark update
+
+## 11.2.30
+
+### Patch Changes
+
+- [#60841](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60841) [`6312e96b9b70`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6312e96b9b70) - ED-21501 Add support for lists in blockquote in wiki->adf conversion
+
+## 11.2.29
+
+### Patch Changes
+
+- [#60808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60808) [`f509a21be124`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f509a21be124) - ED-21506: @atlaskit/adf-schema upgraded to 35.1.1 to support renderer for MBE
+
+## 11.2.28
+
+### Patch Changes
+
+- [#58246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58246) [`a381b2599716`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a381b2599716) - ED-21371 Update adf-schema to 35.1.0
+
+## 11.2.27
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 11.2.26
+
+### Patch Changes
+
+- [#58763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58763) [`0fdbd64522bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fdbd64522bf) - update ADF schema
+
+## 11.2.25
+
+### Patch Changes
+
+- [#56790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56790) [`ff577a7969d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff577a7969d4) - ED-21266: Updated @atlaskit/adf-schema to 34.0.1
+
 ## 11.2.24
 
 ### Patch Changes

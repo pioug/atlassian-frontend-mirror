@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import SelectedIcon from '@atlaskit/icon/glyph/check';
 import ButtonIcon from '@atlaskit/icon/glyph/checkbox-indeterminate';
 import CustomIcon from '@atlaskit/icon/glyph/discover';
@@ -44,7 +44,7 @@ const BasicExample = () => {
             </ButtonItem>
           </Section>
           <Button
-            iconBefore={<CustomIcon label="" />}
+            iconBefore={CustomIcon}
             appearance="primary"
             shouldFitContainer
           >

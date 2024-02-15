@@ -3,7 +3,6 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import {
   findFilepaths,
   getLinkCreationAnalyticsEvent,
@@ -16,9 +15,10 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import { createPlugin, createRule } from '@atlaskit/prosemirror-input-rules';
 
+import { toolbarKey } from './toolbar-buttons';
+
 export function createLinkInputRule(
   regexp: RegExp,
-  skipAnalytics: boolean = false,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ): InputRuleWrapper {
   // Plain typed text (eg, typing 'www.google.com') should convert to a hyperlink
@@ -62,6 +62,7 @@ export function createLinkInputRule(
         inputMethod: INPUT_METHOD.AUTO_DETECT,
       });
 
+      const skipAnalytics = toolbarKey.getState(state)?.skipAnalytics ?? false;
       if (skipAnalytics) {
         return tr;
       }
@@ -75,8 +76,6 @@ export function createLinkInputRule(
 
 export function createInputRulePlugin(
   schema: Schema,
-  skipAnalytics: boolean = false,
-  featureFlags: FeatureFlags,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ): SafePlugin | undefined {
   if (!schema.marks.link) {
@@ -85,7 +84,6 @@ export function createInputRulePlugin(
 
   const urlWithASpaceRule = createLinkInputRule(
     LinkMatcher.create(),
-    skipAnalytics,
     editorAnalyticsApi,
   );
 
@@ -107,6 +105,8 @@ export function createInputRulePlugin(
       addLinkMetadata(state.selection, tr, {
         inputMethod: INPUT_METHOD.FORMATTING,
       });
+
+      const skipAnalytics = toolbarKey.getState(state)?.skipAnalytics ?? false;
 
       if (skipAnalytics) {
         return tr;

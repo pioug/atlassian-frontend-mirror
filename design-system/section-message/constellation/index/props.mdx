@@ -1,16 +1,21 @@
 ---
 order: 1
+props:
+  packageName: '@atlaskit/section-message'
+  exports:
+    - default
+    - SectionMessageAction
 ---
 
 ### SectionMessage props
 
-import SectionMessageProps from '!!extract-react-types-loader!../../src/section-message';
-import SectionMessageActionProps from '!!extract-react-types-loader!../../src/section-message-action';
-
 ## Props
 
-<PropsTable heading="" props={SectionMessageProps} />
+<TSMorphProps exportName="default" packageName="@atlaskit/section-message" />
 
 ### SectionMessageAction props
 
-<PropsTable heading="" props={SectionMessageActionProps} />
+<TSMorphProps
+  exportName="SectionMessageAction"
+  packageName="@atlaskit/section-message"
+/>

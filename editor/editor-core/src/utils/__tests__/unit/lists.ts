@@ -1,4 +1,13 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '@atlaskit/editor-plugin-paste/src/handlers';
+import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
+import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugins/better-type-history';
+import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
+import { decorationsPlugin } from '@atlaskit/editor-plugins/decorations';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
+import { listPlugin } from '@atlaskit/editor-plugins/list';
+import { panelPlugin } from '@atlaskit/editor-plugins/panel';
+import { pastePlugin } from '@atlaskit/editor-plugins/paste';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -6,16 +15,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p, ol, li } from '@atlaskit/editor-test-helpers/doc-builder';
-import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
-import { pastePlugin } from '../../../plugins';
-import { panelPlugin } from '@atlaskit/editor-plugin-panel';
-import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugin-better-type-history';
-import { listPlugin } from '@atlaskit/editor-plugin-list';
-import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '../../../plugins/paste/handlers';
-import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { doc, li, ol, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('doesSelectionWhichStartsOrEndsInListContainEntireList', () => {
   const createEditor = createProsemirrorEditorFactory();

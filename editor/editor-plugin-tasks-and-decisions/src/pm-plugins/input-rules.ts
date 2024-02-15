@@ -2,8 +2,17 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type {
+  Fragment,
+  Node,
+  NodeType,
+  ResolvedPos,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import {
   NodeSelection,
   TextSelection,
@@ -24,11 +33,15 @@ import {
 import type {
   AddItemAttrs,
   AddItemTransactionCreator,
+  GetContextIdentifier,
   TaskDecisionListType,
 } from '../types';
 
 const createListRule =
-  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+    getContextIdentifierProvider: GetContextIdentifier,
+  ) =>
   (regex: RegExp, listType: TaskDecisionListType, itemAttrs?: AddItemAttrs) => {
     return createRule(
       regex,
@@ -51,7 +64,10 @@ const createListRule =
           return null;
         }
 
-        const insertTr = insertTaskDecisionAction(editorAnalyticsAPI)(
+        const insertTr = insertTaskDecisionAction(
+          editorAnalyticsAPI,
+          getContextIdentifierProvider,
+        )(
           state,
           listType,
           INPUT_METHOD.FORMATTING,
@@ -65,6 +81,39 @@ const createListRule =
       },
     );
   };
+
+const isCursorInsideList = ($pos: ResolvedPos): boolean => {
+  return $pos.node($pos.depth - 1)?.type.name === 'listItem';
+};
+
+const processShortcutForNestedTask = (
+  content: Fragment,
+  $from: ResolvedPos,
+  tr: Transaction,
+  list: NodeType,
+  item: NodeType,
+  listLocalId: string,
+  itemLocalId: string,
+  itemAttrs?: AddItemAttrs,
+): void => {
+  //Extracting the content into the 'contentWithoutShortcut' from 'content' after removing the keyboard shortcut text, i.e., '[] '.
+  const contentWithoutShortcut = content.cut(
+    $from.pos - $from.start(),
+    content.size,
+  );
+
+  tr.insert(
+    $from.after(),
+    list.create({ localId: listLocalId }, [
+      item.create(
+        { localId: itemLocalId, ...itemAttrs },
+        contentWithoutShortcut,
+      ),
+    ]),
+  )
+    .setSelection(new TextSelection(tr.doc.resolve($from.after())))
+    .delete($from.start(), $from.end());
+};
 
 const addItem =
   (start: number, end: number): AddItemTransactionCreator =>
@@ -84,6 +133,21 @@ const addItem =
     });
 
     if (!shouldBreakNode) {
+      if (isCursorInsideList($from)) {
+        processShortcutForNestedTask(
+          content,
+          $from,
+          tr,
+          list,
+          item,
+          listLocalId,
+          itemLocalId,
+          itemAttrs,
+        );
+
+        return tr;
+      }
+
       tr.replaceRangeWith(
         $from.before(),
         $from.after(),
@@ -93,29 +157,35 @@ const addItem =
       )
         .delete(start + 1, end + 1)
         .setSelection(new TextSelection(tr.doc.resolve(start + 1)));
-    } else {
-      const depthAdjustment = changeInDepth($from, tr.selection.$from);
-      tr.split($from.pos)
-        .setSelection(new NodeSelection(tr.doc.resolve($from.pos + 1)))
-        .replaceSelectionWith(
-          list.create({ localId: listLocalId }, [
-            item.create(
-              { localId: itemLocalId, ...itemAttrs },
-              // TODO: [ts30] handle void and null properly
-              (tr.doc.nodeAt($from.pos + 1) as Node).content,
-            ),
-          ]),
-        )
-        .setSelection(
-          new TextSelection(tr.doc.resolve($from.pos + depthAdjustment)),
-        )
-        .delete(start, end + 1);
+
+      return tr;
     }
+
+    const depthAdjustment = changeInDepth($from, tr.selection.$from);
+    tr.split($from.pos)
+      .setSelection(new NodeSelection(tr.doc.resolve($from.pos + 1)))
+      .replaceSelectionWith(
+        list.create({ localId: listLocalId }, [
+          item.create(
+            { localId: itemLocalId, ...itemAttrs },
+            // TODO: [ts30] handle void and null properly
+            (tr.doc.nodeAt($from.pos + 1) as Node).content,
+          ),
+        ]),
+      )
+      .setSelection(
+        new TextSelection(tr.doc.resolve($from.pos + depthAdjustment)),
+      )
+      .delete(start, end + 1);
+
     return tr;
   };
 
 export const inputRulePlugin =
-  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+    getContextIdentifierProvider: GetContextIdentifier,
+  ) =>
   (schema: Schema, featureFlags: FeatureFlags): SafePlugin => {
     const rules: InputRuleWrapper[] = [];
 
@@ -123,7 +193,7 @@ export const inputRulePlugin =
 
     if (decisionList && decisionItem) {
       rules.push(
-        createListRule(editorAnalyticsAPI)(
+        createListRule(editorAnalyticsAPI, getContextIdentifierProvider)(
           new RegExp(`(^|${leafNodeReplacementCharacter})\\<\\>\\s$`),
           'decisionList',
         ),
@@ -132,13 +202,13 @@ export const inputRulePlugin =
 
     if (taskList && taskItem) {
       rules.push(
-        createListRule(editorAnalyticsAPI)(
+        createListRule(editorAnalyticsAPI, getContextIdentifierProvider)(
           new RegExp(`(^|${leafNodeReplacementCharacter})\\[\\]\\s$`),
           'taskList',
         ),
       );
       rules.push(
-        createListRule(editorAnalyticsAPI)(
+        createListRule(editorAnalyticsAPI, getContextIdentifierProvider)(
           new RegExp(`(^|${leafNodeReplacementCharacter})\\[x\\]\\s$`),
           'taskList',
           { state: 'DONE' },

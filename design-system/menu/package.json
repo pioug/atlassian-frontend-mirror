@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/menu",
-  "version": "2.1.2",
+  "version": "2.1.5",
   "description": "A collection of composable menu components that can be used anywhere.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,6 +22,22 @@
     "releaseModel": "continuous",
     "website": {
       "name": "Menu",
+      "subPages": [
+        {
+          "title": "Popup menu group",
+          "id": "popup-menu-group",
+          "status": {
+            "type": "deprecated",
+            "description": "PopupMenuGroup has been deprecated. We recommend using the MenuGroup component instead.",
+            "actions": [
+              {
+                "text": "View MenuGroup documentation",
+                "href": "https://atlassian.design/components/menu/menu-group/examples"
+              }
+            ]
+          }
+        }
+      ],
       "category": "Components"
     }
   },
@@ -29,9 +45,9 @@
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/focus-ring": "^1.3.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^1.12.0",
+    "@atlaskit/primitives": "^2.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -44,7 +60,6 @@
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@emotion/jest": "^11.8.0",

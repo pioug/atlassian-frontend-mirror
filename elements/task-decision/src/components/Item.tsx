@@ -5,7 +5,6 @@ import { jsx } from '@emotion/react';
 import { Appearance, ContentRef, TaskType, DecisionType } from '../types';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
-import type { Theme } from '@atlaskit/theme/types';
 import {
   contentStyles,
   taskStyles,
@@ -23,7 +22,6 @@ export interface Props {
   showPlaceholder?: boolean;
   dataAttributes?: { [key: string]: string | number };
   checkBoxId?: string;
-  theme: Theme;
 }
 
 export default class Item extends PureComponent<Props, {}> {
@@ -42,6 +40,7 @@ export default class Item extends PureComponent<Props, {}> {
     const offset = gridSize() * (itemType === 'TASK' ? 3 : 3.5);
     return (
       <span
+        data-testid="task-decision-item-placeholder"
         data-component="placeholder"
         css={placeholderStyles(offset)}
         contentEditable={false}
@@ -52,15 +51,8 @@ export default class Item extends PureComponent<Props, {}> {
   }
 
   renderMessageAppearance() {
-    const {
-      contentRef,
-      children,
-      icon,
-      itemType,
-      checkBoxId,
-      dataAttributes,
-      theme,
-    } = this.props;
+    const { contentRef, children, icon, itemType, checkBoxId, dataAttributes } =
+      this.props;
 
     if (itemType === 'TASK') {
       return (
@@ -79,7 +71,7 @@ export default class Item extends PureComponent<Props, {}> {
       );
     } else if (itemType === 'DECISION') {
       return (
-        <div css={decisionStyles(theme)} data-decision-wrapper="true">
+        <div css={decisionStyles()} data-decision-wrapper="true">
           {icon}
           {this.renderPlaceholder()}
           <div

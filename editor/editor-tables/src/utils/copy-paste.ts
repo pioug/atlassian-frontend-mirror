@@ -10,19 +10,22 @@
 // clipped to the selection's rectangle, optionally repeating the
 // pasted cells when they are smaller than the selection.
 
-import {
-  Fragment,
+import type {
   NodeType,
   Node as PMNode,
   Schema,
-  Slice,
 } from '@atlaskit/editor-prosemirror/model';
-import { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
 
 import { CellSelection } from '../cell-selection';
-import { Rect, TableMap } from '../table-map';
-import { CellSelectionRect, Dispatch } from '../types';
+import type { Rect } from '../table-map';
+import { TableMap } from '../table-map';
+import type { CellSelectionRect, Dispatch } from '../types';
 
 import { removeColSpan } from './colspan';
 import { selectedRect } from './selection-rect';
@@ -528,10 +531,13 @@ export function insertCells(
     headerRowEnabled,
     headerColumnEnabled,
   );
+
   tr.setSelection(
     new CellSelection(
-      tr.doc.resolve(tableStart + map.positionAt(top, left, table)),
-      tr.doc.resolve(tableStart + map.positionAt(bottom - 1, right - 1, table)),
+      tr.doc.resolve(tableStart + map.map[top * map.width + left]),
+      tr.doc.resolve(
+        tableStart + map.map[(bottom - 1) * map.width + right - 1],
+      ),
     ),
   );
 

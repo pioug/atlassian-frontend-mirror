@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import FocusRing from '../../src';
@@ -15,8 +16,8 @@ const buttonStyles = css({
   borderRadius: token('border.radius.100', '3px'),
 });
 
-const spacerStyles = css({
-  padding: token('space.100', '8px'),
+const spacerStyles = xcss({
+  padding: 'space.100',
 });
 
 export default () => {
@@ -28,12 +29,12 @@ export default () => {
   }, []);
 
   return (
-    <div css={spacerStyles}>
+    <Box xcss={spacerStyles}>
       <FocusRing>
         <button type="button" ref={buttonRef} css={buttonStyles}>
           Native Button
         </button>
       </FocusRing>
-    </div>
+    </Box>
   );
 };

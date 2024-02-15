@@ -1,16 +1,20 @@
 /** @jsx jsx */
 import React, { Fragment } from 'react';
+
 import { css, jsx } from '@emotion/react';
+
 import Button from '@atlaskit/button/standard-button';
+
+import { fromLocation } from '../example-helpers/adf-url';
+import { DevTools } from '../example-helpers/DevTools';
+import { ContextPanel } from '../src';
+import EditorContext from '../src/ui/EditorContext';
+import WithEditorActions from '../src/ui/WithEditorActions';
+
 import {
   ExampleEditor as FullPageEditor,
   LOCALSTORAGE_defaultDocKey,
 } from './5-full-page';
-import EditorContext from '../src/ui/EditorContext';
-import { DevTools } from '../example-helpers/DevTools';
-import WithEditorActions from '../src/ui/WithEditorActions';
-import { ContextPanel } from '../src';
-import { fromLocation } from '../example-helpers/adf-url';
 
 export const textareaStyle = css`
   box-sizing: border-box;

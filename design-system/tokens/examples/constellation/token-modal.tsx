@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 
 import token from '../../src/get-token';

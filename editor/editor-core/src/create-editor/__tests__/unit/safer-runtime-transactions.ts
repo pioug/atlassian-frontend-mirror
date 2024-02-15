@@ -1,19 +1,19 @@
-import type {
-  Transaction,
-  ReadonlyTransaction,
-} from '@atlaskit/editor-prosemirror/state';
-import { NodeSelection, Plugin } from '@atlaskit/editor-prosemirror/state';
-
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import { UNSAFE_PROPERTY_SET_ERROR } from '../../../utils/performance/safer-transactions';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import type {
+  ReadonlyTransaction,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, Plugin } from '@atlaskit/editor-prosemirror/state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { UNSAFE_PROPERTY_SET_ERROR } from '../../../utils/performance/safer-transactions';
 
 const mockAnalyticsDispatch = jest.fn();
 
@@ -186,9 +186,11 @@ describe('safer-runtime-transactions', () => {
         attributes: {
           pluginKey: expect.any(String),
         },
-        nonPrivacySafeAttributes: {
-          stack: expect.stringContaining('Error: '),
-        },
+      }),
+    );
+    expect(mockAnalyticsDispatch).not.toBeCalledWith(
+      expect.objectContaining({
+        nonPrivacySafeAttributes: expect.any(Object),
       }),
     );
   });
@@ -213,9 +215,11 @@ describe('safer-runtime-transactions', () => {
         attributes: {
           pluginKey: expect.any(String),
         },
-        nonPrivacySafeAttributes: {
-          stack: expect.stringContaining('Error: '),
-        },
+      }),
+    );
+    expect(mockAnalyticsDispatch).not.toBeCalledWith(
+      expect.objectContaining({
+        nonPrivacySafeAttributes: expect.any(Object),
       }),
     );
   });

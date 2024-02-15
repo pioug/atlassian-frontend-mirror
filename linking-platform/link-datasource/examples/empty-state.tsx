@@ -2,6 +2,7 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
+import { HoverableContainer } from '../examples-helpers/hoverableContainer';
 import EmptyState from '../src/ui/issue-like-table/empty-state';
 import { ScrollableContainerHeight } from '../src/ui/issue-like-table/styled';
 
@@ -13,7 +14,9 @@ const Container = styled.div`
 export default () => {
   return (
     <Container>
-      <EmptyState />
+      <HoverableContainer>
+        <EmptyState />
+      </HoverableContainer>
     </Container>
   );
 };

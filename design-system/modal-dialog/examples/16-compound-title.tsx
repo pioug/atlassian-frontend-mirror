@@ -2,10 +2,9 @@ import React, { useCallback, useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
-import Button from '@atlaskit/button/standard-button';
+import Button, { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import ModalDialog, {
@@ -50,13 +49,12 @@ const CustomHeader = () => {
           top: token('space.050', '4px'),
         }}
       >
-        <Button onClick={onClose} appearance="link">
-          <CrossIcon
-            label="Close Modal"
-            primaryColor={token('color.icon.danger', R400)}
-            size="small"
-          />
-        </Button>
+        <IconButton
+          onClick={onClose}
+          label="Close Modal"
+          icon={CrossIcon}
+          UNSAFE_size="small"
+        />
       </span>
     </div>
   );

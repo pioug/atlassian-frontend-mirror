@@ -2,11 +2,11 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 
-import Button from '@atlaskit/button';
+import { IconButton } from '@atlaskit/button/new';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 
-import { ChevronContainer, ChevronIconContainer, iconColor } from './styled';
+import { ChevronContainer } from './styled';
 
 interface ChevronProps {
   expandLabel: string;
@@ -39,30 +39,20 @@ export default class Chevron extends Component<ChevronProps> {
       rowId,
       extendedLabel,
     } = this.props;
-    const iconProps = {
-      size: 'medium',
-      primaryColor: iconColor,
-    } as const;
     const getLabel = (defaultLabel: string) =>
       extendedLabel
         ? `${defaultLabel} ${extendedLabel} row`
         : `${defaultLabel} row ${rowId}`;
     return (
       <ChevronContainer>
-        <Button
-          spacing="none"
+        <IconButton
           appearance="subtle"
-          aria-controls={ariaControls}
           onClick={this.handleClick}
-        >
-          <ChevronIconContainer>
-            {isExpanded ? (
-              <ChevronDownIcon label={getLabel(collapseLabel)} {...iconProps} />
-            ) : (
-              <ChevronRightIcon label={getLabel(expandLabel)} {...iconProps} />
-            )}
-          </ChevronIconContainer>
-        </Button>
+          spacing="none"
+          icon={isExpanded ? ChevronDownIcon : ChevronRightIcon}
+          aria-controls={ariaControls}
+          label={isExpanded ? getLabel(collapseLabel) : getLabel(expandLabel)}
+        />
       </ChevronContainer>
     );
   }

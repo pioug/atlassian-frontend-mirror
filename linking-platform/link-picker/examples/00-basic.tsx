@@ -27,22 +27,16 @@ function Basic() {
       inputMethod: 'manual',
     },
   });
-  const [isLinkPickerVisible, setIsLinkPickerVisible] = useState(true);
   const linkAnalytics = useSmartLinkLifecycleAnalytics();
 
   const handleSubmit: LinkPickerProps['onSubmit'] = (payload, analytic) => {
     setLink(payload);
     linkAnalytics.linkCreated(payload, analytic);
-    setIsLinkPickerVisible(false);
   };
 
   const handleClick = (e: SyntheticEvent) => {
     e.preventDefault();
-    e.stopPropagation();
-    setIsLinkPickerVisible(true);
   };
-
-  const handleCancel = () => setIsLinkPickerVisible(false);
 
   const plugins = useMemo(
     () => [
@@ -57,16 +51,6 @@ function Basic() {
     [],
   );
 
-  const linkPicker = isLinkPickerVisible && (
-    <LinkPicker
-      plugins={plugins}
-      url={link.url}
-      displayText={link.displayText}
-      onSubmit={handleSubmit}
-      onCancel={handleCancel}
-    />
-  );
-
   return (
     <Fragment>
       <div style={{ paddingBottom: token('space.250', '20px') }}>
@@ -74,7 +58,12 @@ function Basic() {
           {link.displayText || link.url}
         </a>
       </div>
-      {linkPicker}
+      <LinkPicker
+        plugins={plugins}
+        url={link.url}
+        displayText={link.displayText}
+        onSubmit={handleSubmit}
+      />
     </Fragment>
   );
 }

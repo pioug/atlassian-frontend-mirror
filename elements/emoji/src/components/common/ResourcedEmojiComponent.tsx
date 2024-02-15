@@ -59,6 +59,13 @@ export interface BaseResourcedEmojiProps {
    * Defaults to `undefined`.
    */
   optimisticImageURL?: string;
+
+  /**
+   * This should only be set when the emoji is being used in the Editor.
+   * Currently when set -- this prevents any aria labels being added.
+   * This is acceptable in Editor -- as it uses another technique to announce the emoji nodes.
+   */
+  editorEmoji?: true;
 }
 
 export interface Props extends BaseResourcedEmojiProps {
@@ -83,6 +90,7 @@ export const ResourcedEmojiComponent: FC<Props> = (props) => {
     fitToHeight = defaultEmojiHeight,
     optimistic = false,
     optimisticImageURL = undefined,
+    editorEmoji,
   } = props;
   const { shortName, id, fallback } = emojiId;
   const [emoji, setEmoji] = useState<OptionalEmojiDescription>();
@@ -268,6 +276,7 @@ export const ResourcedEmojiComponent: FC<Props> = (props) => {
               showTooltip={showTooltip}
               fitToHeight={fitToHeight}
               autoWidth={!!emoji ? false : true}
+              editorEmoji={editorEmoji}
             />
           )}
       </span>

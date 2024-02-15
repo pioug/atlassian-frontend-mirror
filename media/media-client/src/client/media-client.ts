@@ -1,5 +1,5 @@
 import { EventEmitter2 } from 'eventemitter2';
-import { MediaClientConfig } from '@atlaskit/media-core';
+import { ChunkHashAlgorithm, MediaClientConfig } from '@atlaskit/media-core';
 import { MediaTraceContext } from '@atlaskit/media-common';
 import {
   MediaStore as MediaApi,
@@ -33,6 +33,9 @@ export class MediaClient {
       new MediaApi({
         authProvider: mediaClientConfig.authProvider,
         initialAuth: mediaClientConfig.initialAuth,
+        chunkHashAlgorithm: mediaClientConfig.useSha256ForUploads
+          ? ChunkHashAlgorithm.Sha256
+          : ChunkHashAlgorithm.Sha1,
       });
     this.config = mediaClientConfig;
     this.file = new FileFetcherImpl(this.mediaStore, this.store);

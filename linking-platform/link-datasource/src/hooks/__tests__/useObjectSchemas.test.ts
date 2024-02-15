@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react';
 import { act, renderHook } from '@testing-library/react-hooks';
 
 import { asMock } from '@atlaskit/link-test-helpers/jest';
@@ -40,14 +41,15 @@ describe('useObjectSchemas', () => {
 
   it('should return initial state on mount', async () => {
     const { result } = renderHook(() => useObjectSchemas(workspaceId));
-    expect(result.current.objectSchemas).toEqual(undefined);
-    expect(result.current.objectSchemasError).toEqual(undefined);
-    expect(result.current.objectSchemasLoading).toEqual(false);
-    expect(result.current.fetchObjectSchemas).toEqual(expect.any(Function));
+    await waitFor(() => {
+      expect(result.current.objectSchemas).toEqual(undefined);
+      expect(result.current.objectSchemasError).toEqual(undefined);
+      expect(result.current.objectSchemasLoading).toEqual(false);
+      expect(result.current.fetchObjectSchemas).toEqual(expect.any(Function));
+    });
   });
 
-  //FIXME: flaky test - failed on https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2040131
-  it.skip('should return objectSchemas and totalObjectSchemas when fetchObjectSchemas resolves', async () => {
+  it('should return objectSchemas and totalObjectSchemas when fetchObjectSchemas resolves', async () => {
     mockFetchObjectSchemas.mockResolvedValue(mockFetchObjectSchemasResponse);
     const { result } = renderHook(() => useObjectSchemas(workspaceId));
     const fetchObjectSchemas = result.current.fetchObjectSchemas;
@@ -55,18 +57,20 @@ describe('useObjectSchemas', () => {
     await act(async () => {
       fetchObjectSchemasResponse = await fetchObjectSchemas(schemaQuery);
     });
-    expect(mockFetchObjectSchemas).toBeCalledWith(workspaceId, schemaQuery);
-    expect(fetchObjectSchemasResponse).toMatchObject({
-      objectSchemas: mockFetchObjectSchemasResponse.values,
-      totalObjectSchemas: mockFetchObjectSchemasResponse.total,
+    await waitFor(() => {
+      expect(mockFetchObjectSchemas).toBeCalledWith(workspaceId, schemaQuery);
+      expect(fetchObjectSchemasResponse).toMatchObject({
+        objectSchemas: mockFetchObjectSchemasResponse.values,
+        totalObjectSchemas: mockFetchObjectSchemasResponse.total,
+      });
+      expect(result.current.objectSchemas).toMatchObject(
+        mockFetchObjectSchemasResponse.values,
+      );
+      expect(result.current.totalObjectSchemas).toEqual(
+        mockFetchObjectSchemasResponse.total,
+      );
+      expect(result.current.objectSchemasError).toBe(undefined);
     });
-    expect(result.current.objectSchemas).toMatchObject(
-      mockFetchObjectSchemasResponse.values,
-    );
-    expect(result.current.totalObjectSchemas).toEqual(
-      mockFetchObjectSchemasResponse.total,
-    );
-    expect(result.current.objectSchemasError).toBe(undefined);
   });
 
   it('should return an error when fetchObjectSchemas rejects', async () => {
@@ -79,13 +83,15 @@ describe('useObjectSchemas', () => {
     await act(async () => {
       fetchObjectSchemasResponse = await fetchObjectSchemas(schemaQuery);
     });
-    expect(fetchObjectSchemasResponse).toMatchObject({
-      objectSchemas: undefined,
-      totalObjectSchemas: undefined,
+    await waitFor(() => {
+      expect(fetchObjectSchemasResponse).toMatchObject({
+        objectSchemas: undefined,
+        totalObjectSchemas: undefined,
+      });
+      expect(result.current.objectSchemas).toBe(undefined);
+      expect(result.current.totalObjectSchemas).toBe(undefined);
+      expect(result.current.objectSchemasError).toBe(mockError);
     });
-    expect(result.current.objectSchemas).toBe(undefined);
-    expect(result.current.totalObjectSchemas).toBe(undefined);
-    expect(result.current.objectSchemasError).toBe(mockError);
   });
 
   it('should return a newly constructed error when fetchObjectSchemas rejects with a non error type', async () => {

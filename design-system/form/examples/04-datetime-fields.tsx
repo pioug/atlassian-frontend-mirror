@@ -1,9 +1,15 @@
 import React, { Fragment } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { DatePicker, DateTimePicker } from '@atlaskit/datetime-picker';
 
-import Form, { ErrorMessage, Field, FormFooter } from '../src';
+import Form, {
+  ErrorMessage,
+  Field,
+  FormFooter,
+  FormHeader,
+  RequiredAsterisk,
+} from '../src';
 
 interface FormData {
   [key: string]: string;
@@ -50,6 +56,11 @@ export default () => (
     >
       {({ formProps }) => (
         <form {...formProps}>
+          <FormHeader title="Book an appointment">
+            <p aria-hidden="true">
+              Required fields are marked with an asterisk <RequiredAsterisk />
+            </p>
+          </FormHeader>
           <Field name="DOB" label="Date of birth" defaultValue="" isRequired>
             {({ fieldProps: { id, ...rest }, error }) => (
               <Fragment>

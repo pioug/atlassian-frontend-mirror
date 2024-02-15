@@ -17,7 +17,7 @@ import { LinkSearchListItemData } from './types';
 
 export const container = css`
   background-color: transparent;
-  padding: 8px 12px;
+  padding: ${token('space.100', '8px')} ${token('space.150', '12px')};
   cursor: pointer;
   display: flex;
   margin-top: 0;
@@ -48,7 +48,7 @@ export const containerName = css`
 const iconStyle = css`
   min-width: 16px;
   margin-top: 3px;
-  margin-right: 12px;
+  margin-right: ${token('space.150', '12px')};
 
   img {
     max-width: 16px;

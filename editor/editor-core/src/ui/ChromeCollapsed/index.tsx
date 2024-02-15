@@ -1,10 +1,13 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
-import { inputStyle } from './styles';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+
+import { jsx } from '@emotion/react';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
+
 import { messages } from './messages';
+import { inputStyle } from './styles';
 
 export interface Props {
   text?: string;

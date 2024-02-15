@@ -36,46 +36,45 @@ const isHighlightedStyles = css({
   '&:before': {
     height: 3,
     position: 'absolute',
-    bottom: 0,
-    left: token('space.025', '2px'),
     backgroundColor: `var(${VAR_PRIMARY_BUTTON_BEFORE_HIGHLIGHTED_BACKGROUND_COLOR})`,
-    borderTopLeftRadius: token('border.radius.050', '1px'),
-    borderTopRightRadius: token('border.radius.050', '1px'),
+    borderStartEndRadius: token('border.radius.050', '1px'),
+    borderStartStartRadius: token('border.radius.050', '1px'),
     content: '""',
+    insetBlockEnd: 0,
+    insetInlineStart: token('space.025', '2px'),
   },
 });
 
 const isHighlightedAndDropdownButtonStyles = css({
   '&:before': {
     // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    right: -10,
+    insetInlineEnd: -10,
   },
 });
 
 const isHighlightedNotDropdownButtonStyles = css({
   '&:before': {
-    right: token('space.025', '2px'),
+    insetInlineEnd: token('space.025', '2px'),
   },
 });
 
 const isDropdownButtonStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  marginRight: 18,
+  marginInlineEnd: 18,
 
   '&:after': {
     display: 'inline-block',
     width: 4,
     height: 4,
-    marginLeft: token('space.050', '4px'),
     position: 'absolute',
-    top: 'calc(50% - 4px)',
-    left: 'calc(100% - 3px)',
-    borderBottom: '2px solid',
+    borderBlockEnd: '2px solid',
     borderColor: `var(${VAR_PRIMARY_BUTTON_AFTER_DROPDOWN_BORDER_COLOR})`,
+    borderInlineEnd: '2px solid',
     borderRadius: token('border.radius.050', '1px'),
-    borderRight: '2px solid',
     content: '""',
-    opacity: 0.51,
+    insetBlockStart: 'calc(50% - 4px)',
+    insetInlineStart: 'calc(100% - 3px)',
+    marginInlineStart: token('space.050', '4px'),
     transform: 'rotate(45deg) scale(1.05)',
     verticalAlign: 'middle',
   },

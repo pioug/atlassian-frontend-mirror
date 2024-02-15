@@ -1,7 +1,5 @@
 import { JsonLd } from 'json-ld-types';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { extractIsTrusted } from '../extractIsTrusted';
 
 describe('extractIsTrusted', () => {
@@ -24,56 +22,42 @@ describe('extractIsTrusted', () => {
     expect(extractIsTrusted(meta)).toBe(expected);
   });
 
-  describe('should consider public object provider and iframely object provider as untrusted', () => {
+  it('should consider public object provider and iframely object provider as untrusted', () => {
     const meta = {
       access: 'granted',
       visibility: 'public',
     } as JsonLd.Meta.BaseMeta;
 
-    ffTest(
-      'platform.linking-platform.smart-card.fix-is-trusted-pop',
-      () => {
-        expect(
-          extractIsTrusted({ ...meta, key: 'public-object-provider' }),
-        ).toBe(false);
-      },
-      () => {
-        expect(
-          extractIsTrusted({ ...meta, key: 'public-object-provider' }),
-        ).toBe(true);
-      },
+    expect(extractIsTrusted({ ...meta, key: 'public-object-provider' })).toBe(
+      true,
     );
   });
 
-  describe('should consider our 1Ps and 2Ps as trusted', () => {
+  it('should consider our 1Ps and 2Ps as trusted', () => {
     const meta = {
       access: 'granted',
       visibility: 'public',
     } as JsonLd.Meta.BaseMeta;
 
-    ffTest('platform.linking-platform.smart-card.fix-is-trusted-pop', () => {
-      expect(
-        extractIsTrusted({ ...meta, key: 'confluence-object-provider' }),
-      ).toBe(true);
-      expect(extractIsTrusted({ ...meta, key: 'jira-object-provider' })).toBe(
-        true,
-      );
-      expect(extractIsTrusted({ ...meta, key: 'miro-object-provider' })).toBe(
-        true,
-      );
-    });
+    expect(
+      extractIsTrusted({ ...meta, key: 'confluence-object-provider' }),
+    ).toBe(true);
+    expect(extractIsTrusted({ ...meta, key: 'jira-object-provider' })).toBe(
+      true,
+    );
+    expect(extractIsTrusted({ ...meta, key: 'miro-object-provider' })).toBe(
+      true,
+    );
   });
 
-  describe('should handle missing or empty values as untrusted', () => {
+  it('should handle missing or empty values as untrusted', () => {
     const meta = {
       access: 'granted',
       visibility: 'public',
     } as JsonLd.Meta.BaseMeta;
 
-    ffTest('platform.linking-platform.smart-card.fix-is-trusted-pop', () => {
-      expect(extractIsTrusted({ ...meta, key: '' })).toBe(false);
-      expect(extractIsTrusted({ ...meta, key: null })).toBe(false);
-      expect(extractIsTrusted({ ...meta, key: undefined })).toBe(false);
-    });
+    expect(extractIsTrusted({ ...meta, key: '' })).toBe(false);
+    expect(extractIsTrusted({ ...meta, key: null })).toBe(false);
+    expect(extractIsTrusted({ ...meta, key: undefined })).toBe(false);
   });
 });

@@ -1,70 +1,113 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
-import { Box } from '../../../index';
+import { Box, xcss } from '../../../index';
+
+const styles = xcss({
+  backgroundColor: 'color.background.brand.bold',
+  padding: 'space.100',
+  paddingBlock: 'space.100',
+  paddingBlockStart: 'space.100',
+  paddingBlockEnd: 'space.100',
+  paddingInline: 'space.100',
+  paddingInlineStart: 'space.100',
+  paddingInlineEnd: 'space.100',
+});
 
 describe('Box component', () => {
   const testId = 'test';
 
   it('should render box', () => {
-    const { getByText } = render(<Box>Box</Box>);
-    expect(getByText('Box')).toBeInTheDocument();
+    render(<Box>Box</Box>);
+    expect(screen.getByText('Box')).toBeInTheDocument();
   });
 
   it('should render with a given test id', () => {
-    const { getByTestId } = render(<Box testId={testId}>Box with testid</Box>);
-    const element = getByTestId(testId);
+    render(<Box testId={testId}>Box with testid</Box>);
+    const element = screen.getByTestId(testId);
     expect(element).toBeInTheDocument();
   });
 
   it('should render div by default', () => {
-    const { getByTestId } = render(
-      <Box testId={testId}>Box as div default</Box>,
-    );
-    const element = getByTestId(testId);
+    render(<Box testId={testId}>Box as div default</Box>);
+    const element = screen.getByTestId(testId);
     expect(element).toBeInTheDocument();
     expect(element.tagName).toBe('DIV');
   });
 
   it('should render given `as` element', () => {
-    const { getByTestId } = render(
+    render(
       <Box testId={testId} as="span">
         Box as span
       </Box>,
     );
-    const element = getByTestId(testId);
+    const element = screen.getByTestId(testId);
     expect(element).toBeInTheDocument();
     expect(element.tagName).toBe('SPAN');
   });
 
   it('should render with plaintext', () => {
-    const { getByText } = render(<Box testId={testId}>Box plaintext</Box>);
-    const element = getByText('Box plaintext');
+    render(<Box testId={testId}>Box plaintext</Box>);
+    const element = screen.getByText('Box plaintext');
     expect(element).toBeInTheDocument();
   });
 
   it('should render children', () => {
-    const { getByTestId } = render(
+    render(
       <Box testId={testId}>
         <Box testId="box-child">Child box</Box>
       </Box>,
     );
-    const parent = getByTestId(testId);
+    const parent = screen.getByTestId(testId);
     expect(parent).toBeInTheDocument();
-    const child = getByTestId('box-child');
+    const child = screen.getByTestId('box-child');
     expect(child).toBeInTheDocument();
   });
 
   it('should apply HTML/aria attributes', () => {
-    const { getByTestId } = render(
+    render(
       <Box testId={testId} role="region" aria-label="test box">
         Box with HTML attributes
       </Box>,
     );
-    const element = getByTestId(testId);
+    const element = screen.getByTestId(testId);
     expect(element).toBeInTheDocument();
-    expect(element.getAttribute('role')).toBe('region');
-    expect(element.getAttribute('aria-label')).toBe('test box');
+    expect(element).toHaveAttribute('role', 'region');
+    expect(element).toHaveAttribute('aria-label', 'test box');
+  });
+
+  test('`xcss` should result in expected css', () => {
+    render(
+      <Box
+        testId={testId}
+        backgroundColor="elevation.surface"
+        padding="space.0"
+        paddingBlock="space.0"
+        paddingBlockStart="space.0"
+        paddingBlockEnd="space.0"
+        paddingInline="space.0"
+        paddingInlineStart="space.0"
+        paddingInlineEnd="space.0"
+        xcss={styles}
+      >
+        child
+      </Box>,
+    );
+    const element = screen.getByTestId(testId);
+    expect(element).toBeInTheDocument();
+
+    expect(element).toHaveCompiledCss({
+      // Every value in here overrides the props values
+      // eg. `props.padding="space.0"` is overridden by `xcss.padding: 'space.100'`
+      backgroundColor: 'var(--ds-surface, #FFFFFF)',
+      padding: 'var(--ds-space-100, 8px)',
+      paddingBlock: 'var(--ds-space-100, 8px)',
+      paddingBlockStart: 'var(--ds-space-100, 8px)',
+      paddingBlockEnd: 'var(--ds-space-100, 8px)',
+      paddingInline: 'var(--ds-space-100, 8px)',
+      paddingInlineStart: 'var(--ds-space-100, 8px)',
+      paddingInlineEnd: 'var(--ds-space-100, 8px)',
+    });
   });
 });

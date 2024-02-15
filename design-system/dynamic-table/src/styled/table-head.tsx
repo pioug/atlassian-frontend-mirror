@@ -33,7 +33,7 @@ const rankingStyles = css({
 });
 
 const headStyles = css({
-  borderBottom: `none`,
+  borderBlockEnd: `none`,
 });
 
 export const Head: FC<HeadProps> = ({ isRanking, testId, ...props }) => {
@@ -67,7 +67,7 @@ const headCellStyles = css([
     fontWeight: 600,
     textAlign: 'left',
     verticalAlign: 'top',
-    '&:focus': {
+    '&:focus-visible': {
       outline: `solid 2px ${token('color.border.focused', B100)}`,
     },
   },
@@ -96,20 +96,17 @@ const baseStyles = css({
       width: 0,
       height: 0,
       position: 'absolute',
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-      right: token('space.negative.100', '-8px'),
       border: '3px solid transparent',
       content: '""',
+      insetInlineEnd: token('space.negative.100', '-8px'),
     },
     '&::before': {
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-      bottom: token('space.100', '8px'),
-      borderBottom: `3px solid ${arrow.defaultColor}`,
+      borderBlockEnd: `3px solid ${arrow.defaultColor}`,
+      insetBlockEnd: token('space.100', '8px'),
     },
     '&::after': {
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-      bottom: 0,
-      borderTop: `3px solid ${arrow.defaultColor}`,
+      borderBlockStart: `3px solid ${arrow.defaultColor}`,
+      insetBlockEnd: 0,
     },
   },
   '@media (forced-colors: active)': {
@@ -118,10 +115,10 @@ const baseStyles = css({
         border: `3px solid ${MSThemeColors.Background}`,
       },
       '&::before': {
-        borderBottom: `3px solid ${MSThemeColors.Text}`,
+        borderBlockEnd: `3px solid ${MSThemeColors.Text}`,
       },
       '&::after': {
-        borderTop: `3px solid ${MSThemeColors.Text}`,
+        borderBlockStart: `3px solid ${MSThemeColors.Text}`,
       },
     },
   },
@@ -130,13 +127,13 @@ const baseStyles = css({
 const ascendingStyles = css({
   '& > button': {
     '&::before': {
-      borderBottom: `3px solid ${arrow.selectedColor}`,
+      borderBlockEnd: `3px solid ${arrow.selectedColor}`,
     },
   },
   '@media (forced-colors: active)': {
     '& > button': {
       '&::before': {
-        borderBottom: `3px solid ${MSThemeColors.SelectedBackground}`,
+        borderBlockEnd: `3px solid ${MSThemeColors.SelectedBackground}`,
       },
     },
   },
@@ -145,13 +142,13 @@ const ascendingStyles = css({
 const descendingStyles = css({
   '& > button': {
     '&::after': {
-      borderTop: `3px solid ${arrow.selectedColor}`,
+      borderBlockStart: `3px solid ${arrow.selectedColor}`,
     },
   },
   '@media (forced-colors: active)': {
     '& > button': {
       '&::after': {
-        borderTop: `3px solid ${MSThemeColors.SelectedBackground}`,
+        borderBlockStart: `3px solid ${MSThemeColors.SelectedBackground}`,
       },
     },
   },
@@ -189,8 +186,12 @@ export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
       }
     };
 
+    // If there is no content in the cell, it should be rendered as an empty `td`, not a `th`.
+    // https://dequeuniversity.com/rules/axe/4.7/empty-table-header
+    const Component = children ? 'th' : 'td';
+
     return (
-      <th
+      <Component
         aria-sort={getFormattedSortOrder()}
         style={mergedStyles}
         css={[
@@ -209,7 +210,7 @@ export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
         {...rest}
       >
         {children}
-      </th>
+      </Component>
     );
   },
 );

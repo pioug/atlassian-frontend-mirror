@@ -1,23 +1,24 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  waitForMediaToBeLoaded,
-  resizeMediaInPosition,
-  MediaResizeSide,
-} from '@atlaskit/editor-test-helpers/page-objects/media';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  resizeColumn,
-  clickFirstCell,
-} from '@atlaskit/editor-test-helpers/page-objects/table';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
-  initEditorWithAdf,
+  MediaResizeSide,
+  resizeMediaInPosition,
+  waitForMediaToBeLoaded,
+} from '@atlaskit/editor-test-helpers/page-objects/media';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  clickFirstCell,
+  resizeColumn,
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
   Appearance,
+  initEditorWithAdf,
+  snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import mediaSingleInTableAdf from './__fixtures__/mediaSingle-in-table.adf.json';
 
 describe('Snapshot Test: Media', () => {

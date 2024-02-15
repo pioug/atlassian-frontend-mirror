@@ -9,7 +9,7 @@ import React, {
 
 import Popup from '@atlaskit/popup';
 import { TriggerProps } from '@atlaskit/popup/types';
-import { Inline, xcss } from '@atlaskit/primitives';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 import {
   media,
   UNSAFE_useMediaQuery as useMediaQuery,
@@ -19,6 +19,10 @@ import { OverflowProvider } from '../../controllers/overflow';
 import { NavigationTheme } from '../../theme';
 import { PrimaryDropdownButton } from '../PrimaryDropdownButton';
 import { PrimaryItemsContainerProps } from '../PrimaryItemsContainer/types';
+
+const containerWrapperStyles = xcss({
+  height: '100%',
+});
 
 const sharedContainerStyles = xcss({
   height: '100%',
@@ -189,7 +193,7 @@ export const PrimaryItemsContainer = memo(
     return (
       <>
         {isClient ? (
-          <>
+          <Box role="list" xcss={containerWrapperStyles}>
             <Inline
               testId={testId && `${testId}-primary-actions`}
               xcss={sharedContainerStyles}
@@ -203,9 +207,9 @@ export const PrimaryItemsContainer = memo(
                 />
               )}
             </Inline>
-          </>
+          </Box>
         ) : (
-          <>
+          <Box role="list" xcss={containerWrapperStyles}>
             <Inline xcss={[sharedContainerStyles, smallContainerStyles]}>
               {filteredItems.length > smallMaxItems && (
                 // We don't need to pass items into popup, it won't be interactive (SSR only)
@@ -224,7 +228,7 @@ export const PrimaryItemsContainer = memo(
                 <MoreItemsPopup moreLabel={moreLabel} testId={testId} />
               )}
             </Inline>
-          </>
+          </Box>
         )}
         {Create && <Create />}
       </>

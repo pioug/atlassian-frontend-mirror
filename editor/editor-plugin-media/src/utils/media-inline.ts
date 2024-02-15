@@ -1,9 +1,10 @@
-import { isInEmptyLine, isInListItem } from '@atlaskit/editor-common/utils';
+import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
+import { isInEmptyLine } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
+import type { MediaOptions } from '../types';
 import { canInsertMediaInline } from '../utils/media-files';
 import { isMediaSingle } from '../utils/media-single';
 
@@ -12,18 +13,28 @@ import { isInsidePotentialEmptyParagraph } from './media-common';
 
 export type MediaNodeType = 'inline' | 'block' | 'group';
 
+export const isInSupportedInlineImageParent = (state: EditorState): boolean => {
+  return hasParentNodeOfType([state.schema.nodes.listItem])(state.selection);
+};
+
 export const getMediaNodeInsertionType = (
   state: EditorState,
-  mediaFeatureFlags?: MediaFeatureFlags,
+  mediaOptions?: MediaOptions,
   fileMimeType?: string,
 ): MediaNodeType => {
   const canInsertInlineNode =
-    getMediaFeatureFlag('mediaInline', mediaFeatureFlags) &&
+    getMediaFeatureFlag('mediaInline', mediaOptions?.featureFlags) &&
     !isInEmptyLine(state) &&
-    (!isInsidePotentialEmptyParagraph(state) || isInListItem(state)) &&
+    (!isInsidePotentialEmptyParagraph(state) ||
+      isInSupportedInlineImageParent(state)) &&
     canInsertMediaInline(state);
 
-  if (getBooleanFF('platform.editor.media.inline-image.base-support')) {
+  if (
+    mediaInlineImagesEnabled(
+      getMediaFeatureFlag('mediaInline', mediaOptions?.featureFlags),
+      mediaOptions?.allowMediaInlineImages,
+    )
+  ) {
     if (canInsertInlineNode && !isVideo(fileMimeType)) {
       return 'inline';
     }

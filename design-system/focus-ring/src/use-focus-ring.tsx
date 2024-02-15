@@ -5,9 +5,6 @@ import type { FocusEventHandlers, FocusState } from './types';
 /**
  * __Use focus ring__
  *
- * This component has accessibility issues that we are working to resolve.
- * Do not use without support from the Atlassian Design System accessibility team.
- *
  * The useFocusRing hook manages focus in the rare cases where the focus ring’s visual application and the element that takes focus differ.
  * This is not typically a good practice for accessibility, so don’t do this unless you’ve consulted with the accessibility team.
  *

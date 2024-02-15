@@ -1,20 +1,26 @@
 import { Position } from '@atlaskit/pragmatic-drag-and-drop/types';
 
-import type { Axis, Edge, EngagementHistoryEntry } from '../internal-types';
+import type {
+  Axis,
+  Edge,
+  EngagementHistoryEntry,
+  InternalConfig,
+} from '../internal-types';
 
 import { axisLookup } from './axis';
-import { defaultConfig } from './configuration';
 import { getPercentageInRange } from './get-percentage-in-range';
 import { mainAxisSideLookup } from './side';
-
-const targetScrollPerMs = defaultConfig.maxPixelScrollPerSecond / 1000;
 
 // We want a consistent scroll speed across devices, regardless of framerate
 function getMaxScrollChange({
   timeSinceLastFrame,
+  config,
 }: {
   timeSinceLastFrame: number;
+  config: InternalConfig;
 }): number {
+  const targetScrollPerMs = config.maxPixelScrollPerSecond / 1000;
+
   // Adjusting out target scroll rate to match the frame rate of the target device
   // This will pull the scroll speed down on high frame rate devices
   // so we get a consistent visual scroll speed regardless of device.
@@ -23,7 +29,7 @@ function getMaxScrollChange({
   // If lots of time as passed since that last frame (such on lower frame rate devices)
   // we don't want the scroll speed to be too fast, otherwise it can feel jumpy
   // We are capping the scroll speed at what it would be if we were hitting 60fps
-  const maximum = defaultConfig.maxPixelScrollPerSecond / 60;
+  const maximum = config.maxPixelScrollPerSecond / 60;
 
   return Math.min(proposed, maximum);
 }
@@ -33,19 +39,20 @@ function getDistanceDampening({
   axis,
   edge,
   hitbox,
+  config,
 }: {
   client: Position;
   axis: Axis;
   edge: Edge;
   hitbox: DOMRect;
+  config: InternalConfig;
 }): number {
   const { mainAxis } = axisLookup[axis];
   const side = mainAxisSideLookup[edge];
 
   // We want to hit the max speed before the edge of the hitbox
   const maxSpeedBuffer =
-    hitbox[mainAxis.size] *
-    defaultConfig.maxScrollAtPercentageRemainingOfHitbox[edge];
+    hitbox[mainAxis.size] * config.maxScrollAtPercentageRemainingOfHitbox[edge];
 
   if (side === 'end') {
     return getPercentageInRange({
@@ -77,6 +84,7 @@ export function getScrollChange({
   hitbox,
   edge,
   isDistanceDampeningEnabled,
+  config,
 }: {
   timeSinceLastFrame: number;
   axis: Axis;
@@ -85,6 +93,7 @@ export function getScrollChange({
   hitbox: DOMRect;
   edge: Edge;
   isDistanceDampeningEnabled: boolean;
+  config: InternalConfig;
 }): number {
   // We have two forms of speed dampening:
   // 1. 🗺️ Distance
@@ -94,25 +103,26 @@ export function getScrollChange({
   // This is to prevent super fast auto scrolling when first entering into
   // a scroll container, or when lifting in a scroll container
 
-  const maxScroll = getMaxScrollChange({ timeSinceLastFrame });
+  const maxScroll = getMaxScrollChange({
+    timeSinceLastFrame,
+    config,
+  });
 
-  const percentageDistanceDampening: number = (() => {
-    if (!isDistanceDampeningEnabled) {
-      return 1;
-    }
-    return getDistanceDampening({
-      client,
-      edge,
-      hitbox,
-      axis,
-    });
-  })();
+  const percentageDistanceDampening: number = isDistanceDampeningEnabled
+    ? getDistanceDampening({
+        client,
+        edge,
+        hitbox,
+        axis,
+        config,
+      })
+    : 1;
 
   // Dampen speed by time
   const percentageThroughTimeDampening = getPercentageInRange({
     startOfRange: engagement.timeOfEngagementStart,
     endOfRange:
-      engagement.timeOfEngagementStart + defaultConfig.timeDampeningDurationMs,
+      engagement.timeOfEngagementStart + config.timeDampeningDurationMs,
     value: Date.now(),
   });
 

@@ -127,6 +127,7 @@ export default class DynamicTable extends React.Component<
       highlightedRowIndex,
       loadingSpinnerSize,
       isLoading,
+      loadingLabel,
       isFixedSize,
       isRankable,
       isRankingDisabled,
@@ -147,6 +148,7 @@ export default class DynamicTable extends React.Component<
         highlightedRowIndex={highlightedRowIndex}
         loadingSpinnerSize={loadingSpinnerSize}
         isLoading={isLoading}
+        loadingLabel={loadingLabel}
         isFixedSize={isFixedSize}
         onSetPage={this.onSetPageHandler}
         onSort={this.onSortHandler}

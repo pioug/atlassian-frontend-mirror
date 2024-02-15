@@ -1,19 +1,20 @@
 import {
-  editorTestCase as test,
   EditorNodeContainerModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  doc,
+  media,
+  mediaGroup,
+  mediaSingle,
+} from '@atlaskit/editor-test-helpers/doc-builder';
+
 import {
   simpleMediaGroup,
   simpleMediaSingleWithAltText,
 } from './insert-media.spec.ts-fixtures';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  doc,
-  mediaSingle,
-  media,
-  mediaGroup,
-} from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.describe('media: copy', () => {
   test.use({

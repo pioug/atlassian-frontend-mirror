@@ -7,6 +7,8 @@ import { global } from './vr-test';
 import { imageForbidden, imageNotFound, imageUnauthorised } from '../images';
 import { getUnresolvedEmbedCardImage } from '../../src/view/EmbedCard/utils';
 import { IFrame } from '../../src/view/EmbedCard/components/IFrame';
+import HoverCardControl from '../../src/view/FlexibleCard/components/container/hover-card-control';
+import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
 
 const styles = css`
   padding: 10px;
@@ -41,7 +43,20 @@ const MockIFrame: typeof IFrame = injectable(
   ),
 );
 
-const dependencies = [mockGetEmbedCardImage, MockIFrame];
+const mockHoverCardControl = injectable(HoverCardControl, (props) => (
+  <HoverCardControl {...props} delay={0} />
+));
+
+const mockHoverCardComponent = injectable(HoverCardComponent, (props) => (
+  <HoverCardComponent {...props} noFadeDelay={true} />
+));
+
+const dependencies = [
+  mockGetEmbedCardImage,
+  MockIFrame,
+  mockHoverCardControl,
+  mockHoverCardComponent,
+];
 
 export type VRTestWrapperProps = {
   overrideCss?: SerializedStyles;

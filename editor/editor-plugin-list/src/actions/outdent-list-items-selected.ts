@@ -3,9 +3,9 @@ import {
   JoinDirection,
   joinSiblingLists,
   normalizeListItemsSelection,
+  processNestedTaskListsInSameLevel,
 } from '@atlaskit/editor-common/lists';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import {
   getOrderFromOrderedListNode,
   isListItemNode,
@@ -35,10 +35,7 @@ import {
 } from '../utils/find';
 import { createListNodeRange } from '../utils/selection';
 
-export const outdentListItemsSelected = (
-  tr: Transaction,
-  featureFlags: FeatureFlags,
-) => {
+export const outdentListItemsSelected = (tr: Transaction) => {
   const originalSelection = tr.selection;
   const normalizedSelection = normalizeListItemsSelection({
     selection: tr.selection,
@@ -75,7 +72,6 @@ export const outdentListItemsSelected = (
       extractListItemsRangeFromList({
         tr,
         range: mappedRange,
-        featureFlags,
       });
       hasNormalizedToPositionLiftedOut =
         hasNormalizedToPositionLiftedOut ||
@@ -99,6 +95,7 @@ export const outdentListItemsSelected = (
   });
   tr.setSelection(nextSelection);
 
+  processNestedTaskListsInSameLevel(tr);
   joinSiblingLists({ tr, direction: JoinDirection.RIGHT });
 };
 
@@ -264,10 +261,7 @@ const outdentRangeToParentList = ({ tr, range }: OutdentListRangeProps) => {
 const extractListItemsRangeFromList = ({
   tr,
   range,
-  featureFlags,
-}: OutdentListRangeProps & {
-  featureFlags: FeatureFlags;
-}) => {
+}: OutdentListRangeProps) => {
   const list = range.parent;
   const $start = tr.doc.resolve(range.start);
 
@@ -297,56 +291,50 @@ const extractListItemsRangeFromList = ({
   let nextList = list.copy(Fragment.empty);
 
   let nextListStartNumber: number;
-  if (featureFlags?.restartNumberedLists) {
-    // if splitting a numbered list, keep the splitted item
-    // counter as the start of the next (second half) list (instead
-    // of reverting back to 1 as a starting number)
-    const order = getOrderFromOrderedListNode(list);
-    if (list.type.name === 'orderedList') {
-      nextListStartNumber = range.endIndex - 1 + order;
-      // @ts-ignore - [unblock prosemirror bump] assigning to readonly attrs
-      nextList.attrs = {
-        ...nextList.attrs,
-        order: nextListStartNumber,
-      };
-      const { splitListStartNumber } = getRestartListsAttributes(tr);
-      if (typeof splitListStartNumber !== 'number') {
-        storeRestartListsAttributes(tr, {
-          splitListStartNumber: nextListStartNumber,
-        });
-      }
+  // if splitting a numbered list, keep the splitted item
+  // counter as the start of the next (second half) list (instead
+  // of reverting back to 1 as a starting number)
+  const order = getOrderFromOrderedListNode(list);
+  if (list.type.name === 'orderedList') {
+    nextListStartNumber = range.endIndex - 1 + order;
+    // @ts-ignore - [unblock prosemirror bump] assigning to readonly attrs
+    nextList.attrs = {
+      ...nextList.attrs,
+      order: nextListStartNumber,
+    };
+    const { splitListStartNumber } = getRestartListsAttributes(tr);
+    if (typeof splitListStartNumber !== 'number') {
+      storeRestartListsAttributes(tr, {
+        splitListStartNumber: nextListStartNumber,
+      });
     }
   }
 
   const nextListFragment = listItemContent.append(Fragment.from(nextList));
 
-  if (featureFlags?.restartNumberedLists) {
-    // if the split list with nextListStartNumber is below another list
-    // with order (e.g due to multi-level indent items being lifted), track the
-    // list above's order instead, as it will be the split list's order after sibling joins
-    nextListFragment.forEach((node, _offset, index) => {
-      if (
-        node.type.name === 'orderedList' &&
-        node.attrs?.order === nextListStartNumber
-      ) {
-        const prev = nextListFragment.child(index - 1);
-        if (prev?.attrs?.order >= 0) {
-          storeRestartListsAttributes(tr, {
-            splitListStartNumber: prev?.attrs?.order,
-          });
-        }
+  // if the split list with nextListStartNumber is below another list
+  // with order (e.g due to multi-level indent items being lifted), track the
+  // list above's order instead, as it will be the split list's order after sibling joins
+  nextListFragment.forEach((node, _offset, index) => {
+    if (
+      node.type.name === 'orderedList' &&
+      node.attrs?.order === nextListStartNumber
+    ) {
+      const prev = nextListFragment.child(index - 1);
+      if (prev?.attrs?.order >= 0) {
+        storeRestartListsAttributes(tr, {
+          splitListStartNumber: prev?.attrs?.order,
+        });
       }
-    });
-  }
+    }
+  });
 
   if (isTheEntireList) {
     const slice = new Slice(listItemContent, 0, 0);
     const step = new ReplaceStep($start.pos - 1, range.end + 1, slice, false);
-    if (featureFlags?.restartNumberedLists) {
-      storeRestartListsAttributes(tr, {
-        outdentScenario: undefined,
-      });
-    }
+    storeRestartListsAttributes(tr, {
+      outdentScenario: undefined,
+    });
     tr.step(step);
   } else if (isAtTop) {
     const slice = new Slice(nextListFragment, 0, 1);
@@ -357,11 +345,10 @@ const extractListItemsRangeFromList = ({
     const step = new ReplaceStep($start.pos, listEnd + 1, slice, false);
     tr.step(step);
   } else {
-    if (featureFlags?.restartNumberedLists) {
-      storeRestartListsAttributes(tr, {
-        outdentScenario: OUTDENT_SCENARIOS.SPLIT_LIST,
-      });
-    }
+    storeRestartListsAttributes(tr, {
+      outdentScenario: OUTDENT_SCENARIOS.SPLIT_LIST,
+    });
+
     const slice = new Slice(nextListFragment, 1, 1);
     const step = new ReplaceAroundStep(
       $start.pos,

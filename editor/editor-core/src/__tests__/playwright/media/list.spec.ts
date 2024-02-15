@@ -1,20 +1,21 @@
 import {
-  editorTestCase as test,
+  BROWSERS,
+  EditorListModel,
+  EditorNodeContainerModel,
   expect,
   fixTest,
-  BROWSERS,
-  EditorNodeContainerModel,
-  EditorListModel,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  p,
   doc,
-  ul,
   li,
   media,
   mediaSingle,
+  p,
+  ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { getMediaListAdf } from './__fixtures__/adf-documents';
 
 const getMediaSingleDocument = (mediaTraceId: null | any) => {

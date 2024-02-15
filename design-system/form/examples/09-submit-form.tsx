@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import TextArea from '@atlaskit/textarea';
 import TextField from '@atlaskit/textfield';
 
-import Form, { Field, FormFooter } from '../src';
+import Form, { Field, FormFooter, FormHeader, RequiredAsterisk } from '../src';
 
 interface State {
   hasSubmitted: boolean;
@@ -35,8 +35,16 @@ export default class extends Component<void, State> {
           <Form onSubmit={this.handleSubmit}>
             {({ formProps }) => (
               <form {...formProps} name="submit-form">
+                <FormHeader title="Leave feedback">
+                  <p aria-hidden="true">
+                    Required fields are marked with an asterisk{' '}
+                    <RequiredAsterisk />
+                  </p>
+                </FormHeader>
                 <Field name="name" defaultValue="" label="Name" isRequired>
-                  {({ fieldProps }) => <TextField {...fieldProps} />}
+                  {({ fieldProps }) => (
+                    <TextField autoComplete="name" {...fieldProps} />
+                  )}
                 </Field>
 
                 <Field<string, HTMLTextAreaElement>
@@ -56,7 +64,11 @@ export default class extends Component<void, State> {
             )}
           </Form>
         ) : (
-          <div id="submitted" style={{ padding: '30px', fontSize: '20px' }}>
+          <div
+            id="submitted"
+            aria-live="polite"
+            style={{ padding: '30px', fontSize: '20px' }}
+          >
             You have successfully submitted!
           </div>
         )}

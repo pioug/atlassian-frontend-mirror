@@ -44,8 +44,7 @@ class MobileHeaderDemo extends Component<{}, State> {
     const isHeaderOpen = this.state.isOpen;
     return (
       <div>
-        <Button onClick={this.sidebarOpened}>Open Mobile Header</Button>
-        {isHeaderOpen && (
+        {isHeaderOpen ? (
           <MobileHeader
             drawerState={this.state.drawerState}
             menuIconLabel="Menu"
@@ -68,6 +67,8 @@ class MobileHeaderDemo extends Component<{}, State> {
             onNavigationOpen={this.navOpened}
             onDrawerClose={this.drawerClosed}
           />
+        ) : (
+          <Button onClick={this.sidebarOpened}>Open Mobile Header</Button>
         )}
       </div>
     );

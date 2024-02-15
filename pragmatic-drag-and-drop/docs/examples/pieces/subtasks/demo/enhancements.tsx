@@ -5,11 +5,16 @@ import { ReactNode, useCallback, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
 
-import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu, {
+  DropdownItem,
+  DropdownItemGroup,
+} from '@atlaskit/dropdown-menu';
+// eslint-disable-next-line @atlaskit/design-system/no-banned-imports
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { DragHandleButton } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-button';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
 import { offsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/offset-from-pointer';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
-import { DragHandleDropdownMenu } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-dropdown-menu';
-import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
 import { token } from '@atlaskit/tokens';
 
 import { useFlashOnDrop } from '../../hooks/use-flash-on-drop';
@@ -170,7 +175,15 @@ function DraggableSubtask({
           <SubtaskObjectIcon />
         </span>
         <span css={elementBeforeButtonContainerStyles}>
-          <DragHandleDropdownMenu triggerRef={setDragHandle} label="reorder">
+          <DropdownMenu
+            trigger={({ triggerRef, ...triggerProps }) => (
+              <DragHandleButton
+                ref={mergeRefs([setDragHandle, triggerRef])}
+                {...triggerProps}
+                label="reorder"
+              />
+            )}
+          >
             <DropdownItemGroup>
               <DropdownItem onClick={moveUp} isDisabled={isMoveUpDisabled}>
                 Move up
@@ -179,7 +192,7 @@ function DraggableSubtask({
                 Move down
               </DropdownItem>
             </DropdownItemGroup>
-          </DragHandleDropdownMenu>
+          </DropdownMenu>
         </span>
       </span>
       {closestEdge && <DropIndicator edge={closestEdge} gap="1px" />}

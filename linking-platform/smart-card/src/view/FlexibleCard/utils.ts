@@ -71,7 +71,7 @@ export const getRetryOptions = (
       const access = extractRequestAccessContext({
         jsonLd: meta,
         url,
-        context,
+        product: context,
       });
       const messageKey = getForbiddenMessageKey(meta);
       const descriptor = messages[messageKey as MessageKey];

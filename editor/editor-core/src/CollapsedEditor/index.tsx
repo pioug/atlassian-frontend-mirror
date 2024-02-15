@@ -1,6 +1,7 @@
 import React from 'react';
+
+import type * as EditorImports from '../index';
 import ChromeCollapsed from '../ui/ChromeCollapsed';
-import type * as EditorImports from '../';
 
 export type EditorModule = {
   // Subset of most common imports expected to be used

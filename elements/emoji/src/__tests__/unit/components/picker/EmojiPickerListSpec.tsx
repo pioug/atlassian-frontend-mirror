@@ -1,25 +1,23 @@
-import React from 'react';
-import { screen, act, fireEvent } from '@testing-library/react';
 import { matchers } from '@emotion/jest';
-import { mountWithIntl } from '../../_enzyme';
-import { VirtualList } from '../../../../components/picker/VirtualList';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
+import React from 'react';
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
-import { RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID } from '../../../../components/picker/EmojiPickerCategoryHeading';
-import EmojiPickerList, {
-  Props as EmojiPickerListProps,
-  RENDER_EMOJI_PICKER_LIST_TESTID,
-} from '../../../../components/picker/EmojiPickerList';
 import { messages } from '../../../../components/i18n';
+import { RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID } from '../../../../components/picker/EmojiPickerCategoryHeading';
+import {
+  default as EmojiPickerList,
+  default as EmojiPickerVirtualList,
+  Props as EmojiPickerListProps,
+} from '../../../../components/picker/EmojiPickerList';
+import { VirtualList } from '../../../../components/picker/VirtualList';
+import type { EmojiDescription } from '../../../../types';
+import * as constants from '../../../../util/constants';
 import {
   defaultEmojiPickerSize,
   deleteEmojiLabel,
   EMOJI_LIST_COLUMNS,
 } from '../../../../util/constants';
-import type { EmojiDescription } from '../../../../types';
-import {
-  mockReactDomWarningGlobal,
-  renderWithIntl,
-} from '../../_testing-library';
+import { mountWithIntl } from '../../_enzyme';
 import {
   atlassianEmojis,
   emojis as allEmojis,
@@ -29,9 +27,11 @@ import {
   siteEmojiWtf,
   standardEmojis,
 } from '../../_test-data';
-import EmojiPickerVirtualList from '../../../../components/picker/EmojiPickerList';
+import {
+  mockReactDomWarningGlobal,
+  renderWithIntl,
+} from '../../_testing-library';
 import * as helperTestingLibrary from './_emoji-picker-helpers-testing-library';
-import * as constants from '../../../../util/constants';
 
 expect.extend(matchers);
 
@@ -72,9 +72,10 @@ describe('<EmojiPickerList />', () => {
   describe('list', () => {
     it('should contain search ', async () => {
       renderEmojiPickerList();
-      const wrapper = await screen.findByTestId(
-        RENDER_EMOJI_PICKER_LIST_TESTID,
-      );
+
+      const wrapper = await screen.findByRole('tabpanel', {
+        name: 'Emojis actions and list panel',
+      });
       expect(wrapper).toBeInTheDocument();
       expect(wrapper).toHaveStyleRule('flex', '1 1 auto');
     });
@@ -286,6 +287,7 @@ describe('<EmojiPickerList />', () => {
       const onRowsRendered = virtualList.prop('onRowsRendered') as Function;
       onRowsRendered(onRowsRenderedArgs(1));
       expect(mockOnCategoryActivated).not.toHaveBeenCalled();
+      wrapper.unmount();
     });
 
     /**
@@ -319,6 +321,7 @@ describe('<EmojiPickerList />', () => {
       // when nature category heading is rendered
       onRowsRendered(onRowsRenderedArgs(3));
       expect(mockOnCategoryActivated).toHaveBeenLastCalledWith('NATURE');
+      wrapper.unmount();
     });
 
     it('should trigger onCategoryActivated for your uploads category', async () => {
@@ -348,6 +351,7 @@ describe('<EmojiPickerList />', () => {
       // when row within your uploads rendered in picker list
       onRowsRendered(onRowsRenderedArgs(28));
       expect(mockOnCategoryActivated).toHaveBeenLastCalledWith('CUSTOM');
+      wrapper.unmount();
     });
 
     it('should trigger onCategoryActivated', async () => {
@@ -372,6 +376,7 @@ describe('<EmojiPickerList />', () => {
       // this row is the first row of emojis under activity category heading in emoji picker list
       onRowsRendered(onRowsRenderedArgs(10));
       expect(mockOnCategoryActivated).toHaveBeenLastCalledWith('ACTIVITY');
+      wrapper.unmount();
     });
 
     it('should not break while finding category in an empty list', async () => {
@@ -393,6 +398,7 @@ describe('<EmojiPickerList />', () => {
       onRowsRendered(onRowsRenderedArgs());
 
       expect(onCategoryActivated.mock.calls).toHaveLength(0);
+      wrapper.unmount();
     });
 
     it('should trigger onCategoryActivated for first category', async () => {
@@ -415,6 +421,7 @@ describe('<EmojiPickerList />', () => {
 
       expect(onCategoryActivated.mock.calls).toHaveLength(1);
       expect(onCategoryActivated).toHaveBeenLastCalledWith('PEOPLE');
+      wrapper.unmount();
     });
 
     it('should trigger onCategoryActivated for bottom category', async () => {
@@ -436,6 +443,7 @@ describe('<EmojiPickerList />', () => {
 
       // expect(onCategoryActivated.mock.calls).toHaveLength(1);
       expect(onCategoryActivated).toHaveBeenLastCalledWith('CUSTOM');
+      wrapper.unmount();
     });
   });
 
@@ -557,10 +565,12 @@ describe('<EmojiPickerList />', () => {
         currentUser: { id: 'hulk' },
         onEmojiDelete: mockOnDelete,
       });
-      const emojisList = await screen.queryAllByRole('button');
+      const emojisList = await screen.getAllByRole('button');
       const firstCell = emojisList[atlassianEmojis.length];
       firstCell.focus();
-      expect(firstCell.tabIndex).toEqual(0);
+      // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+      fireEvent.focusIn(firstCell);
+      await waitFor(() => expect(firstCell.tabIndex).toEqual(0));
       act(() => {
         fireEvent.keyDown(firstCell, {
           key: 'Backspace',
@@ -592,9 +602,10 @@ describe('<EmojiPickerList />', () => {
       });
       const emojisList = await screen.queryAllByRole('button');
       const emojiAtFirstCell = emojisList[0];
-      const virtualList = await helperTestingLibrary.getVirtualList()
-        .firstChild!;
+      const virtualList = helperTestingLibrary.getVirtualList().firstChild!;
       emojiAtFirstCell.focus();
+      // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+      fireEvent.focusIn(emojiAtFirstCell);
       act(() => {
         fireEvent.keyDown(virtualList, {
           key: 'ArrowUp',
@@ -613,7 +624,7 @@ describe('<EmojiPickerList />', () => {
           ctrlKey: true,
         });
       });
-      expect(emojiAtFirstCell).toHaveFocus();
+      await waitFor(() => expect(emojiAtFirstCell).toHaveFocus());
       expect(emojiAtFirstCell.tabIndex).toEqual(0);
     });
 
@@ -629,9 +640,10 @@ describe('<EmojiPickerList />', () => {
       });
       const emojisList = await screen.queryAllByRole('button');
       const emojiAtLastCell = emojisList[emojisList.length - 1];
-      const virtualList = await helperTestingLibrary.getVirtualList()
-        .firstChild!;
+      const virtualList = helperTestingLibrary.getVirtualList().firstChild!;
       emojiAtLastCell.focus();
+      // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+      fireEvent.focusIn(emojiAtLastCell);
       act(() => {
         fireEvent.keyDown(virtualList, {
           key: 'ArrowRight',
@@ -650,7 +662,7 @@ describe('<EmojiPickerList />', () => {
           ctrlKey: true,
         });
       });
-      expect(emojiAtLastCell).toHaveFocus();
+      await waitFor(() => expect(emojiAtLastCell).toHaveFocus());
       expect(emojiAtLastCell.tabIndex).toEqual(0);
     });
 
@@ -658,7 +670,7 @@ describe('<EmojiPickerList />', () => {
      * x x x x x x x S    <- start from S, press arrow right to go to E
      * E x x x x x        <- press arrow left to go back to E
      */
-    it('should be able to move to next availble emoji if at start/end of row', async () => {
+    it('should be able to move to next available emoji if at start/end of row', async () => {
       renderEmojiPickerList({
         emojis: atlassianEmojis,
       });
@@ -666,10 +678,11 @@ describe('<EmojiPickerList />', () => {
       const startCell = emojisList[lastColumnIndex];
       // target is next emoji which is shown at first cell of 2nd row
       const targetCell = emojisList[lastColumnIndex + 1];
-      const virtualList = await helperTestingLibrary.getVirtualList()
-        .firstChild!;
+      const virtualList = helperTestingLibrary.getVirtualList().firstChild!;
       startCell.focus();
-      expect(startCell.tabIndex).toEqual(0);
+      // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+      fireEvent.focusIn(startCell);
+      await waitFor(() => expect(startCell.tabIndex).toEqual(0));
       act(() => {
         fireEvent.keyDown(virtualList, {
           key: 'ArrowRight',
@@ -701,10 +714,11 @@ describe('<EmojiPickerList />', () => {
       const startCell = emojisList[atlassianEmojis.length - 1];
       // target is next emoji which is shown at first cell of 2nd row
       const nextCell = emojisList[atlassianEmojis.length];
-      const virtualList = await helperTestingLibrary.getVirtualList()
-        .firstChild!;
+      const virtualList = helperTestingLibrary.getVirtualList().firstChild!;
       startCell.focus();
-      expect(startCell.tabIndex).toEqual(0);
+      // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+      fireEvent.focusIn(startCell);
+      await waitFor(() => expect(startCell.tabIndex).toEqual(0));
       act(() => {
         fireEvent.keyDown(virtualList, {
           key: 'ArrowRight',
@@ -736,10 +750,11 @@ describe('<EmojiPickerList />', () => {
       const startCell = emojisList[lastColumnIndex + 2];
       // target is 2nd cell of 4th row, 3rd row is category heading "All uploads"
       const nextCell = emojisList[emojisList.length - 1];
-      const virtualList = await helperTestingLibrary.getVirtualList()
-        .firstChild!;
+      const virtualList = helperTestingLibrary.getVirtualList().firstChild!;
       startCell.focus();
-      expect(startCell.tabIndex).toEqual(0);
+      // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+      fireEvent.focusIn(startCell);
+      await waitFor(() => expect(startCell.tabIndex).toEqual(0));
       act(() => {
         fireEvent.keyDown(virtualList, {
           key: 'ArrowDown',
@@ -767,9 +782,10 @@ describe('<EmojiPickerList />', () => {
       const emojisList = await screen.queryAllByRole('button');
       const firstCell = emojisList[0];
       const secondCell = emojisList[1];
-      const virtualList = await helperTestingLibrary.getVirtualList()
-        .firstChild!;
+      const virtualList = helperTestingLibrary.getVirtualList().firstChild!;
       firstCell.focus();
+      // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+      fireEvent.focusIn(firstCell);
       expect(firstCell.tabIndex).toEqual(0);
       act(() => {
         fireEvent.keyDown(virtualList, {
@@ -798,9 +814,10 @@ describe('<EmojiPickerList />', () => {
       const emojisList = await screen.queryAllByRole('button');
       const firstCell = emojisList[0];
       const secondCell = emojisList[lastColumnIndex + 1];
-      const virtualList = await helperTestingLibrary.getVirtualList()
-        .firstChild!;
+      const virtualList = helperTestingLibrary.getVirtualList().firstChild!;
       firstCell.focus();
+      // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+      fireEvent.focusIn(firstCell);
       expect(firstCell.tabIndex).toEqual(0);
       act(() => {
         fireEvent.keyDown(virtualList, {
@@ -830,10 +847,11 @@ describe('<EmojiPickerList />', () => {
       const firstCell = emojisList[0];
       const midCell = emojisList[3];
       const lastCell = emojisList[lastColumnIndex];
-      const virtualList = await helperTestingLibrary.getVirtualList()
-        .firstChild!;
+      const virtualList = helperTestingLibrary.getVirtualList().firstChild!;
       midCell.focus();
-      expect(midCell.tabIndex).toEqual(0);
+      // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+      fireEvent.focusIn(midCell);
+      await waitFor(() => expect(midCell.tabIndex).toEqual(0));
       act(() => {
         fireEvent.keyDown(virtualList, {
           key: 'Home',
@@ -864,10 +882,11 @@ describe('<EmojiPickerList />', () => {
       const startCell = emojisList[lastColumnIndex + 1];
       const midCell = emojisList[lastColumnIndex + 3];
       const endCell = emojisList[atlassianEmojis.length - 1];
-      const virtualList = await helperTestingLibrary.getVirtualList()
-        .firstChild!;
+      const virtualList = helperTestingLibrary.getVirtualList().firstChild!;
       midCell.focus();
-      expect(midCell.tabIndex).toEqual(0);
+      // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+      fireEvent.focusIn(midCell);
+      await waitFor(() => expect(midCell.tabIndex).toEqual(0));
       act(() => {
         fireEvent.keyDown(virtualList, {
           key: 'Home',
@@ -902,10 +921,11 @@ describe('<EmojiPickerList />', () => {
       const midCell = emojisList[lastColumnIndex + 2];
       // last cell of last row
       const lastCell = emojisList[emojisList.length - 1];
-      const virtualList = await helperTestingLibrary.getVirtualList()
-        .firstChild!;
+      const virtualList = helperTestingLibrary.getVirtualList().firstChild!;
       midCell.focus();
-      expect(midCell.tabIndex).toEqual(0);
+      // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+      fireEvent.focusIn(midCell);
+      await waitFor(() => expect(midCell.tabIndex).toEqual(0));
       act(() => {
         fireEvent.keyDown(virtualList, {
           key: 'Home',
@@ -914,7 +934,7 @@ describe('<EmojiPickerList />', () => {
       });
       jest.runAllTimers();
       expect(firstCell).toHaveFocus();
-      expect(firstCell.tabIndex).toEqual(0);
+      await waitFor(() => expect(firstCell.tabIndex).toEqual(0));
 
       jest.useFakeTimers();
       act(() => {
@@ -925,7 +945,7 @@ describe('<EmojiPickerList />', () => {
       });
       jest.runAllTimers();
       expect(lastCell).toHaveFocus();
-      expect(lastCell.tabIndex).toEqual(0);
+      await waitFor(() => expect(lastCell.tabIndex).toEqual(0));
     });
 
     /**
@@ -942,10 +962,11 @@ describe('<EmojiPickerList />', () => {
       });
       const emojisList = await screen.queryAllByRole('button');
       const firstCell = emojisList[lastColumnIndex + 1];
-      const virtualList = await helperTestingLibrary.getVirtualList()
-        .firstChild!;
+      const virtualList = helperTestingLibrary.getVirtualList().firstChild!;
       firstCell.focus();
-      expect(firstCell.tabIndex).toEqual(0);
+      // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+      fireEvent.focusIn(firstCell);
+      await waitFor(() => expect(firstCell.tabIndex).toEqual(0));
       act(() => {
         fireEvent.keyDown(virtualList, {
           key: 'PageDown',
@@ -979,9 +1000,10 @@ describe('<EmojiPickerList />', () => {
       const emojisList = await screen.queryAllByRole('button');
       const firstCell = emojisList[0];
       const nextCell = emojisList[atlassianEmojis.length];
-      const virtualList = await helperTestingLibrary.getVirtualList()
-        .firstChild!;
+      const virtualList = helperTestingLibrary.getVirtualList().firstChild!;
       firstCell.focus();
+      // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+      fireEvent.focusIn(firstCell);
       expect(firstCell.tabIndex).toEqual(0);
       act(() => {
         fireEvent.keyDown(virtualList, {
@@ -990,7 +1012,7 @@ describe('<EmojiPickerList />', () => {
       });
       jest.runAllTimers();
       expect(nextCell).toHaveFocus();
-      expect(nextCell.tabIndex).toEqual(0);
+      await waitFor(() => expect(nextCell.tabIndex).toEqual(0));
     });
 
     /**
@@ -1011,10 +1033,11 @@ describe('<EmojiPickerList />', () => {
       const emojisList = await screen.queryAllByRole('button');
       const firstCell = emojisList[emojisList.length - 2];
       const nextCell = emojisList[lastColumnIndex + 1];
-      const virtualList = await helperTestingLibrary.getVirtualList()
-        .firstChild!;
+      const virtualList = helperTestingLibrary.getVirtualList().firstChild!;
       firstCell.focus();
-      expect(firstCell.tabIndex).toEqual(0);
+      // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+      fireEvent.focusIn(firstCell);
+      await waitFor(() => expect(firstCell.tabIndex).toEqual(0));
       act(() => {
         fireEvent.keyDown(virtualList, {
           key: 'PageUp',
@@ -1022,7 +1045,7 @@ describe('<EmojiPickerList />', () => {
       });
       jest.runAllTimers();
       expect(nextCell).toHaveFocus();
-      expect(nextCell.tabIndex).toEqual(0);
+      await waitFor(() => expect(nextCell.tabIndex).toEqual(0));
     });
 
     /**
@@ -1040,9 +1063,10 @@ describe('<EmojiPickerList />', () => {
       const emojisList = await screen.queryAllByRole('button');
       const firstCell = emojisList[0];
       const nextCell = emojisList[atlassianEmojis.length];
-      const virtualList = await helperTestingLibrary.getVirtualList()
-        .firstChild!;
+      const virtualList = helperTestingLibrary.getVirtualList().firstChild!;
       firstCell.focus();
+      // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+      fireEvent.focusIn(firstCell);
       expect(firstCell.tabIndex).toEqual(0);
       act(() => {
         fireEvent.keyDown(virtualList, {
@@ -1051,7 +1075,7 @@ describe('<EmojiPickerList />', () => {
       });
       jest.runAllTimers();
       expect(nextCell).toHaveFocus();
-      expect(nextCell.tabIndex).toEqual(0);
+      await waitFor(() => expect(nextCell.tabIndex).toEqual(0));
       /**
        * E x x x x x x x <- expect
        * x x x x x x
@@ -1066,7 +1090,7 @@ describe('<EmojiPickerList />', () => {
       });
       jest.runAllTimers();
       expect(firstCell).toHaveFocus();
-      expect(firstCell.tabIndex).toEqual(0);
+      await waitFor(() => expect(firstCell.tabIndex).toEqual(0));
     });
   });
 });

@@ -351,13 +351,21 @@ export default function Example() {
   return (
     <div>
       <h3>Select an appearance option to see its effects in contexts</h3>
-      <select onChange={onChange} value={appearance}>
-        {appearances.map((a) => (
-          <option key={a} value={a}>
-            {a}
-          </option>
-        ))}
-      </select>
+      <div style={{ marginTop: '1rem' }}>
+        <label htmlFor="appearance">Appearance</label>
+        <select
+          id="appearance"
+          style={{ display: 'block' }}
+          onChange={onChange}
+          value={appearance}
+        >
+          {appearances.map((a) => (
+            <option key={a} value={a}>
+              {a}
+            </option>
+          ))}
+        </select>
+      </div>
       <BuildStory appearance={appearance} />
     </div>
   );

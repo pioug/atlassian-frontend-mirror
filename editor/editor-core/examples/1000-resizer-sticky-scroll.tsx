@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import { useState } from 'react';
-import { jsx, css } from '@emotion/react';
+
+import { css, jsx } from '@emotion/react';
 
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
-import type { HandleSize, HandleResize } from '@atlaskit/editor-common/resizer';
+import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
 import { resizerStyles } from '@atlaskit/editor-common/styles';
 
 function Parent(props: {

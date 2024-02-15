@@ -1,7 +1,7 @@
 export type {
   CreateMockedMediaApiResult,
-  SetFileItems,
-  GetFileItem,
+  SetItems,
+  GetItem,
 } from './MockedMediaApi';
 export { createMockedMediaApi } from './MockedMediaApi';
 

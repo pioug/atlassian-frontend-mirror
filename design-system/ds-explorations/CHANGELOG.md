@@ -1,5 +1,44 @@
 # @atlaskit/ds-explorations
 
+## 3.2.2
+
+### Patch Changes
+
+- [#72557](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72557) [`0c78c9c18cb7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c78c9c18cb7) - Fix font family not preferencing apple system fonts on macOS
+
+## 3.2.1
+
+### Patch Changes
+
+- [#67463](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67463) [`adf1c3ebf0fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/adf1c3ebf0fd) - Fixed an issue with `Text` where text could render incorrectly if a typography token theme was not present on a page.
+- Updated dependencies
+
+## 3.2.0
+
+### Minor Changes
+
+- [#63526](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63526) [`e8835feffae9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e8835feffae9) - Internal change to improve token sorting logic for typography tokens. Typography tokens are now marked as active though they are still in development and not recommend for use without prior approval from ADS.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [#59752](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59752) [`df0bbb7c4cc1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df0bbb7c4cc1) - Removed minor-second typography theme: `typography`. ADG3 and Minor third themes remain as the two typography themes.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.6
+
+### Patch Changes
+
+- [#56371](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56371) [`8714b4418a12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8714b4418a12) - Testing new publish workflow
+
 ## 3.0.5
 
 ### Patch Changes

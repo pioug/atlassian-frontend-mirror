@@ -3,9 +3,9 @@ import {
   expect,
   editorTestCase as test,
 } from '@af/editor-libra';
-
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import {
   unsupportedBlockAdf,
   unsupportedInlineAdf,

@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/media-test-helpers",
-  "version": "33.0.25",
+  "version": "33.0.27",
   "description": "Collection of test helpers used in media component stories and specs",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -27,18 +27,18 @@
     "releaseModel": "continuous"
   },
   "dependencies": {
-    "@atlaskit/button": "^16.17.0",
+    "@atlaskit/button": "^17.3.0",
     "@atlaskit/checkbox": "^13.0.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/locale": "^2.6.0",
-    "@atlaskit/media-client": "^25.1.0",
+    "@atlaskit/media-client": "^26.2.0",
     "@atlaskit/media-common": "^11.0.0",
-    "@atlaskit/media-ui": "^25.0.0",
-    "@atlaskit/popup": "^1.11.0",
+    "@atlaskit/media-ui": "^25.1.0",
+    "@atlaskit/popup": "^1.12.0",
     "@atlaskit/tabs": "^14.0.0",
     "@atlaskit/textfield": "^6.0.0",
-    "@atlaskit/tokens": "^1.29.0",
-    "@atlaskit/tooltip": "^18.0.0",
+    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -54,11 +54,11 @@
     "xhr-mock": "^2.4.0"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^34.1.2",
+    "@atlaskit/media-core": "^34.2.0",
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/media-core": "^34.1.0",
+    "@atlaskit/media-core": "^34.2.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@types/exenv": "^1.2.0",
     "react-dom": "^16.8.0",

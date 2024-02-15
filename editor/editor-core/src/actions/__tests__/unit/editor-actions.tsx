@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { Node } from '@atlaskit/editor-prosemirror/model';
 
 import type { Transformer } from '@atlaskit/editor-common/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

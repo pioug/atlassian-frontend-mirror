@@ -22,15 +22,15 @@ export const onItemActivated =
   }) => {
     switch (buttonName) {
       case 'bullet_list':
-        pluginInjectionApi?.core.actions.execute(
-          pluginInjectionApi?.list.commands.toggleBulletList(
+        pluginInjectionApi?.core?.actions.execute(
+          pluginInjectionApi?.list?.commands.toggleBulletList(
             INPUT_METHOD.TOOLBAR,
           ),
         );
         break;
       case 'ordered_list':
-        pluginInjectionApi?.core.actions.execute(
-          pluginInjectionApi?.list.commands.toggleOrderedList(
+        pluginInjectionApi?.core?.actions.execute(
+          pluginInjectionApi?.list?.commands.toggleOrderedList(
             INPUT_METHOD.TOOLBAR,
           ),
         );
@@ -45,8 +45,8 @@ export const onItemActivated =
           )(editorView.state, editorView.dispatch);
         }
         if (node === 'list') {
-          pluginInjectionApi?.core.actions.execute(
-            pluginInjectionApi?.list.commands.indentList(INPUT_METHOD.TOOLBAR),
+          pluginInjectionApi?.core?.actions.execute(
+            pluginInjectionApi?.list?.commands.indentList(INPUT_METHOD.TOOLBAR),
           );
         }
         if (node === 'taskList') {
@@ -65,8 +65,10 @@ export const onItemActivated =
           )(editorView.state, editorView.dispatch);
         }
         if (node === 'list') {
-          pluginInjectionApi?.core.actions.execute(
-            pluginInjectionApi?.list.commands.outdentList(INPUT_METHOD.TOOLBAR),
+          pluginInjectionApi?.core?.actions.execute(
+            pluginInjectionApi?.list?.commands.outdentList(
+              INPUT_METHOD.TOOLBAR,
+            ),
           );
         }
         if (node === 'taskList') {

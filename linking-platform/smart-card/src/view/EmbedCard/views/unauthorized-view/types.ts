@@ -9,5 +9,6 @@ export type UnauthorizedViewProps = Pick<
   analytics: AnalyticsFacade;
   context?: ContextViewModel;
   extensionKey?: string;
+  isProductIntegrationSupported?: boolean;
   onAuthorize?: () => void;
 };

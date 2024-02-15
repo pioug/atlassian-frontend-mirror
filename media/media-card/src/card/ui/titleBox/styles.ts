@@ -9,8 +9,6 @@ import {
   TitleBoxWrapperProps,
 } from './types';
 
-import { themed } from '@atlaskit/theme/components';
-
 const generateResponsiveStyles = (
   breakpoint: Breakpoint = Breakpoint.SMALL,
 ) => {
@@ -23,42 +21,22 @@ const generateResponsiveStyles = (
 };
 
 const HEX_REGEX = /^#[0-9A-F]{6}$/i;
-const BACKGROUND_COLOR_DARK = '#161a1d';
-const TEXT_COLOR_DARK = '#C7D1DB';
 
 export const titleBoxWrapperStyles = ({
   breakpoint,
   titleBoxBgColor,
-  theme,
 }: TitleBoxWrapperProps) => css`
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: ${themed({
-    light: token(
-      'elevation.surface',
-      rgba(
-        titleBoxBgColor && HEX_REGEX.test(titleBoxBgColor)
-          ? titleBoxBgColor
-          : N0,
-        1,
-      ),
+  background-color: ${token(
+    'elevation.surface',
+    rgba(
+      titleBoxBgColor && HEX_REGEX.test(titleBoxBgColor) ? titleBoxBgColor : N0,
+      1,
     ),
-    dark: token(
-      'elevation.surface',
-      rgba(
-        // theme does not contain this color, use constant instead
-        titleBoxBgColor && HEX_REGEX.test(titleBoxBgColor)
-          ? titleBoxBgColor
-          : BACKGROUND_COLOR_DARK,
-        1,
-      ),
-    ),
-  })({ theme })};
-  color: ${themed({
-    light: token('color.text', N800),
-    dark: token('color.text', TEXT_COLOR_DARK),
-  })({ theme })};
+  )};
+  color: ${token('color.text', N800)};
   cursor: inherit;
   pointer-events: none;
   display: flex;

@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/chunkinator",
-  "version": "4.2.4",
+  "version": "6.0.0",
   "description": "Upload large files from the browser with ease",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",

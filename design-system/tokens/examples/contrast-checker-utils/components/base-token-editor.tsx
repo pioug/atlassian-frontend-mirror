@@ -3,7 +3,7 @@ import { Fragment, useCallback, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button';
+import Button, { IconButton } from '@atlaskit/button/new';
 import CheckIcon from '@atlaskit/icon/glyph/check';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import EditIcon from '@atlaskit/icon/glyph/edit';
@@ -184,6 +184,16 @@ const PaletteBlock = ({
     [onChange, originalValue, resetField],
   );
 
+  const CrossIconWithColorOverrides = () => (
+    <CrossIcon primaryColor={textColor} label="close" />
+  );
+  const CheckIconWithColorOverrides = () => (
+    <CheckIcon primaryColor={textColor} label="confirm" />
+  );
+  const EditIconWithColorOverrides = () => (
+    <EditIcon primaryColor={textColor} label="edit" />
+  );
+
   return (
     // eslint-disable-next-line @atlaskit/design-system/use-primitives
     <div
@@ -211,21 +221,19 @@ const PaletteBlock = ({
             />
             <Box xcss={xcss({ flexShrink: '0' })}>
               <Inline space="space.025">
-                <Button
-                  iconBefore={
-                    <CrossIcon primaryColor={textColor} label="edit" />
-                  }
+                <IconButton
+                  icon={CrossIconWithColorOverrides}
                   onClick={() => {
                     handleChange(baseToken.value);
                   }}
+                  label="close"
                 />
-                <Button
-                  iconBefore={
-                    <CheckIcon primaryColor={textColor} label="edit" />
-                  }
+                <IconButton
+                  icon={CheckIconWithColorOverrides}
                   onClick={(e) => {
                     handleChange(currentValue);
                   }}
+                  label="confirm"
                 />
               </Inline>
             </Box>
@@ -248,11 +256,12 @@ const PaletteBlock = ({
                 </Box>
               </Button>
             )}
-            <Button
-              iconBefore={<EditIcon primaryColor={textColor} label="edit" />}
+            <IconButton
+              icon={EditIconWithColorOverrides}
               onClick={() => {
                 setIsEditing(true);
               }}
+              label="edit"
             />
           </Fragment>
         )}

@@ -2,10 +2,12 @@
 title: Skeleton item
 description: Skeleton placeholders for menu items.
 order: 1
+props:
+  packageName: '@atlaskit/menu'
+  exports:
+    - SkeletonItem
 ---
-
-import SkeletonItemProps from '!!extract-react-types-loader!../../src/menu-item/skeleton-item';
 
 ## Props
 
-<PropsTable heading="" props={SkeletonItemProps} />
+<TSMorphProps exportName="SkeletonItem" packageName="@atlaskit/menu" />

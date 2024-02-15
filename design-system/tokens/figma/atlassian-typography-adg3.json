@@ -1,5 +1,42 @@
 {
   "name": "Typography adg3",
-  "tokens": {},
+  "tokens": {
+    "Typography adg3/font.weight.bold": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "700"
+    },
+    "Typography adg3/font.weight.medium": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "500"
+    },
+    "Typography adg3/font.weight.regular": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "400"
+    },
+    "Typography adg3/font.weight.semibold": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "600"
+    }
+  },
   "renameMap": {}
 }

@@ -305,7 +305,7 @@ const listBackspaceCase4: BackspaceCommand = (
   return true;
 };
 
-type ScenariosAllowed =
+export type ScenariosAllowed =
   | LIST_TEXT_SCENARIOS.JOIN_SIBLINGS
   | LIST_TEXT_SCENARIOS.JOIN_DESCENDANT_TO_PARENT
   | LIST_TEXT_SCENARIOS.JOIN_TO_SIBLING_DESCENDANT;

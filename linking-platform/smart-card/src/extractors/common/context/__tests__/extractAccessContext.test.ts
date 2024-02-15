@@ -25,6 +25,7 @@ describe('extractors.access.context', () => {
       }),
     ).toEqual({
       accessType: 'invalid',
+      hostname: 'visit.url.com',
     });
   });
 

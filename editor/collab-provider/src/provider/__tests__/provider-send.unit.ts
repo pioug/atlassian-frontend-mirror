@@ -4,15 +4,15 @@ import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-s
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { createSocketIOCollabProvider } from '../../socket-io-provider';
-import type { Provider } from '../';
-import { AcknowledgementResponseTypes } from '../../types';
+import type { Provider } from '..';
 import { EVENT_STATUS } from '../../helpers/const';
+import { createSocketIOCollabProvider } from '../../socket-io-provider';
+import { AcknowledgementResponseTypes } from '../../types';
 
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 jest.mock('@atlaskit/prosemirror-collab', () => {
@@ -25,6 +25,7 @@ jest.mock('@atlaskit/prosemirror-collab', () => {
 });
 
 describe('#sendData', () => {
+  jest.useFakeTimers();
   let fakeStep: Step;
   let anyEditorState: EditorState;
   let provider: Provider;
@@ -33,8 +34,6 @@ describe('#sendData', () => {
   const documentAri = 'ari:cloud:confluence:ABC:page/testpage';
 
   beforeEach(() => {
-    jest.useFakeTimers();
-
     fakeAnalyticsWebClient = {
       sendOperationalEvent: jest.fn(),
       sendScreenEvent: jest.fn(),
@@ -48,6 +47,8 @@ describe('#sendData', () => {
     };
     provider = createSocketIOCollabProvider(testProviderConfigWithAnalytics);
 
+    jest.runOnlyPendingTimers();
+    jest.clearAllTimers();
     documentServiceBroadcastSpy = jest.spyOn(
       // @ts-ignore
       provider.documentService as any,
@@ -74,9 +75,12 @@ describe('#sendData', () => {
       .mockImplementation((cb) => cb());
   });
 
-  afterEach(jest.clearAllMocks);
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.runOnlyPendingTimers();
+  });
 
-  it('should trigger a catchup on processSteps failure', () => {
+  it('triggers catchup on processSteps failure', () => {
     // @ts-ignore
     const catchupSpy = jest.spyOn(provider.documentService as any, 'catchup');
 
@@ -101,6 +105,7 @@ describe('#sendData', () => {
         packageVersion: '0.0.0',
         errorName: 'TypeError',
         errorMessage: 'Error while processing steps',
+        originalErrorMessage: 'steps.map is not a function',
       },
       nonPrivacySafeAttributes: {
         error: new TypeError('steps.map is not a function'),
@@ -112,399 +117,460 @@ describe('#sendData', () => {
     expect(catchupSpy).toBeCalledWith();
   });
 
-  describe('when sendSteps is called', () => {
-    describe('when there are steps to send', () => {
-      beforeEach(() => {
-        (sendableSteps as jest.Mock).mockReturnValue({
-          steps: [fakeStep],
-        });
-        (getVersion as jest.Mock).mockReturnValue(1);
+  it('broadcasts message to steps:commit when there are sendable steps', () => {
+    (sendableSteps as jest.Mock).mockReturnValue({
+      steps: [fakeStep],
+    });
+    (getVersion as jest.Mock).mockReturnValue(1);
 
-        provider.send(null, null, anyEditorState);
-      });
+    provider.send(null, null, anyEditorState);
+    expect(documentServiceBroadcastSpy).toHaveBeenCalledWith(
+      'steps:commit',
+      expect.anything(),
+      expect.any(Function),
+    );
+  });
 
-      it('should broadcast message to steps:commit', () => {
-        expect(documentServiceBroadcastSpy).toHaveBeenCalledWith(
-          'steps:commit',
-          expect.anything(),
-          expect.any(Function),
-        );
-      });
+  it('serializes steps with clientId and userId when there are sendable steps', () => {
+    (sendableSteps as jest.Mock).mockReturnValue({
+      steps: [fakeStep],
+    });
+    (getVersion as jest.Mock).mockReturnValue(1);
 
-      it('should serialize the steps with clientId and userId to steps:commit', () => {
-        expect(documentServiceBroadcastSpy).toHaveBeenCalledWith(
-          'steps:commit',
+    provider.send(null, null, anyEditorState);
+    expect(documentServiceBroadcastSpy).toHaveBeenCalledWith(
+      'steps:commit',
+      expect.objectContaining({
+        steps: [
           expect.objectContaining({
-            steps: [
-              expect.objectContaining({
-                ...fakeStep.toJSON(),
-              }),
-            ],
+            ...fakeStep.toJSON(),
           }),
-          expect.any(Function),
-        );
-      });
+        ],
+      }),
+      expect.any(Function),
+    );
+  });
 
-      describe('when ack callback is called', () => {
-        let ackCallback: (resp: any) => void;
-        beforeEach(() => {
-          ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
-          // @ts-ignore emit is a protected function
-          jest.spyOn(provider, 'emit').mockImplementation(() => {});
-          jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
-        });
+  it('calls onStepsAdded on successful response when there are sendable steps', () => {
+    (sendableSteps as jest.Mock).mockReturnValue({
+      steps: [fakeStep],
+    });
+    (getVersion as jest.Mock).mockReturnValue(1);
 
-        afterEach(() => {
-          // @ts-ignore
-          window.requestAnimationFrame.mockRestore();
-          jest.spyOn(global.Math, 'random').mockRestore();
-        });
+    provider.send(null, null, anyEditorState);
 
-        it('should call onStepsAdded on a successful response', () => {
-          ackCallback({
-            type: AcknowledgementResponseTypes.SUCCESS,
-            version: 2,
-          });
-          // @ts-ignore
-          expect(provider.emit).toBeCalledWith('data', {
-            json: [
-              {
-                clientId: 3771180701,
-                from: 1,
-                stepType: 'replace',
-                to: 1,
-                userId: undefined,
-              },
-            ],
-            userIds: [3771180701],
-            version: 2,
-          });
-          expect(
-            fakeAnalyticsWebClient.sendOperationalEvent,
-          ).toHaveBeenCalledTimes(1);
-          expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
-            action: 'addSteps',
-            actionSubject: 'collab',
-            attributes: {
-              packageName: '@atlaskit/fabric',
-              packageVersion: '0.0.0',
-              collabService: 'ncs',
-              network: {
-                status: 'ONLINE',
-              },
-              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-              eventStatus: EVENT_STATUS.SUCCESS_10x_SAMPLED,
-              type: 'ACCEPTED',
-              latency: 0,
-              stepType: {
-                replace: 1,
-              },
-            },
-            tags: ['editor'],
-            source: 'unknown',
-          });
-        });
+    const ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
 
-        describe('should call onErrorHandled when step conflicts happen', () => {
-          it("when the collab service's latest stored step tail version didn't correspond to the head version of the first step submitted", () => {
-            ackCallback({
-              type: AcknowledgementResponseTypes.ERROR,
-              error: { data: { code: 'HEAD_VERSION_UPDATE_FAILED' } },
-            });
-            // @ts-ignore just spying on a private method, nothing to see here
-            expect(provider.emit).toHaveBeenCalledTimes(1);
-            expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(
-              1,
-            );
+    // @ts-ignore emit is a protected function
+    jest.spyOn(provider, 'emit').mockImplementation(() => {});
+    jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
 
-            expect(
-              fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenCalledTimes(2);
-            expect(
-              fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenNthCalledWith(2, {
-              action: 'addSteps',
-              actionSubject: 'collab',
-              attributes: {
-                packageName: '@atlaskit/fabric',
-                packageVersion: '0.0.0',
-                collabService: 'ncs',
-                network: {
-                  status: 'ONLINE',
-                },
-                documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-                eventStatus: 'FAILURE',
-                type: 'REJECTED',
-                latency: 0,
-              },
-              tags: ['editor'],
-              source: 'unknown',
-            });
-            expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
-              action: 'error',
-              actionSubject: 'collab',
-              attributes: {
-                packageName: '@atlaskit/fabric',
-                packageVersion: '0.0.0',
-                collabService: 'ncs',
-                network: {
-                  status: 'ONLINE',
-                },
-                documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-                errorCode: 'HEAD_VERSION_UPDATE_FAILED',
-                errorMessage:
-                  'Error while adding steps - Acknowledgement Error',
-              },
-              nonPrivacySafeAttributes: {
-                error: {
-                  data: {
-                    code: 'HEAD_VERSION_UPDATE_FAILED',
-                  },
-                },
-              },
-              tags: ['editor'],
-              source: 'unknown',
-            });
-          });
+    ackCallback({
+      type: AcknowledgementResponseTypes.SUCCESS,
+      version: 2,
+    });
+    // @ts-ignore
+    expect(provider.emit).toBeCalledWith('data', {
+      json: [
+        {
+          clientId: 3771180701,
+          from: 1,
+          stepType: 'replace',
+          to: 1,
+          userId: undefined,
+        },
+      ],
+      userIds: [3771180701],
+      version: 2,
+    });
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(
+      1,
+    );
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
+      action: 'addSteps',
+      actionSubject: 'collab',
+      attributes: {
+        packageName: '@atlaskit/fabric',
+        packageVersion: '0.0.0',
+        collabService: 'ncs',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+        eventStatus: EVENT_STATUS.SUCCESS_10x_SAMPLED,
+        type: 'ACCEPTED',
+        latency: 0,
+        stepType: {
+          replace: 1,
+        },
+      },
+      tags: ['editor'],
+      source: 'unknown',
+    });
+    // @ts-ignore
+    window.requestAnimationFrame.mockRestore();
+    jest.spyOn(global.Math, 'random').mockRestore();
+  });
 
-          it('when there was a conflict while storing the steps meaning someone else wrote steps into the database more quickly', () => {
-            ackCallback({
-              type: AcknowledgementResponseTypes.ERROR,
-              error: { data: { code: 'VERSION_NUMBER_ALREADY_EXISTS' } },
-            });
-            // @ts-ignore just spying on a private method, nothing to see here
-            expect(provider.emit).toHaveBeenCalledTimes(1);
-            expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(
-              1,
-            );
-            expect(
-              fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenCalledTimes(2);
-            expect(
-              fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenNthCalledWith(2, {
-              action: 'addSteps',
-              actionSubject: 'collab',
-              attributes: {
-                packageName: '@atlaskit/fabric',
-                packageVersion: '0.0.0',
-                collabService: 'ncs',
-                network: {
-                  status: 'ONLINE',
-                },
-                documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-                eventStatus: 'FAILURE',
-                type: 'REJECTED',
-                latency: 0,
-              },
-              tags: ['editor'],
-              source: 'unknown',
-            });
-            expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
-              action: 'error',
-              actionSubject: 'collab',
-              attributes: {
-                packageName: '@atlaskit/fabric',
-                packageVersion: '0.0.0',
-                collabService: 'ncs',
-                network: {
-                  status: 'ONLINE',
-                },
-                documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-                errorCode: 'VERSION_NUMBER_ALREADY_EXISTS',
-                errorMessage:
-                  'Error while adding steps - Acknowledgement Error',
-              },
-              nonPrivacySafeAttributes: {
-                error: {
-                  data: {
-                    code: 'VERSION_NUMBER_ALREADY_EXISTS',
-                  },
-                },
-              },
-              tags: ['editor'],
-              source: 'unknown',
-            });
-          });
+  it('handles step conflicts due to late head version update when there are sendable steps', () => {
+    (sendableSteps as jest.Mock).mockReturnValue({
+      steps: [fakeStep],
+    });
+    (getVersion as jest.Mock).mockReturnValue(1);
 
-          it('should automatically trigger a step commit again after a while', async () => {
-            jest.spyOn(
-              // @ts-ignore
-              provider.documentService as any,
-              'sendStepsFromCurrentState',
-            );
-            ackCallback({
-              type: AcknowledgementResponseTypes.ERROR,
-              error: { data: { code: 'VERSION_NUMBER_ALREADY_EXISTS' } },
-            });
-            expect(
-              // @ts-ignore just spying on a private method, nothing to see here
-              provider.documentService.sendStepsFromCurrentState,
-            ).not.toHaveBeenCalled();
+    provider.send(null, null, anyEditorState);
 
-            // Fast forward and exhaust only currently pending timers
-            // (but not any new timers that get created during that process)
-            jest.runOnlyPendingTimers();
+    const ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
+    // @ts-ignore emit is a protected function
+    jest.spyOn(provider, 'emit').mockImplementation(() => {});
+    jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
 
-            expect(
-              // @ts-ignore just spying on a private method, nothing to see here
-              provider.documentService.sendStepsFromCurrentState,
-            ).toHaveBeenCalledTimes(1);
-            expect(
-              // @ts-ignore just spying on a private method, nothing to see here
-              provider.documentService.sendStepsFromCurrentState,
-            ).toHaveBeenCalledWith();
-          });
-        });
+    ackCallback({
+      type: AcknowledgementResponseTypes.ERROR,
+      error: { data: { code: 'HEAD_VERSION_UPDATE_FAILED' } },
+    });
+    // @ts-ignore just spying on a private method, nothing to see here
+    expect(provider.emit).toHaveBeenCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(1);
 
-        it('should call onErrorHandled on a technical error response', () => {
-          ackCallback({
-            type: AcknowledgementResponseTypes.ERROR,
-            error: { data: { code: 'SOME_TECHNICAL_ERROR' } },
-          });
-
-          // @ts-ignore provider emit is protected
-          expect(provider.emit).toHaveBeenCalledTimes(1);
-          // expect(provider.emit).toHaveBeenCalledWith('error', {
-          //   code: 'INTERNAL_SERVICE_ERROR',
-          //   message: 'Collab service has experienced an internal server error',
-          //   status: 500,
-          // });
-          expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(
-            2,
-          );
-
-          expect(
-            fakeAnalyticsWebClient.sendOperationalEvent,
-          ).toHaveBeenCalledTimes(1);
-          expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenNthCalledWith(
-            1,
-            {
-              action: 'error',
-              actionSubject: 'collab',
-              attributes: {
-                packageName: '@atlaskit/fabric',
-                packageVersion: '0.0.0',
-                collabService: 'ncs',
-                network: {
-                  status: 'ONLINE',
-                },
-                documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-                errorCode: 'SOME_TECHNICAL_ERROR',
-                errorMessage: 'Error handled',
-                errorName: undefined,
-              },
-              nonPrivacySafeAttributes: {
-                error: {
-                  data: {
-                    code: 'SOME_TECHNICAL_ERROR',
-                  },
-                },
-              },
-              tags: ['editor'],
-              source: 'unknown',
-            },
-          );
-          expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
-            action: 'addSteps',
-            actionSubject: 'collab',
-            attributes: {
-              packageName: '@atlaskit/fabric',
-              packageVersion: '0.0.0',
-              collabService: 'ncs',
-              network: {
-                status: 'ONLINE',
-              },
-              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-              eventStatus: 'FAILURE',
-              type: 'ERROR',
-              latency: 0,
-            },
-            tags: ['editor'],
-            source: 'unknown',
-          });
-          expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenNthCalledWith(
-            2,
-            {
-              action: 'error',
-              actionSubject: 'collab',
-              attributes: {
-                packageName: '@atlaskit/fabric',
-                packageVersion: '0.0.0',
-                collabService: 'ncs',
-                network: {
-                  status: 'ONLINE',
-                },
-                documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-                errorCode: 'SOME_TECHNICAL_ERROR',
-                errorMessage:
-                  'Error while adding steps - Acknowledgement Error',
-              },
-              nonPrivacySafeAttributes: {
-                error: {
-                  data: {
-                    code: 'SOME_TECHNICAL_ERROR',
-                  },
-                },
-              },
-              tags: ['editor'],
-              source: 'unknown',
-            },
-          );
-        });
-
-        it('should call emit analytics event on invalid acknowledgement', () => {
-          ackCallback({ wat: true });
-          // @ts-ignore just spying on a private method, nothing to see here
-          expect(provider.emit).toHaveBeenCalledTimes(1);
-          expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(
-            1,
-          );
-          expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
-            action: 'error',
-            actionSubject: 'collab',
-            attributes: {
-              packageName: '@atlaskit/fabric',
-              packageVersion: '0.0.0',
-              collabService: 'ncs',
-              network: {
-                status: 'ONLINE',
-              },
-              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-              errorName: 'Error',
-              errorMessage:
-                'Error while adding steps - Invalid Acknowledgement',
-            },
-            nonPrivacySafeAttributes: {
-              error: new Error('Response type: No response type'),
-            },
-            tags: ['editor'],
-            source: 'unknown',
-          });
-        });
-      });
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(
+      2,
+    );
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenNthCalledWith(
+      2,
+      {
+        action: 'addSteps',
+        actionSubject: 'collab',
+        attributes: {
+          packageName: '@atlaskit/fabric',
+          packageVersion: '0.0.0',
+          collabService: 'ncs',
+          network: {
+            status: 'ONLINE',
+          },
+          documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+          eventStatus: 'FAILURE',
+          type: 'REJECTED',
+          latency: 0,
+        },
+        tags: ['editor'],
+        source: 'unknown',
+      },
+    );
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
+      action: 'error',
+      actionSubject: 'collab',
+      attributes: {
+        packageName: '@atlaskit/fabric',
+        packageVersion: '0.0.0',
+        collabService: 'ncs',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+        errorCode: 'HEAD_VERSION_UPDATE_FAILED',
+        errorMessage: 'Error while adding steps - Acknowledgement Error',
+        originalErrorMessage: undefined,
+      },
+      nonPrivacySafeAttributes: {
+        error: {
+          data: {
+            code: 'HEAD_VERSION_UPDATE_FAILED',
+          },
+        },
+      },
+      tags: ['editor'],
+      source: 'unknown',
     });
 
-    describe('when there sendableSteps returns nothing', () => {
-      it('should not send a broadcast message', () => {
-        (sendableSteps as jest.Mock).mockReturnValue(null);
+    // @ts-ignore
+    window.requestAnimationFrame.mockRestore();
+    jest.spyOn(global.Math, 'random').mockRestore();
+  });
 
-        provider.send(null, null, anyEditorState);
+  it('handles step conflicts due to version number already exists error when there are sendable steps', () => {
+    (sendableSteps as jest.Mock).mockReturnValue({
+      steps: [fakeStep],
+    });
+    (getVersion as jest.Mock).mockReturnValue(1);
 
-        expect(documentServiceBroadcastSpy).not.toHaveBeenCalled();
-      });
+    provider.send(null, null, anyEditorState);
+
+    const ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
+    // @ts-ignore emit is a protected function
+    jest.spyOn(provider, 'emit').mockImplementation(() => {});
+    jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
+
+    ackCallback({
+      type: AcknowledgementResponseTypes.ERROR,
+      error: { data: { code: 'VERSION_NUMBER_ALREADY_EXISTS' } },
+    });
+    // @ts-ignore just spying on a private method, nothing to see here
+    expect(provider.emit).toHaveBeenCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(
+      2,
+    );
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenNthCalledWith(
+      2,
+      {
+        action: 'addSteps',
+        actionSubject: 'collab',
+        attributes: {
+          packageName: '@atlaskit/fabric',
+          packageVersion: '0.0.0',
+          collabService: 'ncs',
+          network: {
+            status: 'ONLINE',
+          },
+          documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+          eventStatus: 'FAILURE',
+          type: 'REJECTED',
+          latency: 0,
+        },
+        tags: ['editor'],
+        source: 'unknown',
+      },
+    );
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
+      action: 'error',
+      actionSubject: 'collab',
+      attributes: {
+        packageName: '@atlaskit/fabric',
+        packageVersion: '0.0.0',
+        collabService: 'ncs',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+        errorCode: 'VERSION_NUMBER_ALREADY_EXISTS',
+        errorMessage: 'Error while adding steps - Acknowledgement Error',
+        originalErrorMessage: undefined,
+      },
+      nonPrivacySafeAttributes: {
+        error: {
+          data: {
+            code: 'VERSION_NUMBER_ALREADY_EXISTS',
+          },
+        },
+      },
+      tags: ['editor'],
+      source: 'unknown',
     });
 
-    describe('when there is no sendable steps to send', () => {
-      it('should not send a broadcast message', () => {
-        (sendableSteps as jest.Mock).mockReturnValue({
-          steps: [],
-        });
+    // @ts-ignore
+    window.requestAnimationFrame.mockRestore();
+    jest.spyOn(global.Math, 'random').mockRestore();
+  });
 
-        provider.send(null, null, anyEditorState);
-
-        expect(documentServiceBroadcastSpy).not.toHaveBeenCalled();
-      });
+  it('auto-triggers a step commit on step conflict when there are sendable steps', () => {
+    (sendableSteps as jest.Mock).mockReturnValue({
+      steps: [fakeStep],
     });
+    (getVersion as jest.Mock).mockReturnValue(1);
+
+    provider.send(null, null, anyEditorState);
+
+    const ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
+    // @ts-ignore emit is a protected function
+    jest.spyOn(provider, 'emit').mockImplementation(() => {});
+    jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
+
+    jest.spyOn(
+      // @ts-ignore
+      provider.documentService as any,
+      'sendStepsFromCurrentState',
+    );
+    ackCallback({
+      type: AcknowledgementResponseTypes.ERROR,
+      error: { data: { code: 'VERSION_NUMBER_ALREADY_EXISTS' } },
+    });
+    expect(
+      // @ts-ignore just spying on a private method, nothing to see here
+      provider.documentService.sendStepsFromCurrentState,
+    ).not.toHaveBeenCalled();
+
+    // Fast forward and exhaust only currently pending timers
+    // (but not any new timers that get created during that process)
+    jest.runOnlyPendingTimers();
+
+    expect(
+      // @ts-ignore just spying on a private method, nothing to see here
+      provider.documentService.sendStepsFromCurrentState,
+    ).toHaveBeenCalledTimes(1);
+    expect(
+      // @ts-ignore just spying on a private method, nothing to see here
+      provider.documentService.sendStepsFromCurrentState,
+    ).toHaveBeenCalledWith();
+
+    // @ts-ignore
+    window.requestAnimationFrame.mockRestore();
+    jest.spyOn(global.Math, 'random').mockRestore();
+  });
+
+  it('handles technical error response when there are sendable steps', () => {
+    (sendableSteps as jest.Mock).mockReturnValue({
+      steps: [fakeStep],
+    });
+    (getVersion as jest.Mock).mockReturnValue(1);
+
+    provider.send(null, null, anyEditorState);
+
+    const ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
+    // @ts-ignore emit is a protected function
+    jest.spyOn(provider, 'emit').mockImplementation(() => {});
+    jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
+
+    ackCallback({
+      type: AcknowledgementResponseTypes.ERROR,
+      error: { data: { code: 'SOME_TECHNICAL_ERROR' } },
+    });
+
+    // @ts-ignore provider emit is protected
+    expect(provider.emit).toHaveBeenCalledTimes(1);
+    // expect(provider.emit).toHaveBeenCalledWith('error', {
+    //   code: 'INTERNAL_SERVICE_ERROR',
+    //   message: 'Collab service has experienced an internal server error',
+    //   status: 500,
+    // });
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(2);
+
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(
+      1,
+    );
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenNthCalledWith(1, {
+      action: 'error',
+      actionSubject: 'collab',
+      attributes: {
+        packageName: '@atlaskit/fabric',
+        packageVersion: '0.0.0',
+        collabService: 'ncs',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+        errorCode: 'SOME_TECHNICAL_ERROR',
+        errorMessage: 'Error handled',
+        errorName: undefined,
+        originalErrorMessage: undefined,
+      },
+      nonPrivacySafeAttributes: {
+        error: {
+          data: {
+            code: 'SOME_TECHNICAL_ERROR',
+          },
+        },
+      },
+      tags: ['editor'],
+      source: 'unknown',
+    });
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
+      action: 'addSteps',
+      actionSubject: 'collab',
+      attributes: {
+        packageName: '@atlaskit/fabric',
+        packageVersion: '0.0.0',
+        collabService: 'ncs',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+        eventStatus: 'FAILURE',
+        type: 'ERROR',
+        latency: 0,
+      },
+      tags: ['editor'],
+      source: 'unknown',
+    });
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenNthCalledWith(2, {
+      action: 'error',
+      actionSubject: 'collab',
+      attributes: {
+        packageName: '@atlaskit/fabric',
+        packageVersion: '0.0.0',
+        collabService: 'ncs',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+        errorCode: 'SOME_TECHNICAL_ERROR',
+        errorMessage: 'Error while adding steps - Acknowledgement Error',
+        originalErrorMessage: undefined,
+      },
+      nonPrivacySafeAttributes: {
+        error: {
+          data: {
+            code: 'SOME_TECHNICAL_ERROR',
+          },
+        },
+      },
+      tags: ['editor'],
+      source: 'unknown',
+    });
+    // @ts-ignore
+    window.requestAnimationFrame.mockRestore();
+    jest.spyOn(global.Math, 'random').mockRestore();
+  });
+
+  it('emits analytics event on invalid acknowledgement when there are sendable steps', () => {
+    (sendableSteps as jest.Mock).mockReturnValue({
+      steps: [fakeStep],
+    });
+    (getVersion as jest.Mock).mockReturnValue(1);
+
+    provider.send(null, null, anyEditorState);
+
+    const ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
+    // @ts-ignore emit is a protected function
+    jest.spyOn(provider, 'emit').mockImplementation(() => {});
+    jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
+
+    ackCallback({ wat: true });
+    // @ts-ignore just spying on a private method, nothing to see here
+    expect(provider.emit).toHaveBeenCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
+      action: 'error',
+      actionSubject: 'collab',
+      attributes: {
+        packageName: '@atlaskit/fabric',
+        packageVersion: '0.0.0',
+        collabService: 'ncs',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+        errorName: 'Error',
+        errorMessage: 'Error while adding steps - Invalid Acknowledgement',
+        originalErrorMessage: undefined,
+      },
+      nonPrivacySafeAttributes: {
+        error: new Error('Response type: No response type'),
+      },
+      tags: ['editor'],
+      source: 'unknown',
+    });
+
+    // @ts-ignore
+    window.requestAnimationFrame.mockRestore();
+    jest.spyOn(global.Math, 'random').mockRestore();
+  });
+
+  it('does not send a broadcast message when no sendable steps are returned', () => {
+    (sendableSteps as jest.Mock).mockReturnValue(null);
+
+    provider.send(null, null, anyEditorState);
+
+    expect(documentServiceBroadcastSpy).not.toHaveBeenCalled();
+  });
+
+  it('does not send a broadcast message when there are no sendable steps', () => {
+    (sendableSteps as jest.Mock).mockReturnValue({
+      steps: [],
+    });
+
+    provider.send(null, null, anyEditorState);
+
+    expect(documentServiceBroadcastSpy).not.toHaveBeenCalled();
   });
 });

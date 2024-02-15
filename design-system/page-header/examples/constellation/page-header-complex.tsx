@@ -2,7 +2,7 @@ import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import Select from '@atlaskit/select';
@@ -12,7 +12,7 @@ import PageHeader from '../../src';
 
 const selectContainerStyles = xcss({
   flex: '0 0 200px',
-  marginLeft: 'space.100',
+  marginInlineStart: 'space.100',
 });
 
 const flexBoxStyles = xcss({
@@ -21,14 +21,14 @@ const flexBoxStyles = xcss({
 
 const breadcrumbs = (
   <Breadcrumbs onExpand={__noop}>
-    <BreadcrumbsItem text="Some project" key="Some project" />
-    <BreadcrumbsItem text="Parent page" key="Parent page" />
+    <BreadcrumbsItem text="Teams" key="Teams" />
+    <BreadcrumbsItem text="Design System Team" key="Design System Team" />
   </Breadcrumbs>
 );
 const actionsContent = (
-  <ButtonGroup>
-    <Button appearance="primary">Primary Action</Button>
-    <Button>Default</Button>
+  <ButtonGroup label="Content actions">
+    <Button appearance="primary">Edit page</Button>
+    <Button>Share</Button>
     <Button>...</Button>
   </ButtonGroup>
 );
@@ -54,7 +54,7 @@ const PageHeaderComplexExample = () => {
       actions={actionsContent}
       bottomBar={barContent}
     >
-      Title describing what page content to expect
+      Introducing the Design System Team
     </PageHeader>
   );
 };

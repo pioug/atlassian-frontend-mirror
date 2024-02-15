@@ -1,40 +1,34 @@
 import { css } from '@emotion/react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
-import { N40A, N50A, DN70, DN80 } from '@atlaskit/theme/colors';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { themed } from '@atlaskit/theme/components';
-import type { ThemeProps } from '@atlaskit/theme/types';
 import {
   columnLayoutSharedStyle,
-  LAYOUT_SECTION_MARGIN,
   LAYOUT_COLUMN_PADDING,
+  LAYOUT_SECTION_MARGIN,
 } from '@atlaskit/editor-common/styles';
+import { TableCssClassName } from '@atlaskit/editor-plugins/table/types';
+import { tableMarginFullWidthMode } from '@atlaskit/editor-plugins/table/ui/consts';
 import {
-  gridMediumMaxWidth,
   akEditorDeleteBackground,
   akEditorDeleteBorder,
   akEditorSelectedBorderSize,
-  akLayoutGutterOffset,
-  akEditorSwoopCubicBezier,
-  SelectionStyle,
-  getSelectionStyles,
   akEditorSelectedNodeClassName,
+  akEditorSwoopCubicBezier,
+  akLayoutGutterOffset,
+  getSelectionStyles,
+  gridMediumMaxWidth,
+  SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
+import { N40A, N50A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import { TableCssClassName } from '@atlaskit/editor-plugin-table/types';
-import { tableMarginFullWidthMode } from '@atlaskit/editor-plugin-table/ui/consts';
 
 export { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN };
 
-export const layoutStyles = (props: ThemeProps) => css`
+export const layoutStyles = css`
   .ProseMirror {
     ${columnLayoutSharedStyle} [data-layout-section] {
       // TODO: Migrate away from gridSize
       // Recommendation: Replace directly with 7px
-      margin: ${gridSize() - 1}px -${akLayoutGutterOffset}px 0;
+      margin: ${8 - 1}px -${akLayoutGutterOffset}px 0;
       transition: border-color 0.3s ${akEditorSwoopCubicBezier};
       cursor: pointer;
 
@@ -43,10 +37,7 @@ export const layoutStyles = (props: ThemeProps) => css`
         flex: 1;
         min-width: 0;
         border: ${akEditorSelectedBorderSize}px solid
-          ${themed({
-            light: token('color.border', N40A),
-            dark: token('color.border', DN70),
-          })(props)};
+          ${token('color.border', N40A)};
         border-radius: 4px;
         padding: ${LAYOUT_COLUMN_PADDING}px;
         box-sizing: border-box;
@@ -134,10 +125,7 @@ export const layoutStyles = (props: ThemeProps) => css`
       &.selected [data-layout-column],
       &:hover [data-layout-column] {
         border: ${akEditorSelectedBorderSize}px solid
-          ${themed({
-            light: token('color.border', N50A),
-            dark: token('color.border', DN80),
-          })(props)};
+          ${token('color.border', N50A)};
       }
 
       &.selected.danger > [data-layout-column] {

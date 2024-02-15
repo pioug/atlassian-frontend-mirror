@@ -52,8 +52,9 @@ export {
   TABLE_ACTION,
   TABLE_BREAKOUT,
   TABLE_OVERFLOW_CHANGE_TRIGGER,
+  TABLE_STATUS,
 } from './table-events';
-export type { TableEventPayload } from './table-events';
+export type { TableEventPayload, OverflowStateInfo } from './table-events';
 export { PasteContents, PasteSources, PasteTypes } from './paste-events';
 export type {
   PASTE_ACTION_SUBJECT_ID,
@@ -63,6 +64,7 @@ export type {
   PasteType,
 } from './paste-events';
 export type {
+  MediaSwitchType,
   MediaAltTextActionType,
   MediaEventPayload,
   MediaLinkAEP,

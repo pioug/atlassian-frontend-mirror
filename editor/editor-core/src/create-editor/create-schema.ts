@@ -1,9 +1,11 @@
-import { sortByOrder } from './sort-by-order';
+import { sanitizeNodes } from '@atlaskit/adf-schema';
 import type { MarkSpec, NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { Schema } from '@atlaskit/editor-prosemirror/model';
-import { sanitizeNodes } from '@atlaskit/adf-schema';
-import { fixExcludes } from './create-editor';
+
 import type { MarkConfig, NodeConfig } from '../types/pm-config';
+
+import { fixExcludes } from './create-editor';
+import { sortByOrder } from './sort-by-order';
 
 export function createSchema(editorConfig: {
   marks: MarkConfig[];

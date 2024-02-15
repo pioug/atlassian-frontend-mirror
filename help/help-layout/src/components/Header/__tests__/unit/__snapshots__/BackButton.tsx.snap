@@ -3,8 +3,8 @@
 exports[`BackButton Should match snapshot 1`] = `
 .emotion-4 {
   position: absolute;
-  top: var(--ds-space-150,12px);
-  left: var(--ds-space-100,8px);
+  top: var(--ds-space-150, 12px);
+  left: var(--ds-space-100, 8px);
 }
 
 .emotion-3 {
@@ -139,6 +139,8 @@ exports[`BackButton Should match snapshot 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  -webkit-margin-start: var(--ds-space-negative-025, -2px);
+  margin-inline-start: var(--ds-space-negative-025, -2px);
 }
 
 .emotion-0 {

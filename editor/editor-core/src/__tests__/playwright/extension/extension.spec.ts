@@ -1,21 +1,21 @@
 import {
   EditorExtensionModel,
+  EditorInsertMenuModel,
+  EditorMainToolbarModel,
   EditorNodeContainerModel,
   EditorUploadMediaModel,
-  EditorInsertMenuModel,
-  FileResourcesAvailable,
-  EditorMainToolbarModel,
-  editorTestCase as test,
   expect,
+  FileResourcesAvailable,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  doc,
-  mediaSingle,
-  media,
-  p,
   bodiedExtension,
+  doc,
   inlineExtension,
+  media,
+  mediaSingle,
+  p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.describe('extension', () => {
@@ -198,9 +198,9 @@ test.describe('extension', () => {
               width: expect.any(Number),
               height: expect.any(Number),
               id: expect.any(String),
+              alt: 'test-image-9kb.jpg',
               collection: 'MediaServicesSample',
               type: 'file',
-              alt: '',
             })(),
           ),
           p(),

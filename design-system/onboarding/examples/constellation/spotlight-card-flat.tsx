@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
+import { Box, xcss } from '@atlaskit/primitives';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
 import { token } from '@atlaskit/tokens';
 
@@ -23,15 +24,15 @@ const headingStyles = css({
 });
 
 const taglineStyles = css({
-  paddingBottom: token('space.200', '16px'),
+  paddingBlockEnd: token('space.200', '16px'),
 });
 
-const optionStyles = css({
-  padding: token('space.050', '4px'),
+const optionStyles = xcss({
+  padding: 'space.050',
 });
 
 const Option = ({ children }: { children: ReactNode }) => (
-  <div css={optionStyles}>{children}</div>
+  <Box xcss={optionStyles}>{children}</Box>
 );
 
 const SpotlightCardIsFlat = () => {
@@ -47,13 +48,13 @@ const SpotlightCardIsFlat = () => {
         </p>
         <SpotlightCard heading="Why are you trying Jira Software?" isFlat>
           <Option>
-            <Button>Learn about Agile</Button>
+            <Button>Learn about agile</Button>
           </Option>
           <Option>
             <Button>Explore the product</Button>
           </Option>
           <Option>
-            <Button>Setting it up for my team</Button>
+            <Button>How to set up Jira for your team</Button>
           </Option>
         </SpotlightCard>
       </div>

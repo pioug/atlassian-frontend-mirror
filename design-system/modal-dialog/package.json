@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/modal-dialog",
-  "version": "12.9.0",
+  "version": "12.10.5",
   "description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,6 +17,9 @@
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Modal dialog",
       "category": "Components"
@@ -26,7 +29,7 @@
     "watch": "tsc --watch --noEmit --project './tsconfig.json'"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/blanket": "^13.0.0",
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
@@ -36,9 +39,9 @@
     "@atlaskit/motion": "^1.5.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/portal": "^4.4.0",
-    "@atlaskit/primitives": "^1.12.0",
+    "@atlaskit/primitives": "^2.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "bind-event-listener": "^2.1.1",
@@ -55,12 +58,11 @@
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/button": "*",
-    "@atlaskit/dropdown-menu": "^12.0.0",
-    "@atlaskit/popup": "^1.10.0",
-    "@atlaskit/select": "^17.0.0",
+    "@atlaskit/dropdown-menu": "^12.5.0",
+    "@atlaskit/popup": "^1.12.0",
+    "@atlaskit/select": "^17.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/dom": "^8.17.1",
@@ -128,6 +130,12 @@
     "platform.design-system-team.popup-select-close_8h15h": {
       "type": "boolean",
       "referenceOnly": "true"
+    },
+    "platform.design-system-team.multiple-modal-inappropriate-focus_z5u4j": {
+      "type": "boolean"
+    },
+    "platform.design-system-team.iframe_gojiv": {
+      "type": "boolean"
     }
   },
   "homepage": "https://atlassian.design/components/modal-dialog/",

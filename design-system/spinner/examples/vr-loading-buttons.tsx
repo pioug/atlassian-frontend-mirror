@@ -2,7 +2,8 @@
 
 import { css, jsx } from '@emotion/react';
 
-import Button, { LoadingButton } from '@atlaskit/button';
+import LoadingButton from '@atlaskit/button/loading-button';
+import Button, { IconButton } from '@atlaskit/button/new';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import { token } from '@atlaskit/tokens';
 
@@ -28,6 +29,8 @@ const layoutStyles = css({
     margin: token('space.100', '8px'),
   },
 });
+
+const InvertedSpinner = () => <Spinner appearance="invert" />;
 
 export default () => (
   <div
@@ -57,16 +60,12 @@ export default () => (
       </Button>
     </div>
     <div>
-      <Button
-        appearance="primary"
-        iconBefore={<Spinner appearance="invert" />}
-      />
+      {/* Ignore a11y linters, as a proper accessible name will come from the Spinner icon label when rendered */}
+      <IconButton appearance="primary" icon={InvertedSpinner} label="Invert" />
     </div>
     <div>
-      <Button
-        appearance="primary"
-        iconAfter={<Spinner appearance="invert" />}
-      />
+      {/* Ignore a11y linters, as a proper accessible name will come from the Spinner icon label when rendered */}
+      <IconButton appearance="primary" icon={InvertedSpinner} label="Submit" />
     </div>
   </div>
 );

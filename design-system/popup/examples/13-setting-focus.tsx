@@ -3,7 +3,8 @@ import { FC, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
+import { Box, xcss } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
 import { token } from '@atlaskit/tokens';
 
@@ -16,8 +17,8 @@ const radioValues = [
   { name: 'Button 2', value: '2', label: 'Button 2' },
 ];
 
-const spacerStyles = css({
-  margin: token('space.250', '20px'),
+const spacerStyles = xcss({
+  margin: 'space.250',
 });
 
 const sizedContentStyles = css({
@@ -38,7 +39,7 @@ const PopupContent: FC<PopupProps> = ({
 }) => {
   const getRef = (index: number) => {
     if (parseInt(buttonToFocus) === index) {
-      return (ref: HTMLElement) => {
+      return (ref: HTMLButtonElement) => {
         setInitialFocusRef(ref);
       };
     }
@@ -60,7 +61,7 @@ export default () => {
   const [buttonToFocus, setButtonToFocus] = useState('-1');
 
   return (
-    <div css={spacerStyles}>
+    <Box xcss={spacerStyles}>
       <p>
         <strong>Choose a button to focus initially:</strong>
       </p>
@@ -89,6 +90,6 @@ export default () => {
         )}
         placement="bottom-start"
       />
-    </div>
+    </Box>
   );
 };

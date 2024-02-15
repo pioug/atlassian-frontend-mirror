@@ -1,9 +1,11 @@
-import { format, UrlObject } from 'url';
-import { encode_object, decode_object } from 'rison';
+import type { UrlObject } from 'url';
+import { format } from 'url';
+
 import {
   compressToEncodedURIComponent,
   decompressFromEncodedURIComponent,
 } from 'lz-string';
+import { decode_object, encode_object } from 'rison';
 
 export function encode(input: object): string {
   const compressed = compressToEncodedURIComponent(encode_object(input));

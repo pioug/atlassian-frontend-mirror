@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import { IconButton } from '@atlaskit/button/new';
 import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Popup from '@atlaskit/popup';
@@ -39,12 +39,13 @@ export default () => {
           </Box>
         )}
         trigger={(triggerProps) => (
-          <Button
+          <IconButton
             {...triggerProps}
             isSelected={isOpen}
             onClick={() => setIsOpen(!isOpen)}
             value="Add"
-            iconBefore={<MediaServicesAddCommentIcon label="Add" />}
+            icon={MediaServicesAddCommentIcon}
+            label="Add"
             testId="popup--trigger"
           />
         )}

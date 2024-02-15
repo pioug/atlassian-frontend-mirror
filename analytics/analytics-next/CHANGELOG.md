@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 9.2.0
+
+### Minor Changes
+
+- [#69804](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69804) [`0443b2194bd9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0443b2194bd9) - Allow using modern react context via platform feature flags
+
 ## 9.1.4
 
 ### Patch Changes

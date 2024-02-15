@@ -209,14 +209,23 @@ describe('<MediaInlineCard />', () => {
       );
     });
 
-    it('should send failed event once if file processing is failed', () => {
-      mount(
+    it('should send failed event once if file processing is failed', async () => {
+      const { getByTestId, getByText } = render(
         <MediaInlineCard
           intl={fakeIntl}
           identifier={identifier}
           mediaClient={mediaClient}
         />,
       );
+
+      // Should display loaded card
+      const loadedView = await waitFor(() =>
+        getByTestId('media-inline-card-loaded-view'),
+      );
+      const title = await waitFor(() => getByText('file_name'));
+      expect(loadedView).toBeTruthy();
+      expect(title).toBeTruthy();
+
       expect(fireOperationalEvent).toBeCalledTimes(0);
 
       observable.next({

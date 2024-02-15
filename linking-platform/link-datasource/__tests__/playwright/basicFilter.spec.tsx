@@ -11,9 +11,9 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
   test('should not be visible when in JQL search mode', async ({ page }) => {
     await loadExample(page);
 
-    const basicFilterContainer = await page.getByTestId(
-      basicFilterContainerTestId,
-    );
+    await page.getByTestId('mode-toggle-jql').click();
+
+    const basicFilterContainer = page.getByTestId(basicFilterContainerTestId);
 
     await expect(basicFilterContainer).toBeHidden();
   });
@@ -23,11 +23,7 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
   }) => {
     await loadExample(page);
 
-    await page.getByTestId('mode-toggle-basic').click();
-
-    const basicFilterContainer = await page.getByTestId(
-      basicFilterContainerTestId,
-    );
+    const basicFilterContainer = page.getByTestId(basicFilterContainerTestId);
 
     await expect(basicFilterContainer).toBeVisible();
   });
@@ -40,13 +36,11 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
     await page.getByTestId('mode-toggle-basic').click();
     await page.getByTestId('jlol-basic-filter-project-trigger').click();
 
-    const popupMenu = await page.getByTestId(
-      'jlol-basic-filter-popup-select--menu',
-    );
+    const popupMenu = page.getByTestId('jlol-basic-filter-popup-select--menu');
     const popupSearchInput = page.locator(
       '#jlol-basic-filter-popup-select--input',
     );
-    const popupFooter = await page.getByTestId(
+    const popupFooter = page.getByTestId(
       'jlol-basic-filter-popup-select--footer',
     );
 
@@ -60,7 +54,6 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
   }) => {
     await loadExample(page);
 
-    await page.getByTestId('mode-toggle-basic').click();
     await page.getByTestId('jlol-basic-filter-project-trigger').click();
 
     const showMoreButton = page.locator(
@@ -82,11 +75,10 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
   }) => {
     await loadExample(page);
 
-    const initialDatasourceTable = await page.getByTestId(
+    const initialDatasourceTable = page.getByTestId(
       'jlol-datasource-modal--initial-state-view',
     );
 
-    await page.getByTestId('mode-toggle-basic').click();
     await page.getByTestId('jlol-basic-filter-project-trigger').click();
     await page.locator('#react-select-3-option-0 span').first().click();
 
@@ -96,5 +88,32 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
     await expect(
       page.getByTestId('jlol-basic-filter-project-trigger'),
     ).toBeVisible();
+  });
+
+  test('should not show selected values when search term is present', async ({
+    page,
+  }) => {
+    await loadExample(page);
+
+    await page.getByTestId('jlol-basic-filter-assignee-trigger').click();
+    await page.locator('#react-select-3-option-0').click();
+
+    await expect(page.locator('#react-select-3-option-0')).toHaveText(
+      'Unassigned',
+    );
+
+    await page.type('#jlol-basic-filter-popup-select--input', `empty`);
+
+    await expect(
+      page.getByTestId('jlol-basic-filter-popup-select--no-options-message'),
+    ).toBeVisible();
+
+    await page.type('#jlol-basic-filter-popup-select--input', ``);
+    await page.keyboard.press('Backspace');
+    await page.waitForSelector('#react-select-3-option-0');
+
+    await expect(page.locator('#react-select-3-option-0')).toHaveText(
+      'administrators',
+    );
   });
 });

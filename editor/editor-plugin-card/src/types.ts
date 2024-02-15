@@ -91,6 +91,8 @@ export type CardPluginState = {
   datasourceTableRef?: HTMLElement;
   layout?: DatasourceTableLayout;
   inlineCardAwarenessCandidatePosition?: number;
+  overlayCandidatePosition?: number;
+  removeOverlay?: () => void;
   selectedInlineLinkPosition?: number;
   allowEmbeds?: boolean;
   allowBlockCards?: boolean;
@@ -102,6 +104,7 @@ export type CardPluginOptions = CardOptions & {
   fullWidthMode?: boolean;
   linkPicker?: LinkPickerOptions;
   cardPluginEvents?: EditorCardPluginEvents<CardPluginEvent>;
+  lpLinkPicker?: boolean;
 };
 
 // actions
@@ -163,6 +166,15 @@ export type SetCardLayoutAndDatasourceTableRef = {
   datasourceTableRef?: HTMLElement;
 };
 
+export type ClearOverlayCandidate = {
+  type: 'CLEAR_OVERLAY_CANDIDATE';
+};
+
+export type RegisterRemoveOverlayOnInsertedLink = {
+  type: 'REGISTER_REMOVE_OVERLAY_ON_INSERTED_LINK';
+  callback: () => void;
+};
+
 export type CardPluginAction =
   | SetProvider
   | Queue
@@ -175,4 +187,6 @@ export type CardPluginAction =
   | RegisterSmartCardEvents
   | SetDatasourceTableRef
   | SetCardLayout
-  | SetCardLayoutAndDatasourceTableRef;
+  | SetCardLayoutAndDatasourceTableRef
+  | ClearOverlayCandidate
+  | RegisterRemoveOverlayOnInsertedLink;

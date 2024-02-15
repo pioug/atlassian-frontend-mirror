@@ -1,11 +1,12 @@
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
-  AnalyticsEventPayload,
   SELECTION_POSITION,
   SELECTION_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 

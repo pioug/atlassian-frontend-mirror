@@ -1,5 +1,153 @@
 # @atlaskit/button
 
+## 17.3.2
+
+### Patch Changes
+
+- [#70231](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70231) [`e55d8295c1c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e55d8295c1c1) - Changes to add a page and more specific information in link button documentation.
+
+## 17.3.1
+
+### Patch Changes
+
+- [#65509](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65509) [`9e9847bebdbe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e9847bebdbe) - Fix aria-disabled not being passed to custom theme button
+
+## 17.3.0
+
+### Minor Changes
+
+- [#70040](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70040) [`d18ec4d7ce20`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d18ec4d7ce20) - [ux] Tidy up of the `platform.design-system-team.icon-button-spacing-fix_o1zc5` Platform Feature Flag which applies a small adjustment to icon spacing for buttons using `iconBefore` and `iconAfter` props. Small visual adjustment is to be expected — keep this in mind when reviewing any VR tests breaking. The spacing around the icons will be reduced.
+
+## 17.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.0
+
+### Minor Changes
+
+- [#64419](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64419) [`6e9ab538f37b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e9ab538f37b) - Export ButtonGroupProps type
+
+## 17.1.0
+
+### Minor Changes
+
+- [#60205](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60205) [`d8f830e29011`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d8f830e29011) - [ux] Assistive technologies now define ButtonGroup as a group. Additionally `label` and `titleId` props introduced to label the current group.
+
+## 17.0.0
+
+### Major Changes
+
+- [#60024](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60024) [`c6418d429d47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6418d429d47) - New Button goes open beta!
+
+#### Breaking changes
+
+Removed all `UNSAFE_` exports and `/unsafe` entrypoint.
+
+```js
+import { UNSAFE_BUTTON } from '@atlaskit/button' ❌
+import Button from '@atlaskit/button/new' ✅
+
+import { UNSAFE_BUTTON } from '@atlaskit/button/unsafe' ❌
+import Button from '@atlaskit/button/new' ✅
+```
+
+See new features for new exports and entrypoint ⤵
+
+#### New features
+
+New Button goes open beta!
+
+Check out the exports under `@atlaskit/button/new` and the [docs](/components/button/button-new/examples) for our new approach.
+
+##### Button
+
+[Read the docs here.](/components/button/button-new/examples)
+
+```js
+import Button from '@atlaskit/button/new';
+import { LinkButton } from '@atlaskit/button/new';
+```
+
+##### Icon button
+
+[Read the docs here.](/components/button/icon-button/examples)
+
+```js
+import { IconButton } from '@atlaskit/button/new';
+import { LinkIconButton } from '@atlaskit/button/new';
+```
+
+##### Split button
+
+[Read the docs here.](/components/button/split-button/examples)
+
+```js
+import { SplitButton } from '@atlaskit/button/new';
+```
+
+## 16.18.1
+
+### Patch Changes
+
+- [#58871](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58871) [`4c7dc39947e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c7dc39947e8) - Add code docs for icon button and update types
+
+## 16.18.0
+
+### Minor Changes
+
+- [#59441](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59441) [`23a1d31d3c09`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/23a1d31d3c09) - Add entrypoint for new button work heading to open beta at `@atlaskit/button/new`
+
+## 16.17.12
+
+### Patch Changes
+
+- [#59085](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59085) [`67c05dbef826`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/67c05dbef826) - Exclude medium from UNSAFE_iconBefore_size and UNSAFE_iconAfter_size types.
+
+## 16.17.11
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 16.17.10
+
+### Patch Changes
+
+- [#55666](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/55666) [`7be116fed51b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7be116fed51b) - Add support for shape to IconButton
+
+## 16.17.9
+
+### Patch Changes
+
+- [#57808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57808) [`b99d50f91202`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b99d50f91202) - Internal changes to styling on SplitButton (closed beta) to fix issues with border radius when wrapper elements are used.
+
+## 16.17.8
+
+### Patch Changes
+
+- [#56967](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56967) [`d491c321ae12`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d491c321ae12) - Remove use of aria-busy
+
+## 16.17.7
+
+### Patch Changes
+
+- [#57511](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57511) [`a3fc003a2d20`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3fc003a2d20) - [ux] Fixes a bug in `LinkIconButton` (in closed beta) where the `UNSAFE_size` prop did not apply
+
+## 16.17.6
+
+### Patch Changes
+
+- [#57229](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57229) [`dd91461d616d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dd91461d616d) - [ux] Fixes a bug in new Buttons (in closed beta) that affected text alignment
+
+## 16.17.5
+
+### Patch Changes
+
+- [#43918](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43918) [`d100ca42f46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d100ca42f46) - Push model consumption configuration done for these packages
+
 ## 16.17.4
 
 ### Patch Changes

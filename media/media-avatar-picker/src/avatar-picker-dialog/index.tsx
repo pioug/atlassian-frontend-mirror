@@ -2,7 +2,11 @@
 import React from 'react';
 import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
-import ModalDialog, { ModalFooter, ModalBody } from '@atlaskit/modal-dialog';
+import ModalDialog, {
+  ModalFooter,
+  ModalBody,
+  useModal,
+} from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button/standard-button';
 import {
   FormattedMessage,
@@ -57,6 +61,15 @@ export const fixedCrop = {
 
 export type AvatarPickerDialogWithIntlProps = AvatarPickerDialogProps &
   Partial<WrappedComponentProps>;
+
+const HeaderContent = ({ title }: { title?: string }) => {
+  const modal = useModal();
+  return (
+    <h1 css={modalHeaderStyles} data-test-id="modal-header" id={modal.titleId}>
+      {title || <FormattedMessage {...messages.upload_an_avatar} />}
+    </h1>
+  );
+};
 
 export class AvatarPickerDialog extends PureComponent<
   AvatarPickerDialogWithIntlProps,
@@ -186,7 +199,7 @@ export class AvatarPickerDialog extends PureComponent<
           <SRLiveTitle mode={this.state.mode} />
         )}
 
-        {this.headerContent()}
+        <HeaderContent title={this.props.title} />
 
         {this.state.isSubmitted && <SubmitErrorDialog />}
 
@@ -205,15 +218,6 @@ export class AvatarPickerDialog extends PureComponent<
       <IntlProvider locale="en">{content}</IntlProvider>
     );
   }
-
-  headerContent = () => {
-    const { title } = this.props;
-    return (
-      <div css={modalHeaderStyles} data-test-id="modal-header">
-        {title || <FormattedMessage {...messages.upload_an_avatar} />}
-      </div>
-    );
-  };
 
   footerContent = () => {
     const { primaryButtonText, onCancel, isLoading } = this.props;

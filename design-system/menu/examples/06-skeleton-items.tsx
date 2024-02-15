@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import EmojiCustomIcon from '@atlaskit/icon/glyph/emoji/custom';
 import UserAvatarCircleIcon from '@atlaskit/icon/glyph/user-avatar-circle';
 import { N30, N40 } from '@atlaskit/theme/colors';
@@ -133,7 +133,7 @@ export const SkeletonItemLoaded = () => {
 
   return (
     <div>
-      <ButtonGroup>
+      <ButtonGroup label="Choose loading state">
         <Button
           testId="toggle-loading"
           onClick={() => setIsLoading((prev) => !prev)}
@@ -150,7 +150,7 @@ export default () => {
 
   return (
     <div>
-      <ButtonGroup>
+      <ButtonGroup label="Choose loading state">
         <Button
           testId="toggle-loading"
           onClick={() => setIsLoading((prev) => !prev)}

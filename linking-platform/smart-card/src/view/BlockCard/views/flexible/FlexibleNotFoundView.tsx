@@ -34,7 +34,7 @@ const FlexibleNotFoundView = ({
 
   const title = useMemo(
     () =>
-      intl.formatMessage(messages.not_found_title_crossjoin, {
+      intl.formatMessage(messages.not_found_title, {
         product,
       }),
     [intl, product],
@@ -42,7 +42,7 @@ const FlexibleNotFoundView = ({
 
   const description = useMemo(
     () => ({
-      descriptor: messages.not_found_description_crossjoin,
+      descriptor: messages.not_found_description,
     }),
     [],
   );

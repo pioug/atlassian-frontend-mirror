@@ -1,5 +1,7 @@
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { renderHook } from '@testing-library/react-hooks';
+
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+
 import { usePreset } from '../../../use-preset';
 
 describe('usePreset', () => {

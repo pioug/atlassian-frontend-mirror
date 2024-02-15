@@ -129,4 +129,10 @@ export const messages = defineMessages({
     defaultMessage: 'Required fields are marked with an asterisk',
     description: 'Summary info of required fields asterisk.',
   },
+  defaultCustomTextAreaLabel: {
+    id: 'feedback-collector.default.custom.textarea.label',
+    defaultMessage: "What's on your mind?",
+    description:
+      'The textarea label where users can write their suggestion for custom feedback collector',
+  },
 });

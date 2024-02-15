@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/jql-ast",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "JQL Abstract Syntax Tree",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -16,7 +16,7 @@
       "category": "JQL"
     }
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",

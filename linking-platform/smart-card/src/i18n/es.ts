@@ -27,9 +27,9 @@ export default {
   'fabric.linking.connect_to': 'Conectarse a {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Conectarse a {context}',
   'fabric.linking.connect_unauthorised_account_description':
-    'Conecta {context} con Atlassian para ver más detalles de tu trabajo y colaborar desde un único lugar.',
+    'Conecta tu cuenta de {context} para colaborar en el trabajo a través de los productos de Atlassian.',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    'Conéctate con Atlassian para ver más detalles de tu trabajo y colaborar desde un único lugar.',
+    'Conecta tu cuenta para colaborar en el trabajo a través de los productos de Atlassian.',
   'fabric.linking.continue': 'Continuar',
   'fabric.linking.copy_url_to_clipboard': 'Copiar enlace',
   'fabric.linking.couldnt_load_link': 'Por algún motivo que desconocemos, no hemos podido cargar este enlace.',
@@ -57,6 +57,8 @@ export default {
     'Deberás solicitar el acceso o probar con otra cuenta para obtener esta vista previa.',
   'fabric.linking.join_to_view': 'Únete a {context} para ver esta incidencia',
   'fabric.linking.last_mentioned_in': 'Última mención en',
+  'fabric.linking.learn_more_about_connecting_account':
+    'Obtén más información sobre cómo conectar tu cuenta a los productos de Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Más información sobre los enlaces inteligentes.',
   'fabric.linking.link_safety_warning_message':
     'El enlace {unsafeLinkText} te redirige a un sitio diferente, <a>actual link here</a>.',

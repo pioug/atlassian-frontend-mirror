@@ -1,9 +1,9 @@
-import { MetadataService } from '../metadata-service';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import type { Provider } from '../../';
 import type { Metadata } from '@atlaskit/editor-common/collab';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Provider } from '../../';
+import { createSocketIOCollabProvider } from '../../socket-io-provider';
+import { MetadataService } from '../metadata-service';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

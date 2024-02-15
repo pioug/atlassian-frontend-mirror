@@ -4,28 +4,35 @@ order: 2
 
 ## Usage
 
-Section messages communicate important information in a section of a screen. Section messages are persistent, but can disappear when the user takes action or resolves the situation.
+Section messages communicate important information in a section of a screen. Section messages are persistent, but can disappear when the person takes action or resolves the situation.
 
-Use section messages let a user know when:
+Use section messages let people know when:
 
-- taking a particular action may have potentially destructive consequences
-- they need to take action to keep moving through an experience
-- there are connectivity or authentication issues
+- taking a particular action may have potentially destructive consequences.
+- they need to take action to keep moving through an experience.
+- there are connectivity or authentication issues.
 
 ## Anatomy
 
-![Section message anatomy](images/section-message-anatomy.png)
+![The example message uses the "information" style, with a title "Editing is restricted" and a description "You're not allowed to change these restrictions. It's either due to the restrictions on the page, or permission settings for this space."](images/section-message-anatomy.png)
 
-1. **Icon and background color:** The icon and background color pairing indicates the message type and comes in the default styles for the message type.
-2. **Title:** Titles should clearly and concisely indicate the purpose of the message.
-3. **Description:** This should describe the issue and any action the user needs to take, if any. The message will grow along with the length of the description but should be as succinct as possible.
-4. **Actions (optional):** One or more links that enable the user to act on the section message content.
+1. **Icon and background color:** These colors are set to the default that matches the message type. For example, warning messages are yellow with an exclamation point icon.
+2. **Title:** Titles should clearly indicate the purpose of the message.
+3. **Description:** Describe the issue and any action the person needs to take to resolve it, if applicable. The message area will grow along with the length of the description but should be as succinct as possible.
+4. **Actions (optional):** One or more links that enable people to act on the section message content.
+
+## Accessibility
+
+- Don't rely on color alone to convey the severity of the message. Ensure that the accompanying text clearly explains when the message is a warning or error.
+- For warning and error messages, always try to avoid dead ends and provide people with information on how to proceed to resolve the issue.
+- Ensure that links accurately describe the destination. For example, say "About user permissions" rather than "Learn more".
 
 ## Content guidelines
 
 - Titles should clearly describe the issue or reason for the message.
 - Description text should be clear, concise, empathetic, and informative.
-- Use active verbs to guide the user on any actions they need to take.
+- Use active verbs to guide people on any actions they need to take.
+- Avoid blame and accept if something is our fault. For example, "we're having trouble connecting" rather than "you're having connection issues."
 
 ## Server
 
@@ -33,6 +40,6 @@ Consult [AUI](https://docs.atlassian.com/aui/latest/docs/messages.html) for impl
 
 ## Related
 
-- For messages with information affecting the whole site, see [banners](/components/banner).
-- For messages that appear after an event takes place, see [flags](/components/flag).
-- For smaller contextual messages about a specific part of the UI, see [inline messages](/components/inline-message).
+- For messages with information affecting the whole site, use a [banner](/components/banner).
+- For messages that appear after an event takes place, use a [flag](/components/flag).
+- For smaller contextual messages about a specific part of the UI, use an [inline message](/components/inline-message).

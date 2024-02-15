@@ -15,6 +15,7 @@ export function countNodes(state: EditorState): NodesCount {
     nodeTypes.extension?.name,
     nodeTypes.inlineExtension?.name,
     nodeTypes.bodiedExtension?.name,
+    nodeTypes.multiBodiedExtension?.name,
   ];
 
   state.doc.descendants((node) => {

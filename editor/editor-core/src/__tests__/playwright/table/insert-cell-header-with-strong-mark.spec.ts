@@ -1,19 +1,19 @@
-import { expect } from '@af/integration-testing';
 import {
   EditorMainToolbarModel,
   EditorNodeContainerModel,
   EditorTableModel,
   editorTestCase as test,
 } from '@af/editor-libra';
+import { expect } from '@af/integration-testing';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  strong,
   doc,
-  table,
-  tr,
-  td,
   p,
+  strong,
+  table,
+  td,
   th,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.use({

@@ -1,8 +1,11 @@
 import { JsonLd } from 'json-ld-types';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import uuid from 'uuid';
 import type { AnalyticsHandler, AnalyticsOrigin } from '../../utils/types';
-import type { CardInnerAppearance } from '../../view/Card/types';
+import type {
+  CardActionOptions,
+  CardInnerAppearance,
+} from '../../view/Card/types';
 import { extractBlockProps as extractCardProps } from '../../extractors/block';
 
 import { useSmartCardActions as useLinkActions } from '../actions';
@@ -57,6 +60,10 @@ export interface UseSmartLinkActionsOpts {
    * Smart link origin that the action being invoked from.
    */
   origin?: AnalyticsOrigin;
+  /**
+   * Configure the visiblity of actions
+   */
+  actionOptions?: CardActionOptions;
 }
 
 export function useSmartLinkActions({
@@ -65,19 +72,15 @@ export function useSmartLinkActions({
   analyticsHandler,
   platform = 'web',
   origin,
+  actionOptions,
 }: UseSmartLinkActionsOpts) {
   const id = useMemo(() => uuid(), []);
-  const [actions, setActions] = useState<LinkAction[]>([]);
 
   const linkState = useLinkState(url);
   const linkAnalytics = useLinkAnalytics(url, analyticsHandler, id);
   const linkActions = useLinkActions(id, url, linkAnalytics);
 
-  useEffect(() => {
-    if (!linkState.details) {
-      return;
-    }
-
+  if (linkState.details && !actionOptions?.hide) {
     const cardProperties = extractCardProps(
       linkState.details.data as JsonLd.Data.BaseData,
       linkState.details.meta as JsonLd.Meta.BaseMeta,
@@ -87,22 +90,22 @@ export function useSmartLinkActions({
         origin,
         extensionKey: getExtensionKey(linkState.details),
         source: appearance,
+        actionOptions,
       },
       undefined,
       platform,
     );
 
-    if (!cardProperties.actions || cardProperties.actions.length === 0) {
-      return;
+    if (cardProperties.actions && cardProperties.actions.length > 0) {
+      const cardActions = cardProperties.actions.map((action) => ({
+        id: action.id,
+        text: action.text,
+        invoke: action.promise,
+      }));
+
+      return cardActions;
     }
-    const cardActions = cardProperties.actions.map((action) => ({
-      id: action.id,
-      text: action.text,
-      invoke: action.promise,
-    }));
+  }
 
-    setActions(cardActions);
-  }, [linkState, linkActions, linkAnalytics, appearance, platform, origin]);
-
-  return actions;
+  return [];
 }

@@ -1,3 +1,4 @@
+import type { MediaInlineAttributes } from '@atlaskit/adf-schema';
 import type {
   EditorAnalyticsAPI,
   InputMethodInsertMedia,
@@ -9,6 +10,10 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import {
+  DEFAULT_IMAGE_HEIGHT,
+  DEFAULT_IMAGE_WIDTH,
+} from '@atlaskit/editor-common/media-inline';
 import {
   atTheBeginningOfBlock,
   atTheEndOfBlock,
@@ -41,6 +46,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { MediaState } from '../types';
 
+import { isImage } from './is-type';
 import {
   copyOptionalAttrsFromMediaState,
   isInsidePotentialEmptyParagraph,
@@ -49,6 +55,7 @@ import {
   posOfParentMediaGroup,
   posOfPrecedingMediaGroup,
 } from './media-common';
+import { isInSupportedInlineImageParent } from './media-inline';
 
 export interface Range {
   start: number;
@@ -147,6 +154,7 @@ function shouldAppendParagraph(
  * Create a new media inline to insert the new media.
  * @param view Editor view
  * @param mediaState Media file to be added to the editor
+ * @param allowInlineImages Configuration for allowing adding of inline images
  * @param collection Collection for the media to be added
  */
 export const insertMediaInlineNode =
@@ -155,6 +163,7 @@ export const insertMediaInlineNode =
     view: EditorView,
     mediaState: MediaState,
     collection: string,
+    allowInlineImages: boolean,
     inputMethod?: InputMethodInsertMedia,
   ): boolean => {
     const { state, dispatch } = view;
@@ -166,13 +175,35 @@ export const insertMediaInlineNode =
       return false;
     }
 
-    const { id } = mediaState;
-    const mediaInlineNode = mediaInline.create({ id, collection });
+    const { id, dimensions, scaleFactor = 1, fileName } = mediaState;
+
+    let mediaInlineAttrs: Partial<MediaInlineAttributes> = { id, collection };
+    if (allowInlineImages && isImage(mediaState.fileMimeType)) {
+      const { width, height } = dimensions || {
+        width: undefined,
+        height: undefined,
+      };
+      const scaledWidth = width
+        ? Math.round(width / scaleFactor)
+        : DEFAULT_IMAGE_WIDTH;
+      const scaledHeight = height
+        ? Math.round(height / scaleFactor)
+        : DEFAULT_IMAGE_HEIGHT;
+
+      mediaInlineAttrs.width = scaledWidth;
+      mediaInlineAttrs.height = scaledHeight;
+      mediaInlineAttrs.type = 'image';
+      mediaInlineAttrs.alt = fileName;
+    }
+    const mediaInlineNode = mediaInline.create(mediaInlineAttrs);
     const space = state.schema.text(' ');
     let pos = state.selection.$to.pos;
 
-    // If the selection is inside an empty list item set pos inside paragraph
-    if (isInListItem(state) && isInsidePotentialEmptyParagraph(state)) {
+    // If the selection is inside an empty list item or panel set pos inside paragraph
+    if (
+      isInSupportedInlineImageParent(state) &&
+      isInsidePotentialEmptyParagraph(state)
+    ) {
       pos = pos + 1;
     }
 

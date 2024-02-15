@@ -4,11 +4,16 @@ import type EditorConfiguration from '../editor-configuration';
 import type { IntlShape } from 'react-intl-next';
 import type { StatusType } from '@atlaskit/editor-plugin-status';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { subscribeToToolbarAndPickerUpdates } from '@atlaskit/editor-core/src/plugins/view-update-subscription/subscribe/toolbarAndPickerUpdates';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { subscribeToToolbarAndPickerUpdates } from '../editor-plugins/view-update-subscription/subscribe/toolbarAndPickerUpdates';
 import { createFloatingToolbarConfigForStatus } from '../status-utils';
 import { createFloatingToolbarConfigForDate } from '../date-utils';
-import { isPanelNode } from '@atlaskit/editor-core/src/plugins/paste/util';
 import { createFloatingToolbarConfigForPanel } from '../panel-utils';
+
+// Copied from: @atlaskit/editor-plugin-paste/src/util
+export function isPanelNode(node: PMNode | null | undefined) {
+  return Boolean(node && node.type.name === 'panel');
+}
 
 // Copied from: @atlaskit/editor-plugin-media/src/utils/media-single
 function isCaptionNode(editorView: EditorView) {

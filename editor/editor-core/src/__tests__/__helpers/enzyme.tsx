@@ -7,9 +7,10 @@
  * English-locale intl context around them.
  */
 
-import { mount, ReactWrapper } from 'enzyme';
 import type { Component } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { mount, ReactWrapper } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
 
 export function mountWithIntl<

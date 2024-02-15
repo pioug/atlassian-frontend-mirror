@@ -1,10 +1,13 @@
-import { name } from '../../../version-wrapper';
-import { mount } from 'enzyme';
 import React from 'react';
-import WithHelpTrigger from '../../../ui/WithHelpTrigger';
-import EditorContext from '../../../ui/EditorContext';
+
+import { mount } from 'enzyme';
+
 import * as EventDispatcher from '@atlaskit/editor-common/event-dispatcher';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils';
+
+import EditorContext from '../../../ui/EditorContext';
+import WithHelpTrigger from '../../../ui/WithHelpTrigger';
+import { name } from '../../../version-wrapper';
 
 describe(name, () => {
   describe('WithHelpTrigger', () => {

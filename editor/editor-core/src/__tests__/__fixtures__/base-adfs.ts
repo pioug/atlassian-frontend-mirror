@@ -175,3 +175,139 @@ export const infoPanel = {
     },
   ],
 };
+
+export const numberedListDocument = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'orderedList',
+      attrs: {
+        order: 1,
+      },
+      content: [
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'one',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'two',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'three',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export const nestedNumberedListDocument = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'orderedList',
+      attrs: {
+        order: 1,
+      },
+      content: [
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'one',
+                },
+              ],
+            },
+            {
+              type: 'orderedList',
+              attrs: {
+                order: 1,
+              },
+              content: [
+                {
+                  type: 'listItem',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'nested',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'two',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'three',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};

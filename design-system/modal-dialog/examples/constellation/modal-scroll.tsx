@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 
 import Modal, {
   ModalBody,
@@ -26,7 +26,7 @@ export default function Example() {
 
   return (
     <>
-      <ButtonGroup appearance="primary">
+      <ButtonGroup appearance="primary" label="Choose scroll option">
         <Button onClick={() => setShouldScrollInViewportAndOpen(false)}>
           Scroll inside body
         </Button>

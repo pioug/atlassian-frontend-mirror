@@ -1,8 +1,17 @@
 /** @jsx jsx */
-import { Ref, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  forwardRef,
+  Ref,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useIntl } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
 import Heading from '@atlaskit/heading';
@@ -11,11 +20,12 @@ import {
   DatasourceResponseSchemaProperty,
   DatasourceType,
 } from '@atlaskit/linking-types/datasource';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { Flex } from '@atlaskit/primitives';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -30,64 +40,251 @@ import { ColumnPicker } from './column-picker';
 import { DragColumnPreview } from './drag-column-preview';
 import { DraggableTableHeading } from './draggable-table-heading';
 import TableEmptyState from './empty-state';
-import { fallbackRenderType } from './render-type';
-import { Table, TableHeading } from './styled';
-import { IssueLikeDataTableViewProps } from './types';
+import { fallbackRenderType, stringifyType } from './render-type';
+import {
+  Table,
+  TableHeading,
+  withTablePluginBodyPrefix,
+  withTablePluginHeaderPrefix,
+} from './styled';
+import {
+  DatasourceTypeWithOnlyValues,
+  IssueLikeDataTableViewProps,
+} from './types';
 import { useIsOnScreen } from './useIsOnScreen';
+import { COLUMN_BASE_WIDTH, getWidthCss } from './utils';
 
 const tableSidePadding = token('space.200', '16px');
 
 const tableHeadStyles = css({
-  background: token('elevation.surface', '#FFF'),
+  background: token('utility.elevation.surface.current', '#FFF'),
   position: 'sticky',
   top: 0,
   zIndex: stickyTableHeadersIndex,
 });
 
-const ColumnPickerHeader = styled.th`
-  width: 56px;
-  z-index: 10;
-  position: sticky;
-  right: calc(-1 * ${tableSidePadding});
-  background-color: ${token('elevation.surface', '#FFF')};
-  border-bottom: 2px solid ${token('color.border', N40)}; /* It is required to have solid (not half-transparent) color because of this gradient business below */
-
-  padding-right: ${token('space.100', '4px')};
-
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    ${token('elevation.surface', '#FFF')} 10%
-  );
-  vertical-align: middle; /* Keeps dropdown button in the middle */
-  &:last-of-type {
-    padding-right: ${tableSidePadding};
-  }
-  text-align: right; /* In case when TH itself is bigger we want to keep picker at the right side */
-`;
-
-const truncatedCellStyles = css({
+const truncateTextStyles = css({
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
-  borderRight: `0.5px solid ${token('color.border', N40)}`,
-  borderBottom: `0.5px solid ${token('color.border', N40)}`,
-  '&:first-child': {
-    paddingLeft: `${token('space.100', '4px')}`,
-  },
-  '&:last-child': {
-    borderRight: 0,
-    paddingRight: `${token('space.100', '4px')}`,
-  },
 });
+
+const ColumnPickerHeader = styled.th`
+  ${withTablePluginHeaderPrefix()} {
+    box-sizing: content-box;
+    border: 0;
+
+    width: 56px;
+    z-index: 10;
+    position: sticky;
+    right: calc(-1 * ${tableSidePadding});
+    background-color: ${token('utility.elevation.surface.current', '#FFF')};
+    border-bottom: 2px solid ${token('color.border', N40)}; /* It is required to have solid (not half-transparent) color because of this gradient business below */
+
+    padding-right: ${token('space.100', '4px')};
+
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      ${token('utility.elevation.surface.current', '#FFF')} 10%
+    );
+    vertical-align: middle; /* Keeps dropdown button in the middle */
+    text-align: right; /* In case when TH itself is bigger we want to keep picker at the right side */
+  }
+
+  ${withTablePluginHeaderPrefix('&:last-of-type')} {
+    padding-right: ${tableSidePadding};
+  }
+`;
+
+const TableCell = styled.td`
+  ${withTablePluginBodyPrefix()} {
+    /* First section here is to override things editor table plugin css defines */
+    padding: ${token('space.050', '4px')} ${token('space.100', '8px')};
+    border: 0;
+    min-width: auto;
+    vertical-align: inherit;
+    box-sizing: border-box;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-right: 0.5px solid ${token('color.border', N40)};
+    border-bottom: 0.5px solid ${token('color.border', N40)};
+  }
+
+  ${withTablePluginBodyPrefix('&:first-child')} {
+    padding-left: ${token('space.100', '8px')};
+  }
+
+  ${withTablePluginBodyPrefix('&:last-child')} {
+    border-right: 0;
+    padding-right: ${token('space.100', '8px')};
+  }
+`;
 
 const tableContainerStyles = css({
   borderRadius: 'inherit',
+  borderBottomLeftRadius: 0,
+  borderBottomRightRadius: 0,
 });
+
+/**
+ * Following section deals with slight gradient shadows that we add
+ * on all four sides when there is more content in that direction.
+ *
+ * We do that by applying two gradients to the background -
+ * one is "static" ('local') and other is "sticky" ('scroll'). \
+ * "Static" one makes a white color gradient, that when window is at the end of scrollable area goes on top
+ * of "sticky" (gray) one, dominating and hence disabling sticky one.
+ */
+
+interface ShadowCssPortion {
+  backgroundImage: string;
+  backgroundPosition: string;
+  size: string;
+  attachment: string;
+}
+
+const shadowColor = token(
+  'elevation.shadow.overflow.perimeter',
+  'rgba(0, 0, 0, 0.1)',
+);
+const shadowColorLight = token(
+  'elevation.shadow.overflow.perimeter',
+  'rgba(0, 0, 0, 0.05)',
+);
+
+const leftWhiteOverrideGradient: ShadowCssPortion = {
+  backgroundImage: `
+  linear-gradient(
+    90deg,
+    ${token('utility.elevation.surface.current', '#FFF')} 30%,
+    rgba(255, 255, 255, 0)
+  )`,
+  backgroundPosition: 'left center',
+  size: `40px 100%`,
+  attachment: `local`,
+};
+
+const topWhiteOverrideGradient: ShadowCssPortion = {
+  backgroundImage: `
+  linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0),
+    ${token('utility.elevation.surface.current', '#FFF')} 30%
+  )`,
+  backgroundPosition: 'top center',
+  size: `100% 100px`,
+  attachment: `local`,
+};
+
+const rightWhiteOverrideGradient: ShadowCssPortion = {
+  backgroundImage: `
+  linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0),
+    ${token('utility.elevation.surface.current', '#FFF')} 70%
+  )`,
+  backgroundPosition: 'right center',
+  size: `40px 100%`,
+  attachment: `local`,
+};
+
+const bottomWhiteOverride: ShadowCssPortion = {
+  backgroundImage: `
+  linear-gradient(
+    0deg,
+    ${token('utility.elevation.surface.current', '#FFF')} 30%,
+    rgba(255, 255, 255, 0)
+  )`,
+  backgroundPosition: 'bottom center',
+  size: `100% 40px`,
+  attachment: `local`,
+};
+
+const leftShadowGradient: ShadowCssPortion = {
+  backgroundImage: `
+  linear-gradient(
+    90deg,
+    ${shadowColor},
+    rgba(0, 0, 0, 0)
+  )`,
+  backgroundPosition: 'left center',
+  size: `14px 100%`,
+  attachment: `scroll`,
+};
+
+const topShadowGradient: ShadowCssPortion = {
+  backgroundImage: `
+  linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0),
+    ${shadowColorLight}
+  )`,
+  backgroundPosition: '0 52px',
+  size: `100% 14px`,
+  attachment: `scroll`,
+};
+
+const rightShadowGradient: ShadowCssPortion = {
+  backgroundImage: `
+  linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0),
+    ${shadowColor}
+  )`,
+  backgroundPosition: 'right center',
+  size: `14px 100%`,
+  attachment: `scroll`,
+};
+
+const bottomShadowGradient: ShadowCssPortion = {
+  backgroundImage: `
+  linear-gradient(
+    0deg,
+    ${shadowColorLight},
+    rgba(0, 0, 0, 0)
+  )`,
+  backgroundPosition: 'bottom center',
+  size: `100% 10px`,
+  attachment: `scroll`,
+};
+
+const shadows: ShadowCssPortion[] = [
+  leftWhiteOverrideGradient,
+  leftShadowGradient,
+  rightWhiteOverrideGradient,
+  rightShadowGradient,
+  topWhiteOverrideGradient,
+  topShadowGradient,
+  bottomWhiteOverride,
+  bottomShadowGradient,
+];
+
+export const scrollableContainerShadowsCssComponents = {
+  backgroundImage: shadows
+    .map(({ backgroundImage }) => backgroundImage)
+    .join(','),
+  backgroundPosition: shadows
+    .map(({ backgroundPosition }) => backgroundPosition)
+    .join(','),
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: shadows.map(({ size }) => size).join(','),
+  backgroundAttachment: shadows.map(({ attachment }) => attachment).join(','),
+};
 
 const scrollableContainerStyles = css({
   overflow: 'auto',
   boxSizing: 'border-box',
+  backgroundColor: token('utility.elevation.surface.current', '#FFF'),
+  backgroundImage: scrollableContainerShadowsCssComponents.backgroundImage,
+  backgroundPosition:
+    scrollableContainerShadowsCssComponents.backgroundPosition,
+  backgroundRepeat: scrollableContainerShadowsCssComponents.backgroundRepeat,
+  backgroundSize: scrollableContainerShadowsCssComponents.backgroundSize,
+  backgroundAttachment:
+    scrollableContainerShadowsCssComponents.backgroundAttachment,
 });
 
 const tableStyles = css({
@@ -122,6 +319,13 @@ function extractIndex(data: Record<string, unknown>) {
   return index;
 }
 
+const sortColumns = (
+  firstOption: DatasourceResponseSchemaProperty,
+  secondOption: DatasourceResponseSchemaProperty,
+): number => {
+  return firstOption.title.localeCompare(secondOption.title);
+};
+
 export const getOrderedColumns = (
   columns: DatasourceResponseSchemaProperty[],
   visibleColumnKeys: string[],
@@ -134,23 +338,21 @@ export const getOrderedColumns = (
       return indexA - indexB;
     });
 
-  const invisibleColumns = columns.filter(
-    column => !visibleColumnKeys.includes(column.key),
-  );
+  const alphabeticallySortedInvisibleColumns = columns
+    .filter(column => !visibleColumnKeys.includes(column.key))
+    .sort(sortColumns);
 
-  return [...visibleColumns, ...invisibleColumns];
+  return [...visibleColumns, ...alphabeticallySortedInvisibleColumns];
 };
 
-const BASE_WIDTH = 8;
-const DEFAULT_WIDTH = BASE_WIDTH * 22;
-export const COLUMN_MIN_WIDTH = BASE_WIDTH * 3;
+const DEFAULT_WIDTH = COLUMN_BASE_WIDTH * 22;
 const keyBasedWidthMap: Record<string, number> = {
-  priority: BASE_WIDTH * 4,
-  status: BASE_WIDTH * 18,
-  summary: BASE_WIDTH * 45,
-  description: BASE_WIDTH * 31.25,
-  type: BASE_WIDTH * 4,
-  key: BASE_WIDTH * 13,
+  priority: COLUMN_BASE_WIDTH * 5,
+  status: COLUMN_BASE_WIDTH * 18,
+  summary: COLUMN_BASE_WIDTH * 45,
+  description: COLUMN_BASE_WIDTH * 31,
+  type: COLUMN_BASE_WIDTH * 6,
+  key: COLUMN_BASE_WIDTH * 15,
 };
 
 function getDefaultColumnWidth(
@@ -164,15 +366,25 @@ function getDefaultColumnWidth(
 
   switch (type) {
     case 'date':
-      return BASE_WIDTH * 14;
+      return COLUMN_BASE_WIDTH * 16;
 
     case 'icon':
-      return BASE_WIDTH * 4;
+      return COLUMN_BASE_WIDTH * 7;
 
     default:
       return DEFAULT_WIDTH;
   }
 }
+
+const TruncateTextTag = forwardRef(
+  (props: React.PropsWithChildren<unknown>, ref: React.Ref<HTMLElement>) => {
+    return (
+      <span css={truncateTextStyles} {...props} ref={ref}>
+        {props.children}
+      </span>
+    );
+  },
+);
 
 export const IssueLikeDataTableView = ({
   testId,
@@ -192,6 +404,7 @@ export const IssueLikeDataTableView = ({
   extensionKey,
 }: IssueLikeDataTableViewProps) => {
   const tableId = useMemo(() => Symbol('unique-id'), []);
+  const intl = useIntl();
 
   const tableHeaderRowRef = useRef<HTMLTableRowElement>(null);
 
@@ -382,13 +595,37 @@ export const IssueLikeDataTableView = ({
         cells: visibleSortedColumns.map<RowCellType>(({ key, type }) => {
           const value = newRowData[key]?.data || newRowData[key];
           const values = Array.isArray(value) ? value : [value];
-          const content = values.map(value =>
-            renderItem({ type, value } as DatasourceType),
+
+          const renderedValues = renderItem({
+            type,
+            values,
+          } as DatasourceTypeWithOnlyValues);
+
+          const stringifiedContent = values
+            .map(value =>
+              stringifyType(
+                { type, value } as DatasourceType,
+                intl.formatMessage,
+                intl.formatDate,
+              ),
+            )
+            .filter(value => value !== '')
+            .join(', ');
+          const contentComponent = stringifiedContent ? (
+            <Tooltip
+              tag={TruncateTextTag}
+              content={stringifiedContent}
+              testId="issues-table-cell-tooltip"
+            >
+              {renderedValues}
+            </Tooltip>
+          ) : (
+            renderedValues
           );
 
           return {
             key,
-            content: content.length === 1 ? content[0] : content,
+            content: contentComponent,
             width: getColumnWidth(key, type),
           };
         }),
@@ -397,7 +634,7 @@ export const IssueLikeDataTableView = ({
             ? el => setLastRowElement(el)
             : undefined,
       })),
-    [items, visibleSortedColumns, getColumnWidth, renderItem],
+    [items, visibleSortedColumns, getColumnWidth, renderItem, intl],
   );
 
   const rows = useMemo(() => {
@@ -455,7 +692,9 @@ export const IssueLikeDataTableView = ({
     onLoadDatasourceDetails,
   ]);
 
-  const shouldUseWidth = onColumnResize || columnCustomSizes;
+  const shouldUseWidth = !!(onColumnResize || columnCustomSizes);
+
+  const isEditable = onVisibleColumnKeysChange && hasData;
 
   return (
     <div
@@ -485,6 +724,7 @@ export const IssueLikeDataTableView = ({
         <thead
           data-testid={testId && `${testId}--head`}
           css={[noDefaultBorderStyles, tableHeadStyles]}
+          className={!!onVisibleColumnKeysChange ? 'has-column-picker' : ''}
         >
           <tr ref={tableHeaderRowRef}>
             {headerColumns.map(({ key, content, width }, cellIndex) => {
@@ -500,7 +740,7 @@ export const IssueLikeDataTableView = ({
                 </Tooltip>
               );
 
-              if (onVisibleColumnKeysChange && hasData) {
+              if (isEditable) {
                 const previewRows = tableRows
                   .map(({ cells }) => {
                     const cell: RowCellType | undefined = cells.find(
@@ -534,13 +774,10 @@ export const IssueLikeDataTableView = ({
                 return (
                   <TableHeading
                     key={key}
-                    className={
-                      !!onVisibleColumnKeysChange ? 'has-column-picker' : ''
-                    }
                     data-testid={`${key}-column-heading`}
-                    style={shouldUseWidth ? { width } : { maxWidth: width }}
+                    style={getWidthCss({ shouldUseWidth, width })}
                   >
-                    {heading}
+                    <Flex>{heading}</Flex>
                   </TableHeading>
                 );
               }
@@ -571,26 +808,27 @@ export const IssueLikeDataTableView = ({
               ref={ref}
             >
               {cells.map(({ key: cellKey, content, width }, cellIndex) => {
-                let loadingRowStyle: React.CSSProperties = shouldUseWidth
-                  ? { width }
-                  : { maxWidth: width };
+                const isLastCell = cellIndex === cells.length - 1;
+                let loadingRowStyle: React.CSSProperties = getWidthCss({
+                  shouldUseWidth,
+                  width,
+                });
                 // extra padding is required around skeleton loader to avoid vertical jumps when data loads
                 if (key?.includes('loading')) {
                   loadingRowStyle = {
                     ...loadingRowStyle,
-                    paddingBlock: token('space.100', '12px'),
+                    paddingBlock: token('space.100', '8px'),
                   };
                 }
                 return (
-                  <td
+                  <TableCell
                     key={cellKey}
                     data-testid={testId && `${testId}--cell-${cellIndex}`}
-                    colSpan={cellIndex + 1 === cells.length ? 2 : undefined}
-                    css={truncatedCellStyles}
+                    colSpan={isEditable && isLastCell ? 2 : undefined}
                     style={loadingRowStyle}
                   >
                     {content}
-                  </td>
+                  </TableCell>
                 );
               })}
             </tr>

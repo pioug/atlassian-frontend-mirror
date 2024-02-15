@@ -6,7 +6,7 @@
     "./examples/**/*.ts",
     "./examples/**/*.tsx",
     "./example-helpers/**/*.ts",
-    "./example-helpers/**/*.tsx",
+    "./example-helpers/**/*.tsx"
   ],
   "compilerOptions": {
     "baseUrl": "./"

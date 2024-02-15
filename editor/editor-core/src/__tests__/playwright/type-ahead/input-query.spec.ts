@@ -1,7 +1,7 @@
 import {
   EditorNodeContainerModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 
 test.describe('TypeAhead - InputQuery', () => {

@@ -1,37 +1,36 @@
 import {
-  editorTestCase as test,
-  expect,
+  EditorMainToolbarModel,
   EditorNodeContainerModel,
   EditorTableModel,
-  EditorMainToolbarModel,
-  fixTest,
-  BROWSERS,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import {
-  decisionAdf,
-  taskListTableAdf,
-  decisionListInTableAdf,
-  dateInTaskAdf,
-  paragraphWithDecisionList,
-  paragraphWithDecisionListWithoutContent,
-} from './task-decisions.spec.ts-fixtures';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  doc,
-  table,
-  tr,
-  taskItem,
-  taskList,
+  a,
   decisionItem,
   decisionList,
-  hardBreak,
-  td,
-  p,
-  a,
+  doc,
   em,
-  strong,
+  hardBreak,
   mention,
+  p,
+  strong,
+  table,
+  taskItem,
+  taskList,
+  td,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import {
+  dateInTaskAdf,
+  decisionAdf,
+  decisionListInTableAdf,
+  paragraphWithDecisionList,
+  paragraphWithDecisionListWithoutContent,
+  taskListTableAdf,
+} from './task-decisions.spec.ts-fixtures';
 
 test.describe('task and decisions: keyboard stuff', () => {
   test.use({
@@ -71,13 +70,6 @@ test.describe('task and decisions: keyboard stuff', () => {
     test('arrow-up-from-decision-node.ts: pressing arrow up in decision node should move cursor into paragraph above without content', async ({
       editor,
     }) => {
-      fixTest({
-        jiraIssueId: 'ED-20855',
-        reason:
-          'FIXME: This test was automatically skipped due to failure on 12/11/2023: https://product-fabric.atlassian.net/browse/ED-20855',
-        browsers: [BROWSERS.firefox],
-      });
-
       await editor.selection.set({ anchor: 4, head: 4 });
 
       await editor.keyboard.press('ArrowUp');
@@ -234,13 +226,6 @@ test.describe('task and decisions: keyboard stuff', () => {
     test('keymap.ts: tabbing from any decisionItem in a tableCell should go to the next cell', async ({
       editor,
     }) => {
-      fixTest({
-        jiraIssueId: 'ED-20771',
-        reason:
-          'FIXME: This test was automatically skipped due to failure on 07/11/2023: https://product-fabric.atlassian.net/browse/ED-20771',
-        browsers: [BROWSERS.webkit],
-      });
-
       const nodes = EditorNodeContainerModel.from(editor);
 
       await nodes.decisionItem.first().click();
@@ -265,13 +250,6 @@ test.describe('task and decisions: keyboard stuff', () => {
     test('keymap.ts: shift+tabbing from any decisionItem in a tableCell should go to the previous cell', async ({
       editor,
     }) => {
-      fixTest({
-        jiraIssueId: 'ED-20854',
-        reason:
-          'FIXME: This test was automatically skipped due to failure on 11/11/2023: https://product-fabric.atlassian.net/browse/ED-20854',
-        browsers: [BROWSERS.webkit],
-      });
-
       const nodes = EditorNodeContainerModel.from(editor);
 
       await nodes.decisionItem.first().click();
@@ -335,8 +313,8 @@ test.describe('task and decisions: selection stuff', () => {
   }) => {
     const nodes = EditorNodeContainerModel.from(editor);
 
-    const firstDecisionItem = await nodes.decisionItem.first();
-    const lastDecisionItem = await nodes.decisionItem.last();
+    const firstDecisionItem = nodes.decisionItem.first();
+    const lastDecisionItem = nodes.decisionItem.last();
 
     await lastDecisionItem.hover();
     await editor.page.mouse.down();

@@ -17,9 +17,9 @@ const fontSize = getFontSize();
 const gridSize = getGridSize();
 
 const containerStyles = xcss({
-  paddingTop: 'space.100',
-  paddingRight: 'space.100',
-  paddingBottom: 'space.600',
+  paddingBlockStart: 'space.100',
+  paddingInlineEnd: 'space.100',
+  paddingBlockEnd: 'space.600',
 });
 
 const readViewContainerStyles = xcss({
@@ -41,14 +41,14 @@ const InlineEditStatelessExample = () => {
     <Box xcss={containerStyles}>
       <InlineEdit
         defaultValue={editValue}
-        label="Inline edit"
+        label="Description"
         isEditing={isEditing}
         editView={({ errorMessage, ...fieldProps }) => (
           <Textfield {...fieldProps} autoFocus />
         )}
         readView={() => (
-          <Box xcss={readViewContainerStyles} data-testid="read-view">
-            {editValue || 'Click to enter value'}
+          <Box xcss={readViewContainerStyles} testId="read-view">
+            {editValue || 'Add a description'}
           </Box>
         )}
         onCancel={() => setEditing(false)}

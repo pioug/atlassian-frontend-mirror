@@ -26,15 +26,29 @@ const toJSON = (node: PMNode) => transformer.encode(node);
 describe('MarkdownTransformer', () => {
   const transformer = new MarkdownTransformer();
 
-  const mediaNode = (url: string = 'image.jpg') =>
-    mediaSingle()(media({ url, type: 'external' })());
+  const mediaNode = ({
+    url = 'image.jpg',
+    alt = undefined,
+  }: { url?: string; alt?: string } = {}) =>
+    mediaSingle()(media({ url, type: 'external', alt })());
 
   describe('media', () => {
+    it('should allow for empty alt character', () => {
+      const md = `![](image.jpg)`;
+      expect(transformer.parse(md)).toEqualDocument(doc(mediaNode()));
+    });
+
+    it('should support alt text characters', () => {
+      const md = `![Some crazy ! alt text %^&*"{}](image.jpg)`;
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(mediaNode({ alt: 'Some crazy ! alt text %^&*"{}' })),
+      );
+    });
+
     it('should split paragraphs with images', () => {
       const md = `Hello ![image](image.jpg) **World**`;
-
       expect(transformer.parse(md)).toEqualDocument(
-        doc(p('Hello '), mediaNode(), p(' ', strong('World'))),
+        doc(p('Hello '), mediaNode({ alt: 'image' }), p(' ', strong('World'))),
       );
     });
 
@@ -46,26 +60,26 @@ describe('MarkdownTransformer', () => {
           p('Hello '),
           mediaNode(),
           p(' ', strong('World'), ' '),
-          mediaNode('image2.jpg'),
+          mediaNode({ url: 'image2.jpg' }),
         ),
       );
     });
 
     it('should support images in lists', () => {
-      const md = `* Hello ![image](image.jpg)`;
+      const md = `* Hello ![my alt text](image.jpg)`;
 
       expect(transformer.parse(md)).toEqualDocument(
-        doc(ul(li(p('Hello '), mediaNode()))),
+        doc(ul(li(p('Hello '), mediaNode({ alt: 'my alt text' })))),
       );
     });
 
     it('should split blockquotes with images', () => {
-      const md = `> Hello ![image](image.jpg) **World**`;
+      const md = `> Hello ![my alt text](image.jpg) **World**`;
 
       expect(transformer.parse(md)).toEqualDocument(
         doc(
           blockquote(p('Hello ')),
-          mediaNode(),
+          mediaNode({ alt: 'my alt text' }),
           blockquote(p(' ', strong('World'))),
         ),
       );
@@ -94,11 +108,11 @@ describe('MarkdownTransformer', () => {
       const CODE_FENCE = '```';
       const md = `${CODE_FENCE}
 Hello
-![image](image.jpg)
+![my alt text](image.jpg)
 ${CODE_FENCE}`;
 
       expect(transformer.parse(md)).toEqualDocument(
-        doc(code_block()('Hello\n![image](image.jpg)')),
+        doc(code_block()('Hello\n![my alt text](image.jpg)')),
       );
     });
   });
@@ -175,6 +189,99 @@ ${CODE_FENCE}`;
 
       expect(transformer.parse(md)).toEqualDocument(
         doc(p(`-3. One\n-2. Two\n-1. Three`)),
+      );
+    });
+  });
+
+  describe('List within a blockquote', () => {
+    it('should nest an unordered list inside a blockquote', () => {
+      const md = `> - item 1\n> - item 2`;
+
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(blockquote(ul(li(p('item 1')), li(p('item 2'))))),
+      );
+    });
+    it('should support complex nested unordered list inside a blockquote', () => {
+      const md = `> * level 1\n>\n>     * level 1.1\n>     * level 1.2`;
+
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(
+          blockquote(
+            ul(li(p('level 1'), ul(li(p('level 1.1')), li(p('level 1.2'))))),
+          ),
+        ),
+      );
+    });
+    it('should support media inside an orderedlist within a quote', () => {
+      const md = `> * ![](image.jpg)`;
+
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(blockquote(ul(li(mediaNode())))),
+      );
+    });
+    it('should nest an ordered list inside a blockquote', () => {
+      const md = `> 0. item 1\n> 1. item 2`;
+
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(blockquote(ol({ order: 0 })(li(p('item 1')), li(p('item 2'))))),
+      );
+    });
+    it('should support complex nested ordered list inside a blockquote', () => {
+      const md = `> 1. level 1\n>\n>     1. level 1.1\n>     2. level 1.2`;
+
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(
+          blockquote(
+            ol({ order: 1 })(
+              li(
+                p('level 1'),
+                ol({ order: 1 })(li(p('level 1.1')), li(p('level 1.2'))),
+              ),
+            ),
+          ),
+        ),
+      );
+    });
+    it('should support custom ordered list inside a blockquote', () => {
+      const md = `> 6. One\n> 7. Two\n> 8. Three`;
+
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(
+          blockquote(
+            ol({ order: 6 })(li(p('One')), li(p('Two')), li(p('Three'))),
+          ),
+        ),
+      );
+    });
+    it('should support media inside an orderedlist within a blockquote', () => {
+      const md = `> 1. ![](image.jpg)`;
+
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(blockquote(ol({ order: 1 })(li(mediaNode())))),
+      );
+    });
+    it('should support codeblock inside an orderedlist within a blockquote', () => {
+      const CODE_FENCE = '```';
+      const md = `> 1. ${CODE_FENCE}`;
+
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(blockquote(ol({ order: 1 })(li(code_block()())))),
+      );
+    });
+    it('should support codeblock & media inside an orderedlist within a same blockquote', () => {
+      const CODE_FENCE = '```';
+      const md = `> 1. ${CODE_FENCE}\n> 2. ![](image.jpg)\n> 3. https://example.com`;
+
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(
+          blockquote(
+            ol({ order: 1 })(
+              li(code_block()()),
+              li(mediaNode()),
+              li(p('https://example.com')),
+            ),
+          ),
+        ),
       );
     });
   });

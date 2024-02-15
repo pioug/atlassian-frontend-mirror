@@ -3,6 +3,13 @@ import React from 'react';
 import { ForbiddenClient } from '../utils/custom-client';
 import VRCardView from '../utils/vr-card-view';
 
-export default () => (
+export const BlockCardForbiddenView = () => (
   <VRCardView appearance="block" client={new ForbiddenClient()} />
+);
+export const BlockCardForbiddenViewLegacy = () => (
+  <VRCardView
+    appearance="block"
+    client={new ForbiddenClient()}
+    useLegacyBlockCard={true}
+  />
 );

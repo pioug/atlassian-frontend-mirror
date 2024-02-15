@@ -1,5 +1,23 @@
 # @atlaskit/side-navigation
 
+## 3.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.4
+
+### Patch Changes
+
+- [#69022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69022) [`395c74147990`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/395c74147990) - Migrate packages to use declarative entry points
+
+## 3.0.3
+
+### Patch Changes
+
+- [#43918](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43918) [`d100ca42f46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d100ca42f46) - Push model consumption configuration done for these packages
+
 ## 3.0.2
 
 ### Patch Changes

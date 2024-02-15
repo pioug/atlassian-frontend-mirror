@@ -1,6 +1,11 @@
 import type { Input, Position } from '@atlaskit/pragmatic-drag-and-drop/types';
 
-import type { Axis, Edge, EngagementHistoryEntry } from '../internal-types';
+import type {
+  Axis,
+  Edge,
+  EngagementHistoryEntry,
+  InternalConfig,
+} from '../internal-types';
 import { canScrollOnEdge } from '../shared/can-scroll-on-edge';
 import { edges } from '../shared/edges';
 import { getOverElementHitbox } from '../shared/get-over-element-hitbox';
@@ -21,12 +26,14 @@ export function getScrollBy({
   input,
   timeSinceLastFrame,
   engagement,
+  config,
   getRect = getRectDefault,
 }: {
   element: Element;
   input: Input;
   engagement: EngagementHistoryEntry;
   timeSinceLastFrame: number;
+  config: InternalConfig;
   getRect?: (element: Element) => DOMRect;
 }): Required<Pick<ScrollToOptions, 'top' | 'left'>> {
   const client: Position = {
@@ -37,7 +44,7 @@ export function getScrollBy({
 
   const scrollableEdges: Map<Edge, ScrollableEdge> = edges.reduce(
     (map, edge) => {
-      const hitbox = getOverElementHitbox[edge]({ clientRect });
+      const hitbox = getOverElementHitbox[edge]({ clientRect, config });
 
       if (!isWithin({ client, clientRect: hitbox })) {
         return map;
@@ -64,6 +71,7 @@ export function getScrollBy({
         timeSinceLastFrame,
         engagement,
         isDistanceDampeningEnabled: true,
+        config,
       });
     }
     const rightEdge = scrollableEdges.get('right');
@@ -76,6 +84,7 @@ export function getScrollBy({
         timeSinceLastFrame,
         engagement,
         isDistanceDampeningEnabled: true,
+        config,
       });
     }
 
@@ -94,6 +103,7 @@ export function getScrollBy({
         timeSinceLastFrame,
         engagement,
         isDistanceDampeningEnabled: true,
+        config,
       });
     }
     const topEdge = scrollableEdges.get('top');
@@ -106,6 +116,7 @@ export function getScrollBy({
         timeSinceLastFrame,
         engagement,
         isDistanceDampeningEnabled: true,
+        config,
       });
     }
 

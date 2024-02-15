@@ -24,3 +24,4 @@ export { LinkToolbarButtonGroup } from './LinkToolbarButtonGroup';
 export { getButtonGroupOption } from './link-toolbar-button-group-options';
 export const DATASOURCE_INNER_CONTAINER_CLASSNAME =
   'datasourceView-content-inner-wrap';
+export { IconInline, IconEmbed, IconCard, IconUrl } from './ui/assets';

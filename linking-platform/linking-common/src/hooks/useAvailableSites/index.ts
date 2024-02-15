@@ -11,6 +11,8 @@ import { ANALYTICS_CHANNEL } from '../../common/utils/constants';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { useIsMounted } from '../useIsMounted';
 
+import { getOperationFailedAttributes } from './utils';
+
 const defaultProducts = [
   AvailableSitesProductType.WHITEBOARD,
   AvailableSitesProductType.BEACON,
@@ -55,13 +57,14 @@ export const useAvailableSites = ({
           error: undefined,
         });
       } catch (err: unknown) {
-        const error = err instanceof Error ? err : new Error('unknown error');
-        // If getAvailableSites errors fire an operational event
         createAnalyticsEvent(
-          createEventPayload('operational.getAvailableSitesResolve.failed', {
-            error: error.toString(),
-          }),
+          createEventPayload(
+            'operational.getAvailableSitesResolve.failed',
+            getOperationFailedAttributes(err),
+          ),
         ).fire(ANALYTICS_CHANNEL);
+
+        const error = err instanceof Error ? err : new Error('unknown error');
         setState({
           data: [],
           loading: false,

@@ -48,10 +48,10 @@
       "path": "../../design-system/flag/tsconfig.app.json"
     },
     {
-      "path": "../../design-system/inline-edit/tsconfig.app.json"
+      "path": "../../team-central/give-kudos/tsconfig.app.json"
     },
     {
-      "path": "../../platform/feature-flags/tsconfig.app.json"
+      "path": "../../design-system/inline-edit/tsconfig.app.json"
     },
     {
       "path": "../../design-system/select/tsconfig.app.json"

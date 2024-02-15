@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button';
+import { LinkButton } from '@atlaskit/button/new';
 import Icon from '@atlaskit/icon';
 import { CustomItemComponentProps } from '@atlaskit/menu';
 
@@ -34,13 +34,13 @@ const ExampleFooter = () => (
     // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
     description={
       <Fragment>
-        <Button appearance="subtle-link" href="/feedback" spacing="none">
+        <LinkButton appearance="subtle-link" href="/feedback" spacing="none">
           Give feedback
-        </Button>
+        </LinkButton>
         {' ∙ '}
-        <Button appearance="subtle-link" href="/learn" spacing="none">
+        <LinkButton appearance="subtle-link" href="/learn" spacing="none">
           Learn more
-        </Button>
+        </LinkButton>
       </Fragment>
     }
     iconBefore={<Icon label="mode" glyph={SampleIcon} />}

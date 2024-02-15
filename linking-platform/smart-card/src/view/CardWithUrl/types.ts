@@ -1,9 +1,10 @@
 import { EventHandler, MouseEvent, KeyboardEvent } from 'react';
-import {
+import type {
   CardAppearance,
   CardPlatform,
   EmbedIframeUrlType,
   OnResolveCallback,
+  CardActionOptions,
 } from '../Card/types';
 import { AnalyticsHandler } from '../../utils/types';
 import { FlexibleUiOptions } from '../FlexibleCard/types';
@@ -18,6 +19,7 @@ export type CardWithUrlContentProps = {
   platform?: CardPlatform;
   onClick?: EventHandler<MouseEvent | KeyboardEvent>;
   isSelected?: boolean;
+  isHovered?: boolean;
   isFrameVisible?: boolean;
   frameStyle?: FrameStyle;
   container?: HTMLElement;
@@ -29,8 +31,19 @@ export type CardWithUrlContentProps = {
   testId?: string;
   onResolve?: OnResolveCallback;
   onError?: OnErrorCallback;
+  /**
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6348 Internal documentation for deprecation (no external access)}
+   *
+   * Prefer 'actionOptions' prop.
+   */
   showActions?: boolean;
+  /**
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6348 Internal documentation for deprecation (no external access)}
+   *
+   * Prefer 'actionOptions' prop.
+   */
   showServerActions?: boolean;
+  actionOptions?: CardActionOptions;
   inheritDimensions?: boolean;
   embedIframeRef?: React.Ref<HTMLIFrameElement>;
   embedIframeUrlType?: EmbedIframeUrlType;
@@ -41,4 +54,5 @@ export type CardWithUrlContentProps = {
   showAuthTooltip?: boolean;
   analyticsEvents?: AnalyticsFacade;
   placeholder?: string;
+  useLegacyBlockCard?: boolean;
 };

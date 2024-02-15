@@ -1,3 +1,5 @@
+import outdent from 'outdent';
+
 import { tester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
@@ -57,7 +59,7 @@ const containerStyles = css({
       options: [{ cssFunctions: ['xcss'] }],
       code: `
           const container = css({});
-  
+
           <div css={container} />
         `,
     },
@@ -66,7 +68,7 @@ const containerStyles = css({
       options: [{ cssFunctions: ['css'] }],
       code: `
           const container = xcss({});
-  
+
           <div xcss={container} />
         `,
     },
@@ -104,6 +106,39 @@ const containerStyles = css({
       function Button({children}) {
         return <Box xcss={containerStyles}>{children}</Box>;
       }
+    `,
+    },
+    {
+      // cssMap objects accessed using string literals
+      options: [{ cssFunctions: ['css'] }],
+      code: `
+      const borderStyleMapStyles = cssMap({
+        'no.border': { borderStyle: 'none' },
+        solid: { borderStyle: 'solid' },
+      });
+
+      const Component = () => <div css={borderStyleMapStyles['no.border']} />;
+  `,
+    },
+    {
+      // cssMap objects accessed using props
+      options: [{ cssFunctions: ['xcss'] }],
+      code: `
+      const borderStyleMapStyles = cssMap({
+        'no.border': { borderStyle: 'none' },
+        solid: { borderStyle: 'solid' },
+      });
+
+      const Component = ({ variant }) => <div xcss={borderStyleMapStyles[variant]} />;
+    `,
+    },
+    {
+      // Declarator name as a result of incremental fixer is valid
+      options: [{ cssFunctions: ['css'] }],
+      code: `
+      const styles2 = css({color: 'red'});
+
+      const Component = ({ variant }) => <div css={styles2} />;
     `,
     },
   ],
@@ -216,9 +251,13 @@ const containerStyles = css({
       ],
     },
     {
-      code: `
+      code: outdent`
       <div css={isPrimary && {}} />
          `,
+      output: outdent`
+        const styles = css({});
+        <div css={isPrimary && styles} />
+        `,
       errors: [
         {
           messageId: 'cssOnTopOfModule',
@@ -226,32 +265,47 @@ const containerStyles = css({
       ],
     },
     {
-      code: `
+      code: outdent`
+      import { css } from '@compiled/react';
+      const defaultStyles = css({
+        padding: 8,
+      });
+
+      <div css={[isPrimary ? {} : defaultStyles]} />
+         `,
+      output: outdent`
+      import { css } from '@compiled/react';
+      const styles = css({});
+      const defaultStyles = css({
+        padding: 8,
+      });
+
+      <div css={[isPrimary ? styles : defaultStyles]} />
+         `,
+
+      errors: [
+        {
+          messageId: 'cssOnTopOfModule',
+        },
+      ],
+    },
+    {
+      code: outdent`
       const containerStyles = css({
         padding: 8,
       });
 
-      <div css={[isPrimary ? {} : {}]} />
+      <div css={[isPrimary ? containerStyles : {}]} />
          `,
-      errors: [
-        {
-          messageId: 'cssOnTopOfModule',
-        },
-        {
-          messageId: 'cssOnTopOfModule',
-        },
-      ],
-    },
-    {
-      code: 'function Button({children}) { return <button css={css``}>{children}</button>; }',
-      errors: [
-        {
-          messageId: 'cssOnTopOfModule',
-        },
-      ],
-    },
-    {
-      code: 'function Button({children}) { return <button css={{}}>{children}</button>; }',
+      output: outdent`
+      const styles = css({});
+      const containerStyles = css({
+        padding: 8,
+      });
+
+      <div css={[isPrimary ? containerStyles : styles]} />
+         `,
+
       errors: [
         {
           messageId: 'cssOnTopOfModule',
@@ -259,7 +313,11 @@ const containerStyles = css({
       ],
     },
     {
-      code: 'function Button({children}) { return <button css={``}>{children}</button>; }',
+      code: outdent`function Button({children}) { return <button css={css\`\`}>{children}</button>; }`,
+      output: outdent`
+        const styles = css\`\`;
+        function Button({children}) { return <button css={styles}>{children}</button>; }
+      `,
       errors: [
         {
           messageId: 'cssOnTopOfModule',
@@ -267,12 +325,42 @@ const containerStyles = css({
       ],
     },
     {
-      code: `
+      code: outdent`function Button({children}) { return <button css={{}}>{children}</button>; }`,
+      output: outdent`
+      const styles = css({});
+      function Button({children}) { return <button css={styles}>{children}</button>; }`,
+      errors: [
+        {
+          messageId: 'cssOnTopOfModule',
+        },
+      ],
+    },
+    {
+      code: outdent`function Button({children}) { return <button css={\`\`}>{children}</button>; }`,
+      output: outdent`
+      const styles = \`\`;
+      function Button({children}) { return <button css={styles}>{children}</button>; }`,
+      errors: [
+        {
+          messageId: 'cssOnTopOfModule',
+        },
+      ],
+    },
+    {
+      code: outdent`
         function Button({children}) {
           const containerStyles = {
             padding: 8,
           };
-
+          return <button css={containerStyles}>{children}</button>;
+        }
+      `,
+      output: outdent`
+        const containerStyles = {
+            padding: 8,
+          };
+        function Button({children}) {
+          
           return <button css={containerStyles}>{children}</button>;
         }
       `,
@@ -283,12 +371,20 @@ const containerStyles = css({
       ],
     },
     {
-      code: `
+      code: outdent`
         function Button({children}) {
           const containerStyles = css({
             padding: 8,
           });
-
+          return <button css={containerStyles}>{children}</button>;
+        }
+      `,
+      output: outdent`
+        const containerStyles = css({
+            padding: 8,
+          });
+        function Button({children}) {
+          
           return <button css={containerStyles}>{children}</button>;
         }
       `,
@@ -299,12 +395,26 @@ const containerStyles = css({
       ],
     },
     {
-      code: `
+      code: outdent`
         function Button({children}) {
           const containerStyles = css({
             padding: 8,
           });
-
+          return (
+            <Component>
+              {
+                () =>  <button css={containerStyles}>{children}</button>
+              }
+            </Component>
+          );
+        }
+      `,
+      output: outdent`
+        const containerStyles = css({
+            padding: 8,
+          });
+        function Button({children}) {
+          
           return (
             <Component>
               {
@@ -321,7 +431,7 @@ const containerStyles = css({
       ],
     },
     {
-      code: `
+      code: outdent`
         function Button({children}) {
           const getStyles = () => ({
             padding: 8,
@@ -388,7 +498,7 @@ const containerStyles = css({
     },
     ...['css', 'xcss'].flatMap((style) => [
       {
-        code: `
+        code: outdent`
         const getStyles = (padding) => ({
           padding,
         });
@@ -438,7 +548,7 @@ const containerStyles = css({
         ],
       },
       {
-        code: `
+        code: outdent`
         const containerStyles = ${style}({
           padding: 8,
         });
@@ -457,7 +567,11 @@ const containerStyles = css({
         ],
       },
       {
-        code: `function Button({children}) { return <button ${style}={${style}({})}>{children}</button>; }`,
+        code: outdent`function Button({children}) { return <button ${style}={${style}({})}>{children}</button>; }`,
+        output: outdent`
+          const styles = ${style}({});
+          function Button({children}) { return <button ${style}={styles}>{children}</button>; }
+        `,
         errors: [
           {
             messageId: 'cssOnTopOfModule',
@@ -465,7 +579,7 @@ const containerStyles = css({
         ],
       },
       {
-        code: `function Button({children}) { return <button ${style}={someCss({})}>{children}</button>; }`,
+        code: outdent`function Button({children}) { return <button ${style}={someCss({})}>{children}</button>; }`,
         errors: [
           {
             messageId: 'cssOnTopOfModule',
@@ -577,13 +691,88 @@ const containerStyles = css({
         ],
       },
     ]),
+    {
+      options: [{ stylesPlacement: 'top' }],
+      code: `function Button({children}){ return <button css={css({color: 'red'})}>{children}</button>;}`,
+      output: outdent`
+        const styles = css({color: 'red'});
+        function Button({children}){ return <button css={styles}>{children}</button>;}
+        `,
+      errors: [
+        {
+          messageId: 'cssOnTopOfModule',
+        },
+      ],
+    },
+    {
+      code: outdent`
+      const styles = css({color: 'red'});
 
+      const Component = () => {
+        return <div css={isPrimary ? styles : {}}/>
+      }
+      `,
+      output: outdent`
+      const styles2 = css({});
+      const styles = css({color: 'red'});
+
+      const Component = () => {
+        return <div css={isPrimary ? styles : styles2}/>
+      }
+      `,
+      errors: [
+        {
+          messageId: 'cssOnTopOfModule',
+        },
+      ],
+    },
+    {
+      options: [{ cssFunctions: ['css'] }],
+      code: outdent`
+      const Component = () => <div css={cssMap({'color': 'red'})} />;
+      `,
+      output: outdent`
+        const styles = cssMap({'color': 'red'});
+        const Component = () => <div css={styles} />;
+      `,
+      errors: [
+        {
+          messageId: 'cssOnTopOfModule',
+        },
+      ],
+    },
+    {
+      options: [{ stylesPlacement: 'top', cssFunctions: ['css'] }],
+      code: outdent`
+      import { css } from '@compiled/react';
+      const styles = css({color: 'blue'});
+
+      const ComponentTwo = () => <div css={styles} />;
+      const Component = () => <div css={cssMap({'color': 'red'})} />;
+    `,
+      output: outdent`
+      import { css } from '@compiled/react';
+      const styles2 = cssMap({'color': 'red'});
+      const styles = css({color: 'blue'});
+
+      const ComponentTwo = () => <div css={styles} />;
+      const Component = () => <div css={styles2} />;
+      `,
+      errors: [
+        {
+          messageId: 'cssOnTopOfModule',
+        },
+      ],
+    },
     // config for stylesPlacement: 'bottom' ⬇️
     {
       options: [{ stylesPlacement: 'bottom' }],
-      code: `
-      <div css={isPrimary && {}} />
+      code: outdent`
+        <div css={isPrimary && {}} />
          `,
+      output: outdent`
+        <div css={isPrimary && styles} />
+        const styles = css({});`,
       errors: [
         {
           messageId: 'cssAtBottomOfModule',
@@ -592,25 +781,34 @@ const containerStyles = css({
     },
     {
       options: [{ stylesPlacement: 'bottom' }],
-      code: `
+      code: outdent`
       const containerStyles = css({
         padding: 8,
       });
 
-      <div css={[isPrimary ? {} : {}]} />
+      <div css={[isPrimary ? containerStyles : {}]} />
+         `,
+      output: outdent`
+      const containerStyles = css({
+        padding: 8,
+      });
+
+      <div css={[isPrimary ? containerStyles : styles]} />
+      const styles = css({});
          `,
       errors: [
         {
           messageId: 'cssAtBottomOfModule',
         },
-        {
-          messageId: 'cssAtBottomOfModule',
-        },
       ],
     },
     {
       options: [{ stylesPlacement: 'bottom' }],
-      code: 'function Button({children}) { return <button css={css``}>{children}</button>; }',
+      code: outdent`function Button({children}) { return <button css={css\`\`}>{children}</button>; }`,
+      output: outdent`
+        function Button({children}) { return <button css={styles}>{children}</button>; }
+        const styles = css\`\`;
+      `,
       errors: [
         {
           messageId: 'cssAtBottomOfModule',
@@ -619,7 +817,9 @@ const containerStyles = css({
     },
     {
       options: [{ stylesPlacement: 'bottom' }],
-      code: 'function Button({children}) { return <button css={{}}>{children}</button>; }',
+      code: outdent`function Button({children}) { return <button css={{}}>{children}</button>; }`,
+      output: outdent`function Button({children}) { return <button css={styles}>{children}</button>; }
+      const styles = css({});`,
       errors: [
         {
           messageId: 'cssAtBottomOfModule',
@@ -628,7 +828,11 @@ const containerStyles = css({
     },
     {
       options: [{ stylesPlacement: 'bottom' }],
-      code: 'function Button({children}) { return <button css={``}>{children}</button>; }',
+      code: outdent`function Button({children}) { return <button css={\`\`}>{children}</button>; }`,
+      output: outdent`
+      function Button({children}) { return <button css={styles}>{children}</button>; }
+      const styles = \`\`;
+      `,
       errors: [
         {
           messageId: 'cssAtBottomOfModule',
@@ -637,14 +841,22 @@ const containerStyles = css({
     },
     {
       options: [{ stylesPlacement: 'bottom' }],
-      code: `
+      code: outdent`
         function Button({children}) {
           const containerStyles = {
             padding: 8,
           };
-
           return <button css={containerStyles}>{children}</button>;
         }
+      `,
+      output: outdent`
+        function Button({children}) {
+          
+          return <button css={containerStyles}>{children}</button>;
+        }
+        const containerStyles = {
+            padding: 8,
+          };
       `,
       errors: [
         {
@@ -654,14 +866,22 @@ const containerStyles = css({
     },
     {
       options: [{ stylesPlacement: 'bottom' }],
-      code: `
+      code: outdent`
         function Button({children}) {
           const containerStyles = css({
             padding: 8,
           });
-
           return <button css={containerStyles}>{children}</button>;
         }
+      `,
+      output: outdent`
+        function Button({children}) {
+          
+          return <button css={containerStyles}>{children}</button>;
+        }
+        const containerStyles = css({
+            padding: 8,
+          });
       `,
       errors: [
         {
@@ -671,12 +891,11 @@ const containerStyles = css({
     },
     {
       options: [{ stylesPlacement: 'bottom' }],
-      code: `
+      code: outdent`
         function Button({children}) {
           const containerStyles = css({
             padding: 8,
           });
-
           return (
             <Component>
               {
@@ -686,6 +905,21 @@ const containerStyles = css({
           );
         }
       `,
+      output: outdent`
+        function Button({children}) {
+          
+          return (
+            <Component>
+              {
+                () =>  <button css={containerStyles}>{children}</button>
+              }
+            </Component>
+          );
+        }
+        const containerStyles = css({
+            padding: 8,
+          });
+      `,
       errors: [
         {
           messageId: 'cssAtBottomOfModule',
@@ -694,7 +928,7 @@ const containerStyles = css({
     },
     {
       options: [{ stylesPlacement: 'bottom' }],
-      code: `
+      code: outdent`
         function Button({children}) {
           const getStyles = () => ({
             padding: 8,
@@ -735,6 +969,94 @@ const containerStyles = css({
       errors: [
         {
           messageId: 'shouldEndInStyles',
+        },
+      ],
+    },
+    {
+      options: [{ stylesPlacement: 'bottom' }],
+      code: `const Button = ({children}) => { return <button css={css({color: 'red'})}>{children}</button>;}`,
+      output: outdent`
+        const Button = ({children}) => { return <button css={styles}>{children}</button>;}
+        const styles = css({color: 'red'});
+        `,
+      errors: [
+        {
+          messageId: 'cssAtBottomOfModule',
+        },
+      ],
+    },
+    {
+      options: [{ stylesPlacement: 'bottom' }],
+      code: `function Button({children}){ return <button css={css({color: 'red'})}>{children}</button>;}`,
+      output: outdent`
+        function Button({children}){ return <button css={styles}>{children}</button>;}
+        const styles = css({color: 'red'});
+        `,
+      errors: [
+        {
+          messageId: 'cssAtBottomOfModule',
+        },
+      ],
+    },
+    {
+      options: [{ cssFunctions: ['css'] }],
+      code: `
+      const borderStyleMap = cssMap({
+        none: { borderStyle: 'none' },
+        solid: { borderStyle: 'solid' },
+      });
+
+      const Component = () => <div css={borderStyleMap['none']} />;
+    `,
+      output: `
+      const borderStyleMapStyles = cssMap({
+        none: { borderStyle: 'none' },
+        solid: { borderStyle: 'solid' },
+      });
+
+      const Component = () => <div css={borderStyleMapStyles['none']} />;
+    `,
+      errors: [
+        {
+          messageId: 'shouldEndInStyles',
+        },
+      ],
+    },
+    {
+      options: [{ stylesPlacement: 'bottom', cssFunctions: ['css'] }],
+      code: outdent`
+      const Component = () => <div css={cssMap({'color': 'red'})} />;
+    `,
+      output: outdent`
+        const Component = () => <div css={styles} />;
+        const styles = cssMap({'color': 'red'});
+      `,
+      errors: [
+        {
+          messageId: 'cssAtBottomOfModule',
+        },
+      ],
+    },
+    {
+      options: [{ stylesPlacement: 'bottom', cssFunctions: ['css'] }],
+      code: outdent`
+      import { css } from '@compiled/react';
+
+      const Component = () => <div css={cssMap({'color': 'red'})} />;
+      const ComponentTwo = () => <div css={styles} />;
+      const styles = css({color: 'blue'});
+    `,
+      output: outdent`
+      import { css } from '@compiled/react';
+
+      const Component = () => <div css={styles2} />;
+      const ComponentTwo = () => <div css={styles} />;
+      const styles = css({color: 'blue'});
+      const styles2 = cssMap({'color': 'red'});
+      `,
+      errors: [
+        {
+          messageId: 'cssAtBottomOfModule',
         },
       ],
     },

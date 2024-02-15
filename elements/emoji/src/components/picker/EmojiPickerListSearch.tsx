@@ -1,16 +1,16 @@
 /** @jsx jsx */
-import React, { useLayoutEffect, useRef, useState } from 'react';
-import { jsx } from '@emotion/react';
-import TextField from '@atlaskit/textfield';
 import SearchIcon from '@atlaskit/icon/glyph/search';
+import TextField from '@atlaskit/textfield';
 import VisuallyHidden from '@atlaskit/visually-hidden';
+import { jsx } from '@emotion/react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl-next';
+import { useDebouncedCallback } from 'use-debounce';
 import type { Styles } from '../../types';
+import { EMOJI_SEARCH_DEBOUNCE } from '../../util/constants';
+import { hidden } from '../common/styles';
 import { messages } from '../i18n';
 import { input, pickerSearch, searchIcon } from './styles';
-import { EMOJI_SEARCH_DEBOUNCE } from '../../util/constants';
-import { useDebouncedCallback } from 'use-debounce';
-import { hidden } from '../common/styles';
 
 export interface Props {
   style?: Styles;
@@ -20,7 +20,7 @@ export interface Props {
   resultsCount: number;
 }
 
-export const emojiPickerSearchTestId = 'emoji-picker-serach';
+export const emojiPickerSearchTestId = 'emoji-picker-search';
 
 export const EmojiPickerListSearch = (props: Props) => {
   const { style, query, isVisible = true, resultsCount, onChange } = props;

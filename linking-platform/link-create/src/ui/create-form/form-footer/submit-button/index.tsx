@@ -31,7 +31,7 @@ export const SubmitButton = () => {
           isLoading={
             /**
              * Should only be in a loading state if submitting is because we clicked
-             * the edit button
+             * the submit button
              */
             submitting && values[LINK_CREATE_FORM_POST_CREATE_FIELD] === false
           }

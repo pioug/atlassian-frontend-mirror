@@ -14,7 +14,7 @@ const ROOT_MARGIN_VERTICAL = '360px';
 
 export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
   const [isIntersecting, setIsIntersecting] = useState(false);
-  const { showActions, appearance, url, id } = props;
+  const { appearance, url, id } = props;
   const prefetch = usePrefetch(url);
 
   const Component = appearance === 'inline' ? 'span' : 'div';
@@ -33,6 +33,7 @@ export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
     },
     [prefetch, id],
   );
+
   const onRef = useCallback(
     (element: HTMLElement | null) => {
       if (!element) {
@@ -48,7 +49,7 @@ export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
   );
 
   const content = isIntersecting ? (
-    <CardWithUrlContent {...props} showActions={showActions} />
+    <CardWithUrlContent {...props} />
   ) : (
     <ComponentObserver ref={onRef}>
       <LoadingCardLink {...props} />

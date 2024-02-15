@@ -3,60 +3,72 @@
 exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
 @keyframes animation-0 {
   0% {
+    -webkit-background-position: -300px 0;
     background-position: -300px 0;
   }
 
   100% {
+    -webkit-background-position: 1000px 0;
     background-position: 1000px 0;
   }
 }
 
 @keyframes animation-0 {
   0% {
+    -webkit-background-position: -300px 0;
     background-position: -300px 0;
   }
 
   100% {
+    -webkit-background-position: 1000px 0;
     background-position: 1000px 0;
   }
 }
 
 @keyframes animation-0 {
   0% {
+    -webkit-background-position: -300px 0;
     background-position: -300px 0;
   }
 
   100% {
+    -webkit-background-position: 1000px 0;
     background-position: 1000px 0;
   }
 }
 
 @keyframes animation-0 {
   0% {
+    -webkit-background-position: -300px 0;
     background-position: -300px 0;
   }
 
   100% {
+    -webkit-background-position: 1000px 0;
     background-position: 1000px 0;
   }
 }
 
 @keyframes animation-0 {
   0% {
+    -webkit-background-position: -300px 0;
     background-position: -300px 0;
   }
 
   100% {
+    -webkit-background-position: 1000px 0;
     background-position: 1000px 0;
   }
 }
 
 @keyframes animation-0 {
   0% {
+    -webkit-background-position: -300px 0;
     background-position: -300px 0;
   }
 
   100% {
+    -webkit-background-position: 1000px 0;
     background-position: 1000px 0;
   }
 }
@@ -79,8 +91,13 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
   animation-name: animation-0;
   -webkit-animation-timing-function: linear;
   animation-timing-function: linear;
-  background-color: var(--ds-background-neutral,#EBECF0);
-  background-image: linear-gradient( to right, var(--ds-background-neutral-subtle,#EBECF0) 10%, var(--ds-background-neutral,#DFE1E6) 20%, var(--ds-background-neutral-subtle,#EBECF0) 30% );
+  background-color: var(--ds-background-neutral, #EBECF0);
+  background-image: linear-gradient(
+    to right,
+    var(--ds-background-neutral-subtle, #EBECF0) 10%,
+    var(--ds-background-neutral, #DFE1E6) 20%,
+    var(--ds-background-neutral-subtle, #EBECF0) 30%
+  );
   background-repeat: no-repeat;
 }
 

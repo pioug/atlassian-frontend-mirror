@@ -1,12 +1,13 @@
 import {
-  editorTestCase as test,
-  expect,
-  EditorNodeContainerModel,
   EditorMediaSingleModel,
+  EditorNodeContainerModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import { threeImages, oneImage } from './__fixtures__/adf-documents';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p, mediaSingle } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, mediaSingle, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { oneImage, threeImages } from './__fixtures__/adf-documents';
 
 test.use({
   editorProps: {
@@ -56,7 +57,7 @@ test.describe('media single', () => {
     await editor.paste();
 
     const secondImageModel = EditorMediaSingleModel.from(mediaSingle.nth(1));
-    expect(await secondImageModel.isSelected()).toBe(true);
+    await expect(secondImageModel.selected).toBeVisible();
   });
 
   test.describe('when paste on top of other media single', () => {

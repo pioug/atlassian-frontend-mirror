@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/primitives",
-  "version": "1.12.0",
+  "version": "2.0.2",
   "description": "Primitives are token-backed low-level building blocks.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -77,7 +77,7 @@
           "id": "@atlaskit/primitives/bleed"
         },
         {
-          "title": "xcss",
+          "title": "XCSS",
           "folder": "xcss",
           "slug": "primitives/xcss",
           "id": "@atlaskit/primitives/xcss"
@@ -104,8 +104,8 @@
     "codegen-styles": "ts-node -r tsconfig-paths/register ./scripts/codegen-styles.tsx"
   },
   "dependencies": {
-    "@atlaskit/app-provider": "^0.4.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/app-provider": "^1.0.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/serialize": "^1.1.0",

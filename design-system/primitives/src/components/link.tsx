@@ -22,7 +22,7 @@ export type LinkProps<RouterLinkConfig extends Record<string, any> = never> =
       | 'style'
     > & {
       /**
-       * `children` should be defined to ensure links have text
+       * `children` should be defined to ensure links have text.
        */
       children: ReactNode;
     };
@@ -90,9 +90,10 @@ const Link = <RouterLinkConfig extends Record<string, any> = never>(
 
   /**
    * Renders a router link if:
+   *
    * - a link component is set in the app provider
-   * - it's not an external link (starting with http:// or https://)
-   * - it's not a non-HTTP-based link (e.g. emails, phone numbers, hash links etc.)
+   * - it's not an external link (starting with `http://` or `https://`)
+   * - it's not a non-HTTP-based link (e.g. Emails, phone numbers, hash links etc.).
    */
   const isRouterLink = RouterLink && !isExternal && !isNonHttpBased;
 

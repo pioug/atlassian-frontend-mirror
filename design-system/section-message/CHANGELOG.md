@@ -1,5 +1,23 @@
 # @atlaskit/section-message
 
+## 6.4.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.18
+
+### Patch Changes
+
+- [#63677](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63677) [`f320c8ce5039`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f320c8ce5039) - This package has been added to the Jira push model.
+
+## 6.4.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.4.16
 
 ### Patch Changes

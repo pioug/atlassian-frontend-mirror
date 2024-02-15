@@ -1,21 +1,22 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { evaluateTeardownMockDate } from '@atlaskit/visual-regression/helper';
-import {
-  waitForResolvedInlineCard,
-  waitForResolvedBlockCard,
-  waitForSuccessfullyResolvedEmbedCard,
-  waitForBlockCardSelection,
-  waitForEmbedCardSelection,
-  waitForInlineCardSelection,
-} from '@atlaskit/media-integration-test-helpers';
-import cardSelectionAdf from './__fixtures__/card-selection-adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initFullPageEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import {
+  waitForBlockCardSelection,
+  waitForEmbedCardSelection,
+  waitForInlineCardSelection,
+  waitForResolvedBlockCard,
+  waitForResolvedInlineCard,
+  waitForSuccessfullyResolvedEmbedCard,
+} from '@atlaskit/media-integration-test-helpers';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { evaluateTeardownMockDate } from '@atlaskit/visual-regression/helper';
+
+import cardSelectionAdf from './__fixtures__/card-selection-adf.json';
 
 describe('Card danger states', () => {
   let page: PuppeteerPage;

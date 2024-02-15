@@ -1,4 +1,4 @@
-import { defineInlineTest } from 'jscodeshift/src/testUtils';
+const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 import transformer from '../codemods/next-split-imports';
 
 describe('rename-imports', () => {
@@ -67,17 +67,24 @@ import { ThemeProps, ThemeTokens } from '@atlaskit/button';
     'should not modify import path',
   );
   defineInlineTest(
-    transformer,
+    { default: transformer, parser: 'tsx' },
     {},
-    `import { LoadingButtonProps } from '@atlaskit/button/loading-button';`,
-    `import { LoadingButtonProps } from '@atlaskit/button/loading-button';`,
+    `import { type Appearance } from '@atlaskit/button';`,
+    `import { type Appearance } from '@atlaskit/button/types';`,
+    'should add types to the type imports for Appearance import',
+  );
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `import { type LoadingButtonProps } from '@atlaskit/button/loading-button';`,
+    `import { type LoadingButtonProps } from '@atlaskit/button/loading-button';`,
     'should not split the type imports',
   );
   defineInlineTest(
-    transformer,
+    { default: transformer, parser: 'tsx' },
     {},
-    `import { Appearance } from '@atlaskit/button/types';`,
-    `import { Appearance } from '@atlaskit/button/types';`,
-    'should not modify import path `@atlaskit/button/type`',
+    `import { Spacing } from '@atlaskit/button';`,
+    `import { Spacing } from '@atlaskit/button/types';`,
+    'should add types to the type imports for Spacing import',
   );
 });

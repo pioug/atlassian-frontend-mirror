@@ -26,7 +26,7 @@ export default {
   'linkDataSource.column-picker.search': 'Zoek naar velden',
   'linkDataSource.column-picker.tooltip': 'Kolommen configureren',
   'linkDataSource.jira-issues.accessInstructions': 'Neem contact op met je sitebeheerder om toegang aan te vragen.',
-  'linkDataSource.jira-issues.accessRequired': 'Je hebt geen toegang tot deze site',
+  'linkDataSource.jira-issues.accessRequired': 'Je hebt geen toegang tot deze inhoud',
   'linkDataSource.jira-issues.accessRequiredWithSite': 'Je hebt geen toegang tot de volgende site:',
   'linkDataSource.jira-issues.checkConnection':
     'Controleer je verbinding en vernieuw de pagina of probeer het later nogmaals.',
@@ -44,14 +44,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-issues invoegen van',
   'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {issue} other {issues}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Issueweergave',
+  'linkDataSource.jira-issues.no.jira.sites.access.description':
+    'Neem contact op met je beheerder om toegang aan te vragen.',
+  'linkDataSource.jira-issues.no.jira.sites.access.title': 'Je hebt geen toegang tot Jira-sites',
   'linkDataSource.jira-issues.noResultsFound': 'Geen resultaten gevonden',
   'linkDataSource.jira-issues.refresh': 'Vernieuwen',
   'linkDataSource.jira-issues.unableToLoadItems': 'Kan items niet laden',
   'linkDataSource.jira-issues.unableToLoadResults': 'Resultaten kunnen niet worden geladen',
   'linkDataSource.modal-initial-state.beta': 'Bèta',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Meer informatie over zoeken met JQL',
-  'linkDataSource.modal-initial-state.searchDescription':
-    'Gebruik JQL ( Jira Query Language) om te zoeken naar issues.',
   'linkDataSource.modal-initial-state.searchTitle': 'Zoek naar Jira-issues',
   'linkDataSource.render-type.boolean.false': 'Nee',
   'linkDataSource.render-type.boolean.true': 'Ja',

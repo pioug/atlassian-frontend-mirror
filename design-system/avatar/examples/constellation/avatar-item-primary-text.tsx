@@ -5,7 +5,7 @@ import Avatar, { AvatarItem } from '../../src';
 const AvatarPrimaryTextExample = () => {
   return (
     <AvatarItem
-      avatar={<Avatar presence="online" />}
+      avatar={<Avatar name="Mike Cannon-Brookes" presence="online" />}
       primaryText="Mike Cannon-Brookes"
     />
   );

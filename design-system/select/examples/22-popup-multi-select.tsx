@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import DownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import { PopupSelect, OptionType, OptionsType } from '../src';
@@ -77,7 +77,7 @@ class MultiPopupSelectExample extends Component<{}, State> {
             onChange={this.onChange}
             value={values}
             target={({ ref }) => (
-              <Button ref={ref} iconAfter={<DownIcon label="" />}>
+              <Button ref={ref} iconAfter={DownIcon}>
                 {valuesString || placeholder}
               </Button>
             )}

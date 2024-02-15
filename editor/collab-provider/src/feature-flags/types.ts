@@ -1,9 +1,7 @@
 // NCS feature flags - type and defaults defined here in one source of truth
 export interface NCSFeatureFlags {
   testFF?: boolean;
-  socketMessageMetricsFF?: boolean;
-  sendStepsQueueFF?: boolean;
-  blockViewOnlyFF?: boolean;
+  blockViewOnly?: boolean;
 }
 
 export interface WithNCSFeatureFlags {

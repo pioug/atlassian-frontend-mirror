@@ -1,17 +1,17 @@
+import type {
+  NodeCount,
+  PluginMethodReport,
+  PluginPerformanceReportData,
+  PluginsReport,
+} from '@atlaskit/editor-common/analytics';
+
 import { outlier } from './outlier';
 import {
+  EVENT_NAME_ON_CHANGE,
   EVENT_NAME_STATE_APPLY,
   EVENT_NAME_UPDATE_STATE,
-  EVENT_NAME_ON_CHANGE,
   EVENT_NAME_VIEW_STATE_UPDATED,
 } from './track-transactions';
-
-import {
-  PluginMethodReport,
-  PluginsReport,
-  NodeCount,
-  PluginPerformanceReportData,
-} from '@atlaskit/editor-common/analytics';
 
 export type {
   PluginMethodReport,

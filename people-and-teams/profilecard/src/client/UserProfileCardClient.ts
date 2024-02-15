@@ -49,6 +49,7 @@ export const modifyResponse = (
     nickname: data.nickname || undefined,
     companyName: data.companyName || undefined,
     timestring: data.remoteTimeString || undefined,
+    accountType: data.accountType || undefined,
   };
 };
 

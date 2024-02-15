@@ -31,21 +31,25 @@ import {
   SetEditorWidthError,
   SetMetadataError,
   SetTitleError,
-  NCS_ERROR_CODE,
-} from '../errors/error-types';
+} from '../errors/custom-errors';
+import { NCS_ERROR_CODE } from '../errors/ncs-errors';
 import { MetadataService } from '../metadata/metadata-service';
 import { DocumentService } from '../document/document-service';
 import { NamespaceService } from '../namespace/namespace-service';
 import { ParticipantsService } from '../participants/participants-service';
 import { errorCodeMapper } from '../errors/error-code-mapper';
-import type { InternalError } from '../errors/error-types';
+import type {
+  InternalError,
+  ViewOnlyStepsError,
+} from '../errors/internal-errors';
+import { INTERNAL_ERROR_CODE } from '../errors/internal-errors';
 import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import { getCollabProviderFeatureFlag } from '../feature-flags';
+import { Api } from '../api/api';
 
 const logger = createLogger('Provider', 'black');
 
 const OUT_OF_SYNC_PERIOD = 3 * 1000; // 3 seconds
-const PRELOAD_DRAFT_SYNC_PERIOD = 15 * 1000; // 15 seconds
 
 export const MAX_STEP_REJECTED_ERROR = 15;
 export const MAX_STEP_REJECTED_ERROR_AGGRESSIVE = 2;
@@ -56,6 +60,7 @@ type BaseEvents = Pick<
 >;
 
 export class Provider extends Emitter<CollabEvents> implements BaseEvents {
+  api: Api;
   private channel: Channel;
   private config: Config;
   private analyticsHelper?: AnalyticsHelper;
@@ -83,6 +88,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   private presenceUpdateTimeout?: number;
 
   private disconnectedAt?: number;
+  private sendStepsTimer?: NodeJS.Timer;
 
   private readonly participantsService: ParticipantsService;
   private readonly metadataService: MetadataService;
@@ -168,12 +174,14 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       this.onErrorHandled,
       this.metadataService,
       this.config.enableErrorOnFailedDocumentApply,
-      getCollabProviderFeatureFlag(
-        'sendStepsQueueFF',
-        this.config.featureFlags,
-      ),
     );
     this.namespaceService = new NamespaceService();
+    this.api = new Api(config, this.documentService, this.channel);
+
+    this.sendStepsTimer = setInterval(() => {
+      logger('Intervally sendStepsFromCurrentState');
+      this.documentService.sendStepsFromCurrentState(true);
+    }, 5000);
   }
 
   private initializeChannel = () => {
@@ -201,20 +209,13 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
         // Early initialization with initial draft passed via provider
         if (this.initialDraft && initialized && !this.isProviderInitialized) {
-          // Call catchup if the draft has become stale since being passed to provider
-          if (this.isDraftTimestampStale()) {
-            this.documentService.throttledCatchup();
-          }
-          // If the initial draft is already up to date, update the document with that of the initial draft
-          else {
-            const { document, version, metadata }: InitialDraft =
-              this.initialDraft;
-            this.updateDocumentAndMetadata({
-              doc: document,
-              version,
-              metadata,
-            });
-          }
+          const { document, version, metadata }: InitialDraft =
+            this.initialDraft;
+          this.updateDocumentAndMetadata({
+            doc: document,
+            version,
+            metadata,
+          });
         }
         // If already initialized, `connected` means reconnected
         if (
@@ -366,20 +367,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   }
 
   /**
-   * Checks the provider's initial draft timestamp to determine if it is stale.
-   * Returns true only if the time elapsed since the draft timestamp is greater than or
-   * equal to a predetermined timeout. Returns false in all other cases.
-   */
-  private isDraftTimestampStale(): boolean {
-    if (!this.initialDraft?.timestamp) {
-      return false;
-    }
-    return (
-      Date.now() - this.initialDraft.timestamp >= PRELOAD_DRAFT_SYNC_PERIOD
-    );
-  }
-
-  /**
    * Send steps from transaction to NCS (and as a consequence to other participants), called from the collab-edit plugin in the editor
    * @param {Transaction} _tr Deprecated, included to keep API consistent with Synchrony provider
    * @param {EditorState} _oldState Deprecated, included to keep API consistent with Synchrony provider
@@ -393,6 +380,13 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   ) {
     try {
       if (this.isViewOnly()) {
+        const error: ViewOnlyStepsError = {
+          message: 'Attempted to send steps in view only mode',
+          data: {
+            code: INTERNAL_ERROR_CODE.VIEW_ONLY_STEPS_ERROR,
+          },
+        };
+        this.analyticsHelper?.sendErrorEvent(error, error.message);
         return;
       }
       // Don't send steps while the document is locked (eg. when restoring the document)
@@ -428,9 +422,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     } else {
       this.analyticsHelper?.sendErrorEvent(error, 'Error handled');
       const mappedError = errorCodeMapper(error);
-      // Temporarily only emit errors to Confluence very intentionally because they will disconnect the collab provider
+      // Only emit errors to Confluence very intentionally because they will disconnect the collab provider
       if (mappedError) {
-        this.analyticsHelper?.sendErrorEvent(mappedError, 'Error emitted');
+        this.analyticsHelper?.sendProviderErrorEvent(mappedError);
         this.emit('error', mappedError);
       }
     }
@@ -438,10 +432,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
   private isViewOnly() {
     return (
-      getCollabProviderFeatureFlag(
-        'blockViewOnlyFF',
-        this.config.featureFlags,
-      ) &&
+      getCollabProviderFeatureFlag('blockViewOnly', this.config.featureFlags) &&
       this.permit &&
       // isPermittedToEdit or isPermittedToView can be undefined, must use `===` here.
       this.permit.isPermittedToEdit === false &&
@@ -512,6 +503,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     try {
       super.unsubscribeAll();
       this.channel.disconnect();
+
+      if (this.sendStepsTimer) {
+        clearInterval(this.sendStepsTimer);
+        this.sendStepsTimer = undefined;
+      }
     } catch (error) {
       this.analyticsHelper?.sendErrorEvent(
         error,

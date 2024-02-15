@@ -98,6 +98,22 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
       this.select = ref;
     };
 
+    componentDidMount(): void {
+      const descriptionId = this.props['aria-describedby'];
+      if (!this.props.isSearchable && descriptionId) {
+        // when isSearchable is false, react-select will create its own dummy input instead of using ours,
+        // so we need to manually add the additional aria-describedby using ref.
+        const input = this.select?.inputRef;
+        const ariaDescribedby = input?.getAttribute('aria-describedby');
+        if (!ariaDescribedby?.includes(descriptionId)) {
+          input?.setAttribute(
+            'aria-describedby',
+            `${ariaDescribedby} ${descriptionId}`,
+          );
+        }
+      }
+    }
+
     render() {
       const {
         styles,

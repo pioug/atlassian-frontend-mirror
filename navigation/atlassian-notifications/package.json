@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/atlassian-notifications",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Notifications for Atlassian products",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -24,7 +24,6 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Work Platform: Incoming Work",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous"
   },
   "dependencies": {
@@ -46,5 +45,12 @@
     "react",
     "ui"
   ],
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./Notifications": "./src/Notifications.tsx",
+    "./styles": "./src/styles.ts",
+    "./types": "./src/types.ts",
+    "./utils": "./src/utils.ts"
+  }
 }

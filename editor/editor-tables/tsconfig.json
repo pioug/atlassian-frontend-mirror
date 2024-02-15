@@ -7,7 +7,7 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "./docs/**/*.ts",
-    "./docs/**/*.tsx",
+    "./docs/**/*.tsx"
   ],
   "exclude": [
     "node_modules"

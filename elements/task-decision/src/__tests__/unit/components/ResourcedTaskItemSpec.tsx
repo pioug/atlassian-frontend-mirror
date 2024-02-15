@@ -1,17 +1,16 @@
 import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import FabricAnalyticsListener, {
   AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import ResourcedTaskItem from '../../../components/ResourcedTaskItem';
-import TaskItem from '../../../components/TaskItem';
 import { TaskDecisionProvider } from '../../../types';
 import { asMock } from '../_mock';
 
 describe('<ResourcedTaskItem/>', () => {
   let provider: TaskDecisionProvider;
-  let component: ReactWrapper<ResourcedTaskItem>;
   let analyticsWebClientMock: AnalyticsWebClient;
 
   beforeEach(() => {
@@ -32,25 +31,20 @@ describe('<ResourcedTaskItem/>', () => {
     };
   });
 
-  afterEach(() => {
-    if (component && component.length > 0) {
-      component.unmount();
-    }
-  });
-
   it('should wrap TaskItem', () => {
-    component = mount(
+    render(
       <ResourcedTaskItem taskId="task-1" objectAri="objectAri">
         Hello World
       </ResourcedTaskItem>,
     );
-    expect(component.find(TaskItem).length).toEqual(1);
+    const checkbox = screen.getByRole('checkbox');
+    expect(checkbox).toBeInTheDocument();
   });
 
   it('should render callback with ref', () => {
     let contentRef: HTMLElement | null = null;
     const handleContentRef = (ref: HTMLElement | null) => (contentRef = ref);
-    component = mount(
+    render(
       <ResourcedTaskItem
         taskId="task-id"
         objectAri="objectAri"
@@ -59,26 +53,25 @@ describe('<ResourcedTaskItem/>', () => {
         Hello <b>world</b>
       </ResourcedTaskItem>,
     );
-    expect(component.find('b').length).toEqual(1);
     expect(contentRef).not.toEqual(null);
-    expect(contentRef!.textContent).toEqual('Hello world');
+    expect(contentRef).toHaveTextContent('Hello world');
   });
 
-  it('should call onChange prop in change handling if no provider', () => {
+  it('should call onChange prop in change handling if no provider', async () => {
     const spy = jest.fn();
-    component = mount(
+    render(
       <ResourcedTaskItem taskId="task-id" objectAri="objectAri" onChange={spy}>
         Hello <b>world</b>
       </ResourcedTaskItem>,
     );
-    const input = component.find('input');
-    input.simulate('change');
+    const checkbox = screen.getByRole('checkbox');
+    await userEvent.click(checkbox);
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should call onChange prop in change handling if provider', () => {
+  it('should call onChange prop in change handling if provider', async () => {
     const spy = jest.fn();
-    component = mount(
+    render(
       <ResourcedTaskItem
         taskId="task-id"
         objectAri="objectAri"
@@ -88,96 +81,87 @@ describe('<ResourcedTaskItem/>', () => {
         Hello <b>world</b>
       </ResourcedTaskItem>,
     );
-    const input = component.find('input');
-    input.simulate('change');
-    return waitUntil(() => asMock(provider.toggleTask).mock.calls.length).then(
-      () => {
-        expect(spy).toHaveBeenCalled();
-      },
-    );
+    const checkbox = screen.getByRole('checkbox');
+    await userEvent.click(checkbox);
+    await waitUntil(() => asMock(provider.toggleTask).mock.calls.length);
+    expect(spy).toHaveBeenCalled();
   });
 
-  it('should still toggle isDone of TaskItem onChange without objectAri', () => {
-    component = mount(
+  it('should still toggle isDone of TaskItem onChange without objectAri', async () => {
+    render(
       <ResourcedTaskItem taskId="task-1" isDone={false}>
         Hello World
       </ResourcedTaskItem>,
     );
-    const input = component.find('input');
-    input.simulate('change');
-    expect(component.find(TaskItem).prop('isDone')).toEqual(true);
+    const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
+    await userEvent.click(checkbox);
+    expect(checkbox.checked).toBe(true);
   });
 
   it("should update ResourcedTaskItem 'component's `state.isDone` to match refreshed `props.isDone`", () => {
-    const component = mount<ResourcedTaskItem>(
+    const resultRender = render(
       <ResourcedTaskItem taskId="task-1" isDone={true}>
         Hello World
       </ResourcedTaskItem>,
     );
 
-    expect(component.state('isDone')).toEqual(true);
-    expect(component.find(TaskItem).prop('isDone')).toEqual(true);
-    expect(component.find(TaskItem).prop('children')).toEqual('Hello World');
+    const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
+    expect(checkbox.checked).toBe(true);
+    expect(screen.queryByText('Hello World')).toBeInTheDocument();
+    expect(screen.queryByText('Hello Universe')).not.toBeInTheDocument();
 
     // Change the props and re-render. This simulates a document refresh.
     // (e.g. the client refreshes _potentially_ stale top level document data from a remote location).
-    component.setProps({
-      isDone: false,
-      taskId: 'task-1',
-      children: 'Hello Universe',
-    });
+    resultRender.rerender(
+      <ResourcedTaskItem taskId="task-1" isDone={false}>
+        Hello Universe
+      </ResourcedTaskItem>,
+    );
 
-    expect(component.state('isDone')).toEqual(false);
-    expect(component.find(TaskItem).prop('isDone')).toEqual(false);
-    expect(component.find(TaskItem).prop('children')).toEqual('Hello Universe');
-
-    component.unmount();
+    expect(checkbox.checked).toBe(false);
+    expect(screen.queryByText('Hello World')).not.toBeInTheDocument();
+    expect(screen.queryByText('Hello Universe')).toBeInTheDocument();
   });
 
-  it("should not update ResourcedTaskItem 'component's `state.isDone` when `props.isDone` is not changing", () => {
-    const component = mount<ResourcedTaskItem>(
+  it("should not update ResourcedTaskItem 'component's `state.isDone` when `props.isDone` is not changing", async () => {
+    const resultRender = render(
       <ResourcedTaskItem taskId="task-1" isDone={true}>
         Hello World
       </ResourcedTaskItem>,
     );
+    const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
+    expect(checkbox.checked).toBe(true);
 
-    expect(component.state('isDone')).toEqual(true);
-    expect(component.find(TaskItem).prop('isDone')).toEqual(true);
-
-    const input = component.find('input');
-    // Simulate user change the checkbox and make the checkbox unchecked
-    input.simulate('change');
-
-    expect(component.state('isDone')).toEqual(false);
-    expect(component.find(TaskItem).prop('isDone')).toEqual(false);
-    expect(component.find(TaskItem).prop('children')).toEqual('Hello World');
+    await userEvent.click(checkbox);
+    expect(checkbox.checked).toBe(false);
+    expect(screen.queryByText('Hello World')).toBeInTheDocument();
+    expect(screen.queryByText('Hello Universe')).not.toBeInTheDocument();
 
     // Change the props and re-render. This simulates a document refresh.
     // (e.g. the client refreshes _potentially_ stale top level document data from a remote location).
-    component.setProps({
-      isDone: true,
-      taskId: 'task-1',
-      children: 'Hello Universe',
-    });
+    resultRender.rerender(
+      <ResourcedTaskItem taskId="task-1" isDone={true}>
+        Hello Universe
+      </ResourcedTaskItem>,
+    );
 
-    expect(component.state('isDone')).toEqual(false);
-    expect(component.find(TaskItem).prop('isDone')).toEqual(false);
-    expect(component.find(TaskItem).prop('children')).toEqual('Hello Universe');
-
-    component.unmount();
+    expect(checkbox.checked).toBe(false);
+    expect(screen.queryByText('Hello World')).not.toBeInTheDocument();
+    expect(screen.queryByText('Hello Universe')).toBeInTheDocument();
   });
 
   it('should not disable taskItem if no provider', () => {
-    component = mount(
+    render(
       <ResourcedTaskItem taskId="task-1" isDone={false}>
         Hello World
       </ResourcedTaskItem>,
     );
-    expect(component.find(TaskItem).prop('disabled')).toBeFalsy();
+    const checkbox = screen.getByRole('checkbox');
+    expect(checkbox).not.toBeDisabled();
   });
 
-  it('should subscribe to updates', () => {
-    component = mount(
+  it('should subscribe to updates', async () => {
+    render(
       <ResourcedTaskItem
         taskId="task-1"
         objectAri="objectAri"
@@ -186,15 +170,15 @@ describe('<ResourcedTaskItem/>', () => {
         Hello World
       </ResourcedTaskItem>,
     );
-    return waitUntil(
+    await waitUntil(
       () => (provider.subscribe as jest.Mock).mock.calls.length,
     ).then(() => {
       expect(provider.subscribe).toBeCalled();
     });
   });
 
-  it('should update on subscription callback to updates', () => {
-    component = mount(
+  it('should update on subscription callback to updates', async () => {
+    const resultRender = render(
       <ResourcedTaskItem
         taskId="task-1"
         objectAri="objectAri"
@@ -204,22 +188,31 @@ describe('<ResourcedTaskItem/>', () => {
         Hello World
       </ResourcedTaskItem>,
     );
-    return waitUntil(() => asMock(provider.subscribe).mock.calls.length)
-      .then(() => {
-        expect(provider.subscribe).toBeCalled();
-        expect(component.find(TaskItem).prop('isDone')).toBe(false);
-        const subscribeCallback = asMock(provider.subscribe).mock.calls[0][1];
-        subscribeCallback('DONE');
-        component.update();
-        return waitUntil(() => component.find(TaskItem).prop('isDone'));
-      })
-      .then(() => {
-        expect(component.find(TaskItem).prop('isDone')).toBe(true);
-      });
+
+    await waitUntil(() => asMock(provider.subscribe).mock.calls.length);
+    expect(provider.subscribe).toBeCalled();
+    const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
+    expect(checkbox.checked).toBe(false);
+
+    const subscribeCallback = asMock(provider.subscribe).mock.calls[0][1];
+    subscribeCallback('DONE');
+
+    resultRender.rerender(
+      <ResourcedTaskItem
+        taskId="task-1"
+        objectAri="objectAri"
+        taskDecisionProvider={Promise.resolve(provider)}
+        isDone={false}
+      >
+        Hello World
+      </ResourcedTaskItem>,
+    );
+
+    expect(checkbox.checked).toBe(true);
   });
 
-  it('should call "toggleTask" when toggled', () => {
-    component = mount(
+  it('should call "toggleTask" when toggled', async () => {
+    render(
       <ResourcedTaskItem
         taskId="task-1"
         objectAri="objectAri"
@@ -228,7 +221,9 @@ describe('<ResourcedTaskItem/>', () => {
         Hello World
       </ResourcedTaskItem>,
     );
-    component.find('input').simulate('change');
+    const checkbox = screen.getByRole('checkbox');
+    await userEvent.click(checkbox);
+
     return waitUntil(() => asMock(provider.toggleTask).mock.calls.length).then(
       () => {
         expect(provider.toggleTask).toBeCalled();
@@ -238,7 +233,7 @@ describe('<ResourcedTaskItem/>', () => {
 
   describe('showPlaceholder', () => {
     it('should render placeholder if task is empty', () => {
-      const component = mount(
+      render(
         <ResourcedTaskItem
           taskId="task-1"
           objectAri="objectAri"
@@ -248,12 +243,12 @@ describe('<ResourcedTaskItem/>', () => {
         />,
       );
       expect(
-        component.find('span[data-component="placeholder"]').length,
-      ).toEqual(1);
+        screen.queryByTestId('task-decision-item-placeholder'),
+      ).toBeInTheDocument();
     });
 
     it('should not render placeholder task if not empty', () => {
-      const component = mount(
+      render(
         <ResourcedTaskItem
           taskId="task-1"
           objectAri="objectAri"
@@ -265,21 +260,22 @@ describe('<ResourcedTaskItem/>', () => {
         </ResourcedTaskItem>,
       );
       expect(
-        component.find('span[data-component="placeholder"]').length,
-      ).toEqual(0);
+        screen.queryByTestId('task-decision-item-placeholder'),
+      ).not.toBeInTheDocument();
     });
   });
 
   describe('analytics', () => {
-    it('check action fires an event', () => {
-      const component = mount(
+    it('check action fires an event', async () => {
+      render(
         <FabricAnalyticsListener client={analyticsWebClientMock}>
           <ResourcedTaskItem taskId="task-1" objectAri="objectAri">
             Hello <b>world</b>
           </ResourcedTaskItem>
         </FabricAnalyticsListener>,
       );
-      component.find('input').simulate('change');
+      const checkbox = screen.getByRole('checkbox');
+      await userEvent.click(checkbox);
       expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledTimes(1);
       expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -293,8 +289,8 @@ describe('<ResourcedTaskItem/>', () => {
       );
     });
 
-    it('uncheck action fires an event', () => {
-      const component = mount(
+    it('uncheck action fires an event', async () => {
+      render(
         <FabricAnalyticsListener client={analyticsWebClientMock}>
           <ResourcedTaskItem
             taskId="task-1"
@@ -305,7 +301,8 @@ describe('<ResourcedTaskItem/>', () => {
           </ResourcedTaskItem>
         </FabricAnalyticsListener>,
       );
-      component.find('input').simulate('change');
+      const checkbox = screen.getByRole('checkbox');
+      await userEvent.click(checkbox);
       expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledTimes(1);
       expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledWith(
         expect.objectContaining({

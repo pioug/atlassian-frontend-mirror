@@ -1,27 +1,34 @@
 /** @jsx jsx */
 import React, { useContext } from 'react';
+
 import { css, jsx } from '@emotion/react';
 import Transition from 'react-transition-group/Transition';
-import { N30 } from '@atlaskit/theme/colors';
+
+import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
+import { ContextPanelConsumer, WidthContext } from '@atlaskit/editor-common/ui';
+import type { WidthPluginState } from '@atlaskit/editor-plugins/width';
+import type {
+  EditorState,
+  PluginKey,
+} from '@atlaskit/editor-prosemirror/state';
+import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
-  akEditorSwoopCubicBezier,
-  akEditorDefaultLayoutWidth,
-  akEditorWideLayoutWidth,
   akEditorBreakoutPadding,
   akEditorContextPanelWidth,
+  akEditorDefaultLayoutWidth,
+  akEditorSwoopCubicBezier,
+  akEditorWideLayoutWidth,
   ATLASSIAN_NAVIGATION_HEIGHT,
 } from '@atlaskit/editor-shared-styles';
-import { ContextPanelConsumer, WidthContext } from '@atlaskit/editor-common/ui';
-import WithPluginState from '../WithPluginState';
-import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
-import WithEditorActions from '../WithEditorActions';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { getChildBreakoutModes } from '../../utils/document';
-import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
+import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+
 import type EditorActions from '../../actions';
-import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
+import { getChildBreakoutModes } from '../../utils/document';
+import WithEditorActions from '../WithEditorActions';
+import WithPluginState from '../WithPluginState';
 
 export type Props = {
   visible: boolean;
@@ -252,10 +259,6 @@ export class SwappableContentArea extends React.PureComponent<
 // It might be that we need to inject the pluginInjectionApi
 // via context so that we can use it in this file (similar to
 // WithEditorActions). To be investigated further.
-import type {
-  PluginKey,
-  EditorState,
-} from '@atlaskit/editor-prosemirror/state';
 
 // @ts-ignore
 const widthPluginKey = {

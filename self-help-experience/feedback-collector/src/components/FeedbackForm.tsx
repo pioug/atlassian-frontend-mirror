@@ -58,6 +58,8 @@ interface Props {
   anonymousFeedback?: boolean;
   /** Optional custom label for select field */
   selectLabel?: string;
+  /** Optional custom label for TextArea when showTypeField is false*/
+  customTextAreaLabel?: string;
 }
 
 export interface OptionType {
@@ -82,6 +84,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
   anonymousFeedback,
   hasDescriptionDefaultValue,
   selectLabel,
+  customTextAreaLabel,
 }) => {
   const [canBeContacted, setCanBeContacted] =
     useState<FormFields['canBeContacted']>(false);
@@ -210,6 +213,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                     selectLabel ||
                     formatMessage(messages.selectionOptionDefaultLabel)
                   }
+                  isRequired
                 >
                   {({ fieldProps: { id, ...restProps } }) => (
                     <Select<OptionType>
@@ -242,7 +246,8 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                     label={
                       showTypeField
                         ? getFieldLabels(feedbackGroupLabels)[type]
-                        : null
+                        : customTextAreaLabel ||
+                          formatMessage(messages.defaultCustomTextAreaLabel)
                     }
                     isRequired
                     name="description"
@@ -252,10 +257,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                         {...fieldProps}
                         name="foo"
                         minimumRows={6}
-                        placeholder={
-                          summaryPlaceholder ||
-                          formatMessage(messages.summaryPlaceholder)
-                        }
+                        placeholder={summaryPlaceholder || undefined}
                         onChange={(e) => setDescription(e.target.value)}
                         value={description}
                       />

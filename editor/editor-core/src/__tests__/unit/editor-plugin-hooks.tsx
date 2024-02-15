@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
-import { ComposableEditor } from '../../composable-editor';
+
 import { render } from '@testing-library/react';
-import { basePlugin } from '@atlaskit/editor-plugin-base';
-import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type {
-  NextEditorPlugin,
   EditorAppearance,
+  NextEditorPlugin,
 } from '@atlaskit/editor-common/types';
+import { basePlugin } from '@atlaskit/editor-plugins/base';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
+
+import { ComposableEditor } from '../../composable-editor';
 
 const allAppearances: EditorAppearance[] = [
   'comment',

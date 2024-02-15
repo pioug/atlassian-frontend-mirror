@@ -8,6 +8,12 @@ export interface ContentProps {
   isCompact?: boolean;
 }
 
+/**
+ * Class name for selecting non-flexible block card content
+ *
+ * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-6878 Internal documentation for deprecation (no external access)}
+ * Using this selctor is deprecated as once the flexible block card feature flag is removed, this class will no longer be used.
+ */
 export const blockCardContentClassName = 'block-card-content';
 
 export const Content = ({ children, isCompact = false }: ContentProps) => (

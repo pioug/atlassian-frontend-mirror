@@ -1,39 +1,38 @@
 import { PanelType } from '@atlaskit/adf-schema';
-import { name } from '../../../version-wrapper';
-
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  doc,
-  p,
-  hr,
-  date,
-  text,
-  li,
-  mention,
-  decisionList,
-  decisionItem,
-  hardBreak,
-  mediaSingle,
-  media,
-  panel,
-} from '@atlaskit/editor-test-helpers/doc-builder';
-
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import schema from '@atlaskit/editor-test-helpers/schema';
-import { processRawFragmentValue } from '../../../utils/document';
-import {
-  isNodeEmpty,
-  hasVisibleContent,
-  isEmptyParagraph,
-  isEmptyDocument,
-  processRawValue,
-} from '@atlaskit/editor-common/utils';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import {
+  hasVisibleContent,
+  isEmptyDocument,
+  isEmptyParagraph,
+  isNodeEmpty,
+  processRawValue,
+} from '@atlaskit/editor-common/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  date,
+  decisionItem,
+  decisionList,
+  doc,
+  hardBreak,
+  hr,
+  li,
+  media,
+  mediaSingle,
+  mention,
+  p,
+  panel,
+  text,
+} from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import schema from '@atlaskit/editor-test-helpers/schema';
+
+import { processRawFragmentValue } from '../../../utils/document';
+import { name } from '../../../version-wrapper';
 
 describe(name, () => {
   describe('Utils -> Document', () => {
@@ -273,12 +272,12 @@ describe(name, () => {
           action: ACTION.DOCUMENT_PROCESSING_ERROR,
           actionSubject: ACTION_SUBJECT.EDITOR,
           eventType: EVENT_TYPE.OPERATIONAL,
-          nonPrivacySafeAttributes: expect.objectContaining({
-            errorStack: expect.stringContaining(
-              'RangeError: Unknown node type: blockqoute',
-            ),
-          }),
         });
+        expect(createAnalyticsEvent).not.toHaveBeenCalledWith(
+          expect.objectContaining({
+            nonPrivacySafeAttributes: expect.any(Object),
+          }),
+        );
       });
     });
 

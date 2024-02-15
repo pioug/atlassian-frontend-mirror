@@ -17,6 +17,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': 'Vaše změny se neuloží',
   'linkCreate.createForm.button.close': 'Zavřít',
   'linkCreate.createForm.button.create': 'Vytvořit',
-  'linkCreate.createForm.button.edit': 'Upravit',
+  'linkCreate.createForm.button.createAndOpen': 'Vytvořit + Otevřít',
   'linkCreate.modal.heading': 'Vytvořit novou položku',
 };

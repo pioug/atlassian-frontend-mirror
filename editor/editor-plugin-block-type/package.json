@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-block-type",
-  "version": "3.0.4",
+  "version": "3.0.23",
   "description": "BlockType plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -9,14 +9,12 @@
   },
   "atlassian": {
     "team": "Editor: Lego",
+    "singleton": true,
     "inPublicMirror": false,
     "releaseModel": "continuous",
-    "website": {
-      "name": "EditorPluginBlockType",
-      "category": "Components"
-    }
+    "runReact18": false
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -37,16 +35,17 @@
     "./styles": "./src/styles.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^34.0.0",
-    "@atlaskit/editor-common": "^76.23.0",
-    "@atlaskit/editor-plugin-analytics": "^0.3.0",
-    "@atlaskit/editor-prosemirror": "1.1.0",
-    "@atlaskit/editor-shared-styles": "^2.8.0",
-    "@atlaskit/editor-tables": "^2.3.0",
+    "@atlaskit/adf-schema": "^35.5.1",
+    "@atlaskit/editor-common": "^77.4.0",
+    "@atlaskit/editor-plugin-analytics": "^1.0.0",
+    "@atlaskit/editor-prosemirror": "3.0.0",
+    "@atlaskit/editor-shared-styles": "^2.9.0",
+    "@atlaskit/editor-tables": "^2.5.0",
     "@atlaskit/icon": "^22.0.0",
+    "@atlaskit/platform-feature-flags": "^0.2.5",
     "@atlaskit/prosemirror-input-rules": "^2.4.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -56,13 +55,12 @@
   },
   "devDependencies": {
     "@af/visual-regression": "*",
-    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
-    "@atlaskit/editor-plugin-quick-insert": "^0.2.0",
-    "@atlaskit/editor-plugin-type-ahead": "^0.7.0",
+    "@atlaskit/editor-plugin-quick-insert": "^1.0.0",
+    "@atlaskit/editor-plugin-type-ahead": "^1.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
@@ -105,5 +103,10 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
+  "platform-feature-flags": {
+    "platform.editor.allow-list-in-blockquote": {
+      "type": "boolean"
+    }
+  }
 }

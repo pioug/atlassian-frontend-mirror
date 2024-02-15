@@ -1,13 +1,15 @@
 import React from 'react';
+
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import * as FeatureFlagsPlugin from '@atlaskit/editor-plugins/feature-flags';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import ReactEditorView from '../../ReactEditorView';
-import * as FeatureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { createPreset } from '../../create-preset';
 
-jest.mock('@atlaskit/editor-plugin-feature-flags', () => ({
-  ...jest.requireActual('@atlaskit/editor-plugin-feature-flags'),
+import { createPreset } from '../../create-preset';
+import ReactEditorView from '../../ReactEditorView';
+
+jest.mock('@atlaskit/editor-plugins/feature-flags', () => ({
+  ...jest.requireActual('@atlaskit/editor-plugins/feature-flags'),
   featureFlagsPlugin: jest.fn(() => ({
     name: 'featureFlags',
     sharedState: {

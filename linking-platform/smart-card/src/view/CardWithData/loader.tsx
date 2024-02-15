@@ -30,7 +30,6 @@ export class CardWithDataRenderer extends React.PureComponent<CardProps> {
       onClick,
       onResolve,
       testId,
-      showActions,
       inlinePreloaderStyle,
     } = this.props;
     if (!data) {
@@ -49,7 +48,6 @@ export class CardWithDataRenderer extends React.PureComponent<CardProps> {
           onClick={onClick}
           onResolve={onResolve}
           testId={testId}
-          showActions={showActions}
         />
       );
     }

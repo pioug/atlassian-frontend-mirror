@@ -5,7 +5,8 @@ import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
+import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import ModalDialog, {
@@ -16,8 +17,8 @@ import ModalDialog, {
   ModalTransition,
 } from '../src';
 
-const containerStyles = css({
-  padding: token('space.200', '16px'),
+const containerStyles = xcss({
+  padding: 'space.200',
 });
 
 const titleStyles = css({
@@ -37,9 +38,11 @@ export default function ModalDemo() {
   );
 
   return (
-    <div css={containerStyles}>
-      <h4 css={titleStyles}>Units</h4>
-      <ButtonGroup>{units.map(btn)}</ButtonGroup>
+    <Box xcss={containerStyles}>
+      <h4 id="units-title" css={titleStyles}>
+        Units
+      </h4>
+      <ButtonGroup titleId="units-title">{units.map(btn)}</ButtonGroup>
 
       <ModalTransition>
         {height && (
@@ -59,6 +62,6 @@ export default function ModalDemo() {
           </ModalDialog>
         )}
       </ModalTransition>
-    </div>
+    </Box>
   );
 }

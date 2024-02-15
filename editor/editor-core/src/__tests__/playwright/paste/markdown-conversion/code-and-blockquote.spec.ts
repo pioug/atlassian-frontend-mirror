@@ -1,17 +1,16 @@
 import {
   EditorFloatingToolbarModel,
   EditorPasteModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  p,
-  doc,
+  blockquote,
   code,
   code_block,
-  blockquote,
+  doc,
+  p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { multiLineTextDocument } from '../__fixtures__/adf-document';

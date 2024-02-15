@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/conversation",
-  "version": "16.2.13",
+  "version": "16.2.18",
   "description": "DEPRECATED Render conversation threads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -23,7 +23,6 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Bitbucket: CoreX",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "continuous",
     "website": {
@@ -35,13 +34,13 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/avatar": "^21.4.0",
-    "@atlaskit/comment": "^10.8.0",
-    "@atlaskit/editor-common": "^76.23.0",
-    "@atlaskit/editor-core": "^189.4.0",
+    "@atlaskit/comment": "^10.9.0",
+    "@atlaskit/editor-common": "^77.4.0",
+    "@atlaskit/editor-core": "^192.1.0",
     "@atlaskit/reactions": "^22.5.0",
-    "@atlaskit/renderer": "^108.17.0",
+    "@atlaskit/renderer": "^109.4.0",
     "@babel/runtime": "^7.0.0",
     "date-fns": "^2.17.0",
     "lodash": "^4.17.21",
@@ -55,12 +54,15 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/util-data-test": "^17.8.0",
+    "@atlaskit/util-data-test": "^17.9.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@types/react-redux": "^5.0.0",
     "enzyme": "^3.10.0",
     "typescript": "~4.9.5"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "af:exports": {
+    ".": "./src/index.ts"
+  }
 }

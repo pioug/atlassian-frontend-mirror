@@ -1,33 +1,30 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { css } from '@emotion/react';
-// @ts-ignore: unused variable
-// prettier-ignore
-import { HTMLAttributes, ClassAttributes, ComponentClass } from 'react';
 
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 export const content = css`
   & div.toolsDrawer {
-    margin-top: 16px;
-    padding: 8px 16px;
+    margin-top: ${token('space.200', '16px')};
+    padding: ${token('space.100', '8px')} ${token('space.200', '16px')};
     background: ${N800};
 
     & label {
       display: flex;
       color: white;
       align-self: center;
-      padding-right: 8px;
+      padding-right: ${token('space.100', '8px')};
     }
 
     & button {
-      margin: 4px 0;
+      margin: ${token('space.050', '4px')} 0;
     }
   }
 
   & legend {
-    margin: 8px 0;
+    margin: ${token('space.100', '8px')} 0;
   }
 
   & input {

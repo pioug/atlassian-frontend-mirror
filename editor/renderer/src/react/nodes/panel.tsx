@@ -3,19 +3,14 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import TipIcon from '@atlaskit/icon/glyph/editor/hint';
 import { PanelType } from '@atlaskit/adf-schema';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
-  getPanelBackgroundDarkModeColors,
   panelSharedStylesWithoutPrefix,
   PanelSharedCssClassName,
 } from '@atlaskit/editor-common/panel';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import EmojiIcon from '@atlaskit/icon/glyph/editor/emoji';
 import EmojiItem from './emoji';
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { themed } from '@atlaskit/theme';
-import { ThemeProps } from '@atlaskit/theme/types';
 import {
   PanelInfoIcon,
   PanelSuccessIcon,
@@ -33,9 +28,9 @@ interface PanelStyledProps {
 const PanelStyled: React.FC<
   PanelStyledProps & React.HTMLAttributes<HTMLDivElement>
 > = ({ backgroundColor, hasIcon, ...props }) => {
-  let styles = (theme: ThemeProps['theme']) => css`
+  let styles = css`
     &.${PanelSharedCssClassName.prefix} {
-      ${panelSharedStylesWithoutPrefix({ theme })}
+      ${panelSharedStylesWithoutPrefix()}
 
       &[data-panel-type=${PanelType.CUSTOM}] {
         ${hasIcon ? '' : 'padding-left: 12px;'}
@@ -44,24 +39,18 @@ const PanelStyled: React.FC<
   `;
 
   if (props['data-panel-type'] === PanelType.CUSTOM && backgroundColor) {
-    styles = (theme: ThemeProps['theme']) => {
-      const tokenColor = hexToEditorBackgroundPaletteColor(backgroundColor);
-      const customStyle = themed({
-        dark: getPanelBackgroundDarkModeColors,
-        light: `background-color: ${tokenColor || backgroundColor};`,
-      })({ theme });
+    styles = css`
+      &.${PanelSharedCssClassName.prefix} {
+        ${panelSharedStylesWithoutPrefix()}
+      }
 
-      return css`
-        &.${PanelSharedCssClassName.prefix} {
-          ${panelSharedStylesWithoutPrefix({ theme })}
-        }
-
-        &[data-panel-type=${PanelType.CUSTOM}] {
-          ${customStyle};
-          ${hasIcon ? '' : 'padding-left: 12px;'}
-        }
-      `;
-    };
+      &[data-panel-type=${PanelType.CUSTOM}] {
+        background-color: ${hexToEditorBackgroundPaletteColor(
+          backgroundColor,
+        ) || backgroundColor};
+        ${hasIcon ? '' : 'padding-left: 12px;'}
+      }
+    `;
   }
 
   return (

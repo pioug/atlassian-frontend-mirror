@@ -47,3 +47,5 @@ export type {
 } from './smart-link-action-types';
 
 export { SmartLinkActionType, InvokeError } from './smart-link-action-types';
+
+export type { SupportedFeature } from './supported-feature';

@@ -1,18 +1,21 @@
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
 import React from 'react';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+
+import { replaceRaf } from 'raf-stub';
+import { createIntl } from 'react-intl-next';
+
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { ReactEditorView } from '../../ReactEditorView';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import { basePlugin } from '@atlaskit/editor-plugins/base';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { createIntl } from 'react-intl-next';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { basePlugin } from '@atlaskit/editor-plugin-base';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { replaceRaf } from 'raf-stub';
-import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+
+import { ReactEditorView } from '../../ReactEditorView';
 
 const portalProviderAPI: any = {
   render() {},
@@ -64,7 +67,7 @@ describe('ReactEditorView: plugin injection API', () => {
                       editorView = _editorView;
                       return {
                         update() {
-                          api?.one.sharedState.currentState();
+                          api?.one?.sharedState.currentState();
                         },
                       };
                     },
@@ -111,7 +114,7 @@ describe('ReactEditorView: plugin injection API', () => {
         'two',
         { dependencies: [typeof plugin1] }
       > = ({ api }) => {
-        api?.one.sharedState.onChange(fakefn);
+        api?.one?.sharedState.onChange(fakefn);
         return {
           name: 'two',
           pmPlugins: () => {
@@ -166,7 +169,7 @@ describe('ReactEditorView: plugin injection API', () => {
       'two',
       { dependencies: [typeof plugin1] }
     > = ({ api }) => {
-      api?.one.sharedState.onChange(fakefn);
+      api?.one?.sharedState.onChange(fakefn);
       return {
         name: 'two',
       };

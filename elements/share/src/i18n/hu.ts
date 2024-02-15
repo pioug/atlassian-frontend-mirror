@@ -19,6 +19,7 @@ export default {
   'fabric.elements.share.form.no-permissions': 'Nincs lehetőséged a megosztásra.',
   'fabric.elements.share.form.public.send': 'Publikus link küldése',
   'fabric.elements.share.form.public.share': 'Nyilvános link megosztása',
+  'fabric.elements.share.form.required-field.summary': 'A kötelező mezők csillaggal vannak megjelölve',
   'fabric.elements.share.form.retry': 'Újra',
   'fabric.elements.share.form.send': 'Küldés',
   'fabric.elements.share.form.share': 'Megosztás',

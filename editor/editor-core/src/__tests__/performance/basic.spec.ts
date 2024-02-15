@@ -1,4 +1,4 @@
-import { editorPerformanceTestCase as test, expect } from '@af/editor-libra';
+import { expect, editorPerformanceTestCase as test } from '@af/editor-libra';
 
 test.describe('@legacy-editor', () => {
   test.describe('Editor - Performance', () => {
@@ -9,6 +9,7 @@ test.describe('@legacy-editor', () => {
         },
         editorPerformanceTestOptions: {
           editorVersion: 'legacy',
+          performanceTestType: 'react-profile',
         },
       });
 

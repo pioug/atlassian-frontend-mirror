@@ -9,12 +9,18 @@ export type BasePrimitiveProps = {
   testId?: string;
 
   /**
+   * `data-testid` is strictly controlled through the `testId` prop.
+   * This lets consumers know that this data attribute will not be applied.
+   */
+  'data-testid'?: never;
+
+  /**
    * Apply a subset of permitted styles, powered by Atlassian Design System tokens.
    */
   xcss?: XCSS | Array<XCSS | false | undefined>;
 
   /**
-   * Accessible role
+   * Accessible role.
    */
   role?: string;
 };

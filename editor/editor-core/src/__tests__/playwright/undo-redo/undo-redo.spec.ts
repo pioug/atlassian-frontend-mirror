@@ -1,10 +1,9 @@
 import {
   EditorMainToolbarModel,
-  editorTestCase as test,
-  expect,
   EditorTypeAheadModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
@@ -13,7 +12,7 @@ import {
   taskList,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-test.describe('undo-redo ', () => {
+test.describe('undo-redo', () => {
   test.use({
     editorProps: {
       appearance: 'full-page',
@@ -55,8 +54,8 @@ test.describe('undo-redo ', () => {
     await expect(editor).toHaveDocument(doc(p('hello world')));
   });
 
-  test.describe('typeahead: ', () => {
-    test.describe('when undone twice after insert an item with the typeahead ', () => {
+  test.describe('typeahead:', () => {
+    test.describe('when undone twice after insert an item with the typeahead', () => {
       test('it should keep the focus in the editor', async ({ editor }) => {
         const toolbar = EditorMainToolbarModel.from(editor);
         const typeaheadModel = EditorTypeAheadModel.from(editor);
@@ -75,7 +74,7 @@ test.describe('undo-redo ', () => {
       });
     });
 
-    test.describe('when redone after insert an item with the typeahead ', () => {
+    test.describe('when redone after insert an item with the typeahead', () => {
       test('it should keep the focus in the editor', async ({ editor }) => {
         const toolbar = EditorMainToolbarModel.from(editor);
         const typeaheadModel = EditorTypeAheadModel.from(editor);

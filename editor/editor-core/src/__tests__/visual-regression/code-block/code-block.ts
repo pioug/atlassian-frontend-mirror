@@ -1,15 +1,16 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
-  initEditorWithAdf,
   Appearance,
+  initEditorWithAdf,
+  snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
-import { codeBlocks } from '../../__fixtures__/code-block/code-blocks';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import { codeBlocks } from '../../__fixtures__/code-block/code-blocks';
 import { tableHeaderCode } from '../../__fixtures__/code-block/table-code-header';
 
 describe('Code block:', () => {

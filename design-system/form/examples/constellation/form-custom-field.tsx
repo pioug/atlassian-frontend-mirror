@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Box } from '@atlaskit/primitives';
 
 import Form, { Field, FormFooter } from '../../src';

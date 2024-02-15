@@ -1,11 +1,15 @@
 /** @jsx jsx */
-import React, { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import React from 'react';
+
 import { css, jsx } from '@emotion/react';
+import type { Change } from 'diff';
+import { diffLines } from 'diff';
+
 import Button from '@atlaskit/button/standard-button';
 import TextArea from '@atlaskit/textarea';
+import { G75, N10, N40, N900, R75 } from '@atlaskit/theme/colors';
 import { codeFontFamily } from '@atlaskit/theme/constants';
-import { N900, N10, N40, G75, R75 } from '@atlaskit/theme/colors';
-import { diffLines, Change } from 'diff';
 
 const container = css`
   display: flex;

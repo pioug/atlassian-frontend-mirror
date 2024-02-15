@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import ArrowRight from '@atlaskit/icon/glyph/arrow-right';
 import MenuIcon from '@atlaskit/icon/glyph/menu';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
@@ -58,7 +58,7 @@ const PopupNestedExample = () => {
         <Button
           {...triggerProps}
           isSelected={isOpen}
-          iconBefore={<MenuIcon label="" />}
+          iconBefore={MenuIcon}
           onClick={() => setIsOpen(!isOpen)}
         >
           Menu

@@ -10,6 +10,7 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { unsafeOverflowAutoScrollForElements } from '../../../src/entry-point/unsafe-overflow/element';
 import { Axis, Edge, Side } from '../../../src/internal-types';
 import { axisLookup } from '../../../src/shared/axis';
+import { getInternalConfig } from '../../../src/shared/configuration';
 import { getOverElementHitbox } from '../../../src/shared/get-over-element-hitbox';
 import { mainAxisSideLookup } from '../../../src/shared/side';
 import {
@@ -35,6 +36,7 @@ setStartSystemTime();
 beforeEach(reset);
 
 const { child, parentScrollContainer } = setupBasicScrollContainer();
+const defaultConfig = getInternalConfig();
 
 beforeEach(() => {
   // setting some initial scroll so the element
@@ -83,6 +85,7 @@ const parentRect: DOMRect = parentScrollContainer.getBoundingClientRect();
 function getOverElementMainHitboxSize(edge: Edge) {
   const overElementHitbox = getOverElementHitbox[edge]({
     clientRect: parentRect,
+    config: defaultConfig,
   });
   const axis: Axis = mainAxisForSide[edge];
   const { mainAxis } = axisLookup[axis];

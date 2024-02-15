@@ -1,17 +1,13 @@
 import { asyncMap } from './utils';
 
-import { ProbedBlob, Uploadinator } from './domain';
+import { HashedBlob, Uploadinator } from './domain';
 
-const uploadinator: Uploadinator = (probedBlobs$, options) => {
-  const upload = (probedBlob: ProbedBlob) => {
-    if (!probedBlob.exists) {
-      return options.uploader(probedBlob).then(() => probedBlob);
-    } else {
-      return Promise.resolve(probedBlob);
-    }
+const uploadinator: Uploadinator = (blobs$, options) => {
+  const upload = (blob: HashedBlob) => {
+    return options.uploader(blob).then(() => blob);
   };
 
-  return probedBlobs$.pipe(asyncMap(upload, options.concurrency));
+  return blobs$.pipe(asyncMap(upload, options.concurrency));
 };
 
 export { uploadinator };

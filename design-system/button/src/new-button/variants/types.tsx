@@ -30,6 +30,8 @@ export type Spacing = 'compact' | 'default' | 'none';
 
 export type IconProp = React.ComponentType<IconProps>;
 
+export type IconSize = 'small' | 'large' | 'xlarge';
+
 // Similar to {...A, ...B}
 // 1. Remove all overlapping types from First
 // 2. Add properties from Second
@@ -40,55 +42,51 @@ type Combine<First, Second> = Omit<First, keyof Second> & Second;
 
 export type CommonButtonProps<TagName extends HTMLElement> = {
   /**
-   * Set the button to autofocus on mount
+   * Set the button to autofocus on mount.
    */
   autoFocus?: boolean;
   /**
-   * Used to 'overlay' something over a button. This is commonly used to display a loading spinner
+   * Used to 'overlay' something over a button. This is commonly used to display a loading spinner.
    */
   overlay?: React.ReactNode;
   /**
-   * Disable the button to prevent user interaction
+   * Disable the button to prevent user interaction.
    */
   isDisabled?: boolean;
   /**
-   * Indicates that the button is selected
+   * Indicates that the button is selected.
    */
   isSelected?: boolean;
   /**
-   * Handler to be called on blur
+   * Handler to be called on blur.
    */
   onBlur?: React.FocusEventHandler<TagName>;
   /**
-   * Handler to be called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details
+   * Handler to be called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.
    */
   onClick?: (
     e: React.MouseEvent<TagName>,
     analyticsEvent: UIAnalyticsEvent,
   ) => void;
   /**
-   * Handler to be called on focus
+   * Handler to be called on focus.
    */
   onFocus?: React.FocusEventHandler<TagName>;
   /**
-   * Controls the amount of padding in the button
+   * Controls the amount of padding in the button.
    */
   spacing?: Spacing;
   /**
-   * Text content to be rendered in the button. Required so that screen readers always have an accessible label provided for the button
-   */
-  children: React.ReactNode;
-  /**
-   * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    */
   testId?: string;
   /**
    * An optional name used to identify this component to press listeners. For example, interaction tracing. For more information,
-   * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration)
+   * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
    */
   interactionName?: string;
   /**
-   * Additional information to be included in the `context` of analytics events that come from button
+   * Additional information to be included in the `context` of analytics events that come from button.
    */
   analyticsContext?: Record<string, any>;
 };
@@ -123,7 +121,7 @@ export type AdditionalHTMLElementPropsExtender<
  */
 export type AdditionalButtonVariantProps = {
   /**
-   * The button style variation
+   * The button style variation.
    */
   appearance?: ButtonAppearance;
 };
@@ -143,24 +141,30 @@ export type CommonButtonVariantProps = AdditionalButtonVariantProps &
   CombinedButtonProps<
     HTMLButtonElement,
     AdditionalHTMLElementPropsExtender<
-      React.ButtonHTMLAttributes<HTMLButtonElement>
+      Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'>
     >
   >;
 
 /**
- * Common additional props for Link `<a>` Button variants
+ * Common additional props for Link `<a>` Button variants, including icon and default buttons
  */
-export type AdditionalLinkVariantProps<
+export type AdditionalCommonLinkVariantProps<
   RouterLinkConfig extends Record<string, any> = never,
 > = {
   /**
-   * The button style variation
-   */
-  appearance?: LinkButtonAppearance;
-  /**
-   * Provides a URL for link buttons. When using an AppProvider with a configured router link component, a `RouterLinkConfig` object type can be provided for advanced usage. See the [Link Button routing example](https://atlassian.design/components/button/button-new/examples#routing) for more details.
+   * Provides a URL for link buttons. When using an AppProvider with a configured router link component, a `RouterLinkConfig` object type can be provided for advanced usage. See the [Link Button routing example](/components/button/button-new/examples#routing) for more details.
    */
   href: string | RouterLinkConfig;
+};
+
+/**
+ * Additional props for default Link `<a>` Button variants
+ */
+export type AdditionalDefaultLinkVariantProps = {
+  /**
+   * The button style variation.
+   */
+  appearance?: LinkButtonAppearance;
 };
 
 /**
@@ -168,10 +172,10 @@ export type AdditionalLinkVariantProps<
  */
 export type CommonLinkVariantProps<
   RouterLinkConfig extends Record<string, any> = never,
-> = AdditionalLinkVariantProps<RouterLinkConfig> &
+> = AdditionalCommonLinkVariantProps<RouterLinkConfig> &
   CombinedButtonProps<
     HTMLAnchorElement,
     AdditionalHTMLElementPropsExtender<
-      Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
+      Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'children'>
     >
   >;

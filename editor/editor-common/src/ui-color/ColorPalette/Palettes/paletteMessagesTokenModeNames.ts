@@ -65,7 +65,7 @@ export const lightTextPaletteTooltipMessages = defineMessages({
   '#FF5630': {
     id: 'fabric.theme.red',
     defaultMessage: 'Red',
-    description: 'Name of a color',
+    description: 'Name of a color.',
   },
   '#FF991F': {
     id: 'fabric.theme.bold-orange',
@@ -383,7 +383,7 @@ export const lightChartsColorPaletteTooltipMessages = defineMessages({
   '#B65C02': {
     id: 'fabric.theme.bold-orange',
     defaultMessage: 'Bold orange',
-    description: 'Name of a color',
+    description: 'Name of a color.',
   },
   '#974F0C': {
     id: 'fabric.theme.bolder-orange',

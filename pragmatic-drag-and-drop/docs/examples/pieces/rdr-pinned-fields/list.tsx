@@ -6,8 +6,6 @@ import React, {
   useState,
 } from 'react';
 
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
 import { triggerPostMoveFlash } from '@atlaskit/pragmatic-drag-and-drop-flourish/trigger-post-move-flash';
 import {
   Edge,
@@ -15,6 +13,8 @@ import {
 } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 import { getReorderDestinationIndex } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/get-reorder-destination-index';
 import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
 import { Stack, xcss } from '@atlaskit/primitives';
 
 import { ListContext } from './context';

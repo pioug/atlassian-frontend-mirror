@@ -17,9 +17,11 @@ export default () => {
 
   return (
     <div css={wrapperStyles}>
-      <p>Basic:</p>
+      <label htmlFor="basic">Basic using a "ref"</label>
       <TextArea
         ref={ref}
+        name="basic"
+        id="basic"
         defaultValue="Lets play with ref !!"
         testId="refTestId"
       />

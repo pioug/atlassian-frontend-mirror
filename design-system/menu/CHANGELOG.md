@@ -1,5 +1,23 @@
 # @atlaskit/menu
 
+## 2.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.4
+
+### Patch Changes
+
+- [#58913](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58913) [`36796c121e2a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36796c121e2a) - [ux] This change includes heading role for HeadingItem and new prop `headingLevel` to specify the level of heading to be defined by assistive technologies.
+
+## 2.1.3
+
+### Patch Changes
+
+- [#58188](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58188) [`e15a2a9480ee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e15a2a9480ee) - update deprecation guidance for PopupMenuGroup
+
 ## 2.1.2
 
 ### Patch Changes

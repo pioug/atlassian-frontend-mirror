@@ -5,7 +5,7 @@ import { ReactNode, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { ConfluenceIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 
@@ -19,7 +19,7 @@ const MotionFadeBetweenElements = () => {
   return (
     <RetryContainer>
       <div css={containerStyles}>
-        <ButtonGroup>
+        <ButtonGroup label="Choose motion options">
           <Button
             onClick={() => setIndex((prev) => (prev + 1) % elements.length)}
           >
@@ -100,8 +100,8 @@ const elements = [
 ];
 
 const blockStyles = css({
-  top: 0,
-  left: 0,
+  insetBlockStart: 0,
+  insetInlineStart: 0,
 });
 
 const containerStyles = css({

@@ -1,5 +1,17 @@
 # @atlaskit/radio
 
+## 6.0.2
+
+### Patch Changes
+
+- [#71177](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71177) [`a82da4c52cfb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a82da4c52cfb) - Fix type bug where 'crossOrigin' appeared as a required prop for Radio
+
+## 6.0.1
+
+### Patch Changes
+
+- [#61610](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61610) [`6b5d817a38e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b5d817a38e9) - Expose a `testId` on `RadioGroup`. This applies `data-testid` to the root level element, as well as propagates the value to `Radio` children.
+
 ## 6.0.0
 
 ### Major Changes

@@ -1,10 +1,9 @@
 import {
-  EditorNodeContainerModel,
   EditorMainToolbarModel,
-  editorTestCase as test,
+  EditorNodeContainerModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { EditorProps } from '@atlaskit/editor-core';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

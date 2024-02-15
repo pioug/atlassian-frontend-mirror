@@ -7,6 +7,7 @@ import ExperimentController from '../src/ExperimentController';
 import { ExperimentEnrollmentConfig } from '../src/types';
 
 import { Control, VariantA, VariantB, Broken, Loader } from './_common';
+import { token } from '@atlaskit/tokens';
 
 export const createExperiment = (experimentKey: string) =>
   asExperiment(
@@ -35,7 +36,7 @@ export const createNestedExperiment = (
       parent: () => (
         <div>
           <div>Parent</div>
-          <div style={{ marginLeft: '10px' }}>
+          <div style={{ marginLeft: token('space.150', '12px') }}>
             {children.map((ChildExperiment: ComponentType, key: number) => (
               <ChildExperiment key={key} />
             ))}
@@ -45,7 +46,7 @@ export const createNestedExperiment = (
       child: () => (
         <div>
           <div>Child</div>
-          <div style={{ marginLeft: '10px' }}>
+          <div style={{ marginLeft: token('space.150', '12px') }}>
             {children.map((ChildExperiment: ComponentType, key: number) => (
               <ChildExperiment key={key} />
             ))}

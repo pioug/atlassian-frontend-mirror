@@ -1,11 +1,11 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import { token } from '@atlaskit/tokens';
-import { N50, N30, N0, DN30 } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { css } from '@emotion/react';
+
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { N0, N30, N50 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+
 import { createEditorContentStyle } from '../../src/ui/ContentStyles';
-import { ThemeProps } from '@atlaskit/theme/types';
 
 export const container = ({
   vertical,
@@ -52,16 +52,13 @@ export const column = ({ narrow }: { narrow?: boolean }) => css`
   margin-right: ${narrow ? '360px' : '0'};
 `;
 
-export const rail = (props: ThemeProps) => css`
+export const rail = () => css`
   position: absolute;
   height: 100%;
   top: 0;
   right: 0;
   bottom: 0;
-  background: ${themed({
-    light: token('elevation.surface', N0),
-    dark: token('elevation.surface', DN30),
-  })(props)};
+  background: ${token('elevation.surface', N0)};
 `;
 
 export const editorColumn = ({
@@ -107,6 +104,6 @@ export const textareaStyle = css`
 `;
 
 export const rendererPadding = (hasPadding: boolean) => css`
-  padding: 0 32px;
+  padding: 0 ${token('space.400', '32px')};
   padding-top: ${hasPadding ? '132px' : '0'};
 `;

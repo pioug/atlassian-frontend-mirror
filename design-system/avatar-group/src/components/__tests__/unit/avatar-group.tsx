@@ -173,7 +173,7 @@ describe('<AvatarGroup />', () => {
     );
   });
 
-  it('should set alt text on avatar images when name prop is provided', async () => {
+  it('should set accessible name for avatar images when name prop is provided', async () => {
     render(
       <AvatarGroup
         testId="test"
@@ -184,18 +184,15 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    const avatarGroup = screen.getByTestId('test--avatar-group');
-
-    const avatarLabelList = avatarGroup.querySelectorAll('img[alt]');
     // there are should be 3 avatar and 1 dropdown trigger button
-    expect(avatarLabelList).toHaveLength(3);
-
-    avatarLabelList.forEach((element, i) => {
-      expect(element).toHaveAttribute('alt', `Name ${i}`);
+    const avatarImgList = screen.getAllByRole('img');
+    expect(avatarImgList).toHaveLength(3);
+    avatarImgList.forEach((element, i) => {
+      expect(element).toHaveAccessibleName(`Name ${i}`);
     });
   });
 
-  it('should set aria-label on _buttons_ when label prop AND onClick are provided', async () => {
+  it('should set accessible name for buttons when label prop AND onClick are provided', async () => {
     render(
       <AvatarGroup
         testId="test"
@@ -210,18 +207,14 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    const avatarGroup = screen.getByTestId('test--avatar-group');
+    const avatarLabelList = screen.getAllByRole('button', { name: /Label / });
 
-    const avatarLabelList = avatarGroup.querySelectorAll('button[aria-label]');
-    // there are should be 3 avatar and 1 dropdown trigger button
+    // there should be 3 interactive avatars (and 1 dropdown trigger button,
+    // which will not be selected with the qbove query)
     expect(avatarLabelList).toHaveLength(3);
-
-    avatarLabelList.forEach((element, i) => {
-      expect(element).toHaveAttribute('aria-label', `Label ${i}`);
-    });
   });
 
-  it('should set aria-label on _anchors_ when label prop AND href are provided', async () => {
+  it('should set accessible name of _anchors_ when label prop AND href are provided', async () => {
     render(
       <AvatarGroup
         testId="test"
@@ -232,39 +225,12 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    const avatarGroup = screen.getByTestId('test--avatar-group');
-
-    const avatarLabelList = avatarGroup.querySelectorAll('a[aria-label]');
+    const avatarLabelList = screen.getAllByRole('link');
     // there are should be 3 avatar and 1 dropdown trigger button
     expect(avatarLabelList).toHaveLength(3);
 
     avatarLabelList.forEach((element, i) => {
-      expect(element).toHaveAttribute('aria-label', `Label ${i}`);
-    });
-  });
-
-  it('should not set aria-label on _spans_ if neither href or onClick are provided', async () => {
-    render(
-      <AvatarGroup
-        testId="test"
-        data={generateData({ avatarCount: 5, label: 'Label' })}
-        // While max count is 4 - 2 items will be moved into the overflow menu
-        // because the fourth item will now be the trigger itself!
-        maxCount={4}
-      />,
-    );
-
-    const avatarGroup = screen.getByTestId('test--avatar-group');
-
-    // there are should be no aria-labels applied on Avatars if they render a span as the parent
-    const avatarLabelList = avatarGroup.querySelectorAll('span[aria-label]');
-    expect(avatarLabelList).toHaveLength(0);
-
-    // However there will still be alt text on img elements if the `name` prop was used
-    const avatarImgList = avatarGroup.querySelectorAll('img[alt]');
-    expect(avatarImgList).toHaveLength(3);
-    avatarImgList.forEach((element, i) => {
-      expect(element).toHaveAttribute('alt', `Name ${i}`);
+      expect(element).toHaveAccessibleName(`Label ${i}`);
     });
   });
 
@@ -393,7 +359,7 @@ describe('<AvatarGroup />', () => {
     fireEvent.click(screen.getByTestId('test--overflow-menu--trigger'));
 
     expect(
-      screen.queryByTestId('test--avatar-group-item-3--avatar--inner'),
+      screen.getByTestId('test--avatar-group-item-3--avatar--inner'),
     ).toBeInTheDocument();
     expect(onClick).toHaveBeenCalled();
   });

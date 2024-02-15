@@ -2,6 +2,8 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
+import { token } from '@atlaskit/tokens';
+
 import { MacroFallbackComponent } from '../src/ui';
 
 export default function MacroFallbackComponentExample() {
@@ -24,7 +26,7 @@ export default function MacroFallbackComponentExample() {
 
   return (
     <IntlProvider locale="en">
-      <div style={{ padding: '50px' }}>
+      <div style={{ padding: `${token('space.600', '48px')}` }}>
         <MacroFallbackComponent
           createPromise={createPromise}
           eventDispatcher={eventDispatcher}

@@ -39,8 +39,10 @@ const rule = createLintRule({
             const defaultImport = node.specifiers.filter(
               (spec) => spec.type === 'ImportDefaultSpecifier',
             );
-            const { local } = defaultImport[0];
-            contextLocalIdentifier.push(local.name);
+            if (defaultImport.length) {
+              const { local } = defaultImport[0];
+              contextLocalIdentifier.push(local.name);
+            }
           }
         }
       },

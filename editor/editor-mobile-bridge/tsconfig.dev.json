@@ -42,6 +42,9 @@
       "path": "tsconfig.app.json"
     },
     {
+      "path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+    },
+    {
       "path": "../adf-utils/tsconfig.app.json"
     },
     {
@@ -66,13 +69,55 @@
       "path": "../editor-json-transformer/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-analytics/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-content-insertion/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-copy-button/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-date/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-decorations/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-editor-disabled/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-floating-toolbar/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-guideline/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-hyperlink/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-media/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-panel/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-selection/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-status/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-table/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-type-ahead/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-width/tsconfig.app.json"
     },
     {
       "path": "../editor-test-helpers/tsconfig.app.json"
@@ -97,9 +142,6 @@
     },
     {
       "path": "../../media/media-core/tsconfig.app.json"
-    },
-    {
-      "path": "../../media/media-integration-test-helpers/tsconfig.app.json"
     },
     {
       "path": "../../media/media-test-helpers/tsconfig.app.json"

@@ -30,7 +30,8 @@ describe('ShareButton', () => {
       let buttonProps: any = wrapper.find(Button).props();
 
       expect(buttonProps).toMatchObject(propsToBeProxied);
-      expect(wrapper.find(Button).prop('aria-expanded')).toEqual(false);
+      expect(wrapper.find(Button).prop('aria-expanded')).toEqual(undefined);
+      expect(wrapper.find(Button).prop('aria-haspopup')).toEqual('dialog');
 
       const newPropsToBeProxied: any = {
         appearance: 'warning',
@@ -42,7 +43,7 @@ describe('ShareButton', () => {
       buttonProps = wrapper.find(Button).props();
 
       expect(buttonProps).toMatchObject(newPropsToBeProxied);
-      expect(wrapper.find(Button).prop('aria-expanded')).toEqual(true);
+      expect(wrapper.find(Button).prop('aria-expanded')).toEqual(undefined);
     });
   });
 

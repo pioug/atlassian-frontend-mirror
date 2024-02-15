@@ -1,6 +1,6 @@
 import { tester } from '../../__tests__/utils/_tester';
+import { CSS_IN_JS_IMPORTS } from '../../utils/is-supported-import';
 import rule from '../index';
-import { SUPPORTED_IMPORTS } from '../is-supported-import';
 
 const createInvalidTestCasesForImport = (importName: string) => [
   {
@@ -600,9 +600,9 @@ tester.run('no-css-tagged-template-expression', rule, {
     `,
   ],
   invalid: [
-    ...createInvalidTestCasesForImport(SUPPORTED_IMPORTS.compiled),
-    ...createInvalidTestCasesForImport(SUPPORTED_IMPORTS.emotionReact),
-    ...createInvalidTestCasesForImport(SUPPORTED_IMPORTS.emotionCore),
-    ...createInvalidTestCasesForImport(SUPPORTED_IMPORTS.styledComponents),
+    ...createInvalidTestCasesForImport(CSS_IN_JS_IMPORTS.compiled),
+    ...createInvalidTestCasesForImport(CSS_IN_JS_IMPORTS.emotionReact),
+    ...createInvalidTestCasesForImport(CSS_IN_JS_IMPORTS.emotionCore),
+    ...createInvalidTestCasesForImport(CSS_IN_JS_IMPORTS.styledComponents),
   ],
 });

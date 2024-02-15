@@ -1,4 +1,8 @@
 import type {
+  MediaADFAttrs,
+  MediaInlineAttributes,
+} from '@atlaskit/adf-schema';
+import type {
   ProviderFactory,
   Providers,
 } from '@atlaskit/editor-common/provider-factory';
@@ -28,6 +32,11 @@ export type MediaStateStatus =
 export type MediaSingleWithType = 'pixel' | 'percentage';
 export interface MediaOptions {
   provider?: Providers['mediaProvider'];
+  /**
+   * @experimental
+   * Still under development. Use with caution.
+   */
+  allowMediaInlineImages?: boolean;
   allowMediaSingle?: boolean | MediaSingleOptions;
   allowMediaGroup?: boolean;
   customDropzoneContainer?: HTMLElement;
@@ -120,6 +129,7 @@ export type MediaFloatingToolbarOptions = {
   providerFactory?: ProviderFactory;
   allowResizing?: boolean;
   allowMediaInline?: boolean;
+  allowMediaInlineImages?: boolean;
   allowLinking?: boolean;
   allowAdvancedToolBarOptions?: boolean;
   allowResizingInTables?: boolean;
@@ -133,6 +143,8 @@ export type MediaDecorationSpec = {
   type: 'media';
   selected: boolean;
 };
+
+export type SupportedMediaAttributes = MediaADFAttrs | MediaInlineAttributes;
 
 export type ProsemirrorGetPosHandler = getPosHandlerNode;
 export type getPosHandler = getPosHandlerNode;

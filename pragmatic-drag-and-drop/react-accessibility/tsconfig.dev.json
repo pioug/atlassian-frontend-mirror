@@ -42,6 +42,9 @@
       "path": "../../design-system/dropdown-menu/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/ds-lib/tsconfig.app.json"
+    },
+    {
       "path": "../../../build/test-tooling/ssr/tsconfig.app.json"
     }
   ]

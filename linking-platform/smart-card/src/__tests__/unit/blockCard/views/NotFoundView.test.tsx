@@ -29,7 +29,7 @@ describe('Block card views - Not Found', () => {
     );
     const frame = getByTestId('not-found-view');
     expect(frame.textContent).toMatch(
-      /https:\/\/github.com\/changesets\/changesetsWe couldn't find the link. Check the url and try editing or paste again./,
+      /https:\/\/github.com\/changesets\/changesetsThe page doesn't exist or it may have changed after this link was added./,
     );
     const icon = getByTestId('not-found-view-warning-icon');
     expect(icon.getAttribute('aria-label')).toBe('not-found-warning-icon');

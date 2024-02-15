@@ -45,41 +45,33 @@ describe('canRenderDatasource()', () => {
     },
   );
 
-  describe('when using a real datasource id along with feature flag', () => {
-    ffTest(
-      'platform.linking-platform.datasource-jira_issues',
-      () => {
-        const returnValue = canRenderDatasource(
-          mockDatasourceParametersWithRealJiraId.id,
-        );
+  describe('when using a real datasource id', () => {
+    it('should return true for jira datasource id', () => {
+      const returnValue = canRenderDatasource(
+        mockDatasourceParametersWithRealJiraId.id,
+      );
 
-        expect(returnValue).toEqual(true);
-      },
-      () => {
-        const returnValue = canRenderDatasource(
-          mockDatasourceParametersWithRealJiraId.id,
-        );
+      expect(returnValue).toEqual(true);
+    });
 
-        expect(returnValue).toEqual(false);
-      },
-    );
+    describe('along with feature flag', () => {
+      ffTest(
+        'platform.linking-platform.datasource-assets_objects',
+        () => {
+          const returnValue = canRenderDatasource(
+            mockDatasourceParametersWithRealAssetsId.id,
+          );
 
-    ffTest(
-      'platform.linking-platform.datasource-assets_objects',
-      () => {
-        const returnValue = canRenderDatasource(
-          mockDatasourceParametersWithRealAssetsId.id,
-        );
+          expect(returnValue).toEqual(true);
+        },
+        () => {
+          const returnValue = canRenderDatasource(
+            mockDatasourceParametersWithRealAssetsId.id,
+          );
 
-        expect(returnValue).toEqual(true);
-      },
-      () => {
-        const returnValue = canRenderDatasource(
-          mockDatasourceParametersWithRealAssetsId.id,
-        );
-
-        expect(returnValue).toEqual(false);
-      },
-    );
+          expect(returnValue).toEqual(false);
+        },
+      );
+    });
   });
 });

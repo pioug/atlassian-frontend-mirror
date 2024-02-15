@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 import Popup from '../src';
@@ -17,15 +17,15 @@ const contentStyles = css({
 const headerStyles = css({
   padding: token('space.100', '8px'),
   position: 'absolute',
-  top: 0,
-  right: 0,
-  left: 0,
   backgroundColor: token('utility.elevation.surface.current', '#FFFFFF'),
-  borderBottom: `1px solid ${token('color.border', '#CCCCCC')}`,
+  borderBlockEnd: `1px solid ${token('color.border', '#CCCCCC')}`,
   boxShadow: token(
     'elevation.shadow.overflow',
     '0px 0px 8px rgba(9, 30, 66, 0.16)',
   ),
+  insetBlockStart: 0,
+  insetInlineEnd: 0,
+  insetInlineStart: 0,
 });
 
 const PopupSurfaceDetectionExample = () => {

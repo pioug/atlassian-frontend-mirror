@@ -10,14 +10,12 @@ import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema'
 import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
 import {
   CAPTION_PLACEHOLDER_ID,
   getMaxWidthForNestedNodeNext,
 } from '@atlaskit/editor-common/media-single';
-import type {
-  ContextIdentifierProvider,
-  MediaProvider,
-} from '@atlaskit/editor-common/provider-factory';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { browser, ErrorReporter } from '@atlaskit/editor-common/utils';
@@ -46,10 +44,9 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { UploadParams } from '@atlaskit/media-picker/types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import * as helpers from '../commands/helpers';
-import { updateMediaSingleNodeAttrs } from '../commands/helpers';
+import { updateMediaNodeAttrs } from '../commands/helpers';
 import type { MediaPluginOptions } from '../media-plugin-options';
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
 import type {
@@ -137,7 +134,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
   private view!: EditorView;
   private destroyed = false;
-  private contextIdentifierProvider?: ContextIdentifierProvider;
   private errorReporter: ErrorReporter;
   // @ts-ignore: private is OK
   private customPicker?: PickerFacade;
@@ -194,12 +190,12 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         this.setMediaProvider(provider),
     );
 
-    options.providerFactory.subscribe(
-      'contextIdentifierProvider',
-      this.onContextIdentifierProvider,
-    );
-
-    if (getBooleanFF('platform.editor.media.inline-image.base-support')) {
+    if (
+      mediaInlineImagesEnabled(
+        getMediaFeatureFlag('mediaInline', this.mediaOptions?.featureFlags),
+        this.mediaOptions?.allowMediaInlineImages,
+      )
+    ) {
       this.allowInlineImages = true;
     }
 
@@ -219,15 +215,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       },
     });
   }
-
-  onContextIdentifierProvider = async (
-    _name: string,
-    provider?: Promise<ContextIdentifierProvider>,
-  ) => {
-    if (provider) {
-      this.contextIdentifierProvider = await provider;
-    }
-  };
 
   setMediaProvider = async (mediaProvider?: Promise<MediaProvider>) => {
     if (!mediaProvider) {
@@ -376,6 +363,11 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     return;
   }
 
+  get contextIdentifierProvider() {
+    return this.pluginInjectionApi?.contextIdentifier?.sharedState.currentState()
+      ?.contextIdentifierProvider;
+  }
+
   /**
    * we insert a new file by inserting a initial state for that file.
    *
@@ -411,7 +403,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     switch (
       getMediaNodeInsertionType(
         state,
-        this.mediaOptions?.featureFlags,
+        this.mediaOptions,
         mediaStateWithContext.fileMimeType,
       )
     ) {
@@ -420,13 +412,14 @@ export class MediaPluginStateImplementation implements MediaPluginState {
           this.view,
           mediaStateWithContext,
           collection,
+          this.allowInlineImages,
           this.getInputMethod(pickerType),
         );
         break;
       case 'block':
         // read width state right before inserting to get up-to-date and define values
         const widthPluginState: WidthPluginState | undefined =
-          this.pluginInjectionApi?.width.sharedState.currentState();
+          this.pluginInjectionApi?.width?.sharedState.currentState();
         insertMediaSingleNode(
           this.view,
           mediaStateWithContext,
@@ -606,7 +599,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   }
 
   findMediaNode = (id: string): MediaNodeWithPosHandler | null => {
-    return helpers.findMediaSingleNode(this, id);
+    return helpers.findMediaNode(this, id);
   };
 
   private destroyAllPickers = (pickers: Array<PickerFacade>) => {
@@ -684,7 +677,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       return;
     }
 
-    return updateMediaSingleNodeAttrs(id, attrs)(view.state, view.dispatch);
+    return updateMediaNodeAttrs(id, attrs)(view.state, view.dispatch);
   };
 
   private collectionFromProvider(): string | undefined {

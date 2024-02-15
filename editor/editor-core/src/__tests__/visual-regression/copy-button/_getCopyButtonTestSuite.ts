@@ -1,14 +1,14 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import type { EditorProps } from '../../../types/editor-props';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
-  initEditorWithAdf,
   Appearance,
+  initEditorWithAdf,
+  snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import type { EditorProps } from '../../../types/editor-props';
 
 export async function _getCopyButtonTestSuite({
   nodeName,
@@ -45,8 +45,7 @@ export async function _getCopyButtonTestSuite({
       });
     });
 
-    //FIXES: Failed on https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2046480
-    it.skip('target node displays blue border when copy button is hovered', async () => {
+    it('target node displays blue border when copy button is hovered', async () => {
       await page.waitForSelector(nodeSelector);
       await page.click(nodeSelector);
       await page.waitForSelector(copyButtonSelector);

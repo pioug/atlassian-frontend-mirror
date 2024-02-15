@@ -14,7 +14,10 @@ export type IntlMessagesProviderProps = {
   /**
    * On first render the messages in IntlProvider will be undefined,
    * to prevent the missing translations error use defaultMessages to
-   * pass the default language messages object synchronously
+   * pass the default language messages object synchronously.
+   *
+   * Does not override the messages that are inherited from
+   * the parent `intl` provider, if there are any
    */
   defaultMessages?: I18NMessages;
   /**

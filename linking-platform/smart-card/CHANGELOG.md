@@ -1,5 +1,208 @@
 # @atlaskit/smart-card
 
+## 26.47.1
+
+### Patch Changes
+
+- [#71683](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71683) [`eff650c49a32`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eff650c49a32) - Add AI prism border to hover preview (behind platform.linking-platform.smart-card.hover-card-ai-summaries feature flag)
+- [#72180](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72180) [`268634b4c024`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/268634b4c024) - Removes two unshipped feature flags, platform.linking-platform.smart-card.fix-is-trusted-pop and platform.linking-platform.smart-card.iframes-allow-storage-access-by-user-activation
+- Updated dependencies
+
+## 26.47.0
+
+### Minor Changes
+
+- [#70641](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70641) [`ace1983306b8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ace1983306b8) - EDM-8787 Add useLegacyBlockCard prop to smart card
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.46.5
+
+### Patch Changes
+
+- [#71028](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71028) [`8b1c78df8102`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b1c78df8102) - AI Summary Preview component added
+- Updated dependencies
+
+## 26.46.4
+
+### Patch Changes
+
+- [#71105](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71105) [`5db622ca5865`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5db622ca5865) - Align cross join messages across smart card
+
+## 26.46.3
+
+### Patch Changes
+
+- [#70839](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70839) [`520f2cf9a4e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/520f2cf9a4e6) - Add AI summary state indicator component
+
+## 26.46.2
+
+### Patch Changes
+
+- [#70977](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70977) [`a75838cbc582`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a75838cbc582) - Add AISummary block to hover cards which includes the AISummary action. This block is enabled when isAdminHubAIEnabled is set to true on the card provider, the FF is enabled and the jsonld response includes the correct data.
+
+## 26.46.1
+
+### Patch Changes
+
+- [#69731](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69731) [`fc420fa28bcc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fc420fa28bcc) - Add AI prism border and icon component
+- [#69560](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69560) [`0c8262def83c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c8262def83c) - Add base AISummaryBlock for internal usage
+- Updated dependencies
+
+## 26.46.0
+
+### Minor Changes
+
+- [#68535](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68535) [`9d9c89e4ff0c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d9c89e4ff0c) - Implement smart-card actionOptions prop within editor and expose prop to editor and renderer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.45.3
+
+### Patch Changes
+
+- [#67731](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67731) [`6c4de5b272be`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6c4de5b272be) - [ux] add latest commit information to block and hover cards for BB files
+
+## 26.45.2
+
+### Patch Changes
+
+- [#67800](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67800) [`1791437d1cc2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1791437d1cc2) - Follow action feature flag cleanup
+
+## 26.45.1
+
+### Patch Changes
+
+- [#68194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68194) [`c1d4a8fecc4e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1d4a8fecc4e) - bump json-ld-types to version 3.11.0
+
+## 26.45.0
+
+### Minor Changes
+
+- [#66589](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66589) [`231edc908854`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/231edc908854) - Added new actionOptions prop and deprecated the showServerActions and showActions props. All client and server actions now show by default.
+
+## 26.44.2
+
+### Patch Changes
+
+- [#63677](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63677) [`f320c8ce5039`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f320c8ce5039) - This package has been added to the Jira push model.
+
+## 26.44.1
+
+### Patch Changes
+
+- [#66140](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66140) [`699994b1ab74`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/699994b1ab74) - Convert the InlineCard Frame to css object syntax to restore link color to the anchor.
+- Updated dependencies
+
+## 26.44.0
+
+### Minor Changes
+
+- [#65223](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65223) [`ff157d5f6c61`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ff157d5f6c61) - [ux] Removed the discovery pulse for the Jira status change action
+
+## 26.43.10
+
+### Patch Changes
+
+- [#64758](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64758) [`8b6f084929b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b6f084929b5) - Removed usages of enableHoverCardResolutionTracking in HoverCard
+- Updated dependencies
+
+## 26.43.9
+
+### Patch Changes
+
+- [#64339](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64339) [`edb8766adb9f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/edb8766adb9f) - Update content alignment for embed cards
+
+## 26.43.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.43.7
+
+### Patch Changes
+
+- [#63353](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63353) [`6e9371645615`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e9371645615) - Clean up of platform.linking-platform.smart-card.cross-join feature flag
+
+## 26.43.6
+
+### Patch Changes
+
+- [#63354](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63354) [`0b49755d1170`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0b49755d1170) - [ux] Include embed card frame as part of its width when frameStyle is set to "show" and show embed frame by default in renderer
+
+## 26.43.5
+
+### Patch Changes
+
+- [#61266](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61266) [`4a68d1b33be1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4a68d1b33be1) - Inject DropdownMenu in to block card ActionList for VR testing purposes
+
+## 26.43.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.43.3
+
+### Patch Changes
+
+- [#58228](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58228) [`49eac6976147`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49eac6976147) - Remove legacy theming logic from the Smart Card component.
+
+## 26.43.2
+
+### Patch Changes
+
+- [#59452](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59452) [`c069c37bbfb1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c069c37bbfb1) - Add delay property to flex-card action group
+
+## 26.43.1
+
+### Patch Changes
+
+- [#60015](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60015) [`7015b54914d8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7015b54914d8) - [ux] Clean up of "platform.linking-platform.smart-card.enable-block-card-clicks-opening-in-same-tab" FF
+
+## 26.43.0
+
+### Minor Changes
+
+- [#58979](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58979) [`5fda0e961b2c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5fda0e961b2c) - [ux] Added a new prop isHovering and styles for the border around inline smart card when the prop is true
+
+## 26.42.12
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 26.42.11
+
+### Patch Changes
+
+- [#58487](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58487) [`664b013871be`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/664b013871be) - Rename and refactoring after refresh design feature flag cleanup
+
+## 26.42.10
+
+### Patch Changes
+
+- [#57701](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57701) [`74bb477813d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/74bb477813d6) - update VR tests for actions lozenge
+- [#56913](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56913) [`0dca4d0184d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0dca4d0184d5) - Show an alternative message for 3P unauthorized view when `hasScopeOverrides` flag is set in the `meta`. This is to accomodate authorization which affects more than smart links.
+
+## 26.42.9
+
+### Patch Changes
+
+- [#57101](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57101) [`80da63d8b9d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80da63d8b9d5) - [ux] Feature flag cleanup (platform.linking-platform.smart-card.show-smart-links-refreshed-design) for Smart Links refresh design. This surfaces rounder corner and styling changes on Smart Links.
+- Updated dependencies
+
+## 26.42.8
+
+### Patch Changes
+
+- [#43494](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43494) [`7c59a134595`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c59a134595) - [ux] Show inline card upgrade discoverability overlay on insertion. The functionality behind the inline switcher feature flag
+
 ## 26.42.7
 
 ### Patch Changes

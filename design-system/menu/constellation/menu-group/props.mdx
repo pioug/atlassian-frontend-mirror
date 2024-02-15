@@ -2,10 +2,12 @@
 title: Menu group
 description: A generic menu group for rendering menus within navigation elements.
 order: 1
+props:
+  packageName: '@atlaskit/menu'
+  exports:
+    - MenuGroup
 ---
-
-import MenuGroupProps from '!!extract-react-types-loader!../../src/menu-section/menu-group';
 
 ## Props
 
-<PropsTable heading="" props={MenuGroupProps} />
+<TSMorphProps exportName="MenuGroup" packageName="@atlaskit/menu" />

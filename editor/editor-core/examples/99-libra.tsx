@@ -1,12 +1,16 @@
 import React, { Profiler } from 'react';
+
 //import ReactDOM from 'react-dom';
 // @ts-expect-error TS7016: Could not find a declaration file for module 'react-dom/profiling'
 import ReactDOM from 'react-dom/profiling';
+
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import type EditorActions from '../src/actions';
 import Editor from '../src/editor';
 import type { EditorProps } from '../src/types/editor-props';
-import type EditorActions from '../src/actions';
+import { version } from '../src/version-wrapper';
 
 interface TestExtensionProviders {
   extensionFrameManifest?: boolean;
@@ -49,6 +53,7 @@ type WindowForTesting = Window & {
   __unmountEditor?: () => Array<LibraReactPerformanceEntry>;
   __editorView?: EditorView | null;
   __TextSelection?: TextSelection | null;
+  __buildInfo?: { EDITOR_VERSION?: string } | null;
 };
 
 const RawEditor = (props: EditorProps) => {
@@ -71,7 +76,6 @@ const RawEditor = (props: EditorProps) => {
 
 function createEditorExampleForTests() {
   const win = window as WindowForTesting;
-
   if (win.__mountEditor) {
     return;
   }
@@ -128,11 +132,11 @@ function createEditorExampleForTests() {
 
   win.__mountEditor = mountEditor;
   win.__unmountEditor = unmountEditor;
+  win.__buildInfo = { EDITOR_VERSION: version };
 }
 
 export default function EditorExampleForIntegrationTests() {
   React.useLayoutEffect(() => {
-    console.log('LOL: mounting');
     createEditorExampleForTests();
   }, []);
 

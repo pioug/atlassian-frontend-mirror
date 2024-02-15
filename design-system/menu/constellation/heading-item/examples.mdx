@@ -4,8 +4,17 @@ description: For rendering a heading inside a section.
 order: 0
 ---
 
-import HeadingItem from '../../examples/constellation/heading-item-default';
+import HeadingItemDefault from '../../examples/constellation/heading-item-default';
+import HeadingItemLeveling from '../../examples/constellation/heading-item-leveling';
+
+## Default heading
 
 Used to render a heading inside of a `Section` component.
 
-<Example Component={HeadingItem} packageName="@atlaskit/menu" />
+<Example Component={HeadingItemDefault} packageName="@atlaskit/menu" />
+
+## Specifying heading level
+
+Using `headingLevel` prop to specify the level of the heading.
+
+<Example Component={HeadingItemLeveling} packageName="@atlaskit/menu" />

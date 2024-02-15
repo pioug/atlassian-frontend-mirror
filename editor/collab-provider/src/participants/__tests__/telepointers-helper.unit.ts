@@ -8,8 +8,11 @@ import {
   UFOExperience,
 } from '@atlaskit/ufo';
 import { AcknowledgementResponseTypes } from '../../types';
-import { ProviderParticipant, StepJson } from '@atlaskit/editor-common/collab';
-import type { InternalError } from '../../errors/error-types';
+import type {
+  ProviderParticipant,
+  StepJson,
+} from '@atlaskit/editor-common/collab';
+import type { InternalError } from '../../errors/internal-errors';
 
 jest.mock('@atlaskit/ufo');
 

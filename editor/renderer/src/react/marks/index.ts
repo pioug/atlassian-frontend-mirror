@@ -1,5 +1,5 @@
-import { ComponentType } from 'react';
-import { Mark } from '@atlaskit/editor-prosemirror/model';
+import type { ComponentType } from 'react';
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import Code from './code';
 import Em from './em';
 import Link from './link';
@@ -16,6 +16,7 @@ import UnsupportedNodeAttribute from './unsupportedNodeAttribute';
 import DataConsumer from './data-consumer';
 import FragmentMark from './fragment';
 import Annotation, { isAnnotationMark } from './annotation';
+import Border from './border';
 
 // Stage0
 import ConfluenceInlineComment from './confluence-inline-comment';
@@ -30,6 +31,7 @@ export const markToReact: { [key: string]: ComponentType<any> } = {
   textColor: TextColor,
   underline: Underline,
   annotation: Annotation,
+  border: Border,
 
   // Stage0
   confluenceInlineComment: ConfluenceInlineComment,
@@ -57,6 +59,7 @@ export {
   Underline,
   Breakout,
   Annotation,
+  Border,
   UnsupportedMark,
   isAnnotationMark,
   UnsupportedNodeAttribute,

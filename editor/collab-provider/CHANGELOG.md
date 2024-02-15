@@ -1,5 +1,200 @@
 # @atlaskit/collab-provider
 
+## 9.22.7
+
+### Patch Changes
+
+- [#71133](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71133) [`22d7f6ed1f02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/22d7f6ed1f02) - revert prosemirror-collab unfork
+
+## 9.22.6
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+
+## 9.22.5
+
+### Patch Changes
+
+- [#70399](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70399) [`01a501a213a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01a501a213a4) - ESS-4082: cleanup sendStepsQueue FF
+
+## 9.22.4
+
+### Patch Changes
+
+- [#70152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70152) [`53ed3673df28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53ed3673df28) - Updating adf-schema version to 35.5.1
+
+## 9.22.3
+
+### Patch Changes
+
+- [#69702](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69702) [`044e7e14a253`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/044e7e14a253) - Include status in 423 document locked error object emitted to Confluence
+
+## 9.22.2
+
+### Patch Changes
+
+- [#69192](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69192) [`343f11caf70c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/343f11caf70c) - ESS-4173: add tests for commitStepQueue
+- [#69931](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69931) [`cfc9225ee4f1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cfc9225ee4f1) - Revert change to skip catchup for jcollab
+
+## 9.22.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.22.0
+
+### Minor Changes
+
+- [#67221](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67221) [`913c874e0566`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/913c874e0566) - exclude presence (jcollab) from calling catchup on reconnect
+
+## 9.21.3
+
+### Patch Changes
+
+- [#66028](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66028) [`184aba7e4984`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/184aba7e4984) - fix the auth payload when no permission token
+
+## 9.21.2
+
+### Patch Changes
+
+- [#65800](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65800) [`7fe1789ade99`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7fe1789ade99) - Add UGC free logs for error messages
+- Updated dependencies
+
+## 9.21.1
+
+### Patch Changes
+
+- [#65031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65031) [`a00094111b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a00094111b5a) - ED-21609 Update adf-schema to 35.3.0
+- Updated dependencies
+
+## 9.21.0
+
+### Minor Changes
+
+- [#63832](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63832) [`9fa0bec86202`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9fa0bec86202) - Expose Comment API through collab provider
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.20.7
+
+### Patch Changes
+
+- [#63759](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63759) [`ebfe2794e306`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ebfe2794e306) - Add error for view only steps
+
+## 9.20.6
+
+### Patch Changes
+
+- [#62968](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62968) [`53208d15e680`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53208d15e680) - NO-ISSUE Unforked the ProseMirror collab library
+
+## 9.20.5
+
+### Patch Changes
+
+- [#62165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62165) [`b44ac0968d79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b44ac0968d79) - [ED-21562] Bump @atlaskit/adf-schema to 35.2.0 for border mark update
+
+## 9.20.4
+
+### Patch Changes
+
+- [#60808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60808) [`f509a21be124`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f509a21be124) - ED-21506: @atlaskit/adf-schema upgraded to 35.1.1 to support renderer for MBE
+
+## 9.20.3
+
+### Patch Changes
+
+- [#60651](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60651) [`20f3c9bb7b87`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20f3c9bb7b87) - ESS-4207: cleanup unused FF
+
+## 9.20.2
+
+### Patch Changes
+
+- [#59996](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59996) [`54a1d6088412`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/54a1d6088412) - Correct toString function
+
+## 9.20.1
+
+### Patch Changes
+
+- [#58246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58246) [`a381b2599716`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a381b2599716) - ED-21371 Update adf-schema to 35.1.0
+
+## 9.20.0
+
+### Minor Changes
+
+- [#60038](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60038) [`b1b34b86ab59`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b1b34b86ab59) - verify clientIds from serverStepMaps to avoid content duplication
+
+## 9.19.0
+
+### Minor Changes
+
+- [#58777](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58777) [`f28d4e12e540`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f28d4e12e540) - Added PROSEMIRROR_SCHEMA_VALIDATION_ERROR from NCS
+
+## 9.18.4
+
+### Patch Changes
+
+- [#58848](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58848) [`ec070585b78d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec070585b78d) - fix the FF keys
+
+## 9.18.3
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 9.18.2
+
+### Patch Changes
+
+- [#58763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58763) [`0fdbd64522bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fdbd64522bf) - update ADF schema
+
+## 9.18.1
+
+### Patch Changes
+
+- [#58105](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58105) [`515950be7f0b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/515950be7f0b) - Split errors into multiple files
+
+## 9.18.0
+
+### Minor Changes
+
+- [#57982](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57982) [`858a68983294`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/858a68983294) - removing catchup logic for stale draft
+
+## 9.17.5
+
+### Patch Changes
+
+- [#57454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57454) [`3f18e6719122`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f18e6719122) - Add provider error code logging
+
+## 9.17.4
+
+### Patch Changes
+
+- [#57317](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57317) [`d989b4568594`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d989b4568594) - ESS-4149: Add send steps queue under FF
+- Updated dependencies
+
+## 9.17.3
+
+### Patch Changes
+
+- [#56940](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56940) [`e862ee8c3290`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e862ee8c3290) - Add success analytics for updating document
+- [#57024](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/57024) [`4807b15145e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4807b15145e2) - Update commented link for update document action
+
+## 9.17.2
+
+### Patch Changes
+
+- [#56790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56790) [`ff577a7969d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff577a7969d4) - ED-21266: Updated @atlaskit/adf-schema to 34.0.1
+
+## 9.17.1
+
+### Patch Changes
+
+- [#56635](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56635) [`92410fab43c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92410fab43c6) - Update comment linking to data portal
+
 ## 9.17.0
 
 ### Minor Changes

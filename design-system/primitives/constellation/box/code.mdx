@@ -2,6 +2,10 @@
 title: Box
 description: A box is a generic container that provides managed access to design tokens.
 order: 1
+props:
+  packageName: '@atlaskit/primitives'
+  exports:
+    - Box
 ---
 
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
@@ -12,8 +16,6 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
   directoryName="primitives"
 />
 
-import ERTBox from '!!extract-react-types-loader!../../extract-react-types/box-props';
-
 ## Props
 
-<PropsTable heading="" props={ERTBox} />
+<TSMorphProps exportName="Box" packageName="@atlaskit/primitives" />

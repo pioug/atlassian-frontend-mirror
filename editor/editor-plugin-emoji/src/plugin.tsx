@@ -245,10 +245,12 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
       if (!editorState) {
         return undefined;
       }
-      const emojiPluginState = emojiPluginKey.getState(editorState);
+      const { emojiResourceConfig, asciiMap } =
+        emojiPluginKey.getState(editorState) ?? {};
 
       return {
-        ...emojiPluginState,
+        emojiResourceConfig,
+        asciiMap,
         typeAheadHandler: typeAhead,
       };
     },
@@ -279,7 +281,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
           icon: () => <IconEmoji />,
           action(insert, state) {
             const tr = insert(undefined);
-            api?.typeAhead.actions.openAtTransaction({
+            api?.typeAhead?.actions.openAtTransaction({
               triggerHandler: typeAhead,
               inputMethod: INPUT_METHOD.QUICK_INSERT,
             })(tr);

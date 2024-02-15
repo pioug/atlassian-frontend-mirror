@@ -42,9 +42,9 @@ describe('Indentation buttons state', () => {
     const indentationState = getIndentationButtonsState(
       editorView.state,
       true,
-      editorAPI?.taskDecision.sharedState.currentState(),
-      editorAPI?.indentation.sharedState.currentState(),
-      editorAPI?.list.actions?.isInsideListItem as (
+      editorAPI?.taskDecision?.sharedState.currentState(),
+      editorAPI?.indentation?.sharedState.currentState(),
+      editorAPI?.list?.actions?.isInsideListItem as (
         tr: Transaction,
       ) => boolean | undefined,
     );

@@ -14,7 +14,7 @@ import InlineEditStateless from '../../examples/constellation/inline-edit-statel
 
 ## Default
 
-Inline edit is a wrapper around a custom input component such as a [text field](/components/textfield/). It starts in a read-only view called `readView` and users can click the field to edit it.
+Inline edit is a wrapper around a custom input component such as a [text field](/components/textfield/). It starts in a read-only view called `readView` and people can activate the field to edit it.
 
 To prevent an inconsistent transition between read and edit mode, pass in custom `readView` and `editView` as props. Not doing this will result in
 a buggy user experience where the inline edit views do not align.
@@ -28,6 +28,8 @@ If you need a standard editable text field with the views already set up, consid
 <Example Component={InlineEditDefault} packageName="@atlaskit/inline-edit" />
 
 ### Text area
+
+The text area example uses `keepEditViewOpenOnBlur`. When set to true, inline edit stays in editing when blurred (when the user clicks or moves away). This is recommended for larger areas of text to help prevent people from accidentally discarding or saving their unfinished work.
 
 <Example
   Component={InlineEditCustomTextarea}
@@ -54,9 +56,9 @@ When using a [text field](/components/textfield/examples), the font size can be 
 
 Action buttons include a confirm (checkmark) and a cancel (cross) button. These indicate the completion of editing and the cancellation of editing respectively.
 
-Use `hideActionButtons` to remove the buttons and leave the field by itself. Use this when the action buttons obstruct other contents below - this is commonly seen on mobile.
+Use `hideActionButtons` to remove the buttons and leave the field by itself. Use this when the action buttons obstruct other contents below. For example, on mobile devices.
 
-If there is no obstruction, keep action buttons for accessibility purposes. The contents in the field are saved when the user navigates away from the element.
+If there's no obstruction, keep action buttons for accessibility purposes. The contents in the field are saved when the user navigates away from the element, but this isn't immediately obvious on its' own.
 
 <Example
   Component={InlineEditNoActionButtons}
@@ -86,7 +88,7 @@ Try to keep the helper text as short as possible. For complex information, provi
 
 ## Required field
 
-Set `isRequired` when an inline edit field needs to be filled out.
+Set `isRequired` when an inline edit field needs to be filled out to continue.
 
 <Example
   Component={InlineEditRequiredField}

@@ -16,22 +16,26 @@ const rootStyles = css({
   display: 'block',
 });
 
+export const parseRichText = (value: RichText): string | null => {
+  try {
+    if (value.type === 'adf') {
+      const adf = JSON.parse(value.text) as DocNode;
+      return PMNode.fromJSON(defaultSchema, {
+        ...adf,
+        content: [...adf.content.slice(0, 2)],
+      }).textContent;
+    }
+    return null;
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error('error parsing adf', e);
+    return null;
+  }
+};
+
 const RichTextType = ({ value }: { value: RichText }) => {
   const adfPlainText = useMemo(() => {
-    try {
-      if (value.type === 'adf') {
-        const adf = JSON.parse(value.text) as DocNode;
-        return PMNode.fromJSON(defaultSchema, {
-          ...adf,
-          content: [...adf.content.slice(0, 2)],
-        }).textContent;
-      }
-      return null;
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error('error parsing adf', e);
-      return null;
-    }
+    return parseRichText(value);
   }, [value]);
 
   if (adfPlainText) {

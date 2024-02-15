@@ -1,14 +1,15 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { selectElementWithText } from '@atlaskit/editor-test-helpers/page-objects/editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
-  initEditorWithAdf,
   Appearance,
+  initEditorWithAdf,
+  snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import tableAdf from './__fixtures__/table-headers-with-headings.adf.json';
 
 describe('Table headers with headings', () => {

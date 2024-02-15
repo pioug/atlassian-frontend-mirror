@@ -7,8 +7,15 @@ import {
 
 import { NextPageType } from '../../hooks/useDatasourceTableState';
 
+export type DatasourceTypeWithOnlyValues = {
+  [K in DatasourceType['type']]: {
+    type: K;
+    values: Extract<DatasourceType, { type: K }>['value'][];
+  };
+}[DatasourceType['type']];
+
 export type TableViewPropsRenderType = (
-  item: DatasourceType,
+  item: DatasourceTypeWithOnlyValues,
 ) => React.ReactNode;
 
 export interface ColumnSizesMap {

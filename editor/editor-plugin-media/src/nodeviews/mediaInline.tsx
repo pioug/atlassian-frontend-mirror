@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { MediaInlineImageCard } from '@atlaskit/editor-common/media-inline';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
@@ -16,6 +17,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { MediaInlineCard } from '@atlaskit/media-card';
 import type { FileIdentifier } from '@atlaskit/media-client';
+import { getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
 
@@ -26,6 +28,7 @@ import type {
   getPosHandlerNode,
   getPosHandler as ProsemirrorGetPosHandler,
 } from '../types';
+import { isImage } from '../utils/is-type';
 
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 import { MediaInlineNodeSelector } from './styles';
@@ -128,7 +131,7 @@ export const MediaInline: React.FC<MediaInlineProps> = props => {
     }
   };
 
-  const { id, collection } = props.node.attrs;
+  const { id, collection, type, alt, width, height } = props.node.attrs;
   const identifier: FileIdentifier = {
     id,
     mediaItemType: 'file',
@@ -144,6 +147,28 @@ export const MediaInline: React.FC<MediaInlineProps> = props => {
    */
   if (!viewMediaClientConfig || isContextIdUnsync) {
     return <MediaInlineCardLoadingView message="" isSelected={false} />;
+  }
+
+  const { allowInlineImages } = props.mediaPluginState;
+  const borderMark = props.node?.marks?.find(
+    mark => mark.type.name === 'border',
+  );
+
+  if (allowInlineImages && isImage(type)) {
+    return (
+      <MediaInlineImageCard
+        mediaClient={getMediaClient(viewMediaClientConfig)}
+        identifier={identifier}
+        isSelected={props.isSelected}
+        alt={alt}
+        width={width}
+        height={height}
+        border={{
+          borderSize: borderMark?.attrs.size,
+          borderColor: borderMark?.attrs.color,
+        }}
+      />
+    );
   }
 
   return (

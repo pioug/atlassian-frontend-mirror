@@ -4,18 +4,18 @@ import Button from '@atlaskit/button/standard-button';
 
 export type NavigatorProps<T> = {
   /**
-   * This will be passed in as aria-label to button. This is what screen reader will read
+   * This will be passed in as aria-label to the button. Use this to supply a descriptive label for assistive technology.
    */
   'aria-label'?: string;
   /**
-   * Is the navigator disabled
+   * Sets whether the navigator is disabled.
    */
   isDisabled?: boolean;
   iconBefore: ReactElement;
   pages: T[];
   testId?: string;
   /**
-   * This function is called with the when user clicks on navigator
+   * This function is called when the user clicks on the navigator.
    */
   onClick?: (event: SyntheticEvent) => void;
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions

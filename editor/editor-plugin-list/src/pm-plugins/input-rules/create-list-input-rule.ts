@@ -10,7 +10,6 @@ import {
   INPUT_METHOD,
   JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST,
 } from '@atlaskit/editor-common/analytics';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { inputRuleWithAnalytics as ruleWithAnalytics } from '@atlaskit/editor-common/utils';
 import type {
   NodeType,
@@ -23,7 +22,6 @@ import { createWrappingJoinRule } from './wrapping-join-rule';
 type Props = {
   listType: NodeType;
   expression: RegExp;
-  featureFlags: FeatureFlags;
   editorAnalyticsApi: EditorAnalyticsAPI | undefined;
 };
 
@@ -32,7 +30,6 @@ const getOrder = (matchResult: RegExpExecArray) => Number(matchResult[1]);
 export function createRuleForListType({
   listType,
   expression,
-  featureFlags,
   editorAnalyticsApi,
 }: Props) {
   let joinScenario: JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST =
@@ -58,7 +55,6 @@ export function createRuleForListType({
     };
 
     if (
-      featureFlags?.restartNumberedLists &&
       listType === state.schema.nodes.orderedList &&
       analyticsPayload.attributes
     ) {
@@ -83,18 +79,14 @@ export function createRuleForListType({
     return shouldJoin;
   };
 
-  let getAttrs = {};
-  if (featureFlags?.restartNumberedLists) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    getAttrs = (matchResult: RegExpExecArray): Record<string, any> => {
-      return {
-        order: getOrder(matchResult),
-      };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let getAttrs = (matchResult: RegExpExecArray): Record<string, any> => {
+    return {
+      order: getOrder(matchResult),
     };
-  }
+  };
 
   const inputRule = createWrappingJoinRule({
-    featureFlags,
     match: expression,
     nodeType: listType,
     getAttrs,

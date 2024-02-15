@@ -1,6 +1,10 @@
 import { JsonLd } from 'json-ld-types';
 import { InvokeClientOpts } from '../../../model/invoke-opts';
-import { CardInnerAppearance, CardPlatform } from '../../../view/Card/types';
+import {
+  CardAction,
+  CardInnerAppearance,
+  CardPlatform,
+} from '../../../view/Card/types';
 
 import { extractDownloadUrl } from '../detail';
 import { extractPreview, extractProvider } from '@atlaskit/link-extractors';
@@ -11,6 +15,7 @@ import {
 import { ExtractBlockOpts } from '../../block/types';
 import { CardDisplay } from '../../../constants';
 import { extractIsSupportTheming } from '../../common/meta/extractIsSupportTheming';
+import { canShowAction } from '../../../utils/actions/can-show-action';
 
 const getMetadataFromJsonLd = (
   jsonLd: JsonLd.Data.BaseData,
@@ -67,12 +72,17 @@ export const extractPreviewAction = ({
   source = 'block',
   analytics,
   meta,
+  actionOptions,
 }: ExtractBlockOpts & {
   viewProps: BlockCardResolvedViewProps;
   jsonLd: JsonLd.Data.BaseData;
   platform?: CardPlatform;
   meta?: JsonLd.Meta.BaseMeta;
 }) => {
+  if (!canShowAction(CardAction.PreviewAction, actionOptions)) {
+    return;
+  }
+
   // Extract metadata from view props & raw JSON-LD.
   const metadataFromJsonLd = getMetadataFromJsonLd(jsonLd, platform);
   const metadataFromViewProps = getMetadataFromResolvedProps(viewProps);

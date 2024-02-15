@@ -12,8 +12,6 @@ export type ButtonProps = CommonDefaultButtonProps & CommonButtonVariantProps;
 /**
  * __Button__
  *
- * @private __UNSAFE__ Button is not yet safe for production use.
- *
  * A button triggers an event or action.
  *
  * - [Examples](https://atlassian.design/components/button/examples)

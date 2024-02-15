@@ -210,6 +210,11 @@ export const messages = defineMessages({
     description:
       'Message indicating the recipients of the email share will be able to see the Jira issue title and the included message',
   },
+  requiredFieldSummary: {
+    id: 'fabric.elements.share.form.required-field.summary',
+    defaultMessage: 'Required fields are marked with an asterisk',
+    description: 'Summary info of required fields asterisk.',
+  },
   shareFailureIconLabel: {
     id: 'fabric.elements.share.failure.icon.label',
     defaultMessage: 'Error icon',

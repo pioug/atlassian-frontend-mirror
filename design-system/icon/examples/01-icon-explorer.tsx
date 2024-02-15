@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Textfield from '@atlaskit/textfield';
 import objectIconMetadata from '@atlaskit/icon-object/metadata';
 import fileTypeIconMetadata from '@atlaskit/icon-file-type/metadata';
@@ -207,7 +207,7 @@ const IconAllExample = () => {
       <div css={gridWrapperStyles}>
         <p>
           <Button
-            appearance="subtle-link"
+            appearance="subtle"
             onClick={() => setIconsShowing((old) => !old)}
             spacing="none"
           >

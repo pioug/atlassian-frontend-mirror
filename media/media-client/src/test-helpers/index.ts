@@ -70,8 +70,8 @@ export { fakeMediaClient } from './fakeMediaClient';
 
 export type {
   CreateMockedMediaApiResult,
-  SetFileItems,
-  GetFileItem,
+  SetItems,
+  GetItem,
 } from './MockedMediaApi';
 export {
   createMockedMediaApi,

@@ -74,25 +74,33 @@ class ExternalUserOptionImpl extends React.PureComponent<ExternalUserOptionProps
   };
 
   private renderSecondaryText = () => {
-    const { email } = this.props.user;
-    if (!email) {
+    const { byline, email } = this.props.user;
+
+    if (!byline && !email) {
       return;
     }
 
-    const [emailUser, emailDomain] = email.split('@');
-    const emailDomainWithAt = `@${emailDomain}`;
-    return (
-      <span
-        css={textWrapper(
-          this.props.isSelected
-            ? token('color.text.selected', B400)
-            : token('color.text.subtlest', N200),
-        )}
-      >
-        {emailUser}
-        <span css={emailDomainWrapper}>{emailDomainWithAt}</span>
-      </span>
-    );
+    const textColor = this.props.isSelected
+      ? token('color.text.selected', B400)
+      : token('color.text.subtlest', N200);
+
+    // Render byline if present
+    if (byline) {
+      return <span css={textWrapper(textColor)}>{byline}</span>;
+    }
+
+    // Render email if byline isn't present
+    if (email) {
+      const [emailUser, emailDomain] = email.split('@');
+      const emailDomainWithAt = `@${emailDomain}`;
+
+      return (
+        <span css={textWrapper(textColor)}>
+          {emailUser}
+          <span css={emailDomainWrapper}>{emailDomainWithAt}</span>
+        </span>
+      );
+    }
   };
 
   private renderAvatar = () => {

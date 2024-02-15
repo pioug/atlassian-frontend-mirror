@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "76.23.4",
+  "version": "77.4.4",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -26,11 +26,13 @@
     "team": "Editor",
     "inPublicMirror": true,
     "singleton": true,
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "runReact18": false
   },
   "af:exports": {
     "./event-dispatcher": "./src/event-dispatcher/index.ts",
     "./extensions": "./src/extensions.ts",
+    "./extensibility": "./src/extensibility/index.ts",
     "./normalize-feature-flags": "./src/normalize-feature-flags.ts",
     "./messages": "./src/messages/index.ts",
     "./provider-factory": "./src/provider-factory.ts",
@@ -68,6 +70,7 @@
     "./hooks": "./src/hooks/index.ts",
     "./media-inline": "./src/media-inline/index.ts",
     "./media-single": "./src/media-single/index.ts",
+    "./media": "./src/media/index.ts",
     "./monitoring": "./src/monitoring/index.ts",
     "./paste": "./src/paste/index.ts",
     "./resizer": "./src/resizer/index.ts",
@@ -84,46 +87,51 @@
     "./floating-toolbar": "./src/floating-toolbar/index.ts",
     "./copy-button": "./src/copy-button/index.ts",
     "./legacy-rank-plugins": "./src/rank.ts",
-    "./indentation": "./src/indentation/index.ts"
+    "./indentation": "./src/indentation/index.ts",
+    "./annotation": "./src/annotation/index.ts"
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
-    "@atlaskit/adf-schema": "^34.0.0",
+    "@atlaskit/adf-schema": "^35.5.1",
     "@atlaskit/adf-utils": "^19.0.0",
-    "@atlaskit/analytics-listeners": "^8.7.0",
-    "@atlaskit/analytics-namespaced-context": "^6.7.0",
-    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/analytics-listeners": "^8.9.0",
+    "@atlaskit/analytics-namespaced-context": "^6.9.0",
+    "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
-    "@atlaskit/button": "^16.17.0",
+    "@atlaskit/button": "^17.3.0",
     "@atlaskit/code": "^15.1.0",
     "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/custom-steps": "^0.0.4",
+    "@atlaskit/custom-steps": "^0.0.13",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-palette": "1.5.2",
-    "@atlaskit/editor-prosemirror": "1.1.0",
-    "@atlaskit/editor-shared-styles": "^2.8.0",
-    "@atlaskit/editor-tables": "^2.3.0",
+    "@atlaskit/editor-prosemirror": "3.0.0",
+    "@atlaskit/editor-shared-styles": "^2.9.0",
+    "@atlaskit/editor-tables": "^2.5.0",
     "@atlaskit/emoji": "^67.6.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/in-product-testing": "^0.2.0",
-    "@atlaskit/link-datasource": "^1.19.0",
-    "@atlaskit/link-picker": "^1.30.0",
-    "@atlaskit/media-card": "^77.4.0",
-    "@atlaskit/media-client": "^25.1.0",
-    "@atlaskit/media-picker": "^66.2.0",
+    "@atlaskit/link-datasource": "^1.22.0",
+    "@atlaskit/link-picker": "^1.33.0",
+    "@atlaskit/media-card": "^77.10.0",
+    "@atlaskit/media-client": "^26.2.0",
+    "@atlaskit/media-client-react": "^2.0.0",
+    "@atlaskit/media-common": "^11.0.0",
+    "@atlaskit/media-file-preview": "^0.4.0",
+    "@atlaskit/media-picker": "^66.3.0",
+    "@atlaskit/media-ui": "^25.0.0",
     "@atlaskit/mention": "^22.1.0",
     "@atlaskit/menu": "^2.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/profilecard": "^19.7.0",
-    "@atlaskit/smart-card": "^26.42.0",
-    "@atlaskit/smart-user-picker": "^6.3.0",
+    "@atlaskit/profilecard": "^19.10.0",
+    "@atlaskit/smart-card": "^26.47.0",
+    "@atlaskit/smart-user-picker": "^6.7.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/task-decision": "^17.9.0",
     "@atlaskit/textfield": "^6.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
-    "@atlaskit/tooltip": "^18.0.0",
+    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/width-detector": "^4.1.0",
     "@babel/runtime": "^7.0.0",
@@ -139,7 +147,7 @@
     "fuse.js": "^6.6.2",
     "linkify-it": "^3.0.3",
     "lodash": "^4.17.21",
-    "markdown-it": "^12.3.2",
+    "markdown-it": "^13.0.2",
     "memoize-one": "^6.0.0",
     "popper.js": "^1.14.1",
     "prop-types": "^15.5.10",
@@ -151,25 +159,26 @@
     "w3c-keyname": "^2.1.0"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^34.1.2",
+    "@atlaskit/media-core": "^34.2.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@atlaskit/media-core": "^34.1.0",
+    "@atlaskit/media-core": "^34.2.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlaskit/util-data-test": "^17.8.0",
+    "@atlaskit/util-data-test": "^17.9.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
+    "@loomhq/record-sdk": "^2.36.18",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.4.3",
     "@types/linkify-it": "^3.0.2",
-    "@types/markdown-it": "^12.2.3",
+    "@types/markdown-it": "^13.0.7",
     "@types/raf-schd": "^4.0.1",
     "@types/react-virtualized": "^9.18.12",
     "enzyme": "^3.10.0",
@@ -198,9 +207,6 @@
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
-    "platform.linking-platform.datasource-jira_issues": {
-      "type": "boolean"
-    },
     "platform.editor.media.extended-resize-experience": {
       "type": "boolean"
     },
@@ -210,13 +216,13 @@
     "platform.linking-platform.datasource-assets_objects": {
       "type": "boolean"
     },
-    "platform.linking-platform.smart-card.show-smart-links-refreshed-design": {
-      "type": "boolean"
-    },
     "platform.editor.table.increase-shadow-visibility_lh89r": {
       "type": "boolean"
     },
     "platform.editor.menu.group-items": {
+      "type": "boolean"
+    },
+    "platform.editor.ordered-list-auto-join-improvements_mrlv5": {
       "type": "boolean"
     }
   }

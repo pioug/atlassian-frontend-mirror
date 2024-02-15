@@ -252,12 +252,69 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
       scrollElement = getScrollElement(view);
       let editorElement: HTMLElement | null = view.dom as HTMLElement;
       let editorParentElement = editorElement.parentElement;
+      let viewportElementHeight = 0;
+      let contentElementHeight = 0;
+
+      const addAndObserveGutter = () => {
+        if (!gutter.isMounted()) {
+          gutter.observe(scrollElement!);
+          gutter.addGutter(editorParentElement!);
+        }
+      };
+
+      const toggleGutter = (contentSize: number, threshold: number) => {
+        if (pluginOptions.persistScrollGutter) {
+          if (!isEmptyDocument(view.state.doc)) {
+            addAndObserveGutter();
+          } else {
+            gutter.removeGutter();
+          }
+          return;
+        }
+
+        // Add or remove the gutter based on whether the content is about to exceed the viewport height.
+        // We do this to ensure there is sufficient white space below the last content node in order to
+        // see any UI control elements which may sit beneath it.
+        if (contentSize >= threshold) {
+          addAndObserveGutter();
+        } else {
+          if (gutter.isMounted()) {
+            gutter.removeGutter();
+          }
+        }
+      };
+
+      const observerCallback: ResizeObserverCallback = entries => {
+        for (const entry of entries) {
+          const elementHeight = Math.round(entry.contentRect.height);
+          if (entry.target === scrollElement) {
+            const keyboardHeight = getKeyboardHeight(view?.state) ?? 0;
+            viewportElementHeight = elementHeight - keyboardHeight;
+          } else if (entry.target === editorParentElement) {
+            contentElementHeight =
+              elementHeight - (gutter.isMounted() ? gutterSize : 0);
+          }
+        }
+
+        toggleGutter(contentElementHeight, viewportElementHeight);
+      };
+
+      // Subscribe to updates of the height of the viewport and content elements
+      // We toggle the value when it is set here or when PM updates to ensure we're using
+      // the latest.
+      const resizeObserver = new ResizeObserver(observerCallback);
+
+      if (scrollElement && editorParentElement) {
+        resizeObserver.observe(scrollElement);
+        resizeObserver.observe(editorParentElement);
+      }
 
       return {
         destroy() {
           // Remove if it's mounted
           gutter.destroy();
           scrollElement = editorParentElement = editorElement = null;
+          resizeObserver.disconnect();
         },
         /**
          * Toggle the Scroll Gutter Element
@@ -273,39 +330,8 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
             return;
           }
 
-          const gutterMounted = gutter.isMounted();
-          const addAndObserveGutter = () => {
-            if (!gutterMounted) {
-              gutter.observe(scrollElement!);
-              gutter.addGutter(editorParentElement!);
-            }
-          };
-
-          if (pluginOptions.persistScrollGutter) {
-            if (!isEmptyDocument(state.doc)) {
-              addAndObserveGutter();
-            } else {
-              gutter.removeGutter();
-            }
-            return;
-          }
-          // Determine whether we need to consider Keyboard Height
-          const keyboardHeight = getKeyboardHeight(state) ?? 0;
-          const viewportHeight = scrollElement.offsetHeight - keyboardHeight;
-          const contentHeight =
-            editorParentElement.offsetHeight - (gutterMounted ? gutterSize : 0);
-
-          // Add or remove the gutter based on whether the content is about to exceed the viewport height.
-          // We do this to ensure there is sufficient white space below the last content node in order to
-          // see any UI control elements which may sit beneath it.
-          const gutterThresholdHeight = viewportHeight - gutterSize;
-          if (contentHeight >= gutterThresholdHeight) {
-            addAndObserveGutter();
-          } else {
-            if (gutterMounted) {
-              gutter.removeGutter();
-            }
-          }
+          const gutterThresholdHeight = viewportElementHeight - gutterSize;
+          toggleGutter(contentElementHeight, gutterThresholdHeight);
         },
       };
     },

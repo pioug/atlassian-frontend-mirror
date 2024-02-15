@@ -13,6 +13,7 @@ export default {
   'feedback-collector.can-be-contacted.label':
     'Ja, Atlassian-teams mogen contact met me opnemen om te vragen naar mijn ervaringen, zodat Atlassian-producten en -diensten kunnen worden verbeterd. Ik stem in met het <a>Privacybeleid van Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Annuleren',
+  'feedback-collector.default.custom.textarea.label': 'Waar denk je aan?',
   'feedback-collector.enrol-in-research.label': 'Ik wil graag meewerken aan productonderzoek',
   'feedback-collector.feedback-title': 'Laat ons weten wat je ervan vindt',
   'feedback-collector.form.bug.label': 'De bug of issue beschrijven',
@@ -26,6 +27,7 @@ export default {
   'feedback-collector.option.default.placeholder': 'Kies er een',
   'feedback-collector.option.question.label': 'Een vraag stellen',
   'feedback-collector.option.suggestion.label': 'Een verbetering voorstellen',
+  'feedback-collector.required.fields.summary': 'Verplichte velden zijn aangeduid met een asterisk',
   'feedback-collector.submit-button.label': 'Feedback sturen',
   'feedback-collector.success-flag.description': 'Met jouw feedback kunnen we onze producten steeds verder verbeteren.',
   'feedback-collector.success-flag.title': 'Bedankt!',

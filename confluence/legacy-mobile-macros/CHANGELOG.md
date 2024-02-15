@@ -1,5 +1,554 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.4.384
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.383
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.382
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.381
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.380
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.379
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.378
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.377
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.376
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.375
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.374
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.373
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.372
+
+### Patch Changes
+
+- [#70152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70152) [`53ed3673df28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53ed3673df28) - Updating adf-schema version to 35.5.1
+- Updated dependencies
+
+## 2.4.371
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.370
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.369
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.368
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.367
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.366
+
+### Patch Changes
+
+- Updated dependencies
+- Tokenize css
+
+## 2.4.365
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.364
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.363
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.362
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.361
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.360
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.359
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.358
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.357
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.356
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.355
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.354
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.353
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.352
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.351
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.350
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.349
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.348
+
+### Patch Changes
+
+- [#65031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65031) [`a00094111b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a00094111b5a) - ED-21609 Update adf-schema to 35.3.0
+- Updated dependencies
+
+## 2.4.347
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.346
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.345
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.344
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.343
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.342
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.341
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.340
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.339
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.338
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.337
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.336
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.335
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.334
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.333
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.332
+
+### Patch Changes
+
+- [#62165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62165) [`b44ac0968d79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b44ac0968d79) - [ED-21562] Bump @atlaskit/adf-schema to 35.2.0 for border mark update
+- Updated dependencies
+
+## 2.4.331
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.330
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.329
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.328
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.327
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.326
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.325
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.324
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.323
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.322
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.321
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.320
+
+### Patch Changes
+
+- [#60808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60808) [`f509a21be124`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f509a21be124) - ED-21506: @atlaskit/adf-schema upgraded to 35.1.1 to support renderer for MBE
+- Updated dependencies
+
+## 2.4.319
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.318
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.317
+
+### Patch Changes
+
+- [#58246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58246) [`a381b2599716`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a381b2599716) - ED-21371 Update adf-schema to 35.1.0
+- Updated dependencies
+
+## 2.4.316
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.315
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.314
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.313
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.312
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.311
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.310
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.309
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.308
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.307
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.306
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.305
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+- Updated dependencies
+
+## 2.4.304
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.303
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.302
+
+### Patch Changes
+
+- [#58763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58763) [`0fdbd64522bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fdbd64522bf) - update ADF schema
+- Updated dependencies
+
+## 2.4.301
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.300
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.299
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.298
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.297
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.296
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.295
+
+### Patch Changes
+
+- [#56790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56790) [`ff577a7969d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff577a7969d4) - ED-21266: Updated @atlaskit/adf-schema to 34.0.1
+- Updated dependencies
+
 ## 2.4.294
 
 ### Patch Changes

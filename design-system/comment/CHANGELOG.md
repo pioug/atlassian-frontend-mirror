@@ -1,5 +1,27 @@
 # @atlaskit/comment
 
+## 10.9.0
+
+### Minor Changes
+
+- [#68009](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68009) [`bb63ac6494f7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bb63ac6494f7) - Fix `@atlaskit/comment` to properly order grid template areas when children aren't present following `@atlaskit/primitives` specificity change.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.8.25
+
+### Patch Changes
+
+- [#61090](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61090) [`2c82f078edae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c82f078edae) - Internal change to improve how styles are applied. There is no expected visual difference.
+
+## 10.8.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.8.23
 
 ### Patch Changes

@@ -1,10 +1,15 @@
-import MainGridProps from '!!extract-react-types-loader!../../extract-react-types/grid';
-import GridItemProps from '!!extract-react-types-loader!../../extract-react-types/grid-item';
+---
+props:
+  packageName: '@atlaskit/grid'
+  exports:
+    - default
+    - GridItem
+---
 
 ## Grid and GridContainer props
 
-<PropsTable heading="" props={MainGridProps} />
+<TSMorphProps exportName="default" packageName="@atlaskit/grid" />
 
 ## Grid item props
 
-<PropsTable heading="" props={GridItemProps} />
+<TSMorphProps exportName="GridItem" packageName="@atlaskit/grid" />

@@ -1,4 +1,3 @@
-import { THEME_MODES } from '@atlaskit/theme/constants';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 
@@ -10,19 +9,19 @@ import {
 } from './_utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
+import type { RendererAppearance } from '../../ui/Renderer/types';
+import * as tableEmpty from '../__fixtures__/table-empty.adf.json';
 import * as wideTableResized from '../__fixtures__/table-wide-resized.adf.json';
 import * as tableWithShadowAdf from '../__fixtures__/table-with-shadow.adf.json';
-import * as tableWithWrappedNodesAdf from './__fixtures__/table-with-wrapped-nodes.adf.json';
-import * as tableComplexSelectionsAdf from './__fixtures__/table-complex-selections.adf.json';
-import * as tableEmpty from '../__fixtures__/table-empty.adf.json';
-import type { RendererAppearance } from '../../ui/Renderer/types';
-import { selectors as expandSelectors } from '../__helpers/page-objects/_expand';
-import { selectors as statusSelectors } from '../__helpers/page-objects/_status';
-import { selectors as decisionSelectors } from '../__helpers/page-objects/_decision';
-import { selectors as panelSelectors } from '../__helpers/page-objects/_panel';
 import { selectors as codeBlockSelectors } from '../__helpers/page-objects/_codeblock';
-import { selectors as mediaSelectors } from '../__helpers/page-objects/_media';
+import { selectors as decisionSelectors } from '../__helpers/page-objects/_decision';
 import { emojiSelectors } from '../__helpers/page-objects/_emoji';
+import { selectors as expandSelectors } from '../__helpers/page-objects/_expand';
+import { selectors as mediaSelectors } from '../__helpers/page-objects/_media';
+import { selectors as panelSelectors } from '../__helpers/page-objects/_panel';
+import { selectors as statusSelectors } from '../__helpers/page-objects/_status';
+import * as tableComplexSelectionsAdf from './__fixtures__/table-complex-selections.adf.json';
+import * as tableWithWrappedNodesAdf from './__fixtures__/table-with-wrapped-nodes.adf.json';
 
 const tableContainerSelector = '.pm-table-container';
 
@@ -33,7 +32,6 @@ async function waitForTableWithCards(page: PuppeteerPage) {
 const initRenderer = async (
   page: PuppeteerPage,
   adf: any,
-  mode?: 'light' | 'dark',
   appearance: RendererAppearance = 'full-page',
   allowColumnSorting: boolean = false,
   viewport?: { width: number; height: number },
@@ -42,7 +40,6 @@ const initRenderer = async (
     appearance,
     viewport: viewport ?? { width: 1485, height: 1175 },
     adf,
-    themeMode: mode,
     rendererProps: { allowColumnSorting },
   });
 };
@@ -64,46 +61,42 @@ describe('Snapshot Test: Table scaling', () => {
     await snapshot(page);
   });
 
-  describe.each(THEME_MODES)('Theme: %s', (theme) => {
-    const mode = theme === 'dark' ? 'dark' : 'light';
-    it(`should NOT render a right shadow`, async () => {
-      await initRenderer(page, tableEmpty, mode);
-      await waitForTableWithCards(page);
+  it(`should NOT render a right shadow`, async () => {
+    await initRenderer(page, tableEmpty);
+    await waitForTableWithCards(page);
+  });
+
+  it(`should not overlap inline comments dialog`, async () => {
+    await initRenderer(page, tableWithShadowAdf);
+    await waitForTableWithCards(page);
+
+    await page.evaluate(() => {
+      let div = document.createElement('div');
+      div.className = '__fake_inline_comment__';
+      document.body.appendChild(div);
     });
 
-    it(`should not overlap inline comments dialog`, async () => {
-      await initRenderer(page, tableWithShadowAdf, mode);
-      await waitForTableWithCards(page);
+    const css = `
+  .__fake_inline_comment__ {
+    position: absolute;
+    right: 300px;
+    top: 300px;
+    width: 300px;
+    height: 200px;
+    background: white;
+    border: 1px solid red;
+  }
+  `;
+    await page.addStyleTag({ content: css });
+    await snapshot(page);
+  });
 
-      await page.evaluate(() => {
-        let div = document.createElement('div');
-        div.className = '__fake_inline_comment__';
-        document.body.appendChild(div);
-      });
-
-      const css = `
-    .__fake_inline_comment__ {
-      position: absolute;
-      right: 300px;
-      top: 300px;
-      width: 300px;
-      height: 200px;
-      background: white;
-      border: 1px solid red;
-    }
-    `;
-      await page.addStyleTag({ content: css });
-      await snapshot(page);
-    });
-
-    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-    it.skip('should render table content correctly in mobile appearance', async () => {
-      await initRenderer(page, wideTableResized, mode, 'mobile');
-      await page.waitForSelector(tableContainerSelector);
-      await page.waitForSelector(
-        '#renderer-container [data-testid="inline-card-resolved-view"]',
-      );
-    });
+  it('should render table content correctly in mobile appearance', async () => {
+    await initRenderer(page, wideTableResized, 'mobile');
+    await page.waitForSelector(tableContainerSelector);
+    await page.waitForSelector(
+      '#renderer-container [data-testid="inline-card-resolved-view"]',
+    );
   });
 });
 
@@ -118,17 +111,13 @@ describe('Snapshot Test: wrapping inline nodes inside table cells', () => {
     await snapshot(page);
   });
 
-  describe.each(THEME_MODES)('Theme: %s', (theme) => {
-    const mode = theme === 'dark' ? 'dark' : 'light';
-
-    // ED-7785
-    it(`should NOT overflow inline nodes when table columns are narrow`, async () => {
-      await initRenderer(page, tableWithWrappedNodesAdf, mode);
-      const mentionSelector = 'span[data-mention-id]>span';
-      const dateSelector = 'span[data-node-type="date"]';
-      await waitForText(page, mentionSelector, '@Erwin Petrovich');
-      await waitForText(page, dateSelector, 'Jun 30, 2020');
-    });
+  // ED-7785
+  it(`should NOT overflow inline nodes when table columns are narrow`, async () => {
+    await initRenderer(page, tableWithWrappedNodesAdf);
+    const mentionSelector = 'span[data-mention-id]>span';
+    const dateSelector = 'span[data-node-type="date"]';
+    await waitForText(page, mentionSelector, '@Erwin Petrovich');
+    await waitForText(page, dateSelector, 'Jun 30, 2020');
   });
 });
 
@@ -354,16 +343,11 @@ describe('Snapshot Test: triple click selection', () => {
       expectedSelectionDescription,
       beforeClickTargetClick,
     }) => {
-      // FIXME: This test was automatically skipped due to failure on 16/07/2023: https://product-fabric.atlassian.net/browse/ED-19107
-      it.skip(`on triple-clicking ${clickTargetDescription} in table ${fixtureTableCellType} (row:${fixtureTableCellRow},col:${fixtureTableCellCol}), it should select ${expectedSelectionDescription} inside table cell`, async () => {
-        await initRenderer(
-          page,
-          tableComplexSelectionsAdf,
-          undefined,
-          undefined,
-          true,
-          { height: 700, width: 700 },
-        );
+      it(`on triple-clicking ${clickTargetDescription} in table ${fixtureTableCellType} (row:${fixtureTableCellRow},col:${fixtureTableCellCol}), it should select ${expectedSelectionDescription} inside table cell`, async () => {
+        await initRenderer(page, tableComplexSelectionsAdf, undefined, true, {
+          height: 700,
+          width: 700,
+        });
 
         await waitForLoadedBackgroundImages(page, emojiSelectors.standard);
 
@@ -470,14 +454,10 @@ describe('Snapshot Test: triple click selection', () => {
    * returns the same node (span line 2) regardless of whether it floats or not.
    */
   it(`on triple-clicking first line in codeblock in table cell (row: 4, col: 1), it should select from line of codeblock to next line number of codeblock inside table cell`, async () => {
-    await initRenderer(
-      page,
-      tableComplexSelectionsAdf,
-      undefined,
-      undefined,
-      true,
-      { height: 700, width: 700 },
-    );
+    await initRenderer(page, tableComplexSelectionsAdf, undefined, true, {
+      height: 700,
+      width: 700,
+    });
 
     await waitForLoadedBackgroundImages(page, emojiSelectors.standard);
 

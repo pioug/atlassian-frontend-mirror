@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/give-kudos",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "Give Kudos experience ",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -15,7 +15,7 @@
       "name": "GiveKudos"
     }
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -39,14 +39,14 @@
     "typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/button": "^16.17.0",
+    "@atlaskit/analytics-next": "^9.2.0",
+    "@atlaskit/button": "^17.3.0",
     "@atlaskit/drawer": "^7.6.0",
     "@atlaskit/icon": "^22.0.0",
-    "@atlaskit/modal-dialog": "^12.9.0",
+    "@atlaskit/modal-dialog": "^12.10.0",
     "@atlaskit/portal": "^4.4.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "react-intl-next": "npm:react-intl@^5.18.1"
@@ -57,7 +57,6 @@
   "devDependencies": {
     "@af/integration-testing": "*",
     "@atlaskit/ssr": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",

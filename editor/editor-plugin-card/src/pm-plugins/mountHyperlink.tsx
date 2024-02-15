@@ -60,10 +60,11 @@ export const mountHyperlinkPlugin = (
               },
             },
           ],
-          onEscapeCallback: pluginInjectionApi?.card.actions.hideLinkToolbar,
+          onEscapeCallback: pluginInjectionApi?.card?.actions.hideLinkToolbar,
           onInsertLinkCallback:
-            pluginInjectionApi?.card.actions.queueCardsFromChangedTr,
+            pluginInjectionApi?.card?.actions.queueCardsFromChangedTr,
           view: editorView,
+          skipAnalytics: true,
         });
       });
       return {};

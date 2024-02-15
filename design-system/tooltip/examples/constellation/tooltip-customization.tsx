@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 import Tooltip, { TooltipPrimitive } from '../../src';
@@ -20,7 +20,9 @@ const TooltipCustomizationExample = () => (
     component={InlineDialog}
     content="This tooltip is styled like an inline dialog"
   >
-    {(tooltipProps) => <Button {...tooltipProps}>Hover Over Me</Button>}
+    {(tooltipProps) => (
+      <Button {...tooltipProps}>Hover or keyboard focus on me</Button>
+    )}
   </Tooltip>
 );
 

@@ -12,6 +12,7 @@ import {
 } from '@atlaskit/select';
 
 import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
+import type { Site } from '../../../types';
 import { useFilterOptions } from '../../hooks/useFilterOptions';
 import { BasicFilterFieldType, SelectOption } from '../../types';
 import CustomMenuList from '../menu-list';
@@ -25,15 +26,14 @@ import PopupTrigger from './trigger';
 
 export interface AsyncPopupSelectProps {
   filterType: BasicFilterFieldType;
-  cloudId: string;
   selection: SelectOption[];
   isJQLHydrating: boolean;
   onSelectionChange?: (
     filterType: BasicFilterFieldType,
     options: SelectOption[],
   ) => void;
-  onReset?: () => void;
   isDisabled?: boolean;
+  site?: Site;
 }
 
 // Needed to disable filtering from react-select
@@ -43,11 +43,10 @@ export const SEARCH_DEBOUNCE_MS = 350;
 
 const AsyncPopupSelect = ({
   filterType,
-  cloudId,
+  site,
   selection,
   isJQLHydrating,
   onSelectionChange = () => {},
-  onReset: resetSelection = () => {},
   isDisabled = false,
 }: AsyncPopupSelectProps) => {
   const { formatMessage } = useIntl();
@@ -60,7 +59,8 @@ const AsyncPopupSelect = ({
     [],
   );
 
-  const currentSiteCloudId = useRef<string>(cloudId);
+  const { cloudId } = site || {};
+  const currentSiteCloudId = useRef<string>(cloudId || '');
   const sortPaginatedResults = useRef(false); // this is to track pagination for sorting purpose
 
   const {
@@ -73,7 +73,7 @@ const AsyncPopupSelect = ({
     errors,
   } = useFilterOptions({
     filterType,
-    cloudId,
+    site,
   });
 
   const [handleDebouncedFetchFilterOptions] = useDebouncedCallback(
@@ -125,15 +125,15 @@ const AsyncPopupSelect = ({
   }, [selectedOptions, filterOptions, sortedOptions]);
 
   const sortOptionsOnResolve = useCallback(() => {
-    // sortedOptions is empty initially, this will take care of setting the initial value and bring the selected items to the top
-    if (sortedOptions.length === 0) {
-      return sortOptionsOnPopupOpen();
-    }
-
     // when the user is searching, we want the search result to be displayed as it is, and the select component will take care of marking the selected items
     if (searchTerm) {
       sortPaginatedResults.current = false; // set to false to indicate pagination resolve action is completed from the sorting perspective
       return setSortedOptions(filterOptions);
+    }
+
+    // sortedOptions is empty initially, this will take care of setting the initial value and bring the selected items to the top
+    if (sortedOptions.length === 0) {
+      return sortOptionsOnPopupOpen();
     }
 
     // this block handles the pagination, where on pagination, we will just append newOptions to the current list
@@ -195,11 +195,28 @@ const AsyncPopupSelect = ({
   ]);
 
   const handleMenuClose = useCallback(() => {
+    /**
+     * Clearing the search is to ensure that the sortOptionsOnPopupOpen logic does not mess up.
+     * Without this, when the user opens, sortOptionsOnPopupOpen will inject the selected options to the list and the list count and values will be off
+     */
+    if (searchTerm) {
+      handleInputChange('', {
+        action: 'input-change',
+        prevInputValue: searchTerm,
+      });
+    }
+
     fireEvent('ui.dropdown.closed.basicSearchDropdown', {
       filterType,
       selectionCount: selectedOptions.length,
     });
-  }, [filterType, fireEvent, selectedOptions.length]);
+  }, [
+    filterType,
+    fireEvent,
+    handleInputChange,
+    searchTerm,
+    selectedOptions.length,
+  ]);
 
   useEffect(() => {
     if (status === 'resolved') {
@@ -209,14 +226,13 @@ const AsyncPopupSelect = ({
   }, [status]); // we only want the sortOptionsOnResolve to run when there is a status change
 
   useEffect(() => {
-    if (currentSiteCloudId.current !== cloudId) {
+    if (cloudId && currentSiteCloudId.current !== cloudId) {
       currentSiteCloudId.current = cloudId;
       setSortedOptions([]);
       setSearchTerm('');
       resetHook();
-      resetSelection();
     }
-  }, [cloudId, resetHook, resetSelection]);
+  }, [cloudId, resetHook]);
 
   useEffect(() => {
     if (!isEqual(selection, selectedOptions)) {
@@ -266,7 +282,6 @@ const AsyncPopupSelect = ({
         showMore: shouldDisplayShowMoreButton,
       }}
       components={{
-        /* @ts-expect-error - This component has stricter OptionType, hence a temp setup untill its made generic */
         Option: CheckboxOption,
         Control: CustomControl,
         MenuList: CustomMenuList,

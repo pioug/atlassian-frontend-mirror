@@ -1,20 +1,20 @@
 import {
-  editorTestCase as test,
-  expect,
-  EditorNodeContainerModel,
-  EditorTableModel,
-  EditorPopupModel,
   EditorBreakoutModel,
-  EditorLayoutModel,
   EditorFloatingToolbarModel,
+  EditorLayoutModel,
+  EditorNodeContainerModel,
+  EditorPopupModel,
+  EditorTableModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 
 import {
   basicTableAdf,
   nestedInExpandAdf,
   nestedInExtensionAdf,
-  tableInsideLayoutAdf,
   tableInsideFullWidthLayout,
+  tableInsideLayoutAdf,
 } from './horizontal-scroll.spec.ts-fixtures';
 
 test.describe('table: horizontal scroll', () => {
@@ -76,7 +76,7 @@ test.describe('table: horizontal scroll', () => {
 
     const breakoutModel = EditorBreakoutModel.from(editor);
 
-    await test.step('change layout to wide ', async () => {
+    await test.step('change layout to wide', async () => {
       await breakoutModel.toWide();
     });
 
@@ -97,7 +97,7 @@ test.describe('table: horizontal scroll', () => {
     const tableModel = EditorTableModel.from(nodes.table);
     const cell = await tableModel.cell(2);
 
-    await test.step('resize wider ', async () => {
+    await test.step('resize wider', async () => {
       await cell.click();
       await cell.resize({
         mouse: editor.page.mouse,
@@ -109,7 +109,7 @@ test.describe('table: horizontal scroll', () => {
       expect(await tableModel.hasOverflowed()).toBeTruthy();
     });
 
-    await test.step('resize narrower ', async () => {
+    await test.step('resize narrower', async () => {
       await cell.click();
 
       await cell.resize({
@@ -197,7 +197,7 @@ test.describe('table: horizontal scroll', () => {
       const tableModel = EditorTableModel.from(nodes.table);
       const cell = await tableModel.cell(2);
 
-      await test.step('resize wider ', async () => {
+      await test.step('resize wider', async () => {
         await cell.click();
         await cell.resize({
           mouse: editor.page.mouse,
@@ -209,7 +209,7 @@ test.describe('table: horizontal scroll', () => {
         expect(await tableModel.hasOverflowed()).toBeTruthy();
       });
 
-      await test.step('resize narrower ', async () => {
+      await test.step('resize narrower', async () => {
         await cell.click();
         await cell.resize({
           mouse: editor.page.mouse,
@@ -246,7 +246,7 @@ test.describe('table: horizontal scroll', () => {
       const tableModel = EditorTableModel.from(nodes.table);
       const cell = await tableModel.cell(2);
 
-      await test.step('resize wider ', async () => {
+      await test.step('resize wider', async () => {
         await cell.click();
         await cell.resize({
           mouse: editor.page.mouse,
@@ -258,7 +258,7 @@ test.describe('table: horizontal scroll', () => {
         expect(await tableModel.hasOverflowed()).toBeTruthy();
       });
 
-      await test.step('resize narrower ', async () => {
+      await test.step('resize narrower', async () => {
         await cell.click();
         await cell.resize({
           mouse: editor.page.mouse,
@@ -398,7 +398,7 @@ test.describe('table: horizontal scroll', () => {
       const tableModel = EditorTableModel.from(nodes.table);
       const cell = await tableModel.cell(2);
 
-      await test.step('resize wider ', async () => {
+      await test.step('resize wider', async () => {
         await cell.click();
         await cell.resize({
           mouse: editor.page.mouse,
@@ -410,7 +410,7 @@ test.describe('table: horizontal scroll', () => {
         expect(await tableModel.hasOverflowed()).toBeTruthy();
       });
 
-      await test.step('resize narrower ', async () => {
+      await test.step('resize narrower', async () => {
         await cell.click();
         await cell.resize({
           mouse: editor.page.mouse,

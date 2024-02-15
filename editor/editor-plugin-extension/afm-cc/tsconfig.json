@@ -1,0 +1,121 @@
+{
+    "extends": "../../../../tsconfig.entry-points.confluence.json",
+    "compilerOptions": {
+        "target": "es5",
+        "composite": true,
+        "outDir": "../dist",
+        "rootDir": "../",
+        "baseUrl": "../"
+    },
+    "include": [
+        "../src/**/*.ts",
+        "../src/**/*.tsx"
+    ],
+    "exclude": [
+        "../src/**/__tests__/*",
+        "../src/**/*.test.*",
+        "../src/**/test.*",
+        "../src/**/examples.*"
+    ],
+    "references": [
+        {
+            "path": "../../adf-utils/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/avatar/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/button/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/checkbox/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/datetime-picker/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-common/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-json-transformer/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-context-identifier/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-context-panel/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-decorations/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-width/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-shared-styles/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-tables/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/empty-state/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/form/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/icon/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/primitives/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/radio/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/section-message/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/select/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../smart-experiences/smart-user-picker/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/spinner/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/tabs/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/textarea/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/textfield/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/theme/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/toggle/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
+        }
+    ]
+}

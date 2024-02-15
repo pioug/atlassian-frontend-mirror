@@ -1,7 +1,7 @@
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { Manager } from 'socket.io-client';
-import type { InternalError } from './errors/error-types';
+import type { InternalError } from './errors/internal-errors';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { GetUserType } from './participants/participants-helper';
 import type AnalyticsHelper from './analytics/analytics-helper';
@@ -66,7 +66,6 @@ export interface InitialDraft {
   document: JSONDocNode;
   version: number;
   metadata?: Metadata;
-  timestamp?: number;
 }
 
 export interface Config {
@@ -230,6 +229,7 @@ export type NamespaceStatus = {
 export type Permit = {
   reason?: string;
   isPermittedToView?: boolean;
+  isPermittedToComment?: boolean;
   isPermittedToEdit?: boolean;
   maintenanceMode?: boolean;
 };

@@ -1,5 +1,7 @@
 import { bindAll } from 'bind-event-listener';
 
+import { isSafari } from './is-safari';
+
 // *Usually* to detect if you are entering / leaving a window you can
 // use the `event.relatedTarget` property:
 
@@ -78,12 +80,7 @@ export function isLeavingWindow({
     return;
   }
 
-  const { userAgent } = navigator;
-
-  const isSafari: boolean =
-    userAgent.includes('AppleWebKit') && !userAgent.includes('Chrome');
-
-  if (!isSafari) {
+  if (!isSafari()) {
     return;
   }
 

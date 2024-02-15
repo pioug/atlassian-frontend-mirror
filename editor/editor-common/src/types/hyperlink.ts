@@ -33,8 +33,8 @@ export interface LinkingOptions {
  * Configuration for the Hyperlink plugin
  */
 export interface HyperlinkPluginOptions {
-  cardOptions?: CardOptions;
   linkPicker?: LinkPickerOptions;
   platform?: 'mobile' | 'web';
   editorAppearance?: EditorAppearance;
+  lpLinkPicker?: boolean;
 }

@@ -53,18 +53,22 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
 
     const hasOptions = selectedOptions && selectedOptions.length > 0;
     const showButtonLoading = !isDisabled && isLoading;
+    const testId = `jlol-basic-filter-${filterType}-trigger`;
 
     const LoadingButton = useCallback(
       () => (
         <LoadingStateAnimationWrapper>
-          <Button iconAfter={<Spinner size={'xsmall'} />}>
+          <Button
+            iconAfter={<Spinner size={'xsmall'} />}
+            testId={`${testId}--loading-button`}
+          >
             <FormattedMessage
               {...asyncPopupSelectMessages[`${filterType}Label`]}
             />
           </Button>
         </LoadingStateAnimationWrapper>
       ),
-      [filterType],
+      [filterType, testId],
     );
 
     const DefaultButton = useCallback(
@@ -74,6 +78,7 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
           isSelected={isSelected || hasOptions}
           isDisabled={isDisabled}
           iconAfter={<ChevronDownIcon label="" />}
+          testId={`${testId}--button`}
         >
           <Flex>
             <Box xcss={triggerButtonLabelStyles}>
@@ -99,6 +104,7 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
         isDisabled,
         isSelected,
         selectedOptions,
+        testId,
       ],
     );
 
@@ -107,7 +113,7 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
      * Hence introducing a Box to make sure ref is always the same and only content is refreshed on re-renders
      */
     return (
-      <Box ref={ref} testId={`jlol-basic-filter-${filterType}-trigger`}>
+      <Box ref={ref} testId={testId}>
         {showButtonLoading ? <LoadingButton /> : <DefaultButton />}
       </Box>
     );

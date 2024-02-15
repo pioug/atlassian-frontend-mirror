@@ -58,7 +58,8 @@ export default () => {
 
   return (
     <Wrapper>
-      <LocaleSelect onLocaleChange={onLocaleChange} />
+      <Label htmlFor="locale">Locale</Label>
+      <LocaleSelect id="locale" onLocaleChange={onLocaleChange} />
       <Label htmlFor="date">Try your date</Label>
       <TextField
         id="date"
@@ -69,10 +70,10 @@ export default () => {
       {
         'If you are in Safari, you will see your date converted to your current timezone'
       }
-      <h3>Date Parts</h3>
-      <h4>24-hour format</h4>
+      <h2>Date Parts</h2>
+      <h3>24-hour format</h3>
       <pre>{JSON.stringify(l10n.formatToParts(now), undefined, 2)}</pre>
-      <h4>12-hour format</h4>
+      <h3>12-hour format</h3>
       <pre>{JSON.stringify(l10n12Hour.formatToParts(now), undefined, 2)}</pre>
     </Wrapper>
   );

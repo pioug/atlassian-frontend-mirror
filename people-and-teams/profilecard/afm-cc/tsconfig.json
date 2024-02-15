@@ -1,0 +1,73 @@
+{
+    "extends": "../../../../tsconfig.entry-points.confluence.json",
+    "compilerOptions": {
+        "declaration": true,
+        "target": "es5",
+        "composite": true,
+        "outDir": "../dist",
+        "rootDir": "../",
+        "baseUrl": "../"
+    },
+    "include": [
+        "../src/**/*.ts",
+        "../src/**/*.tsx"
+    ],
+    "exclude": [
+        "../src/**/__tests__/*",
+        "../src/**/*.test.*",
+        "../src/**/test.*"
+    ],
+    "references": [
+        {
+            "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/avatar/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/avatar-group/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/button/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/dropdown-menu/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/empty-state/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/focus-ring/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../team-central/give-kudos/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/icon/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/lozenge/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/menu/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/popup/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/spinner/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/theme/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
+        }
+    ]
+}

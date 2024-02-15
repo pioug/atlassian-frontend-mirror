@@ -1,33 +1,29 @@
 import React, { forwardRef } from 'react';
 
 import {
-  cleanup,
   fireEvent,
   render,
   RenderResult,
+  screen,
 } from '@testing-library/react';
 
 import Pagination, { PaginationPropTypes } from '../../index';
 
+const ellipsis = '\u2026';
+
 function assertPageButtonRendering(
-  renderResult: RenderResult,
+  view: RenderResult,
   { page, isSelected }: { page: string; isSelected: boolean },
 ) {
   try {
-    const pageElement = renderResult.getByText(page).parentElement;
+    const pageElement = screen.getByRole('button', { name: `page ${page}` });
 
     expect(pageElement).toBeInTheDocument();
 
     if (isSelected) {
-      expect(pageElement).toHaveAttribute(
-        'data-testId',
-        expect.stringContaining(`pagination--current-page`),
-      );
+      expect(pageElement).toHaveAttribute('aria-current', 'page');
     } else {
-      expect(pageElement).toHaveAttribute(
-        'data-testId',
-        expect.stringContaining(`pagination--page`),
-      );
+      expect(pageElement).not.toHaveAttribute('aria-current', 'page');
     }
   } catch (error: any) {
     Error.captureStackTrace(error, assertPageButtonRendering);
@@ -37,19 +33,19 @@ function assertPageButtonRendering(
 }
 
 function assertNavigationButtonRendering(
-  renderResult: RenderResult,
+  view: RenderResult,
   { label, isEnabled }: { label: string; isEnabled: boolean },
 ) {
   try {
-    const navigationButton = renderResult.getByLabelText(label);
+    const navigationButton = screen.getByLabelText(label);
 
     expect(navigationButton).toBeInTheDocument();
 
     if (isEnabled) {
-      expect(navigationButton).not.toHaveAttribute('disabled');
+      expect(navigationButton).toBeEnabled();
       expect(navigationButton).toHaveStyle('cursor: pointer');
     } else {
-      expect(navigationButton).toHaveAttribute('disabled');
+      expect(navigationButton).toBeDisabled();
       expect(navigationButton).toHaveStyle('cursor: not-allowed');
     }
   } catch (error: any) {
@@ -60,8 +56,6 @@ function assertNavigationButtonRendering(
 }
 
 describe('Pagination', () => {
-  afterEach(cleanup);
-
   const setup = <T extends any = number>(
     paginationProps: Partial<PaginationPropTypes<T>> = {},
   ) => {
@@ -70,12 +64,10 @@ describe('Pagination', () => {
       testId: 'pagination',
     };
 
-    const renderResult = render(
-      <Pagination<T> {...props} {...paginationProps} />,
-    );
+    const view = render(<Pagination<T> {...props} {...paginationProps} />);
 
     return {
-      renderResult,
+      view,
       props,
     };
   };
@@ -88,7 +80,7 @@ describe('Pagination', () => {
     });
 
     it('should render 1, 2, 3, 4, 5 and 10th pages only along with ellipsis (max 7 pages) and 1st page as selected', () => {
-      const { renderResult } = setup();
+      const { view } = setup();
 
       [
         { page: '1', isSelected: true },
@@ -98,31 +90,31 @@ describe('Pagination', () => {
         { page: '5', isSelected: false },
         { page: '10', isSelected: false },
       ].forEach(({ page, isSelected }) => {
-        assertPageButtonRendering(renderResult, { page, isSelected });
+        assertPageButtonRendering(view, { page, isSelected });
       });
 
-      expect(renderResult.getByText('\u2026')).toBeInTheDocument();
+      expect(screen.getByText('\u2026')).toBeInTheDocument();
 
       ['6', '7', '8', '9'].forEach((page) => {
-        expect(renderResult.queryByText(page)).not.toBeInTheDocument();
+        expect(screen.queryByText(page)).not.toBeInTheDocument();
       });
     });
 
     it('should render with an aria-label attribute', () => {
-      const { renderResult } = setup();
+      const { view } = setup();
       [
         { page: '1', isSelected: true },
         { page: '2', isSelected: false },
         { page: '5', isSelected: false },
       ].forEach(({ page, isSelected }) => {
-        assertPageButtonRendering(renderResult, { page, isSelected });
-        expect(renderResult.getByText(page).parentElement).toHaveAttribute(
-          'aria-label',
-        );
+        assertPageButtonRendering(view, { page, isSelected });
+        expect(
+          screen.getByLabelText(`page ${page}`, { selector: 'button' }),
+        ).toBeInTheDocument();
       });
     });
     it('should render aria-current on selected page', () => {
-      const { renderResult } = setup();
+      const { view } = setup();
       [
         { page: '1', isSelected: true },
         { page: '2', isSelected: false },
@@ -131,31 +123,36 @@ describe('Pagination', () => {
         { page: '5', isSelected: false },
         { page: '10', isSelected: false },
       ].forEach(({ page, isSelected }) => {
-        assertPageButtonRendering(renderResult, { page, isSelected });
+        assertPageButtonRendering(view, { page, isSelected });
       });
-      expect(renderResult.getByText('1').parentElement).toHaveAttribute(
-        'aria-current',
-      );
+
+      expect(
+        screen.getByRole('button', { current: 'page' }),
+      ).toBeInTheDocument();
+
+      expect(
+        screen.getByRole('button', { current: 'page' }),
+      ).toHaveAccessibleName('page 1');
     });
 
     it('should render previous and next navigation buttons', () => {
-      const { renderResult } = setup();
+      const { view } = setup();
 
-      assertNavigationButtonRendering(renderResult, {
+      assertNavigationButtonRendering(view, {
         label: 'previous',
         isEnabled: false,
       });
 
-      assertNavigationButtonRendering(renderResult, {
+      assertNavigationButtonRendering(view, {
         label: 'next',
         isEnabled: true,
       });
     });
     it('should have a nav tag', () => {
-      const { renderResult } = setup({ testId: 'test' });
-      const pagination = renderResult.getByTestId('test');
+      setup({ testId: 'test' });
+      const pagination = screen.getByTestId('test');
 
-      expect(pagination).not.toBeNull();
+      expect(pagination).toBeInTheDocument();
       expect(pagination.tagName).toBe('NAV');
     });
   });
@@ -189,7 +186,7 @@ describe('Pagination', () => {
             </div>
           );
         }
-        const { renderResult, props } = setup({
+        const { view, props } = setup({
           components: {
             Previous: forwardRef(Navigation),
             Page: forwardRef(Page),
@@ -197,19 +194,15 @@ describe('Pagination', () => {
           },
         });
 
-        expect(renderResult.getByTestId('Page-1')).toBeInTheDocument();
-        expect(renderResult.getByTestId('custom-previous')).toBeInTheDocument();
-        expect(renderResult.getByTestId('custom-next')).toBeInTheDocument();
+        expect(screen.getByTestId('Page-1')).toBeInTheDocument();
+        expect(screen.getByTestId('custom-previous')).toBeInTheDocument();
+        expect(screen.getByTestId('custom-next')).toBeInTheDocument();
 
-        renderResult.rerender(<Pagination {...props} components={{}} />);
+        view.rerender(<Pagination {...props} components={{}} />);
 
-        expect(renderResult.queryByTestId('Page-1')).not.toBeInTheDocument();
-        expect(
-          renderResult.queryByTestId('custom-previous'),
-        ).not.toBeInTheDocument();
-        expect(
-          renderResult.queryByTestId('custom-next'),
-        ).not.toBeInTheDocument();
+        expect(screen.queryByTestId('Page-1')).not.toBeInTheDocument();
+        expect(screen.queryByTestId('custom-previous')).not.toBeInTheDocument();
+        expect(screen.queryByTestId('custom-next')).not.toBeInTheDocument();
       });
     });
 
@@ -218,18 +211,18 @@ describe('Pagination', () => {
         const pages = [{ label: '1' }, { label: '2' }];
         const getPageLabel = (page: { label: string }, index: number) =>
           `${page.label}-${index}`;
-        const { renderResult, props } = setup({ pages, getPageLabel });
+        const { view, props } = setup({ pages, getPageLabel });
 
         [
           { page: '1-0', isSelected: true },
           { page: '2-1', isSelected: false },
         ].forEach(({ page, isSelected }) => {
-          assertPageButtonRendering(renderResult, { page, isSelected });
+          assertPageButtonRendering(view, { page, isSelected });
         });
 
         const newGetPageLabel = (page: { label: string }, index: number) =>
           `${page.label}---${index}`;
-        renderResult.rerender(
+        view.rerender(
           <Pagination
             {...props}
             pages={pages}
@@ -241,29 +234,29 @@ describe('Pagination', () => {
           { page: '1---0', isSelected: true },
           { page: '2---1', isSelected: false },
         ].forEach(({ page, isSelected }) => {
-          assertPageButtonRendering(renderResult, { page, isSelected });
+          assertPageButtonRendering(view, { page, isSelected });
         });
       });
     });
 
     describe('aria-labels', () => {
       it('should apply different labels to navigation buttons', () => {
-        const { renderResult, props } = setup({
+        const { view, props } = setup({
           label: 'pagination',
           previousLabel: 'p',
           nextLabel: 'n',
         });
 
-        assertNavigationButtonRendering(renderResult, {
+        assertNavigationButtonRendering(view, {
           label: 'p',
           isEnabled: false,
         });
-        assertNavigationButtonRendering(renderResult, {
+        assertNavigationButtonRendering(view, {
           label: 'n',
           isEnabled: true,
         });
 
-        renderResult.rerender(
+        view.rerender(
           <Pagination
             {...props}
             label="pagination"
@@ -272,11 +265,11 @@ describe('Pagination', () => {
           />,
         );
 
-        assertNavigationButtonRendering(renderResult, {
+        assertNavigationButtonRendering(view, {
           label: 'pr',
           isEnabled: false,
         });
-        assertNavigationButtonRendering(renderResult, {
+        assertNavigationButtonRendering(view, {
           label: 'ne',
           isEnabled: true,
         });
@@ -285,30 +278,28 @@ describe('Pagination', () => {
 
     describe('#style', () => {
       it('should apply style to container', () => {
-        const { renderResult, props } = setup({
+        const { view, props } = setup({
           style: { border: '1px solid red' },
         });
 
-        expect(renderResult.container.firstElementChild).toHaveStyle(
-          'border: 1px solid red',
-        );
+        expect(
+          screen.getByRole('navigation', { name: 'pagination' }),
+        ).toHaveStyle('border: 1px solid red');
 
-        renderResult.rerender(
-          <Pagination {...props} style={{ top: '50px' }} />,
-        );
+        view.rerender(<Pagination {...props} style={{ top: '50px' }} />);
 
-        expect(renderResult.container.firstElementChild).not.toHaveStyle(
-          'border: 1px solid red',
-        );
-        expect(renderResult.container.firstElementChild).toHaveStyle(
-          'top: 50px',
-        );
+        expect(
+          screen.getByRole('navigation', { name: 'pagination' }),
+        ).not.toHaveStyle('border: 1px solid red');
+        expect(
+          screen.getByRole('navigation', { name: 'pagination' }),
+        ).toHaveStyle('top: 50px');
       });
     });
 
     describe('#max', () => {
       it('should hide pages when count is decreased', () => {
-        const { renderResult, props } = setup({ max: 10 });
+        const { view, props } = setup({ max: 10 });
 
         [
           { page: '1', isSelected: true },
@@ -322,12 +313,12 @@ describe('Pagination', () => {
           { page: '9', isSelected: false },
           { page: '10', isSelected: false },
         ].forEach(({ page, isSelected }) => {
-          assertPageButtonRendering(renderResult, { page, isSelected });
+          assertPageButtonRendering(view, { page, isSelected });
         });
 
-        expect(renderResult.queryByText('\u2026')).not.toBeInTheDocument();
+        expect(screen.queryByText(ellipsis)).not.toBeInTheDocument();
 
-        renderResult.rerender(<Pagination {...props} max={8} />);
+        view.rerender(<Pagination {...props} max={8} />);
 
         [
           { page: '1', isSelected: true },
@@ -338,13 +329,13 @@ describe('Pagination', () => {
           { page: '6', isSelected: false },
           { page: '10', isSelected: false },
         ].forEach(({ page, isSelected }) => {
-          assertPageButtonRendering(renderResult, { page, isSelected });
+          assertPageButtonRendering(view, { page, isSelected });
         });
 
-        expect(renderResult.getByText('\u2026')).toBeInTheDocument();
+        expect(screen.getByText(ellipsis)).toBeInTheDocument();
 
         ['7', '8', '9'].forEach((page) => {
-          expect(renderResult.queryByText(page)).not.toBeInTheDocument();
+          expect(screen.queryByText(page)).not.toBeInTheDocument();
         });
       });
     });
@@ -352,16 +343,16 @@ describe('Pagination', () => {
     describe('#onChange', () => {
       it('should get called with new selected index when page is changed', () => {
         const onChange = jest.fn();
-        const { renderResult, props } = setup({ onChange });
+        const { view, props } = setup({ onChange });
 
-        fireEvent.click(renderResult.getByText('2'));
+        fireEvent.click(screen.getByText('2'));
 
         expect(onChange.mock.calls[0][1]).toBe(2);
 
         const newOnChange = jest.fn();
-        renderResult.rerender(<Pagination {...props} onChange={newOnChange} />);
+        view.rerender(<Pagination {...props} onChange={newOnChange} />);
 
-        fireEvent.click(renderResult.getByText('4'));
+        fireEvent.click(screen.getByText('4'));
 
         expect(newOnChange.mock.calls[0][1]).toBe(4);
       });
@@ -369,59 +360,57 @@ describe('Pagination', () => {
 
     describe('#defaultSelectedIndex', () => {
       it('should not change when re-rendered', () => {
-        const { renderResult, props } = setup({ defaultSelectedIndex: 1 });
+        const { view, props } = setup({ defaultSelectedIndex: 1 });
 
         [{ page: '2', isSelected: true }].forEach(({ page, isSelected }) => {
-          assertPageButtonRendering(renderResult, { page, isSelected });
+          assertPageButtonRendering(view, { page, isSelected });
         });
 
-        renderResult.rerender(
-          <Pagination {...props} defaultSelectedIndex={3} />,
-        );
+        view.rerender(<Pagination {...props} defaultSelectedIndex={3} />);
 
         [
           { page: '2', isSelected: true },
           { page: '4', isSelected: false },
         ].forEach(({ page, isSelected }) => {
-          assertPageButtonRendering(renderResult, { page, isSelected });
+          assertPageButtonRendering(view, { page, isSelected });
         });
       });
     });
 
     describe('#selectedIndex', () => {
       it('should change when re-rendered', () => {
-        const { renderResult, props } = setup({ selectedIndex: 1 });
+        const { view, props } = setup({ selectedIndex: 1 });
 
         [{ page: '2', isSelected: true }].forEach(({ page, isSelected }) => {
-          assertPageButtonRendering(renderResult, { page, isSelected });
+          assertPageButtonRendering(view, { page, isSelected });
         });
 
-        renderResult.rerender(<Pagination {...props} selectedIndex={3} />);
+        view.rerender(<Pagination {...props} selectedIndex={3} />);
 
         [
           { page: '2', isSelected: false },
           { page: '4', isSelected: true },
         ].forEach(({ page, isSelected }) => {
-          assertPageButtonRendering(renderResult, { page, isSelected });
+          assertPageButtonRendering(view, { page, isSelected });
         });
       });
     });
 
     describe('#pages', () => {
       it('should re-render with new pages', () => {
-        const { renderResult, props } = setup({ pages: [1, 2, 3] });
+        const { view, props } = setup({ pages: [1, 2, 3] });
 
         [
           { page: '1', isSelected: true },
           { page: '2', isSelected: false },
           { page: '3', isSelected: false },
         ].forEach(({ page, isSelected }) => {
-          assertPageButtonRendering(renderResult, { page, isSelected });
+          assertPageButtonRendering(view, { page, isSelected });
         });
 
-        expect(renderResult.queryByText('4')).not.toBeInTheDocument();
+        expect(screen.queryByText('4')).not.toBeInTheDocument();
 
-        renderResult.rerender(<Pagination {...props} pages={[1, 2, 3, 4]} />);
+        view.rerender(<Pagination {...props} pages={[1, 2, 3, 4]} />);
 
         [
           { page: '1', isSelected: true },
@@ -429,27 +418,38 @@ describe('Pagination', () => {
           { page: '3', isSelected: false },
           { page: '4', isSelected: false },
         ].forEach(({ page, isSelected }) => {
-          assertPageButtonRendering(renderResult, { page, isSelected });
+          assertPageButtonRendering(view, { page, isSelected });
         });
       });
     });
 
     describe('#renderEllipsis', () => {
       it('should re-render with new ellipsis', () => {
-        const { renderResult, props } = setup({
+        const { view, props } = setup({
           renderEllipsis: jest.fn().mockReturnValue('\u2026E\u2026'),
         });
 
-        expect(renderResult.getByText('\u2026E\u2026')).toBeInTheDocument();
+        expect(screen.getByText('\u2026E\u2026')).toBeInTheDocument();
 
-        renderResult.rerender(
+        view.rerender(
           <Pagination
             {...props}
             renderEllipsis={jest.fn().mockReturnValue('\u2026Ell\u2026')}
           />,
         );
 
-        expect(renderResult.getByText('\u2026Ell\u2026')).toBeInTheDocument();
+        expect(screen.getByText('\u2026Ell\u2026')).toBeInTheDocument();
+      });
+
+      describe('#isDisabled', () => {
+        it('should disable all controlls', () => {
+          setup({ isDisabled: true });
+
+          const controls = screen.getAllByRole('button');
+          controls.forEach((control) => {
+            expect(control).toBeDisabled();
+          });
+        });
       });
     });
   });
@@ -457,9 +457,9 @@ describe('Pagination', () => {
   describe('interactions', () => {
     it('should render only left, current and right page along with 2 ellipsis when some middle page is clicked', () => {
       const onChange = jest.fn();
-      const { renderResult } = setup({ onChange });
+      const { view } = setup({ onChange });
 
-      fireEvent.click(renderResult.getByText('5'));
+      fireEvent.click(screen.getByText('5'));
 
       expect(onChange.mock.calls[0][1]).toBe(5);
 
@@ -470,22 +470,22 @@ describe('Pagination', () => {
         { page: '6', isSelected: false },
         { page: '10', isSelected: false },
       ].forEach(({ page, isSelected }) => {
-        assertPageButtonRendering(renderResult, { page, isSelected });
+        assertPageButtonRendering(view, { page, isSelected });
       });
 
-      expect(renderResult.getAllByText('\u2026').length).toBe(2);
+      expect(screen.getAllByText('\u2026').length).toBe(2);
 
       ['2', '3', '7', '8', '9'].forEach((page) => {
-        expect(renderResult.queryByText(page)).not.toBeInTheDocument();
+        expect(screen.queryByText(page)).not.toBeInTheDocument();
       });
     });
 
     it('should render all the left pages when ellipsis is not required', () => {
       const onChange = jest.fn();
-      const { renderResult } = setup({ onChange });
+      const { view } = setup({ onChange });
 
-      fireEvent.click(renderResult.getByText('5'));
-      fireEvent.click(renderResult.getByText('4'));
+      fireEvent.click(screen.getByText('5'));
+      fireEvent.click(screen.getByText('4'));
 
       expect(onChange.mock.calls[0][1]).toBe(5);
       expect(onChange.mock.calls[1][1]).toBe(4);
@@ -498,23 +498,23 @@ describe('Pagination', () => {
         { page: '5', isSelected: false },
         { page: '10', isSelected: false },
       ].forEach(({ page, isSelected }) => {
-        assertPageButtonRendering(renderResult, { page, isSelected });
+        assertPageButtonRendering(view, { page, isSelected });
       });
 
-      expect(renderResult.getByText('\u2026')).toBeInTheDocument();
+      expect(screen.getByText(ellipsis)).toBeInTheDocument();
 
       ['6', '7', '8', '9'].forEach((page) => {
-        expect(renderResult.queryByText(page)).not.toBeInTheDocument();
+        expect(screen.queryByText(page)).not.toBeInTheDocument();
       });
     });
 
     it('should render all the right pages when ellipsis is not required', () => {
       const onChange = jest.fn();
-      const { renderResult } = setup({ onChange });
+      const { view } = setup({ onChange });
 
-      fireEvent.click(renderResult.getByText('5'));
-      fireEvent.click(renderResult.getByText('6'));
-      fireEvent.click(renderResult.getByText('7'));
+      fireEvent.click(screen.getByText('5'));
+      fireEvent.click(screen.getByText('6'));
+      fireEvent.click(screen.getByText('7'));
 
       expect(onChange.mock.calls[0][1]).toBe(5);
       expect(onChange.mock.calls[1][1]).toBe(6);
@@ -528,38 +528,38 @@ describe('Pagination', () => {
         { page: '9', isSelected: false },
         { page: '10', isSelected: false },
       ].forEach(({ page, isSelected }) => {
-        assertPageButtonRendering(renderResult, { page, isSelected });
+        assertPageButtonRendering(view, { page, isSelected });
       });
 
-      expect(renderResult.getByText('\u2026')).toBeInTheDocument();
+      expect(screen.getByText(ellipsis)).toBeInTheDocument();
       ['2', '3', '4', '5'].forEach((page) => {
-        expect(renderResult.queryByText(page)).not.toBeInTheDocument();
+        expect(screen.queryByText(page)).not.toBeInTheDocument();
       });
     });
 
     it('should not change page when navigated backwards and first page is selected', () => {
       const onChange = jest.fn();
-      const { renderResult } = setup({ onChange });
+      const { view } = setup({ onChange });
       [
         { page: '1', isSelected: true },
         { page: '2', isSelected: false },
       ].forEach(({ page, isSelected }) => {
-        assertPageButtonRendering(renderResult, { page, isSelected });
+        assertPageButtonRendering(view, { page, isSelected });
       });
-      assertNavigationButtonRendering(renderResult, {
+      assertNavigationButtonRendering(view, {
         label: 'previous',
         isEnabled: false,
       });
 
-      fireEvent.click(renderResult.getByLabelText('previous'));
+      fireEvent.click(screen.getByLabelText('previous'));
 
       [
         { page: '1', isSelected: true },
         { page: '2', isSelected: false },
       ].forEach(({ page, isSelected }) => {
-        assertPageButtonRendering(renderResult, { page, isSelected });
+        assertPageButtonRendering(view, { page, isSelected });
       });
-      assertNavigationButtonRendering(renderResult, {
+      assertNavigationButtonRendering(view, {
         label: 'previous',
         isEnabled: false,
       });
@@ -569,27 +569,27 @@ describe('Pagination', () => {
 
     it('should change page when navigated forwards and first page is selected', () => {
       const onChange = jest.fn();
-      const { renderResult } = setup({ onChange });
+      const { view } = setup({ onChange });
       [
         { page: '1', isSelected: true },
         { page: '2', isSelected: false },
       ].forEach(({ page, isSelected }) => {
-        assertPageButtonRendering(renderResult, { page, isSelected });
+        assertPageButtonRendering(view, { page, isSelected });
       });
-      assertNavigationButtonRendering(renderResult, {
+      assertNavigationButtonRendering(view, {
         label: 'previous',
         isEnabled: false,
       });
 
-      fireEvent.click(renderResult.getByLabelText('next'));
+      fireEvent.click(screen.getByLabelText('next'));
 
       [
         { page: '1', isSelected: false },
         { page: '2', isSelected: true },
       ].forEach(({ page, isSelected }) => {
-        assertPageButtonRendering(renderResult, { page, isSelected });
+        assertPageButtonRendering(view, { page, isSelected });
       });
-      assertNavigationButtonRendering(renderResult, {
+      assertNavigationButtonRendering(view, {
         label: 'previous',
         isEnabled: true,
       });
@@ -599,9 +599,9 @@ describe('Pagination', () => {
 
     it('should not change page when navigated forwards and last page is selected', () => {
       const onChange = jest.fn();
-      const { renderResult } = setup({ onChange });
+      const { view } = setup({ onChange });
 
-      fireEvent.click(renderResult.getByText('10'));
+      fireEvent.click(screen.getByText('10'));
 
       onChange.mockReset();
 
@@ -609,22 +609,22 @@ describe('Pagination', () => {
         { page: '9', isSelected: false },
         { page: '10', isSelected: true },
       ].forEach(({ page, isSelected }) => {
-        assertPageButtonRendering(renderResult, { page, isSelected });
+        assertPageButtonRendering(view, { page, isSelected });
       });
-      assertNavigationButtonRendering(renderResult, {
+      assertNavigationButtonRendering(view, {
         label: 'next',
         isEnabled: false,
       });
 
-      fireEvent.click(renderResult.getByLabelText('next'));
+      fireEvent.click(screen.getByLabelText('next'));
 
       [
         { page: '9', isSelected: false },
         { page: '10', isSelected: true },
       ].forEach(({ page, isSelected }) => {
-        assertPageButtonRendering(renderResult, { page, isSelected });
+        assertPageButtonRendering(view, { page, isSelected });
       });
-      assertNavigationButtonRendering(renderResult, {
+      assertNavigationButtonRendering(view, {
         label: 'next',
         isEnabled: false,
       });
@@ -634,9 +634,9 @@ describe('Pagination', () => {
 
     it('should change page when navigated backwards and last page is selected', () => {
       const onChange = jest.fn();
-      const { renderResult } = setup({ onChange });
+      const { view } = setup({ onChange });
 
-      fireEvent.click(renderResult.getByText('10'));
+      fireEvent.click(screen.getByText('10'));
 
       onChange.mockReset();
 
@@ -644,22 +644,22 @@ describe('Pagination', () => {
         { page: '9', isSelected: false },
         { page: '10', isSelected: true },
       ].forEach(({ page, isSelected }) => {
-        assertPageButtonRendering(renderResult, { page, isSelected });
+        assertPageButtonRendering(view, { page, isSelected });
       });
-      assertNavigationButtonRendering(renderResult, {
+      assertNavigationButtonRendering(view, {
         label: 'next',
         isEnabled: false,
       });
 
-      fireEvent.click(renderResult.getByLabelText('previous'));
+      fireEvent.click(screen.getByLabelText('previous'));
 
       [
         { page: '9', isSelected: true },
         { page: '10', isSelected: false },
       ].forEach(({ page, isSelected }) => {
-        assertPageButtonRendering(renderResult, { page, isSelected });
+        assertPageButtonRendering(view, { page, isSelected });
       });
-      assertNavigationButtonRendering(renderResult, {
+      assertNavigationButtonRendering(view, {
         label: 'next',
         isEnabled: true,
       });
@@ -669,17 +669,18 @@ describe('Pagination', () => {
 
     it('should set aria-current on newly selected page', () => {
       const onChange = jest.fn();
-      const { renderResult } = setup({ onChange });
-      expect(renderResult.getByText('1').parentElement).toHaveAttribute(
-        'aria-current',
-      );
-      fireEvent.click(renderResult.getByText('5'));
-      expect(renderResult.getByText('1').parentElement).not.toHaveAttribute(
-        'aria-current',
-      );
-      expect(renderResult.getByText('5').parentElement).toHaveAttribute(
-        'aria-current',
-      );
+      setup({ onChange });
+      expect(
+        screen.getByRole('button', { current: 'page' }),
+      ).toHaveAccessibleName('page 1');
+
+      fireEvent.click(screen.getByText('5'));
+      expect(
+        screen.getByRole('button', { current: 'page' }),
+      ).toHaveAccessibleName('page 5');
+      expect(
+        screen.getByRole('button', { name: 'page 1' }),
+      ).not.toHaveAttribute('aria-current');
     });
   });
 });

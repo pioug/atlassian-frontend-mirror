@@ -1,18 +1,19 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-  initFullPageEditorWithAdf,
-  emulateSelectAll,
-  pmSelector,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  tableSelectors,
   clickFirstCell,
+  tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  Appearance,
+  emulateSelectAll,
+  initEditorWithAdf,
+  initFullPageEditorWithAdf,
+  pmSelector,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import tableWithMergeRowAdf from './__fixtures__/table-with-merged-rows.adf.json';
 import tableWithTrelloCardNarrowColumnsAdf from './__fixtures__/table-with-trello-card-narrow-columns.adf.json';
 

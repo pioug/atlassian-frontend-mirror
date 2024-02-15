@@ -16,9 +16,11 @@ const wrapperStyles = css({
 export default () => {
   return (
     <div id="analytics" css={wrapperStyles}>
-      <p>Log onFocus & onBlur analytics</p>
+      <label htmlFor="log">Log onFocus & onBlur analytics</label>
       <AnalyticsListener onEvent={sendAnalytics} channel="atlaskit">
         <TextArea
+          name="log"
+          id="log"
           placeholder="Type here..."
           testId="analyticsTextArea"
           onBlur={noop}

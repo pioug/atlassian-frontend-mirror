@@ -122,9 +122,9 @@ const generateDraggableButtonItems = (n: number): CustomDraggable[] => {
 
 const generateDraggableCustomItems = (n: number): CustomDraggable[] => {
   const CustomComponent = forwardRef<any, CustomItemComponentProps>(
-    ({ children, ...rest }, ref) => {
+    ({ children, 'data-testid': testId, ...rest }, ref) => {
       return (
-        <Box ref={ref} {...rest}>
+        <Box ref={ref} testId={testId} {...rest}>
           {children}
         </Box>
       );

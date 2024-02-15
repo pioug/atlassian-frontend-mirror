@@ -15,9 +15,13 @@ type AEP<
   attributes?: Attributes & {
     [key in keyof ImplicitAttributes]?: ImplicitAttributes[key];
   };
-  eventType: EventType;
-  nonPrivacySafeAttributes?: NonPrivacySafeAttributes;
-};
+} & (
+  | {
+      eventType: Exclude<EventType, EVENT_TYPE.OPERATIONAL>;
+      nonPrivacySafeAttributes?: NonPrivacySafeAttributes;
+    }
+  | { eventType: EVENT_TYPE.OPERATIONAL }
+);
 
 export type UIAEP<
   Action,
@@ -51,27 +55,22 @@ export type TrackAEP<
   ImplicitAttributes
 >;
 
-export type OperationalAEP<
-  Action,
-  ActionSubject,
-  ActionSubjectID,
-  Attributes,
-  NonPrivacySafeAttributes,
-> = AEP<
-  Action,
-  ActionSubject,
-  ActionSubjectID,
-  Attributes,
-  NonPrivacySafeAttributes,
-  EVENT_TYPE.OPERATIONAL
->;
+export type OperationalAEP<Action, ActionSubject, ActionSubjectID, Attributes> =
+  AEP<
+    Action,
+    ActionSubject,
+    ActionSubjectID,
+    Attributes,
+    undefined,
+    EVENT_TYPE.OPERATIONAL
+  >;
 
 export type OperationalExposureAEP<
   Action,
   ActionSubject,
   ActionSubjectID,
   Attributes,
-> = OperationalAEP<Action, ActionSubject, ActionSubjectID, Attributes, {}> & {
+> = OperationalAEP<Action, ActionSubject, ActionSubjectID, Attributes> & {
   source?: string;
   tags?: string[];
 };
@@ -81,13 +80,11 @@ export type OperationalAEPWithObjectId<
   ActionSubject,
   ActionSubjectID,
   Attributes,
-  NonPrivacySafeAttributes,
 > = OperationalAEP<
   Action,
   ActionSubject,
   ActionSubjectID,
-  Attributes & { objectId?: string },
-  NonPrivacySafeAttributes
+  Attributes & { objectId?: string }
 >;
 
 export type ScreenAEP<
@@ -133,6 +130,7 @@ export enum SELECTION_POSITION {
 interface NonRequiredAttributes {
   insertLocation?: string;
   nodeLocation?: string;
+  changeFromLocation?: string;
   selectionType?: SELECTION_TYPE;
   selectionPosition?: SELECTION_POSITION;
 }
@@ -146,3 +144,17 @@ export type InsertAEP<ActionSubjectID, Attributes, NonPrivacySafeAttributes> =
     NonPrivacySafeAttributes,
     NonRequiredAttributes
   >;
+
+export type ChangeTypeAEP<
+  ActionSubject,
+  ActionSubjectID,
+  Attributes,
+  NonPrivacySafeAttributes,
+> = TrackAEP<
+  ACTION.CHANGED_TYPE,
+  ActionSubject,
+  ActionSubjectID,
+  Attributes,
+  NonPrivacySafeAttributes,
+  NonRequiredAttributes
+>;

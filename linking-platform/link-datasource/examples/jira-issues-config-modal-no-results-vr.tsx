@@ -16,7 +16,7 @@ mockDatasourceFetchRequests({ delayedResponse: false });
 
 const parameters = {
   cloudId: '22222',
-  jql: 'created >= -30d order by created DESC',
+  jql: 'order by created DESC',
 };
 
 export const JiraIssuesConfigModalNoResultsState = () => (

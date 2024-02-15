@@ -1,18 +1,18 @@
 import { useMemo } from 'react';
+
 import debounce from 'lodash/debounce';
 
-import {
-  useComponentRenderTracking,
+import type {
+  ACTION,
+  ACTION_SUBJECT,
+  FireAnalyticsCallback,
+} from '@atlaskit/editor-common/analytics';
+import { EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import type {
   PropsDifference,
   ShallowPropsDifference,
 } from '@atlaskit/editor-common/utils';
-
-import {
-  EVENT_TYPE,
-  ACTION_SUBJECT,
-  ACTION,
-  FireAnalyticsCallback,
-} from '@atlaskit/editor-common/analytics';
+import { useComponentRenderTracking } from '@atlaskit/editor-common/utils';
 
 type RenderActions = ACTION.RE_RENDERED;
 type RenderActionSubjects =

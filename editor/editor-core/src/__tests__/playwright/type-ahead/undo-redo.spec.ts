@@ -1,11 +1,11 @@
 import {
-  editorTestCase as test,
   BROWSERS,
-  fixTest,
   expect,
+  fixTest,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p, h1 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, h1, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 const spaceAtEnd = {
   version: 1,

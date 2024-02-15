@@ -17,6 +17,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': 'Thay đổi của bạn sẽ không được lưu',
   'linkCreate.createForm.button.close': 'Đóng',
   'linkCreate.createForm.button.create': 'Tạo',
-  'linkCreate.createForm.button.edit': 'Sửa',
+  'linkCreate.createForm.button.createAndOpen': 'Tạo + Mở',
   'linkCreate.modal.heading': 'Tạo mới',
 };

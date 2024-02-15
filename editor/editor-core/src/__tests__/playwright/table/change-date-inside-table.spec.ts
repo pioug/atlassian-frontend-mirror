@@ -1,23 +1,23 @@
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import {
-  EditorNodeContainerModel,
   EditorDateModel,
+  EditorNodeContainerModel,
   EditorPopupModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  doc,
-  table,
-  tr,
-  th,
-  tdEmpty,
-  thEmpty,
   date,
+  doc,
   p,
+  table,
+  tdEmpty,
+  th,
+  thEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 
 test.use({
   editorProps: {

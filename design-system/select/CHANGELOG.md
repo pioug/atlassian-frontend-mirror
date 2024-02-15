@@ -1,5 +1,35 @@
 # @atlaskit/select
 
+## 17.1.0
+
+### Minor Changes
+
+- [#72872](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72872) [`26b963783de7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/26b963783de7) - DSP-16671 Update CheckboxSelect to accept generic type arg for OptionType
+
+## 17.0.5
+
+### Patch Changes
+
+- [#69863](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69863) [`6c9b587369cf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6c9b587369cf) - Support to add additional aria-describedby on select when isSearchable is false
+
+## 17.0.4
+
+### Patch Changes
+
+- [#58732](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58732) [`a3a08f8f4a03`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3a08f8f4a03) - update aria-describedby attribute to not be undefined
+
+## 17.0.3
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 17.0.2
+
+### Patch Changes
+
+- [#58316](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58316) [`eb496c9a3474`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb496c9a3474) - Bug fixes for configuraton panel boolean & enum fields
+
 ## 17.0.1
 
 ### Patch Changes

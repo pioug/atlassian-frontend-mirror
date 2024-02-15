@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default-value-hydration-client should reject promise on network error: URS error 1`] = `"error calling smart service, statusCode=504, statusText=Gateway Timeout"`;
+
+exports[`default-value-hydration-client should translate given context to correct fetch request: URS query 1`] = `
+Object {
+  "context": Object {
+    "childObjectId": "childObjectId",
+    "containerId": "containerId",
+    "contextType": "fieldId",
+    "objectId": "objectId",
+    "principalId": "principalId",
+    "productAttributes": Object {
+      "emailDomain": "Context",
+      "isPublicRepo": false,
+      "pullRequestId": 18056,
+      "workspaceIds": Array [
+        "02b941e3-cfaa-40f9-9a58-cec53e20bdc3",
+      ],
+    },
+    "productKey": "bitbucket",
+    "sessionId": "session-id",
+    "siteId": "site-id",
+  },
+  "includeGroups": true,
+  "includeNonLicensedUsers": false,
+  "includeTeams": true,
+  "includeUsers": true,
+  "maxNumberOfResults": 50,
+  "performSearchQueryOnly": false,
+  "searchQuery": Object {
+    "cpusQueryHighlights": Object {
+      "field": "",
+      "query": "",
+    },
+    "customQuery": "",
+    "customerDirectoryId": "",
+    "filter": "",
+    "minimumAccessLevel": "APPLICATION",
+    "queryString": "query",
+    "restrictTo": Object {
+      "groupIds": Array [],
+      "userIds": Array [],
+    },
+    "searchUserbase": false,
+  },
+}
+`;
+
+exports[`default-value-hydration-client should translate given context to correct fetch request: URS users 1`] = `
+Array [
+  Object {
+    "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net",
+    "email": "jsmith@atlassian.com",
+    "id": "5ee0adc79583380ab0afec31",
+    "lozenge": undefined,
+    "name": "John Smith",
+    "title": "Development Manager",
+    "tooltip": "John Smith",
+    "type": "user",
+  },
+  Object {
+    "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net",
+    "email": "jsmith@atlassian.com",
+    "id": "5ee0adc79583380ab0afec32",
+    "lozenge": undefined,
+    "name": "John Doe",
+    "title": "Development Manager",
+    "tooltip": "John Doe",
+    "type": "user",
+  },
+]
+`;

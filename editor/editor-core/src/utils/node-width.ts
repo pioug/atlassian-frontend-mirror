@@ -1,8 +1,8 @@
-import type {
-  Node as PMNode,
-  MarkType,
-} from '@atlaskit/editor-prosemirror/model';
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
+import type {
+  MarkType,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
 export { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
 
 /**

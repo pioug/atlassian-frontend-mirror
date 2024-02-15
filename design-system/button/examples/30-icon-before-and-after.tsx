@@ -9,11 +9,11 @@ import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import GraphLineIcon from '@atlaskit/icon/glyph/graph-line';
 import LightbulbIcon from '@atlaskit/icon/glyph/lightbulb';
 import MoreIcon from '@atlaskit/icon/glyph/more';
-import { type Size } from '@atlaskit/icon/types';
 import { Stack } from '@atlaskit/primitives';
 
 import { ButtonGroup } from '../src';
-import Button from '../src/new-button/variants/default/button';
+import Button from '../src/new';
+import { type IconSize } from '../src/new-button/variants/types';
 import spacing from '../src/utils/spacing';
 
 const icons = [
@@ -26,7 +26,7 @@ const icons = [
   MoreIcon,
 ];
 
-const iconSizes: Size[] = ['small', 'medium', 'large', 'xlarge'];
+const iconSizes: IconSize[] = ['small', 'large', 'xlarge'];
 
 export default function ButtonsWithIconBeforeOrAfterExample() {
   return (
@@ -70,7 +70,7 @@ export default function ButtonsWithIconBeforeOrAfterExample() {
             iconAfter={AddIcon}
             UNSAFE_iconAfter_size={size}
           >
-            Icon before
+            Icon before and after
           </Button>
         </ButtonGroup>
       ))}

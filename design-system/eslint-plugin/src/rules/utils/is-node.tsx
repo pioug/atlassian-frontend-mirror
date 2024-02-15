@@ -61,6 +61,21 @@ export const isDecendantOfStyleJsxAttribute = (node: Rule.Node): boolean => {
   return false;
 };
 
+export const isDecendantOfSvgElement = (node: Rule.Node): boolean => {
+  if (isNodeOfType(node, 'JSXElement')) {
+    // @ts-ignore
+    if (node.openingElement.name.name === 'svg') {
+      return true;
+    }
+  }
+
+  if (node.parent) {
+    return isDecendantOfSvgElement(node.parent);
+  }
+
+  return false;
+};
+
 const cssInJsCallees = ['css', 'styled', 'styled2'];
 
 export const isCssInJsTemplateNode = (

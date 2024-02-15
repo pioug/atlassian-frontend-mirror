@@ -7,14 +7,14 @@ import { useHeading } from './heading-context';
 import type { HeadingProps } from './types';
 
 // https://atlassian.design/foundations/typography
-const levelMap = {
+const variantTagMap = {
   xxlarge: 'h1',
-  xlarge: 'h2',
-  large: 'h3',
-  medium: 'h4',
-  small: 'h5',
-  xsmall: 'h6',
-  xxsmall: 'div',
+  xlarge: 'h1',
+  large: 'h2',
+  medium: 'h3',
+  small: 'h4',
+  xsmall: 'h5',
+  xxsmall: 'h6',
 } as const;
 
 const headingResetStyles = css({
@@ -31,16 +31,12 @@ const inverseStyles = css({
 /**
  * __Heading__
  *
- * A heading is a typography component used to display text in different sizes and formats.
+ * Heading is a typography component used to display text in defined sizes and styles.
  *
  * @example
  *
  * ```jsx
- * import Heading from '@atlaskit/heading';
- *
- * const HeadingXXL = () => (
- *   <Heading level="xxlarge">XXL</Heading>
- * );
+ * <Heading variant="xxlarge">Page title</Heading>
  * ```
  */
 const Heading = ({
@@ -60,12 +56,14 @@ const Heading = ({
     throw new Error('`as` prop should be a string.');
   }
 
-  const [hLevel, inferredElement] = useHeading(levelMap[variant!]);
-  const Markup = as || inferredElement;
-  const needsAriaRole = Markup === 'div' && hLevel;
+  // Technically variant can be undefined here due to how the types work.
+  // Once removing the level prop this assertion can be removed since variant will be a required prop.
+  const [hLevel, inferredElement] = useHeading(variantTagMap[variant!]);
+  const Component = as || inferredElement;
+  const needsAriaRole = Component === 'div' && hLevel;
 
   return (
-    <Markup
+    <Component
       id={id}
       data-testid={testId}
       role={needsAriaRole ? 'heading' : undefined}
@@ -77,57 +75,57 @@ const Heading = ({
       ]}
     >
       {children}
-    </Markup>
+    </Component>
   );
 };
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cabcd4e0313e10dd81733a6ffcdbc90f>>
+ * @codegen <<SignedSource::6c4d235cbada3951edcb53e36bd07b2b>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/heading codegen
  */
 const headingVariantStylesMap = {
-  large: css({
+  xxlarge: css({
     font: token(
-      'font.heading.large',
-      'normal 500 24px/28px var(--ds-font-family-heading)',
-    ),
-  }),
-  medium: css({
-    font: token(
-      'font.heading.medium',
-      'normal 500 20px/24px var(--ds-font-family-heading)',
-    ),
-  }),
-  small: css({
-    font: token(
-      'font.heading.small',
-      'normal 600 16px/20px var(--ds-font-family-heading)',
+      'font.heading.xxlarge',
+      'normal 500 35px/40px ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
   xlarge: css({
     font: token(
       'font.heading.xlarge',
-      'normal 600 29px/32px var(--ds-font-family-heading)',
+      'normal 600 29px/32px ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+    ),
+  }),
+  large: css({
+    font: token(
+      'font.heading.large',
+      'normal 500 24px/28px ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+    ),
+  }),
+  medium: css({
+    font: token(
+      'font.heading.medium',
+      'normal 500 20px/24px ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+    ),
+  }),
+  small: css({
+    font: token(
+      'font.heading.small',
+      'normal 600 16px/20px ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
   xsmall: css({
     font: token(
       'font.heading.xsmall',
-      'normal 600 14px/16px var(--ds-font-family-heading)',
-    ),
-  }),
-  xxlarge: css({
-    font: token(
-      'font.heading.xxlarge',
-      'normal 500 35px/40px var(--ds-font-family-heading)',
+      'normal 600 14px/16px ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
   xxsmall: css({
     font: token(
       'font.heading.xxsmall',
-      'normal 600 12px/16px var(--ds-font-family-heading)',
+      'normal 600 12px/16px ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
 };

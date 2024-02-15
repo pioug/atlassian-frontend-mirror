@@ -91,7 +91,7 @@ type BaseBoxProps<T extends CustomElementType> = {
    */
   paddingInlineEnd?: Space;
   /**
-   * Forwarded ref
+   * Forwarded ref.
    */
   ref?: ComponentPropsWithRef<T>['ref'];
 };

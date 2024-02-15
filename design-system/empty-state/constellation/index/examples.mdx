@@ -22,9 +22,9 @@ The only required part of an empty state is the header.
 
 <Example Component={EmptyStateDefault} packageName="@atlaskit/empty-state" />
 
-## Custom Heading Level
+## Custom heading level
 
-The heading level rendered by default is heading level 4. Based on the heading structure and placement of the `<EmptyState>`, you may need to modify this.
+The heading level rendered by default is heading level 4. To make sure that the empty state is accessible, headings must follow a logical order. If the empty state does not follow an `h3` or `h4` in the reading order, then you will need to modify the heading order to the next logical heading level.
 
 Use the `headingLevel` prop to set the heading level of the header element.
 
@@ -46,7 +46,7 @@ Descriptions should add useful and relevant additional information.
 
 ### Primary
 
-A primary action button should recommended the most important next step a user can take.
+Use a primary action button to recommend the best next step that people can take.
 
 <Example
   Component={EmptyStatePrimaryAction}
@@ -55,7 +55,7 @@ A primary action button should recommended the most important next step a user c
 
 ### Secondary
 
-A secondary action button should recommend an alternate step a user could take.
+Use a secondary action button to recommend an alternate step that people could take.
 
 <Example
   Component={EmptyStateSecondaryAction}
@@ -64,7 +64,7 @@ A secondary action button should recommend an alternate step a user could take.
 
 ### Tertiary
 
-Tertiary action buttons can be used to link to external resources or documentation to help the user learn more.
+Use tertiary action buttons to link to external resources or documentation to further explain how to resolve the empty state.
 
 <Example
   Component={EmptyStateTertiaryAction}
@@ -73,7 +73,7 @@ Tertiary action buttons can be used to link to external resources or documentati
 
 ## Loading state
 
-The `isLoading` prop can be used to indicate a loading state. This will show a spinner next to the action buttons when true.
+Use the `isLoading` prop to indicate a loading state. This will show a spinner next to the action buttons when true.
 
 <Example Component={EmptyStateLoading} packageName="@atlaskit/empty-state" />
 

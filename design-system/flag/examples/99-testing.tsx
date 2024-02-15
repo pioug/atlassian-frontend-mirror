@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode, useRef, useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';

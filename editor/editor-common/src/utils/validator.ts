@@ -1,5 +1,5 @@
+import type { CellAttributes } from '@atlaskit/adf-schema';
 import {
-  CellAttributes,
   inlineNodes,
   isSafeUrl,
   PanelType,
@@ -365,6 +365,26 @@ export const getValidNode = (
       }
       case 'bodiedExtension': {
         if (attrs && attrs.extensionType && attrs.extensionKey && content) {
+          return {
+            type,
+            attrs,
+            content,
+          };
+        }
+        break;
+      }
+      case 'multiBodiedExtension': {
+        if (attrs && attrs.extensionType && attrs.extensionKey && content) {
+          return {
+            type,
+            attrs,
+            content,
+          };
+        }
+        break;
+      }
+      case 'extensionFrame': {
+        if (content) {
           return {
             type,
             attrs,

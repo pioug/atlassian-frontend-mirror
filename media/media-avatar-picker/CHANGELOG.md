@@ -1,5 +1,36 @@
 # @atlaskit/media-avatar-picker
 
+## 24.3.22
+
+### Patch Changes
+
+- [#71706](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71706) [`9f5b710e6a66`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f5b710e6a66) - [ux] fix dialog header style
+
+## 24.3.21
+
+### Patch Changes
+
+- [#68062](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68062) [`16de4d766f9c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/16de4d766f9c) - [ux] fix dialog heading typography
+- Updated dependencies
+
+## 24.3.20
+
+### Patch Changes
+
+- [#67778](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67778) [`70c7f71eb643`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70c7f71eb643) - [ux] fix missing modal heading
+
+## 24.3.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.3.18
+
+### Patch Changes
+
+- [#57473](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57473) [`100f90575744`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/100f90575744) - Remove legacy theming logic from @atlaskit/media-avatar-picker, @atlaskit/media-card, @atlaskit/media-ui and @atlaskit/media-viewer.
+
 ## 24.3.17
 
 ### Patch Changes

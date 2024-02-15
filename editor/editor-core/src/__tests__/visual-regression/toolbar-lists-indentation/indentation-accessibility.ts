@@ -1,15 +1,16 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  Appearance,
-  initEditorWithAdf,
-  clickQuerySelectorElement,
-  isElementFocused,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { selectToolbarMenuWithKeyboard } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import {
+  Appearance,
+  clickQuerySelectorElement,
+  initEditorWithAdf,
+  isElementFocused,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import * as indentedAdf from '../common/__fixtures__/indented-nodes-adf.json';
 import * as outdentedAdf from '../common/__fixtures__/outdented-nodes-adf.json';
 
@@ -108,8 +109,7 @@ describe('toolbar accessbility', () => {
       expect(await isElementFocused(page, buttonSelectors.outdent)).toBe(true);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 16/06/2023: https://product-fabric.atlassian.net/browse/ED-18842
-    it.skip('should shift focus for bullet lists', async () => {
+    it('should shift focus for bullet lists', async () => {
       await clickQuerySelectorElement(page, 'li', 5);
 
       await selectToolbarMenuWithKeyboard(page, buttonSelectors.indent);

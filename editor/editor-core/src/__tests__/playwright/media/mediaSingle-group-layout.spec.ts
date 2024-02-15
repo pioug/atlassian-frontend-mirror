@@ -1,24 +1,29 @@
 import {
-  editorTestCase as test,
-  expect,
-  EditorNodeContainerModel,
-  EditorMediaSingleNextModel,
   EditorFloatingToolbarModel,
+  EditorMediaSingleNextModel,
+  EditorNodeContainerModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import { oneImage } from './__fixtures__/adf-documents';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
-  mediaSingle as mediaSingleNode,
   media,
+  mediaSingle as mediaSingleNode,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { oneImage } from './__fixtures__/adf-documents';
 
 test.use({
   editorProps: {
     appearance: 'full-page',
     media: {
       allowMediaSingle: true,
+      allowMediaInlineImages: true,
+      featureFlags: {
+        mediaInline: true,
+      },
     },
   },
 });
@@ -27,7 +32,7 @@ test.describe('Media floating toolbar with grouped layout experience', () => {
   test.use({
     adf: oneImage,
     platformFeatureFlags: {
-      'platform.editor.media.grouped-layout': true,
+      'platform.editor.media.inline-image.base-support': true,
     },
   });
 

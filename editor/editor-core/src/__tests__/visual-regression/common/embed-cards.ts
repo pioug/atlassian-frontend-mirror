@@ -1,27 +1,28 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  waitForLoadedImageElements,
-  waitForElementCount,
-  evaluateTeardownMockDate,
-  waitForElementCountTimeouts,
-} from '@atlaskit/visual-regression/helper';
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  snapshot,
-  initFullPageEditorWithAdf,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import adf from './__fixtures__/embed-card-layouts-adf.json';
-import containerADF from './__fixtures__/embed-containers.adf.json';
-import embedSeperatorADF from './__fixtures__/embed-card-inside-expand.adf.json';
-import embedTableADF from './__fixtures__/embed-card-inside-table.adf.json';
 import {
   embedCardSelector,
   embedCombinationsWithTitle,
   generateEmbedCombinationAdf,
-  waitForSuccessfullyResolvedEmbedCard,
   waitForEmbedCardSelection,
+  waitForSuccessfullyResolvedEmbedCard,
 } from '@atlaskit/media-integration-test-helpers';
+import {
+  evaluateTeardownMockDate,
+  waitForElementCount,
+  waitForElementCountTimeouts,
+  waitForLoadedImageElements,
+} from '@atlaskit/visual-regression/helper';
+
+import embedSeperatorADF from './__fixtures__/embed-card-inside-expand.adf.json';
+import embedTableADF from './__fixtures__/embed-card-inside-table.adf.json';
+import adf from './__fixtures__/embed-card-layouts-adf.json';
+import containerADF from './__fixtures__/embed-containers.adf.json';
 
 describe('Embed Cards:', () => {
   it('displays embed properly with different layouts', async () => {

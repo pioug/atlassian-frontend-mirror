@@ -234,48 +234,6 @@ export function createApiRouter(
     return new KakapoResponse(201, undefined, {});
   });
 
-  /** This function waits for shouldWaitUpload to be false before it resolves the promise.
-   * Otherwise it recursively calls itself with a 10ms timeout until it is false.*/
-  async function awaitUpload(resolver?: Function) {
-    return new Promise<void>((resolve) => {
-      if ((window as any).mediaMockControlsBackdoor.shouldWaitUpload) {
-        setTimeout(() => awaitUpload(resolver || resolve), 10);
-        return;
-      }
-      if (
-        resolver &&
-        !(window as any).mediaMockControlsBackdoor.shouldWaitUpload
-      ) {
-        resolver();
-      }
-      resolve();
-    });
-  }
-
-  router.post('/chunk/probe', async ({ body }, database) => {
-    const { chunks } = JSON.parse(body);
-    const allChunks = database.all('chunk');
-    const existingChunks: string[] = [];
-    const nonExistingChunks: string[] = [];
-
-    allChunks.forEach(({ data: { id } }) => {
-      if (chunks.indexOf(id) > -1) {
-        existingChunks.push(id);
-      } else {
-        nonExistingChunks.push(id);
-      }
-    });
-    await awaitUpload();
-    return {
-      data: {
-        results: [
-          ...existingChunks.map(() => ({ exists: true })),
-          ...nonExistingChunks.map(() => ({ exists: false })),
-        ],
-      },
-    };
-  });
-
   router.post('/upload', ({ query }, database) => {
     const { createUpTo = '1' } = query;
 

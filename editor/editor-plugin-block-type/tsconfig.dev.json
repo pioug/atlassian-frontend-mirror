@@ -51,10 +51,55 @@
       "path": "../editor-plugin-analytics/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-code-block/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-composition/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-content-insertion/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-copy-button/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-decorations/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-editor-disabled/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-floating-toolbar/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-focus/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-grid/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-guideline/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-layout/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-list/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-media/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-quick-insert/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-selection/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-type-ahead/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-width/tsconfig.app.json"
     },
     {
       "path": "../editor-tables/tsconfig.app.json"
@@ -64,6 +109,9 @@
     },
     {
       "path": "../../design-system/tokens/tsconfig.app.json"
+    },
+    {
+      "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
     }
   ]
 }

@@ -2,17 +2,17 @@ import React from 'react';
 
 import { useIntl } from 'react-intl-next';
 
+import { messages } from '@atlaskit/editor-common/emoji';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
 
-import { messages } from '../messages';
 import Emoji from '../ui/Emoji';
 
 const EmojiAssistiveTextComponent = React.memo(
   ({ emojiShortName }: { emojiShortName: string }) => {
     const intl = useIntl();
     return (
-      <span className={'assistive'}>
+      <span style={{ fontSize: 0 }}>
         {`${intl.formatMessage(messages.emojiNodeLabel)} ${emojiShortName}`}
       </span>
     );
@@ -31,7 +31,7 @@ export function EmojiNodeView(props: Props) {
       <EmojiAssistiveTextComponent
         emojiShortName={shortName}
       ></EmojiAssistiveTextComponent>
-      <span aria-hidden="true">
+      <span>
         <Emoji
           providers={props.providerFactory}
           id={id}

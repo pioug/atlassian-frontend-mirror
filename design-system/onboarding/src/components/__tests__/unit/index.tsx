@@ -2,7 +2,8 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/new';
 
 import {
   Spotlight,
@@ -103,11 +104,11 @@ describe('<Spotlight />', () => {
   it('should position the cloned target ontop of the original', () => {
     const { getByTestId } = render(buildOnboardingMarkup('target-one'));
 
-    expect(getByTestId('spotlight--target').style.position).toEqual('fixed');
-    expect(getByTestId('spotlight--target').style.height).toEqual('50px');
-    expect(getByTestId('spotlight--target').style.width).toEqual('100px');
-    expect(getByTestId('spotlight--target').style.left).toEqual('50px');
-    expect(getByTestId('spotlight--target').style.top).toEqual('100px');
+    expect(getByTestId('spotlight--target')).toHaveStyle({ position: 'fixed' });
+    expect(getByTestId('spotlight--target')).toHaveStyle({ height: '50px' });
+    expect(getByTestId('spotlight--target')).toHaveStyle({ width: '100px' });
+    expect(getByTestId('spotlight--target')).toHaveStyle({ left: '50px' });
+    expect(getByTestId('spotlight--target')).toHaveStyle({ top: '100px' });
   });
 
   it('should render the spotlight dialog', () => {
@@ -125,8 +126,8 @@ describe('<Spotlight />', () => {
 
     rerender(buildOnboardingMarkup('target-two'));
 
-    expect(getByTestId('spotlight--target').style.left).toEqual('100px');
-    expect(getByTestId('spotlight--target').style.top).toEqual('100px');
+    expect(getByTestId('spotlight--target')).toHaveStyle({ left: '100px' });
+    expect(getByTestId('spotlight--target')).toHaveStyle({ top: '100px' });
     expect(getByTestId('spotlight--dialog').innerText).toEqual(
       'Spotlight for target-two',
     );
@@ -140,8 +141,8 @@ describe('<Spotlight />', () => {
     rerender(buildOnboardingMarkup('target-two'));
     rerender(buildOnboardingMarkup('target-three'));
 
-    expect(getByTestId('spotlight--target').style.left).toEqual('150px');
-    expect(getByTestId('spotlight--target').style.top).toEqual('100px');
+    expect(getByTestId('spotlight--target')).toHaveStyle({ left: '150px' });
+    expect(getByTestId('spotlight--target')).toHaveStyle({ top: '100px' });
     expect(getByTestId('spotlight--dialog').innerText).toEqual(
       'Spotlight for target-three',
     );
@@ -185,7 +186,7 @@ describe('<Spotlight />', () => {
       </SpotlightManager>,
     );
 
-    expect(getByTestId('spotlight--target').style.position).toEqual('fixed');
+    expect(getByTestId('spotlight--target')).toHaveStyle({ position: 'fixed' });
   });
 
   it('should not log any errors when rendering the spotlight', () => {
@@ -275,7 +276,7 @@ describe('<Spotlight />', () => {
   it('pulse should not appear on element when SpotlightPulse pulse prop is false', () => {
     const { getByTestId } = render(
       <SpotlightManager>
-        <ButtonGroup>
+        <ButtonGroup label="Choose spotlight options">
           <SpotlightTarget name="copy">
             <SpotlightPulse pulse={false} radius={3} testId="spotlight-pulse">
               <Button>Existing feature</Button>
@@ -293,7 +294,7 @@ describe('<Spotlight />', () => {
   it('pulse should appear on element when SpotlightPulse pulse prop is true', () => {
     const { getByTestId } = render(
       <SpotlightManager>
-        <ButtonGroup>
+        <ButtonGroup label="Choose spotlight options">
           <SpotlightTarget name="copy">
             <SpotlightPulse pulse={true} radius={3} testId="spotlight-pulse">
               <Button>Existing feature</Button>

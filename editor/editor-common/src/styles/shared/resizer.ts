@@ -134,9 +134,32 @@ export const resizerStyles = css`
     height: 64px;
     transition: background-color 0.2s;
     border-radius: 6px;
-
+    border: 0;
+    padding: 0;
+    z-index: 2;
+    outline: none;
     min-height: 24px;
     background: ${token('color.border', N60)};
+
+    &:hover {
+      cursor: col-resize;
+    }
+
+    &:focus {
+      background: ${token('color.border.selected', '#0C66E4')};
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: ${token('space.negative.050', '-4px')};
+        right: ${token('space.negative.050', '-4px')};
+        bottom: ${token('space.negative.050', '-4px')};
+        left: ${token('space.negative.050', '-4px')};
+        border: 2px solid ${token('color.border.focused', '#388BFF')};
+        border-radius: inherit;
+        z-index: -1;
+      }
+    }
   }
 
   .${resizerHandleTrackClassName} {

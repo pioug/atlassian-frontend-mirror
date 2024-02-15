@@ -2,6 +2,10 @@
 title: Bleed
 description: A bleed controls negative whitespace in layouts.
 order: 1
+props:
+  packageName: '@atlaskit/primitives'
+  exports:
+    - Bleed
 ---
 
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
@@ -12,8 +16,6 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
   directoryName="primitives"
 />
 
-import ERTBleed from '!!extract-react-types-loader!../../extract-react-types/bleed-props';
-
 ## Props
 
-<PropsTable heading="" props={ERTBleed} />
+<TSMorphProps exportName="Bleed" packageName="@atlaskit/primitives" />

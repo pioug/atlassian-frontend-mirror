@@ -1,19 +1,19 @@
+import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type {
+  ReplaceRawValue,
+  Transformer,
+} from '@atlaskit/editor-common/types';
+import { getStepRange, processRawValue } from '@atlaskit/editor-common/utils';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type {
-  Transaction,
   ReadonlyTransaction,
+  Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type {
-  Transformer,
-  ReplaceRawValue,
-} from '@atlaskit/editor-common/types';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { getBreakoutMode } from './node-width';
-import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
-import { processRawValue, getStepRange } from '@atlaskit/editor-common/utils';
 
 export { isInEmptyLine } from '@atlaskit/editor-common/utils';
 

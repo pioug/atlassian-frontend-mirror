@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { Label } from '@atlaskit/form';
+import { Stack } from '@atlaskit/primitives';
 
 import Toggle from '../src';
 
@@ -16,13 +18,17 @@ export default () => {
 
   return (
     <AnalyticsListener channel="atlaskit" onEvent={sendAnalytics}>
-      <Toggle
-        size="large"
-        defaultChecked
-        onBlur={onBlur}
-        onFocus={onFocus}
-        onChange={onChange}
-      />
+      <Stack>
+        <Label htmlFor="toggle">Large toggle</Label>
+        <Toggle
+          id="toggle"
+          size="large"
+          defaultChecked
+          onBlur={onBlur}
+          onFocus={onFocus}
+          onChange={onChange}
+        />
+      </Stack>
     </AnalyticsListener>
   );
 };

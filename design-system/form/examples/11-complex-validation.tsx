@@ -7,7 +7,9 @@ import Form, {
   ErrorMessage,
   Field,
   FormFooter,
+  FormHeader,
   HelperMessage,
+  RequiredAsterisk,
   ValidMessage,
 } from '../src';
 
@@ -67,6 +69,12 @@ export default class extends Component<{}> {
         <Form<FormData> onSubmit={this.handleSubmit}>
           {({ formProps, submitting }) => (
             <form {...formProps}>
+              <FormHeader title="Create an account">
+                <p aria-hidden="true">
+                  Required fields are marked with an asterisk{' '}
+                  <RequiredAsterisk />
+                </p>
+              </FormHeader>
               <Field
                 name="username"
                 label="Username"
@@ -76,7 +84,7 @@ export default class extends Component<{}> {
               >
                 {({ fieldProps, error, valid }) => (
                   <Fragment>
-                    <TextField {...fieldProps} />
+                    <TextField autoComplete="username" {...fieldProps} />
                     {!error && !valid && (
                       <HelperMessage>
                         Should be more than 4 characters
@@ -110,7 +118,7 @@ export default class extends Component<{}> {
               >
                 {({ fieldProps, error, valid }) => (
                   <Fragment>
-                    <TextField {...fieldProps} />
+                    <TextField autoComplete="email" {...fieldProps} />
                     {!error && !valid && (
                       <HelperMessage>Must contain @ symbol</HelperMessage>
                     )}

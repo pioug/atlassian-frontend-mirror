@@ -57,6 +57,21 @@ const messages = defineMessages({
     defaultMessage: 'Close',
     description: 'Button that closes the warning modal and closes the drawer.',
   },
+  confirmCloseTitle: {
+    defaultMessage: 'Confirm Close',
+    description: 'Close kudos drawer confirmation modal title',
+    id: 'team-central.give-kudos.confirm-close.title',
+  },
+  closeDrawerButtonLabel: {
+    defaultMessage: 'Close drawer',
+    description: 'Close kudos drawer button label',
+    id: 'team-central.give-kudos.close-button.label',
+  },
+  successIconLabel: {
+    defaultMessage: 'Success',
+    description: 'Success icon label',
+    id: 'team-central.give-kudos.success-icon.label',
+  },
 });
 
 export default messages;

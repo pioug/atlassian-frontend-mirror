@@ -8,6 +8,9 @@ import React, {
 
 import type { MenuArrowKeyNavigationProviderProps } from '../types';
 
+const hasEnabledItems = (list: HTMLElement[]) =>
+  list.some((item) => item.getAttribute('aria-disabled') !== 'true');
+
 /**
  * This component is a wrapper of vertical menus which listens to keydown events of children
  * and handles up/down arrow key navigation
@@ -32,6 +35,7 @@ export const MenuArrowKeyNavigationProvider: React.FC<
   const incrementIndex = useCallback(
     (list: HTMLElement[]) => {
       const currentIndex = currentSelectedItemIndex;
+
       let nextIndex = (currentIndex + 1) % list.length;
       // Skips disabled items. Previously this function relied on a list of enabled elements which caused a
       // difference between currentIndex and the item index in the menu.
@@ -50,6 +54,7 @@ export const MenuArrowKeyNavigationProvider: React.FC<
   const decrementIndex = useCallback(
     (list: HTMLElement[]) => {
       const currentIndex = currentSelectedItemIndex;
+
       let nextIndex = (list.length + currentIndex - 1) % list.length;
       while (
         nextIndex !== currentIndex &&
@@ -112,16 +117,20 @@ export const MenuArrowKeyNavigationProvider: React.FC<
 
       switch (event.key) {
         case 'ArrowDown': {
-          const focusIndex = incrementIndex(focusableElements);
-          focusableElements[focusIndex]?.focus();
-          event.preventDefault();
+          if (hasEnabledItems(focusableElements)) {
+            const focusIndex = incrementIndex(focusableElements);
+            focusableElements[focusIndex]?.focus();
+            event.preventDefault();
+          }
           break;
         }
 
         case 'ArrowUp': {
-          const focusIndex = decrementIndex(focusableElements);
-          focusableElements[focusIndex]?.focus();
-          event.preventDefault();
+          if (hasEnabledItems(focusableElements)) {
+            const focusIndex = decrementIndex(focusableElements);
+            focusableElements[focusIndex]?.focus();
+            event.preventDefault();
+          }
           break;
         }
 

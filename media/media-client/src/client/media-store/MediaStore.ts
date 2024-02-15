@@ -22,7 +22,7 @@ import type {
 } from './types';
 import { FILE_CACHE_MAX_AGE, MAX_RESOLUTION } from '../../constants';
 import { getArtifactUrl } from '../../models/artifacts';
-import { MediaChunksProbe, MediaFile, MediaUpload } from '../../models/media';
+import { MediaFile, MediaUpload } from '../../models/media';
 import { request } from '../../utils/request';
 import {
   createUrl,
@@ -35,23 +35,20 @@ import {
   CreateUrlOptions,
 } from '../../utils/request/types';
 import { resolveAuth, resolveInitialAuth } from './resolveAuth';
+import { ChunkHashAlgorithm } from '@atlaskit/media-core';
 
 const MEDIA_API_REGION = 'media-api-region';
 const MEDIA_API_ENVIRONMENT = 'media-api-environment';
-
-const defaultImageOptions: MediaStoreGetFileImageParams = {
-  'max-age': FILE_CACHE_MAX_AGE,
-  allowAnimated: true,
-  mode: 'crop',
-};
 
 const extendImageParams = (
   params?: MediaStoreGetFileImageParams,
   fetchMaxRes: boolean = false,
 ): MediaStoreGetFileImageParams => {
   return {
-    ...defaultImageOptions,
     ...params,
+    'max-age': params?.['max-age'] ?? FILE_CACHE_MAX_AGE,
+    allowAnimated: params?.allowAnimated ?? true,
+    mode: params?.mode ?? 'crop',
     ...(fetchMaxRes ? { width: MAX_RESOLUTION, height: MAX_RESOLUTION } : {}),
   };
 };
@@ -62,7 +59,11 @@ const jsonHeaders = {
 };
 
 export class MediaStore implements MediaApi {
-  constructor(private readonly config: MediaApiConfig) {}
+  private readonly _chunkHashAlgorithm: ChunkHashAlgorithm;
+  constructor(private readonly config: MediaApiConfig) {
+    this._chunkHashAlgorithm =
+      config.chunkHashAlgorithm || ChunkHashAlgorithm.Sha1;
+  }
 
   async removeCollectionFile(
     id: string,
@@ -117,6 +118,7 @@ export class MediaStore implements MediaApi {
       authContext: { collectionName },
       params: {
         createUpTo,
+        hashAlgorithm: this._chunkHashAlgorithm,
       },
       headers: {
         Accept: 'application/json',
@@ -151,33 +153,6 @@ export class MediaStore implements MediaApi {
     };
 
     await this.request(`/chunk/${etag}`, options);
-  }
-
-  probeChunks(
-    chunks: string[],
-    uploadId: string,
-    collectionName?: string,
-    traceContext?: MediaTraceContext,
-  ): Promise<MediaStoreResponse<MediaChunksProbe>> {
-    const metadata: RequestMetadata = {
-      method: 'POST',
-      endpoint: '/chunk/probe',
-    };
-
-    const options: MediaStoreRequestOptions = {
-      ...metadata,
-      params: { uploadId },
-      authContext: { collectionName },
-      headers: jsonHeaders,
-      body: JSON.stringify({
-        chunks,
-      }),
-      traceContext,
-    };
-
-    return this.request(`/chunk/probe`, options).then(
-      createMapResponseToJson(metadata),
-    );
   }
 
   createFileFromUpload(
@@ -236,6 +211,9 @@ export class MediaStore implements MediaApi {
       headers: jsonHeaders,
       body: JSON.stringify(body),
       traceContext,
+      params: {
+        hashAlgorithm: this._chunkHashAlgorithm,
+      },
     };
 
     return this.request('/upload/createWithFiles', options).then(
@@ -516,6 +494,9 @@ export class MediaStore implements MediaApi {
     resolveAuth(this.config.authProvider, authContext);
 
   resolveInitialAuth = () => resolveInitialAuth(this.config.initialAuth);
+  get chunkHashAlgorithm() {
+    return this._chunkHashAlgorithm;
+  }
 }
 
 const getValueFromSessionStorage = (key: string): string | undefined => {

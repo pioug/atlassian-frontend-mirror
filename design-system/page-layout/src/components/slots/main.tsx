@@ -24,10 +24,8 @@ const prefersReducedMotionStyles = css(prefersReducedMotion());
 
 const mainStyles = css({
   minWidth: 0,
-  marginLeft: 0,
-  // Prevent flex container from blowing up when there's super wide content.
   flexGrow: 1,
-  // Transition negative margin on main in sync with the increase in width of leftSidebar.
+  marginInlineStart: 0,
   transition: `margin-left ${TRANSITION_DURATION}ms ${easeOut} 0s`,
 });
 
@@ -44,7 +42,7 @@ const draggingStyles = css({
  */
 const flyoutStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  marginLeft: `calc(-1 * var(--${VAR_LEFT_SIDEBAR_FLYOUT}, ${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}px) + ${COLLAPSED_LEFT_SIDEBAR_WIDTH}px)`,
+  marginInlineStart: `calc(-1 * var(--${VAR_LEFT_SIDEBAR_FLYOUT}, ${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}px) + ${COLLAPSED_LEFT_SIDEBAR_WIDTH}px)`,
 });
 
 /**
@@ -69,6 +67,8 @@ const Main = (props: SlotWidthProps) => {
     <SlotFocusRing>
       {({ className }) => (
         <div
+          // Using ARIA role instead of <main> tag to avoid any issues with downstream implementations.
+          role="main"
           data-testid={testId}
           css={[
             mainStyles,

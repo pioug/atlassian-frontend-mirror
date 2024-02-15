@@ -1,27 +1,27 @@
 /** @jsx jsx */
-import React, { useMemo, useCallback, MouseEvent } from 'react';
+import type { MouseEvent } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
 import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
-import {
-  AnnotationMarkStates,
+import type {
   AnnotationId,
   AnnotationDataAttributes,
 } from '@atlaskit/adf-schema';
-import { ThemeProps } from '@atlaskit/theme/types';
+import { AnnotationMarkStates } from '@atlaskit/adf-schema';
 
-const markStyles = (props: ThemeProps) => css`
+const markStyles = () => css`
   color: inherit;
   background-color: unset;
   -webkit-tap-highlight-color: transparent;
 
   &[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}'] {
-    ${AnnotationSharedCSSByState({ theme: props }).blur};
+    ${AnnotationSharedCSSByState().blur};
 
     &:focus,
     &[data-has-focus='true'] {
-      ${AnnotationSharedCSSByState({ theme: props }).focus};
+      ${AnnotationSharedCSSByState().focus};
     }
   }
 `;

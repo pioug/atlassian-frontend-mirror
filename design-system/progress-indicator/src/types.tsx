@@ -4,21 +4,21 @@ import type { DotsAppearance, Size, Spacing } from './components/types';
 
 export interface ProgressDotsProps {
   /**
-   * The color of the indicators
+   * Sets the color of the indicators.
    */
   appearance?: DotsAppearance;
   /**
-   * The aria-controls text applied to each indicator, appended by the index
+   * If interaction is enabled, use `ariaControls` to tell assistive technology what elements are controlled by the progress indicator.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   ariaControls?: string;
   /**
-   * The aria-label text applied to each indicator, appended by the index
+   * Describes what the indicator represents to assistive technology. The selected index number will be appended to the label.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   ariaLabel?: string;
   /**
-   * Function called when an indicator is selected
+   * Function called when an indicator is selected.
    */
   onSelect?: (
     eventData: {
@@ -28,15 +28,15 @@ export interface ProgressDotsProps {
     analyticsEvent: UIAnalyticsEvent,
   ) => void;
   /**
-   * Which indicator is currently selected
+   * Which indicator is currently selected.
    */
   selectedIndex: number;
   /**
-   * Corresponds to the width & height of each indicator
+   * Sets the width and height of each indicator.
    */
   size?: Size;
   /**
-   * How much of a gutter is desired between indicators
+   * Specifies how much of a gutter there is between indicators.
    */
   spacing?: Spacing;
   /**
@@ -44,7 +44,7 @@ export interface ProgressDotsProps {
    */
   testId?: string;
   /**
-   * An array of values mapped over to create the indicators
+   * An array of values mapped over to create the indicators.
    */
   values: any[];
 }

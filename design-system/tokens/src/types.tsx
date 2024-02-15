@@ -1127,7 +1127,7 @@ export type TypographyToken<
 > = TypographyDesignToken<{
   fontStyle: 'normal';
   fontWeight: TPalette['fontWeight'];
-  fontFamily: FlattenKeys<FontFamilyTokenSchema<any>>;
+  fontFamily: TPalette['fontFamily'];
   fontSize: TPalette['fontSize'];
   lineHeight: TPalette['lineHeight'];
   letterSpacing: TPalette['letterSpacing'];
@@ -1194,7 +1194,7 @@ export interface ShapeTokenSchema<BaseToken> {
 
 /**
  * @private
- * @deprecated probably
+ * @deprecated Probably
  */
 export interface FontSizeTokenSchema<BaseToken> {
   font: {
@@ -1213,7 +1213,6 @@ export interface FontSizeTokenSchema<BaseToken> {
 
 /**
  * @private
- * @deprecated probably
  */
 export interface FontWeightTokenSchema<BaseToken> {
   font: {
@@ -1249,7 +1248,7 @@ export interface FontFamilyTokenSchema<BaseToken> {
 
 /**
  * @private
- * @deprecated probably
+ * @deprecated Probably
  */
 export interface LineHeightTokenSchema<BaseToken> {
   font: {

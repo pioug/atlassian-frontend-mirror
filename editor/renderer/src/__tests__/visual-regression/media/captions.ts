@@ -2,14 +2,14 @@ import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import { snapshot, initRendererWithADF } from '../_utils';
-import * as captionAdf from './__fixtures__/caption.adf.json';
-import * as longCaptionAdf from './__fixtures__/caption-long.adf.json';
-import * as complicatedCaptionAdf from './__fixtures__/caption-complicated.adf.json';
 import {
   selectors,
   waitForAllMedia,
 } from '../../__helpers/page-objects/_media';
+import { initRendererWithADF, snapshot } from '../_utils';
+import * as complicatedCaptionAdf from './__fixtures__/caption-complicated.adf.json';
+import * as longCaptionAdf from './__fixtures__/caption-long.adf.json';
+import * as captionAdf from './__fixtures__/caption.adf.json';
 
 const initRenderer = (page: PuppeteerPage, adf: any) => {
   return initRendererWithADF(page, {
@@ -23,8 +23,7 @@ const initRenderer = (page: PuppeteerPage, adf: any) => {
   });
 };
 
-// FIXME These tests were flakey in the Puppeteer v10 Upgrade
-describe.skip('Snapshot Test: Decision', () => {
+describe('Snapshot Test: Decision', () => {
   let page: PuppeteerPage;
   beforeAll(() => {
     page = global.page;

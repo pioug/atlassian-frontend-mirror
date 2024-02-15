@@ -1,11 +1,12 @@
 import {
-  editorTestCase as test,
-  expect,
   EditorMainToolbarModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import { emptyAdf } from './insert-expand-inline.spec.ts-fixtures/adf';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { p, doc, expand } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, expand, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { emptyAdf } from './insert-expand-inline.spec.ts-fixtures/adf';
 
 test.use({
   adf: emptyAdf,
@@ -35,7 +36,7 @@ test.describe('expand', () => {
   }) => {
     const toolbar = EditorMainToolbarModel.from(editor);
     await editor.keyboard.type('Hello ');
-    await toolbar.clickAt('Insert /');
+    await toolbar.clickAt('Insert elements');
     await editor.keyboard.press('ArrowDown');
     await editor.keyboard.press('Enter');
 
@@ -48,7 +49,7 @@ test.describe('expand', () => {
     const toolbar = EditorMainToolbarModel.from(editor);
     await editor.keyboard.type('Hello ');
     await editor.selection.set({ anchor: 1, head: 6 });
-    await toolbar.clickAt('Insert /');
+    await toolbar.clickAt('Insert elements');
     await editor.keyboard.press('ArrowDown');
     await editor.keyboard.press('Enter');
 

@@ -1,13 +1,13 @@
+import { shadowClassNames } from '@atlaskit/editor-common/ui';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
-  PuppeteerPage,
   waitForElementCount,
+  waitForLoadedBackgroundImages,
 } from '@atlaskit/visual-regression/helper';
-import { snapshot, initRendererWithADF } from './_utils';
-import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 import * as stickyHeaderADF from '../__fixtures__/sticky-header.adf.json';
 import { emojiSelectors } from '../__helpers/page-objects/_emoji';
-import { shadowClassNames } from '@atlaskit/editor-common/ui';
 import { selectors } from '../__helpers/page-objects/_renderer';
+import { initRendererWithADF, snapshot } from './_utils';
 
 async function scrollToPos(page: PuppeteerPage, pos: number) {
   return page.evaluate((pos: number) => {
@@ -72,8 +72,8 @@ describe('Snapshot Test: sticky-headers', () => {
     await initRenderer(page, stickyHeaderADF);
     await scrollToPos(page, 705);
   });
-  // TODO: We need to fix this test
-  it.skip(`should have the header not stick for an table with only regular row`, async () => {
+
+  it(`should have the header not stick for an table with only regular row`, async () => {
     await initRenderer(page, stickyHeaderADF);
     await scrollToPos(page, 840);
   });

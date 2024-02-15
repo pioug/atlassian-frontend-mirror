@@ -1,5 +1,59 @@
 # @atlaskit/dropdown-menu
 
+## 12.5.0
+
+### Minor Changes
+
+- [#65862](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65862) [`7e4f1a341224`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7e4f1a341224) - [ux] Updated dropdown-menu trigger to consume the new button. The new default button trigger (text + arrow icon) would be narrower than before. The fallback color on button trigger is now darker when no theme is applied.
+
+## 12.4.0
+
+### Minor Changes
+
+- [#70664](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70664) [`776e5ba8fc41`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/776e5ba8fc41) - Enable layering in popup and dropdown to support nested navigation
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.0
+
+### Minor Changes
+
+- [#70040](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70040) [`d18ec4d7ce20`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d18ec4d7ce20) - [ux] Tidy up of the `platform.design-system-team.icon-button-spacing-fix_o1zc5` Platform Feature Flag which applies a small adjustment to icon spacing for buttons using `iconBefore` and `iconAfter` props. Small visual adjustment is to be expected — keep this in mind when reviewing any VR tests breaking. The spacing around the icons will be reduced.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.0
+
+### Minor Changes
+
+- [#69888](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69888) [`e710d215f768`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e710d215f768) - Add label prop to render aria-label on dropdown menu trigger.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.9
+
+### Patch Changes
+
+- [#59251](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59251) [`137c9cf6b36a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/137c9cf6b36a) - Fix incorrect focus control after closing DropdownMenu.
+
+## 12.1.8
+
+### Patch Changes
+
+- [#43918](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43918) [`d100ca42f46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d100ca42f46) - Push model consumption configuration done for these packages
+
 ## 12.1.7
 
 ### Patch Changes

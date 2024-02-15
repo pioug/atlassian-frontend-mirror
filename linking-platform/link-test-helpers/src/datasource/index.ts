@@ -8,12 +8,14 @@ import {
   DatasourceResponseSchemaProperty,
   RichText,
   StatusType,
+  User,
 } from '@atlaskit/linking-types';
 
 import { mockAssetsClientFetchRequests } from './assets';
 import {
   mockAutoCompleteData,
   mockJiraData,
+  mockSite,
   mockSiteData,
   mockSuggestionData,
 } from './data';
@@ -22,6 +24,7 @@ export {
   mockAutoCompleteData,
   mockJiraData,
   mockSiteData,
+  mockSite,
   mockSuggestionData,
   mockAssetsClientFetchRequests,
 };
@@ -45,11 +48,13 @@ export {
   hydrateJqlStandardResponseMapped,
   fieldValuesResponseForProjectsMoreData,
   fieldValuesResponseForStatusesSearched,
+  fieldValuesResponseForTypesWithRelativeUrls,
+  fieldValuesResponseForTypesWithRelativeUrlsMapped,
 } from './basic-filters/mocks';
 
 fetchMock.config.fallbackToNetwork = true;
 
-type Site = {
+export type Site = {
   cloudId: string;
   displayName: string;
   url: string;
@@ -97,6 +102,12 @@ const columns: DatasourceResponseSchemaProperty[] = [
     key: 'assignee',
     title: 'Assignee',
     type: 'user',
+  },
+  {
+    key: 'people',
+    title: 'People',
+    type: 'user',
+    isList: true,
   },
   {
     key: 'priority',
@@ -713,6 +724,7 @@ export const defaultInitialVisibleColumnKeys: string[] = [
   'key',
   'summary',
   'assignee',
+  'people',
   'priority',
   'labels',
   'status',
@@ -797,12 +809,14 @@ const generateDataResponse = ({
   includeSchema,
   initialVisibleColumnKeys,
   isUnauthorized = false,
+  includeAuthInfo = false,
 }: {
   cloudId: string;
   maxItems?: number;
   numberOfLoads?: number;
   includeSchema: boolean;
   isUnauthorized?: boolean;
+  includeAuthInfo?: boolean;
   initialVisibleColumnKeys: string[];
 }): DatasourceDataResponse => {
   const schema = {
@@ -816,7 +830,15 @@ const generateDataResponse = ({
   return {
     meta: {
       access: isUnauthorized ? 'unauthorized' : 'granted',
-      auth: [],
+      auth: includeAuthInfo
+        ? [
+            {
+              key: 'amplitude',
+              displayName: 'Atlassian Links - Amplitude',
+              url: 'https://id.atlassian.com/login',
+            },
+          ]
+        : [],
       definitionId: 'object-resolver-service',
       destinationObjectTypes: ['issue'],
       key: 'jira-object-provider',
@@ -854,6 +876,9 @@ const generateDataResponse = ({
                 displayName: item.assignee?.displayName,
                 avatarSource: item.assignee?.source,
               },
+            },
+            people: {
+              data: (item.people || []) as User[],
             },
             priority: {
               data: {
@@ -1004,6 +1029,17 @@ export const mockDatasourceFetchRequests = ({
                 includeSchema,
                 isUnauthorized: true,
                 initialVisibleColumnKeys,
+              }),
+            );
+          } else if (cloudId === '1234') {
+            resolve(
+              generateDataResponse({
+                cloudId,
+                numberOfLoads,
+                includeSchema,
+                isUnauthorized: true,
+                initialVisibleColumnKeys,
+                includeAuthInfo: true,
               }),
             );
           } else {

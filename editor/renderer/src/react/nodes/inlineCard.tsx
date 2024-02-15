@@ -25,8 +25,14 @@ const InlineCard: React.FunctionComponent<
   const { url, data, eventHandlers, portal, smartLinks } = props;
   const onClick = getCardClickHandler(eventHandlers, url);
   const cardProps = { url, data, onClick, container: portal };
-  const { showAuthTooltip, hideHoverPreview, showServerActions, ssr } =
-    smartLinks || {};
+  const {
+    showAuthTooltip,
+    hideHoverPreview,
+    showServerActions,
+    actionOptions,
+    ssr,
+  } = smartLinks || {};
+
   const analyticsData = {
     attributes: {
       location: 'renderer',
@@ -43,6 +49,7 @@ const InlineCard: React.FunctionComponent<
           url={url}
           showAuthTooltip={showAuthTooltip}
           showHoverPreview={!hideHoverPreview}
+          actionOptions={actionOptions}
           showServerActions={showServerActions}
           onClick={onClick}
         />
@@ -71,6 +78,7 @@ const InlineCard: React.FunctionComponent<
             appearance="inline"
             showHoverPreview={!hideHoverPreview}
             showAuthTooltip={showAuthTooltip}
+            actionOptions={actionOptions}
             showServerActions={showServerActions}
             {...cardProps}
             onResolve={(data) => {

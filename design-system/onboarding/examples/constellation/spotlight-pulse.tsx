@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/new';
 import { N0 } from '@atlaskit/theme/colors';
 
 import {
@@ -17,7 +18,7 @@ const SpotlightPulseExample = () => {
   const end = () => setIsSpotlightActive(false);
   return (
     <SpotlightManager>
-      <ButtonGroup>
+      <ButtonGroup label="Choose spotlight options">
         <SpotlightTarget name="new">
           <SpotlightPulse radius={3}>
             <Button onClick={() => start()}>New feature</Button>

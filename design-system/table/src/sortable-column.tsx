@@ -95,6 +95,7 @@ const SortableColumn: FC<CellProps> = ({
             iconAfter={<SortIcon name={name} />}
             {...tooltipProps}
             onClick={updateSortState}
+            // TODO: (from codemod) Buttons with "css" or "style" prop can't be migrated for now. Please wait for the support of xcss prop.
             css={overrideStyles}
             // TODO: i18n support for this attr
             aria-roledescription="Column sort button"

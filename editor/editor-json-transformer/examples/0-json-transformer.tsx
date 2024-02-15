@@ -4,7 +4,8 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { Editor } from '@atlaskit/editor-core';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import { JSONTransformer } from '../src';
@@ -29,6 +30,8 @@ const container = css`
   }
 `;
 
+export const mediaProvider = storyMediaProviderFactory();
+
 export default class Example extends React.PureComponent<
   {},
   { output: string }
@@ -52,11 +55,34 @@ export default class Example extends React.PureComponent<
           appearance="comment"
           allowRule={true}
           allowTables={true}
+          allowBorderMark={true}
+          media={{
+            provider: mediaProvider,
+            allowMediaSingle: true,
+            allowResizing: true,
+            allowLinking: true,
+            allowResizingInTables: true,
+            allowAltTextOnImages: true,
+            altTextValidator: (value: string) => {
+              const errors = [];
+              if (!/^[A-Z]/g.test(value)) {
+                errors.push('Please start with capital letter.');
+              }
+              if (!/^[^"<>&\\]*$/g.test(value)) {
+                errors.push('Please remove special characters.');
+              }
+              if (!/(\w.+\s).+/g.test(value)) {
+                errors.push('Please use at least two words.');
+              }
+              return errors;
+            },
+            allowCaptions: true,
+            featureFlags: {
+              mediaInline: true,
+            },
+          }}
           onChange={this.handleChangeInTheEditor}
           taskDecisionProvider={Promise.resolve(getMockTaskDecisionResource())}
-          featureFlags={{
-            'restart-numbered-lists': true,
-          }}
         />
         <div
           id="output"

@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 
 import { AVATAR_SIZES, SizeType } from '@atlaskit/avatar';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
 import ArrowDown from '@atlaskit/icon/glyph/arrow-down';
 import ArrowUp from '@atlaskit/icon/glyph/arrow-up';
@@ -68,57 +68,69 @@ const AvatarGroupExample: FC = () => {
       </Note>
       <div style={{ display: 'flex', marginTop: '1em' }}>
         <div style={{ flex: 1 }}>
-          <h5 style={{ marginBottom: '0.5em' }}>Avatar Size: {avatarSize}</h5>
-          <ButtonGroup>
+          <h5 id="avatar-size" style={{ marginBottom: '0.5em' }}>
+            Avatar Size: {avatarSize}
+          </h5>
+          <ButtonGroup titleId="avatar-size">
             <Button
               isDisabled={avatarSize === 'small'}
               onClick={() => decrement('sizeIndex')}
-              iconBefore={<ArrowDown size="small" label="" />}
+              iconBefore={ArrowDown}
+              UNSAFE_iconBefore_size="small"
             >
               Smaller
             </Button>
             <Button
               isDisabled={avatarSize === 'xlarge'}
               onClick={() => increment('sizeIndex')}
-              iconBefore={<ArrowUp size="small" label="" />}
+              iconBefore={ArrowUp}
+              UNSAFE_iconBefore_size="small"
             >
               Larger
             </Button>
           </ButtonGroup>
         </div>
         <div style={{ flex: 1 }}>
-          <h5 style={{ marginBottom: '0.5em' }}>Avatar Count: {avatarCount}</h5>
-          <ButtonGroup>
+          <h5 id="avatar-count" style={{ marginBottom: '0.5em' }}>
+            Avatar Count: {avatarCount}
+          </h5>
+          <ButtonGroup titleId="avatar-count">
             <Button
               isDisabled={avatarCount <= 1}
               onClick={() => decrement('avatarCount')}
-              iconBefore={<ArrowDown size="small" label="" />}
+              iconBefore={ArrowDown}
+              UNSAFE_iconBefore_size="small"
             >
               Less
             </Button>
             <Button
               isDisabled={avatarCount >= 30}
               onClick={() => increment('avatarCount')}
-              iconBefore={<ArrowUp size="small" label="" />}
+              iconBefore={ArrowUp}
+              UNSAFE_iconBefore_size="small"
             >
               More
             </Button>
           </ButtonGroup>
         </div>
         <div style={{ flex: 1 }}>
-          <h5 style={{ marginBottom: '0.5em' }}>Grid Max: {avatarCountMax}</h5>
-          <ButtonGroup>
+          <h5 id="grid-max" style={{ marginBottom: '0.5em' }}>
+            Grid Max: {avatarCountMax}
+          </h5>
+          <ButtonGroup titleId="grid-max">
             <Button
               isDisabled={avatarCountMax <= 1}
               onClick={() => decrement('avatarCountMax')}
-              iconBefore={<ArrowDown size="small" label="" />}
+              iconBefore={ArrowDown}
+              UNSAFE_iconBefore_size="small"
             >
               Less
             </Button>
             <Button
               isDisabled={avatarCountMax >= 30}
               onClick={() => increment('avatarCountMax')}
-              iconBefore={<ArrowUp size="small" label="" />}
+              iconBefore={ArrowUp}
+              UNSAFE_iconBefore_size="small"
             >
               More
             </Button>
@@ -129,14 +141,15 @@ const AvatarGroupExample: FC = () => {
       <Note>
         Total {stackSourceURLs.length} / Max {avatarCountMax}
       </Note>
+      <label htmlFor="grid-width">Grid Width</label>
       <input
+        id="grid-width"
         min="200"
         max="500"
         onChange={(e) =>
           setState({ ...state, gridWidth: parseInt(e.target.value, 10) })
         }
         step="10"
-        title="Grid Width"
         type="range"
         value={gridWidth}
       />

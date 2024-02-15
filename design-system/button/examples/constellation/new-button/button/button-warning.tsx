@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { UNSAFE_BUTTON } from '../../../../src';
-
+import Button from '../../../../src/new';
 const ButtonWarningExample = () => {
-  return <UNSAFE_BUTTON appearance="warning">Warning button</UNSAFE_BUTTON>;
+  return <Button appearance="warning">Warning button</Button>;
 };
 
 export default ButtonWarningExample;

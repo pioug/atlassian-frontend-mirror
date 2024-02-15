@@ -19,6 +19,7 @@ export default {
   'fabric.elements.share.form.no-permissions': 'Nemáte možnost sdílet.',
   'fabric.elements.share.form.public.send': 'Odeslat veřejný odkaz',
   'fabric.elements.share.form.public.share': 'Sdílet veřejný odkaz',
+  'fabric.elements.share.form.required-field.summary': 'Povinná pole jsou označena hvězdičkou.',
   'fabric.elements.share.form.retry': 'Zkusit znovu',
   'fabric.elements.share.form.send': 'Odeslat',
   'fabric.elements.share.form.share': 'Sdílet',

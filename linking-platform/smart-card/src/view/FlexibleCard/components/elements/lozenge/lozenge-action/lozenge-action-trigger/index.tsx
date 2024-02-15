@@ -7,12 +7,10 @@ import { triggerButtonStyles, triggerLozengeStyles } from '../styled';
 
 import type { FC } from 'react';
 import { LozengeActionTriggerProps } from './type';
-import FeatureDiscovery from '../feature-discovery';
 
 const LozengeActionTrigger: FC<LozengeActionTriggerProps> = ({
   appearance,
   isOpen,
-  showFeatureDiscovery,
   testId,
   text,
   triggerRef,
@@ -44,13 +42,7 @@ const LozengeActionTrigger: FC<LozengeActionTriggerProps> = ({
       onMouseLeave={onMouseLeave}
       ref={triggerRef}
     >
-      {showFeatureDiscovery ? (
-        <FeatureDiscovery appearance={appearance} testId={testId}>
-          {lozenge}
-        </FeatureDiscovery>
-      ) : (
-        lozenge
-      )}
+      {lozenge}
     </button>
   );
 };

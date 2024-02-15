@@ -16,6 +16,7 @@ import DropdownMenuShouldFlip from '../../examples/constellation/dropdown-menu-s
 import DropdownMenuZIndex from '../../examples/constellation/dropdown-menu-z-index';
 import DropdownMenuDensity from '../../examples/constellation/dropdown-menu-density';
 import DropdownMenuWithoutPortal from '../../examples/constellation/dropdown-menu-without-portal';
+import DropdownMenuLabel from '../../examples/constellation/dropdown-menu-label';
 
 ## Appearance
 
@@ -143,3 +144,10 @@ By default, the dropdown menu content is rendered inside `React.Portal`. Use `sh
   Component={DropdownMenuWithoutPortal}
   packageName="@atlaskit/dropdown-menu"
 />
+
+## Accessible labels
+
+Sometimes multiple instances of a Dropdown menu with the same visible label are required. In order to provide more context to asssistive technologies, you can specify a unique `aria-label` that provides more context.
+When providing the `aria-label` along with a visible label, make sure that the first few words of the `aria-label` match the visible. This is to support Voice Input users that use the visible label to interact with controls.
+
+<Example Component={DropdownMenuLabel} packageName="@atlaskit/dropdown-menu" />

@@ -34,10 +34,7 @@ class Cell extends Component<CellProps> {
     const { children, singleLine, indentLevel, width, className, ...props } =
       this.props;
     return (
-      // TODO: Determine whether proper `td` elements can be used instead of
-      // roles (DSP-11588)
       <CommonCell
-        role="gridcell"
         indent={
           indentLevel ? `calc(${indentBase} * ${indentLevel})` : undefined
         }

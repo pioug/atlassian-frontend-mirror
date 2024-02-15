@@ -27,9 +27,9 @@ export default {
   'fabric.linking.connect_to': 'Połącz z {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Połącz z {context}',
   'fabric.linking.connect_unauthorised_account_description':
-    'Połącz {context} z Atlassian, aby wyświetlać więcej szczegółów dotyczących pracy i współpracować w jednym miejscu.',
+    'Połącz swoje konto {context}, aby współpracować w różnych produktach Atlassian.',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    'Połącz z Atlassian, aby wyświetlać więcej szczegółów dotyczących pracy i współpracować w jednym miejscu.',
+    'Połącz swoje konto, aby współpracować w różnych produktach Atlassian.',
   'fabric.linking.continue': 'Kontynuuj',
   'fabric.linking.copy_url_to_clipboard': 'Kopiuj łącze',
   'fabric.linking.couldnt_load_link': 'Z nieznanego powodu nie udało się wczytać tego łącza.',
@@ -57,6 +57,7 @@ export default {
     'Musisz poprosić o dostęp lub spróbować innego konta, aby zobaczyć ten podgląd.',
   'fabric.linking.join_to_view': 'Dołącz do {context}, aby wyświetlić to zgłoszenie',
   'fabric.linking.last_mentioned_in': 'Ostatnio wspomniano w',
+  'fabric.linking.learn_more_about_connecting_account': 'Dowiedz się więcej o łączeniu konta z  produktami Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Dowiedz się więcej o inteligentnych łączach.',
   'fabric.linking.link_safety_warning_message':
     'Łącze {unsafeLinkText} przeniesie Cię do innej witryny, <a>actual link here</a>',

@@ -1,5 +1,45 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 1.0.0
+
+### Major Changes
+
+- [#72386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72386) [`0c52b0be40c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c52b0be40c1) - This changeset exists to bump all editor plugins that currently don't have a major version. This is to address an issue with Jira plugin consumption.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.3.9
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+
+## 0.3.8
+
+### Patch Changes
+
+- [#65334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65334) [`089979f0308f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/089979f0308f) - [ux] ECA11Y-111/ECA11Y-86 Help dialog - resize table and media information
+
+## 0.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.3.6
+
+### Patch Changes
+
+- [#58893](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58893) [`ed82b25d516b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed82b25d516b) - [ux] [ECA11Y-110] Selecting table columns and rows via shortcuts
+
+## 0.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.3.4
 
 ### Patch Changes

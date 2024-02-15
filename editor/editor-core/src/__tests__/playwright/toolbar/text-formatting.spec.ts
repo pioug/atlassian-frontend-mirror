@@ -1,27 +1,27 @@
 import {
-  editorTestCase as test,
-  expect,
   EditorMainToolbarModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
+import type { EditorAppearance } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  p,
   doc,
-  h1,
-  underline,
-  strong,
   em,
+  h1,
+  p,
+  strong,
+  underline,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { blockQuoteAdf } from './text-formatting.spec.ts-fixtures';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
 
 const appearances: Array<EditorAppearance> = ['full-page', 'comment'];
 
 const shortcutSelectAll =
   process.platform === 'darwin' ? 'Meta+a' : 'Control+a';
 
-test.describe('text formatting toolbar: styles ', () => {
+test.describe('text formatting toolbar: styles', () => {
   for (let appearance of appearances) {
     test.use({
       editorProps: {
@@ -114,7 +114,7 @@ test.describe('text formatting toolbar: styles ', () => {
   }
 });
 
-test.describe('text formatting toolbar: advanced ', () => {
+test.describe('text formatting toolbar: advanced', () => {
   for (let appearance of appearances) {
     test.use({
       adf: blockQuoteAdf,

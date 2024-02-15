@@ -2,10 +2,9 @@ import { css } from '@emotion/react';
 
 import { fontFamily } from '@atlaskit/theme/constants';
 import { borderRadius } from '@atlaskit/media-ui';
-import { N20 } from '@atlaskit/theme/colors';
+import { N20, B100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { hideNativeBrowserTextSelectionStyles } from '@atlaskit/editor-shared-styles/selection';
-import { themed } from '@atlaskit/theme/components';
 
 import { transition } from '../styles';
 import { fixedBlanketStyles, blanketClassName } from '../blanket/styles';
@@ -23,8 +22,6 @@ import {
 } from '../styles';
 import { WrapperProps } from './types';
 
-const BACKGROUND_COLOR_DARK = '#22272C';
-
 export const wrapperStyles = ({
   breakpoint,
   dimensions,
@@ -36,7 +33,6 @@ export const wrapperStyles = ({
   isTickBoxSelectable,
   shouldDisplayTooltip,
   mediaCardCursor,
-  theme,
 }: WrapperProps) => css`
   ${transition()}
   box-sizing: border-box;
@@ -47,10 +43,7 @@ export const wrapperStyles = ({
   font-family: ${fontFamily()};
   ${getWrapperDimensions(dimensions, appearance)}
   ${displayBackground &&
-  `background: ${themed({
-    light: token('color.background.neutral', N20),
-    dark: token('color.background.neutral', BACKGROUND_COLOR_DARK),
-  })({ theme })};`}
+  `background: ${token('color.background.neutral', N20)};`}
   ${borderRadius}
   ${getCursorStyle(mediaCardCursor)}
   ${getWrapperShadow(disableOverlay, selected)}
@@ -69,6 +62,10 @@ export const wrapperStyles = ({
 
   /* Tooltip does not support percentage dimensions. We enforce them here */
   ${shouldDisplayTooltip && `> div { width: 100%; height: 100%; }`}
+
+  button:focus + & {
+    outline: solid 2px ${token('color.border.focused', B100)};
+  }
 `;
 
 wrapperStyles.displayName = 'NewFileExperienceWrapper';

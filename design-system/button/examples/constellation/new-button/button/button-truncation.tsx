@@ -2,8 +2,7 @@ import React from 'react';
 
 import { Box, xcss } from '@atlaskit/primitives';
 
-import { UNSAFE_BUTTON } from '../../../../src';
-
+import Button from '../../../../src/new';
 const containerStyles = xcss({
   maxWidth: 'size.1000',
 });
@@ -11,9 +10,7 @@ const containerStyles = xcss({
 const ButtonTruncationExample = () => {
   return (
     <Box xcss={containerStyles}>
-      <UNSAFE_BUTTON>
-        This text is truncated to fit within the container
-      </UNSAFE_BUTTON>
+      <Button>This text is truncated to fit within the container</Button>
     </Box>
   );
 };

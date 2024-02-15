@@ -15,6 +15,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': '您的變更將不會儲存',
   'linkCreate.createForm.button.close': '關閉',
   'linkCreate.createForm.button.create': '建立',
-  'linkCreate.createForm.button.edit': '編輯',
+  'linkCreate.createForm.button.createAndOpen': '建立 + 開啟',
   'linkCreate.modal.heading': '新建',
 };

@@ -1,0 +1,26 @@
+---
+order: 2
+---
+
+## Usage
+
+The page layout component is a series of containers that make up an application viewport. Within the page layout you can include sections like the [top navigation](/components/atlassian-navigation/examples), [side navigation](/components/side-navigation/examples), and the main content.
+
+The left sidebar provides navigation for the current workspace. People can personalise their working area or get more space to work by resizing, expanding, or collapsing the sidebar.
+
+Using the page layout component to compose your product experiences gives you useful accessibility features such as a skip link menu.
+
+## Accessibility
+
+Consistent and clear hierarchy helps people who navigate the page. Use landmarks, regions, headings and titles to outline the page layout so people can see the structure and how sections relate to each other.
+
+Order items on the page based on their level of importance so people don't have to search for them.
+
+### Skip links
+
+Always include the skip link menu if a substantial number of tab presses are required to reach the main content. A log-in page may not require a skip link menu, but on any page with top and/or side navigation people will expect to be able to skip to the main content.
+
+- Make sure there are no more than 4 or 5 elements in the skip link menu unless absolutely necessary. Too many options increases cognitive load and requires too many tab presses to bypass the skip link menu.
+- Keep the list consistent. If a section of the UI (such as a side panel) is in a skip link menu on one page it should be in the skip link menu on all pages where it appears.
+- Names for the sections must be understandable, including for screen reader users. 'Top navigation' does not describe the purpose of the navigation element, while 'Jira navigation' or 'global navigation' are more descriptive.
+- All skip link text needs to be translated for different locales. This includes section skip link labels, as well as the 'skip to:' text at the top of the panel.

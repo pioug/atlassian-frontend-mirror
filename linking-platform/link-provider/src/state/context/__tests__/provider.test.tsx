@@ -98,6 +98,21 @@ describe('Provider', () => {
     );
   });
 
+  it('should expose isAdminHubAIEnabled to consumers', () => {
+    const fn = jest.fn();
+    render(
+      <SmartCardProvider isAdminHubAIEnabled={true}>
+        <Context.Consumer>{fn}</Context.Consumer>
+      </SmartCardProvider>,
+    );
+
+    expect(fn).toBeCalledWith(
+      expect.objectContaining({
+        isAdminHubAIEnabled: true,
+      }),
+    );
+  });
+
   const initialState = {};
   it.each<[string, Partial<CardProviderProps>, Partial<CardProviderProps>]>([
     ['feature flags are', {}, { featureFlags: { showHoverPreview: false } }],

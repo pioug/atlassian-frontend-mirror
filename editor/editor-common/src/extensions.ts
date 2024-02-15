@@ -20,6 +20,8 @@ export {
   isDateRange,
   getUserFieldContextProvider,
   buildMenuItem,
+  configPanelMessages,
+  messages,
 } from './extensions/index';
 export type {
   ExtensionAutoConvertHandler,

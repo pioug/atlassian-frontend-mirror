@@ -4,7 +4,14 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import { CardState } from '../../../state/types';
 import { JsonLd } from 'json-ld-types';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
   ActionName,
   CardDisplay,
@@ -21,13 +28,9 @@ import {
   CustomActionItem,
 } from '../../FlexibleCard/components/blocks/types';
 import { FlexibleCardProps } from '../../FlexibleCard/types';
-import {
-  HoverCardContainer,
-  flexibleUiOptions,
-  titleBlockCss,
-} from '../styled';
+import { flexibleUiOptions, titleBlockCss } from '../styled';
 import { HoverCardContentProps } from '../types';
-import { getSimulatedMetadata } from '../utils';
+import { getSimulatedMetadata, getIsAISummaryEnabled } from '../utils';
 import HoverCardLoadingView from './views/resolving';
 import HoverCardUnauthorisedView from './views/unauthorised';
 import HoverCardResolvedView from './views/resolved';
@@ -36,7 +39,7 @@ import { messages } from '../../../messages';
 import { fireLinkClickedEvent } from '../../../utils/analytics/click';
 import { useSmartCardState } from '../../../state/store';
 import HoverCardForbiddenView from './views/forbidden';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import ContentContainer from './ContentContainer';
 
 export const hoverCardClassName = 'smart-links-hover-preview';
 
@@ -61,7 +64,7 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   url,
   onMouseEnter,
   onMouseLeave,
-  showServerActions,
+  actionOptions,
 }) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
   const defaultAnalytics = useSmartLinkAnalytics(url, undefined, id);
@@ -73,10 +76,18 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   const linkState = useSmartCardState(url);
   const linkStatus = linkState.status ?? 'pending';
 
+  const { isAdminHubAIEnabled } = useSmartLinkContext();
+  const isAISummaryEnabled = getIsAISummaryEnabled(
+    isAdminHubAIEnabled,
+    cardState.details,
+  );
+
   const services = getServices(linkState.details);
 
   const statusRef = useRef(linkStatus);
   const analyticsRef = useRef(analytics);
+
+  const [showPrism, setShowPrism] = useState(false);
 
   useEffect(() => {
     /**
@@ -154,9 +165,7 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     onClick: onClick,
     onResolve: onResolve,
     renderers: renderers,
-    showServerActions: showServerActions
-      ? { showStateActionFeatureDiscovery: true }
-      : false,
+    actionOptions,
     ui: flexibleUiOptions,
     url: url,
     children: {},
@@ -164,6 +173,10 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   };
 
   const onClickStopPropagation = useCallback((e) => e.stopPropagation(), []);
+
+  const onAIActionChange = useCallback((state) => {
+    setShowPrism(state === 'loading');
+  }, []);
 
   const getCardView = (cardState: CardState) => {
     if (cardState.metadataStatus === 'pending') {
@@ -187,13 +200,8 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
       );
     }
 
-    if (getBooleanFF('platform.linking-platform.smart-card.cross-join')) {
-      if (
-        cardState.status === 'forbidden' ||
-        cardState.status === 'not_found'
-      ) {
-        return <HoverCardForbiddenView flexibleCardProps={flexibleCardProps} />;
-      }
+    if (cardState.status === 'forbidden' || cardState.status === 'not_found') {
+      return <HoverCardForbiddenView flexibleCardProps={flexibleCardProps} />;
     }
 
     if (cardState.status === 'resolved') {
@@ -206,25 +214,26 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
           cardActions={cardActions}
           cardState={cardState}
           flexibleCardProps={flexibleCardProps}
+          isAISummaryEnabled={isAISummaryEnabled}
           onActionClick={onActionClick}
+          onAIActionChange={onAIActionChange}
           titleBlockProps={titleBlockProps}
         />
       );
     }
     return null;
   };
-
   const cardView = getCardView(cardState);
   return cardView ? (
-    <div
+    <ContentContainer
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={onClickStopPropagation}
-      className={hoverCardClassName}
-      css={HoverCardContainer}
+      isAIEnabled={isAISummaryEnabled}
+      showPrism={showPrism}
     >
       {cardView}
-    </div>
+    </ContentContainer>
   ) : null;
 };
 export default HoverCardContent;

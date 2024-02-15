@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 import { Code } from '../src';
@@ -19,7 +19,7 @@ const containerStyles = css({
 });
 
 const noMarginTopStyles = css({
-  marginTop: token('space.0', '0px'),
+  marginBlockStart: token('space.0', '0px'),
 });
 
 export default function Component() {

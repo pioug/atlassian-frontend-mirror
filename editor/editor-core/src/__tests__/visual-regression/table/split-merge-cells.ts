@@ -1,23 +1,24 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  snapshot,
-  initEditorWithAdf,
-  initFullPageEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  getSelectorForTableCell,
   clickFirstCell,
+  getSelectorForTableCell,
   mergeCells,
   splitCells,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
-import adf from './__fixtures__/default-table.adf.json';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  Appearance,
+  initEditorWithAdf,
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import adf from './__fixtures__/default-table.adf.json';
 
 describe('Table context menu: merge-split cells', () => {
   let page: PuppeteerPage;

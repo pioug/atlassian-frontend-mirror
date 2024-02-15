@@ -357,5 +357,15 @@
     "isExternal": true,
     "requiresSourceHydration": true,
     "sources": []
+  },
+  {
+    "id": "external-6",
+    "name": "External user with custom byline",
+    "email": "externaluserwithcustombyline@email.com",
+    "avatarUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/4.svg",
+    "type": "user",
+    "isExternal": true,
+    "sources": ["google", "microsoft"],
+    "byline": "custom byline text"
   }
 ]

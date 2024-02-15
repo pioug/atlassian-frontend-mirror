@@ -17,6 +17,7 @@ export type ColorPaletteArrowKeyNavigationOptions = {
   selectedColumnIndex: number;
   isOpenedByKeyboard: boolean;
   isPopupPositioned: boolean;
+  children?: React.ReactNode;
 };
 
 export type ColorPaletteArrowKeyNavigationProps =
@@ -30,6 +31,7 @@ export type MenuArrowKeyNavigationOptions = {
   type: ArrowKeyNavigationType.MENU;
   disableArrowKeyNavigation?: boolean;
   keyDownHandlerContext?: KeyDownHandlerContext;
+  children?: React.ReactNode;
 };
 
 export type MenuArrowKeyNavigationProviderProps =

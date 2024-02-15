@@ -43,13 +43,14 @@ export default class ManagedStatusPicker extends React.Component<Props, State> {
   render() {
     const { selectedColor, text } = this.state;
     return (
+      // eslint-disable-next-line @atlaskit/design-system/prefer-primitives
       <div
         id="container"
         style={{
           border: `1px solid ${token('color.border', '#ccc')}`,
           width: '225px',
           borderRadius: '4px',
-          padding: '10px 0',
+          padding: `${token('space.150', '12px')} 0`, // Added 12px padding instead of 10px, since Design tokens supports 8 and 12 px only
         }}
       >
         <StatusPicker

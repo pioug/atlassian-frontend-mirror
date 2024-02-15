@@ -1,19 +1,18 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-
-import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  initCommentEditorWithAdf,
-  snapshot,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import { createDocumentWithParagraphs } from '../__fixtures/paragraph-content';
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   animationFrame,
   clickEditableContent,
   scrollToBottom,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  initCommentEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
+
+import { createDocumentWithParagraphs } from '../__fixtures/paragraph-content';
 
 describe('Comment with sticky toolbar', () => {
   let page: PuppeteerPage;
@@ -61,8 +60,7 @@ describe('Comment with sticky toolbar', () => {
       );
     });
 
-    // FIXME: tests have been flaky on master : https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1689855/steps/%7Bf65cee1c-c612-497d-8e55-cccb858e56f8%7D/test-report
-    test.skip('with scroll', async () => {
+    test('with scroll', async () => {
       const url = getExampleUrl('editor', 'editor-core', 'jira-clone');
       const { page } = global;
 
@@ -74,8 +72,7 @@ describe('Comment with sticky toolbar', () => {
       await animationFrame(page);
     });
 
-    // FIXME: tests have been flaky on master : https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1689855/steps/%7Bf65cee1c-c612-497d-8e55-cccb858e56f8%7D/test-report
-    test.skip('offsetTop can set offset of sticky toolbar', async () => {
+    test('offsetTop can set offset of sticky toolbar', async () => {
       const url = getExampleUrl(
         'editor',
         'editor-core',

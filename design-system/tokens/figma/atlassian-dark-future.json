@@ -1,0 +1,15 @@
+{
+  "name": "Dark future",
+  "tokens": {
+    "Dark future/color.background.disabled": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for backgrounds of elements in a disabled state."
+      },
+      "value": "#B3DF72"
+    }
+  },
+  "renameMap": {}
+}

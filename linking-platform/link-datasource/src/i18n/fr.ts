@@ -26,7 +26,7 @@ export default {
   'linkDataSource.column-picker.search': 'Rechercher des champs',
   'linkDataSource.column-picker.tooltip': 'Configurer les colonnes',
   'linkDataSource.jira-issues.accessInstructions': "Pour demander accès, contactez l'administrateur de votre site.",
-  'linkDataSource.jira-issues.accessRequired': "Vous n'avez pas accès à ce site",
+  'linkDataSource.jira-issues.accessRequired': "Vous n'avez pas accès à ce contenu",
   'linkDataSource.jira-issues.accessRequiredWithSite': "Vous n'avez pas accès au site suivant :",
   'linkDataSource.jira-issues.checkConnection': 'Vérifiez votre connexion et actualisez, ou réessayez plus tard.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
@@ -43,14 +43,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Insérer des tickets Jira à partir de',
   'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {ticket} other {tickets}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Vue Ticket',
+  'linkDataSource.jira-issues.no.jira.sites.access.description':
+    "Pour demander l'accès, contactez votre administrateur.",
+  'linkDataSource.jira-issues.no.jira.sites.access.title': "Vous n'avez accès à aucun site Jira",
   'linkDataSource.jira-issues.noResultsFound': 'Résultat introuvable',
   'linkDataSource.jira-issues.refresh': 'Actualiser',
   'linkDataSource.jira-issues.unableToLoadItems': 'Chargement de certains éléments impossible',
   'linkDataSource.jira-issues.unableToLoadResults': 'Impossible de charger les résultats',
   'linkDataSource.modal-initial-state.beta': 'Bêta',
   'linkDataSource.modal-initial-state.learnMoreLink': 'En savoir plus sur la recherche avec JQL',
-  'linkDataSource.modal-initial-state.searchDescription':
-    'Utilisez JQL (Jira Query Language) pour rechercher des tickets.',
   'linkDataSource.modal-initial-state.searchTitle': 'Rechercher des tickets Jira',
   'linkDataSource.render-type.boolean.false': 'Non',
   'linkDataSource.render-type.boolean.true': 'Oui',

@@ -13,6 +13,7 @@ const UnauthorizedView: FC<UnauthorizedViewProps> = ({
   analytics,
   context,
   extensionKey,
+  isProductIntegrationSupported,
   onAuthorize,
   testId = 'embed-card-unauthorized-view',
   ...unresolvedViewProps
@@ -49,6 +50,7 @@ const UnauthorizedView: FC<UnauthorizedViewProps> = ({
             <UnauthorisedViewContent
               analytics={analytics}
               providerName={context?.text}
+              isProductIntegrationSupported={isProductIntegrationSupported}
               testId={testId}
             />
           ),
@@ -100,7 +102,14 @@ const UnauthorizedView: FC<UnauthorizedViewProps> = ({
         />
       ),
     };
-  }, [analytics, context?.text, handleOnAuthorizeClick, onAuthorize, testId]);
+  }, [
+    analytics,
+    context?.text,
+    handleOnAuthorizeClick,
+    isProductIntegrationSupported,
+    onAuthorize,
+    testId,
+  ]);
 
   return (
     <UnresolvedView

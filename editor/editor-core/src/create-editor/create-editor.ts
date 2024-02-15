@@ -1,15 +1,17 @@
-import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
+import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+
 import type {
   EditorConfig,
   EditorPlugin,
   PluginsOptions,
   PMPluginCreateConfig,
 } from '../types';
-import { sortByOrder } from './sort-by-order';
 import { InstrumentedPlugin } from '../utils/performance/instrumented-plugin';
+
+import { sortByOrder } from './sort-by-order';
 
 export function sortByRank(a: { rank: number }, b: { rank: number }): number {
   return a.rank - b.rank;

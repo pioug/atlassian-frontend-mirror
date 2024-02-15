@@ -1,3 +1,5 @@
+import { ChunkHashAlgorithm } from './ChunkHashAlgorithm';
+
 export interface ClientAltBasedAuth {
   readonly id: string;
   readonly token: string;
@@ -44,6 +46,7 @@ export interface MediaClientConfig {
   readonly initialAuth?: Auth;
   readonly stargateBaseUrl?: string;
   readonly getAuthFromContext?: AuthFromContextProvider;
+  readonly useSha256ForUploads?: boolean;
 }
 
 export interface AuthContext {
@@ -57,4 +60,5 @@ export type AuthFromContextProvider = (contextId: string) => Promise<Auth>;
 export type MediaApiConfig = {
   authProvider: AuthProvider;
   initialAuth?: Auth;
+  chunkHashAlgorithm?: ChunkHashAlgorithm;
 };

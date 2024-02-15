@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-unsupported-content",
-  "version": "0.2.7",
+  "version": "1.0.0",
   "description": "Unsupported Content plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -11,9 +11,10 @@
     "team": "Editor: ADF",
     "singleton": true,
     "inPublicMirror": false,
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "runReact18": false
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -32,9 +33,9 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^34.0.0",
-    "@atlaskit/editor-common": "^76.23.0",
-    "@atlaskit/editor-prosemirror": "1.1.0",
+    "@atlaskit/adf-schema": "^35.5.1",
+    "@atlaskit/editor-common": "^77.4.0",
+    "@atlaskit/editor-prosemirror": "3.0.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -45,7 +46,6 @@
     "@af/visual-regression": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",

@@ -85,7 +85,7 @@ function ContentComponent({
       isNew={isNew}
       autoFocus={focusDateInput}
       onDelete={() => {
-        dependencyApi?.core.actions.execute(deleteDateCommand(dependencyApi));
+        dependencyApi?.core?.actions.execute(deleteDateCommand(dependencyApi));
         editorView.focus();
       }}
       onSelect={(
@@ -96,7 +96,7 @@ function ContentComponent({
         if (date === undefined || date === null) {
           return;
         }
-        dependencyApi?.core.actions.execute(
+        dependencyApi?.core?.actions.execute(
           insertDateCommand(dependencyApi)({
             date,
             commitMethod,
@@ -105,7 +105,7 @@ function ContentComponent({
         editorView.focus();
       }}
       onTextChanged={(date?: DateType) => {
-        dependencyApi?.core.actions.execute(
+        dependencyApi?.core?.actions.execute(
           insertDateCommand(dependencyApi)({
             date,
             enterPressed: false,

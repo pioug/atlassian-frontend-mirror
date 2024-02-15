@@ -20,7 +20,7 @@ describe('<ModalBody />', () => {
       </ModalDialog>,
     );
 
-    expect(queryByTestId('modal--body')).not.toBeNull();
+    expect(queryByTestId('modal--body')).toBeInTheDocument();
   });
 
   it('should be accessible using a user-defined test id', () => {
@@ -30,8 +30,8 @@ describe('<ModalBody />', () => {
       </ModalDialog>,
     );
 
-    expect(queryByTestId('modal--body')).toBeNull();
-    expect(queryByTestId('my-body')).not.toBeNull();
+    expect(queryByTestId('modal--body')).not.toBeInTheDocument();
+    expect(queryByTestId('my-body')).toBeInTheDocument();
   });
 
   it('should render custom body', () => {
@@ -41,7 +41,7 @@ describe('<ModalBody />', () => {
       </ModalDialog>,
     );
 
-    expect(queryByTestId('custom-body')).not.toBeNull();
+    expect(queryByTestId('custom-body')).toBeInTheDocument();
   });
 
   it('should throw an error if modal context not available', () => {

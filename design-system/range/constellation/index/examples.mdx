@@ -16,7 +16,7 @@ The default form of a range.
 
 ## Form
 
-Range used with the [Form](https://atlaskit.atlassian.com/packages/design-system/form) component.
+Range used with the [form component](/components/form/).
 
 <Example Component={RangeForm} packageName="@atlaskit/range" />
 
@@ -35,5 +35,7 @@ In an uncontrolled range, the state is managed by the DOM.
 ## Disabled
 
 Set `isDisabled` to disable a range when another action has to be completed before the range is usable.
+
+Avoid using disabled UI where possible. This can cause accessibility problems, because disabled UI does not give enough information about what went wrong and how to proceed.
 
 <Example Component={RangeDisabled} packageName="@atlaskit/range" />

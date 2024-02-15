@@ -26,7 +26,6 @@ interface EditorConfig {
   allowCustomPanel?: boolean;
   allowCustomPanelEdit?: boolean;
   allowMediaInline?: boolean;
-  restartNumberedLists?: boolean;
 }
 
 export default class MobileEditorConfiguration

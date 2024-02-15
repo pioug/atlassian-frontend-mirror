@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "5.4.3",
+  "version": "7.3.4",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -24,30 +24,33 @@
   "atlassian": {
     "team": "Editor: Jenga",
     "singleton": true,
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "runReact18": false
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^34.0.0",
-    "@atlaskit/custom-steps": "^0.0.4",
-    "@atlaskit/editor-common": "^76.23.0",
+    "@atlaskit/adf-schema": "^35.5.1",
+    "@atlaskit/custom-steps": "^0.0.13",
+    "@atlaskit/editor-common": "^77.4.0",
     "@atlaskit/editor-palette": "1.5.2",
-    "@atlaskit/editor-plugin-analytics": "^0.3.0",
-    "@atlaskit/editor-plugin-content-insertion": "^0.1.0",
-    "@atlaskit/editor-plugin-guideline": "^0.5.0",
-    "@atlaskit/editor-plugin-selection": "^0.1.0",
-    "@atlaskit/editor-plugin-width": "^0.2.0",
-    "@atlaskit/editor-prosemirror": "1.1.0",
-    "@atlaskit/editor-shared-styles": "^2.8.0",
-    "@atlaskit/editor-tables": "^2.3.0",
+    "@atlaskit/editor-plugin-analytics": "^1.0.0",
+    "@atlaskit/editor-plugin-content-insertion": "^1.0.0",
+    "@atlaskit/editor-plugin-guideline": "^1.0.0",
+    "@atlaskit/editor-plugin-selection": "^1.0.0",
+    "@atlaskit/editor-plugin-width": "^1.0.0",
+    "@atlaskit/editor-prosemirror": "3.0.0",
+    "@atlaskit/editor-shared-styles": "^2.9.0",
+    "@atlaskit/editor-tables": "^2.5.0",
     "@atlaskit/icon": "^22.0.0",
+    "@atlaskit/menu": "^2.1.5",
     "@atlaskit/platform-feature-flags": "^0.2.1",
-    "@atlaskit/pragmatic-drag-and-drop": "^0.24.0",
-    "@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^0.7.0",
+    "@atlaskit/pragmatic-drag-and-drop": "^0.25.0",
+    "@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^0.8.0",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^0.12.0",
-    "@atlaskit/primitives": "^1.12.0",
+    "@atlaskit/primitives": "^2.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
-    "@atlaskit/tooltip": "^18.0.0",
+    "@atlaskit/toggle": "^13.0.0",
+    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tooltip": "^18.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "classnames": "^2.2.5",
@@ -62,28 +65,16 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/editor-plugin-decorations": "^0.2.0",
-    "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
-    "@atlaskit/editor-plugin-grid": "^0.3.0",
-    "@atlaskit/editor-plugin-hyperlink": "^0.6.0",
-    "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "@atlassian/feature-flags-test-utils": "^0.1.2",
-    "@testing-library/dom": "^8.17.1",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
-    "raf-stub": "^2.0.1",
     "typescript": "~4.9.5"
   },
   "af:exports": {
-    "./types": "./src/plugins/table/types.ts",
+    "./types": "./src/types.ts",
     ".": "./src/index.ts",
-    "./ui/common-styles": "./src/plugins/table/ui/common-styles.ts",
-    "./ui/consts": "./src/plugins/table/ui/consts.ts",
-    "./plugin-key": "./src/plugins/table/pm-plugins/plugin-key.ts",
-    "./commands": "./src/plugins/table/commands/index.ts"
+    "./ui/common-styles": "./src/ui/common-styles.ts",
+    "./ui/consts": "./src/ui/consts.ts",
+    "./plugin-key": "./src/pm-plugins/plugin-key.ts",
+    "./commands": "./src/commands/index.ts"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {
@@ -105,14 +96,13 @@
       ]
     }
   },
+  "stricter": {
+    "no-unused-dependencies": {
+      "checkDevDependencies": true
+    }
+  },
   "platform-feature-flags": {
     "platform.editor.custom-table-width": {
-      "type": "boolean"
-    },
-    "platform.editor.table.drag-and-drop": {
-      "type": "boolean"
-    },
-    "platform.editor.table-sticky-scrollbar": {
       "type": "boolean"
     },
     "platform.editor.table.column-controls-styles-updated": {
@@ -121,25 +111,34 @@
     "platform.editor.resizing-table-height-improvement": {
       "type": "boolean"
     },
-    "platform.editor.table-remove-update-resize-handles_djvab": {
-      "type": "boolean"
-    },
-    "platform.editor.table.overflow-state-analytics": {
-      "type": "boolean"
-    },
     "platform.editor.table.increase-shadow-visibility_lh89r": {
       "type": "boolean"
     },
     "platform.editor.table.shift-arrowup-fix": {
       "type": "boolean"
     },
-    "platform.editor.table.update-table-resizer-styles": {
-      "type": "boolean"
-    },
-    "platform.editor.table-update-colwidths-after-column-is-deleted": {
-      "type": "boolean"
-    },
     "platform.editor.table.alternative-sticky-header-logic": {
+      "type": "boolean"
+    },
+    "platform.editor.table.analytics-plugin-moved-event": {
+      "type": "boolean"
+    },
+    "platform.editor.a11y-table-resizing_uapcv": {
+      "type": "boolean"
+    },
+    "platform.editor.table.new-cell-context-menu-styling": {
+      "type": "boolean"
+    },
+    "platform.editor.a11y.table-selection_9uv33": {
+      "type": "boolean"
+    },
+    "platform.editor.menu.group-items": {
+      "type": "boolean"
+    },
+    "platform.editor.table.in-danger-hover-merged-cells-fix": {
+      "type": "boolean"
+    },
+    "platform.editor.a11y-column-resizing_emcvz": {
       "type": "boolean"
     }
   }

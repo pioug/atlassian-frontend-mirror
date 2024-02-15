@@ -1,25 +1,27 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
-  initFullPageEditorWithAdf,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import adf from './__fixtures__/default-table.adf.json';
+  clickCellOptions,
+  clickFirstCell,
+  getSelectorForTableCell,
+  mergeCells,
+  navigateToTableCell,
+  selectTableOption,
+  splitCells,
+  tableSelectors,
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  clickFirstCell,
-  selectTableOption,
-  clickCellOptions,
-  tableSelectors,
-  navigateToTableCell,
-  getSelectorForTableCell,
-  mergeCells,
-  splitCells,
-} from '@atlaskit/editor-test-helpers/page-objects/table';
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import adf from './__fixtures__/default-table.adf.json';
 
 describe('Table contextual menu: fullpage', () => {
   let page: PuppeteerPage;
@@ -100,8 +102,8 @@ describe('Table contextual menu: fullpage', () => {
     beforeEach(async () => {
       await pageInit({ width: 768, height: 768 });
     });
-    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-    it.skip('ensures context menu is positioned correctly when there is not enought space right side of menu button ', async () => {
+
+    it('ensures context menu is positioned correctly when there is not enought space right side of menu button ', async () => {
       await navigateToTableCell(page, 1, 3);
       await clickCellOptions(page);
       await snapshot(page);

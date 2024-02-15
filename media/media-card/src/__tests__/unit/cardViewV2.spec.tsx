@@ -11,7 +11,7 @@ import React from 'react';
 import {
   CardViewV2,
   CardViewV2Base,
-  CardViewV2OwnProps,
+  CardViewV2Props,
 } from '../../card/v2/cardViewV2';
 import { CardStatus } from '../../types';
 import { FileDetails } from '@atlaskit/media-client';
@@ -62,7 +62,7 @@ const nonLoadingStatuses: Array<CardStatus> = [
 const previewUnavailableMessage = 'Preview Unavailable';
 
 const renderCardViewBase = (
-  props: Partial<CardViewV2OwnProps> = {},
+  props: Partial<CardViewV2Props> = {},
   renderOptions = {},
 ) =>
   render(
@@ -72,7 +72,12 @@ const renderCardViewBase = (
         'fabric.media.preview_unavailable': previewUnavailableMessage,
       }}
     >
-      <CardViewV2Base status="loading" mediaItemType="file" {...props} />
+      <CardViewV2Base
+        status="loading"
+        mediaItemType="file"
+        dimensions={{ width: 100, height: 100 }}
+        {...props}
+      />
     </IntlProvider>,
     renderOptions,
   );
@@ -101,6 +106,7 @@ describe('CardView', () => {
           mediaItemType="file"
           metadata={file}
           onClick={clickHandler}
+          dimensions={{ width: 100, height: 100 }}
         />
       </AnalyticsListener>,
     );
@@ -134,6 +140,7 @@ describe('CardView', () => {
         metadata={file}
         resizeMode="stretchy-fit"
         onDisplayImage={onDisplayImage}
+        dimensions={{ width: 100, height: 100 }}
       />,
     );
     expect(onDisplayImage).toHaveBeenCalledTimes(1);
@@ -145,7 +152,7 @@ describe('CardView', () => {
       id: 'some-id',
       mediaType: 'image',
     };
-    const cardProps: CardViewV2OwnProps = {
+    const cardProps: CardViewV2Props = {
       testId: 'some-test-id',
       cardPreview,
       status: 'complete',
@@ -156,7 +163,6 @@ describe('CardView', () => {
       alt: 'some-image',
       resizeMode: 'crop',
       dimensions: { width, height: 100 },
-      appearance: 'auto',
     };
 
     renderCardViewBase(cardProps);
@@ -240,7 +246,11 @@ describe('CardView', () => {
         it(`should render Spinner when status is ${status}`, () => {
           const { rerender } = render(
             <IntlProvider locale="en">
-              <CardViewV2Base status="loading" mediaItemType="file" />
+              <CardViewV2Base
+                status="loading"
+                mediaItemType="file"
+                dimensions={{ width: 100, height: 100 }}
+              />
             </IntlProvider>,
           );
 
@@ -252,6 +262,7 @@ describe('CardView', () => {
                 status="loading"
                 mediaItemType="file"
                 cardPreview={cardPreview}
+                dimensions={{ width: 100, height: 100 }}
               />
             </IntlProvider>,
           );
@@ -357,7 +368,11 @@ describe('CardView', () => {
       // Component A
       const { rerender } = render(
         <IntlProvider locale="en">
-          <CardViewV2Base status="loading" mediaItemType="file" />
+          <CardViewV2Base
+            status="loading"
+            mediaItemType="file"
+            dimensions={{ width: 100, height: 100 }}
+          />
         </IntlProvider>,
       );
 
@@ -371,6 +386,7 @@ describe('CardView', () => {
             mediaItemType="file"
             disableOverlay={true}
             metadata={{ id: 'some-id', mediaType: 'image' }}
+            dimensions={{ width: 100, height: 100 }}
           />
         </IntlProvider>,
       );
@@ -385,6 +401,7 @@ describe('CardView', () => {
             mediaItemType="file"
             disableOverlay={true}
             metadata={{ id: 'some-id', mediaType: 'video' }}
+            dimensions={{ width: 100, height: 100 }}
           />
         </IntlProvider>,
       );
@@ -407,6 +424,7 @@ describe('CardView', () => {
             status="loading"
             mediaItemType="file"
             metadata={metadata}
+            dimensions={{ width: 100, height: 100 }}
           />
         </IntlProvider>,
       );
@@ -419,6 +437,7 @@ describe('CardView', () => {
             status="uploading"
             mediaItemType="file"
             disableOverlay={true}
+            dimensions={{ width: 100, height: 100 }}
           />
         </IntlProvider>,
       );
@@ -433,6 +452,7 @@ describe('CardView', () => {
             metadata={metadata}
             mediaItemType="file"
             disableOverlay={true}
+            dimensions={{ width: 100, height: 100 }}
           />
         </IntlProvider>,
       );
@@ -442,7 +462,11 @@ describe('CardView', () => {
       // enabled overlay with no metadata
       rerender(
         <IntlProvider locale="en">
-          <CardViewV2Base status="loading" mediaItemType="file" />
+          <CardViewV2Base
+            status="loading"
+            mediaItemType="file"
+            dimensions={{ width: 100, height: 100 }}
+          />
         </IntlProvider>,
       );
 
@@ -577,7 +601,7 @@ describe('CardView', () => {
         id: 'some-id',
         mediaType: 'image',
       };
-      const cardProps: CardViewV2OwnProps = {
+      const cardProps: CardViewV2Props = {
         cardPreview,
         status: 'complete',
         mediaItemType: 'file',
@@ -589,6 +613,7 @@ describe('CardView', () => {
         onImageLoad: jest.fn(),
         nativeLazyLoad: true,
         forceSyncDisplay: true,
+        dimensions: { width: 100, height: 100 },
       };
       renderCardViewBase(cardProps);
       expect(screen.queryByTestId(imgTestId)).toBeInTheDocument();
@@ -601,6 +626,7 @@ describe('CardView', () => {
             status="loading"
             mediaItemType="file"
             selectable={true}
+            dimensions={{ width: 100, height: 100 }}
           />,
         );
         expect(screen.queryByRole('img', { name: 'tick' })).toBeInTheDocument();
@@ -611,6 +637,7 @@ describe('CardView', () => {
             status="loading"
             mediaItemType="file"
             selectable={false}
+            dimensions={{ width: 100, height: 100 }}
           />,
         );
         expect(
@@ -624,6 +651,7 @@ describe('CardView', () => {
             mediaItemType="file"
             selectable={true}
             disableOverlay={true}
+            dimensions={{ width: 100, height: 100 }}
           />,
         );
         expect(

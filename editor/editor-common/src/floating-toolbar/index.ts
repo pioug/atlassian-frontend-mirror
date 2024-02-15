@@ -156,3 +156,5 @@ export const areSameItems = (
 
   return leftArr.every((item, index) => isSameItem(rightArr[index], item));
 };
+
+export { default as messages } from './messages';

@@ -2,6 +2,8 @@ import { overrideEmbedContent } from '../../../../../examples/utils/common';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 import { JsonLd } from 'json-ld-types';
 import JiraPreviewImage from '../../../../../examples/images/forbidden-jira.svg';
+import AvatarImage from '../../../../../examples/images/avatar-1.svg';
+import { iconGoogleDrive } from '../../../../../examples/images';
 
 export const mockBaseResponse = {
   meta: {
@@ -30,7 +32,7 @@ export const mockBaseResponse = {
       '@type': 'Person',
       icon: {
         '@type': 'Image',
-        url: 'avatar_url',
+        url: AvatarImage,
       },
       name: 'Michael Schrute',
     },
@@ -72,7 +74,7 @@ export const mockConfluenceResponseWithOwnedBy = {
       '@type': 'Person',
       icon: {
         '@type': 'Image',
-        url: 'avatar_url',
+        url: AvatarImage,
       },
       name: 'Michael Schrute',
     },
@@ -205,6 +207,31 @@ export const mockBBPullRequest = {
   },
 };
 
+export const mockBBFile = {
+  meta: {
+    ...mockBaseResponse.meta,
+    key: 'bitbucket-object-provider',
+  },
+  data: {
+    ...mockBaseResponse.data,
+    '@type': ['schema:DigitalDocument'],
+    'atlassian:updatedBy': {
+      '@type': 'Person',
+      icon: {
+        '@type': 'Image',
+        url: AvatarImage,
+      },
+      name: 'updatedby person',
+    },
+    'atlassian:latestCommit': {
+      name: '1b4hf3g',
+      '@type': 'atlassian:SourceCodeCommit',
+      summary: 'commit message',
+    },
+    updated: '2022-01-01T12:13:15.531+1000',
+  },
+};
+
 export const mockBaseResponseWithErrorPreview = {
   meta: {
     ...mockBaseResponse.meta,
@@ -287,7 +314,7 @@ export const mockUnauthorisedResponse: JsonLd.Response = {
       name: 'Google',
       icon: {
         '@type': 'Image',
-        url: 'https://developers.google.com/drive/images/drive_icon.png',
+        url: iconGoogleDrive,
       },
       image: 'https://links.atlassian.com/images/google_drive.svg',
     },

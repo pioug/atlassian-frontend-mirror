@@ -1,8 +1,23 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
-import { MobileAppearance } from '../../Mobile';
-import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
+
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-insertion';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugins/guideline';
+import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
+import { tablesPlugin } from '@atlaskit/editor-plugins/table';
+import { pluginKey } from '@atlaskit/editor-plugins/table/plugin-key';
+import { widthPlugin } from '@atlaskit/editor-plugins/width';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  createProsemirrorEditorFactory,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
@@ -11,20 +26,8 @@ import {
   td,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
-import { tablesPlugin } from '@atlaskit/editor-plugin-table';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  createProsemirrorEditorFactory,
-  Preset,
-} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+
+import { MobileAppearance } from '../../Mobile';
 
 describe('Mobile Appearance Component', () => {
   const createEditor = createProsemirrorEditorFactory();

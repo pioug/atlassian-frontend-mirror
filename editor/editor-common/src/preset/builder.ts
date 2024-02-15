@@ -1,7 +1,10 @@
 import type {
   AllEditorPresetPluginTypes,
   ExtractPluginNameFromAllBuilderPlugins,
+  MaybePlugin,
+  MaybePluginName,
   NextEditorPlugin,
+  PresetPlugin,
   SafePresetCheck,
 } from '../types';
 import type { EditorPlugin } from '../types/editor-plugin';
@@ -18,8 +21,15 @@ interface BuildProps extends ProcessProps {
   pluginInjectionAPI?: EditorPluginInjectionAPI;
 }
 
+type OldAndDeprecatedAddFunction<T> = (
+  pluginToAdd: T,
+  builder: EditorPresetBuilder<any, any>,
+) => EditorPresetBuilder<any, any>;
+
+type AllPluginNames = string | MaybePluginName<string>;
+
 export class EditorPresetBuilder<
-  PluginNames extends string[] = [],
+  PluginNames extends AllPluginNames[] = [],
   StackPlugins extends AllEditorPresetPluginTypes[] = [],
 > {
   private readonly data: [...StackPlugins];
@@ -28,14 +38,14 @@ export class EditorPresetBuilder<
     this.data = [...more] || [];
   }
 
-  add<NewPlugin extends AllEditorPresetPluginTypes>(
+  add<NewPlugin extends PresetPlugin>(
     nextOrTuple: SafePresetCheck<NewPlugin, StackPlugins>,
   ): EditorPresetBuilder<
-    [...PluginNames, ExtractPluginNameFromAllBuilderPlugins<NewPlugin>],
+    [ExtractPluginNameFromAllBuilderPlugins<NewPlugin>, ...PluginNames],
     [...[NewPlugin], ...StackPlugins]
   > {
     return new EditorPresetBuilder<
-      [...PluginNames, ExtractPluginNameFromAllBuilderPlugins<NewPlugin>],
+      [ExtractPluginNameFromAllBuilderPlugins<NewPlugin>, ...PluginNames],
       [...[NewPlugin], ...StackPlugins]
     >(
       /**
@@ -48,42 +58,54 @@ export class EditorPresetBuilder<
     );
   }
 
-  // hasPlugin<Plugin extends NextEditorPlugin<any, any>>(
-  //   pluginToAdd: Plugin,
-  // ): this is TryCastEditorPresetBuilderByCheckingPlugins<this, Plugin> {
-  //   const hasPluginQueryExists = this.data.find((pluginEntry) => {
-  //     const pluginFunction: NextEditorPlugin<any, any> = !Array.isArray(
-  //       pluginEntry,
-  //     )
-  //       ? pluginEntry
-  //       : pluginEntry[0];
+  maybeAdd<ToAddPlugin extends PresetPlugin>(
+    pluginToAdd: SafePresetCheck<ToAddPlugin, StackPlugins>,
+    shouldAdd:
+      | boolean
+      | (() => boolean)
+      | OldAndDeprecatedAddFunction<ToAddPlugin>,
+  ): EditorPresetBuilder<
+    [
+      MaybePluginName<ExtractPluginNameFromAllBuilderPlugins<ToAddPlugin>>,
+      ...PluginNames,
+    ],
+    [MaybePlugin<ToAddPlugin>, ...StackPlugins]
+  > {
+    const pluginOrBuilder =
+      typeof shouldAdd === 'function'
+        ? // @ts-expect-error Argument of type 'SafePresetCheck<ToAddPlugin, StackPlugins>' is not assignable to parameter of type 'ToAddPlugin'.
+          shouldAdd(pluginToAdd, this)
+        : shouldAdd;
 
-  //     return pluginFunction === pluginToAdd;
-  //   });
+    if (pluginOrBuilder instanceof EditorPresetBuilder) {
+      return pluginOrBuilder as EditorPresetBuilder<
+        [
+          MaybePluginName<ExtractPluginNameFromAllBuilderPlugins<ToAddPlugin>>,
+          ...PluginNames,
+        ],
+        [MaybePlugin<ToAddPlugin>, ...StackPlugins]
+      >;
+    }
 
-  //   return Boolean(hasPluginQueryExists);
-  // }
+    const nextPluginStack: [MaybePlugin<ToAddPlugin>, ...StackPlugins] = [
+      /**
+       * re-cast this to NewPlugin as we've done all the type
+       * safety, dependency checking, narrowing, during
+       * `SafePresetCheck & VerifyPluginDependencies`
+       */
+      pluginOrBuilder ? (pluginToAdd as ToAddPlugin) : undefined,
+      ...this.data,
+    ];
 
-  maybeAdd<
-    MaybePlugin extends NextEditorPlugin<any, any>,
-    MaybePluginNames extends string[],
-    MaybeStackPlugins extends AllEditorPresetPluginTypes[],
-    MaybeEditorPresetBuilder extends EditorPresetBuilder<
-      MaybePluginNames,
-      MaybeStackPlugins
-    >,
-  >(
-    pluginToAdd: MaybePlugin,
-    add: (
-      pluginToAdd: MaybePlugin,
-      maybeEditorPresetBuilder: MaybeEditorPresetBuilder,
-    ) => MaybeEditorPresetBuilder,
-  ): MaybeEditorPresetBuilder {
-    return add(
-      pluginToAdd,
-      //  @ts-ignore
-      this as any,
-    );
+    const nextEditorPresetBuilder = new EditorPresetBuilder<
+      [
+        MaybePluginName<ExtractPluginNameFromAllBuilderPlugins<ToAddPlugin>>,
+        ...PluginNames,
+      ],
+      [MaybePlugin<ToAddPlugin>, ...StackPlugins]
+    >(...nextPluginStack);
+
+    return nextEditorPresetBuilder;
   }
 
   has(plugin: AllEditorPresetPluginTypes): boolean {
@@ -112,7 +134,7 @@ export class EditorPresetBuilder<
 
   private verifyDuplicatedPlugins() {
     const cache = new Set();
-    this.data.forEach((pluginEntry) => {
+    this.data.filter(Boolean).forEach((pluginEntry) => {
       const [pluginFn, _] = Array.isArray(pluginEntry)
         ? pluginEntry
         : [pluginEntry, undefined];
@@ -136,6 +158,7 @@ export class EditorPresetBuilder<
     const pluginsDataCopy = this.data.slice();
     const plugins = pluginsDataCopy
       .reverse()
+      .filter(Boolean)
       .map((entry) => {
         const [fn, config] = this.safeEntry(entry);
 
@@ -181,41 +204,4 @@ export class EditorPresetBuilder<
 
   private safeEntry = (plugin: AllEditorPresetPluginTypes) =>
     Array.isArray(plugin) ? plugin : [plugin, undefined];
-
-  // TODO: ED-17023 - Bring back type safety to the EditorPresetBuilder.add preset
-  // import type {
-  //   ExtractPluginDependencies,
-  // } from '../types/next-editor-plugin';
-  // type TryCastEditorPresetBuilderByCheckingDependencies<MaybeEditorPresetBuilder, Plugin> =
-  //   MaybeEditorPresetBuilder extends EditorPresetBuilder<any, infer StackPlugins>
-  //     ? Plugin extends NextEditorPlugin<any, any>
-  //       ? ExtractPluginDependencies<Plugin>[number] extends StackPlugins[number]
-  //         ? MaybeEditorPresetBuilder
-  //         : never
-  //       : never
-  //     : never;
-  //  Because how our plugins are added in the preset, we can't use the type safe system
-  //  in the EditorPresetBuilder.
-  //  TODO: ED-17023 - Bring back type safety to the EditorPresetBuilder.add preset
-  // maybeAdd<
-  //   MaybePlugin extends NextEditorPlugin<any, any>,
-  //   MaybePluginNames extends string[],
-  //   MaybeStackPlugins extends AllEditorPresetPluginTypes[],
-  //   MaybeEditorPresetBuilder extends EditorPresetBuilder<
-  //     MaybePluginNames,
-  //     MaybeStackPlugins
-  //   >,
-  // >(
-  //   pluginToAdd: MaybePlugin,
-  //    add: (
-  //      pluginToAdd: MaybePlugin,
-  //      maybeEditorPresetBuilder: TryCastEditorPresetBuilderByCheckingDependencies<this, MaybePlugin>,
-  //    ) => MaybeEditorPresetBuilder,
-  // ): MaybeEditorPresetBuilder | this {
-  //   return add(
-  //     pluginToAdd,
-  //     //  @ts-ignore
-  //     this as any,
-  //   );
-  // }
 }

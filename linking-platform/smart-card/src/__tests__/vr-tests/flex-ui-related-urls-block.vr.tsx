@@ -4,7 +4,7 @@ import {
   RelatedUrlsBlockResolving,
   RelatedUrlsResolved,
   RelatedUrlsResolvedOpened,
-} from '../../../examples/vr-flexible-ui-block-related-urls';
+} from '../../../examples/vr-flexible-card/vr-flexible-ui-block-related-urls';
 
 snapshot(RelatedUrlsResolved, {
   description:

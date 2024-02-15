@@ -26,6 +26,7 @@ const profiles = [
       remoteTimeString: getTimeString(),
       remoteWeekdayIndex: getWeekday().index,
       remoteWeekdayString: getWeekday().string,
+      accountType: 'atlassian',
     },
   },
   {
@@ -39,6 +40,7 @@ const profiles = [
       remoteTimeString: getTimeString(),
       remoteWeekdayIndex: getWeekday().index,
       remoteWeekdayString: getWeekday().string,
+      accountType: 'atlassian',
     },
   },
   {
@@ -53,6 +55,7 @@ const profiles = [
       remoteTimeString: getTimeString(),
       remoteWeekdayIndex: getWeekday().index,
       remoteWeekdayString: getWeekday().string,
+      accountType: 'atlassian',
     },
   },
   {
@@ -62,6 +65,7 @@ const profiles = [
       nickname: 'crodriquez',
       email: 'crodriquez@slofast.com',
       meta: 'Manager',
+      accountType: 'customer',
     },
   },
   {
@@ -75,6 +79,7 @@ const profiles = [
       remoteTimeString: getTimeString(),
       remoteWeekdayIndex: getWeekday().index,
       remoteWeekdayString: getWeekday().string,
+      accountType: 'atlassian',
     },
   },
   {
@@ -88,6 +93,7 @@ const profiles = [
       remoteTimeString: getTimeString(),
       remoteWeekdayIndex: getWeekday().index,
       remoteWeekdayString: getWeekday().string,
+      accountType: 'atlassian',
     },
   },
   {
@@ -101,6 +107,7 @@ const profiles = [
       remoteTimeString: getTimeString(),
       remoteWeekdayIndex: getWeekday().index,
       remoteWeekdayString: getWeekday().string,
+      accountType: 'atlassian',
     },
   },
   {
@@ -114,6 +121,7 @@ const profiles = [
       remoteTimeString: getTimeString(),
       remoteWeekdayIndex: getWeekday().index,
       remoteWeekdayString: getWeekday().string,
+      accountType: 'atlassian',
     },
   },
   {
@@ -127,6 +135,7 @@ const profiles = [
       remoteTimeString: getTimeString(),
       remoteWeekdayIndex: getWeekday().index,
       remoteWeekdayString: getWeekday().string,
+      accountType: 'atlassian',
     },
   },
   {
@@ -140,6 +149,7 @@ const profiles = [
       remoteTimeString: getTimeString(),
       remoteWeekdayIndex: getWeekday().index,
       remoteWeekdayString: getWeekday().string,
+      accountType: 'atlassian',
     },
   },
   {
@@ -153,6 +163,7 @@ const profiles = [
       remoteTimeString: getTimeString(),
       remoteWeekdayIndex: getWeekday().index,
       remoteWeekdayString: getWeekday().string,
+      accountType: 'atlassian',
     },
   },
 ];

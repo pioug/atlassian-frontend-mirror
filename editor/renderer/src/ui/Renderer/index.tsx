@@ -1,14 +1,22 @@
 /** @jsx jsx */
-import React, { Fragment, useContext, useLayoutEffect, useRef } from 'react';
+import React, {
+  Fragment,
+  useContext,
+  useLayoutEffect,
+  useRef,
+  PureComponent,
+} from 'react';
 import { jsx } from '@emotion/react';
-import { PureComponent } from 'react';
 import type {
   Schema,
   Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { reduce } from '@atlaskit/adf-utils/traverse';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import {
+  ProviderFactory,
+  ProviderFactoryProvider,
+} from '@atlaskit/editor-common/provider-factory';
 import {
   UnsupportedBlock,
   BaseTheme,
@@ -34,7 +42,7 @@ import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles'
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import uuid from 'uuid/v4';
-import type { RendererContext } from '../../';
+import type { MediaSSR, RendererContext } from '../../';
 import { ReactSerializer, renderDocument } from '../../';
 import { TELEPOINTER_ID, rendererStyles } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
@@ -71,6 +79,7 @@ import memoizeOne from 'memoize-one';
 import { ErrorBoundary } from './ErrorBoundary';
 import type { FireAnalyticsCallback } from '../../react/utils/performance/RenderTracking';
 import { RenderTracking } from '../../react/utils/performance/RenderTracking';
+import { EditorMediaClientProvider } from '../../react/utils/EditorMediaClientProvider';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
@@ -393,6 +402,7 @@ export class Renderer extends PureComponent<RendererProps> {
       allowCopyToClipboard,
       allowWrapCodeBlock,
       allowCustomPanels,
+      media,
     } = this.props;
 
     const featureFlags = this.featureFlags(this.props.featureFlags);
@@ -488,31 +498,37 @@ export class Renderer extends PureComponent<RendererProps> {
               }}
             >
               <SmartCardStorageProvider>
-                <RendererWrapper
-                  appearance={appearance}
-                  allowNestedHeaderLinks={allowNestedHeaderLinks}
-                  allowColumnSorting={allowColumnSorting}
-                  allowCopyToClipboard={allowCopyToClipboard}
-                  allowWrapCodeBlock={allowWrapCodeBlock}
-                  allowCustomPanels={allowCustomPanels}
-                  allowPlaceholderText={allowPlaceholderText}
-                  useBlockRenderForCodeBlock={
-                    featureFlags.featureFlags.useBlockRenderForCodeBlock ?? true
-                  }
-                  addTelepointer={this.props.addTelepointer}
-                  innerRef={this.editorRef}
-                  onClick={handleWrapperOnClick}
-                  onMouseDown={this.onMouseDownEditView}
-                >
-                  {enableSsrInlineScripts ? <BreakoutSSRInlineScript /> : null}
-                  <RendererActionsInternalUpdater
-                    doc={pmDoc}
-                    schema={schema}
-                    onAnalyticsEvent={this.fireAnalyticsEvent}
+                <ProviderFactoryProvider value={this.providerFactory}>
+                  <RendererWrapper
+                    appearance={appearance}
+                    allowNestedHeaderLinks={allowNestedHeaderLinks}
+                    allowColumnSorting={allowColumnSorting}
+                    allowCopyToClipboard={allowCopyToClipboard}
+                    allowWrapCodeBlock={allowWrapCodeBlock}
+                    allowCustomPanels={allowCustomPanels}
+                    allowPlaceholderText={allowPlaceholderText}
+                    useBlockRenderForCodeBlock={
+                      featureFlags.featureFlags.useBlockRenderForCodeBlock ??
+                      true
+                    }
+                    addTelepointer={this.props.addTelepointer}
+                    innerRef={this.editorRef}
+                    onClick={handleWrapperOnClick}
+                    onMouseDown={this.onMouseDownEditView}
+                    ssr={media?.ssr}
                   >
-                    {result}
-                  </RendererActionsInternalUpdater>
-                </RendererWrapper>
+                    {enableSsrInlineScripts ? (
+                      <BreakoutSSRInlineScript />
+                    ) : null}
+                    <RendererActionsInternalUpdater
+                      doc={pmDoc}
+                      schema={schema}
+                      onAnalyticsEvent={this.fireAnalyticsEvent}
+                    >
+                      {result}
+                    </RendererActionsInternalUpdater>
+                  </RendererWrapper>
+                </ProviderFactoryProvider>
               </SmartCardStorageProvider>
             </AnalyticsContext.Provider>
           </ActiveHeaderIdProvider>
@@ -585,7 +601,7 @@ export class Renderer extends PureComponent<RendererProps> {
   }
 }
 
-const RendererWithAnalytics = React.memo((props: RendererProps) => (
+export const RendererWithAnalytics = React.memo((props: RendererProps) => (
   <FabricEditorAnalyticsContext
     data={{
       appearance: getAnalyticsAppearance(props.appearance),
@@ -631,6 +647,7 @@ type RendererWrapperProps = {
   useBlockRenderForCodeBlock: boolean;
   onClick?: (event: React.MouseEvent) => void;
   onMouseDown?: (event: React.MouseEvent) => void;
+  ssr?: MediaSSR;
 } & { children?: React.ReactNode };
 
 const RendererWrapper = React.memo((props: RendererWrapperProps) => {
@@ -644,6 +661,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
     onMouseDown,
     useBlockRenderForCodeBlock,
     addTelepointer,
+    ssr,
   } = props;
 
   const createTelepointer = () => {
@@ -721,19 +739,21 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
             : undefined
         }
       >
-        <div
-          ref={innerRef}
-          onClick={onClick}
-          onMouseDown={onMouseDown}
-          css={rendererStyles({
-            appearance,
-            allowNestedHeaderLinks,
-            allowColumnSorting: !!allowColumnSorting,
-            useBlockRenderForCodeBlock,
-          })}
-        >
-          {children}
-        </div>
+        <EditorMediaClientProvider ssr={ssr}>
+          <div
+            ref={innerRef}
+            onClick={onClick}
+            onMouseDown={onMouseDown}
+            css={rendererStyles({
+              appearance,
+              allowNestedHeaderLinks,
+              allowColumnSorting: !!allowColumnSorting,
+              useBlockRenderForCodeBlock,
+            })}
+          >
+            {children}
+          </div>
+        </EditorMediaClientProvider>
       </BaseTheme>
     </WidthProvider>
   );
@@ -796,4 +816,5 @@ const RendererWithAnnotationSelection = (props: RendererProps) => {
   );
 };
 
+/* @deprecated using this version of the renderer causes the RendererActions to inaccessible from any consumers */
 export default RendererWithAnnotationSelection;

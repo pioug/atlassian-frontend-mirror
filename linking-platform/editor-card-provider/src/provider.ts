@@ -24,6 +24,8 @@ import { JsonLd } from 'json-ld-types';
 import { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import * as api from './api';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 const BATCH_WAIT_TIME = 50;
 
 // Check if it is matching a Jira Roadmaps or Jira Timeline url
@@ -35,7 +37,7 @@ const isJiraRoadmapOrTimeline = (url: string) =>
 
 const isPolarisView = (url: string) =>
   url.match(
-    /^https:\/\/.*?\/jira\/polaris\/projects\/[^\/]+?\/ideas\/view\/\d+$|^https:\/\/.*?\/secure\/JiraProductDiscoveryAnonymous\.jspa\?hash=\w+|^https:\/\/.*?\/jira\/polaris\/share\/\w+/,
+    /^https:\/\/.*?\/jira\/polaris\/projects\/[^\/]+?\/ideas\/view\/\d+$|^https:\/\/.*?\/secure\/JiraProductDiscoveryAnonymous\.jspa\?hash=\w+|^https:\/\/.*?\/jira\/polaris\/share\/\w+|^https:\/\/.*?\/jira\/discovery\/share\/views\/[\w-]+(\?selectedIssue=[\w-]+&issueViewLayout=sidebar&issueViewSection=[\w-]+)?$/,
   );
 
 const isJwmView = (url: string) =>
@@ -59,7 +61,12 @@ const isConfluenceWhiteboard = (url: string) =>
 
 const isConfluenceDatabase = (url: string) =>
   url.match(
-    /\/wiki\/spaces\/~?[\d\w]+\/database\/\d+(\?.*(savedViewId=[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}|entryId=[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}).*)?$/,
+    /\/wiki\/spaces\/~?[\d\w]+\/database\/\d+(\?.*(savedViewId=([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}|all-entries|default)|entryId=[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}|unsavedView=[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}).*)?$/,
+  );
+
+const isYoutubeVideo = (url: string) =>
+  url.match(
+    /^https:\/\/(.*?\.)?(youtube\..*?\/(watch\?|v\/|shorts\/)|youtu\.be)/,
   );
 
 export class EditorCardProvider implements CardProvider {
@@ -214,7 +221,9 @@ export class EditorCardProvider implements CardProvider {
       isGiphyMedia(url) ||
       isProformaView(url) ||
       isConfluenceWhiteboard(url) ||
-      isConfluenceDatabase(url)
+      isConfluenceDatabase(url) ||
+      (getBooleanFF('platform.linking-platform.embed-youtube-by-default') &&
+        isYoutubeVideo(url))
     ) {
       return 'embed';
     }

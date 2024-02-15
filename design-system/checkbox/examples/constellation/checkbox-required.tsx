@@ -1,6 +1,6 @@
 import React, { ChangeEvent, Fragment, useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import Form, { CheckboxField, FormFooter } from '@atlaskit/form';
 
 import { Checkbox } from '../../src';

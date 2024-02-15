@@ -1,5 +1,35 @@
 # @atlaskit/conversation
 
+## 16.2.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.16
+
+### Patch Changes
+
+- [#65958](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65958) [`d07e9c0060d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d07e9c0060d7) - Migrate @atlaskit/conversation to use declarative entry points
+
+## 16.2.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.2.13
 
 ### Patch Changes

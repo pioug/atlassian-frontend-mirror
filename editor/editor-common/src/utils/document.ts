@@ -281,9 +281,6 @@ export function processRawValue(
           action: ACTION.INVALID_PROSEMIRROR_DOCUMENT,
           actionSubject: ACTION_SUBJECT.EDITOR,
           eventType: EVENT_TYPE.OPERATIONAL,
-          attributes: {
-            errorStack: err instanceof Error ? err.stack : String(err),
-          },
         });
       }
       throw err;
@@ -304,9 +301,6 @@ export function processRawValue(
         action: ACTION.DOCUMENT_PROCESSING_ERROR,
         actionSubject: ACTION_SUBJECT.EDITOR,
         eventType: EVENT_TYPE.OPERATIONAL,
-        nonPrivacySafeAttributes: {
-          errorStack: e instanceof Error ? e.stack : String(e),
-        },
       });
     }
 

@@ -12,11 +12,11 @@ describe('themeObjectToString', () => {
       dark: 'dark',
       light: 'legacy-light',
       spacing: 'spacing',
-      typography: 'typography',
+      typography: 'typography-adg3',
     };
 
     const expected =
-      'colorMode:auto dark:dark light:legacy-light spacing:spacing typography:typography';
+      'colorMode:auto dark:dark light:legacy-light spacing:spacing typography:typography-adg3';
 
     expect(themeObjectToString(themeState)).toBe(expected);
   });
@@ -89,14 +89,14 @@ describe('themeObjectToString', () => {
 describe('themeStringToObject', () => {
   it('should convert theme state string to an object', () => {
     const themeState =
-      'dark:dark light:legacy-light colorMode:light spacing:spacing typography:typography';
+      'dark:dark light:legacy-light colorMode:light spacing:spacing typography:typography-adg3';
 
     const expected = {
       dark: 'dark',
       light: 'legacy-light',
       colorMode: 'light',
       spacing: 'spacing',
-      typography: 'typography',
+      typography: 'typography-adg3',
     };
 
     expect(themeStringToObject(themeState)).toEqual(expected);

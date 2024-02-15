@@ -34,11 +34,6 @@ export class Frame extends React.Component<FrameViewProps> {
     }
   };
 
-  // prevent default on mousedown to avoid inline card losing focus
-  handleMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-  };
-
   render() {
     const { isSelected, children, onClick, testId } = this.props;
     const isInteractive = Boolean(onClick);
@@ -49,7 +44,6 @@ export class Frame extends React.Component<FrameViewProps> {
         tabIndex={isInteractive ? 0 : undefined}
         role={isInteractive ? 'button' : undefined}
         onClick={this.handleClick}
-        onMouseDown={this.handleMouseDown}
         onKeyPress={this.handleKeyPress}
         data-testid={testId}
       >

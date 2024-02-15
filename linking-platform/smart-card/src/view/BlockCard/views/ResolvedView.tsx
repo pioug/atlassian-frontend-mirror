@@ -17,7 +17,7 @@ import { Content } from '../components/Content';
 import { ActionProps } from '../components/Action';
 import { MetadataProps } from '../../common/Metadata';
 import { MetadataList } from '../../common/MetadataList';
-import { LozengeBlockWrapper } from '../../InlineCard/IconAndTitleLayout/styled';
+import { LozengeBlockWrapper } from './styled';
 import { ContentHeader } from '../components/ContentHeader';
 import { ContentFooter } from '../components/ContentFooter';
 import { ContextViewModel } from '../../types';
@@ -57,7 +57,6 @@ export interface ResolvedViewProps {
   /* If selected, would be true in edit mode */
   isSelected?: boolean;
   testId?: string;
-  showActions?: boolean;
   /* The Emoji prefix component that was added to the title text via Add emoji button */
   titlePrefix?: React.ReactNode;
   /* A flag that determines whether link source can be trusted in iframe */
@@ -66,7 +65,19 @@ export interface ResolvedViewProps {
   isSupportTheming?: boolean;
 }
 
+/**
+ * Class name for selecting non-flexible resolved block card
+ *
+ * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-6878 Internal documentation for deprecation (no external access)}
+ * Using this selctor is deprecated as once the flexible block card feature flag is removed, this class will no longer be used.
+ */
 export const blockCardResolvedViewClassName = 'block-card-resolved-view';
+/**
+ * Class name for selecting non-flexible resolved byline
+ *
+ * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-6878 Internal documentation for deprecation (no external access)}
+ * Using this selctor is deprecated as once the flexible block card feature flag is removed, this class will no longer be used.
+ */
 export const blockCardResolvedViewByClassName = 'block-card-resolved-view-by';
 
 export const ResolvedView = ({
@@ -87,7 +98,6 @@ export const ResolvedView = ({
   lozenge,
   details = [],
   testId = 'block-card-resolved-view',
-  showActions = true,
 }: ResolvedViewProps) => {
   const resolvedMetadata =
     details.length > 0 ? (
@@ -107,7 +117,7 @@ export const ResolvedView = ({
 
   const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
 
-  const hasActions = showActions && actions.length > 0;
+  const hasActions = actions.length > 0;
 
   return (
     <Frame

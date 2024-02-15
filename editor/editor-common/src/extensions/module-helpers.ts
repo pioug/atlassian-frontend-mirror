@@ -254,7 +254,7 @@ function shouldAddExtensionItemForNode(
   if (item.context.type === 'node' && item.context.nodeType === node.type) {
     return true;
   }
-  // for other cases should be an extension and match the nodeType ("extension" | "inlineExtension" | "bodiedExtension")
+  // for other cases should be an extension and match the nodeType ("extension" | "inlineExtension" | "bodiedExtension" | "multiBodiedExtension")
   if (
     item.context.type !== 'extension' ||
     node.type !== item.context.nodeType

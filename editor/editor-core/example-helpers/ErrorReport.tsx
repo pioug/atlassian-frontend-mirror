@@ -1,11 +1,12 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 import React, { Fragment } from 'react';
+
 import { css, jsx } from '@emotion/react';
 
-import { N30 } from '@atlaskit/theme/colors';
-import type { ValidationError } from '@atlaskit/adf-utils/validatorTypes';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import type { ValidationError } from '@atlaskit/adf-utils/validatorTypes';
+import { N30 } from '@atlaskit/theme/colors';
 
 export type Error = {
   entity: ADFEntity;

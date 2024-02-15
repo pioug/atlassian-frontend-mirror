@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { EditorActions, EditorProps } from '@atlaskit/editor-core';
-import { setMobilePaddingTop } from '@atlaskit/editor-core/src/plugins/mobile-dimensions/commands';
+import { setMobilePaddingTop } from '../editor-plugins/mobile-dimensions/commands';
 import { toNativeBridge } from '../web-to-native';
 import type WebBridgeImpl from '../native-to-web';
 import { MediaClient } from '@atlaskit/media-client';

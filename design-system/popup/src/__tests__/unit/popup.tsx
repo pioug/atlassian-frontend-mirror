@@ -10,8 +10,7 @@ import React, {
 import { fireEvent, render, screen } from '@testing-library/react';
 import { replaceRaf } from 'raf-stub';
 
-import Button from '@atlaskit/button/standard-button';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import Button from '@atlaskit/button/new';
 
 import { Popup } from '../../popup';
 import { ContentProps, PopupComponentProps, TriggerProps } from '../../types';
@@ -89,16 +88,41 @@ describe('Popup', () => {
   };
 
   describe('should close nested popup correctly', () => {
-    ffTest('platform.design-system-team.layering_popup_1cnzt', () => {
-      render(<PopupNested />);
+    render(<PopupNested />);
 
-      const popupTrigger = screen.getByTestId('popup-trigger');
-      fireEvent.click(popupTrigger);
-      const popupTrigger0 = screen.getByTestId('popup-trigger-0');
-      fireEvent.click(popupTrigger0);
-      const popupTrigger1 = screen.getByTestId('popup-trigger-1');
-      fireEvent.click(popupTrigger1);
-      expect(screen.getByTestId('popup-trigger-2')).toBeInTheDocument();
+    const popupTrigger = screen.getByTestId('popup-trigger');
+    fireEvent.click(popupTrigger);
+    const popupTrigger0 = screen.getByTestId('popup-trigger-0');
+    fireEvent.click(popupTrigger0);
+    const popupTrigger1 = screen.getByTestId('popup-trigger-1');
+    fireEvent.click(popupTrigger1);
+    expect(screen.getByTestId('popup-trigger-2')).toBeInTheDocument();
+  });
+
+  describe('with iframe', () => {
+    const Iframe = ({ title = 'outerIframe' }: { title?: string }) => (
+      <iframe width="100px" height="100px" title={title} />
+    );
+    it('should call onClose on iframe click if iframe is outside popup', () => {
+      const onClose = jest.fn();
+      render(
+        <div>
+          <Popup
+            {...defaultProps}
+            onClose={onClose}
+            content={() => <div>content</div>}
+            trigger={() => <button type="button">trigger</button>}
+            testId="popup"
+            isOpen
+          />
+          <Iframe />
+        </div>,
+      );
+      const popupWrapper = screen.getByTestId('popup');
+      expect(popupWrapper).toBeInTheDocument();
+      expect(popupWrapper).toHaveAttribute('data-ds--level');
+      fireEvent.click(screen.getByTitle('outerIframe'));
+      expect(onClose).toHaveBeenCalledTimes(1);
     });
   });
 

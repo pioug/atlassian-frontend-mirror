@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::20562f2db603daab7d5b7a5c5ba1c04b>>
+ * @codegen <<SignedSource::7beb355391f6269c701cf87b0c222d69>>
  * @codegenCommand yarn workspace @atlaskit/link-create run codegen-analytics
  */
 export type PackageMetaDataType = {
@@ -38,13 +38,15 @@ export type ObjectCreatedLinkCreateAttributesType = {
 export type ObjectCreateFailedLinkCreateAttributesType = {
   failureType: string;
 };
-export type OperationFailedLinkCreateAttributesType = {
+export type LinkCreateExperienceFailedAttributesType = {
   errorType: string | null;
+  errorMessage: string | null;
   experienceStatus: 'SUCCEEDED' | 'FAILED';
   previousExperienceStatus: 'STARTED' | 'SUCCEEDED' | 'FAILED';
   path: string | null;
   status: number | null;
   traceId: string | null;
+  isSLOFailure: boolean;
 };
 export type AnalyticsEventAttributes = {
   'screen.linkCreateScreen.viewed': LinkCreateScreenViewedAttributesType;
@@ -59,7 +61,7 @@ export type AnalyticsEventAttributes = {
   'operational.linkCreate.unhandledErrorCaught': LinkCreateUnhandledErrorCaughtAttributesType;
   'track.object.created.linkCreate': ObjectCreatedLinkCreateAttributesType;
   'track.object.createFailed.linkCreate': ObjectCreateFailedLinkCreateAttributesType;
-  'operational.operation.failed.linkCreate': OperationFailedLinkCreateAttributesType;
+  'operational.linkCreateExperience.failed': LinkCreateExperienceFailedAttributesType;
 };
 function createEventPayload<K extends keyof AnalyticsEventAttributes>(
   eventKey: K,

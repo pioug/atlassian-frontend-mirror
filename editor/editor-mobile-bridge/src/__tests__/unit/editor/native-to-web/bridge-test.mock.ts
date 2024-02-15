@@ -19,8 +19,8 @@ const mockEditorCore = {
   insertEmojiQuery: jest.fn(() => () => {}),
 };
 
-jest.mock('@atlaskit/editor-core/src/commands', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-core/src/commands'),
+jest.mock('@atlaskit/editor-common/commands', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/commands'),
   clearEditorContent: jest.fn(() => {}),
 }));
 

@@ -15,7 +15,6 @@ export class CardWithDataContent extends React.Component<Props> {
       onClick,
       onResolve,
       testId,
-      showActions,
     } = this.props;
 
     if (appearance === 'inline') {
@@ -34,6 +33,7 @@ export class CardWithDataContent extends React.Component<Props> {
       );
     } else {
       const props = extractBlockProps(details || getEmptyJsonLd());
+
       if (onResolve) {
         onResolve({ title: props.title });
       }
@@ -43,7 +43,6 @@ export class CardWithDataContent extends React.Component<Props> {
           {...props}
           isSelected={isSelected}
           onClick={onClick}
-          showActions={showActions}
         />
       );
     }

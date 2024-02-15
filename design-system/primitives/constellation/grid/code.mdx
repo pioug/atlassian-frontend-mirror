@@ -2,6 +2,10 @@
 title: Grid
 description: A grid uses the CSS grid API to create consistent layouts.
 order: 1
+props:
+  packageName: '@atlaskit/primitives'
+  exports:
+    - Grid
 ---
 
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
@@ -12,8 +16,6 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
   directoryName="primitives"
 />
 
-import ERTGrid from '!!extract-react-types-loader!../../extract-react-types/grid-props';
-
 ## Props
 
-<PropsTable heading="" props={ERTGrid} />
+<TSMorphProps exportName="Grid" packageName="@atlaskit/primitives" />

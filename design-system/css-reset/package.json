@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/css-reset",
-  "version": "6.6.1",
+  "version": "6.6.2",
   "description": "A base stylesheet for the Atlassian Design System.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "fbjs": "^3.0.0"
   },

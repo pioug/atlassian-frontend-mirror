@@ -1,7 +1,15 @@
 {
   "extends": "../../../tsconfig.json",
-  "include": ["__tests__/**/*.ts", "src/**/*.ts"],
+  "include": [
+    "__tests__/**/*.ts",
+    "src/**/*.ts"
+  ],
   "compilerOptions": {
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "paths": {
+      "@atlaskit/prosemirror-collab": [
+        "./src"
+      ]
+    }
   }
 }

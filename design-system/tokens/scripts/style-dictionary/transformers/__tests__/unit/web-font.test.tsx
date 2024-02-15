@@ -10,10 +10,10 @@ describe('webFont transformer', () => {
           fontWeight: 'bold',
           fontStyle: 'normal',
           fontSize: '16px',
-          fontFamily: 'font.token.name',
+          fontFamily: 'sans-serif',
           lineHeight: '24px',
         },
       } as TypographyToken<any>),
-    ).toEqual('normal bold 16px/24px var(--ds-font-token-name)');
+    ).toEqual('normal bold 16px/24px sans-serif');
   });
 });

@@ -1,6 +1,7 @@
-import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
-import { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 import React from 'react';
+
+import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 
 const icon = () =>
   import(

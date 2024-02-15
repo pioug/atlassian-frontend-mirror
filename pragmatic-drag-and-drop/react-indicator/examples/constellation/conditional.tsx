@@ -5,12 +5,12 @@ import { useEffect, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
+import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/types';
 import {
   draggable,
   dropTargetForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
-import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/types';
 import { token } from '@atlaskit/tokens';
 
 import { DropIndicator } from '../../src/box';

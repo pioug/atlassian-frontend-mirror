@@ -25,6 +25,7 @@ export interface Props {
   editorView: EditorView;
   editorActions?: EditorActions;
   tableSupported?: boolean;
+  tableSelectorSupported?: boolean;
   actionSupported?: boolean;
   decisionSupported?: boolean;
   mentionsSupported?: boolean;
@@ -70,4 +71,6 @@ export interface State {
   buttons: BlockMenuItem[];
   dropdownItems: BlockMenuItem[];
   isOpenedByKeyboard: boolean;
+  isTableSelectorOpen: boolean;
+  isTableSelectorOpenedByKeyboard: boolean;
 }

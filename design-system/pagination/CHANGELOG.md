@@ -1,5 +1,23 @@
 # @atlaskit/pagination
 
+## 14.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.5.0
+
+### Minor Changes
+
+- [#68812](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68812) [`91d4a48c1430`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91d4a48c1430) - Support better loading state for assistive tech
+
+## 14.4.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.4.16
 
 ### Patch Changes

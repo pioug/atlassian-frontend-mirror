@@ -32,16 +32,18 @@ export const findChangedNodesFromTransaction = (tr: Transaction): PMNode[] => {
   })[];
 
   steps.forEach((step) => {
-    const { to, from, slice } = step;
-    const size = slice && slice.content ? slice.content.size : 0;
-    for (let i = from; i <= to + size; i++) {
-      if (i <= tr.doc.content.size) {
-        const topLevelNode = tr.doc.resolve(i).node(1);
-        if (topLevelNode && !nodes.find((n) => n === topLevelNode)) {
-          nodes.push(topLevelNode);
-        }
-      }
-    }
+    step.getMap().forEach((oldStart, oldEnd, newStart, newEnd) => {
+      tr.doc.nodesBetween(
+        newStart,
+        Math.min(newEnd, tr.doc.content.size),
+        (node) => {
+          if (!nodes.find((n) => n === node)) {
+            nodes.push(node);
+          }
+          return false;
+        },
+      );
+    });
   });
 
   return nodes;

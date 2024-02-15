@@ -1,0 +1,70 @@
+{
+  "name": "@atlaskit/forge-react-types",
+  "version": "0.2.0",
+  "description": "Component types for Forge UI Kit React components",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
+  "author": "Atlassian Pty Ltd",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
+  "atlassian": {
+    "team": "Forge UI",
+    "releaseModel": "continuous"
+  },
+  "dependencies": {
+    "@atlaskit/badge": "^15.2.0",
+    "@atlaskit/button": "^17.3.0",
+    "@atlaskit/checkbox": "^13.0.0",
+    "@atlaskit/code": "^15.1.0",
+    "@atlaskit/dynamic-table": "^14.14.0",
+    "@atlaskit/form": "^9.0.3",
+    "@atlaskit/heading": "^1.6.0",
+    "@atlaskit/lozenge": "^11.6.0",
+    "@atlaskit/modal-dialog": "^12.10.0",
+    "@atlaskit/primitives": "^2.0.0",
+    "@atlaskit/progress-bar": "2.0.1",
+    "@atlaskit/progress-tracker": "8.5.6",
+    "@atlaskit/radio": "^6.0.0",
+    "@atlaskit/range": "^7.1.0",
+    "@atlaskit/section-message": "^6.4.0",
+    "@atlaskit/select": "^17.1.0",
+    "@atlaskit/spinner": "^16.0.0",
+    "@atlaskit/tabs": "^14.0.0",
+    "@atlaskit/tag": "^12.0.0",
+    "@atlaskit/tag-group": "^10.2.0",
+    "@atlaskit/textarea": "^5.0.0",
+    "@atlaskit/textfield": "^6.0.0",
+    "@atlaskit/toggle": "^13.0.0",
+    "@atlaskit/tooltip": "^18.1.0",
+    "@babel/runtime": "^7.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "devDependencies": {
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@atlassian/codegen": "^0.1.2",
+    "@types/node": "~18.17.1",
+    "react": "^16.8.0",
+    "ts-morph": "^17.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "~4.9.5"
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "scripts": {
+    "codegen": "ts-node ./scripts/codegen-runner.ts"
+  }
+}

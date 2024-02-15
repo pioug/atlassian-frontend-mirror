@@ -1,4 +1,3 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   scrollToElement,
@@ -6,9 +5,11 @@ import {
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
   initFullPageEditorWithAdf,
+  snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import adf from './__fixtures__/table-with-text-in-zero-colwidth-columns.adf.json';
 
 describe('table with zero width and text', () => {

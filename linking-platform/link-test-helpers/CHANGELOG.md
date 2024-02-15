@@ -1,5 +1,35 @@
 # @atlaskit/link-test-helpers
 
+## 6.2.14
+
+### Patch Changes
+
+- [#67808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67808) [`0281cd19ab52`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0281cd19ab52) - Update datasource mock to include auth details.
+
+## 6.2.13
+
+### Patch Changes
+
+- [#67414](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67414) [`63d300c1ad4e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/63d300c1ad4e) - Add a people's column to mock testing in issue like table and jira issue views
+
+## 6.2.12
+
+### Patch Changes
+
+- [#68194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68194) [`c1d4a8fecc4e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1d4a8fecc4e) - bump json-ld-types to version 3.11.0
+
+## 6.2.11
+
+### Patch Changes
+
+- [#59059](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59059) [`4cf2230fead2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4cf2230fead2) - Add mock data for basic filter types dropdown with relative urls.
+
+## 6.2.10
+
+### Patch Changes
+
+- [#57357](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57357) [`8562891352fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8562891352fd) - Update jql query field from issuetype to type.
+
 ## 6.2.9
 
 ### Patch Changes

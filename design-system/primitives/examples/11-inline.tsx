@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import React from 'react';
 
 import Heading from '@atlaskit/heading';
 import { token } from '@atlaskit/tokens';
@@ -26,200 +25,170 @@ const spaceItems = [
   'space.1000',
 ] as const;
 
-const pageContainerStyles = css({ maxWidth: '900px' });
-const spaceNameStyles = css({ minWidth: token('space.1000', '80px') });
 const blockStyles = xcss({ borderRadius: 'border.radius.050' });
+const Block = () => (
+  <Box
+    xcss={blockStyles}
+    padding="space.200"
+    backgroundColor="color.background.discovery.bold"
+  />
+);
+
+const pageContainerStyles = xcss({ maxWidth: '900px' });
+const spaceNameStyles = xcss({ minWidth: token('space.1000', '80px') });
 const containerStyles = xcss({
   display: 'flex',
   borderRadius: 'border.radius.050',
 });
 
 export default () => (
-  <Box padding="space.200">
-    <div css={pageContainerStyles}>
-      <Stack space="space.400">
-        <Heading level="h700">Inline</Heading>
+  <Box padding="space.200" xcss={pageContainerStyles}>
+    <Stack space="space.400">
+      <Heading variant="large" as="h2">
+        Inline
+      </Heading>
 
-        <section>
-          <Heading level="h500">Align inline</Heading>
-          {alignInlineItems.map(alignInline => (
-            <Stack key={alignInline}>
-              {alignInline}
+      <section>
+        <Heading variant="medium" as="h3">
+          Align inline
+        </Heading>
+        {alignInlineItems.map(alignInline => (
+          <Stack key={alignInline}>
+            {alignInline}
+            <Box
+              xcss={blockStyles}
+              backgroundColor="color.background.neutral"
+              padding="space.050"
+              style={{
+                width: '200px',
+              }}
+            >
+              <Inline alignInline={alignInline} space="space.050">
+                <Block />
+                <Block />
+                <Block />
+              </Inline>
+            </Box>
+          </Stack>
+        ))}
+      </section>
+
+      <section>
+        <Heading variant="medium" as="h3">
+          Spread
+        </Heading>
+        {spreadItems.map(spread => (
+          <Stack key={spread}>
+            {spread}
+            <Box
+              xcss={blockStyles}
+              backgroundColor="color.background.neutral"
+              padding="space.050"
+              style={{
+                width: '200px',
+              }}
+            >
+              <Inline spread={spread} space="space.050">
+                <Block />
+                <Block />
+                <Block />
+              </Inline>
+            </Box>
+          </Stack>
+        ))}
+      </section>
+      <section>
+        <Heading variant="medium" as="h3">
+          Align block
+        </Heading>
+        <Inline space="space.200">
+          {alignBlockItems.map(alignBlock => (
+            <Stack key={alignBlock} alignInline="center">
+              {alignBlock}
               <Box
-                xcss={blockStyles}
                 backgroundColor="color.background.neutral"
                 padding="space.050"
+                xcss={containerStyles}
                 style={{
-                  width: '200px',
+                  height: '200px',
                 }}
               >
-                <Inline alignInline={alignInline} space="space.050">
+                <Inline space="space.050" alignBlock={alignBlock}>
                   <Box
                     xcss={blockStyles}
-                    padding="space.200"
+                    padding="space.300"
                     backgroundColor="color.background.discovery.bold"
-                  />
-                  <Box
-                    xcss={blockStyles}
-                    padding="space.200"
-                    backgroundColor="color.background.discovery.bold"
-                  />
-                  <Box
-                    xcss={blockStyles}
-                    padding="space.200"
-                    backgroundColor="color.background.discovery.bold"
-                  />
+                  ></Box>
+                  <Block />
+                  <Block />
                 </Inline>
               </Box>
             </Stack>
           ))}
-        </section>
+        </Inline>
+      </section>
 
-        <section>
-          <Heading level="h500">Spread</Heading>
-          {spreadItems.map(spread => (
-            <Stack key={spread}>
-              {spread}
+      <section>
+        <Heading variant="medium" as="h3">
+          Space
+        </Heading>
+        <Stack space="space.050">
+          {spaceItems.map(space => (
+            <Inline key={space} alignBlock="center">
+              <Box xcss={spaceNameStyles}>{space}</Box>
               <Box
                 xcss={blockStyles}
-                backgroundColor="color.background.neutral"
                 padding="space.050"
-                style={{
-                  width: '200px',
-                }}
+                backgroundColor="color.background.neutral"
               >
-                <Inline spread={spread} space="space.050">
-                  <Box
-                    xcss={blockStyles}
-                    padding="space.200"
-                    backgroundColor="color.background.discovery.bold"
-                  />
-                  <Box
-                    xcss={blockStyles}
-                    padding="space.200"
-                    backgroundColor="color.background.discovery.bold"
-                  />
-                  <Box
-                    xcss={blockStyles}
-                    padding="space.200"
-                    backgroundColor="color.background.discovery.bold"
-                  />
+                <Inline space={space}>
+                  <Block />
+                  <Block />
                 </Inline>
               </Box>
-            </Stack>
+            </Inline>
           ))}
-        </section>
-        <section>
-          <Heading level="h500">Align block</Heading>
-          <Inline space="space.200">
-            {alignBlockItems.map(alignBlock => (
-              <Stack key={alignBlock} alignInline="center">
-                {alignBlock}
-                <Box
-                  backgroundColor="color.background.neutral"
-                  padding="space.050"
-                  xcss={containerStyles}
-                  style={{
-                    height: '200px',
-                  }}
-                >
-                  <Inline space="space.050" alignBlock={alignBlock}>
-                    <Box
-                      xcss={blockStyles}
-                      padding="space.300"
-                      backgroundColor="color.background.discovery.bold"
-                    ></Box>
-                    <Box
-                      xcss={blockStyles}
-                      padding="space.200"
-                      backgroundColor="color.background.discovery.bold"
-                    />
-                    <Box
-                      xcss={blockStyles}
-                      padding="space.200"
-                      backgroundColor="color.background.discovery.bold"
-                    />
-                  </Inline>
-                </Box>
-              </Stack>
+        </Stack>
+      </section>
+
+      <section>
+        <Heading variant="medium" as="h3">
+          Should wrap
+        </Heading>
+        <Box
+          xcss={blockStyles}
+          padding="space.050"
+          backgroundColor="color.background.neutral"
+        >
+          <Inline space="space.200" shouldWrap={true}>
+            {[...Array(25)].map((_, index) => (
+              <Block key={index} />
             ))}
           </Inline>
-        </section>
+        </Box>
+      </section>
 
-        <section>
-          <Heading level="h500">Space</Heading>
-          <Stack space="space.050">
-            {spaceItems.map(space => (
-              <Inline key={space} alignBlock="center">
-                <div css={spaceNameStyles}>{space}</div>
-                <Box
-                  xcss={blockStyles}
-                  padding="space.050"
-                  backgroundColor="color.background.neutral"
-                >
-                  <Inline space={space}>
-                    <Box
-                      xcss={blockStyles}
-                      padding="space.200"
-                      backgroundColor="color.background.discovery.bold"
-                    />
-                    <Box
-                      xcss={blockStyles}
-                      padding="space.200"
-                      backgroundColor="color.background.discovery.bold"
-                    />
-                  </Inline>
-                </Box>
-              </Inline>
+      <section>
+        <Heading variant="medium" as="h3">
+          Separator
+        </Heading>
+        <Box
+          xcss={blockStyles}
+          padding="space.050"
+          backgroundColor="color.background.neutral"
+        >
+          <Inline
+            space="space.100"
+            shouldWrap={true}
+            alignBlock="center"
+            separator="/"
+          >
+            {[...Array(20)].map((_, index) => (
+              <Block key={index} />
             ))}
-          </Stack>
-        </section>
-
-        <section>
-          <Heading level="h500">Should wrap</Heading>
-          <Box
-            xcss={blockStyles}
-            padding="space.050"
-            backgroundColor="color.background.neutral"
-          >
-            <Inline space="space.200" shouldWrap={true}>
-              {[...Array(25)].map((_, index) => (
-                <Box
-                  key={index}
-                  xcss={blockStyles}
-                  padding="space.200"
-                  backgroundColor="color.background.discovery.bold"
-                />
-              ))}
-            </Inline>
-          </Box>
-        </section>
-
-        <section>
-          <Heading level="h500">Separator</Heading>
-          <Box
-            xcss={blockStyles}
-            padding="space.050"
-            backgroundColor="color.background.neutral"
-          >
-            <Inline
-              space="space.100"
-              shouldWrap={true}
-              alignBlock="center"
-              separator="/"
-            >
-              {[...Array(20)].map((_, index) => (
-                <Box
-                  key={index}
-                  xcss={blockStyles}
-                  padding="space.200"
-                  backgroundColor="color.background.discovery.bold"
-                />
-              ))}
-            </Inline>
-          </Box>
-        </section>
-      </Stack>
-    </div>
+          </Inline>
+        </Box>
+      </section>
+    </Stack>
   </Box>
 );

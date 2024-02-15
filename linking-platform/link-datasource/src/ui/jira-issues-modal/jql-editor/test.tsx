@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { JQLEditor, JQLEditorProps } from '@atlassianlabs/jql-editor';
 import { render } from '@testing-library/react';
 import fetchMock from 'fetch-mock/cjs/client';
 import { IntlProvider } from 'react-intl-next';
 
+import { JQLEditor, JQLEditorProps } from '@atlaskit/jql-editor';
 import {
   GetAutocompleteInitialData,
   GetAutocompleteSuggestions,
@@ -18,7 +18,7 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import { JiraJQLEditor, JiraJQLEditorProps } from './index';
 
-jest.mock('@atlassianlabs/jql-editor', () => ({
+jest.mock('@atlaskit/jql-editor', () => ({
   JQLEditor: jest
     .fn()
     .mockReturnValue(<div data-testid={'mocked-jira-editor'}></div>),

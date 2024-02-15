@@ -9,7 +9,7 @@ describe('Multiple tooltips', () => {
     jest.useFakeTimers();
   });
 
-  afterAll(() => {
+  afterEach(() => {
     jest.useRealTimers();
   });
 

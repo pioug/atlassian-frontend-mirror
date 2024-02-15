@@ -10,7 +10,7 @@ import {
   GetCurrentStateError,
   GetFinalAcknowledgedStateError,
   UpdateDocumentError,
-} from '../error-types';
+} from '../custom-errors';
 
 describe('Custom errors', () => {
   it.each([

@@ -16,6 +16,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': '변경 사항이 저장되지 않습니다',
   'linkCreate.createForm.button.close': '닫기',
   'linkCreate.createForm.button.create': '만들기',
-  'linkCreate.createForm.button.edit': '편집',
+  'linkCreate.createForm.button.createAndOpen': '만들기 + 열기',
   'linkCreate.modal.heading': '새로 만들기',
 };

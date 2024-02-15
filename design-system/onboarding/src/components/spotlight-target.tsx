@@ -6,11 +6,11 @@ import { TargetConsumer } from './spotlight-manager';
 
 interface SpotlightTargetProps {
   /**
-   * A single child
+   * A single child.
    */
   children: ReactNode;
   /**
-   * The name to reference from Spotlight
+   * The name to reference from Spotlight.
    */
   name: string;
 }

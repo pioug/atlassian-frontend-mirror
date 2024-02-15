@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-create",
-  "version": "1.11.0",
+  "version": "1.14.3",
   "description": "The driver component of meta creation flow",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -11,11 +11,14 @@
     "team": "Linking Platform",
     "inPublicMirror": false,
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "LinkCreate"
     }
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -34,24 +37,24 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/button": "^16.17.0",
-    "@atlaskit/empty-state": "^7.6.0",
-    "@atlaskit/form": "^9.0.0",
+    "@atlaskit/analytics-next": "^9.2.0",
+    "@atlaskit/button": "^17.3.0",
+    "@atlaskit/empty-state": "^7.7.0",
+    "@atlaskit/form": "^9.0.3",
     "@atlaskit/icon": "^22.0.0",
-    "@atlaskit/intl-messages-provider": "^1.0.0",
-    "@atlaskit/linking-common": "^4.21.0",
-    "@atlaskit/modal-dialog": "^12.9.0",
+    "@atlaskit/intl-messages-provider": "^1.0.2",
+    "@atlaskit/linking-common": "^5.3.0",
+    "@atlaskit/modal-dialog": "^12.10.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
-    "@atlaskit/primitives": "^1.12.0",
-    "@atlaskit/select": "^17.0.0",
+    "@atlaskit/primitives": "^2.0.0",
+    "@atlaskit/select": "^17.1.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/textfield": "^6.0.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "debounce-promise": "^3.1.2",
-    "final-form": "^4.20.1",
+    "final-form": "^4.20.3",
     "react-final-form": "^6.5.3"
   },
   "peerDependencies": {
@@ -114,16 +117,19 @@
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
-    "platform.linking-platform.link-create.enable-edit": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.link-create.confirm-dismiss-dialog": {
-      "type": "boolean"
-    },
     "platform.linking-platform.link-create.enable-sentry-client": {
       "type": "boolean"
     },
     "platform.linking-platform.link-create.better-observability": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.link-create.tmp-log-error-message": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.link-create.slo-ignore-failed-fetch": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.link-create.enable-expected-field-errors": {
       "type": "boolean"
     }
   }

@@ -11,6 +11,7 @@ import { SplitButtonContext } from './split-button-context';
 import type {
   SplitButtonAppearance,
   SplitButtonContextAppearance,
+  SplitButtonProps,
   SplitButtonSpacing,
 } from './types';
 import { getActions } from './utils';
@@ -96,6 +97,21 @@ const splitButtonStyles = css({
   whiteSpace: 'nowrap',
 });
 
+const primaryButtonStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+  'button,a': {
+    borderEndEndRadius: 0,
+    borderStartEndRadius: 0,
+  },
+});
+
+const secondaryButtonStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+  'button,a': {
+    borderEndStartRadius: 0,
+    borderStartStartRadius: 0,
+  },
+});
 /**
  * TODO: Add JSdoc
  */
@@ -103,24 +119,14 @@ export const SplitButtonContainer = ({ children }: { children: ReactNode }) => {
   return <div css={splitButtonStyles}>{children}</div>;
 };
 
-type SplitButtonProps = {
-  /**
-   * Only two children are allowed.
-   * First child is the primary action, second child is the secondary action.
-   * The assumption is that for both children trees there is a button reading the context.
-   */
-  children: ReactNode;
-  appearance?: SplitButtonAppearance;
-  spacing?: SplitButtonSpacing;
-  isDisabled?: boolean;
-};
-
 /**
  * __Split Button__
  *
- * @private __UNSAFE__ SplitButton is not yet safe for production use.
+ * A split button lets people perform an action or choose from a small group of similar actions.
  *
- * TODO: Add description when adding docs
+ * - [Examples](https://atlassian.design/components/button/split-button/examples)
+ * - [Code](https://atlassian.design/components/button/split-button/code)
+ * - [Usage](https://atlassian.design/components/button/split-button/usage)
  */
 export const SplitButton = ({
   children,
@@ -139,13 +145,13 @@ export const SplitButton = ({
           isDisabled,
         }}
       >
-        {PrimaryAction}
+        <div css={primaryButtonStyles}>{PrimaryAction}</div>
         <Divider
           appearance={appearance}
           spacing={spacing}
           isDisabled={isDisabled}
         />
-        {SecondaryAction}
+        <div css={secondaryButtonStyles}>{SecondaryAction}</div>
       </SplitButtonContext.Provider>
     </SplitButtonContainer>
   );
@@ -178,13 +184,13 @@ export const SplitButtonWithSlots = ({
           isDisabled,
         }}
       >
-        {primaryAction}
+        <div css={primaryButtonStyles}>{primaryAction}</div>
         <Divider
           appearance={appearance}
           spacing={spacing}
           isDisabled={isDisabled}
         />
-        {secondaryAction}
+        <div css={secondaryButtonStyles}>{secondaryAction}</div>
       </SplitButtonContext.Provider>
     </SplitButtonContainer>
   );

@@ -1,5 +1,29 @@
 # @atlaskit/color-picker
 
+## 3.2.3
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
+## 3.2.2
+
+### Patch Changes
+
+- [#59541](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59541) [`5cd5311a0014`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5cd5311a0014) - Enrol packages to push model in JFE
+
+## 3.2.1
+
+### Patch Changes
+
+- [#56931](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56931) [`16208d1bb695`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16208d1bb695) - Update check mark color
+
+## 3.2.0
+
+### Minor Changes
+
+- [#56495](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56495) [`a755b1922b5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a755b1922b5e) - [ux] Migrated `styled-components` to `@emotion/react`. There is no expected visual or behaviour change.
+
 ## 3.1.9
 
 ### Patch Changes

@@ -1,4 +1,18 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { clickFirstParagraph } from '@atlaskit/editor-test-helpers/page-objects/editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  clickOnLayoutColumn,
+  layoutSelectors,
+  scrollToLayoutColumn,
+  toggleBreakout,
+} from '@atlaskit/editor-test-helpers/page-objects/layouts';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  retryUntilStablePosition,
+  waitForFloatingControl,
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initFullPageEditorWithAdf,
   snapshot,
@@ -6,23 +20,10 @@ import {
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import adf from './__fixtures__/columns.adf.json';
 import layoutEmptyAdf from './__fixtures__/layout-empty.adf.json';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  clickOnLayoutColumn,
-  scrollToLayoutColumn,
-  toggleBreakout,
-  layoutSelectors,
-} from '@atlaskit/editor-test-helpers/page-objects/layouts';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { clickFirstParagraph } from '@atlaskit/editor-test-helpers/page-objects/editor';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  waitForFloatingControl,
-  retryUntilStablePosition,
-} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 // Copied from 'packages/editor/editor-plugin-layout/src/toolbar.ts`
 const layoutToolbarTitle = 'Layout floating controls';
@@ -34,8 +35,7 @@ describe('Columns:', () => {
     await initFullPageEditorWithAdf(page, adf, Device.LaptopHiDPI);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 01/07/2023: https://product-fabric.atlassian.net/browse/ED-18940
-  it.skip('should place breakout at the start/end of the scroll', async () => {
+  it('should place breakout at the start/end of the scroll', async () => {
     const columnNumber = 1;
     const offset = 100;
 

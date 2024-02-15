@@ -13,6 +13,7 @@ export default {
   'feedback-collector.can-be-contacted.label':
     '예, Atlassian 팀에서 Atlassian 제품 및 서비스 개선을 위해 연락하여 제 경험에 대해 물어봐도 괜찮습니다. 본인은 <a>Atlassian 개인정보 보호정책</a>을 인정합니다.',
   'feedback-collector.cancel-button.label': '취소',
+  'feedback-collector.default.custom.textarea.label': '피드백을 공유해 주세요.',
   'feedback-collector.enrol-in-research.label': '제품 조사에 참여하고 싶습니다',
   'feedback-collector.feedback-title': '피드백 공유',
   'feedback-collector.form.bug.label': '버그 또는 이슈 설명',
@@ -26,6 +27,7 @@ export default {
   'feedback-collector.option.default.placeholder': '하나 선택',
   'feedback-collector.option.question.label': '질문하기',
   'feedback-collector.option.suggestion.label': '개선 사항 제안',
+  'feedback-collector.required.fields.summary': '필수 필드는 별표로 표시되어 있습니다',
   'feedback-collector.submit-button.label': '피드백 보내기',
   'feedback-collector.success-flag.description': '소중한 피드백은 Atlassian의 제품을 개선하는 데 도움이 됩니다.',
   'feedback-collector.success-flag.title': '감사합니다!',

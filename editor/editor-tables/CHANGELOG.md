@@ -1,5 +1,59 @@
 # @atlaskit/editor-tables
 
+## 2.5.4
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+
+## 2.5.3
+
+### Patch Changes
+
+- [#70718](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70718) [`e5d2832002bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e5d2832002bb) - Patched a bug in the table paste logic which was throwing an error during the selection phase of the paste event when the pasted data contained a table row ending with a merged cell. The error from the selection is causing the table data to be injected as plain text inline.
+
+## 2.5.2
+
+### Patch Changes
+
+- [#69650](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69650) [`91a5b96796cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91a5b96796cb) - Migrate @atlaskit/editor-tables to use declarative entry points
+
+## 2.5.1
+
+### Patch Changes
+
+- [#69625](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69625) [`67d7971c6ddf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/67d7971c6ddf) - [ux] Tables DnD now supports dragging multiple rows/columns in a single drag using multi-select
+
+## 2.5.0
+
+### Minor Changes
+
+- [#69232](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69232) [`93c8f231aa82`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93c8f231aa82) - Optimized the table move column logic to perform individual insert/deletes per row
+
+## 2.4.0
+
+### Minor Changes
+
+- [#67400](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67400) [`191436e36f93`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/191436e36f93) - Optimised the table move row logic to perform insert/delete steps rather than an entire table replacement
+
+## 2.3.18
+
+### Patch Changes
+
+- [#60278](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60278) [`bc2785a02329`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc2785a02329) - Selection of multiple rows / column should remain when clicking the drag handle
+
+## 2.3.17
+
+### Patch Changes
+
+- [#59009](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59009) [`f7e9d874ff37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f7e9d874ff37) - Fix table expand selection when `platform.editor.table-shift-click-selection-backward` FF is enabled
+
+## 2.3.16
+
+### Patch Changes
+
+- [#58433](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58433) [`4d8e164d7760`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d8e164d7760) - fix shift + click to expand column / row selection bug when `platform.editor.table.drag-and-drop` is enabled
+
 ## 2.3.15
 
 ### Patch Changes

@@ -3,7 +3,7 @@ jest.mock('@atlaskit/chunkinator');
 import { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
 import { mapTo } from 'rxjs/operators/mapTo';
-import { chunkinator, ProbedBlob } from '@atlaskit/chunkinator';
+import { chunkinator, HashedBlob } from '@atlaskit/chunkinator';
 import { AuthProvider, MediaApiConfig } from '@atlaskit/media-core';
 import { uploadFile, UploadableFileUpfrontIds, MediaStore } from '../..';
 import { asMockFunction, nextTick } from '@atlaskit/media-common/test-helpers';
@@ -39,11 +39,10 @@ describe('Uploader', () => {
     mimeType: 'file-mime-type',
   };
 
-  const probedBlob: ProbedBlob = {
+  const blob: HashedBlob = {
     partNumber: 1,
     blob: new Blob(),
     hash: 'some-hash',
-    exists: true,
   };
 
   const uploadableFileUpfrontIds: UploadableFileUpfrontIds = {
@@ -83,7 +82,7 @@ describe('Uploader', () => {
             { hash: '6', blob, partNumber: 6 },
           ]);
         })(),
-      ).pipe(mapTo([probedBlob]));
+      ).pipe(mapTo([{ hash: '0', blob, partNumber: 0 }]));
     });
 
     return {
@@ -113,9 +112,7 @@ describe('Uploader', () => {
   it('should use provided file name, collection names, occurrence key and trace context when creating the file', (done) => {
     const { mediaStore, ChunkinatorMock, createFileFromUpload } = setup();
 
-    ChunkinatorMock.mockImplementation(() =>
-      from(Promise.resolve([probedBlob])),
-    );
+    ChunkinatorMock.mockImplementation(() => from(Promise.resolve([blob])));
 
     uploadFile(
       file,

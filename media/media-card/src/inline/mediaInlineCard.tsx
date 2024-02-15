@@ -1,32 +1,32 @@
-import React, { FC, useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import {
+  FileFetcherError,
   FileIdentifier,
   FileState,
   Identifier,
   MediaClient,
-  FileFetcherError,
 } from '@atlaskit/media-client';
 import {
-  WrappedComponentProps,
-  injectIntl,
-  IntlProvider,
-  createIntl,
-} from 'react-intl-next';
-import {
+  MediaInlineCardErroredView,
   MediaInlineCardLoadedView,
   MediaInlineCardLoadingView,
-  MediaInlineCardErroredView,
   messages,
 } from '@atlaskit/media-ui';
+import { formatDate } from '@atlaskit/media-ui/formatDate';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import Tooltip from '@atlaskit/tooltip';
-import { formatDate } from '@atlaskit/media-ui/formatDate';
+import React, { FC, useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
+import {
+  createIntl,
+  injectIntl,
+  IntlProvider,
+  WrappedComponentProps,
+} from 'react-intl-next';
+import { MediaCardError } from '../errors';
 import { InlineCardEvent, InlineCardOnClickCallback } from '../types';
 import { fireMediaCardEvent } from '../utils/analytics';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { MediaCardError } from '../errors';
 import {
   getErrorStatusPayload,
   getFailedProcessingStatusPayload,
@@ -136,7 +136,7 @@ export const MediaInlineCardInternal: FC<
         },
       });
     return () => {
-      subscription.unsubscribe();
+      subscription?.unsubscribe();
     };
   }, [identifier.collectionName, identifier.id, mediaClient.file]);
 
@@ -166,19 +166,6 @@ export const MediaInlineCardInternal: FC<
       new Error(fileState.message),
     );
     !isFailedEventSent && fireFailedOperationalEvent(error);
-    return (
-      <MediaInlineCardErroredView
-        message={(intl || defaultIntl).formatMessage(
-          messages.couldnt_load_file,
-        )}
-        isSelected={isSelected}
-      />
-    );
-  }
-
-  if (fileState?.status === 'failed-processing') {
-    !isFailedEventSent &&
-      fireFailedOperationalEvent(undefined, 'failed-processing');
     return (
       <MediaInlineCardErroredView
         message={(intl || defaultIntl).formatMessage(
@@ -222,6 +209,12 @@ export const MediaInlineCardInternal: FC<
         isSelected={isSelected}
       />
     );
+  }
+
+  // Failed to process should still display the loaded view and enable Media Client to download
+  if (fileState?.status === 'failed-processing') {
+    !isFailedEventSent &&
+      fireFailedOperationalEvent(undefined, 'failed-processing');
   }
 
   const { mediaType, name, mimeType } = fileState;

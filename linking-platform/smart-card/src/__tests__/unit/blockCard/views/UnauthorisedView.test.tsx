@@ -87,13 +87,13 @@ describe('BlockCard Views - Unauthorised', () => {
     expect(checkIcon).toBeInTheDocument();
   });
 
-  it('does not render actinos when showActions -> false', async () => {
+  it('does not render actions when actions are hidden', async () => {
     const { queryByTestId } = renderWithIntl(
       <BlockCardUnauthorisedView
         {...props}
         context={{ text: 'not allowed to view' }}
         testId="unauthorised-view"
-        showActions={false}
+        actionOptions={{ hide: true }}
         actions={[
           {
             id: 'test-button',
@@ -106,6 +106,29 @@ describe('BlockCard Views - Unauthorised', () => {
 
     // Check button is not there
     expect(queryByTestId('button-test-button')).toBeNull();
+  });
+
+  it('does render actions when action options are not hidden', async () => {
+    const { getByTestId } = renderWithIntl(
+      <BlockCardUnauthorisedView
+        {...props}
+        context={{ text: 'not allowed to view' }}
+        testId="unauthorised-view"
+        actionOptions={{ hide: false }}
+        actions={[
+          {
+            id: 'test-button',
+            text: 'One of a kind',
+            promise: () => Promise.resolve('historemix'),
+          },
+        ]}
+      />,
+    );
+
+    // Check button is there
+    const button = getByTestId('button-test-button');
+    expect(button).toBeInTheDocument();
+    expect(button.textContent).toBe('One of a kind');
   });
 
   it('clicking on link should have no side-effects', () => {

@@ -1,5 +1,360 @@
 # @atlaskit/editor-plugin-media
 
+## 1.1.0
+
+### Minor Changes
+
+- [#72258](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72258) [`31cecb8f314b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/31cecb8f314b) - ECA11Y-78: removed feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.0
+
+### Major Changes
+
+- [#72386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72386) [`0c52b0be40c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c52b0be40c1) - This changeset exists to bump all editor plugins that currently don't have a major version. This is to address an issue with Jira plugin consumption.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.12.8
+
+### Patch Changes
+
+- [#72081](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72081) [`4487160917d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4487160917d2) - [ux] ED-22052: adds button type attribute to non atlaskit button instances
+
+## 0.12.7
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+- [#70460](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70460) [`2f37600156ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f37600156ae) - The internal composition of a component in this package has changed. There is no expected change in behaviour.
+
+## 0.12.6
+
+### Patch Changes
+
+- [#71136](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71136) [`c803fea1e6a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c803fea1e6a4) - Move all plugin translations to editor-common
+- Updated dependencies
+
+## 0.12.5
+
+### Patch Changes
+
+- [#70152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70152) [`53ed3673df28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53ed3673df28) - Updating adf-schema version to 35.5.1
+
+## 0.12.4
+
+### Patch Changes
+
+- [#68372](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68372) [`17f42e77e826`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17f42e77e826) - add allowMediaInlineImage media option to support new media inline image feature
+- Updated dependencies
+
+## 0.12.3
+
+### Patch Changes
+
+- [#70373](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70373) [`fdcf1d5c6b11`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fdcf1d5c6b11) - Fix duplicate I18N IDs for media toolbar
+
+## 0.12.2
+
+### Patch Changes
+
+- [#68640](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68640) [`6a3ea210641a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a3ea210641a) - Create new context identifier plugin which contains the provider.
+
+## 0.12.1
+
+### Patch Changes
+
+- [#66027](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66027) [`9e0417874343`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e0417874343) - [CXP-2867] Fix superfluous newline in inline-to-card conversion
+- Updated dependencies
+
+## 0.12.0
+
+### Minor Changes
+
+- [#69175](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69175) [`1760b37895fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1760b37895fd) - Added support for copy&pasting inline images between pages
+
+### Patch Changes
+
+- [#69008](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69008) [`dbf9e9255cea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dbf9e9255cea) - [ux] Show caption remove tooltip on media inline switcher in floating toolbar
+
+## 0.11.11
+
+### Patch Changes
+
+- [#68724](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68724) [`766fca9896cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/766fca9896cb) - [ux] ED-21615 Removing grid lines when resizing image inside panel.
+
+## 0.11.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.11.9
+
+### Patch Changes
+
+- [#67290](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67290) [`3029264a82c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3029264a82c3) - [ux] Fixes the bug where, adding media to empty panel replaces the panel
+
+## 0.11.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.11.7
+
+### Patch Changes
+
+- [#68380](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68380) [`180e570d3332`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/180e570d3332) - Consolidate media grouped layout ff to inline image base ff
+
+## 0.11.6
+
+### Patch Changes
+
+- [#67912](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67912) [`d24fdd20c0de`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d24fdd20c0de) - [ux] ED-21869 auto populate alt attribute when inserting inline image
+- [#67822](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67822) [`2010719ccc04`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2010719ccc04) - [ux] ED-21870 Fix - divider is removed from document when switching between media single to image inline
+- Updated dependencies
+
+## 0.11.5
+
+### Patch Changes
+
+- [#67908](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67908) [`68ecca634a3a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/68ecca634a3a) - [ux] Unify order of alt and link floating bar positions for mediaInline and mediaSingle
+
+## 0.11.4
+
+### Patch Changes
+
+- [#67238](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67238) [`40533849b2ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40533849b2ec) - [ED-21835] Change EditorAPI type to always union with undefined
+
+## 0.11.3
+
+### Patch Changes
+
+- [#66631](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66631) [`c1d10d6c2013`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1d10d6c2013) - Updated alt text analytics to log additional attributes
+- [#67194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67194) [`37379761475c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/37379761475c) - [ED-21806] Skip changes from NCS and tinted transactions.
+
+## 0.11.2
+
+### Patch Changes
+
+- [#66510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66510) [`de9aee7692ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de9aee7692ab) - [ux] ED-21829 Hiding Inline and Original size floating toolbar buttons for external images
+- Updated dependencies
+
+## 0.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.11.0
+
+### Minor Changes
+
+- [#61125](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61125) [`9571e3502584`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9571e3502584) - ECA11Y-72 Update files toolbar to replace dropdown by buttons
+
+## 0.10.4
+
+### Patch Changes
+
+- [#65825](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65825) [`d08cdd1cb2aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d08cdd1cb2aa) - add extra attributes for media link
+
+## 0.10.3
+
+### Patch Changes
+
+- [#65846](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65846) [`aa24d3f38df0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa24d3f38df0) - Updated analytics for border mark
+- Updated dependencies
+
+## 0.10.2
+
+### Patch Changes
+
+- [#65194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65194) [`b17492206adc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b17492206adc) - ED-21544 able to insert inline image in panel with empty paragraph.
+
+## 0.10.1
+
+### Patch Changes
+
+- [#65562](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65562) [`857a5d841564`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/857a5d841564) - add analytics to track media single to media inline convert
+- Updated dependencies
+
+## 0.10.0
+
+### Minor Changes
+
+- [#64354](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64354) [`b07fcd05c2c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b07fcd05c2c9) - [ux] Added border support for media inline node
+
+### Patch Changes
+
+- [#65031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65031) [`a00094111b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a00094111b5a) - ED-21609 Update adf-schema to 35.3.0
+- Updated dependencies
+
+## 0.9.1
+
+### Patch Changes
+
+- [#63950](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63950) [`aa44815a0e60`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa44815a0e60) - [ux] changed color for instructions to add alt text
+- Updated dependencies
+
+## 0.9.0
+
+### Minor Changes
+
+- [#63809](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63809) [`0a735e84c669`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a735e84c669) - Added alt text support for inline images
+
+## 0.8.1
+
+### Patch Changes
+
+- [#63388](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63388) [`999a8302f404`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/999a8302f404) - add analytics for changing media inline to media single
+- [#63608](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63608) [`bfb98fe84eae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfb98fe84eae) - [ux] EDF-93: Report and resolve existing duplicate i18n message descriptor keys/IDs in editor, as precursor work to adding CI check
+
+## 0.8.0
+
+### Minor Changes
+
+- [#62560](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62560) [`5ad72b247e6a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ad72b247e6a) - [ux] ED-20895 Added linking support for inline images
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.7.0
+
+### Minor Changes
+
+- [#61685](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61685) [`ac1ec9ea4cd3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ac1ec9ea4cd3) - [ux] Add border mark support to mediaInline in Editor/Renderer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.6.12
+
+### Patch Changes
+
+- [#62165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62165) [`b44ac0968d79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b44ac0968d79) - [ED-21562] Bump @atlaskit/adf-schema to 35.2.0 for border mark update
+
+## 0.6.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.6.10
+
+### Patch Changes
+
+- [#60678](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60678) [`e68cb7c676df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e68cb7c676df) - [ED-21042] Synchronously flush state update in Picker Facade Provider to get consistent behaviour in React 16 and 18
+
+## 0.6.9
+
+### Patch Changes
+
+- [#60808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60808) [`f509a21be124`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f509a21be124) - ED-21506: @atlaskit/adf-schema upgraded to 35.1.1 to support renderer for MBE
+
+## 0.6.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.6.7
+
+### Patch Changes
+
+- [#58246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58246) [`a381b2599716`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a381b2599716) - ED-21371 Update adf-schema to 35.1.0
+
+## 0.6.6
+
+### Patch Changes
+
+- [#60345](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60345) [`0510fbeefadd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0510fbeefadd) - [ux] [ED-21290] Add inline and floating switcher buttons to media single floating toolbar and implement onClick handler
+
+## 0.6.5
+
+### Patch Changes
+
+- [#60047](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60047) [`a1cc52ca9df3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1cc52ca9df3) - Insert media as inlineImage
+
+## 0.6.4
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
+## 0.6.3
+
+### Patch Changes
+
+- [#59409](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59409) [`e37f95e368fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e37f95e368fd) - Refactor code to use allowInlineImages plugin state instead of FF check
+
+## 0.6.2
+
+### Patch Changes
+
+- [#59086](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59086) [`8b5cbc397cfd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b5cbc397cfd) - [ux] add convert media inline image to media single floating toolbar item
+
+## 0.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.6.0
+
+### Minor Changes
+
+- [#56827](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56827) [`9966463429c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9966463429c6) - ECA11Y-86: Added ability to resize media via keyboard and added announcer
+
+## 0.5.1
+
+### Patch Changes
+
+- [#59047](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59047) [`a792bec68ae3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a792bec68ae3) - [ED-21288] Populate width and height ADF attributes on insertion for mediaInline node of image type.
+
+## 0.5.0
+
+### Minor Changes
+
+- [#58884](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58884) [`a149612dc46d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a149612dc46d) - [ux] Added support for Media Inline Image Card in Editor and Renderer
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+- [#56822](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56822) [`77f4fbf44e93`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77f4fbf44e93) - ECA11Y-78: Added announce for the selected file
+
+## 0.4.10
+
+### Patch Changes
+
+- [#58567](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58567) [`5c0892098c84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c0892098c84) - add media inline image floating toolbar under FF
+- Updated dependencies
+
+## 0.4.9
+
+### Patch Changes
+
+- [#58763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58763) [`0fdbd64522bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fdbd64522bf) - update ADF schema
+
+## 0.4.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.4.7
+
+### Patch Changes
+
+- [#56790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56790) [`ff577a7969d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff577a7969d4) - ED-21266: Updated @atlaskit/adf-schema to 34.0.1
+
 ## 0.4.6
 
 ### Patch Changes

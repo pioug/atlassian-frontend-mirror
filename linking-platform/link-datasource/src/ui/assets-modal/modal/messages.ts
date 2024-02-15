@@ -6,6 +6,11 @@ export const modalMessages = defineMessages({
     description: 'Button text to close the modal with no changes being made',
     defaultMessage: 'Cancel',
   },
+  updateObjectsButtonText: {
+    id: 'linkDataSource.assets.configmodal.updateObjectsButtonText',
+    description: 'Button text to update the displayed content',
+    defaultMessage: 'Update table',
+  },
   insertIssuesButtonText: {
     id: 'linkDataSource.assets.configmodal.insertIssuesButtonText',
     description: 'Button text to insert the displayed content',

@@ -1,15 +1,16 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
-import { basicCodeBlock } from '../../__fixtures__/code-block/basic-code-block';
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import { basicCodeBlock } from '../../__fixtures__/code-block/basic-code-block';
 
 describe('Code block:', () => {
   let page: PuppeteerPage;

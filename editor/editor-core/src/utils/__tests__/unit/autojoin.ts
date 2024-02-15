@@ -1,14 +1,14 @@
 import type { DocBuilder } from '@atlaskit/editor-common/types';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { p, ul, li, doc } from '@atlaskit/editor-test-helpers/doc-builder';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { autoJoinTr } from '@atlaskit/editor-common/utils';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { wrapInList } from '@atlaskit/editor-plugin-list/src/actions/wrap-and-join-lists';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { doc, li, p, ul } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 describe('autoJoinTr', () => {
   // Adapted from https://github.com/ProseMirror/prosemirror-commands/blob/master/test/test-commands.js

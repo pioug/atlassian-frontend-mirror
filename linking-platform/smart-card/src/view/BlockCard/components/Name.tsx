@@ -12,6 +12,12 @@ export interface NameProps {
   textColor?: string;
 }
 
+/**
+ * Class name for selecting non-flexible block card header name
+ *
+ * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-6878 Internal documentation for deprecation (no external access)}
+ * Using this selctor is deprecated as once the flexible block card feature flag is removed, this class will no longer be used.
+ */
 export const blockCardContentHeaderNameClassName =
   'block-card-content-header-name';
 

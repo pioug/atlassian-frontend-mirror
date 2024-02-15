@@ -40,7 +40,7 @@ describe('indentation', () => {
     it('indents a top level paragraph and sends analytics', () => {
       const { editorView, editorAPI: api } = editor(doc(p('hello{<>}')));
       const editorAPI = api as PublicPluginAPI<[AnalyticsPlugin]>;
-      jest.spyOn(editorAPI?.analytics?.actions, 'attachAnalyticsEvent');
+      jest.spyOn(editorAPI?.analytics!.actions, 'attachAnalyticsEvent');
       const { dispatch, state } = editorView;
 
       indent(editorAPI?.analytics?.actions)()(state, dispatch);
@@ -116,7 +116,7 @@ describe('indentation', () => {
         doc(indentation({ level: 3 })(p('hello{<>}'))),
       );
       const editorAPI = api as PublicPluginAPI<[AnalyticsPlugin]>;
-      jest.spyOn(editorAPI?.analytics?.actions, 'attachAnalyticsEvent');
+      jest.spyOn(editorAPI?.analytics!.actions, 'attachAnalyticsEvent');
       const { dispatch, state } = editorView;
       outdent(editorAPI?.analytics?.actions)()(state, dispatch);
 

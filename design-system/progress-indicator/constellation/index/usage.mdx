@@ -4,22 +4,26 @@ order: 2
 
 ## Usage
 
-Use a progress indicator to step a user through a journey so that they can keep track of their progress.
+Use a progress indicator to help people keep track of their progress as they step through a task.
 
-The progress dots are visual indicators used when stepping a user through a journey, to allow them to keep track of their progress.
-
-They are typically accompanied by a carousel or another UI device.
+This component is typically accompanied by a carousel or another UI device.
 
 ## Anatomy
 
-![Progress indicator anatomy](images/progress-indicator-anatomy.png)
+![The example progress indicator is a row of circles. The circle representing the current step in the journey is filled. The other circles are empty.](images/progress-indicator-anatomy.png)
 
-1. **Current progress:** A visual indicator that shows the current step that the user is on.
-2. **Steps:** The visual indicator shows all the steps in the sequence.
+1. **Current progress:** A visual indicator that shows the current step in the journey.
+2. **Steps:** A visual indicator that shows all the steps in the sequence.
+
+## Accessibility
+
+- Always provide an `ariaLabel` that explains what the indicator represents. For example, "Account setup". The progress number will be appended to the label.
+- If interaction is enabled, use the `ariaControls` prop to tell assistive technology what elements are controlled by the progress indicator. For example, if interacting with the progress indicator changes tabs, specify this with `ariaControls`.
+- Once an interactive progress indicator is in focus, people can navigate through each step using the left and right arrow keys.
 
 ## Best practices
 
-Use a maximum of seven dot indicators to keep the user’s journey concise.
+Keep the task concise. Use a maximum of seven steps in your journey so that people aren't overwhelmed.
 
 ## Server
 

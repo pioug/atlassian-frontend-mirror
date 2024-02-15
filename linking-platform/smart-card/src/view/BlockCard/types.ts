@@ -4,7 +4,11 @@ import {
 } from '@atlaskit/link-provider';
 import { CardState } from '../../state/types';
 import { InvokeHandler } from '../../model/invoke-handler';
-import { CardPlatform, OnResolveCallback } from '../Card/types';
+import type {
+  CardPlatform,
+  OnResolveCallback,
+  CardActionOptions,
+} from '../Card/types';
 import { OnErrorCallback } from '../types';
 import { AnalyticsFacade } from '../../state/analytics';
 
@@ -21,8 +25,7 @@ export type BlockCardProps = {
   onResolve?: OnResolveCallback;
   onError?: OnErrorCallback;
   testId?: string;
-  showActions?: boolean;
-  showServerActions?: boolean;
+  actionOptions?: CardActionOptions;
   renderers?: CardProviderRenderers;
   platform?: CardPlatform;
   analytics: AnalyticsFacade;

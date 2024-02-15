@@ -1,18 +1,19 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  Appearance,
-  initEditorWithAdf,
-  snapshot,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { adfs } from './__fixtures__/inline-nodes';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
   animationFrame,
   getBoundingRect,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForEmojisToLoad } from '@atlaskit/editor-test-helpers/page-objects/emoji';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import { adfs } from './__fixtures__/inline-nodes';
 
 const initEditor = async (_adf: Object, page: PuppeteerPage) =>
   initEditorWithAdf(page, {
@@ -20,8 +21,7 @@ const initEditor = async (_adf: Object, page: PuppeteerPage) =>
     appearance: Appearance.fullPage,
   });
 
-// TODO: Unskip flaky tests (ED-15254)
-describe.skip('Cursor/status:', () => {
+describe('Cursor/status:', () => {
   let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;

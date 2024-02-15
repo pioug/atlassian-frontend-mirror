@@ -6,29 +6,20 @@ import {
   unmountComponentAtNode,
   unstable_renderSubtreeIntoContainer,
 } from 'react-dom';
-import {
-  injectIntl,
-  IntlShape,
-  RawIntlProvider,
-  useIntl,
-  WrappedComponentProps,
-} from 'react-intl-next';
+import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, RawIntlProvider, useIntl } from 'react-intl-next';
 
 import { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stable-react-context';
-import { useGlobalTheme } from '@atlaskit/theme/components';
-import type { ThemeModes } from '@atlaskit/theme/types';
 
+import type { FireAnalyticsCallback } from '../../analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-  FireAnalyticsCallback,
 } from '../../analytics';
 import { EventDispatcher } from '../../event-dispatcher';
 import IntlProviderIfMissingWrapper from '../IntlProviderIfMissingWrapper';
-
-import { PortalProviderThemeProviders } from './PortalProviderThemesProvider';
 
 export type BasePortalProviderProps = {
   render: (
@@ -36,7 +27,6 @@ export type BasePortalProviderProps = {
   ) => React.ReactChild | JSX.Element | null;
   onAnalyticsEvent?: FireAnalyticsCallback;
   useAnalyticsContext?: boolean;
-  themeMode?: ThemeModes;
 } & WrappedComponentProps;
 
 export type Portals = Map<HTMLElement, React.ReactChild>;
@@ -57,19 +47,16 @@ export class PortalProviderAPI extends EventDispatcher {
   intl: IntlShape;
   onAnalyticsEvent?: FireAnalyticsCallback;
   useAnalyticsContext?: boolean;
-  themeMode?: ThemeModes;
 
   constructor(
     intl: IntlShape,
     onAnalyticsEvent?: FireAnalyticsCallback,
     analyticsContext?: boolean,
-    themeMode?: ThemeModes,
   ) {
     super();
     this.intl = intl;
     this.onAnalyticsEvent = onAnalyticsEvent;
     this.useAnalyticsContext = analyticsContext;
-    this.themeMode = themeMode;
   }
 
   setContext = (context: any) => {
@@ -87,17 +74,10 @@ export class PortalProviderAPI extends EventDispatcher {
       hasAnalyticsContext,
       hasIntlContext,
     });
-    const childrenWithThemeProviders = (
-      <PortalProviderThemeProviders mode={this.themeMode!}>
-        {children()}
-      </PortalProviderThemeProviders>
-    );
     let wrappedChildren = this.useAnalyticsContext ? (
-      <AnalyticsContextWrapper>
-        {childrenWithThemeProviders}
-      </AnalyticsContextWrapper>
+      <AnalyticsContextWrapper>{children()}</AnalyticsContextWrapper>
     ) : (
-      (childrenWithThemeProviders as JSX.Element)
+      (children() as JSX.Element)
     );
     if (hasIntlContext) {
       wrappedChildren = (
@@ -114,15 +94,8 @@ export class PortalProviderAPI extends EventDispatcher {
   // TODO: until https://product-fabric.atlassian.net/browse/ED-5013
   // we (unfortunately) need to re-render to pass down any updated context.
   // selectively do this for nodeviews that opt-in via `hasAnalyticsContext`
-  forceUpdate({
-    intl,
-    themeMode,
-  }: {
-    intl: IntlShape;
-    themeMode: ThemeModes | undefined;
-  }) {
+  forceUpdate({ intl }: { intl: IntlShape }) {
     this.intl = intl;
-    this.themeMode = themeMode;
 
     this.portals.forEach((portal, container) => {
       if (
@@ -135,25 +108,15 @@ export class PortalProviderAPI extends EventDispatcher {
 
       let wrappedChildren = portal.children() as JSX.Element;
 
-      const childrenWithThemeProviders = (
-        <PortalProviderThemeProviders mode={themeMode!}>
-          {wrappedChildren}
-        </PortalProviderThemeProviders>
-      );
-
       if (portal.hasAnalyticsContext && this.useAnalyticsContext) {
         wrappedChildren = (
-          <AnalyticsContextWrapper>
-            {childrenWithThemeProviders}
-          </AnalyticsContextWrapper>
+          <AnalyticsContextWrapper>{wrappedChildren}</AnalyticsContextWrapper>
         );
       }
 
       if (portal.hasIntlContext) {
         wrappedChildren = (
-          <RawIntlProvider value={this.intl}>
-            {childrenWithThemeProviders}
-          </RawIntlProvider>
+          <RawIntlProvider value={this.intl}>{wrappedChildren}</RawIntlProvider>
         );
       }
 
@@ -211,7 +174,6 @@ class BasePortalProvider extends React.Component<BasePortalProviderProps> {
       props.intl,
       props.onAnalyticsEvent,
       props.useAnalyticsContext,
-      props.themeMode,
     );
   }
 
@@ -220,10 +182,7 @@ class BasePortalProvider extends React.Component<BasePortalProviderProps> {
   }
 
   componentDidUpdate() {
-    this.portalProviderAPI.forceUpdate({
-      intl: this.props.intl,
-      themeMode: this.props.themeMode,
-    });
+    this.portalProviderAPI.forceUpdate({ intl: this.props.intl });
   }
 }
 
@@ -254,12 +213,10 @@ const PortalProviderWithThemeAndIntlProviders = ({
   render,
 }: PortalProviderWithThemeProvidersProps) => {
   const intl = useIntl();
-  const globalTheme = useGlobalTheme();
 
   return (
     <BasePortalProvider
       intl={intl}
-      themeMode={globalTheme.mode}
       onAnalyticsEvent={onAnalyticsEvent}
       useAnalyticsContext={useAnalyticsContext}
       render={render}

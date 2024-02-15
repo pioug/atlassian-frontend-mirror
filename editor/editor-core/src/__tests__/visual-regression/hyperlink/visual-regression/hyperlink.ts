@@ -66,8 +66,7 @@ describe('Hyperlink', () => {
     });
 
     describe('heading', () => {
-      // FIXME: This test was automatically skipped due to failure on 31/05/2023: https://product-fabric.atlassian.net/browse/ED-18172
-      it.skip('should display the link toolbar', async () => {
+      it('should display the link toolbar', async () => {
         await click(page, `${selectors.editor} > h1 > a`);
       });
     });
@@ -200,8 +199,7 @@ describe('Hyperlink', () => {
   });
 
   describe('selection', () => {
-    // FIXME: This test was automatically skipped due to failure on 07/06/2023: https://product-fabric.atlassian.net/browse/ED-18266
-    it.skip('displayed when link is clicked with shift', async () => {
+    it('displayed when link is clicked with shift', async () => {
       await initEditorWithAdf(page, {
         appearance: Appearance.fullPage,
         adf: hyperlinkWithText,

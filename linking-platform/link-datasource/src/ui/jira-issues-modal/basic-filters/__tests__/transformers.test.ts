@@ -9,6 +9,8 @@ import {
   fieldValuesResponseForStatusesMapped,
   fieldValuesResponseForTypes,
   fieldValuesResponseForTypesMapped,
+  fieldValuesResponseForTypesWithRelativeUrls,
+  fieldValuesResponseForTypesWithRelativeUrlsMapped,
   hydrateJqlEmptyResponse,
   hydrateJqlEmptyResponseMapped,
   hydrateJqlStandardResponse,
@@ -80,30 +82,105 @@ describe('mapHydrateResponseData', () => {
       ],
     });
   });
+
+  it('should only include fields that are valid filter fields', () => {
+    const mappedOptions = mapHydrateResponseData({
+      data: {
+        jira: {
+          jqlBuilder: {
+            hydrateJqlQuery: {
+              fields: [
+                {
+                  jqlTerm: 'anotherStatus',
+                  values: [
+                    {
+                      values: [
+                        {
+                          displayName: 'Progess',
+                          jqlTerm: 'Progess',
+                          statusCategory: {
+                            colorName: 'BLUE',
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                } as any,
+                {
+                  jqlTerm: 'status',
+                  values: [
+                    {
+                      values: [
+                        {
+                          displayName: 'Done',
+                          jqlTerm: 'Done',
+                          statusCategory: {
+                            colorName: 'GREEN',
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        },
+      },
+    });
+
+    expect(mappedOptions).toEqual({
+      status: [
+        {
+          appearance: 'success',
+          label: 'Done',
+          optionType: 'lozengeLabel',
+          value: 'Done',
+        },
+      ],
+    });
+  });
 });
 
 describe('mapFieldValuesToFilterOptions', () => {
   it.each([
-    ['type', fieldValuesResponseForTypes, fieldValuesResponseForTypesMapped],
+    [
+      'type',
+      fieldValuesResponseForTypes,
+      fieldValuesResponseForTypesMapped,
+      '',
+    ],
+    [
+      'type',
+      fieldValuesResponseForTypesWithRelativeUrls,
+      fieldValuesResponseForTypesWithRelativeUrlsMapped,
+      'https://forge-smart-link-battleground.jira-dev.com',
+    ],
     [
       'status',
       fieldValuesResponseForStatuses,
       fieldValuesResponseForStatusesMapped,
+      '',
     ],
     [
       'project',
       fieldValuesResponseForProjects,
       fieldValuesResponseForProjectsMapped,
+      '',
     ],
     [
       'assignee',
       fieldValuesResponseForAssignees,
       fieldValuesResponseForAssigneesMapped,
+      '',
     ],
   ])(
     'should correctly map response for option type "$%s" to SelectOption array',
-    (_, response, expectedAfterMapping) => {
-      const mappedOptions = mapFieldValuesToFilterOptions(response);
+    (_, response, expectedAfterMapping, siteUrl) => {
+      const mappedOptions = mapFieldValuesToFilterOptions({
+        ...response,
+        siteUrl,
+      });
 
       expect(mappedOptions).toEqual(expectedAfterMapping);
     },

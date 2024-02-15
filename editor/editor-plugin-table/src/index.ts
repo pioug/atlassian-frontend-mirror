@@ -1,2 +1,2 @@
-export { default as tablesPlugin } from './plugins/table-plugin';
-export type { TablePlugin } from './plugins/table';
+export { default as tablesPlugin } from './plugin';
+export type { TablePlugin, TablePluginOptions } from './plugin';

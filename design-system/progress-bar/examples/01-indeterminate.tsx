@@ -6,6 +6,6 @@ import { containerStyle } from './00-basic';
 
 export default () => (
   <div style={containerStyle}>
-    <ProgressBar isIndeterminate />
+    <ProgressBar isIndeterminate ariaLabel="Loading issues" />
   </div>
 );

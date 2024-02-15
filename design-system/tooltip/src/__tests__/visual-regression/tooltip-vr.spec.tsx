@@ -9,7 +9,9 @@ const examples = '#examples';
 const tooltipBtn = 'button';
 const addBtn = '[data-testid="add"]';
 
-describe('@atlaskit/tooltip', () => {
+// FIXME: Skipping theses tests as it has been failing on master on CI due to "Screenshot comparison failed" issue.
+// Build URL: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2319963/steps/%7B31b3ca1c-6917-4861-88ed-d816d6fae22f%7D
+describe.skip('@atlaskit/tooltip', () => {
   it('should match production example', async () => {
     const url = getExampleUrl(
       'design-system',

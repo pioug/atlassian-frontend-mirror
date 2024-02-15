@@ -8,7 +8,7 @@ import Select, { OptionType, ValueType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
 import { siteSelectorIndex } from '../../../common/zindex';
-import { Site } from '../../../services/getAvailableJiraSites';
+import type { Site } from '../types';
 
 import { siteSelectorMessages } from './messages';
 

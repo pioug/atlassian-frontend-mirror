@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import LoadingButton from '@atlaskit/button/loading-button';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import TextField from '@atlaskit/textfield';
 
@@ -11,7 +11,9 @@ import Form, {
   ErrorMessage,
   Field,
   FormFooter,
+  FormHeader,
   HelperMessage,
+  RequiredAsterisk,
   ValidMessage,
 } from '../src';
 
@@ -35,10 +37,15 @@ export default () => (
     >
       {({ formProps, submitting, reset }) => (
         <form {...formProps}>
+          <FormHeader title="Sign in">
+            <p aria-hidden="true">
+              Required fields are marked with an asterisk <RequiredAsterisk />
+            </p>
+          </FormHeader>
           <Field name="username" label="Username" defaultValue="" isRequired>
             {({ fieldProps, error }) => (
               <Fragment>
-                <TextField autoComplete="off" {...fieldProps} />
+                <TextField autoComplete="username" {...fieldProps} />
                 {!error && (
                   <HelperMessage>
                     You can use letters, numbers & periods.
@@ -81,13 +88,13 @@ export default () => (
               </Fragment>
             )}
           </Field>
-          <CheckboxField name="remember" label="Remember me" defaultIsChecked>
+          <CheckboxField name="remember" defaultIsChecked>
             {({ fieldProps }) => (
               <Checkbox {...fieldProps} label="Always sign in on this device" />
             )}
           </CheckboxField>
           <FormFooter>
-            <ButtonGroup>
+            <ButtonGroup label="Form submit options">
               <Button appearance="subtle">Cancel</Button>
               <Button appearance="subtle" onClick={() => reset()}>
                 Reset form
@@ -97,7 +104,7 @@ export default () => (
                 appearance="primary"
                 isLoading={submitting}
               >
-                Sign up
+                Sign in
               </LoadingButton>
             </ButtonGroup>
           </FormFooter>

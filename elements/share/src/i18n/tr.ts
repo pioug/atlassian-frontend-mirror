@@ -19,6 +19,7 @@ export default {
   'fabric.elements.share.form.no-permissions': 'Paylaşamıyorsunuz.',
   'fabric.elements.share.form.public.send': 'Herkese açık bağlantıyı gönderin',
   'fabric.elements.share.form.public.share': 'Herkese açık bağlantıyı paylaş',
+  'fabric.elements.share.form.required-field.summary': 'Gerekli alanlar yıldız işaretiyle belirtilmiştir',
   'fabric.elements.share.form.retry': 'Yeniden Dene',
   'fabric.elements.share.form.send': 'Gönder',
   'fabric.elements.share.form.share': 'Paylaş',

@@ -25,6 +25,12 @@ jest.mock('focus-trap', () => {
   };
 });
 
+jest.mock('../../../../ui/Popup/utils', () => ({
+  ...jest.requireActual('../../../../ui/Popup/utils'),
+  // Ignore popup.offsetParent in unit tests
+  validatePosition: (popup: HTMLElement) => Boolean(popup),
+}));
+
 replaceRaf();
 
 const asStub = (raf: typeof requestAnimationFrame) => raf as unknown as Stub;

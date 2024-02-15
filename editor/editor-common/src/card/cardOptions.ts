@@ -1,3 +1,5 @@
+import type { CardProps } from '@atlaskit/smart-card';
+
 import type { Providers } from '../provider-factory';
 
 export interface CardOptions {
@@ -7,7 +9,13 @@ export interface CardOptions {
   allowDatasource?: boolean;
   allowEmbeds?: boolean;
   allowResizing?: boolean;
+  /**
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6348 Internal documentation for deprecation (no external access)}
+   *
+   * Prefer `actionOptions` prop.
+   */
   showServerActions?: boolean;
+  actionOptions?: CardProps['actionOptions'];
   useAlternativePreloader?: boolean;
   allowAlignment?: boolean;
   allowWrapping?: boolean;

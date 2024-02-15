@@ -5,10 +5,10 @@ import { Fragment, memo, ReactNode, useEffect, useRef } from 'react';
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { autoScrollForFiles } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/file';
 import { unsafeOverflowAutoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/unsafe-overflow/element';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { token } from '@atlaskit/tokens';
 
 import { columnGap, gridSize } from '../../util/constants';

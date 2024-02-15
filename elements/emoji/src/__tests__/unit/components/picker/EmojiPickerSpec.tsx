@@ -1,12 +1,18 @@
-import React from 'react';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { B300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { act, screen, waitFor, within } from '@testing-library/react';
 import { matchers } from '@emotion/jest';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import type { ReactWrapper } from 'enzyme';
+import {
+  act,
+  fireEvent,
+  RenderResult,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
+import React from 'react';
 import {
   mockReactDomWarningGlobal,
   renderWithIntl,
@@ -14,24 +20,42 @@ import {
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory';
-import { VirtualList } from '../../../../components/picker/VirtualList';
+import type { ServiceConfig } from '@atlaskit/util-service-support';
+import userEvent from '@testing-library/user-event';
+import fetchMock from 'fetch-mock/cjs/client';
 import EmojiRepository from '../../../../api/EmojiRepository';
-import Emoji, {
-  type Props as EmojiProps,
-} from '../../../../components/common/Emoji';
-import EmojiRadioButton from '../../../../components/common/EmojiRadioButton';
+import {
+  EmojiResource,
+  EmojiResourceConfig,
+} from '../../../../api/EmojiResource';
+import { toneSelectorTestId } from '../../../../components/common/ToneSelector';
 import { messages } from '../../../../components/i18n';
 import { CategoryDescriptionMap } from '../../../../components/picker/categories';
-import CategorySelector, {
-  sortCategories,
-} from '../../../../components/picker/CategorySelector';
-import ToneSelector, {
-  toneSelectorTestId,
-} from '../../../../components/common/ToneSelector';
+import { sortCategories } from '../../../../components/picker/CategorySelector';
 import EmojiPicker, {
   Props as EmojiPickerProps,
 } from '../../../../components/picker/EmojiPicker';
-import EmojiPickerFooter from '../../../../components/picker/EmojiPickerFooter';
+import EmojiPickerVirtualList from '../../../../components/picker/EmojiPickerList';
+import { emojiPickerHeightOffset } from '../../../../components/picker/utils';
+import type {
+  EmojiDescription,
+  EmojiProvider,
+  OptionalEmojiDescription,
+} from '../../../../types';
+import {
+  categoryClickedEvent,
+  closedPickerEvent,
+  openedPickerEvent,
+  pickerClickedEvent,
+  pickerSearchedEvent,
+  recordFailed,
+  recordSucceeded,
+  toneSelectedEvent,
+  toneSelectorClosedEvent,
+  toneSelectorOpenedEvent,
+  ufoExperiences,
+} from '../../../../util/analytics';
+import * as constants from '../../../../util/constants';
 import {
   customCategory,
   defaultCategories,
@@ -42,45 +66,14 @@ import {
   selectedToneStorageKey,
 } from '../../../../util/constants';
 import { isMessagesKey } from '../../../../util/type-helpers';
-import type {
-  EmojiDescription,
-  OptionalEmojiDescription,
-} from '../../../../types';
 import {
   getEmojiResourcePromise,
   mediaEmoji,
   standardEmojis,
   standardServiceEmojis,
 } from '../../_test-data';
-import * as helper from './_emoji-picker-test-helpers';
 import * as helperTestingLibrary from './_emoji-picker-helpers-testing-library';
-import {
-  categoryClickedEvent,
-  closedPickerEvent,
-  recordSucceeded,
-  openedPickerEvent,
-  pickerClickedEvent,
-  pickerSearchedEvent,
-  toneSelectorOpenedEvent,
-  toneSelectedEvent,
-  toneSelectorClosedEvent,
-  recordFailed,
-} from '../../../../util/analytics';
-import EmojiActions, {
-  emojiActionsTestId,
-} from '../../../../components/common/EmojiActions';
-import { ufoExperiences } from '../../../../util/analytics';
-import EmojiPickerComponent from '../../../../components/picker/EmojiPickerComponent';
-import { emojiPickerHeightOffset } from '../../../../components/picker/utils';
-import * as constants from '../../../../util/constants';
-import fetchMock from 'fetch-mock/cjs/client';
-import type { ServiceConfig } from '@atlaskit/util-service-support';
-import {
-  EmojiResource,
-  EmojiResourceConfig,
-} from '../../../../api/EmojiResource';
-import EmojiPickerVirtualList from '../../../../components/picker/EmojiPickerList';
-import TonePreviewButton from '../../../../components/common/TonePreviewButton';
+import * as helper from './_emoji-picker-test-helpers';
 
 const baseUrl = 'https://bogus/';
 const p1Url = 'https://p1/standard';
@@ -132,22 +125,16 @@ describe('<EmojiPicker />', () => {
   const ufoEmojiRecordedFailureSpy = jest.spyOn(emojiRecordUFO, 'failure');
 
   mockReactDomWarningGlobal();
+
+  beforeAll(() => {
+    // set search debounce to 0
+    Object.defineProperty(constants, 'EMOJI_SEARCH_DEBOUNCE', { value: 0 });
+  });
+
   beforeEach(() => {
     onEvent = jest.fn();
-    ufoPickerStartSpy.mockClear();
-    ufoPickerSuccessSpy.mockClear();
-    ufoPickerFailureSpy.mockClear();
-    ufoPickerAbortSpy.mockClear();
-    ufoPickerMarkFMPSpy.mockClear();
-    ufoSearchedStartSpy.mockClear();
-    ufoSearchedFailureSpy.mockClear();
-    ufoSearchedAbortSpy.mockClear();
-    ufoSearchedSuccessSpy.mockClear();
-    ufoEmojiRecordedStartSpy.mockClear();
-    ufoEmojiRecordedSuccessSpy.mockClear();
-    ufoEmojiRecordedFailureSpy.mockClear();
 
-    // scrolling of the virutal list doesn't work out of the box for the tests
+    // scrolling of the virtual list doesn't work out of the box for the tests
     // mocking `scrollToRow` for all tests
     jest
       .spyOn(EmojiPickerVirtualList.prototype, 'scrollToRow')
@@ -156,13 +143,10 @@ describe('<EmojiPicker />', () => {
       );
   });
 
-  beforeAll(() => {
-    // set search debounce to 0
-    Object.defineProperty(constants, 'EMOJI_SEARCH_DEBOUNCE', { value: 0 });
-  });
+  afterEach(jest.clearAllMocks);
 
-  const renderEmojiPicker = (pickerProps: Partial<EmojiPickerProps> = {}) => {
-    return renderWithIntl(
+  const renderEmojiPicker = (pickerProps: Partial<EmojiPickerProps> = {}) =>
+    renderWithIntl(
       <AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
         <EmojiPicker
           emojiProvider={getEmojiResourcePromise()}
@@ -170,10 +154,8 @@ describe('<EmojiPicker />', () => {
         />
       </AnalyticsListener>,
     );
-  };
 
-  const getUpdatedList = (component: any) =>
-    component.update().find(VirtualList);
+  const getUpdatedList = () => screen.getByRole('grid', { name: 'Emojis' });
 
   describe('analytics for component lifecycle', () => {
     it('should fire analytics when component unmounts', async () => {
@@ -198,20 +180,25 @@ describe('<EmojiPicker />', () => {
 
   describe('display', () => {
     it('should display first set of emoji in viewport by default', async () => {
-      const component = await helper.setupPicker();
-      const list = getUpdatedList(component);
-      await waitUntil(() => helper.emojisVisible(component, list));
-      const emojis = helper.findEmoji(list);
-      const emojiProp = emojis.at(0).prop('emoji');
+      await helper.setupPicker();
+      const list = getUpdatedList();
+      const emojis = await helper.emojisVisible(list);
+
+      const firstEmoji = emojis[0];
       // First emoji displayed
-      expect(emojiProp.id).toEqual(helper.allEmojis[0].id);
-      const lastEmojiProp = emojis.at(emojis.length - 1).prop('emoji');
+      expect(firstEmoji.getAttribute('aria-label')).toEqual(
+        helper.allEmojis[0].shortName,
+      );
+
+      const lastEmoji = emojis[emojis.length - 1];
       // Last displayed emoji in same order as source data
-      expect(lastEmojiProp.id).toEqual(helper.allEmojis[emojis.length - 1].id);
+      expect(lastEmoji.getAttribute('aria-label')).toEqual(
+        helper.allEmojis[emojis.length - 1].shortName,
+      );
     });
 
     it('should display all categories', async () => {
-      const component = await helper.setupPicker();
+      await helper.setupPicker();
       let expectedCategories = defaultCategories;
       const provider = await getEmojiResourcePromise();
 
@@ -220,40 +207,46 @@ describe('<EmojiPicker />', () => {
       const dynamicCategories = await provider.calculateDynamicCategories();
       expectedCategories = expectedCategories.concat(dynamicCategories);
 
-      const categorySelector = component.find(CategorySelector);
-      const buttons = categorySelector.find('button');
-      expect(buttons).toHaveLength(expectedCategories.length);
+      // Explicitly wait for the last one to make sure they're all loaded
+      await screen.findByTestId('category-selector-CUSTOM');
+      const categorySelectorButtons = await screen.findAllByRole('tab');
+
+      expect(categorySelectorButtons).toHaveLength(expectedCategories.length);
       act(() => {
         expectedCategories.sort(sortCategories);
       });
 
-      for (let i = 0; i < buttons.length; i++) {
-        const button = buttons.at(i);
+      for (let i = 0; i < categorySelectorButtons.length; i++) {
+        const button = categorySelectorButtons[i];
         const messageKey = CategoryDescriptionMap[expectedCategories[i]].name;
         expect(isMessagesKey(messageKey)).toBeTruthy();
         if (isMessagesKey(messageKey)) {
-          expect(button.prop('aria-label')).toEqual(
+          expect(button).toHaveAttribute(
+            'aria-label',
             messages[messageKey].defaultMessage,
           );
         }
       }
     });
 
-    it('should hightlight first category (no frequent category)', async () => {
-      const component = await helper.setupPicker();
-      const buttons = component.find(CategorySelector).find('button');
+    it('should highlight first category (no frequent category)', async () => {
+      await helper.setupPicker();
+      // Explicitly wait for the last one to make sure they're all loaded
+      await screen.findByTestId('category-selector-CUSTOM');
+      const categorySelectorButtons = await screen.findAllByRole('tab');
 
-      expect(buttons.at(0).prop('aria-label')).toEqual(
+      expect(categorySelectorButtons[0]).toHaveAttribute(
+        'aria-label',
         messages['peopleCategory'].defaultMessage,
       );
-      expect(buttons.at(0)).toHaveStyleRule(
+      expect(categorySelectorButtons[0]).toHaveStyleRule(
         'color',
         token('color.text.selected', B300),
       );
     });
 
     it('should tone selector in preview by default', async () => {
-      renderEmojiPicker();
+      await renderEmojiPicker();
 
       const toneSelectorButton = await screen.findByLabelText(
         'Choose your skin tone',
@@ -266,13 +259,11 @@ describe('<EmojiPicker />', () => {
     });
 
     it('should adjust picker height if preview is shown', async () => {
-      renderEmojiPicker();
-
-      const component = await helper.setupPickerWithoutToneSelector();
-      const list = getUpdatedList(component);
+      await helper.setupPickerWithoutToneSelector();
+      const list = getUpdatedList();
 
       // Preview should not be displayed
-      const picker = component.find(EmojiPickerComponent);
+      const picker = screen.getByRole('dialog', { name: 'Emoji picker' });
       expect(picker).toHaveStyleRule(
         'height',
         emojiPickerHeight +
@@ -280,18 +271,17 @@ describe('<EmojiPicker />', () => {
           'px',
       );
 
-      await waitUntil(() => helper.emojisVisible(component, list));
-      const hoverButton = list.find(Emoji).at(0);
+      const emojis = await helper.emojisVisible(list);
+      const hoverButton = emojis[0];
+      await userEvent.hover(hoverButton);
 
-      act(() => {
-        const btn = hoverButton.find({ role: 'button' }).last();
-        btn.simulate('mouseenter');
-      });
-      await waitUntil(() => helper.findEmojiPreview(component));
+      await helper.findEmojiPreview();
 
       // Preview should be displayed and the height of the picker adjusted
-      const pickerWithPreview = component.find(EmojiPickerComponent);
-      expect(pickerWithPreview).toHaveStyleRule(
+      const pickerWithPreview = await screen.findAllByRole('dialog', {
+        name: 'Emoji picker',
+      });
+      expect(pickerWithPreview[0]).toHaveStyleRule(
         'height',
         emojiPickerHeightWithPreview +
           emojiPickerHeightOffset(defaultEmojiPickerSize) +
@@ -309,15 +299,13 @@ describe('<EmojiPicker />', () => {
           return Promise.resolve(result);
         },
       };
-      helperTestingLibrary.renderPicker(undefined, mockConfig);
+      await helper.setupPicker(undefined, mockConfig);
 
       await waitFor(() => {
         expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
       });
 
-      await waitFor(() => {
-        helperTestingLibrary.selectCategory(customCategory);
-      });
+      await helperTestingLibrary.selectCategory(customCategory);
 
       await waitFor(() => {
         expect(
@@ -329,29 +317,28 @@ describe('<EmojiPicker />', () => {
 
   describe('hover', () => {
     it('should update preview on hover', async () => {
-      const component = await helper.setupPickerWithoutToneSelector();
-      const list = getUpdatedList(component);
+      await helper.setupPickerWithoutToneSelector();
+      const list = getUpdatedList();
 
-      await waitUntil(() => helper.emojisVisible(component, list));
-      const hoverButton = list.find(Emoji).at(0);
+      const emojis = await helper.emojisVisible(list);
+      const hoverButton = emojis[0];
+      await userEvent.hover(hoverButton);
 
-      act(() => {
-        const btn = hoverButton.find({ role: 'button' }).last();
-        btn.simulate('mouseenter');
-      });
-      await waitUntil(() => helper.findEmojiPreview(component));
+      const footer = await helper.findEmojiPreview();
 
-      const footer = component.find(EmojiPickerFooter);
-      const previewEmoji = footer.find(Emoji);
-      expect(previewEmoji).toHaveLength(1);
-      const emojiProps = previewEmoji.prop('emoji');
-      expect(emojiProps.id).toEqual(helper.allEmojis[0].id);
+      const previewEmoji = within(footer).getAllByRole('img')[0];
+      expect(previewEmoji).toBeVisible();
+
+      expect(previewEmoji).toHaveAttribute(
+        'aria-label',
+        helper.allEmojis[0].shortName,
+      );
     });
   });
 
   describe('category', () => {
     it('selecting category should show that category', async () => {
-      helperTestingLibrary.renderPicker(undefined, undefined, onEvent);
+      await helper.setupPicker(undefined, undefined, onEvent);
 
       await waitFor(() => {
         expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
@@ -361,7 +348,7 @@ describe('<EmojiPicker />', () => {
         helperTestingLibrary.queryEmojiCategoryHeader(emojiListHeaders.FLAGS),
       ).not.toBeInTheDocument();
 
-      helperTestingLibrary.selectCategory(emojiCategoryIds.FLAGS);
+      await helperTestingLibrary.selectCategory(emojiCategoryIds.FLAGS);
 
       await waitFor(() => {
         expect(
@@ -378,7 +365,7 @@ describe('<EmojiPicker />', () => {
     });
 
     it('selecting custom category scrolls to bottom', async () => {
-      helperTestingLibrary.renderPicker();
+      await helper.setupPicker();
 
       await waitFor(() => {
         expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
@@ -390,7 +377,7 @@ describe('<EmojiPicker />', () => {
         ),
       ).not.toBeInTheDocument();
 
-      helperTestingLibrary.selectCategory(customCategory);
+      await helperTestingLibrary.selectCategory(customCategory);
 
       await waitFor(() => {
         expect(
@@ -402,7 +389,7 @@ describe('<EmojiPicker />', () => {
     });
 
     it('does not add non-standard categories to the selector if there are no emojis in those categories', async () => {
-      helperTestingLibrary.renderPicker({
+      await helper.setupPicker({
         emojiProvider: mockNonUploadingEmojiResourceFactory(
           new EmojiRepository(standardEmojis),
         ),
@@ -450,16 +437,21 @@ describe('<EmojiPicker />', () => {
         ...standardEmojis,
         frequent,
       ];
-      const component = await helper.setupPicker({
+      await helper.setupPicker({
         emojiProvider: mockNonUploadingEmojiResourceFactory(
           new EmojiRepository(emojiWithFrequent),
         ),
       });
-      const categorySelector = component.find(CategorySelector);
-      const buttons = categorySelector.find('button');
-      expect(buttons).toHaveLength(defaultCategories.length + 1);
-      expect(helper.categoryVisible(frequentCategory, component)).toBe(true);
-      expect(buttons.at(0)).toHaveStyleRule(
+
+      // Explicitly wait for the last one to make sure they're all loaded
+      await screen.findByTestId('category-selector-FREQUENT');
+      const categorySelectorButtons = await screen.findAllByRole('tab');
+
+      expect(categorySelectorButtons).toHaveLength(
+        defaultCategories.length + 1,
+      );
+      expect(helper.categoryVisible(frequentCategory)).toBe(true);
+      expect(categorySelectorButtons[0]).toHaveStyleRule(
         'color',
         token('color.text.selected', B300),
       );
@@ -467,7 +459,7 @@ describe('<EmojiPicker />', () => {
 
     it('should show frequent emoji first', async () => {
       const frequent: EmojiDescription[] = [];
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < 5; i++) {
         const emoji = {
           ...standardEmojis[i],
           category: frequentCategory,
@@ -481,43 +473,39 @@ describe('<EmojiPicker />', () => {
         ...frequent,
       ];
 
-      const component = await helper.setupPicker({
+      await helper.setupPicker({
         emojiProvider: mockNonUploadingEmojiResourceFactory(
           new EmojiRepository(emojiWithFrequent),
         ),
       });
-      const list = getUpdatedList(component);
-      await waitUntil(() => helper.emojisVisible(component, list));
-      // get Emoji with a particular property
-      const displayedEmoji = list.find(Emoji);
+      const list = getUpdatedList();
+      await helper.emojisVisible(list);
 
-      displayedEmoji.forEach(
-        (node: ReactWrapper<EmojiProps>, index: number) => {
-          const props = node.props();
-          if (index < 8) {
-            expect(props.emoji.category).toEqual(frequentCategory);
-          } else {
-            expect(props.emoji.category).not.toEqual(frequentCategory);
-          }
-        },
-      );
+      const rows = within(list).getAllByRole('row');
+      const firstRow = rows[0];
+      await within(firstRow).findByRole('rowheader', {
+        name: 'Frequent',
+      });
+      const secondRow = rows[1];
+      const emojis = await helper.emojisVisible(secondRow);
+      expect(emojis).toHaveLength(5);
     });
 
     it('adds non-standard categories to the selector dynamically based on whether they are populated with emojis', async () => {
-      helperTestingLibrary.renderPicker();
+      await helper.setupPicker();
 
       await waitFor(() => {
         expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
       });
 
-      const buttons = within(
+      // Explicitly wait for the last one to make sure they're all loaded
+      await screen.findByTestId('category-selector-CUSTOM');
+      const buttons = await within(
         helperTestingLibrary.getCategorySelector(),
-      ).getAllByRole('tab');
+      ).findAllByRole('tab');
       expect(buttons).toHaveLength(defaultCategories.length + 2);
 
-      await waitFor(() => {
-        helperTestingLibrary.selectCategory(customCategory);
-      });
+      await helperTestingLibrary.selectCategory(customCategory);
 
       await waitFor(() => {
         expect(
@@ -533,7 +521,7 @@ describe('<EmojiPicker />', () => {
     it('selecting emoji should trigger onSelection', async () => {
       let selection: OptionalEmojiDescription;
       const clickOffset = 10;
-      const component = await helper.setupPicker(
+      await helper.setupPicker(
         {
           onSelection: (_emojiId, emoji) => {
             selection = emoji;
@@ -543,13 +531,10 @@ describe('<EmojiPicker />', () => {
         onEvent,
       );
 
-      const list = getUpdatedList(component);
-      const hoverButton = () => list.find(Emoji).at(clickOffset);
-      await waitUntil(() => hoverButton().exists());
-      act(() => {
-        const btn = hoverButton().find({ role: 'button' }).last();
-        btn.simulate('mousedown', helper.leftClick);
-      });
+      const list = getUpdatedList();
+      const emojis = await helper.emojisVisible(list);
+      const hoverButton = emojis[clickOffset];
+      await userEvent.click(hoverButton);
 
       await waitUntil(() => !!selection);
       expect(selection).toBeDefined();
@@ -585,7 +570,7 @@ describe('<EmojiPicker />', () => {
       let failureOccurred = false;
       const emojiProvider = getEmojiResourcePromise();
       const clickOffset = 10;
-      const component = await helper.setupPicker(
+      await helper.setupPicker(
         {
           onSelection: (_emojiId, emoji) => {
             selection = emoji;
@@ -595,7 +580,7 @@ describe('<EmojiPicker />', () => {
         undefined,
         onEvent,
       );
-      const list = getUpdatedList(component);
+      const list = getUpdatedList();
 
       const provider = await emojiProvider;
       provider.recordSelection = jest.fn().mockImplementation(() => {
@@ -603,12 +588,9 @@ describe('<EmojiPicker />', () => {
         return Promise.reject({ code: 403, reason: 'Forbidden' });
       });
 
-      const hoverButton = () => list.find(Emoji).at(clickOffset);
-      await waitUntil(() => hoverButton().exists());
-      act(() => {
-        const btn = hoverButton().find({ role: 'button' }).last();
-        btn.simulate('mousedown', helper.leftClick);
-      });
+      const emojis = await helper.emojisVisible(list);
+      const hoverButton = emojis[clickOffset];
+      await userEvent.click(hoverButton);
 
       await waitUntil(() => failureOccurred);
       await waitUntil(() => !!selection);
@@ -630,19 +612,17 @@ describe('<EmojiPicker />', () => {
       let selection: OptionalEmojiDescription;
       const emojiResourcePromise = getEmojiResourcePromise();
       const clickOffset = 10;
-      const component = await helper.setupPicker({
+      await helper.setupPicker({
         onSelection: (_emojiId, emoji) => {
           selection = emoji;
         },
         emojiProvider: emojiResourcePromise,
       } as EmojiPickerProps);
-      const list = getUpdatedList(component);
-      const hoverButton = () => list.find(Emoji).at(clickOffset);
-      await waitUntil(() => hoverButton().exists());
-      act(() => {
-        const btn = hoverButton().find({ role: 'button' }).last();
-        btn.simulate('mousedown', helper.leftClick);
-      });
+      const list = getUpdatedList();
+
+      const emojis = await helper.emojisVisible(list);
+      const hoverButton = emojis[clickOffset];
+      await userEvent.click(hoverButton);
 
       await waitUntil(() => !!selection);
       const provider = await emojiResourcePromise;
@@ -659,14 +639,14 @@ describe('<EmojiPicker />', () => {
 
   describe('search', () => {
     it('searching for "al" should match emoji via description', async () => {
-      helperTestingLibrary.renderPicker();
+      await helper.setupPicker();
 
       await waitFor(() => {
         expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
         expect(helperTestingLibrary.getEmojiSearchInput()).toBeInTheDocument();
       });
 
-      helperTestingLibrary.searchEmoji('al');
+      await helperTestingLibrary.searchEmoji('al');
 
       await waitFor(() => {
         expect(
@@ -685,14 +665,14 @@ describe('<EmojiPicker />', () => {
     });
 
     it('searching for red car should match emoji via shortName', async () => {
-      helperTestingLibrary.renderPicker();
+      await helper.setupPicker();
 
       await waitFor(() => {
         expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
         expect(helperTestingLibrary.getEmojiSearchInput()).toBeInTheDocument();
       });
 
-      helperTestingLibrary.searchEmoji('red car');
+      await helperTestingLibrary.searchEmoji('red car');
 
       await waitFor(() => {
         expect(
@@ -710,14 +690,14 @@ describe('<EmojiPicker />', () => {
     });
 
     it('searching should disable categories in selector', async () => {
-      helperTestingLibrary.renderPicker();
+      await helper.setupPicker();
 
       await waitFor(() => {
         expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
         expect(helperTestingLibrary.getEmojiSearchInput()).toBeInTheDocument();
       });
 
-      helperTestingLibrary.searchEmoji('al');
+      await helperTestingLibrary.searchEmoji('al');
 
       await waitFor(() => {
         const emojis = within(
@@ -735,7 +715,7 @@ describe('<EmojiPicker />', () => {
     it('clear searching should show un-filtered emojis', async () => {
       let initialEmojisCount = 0;
 
-      helperTestingLibrary.renderPicker();
+      await helper.setupPicker();
       await waitFor(() => {
         expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
         expect(helperTestingLibrary.getEmojiSearchInput()).toBeInTheDocument();
@@ -746,7 +726,7 @@ describe('<EmojiPicker />', () => {
       });
 
       // search an un-existed emoji
-      helperTestingLibrary.searchEmoji('empty');
+      await helperTestingLibrary.searchEmoji('empty');
       await waitFor(() => {
         const emojis = within(
           helperTestingLibrary.getVirtualList(),
@@ -758,7 +738,7 @@ describe('<EmojiPicker />', () => {
       });
 
       // clear out emoji search
-      helperTestingLibrary.searchEmoji('');
+      await userEvent.clear(helperTestingLibrary.getEmojiSearchInput());
       await waitFor(() => {
         const emojis = within(
           helperTestingLibrary.getVirtualList(),
@@ -772,14 +752,14 @@ describe('<EmojiPicker />', () => {
     });
 
     it('searching should fire analytics', async () => {
-      helperTestingLibrary.renderPicker(undefined, undefined, onEvent);
+      await helper.setupPicker(undefined, undefined, onEvent);
 
       await waitFor(() => {
         expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
         expect(helperTestingLibrary.getEmojiSearchInput()).toBeInTheDocument();
       });
 
-      helperTestingLibrary.searchEmoji('al');
+      await helperTestingLibrary.searchEmoji('al');
 
       await waitFor(() => {
         const emojis = within(
@@ -801,6 +781,7 @@ describe('<EmojiPicker />', () => {
     });
 
     it('searching should fire ufo experiences', async () => {
+      jest.clearAllMocks();
       // arrange emoji provider
       fetchMock.mock({
         matcher: `begin:${provider1.url}`,
@@ -809,7 +790,7 @@ describe('<EmojiPicker />', () => {
       const resource = new EmojiResource(defaultApiConfig);
       const emojiProvider = resource.getEmojiProvider();
 
-      helperTestingLibrary.renderPicker({
+      await helper.setupPicker({
         emojiProvider,
         hideToneSelector: true,
       });
@@ -818,7 +799,7 @@ describe('<EmojiPicker />', () => {
       await waitFor(() => {
         expect(helperTestingLibrary.getEmojiSearchInput()).toBeInTheDocument();
       });
-      helperTestingLibrary.searchEmoji('grinning');
+      await helperTestingLibrary.searchEmoji('grinning');
       await waitFor(() => {
         expect(
           screen.queryByTestId('sprite-emoji-:grinning:'),
@@ -834,59 +815,53 @@ describe('<EmojiPicker />', () => {
 
   describe('skin tone selection', () => {
     it('should display the tone emoji by default', async () => {
-      const component = await helper.setupPicker();
-      const list = getUpdatedList(component);
+      await helper.setupPicker();
 
-      await waitUntil(() => helper.emojisVisible(component, list));
-      const hoverButton = list.find(Emoji).at(0);
-      act(() => {
-        const btn = hoverButton.find({ role: 'button' }).last();
-        btn.simulate('mouseenter');
+      const list = getUpdatedList();
+      const emojis = await helper.emojisVisible(list);
+
+      const hoverButton = emojis[0];
+      await userEvent.hover(hoverButton);
+
+      const emojiActions = screen.getByTestId('emoji-actions');
+      const toneEmoji = within(emojiActions).getByRole('button', {
+        name: 'Choose your skin tone, default skin tone selected',
       });
-
-      const emojiActions = component.find(EmojiActions);
-      const toneEmoji = emojiActions.find(TonePreviewButton);
-      expect(toneEmoji).toHaveLength(1);
+      expect(toneEmoji).toBeVisible();
     });
 
     it('should display emojis without skin tone variations by default', async () => {
-      const component = await helper.setupPicker();
-      const list = getUpdatedList(component);
+      await helper.setupPicker();
+      const list = getUpdatedList();
 
-      await waitUntil(() => helper.emojisVisible(component, list));
-      const emojis = helper.findEmoji(list);
+      const emojis = await helper.emojisVisible(list);
       const hoverOffset = helper.findHandEmoji(emojis);
-      expect(hoverOffset).not.toEqual(-1);
-      const handEmoji = helper.findEmoji(list).at(hoverOffset).prop('emoji');
-      expect(handEmoji.shortName).toEqual(':raised_hand:');
+      expect(hoverOffset).toBeGreaterThan(-1);
+      const handEmoji = helper.findEmoji(list)[hoverOffset];
+      expect(handEmoji).toHaveAttribute('aria-label', ':raised_hand:');
     });
 
     it('should fire tone selected and not cancelled', async () => {
       const onEvent = jest.fn();
-      const component = await helper.setupPicker(undefined, undefined, onEvent);
+      await helper.setupPicker(undefined, undefined, onEvent);
 
-      const list = getUpdatedList(component);
+      const list = getUpdatedList();
+      const emojis = await helper.emojisVisible(list);
 
-      await waitUntil(() => helper.emojisVisible(component, list));
-      const hoverButton = list.find(Emoji).at(0);
-      act(() => {
-        const btn = hoverButton.find({ role: 'button' }).last();
-        btn.simulate('mouseenter');
+      const hoverButton = emojis[0];
+      await userEvent.hover(hoverButton);
+
+      const preview = screen.getByTestId('emoji-actions');
+      const toneEmoji = within(preview).getByRole('button', {
+        name: 'Choose your skin tone, default skin tone selected',
       });
+      await within(toneEmoji).getByTestId('sprite-emoji-:raised_hand:');
 
-      const preview = component.find(EmojiActions);
-      const toneEmoji = preview.find(TonePreviewButton);
-      const toneSelectorOpener = toneEmoji.prop('onSelected');
-      expect(toneSelectorOpener).toBeDefined();
-      act(() => {
-        toneSelectorOpener!();
+      await userEvent.click(toneEmoji);
+
+      const toneSelectors = await screen.findAllByRole('radio', {
+        name: /.* skin tone/,
       });
-      const toneSelectorOpenerSelectedTone = toneEmoji.prop('emoji').shortName;
-      expect(toneSelectorOpenerSelectedTone).toBe(':raised_hand:');
-
-      await waitUntil(
-        () => component.update() && component.find(ToneSelector).length > 0,
-      );
 
       expect(onEvent).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -895,17 +870,10 @@ describe('<EmojiPicker />', () => {
         'fabric-elements',
       );
 
-      const toneSelector = component.find(ToneSelector);
-      const toneButton = toneSelector
-        .find(EmojiRadioButton)
-        .at(0)
-        .prop('onSelected');
-      expect(toneButton).toBeDefined();
-      act(() => {
-        toneButton!();
-      });
+      const toneButton = toneSelectors[0];
+      await userEvent.click(toneButton);
 
-      expect(onEvent).toHaveBeenLastCalledWith(
+      expect(onEvent).toHaveBeenCalledWith(
         expect.objectContaining({
           payload: toneSelectedEvent({ skinToneModifier: 'light' }),
         }),
@@ -915,27 +883,24 @@ describe('<EmojiPicker />', () => {
 
     it('should fire selector cancelled when no tone selected', async () => {
       const onEvent = jest.fn();
-      const component = await helper.setupPicker(undefined, undefined, onEvent);
+      await helper.setupPicker(undefined, undefined, onEvent);
 
-      const list = getUpdatedList(component);
+      const list = getUpdatedList();
+      const emojis = await helper.emojisVisible(list);
 
-      await waitUntil(() => helper.emojisVisible(component, list));
-      const hoverButton = list.find(Emoji).at(0);
-      act(() => {
-        const btn = hoverButton.find({ role: 'button' }).last();
-        btn.simulate('mouseenter');
+      const hoverButton = emojis[0];
+      await userEvent.hover(hoverButton);
+
+      const preview = screen.getByTestId('emoji-actions');
+      const toneEmoji = within(preview).getByRole('button', {
+        // TODO: skin tone preference gets carried across over tests, that's bad and causes these nasty work-arounds to make tests predictable
+        name: /Choose your skin tone, .* skin tone selected/,
       });
+      await userEvent.click(toneEmoji);
 
-      const preview = component.find(EmojiActions);
-      const toneEmoji = preview.find(TonePreviewButton);
-      const toneSelectorOpener = toneEmoji.prop('onSelected');
-      expect(toneSelectorOpener).toBeDefined();
-
-      toneSelectorOpener!();
-
-      await waitUntil(
-        () => component.update() && component.find(ToneSelector).length > 0,
-      );
+      await screen.findAllByRole('radio', {
+        name: /.* skin tone/,
+      });
 
       expect(onEvent).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -943,12 +908,8 @@ describe('<EmojiPicker />', () => {
         }),
         'fabric-elements',
       );
-      act(() => {
-        const wrapper = preview
-          .find({ 'data-testid': emojiActionsTestId })
-          .last();
-        wrapper.simulate('mouseleave');
-      });
+      fireEvent.mouseLeave(toneEmoji);
+
       expect(onEvent).toHaveBeenLastCalledWith(
         expect.objectContaining({
           payload: toneSelectorClosedEvent(),
@@ -962,27 +923,29 @@ describe('<EmojiPicker />', () => {
       const provider = await emojiProvider;
       provider.setSelectedTone(1);
 
-      const component = await helper.setupPicker({ emojiProvider });
-      const list = getUpdatedList(component);
-      await waitUntil(() => helper.emojisVisible(component, list));
-      const emojis = helper.findEmoji(list);
+      await helper.setupPicker({ emojiProvider });
+      const list = getUpdatedList();
+      const emojis = await helper.emojisVisible(list);
       const hoverOffset = helper.findHandEmoji(emojis);
-      expect(hoverOffset).not.toEqual(-1);
-      const handEmoji = helper.findEmoji(list).at(hoverOffset).prop('emoji');
-      expect(handEmoji.shortName).toEqual(':raised_hand::skin-tone-2:');
+      expect(hoverOffset).toBeGreaterThan(-1);
+      const handEmoji = helper.findEmoji(list)[hoverOffset];
+      expect(handEmoji).toHaveAttribute(
+        'aria-label',
+        ':raised_hand::skin-tone-2:',
+      );
     });
   });
 
   describe('with localStorage available', () => {
     it('should use localStorage to remember tone selection between sessions', async () => {
+      let unmount: RenderResult['unmount'];
       const findToneEmojiInNewPicker = async () => {
-        const component = await helper.setupPicker();
-        const list = getUpdatedList(component);
-        await waitUntil(() => helper.emojisVisible(component, list));
-        const emojis = helper.findEmoji(list);
+        ({ unmount } = await helper.setupPicker());
+        const list = getUpdatedList();
+        const emojis = await helper.emojisVisible(list);
         const hoverOffset = helper.findHandEmoji(emojis);
-        expect(hoverOffset).not.toEqual(-1);
-        return helper.findEmoji(list).at(hoverOffset).prop('emoji');
+        expect(hoverOffset).toBeGreaterThan(-1);
+        return helper.findEmoji(list)[hoverOffset];
       };
 
       const tone = '2';
@@ -996,18 +959,25 @@ describe('<EmojiPicker />', () => {
 
       // First picker should have tone set by default
       const handEmoji1 = await findToneEmojiInNewPicker();
-      expect(handEmoji1.shortName).toEqual(':raised_hand::skin-tone-3:');
+      expect(handEmoji1).toHaveAttribute(
+        'aria-label',
+        ':raised_hand::skin-tone-3:',
+      );
+      unmount!();
 
       // Second picker should have tone set by default
       const handEmoji2 = await findToneEmojiInNewPicker();
-      expect(handEmoji2.shortName).toEqual(':raised_hand::skin-tone-3:');
+      expect(handEmoji2).toHaveAttribute(
+        'aria-label',
+        ':raised_hand::skin-tone-3:',
+      );
     });
   });
 
   describe('with picker opened experiences', () => {
     it('should track picker opened UFO experience when picker rendered and unmounted', async () => {
-      const component = await helper.setupPicker();
-      component.unmount();
+      const { unmount } = await helper.setupPicker();
+      unmount();
       expect(ufoPickerStartSpy).toBeCalled();
       expect(ufoPickerMarkFMPSpy).toBeCalled();
       expect(ufoPickerSuccessSpy).toBeCalled();
@@ -1015,25 +985,30 @@ describe('<EmojiPicker />', () => {
     });
 
     it('should fail picker opened UFO experience when picker throw errors', async () => {
-      const component = await helper.setupPicker();
+      const fakeExplodingProvider = Promise.resolve({
+        subscribe: () => {
+          throw new Error('BOOOOOM!');
+        },
+      }) as unknown as Promise<EmojiProvider>;
 
-      act(() => {
-        component.find(EmojiPickerComponent).simulateError(new Error('test'));
-      });
+      try {
+        await helper.setupPicker({
+          emojiProvider: fakeExplodingProvider,
+        });
+      } catch (e) {
+        // There's an assertion in setupPicker we don't care about
+      }
 
       expect(ufoPickerStartSpy).toBeCalled();
-      expect(ufoPickerSuccessSpy).toBeCalled();
       expect(ufoPickerFailureSpy).toBeCalled();
     });
   });
 
   describe('Accessibility', () => {
     it('should have no accessibility violations', async () => {
-      const { container } = helperTestingLibrary.renderPicker();
-
-      await waitFor(() => {
-        expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
-      });
+      const { container } = await helper.setupPicker();
+      const list = getUpdatedList();
+      await helper.emojisVisible(list);
 
       const results = await axe(container);
 

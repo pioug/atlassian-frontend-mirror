@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/avatar",
-  "version": "21.4.2",
+  "version": "21.4.6",
   "description": "An avatar is a visual representation of a user or entity.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,13 +43,14 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
-    "@emotion/serialize": "^1.1.0"
+    "@emotion/serialize": "^1.1.0",
+    "react-uid": "^2.2.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
@@ -59,13 +60,14 @@
     "@af/visual-regression": "*",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/tooltip": "^18.0.0",
+    "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/styled": "^11.0.0",
     "@testing-library/react": "^12.1.5",
     "@types/jscodeshift": "^0.11.0",
     "color-contrast-checker": "^1.5.0",
+    "jest-in-case": "^1.0.2",
     "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
     "typescript": "~4.9.5",

@@ -1,5 +1,23 @@
 # @atlaskit/embedded-confluence
 
+## 2.14.0
+
+### Minor Changes
+
+- [#69493](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69493) [`9ee76f4d9f09`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ee76f4d9f09) - Add optional template prop to whiteboards
+
+## 2.13.0
+
+### Minor Changes
+
+- [#67688](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67688) [`81017d131d42`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/81017d131d42) - [ux] Add new error screen and new error boundaries
+
+## 2.12.1
+
+### Patch Changes
+
+- [#60934](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60934) [`df1a25165615`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df1a25165615) - Add console warning when spaceKey is all numeric
+
 ## 2.12.0
 
 ### Minor Changes

@@ -214,7 +214,7 @@ describe('smart-card: unauthorized analytics', () => {
       );
 
       const connectButton = await waitFor(
-        () => getByTestId('button-connect-account'),
+        () => getByTestId('connect-account'),
 
         { timeout: 10000 },
       );

@@ -2,6 +2,14 @@
 order: 2
 ---
 
+import SectionMessage from '@atlaskit/section-message';
+
+import buttonPrimaryDo from './images/button-primary-do.png';
+import buttonPrimaryDont from './images/button-primary-dont.png';
+import buttonDisableDo from './images/button-disable-do.png';
+import buttonDisableDont from './images/button-disable-dont.png';
+import buttonAlignmentModal from './images/button-alignment-modal.png';
+import buttonAlignmentPage from './images/button-alignment-page.png';
 import buttonConciseDo from './images/button-concise-do.png';
 import buttonConciseDont from './images/button-concise-dont.png';
 import buttonCapitalizationDo from './images/button-capitalization-do.png';
@@ -10,6 +18,16 @@ import buttonActionDo from './images/button-action-do.png';
 import buttonActionDont from './images/button-action-dont.png';
 import buttonLabelDo from './images/button-label-do.png';
 import buttonLabelDont from './images/button-label-dont.png';
+
+<SectionMessage>
+  <p>
+    New buttons are available. Try the{' '}
+    <a href="/components/button/button-new">new button</a>,{' '}
+    <a href="/components/button/icon-button">icon button</a>, and{' '}
+    <a href="/components/button/split-button">split button</a> before we roll
+    them out across Atlassian.
+  </p>
+</SectionMessage>
 
 ## Usage
 
@@ -28,12 +46,24 @@ Only include one primary button or call to action (CTA) in a page or area of UI.
 
 Primary buttons indicate the most important action in a group or area. Having multiple primary CTAs in one area can be confusing or visually overwhelming.
 
-<DoDont type="do">
+<DoDont
+  type="do"
+  image={{
+    url: buttonPrimaryDo,
+    alt: 'Two buttons in a group. One says cancel and is grey, the other says primary and is blue, making it the more promenint call to action.',
+  }}
+>
   Use one primary call to action to help people proceed.
 </DoDont>
 
-<DoDont type="dont">
-  Don't use many calls to action in one page or container.
+<DoDont
+  type="dont"
+  image={{
+    url: buttonPrimaryDont,
+    alt: 'Two buttons in a group. One says cancel and the other says primary. Both are primary blue, causing them to compete for attention.',
+  }}
+>
+  Donâ€™t use many calls to action in one page or container.
 </DoDont>
 
 ### Consider button sizes in context
@@ -60,6 +90,27 @@ In general, donâ€™t use a `<button>` in place of a link (`<a>`) or a link in pla
 Avoid using disabled buttons, especially in forms. Disabled buttons don't explain why the button isn't usable, and they aren't focusable at all for people using keyboard navigation.
 
 Instead, keep the button pressable, and use validation and errors to explain what needs to be done to proceed.
+
+<DoDont
+  type="do"
+  image={{
+    url: buttonDisableDo,
+    alt: 'A form that is incomplete. The button remains visible and pressable, and validation text explains what must be done to proceed.',
+  }}
+>
+  Use validation or other clear on-screen directions to help people proceed.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: buttonDisableDont,
+    alt: 'A form that is incomplete. The button is disabled and light grey in color, which is difficult to see. There is no explanation of what to do to proceed.',
+  }}
+>
+  Donâ€™t disable form submission buttons, as this doesn't give people clear a
+  direction for how to proceed.
+</DoDont>
 
 ### Don't put tooltips on disabled buttons
 
@@ -95,6 +146,28 @@ In general, the primary button or main CTA should match the alignment of the but
 
 Exceptions: Benefits modals and login forms currently center align buttons.
 
+<DoDont
+  type="do"
+  image={{
+    url: buttonAlignmentModal,
+    alt: 'Buttons aligned to the right in a modal dialog, with the primary action furthest right.',
+  }}
+>
+  Right-align buttons for focussed tasks, modal dialogs, and other areas with
+  less content.
+</DoDont>
+
+<DoDont
+  type="do"
+  image={{
+    url: buttonAlignmentPage,
+    alt: 'Buttons aligned to the left in a full-page layout, with the primary action furthest left.',
+  }}
+>
+  Left align buttons on full-page forms, long lists of cards, or other screens
+  with a lot of full-page content.
+</DoDont>
+
 Form patterns show more detailed [button alignment diagrams](/patterns/forms#button-positioning).
 
 ## Content guidelines
@@ -107,7 +180,7 @@ Only capitalize the first letter of the button and any proper nouns. (Most featu
   type="do"
   image={{
     url: buttonCapitalizationDo,
-    alt: 'Button that says Copy ticket',
+    alt: 'Button that says Complete sprint. Only the first letter is capitalized.',
   }}
 >
   Use sentence-case capitalization.
@@ -117,7 +190,7 @@ Only capitalize the first letter of the button and any proper nouns. (Most featu
   type="dont"
   image={{
     url: buttonCapitalizationDont,
-    alt: 'Buttons that say copy text in sentence case and all caps',
+    alt: 'Buttons that say Complete sprint text in title case and all caps.',
   }}
 >
   Use title case capitalization or all caps.
@@ -131,7 +204,7 @@ Keep labels short and free of punctuation. Drop unnecessary articles, such as â€
   type="do"
   image={{
     url: buttonConciseDo,
-    alt: 'Button that says Reset Password',
+    alt: 'Button that says Reset Password.',
   }}
 >
   Use concise, easy to scan button labels to describe the action.
@@ -141,7 +214,7 @@ Keep labels short and free of punctuation. Drop unnecessary articles, such as â€
   type="dont"
   image={{
     url: buttonConciseDont,
-    alt: 'Button that says Click here to choose a password',
+    alt: 'Button that says Send a password reset email.',
   }}
 >
   Use long, redundant button labels.

@@ -1,12 +1,14 @@
 /** @jsx jsx */
-import React, { Ref } from 'react';
+import type { Ref } from 'react';
+import React from 'react';
 import { css, jsx } from '@emotion/react';
 import { N200, N500, B400 } from '@atlaskit/theme/colors';
 import LinkIcon from '@atlaskit/icon/glyph/link';
 import Tooltip from '@atlaskit/tooltip';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import { headingAnchorLinkMessages } from '../../messages';
-import { MessageDescriptor } from '../../types/i18n';
+import type { MessageDescriptor } from '../../types/i18n';
 
 import { token } from '@atlaskit/tokens';
 
@@ -91,6 +93,7 @@ class HeadingAnchor extends React.PureComponent<
         onMouseLeave={this.resetMessage}
         onClick={this.copyToClipboard}
         aria-label={this.state.tooltipMessage}
+        type="button"
       >
         <LinkIcon
           label={this.getCopyAriaLabel()}

@@ -73,7 +73,7 @@ export const getDecorations = (
         }),
       );
 
-      if (featureFlags?.restartNumberedLists) {
+      if (node.type.name === 'orderedList') {
         // If a numbered list has item counters numbering >= 100, we'll need to add special
         // spacing to account for the extra digit chars
         const digitsSize = getItemCounterDigitsSize({
@@ -81,18 +81,10 @@ export const getDecorations = (
           order: node?.attrs?.order,
         });
 
-        if (digitsSize) {
+        if (digitsSize && digitsSize > 2) {
           decorations.push(
             Decoration.node(from, to, {
               style: getOrderedListInlineStyles(digitsSize, 'string'),
-            }),
-          );
-        }
-      } else {
-        if (node.childCount >= 100) {
-          decorations.push(
-            Decoration.node(from, to, {
-              'data-child-count': '100+',
             }),
           );
         }
@@ -122,8 +114,8 @@ const handleSelectionChanged = (
   tr: ReadonlyTransaction,
   pluginState: ListState,
 ): ListState => {
-  const { bulletList, orderedList } = tr.doc.type.schema.nodes;
-  const listParent = findParentNodeOfType([bulletList, orderedList])(
+  const { bulletList, orderedList, taskList } = tr.doc.type.schema.nodes;
+  const listParent = findParentNodeOfType([bulletList, orderedList, taskList])(
     tr.selection,
   );
 

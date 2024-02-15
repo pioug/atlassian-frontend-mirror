@@ -4,4 +4,5 @@ export type {
   DatePluginSharedState,
   DatePluginConfig,
   DateType,
+  InsertDate,
 } from './types';

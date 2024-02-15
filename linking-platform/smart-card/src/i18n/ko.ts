@@ -27,9 +27,9 @@ export default {
   'fabric.linking.connect_to': '{name}에 연결',
   'fabric.linking.connect_unauthorised_account_action': '{context}에 연결',
   'fabric.linking.connect_unauthorised_account_description':
-    '{context}을(를) Atlassian에 연결하여 작업과 공동 작업에 대해 한곳에서 더 많은 세부 정보를 확인하세요.',
+    '{context} 계정을 연결하여 Atlassian 제품 전반에서 공동 작업하세요.',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    'Atlassian에 연결하여 작업과 공동 작업에 대해 한곳에서 더 많은 세부 정보를 확인하세요.',
+    '계정을 연결하여 Atlassian 제품 전반에서 공동 작업하세요.',
   'fabric.linking.continue': '계속',
   'fabric.linking.copy_url_to_clipboard': '링크 복사',
   'fabric.linking.couldnt_load_link': '알 수 없는 이유로 인해 이 링크를 로드할 수 없습니다.',
@@ -56,6 +56,8 @@ export default {
     '이 미리 보기를 확인하려면 액세스를 요청하거나 다른 계정으로 시도해야 합니다.',
   'fabric.linking.join_to_view': '{context}에 참여하여 이 이슈 보기',
   'fabric.linking.last_mentioned_in': '마지막으로 멘션',
+  'fabric.linking.learn_more_about_connecting_account':
+    '계정을 Atlassian 제품에 연결하는 방법에 대해 자세히 알아보세요.',
   'fabric.linking.learn_more_about_smart_links': '스마트 링크에 대해 자세히 알아보세요.',
   'fabric.linking.link_safety_warning_message':
     '{unsafeLinkText} 링크를 클릭하면 다음과 같은 다른 사이트로 이동합니다: <a>actual link here</a>',

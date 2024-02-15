@@ -148,11 +148,13 @@ export type {
   NextEditorPluginMetadata,
   ExtractInjectionAPI,
   ExtractPluginActions,
-  PluginInjectionAPIWithDependency,
   PluginInjectionAPIWithDependencies,
   PublicPluginAPI,
   NextEditorPluginFunctionOptionalConfigDefinition,
   ExtractNextEditorPlugins,
+  MaybePlugin,
+  MaybePluginName,
+  PresetPlugin,
 } from './next-editor-plugin';
 
 export type { ExtractPublicEditorAPI } from './editor-public-api';
@@ -239,6 +241,7 @@ export type {
   QuickInsertSearchOptions,
   QuickInsertSharedState,
   QuickInsertHandler,
+  QuickInsertHandlerFn,
 } from './quick-insert';
 
 export type { Refs, RefsNode, DocBuilder } from './doc-builder';
@@ -247,3 +250,5 @@ export type {
   SelectionToolbarGroup,
   SelectionToolbarHandler,
 } from './selection-toolbar';
+
+export type { FeedbackInfo } from './feedback-dialog';

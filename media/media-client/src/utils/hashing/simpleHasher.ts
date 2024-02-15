@@ -1,5 +1,4 @@
 import * as Rusha from 'rusha';
-
 import { Hasher } from './hasher';
 
 export class SimpleHasher implements Hasher {
@@ -8,7 +7,6 @@ export class SimpleHasher implements Hasher {
       const reader = new FileReader();
 
       reader.readAsArrayBuffer(blob);
-
       reader.onload = () => {
         resolve(
           Rusha.createHash()
@@ -16,7 +14,6 @@ export class SimpleHasher implements Hasher {
             .digest('hex'),
         );
       };
-
       reader.onerror = reject;
     });
   }

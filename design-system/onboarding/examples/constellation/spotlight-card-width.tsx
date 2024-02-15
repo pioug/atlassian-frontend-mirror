@@ -22,8 +22,8 @@ const SpotlightCardWidth = () => {
           { text: 'Dismiss', onClick: __noop, appearance: 'subtle' },
         ]}
       >
-        Quickly switch between your most recent projects by selecting the
-        project name and icon.
+        Select the project name and icon to quickly switch between your most
+        recent projects.
       </SpotlightCard>
       <SpotlightCard
         width={400}
@@ -33,8 +33,8 @@ const SpotlightCardWidth = () => {
           { text: 'Dismiss', onClick: __noop, appearance: 'subtle' },
         ]}
       >
-        Quickly switch between your most recent projects by selecting the
-        project name and icon.
+        Select the project name and icon to quickly switch between your most
+        recent projects.
       </SpotlightCard>{' '}
       <SpotlightCard
         width={600}
@@ -44,8 +44,8 @@ const SpotlightCardWidth = () => {
           { text: 'Dismiss', onClick: __noop, appearance: 'subtle' },
         ]}
       >
-        Quickly switch between your most recent projects by selecting the
-        project name and icon.
+        Select the project name and icon to quickly switch between your most
+        recent projects.
       </SpotlightCard>
     </div>
   );

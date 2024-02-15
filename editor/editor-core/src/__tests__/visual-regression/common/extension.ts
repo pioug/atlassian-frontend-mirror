@@ -1,20 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  ToolbarMenuItem,
-  toolbarMenuItemsSelectors,
-  retryUntilStablePosition,
-} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  clickBlockMenuItem,
   BlockMenuItem,
+  clickBlockMenuItem,
 } from '@atlaskit/editor-test-helpers/page-objects/blocks';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -23,10 +10,25 @@ import {
   extensionWidthSelectors,
   waitForExtensionToolbar,
 } from '@atlaskit/editor-test-helpers/page-objects/extensions';
-import adf from './__fixtures__/extension-wide.adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  retryUntilStablePosition,
+  ToolbarMenuItem,
+  toolbarMenuItemsSelectors,
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import type { EditorProps } from '../../../types/editor-props';
+
 import defaultBodiedAdf from './__fixtures__/bodied-extension-default.adf.json';
 import extensionLayouts from './__fixtures__/extension-layouts.adf.json';
-import type { EditorProps } from '../../../types/editor-props';
+import adf from './__fixtures__/extension-wide.adf.json';
 
 describe('Extension:', () => {
   const initEditor = async (

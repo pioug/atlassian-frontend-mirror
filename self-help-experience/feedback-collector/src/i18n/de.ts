@@ -13,6 +13,7 @@ export default {
   'feedback-collector.can-be-contacted.label':
     'Ja, Atlassian-Teams dürfen mich kontaktieren, um weitere Informationen zu meinen Erfahrungen zu erhalten, damit Produkte und Services von Atlassian verbessert werden können. Ich erkläre mich mit der <a>Datenschutzrichtlinie von Atlassian</a> einverstanden.',
   'feedback-collector.cancel-button.label': 'Abbrechen',
+  'feedback-collector.default.custom.textarea.label': 'Teilen Sie uns Ihre Meinung mit.',
   'feedback-collector.enrol-in-research.label': 'Ich würde gerne an der Produktforschung teilnehmen.',
   'feedback-collector.feedback-title': 'Teilen Sie uns Ihre Meinung mit',
   'feedback-collector.form.bug.label': 'Beschreiben Sie den Bug oder den Vorgang.',
@@ -26,6 +27,7 @@ export default {
   'feedback-collector.option.default.placeholder': 'Wählen Sie eine Option aus',
   'feedback-collector.option.question.label': 'Eine Frage stellen',
   'feedback-collector.option.suggestion.label': 'Einen Verbesserungsvorschlag machen',
+  'feedback-collector.required.fields.summary': 'Pflichtfelder sind mit einem Sternchen markiert.',
   'feedback-collector.submit-button.label': 'Feedback senden',
   'feedback-collector.success-flag.description': 'Ihr Feedback hilft uns dabei, unsere Produkte ständig zu verbessern.',
   'feedback-collector.success-flag.title': 'Vielen Dank!',

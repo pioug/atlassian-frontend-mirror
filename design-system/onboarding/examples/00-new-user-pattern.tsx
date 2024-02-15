@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
+import { Box, xcss } from '@atlaskit/primitives';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
 import { token } from '@atlaskit/tokens';
 
@@ -24,15 +25,15 @@ const headingStyles = css({
 });
 
 const taglineStyles = css({
-  paddingBottom: token('space.200', '16px'),
+  paddingBlockEnd: token('space.200', '16px'),
 });
 
-const optionStyles = css({
-  padding: token('space.050', '4px'),
+const optionStyles = xcss({
+  padding: 'space.050',
 });
 
 const Option = ({ children }: { children: ReactNode }) => (
-  <div css={optionStyles}>{children}</div>
+  <Box xcss={optionStyles}>{children}</Box>
 );
 
 const NewUser = () => (
@@ -45,7 +46,11 @@ const NewUser = () => (
       <p css={taglineStyles}>
         Tell us about your team so we can personalise your project for you
       </p>
-      <SpotlightCard heading="Why are you trying Jira Software?" isFlat>
+      <SpotlightCard
+        heading="Why are you trying Jira Software?"
+        isFlat
+        headingLevel={2}
+      >
         <Option>
           <Button>Learn about Agile</Button>
         </Option>

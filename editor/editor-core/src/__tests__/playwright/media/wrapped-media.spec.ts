@@ -1,18 +1,18 @@
 import {
-  editorTestCase as test,
+  BROWSERS,
   EditorNodeContainerModel,
   expect,
   fixTest,
-  BROWSERS,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  table,
-  tr,
-  td,
   doc,
-  p,
   mediaSingle,
+  p,
+  table,
+  td,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { wrappedMediaInsideTable } from './__fixtures__/adf-documents';

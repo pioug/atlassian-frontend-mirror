@@ -1,1 +1,1 @@
-export { default as manifest } from './manifest';
+export { loremIpsumManifest } from '@atlaskit/editor-test-helpers/example-helpers';

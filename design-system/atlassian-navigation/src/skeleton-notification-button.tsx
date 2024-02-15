@@ -7,13 +7,13 @@ import { SkeletonIconButton } from './components/SkeletonIconButton';
 export type SkeletonNotificationButtonProps = {
   /**
    *  Describes the specific role of this navigation component for users viewing the page with a screen
-   *  reader. Differentiates from other navigation buttons on a page.
+   *  reader. Use this to differentiate the buttons from other navigation buttons on a page.
    */
   label: string;
 };
 
 /**
- * __Skeleton Notification button__
+ * __Skeleton notification button__
  *
  * Skeleton buttons are lightweight HTML button elements with CSS that represent
  * their heavier interactive counterparts, for use when elements of the

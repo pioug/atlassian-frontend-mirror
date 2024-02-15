@@ -3,14 +3,12 @@ import { jsx } from '@emotion/react';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { CustomTriggerProps } from '@atlaskit/dropdown-menu';
-import DropdownMenu, { DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu';
 import type { ThemeAppearance } from '@atlaskit/lozenge';
 
-import LozengeActionItem from './lozenge-action-item';
 import LozengeActionTrigger from './lozenge-action-trigger';
 import LozengeActionError from './lozenge-action-error';
 import withErrorBoundary from './error-boundary';
-import { dropdownItemGroupStyles } from './styled';
 import useInvoke from '../../../../../../state/hooks/use-invoke';
 import extractLozengeActionItems from '../../../../../../extractors/action/extract-lozenge-action-items';
 import type { LozengeActionProps, LozengeItem } from './types';
@@ -28,6 +26,7 @@ import {
   unknownUpdateErrorAnalyticsPayload,
   validationUpdateErrorAnalyticsPayload,
 } from './lozenge-action-analytics';
+import LozengeActionItemsGroup from './lozenge-action-items-group';
 
 const validateItems = (
   items: LozengeItem[] = [],
@@ -121,18 +120,11 @@ const LozengeAction: FC<LozengeActionProps> = ({
         {...props}
         appearance={selected.appearance}
         isOpen={isOpen}
-        showFeatureDiscovery={action?.showFeatureDiscovery}
         testId={testId}
         text={selected.text}
       />
     ),
-    [
-      selected.appearance,
-      selected.text,
-      isOpen,
-      action?.showFeatureDiscovery,
-      testId,
-    ],
+    [selected.appearance, selected.text, isOpen, testId],
   );
 
   const handleItemClick = useCallback(
@@ -193,21 +185,11 @@ const LozengeAction: FC<LozengeActionProps> = ({
 
     if (items && items.length > 0) {
       return (
-        <span
-          css={dropdownItemGroupStyles}
-          data-testid={`${testId}-item-group`}
-        >
-          <DropdownItemGroup>
-            {items.map((item, idx) => (
-              <LozengeActionItem
-                {...item}
-                key={idx}
-                onClick={handleItemClick}
-                testId={`${testId}-item-${idx}`}
-              />
-            ))}
-          </DropdownItemGroup>
-        </span>
+        <LozengeActionItemsGroup
+          testId={testId}
+          items={items}
+          onClick={handleItemClick}
+        />
       );
     }
   }, [errorMessage, handleItemClick, items, previewData, testId, url]);

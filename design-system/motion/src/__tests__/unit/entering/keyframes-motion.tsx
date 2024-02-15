@@ -32,6 +32,9 @@ describe('<KeyframesMotion />', () => {
   });
 
   describe('entering', () => {
+    afterEach(() => {
+      jest.useRealTimers();
+    });
     it('should fill the animation backwards to prevent a frame of the element already being entered', () => {
       const { getByTestId } = render(
         <KeyframesMotion
@@ -244,6 +247,9 @@ describe('<KeyframesMotion />', () => {
   });
 
   describe('exiting', () => {
+    afterEach(() => {
+      jest.useRealTimers();
+    });
     it('should take half the time to callback on finish', () => {
       jest.useFakeTimers();
       const callback = jest.fn();

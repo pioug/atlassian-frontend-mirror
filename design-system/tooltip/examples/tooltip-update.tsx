@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 
 import Tooltip from '../src';
 
@@ -30,7 +30,7 @@ export default () => {
           }
           {...tooltipProps}
         >
-          Click to toggle tooltip
+          Activate to toggle tooltip
         </Button>
       )}
     </Tooltip>

@@ -1,5 +1,11 @@
 # @atlaskit/outbound-auth-flow-client
 
+## 3.4.5
+
+### Patch Changes
+
+- [#66006](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66006) [`958d8680bd69`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/958d8680bd69) - Migrate @atlaskit/outbound-auth-flow-client to use declarative entry points
+
 ## 3.4.4
 
 ### Patch Changes

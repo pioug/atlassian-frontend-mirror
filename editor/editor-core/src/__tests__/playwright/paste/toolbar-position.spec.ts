@@ -1,10 +1,11 @@
 import {
   EditorFloatingToolbarModel,
   EditorPasteModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 import type { EditorPageInterface } from '@af/editor-libra';
+
 import { multiLineParagraph } from './__fixtures__/adf-document';
 
 const testText = '*Italic*, **bold**, and `monospace`';
@@ -24,7 +25,17 @@ test.describe('Paste toolbar position', () => {
         text: testText,
       });
 
-      await verifyToolbarCoords(editor);
+      const { toolbarRect, pasteContainer, expectedXDiff, expectedYDiff } =
+        await getToolbarCoords(editor);
+
+      expect(
+        (toolbarRect?.x || 0) -
+          ((pasteContainer?.x || 0) + (pasteContainer?.width || 0)),
+      ).toBeLessThan(expectedXDiff);
+      expect(
+        (toolbarRect?.y || 0) -
+          ((pasteContainer?.y || 0) + (pasteContainer?.height || 0)),
+      ).toBeLessThan(expectedYDiff);
     });
   });
 
@@ -38,17 +49,27 @@ test.describe('Paste toolbar position', () => {
     test(`toolbar should align with the pasted text in a multiline paragraph`, async ({
       editor,
     }) => {
-      await editor.selection.set({ anchor: 13, head: 13 });
+      editor.selection.set({ anchor: 13, head: 13 });
       await editor.simulatePasteEvent({
         pasteAs: 'text/plain',
         text: testText,
       });
-      await verifyToolbarCoords(editor);
+      const { toolbarRect, pasteContainer, expectedXDiff, expectedYDiff } =
+        await getToolbarCoords(editor);
+
+      expect(
+        (toolbarRect?.x || 0) -
+          ((pasteContainer?.x || 0) + (pasteContainer?.width || 0)),
+      ).toBeLessThan(expectedXDiff);
+      expect(
+        (toolbarRect?.y || 0) -
+          ((pasteContainer?.y || 0) + (pasteContainer?.height || 0)),
+      ).toBeLessThan(expectedYDiff);
     });
   });
 });
 
-const verifyToolbarCoords = async (editor: EditorPageInterface) => {
+const getToolbarCoords = async (editor: EditorPageInterface) => {
   const editorPasteModel = EditorPasteModel.from(editor);
   const floatingToolbarModel = EditorFloatingToolbarModel.from(
     editor,
@@ -61,12 +82,5 @@ const verifyToolbarCoords = async (editor: EditorPageInterface) => {
   const pasteContainer = await editor.page.locator('.code').boundingBox();
   const expectedXDiff = 10;
   const expectedYDiff = 10;
-  expect(
-    (toolbarRect?.x || 0) -
-      ((pasteContainer?.x || 0) + (pasteContainer?.width || 0)),
-  ).toBeLessThan(expectedXDiff);
-  expect(
-    (toolbarRect?.y || 0) -
-      ((pasteContainer?.y || 0) + (pasteContainer?.height || 0)),
-  ).toBeLessThan(expectedYDiff);
+  return { toolbarRect, pasteContainer, expectedXDiff, expectedYDiff };
 };

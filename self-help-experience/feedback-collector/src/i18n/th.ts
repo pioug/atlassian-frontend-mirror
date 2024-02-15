@@ -13,6 +13,7 @@ export default {
   'feedback-collector.can-be-contacted.label':
     'ใช่ ทีม Atlassian สามารถติดต่อฉันเพื่อเรียนรู้เกี่ยวกับประสบการณ์ของฉันเพื่อปรับปรุงผลิตภัณฑ์และบริการของ Atlassian ได้ ฉันรับทราบ <a>นโยบายความเป็นส่วนตัวของ Atlassian</a> แล้ว',
   'feedback-collector.cancel-button.label': 'ยกเลิก',
+  'feedback-collector.default.custom.textarea.label': 'คุณคิดอะไรอยู่',
   'feedback-collector.enrol-in-research.label': 'ฉันต้องการเข้าร่วมการวิจัยผลิตภัณฑ์',
   'feedback-collector.feedback-title': 'แบ่งปันความคิดเห็นของคุณ',
   'feedback-collector.form.bug.label': 'อธิบายข้อผิดพลาดหรือปัญหา',
@@ -26,6 +27,7 @@ export default {
   'feedback-collector.option.default.placeholder': 'เลือกหนึ่งรายการ',
   'feedback-collector.option.question.label': 'ถามคำถาม',
   'feedback-collector.option.suggestion.label': 'แนะนำการปรับปรุง',
+  'feedback-collector.required.fields.summary': 'ช่องที่จำเป็นต้องระบุจะมีเครื่องหมายดอกจัน',
   'feedback-collector.submit-button.label': 'ส่งข้อเสนอแนะ',
   'feedback-collector.success-flag.description':
     'คำติชมอันมีค่าของคุณจะช่วยให้เราปรับปรุงผลิตภัณฑ์ของเราได้อย่างต่อเนื่อง',

@@ -145,6 +145,46 @@ const isAlphaPaletteToken = (token: TransformedToken) => {
 };
 
 /**
+ * Typography tokens
+ */
+const typographyTokens = ['heading', 'body', 'ui', 'code'];
+
+const isTypographyToken = (token: TransformedToken, path: string) => {
+  return (
+    token.original.attributes?.group === 'typography' &&
+    typographyTokens.includes(path)
+  );
+};
+
+const getTypographyIndex = (token: TransformedToken, pathIndex: number) =>
+  typographyTokens.findIndex((value) => value === token.path[pathIndex]);
+
+/**
+ * T-shirt sizes (e.g. typography tokens)
+ */
+const sizeTokens = [
+  'xxlarge',
+  'xlarge',
+  'large',
+  'medium',
+  '[default]',
+  'small',
+  'xsmall',
+  'xxsmall',
+];
+
+const isTypographyGroup = (token: TransformedToken) => {
+  return token.original.attributes?.group === 'typography';
+};
+
+const isSizeToken = (token: TransformedToken, path: string) => {
+  return isTypographyGroup(token) && sizeTokens.includes(path);
+};
+
+const getSizeIndex = (token: TransformedToken, pathIndex: number) =>
+  sizeTokens.findIndex((value) => value === token.path[pathIndex]);
+
+/**
  * Sort tokens by root path name according to the predefined order of `tokenOrder`.
  *
  * @example
@@ -326,9 +366,68 @@ const sortByPathName = (a: TransformedToken, b: TransformedToken) => {
     }
 
     /**
+     * Check if it's a typography token.
+     *
+     * This ensures typography tokens are grouped together and in the
+     * predefined order in `typographyTokens`.
+     *
+     * @example
+     * 1. font.heading
+     * 2. font.body
+     * 3. font.ui
+     * 4. font.code
+     */
+    const aIsTypography = isTypographyToken(a, aPath);
+    const bIsTypography = isTypographyToken(b, bPath);
+
+    if (!aIsTypography && bIsTypography) {
+      return 1;
+    } else if (aIsTypography && !bIsTypography) {
+      return -1;
+    } else if (aIsTypography && bIsTypography) {
+      const aIndex = getTypographyIndex(a, pathIndex);
+      const bIndex = getTypographyIndex(b, pathIndex);
+
+      if (aIndex > bIndex) {
+        return 1;
+      } else if (aIndex < bIndex) {
+        return -1;
+      }
+    }
+
+    /**
+     * Check if it's a size-based token.
+     *
+     * This ensures size tokens are grouped together and in the
+     * predefined order of largest to smallest in `sizeTokens`.
+     *
+     * @example
+     * 1. font.heading.xxlarge
+     * 2. font.heading.medium
+     * 3. font.heading.xxsmall
+     */
+    const aIsSize = isSizeToken(a, aPath);
+    const bIsSize = isSizeToken(b, bPath);
+
+    if (!aIsSize && bIsSize) {
+      return 1;
+    } else if (aIsSize && !bIsSize) {
+      return -1;
+    } else if (aIsSize && bIsSize) {
+      const aIndex = getSizeIndex(a, pathIndex);
+      const bIndex = getSizeIndex(b, pathIndex);
+
+      if (aIndex > bIndex) {
+        return 1;
+      } else if (aIndex < bIndex) {
+        return -1;
+      }
+    }
+
+    /**
      * Try sorting by numerical value if that path is an integer.
      *
-     * This works well for spacing tokens.
+     * This works well for space tokens.
      * @example
      * 1. space.0
      * 2. space.150
@@ -361,11 +460,13 @@ const sortByPathName = (a: TransformedToken, b: TransformedToken) => {
      * 2. color.icon.subtle
      * 2. color.icon.accent.blue
      */
-    if (aStrippedPath.length - 1 === pathIndex) {
-      if (aStrippedPath.length > bStrippedPath.length) {
-        return 1;
-      } else if (aStrippedPath.length < bStrippedPath.length) {
-        return -1;
+    if (!isTypographyGroup(a) && !isTypographyGroup(b)) {
+      if (aStrippedPath.length - 1 === pathIndex) {
+        if (aStrippedPath.length > bStrippedPath.length) {
+          return 1;
+        } else if (aStrippedPath.length < bStrippedPath.length) {
+          return -1;
+        }
       }
     }
   }

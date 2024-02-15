@@ -19,9 +19,9 @@ const InlineEditRequiredFieldExample = () => {
       <InlineEditableTextfield
         testId="editable-text-field"
         defaultValue={editValue}
-        label="Inline editable textfield"
+        label="Description"
         onConfirm={(value) => setEditValue(value)}
-        placeholder="Click to enter text"
+        placeholder="Add a description"
         isRequired
       />
     </div>

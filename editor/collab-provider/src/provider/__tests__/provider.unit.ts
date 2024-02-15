@@ -48,29 +48,27 @@ jest.mock('../../document/catchup', () => {
 
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { createSocketIOCollabProvider } from '../../socket-io-provider';
-import * as Utilities from '../../helpers/utils';
-import * as Telepointer from '../../participants/telepointers-helper';
-import { catchup } from '../../document/catchup';
+import { Node } from '@atlaskit/editor-prosemirror/model';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
+import type { Provider } from '../';
+import { MAX_STEP_REJECTED_ERROR } from '../';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { Channel } from '../../channel';
-import { MAX_STEP_REJECTED_ERROR } from '../';
-import { throttledCommitStep } from '../commit-step';
+import { catchup } from '../../document/catchup';
 import { ACK_MAX_TRY } from '../../helpers/const';
-import { Node } from '@atlaskit/editor-prosemirror/model';
-import type { Provider } from '../';
+import * as Utilities from '../../helpers/utils';
+import * as Telepointer from '../../participants/telepointers-helper';
+import { createSocketIOCollabProvider } from '../../socket-io-provider';
+import { commitStepQueue } from '../commit-step';
 // @ts-ignore only used for mock
 import ProseMirrorCollab from '@atlaskit/prosemirror-collab';
-import type { InternalError } from '../../errors/error-types';
-import {
-  NCS_ERROR_CODE,
-  ProviderInitialisationError,
-  INTERNAL_ERROR_CODE,
-} from '../../errors/error-types';
+import { ProviderInitialisationError } from '../../errors/custom-errors';
+import type { InternalError } from '../../errors/internal-errors';
+import { INTERNAL_ERROR_CODE } from '../../errors/internal-errors';
+import { NCS_ERROR_CODE } from '../../errors/ncs-errors';
 import type { Permit } from '../../types';
 
 const testProviderConfig = {
@@ -417,7 +415,7 @@ describe('Provider', () => {
     });
 
     it('should fire analytics on document restore failure', (done) => {
-      expect.assertions(7);
+      expect.assertions(8);
       const sendActionEventSpy = jest.spyOn(
         AnalyticsHelper.prototype,
         'sendActionEvent',
@@ -425,6 +423,10 @@ describe('Provider', () => {
       const sendErrorEventSpy = jest.spyOn(
         AnalyticsHelper.prototype,
         'sendErrorEvent',
+      );
+      const sendProviderErrorEventSpy = jest.spyOn(
+        AnalyticsHelper.prototype,
+        'sendProviderErrorEvent',
       );
       const provider = createSocketIOCollabProvider(testProviderConfig);
       const restoreError: Error = {
@@ -457,7 +459,8 @@ describe('Provider', () => {
             numUnconfirmedSteps: 2,
           },
         );
-        expect(sendErrorEventSpy).toHaveBeenCalledTimes(3);
+        expect(sendErrorEventSpy).toHaveBeenCalledTimes(2);
+        expect(sendProviderErrorEventSpy).toHaveBeenCalledTimes(1);
         expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
           1,
           restoreError,
@@ -474,16 +477,12 @@ describe('Provider', () => {
           },
           'Error handled',
         );
-        expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
-          3,
-          {
-            code: 'DOCUMENT_RESTORE_ERROR',
-            message: 'Collab service unable to restore document',
-            recoverable: false,
-            status: 500,
-          },
-          'Error emitted',
-        );
+        expect(sendProviderErrorEventSpy).toHaveBeenCalledWith({
+          code: 'DOCUMENT_RESTORE_ERROR',
+          message: 'Collab service unable to restore document',
+          recoverable: false,
+          status: 500,
+        });
         done();
       });
       channel.emit('restore', mockRestoreData);
@@ -913,105 +912,6 @@ describe('Provider', () => {
       expect(throttledCatchupSpy).toHaveBeenCalledWith();
     });
 
-    it('should not be triggered when the initial draft of the provider does not contain a timestamp', async () => {
-      const testProviderConfigWithDraft = {
-        initialDraft: {
-          document: 'test-document' as any,
-          version: 1,
-          metadata: { title: 'random-title' },
-          timestamp: undefined,
-        },
-        ...testProviderConfig,
-      };
-      const provider = createSocketIOCollabProvider(
-        testProviderConfigWithDraft,
-      );
-      const throttledCatchupSpy = jest.spyOn(
-        // @ts-ignore
-        provider.documentService as any,
-        'throttledCatchup',
-      );
-      const updateDocumentSpy = jest.spyOn(
-        //@ts-ignore
-        provider.documentService as any,
-        'updateDocument',
-      );
-      provider.initialize(() => editorState);
-      channel.emit('connected', {
-        sid: 'pweq3Q7NOPY4y88QAGyr',
-        initialized: true,
-      });
-      expect(updateDocumentSpy).toHaveBeenCalledTimes(1);
-      expect(updateDocumentSpy).toHaveBeenCalledWith({
-        doc: 'test-document',
-        metadata: { title: 'random-title' },
-        version: 1,
-      });
-      expect(throttledCatchupSpy).toHaveBeenCalledTimes(0);
-    });
-    it('should be triggered when the initial draft of the provider is stale (greater than 15s)', async () => {
-      const testProviderConfigWithDraft = {
-        initialDraft: {
-          document: 'test-document' as any,
-          version: 1,
-          metadata: { title: 'random-title' },
-          timestamp: Date.now() - 16 * 1000, // 16s means draft is out of sync
-        },
-        ...testProviderConfig,
-      };
-      const provider = createSocketIOCollabProvider(
-        testProviderConfigWithDraft,
-      );
-      const throttledCatchupSpy = jest.spyOn(
-        // @ts-ignore
-        provider.documentService as any,
-        'throttledCatchup',
-      );
-      provider.initialize(() => editorState);
-      channel.emit('connected', {
-        sid: 'pweq3Q7NOPY4y88QAGyr',
-        initialized: true,
-      });
-      expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
-      expect(throttledCatchupSpy).toHaveBeenCalledWith();
-    });
-    it('should not be triggered when the initial draft of the provider is not stale (less than 15s)', async () => {
-      const testProviderConfigWithDraft = {
-        initialDraft: {
-          document: 'test-document' as any,
-          version: 1,
-          metadata: { title: 'random-title' },
-          timestamp: Date.now() - 10 * 1000,
-        },
-        ...testProviderConfig,
-      };
-      const provider = createSocketIOCollabProvider(
-        testProviderConfigWithDraft,
-      );
-      const throttledCatchupSpy = jest.spyOn(
-        // @ts-ignore
-        provider.documentService as any,
-        'throttledCatchup',
-      );
-      const updateDocumentSpy = jest.spyOn(
-        //@ts-ignore
-        provider.documentService as any,
-        'updateDocument',
-      );
-      provider.initialize(() => editorState);
-      channel.emit('connected', {
-        sid: 'pweq3Q7NOPY4y88QAGyr',
-        initialized: true,
-      });
-      expect(updateDocumentSpy).toHaveBeenCalledTimes(1);
-      expect(updateDocumentSpy).toHaveBeenCalledWith({
-        doc: 'test-document',
-        metadata: { title: 'random-title' },
-        version: 1,
-      });
-      expect(throttledCatchupSpy).toHaveBeenCalledTimes(0);
-    });
-
     it('should be triggered when confirmed steps from other participants were received from NCS that are further in the future than the local steps (aka some changes got lost before reaching us)', async () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
       const throttledCatchupSpy = jest.spyOn(
@@ -1127,7 +1027,7 @@ describe('Provider', () => {
 
   it('Does not throw errors when attempting to commit steps', () => {
     expect(() => {
-      throttledCommitStep({
+      commitStepQueue({
         // @ts-ignore
         channel: {
           broadcast: jest.fn().mockImplementation(() => {
@@ -1653,7 +1553,7 @@ describe('Provider', () => {
       const provider = createSocketIOCollabProvider({
         ...testProviderConfig,
         featureFlags: {
-          blockViewOnlyFF: true,
+          blockViewOnly: true,
         },
       });
       const setMetadataSpy = jest.spyOn(
@@ -1667,6 +1567,7 @@ describe('Provider', () => {
       provider.initialize(() => editorState);
       const permissionResponse: Permit = {
         isPermittedToView: true,
+        isPermittedToComment: true,
         isPermittedToEdit: false,
       };
       channel.emit('permission', permissionResponse);

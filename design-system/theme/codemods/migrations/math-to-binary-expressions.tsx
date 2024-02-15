@@ -1,5 +1,9 @@
-import core, { ASTPath, CallExpression } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import type {
+  ASTPath,
+  CallExpression,
+  Collection,
+  JSCodeshift,
+} from 'jscodeshift';
 
 import {
   getNamedSpecifier,
@@ -21,7 +25,7 @@ const themeMathFunctions: MathFunction[] = [
 ];
 
 export const mathToBinaryExpressions = (
-  j: core.JSCodeshift,
+  j: JSCodeshift,
   source: Collection<Node>,
 ) => {
   const hasImportFromMathEntryPoint = hasImportDeclaration(

@@ -15,7 +15,7 @@ describe('Tooltip', () => {
     jest.useFakeTimers();
   });
 
-  afterAll(() => {
+  afterEach(() => {
     jest.useRealTimers();
   });
 
@@ -1271,7 +1271,7 @@ describe('Tooltip', () => {
       });
 
       const triggerDescriptionId = trigger.getAttribute('aria-describedby');
-      const tooltipId = getByTestId('tooltip').getAttribute('id');
+      const tooltipId = getByTestId('tooltip-hidden').getAttribute('id');
 
       expect(triggerDescriptionId).toEqual(tooltipId);
       unmount();
@@ -1306,9 +1306,10 @@ describe('Tooltip', () => {
       </Tooltip>,
     );
 
-    fireEvent.mouseOver(screen.getByTestId('trigger'));
-
-    jest.runAllTimers();
+    act(() => {
+      fireEvent.mouseOver(screen.getByTestId('trigger'));
+      jest.runAllTimers();
+    });
 
     expect(() => {
       // If this throws it means the test id resolved to "{testId}--unresolved".

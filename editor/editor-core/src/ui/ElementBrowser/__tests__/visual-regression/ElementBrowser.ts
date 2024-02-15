@@ -1,4 +1,3 @@
-import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   elementBrowserSelectors,
@@ -6,10 +5,10 @@ import {
 } from '@atlaskit/editor-test-helpers/page-objects/element-browser';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 describe('ElementBrowser', () => {
-  // ED-20360
-  it.skip('should match ElementBrowser snapshot', async () => {
+  it('should match ElementBrowser snapshot', async () => {
     const url = getExampleUrl(
       'editor',
       'editor-core',

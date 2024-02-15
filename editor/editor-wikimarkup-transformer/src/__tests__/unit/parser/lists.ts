@@ -178,6 +178,13 @@ abc
 `,
     ],
     [
+      'should lift action list inside an orderedList',
+      // Adding this test till the node-nesting changes are added back
+      `# item 1
+{adf:display=block}{"type":"taskList","attrs":{"localId":"0f945022-3cd7-4243-bc48-ea5cf8d8e03f"},"content":[{"type":"taskItem","attrs":{"localId":"be22aa5c-18e2-4658-a7e0-ff60dcad4fa7","state":"TODO"},"content":[{"type":"text","text":"task 1"}]},{"type":"taskList","attrs":{"localId":"99fbd0cd-4d0a-45aa-9003-e6e61c697454"},"content":[{"type":"taskItem","attrs":{"localId":"93d93d4b-0eae-4d66-9e5e-5d4bd5bf821f","state":"TODO"},"content":[{"type":"text","text":"sub-task 1"}]}]},{"type":"taskItem","attrs":{"localId":"b1e6f046-0def-4652-9b9d-25c1617a488e","state":"TODO"},"content":[{"type":"text","text":"task 2 "}]}]}{adf}
+# item 2`,
+    ],
+    [
       'should not break {color} macro to differnt lines',
       `* {color:#205081}123{color} {color:#d04437}456{color}`,
     ],

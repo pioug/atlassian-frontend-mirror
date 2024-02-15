@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { format, parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 
@@ -250,11 +251,9 @@ describe('DatePicker', () => {
     it('should apply `lang` attribute to inner input field', () => {
       const lang = 'en-US';
 
-      const { getByText } = render(
-        <DatePicker locale={lang} value={dateValue} testId="test" />,
-      );
+      render(<DatePicker locale={lang} value={dateValue} testId="test" />);
 
-      const value = getByText(`${month}/${day}/${year}`);
+      const value = screen.getByText(`${month}/${day}/${year}`);
 
       expect(value).toHaveAttribute('lang', expect.stringContaining(lang));
     });
@@ -475,6 +474,57 @@ describe('DatePicker', () => {
     );
   });
 
+  describe('escape', () => {
+    const testId = 'escape-test';
+    const queryCalendar = () =>
+      screen.queryByTestId(new RegExp(`${testId}.*--calendar$`));
+
+    it('should close the calendar when focused on the input and the escape key is pressed', async () => {
+      const user = userEvent.setup();
+      render(<DatePicker testId={testId} />);
+
+      const selectInput = screen.getByRole('combobox');
+      expect(queryCalendar()).not.toBeInTheDocument();
+      expect(selectInput).not.toHaveFocus();
+
+      // Move focus to the select input
+      await user.keyboard('{Tab}');
+      expect(selectInput).toHaveFocus();
+      expect(queryCalendar()).toBeVisible();
+
+      await user.type(selectInput, '{Escape}');
+      expect(queryCalendar()).not.toBeInTheDocument();
+      expect(selectInput).toHaveFocus();
+    });
+
+    it('should bring focus back to input and close calendar when focused on the calendar and the escape key is pressed', async () => {
+      const user = userEvent.setup();
+      render(<DatePicker testId={testId} />);
+
+      const selectInput = screen.getByRole('combobox');
+      expect(queryCalendar()).not.toBeInTheDocument();
+      expect(selectInput).not.toHaveFocus();
+
+      // Move focus to the select input
+      await user.keyboard('{Tab}');
+      expect(selectInput).toHaveFocus();
+      expect(queryCalendar()).toBeVisible();
+
+      // Move focus to inside the calendar
+      await user.keyboard('{Tab}');
+      expect(selectInput).not.toHaveFocus();
+      // An element within the calendar's container should have focus
+      const focusedElement = document.activeElement;
+      expect(
+        focusedElement?.closest('[data-testid$="--calendar--container"]'),
+      ).toBeTruthy();
+
+      await user.type(selectInput, '{Escape}');
+      expect(queryCalendar()).not.toBeInTheDocument();
+      expect(selectInput).toHaveFocus();
+    });
+  });
+
   describe('pressing the Backspace key to empty the input should clear the value', () => {
     ffTest(
       'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
@@ -548,7 +598,6 @@ describe('DatePicker', () => {
         const dateValue = new Date('06/08/2018').toISOString();
         const onChangeSpy = jest.fn();
         const testId = 'clear--test';
-        const clearButtonTestId = `${testId}--clear--btn`;
 
         render(
           <DatePicker
@@ -558,10 +607,7 @@ describe('DatePicker', () => {
             testId={testId}
           />,
         );
-        const clearButton = screen.getByTestId(clearButtonTestId);
-        if (!clearButton) {
-          throw new Error('Expected button to be non-null');
-        }
+        const clearButton = screen.getByRole('button', { name: 'clear' });
 
         fireEvent.mouseOver(clearButton);
         fireEvent.mouseMove(clearButton);
@@ -582,7 +628,6 @@ describe('DatePicker', () => {
         const dateValue = new Date('06/08/2018').toISOString();
         const onChangeSpy = jest.fn();
         const testId = 'clear--test';
-        const clearBtnTestId = `${testId}--clear--btn`;
 
         render(
           <DatePicker
@@ -594,10 +639,7 @@ describe('DatePicker', () => {
           />,
         );
 
-        const clearButton = screen.getByTestId(clearBtnTestId);
-        if (!clearButton) {
-          throw new Error('Expected button to be non-null');
-        }
+        const clearButton = screen.getByRole('button', { name: 'clear' });
 
         fireEvent.mouseOver(clearButton);
         fireEvent.mouseMove(clearButton);
@@ -605,7 +647,7 @@ describe('DatePicker', () => {
 
         expect(onChangeSpy).toBeCalledWith('');
         expect(
-          screen.queryByTestId(`${testId}--popper--container`),
+          screen.getByTestId(`${testId}--popper--container`),
         ).toBeInTheDocument();
       },
     );
@@ -624,9 +666,9 @@ describe('DatePicker', () => {
         ];
 
         allImplementations.forEach((jsx) => {
-          const { getByTestId, unmount } = render(jsx);
+          const { unmount } = render(jsx);
 
-          const hiddenInput = getByTestId(`${testId}--input`);
+          const hiddenInput = screen.getByTestId(`${testId}--input`);
 
           expect(hiddenInput).toHaveAttribute('type', 'hidden');
           expect(hiddenInput).not.toHaveAttribute('id');

@@ -32,7 +32,7 @@ describe('<ShrinkOut />', () => {
       </ExitingPersistence>,
     );
 
-    expect(getByTestId('target').getAttribute('style')).toEqual(null);
+    expect(getByTestId('target')).not.toHaveAttribute('style');
   });
 
   it('should fix exiting elements size ready for the next frame', () => {
@@ -52,8 +52,8 @@ describe('<ShrinkOut />', () => {
 
     rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-    expect(getByTestId('target').style.height).toEqual('25px');
-    expect(getByTestId('target').style.width).toEqual('100px');
+    expect(getByTestId('target')).toHaveStyle({ height: '25px' });
+    expect(getByTestId('target')).toHaveStyle({ width: '100px' });
   });
 
   it('should apply border box when exiting to prevent sizing changing', () => {
@@ -73,7 +73,7 @@ describe('<ShrinkOut />', () => {
 
     rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-    expect(getByTestId('target').style.boxSizing).toEqual('border-box');
+    expect(getByTestId('target')).toHaveStyle({ boxSizing: 'border-box' });
   });
 
   it('should mark width and margin as styles that will change when exiting', () => {
@@ -93,7 +93,7 @@ describe('<ShrinkOut />', () => {
 
     rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-    expect(getByTestId('target').style.willChange).toEqual('width,margin');
+    expect(getByTestId('target')).toHaveStyle({ willChange: 'width,margin' });
   });
 
   it('should transition down to take no horizontal space after two frames', () => {
@@ -115,11 +115,11 @@ describe('<ShrinkOut />', () => {
     raf.step();
     raf.step();
 
-    expect(getByTestId('target').style.transitionProperty).toEqual(
-      'width,margin',
-    );
-    expect(getByTestId('target').style.width).toEqual('0px');
-    expect(getByTestId('target').style.margin).toEqual('0px');
+    expect(getByTestId('target')).toHaveStyle({
+      transitionProperty: 'width,margin',
+    });
+    expect(getByTestId('target')).toHaveStyle({ width: '0px' });
+    expect(getByTestId('target')).toHaveStyle({ margin: '0px' });
   });
 
   it('should take small duration to complete exiting', () => {
@@ -141,9 +141,9 @@ describe('<ShrinkOut />', () => {
     raf.step();
     raf.step();
 
-    expect(getByTestId('target').style.transitionDuration).toEqual(
-      `${smallDurationMs}ms`,
-    );
+    expect(getByTestId('target')).toHaveStyle({
+      transitionDuration: `${smallDurationMs}ms`,
+    });
   });
 
   it('should ease in to exiting', () => {
@@ -195,6 +195,7 @@ describe('<ShrinkOut />', () => {
     });
 
     expect(callback).toHaveBeenCalledWith('exiting');
+    jest.useRealTimers();
   });
 
   it('should be removed from the DOM when finished exiting', () => {
@@ -222,5 +223,6 @@ describe('<ShrinkOut />', () => {
     });
 
     expect(baseElement.querySelector('[data-testid="target"]')).toEqual(null);
+    jest.useRealTimers();
   });
 });

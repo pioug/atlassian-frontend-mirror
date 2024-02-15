@@ -12,7 +12,13 @@ const analyticsAttributes = {
   packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
-jest.useFakeTimers();
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.useRealTimers();
+});
 
 function assert(eventMock: jest.Mock<any, any>, expected: UIAnalyticsEvent) {
   expect(eventMock).toHaveBeenCalledTimes(1);

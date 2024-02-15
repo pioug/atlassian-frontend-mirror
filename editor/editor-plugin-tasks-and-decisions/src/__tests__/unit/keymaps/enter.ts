@@ -1,27 +1,34 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { uuid } from '@atlaskit/adf-schema';
 import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { listPlugin } from '@atlaskit/editor-plugin-list';
+import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  createProsemirrorEditorFactory,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   emoji,
+  li,
+  ol,
   p,
   taskItem,
   taskList,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm, {
   testKeymap,
 } from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { grinEmoji } from '@atlaskit/util-data-test/emoji-samples';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { isEmptyTaskDecision } from '../../../pm-plugins/helpers';
 
@@ -393,5 +400,282 @@ describe('tasks and decisions - keymaps', () => {
         );
       });
     });
+  });
+});
+
+describe('tasks nested inside lists', () => {
+  beforeEach(() => {
+    uuid.setStatic('local-uuid');
+  });
+
+  afterEach(() => {
+    uuid.setStatic(false);
+  });
+
+  const createEditor = createProsemirrorEditorFactory();
+  const editor = (doc: DocBuilder) => {
+    const preset = new Preset<LightEditorPlugin>()
+      .add(tasksAndDecisionsPlugin)
+      .add(listPlugin);
+
+    return createEditor({
+      doc,
+      preset,
+    });
+  };
+
+  const listProps = { localId: 'local-uuid' };
+  const itemProps = { localId: 'local-uuid', state: 'TODO' };
+
+  describe('Enter action for complete conversion of taskList to listItem in case of single empty taskList', () => {
+    ffTest(
+      'platform.editor.allow-action-in-list',
+      () => {
+        const docToTest = doc(
+          ol()(
+            li(
+              p(),
+              taskList(listProps)(
+                taskItem(itemProps)(`{<>}`),
+                taskList(listProps)(taskItem(itemProps)('nested')),
+              ),
+            ),
+          ),
+          p('paragraph'),
+        );
+
+        const expectedDoc = doc(
+          ol()(
+            li(p()),
+            li(p('{<>}'), taskList(listProps)(taskItem(itemProps)('nested'))),
+          ),
+          p('paragraph'),
+        );
+
+        const { editorView } = editor(docToTest);
+        sendKeyToPm(editorView, 'Enter');
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+      },
+      () => {
+        try {
+          editor(
+            doc(
+              ol()(
+                li(
+                  p(),
+                  taskList(listProps)(
+                    taskItem(itemProps)(`{<>}`),
+                    taskList(listProps)(taskItem(itemProps)('nested')),
+                  ),
+                ),
+              ),
+              p('paragraph'),
+            ),
+          );
+        } catch (error) {
+          //Without feature flag it wouldn't be allowed to create a doc with a task list inside a numbered list.
+          //Hence would throw an error.
+          expect(!!error).toBeTruthy();
+        }
+      },
+    );
+  });
+
+  describe('Enter action for conversion of taskItem to listItem', () => {
+    ffTest(
+      'platform.editor.allow-action-in-list',
+      () => {
+        const docToTest = doc(
+          ol()(
+            li(
+              p('text in paragraph'),
+              taskList(listProps)(
+                taskItem(itemProps)(`{<>}`),
+                taskItem(itemProps)('nested'),
+              ),
+            ),
+          ),
+          p('paragraph'),
+        );
+
+        const expectedDoc = doc(
+          ol()(
+            li(p('text in paragraph')),
+            li(p('{<>}'), taskList(listProps)(taskItem(itemProps)('nested'))),
+          ),
+          p('paragraph'),
+        );
+
+        const { editorView } = editor(docToTest);
+        sendKeyToPm(editorView, 'Enter');
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+      },
+      () => {
+        try {
+          editor(
+            doc(
+              ol()(
+                li(
+                  p('text in paragraph'),
+                  taskList(listProps)(
+                    taskItem(itemProps)(`{<>}`),
+                    taskItem(itemProps)('nested'),
+                  ),
+                ),
+              ),
+              p('paragraph'),
+            ),
+          );
+        } catch (error) {
+          //Without feature flag it wouldn't be allowed to create a doc with a task list inside a numbered list.
+          //Hence would throw an error.
+          expect(!!error).toBeTruthy();
+        }
+      },
+    );
+  });
+
+  describe('Enter action for conversion of taskItem to listItem and splitting of list in two listItems', () => {
+    ffTest(
+      'platform.editor.allow-action-in-list',
+      () => {
+        const docToTest = doc(
+          ol()(
+            li(
+              p('list item 1'),
+              taskList(listProps)(
+                taskItem(itemProps)(`task 1`),
+                taskItem(itemProps)('{<>}'),
+                taskItem(itemProps)('task 3'),
+                taskItem(itemProps)('task 4'),
+              ),
+            ),
+            li(p('list item 2')),
+          ),
+          p('paragraph'),
+        );
+
+        const expectedDoc = doc(
+          ol()(
+            li(
+              p('list item 1'),
+              taskList(listProps)(taskItem(itemProps)(`task 1`)),
+            ),
+            li(
+              p('{<>}'),
+              taskList(listProps)(
+                taskItem(itemProps)('task 3'),
+                taskItem(itemProps)('task 4'),
+              ),
+            ),
+            li(p('list item 2')),
+          ),
+          p('paragraph'),
+        );
+
+        const { editorView } = editor(docToTest);
+        sendKeyToPm(editorView, 'Enter');
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+      },
+      () => {
+        try {
+          editor(
+            doc(
+              ol()(
+                li(
+                  p('list item 1'),
+                  taskList(listProps)(
+                    taskItem(itemProps)(`task 1`),
+                    taskItem(itemProps)('{<>}'),
+                    taskItem(itemProps)('task 3'),
+                    taskItem(itemProps)('task 4'),
+                  ),
+                ),
+                li(p('list item 2')),
+              ),
+              p('paragraph'),
+            ),
+          );
+        } catch (error) {
+          //Without feature flag it wouldn't be allowed to create a doc with a task list inside a numbered list.
+          //Hence would throw an error.
+          expect(!!error).toBeTruthy();
+        }
+      },
+    );
+  });
+
+  describe('Enter action for conversion of taskItem to listItem and splitting of list in two listItems with nested taskItems lifted up', () => {
+    ffTest(
+      'platform.editor.allow-action-in-list',
+      () => {
+        const docToTest = doc(
+          ol()(
+            li(
+              p('list item 1'),
+              taskList(listProps)(
+                taskItem(itemProps)(`task 1`),
+                taskItem(itemProps)('{<>}'),
+                taskList(listProps)(
+                  taskItem(itemProps)('nested inside task 2'),
+                ),
+                taskItem(itemProps)('task 3'),
+              ),
+            ),
+            li(p('list item 2')),
+          ),
+          p('paragraph'),
+        );
+
+        const expectedDoc = doc(
+          ol()(
+            li(
+              p('list item 1'),
+              taskList(listProps)(taskItem(itemProps)(`task 1`)),
+            ),
+            li(
+              p('{<>}'),
+              taskList(listProps)(
+                taskItem(itemProps)('nested inside task 2'),
+                taskItem(itemProps)('task 3'),
+              ),
+            ),
+            li(p('list item 2')),
+          ),
+          p('paragraph'),
+        );
+
+        const { editorView } = editor(docToTest);
+        sendKeyToPm(editorView, 'Enter');
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+      },
+      () => {
+        try {
+          editor(
+            doc(
+              ol()(
+                li(
+                  p('list item 1'),
+                  taskList(listProps)(
+                    taskItem(itemProps)(`task 1`),
+                    taskItem(itemProps)('{<>}'),
+                    taskList(listProps)(
+                      taskItem(itemProps)('nested inside task 2'),
+                    ),
+                    taskItem(itemProps)('task 3'),
+                  ),
+                ),
+                li(p('list item 2')),
+              ),
+              p('paragraph'),
+            ),
+          );
+        } catch (error) {
+          //Without feature flag it wouldn't be allowed to create a doc with a task list inside a numbered list.
+          //Hence would throw an error.
+          expect(!!error).toBeTruthy();
+        }
+      },
+    );
   });
 });

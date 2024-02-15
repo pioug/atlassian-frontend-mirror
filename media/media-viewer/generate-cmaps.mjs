@@ -12,7 +12,7 @@ const promises = fs.readdirSync(dirname).filter(name => name.includes('bcmap')).
 
   const encodedstring = Buffer.from(contents).toString('base64');
   const filename = file.slice(0, -9)
-  const output = `export const value: string = "data:application/x-gzip-compressed;base64,${encodedstring}";\n`;
+  const output = `export const value: string = "${encodedstring}";\n`;
   fs.writeFile(`cmaps/${filename}.ts`, output)
   return filename;
 });

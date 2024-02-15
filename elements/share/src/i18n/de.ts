@@ -20,6 +20,7 @@ export default {
   'fabric.elements.share.form.no-permissions': 'Sie können keine Elemente teilen.',
   'fabric.elements.share.form.public.send': 'Öffentlichen Link senden',
   'fabric.elements.share.form.public.share': 'Öffentlichen Link teilen',
+  'fabric.elements.share.form.required-field.summary': 'Pflichtfelder sind mit einem Sternchen markiert.',
   'fabric.elements.share.form.retry': 'Erneut versuchen',
   'fabric.elements.share.form.send': 'Senden',
   'fabric.elements.share.form.share': 'Teilen',

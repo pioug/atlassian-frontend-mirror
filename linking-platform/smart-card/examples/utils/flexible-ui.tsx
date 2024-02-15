@@ -139,8 +139,7 @@ export const exampleTokens = {
 
 export const blockOverrideCss = css`
   background-color: ${exampleTokens.overrideColor};
-  border-radius: 0.5rem;
-  padding: 1rem;
+  padding: ${token('space.200', '1rem')};
 `;
 
 export const metadataElements = Object.values(ElementName).filter(

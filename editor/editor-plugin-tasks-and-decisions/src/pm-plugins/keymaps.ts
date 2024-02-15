@@ -42,14 +42,20 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import {
   findParentNodeOfType,
   findParentNodeOfTypeClosestToPos,
+  hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 
 import { insertTaskDecisionWithAnalytics } from '../commands';
-import type { TaskDecisionListType, TasksAndDecisionsPlugin } from '../types';
+import type {
+  GetContextIdentifier,
+  TaskDecisionListType,
+  TasksAndDecisionsPlugin,
+} from '../types';
 import { normalizeTaskItemsSelection } from '../utils';
 
 import { joinAtCut, liftSelection, wrapSelectionInTaskList } from './commands';
 import {
+  findFirstParentListNode,
   getBlockRange,
   getCurrentIndentLevel,
   getTaskItemIndex,
@@ -345,6 +351,53 @@ const deleteForwards = autoJoin(
   ['taskList', 'decisionList'],
 );
 
+const deleteExtraListItem = (tr: Transaction, $from: ResolvedPos) => {
+  /*
+    After we replace actionItem with empty list item if there's the anomaly of extra empty list item
+    the cursor moves inside the first taskItem of splitted taskList
+    so the extra list item present above the list item containing taskList & cursor
+  */
+
+  const $currentFrom = tr.selection.$from;
+  const listItemContainingActionList = tr.doc.resolve(
+    $currentFrom.start($currentFrom.depth - 2),
+  );
+  const emptyListItem = tr.doc.resolve(
+    listItemContainingActionList.before() - 1,
+  );
+
+  tr.delete(emptyListItem.start(), listItemContainingActionList.pos);
+};
+
+const processNestedActionItem = (
+  tr: Transaction,
+  $from: ResolvedPos,
+  previousListItemPos: number,
+) => {
+  const parentListNode = findFirstParentListNode($from);
+  const previousChildCountOfList = parentListNode?.node.childCount;
+  const currentParentListNode = findFirstParentListNode(
+    tr.doc.resolve(tr.mapping.map($from.pos)),
+  );
+  const currentChildCountOfList = currentParentListNode?.node.childCount;
+
+  /*
+    While replacing range with empty list item an extra list item gets created in some of the scenarios
+    After splitting only one extra listItem should be created else an extra listItem is created
+  */
+  if (
+    previousChildCountOfList &&
+    currentChildCountOfList &&
+    previousChildCountOfList + 1 !== currentChildCountOfList
+  ) {
+    deleteExtraListItem(tr, $from);
+  }
+
+  // Set custom selection for nested action inside lists using previosuly calculated previousListItem position
+  const stableResolvedPos = tr.doc.resolve(previousListItemPos);
+  tr.setSelection(TextSelection.create(tr.doc, stableResolvedPos.after() + 2));
+};
+
 const splitListItemWith = (
   tr: Transaction,
   content: Fragment | Node | Node[],
@@ -358,8 +411,14 @@ const splitListItemWith = (
   const container = $from.node($from.depth - 2);
   const posInList = $from.index($from.depth - 1);
   const shouldSplit = !(!isActionOrDecisionList(container) && posInList === 0);
+  const frag = Fragment.from(content);
+  const isNestedActionInsideLists =
+    frag.childCount === 1 && frag.firstChild?.type.name === 'listItem';
 
-  if (shouldSplit) {
+  /* We don't split the list item if it's nested inside lists
+    to have consistent behaviour and their resolution.
+  */
+  if (shouldSplit && !isNestedActionInsideLists) {
     // this only splits a node to delete it, so we probably don't need a random uuid
     // but generate one anyway for correctness
     tr = tr.split($from.pos, 1, [
@@ -369,9 +428,19 @@ const splitListItemWith = (
       },
     ]);
   }
+  /*
+    In case of nested action inside lists we explicitly set the cursor
+    We need to insert it relatively to previous doc structure
+    So we calculate the position of previous list item and save that position
+    (The cursor can be placed easily next to list item)
+  */
+  const previousListItemPos = isNestedActionInsideLists
+    ? $from.start($from.depth - 2)
+    : 0;
+
   // and delete the action at the current pos
   // we can do this because we know either first new child will be taskItem or nothing at all
-  const frag = Fragment.from(content);
+
   tr = tr.replace(
     tr.mapping.map($from.start() - 2),
     tr.mapping.map($from.end() + 2),
@@ -379,15 +448,13 @@ const splitListItemWith = (
   );
 
   // put cursor inside paragraph
-  if (setSelection) {
+  if (setSelection && !isNestedActionInsideLists) {
     tr = tr.setSelection(
       new TextSelection(tr.doc.resolve($from.pos + 1 - (shouldSplit ? 0 : 2))),
     );
   }
-
   // lift list up if the node after the initial one was a taskList
   // which means it would have empty placeholder content if we just immediately delete it
-  //
   // if it's a taskItem then it can stand alone, so it's fine
   const $oldAfter = origDoc.resolve($from.after());
 
@@ -413,7 +480,18 @@ const splitListItemWith = (
     }
   }
 
+  if (isNestedActionInsideLists) {
+    processNestedActionItem(tr, $from, previousListItemPos);
+  }
+
   return tr;
+};
+
+const creatParentListItemFragement = (state: EditorState) => {
+  return state.schema.nodes.listItem.create(
+    {},
+    state.schema.nodes.paragraph.create(),
+  );
 };
 
 const splitListItem = (
@@ -429,9 +507,23 @@ const splitListItem = (
       nodes: { paragraph },
     },
   } = state;
+  const { listItem } = state.schema.nodes;
 
   if (actionDecisionFollowsOrNothing($from)) {
     if (dispatch) {
+      if (hasParentNodeOfType(listItem)(tr.selection)) {
+        // if we're inside a list item, then we pass in a fragment containing a new list item not a paragraph
+        dispatch(
+          splitListItemWith(
+            tr,
+            creatParentListItemFragement(state),
+            $from,
+            true,
+          ),
+        );
+        return true;
+      }
+
       dispatch(splitListItemWith(tr, paragraph.createChecked(), $from, true));
     }
     return true;
@@ -440,7 +532,10 @@ const splitListItem = (
   return false;
 };
 
-const enter = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+const enter = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+  getContextIdentifier: GetContextIdentifier,
+) =>
   filter(
     isInsideTaskOrDecisionItem,
     chainCommands(
@@ -478,12 +573,10 @@ const enter = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
           ]);
         };
 
-        const insertTr = insertTaskDecisionWithAnalytics(editorAnalyticsAPI)(
-          state,
-          listType,
-          INPUT_METHOD.KEYBOARD,
-          addItem,
-        );
+        const insertTr = insertTaskDecisionWithAnalytics(
+          editorAnalyticsAPI,
+          getContextIdentifier,
+        )(state, listType, INPUT_METHOD.KEYBOARD, addItem);
 
         if (insertTr && dispatch) {
           insertTr.scrollIntoView();
@@ -526,6 +619,9 @@ export function keymapPlugin(
   allowNestedTasks?: boolean,
   consumeTabs?: boolean,
 ): SafePlugin | undefined {
+  const getContextIdentifier = () =>
+    api?.contextIdentifier?.sharedState.currentState()
+      ?.contextIdentifierProvider;
   const indentHandlers = {
     'Shift-Tab': filter(
       [isInsideTaskOrDecisionItem, state => !shouldLetTabThroughInTable(state)],
@@ -557,7 +653,7 @@ export function keymapPlugin(
     Delete: deleteForwards,
     'Ctrl-d': deleteForwards,
 
-    Enter: enter(api?.analytics?.actions),
+    Enter: enter(api?.analytics?.actions, getContextIdentifier),
     [toggleTaskItemCheckbox.common!]: cmdOptEnter,
 
     ...(allowNestedTasks ? indentHandlers : defaultHandlers),

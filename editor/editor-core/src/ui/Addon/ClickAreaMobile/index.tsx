@@ -1,7 +1,10 @@
 /** @jsx jsx */
 import React from 'react';
+
 import { css, jsx } from '@emotion/react';
+
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
 import { clickAreaClickHandler } from '../click-area-helper';
 
 /**

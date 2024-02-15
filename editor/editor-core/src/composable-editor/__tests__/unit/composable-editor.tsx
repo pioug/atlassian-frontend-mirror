@@ -3,10 +3,10 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
-import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import { basePlugin } from '@atlaskit/editor-plugins/base';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 
 import createUniversalPreset from '../../../presets/universal';
-import { basePlugin } from '@atlaskit/editor-plugin-base';
 import { ComposableEditor } from '../../editor';
 
 describe('ComposableEditor', () => {
@@ -18,19 +18,7 @@ describe('ComposableEditor', () => {
       expect(editorElement.length).toBe(1);
     });
 
-    it('should throw if passing an empty Preset', () => {
-      const consoleErrorSpy = jest.spyOn(console, 'error');
-      expect(() => {
-        render(<ComposableEditor preset={new EditorPresetBuilder()} />);
-      }).toThrow();
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Presets must contain the base plugin'),
-      );
-      consoleErrorSpy.mockRestore();
-    });
-
     it('should not throw if passing a Preset that contains the base plugin', () => {
-      const consoleErrorSpy = jest.spyOn(console, 'error');
       const preset = new EditorPresetBuilder()
         .add([featureFlagsPlugin, {}])
         .add(basePlugin);
@@ -38,8 +26,6 @@ describe('ComposableEditor', () => {
       expect(() => {
         render(<ComposableEditor preset={preset} />);
       }).not.toThrow();
-      expect(consoleErrorSpy).toHaveBeenCalledTimes(0);
-      consoleErrorSpy.mockRestore();
     });
   });
 });

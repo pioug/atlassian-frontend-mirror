@@ -1,9 +1,11 @@
-import { format, UrlObject } from 'url';
-import * as RISON from 'rison';
+import type { UrlObject } from 'url';
+import { format } from 'url';
+
 import {
   compressToEncodedURIComponent,
   decompressFromEncodedURIComponent,
 } from 'lz-string';
+import * as RISON from 'rison';
 
 export function encode(input: string): string {
   return compressToEncodedURIComponent(RISON.encode(input));

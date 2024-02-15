@@ -13,7 +13,7 @@ export const shortcutStyle = css`
   )}; /* N60 at 50% */
   color: ${token('color.text.subtle', N100)};
   border-radius: ${borderRadius()}px;
-  padding: 4px;
+  padding: ${token('space.050', '4px')};
   line-height: 12px;
   font-size: ${relativeFontSizeToBase16(11.67)};
   align-self: flex-end;

@@ -1,14 +1,18 @@
 /** @jsx jsx */
 import React, { useMemo } from 'react';
+
 import { css, jsx } from '@emotion/react';
-import { WidthObserver } from '@atlaskit/width-detector';
+
 import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
-import { useElementWidth } from './hooks';
-import { ToolbarWithSizeDetectorProps } from './toolbar-types';
-import { widthToToolbarSize, toolbarSizeToWidth } from './toolbar-size';
-import { Toolbar } from './Toolbar';
-import { ToolbarSize } from './types';
+import { WidthObserver } from '@atlaskit/width-detector';
+
 import { isFullPage } from '../../utils/is-full-page';
+
+import { useElementWidth } from './hooks';
+import { Toolbar } from './Toolbar';
+import { toolbarSizeToWidth, widthToToolbarSize } from './toolbar-size';
+import type { ToolbarWithSizeDetectorProps } from './toolbar-types';
+import { ToolbarSize } from './types';
 
 const toolbar = css`
   width: 100%;

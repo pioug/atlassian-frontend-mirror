@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { flushSync } from 'react-dom';
+
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { MediaClientConfig } from '@atlaskit/media-core';
@@ -22,7 +24,7 @@ export interface ChildrenProps {
 export type Props = {
   mediaState: MediaPluginState;
   analyticsName: string;
-  children: (props: ChildrenProps) => React.ReactNode;
+  children: (props: ChildrenProps) => React.ReactElement | null;
 };
 
 type State = {
@@ -39,7 +41,7 @@ const dummyMediaPickerObject: CustomMediaPicker = {
   setUploadParams: () => {},
 };
 
-// eslint-disable-next-line @repo/internal/react/no-class-components
+//eslint-disable-next-line @repo/internal/react/no-class-components
 export default class PickerFacadeProvider extends React.Component<
   Props,
   State
@@ -99,11 +101,13 @@ export default class PickerFacadeProvider extends React.Component<
       uploadParams: mediaProvider.uploadParams,
     };
 
-    this.setState({
-      pickerFacadeInstance,
-      config,
-      mediaClientConfig: resolvedMediaClientConfig,
-    });
+    flushSync(() =>
+      this.setState({
+        pickerFacadeInstance,
+        config,
+        mediaClientConfig: resolvedMediaClientConfig,
+      }),
+    );
   };
 
   componentDidMount() {

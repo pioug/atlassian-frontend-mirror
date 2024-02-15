@@ -7,7 +7,7 @@ import { SkeletonIconButton } from './components/SkeletonIconButton';
 export type SkeletonSettingsButtonProps = {
   /**
    *  Describes the specific role of this navigation component for users viewing the page with a screen
-   *  reader. Differentiates from other navigation buttons on a page.
+   *  reader. Use this to differentiate the buttons from other navigation buttons on a page.
    */
   label: string;
 };

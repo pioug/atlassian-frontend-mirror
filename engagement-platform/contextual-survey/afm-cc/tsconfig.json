@@ -1,0 +1,46 @@
+{
+    "extends": "../../../../tsconfig.entry-points.confluence.json",
+    "compilerOptions": {
+        "declaration": true,
+        "target": "es5",
+        "composite": true,
+        "outDir": "../dist",
+        "rootDir": "../",
+        "baseUrl": "../"
+    },
+    "include": [
+        "../src/**/*.ts",
+        "../src/**/*.tsx"
+    ],
+    "exclude": [
+        "../src/**/__tests__/*",
+        "../src/**/*.test.*",
+        "../src/**/test.*"
+    ],
+    "references": [
+        {
+            "path": "../../../design-system/button/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/checkbox/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/form/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/icon/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/textarea/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/theme/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
+        }
+    ]
+}

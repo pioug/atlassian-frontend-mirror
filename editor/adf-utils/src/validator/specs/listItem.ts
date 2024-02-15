@@ -15,6 +15,7 @@ export default {
           'mediaSingle_caption',
           'mediaSingle_full',
           'codeBlock_with_no_marks',
+          'taskList',
           'bulletList',
           'orderedList',
         ],

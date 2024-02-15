@@ -1,5 +1,13 @@
 /** @jsx jsx */
-import { ElementType, forwardRef, memo, ReactNode, Ref } from 'react';
+import {
+  type CSSProperties,
+  type ElementType,
+  forwardRef,
+  memo,
+  type ReactNode,
+  Ref,
+  useMemo,
+} from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -77,12 +85,12 @@ export type GridProps<T extends ElementType = 'div'> = {
   children: ReactNode;
 
   /**
-   * HTML id attrubute
+   * HTML id attrubute.
    */
   id?: string;
 
   /**
-   * Forwarded ref element
+   * Forwarded ref element.
    */
   ref?: React.ComponentPropsWithRef<T>['ref'];
 } & BasePrimitiveProps;
@@ -91,6 +99,10 @@ type JustifyContent = keyof typeof justifyContentMap;
 type JustifyItems = keyof typeof justifyItemsMap;
 type AlignItems = keyof typeof alignItemsMap;
 type AlignContent = keyof typeof alignContentMap;
+
+const gridTemplateAreasVar = '--ds-grid--grid-template-areas';
+const gridTemplateColumnsVar = '--ds-grid--grid-template-columns';
+const gridTemplateRowsVar = '--ds-grid--grid-template-rows';
 
 const justifyContentMap = {
   start: css({ justifyContent: 'start' }),
@@ -129,6 +141,9 @@ const alignItemsMap = {
 const baseStyles = css({
   display: 'grid',
   boxSizing: 'border-box',
+  gridTemplateAreas: `var(${gridTemplateAreasVar})`,
+  gridTemplateColumns: `var(${gridTemplateColumnsVar})`,
+  gridTemplateRows: `var(${gridTemplateRowsVar})`,
 });
 
 type AutoFlow = keyof typeof gridAutoFlowMap;
@@ -186,19 +201,26 @@ const Grid = memo(
     ) => {
       const Component = as || 'div';
       const xcssClassName = xcss && parseXcss(xcss);
-      const style =
-        gridTemplateAreas || gridTemplateColumns || gridTemplateRows
-          ? Object.assign(
-              {},
-              {
-                gridTemplateAreas: gridTemplateAreas
-                  ? gridTemplateAreas.map(str => `"${str}"`).join('\n')
-                  : undefined,
-                gridTemplateColumns,
-                gridTemplateRows,
-              },
-            )
-          : undefined;
+
+      /**
+       * We use CSS variables to allow for dynamic grid templates instead of dynamically setting to `props.style`
+       * This allows `props.xcss` to override them as `style={{ gridTemplateAreas }}` would have higher specificity.
+       *
+       * This must be reset to `initial` if `gridTemplateAreas` is not set, otherwise nested grids will break!
+       *
+       * NOTE: If we disallow `grid-template-areas` (etc) to be set via `props.xcss`, we can remove this.
+       */
+      const style: CSSProperties | undefined = useMemo(
+        () =>
+          ({
+            [gridTemplateAreasVar]: gridTemplateAreas
+              ? gridTemplateAreas.map(str => `"${str}"`).join('\n') || 'initial'
+              : 'initial',
+            [gridTemplateColumnsVar]: gridTemplateColumns || 'initial',
+            [gridTemplateRowsVar]: gridTemplateRows || 'initial',
+          } as CSSProperties),
+        [gridTemplateAreas, gridTemplateColumns, gridTemplateRows],
+      );
 
       return (
         <Component
@@ -215,7 +237,7 @@ const Grid = memo(
             justifyContent && justifyContentMap[justifyContent],
             autoFlow && gridAutoFlowMap[autoFlow],
             // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-            xcssClassName && xcssClassName,
+            xcssClassName,
           ]}
           data-testid={testId}
           ref={ref}

@@ -5,10 +5,10 @@ import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button, { IconButton } from '@atlaskit/button/new';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import { Inline } from '@atlaskit/primitives';
-import { N30, N500, R400 } from '@atlaskit/theme/colors';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -24,12 +24,12 @@ import ModalDialog, {
 const defaults = ['header', 'footer', 'both', 'neither'];
 const custom = ['custom header', 'custom body', 'custom footer'];
 
-const containerStyles = css({
-  padding: token('space.200', '16px'),
+const containerStyles = xcss({
+  padding: 'space.200',
 });
 
 const titleStyles = css({
-  marginBottom: token('space.200', '16px'),
+  marginBlockEnd: token('space.200', '16px'),
 });
 
 const headerStyles: React.CSSProperties = {
@@ -54,13 +54,12 @@ const CustomHeader = () => {
           top: token('space.050', '4px'),
         }}
       >
-        <Button onClick={onClose} appearance="link">
-          <CrossIcon
-            label="Close Modal"
-            primaryColor={token('color.icon.danger', R400)}
-            size="small"
-          />
-        </Button>
+        <IconButton
+          onClick={onClose}
+          icon={CrossIcon}
+          label="Close Modal"
+          UNSAFE_size="small"
+        />
       </span>
     </div>
   );
@@ -112,12 +111,18 @@ export default function ModalDemo() {
   );
 
   return (
-    <div css={containerStyles}>
-      <h4 css={titleStyles}>Default Header/Footer</h4>
-      <ButtonGroup>{defaults.map(btn)}</ButtonGroup>
+    <Box xcss={containerStyles}>
+      <h4 id="default-header-footer" css={titleStyles}>
+        Default Header/Footer
+      </h4>
+      <ButtonGroup titleId="default-header-footer">
+        {defaults.map(btn)}
+      </ButtonGroup>
 
-      <h4 css={titleStyles}>Custom Components</h4>
-      <ButtonGroup>{custom.map(btn)}</ButtonGroup>
+      <h4 id="custom-components" css={titleStyles}>
+        Custom Components
+      </h4>
+      <ButtonGroup titleId="custom-components">{custom.map(btn)}</ButtonGroup>
 
       <ModalTransition>
         {variant && (
@@ -135,13 +140,12 @@ export default function ModalDemo() {
             {['both', 'custom footer', 'footer'].includes(variant) && (
               <ModalHeader>
                 <ModalTitle>Modal: {variant}</ModalTitle>
-                <Button onClick={close} appearance="link">
-                  <CrossIcon
-                    label="Close Modal"
-                    primaryColor={token('color.text.subtle', N500)}
-                    size="small"
-                  />
-                </Button>
+                <IconButton
+                  onClick={close}
+                  icon={CrossIcon}
+                  label="Close Modal"
+                  UNSAFE_size="small"
+                />
               </ModalHeader>
             )}
 
@@ -167,6 +171,6 @@ export default function ModalDemo() {
           </ModalDialog>
         )}
       </ModalTransition>
-    </div>
+    </Box>
   );
 }

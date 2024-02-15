@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { RadioGroup } from '@atlaskit/radio';
 import Select, { OptionType, ValueType } from '@atlaskit/select';
@@ -146,7 +146,7 @@ const FormLayoutExample = () => {
               </Field>
             </FormSection>
             <FormFooter>
-              <ButtonGroup>
+              <ButtonGroup label="Form submit options">
                 <Button appearance="subtle" id="create-repo-cancel">
                   Cancel
                 </Button>

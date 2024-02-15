@@ -9,34 +9,31 @@ import Status from '../../Status';
 describe('Presence', () => {
   const presenceValue = 'online';
 
-  it('should have an image role', () => {
+  it('should have a presentation role', () => {
     render(<Presence presence={presenceValue} />);
 
-    expect(screen.getByRole('img')).toBeInTheDocument();
+    expect(screen.getByRole('presentation')).toBeInTheDocument();
   });
 
-  it('should have an aria-label that matches the presence value', () => {
+  it('should not have a <title> tag that matches the presence value', () => {
     render(<Presence presence={presenceValue} />);
 
-    expect(screen.getByRole('img')).toHaveAttribute(
-      'aria-label',
-      presenceValue,
-    );
+    expect(screen.queryByText(`(${presenceValue})`)).not.toBeInTheDocument();
   });
 });
 
 describe('Status', () => {
   const statusValue = 'approved';
 
-  it('should have an image role', () => {
+  it('should have a presentation role', () => {
     render(<Status status={statusValue} />);
 
-    expect(screen.getByRole('img')).toBeInTheDocument();
+    expect(screen.getByRole('presentation')).toBeInTheDocument();
   });
 
-  it('should have an aria-label that matches the status value', () => {
+  it('should not have a <title> tag that matches the status value', () => {
     render(<Status status={statusValue} />);
 
-    expect(screen.getByRole('img')).toHaveAttribute('aria-label', statusValue);
+    expect(screen.queryByText(`(${statusValue})`)).not.toBeInTheDocument();
   });
 });

@@ -1,15 +1,15 @@
 import {
-  editorTestCase as test,
-  expect,
   EditorAnnotationModel,
   EditorInlineCommentModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { annotation, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { paragraphADF, paragraphEmojiADF } from './annotation.spec.ts-fixtures';
 
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { p, doc, annotation } from '@atlaskit/editor-test-helpers/doc-builder';
-
-test.describe('annotation ', () => {
+test.describe('annotation', () => {
   test.use({
     adf: paragraphADF,
     editorProps: {
@@ -102,7 +102,7 @@ test.describe('annotation ', () => {
   });
 });
 
-test.describe('annotation ', () => {
+test.describe('annotation', () => {
   test.use({
     editorProps: {
       appearance: 'full-page',

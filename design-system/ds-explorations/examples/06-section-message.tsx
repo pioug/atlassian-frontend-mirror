@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button';
+import { LinkButton } from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
 import Heading from '@atlaskit/heading';
 import InfoIcon from '@atlaskit/icon/glyph/info';
@@ -39,20 +39,20 @@ export default () => {
               in the success of my undertaking.
             </Text>
             <Inline separator="·" space="space.075">
-              <Button
+              <LinkButton
                 appearance="link"
                 spacing="none"
                 href="https://en.wikipedia.org/wiki/Mary_Shelley"
               >
                 Mary
-              </Button>
-              <Button
+              </LinkButton>
+              <LinkButton
                 appearance="link"
                 spacing="none"
                 href="https://en.wikipedia.org/wiki/Villa_Diodati"
               >
                 Villa Diodatti
-              </Button>
+              </LinkButton>
             </Inline>
           </Stack>
         </Inline>

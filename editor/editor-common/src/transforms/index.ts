@@ -9,7 +9,10 @@ export {
   transformSliceToRemoveOpenExpand,
   transformSliceNestedExpandToExpand,
 } from './expand';
-export { transformSliceToRemoveOpenBodiedExtension } from './extension';
+export {
+  transformSliceToRemoveOpenBodiedExtension,
+  transformSliceToRemoveOpenMultiBodiedExtension,
+} from './extension';
 export {
   transformSliceToJoinAdjacentCodeBlocks,
   transformSingleLineCodeBlockToCodeMark,

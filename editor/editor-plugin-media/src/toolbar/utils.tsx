@@ -20,6 +20,7 @@ import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { getMediaClient } from '@atlaskit/media-client-react';
 
 import type { MediaPluginState } from '../pm-plugins/types';
+import { isVideo } from '../utils/media-single';
 
 export const getSelectedMediaContainerNodeAttrs = (
   mediaPluginState: MediaPluginState,
@@ -141,4 +142,16 @@ export const getSelectedLayoutIcon = (
       icon.value ===
       (nonWrappedLayouts.includes(selectedLayout) ? 'center' : selectedLayout),
   );
+};
+
+/**
+ * Check if 'original size' and 'inline' buttons can be shown in the toolbar for a given mediaSingle node.
+ * @param mediaSingleNode node to be checked
+ */
+export const canShowSwitchButtons = (mediaSingleNode?: ProseMirrorNode) => {
+  if (mediaSingleNode) {
+    const mediaNode = mediaSingleNode.content.firstChild;
+    return mediaNode && !isVideo(mediaNode.attrs.__fileMimeType);
+  }
+  return false;
 };

@@ -1,5 +1,41 @@
 # @atlaskit/page-layout
 
+## 2.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.1
+
+### Patch Changes
+
+- [#69022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69022) [`395c74147990`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/395c74147990) - Migrate packages to use declarative entry points
+
+## 2.1.0
+
+### Minor Changes
+
+- [#64842](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64842) [`664ecae2338b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/664ecae2338b) - Add PFF to reduce height of side bar grab area when collapsed in order to give the resize button more room and prevent accidental hovers causing the side bar to fly out
+
+## 2.0.2
+
+### Patch Changes
+
+- [#61821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61821) [`bd212363ecc2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bd212363ecc2) - Add role=main to main slot
+
+## 2.0.1
+
+### Patch Changes
+
+- [#58110](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58110) [`9e7a86f76af4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e7a86f76af4) - Resizing the Sidebar can now only be triggered via left-click (main button click). This prevents situations where right-clicking the resize button unexpectedly starts resizing the Sidebar.
+
+## 2.0.0
+
+### Major Changes
+
+- [#56597](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56597) [`162c25fea4d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/162c25fea4d3) - Remove `onExpand` and `onCollapse` props on `LeftSidebar` component. These props were non-functional. Use `onLeftSidebarExpand` and `onLeftSidebarCollapse` props on `PageLayout` component instead.
+
 ## 1.8.4
 
 ### Patch Changes

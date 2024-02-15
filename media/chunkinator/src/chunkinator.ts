@@ -5,14 +5,13 @@ import { fromPromise } from 'rxjs/observable/fromPromise';
 import { Observable } from 'rxjs/Observable';
 import {
   Chunkinator,
-  ProbedBlob,
   ChunkinatorFile,
   Options,
   Callbacks,
+  HashedBlob,
 } from './domain';
 import { slicenator } from './slicenator';
 import { hashinator } from './hashinator';
-import { probinator } from './probinator';
 import { uploadinator } from './uploadinator';
 import { processinator } from './processinator';
 import { fetchBlob } from './utils';
@@ -22,7 +21,7 @@ export const getObservableFromFile = (
   file: ChunkinatorFile,
   options: Options,
   callbacks: Callbacks,
-): Observable<ProbedBlob[]> =>
+): Observable<HashedBlob[]> =>
   fromPromise(fetchBlob(file)).pipe(
     concatMap((blob) => {
       const { chunkSize } = options;
@@ -33,14 +32,10 @@ export const getObservableFromFile = (
         concurrency: options.hashingConcurrency,
         hasher: options.hashingFunction,
       });
-      const probinatedBlobs = probinator(hashinatedBlobs, {
-        batchSize: options.probingBatchSize,
-        prober: options.probingFunction,
-      });
 
       let uploadedChunks = 0;
 
-      let uploadedBlobs = uploadinator(probinatedBlobs, {
+      let uploadedBlobs = uploadinator(hashinatedBlobs, {
         concurrency: options.uploadingConcurrency,
         uploader: options.uploadingFunction,
       });

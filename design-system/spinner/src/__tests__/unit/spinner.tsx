@@ -34,4 +34,17 @@ describe('<Spinner />', () => {
 
     expect(screen.getByTestId(testId)).toHaveAttribute('aria-label', label);
   });
+
+  it('should have role="img" when `label` prop is used', () => {
+    const label = 'Loading';
+    render(<Spinner label={label} testId={testId} />);
+
+    expect(screen.getByTestId(testId)).toHaveAttribute('role', 'img');
+  });
+
+  it('should have role="none" when `label` prop is not used', () => {
+    render(<Spinner testId={testId} />);
+
+    expect(screen.getByTestId(testId)).toHaveAttribute('role', 'none');
+  });
 });

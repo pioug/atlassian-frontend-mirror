@@ -40,10 +40,13 @@ function onSelectionChanged(tr: ReadonlyTransaction): MediaLinkingState {
     return initialState;
   }
 
-  const mediaPos = tr.selection.$from.pos + 1;
+  const pos = tr.selection.$from.pos;
+  const mediaPos =
+    tr.selection.node.type.name === 'mediaInline' ? pos : pos + 1;
 
   const node = tr.doc.nodeAt(mediaPos);
-  if (!node || node.type.name !== 'media') {
+
+  if (!node || !['media', 'mediaInline'].includes(node.type.name)) {
     return initialState;
   }
 

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 import React, { ReactNode, useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Flag, { FlagGroup } from '@atlaskit/flag';
 import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 import InlineDialog from '@atlaskit/inline-dialog';

@@ -7,7 +7,7 @@ export const IconObjectOverrides = `
     height: 16px;
     width: 14px;
     position: absolute;
-    top: 0;
+    top: 3px;
     left: 0;
     line-height: 14px;
     & > svg {
@@ -20,11 +20,11 @@ export const IconObjectOverrides = `
 `;
 // TODO: remove this override behaviour for @atlaskit/icon
 export const IconOverrides = `
+
   & > * > span {
     height: 16px;
     width: 14px;
     position: absolute;
-    top: 0;
     left: 0;
     & > svg {
       position: absolute;
@@ -62,23 +62,19 @@ export const EmojiWrapper = styled.span`
 export const IconTitleWrapper = styled.span`
   white-space: pre-wrap;
   word-break: break-all;
+  box-decoration-break: clone;
+  padding: ${token('space.025', '2px')} ${token('space.050', '4px')};
 `;
 
 // TODO: Replace overrides with proper AtlasKit solution.
 export const LozengeWrapper = styled.span`
   display: inline-block;
   vertical-align: 1px;
-`;
-// TODO: Replace overrides with proper AtlasKit solution.
-export const LozengeBlockWrapper = styled.span`
-  & > span {
-    margin-left: ${token('space.050', '4px')};
-  }
+  margin: 0 ${token('space.050', '4px')} 0 ${token('space.025', '2px')};
 `;
 
 export const RightIconPositionWrapper = styled.span`
   margin-left: ${token('space.025', '2px')};
-  margin-right: ${token('space.050', '4px')};
   position: relative;
   display: inline-block;
 `;

@@ -1,6 +1,5 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   parseAndTestGraphQLQueries,
   toBeValidAGGQuery,
@@ -12,14 +11,11 @@ import {
   buildGatewayQuery,
   convertTeam,
   extractIdFromAri,
-  GATEWAY_QUERY,
   GATEWAY_QUERY_V2,
   getTeamFromAGG,
   idToAri,
 } from '../getTeamFromAGG';
 import * as gqlUtils from '../graphqlUtils';
-
-jest.mock('@atlaskit/platform-feature-flags');
 
 const ARI_PREFIX = 'ari:cloud:identity::team';
 
@@ -28,11 +24,46 @@ const teamId = '1234-5678-abcd-89ef';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-describe('getTeamFromAGG', () => {
-  toBeValidAGGQuery(GATEWAY_QUERY);
-  toBeValidAGGQuery(GATEWAY_QUERY_V2);
-  parseAndTestGraphQLQueries([GATEWAY_QUERY, GATEWAY_QUERY_V2]);
+const TEAM_RESPONSE = {
+  team: {
+    largeAvatarImageUrl: 'https://example.com/picture',
+    id: `${ARI_PREFIX}/${teamId}`,
+    displayName: 'Cool team!',
+    description: '',
+    organizationId: 'abc',
+    members: {
+      nodes: [
+        {
+          member: {
+            accountId: '1',
+            name: 'Test user A',
+            picture: 'https://example.com/picture/1',
+          },
+        },
+        {
+          member: {
+            accountId: '2',
+            name: 'Test user B',
+            picture: 'https://example.com/picture/2',
+          },
+        },
+        {
+          member: {
+            accountId: '3',
+            name: 'Test user C',
+            picture: 'https://example.com/picture/3',
+          },
+        },
+      ],
+    },
+  },
+};
 
+describe('getTeamFromAGG', () => {
+  describe('valid query', () => {
+    toBeValidAGGQuery(GATEWAY_QUERY_V2);
+    parseAndTestGraphQLQueries([GATEWAY_QUERY_V2]);
+  });
   describe('extractIdFromAri', () => {
     it('should get id from ari correctly', () => {
       const ari = `${ARI_PREFIX}/${teamId}`;
@@ -54,41 +85,6 @@ describe('getTeamFromAGG', () => {
       expect(idToAri(teamId)).toEqual(`${ARI_PREFIX}/${teamId}`);
     });
   });
-
-  const TEAM_RESPONSE = {
-    team: {
-      largeAvatarImageUrl: 'https://example.com/picture',
-      id: `${ARI_PREFIX}/${teamId}`,
-      displayName: 'Cool team!',
-      description: '',
-      organizationId: 'abc',
-      members: {
-        nodes: [
-          {
-            member: {
-              accountId: '1',
-              name: 'Test user A',
-              picture: 'https://example.com/picture/1',
-            },
-          },
-          {
-            member: {
-              accountId: '2',
-              name: 'Test user B',
-              picture: 'https://example.com/picture/2',
-            },
-          },
-          {
-            member: {
-              accountId: '3',
-              name: 'Test user C',
-              picture: 'https://example.com/picture/3',
-            },
-          },
-        ],
-      },
-    },
-  };
 
   describe('convertTeam', () => {
     it('should convert team formats as expected', () => {
@@ -160,25 +156,15 @@ describe('getTeamFromAGG', () => {
     });
   });
 
-  describe.each([[true], [false]])(
-    'buildGatewayQuery - site-scoped %s',
-    (siteScopedEnabled) => {
-      beforeEach(() => {
-        (getBooleanFF as jest.Mock).mockImplementation(() => siteScopedEnabled);
-      });
-      it('should build the correct gateway query', () => {
-        const query = buildGatewayQuery({
-          teamId: '12345',
-          siteId: 'site-id',
-        });
-        expect(query.query.includes('teamV2')).toBe(siteScopedEnabled);
-        expect(query.query.includes('siteId')).toBe(siteScopedEnabled);
-        expect(query.variables.siteId).toBe(
-          siteScopedEnabled ? 'site-id' : undefined,
-        );
-      });
-    },
-  );
+  it('should build the correct gateway query', () => {
+    const query = buildGatewayQuery({
+      teamId: '12345',
+      siteId: 'site-id',
+    });
+    expect(query.query.includes('teamV2')).toBe(true);
+    expect(query.query.includes('siteId')).toBe(true);
+    expect(query.variables.siteId).toBe('site-id');
+  });
 
   describe('getTeamFromAGG', () => {
     const serviceUrl = 'test/url';
@@ -243,9 +229,15 @@ describe('getTeamFromAGG', () => {
       }
     });
 
-    it.each([
-      [
-        true,
+    it('should make the correct query', async () => {
+      const gqlQuery = jest
+        .spyOn(gqlUtils, 'AGGQuery')
+        .mockImplementation(() => Promise.resolve({ Team: TEAM_RESPONSE }));
+
+      await getTeamFromAGG(serviceUrl, teamId, 'site-id');
+
+      expect(gqlQuery).toHaveBeenCalledWith(
+        'test/url',
         expect.objectContaining({
           query: expect.stringContaining(
             'team: teamV2(id: $teamId, siteId: $siteId)',
@@ -255,34 +247,8 @@ describe('getTeamFromAGG', () => {
             teamId: 'ari:cloud:identity::team/1234-5678-abcd-89ef',
           },
         }),
-      ],
-      [
-        false,
-        expect.objectContaining({
-          query: expect.stringContaining('team(id: $teamId)'),
-          variables: {
-            teamId: 'ari:cloud:identity::team/1234-5678-abcd-89ef',
-          },
-        }),
-      ],
-    ])(
-      'should make the correct query - site scoped %s',
-      async (siteScopedTeamsEnabled, expectedObject) => {
-        const gqlQuery = jest
-          .spyOn(gqlUtils, 'AGGQuery')
-          .mockImplementation(() => Promise.resolve({ Team: TEAM_RESPONSE }));
-        (getBooleanFF as jest.Mock).mockImplementation(
-          () => siteScopedTeamsEnabled,
-        );
-
-        await getTeamFromAGG(serviceUrl, teamId, 'site-id');
-
-        expect(gqlQuery).toHaveBeenCalledWith(
-          'test/url',
-          expectedObject,
-          expect.anything(),
-        );
-      },
-    );
+        expect.anything(),
+      );
+    });
   });
 });

@@ -3,18 +3,23 @@ import memoizeOne from 'memoize-one';
 import type { IntlShape } from 'react-intl-next';
 
 import type { QuickInsertItem } from '../provider-factory';
-import type { QuickInsertHandler } from '../types';
+import type { QuickInsertHandler, QuickInsertHandlerFn } from '../types';
 
 const processQuickInsertItems = (
-  items: Array<QuickInsertHandler | QuickInsertItem>,
+  items: Array<QuickInsertHandler>,
   intl: IntlShape,
-) => {
+): Array<QuickInsertItem | QuickInsertHandlerFn> => {
   return items.reduce(
     (
-      acc: Array<QuickInsertItem>,
-      item: QuickInsertHandler | QuickInsertItem,
+      acc: Array<QuickInsertItem | QuickInsertHandlerFn>,
+      item: QuickInsertHandler,
     ) => {
-      if (typeof item === 'function') {
+      if (
+        typeof item === 'function' &&
+        // we preserve handler items with disableMemo so that we
+        // can process them in a later step outside of memoizations
+        !item.disableMemo
+      ) {
         const quickInsertItems = item(intl);
         return acc.concat(quickInsertItems);
       }
@@ -24,8 +29,26 @@ const processQuickInsertItems = (
   );
 };
 
-export const memoProcessQuickInsertItems: typeof processQuickInsertItems =
-  memoizeOne(processQuickInsertItems);
+const memoizedProcessQuickInsertItems = memoizeOne(processQuickInsertItems);
+
+export const memoProcessQuickInsertItems = (
+  items: Array<QuickInsertHandler>,
+  intl: IntlShape,
+): QuickInsertItem[] => {
+  const memoizedResults = memoizedProcessQuickInsertItems(items, intl);
+
+  const hasDisabledMemos = items.some(
+    (item) => typeof item === 'function' && item.disableMemo,
+  );
+
+  if (!hasDisabledMemos) {
+    return memoizedResults as QuickInsertItem[];
+  }
+
+  return memoizedResults.flatMap((item) =>
+    typeof item === 'function' && item.disableMemo ? item(intl) : item,
+  ) as QuickInsertItem[];
+};
 
 const options = {
   threshold: 0.3,

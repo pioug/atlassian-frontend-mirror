@@ -1,7 +1,6 @@
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
   EditorCommand,
-  FeatureFlags,
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
@@ -14,8 +13,6 @@ import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 export type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 
 export const MAX_NESTED_LIST_INDENTATION = 6;
-
-export type ListPluginOptions = Pick<FeatureFlags, 'restartNumberedLists'>;
 
 export type IndentList = (inputMethod: InputMethod) => EditorCommand;
 
@@ -40,7 +37,6 @@ export interface ListState {
 export type ListPlugin = NextEditorPlugin<
   'list',
   {
-    pluginConfiguration: ListPluginOptions | undefined;
     dependencies: [
       OptionalPlugin<FeatureFlagsPlugin>,
       OptionalPlugin<AnalyticsPlugin>,

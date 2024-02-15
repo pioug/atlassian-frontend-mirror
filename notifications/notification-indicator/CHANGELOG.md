@@ -1,5 +1,11 @@
 # @atlaskit/notification-indicator
 
+## 9.2.0
+
+### Minor Changes
+
+- [#71629](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71629) [`a726ec5c77b8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a726ec5c77b8) - [ux] Add prop for a Confluence experiment where we display the notification indicator with an empty badge if they have no notifications"
+
 ## 9.1.5
 
 ### Patch Changes

@@ -1,18 +1,20 @@
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import {
+  EditorFloatingToolbarModel,
   EditorNodeContainerModel,
   EditorTableModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import sampleSchema from '@atlaskit/editor-test-helpers/schema';
+
 import {
   simpleTable,
   simpleTableWithOneRow,
   simpleTableWithOneRowWithText,
+  simpleTableWithScroll,
   simpleTableWithTwoRows,
   tablesWithDifferentColumns,
-  simpleTableWithScroll,
 } from './__fixtures__/base-adfs';
 import { createSquareTable } from './__fixtures__/resize-documents';
 
@@ -219,5 +221,48 @@ test.describe('resize handle should not overlap the table', () => {
     // This is the real test -- If the handle is less then the container x + w then the handle is overlapping the edge of the table
     // and for table we must ensure that handles are adjacent to the tables.
     expect(container!.x + container!.width).toBeLessThanOrEqual(handle!.x);
+  });
+});
+
+test.describe('resize handle should not be in danger', () => {
+  test('when delete column is selected', async ({ editor }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+    const resizerModel = tableModel.resizer();
+    const floatingToolbarModel = EditorFloatingToolbarModel.from(
+      editor,
+      tableModel,
+    );
+
+    // Click "Cell Options", which brings up another context menu
+    await floatingToolbarModel.toggleCellOptionMenuItem();
+
+    // Hover on the "Delete column" menu option on the context menu
+    const deleteColButton = await floatingToolbarModel.getButton(
+      'Delete column',
+    );
+    await deleteColButton.hover();
+    await expect(resizerModel.resizerItem).not.toHaveClass(
+      'resizer-handle-danger',
+    );
+  });
+});
+
+test.describe('resize handle should be in danger', () => {
+  test('when remove button is hovered', async ({ editor }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+    const resizerModel = tableModel.resizer();
+    const floatingToolbarModel = EditorFloatingToolbarModel.from(
+      editor,
+      tableModel,
+    );
+
+    // Hover on the "Delete column" menu option on the context menu
+    const removeButton = await floatingToolbarModel.getButton('Remove');
+    await removeButton.hover();
+    await expect(resizerModel.resizerItem).toHaveClass(
+      'resizer-item display-handle resizer-handle-danger',
+    );
   });
 });

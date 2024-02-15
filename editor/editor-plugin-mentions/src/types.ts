@@ -1,11 +1,11 @@
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
   NextEditorPlugin,
   OptionalPlugin,
   TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
 import type {
   TypeAheadInputMethod,
   TypeAheadPlugin,
@@ -32,7 +32,6 @@ export interface MentionPluginOptions extends MentionPluginConfig {
 
 export type MentionPluginState = {
   mentionProvider?: MentionProvider;
-  contextIdentifierProvider?: ContextIdentifierProvider;
   mentions?: Array<MentionDescription>;
   canInsertMention?: boolean;
 };
@@ -48,7 +47,11 @@ export type MentionsPlugin = NextEditorPlugin<
   'mention',
   {
     pluginConfiguration: MentionPluginOptions | undefined;
-    dependencies: [OptionalPlugin<AnalyticsPlugin>, TypeAheadPlugin];
+    dependencies: [
+      OptionalPlugin<AnalyticsPlugin>,
+      TypeAheadPlugin,
+      OptionalPlugin<ContextIdentifierPlugin>,
+    ];
     sharedState: MentionSharedState | undefined;
     actions: {
       openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;

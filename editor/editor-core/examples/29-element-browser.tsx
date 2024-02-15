@@ -1,16 +1,18 @@
 /** @jsx jsx */
 import { useCallback } from 'react';
+
 import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
-import { IntlProvider, injectIntl } from 'react-intl-next';
+import { injectIntl, IntlProvider } from 'react-intl-next';
+
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 
-import { default as EditorContext } from '../src/ui/EditorContext';
 import { getCategories } from '../example-helpers/quick-insert-categories';
 import { useDefaultQuickInsertGetItems } from '../example-helpers/use-default-quickinsert-get-items';
+import { default as EditorContext } from '../src/ui/EditorContext';
 
 const wrapper = css`
   display: flex;

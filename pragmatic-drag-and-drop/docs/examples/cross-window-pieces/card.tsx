@@ -5,6 +5,12 @@ import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
 import {
+  attachClosestEdge,
+  Edge,
+  extractClosestEdge,
+} from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
+import {
   draggable,
   dropTargetForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
@@ -14,12 +20,6 @@ import {
   setCrossWindowData,
 } from '@atlaskit/pragmatic-drag-and-drop/experimental/cross-window-element-adapter';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
-import {
-  attachClosestEdge,
-  Edge,
-  extractClosestEdge,
-} from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
-import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
 import { token } from '@atlaskit/tokens';
 
 import { Item } from '../data/tasks';

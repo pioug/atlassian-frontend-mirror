@@ -1,0 +1,67 @@
+Disallows/discourages passing empty arguments to any `styled` expression when using `@compiled/react`, as well as any other CSS-in-JS library defined through the `importSources` option.
+
+If Compiled is used in the file, passing an empty object or no object at all causes Compiled to build extra `div/span` elements, as opposed to simply using a `div`. This leads to reduced performance and is greatly discouraged. If a wrapper is necessary, opt to use a `div` or wrap it in the empty React fragment `<> <YourComponentHere></YourComponentHere> </>`.
+
+## Examples
+
+### Incorrect
+
+```tsx
+const EmptyStyledExpression = styled.div();
+
+const EmptyStyledExpressionArgument = styled.div({});
+
+const EmptyStyledExpressionArgument = styled.div([]);
+```
+
+### Correct
+
+```tsx
+const Wrapper = styled.div({
+  backgroundColor: 'red',
+  MyComponent: {
+    backgroundColor: 'green',
+  },
+});
+```
+
+## What to do instead?
+
+### Use elements directly
+
+```diff
+- const Wrapper = styled.div({});
+
+   function App() {
+-    return <Wrapper>hello world</Wrapper>;
++    return <div>hello world</div>;
+  }
+```
+
+### Use a React fragment
+
+```diff
+- const Wrapper = styled.div({});
+
+   function App() {
+-    return <Wrapper>hello world</Wrapper>;
++    return <>hello world</>;
+  }
+```
+
+## Options
+
+### importSources
+
+By default, this rule will check `styled` usages from `@compiled/react`. To check `styled` usages from other CSS-in-JS libraries, you can add the library's package name to `importSources`.
+
+`importSources` accepts an array of package names (strings). `styled` usages from `@compiled/react` will always be checked, regardless of the value of `importSources`.
+
+```tsx
+// [{ importSources: ['styled-components'] }]
+
+import styled from 'styled-components';
+
+// Invalid!
+const styles = styled({});
+```

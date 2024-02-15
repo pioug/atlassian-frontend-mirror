@@ -9,6 +9,7 @@ import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
   flushPromises,
   MockIntersectionObserverFactory,
@@ -22,16 +23,14 @@ import {
 import { Input } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { ConcurrentExperience } from '@atlaskit/ufo';
 
+import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
 import { ScrollableContainerHeight } from '../../../../src/ui/issue-like-table/styled';
-import {
-  COLUMN_MIN_WIDTH,
-  getOrderedColumns,
-  IssueLikeDataTableView,
-} from '../index';
+import { getOrderedColumns, IssueLikeDataTableView } from '../index';
 import {
   IssueLikeDataTableViewProps,
   TableViewPropsRenderType,
 } from '../types';
+import { COLUMN_MIN_WIDTH } from '../utils';
 
 function getDefaultInput(overrides: Partial<Input> = {}): Input {
   const defaults: Input = {
@@ -59,6 +58,7 @@ function getDefaultInput(overrides: Partial<Input> = {}): Input {
 const mockColumnPickerUfoStart = jest.fn();
 const mockColumnPickerUfoAddMetadata = jest.fn();
 const mockTableRenderUfoSuccess = jest.fn();
+const mockTableRenderUfoFailure = jest.fn();
 
 jest.mock('@atlaskit/ufo', () => ({
   __esModule: true,
@@ -71,6 +71,16 @@ jest.mock('@atlaskit/ufo', () => ({
       if (experienceId === 'datasource-rendered') {
         return {
           success: mockTableRenderUfoSuccess,
+        };
+      }
+      if (
+        experienceId === 'smart-link-rendered' ||
+        experienceId === 'smart-link-authenticated'
+      ) {
+        return {
+          success: mockTableRenderUfoSuccess,
+          start: mockColumnPickerUfoStart,
+          failure: mockTableRenderUfoFailure,
         };
       }
       if (experienceId === 'column-picker-rendered') {
@@ -109,22 +119,25 @@ const setup = (props: Partial<IssueLikeDataTableViewProps>) => {
   const onLoadDatasourceDetails = jest.fn(() => {});
   const onVisibleColumnKeysChange = jest.fn(() => {});
   const onColumnResize = jest.fn(() => {});
+  const smartLinkClient = new SmartLinkClient();
 
   const renderResult = render(
     <IntlProvider locale="en">
-      <IssueLikeDataTableView
-        testId="sometable"
-        status={'resolved'}
-        onNextPage={onNextPage}
-        onLoadDatasourceDetails={onLoadDatasourceDetails}
-        hasNextPage={false}
-        onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-        onColumnResize={onColumnResize}
-        items={[]}
-        columns={[]}
-        visibleColumnKeys={['id']}
-        {...props}
-      />
+      <SmartCardProvider client={smartLinkClient}>
+        <IssueLikeDataTableView
+          testId="sometable"
+          status={'resolved'}
+          onNextPage={onNextPage}
+          onLoadDatasourceDetails={onLoadDatasourceDetails}
+          hasNextPage={false}
+          onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+          onColumnResize={onColumnResize}
+          items={[]}
+          columns={[]}
+          visibleColumnKeys={['id']}
+          {...props}
+        />
+      </SmartCardProvider>
     </IntlProvider>,
   );
 
@@ -335,47 +348,14 @@ describe('IssueLikeDataTableView', () => {
         title: 'Date of Creation for each issue',
         type: 'date',
       },
-      {
-        key: 'priority',
-        title: 'P',
-        type: 'icon',
-      },
-      {
-        key: 'key',
-        title: 'Key',
-        type: 'link',
-      },
-      {
-        key: 'type',
-        type: 'icon',
-        title: 'Type',
-      },
-      {
-        key: 'summary',
-        title: 'Summary',
-        type: 'link',
-      },
-      {
-        key: 'description',
-        title: 'Description',
-        type: 'richtext',
-      },
-      {
-        key: 'assignee',
-        title: 'Assignee',
-        type: 'user',
-      },
-      {
-        key: 'labels',
-        title: 'Labels',
-        type: 'tag',
-        isList: true,
-      },
-      {
-        key: 'status',
-        title: 'Status for each issue',
-        type: 'status',
-      },
+      { key: 'priority', title: 'P', type: 'icon' },
+      { key: 'key', title: 'Key', type: 'link' },
+      { key: 'assignee', title: 'Assignee', type: 'user' },
+      { key: 'description', title: 'Description', type: 'richtext' },
+      { key: 'labels', title: 'Labels', type: 'tag', isList: true },
+      { key: 'status', title: 'Status for each issue', type: 'status' },
+      { key: 'summary', title: 'Summary', type: 'link' },
+      { key: 'type', type: 'icon', title: 'Type' },
     ];
     expect(orderedColumns).toEqual(expectedOrderedColumns);
   });
@@ -477,6 +457,105 @@ describe('IssueLikeDataTableView', () => {
     expect(usersListWrapper).toHaveAttribute('data-placement', 'bottom');
 
     expect(usersListWrapper.textContent).toEqual('Some Id');
+  });
+
+  it('should show tooltip when row with list of items is hovered', async () => {
+    const items: DatasourceDataResponseItem[] = [
+      {
+        listProp: {
+          data: [
+            {
+              text: 'item1',
+            },
+            {
+              text: 'item2',
+            },
+          ],
+        },
+      },
+    ];
+
+    const columns: DatasourceResponseSchemaProperty[] = [
+      {
+        key: 'listProp',
+        title: 'List',
+        type: 'tag',
+        isList: true,
+      },
+    ];
+
+    setup({
+      items,
+      columns,
+      visibleColumnKeys: ['listProp'],
+    });
+
+    expect(await screen.findByTestId('sometable--cell-0')).toHaveTextContent(
+      'item1item2',
+    );
+
+    const listText = screen.getByText('item1');
+
+    // hover over the tooltip
+    act(() => {
+      fireEvent.mouseOver(listText);
+      jest.runAllTimers();
+    });
+
+    await waitFor(async () => {
+      const tooltip = await screen.queryByTestId('issues-table-cell-tooltip');
+      expect(tooltip).toBeInTheDocument();
+      expect(tooltip).toHaveTextContent('item1, item2');
+
+      const hoverCard = await screen.queryByTestId(
+        'hover-card-trigger-wrapper',
+      );
+      expect(hoverCard).not.toBeInTheDocument();
+    });
+  });
+
+  it('should not show tooltip when row with link item is hovered', async () => {
+    const items: DatasourceDataResponseItem[] = [
+      {
+        link: {
+          data: {
+            url: 'https://www.google.com/',
+            text: 'sample link',
+            style: {
+              appearance: 'key',
+            },
+          },
+        },
+      },
+    ];
+
+    const columns: DatasourceResponseSchemaProperty[] = [
+      {
+        key: 'link',
+        title: 'link',
+        type: 'link',
+      },
+    ];
+
+    setup({
+      items,
+      columns,
+      visibleColumnKeys: ['link'],
+    });
+
+    const link = screen.getByText('sample link');
+
+    // hover over the tooltip
+    act(() => {
+      fireEvent.mouseOver(link);
+      jest.runAllTimers();
+    });
+
+    const tooltip = await screen.queryByTestId('issues-table-cell-tooltip');
+    expect(tooltip).not.toBeInTheDocument();
+
+    const hoverCard = await screen.queryByTestId('hover-card-trigger-wrapper');
+    expect(hoverCard).toBeInTheDocument();
   });
 
   it('should render list type', async () => {
@@ -591,9 +670,9 @@ describe('IssueLikeDataTableView', () => {
     const renderItem: TableViewPropsRenderType = item => {
       switch (item.type) {
         case 'number':
-          return item.value + 2;
+          return item.values.map(value => value + 2);
         case 'string':
-          return item.value + '-blah';
+          return item.values.map(value => value + '-blah');
       }
     };
 
@@ -1032,10 +1111,6 @@ describe('IssueLikeDataTableView', () => {
   it('should call onWidthChange when column resized', async () => {
     const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
 
-    mockGetBoundingClientRect.mockReturnValueOnce({ width: 100, height: 42 });
-    mockGetBoundingClientRect.mockReturnValueOnce({ width: 200, height: 42 });
-    mockGetBoundingClientRect.mockReturnValueOnce({ width: 300, height: 42 });
-
     mockGetBoundingClientRect.mockReturnValueOnce({ width: 200, height: 42 });
 
     const { onColumnResize, getByTestId } = setup({
@@ -1057,10 +1132,6 @@ describe('IssueLikeDataTableView', () => {
 
   it('should not allow column width smaller then COLUMN_MIN_WIDTH when resized resized', async () => {
     const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
-
-    mockGetBoundingClientRect.mockReturnValueOnce({ width: 100, height: 42 });
-    mockGetBoundingClientRect.mockReturnValueOnce({ width: 200, height: 42 });
-    mockGetBoundingClientRect.mockReturnValueOnce({ width: 300, height: 42 });
 
     mockGetBoundingClientRect.mockReturnValueOnce({ width: 200, height: 42 });
 
@@ -1281,16 +1352,16 @@ describe('IssueLikeDataTableView', () => {
         onVisibleColumnKeysChange: undefined,
       });
 
-      expect(queryByTestId('summary-column-heading')).toHaveStyle({
-        maxWidth: '360px',
-      });
+      expect(queryByTestId('summary-column-heading')).toHaveStyle(
+        'max-width: 360px',
+      );
       expect(queryAllByTestId('sometable--cell-0')[0]).toHaveStyle(
         'max-width: 360px',
       );
 
-      expect(queryByTestId('status-column-heading')).toHaveStyle({
-        maxWidth: `${8 * 18}px`,
-      });
+      expect(queryByTestId('status-column-heading')).toHaveStyle(
+        `max-width: ${8 * 18}px`,
+      );
     });
 
     it('should render the header and cells with width from the configured types', () => {
@@ -1308,13 +1379,13 @@ describe('IssueLikeDataTableView', () => {
         onVisibleColumnKeysChange: undefined,
       });
 
-      expect(queryByTestId('name-column-heading')).toHaveStyle({
-        maxWidth: '176px',
-      });
+      expect(queryByTestId('name-column-heading')).toHaveStyle(
+        'max-width: 176px',
+      );
 
-      expect(queryByTestId('dob-column-heading')).toHaveStyle({
-        maxWidth: '112px',
-      });
+      expect(queryByTestId('dob-column-heading')).toHaveStyle(
+        'max-width: 128px',
+      );
     });
 
     it('should render the header and cells with given column width in draggable mode', () => {

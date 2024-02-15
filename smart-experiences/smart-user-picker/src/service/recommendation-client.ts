@@ -26,6 +26,7 @@ const getUserRecommendations = (
       includeUsers: request.includeUsers,
       includeGroups: request.includeGroups,
       includeTeams: request.includeTeams,
+      includeNonLicensedUsers: request.includeNonLicensedUsers,
       maxNumberOfResults: request.maxNumberOfResults,
       performSearchQueryOnly: false,
       searchQuery: {

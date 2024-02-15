@@ -1,9 +1,12 @@
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import { tablesPlugin } from '@atlaskit/editor-plugin-table';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
+import { isPositionNearTableRow } from '@atlaskit/editor-common/utils';
+import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-insertion';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugins/guideline';
+import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
+import { tablesPlugin } from '@atlaskit/editor-plugins/table';
+import { widthPlugin } from '@atlaskit/editor-plugins/width';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
@@ -20,10 +23,6 @@ import {
   tdEmpty,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-
-import type { DocBuilder } from '@atlaskit/editor-common/types';
-import { isPositionNearTableRow } from '@atlaskit/editor-common/utils';
-import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 
 const editorFactory = (doc: DocBuilder) => {
   const editor = createProsemirrorEditorFactory()({

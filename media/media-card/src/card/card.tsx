@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from 'react';
+import React, { Component, Suspense, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import {
   UIAnalyticsEvent,
@@ -83,7 +83,7 @@ import {
 } from './cardAnalytics';
 import getDocument from '../utils/document';
 import {
-  StoreSSRDataScript,
+  generateScriptProps,
   getSSRData,
   MediaCardSsrData,
 } from '../utils/globalScope';
@@ -97,19 +97,23 @@ import {
 } from '../utils/ufoExperiences';
 import { generateUniqueId } from '../utils/generateUniqueId';
 import { FileStateFlags } from '../types';
+import { DateOverrideContext } from '../dateOverrideContext';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export type CardBaseProps = CardProps &
   WithAnalyticsEventsProps &
-  Partial<WrappedComponentProps>;
+  Partial<WrappedComponentProps> & {
+    dateOverride?: number;
+  };
 
 export class CardBase extends Component<CardBaseProps, CardState> {
   // An internalOccurrenceKey is a randomly generated value to differentiate various instances
   // of Cards regardless of whether it shares the same file (either internal or external)
   private internalOccurrenceKey = generateUniqueId();
   private hasBeenMounted: boolean = false;
+  private mediaViewerButtonRef: HTMLButtonElement | null = null;
   private fileStateFlags: FileStateFlags = {
     wasStatusUploading: false,
     wasStatusProcessing: false,
@@ -844,7 +848,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   }
 
   onCardViewClick = (
-    event: React.MouseEvent<HTMLDivElement>,
+    event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>,
     analyticsEvent?: UIAnalyticsEvent,
   ) => {
     const { identifier, useInlinePlayer, shouldOpenMediaViewer } = this.props;
@@ -899,6 +903,10 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     !!cardRef && this.setState({ cardRef });
   };
 
+  setMediaViewerButtonRef = (buttonRef: HTMLButtonElement | null) => {
+    this.mediaViewerButtonRef = buttonRef;
+  };
+
   renderInlinePlayer = () => {
     const {
       identifier,
@@ -934,9 +942,14 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   };
 
   onMediaViewerClose = () => {
-    this.setState({
-      mediaViewerSelectedItem: undefined,
-    });
+    this.setState(
+      {
+        mediaViewerSelectedItem: undefined,
+      },
+      () => {
+        this.mediaViewerButtonRef?.focus();
+      },
+    );
   };
 
   private onDisplayImage = () => {
@@ -1017,6 +1030,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       useInlinePlayer,
       shouldOpenMediaViewer,
       shouldHideTooltip,
+      dateOverride,
     } = this.props;
     const { mediaItemType } = identifier;
     const { status, progress, cardPreview, error, cardRef, isCardVisible } =
@@ -1055,12 +1069,14 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         actions={actions}
         selectable={selectable}
         selected={selected}
+        shouldOpenMediaViewer={shouldOpenMediaViewer}
         onClick={withCallbacks ? onCardViewClick : undefined}
         onMouseEnter={withCallbacks ? onMouseEnter : undefined}
         disableOverlay={disableOverlay}
         progress={progress}
         onDisplayImage={withCallbacks ? onDisplayImage : undefined}
         innerRef={this.setRef}
+        openMediaViewerButtonRef={this.setMediaViewerButtonRef}
         testId={testId}
         featureFlags={featureFlags}
         titleBoxBgColor={titleBoxBgColor}
@@ -1071,6 +1087,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         forceSyncDisplay={forceSyncDisplay}
         mediaCardCursor={mediaCardCursor}
         shouldHideTooltip={shouldHideTooltip}
+        overriddenCreationDate={dateOverride}
       />
     );
 
@@ -1089,17 +1106,18 @@ export class CardBase extends Component<CardBaseProps, CardState> {
 
     return (
       isFileIdentifier(identifier) &&
+      // Print the SSR result to be used during hydration
       ssr === 'server' && (
-        <StoreSSRDataScript
-          identifier={identifier}
-          dataURI={dataURI}
-          dimensions={this.requestedDimensions}
-          error={
+        <script
+          {...generateScriptProps(
+            identifier,
+            dataURI,
+            this.requestedDimensions,
             this.ssrReliability.server?.status === 'fail'
               ? this.ssrReliability.server
-              : undefined
-          }
-        />
+              : undefined,
+          )}
+        ></script>
       )
     );
   };
@@ -1126,7 +1144,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   };
 
   onClick = (
-    event: React.MouseEvent<HTMLDivElement>,
+    event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>,
     analyticsEvent?: UIAnalyticsEvent,
   ) => {
     const { onClick } = this.props;
@@ -1153,11 +1171,18 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   };
 }
 
-// We require this wrapper in order to refresh media card state when the identifier is updated
-const CardWithKey = (props: CardBaseProps) => {
+// We require this wrapper in order
+// 1. To refresh media card state when the identifier is updated
+// 2. To allow for overriding creation date (https://product-fabric.atlassian.net/browse/CXP-2840)
+const CardWithKeyAndDateOverrideContext = (props: CardBaseProps) => {
   const { identifier } = props;
+  const dateOverrides = useContext(DateOverrideContext);
   const key = isFileIdentifier(identifier) ? identifier.id : identifier.dataURI;
-  return <CardBase {...props} key={key} />;
+  const dateOverride = isFileIdentifier(identifier)
+    ? dateOverrides?.[identifier.id]
+    : undefined;
+
+  return <CardBase {...props} dateOverride={dateOverride} key={key} />;
 };
 export const Card: React.ComponentType<CardBaseProps> =
   withMediaAnalyticsContext({
@@ -1168,7 +1193,7 @@ export const Card: React.ComponentType<CardBaseProps> =
   })(
     withAnalyticsEvents()(
       injectIntl(
-        CardWithKey as React.ComponentType<
+        CardWithKeyAndDateOverrideContext as React.ComponentType<
           CardBaseProps & WrappedComponentProps
         >,
         {

@@ -109,6 +109,11 @@ export interface BaseIconButtonProps {
    * Makes the element appear selected.
    */
   isSelected?: boolean;
+
+  /**
+   * Adds a label to the button for users of assistive technologies.
+   */
+  label?: string;
 }
 
 export interface IconButtonSkeletonProps {

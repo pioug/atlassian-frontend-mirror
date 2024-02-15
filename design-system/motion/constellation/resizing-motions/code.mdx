@@ -2,10 +2,13 @@
 title: Motion
 description: A set of utilities to apply motion in your application.
 order: 1
+props:
+  packageName: '@atlaskit/motion'
+  exports:
+    - ResizingHeight
 ---
 
 import SectionMessage from '@atlaskit/section-message';
-import ResizingHeightOpts from '!!extract-react-types-loader!../../src/resizing/height';
 
 ## useResizingHeight()
 
@@ -29,7 +32,7 @@ import ResizingHeightOpts from '!!extract-react-types-loader!../../src/resizing/
 
 This hook will animate `height` changes over state changes. If the height hasn't changed nothing will happen.
 
-<PropsTable heading="" props={ResizingHeightOpts} />
+<TSMorphProps exportName="ResizingHeight" packageName="@atlaskit/motion" />
 
 ### Optimizations
 
@@ -52,7 +55,7 @@ export default memo(({ title }) => (
 ));
 ```
 
-## <ResizingHeight />
+## `<ResizingHeight />`
 
 Component which consumes the [useResizingHeight](/components/motion/resizing-motions/code#useresizingheight) under-the-hood.
 Its props are the same as the hooks options.

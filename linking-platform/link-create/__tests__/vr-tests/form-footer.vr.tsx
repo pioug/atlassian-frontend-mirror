@@ -1,9 +1,9 @@
 import { snapshot } from '@af/visual-regression';
 
 import {
-  CreateFormFooterSubmitting,
-  CreateFormFooterSubmittingWithErrorMessage,
+  CreateFormFooterDefault,
   CreateFormFooterWithErrorMessage,
+  CreateFormFooterWithoutEdit,
 } from '../../examples/vr/vr-form-footer';
 
 type OptionsType = Parameters<typeof snapshot>[1];
@@ -30,5 +30,5 @@ const options: OptionsType = {
 };
 
 snapshot(CreateFormFooterWithErrorMessage, options);
-snapshot(CreateFormFooterSubmitting, options);
-snapshot(CreateFormFooterSubmittingWithErrorMessage, options);
+snapshot(CreateFormFooterWithoutEdit, options);
+snapshot(CreateFormFooterDefault, options);

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/dropdown-menu",
-  "version": "12.1.7",
+  "version": "12.5.0",
   "description": "A dropdown menu displays a list of actions or options to a user.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,24 +17,27 @@
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Dropdown menu",
       "category": "Components"
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^16.17.0",
+    "@atlaskit/button": "^17.3.0",
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/layering": "^0.2.0",
     "@atlaskit/menu": "^2.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.2",
-    "@atlaskit/popup": "^1.11.0",
-    "@atlaskit/primitives": "^1.12.0",
+    "@atlaskit/popup": "^1.12.0",
+    "@atlaskit/primitives": "^2.0.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "bind-event-listener": "^2.1.1"
@@ -45,9 +48,9 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
+    "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/dom": "^8.17.1",
@@ -103,13 +106,6 @@
   },
   "platform-feature-flags": {
     "platform.design-system-team.border-checkbox_nyoiu": {
-      "type": "boolean"
-    },
-    "platform.design-system-team.icon-button-spacing-fix_o1zc5": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.design-system-team.layering_popup_1cnzt": {
       "type": "boolean"
     }
   },

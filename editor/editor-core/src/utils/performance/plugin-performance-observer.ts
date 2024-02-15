@@ -1,15 +1,15 @@
-import {
+import type {
   NodesCount,
   PluginPerformanceReportData,
-  PluginPerformanceReport,
   PluginPerformanceReportOptions,
 } from './plugin-performance-report';
+import { PluginPerformanceReport } from './plugin-performance-report';
+import { SimpleMeasurementLogger } from './simple-measure-to-entries';
+import type { TransactionTracker } from './track-transactions';
 import {
   DEFAULT_USE_PERFORMANCE_MARK,
   EVENT_NAME_DISPATCH_TRANSACTION,
-  TransactionTracker,
 } from './track-transactions';
-import { SimpleMeasurementLogger } from './simple-measure-to-entries';
 export class PluginPerformanceObserver implements PerformanceObserver {
   private getNodeCounts: () => [NodesCount, number] = () => [
     { nodeCount: {}, extensionNodeCount: {} },

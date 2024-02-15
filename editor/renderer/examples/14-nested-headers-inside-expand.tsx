@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { useState, useEffect } from 'react';
-import RendererDemo from './helper/RendererDemo';
-import { RadioGroup } from '@atlaskit/radio';
-import nestedHeadersAdf from '../src/__tests__/__fixtures__/nested-headings-adf.json';
-import { OptionsPropType } from '@atlaskit/radio/types';
 import Button from '@atlaskit/button/standard-button';
+import { RadioGroup } from '@atlaskit/radio';
+import type { OptionsPropType } from '@atlaskit/radio/types';
 import { css, jsx } from '@emotion/react';
+import { useEffect, useState } from 'react';
+import nestedHeadersAdf from '../src/__tests__/__fixtures__/nested-headings-adf.json';
+import RendererDemo from './helper/RendererDemo';
 
 const getHeaderIdsAsRadioOptions = () =>
   Array.from(document.querySelectorAll('.heading-anchor-wrapper')).map(

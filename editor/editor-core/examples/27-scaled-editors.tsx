@@ -1,8 +1,12 @@
 /** @jsx jsx */
 import React from 'react';
+
 import { css, jsx } from '@emotion/react';
-import Button, { ButtonProps } from '@atlaskit/button/standard-button';
+
+import type { ButtonProps } from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/standard-button';
 import { N40, N50A } from '@atlaskit/theme/colors';
+
 import { default as FullPageExample } from './5-full-page';
 
 const user = css`

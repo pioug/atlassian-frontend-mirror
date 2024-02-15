@@ -12,6 +12,7 @@ export class CardErrorBoundary extends React.PureComponent<
     url?: string;
     onClick?: (e: React.MouseEvent<HTMLElement>, url?: string) => void;
     isDatasource?: boolean;
+    children?: React.ReactNode;
   } & CardErrorBoundaryProps
 > {
   state = {

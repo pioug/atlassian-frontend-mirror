@@ -1,10 +1,12 @@
 /** @jsx jsx */
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button, { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
+import { Label } from '@atlaskit/form';
 import Grid, { GridItem } from '@atlaskit/grid';
 import Heading from '@atlaskit/heading';
 import LinkIcon from '@atlaskit/icon/glyph/link';
@@ -67,18 +69,21 @@ const ThemePicker = ({
   ] as const;
 
   return (
-    <Select
-      spacing={'compact'}
-      inputId={`theme-select`}
-      onChange={(e) => {
-        if (e?.value) {
-          onChange(e.value);
-        }
-      }}
-      value={themeSelectOptions.find((option) => option.value === value)}
-      options={themeSelectOptions.filter((option) => option)}
-      placeholder="Choose a base theme"
-    />
+    <Fragment>
+      <Label htmlFor="theme-select">Theme</Label>
+      <Select
+        spacing="compact"
+        inputId="theme-select"
+        onChange={(e) => {
+          if (e?.value) {
+            onChange(e.value);
+          }
+        }}
+        value={themeSelectOptions.find((option) => option.value === value)}
+        options={themeSelectOptions.filter((option) => option)}
+        placeholder="Choose a base theme"
+      />
+    </Fragment>
   );
 };
 
@@ -181,7 +186,7 @@ const CustomThemeActions = ({
   onClear: () => void;
   onImport: (Theme: ThemeExportFormat) => void;
 }) => (
-  <ButtonGroup>
+  <ButtonGroup label="Export options">
     <ImportPopup onImport={onImport} />
     <DropdownMenu trigger="Export" placement="bottom-start">
       <DropdownItem
@@ -207,18 +212,20 @@ const CustomThemeActions = ({
       </DropdownItem>
     </DropdownMenu>
     <Tooltip content="Copy link to custom theme">
-      <Button
-        iconBefore={<LinkIcon label="Share link to custom theme" />}
+      <IconButton
+        icon={LinkIcon}
         onClick={() => {
           setFocusToIframe();
           navigator.clipboard.writeText(location.href);
         }}
+        label="Share link to custom theme"
       />
     </Tooltip>
     <Tooltip content="Delete custom theme">
-      <Button
-        iconBefore={<TrashIcon label="Remove custom theme" />}
+      <IconButton
+        icon={TrashIcon}
         onClick={onClear}
+        label="Remove custom theme"
       />
     </Tooltip>
   </ButtonGroup>
@@ -246,7 +253,7 @@ export default function ContrastChecker() {
   setGlobalTheme({
     colorMode: baseThemeType,
     spacing: 'spacing',
-    typography: 'typography',
+    typography: 'typography-adg3',
   });
 
   if (customTheme) {

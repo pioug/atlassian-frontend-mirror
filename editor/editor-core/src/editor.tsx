@@ -3,6 +3,8 @@ import React from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { ComposableEditor } from './composable-editor';
+import useUniversalPreset from './presets/useUniversalPreset';
 import type { EditorProps } from './types/editor-props';
 import editorDeprecationWarnings from './utils/editorDeprecationWarnings';
 
@@ -19,7 +21,6 @@ export type {
   EditorProps,
   ExtensionConfig,
   ExtensionProvidersProp,
-  FeedbackInfo,
   MarkConfig,
   MessageDescriptor,
   NodeConfig,
@@ -35,9 +36,7 @@ export type {
   UIComponentFactory,
   UiComponentFactoryParams,
 } from './types';
-
-import { ComposableEditor } from './composable-editor';
-import useUniversalPreset from './presets/useUniversalPreset';
+export type { FeedbackInfo } from '@atlaskit/editor-common/types';
 
 interface WrapperProps {
   props: EditorProps;

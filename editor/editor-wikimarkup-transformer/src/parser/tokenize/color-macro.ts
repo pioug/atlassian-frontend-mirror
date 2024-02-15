@@ -1,6 +1,7 @@
-import { Schema } from '@atlaskit/editor-prosemirror/model';
-import { Token, TokenType, TokenParser } from '.';
-import { Context } from '../../interfaces';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Token, TokenParser } from '.';
+import { TokenType } from '.';
+import type { Context } from '../../interfaces';
 import { commonMacro } from './common-macro';
 import { parseAttrs } from '../utils/attrs';
 import { parseString } from '../text';
@@ -28,11 +29,12 @@ const rawContentProcessor = (
   schema: Schema,
   context: Context,
 ): Token => {
+  // Removed ISSUE_KEY for https://getsupport.atlassian.com/browse/MOVE-1738018
+  // Issue keys were not being migrated correctly if they were inside the color macro.
   const ignoreTokenTypes = [
     TokenType.DOUBLE_DASH_SYMBOL,
     TokenType.TRIPLE_DASH_SYMBOL,
     TokenType.QUADRUPLE_DASH_SYMBOL,
-    TokenType.ISSUE_KEY,
     TokenType.TABLE,
   ];
 

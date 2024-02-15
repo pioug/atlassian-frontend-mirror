@@ -9,28 +9,30 @@ import {
 } from '../../../clients/ShareServiceClient';
 import { Comment, Content, MetaData, User } from '../../../types';
 
+const mockContent: Content = {
+  link: 'link',
+  ari: 'ari',
+  title: 'title',
+  type: 'type',
+  workspaceAri: 'mockWorkspaceAri',
+};
+const mockRecipients: User[] = [
+  { type: 'user', id: 'id' },
+  { type: 'user', email: 'email' },
+];
+const mockMetaData: MetaData = {
+  productId: 'confluence',
+  atlOriginId: 'atlOriginId',
+};
+const mockComment: Comment = {
+  format: 'plain_text',
+  value: 'mock comment',
+};
+
 describe('ShareServiceClientImpl', () => {
   let requestSpy: jest.SpyInstance;
   let fetchSpy: jest.SpyInstance;
   let shareServiceClient: ShareClient;
-  let mockContent: Content = {
-    link: 'link',
-    ari: 'ari',
-    title: 'title',
-    type: 'type',
-  };
-  let mockRecipients: User[] = [
-    { type: 'user', id: 'id' },
-    { type: 'user', email: 'email' },
-  ];
-  let mockMetaData: MetaData = {
-    productId: 'confluence',
-    atlOriginId: 'atlOriginId',
-  };
-  let mockComment: Comment = {
-    format: 'plain_text',
-    value: 'mock comment',
-  };
 
   beforeEach(() => {
     requestSpy = jest.spyOn(utils, 'requestService').mockResolvedValue({});

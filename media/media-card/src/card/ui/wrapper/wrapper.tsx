@@ -3,7 +3,6 @@ import { jsx } from '@emotion/react';
 import { newFileExperienceClassName } from '../../cardConstants';
 import { wrapperStyles } from './styles';
 import { WrapperProps } from './types';
-import { useGlobalTheme } from '@atlaskit/theme/components';
 
 export const Wrapper = (props: WrapperProps) => {
   const {
@@ -22,7 +21,7 @@ export const Wrapper = (props: WrapperProps) => {
     isTickBoxSelectable,
     shouldDisplayTooltip,
   } = props;
-  const theme = useGlobalTheme();
+
   return (
     <div
       id="newFileExperienceWrapper"
@@ -39,7 +38,6 @@ export const Wrapper = (props: WrapperProps) => {
         isTickBoxSelectable,
         shouldDisplayTooltip,
         mediaCardCursor,
-        theme,
       })}
       ref={innerRef}
       onClick={onClick}

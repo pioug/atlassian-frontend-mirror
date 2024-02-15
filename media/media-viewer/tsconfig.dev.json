@@ -37,6 +37,9 @@
       "path": "tsconfig.app.json"
     },
     {
+      "path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+    },
+    {
       "path": "../../analytics/analytics-next/tsconfig.app.json"
     },
     {
@@ -67,10 +70,10 @@
       "path": "../media-core/tsconfig.app.json"
     },
     {
-      "path": "../media-integration-test-helpers/tsconfig.app.json"
+      "path": "../media-state/tsconfig.app.json"
     },
     {
-      "path": "../media-state/tsconfig.app.json"
+      "path": "../media-test-data/tsconfig.app.json"
     },
     {
       "path": "../media-test-helpers/tsconfig.app.json"
@@ -101,9 +104,6 @@
     },
     {
       "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/test-tooling/webdriver-runner/tsconfig.app.json"
     },
     {
       "path": "../../data/ufo-internal/tsconfig.app.json"

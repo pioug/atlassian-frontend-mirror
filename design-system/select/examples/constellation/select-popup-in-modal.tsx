@@ -5,7 +5,8 @@ import ModalDialog, {
   ModalBody,
 } from '@atlaskit/modal-dialog';
 import Drawer from '@atlaskit/drawer';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/new';
 
 import { PopupSelect } from '../../src';
 
@@ -41,7 +42,7 @@ const SelectPopupModalExample = () => {
         <Button
           {...triggerProps}
           isSelected={isOpen}
-          iconAfter={<ChevronDownIcon label="" />}
+          iconAfter={ChevronDownIcon}
         >
           Open
         </Button>
@@ -51,12 +52,16 @@ const SelectPopupModalExample = () => {
 
   return (
     <>
-      <ButtonGroup>
+      <ButtonGroup label="Choose an option">
         <Button onClick={() => setType('modal')}>Open modal</Button>
         <Button onClick={() => setType('drawer')}>Open drawer</Button>
       </ButtonGroup>
 
-      <Drawer onClose={() => setType(undefined)} isOpen={type === 'drawer'}>
+      <Drawer
+        label="Popup select inside Drawer"
+        onClose={() => setType(undefined)}
+        isOpen={type === 'drawer'}
+      >
         {popupSelectElement}
       </Drawer>
 

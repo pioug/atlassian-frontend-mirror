@@ -1,0 +1,56 @@
+{
+  "doc": {
+    "version": 1,
+    "type": "doc",
+    "content": [
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "marks": [
+              {
+                "type": "annotation",
+                "attrs": {
+                  "id": "fake-id-1",
+                  "annotationType": "inlineComment"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "marks": [
+              {
+                "type": "annotation",
+                "attrs": {
+                  "id": "fake-id-1",
+                  "annotationType": "inlineComment"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "step": {
+    "stepType": "addMark",
+    "mark": {
+      "type": "annotation",
+      "attrs": {
+        "id": "fake-id-1",
+        "annotationType": "inlineComment"
+      }
+    },
+    "from": 1,
+    "to": 115
+  }
+}

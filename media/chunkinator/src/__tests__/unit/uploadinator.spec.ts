@@ -19,32 +19,33 @@ describe('Uploadinator', () => {
     expect(output).toEqual([]);
   });
 
-  it('invokes uploader for all non-existing chunks', async () => {
-    const probedChunks = [
-      { blob: new Blob(), hash: 'foo', exists: true, partNumber: 1 },
-      { blob: new Blob(), hash: 'bar', exists: false, partNumber: 2 },
-      { blob: new Blob(), hash: 'baz', exists: false, partNumber: 3 },
+  it('invokes uploader for all chunks', async () => {
+    const chunks = [
+      { blob: new Blob(), hash: 'foo', partNumber: 1 },
+      { blob: new Blob(), hash: 'bar', partNumber: 2 },
+      { blob: new Blob(), hash: 'baz', partNumber: 3 },
     ];
 
     const uploader = jest.fn(() => Promise.resolve());
 
-    const output = await uploadinator(from(probedChunks), {
+    const output = await uploadinator(from(chunks), {
       concurrency: 1,
       uploader,
     })
       .pipe(toArray())
       .toPromise();
 
-    expect(output).toEqual([probedChunks[0], probedChunks[1], probedChunks[2]]);
-    expect(uploader).toHaveBeenCalledTimes(2);
-    expect(uploader).toHaveBeenCalledWith(probedChunks[1]);
-    expect(uploader).toHaveBeenCalledWith(probedChunks[2]);
+    expect(output).toEqual([chunks[0], chunks[1], chunks[2]]);
+    expect(uploader).toHaveBeenCalledTimes(3);
+    expect(uploader).toHaveBeenCalledWith(chunks[0]);
+    expect(uploader).toHaveBeenCalledWith(chunks[1]);
+    expect(uploader).toHaveBeenCalledWith(chunks[2]);
   });
 
   it('returns chunks in-order even if promises resolve out of order', async () => {
-    const probedChunks = [
-      { blob: new Blob(), hash: 'foo', exists: false, partNumber: 1 },
-      { blob: new Blob(), hash: 'bar', exists: false, partNumber: 2 },
+    const chunks = [
+      { blob: new Blob(), hash: 'foo', partNumber: 1 },
+      { blob: new Blob(), hash: 'bar', partNumber: 2 },
     ];
 
     const uploader = jest.fn().mockImplementation((chunk) => {
@@ -55,22 +56,22 @@ describe('Uploadinator', () => {
       }
     });
 
-    const output = await uploadinator(from(probedChunks), {
+    const output = await uploadinator(from(chunks), {
       concurrency: 2,
       uploader,
     })
       .pipe(toArray())
       .toPromise();
 
-    expect(output).toEqual(probedChunks);
+    expect(output).toEqual(chunks);
   });
 
   it('invokes parallel batches of N uploads, sequentially', async () => {
     MockDate.reset();
-    const probedChunks = [
-      { blob: new Blob(), hash: 'foo', exists: false, partNumber: 1 },
-      { blob: new Blob(), hash: 'bar', exists: false, partNumber: 2 },
-      { blob: new Blob(), hash: 'baz', exists: false, partNumber: 3 },
+    const chunks = [
+      { blob: new Blob(), hash: 'foo', partNumber: 1 },
+      { blob: new Blob(), hash: 'bar', partNumber: 2 },
+      { blob: new Blob(), hash: 'baz', partNumber: 3 },
     ];
 
     const invocations = new Array<{ ts: number; hash: string }>();
@@ -80,7 +81,7 @@ describe('Uploadinator', () => {
       return delayPromise(10);
     });
 
-    await uploadinator(from(probedChunks), {
+    await uploadinator(from(chunks), {
       concurrency: 2,
       uploader,
     })

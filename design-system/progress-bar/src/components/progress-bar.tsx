@@ -3,11 +3,9 @@ import React from 'react';
 
 import { css, jsx, keyframes } from '@emotion/react';
 
-import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import { G300, N40A, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { Theme } from '../theme';
 import { DefaultProgressBarProps } from '../types';
 
 const MIN_VALUE = 0;
@@ -92,75 +90,39 @@ const ProgressBar = ({
   ariaLabel,
   isIndeterminate = false,
   testId = 'progress-bar',
-  theme,
   value = 0,
 }: DefaultProgressBarProps) => {
   const valueParsed = isIndeterminate
     ? MIN_VALUE
     : Math.max(MIN_VALUE, Math.min(value, MAX_VALUE));
 
-  propDeprecationWarning(
-    process.env._PACKAGE_NAME_ || '',
-    'theme',
-    typeof theme !== undefined,
-    'https://community.developer.atlassian.com/t/theme-prop-in-atlaskit-progress-bar-is-being-deprecated/56198',
-  );
-
   return (
-    <Theme.Provider value={theme}>
-      <Theme.Consumer value={value}>
-        {(tokens) => (
-          <div
-            css={[
-              containerStyles,
-              containerAppearance[appearance],
-              tokens.container,
-            ]}
-            role="progressbar"
-            aria-label={ariaLabel}
-            aria-valuemin={MIN_VALUE}
-            aria-valuenow={valueParsed}
-            aria-valuemax={MAX_VALUE}
-            tabIndex={0}
-            data-testid={testId}
-          >
-            {isIndeterminate ? (
-              <React.Fragment>
-                <span
-                  css={[
-                    barStyles,
-                    barAppearance[appearance],
-                    increasingBarStyles,
-                    tokens.bar,
-                    tokens.increasingBar,
-                  ]}
-                />
-                <span
-                  css={[
-                    barStyles,
-                    barAppearance[appearance],
-                    decreasingBarStyles,
-                    tokens.bar,
-                    tokens.decreasingBar,
-                  ]}
-                />
-              </React.Fragment>
-            ) : (
-              <span
-                style={{ width: `${Number(value) * 100}%` }}
-                css={[
-                  barStyles,
-                  barAppearance[appearance],
-                  determinateBarStyles,
-                  tokens.bar,
-                  tokens.determinateBar,
-                ]}
-              />
-            )}
-          </div>
-        )}
-      </Theme.Consumer>
-    </Theme.Provider>
+    <div
+      css={[containerStyles, containerAppearance[appearance]]}
+      role="progressbar"
+      aria-label={ariaLabel}
+      aria-valuemin={MIN_VALUE}
+      aria-valuenow={valueParsed}
+      aria-valuemax={MAX_VALUE}
+      tabIndex={0}
+      data-testid={testId}
+    >
+      {isIndeterminate ? (
+        <React.Fragment>
+          <span
+            css={[barStyles, barAppearance[appearance], increasingBarStyles]}
+          />
+          <span
+            css={[barStyles, barAppearance[appearance], decreasingBarStyles]}
+          />
+        </React.Fragment>
+      ) : (
+        <span
+          style={{ width: `${Number(value) * 100}%` }}
+          css={[barStyles, barAppearance[appearance], determinateBarStyles]}
+        />
+      )}
+    </div>
   );
 };
 

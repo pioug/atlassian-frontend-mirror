@@ -3,7 +3,7 @@ import { Fragment, KeyboardEvent, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Drawer from '@atlaskit/drawer';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
@@ -36,6 +36,12 @@ import { avatarUrl, ProfilePopup } from './shared/profile-popup';
 import { SwitcherPopup } from './shared/switcher-popup';
 import { theme } from './shared/themes';
 
+const drawerLabelText = {
+  settings: 'Settings drawer',
+};
+
+const { settings } = drawerLabelText;
+
 const paragraphStyles = css({
   padding: `${token('space.100', '8px')} ${token('space.200', '16px')}`,
 });
@@ -54,8 +60,8 @@ const SettingsDrawer = () => {
   return (
     <Fragment>
       <Settings isSelected={isOpen} onClick={onClick} tooltip="Settings" />
-      <Drawer isOpen={isOpen} onClose={onClose}>
-        settings drawer
+      <Drawer label={settings} isOpen={isOpen} onClose={onClose}>
+        {settings}
       </Drawer>
     </Fragment>
   );

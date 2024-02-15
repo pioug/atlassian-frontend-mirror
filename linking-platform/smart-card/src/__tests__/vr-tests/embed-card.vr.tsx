@@ -1,7 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
-import EmbedCardError from '../../../examples/vr-embed-card/vr-embed-card-error';
-import EmbedCardForbidden from '../../../examples/vr-embed-card/vr-embed-card-forbidden';
+import EmbedCardErrorView from '../../../examples/vr-embed-card/vr-embed-card-error';
+import EmbedCardForbiddenView from '../../../examples/vr-embed-card/vr-embed-card-forbidden';
 import EmbedCardForbiddenDefault from '../../../examples/vr-embed-card/vr-embed-card-forbidden';
 import EmbedCardForbiddenObjectRequestAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-object-request-access';
 import EmbedCardForbiddenSiteDeniedAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-denied-access';
@@ -9,145 +9,111 @@ import EmbedCardForbiddenSiteDirectAccess from '../../../examples/vr-embed-card/
 import EmbedCardForbiddenSiteForbiddenAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-forbidden-access';
 import EmbedCardForbiddenSitePendingAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-pending-access';
 import EmbedCardForbiddenSiteRequestAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-request-access';
-import EmbedCardNotFound from '../../../examples/vr-embed-card/vr-embed-card-not-found';
+import EmbedCardNotFoundView from '../../../examples/vr-embed-card/vr-embed-card-not-found';
 import EmbedCardNotFoundDefault from '../../../examples/vr-embed-card/vr-embed-card-not-found';
 import EmbedCardNotFoundSiteAccessExists from '../../../examples/vr-embed-card/vr-embed-card-not-found-site-access-exists';
-import EmbedCardResolved from '../../../examples/vr-embed-card/vr-embed-card-resolved';
-import EmbedCardUnauthorised from '../../../examples/vr-embed-card/vr-embed-card-unauthorised';
-import EmbedCardUnauthorisedWithProviderImage from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-with-provider-image';
-import EmbedCardUnauthorisedNoAuth from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-no-auth';
+import EmbedCardResolvedView from '../../../examples/vr-embed-card/vr-embed-card-resolved';
+import EmbedCardSelected from '../../../examples/vr-embed-card/vr-embed-card-selected';
+import EmbedCardUnauthorisedView from '../../../examples/vr-embed-card/vr-embed-card-unauthorised';
+import EmbedCardUnauthorisedViewWithProviderImage from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-with-provider-image';
+import EmbedCardUnauthorisedViewWithNoAuth from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-no-auth';
 
-/**
- * These tests are making external network request which needs be fixed
- * Ticket: https://product-fabric.atlassian.net/browse/EDM-7660
- * Slack: https://atlassian.slack.com/archives/CR5KWBDT4/p1692161302662599
- */
-snapshot(EmbedCardError);
-snapshot(EmbedCardForbidden);
-snapshot(EmbedCardNotFound);
+import EmbedCardFrameWithHref from '../../../examples/vr-embed-card/vr-embed-card-frame-with-href';
+import EmbedCardFrameWithNoHref from '../../../examples/vr-embed-card/vr-embed-card-frame-with-no-href';
+import EmbedCardFrameWithNoPlaceholderWithHref from '../../../examples/vr-embed-card/vr-embed-card-frame-with-no-placeholder-with-href';
+import EmbedCardFrameWithNoPlaceholderWithOnClick from '../../../examples/vr-embed-card/vr-embed-card-frame-with-no-placeholder-with-on-click';
+import EmbedCardFrameWithPlaceholderAndHref from '../../../examples/vr-embed-card/vr-embed-card-frame-with-placeholder-and-href';
+import EmbedCardFrameWithPlaceholderAndOnClick from '../../../examples/vr-embed-card/vr-embed-card-frame-with-placeholder-and-on-click';
 
-snapshot(EmbedCardResolved);
+import EmbedCardFrameStyleHide from '../../../examples/vr-embed-card/vr-embed-card-frame-style-hide';
+import EmbedCardFrameStyleHideAndSelected from '../../../examples/vr-embed-card/vr-embed-card-frame-style-hide-and-selected';
+import EmbedCardFrameStyleShow from '../../../examples/vr-embed-card/vr-embed-card-frame-style-show';
+import EmbedCardFrameStyleShowAndSelected from '../../../examples/vr-embed-card/vr-embed-card-frame-style-show-and-selected';
+import EmbedCardFrameStyleShowOnHover from '../../../examples/vr-embed-card/vr-embed-card-frame-style-show-on-hover';
+import EmbedCardFrameStyleShowOnHoverAndSelected from '../../../examples/vr-embed-card/vr-embed-card-frame-style-show-on-hover-and-selected';
 
-snapshot(EmbedCardUnauthorised);
-snapshot(EmbedCardUnauthorisedWithProviderImage);
-snapshot(EmbedCardUnauthorisedNoAuth);
+snapshot(EmbedCardErrorView);
+snapshot(EmbedCardForbiddenView);
+snapshot(EmbedCardForbiddenDefault);
+snapshot(EmbedCardForbiddenObjectRequestAccess);
+snapshot(EmbedCardForbiddenSiteDeniedAccess);
+snapshot(EmbedCardForbiddenSiteDirectAccess);
+snapshot(EmbedCardForbiddenSiteForbiddenAccess);
+snapshot(EmbedCardForbiddenSitePendingAccess);
+snapshot(EmbedCardForbiddenSiteRequestAccess);
+snapshot(EmbedCardNotFoundView);
+snapshot(EmbedCardNotFoundDefault);
+snapshot(EmbedCardNotFoundSiteAccessExists);
+snapshot(EmbedCardResolvedView);
+snapshot(EmbedCardSelected);
+snapshot(EmbedCardUnauthorisedView);
+snapshot(EmbedCardUnauthorisedViewWithProviderImage);
+snapshot(EmbedCardUnauthorisedViewWithNoAuth);
 
-// //Same list of tests for refreshed embed card design under the FF
-// //TODO: Delete during the 'platform.linking-platform.smart-card.show-smart-links-refreshed-design' FF clean up
-
-snapshot(EmbedCardError, {
-  description: 'refreshed embed card error view',
-  featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
-  },
+snapshot(EmbedCardFrameWithHref, {
+  description: 'embed card frame should render as a link when there is an href',
+  states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 });
-snapshot(EmbedCardForbidden, {
-  description: 'refreshed embed card forbidden view',
-  featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
-  },
+snapshot(EmbedCardFrameWithNoHref, {
+  description:
+    'embed card frame should not render as a link when there is no href',
+  states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 });
-snapshot(EmbedCardForbiddenDefault, {
-  featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
-    'platform.linking-platform.smart-card.cross-join': true,
-  },
+snapshot(EmbedCardFrameWithPlaceholderAndHref, {
+  description:
+    'embed card frame should not be interactive when isPlaceholder=true and href is defined',
+  states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 });
-snapshot(EmbedCardForbiddenObjectRequestAccess, {
-  featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
-    'platform.linking-platform.smart-card.cross-join': true,
-  },
+snapshot(EmbedCardFrameWithPlaceholderAndOnClick, {
+  description:
+    'embed card frame should not be interactive when isPlaceholder=true and onClick is defined',
+  states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 });
-snapshot(EmbedCardForbiddenSiteDeniedAccess, {
-  featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
-    'platform.linking-platform.smart-card.cross-join': true,
-  },
+snapshot(EmbedCardFrameWithNoPlaceholderWithHref, {
+  description:
+    'embed card frame should be interactive when isPlaceholder=false and href is defined',
+  states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 });
-snapshot(EmbedCardForbiddenSiteDirectAccess, {
-  featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
-    'platform.linking-platform.smart-card.cross-join': true,
-  },
-});
-snapshot(EmbedCardForbiddenSiteForbiddenAccess, {
-  featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
-    'platform.linking-platform.smart-card.cross-join': true,
-  },
-});
-snapshot(EmbedCardForbiddenSitePendingAccess, {
-  featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
-    'platform.linking-platform.smart-card.cross-join': true,
-  },
-});
-snapshot(EmbedCardForbiddenSiteRequestAccess, {
-  featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
-    'platform.linking-platform.smart-card.cross-join': true,
-  },
-});
-snapshot(EmbedCardNotFound, {
-  description: 'refreshed embed card link not found',
-  featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
-  },
-});
-snapshot(EmbedCardNotFoundDefault, {
-  featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
-    'platform.linking-platform.smart-card.cross-join': true,
-  },
-});
-snapshot(EmbedCardNotFoundSiteAccessExists, {
-  featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
-    'platform.linking-platform.smart-card.cross-join': true,
-  },
+snapshot(EmbedCardFrameWithNoPlaceholderWithOnClick, {
+  description:
+    'embed card frame should be interactive when isPlaceholder=false and onClick is defined',
+  states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 });
 
-snapshot(EmbedCardResolved, {
-  description: 'refreshed embed card resolved view',
+snapshot(EmbedCardFrameStyleHide, {
   featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
+    'platform.editor.show-embed-card-frame-renderer': [true, false],
   },
 });
-snapshot(EmbedCardUnauthorised, {
-  description: 'refreshed embed card unathorised view',
+snapshot(EmbedCardFrameStyleHideAndSelected, {
   featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
-    'platform.linking-platform.smart-card.cross-join': true,
+    'platform.editor.show-embed-card-frame-renderer': [true, false],
   },
 });
-snapshot(EmbedCardUnauthorisedWithProviderImage, {
-  description: 'refreshed embed card unathorised view with provider image',
+snapshot(EmbedCardFrameStyleShow, {
   featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
-    'platform.linking-platform.smart-card.cross-join': true,
+    'platform.editor.show-embed-card-frame-renderer': [true, false],
   },
 });
-snapshot(EmbedCardUnauthorisedNoAuth, {
-  description: 'refreshed embed card unathorised view with no auth',
+snapshot(EmbedCardFrameStyleShowAndSelected, {
   featureFlags: {
-    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-      true,
-    'platform.linking-platform.smart-card.cross-join': true,
+    'platform.editor.show-embed-card-frame-renderer': [true, false],
+  },
+});
+snapshot(EmbedCardFrameStyleShowOnHover, {
+  featureFlags: {
+    'platform.editor.show-embed-card-frame-renderer': [true, false],
+  },
+});
+snapshot(EmbedCardFrameStyleShowOnHover, {
+  description: 'embed card frame style show on hover when hover',
+  states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
+  featureFlags: {
+    'platform.editor.show-embed-card-frame-renderer': [true, false],
+  },
+});
+snapshot(EmbedCardFrameStyleShowOnHoverAndSelected, {
+  featureFlags: {
+    'platform.editor.show-embed-card-frame-renderer': [true, false],
   },
 });

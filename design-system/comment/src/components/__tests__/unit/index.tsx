@@ -61,7 +61,7 @@ describe('@atlaskit comments', () => {
           const avatar = <Avatar src="test/src" />;
           render(<Comment avatar={avatar} />);
 
-          const avatarImg = screen.queryByRole('img');
+          const avatarImg = screen.queryByRole('img', { hidden: true });
 
           expect(avatarImg).toBeInTheDocument();
           expect(avatarImg).toHaveAttribute('src', 'test/src');

@@ -1,3 +1,1 @@
-import MockActivityResource from './MockActivityResource';
-
-export { MockActivityResource };
+export { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers';

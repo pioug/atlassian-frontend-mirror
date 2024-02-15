@@ -15,6 +15,7 @@ import type { Options } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   a,
   blockquote,
+  border,
   br,
   code,
   code_block,
@@ -36,6 +37,7 @@ import {
   media,
   mediaGroup,
   mediaInline,
+  mediaSingle,
   mention,
   nestedExpand,
   ol,
@@ -98,18 +100,17 @@ describe('JSONTransformer:', () => {
           emojiProvider: new Promise(() => {}),
           mentionProvider: new Promise(() => {}),
           media: {
+            allowMediaSingle: true,
             featureFlags: {
               mediaInline: true,
             },
           },
+          allowBorderMark: true,
           allowTextColor: true,
           allowPanel: true,
           allowRule: true,
           allowTables: true,
           allowExpand: true,
-          featureFlags: {
-            restartNumberedLists: true,
-          },
           ...(options?.editorProps || {}),
         },
       });
@@ -172,6 +173,71 @@ describe('JSONTransformer:', () => {
           panelNote(p('hello from note panel')),
           hr(),
           ol({ order: 6 })(li(p('One')), li(p('Two')), li(p('Three'))),
+        ),
+      );
+      const pmDoc = editorView.state.doc;
+      expect(toJSON(pmDoc)).toMatchSnapshot();
+    });
+
+    it('should serialize media nodes/marks as ProseMirror does', () => {
+      const { editorView } = editor(
+        doc(
+          mediaSingle({ layout: 'center' })(
+            border({ color: '#091e4224', size: 2 })(
+              a({ href: 'https://atlassian.com' })(
+                media({
+                  id: 'foo media single',
+                  type: 'file',
+                  collection: '',
+                  width: 256,
+                  height: 128,
+                  alt: 'Good day',
+                })(),
+              ),
+            ),
+          ),
+          mediaSingle({ layout: 'center', width: 321, widthType: 'pixel' })(
+            border({ color: '#091e4224', size: 2 })(
+              a({ href: 'https://atlassian.com' })(
+                media({
+                  id: 'foo media single',
+                  type: 'file',
+                  collection: '',
+                  width: 256,
+                  height: 128,
+                  alt: 'Good day',
+                })(),
+              ),
+            ),
+          ),
+          p(
+            border({ color: '#091e4224', size: 2 })(
+              a({ href: 'https://atlassian.com' })(
+                mediaInline({
+                  id: 'foo file',
+                  type: 'file',
+                  collection: '',
+                  width: 123,
+                  height: 456,
+                  alt: 'Good day',
+                })(),
+              ),
+            ),
+          ),
+          p(
+            border({ color: '#091e4224', size: 3 })(
+              a({ href: 'https://atlassian.com' })(
+                mediaInline({
+                  id: 'foo image',
+                  type: 'image',
+                  collection: '',
+                  width: 123,
+                  height: 456,
+                  alt: 'Good day',
+                })(),
+              ),
+            ),
+          ),
         ),
       );
       const pmDoc = editorView.state.doc;
@@ -243,6 +309,43 @@ describe('JSONTransformer:', () => {
                 attrs: {
                   id: 'foo',
                   type: 'file',
+                  collection: '',
+                },
+              },
+            ],
+          },
+        ],
+      });
+    });
+
+    it('should strip optional attrs from media inline image node', () => {
+      const { editorView } = editor(
+        doc(
+          p(
+            mediaInline({
+              id: 'foo',
+              type: 'image',
+              collection: '',
+              __fileName: 'foo.png',
+              __displayType: 'thumbnail',
+              __fileMimeType: 'image/png',
+              __fileSize: 1234,
+            })(),
+          ),
+        ),
+      );
+      expect(toJSON(editorView.state.doc)).toEqual({
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'mediaInline',
+                attrs: {
+                  id: 'foo',
+                  type: 'image',
                   collection: '',
                 },
               },

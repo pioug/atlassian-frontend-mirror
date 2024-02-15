@@ -294,7 +294,7 @@ describe('expanding and collapsing', () => {
     });
   });
 
-  it('should show extended label for expand and collapse button when the mainColumnForExpandCollapseLabel is passed as string', () => {
+  it('should show extended span for expand and collapse button when the mainColumnForExpandCollapseLabel is passed as string', () => {
     const nestedItems = [
       {
         id: 'item1',
@@ -326,13 +326,13 @@ describe('expanding and collapsing', () => {
       ></TableTree>
     );
 
-    const { getByLabelText, queryByLabelText } = render(jsxTableTree);
+    const { getByText, queryByText } = render(jsxTableTree);
 
-    expect(getByLabelText(/Chapter 1: Clean Code/)).toBeInTheDocument();
-    expect(queryByLabelText(/item1/)).not.toBeInTheDocument();
+    expect(getByText(/Expand Chapter 1: Clean Code/)).toBeInTheDocument();
+    expect(queryByText(/Expand row item1/)).not.toBeInTheDocument();
   });
 
-  it('should show extended label for expand and collapse button when the mainColumnForExpandCollapseLabel is passed as number', () => {
+  it('should show extended span for expand and collapse button when the mainColumnForExpandCollapseLabel is passed as number', () => {
     const nestedData = [
       {
         title: 'Chapter 1: Clean Code',
@@ -368,13 +368,13 @@ describe('expanding and collapsing', () => {
       </TableTree>
     );
 
-    const { getByLabelText, queryByLabelText } = render(jsxTableTree);
+    const { getByText, queryByText } = render(jsxTableTree);
 
-    expect(getByLabelText(/Chapter 1: Clean Code/)).toBeInTheDocument();
-    expect(queryByLabelText(/item1/)).not.toBeInTheDocument();
+    expect(getByText(/Expand Chapter 1: Clean Code/)).toBeInTheDocument();
+    expect(queryByText(/Expand row item1/)).not.toBeInTheDocument();
   });
 
-  it('should show default label for expand and collapse button when the mainColumnForExpandCollapseLabel is not passed', () => {
+  it('should show default span for expand and collapse button when the mainColumnForExpandCollapseLabel is not passed', () => {
     const nestedData = [
       {
         title: 'Chapter 1: Clean Code',
@@ -409,9 +409,9 @@ describe('expanding and collapsing', () => {
       </TableTree>
     );
 
-    const { getByLabelText } = render(jsxTableTree);
+    const { getByText } = render(jsxTableTree);
 
-    expect(getByLabelText(/item1/)).toBeInTheDocument();
+    expect(getByText(/Expand row item1/)).toBeInTheDocument();
   });
 });
 

@@ -85,8 +85,11 @@ export default class BreadcrumbsExpand extends React.Component<{}, State> {
             padding: token('space.250', '20px'),
           }}
         >
-          <h3>Change how many breadcrumbs to show</h3>
+          <label htmlFor="how-many-breadcrumbs">
+            How many breadcrumbs to show
+          </label>
           <Select
+            inputId="how-many-breadcrumbs"
             defaultValue={selectOptions[3]}
             options={selectOptions}
             onChange={(option) => {
@@ -105,8 +108,9 @@ export default class BreadcrumbsExpand extends React.Component<{}, State> {
             padding: token('space.250', '20px'),
           }}
         >
-          <h3>maxItems</h3>
+          <label htmlFor="maxitems">maxItems</label>
           <Select
+            inputId="maxitems"
             defaultValue={selectOptions[8]}
             options={selectOptions}
             onChange={(option) =>
@@ -121,8 +125,9 @@ export default class BreadcrumbsExpand extends React.Component<{}, State> {
             padding: token('space.250', '20px'),
           }}
         >
-          <h3>itemsBeforeCollapse</h3>
+          <label htmlFor="items-before-collapse">itemsBeforeCollapse</label>
           <Select
+            inputId="items-before-collapse"
             defaultValue={selectOptions[1]}
             options={selectOptions}
             onChange={(option) =>
@@ -137,8 +142,9 @@ export default class BreadcrumbsExpand extends React.Component<{}, State> {
             padding: token('space.250', '20px'),
           }}
         >
-          <h3>itemsAfterCollapse</h3>
+          <label htmlFor="items-after-collapse">itemsAfterCollapse</label>
           <Select
+            inputId="items-after-collapse"
             defaultValue={selectOptions[1]}
             options={selectOptions}
             onChange={(option) =>

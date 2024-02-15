@@ -1,5 +1,6 @@
 export {
   default as DropdownMenu,
+  DropdownMenuItem,
   DropdownMenuWithKeyboardNavigation,
 } from './DropdownMenu';
 export type { MenuItem } from './DropdownMenu';

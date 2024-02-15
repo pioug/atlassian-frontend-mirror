@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/legacy-mobile-macros",
-  "version": "2.4.294",
+  "version": "2.4.384",
   "description": "Higher-order components that optionally add Confluence-specific functionality to editor-mobile-bridge",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
@@ -15,17 +15,17 @@
     "releaseModel": "continuous"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^34.0.0",
+    "@atlaskit/adf-schema": "^35.5.1",
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/analytics-gas-types": "^5.1.0",
-    "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/button": "^16.17.0",
-    "@atlaskit/editor-common": "76.23.4",
+    "@atlaskit/analytics-next": "^9.2.0",
+    "@atlaskit/button": "^17.3.0",
+    "@atlaskit/editor-common": "77.4.4",
     "@atlaskit/icon": "^22.0.0",
-    "@atlaskit/logo": "^13.14.0",
+    "@atlaskit/logo": "^13.15.0",
     "@atlaskit/spinner": "^16.0.0",
-    "@atlaskit/theme": "12.6.2",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/theme": "12.6.3",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
     "styled-components": "^3.2.6",

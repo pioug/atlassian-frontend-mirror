@@ -1,0 +1,18 @@
+{
+    "extends": "../../../../tsconfig.entry-points.confluence.json",
+    "include": [
+        "../src/**/*.ts"
+    ],
+    "exclude": [
+        "../src/**/__tests__/*",
+        "../src/**/*.test.*",
+        "../src/**/test.*"
+    ],
+    "compilerOptions": {
+        "composite": true,
+        "outDir": "../dist",
+        "rootDir": "../",
+        "baseUrl": "../"
+    },
+    "references": []
+}

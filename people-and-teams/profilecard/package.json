@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/profilecard",
-  "version": "19.7.6",
+  "version": "19.10.0",
   "description": "A React component to display a card with user information.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -52,22 +52,23 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/avatar": "^21.4.0",
-    "@atlaskit/avatar-group": "^9.4.0",
-    "@atlaskit/button": "^16.17.0",
-    "@atlaskit/dropdown-menu": "^12.1.0",
-    "@atlaskit/empty-state": "^7.6.0",
+    "@atlaskit/avatar-group": "^9.5.0",
+    "@atlaskit/button": "^17.3.0",
+    "@atlaskit/dropdown-menu": "^12.5.0",
+    "@atlaskit/empty-state": "^7.7.0",
     "@atlaskit/focus-ring": "^1.3.4",
-    "@atlaskit/give-kudos": "^2.0.0",
+    "@atlaskit/give-kudos": "^2.1.0",
     "@atlaskit/icon": "^22.0.0",
-    "@atlaskit/lozenge": "^11.4.0",
+    "@atlaskit/lozenge": "^11.6.0",
     "@atlaskit/menu": "^2.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.4",
-    "@atlaskit/popup": "^1.11.0",
+    "@atlaskit/popup": "^1.12.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tooltip": "^18.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.0.0",
@@ -108,10 +109,10 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
-    "platform.teams.site-scoped.m1": {
+    "platform.profile-card-trigger-next": {
       "type": "boolean"
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

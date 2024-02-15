@@ -92,8 +92,7 @@ describe('integration test', () => {
       },
       context: [
         {
-          packageName: '@atlaskit/fabric',
-          packageVersion: '0.0.0',
+          component: 'datasourceConfigModal',
           source: 'datasourceConfigModal',
           attributes: { dataProvider: 'jira-issues' },
         },

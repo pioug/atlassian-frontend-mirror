@@ -44,6 +44,7 @@ export const extractFilePreviewStatus = (
   };
 };
 
+// CXP-2723 TODO: Review this in relation to removing status from the hook
 export const isPreviewableStatus = (
   cardStatus: CardStatus,
   { isPreviewable, hasPreview, isSupportedByBrowser }: FilePreviewStatus,

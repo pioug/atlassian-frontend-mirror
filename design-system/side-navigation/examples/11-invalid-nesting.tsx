@@ -29,7 +29,10 @@ const BasicExample = () => {
           gap: token('space.600', '48px'),
         }}
       >
-        <SideNavigation label="project" testId="controlled-invalid">
+        <SideNavigation
+          label="Controlled navigation"
+          testId="controlled-invalid"
+        >
           <NavigationHeader>
             <Header
               description={
@@ -58,7 +61,10 @@ const BasicExample = () => {
           </NestableNavigationContent>
         </SideNavigation>
 
-        <SideNavigation label="project" testId="uncontrolled-invalid">
+        <SideNavigation
+          label="Uncontrolled navigation"
+          testId="uncontrolled-invalid"
+        >
           <NavigationHeader>
             <Header
               description={

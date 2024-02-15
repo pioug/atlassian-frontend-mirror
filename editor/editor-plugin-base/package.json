@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-base",
-  "version": "0.2.6",
+  "version": "1.0.0",
   "description": "Base plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -10,9 +10,10 @@
   "atlassian": {
     "team": "Editor",
     "singleton": true,
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "runReact18": false
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -31,27 +32,15 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^34.0.0",
-    "@atlaskit/editor-common": "^76.23.0",
+    "@atlaskit/adf-schema": "^35.5.1",
+    "@atlaskit/editor-common": "^77.4.0",
+    "@atlaskit/editor-plugin-context-identifier": "^1.0.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.1",
-    "@atlaskit/editor-prosemirror": "1.1.0",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
+    "@atlaskit/editor-prosemirror": "3.0.0",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
-    "@atlaskit/editor-plugin-analytics": "^0.3.0",
-    "@atlaskit/editor-plugin-content-insertion": "^0.1.0",
-    "@atlaskit/editor-plugin-emoji": "^0.4.0",
-    "@atlaskit/editor-plugin-guideline": "^0.5.0",
-    "@atlaskit/editor-plugin-selection": "^0.1.0",
-    "@atlaskit/editor-plugin-table": "^5.4.0",
-    "@atlaskit/editor-plugin-type-ahead": "^0.7.0",
-    "@atlaskit/editor-plugin-width": "^0.2.0",
-    "@atlaskit/util-data-test": "^17.8.0",
-    "@atlaskit/webdriver-runner": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "@testing-library/react": "^12.1.5",
-    "raf-stub": "^2.0.1"
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0"
   },
   "techstack": {
     "@atlassian/frontend": {
@@ -86,9 +75,9 @@
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
-  "platform-feature-flags": {
-    "platform.editor.disable-chrome-88-selection-fix_uk53m": {
-      "type": "boolean"
+  "stricter": {
+    "no-unused-dependencies": {
+      "checkDevDependencies": true
     }
   }
 }

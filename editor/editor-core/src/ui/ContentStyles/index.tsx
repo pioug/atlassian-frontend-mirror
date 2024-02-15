@@ -1,71 +1,72 @@
 /** @jsx jsx */
 import React, { useMemo } from 'react';
-import type { SerializedStyles } from '@emotion/react';
-import { jsx, css, useTheme } from '@emotion/react';
-import {
-  whitespaceSharedStyles,
-  paragraphSharedStyles,
-  listsSharedStyles,
-  indentationSharedStyles,
-  blockMarksSharedStyles,
-  shadowSharedStyle,
-  dateSharedStyle,
-  tasksAndDecisionsStyles,
-  annotationSharedStyles,
-  smartCardSharedStyles,
-  textColorStyles,
-  resizerStyles,
-  gridStyles,
-  smartCardStyles,
-  embedCardStyles,
-  codeBlockInListSafariFix,
-  unsupportedStyles,
-} from '@atlaskit/editor-common/styles';
-import type { ThemeProps } from '@atlaskit/theme/types';
 
+import type { SerializedStyles } from '@emotion/react';
+import { css, jsx, useTheme } from '@emotion/react';
+
+import { telepointerStyle } from '@atlaskit/editor-common/collab';
+import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
+import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
+import { gapCursorStyles } from '@atlaskit/editor-common/selection';
 import {
-  akEditorSelectedBorderSize,
-  akEditorDeleteBorder,
+  annotationSharedStyles,
+  blockMarksSharedStyles,
+  codeBlockInListSafariFix,
+  dateSharedStyle,
+  embedCardStyles,
+  gridStyles,
+  indentationSharedStyles,
+  listsSharedStyles,
+  paragraphSharedStyles,
+  resizerStyles,
+  shadowSharedStyle,
+  SmartCardSharedCssClassName,
+  smartCardSharedStyles,
+  smartCardStyles,
+  tasksAndDecisionsStyles,
+  textColorStyles,
+  unsupportedStyles,
+  whitespaceSharedStyles,
+} from '@atlaskit/editor-common/styles';
+import { MediaSharedClassNames } from '@atlaskit/editor-common/styles';
+import {
+  codeMarkSharedStyles,
+  linkSharedStyle,
+  ruleSharedStyles,
+} from '@atlaskit/editor-common/styles';
+import { browser } from '@atlaskit/editor-common/utils';
+import { blocktypeStyles } from '@atlaskit/editor-plugins/block-type/styles';
+import { findReplaceStyles } from '@atlaskit/editor-plugins/find-replace/styles';
+import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
+import { placeholderTextStyles } from '@atlaskit/editor-plugins/placeholder-text/styles';
+import { tableStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
+import {
   akEditorDeleteBackgroundWithOpacity,
+  akEditorDeleteBorder,
+  akEditorLineHeight,
+  akEditorSelectedBorderColor,
+  akEditorSelectedBorderSize,
   akEditorSelectedNodeClassName,
   blockNodesVerticalMargin,
   editorFontSize,
   getSelectionStyles,
   SelectionStyle,
-  akEditorLineHeight,
-  akEditorSelectedBorderColor,
 } from '@atlaskit/editor-shared-styles';
-import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
+import { N200, N30A, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { telepointerStyle } from '../../plugins/collab-edit/styles';
-import { tableStyles } from '@atlaskit/editor-plugin-table/ui/common-styles';
-import { blocktypeStyles } from '@atlaskit/editor-plugin-block-type/styles';
-import { textHighlightStyle } from '@atlaskit/editor-plugin-paste-options-toolbar/styles';
-import { codeBlockStyles } from './code-block';
-import { mediaStyles } from './media';
-import { layoutStyles } from './layout';
-import { panelStyles } from './panel';
-import { placeholderTextStyles } from '@atlaskit/editor-plugin-placeholder-text/styles';
-import { extensionStyles } from './extension';
-import { expandStyles } from './expand';
-import { MediaSharedClassNames } from '@atlaskit/editor-common/styles';
-import { findReplaceStyles } from '../../plugins/find-replace/styles';
-import { taskDecisionStyles } from './tasks-and-decisions';
-import { statusStyles } from './status';
-import { dateStyles } from './date';
-import type { FeatureFlags } from '../../types/feature-flags';
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
-import {
-  linkSharedStyle,
-  codeMarkSharedStyles,
-  ruleSharedStyles,
-} from '@atlaskit/editor-common/styles';
-import { browser } from '@atlaskit/editor-common/utils';
-import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
+import type { FeatureFlags } from '../../types/feature-flags';
 
-import { N500, N30A, N200 } from '@atlaskit/theme/colors';
-import { gapCursorStyles } from '@atlaskit/editor-common/selection';
+import { codeBlockStyles } from './code-block';
+import { dateStyles } from './date';
+import { expandStyles } from './expand';
+import { extensionStyles } from './extension';
+import { layoutStyles } from './layout';
+import { mediaStyles } from './media';
+import { panelStyles } from './panel';
+import { statusStyles } from './status';
+import { taskDecisionStyles } from './tasks-and-decisions';
 
 export const linkStyles = css`
   .ProseMirror {
@@ -78,9 +79,9 @@ type ContentStylesProps = {
   featureFlags?: FeatureFlags;
 };
 
-const ruleStyles = (props: ThemeProps) => css`
+const ruleStyles = () => css`
   .ProseMirror {
-    ${ruleSharedStyles(props)};
+    ${ruleSharedStyles()};
 
     hr {
       cursor: pointer;
@@ -148,7 +149,9 @@ const listsStyles = css`
       }
     }
 
-    & :not([data-node-type='decisionList']) > li {
+    &:not([data-node-type='decisionList']) > li,
+    // This prevents https://product-fabric.atlassian.net/browse/ED-20924
+    &:not(.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}) > li {
       ${browser.safari ? codeBlockInListSafariFix : ''}
     }
   }
@@ -231,19 +234,19 @@ const contentStyles = (props: ContentStylesProps) => css`
 
   ${placeholderTextStyles}
   ${placeholderStyles}
-  ${codeBlockStyles(props)}
+  ${codeBlockStyles()}
 
-  ${blocktypeStyles(props)}
-  ${codeMarkSharedStyles(props)}
+  ${blocktypeStyles()}
+  ${codeMarkSharedStyles()}
   ${textColorStyles}
   ${listsStyles}
-  ${ruleStyles(props)}
+  ${ruleStyles()}
   ${mediaStyles}
-  ${layoutStyles(props)}
+  ${layoutStyles}
   ${telepointerStyle}
   ${gapCursorStyles};
   ${tableStyles(props)}
-  ${panelStyles(props)}
+  ${panelStyles()}
   ${mentionsStyles}
   ${emojiStyles}
   ${tasksAndDecisionsStyles}
@@ -252,12 +255,12 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${blockMarksSharedStyles}
   ${dateSharedStyle}
   ${extensionStyles}
-  ${expandStyles(props)}
+  ${expandStyles()}
   ${findReplaceStyles}
   ${textHighlightStyle}
   ${taskDecisionStyles}
   ${statusStyles}
-  ${annotationSharedStyles(props)}
+  ${annotationSharedStyles()}
   ${smartCardStyles}
   ${smartCardSharedStyles}
   ${dateStyles}

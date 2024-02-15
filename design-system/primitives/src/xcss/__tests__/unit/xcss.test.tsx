@@ -30,6 +30,10 @@ describe('xcss()', () => {
   it('transforms token styles', () => {
     const styles = xcss({
       padding: 'space.100',
+      margin: 'space.negative.200',
+      // eslint-disable-next-line @atlaskit/design-system/no-physical-properties
+      top: 'space.negative.050',
+      insetBlock: 'space.negative.150',
       zIndex: 'blanket',
       color: 'color.text',
       boxShadow: 'elevation.shadow.overflow',
@@ -40,7 +44,10 @@ describe('xcss()', () => {
         Symbol(UNSAFE_INTERNAL_styles): Object {
           "boxShadow": "var(--ds-shadow-overflow, 0px 0px 8px #091e423f, 0px 0px 1px #091e424f)",
           "color": "var(--ds-text, #172B4D)",
+          "insetBlock": "var(--ds-space-negative-150, -12px)",
+          "margin": "var(--ds-space-negative-200, -16px)",
           "padding": "var(--ds-space-100, 8px)",
+          "top": "var(--ds-space-negative-050, -4px)",
           "zIndex": 500,
         },
       }
@@ -192,6 +199,7 @@ describe('xcss()', () => {
       // @ts-expect-error
       color: '#F0F0F0',
       // @ts-expect-error
+      // eslint-disable-next-line @atlaskit/design-system/no-physical-properties
       top: 0,
     });
 
@@ -217,6 +225,7 @@ describe('xcss()', () => {
       // @ts-expect-error
       color: '#F0F0F0',
       // @ts-expect-error
+      // eslint-disable-next-line @atlaskit/design-system/no-physical-properties
       top: 0,
     });
 

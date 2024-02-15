@@ -2,37 +2,40 @@ const mockStore = {
   failAll: jest.fn(),
 };
 jest.mock('@atlaskit/editor-common/utils', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+  ...jest.requireActual('@atlaskit/editor-common/utils'),
   isOutdatedBrowser: (userAgent: string) => userAgent === 'Unsupported',
 }));
 jest.mock('@atlaskit/editor-common/ufo', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-common/ufo'),
+  ...jest.requireActual('@atlaskit/editor-common/ufo'),
   ExperienceStore: {
     getInstance: () => mockStore,
   },
 }));
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { mount, shallow, ReactWrapper, ShallowWrapper } from 'enzyme';
-import React from 'react';
-import { ErrorBoundaryWithEditorView as EditorErrorBoundary } from '../../../create-editor/ErrorBoundary';
+import React, { useEffect } from 'react';
+
+import { render, waitFor } from '@testing-library/react';
+
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import {
-  createProsemirrorEditorFactory,
-  Preset,
-} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
+/* eslint-disable-next-line import/no-extraneous-dependencies -- Removed from package.json to fix  circular dependencies */
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+/* eslint-disable-next-line import/no-extraneous-dependencies -- Removed from package.json to fix  circular dependencies */
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
-import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+/* eslint-disable-next-line import/no-extraneous-dependencies -- Removed from package.json to fix  circular dependencies */
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+/* eslint-disable-next-line import/no-extraneous-dependencies -- Removed from package.json to fix  circular dependencies */
+import {
+  createProsemirrorEditorFactory,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+
+import { ErrorBoundaryWithEditorView as EditorErrorBoundary } from '../../../create-editor/ErrorBoundary';
 
 const mockCtxIdentifierProvider = {
   objectId: 'MOCK-OBJECT-ID',
@@ -44,23 +47,17 @@ const contextIdentifierProvider = storyContextIdentifierProviderFactory(
   mockCtxIdentifierProvider,
 );
 
-function Foo() {
+const Foo = () => {
   return <div>Foo</div>;
-}
+};
 
-const renderedFooString = '<div>Foo</div>';
+const ExplodingFoo = () => {
+  useEffect(() => {
+    throw new Error('BOOOOOM!');
+  }, []);
 
-class IntermittentProblem extends React.Component {
-  static shouldThrowOnce = true;
-
-  render() {
-    if (IntermittentProblem.shouldThrowOnce) {
-      IntermittentProblem.shouldThrowOnce = false;
-      throw new Error('💥');
-    }
-    return <Foo />;
-  }
-}
+  return <div>Exploding Foo</div>;
+};
 
 class ProductErrorBoundary extends React.Component {
   state = {
@@ -79,47 +76,35 @@ class ProductErrorBoundary extends React.Component {
   }
 }
 
-const renderedProductErrorBoundaryFallback =
-  '<div>Stack trace rendered here</div>';
-
 describe('create-editor/error-boundary', () => {
   const createEditor = createProsemirrorEditorFactory();
-  let createAnalyticsEvent: CreateUIAnalyticsEvent;
-  let wrapper: ReactWrapper | ShallowWrapper;
-  const spy: { [key: string]: jest.MockInstance<any, any> } = {
-    console: jest.fn(),
-    componentDidCatch: jest.fn(),
-    userAgent: jest.fn(),
-  };
+  let createAnalyticsEvent: CreateUIAnalyticsEvent,
+    componentDidCatch: jest.SpyInstance,
+    userAgent: jest.SpyInstance;
 
   beforeAll(() => {
-    spy.console = jest.spyOn(console, 'error').mockImplementation(() => {});
-    spy.componentDidCatch = jest.spyOn(
+    componentDidCatch = jest.spyOn(
       EditorErrorBoundary.prototype,
       'componentDidCatch',
     );
-    spy.userAgent = jest
+    userAgent = jest
       .spyOn(window.navigator, 'userAgent', 'get')
       .mockReturnValue('Supported');
   });
+
   beforeEach(() => {
     createAnalyticsEvent = createAnalyticsEventMock();
   });
-  afterEach(() => {
-    wrapper.unmount();
-    spy.console.mockClear();
-    spy.componentDidCatch.mockClear();
-    spy.userAgent.mockClear();
-    jest.clearAllMocks();
-  });
+
+  afterEach(jest.clearAllMocks);
+
   afterAll(() => {
-    spy.console.mockRestore();
-    spy.componentDidCatch.mockRestore();
-    spy.userAgent.mockRestore();
+    componentDidCatch.mockRestore();
+    userAgent.mockRestore();
   });
 
   it('should render children when no errors are thrown', () => {
-    wrapper = shallow(
+    const { container } = render(
       <EditorErrorBoundary
         createAnalyticsEvent={createAnalyticsEvent as CreateUIAnalyticsEvent}
         contextIdentifierProvider={contextIdentifierProvider}
@@ -128,46 +113,39 @@ describe('create-editor/error-boundary', () => {
         <Foo />
       </EditorErrorBoundary>,
     );
-    expect(spy.componentDidCatch).toHaveBeenCalledTimes(0);
-    expect(wrapper.html()).toEqual(renderedFooString);
+    expect(componentDidCatch).not.toHaveBeenCalled();
+    expect(container).toHaveTextContent('Foo');
     expect(createAnalyticsEvent).not.toHaveBeenCalled();
   });
 
   it('should catch errors via `componentDidCatch` when a child throws', () => {
-    wrapper = shallow(
+    render(
       <EditorErrorBoundary
         rethrow={false}
         createAnalyticsEvent={createAnalyticsEvent}
         contextIdentifierProvider={contextIdentifierProvider}
         featureFlags={{}}
       >
-        <Foo />
+        <ExplodingFoo />
       </EditorErrorBoundary>,
     );
-    wrapper.find(Foo).simulateError(new Error('Triggered error boundary'));
-    expect(spy.componentDidCatch).toHaveBeenCalledTimes(1);
+    expect(componentDidCatch).toHaveBeenCalledTimes(2); // rerenders once
   });
 
   it('should dispatch an analytics event when an error is caught', async () => {
-    wrapper = shallow(
+    render(
       <EditorErrorBoundary
         rethrow={false}
         createAnalyticsEvent={createAnalyticsEvent}
         contextIdentifierProvider={contextIdentifierProvider}
         featureFlags={{}}
       >
-        <Foo />
+        <ExplodingFoo />
       </EditorErrorBoundary>,
     );
-    const error = new Error('Triggered error boundary');
-    wrapper.find(Foo).simulateError(error);
-    expect(spy.componentDidCatch).toHaveBeenCalledTimes(1);
+    expect(componentDidCatch).toHaveBeenCalledTimes(2); // rerenders once
     const resolved = await expect(contextIdentifierProvider).resolves;
     resolved.toMatchObject(mockCtxIdentifierProvider);
-
-    // Error boundary has a async operation to get the productName,
-    // I need to wait until that promise resolve
-    await flushPromises();
 
     const expectedAnalyticsEvent = {
       action: ACTION.EDITOR_CRASHED,
@@ -177,7 +155,7 @@ describe('create-editor/error-boundary', () => {
         product: mockCtxIdentifierProvider.product,
         browserInfo: expect.any(String),
         browserExtensions: undefined,
-        error: 'Error: Triggered error boundary',
+        error: 'Error: BOOOOOM!',
         errorInfo: expect.objectContaining({
           componentStack: expect.any(String),
         }),
@@ -192,20 +170,25 @@ describe('create-editor/error-boundary', () => {
       attributes: {
         errorId: expect.any(String),
       },
-      nonPrivacySafeAttributes: {
-        errorStack: expect.any(String),
-      },
     };
-    expect(createAnalyticsEvent).toHaveBeenCalledWith(
-      expect.objectContaining(expectedAnalyticsEvent),
+    // Error boundary has a async operation to get the productName
+    await waitFor(() =>
+      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+        expect.objectContaining(expectedAnalyticsEvent),
+      ),
     );
     expect(createAnalyticsEvent).toHaveBeenCalledWith(
       expect.objectContaining(expectedAdditionalInformationAnalyticsEvent),
     );
+    expect(createAnalyticsEvent).toHaveBeenCalledWith(
+      expect.not.objectContaining({
+        nonPrivacySafeAttributes: expect.any(Object),
+      }),
+    );
   });
 
   it('should not dispatch an analytics event when an error is caught if errorTracking is explicitly disabled', async () => {
-    wrapper = shallow(
+    render(
       <EditorErrorBoundary
         rethrow={false}
         createAnalyticsEvent={createAnalyticsEvent}
@@ -213,56 +196,54 @@ describe('create-editor/error-boundary', () => {
         featureFlags={{}}
         errorTracking={false}
       >
-        <Foo />
+        <ExplodingFoo />
       </EditorErrorBoundary>,
     );
-    const error = new Error('Triggered error boundary');
-    wrapper.find(Foo).simulateError(error);
-    expect(spy.componentDidCatch).toHaveBeenCalledTimes(1);
+    expect(componentDidCatch).toHaveBeenCalledTimes(2); // rerenders once
     const resolved = await expect(contextIdentifierProvider).resolves;
     resolved.toMatchObject(mockCtxIdentifierProvider);
 
-    // Error boundary has a async operation to get the productName,
-    // I need to wait until that promise resolve
-    await flushPromises();
-
-    expect(createAnalyticsEvent).toHaveBeenCalledTimes(0);
+    // Error boundary has a async operation to get the productName
+    await waitFor(() => expect(createAnalyticsEvent).not.toHaveBeenCalled());
   });
 
   it('should fail all active UFO experiences when an error is caught and ufo is enabled', async () => {
     const { editorView } = createEditor({
       preset: new Preset<LightEditorPlugin>().add([featureFlagsPlugin, {}]),
     });
-    wrapper = shallow(
+    render(
       <EditorErrorBoundary
         rethrow={false}
         contextIdentifierProvider={contextIdentifierProvider}
         editorView={editorView}
         featureFlags={{ ufo: true }}
       >
-        <Foo />
+        <ExplodingFoo />
       </EditorErrorBoundary>,
     );
-    const error = new Error('Triggered error boundary');
-    wrapper.find(Foo).simulateError(error);
-    await flushPromises();
 
-    expect(mockStore.failAll).toHaveBeenCalledWith({
-      error: 'Error: Triggered error boundary',
-      errorInfo: { componentStack: expect.stringContaining('in Foo') },
-      browserInfo: expect.any(String),
-      errorId: expect.any(String),
-      errorStack: expect.stringContaining('Error: Triggered error boundary'),
-      browserExtensions: undefined,
-      docStructure: undefined,
-    });
+    await waitFor(() =>
+      expect(mockStore.failAll).toHaveBeenCalledWith({
+        error: 'Error: BOOOOOM!',
+        errorInfo: {
+          componentStack: expect.stringContaining(
+            ' ErrorBoundaryWithEditorView',
+          ),
+        },
+        browserInfo: expect.any(String),
+        errorId: expect.any(String),
+        errorStack: expect.stringContaining('Error: BOOOOOM!'),
+        browserExtensions: undefined,
+        docStructure: undefined,
+      }),
+    );
   });
 
   it('should not fail all active UFO experiences when an error is caught and ufo is not enabled', async () => {
     const { editorView } = createEditor({
       preset: new Preset<LightEditorPlugin>().add([featureFlagsPlugin, {}]),
     });
-    wrapper = shallow(
+    render(
       <EditorErrorBoundary
         rethrow={false}
         contextIdentifierProvider={contextIdentifierProvider}
@@ -272,16 +253,29 @@ describe('create-editor/error-boundary', () => {
         <Foo />
       </EditorErrorBoundary>,
     );
-    const error = new Error('Triggered error boundary');
-    wrapper.find(Foo).simulateError(error);
-    await flushPromises();
 
-    expect(mockStore.failAll).not.toHaveBeenCalled();
+    await waitFor(() => expect(mockStore.failAll).not.toHaveBeenCalled());
   });
 
-  it('should recover rendering if the problem was intermittent', () => {
-    const renderSpy = jest.spyOn(IntermittentProblem.prototype, 'render');
-    wrapper = mount(
+  it('should recover rendering if the problem was intermittent', async () => {
+    const renderSpy = jest.fn();
+    let failOnce = false;
+
+    const IntermittentProblem = () => {
+      useEffect(() => {
+        // Throw only once
+        if (!failOnce) {
+          failOnce = true;
+          throw new Error('💥');
+        }
+      }, []);
+
+      renderSpy();
+
+      return <Foo />;
+    };
+
+    const { container } = render(
       <EditorErrorBoundary
         rethrow={false}
         createAnalyticsEvent={createAnalyticsEvent}
@@ -291,9 +285,9 @@ describe('create-editor/error-boundary', () => {
         <IntermittentProblem />
       </EditorErrorBoundary>,
     );
-    expect(spy.componentDidCatch).toHaveBeenCalledTimes(1);
-    expect(wrapper.html()).toEqual(renderedFooString);
-    expect(renderSpy).toHaveBeenCalledTimes(3);
+    await waitFor(() => expect(componentDidCatch).toHaveBeenCalledTimes(1));
+    expect(container).toHaveTextContent('Foo');
+    expect(renderSpy).toHaveBeenCalledTimes(2);
   });
 
   it('should re-throw caught errors for products to handle', () => {
@@ -305,7 +299,7 @@ describe('create-editor/error-boundary', () => {
       ProductErrorBoundary.prototype,
       'componentDidCatch',
     );
-    wrapper = mount(
+    const { container } = render(
       <ProductErrorBoundary>
         <EditorErrorBoundary
           rethrow
@@ -318,8 +312,8 @@ describe('create-editor/error-boundary', () => {
       </ProductErrorBoundary>,
     );
 
-    expect(wrapper.html()).toEqual(renderedProductErrorBoundaryFallback);
-    expect(spy.componentDidCatch).toHaveBeenCalledTimes(1);
+    expect(container).toHaveTextContent('Stack trace rendered here');
+    expect(componentDidCatch).toHaveBeenCalledTimes(1);
     expect(productComponentDidCatch).toHaveBeenCalledTimes(2);
   });
 
@@ -329,7 +323,7 @@ describe('create-editor/error-boundary', () => {
         preset: new Preset<LightEditorPlugin>().add([featureFlagsPlugin, {}]),
       });
 
-      wrapper = shallow(
+      render(
         <EditorErrorBoundary
           editorView={editorView}
           rethrow={false}
@@ -337,26 +331,23 @@ describe('create-editor/error-boundary', () => {
           contextIdentifierProvider={contextIdentifierProvider}
           featureFlags={{ errorBoundaryDocStructure: true }}
         >
-          <Foo />
+          <ExplodingFoo />
         </EditorErrorBoundary>,
       );
-      const error = new Error('Triggered error boundary');
-      wrapper.find(Foo).simulateError(error);
 
-      // Error boundary has a async operation to get the productName,
-      // I need to wait until that promise resolve
-      await flushPromises();
-
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(
-        expect.objectContaining({
-          action: ACTION.EDITOR_CRASHED,
-          actionSubject: ACTION_SUBJECT.EDITOR,
-          attributes: expect.objectContaining({
-            docStructure: expect.any(String),
+      await waitFor(() =>
+        expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            action: ACTION.EDITOR_CRASHED,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            attributes: expect.objectContaining({
+              docStructure: expect.any(String),
+            }),
           }),
-        }),
+        ),
       );
     });
+
     it('should dispatch an analytics event without doc structure when FF is off', async () => {
       const { editorView } = createEditor({
         preset: new Preset<LightEditorPlugin>().add([
@@ -367,7 +358,7 @@ describe('create-editor/error-boundary', () => {
         ]),
       });
 
-      wrapper = shallow(
+      render(
         <EditorErrorBoundary
           editorView={editorView}
           rethrow={false}
@@ -375,57 +366,49 @@ describe('create-editor/error-boundary', () => {
           contextIdentifierProvider={contextIdentifierProvider}
           featureFlags={{ errorBoundaryDocStructure: false }}
         >
-          <Foo />
+          <ExplodingFoo />
         </EditorErrorBoundary>,
       );
-      const error = new Error('Triggered error boundary');
-      wrapper.find(Foo).simulateError(error);
 
-      // Error boundary has a async operation to get the productName,
-      // I need to wait until that promise resolve
-      await flushPromises();
-
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(
-        expect.objectContaining({
-          action: ACTION.EDITOR_CRASHED,
-          actionSubject: ACTION_SUBJECT.EDITOR,
-          attributes: expect.not.objectContaining({
-            docStructure: expect.any(String),
+      await waitFor(() =>
+        expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            action: ACTION.EDITOR_CRASHED,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            attributes: expect.not.objectContaining({
+              docStructure: expect.any(String),
+            }),
           }),
-        }),
+        ),
       );
     });
   });
 
   describe('UnsupportedBrowser', () => {
     it('should dispatch an analytics event with outdatedBrowser flag when the current browser is unsupported', async () => {
-      wrapper = shallow(
+      render(
         <EditorErrorBoundary
           rethrow={false}
           createAnalyticsEvent={createAnalyticsEvent}
           contextIdentifierProvider={contextIdentifierProvider}
           featureFlags={{}}
         >
-          <Foo />
+          <ExplodingFoo />
         </EditorErrorBoundary>,
       );
 
-      spy.userAgent.mockReturnValue('Unsupported');
-      const error = new Error('Triggered error boundary');
-      wrapper.find(Foo).simulateError(error);
+      userAgent.mockReturnValue('Unsupported');
 
-      // Error boundary has a async operation to get the productName,
-      // I need to wait until that promise resolve
-      await flushPromises();
-
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(
-        expect.objectContaining({
-          action: ACTION.EDITOR_CRASHED,
-          actionSubject: ACTION_SUBJECT.EDITOR,
-          attributes: expect.objectContaining({
-            outdatedBrowser: true,
+      await waitFor(() =>
+        expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            action: ACTION.EDITOR_CRASHED,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            attributes: expect.objectContaining({
+              outdatedBrowser: true,
+            }),
           }),
-        }),
+        ),
       );
     });
   });

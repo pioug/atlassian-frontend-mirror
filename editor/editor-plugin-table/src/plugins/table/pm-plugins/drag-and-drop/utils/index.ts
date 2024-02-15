@@ -1,1 +1,0 @@
-export { getDraggableDataFromEvent } from './monitor';

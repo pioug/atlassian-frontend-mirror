@@ -10,7 +10,7 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { autoScrollForElements } from '../../../src/entry-point/element';
 import type { Axis, Side } from '../../../src/internal-types';
 import { axisLookup } from '../../../src/shared/axis';
-import { defaultConfig } from '../../../src/shared/configuration';
+import { getInternalConfig } from '../../../src/shared/configuration';
 import {
   advanceTimersToNextFrame,
   appendToBody,
@@ -37,6 +37,8 @@ type Group = {
   parentScrollContainer: HTMLElement;
   scenarios: Scenario[];
 };
+
+const defaultConfig = getInternalConfig();
 
 const smallGroup: Group = (() => {
   const { child, parentScrollContainer } = setupBasicScrollContainer({

@@ -3,8 +3,9 @@ import { useCallback, useState } from 'react';
 
 import { css, jsx, SerializedStyles } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Field } from '@atlaskit/form';
+import { Box, xcss } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
 import { token } from '@atlaskit/tokens';
 
@@ -15,8 +16,8 @@ const childStyles = css({
   backgroundColor: token('color.background.accent.magenta.subtler', 'hotpink'),
 });
 
-const containerStyles = css({
-  padding: token('space.200', '16px'),
+const containerStyles = xcss({
+  padding: 'space.200',
 });
 
 type BorderRadius = 'less' | 'same' | 'more';
@@ -56,7 +57,7 @@ export default function ModalWithCustomChild() {
   const close = useCallback(() => setIsOpen(false), []);
 
   return (
-    <div css={containerStyles}>
+    <Box xcss={containerStyles}>
       <p>
         If using a custom child which has its own background you should set the
         border radius to be 3px. If it is set less than 3px the border radius
@@ -88,6 +89,6 @@ export default function ModalWithCustomChild() {
           </Modal>
         )}
       </ModalTransition>
-    </div>
+    </Box>
   );
 }

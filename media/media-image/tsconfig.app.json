@@ -39,6 +39,15 @@
     },
     {
       "path": "../media-client-react/tsconfig.app.json"
+    },
+    {
+      "path": "../media-common/tsconfig.app.json"
+    },
+    {
+      "path": "../media-file-preview/tsconfig.app.json"
+    },
+    {
+      "path": "../../platform/feature-flags/tsconfig.app.json"
     }
   ]
 }

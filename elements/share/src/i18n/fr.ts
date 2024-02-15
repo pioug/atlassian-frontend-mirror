@@ -21,6 +21,7 @@ export default {
   'fabric.elements.share.form.no-permissions': 'Vous ne pouvez pas partager ce contenu.',
   'fabric.elements.share.form.public.send': 'Envoyer le lien public',
   'fabric.elements.share.form.public.share': 'Partager un lien public',
+  'fabric.elements.share.form.required-field.summary': "Les champs obligatoires sont marqués d'un astérisque",
   'fabric.elements.share.form.retry': 'Réessayer',
   'fabric.elements.share.form.send': 'Envoyer',
   'fabric.elements.share.form.share': 'Partager',

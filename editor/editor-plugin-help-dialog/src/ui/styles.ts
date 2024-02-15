@@ -124,3 +124,14 @@ export const codeLg = css`
   padding: 0 10px;
   text-align: center;
 `;
+
+export const shortcutsArray = css`
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: ${token('space.150', '12px')};
+`;
+
+export const componentFromKeymapWrapperStyles = css`
+  flex-shrink: 0;
+`;

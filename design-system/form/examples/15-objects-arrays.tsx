@@ -2,10 +2,10 @@ import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import LoadingButton from '@atlaskit/button/loading-button';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import TextField from '@atlaskit/textfield';
 
-import Form, { Field, FormFooter } from '../src';
+import Form, { Field, FormFooter, FormHeader, RequiredAsterisk } from '../src';
 
 export default () => (
   <div
@@ -27,6 +27,11 @@ export default () => (
     >
       {({ formProps, submitting }) => (
         <form {...formProps}>
+          <FormHeader title="Register your interest">
+            <p aria-hidden="true">
+              Required fields are marked with an asterisk <RequiredAsterisk />
+            </p>
+          </FormHeader>
           <Field
             name="username.name"
             label="User name"
@@ -34,36 +39,36 @@ export default () => (
             defaultValue="Mike Cannon-Brookes"
           >
             {({ fieldProps }) => (
-              <TextField autoComplete="off" {...fieldProps} />
+              <TextField autoComplete="username" {...fieldProps} />
             )}
           </Field>
           <Field
             name="username.email"
-            label="email"
+            label="Email"
             isRequired
             defaultValue="mike@atlassian.com"
           >
             {({ fieldProps }) => (
-              <TextField autoComplete="off" {...fieldProps} />
+              <TextField autoComplete="email" {...fieldProps} />
             )}
           </Field>
           <Field name="address[0]" label="Address 1" isRequired defaultValue="">
             {({ fieldProps }) => (
-              <TextField autoComplete="off" {...fieldProps} />
+              <TextField autoComplete="address-line1" {...fieldProps} />
             )}
           </Field>
           <Field name="address[1]" label="Address 2" isRequired defaultValue="">
             {({ fieldProps }) => (
-              <TextField autoComplete="off" {...fieldProps} />
+              <TextField autoComplete="address-line2" {...fieldProps} />
             )}
           </Field>
           <Field name="address[2]" label="Address 3" isRequired defaultValue="">
             {({ fieldProps }) => (
-              <TextField autoComplete="off" {...fieldProps} />
+              <TextField autoComplete="address-line3" {...fieldProps} />
             )}
           </Field>
           <FormFooter>
-            <ButtonGroup>
+            <ButtonGroup label="Form submit options">
               <Button appearance="subtle">Cancel</Button>
               <LoadingButton
                 type="submit"

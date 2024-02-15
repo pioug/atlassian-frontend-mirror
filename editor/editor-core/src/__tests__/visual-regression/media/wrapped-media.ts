@@ -1,26 +1,27 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  snapshot,
-  initFullPageEditorWithAdf,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import * as wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
-import * as wrappedMediasNextToEachOtherAdf from './__fixtures__/wrapped-medias-next-to-each-other.adf.json';
-import * as wrappedInBlockMedia from './__fixtures__/wrapped-in-block-media.adf.json';
-import * as singleWrappedMedia from './__fixtures__/single-wrapped-media.adf.json';
-import * as wrappedMediaTextAdf from './__fixtures__/wrapped-media-text.adf.json';
-import * as wrappedMediaTextSplitAdf from './__fixtures__/wrapped-media-text-split.adf.json';
-import * as wrappedMediaTextLayoutAdf from './__fixtures__/wrapped-media-text-layout.adf.json';
-import * as wrappedMediaTextLayoutSplitAdf from './__fixtures__/wrapped-media-text-layout-split.adf.json';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  waitForMediaToBeLoaded,
-  mediaImageSelector,
-  mediaResizeSelectors,
-} from '@atlaskit/editor-test-helpers/page-objects/media';
-import * as nonResizableMedia from './__fixtures__/non-resizable-media.adf.json';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  mediaImageSelector,
+  mediaResizeSelectors,
+  waitForMediaToBeLoaded,
+} from '@atlaskit/editor-test-helpers/page-objects/media';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import * as nonResizableMedia from './__fixtures__/non-resizable-media.adf.json';
+import * as singleWrappedMedia from './__fixtures__/single-wrapped-media.adf.json';
+import * as wrappedInBlockMedia from './__fixtures__/wrapped-in-block-media.adf.json';
+import * as wrappedMediaTextLayoutSplitAdf from './__fixtures__/wrapped-media-text-layout-split.adf.json';
+import * as wrappedMediaTextLayoutAdf from './__fixtures__/wrapped-media-text-layout.adf.json';
+import * as wrappedMediaTextSplitAdf from './__fixtures__/wrapped-media-text-split.adf.json';
+import * as wrappedMediaTextAdf from './__fixtures__/wrapped-media-text.adf.json';
+import * as wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
+import * as wrappedMediasNextToEachOtherAdf from './__fixtures__/wrapped-medias-next-to-each-other.adf.json';
 
 describe('Snapshot Test: Wrapped media', () => {
   let page: PuppeteerPage;

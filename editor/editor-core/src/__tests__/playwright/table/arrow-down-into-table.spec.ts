@@ -1,9 +1,10 @@
 import {
-  editorTestCase as test,
+  BROWSERS,
   expect,
   fixTest,
-  BROWSERS,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import { simpleTableAfterParagraph } from './__fixtures__/base-adfs';
 test.use({
   editorProps: {

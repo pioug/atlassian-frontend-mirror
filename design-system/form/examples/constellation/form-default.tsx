@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import LoadingButton from '@atlaskit/button/loading-button';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import TextField from '@atlaskit/textfield';
 
@@ -110,7 +110,7 @@ const FormDefaultExample = () => (
           </FormSection>
 
           <FormFooter>
-            <ButtonGroup>
+            <ButtonGroup label="Form submit options">
               <Button appearance="subtle">Cancel</Button>
               <LoadingButton
                 type="submit"

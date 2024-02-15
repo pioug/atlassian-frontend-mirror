@@ -28,9 +28,9 @@ export default {
   'fabric.linking.connect_to': '{name} に接続',
   'fabric.linking.connect_unauthorised_account_action': '{context} に接続',
   'fabric.linking.connect_unauthorised_account_description':
-    '{context} をアトラシアンに接続すると、作業やコラボレーションの詳細を 1 か所で確認できます。',
+    '{context} アカウントを接続すると、アトラシアン製品全体でコラボレーションできます。',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    'アトラシアンに接続すると、作業やコラボレーションの詳細を 1 か所で確認できます。',
+    'アカウントを接続すると、アトラシアン製品全体でコラボレーションできます。',
   'fabric.linking.continue': '続行',
   'fabric.linking.copy_url_to_clipboard': 'リンクをコピー',
   'fabric.linking.couldnt_load_link': '不明な理由によって、このリンクを読み込めませんでした。',
@@ -58,6 +58,7 @@ export default {
     'このプレビューを表示するには、アクセスをリクエストするか別のアカウントで試してください。',
   'fabric.linking.join_to_view': '{context}に参加してこの課題を見る',
   'fabric.linking.last_mentioned_in': '最近言及された場所',
+  'fabric.linking.learn_more_about_connecting_account': 'アカウントをアトラシアン製品に接続する方法をご確認ください。',
   'fabric.linking.learn_more_about_smart_links': 'スマート リンクの詳細',
   'fabric.linking.link_safety_warning_message':
     'リンク {unsafeLinkText} をクリックすると別のサイトが開きます。<a>実際のリンク先</a>',

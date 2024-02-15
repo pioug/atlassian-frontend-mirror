@@ -1,10 +1,11 @@
-import { editorTestCase as test, expect } from '@af/editor-libra';
+import { expect, editorTestCase as test } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p, h1, h5 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, h1, h5, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import {
+  onlyOneChar,
   spaceAtEnd,
   spaceBeforeText,
-  onlyOneChar,
 } from './__fixtures__/base-adfs';
 
 test.describe('typeahead: arrow navigation', () => {

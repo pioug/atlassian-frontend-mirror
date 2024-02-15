@@ -4,36 +4,51 @@ description: An icon-only button lets people take a common and recognizable acti
 order: 2
 ---
 
+import IconButtonDo from './images/dos-donts/icon-common-do.png';
+import IconButtonDont from './images/dos-donts/icon-common-dont.png';
+
 ## Usage
 
 Use icon-only buttons when space is limited and the icon has a clear association with the action.
 
 ![Diagram of icon only button. A caption follows this image.](./images/anatomy-icon-button.png)
 
-1. **Button:** Can be square or round, depending on the context.
+1. **Button:** Most icon buttons should be square, aside from some select round icons that appear in the top navigation.
 2. **Icon:** An existing [system icon](/components/icon).
 3. **Tooltip:** All icon buttons require a clear name for tooltips (and screen readers).
 
 ### Choose an existing system icon
 
-Don’t use icon-only buttons with custom icons. If you are creating a new icon, it’s probably a more complex idea that would require a [button with a text label](/components/button/examples).
+Don’t use icon-only buttons with custom icons. If you are creating a new icon, it’s probably a more complex idea that would require a [button with a text label](/components/button/button-new/examples).
 
 Use an existing [system icon](/components/icon/) instead.
 
 ### Use icons with clear meanings, or else use a button with a text label
 
-There are very few icons that have clear and common associations across products, so use [buttons with text labels](/components/button/usage) where space allows or when the action is very important.
+There are very few icons that have clear and common associations across products, so use [buttons with text labels](/components/button/button-new/usage) where space allows or when the action is very important.
 
 Also consider localization when using icons. Does the icon have a clear meaning that holds up for everyone, including people from different cultures or places?
 
 To test whether an icon button will be clear, apply the five-second rule: if it takes you more than five seconds to think of an appropriate icon, it is unlikely that an icon can effectively communicate that action.
 
-<DoDont type="do">
+<DoDont
+  type="do"
+  image={{
+    url: IconButtonDo,
+    alt: 'A group of icon buttons which use icons that have a well-established association to an action in Atlassian and other software products.',
+  }}
+>
   Use an icons with a well-established association to an action in Atlassian and
   other software products.
 </DoDont>
 
-<DoDont type="dont">
+<DoDont
+  type="dont"
+  image={{
+    url: IconButtonDont,
+    alt: 'A group of icon buttons which use icons that are ambiguous and have no well-established association to an action in Atlassian and other software products.',
+  }}
+>
   Don't use one icon to mean many different things, and don't use icons that
   aren't clear and obvious to most people.
 </DoDont>
@@ -54,6 +69,8 @@ Avoid disabling buttons and follow all [general button accessibility guidance](/
 
 Follow our [iconography guidance](/foundations/iconography/) and use the line versions of icons for most cases. You can use filled icons to show an action has been taken or selected.
 
+![Diagram of two icon buttons, one using a line version and the other using the filled version to denote an action has taken place](./images/dos-donts/icon-lined-filled.png)
+
 ## Content guidelines
 
 ### Use sentence casing for labels
@@ -70,7 +87,7 @@ Where possible, specify the object being acted on in the tooltip and aria label.
 
 ## Related
 
-- [Icon buttons with text labels](/components/button/examples)
+- [Icon buttons with text labels](/components/button/button-new/examples#button-with-icon)
 - [Icons](/components/icon)
 
 <!-- TODO fix all links throughout. Spell check :) -->

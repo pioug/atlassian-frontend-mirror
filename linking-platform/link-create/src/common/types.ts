@@ -40,7 +40,7 @@ export type EditViewProps = {
   onClose: () => void;
 };
 
-export interface LinkCreatePlugin {
+export interface LinkCreatePlugin<Key = string> {
   /**
    * The Group that this plugin entity belongs to
    */
@@ -59,7 +59,7 @@ export interface LinkCreatePlugin {
   /**
    * A unique key for the plugin entity
    */
-  key: string;
+  key: Key;
 
   /**
    * A renderer function to render the form
@@ -147,9 +147,7 @@ export interface LinkCreateProps {
   triggeredFrom?: string;
 }
 
-export interface LinkCreateWithModalProps
-  extends LinkCreateProps,
-    Partial<Pick<ModalDialogProps, 'onOpenComplete' | 'onCloseComplete'>> {
+export interface LinkCreateWithModalProps extends LinkCreateProps {
   /**
    * This value controls whether the Create Modal should be active or hidden
    * Default: false
@@ -160,4 +158,14 @@ export interface LinkCreateWithModalProps
    * Default: Create new
    */
   modalTitle?: string;
+  /**
+   * Callback function called when the final link create experience dialog has finished closing.
+   * @see {@link https://atlassian.design/components/modal-dialog/code#ModalWrapper-onCloseComplete}
+   */
+  onCloseComplete?: ModalDialogProps['onCloseComplete'];
+  /**
+   * Callback function called when the link create experience dialog has finished opening.
+   *  @see {@link https://atlassian.design/components/modal-dialog/code#ModalWrapper-onOpenComplete}
+   */
+  onOpenComplete?: ModalDialogProps['onOpenComplete'];
 }

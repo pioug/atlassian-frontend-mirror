@@ -1,5 +1,11 @@
 # @atlaskit/css-reset
 
+## 6.6.2
+
+### Patch Changes
+
+- [#58867](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58867) [`ece3768d98ba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ece3768d98ba) - Internal change to remove any usages of font tokens with hardcoded values as these tokens are being deprecated.
+
 ## 6.6.1
 
 ### Patch Changes

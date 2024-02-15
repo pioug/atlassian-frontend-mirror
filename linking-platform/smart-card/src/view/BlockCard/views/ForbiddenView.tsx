@@ -20,6 +20,7 @@ import { handleClickCommon } from '../utils/handlers';
 import { Link } from '../components/Link';
 import { UnresolvedText } from '../components/UnresolvedText';
 import { RequestAccessContextProps } from '../../types';
+import type { CardActionOptions } from '../../Card/types';
 
 export interface PermissionDeniedProps {
   /* Actions which can be taken on the URL */
@@ -35,12 +36,25 @@ export interface PermissionDeniedProps {
   /* If selected, would be true in edit mode */
   isSelected?: boolean;
   testId?: string;
-  showActions?: boolean;
+  actionOptions?: CardActionOptions;
   /* Describes additional metadata based on the type of access a user has to the link */
   requestAccessContext?: RequestAccessContextProps;
 }
 
+/**
+ * Class name for selecting non-flexible forbidden block card
+ *
+ * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-6878 Internal documentation for deprecation (no external access)}
+ * Using this selctor is deprecated as once the flexible block card feature flag is removed, this class will no longer be used.
+ */
 export const blockCardForbiddenViewClassName = 'block-card-forbidden-view';
+
+/**
+ * Class name for selecting link inside non-flexible forbidden block card
+ *
+ * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-6878 Internal documentation for deprecation (no external access)}
+ * Using this selctor is deprecated as once the flexible block card feature flag is removed, this class will no longer be used.
+ */
 export const blockCardForbiddenViewLinkClassName =
   'block-card-forbidden-view-link';
 
@@ -49,16 +63,19 @@ export const ForbiddenView = ({
   isSelected = false,
   actions = [],
   testId = 'block-card-forbidden-view',
-  showActions = true,
   link = '',
   onClick = () => {},
   requestAccessContext = {},
+  actionOptions,
 }: PermissionDeniedProps) => {
   const handleClick = (event: MouseEvent<HTMLElement>) =>
     handleClickCommon(event, onClick);
 
-  const { action, descriptiveMessageKey = 'invalid_permissions_description' } =
-    requestAccessContext;
+  const {
+    action,
+    descriptiveMessageKey = 'invalid_permissions_description',
+    hostname = '',
+  } = requestAccessContext;
 
   const items = action ? [...actions, action] : actions;
 
@@ -91,7 +108,11 @@ export const ForbiddenView = ({
               text={
                 <FormattedMessage
                   {...messages[descriptiveMessageKey]}
-                  values={{ context: context.text }}
+                  values={{
+                    product: context.text,
+                    context: context.text,
+                    hostname,
+                  }}
                 />
               }
             />
@@ -99,7 +120,7 @@ export const ForbiddenView = ({
         </div>
         <ContentFooter>
           <Provider name={context.text} icon={context.icon} />
-          {showActions && <ActionList items={items} />}
+          {!actionOptions?.hide && <ActionList items={items} />}
         </ContentFooter>
       </Content>
     </Frame>

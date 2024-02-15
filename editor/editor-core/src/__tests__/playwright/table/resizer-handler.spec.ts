@@ -2,8 +2,8 @@ import {
   EditorMainToolbarModel,
   EditorNodeContainerModel,
   EditorTableModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 
 /*

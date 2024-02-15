@@ -4,6 +4,7 @@ import { compoundOperator, compoundOperatorInternal } from './compoundOperator';
 import { field, fieldInternal } from './field';
 import { functionOperand, functionOperandInternal } from './functionOperand';
 import { functionString, functionStringInternal } from './functionString';
+import { jast } from './jast';
 import { keywordOperand, keywordOperandInternal } from './keywordOperand';
 import { listOperand, listOperandInternal } from './listOperand';
 import { notClause, notClauseInternal } from './notClause';
@@ -60,6 +61,7 @@ export const internalCreators = {
 };
 
 export default {
+  jast,
   query,
   compoundClause,
   compoundOperator,

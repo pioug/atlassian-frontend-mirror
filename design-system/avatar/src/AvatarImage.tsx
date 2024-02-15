@@ -68,6 +68,7 @@ const AvatarImage: FC<AvatarImageProps> = ({
   const [hasImageErrored, setHasImageErrored] = useState(false);
   const borderRadius =
     appearance === 'circle' ? '50%' : `${AVATAR_RADIUS[size]}px`;
+  const isHidden = !alt ? true : undefined;
 
   // If src changes, reset state
   useEffect(() => {
@@ -83,6 +84,7 @@ const AvatarImage: FC<AvatarImageProps> = ({
             primaryColor={ICON_BACKGROUND}
             secondaryColor={ICON_COLOR}
             testId={testId && `${testId}--person`}
+            aria-hidden={isHidden}
           />
         ) : (
           <ShipIcon
@@ -90,6 +92,7 @@ const AvatarImage: FC<AvatarImageProps> = ({
             primaryColor={ICON_BACKGROUND}
             secondaryColor={ICON_COLOR}
             testId={testId && `${testId}--ship`}
+            aria-hidden={isHidden}
           />
         )}
       </span>
@@ -106,6 +109,7 @@ const AvatarImage: FC<AvatarImageProps> = ({
         borderRadius: borderRadius,
       }}
       onError={() => setHasImageErrored(true)}
+      aria-hidden={isHidden}
     />
   );
 };

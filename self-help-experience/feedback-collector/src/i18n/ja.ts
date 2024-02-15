@@ -13,6 +13,7 @@ export default {
   'feedback-collector.can-be-contacted.label':
     'はい、アトラシアンの製品とサービスの向上のために、アトラシアンのチームから利用体験に関する問い合わせを受け取ることを了承します。<a>アトラシアンのプライバシー ポリシー</a>に同意します。',
   'feedback-collector.cancel-button.label': 'キャンセル',
+  'feedback-collector.default.custom.textarea.label': 'ご意見をお聞かせください。',
   'feedback-collector.enrol-in-research.label': '製品調査に参加する',
   'feedback-collector.feedback-title': 'ご意見をお聞かせください',
   'feedback-collector.form.bug.label': 'バグまたは課題の説明をご入力ください。',
@@ -26,6 +27,7 @@ export default {
   'feedback-collector.option.default.placeholder': '1 つ選択',
   'feedback-collector.option.question.label': '質問する',
   'feedback-collector.option.suggestion.label': '改良点を提案する',
+  'feedback-collector.required.fields.summary': '必須フィールドにはアスタリスクが付いています',
   'feedback-collector.submit-button.label': 'フィードバックを送信',
   'feedback-collector.success-flag.description':
     'お寄せいただいた貴重なフィードバックは、製品のさらなる改善に役立てさせていただきます。',

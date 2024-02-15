@@ -1,4 +1,3 @@
-import { css, SerializedStyles } from '@emotion/react';
 import React, { useCallback, useMemo } from 'react';
 import {
   SmartLinkAlignment,
@@ -11,21 +10,8 @@ import { Provider } from '../../../elements';
 import ActionGroup from '../../action-group';
 import Block from '../../block';
 import ElementGroup from '../../element-group';
-import { filterActionItems } from '../../utils';
+import { filterActionItems, getActionGroupStyles } from '../../utils';
 import type { FooterBlockProps } from '../types';
-
-const getActionGroupStyles = (
-  size: SmartLinkSize,
-): SerializedStyles | undefined => {
-  if (size === SmartLinkSize.XLarge) {
-    // The biggest height of the action button exceeds the max line-height
-    // of the elements causing the action on the block with x-large size to
-    // get cut at the bottom.
-    return css`
-      max-height: 2rem;
-    `;
-  }
-};
 
 const FooterBlockResolvedView: React.FC<FooterBlockProps> = (props) => {
   const {

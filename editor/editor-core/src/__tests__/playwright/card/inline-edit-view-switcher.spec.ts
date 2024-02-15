@@ -1,13 +1,14 @@
 import {
-  editorTestCase as test,
-  EditorNodeContainerModel,
   EditorFloatingToolbarModel,
-  expect,
   EditorInlineCardModel,
+  EditorNodeContainerModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import { inlineCardAdf } from './inline-edit-view-switcher.spec.ts-fixtures/adf';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { p, doc, blockCard } from '@atlaskit/editor-test-helpers/doc-builder';
+import { blockCard, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { inlineCardAdf } from './inline-edit-view-switcher.spec.ts-fixtures/adf';
 
 test.use({
   adf: inlineCardAdf,

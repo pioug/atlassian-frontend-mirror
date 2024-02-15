@@ -9,7 +9,7 @@ test.describe('DatasourceTableView', () => {
     await page.getByTestId('column-picker-trigger-button').click();
     await page.getByText('Due Date0').click();
 
-    expect(await page.isVisible('#react-select-2-option-10')).toEqual(true);
+    await expect(page.locator('#react-select-2-option-10')).toBeVisible();
   });
 
   test('can search in column picker', async ({ page }) => {
@@ -21,13 +21,13 @@ test.describe('DatasourceTableView', () => {
     await page.getByTestId('column-picker-trigger-button').click();
     page.keyboard.type('Due');
 
-    await expect(await page.locator('#react-select-2-option-9')).toContainText(
+    await expect(page.locator('#react-select-2-option-10')).toContainText(
       'Due',
     );
-    await expect(await page.locator('#react-select-2-option-10')).toContainText(
+    await expect(page.locator('#react-select-2-option-11')).toContainText(
       'Due',
     );
-    await expect(await page.locator('#react-select-2-option-11')).toContainText(
+    await expect(page.locator('#react-select-2-option-12')).toContainText(
       'Due',
     );
   });
@@ -39,7 +39,7 @@ test.describe('DatasourceTableView', () => {
       'issue-like-table',
     );
 
-    const header = await page.getByTestId('link-datasource--head');
+    const header = page.getByTestId('link-datasource--head');
 
     const headerContentBeforeNextPageCall = await header.textContent();
 
@@ -49,7 +49,7 @@ test.describe('DatasourceTableView', () => {
       .all();
     expect(totalRowsAfterInitialLoad.length).toEqual(21);
 
-    const lastRow = await page.locator(
+    const lastRow = page.locator(
       '[data-testid="link-datasource--body"] tr:last-child',
     );
     lastRow.scrollIntoViewIfNeeded();
@@ -71,5 +71,33 @@ test.describe('DatasourceTableView', () => {
     expect(headerContentBeforeNextPageCall).toEqual(
       headerContentAfterNextPageCall,
     );
+  });
+
+  test('datasource table reload after auth connection action', async ({
+    page,
+  }) => {
+    await page.visitExample(
+      'linking-platform',
+      'link-datasource',
+      'issue-like-table-3p-unauth',
+    );
+
+    await expect(
+      page.getByTestId('datasource--access-required-with-auth'),
+    ).toBeVisible();
+
+    // Start waiting for new page before clicking.
+    const pageContext = page.context();
+    const authPagePromise = pageContext.waitForEvent('page');
+
+    await page.getByRole('button').click();
+
+    const authPage = await authPagePromise;
+    await authPage.close();
+
+    await expect(page.getByRole('table')).toBeVisible();
+    await expect(
+      page.getByTestId('datasource--access-required-with-auth'),
+    ).toBeHidden();
   });
 });

@@ -1,25 +1,26 @@
 import {
-  EditorPanelModel,
-  EditorMainToolbarModel,
   EditorFloatingToolbarModel,
-  EditorNodeContainerModel,
+  EditorMainToolbarModel,
   EditorMentionModel,
-  editorTestCase as test,
+  EditorNodeContainerModel,
+  EditorPanelModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
+  a,
   doc,
-  strong,
   em,
   mention,
-  panel,
-  table,
-  tr,
-  th,
-  a,
   p,
+  panel,
+  strong,
+  table,
+  th,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { infoPanelADF } from './panel.spec.ts-fixtures';
 
 test.describe('panel', () => {
@@ -433,7 +434,7 @@ test.describe('panel', () => {
       );
     });
 
-    test.describe(' when icon short name is incorrect when allowCustomPanelEdit is true', () => {
+    test.describe('when icon short name is incorrect when allowCustomPanelEdit is true', () => {
       const adf = {
         version: 1,
         type: 'doc',

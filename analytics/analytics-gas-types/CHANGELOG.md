@@ -1,5 +1,11 @@
 # @atlaskit/analytics-gas-types
 
+## 5.1.4
+
+### Patch Changes
+
+- [#67410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67410) [`155e3b00ce67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/155e3b00ce67) - Migrate @atlaskit/analytics-gas-types to use declarative entry points
+
 ## 5.1.3
 
 ### Patch Changes

@@ -1,5 +1,4 @@
 import { css, keyframes } from '@emotion/react';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import { DN500 } from '@atlaskit/theme/colors';
 
@@ -11,7 +10,6 @@ export const archiveItemViewerWrapperStyles = css`
   justify-content: center;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const archiveSideBarStyles = css`
   padding: 22px ${token('space.250', '20px')} ${token('space.250', '20px')}
     ${token('space.250', '20px')};
@@ -44,7 +42,6 @@ export const archiveSidebarFolderWrapperStyles = css`
   animation: ${slideDown} 0.3s forwards;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const archiveDownloadButtonWrapperStyles = css`
   padding: ${token('space.100', '8px')} 7px 5px ${token('space.100', '8px')};
   border: none;
@@ -98,11 +95,11 @@ export const archiveViewerWrapperStyles = css`
   align-items: center;
   display: flex;
 `;
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+
 export const separatorStyles = css`
   border-radius: 1px;
   height: 2px;
-  margin: ${(gridSize() * 5 - 2) / 2}px 0;
+  margin: ${(8 * 5 - 2) / 2}px 0;
   background-color: ${token('color.border', '#A6C5E229')};
   flex-shrink: 0;
 `;

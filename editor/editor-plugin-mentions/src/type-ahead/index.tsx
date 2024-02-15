@@ -4,6 +4,7 @@ import uuid from 'uuid';
 
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type {
+  ExtractInjectionAPI,
   TypeAheadHandler,
   TypeAheadItem,
 } from '@atlaskit/editor-common/types';
@@ -13,6 +14,7 @@ import type {
 } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { MentionStats } from '@atlaskit/mention';
 import { MENTION_ITEM_HEIGHT, MentionItem } from '@atlaskit/mention/item';
 import type {
@@ -31,7 +33,11 @@ import {
   buildTypeAheadRenderedPayload,
 } from '../analytics';
 import { getMentionPluginState } from '../pm-plugins/utils';
-import type { FireElementsChannelEvent, TeamInfoAttrAnalytics } from '../types';
+import type {
+  FireElementsChannelEvent,
+  MentionsPlugin,
+  TeamInfoAttrAnalytics,
+} from '../types';
 import InviteItem, { INVITE_ITEM_DESCRIPTION } from '../ui/InviteItem';
 import {
   isInviteItem,
@@ -243,12 +249,14 @@ type Props = {
   mentionInsertDisplayName?: boolean;
   HighlightComponent?: React.ComponentType;
   fireEvent: FireElementsChannelEvent;
+  api: ExtractInjectionAPI<MentionsPlugin> | undefined;
 };
 export const createTypeAheadConfig = ({
   sanitizePrivateContent,
   mentionInsertDisplayName,
   fireEvent,
   HighlightComponent,
+  api,
 }: Props) => {
   let sessionId = uuid();
   let firstQueryWithoutResults: string | null = null;
@@ -274,7 +282,10 @@ export const createTypeAheadConfig = ({
       if (!pluginState?.mentionProvider) {
         return Promise.resolve([]);
       }
-      const { mentionProvider, contextIdentifierProvider } = pluginState;
+      const { mentionProvider } = pluginState;
+      const { contextIdentifierProvider } =
+        api?.contextIdentifier?.sharedState.currentState() ?? {};
+
       return new Promise(resolve => {
         const key = `loadingMentionsForTypeAhead_${uuid()}`;
         const mentionsSubscribeCallback = (
@@ -359,9 +370,11 @@ export const createTypeAheadConfig = ({
         nickname && nickname.startsWith('@') ? nickname.slice(1) : nickname;
       const renderName =
         mentionInsertDisplayName || !trimmedNickname ? name : trimmedNickname;
+      const { contextIdentifierProvider } =
+        api?.contextIdentifier?.sharedState.currentState() ?? {};
 
       const mentionContext = {
-        ...pluginState.contextIdentifierProvider,
+        ...contextIdentifierProvider,
         sessionId,
       };
 
@@ -389,7 +402,7 @@ export const createTypeAheadConfig = ({
               sessionId,
               mode,
               query,
-              pluginState.contextIdentifierProvider,
+              contextIdentifierProvider,
               mentionProvider.userRole,
             ),
           );
@@ -399,6 +412,20 @@ export const createTypeAheadConfig = ({
           }
         }
         return state.tr;
+      }
+
+      let taskListId: string | undefined, taskItemId: string | undefined;
+      const taskList = findParentNodeOfType(state.schema.nodes.taskList)(
+        state.selection,
+      );
+      if (taskList) {
+        taskListId = taskList.node.attrs.localId;
+        const taskItem = findParentNodeOfType(state.schema.nodes.taskItem)(
+          state.selection,
+        );
+        if (taskItem) {
+          taskItemId = taskItem.node.attrs.localId;
+        }
       }
 
       fireEvent(
@@ -411,7 +438,9 @@ export const createTypeAheadConfig = ({
           item.mention,
           sourceListItem.map(x => x.mention),
           query,
-          pluginState.contextIdentifierProvider,
+          contextIdentifierProvider,
+          taskListId,
+          taskItemId,
         ),
       );
 

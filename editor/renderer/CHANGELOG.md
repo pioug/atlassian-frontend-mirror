@@ -1,5 +1,324 @@
 # @atlaskit/renderer
 
+## 109.4.4
+
+### Patch Changes
+
+- [#72231](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72231) [`edf38e369597`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/edf38e369597) - ED-21768 enable ssr for inline image
+
+## 109.4.3
+
+### Patch Changes
+
+- [#72081](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72081) [`4487160917d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4487160917d2) - [ux] ED-22052: adds button type attribute to non atlaskit button instances
+
+## 109.4.2
+
+### Patch Changes
+
+- [#71201](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71201) [`1b48cdd3c074`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b48cdd3c074) - ED-21767 fixed dom structure for inline images.
+- Updated dependencies
+
+## 109.4.1
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+
+## 109.4.0
+
+### Minor Changes
+
+- [#69866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69866) [`c0bf12e2229c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c0bf12e2229c) - Adding a new export for the Renderer and the AnnotationsWrapper to allow consumers to choose if they want annotations
+
+## 109.3.1
+
+### Patch Changes
+
+- [#70152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70152) [`53ed3673df28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53ed3673df28) - Updating adf-schema version to 35.5.1
+
+## 109.3.0
+
+### Minor Changes
+
+- [#68535](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68535) [`9d9c89e4ff0c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d9c89e4ff0c) - Implement smart-card actionOptions prop within editor and expose prop to editor and renderer
+- [#69296](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69296) [`de8513419971`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de8513419971) - EDF-26 Cleaned up platform.editor.use-lch-for-color-inversion_1qv8ol feature flag. Text and table cell background colors now use the LCH inversion method by default.
+
+### Patch Changes
+
+- [#69403](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69403) [`a0f886ed02f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a0f886ed02f4) - fix blurriness in images by reverting to using container width for media single
+- [#68264](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68264) [`daa71f6aa162`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/daa71f6aa162) - [ux] ED-21883: Updated MultiBodied Extension related CSS and selections
+- Updated dependencies
+
+## 109.2.7
+
+### Patch Changes
+
+- [#67831](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67831) [`6027f6646d15`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6027f6646d15) - Fix table scroll when pressing CMD+A to select all
+
+## 109.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.2.5
+
+### Patch Changes
+
+- [#68067](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68067) [`5b13ed605a1b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b13ed605a1b) - ED-21828 -fix layouts for wide inline images
+
+## 109.2.4
+
+### Patch Changes
+
+- [#67197](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67197) [`cb5f569a1b4a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb5f569a1b4a) - ED-21819 support copy inline image from renderer
+
+## 109.2.3
+
+### Patch Changes
+
+- [#66919](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66919) [`d23cba211264`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d23cba211264) - Added a unsupported node type counts map to the unsupported content level tracking analytics event. This will provide information as to the type of unsupported nodes being encountered by user and help with debuggging the issue.
+- [#67106](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67106) [`f35f74b0b1e5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f35f74b0b1e5) - fix embed link overlaps table sticky header in Renderer
+
+## 109.2.2
+
+### Patch Changes
+
+- [#65494](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65494) [`14c48a2fa93d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14c48a2fa93d) - Moved the example helpers from the test utlity library to editor-core
+- [#65444](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65444) [`3fe0f77f03fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3fe0f77f03fb) - Added type to expand button in Renderer & prevent default behaviour on click
+
+## 109.2.1
+
+### Patch Changes
+
+- [#65031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65031) [`a00094111b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a00094111b5a) - ED-21609 Update adf-schema to 35.3.0
+- Updated dependencies
+
+## 109.2.0
+
+### Minor Changes
+
+- [#64836](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64836) [`f3e1604287a9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3e1604287a9) - ED-20879 add ssr support for mediaInline
+
+### Patch Changes
+
+- [#64281](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64281) [`b523d60b380c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b523d60b380c) - Remove legacy theming logic from @atlaskit/editor-core and @atlaskit/renderer. Theming is still available via @atlaskit/tokens.
+- [#64694](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64694) [`8d601c3ee546`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d601c3ee546) - ED-21174 Cleaned up FF from ED-19147 and updated testcases
+- [#63266](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63266) [`630f6c9fc80c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/630f6c9fc80c) - ED-21576: Added new Example for MBE - Interactive Fake Tabs
+- Updated dependencies
+
+## 109.1.6
+
+### Patch Changes
+
+- [#64546](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64546) [`105de5d67d78`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/105de5d67d78) - ED-21733 fix style for inline image with link mark
+- Updated dependencies
+
+## 109.1.5
+
+### Patch Changes
+
+- [#63612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63612) [`ce40b4308ec7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce40b4308ec7) - Fix an issue with datasource table where rendering inside another component causes it to overflow beyound the parent component.
+- Updated dependencies
+
+## 109.1.4
+
+### Patch Changes
+
+- [#63354](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63354) [`0b49755d1170`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0b49755d1170) - [ux] Include embed card frame as part of its width when frameStyle is set to "show" and show embed frame by default in renderer
+
+## 109.1.3
+
+### Patch Changes
+
+- [#63477](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63477) [`a4168e118d27`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a4168e118d27) - Add visual regression test for media single sized between default and full width
+
+## 109.1.2
+
+### Patch Changes
+
+- [#63384](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63384) [`0537b3f0a76d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0537b3f0a76d) - [ED-11625] Avoid that Mod+Shift+A shortcut gets intercepted in Renderer as part of the select all trap
+- Updated dependencies
+
+## 109.1.1
+
+### Patch Changes
+
+- [#62765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62765) [`ec6a2bbae20e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec6a2bbae20e) - ED-21606: Width options support for MBE renderer and adding back edit option on toolbar
+
+## 109.1.0
+
+### Minor Changes
+
+- [#61685](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61685) [`ac1ec9ea4cd3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ac1ec9ea4cd3) - [ux] Add border mark support to mediaInline in Editor/Renderer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.0.5
+
+### Patch Changes
+
+- [#61676](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61676) [`0d892d819bab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d892d819bab) - [ux] Updated tests and mediaInline node to mock inline files correctly
+- [#62545](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62545) [`85392e5f9be9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85392e5f9be9) - Remove legacy theming logic from the @atlaskit/editor-common package. Theming is still available via @atlaskit/tokens.
+- Updated dependencies
+
+## 109.0.4
+
+### Patch Changes
+
+- [#61923](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61923) [`04e38cfe9e90`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/04e38cfe9e90) - Remove legacy theming logic from all Editor plugin packages. Theming is still available via the @atlaskit/tokens package.
+- Updated dependencies
+
+## 109.0.3
+
+### Patch Changes
+
+- [#62165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62165) [`b44ac0968d79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b44ac0968d79) - [ED-21562] Bump @atlaskit/adf-schema to 35.2.0 for border mark update
+
+## 109.0.2
+
+### Patch Changes
+
+- [#61186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61186) [`56c310f67664`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56c310f67664) - [ED-20481] Update media breakout calculation in SSR mode for pixel resizing experience
+
+## 109.0.1
+
+### Patch Changes
+
+- [#60167](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60167) [`ae0930df4bfa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae0930df4bfa) - Renamed supportReact18 to runReact18
+
+## 109.0.0
+
+### Major Changes
+
+- [#59319](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59319) [`d2e34e936bf2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2e34e936bf2) - [ED-15859] Clean up restartNumberedLists feature flag and set this feature as the default behaviour for ordered lists. Currently this feature is only rolled out in Confluence so this change will roll it out to all other products which adopt this version.
+
+## 108.21.1
+
+### Patch Changes
+
+- [#60973](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60973) [`0d9d4d239318`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d9d4d239318) - [ux] [ED-21530] Fix bug in list styling where unordered and ordered lists have different left padding when restart numbered lists feature flag is enabled
+- Updated dependencies
+
+## 108.21.0
+
+### Minor Changes
+
+- [#59780](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59780) [`31d9b09ffea0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/31d9b09ffea0) - ED-20985 use mediaClientContext to replace getMediaClient
+
+## 108.20.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 108.20.9
+
+### Patch Changes
+
+- [#60504](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60504) [`fdd20fa0201f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fdd20fa0201f) - ED-21506: multiBodiedExtension- Fix issues with Renderer
+
+## 108.20.8
+
+### Patch Changes
+
+- [#60808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60808) [`f509a21be124`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f509a21be124) - ED-21506: @atlaskit/adf-schema upgraded to 35.1.1 to support renderer for MBE
+
+## 108.20.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 108.20.6
+
+### Patch Changes
+
+- [#58246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58246) [`a381b2599716`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a381b2599716) - ED-21371 Update adf-schema to 35.1.0
+
+## 108.20.5
+
+### Patch Changes
+
+- [#59951](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59951) [`a42a17e8af1b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a42a17e8af1b) - ED-21106: Remove nonPrivacySafeAttributes from editor operational events
+
+## 108.20.4
+
+### Patch Changes
+
+- [#58702](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58702) [`f49d6c29036c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f49d6c29036c) - [ux] ED-20924 Fixed smart card avatar being cut off on safari by preventing the code block in lists fix for li elements in cards.
+
+## 108.20.3
+
+### Patch Changes
+
+- [#59245](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59245) [`0faff8fd352b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0faff8fd352b) - ED-20980 implemented default size for inline images.
+- Updated dependencies
+
+## 108.20.2
+
+### Patch Changes
+
+- [#57137](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57137) [`a02f991bd476`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a02f991bd476) - Update and remove various visual regression tests and snapshots in @atlaskit/editor-core and @atlaskit/renderer related to the deprecated legacy theming system.
+- Updated dependencies
+
+## 108.20.1
+
+### Patch Changes
+
+- [#59485](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59485) [`724d7b798878`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/724d7b798878) - Accessiblity: Fixes 'Copy link to heading' icon not showing when navigated through keyboard tab
+
+## 108.20.0
+
+### Minor Changes
+
+- [#58963](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58963) [`f66aaa97f90e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f66aaa97f90e) - Revert "Merge pull request #58452 in CONFCLOUD/confluence-frontend from ED-20985-use-mediaClientContext-in-renderer-m to master"
+
+## 108.19.0
+
+### Minor Changes
+
+- [#58884](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58884) [`a149612dc46d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a149612dc46d) - [ux] Added support for Media Inline Image Card in Editor and Renderer
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+- [#58527](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58527) [`900c6892df7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/900c6892df7e) - Small fix on Renderer example page
+
+## 108.18.0
+
+### Minor Changes
+
+- [#58452](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58452) [`320b83ce7502`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/320b83ce7502) - ED-20985 use mediaClientContext to replace getMediaClient
+
+## 108.17.4
+
+### Patch Changes
+
+- [#58763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58763) [`0fdbd64522bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fdbd64522bf) - update ADF schema
+
+## 108.17.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 108.17.2
+
+### Patch Changes
+
+- [#57185](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57185) [`f2c6be423042`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2c6be423042) - Feature flag cleanup platform.editor.disable-default-width-table-scaling-renderer and updated relevant snapshots
+- Updated dependencies
+
+## 108.17.1
+
+### Patch Changes
+
+- [#56790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56790) [`ff577a7969d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff577a7969d4) - ED-21266: Updated @atlaskit/adf-schema to 34.0.1
+
 ## 108.17.0
 
 ### Minor Changes

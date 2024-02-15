@@ -3,6 +3,7 @@ import {
   monitorForElements,
 } from '../../adapter/element-adapter';
 import type { Position } from '../../internal-types';
+import { isSafari } from '../is-safari';
 
 import type { GetOffsetFn } from './types';
 
@@ -59,6 +60,14 @@ export function setCustomNativeDragPreview({
     // positioned on the current viewport.
     // `position:fixed` also creates a new stacking context, so we don't need to do that here
     position: 'fixed',
+
+    // According to `mdn`, the element can be offscreen:
+    // https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/setDragImage#imgelement
+    //
+    // However, that  information does not appear in the specs:
+    // https://html.spec.whatwg.org/multipage/dnd.html#dom-datatransfer-setdragimage-dev
+    //
+    // If the element is _completely_ offscreen, Safari@17.1 will cancel the drag
     top: 0,
     left: 0,
     // Using maximum possible z-index so that this element will always be on top
@@ -77,6 +86,33 @@ export function setCustomNativeDragPreview({
   const unmount = render({ container });
 
   const previewOffset: Position = getOffset({ container });
+
+  /**
+   * **Problem**
+   * On `Safari@17.1` if a drag preview element has some opacity,
+   * Safari will include elements behind the drag preview element
+   * in the drag preview.
+   *
+   * **Fix**
+   * We push the drag preview so it is _almost_ completely offscreen so that
+   * there won't be any elements behind the drag preview element.
+   * If the element is _completely_ offscreen, then the drag is cancelled by Safari.
+   *
+   * Using `-0.0001` so that any potential "see through" on the drag preview element
+   * is effectively invisible 👻
+   *
+   * **Unsuccessful alternatives**
+   * Setting a background color (eg "white") on the `container`
+   * → Wrecks the opacity of the drag preview element
+   *
+   * Adding a parent element of the `container` with a background color (eg "white")
+   * → Wrecks the opacity of the drag preview element
+   */
+  if (isSafari()) {
+    const rect = container.getBoundingClientRect();
+    container.style.left = `-${rect.width - 0.0001}px`;
+  }
+
   nativeSetDragImage?.(container, previewOffset.x, previewOffset.y);
 
   function cleanup() {

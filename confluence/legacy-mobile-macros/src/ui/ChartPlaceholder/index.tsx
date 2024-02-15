@@ -17,8 +17,8 @@ const ChartPlaceholderCard = styled.div`
   display: flex;
   line-height: 24px;
   overflow-wrap: break-word;
-  padding: ${token('space.100', '8px')} 23px ${token('space.100', '8px')}
-    ${token('space.100', '8px')};
+  padding: ${token('space.100', '8px')} ${token('space.300', '24px')}
+    ${token('space.100', '8px')} ${token('space.100', '8px')};
   color: ${token('color.text', N800)};
   word-break: break-word;
 `;

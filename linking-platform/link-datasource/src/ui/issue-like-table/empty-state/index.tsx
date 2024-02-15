@@ -36,16 +36,22 @@ const tableBodyStyles = css({
   borderBottom: 0,
 });
 
+const tableStyles = css({
+  background: token('utility.elevation.surface.current', '#FFF'),
+});
+
+const padding = `${token('space.100', '8px')} ${token('space.100', '8px')}`;
+
 const cellStyles = css({
-  paddingBlock: token('space.100', '12px'),
+  padding,
   borderRight: `0.5px solid ${token('color.border', N40)}`,
   borderBottom: `0.5px solid ${token('color.border', N40)}`,
   '&:first-child': {
-    paddingLeft: `${token('space.100', '4px')}`,
+    paddingLeft: `${token('space.100', '8px')}`,
   },
   '&:last-child': {
     borderRight: 0,
-    paddingRight: `${token('space.100', '4px')}`,
+    paddingRight: `${token('space.100', '8px')}`,
   },
 });
 
@@ -132,11 +138,11 @@ export default ({ isCompact, testId }: Props) => {
         boxSizing: 'border-box',
       }}
     >
-      <table data-testid={testId}>
+      <table css={tableStyles} data-testid={testId}>
         <thead style={{ borderBottom: 0 }}>
           <tr>
             {columnsToRender.map(({ key, width }) => (
-              <TableHeading key={key} style={{ width }}>
+              <TableHeading key={key} style={{ width, padding }}>
                 <Skeleton
                   appearance="darkGray"
                   borderRadius={8}

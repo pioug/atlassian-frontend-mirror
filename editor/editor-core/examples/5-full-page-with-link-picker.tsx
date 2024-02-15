@@ -1,7 +1,7 @@
 import React from 'react';
 
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { useLinkPickerEditorProps } from '@atlassian/link-picker-plugins/editor';
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 
 import { default as FullPageExample } from './5-full-page';
 

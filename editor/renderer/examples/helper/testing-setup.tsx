@@ -10,28 +10,21 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
-import {
-  default as Renderer,
-  Props as RendererProps,
-} from '../../src/ui/Renderer';
+import type { Props as RendererProps } from '../../src/ui/Renderer';
+import { default as Renderer } from '../../src/ui/Renderer';
 import { document as defaultDoc } from '../helper/story-data';
 import Sidebar from '../helper/NavigationNext';
-import { MentionProvider } from '@atlaskit/mention/types';
-import { ThemeModes } from '@atlaskit/theme/types';
+import type { MentionProvider } from '@atlaskit/mention/types';
 import { EmbedHelper } from '@atlaskit/media-integration-test-helpers/embed-helper';
 import AnalyticsListeners from '@atlaskit/analytics-listeners';
-import { GasPurePayload } from '@atlaskit/analytics-gas-types';
+import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
 
 import { RendererActionsContext as RendererContext } from '../../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../../src/ui/RendererActionsContext/WithRendererActions';
-import {
-  AnnotationTypes,
-  AnnotationId,
-  AnnotationMarkStates,
-} from '@atlaskit/adf-schema';
+import type { AnnotationId } from '@atlaskit/adf-schema';
+import { AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema';
 import { ExampleSelectionInlineComponent } from '../helper/annotations';
 import { IntlProvider } from 'react-intl-next';
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 
 const mediaMockServer = createEditorMediaMock();
 const mediaProvider = storyMediaProviderFactory();
@@ -47,7 +40,6 @@ export type MountProps = { [T in keyof RendererProps]?: RendererProps[T] } & {
   showSidebar?: boolean;
   withRendererActions?: boolean;
   mockInlineComments?: boolean;
-  themeMode?: ThemeModes;
 };
 
 const providerFactory = ProviderFactory.create({
@@ -74,22 +66,20 @@ function renderRenderer({
         <SmartCardProvider client={cardClient}>
           <Sidebar showSidebar={!!showSidebar}>
             {(additionalRendererProps: any) => (
-              <AtlaskitThemeProvider mode={props.themeMode}>
-                <Renderer
-                  dataProviders={providerFactory}
-                  document={adf}
-                  extensionHandlers={extensionHandlers}
-                  {...reactProps}
-                  {...additionalRendererProps}
-                  eventHandlers={
-                    setMode
-                      ? {
-                          onUnhandledClick: (e) => setMode(true),
-                        }
-                      : undefined
-                  }
-                />
-              </AtlaskitThemeProvider>
+              <Renderer
+                dataProviders={providerFactory}
+                document={adf}
+                extensionHandlers={extensionHandlers}
+                {...reactProps}
+                {...additionalRendererProps}
+                eventHandlers={
+                  setMode
+                    ? {
+                        onUnhandledClick: (e) => setMode(true),
+                      }
+                    : undefined
+                }
+              />
             )}
           </Sidebar>
           <EmbedHelper />

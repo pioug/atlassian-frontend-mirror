@@ -1,37 +1,37 @@
-import React from 'react';
-import { InlineCommentViewComponentProps } from '@atlaskit/editor-common/types';
-import { render, unmountComponentAtNode } from 'react-dom';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { nativeBridgeAPI as webToNativeBridgeAPI } from '../../../web-to-native/implementation';
-import RendererBridgeImplementation from '../../../native-to-web/implementation';
-import { createViewComponent } from '../../create-view-component';
+import type { InlineCommentViewComponentProps } from '@atlaskit/editor-common/types';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import React from 'react';
+import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import {
-  eventDispatcher as mobileBridgeEventDispatcher,
   EmitterEvents,
+  eventDispatcher as mobileBridgeEventDispatcher,
 } from '../../../dispatcher';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import RendererBridgeImplementation from '../../../native-to-web/implementation';
+import { nativeBridgeAPI as webToNativeBridgeAPI } from '../../../web-to-native/implementation';
+import { createViewComponent } from '../../create-view-component';
 
 const nativeToWebAPI = new RendererBridgeImplementation();
 
 let container: HTMLElement | null;
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  document.body.removeChild(container!);
-  unmountComponentAtNode(container!);
-  container = null;
-});
 
 describe('Mobile Renderer: Annotations/create-view-component', () => {
   describe('#ViewComponent', () => {
     let deleteAnnotationMock: jest.Mock;
     let ViewComponent: React.FC<InlineCommentViewComponentProps>;
+    let root: any; // Change to Root once we go full React 18
 
-    beforeEach(() => {
+    beforeEach(async () => {
+      container = document.createElement('div');
+      document.body.appendChild(container);
+      if (process.env.IS_REACT_18 === 'true') {
+        // @ts-ignore react-dom/client only available in react 18
+        // eslint-disable-next-line import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
+        const { createRoot } = await import('react-dom/client');
+        root = createRoot(container!);
+      }
+
       ViewComponent = createViewComponent(nativeToWebAPI);
       deleteAnnotationMock = jest.fn();
       jest.spyOn(webToNativeBridgeAPI, 'onAnnotationClick');
@@ -40,18 +40,40 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
 
     afterEach(() => {
       jest.restoreAllMocks();
+
+      document.body.removeChild(container!);
+      act(() => {
+        if (process.env.IS_REACT_18 === 'true') {
+          root.unmount();
+        } else {
+          unmountComponentAtNode(container!);
+        }
+      });
+      container = null;
     });
 
     describe('when annotations is empty', () => {
       it('onAnnotationClick should call without parameters', () => {
         expect(webToNativeBridgeAPI.onAnnotationClick).toHaveBeenCalledTimes(0);
-        render(
-          <ViewComponent
-            annotations={[]}
-            deleteAnnotation={deleteAnnotationMock}
-          />,
-          container,
-        );
+
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(
+              <ViewComponent
+                annotations={[]}
+                deleteAnnotation={deleteAnnotationMock}
+              />,
+            );
+          });
+        } else {
+          render(
+            <ViewComponent
+              annotations={[]}
+              deleteAnnotation={deleteAnnotationMock}
+            />,
+            container,
+          );
+        }
 
         expect(webToNativeBridgeAPI.onAnnotationClick).toHaveBeenCalledWith();
       });
@@ -64,14 +86,26 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
           { id: 'lol1', type: AnnotationTypes.INLINE_COMMENT },
           { id: 'lol2', type: AnnotationTypes.INLINE_COMMENT },
         ];
-        render(
-          <ViewComponent
-            annotations={annotations}
-            clickElementTarget={container!}
-            deleteAnnotation={deleteAnnotationMock}
-          />,
-          container,
-        );
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(
+              <ViewComponent
+                annotations={annotations}
+                clickElementTarget={container!}
+                deleteAnnotation={deleteAnnotationMock}
+              />,
+            );
+          });
+        } else {
+          render(
+            <ViewComponent
+              annotations={annotations}
+              clickElementTarget={container!}
+              deleteAnnotation={deleteAnnotationMock}
+            />,
+            container,
+          );
+        }
 
         const payload = [
           {
@@ -92,14 +126,27 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
           { id: 'lol1', type: AnnotationTypes.INLINE_COMMENT },
           { id: 'lol2', type: AnnotationTypes.INLINE_COMMENT },
         ];
-        render(
-          <ViewComponent
-            annotations={annotations}
-            clickElementTarget={container!}
-            deleteAnnotation={() => false}
-          />,
-          container,
-        );
+
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(
+              <ViewComponent
+                annotations={annotations}
+                clickElementTarget={container!}
+                deleteAnnotation={() => false}
+              />,
+            );
+          });
+        } else {
+          render(
+            <ViewComponent
+              annotations={annotations}
+              clickElementTarget={container!}
+              deleteAnnotation={() => false}
+            />,
+            container,
+          );
+        }
 
         const expectedPayload = [
           {
@@ -132,17 +179,30 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
       });
 
       const renderViewComponent = () => {
-        act(() => {
-          render(
-            <ViewComponent
-              annotations={[
-                { id: 'fake-id-1', type: AnnotationTypes.INLINE_COMMENT },
-              ]}
-              deleteAnnotation={deleteAnnotationMock}
-            />,
-            container,
-          );
-        });
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(
+              <ViewComponent
+                annotations={[
+                  { id: 'fake-id-1', type: AnnotationTypes.INLINE_COMMENT },
+                ]}
+                deleteAnnotation={deleteAnnotationMock}
+              />,
+            );
+          });
+        } else {
+          act(() => {
+            render(
+              <ViewComponent
+                annotations={[
+                  { id: 'fake-id-1', type: AnnotationTypes.INLINE_COMMENT },
+                ]}
+                deleteAnnotation={deleteAnnotationMock}
+              />,
+              container,
+            );
+          });
+        }
       };
 
       it('should listen to the delete annotation event', () => {
@@ -249,7 +309,11 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
         });
 
         act(() => {
-          unmountComponentAtNode(container!);
+          if (process.env.IS_REACT_18 === 'true') {
+            root.unmount();
+          } else {
+            unmountComponentAtNode(container!);
+          }
         });
 
         expect(mobileBridgeEventDispatcher.off).toHaveBeenCalledTimes(1);

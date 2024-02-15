@@ -14,3 +14,4 @@ export type {
   MediaApiConfig,
   MediaClientConfig,
 } from './auth';
+export { ChunkHashAlgorithm } from './ChunkHashAlgorithm';

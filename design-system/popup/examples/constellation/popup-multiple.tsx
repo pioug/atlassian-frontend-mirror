@@ -3,8 +3,8 @@ import { FC, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { ButtonGroup } from '@atlaskit/button';
-import Button from '@atlaskit/button/standard-button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/new';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import Popup from '../../src';
@@ -40,7 +40,7 @@ const PopupExample: FC<PopupExampleProps> = ({ index }) => {
 };
 
 const PopupMultipleExample = () => (
-  <ButtonGroup>
+  <ButtonGroup label="Open required popup">
     {Array.from(Array(3)).map((_, index) => (
       <PopupExample index={index} />
     ))}

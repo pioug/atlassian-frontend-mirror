@@ -1,7 +1,7 @@
 import {
-  editorTestCase as test,
-  expect,
   EditorPlaceholderTextModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { doc, p, placeholder } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -53,9 +53,7 @@ test.describe('placeholder text', () => {
         text: 'testpastetest',
         html: `<meta charset='utf-8'><p data-pm-slice="1 1 []">test<span data-testid="pastetest" data-node-type="status" data-color="neutral" data-local-id="cd5fe1cb-6828-4d85-b483-ee8fba47b3d3" data-style="" contenteditable="false">pastetest</span></p>`,
       });
-      expect(
-        await editor.page.getByText('Hello testpastetest').isVisible(),
-      ).toBeTruthy();
+      await expect(editor.page.getByText('Hello testpastetest')).toBeVisible();
       await expect(editor).toHaveDocument(doc(p('Hello ', 'testpastetest')));
     });
   });

@@ -1,14 +1,15 @@
 import {
-  editorTestCase as test,
-  EditorNodeContainerModel,
   EditorBlockCardModel,
+  EditorNodeContainerModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   datasourceBlockCard,
   doc,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { blockCardDatasourceWithUrlAdf } from './block-12.spec.ts-fixtures/adf-blockCard-datasource-with-url';
 
 test.use({

@@ -17,6 +17,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': 'การเปลี่ยนแปลงของคุณจะไม่ได้รับการบันทึก',
   'linkCreate.createForm.button.close': 'ปิด',
   'linkCreate.createForm.button.create': 'สร้าง',
-  'linkCreate.createForm.button.edit': 'แก้ไข',
+  'linkCreate.createForm.button.createAndOpen': 'สร้าง + เปิด',
   'linkCreate.modal.heading': 'สร้างใหม่',
 };

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { memo } from 'react';
+import React, { memo, useLayoutEffect, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
@@ -13,8 +13,10 @@ import Textfield from '@atlaskit/textfield';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import type { QuickInsertItem } from '../../provider-factory';
 import { GRID_SIZE, SEARCH_ITEM_HEIGHT_WIDTH } from '../constants';
 import useFocus from '../hooks/use-focus';
+import commonMessages from '../messages';
 import { Modes } from '../types';
 
 interface Props {
@@ -24,6 +26,7 @@ interface Props {
   onClick: (e: React.MouseEvent) => void;
   onKeyDown: (e: React.KeyboardEvent) => void;
   searchTerm?: string;
+  items: QuickInsertItem[];
 }
 
 function ElementSearch({
@@ -34,8 +37,21 @@ function ElementSearch({
   onClick,
   onKeyDown,
   searchTerm,
+  items,
 }: Props & WrappedComponentProps): JSX.Element {
   const ref = useFocus(focus);
+  const assistiveTextRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (assistiveTextRef) {
+      const assistiveDiv = assistiveTextRef.current;
+      /**
+       * We need to remove and set attributes, for the proper working of screen readers.
+       */
+      assistiveDiv?.removeAttribute('aria-live');
+      assistiveDiv?.setAttribute('aria-live', 'polite');
+    }
+  }, [items, formatMessage]);
 
   const onChange = ({
     target: { value },
@@ -44,6 +60,28 @@ function ElementSearch({
   };
   const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {};
   const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {};
+
+  const getFormattedMessage = (itemsCount: number): string => {
+    if (searchTerm === '') {
+      return `${itemsCount} ${formatMessage(
+        commonMessages.assistiveTextSuggestionsDefault,
+      )}`;
+    }
+    if (itemsCount > 1) {
+      return `${itemsCount} ${formatMessage(
+        commonMessages.assistiveTextSuggestions,
+      )}`;
+    }
+    if (itemsCount === 1) {
+      return `${itemsCount} ${formatMessage(
+        commonMessages.assistiveTextSuggestion,
+      )}`;
+    }
+    return formatMessage(commonMessages.assistiveTextSuggestionNothing);
+  };
+
+  const assistiveMessage = getFormattedMessage(items?.length);
+
   return (
     <div css={[wrapper, mode === Modes.inline && wrapperInline]}>
       <Textfield
@@ -71,29 +109,28 @@ function ElementSearch({
             data-testid="element_search__element_after_input"
           >
             <div css={styledShortcut}>
-              &#9166; {formatMessage(elementAfterInputMessage)}
+              &#9166; {formatMessage(commonMessages.elementAfterInputMessage)}
             </div>
           </div>
         }
-        placeholder={formatMessage(placeHolderMessage)}
+        placeholder={formatMessage(commonMessages.placeHolderMessage)}
         aria-label="search"
+        aria-labelledby="search-assistive"
+        className="js-search-input"
         value={searchTerm}
       />
+      <span
+        id="search-assistive"
+        ref={assistiveTextRef}
+        aria-live="polite"
+        aria-atomic="true"
+        className="assistive"
+      >
+        {assistiveMessage}
+      </span>
     </div>
   );
 }
-
-const elementAfterInputMessage = {
-  id: 'fabric.editor.elementbrowser.searchbar.elementAfterInput',
-  defaultMessage: 'Enter',
-  description: 'Enter to insert',
-};
-
-const placeHolderMessage = {
-  id: 'fabric.editor.elementbrowser.searchbar.placeholder',
-  defaultMessage: 'Search',
-  description: 'Search field placeholder',
-};
 
 const styledShortcut = css`
   ${shortcutStyle}

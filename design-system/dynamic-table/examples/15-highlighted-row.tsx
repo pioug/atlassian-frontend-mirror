@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 import { DynamicTableStateless } from '../src';
@@ -35,16 +35,17 @@ export default class extends React.Component<{}, State> {
   render() {
     return (
       <>
-        <h4 style={paddingStyle}>
+        <h4 id="row-highlight-control" style={paddingStyle}>
           Click on the buttons to highlight the corresponding row
         </h4>
-        <ButtonGroup>
+        <ButtonGroup titleId="row-highlight-control">
           {[0, 2, 5, 6, 8, 9].map((rowIndex) => (
             <Button
               onClick={() => this.toggleHighlightedRow(rowIndex)}
               key={rowIndex}
             >
-              {rowIndex}
+              {/* Needs to be this, because a raw `0` number won't render anything */}
+              {`${rowIndex}`}
             </Button>
           ))}
         </ButtonGroup>

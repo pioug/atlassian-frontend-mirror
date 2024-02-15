@@ -1,12 +1,12 @@
 import { css } from '@emotion/react';
-import { N30 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+
 import {
   akEditorFloatingDialogZIndex,
+  akEditorMobileMaxWidth,
   akEditorSwoopCubicBezier,
   akEditorToolbarKeylineHeight,
-  akEditorMobileMaxWidth,
 } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 export const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 868;
 
@@ -15,7 +15,7 @@ const toolbarLineHeight = 56;
 // box-shadow is overriden by the mainToolbar
 const mainToolbarWithKeyline = css`
   box-shadow: 0 ${akEditorToolbarKeylineHeight}px 0 0
-    ${token('color.border', N30)};
+    ${token('color.background.accent.gray.subtlest', '#F1F2F4')};
 `;
 
 const mainToolbarTwoLineStyle = css`

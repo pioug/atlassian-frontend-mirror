@@ -1,12 +1,11 @@
-import FullPage from '../ui/Appearance/FullPage';
-import Chromeless from '../ui/Appearance/Chromeless';
-import Comment from '../ui/Appearance/Comment';
-import Mobile from '../ui/Appearance/Mobile';
-
 import type {
   EditorAppearance,
   EditorAppearanceComponentProps,
 } from '../types';
+import Chromeless from '../ui/Appearance/Chromeless';
+import Comment from '../ui/Appearance/Comment';
+import FullPage from '../ui/Appearance/FullPage';
+import Mobile from '../ui/Appearance/Mobile';
 
 export default function getUiComponent(
   appearance: EditorAppearance,

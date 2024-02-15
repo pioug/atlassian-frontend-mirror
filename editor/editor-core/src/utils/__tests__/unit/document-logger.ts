@@ -1,18 +1,18 @@
+import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  doc,
-  table,
-  p,
-  tr,
-  th,
-  td,
   code,
-  strong,
+  doc,
   em,
+  p,
+  strong,
+  table,
+  td,
+  th,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { getDocStructure } from '../../document-logger';
 
 describe('docment-logger', () => {
   describe('getDocStructure', () => {

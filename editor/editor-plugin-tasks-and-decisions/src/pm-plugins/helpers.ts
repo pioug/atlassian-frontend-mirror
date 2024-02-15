@@ -1,4 +1,7 @@
-import { findFarthestParentNode } from '@atlaskit/editor-common/utils';
+import {
+  findFarthestParentNode,
+  isListNode,
+} from '@atlaskit/editor-common/utils';
 import type {
   Node,
   NodeType,
@@ -332,4 +335,29 @@ export function removeCheckboxFocus(view: EditorView) {
       action: ACTIONS.FOCUS_BY_LOCALID,
     }),
   );
+}
+
+export function findFirstParentListNode($pos: ResolvedPos): {
+  pos: number;
+  node: Node;
+} | null {
+  const currentNode = $pos.doc.nodeAt($pos.pos);
+  let listNodePosition: number | undefined | null = null;
+  if (isListNode(currentNode)) {
+    listNodePosition = $pos.pos;
+  } else {
+    const result = findParentNodeClosestToPos($pos, isListNode);
+    listNodePosition = result && result.pos;
+  }
+
+  if (listNodePosition == null) {
+    return null;
+  }
+  const node = $pos.doc.nodeAt(listNodePosition);
+
+  if (!node) {
+    return null;
+  }
+
+  return { node, pos: listNodePosition };
 }

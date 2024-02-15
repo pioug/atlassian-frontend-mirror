@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 
+import { mediaInlineImageStyles } from '@atlaskit/editor-common/media-inline';
 import {
   mediaSingleSharedStyle,
   richMediaClassName,
@@ -54,6 +55,8 @@ export const mediaStyles = css`
         margin-right: 0;
       }
     }
+
+    ${mediaInlineImageStyles}
 
     .mediaSingleView-content-wrap[layout^='wrap-'] {
       max-width: 100%;

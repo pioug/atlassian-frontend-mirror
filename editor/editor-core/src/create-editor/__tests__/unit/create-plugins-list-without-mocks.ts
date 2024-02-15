@@ -1,10 +1,10 @@
-import { expandPlugin } from '@atlaskit/editor-plugin-expand';
+import { expandPlugin } from '@atlaskit/editor-plugins/expand';
+
+import type { EditorProps } from '../../../types';
 import createPluginsListBase from '../../create-plugins-list';
 import { createPreset } from '../../create-preset';
 
-import type { EditorProps } from '../../../types';
-
-jest.mock('@atlaskit/editor-plugin-expand');
+jest.mock('@atlaskit/editor-plugins/expand');
 
 const createPluginsList = (props: EditorProps, prevProps?: EditorProps) => {
   return createPluginsListBase(createPreset(props, prevProps), props);
@@ -34,7 +34,7 @@ describe('create-plugins-list without mock tests', () => {
       'floatingToolbar',
       'selection',
       'codeBlock',
-      'dataConsumerPlugin',
+      'dataConsumer',
       'list',
       'contextPanel',
       'scrollIntoView',
@@ -88,6 +88,7 @@ describe('create-plugins-list without mock tests', () => {
       expect(expandPlugin).toHaveBeenCalledWith({
         config: {
           allowInsertion: true,
+          allowInteractiveExpand: true,
           useLongPressSelection: false,
           appearance: 'full-page',
         },

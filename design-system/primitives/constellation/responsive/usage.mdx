@@ -14,6 +14,8 @@ These responsive helpers are designed be used in conjunction with [xcss](/compon
 
 Compose your default styles alongside media overrides in [xcss](/components/primitives/xcss) or `css`.
 
+#### xcss
+
 ```tsx
 const customStyles = xcss({
   display: 'none', // hide by default
@@ -23,13 +25,11 @@ const customStyles = xcss({
 });
 
 export const Component = ({ children }: { children: ReactNode }) => (
-  <div css={customStyles}>{children}</div>
+  <Box xcss={customStyles}>{children}</Box>
 );
 ```
 
-### Using media.above
-
-It is important to note that the `media.above.xxs` will **always** match, it is explicitly `'@media all'`. This is only included for easy programatic usage, but it has a negative performance impact.
+#### css
 
 ```tsx
 const customStyles = css({
@@ -41,3 +41,7 @@ const customStyles = css({
   [media.above.xl]: { marginBlock: token('space.150') },
 });
 ```
+
+### Using media.above
+
+It is important to note that the `media.above.xxs` will **always** match, it is explicitly `'@media all'`. This is only included for easy programmatic usage, but it has a negative performance impact.

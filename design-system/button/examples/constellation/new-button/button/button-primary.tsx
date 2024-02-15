@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { UNSAFE_BUTTON } from '../../../../src';
-
+import Button from '../../../../src/new';
 const ButtonPrimaryExample = () => {
-  return <UNSAFE_BUTTON appearance="primary">Primary button</UNSAFE_BUTTON>;
+  return <Button appearance="primary">Primary button</Button>;
 };
 
 export default ButtonPrimaryExample;

@@ -7,8 +7,7 @@ import {
   getSelectionStyles,
   SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { N0, N20, N40 } from '@atlaskit/theme/colors';
+import { N0, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { SmartCardSharedCssClassName } from './smart-card';
@@ -63,29 +62,13 @@ export const smartCardStyles = css`
   .${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER} {
     .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div {
       cursor: pointer;
-      ${getBooleanFF(
-        'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-      )
-        ? ''
-        : `
-      &:hover {
-        background-color: ${token(
-          'color.background.neutral.subtle.hovered',
-          N20,
-        )};
-      }
-      `}
     }
 
     &.${akEditorSelectedNodeClassName}
       .${SmartCardSharedCssClassName.LOADER_WRAPPER}
       > div {
       ${getSelectionStyles([SelectionStyle.BoxShadow])}
-      ${getBooleanFF(
-        'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-      )
-        ? `border-radius: ${token('border.radius.200', '8px')};`
-        : ''}
+      border-radius: ${token('border.radius.200', '8px')};
     }
 
     &.danger {

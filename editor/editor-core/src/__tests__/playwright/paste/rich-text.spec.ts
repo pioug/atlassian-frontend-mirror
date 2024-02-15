@@ -1,10 +1,28 @@
 import {
   EditorNodeContainerModel,
-  editorTestCase as test,
-  expect,
   EditorTableModel,
+  expect,
   fixTest,
+  editorTestCase as test,
 } from '@af/editor-libra';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  a,
+  code_block,
+  doc,
+  expand,
+  li,
+  mention,
+  nestedExpand,
+  ol,
+  p,
+  panel,
+  table,
+  td,
+  th,
+  tr,
+} from '@atlaskit/editor-test-helpers/doc-builder';
+
 import {
   documentWithExpand,
   documentWithExpandAndTables,
@@ -13,23 +31,6 @@ import {
   emptyDocument,
   tableWithPanel,
 } from './rich-text.spec.ts-fixtures';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  doc,
-  p,
-  code_block,
-  table,
-  tr,
-  th,
-  td,
-  nestedExpand,
-  expand,
-  ol,
-  li,
-  mention,
-  panel,
-  a,
-} from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.describe('paste', () => {
   test.describe('handlePastingBreakoutMarks', () => {
@@ -336,75 +337,6 @@ test.describe('paste', () => {
       },
     });
     test('handleRichText: flatten nested list', async ({ editor }) => {
-      fixTest({
-        jiraIssueId: 'ED-20526',
-        reason:
-          'FIXME: Fails on firefox - ol/li stripped on paste (content remains)',
-      });
-      await editor.selection.set({
-        anchor: 8,
-        head: 16,
-      });
-      await editor.copy();
-      await editor.selection.set({
-        anchor: 41,
-        head: 41,
-      });
-      await editor.paste();
-      await expect(editor).toHaveDocument(
-        doc(
-          ol({ order: 1 })(
-            li(p('a'), ol({ order: 1 })(li(p('b')))),
-            li(p('c')),
-          ),
-          table({
-            __autoSize: false,
-            isNumberColumnEnabled: false,
-            layout: 'default',
-            localId: 'abc-123',
-          })(
-            tr(
-              th({ colspan: 1, rowspan: 1 })(p()),
-              th({ colspan: 1, rowspan: 1 })(p()),
-              th({ colspan: 1, rowspan: 1 })(p()),
-            ),
-            tr(
-              td({ colspan: 1, rowspan: 1 })(p()),
-              td({ colspan: 1, rowspan: 1 })(
-                // failing on firefox - not getting bullets
-                ol({ order: 1 })(li(p('b')), li(p('c'))),
-              ),
-              td({ colspan: 1, rowspan: 1 })(p()),
-            ),
-            tr(
-              td({ colspan: 1, rowspan: 1 })(p()),
-              td({ colspan: 1, rowspan: 1 })(p()),
-              td({ colspan: 1, rowspan: 1 })(p()),
-            ),
-          ),
-          p(),
-        ),
-      );
-    });
-  });
-  test.describe('handlers - restartNumberedLists', () => {
-    test.use({
-      adf: documentWithListAndTable,
-      editorProps: {
-        appearance: 'full-page',
-        allowExpand: true,
-        allowTables: {
-          advanced: true,
-        },
-        featureFlags: {
-          restartNumberedLists: true,
-        },
-      },
-    });
-
-    test('handleRichText: flatten nested list with restartNumberedLists', async ({
-      editor,
-    }) => {
       fixTest({
         jiraIssueId: 'ED-20526',
         reason:

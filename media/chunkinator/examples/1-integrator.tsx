@@ -4,29 +4,11 @@ import { takeUntil } from 'rxjs/operators/takeUntil';
 import { smallImage } from '@atlaskit/media-common/test-helpers';
 import { chunkinator, Chunk, ChunkinatorFile } from '../src';
 import config from '../example-helpers/config';
+import { sha1Hasher } from '../example-helpers/Sha1Hasher';
 
 const authHeaders = {
   Authorization: `Bearer ${config.token}`,
   'X-Client-Id': config.clientId,
-};
-
-const probingFunction = async (hashedBlobs: Chunk[]) => {
-  const body = JSON.stringify({
-    chunks: hashedBlobs.map((hashedBlob) => `${hashedBlob.hash}`),
-  });
-
-  const response = await fetch(`${config.host}/chunk/probe`, {
-    method: 'POST',
-    mode: 'cors',
-    headers: new Headers({
-      'Content-Type': 'application/json',
-      ...authHeaders,
-    }),
-    body,
-  });
-  const json = await response.json();
-  const results = json.data.results;
-  return (Object as any).values(results).map((result: any) => result.exists);
 };
 
 const uploadingFunction = async (hashedBlob: Chunk) => {
@@ -56,10 +38,10 @@ const createUpload = async () => {
 
 const createProcessingFunction = (whenUploadId: Promise<string>) => {
   let chunkOffset = 0;
-  return async (probedBlobs: Chunk[]) => {
+  return async (blobs: Chunk[]) => {
     const uploadId = await whenUploadId;
-    await appendChunksToUpload(uploadId, probedBlobs, chunkOffset);
-    chunkOffset += probedBlobs.length;
+    await appendChunksToUpload(uploadId, blobs, chunkOffset);
+    chunkOffset += blobs.length;
   };
 };
 
@@ -150,11 +132,10 @@ const chunkinate = async (
       blob,
       {
         hashingConcurrency: 5,
-        probingBatchSize: 10,
         chunkSize: 10000,
         uploadingConcurrency: 3,
         uploadingFunction,
-        probingFunction,
+        hashingFunction: sha1Hasher,
         processingBatchSize,
         processingFunction: createProcessingFunction(deferredUploadId),
       },

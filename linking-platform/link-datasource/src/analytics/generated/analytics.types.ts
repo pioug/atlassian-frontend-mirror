@@ -3,12 +3,11 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::32dd97482f811937fcb07590b84179dd>>
+ * @codegen <<SignedSource::e9179418960d1cbfd58428448cf63c82>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
-export type PackageMetaDataType = {
-  packageName: string;
-  packageVersion: string;
+export type ComponentMetaDataType = {
+  component: string;
 };
 export type AnalyticsContextType = {
   source: 'datasourceConfigModal';
@@ -48,16 +47,16 @@ export type ButtonClickedInsertAttributesType = {
   extensionKey: string | null;
   actions: unknown[];
   isQueryComplex: boolean;
+  projectBasicFilterSelectionCount: number;
+  statusBasicFilterSelectionCount: number;
+  typeBasicFilterSelectionCount: number;
+  assigneeBasicFilterSelectionCount: number;
 };
 export type ButtonClickedCancelAttributesType = {
   searchCount: number;
   destinationObjectTypes: unknown[];
   extensionKey: string | null;
   actions: unknown[];
-  projectBasicFilterSelectionCount: number;
-  statusBasicFilterSelectionCount: number;
-  issuetypeBasicFilterSelectionCount: number;
-  assigneeBasicFilterSelectionCount: number;
 };
 export type LinkClickedSingleItemAttributesType = {
   extensionKey: string | null;
@@ -75,6 +74,25 @@ export type DatasourceOperationFailedAttributesType = {
   errorLocation: string | null;
   traceId: string | null;
   status: number | null;
+};
+export type ProviderAuthSuccessAttributesType = {
+  extensionKey: string | null;
+  experience: 'datasource';
+};
+export type ProviderAuthFailureAttributesType = {
+  extensionKey: string | null;
+  reason:
+    | 'auth_window_closed'
+    | 'invalid_request'
+    | 'unauthorized_client'
+    | 'access_denied'
+    | 'unsupported_response_type'
+    | 'invalid_scope'
+    | 'server_error'
+    | 'temporarily_unavailable'
+    | 'authclientoauth2.autherror'
+    | null;
+  experience: 'datasource';
 };
 export type NextItemLoadedAttributesType = {
   destinationObjectTypes: unknown[];
@@ -112,22 +130,22 @@ export type LinkViewedCountAttributesType = {
   extensionKey: string | null;
 };
 export type EmptyResultShownBasicSearchDropdownAttributesType = {
-  filterType: 'project' | 'assignee' | 'issuetype' | 'status';
+  filterType: 'project' | 'assignee' | 'type' | 'status';
 };
 export type ErrorShownBasicSearchDropdownAttributesType = {
-  filterType: 'project' | 'assignee' | 'issuetype' | 'status';
+  filterType: 'project' | 'assignee' | 'type' | 'status';
   reason: 'agg' | 'network' | 'unknown';
 };
 export type DropdownOpenedBasicSearchDropdownAttributesType = {
-  filterType: 'project' | 'assignee' | 'issuetype' | 'status';
+  filterType: 'project' | 'assignee' | 'type' | 'status';
   selectionCount: number;
 };
 export type DropdownClosedBasicSearchDropdownAttributesType = {
-  filterType: 'project' | 'assignee' | 'issuetype' | 'status';
+  filterType: 'project' | 'assignee' | 'type' | 'status';
   selectionCount: number;
 };
 export type ButtonClickedBasicSearchDropdownAttributesType = {
-  filterType: 'project' | 'assignee' | 'issuetype' | 'status';
+  filterType: 'project' | 'assignee' | 'type' | 'status';
   type: 'showMore';
 };
 export type AqlEditorSearchedAttributesType = {};
@@ -188,6 +206,12 @@ export type AnalyticsEventAttributes = {
   /**
    * Fired when a generic operation failed */
   'operational.datasource.operationFailed': DatasourceOperationFailedAttributesType;
+  /**
+   * Fired when an auth provider connection is successful. */
+  'operational.provider.authSuccess': ProviderAuthSuccessAttributesType;
+  /**
+   * Fired when an auth provider connection failed to complete. */
+  'operational.provider.authFailure': ProviderAuthFailureAttributesType;
   /**
    * Fired when user scrolls to the next page/list of the objects */
   'track.nextItem.loaded': NextItemLoadedAttributesType;

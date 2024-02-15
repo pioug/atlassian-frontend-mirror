@@ -18,15 +18,15 @@ import { SpotlightTransitionConsumer } from './spotlight-transition';
 
 export interface SpotlightInnerProps extends SpotlightProps {
   /**
-   * The spotlight target dom element
+   * The spotlight target DOM element.
    */
   targetNode: HTMLElement;
   /**
-   * Called when the component has been mounted
+   * Called when the component has been mounted.
    */
   onOpened: () => any;
   /**
-   * Called when the component has been unmounted
+   * Called when the component has been unmounted.
    */
   onClosed: () => any;
 
@@ -38,7 +38,7 @@ export interface SpotlightInnerProps extends SpotlightProps {
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   pulse: boolean;
   /**
-   * The width of the dialog in pixels. Min 160 - Max 600.
+   * The width of the dialog in pixels. The minimum possible width is 160px and the maximum width is 600px.
    *
    * Same as `SpotlightProps` but required instead of optional.
    */

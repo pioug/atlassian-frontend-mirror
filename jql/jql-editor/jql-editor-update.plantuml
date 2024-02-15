@@ -1,0 +1,73 @@
+@startuml
+skinparam responseMessageBelowArrow true
+skinparam ParticipantPadding 10
+title JQL Editor Update Sequence Diagram
+
+participant EditorView << JS >> #fbadad
+participant EditorState << JS >> #fbadad
+participant Plugin << JS >> #fbadad
+participant AutocompletePluginView << JS >> #fbadad
+participant ReactPluginView << JS >> #fbadad
+participant Subject << RxJS >> #c0fbad
+participant PortallingComponent << React >> #fbeead
+participant AutocompleteComponent << React >> #fbeead
+
+note over AutocompletePluginView
+  This process applies to any
+  plugin which renders a React
+  component (not just Autocomplete).
+end note
+
+== Initialisation ==
+
+AutocompletePluginView -> ReactPluginView : extends
+ReactPluginView -> Subject : construct
+Subject --> ReactPluginView : componentSubject
+ReactPluginView -> PortallingComponent : render
+
+ref over PortallingComponent
+  This component is rendered on
+  initialisation and uses an RxJS
+  subject to listen to events from
+  our plugin view and re-render
+  the plugin component.
+end ref
+PortallingComponent -> Subject : componentSubject.subscribe()
+Subject --> PortallingComponent : unsubscribe fn
+PortallingComponent -> AutocompleteComponent : render
+
+== Update ==
+
+[o-> EditorView : DOM event
+
+EditorView -> EditorState : transaction
+
+loop while plugin appends transaction
+    EditorState -> EditorState : apply state
+    EditorState -> Plugin : transaction
+    Plugin -> Plugin : apply state
+    Plugin --> EditorState : append new transaction
+end
+
+EditorState -> AutocompletePluginView : update plugin views
+
+ref over AutocompletePluginView
+  Our plugin view must recompute
+  props using the updated editor state
+  and force a re-render of the associated
+  React component
+end ref
+
+AutocompletePluginView -> AutocompletePluginView : compute updated props
+AutocompletePluginView -> Subject #c5e3f5 : componentSubject.next()
+
+ref over Subject
+  The componentSubject will receive updated
+  props and invoke our subscriber.
+end ref
+
+Subject -> PortallingComponent : invoke subscriber
+PortallingComponent -> PortallingComponent : set props into state
+PortallingComponent -> AutocompleteComponent : re-render
+
+@enduml

@@ -1,5 +1,46 @@
 # @atlaskit/media-client
 
+## 26.2.0
+
+### Minor Changes
+
+- [#70414](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70414) [`2125e318f970`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2125e318f970) - Adding the option to use SHA256 for file uploads to ensure Media is FedRAMP compliant. If not specified the system will default to SHA1 to preserve backwards compatibiilty.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.1.2
+
+### Patch Changes
+
+- [#71336](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71336) [`9abd05a91e25`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9abd05a91e25) - Fixed image load performance issue where setting max age in getFileImageURL params to undefined would override the default
+
+## 26.1.1
+
+### Patch Changes
+
+- [#65817](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65817) [`3be0ec786219`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3be0ec786219) - Updated mocked Media Api mothod
+
+## 26.1.0
+
+### Minor Changes
+
+- [#60253](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60253) [`2d535695b891`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d535695b891) - Exposed MediaApi type
+- [#60253](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60253) [`662b6d273ec0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/662b6d273ec0) - Breaking change: Updated interface for Test Helper "createMockedMediaApi". This is not a production-code breaking change
+
+## 26.0.0
+
+### Major Changes
+
+- [#60352](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60352) [`ff9488b450dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ff9488b450dd) - WHAT: Media has removed the ability to probe for existing file chunks.  
+  WHY: This is to support the work to deprecate SHA1 usage and make the Media Platform comply with FedRAMP moderate controls.
+  HOW: Remove any calls you have directly to probing, instead upload all files directly. If you upload files via MediaPicker no changes are required.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.1.0
 
 ### Minor Changes

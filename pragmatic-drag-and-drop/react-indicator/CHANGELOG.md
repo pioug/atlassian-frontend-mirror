@@ -1,5 +1,17 @@
 # @atlaskit/pragmatic-drag-and-drop-react-indicator
 
+## 0.18.0
+
+### Minor Changes
+
+- [#62704](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62704) [`842b8e893c33`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/842b8e893c33) - [ux] Making small change so that the line and terminal have the same color (`"color.border.selected"`). Previously, the line (unintentionally) had a slightly different shade of blue.
+
+## 0.17.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.17.0
 
 ### Minor Changes

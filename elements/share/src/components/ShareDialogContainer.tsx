@@ -173,13 +173,20 @@ export class ShareDialogContainerInternal extends React.Component<
 
   handleSubmitShare = ({ users, comment }: ShareData): Promise<void> => {
     const shareLink = this.getFormShareLink();
-    const { productId, shareAri, shareContentType, shareTitle, shareeAction } =
-      this.props;
+    const {
+      productId,
+      shareAri,
+      shareContentType,
+      shareTitle,
+      shareeAction,
+      workspaceAri,
+    } = this.props;
     const content: Content = {
       ari: shareAri,
       link: shareLink,
       title: shareTitle,
       type: shareContentType,
+      workspaceAri,
     };
     const metaData: MetaData = {
       productId,

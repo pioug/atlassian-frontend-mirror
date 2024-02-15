@@ -28,12 +28,12 @@ export type Dimension = keyof typeof dimensionMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3cd327a4cd23dce8564f0b76a0d600ce>>
+ * @codegen <<SignedSource::f8111b846d3e3be67331853f10d1b568>>
  * @codegenId spacing
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::55622b91aca9b3afac4bce440f222b71>>
  */
-export const spaceMap = {
+export const positiveSpaceMap = {
   'space.0': token('space.0', '0px'),
   'space.025': token('space.025', '2px'),
   'space.050': token('space.050', '4px'),
@@ -49,7 +49,7 @@ export const spaceMap = {
   'space.800': token('space.800', '64px'),
   'space.1000': token('space.1000', '80px'),
 };
-export type Space = keyof typeof spaceMap;
+export type Space = keyof typeof positiveSpaceMap;
 
 export const negativeSpaceMap = {
   'space.negative.025': token('space.negative.025', '-2px'),
@@ -63,6 +63,10 @@ export const negativeSpaceMap = {
   'space.negative.400': token('space.negative.400', '-32px'),
 };
 export type NegativeSpace = keyof typeof negativeSpaceMap;
+
+export const allSpaceMap = { ...positiveSpaceMap, ...negativeSpaceMap };
+
+export type AllSpace = keyof typeof allSpaceMap;
 
 /**
  * @codegenEnd
@@ -1117,7 +1121,7 @@ export type BorderRadius = keyof typeof borderRadiusMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::739812ebd4363d1b1782332b2ebffd2c>>
+ * @codegen <<SignedSource::648d0ff5e17d3a6a835c1119d0d5dc99>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight", "body", "ui"]
@@ -1138,10 +1142,10 @@ export const fontSizeMap = {
 export type FontSize = keyof typeof fontSizeMap;
 
 export const fontWeightMap = {
-  'font.weight.bold': token('font.weight.bold', '700'),
-  'font.weight.medium': token('font.weight.medium', '500'),
-  'font.weight.regular': token('font.weight.regular', '400'),
-  'font.weight.semibold': token('font.weight.semibold', '600'),
+  bold: token('font.weight.bold', '700'),
+  medium: token('font.weight.medium', '500'),
+  regular: token('font.weight.regular', '400'),
+  semibold: token('font.weight.semibold', '600'),
 };
 
 export type FontWeight = keyof typeof fontWeightMap;
@@ -1149,7 +1153,7 @@ export type FontWeight = keyof typeof fontWeightMap;
 export const fontFamilyMap = {
   'font.family.body': token(
     'font.family.body',
-    'ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+    'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   ),
   'font.family.brand': token('font.family.brand', 'Charlie Sans'),
   'font.family.code': token(
@@ -1158,7 +1162,7 @@ export const fontFamilyMap = {
   ),
   'font.family.heading': token(
     'font.family.heading',
-    'ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+    'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   ),
   'font.family.monospace': token(
     'font.family.monospace',
@@ -1185,24 +1189,30 @@ export const lineHeightMap = {
 export type LineHeight = keyof typeof lineHeightMap;
 
 export const bodyTextMap = {
-  body: token('font.body', 'normal 400 14px/20px var(--ds-font-family-body)'),
+  body: token(
+    'font.body',
+    'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
   'body.large': token(
     'font.body.large',
-    'normal 400 16px/24px var(--ds-font-family-body)',
+    'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   ),
   'body.small': token(
     'font.body.small',
-    'normal 400 11px/16px var(--ds-font-family-body)',
+    'normal 400 11px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   ),
 };
 
 export type BodyText = keyof typeof bodyTextMap;
 
 export const uiTextMap = {
-  ui: token('font.ui', 'normal 400 14px/1 var(--ds-font-family-body)'),
+  ui: token(
+    'font.ui',
+    'normal 500 14px/1 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
   'ui.small': token(
     'font.ui.small',
-    'normal 400 11px/1 var(--ds-font-family-body)',
+    'normal 400 11px/1 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   ),
 };
 
@@ -1212,7 +1222,7 @@ export type UiText = keyof typeof uiTextMap;
  * @codegenEnd
  */
 
-type MarginSpace = Space | NegativeSpace | 'auto';
+type MarginSpace = AllSpace | 'auto';
 type AutoComplete<T extends string> = T | Omit<string, T>;
 
 export type TokenisedProps = {
@@ -1249,21 +1259,21 @@ export type TokenisedProps = {
   borderTopRightRadius?: AutoComplete<BorderRadius>;
   borderTopWidth?: AutoComplete<BorderWidth>;
   borderWidth?: BorderWidth;
-  bottom?: AutoComplete<Space>;
+  bottom?: AutoComplete<AllSpace>;
   boxShadow?: Shadow;
   color?: TextColor;
   columnGap?: Space;
   gap?: Space;
   height?: AutoComplete<Dimension>;
   inlineSize?: AutoComplete<Dimension>;
-  inset?: Space;
-  insetBlock?: Space;
-  insetBlockEnd?: Space;
-  insetBlockStart?: Space;
-  insetInline?: Space;
-  insetInlineEnd?: Space;
-  insetInlineStart?: Space;
-  left?: AutoComplete<Space>;
+  inset?: AutoComplete<AllSpace>;
+  insetBlock?: AutoComplete<AllSpace>;
+  insetBlockEnd?: AutoComplete<AllSpace>;
+  insetBlockStart?: AutoComplete<AllSpace>;
+  insetInline?: AutoComplete<AllSpace>;
+  insetInlineEnd?: AutoComplete<AllSpace>;
+  insetInlineStart?: AutoComplete<AllSpace>;
+  left?: AutoComplete<AllSpace>;
   margin?: AutoComplete<MarginSpace>;
   marginBlock?: AutoComplete<MarginSpace>;
   marginBlockEnd?: AutoComplete<MarginSpace>;
@@ -1298,9 +1308,9 @@ export type TokenisedProps = {
   paddingLeft?: AutoComplete<Space>;
   paddingRight?: AutoComplete<Space>;
   paddingTop?: AutoComplete<Space>;
-  right?: AutoComplete<Space>;
+  right?: AutoComplete<AllSpace>;
   rowGap?: Space;
-  top?: AutoComplete<Space>;
+  top?: AutoComplete<AllSpace>;
   width?: AutoComplete<Dimension>;
   zIndex?: Layer;
 };
@@ -1357,7 +1367,7 @@ const getSerializedStylesMap = (
     return emotionSpacingMap;
   }, {} as SerializedStylesMap);
 };
-type SpacingToken = keyof typeof spaceMap;
+type SpacingToken = keyof typeof positiveSpaceMap;
 type BackgroundColorToken = keyof typeof backgroundColorMap;
 type SurfaceColorToken = keyof typeof surfaceColorMap;
 type TextColorToken = keyof typeof textColorMap;
@@ -1385,7 +1395,7 @@ export const paddingStylesMap: SpacingStyleMap = spacingProperties.reduce(
   (styleMap, spacingProperty: SpacingProperty) => {
     styleMap[spacingProperty] = getSerializedStylesMap(
       spacingProperty,
-      spaceMap,
+      positiveSpaceMap,
     );
 
     return styleMap;
@@ -1397,7 +1407,7 @@ export const spaceStylesMap: SpacingStyleMap = spacingProperties.reduce(
   (styleMap, spacingProperty: SpacingProperty) => {
     styleMap[spacingProperty] = getSerializedStylesMap(
       spacingProperty,
-      spaceMap,
+      positiveSpaceMap,
     );
 
     return styleMap;

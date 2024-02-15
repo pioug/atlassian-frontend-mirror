@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 
 import Drawer from '../src';
 

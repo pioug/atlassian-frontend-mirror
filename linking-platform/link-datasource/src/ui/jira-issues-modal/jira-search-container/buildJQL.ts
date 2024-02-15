@@ -5,7 +5,6 @@ import {
   Jast,
   JastBuilder,
   OPERATOR_EQUALS,
-  OPERATOR_GT_EQUALS,
   OPERATOR_IN,
   OPERATOR_LIKE,
   OperatorValue,
@@ -121,16 +120,6 @@ export const buildJQL = (input: BuildJQLInput): string => {
 
       query.appendClause(filterInClause, COMPOUND_OPERATOR_AND);
     });
-  }
-
-  if (!trimmedRawSearch && !hasValidFilterSelectionAndValues) {
-    const created = constructTerminalClause(
-      'created',
-      OPERATOR_GT_EQUALS,
-      '-30d',
-    );
-
-    query.appendClause(created, COMPOUND_OPERATOR_AND);
   }
 
   const orderField = creators.orderByField(creators.field(orderKey));

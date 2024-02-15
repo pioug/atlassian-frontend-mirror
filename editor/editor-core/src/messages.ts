@@ -1,9 +1,9 @@
 // Common Translations will live here
 import commonMessages, {
+  dateMessages,
   linkMessages,
   linkToolbarMessages,
   statusMessages,
-  dateMessages,
 } from '@atlaskit/editor-common/messages';
 
 export { linkMessages };

@@ -3,7 +3,7 @@ import { forwardRef, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import { IconButton } from '@atlaskit/button/new';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { Box, xcss } from '@atlaskit/primitives';
 
@@ -17,8 +17,8 @@ const containerStyles = xcss({
 });
 
 const CustomPopupContainer = forwardRef<HTMLDivElement, PopupComponentProps>(
-  ({ children, ...props }, ref) => (
-    <Box xcss={containerStyles} {...props} ref={ref}>
+  ({ children, 'data-testid': testId, ...props }, ref) => (
+    <Box xcss={containerStyles} testId={testId} {...props} ref={ref}>
       {children}
     </Box>
   ),
@@ -35,11 +35,12 @@ const PopupCustomExample = () => {
       popupComponent={CustomPopupContainer}
       content={() => <Box>Customized popup</Box>}
       trigger={(triggerProps) => (
-        <Button
+        <IconButton
           {...triggerProps}
           isSelected={isOpen}
           onClick={() => setIsOpen(!isOpen)}
-          iconBefore={<MoreIcon label="More" />}
+          icon={MoreIcon}
+          label="More"
         />
       )}
     />

@@ -1,23 +1,24 @@
 import React from 'react';
 
-import { IntlProvider, useIntl } from 'react-intl-next';
+import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 
-import { useMessages } from './utils/use-messages';
+import en from '../../../i18n/en';
+
+import { fetchMessagesForLocale } from './utils/fetch-messages-for-locale';
 
 type LazyMessagesProviderProps = {
   children?: React.ReactNode;
 };
 
-export const LazyMessagesProvider = (props: LazyMessagesProviderProps) => {
-  const intl = useIntl();
-  const messages = useMessages(intl.locale);
-
+export const LazyMessagesProvider = ({
+  children,
+}: LazyMessagesProviderProps) => {
   return (
-    <IntlProvider
-      {...props}
-      defaultLocale="en"
-      messages={messages}
-      locale={intl.locale}
-    />
+    <IntlMessagesProvider
+      defaultMessages={en}
+      loaderFn={fetchMessagesForLocale}
+    >
+      {children}
+    </IntlMessagesProvider>
   );
 };

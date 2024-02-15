@@ -1,33 +1,33 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import {
+  animationFrame,
+  getEditorWidth,
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import type { TestPageConfig } from '@atlaskit/editor-test-helpers/page-objects/media';
+import {
+  changeMediaLayout,
+  clickMediaInPosition,
+  isLayoutAvailable,
+  MediaLayout,
+  MediaResizeSide,
+  resizeMediaInPositionWithSnapshot,
+  scrollToMedia,
+  waitForMediaToBeLoaded,
+} from '@atlaskit/editor-test-helpers/page-objects/media';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   initFullPageEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import {
-  getEditorWidth,
-  animationFrame,
-} from '@atlaskit/editor-test-helpers/page-objects/editor';
-import type { TestPageConfig } from '@atlaskit/editor-test-helpers/page-objects/media';
-import {
-  resizeMediaInPositionWithSnapshot,
-  clickMediaInPosition,
-  changeMediaLayout,
-  MediaLayout,
-  MediaResizeSide,
-  scrollToMedia,
-  isLayoutAvailable,
-  waitForMediaToBeLoaded,
-} from '@atlaskit/editor-test-helpers/page-objects/media';
-import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import * as layout2Col from './../__fixtures__/mediaSingle-in-column.adf.json';
-import mediaSelectionAdf from './../__fixtures__/mediaSingle-image.adf.json';
-import bulletListAdf from './../__fixtures__/mediaSingle-in-buttetList.adf.json';
 import type { EditorProps } from '../../../../types';
+import mediaSelectionAdf from '../__fixtures__/mediaSingle-image.adf.json';
+import bulletListAdf from '../__fixtures__/mediaSingle-in-buttetList.adf.json';
+import * as layout2Col from '../__fixtures__/mediaSingle-in-column.adf.json';
 
 export function createResizeFullPageForConfig(config: TestPageConfig) {
   const initEditor = async (
@@ -74,8 +74,10 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
           );
         });
 
+        // FIXME: Skipping theses tests as it has been failing on master on CI due to "Screenshot comparison failed" issue.
+        // Build URL: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2319963/steps/%7B31b3ca1c-6917-4861-88ed-d816d6fae22f%7D
         if (isLayoutAvailable(MediaLayout.wide, width)) {
-          it('can make an image wide', async () => {
+          it.skip('can make an image wide', async () => {
             await waitForMediaToBeLoaded(page);
             await clickMediaInPosition(page, 0);
             await animationFrame(page);

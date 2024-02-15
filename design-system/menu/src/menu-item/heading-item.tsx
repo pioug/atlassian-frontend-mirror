@@ -37,6 +37,7 @@ const HeadingItem = memo(
   ({
     children,
     testId,
+    headingLevel = 2,
     id,
     cssFn = noop as any,
     // Although this isn't defined on props it is available because we've used
@@ -66,6 +67,8 @@ const HeadingItem = memo(
           // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
           UNSAFE_overrides,
         ]}
+        role="heading"
+        aria-level={headingLevel}
         data-testid={testId}
         data-ds--menu--heading-item
         id={id}

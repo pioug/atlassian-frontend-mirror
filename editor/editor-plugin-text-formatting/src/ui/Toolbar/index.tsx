@@ -13,9 +13,11 @@ import {
   separatorStyles,
   wrapperStyle,
 } from '@atlaskit/editor-common/styles';
-import type { ToolbarSize } from '@atlaskit/editor-common/types';
+import type {
+  TextFormattingState,
+  ToolbarSize,
+} from '@atlaskit/editor-common/types';
 import { Announcer } from '@atlaskit/editor-common/ui';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { compareItemsArrays, isArrayContainsContent } from '../../utils';
@@ -44,6 +46,7 @@ export type ToolbarFormattingProps = {
   popupsBoundariesElement?: HTMLElement;
   popupsScrollableElement?: HTMLElement;
   editorAnalyticsAPI?: EditorAnalyticsAPI;
+  textFormattingState: TextFormattingState | undefined;
 };
 const ToolbarFormatting = ({
   shouldUseResponsiveToolbar,
@@ -56,18 +59,19 @@ const ToolbarFormatting = ({
   isToolbarDisabled,
   intl,
   editorAnalyticsAPI,
+  textFormattingState,
 }: ToolbarFormattingProps & WrappedComponentProps) => {
-  const editorState = useMemo(() => editorView.state, [editorView.state]);
   const [message, setMessage] = useState('');
 
   const defaultIcons = useFormattingIcons({
-    editorState,
+    schema: editorView.state.schema,
     intl,
     isToolbarDisabled,
     editorAnalyticsAPI,
+    textFormattingState,
   });
   const clearIcon = useClearIcon({
-    editorState,
+    textFormattingState,
     intl,
     editorAnalyticsAPI,
   });
@@ -77,8 +81,8 @@ const ToolbarFormatting = ({
     responsivenessEnabled: shouldUseResponsiveToolbar,
   });
   const hasFormattingActive = useHasFormattingActived({
-    editorState: editorView.state,
     iconTypeList: menuIconTypeList,
+    textFormattingState,
   });
 
   const { dropdownItems, singleItems } = useResponsiveToolbarButtons({
@@ -222,10 +226,11 @@ const Toolbar = ({
   shouldUseResponsiveToolbar,
   intl,
   editorAnalyticsAPI,
-}: ToolbarFormattingProps &
-  WrappedComponentProps & { editorState: EditorState }) => {
+  textFormattingState,
+}: ToolbarFormattingProps & WrappedComponentProps) => {
   return (
     <ToolbarFormatting
+      textFormattingState={textFormattingState}
       popupsMountPoint={popupsMountPoint}
       popupsScrollableElement={popupsScrollableElement}
       toolbarSize={toolbarSize}

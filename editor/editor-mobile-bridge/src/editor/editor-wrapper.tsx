@@ -8,6 +8,10 @@ import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 
 import type { EditorProps } from '@atlaskit/editor-core';
 
+import viewUpdateSubscriptionPlugin from './editor-plugins/view-update-subscription';
+import mobileDimensionsPlugin from './editor-plugins/mobile-dimensions';
+import mobileSelectionPlugin from './editor-plugins/mobile-selection';
+
 import type EditorConfiguration from './editor-configuration';
 import { mobileApiPlugin } from './plugins/mobileApiPlugin';
 import type WebBridgeImpl from './native-to-web';
@@ -24,14 +28,18 @@ interface EditorWrapperProps extends EditorProps {
 }
 
 const ComposableEditorWrapper = ({ props }: WrapperProps) => {
-  const preset = useUniversalPreset({ props }).add([
-    mobileApiPlugin,
-    {
-      bridge: props.bridge,
-      intl: props.intl,
-      editorConfiguration: props.editorConfiguration,
-    },
-  ]);
+  const preset = useUniversalPreset({ props })
+    .add(viewUpdateSubscriptionPlugin)
+    .add(mobileDimensionsPlugin)
+    .add(mobileSelectionPlugin)
+    .add([
+      mobileApiPlugin,
+      {
+        bridge: props.bridge,
+        intl: props.intl,
+        editorConfiguration: props.editorConfiguration,
+      },
+    ]);
   return <ComposableEditor preset={preset} {...props} />;
 };
 

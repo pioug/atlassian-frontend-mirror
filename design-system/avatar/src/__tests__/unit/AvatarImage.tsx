@@ -190,3 +190,19 @@ it('image should be decorative when no alt is provided', () => {
   expect(avatar).toHaveAttribute('alt');
   expect(avatar).toHaveAttribute('alt', '');
 });
+
+it('image should be hidden from assistive technology if no or empty alt is provided', () => {
+  const imageSrc = 'data:image/png;base64,';
+
+  render(
+    <AvatarImage
+      appearance="circle"
+      size="large"
+      testId="avatar"
+      src={imageSrc}
+    />,
+  );
+
+  const avatar = screen.getByTestId('avatar--image');
+  expect(avatar).toHaveAttribute('aria-hidden', 'true');
+});

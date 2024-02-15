@@ -26,12 +26,12 @@ export function shouldShowMediaLinkToolbar(editorState: EditorState): boolean {
     return false;
   }
   const {
-    nodes: { media },
+    nodes: { media, mediaInline },
     marks: { link },
   } = editorState.schema;
   const node = editorState.doc.nodeAt(mediaLinkingState.mediaPos);
 
-  if (!node || node.type !== media) {
+  if (!node || ![media, mediaInline].includes(node.type)) {
     return false;
   }
 
@@ -103,7 +103,7 @@ export const getLinkingToolbar = (
                       state: { tr },
                       dispatch,
                     } = view;
-                    pluginInjectionApi?.floatingToolbar.actions?.forceFocusSelector(
+                    pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector(
                       FORCE_FOCUS_SELECTOR,
                     )(tr);
                     dispatch(tr);

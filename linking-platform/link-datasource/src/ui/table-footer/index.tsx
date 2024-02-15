@@ -26,7 +26,10 @@ const FooterWrapper = styled.div`
   padding: 0 ${token('space.200', '16px')};
   box-sizing: border-box;
   border-radius: inherit;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
   background: ${token('color.background.input', N0)};
+  border-top: 2px solid ${token('color.background.accent.gray.subtler', N40)};
 `;
 
 const TopBorderWrapper = styled.div`
@@ -34,7 +37,6 @@ const TopBorderWrapper = styled.div`
   box-sizing: border-box;
   justify-content: space-between;
   padding: ${token('space.250', '20px')} 0;
-  border-top: 2px solid ${token('color.background.accent.gray.subtler', N40)};
 `;
 
 const ItemCounterWrapper = styled.div`

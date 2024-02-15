@@ -58,6 +58,9 @@
       "path": "../media-core/tsconfig.app.json"
     },
     {
+      "path": "../media-file-preview/tsconfig.app.json"
+    },
+    {
       "path": "../media-state/tsconfig.app.json"
     },
     {

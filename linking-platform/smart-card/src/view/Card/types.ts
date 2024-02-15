@@ -23,11 +23,27 @@ export type OnResolveCallback = (data: {
   aspectRatio?: number;
 }) => void;
 
+export enum CardAction {
+  DownloadAction = 'DownloadAction',
+  PreviewAction = 'PreviewAction',
+  ViewAction = 'ViewAction',
+  ChangeStatusAction = 'ChangeStatusAction',
+  FollowAction = 'FollowAction',
+}
+
+export type CardActionOptions =
+  | {
+      hide: true;
+    }
+  | { hide: false; exclude?: Array<CardAction> };
+
 export interface CardProps extends WithAnalyticsEventsProps {
   appearance: CardAppearance;
   id?: string;
   platform?: CardPlatform;
   isSelected?: boolean;
+  /** A flag that determines whether a card is in a hover state in edit mode. Currently used for inline links only */
+  isHovered?: boolean;
   /**
    * @deprecated please use 'frameStyle' prop instead. Current usages will be converted in the following manner:
    * isFrameVisible: true => frameStyle: 'show', isFrameVisible: false => frameStyle: 'showOnHover'
@@ -47,14 +63,19 @@ export interface CardProps extends WithAnalyticsEventsProps {
   url?: string;
   testId?: string;
   /**
-   * Show client actions, e.g. preview, download, etc.
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6348 Internal documentation for deprecation (no external access)}
+   *
+   * Prefer `actionOptions` prop. Show client actions, e.g. preview, download, etc.
    * These actions do not change the link resource.
    */
   showActions?: boolean;
   /**
-   * Show server actions that change the link resource, e.g. update status.
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6348 Internal documentation for deprecation (no external access)}
+   *
+   * Prefer `actionOptions` prop. Show server actions that change the link resource, e.g. update status.
    */
   showServerActions?: boolean;
+  actionOptions?: CardActionOptions;
   onResolve?: OnResolveCallback;
   /**
    * A callback function currently invoked in two cases
@@ -90,4 +111,10 @@ export interface CardProps extends WithAnalyticsEventsProps {
    */
   analyticsEvents?: AnalyticsFacade;
   placeholder?: string;
+  /**
+   * When enabled the legacy block card is always used, even if the enableFlexibleBlockCard flag is set to true.
+   * Usage is strongly discouraged. This should only be used if there is a specific reason you're
+   * unable to use the new flexible block cards.
+   */
+  useLegacyBlockCard?: boolean;
 }

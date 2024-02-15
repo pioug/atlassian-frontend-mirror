@@ -24,7 +24,6 @@ import { canMentionBeCreatedInRange } from './utils';
 
 const ACTIONS = {
   SET_PROVIDER: 'SET_PROVIDER',
-  SET_CONTEXT: 'SET_CONTEXT',
 };
 
 const setProvider =
@@ -35,20 +34,6 @@ const setProvider =
         state.tr.setMeta(mentionPluginKey, {
           action: ACTIONS.SET_PROVIDER,
           params: { provider },
-        }),
-      );
-    }
-    return true;
-  };
-
-export const setContext =
-  (context: ContextIdentifierProvider | undefined): Command =>
-  (state, dispatch) => {
-    if (dispatch) {
-      dispatch(
-        state.tr.setMeta(mentionPluginKey, {
-          action: ACTIONS.SET_CONTEXT,
-          params: { context },
         }),
       );
     }
@@ -123,13 +108,6 @@ export function createMentionPlugin(
             };
             hasNewPluginState = true;
             break;
-          case ACTIONS.SET_CONTEXT:
-            newPluginState = {
-              ...newPluginState,
-              contextIdentifierProvider: params.context,
-            };
-            hasNewPluginState = true;
-            break;
         }
 
         if (hasNewPluginState) {
@@ -186,20 +164,6 @@ export function createMentionPlugin(
                 setProvider(undefined)(editorView.state, editorView.dispatch),
               );
             break;
-
-          case 'contextIdentifierProvider':
-            if (!providerPromise) {
-              return setContext(undefined)(
-                editorView.state,
-                editorView.dispatch,
-              );
-            }
-            (providerPromise as Promise<ContextIdentifierProvider>).then(
-              provider => {
-                setContext(provider)(editorView.state, editorView.dispatch);
-              },
-            );
-            break;
         }
         return;
       };
@@ -208,20 +172,12 @@ export function createMentionPlugin(
         'mentionProvider',
         providerHandler,
       );
-      pmPluginFactoryParams.providerFactory.subscribe(
-        'contextIdentifierProvider',
-        providerHandler,
-      );
 
       return {
         destroy() {
           if (pmPluginFactoryParams.providerFactory) {
             pmPluginFactoryParams.providerFactory.unsubscribe(
               'mentionProvider',
-              providerHandler,
-            );
-            pmPluginFactoryParams.providerFactory.unsubscribe(
-              'contextIdentifierProvider',
               providerHandler,
             );
           }

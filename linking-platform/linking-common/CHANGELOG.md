@@ -1,5 +1,61 @@
 # @atlaskit/linking-common
 
+## 5.3.2
+
+### Patch Changes
+
+- [#70612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70612) [`87457cd97d6b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87457cd97d6b) - Modified `DatasourceAdf` to accept a generic parameter.
+
+## 5.3.1
+
+### Patch Changes
+
+- [#68194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68194) [`c1d4a8fecc4e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1d4a8fecc4e) - bump json-ld-types to version 3.11.0
+
+## 5.3.0
+
+### Minor Changes
+
+- [#63659](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63659) [`ccb176cf487b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ccb176cf487b) - Disables the Dedupe integration for Sentry (behind ff)
+
+## 5.2.0
+
+### Minor Changes
+
+- [#64758](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64758) [`c571940e36f8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c571940e36f8) - Deprecated enableHoverCardResolutionTracking FF
+
+## 5.1.0
+
+### Minor Changes
+
+- [#63962](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63962) [`2bc7dc8ad123`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2bc7dc8ad123) - Isolates linking platform sentry client to its own hub, behind a ff.
+
+## 5.0.0
+
+### Major Changes
+
+- [#63549](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63549) [`11c4dad42160`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/11c4dad42160) - Add shouldShowPulse prop to pulse component and add feature to persist pulse through rerenders.
+
+  Major Change: Remove isDiscovered prop use shouldShowPulse to override pulse behaviour instead.
+
+## 4.21.3
+
+### Patch Changes
+
+- [#60388](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60388) [`34578f53c9a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/34578f53c9a0) - Add `@sentry/types` dependency
+
+## 4.21.2
+
+### Patch Changes
+
+- [#57729](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57729) [`3778c5a24fc1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3778c5a24fc1) - Fix bug with available sites filtering in Jira Create plugin
+
+## 4.21.1
+
+### Patch Changes
+
+- [#56583](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56583) [`20b3af3d87ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20b3af3d87ff) - Improves observability of network failures on available sites.
+
 ## 4.21.0
 
 ### Minor Changes

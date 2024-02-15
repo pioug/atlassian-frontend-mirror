@@ -91,6 +91,8 @@ type CardPluginState = {
   datasourceTableRef?: HTMLElement;
   layout?: DatasourceTableLayout;
   inlineCardAwarenessCandidatePosition?: number;
+  overlayCandidatePosition?: number;
+  removeOverlay?: () => void;
   selectedInlineLinkPosition?: number;
   allowEmbeds?: boolean;
   allowBlockCards?: boolean;

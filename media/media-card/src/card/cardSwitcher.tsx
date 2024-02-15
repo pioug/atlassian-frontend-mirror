@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import CardLoader, { CardWithMediaClientConfigProps } from './cardLoader';
+import CardLoader from './cardLoader';
 import CardV2Loader from './v2/cardV2Loader';
+import { CardWithMediaClientConfigProps } from './types';
 
 function CardSwitcher(props: CardWithMediaClientConfigProps) {
   return getBooleanFF('platform.media-experience.cardv2_7zann') ? (

@@ -6,7 +6,7 @@ import type {
   ACTION_SUBJECT_ID,
   INPUT_METHOD,
 } from './enums';
-import type { TrackAEP } from './utils';
+import type { ChangeTypeAEP, TrackAEP } from './utils';
 
 export enum LAYOUT_TYPE {
   SINGLE_COL = 'singleColumn',
@@ -31,16 +31,14 @@ type DeletePanelAEP = TrackAEP<
   undefined
 >;
 
-type ChangePanelAEP = TrackAEP<
-  ACTION.CHANGED_TYPE,
+type ChangePanelAEP = ChangeTypeAEP<
   ACTION_SUBJECT.PANEL,
   undefined,
   { newType: PanelType; previousType: PanelType },
   undefined
 >;
 
-type ChangeSmartLinkAEP = TrackAEP<
-  ACTION.CHANGED_TYPE,
+type ChangeSmartLinkAEP = ChangeTypeAEP<
   ACTION_SUBJECT.SMART_LINK,
   undefined,
   { newType: SMART_LINK_TYPE; previousType: SMART_LINK_TYPE },

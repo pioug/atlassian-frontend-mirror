@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b71fd742608a610806f7523f23e3a579>>
+ * @codegen <<SignedSource::e18647e46fb4c80c4003121d24898ee4>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -34,339 +34,27 @@ const tokens = [
   {
     "attributes": {
       "group": "typography",
-      "state": "experimental",
+      "state": "active",
       "introduced": "1.14.0",
-      "description": "The default body font."
-    },
-    "value": "normal 400 14px/20px var(--ds-font-family-body)",
-    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "typography",
-        "state": "experimental",
-        "introduced": "1.14.0",
-        "description": "The default body font."
-      },
-      "value": {
-        "fontWeight": "FontWeight400",
-        "fontSize": "FontSize14",
-        "lineHeight": "LineHeight200",
-        "fontFamily": "font.family.body",
-        "fontStyle": "normal",
-        "letterSpacing": "LetterSpacing0"
-      }
-    },
-    "name": "font.body.[default]",
-    "path": [
-      "font",
-      "body",
-      "[default]"
-    ],
-    "cleanName": "font.body"
-  },
-  {
-    "attributes": {
-      "group": "typography",
-      "state": "experimental",
-      "introduced": "1.14.0",
-      "description": "Larger body font or default body font for text rich experiences."
-    },
-    "value": "normal 400 16px/24px var(--ds-font-family-body)",
-    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "typography",
-        "state": "experimental",
-        "introduced": "1.14.0",
-        "description": "Larger body font or default body font for text rich experiences."
-      },
-      "value": {
-        "fontWeight": "FontWeight400",
-        "fontSize": "FontSize16",
-        "lineHeight": "LineHeight300",
-        "fontFamily": "font.family.body",
-        "fontStyle": "normal",
-        "letterSpacing": "LetterSpacing0"
-      }
-    },
-    "name": "font.body.large",
-    "path": [
-      "font",
-      "body",
-      "large"
-    ],
-    "cleanName": "font.body.large"
-  },
-  {
-    "attributes": {
-      "group": "typography",
-      "state": "experimental",
-      "introduced": "1.14.0",
-      "description": "Smaller body font."
-    },
-    "value": "normal 400 12px/16px var(--ds-font-family-body)",
-    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "typography",
-        "state": "experimental",
-        "introduced": "1.14.0",
-        "description": "Smaller body font."
-      },
-      "value": {
-        "fontWeight": "FontWeight400",
-        "fontSize": "FontSize12",
-        "lineHeight": "LineHeight100",
-        "fontFamily": "font.family.body",
-        "fontStyle": "normal",
-        "letterSpacing": "LetterSpacing0"
-      }
-    },
-    "name": "font.body.small",
-    "path": [
-      "font",
-      "body",
-      "small"
-    ],
-    "cleanName": "font.body.small"
-  },
-  {
-    "attributes": {
-      "group": "typography",
-      "state": "experimental",
-      "introduced": "1.14.0",
-      "description": "Used for monospace and code."
-    },
-    "value": "normal 400 0.875em/1 var(--ds-font-family-code)",
-    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "typography",
-        "state": "experimental",
-        "introduced": "1.14.0",
-        "description": "Used for monospace and code."
-      },
-      "value": {
-        "fontWeight": "FontWeight400",
-        "fontSize": "FontSizeCode",
-        "lineHeight": "LineHeight1",
-        "fontFamily": "font.family.code",
-        "fontStyle": "normal",
-        "letterSpacing": "LetterSpacing0"
-      }
-    },
-    "name": "font.code.[default]",
-    "path": [
-      "font",
-      "code",
-      "[default]"
-    ],
-    "cleanName": "font.code"
-  },
-  {
-    "attributes": {
-      "group": "typography",
-      "state": "experimental",
-      "introduced": "1.14.0",
-      "description": "TBD",
-      "responsiveSmallerVariant": "font.heading.medium"
-    },
-    "value": "normal 700 24px/28px var(--ds-font-family-heading)",
-    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "typography",
-        "state": "experimental",
-        "introduced": "1.14.0",
-        "description": "TBD",
-        "responsiveSmallerVariant": "font.heading.medium"
-      },
-      "value": {
-        "fontWeight": "FontWeight700",
-        "fontSize": "FontSize24",
-        "lineHeight": "LineHeight400",
-        "fontFamily": "font.family.heading",
-        "fontStyle": "normal",
-        "letterSpacing": "LetterSpacing0"
-      }
-    },
-    "name": "font.heading.large",
-    "path": [
-      "font",
-      "heading",
-      "large"
-    ],
-    "cleanName": "font.heading.large"
-  },
-  {
-    "attributes": {
-      "group": "typography",
-      "state": "experimental",
-      "introduced": "1.14.0",
-      "description": "TBD",
-      "responsiveSmallerVariant": "font.heading.small"
-    },
-    "value": "normal 700 20px/24px var(--ds-font-family-heading)",
-    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "typography",
-        "state": "experimental",
-        "introduced": "1.14.0",
-        "description": "TBD",
-        "responsiveSmallerVariant": "font.heading.small"
-      },
-      "value": {
-        "fontWeight": "FontWeight700",
-        "fontSize": "FontSize20",
-        "lineHeight": "LineHeight300",
-        "fontFamily": "font.family.heading",
-        "fontStyle": "normal",
-        "letterSpacing": "LetterSpacing0"
-      }
-    },
-    "name": "font.heading.medium",
-    "path": [
-      "font",
-      "heading",
-      "medium"
-    ],
-    "cleanName": "font.heading.medium"
-  },
-  {
-    "attributes": {
-      "group": "typography",
-      "state": "experimental",
-      "introduced": "1.14.0",
-      "description": "TBD"
-    },
-    "value": "normal 700 16px/20px var(--ds-font-family-heading)",
-    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "typography",
-        "state": "experimental",
-        "introduced": "1.14.0",
-        "description": "TBD"
-      },
-      "value": {
-        "fontWeight": "FontWeight700",
-        "fontSize": "FontSize16",
-        "lineHeight": "LineHeight200",
-        "fontFamily": "font.family.heading",
-        "fontStyle": "normal",
-        "letterSpacing": "LetterSpacing0"
-      }
-    },
-    "name": "font.heading.small",
-    "path": [
-      "font",
-      "heading",
-      "small"
-    ],
-    "cleanName": "font.heading.small"
-  },
-  {
-    "attributes": {
-      "group": "typography",
-      "state": "experimental",
-      "introduced": "1.14.0",
-      "description": "TBD",
-      "responsiveSmallerVariant": "font.heading.large"
-    },
-    "value": "normal 700 28px/32px var(--ds-font-family-heading)",
-    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "typography",
-        "state": "experimental",
-        "introduced": "1.14.0",
-        "description": "TBD",
-        "responsiveSmallerVariant": "font.heading.large"
-      },
-      "value": {
-        "fontWeight": "FontWeight700",
-        "fontSize": "FontSize28",
-        "lineHeight": "LineHeight500",
-        "fontFamily": "font.family.heading",
-        "fontStyle": "normal",
-        "letterSpacing": "LetterSpacing0"
-      }
-    },
-    "name": "font.heading.xlarge",
-    "path": [
-      "font",
-      "heading",
-      "xlarge"
-    ],
-    "cleanName": "font.heading.xlarge"
-  },
-  {
-    "attributes": {
-      "group": "typography",
-      "state": "experimental",
-      "introduced": "1.14.0",
-      "description": "TBD"
-    },
-    "value": "normal 700 14px/16px var(--ds-font-family-heading)",
-    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "typography",
-        "state": "experimental",
-        "introduced": "1.14.0",
-        "description": "TBD"
-      },
-      "value": {
-        "fontWeight": "FontWeight700",
-        "fontSize": "FontSize14",
-        "lineHeight": "LineHeight100",
-        "fontFamily": "font.family.heading",
-        "fontStyle": "normal",
-        "letterSpacing": "LetterSpacing0"
-      }
-    },
-    "name": "font.heading.xsmall",
-    "path": [
-      "font",
-      "heading",
-      "xsmall"
-    ],
-    "cleanName": "font.heading.xsmall"
-  },
-  {
-    "attributes": {
-      "group": "typography",
-      "state": "experimental",
-      "introduced": "1.14.0",
-      "description": "TBD",
+      "description": "ALPHA - Use with caution. Use for main headings.",
       "responsiveSmallerVariant": "font.heading.xlarge"
     },
-    "value": "normal 700 32px/36px var(--ds-font-family-heading)",
+    "value": "normal 700 32px/36px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "typography",
-        "state": "experimental",
+        "state": "active",
         "introduced": "1.14.0",
-        "description": "TBD",
+        "description": "ALPHA - Use with caution. Use for main headings.",
         "responsiveSmallerVariant": "font.heading.xlarge"
       },
       "value": {
         "fontWeight": "FontWeight700",
         "fontSize": "FontSize32",
         "lineHeight": "LineHeight600",
-        "fontFamily": "font.family.heading",
+        "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing0"
       }
@@ -382,25 +70,201 @@ const tokens = [
   {
     "attributes": {
       "group": "typography",
-      "state": "experimental",
+      "state": "active",
       "introduced": "1.14.0",
-      "description": "TBD"
+      "description": "ALPHA - Use with caution. Use for main headings.",
+      "responsiveSmallerVariant": "font.heading.large"
     },
-    "value": "normal 700 12px/16px var(--ds-font-family-heading)",
+    "value": "normal 700 28px/32px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "typography",
-        "state": "experimental",
+        "state": "active",
         "introduced": "1.14.0",
-        "description": "TBD"
+        "description": "ALPHA - Use with caution. Use for main headings.",
+        "responsiveSmallerVariant": "font.heading.large"
+      },
+      "value": {
+        "fontWeight": "FontWeight700",
+        "fontSize": "FontSize28",
+        "lineHeight": "LineHeight500",
+        "fontFamily": "FontFamilyWebSans",
+        "fontStyle": "normal",
+        "letterSpacing": "LetterSpacing0"
+      }
+    },
+    "name": "font.heading.xlarge",
+    "path": [
+      "font",
+      "heading",
+      "xlarge"
+    ],
+    "cleanName": "font.heading.xlarge"
+  },
+  {
+    "attributes": {
+      "group": "typography",
+      "state": "active",
+      "introduced": "1.14.0",
+      "description": "ALPHA - Use with caution. Use for main headings.",
+      "responsiveSmallerVariant": "font.heading.medium"
+    },
+    "value": "normal 700 24px/28px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "typography",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "ALPHA - Use with caution. Use for main headings.",
+        "responsiveSmallerVariant": "font.heading.medium"
+      },
+      "value": {
+        "fontWeight": "FontWeight700",
+        "fontSize": "FontSize24",
+        "lineHeight": "LineHeight400",
+        "fontFamily": "FontFamilyWebSans",
+        "fontStyle": "normal",
+        "letterSpacing": "LetterSpacing0"
+      }
+    },
+    "name": "font.heading.large",
+    "path": [
+      "font",
+      "heading",
+      "large"
+    ],
+    "cleanName": "font.heading.large"
+  },
+  {
+    "attributes": {
+      "group": "typography",
+      "state": "active",
+      "introduced": "1.14.0",
+      "description": "ALPHA - Use with caution. Use for less important headings.",
+      "responsiveSmallerVariant": "font.heading.small"
+    },
+    "value": "normal 700 20px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "typography",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "ALPHA - Use with caution. Use for less important headings.",
+        "responsiveSmallerVariant": "font.heading.small"
+      },
+      "value": {
+        "fontWeight": "FontWeight700",
+        "fontSize": "FontSize20",
+        "lineHeight": "LineHeight300",
+        "fontFamily": "FontFamilyWebSans",
+        "fontStyle": "normal",
+        "letterSpacing": "LetterSpacing0"
+      }
+    },
+    "name": "font.heading.medium",
+    "path": [
+      "font",
+      "heading",
+      "medium"
+    ],
+    "cleanName": "font.heading.medium"
+  },
+  {
+    "attributes": {
+      "group": "typography",
+      "state": "active",
+      "introduced": "1.14.0",
+      "description": "ALPHA - Use with caution. Use for less important headings."
+    },
+    "value": "normal 700 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "typography",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "ALPHA - Use with caution. Use for less important headings."
+      },
+      "value": {
+        "fontWeight": "FontWeight700",
+        "fontSize": "FontSize16",
+        "lineHeight": "LineHeight200",
+        "fontFamily": "FontFamilyWebSans",
+        "fontStyle": "normal",
+        "letterSpacing": "LetterSpacing0"
+      }
+    },
+    "name": "font.heading.small",
+    "path": [
+      "font",
+      "heading",
+      "small"
+    ],
+    "cleanName": "font.heading.small"
+  },
+  {
+    "attributes": {
+      "group": "typography",
+      "state": "active",
+      "introduced": "1.14.0",
+      "description": "ALPHA - Use with caution. Use for smaller headings."
+    },
+    "value": "normal 700 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "typography",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "ALPHA - Use with caution. Use for smaller headings."
+      },
+      "value": {
+        "fontWeight": "FontWeight700",
+        "fontSize": "FontSize14",
+        "lineHeight": "LineHeight100",
+        "fontFamily": "FontFamilyWebSans",
+        "fontStyle": "normal",
+        "letterSpacing": "LetterSpacing0"
+      }
+    },
+    "name": "font.heading.xsmall",
+    "path": [
+      "font",
+      "heading",
+      "xsmall"
+    ],
+    "cleanName": "font.heading.xsmall"
+  },
+  {
+    "attributes": {
+      "group": "typography",
+      "state": "active",
+      "introduced": "1.14.0",
+      "description": "ALPHA - Use with caution. Smallest heading size available."
+    },
+    "value": "normal 700 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "typography",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "ALPHA - Use with caution. Smallest heading size available."
       },
       "value": {
         "fontWeight": "FontWeight700",
         "fontSize": "FontSize12",
         "lineHeight": "LineHeight100",
-        "fontFamily": "font.family.heading",
+        "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing0"
       }
@@ -412,6 +276,210 @@ const tokens = [
       "xxsmall"
     ],
     "cleanName": "font.heading.xxsmall"
+  },
+  {
+    "attributes": {
+      "group": "typography",
+      "state": "active",
+      "introduced": "1.14.0",
+      "description": "ALPHA - Use with caution. Larger body font or default body font for text rich experiences."
+    },
+    "value": "normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "typography",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "ALPHA - Use with caution. Larger body font or default body font for text rich experiences."
+      },
+      "value": {
+        "fontWeight": "FontWeight400",
+        "fontSize": "FontSize16",
+        "lineHeight": "LineHeight300",
+        "fontFamily": "FontFamilyWebSans",
+        "fontStyle": "normal",
+        "letterSpacing": "LetterSpacing0"
+      }
+    },
+    "name": "font.body.large",
+    "path": [
+      "font",
+      "body",
+      "large"
+    ],
+    "cleanName": "font.body.large"
+  },
+  {
+    "attributes": {
+      "group": "typography",
+      "state": "active",
+      "introduced": "1.14.0",
+      "description": "ALPHA - Use with caution. The default body font."
+    },
+    "value": "normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "typography",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "ALPHA - Use with caution. The default body font."
+      },
+      "value": {
+        "fontWeight": "FontWeight400",
+        "fontSize": "FontSize14",
+        "lineHeight": "LineHeight200",
+        "fontFamily": "FontFamilyWebSans",
+        "fontStyle": "normal",
+        "letterSpacing": "LetterSpacing0"
+      }
+    },
+    "name": "font.body.[default]",
+    "path": [
+      "font",
+      "body",
+      "[default]"
+    ],
+    "cleanName": "font.body"
+  },
+  {
+    "attributes": {
+      "group": "typography",
+      "state": "active",
+      "introduced": "1.14.0",
+      "description": "ALPHA - Use with caution. Smaller body font."
+    },
+    "value": "normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "typography",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "ALPHA - Use with caution. Smaller body font."
+      },
+      "value": {
+        "fontWeight": "FontWeight400",
+        "fontSize": "FontSize12",
+        "lineHeight": "LineHeight100",
+        "fontFamily": "FontFamilyWebSans",
+        "fontStyle": "normal",
+        "letterSpacing": "LetterSpacing0"
+      }
+    },
+    "name": "font.body.small",
+    "path": [
+      "font",
+      "body",
+      "small"
+    ],
+    "cleanName": "font.body.small"
+  },
+  {
+    "attributes": {
+      "group": "typography",
+      "state": "active",
+      "introduced": "1.14.0",
+      "description": "ALPHA - Use with caution. Single-line non-wrapping text like that in a button."
+    },
+    "value": "normal 500 14px/1 ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "typography",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "ALPHA - Use with caution. Single-line non-wrapping text like that in a button."
+      },
+      "value": {
+        "fontWeight": "FontWeight500",
+        "fontSize": "FontSize14",
+        "lineHeight": "LineHeight1",
+        "fontFamily": "FontFamilyWebSans",
+        "fontStyle": "normal",
+        "letterSpacing": "LetterSpacing0"
+      }
+    },
+    "name": "font.ui.[default]",
+    "path": [
+      "font",
+      "ui",
+      "[default]"
+    ],
+    "cleanName": "font.ui"
+  },
+  {
+    "attributes": {
+      "group": "typography",
+      "state": "active",
+      "introduced": "1.14.0",
+      "description": "ALPHA - Use with caution. Single-line non-wrapping supporting text like that in a smaller label."
+    },
+    "value": "normal 400 12px/1 ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "typography",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "ALPHA - Use with caution. Single-line non-wrapping supporting text like that in a smaller label."
+      },
+      "value": {
+        "fontWeight": "FontWeight400",
+        "fontSize": "FontSize12",
+        "lineHeight": "LineHeight1",
+        "fontFamily": "FontFamilyWebSans",
+        "fontStyle": "normal",
+        "letterSpacing": "LetterSpacing0"
+      }
+    },
+    "name": "font.ui.small",
+    "path": [
+      "font",
+      "ui",
+      "small"
+    ],
+    "cleanName": "font.ui.small"
+  },
+  {
+    "attributes": {
+      "group": "typography",
+      "state": "active",
+      "introduced": "1.14.0",
+      "description": "ALPHA - Use with caution. Used for monospace and code."
+    },
+    "value": "normal 400 0.875em/1 ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "typography",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "ALPHA - Use with caution. Used for monospace and code."
+      },
+      "value": {
+        "fontWeight": "FontWeight400",
+        "fontSize": "FontSizeCode",
+        "lineHeight": "LineHeight1",
+        "fontFamily": "FontFamilyWebMono",
+        "fontStyle": "normal",
+        "letterSpacing": "LetterSpacing0"
+      }
+    },
+    "name": "font.code.[default]",
+    "path": [
+      "font",
+      "code",
+      "[default]"
+    ],
+    "cleanName": "font.code"
   },
   {
     "attributes": {
@@ -560,81 +628,13 @@ const tokens = [
   },
   {
     "attributes": {
-      "group": "typography",
-      "state": "experimental",
-      "introduced": "1.14.0",
-      "description": "Single-line non-wrapping text like that in a button."
-    },
-    "value": "normal 400 14px/1 var(--ds-font-family-body)",
-    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "typography",
-        "state": "experimental",
-        "introduced": "1.14.0",
-        "description": "Single-line non-wrapping text like that in a button."
-      },
-      "value": {
-        "fontWeight": "FontWeight400",
-        "fontSize": "FontSize14",
-        "lineHeight": "LineHeight1",
-        "fontFamily": "font.family.body",
-        "fontStyle": "normal",
-        "letterSpacing": "LetterSpacing0"
-      }
-    },
-    "name": "font.ui.[default]",
-    "path": [
-      "font",
-      "ui",
-      "[default]"
-    ],
-    "cleanName": "font.ui"
-  },
-  {
-    "attributes": {
-      "group": "typography",
-      "state": "experimental",
-      "introduced": "1.14.0",
-      "description": "Single-line non-wrapping supporting text like that in a smaller label."
-    },
-    "value": "normal 400 12px/1 var(--ds-font-family-body)",
-    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "typography",
-        "state": "experimental",
-        "introduced": "1.14.0",
-        "description": "Single-line non-wrapping supporting text like that in a smaller label."
-      },
-      "value": {
-        "fontWeight": "FontWeight400",
-        "fontSize": "FontSize12",
-        "lineHeight": "LineHeight1",
-        "fontFamily": "font.family.body",
-        "fontStyle": "normal",
-        "letterSpacing": "LetterSpacing0"
-      }
-    },
-    "name": "font.ui.small",
-    "path": [
-      "font",
-      "ui",
-      "small"
-    ],
-    "cleanName": "font.ui.small"
-  },
-  {
-    "attributes": {
       "group": "fontFamily",
       "state": "deprecated",
       "introduced": "1.14.0",
       "description": "Helpful guidance goes here",
       "deprecated": "1.29.0"
     },
-    "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "value": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography-minor3/font-family.tsx",
     "isSource": true,
     "original": {
@@ -692,7 +692,7 @@ const tokens = [
       "description": "Helpful guidance goes here",
       "deprecated": "1.29.0"
     },
-    "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "value": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography-minor3/font-family.tsx",
     "isSource": true,
     "original": {
@@ -750,7 +750,7 @@ const tokens = [
       "description": "Helpful guidance goes here",
       "deprecated": "1.29.0"
     },
-    "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "value": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography-minor3/font-family.tsx",
     "isSource": true,
     "original": {
@@ -799,6 +799,114 @@ const tokens = [
       "brand"
     ],
     "cleanName": "font.family.brand"
+  },
+  {
+    "attributes": {
+      "group": "fontWeight",
+      "state": "active",
+      "introduced": "0.10.33",
+      "description": "Helpful guidance goes here"
+    },
+    "value": "700",
+    "filePath": "schema/themes/atlassian-typography-minor3/font-weight.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "FontWeight700"
+    },
+    "name": "font.weight.bold",
+    "path": [
+      "font",
+      "weight",
+      "bold"
+    ],
+    "cleanName": "font.weight.bold"
+  },
+  {
+    "attributes": {
+      "group": "fontWeight",
+      "state": "active",
+      "introduced": "0.10.33",
+      "description": "Helpful guidance goes here"
+    },
+    "value": "500",
+    "filePath": "schema/themes/atlassian-typography-minor3/font-weight.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "FontWeight500"
+    },
+    "name": "font.weight.medium",
+    "path": [
+      "font",
+      "weight",
+      "medium"
+    ],
+    "cleanName": "font.weight.medium"
+  },
+  {
+    "attributes": {
+      "group": "fontWeight",
+      "state": "active",
+      "introduced": "0.10.33",
+      "description": "Helpful guidance goes here"
+    },
+    "value": "400",
+    "filePath": "schema/themes/atlassian-typography-minor3/font-weight.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "FontWeight400"
+    },
+    "name": "font.weight.regular",
+    "path": [
+      "font",
+      "weight",
+      "regular"
+    ],
+    "cleanName": "font.weight.regular"
+  },
+  {
+    "attributes": {
+      "group": "fontWeight",
+      "state": "active",
+      "introduced": "0.10.33",
+      "description": "Helpful guidance goes here"
+    },
+    "value": "600",
+    "filePath": "schema/themes/atlassian-typography-minor3/font-weight.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "FontWeight600"
+    },
+    "name": "font.weight.semibold",
+    "path": [
+      "font",
+      "weight",
+      "semibold"
+    ],
+    "cleanName": "font.weight.semibold"
   }
 ];
 

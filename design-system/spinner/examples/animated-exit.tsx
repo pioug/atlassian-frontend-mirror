@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
@@ -24,7 +24,7 @@ const columnStyles = css({
 });
 
 const headingStyles = css({
-  marginBottom: token('space.200', '16px'),
+  marginBlockEnd: token('space.200', '16px'),
 });
 
 const loadingContainerStyles = css({

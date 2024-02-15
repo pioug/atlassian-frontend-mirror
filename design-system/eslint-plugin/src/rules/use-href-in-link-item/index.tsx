@@ -8,10 +8,10 @@ import {
 } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';
+import { getImportName } from '../utils/get-import-name';
 import type { Fix } from '../utils/types';
 
 import {
-  getLinkItemImportName,
   getUniqueButtonItemName,
   hasImportOfName,
   hrefHasInvalidValue,
@@ -72,7 +72,7 @@ const rule = createLintRule({
         // Get the name of the LinkItem import
         const linkItemImportName =
           customDefaultLinkItemSpecifier ||
-          getLinkItemImportName(context.getScope());
+          getImportName(context.getScope(), '@atlaskit/menu', 'LinkItem');
 
         if (node.openingElement.name.name === linkItemImportName) {
           // and if href prop does not exist

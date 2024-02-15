@@ -179,6 +179,7 @@ export const createUploadingFileState = (
     details: { name, size, mediaType, mimeType, createdAt },
   }: ResponseFileItem,
   progress: number,
+  binary?: Blob,
 ): UploadingFileState => ({
   status: 'uploading',
   progress,
@@ -188,7 +189,7 @@ export const createUploadingFileState = (
   mediaType,
   mimeType,
   createdAt,
-  preview: { value: new Blob(['some-content'], { type: mimeType }) },
+  preview: { value: binary || new Blob(['some-content'], { type: mimeType }) },
 });
 
 export const createErrorFileState = ({

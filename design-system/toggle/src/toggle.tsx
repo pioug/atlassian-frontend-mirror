@@ -50,6 +50,7 @@ const Toggle = memo(
       id,
       testId,
       label,
+      descriptionId,
     } = props;
 
     const isControlled = typeof isChecked === 'undefined';
@@ -110,6 +111,7 @@ const Toggle = memo(
           value={value}
           data-testid={testId && `${testId}--input`}
           aria-label={label}
+          aria-describedby={descriptionId}
         />
         <CheckIcon
           label=""

@@ -1,7 +1,7 @@
 jest.autoMockOff();
 
-import { createTransformer } from '../utils';
 import { renameUnsafeAllowUndoRedoButtonsProp } from '../migrates/rename-unsafe-allowUndoRedoButtons-prop';
+import { createTransformer } from '../utils';
 
 // This stays as require() since changing to import will trigger a linter error
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;

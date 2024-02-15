@@ -1,5 +1,16 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import type { CSSProperties, PropsWithChildren } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import type {
+  CSSProperties,
+  ForwardRefRenderFunction,
+  PropsWithChildren,
+} from 'react';
 
 import classnames from 'classnames';
 import type { HandleComponent, ResizeDirection } from 're-resizable';
@@ -95,13 +106,31 @@ export type ResizerProps = {
   handleTooltipContent?: TooltipProps['content'];
 };
 
+type forwardRefType = {
+  getResizerThumbEl: () => HTMLButtonElement | null;
+};
+
 const SUPPORTED_HANDLES: ['left', 'right'] = ['left', 'right'];
 
-export default function ResizerNext(
-  props: PropsWithChildren<ResizerProps>,
-): JSX.Element {
+const ResizerNext: ForwardRefRenderFunction<
+  forwardRefType,
+  PropsWithChildren<ResizerProps>
+> = (props, ref) => {
   const [isResizing, setIsResizing] = useState(false);
   const resizable = useRef<Resizable>(null);
+  const resizeHandleThumbRef = useRef<HTMLButtonElement>(null);
+
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        getResizerThumbEl() {
+          return resizeHandleThumbRef.current;
+        },
+      };
+    },
+    [resizeHandleThumbRef],
+  );
 
   const {
     width,
@@ -239,10 +268,13 @@ export default function ResizerNext(
   const handleComponent = useMemo(() => {
     return SUPPORTED_HANDLES.reduce<HandleComponent>((result, position) => {
       const thumb = (
-        <div
+        <button
           className={resizerHandleThumbClassName}
           data-testid={`resizer-handle-${position}-thumb`}
           contentEditable={false}
+          ref={resizeHandleThumbRef}
+          type="button"
+          tabIndex={-1} //We want to control focus on this button ourselves
         />
       );
 
@@ -257,12 +289,13 @@ export default function ResizerNext(
       }
 
       const thumbWithTrack = (
+        //It's important to have {thumb} element before the div, the thumb element is the one that gets focus and only the 1st element recives aria-descibedby attribute which is important for screen reader users
         <>
+          {thumb}
           <div
             className={classnames(resizerHandleTrackClassName, handleHighlight)}
             data-testid={`resizer-handle-${position}-track`}
           />
-          {thumb}
         </>
       );
 
@@ -321,4 +354,6 @@ export default function ResizerNext(
       <span className={resizerHoverZoneClassName}>{children}</span>
     </Resizable>
   );
-}
+};
+
+export default forwardRef(ResizerNext);

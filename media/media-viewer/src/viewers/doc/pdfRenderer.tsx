@@ -137,9 +137,11 @@ export const PDFRenderer = ({
   const docRef = useRef<PDFDocumentProxy>();
   const pdfViewerRef = useRef<any>();
   const onSuccessRef = useRef<(() => void) | undefined>(onSuccess);
+  onSuccessRef.current = onSuccess;
   const onErrorRef = useRef<((error: MediaViewerError) => void) | undefined>(
     onError,
   );
+  onErrorRef.current = onError;
 
   useEffect(() => {
     let isSubscribed = true;

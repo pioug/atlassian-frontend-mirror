@@ -27,7 +27,7 @@ export default {
   'linkDataSource.column-picker.search': 'Pesquisar campos',
   'linkDataSource.column-picker.tooltip': 'Configurar colunas',
   'linkDataSource.jira-issues.accessInstructions': 'Para pedir acesso, entre em contato com o administrador do site.',
-  'linkDataSource.jira-issues.accessRequired': 'Você não tem acesso a este site',
+  'linkDataSource.jira-issues.accessRequired': 'Você não tem acesso a este conteúdo',
   'linkDataSource.jira-issues.accessRequiredWithSite': 'Você não tem acesso ao seguinte site:',
   'linkDataSource.jira-issues.checkConnection': 'Verifique a conexão e atualize, ou tente de novo mais tarde.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
@@ -44,14 +44,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Inserir itens do Jira de',
   'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {item} other {itens}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Visualização do item',
+  'linkDataSource.jira-issues.no.jira.sites.access.description':
+    'Para solicitar acesso, entre em contato com o administrador.',
+  'linkDataSource.jira-issues.no.jira.sites.access.title': 'Você não tem acesso a nenhum site do Jira',
   'linkDataSource.jira-issues.noResultsFound': 'Nenhum resultado foi encontrado',
   'linkDataSource.jira-issues.refresh': 'Atualizar',
   'linkDataSource.jira-issues.unableToLoadItems': 'Não foi possível carregar os itens',
   'linkDataSource.jira-issues.unableToLoadResults': 'Não é possível carregar os resultados',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Saiba como pesquisar com JQL',
-  'linkDataSource.modal-initial-state.searchDescription':
-    'Use JQL (Linguagem de Consulta do Jira) para pesquisar itens.',
   'linkDataSource.modal-initial-state.searchTitle': 'Pesquisar itens do Jira',
   'linkDataSource.render-type.boolean.false': 'Não',
   'linkDataSource.render-type.boolean.true': 'Sim',

@@ -1,25 +1,23 @@
-import {
-  setSelection,
-  selectors as rendererSelectors,
-} from './../__helpers/page-objects/_renderer';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  selectors as rendererSelectors,
+  setSelection,
+} from './../__helpers/page-objects/_renderer';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  deviceViewPorts,
   Device,
+  deviceViewPorts,
 } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import type { ViewPortOptions } from './_utils';
-import { snapshot, initRendererWithADF } from './_utils';
-import { selectors } from '../__helpers/page-objects/_annotation';
-import * as annotationAdf from '../__fixtures__/annotation-adf.json';
-import type { ThemeModes } from '@atlaskit/theme/types';
 import type { RendererAppearance } from '../../ui/Renderer/types';
+import * as annotationAdf from '../__fixtures__/annotation-adf.json';
+import { selectors } from '../__helpers/page-objects/_annotation';
+import type { ViewPortOptions } from './_utils';
+import { initRendererWithADF, snapshot } from './_utils';
 
 const initRenderer = async (
   page: PuppeteerPage,
   adf: any,
   isMobile = false,
-  themeMode: ThemeModes = 'light',
 ) => {
   let device = Device.LaptopMDPI;
   let viewport: ViewPortOptions = deviceViewPorts[device];
@@ -39,7 +37,6 @@ const initRenderer = async (
       mockInlineComments: true,
     },
     adf,
-    themeMode,
   });
 };
 
@@ -55,13 +52,7 @@ describe('Snapshot Test: Annotation in renderer', () => {
     await snapshot(page, undefined, selectors.annotation);
   });
 
-  test(`displays annotation correctly in dark mode`, async () => {
-    await initRenderer(page, annotationAdf, false, 'dark');
-    await page.waitForSelector(selectors.annotation);
-    await snapshot(page, undefined, selectors.annotation);
-  });
-
-  test.skip(`displays draft annotation on click comment`, async () => {
+  test(`displays draft annotation on click comment`, async () => {
     await initRenderer(page, annotationAdf);
     await page.waitForSelector(selectors.annotation);
     await selectTextToAnnotate(page);

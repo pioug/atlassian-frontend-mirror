@@ -1,14 +1,15 @@
 import {
-  EditorLinkModel,
   EditorLinkFloatingToolbarModel,
-  editorTestCase as test,
+  EditorLinkModel,
   expect,
   fixTest,
+  editorTestCase as test,
 } from '@af/editor-libra';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p, a } from '@atlaskit/editor-test-helpers/doc-builder';
-import { emptyDocument } from './__fixtures__/adf-documents';
 import { BROWSERS } from '@af/integration-testing';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { a, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { emptyDocument } from './__fixtures__/adf-documents';
 
 test.describe('hyperlink toolbar', () => {
   test.use({

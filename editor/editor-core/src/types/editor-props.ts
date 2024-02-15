@@ -1,10 +1,8 @@
 import type { ReactElement } from 'react';
 
-import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-
 import type { ActivityProvider } from '@atlaskit/activity-provider';
 import type { CardOptions } from '@atlaskit/editor-common/card';
+import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type {
   ExtensionHandlers,
   ExtensionProvider,
@@ -17,33 +15,36 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import type {
   AllEditorPresetPluginTypes,
-  Transformer,
+  FeedbackInfo,
   LinkingOptions,
-  TextFormattingOptions,
   QuickInsertOptions,
+  TextFormattingOptions,
+  Transformer,
 } from '@atlaskit/editor-common/types';
+import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
-import type { PluginConfig as TablesPluginConfig } from '@atlaskit/editor-plugin-table/types';
+import type { AnnotationProviders } from '@atlaskit/editor-plugins/annotation';
+import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type';
+import type { CodeBlockOptions } from '@atlaskit/editor-plugins/code-block';
+import type { DatePluginConfig } from '@atlaskit/editor-plugins/date';
+import type { FindReplaceOptions } from '@atlaskit/editor-plugins/find-replace';
+import type { LayoutPluginOptions } from '@atlaskit/editor-plugins/layout';
+import type {
+  MediaOptions,
+  MediaState,
+} from '@atlaskit/editor-plugins/media/types';
+import type { MentionPluginConfig } from '@atlaskit/editor-plugins/mentions';
+import type { PanelPluginConfig } from '@atlaskit/editor-plugins/panel';
+import type { PlaceholderTextOptions } from '@atlaskit/editor-plugins/placeholder-text';
+import type { PluginConfig as TablesPluginConfig } from '@atlaskit/editor-plugins/table/types';
+import type { TextColorPluginConfig } from '@atlaskit/editor-plugins/text-color';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision';
 
 import type EditorActions from '../actions';
-import type { AnnotationProviders } from '../plugins/annotation/types';
-import type { BlockTypePluginOptions } from '@atlaskit/editor-plugin-block-type';
-import type { CodeBlockOptions } from '@atlaskit/editor-plugin-code-block';
-import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
-import type { DatePluginConfig } from '@atlaskit/editor-plugin-date';
-import type { FindReplaceOptions } from '../plugins/find-replace/types';
-import type { LayoutPluginOptions } from '@atlaskit/editor-plugin-layout';
-import type {
-  MediaOptions,
-  MediaState,
-} from '@atlaskit/editor-plugin-media/types';
-import type { MentionPluginConfig } from '@atlaskit/editor-plugin-mentions';
-import type { PanelPluginConfig } from '@atlaskit/editor-plugin-panel';
-import type { PlaceholderTextOptions } from '@atlaskit/editor-plugin-placeholder-text';
-import type { TextColorPluginConfig } from '@atlaskit/editor-plugin-text-color';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 
 import type { EditorAppearance } from './editor-appearance';
 import type { EditorOnChangeHandler } from './editor-onchange';
@@ -51,7 +52,6 @@ import type { EditorPlugin } from './editor-plugin';
 import type { EmptyStateHandler } from './empty-state-handler';
 import type { ExtensionConfig } from './extension-config';
 import type { PerformanceTracking } from './performance-tracking';
-import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 
 export type { UseStickyToolbarType };
 
@@ -66,16 +66,6 @@ export type ExtensionProvidersProp =
   | ExtensionProviders
   | ExtensionProvidersWithEditorAction;
 
-export type FeedbackInfo = {
-  product?: string;
-  packageVersion?: string;
-  packageName?: string;
-  labels?: Array<string>;
-  sessionId?: string;
-  contentId?: string;
-  tabId?: string;
-};
-
 export type BeforeAndAfterToolbarComponents = {
   // Before contains components that are on the left of avatar and find and replace button (eg. save indicator)
   before: ReactComponents;
@@ -85,6 +75,18 @@ export type BeforeAndAfterToolbarComponents = {
 
 export type PrimaryToolbarComponents =
   | BeforeAndAfterToolbarComponents
+  | ReactComponents;
+
+export type BeforeAndAfterContentComponents = {
+  // Note: BeforeAndAfterContentComponents type is currently only supported in full page editor
+  // Before contains components that are above the editor (eg. title, cover image)
+  before: ReactComponents;
+  // After contains components that are below the editor (eg. blank page quick actions)
+  after: ReactComponents;
+};
+
+export type ContentComponents =
+  | BeforeAndAfterContentComponents
   | ReactComponents;
 
 interface EditorBaseProps {
@@ -100,7 +102,7 @@ interface EditorBaseProps {
   */
   appearance?: EditorAppearance;
 
-  contentComponents?: ReactComponents;
+  contentComponents?: ContentComponents;
 
   // Optionally adds an element (eg: an icon) at the start of the editor's primary toolbar. If not specified, the primary toolbar spans the entire width.
   primaryToolbarIconBefore?: ReactElement;
@@ -342,7 +344,12 @@ export interface EditorPluginFeatureProps {
   // Enable the editor help dialog.
   allowHelpDialog?: boolean;
 
-  // This is a temporary setting for Confluence until we ship smart cards. **Please do not use.**
+  /**
+   * @deprecated
+   * This was a temporary setting for Confluence until we shipped smart cards. **Please do not use.*
+   * We have now shipped and no-longer require.
+   * This will be deprecated very soon.
+   */
   allowJiraIssue?: boolean;
 
   // Enable panel blocks, the thing that displays a coloured box with icons aka info, warning macros.

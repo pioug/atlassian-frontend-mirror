@@ -1,25 +1,58 @@
 import React, { forwardRef } from 'react';
 
+import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+
 import Button from '../new-button/variants/default/button';
 import LinkButton, {
   LinkButtonProps,
 } from '../new-button/variants/default/link';
+import IconButton, {
+  type IconButtonProps,
+} from '../new-button/variants/icon/button';
+import LinkIconButton, {
+  type LinkIconButtonProps,
+} from '../new-button/variants/icon/link';
 
-import { buttonAppearances, linkButtonAppearances } from './appearances';
+import {
+  buttonAppearances,
+  iconButtonAppearances,
+  linkButtonAppearances,
+} from './appearances';
+
+type DefaultButtonVariant = {
+  name: 'Button';
+  Component: typeof Button;
+  elementType: typeof HTMLButtonElement;
+  appearances: typeof buttonAppearances;
+};
+type LinkButtonVariant = {
+  name: 'LinkButton';
+  Component: typeof LinkButtonRender;
+  elementType: typeof HTMLAnchorElement;
+  appearances: typeof linkButtonAppearances;
+};
+type IconButtonVariant = {
+  name: 'IconButton';
+  Component: typeof IconButtonRender;
+  elementType: typeof HTMLButtonElement;
+  appearances: typeof iconButtonAppearances;
+};
+type LinkIconButtonVariant = {
+  name: 'LinkIconButton';
+  Component: typeof LinkIconButtonRender;
+  elementType: typeof HTMLAnchorElement;
+  appearances: typeof iconButtonAppearances;
+};
+
+type DefaultButtonVariants = DefaultButtonVariant | LinkButtonVariant;
+type LinkButtonVariants = LinkButtonVariant | LinkIconButtonVariant;
+type IconButtonVariants = IconButtonVariant | LinkIconButtonVariant;
 
 export type Variant =
-  | {
-      name: 'Button';
-      Component: typeof Button;
-      elementType: typeof HTMLButtonElement;
-      appearances: typeof buttonAppearances;
-    }
-  | {
-      name: 'LinkButton';
-      Component: typeof LinkButtonRender;
-      elementType: typeof HTMLAnchorElement;
-      appearances: typeof linkButtonAppearances;
-    };
+  | DefaultButtonVariant
+  | LinkButtonVariant
+  | IconButtonVariant
+  | LinkIconButtonVariant;
 
 // Add required default props to variants
 const LinkButtonRender = forwardRef(
@@ -39,14 +72,37 @@ const LinkButtonRender = forwardRef(
   ),
 );
 
-export const linkButtonVariants = [
-  {
-    name: 'LinkButton',
-    Component: LinkButtonRender,
-    elementType: HTMLAnchorElement,
-    appearances: linkButtonAppearances,
-  },
-];
+const IconButtonRender = forwardRef(
+  (
+    {
+      icon = StarFilledIcon,
+      label = 'Label',
+      ...rest
+    }: Omit<IconButtonProps, 'icon' | 'label'> & {
+      icon?: IconButtonProps['icon'];
+      label?: IconButtonProps['label'];
+    },
+    ref: React.Ref<HTMLButtonElement>,
+  ) => <IconButton ref={ref} icon={icon} label={label} {...rest} />,
+);
+
+const LinkIconButtonRender = forwardRef(
+  (
+    {
+      href = 'home',
+      icon = StarFilledIcon,
+      label = 'Label',
+      ...rest
+    }: Omit<LinkIconButtonProps, 'href' | 'icon' | 'label'> & {
+      href?: LinkIconButtonProps['href'];
+      icon?: LinkIconButtonProps['icon'];
+      label?: LinkIconButtonProps['label'];
+    },
+    ref: React.Ref<HTMLAnchorElement>,
+  ) => (
+    <LinkIconButton ref={ref} href={href} icon={icon} label={label} {...rest} />
+  ),
+);
 
 const variants: Variant[] = [
   {
@@ -61,6 +117,30 @@ const variants: Variant[] = [
     elementType: HTMLAnchorElement,
     appearances: linkButtonAppearances,
   },
+  {
+    name: 'IconButton',
+    Component: IconButtonRender,
+    elementType: HTMLButtonElement,
+    appearances: iconButtonAppearances,
+  },
+  {
+    name: 'LinkIconButton',
+    Component: LinkIconButtonRender,
+    elementType: HTMLAnchorElement,
+    appearances: iconButtonAppearances,
+  },
 ];
+
+export const defaultButtonVariants: DefaultButtonVariants[] = variants.filter(
+  ({ name }) => name === 'Button' || name === 'LinkButton',
+) as DefaultButtonVariants[];
+
+export const linkButtonVariants: LinkButtonVariants[] = variants.filter(
+  ({ name }) => name === 'LinkButton' || name === 'LinkIconButton',
+) as LinkButtonVariants[];
+
+export const iconButtonVariants: IconButtonVariants[] = variants.filter(
+  ({ name }) => name === 'IconButton' || name === 'LinkIconButton',
+) as IconButtonVariants[];
 
 export default variants;

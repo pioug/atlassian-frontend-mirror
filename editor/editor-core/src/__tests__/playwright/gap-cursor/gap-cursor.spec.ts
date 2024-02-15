@@ -1,11 +1,11 @@
 import {
+  EditorExtensionDeleteConfirmationModel,
   EditorExtensionModel,
   EditorFloatingToolbarModel,
-  EditorNodeContainerModel,
-  EditorExtensionDeleteConfirmationModel,
-  editorTestCase as test,
-  expect,
   EditorGapCursorModel,
+  EditorNodeContainerModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -16,7 +16,7 @@ import {
   listWithCodeBlockADF,
 } from './gap-cursor.spec.ts-fixtures';
 
-test.describe('Gap-cursor: ', () => {
+test.describe('Gap-cursor:', () => {
   test.describe('Connected extension', () => {
     test.use({
       editorProps: {
@@ -59,7 +59,7 @@ test.describe('Gap-cursor: ', () => {
 
       // Validate if the consumer extension - listed in the modal
       await expect(confirmationModal.consumerList).toHaveCount(1);
-      expect(await confirmationModal.consumerList.nth(0).innerText()).toEqual(
+      await expect(confirmationModal.consumerList.nth(0)).toHaveText(
         'Test Name 2',
       );
 

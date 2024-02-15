@@ -25,7 +25,7 @@ export interface DropDownButtonProps {
   handleRef(el: ToolbarButtonRef): void;
 }
 
-const DropDownButtonIcon: React.StatelessComponent<{
+const DropDownButtonIcon: React.FunctionComponent<{
   label: string;
 }> = React.memo(props => (
   // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
@@ -38,7 +38,7 @@ const DropDownButtonIcon: React.StatelessComponent<{
   </span>
 ));
 
-export const DropDownButton: React.StatelessComponent<DropDownButtonProps> =
+export const DropDownButton: React.FunctionComponent<DropDownButtonProps> =
   React.memo(props => (
     <ToolbarButton
       ref={props.handleRef}
@@ -50,7 +50,7 @@ export const DropDownButton: React.StatelessComponent<DropDownButtonProps> =
       aria-expanded={props['aria-expanded']}
       aria-haspopup={props['aria-haspopup']}
       aria-keyshortcuts={props['aria-keyshortcuts']}
-      aria-label={`${props.label} /`}
+      aria-label={`${props.label}`}
       iconBefore={<DropDownButtonIcon label="" />}
       title={<ToolTipContent description={props.label} shortcutOverride="/" />}
     />

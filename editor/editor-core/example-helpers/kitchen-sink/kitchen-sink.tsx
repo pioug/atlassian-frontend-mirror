@@ -1,50 +1,47 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+/** @jsxFrag */
 import React from 'react';
 
-import { ThemeProvider } from '@emotion/react';
+import { jsx } from '@emotion/react';
+
 import { scrubAdf } from '@atlaskit/adf-utils/scrub';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { Checkbox } from '@atlaskit/checkbox';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import { isEmptyDocument } from '@atlaskit/editor-common/utils';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import Flag from '@atlaskit/flag';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
-import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
 import Warning from '@atlaskit/icon/glyph/warning';
+import {
+  mockAssetsClientFetchRequests,
+  mockDatasourceFetchRequests,
+} from '@atlaskit/link-test-helpers/datasource';
+import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
 
+import { getTranslations } from '../../example-helpers/get-translations';
 import {
   getProviders,
-  mediaProvider,
   LOCALSTORAGE_defaultDocKey,
+  mediaProvider,
 } from '../../examples/5-full-page';
-import type { EditorAppearance, EditorPlugin } from '../../src/types';
 import type { EditorActions } from '../../src';
 import { ContextPanel } from '../../src';
-
+import { usePresetContext } from '../../src/presets/context';
+import type { EditorAppearance, EditorPlugin } from '../../src/types';
 import * as ADFUrl from '../adf-url';
-import * as FeatureFlagUrl from '../feature-flag-url';
-
 import { copy } from '../copy';
 import type { Error } from '../ErrorReport';
 import { ErrorReport } from '../ErrorReport';
-import { KitchenSinkControls } from './kitchen-sink-controls';
-import { KitchenSinkAdfInput } from './kitchen-sink-adf-input';
-import { container, editorColumn, column, rail } from './kitchen-sink-styles';
-import { KitchenSinkRenderer } from './kitchen-sink-renderer';
-import { KitchenSinkEditor } from './kitchen-sink-editor';
-import { isEmptyDocument } from '@atlaskit/editor-common/utils';
-import { getExampleExtensionProviders } from '../get-example-extension-providers';
 import { exampleSelectionDebugger } from '../example-editor-plugins';
-import { getTranslations } from '../../example-helpers/get-translations';
-import {
-  mockDatasourceFetchRequests,
-  mockAssetsClientFetchRequests,
-} from '@atlaskit/link-test-helpers/datasource';
+import * as FeatureFlagUrl from '../feature-flag-url';
+import { getExampleExtensionProviders } from '../get-example-extension-providers';
 
-import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import { usePresetContext } from '../../src/presets/context';
+import { KitchenSinkAdfInput } from './kitchen-sink-adf-input';
+import { KitchenSinkControls } from './kitchen-sink-controls';
+import { KitchenSinkEditor } from './kitchen-sink-editor';
+import { KitchenSinkRenderer } from './kitchen-sink-renderer';
+import { column, container, editorColumn, rail } from './kitchen-sink-styles';
 
 type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
 
@@ -88,13 +85,6 @@ const docOptions = [
   },
 ];
 
-type Theme = 'light' | 'dark';
-
-const themeOptions: { label: string; value: Theme }[] = [
-  { label: 'Light Theme', value: 'light' },
-  { label: 'Dark Theme', value: 'dark' },
-];
-
 const LOCALSTORAGE_orientationKey =
   'fabric.editor.example.kitchen-sink.orientation';
 
@@ -119,21 +109,11 @@ export type KitchenSinkState = {
   showErrors: boolean;
   scrubContent: boolean;
   waitingToValidate: boolean;
-  theme: Theme;
   sanitizePrivateContent: boolean;
 
   warning?: ADFUrl.Message;
   positionDebuggerEnabled?: boolean;
 };
-
-function getInitialTheme(): Theme {
-  if (typeof window !== 'undefined') {
-    // Retaining the preferred theme per browser session to aid development workflows.
-    const preferredTheme = window.sessionStorage.getItem('theme') as Theme;
-    return preferredTheme ? preferredTheme : themeOptions[0].value;
-  }
-  return themeOptions[0].value;
-}
 
 function scrubAdfSafely(data: any): any {
   try {
@@ -275,7 +255,6 @@ export class KitchenSink extends React.Component<
     waitingToValidate: false,
     scrubContent: this.params.get('scrub') === 'true',
     sanitizePrivateContent: false,
-    theme: getInitialTheme(),
     positionDebuggerEnabled: false,
   };
 
@@ -286,12 +265,6 @@ export class KitchenSink extends React.Component<
   });
 
   private popupMountPoint?: HTMLElement | null;
-
-  public componentDidUpdate(_: KitchenSinkProps, prevState: KitchenSinkState) {
-    if (prevState.theme !== this.state.theme) {
-      window.sessionStorage.setItem('theme', this.state.theme);
-    }
-  }
 
   public componentDidMount() {
     window.requestAnimationFrame(() => {
@@ -312,10 +285,6 @@ export class KitchenSink extends React.Component<
 
   private onAppeareanceChange = (appearance: EditorAppearance) => {
     this.setState({ appearance });
-  };
-
-  private onThemeChange = (theme: Theme) => {
-    this.setState({ theme });
   };
 
   private onOrientationChange = (vertical: boolean) => {
@@ -483,7 +452,7 @@ export class KitchenSink extends React.Component<
 
   public render() {
     return (
-      <DeprecatedThemeProvider provider={ThemeProvider} mode={this.state.theme}>
+      <>
         <div>
           <KitchenSinkControls
             adfEnabled={this.state.showADF}
@@ -494,15 +463,12 @@ export class KitchenSink extends React.Component<
             errors={this.state.errors}
             errorsEnabled={this.state.showErrors}
             scrubContent={this.state.scrubContent}
-            theme={this.state.theme}
-            themeOptions={themeOptions}
             validating={this.state.waitingToValidate}
             vertical={this.state.vertical}
             sanitizePrivateContent={this.state.sanitizePrivateContent}
             onAppearanceChange={this.onAppeareanceChange}
             onLoadDocument={this.loadDocument}
             onFullWidthChange={this.toggleFullWidthMode}
-            onThemeChange={this.onThemeChange}
             onOrientationChange={this.onOrientationChange}
             onEditorToggle={this.onEditorToggle}
             onErrorToggle={this.onErrorToggle}
@@ -522,7 +488,6 @@ export class KitchenSink extends React.Component<
                 actions={this.props.actions}
                 locale={this.props.locale}
                 popupMountPoint={this.popupMountPoint}
-                theme={this.state.theme}
                 adf={this.state.adf}
                 sanitizePrivateContent={this.state.sanitizePrivateContent}
                 setPopupRef={this.setPopupRef}
@@ -551,7 +516,6 @@ export class KitchenSink extends React.Component<
                 isFullPage={this.state.appearance.startsWith('full')}
                 locale={this.props.locale}
                 featureFlags={{
-                  'restart-numbered-lists': true,
                   ...parseSafely(this.state.featureFlagInput),
                 }}
               />
@@ -624,7 +588,7 @@ export class KitchenSink extends React.Component<
             />
           </div>
         )}
-      </DeprecatedThemeProvider>
+      </>
     );
   }
 }

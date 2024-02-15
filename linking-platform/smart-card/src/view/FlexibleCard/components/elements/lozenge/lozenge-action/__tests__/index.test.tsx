@@ -72,10 +72,7 @@ describe('LozengeAction', () => {
     url,
   };
 
-  const getAction = (
-    details: CardDetails = { url, id },
-    showFeatureDiscovery?: boolean,
-  ) => {
+  const getAction = (details: CardDetails = { url, id }) => {
     return {
       read: {
         action: {
@@ -98,7 +95,6 @@ describe('LozengeAction', () => {
         providerKey: 'object-provider',
         details,
       },
-      showFeatureDiscovery,
     };
   };
 
@@ -1015,124 +1011,6 @@ describe('LozengeAction', () => {
         reason: TrackQuickActionFailureReason.ValidationError,
         step: 'update',
       });
-    });
-  });
-
-  describe('feature discovery', () => {
-    const fdTestId = `${testId}-discovery`;
-
-    const rerenderAndVerify = async ({
-      component,
-      findByTestId,
-      rerender,
-      unmount,
-    }: Awaited<ReturnType<typeof renderComponent>>) => {
-      rerender(component);
-      expect(await findByTestId(fdTestId)).toBeInTheDocument();
-      unmount();
-    };
-
-    beforeEach(() => {
-      localStorage.clear();
-    });
-
-    it('renders feature discovery component', async () => {
-      const { findByTestId } = renderComponent({
-        action: getAction(undefined, true),
-      });
-
-      const element = await findByTestId(fdTestId);
-
-      expect(element).toBeInTheDocument();
-      expect(element.textContent).toBe(text);
-    });
-
-    it('render feature discovery component multiple times', async () => {
-      const action = getAction(undefined, true);
-      const renderResult = renderComponent({
-        action,
-      });
-      renderResult.unmount();
-
-      await rerenderAndVerify(renderResult);
-      await rerenderAndVerify(renderResult);
-      await rerenderAndVerify(renderResult);
-      await rerenderAndVerify(renderResult);
-      await rerenderAndVerify(renderResult);
-    });
-
-    it('does not render feature discovery component again after component has been visible over 2s', async () => {
-      // first render - mock datetime to control component visible time
-      // It is better to use jest.useFakeTimers('modern') for this,
-      // but it's not compatible with `jest-environment-jsdom-sixteen`. :(
-      const now = Date.now();
-      const dateSpy = jest.spyOn(Date, 'now').mockReturnValue(now - 2001);
-      const action = getAction(undefined, true);
-      const {
-        component,
-        container,
-        findByTestId,
-        queryByTestId,
-        rerender,
-        unmount,
-      } = renderComponent({
-        action,
-      });
-      await findByTestId(fdTestId);
-      dateSpy.mockReturnValue(now);
-      unmount();
-
-      // second render
-      rerender(component);
-
-      const element = queryByTestId(`${testId}-discovery`);
-
-      expect(element).not.toBeInTheDocument();
-      expect(container.textContent).toBe(text);
-    });
-
-    it('does not render feature discovery component when showFeatureDiscovery is not defined', () => {
-      const { queryByTestId } = renderComponent();
-
-      const element = queryByTestId(fdTestId);
-
-      expect(element).not.toBeInTheDocument();
-    });
-
-    it('does not render feature discovery component when showFeatureDiscovery is false', () => {
-      const { queryByTestId } = renderComponent({
-        action: getAction(undefined, false),
-      });
-
-      const element = queryByTestId(fdTestId);
-
-      expect(element).not.toBeInTheDocument();
-    });
-
-    // EDM-6949: The early implementation of pulse only show once on hover preview
-    // which user may miss if they move away from hover preview quickly.
-    // The improved feature is to make sure the pulse component remains visible
-    // for at least 2s before marking the feature as seen for user.
-    // To increase our confidence that the feature has really been discovered and not missed,
-    // we want to display the pluse again for those that has already been marked
-    // as seen by early implementation.
-    it('render feature discovery for previously discovered', async () => {
-      // Old local storage value (boolean) for those that has already discovered the feature.
-      localStorage.setItem(
-        '@atlaskit/smart-card_action-discovery-status',
-        JSON.stringify({
-          value: true,
-          expires: Date.now() + 3600000,
-        }),
-      );
-
-      const { findByTestId } = renderComponent({
-        action: getAction(undefined, true),
-      });
-
-      const element = await findByTestId(fdTestId);
-
-      expect(element).toBeInTheDocument();
     });
   });
 });

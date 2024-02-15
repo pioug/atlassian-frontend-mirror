@@ -5,17 +5,18 @@ import {
   EditorLinkPickerModel,
   EditorMainToolbarModel,
   EditorNodeContainerModel,
-  editorTestCase as test,
   EditorTitleFocusModel,
   expect,
+  fixTest,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
-  p,
-  a as link,
-  ul,
   li,
+  a as link,
+  p,
+  ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.describe('Hyperlink', () => {
@@ -137,6 +138,10 @@ test.describe('Hyperlink', () => {
     });
 
     test('can insert hyperlink via quick insert menu', async ({ editor }) => {
+      fixTest({
+        jiraIssueId: 'UTEST-1213',
+        reason: 'Test fails with latest revamp bundler',
+      });
       await editor.typeAhead.searchAndInsert('Link');
       await editor.keyboard.type('http://atlassian.com');
       await editor.keyboard.press('Tab');

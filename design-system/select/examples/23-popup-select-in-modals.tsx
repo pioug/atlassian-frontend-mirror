@@ -5,7 +5,7 @@ import ModalDialog, {
 } from '@atlaskit/modal-dialog';
 import Drawer from '@atlaskit/drawer';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { PopupSelect } from '../src';
 
 const options = [
@@ -43,7 +43,7 @@ export default () => {
 
   return (
     <>
-      <ButtonGroup>
+      <ButtonGroup label="Choose an option">
         <Button isSelected={type === 'modal'} onClick={() => setType('modal')}>
           Modal
         </Button>
@@ -61,7 +61,11 @@ export default () => {
       {select}
 
       {type === 'drawer' && (
-        <Drawer onClose={() => setIsOpen(false)} isOpen={isOpen}>
+        <Drawer
+          label="Popup select inside Drawer"
+          onClose={() => setIsOpen(false)}
+          isOpen={isOpen}
+        >
           {select}
         </Drawer>
       )}

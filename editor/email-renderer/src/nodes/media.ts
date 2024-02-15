@@ -1,4 +1,7 @@
-import { NodeSerializerOpts, MediaMetaDataContextItem } from '../interfaces';
+import type {
+  NodeSerializerOpts,
+  MediaMetaDataContextItem,
+} from '../interfaces';
 import { createTag } from '../create-tag';
 import { N30 } from '@atlaskit/adf-schema';
 import {
@@ -6,7 +9,8 @@ import {
   MEDIA_PREVIEW_IMAGE_WIDTH,
   MEDIA_PREVIEW_IMAGE_HEIGHT,
 } from '../styles/util';
-import { createContentId, IconString } from '../static';
+import { createContentId } from '../static';
+import type { IconString } from '../static';
 import { getIconFromMediaType } from '../media-util';
 import { serializeStyle } from '../serialize-style';
 

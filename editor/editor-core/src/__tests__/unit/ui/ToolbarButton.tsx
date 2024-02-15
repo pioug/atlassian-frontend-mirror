@@ -1,16 +1,19 @@
-import { mount } from 'enzyme';
 import React from 'react';
-import Tooltip from '@atlaskit/tooltip';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
-import Button from '@atlaskit/button';
-import ToolbarButton, { TOOLBAR_BUTTON } from '../../../ui/ToolbarButton';
+
 import { fireEvent, render } from '@testing-library/react';
+import { mount } from 'enzyme';
+
+import { FabricChannel } from '@atlaskit/analytics-listeners';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import Button from '@atlaskit/button';
 import {
-  ACTION_SUBJECT,
   ACTION,
+  ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import Tooltip from '@atlaskit/tooltip';
+
+import ToolbarButton, { TOOLBAR_BUTTON } from '../../../ui/ToolbarButton';
 
 const noop = () => {};
 

@@ -2,6 +2,10 @@
 title: Stack
 description: A stack manages the vertical layout of direct children using flexbox.
 order: 1
+props:
+  packageName: '@atlaskit/primitives'
+  exports:
+    - Stack
 ---
 
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
@@ -12,8 +16,6 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
   directoryName="primitives"
 />
 
-import ERTStack from '!!extract-react-types-loader!../../extract-react-types/stack-props';
-
 ## Props
 
-<PropsTable heading="" props={ERTStack} />
+<TSMorphProps exportName="Stack" packageName="@atlaskit/primitives" />

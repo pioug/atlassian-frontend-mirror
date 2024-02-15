@@ -11,10 +11,12 @@ import {
 import { createStatusAnalyticsAndFire } from './analytics';
 import { ANALYTICS_HOVER_DELAY } from './constants';
 
+// Disabling linting for nextline since these values are used as text reference, but not used as part of the CSS
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
 export type Color = 'neutral' | 'purple' | 'blue' | 'red' | 'yellow' | 'green';
 export type StatusStyle = 'bold' | 'subtle';
 
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview */
 const colorToLozengeAppearanceMap: { [K in Color]: ThemeAppearance } = {
   neutral: 'default',
   purple: 'new',
@@ -23,7 +25,7 @@ const colorToLozengeAppearanceMap: { [K in Color]: ThemeAppearance } = {
   yellow: 'moved',
   green: 'success',
 };
-/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview */
 
 const DEFAULT_APPEARANCE = 'default';
 const MAX_WIDTH = 200;

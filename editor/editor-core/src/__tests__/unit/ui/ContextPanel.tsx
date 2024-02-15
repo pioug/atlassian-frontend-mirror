@@ -1,7 +1,20 @@
 import React from 'react';
+
 // eslint-disable-next-line
+import { render, waitFor } from '@testing-library/react';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
 
+import {
+  ContextPanelConsumer,
+  ContextPanelWidthProvider,
+} from '@atlaskit/editor-common/ui';
+import { contextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
+import {
+  akEditorDefaultLayoutWidth,
+  akEditorFullWidthLayoutLineLength,
+  akEditorFullWidthLayoutWidth,
+} from '@atlaskit/editor-shared-styles';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -13,33 +26,21 @@ import {
   thEmpty,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  editorWithWideBreakoutAndSidebarWidth,
+  isPushingEditorContent,
+} from '@atlaskit/editor-test-helpers/page-objects/context-panel';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+import EditorActions from '../../../actions';
+import { EventDispatcher } from '../../../event-dispatcher';
+import type { EditorPlugin } from '../../../types';
 import ContextPanel, {
   shouldPanelBePositionedOverEditor,
   SwappableContentArea,
 } from '../../../ui/ContextPanel';
 import EditorContext from '../../../ui/EditorContext';
-
-import {
-  akEditorDefaultLayoutWidth,
-  akEditorFullWidthLayoutWidth,
-  akEditorFullWidthLayoutLineLength,
-} from '@atlaskit/editor-shared-styles';
-import type { EditorPlugin } from '../../../types';
-import { EventDispatcher } from '../../../event-dispatcher';
-import EditorActions from '../../../actions';
-import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
-import {
-  ContextPanelConsumer,
-  ContextPanelWidthProvider,
-} from '@atlaskit/editor-common/ui';
-
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  isPushingEditorContent,
-  editorWithWideBreakoutAndSidebarWidth,
-} from '@atlaskit/editor-test-helpers/page-objects/context-panel';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const panelSelector = 'div[data-testid="context-panel-panel"]';
 
@@ -155,7 +156,7 @@ describe('SwappableContentArea', () => {
       expect(isPushingEditorContent(panelElement)).toBeFalsy();
     });
 
-    it('should push the editor cotent if there are wide breakout editor content and panel will overlap the editor', () => {
+    it('should push the editor content if there are wide breakout editor content and panel will overlap the editor', () => {
       wrapper = mount(
         <SwappableContentArea
           visible
@@ -199,17 +200,9 @@ describe('SwappableContentArea', () => {
 });
 
 describe('ContextPanelWidthProvider', () => {
-  let wrapper: ReactWrapper | undefined;
-
-  afterEach(() => {
-    if (wrapper) {
-      wrapper.unmount();
-      wrapper = undefined;
-    }
-  });
-  it('should broadcast width', () => {
-    let broadCast: (wdith: number) => void = (width) => {};
-    wrapper = mount(
+  it('should broadcast width', async () => {
+    let broadCast: (width: number) => void = () => {};
+    const { container } = render(
       <ContextPanelWidthProvider>
         <ContextPanelConsumer>
           {({ width, broadcastWidth }) => {
@@ -220,15 +213,13 @@ describe('ContextPanelWidthProvider', () => {
       </ContextPanelWidthProvider>,
     );
     broadCast(320);
-    wrapper.update();
-    expect(wrapper.text()).toBe('320');
+
+    await waitFor(() => expect(container).toHaveTextContent('320'));
   });
 
-  it('should broadcast positionedOverEditor', () => {
-    let broadCast: (positionedOverEditor: boolean) => void = (
-      positionedOverEditor,
-    ) => {};
-    wrapper = mount(
+  it('should broadcast positionedOverEditor', async () => {
+    let broadCast: (positionedOverEditor: boolean) => void = () => {};
+    const { container } = render(
       <ContextPanelWidthProvider>
         <ContextPanelConsumer>
           {({ positionedOverEditor, broadcastPosition }) => {
@@ -239,12 +230,12 @@ describe('ContextPanelWidthProvider', () => {
       </ContextPanelWidthProvider>,
     );
     broadCast(true);
-    wrapper.update();
-    expect(wrapper.text()).toBe('true');
+
+    await waitFor(() => expect(container).toHaveTextContent('true'));
   });
 
-  it('should broadcast width with SwappableContentArea', () => {
-    wrapper = mount(
+  it('should broadcast width with SwappableContentArea', async () => {
+    const { container } = render(
       <ContextPanelWidthProvider>
         <SwappableContentArea visible>
           <ContextPanelConsumer>
@@ -255,11 +246,12 @@ describe('ContextPanelWidthProvider', () => {
         </SwappableContentArea>
       </ContextPanelWidthProvider>,
     );
-    expect(wrapper.text()).toBe('320');
+
+    await waitFor(() => expect(container).toHaveTextContent('320'));
   });
 
-  it('should broadcast positionOverEditor to be true if panel is not pushing Editor', () => {
-    wrapper = mount(
+  it('should broadcast positionOverEditor to be true if panel is not pushing Editor', async () => {
+    const { container } = render(
       <ContextPanelWidthProvider>
         <SwappableContentArea
           editorWidth={{
@@ -278,11 +270,12 @@ describe('ContextPanelWidthProvider', () => {
         </SwappableContentArea>
       </ContextPanelWidthProvider>,
     );
-    expect(wrapper.text()).toBe('true');
+
+    await waitFor(() => expect(container).toHaveTextContent('true'));
   });
 
-  it('should broadcast positionOverEditor to be false if panel is pushing Editor', () => {
-    wrapper = mount(
+  it('should broadcast positionOverEditor to be false if panel is pushing Editor', async () => {
+    const { container } = render(
       <ContextPanelWidthProvider>
         <SwappableContentArea
           editorWidth={{
@@ -301,7 +294,8 @@ describe('ContextPanelWidthProvider', () => {
         </SwappableContentArea>
       </ContextPanelWidthProvider>,
     );
-    expect(wrapper.text()).toBe('false');
+
+    await waitFor(() => expect(container).toHaveTextContent('false'));
   });
 });
 

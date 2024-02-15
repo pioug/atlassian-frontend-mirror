@@ -9,7 +9,8 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { PLATFORM, AnalyticsEventPayload } from './events';
+import type { AnalyticsEventPayload } from './events';
+import { PLATFORM } from './events';
 
 type DispatchAnalyticsEvent = (event: AnalyticsEventPayload) => void;
 
@@ -32,7 +33,7 @@ const processLevelsAndTrack: ProcessLevelsAndTrack = (
     const {
       severity,
       percentage,
-      counts: { supportedNodes, unsupportedNodes },
+      counts: { supportedNodes, unsupportedNodes, unsupportedNodeTypeCount },
     } = getUnsupportedContentLevelData(item.doc, thresholds);
 
     dispatchAnalyticsEvent({
@@ -45,6 +46,7 @@ const processLevelsAndTrack: ProcessLevelsAndTrack = (
         unsupportedContentLevelPercentage: percentage,
         unsupportedNodesCount: unsupportedNodes,
         supportedNodesCount: supportedNodes,
+        unsupportedNodeTypeCount: unsupportedNodeTypeCount,
       },
       eventType: EVENT_TYPE.OPERATIONAL,
     });

@@ -19,7 +19,6 @@ import type {
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 import type {
   HideLinkToolbar,
@@ -48,10 +47,7 @@ export type HyperlinkPlugin = NextEditorPlugin<
   'hyperlink',
   {
     pluginConfiguration: HyperlinkPluginOptions | undefined;
-    dependencies: [
-      OptionalPlugin<FeatureFlagsPlugin>,
-      OptionalPlugin<AnalyticsPlugin>,
-    ];
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
     actions: {
       /**
        * Add items to the left of the hyperlink floating toolbar
@@ -92,7 +88,6 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({
   config: options = {},
   api,
 }) => {
-  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
   return {
     name: 'hyperlink',
 
@@ -117,6 +112,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({
         displayText,
         cardsAvailable = false,
         sourceEvent = undefined,
+        appearance,
       ) =>
         insertLinkWithAnalytics(
           inputMethod,
@@ -128,6 +124,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({
           displayText,
           cardsAvailable,
           sourceEvent,
+          appearance,
         ),
       updateLink: updateLink,
     },
@@ -140,10 +137,6 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({
     },
 
     pmPlugins() {
-      // Skip analytics if card provider is available, as they will be
-      // sent on handleRejected upon attempting to resolve smart link.
-      const skipAnalytics = !!options?.cardOptions?.provider;
-
       return [
         {
           name: 'hyperlink',
@@ -155,18 +148,12 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({
         },
         {
           name: 'hyperlinkInputRule',
-          plugin: ({ schema, featureFlags }) =>
-            createInputRulePlugin(
-              schema,
-              skipAnalytics,
-              featureFlags,
-              api?.analytics?.actions,
-            ),
+          plugin: ({ schema }) =>
+            createInputRulePlugin(schema, api?.analytics?.actions),
         },
         {
           name: 'hyperlinkKeymap',
-          plugin: () =>
-            createKeymapPlugin(skipAnalytics, api?.analytics?.actions),
+          plugin: () => createKeymapPlugin(api?.analytics?.actions),
         },
 
         {
@@ -206,7 +193,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({
           },
         },
       ],
-      floatingToolbar: getToolbarConfig(options, featureFlags, api),
+      floatingToolbar: getToolbarConfig(options, api),
     },
   };
 };

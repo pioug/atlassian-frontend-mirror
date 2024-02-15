@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import {
   BitbucketIcon,
   ConfluenceIcon,
@@ -68,7 +68,7 @@ const randRemove = <T extends Array<TItem>, TItem>(arr: T) => {
 const retryContainerStyles = css({
   textAlign: 'center',
   '> *': {
-    marginRight: token('space.050', '4px'),
+    marginInlineEnd: token('space.050', '4px'),
   },
 });
 
@@ -97,14 +97,14 @@ const blockStyles = css({
 const logoContainerStyles = css({
   display: 'flex',
   width: '100%',
-  paddingLeft: token('space.100', '8px'),
   alignItems: 'center',
+  paddingInlineStart: token('space.100', '8px'),
 });
 
 const headerStyles = css({
   margin: token('space.0', '0px'),
-  marginLeft: token('space.100', '8px'),
   fontWeight: 300,
+  marginInlineStart: token('space.100', '8px'),
 });
 
 export default MotionFadeInListOfElementsExample;

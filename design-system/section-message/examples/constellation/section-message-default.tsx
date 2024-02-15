@@ -7,7 +7,7 @@ export default () => (
     title="Editing is restricted"
     actions={[
       <SectionMessageAction href="#">Request edit access</SectionMessageAction>,
-      <SectionMessageAction href="#">Learn more</SectionMessageAction>,
+      <SectionMessageAction href="#">About permissions</SectionMessageAction>,
     ]}
   >
     <p>

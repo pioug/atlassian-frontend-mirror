@@ -19,9 +19,9 @@ const InlineEditMandatoryFieldExample = () => {
       <InlineEditableTextfield
         testId="editable-text-field"
         defaultValue={editValue}
-        label="Inline editable textfield"
+        label="Full name"
         onConfirm={(value) => setEditValue(value)}
-        placeholder="Click to enter text"
+        placeholder="Enter your full name"
         isRequired
       />
     </div>

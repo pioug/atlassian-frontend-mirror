@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import { Placement, placements } from '@atlaskit/popper';
+import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import Popup from '../../../src';
@@ -50,14 +51,16 @@ const PopupPlacementExample = () => {
               </div>
             )}
             trigger={(triggerProps) => (
-              <Button
-                {...triggerProps}
-                css={placementGridPositions[placement]}
-                isSelected={isOpen}
-                onClick={() => setOpenPlacement(isOpen ? null : placement)}
-              >
-                {placement}
-              </Button>
+              <Box xcss={placementGridPositions[placement]}>
+                <Button
+                  {...triggerProps}
+                  shouldFitContainer
+                  isSelected={isOpen}
+                  onClick={() => setOpenPlacement(isOpen ? null : placement)}
+                >
+                  {placement}
+                </Button>
+              </Box>
             )}
           />
         );

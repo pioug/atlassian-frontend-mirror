@@ -30,6 +30,13 @@ export enum TABLE_ACTION {
   RESIZE_PERF_SAMPLING = 'resizePerfSampling',
   OVERFLOW_CHANGED = 'overflowChanged',
   INITIAL_OVERFLOW_CAPTURED = 'initialOverflowCaptured',
+  MOVED_ROW = 'movedRow',
+  MOVED_COLUMN = 'movedColumn',
+  /**
+   * This is a unique action that's used to track legacy table move behaviour flow of insert+copy+paste. Please use
+   * the MOVED_ROW | MOVED_COLUMN actions if you want to track events which move row/cols in a single step.
+   */
+  ROW_OR_COLUMN_MOVED = 'rowOrColumnMoved',
 }
 
 export enum TABLE_BREAKOUT {
@@ -48,6 +55,12 @@ export enum TABLE_OVERFLOW_CHANGE_TRIGGER {
   DISABLED_NUMBERED_COLUMN = 'disabledNumberedColumn',
   DISTRIBUTED_COLUMNS = 'distributedColumnsWidths',
   RESIZED = 'resizedTable',
+}
+
+export enum TABLE_STATUS {
+  SUCCESS = 'success',
+  CANCELLED = 'cancelled',
+  INVALID = 'invalid',
 }
 
 //#region Type Helpers
@@ -93,7 +106,7 @@ type ResizePreviewInfo = {
   nodeSize: number;
 };
 
-type OverflowStateInfo = {
+export type OverflowStateInfo = {
   editorWidth: number;
   isOverflowing: boolean;
   tableResizingEnabled: boolean;
@@ -182,7 +195,8 @@ type TableDeleteRowOrColumnAEP = TableAEP<
     inputMethod:
       | INPUT_METHOD.CONTEXT_MENU
       | INPUT_METHOD.BUTTON
-      | INPUT_METHOD.FLOATING_TB;
+      | INPUT_METHOD.FLOATING_TB
+      | INPUT_METHOD.SHORTCUT;
     position: number;
     count: number;
   } & TotalRowAndColCount,
@@ -265,10 +279,34 @@ type TableResizePerfSamplingAEP = OperationalAEP<
   TABLE_ACTION.RESIZE_PERF_SAMPLING,
   ACTION_SUBJECT.TABLE,
   undefined,
-  ResizePreviewInfo,
+  ResizePreviewInfo
+>;
+
+type TableRowOrColumnMovedAEP = TableAEP<
+  TABLE_ACTION.ROW_OR_COLUMN_MOVED,
+  {
+    type: 'row' | 'column';
+  },
   undefined
 >;
-//#endregion
+
+type TableMovedRowOrColumnAEP = TableAEP<
+  TABLE_ACTION.MOVED_ROW | TABLE_ACTION.MOVED_COLUMN,
+  {
+    inputMethod:
+      | INPUT_METHOD.TABLE_CONTEXT_MENU
+      | INPUT_METHOD.DRAG_AND_DROP
+      | INPUT_METHOD.SHORTCUT;
+    // The total amount of row/columns that we're moved in a single event
+    count: number;
+    distance: number;
+    status:
+      | TABLE_STATUS.SUCCESS
+      | TABLE_STATUS.CANCELLED
+      | TABLE_STATUS.INVALID;
+  } & TotalRowAndColCount,
+  undefined
+>;
 
 export type TableEventPayload =
   | TableDeleteAEP
@@ -289,4 +327,6 @@ export type TableEventPayload =
   | TableOverflowChangedAEP
   | TableInitialOverflowCapturedAEP
   | TableResizedAEP
-  | TableResizePerfSamplingAEP;
+  | TableResizePerfSamplingAEP
+  | TableRowOrColumnMovedAEP
+  | TableMovedRowOrColumnAEP;

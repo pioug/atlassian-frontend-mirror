@@ -1,16 +1,5 @@
 import styled from '@emotion/styled';
-import {
-  B100,
-  B400,
-  B50,
-  DN40A,
-  DN50A,
-  N20,
-  N40A,
-  N50A,
-} from '@atlaskit/theme/colors';
-import { borderRadius as akBorderRadius } from '@atlaskit/theme/constants';
-import { themed } from '@atlaskit/theme/components';
+import { B50, B100, B200, B400, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export interface WrapperProps {
@@ -18,54 +7,60 @@ export interface WrapperProps {
   isSelected?: boolean;
   isInteractive?: boolean;
   withoutBackground?: boolean;
+  isHovered?: boolean;
 }
 
-const BACKGROUND_COLOR_DARK = '#262B31';
-
-const selected = `
-  cursor: pointer;
-  box-shadow: 0 0 0 2px ${token('color.border.selected', B100)};
-  outline: none;
-  user-select: none;
-  &, :hover, :focus, :active {
-    text-decoration: none;
-  }
-`;
+const selectedStyles = {
+  cursor: 'pointer',
+  boxShadow: `0 0 0 2px ${token('color.border.selected', B100)}`,
+  outline: 'none',
+  userSelect: 'none',
+  '&, :hover, :focus, :active': {
+    textDecoration: 'none',
+  },
+  '&:hover': {
+    border: `1px solid ${token('color.border', N40)}`,
+  },
+} as const;
 
 const isInteractive = ({ isInteractive }: WrapperProps) => {
   if (isInteractive) {
-    return `
-      :hover {
-        background-color: ${themed({
-          light: token('color.background.neutral.subtle.hovered', N20),
-          dark: token(
-            'color.background.neutral.subtle.hovered',
-            BACKGROUND_COLOR_DARK,
-          ),
-        })};
-      }
-      :active {
-        background-color: ${themed({
-          light: token('color.background.selected', B50),
-          dark: token('color.background.selected', BACKGROUND_COLOR_DARK),
-        })};
-      }
-      :focus {
-        ${selected}
-      }
-    `;
-  } else {
-    return '';
+    return {
+      ':active': {
+        backgroundColor: token('color.background.selected', B50),
+      },
+      ':focus': selectedStyles,
+    } as const;
   }
+
+  return undefined;
 };
 
 const isSelected = ({ isSelected }: WrapperProps) => {
   if (isSelected) {
-    return selected;
+    return selectedStyles;
   } else {
-    return 'user-select: text';
+    return { userSelect: 'text' } as const;
   }
 };
+
+const hoveredStyles = {
+  borderColor: token('color.border.accent.blue', B200),
+} as const;
+
+const activeHoveredFocusedStyles = (props: WrapperProps) => {
+  if (props.withoutBackground) {
+    return undefined;
+  }
+
+  return { textDecoration: 'none' } as const;
+};
+
+const hoveredWihBorderStyles = (props: WrapperProps) =>
+  ({
+    ...hoveredStyles,
+    ...activeHoveredFocusedStyles(props),
+  } as const);
 
 /*
   Inline smart cards should have the following layout:
@@ -79,52 +74,47 @@ const isSelected = ({ isSelected }: WrapperProps) => {
 // NB: `padding` consistent with @mentions.
 // NB: `display: inline` required for `box-decoration-break` to work.
 // NB: `box-decoration-break` required for retaining properties (border-radius) on wrap.
-const baseWrapperStyle = (props: WrapperProps) => `
-  line-height: 16px;
-  padding: 1px 0.24em 2px 0.24em;
-  ${props.withoutBackground ? `padding-left: 0; margin-left:-2px;` : ''}
-  display: inline;
-  box-decoration-break: clone;
-  border-radius: ${akBorderRadius()}px;
-  color: ${themed({
-    light: token('color.link', B400),
-    dark: token('color.link', '#4794FF'),
-  })(props)};
-  background-color: ${
-    props.withoutBackground
-      ? ''
-      : themed({
-          light: token('elevation.surface.raised', 'white'),
-          dark: token('elevation.surface.raised', BACKGROUND_COLOR_DARK),
-        })(props)
-  };
-  ${
-    props.withoutBackground
-      ? ''
-      : themed({
-          light: `box-shadow: ${token(
-            'elevation.shadow.raised',
-            `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`,
-          )};`,
-          dark: `box-shadow: ${token(
-            'elevation.shadow.raised',
-            `0 1px 1px ${DN50A}, 0 0 1px 1px ${DN40A}`,
-          )};`,
-        })(props)
-  }
-  ${isSelected(props)};
-  transition: 0.1s all ease-in-out;
-  -moz-user-select: none;
-`;
+const baseWrapperStyles = (props: WrapperProps) =>
+  ({
+    lineHeight: '22px',
+    padding: `${token('space.025', '2px')} 0px`,
+    ...(props.withoutBackground
+      ? { paddingLeft: 0, marginLeft: token('space.negative.025', '-2px') }
+      : undefined),
+    display: 'inline',
+    boxDecorationBreak: 'clone',
+    borderRadius: token('border.radius.100', '4px'),
+    color: token('color.link', B400),
 
-export const WrapperAnchor = styled.a<WrapperProps>`
-  ${baseWrapperStyle}
-  ${isInteractive}
-`;
+    ...(props.withoutBackground
+      ? undefined
+      : { backgroundColor: token('elevation.surface.raised', 'white') }),
+
+    ...isSelected(props),
+
+    ...(props.withoutBackground
+      ? undefined
+      : { border: `1px solid ${token('color.border', N40)}` }),
+
+    '&:hover': hoveredStyles,
+
+    '&, :hover, :focus, :active': activeHoveredFocusedStyles(props),
+
+    transition: '0.1s all ease-in-out',
+    MozUserSelect: 'none', // -moz-user-select
+
+    ...(props.isHovered ? hoveredWihBorderStyles(props) : undefined),
+  } as const);
+
+export const WrapperAnchor = styled.a<WrapperProps>((props) => ({
+  ...baseWrapperStyles(props),
+  ...isInteractive(props),
+}));
+
 WrapperAnchor.displayName = 'WrapperAnchor';
 
-export const WrapperSpan = styled.span<WrapperProps>`
-  ${baseWrapperStyle}
-`;
+export const WrapperSpan = styled.span<WrapperProps>((props) => ({
+  ...baseWrapperStyles(props),
+}));
 
 WrapperSpan.displayName = 'WrapperSpan';

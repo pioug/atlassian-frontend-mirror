@@ -1,5 +1,6 @@
 import {
   type ButtonAppearance,
+  type IconButtonAppearance,
   type LinkButtonAppearance,
 } from '../new-button/variants/types';
 
@@ -21,4 +22,10 @@ const linkButtonAppearances: LinkButtonAppearance[] = [
   'subtle-link',
 ];
 
-export { buttonAppearances, linkButtonAppearances };
+const iconButtonAppearances: IconButtonAppearance[] = [
+  'default',
+  'primary',
+  'subtle',
+];
+
+export { buttonAppearances, linkButtonAppearances, iconButtonAppearances };

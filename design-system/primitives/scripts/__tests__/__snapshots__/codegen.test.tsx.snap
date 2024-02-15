@@ -810,7 +810,7 @@ export type Shadow = keyof typeof shadowMap;
 `;
 
 exports[`@atlaskit/primitives spacing styles are generated correctly 1`] = `
-"export const spaceMap = {
+"export const positiveSpaceMap = {
   'space.0': token('space.0', '0px'),
   'space.025': token('space.025', '2px'),
   'space.050': token('space.050', '4px'),
@@ -826,7 +826,7 @@ exports[`@atlaskit/primitives spacing styles are generated correctly 1`] = `
   'space.800': token('space.800', '64px'),
   'space.1000': token('space.1000', '80px'),
 };
-export type Space = keyof typeof spaceMap;
+export type Space = keyof typeof positiveSpaceMap;
 
 export const negativeSpaceMap = {
   'space.negative.025': token('space.negative.025', '-2px'),
@@ -840,6 +840,10 @@ export const negativeSpaceMap = {
   'space.negative.400': token('space.negative.400', '-32px'),
 };
 export type NegativeSpace = keyof typeof negativeSpaceMap;
+
+export const allSpaceMap = { ...positiveSpaceMap, ...negativeSpaceMap };
+
+export type AllSpace = keyof typeof allSpaceMap;
 "
 `;
 

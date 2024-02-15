@@ -6,8 +6,8 @@ export type SearchProps = BaseIconButtonProps & {
    */
   placeholder: string;
   /**
-   * Used to describe the search icon and text field for users viewing the
-   * page with a screen reader
+   * Used to describe the search icon and text field for people viewing the
+   * page with a screen reader.
    */
   label: string;
   /**

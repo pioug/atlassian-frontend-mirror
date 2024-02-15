@@ -297,7 +297,13 @@ export class FileFetcherImpl implements FileFetcher {
     traceContext?: MediaTraceContext,
   ): Promise<TouchedFiles> {
     return this.mediaApi
-      .touchFiles({ descriptors }, { collection }, traceContext)
+      .touchFiles(
+        { descriptors },
+        {
+          collection,
+        },
+        traceContext,
+      )
       .then(({ data }) => data);
   }
 

@@ -1,13 +1,10 @@
 /** @jsx jsx */
 import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
-import { exampleDocumentWithComments } from './helper/example-doc-with-comments';
-import { default as Renderer } from '../src/ui/Renderer';
-import {
-  AnnotationMarkStates,
-  AnnotationTypes,
-  AnnotationId,
-} from '@atlaskit/adf-schema';
+//import { exampleDocumentWithComments } from './helper/example-doc-with-comments';
+import { RendererWithAnalytics as Renderer, AnnotationsWrapper } from '../src/';
+import { RendererActionsContext } from '../src/actions';
+import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
 import {
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
@@ -18,8 +15,266 @@ import {
   annotationsStore,
   AnnotationsStoreProvider,
 } from './helper/annotations';
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode, AnnotationId } from '@atlaskit/adf-schema';
 
+const exampleDocumentWithComments = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'It has RESOLVE annonations',
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                id: '13272b41-b9a9-427a-bd58-c00766999638',
+                annotationType: 'inlineComment',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'It has UNRESOLVED annonations',
+          marks: [
+            {
+              type: 'strong',
+            },
+            {
+              type: 'annotation',
+              attrs: {
+                id: '12e213d7-badd-4c2a-881e-f5d6b9af3752',
+                annotationType: 'inlineComment',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'It doesn’t has annotations',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Hello ',
+        },
+        {
+          type: 'emoji',
+          attrs: {
+            shortName: ':grinning:',
+            id: '1f600',
+            text: '😀',
+          },
+        },
+        {
+          type: 'text',
+          text: ' emojis ',
+        },
+        {
+          type: 'emoji',
+          attrs: {
+            shortName: ':smiley:',
+            id: '1f603',
+            text: '😃',
+          },
+        },
+        {
+          type: 'text',
+          text: ' ',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'World ',
+        },
+        {
+          type: 'text',
+          text: 'inline code',
+          marks: [
+            {
+              type: 'code',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: 'c70d5afe-5df0-43ff-83e8-aa8cf49f0de4',
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'Inside a table',
+                      marks: [
+                        {
+                          type: 'strong',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Text on Doc',
+        },
+      ],
+    },
+    {
+      type: 'codeBlock',
+      attrs: {},
+      content: [
+        {
+          type: 'text',
+          text: 'text inside a code block',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'End.',
+        },
+      ],
+    },
+  ],
+};
 const updateAnnotationSubscriber = new AnnotationUpdateEmitter();
 const AnnotationCheckbox = (props: {
   id: string;
@@ -45,7 +300,7 @@ const AnnotationCheckbox = (props: {
         onChange={onChange}
         type="checkbox"
         id={id}
-        checked={state === AnnotationMarkStates.RESOLVED}
+        checked={state === AnnotationMarkStates.ACTIVE}
       />
 
       <span onClick={onClick}>{id}</span>
@@ -72,7 +327,7 @@ const mainStyle = css`
 `;
 
 const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
-  const { dispatch } = React.useContext(annotationsStore);
+  const { dispatch, state } = React.useContext(annotationsStore);
   const createNewAnnotationAndReplaceDocument = React.useCallback(
     (doc) => {
       setDocument(doc);
@@ -80,19 +335,28 @@ const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
     [setDocument],
   );
 
+  const getAnnotationState = React.useCallback(async () => state, [state]);
+
   const annotationInlineCommentProvider = React.useMemo(
     () => ({
-      getState: async (annotationIds: AnnotationId[]) => {
-        return annotationIds.map((id) => {
-          dispatch({ type: 'add', id });
+      getState: (annotationIds: AnnotationId[]) =>
+        getAnnotationState().then(() =>
+          annotationIds.map((id) => {
+            const annotationState = state[id];
+            if (annotationState === 'active') {
+              dispatch({ type: 'add', id });
+            }
 
-          return {
-            id,
-            annotationType: AnnotationTypes.INLINE_COMMENT,
-            state: AnnotationMarkStates.ACTIVE,
-          };
-        });
-      },
+            return {
+              id,
+              annotationType: AnnotationTypes.INLINE_COMMENT,
+              state:
+                annotationState === 'active'
+                  ? AnnotationMarkStates.ACTIVE
+                  : AnnotationMarkStates.RESOLVED,
+            };
+          }),
+        ),
       updateSubscriber: updateAnnotationSubscriber,
       allowDraftMode: true,
       selectionComponent: ExampleSelectionInlineComponent(
@@ -100,7 +364,12 @@ const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
       ),
       viewComponent: ExampleViewInlineCommentComponent,
     }),
-    [createNewAnnotationAndReplaceDocument, dispatch],
+    [
+      createNewAnnotationAndReplaceDocument,
+      getAnnotationState,
+      state,
+      dispatch,
+    ],
   );
 
   return annotationInlineCommentProvider;
@@ -112,16 +381,16 @@ const Annotations = () => {
     (evt: React.ChangeEvent<HTMLInputElement>) => {
       const { checked, id } = evt.target;
       const type = checked
-        ? AnnotationMarkStates.RESOLVED
-        : AnnotationMarkStates.ACTIVE;
+        ? AnnotationMarkStates.ACTIVE
+        : AnnotationMarkStates.RESOLVED;
 
       const [state, dispatchType]: [
         AnnotationMarkStates,
         'unresolved' | 'resolved',
       ] =
-        type === AnnotationMarkStates.RESOLVED
-          ? [AnnotationMarkStates.RESOLVED, 'resolved']
-          : [AnnotationMarkStates.ACTIVE, 'unresolved'];
+        type === AnnotationMarkStates.ACTIVE
+          ? [AnnotationMarkStates.ACTIVE, 'unresolved']
+          : [AnnotationMarkStates.RESOLVED, 'resolved'];
 
       updateAnnotationSubscriber.emit(
         AnnotationUpdateEvent.SET_ANNOTATION_STATE,
@@ -138,6 +407,21 @@ const Annotations = () => {
     [dispatch],
   );
 
+  React.useEffect(() => {
+    Object.entries(state).forEach(([key, val]) => {
+      updateAnnotationSubscriber.emit(
+        AnnotationUpdateEvent.SET_ANNOTATION_STATE,
+        {
+          [key]: {
+            id: key,
+            annotationType: AnnotationTypes.INLINE_COMMENT,
+            state: val,
+          },
+        },
+      );
+    });
+  }, [state]);
+
   return (
     <Fragment>
       {Object.entries(state).map(([key, val]) => (
@@ -153,6 +437,7 @@ const Annotations = () => {
 };
 
 const App = () => {
+  const localRef = React.useRef<HTMLDivElement>(null);
   const [doc, setDoc] = React.useState(exampleDocumentWithComments);
   const annotationInlineCommentProvider = useAnnotationsProvider(setDoc);
   const annotationProvider = React.useMemo(() => {
@@ -171,12 +456,19 @@ const App = () => {
         <Annotations />
       </section>
       <main css={mainStyle}>
-        <Renderer
-          appearance="full-page"
-          document={doc as DocNode}
-          annotationProvider={annotationProvider}
-          allowAnnotations
-        />
+        <RendererActionsContext>
+          <AnnotationsWrapper
+            rendererRef={localRef}
+            adfDocument={doc as DocNode}
+            annotationProvider={annotationProvider}
+          >
+            <Renderer
+              appearance="full-page"
+              document={doc as DocNode}
+              allowAnnotations
+            />
+          </AnnotationsWrapper>
+        </RendererActionsContext>
       </main>
     </section>
   );

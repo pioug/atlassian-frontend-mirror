@@ -1,0 +1,47 @@
+Unsafe style overrides cause friction and incidents when internals of the component you're overriding change. They're inherently unbounded and everything is API that can change at a moments notice.
+
+Instead, lean on composition, primitive components, and safe style overrides via the `xcss` prop where component authors declare what styles they want to support.
+
+## Examples
+
+### Incorrect
+
+```tsx
+import Button from '@atlaskit/button';
+
+<Button css={{ fontWeight: 500 }}>foo</Button>;
+        ^^^
+```
+
+```tsx
+import { LinkItem } from '@atlaskit/menu';
+
+<LinkItem cssFn={() => ({ '> div > div': { padding: 2 } })} />;
+          ^^^^^
+```
+
+```tsx
+import { ButtonItem } from '@atlaskit/side-navigation';
+
+<ButtonItem className="text-neutral-400" />;
+            ^^^^^^^^^
+```
+
+### Correct
+
+```tsx
+<Button>
+  <strong>foo</strong>
+</Button>
+```
+
+```tsx
+const styles = css({ padding: 'var(--ds-space-100)' });
+
+<Box as="a" xcss={styles}>
+  <Stack>
+    <Inline />
+    <Inline />
+  </Stack>
+</Box>;
+```

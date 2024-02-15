@@ -4,7 +4,7 @@ import { Component } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import DropdownMenu, {
   DropdownItem,
   DropdownItemGroup,
@@ -48,7 +48,7 @@ export default class DrawersExample extends Component<{}, State> {
             </p>
             {/* The position here is used by the withDropdown integration test. */}
             <div style={{ position: 'fixed', left: 100, top: 200 }}>
-              <DropdownMenu
+              <DropdownMenu<HTMLButtonElement>
                 testId="dropdown"
                 trigger={({ triggerRef, ...providedProps }) => (
                   <Button id="trigger" ref={triggerRef} {...providedProps}>

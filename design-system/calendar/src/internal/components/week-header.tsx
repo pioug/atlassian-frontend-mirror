@@ -19,6 +19,8 @@ const columnHeaderStyles = xcss({
   textAlign: 'center',
   lineHeight: '16px',
   color: 'color.text.subtle', // Apply correct fallback to shortDay text
+  display: 'flex',
+  justifyContent: 'center',
 });
 
 const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({
@@ -35,12 +37,7 @@ const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({
           role="columnheader"
           testId={testId && `${testId}--column-header`}
         >
-          <Text
-            fontWeight="bold"
-            fontSize="size.050"
-            verticalAlign="middle"
-            textTransform="uppercase"
-          >
+          <Text fontWeight="bold" fontSize="size.050" textTransform="uppercase">
             {shortDay}
           </Text>
         </Box>

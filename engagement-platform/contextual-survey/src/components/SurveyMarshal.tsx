@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { Transition } from 'react-transition-group';
 
 import { layers } from '@atlaskit/theme/constants';

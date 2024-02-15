@@ -8,17 +8,13 @@ describe('Feature flags', () => {
     const result = getProductSpecificFeatureFlags(
       {
         testFF: true,
-        socketMessageMetricsFF: true,
-        sendStepsQueueFF: true,
-        blockViewOnlyFF: true,
+        blockViewOnly: true,
       },
       'confluence',
     );
     expect(result).toEqual([
       'confluence.frontend.collab.provider.testFF',
-      'confluence.frontend.collab.provider.socketMessageMetricsFF',
-      'confluence.frontend.collab.provider.sendStepsQueueFF',
-      'confluence.frontend.collab.provider.blockViewOnlyFF',
+      'confluence.frontend.ncs.block-view-only',
     ]);
   });
 

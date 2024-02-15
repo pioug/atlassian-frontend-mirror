@@ -16,7 +16,6 @@ import { BreadcrumbsItemProps } from '../types';
 import Step from './internal/step';
 import useOverflowable from './internal/use-overflowable';
 
-const gridSizeUnit = gridSize();
 const height = (gridSize() * 3) / fontSize();
 
 const AKTooltip = lazyForPaint(
@@ -37,7 +36,7 @@ const itemWrapperStyles = css({
   flexDirection: 'row',
   lineHeight: `${height}em`,
   '&:not(:last-child)::after': {
-    width: gridSizeUnit,
+    width: '8px',
     padding: `${token('space.0', '0px')} ${token('space.100', '8px')}`,
     flexShrink: 0,
     content: '"/"',
@@ -46,16 +45,17 @@ const itemWrapperStyles = css({
 });
 
 const VAR_STEP_TRUNCATION_WIDTH = '--max-width';
+const ICON_WIDTH_ESTIMATE = 24;
 
 const staticItemWithTruncationStyles = css({
   maxWidth: `var(${VAR_STEP_TRUNCATION_WIDTH})`,
-  fontWeight: token('font.weight.regular', '400'),
+  fontWeight: 400,
 });
 
 const staticItemWithoutTruncationStyles = css({
   minWidth: 0,
   flexShrink: 1,
-  fontWeight: token('font.weight.regular', '400'),
+  fontWeight: 400,
 });
 
 const BreadcrumbsItem = memo((props: BreadcrumbsItemProps) => {
@@ -63,16 +63,32 @@ const BreadcrumbsItem = memo((props: BreadcrumbsItemProps) => {
 
   const { truncationWidth, text, onTooltipShown, ...restButtonProps } = props;
 
-  const showTooltip = useOverflowable(truncationWidth, buttonRef);
+  // If icons are provided we include their width in the truncation calculation to ensure we're as accurate as possible.
+  // Note: this assumes icons are 24px wide which should be almost always.
+  // Not really an issue if the icons are smaller, just that truncation occurs slightly earlier than you may want.
+  let iconWidthAllowance = 0;
+  if (props.iconBefore) {
+    iconWidthAllowance += ICON_WIDTH_ESTIMATE;
+  }
+  if (props.iconAfter) {
+    iconWidthAllowance += ICON_WIDTH_ESTIMATE;
+  }
+
+  const [hasOverflow, showTooltip] = useOverflowable(
+    truncationWidth,
+    buttonRef.current,
+    iconWidthAllowance,
+  );
   const buttonProps = {
     ...restButtonProps,
     ref: buttonRef,
-    hasOverflow: showTooltip,
+    hasOverflow: hasOverflow,
   };
 
   // Note: cast to `any` is required to type verification - see https://github.com/frenic/csstype#what-should-i-do-when-i-get-type-errors
   const dynamicItemStyles: CSSProperties = {
-    [VAR_STEP_TRUNCATION_WIDTH as any]: `${truncationWidth}px`,
+    [VAR_STEP_TRUNCATION_WIDTH as any]:
+      typeof truncationWidth !== 'undefined' && `${truncationWidth}px`,
   };
 
   const step = (

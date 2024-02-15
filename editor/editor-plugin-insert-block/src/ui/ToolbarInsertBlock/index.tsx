@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
@@ -30,12 +30,16 @@ import type { DropdownItem } from '@atlaskit/editor-plugin-block-type';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import type { EmojiId } from '@atlaskit/emoji/types';
+import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import type { OnInsert } from '../ElementBrowser/types';
 
 import { BlockInsertMenu } from './block-insert-menu';
+import type { BlockMenuItem } from './create-items';
 import { createItems } from './create-items';
 import { messages } from './messages';
+import TableSelectorPopup from './table-selector-popup-with-listeners';
 import type { Props, State } from './types';
 
 /**
@@ -45,6 +49,59 @@ const isDetachedElement = (el: HTMLElement) => !document.body.contains(el);
 const noop = () => {};
 
 const EmojiPickerWithListeners = withOuterListeners(AkEmojiPicker);
+const TABLE_SELECTOR_STRING = 'table selector';
+
+// TODO: Jenga team will create a component for a split button using this css
+const getHoverStyles = (selector: string) =>
+  `&:hover ${selector} {
+    background: ${token(
+      'color.background.neutral.subtle.hovered',
+      colors.N20A,
+    )};
+
+    &:hover {
+      background: ${token('color.background.neutral.hovered', colors.N30A)};
+    }
+  }`;
+
+export const tableButtonWrapper = ({
+  isTableSelectorOpen,
+  isButtonDisabled,
+}: {
+  isTableSelectorOpen: boolean;
+  isButtonDisabled: boolean | undefined;
+}) => css`
+  display: flex;
+  ${!isTableSelectorOpen &&
+  !isButtonDisabled &&
+  getHoverStyles('.table-selector-toolbar-btn')}
+  ${!isTableSelectorOpen &&
+  !isButtonDisabled &&
+  getHoverStyles('.table-toolbar-btn')}
+
+  .table-toolbar-btn {
+    border-top-right-radius: ${token('border.radius.200', '0px')};
+    border-bottom-right-radius: ${token('border.radius.200', '0px')};
+    margin-right: ${token('space.025', '1px')};
+    padding: ${token('space.0', '0px')};
+    & > span {
+      min-width: 16px;
+      margin: ${token('space.0', '0px')};
+    }
+  }
+  .table-selector-toolbar-btn {
+    padding: ${token('space.0', '0px')};
+    & > span {
+      margin: ${token('space.0', '0px')};
+      width: 16px !important;
+      display: flex;
+      justify-content: center;
+    }
+
+    border-top-left-radius: ${token('border.radius.200', '0px')} !important;
+    border-bottom-left-radius: ${token('border.radius.200', '0px')} !important;
+  }
+`;
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ToolbarInsertBlock extends React.PureComponent<
@@ -54,6 +111,8 @@ export class ToolbarInsertBlock extends React.PureComponent<
   private dropdownButtonRef?: HTMLElement;
   private emojiButtonRef?: HTMLElement;
   private plusButtonRef?: HTMLElement;
+  private tableButtonRef = React.createRef<HTMLElement>();
+  private tableSelectorButtonRef = React.createRef<HTMLElement>();
 
   state: State = {
     isPlusMenuOpen: false,
@@ -61,6 +120,8 @@ export class ToolbarInsertBlock extends React.PureComponent<
     isOpenedByKeyboard: false,
     buttons: [],
     dropdownItems: [],
+    isTableSelectorOpen: false,
+    isTableSelectorOpenedByKeyboard: false,
   };
 
   static getDerivedStateFromProps(
@@ -70,6 +131,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
     const [buttons, dropdownItems] = createItems({
       isTypeAheadAllowed: props.isTypeAheadAllowed,
       tableSupported: props.tableSupported,
+      tableSelectorSupported: props.tableSelectorSupported,
       mediaUploadsEnabled: props.mediaUploadsEnabled,
       mediaSupported: props.mediaSupported,
       imageUploadSupported: props.imageUploadSupported,
@@ -105,9 +167,9 @@ export class ToolbarInsertBlock extends React.PureComponent<
   }
 
   componentDidUpdate(prevProps: Props) {
-    // If number of visible buttons changed, close emoji picker
+    // If number of visible buttons changed, close emoji picker and table selector
     if (prevProps.buttons !== this.props.buttons) {
-      this.setState({ emojiPickerOpen: false });
+      this.setState({ emojiPickerOpen: false, isTableSelectorOpen: false });
     }
 
     if (this.state.isOpenedByKeyboard) {
@@ -117,6 +179,10 @@ export class ToolbarInsertBlock extends React.PureComponent<
       });
       this.dropdownButtonRef?.dispatchEvent(downArrowEvent);
       this.setState({ ...this.state, isOpenedByKeyboard: false });
+    }
+
+    if (this.state.isTableSelectorOpen) {
+      this.setState({ isTableSelectorOpenedByKeyboard: false });
     }
   }
 
@@ -265,39 +331,187 @@ export class ToolbarInsertBlock extends React.PureComponent<
     }
   };
 
+  private toggleTableSelector = (
+    inputMethod:
+      | TOOLBAR_MENU_TYPE
+      | INPUT_METHOD.KEYBOARD = INPUT_METHOD.TOOLBAR,
+  ) => {
+    this.setState(prevState => ({
+      isTableSelectorOpen: !prevState.isTableSelectorOpen,
+    }));
+  };
+
+  private renderTableSelectorPopup() {
+    const { isTableSelectorOpen, isTableSelectorOpenedByKeyboard } = this.state;
+
+    const {
+      popupsMountPoint,
+      popupsBoundariesElement,
+      popupsScrollableElement,
+      pluginInjectionApi,
+    } = this.props;
+
+    const ref = this.tableButtonRef.current ?? undefined;
+
+    if (!isTableSelectorOpen) {
+      return null;
+    }
+
+    // We use focusTrap in the Popup. When we insert a table via popup,
+    // the popup closes, focusTrap gets destroyed and the popup detaches.
+    // The focus gets set to the body element. onUnmount method sets focus on the editor right before the
+    // Popup will be unmounted to ensure that the new table has a selection with a blinking cursor.
+    // So we can start typing right away.
+    const onUnmount = () => pluginInjectionApi?.core?.actions?.focus();
+
+    return (
+      <TableSelectorPopup
+        target={ref}
+        onUnmount={onUnmount}
+        onSelection={this.handleSelectedTableSize}
+        popupsMountPoint={popupsMountPoint}
+        popupsBoundariesElement={popupsBoundariesElement}
+        popupsScrollableElement={popupsScrollableElement}
+        handleClickOutside={this.handleTableSelectorClickOutside}
+        handleEscapeKeydown={this.handleTableSelectorPressEscape}
+        isOpenedByKeyboard={isTableSelectorOpenedByKeyboard}
+      />
+    );
+  }
+
+  private handleSelectedTableSize = (rowsCount: number, colsCount: number) => {
+    this.insertTableWithSize(INPUT_METHOD.TOOLBAR, rowsCount, colsCount)();
+    this.toggleTableSelector();
+  };
+
+  private handleTableSelectorPressEscape = () => {
+    this.toggleTableSelector(INPUT_METHOD.KEYBOARD);
+    this.tableSelectorButtonRef.current?.focus();
+  };
+
+  private handleTableSelectorClickOutside = (e: MouseEvent) => {
+    // Ignore click events for detached elements.
+    if (e.target && !isDetachedElement(e.target as HTMLElement)) {
+      this.toggleTableSelector(INPUT_METHOD.TOOLBAR);
+    }
+  };
+
   render() {
-    const { buttons, dropdownItems, emojiPickerOpen } = this.state;
+    const { buttons, dropdownItems, emojiPickerOpen, isTableSelectorOpen } =
+      this.state;
     const { isDisabled, isReducedSpacing } = this.props;
 
     if (buttons.length === 0 && dropdownItems.length === 0) {
       return null;
     }
 
+    let toolbarButtons: BlockMenuItem[] = [];
+    let tableSelectorButton: BlockMenuItem | undefined;
+    let tableButton: BlockMenuItem | undefined;
+
+    // Seperate table buttons from toolbar buttons
+    for (let btn of buttons) {
+      if (btn.value.name === TABLE_SELECTOR_STRING) {
+        tableSelectorButton = btn;
+      } else if (
+        btn.value.name === 'table' &&
+        this.props.tableSelectorSupported
+      ) {
+        tableButton = btn;
+      } else {
+        toolbarButtons.push(btn);
+      }
+    }
+
     return (
       // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
       <span css={buttonGroupStyle}>
-        {buttons.map(btn => (
-          <ToolbarButton
-            item={btn}
-            testId={String(btn.content)}
-            ref={btn.value.name === 'emoji' ? this.handleEmojiButtonRef : noop}
-            key={btn.value.name}
-            spacing={isReducedSpacing ? 'none' : 'default'}
-            disabled={isDisabled || btn.isDisabled}
-            iconBefore={btn.elemBefore}
-            selected={
-              (btn.value.name === 'emoji' && emojiPickerOpen) || btn.isActive
-            }
-            title={btn.title}
-            aria-label={btn['aria-label']}
-            aria-haspopup={btn['aria-haspopup']}
-            aria-keyshortcuts={btn['aria-keyshortcuts']}
-            onItemClick={this.insertToolbarMenuItem}
-          />
-        ))}
+        {toolbarButtons.map(btn => {
+          return (
+            <ToolbarButton
+              item={btn}
+              testId={String(btn.content)}
+              ref={
+                btn.value.name === 'emoji' ? this.handleEmojiButtonRef : noop
+              }
+              key={btn.value.name}
+              spacing={isReducedSpacing ? 'none' : 'default'}
+              disabled={isDisabled || btn.isDisabled}
+              iconBefore={btn.elemBefore}
+              selected={
+                (btn.value.name === 'emoji' && emojiPickerOpen) || btn.isActive
+              }
+              title={btn.title}
+              aria-label={btn['aria-label']}
+              aria-haspopup={btn['aria-haspopup']}
+              aria-keyshortcuts={btn['aria-keyshortcuts']}
+              onItemClick={this.insertToolbarMenuItem}
+            />
+          );
+        })}
+        {this.props.tableSelectorSupported && (
+          <div
+            // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+            css={tableButtonWrapper({
+              isTableSelectorOpen,
+              isButtonDisabled: tableButton?.isDisabled,
+            })}
+          >
+            <ToolbarButton
+              className="table-toolbar-btn"
+              item={tableButton}
+              ref={this.tableButtonRef}
+              testId={String(tableButton?.content)}
+              key={tableButton?.value.name}
+              spacing={isReducedSpacing ? 'none' : 'default'}
+              disabled={isDisabled || tableButton?.isDisabled}
+              iconBefore={tableButton?.elemBefore}
+              selected={tableButton?.isActive || isTableSelectorOpen}
+              title={tableButton?.title}
+              aria-label={tableButton ? tableButton['aria-label'] : undefined}
+              aria-haspopup={
+                tableButton ? tableButton['aria-haspopup'] : undefined
+              }
+              aria-keyshortcuts={
+                tableButton ? tableButton['aria-keyshortcuts'] : undefined
+              }
+              onItemClick={this.insertToolbarMenuItem}
+            />
+            <ToolbarButton
+              className="table-selector-toolbar-btn"
+              item={tableSelectorButton}
+              testId={String(tableSelectorButton?.content)}
+              key={tableSelectorButton?.value.name}
+              ref={this.tableSelectorButtonRef}
+              spacing={isReducedSpacing ? 'none' : 'default'}
+              disabled={isDisabled || tableSelectorButton?.isDisabled}
+              iconBefore={tableSelectorButton?.elemBefore}
+              selected={tableSelectorButton?.isActive || isTableSelectorOpen}
+              title={tableSelectorButton?.title}
+              aria-label={
+                tableSelectorButton
+                  ? tableSelectorButton['aria-label']
+                  : undefined
+              }
+              aria-haspopup={
+                tableSelectorButton
+                  ? tableSelectorButton['aria-haspopup']
+                  : undefined
+              }
+              aria-keyshortcuts={
+                tableSelectorButton
+                  ? tableSelectorButton['aria-keyshortcuts']
+                  : undefined
+              }
+              onItemClick={this.insertToolbarMenuItem}
+              onKeyDown={this.handleTableSelectorOpenByKeyboard}
+            />
+          </div>
+        )}
         {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
         <span css={wrapperStyle}>
           {this.renderPopup()}
+          {this.renderTableSelectorPopup()}
           <BlockInsertMenu
             popupsMountPoint={this.props.popupsMountPoint}
             popupsBoundariesElement={this.props.popupsBoundariesElement}
@@ -342,11 +556,17 @@ export class ToolbarInsertBlock extends React.PureComponent<
     }
   };
 
+  private handleTableSelectorOpenByKeyboard = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      this.setState({ isTableSelectorOpenedByKeyboard: true });
+    }
+  };
+
   private toggleLinkPanel = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
     const { pluginInjectionApi } = this.props;
 
     return (
-      pluginInjectionApi?.core.actions.execute(
+      pluginInjectionApi?.core?.actions.execute(
         pluginInjectionApi?.hyperlink?.commands.showLinkToolbar(inputMethod),
       ) ?? false
     );
@@ -382,9 +602,23 @@ export class ToolbarInsertBlock extends React.PureComponent<
     );
   };
 
+  private insertTableWithSize =
+    (inputMethod: TOOLBAR_MENU_TYPE, rowsCount: number, colsCount: number) =>
+    () => {
+      const { pluginInjectionApi } = this.props;
+
+      return pluginInjectionApi?.core?.actions.execute(
+        pluginInjectionApi?.table?.commands.insertTableWithSize(
+          rowsCount,
+          colsCount,
+          INPUT_METHOD.PICKER,
+        ),
+      );
+    };
+
   private createDate = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
     const { pluginInjectionApi } = this.props;
-    pluginInjectionApi?.core.actions.execute(
+    pluginInjectionApi?.core?.actions.execute(
       pluginInjectionApi?.date?.commands?.insertDate({
         inputMethod,
       }),
@@ -490,7 +724,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
   private handleSelectedEmoji = (emojiId: EmojiId): boolean => {
     const { pluginInjectionApi } = this.props;
     this.props.editorView.focus();
-    pluginInjectionApi?.core.actions.execute(
+    pluginInjectionApi?.core?.actions.execute(
       pluginInjectionApi.emoji?.commands.insertEmoji(
         emojiId,
         INPUT_METHOD.PICKER,
@@ -503,7 +737,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
   private openElementBrowser = () => {
     const { pluginInjectionApi } = this.props;
 
-    pluginInjectionApi?.core.actions.execute(
+    pluginInjectionApi?.core?.actions.execute(
       pluginInjectionApi?.quickInsert?.commands.openElementBrowserModal,
     );
   };
@@ -529,6 +763,9 @@ export class ToolbarInsertBlock extends React.PureComponent<
         break;
       case 'table':
         this.insertTable(inputMethod);
+        break;
+      case 'table selector':
+        this.toggleTableSelector(inputMethod);
         break;
       case 'image upload':
         if (handleImageUpload) {

@@ -21,15 +21,15 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export interface SpotlightDialogProps extends WithAnalyticsEventsProps {
   /**
-   * Buttons to render in the footer
+   * Buttons to render in the footer.
    */
   actions?: Actions;
   /**
-   * An optional element rendered beside the footer actions
+   * An optional element rendered beside the footer actions.
    */
   actionsBeforeElement?: ReactNode;
   /**
-   * The elements rendered in the modal
+   * The elements rendered in the modal.
    */
   children?: ReactNode;
   /**
@@ -49,35 +49,35 @@ export interface SpotlightDialogProps extends WithAnalyticsEventsProps {
     | 'left middle'
     | 'left bottom';
   /**
-   * The width of the dialog in pixels. Min 160 - Max 600
+   * The width of the dialog in pixels. The minimum possible width is 160px and the maximum width is 600px.
    */
   dialogWidth: number;
   /**
-   * Optional element rendered below the body
+   * Optional element rendered below the body.
    */
   footer?: ComponentType<any>;
   /**
-   * Optional element rendered above the body
+   * Optional element rendered above the body.
    */
   header?: ComponentType<any>;
   /**
-   * Heading text rendered above the body
+   * Heading text rendered above the body.
    */
   heading?: string;
   /**
-   * An optional element rendered to the right of the heading
+   * An optional element rendered to the right of the heading.
    */
   headingAfterElement?: ReactNode;
   /**
-   * Path to the  image
+   * Path to the image.
    */
   image?: string;
   /**
-   * The spotlight target node
+   * The spotlight target node.
    */
   targetNode: HTMLElement;
   /**
-   * js object containing the animation styles to apply to component
+   * Contains the animation styles to apply to the component.
    */
   animationStyles: Object;
 
@@ -188,6 +188,9 @@ class SpotlightDialog extends Component<SpotlightDialogProps, State> {
                   }}
                   heading={heading}
                   headingAfterElement={headingAfterElement}
+                  // This should be heading level 1 since this is technically a modal, including a focus lock on the modal window.
+                  // But because it is not a _true_ modal, we are setting it to `2` until that is fixed.
+                  headingLevel={2}
                 >
                   {children}
                 </SpotlightCard>

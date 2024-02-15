@@ -25,7 +25,7 @@
     "**/mock.*",
     "**/codemods/**/*.ts",
     "**/codemods/**/*.tsx",
-    "./src/plugins/table/nodeviews/__mocks__/**/*"
+    "./src/nodeviews/__mocks__/**/*"
   ],
   "compilerOptions": {
     "baseUrl": "./",
@@ -67,6 +67,9 @@
       "path": "../../design-system/icon/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/menu/tsconfig.app.json"
+    },
+    {
       "path": "../../platform/feature-flags/tsconfig.app.json"
     },
     {
@@ -83,6 +86,9 @@
     },
     {
       "path": "../../design-system/theme/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/toggle/tsconfig.app.json"
     },
     {
       "path": "../../design-system/tokens/tsconfig.app.json"

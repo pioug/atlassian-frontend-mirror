@@ -19,7 +19,6 @@ import type { EmojiResource } from '@atlaskit/emoji/resource';
 import {
   getEnableLightDarkTheming,
   getAllowCaptions,
-  getRestartNumberedLists,
   getEnableTokenThemes,
 } from '../query-param-reader';
 import { rendererAnalyticsClient } from './renderer-analytics-client';
@@ -154,9 +153,6 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
       eventHandlers={eventHandlers}
       useSpecBasedValidator={true}
       allowCustomPanels={allowCustomPanels}
-      featureFlags={{
-        'restart-numbered-lists': getRestartNumberedLists(),
-      }}
     />
   );
 };

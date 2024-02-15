@@ -34,7 +34,6 @@ import type {
   Command,
   CommandDispatch,
   ExtractInjectionAPI,
-  FeatureFlags,
   FloatingToolbarHandler,
   FloatingToolbarItem,
   HyperlinkPluginOptions,
@@ -140,7 +139,7 @@ export function HyperlinkAddToolbarWithState({
   view,
   onCancel,
   invokeMethod,
-  featureFlags,
+  lpLinkPicker,
   onClose,
   onEscapeCallback,
   onClickAwayCallback,
@@ -159,7 +158,7 @@ export function HyperlinkAddToolbarWithState({
       view={view}
       onCancel={onCancel}
       invokeMethod={invokeMethod}
-      featureFlags={featureFlags}
+      lpLinkPicker={lpLinkPicker}
       onClose={onClose}
       onEscapeCallback={onEscapeCallback}
       onClickAwayCallback={onClickAwayCallback}
@@ -187,14 +186,13 @@ const getSettingsButtonGroup = (
 export const getToolbarConfig =
   (
     options: HyperlinkPluginOptions,
-    featureFlags: FeatureFlags,
     pluginInjectionApi: ExtractInjectionAPI<typeof hyperlinkPlugin> | undefined,
   ): FloatingToolbarHandler =>
   (state, intl, providerFactory) => {
     const { formatMessage } = intl;
     const linkState: HyperlinkState | undefined = stateKey.getState(state);
     const editorAnalyticsApi = pluginInjectionApi?.analytics?.actions;
-    const { lpLinkPicker } = featureFlags;
+    const lpLinkPicker = options.lpLinkPicker ?? true;
 
     if (linkState && linkState.activeLinkMark) {
       const { activeLinkMark } = linkState;
@@ -348,7 +346,7 @@ export const getToolbarConfig =
                       view={view}
                       key={idx}
                       linkPickerOptions={options?.linkPicker}
-                      featureFlags={featureFlags}
+                      lpLinkPicker={lpLinkPicker}
                       displayUrl={link}
                       displayText={displayText || ''}
                       providerFactory={providerFactory}
@@ -366,6 +364,9 @@ export const getToolbarConfig =
                         const action = isEdit
                           ? ACTION.UPDATED
                           : ACTION.INSERTED;
+
+                        const skipAnalytics =
+                          toolbarKey.getState(state)?.skipAnalytics ?? false;
 
                         const command = isEdit
                           ? commandWithMetadata(
@@ -388,7 +389,7 @@ export const getToolbarConfig =
                               editorAnalyticsApi,
                               title,
                               displayText,
-                              !!options?.cardOptions?.provider,
+                              skipAnalytics,
                               analytic,
                             );
 

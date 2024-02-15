@@ -1,19 +1,22 @@
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import type { ReactWrapper } from 'enzyme';
+
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { sleep } from '@atlaskit/editor-test-helpers/sleep';
-import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
+import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import Comment from '../../Comment';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { sleep } from '@atlaskit/editor-test-helpers/sleep';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { ReactWrapper } from 'enzyme';
-import EditorContext from '../../../EditorContext';
+
+import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import EditorActions from '../../../../actions';
-import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
+import EditorContext from '../../../EditorContext';
+import Comment from '../../Comment';
 
 describe('comment editor', () => {
   afterEach(() => {
@@ -117,13 +120,13 @@ describe('comment editor', () => {
       );
       const mediaPluginState = editorAPI?.media?.sharedState.currentState();
 
-      mediaPluginState.updateAndDispatch({
+      mediaPluginState?.updateAndDispatch({
         allUploadsFinished: false,
       });
 
       await sleep(0);
 
-      mediaPluginState.updateAndDispatch({
+      mediaPluginState?.updateAndDispatch({
         allUploadsFinished: true,
       });
       await sleep(0);
@@ -143,10 +146,10 @@ describe('comment editor', () => {
       });
 
       const mediaPluginState = editorAPI?.media?.sharedState.currentState();
-      expect(mediaPluginState.mediaOptions).toBeDefined();
+      expect(mediaPluginState?.mediaOptions).toBeDefined();
 
       const { allowAdvancedToolBarOptions, alignLeftOnInsert } =
-        mediaPluginState.mediaOptions as MediaOptions;
+        mediaPluginState?.mediaOptions as MediaOptions;
       expect(alignLeftOnInsert).toBe(true);
       expect(allowAdvancedToolBarOptions).toBe(true);
     });

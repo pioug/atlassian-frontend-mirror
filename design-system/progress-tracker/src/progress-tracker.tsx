@@ -32,35 +32,35 @@ const containerStyles = css({
   gap: `var(${varSpacing})`,
   listStyleType: 'none',
   '&&': {
-    marginTop: token('space.500', '40px'),
+    marginBlockStart: token('space.500', '40px'),
   },
 });
 
 export interface ProgressTrackerProps {
   /**
-   * Ordered list of stage data
+   * Ordered list of stage data.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   items: Stages;
   /**
-   * Margin spacing type between steps
+   * Sets the amount of spacing between the steps.
    */
   spacing: Spacing;
   /**
-   * Render prop to specify custom implementations of components
+   * Render prop to specify custom implementations of components.
    */
   render: ProgressTrackerStageRenderProp;
   /**
-   * Turns off transition animations if set to false
+   * Turns off transition animations if set to false.
    */
   // eslint-disable-next-line
   animated: boolean;
   /**
-   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    */
   testId?: string;
   /**
-   * Text to be used as an aria-label of progress tracker
+   * Text to be used as both the visual label and aria-label of a step in the progress tracker.
    */
   label?: string;
 }
@@ -133,7 +133,7 @@ export default class ProgressTracker extends PureComponent<
           this.state.prevStages[index].percentageComplete
         ) {
           /**
-           * load each transition sequentially in reverse
+           * Load each transition sequentially in reverse.
            */
           transitionDelay = (stepsBack - 1) * transitionSpeed;
           stepsBack -= 1;
@@ -142,7 +142,7 @@ export default class ProgressTracker extends PureComponent<
           this.state.prevStages[index].percentageComplete
         ) {
           /**
-           * load each transition sequentially
+           * Load each transition sequentially.
            */
           transitionDelay =
             (totalStepsForward - stepsForward) * transitionSpeed;

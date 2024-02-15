@@ -1,7 +1,11 @@
-import { ExtensionLayout } from '@atlaskit/adf-schema';
-import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { ExtensionLayout } from '@atlaskit/adf-schema';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 
-export type ExtensionType = 'extension' | 'bodiedExtension' | 'inlineExtension';
+export type ExtensionType =
+  | 'extension'
+  | 'bodiedExtension'
+  | 'inlineExtension'
+  | 'multiBodiedExtension';
 
 export interface MacroAttributes {
   type: ExtensionType;
@@ -15,7 +19,7 @@ export interface MacroAttributes {
     layout?: ExtensionLayout;
     text?: string; // fallback text
   };
-  content?: any; // only bodiedExtension has content
+  content?: any; // only bodiedExtension and multiBodiedExtension has content
 }
 
 export interface MacroProvider {
@@ -25,5 +29,5 @@ export interface MacroProvider {
    */
   openMacroBrowser(macroNode?: PmNode): Promise<MacroAttributes>;
 
-  autoConvert(link: String): MacroAttributes | null;
+  autoConvert(link: string): MacroAttributes | null;
 }

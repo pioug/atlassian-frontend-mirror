@@ -29,11 +29,9 @@ ${createMediaUseOnlyNotice('Chunkinator', [
       blob,
       {
         hashingConcurrency: 5,
-        probingBatchSize: 10,
         chunkSize: 10000,
         uploadingConcurrency: 3,
         uploadingFunction,
-        probingFunction,
         processingBatchSize,
         processingFunction: createProcessingFunction(deferredUploadId),
       },

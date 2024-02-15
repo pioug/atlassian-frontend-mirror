@@ -145,7 +145,7 @@ const CardInner = ({
     gridType: GridType,
     highlight: number[] | string[],
   ) =>
-    pluginInjectionApi?.grid.actions?.displayGrid(view)({
+    pluginInjectionApi?.grid?.actions?.displayGrid(view)({
       visible,
       gridType,
       highlight: highlight as Highlights,
@@ -385,6 +385,8 @@ export class EmbedCardComponent extends React.PureComponent<
       dispatchAnalyticsEvent,
       getPos,
       pluginInjectionApi,
+      actionOptions,
+      showServerActions,
     } = this.props;
 
     let {
@@ -394,6 +396,7 @@ export class EmbedCardComponent extends React.PureComponent<
       originalHeight,
       originalWidth,
     } = node.attrs;
+
     const { hasPreview, liveHeight, initialAspectRatio } = this.state;
 
     // We don't want to use `originalHeight` when `originalWidth` also present,
@@ -423,12 +426,13 @@ export class EmbedCardComponent extends React.PureComponent<
         onClick={this.onClick}
         onResolve={this.onResolve}
         onError={this.onError}
-        showActions={platform === 'web'}
-        isFrameVisible
+        frameStyle="show"
         inheritDimensions={true}
         platform={platform}
         container={this.scrollContainer}
         embedIframeRef={this.embedIframeRef}
+        actionOptions={actionOptions}
+        showServerActions={showServerActions}
       />
     );
 
@@ -479,6 +483,8 @@ export type EmbedCardNodeViewProps = Pick<
   | 'fullWidthMode'
   | 'dispatchAnalyticsEvent'
   | 'pluginInjectionApi'
+  | 'actionOptions'
+  | 'showServerActions'
 >;
 
 export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {

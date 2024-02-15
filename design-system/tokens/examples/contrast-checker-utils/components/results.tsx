@@ -4,7 +4,7 @@ import { Fragment, useMemo, useState } from 'react';
 import { jsx } from '@emotion/react';
 import { VariableSizeList as List } from 'react-window';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import Heading from '@atlaskit/heading';
 import SearchIcon from '@atlaskit/icon/glyph/search';

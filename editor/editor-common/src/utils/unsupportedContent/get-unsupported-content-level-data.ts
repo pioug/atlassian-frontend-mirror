@@ -41,15 +41,17 @@ const buildUnsupportedContentLevelThresholds = (
 const countSupportedUnsupportedNodes = (validDocument: ADFEntity) => {
   let unsupportedNodes = 0;
   let supportedNodes = 0;
+  const unsupportedNodeTypeCount: Record<string, number> = {};
+
+  const unsupportedNodeTypes = [
+    'unsupportedInline',
+    'unsupportedBlock',
+    'confluenceUnsupportedInline',
+    'confluenceUnsupportedBlock',
+  ];
 
   traverse(validDocument, {
     any: (node) => {
-      const unsupportedNodeTypes = [
-        'unsupportedInline',
-        'unsupportedBlock',
-        'confluenceUnsupportedInline',
-        'confluenceUnsupportedBlock',
-      ];
       if (unsupportedNodeTypes.includes(node.type)) {
         const originalNode = node.attrs?.originalValue;
         if (originalNode) {
@@ -57,8 +59,16 @@ const countSupportedUnsupportedNodes = (validDocument: ADFEntity) => {
           // unsupported content nodes (with nested children contributing towards
           // that count)
           traverse(originalNode, {
-            any: () => {
+            any: (unsupportedNode, parent) => {
               unsupportedNodes++;
+
+              // Count the types of unsupported nodes
+              const parentType = parent.parent?.node?.type ?? 'unknown';
+              const type = `${parentType}/${
+                unsupportedNode?.type ?? 'unknown'
+              }`;
+              unsupportedNodeTypeCount[type] =
+                (unsupportedNodeTypeCount?.[type] ?? 0) + 1;
             },
           });
         }
@@ -73,6 +83,7 @@ const countSupportedUnsupportedNodes = (validDocument: ADFEntity) => {
   return {
     unsupportedNodes,
     supportedNodes,
+    unsupportedNodeTypeCount,
   };
 };
 
@@ -123,7 +134,7 @@ export const getUnsupportedContentLevelData = (
   validDocument: ADFEntity,
   customThresholds: UnsupportedContentLevelsTracking['thresholds'],
 ) => {
-  const { unsupportedNodes, supportedNodes } =
+  const { unsupportedNodes, supportedNodes, unsupportedNodeTypeCount } =
     countSupportedUnsupportedNodes(validDocument);
   const thresholds = buildUnsupportedContentLevelThresholds(customThresholds);
   const percentage = Math.round(
@@ -136,6 +147,7 @@ export const getUnsupportedContentLevelData = (
     counts: {
       supportedNodes,
       unsupportedNodes,
+      unsupportedNodeTypeCount,
     },
   };
 };

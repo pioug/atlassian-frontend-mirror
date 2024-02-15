@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { JQLEditor, JQLEditorProps } from '@atlassianlabs/jql-editor';
 import {
   act,
   fireEvent,
@@ -13,7 +12,11 @@ import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { fieldValuesResponseForStatusesMapped } from '@atlaskit/link-test-helpers/datasource';
+import { JQLEditor, JQLEditorProps } from '@atlaskit/jql-editor';
+import {
+  fieldValuesResponseForStatusesMapped,
+  mockSite,
+} from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
@@ -24,8 +27,13 @@ import {
   useHydrateJqlQuery,
 } from '../../basic-filters/hooks/useHydrateJqlQuery';
 import { BasicFilterFieldType, SelectOption } from '../../basic-filters/types';
+import { availableBasicFilterTypes } from '../../basic-filters/ui';
 import { JiraIssueDatasourceParameters } from '../../types';
-import { JiraSearchContainer, SearchContainerProps } from '../index';
+import {
+  DEFAULT_JQL_QUERY,
+  JiraSearchContainer,
+  SearchContainerProps,
+} from '../index';
 
 jest.mock('../../basic-filters/hooks/useHydrateJqlQuery');
 
@@ -37,7 +45,7 @@ jest.mock('@atlaskit/jql-editor-autocomplete-rest', () => ({
     .mockReturnValue('useAutocompleteProvider-call-result'),
 }));
 
-jest.mock('@atlassianlabs/jql-editor', () => ({
+jest.mock('@atlaskit/jql-editor', () => ({
   JQLEditor: jest
     .fn()
     .mockReturnValue(<div data-testid={'mocked-jql-editor'}></div>),
@@ -57,13 +65,38 @@ const onAnalyticFireEvent = jest.fn();
 
 const initialParameters: JiraIssueDatasourceParameters = {
   cloudId: '12345',
-  jql: '',
+  jql: DEFAULT_JQL_QUERY,
+};
+
+const rerenderHelper = (
+  rerender: any,
+  propsOverride: Partial<
+    SearchContainerProps & {
+      hydratedOptions: HydrateJqlState['hydratedOptions'];
+    }
+  > = {},
+) => {
+  return rerender(
+    <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+      <IntlProvider locale="en">
+        <JiraSearchContainer
+          onSearch={jest.fn()}
+          onSearchMethodChange={jest.fn()}
+          initialSearchMethod={'jql'}
+          parameters={{ ...initialParameters }}
+          setSearchBarJql={jest.fn()}
+          {...propsOverride}
+        />
+      </IntlProvider>
+    </AnalyticsListener>,
+  );
 };
 
 const setup = (
   propsOverride: Partial<
     SearchContainerProps & {
       hydratedOptions: HydrateJqlState['hydratedOptions'];
+      hydrationStatus: HydrateJqlState['status'];
     }
   > = {},
 ) => {
@@ -71,11 +104,13 @@ const setup = (
   asMock(useHydrateJqlQuery).mockReturnValue({
     fetchHydratedJqlOptions: mockFetchHydratedJqlOptions,
     hydratedOptions: propsOverride.hydratedOptions || {},
-    status: 'resolved',
+    status: propsOverride.hydrationStatus || 'resolved',
   });
 
   const mockOnSearch = jest.fn();
   const mockOnSearchMethodChange = jest.fn();
+  const mockSetSearchBarJql = jest.fn();
+
   const component = render(
     <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
       <IntlProvider locale="en">
@@ -84,6 +119,8 @@ const setup = (
           onSearchMethodChange={mockOnSearchMethodChange}
           initialSearchMethod={'jql'}
           parameters={{ ...initialParameters }}
+          setSearchBarJql={mockSetSearchBarJql}
+          site={mockSite}
           {...propsOverride}
         />
       </IntlProvider>
@@ -99,6 +136,7 @@ const setup = (
     ...component,
     mockOnSearch,
     mockOnSearchMethodChange,
+    mockSetSearchBarJql,
     getLatestJQLEditorProps,
     mockFetchHydratedJqlOptions,
   };
@@ -165,6 +203,7 @@ describe('JiraSearchContainer', () => {
         cloudId: 'some-cloud-id',
         jql: 'some-jql',
       },
+      searchBarJql: 'some-jql',
     });
 
     expect(queryByPlaceholderText('Search')).not.toBeInTheDocument();
@@ -203,6 +242,7 @@ describe('JiraSearchContainer', () => {
         ...initialParameters,
         jql: 'status = "0. On Hold"',
       },
+      searchBarJql: 'status = "0. On Hold"',
     });
 
     expect(getByTestId('mode-toggle-jql').querySelector('input')).toBeChecked();
@@ -214,11 +254,18 @@ describe('JiraSearchContainer', () => {
   });
 
   it('displays an initial jql query and does not switch back to jql search mode if user searches using basic text', async () => {
-    const { getByTestId, getByPlaceholderText, mockOnSearch } = setup({
+    const {
+      getByTestId,
+      getByPlaceholderText,
+      mockOnSearch,
+      mockSetSearchBarJql,
+      rerender,
+    } = setup({
       parameters: {
         ...initialParameters,
         jql: 'status = "0. On Hold"',
       },
+      searchBarJql: 'status = "0. On Hold"',
     });
     // switch to jql search
     act(() => {
@@ -234,6 +281,19 @@ describe('JiraSearchContainer', () => {
     fireEvent.change(basicTextInput, {
       target: { value: 'testing' },
     });
+
+    expect(mockSetSearchBarJql).toHaveBeenCalledWith(
+      'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
+    );
+
+    // re-render the component with new search bar jql since the state is stored and updated in the parent
+    rerenderHelper(rerender, {
+      onSearch: mockOnSearch,
+      initialSearchMethod: 'basic',
+      searchBarJql:
+        'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
+    });
+
     fireEvent.click(
       getByTestId('jira-jql-datasource-modal--basic-search-button'),
     );
@@ -259,6 +319,8 @@ describe('JiraSearchContainer', () => {
         jql: '(text ~ "test*" OR summary ~ "test*") order by fakeKey ASC',
       },
       initialSearchMethod: 'basic',
+      searchBarJql:
+        '(text ~ "test*" OR summary ~ "test*") order by fakeKey ASC',
     });
 
     expect(
@@ -266,8 +328,14 @@ describe('JiraSearchContainer', () => {
     ).toBeChecked();
   });
 
-  it('should call onSearch with JQL user input', () => {
-    const { getByTestId, mockOnSearch, getLatestJQLEditorProps } = setup();
+  it('should call onSearch with JQL user input', async () => {
+    const {
+      getByTestId,
+      mockOnSearch,
+      getLatestJQLEditorProps,
+      mockSetSearchBarJql,
+      rerender,
+    } = setup();
 
     // switch to jql search
     act(() => {
@@ -280,6 +348,14 @@ describe('JiraSearchContainer', () => {
         errors: [],
         query: undefined,
       });
+    });
+
+    expect(mockSetSearchBarJql).toHaveBeenCalledWith('some-query');
+
+    // re-render the component with new search bar jql since the state is stored and updated in the parent
+    rerenderHelper(rerender, {
+      onSearch: mockOnSearch,
+      searchBarJql: 'some-query',
     });
 
     getLatestJQLEditorProps().onSearch!('some-other-query', {
@@ -304,7 +380,13 @@ describe('JiraSearchContainer', () => {
     ffTest(
       'platform.linking-platform.datasource.show-jlol-basic-filters',
       () => {
-        const { getByTestId, mockOnSearch, getLatestJQLEditorProps } = setup();
+        const {
+          getByTestId,
+          mockOnSearch,
+          getLatestJQLEditorProps,
+          mockSetSearchBarJql,
+          rerender,
+        } = setup();
 
         // switch to jql search
         act(() => {
@@ -317,6 +399,14 @@ describe('JiraSearchContainer', () => {
             errors: [],
             query: undefined,
           });
+        });
+
+        expect(mockSetSearchBarJql).toHaveBeenCalledWith('resoulution=none');
+
+        // re-render the component with new search bar jql since the state is stored and updated in the parent
+        rerenderHelper(rerender, {
+          onSearch: mockOnSearch,
+          searchBarJql: 'resoulution=none',
         });
 
         getLatestJQLEditorProps().onSearch!('resoulution=none', {
@@ -341,8 +431,13 @@ describe('JiraSearchContainer', () => {
   });
 
   it('should open in jql search method on a rerender if the component is in the count view mode', () => {
-    const { rerender, getByTestId, mockOnSearch, getLatestJQLEditorProps } =
-      setup();
+    const {
+      rerender,
+      getByTestId,
+      mockOnSearch,
+      getLatestJQLEditorProps,
+      mockSetSearchBarJql,
+    } = setup();
     // switch to jql search
     act(() => {
       fireEvent.click(getByTestId('mode-toggle-jql'));
@@ -354,6 +449,15 @@ describe('JiraSearchContainer', () => {
         query: undefined,
       });
     });
+
+    expect(mockSetSearchBarJql).toHaveBeenCalledWith('some-query');
+
+    // re-render the component with new search bar jql since the state is stored and updated in the parent
+    rerenderHelper(rerender, {
+      onSearch: mockOnSearch,
+      searchBarJql: 'some-query',
+    });
+
     getLatestJQLEditorProps().onSearch!('some-other-query', {
       represents: '',
       errors: [],
@@ -377,6 +481,8 @@ describe('JiraSearchContainer', () => {
             onSearch={mockOnSearch}
             onSearchMethodChange={jest.fn()}
             initialSearchMethod={'jql'}
+            setSearchBarJql={jest.fn()}
+            searchBarJql={'some-query'}
             parameters={{ ...initialParameters }}
           />
         </IntlProvider>
@@ -387,13 +493,31 @@ describe('JiraSearchContainer', () => {
   });
 
   it('calls onSearch with Basic search', () => {
-    const { getByTestId, getByPlaceholderText, mockOnSearch } = setup();
+    const {
+      getByTestId,
+      getByPlaceholderText,
+      mockOnSearch,
+      mockSetSearchBarJql,
+      rerender,
+    } = setup();
 
     fireEvent.click(getByTestId('mode-toggle-basic'));
 
     fireEvent.change(getByPlaceholderText('Search for issues by keyword'), {
       target: { value: 'testing' },
     });
+
+    expect(mockSetSearchBarJql).toHaveBeenCalledWith(
+      'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
+    );
+
+    // re-render the component with new search bar jql since the state is stored and updated in the parent
+    rerenderHelper(rerender, {
+      onSearch: mockOnSearch,
+      searchBarJql:
+        'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
+    });
+
     fireEvent.click(
       getByTestId('jira-jql-datasource-modal--basic-search-button'),
     );
@@ -427,8 +551,13 @@ describe('JiraSearchContainer', () => {
   });
 
   it('persists jql order keys on basic text input changes', async () => {
-    const { getByTestId, getLatestJQLEditorProps, getByPlaceholderText } =
-      setup();
+    const {
+      getByTestId,
+      getLatestJQLEditorProps,
+      getByPlaceholderText,
+      mockSetSearchBarJql,
+      rerender,
+    } = setup();
 
     fireEvent.click(getByTestId('mode-toggle-jql'));
 
@@ -443,6 +572,10 @@ describe('JiraSearchContainer', () => {
       );
     });
 
+    expect(mockSetSearchBarJql).toHaveBeenCalledWith(
+      'text ~ "test*" or summary ~ "test*" ORDER BY status ASC',
+    );
+
     fireEvent.click(getByTestId('mode-toggle-basic'));
 
     const basicTextInput = getByPlaceholderText('Search for issues by keyword');
@@ -452,14 +585,25 @@ describe('JiraSearchContainer', () => {
 
     fireEvent.click(getByTestId('mode-toggle-jql'));
 
+    // re-render the component with new search bar jql since the state is stored and updated in the parent
+    rerenderHelper(rerender, {
+      searchBarJql:
+        'text ~ "testing*" or summary ~ "testing*" ORDER BY status ASC',
+    });
+
     expect(getLatestJQLEditorProps().query).toEqual(
       'text ~ "testing*" or summary ~ "testing*" ORDER BY status ASC',
     );
   });
 
   it('uses default order keys if given invalid keys', async () => {
-    const { getByTestId, getLatestJQLEditorProps, getByPlaceholderText } =
-      setup();
+    const {
+      getByTestId,
+      getLatestJQLEditorProps,
+      getByPlaceholderText,
+      rerender,
+      mockSetSearchBarJql,
+    } = setup();
 
     fireEvent.click(getByTestId('mode-toggle-jql'));
 
@@ -480,6 +624,17 @@ describe('JiraSearchContainer', () => {
       target: { value: 'testing' },
     });
 
+    expect(mockSetSearchBarJql).toHaveBeenCalledWith(
+      'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
+    );
+
+    // re-render the component with new search bar jql since the state is stored and updated in the parent
+    rerenderHelper(rerender, {
+      initialSearchMethod: 'basic',
+      searchBarJql:
+        'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
+    });
+
     fireEvent.click(getByTestId('mode-toggle-jql'));
 
     expect(getLatestJQLEditorProps().query).toEqual(
@@ -488,14 +643,17 @@ describe('JiraSearchContainer', () => {
   });
 
   it('has default JQL query when basic search input is empty', async () => {
-    const { getLatestJQLEditorProps, getByPlaceholderText, getByTestId } =
-      setup();
+    const {
+      getLatestJQLEditorProps,
+      getByPlaceholderText,
+      getByTestId,
+      rerender,
+      mockSetSearchBarJql,
+    } = setup();
 
     // has default query before any user input
     fireEvent.click(getByTestId('mode-toggle-jql'));
-    expect(getLatestJQLEditorProps().query).toEqual(
-      'created >= -30d order by created DESC',
-    );
+    expect(getLatestJQLEditorProps().query).toEqual('ORDER BY created DESC');
 
     // persists default query if user enters empty string to basic search
     fireEvent.click(getByTestId('mode-toggle-basic'));
@@ -504,11 +662,17 @@ describe('JiraSearchContainer', () => {
       target: { value: '  ' },
     });
 
+    // should be called with the default query if empty
+    expect(mockSetSearchBarJql).toBeCalledWith('ORDER BY created DESC');
+
+    // re-render the component with new search bar jql since the state is stored and updated in the parent
+    rerenderHelper(rerender, {
+      searchBarJql: 'ORDER BY created DESC',
+    });
+
     fireEvent.click(getByTestId('mode-toggle-jql'));
 
-    expect(getLatestJQLEditorProps().query).toEqual(
-      'created >= -30d ORDER BY created DESC',
-    );
+    expect(getLatestJQLEditorProps().query).toEqual('ORDER BY created DESC');
   });
 
   describe('BasicFilterContainer: should show basic filter container based on FF value', () => {
@@ -546,7 +710,7 @@ describe('JiraSearchContainer', () => {
           queryByTestId('jlol-basic-filter-assignee-trigger'),
         ).toBeInTheDocument();
         expect(
-          queryByTestId('jlol-basic-filter-issuetype-trigger'),
+          queryByTestId('jlol-basic-filter-type-trigger'),
         ).toBeInTheDocument();
       },
       () => commonBasicFilterFeatureFlagFalsyTest(),
@@ -557,7 +721,12 @@ describe('JiraSearchContainer', () => {
     ffTest(
       'platform.linking-platform.datasource.show-jlol-basic-filters',
       () => {
-        const { getLatestJQLEditorProps, getByTestId } = setup();
+        const {
+          getLatestJQLEditorProps,
+          getByTestId,
+          rerender,
+          mockSetSearchBarJql,
+        } = setup();
 
         getLatestJQLEditorProps().onUpdate!(
           'text ~ "wrong" or summary ~ "value" ORDER BY status ASC',
@@ -567,6 +736,16 @@ describe('JiraSearchContainer', () => {
             query: undefined,
           },
         );
+
+        expect(mockSetSearchBarJql).toHaveBeenCalledWith(
+          'text ~ "wrong" or summary ~ "value" ORDER BY status ASC',
+        );
+
+        // re-render the component with new search bar jql since the state is stored and updated in the parent
+        rerenderHelper(rerender, {
+          searchBarJql:
+            'text ~ "wrong" or summary ~ "value" ORDER BY status ASC',
+        });
 
         // triggers search
         getLatestJQLEditorProps().onSearch!('', {
@@ -614,6 +793,8 @@ describe('JiraSearchContainer', () => {
             ...initialParameters,
             jql: 'text ~ "wrong" or summary ~ "value" ORDER BY status ASC',
           },
+          searchBarJql:
+            'text ~ "wrong" or summary ~ "value" ORDER BY status ASC',
         });
 
         expect(
@@ -626,6 +807,8 @@ describe('JiraSearchContainer', () => {
             ...initialParameters,
             jql: 'text ~ "wrong" or summary ~ "value" ORDER BY status ASC',
           },
+          searchBarJql:
+            'text ~ "wrong" or summary ~ "value" ORDER BY status ASC',
         });
 
         expect(
@@ -809,6 +992,8 @@ describe('JiraSearchContainer', () => {
                 onSearch={mockOnSearch}
                 onSearchMethodChange={jest.fn()}
                 initialSearchMethod={'jql'}
+                setSearchBarJql={jest.fn()}
+                searchBarJql={'another-jql'}
                 parameters={{ ...initialParameters, jql: 'another-jql' }}
               />
             </IntlProvider>
@@ -824,6 +1009,46 @@ describe('JiraSearchContainer', () => {
   });
 
   describe('BasicFilterContainer: should reset search term when the cloudId changes', () => {
+    it('should reset jql when the cloudId changes', () => {
+      const previousJql =
+        '(text ~ "testing*" or summary ~ "testing*") and status in (Authorize) ORDER BY created DESC';
+
+      const renderResult = setup({
+        searchBarJql: previousJql,
+        parameters: { cloudId: 'some-cloud-id', jql: previousJql },
+      });
+
+      const { mockOnSearch, getByTestId, rerender, getLatestJQLEditorProps } =
+        renderResult;
+
+      expect(getLatestJQLEditorProps().query).toEqual(previousJql);
+
+      rerender(
+        <AnalyticsListener
+          channel={EVENT_CHANNEL}
+          onEvent={onAnalyticFireEvent}
+        >
+          <IntlProvider locale="en">
+            <JiraSearchContainer
+              onSearch={mockOnSearch}
+              onSearchMethodChange={jest.fn()}
+              initialSearchMethod={'jql'}
+              setSearchBarJql={jest.fn()}
+              parameters={{
+                ...initialParameters,
+                cloudId: 'another-cloudId',
+              }}
+            />
+          </IntlProvider>
+        </AnalyticsListener>,
+      );
+
+      fireEvent.click(getByTestId('mode-toggle-jql'));
+
+      expect(getLatestJQLEditorProps().query).not.toEqual(previousJql);
+      expect(getLatestJQLEditorProps().query).toEqual(DEFAULT_JQL_QUERY);
+    });
+
     ffTest(
       'platform.linking-platform.datasource.show-jlol-basic-filters',
       async () => {
@@ -862,6 +1087,8 @@ describe('JiraSearchContainer', () => {
                 onSearch={mockOnSearch}
                 onSearchMethodChange={jest.fn()}
                 initialSearchMethod={'jql'}
+                setSearchBarJql={jest.fn()}
+                searchBarJql={'another-jql'}
                 parameters={{ ...initialParameters, jql: 'another-jql' }}
               />
             </IntlProvider>
@@ -968,10 +1195,76 @@ describe('JiraSearchContainer', () => {
             cloudId: 'test-cloud-id',
             jql: 'status=DONE',
           },
+          searchBarJql: 'status=DONE',
         });
         const { mockFetchHydratedJqlOptions } = renderResult;
 
         expect(mockFetchHydratedJqlOptions).toHaveBeenCalledTimes(1);
+      },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
+    );
+  });
+
+  describe('BasicFilterContainer: should show the loading state for trigger button when hydrating only if the corresponding field has value', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      async () => {
+        const renderResult = setup({
+          parameters: {
+            cloudId: 'test-cloud-id',
+            jql: 'status=DONE and project=Test',
+          },
+          hydrationStatus: 'loading',
+          searchBarJql: 'status=DONE and project=Test',
+        });
+
+        const { getByTestId } = renderResult;
+
+        setupBasicFilter(renderResult);
+
+        expect(
+          getByTestId('jlol-basic-filter-status-trigger--loading-button'),
+        ).toBeInTheDocument();
+        expect(
+          getByTestId('jlol-basic-filter-project-trigger--loading-button'),
+        ).toBeInTheDocument();
+
+        expect(
+          getByTestId('jlol-basic-filter-assignee-trigger--button'),
+        ).toBeInTheDocument();
+        expect(
+          getByTestId('jlol-basic-filter-type-trigger--button'),
+        ).toBeInTheDocument();
+      },
+      () => commonBasicFilterFeatureFlagFalsyTest(),
+    );
+  });
+
+  describe('BasicFilterContainer: should not show the loading state for trigger button if jql is empty', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      async () => {
+        const renderResult = setup({
+          parameters: {
+            cloudId: 'test-cloud-id',
+            jql: '',
+          },
+        });
+
+        const { queryByTestId } = renderResult;
+
+        setupBasicFilter(renderResult);
+
+        availableBasicFilterTypes.forEach(filter => {
+          expect(
+            queryByTestId(
+              `jlol-basic-filter-${filter}-trigger--loading-button`,
+            ),
+          ).not.toBeInTheDocument();
+          expect(
+            queryByTestId(`jlol-basic-filter-${filter}-trigger--button`),
+          ).toBeInTheDocument();
+        });
       },
       () => commonBasicFilterFeatureFlagFalsyTest(),
     );
@@ -984,8 +1277,9 @@ describe('JiraSearchContainer', () => {
         const renderResult = setup({
           parameters: {
             cloudId: 'test-cloud-id',
-            jql: 'created >= -30d order by created DESC',
+            jql: 'ORDER BY created DESC',
           },
+          searchBarJql: 'ORDER BY created DESC',
         });
         const { mockFetchHydratedJqlOptions } = renderResult;
 
@@ -1006,6 +1300,8 @@ describe('JiraSearchContainer', () => {
           getByPlaceholderText,
           mockOnSearch,
           getByTestId,
+          rerender,
+          mockSetSearchBarJql,
         } = renderResult;
 
         const { triggerButton } = setupBasicFilter({
@@ -1031,6 +1327,18 @@ describe('JiraSearchContainer', () => {
         );
         fireEvent.change(basicTextInput, {
           target: { value: 'testing' },
+        });
+
+        expect(mockSetSearchBarJql).toHaveBeenCalledWith(
+          '(text ~ "testing*" or summary ~ "testing*") and status in (Authorize) ORDER BY created DESC',
+        );
+
+        // re-render the component with new search bar jql since the state is stored and updated in the parent
+        rerenderHelper(rerender, {
+          onSearch: mockOnSearch,
+          initialSearchMethod: 'basic',
+          searchBarJql:
+            '(text ~ "testing*" or summary ~ "testing*") and status in (Authorize) ORDER BY created DESC',
         });
 
         fireEvent.click(
@@ -1075,6 +1383,8 @@ describe('JiraSearchContainer', () => {
           mockOnSearch,
           getByTestId,
           getLatestJQLEditorProps,
+          rerender,
+          mockSetSearchBarJql,
         } = renderResult;
 
         const { triggerButton } = setupBasicFilter({
@@ -1100,6 +1410,15 @@ describe('JiraSearchContainer', () => {
         );
         fireEvent.change(basicTextInput, {
           target: { value: 'testing' },
+        });
+
+        expect(mockSetSearchBarJql).toHaveBeenCalledWith(expectedJql);
+
+        // re-render the component with new search bar jql since the state is stored and updated in the parent
+        rerenderHelper(rerender, {
+          onSearch: mockOnSearch,
+          initialSearchMethod: 'basic',
+          searchBarJql: expectedJql,
         });
 
         fireEvent.click(
@@ -1244,7 +1563,12 @@ describe('Analytics: JiraSearchContainer', () => {
     ffTest(
       'platform.linking-platform.datasource.show-jlol-basic-filters',
       () => {
-        const { getLatestJQLEditorProps, getByTestId } = setup();
+        const {
+          getLatestJQLEditorProps,
+          getByTestId,
+          rerender,
+          mockSetSearchBarJql,
+        } = setup();
 
         fireEvent.click(getByTestId('mode-toggle-jql'));
 
@@ -1255,6 +1579,11 @@ describe('Analytics: JiraSearchContainer', () => {
             query: undefined,
           });
         });
+
+        expect(mockSetSearchBarJql).toBeCalledWith('resoulution=none');
+
+        // re-render the component with new search bar jql since the state is stored and updated in the parent
+        rerenderHelper(rerender, { searchBarJql: 'resoulution=none' });
 
         getLatestJQLEditorProps().onSearch!('resoulution=done', {
           represents: '',

@@ -1,19 +1,19 @@
 import React, { useMemo } from 'react';
 
-import { MediaClient, MediaStore } from '@atlaskit/media-client';
-import { createMediaStore, Store } from '@atlaskit/media-state';
+import { MediaStore as MediaApi, MediaClient } from '@atlaskit/media-client';
+import { createMediaStore, MediaStore } from '@atlaskit/media-state';
 
 import { MediaClientContext } from '../MediaClientProvider';
 
 export interface MockedMediaClientProviderProps {
   children: React.ReactNode;
-  mockedMediaApi: Partial<MediaStore>;
-  initialStore?: Store;
+  mockedMediaApi: Partial<MediaApi>;
+  mediaStore?: MediaStore;
 }
 
 export const MockedMediaClientProvider = ({
   children,
-  initialStore,
+  mediaStore = createMediaStore(),
   mockedMediaApi,
 }: MockedMediaClientProviderProps) => {
   const mediaClient = useMemo(
@@ -28,10 +28,10 @@ export const MockedMediaClientProvider = ({
             };
           },
         },
-        createMediaStore(initialStore),
-        mockedMediaApi as MediaStore,
+        mediaStore,
+        mockedMediaApi as MediaApi,
       ),
-    [mockedMediaApi, initialStore],
+    [mockedMediaApi, mediaStore],
   );
 
   return (

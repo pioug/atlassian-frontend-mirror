@@ -1,9 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 
 import type {
-  PublicPluginAPI,
   NextEditorPlugin,
   OptionalPlugin,
+  PublicPluginAPI,
 } from '@atlaskit/editor-common/types';
 
 export type SetEditorAPI = (editorApi: PublicPluginAPI<any>) => void;
@@ -24,8 +24,13 @@ export const PresetContextProvider = ({ children }: EditorAPIProviderProps) => {
     PublicPluginAPI<any> | undefined
   >();
 
+  const contextValue = useMemo(
+    () => ({ editorApi, setEditorApi }),
+    [editorApi, setEditorApi],
+  );
+
   return (
-    <EditorAPIContext.Provider value={{ editorApi, setEditorApi }}>
+    <EditorAPIContext.Provider value={contextValue}>
       {children}
     </EditorAPIContext.Provider>
   );

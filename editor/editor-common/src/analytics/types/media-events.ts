@@ -3,7 +3,8 @@ import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import type { GuidelineTypes, WidthTypes } from '../../guideline/types';
 
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
-import type { TrackAEP, UIAEP } from './utils';
+import type { EventInput } from './type-ahead';
+import type { ChangeTypeAEP, TrackAEP, UIAEP } from './utils';
 
 type MediaBorderActionType = ACTION.UPDATED | ACTION.ADDED | ACTION.DELETED;
 
@@ -40,11 +41,16 @@ export type CaptionTrackAction = TrackAEP<
   undefined
 >;
 
+type MediaAltTextAttributes = {
+  type: 'mediaSingle' | 'mediaInline';
+  mediaType: 'image' | 'file' | 'external';
+};
+
 type MediaAltTextAction = TrackAEP<
   ACTION.ADDED | ACTION.CLOSED | ACTION.EDITED | ACTION.CLEARED | ACTION.OPENED,
   ACTION_SUBJECT.MEDIA,
   ACTION_SUBJECT_ID.ALT_TEXT,
-  undefined,
+  MediaAltTextAttributes,
   undefined
 >;
 
@@ -62,6 +68,7 @@ type MediaResizeAttributes = {
   layout: string;
   snapType: GuidelineTypes;
   parentNode?: string;
+  inputMethod: EventInput;
 };
 
 export type MediaResizeTrackAction = UIAEP<
@@ -77,6 +84,7 @@ type MediaInputResizeAttributes = {
   layout: RichMediaLayout;
   validation: 'valid' | 'greater-than-max' | 'less-than-min';
   parentNode?: string;
+  inputMethod: EventInput;
 };
 
 export type MediaInputResizeTrackAction = UIAEP<
@@ -87,12 +95,12 @@ export type MediaInputResizeTrackAction = UIAEP<
   undefined
 >;
 
-type MediaSwitchType =
+export type MediaSwitchType =
   | ACTION_SUBJECT_ID.MEDIA_INLINE
-  | ACTION_SUBJECT_ID.MEDIA_GROUP;
+  | ACTION_SUBJECT_ID.MEDIA_GROUP
+  | ACTION_SUBJECT_ID.MEDIA_SINGLE;
 
-type ChangeMediaAEP = TrackAEP<
-  ACTION.CHANGED_TYPE,
+type ChangeMediaAEP = ChangeTypeAEP<
   ACTION_SUBJECT.MEDIA,
   undefined,
   { newType: MediaSwitchType; previousType: MediaSwitchType },

@@ -21,6 +21,8 @@ export default {
   'fabric.elements.share.form.no-permissions': '⁣⁢You do not have the ability to share.⁫⁯؜⁫⁭⁬⁯⁯⁬⁠⁮‍‍‍⁫⁮⁬⁪⁡⁠⁡⁭⁮⁣⁤',
   'fabric.elements.share.form.public.send': '⁣⁢Send public link⁮⁫⁭⁮⁬⁠⁯⁫⁯؜⁠‍⁯⁠⁡⁮؜⁯⁭‌⁭⁡⁫⁠⁣⁤',
   'fabric.elements.share.form.public.share': '⁣⁢Share public link⁠⁡‍⁪⁪‍⁯‍⁫‌⁠⁬؜‍⁬‌⁯⁯‍⁭⁡⁡⁭⁡؜⁮⁣⁤',
+  'fabric.elements.share.form.required-field.summary':
+    '⁣⁢Required fields are marked with an asterisk‍⁬⁠⁯⁪⁯‍⁪⁭⁫⁬‌⁬⁡‌‌⁠‍؜⁫⁫⁣⁤',
   'fabric.elements.share.form.retry': '⁣⁢Retry‌⁫⁯⁭‌⁬⁡؜‌⁬⁬⁪⁬⁬⁪⁬⁪‌⁡⁡⁯‌⁣⁤',
   'fabric.elements.share.form.send': '⁣⁢Send‍⁭‌⁠⁠‍؜‍‌⁭⁯‍⁮⁫⁭⁡⁯⁯⁯⁯؜⁪⁭⁪⁠؜⁣⁤',
   'fabric.elements.share.form.share': '⁣⁢Share⁠‌‍⁪⁭⁫⁬⁠⁬‌⁪‌؜⁠؜؜⁭⁮‌⁣⁤',

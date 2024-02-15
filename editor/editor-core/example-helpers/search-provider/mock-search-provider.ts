@@ -1,6 +1,6 @@
-import {
-  SearchProvider,
+import type {
   QuickSearchResult,
+  SearchProvider,
 } from '@atlaskit/editor-common/provider-factory';
 
 const mockedData: QuickSearchResult[] = [

@@ -1,6 +1,7 @@
-import React from 'react';
-import { render } from 'react-dom';
 import { AnnotationMarkStates } from '@atlaskit/adf-schema';
+import { render } from '@testing-library/react';
+import type { ReactNode } from 'react';
+import React from 'react';
 import { InlineCommentsStateContext } from '../../../context';
 import { useInlineCommentsFilter } from '../../use-inline-comments-filter';
 
@@ -22,7 +23,10 @@ describe('Annotations: Hooks/useInlineCommentsFilter', () => {
     jest.clearAllMocks();
   });
 
-  const Wrapper: React.FC<{ states: any }> = ({ children, states }) => {
+  const Wrapper: React.FC<{ states: any; children?: ReactNode }> = ({
+    children,
+    states,
+  }) => {
     return (
       <InlineCommentsStateContext.Provider value={states}>
         {children}
@@ -51,7 +55,6 @@ describe('Annotations: Hooks/useInlineCommentsFilter', () => {
           <Wrapper states={{}}>
             <CustomComp annotationIds={annotationIds} state={state} />
           </Wrapper>,
-          container,
         );
 
         expect(fakeFunction).toHaveBeenCalledWith([]);
@@ -63,7 +66,6 @@ describe('Annotations: Hooks/useInlineCommentsFilter', () => {
           <Wrapper states={nextState}>
             <CustomComp annotationIds={annotationIds} state={state} />
           </Wrapper>,
-          container,
         );
         expect(fakeFunction).toHaveBeenCalledWith(['lol1']);
 
@@ -75,7 +77,6 @@ describe('Annotations: Hooks/useInlineCommentsFilter', () => {
           <Wrapper states={nextState}>
             <CustomComp annotationIds={annotationIds} state={state} />
           </Wrapper>,
-          container,
         );
         expect(fakeFunction).toHaveBeenCalledWith(['lol1', 'lol2']);
 
@@ -83,7 +84,6 @@ describe('Annotations: Hooks/useInlineCommentsFilter', () => {
           <Wrapper states={{}}>
             <CustomComp annotationIds={annotationIds} state={state} />
           </Wrapper>,
-          container,
         );
 
         expect(fakeFunction).toHaveBeenCalledWith([]);

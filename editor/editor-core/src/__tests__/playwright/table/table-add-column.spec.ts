@@ -1,22 +1,18 @@
 import {
   EditorNodeContainerModel,
   EditorTableModel,
-  editorTestCase as test,
   expect,
-  fixTest,
-  BROWSERS,
+  editorTestCase as test,
 } from '@af/editor-libra';
+import { tableNewColumnMinWidth } from '@atlaskit/editor-common/styles';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 
 import {
   createSquareTable,
   tableNestedInExpandDefaultWidth,
   tableNestedInExpandFullWidth,
 } from './__fixtures__/resize-documents';
-
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import sampleSchema from '@atlaskit/editor-test-helpers/schema';
-
-import { tableNewColumnMinWidth } from '@atlaskit/editor-common/styles';
 
 const getTableADF = ({
   columnWidths,
@@ -138,7 +134,7 @@ test.describe('New column created in a table with resized columns', () => {
       await expect(editor).toMatchDocument(
         createSquareTable({
           lines: 3,
-          columnWidths: [113, tableNewColumnMinWidth, 428, 1119],
+          columnWidths: [125, tableNewColumnMinWidth, 464, 1208],
           hasHeader: true,
           tableWidth: 1800,
         }),
@@ -152,13 +148,6 @@ test.describe('New column created in a table with resized columns', () => {
     });
 
     test('should display correctly', async ({ editor }) => {
-      fixTest({
-        jiraIssueId: 'ED-19387',
-        reason:
-          'FIXME: This test was automatically skipped due to failure on 07/08/2023: https://product-fabric.atlassian.net/browse/ED-19387',
-        browsers: [BROWSERS.webkit],
-      });
-
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 
@@ -181,13 +170,6 @@ test.describe('New column created in a table with resized columns', () => {
     });
 
     test('should display correctly', async ({ editor }) => {
-      fixTest({
-        jiraIssueId: 'ED-19387',
-        reason:
-          'FIXME: This test was automatically skipped due to failure on 07/08/2023: https://product-fabric.atlassian.net/browse/ED-19387',
-        browsers: [BROWSERS.webkit],
-      });
-
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 

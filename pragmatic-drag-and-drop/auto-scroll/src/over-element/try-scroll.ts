@@ -7,8 +7,10 @@ import {
   ElementAutoScrollArgs,
   ElementGetFeedbackArgs,
   EngagementHistoryEntry,
+  InternalConfig,
   WindowAutoScrollArgs,
 } from '../internal-types';
+import { getInternalConfig } from '../shared/configuration';
 import { markAndGetEngagement } from '../shared/engagement-history';
 
 import { selector } from './data-attributes';
@@ -86,11 +88,16 @@ function tryScrollElements<DragType extends AllDragTypes>({
   // We are marking engagement as soon as the element is scrolled over
   const engagement = markAndGetEngagement(element);
 
+  const config: InternalConfig = getInternalConfig(
+    container.getConfiguration?.(feedback),
+  );
+
   const scrollBy = getScrollBy({
     element,
     engagement,
     input,
     timeSinceLastFrame,
+    config,
   });
 
   // Only allow scrolling in directions that have not already been used
@@ -147,10 +154,15 @@ function tryScrollWindow<DragType extends AllDragTypes>({
     // we _could_ conceptually reset the engagement
     const engagement: EngagementHistoryEntry = markAndGetEngagement(element);
 
+    const config: InternalConfig = getInternalConfig(
+      entry.getConfiguration?.(feedback),
+    );
+
     const scrollBy = getScrollBy({
       element,
       engagement,
       input,
+      config,
       getRect: (element: Element) =>
         DOMRect.fromRect({
           y: 0,

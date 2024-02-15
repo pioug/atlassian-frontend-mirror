@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode, useState, useCallback } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Box from '@atlaskit/primitives/box';
 import noop from '@atlaskit/ds-lib/noop';
 import Tick from '@atlaskit/icon/glyph/check-circle';

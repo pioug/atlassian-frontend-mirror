@@ -1,5 +1,5 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { SelectionData } from '@atlaskit/editor-core/src/plugins/mobile-selection';
+import type { SelectionData } from './editor/editor-plugins/mobile-selection';
 import type { AnnotationMarkStates } from '@atlaskit/adf-schema';
 import type { ResolveResponse } from '@atlaskit/smart-card';
 

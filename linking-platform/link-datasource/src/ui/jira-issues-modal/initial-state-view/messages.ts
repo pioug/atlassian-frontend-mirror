@@ -13,13 +13,13 @@ export const initialStateViewMessages = defineMessages({
     defaultMessage: 'Beta',
   },
   searchDescriptionForBasicSearch: {
-    id: 'linkDataSource.modal-initial-state.searchDescription',
+    id: 'linkDataSource.modal-initial-state.searchDescription-basic',
     description:
       'The initial modal search state helper message displayed under the search title when basic search mode is selected',
     defaultMessage: 'Search by keyword for issues to insert.',
   },
   searchDescriptionForJQLSearch: {
-    id: 'linkDataSource.modal-initial-state.searchDescription',
+    id: 'linkDataSource.modal-initial-state.searchDescription-jql',
     description:
       'The initial modal search state helper message displayed under the search title when JQL search mode is selected',
     defaultMessage: 'Use JQL (Jira Query Language) to search for issues.',

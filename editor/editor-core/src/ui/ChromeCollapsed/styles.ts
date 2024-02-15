@@ -1,10 +1,11 @@
 import { css } from '@emotion/react';
+
 import {
   akEditorSubtleAccent,
   relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { N300, N50 } from '@atlaskit/theme/colors';
+import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 export const inputStyle = css`
@@ -15,9 +16,9 @@ export const inputStyle = css`
     border-radius: ${borderRadius()}px;
     box-sizing: border-box;
     height: 40px;
-    padding-left: 20px;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-left: ${token('space.250', '20px')};
+    padding-top: ${token('space.150', '12px')};
+    padding-bottom: ${token('space.150', '12px')};
     font-size: ${relativeFontSizeToBase16(14)};
     width: 100%;
     font-weight: 400;

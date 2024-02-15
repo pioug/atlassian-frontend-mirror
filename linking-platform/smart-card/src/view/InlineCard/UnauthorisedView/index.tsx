@@ -2,6 +2,8 @@ import Button from '@atlaskit/button/custom-theme-button';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
 import { N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import withFrameStyleControl from '../utils/withFrameStyleControl';
+
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../messages';
@@ -48,6 +50,8 @@ const FallbackUnauthorizedIcon = (
 );
 
 export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauthorizedViewProps> {
+  private frameRef = React.createRef<HTMLSpanElement & null>();
+
   handleConnectAccount = (event: React.MouseEvent<HTMLElement>) => {
     const { analytics, extensionKey, onAuthorise } = this.props;
     event.preventDefault();
@@ -61,12 +65,13 @@ export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauth
     return onAuthorise!();
   };
 
-  renderRightSide = () => {
+  renderActionButton = () => {
     const { onAuthorise, context } = this.props;
+    const ActionButton = withFrameStyleControl(Button, this.frameRef);
+
     return onAuthorise ? (
-      <Button
+      <ActionButton
         spacing="none"
-        appearance="subtle-link"
         component={IconStyledButton}
         onClick={this.handleConnectAccount}
         testId="button-connect-account"
@@ -75,7 +80,7 @@ export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauth
           {...messages.connect_link_account_card_name}
           values={{ context }}
         />
-      </Button>
+      </ActionButton>
     ) : undefined;
   };
 
@@ -91,18 +96,17 @@ export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauth
     } = this.props;
 
     const inlineCardUnauthenticatedView = (
-      <Frame testId={testId} isSelected={isSelected}>
+      <Frame testId={testId} isSelected={isSelected} ref={this.frameRef}>
         <IconAndTitleLayout
           icon={icon ? icon : FallbackUnauthorizedIcon}
           title={url}
           link={url}
-          rightSide={this.renderRightSide()}
           onClick={onClick}
           titleColor={token('color.text.subtle', N500)}
         />
+        {this.renderActionButton()}
       </Frame>
     );
-
     if (onAuthorise && showAuthTooltip) {
       return (
         <HoverCard url={url} id={this.props.id}>

@@ -7,7 +7,10 @@ import {
   mockBaseResponse,
   mockConfluenceResponse,
   mockConfluenceResponseWithOwnedBy,
+  mockBBFileResponse,
 } from './__mocks__/blockCardMocks';
+
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('getSimulatedBetterMetadata', () => {
   const baseTopMetadata: ElementItem[] = [
@@ -75,6 +78,34 @@ describe('getSimulatedBetterMetadata', () => {
         { name: ElementName.OwnedBy },
         ...baseTopMetadata,
       ]);
+    });
+  });
+
+  describe('for Bitbucket objects', () => {
+    describe('should return correct metadata elements for BB files', () => {
+      ffTest(
+        'platform.linking-platform.extractor.improve-bitbucket-file-links',
+        () => {
+          const metadata = getSimulatedBetterMetadata(
+            mockBBFileResponse as JsonLd.Response,
+          );
+          const topMetadata = [
+            { name: ElementName.LatestCommit },
+            { name: ElementName.CollaboratorGroup },
+            { name: ElementName.ModifiedOn },
+          ];
+
+          expect(metadata.topMetadata).toEqual(topMetadata);
+          expect(metadata.bottomMetadata).toEqual(defaultBottomMetadata);
+        },
+        () => {
+          const metadata = getSimulatedBetterMetadata(
+            mockBBFileResponse as JsonLd.Response,
+          );
+          expect(metadata.topMetadata).toEqual(defaultTopMetadata);
+          expect(metadata.bottomMetadata).toEqual(defaultBottomMetadata);
+        },
+      );
     });
   });
 

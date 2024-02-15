@@ -24,12 +24,14 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import {
   akEditorBreakoutPadding,
+  akEditorMediaResizeHandlerPadding,
   akEditorMediaResizeHandlerPaddingWide,
   akEditorWideLayoutWidth,
   breakoutWideScaleRatio,
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { embedHeaderHeight } from '@atlaskit/smart-card';
 import { token } from '@atlaskit/tokens';
 
@@ -371,8 +373,17 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
     const { layout, pctWidth, containerWidth, fullWidthMode, children } =
       this.props;
 
-    const initialWidth =
-      this.calcPxWidth() - akEditorMediaResizeHandlerPaddingWide;
+    const resizerProps = getBooleanFF(
+      'platform.editor.show-embed-card-frame-renderer',
+    )
+      ? {
+          width: this.calcPxWidth(),
+          innerPadding: akEditorMediaResizeHandlerPadding,
+        }
+      : {
+          width: this.calcPxWidth() - akEditorMediaResizeHandlerPaddingWide,
+          innerPadding: akEditorMediaResizeHandlerPaddingWide,
+        };
 
     const enable: EnabledHandles = {};
     handleSides.forEach(side => {
@@ -406,7 +417,14 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 
     /* eslint-disable  @atlaskit/design-system/consistent-css-prop-usage */
     return (
-      <div css={embedSpacingStyles} data-testid="resizable-embed-card-spacing">
+      <div
+        css={
+          getBooleanFF('platform.editor.show-embed-card-frame-renderer')
+            ? {}
+            : embedSpacingStyles
+        }
+        data-testid="resizable-embed-card-spacing"
+      >
         <div
           css={wrapperStyle({
             layout,
@@ -417,15 +435,14 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
         >
           <Resizer
             {...this.props}
-            width={initialWidth} // Starting or initial width of embed <iframe> itself.
             enable={enable}
             calcNewSize={this.calcNewSize}
             snapPoints={this.calcSnapPoints()}
             scaleFactor={!this.wrappedLayout && !this.insideInlineLike ? 2 : 1}
             highlights={this.highlights}
-            innerPadding={akEditorMediaResizeHandlerPaddingWide}
             nodeType="embed"
             handleStyles={nestedInTableHandleStyles(this.isNestedInTable())}
+            {...resizerProps}
           >
             {children}
             {this.getHeightDefiningComponent()}

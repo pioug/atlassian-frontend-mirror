@@ -134,6 +134,14 @@ export enum ACTION {
   UNSUPPORTED_CONTENT_LEVELS_TRACKING_SUCCEEDED = 'unsupportedContentLevelsTrackingSucceeded',
   UNSUPPORTED_CONTENT_LEVELS_TRACKING_ERRORED = 'unsupportedContentLevelsTrackingErrored',
   UNSUPPORTED_TOOLTIP_VIEWED = 'viewed',
+  RECORD_VIDEO = 'recordVideo',
+  INSERT_VIDEO = 'insertVideo',
+  RECORD_VIDEO_FAILED = 'recordVideoFailed',
+  ADD_CHILD = 'addChild',
+  CHANGE_ACTIVE = 'changeActive',
+  REMOVE_CHILD = 'removeChild',
+  UPDATE_PARAMETERS = 'updateParameters',
+  GET_CHILDERN = 'getChildern',
 }
 
 export enum INPUT_METHOD {
@@ -162,6 +170,8 @@ export enum INPUT_METHOD {
   SHORTCUT = 'shortcut',
   TOOLBAR = 'toolbar',
   TYPEAHEAD = 'typeAhead',
+  DATASOURCE = 'datasource_config',
+  TABLE_CONTEXT_MENU = 'tableContextMenu',
 }
 
 export enum TRIGGER_METHOD {
@@ -218,6 +228,8 @@ export enum ACTION_SUBJECT {
   ANCHOR_LINK = 'anchorLink',
   LINK = 'link',
   TOOLTIP = 'tooltip',
+  LOOM = 'loom',
+  MULTI_BODIED_EXTENSION = 'multiBodiedExtension',
 }
 
 export enum ACTION_SUBJECT_ID {
@@ -239,6 +251,7 @@ export enum ACTION_SUBJECT_ID {
   CODE_BLOCK = 'codeBlock',
   CODEBLOCK_COPY = 'codeBlockCopy',
   CODEBLOCK_WRAP = 'codeBlockWrap',
+  CREATE_INLINE_COMMENT_FROM_HIGHLIGHT_ACTIONS_MENU = 'createInlineCommentFromHighlightActionsMenu',
   DATE = 'date',
   DATE_DAY = 'day',
   DATE_MONTH = 'month',
@@ -281,6 +294,7 @@ export enum ACTION_SUBJECT_ID {
   MEDIA = 'media',
   MEDIA_GROUP = 'mediaGroup',
   MEDIA_INLINE = 'mediaInline',
+  MEDIA_INLINE_IMAGE = 'mediaInlineImage',
   MEDIA_LINK = 'mediaLink',
   MEDIA_SINGLE = 'mediaSingle',
   MENTION = 'mention',
@@ -344,6 +358,7 @@ export enum ACTION_SUBJECT_ID {
   UNSUPPORTED_MARK = 'unsupportedMark',
   ON_UNSUPPORTED_INLINE = 'onUnsupportedInline',
   ON_UNSUPPORTED_BLOCK = 'onUnsupportedBlock',
+  MULTI_BODIED_EXTENSION = 'multiBodiedExtension',
 }
 
 export enum FLOATING_CONTROLS_TITLE {

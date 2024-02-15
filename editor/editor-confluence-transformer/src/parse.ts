@@ -1,21 +1,23 @@
-import {
+import type {
   MediaAttributes,
   RichMediaAttributes as MediaSingleAttributes,
   RichMediaLayout as MediaSingleLayout,
+  NameToEmoji,
+} from '@atlaskit/adf-schema';
+import {
   acNameToEmoji,
   acShortcutToEmoji,
   tableBackgroundColorNames,
-  NameToEmoji,
 } from '@atlaskit/adf-schema';
 import {
   akEditorFullPageMaxWidth,
   akEditorTableNumberColumnWidth,
 } from '@atlaskit/editor-shared-styles/consts';
-import {
-  Fragment,
+import type {
   Node as PMNode,
   Schema,
 } from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import parseCxhtml from './parse-cxhtml';
 import { AC_XMLNS, default as encodeCxhtml } from './encode-cxhtml';
 import {
@@ -481,7 +483,7 @@ function convertConfluenceMacro(
       );
 
     case 'JIRA':
-      const { server, serverId, key: issueKey } = params;
+      const { key: issueKey } = params;
 
       // if this is an issue list, render it as unsupported node
       // @see https://product-fabric.atlassian.net/browse/ED-1193?focusedCommentId=26672&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-26672
@@ -491,13 +493,7 @@ function convertConfluenceMacro(
         });
       }
 
-      return schema.nodes.confluenceJiraIssue.createChecked({
-        issueKey,
-        macroId,
-        schemaVersion,
-        server,
-        serverId,
-      });
+      return schema.text(issueKey);
   }
 
   if (plainTextBody) {

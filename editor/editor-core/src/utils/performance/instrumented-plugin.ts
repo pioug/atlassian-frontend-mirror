@@ -1,15 +1,17 @@
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { startMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
 import type {
   EditorState,
   ReadonlyTransaction,
   SafePluginSpec,
 } from '@atlaskit/editor-prosemirror/state';
-import { startMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
 import type { EditorProps } from '../../types/editor-props';
-import type { TransactionTracker } from './track-transactions';
+
 import { freezeUnsafeTransactionProperties } from './safer-transactions';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { TransactionTracker } from './track-transactions';
 
 type InstrumentedPluginOptions = EditorProps['performanceTracking'] & {
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;

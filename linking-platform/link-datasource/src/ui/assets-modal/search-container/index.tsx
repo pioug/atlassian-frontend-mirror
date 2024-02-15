@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import Form from '@atlaskit/form';
+import Form, { OnSubmitHandler } from '@atlaskit/form';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { ObjectSchema, SearchForm } from '../../../types/assets/types';
@@ -37,9 +37,9 @@ export const AssetsSearchContainer = (props: SearchContainerProps) => {
     props;
   const { fireEvent } = useDatasourceAnalyticsEvents();
 
-  const onFormSubmit = (searchFormValues: SearchForm) => {
+  const onFormSubmit: OnSubmitHandler<SearchForm> = searchFormValues => {
     const { aql, objectSchema } = searchFormValues;
-    if (objectSchema) {
+    if (aql && objectSchema) {
       fireEvent('ui.aqlEditor.searched', {});
       // Pass the validated aql and object schema back to modal
       onSearch(aql, objectSchema.value);

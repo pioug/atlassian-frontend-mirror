@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import { IconButton } from '@atlaskit/button/new';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Select from '@atlaskit/select';
 
@@ -46,12 +46,13 @@ export default () => {
           </div>
         )}
         trigger={(triggerProps) => (
-          <Button
+          <IconButton
             {...triggerProps}
             isSelected={isOpen}
             onClick={() => setIsOpen(!isOpen)}
             value="Add"
-            iconBefore={<MediaServicesAddCommentIcon label="Add" />}
+            icon={MediaServicesAddCommentIcon}
+            label="Add"
           />
         )}
       />

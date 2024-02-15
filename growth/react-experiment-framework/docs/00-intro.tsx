@@ -7,14 +7,15 @@ import {
   AtlassianInternalWarning,
   DevPreviewWarning,
 } from '@atlaskit/docs';
+import { token } from '@atlaskit/tokens';
 
 export default md`
   ${(
     <>
-      <div style={{ marginBottom: '0.5rem' }}>
+      <div style={{ marginBottom: token('space.100', '8px') }}>
         <AtlassianInternalWarning />
       </div>
-      <div style={{ marginTop: '0.5rem' }}>
+      <div style={{ marginTop: token('space.100', '8px') }}>
         <DevPreviewWarning />
       </div>
     </>
@@ -30,17 +31,17 @@ export default md`
 
   ## Usage
 
-  The ExperimentController is passed a configuration object via the experimentEnrollmentConfig prop. 
+  The ExperimentController is passed a configuration object via the experimentEnrollmentConfig prop.
   It's a map of experiment resolvers -- functions that decide which variant should be rendered for each experiment.
   If additional data needs to be passed to the resolvers (e.g. from a Redux store), the experimentEnrollmentOptions prop can be used.
   The resolvers can be asynchronous, and usually will.
-  
+
   This resolver based approach allows the rendering of targeted components to be blocked until the resolver is completed, and the
-  appropriate experience is only then shown to the user; thus preventing a swapping of experience. 
+  appropriate experience is only then shown to the user; thus preventing a swapping of experience.
   A loading component can be provided, to show while the enrollment is being processed.
 
-  ${code`import { 
-    asExperiment, 
+  ${code`import {
+    asExperiment,
     CohortTracker,
     ExperimentProvider,
     ExperimentConsumer,
@@ -55,7 +56,7 @@ export default md`
   E.g., eligiblilty might require the user to have a locale where English is the dominant language. In these cases where isEligible is set to false,  the user is shown the fallback experience, i.e., the control component.
 
   In terms of tracking the success and failures of the experiment; the framework provides callbacks for onExposure (when an experience is shown), and onError (when an error was encountered due to misconfiguration or the component provided threw at render)
-  
+
   ${(
     <Example
       packageName="@atlaskit/growth"

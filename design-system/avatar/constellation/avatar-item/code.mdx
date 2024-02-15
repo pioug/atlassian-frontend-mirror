@@ -2,10 +2,12 @@
 title: Avatar item
 description: An avatar item is a wrapper that goes around an avatar when it's displayed alongside text, such as a name or status.
 order: 1
+props:
+  packageName: '@atlaskit/avatar'
+  exports:
+    - AvatarItem
 ---
-
-import AvatarItemProps from '!!extract-react-types-loader!../../src/AvatarItem';
 
 ## Props
 
-<PropsTable heading="" props={AvatarItemProps} />
+<TSMorphProps exportName="AvatarItem" packageName="@atlaskit/avatar" />

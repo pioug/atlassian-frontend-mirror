@@ -54,7 +54,7 @@ class AssistveTextComponent extends React.Component<
     silenced: false,
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.debounceStatusUpdate = debounce(() => {
       if (!this.state.debounced) {
         const shouldSilence = !this.props.isInFocus;
@@ -67,11 +67,11 @@ class AssistveTextComponent extends React.Component<
     }, statusDebounceMillis);
   }
 
-  componentWillUnmount() {
+  UNSAFE_componentWillUnmount() {
     this.debounceStatusUpdate.cancel();
   }
 
-  componentWillReceiveProps() {
+  UNSAFE_componentWillReceiveProps() {
     this.setState(({ bump }) => ({ bump: !bump, debounced: false }));
   }
 

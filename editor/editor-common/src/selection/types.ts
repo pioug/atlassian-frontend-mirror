@@ -41,5 +41,6 @@ export interface SelectionPluginOptions
 export type SelectionSharedState =
   | {
       selectionRelativeToNode?: RelativeSelectionPos | undefined;
+      selection?: Selection | undefined;
     }
   | undefined;

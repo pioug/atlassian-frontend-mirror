@@ -6,6 +6,20 @@ export const messages = defineMessages({
     defaultMessage: 'Table options',
     description: 'Opens a menu with additional table options',
   },
+  tableSizeIncreaseScreenReaderInformation: {
+    id: 'fabric.editor.tableResizeIncreaseScreenReaderInformation',
+    defaultMessage:
+      'Table width increased to {newWidth, plural, one {# pixel} other {# pixels}}.',
+    description:
+      'Information for screen reader users about increasing the table size by a certain number of pixels.',
+  },
+  tableSizeDecreaseScreenReaderInformation: {
+    id: 'fabric.editor.tableResizeDecreaseScreenReaderInformation',
+    defaultMessage:
+      'Table width decreased to {newWidth, plural, one {# pixel} other {# pixels}}.',
+    description:
+      'Information for screen reader users about decreasing the table size by a certain number of pixels.',
+  },
   headerRow: {
     id: 'fabric.editor.headerRow',
     defaultMessage: 'Header row',
@@ -36,6 +50,16 @@ export const messages = defineMessages({
     defaultMessage: 'Insert column right',
     description: 'Inserts a new column to the right of selected column.',
   },
+  addColumnLeft: {
+    id: 'fabric.editor.addColumnLeft',
+    defaultMessage: 'Add column left',
+    description: 'Adds a new column to the left of selected column.',
+  },
+  addColumnRight: {
+    id: 'fabric.editor.addColumnRight',
+    defaultMessage: 'Add column right',
+    description: 'Adds a new column to the right of selected column.',
+  },
   insertColumnDrag: {
     id: 'fabric.editor.insertColumnDrag',
     defaultMessage: 'Insert column',
@@ -51,6 +75,36 @@ export const messages = defineMessages({
     defaultMessage: 'Insert row below',
     description: 'Inserts a new row below the selected row.',
   },
+  addRowAbove: {
+    id: 'fabric.editor.addRowAbove',
+    defaultMessage: 'Add row above',
+    description: 'Adds a new row above the selected row.',
+  },
+  addRowBelow: {
+    id: 'fabric.editor.addRowBelow',
+    defaultMessage: 'Add row below',
+    description: 'Adds a new row below the selected row.',
+  },
+  moveColumnLeft: {
+    id: 'fabric.editor.moveColumnLeft',
+    defaultMessage: 'Move {0, plural, one {column} other {columns}} left',
+    description: 'Moves a column or columns to the left.',
+  },
+  moveColumnRight: {
+    id: 'fabric.editor.moveColumnRight',
+    defaultMessage: 'Move {0, plural, one {column} other {columns}} right',
+    description: 'Moves a column or columns to the right.',
+  },
+  moveRowUp: {
+    id: 'fabric.editor.moveRowUp',
+    defaultMessage: 'Move {0, plural, one {row} other {rows}} up',
+    description: 'Moves a row or selected rows up.',
+  },
+  moveRowDown: {
+    id: 'fabric.editor.moveDownDown',
+    defaultMessage: 'Move {0, plural, one {row} other {rows}} down',
+    description: 'Moves a row or selected rows down.',
+  },
   insertRowDrag: {
     id: 'fabric.editor.insertRowDrag',
     defaultMessage: 'Insert row',
@@ -60,6 +114,11 @@ export const messages = defineMessages({
     id: 'fabric.editor.removeRows',
     defaultMessage: 'Delete {0, plural, one {row} other {rows}}',
     description: 'Deletes a table row.',
+  },
+  rowNumbers: {
+    id: 'fabrid.editor.rowNumbers',
+    defaultMessage: 'Row numbers',
+    desciption: 'Adds a number to each row except header row',
   },
   cellOptions: {
     id: 'fabric.editor.cellOptions',
@@ -115,6 +174,11 @@ export const messages = defineMessages({
     defaultMessage: 'Cell background',
     description: 'Change the background color of a table cell.',
   },
+  backgroundColor: {
+    id: 'fabric.editor.backgroundColor',
+    defaultMessage: 'Background Color',
+    description: 'Change the background color of a table cell.',
+  },
   mergeCells: {
     id: 'fabric.editor.mergeCells',
     defaultMessage: 'Merge cells',
@@ -141,6 +205,16 @@ export const messages = defineMessages({
     defaultMessage: 'Sort column Z → A',
     description: 'Sort column in descending order',
   },
+  sortColumnIncreasing: {
+    id: 'fabric.editor.sortColumnIncreasing',
+    defaultMessage: 'Sort increasing',
+    description: 'Sort column in ascending order',
+  },
+  sortColumnDecreasing: {
+    id: 'fabric.editor.sortColumnDecreasing',
+    defaultMessage: 'Sort decreasing',
+    description: 'Sort column in descending order',
+  },
   canNotSortTable: {
     id: 'fabric.editor.canNotSortTable',
     defaultMessage: `⚠️ You can't sort a table with merged cells`,
@@ -156,5 +230,17 @@ export const messages = defineMessages({
     defaultMessage: 'Highlight row',
     description:
       'A button on the left of each row that shows up when the table is in focus. Clicking on it will select the entire row.',
+  },
+  rowDragHandle: {
+    id: 'fabric.editor.rowDragHandle',
+    defaultMessage: 'Row options',
+    description:
+      'The row drag handle to move the row within the table. Click to open a menu for more row options.',
+  },
+  columnDragHandle: {
+    id: 'fabric.editor.columnDragHandle',
+    defaultMessage: 'Column options',
+    description:
+      'The column drag handle to move the column within the table. Click to open a menu for more column options.',
   },
 });

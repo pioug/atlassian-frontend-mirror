@@ -2,12 +2,15 @@
 import type { RefsNode } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import type { MoveOptions } from '@atlaskit/editor-tables/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   p,
   tr as row,
   td,
   th,
+  thEmpty,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import {
@@ -22,13 +25,11 @@ function moveTableRow(
   table: RefsNode,
   originRowIndex: number,
   targetRowIndex: number,
-  options?: {
-    tryToFit: boolean;
-    direction: number;
-  },
+  options?: MoveOptions,
 ): Transaction {
-  let { tr } = EditorState.create({ doc: table });
-  tr = moveRow(originRowIndex, targetRowIndex, options)(tr);
+  let state = EditorState.create({ doc: table });
+  let { tr } = state;
+  tr = moveRow(state, [originRowIndex], targetRowIndex, options)(tr);
   return tr;
 }
 
@@ -66,6 +67,38 @@ describe('table__moveRow', () => {
         row(td()(p('2')), td()(p('x')), cEmpty),
       );
       expect(newTr.doc).toEqualDocument(expected);
+    });
+
+    describe('with selectAfterMove true', () => {
+      it('should select row 0 after moving 2 -> 0', () => {
+        const original = createTableWithDoc(
+          row(td()(p('1')), cCursor, cEmpty),
+          row(td()(p('2')), cEmpty, cEmpty),
+          row(td()(p('3')), cEmpty, cEmpty),
+        );
+
+        const newTr = moveTableRow(original, 2, 0, {
+          selectAfterMove: true,
+        });
+        const selection = newTr.selection as CellSelection;
+        expect(selection.$anchorCell.pos).toEqual(11);
+        expect(selection.$headCell.pos).toEqual(2);
+      });
+
+      it('should select row 2 after moving 0 -> 2', () => {
+        const original = createTableWithDoc(
+          row(td()(p('1')), cCursor, cEmpty),
+          row(td()(p('2')), cEmpty, cEmpty),
+          row(td()(p('3')), cEmpty, cEmpty),
+        );
+
+        const newTr = moveTableRow(original, 0, 2, {
+          selectAfterMove: true,
+        });
+        const selection = newTr.selection as CellSelection;
+        expect(selection.$anchorCell.pos).toEqual(42);
+        expect(selection.$headCell.pos).toEqual(32);
+      });
     });
   });
 
@@ -214,13 +247,25 @@ describe('table__moveRow', () => {
 
     describe('table 3x5', () => {
       describe('should move', () => {
+        //
+        //        0      1      2      3      4
+        //      ___________________________________
+        //     |      |      |      |      |      |
+        //  0  |  A1  |  A2  |  A3  |   A4 |  A5  |
+        //     |      |______|______|______|______|
+        //     |      |                           |
+        //  1  |      |   B1                      |
+        //     |______|___________________________|
+        //     |      |      |             |      |
+        //  2  |  C1  |  C2  |  C3         |  C4  |
+        //     |______|______|_____________|______|
         const original = createTableWithDoc(
           row(
             td({ rowspan: 2 })(p('a1')),
-            td()(p('a1')),
             td()(p('a2')),
             td()(p('a3')),
             td()(p('a4')),
+            td()(p('a5')),
           ),
           row(td({ colspan: 4 })(p('b1'))),
           row(
@@ -231,6 +276,18 @@ describe('table__moveRow', () => {
           ),
         );
 
+        //
+        //        0      1      2      3      4
+        //      ___________________________________
+        //     |      |      |             |      |
+        //  2  |  C1  |  C2  |  C3         |  C4  |
+        //     |______|______|_____________|______|
+        //     |      |      |      |      |      |
+        //  0  |  A1  |  A2  |  A3  |   A4 |  A5  |
+        //     |      |______|______|______|______|
+        //     |      |                           |
+        //  1  |      |   B1                      |
+        //     |______|___________________________|
         const expected = createTableWithDoc(
           row(
             td()(p('c1')),
@@ -240,10 +297,10 @@ describe('table__moveRow', () => {
           ),
           row(
             td({ rowspan: 2 })(p('a1')),
-            td()(p('a1')),
             td()(p('a2')),
             td()(p('a3')),
             td()(p('a4')),
+            td()(p('a5')),
           ),
           row(td({ colspan: 4 })(p('b1'))),
         );
@@ -283,9 +340,33 @@ describe('table__moveRow', () => {
             ).toThrow();
           });
         });
+
+        describe('with selectAfterMove true', () => {
+          it('row 0 -> 2', () => {
+            const newTr = moveTableRow(original, 0, 2, {
+              selectAfterMove: true,
+            });
+            expect(newTr.doc).toEqualDocument(expected);
+            const selection = newTr.selection as CellSelection;
+            expect(selection.$anchorCell.pos).toEqual(52);
+            expect(selection.$headCell.pos).toEqual(28);
+          });
+        });
       });
 
       describe('should not move', () => {
+        //
+        //        0      1      2      3      4
+        //      ___________________________________
+        //     |      |      |      |      |      |
+        //  0  |  M1  |   0  |  1   |   2  |   3  |
+        //     |      |______|______|______|______|
+        //     |      |             |             |
+        //  1  |      |   4         |  M2         |
+        //     |______|_____________|             |
+        //     |      |      |      |             |
+        //  2  |   5  |   6  |   7  |             |
+        //     |______|______|______|_____________|
         const original = createTableWithDoc(
           row(
             td({ rowspan: 2 })(p('M1')),
@@ -317,8 +398,7 @@ describe('table__moveRow', () => {
         );
 
         it('row 0 to 1', () => {
-          let newTr = moveTableRow(original, 0, 1);
-          expect(newTr.doc).toEqualDocument(expected);
+          expect(() => moveTableRow(original, 0, 1)).toThrow();
         });
 
         it('row 0 to 2', () => {
@@ -347,8 +427,7 @@ describe('table__moveRow', () => {
         });
 
         it('row 2 to 1', () => {
-          let newTr = moveTableRow(original, 2, 1);
-          expect(newTr.doc).toEqualDocument(expected);
+          expect(() => moveTableRow(original, 2, 1)).toThrow();
         });
 
         it('row 2 to 2', () => {
@@ -434,8 +513,7 @@ describe('table__moveRow', () => {
         });
 
         it('row 0 to 1', () => {
-          let newTr = moveTableRow(original, 0, 1);
-          expect(newTr.doc).toEqualDocument(original);
+          expect(() => moveTableRow(original, 0, 1)).toThrow();
         });
 
         it('row 2 to 0', () => {
@@ -794,6 +872,212 @@ describe('table__moveRow', () => {
         });
         expect(newTr.doc).toEqualDocument(expectedResultDirectionMinusOne);
       });
+    });
+  });
+
+  describe('on a simple table with header', () => {
+    it('should move row header top-to-bottom', () => {
+      const original = createTableWithDoc(
+        row(th()(p('1')), thEmpty, thEmpty),
+        row(td()(p('2')), cEmpty, cEmpty),
+        row(td()(p('3')), cCursor, cEmpty),
+      );
+
+      const newTr = moveTableRow(original, 0, 2);
+
+      const expected = createTableWithDoc(
+        row(th()(p('2')), thEmpty, thEmpty),
+        row(td()(p('3')), cCursor, cEmpty),
+        row(td()(p('1')), cEmpty, cEmpty),
+      );
+      expect(newTr.doc).toEqualDocument(expected);
+    });
+
+    it('should move row header bottom-to-top', () => {
+      const original = createTableWithDoc(
+        row(th()(p('1')), thEmpty, thEmpty),
+        row(td()(p('2')), cCursor, cEmpty),
+        row(td()(p('3')), cEmpty, cEmpty),
+      );
+
+      const newTr = moveTableRow(original, 2, 0);
+
+      const expected = createTableWithDoc(
+        row(th()(p('3')), thEmpty, thEmpty),
+        row(td()(p('1')), cEmpty, cEmpty),
+        row(td()(p('2')), cCursor, cEmpty),
+      );
+      expect(newTr.doc).toEqualDocument(expected);
+    });
+
+    it('should move col header top-to-bottom', () => {
+      const original = createTableWithDoc(
+        row(th()(p('1')), cEmpty, cEmpty),
+        row(th()(p('2')), cEmpty, cEmpty),
+        row(th()(p('3')), cCursor, cEmpty),
+      );
+
+      const newTr = moveTableRow(original, 0, 2);
+
+      const expected = createTableWithDoc(
+        row(th()(p('2')), cEmpty, cEmpty),
+        row(th()(p('3')), cCursor, cEmpty),
+        row(th()(p('1')), cEmpty, cEmpty),
+      );
+      expect(newTr.doc).toEqualDocument(expected);
+    });
+
+    it('should move col header bottom-to-top', () => {
+      const original = createTableWithDoc(
+        row(th()(p('1')), cEmpty, cEmpty),
+        row(th()(p('2')), cCursor, cEmpty),
+        row(th()(p('3')), cEmpty, cEmpty),
+      );
+
+      const newTr = moveTableRow(original, 2, 0);
+
+      const expected = createTableWithDoc(
+        row(th()(p('3')), cEmpty, cEmpty),
+        row(th()(p('1')), cEmpty, cEmpty),
+        row(th()(p('2')), cCursor, cEmpty),
+      );
+      expect(newTr.doc).toEqualDocument(expected);
+    });
+
+    it('should move row&col header top-to-bottom', () => {
+      const original = createTableWithDoc(
+        row(th()(p('1')), thEmpty, thEmpty),
+        row(th()(p('2')), cEmpty, cEmpty),
+        row(th()(p('3')), cCursor, cEmpty),
+      );
+
+      const newTr = moveTableRow(original, 0, 2);
+
+      const expected = createTableWithDoc(
+        row(th()(p('2')), thEmpty, thEmpty),
+        row(th()(p('3')), cCursor, cEmpty),
+        row(th()(p('1')), cEmpty, cEmpty),
+      );
+      expect(newTr.doc).toEqualDocument(expected);
+    });
+
+    it('should move row&col header bottom-to-top', () => {
+      const original = createTableWithDoc(
+        row(th()(p('1')), thEmpty, thEmpty),
+        row(th()(p('2')), cCursor, cEmpty),
+        row(th()(p('3')), cEmpty, cEmpty),
+      );
+
+      const newTr = moveTableRow(original, 2, 0);
+
+      const expected = createTableWithDoc(
+        row(th()(p('3')), thEmpty, thEmpty),
+        row(th()(p('1')), cEmpty, cEmpty),
+        row(th()(p('2')), cCursor, cEmpty),
+      );
+      expect(newTr.doc).toEqualDocument(expected);
+    });
+
+    it('should move row header correctly within a single column table', () => {
+      const original = createTableWithDoc(
+        row(th()(p('1'))),
+        row(td()(p('2'))),
+        row(td()(p('3'))),
+      );
+
+      const newTr = moveTableRow(original, 0, 2);
+
+      const expected = createTableWithDoc(
+        row(th()(p('2'))),
+        row(td()(p('3'))),
+        row(td()(p('1'))),
+      );
+      expect(newTr.doc).toEqualDocument(expected);
+    });
+
+    it('should move col header correctly within a single column table', () => {
+      const original = createTableWithDoc(
+        row(th()(p('1'))),
+        row(th()(p('2'))),
+        row(th()(p('3'))),
+      );
+
+      const newTr = moveTableRow(original, 0, 2);
+
+      const expected = createTableWithDoc(
+        row(th()(p('2'))),
+        row(th()(p('3'))),
+        row(th()(p('1'))),
+      );
+      expect(newTr.doc).toEqualDocument(expected);
+    });
+  });
+
+  describe('on a table with header and varying row node sizes', () => {
+    it('should move row from top-to-bottom', () => {
+      const original = createTableWithDoc(
+        row(th()(p('1')), thEmpty, thEmpty),
+        row(
+          td()(p('2'.repeat(10))),
+          td()(p('2'.repeat(10))),
+          td()(p('2222222{<>}222')),
+        ),
+        row(
+          td()(p('3'.repeat(100))),
+          td()(p('3'.repeat(100))),
+          td()(p('3'.repeat(100))),
+        ),
+      );
+
+      const newTr = moveTableRow(original, 0, 2);
+
+      const expected = createTableWithDoc(
+        row(
+          th()(p('2'.repeat(10))),
+          th()(p('2'.repeat(10))),
+          th()(p('2222222{<>}222')),
+        ),
+        row(
+          td()(p('3'.repeat(100))),
+          td()(p('3'.repeat(100))),
+          td()(p('3'.repeat(100))),
+        ),
+        row(td()(p('1')), cEmpty, cEmpty),
+      );
+      expect(newTr.doc).toEqualDocument(expected);
+    });
+
+    it('should move row from bottom-to-top', () => {
+      const original = createTableWithDoc(
+        row(th()(p('1')), thEmpty, thEmpty),
+        row(
+          td()(p('2'.repeat(10))),
+          td()(p('2'.repeat(10))),
+          td()(p('2222222{<>}222')),
+        ),
+        row(
+          td()(p('3'.repeat(100))),
+          td()(p('3'.repeat(100))),
+          td()(p('3'.repeat(100))),
+        ),
+      );
+
+      const newTr = moveTableRow(original, 2, 0);
+
+      const expected = createTableWithDoc(
+        row(
+          th()(p('3'.repeat(100))),
+          th()(p('3'.repeat(100))),
+          th()(p('3'.repeat(100))),
+        ),
+        row(td()(p('1')), cEmpty, cEmpty),
+        row(
+          td()(p('2'.repeat(10))),
+          td()(p('2'.repeat(10))),
+          td()(p('2222222{<>}222')),
+        ),
+      );
+      expect(newTr.doc).toEqualDocument(expected);
     });
   });
 });

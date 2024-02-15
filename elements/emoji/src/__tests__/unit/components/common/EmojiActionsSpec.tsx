@@ -1,13 +1,13 @@
+import { screen, waitFor, within } from '@testing-library/dom';
+import { fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 import EmojiActionsWithIntl from '../../../../components/common/EmojiActions';
+import { tonePreviewTestId } from '../../../../components/common/TonePreviewButton';
+import { toneSelectorTestId } from '../../../../components/common/ToneSelector';
 import type { EmojiDescriptionWithVariations } from '../../../../types';
 import { generateSkinVariation, imageEmoji } from '../../_test-data';
 import { renderWithIntl } from '../../_testing-library';
-import userEvent from '@testing-library/user-event';
-import { fireEvent } from '@testing-library/react';
-import { screen, waitFor, within } from '@testing-library/dom';
-import { toneSelectorTestId } from '../../../../components/common/ToneSelector';
-import { tonePreviewTestId } from '../../../../components/common/TonePreviewButton';
 
 const baseToneEmoji = {
   ...imageEmoji,
@@ -40,15 +40,7 @@ const props = {
 };
 
 describe('<EmojiActions />', () => {
-  let user: ReturnType<typeof userEvent.setup>;
-
-  beforeEach(() => {
-    user = userEvent.setup();
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+  afterEach(jest.clearAllMocks);
 
   describe('tone', () => {
     it('should display tone selector after clicking on the tone button', async () => {
@@ -61,7 +53,7 @@ describe('<EmojiActions />', () => {
         'Choose your skin tone',
         { exact: false },
       );
-      await user.click(toneSelectorButton);
+      await userEvent.click(toneSelectorButton);
       expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
     });
 
@@ -76,7 +68,7 @@ describe('<EmojiActions />', () => {
         { exact: false },
       );
       toneSelectorButton.focus();
-      userEvent.keyboard('{enter}');
+      await userEvent.keyboard('{enter}');
       expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
     });
 
@@ -154,7 +146,7 @@ describe('<EmojiActions />', () => {
         'Choose your skin tone',
         { exact: false },
       );
-      await user.click(toneSelectorButton);
+      await userEvent.click(toneSelectorButton);
       expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
 
       // Click a Different Tone
@@ -184,7 +176,7 @@ describe('<EmojiActions />', () => {
           'Choose your skin tone',
           { exact: false },
         );
-        await user.click(toneSelectorButton);
+        await userEvent.click(toneSelectorButton);
         expect(
           await screen.findByTestId(toneSelectorTestId),
         ).toBeInTheDocument();
@@ -210,7 +202,7 @@ describe('<EmojiActions />', () => {
         'Choose your skin tone',
         { exact: false },
       );
-      await user.click(toneSelectorButton);
+      await userEvent.click(toneSelectorButton);
       expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
 
       const toneSelectorToneOption = await screen.findByLabelText(
@@ -240,7 +232,7 @@ describe('<EmojiActions />', () => {
         'Choose your skin tone',
         { exact: false },
       );
-      await user.click(toneSelectorButton);
+      await userEvent.click(toneSelectorButton);
       const toneSelector = await screen.findByTestId(toneSelectorTestId);
       expect(toneSelector).toBeInTheDocument();
 
@@ -319,7 +311,7 @@ describe('<EmojiActions />', () => {
         'Choose your skin tone',
         { exact: false },
       );
-      await user.click(toneSelectorButton);
+      await userEvent.click(toneSelectorButton);
       expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
 
       // Validate search bar does not exist
@@ -336,7 +328,7 @@ describe('<EmojiActions />', () => {
         'Choose your skin tone',
         { exact: false },
       );
-      await user.click(toneSelectorButton);
+      await userEvent.click(toneSelectorButton);
       const toneSelector = await screen.findByTestId(toneSelectorTestId);
       expect(toneSelector).toBeInTheDocument();
 

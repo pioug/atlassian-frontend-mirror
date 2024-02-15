@@ -3,8 +3,10 @@ import {
   RenderInlineCardFailedEventPayload,
   RenderInlineCardSucceededEventPayload,
   extractErrorInfo,
+  fireMediaCardEvent,
 } from '../utils/analytics';
 import { MediaCardError } from '../errors';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export const getSucceededStatusPayload = (
   fileState?: FileState,
@@ -61,4 +63,26 @@ export const getFailedProcessingStatusPayload = (
       failReason: 'failed-processing',
     },
   };
+};
+
+export const fireFailedOperationalEvent = (
+  fileState: FileState,
+  error: MediaCardError = new MediaCardError('missing-error-data'),
+  failReason?: 'failed-processing',
+  createAnalyticsEvent?: CreateUIAnalyticsEvent,
+) => {
+  const payload = failReason
+    ? getFailedProcessingStatusPayload(fileState)
+    : getErrorStatusPayload(error, fileState);
+
+  fireMediaCardEvent(payload, createAnalyticsEvent);
+};
+
+export const fireSucceededOperationalEvent = (
+  fileState: FileState,
+  createAnalyticsEvent?: CreateUIAnalyticsEvent,
+) => {
+  const payload = getSucceededStatusPayload(fileState);
+
+  fireMediaCardEvent(payload, createAnalyticsEvent);
 };

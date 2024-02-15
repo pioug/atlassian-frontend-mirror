@@ -34,12 +34,10 @@ const iconWrapperStyles = css({
 const IconWrapper: FC<IconWrapperProps> = ({
   bgColor = token('elevation.surface.overlay', N0),
   children,
-  label,
 }) => (
   <span
-    aria-label={label || undefined}
     css={iconWrapperStyles}
-    role={label ? 'img' : 'presentation'}
+    role="presentation"
     style={{
       border: `${BORDER_WIDTH}px solid ${bgColor}`,
       backgroundColor: bgColor,

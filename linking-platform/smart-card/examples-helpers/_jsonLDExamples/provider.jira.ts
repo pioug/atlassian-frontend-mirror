@@ -187,6 +187,7 @@ export const JiraIssue = {
     access: 'granted',
     resourceType: 'issue',
     key: 'jira-object-provider',
+    supportedFeatures: ['AISummary'],
   },
   data: {
     '@context': {

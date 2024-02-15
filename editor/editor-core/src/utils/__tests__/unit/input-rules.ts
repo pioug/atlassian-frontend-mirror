@@ -1,42 +1,38 @@
 import type { DocBuilder } from '@atlaskit/editor-common/types';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  doc,
-  ul,
-  li,
-  mediaSingle,
-  media,
-  alignment,
-  a as link,
-} from '@atlaskit/editor-test-helpers/doc-builder';
-// eslint-disable-next-line import/no-extraneous-dependencies
+import { createWrappingJoinRule } from '@atlaskit/editor-common/utils';
+import { alignmentPlugin } from '@atlaskit/editor-plugins/alignment';
+import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
+import { basePlugin } from '@atlaskit/editor-plugins/base';
+import { captionPlugin } from '@atlaskit/editor-plugins/caption';
+import { copyButtonPlugin } from '@atlaskit/editor-plugins/copy-button';
+import { decorationsPlugin } from '@atlaskit/editor-plugins/decorations';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugins/editor-disabled';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
+import { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar';
+import { focusPlugin } from '@atlaskit/editor-plugins/focus';
+import { gridPlugin } from '@atlaskit/editor-plugins/grid';
+import { guidelinePlugin } from '@atlaskit/editor-plugins/guideline';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugins/hyperlink';
+import { listPlugin } from '@atlaskit/editor-plugins/list';
+import { mediaPlugin } from '@atlaskit/editor-plugins/media';
+import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
+import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { listPlugin } from '@atlaskit/editor-plugin-list';
-import { basePlugin } from '@atlaskit/editor-plugin-base';
-import { mediaPlugin } from '@atlaskit/editor-plugin-media';
-import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
-import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
-
-import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import { gridPlugin } from '@atlaskit/editor-plugin-grid';
-
-import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
-import alignmentPlugin from '../../../plugins/alignment';
-import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import { captionPlugin } from '@atlaskit/editor-plugin-caption';
-import { focusPlugin } from '@atlaskit/editor-plugin-focus';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
-
-import { createWrappingJoinRule } from '@atlaskit/editor-common/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  alignment,
+  doc,
+  li,
+  a as link,
+  media,
+  mediaSingle,
+  ul,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('createWrappingJoinRule()', () => {
   const createEditor = createProsemirrorEditorFactory();

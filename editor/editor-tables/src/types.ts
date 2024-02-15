@@ -1,6 +1,9 @@
-import { Fragment, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Fragment, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 // copied CellAttributes from adf-schema to avoid dependency cycles
 export interface CellAttributes {
@@ -57,3 +60,9 @@ export type CellAttributesWithColSpan = CellAttributes & {
 };
 
 export type Writeable<T> = { -readonly [P in keyof T]: T[P] };
+
+export interface MoveOptions {
+  tryToFit?: boolean;
+  direction?: number;
+  selectAfterMove?: boolean;
+}

@@ -30,7 +30,7 @@ describe('buildJQL', () => {
     const jql = buildJQL({
       rawSearch: ' ',
     });
-    expect(jql).toEqual('created >= -30d ORDER BY created DESC');
+    expect(jql).toEqual('ORDER BY created DESC');
   });
 
   it('omits fuzzy search search term with quotations', () => {
@@ -79,7 +79,7 @@ describe('buildJQL', () => {
         filterValues: {},
       });
 
-      expect(jql).toEqual('created >= -30d ORDER BY created DESC');
+      expect(jql).toEqual('ORDER BY created DESC');
     });
 
     it('should create correct jql when filterValues is empty with search term provided', () => {
@@ -96,10 +96,10 @@ describe('buildJQL', () => {
     it('should create correct jql when both search term and basic filter values are empty', () => {
       const jql = buildJQL({
         rawSearch: '',
-        filterValues: { assignee: [], issuetype: [], project: [], status: [] },
+        filterValues: { assignee: [], type: [], project: [], status: [] },
       });
 
-      expect(jql).toEqual('created >= -30d ORDER BY created DESC');
+      expect(jql).toEqual('ORDER BY created DESC');
     });
 
     it('should create the default query when filterValues contains key other than those in availableBasicFilterTypes', () => {
@@ -117,7 +117,7 @@ describe('buildJQL', () => {
         } as any,
       });
 
-      expect(jql).toEqual('created >= -30d ORDER BY created DESC');
+      expect(jql).toEqual('ORDER BY created DESC');
     });
 
     it('should create correct jql when one of the filters have value and other are empty', () => {
@@ -125,7 +125,7 @@ describe('buildJQL', () => {
         rawSearch: '',
         filterValues: {
           assignee: [],
-          issuetype: [],
+          type: [],
           project: [
             {
               label: 'Commitment Register',
@@ -166,7 +166,7 @@ describe('buildJQL', () => {
     it.each<[BasicFilterFieldType]>([
       ['project'],
       ['assignee'],
-      ['issuetype'],
+      ['type'],
       ['status'],
     ])(
       'should create jql with %s field when single value is passed',
@@ -189,7 +189,7 @@ describe('buildJQL', () => {
     it.each<[BasicFilterFieldType]>([
       ['project'],
       ['assignee'],
-      ['issuetype'],
+      ['type'],
       ['status'],
     ])(
       'should create jql with %s field when multiple values are passed',
@@ -234,7 +234,7 @@ describe('buildJQL', () => {
               avatar: '',
             },
           ],
-          issuetype: [
+          type: [
             {
               label: '[CTB]Bug',
               value: '[CTB]Bug',
@@ -254,7 +254,7 @@ describe('buildJQL', () => {
       });
 
       expect(jql).toEqual(
-        `project in (\"Commitment Register\") and assignee in (\"Mike Dao\") and issuetype in (\"[CTB]Bug\") and status in (Progress) ORDER BY created DESC`,
+        `project in (\"Commitment Register\") and assignee in (\"Mike Dao\") and type in (\"[CTB]Bug\") and status in (Progress) ORDER BY created DESC`,
       );
     });
 
@@ -278,7 +278,7 @@ describe('buildJQL', () => {
               avatar: '',
             },
           ],
-          issuetype: [
+          type: [
             {
               label: '[CTB]Bug',
               value: '[CTB]Bug',
@@ -298,7 +298,7 @@ describe('buildJQL', () => {
       });
 
       expect(jql).toEqual(
-        `(text ~ \"test*\" or summary ~ \"test*\") and project in (\"Commitment Register\") and assignee in (\"Mike Dao\") and issuetype in (\"[CTB]Bug\") and status in (Progress) ORDER BY created DESC`,
+        `(text ~ \"test*\" or summary ~ \"test*\") and project in (\"Commitment Register\") and assignee in (\"Mike Dao\") and type in (\"[CTB]Bug\") and status in (Progress) ORDER BY created DESC`,
       );
     });
   });

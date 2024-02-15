@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/docs';
 
 export default md`
-${(<AtlassianInternalWarning />)}
+  ${(<AtlassianInternalWarning />)}
 
   The Link Create component is the driver component of meta creation flow. It allows users to create new links without having to leave their current context.
 
@@ -19,34 +19,6 @@ ${(<AtlassianInternalWarning />)}
 
   ${code`yarn add @atlaskit/link-create`}
 
-  ## Usage
-
-  ${code`
-  import { LinkCreate, CreatePayload } from '@atlaskit/link-create';
-
-  ...
-  // Inside a component with proper state and event management
-  const handleCreate = (payload: CreatePayload) => {...}
-
-  const handleComplete = () => {...}
-
-  const handleCancel = () => {...}
-
-  const handleFailure = () => {...}
-
-  return (
-    <LinkCreate
-      entityKey={"entityKey"}
-      plugins={...}
-      onCreate={handleCreate}
-      onComplete={handleComplete}
-      onFailure={handleFailure}
-      onCancel={handleCancel}
-      {...}
-    />
-  )
-`}
-
   ${(
     <Props
       heading="LinkCreate Props"
@@ -54,58 +26,19 @@ ${(<AtlassianInternalWarning />)}
     />
   )}
 
-  ## Plugins
-  Plugins provide functionality to Link Create. Currently, plugins give Link Create the required UX to enable a meta flow to create Objects without leaving the context from which it was originally triggered.
+  # Usage
 
+  To start the experience mount __LinkCreate__ and set active to \`true\`.
 
-  ${code`
-  import { LinkCreate } from '@atlaskit/link-create';
-  import { createPlugin } from '@atlaskit/link-create...';
+  Provide __onCreate__ to be notified of objects being created. When an object is created, this is not necessarily indication that the experience is completed/finished.
 
-  ...
-  // Inside a component with proper state and event management
-  const createPlugins = [createPlugin(...)];
+  To be notified of when the experience is completed provide __onComplete__. By providing __onComplete__ it enables link create to maintain control of the experience beyond the point of a single object creation (e.g. show a "Create and open" button in Confluence to edit newly created pages).
 
-  return (
-    <LinkCreate
-      entityKey={"entityKey"}
-      plugins={createPlugins}
-      {...}
-    />
-  )
-`}
+  You should also provide an __onCancel__ callback to be notified when the user cancels the experience without completing an object. This may be useful if you have a different experience journey to follow depending on whether or not the user completed object creation or not.
 
-  ## Active
-  The current mechanism to display Link Create is within the modal component.
+  When the experience is \`completed\` or \`cancelled\`, set active to \`false\` and the experience will transition off the screen before unmounting any visual components.
 
-  The \`active\` prop controls when the modal is shown. Additionally, we expose two Modal events:  \`onOpenComplete\` and \`onCloseComplete\`. We also provide a custom \`modalTitle\` prop that overrides the default __Create new__ title.
-
-  ${code`
-  import { LinkCreate } from '@atlaskit/link-create';
-
-  ...
-  // Inside a component with proper state and event management
-  const handleComplete = () => {
-    ...
-    setActive(false);
-  }
-
-  const handleCloseComplete = () => {...}
-
-  const handleOpenComplete = () => {...}
-
-  return (
-    <LinkCreate
-      active={active}
-      entityKey={"entityKey"}
-      plugins={...}
-      onComplete={handleComplete}
-      onOpenComplete={handleOpenComplete}
-      onCloseComplete={handleCloseComplete}
-      {...}
-    />
-  )
-`}
+  Provide __onCloseComplete__ to be notified when the experience has been completely transitioned off screen and is safe for complete unmounting of the __LinkCreate__ component.
 
 
   ## Examples
@@ -116,11 +49,12 @@ ${(<AtlassianInternalWarning />)}
       packageName="@atlaskit/link-create"
       Component={require('../examples/00-basic').default}
       title="Example"
+      sourceVisible={true}
       source={require('!!raw-loader!../examples/00-basic')}
     />
   )}
 
-  ### Link Picker Example
+  ### Link Picker integration Example
   ${(
     <Example
       packageName="@atlaskit/link-create"

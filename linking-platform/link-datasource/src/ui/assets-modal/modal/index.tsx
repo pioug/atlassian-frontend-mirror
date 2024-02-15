@@ -24,11 +24,11 @@ import {
   EVENT_CHANNEL,
   useDatasourceAnalyticsEvents,
 } from '../../../analytics';
-import { packageMetaData } from '../../../analytics/constants';
+import { componentMetadata } from '../../../analytics/constants';
 import type {
   AnalyticsContextAttributesType,
   AnalyticsContextType,
-  PackageMetaDataType,
+  ComponentMetaDataType,
 } from '../../../analytics/generated/analytics.types';
 import {
   DatasourceAction,
@@ -38,6 +38,7 @@ import {
 import { startUfoExperience } from '../../../analytics/ufoExperiences';
 import { useColumnPickerRenderedFailedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useColumnPickerRenderedFailedUfoExperience';
 import { useDataRenderedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
+import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import { useAssetsClient } from '../../../hooks/useAssetsClient';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
@@ -47,25 +48,17 @@ import { AccessRequired } from '../../../ui/common/error-state/access-required';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
 import { AssetsSearchContainer } from '../search-container';
 import { AssetsSearchContainerLoading } from '../search-container/loading-state';
-import {
-  AssetsConfigModalProps,
-  AssetsDatasourceAdf,
-  AssetsDatasourceParameters,
-} from '../types';
+import { AssetsConfigModalProps, AssetsDatasourceParameters } from '../types';
 
 import { modalMessages } from './messages';
-import { RenderAssetsContent } from './render-assets-content';
+import { MODAL_HEIGHT, RenderAssetsContent } from './render-assets-content';
 
 type ErrorState = 'permission' | 'network';
 
-const modalBodyWrapperStyles = css({
-  display: 'grid',
-  height: '420px',
-  overflow: 'auto',
-});
-
 const modalBodyErrorWrapperStyles = css({
   alignItems: 'center',
+  display: 'grid',
+  height: MODAL_HEIGHT,
 });
 
 const AssetsModalTitle = (
@@ -250,7 +243,6 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
         ? defaultVisibleColumnKeys
         : initialVisibleColumnKeys;
 
-    visibleColumnCount.current = newVisibleColumnKeys.length;
     setVisibleColumnKeys(newVisibleColumnKeys);
   }, [initialVisibleColumnKeys, defaultVisibleColumnKeys]);
 
@@ -260,12 +252,22 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
     }
   }, [defaultVisibleColumnKeys, isNewSearch]);
 
+  useEffect(() => {
+    visibleColumnCount.current = (visibleColumnKeys ?? []).length;
+  }, [visibleColumnKeys]);
+
   const isDisabled =
     !!errorState ||
     status !== 'resolved' ||
     assetsClientLoading ||
     !aql ||
     !schemaId;
+
+  const isEditingExistingTable = !!(
+    initialParameters?.aql &&
+    initialParameters?.schemaId &&
+    initialParameters?.workspaceId
+  );
 
   const retrieveUrlForSmartCardRender = useCallback(() => {
     const [data] = responseItems;
@@ -308,27 +310,22 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
         );
       } else {
         onInsert(
-          {
-            type: 'blockCard',
-            attrs: {
-              datasource: {
-                id: datasourceId,
-                parameters: {
-                  workspaceId,
-                  aql,
-                  schemaId,
-                },
-                views: [
-                  {
-                    type: 'table',
-                    properties: {
-                      columns: visibleColumnKeys?.map(key => ({ key })),
-                    },
-                  },
-                ],
-              },
+          buildDatasourceAdf({
+            id: datasourceId,
+            parameters: {
+              workspaceId,
+              aql,
+              schemaId,
             },
-          } as AssetsDatasourceAdf,
+            views: [
+              {
+                type: 'table',
+                properties: {
+                  columns: (visibleColumnKeys ?? []).map(key => ({ key })),
+                },
+              },
+            ],
+          }),
           consumerEvent,
         );
       }
@@ -367,7 +364,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
   );
 
   const handleOnSearch = useCallback(
-    async (searchAql: string, searchSchemaId: string) => {
+    (searchAql: string, searchSchemaId: string) => {
       if (
         schemaId !== searchSchemaId ||
         aql !== searchAql ||
@@ -380,10 +377,11 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
         if (aql !== searchAql) {
           userInteractionActions.current.add(DatasourceAction.QUERY_UPDATED);
         }
-        reset({ shouldResetColumns: true });
         setAql(searchAql);
         setSchemaId(searchSchemaId);
+        setVisibleColumnKeys([]);
         setIsNewSearch(true);
+        reset({ shouldForceRequest: true, shouldResetColumns: true });
       }
     },
     [aql, reset, schemaId, status],
@@ -413,7 +411,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
         <AssetsSearchContainer
           workspaceId={workspaceId}
           initialSearchData={{
-            aql,
+            aql: initialParameters?.aql,
             objectSchema: existingObjectSchema,
             objectSchemas,
           }}
@@ -427,7 +425,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
     errorState,
     workspaceId,
     assetsClientLoading,
-    aql,
+    initialParameters?.aql,
     existingObjectSchema,
     objectSchemas,
     handleOnSearch,
@@ -449,33 +447,26 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
         >
           <ModalHeader>{renderModalTitleContent()}</ModalHeader>
           <ModalBody>
-            <div
-              css={[
-                modalBodyWrapperStyles,
-                errorState && modalBodyErrorWrapperStyles,
-              ]}
-            >
-              {errorState ? (
-                renderErrorState()
-              ) : (
-                <RenderAssetsContent
-                  isFetchingInitialData={assetsClientLoading}
-                  status={status}
-                  responseItems={responseItems}
-                  visibleColumnKeys={visibleColumnKeys}
-                  onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-                  datasourceId={datasourceId}
-                  aql={aql}
-                  schemaId={schemaId}
-                  onNextPage={onNextPage}
-                  hasNextPage={hasNextPage}
-                  loadDatasourceDetails={loadDatasourceDetails}
-                  columns={columns}
-                  defaultVisibleColumnKeys={defaultVisibleColumnKeys}
-                  modalRenderInstanceId={modalRenderInstanceId}
-                />
-              )}
-            </div>
+            {errorState ? (
+              <div css={modalBodyErrorWrapperStyles}>{renderErrorState()}</div>
+            ) : (
+              <RenderAssetsContent
+                isFetchingInitialData={assetsClientLoading}
+                status={status}
+                responseItems={responseItems}
+                visibleColumnKeys={visibleColumnKeys}
+                onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+                datasourceId={datasourceId}
+                aql={aql}
+                schemaId={schemaId}
+                onNextPage={onNextPage}
+                hasNextPage={hasNextPage}
+                loadDatasourceDetails={loadDatasourceDetails}
+                columns={columns}
+                defaultVisibleColumnKeys={defaultVisibleColumnKeys}
+                modalRenderInstanceId={modalRenderInstanceId}
+              />
+            )}
           </ModalBody>
           <ModalFooter>
             <Button
@@ -492,7 +483,9 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
               testId={'assets-datasource-modal--insert-button'}
             >
               <FormattedMessage
-                {...modalMessages.insertIssuesButtonText}
+                {...(isEditingExistingTable
+                  ? modalMessages.updateObjectsButtonText
+                  : modalMessages.insertIssuesButtonText)}
                 values={{
                   objectsCount: responseItems.length,
                 }}
@@ -509,8 +502,8 @@ const analyticsContextAttributes: AnalyticsContextAttributesType = {
   dataProvider: 'jsm-assets',
 };
 
-const analyticsContextData: AnalyticsContextType & PackageMetaDataType = {
-  ...packageMetaData,
+const analyticsContextData: AnalyticsContextType & ComponentMetaDataType = {
+  ...componentMetadata.configModal,
   source: 'datasourceConfigModal',
 };
 

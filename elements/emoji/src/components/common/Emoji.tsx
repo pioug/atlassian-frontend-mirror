@@ -146,6 +146,13 @@ export interface Props
    * Used only for image based emojis
    */
   autoWidth?: boolean;
+
+  /**
+   * This should only be set when the emoji is being used in the Editor.
+   * Currently when set -- this prevents any aria labels being added.
+   * This is acceptable in Editor -- as it uses another technique to announce the emoji nodes.
+   */
+  editorEmoji?: true;
 }
 
 const handleMouseDown = (props: Props, event: MouseEvent<any>) => {
@@ -449,16 +456,27 @@ export const EmojiNodeWrapper = forwardRef<
     autoWidth,
     children,
     type,
+    editorEmoji,
     ...other
   } = props;
 
+  let accessibilityProps;
+
+  if (editorEmoji) {
+    accessibilityProps = { role: undefined };
+  } else if (shouldBeInteractive) {
+    accessibilityProps = { role: 'button', 'aria-label': emoji.shortName };
+  } else {
+    accessibilityProps = { role: 'img', 'aria-label': emoji.shortName };
+  }
+
   return (
     <span
+      {...accessibilityProps}
       ref={ref}
       data-testid={`${type}-emoji-${emoji.shortName}`}
       data-emoji-type={type}
       tabIndex={shouldBeInteractive ? tabIndex || 0 : undefined}
-      role={shouldBeInteractive ? 'button' : 'img'}
       css={type === 'sprite' ? emojiSpriteContainer : emojiImageContainer}
       className={className}
       onKeyDown={(event) => handleKeyDown(props, event)}
@@ -471,7 +489,6 @@ export const EmojiNodeWrapper = forwardRef<
       onFocus={(event) => {
         handleFocus(props, event);
       }}
-      aria-label={emoji.shortName}
       title={showTooltip ? emoji.shortName : undefined} // TODO: COLLAB-2351 - use @atlaskit/Tooltip in future for non-deletable emoji if enabled showTooltip
       {...other}
     >

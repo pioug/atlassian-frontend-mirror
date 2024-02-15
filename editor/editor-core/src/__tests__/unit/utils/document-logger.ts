@@ -1,22 +1,23 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  doc,
-  p,
-  date,
-  panel,
-  status,
-  emoji,
-  table,
-  tr,
-  th,
-  td,
-  underline,
-  strong,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  date,
+  doc,
+  emoji,
+  p,
+  panel,
+  status,
+  strong,
+  table,
+  td,
+  th,
+  tr,
+  underline,
+} from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import schema from '@atlaskit/editor-test-helpers/schema';
-import { getDocStructure } from '../../../utils/document-logger';
 
 const checkDocument = (doc: DocBuilder, expected: any) => {
   const document = doc(schema);

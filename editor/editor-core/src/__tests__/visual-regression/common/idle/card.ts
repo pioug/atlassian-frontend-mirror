@@ -1,19 +1,18 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
-import {
-  getTimeUntilIdle,
-  getSequence,
-  assertIdleTimesWithinRange,
-} from './_util';
+import { createAdf } from './_adf';
 import {
   NUMBER_OF_BATCHES,
   NUMBER_OF_RUNS,
   THRESHOLD_INITIAL,
 } from './_config';
-import { createAdf } from './_adf';
+import {
+  assertIdleTimesWithinRange,
+  getSequence,
+  getTimeUntilIdle,
+} from './_util';
 
-// TODO: https://product-fabric.atlassian.net/browse/EDM-1743
-describe.skip('Cards:', () => {
+describe('Cards:', () => {
   let page: PuppeteerPage;
   let timesToIdle: number[] = [];
   let timesToIdleForInitialRender: number[] = [];

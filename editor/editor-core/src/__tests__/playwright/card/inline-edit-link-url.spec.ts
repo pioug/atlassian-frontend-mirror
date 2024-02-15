@@ -1,12 +1,13 @@
 import {
-  editorTestCase as test,
-  EditorNodeContainerModel,
   EditorFloatingToolbarModel,
   EditorInlineCardModel,
+  EditorNodeContainerModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { p, doc, inlineCard } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, inlineCard, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { inlineCardAdf } from './inline-edit-link-url.spec.ts-fixtures/adf';
 
 test.use({

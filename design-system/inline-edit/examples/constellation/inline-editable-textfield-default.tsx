@@ -9,7 +9,7 @@ const InlineEditableTextfieldDefault = () => {
 
   const validate = (value: string) => {
     if (value.length <= 6) {
-      return 'Please enter a value greater than 6 characters';
+      return 'Please enter a description longer than 6 characters';
     }
     return undefined;
   };
@@ -25,9 +25,9 @@ const InlineEditableTextfieldDefault = () => {
     >
       <InlineEditableTextfield
         defaultValue={editValue}
-        label="Inline editable textfield"
+        label="Description"
         onConfirm={(value) => setEditValue(value)}
-        placeholder="Click to enter text"
+        placeholder="Add a description"
         validate={validate}
       />
     </div>

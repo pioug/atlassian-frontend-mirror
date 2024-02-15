@@ -26,31 +26,31 @@ import { modalButtonTheme } from './theme';
 // TODO: DSP-1250 - use a composable API consistent with normal modal dialog
 type ModalProps = {
   /**
-   * Buttons to render in the footer
+   * Buttons to render in the footer.
    */
   actions?: Actions;
   /**
-   * The elements rendered in the modal
+   * The elements rendered in the modal.
    */
   children: ReactNode;
   /**
-   * Path to the the your image
+   * Path to the image.
    */
   image?: string;
   /**
-   * Optional element rendered above the body
+   * Optional element rendered above the body.
    */
   header?: ElementType<HeaderComponentProps>;
   /**
-   * Optional element rendered below the body
+   * Optional element rendered below the body.
    */
   footer?: ElementType<FooterComponentProps>;
   /**
-   * Heading text rendered above the body
+   * Heading text rendered above the body.
    */
   heading?: string;
   /**
-   * Boolean prop to confirm if primary button in the footer should be shown on the right
+   * Boolean prop to confirm if primary button in the footer should be shown on the right.
    */
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   experimental_shouldShowPrimaryButtonOnRight?: boolean;

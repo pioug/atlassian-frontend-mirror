@@ -2,8 +2,9 @@ import type { ReactElement } from 'react';
 import React, { PureComponent } from 'react';
 
 import type { WrappedComponentProps } from 'react-intl-next';
-import { defineMessages, injectIntl } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
+import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import {
   ProviderFactory,
   WithProviders,
@@ -12,15 +13,6 @@ import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import type { ContentRef } from '@atlaskit/task-decision';
 
 import TaskItemWithProviders from './task-item-with-providers';
-
-const messages = defineMessages({
-  placeholder: {
-    id: 'fabric.editor.taskPlaceholder',
-    defaultMessage: "Type your action, use '@' to assign to someone.",
-    description:
-      'Placeholder description for an empty action/task in the editor',
-  },
-});
 
 export interface TaskProps {
   taskId: string;
@@ -64,7 +56,9 @@ export class TaskItem extends PureComponent<
       ...otherProps
     } = this.props;
     const { taskDecisionProvider, contextIdentifierProvider } = providers;
-    const placeholder = formatMessage(messages.placeholder);
+    const placeholder = formatMessage(
+      tasksAndDecisionsMessages.taskPlaceholder,
+    );
 
     return (
       <TaskItemWithProviders

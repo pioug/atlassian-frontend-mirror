@@ -32,6 +32,7 @@ export interface TextFormattingState {
   subscriptActive?: boolean;
   subscriptDisabled?: boolean;
   subscriptHidden?: boolean;
+  formattingIsPresent?: boolean;
 }
 
 export type InputMethodToolbar = INPUT_METHOD.TOOLBAR;

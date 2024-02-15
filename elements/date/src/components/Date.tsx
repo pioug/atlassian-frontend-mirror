@@ -15,7 +15,7 @@ export type Props = {
   format?: string;
   color?: Color;
   className?: string;
-  children?: React.StatelessComponent<Props> | string | React.ReactNode;
+  children?: React.FunctionComponent<Props> | string | React.ReactNode;
 };
 
 const isClickable = <
@@ -41,7 +41,7 @@ export class Date extends React.Component<Props> {
   renderContent = () => {
     if (this.props.children) {
       if (typeof this.props.children === 'function') {
-        return (this.props.children as React.StatelessComponent<Props>)(
+        return (this.props.children as React.FunctionComponent<Props>)(
           this.props,
         );
       }

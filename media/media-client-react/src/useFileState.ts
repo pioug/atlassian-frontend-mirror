@@ -25,13 +25,14 @@ export function useFileState(
   const mediaClient = useMediaClient();
   const fileState = useMediaStore(state => state.files[id]);
   useEffect(() => {
-    if (!skipRemote) {
+    // No need to resubscribe if there is a fileState already
+    if (!fileState && !skipRemote) {
       mediaClient.file.getFileState(id, {
         collectionName,
         occurrenceKey,
       });
     }
-  }, [id, mediaClient, collectionName, occurrenceKey, skipRemote]);
+  }, [id, mediaClient, collectionName, occurrenceKey, skipRemote, fileState]);
 
   return { fileState };
 }

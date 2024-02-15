@@ -43,7 +43,7 @@ const StatusContainerView = (props: ContainerProps) => {
 
   const statusText = text ? text : formatMessage(messages.placeholder);
 
-  const handleClick = (event: React.SyntheticEvent<any>) => {
+  const handleClick = (event: React.SyntheticEvent) => {
     if (event.nativeEvent.stopImmediatePropagation) {
       event.nativeEvent.stopImmediatePropagation();
     }

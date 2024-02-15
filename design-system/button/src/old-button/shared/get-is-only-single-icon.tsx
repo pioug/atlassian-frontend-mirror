@@ -1,5 +1,3 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
 import { BaseProps } from '../types';
 
 import { getIfVisuallyHiddenChildren } from './get-if-visually-hidden-children';
@@ -9,10 +7,7 @@ export default function getIsOnlySingleIcon({
   iconBefore,
   iconAfter,
 }: Pick<BaseProps, 'children' | 'iconBefore' | 'iconAfter'>): boolean {
-  if (
-    getBooleanFF('platform.design-system-team.icon-button-spacing-fix_o1zc5') &&
-    getIfVisuallyHiddenChildren(children)
-  ) {
+  if (getIfVisuallyHiddenChildren(children)) {
     return true;
   }
   if (children) {

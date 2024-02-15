@@ -16,6 +16,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': 'Muutoksiasi ei tallenneta',
   'linkCreate.createForm.button.close': 'Sulje',
   'linkCreate.createForm.button.create': 'Luo',
-  'linkCreate.createForm.button.edit': 'Muokkaa',
+  'linkCreate.createForm.button.createAndOpen': 'Luo ja avaa',
   'linkCreate.modal.heading': 'Luo uusi',
 };

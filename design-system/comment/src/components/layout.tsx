@@ -10,17 +10,20 @@ import { token } from '@atlaskit/tokens';
 import AvatarSlot from './slots/avatar-slot';
 import ContentSlot from './slots/content-slot';
 
-const inlineCommentStyles = xcss({
-  gridTemplateAreas: `
-  "avatar-area comment-area"
-  "nested-comments-area nested-comments-area"`,
-});
-
 const containerStyles = xcss({
   position: 'relative',
   gridTemplateColumns: 'auto 1fr',
-  gridTemplateAreas: `"avatar-area comment-area" \
+  gridTemplateAreas: `"avatar-area comment-area"
     ". nested-comments-area"`,
+});
+
+const inlineCommentStyles = xcss({
+  gridTemplateAreas: `"avatar-area comment-area"
+    "nested-comments-area nested-comments-area"`,
+});
+
+const noChildrenStyles = xcss({
+  gridTemplateAreas: `"avatar-area comment-area"`,
 });
 
 // if the background is appied on Box and tokens are not switched on it breaks.
@@ -28,8 +31,7 @@ const containerStyles = xcss({
 const highlightOverlayStyles = xcss({
   padding: 'space.100',
   position: 'absolute',
-  // @ts-expect-error needs negative tokens
-  inset: `${token('space.negative.100', '-8px')}`,
+  inset: 'space.negative.100',
   // @ts-expect-error needs background-color to be on new theme
   backgroundColor: token('color.background.neutral', N20A),
   gridArea: '1 / 1 / 2 / 3',
@@ -37,34 +39,34 @@ const highlightOverlayStyles = xcss({
 });
 
 const stackOverrideStyles = xcss({
-  paddingTop: 'space.300',
+  paddingBlockStart: 'space.300',
   gridArea: 'nested-comments-area',
 });
 
 export interface CommentLayoutProps {
   /**
-   * The element to display as the Comment avatar - generally an Atlaskit Avatar
+   * The element to display as the Comment avatar - generally an Atlaskit Avatar.
    */
   avatar?: ReactNode;
   /**
-   * Nested comments to render
+   * Nested comments to render.
    */
   children?: ReactNode;
   /**
-   * The main content of the Comment
+   * The main content of the Comment.
    */
   content?: ReactNode;
   /**
-   * Whether this comment should appear highlighted
+   * Whether this comment should appear highlighted.
    */
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   highlighted?: boolean;
   /**
-   * Optional ID for the comment
+   * Optional ID for the comment.
    */
   id?: string;
   /**
-   * Optional boolean to render any child comments at the same level as this comment
+   * Optional boolean to render any child comments at the same level as this comment.
    */
   shouldRenderNestedCommentsInline?: boolean;
   /**
@@ -90,10 +92,10 @@ const Layout: FC<CommentLayoutProps> = ({
 }) => (
   <Grid
     gap="space.100"
-    templateAreas={!children ? ['avatar-area comment-area'] : undefined}
     xcss={[
       containerStyles,
       shouldRenderNestedCommentsInline && inlineCommentStyles,
+      !children && noChildrenStyles,
     ]}
     testId={testId}
     id={id}

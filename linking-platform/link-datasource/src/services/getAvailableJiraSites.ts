@@ -1,8 +1,4 @@
-export interface Site {
-  cloudId: string;
-  displayName: string;
-  url: string;
-}
+import type { Site } from '../ui/jira-issues-modal/types';
 
 export const getAvailableJiraSites = async (): Promise<Site[]> => {
   const requestConfig = {

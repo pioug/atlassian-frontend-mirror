@@ -85,7 +85,7 @@ function ScrollableList({ children }: { children: ReactElement }) {
 
 `canScroll` is a helpful way to only enable auto scrolling for particular entity types.
 
-```tsx
+```ts
 autoScrollForElements({
   element: myElement,
   // only enable auto scrolling when a Card is being dragged
@@ -109,6 +109,19 @@ export type ElementGetFeedbackArgs = {
   element: Element;
 };
 ```
+
+- _(optional)_: `getConfiguration: (args: ElementGetFeedbackArgs) => PublicConfig`: used to control some aspects of auto scrolling
+
+```ts
+autoScrollForElements({
+  element: myElement,
+  getConfiguration: () => ({ maxScrollSpeed : 'fast' })
+}),
+```
+
+We are intentionally only exposing a limited amount of configuration in order to promote consistency. Right now we only expose a single simple configuration option:
+
+- `maxScrollSpeed`: `'fast' | 'standard'`. We recommend using the default `"standard"` max scroll speed for most experiences. However, on _some_ larger experiences, a faster max scroll speed `"fast"` _can_ feel better.
 
 ## Registering auto scrolling for the `window`
 

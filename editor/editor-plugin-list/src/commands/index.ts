@@ -13,15 +13,13 @@ import {
 } from '@atlaskit/editor-common/lists';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import type {
-  Command,
-  EditorCommand,
-  FeatureFlags,
-} from '@atlaskit/editor-common/types';
+import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
 import {
   filterCommand as filter,
   hasVisibleContent,
   isEmptySelectionAtStart,
+  isOrderedList,
+  isOrderedListContinuous,
 } from '@atlaskit/editor-common/utils';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { NodeType, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
@@ -36,6 +34,7 @@ import {
   findPositionOfNodeBefore,
   hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { convertListType } from '../actions/conversions';
 import { wrapInListAndJoin } from '../actions/wrap-and-join-lists';
@@ -63,7 +62,7 @@ export type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 
 export const enterKeyCommand =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-  (featureFlags: FeatureFlags): Command =>
+  (): Command =>
   (state, dispatch): boolean => {
     const { selection } = state;
     if (selection.empty) {
@@ -76,10 +75,7 @@ export const enterKeyCommand =
         const wrapperHasContent = hasVisibleContent(wrapper);
         if (!wrapperHasContent) {
           return editorCommandToPMCommand(
-            outdentList(editorAnalyticsAPI)(
-              INPUT_METHOD.KEYBOARD,
-              featureFlags,
-            ),
+            outdentList(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD),
           )(state, dispatch);
         } else if (!hasParentNodeOfType(codeBlock)(selection)) {
           return splitListItem(listItem)(state, dispatch);
@@ -91,7 +87,7 @@ export const enterKeyCommand =
 
 export const backspaceKeyCommand =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-  (featureFlags: FeatureFlags): Command =>
+  (): Command =>
   (state, dispatch) => {
     return chainCommands(
       listBackspace(editorAnalyticsAPI),
@@ -108,10 +104,7 @@ export const backspaceKeyCommand =
         chainCommands(
           deletePreviousEmptyListItem,
           editorCommandToPMCommand(
-            outdentList(editorAnalyticsAPI)(
-              INPUT_METHOD.KEYBOARD,
-              featureFlags,
-            ),
+            outdentList(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD),
           ),
         ),
       ),
@@ -178,6 +171,13 @@ export const toggleList =
     listType: 'bulletList' | 'orderedList',
   ): EditorCommand => {
     return function ({ tr }) {
+      if (getBooleanFF('platform.editor.allow-action-in-list')) {
+        const { taskList } = tr.doc.type.schema.nodes;
+        if (hasParentNodeOfType(taskList)(tr.selection)) {
+          return tr;
+        }
+      }
+
       const listInsideSelection = selectionContainsList(tr);
       const listNodeType: NodeType = tr.doc.type.schema.nodes[listType];
 
@@ -459,7 +459,23 @@ const joinToPreviousListItem: Command = (state, dispatch) => {
         $postCut.nodeBefore.type === $postCut.nodeAfter.type &&
         [bulletList, orderedList].indexOf($postCut.nodeBefore.type) > -1
       ) {
-        tr = tr.join($postCut.pos);
+        const firstList = $postCut.nodeBefore;
+        const secondList = $postCut.nodeAfter;
+        if (
+          getBooleanFF(
+            'platform.editor.ordered-list-auto-join-improvements_mrlv5',
+          )
+        ) {
+          // If lists are ordered, only join if second list continues from the first
+          if (
+            !isOrderedList(firstList) || // both lists have the same type so one check is sufficient
+            isOrderedListContinuous(firstList, secondList)
+          ) {
+            tr = tr.join($postCut.pos);
+          }
+        } else {
+          tr = tr.join($postCut.pos);
+        }
       }
 
       if (dispatch) {

@@ -377,7 +377,6 @@ export default class RendererDemo extends React.Component<
       }
 
       props.featureFlags = {
-        'restart-numbered-lists': true,
         ...props.featureFlags,
       };
 

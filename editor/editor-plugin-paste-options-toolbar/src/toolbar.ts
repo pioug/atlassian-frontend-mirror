@@ -1,6 +1,7 @@
 import type { IntlShape } from 'react-intl-next';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { pasteOptionsToolbarMessages as messages } from '@atlaskit/editor-common/messages';
 import type {
   Command,
   CommandDispatch,
@@ -20,7 +21,6 @@ import {
   changeToRichTextWithAnalytics,
   dropdownClickHandler,
 } from './commands';
-import { messages } from './messages';
 import {
   PASTE_OPTIONS_TEST_ID,
   PASTE_TOOLBAR_CLASS,
@@ -43,12 +43,10 @@ export const isToolbarVisible = (
   /**
    * Conditions for not showing the toolbar:
    * 1. Feature flag is disabled
-   * 2. Content is pasted at gap cursor
-   * 3. Pasting horizontal rule
-   * 4. Pasting link, media or text containing media(note: markdown link and images are allowed)
-   * 5. Content is pasted in a nested node(i.e. inside a table, panel etc.).
+   * 2. Pasting link, media or text containing media(note: markdown link and images are allowed)
+   * 3. Content is pasted in a nested node(i.e. inside a table, panel etc.).
    *    (grandParent node should be root doc for showing up the toolbar)
-   * 6. Cursor is inside the codeblock.
+   * 4. Cursor is inside the codeblock.
    */
   if (!getBooleanFF('platform.editor.paste-options-toolbar')) {
     return false;

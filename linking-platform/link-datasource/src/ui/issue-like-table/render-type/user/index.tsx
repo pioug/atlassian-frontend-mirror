@@ -1,50 +1,121 @@
-import React from 'react';
+/** @jsx jsx */
+import React, { useState } from 'react';
 
+import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import { FormattedMessage } from 'react-intl-next';
 
 import Avatar, { SizeType } from '@atlaskit/avatar';
+import AvatarGroup, { AvatarProps } from '@atlaskit/avatar-group';
 import { User } from '@atlaskit/linking-types';
+import { Box, xcss } from '@atlaskit/primitives';
+import { WidthObserver } from '@atlaskit/width-detector';
 
 import { FieldTextFontSize } from '../../styled';
 
 import { userTypeMessages } from './messages';
 
-const UserWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: ${FieldTextFontSize};
+const userWrapperStyles = xcss({
+  display: 'flex',
+  alignItems: 'center',
+  fontSize: `${FieldTextFontSize}px`,
+});
+
+const avatarWrapperStyles = xcss({
+  marginRight: '5px',
+});
+
+const widthObserverWrapperStyles = xcss({
+  position: 'relative',
+});
+
+const AvatarGroupWrapperStyles = styled.div`
+  ul {
+    padding-left: 0px !important;
+  }
 `;
 
-const AvatarWrapper = styled.div`
-  margin-right: 5px;
-`;
-
-interface UserProps extends User {
+export interface UserProps extends User {
   children?: React.ReactElement;
   testId?: string;
   avatarSize?: SizeType;
 }
 
+const getMaxUserCount = (userCount: number, availableWidth: number) => {
+  if (availableWidth <= 28) {
+    // If width is less than or equal to 28px, we should only display the user count
+    return 1;
+  }
+
+  const defaultMaxCount = 5;
+  const usersNumFitToAvailableWidth = Math.ceil((availableWidth - 28) / 20);
+
+  return usersNumFitToAvailableWidth > defaultMaxCount
+    ? defaultMaxCount
+    : usersNumFitToAvailableWidth;
+};
+
 export const USER_TYPE_TEST_ID = 'link-datasource-render-type--user';
 
-const UserType = ({
-  avatarSource,
-  avatarSize = 'small',
-  displayName,
-  testId = USER_TYPE_TEST_ID,
-  children,
-}: UserProps) => {
-  return (
-    <UserWrapper data-testid={testId}>
-      <AvatarWrapper>
-        <Avatar appearance="circle" size={avatarSize} src={avatarSource} />
-      </AvatarWrapper>
-      {children || displayName || (
-        <FormattedMessage {...userTypeMessages.userDefaultdisplayNameValue} />
-      )}
-    </UserWrapper>
-  );
+const UserType = ({ users }: { users: UserProps[] }) => {
+  const [width, setWidth] = useState<number | null>(null);
+
+  if (users.length <= 1) {
+    const {
+      avatarSource,
+      avatarSize = 'small',
+      displayName,
+      testId = USER_TYPE_TEST_ID,
+      children,
+    } = users[0] || {};
+    return (
+      <Box xcss={userWrapperStyles} testId={testId}>
+        <Box xcss={avatarWrapperStyles}>
+          <Avatar
+            appearance="circle"
+            size={avatarSize || 'small'}
+            src={avatarSource}
+            testId={`${testId}--avatar`}
+          />
+        </Box>
+        {children || displayName || (
+          <FormattedMessage {...userTypeMessages.userDefaultdisplayNameValue} />
+        )}
+      </Box>
+    );
+  } else {
+    const maxCount = width !== null ? getMaxUserCount(users.length, width) : 5;
+
+    type UserPropsWithDisplayName = Omit<UserProps, 'displayName'> &
+      Required<Pick<UserProps, 'displayName'>>;
+
+    const data: AvatarProps[] = users
+      .filter(
+        (user: UserProps): user is UserPropsWithDisplayName =>
+          !!user.displayName,
+      )
+      .map(({ atlassianUserId, displayName, avatarSource, testId }) => ({
+        key: atlassianUserId,
+        name: displayName,
+        src: avatarSource,
+        testId: `${testId}--avatar`,
+      }));
+
+    return (
+      <AvatarGroupWrapperStyles>
+        <Box xcss={widthObserverWrapperStyles}>
+          <WidthObserver setWidth={setWidth} />
+        </Box>
+        <AvatarGroup
+          data={data}
+          maxCount={maxCount}
+          size="small"
+          isTooltipDisabled={true}
+          testId={USER_TYPE_TEST_ID}
+        ></AvatarGroup>
+      </AvatarGroupWrapperStyles>
+    );
+  }
 };
 
 export default UserType;

@@ -1,22 +1,22 @@
 /** @jsx jsx */
 import React from 'react';
+
 import { css, jsx } from '@emotion/react';
-import { N30, N10 } from '@atlaskit/theme/colors';
 
-import EditorContext from './../src/ui/EditorContext';
-import WithEditorActions from './../src/ui/WithEditorActions';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
+import { N10, N30 } from '@atlaskit/theme/colors';
 
-import { ExampleEditor, LOCALSTORAGE_defaultDocKey } from './5-full-page';
-
-import decisionAdf from '../example-helpers/templates/decision.adf.json';
+import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';
 import breakoutAdf from '../example-helpers/templates/breakout.adf.json';
+import decisionAdf from '../example-helpers/templates/decision.adf.json';
 import type { EditorActions } from '../src';
 import { ContextPanel } from '../src';
-import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';
-
-import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { usePresetContext } from '../src/presets/context';
+import EditorContext from '../src/ui/EditorContext';
+import WithEditorActions from '../src/ui/WithEditorActions';
+
+import { ExampleEditor, LOCALSTORAGE_defaultDocKey } from './5-full-page';
 
 type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
 

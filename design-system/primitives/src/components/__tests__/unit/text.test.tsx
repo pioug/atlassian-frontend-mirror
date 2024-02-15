@@ -19,7 +19,8 @@ describe('Text component', () => {
     expect(screen.getByTestId('test')).toMatchInlineSnapshot(`
       .emotion-0 {
         margin: 0;
-        font: var(--ds-font-body, normal 400 14px/20px var(--ds-font-family-body));
+        font: var(--ds-font-body, normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif);
+        color: var(--ds-text, #172B4D);
       }
 
       <p

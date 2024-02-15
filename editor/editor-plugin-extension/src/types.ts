@@ -2,6 +2,11 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type {
   ExtensionAPI,
   ExtensionHandlers,
+  ExtensionProvider,
+  Parameters,
+  TransformAfter,
+  TransformBefore,
+  UpdateExtension,
 } from '@atlaskit/editor-common/extensions';
 import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
@@ -11,6 +16,7 @@ import type {
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
 import type {
   ApplyChangeHandler,
   ContextPanelPlugin,
@@ -21,6 +27,30 @@ import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import type { forceAutoSave } from './commands';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type RejectSave = (reason?: any) => void;
+
+export type ExtensionState<T extends Parameters = Parameters> = {
+  localId?: string;
+  autoSaveResolve?: () => void;
+  autoSaveReject?: RejectSave;
+  showEditButton: boolean;
+  showContextPanel: boolean;
+  updateExtension?: Promise<UpdateExtension<T> | void>;
+  element?: HTMLElement;
+  extensionProvider?: ExtensionProvider<T>;
+  processParametersBefore?: TransformBefore<T>;
+  processParametersAfter?: TransformAfter<T>;
+  positions?: Record<number, number>;
+};
+
+export type ExtensionAction<T extends Parameters = Parameters> = {
+  type: 'UPDATE_STATE';
+  data: Partial<ExtensionState<T>>;
+};
 
 interface CreateExtensionAPIOptions {
   editorView: EditorView;
@@ -62,12 +92,19 @@ export type ExtensionPlugin = NextEditorPlugin<
       WidthPlugin,
       DecorationsPlugin,
       OptionalPlugin<ContextPanelPlugin>,
+      OptionalPlugin<ContextIdentifierPlugin>,
     ];
+    sharedState:
+      | {
+          showContextPanel: boolean | undefined;
+        }
+      | undefined;
     actions: {
       editSelectedExtension: () => boolean;
       api: () => ExtensionAPI;
       insertMacroFromMacroBrowser: InsertMacroFromMacroBrowser;
       runMacroAutoConvert: RunMacroAutoConvert;
+      forceAutoSave: typeof forceAutoSave;
     };
   }
 >;

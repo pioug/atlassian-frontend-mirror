@@ -56,7 +56,7 @@ const InlineEditExample = () => {
           <Textfield {...fieldProps} autoFocus css={textFieldStyles} />
         )}
         readView={() => (
-          <Box xcss={readViewContainerStyles} data-testid="read-view">
+          <Box xcss={readViewContainerStyles} testId="read-view">
             {editValue || 'Click to enter text'}
           </Box>
         )}

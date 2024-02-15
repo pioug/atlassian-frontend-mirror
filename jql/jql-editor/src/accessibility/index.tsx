@@ -1,0 +1,1 @@
+export { ScreenReaderText } from './styled';

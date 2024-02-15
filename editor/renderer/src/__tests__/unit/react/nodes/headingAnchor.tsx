@@ -1,44 +1,50 @@
 import React from 'react';
+import { screen, waitFor, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import HeadingAnchor from '../../../../react/nodes/heading-anchor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import Tooltip from '@atlaskit/tooltip';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
-describe('HeadingAnchor', () => {
-  const onClick = () =>
-    new Promise<void>((resolve, _reject) => {
-      resolve();
+describe('Heading Anchor', () => {
+  const onClickHandler = () => Promise.resolve();
+
+  it('should render a tooltip with a meaningful message on hover', async () => {
+    act(() => {
+      renderWithIntl(
+        <HeadingAnchor onCopyText={() => Promise.resolve()} level={1} />,
+      );
     });
-  let subject: any;
 
-  afterEach(() => {
-    if (subject) {
-      subject.unmount();
-    }
-  });
+    const copyLinkButton = screen.getByRole('button', {
+      name: 'Copy link to heading',
+    });
+    expect(copyLinkButton).toBeVisible();
 
-  it('render tooltip with correct message initially', () => {
-    subject = mountWithIntl(<HeadingAnchor onCopyText={onClick} level={1} />);
-    expect(subject.find(Tooltip).exists()).toBeTruthy();
-    expect(subject.find(Tooltip).props().content).toEqual(
-      'Copy link to heading',
+    await userEvent.hover(copyLinkButton);
+    await waitFor(() =>
+      expect(screen.getByRole('tooltip', { name: 'Copy link to heading' })),
     );
   });
 
-  it('render tooltip with correct message after user clicked', async () => {
-    let promise;
-    const onClickCopyButton = () => {
-      promise = Promise.resolve();
-      return promise;
-    };
-    subject = mountWithIntl(
-      <HeadingAnchor onCopyText={onClickCopyButton} level={1} />,
+  it('should update the tooltip with a meaningful message when the user has clicked the copy button', async () => {
+    act(() => {
+      renderWithIntl(<HeadingAnchor onCopyText={onClickHandler} level={1} />);
+    });
+
+    await userEvent.click(
+      screen.getByRole('button', {
+        name: 'Copy link to heading',
+      }),
     );
-    subject.find('button').simulate('click');
 
-    await promise;
-    subject.update();
+    const copiedButton = await waitFor(() =>
+      screen.getByRole('button', { name: 'Copied!' }),
+    );
+    await waitFor(() => expect(copiedButton).toBeVisible());
 
-    expect(subject.find(Tooltip).props().content).toEqual('Copied!');
+    userEvent.hover(copiedButton);
+    await waitFor(() =>
+      expect(screen.getByRole('tooltip', { name: 'Copied!' })).toBeVisible(),
+    );
   });
 });

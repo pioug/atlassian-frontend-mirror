@@ -21,6 +21,7 @@ import {
 } from '../../../../../state/flexible-ui-context';
 import ActionGroupItem from './action-group-item';
 import { filterActionItems } from '../utils';
+import { di } from 'react-magnetic-di';
 
 const styles = css`
   display: inline-flex;
@@ -71,6 +72,8 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
   visibleButtonsNum = 2,
   onDropdownOpenChange,
 }) => {
+  di(DropdownMenu);
+
   const context = useFlexibleUiContext();
   const ui = useFlexibleUiOptionContext();
 

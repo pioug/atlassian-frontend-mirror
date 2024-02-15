@@ -3,9 +3,7 @@ import Page, { Grid, GridColumn } from '@atlaskit/page';
 import { Label } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
 import { IntlProvider } from 'react-intl-next';
-import { InlineCardErroredView } from '../src/view/InlineCard/ErroredView';
-import { InlineCardErroredView as RedesignedInlineCardErroredView } from '../src/view/RedesignedInlineCard/ErroredView';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { InlineCardErroredView as ErroredView } from '../src/view/InlineCard/ErroredView';
 
 class Example extends React.Component {
   state = {
@@ -17,12 +15,6 @@ class Example extends React.Component {
   };
 
   render() {
-    const ErroredView = getBooleanFF(
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-    )
-      ? RedesignedInlineCardErroredView
-      : InlineCardErroredView;
-
     return (
       <IntlProvider locale={'en'}>
         <Page>

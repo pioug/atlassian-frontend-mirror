@@ -1,0 +1,1 @@
+This is the output directory for i18n messages produced by the product localization pipeline.

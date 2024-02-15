@@ -1,18 +1,13 @@
 import { css } from '@emotion/react';
 
 import { getCodeStyles } from '@atlaskit/code/inline';
-import { DN70, N30A } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
-import type { ThemeProps } from '@atlaskit/theme/types';
+import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-export const codeMarkSharedStyles = (props: ThemeProps) => {
+export const codeMarkSharedStyles = () => {
   return css`
     .code {
-      --ds--code--bg-color: ${themed({
-        light: token('color.background.neutral', N30A),
-        dark: token('color.background.neutral', DN70),
-      })(props)};
+      --ds--code--bg-color: ${token('color.background.neutral', N30A)};
       ${getCodeStyles()}
     }
   `;

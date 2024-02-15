@@ -29,9 +29,9 @@ export default {
   'fabric.linking.connect_to': 'Подключить к {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Подключиться к {context}',
   'fabric.linking.connect_unauthorised_account_description':
-    'Подключите {context} к Atlassian, чтобы получать более подробную информацию о работе и вести сотрудничество в единой среде.',
+    'Подключите свой аккаунт {context} для совместной работы в продуктах Atlassian.',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    'Подключитесь к Atlassian, чтобы получать более подробную информацию о работе и совместно работать в единой среде.',
+    'Подключите свой аккаунт для совместной работы в продуктах Atlassian.',
   'fabric.linking.continue': 'Продолжить',
   'fabric.linking.copy_url_to_clipboard': 'Копировать ссылку',
   'fabric.linking.couldnt_load_link': 'По неизвестной причине не удалось загрузить ссылку.',
@@ -58,6 +58,7 @@ export default {
     'Для предварительного просмотра этого элемента запросите право доступа или попробуйте воспользоваться другим аккаунтом.',
   'fabric.linking.join_to_view': 'Для просмотра этой задачи выполните подключение к {context}',
   'fabric.linking.last_mentioned_in': 'Последнее упоминание',
+  'fabric.linking.learn_more_about_connecting_account': 'Подробнее о подключении аккаунта к продуктам Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Подробнее об интеллектуальных ссылках.',
   'fabric.linking.link_safety_warning_message':
     'При переходе по ссылке {unsafeLinkText} вы попадете на другой сайт, <a>actual link here</a>',

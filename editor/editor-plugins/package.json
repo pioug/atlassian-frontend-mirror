@@ -1,0 +1,387 @@
+{
+  "name": "@atlaskit/editor-plugins",
+  "version": "1.4.0",
+  "description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "singleton": true,
+    "team": "Editor: Lego",
+    "inPublicMirror": false,
+    "releaseModel": "continuous"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    "./alignment": "./src/alignment/index.ts",
+    "./analytics": "./src/analytics/index.ts",
+    "./annotation": "./src/annotation/index.ts",
+    "./avatar-group": "./src/avatar-group/index.ts",
+    "./base": "./src/base/index.ts",
+    "./before-primary-toolbar": "./src/before-primary-toolbar/index.ts",
+    "./better-type-history": "./src/better-type-history/index.ts",
+    "./block-type/consts": "./src/block-type/consts.ts",
+    "./block-type/styles": "./src/block-type/styles.ts",
+    "./block-type": "./src/block-type/index.ts",
+    "./border": "./src/border/index.ts",
+    "./breakout": "./src/breakout/index.ts",
+    "./caption": "./src/caption/index.ts",
+    "./card": "./src/card/index.ts",
+    "./clear-marks-on-empty-doc": "./src/clear-marks-on-empty-doc/index.ts",
+    "./clipboard": "./src/clipboard/index.ts",
+    "./code-bidi-warning": "./src/code-bidi-warning/index.ts",
+    "./code-block": "./src/code-block/index.ts",
+    "./collab-edit": "./src/collab-edit/index.ts",
+    "./composition": "./src/composition/index.ts",
+    "./content-insertion": "./src/content-insertion/index.ts",
+    "./context-identifier": "./src/context-identifier/index.ts",
+    "./context-panel": "./src/context-panel/index.ts",
+    "./copy-button": "./src/copy-button/index.ts",
+    "./custom-autoformat": "./src/custom-autoformat/index.ts",
+    "./data-consumer": "./src/data-consumer/index.ts",
+    "./date": "./src/date/index.ts",
+    "./decorations": "./src/decorations/index.ts",
+    "./editor-disabled": "./src/editor-disabled/index.ts",
+    "./editor-viewmode": "./src/editor-viewmode/index.ts",
+    "./emoji": "./src/emoji/index.ts",
+    "./expand": "./src/expand/index.ts",
+    "./extension": "./src/extension/index.ts",
+    "./feature-flags": "./src/feature-flags/index.ts",
+    "./feedback-dialog": "./src/feedback-dialog/index.ts",
+    "./find-replace/styles": "./src/find-replace/styles.ts",
+    "./find-replace": "./src/find-replace/index.ts",
+    "./floating-toolbar": "./src/floating-toolbar/index.ts",
+    "./focus": "./src/focus/index.ts",
+    "./fragment": "./src/fragment/index.ts",
+    "./grid": "./src/grid/index.ts",
+    "./guideline": "./src/guideline/index.ts",
+    "./help-dialog": "./src/help-dialog/index.ts",
+    "./history": "./src/history/index.ts",
+    "./hyperlink": "./src/hyperlink/index.ts",
+    "./image-upload": "./src/image-upload/index.ts",
+    "./indentation": "./src/indentation/index.ts",
+    "./insert-block": "./src/insert-block/index.ts",
+    "./layout": "./src/layout/index.ts",
+    "./list": "./src/list/index.ts",
+    "./loom": "./src/loom/index.ts",
+    "./max-content-size": "./src/max-content-size/index.ts",
+    "./media/types": "./src/media/types.ts",
+    "./media": "./src/media/index.ts",
+    "./mentions": "./src/mentions/index.ts",
+    "./panel": "./src/panel/index.ts",
+    "./paste": "./src/paste/index.ts",
+    "./paste-options-toolbar/styles": "./src/paste-options-toolbar/styles.ts",
+    "./paste-options-toolbar": "./src/paste-options-toolbar/index.ts",
+    "./placeholder": "./src/placeholder/index.ts",
+    "./placeholder-text/styles": "./src/placeholder-text/styles.ts",
+    "./placeholder-text": "./src/placeholder-text/index.ts",
+    "./quick-insert": "./src/quick-insert/index.ts",
+    "./rule": "./src/rule/index.ts",
+    "./save-on-enter": "./src/save-on-enter/index.ts",
+    "./scroll-into-view": "./src/scroll-into-view/index.ts",
+    "./selection/types": "./src/selection/types.ts",
+    "./selection": "./src/selection/index.ts",
+    "./selection-toolbar": "./src/selection-toolbar/index.ts",
+    "./status": "./src/status/index.ts",
+    "./submit-editor": "./src/submit-editor/index.ts",
+    "./table/ui/common-styles": "./src/table/ui/common-styles.ts",
+    "./table/ui/consts": "./src/table/ui/consts.ts",
+    "./table/types": "./src/table/types.ts",
+    "./table/plugin-key": "./src/table/pm-plugins/plugin-key.ts",
+    "./table/commands": "./src/table/commands/index.ts",
+    "./table": "./src/table/index.ts",
+    "./tasks-and-decisions": "./src/tasks-and-decisions/index.ts",
+    "./text-color": "./src/text-color/index.ts",
+    "./text-formatting": "./src/text-formatting/index.ts",
+    "./toolbar-lists-indentation": "./src/toolbar-lists-indentation/index.ts",
+    "./type-ahead": "./src/type-ahead/index.ts",
+    "./undo-redo": "./src/undo-redo/index.ts",
+    "./unsupported-content": "./src/unsupported-content/index.ts",
+    "./width": "./src/width/index.ts"
+  },
+  "scripts": {
+    "update-editor-plugins": "ts-node scripts/update-editor-plugins.ts"
+  },
+  "dependencies": {
+    "@atlaskit/editor-plugin-alignment": "^1.0.0",
+    "@atlaskit/editor-plugin-analytics": "^1.0.0",
+    "@atlaskit/editor-plugin-annotation": "^1.0.0",
+    "@atlaskit/editor-plugin-avatar-group": "^1.0.0",
+    "@atlaskit/editor-plugin-base": "^1.0.0",
+    "@atlaskit/editor-plugin-before-primary-toolbar": "^1.0.0",
+    "@atlaskit/editor-plugin-better-type-history": "^1.0.0",
+    "@atlaskit/editor-plugin-block-type": "^3.0.21",
+    "@atlaskit/editor-plugin-border": "^1.0.0",
+    "@atlaskit/editor-plugin-breakout": "^1.0.0",
+    "@atlaskit/editor-plugin-caption": "^1.0.0",
+    "@atlaskit/editor-plugin-card": "^1.0.0",
+    "@atlaskit/editor-plugin-clear-marks-on-empty-doc": "^1.0.0",
+    "@atlaskit/editor-plugin-clipboard": "^1.0.0",
+    "@atlaskit/editor-plugin-code-bidi-warning": "^1.0.0",
+    "@atlaskit/editor-plugin-code-block": "^1.0.0",
+    "@atlaskit/editor-plugin-collab-edit": "^1.0.0",
+    "@atlaskit/editor-plugin-composition": "^1.0.0",
+    "@atlaskit/editor-plugin-content-insertion": "^1.0.0",
+    "@atlaskit/editor-plugin-context-identifier": "^1.0.0",
+    "@atlaskit/editor-plugin-context-panel": "^1.0.0",
+    "@atlaskit/editor-plugin-copy-button": "^1.0.4",
+    "@atlaskit/editor-plugin-custom-autoformat": "^1.0.0",
+    "@atlaskit/editor-plugin-data-consumer": "^1.0.0",
+    "@atlaskit/editor-plugin-date": "^1.0.0",
+    "@atlaskit/editor-plugin-decorations": "^1.0.0",
+    "@atlaskit/editor-plugin-editor-disabled": "^1.0.0",
+    "@atlaskit/editor-plugin-editor-viewmode": "^1.0.0",
+    "@atlaskit/editor-plugin-emoji": "^1.1.1",
+    "@atlaskit/editor-plugin-expand": "^1.0.0",
+    "@atlaskit/editor-plugin-extension": "^1.0.0",
+    "@atlaskit/editor-plugin-feature-flags": "^1.0.3",
+    "@atlaskit/editor-plugin-feedback-dialog": "^1.0.0",
+    "@atlaskit/editor-plugin-find-replace": "^1.0.0",
+    "@atlaskit/editor-plugin-floating-toolbar": "^1.0.0",
+    "@atlaskit/editor-plugin-focus": "^1.0.0",
+    "@atlaskit/editor-plugin-fragment": "^1.0.0",
+    "@atlaskit/editor-plugin-grid": "^1.0.0",
+    "@atlaskit/editor-plugin-guideline": "^1.0.0",
+    "@atlaskit/editor-plugin-help-dialog": "^1.0.0",
+    "@atlaskit/editor-plugin-history": "^1.0.0",
+    "@atlaskit/editor-plugin-hyperlink": "^1.0.0",
+    "@atlaskit/editor-plugin-image-upload": "^1.0.0",
+    "@atlaskit/editor-plugin-indentation": "^1.0.0",
+    "@atlaskit/editor-plugin-insert-block": "^1.0.0",
+    "@atlaskit/editor-plugin-layout": "^1.0.0",
+    "@atlaskit/editor-plugin-list": "^3.1.6",
+    "@atlaskit/editor-plugin-loom": "^1.0.0",
+    "@atlaskit/editor-plugin-max-content-size": "^1.0.0",
+    "@atlaskit/editor-plugin-media": "^1.1.0",
+    "@atlaskit/editor-plugin-mentions": "^1.0.0",
+    "@atlaskit/editor-plugin-panel": "^1.0.0",
+    "@atlaskit/editor-plugin-paste": "^1.0.0",
+    "@atlaskit/editor-plugin-paste-options-toolbar": "^1.0.0",
+    "@atlaskit/editor-plugin-placeholder": "^1.0.0",
+    "@atlaskit/editor-plugin-placeholder-text": "^1.0.0",
+    "@atlaskit/editor-plugin-quick-insert": "^1.0.0",
+    "@atlaskit/editor-plugin-rule": "^1.0.0",
+    "@atlaskit/editor-plugin-save-on-enter": "^1.0.0",
+    "@atlaskit/editor-plugin-scroll-into-view": "^1.0.0",
+    "@atlaskit/editor-plugin-selection": "^1.0.0",
+    "@atlaskit/editor-plugin-selection-toolbar": "^1.0.0",
+    "@atlaskit/editor-plugin-status": "^1.0.0",
+    "@atlaskit/editor-plugin-submit-editor": "^1.0.0",
+    "@atlaskit/editor-plugin-table": "^7.3.0",
+    "@atlaskit/editor-plugin-tasks-and-decisions": "^1.0.0",
+    "@atlaskit/editor-plugin-text-color": "^1.0.0",
+    "@atlaskit/editor-plugin-text-formatting": "^1.0.0",
+    "@atlaskit/editor-plugin-toolbar-lists-indentation": "^1.0.0",
+    "@atlaskit/editor-plugin-type-ahead": "^1.0.0",
+    "@atlaskit/editor-plugin-undo-redo": "^1.0.0",
+    "@atlaskit/editor-plugin-unsupported-content": "^1.0.0",
+    "@atlaskit/editor-plugin-width": "^1.0.0",
+    "@babel/runtime": "^7.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@af/integration-testing": "*",
+    "@af/visual-regression": "*",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@manypkg/find-root": "^1.1.0",
+    "@testing-library/react": "^12.1.5",
+    "prettier": "^2.8.0",
+    "react-dom": "^16.8.0",
+    "typescript": "~4.9.5",
+    "wait-for-expect": "^1.2.0",
+    "yargs": "^15.3.1"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": [
+        "file-and-folder-level"
+      ]
+    },
+    "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
+      "analytics": [
+        "analytics-next"
+      ],
+      "design-tokens": [
+        "color"
+      ],
+      "theming": [
+        "react-context"
+      ],
+      "ui-components": [
+        "lite-mode"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ],
+      "styling": [
+        "static",
+        "compiled"
+      ],
+      "imports": [
+        "import-no-extraneous-disable-for-examples-and-docs"
+      ]
+    }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
+  "platform-feature-flags": {
+    "platform.editor.annotation.decouple-inline-comment-closed_flmox": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.enable-selection-toolbar_ucdwd": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.allow-list-in-blockquote": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.linking-platform.smart-card.inline-switcher": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.show-embed-card-frame-renderer": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.linking-platform.enable-datasource-appearance-toolbar": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.allow-extended-nested-expand": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.multi-bodied-extension_0rygg": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.a11y-find-replace": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.design-system-team.editor-new-button_jjjdo": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.a11y.table-selection_9uv33": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.a11y-media-resizing_b5v0o": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.a11y-table-resizing_uapcv": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.ordered-list-auto-join-improvements_mrlv5": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.allow-action-in-list": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.media.extended-resize-experience": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.media.inline-image.base-support": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.media-experience.media-viewer-v2_hgsii": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.ally-media-file-dropdown_1kxo8": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.allow-extended-panel": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.ordered-list-inserting-nodes_bh0vo": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.paste-options-toolbar": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.change-navigation-for-atom-nodes": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.custom-table-width": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.table.column-controls-styles-updated": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.resizing-table-height-improvement": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.table.increase-shadow-visibility_lh89r": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.table.shift-arrowup-fix": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.table.alternative-sticky-header-logic": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.table.analytics-plugin-moved-event": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.table.new-cell-context-menu-styling": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.menu.group-items": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.table.in-danger-hover-merged-cells-fix": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.a11y-column-resizing_emcvz": {
+      "type": "boolean",
+      "referenceOnly": true
+    }
+  }
+}

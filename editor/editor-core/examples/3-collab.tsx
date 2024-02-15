@@ -1,11 +1,33 @@
 /* eslint-disable no-console */
 /** @jsx jsx */
-import { css, jsx } from '@emotion/react';
 import React from 'react';
-import { borderRadius } from '@atlaskit/theme/constants';
-import type { ShareResponse, ConfigResponse } from '@atlaskit/share';
-import { ShareDialogContainer } from '@atlaskit/share';
 
+import { css, jsx } from '@emotion/react';
+
+import type { InviteToEditComponentProps } from '@atlaskit/editor-common/collab';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type {
+  OptionalPlugin,
+  PublicPluginAPI,
+} from '@atlaskit/editor-common/types';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
+import {
+  akEditorCodeBackground,
+  akEditorCodeBlockPadding,
+  akEditorCodeFontFamily,
+} from '@atlaskit/editor-shared-styles';
+import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
+import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
+import type { ResolvingMentionProvider } from '@atlaskit/mention/resource';
+import type { ConfigResponse, ShareResponse } from '@atlaskit/share';
+import { ShareDialogContainer } from '@atlaskit/share';
+import type { OptionData, User } from '@atlaskit/smart-user-picker';
+import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
+import { borderRadius } from '@atlaskit/theme/constants';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import {
   mentionResourceProviderWithResolver,
@@ -14,38 +36,14 @@ import {
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
 
-import type { OptionData, User } from '@atlaskit/smart-user-picker';
-import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
-import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
-import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
-import {
-  akEditorCodeBackground,
-  akEditorCodeBlockPadding,
-  akEditorCodeFontFamily,
-} from '@atlaskit/editor-shared-styles';
-
-import type { EditorProps } from './../src';
-import { Editor } from './../src';
-import EditorContext from './../src/ui/EditorContext';
-
-import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
-import { TitleInput } from '../example-helpers/PageElements';
-import type { MentionProvider } from '../src';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import type { InviteToEditComponentProps } from '../src/plugins/collab-edit/types';
-import type { ResolvingMentionProvider } from '@atlaskit/mention/resource';
-
-import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';
-import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
-import type {
-  PublicPluginAPI,
-  OptionalPlugin,
-} from '@atlaskit/editor-common/types';
+import { TitleInput } from '../example-helpers/PageElements';
+import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
+import type { MentionProvider } from '../src';
+import type { EditorProps } from '../src';
+import { Editor } from '../src';
 import { usePresetContext } from '../src/presets/context';
+import EditorContext from '../src/ui/EditorContext';
 
 type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
 

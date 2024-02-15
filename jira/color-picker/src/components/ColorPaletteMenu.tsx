@@ -1,19 +1,18 @@
-import React from 'react';
-import { Palette, Mode } from '../types';
+/** @jsx jsx */
+import { Mode, Palette } from '../types';
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
   createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import {
-  ColorCardWrapper,
-  ColorPaletteMenu,
-  ColorPaletteContainer,
-} from '../styled/ColorPalette';
 import ColorCard from './ColorCard';
-import { getOptions } from '../utils';
+import { getOptions, getWidth } from '../utils';
+import { css, jsx } from '@emotion/react';
+import { COLOR_CARD_SIZE } from '../constants';
+import { token } from '@atlaskit/tokens';
+import { N0, N40 } from '@atlaskit/theme/colors';
 
-export interface Props {
+export type Props = {
   /** color picker button label */
   label?: string;
   /** list of available colors */
@@ -30,21 +29,23 @@ export interface Props {
   createAnalyticsEvent?: any;
   /** style of the color-picker, either 'Compact' or 'Standard', default value is 'Standard' */
   mode?: Mode;
-}
+};
 
-export class ColorPaletteMenuWithoutAnalytics extends React.Component<Props> {
-  static defaultProps = {
-    cols: 6,
-    mode: Mode.Standard,
-  };
+export const ColorPaletteMenuWithoutAnalytics = ({
+  createAnalyticsEvent,
+  onChange,
+  palette,
+  selectedColor,
+  checkMarkColor,
+  label = 'Color picker',
+  cols = 6,
+  mode = Mode.Standard,
+}: Props) => {
+  const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
-  createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
-
-  changeAnalyticsCaller = () => {
-    const { createAnalyticsEvent } = this.props;
-
+  const changeAnalyticsCaller = () => {
     if (createAnalyticsEvent) {
-      return this.createAndFireEventOnAtlaskit({
+      return createAndFireEventOnAtlaskit({
         action: 'clicked',
         actionSubject: 'color-palette-menu',
 
@@ -58,54 +59,82 @@ export class ColorPaletteMenuWithoutAnalytics extends React.Component<Props> {
     return undefined;
   };
 
-  onChange = (value: string) => {
-    this.props.onChange(value, this.changeAnalyticsCaller());
+  const handleChange = (value: string) => {
+    onChange(value, changeAnalyticsCaller());
   };
 
-  render() {
-    const {
-      palette,
-      selectedColor,
-      checkMarkColor,
-      cols,
-      label = 'Color picker',
-      mode,
-    } = this.props;
-    const { options, value: selectedValue } = getOptions(
-      palette,
-      selectedColor,
-    );
-    const fullLabel = `${label}, ${selectedValue.label} selected`;
+  const { options, value: selectedValue } = getOptions(palette, selectedColor);
+  const fullLabel = `${label}, ${selectedValue.label} selected`;
 
-    return (
-      <ColorPaletteMenu
-        cols={cols}
-        aria-label={fullLabel}
-        mode={mode}
-        role="radiogroup"
+  return (
+    <div
+      aria-label={fullLabel}
+      role="radiogroup"
+      css={[
+        colorPaletteMenuStyles,
+        mode === Mode.Standard && colorPaletteMenuStandardStyles,
+      ]}
+      style={{
+        width: `${getWidth(cols, mode)}px`,
+      }}
+    >
+      <div
+        css={[
+          colorPaletteContainerStyles,
+          mode === Mode.Compact && colorPaletteContainerCompactStyles,
+        ]}
       >
-        <ColorPaletteContainer mode={mode}>
-          {options.map(({ label, value }) => (
-            <ColorCardWrapper key={value}>
-              <ColorCard
-                label={label}
-                value={value}
-                checkMarkColor={checkMarkColor}
-                isOption
-                selected={value === selectedValue.value}
-                onClick={this.onChange}
-                onKeyDown={this.onChange}
-              />
-            </ColorCardWrapper>
-          ))}
-        </ColorPaletteContainer>
-      </ColorPaletteMenu>
-    );
-  }
-}
+        {options.map(({ label, value }) => (
+          <div css={colorCardWrapperStyles} key={value}>
+            <ColorCard
+              label={label}
+              value={value}
+              checkMarkColor={checkMarkColor}
+              isOption
+              selected={value === selectedValue.value}
+              onClick={handleChange}
+              onKeyDown={handleChange}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default withAnalyticsContext({
   componentName: 'color-picker',
   packageName: process.env._PACKAGE_NAME_,
   packageVersion: process.env._PACKAGE_VERSION_,
 })(withAnalyticsEvents()(ColorPaletteMenuWithoutAnalytics));
+
+const colorCardWrapperStyles = css({
+  display: 'flex',
+  margin: token('space.025', '2px'),
+  height: `${COLOR_CARD_SIZE}px`,
+});
+
+const colorPaletteContainerStyles = css({
+  display: 'flex',
+  flexWrap: 'wrap',
+  padding: token('space.050', '4px'),
+});
+
+const colorPaletteContainerCompactStyles = css({
+  padding: token('space.0', '0'),
+});
+
+const colorPaletteMenuStyles = css({
+  display: 'flex',
+  position: 'relative',
+  margin: token('space.0', '0'),
+  backgroundColor: token('elevation.surface.overlay', N0),
+});
+
+const colorPaletteMenuStandardStyles = css({
+  borderRadius: token('border.radius.100', '3px'),
+  boxShadow: token(
+    'elevation.shadow.overlay',
+    `0 0 0 1px ${N40}, 0 0 8px ${N40}`,
+  ),
+});

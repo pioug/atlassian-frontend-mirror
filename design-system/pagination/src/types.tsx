@@ -5,7 +5,7 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export interface PaginationPropTypes<T = unknown> {
   /**
-   * Replace the built-in Page, Previous, Next and/ or Ellipsis component
+   * Replace the built-in page, previous, next and/ or ellipsis component
    */
   components?: {
     Page?: React.ElementType;
@@ -13,11 +13,11 @@ export interface PaginationPropTypes<T = unknown> {
     Next?: React.ElementType;
   };
   /**
-   * Index of the page to be selected by default
+   * Index of the page to be selected by default.
    */
   defaultSelectedIndex?: number;
   /**
-   * Helper function to get text displayed on the page button. It is helpful in scenarios when page the page passed in is an object
+   * Helper function to get text displayed on the page button. This is helpful in scenarios when page the page passed in is an object.
    */
   getPageLabel?: (page: T, pageIndex: number) => number | string;
   /**
@@ -44,15 +44,15 @@ export interface PaginationPropTypes<T = unknown> {
    */
   previousLabel?: string;
   /**
-   * Style to spread on the container element
+   * Style to spread on the container element.
    */
   style?: CSSProperties;
   /**
-   * Maximum number of pages to be displayed in the pagination
+   * Maximum number of pages to be displayed in the pagination.
    */
   max?: number;
   /**
-   * The onChange handler which is called when the page is changed
+   * The onChange handler which is called when the page is changed.
    */
   onChange?: (
     event: SyntheticEvent,
@@ -60,19 +60,19 @@ export interface PaginationPropTypes<T = unknown> {
     analyticsEvent?: UIAnalyticsEvent,
   ) => void;
   /**
-   * Array of the pages to display
+   * Array of the pages to display.
    */
   pages: T[];
   /**
-   * Index of the selected page. This will make this pagination controlled
+   * Index of the selected page. This will make this pagination controlled.
    */
   selectedIndex?: number;
   /**
-   * The react Node returned from the function is rendered instead of the default ellipsis node
+   * The react Node returned from the function is rendered instead of the default ellipsis node.
    */
   renderEllipsis?: (arg: { key: string }) => ReactElement;
   /**
-   * Additional information to be included in the `context` of analytics events
+   * Additional information to be included in the `context` of analytics events.
    */
   analyticsContext?: Record<string, any>;
   /**
@@ -88,4 +88,8 @@ export interface PaginationPropTypes<T = unknown> {
    * - Right navigator - {testId}--right-navigator
    */
   testId?: string;
+  /**
+   * Sets whether the Paginator is disabled
+   */
+  isDisabled?: boolean;
 }

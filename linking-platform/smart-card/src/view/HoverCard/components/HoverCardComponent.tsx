@@ -8,13 +8,12 @@ import { useSmartCardState as useLinkState } from '../../../state/store';
 import HoverCardContent from '../components/HoverCardContent';
 import CustomPopupContainer from '../components/CustomPopupContainer';
 import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
-import { HoverCardComponentProps } from '../types';
+import { HoverCardComponentProps, HoverCardContentProps } from '../types';
 import { CardDisplay } from '../../../constants';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
+import { combineActionOptions } from '../../../utils/actions/combine-action-options';
 import { useSmartCardActions } from '../../../state/actions';
 import { useSmartLinkAnalytics } from '../../../state/analytics';
-import { useFeatureFlag } from '@atlaskit/link-provider';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const HOVER_CARD_SOURCE = 'smartLinkPreviewHoverCard';
 
@@ -30,7 +29,8 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   canOpen = true,
   closeOnChildClick = false,
   hidePreviewButton = false,
-  showServerActions = false,
+  showServerActions,
+  actionOptions: actionOptionsProp,
   allowEventPropagation = false,
   zIndex = HOVER_CARD_Z_INDEX,
   noFadeDelay = false,
@@ -47,8 +47,10 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   const linkState = useLinkState(url);
   const analytics = useSmartLinkAnalytics(url, undefined, id);
   const { loadMetadata } = useSmartCardActions(id, url, analytics);
-  const enableHoverCardResolutionTracking = useFeatureFlag(
-    'enableHoverCardResolutionTracking',
+
+  const actionOptions = combineActionOptions(
+    actionOptionsProp,
+    showServerActions,
   );
 
   const setMousePosition = useCallback(
@@ -132,19 +134,9 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
     if (!resolveTimeOutId.current && isLinkUnresolved) {
       resolveTimeOutId.current = setTimeout(() => {
         loadMetadata();
-
-        if (enableHoverCardResolutionTracking) {
-          analytics.track.hoverCardResolutionStarted();
-        }
       }, RESOLVE_DELAY);
     }
-  }, [
-    analytics.track,
-    enableHoverCardResolutionTracking,
-    linkState.metadataStatus,
-    linkState.status,
-    loadMetadata,
-  ]);
+  }, [linkState.metadataStatus, linkState.status, loadMetadata]);
 
   const initShowCard = useCallback(
     (event) => {
@@ -178,6 +170,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
     appearance: CardDisplay.HoverCardPreview,
     analyticsHandler,
     origin: HOVER_CARD_SOURCE,
+    actionOptions,
   });
 
   const filteredActions = useMemo(() => {
@@ -221,7 +214,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
 
   const content = useCallback(
     ({ update }) => {
-      const hoverCardContentProps = {
+      const hoverCardContentProps: HoverCardContentProps = {
         onMouseEnter: initShowCard,
         onMouseLeave: initHideCard,
         cardActions: filteredActions,
@@ -229,7 +222,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
         onActionClick,
         onResolve: update,
         renderers,
-        showServerActions,
+        actionOptions,
         url,
         id,
       };
@@ -252,7 +245,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       linkState,
       onActionClick,
       renderers,
-      showServerActions,
+      actionOptions,
       url,
       id,
     ],
@@ -295,11 +288,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       content={content}
       trigger={trigger}
       zIndex={zIndex}
-      {...(getBooleanFF(
-        'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-      ) && {
-        popupComponent: CustomPopupContainer,
-      })}
+      popupComponent={CustomPopupContainer}
     />
   );
 };

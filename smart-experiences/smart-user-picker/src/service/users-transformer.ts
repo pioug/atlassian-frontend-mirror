@@ -20,6 +20,7 @@ interface ServerItem {
   description?: string;
   teamAri?: string;
   displayName?: string;
+  title?: string;
 }
 
 interface ServerUser extends ServerItem {
@@ -97,7 +98,9 @@ const transformUser = (
       avatarUrl: user.avatarUrl,
       name: user.name,
       email: user.email,
+      title: user.title,
       lozenge: lozenge,
+      tooltip: user.name,
     };
   }
 
@@ -112,6 +115,7 @@ const transformUser = (
       members: team.members,
       includesYou: team.includesYou,
       avatarUrl: team.largeAvatarImageUrl || team.smallAvatarImageUrl,
+      tooltip: team.displayName,
     };
   }
 

@@ -3,6 +3,7 @@ import { ElementType, ReactNode } from 'react';
 import type {
   AlignBlock,
   AlignInline,
+  BasePrimitiveProps,
   Grow,
   Spread,
 } from '../src/components/types';
@@ -23,7 +24,7 @@ type Space =
   | 'space.800'
   | 'space.1000';
 
-interface StackProps<T extends ElementType = 'div'> {
+type StackProps<T extends ElementType = 'div'> = {
   /**
    * The DOM element to render as the Stack. Defaults to `div`.
    */
@@ -67,6 +68,6 @@ interface StackProps<T extends ElementType = 'div'> {
    * Forwarded ref element
    */
   ref?: React.ComponentPropsWithRef<T>['ref'];
-}
+} & BasePrimitiveProps;
 
 export default function Stack(_: StackProps) {}

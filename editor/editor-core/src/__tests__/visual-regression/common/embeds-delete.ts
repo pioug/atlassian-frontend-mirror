@@ -1,13 +1,14 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
   initFullPageEditorWithAdf,
+  snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import adf from './__fixtures__/embeds-delete.adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import { waitForResolvedEmbedCard } from '@atlaskit/media-integration-test-helpers';
 import { evaluateTeardownMockDate } from '@atlaskit/visual-regression/helper';
+
+import adf from './__fixtures__/embeds-delete.adf.json';
 
 describe('Embed Cards:', () => {
   it('does not apply deleted embed size to another embed', async () => {

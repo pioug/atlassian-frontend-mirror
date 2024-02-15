@@ -27,13 +27,13 @@ To implement a spotlight, you should first wrap your screen or app in a `Spotlig
 
 ## Tours
 
-Spotlights can be connected in multi-step onboarding tours. Only one spotlight should be shown at a time.
+You can connect spotlights in multi-step onboarding tours. Only one spotlight should be shown at a time.
 
 <Example Component={SpotlightTour} packageName="@atlaskit/onboarding" />
 
 ## Blanket tint
 
-If you would prefer the spotlight to appear without the tinted blanket background, set the `blanketIsTinted` prop to `false` on the `SpotlightManager` component.
+If you prefer the spotlight to appear without the tinted blanket background, set the `blanketIsTinted` prop to `false` on the `SpotlightManager` component.
 
 <Example
   Component={SpotlightBlanketIsTinted}
@@ -44,7 +44,7 @@ If you would prefer the spotlight to appear without the tinted blanket backgroun
 
 ### Appearance
 
-You can change the default action button appearance to `subtle` or `subtle-link` with the `appearance` property on the action object. Spotlights should generally have one default action that leads the user through the onboarding process or prompts an action, with other actions such as "Skip" using the subtle appearance.
+You can change the default action button appearance to `subtle` or `subtle-link` with the `appearance` property on the action object. Spotlights should have only one default action that leads people through the onboarding process or prompts an action, with other actions such as "Skip" using the subtle appearance.
 
 <Example
   Component={SpotlightActionsAppearance}
@@ -81,7 +81,7 @@ You can add an image to a spotlight with the `image` prop. Most Atlassian illust
 
 ## Pulse
 
-When spotlights are active, a pulsing outline helps draw attention to the target. It's possible for you to use this spotlight pulse in custom ways. For example, you can apply the pulse on the target element _before_ the spotlight is active, and trigger the spotlight the first time a user interacts with it.
+When spotlights are active, a pulsing outline helps draw attention to the target. It's possible for you to use this spotlight pulse in custom ways. For example, you can apply the pulse on the target element _before_ the spotlight is active, and trigger the spotlight the first time a person interacts with it.
 
 <Example Component={SpotlightPulse} packageName="@atlaskit/onboarding" />
 
@@ -102,7 +102,7 @@ You can set a dialog width for a spotlight dialog with the `dialogWidth` prop. T
 
 ## Target border radius
 
-The border radius of the spotlight target needs to be explicitly set. In the example below, the first spotlight applies the default behavior, the second spotlight sets `targetRadius` to `3` to match a target button, and the final spotlight has `targetRadius` to `24` to match a round target.
+The border radius of the spotlight target needs to be explicitly set. In the next example, the first spotlight applies the default behavior, the second spotlight sets `targetRadius` to `3` to match a target button, and the final spotlight has `targetRadius` to `24` to match a round target.
 
 <Example Component={SpotlightTargetRadius} packageName="@atlaskit/onboarding" />
 

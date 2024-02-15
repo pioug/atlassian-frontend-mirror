@@ -6,7 +6,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import rafSchedule from 'raf-schd';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { HistoryPluginState } from '@atlaskit/editor-plugin-history';
-import type { SelectionDataState } from '@atlaskit/editor-core/src/plugins/mobile-selection';
+import type { SelectionDataState } from '../editor-plugins/mobile-selection';
 import type WebBridgeImpl from '../native-to-web';
 import { toNativeBridge } from '../web-to-native';
 import { createPromise } from '../../cross-platform-promise';

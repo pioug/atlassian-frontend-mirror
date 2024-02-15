@@ -1,22 +1,22 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  typeInEditorAtEndOfDocument,
   selectors,
+  typeInEditorAtEndOfDocument,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  waitForTypeAheadMenu,
   waitForMenuIconsToLoad,
+  waitForTypeAheadMenu,
 } from '@atlaskit/editor-test-helpers/page-objects/quick-insert';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 const lastItemIsFocused =
   'document.querySelector("#typeahaed_decoration_element_id [data-index]:last-child [aria-selected=\\"true\\"]") === document.activeElement;';

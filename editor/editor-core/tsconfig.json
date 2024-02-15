@@ -12,6 +12,7 @@
     "./playwright/**/*.ts"
   ],
   "compilerOptions": {
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "noErrorTruncation": true
   }
 }

@@ -4,21 +4,27 @@ order: 2
 
 ## Usage
 
-Tabs are an easy way to organize content by grouping similar information on the same page. This allows content to be viewed without having to navigate away from that page.
+Tabs are an easy way to organize content by grouping similar information on the same page. People can view the content without having to navigate away from that page.
 
 ## Anatomy
 
-![Tabs anatomy](images/tabs-anatomy.png)
+![This is a diagram of the tab header. The example tabs are "Details", "Diff", "Commits" and "Challenges".](images/tabs-anatomy.png)
 
-1. **Selected:** The active tab.
-2. **Unselected:** The other available tabs.
-3. **Divider:** Separates the tab navigation and content.
+1. **Selected:** The active tab text is darker and underlined.
+2. **Unselected:** The other available tabs have text that is lighter.
+3. **Divider:** A light visual line separates the tab navigation and content.
+
+## Accessibility
+
+- Keyboard users can navigate between tabs using the left and right arrow keys. The tab key is used to navigate to the tab content, not to the next tab. This is so that people who use screen readers don't have to tab through all of the tabs to read the content.
+- Don't hide important information inside tabs, and keep the number of tabs low wherever possible.
+- Don't nest interactive controls such as dropdowns and buttons inside tabs.
 
 ## Behavior
 
-Tab behavior during standard, focus, hover, and active states are important because it lets users know where they are in the experience.
+Tab behavior during standard, focus, hover, and active states are important because it lets people know where they are in the experience.
 
-![Tab behavior](images/tabs-behavior.png)
+![A series of examples of tab visual states. The states are explained below.](images/tabs-behavior.png)
 
 1. **Standard:** The default view.
 2. **Focus:** Keyboard focus on a tab.
@@ -27,9 +33,9 @@ Tab behavior during standard, focus, hover, and active states are important beca
 
 ## Content guidelines
 
-Tab labels provide clear and concise explanations of the content within. Each tab's content is independently categorized and mutually exclusive of the content of other tabs.
+Tab labels provide clear and concise explanations of the content within. When using tabs, make sure that the content is broken down into categories that make sense and don't overlap. For example, in a series of instructions about setting up a mobile app, you could use "for iOS", and "for Android" tabs, but not "Part 1" and "Part 2" tabs.
 
-![Labelling tab length](images/tabs-label-length.png)
+![A good and bad example of tab label length. The good example is "Challenges" and the bad example is "Future challenges and other things".](images/tabs-label-length.png)
 
 ## Server
 
@@ -37,4 +43,4 @@ Consult [AUI](https://docs.atlassian.com/aui/latest/docs/tabs.html) for implemen
 
 ## Related
 
-- Use [tooltips](/components/tooltip) to let the user know what happens when the tab is selected. When writing tooltips, be short and concise and follow the [writing guidelines](/content/writing-style).
+- Use [tooltips](/components/tooltip) to let people know what happens when the tab is selected.

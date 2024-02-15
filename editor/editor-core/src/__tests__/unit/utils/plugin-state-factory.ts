@@ -1,4 +1,5 @@
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+
 import { pluginFactory } from '../../../utils/plugin-state-factory';
 
 describe('@atlaskit/editor-core utils/plugin-state-factory', () => {

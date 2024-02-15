@@ -1,15 +1,16 @@
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import adf from './__fixtures__/task-with-status.adf.json';
-import {
+  LIST_SELECTOR,
   toggleTaskNth,
   waitForTaskList,
-  LIST_SELECTOR,
 } from '@atlaskit/editor-test-helpers/page-objects/task';
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+
+import adf from './__fixtures__/task-with-status.adf.json';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
 describe('Tasks', () => {

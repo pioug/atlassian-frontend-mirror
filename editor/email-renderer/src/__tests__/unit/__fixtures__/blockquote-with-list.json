@@ -1,0 +1,81 @@
+{
+    "version": 1,
+    "type": "doc",
+    "content": [
+      {
+        "type": "expand",
+        "attrs": {
+          "title": "Expand"
+        },
+        "content": [
+          {
+            "type": "blockquote",
+            "content": [
+              {
+                "type": "bulletList",
+                "content": [
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "list item 1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "codeBlock",
+                        "attrs": {},
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "hello world"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "paragraph",
+                        "content": []
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "mediaSingle",
+                        "attrs": {
+                          "width": 48.923220973782776,
+                          "layout": "center"
+                        },
+                        "content": [
+                          {
+                            "type": "media",
+                            "attrs": {
+                              "id": "media-type-image",
+                              "type": "file",
+                              "collection": "MediaServicesSample",
+                              "width": 1728,
+                              "height": 931
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

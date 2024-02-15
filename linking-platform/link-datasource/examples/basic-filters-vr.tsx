@@ -3,10 +3,16 @@ import React, { useCallback, useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
-import { mockBasicFilterAGGFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+import {
+  mockBasicFilterAGGFetchRequests,
+  mockSite,
+} from '@atlaskit/link-test-helpers/datasource';
 import { Flex, xcss } from '@atlaskit/primitives';
 
-import { BasicFilterFieldType } from '../src/ui/jira-issues-modal/basic-filters/types';
+import {
+  BasicFilterFieldType,
+  SelectedOptionsMap,
+} from '../src/ui/jira-issues-modal/basic-filters/types';
 import AsyncPopupSelect from '../src/ui/jira-issues-modal/basic-filters/ui/async-popup-select';
 
 const flexContainerStyles = xcss({
@@ -18,13 +24,14 @@ mockBasicFilterAGGFetchRequests();
 export default () => {
   const filters: BasicFilterFieldType[] = [
     'project',
-    'issuetype',
+    'type',
     'status',
     'assignee',
   ];
-  const [selection, setSelection] = useState({
+
+  const [selection, setSelection] = useState<SelectedOptionsMap>({
     project: [],
-    issuetype: [],
+    type: [],
     status: [],
     assignee: [],
   });
@@ -47,9 +54,9 @@ export default () => {
           {filters.map(filter => (
             <AsyncPopupSelect
               filterType={filter}
-              cloudId="my-cloud-id"
+              site={mockSite}
               key={filter}
-              selection={selection[filter]}
+              selection={selection[filter] || []}
               onSelectionChange={handleSelectionChange}
               isJQLHydrating={false}
             />

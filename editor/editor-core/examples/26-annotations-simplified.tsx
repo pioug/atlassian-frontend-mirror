@@ -1,11 +1,13 @@
 import React from 'react';
+
 import { exampleDocumentWithText } from '../example-helpers/example-doc-with-text';
 import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
-} from '@atlaskit/editor-test-helpers/example-inline-comment-component';
-import { default as FullPageExample } from './5-full-page';
+} from '../example-helpers/example-inline-comment-component';
 import { AnnotationUpdateEmitter } from '../src';
+
+import { default as FullPageExample } from './5-full-page';
 
 const emitter = new AnnotationUpdateEmitter();
 

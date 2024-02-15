@@ -19,6 +19,7 @@ export default {
   'fabric.elements.share.form.no-permissions': 'У вас нет возможности предоставить общий доступ.',
   'fabric.elements.share.form.public.send': 'Отправить публичную ссылку',
   'fabric.elements.share.form.public.share': 'Поделиться ссылкой общего доступа',
+  'fabric.elements.share.form.required-field.summary': 'Обязательные поля отмечены звездочкой',
   'fabric.elements.share.form.retry': 'Повторить',
   'fabric.elements.share.form.send': 'Отправить',
   'fabric.elements.share.form.share': 'Поделиться',

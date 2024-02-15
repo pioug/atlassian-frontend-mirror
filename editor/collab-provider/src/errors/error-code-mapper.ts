@@ -1,9 +1,8 @@
-import { InternalError, NCS_ERROR_CODE } from './error-types';
-import { INTERNAL_ERROR_CODE } from './error-types';
-import {
-  ProviderError,
-  PROVIDER_ERROR_CODE,
-} from '@atlaskit/editor-common/collab';
+import { NCS_ERROR_CODE } from './ncs-errors';
+import type { InternalError } from './internal-errors';
+import { INTERNAL_ERROR_CODE } from './internal-errors';
+import type { ProviderError } from '@atlaskit/editor-common/collab';
+import { PROVIDER_ERROR_CODE } from '@atlaskit/editor-common/collab';
 
 /*
  * Maps internal collab provider errors to an emitted error format
@@ -46,6 +45,13 @@ export const errorCodeMapper = (
         status: 404,
       };
     case NCS_ERROR_CODE.TENANT_INSTANCE_MAINTENANCE:
+      return {
+        code: PROVIDER_ERROR_CODE.LOCKED,
+        message:
+          'The document is currently not available, please try again later',
+        recoverable: true,
+        status: 423,
+      };
     case NCS_ERROR_CODE.LOCKED_DOCUMENT:
       return {
         code: PROVIDER_ERROR_CODE.LOCKED,
@@ -74,6 +80,13 @@ export const errorCodeMapper = (
           "The initial document couldn't be loaded from the collab service",
         recoverable: false,
         status: 500,
+      };
+    case NCS_ERROR_CODE.PROSEMIRROR_SCHEMA_VALIDATION_ERROR:
+      return {
+        code: PROVIDER_ERROR_CODE.INITIALISATION_ERROR,
+        message:
+          "The initial document couldn't be loaded from the collab service due to a prosemirror schema validation error",
+        recoverable: false,
       };
     case INTERNAL_ERROR_CODE.DOCUMENT_UPDATE_ERROR:
       return {

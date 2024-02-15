@@ -234,6 +234,13 @@ tester.run('no-unsafe-design-token-usage', rule, {
       options: [{ fallbackUsage: 'forced' }],
       code: `token('elevation.shadow.raised', 'red')`,
     },
+    {
+      code: `
+      styled.div\`
+        font: token('font.heading.small');
+      \`
+    `,
+    },
   ],
   invalid: [
     {

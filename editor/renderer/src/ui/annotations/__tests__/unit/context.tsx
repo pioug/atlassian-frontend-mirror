@@ -1,27 +1,17 @@
+import { render } from '@testing-library/react';
 import React from 'react';
-import { render } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { Position } from '../../types';
 import {
-  AnnotationsDraftContextWrapper,
   AnnotationsDraftContext,
+  AnnotationsDraftContextWrapper,
 } from '../../context';
-
-let container: HTMLElement | null;
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  document.body.removeChild(container!);
-  container = null;
-});
+import type { Position } from '../../types';
 
 type ChildrenProps = {
   applyAnnotationDraftAt: (position: Position) => void;
   clearAnnotationDraft: () => void;
 };
+
 describe('Annotations: AnnotationsDraftContextWrapper', () => {
   let applyAnnotationDraftAt: Function;
   let clearAnnotationDraft: Function;
@@ -43,7 +33,6 @@ describe('Annotations: AnnotationsDraftContextWrapper', () => {
           {MyFakeComponent}
         </AnnotationsDraftContextWrapper>
       </>,
-      container,
     );
 
     mockComponent.mockReset();

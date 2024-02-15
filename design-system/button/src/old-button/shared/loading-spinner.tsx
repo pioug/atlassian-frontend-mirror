@@ -37,6 +37,7 @@ export default function LoadingSpinner({
   return (
     <Spinner
       size={size}
+      label=", Loading"
       appearance={getSpinnerAppearance({ appearance, isDisabled, isSelected })}
     />
   );

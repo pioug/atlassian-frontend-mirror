@@ -1,24 +1,3 @@
-import { ThemeProp } from '@atlaskit/theme/components';
-
-/**
- * @deprecated
- */
-export type ThemeProps = {
-  value: string | number;
-};
-
-/**
- * @deprecated This allows for users to customize the theme. This is being deprecated, please consider
- * migrating to one of progress bar's variants.
- */
-export type ThemeTokens = {
-  container: any;
-  bar: any;
-  determinateBar: any;
-  increasingBar: any;
-  decreasingBar: any;
-};
-
 export interface CustomProgressBarProps {
   /**
    * Sets the value of the progress bar, between `0` and `1` inclusive.
@@ -29,8 +8,8 @@ export interface CustomProgressBarProps {
    */
   isIndeterminate?: boolean;
   /**
-   * Label associated with the progress bar,
-   * read by screen readers.
+   * This is the descriptive label that's associated with the progress bar.
+   * Always include useful information on the current state of the progress bar so that people who use assistive technology can understand what the current state of the progress bar is.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   ariaLabel?: string;
@@ -43,14 +22,7 @@ export interface CustomProgressBarProps {
 
 export interface DefaultProgressBarProps extends CustomProgressBarProps {
   /**
-   * @deprecated
-   * Theme prop is deprecated and will be removed in the future.
-   */
-  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-  theme?: ThemeProp<ThemeTokens, ThemeProps>;
-
-  /**
-   * Visual style of the progress bar.
+   * The visual style of the progress bar.
    */
   appearance?: 'default' | 'success' | 'inverse';
 }

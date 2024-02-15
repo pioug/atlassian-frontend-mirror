@@ -4,37 +4,39 @@ order: 2
 
 ## Usage
 
-Use pagination when there are too many results to show on the one page, so the user isn't overwhelmed by too much information.
+Use pagination when there are too many results to show on one page, so that people aren't overwhelmed by too much information. Pagination is a control that sits at the bottom of the page and allows the user to easily move between each page.
 
 Pagination is commonly used for things like table listings, search results, and directories. What constitutes “too many results” can be influenced by:
 
 - system load times
-- amount of data in each entry
-- screen space
-
-Pagination is a control that sits at the bottom of the page and allows the user to easily move between each page.
+- the amount of data in each entry
+- the available screen space
 
 ## Anatomy
 
-![Pagination anatomy](./images/pagination-anatomy.png)
+![The pagination component is a horizontal list of page numbers with navigation arrows at each end.](./images/pagination-anatomy.png)
 
-1. **Previous and next:** Navigate backward and forward from the currently selected page.
-2. **Page navigation:** Navigate to a specific page by selecting the page number.
+1. **Previous and next:** Arrow icons that people use to move backward and forward from the currently selected page.
+2. **Page navigation:** Numbers that people can select to move to a specific page.
 3. **Truncation:** When a threshold of pages is reached, the list is truncated using an ellipsis.
+
+## Behavior
+
+- The ellipsis representing truncated pages isn't interactive. To reach page numbers that are truncated, people need to move to a page number that is closer to the number in the series. For example, in a pagination component numbered 1-5, people need to select 5 to reveal page 6.
+- Double truncation is used when the current page is separated by more than five pages from both the first and last page.
 
 ## Accessibility
 
-- Using `aria-label` attributes improves the experience for
-  users who rely on assistive technologies, like screen readers and speech recognition software.
+- Using `aria-label` attributes improves the experience for people who use assistive technologies, like screen readers and speech recognition software.
 - Use the `label`, `pageLabel`, `nextLabel`, and `previousLabel` props to provide labels for the pagination buttons. While the default label props are in English, passing these props will ensure that assistive technologies in non-English languages can properly identify the content.
-  Follow the [accessibility](/foundations/accessibility) foundations for more guidance on accessible design.
+- Be mindful of people using your product on small screen sizes and adjust the maximum number of pages accordingly.
 
 ## Best practices
 
-- For smaller screens, it's best to show a maximum of seven pages (including the ellipsis).
+- For smaller screens, show a maximum of seven pages (including the ellipsis).
 - For larger screens, show a maximum of 14 pages (including the ellipsis).
 
-![Pagination page limits](./images/pagination-page-limits.png)
+![Examples of pagination components with seven and 14 pages shown.](./images/pagination-page-limits.png)
 
 ## Server
 
@@ -42,6 +44,5 @@ Consult [AUI](https://docs.atlassian.com/aui/latest/docs/navigation.html) for im
 
 ## Related
 
-- Each page in the pagination control is a [button link](/components/button) that allows the them to quickly navigate through the results.
-  <!-- todo: when we rewrite Table, change out this absolute AK link -->
-- This component is mostly used with tables, see [dynamic-table](https://atlaskit.atlassian.com/packages/design-system/dynamic-table) for example.
+- Each page in the pagination control is a [button link](/components/button) that lets people quickly navigate through the results.
+- This component is mostly used with tables, see [dynamic table](/components/dynamic-table/examples) for examples.

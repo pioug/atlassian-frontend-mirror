@@ -56,9 +56,6 @@ const insetFocusRingStyles = css({
  *
  * A focus ring visually indicates the currently focused item.
  *
- * There are known accessibility issues with this component.
- * Do not use without assistance from the Design System accessibility team.
- *
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/focus-ring)
  *
  * @example

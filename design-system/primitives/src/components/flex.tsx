@@ -55,7 +55,7 @@ export type FlexProps<T extends ElementType = 'div'> = {
   children: ReactNode;
 
   /**
-   * Forwarded ref element
+   * Forwarded ref element.
    */
   ref?: React.ComponentPropsWithRef<T>['ref'];
 } & BasePrimitiveProps;
@@ -123,6 +123,7 @@ const Flex = memo(
     <T extends ElementType = 'div'>(
       {
         as: Component = 'div',
+        role,
         alignItems,
         justifyContent,
         gap,
@@ -140,6 +141,7 @@ const Flex = memo(
 
       return (
         <Component
+          role={role}
           css={[
             baseStyles,
             gap && spaceStylesMap.gap[gap],

@@ -5,41 +5,41 @@ import { LeftSidebarState } from '../controllers/sidebar-resize-context';
 
 interface SlotProps {
   /**
-   * Sets positon to fixed.
+   * Sets the position to fixed.
    */
   isFixed?: boolean;
   /**
-   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests .
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    */
   testId?: string;
   /**
-   * React Children!
+   * React children!
    */
   children: ReactNode;
-  /* HTML id attribute. It also used as a target for skip links to land on. If missing, skip link for that Slot will not be generated */
+  /* HTML id attribute. It also used as a target for skip links to land on. If missing, skip link for that slot will not be generated */
   id?: string;
-  /* Title of the skip link for the Slot.  If missing, skip link for that Slot will not be generated */
+  /* Title of the skip link for the slot.  If missing, skip link for that slot will not be generated */
   skipLinkTitle?: string;
 }
 
 export interface SlotHeightProps extends SlotProps {
   /**
-   * It save height in local storage.
+   * It saves the height in local storage.
    */
   shouldPersistHeight?: boolean;
   /**
-   * Height!
+   * The height of the slot.
    */
   height?: number;
 }
 
 export interface SlotWidthProps extends SlotProps {
   /**
-   * It save width in local storage.
+   * It saves the width in local storage.
    */
   shouldPersistWidth?: boolean;
   /**
-   * Width!
+   * The width of the slot.
    */
   width?: number;
 }
@@ -51,7 +51,7 @@ export interface LeftSidebarProps extends SlotWidthProps {
   testId?: string;
 
   /**
-   * The `aria-valuetext` allows users relying on assistive technologies,
+   * The `aria-valuetext` allows people relying on assistive technologies,
    * particularly screen readers, to determine the purpose of the slider.
    * The default value is "Width".
    * The aria-valuenow property is automatically appended to the valueTextLabel.
@@ -76,17 +76,9 @@ export interface LeftSidebarProps extends SlotWidthProps {
    */
   resizeGrabAreaLabel?: string;
   /**
-   * Display label for expand/collapse button for the left sidebar.
+   * Display label for the expand/collapse button for the left sidebar.
    */
   resizeButtonLabel?: string;
-  /**
-   * Called when left-sidebar is collapsed.
-   */
-  onCollapse?: () => void;
-  /**
-   * Called when left-sidebar is expanded.
-   */
-  onExpand?: () => void;
   /**
    * Called when left-sidebar resize starts using mouse or touch.
    */
@@ -96,19 +88,19 @@ export interface LeftSidebarProps extends SlotWidthProps {
    */
   onResizeEnd?: (leftSidebarState: LeftSidebarState) => void;
   /**
-   * Called when left-sidebar is collapsed and mouse leaves the area.
+   * Called when left-sidebar is collapsed and the mouse leaves the area.
    */
   onFlyoutCollapse?: () => void;
   /**
-   * Called after flyout delay when left-sidebar is collapsed and mouse enters the area.
+   * Called after flyout delay when left-sidebar is collapsed and the mouse enters the area.
    */
   onFlyoutExpand?: () => void;
   /**
-   * Controls whether the LeftSidebar mounts in a collapsed state, this will override the setting in localStorage
+   * Controls whether the LeftSidebar mounts in a collapsed state, this will override the setting in localStorage.
    */
   collapsedState?: 'collapsed' | 'expanded';
   /**
-   * Controls the width when LeftSidebar mounts, this will override the setting in localStorage
+   * Controls the width when LeftSidebar mounts, this will override the setting in localStorage.
    */
   width?: number;
 }
@@ -119,11 +111,11 @@ export type SidebarResizeControllerProps = {
    */
   children: ReactNode;
   /**
-   * Called when left-sidebar expanded.
+   * Called when left-sidebar is expanded.
    */
   onLeftSidebarExpand?: (leftSidebarState: LeftSidebarState) => void;
   /**
-   * Called when left-sidebar collapsed.
+   * Called when left-sidebar is collapsed.
    */
   onLeftSidebarCollapse?: (leftSidebarState: LeftSidebarState) => void;
 };

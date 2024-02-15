@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { Field, FieldProps, FormFooter } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives';

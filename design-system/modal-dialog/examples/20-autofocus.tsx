@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { useCallback, useRef, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
-import { token } from '@atlaskit/tokens';
+import Button from '@atlaskit/button/new';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import ModalDialog, {
   ModalBody,
@@ -15,8 +15,8 @@ import ModalDialog, {
   ModalTransition,
 } from '../src';
 
-const containerStyles = css({
-  padding: token('space.200', '16px'),
+const containerStyles = xcss({
+  padding: 'space.200',
 });
 
 export default function ModalDemo() {
@@ -34,13 +34,13 @@ export default function ModalDemo() {
   };
 
   return (
-    <div css={containerStyles}>
+    <Box xcss={containerStyles}>
       <h2>Variants</h2>
       <p>
         Using ModalDialog autoFocus prop, not to be confused with the HTML
         autofocus attribute.
       </p>
-      <ButtonGroup>
+      <ButtonGroup label="Auto focus options">
         <Button testId="boolean-trigger" onClick={openRoot}>
           Boolean on dialog
         </Button>
@@ -115,6 +115,6 @@ export default function ModalDemo() {
           </ModalDialog>
         )}
       </ModalTransition>
-    </div>
+    </Box>
   );
 }

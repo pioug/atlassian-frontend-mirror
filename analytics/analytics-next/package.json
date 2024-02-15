@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/analytics-next",
-  "version": "9.1.4",
+  "version": "9.2.0",
   "description": "React components, HOCs and hooks to assist with tracking user activity with React components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
+    "@atlaskit/platform-feature-flags": "^0.2.2",
     "@babel/runtime": "^7.0.0",
     "prop-types": "^15.5.10",
     "use-memo-one": "^1.1.1"
@@ -61,6 +62,7 @@
   "devDependencies": {
     "@atlaskit/ssr": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/react": "^12.1.5",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
@@ -88,6 +90,11 @@
       "deprecation": [
         "no-deprecated-imports"
       ]
+    }
+  },
+  "platform-feature-flags": {
+    "platform.analytics-next-use-modern-context_fqgbx": {
+      "type": "boolean"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

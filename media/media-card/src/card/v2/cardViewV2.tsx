@@ -3,7 +3,11 @@ import { jsx } from '@emotion/react';
 import React, { MouseEvent, useEffect, useState, useRef } from 'react';
 import { MessageDescriptor } from 'react-intl-next';
 
-import { MediaItemType, FileDetails } from '@atlaskit/media-client';
+import {
+  MediaItemType,
+  FileDetails,
+  ImageResizeMode,
+} from '@atlaskit/media-client';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -15,13 +19,15 @@ import Tooltip from '@atlaskit/tooltip';
 import { messages } from '@atlaskit/media-ui';
 
 import {
-  SharedCardProps,
   CardStatus,
   CardPreview,
   MediaCardCursor,
+  CardDimensions,
+  TitleBoxIcon,
 } from '../../types';
+import { MediaFilePreview } from '@atlaskit/media-file-preview';
 import { createAndFireMediaCardEvent } from '../../utils/analytics';
-import { attachDetailsToActions } from '../actions';
+import { CardAction, attachDetailsToActions } from '../actions';
 import { cardImageContainerStyles } from '../ui/styles';
 import { ImageRenderer } from '../ui/imageRenderer/imageRenderer';
 import { TitleBox } from '../ui/titleBox/titleBox';
@@ -48,28 +54,41 @@ import {
 import { Wrapper } from '../ui/wrapper';
 import { fileCardImageViewSelector } from '../classnames';
 import { useBreakpoint } from '../useBreakpoint';
+import OpenMediaViewerButton from '../ui/openMediaViewerButton/openMediaViewerButton';
 
-export interface CardViewV2OwnProps extends SharedCardProps {
+export interface CardViewV2Props {
+  readonly disableOverlay?: boolean;
+  readonly resizeMode?: ImageResizeMode;
+  readonly dimensions: CardDimensions;
+  readonly actions?: Array<CardAction>;
+  readonly selectable?: boolean;
+  readonly selected?: boolean;
+  readonly alt?: string;
+  readonly testId?: string;
+  readonly titleBoxBgColor?: string;
+  readonly titleBoxIcon?: TitleBoxIcon;
   readonly status: CardStatus;
   readonly mediaItemType: MediaItemType;
   readonly mediaCardCursor?: MediaCardCursor;
   readonly metadata?: FileDetails;
   readonly error?: MediaCardError;
   readonly onClick?: (
-    event: React.MouseEvent<HTMLDivElement>,
+    event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>,
     analyticsEvent?: UIAnalyticsEvent,
   ) => void;
+  readonly openMediaViewerButtonRef?: React.Ref<HTMLButtonElement>;
+  readonly shouldOpenMediaViewer?: boolean;
   readonly onMouseEnter?: (event: MouseEvent<HTMLDivElement>) => void;
   readonly onDisplayImage?: () => void;
   // FileCardProps
-  readonly cardPreview?: CardPreview;
+  readonly cardPreview?: MediaFilePreview;
   readonly progress?: number;
   // CardView can't implement forwardRef as it needs to pass and at the same time
   // handle the HTML element internally. There is no standard way to do this.
   // Therefore, we restrict the use of refs to callbacks only, not RefObjects.
   readonly innerRef?: (instance: HTMLDivElement | null) => void;
-  readonly onImageLoad?: (cardPreview: CardPreview) => void;
-  readonly onImageError?: (cardPreview: CardPreview) => void;
+  readonly onImageLoad?: (cardPreview: MediaFilePreview) => void;
+  readonly onImageError?: (cardPreview: MediaFilePreview) => void;
   readonly nativeLazyLoad?: boolean;
   readonly forceSyncDisplay?: boolean;
   // Used to disable animation for testing purposes
@@ -77,7 +96,7 @@ export interface CardViewV2OwnProps extends SharedCardProps {
   shouldHideTooltip?: boolean;
 }
 
-export type CardViewV2Props = CardViewV2OwnProps & WithAnalyticsEventsProps;
+export type CardViewV2BaseProps = CardViewV2Props & WithAnalyticsEventsProps;
 
 export interface RenderConfigByStatusV2 {
   renderTypeIcon?: boolean;
@@ -99,7 +118,6 @@ export const CardViewV2Base = ({
   onImageLoad,
   onImageError,
   dimensions,
-  appearance = 'auto',
   onClick,
   onMouseEnter,
   testId,
@@ -122,10 +140,12 @@ export const CardViewV2Base = ({
   titleBoxIcon,
   error,
   disableAnimation,
-}: CardViewV2Props) => {
+  openMediaViewerButtonRef = null,
+  shouldOpenMediaViewer,
+}: CardViewV2BaseProps) => {
   const [didImageRender, setDidImageRender] = useState<boolean>(false);
   const divRef = useRef<HTMLDivElement>(null);
-  const prevCardPreviewRef = useRef<CardPreview | undefined>();
+  const prevCardPreviewRef = useRef<MediaFilePreview | undefined>();
   const breakpoint = useBreakpoint(dimensions?.width, divRef);
 
   useEffect(() => {
@@ -144,22 +164,20 @@ export const CardViewV2Base = ({
     if (prevCardPreview.dataURI !== cardPreview?.dataURI) {
       return;
     }
-
     /*
       We render the icon & icon message always, even if there is cardPreview available.
-
       If the image fails to load/render, the icon will remain, i.e. the user won't see a change until the root card decides to chage status to error.
-
       If the image renders successfully, we switch this variable to hide the icon & icon message behind the thumbnail in case the image has transparency.
-
       It is less likely that root component replaces a suceeded cardPreview for a failed one than the opposite case. Therefore we prefer to hide the icon instead show when the image fails, for a smoother transition
     */
-
     setDidImageRender(true);
     onImageLoad?.(cardPreview);
   };
 
-  const handleOnImageError = (cardPreview: CardPreview) => {
+  const handleOnImageError = (prevCardPreview: CardPreview) => {
+    if (prevCardPreview.dataURI !== cardPreview?.dataURI) {
+      return;
+    }
     setDidImageRender(false);
     onImageError?.(cardPreview);
   };
@@ -287,7 +305,7 @@ export const CardViewV2Base = ({
   const actionsWithDetails =
     metadata && actions ? attachDetailsToActions(actions, metadata) : [];
 
-  const content = (
+  const contents = (
     <React.Fragment>
       <div
         css={cardImageContainerStyles}
@@ -297,6 +315,7 @@ export const CardViewV2Base = ({
         data-test-status={status}
         data-test-progress={progress}
         data-test-selected={selected}
+        data-test-source={cardPreview?.source}
       >
         {renderTypeIcon && (
           <IconWrapper breakpoint={breakpoint} hasTitleBox={hasTitleBox}>
@@ -318,7 +337,7 @@ export const CardViewV2Base = ({
           <ImageRenderer
             cardPreview={cardPreview}
             mediaType={metadata?.mediaType || 'unknown'}
-            alt={alt}
+            alt={alt || name}
             resizeMode={resizeMode}
             onDisplayImage={onDisplayImage}
             onImageLoad={handleOnImageLoad}
@@ -364,30 +383,38 @@ export const CardViewV2Base = ({
   );
 
   return (
-    <Wrapper
-      testId={testId || 'media-card-view'}
-      dimensions={dimensions}
-      appearance={appearance}
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      innerRef={divRef}
-      breakpoint={breakpoint}
-      mediaCardCursor={mediaCardCursor}
-      disableOverlay={!!disableOverlay}
-      selected={!!selected}
-      displayBackground={shouldDisplayBackground}
-      isPlayButtonClickable={isPlayButtonClickable}
-      isTickBoxSelectable={isTickBoxSelectable}
-      shouldDisplayTooltip={shouldDisplayTooltip}
-    >
-      {shouldDisplayTooltip ? (
-        <Tooltip content={name} position="bottom" tag="div">
-          {content}
-        </Tooltip>
-      ) : (
-        content
+    <React.Fragment>
+      {shouldOpenMediaViewer && (
+        <OpenMediaViewerButton
+          fileName={name ?? ''}
+          innerRef={openMediaViewerButtonRef}
+          onClick={onClick}
+        />
       )}
-    </Wrapper>
+      <Wrapper
+        testId={testId || 'media-card-view'}
+        dimensions={dimensions}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        innerRef={divRef}
+        breakpoint={breakpoint}
+        mediaCardCursor={mediaCardCursor}
+        disableOverlay={!!disableOverlay}
+        selected={!!selected}
+        displayBackground={shouldDisplayBackground}
+        isPlayButtonClickable={isPlayButtonClickable}
+        isTickBoxSelectable={isTickBoxSelectable}
+        shouldDisplayTooltip={shouldDisplayTooltip}
+      >
+        {shouldDisplayTooltip ? (
+          <Tooltip content={name} position="bottom" tag="div">
+            {contents}
+          </Tooltip>
+        ) : (
+          contents
+        )}
+      </Wrapper>
+    </React.Fragment>
   );
 };
 

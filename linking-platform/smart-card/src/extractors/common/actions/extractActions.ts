@@ -4,6 +4,8 @@ import { InvokeClientOpts } from '../../../model/invoke-opts';
 import { ActionProps } from '../../../view/BlockCard/components/Action';
 import { ViewAction } from '../../../view/BlockCard/actions/ViewAction';
 import { DownloadAction } from '../../../view/BlockCard/actions/DownloadAction';
+import { CardAction, type CardActionOptions } from '../../../view/Card/types';
+import { canShowAction } from '../../../utils/actions/can-show-action';
 
 const isClientAction = (action: JsonLd.Primitives.Action) =>
   ['ViewAction', 'DownloadAction'].indexOf(action['@type']) > -1;
@@ -18,6 +20,20 @@ const getClientAction = (
     case 'DownloadAction':
       return DownloadAction({ url: jsonLd['atlassian:downloadUrl'] });
   }
+};
+
+const isActionEnabled = (
+  action: JsonLd.Primitives.Action,
+  actionOptions?: CardActionOptions,
+): boolean => {
+  switch (action['@type']) {
+    case 'ViewAction':
+      return canShowAction(CardAction.ViewAction, actionOptions);
+    case 'DownloadAction':
+      return canShowAction(CardAction.DownloadAction, actionOptions);
+  }
+
+  return true;
 };
 
 const getClientActionProps = (
@@ -55,9 +71,14 @@ export const getActionsFromJsonLd = (
 export function extractClientActions(
   jsonLd: JsonLd.Data.BaseData,
   handler: InvokeHandler,
+  actionOptions?: CardActionOptions,
 ): ActionProps[] {
   const actions = getActionsFromJsonLd(jsonLd);
-  const clientActions = actions.filter(isClientAction);
+  const clientActions = actions.filter(
+    (action) =>
+      isClientAction(action) && isActionEnabled(action, actionOptions),
+  );
+
   const clientActionImpls = clientActions.map((action) =>
     getClientActionProps(
       jsonLd,
@@ -65,5 +86,6 @@ export function extractClientActions(
       handler,
     ),
   );
+
   return clientActionImpls;
 }

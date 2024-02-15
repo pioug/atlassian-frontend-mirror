@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 
+import { Label } from '@atlaskit/form';
+
 import Range from '../src';
 
 const Container = styled.div`
@@ -20,7 +22,8 @@ function MassiveRangeTest() {
   return (
     <div>
       <Container>
-        <Range max={100000} step={1} onChange={onChange} />
+        <Label htmlFor="range-massive">Massive range</Label>
+        <Range id="range-massive" max={100000} step={1} onChange={onChange} />
         Value:{value}
       </Container>
       <div

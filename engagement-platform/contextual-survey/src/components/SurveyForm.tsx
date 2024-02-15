@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { RefObject, useCallback, useRef, useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { Transition } from 'react-transition-group';
 
 import Button from '@atlaskit/button/custom-theme-button';

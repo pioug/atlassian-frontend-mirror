@@ -80,7 +80,9 @@ export default () => {
           >
             <Stack space="space.100">
               <div>Space Navigation</div>
+              <label htmlFor="width">Width</label>
               <select
+                id="width"
                 value={maxWidth}
                 onChange={(evt) =>
                   setWidth(evt.currentTarget.value as GridProps['maxWidth'])

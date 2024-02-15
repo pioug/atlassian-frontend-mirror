@@ -1,4 +1,4 @@
-import type { API, FileInfo, Options } from 'jscodeshift';
+import type { API, FileInfo } from 'jscodeshift';
 
 import splitImportsTransformer from './codemods/next-split-imports';
 import migrateToNewButtonVariantsTransformer from './codemods/next-migrate-to-new-button-variants';
@@ -6,7 +6,6 @@ import migrateToNewButtonVariantsTransformer from './codemods/next-migrate-to-ne
 export default async function transformer(
   file: FileInfo,
   api: API,
-  options: Options,
 ): Promise<string> {
   const transformers = [
     splitImportsTransformer,
@@ -17,7 +16,7 @@ export default async function transformer(
     if (typeof src === 'undefined') {
       return;
     }
-    const nextSrc = transformer({ ...file, source: src }, api, options);
+    const nextSrc = transformer({ ...file, source: src }, api);
 
     if (nextSrc) {
       src = nextSrc;

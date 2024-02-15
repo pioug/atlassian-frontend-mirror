@@ -1,12 +1,13 @@
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import React from 'react';
-import { ReactEditorView } from '../../create-editor/ReactEditorView';
-import Editor from '../../editor';
 
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorPlugin } from '@atlaskit/editor-common/types';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+
+import { ReactEditorView } from '../../create-editor/ReactEditorView';
+import Editor from '../../editor';
 
 describe('reconfigure state', () => {
   let reconfigureSpy: jest.SpyInstance<void, [props: any]>;

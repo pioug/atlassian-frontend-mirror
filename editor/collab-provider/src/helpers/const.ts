@@ -6,6 +6,7 @@ export enum EVENT_ACTION {
   DOCUMENT_INIT = 'documentInit', // https://data-portal.internal.atlassian.com/analytics/registry/43971
   ADD_STEPS = 'addSteps', // https://data-portal.internal.atlassian.com/analytics/registry/43972
   UPDATE_PARTICIPANTS = 'updateParticipants', // https://data-portal.internal.atlassian.com/analytics/registry/45634
+  UPDATE_DOCUMENT = 'updateDocument', // https://data-portal.internal.atlassian.com/analytics/registry/58213
   COMMIT_UNCONFIRMED_STEPS = 'commitUnconfirmedSteps', // https://data-portal.internal.atlassian.com/analytics/registry/46501
   REINITIALISE_DOCUMENT = 'reinitialiseDocument', // https://data-portal.internal.atlassian.com/analytics/registry/50231
   ERROR = 'error', // https://data-portal.internal.atlassian.com/analytics/registry/51790
@@ -49,13 +50,14 @@ export type ErrorAnalyticsEvent = {
   eventAction: EVENT_ACTION.ERROR;
   attributes: {
     errorMessage: string;
+    originalErrorMessage: string | undefined;
     errorName?: string;
     errorCode?: string;
     errorStatus?: string;
     documentAri?: string;
     mappedError?: ProviderError;
   } & DocumentUpdateErrorAttributes;
-  nonPrivacySafeAttributes: {
+  nonPrivacySafeAttributes?: {
     error: unknown;
   };
 };
@@ -291,6 +293,18 @@ type SendStepsQueueAnalyticsEvent = {
   };
 };
 
+type UpdateDocumentAnalyticsEvent = {
+  eventAction: EVENT_ACTION.UPDATE_DOCUMENT;
+  attributes: {
+    eventStatus: EVENT_STATUS.SUCCESS;
+    newVersion: number;
+    editorVersion: number;
+    isDocTruthy: boolean;
+    docHasContent: boolean;
+    isDocContentValid: boolean;
+  };
+};
+
 export type ActionAnalyticsEvent =
   | AddStepsSuccessAnalyticsEvent
   | AddStepsFailureAnalyticsEvent
@@ -316,7 +330,8 @@ export type ActionAnalyticsEvent =
   | ProviderInitializedAnalyticsEvent
   | ProviderSetupAnalyticsEvent
   | ProviderHasUnconfirmedStepsAnalyticsEvent
-  | SendStepsQueueAnalyticsEvent;
+  | SendStepsQueueAnalyticsEvent
+  | UpdateDocumentAnalyticsEvent;
 
 export const ACK_MAX_TRY = 60;
 

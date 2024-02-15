@@ -3,8 +3,8 @@ import { Fragment, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { ButtonGroup } from '@atlaskit/button';
-import Button from '@atlaskit/button/standard-button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/new';
 import { Box, xcss } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
 
@@ -41,7 +41,7 @@ const PopupFocusExample = () => {
         content={({ setInitialFocusRef }) => {
           return (
             <Box xcss={contentStyles}>
-              <ButtonGroup>
+              <ButtonGroup label="Show selected focus">
                 {radioValues.map(
                   ({ value, label }) =>
                     value !== '0' && (

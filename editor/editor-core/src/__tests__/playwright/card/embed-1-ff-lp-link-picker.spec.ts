@@ -1,14 +1,15 @@
 import {
-  editorTestCase as test,
+  EditorEmbedCardModel,
+  EditorFloatingToolbarModel,
   EditorLinkPickerModel,
   EditorNodeContainerModel,
-  EditorFloatingToolbarModel,
-  EditorEmbedCardModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import { embedCardAdf } from './embed-1-ff-lp-link-picker.spec.ts-fixtures/adf';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { p, a, doc } from '@atlaskit/editor-test-helpers/doc-builder';
+import { a, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { embedCardAdf } from './embed-1-ff-lp-link-picker.spec.ts-fixtures/adf';
 
 test.use({
   adf: embedCardAdf,

@@ -1,4 +1,4 @@
-import type { Axis, Edge, Side } from '../internal-types';
+import type { Axis, Edge, InternalConfig, Side } from '../internal-types';
 import { axisLookup } from '../shared/axis';
 // Borrowing the hitbox calculation from over-element
 // So we can be sure that the 'insideEdge' calculations
@@ -11,9 +11,11 @@ function makeGetHitbox({ axis, side }: { axis: Axis; side: Side }) {
   return function hitbox({
     clientRect,
     overflow,
+    config,
   }: {
     clientRect: DOMRect;
     overflow: HitboxSpacing;
+    config: InternalConfig;
   }): {
     insideOfEdge: DOMRect;
     outsideOfEdge: DOMRect;
@@ -22,7 +24,10 @@ function makeGetHitbox({ axis, side }: { axis: Axis; side: Side }) {
     const edge: Edge = mainAxis[side];
     const spacingForEdge = overflow[edge];
 
-    const overElementHitbox = getOverElementHitbox[edge]({ clientRect });
+    const overElementHitbox = getOverElementHitbox[edge]({
+      clientRect,
+      config,
+    });
     // Same as the over element hitbox,
     // but we are stretching out on the cross axis (if needed)
     const insideOfEdge = DOMRect.fromRect({
@@ -64,7 +69,11 @@ function makeGetHitbox({ axis, side }: { axis: Axis; side: Side }) {
 }
 
 export const getHitbox: {
-  [Key in Edge]: (args: { clientRect: DOMRect; overflow: HitboxSpacing }) => {
+  [Key in Edge]: (args: {
+    clientRect: DOMRect;
+    overflow: HitboxSpacing;
+    config: InternalConfig;
+  }) => {
     insideOfEdge: DOMRect;
     outsideOfEdge: DOMRect;
   };

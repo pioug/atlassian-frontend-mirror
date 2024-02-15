@@ -60,6 +60,14 @@ export interface RadioGroupProps {
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   'aria-labelledby'?: string;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
+   * The specified `testId` is applied to the root element of `RadioGroup`. If no `testId` is supplied in the `options` prop, then the one supplied to `RadioGroup` will also be propagated to
+   * the `Radio` children. Otherwise, the `testId` supplied in the `options` prop will be used.
+   *
+   * See [here](/components/radio/code#testId) for details about how `testId` is used on `Radio`.
+   */
+  testId?: string;
 }
 
 const noOptions: OptionsPropType = [];
@@ -77,6 +85,7 @@ export default function RadioGroup(props: RadioGroupProps) {
     name,
     analyticsContext,
     ['aria-labelledby']: ariaLabelledBy,
+    testId,
   } = props;
 
   const [selectedValue, setSelectedValue] = useState<
@@ -97,7 +106,11 @@ export default function RadioGroup(props: RadioGroupProps) {
   // If not then act as an uncontrolled component using the value from state
   const value = typeof propValue !== 'undefined' ? propValue : selectedValue;
   return (
-    <div role="radiogroup" aria-labelledby={ariaLabelledBy}>
+    <div
+      role="radiogroup"
+      aria-labelledby={ariaLabelledBy}
+      data-testid={testId}
+    >
       {options.map(({ ...optionProps }: OptionPropType, index: number) => {
         if (typeof isDisabled !== 'undefined') {
           optionProps.isDisabled = isDisabled;
@@ -112,6 +125,7 @@ export default function RadioGroup(props: RadioGroupProps) {
             onInvalid={onInvalid}
             isInvalid={isChecked && isInvalid}
             isChecked={isChecked}
+            testId={optionProps.testId || testId}
             isRequired={isRequired}
             analyticsContext={analyticsContext}
           />

@@ -7,6 +7,7 @@ import { UploaderError } from './error';
 import { CHUNK_SIZE, PROCESSING_BATCH_SIZE } from '../constants';
 import { calculateChunkSize, fileSizeError } from './calculateChunkSize';
 import { MediaTraceContext } from '@atlaskit/media-common';
+import { ChunkHashAlgorithm } from '@atlaskit/media-core';
 
 // TODO: Allow to pass multiple files
 export type UploadableFile = {
@@ -32,30 +33,14 @@ export interface UploadFileResult {
   cancel: () => void;
 }
 
-const hashingFunction = async (blob: Blob): Promise<string> => {
-  const hasher = await createHasher();
+const hashingFunction = async (
+  blob: Blob,
+  hashAlgorithm: ChunkHashAlgorithm,
+): Promise<string> => {
+  const hasher = await createHasher(hashAlgorithm);
 
   return hasher.hash(blob);
 };
-
-const createProbingFunction =
-  (
-    store: MediaStore,
-    deferredUploadId: Promise<string>,
-    collectionName?: string,
-    traceContext?: MediaTraceContext,
-  ) =>
-  async (chunks: Chunk[]): Promise<boolean[]> => {
-    const response = await store.probeChunks(
-      hashedChunks(chunks),
-      await deferredUploadId,
-      collectionName,
-      traceContext,
-    );
-    const results = response.data.results;
-
-    return (Object as any).values(results).map((result: any) => result.exists);
-  };
 
 const createUploadingFunction =
   (
@@ -155,18 +140,12 @@ export const uploadFile = (
   const chunkinatorObservable = chunkinator(
     content,
     {
-      hashingFunction,
+      hashingFunction: (blob: Blob) =>
+        hashingFunction(blob, store.chunkHashAlgorithm),
       hashingConcurrency: 5,
-      probingBatchSize: 100,
       chunkSize,
       uploadingConcurrency: 3,
       uploadingFunction: createUploadingFunction(
-        store,
-        deferredUploadId,
-        collection,
-        traceContext,
-      ),
-      probingFunction: createProbingFunction(
         store,
         deferredUploadId,
         collection,

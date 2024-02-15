@@ -1,5 +1,76 @@
 # @atlaskit/link-picker
 
+## 1.33.1
+
+### Patch Changes
+
+- [#71135](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71135) [`88c865c6359d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/88c865c6359d) - Fix issues with screen readers detecting a list when no plugin is provided
+
+## 1.33.0
+
+### Minor Changes
+
+- [#69577](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69577) [`fcd935281ee6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fcd935281ee6) - Updates onCancel prop to be optional. When not provided, cancel button is not displayed.
+
+## 1.32.1
+
+### Patch Changes
+
+- [#66404](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66404) [`61ac6afc1d89`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61ac6afc1d89) - EDM-9025 Add onSubmitCapture behind feature flag
+
+## 1.32.0
+
+### Minor Changes
+
+- [#61981](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61981) [`0d7a20c43478`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d7a20c43478) - [ux] Added a UI experience for when a submission is in progress
+
+### Patch Changes
+
+- [#64291](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64291) [`c44535acbea9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c44535acbea9) - remove platform.linking-platform.link-create.tmp-fix-translations to permanently return undefined in the loaderFn when dynamic import of locale messages fail.
+
+## 1.31.0
+
+### Minor Changes
+
+- [#64242](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64242) [`066547c92554`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/066547c92554) - Add customMessages prop to link picker
+
+## 1.30.14
+
+### Patch Changes
+
+- [#63626](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63626) [`e71c8f5f586e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e71c8f5f586e) - loaderFn returns undefined if failed to dynamicaly import locale messages - fixes issue in Jira where default English replaces languages chunk.
+- Updated dependencies
+
+## 1.30.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.30.12
+
+### Patch Changes
+
+- [#61649](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61649) [`b3da85b3276a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b3da85b3276a) - Replaces internal lazy messages provider implementation with @atlaskit/intl-messages-provider with no expected functional change beyond now supporting inherting messages from parent intl provider. Use of lazy messages provider still is feature flagged behind 'platform.linking-platform.link-picker.lazy-intl-messages'.
+
+## 1.30.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.30.10
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
+## 1.30.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.30.8
 
 ### Patch Changes

@@ -2,14 +2,19 @@ import React, { forwardRef, memo, type Ref } from 'react';
 
 import UNSAFE_LINK from '@atlaskit/primitives/link';
 
-import { type CommonLinkVariantProps } from '../types';
+import {
+  type AdditionalDefaultLinkVariantProps,
+  type CommonLinkVariantProps,
+} from '../types';
 
 import { type CommonDefaultButtonProps } from './types';
 import useDefaultButton from './use-default-button';
 
 export type LinkButtonProps<
   RouterLinkConfig extends Record<string, any> = never,
-> = CommonDefaultButtonProps & CommonLinkVariantProps<RouterLinkConfig>;
+> = CommonDefaultButtonProps &
+  CommonLinkVariantProps<RouterLinkConfig> &
+  AdditionalDefaultLinkVariantProps;
 
 const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
   {
@@ -112,8 +117,6 @@ const WithRef = forwardRef(LinkButtonBase) as <
 
 /**
  * __Link Button__
- *
- * @private __UNSAFE__ LinkButton is not yet safe for production use.
  *
  * Renders a link in the style of a button.
  *

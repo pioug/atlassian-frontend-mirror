@@ -1,16 +1,19 @@
 import type { IntlShape } from 'react-intl-next';
 
-import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
+import {
+  TypeAheadAvailableNodes,
+  typeAheadListMessages,
+} from '@atlaskit/editor-common/type-ahead';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { updateSelectedIndex } from './commands/update-selected-index';
-import { typeAheadListMessages } from './messages';
 import { pluginKey as typeAheadPluginKey } from './pm-plugins/key';
 import { StatsModifier } from './stats-modifier';
 import type { TypeAheadHandler, TypeAheadItem } from './types';
 
 export const isTypeAheadHandler = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handler: any,
 ): handler is TypeAheadHandler => {
   return (

@@ -23,10 +23,10 @@ exports[`@atlaskit/page-header should render correctly 1`] = `
 .emotion-1 {
   min-width: 0;
   max-width: 100%;
-  margin-bottom: var(--ds-space-100, 8px);
   -webkit-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
+  margin-block-end: var(--ds-space-100, 8px);
 }
 
 .emotion-0 {
@@ -37,19 +37,21 @@ exports[`@atlaskit/page-header should render correctly 1`] = `
   font-weight: var(--ds-font-weight-medium, 500);
   letter-spacing: -0.01em;
   margin-top: 40px;
-  margin-top: 0;
   line-height: var(--ds-font-lineHeight-500, 32px);
+  margin-block-start: 0;
   outline: none;
 }
 
 .emotion-2 {
   max-width: 100%;
-  margin-bottom: var(--ds-space-100, 8px);
-  margin-left: auto;
-  padding-left: var(--ds-space-400, 32px);
   -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
+  margin-block-end: var(--ds-space-100, 8px);
+  -webkit-margin-start: auto;
+  margin-inline-start: auto;
+  -webkit-padding-start: var(--ds-space-400, 32px);
+  padding-inline-start: var(--ds-space-400, 32px);
   white-space: nowrap;
 }
 
@@ -58,7 +60,13 @@ exports[`@atlaskit/page-header should render correctly 1`] = `
 }
 
 .emotion-4 {
-  margin-top: var(--ds-space-200, 16px);
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  border: none;
+  margin-block-start: var(--ds-space-200, 16px);
 }
 
 <div
@@ -123,20 +131,22 @@ exports[`@atlaskit/page-header should render correctly with disableTitleStyles p
 .emotion-0 {
   min-width: 0;
   max-width: 100%;
-  margin-bottom: var(--ds-space-100, 8px);
   -webkit-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
+  margin-block-end: var(--ds-space-100, 8px);
 }
 
 .emotion-1 {
   max-width: 100%;
-  margin-bottom: var(--ds-space-100, 8px);
-  margin-left: auto;
-  padding-left: var(--ds-space-400, 32px);
   -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
+  margin-block-end: var(--ds-space-100, 8px);
+  -webkit-margin-start: auto;
+  margin-inline-start: auto;
+  -webkit-padding-start: var(--ds-space-400, 32px);
+  padding-inline-start: var(--ds-space-400, 32px);
   white-space: nowrap;
 }
 
@@ -145,7 +155,13 @@ exports[`@atlaskit/page-header should render correctly with disableTitleStyles p
 }
 
 .emotion-3 {
-  margin-top: var(--ds-space-200, 16px);
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  border: none;
+  margin-block-start: var(--ds-space-200, 16px);
 }
 
 <div

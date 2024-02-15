@@ -36,11 +36,11 @@ import {
   setTextSelection,
 } from '@atlaskit/editor-prosemirror/utils';
 
-import { stateKey as taskDecisionStateKey } from './pm-plugins/plugin-key';
 import type {
   AddItemAttrs,
   AddItemTransactionCreator,
   ContextData,
+  GetContextIdentifier,
   TaskDecisionInputMethod,
   TaskDecisionListType,
 } from './types';
@@ -116,7 +116,10 @@ export const getListTypes = (
 };
 
 export const insertTaskDecisionAction =
-  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+    getContextIdentifierProvider: GetContextIdentifier,
+  ) =>
   (
     state: EditorState,
     listType: TaskDecisionListType,
@@ -173,7 +176,10 @@ export const insertTaskDecisionAction =
     };
 
     const addAndCreateListFn = addItem ?? addAndCreateList;
-    const tr = insertTaskDecisionWithAnalytics(editorAnalyticsAPI)(
+    const tr = insertTaskDecisionWithAnalytics(
+      editorAnalyticsAPI,
+      getContextIdentifierProvider,
+    )(
       state,
       listType,
       inputMethod,
@@ -194,7 +200,10 @@ export const insertTaskDecisionAction =
   };
 
 export const insertTaskDecisionCommand =
-  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+    getContextIdentifierProvider: GetContextIdentifier,
+  ) =>
   (
     listType: TaskDecisionListType,
     inputMethod:
@@ -206,14 +215,10 @@ export const insertTaskDecisionCommand =
     itemLocalId?: string,
   ): Command =>
   (state, dispatch) => {
-    const tr = insertTaskDecisionAction(editorAnalyticsAPI)(
-      state,
-      listType,
-      inputMethod,
-      addItem,
-      listLocalId,
-      itemLocalId,
-    );
+    const tr = insertTaskDecisionAction(
+      editorAnalyticsAPI,
+      getContextIdentifierProvider,
+    )(state, listType, inputMethod, addItem, listLocalId, itemLocalId);
     if (dispatch) {
       dispatch(tr);
     }
@@ -221,7 +226,10 @@ export const insertTaskDecisionCommand =
   };
 
 export const insertTaskDecisionWithAnalytics =
-  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+    getContextIdentifierProvider: GetContextIdentifier,
+  ) =>
   (
     state: EditorState,
     listType: TaskDecisionListType,
@@ -237,8 +245,7 @@ export const insertTaskDecisionWithAnalytics =
     const { tr } = state;
     const { $to } = state.selection;
     const listNode = findParentNodeOfType(list)(state.selection);
-    const contextIdentifierProvider =
-      taskDecisionStateKey.getState(state).contextIdentifierProvider;
+    const contextIdentifierProvider = getContextIdentifierProvider();
     const contextData = getContextData(contextIdentifierProvider);
     let insertTrCreator;
     let itemIdx;
@@ -295,10 +302,19 @@ export const isSupportedSourceNode = (
   schema: Schema,
   selection: Selection,
 ): boolean => {
-  const { paragraph, blockquote, decisionList, taskList } = schema.nodes;
+  const {
+    paragraph,
+    blockquote,
+    decisionList,
+    taskList,
+    bulletList,
+    numberedList,
+  } = schema.nodes;
 
-  return hasParentNodeOfType([blockquote, paragraph, decisionList, taskList])(
-    selection,
+  return (
+    hasParentNodeOfType([blockquote, paragraph, decisionList, taskList])(
+      selection,
+    ) && !hasParentNodeOfType([bulletList, numberedList])(selection)
   );
 };
 

@@ -1,12 +1,14 @@
-import {
-  Plugin,
+import { Plugin } from '@atlaskit/editor-prosemirror/state';
+import type {
   ReadonlyTransaction,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { handlePaste } from '../utils';
 import { drawCellSelection } from '../utils/draw-cell-selection';
-import { fixTables, ReportFixedTable } from '../utils/fix-tables';
+import type { ReportFixedTable } from '../utils/fix-tables';
+import { fixTables } from '../utils/fix-tables';
 import { normalizeSelection } from '../utils/normalize-selection';
 
 import { handleKeyDown, handleMouseDown, handleTripleClick } from './input';
@@ -29,9 +31,11 @@ type PluginState = number | null;
 
 export function tableEditing({
   allowTableNodeSelection = false,
+  dragAndDropEnabled = false,
   reportFixedTable,
 }: {
   allowTableNodeSelection?: boolean;
+  dragAndDropEnabled?: boolean;
   reportFixedTable?: ReportFixedTable;
 } = {}): Plugin<PluginState> {
   return new Plugin({
@@ -62,7 +66,9 @@ export function tableEditing({
       decorations: drawCellSelection,
 
       handleDOMEvents: {
-        mousedown: handleMouseDown,
+        mousedown: (view: EditorView, event: Event) => {
+          handleMouseDown(view, event, dragAndDropEnabled);
+        },
       },
 
       createSelectionBetween(view) {

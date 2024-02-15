@@ -100,3 +100,5 @@ export {
   getFieldSerializer,
   getFieldDeserializer,
 } from './extension-fields-helpers';
+
+export { messages, configPanelMessages } from './messages';

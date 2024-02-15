@@ -26,8 +26,14 @@ export const getSelectedExtension = (
   state: EditorState,
   searchParent: boolean = false,
 ) => {
-  const { inlineExtension, extension, bodiedExtension } = state.schema.nodes;
-  const nodeTypes = [extension, bodiedExtension, inlineExtension];
+  const { inlineExtension, extension, bodiedExtension, multiBodiedExtension } =
+    state.schema.nodes;
+  const nodeTypes = [
+    extension,
+    bodiedExtension,
+    inlineExtension,
+    multiBodiedExtension,
+  ];
   return (
     findSelectedNodeOfType(nodeTypes)(state.selection) ||
     (searchParent && findParentNodeOfType(nodeTypes)(state.selection)) ||

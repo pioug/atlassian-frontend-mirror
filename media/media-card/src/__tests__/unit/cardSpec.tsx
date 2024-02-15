@@ -115,6 +115,7 @@ import {
   startUfoExperience,
   abortUfoExperience,
 } from '../../utils/ufoExperiences';
+import { DateOverrideContext } from '../../dateOverrideContext';
 
 asMock(getDocument).mockImplementation(() => document);
 
@@ -269,6 +270,32 @@ describe('Card', () => {
     component.setProps({ identifier: newIdentifier });
     expect(component.find(CardBase).state('cardPreview')).toEqual(
       newCardPreview,
+    );
+  });
+
+  it('should override creation date when applied with `DateOverrideContext`', () => {
+    const newCardPreview: CardPreview = {
+      dataURI: 'some-new-data-uri',
+      orientation: 6,
+      source: 'remote',
+    };
+    asMockFunction(getCardPreviewFromCache)
+      .mockReturnValueOnce(defaultCardPreview)
+      .mockReturnValueOnce(newCardPreview);
+
+    let propInput: Record<string, number> = {};
+    propInput[defaultFileId] = 123;
+
+    const component = mount(
+      <DateOverrideContext.Provider value={propInput}>
+        <Card
+          mediaClient={createMediaClientWithGetFile()}
+          identifier={identifier}
+        />
+      </DateOverrideContext.Provider>,
+    );
+    expect(component.find(CardView).props().overriddenCreationDate).toEqual(
+      123,
     );
   });
 
@@ -1121,6 +1148,36 @@ describe('Card', () => {
       expect(component.find(MediaViewer).prop('featureFlags')).toEqual(
         featureFlags,
       );
+    });
+
+    it('should focus button', async () => {
+      const mediaClient = createMediaClientWithGetFile(defaultFileState);
+      document.body.innerHTML = `<div id="wrap"></div>`;
+      const component = mount(
+        <Card
+          mediaClient={mediaClient}
+          identifier={identifier}
+          shouldOpenMediaViewer
+        />,
+        { attachTo: document.getElementById('wrap') },
+      );
+
+      await nextTick();
+      await nextTick();
+
+      const openViewerButton = component.findWhere(
+        (node) => node.type() === 'button' && node.text().includes('Open'),
+      );
+      openViewerButton.simulate('click');
+
+      const viewer = component.find(MediaViewer);
+      expect(viewer).toHaveLength(1);
+
+      viewer.prop('onClose')?.();
+      expect(openViewerButton.getDOMNode()).toHaveFocus();
+      component.update();
+
+      expect(component.find(MediaViewer)).toHaveLength(0);
     });
   });
 

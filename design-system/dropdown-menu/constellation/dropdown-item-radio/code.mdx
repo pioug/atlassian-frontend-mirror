@@ -2,10 +2,15 @@
 title: Dropdown item radio
 description: A dropdown item radio lets users select one option from a list of options.
 order: 1
+props:
+  packageName: '@atlaskit/dropdown-menu'
+  exports:
+    - DropdownItemRadio
 ---
-
-import DropdownItemRadioProps from '!!extract-react-types-loader!../../src/radio/dropdown-item-radio';
 
 ## Props
 
-<PropsTable heading="" props={DropdownItemRadioProps} />
+<TSMorphProps
+  exportName="DropdownItemRadio"
+  packageName="@atlaskit/dropdown-menu"
+/>

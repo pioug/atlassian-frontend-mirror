@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { CheckboxField, Field } from '@atlaskit/form';
 import { RadioGroup } from '@atlaskit/radio';

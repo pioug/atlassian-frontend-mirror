@@ -1,8 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { map } from 'rxjs/operators/map';
 import { slicenator } from '../src/slicenator';
-import { probinator } from '../src/probinator';
-import { HashedBlob, SlicedBlob } from '../src/domain';
+import { SlicedBlob } from '../src/domain';
 
 const createHash = (slicedBlob: SlicedBlob) => {
   console.log('createHash', slicedBlob.blob.size);
@@ -13,12 +12,6 @@ const createHash = (slicedBlob: SlicedBlob) => {
     partNumber: slicedBlob.partNumber,
   };
 };
-const prober = (hashedBlobs: HashedBlob[]) => {
-  const exists = true;
-
-  console.log('hashedBlobs.length', hashedBlobs.length);
-  return Promise.resolve(hashedBlobs.map(() => exists));
-};
 
 const onChange = (e: ChangeEvent<HTMLInputElement>) => {
   const { currentTarget } = e;
@@ -27,12 +20,7 @@ const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     map(createHash),
   );
 
-  const probinatedBlobs = probinator(observable, {
-    batchSize: 3,
-    prober,
-  });
-
-  probinatedBlobs.subscribe();
+  observable.subscribe();
 };
 
 export default () => (

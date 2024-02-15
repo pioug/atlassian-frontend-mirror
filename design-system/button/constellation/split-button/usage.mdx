@@ -4,6 +4,15 @@ description: A split button lets people perform an action or choose from a small
 order: 2
 ---
 
+import relatedDo from './images/related-do.png';
+import relatedDont from './images/related-dont.png';
+import repeatDo from './images/repeat-do.png';
+import repeatDont from './images/repeat-dont.png';
+import lengthDo from './images/length-do.png';
+import lengthDont from './images/length-dont.png';
+import labelDo from './images/label-do.png';
+import disabledDont from './images/disabled-dont.png';
+
 ## Usage
 
 Split buttons have one clear default action alongside a group of similar actions.
@@ -12,12 +21,9 @@ Split buttons have one clear default action alongside a group of similar actions
 
 The parts of a split button:
 
-1. **Main action button:** The default action that most users will take.
-2. **Main action label:** Make sure button labels follow the [button content guidelines](/components/button/split-button/usage#content-guidelines).
-3. **Dropdown menu icon button:** A dropdown icon button attached to the main action button, separated by a visual divider. This opens the menu of related actions. Requires a label for accessibility.
-4. **Seconary actions:** A menu of actions that are parallel or similar to the main action.
-
-<!-- Should we add an item for the secondary action label / tooltip? maybe as an annotation if it isn't a tooltip? -->
+1. **Main action button:** The default action that most users will take. Make sure button labels follow the [button content guidelines](/components/button/split-button/usage#content-guidelines). This button can optionally include an icon.
+1. **Dropdown menu icon button:** A dropdown button attached to the main action button, separated by a visual divider. This opens a menu of related actions. Requires an accessible name for assistive technologies.
+1. **Secondary actions menu:** A menu of actions that are parallel or similar to the main action.
 
 ### Use split buttons for directly related actions with one clear default
 
@@ -25,11 +31,23 @@ The small menu is easy to miss and requires more focus, so expect people to use 
 
 When there isn’t a clear default action, present all options equally using a [basic dropdown menu](/components/dropdown-menu/examples) or [button group](/components/button-group/examples).
 
-<DoDont type="do">
+<DoDont
+  type="do"
+  image={{
+    url: relatedDo,
+    alt: 'An Update button next to a menu of related actions like Save as draft and Save without notifying watchers.',
+  }}
+>
   Group related actions under the split button dropdown.
 </DoDont>
 
-<DoDont type="dont">
+<DoDont
+  type="dont"
+  image={{
+    url: relatedDont,
+    alt: 'An Update button next to a menu of related actions with Save as draft, Save without notifying watchers, and Delete, which is not related to updates.',
+  }}
+>
   Don't use a split button to group actions that aren't directly related or
   similar.
 </DoDont>
@@ -38,21 +56,60 @@ When there isn’t a clear default action, present all options equally using a [
 
 ### Provide an accessible name for the dropdown icon button
 
-Provide an accessible name (using the aria-label prop) to describe the actions behind the dropdown icon button. The text should say something like "More 'main action' actions."
+Provide an accessible name (using the label prop) to describe the actions behind the dropdown icon button. The text should say something like "More 'main action' actions."
 
 ### Avoid disabling buttons
 
 Avoid disabling buttons and follow all [general button accessibility guidance](/components/button/usage#accessibility).
 
-## Best practices
+<DoDont
+  type="do"
+  width="full"
+  image={{
+    url: labelDo,
+    alt: "A dropdown icon button with the label 'More save actions', allowing assistive technology to announce the name.",
+  }}
+>
+  Give icon buttons an accessible name with the label prop.
+</DoDont>
 
-<!-- TODO add do/don’ts and visuals throughout. -->
+<DoDont
+  type="dont"
+  image={{
+    url: disabledDont,
+    alt: 'A tooltip on a disabled button. This is inaccessible because they can’t be triggered on focus.',
+  }}
+>
+  Don't use a tooltip on a disabled button.
+</DoDont>
+
+## Best practices
 
 ### Aim for fewer dropdown items
 
 Try to keep the number of dropdown menus items to a minimum (fewer than six) to aid focus and comprehension.
 
-- Remember that some users may miss the secondary action entirely, so ensure users aren’t required to interact with the secondary action to proceed. In other words, make sure the main action button allows people to proceed in most cases.
+Remember that some users may miss the secondary action entirely, so ensure users aren’t required to interact with the secondary action to proceed. In other words, make sure the main action button allows people to proceed in most cases.
+
+<DoDont
+  type="do"
+  image={{
+    url: lengthDo,
+    alt: 'A dropdown menu with three options.',
+  }}
+>
+  Keep the number of dropdown menu items to a minimum.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: lengthDont,
+    alt: 'A dropdown menu with eight options.',
+  }}
+>
+  Don't use more than six menu items in a dropdown menu.
+</DoDont>
 
 ### Secondary actions should open a dropdown menu
 
@@ -72,11 +129,23 @@ Use sentence case (only capitalize the first letter) for all button actions and 
 
 Don’t include the default action as one of the dropdown menu items. This helps keep the number of items to a minimum.
 
-<DoDont type="do">
-  Use a clear and concise label for the main and secondary actions.
+<DoDont
+  type="do"
+  image={{
+    url: repeatDo,
+    alt: 'A link issue button with a menu of related link options, such as Link page and Link URL.',
+  }}
+>
+  Use clear and concise labels for the main and secondary actions.
 </DoDont>
 
-<DoDont type="dont">
+<DoDont
+  type="dont"
+  image={{
+    url: repeatDont,
+    alt: 'A link issue button with a menu of related link options. The link issue option is repeated in the menu and the button.',
+  }}
+>
   Don't repeat the main action as one of the dropdown items.
 </DoDont>
 
@@ -85,8 +154,6 @@ Don’t include the default action as one of the dropdown menu items. This helps
 Avoid using split buttons in mobile experiences. The menu button touch target is small and easy to miss accidentally.
 
 ## Related
-
-<!-- TODO make links work and replace with links to specific headings where applicable. -->
 
 - To group actions that are dissimilar or of equal importance, use a [button group](/components/button-group/examples) or a [basic dropdown menu](/components/dropdown-menu/examples) to present options more equally.
 - To present more actions in views with limited space, use an [icon button as a more actions (…) menu](/components/button/icon-button/examples).

@@ -30,10 +30,10 @@ export interface TooltipProps {
    * The benefit of the second approach is that it allows you to consume the `update` render prop.
    * This `update` function can be called to manually recalculate the position of the tooltip.
    */
-  content: ReactNode | (({ update }: { update: () => void }) => ReactNode);
+  content: ReactNode | (({ update }: { update?: () => void }) => ReactNode);
 
   /**
-   * Extend `TooltipPrimitive` to create your own tooltip and pass it as component
+   * Extend `TooltipPrimitive` to create your own tooltip and pass it as component.
    */
   component?: ComponentType<TooltipPrimitiveProps>;
 
@@ -45,14 +45,14 @@ export interface TooltipProps {
   /**
    * Hide the tooltip when the click event is triggered. This should be
    * used when tooltip should be hidden if `onClick` react synthetic event
-   * is triggered, which happens after `onMouseDown` event
+   * is triggered, which happens after `onMouseDown` event.
    */
   hideTooltipOnClick?: boolean;
 
   /**
    * Hide the tooltip when the mousedown event is triggered. This should be
    * used when tooltip should be hidden if `onMouseDown` react synthetic event
-   * is triggered, which happens before `onClick` event
+   * is triggered, which happens before `onClick` event.
    */
   hideTooltipOnMouseDown?: boolean;
 
@@ -85,7 +85,7 @@ export interface TooltipProps {
   /**
    * Replace the wrapping element. This accepts the name of a html tag which will
    * be used to wrap the element.
-   * If you provide a component it needs to support a ref prop which is used by popper for positioning
+   * If you provide a component it needs to support a ref prop which is used by popper for positioning.
    */
   tag?:
     | keyof JSX.IntrinsicElements
@@ -94,7 +94,7 @@ export interface TooltipProps {
       >;
 
   /**
-   * Show only one line of text, and truncate when too long
+   * Used to show only one line of text, and truncate when too long. Avoid this wherever possible, as any important information that is truncated will be visually hidden to the person reading the tooltip.
    */
   truncate?: boolean;
 
@@ -109,10 +109,10 @@ export interface TooltipProps {
   /**
    * A `testId` prop is provided for specified elements, which is a unique
    * string that appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests */
+   * serving as a hook for automated tests. */
   testId?: string;
 
-  /** Analytics context metadata */
+  /** Analytics context metadata. */
   analyticsContext?: Record<string, any>;
 
   /**

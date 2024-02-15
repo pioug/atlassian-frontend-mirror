@@ -1,7 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+
+import type { AddonProps } from '../types';
+
 import { dropdownItem } from './styles';
-import { AddonProps } from '../types';
 
 const DropdownItemWrapper = (props: AddonProps) => (
   <div

@@ -1,4 +1,3 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { JsonLd } from 'json-ld-types';
 import { FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import { extractSummary } from '../common/primitives';
@@ -41,7 +40,7 @@ import extractPriority from './extract-priority';
 import extractProviderIcon from './icon/extract-provider-icon';
 import extractPreview from './extract-preview';
 import extractState from './extract-state';
-import { extractLatestCommit } from './latest-commit';
+import { extractLatestCommit, LinkTypeLatestCommit } from './latest-commit';
 import { extractPreviewAction } from './actions/extract-preview-action';
 import { extractDownloadAction } from './actions/extract-download-action';
 import { extractViewAction } from './actions/extract-view-action';
@@ -50,7 +49,7 @@ import { ExtractFlexibleUiDataContextParams } from '../../view/FlexibleCard/type
 const extractFlexibleUiContext = ({
   id,
   renderers,
-  showServerActions,
+  actionOptions,
   response,
 }: Partial<ExtractFlexibleUiDataContextParams> = {}):
   | FlexibleUiDataContext
@@ -79,15 +78,11 @@ const extractFlexibleUiContext = ({
     assignedTo: extractAssignedTo(data),
     createdOn: extractDateCreated(data as LinkTypeCreated),
     dueOn: extractDueOn(data),
-    followAction: getBooleanFF(
-      'platform.linking-platform.smart-card.follow-button',
-    )
-      ? extractFollowAction(response, showServerActions, id)
-      : undefined,
-    previewAction: extractPreviewAction(response),
-    viewAction: extractViewAction(data),
-    downloadAction: extractDownloadAction(data),
-    latestCommit: extractLatestCommit(data as JsonLd.Data.SourceCodeRepository),
+    followAction: extractFollowAction(response, actionOptions, id),
+    previewAction: extractPreviewAction(response, actionOptions),
+    viewAction: extractViewAction(data, actionOptions),
+    downloadAction: extractDownloadAction(data, actionOptions),
+    latestCommit: extractLatestCommit(data as LinkTypeLatestCommit),
     linkIcon: extractLinkIcon(response, renderers),
     location: extractLocation(data),
     modifiedBy: extractModifiedBy(data),
@@ -102,7 +97,7 @@ const extractFlexibleUiContext = ({
     sourceBranch: extractSourceBranch(
       data as JsonLd.Data.SourceCodePullRequest,
     ),
-    state: extractState(response, showServerActions, id),
+    state: extractState(response, actionOptions, id),
     subscriberCount: extractSubscriberCount(data),
     subTasksProgress: extractSubTasksProgress(data),
     storyPoints: extractStoryPoints(data),

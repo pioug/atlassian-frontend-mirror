@@ -25,6 +25,8 @@ import AvatarLocked from '../../examples/constellation/avatar-status-locked';
 
 When the image source is unavailable (for example, when there's a problem displaying the image due to an error), or the source is unspecified, the avatar component will display a default image.
 
+When an avatar is not given any useful context via the `name`, `presence`, or `status` attributes like in this example, it will be hidden for assistive technologies as it does not convey any meaningful information.
+
 <Example Component={AvatarDefault} packageName="@atlaskit/avatar" />
 
 ## Appearance

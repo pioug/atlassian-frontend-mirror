@@ -7,7 +7,7 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::ac16bd3fed98ec222ac09d5663ed540c>>
+ * @codegen <<SignedSource::0be8396ce2b2c338731e309ec56b045d>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -434,36 +434,43 @@ const defaultTokenValues = {
   'space.negative.250': '-1.25rem',
   'space.negative.300': '-1.5rem',
   'space.negative.400': '-2rem',
-  'font.body': 'normal 400 0.875rem/1.25rem var(--ds-font-family-body)',
-  'font.body.large': 'normal 400 1rem/1.5rem var(--ds-font-family-body)',
-  'font.body.small': 'normal 400 0.6875rem/1rem var(--ds-font-family-body)',
-  'font.code': 'normal 400 0.875em/1 var(--ds-font-family-code)',
-  'font.heading.large':
-    'normal 500 1.5rem/1.75rem var(--ds-font-family-heading)',
-  'font.heading.medium':
-    'normal 500 1.25rem/1.5rem var(--ds-font-family-heading)',
-  'font.heading.small': 'normal 600 1rem/1.25rem var(--ds-font-family-heading)',
-  'font.heading.xlarge':
-    'normal 600 1.8125rem/2rem var(--ds-font-family-heading)',
-  'font.heading.xsmall':
-    'normal 600 0.875rem/1rem var(--ds-font-family-heading)',
   'font.heading.xxlarge':
-    'normal 500 2.1875rem/2.5rem var(--ds-font-family-heading)',
+    'normal 500 2.1875rem/2.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  'font.heading.xlarge':
+    'normal 600 1.8125rem/2rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  'font.heading.large':
+    'normal 500 1.5rem/1.75rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  'font.heading.medium':
+    'normal 500 1.25rem/1.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  'font.heading.small':
+    'normal 600 1rem/1.25rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  'font.heading.xsmall':
+    'normal 600 0.875rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   'font.heading.xxsmall':
-    'normal 600 0.75rem/1rem var(--ds-font-family-heading)',
+    'normal 600 0.75rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  'font.body.large':
+    'normal 400 1rem/1.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  'font.body':
+    'normal 400 0.875rem/1.25rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  'font.body.small':
+    'normal 400 0.6875rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  'font.ui':
+    'normal 500 0.875rem/1 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  'font.ui.small':
+    'normal 400 0.6875rem/1 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  'font.code':
+    'normal 400 0.875em/1 ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
   'font.letterSpacing.0': '0',
   'font.letterSpacing.100': '-0.003em',
   'font.letterSpacing.200': '-0.006em',
   'font.letterSpacing.300': '-0.008em',
   'font.letterSpacing.400': '-0.01em',
-  'font.ui': 'normal 400 0.875rem/1 var(--ds-font-family-body)',
-  'font.ui.small': 'normal 400 0.6875rem/1 var(--ds-font-family-body)',
   'font.family.body':
-    'ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+    'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   'font.family.code':
     'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
   'font.family.heading':
-    'ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+    'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   'font.family.monospace':
     'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
   'font.family.sans':

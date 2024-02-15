@@ -1,22 +1,21 @@
 import { css } from '@emotion/react';
-import { R75 } from '@atlaskit/theme/colors';
+
+import {
+  CodeBlockSharedCssClassName,
+  codeBlockSharedStyles,
+} from '@atlaskit/editor-common/styles';
 import {
   akEditorDeleteBackground,
   akEditorDeleteBorder,
-  akEditorSelectedBorderSize,
   akEditorDeleteIconColor,
-  SelectionStyle,
-  getSelectionStyles,
+  akEditorSelectedBorderSize,
   akEditorSelectedNodeClassName,
   blockNodesVerticalMargin,
+  getSelectionStyles,
+  SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-import type { ThemeProps } from '@atlaskit/theme/types';
+import { R75 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import {
-  codeBlockSharedStyles,
-  CodeBlockSharedCssClassName,
-} from '@atlaskit/editor-common/styles';
 
 const GutterDangerOverlay = () => css`
   &::after {
@@ -30,9 +29,9 @@ const GutterDangerOverlay = () => css`
   }
 `;
 
-export const codeBlockStyles = (props: ThemeProps) => css`
+export const codeBlockStyles = () => css`
   .ProseMirror {
-    ${codeBlockSharedStyles(props)}
+    ${codeBlockSharedStyles()}
   }
 
   .ProseMirror li {

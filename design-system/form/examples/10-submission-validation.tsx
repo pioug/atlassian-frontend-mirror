@@ -3,7 +3,14 @@ import React, { Component, Fragment } from 'react';
 import LoadingButton from '@atlaskit/button/loading-button';
 import TextField from '@atlaskit/textfield';
 
-import Form, { ErrorMessage, Field, FormFooter, HelperMessage } from '../src';
+import Form, {
+  ErrorMessage,
+  Field,
+  FormFooter,
+  FormHeader,
+  HelperMessage,
+  RequiredAsterisk,
+} from '../src';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -43,6 +50,12 @@ export default class extends Component<{}> {
         <Form onSubmit={this.handleSubmit}>
           {({ formProps, submitting }) => (
             <form {...formProps}>
+              <FormHeader title="Create an account">
+                <p aria-hidden="true">
+                  Required fields are marked with an asterisk{' '}
+                  <RequiredAsterisk />
+                </p>
+              </FormHeader>
               <Field
                 name="username"
                 label="Username"
@@ -51,7 +64,7 @@ export default class extends Component<{}> {
               >
                 {({ fieldProps, error }) => (
                   <Fragment>
-                    <TextField {...fieldProps} />
+                    <TextField autoComplete="username" {...fieldProps} />
                     {!error && (
                       <HelperMessage>Try 'jsmith' or 'mchan'</HelperMessage>
                     )}
@@ -66,7 +79,7 @@ export default class extends Component<{}> {
               <Field name="email" label="Email" defaultValue="" isRequired>
                 {({ fieldProps, error }) => (
                   <Fragment>
-                    <TextField {...fieldProps} />
+                    <TextField autoComplete="email" {...fieldProps} />
                     {!error && (
                       <HelperMessage>Must contain @ symbol</HelperMessage>
                     )}

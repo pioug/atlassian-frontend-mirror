@@ -8,7 +8,7 @@ import {
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 
 import { unsafeOverflowAutoScrollForElements } from '../../../src/entry-point/unsafe-overflow/element';
-import { defaultConfig } from '../../../src/shared/configuration';
+import { getInternalConfig } from '../../../src/shared/configuration';
 import {
   advanceTimersToNextFrame,
   appendToBody,
@@ -34,6 +34,8 @@ beforeEach(() => {
   parentScrollContainer.scrollTop = 0;
   parentScrollContainer.scrollLeft = 0;
 });
+
+const defaultConfig = getInternalConfig();
 
 getInsidePoints(parentScrollContainer.getBoundingClientRect()).forEach(
   point => {

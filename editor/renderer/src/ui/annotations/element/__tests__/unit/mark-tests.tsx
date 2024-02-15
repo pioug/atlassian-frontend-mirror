@@ -1,20 +1,9 @@
 import React from 'react';
 
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
+import { act, fireEvent } from '@testing-library/react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { MarkComponent } from '../../mark';
-import { fireEvent } from '@testing-library/react';
-
-let container: HTMLElement;
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  unmountComponentAtNode(container);
-  container.remove();
-});
 
 describe('Annotations/Mark', () => {
   const fakeId = 'fakeId';
@@ -27,27 +16,67 @@ describe('Annotations/Mark', () => {
   };
   let onClick: jest.Mock;
 
-  beforeEach(() => {
+  let container: HTMLElement;
+  let root: any; // Change to Root once we go full React 18
+
+  beforeEach(async () => {
+    container = document.createElement('div');
+    document.body.appendChild(container);
+    if (process.env.IS_REACT_18 === 'true') {
+      // @ts-ignore react-dom/client only available in react 18
+      // eslint-disable-next-line import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
+      const { createRoot } = await import('react-dom/client');
+      root = createRoot(container!);
+    }
+
     onClick = jest.fn();
+  });
+
+  afterEach(() => {
+    act(() => {
+      if (process.env.IS_REACT_18 === 'true') {
+        root.unmount();
+      } else {
+        unmountComponentAtNode(container!);
+      }
+    });
+    container.remove();
   });
 
   describe('when state is active', () => {
     const state = AnnotationMarkStates.ACTIVE;
 
     beforeEach(() => {
-      render(
-        <MarkComponent
-          id={fakeId}
-          annotationParentIds={annotationParentIds}
-          dataAttributes={fakeDataAttributes}
-          state={state}
-          hasFocus={false}
-          onClick={onClick}
-        >
-          <small>some</small>
-        </MarkComponent>,
-        container,
-      );
+      if (process.env.IS_REACT_18 === 'true') {
+        act(() => {
+          root.render(
+            <MarkComponent
+              id={fakeId}
+              annotationParentIds={annotationParentIds}
+              dataAttributes={fakeDataAttributes}
+              state={state}
+              hasFocus={false}
+              onClick={onClick}
+            >
+              <small>some</small>
+            </MarkComponent>,
+          );
+        });
+      } else {
+        render(
+          <MarkComponent
+            id={fakeId}
+            annotationParentIds={annotationParentIds}
+            dataAttributes={fakeDataAttributes}
+            state={state}
+            hasFocus={false}
+            onClick={onClick}
+          >
+            <small>some</small>
+          </MarkComponent>,
+          container,
+        );
+      }
     });
 
     it('should render the data attributes', async () => {
@@ -110,28 +139,54 @@ describe('Annotations/Mark', () => {
     };
 
     beforeEach(() => {
-      render(
-        <MarkComponent
-          id={fakeId}
-          annotationParentIds={annotationParentIds}
-          dataAttributes={fakeDataAttributes}
-          state={state}
-          hasFocus={false}
-          onClick={onClick}
-        >
+      if (process.env.IS_REACT_18 === 'true') {
+        act(() => {
+          root.render(
+            <MarkComponent
+              id={fakeId}
+              annotationParentIds={annotationParentIds}
+              dataAttributes={fakeDataAttributes}
+              state={state}
+              hasFocus={false}
+              onClick={onClick}
+            >
+              <MarkComponent
+                id={childFakeId}
+                annotationParentIds={childAnnotationParentIds}
+                dataAttributes={childFakeDataAttributes}
+                state={state}
+                hasFocus={false}
+                onClick={onClick}
+              >
+                <small>some</small>
+              </MarkComponent>
+            </MarkComponent>,
+          );
+        });
+      } else {
+        render(
           <MarkComponent
-            id={childFakeId}
-            annotationParentIds={childAnnotationParentIds}
-            dataAttributes={childFakeDataAttributes}
+            id={fakeId}
+            annotationParentIds={annotationParentIds}
+            dataAttributes={fakeDataAttributes}
             state={state}
             hasFocus={false}
             onClick={onClick}
           >
-            <small>some</small>
-          </MarkComponent>
-        </MarkComponent>,
-        container,
-      );
+            <MarkComponent
+              id={childFakeId}
+              annotationParentIds={childAnnotationParentIds}
+              dataAttributes={childFakeDataAttributes}
+              state={state}
+              hasFocus={false}
+              onClick={onClick}
+            >
+              <small>some</small>
+            </MarkComponent>
+          </MarkComponent>,
+          container,
+        );
+      }
     });
 
     it('should call onClick only once', async () => {
@@ -150,19 +205,36 @@ describe('Annotations/Mark', () => {
     const state = AnnotationMarkStates.RESOLVED;
 
     beforeEach(() => {
-      render(
-        <MarkComponent
-          id={fakeId}
-          annotationParentIds={annotationParentIds}
-          dataAttributes={fakeDataAttributes}
-          state={state}
-          hasFocus={false}
-          onClick={onClick}
-        >
-          <small>some</small>
-        </MarkComponent>,
-        container,
-      );
+      if (process.env.IS_REACT_18 === 'true') {
+        act(() => {
+          root.render(
+            <MarkComponent
+              id={fakeId}
+              annotationParentIds={annotationParentIds}
+              dataAttributes={fakeDataAttributes}
+              state={state}
+              hasFocus={false}
+              onClick={onClick}
+            >
+              <small>some</small>
+            </MarkComponent>,
+          );
+        });
+      } else {
+        render(
+          <MarkComponent
+            id={fakeId}
+            annotationParentIds={annotationParentIds}
+            dataAttributes={fakeDataAttributes}
+            state={state}
+            hasFocus={false}
+            onClick={onClick}
+          >
+            <small>some</small>
+          </MarkComponent>,
+          container,
+        );
+      }
     });
 
     it('should not call onClick prop when clicked', async () => {

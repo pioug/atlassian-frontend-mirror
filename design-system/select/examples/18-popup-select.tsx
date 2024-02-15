@@ -2,7 +2,7 @@
 import { css, jsx } from '@emotion/react';
 import { Fragment } from 'react';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
-import Button from '@atlaskit/button';
+import Button, { IconButton } from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 import { PopupSelect } from '../src';
 
@@ -105,10 +105,11 @@ const PopupSelectExample = () => (
         <PopupSelect
           {...defaults}
           target={({ isOpen, ...triggerProps }) => (
-            <Button
-              iconBefore={<AppSwitcherIcon label="switcher" />}
+            <IconButton
+              icon={AppSwitcherIcon}
               isSelected={isOpen}
               {...triggerProps}
+              label="switcher"
             />
           )}
         />

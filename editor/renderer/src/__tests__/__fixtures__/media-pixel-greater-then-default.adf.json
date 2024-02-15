@@ -1,0 +1,166 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Image at guideline limit (760px)"
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 760,
+        "layout": "center",
+        "widthType": "pixel"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "363ca445-24db-425d-b34b-ce429c7bd5a7",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 640,
+            "height": 427
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Image between guideline limit and wide breakpoint (890px)"
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 890,
+        "layout": "wide",
+        "widthType": "pixel"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "363ca445-24db-425d-b34b-ce429c7bd5a7",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 640,
+            "height": 427
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Image at wide breakpoint (1011px)"
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 1011,
+        "layout": "wide",
+        "widthType": "pixel"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "363ca445-24db-425d-b34b-ce429c7bd5a7",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 640,
+            "height": 427
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Image between wide and full width breakpoint (1300px)"
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 1300,
+        "layout": "wide",
+        "widthType": "pixel"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "363ca445-24db-425d-b34b-ce429c7bd5a7",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 640,
+            "height": 427
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Image at full width breakpoint (1800px)"
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 1800,
+        "layout": "full-width",
+        "widthType": "pixel"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "363ca445-24db-425d-b34b-ce429c7bd5a7",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 640,
+            "height": 427
+          }
+        }
+      ]
+    }
+  ]
+}

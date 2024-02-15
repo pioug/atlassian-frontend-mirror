@@ -17,6 +17,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': '⁣⁢Your changes won’t be saved‌⁠⁪‍⁮⁪⁠⁮⁯⁯⁮⁮؜⁮⁭⁬⁫؜⁣⁤',
   'linkCreate.createForm.button.close': '⁣⁢Close‌‌‌⁡⁯⁯⁯‍⁡⁬⁬⁮⁮⁬⁭⁭⁪⁭⁡؜‌‍⁣⁤',
   'linkCreate.createForm.button.create': '⁣⁢Create‍⁡⁯‌⁬؜⁬⁡⁪؜⁯⁪⁫‍⁮⁯⁯⁫‌⁭‌⁬⁣⁤',
-  'linkCreate.createForm.button.edit': '⁣⁢Edit‍‌؜‌⁬‍؜⁪⁬‌⁪⁯⁡⁠؜‌⁭⁣⁤',
+  'linkCreate.createForm.button.createAndOpen': '⁣⁢Create + Open⁫⁪‍⁬⁪⁬⁠‍؜‍‌⁮⁮⁪⁣⁤',
   'linkCreate.modal.heading': '⁣⁢Create new‌‌⁭⁯⁪⁠⁡⁯⁬؜‌⁮⁭⁪⁭⁠⁫⁠⁣⁤',
 };

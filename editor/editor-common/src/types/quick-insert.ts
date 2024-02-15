@@ -10,9 +10,13 @@ export type QuickInsertOptions =
       provider: Promise<QuickInsertProvider>;
     };
 
-export type QuickInsertHandler =
-  | Array<QuickInsertItem>
-  | ((intl: IntlShape) => Array<QuickInsertItem>);
+export type QuickInsertHandlerFn = ((
+  intl: IntlShape,
+) => Array<QuickInsertItem>) & {
+  disableMemo?: boolean;
+};
+
+export type QuickInsertHandler = Array<QuickInsertItem> | QuickInsertHandlerFn;
 
 export type IconProps = {
   label?: string;

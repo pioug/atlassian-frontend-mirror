@@ -1,27 +1,28 @@
 jest.useFakeTimers();
 
-import React from 'react';
-import { mount } from 'enzyme';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { AnnotationTypes } from '@atlaskit/adf-schema/schema';
-import MobileRendererWrapper, {
-  MobileRenderer,
-} from '../../mobile-renderer-element';
-import { App } from '../../index';
+import userEvent from '@testing-library/user-event';
+import { mount } from 'enzyme';
+import React from 'react';
+import { render, unmountComponentAtNode } from 'react-dom';
+import { act } from 'react-dom/test-utils';
+import type { IntlShape } from 'react-intl-next';
+import { DocumentReflowDetector } from '../../../document-reflow-detector';
 import {
   createCardClient,
   createEmojiProvider,
   createMediaProvider,
   createMentionProvider,
 } from '../../../providers';
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
-import * as FetchProxyUtils from '../../../utils/fetch-proxy';
-import { nativeBridgeAPI } from '../../web-to-native/implementation';
-import type { IntlShape } from 'react-intl-next';
-import { DocumentReflowDetector } from '../../../document-reflow-detector';
-import { eventDispatcher, EmitterEvents } from '../../dispatcher';
 import RendererBridgeImplementation from '../../../renderer/native-to-web/implementation';
+import * as FetchProxyUtils from '../../../utils/fetch-proxy';
+import { EmitterEvents, eventDispatcher } from '../../dispatcher';
+import { App } from '../../index';
+import MobileRendererWrapper, {
+  MobileRenderer,
+} from '../../mobile-renderer-element';
+import { nativeBridgeAPI } from '../../web-to-native/implementation';
 
 jest.mock('../../../document-reflow-detector');
 jest.mock('../../../editor/web-to-native/dummy-impl');
@@ -38,6 +39,9 @@ jest.mock('../../hooks/use-renderer-configuration', () => ({
     isCustomPanelEnabled: () => false,
   }),
 }));
+
+// Turn off delay to allow using user events with fake timers
+const userEventWithoutDelay = userEvent.setup({ delay: null });
 
 const initialDocument = {
   version: 1,
@@ -64,35 +68,13 @@ const initialDocument = {
   ],
 } as DocNode;
 
-let container: HTMLElement;
-let enableReflowMock = jest.fn();
-let disableReflowMock = jest.fn();
-let rendererBridge = new RendererBridgeImplementation();
-
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-
-  (DocumentReflowDetector as jest.Mock).mockImplementation(() => {
-    return {
-      disable: disableReflowMock,
-      enable: enableReflowMock,
-    };
-  });
-
-  jest.spyOn(rendererBridge, 'getRootElement').mockReturnValue(container);
-});
-
-afterEach(() => {
-  act(() => {
-    unmountComponentAtNode(container);
-    jest.runAllTimers();
-    container.remove();
-  });
-  jest.resetAllMocks();
-});
-
 describe('renderer bridge', () => {
+  let container: HTMLElement;
+  let enableReflowMock = jest.fn();
+  let disableReflowMock = jest.fn();
+  let rendererBridge = new RendererBridgeImplementation();
+  let root: any; // Change to Root once we go full React 18
+
   const createPromiseMock = jest.fn();
   let fetchProxy: FetchProxyUtils.FetchProxy;
   const intlMock = {
@@ -103,31 +85,64 @@ describe('renderer bridge', () => {
     adf: DocNode,
     allowAnnotations: boolean,
   ): HTMLElement => {
-    act(() => {
-      render(
-        <MobileRenderer
-          document={adf}
-          cardClient={createCardClient()}
-          emojiProvider={createEmojiProvider(fetchProxy)}
-          mediaProvider={createMediaProvider()}
-          mentionProvider={createMentionProvider()}
-          allowAnnotations={allowAnnotations}
-          intl={intlMock}
-          rendererBridge={rendererBridge}
-        />,
-        container,
-      );
-      jest.runAllTimers();
-    });
-
-    act(() => {
-      jest.runAllTimers();
-    });
+    if (process.env.IS_REACT_18 === 'true') {
+      act(() => {
+        root.render(
+          <MobileRenderer
+            document={adf}
+            cardClient={createCardClient()}
+            emojiProvider={createEmojiProvider(fetchProxy)}
+            mediaProvider={createMediaProvider()}
+            mentionProvider={createMentionProvider()}
+            allowAnnotations={allowAnnotations}
+            intl={intlMock}
+            rendererBridge={rendererBridge}
+          />,
+        );
+        jest.runAllTimers();
+      });
+    } else {
+      act(() => {
+        render(
+          <MobileRenderer
+            document={adf}
+            cardClient={createCardClient()}
+            emojiProvider={createEmojiProvider(fetchProxy)}
+            mediaProvider={createMediaProvider()}
+            mentionProvider={createMentionProvider()}
+            allowAnnotations={allowAnnotations}
+            intl={intlMock}
+            rendererBridge={rendererBridge}
+          />,
+          container,
+        );
+        jest.runAllTimers();
+      });
+    }
 
     return container;
   };
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    container = document.createElement('div');
+    document.body.appendChild(container);
+
+    if (process.env.IS_REACT_18 === 'true') {
+      // @ts-ignore react-dom/client only available in react 18
+      // eslint-disable-next-line import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
+      const { createRoot } = await import('react-dom/client');
+      root = createRoot(container!);
+    }
+
+    (DocumentReflowDetector as jest.Mock).mockImplementation(() => {
+      return {
+        disable: disableReflowMock,
+        enable: enableReflowMock,
+      };
+    });
+
+    jest.spyOn(rendererBridge, 'getRootElement').mockReturnValue(container);
+
     fetchProxy = new FetchProxyUtils.FetchProxy();
     fetchProxy.enable();
     createPromiseMock.mockReset();
@@ -135,6 +150,17 @@ describe('renderer bridge', () => {
 
   afterEach(() => {
     fetchProxy.disable();
+    act(() => {
+      if (process.env.IS_REACT_18 === 'true') {
+        root.unmount();
+      } else {
+        unmountComponentAtNode(container!);
+      }
+
+      jest.runAllTimers();
+      container.remove();
+    });
+    jest.resetAllMocks();
   });
 
   describe('document reflow detector', () => {
@@ -186,7 +212,7 @@ describe('renderer bridge', () => {
         );
       });
       describe('when the annotation is clicked', () => {
-        it('should call the onAnnotationClick native bridge api', () => {
+        it('should call the onAnnotationClick native bridge api', async () => {
           initRenderer(initialDocument, true);
 
           act(() => {
@@ -196,11 +222,11 @@ describe('renderer bridge', () => {
             jest.runAllTimers();
           });
 
-          const element = container.querySelector(
-            '[data-id="18983b72-dd27-41f4-9171-a4f2e180ca83"]',
-          )! as HTMLElement;
-
-          element.click();
+          await userEventWithoutDelay.click(
+            container.querySelector(
+              '[data-id="18983b72-dd27-41f4-9171-a4f2e180ca83"]',
+            ) as HTMLElement,
+          );
 
           expect(nativeBridgeAPI.onAnnotationClick).toHaveBeenCalledWith([
             {

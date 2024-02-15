@@ -4,6 +4,7 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import { token } from '@atlaskit/tokens';
 import React from 'react';
 import Logger, { LOG_LEVEL } from '../helpers/logger';
 
@@ -38,7 +39,11 @@ class DummyComponent extends React.Component<Props> {
   render() {
     const { onClick, text } = this.props;
     return (
-      <div id="dummy" onClick={onClick} style={{ paddingBottom: 12 }}>
+      <div
+        id="dummy"
+        onClick={onClick}
+        style={{ paddingBottom: token('space.150', '12px') }}
+      >
         <button>{text || 'Test'}</button>
       </div>
     );

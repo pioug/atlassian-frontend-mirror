@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { Label } from '@atlaskit/form';
 import AsyncIcon from '@atlaskit/icon/glyph/emoji/frequent';
 import { Box, xcss } from '@atlaskit/primitives';
 import Select from '@atlaskit/select';
@@ -63,7 +64,9 @@ const ControlledAsyncExample = () => {
     <AppFrame
       content={
         <Box padding="space.400" xcss={containerStyles}>
+          <Label htmlFor="nav-select">Select a navigation item</Label>
           <Select<Option>
+            inputId="nav-select"
             onChange={(value) => setStack((value as Option).value || [])}
             options={[
               { label: 'Root', value: [] },

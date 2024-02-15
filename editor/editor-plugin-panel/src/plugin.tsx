@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { PanelAttributes } from '@atlaskit/adf-schema';
-import { panel, PanelType } from '@atlaskit/adf-schema';
+import { extendedPanel, panel, PanelType } from '@atlaskit/adf-schema';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -10,7 +10,10 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
-import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type {
+  QuickInsertActionInsert,
+  QuickInsertItem,
+} from '@atlaskit/editor-common/provider-factory';
 import {
   IconCustomPanel,
   IconPanel,
@@ -29,6 +32,7 @@ import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { T50 } from '@atlaskit/theme/colors';
 
 import { insertPanelWithAnalytics } from './actions';
@@ -55,7 +59,9 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
   name: 'panel',
 
   nodes() {
-    const panelNode = panel(!!options.allowCustomPanel);
+    const panelNode = getBooleanFF('platform.editor.allow-extended-panel')
+      ? extendedPanel(!!options.allowCustomPanel)
+      : panel(!!options.allowCustomPanel);
 
     return [{ name: 'panel', node: panelNode }];
   },
@@ -95,6 +101,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
               state,
               attributes: { panelType: PanelType.INFO },
               api,
+              insert,
             });
           },
         },
@@ -109,6 +116,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
               state,
               attributes: { panelType: PanelType.NOTE },
               api,
+              insert,
             });
           },
         },
@@ -124,6 +132,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
               state,
               attributes: { panelType: PanelType.SUCCESS },
               api,
+              insert,
             });
           },
         },
@@ -138,6 +147,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
               state,
               attributes: { panelType: PanelType.WARNING },
               api,
+              insert,
             });
           },
         },
@@ -152,6 +162,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
               state,
               attributes: { panelType: PanelType.ERROR },
               api,
+              insert,
             });
           },
         },
@@ -176,6 +187,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
                 panelColor: T50,
               },
               api,
+              insert,
             });
           },
         });
@@ -203,16 +215,30 @@ function createPanelAction({
   state,
   attributes,
   api,
+  insert,
 }: {
   state: EditorState;
   attributes: PanelAttributes;
   api: ExtractInjectionAPI<PanelPlugin> | undefined;
+  insert: QuickInsertActionInsert;
 }) {
-  const tr = createWrapSelectionTransaction({
-    state,
-    type: state.schema.nodes.panel,
-    nodeAttributes: attributes,
-  });
+  const { panel } = state.schema.nodes;
+  const node = panel.createAndFill(attributes);
+
+  if (!node) {
+    return false;
+  }
+
+  const tr =
+    state.selection.empty &&
+    getBooleanFF('platform.editor.ordered-list-inserting-nodes_bh0vo')
+      ? insert(node)
+      : createWrapSelectionTransaction({
+          state,
+          type: state.schema.nodes.panel,
+          nodeAttributes: attributes,
+        });
+
   if (tr) {
     api?.analytics?.actions.attachAnalyticsEvent({
       action: ACTION.INSERTED,

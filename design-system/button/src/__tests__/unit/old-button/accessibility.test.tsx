@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
@@ -40,38 +40,36 @@ describe('Button component accessibility', () => {
       await axe(container);
     });
 
-    it('should have an aria-busy attribute that is set to false when isLoading is undefined', () => {
-      const { getByTestId } = render(
-        <LoadingButton testId="button">Hello</LoadingButton>,
-      );
+    it('should not have an aria-disabled attribute that is set to false when isLoading is undefined', () => {
+      render(<LoadingButton testId="button">Hello</LoadingButton>);
 
-      const button = getByTestId('button');
+      const button = screen.getByTestId('button');
 
-      expect(button.getAttribute('aria-busy')).toBe('false');
+      expect(button).not.toHaveAttribute('aria-disabled');
     });
 
-    it('should have an aria-busy attribute that is set to false when not loading', () => {
-      const { getByTestId } = render(
+    it('should not have an aria-disabled attribute that is set to false when not loading', () => {
+      render(
         <LoadingButton testId="button" isLoading={false}>
           Hello
         </LoadingButton>,
       );
 
-      const button = getByTestId('button');
+      const button = screen.getByTestId('button');
 
-      expect(button.getAttribute('aria-busy')).toBe('false');
+      expect(button).not.toHaveAttribute('aria-disabled');
     });
 
-    it('should have an aria-busy attribute that is set to true when loading', () => {
-      const { getByTestId } = render(
+    it('should have an aria-disabled attribute that is set to true when loading', () => {
+      render(
         <LoadingButton testId="button" isLoading={true}>
           Hello
         </LoadingButton>,
       );
 
-      const button = getByTestId('button');
+      const button = screen.getByTestId('button');
 
-      expect(button.getAttribute('aria-busy')).toBe('true');
+      expect(button).toHaveAttribute('aria-disabled', 'true');
     });
   });
 
@@ -88,44 +86,101 @@ describe('Button component accessibility', () => {
       await axe(container);
     });
 
-    it('should have an aria-busy attribute that is set to false when isLoading is undefined', () => {
-      const { getByTestId } = render(
-        <CustomThemeButton testId="button">Hello</CustomThemeButton>,
-      );
+    it('should not have an aria-disabled attribute that is set to false when isLoading is undefined', () => {
+      render(<CustomThemeButton testId="button">Hello</CustomThemeButton>);
 
-      const button = getByTestId('button');
+      const button = screen.getByTestId('button');
 
-      expect(button.getAttribute('aria-busy')).toBe('false');
+      expect(button).not.toHaveAttribute('aria-disabled');
     });
 
-    it('should have an aria-busy attribute that is set to false when not loading', () => {
-      const { getByTestId } = render(
+    it('should not have an aria-disabled attribute that is set to false when not loading', () => {
+      render(
         <CustomThemeButton testId="button" isLoading={false}>
           Hello
         </CustomThemeButton>,
       );
 
-      const button = getByTestId('button');
+      const button = screen.getByTestId('button');
 
-      expect(button.getAttribute('aria-busy')).toBe('false');
+      expect(button).not.toHaveAttribute('aria-disabled');
     });
 
-    it('should have an aria-busy attribute that is set to true when loading', () => {
-      const { getByTestId } = render(
+    it('should have an aria-disabled attribute that is set to true when loading', () => {
+      render(
         <CustomThemeButton testId="button" isLoading={true}>
           Hello
         </CustomThemeButton>,
       );
 
-      const button = getByTestId('button');
+      const button = screen.getByTestId('button');
 
-      expect(button.getAttribute('aria-busy')).toBe('true');
+      expect(button).toHaveAttribute('aria-disabled', 'true');
+    });
+
+    // Although we would prefer makers to use the `isDisabled` prop,
+    // this was functional until we accidentally removed the behaviour
+    // in a patch release. Adding back for now.
+    it('should set aria-disabled to true if explicitly set by maker using a string', () => {
+      render(
+        <CustomThemeButton testId="button" aria-disabled="true">
+          Hello
+        </CustomThemeButton>,
+      );
+
+      const button = screen.getByTestId('button');
+
+      expect(button).toHaveAttribute('aria-disabled', 'true');
+    });
+
+    it('should set aria-disabled to true if explicitly set by maker using a boolean', () => {
+      render(
+        <CustomThemeButton testId="button" aria-disabled>
+          Hello
+        </CustomThemeButton>,
+      );
+
+      const button = screen.getByTestId('button');
+
+      expect(button).toHaveAttribute('aria-disabled', 'true');
+    });
+
+    it('should set aria-disabled to false if explicitly set by maker using a string', () => {
+      render(
+        <CustomThemeButton testId="button" aria-disabled="false">
+          Hello
+        </CustomThemeButton>,
+      );
+
+      const button = screen.getByTestId('button');
+
+      expect(button).toHaveAttribute('aria-disabled', 'false');
+    });
+
+    it('should set aria-disabled to false if explicitly set by maker using a boolean', () => {
+      render(
+        <CustomThemeButton testId="button" aria-disabled={false}>
+          Hello
+        </CustomThemeButton>,
+      );
+
+      const button = screen.getByTestId('button');
+
+      expect(button).toHaveAttribute('aria-disabled', 'false');
+    });
+
+    it('should not set aria-disabled if omitted', () => {
+      render(<CustomThemeButton testId="button">Hello</CustomThemeButton>);
+
+      const button = screen.getByTestId('button');
+
+      expect(button).not.toHaveAttribute('aria-disabled');
     });
   });
 
   describe('ButtonGroup', () => {
     it('should not fail an aXe audit', async () => {
-      const screen = render(
+      const { container } = render(
         <ButtonGroup>
           <Button>Test button one</Button>
           <Button>Test button two</Button>
@@ -133,7 +188,7 @@ describe('Button component accessibility', () => {
         </ButtonGroup>,
       );
 
-      await axe(screen.container);
+      await axe(container);
     });
   });
 });

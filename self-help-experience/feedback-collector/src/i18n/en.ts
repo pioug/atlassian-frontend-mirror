@@ -13,6 +13,7 @@ export default {
   'feedback-collector.can-be-contacted.label':
     'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian products and services. I acknowledge the <a>Atlassian Privacy Policy</a>.',
   'feedback-collector.cancel-button.label': 'Cancel',
+  'feedback-collector.default.custom.textarea.label': "What's on your mind?",
   'feedback-collector.enrol-in-research.label': "I'd like to participate in product research",
   'feedback-collector.feedback-title': 'Share your thoughts',
   'feedback-collector.form.bug.label': 'Describe the bug or issue',
@@ -26,6 +27,7 @@ export default {
   'feedback-collector.option.default.placeholder': 'Choose one',
   'feedback-collector.option.question.label': 'Ask a question',
   'feedback-collector.option.suggestion.label': 'Suggest an improvement',
+  'feedback-collector.required.fields.summary': 'Required fields are marked with an asterisk',
   'feedback-collector.submit-button.label': 'Send feedback',
   'feedback-collector.success-flag.description': 'Your valuable feedback helps us continually improve our products.',
   'feedback-collector.success-flag.title': 'Thanks!',

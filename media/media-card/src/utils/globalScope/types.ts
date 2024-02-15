@@ -3,7 +3,7 @@ import { MediaCardErrorInfo } from '../../utils/analytics';
 
 export type MediaCardSsrData = {
   dataURI?: string;
-  dimensions?: NumericalCardDimensions;
+  dimensions?: Partial<NumericalCardDimensions>;
   error?: MediaCardErrorInfo;
 };
 

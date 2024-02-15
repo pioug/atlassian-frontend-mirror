@@ -1,5 +1,6 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
+import type { ProviderError } from '@atlaskit/editor-common/collab';
 import type {
   ActionAnalyticsEvent,
   ErrorAnalyticsEvent,
@@ -11,9 +12,11 @@ import {
   version as packageVersion,
 } from '../version-wrapper';
 import { network } from '../connectivity/singleton';
-import { CustomError } from '../errors/error-types';
+import { CustomError } from '../errors/custom-errors';
 
 const EVENT_SUBJECT = 'collab';
+
+const loggableErrorName = ['RangeError', 'TypeError', 'TransformError'];
 
 enum COLLAB_SERVICE {
   NCS = 'ncs',
@@ -104,10 +107,25 @@ export default class AnalyticsHelper {
         errorName: error instanceof Error ? error.name : undefined,
         errorCode: (error as any).data?.code ?? undefined,
         errorStatus: (error as any).data?.status ?? undefined,
+        originalErrorMessage: this.getUGCFreeErrorMessage(error),
         ...errorExtraAttributes,
       },
       nonPrivacySafeAttributes: {
         error,
+      },
+    };
+    this.sendEvent(errorAnalyticsEvent);
+  }
+
+  sendProviderErrorEvent(error: ProviderError) {
+    const errorAnalyticsEvent: ErrorAnalyticsEvent = {
+      eventAction: EVENT_ACTION.ERROR,
+      attributes: {
+        documentAri: this.documentAri,
+        errorMessage: 'Error emitted',
+        originalErrorMessage: error.message,
+        errorCode: error.code,
+        mappedError: error,
       },
     };
     this.sendEvent(errorAnalyticsEvent);
@@ -141,5 +159,13 @@ export default class AnalyticsHelper {
       }
     }
     triggerAnalyticsEvent(event, this.analyticsClient);
+  }
+
+  private getUGCFreeErrorMessage(error: unknown): string | undefined {
+    if (error instanceof Error && loggableErrorName.includes(error.name)) {
+      return error.message;
+    } else {
+      return undefined;
+    }
   }
 }

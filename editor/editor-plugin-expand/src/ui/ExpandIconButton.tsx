@@ -48,7 +48,7 @@ export const withTooltip = (WrapperComponent: React.ElementType) => {
 };
 
 export const CustomButton = (props: ExpandIconButtonWithLabelProps) => {
-  const { label, allowInteractiveExpand } = props;
+  const { allowInteractiveExpand, expanded } = props;
   const useTheme = useCallback(
     (currentTheme: any, themeProps: any) => {
       const { buttonStyles, ...rest } = currentTheme(themeProps);
@@ -73,9 +73,10 @@ export const CustomButton = (props: ExpandIconButtonWithLabelProps) => {
     <Button
       appearance="subtle"
       className={expandClassNames.iconContainer}
-      iconBefore={<ChevronRightIcon label={label} />}
+      iconBefore={<ChevronRightIcon label={''} />}
       shouldFitContainer
       theme={useTheme}
+      aria-expanded={expanded}
       isDisabled={!allowInteractiveExpand}
     ></Button>
   );

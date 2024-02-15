@@ -1,7 +1,7 @@
 import React, { Component, ComponentType, FormEvent } from 'react';
 import styled from '@emotion/styled';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import TextField from '@atlaskit/textfield';
 
 import metadata from '../src/metadata';
@@ -108,11 +108,7 @@ class IconAllExample extends Component<{}, State> {
         />
         <IconGridWrapper>
           <p>
-            <Button
-              appearance="subtle-link"
-              onClick={() => this.toggleShowIcons()}
-              spacing="none"
-            >
+            <Button appearance="subtle" onClick={this.toggleShowIcons}>
               {this.state.showIcons ? 'Hide icons' : 'Show all icons'}
             </Button>
           </p>

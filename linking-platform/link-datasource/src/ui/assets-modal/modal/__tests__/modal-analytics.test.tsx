@@ -2,12 +2,7 @@ import { waitFor } from '@testing-library/react';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
 
-import {
-  assetsContext,
-  defaultAssetsMeta,
-  geValidateAqlTextDefaultHookState,
-  setup,
-} from './_utils';
+import { assetsContext, defaultAssetsMeta, setup } from './_utils';
 
 const getButtonClickEventPayload = (
   actionSubjectId: 'insert' | 'cancel',
@@ -78,7 +73,7 @@ describe('Analytics: AssetsConfigModal', () => {
   describe('button clicked events', () => {
     const actionAttributeTests = (
       actionSubjectId: 'insert' | 'cancel',
-      buttonName: 'Insert objects' | 'Cancel',
+      buttonName: 'Update table' | 'Cancel',
     ) => {
       let defaultAttributes = {};
       beforeEach(() => {
@@ -109,26 +104,13 @@ describe('Analytics: AssetsConfigModal', () => {
         });
 
         it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "query updated" when user searched with a new query and then clicked the ${buttonName} button`, async () => {
-          const mockValidateAqlText = jest.fn().mockResolvedValue({
-            isValid: true,
-            message: null,
-          });
-
           const {
             searchWithNewAql,
             assertAnalyticsAfterButtonClick,
             clickSearchButton,
-          } = await setup({
-            validateAqlTextHookState: {
-              ...geValidateAqlTextDefaultHookState(),
-              validateAqlText: mockValidateAqlText,
-            },
-          });
+          } = await setup();
 
           searchWithNewAql('objectType = "test aql query"');
-          await waitFor(() => {
-            expect(mockValidateAqlText).toBeCalledTimes(1);
-          });
           await clickSearchButton();
 
           await assertAnalyticsAfterButtonClick(
@@ -143,7 +125,7 @@ describe('Analytics: AssetsConfigModal', () => {
     };
 
     describe('insert', () => {
-      const INSERT_BUTTON_NAME = 'Insert objects';
+      const INSERT_BUTTON_NAME = 'Update table';
       const INSERT_ACTION_SUBJECT_ID = 'insert';
 
       actionAttributeTests(INSERT_ACTION_SUBJECT_ID, INSERT_BUTTON_NAME);

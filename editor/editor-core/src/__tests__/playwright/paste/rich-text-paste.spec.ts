@@ -1,26 +1,26 @@
-import { editorTestCase as test, expect } from '@af/editor-libra';
+import { expect, editorTestCase as test } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
-  doc,
-  p,
-  textColor,
-  strong,
-  em,
-  code,
-  underline,
   a,
-  strike,
-  ul,
-  ol,
-  li,
-  panel,
+  code,
   code_block,
-  hardBreak,
-  decisionList,
   decisionItem,
+  decisionList,
+  doc,
+  em,
   h3,
+  hardBreak,
   inlineCard,
+  li,
   mediaInline,
+  ol,
+  p,
+  panel,
+  strike,
+  strong,
+  textColor,
+  ul,
+  underline,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.describe('paste: libra', () => {

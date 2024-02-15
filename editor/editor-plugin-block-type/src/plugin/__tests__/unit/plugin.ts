@@ -34,12 +34,12 @@ describe('block-type setTextLevel command', () => {
   it('should attach analytics event when changing to normal', () => {
     const { editorAPI, editorView } = editor(doc(h1('te{<>}xt')));
     const analyticsSpy = jest.spyOn(
-      editorAPI?.analytics.actions,
+      editorAPI?.analytics!.actions,
       'attachAnalyticsEvent',
     );
 
-    editorAPI?.core.actions.execute(
-      editorAPI?.blockType.commands.setTextLevel(
+    editorAPI?.core?.actions.execute(
+      editorAPI?.blockType?.commands.setTextLevel(
         'normal',
         INPUT_METHOD.KEYBOARD,
       ),
@@ -62,12 +62,12 @@ describe('block-type setTextLevel command', () => {
   it('should attach analytics event when changing to heading from normal', () => {
     const { editorAPI, editorView } = editor(doc(p('te{<>}xt')));
     const analyticsSpy = jest.spyOn(
-      editorAPI?.analytics.actions,
+      editorAPI?.analytics!.actions,
       'attachAnalyticsEvent',
     );
 
-    editorAPI?.core.actions.execute(
-      editorAPI?.blockType.commands.setTextLevel(
+    editorAPI?.core?.actions.execute(
+      editorAPI?.blockType?.commands.setTextLevel(
         'heading1',
         INPUT_METHOD.KEYBOARD,
       ),
@@ -90,12 +90,12 @@ describe('block-type setTextLevel command', () => {
   it('should attach analytics event when changing between headings', () => {
     const { editorView, editorAPI } = editor(doc(h1('te{<>}xt')));
     const analyticsSpy = jest.spyOn(
-      editorAPI?.analytics.actions,
+      editorAPI?.analytics!.actions,
       'attachAnalyticsEvent',
     );
 
-    editorAPI?.core.actions.execute(
-      editorAPI?.blockType.commands.setTextLevel(
+    editorAPI?.core?.actions.execute(
+      editorAPI?.blockType?.commands.setTextLevel(
         'heading2',
         INPUT_METHOD.KEYBOARD,
       ),

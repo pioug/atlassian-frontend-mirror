@@ -52,7 +52,7 @@ export type StackProps<T extends ElementType = 'div'> = {
   children: ReactNode;
 
   /**
-   * Forwarded ref element
+   * Forwarded ref element.
    */
   ref?: React.ComponentPropsWithRef<T>['ref'];
 } & BasePrimitiveProps;
@@ -92,6 +92,7 @@ const Stack = memo(
         children,
         testId,
         xcss,
+        role,
       }: StackProps<T>,
       ref: Ref<any>,
     ) => {
@@ -100,6 +101,7 @@ const Stack = memo(
       return (
         <Flex
           as={as}
+          role={role}
           gap={space}
           direction="column"
           alignItems={alignItems}

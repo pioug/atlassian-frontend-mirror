@@ -1,22 +1,23 @@
 import {
-  editorTestCase as test,
-  expect,
   EditorMainToolbarModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import { adfs } from './indentation-buttons.spec.ts-fixtures';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
-  indentation,
-  p,
   h1,
-  ul,
+  indentation,
   li,
-  taskList,
+  p,
   taskItem,
+  taskList,
+  ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-test.describe('Editor toolbar indentation buttons: ', () => {
+import { adfs } from './indentation-buttons.spec.ts-fixtures';
+
+test.describe('Editor toolbar indentation buttons:', () => {
   test.use({
     editorProps: {
       appearance: 'full-page',

@@ -19,7 +19,7 @@ describe('indentation state', () => {
       preset,
       doc: doc(p('text<{}>')),
     });
-    expect(editorAPI?.indentation.sharedState.currentState()).toEqual({
+    expect(editorAPI?.indentation?.sharedState.currentState()).toEqual({
       indentDisabled: false,
       isIndentationAllowed: true,
       outdentDisabled: true,
@@ -31,7 +31,7 @@ describe('indentation state', () => {
       preset,
       doc: doc(indentation({ level: 1 })(p('text<{}>'))),
     });
-    expect(editorAPI?.indentation.sharedState.currentState()).toEqual({
+    expect(editorAPI?.indentation?.sharedState.currentState()).toEqual({
       indentDisabled: false,
       isIndentationAllowed: true,
       outdentDisabled: false,
@@ -43,7 +43,7 @@ describe('indentation state', () => {
       preset,
       doc: doc(indentation({ level: 5 })(p('text<{}>'))),
     });
-    expect(editorAPI?.indentation.sharedState.currentState()).toEqual({
+    expect(editorAPI?.indentation?.sharedState.currentState()).toEqual({
       indentDisabled: false,
       isIndentationAllowed: true,
       outdentDisabled: false,
@@ -55,7 +55,7 @@ describe('indentation state', () => {
       preset,
       doc: doc(indentation({ level: 6 })(p('text<{}>'))),
     });
-    expect(editorAPI?.indentation.sharedState.currentState()).toEqual({
+    expect(editorAPI?.indentation?.sharedState.currentState()).toEqual({
       indentDisabled: true,
       isIndentationAllowed: true,
       outdentDisabled: false,

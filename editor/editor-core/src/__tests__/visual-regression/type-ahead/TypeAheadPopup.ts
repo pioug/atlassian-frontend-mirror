@@ -7,14 +7,15 @@ import {
   clickToolbarMenu,
   ToolbarMenuItem,
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { waitForTooltip } from '@atlaskit/visual-regression/helper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   Appearance,
   initEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { waitForTooltip } from '@atlaskit/visual-regression/helper';
+
 import adf from './adf/content-with-panel-adf.json';
 
 describe('TypeAheadPopup', () => {
@@ -32,9 +33,7 @@ describe('TypeAheadPopup', () => {
     });
   });
 
-  // https://product-fabric.atlassian.net/browse/ED-15750
-  // FIXME: This test was automatically skipped due to failure on 19/01/2023: https://product-fabric.atlassian.net/browse/ED-16601
-  it.skip('should close typeahead popup and place cursor at the end, when undo and right-arrow key pressed', async () => {
+  it('should close typeahead popup and place cursor at the end, when undo and right-arrow key pressed', async () => {
     await page.waitForSelector(`button[aria-label*="Undo"]`);
 
     await typeInEditorAtEndOfDocument(page, '/Info');

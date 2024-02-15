@@ -33,12 +33,6 @@
   },
   "references": [
     {
-      "path": "../../design-system/dropdown-menu/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/ds-lib/tsconfig.app.json"
-    },
-    {
       "path": "../../design-system/focus-ring/tsconfig.app.json"
     },
     {

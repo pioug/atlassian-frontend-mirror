@@ -3,6 +3,7 @@ import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -404,7 +405,7 @@ describe('status plugin: actions', () => {
     it('should fire analytics event', () => {
       const { editorView, editorAPI } = editor(doc(p('')));
       const analyticsSpy = jest.spyOn(
-        editorAPI?.analytics?.actions as any,
+        editorAPI?.analytics?.actions as unknown as EditorAnalyticsAPI,
         'attachAnalyticsEvent',
       );
 

@@ -34,7 +34,6 @@ import {
   EmptyComponent,
   placeholderDatetime,
 } from '../internal';
-import ClearIndicator from '../internal/clear-indicator';
 import FixedLayer from '../internal/fixed-layer';
 import parseTime from '../internal/parse-time';
 import { makeSingleValue } from '../internal/single-value';
@@ -423,9 +422,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
       DropdownIndicator: EmptyComponent,
       Menu: FixedLayerMenu,
       SingleValue,
-      ...(hideIcon
-        ? { ClearIndicator: EmptyComponent }
-        : { ClearIndicator: ClearIndicator }),
+      ...(hideIcon && { ClearIndicator: EmptyComponent }),
     };
 
     const renderIconContainer = Boolean(!hideIcon && value);

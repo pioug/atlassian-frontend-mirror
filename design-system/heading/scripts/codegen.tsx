@@ -8,7 +8,7 @@ import parserTypeScript from 'prettier/parser-typescript';
 import { createPartialSignedArtifact } from '@atlassian/codegen';
 
 // eslint-disable-next-line import/order
-import { typography as tokens } from '@atlaskit/tokens/tokens-raw';
+import { typographyAdg3 as tokens } from '@atlaskit/tokens/tokens-raw';
 
 const constructTokenFunctionCall = (tokenName: string, fallback: string) => {
   return `token('${tokenName}', '${fallback}')`;
@@ -28,7 +28,6 @@ export const createTypographyStylesFromTemplate = () => {
       `
 const headingVariantStylesMap = {
   ${headingTokens
-    .sort((a, b) => (a.name < b.name ? -1 : 1))
     .map(token => {
       return `
         '${removeVerbosity(

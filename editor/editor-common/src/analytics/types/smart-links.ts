@@ -9,6 +9,7 @@ export type SmartLinkNodeContext =
   | 'decisionList'
   | 'listItem'
   | 'bodiedExtension'
+  | 'multiBodiedExtension'
   | 'panel'
   | 'taskList'
   | 'mixed';
@@ -21,6 +22,7 @@ export const SmartLinkNodeContexts: { [P in SmartLinkNodeContext]: P } = {
   decisionList: 'decisionList',
   taskList: 'taskList',
   bodiedExtension: 'bodiedExtension',
+  multiBodiedExtension: 'multiBodiedExtension',
   listItem: 'listItem',
   panel: 'panel',
   mixed: 'mixed',

@@ -44,58 +44,58 @@ jest.mock('uuid/v4', () => ({
 
 jest.mock('@atlaskit/editor-common/provider-factory');
 
-import type { RenderResult } from '@testing-library/react';
-import { render, screen, fireEvent } from '@testing-library/react';
+const { EmojiResource } =
+  jest.genMockFromModule<typeof EmojiModule>('@atlaskit/emoji');
+
+const { ActivityResource } = jest.genMockFromModule<
+  typeof ActivityProviderModule
+>('@atlaskit/activity-provider');
+
 import React from 'react';
-import Editor from '../../editor';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
-// eslint-disable-next-line import/no-extraneous-dependencies
+
+import { matchers } from '@emotion/jest';
+import { fireEvent, render, screen } from '@testing-library/react';
+import type { RenderResult } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+
+import type * as ActivityProviderModule from '@atlaskit/activity-provider';
 import type {
   GasPurePayload,
   GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
 import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context';
+import type { CardOptions } from '@atlaskit/editor-common/card';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type {
   AutoformattingProvider,
   QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { EditorAppearance, EditorProps } from '../../types';
+import type { QuickInsertOptions } from '@atlaskit/editor-common/types';
+import { EditorExperience } from '@atlaskit/editor-common/ufo';
+import * as utils from '@atlaskit/editor-common/utils';
+import { measureTTI as mockMeasureTTI } from '@atlaskit/editor-common/utils';
+import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+import type * as EmojiModule from '@atlaskit/emoji';
+import { asMock } from '@atlaskit/media-test-helpers';
 
+import * as featureFlagsFromProps from '../../create-editor/feature-flags-from-props';
+import Editor from '../../editor';
+import { EditorActions, EditorContext } from '../../index';
+import type { EditorAppearance, EditorProps } from '../../types';
+import measurements from '../../utils/performance/measure-enum';
 import {
   name as packageName,
   version as packageVersion,
 } from '../../version-wrapper';
-import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
-import { EditorActions, EditorContext } from '../..';
-import { asMock } from '@atlaskit/media-test-helpers';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import { EditorExperience } from '@atlaskit/editor-common/ufo';
-
-import type * as ActivityProviderModule from '@atlaskit/activity-provider';
-const { ActivityResource } = jest.genMockFromModule<
-  typeof ActivityProviderModule
->('@atlaskit/activity-provider');
-
-import type * as EmojiModule from '@atlaskit/emoji';
-import type { QuickInsertOptions } from '@atlaskit/editor-common/types';
-import { IntlProvider } from 'react-intl-next';
-const { EmojiResource } =
-  jest.genMockFromModule<typeof EmojiModule>('@atlaskit/emoji');
-
-import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
-import { measureTTI as mockMeasureTTI } from '@atlaskit/editor-common/utils';
-import type { CardOptions } from '@atlaskit/editor-common/card';
-import { matchers } from '@emotion/jest';
-import * as utils from '@atlaskit/editor-common/utils';
-import measurements from '../../utils/performance/measure-enum';
-import * as featureFlagsFromProps from '../../create-editor/feature-flags-from-props';
 
 const measureTTI: any = mockMeasureTTI;
 
@@ -178,11 +178,20 @@ describe(`Editor`, () => {
         const consoleErrorSpy = jest.spyOn(console, 'error');
         render(<Editor appearance="full-page" minHeight={250} />);
 
-        expect(consoleErrorSpy).toHaveBeenCalledWith(
-          expect.stringContaining(
-            'minHeight only supports editor appearance chromeless and comment',
-          ),
+        expect(consoleErrorSpy.mock.calls.length).toBeGreaterThan(0);
+        const consoleErrorMessages = consoleErrorSpy.mock.calls.map((call) =>
+          call.join(' '),
         );
+
+        expect(consoleErrorMessages).toEqual(
+          expect.arrayContaining([
+            expect.stringContaining(
+              'minHeight only supports editor appearance chromeless and comment for Editor',
+            ),
+          ]),
+        );
+
+        consoleErrorSpy.mockRestore();
       });
 
       it('should fire onCancel when Cancel is clicked', () => {

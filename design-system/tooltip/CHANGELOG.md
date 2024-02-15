@@ -1,5 +1,17 @@
 # @atlaskit/tooltip
 
+## 18.1.1
+
+### Patch Changes
+
+- [#64251](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64251) [`92b280e734a7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92b280e734a7) - Add a hidden tooltip content when tooltip is in a modal for screen reader announcement
+
+## 18.1.0
+
+### Minor Changes
+
+- [#61952](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61952) [`d00b9272c88c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d00b9272c88c) - [ux] Tooltips are now hidden during drags. This is to prevent janky UX.
+
 ## 18.0.0
 
 ### Major Changes

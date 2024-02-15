@@ -448,7 +448,9 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
           }
           isSelected={isDialogOpen}
           isDisabled={isDisabled}
-          {...triggerProps}
+          ref={triggerProps.ref}
+          // When we autoFocus the dialog, we want to autofocus the trigger as well, that way when the dialog is closed, the trigger is focused
+          autoFocus={this.props.isAutoOpenDialog}
         />
       );
     }

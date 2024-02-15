@@ -21,7 +21,9 @@ Use a `backgroundColor` to change the background color of the avatar.
 
 ### Disabled
 
-Use `isDisabled` to put the avatar into the disabled state. This will make the avatar non-interactive.
+Use `isDisabled` to put the avatar into a disabled state. This will make the avatar non-interactive.
+
+Avoid using disabled UI. This can cause accessibility problems, because disabled UI does not give enough information to people about what went wrong and how to proceed.
 
 <Example Component={AvatarItemIsDisabled} packageName="@atlaskit/avatar" />
 
@@ -47,7 +49,7 @@ Use `secondaryText` to style the avatar text as secondary text.
 
 ## Truncation
 
-By default, overflowing text is truncated if it exceeds the width of its container. Use `isTruncationDisabled` to disable this.
+If overflowing text exceeds the width of its container, it is truncated by default. Use `isTruncationDisabled` to disable this. To be accessible, avoid truncating useful text wherever possible.
 
 <Example
   Component={AvatarItemIsTruncationDisabled}

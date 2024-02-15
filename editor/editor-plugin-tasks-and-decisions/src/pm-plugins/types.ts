@@ -1,5 +1,4 @@
 export enum ACTIONS {
-  SET_CONTEXT_PROVIDER,
   FOCUS_BY_LOCALID,
 }
 

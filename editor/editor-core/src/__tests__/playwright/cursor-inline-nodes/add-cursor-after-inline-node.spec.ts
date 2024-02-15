@@ -1,14 +1,15 @@
-import { editorTestCase as test, expect } from '@af/editor-libra';
+import { expect, editorTestCase as test } from '@af/editor-libra';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { doc, li, p, ul } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import {
-  statusADF,
   dateADF,
   emojiADF,
   inlineExtensionADF,
   mentionADF,
   multipleMentionsADF,
+  statusADF,
 } from './add-cursor-after-inline-node.spec.ts-fixtures';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { p, doc, ul, li } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.describe('Cursor Inline Nodes', () => {
   test.use({

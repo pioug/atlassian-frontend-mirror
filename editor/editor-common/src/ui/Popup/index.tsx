@@ -3,7 +3,7 @@ import React from 'react';
 import type { FocusTrap } from 'focus-trap';
 import createFocusTrap from 'focus-trap';
 import rafSchedule from 'raf-schd';
-import { createPortal } from 'react-dom';
+import { createPortal, flushSync } from 'react-dom';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 
@@ -27,6 +27,7 @@ export interface Props {
   mountTo?: HTMLElement;
   // horizontal offset, vertical offset
   offset?: number[];
+  onUnmount?: () => void;
   onPositionCalculated?: (position: Position) => Position;
   onPlacementChanged?: (placement: [string, string]) => void;
   shouldRenderPopup?: (position: Position) => boolean;
@@ -152,9 +153,11 @@ export default class Popup extends React.Component<Props, State> {
     const { position, validPosition } = this.calculatePosition(props, popup);
 
     if (position && validPosition) {
-      this.setState({
-        position,
-        validPosition,
+      flushSync(() => {
+        this.setState({
+          position,
+          validPosition,
+        });
       });
     }
   }
@@ -328,6 +331,11 @@ export default class Popup extends React.Component<Props, State> {
     this.scheduledUpdatePosition.cancel();
 
     this.destroyFocusTrap();
+
+    const { onUnmount } = this.props;
+    if (onUnmount) {
+      onUnmount();
+    }
   }
 
   private renderPopup() {

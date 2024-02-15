@@ -1,69 +1,32 @@
-import React from 'react';
 import { fireEvent, screen, within } from '@testing-library/react';
-import {
-  type WithAnalyticsEventsProps,
-  AnalyticsListener,
-} from '@atlaskit/analytics-next';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
-import type { MockEmojiResourceConfig } from '@atlaskit/util-data-test/emoji-types';
-import EmojiPicker, { Props } from '../../../../components/picker/EmojiPicker';
-import { getEmojiResourcePromise } from '../../_test-data';
-import { renderWithIntl } from '../../_testing-library';
 import userEvent from '@testing-library/user-event';
 import {
   emojiActionsTestId,
   uploadEmojiTestId,
 } from '../../../../components/common/EmojiActions';
-import { uploadEmojiNameInputTestId } from '../../../../components/common/EmojiUploadPicker';
-import {
-  chooseFileButtonTestId,
-  fileUploadInputTestId,
-} from '../../../../components/common/FileChooser';
-import {
-  cancelUploadButtonTestId,
-  uploadPreviewTestId,
-} from '../../../../components/common/EmojiUploadPreview';
-import {
-  retryUploadButtonTestId,
-  uploadEmojiButtonTestId,
-} from '../../../../components/common/RetryableButton';
-import { virtualListScrollContainerTestId } from '../../../../components/picker/VirtualList';
-import { emojiPickerFooterTestId } from '../../../../components/picker/EmojiPickerFooter';
 import {
   emojiErrorIconTestId,
   emojiErrorMessageTestId,
   emojiErrorMessageTooltipTestId,
 } from '../../../../components/common/EmojiErrorMessage';
-import { emojiPickerSearchTestId } from '../../../../components/picker/EmojiPickerListSearch';
+import { emojiPlaceholderTestId } from '../../../../components/common/EmojiPlaceholder';
+import {
+  cancelUploadButtonTestId,
+  uploadPreviewTestId,
+} from '../../../../components/common/EmojiUploadPreview';
+import {
+  chooseFileButtonTestId,
+  fileUploadInputTestId,
+} from '../../../../components/common/FileChooser';
+import { retryUploadButtonTestId } from '../../../../components/common/RetryableButton';
 import {
   categorySelectorCategoryTestId,
   categorySelectorComponentTestId,
 } from '../../../../components/picker/CategorySelector';
-import { emojiPlaceholderTestId } from '../../../../components/common/EmojiPlaceholder';
-
-export function renderPicker(
-  props?: Props & WithAnalyticsEventsProps,
-  config?: MockEmojiResourceConfig,
-  onEvent?: any,
-) {
-  const pickerProps: Props = {
-    ...props,
-  } as Props;
-
-  if (!props || !props.emojiProvider) {
-    pickerProps.emojiProvider = getEmojiResourcePromise(config);
-  }
-
-  const picker = onEvent
-    ? renderWithIntl(
-        <AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
-          <EmojiPicker {...pickerProps} />
-        </AnalyticsListener>,
-      )
-    : renderWithIntl(<EmojiPicker {...pickerProps} />);
-  return picker;
-}
+import { emojiPickerFooterTestId } from '../../../../components/picker/EmojiPickerFooter';
+import { emojiPickerSearchTestId } from '../../../../components/picker/EmojiPickerListSearch';
 
 export function getEmojiActionsSection() {
   return screen.getByTestId(emojiActionsTestId);
@@ -73,8 +36,8 @@ export function queryEmojiActonsSection() {
   return screen.queryByTestId(emojiActionsTestId);
 }
 
-export function getAddCustomEmojiButton() {
-  return within(screen.getByTestId(uploadEmojiTestId)).getByRole('button');
+export async function getAddCustomEmojiButton() {
+  return await screen.findByRole('button', { name: 'Add your own emoji' });
 }
 
 export function queryAddCustomEmojiButton() {
@@ -82,7 +45,7 @@ export function queryAddCustomEmojiButton() {
 }
 
 export function getUploadEmojiNameInput() {
-  return screen.getByTestId(uploadEmojiNameInputTestId);
+  return screen.getByLabelText('Enter a name for the new emoji');
 }
 
 export function typeEmojiName(value: string) {
@@ -101,7 +64,7 @@ export function getUploadPreview() {
 }
 
 export function getUploadEmojiButton() {
-  return screen.getByTestId(uploadEmojiButtonTestId);
+  return screen.getByRole('button', { name: 'Add emoji' });
 }
 
 export function uploadNewEmoji() {
@@ -119,7 +82,7 @@ export function retryUpload() {
 }
 
 export function getVirtualList() {
-  return screen.getByTestId(virtualListScrollContainerTestId);
+  return screen.getByRole('grid');
 }
 
 export function scrollToIndex(index: number) {
@@ -142,14 +105,10 @@ export function getEmojiSearchInput() {
   return screen.getByTestId(emojiPickerSearchTestId);
 }
 
-export function searchEmoji(name: string) {
+export async function searchEmoji(name: string) {
   const searchInput = getEmojiSearchInput();
-  fireEvent.focus(searchInput);
-  fireEvent.change(searchInput, {
-    target: {
-      value: name,
-    },
-  });
+
+  await userEvent.type(searchInput, name);
 }
 
 export function getEmojiErrorMessageTooltip() {
@@ -168,11 +127,11 @@ export function queryEmojiCategoryHeader(title: string) {
   return within(getVirtualList()).queryByText(title);
 }
 
-export function selectCategory(categoryId: string) {
-  const categoryButton = screen.getByTestId(
+export async function selectCategory(categoryId: string) {
+  const categoryButton = await screen.findByTestId(
     categorySelectorCategoryTestId(categoryId),
   );
-  fireEvent.click(categoryButton);
+  await userEvent.click(categoryButton);
 }
 
 export function queryCategorySelector(categoryId: string) {

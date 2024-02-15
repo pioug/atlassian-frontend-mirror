@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Select, { ValueType } from '@atlaskit/select';
 
 import Form, { ErrorMessage, Field, FormFooter } from '@atlaskit/form';

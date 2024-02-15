@@ -44,7 +44,11 @@ const JsonldEditorProvider: React.FC<Props> = ({
   );
 
   return (
-    <SmartCardProvider client={client} featureFlags={featureFlags}>
+    <SmartCardProvider
+      client={client}
+      featureFlags={featureFlags}
+      isAdminHubAIEnabled={true}
+    >
       {children}
     </SmartCardProvider>
   );

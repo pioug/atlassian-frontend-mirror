@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import { useRef, useState, useEffect, Fragment } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
+
 import { css, jsx } from '@emotion/react';
 
 import { NavigationSkeleton as TopNavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';

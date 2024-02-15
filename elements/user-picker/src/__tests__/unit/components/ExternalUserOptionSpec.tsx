@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { ExternalUserOption } from '../../../components/ExternalUserOption/main';
 import { ExternalUser, UserSource, UserSourceResult } from '../../../types';
 import { ExusUserSourceProvider } from '../../../clients/UserSourceProvider';
@@ -45,18 +45,38 @@ describe('ExternalUserOption', () => {
     };
 
   it('should name, email and avatar', () => {
-    const { getByText, getByAltText } = render(
+    render(
       <IntlProvider messages={{}} locale="en">
         <ExternalUserOption user={user} status="approved" isSelected={false} />
       </IntlProvider>,
     );
-    expect(getByText(hasTextIgnoringHtml(user.email!))).toBeTruthy();
-    expect(getByText(user.name)).toBeTruthy();
-    expect(getByAltText(user.name)).toBeTruthy();
+    expect(screen.getByText(hasTextIgnoringHtml(user.email!))).toBeTruthy();
+    expect(screen.getByText(user.name)).toBeTruthy();
+    expect(
+      screen.getByRole('img', { name: new RegExp(user.name) }),
+    ).toBeInTheDocument();
+  });
+
+  it('should render byline as the secondary text instead of email if byline is passed in', () => {
+    user.byline = 'custom byline';
+
+    render(
+      <IntlProvider messages={{}} locale="en">
+        <ExternalUserOption user={user} status="approved" isSelected={false} />
+      </IntlProvider>,
+    );
+    expect(
+      screen.queryByText(hasTextIgnoringHtml(user.email!)),
+    ).not.toBeInTheDocument();
+    expect(screen.getByText(hasTextIgnoringHtml(user.byline!))).toBeTruthy();
+    expect(screen.getByText(user.name)).toBeTruthy();
+    expect(
+      screen.getByRole('img', { name: new RegExp(user.name) }),
+    ).toBeInTheDocument();
   });
 
   it('should render a tooltip containing the user sources', async () => {
-    expect.assertions(4);
+    expect.assertions(3);
     const { getByTestId, getByRole, findByRole } = render(
       <IntlProvider messages={{}} locale="en">
         <ExternalUserOption user={user} status="approved" isSelected={false} />
@@ -71,7 +91,6 @@ describe('ExternalUserOption', () => {
     // Tooltip has single source displayed
     expect(tooltip).toHaveTextContent('Found in:');
     expect(tooltip).toHaveTextContent('Google');
-    expect(tooltip).not.toHaveTextContent('GitHub');
   });
 
   it('should render tooltip elements and merge async sources into the tooltip contents', async () => {
@@ -82,7 +101,7 @@ describe('ExternalUserOption', () => {
           resolve([
             {
               sourceId: '1234',
-              sourceType: 'github',
+              sourceType: 'slack',
             },
           ]);
         }),
@@ -105,7 +124,7 @@ describe('ExternalUserOption', () => {
     // Tooltip has expected sources displayed
     expect(tooltip).toHaveTextContent('Found in:');
     expect(tooltip).toHaveTextContent('Google');
-    expect(tooltip).toHaveTextContent('GitHub');
+    expect(tooltip).toHaveTextContent('Slack');
   });
 
   it('should not render tooltip elements when sources collection is empty and user is not external', () => {
@@ -184,7 +203,7 @@ describe('ExternalUserOption', () => {
           resolve([
             {
               sourceId: '1234',
-              sourceType: 'github',
+              sourceType: 'slack',
             },
           ]);
         }),
@@ -217,7 +236,7 @@ describe('ExternalUserOption', () => {
     // Tooltip has single source displayed
     expect(tooltip).toHaveTextContent('Found in:');
     expect(tooltip).toHaveTextContent('Google');
-    expect(tooltip).not.toHaveTextContent('GitHub');
+    expect(tooltip).not.toHaveTextContent('Slack');
 
     // fetch was not called
     expect(mockFetch).toBeCalledTimes(0);

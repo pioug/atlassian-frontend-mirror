@@ -14,6 +14,8 @@
     "**/examples/*.tsx",
     "**/examples/**/*.ts",
     "**/examples/**/*.tsx",
+    "**/example-utils/**/*.ts",
+    "**/example-utils/**/*.tsx",
     "**/storybook/**/*",
     "**/constellation/**/*",
     ".storybook/*",
@@ -36,10 +38,34 @@
       "path": "tsconfig.app.json"
     },
     {
+      "path": "../../design-system/code/tsconfig.app.json"
+    },
+    {
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
+      "path": "../editor-common/tsconfig.app.json"
+    },
+    {
       "path": "../editor-core/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-test-helpers/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/icon/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/menu/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/primitives/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/textarea/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/theme/tsconfig.app.json"
     },
     {
       "path": "../../design-system/tokens/tsconfig.app.json"

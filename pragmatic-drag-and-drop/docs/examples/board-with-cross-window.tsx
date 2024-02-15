@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 import invariant from 'tiny-invariant';
 
+import {
+  Edge,
+  extractClosestEdge,
+} from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { monitorForFiles } from '@atlaskit/pragmatic-drag-and-drop/adapter/file';
 import {
@@ -9,11 +14,6 @@ import {
   monitorForCrossWindowElements,
 } from '@atlaskit/pragmatic-drag-and-drop/experimental/cross-window-element-adapter';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
-import {
-  Edge,
-  extractClosestEdge,
-} from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
-import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
 
 import Board from './cross-window-pieces/board';
 import { Column } from './cross-window-pieces/column';

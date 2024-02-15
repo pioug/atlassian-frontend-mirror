@@ -1,27 +1,28 @@
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import {
-  EditorNodeContainerModel,
-  EditorTableModel,
-  EditorExtensionModel,
   EditorBreakoutModel,
-  editorTestCase as test,
+  EditorExtensionModel,
+  EditorNodeContainerModel,
   EditorPopupModel,
+  EditorTableModel,
   expect,
   fixTest,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import { createSquareTable } from './__fixtures__/resize-documents';
-import { nestedInExtension, nestedInLayout } from './__fixtures__/base-adfs';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
-  table,
-  tr,
-  td,
-  layoutSection,
   layoutColumn,
+  layoutSection,
   p,
+  table,
+  td,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import sampleSchema from '@atlaskit/editor-test-helpers/schema';
+
+import { nestedInExtension, nestedInLayout } from './__fixtures__/base-adfs';
+import { createSquareTable } from './__fixtures__/resize-documents';
 
 test.use({
   editorProps: {

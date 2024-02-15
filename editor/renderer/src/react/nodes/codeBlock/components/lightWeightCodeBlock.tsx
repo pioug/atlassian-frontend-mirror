@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { forwardRef, useMemo } from 'react';
-import { css, jsx, useTheme } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
 import {
@@ -50,7 +50,6 @@ const LightWeightCodeBlock = forwardRef(
     >,
     ref: React.Ref<HTMLDivElement>,
   ) => {
-    const theme = useTheme();
     const textRows = useMemo(() => (text ?? '').split('\n'), [text]);
     const { renderBidiWarnings } = useBidiWarnings({
       enableWarningTooltip: codeBidiWarningTooltipEnabled,
@@ -64,7 +63,7 @@ const LightWeightCodeBlock = forwardRef(
       <div
         className={classNames}
         ref={ref}
-        css={[codeBlockSharedStyles(theme), lightWeightCodeBlockStyles]}
+        css={[codeBlockSharedStyles(), lightWeightCodeBlockStyles]}
       >
         <div className={CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}>
           <div

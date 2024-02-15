@@ -18,7 +18,7 @@ import {
   DatasourceTableView,
   JIRA_LIST_OF_LINKS_DATASOURCE_ID,
 } from '@atlaskit/link-datasource';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { WidthContext } from '@atlaskit/editor-common/ui';
 
 jest.mock('@atlaskit/smart-card', () => {
   const originalModule = jest.requireActual('@atlaskit/smart-card');
@@ -190,6 +190,47 @@ describe('Renderer - React/Nodes/BlockCard', () => {
       expect(tableView.prop('columnCustomSizes')).toBeUndefined();
     });
 
+    it('should set the wrapper width as 100% when isNodeNested is set as true', () => {
+      node = mount(
+        <Provider client={new Client('staging')}>
+          <IntlProvider locale="en">
+            <BlockCard
+              url={url}
+              datasource={datasourceAttributeProperties}
+              smartLinks={{ showServerActions: true }}
+              layout="full-width"
+              isNodeNested={true}
+            />
+          </IntlProvider>
+        </Provider>,
+      );
+
+      expect(node.html()).toMatch(
+        /<div data-testid=\"renderer-datasource-table\" style=\"width: 100%;\".*/,
+      );
+    });
+
+    it('should set the correct width when isNodeNested is not set', () => {
+      node = mount(
+        <Provider client={new Client('staging')}>
+          <IntlProvider locale="en">
+            <WidthContext.Provider value={{ width: 500, breakpoint: 'S' }}>
+              <BlockCard
+                url={url}
+                datasource={datasourceAttributeProperties}
+                smartLinks={{ showServerActions: true }}
+                layout="full-width"
+              />
+            </WidthContext.Provider>
+          </IntlProvider>
+        </Provider>,
+      );
+
+      expect(node.html()).toMatch(
+        /<div data-testid=\"renderer-datasource-table\" style=\"width: 404px;\".*/,
+      );
+    });
+
     it('should render inlineCard if jira issue datasource is provided with JQL but NOT a table view', () => {
       const notRenderableDatasource = {
         ...datasourceAttributeProperties,
@@ -217,55 +258,35 @@ describe('Renderer - React/Nodes/BlockCard', () => {
       expect(node.find(InlineCard).prop('url')).toEqual(url);
     });
 
-    describe('when using feature flag', () => {
+    it('should render a datasource when datasource ID is JLOL', () => {
       const datasourceAttributePropertiesWithRealJiraId = {
         ...datasourceAttributeProperties,
         id: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
       };
-      ffTest(
-        'platform.linking-platform.datasource-jira_issues',
-        () => {
-          node = mount(
-            <Provider client={new Client('staging')}>
-              <IntlProvider locale="en">
-                <BlockCard
-                  url={url}
-                  datasource={datasourceAttributePropertiesWithRealJiraId}
-                  smartLinks={{ showServerActions: true }}
-                />
-              </IntlProvider>
-            </Provider>,
-          );
-          const tableView = node.find(DatasourceTableView);
-          expect(tableView.prop('datasourceId')).toEqual(
-            'd8b75300-dfda-4519-b6cd-e49abbd50401',
-          );
-          expect(tableView.prop('parameters')).toEqual({
-            cloudId: 'mock-cloud-id',
-            jql: 'JQL=MOCK',
-          });
-          expect(tableView.prop('visibleColumnKeys')).toEqual([
-            'column-1',
-            'column-2',
-          ]);
-        },
-        () => {
-          node = mount(
-            <Provider client={new Client('staging')}>
-              <IntlProvider locale="en">
-                <BlockCard
-                  url={url}
-                  datasource={datasourceAttributePropertiesWithRealJiraId}
-                  smartLinks={{ showServerActions: true }}
-                />
-              </IntlProvider>
-            </Provider>,
-          );
 
-          expect(node.find(InlineCard).length).toBe(1);
-          expect(node.find(InlineCard).prop('url')).toEqual(url);
-        },
+      node = mount(
+        <Provider client={new Client('staging')}>
+          <IntlProvider locale="en">
+            <BlockCard
+              url={url}
+              datasource={datasourceAttributePropertiesWithRealJiraId}
+              smartLinks={{ showServerActions: true }}
+            />
+          </IntlProvider>
+        </Provider>,
       );
+      const tableView = node.find(DatasourceTableView);
+      expect(tableView.prop('datasourceId')).toEqual(
+        'd8b75300-dfda-4519-b6cd-e49abbd50401',
+      );
+      expect(tableView.prop('parameters')).toEqual({
+        cloudId: 'mock-cloud-id',
+        jql: 'JQL=MOCK',
+      });
+      expect(tableView.prop('visibleColumnKeys')).toEqual([
+        'column-1',
+        'column-2',
+      ]);
     });
   });
 });

@@ -1,8 +1,9 @@
 import React from 'react';
+
+import { SaveAndCancelButtons } from '../../examples/5-full-page';
+import type EditorActions from '../../src/actions';
 import languages from '../../src/i18n/languages';
 import LanguagePicker from '../LanguagePicker';
-import { SaveAndCancelButtons } from '../../examples/5-full-page';
-import EditorActions from '../../src/actions';
 
 export interface KitchenSinkToolbarProps {
   actions: EditorActions;
@@ -10,7 +11,7 @@ export interface KitchenSinkToolbarProps {
   loadLocale(locale: string): void;
 }
 
-export const KitchenSinkToolbar: React.StatelessComponent<KitchenSinkToolbarProps> =
+export const KitchenSinkToolbar: React.FunctionComponent<KitchenSinkToolbarProps> =
   React.memo((props) => {
     return (
       <React.Fragment>

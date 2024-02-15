@@ -5,7 +5,7 @@ common:
 context:
   PackageMetaData:
     packageName:
-      type: [ '@atlaskit/linking-common' ]
+      type: ['@atlaskit/linking-common']
       description: name of the package the event was fired from
     packageVersion:
       type: string
@@ -19,3 +19,18 @@ events:
         error:
           type: string
           description: a stringified version of the error
+        errorType:
+          type: string
+          description: the typeof the error
+        path:
+          type: string
+          required: false
+          description: The path of the network request if the failure is a Reponse
+        status:
+          type: number
+          required: false
+          description:
+        traceId:
+          type: string
+          required: false
+          description: The x-trace-id header associated with the network request if the failure is a Response

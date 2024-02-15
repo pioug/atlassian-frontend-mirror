@@ -17,6 +17,7 @@ export enum TOOLBAR_ACTION_SUBJECT_ID {
   REDO = 'redo',
   INDENT = 'indent',
   OUTDENT = 'outdent',
+  RECORD_VIDEO = 'recordVideo',
 }
 
 type ToolbarButtonClickedAEP = UIAEP<

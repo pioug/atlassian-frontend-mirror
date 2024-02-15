@@ -10,7 +10,7 @@ import type {
 } from '../types/next-editor-plugin';
 
 type NamedPluginStatesFromInjectionAPI<
-  API extends PublicPluginAPI<any> | undefined,
+  API extends PublicPluginAPI<any> | null | undefined,
   PluginList extends string[],
 > = Readonly<{
   [K in PluginList[number] as `${K}State`]: API extends PublicPluginAPI<any>
@@ -21,7 +21,7 @@ type NamedPluginStatesFromInjectionAPI<
 }>;
 
 type NamedPluginDependencies<
-  API extends PublicPluginAPI<any> | undefined,
+  API extends PublicPluginAPI<any> | null | undefined,
   PluginList extends string[],
 > = Readonly<{
   [K in PluginList[number] as `${K}State`]: API extends PublicPluginAPI<any>
@@ -141,7 +141,7 @@ export function useSharedPluginState<
   Plugins extends NextEditorPlugin<any, any>[],
   PluginNames extends ExtractPluginNames<PublicPluginAPI<Plugins>>[],
 >(
-  injectionApi: PublicPluginAPI<Plugins> | undefined,
+  injectionApi: PublicPluginAPI<Plugins> | null | undefined,
   plugins: PluginNames,
 ): NamedPluginStatesFromInjectionAPI<typeof injectionApi, PluginNames> {
   const pluginNames = useStaticPlugins(plugins);

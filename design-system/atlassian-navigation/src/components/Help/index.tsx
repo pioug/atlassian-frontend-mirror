@@ -40,11 +40,15 @@ export const Help = forwardRef((props: HelpProps, ref: Ref<any>) => {
   );
 
   return badge ? (
-    <BadgeContainer id={HELP_NOTIFICATION_BADGE_ID} badge={badge}>
+    <BadgeContainer
+      id={HELP_NOTIFICATION_BADGE_ID}
+      badge={badge}
+      role="listitem"
+    >
       {button}
     </BadgeContainer>
   ) : (
-    button
+    <div role="listitem">{button}</div>
   );
 });
 

@@ -1,9 +1,11 @@
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import {
-  type EditorState,
   Plugin,
   PluginKey,
   TextSelection,
-  type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type {
   Step as ProseMirrorStep,

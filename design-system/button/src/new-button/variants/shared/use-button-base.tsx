@@ -51,15 +51,16 @@ export type UseButtonBaseArgs<TagName extends HTMLElement> = {
    */
   buttonType: 'button' | 'link';
   isIconButton?: boolean;
+  isCircle?: boolean;
   hasIconBefore?: boolean;
   hasIconAfter?: boolean;
   shouldFitContainer?: boolean;
   appearance?: Appearance;
+  children: React.ReactNode;
 } & Pick<
   CommonButtonProps<TagName>,
   | 'analyticsContext'
   | 'autoFocus'
-  | 'children'
   | 'interactionName'
   | 'isDisabled'
   | 'isSelected'
@@ -109,6 +110,7 @@ const useButtonBase = <TagName extends HTMLElement>({
   isSelected = false,
   // TODO: Separate Icon Button styling from button base
   isIconButton = false,
+  isCircle = false,
   // TODO: Separate icon slot styling from button base
   hasIconBefore = false,
   hasIconAfter = false,
@@ -196,6 +198,7 @@ const useButtonBase = <TagName extends HTMLElement>({
         isActiveOverSelected,
         shouldFitContainer,
         isIconButton,
+        isCircle,
         hasOverlay: Boolean(overlay),
         isLink: buttonType === 'link',
         hasIconBefore,
@@ -212,6 +215,7 @@ const useButtonBase = <TagName extends HTMLElement>({
       isHighlighted,
       isActiveOverSelected,
       isIconButton,
+      isCircle,
       shouldFitContainer,
       overlay,
       hasIconBefore,

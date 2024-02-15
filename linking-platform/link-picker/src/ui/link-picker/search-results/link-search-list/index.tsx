@@ -84,6 +84,7 @@ export interface LinkSearchListProps
   onKeyDown?: (e: KeyboardEvent<LinkSearchListElement>) => void;
   ariaControls?: string;
   ariaLabelledBy?: string;
+  ariaReadOnly?: boolean;
   role?: string;
   id?: string;
   hasSearchTerm?: boolean;
@@ -102,6 +103,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
       isLoading,
       ariaControls,
       ariaLabelledBy,
+      ariaReadOnly,
       role,
       id,
       hasSearchTerm,
@@ -216,6 +218,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
             css={listStyles}
             aria-controls="fabric.smartcard.linkpicker.suggested.results"
             aria-labelledby={testIds.resultListTitle}
+            aria-readonly={ariaReadOnly}
             data-testid={testIds.searchResultList}
           >
             {items.map((item, index) => (

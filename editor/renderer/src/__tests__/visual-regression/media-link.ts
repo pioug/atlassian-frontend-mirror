@@ -1,16 +1,16 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { snapshot, initRendererWithADF, animationFrame } from './_utils';
 import { richMediaClassName } from '@atlaskit/editor-common/styles';
-import mediaLink from './__fixtures__/media-link.adf.json';
-import wrappedMediaLink from './__fixtures__/wrapped-media-link.adf.json';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { Page } from 'puppeteer';
+import { waitForAllMedia } from '../__helpers/page-objects/_media';
+import { animationFrame, initRendererWithADF, snapshot } from './_utils';
+import leftRightWrappedMultipleMediaInsideTable from './__fixtures__/left-right-wrapped-multiple-media-link-in-table.adf.json';
+import leftWrappedMultipleMediaInsideTable from './__fixtures__/left-wrapped-multiple-media-link-in-table.adf.json';
 import mediaLinkInsideExpand from './__fixtures__/media-link-inside-expand.adf.json';
 import mediaLinkInsideNestedExpand from './__fixtures__/media-link-inside-nested-expand.adf.json';
 import mediaLinkInsideTable from './__fixtures__/media-link-inside-table.adf.json';
-import { waitForAllMedia } from '../__helpers/page-objects/_media';
-import { Page } from 'puppeteer';
-import leftWrappedMultipleMediaInsideTable from './__fixtures__/left-wrapped-multiple-media-link-in-table.adf.json';
+import mediaLink from './__fixtures__/media-link.adf.json';
 import rightWrappedMultipleMediaInsideTable from './__fixtures__/right-wrapped-multiple-media-link-in-table.adf.json';
-import leftRightWrappedMultipleMediaInsideTable from './__fixtures__/left-right-wrapped-multiple-media-link-in-table.adf.json';
+import wrappedMediaLink from './__fixtures__/wrapped-media-link.adf.json';
 
 const mediaSingleSelector = `.${richMediaClassName}`;
 
@@ -34,8 +34,7 @@ describe('media link:', () => {
     page = global.page;
   });
 
-  // FIXME: This test was automatically skipped due to failure on 27/07/2023: https://product-fabric.atlassian.net/browse/ED-19234
-  it.skip(`should render a linked media image correctly`, async () => {
+  it(`should render a linked media image correctly`, async () => {
     await loadAdf(page, mediaLink);
     await waitForAllMedia(page, 1);
 
@@ -43,8 +42,7 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was manually skipped due to failure on 27/07/2023: https://product-fabric.atlassian.net/browse/ED-19235
-  it.skip(`should render a linked media image correctly when focused`, async () => {
+  it(`should render a linked media image correctly when focused`, async () => {
     await loadAdf(page, mediaLink);
     await waitForAllMedia(page, 1);
 
@@ -58,8 +56,7 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 30/06/2023: https://product-fabric.atlassian.net/browse/ED-18938
-  it.skip(`should render a linked media image below a wrapped image correctly`, async () => {
+  it(`should render a linked media image below a wrapped image correctly`, async () => {
     await loadAdf(page, wrappedMediaLink);
     await waitForAllMedia(page, 2);
 
@@ -71,8 +68,7 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was manually skipped due to failure on 27/07/2023: https://product-fabric.atlassian.net/browse/ED-19235
-  it.skip(`should render a linked media image below a wrapped image correctly when focused`, async () => {
+  it(`should render a linked media image below a wrapped image correctly when focused`, async () => {
     await loadAdf(page, wrappedMediaLink);
     await waitForAllMedia(page, 2);
 
@@ -86,8 +82,7 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 26/06/2023: https://product-fabric.atlassian.net/browse/ED-18924
-  it.skip(`should render a linked media image inside an expand correctly`, async () => {
+  it(`should render a linked media image inside an expand correctly`, async () => {
     await loadAdf(page, mediaLinkInsideExpand);
 
     await waitForAllMedia(page, 1);
@@ -121,8 +116,7 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 22/06/2023: https://product-fabric.atlassian.net/browse/ED-18912
-  it.skip(`should render a linked media image inside a table correctly`, async () => {
+  it(`should render a linked media image inside a table correctly`, async () => {
     await loadAdf(page, mediaLinkInsideTable);
 
     await waitForAllMedia(page, 2);
@@ -137,8 +131,7 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 26/05/2023: https://product-fabric.atlassian.net/browse/ED-18085
-  it.skip(`should horizontally render multiple wrapped-left linked media images inside a table`, async () => {
+  it(`should horizontally render multiple wrapped-left linked media images inside a table`, async () => {
     await loadAdf(page, leftWrappedMultipleMediaInsideTable);
 
     await waitForAllMedia(page, 2);

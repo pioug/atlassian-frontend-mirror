@@ -140,6 +140,18 @@ testRule({
 testRule({
   plugins: [plugin],
   ruleName,
+  config: { color: true, spacing: true, typography: true },
+  accept: [
+    {
+      code: 'white-space: no-wrap;',
+      description: 'should allow property white-space"',
+    },
+  ],
+});
+
+testRule({
+  plugins: [plugin],
+  ruleName,
   config: { color: true, nonTokenCssVariables: true },
   accept: [
     {

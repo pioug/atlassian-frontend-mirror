@@ -1,7 +1,7 @@
 // File has been copied to packages/editor/editor-plugin-ai/src/provider/prosemirror-transformer/utils/list.ts
 // If changes are made to this file, please make the same update in the linked file.
 
-import { Node } from '@atlaskit/editor-prosemirror/model';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 
 export const DEFAULT_ORDER = 1;
 
@@ -60,3 +60,21 @@ export function isListItemNode(node: Node | null | undefined) {
 export function isBulletList(node: Node | null | undefined) {
   return Boolean(node && node.type && 'bulletList' === node.type.name);
 }
+
+export function isOrderedList(node: Node | null | undefined) {
+  return Boolean(node && node.type && 'orderedList' === node.type.name);
+}
+
+export const isOrderedListContinuous = (
+  firstOrderedList: Node,
+  secondOrderedList: Node,
+): boolean => {
+  if (!(isOrderedList(firstOrderedList) && isOrderedList(secondOrderedList))) {
+    return false;
+  }
+  return (
+    getOrderFromOrderedListNode(firstOrderedList) +
+      firstOrderedList.childCount ===
+    getOrderFromOrderedListNode(secondOrderedList)
+  );
+};

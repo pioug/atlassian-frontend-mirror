@@ -12,7 +12,7 @@ import {
   DropResult,
 } from 'react-beautiful-dnd';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import noop from '@atlaskit/ds-lib/noop';
 import InlineMessage from '@atlaskit/inline-message';
 import { Box } from '@atlaskit/primitives';

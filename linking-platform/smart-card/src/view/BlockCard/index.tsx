@@ -20,13 +20,10 @@ import { ErroredView as BlockCardErroredView } from './views/ErroredView';
 import FlexibleResolvedView from './views/flexible/FlexibleResolvedView';
 import FlexibleUnauthorisedView from './views/flexible/FlexibleUnauthorisedView';
 import FlexibleNotFoundView from './views/flexible/FlexibleNotFoundView';
-import FlexibleNotFoundViewOld from './views/flexible/FlexibleNotFoundViewOld';
 import FlexibleForbiddenView from './views/flexible/FlexibleForbiddenView';
-import FlexibleForbiddenViewOld from './views/flexible/FlexibleForbiddenViewOld';
 import FlexibleErroredView from './views/flexible/FlexibleErroredView';
 import { jsx } from '@emotion/react';
 import { handleClickCommon } from './utils/handlers';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export { default as PreviewAction } from './actions/PreviewAction';
 export type { ResolvedViewProps as BlockCardResolvedViewProps } from './views/ResolvedView';
@@ -56,11 +53,10 @@ export const BlockCard: FC<BlockCardProps> = ({
   onResolve,
   onError,
   testId,
-  showActions,
   platform,
   analytics,
   enableFlexibleBlockCard,
-  showServerActions,
+  actionOptions,
 }) => {
   const { status, details } = cardState;
   const data =
@@ -72,6 +68,7 @@ export const BlockCard: FC<BlockCardProps> = ({
     origin: 'smartLinkCard',
     handleInvoke,
     extensionKey,
+    actionOptions,
   };
 
   if (enableFlexibleBlockCard) {
@@ -85,7 +82,7 @@ export const BlockCard: FC<BlockCardProps> = ({
       onError,
       onResolve,
       renderers,
-      showServerActions,
+      actionOptions,
       analytics,
     };
 
@@ -108,29 +105,16 @@ export const BlockCard: FC<BlockCardProps> = ({
           />
         );
       case 'forbidden':
-        return getBooleanFF(
-          'platform.linking-platform.smart-card.cross-join',
-        ) ? (
+        return (
           <FlexibleForbiddenView
             {...flexibleBlockCardProps}
             onAuthorize={handleAuthorize}
           />
-        ) : (
-          <FlexibleForbiddenViewOld
-            {...flexibleBlockCardProps}
-            onAuthorize={handleAuthorize}
-          />
         );
+
       case 'not_found':
-        return getBooleanFF(
-          'platform.linking-platform.smart-card.cross-join',
-        ) ? (
+        return (
           <FlexibleNotFoundView
-            {...flexibleBlockCardProps}
-            onAuthorize={handleAuthorize}
-          />
-        ) : (
-          <FlexibleNotFoundViewOld
             {...flexibleBlockCardProps}
             onAuthorize={handleAuthorize}
           />
@@ -172,6 +156,7 @@ export const BlockCard: FC<BlockCardProps> = ({
         renderers,
         platform,
       );
+
       if (onResolve) {
         onResolve({
           title: resolvedViewProps.title,
@@ -183,7 +168,6 @@ export const BlockCard: FC<BlockCardProps> = ({
           {...resolvedViewProps}
           isSelected={isSelected}
           testId={testId}
-          showActions={showActions}
           onClick={handleFrameClick}
         />
       );
@@ -202,8 +186,8 @@ export const BlockCard: FC<BlockCardProps> = ({
           {...unauthorizedViewProps}
           isSelected={isSelected}
           testId={testId}
-          showActions={showActions}
           actions={handleAuthorize ? [AuthorizeAction(handleAuthorize)] : []}
+          actionOptions={actionOptions}
           onClick={handleFrameClick}
         />
       );
@@ -217,14 +201,14 @@ export const BlockCard: FC<BlockCardProps> = ({
       const requestAccessContext = extractRequestAccessContext({
         jsonLd: cardMetadata,
         url,
-        context: forbiddenViewProps.context?.text,
+        product: forbiddenViewProps.context?.text,
       });
       return (
         <BlockCardForbiddenView
           {...forbiddenViewProps}
           isSelected={isSelected}
-          showActions={showActions}
           actions={handleAuthorize ? [ForbiddenAction(handleAuthorize)] : []}
+          actionOptions={actionOptions}
           onClick={handleFrameClick}
           requestAccessContext={requestAccessContext}
         />
@@ -235,6 +219,7 @@ export const BlockCard: FC<BlockCardProps> = ({
       }
 
       const notFoundViewProps = extractBlockProps(data, meta, extractorOpts);
+
       return (
         <BlockCardNotFoundView
           {...notFoundViewProps}

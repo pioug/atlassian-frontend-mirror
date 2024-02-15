@@ -48,7 +48,7 @@ export default () => (
             )}
           </Field>
           <FormFooter>
-            <ButtonGroup>
+            <ButtonGroup label="Form submit options">
               <Button appearance="subtle">Cancel</Button>
               <Button type="submit" appearance="primary" isLoading={submitting}>
                 Sign up

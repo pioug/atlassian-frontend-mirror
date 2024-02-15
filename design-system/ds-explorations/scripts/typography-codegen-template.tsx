@@ -1,7 +1,7 @@
 import prettier from 'prettier';
 import parserTypeScript from 'prettier/parser-typescript';
 
-import { typography as tokens } from '@atlaskit/tokens/tokens-raw';
+import { typographyAdg3 as tokens } from '@atlaskit/tokens/tokens-raw';
 
 import { capitalize, tokenToStyle } from './utils';
 

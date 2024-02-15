@@ -1,10 +1,12 @@
 import {
-  editorTestCase as test,
-  expect,
-  EditorTitleFocusModel,
+  BROWSERS,
   EditorNodeContainerModel,
+  EditorTitleFocusModel,
+  expect,
   fixTest,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import { multipleCustomPanels } from './editor-focus.spec.ts-fixtures';
 
 test.describe('when there is a title managing the focus', () => {
@@ -56,10 +58,12 @@ test.describe('when there is a title managing the focus', () => {
       editor,
     }) => {
       fixTest({
-        jiraIssueId: 'ED-19417',
+        jiraIssueId: 'ECA11Y-180',
         reason:
-          'FIXME: This test was manually skipped due to failure on 10/08/2023: https://product-fabric.atlassian.net/browse/ED-19417',
+          'This test working as expected, but for the any reason sometimes at the firefox it is rendering with not correct valus (anchor:2, head:2 instead anchor:76, head:76)',
+        browsers: [BROWSERS.firefox],
       });
+
       const nodes = EditorNodeContainerModel.from(editor);
       const thirdPanel = nodes.panel.nth(2);
 

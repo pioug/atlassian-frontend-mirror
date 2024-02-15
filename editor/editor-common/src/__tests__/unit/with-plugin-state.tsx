@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render as mount } from '@testing-library/react';
+import { render as mount, waitFor } from '@testing-library/react';
 import PropTypes from 'prop-types';
 
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
@@ -325,7 +325,7 @@ describe('with-plugin-state', () => {
     });
   });
 
-  it('should call performance.mark twice with appropriate arguments', () => {
+  it('should call performance.mark twice with appropriate arguments', async () => {
     const plugin = createPlugin({}, pluginKey);
     const key = (pluginKey as any).key;
     const mark = performance.mark as jest.Mock;
@@ -348,7 +348,7 @@ describe('with-plugin-state', () => {
 
     const renderMock = jest.fn().mockReturnValue(null);
 
-    const wrapper = mount(
+    mount(
       <WithPluginState
         editorView={editorView}
         eventDispatcher={eventDispatcher}
@@ -358,17 +358,15 @@ describe('with-plugin-state', () => {
     );
     dispatch(pluginKey, { cheese: '🧀' });
 
-    return setTimeoutPromise(() => {}, 0).then(() => {
+    await waitFor(() => {
       expect(mark.mock.calls.map((item) => item[0])).toEqual(
         expect.arrayContaining([
           `🦉${key}::WithPluginState::start`,
           `🦉${key}::WithPluginState::end`,
         ]),
       );
-
-      wrapper.unmount();
-      editorView.destroy();
     });
+    editorView.destroy();
   });
 
   it('should dispatch analytics event', async () => {
@@ -422,14 +420,15 @@ describe('with-plugin-state', () => {
     );
     dispatch(pluginKey, { cheese: '🧀' });
 
-    await setTimeoutPromise(() => {}, 0);
+    await waitFor(() => {
+      expect(mark.mock.calls.map((item) => item[0])).toEqual(
+        expect.arrayContaining([
+          `🦉${key}::WithPluginState::start`,
+          `🦉${key}::WithPluginState::end`,
+        ]),
+      );
+    });
 
-    expect(mark.mock.calls.map((item) => item[0])).toEqual(
-      expect.arrayContaining([
-        `🦉${key}::WithPluginState::start`,
-        `🦉${key}::WithPluginState::end`,
-      ]),
-    );
     await analyticsDispatchedPromise;
 
     wrapper.unmount();

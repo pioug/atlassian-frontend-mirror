@@ -8,6 +8,7 @@ import {
   SelectedOptionsMap,
   SelectOption,
 } from '../types';
+import { availableBasicFilterTypes } from '../ui';
 
 function isNonNullSelectOption(
   edge: SelectOption | null,
@@ -25,6 +26,21 @@ const getLozengeAppearance = (colorName: string): Appearance | undefined => {
   }
 };
 
+const checkAndConvertToAbsoluteUrl = (
+  url: string,
+  siteUrl?: string,
+): string => {
+  if (!url) {
+    return '';
+  }
+
+  if (/^data:(.*)/.test(url) || /^http(.*)/.test(url) || !siteUrl) {
+    return url;
+  }
+
+  return `${siteUrl}${url}`;
+};
+
 function mapNodeToOption({
   displayName,
   jqlTerm,
@@ -33,7 +49,8 @@ function mapNodeToOption({
   project,
   statusCategory,
   user,
-}: AggJqlBuilderFieldNode): SelectOption | null {
+  siteUrl,
+}: AggJqlBuilderFieldNode & { siteUrl?: string }): SelectOption | null {
   try {
     const baseProps = {
       label: displayName,
@@ -63,7 +80,7 @@ function mapNodeToOption({
       return {
         ...baseProps,
         optionType: 'iconLabel',
-        icon: project.avatar?.small,
+        icon: checkAndConvertToAbsoluteUrl(project.avatar?.small, siteUrl),
       };
     }
 
@@ -71,7 +88,10 @@ function mapNodeToOption({
       return {
         ...baseProps,
         optionType: 'iconLabel',
-        icon: issueTypes[0]?.avatar.small,
+        icon: checkAndConvertToAbsoluteUrl(
+          issueTypes[0]?.avatar.small,
+          siteUrl,
+        ),
       };
     }
 
@@ -95,10 +115,10 @@ export function mapHydrateResponseData({ data }: HydrateResponse) {
   data?.jira?.jqlBuilder?.hydrateJqlQuery?.fields?.forEach(
     ({ jqlTerm, values = [] }) => {
       /**
-       * Currently, the hydrate query does not support text field in JQL and returns as {} object.
-       * Hence we check if a valid jqlTerm is available
+       * Currently, we expect to hydrate only the 4 filter fields that we use.
+       * Hence we check if jqlTerm is one of the values in availableBasicFilterTypes
        */
-      if (!jqlTerm) {
+      if (!availableBasicFilterTypes.includes(jqlTerm)) {
         return;
       }
 
@@ -118,10 +138,13 @@ export function mapHydrateResponseData({ data }: HydrateResponse) {
 
 export function mapFieldValuesToFilterOptions({
   data,
-}: FieldValuesResponse): SelectOption[] {
+  siteUrl,
+}: FieldValuesResponse & { siteUrl?: string }): SelectOption[] {
   return (
     data?.jira?.jqlBuilder?.fieldValues?.edges
-      ?.map(edge => (edge.node ? mapNodeToOption(edge.node) : null))
+      ?.map(edge =>
+        edge.node ? mapNodeToOption({ ...edge.node, siteUrl }) : null,
+      )
       .filter(isNonNullSelectOption) || []
   );
 }

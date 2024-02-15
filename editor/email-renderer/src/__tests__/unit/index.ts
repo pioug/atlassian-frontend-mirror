@@ -36,6 +36,7 @@ import * as mediaGroupAllTypes from './__fixtures__/media-group-all-types.adf.js
 import * as mediaInline from './__fixtures__/media-inline.adf.json';
 import * as caption from './__fixtures__/caption.adf.json';
 import * as mediaInlineAllTypes from './__fixtures__/media-inline-all-types.adf.json';
+import * as mediaInlineImageAllTypes from './__fixtures__/media-inline-image-all-types.adf.json';
 import * as lists from './__fixtures__/lists.adf.json';
 import * as orderedList from './__fixtures__/ordered-list.adf.json';
 import * as text from './__fixtures__/text.adf.json';
@@ -45,6 +46,9 @@ import * as image from './__fixtures__/image.adf.json';
 import * as placeholder from './__fixtures__/placeholder.adf.json';
 import * as annotation from './__fixtures__/annotation.adf.json';
 import * as breakout from './__fixtures__/breakout.adf.json';
+import * as blockquoteWithList from './__fixtures__/blockquote-with-list.json';
+import * as actionInsideList from './__fixtures__/action-inside-list.adf.json';
+import * as extendedPanel from './__fixtures__/extended-panel.adf.json';
 import type { MetaDataContext } from '../../interfaces';
 
 const defaultTestOpts: EmailSerializerOpts = {
@@ -200,6 +204,15 @@ describe('Renderer - EmailSerializer', () => {
 
   it('should render media inline correctly', () => {
     const { result } = render(mediaInline);
+    expect(result).toMatchSnapshot('html');
+  });
+
+  it('should render media with images inline correctly', () => {
+    const { result } = render(
+      mediaInlineImageAllTypes,
+      undefined,
+      mediaContext,
+    );
     expect(result).toMatchSnapshot('html');
   });
 
@@ -405,6 +418,21 @@ describe('Renderer - EmailSerializer', () => {
 
   it('should render media inline based on given context', () => {
     const { result } = render(mediaInlineAllTypes, undefined, mediaContext);
+    expect(result).toMatchSnapshot('html');
+  });
+
+  it('should render list inside a blockquote', () => {
+    const { result } = render(blockquoteWithList, undefined, mediaContext);
+    expect(result).toMatchSnapshot('html');
+  });
+
+  it('should render actions inside list', () => {
+    const { result } = render(actionInsideList, undefined, mediaContext);
+    expect(result).toMatchSnapshot('html');
+  });
+
+  it('should render action, code-block, decision, media, rule inside panel', () => {
+    const { result } = render(extendedPanel, undefined, mediaContext);
     expect(result).toMatchSnapshot('html');
   });
 });

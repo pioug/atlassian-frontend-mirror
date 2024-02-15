@@ -25,8 +25,9 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { hideLinkToolbar, showLinkToolbar } from '../commands';
 import { stateKey } from '../pm-plugins/main';
 
+import { toolbarKey } from './toolbar-buttons';
+
 export function createKeymapPlugin(
-  skipAnalytics: boolean = false,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ): SafePlugin | undefined {
   const list = {};
@@ -39,13 +40,13 @@ export function createKeymapPlugin(
 
   bindKeymapWithCommand(
     enter.common!,
-    mayConvertLastWordToHyperlink(skipAnalytics, editorAnalyticsApi),
+    mayConvertLastWordToHyperlink(editorAnalyticsApi),
     list,
   );
 
   bindKeymapWithCommand(
     insertNewLine.common!,
-    mayConvertLastWordToHyperlink(skipAnalytics, editorAnalyticsApi),
+    mayConvertLastWordToHyperlink(editorAnalyticsApi),
     list,
   );
 
@@ -69,10 +70,11 @@ export function createKeymapPlugin(
 }
 
 const mayConvertLastWordToHyperlink: (
-  skipAnalytics: boolean,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-) => Command = (skipAnalytics, editorAnalyticsApi) => {
+) => Command = editorAnalyticsApi => {
   return function (state, dispatch) {
+    const skipAnalytics = toolbarKey.getState(state)?.skipAnalytics ?? false;
+
     const nodeBefore = state.selection.$from.nodeBefore;
     if (!nodeBefore || !nodeBefore.isText || !nodeBefore.text) {
       return false;

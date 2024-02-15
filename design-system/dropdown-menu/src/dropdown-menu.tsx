@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
@@ -99,6 +99,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
   testId,
   trigger,
   zIndex = layers.modal(),
+  label,
 }: DropdownMenuProps<T>) => {
   const [isLocalOpen, setLocalIsOpen] = useControlledState(
     isOpen,
@@ -106,6 +107,9 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
   );
 
   const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
+  const id = useGeneratedId();
+  const itemRef = useRegisterItemWithFocusManager();
+
   const fallbackPlacements = useMemo(
     () => getFallbackPlacements(placement),
     [placement],
@@ -120,6 +124,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
     (event) => {
       const newValue = !isLocalOpen;
       const { clientX, clientY, type, detail } = event;
+
       if (type === 'keydown') {
         setTriggeredUsingKeyboard(true);
       } else if (clientX === 0 || clientY === 0) {
@@ -129,12 +134,15 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
       } else if (detail === 0) {
         // Fix for Safari. clientX and clientY !== 0 in Safari
         setTriggeredUsingKeyboard(true);
+      } else {
+        // The trigger element must be focused to avoid problems with an incorrectly focused element after closing DropdownMenu
+        itemRef?.current?.focus();
       }
 
       setLocalIsOpen(newValue);
       onOpenChange({ isOpen: newValue, event });
     },
-    [onOpenChange, isLocalOpen, setLocalIsOpen],
+    [itemRef, onOpenChange, isLocalOpen, setLocalIsOpen],
   );
 
   const handleOnClose = useCallback(
@@ -189,9 +197,6 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
     });
   }, [isFocused, isLocalOpen, handleTriggerClicked]);
 
-  const id = useGeneratedId();
-  const itemRef = useRegisterItemWithFocusManager();
-
   return (
     <SelectionStore>
       <Popup
@@ -235,9 +240,10 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
               aria-expanded={ariaExpanded}
               aria-haspopup={ariaHasPopup}
               isSelected={isLocalOpen}
-              iconAfter={<ExpandIcon size="medium" label="" />}
+              iconAfter={ExpandIcon}
               onClick={handleTriggerClicked}
               testId={testId && `${testId}--trigger`}
+              aria-label={label}
             >
               {trigger}
             </Button>

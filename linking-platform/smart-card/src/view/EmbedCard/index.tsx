@@ -1,21 +1,15 @@
 import React from 'react';
 import { JsonLd } from 'json-ld-types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
-
 import { EmbedCardProps } from './types';
 import { extractEmbedProps } from '../../extractors/embed';
 import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
 import { extractBlockProps } from '../../extractors/block';
-import { getExtensionKey } from '../../state/helpers';
-import { extractRequestAccessContext } from '../../extractors/common/context';
+import { getExtensionKey, hasAuthScopeOverrides } from '../../state/helpers';
 import { BlockCardResolvedView, BlockCardResolvingView } from '../BlockCard';
 import { InlineCardResolvedView } from '../InlineCard/ResolvedView';
-import { EmbedCardForbiddenView } from './views/ForbiddenView';
-import { EmbedCardNotFoundView } from './views/NotFoundView';
 import { EmbedCardResolvedView } from './views/ResolvedView';
-import { EmbedCardUnauthorisedView } from './views/UnauthorisedView';
 import { EmbedCardErroredView } from './views/ErroredView';
 import ForbiddenView from './views/forbidden-view';
 import NotFoundView from './views/not-found-view';
@@ -32,7 +26,6 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
       handleFrameClick,
       analytics,
       handleInvoke,
-      showActions,
       isSelected,
       isFrameVisible,
       frameStyle,
@@ -44,6 +37,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
       onIframeDwell,
       onIframeFocus,
       iframeUrlType,
+      actionOptions,
     },
     iframeRef,
   ) => {
@@ -53,6 +47,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
       ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
     const meta = (details && details.meta) as JsonLd.Meta.BaseMeta;
     const extensionKey = getExtensionKey(details);
+    const isProductIntegrationSupported = hasAuthScopeOverrides(details);
 
     switch (status) {
       case 'pending':
@@ -110,13 +105,13 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
             origin: 'smartLinkEmbed',
             handleInvoke,
             extensionKey,
+            actionOptions,
           });
           return (
             <BlockCardResolvedView
               {...resolvedBlockViewProps}
               isSelected={isSelected}
               testId={testId}
-              showActions={showActions}
               onClick={handleFrameClick}
             />
           );
@@ -126,33 +121,18 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           onError({ url, status });
         }
         const unauthorisedViewProps = extractEmbedProps(data, meta, platform);
-
-        if (getBooleanFF('platform.linking-platform.smart-card.cross-join')) {
-          return (
-            <UnauthorizedView
-              analytics={analytics}
-              context={unauthorisedViewProps.context}
-              extensionKey={extensionKey}
-              inheritDimensions={inheritDimensions}
-              isSelected={isSelected}
-              onAuthorize={handleAuthorize}
-              onClick={handleFrameClick}
-              testId={testId}
-              url={unauthorisedViewProps.link}
-            />
-          );
-        }
-
         return (
-          <EmbedCardUnauthorisedView
-            {...unauthorisedViewProps}
-            isSelected={isSelected}
-            onAuthorise={handleAuthorize}
-            inheritDimensions={inheritDimensions}
-            onClick={handleFrameClick}
+          <UnauthorizedView
             analytics={analytics}
+            context={unauthorisedViewProps.context}
             extensionKey={extensionKey}
+            isProductIntegrationSupported={isProductIntegrationSupported}
+            inheritDimensions={inheritDimensions}
+            isSelected={isSelected}
+            onAuthorize={handleAuthorize}
+            onClick={handleFrameClick}
             testId={testId}
+            url={unauthorisedViewProps.link}
           />
         );
       case 'forbidden':
@@ -176,40 +156,22 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           );
         }
 
-        if (getBooleanFF('platform.linking-platform.smart-card.cross-join')) {
-          const accessContext = extractRequestAccessContextImproved({
-            jsonLd: cardMetadata,
-            url,
-            product: forbiddenViewProps.context?.text ?? '',
-            createAnalyticsEvent,
-          });
-
-          return (
-            <ForbiddenView
-              context={forbiddenViewProps.context}
-              inheritDimensions={inheritDimensions}
-              isSelected={isSelected}
-              onAuthorize={handleAuthorize}
-              onClick={handleFrameClick}
-              accessContext={accessContext}
-              url={forbiddenViewProps.link}
-            />
-          );
-        }
-
-        const requestAccessContext = extractRequestAccessContext({
+        const forbiddenAccessContext = extractRequestAccessContextImproved({
           jsonLd: cardMetadata,
           url,
-          context: forbiddenViewProps.context?.text,
+          product: forbiddenViewProps.context?.text ?? '',
+          createAnalyticsEvent,
         });
+
         return (
-          <EmbedCardForbiddenView
-            {...forbiddenViewProps}
-            isSelected={isSelected}
-            onAuthorise={handleAuthorize}
+          <ForbiddenView
+            context={forbiddenViewProps.context}
             inheritDimensions={inheritDimensions}
+            isSelected={isSelected}
+            onAuthorize={handleAuthorize}
             onClick={handleFrameClick}
-            requestAccessContext={requestAccessContext}
+            accessContext={forbiddenAccessContext}
+            url={forbiddenViewProps.link}
           />
         );
       case 'not_found':
@@ -218,34 +180,23 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
         }
         const notFoundViewProps = extractEmbedProps(data, meta, platform);
 
-        if (getBooleanFF('platform.linking-platform.smart-card.cross-join')) {
-          const accessContext = details?.meta
-            ? extractRequestAccessContextImproved({
-                jsonLd: details?.meta,
-                url,
-                product: notFoundViewProps.context?.text ?? '',
-                createAnalyticsEvent,
-              })
-            : undefined;
-
-          return (
-            <NotFoundView
-              context={notFoundViewProps.context}
-              inheritDimensions={inheritDimensions}
-              isSelected={isSelected}
-              onClick={handleFrameClick}
-              accessContext={accessContext}
-              url={notFoundViewProps.link}
-            />
-          );
-        }
+        const notFoundAccessContext = details?.meta
+          ? extractRequestAccessContextImproved({
+              jsonLd: details?.meta,
+              url,
+              product: notFoundViewProps.context?.text ?? '',
+              createAnalyticsEvent,
+            })
+          : undefined;
 
         return (
-          <EmbedCardNotFoundView
-            {...notFoundViewProps}
-            isSelected={isSelected}
+          <NotFoundView
+            context={notFoundViewProps.context}
             inheritDimensions={inheritDimensions}
+            isSelected={isSelected}
             onClick={handleFrameClick}
+            accessContext={notFoundAccessContext}
+            url={notFoundViewProps.link}
           />
         );
       case 'fallback':

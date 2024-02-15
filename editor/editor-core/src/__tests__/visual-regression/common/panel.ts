@@ -1,25 +1,7 @@
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  initFullPageEditorWithAdf,
-  snapshot,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
-import * as panel from './__fixtures__/panel-adf.json';
-import * as basicPanel from './__fixtures__/basic-panel-adf.json';
-import * as customPanel from './__fixtures__/custom-panel-adf.json';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  waitForFloatingControl,
-  retryUntilStablePosition,
-} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   PanelSharedCssClassName,
   PanelSharedSelectors,
 } from '@atlaskit/editor-common/panel';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForEmojisToLoad } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -27,6 +9,25 @@ import {
   pressKey,
   pressWithKeyModifier,
 } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  retryUntilStablePosition,
+  waitForFloatingControl,
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import * as basicPanel from './__fixtures__/basic-panel-adf.json';
+import * as customPanel from './__fixtures__/custom-panel-adf.json';
+import * as panel from './__fixtures__/panel-adf.json';
 
 describe('Panel:', () => {
   let page: PuppeteerPage;
@@ -158,8 +159,7 @@ describe('custom panels', () => {
     await page.hover(`${PanelSharedSelectors.title}`);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 22/08/2023: https://product-fabric.atlassian.net/browse/ED-19651
-  it.skip('remove emoji icon from custom panel', async () => {
+  it('remove emoji icon from custom panel', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);
     const selectedEmoji = `${PanelSharedSelectors.selectedEmoji}`;
@@ -179,8 +179,7 @@ describe('custom panels', () => {
     await page.hover(`${PanelSharedSelectors.title}`);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 22/08/2023: https://product-fabric.atlassian.net/browse/ED-19652
-  it.skip('updates the panel and add emoji icon', async () => {
+  it('updates the panel and add emoji icon', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);
     const selectedEmoji = `${PanelSharedSelectors.selectedEmoji}`;
@@ -192,8 +191,7 @@ describe('custom panels', () => {
     await page.click(`${PanelSharedSelectors.title}`);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 22/08/2023: https://product-fabric.atlassian.net/browse/ED-19653
-  it.skip('should show emoji picker on top of the toolbar', async () => {
+  it('should show emoji picker on top of the toolbar', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await pressKey(page, [
       'ArrowRight',
@@ -219,8 +217,7 @@ describe('custom panels', () => {
       await page.click(`${PanelSharedSelectors.noteButton}`);
     });
 
-    // FIXME: This test was manually skipped due to failure on 23/08/2023: https://product-fabric.atlassian.net/browse/ED-19654
-    it.skip('ColorPicker when clicked on EmojiPicker', async () => {
+    it('ColorPicker when clicked on EmojiPicker', async () => {
       await page.click(`.${PanelSharedCssClassName.icon}`);
       await page.click(`${PanelSharedSelectors.colorPalette}`);
       await page.click(`${PanelSharedSelectors.emojiIcon}`);
@@ -252,8 +249,7 @@ describe('custom panels', () => {
     });
   });
 
-  // FIXME: This test was automatically skipped due to failure on 22/08/2023: https://product-fabric.atlassian.net/browse/ED-19655
-  it.skip('should open custom Emoji option when clicked on addYourOwnEmoji button', async () => {
+  it('should open custom Emoji option when clicked on addYourOwnEmoji button', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);
     await page.click(`${PanelSharedSelectors.addYourOwnEmoji}`);
@@ -262,8 +258,7 @@ describe('custom panels', () => {
     await page.click(`${PanelSharedSelectors.emojiPopup} input`);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 22/08/2023: https://product-fabric.atlassian.net/browse/ED-19656
-  it.skip('with a duplicate short name, should be able select yellow warning emoji', async () => {
+  it('with a duplicate short name, should be able select yellow warning emoji', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.warningButton}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);
@@ -304,8 +299,7 @@ describe('Dark mode panel', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 24/05/2023: https://product-fabric.atlassian.net/browse/ED-18043
-  it.skip('Should render standard panels', async () => {
+  it('Should render standard panels', async () => {
     adfContent = panel;
     await initFullPageEditorWithAdf(
       page,

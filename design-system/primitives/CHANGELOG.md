@@ -1,5 +1,117 @@
 # @atlaskit/primitives
 
+## 2.0.2
+
+### Patch Changes
+
+- [#72557](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72557) [`0c78c9c18cb7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c78c9c18cb7) - Fix font family not preferencing apple system fonts on macOS
+
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.0
+
+### Major Changes
+
+- [#68009](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68009) [`1168354ed6ef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1168354ed6ef) - We now ensure the specificity of our `xcss`-based overrides are consistent across all primitives so `xcss` will always override props.
+
+  This resulted in a breaking change wtih Grid. For example, `<Grid templateAreas="…" xcss({ gridTemplateAreas: "…" })>` will result in different styles resolution before and after this version. This applies to `templateAreas`, `templateColumns`, and `templateRows`). From static analysis, we found only one known usage of this and it has been resolved.
+
+## 1.20.0
+
+### Minor Changes
+
+- [#68163](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68163) [`67d09e3f972d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/67d09e3f972d) - `weight` property added to `Text` to allow overriding text variant default font weight.
+- [#69343](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69343) [`77249f536425`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77249f536425) - `Text` color prop defaults to `color.text` if not provided.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.19.0
+
+### Minor Changes
+
+- [#66702](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66702) [`5b6bbaf2d5fc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b6bbaf2d5fc) - Added `maxLines` prop to `Text` component, allowing truncation at a certain number of lines. This prop replaces `shouldTruncate` prop.
+
+### Patch Changes
+
+- [#67698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67698) [`175c07b58c52`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/175c07b58c52) - Export tokensMap object
+
+## 1.18.0
+
+### Minor Changes
+
+- [#67463](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67463) [`adf1c3ebf0fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/adf1c3ebf0fd) - Fixed an issue with `Text` where text could render incorrectly if a typography token theme was not present on a page.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.17.0
+
+### Minor Changes
+
+- [#65770](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65770) [`1e2db2714522`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1e2db2714522) - The `shouldTruncate` prop on `Text` is now only available for `body` variants and cannot be used with `ui` variants.
+
+## 1.16.0
+
+### Minor Changes
+
+- [#63526](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63526) [`e8835feffae9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e8835feffae9) - Internal change to improve token sorting logic for typography tokens. Typography tokens are now marked as active though they are still in development and not recommend for use without prior approval from ADS.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.15.2
+
+### Patch Changes
+
+- [#61090](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61090) [`2e34d3535125`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e34d3535125) - - Fixed issue where using negative space tokens in `xcss` wouldn't apply.
+  - Allow negative space tokens for position properties in `xcss` (i.e. top, bottom, left, right, and inset-\*).
+
+## 1.15.1
+
+### Patch Changes
+
+- [#57241](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57241) [`cae2e80ae968`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cae2e80ae968) - Migrate webdriver tests for @atlassian/product-search-dialog
+
+## 1.15.0
+
+### Minor Changes
+
+- [#60570](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60570) [`d74bd13bec9c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d74bd13bec9c) - Restrict usage of data-testid to primitives (`testId` should be used instead). This prop is currently silently ignored so this is just to follow the principle of least surprise when using primitives.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.14.0
+
+### Minor Changes
+
+- [#58048](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58048) [`cc9e9495e995`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cc9e9495e995) - Export `media.only` and `media.below` for Compiled CSS-in-JS support.
+
+## 1.13.1
+
+### Patch Changes
+
+- [#58444](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58444) [`c0499565188d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c0499565188d) - Update package.json documentation metadata.
+
+## 1.13.0
+
+### Minor Changes
+
+- [#57795](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57795) [`d2c06815d043`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2c06815d043) - - Inline: Allow `role` prop to be passed through. `role` already existed in the type, but was not actually applied to the component.
+  - Stack: Allow `role` prop to be passed through. `role` already existed in the type, but was not actually applied to the component.
+  - Flex: Allow `role` prop to be passed through. `role` already existed in the type, but was not actually applied to the component.
+  - Text: Omit `xcss` from prop types. `<Text xcss={yourStyles}></Text>` will now throw a type error. `xcss` was previously non-functional in `Text`. So, this should not cause any behavior change.
+  - xcss: Export XCSS type from main entry point. It is now possible to `import { xcss, type XCSS } from '@atlaskit/primitives'`.
+
 ## 1.12.0
 
 ### Minor Changes

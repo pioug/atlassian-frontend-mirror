@@ -41,6 +41,7 @@ export function CardWithURLRenderer(props: CardProps) {
     url,
     appearance,
     isSelected,
+    isHovered,
     isFrameVisible,
     frameStyle,
     onClick,
@@ -50,6 +51,7 @@ export function CardWithURLRenderer(props: CardProps) {
     testId,
     showActions,
     showServerActions,
+    actionOptions,
     inheritDimensions,
     platform,
     embedIframeRef,
@@ -62,6 +64,7 @@ export function CardWithURLRenderer(props: CardProps) {
     analyticsEvents,
     placeholder,
     fallbackComponent,
+    useLegacyBlockCard,
   } = props;
 
   const analytics = useSmartLinkAnalytics(url ?? '', undefined, id);
@@ -124,6 +127,7 @@ export function CardWithURLRenderer(props: CardProps) {
     appearance,
     onClick,
     isSelected,
+    isHovered,
     isFrameVisible,
     frameStyle,
     container,
@@ -132,6 +136,7 @@ export function CardWithURLRenderer(props: CardProps) {
     testId,
     showActions,
     showServerActions,
+    actionOptions,
     inheritDimensions,
     platform,
     embedIframeRef,
@@ -142,6 +147,7 @@ export function CardWithURLRenderer(props: CardProps) {
     showAuthTooltip,
     analyticsEvents,
     placeholder,
+    useLegacyBlockCard,
   };
 
   return (

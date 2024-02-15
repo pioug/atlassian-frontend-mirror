@@ -1,10 +1,12 @@
 import React from 'react';
+
+import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
-import prepareQuickInsertProvider from '../../prepare-quick-insert-provider';
-import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
+
 import EditorActions from '../../../actions';
 import * as extensionUtils from '../../extensions';
+import prepareQuickInsertProvider from '../../prepare-quick-insert-provider';
 
 describe('providers', () => {
   const quickInsertProvider = Promise.resolve({} as QuickInsertProvider);

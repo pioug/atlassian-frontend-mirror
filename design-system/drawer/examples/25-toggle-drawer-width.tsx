@@ -4,7 +4,7 @@ import { Component } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 
 import Drawer, { DrawerWidth } from '../src';
 import { widths } from '../src/constants';

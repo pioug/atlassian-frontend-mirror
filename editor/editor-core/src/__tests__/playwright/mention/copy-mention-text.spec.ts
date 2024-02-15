@@ -1,15 +1,16 @@
 import {
-  editorTestCase as test,
-  expect,
   EditorNodeContainerModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  p,
+  code_block,
   doc,
   mention,
-  code_block,
+  p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { cardAndMentionAdf } from './copy-mention-text.spec.ts-fixtures/adf';
 
 test.describe('Mention Copy', () => {

@@ -2,12 +2,10 @@ import React from 'react';
 import { Frame } from '../Frame';
 import Lozenge from '@atlaskit/lozenge';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import {
-  LozengeWrapper,
-  LozengeBlockWrapper,
-} from '../IconAndTitleLayout/styled';
+import { LozengeWrapper } from '../IconAndTitleLayout/styled';
 import { LozengeProps } from '../../../types';
-import { HoverCard } from '../../../view/HoverCard/index';
+import { HoverCard } from '../../HoverCard/index';
+import type { CardActionOptions } from '../../Card/types';
 
 export interface InlineCardResolvedViewProps {
   /** A unique ID for a Smart Link. */
@@ -20,6 +18,8 @@ export interface InlineCardResolvedViewProps {
   lozenge?: LozengeProps;
   /** A flag that determines whether the card is selected in edit mode. */
   isSelected?: boolean;
+  /** A flag that determines whether a card is in hover state in edit mode. Currently used for inline only */
+  isHovered?: boolean;
   /** The optional url */
   link?: string;
   /** The optional click handler */
@@ -32,8 +32,8 @@ export interface InlineCardResolvedViewProps {
   titlePrefix?: React.ReactNode;
   /** Enables showing a custom preview on hover of link */
   showHoverPreview?: boolean;
-  /** Show server actions that change the link resource, e.g. update status. */
-  showServerActions?: boolean;
+  /** Configure visibility of server and client actions */
+  actionOptions?: CardActionOptions;
 }
 
 export class InlineCardResolvedView extends React.Component<InlineCardResolvedViewProps> {
@@ -43,17 +43,15 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
       return null;
     }
     return (
-      <LozengeBlockWrapper>
-        <LozengeWrapper>
-          <Lozenge
-            testId="inline-card-resolved-view-lozenge"
-            appearance={lozenge.appearance || 'default'}
-            isBold={lozenge.isBold}
-          >
-            {lozenge.text}
-          </Lozenge>
-        </LozengeWrapper>
-      </LozengeBlockWrapper>
+      <LozengeWrapper>
+        <Lozenge
+          testId="inline-card-resolved-view-lozenge"
+          appearance={lozenge.appearance || 'default'}
+          isBold={lozenge.isBold}
+        >
+          {lozenge.text}
+        </Lozenge>
+      </LozengeWrapper>
     );
   }
 
@@ -62,6 +60,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
       id,
       title = '',
       isSelected,
+      isHovered,
       onClick,
       icon,
       link,
@@ -69,7 +68,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
       titleTextColor,
       titlePrefix,
       showHoverPreview = false,
-      showServerActions = false,
+      actionOptions,
     } = this.props;
 
     const inlineCardResolvedView = (
@@ -77,6 +76,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
         testId={testId}
         link={link}
         isSelected={isSelected}
+        isHovered={isHovered}
         onClick={onClick}
       >
         <IconAndTitleLayout
@@ -91,7 +91,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 
     if (showHoverPreview && link) {
       return (
-        <HoverCard id={id} showServerActions={showServerActions} url={link}>
+        <HoverCard id={id} url={link} actionOptions={actionOptions}>
           {inlineCardResolvedView}
         </HoverCard>
       );

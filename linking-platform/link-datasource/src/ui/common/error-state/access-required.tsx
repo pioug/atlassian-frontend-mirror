@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
 import EmptyState from '@atlaskit/empty-state';
+import { Box, xcss } from '@atlaskit/primitives';
 import { N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -25,8 +26,8 @@ const descriptionMessageStyles = css({
   gap: token('space.200', '16px'),
 });
 
-const iconContainerStyles = css({
-  marginBottom: token('space.200', '16px'),
+const iconContainerStyles = xcss({
+  marginBottom: 'space.200',
 });
 
 const Description = ({ message, url }: { message: string; url: string }) => {
@@ -39,9 +40,9 @@ const Description = ({ message, url }: { message: string; url: string }) => {
 };
 
 const IconContainer = () => (
-  <div css={iconContainerStyles}>
+  <Box xcss={iconContainerStyles}>
     <AccessRequiredSVG />
-  </div>
+  </Box>
 );
 
 interface AccessRequiredProps {

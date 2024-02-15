@@ -1,17 +1,17 @@
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
+import { contextPanelSelectors } from '@atlaskit/editor-test-helpers/page-objects/context-panel';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   insertTable,
   tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
-import { contextPanelSelectors } from '@atlaskit/editor-test-helpers/page-objects/context-panel';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   focusEditor,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 export async function goToFullPageWithTemplateContextPanel() {
   const url = getExampleUrl(

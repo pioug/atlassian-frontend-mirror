@@ -3,10 +3,8 @@ import Page, { Grid, GridColumn } from '@atlaskit/page';
 import { Label } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
 import { IntlProvider } from 'react-intl-next';
-import { InlineCardUnauthorizedView } from '../src/view/InlineCard/UnauthorisedView';
 import { mockAnalytics } from '../src/utils/mocks';
-import { InlineCardUnauthorizedView as RedesignedInlineCardUnauthorisedView } from '../src/view/RedesignedInlineCard/UnauthorisedView';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { InlineCardUnauthorizedView as UnauthorizedView } from '../src/view/InlineCard/UnauthorisedView';
 
 class Example extends React.Component {
   state = {
@@ -18,12 +16,6 @@ class Example extends React.Component {
   };
 
   render() {
-    const UnauthorizedView = getBooleanFF(
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-    )
-      ? RedesignedInlineCardUnauthorisedView
-      : InlineCardUnauthorizedView;
-
     return (
       <IntlProvider locale={'en'}>
         <Page>

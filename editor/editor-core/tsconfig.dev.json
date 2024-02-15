@@ -28,6 +28,10 @@
   ],
   "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
   "compilerOptions": {
+    "types": [
+      "@emotion/react/types/css-prop",
+      "@types/testing-library__jest-dom"
+    ],
     "baseUrl": "./",
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__editor-core/dev"
@@ -76,9 +80,6 @@
       "path": "../../design-system/checkbox/tsconfig.app.json"
     },
     {
-      "path": "../../design-system/code/tsconfig.app.json"
-    },
-    {
       "path": "../collab-provider/tsconfig.app.json"
     },
     {
@@ -97,157 +98,28 @@
       "path": "../editor-common/tsconfig.app.json"
     },
     {
-      "path": "../extension-dropbox/tsconfig.app.json"
-    },
-    {
       "path": "../editor-json-transformer/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-mobile-bridge/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-palette/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-analytics/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-base/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-better-type-history/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-block-type/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-caption/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-card/tsconfig.app.json"
     },
     {
-      "path": "../editor-plugin-code-block/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-composition/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-content-insertion/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-context-panel/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-copy-button/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-date/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-decorations/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-editor-disabled/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-emoji/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-expand/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-extension/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-feature-flags/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-floating-toolbar/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-focus/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-grid/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-guideline/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-help-dialog/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-history/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-hyperlink/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-insert-block/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-layout/tsconfig.app.json"
+      "path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-list/tsconfig.app.json"
     },
     {
-      "path": "../editor-plugin-media/tsconfig.app.json"
+      "path": "../editor-plugin-paste/tsconfig.app.json"
     },
     {
-      "path": "../editor-plugin-mentions/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-panel/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-placeholder/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-placeholder-text/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-quick-insert/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-rule/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-scroll-into-view/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-selection/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-status/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-submit-editor/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-table/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-tasks-and-decisions/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-text-color/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-text-formatting/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-type-ahead/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-unsupported-content/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-width/tsconfig.app.json"
+      "path": "../editor-plugins/tsconfig.app.json"
     },
     {
       "path": "../editor-shared-styles/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-tables/tsconfig.app.json"
     },
     {
       "path": "../editor-test-helpers/tsconfig.app.json"
@@ -263,12 +135,6 @@
     },
     {
       "path": "../../design-system/icon/tsconfig.app.json"
-    },
-    {
-      "path": "../../linking-platform/link-analytics/tsconfig.app.json"
-    },
-    {
-      "path": "../../linking-platform/link-picker/tsconfig.app.json"
     },
     {
       "path": "../../linking-platform/link-provider/tsconfig.app.json"
@@ -304,9 +170,6 @@
       "path": "../../elements/mention/tsconfig.app.json"
     },
     {
-      "path": "../../design-system/menu/tsconfig.app.json"
-    },
-    {
       "path": "../../design-system/modal-dialog/tsconfig.app.json"
     },
     {
@@ -314,6 +177,9 @@
     },
     {
       "path": "../../platform/feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/primitives/tsconfig.app.json"
     },
     {
       "path": "../../design-system/radio/tsconfig.app.json"
@@ -370,13 +236,7 @@
       "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
     },
     {
-      "path": "../../../build/test-tooling/webdriver-runner/tsconfig.app.json"
-    },
-    {
       "path": "../../design-system/width-detector/tsconfig.app.json"
-    },
-    {
-      "path": "../../linking-platform/editor-extension-link-create/tsconfig.app.json"
     },
     {
       "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"

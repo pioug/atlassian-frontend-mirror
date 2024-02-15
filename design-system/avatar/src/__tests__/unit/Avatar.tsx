@@ -2,6 +2,7 @@
 import React, { FC, MouseEventHandler, ReactNode } from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import cases from 'jest-in-case';
 
 import {
   AnalyticsEventPayload,
@@ -89,18 +90,55 @@ describe('Avatar', () => {
     expect(element).not.toHaveAttribute('rel');
   });
 
-  it('should render a custom component if supplied', () => {
+  describe('Custom Avatar', () => {
     const MyComponent: FC<{ children: ReactNode; testId?: string }> = ({
-      testId,
       children,
-    }) => <div data-testid={testId}>{children}</div>;
-
-    render(
-      <Avatar testId={'avatar'} href={'https://atlaskit.atlassian.com/'}>
-        {({ ref, ...props }) => <MyComponent {...props} />}
-      </Avatar>,
+      testId,
+      ...props
+    }) => (
+      // Allow spread props here because for testing, we want everything
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+      <div data-testid={testId} {...props}>
+        {children}
+      </div>
     );
-    expect(screen.getByTestId('avatar--inner').tagName).toEqual('DIV');
+    const name = 'Name';
+    const status = 'Status';
+
+    it('should render', () => {
+      render(
+        <Avatar testId={'avatar'} href={'https://atlaskit.atlassian.com/'}>
+          {({ ref, ...props }) => <MyComponent {...props} />}
+        </Avatar>,
+      );
+      expect(screen.getByTestId('avatar--inner').tagName).toEqual('DIV');
+    });
+
+    it('should add an `aria-label` regardless of interactivity', () => {
+      const interactiveTestId = 'interactive';
+      const nonInteractiveTestId = 'not-interactive';
+      render(
+        <>
+          <Avatar
+            testId={interactiveTestId}
+            href={'https://atlaskit.atlassian.com/'}
+            name={name}
+            status={status}
+          >
+            {({ ref, ...props }) => <MyComponent {...props} />}
+          </Avatar>
+          <Avatar testId={nonInteractiveTestId} name={name} status={status}>
+            {({ ref, ...props }) => <MyComponent {...props} />}
+          </Avatar>
+        </>,
+      );
+      [interactiveTestId, nonInteractiveTestId].forEach((testId) => {
+        expect(screen.getByTestId(`${testId}--inner`)).toHaveAttribute(
+          'aria-label',
+          `${name} (${status})`,
+        );
+      });
+    });
   });
 
   it('should call onClick with analytics event when clicked', () => {
@@ -335,6 +373,127 @@ describe('Avatar', () => {
     expect(onClick).not.toHaveBeenCalled();
   });
 
+  it('should put `name` and `status` or `presence` together on an `img` element', () => {
+    const name = 'name';
+    const presence = 'presence';
+
+    render(<Avatar name={name} presence={presence} />);
+
+    expect(screen.getByRole('img')).toHaveAccessibleName(
+      new RegExp(`${name}.*${presence}`, 'g'),
+    );
+  });
+
+  it('should not render image role if no text or src is provided', () => {
+    render(<Avatar />);
+
+    expect(screen.queryByRole('img')).not.toBeInTheDocument();
+  });
+
+  // Every combination of src, name, and presence to ensure everything gets the
+  // proper accessible name
+  const imageRoleTestCases = [
+    {
+      name: 'src',
+      src: true,
+      _name: false,
+      presence: false,
+    },
+    {
+      name: 'src, name',
+      src: true,
+      _name: true,
+      presence: false,
+    },
+    {
+      name: 'name',
+      src: false,
+      _name: true,
+      presence: false,
+    },
+    {
+      name: 'src, presence',
+      src: true,
+      _name: false,
+      presence: true,
+    },
+    {
+      name: 'presence',
+      src: false,
+      _name: false,
+      presence: true,
+    },
+    {
+      name: 'src, name, presence',
+      src: true,
+      _name: true,
+      presence: true,
+    },
+    {
+      name: 'name, presence',
+      src: false,
+      _name: true,
+      presence: true,
+    },
+  ];
+
+  cases(
+    'should render an image role when label text is present on non-interactive avatars',
+    ({
+      src,
+      _name,
+      presence,
+    }: {
+      src: boolean;
+      _name: boolean;
+      presence: boolean;
+    }) => {
+      const imageSrc = 'data:image/png;base64,';
+
+      render(
+        <Avatar
+          src={src ? imageSrc : undefined}
+          name={_name ? 'name' : undefined}
+          presence={presence ? 'presence' : undefined}
+        />,
+      );
+
+      // Label text contains any combination of name, presence, and status
+      const expectedRoles = _name || presence ? 1 : 0;
+      expect(screen.queryAllByRole('img')).toHaveLength(expectedRoles);
+    },
+    imageRoleTestCases,
+  );
+
+  cases(
+    'should render an image role when an image and a name is provided on interactive avatars',
+    ({
+      src,
+      _name,
+      presence,
+    }: {
+      src: boolean;
+      _name: boolean;
+      presence: boolean;
+    }) => {
+      const imageSrc = 'data:image/png;base64,';
+
+      render(
+        <Avatar
+          src={src ? imageSrc : undefined}
+          name={_name ? 'name' : undefined}
+          presence={presence ? 'presence' : undefined}
+          onClick={__noop}
+        />,
+      );
+
+      // If an image is provided, it passes along the `name` prop
+      const expectedRoles = src && _name ? 1 : 0;
+      expect(screen.queryAllByRole('img')).toHaveLength(expectedRoles);
+    },
+    imageRoleTestCases,
+  );
+
   it('should not show a presence indicator not provided', () => {
     render(<Avatar testId={'avatar'} />);
 
@@ -344,10 +503,10 @@ describe('Avatar', () => {
   it('should show a presence indicator if provided', () => {
     render(<Avatar testId={'avatar'} presence="busy" />);
 
-    expect(screen.queryByTestId('avatar--presence')).toBeInTheDocument();
+    expect(screen.getByTestId('avatar--presence')).toBeInTheDocument();
   });
 
-  it('should keep presence out of the accessibility tree', () => {
+  it('should remove presence from the accessibility tree', () => {
     render(<Avatar testId={'avatar'} presence="offline" />);
 
     expect(screen.queryByTestId('avatar--presence')).toHaveAttribute(
@@ -365,7 +524,7 @@ describe('Avatar', () => {
     expect(element.tagName).toEqual('DIV');
   });
 
-  it('should not show a status indicator not provided', () => {
+  it('should not show a status indicator if not provided', () => {
     render(<Avatar testId={'avatar'} />);
 
     expect(screen.queryByTestId('avatar--status')).not.toBeInTheDocument();
@@ -374,10 +533,10 @@ describe('Avatar', () => {
   it('should show a status indicator if provided', () => {
     render(<Avatar testId={'avatar'} status="approved" />);
 
-    expect(screen.queryByTestId('avatar--status')).toBeInTheDocument();
+    expect(screen.getByTestId('avatar--status')).toBeInTheDocument();
   });
 
-  it('should keep status out of the accessibility tree', () => {
+  it('should remove status from the accessibility tree', () => {
     render(<Avatar testId={'avatar'} status="declined" />);
 
     expect(screen.queryByTestId('avatar--status')).toHaveAttribute(
@@ -398,7 +557,7 @@ describe('Avatar', () => {
   it('should show only a status indicator if both presence and status are provided', () => {
     render(<Avatar testId={'avatar'} presence="busy" status="declined" />);
 
-    expect(screen.queryByTestId('avatar--status')).toBeInTheDocument();
+    expect(screen.getByTestId('avatar--status')).toBeInTheDocument();
     expect(screen.queryByTestId('avatar--presence')).not.toBeInTheDocument();
   });
 

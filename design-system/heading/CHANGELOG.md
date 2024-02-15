@@ -1,5 +1,34 @@
 # @atlaskit/heading
 
+## 1.6.0
+
+### Minor Changes
+
+- [#68604](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68604) [`fdf7f6635426`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fdf7f6635426) - Modified mapping of `variant` to the HTML element that gets rendered. Previously `xlarge` would render a `h2`, `large` would render a `h3` etc... Now `xlarge` renders a `h1` and so on...
+
+## 1.5.1
+
+### Patch Changes
+
+- [#70023](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70023) [`e2d35320717b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e2d35320717b) - Fix types to set either level or variant to be required props to prevent exceptions being thrown.
+
+## 1.5.0
+
+### Minor Changes
+
+- [#67463](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67463) [`caac5b953575`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/caac5b953575) - Fixed an issue where typography tokens referenced font family tokens that may not exist on a page, causing fallbacks to break.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.4.4
+
+### Patch Changes
+
+- [#63526](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63526) [`cae958047771`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cae958047771) - Internal change to how typography tokens are imported. There is no expected behaviour change.
+- Updated dependencies
+
 ## 1.4.3
 
 ### Patch Changes

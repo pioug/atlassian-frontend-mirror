@@ -1,11 +1,9 @@
 import {
-  BROWSERS,
   EditorEmojiModel,
   EditorMainToolbarModel,
   EditorNodeContainerModel,
-  editorTestCase as test,
   expect,
-  fixTest,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -193,13 +191,6 @@ test.describe('emoji', () => {
   test('should be able to select emoji by clicking inside decisions', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-19277',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 28/07/2023: https://product-fabric.atlassian.net/browse/ED-19277',
-      browsers: [BROWSERS.webkit],
-    });
-
     const nodes = EditorNodeContainerModel.from(editor);
     const emojiModel = EditorEmojiModel.from(nodes.emoji, editor);
 
@@ -297,7 +288,7 @@ test.describe('emoji', () => {
     );
   });
 
-  test('should not show typeahead with text: ', async ({ editor }) => {
+  test('should not show typeahead with text:', async ({ editor }) => {
     await editor.keyboard.type('text: ');
     const typeAheadLocator = await editor.typeAhead.wrapper;
     await editor.waitForEditorStable();
@@ -323,39 +314,10 @@ test.describe('emoji', () => {
     await editor.keyboard.press('ArrowDown');
     await editor.keyboard.press('ArrowDown');
     await editor.keyboard.press('ArrowDown');
-    const emojiLocator = await editor.page.locator(
+    const emojiLocator = editor.page.locator(
       'span[data-testid="sprite-emoji-:persevere:"]',
     );
     await editor.waitForEditorStable();
     await expect(emojiLocator).toBeVisible();
-  });
-});
-
-test.describe('With restartNumberedLists', () => {
-  test.use({
-    editorProps: {
-      appearance: 'full-page',
-      featureFlags: { restartNumberedLists: true },
-    },
-  });
-
-  test('should be able to use emoji inside orderedList with restartNumberedLists', async ({
-    editor,
-  }) => {
-    const nodes = EditorNodeContainerModel.from(editor);
-    const emojiNode = EditorEmojiModel.from(nodes.emoji, editor);
-
-    await editor.keyboard.type('3. ');
-    await emojiNode.search('a');
-    await editor.keyboard.type(':');
-    await expect(nodes.emoji.first()).toBeVisible();
-
-    await expect(editor).toMatchDocument(
-      doc(
-        ol({ order: 3 })(
-          li(p(emoji({ shortName: ':a:', id: '1f170', text: '🅰' })(), ' ')),
-        ),
-      ),
-    );
   });
 });

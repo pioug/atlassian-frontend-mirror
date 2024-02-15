@@ -1,19 +1,12 @@
 /** @jsx jsx */
-import { Fragment } from 'react';
-
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { ButtonGroup } from '@atlaskit/button';
-import LoadingButton from '@atlaskit/button/loading-button';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { ANALYTICS_CHANNEL } from '../../../common/constants';
 import { Button } from '../../../common/ui/Button';
-import createEventPayload from '../../../common/utils/analytics/analytics.codegen';
 
 import { EditButton } from './edit-button';
 import { messages } from './messages';
@@ -34,7 +27,6 @@ const errorStyles = css({
 export interface CreateFormFooterProps {
   formErrorMessage: string | undefined;
   handleCancel: () => void;
-  submitting: boolean;
   testId?: string;
 }
 /**
@@ -45,11 +37,9 @@ export interface CreateFormFooterProps {
 export function CreateFormFooter({
   formErrorMessage,
   handleCancel,
-  submitting,
   testId,
 }: CreateFormFooterProps) {
   const intl = useIntl();
-  const { createAnalyticsEvent } = useAnalyticsEvents();
 
   return (
     <footer data-testid={`${testId}-footer`} css={formFooterWrapperStyles}>
@@ -72,26 +62,8 @@ export function CreateFormFooter({
         >
           {intl.formatMessage(messages.close)}
         </Button>
-        {getBooleanFF('platform.linking-platform.link-create.enable-edit') ? (
-          <Fragment>
-            <EditButton />
-            <SubmitButton />
-          </Fragment>
-        ) : (
-          <LoadingButton
-            type="submit"
-            appearance="primary"
-            isLoading={submitting}
-            testId={`${testId}-button-submit`}
-            onClick={() => {
-              createAnalyticsEvent(
-                createEventPayload('ui.button.clicked.create', {}),
-              ).fire(ANALYTICS_CHANNEL);
-            }}
-          >
-            {intl.formatMessage(messages.create)}
-          </LoadingButton>
-        )}
+        <EditButton />
+        <SubmitButton />
       </ButtonGroup>
     </footer>
   );

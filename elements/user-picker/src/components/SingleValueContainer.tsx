@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import React from 'react';
-import { css, jsx } from '@emotion/react';
 import { components, ValueContainerProps } from '@atlaskit/select';
+import { css, jsx } from '@emotion/react';
+import React from 'react';
+import { Option, User } from '../types';
 import { SizeableAvatar } from './SizeableAvatar';
 import { BORDER_PADDING } from './styles';
-import { User, Option } from '../types';
+import ValueContainerWrapper from './ValueContainerWrapper';
 
 const placeholderIconContainer = css({
   paddingLeft: `${BORDER_PADDING}px`,
@@ -39,14 +40,31 @@ export class SingleValueContainer extends React.Component<
     return null;
   };
 
+  onValueContainerClick = this.props.selectProps.onValueContainerClick;
+
+  Wrapper = ({ children }: { children: React.ReactElement }) => {
+    return this.onValueContainerClick ? (
+      <div css={css({ flexGrow: 1 })} onMouseDown={this.onValueContainerClick}>
+        {children}
+      </div>
+    ) : (
+      children
+    );
+  };
+
   render() {
     const { children, ...valueContainerProps } = this.props;
 
     return (
-      <components.ValueContainer {...valueContainerProps}>
-        <div css={placeholderIconContainer}>{this.renderAvatar()}</div>
-        {children}
-      </components.ValueContainer>
+      <ValueContainerWrapper
+        isEnabled={this.onValueContainerClick}
+        onMouseDown={this.onValueContainerClick}
+      >
+        <components.ValueContainer {...valueContainerProps}>
+          <div css={placeholderIconContainer}>{this.renderAvatar()}</div>
+          {children}
+        </components.ValueContainer>
+      </ValueContainerWrapper>
     );
   }
 }

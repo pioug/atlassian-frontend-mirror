@@ -1,4 +1,4 @@
-import { editorTestCase as test, expect } from '@af/editor-libra';
+import { expect, editorTestCase as test } from '@af/editor-libra';
 
 const helloWorldADF = {
   version: 1,

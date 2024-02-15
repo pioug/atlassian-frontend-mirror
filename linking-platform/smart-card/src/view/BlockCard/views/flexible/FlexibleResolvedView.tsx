@@ -16,7 +16,7 @@ import {
 import { FlexibleBlockCardProps } from './types';
 import {
   getSimulatedBetterMetadata,
-  getTitleBlockOptions,
+  titleBlockOptions,
   PreviewBlockOptions,
   FlexibleCardUiOptions,
   FooterBlockOptions,
@@ -34,7 +34,7 @@ const FlexibleResolvedView = ({
   onClick,
   onError,
   onResolve,
-  showServerActions,
+  actionOptions,
   testId = 'smart-block-resolved-view',
   url,
   analytics,
@@ -67,13 +67,13 @@ const FlexibleResolvedView = ({
       onClick={onClick}
       onError={onError}
       onResolve={onResolve}
-      showServerActions={showServerActions}
+      actionOptions={actionOptions}
       testId={testId}
       ui={FlexibleCardUiOptions}
       url={url}
     >
       <TitleBlock
-        {...getTitleBlockOptions()}
+        {...titleBlockOptions}
         metadata={titleMetadata}
         subtitle={[{ name: ElementName.Location }]}
         metadataPosition={SmartLinkPosition.Top}

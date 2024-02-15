@@ -1,16 +1,17 @@
 import {
-  FileResourcesAvailable,
-  editorTestCase as test,
   EditorUploadMediaModel,
   expect,
+  FileResourcesAvailable,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
-  mediaGroup,
   media,
+  mediaGroup,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { emptyDocument } from './__fixtures__/adf-documents';
 
 test.use({

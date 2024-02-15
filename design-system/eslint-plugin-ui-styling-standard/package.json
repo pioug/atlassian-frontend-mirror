@@ -1,0 +1,47 @@
+{
+  "name": "@atlaskit/eslint-plugin-ui-styling-standard",
+  "version": "0.2.1",
+  "author": "Atlassian Pty Ltd",
+  "description": "The Atlassian UI Styling Standard Plugin Package - used to enforce Atlassian's styling standards within internal applications",
+  "license": "UNLICENSED",
+  "atlassian": {
+    "team": "Design System Team",
+    "inPublicMirror": false,
+    "releaseModel": "continuous"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "homepage": "https://hello.atlassian.net/wiki/spaces/DST/pages/3183872207/UI+Styling+Standard+-+Support+from+external+teams",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/src/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "atlaskit:src": "src/index.tsx",
+  "af:exports": {
+    ".": "./src/index.tsx"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0"
+  },
+  "devDependencies": {
+    "@atlaskit/eslint-plugin-design-system": "^8.26.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@compiled/eslint-plugin": "^0.13.3",
+    "@types/eslint": "^8.4.5",
+    "eslint": "^7.7.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "~4.9.5"
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+}

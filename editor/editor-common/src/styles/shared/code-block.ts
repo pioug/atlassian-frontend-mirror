@@ -8,19 +8,8 @@ import {
   overflowShadow,
   relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
-import {
-  DN20,
-  DN400,
-  DN50,
-  DN800,
-  N20,
-  N30,
-  N400,
-  N800,
-} from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
-import { borderRadius, fontSize } from '@atlaskit/theme/constants';
-import { ThemeProps } from '@atlaskit/theme/types';
+import { N20, N30, N400, N800 } from '@atlaskit/theme/colors';
+import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 export const CodeBlockSharedCssClassName = {
@@ -33,11 +22,11 @@ export const CodeBlockSharedCssClassName = {
   DS_CODEBLOCK: '[data-ds--code--code-block]',
 };
 
-export const codeBlockSharedStyles = (props: ThemeProps) => css`
+export const codeBlockSharedStyles = () => css`
   .${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} {
     position: relative;
     background-color: ${token('elevation.surface.raised', 'transparent')};
-    border-radius: ${borderRadius()}px;
+    border-radius: ${token('border.radius', '3px')};
     margin: ${blockNodesVerticalMargin} 0 0 0;
     font-family: ${akEditorCodeFontFamily};
     min-width: ${akEditorTableCellMinWidth}px;
@@ -65,21 +54,15 @@ export const codeBlockSharedStyles = (props: ThemeProps) => css`
     }
 
     .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} {
-      background-color: ${themed({
-        light: token('color.background.neutral', N20),
-        dark: token('color.background.neutral', DN50),
-      })(props)};
+      background-color: ${token('color.background.neutral', N20)};
       display: flex;
-      border-radius: ${borderRadius()}px;
+      border-radius: ${token('border.radius', '3px')};
       width: 100%;
       counter-reset: line;
       overflow-x: auto;
 
       background-image: ${overflowShadow({
-        background: themed({
-          light: token('color.background.neutral', N20),
-          dark: token('color.background.neutral', DN50),
-        })(props),
+        background: token('color.background.neutral', N20),
         leftCoverWidth: token('space.300', '24px'),
       })};
 
@@ -99,10 +82,7 @@ export const codeBlockSharedStyles = (props: ThemeProps) => css`
     .${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER} {
       flex-shrink: 0;
       text-align: right;
-      background-color: ${themed({
-        light: token('color.background.neutral', N30),
-        dark: token('color.background.neutral', DN20),
-      })(props)};
+      background-color: ${token('color.background.neutral', N30)};
       padding: ${token('space.100', '8px')};
       position: relative;
 
@@ -115,10 +95,7 @@ export const codeBlockSharedStyles = (props: ThemeProps) => css`
           display: inline-block;
           content: counter(line);
           counter-increment: line;
-          color: ${themed({
-            light: token('color.text.subtlest', N400),
-            dark: token('color.text.subtlest', DN400),
-          })(props)};
+          color: ${token('color.text.subtlest', N400)};
           font-size: ${relativeFontSizeToBase16(fontSize())};
           line-height: 1.5rem;
         }
@@ -133,11 +110,8 @@ export const codeBlockSharedStyles = (props: ThemeProps) => css`
         flex-grow: 1;
         tab-size: 4;
         cursor: text;
-        color: ${themed({
-          light: token('color.text', N800),
-          dark: token('color.text', DN800),
-        })(props)};
-        border-radius: ${borderRadius()}px;
+        color: ${token('color.text', N800)};
+        border-radius: ${token('border.radius', '3px')};
         margin: ${token('space.100', '8px')};
         white-space: pre;
         font-size: ${relativeFontSizeToBase16(fontSize())};

@@ -58,71 +58,74 @@ jest.mock('@atlaskit/editor-common/analytics', () => ({
 }));
 
 import React from 'react';
+
 import { screen } from '@testing-library/react';
-import { mountWithIntl } from '../../../__tests__/__helpers/enzyme';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { measureRender, SEVERITY } from '@atlaskit/editor-common/utils';
-import { toJSON } from '../../../utils';
-import { ReactEditorView } from '../../ReactEditorView';
-import { editorMessages } from '../../messages';
-import type { EditorConfig } from '../../../types/editor-config';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
+import { createIntl } from 'react-intl-next';
+
+import { FabricChannel } from '@atlaskit/analytics-listeners';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  fireAnalyticsEvent,
+  INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
+import type {
+  AnalyticsEventPayload,
+  DispatchAnalyticsEvent,
+  FireAnalyticsEvent,
+} from '@atlaskit/editor-common/analytics';
+import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import {
+  EditorExperience,
+  RELIABILITY_INTERVAL,
+} from '@atlaskit/editor-common/ufo';
+import { measureRender, SEVERITY } from '@atlaskit/editor-common/utils';
+import { analyticsEventKey } from '@atlaskit/editor-common/utils';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import patchEditorViewForJSDOM from '@atlaskit/editor-test-helpers/jsdom-fixtures';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   media,
   mediaGroup,
   mention,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import type { MentionProvider } from '@atlaskit/mention/resource';
-import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-  INPUT_METHOD,
-  fireAnalyticsEvent,
-} from '@atlaskit/editor-common/analytics';
-import type { EditorAppearance, EditorProps } from '../../../types';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
-import { analyticsEventKey } from '@atlaskit/editor-common/utils';
-
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import {
-  PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
-  PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
-} from '../../consts';
-import type {
-  FireAnalyticsEvent,
-  AnalyticsEventPayload,
-  DispatchAnalyticsEvent,
-} from '@atlaskit/editor-common/analytics';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import {
-  EditorExperience,
-  RELIABILITY_INTERVAL,
-} from '@atlaskit/editor-common/ufo';
-import { createIntl } from 'react-intl-next';
-import { createPreset } from '../../create-preset';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import patchEditorViewForJSDOM from '@atlaskit/editor-test-helpers/jsdom-fixtures';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import defaultSchema from '@atlaskit/editor-test-helpers/schema';
+import type { MentionProvider } from '@atlaskit/mention/resource';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+
+import { mountWithIntl } from '../../../__tests__/__helpers/enzyme';
+import type { EditorAppearance, EditorProps } from '../../../types';
+import type { EditorConfig } from '../../../types/editor-config';
 import PluginSlot from '../../../ui/PluginSlot';
+import { toJSON } from '../../../utils';
+import {
+  PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+  PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+} from '../../consts';
+import { createPreset } from '../../create-preset';
+import { editorMessages } from '../../messages';
+import { ReactEditorView } from '../../ReactEditorView';
 
 export const editorAnalyticsChannel = FabricChannel.editor;
 

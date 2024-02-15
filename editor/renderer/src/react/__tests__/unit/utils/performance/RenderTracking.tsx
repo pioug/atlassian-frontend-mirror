@@ -1,13 +1,13 @@
-import React from 'react';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import MockDate from 'mockdate';
+import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { RenderTracking } from '../../../../utils/performance/RenderTracking';
-import {
-  EVENT_TYPE,
-  ACTION_SUBJECT,
-  ACTION,
-} from '@atlaskit/editor-common/analytics';
 
 type ComponentProps = {
   prop1?: string;
@@ -23,15 +23,19 @@ describe('RenderTracking', () => {
   let container: HTMLElement | null = null;
   const startDateInMs = 0;
   const debounceInterval = 500;
+  let root: any; // Change to Root once we go full React 18
 
-  afterAll(() => {
-    jest.useRealTimers();
-  });
-
-  beforeEach(() => {
+  beforeEach(async () => {
     // setup a DOM element as a render target
     container = document.createElement('div');
     document.body.appendChild(container);
+    if (process.env.IS_REACT_18 === 'true') {
+      // @ts-ignore react-dom/client only available in react 18
+      // eslint-disable-next-line import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
+      const { createRoot } = await import('react-dom/client');
+      root = createRoot(container!);
+    }
+
     mockHandleAnalyticsEvent = jest.fn();
 
     MockDate.set(startDateInMs);
@@ -39,12 +43,22 @@ describe('RenderTracking', () => {
 
   afterEach(() => {
     // cleanup on exiting
-    unmountComponentAtNode(container!);
+    act(() => {
+      if (process.env.IS_REACT_18 === 'true') {
+        root.unmount();
+      } else {
+        unmountComponentAtNode(container!);
+      }
+    });
     if (container) {
       container.remove();
       container = null;
     }
     mockHandleAnalyticsEvent.mockRestore();
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
   });
 
   const waitForDebounce = () => {
@@ -55,27 +69,50 @@ describe('RenderTracking', () => {
   };
 
   it('should set render count to 0 on first render', async () => {
-    act(() => {
-      render(
-        <RenderTracking<ComponentProps>
-          componentProps={{
-            prop1: 'abc',
-            prop2: 10,
-            prop3: {
-              prop31: {
-                prop32: {},
+    if (process.env.IS_REACT_18 === 'true') {
+      act(() => {
+        root.render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop1: 'abc',
+              prop2: 10,
+              prop3: {
+                prop31: {
+                  prop32: {},
+                },
               },
-            },
-          }}
-          action={ACTION.RE_RENDERED}
-          actionSubject={ACTION_SUBJECT.RENDERER}
-          handleAnalyticsEvent={mockHandleAnalyticsEvent}
-          propsToIgnore={[]}
-          useShallow={false}
-        />,
-        container,
-      );
-    });
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={false}
+          />,
+        );
+      });
+    } else {
+      act(() => {
+        render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop1: 'abc',
+              prop2: 10,
+              prop3: {
+                prop31: {
+                  prop32: {},
+                },
+              },
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={false}
+          />,
+          container,
+        );
+      });
+    }
 
     waitForDebounce();
 
@@ -83,40 +120,77 @@ describe('RenderTracking', () => {
   });
 
   it('should set render count to 1 on second render with propsDifference', async () => {
-    act(() => {
-      render(
-        <RenderTracking<ComponentProps>
-          componentProps={{
-            prop2: 10,
-            prop3: {},
-          }}
-          action={ACTION.RE_RENDERED}
-          actionSubject={ACTION_SUBJECT.RENDERER}
-          handleAnalyticsEvent={mockHandleAnalyticsEvent}
-          propsToIgnore={[]}
-          useShallow={false}
-        />,
-        container,
-      );
-    });
+    if (process.env.IS_REACT_18 === 'true') {
+      act(() => {
+        root.render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop2: 10,
+              prop3: {},
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={false}
+          />,
+        );
+      });
+    } else {
+      act(() => {
+        render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop2: 10,
+              prop3: {},
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={false}
+          />,
+          container,
+        );
+      });
+    }
 
-    act(() => {
-      render(
-        <RenderTracking<ComponentProps>
-          componentProps={{
-            prop1: 'abc',
-            prop2: 11,
-            prop3: {},
-          }}
-          action={ACTION.RE_RENDERED}
-          actionSubject={ACTION_SUBJECT.RENDERER}
-          handleAnalyticsEvent={mockHandleAnalyticsEvent}
-          propsToIgnore={[]}
-          useShallow={false}
-        />,
-        container,
-      );
-    });
+    if (process.env.IS_REACT_18 === 'true') {
+      act(() => {
+        root.render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop1: 'abc',
+              prop2: 11,
+              prop3: {},
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={false}
+          />,
+        );
+      });
+    } else {
+      act(() => {
+        render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop1: 'abc',
+              prop2: 11,
+              prop3: {},
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={false}
+          />,
+          container,
+        );
+      });
+    }
 
     waitForDebounce();
 
@@ -153,48 +227,93 @@ describe('RenderTracking', () => {
   });
 
   it('should do shallow props difference.', async () => {
-    act(() => {
-      render(
-        <RenderTracking<ComponentProps>
-          componentProps={{
-            prop2: 10,
-            prop3: {
-              prop31: {
-                prop32: 10,
+    if (process.env.IS_REACT_18 === 'true') {
+      act(() => {
+        root.render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop2: 10,
+              prop3: {
+                prop31: {
+                  prop32: 10,
+                },
               },
-            },
-          }}
-          action={ACTION.RE_RENDERED}
-          actionSubject={ACTION_SUBJECT.RENDERER}
-          handleAnalyticsEvent={mockHandleAnalyticsEvent}
-          propsToIgnore={[]}
-          useShallow={false}
-        />,
-        container,
-      );
-    });
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={false}
+          />,
+        );
+      });
+    } else {
+      act(() => {
+        render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop2: 10,
+              prop3: {
+                prop31: {
+                  prop32: 10,
+                },
+              },
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={false}
+          />,
+          container,
+        );
+      });
+    }
 
-    act(() => {
-      render(
-        <RenderTracking<ComponentProps>
-          componentProps={{
-            prop1: 'abc',
-            prop2: 11,
-            prop3: {
-              prop31: {
-                prop32: 11,
+    if (process.env.IS_REACT_18 === 'true') {
+      act(() => {
+        root.render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop1: 'abc',
+              prop2: 11,
+              prop3: {
+                prop31: {
+                  prop32: 11,
+                },
               },
-            },
-          }}
-          action={ACTION.RE_RENDERED}
-          actionSubject={ACTION_SUBJECT.RENDERER}
-          handleAnalyticsEvent={mockHandleAnalyticsEvent}
-          propsToIgnore={[]}
-          useShallow={true}
-        />,
-        container,
-      );
-    });
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={true}
+          />,
+        );
+      });
+    } else {
+      act(() => {
+        render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop1: 'abc',
+              prop2: 11,
+              prop3: {
+                prop31: {
+                  prop32: 11,
+                },
+              },
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={true}
+          />,
+          container,
+        );
+      });
+    }
 
     waitForDebounce();
 
@@ -217,53 +336,104 @@ describe('RenderTracking', () => {
   });
 
   it('should only fire a single analytics event with total count', () => {
-    act(() => {
-      render(
-        <RenderTracking<ComponentProps>
-          componentProps={{
-            prop1: 'a',
-          }}
-          action={ACTION.RE_RENDERED}
-          actionSubject={ACTION_SUBJECT.RENDERER}
-          handleAnalyticsEvent={mockHandleAnalyticsEvent}
-          propsToIgnore={[]}
-          useShallow={false}
-        />,
-        container,
-      );
-    });
+    if (process.env.IS_REACT_18 === 'true') {
+      act(() => {
+        root.render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop1: 'a',
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={false}
+          />,
+        );
+      });
+    } else {
+      act(() => {
+        render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop1: 'a',
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={false}
+          />,
+          container,
+        );
+      });
+    }
 
-    act(() => {
-      render(
-        <RenderTracking<ComponentProps>
-          componentProps={{
-            prop1: 'a',
-          }}
-          action={ACTION.RE_RENDERED}
-          actionSubject={ACTION_SUBJECT.RENDERER}
-          handleAnalyticsEvent={mockHandleAnalyticsEvent}
-          propsToIgnore={[]}
-          useShallow={false}
-        />,
-        container,
-      );
-    });
+    if (process.env.IS_REACT_18 === 'true') {
+      act(() => {
+        root.render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop1: 'a',
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={false}
+          />,
+        );
+      });
+    } else {
+      act(() => {
+        render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop1: 'a',
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={false}
+          />,
+          container,
+        );
+      });
+    }
 
-    act(() => {
-      render(
-        <RenderTracking<ComponentProps>
-          componentProps={{
-            prop1: 'a',
-          }}
-          action={ACTION.RE_RENDERED}
-          actionSubject={ACTION_SUBJECT.RENDERER}
-          handleAnalyticsEvent={mockHandleAnalyticsEvent}
-          propsToIgnore={[]}
-          useShallow={false}
-        />,
-        container,
-      );
-    });
+    if (process.env.IS_REACT_18 === 'true') {
+      act(() => {
+        root.render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop1: 'a',
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={false}
+          />,
+        );
+      });
+    } else {
+      act(() => {
+        render(
+          <RenderTracking<ComponentProps>
+            componentProps={{
+              prop1: 'a',
+            }}
+            action={ACTION.RE_RENDERED}
+            actionSubject={ACTION_SUBJECT.RENDERER}
+            handleAnalyticsEvent={mockHandleAnalyticsEvent}
+            propsToIgnore={[]}
+            useShallow={false}
+          />,
+          container,
+        );
+      });
+    }
 
     waitForDebounce();
 

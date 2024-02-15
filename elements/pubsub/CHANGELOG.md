@@ -1,5 +1,11 @@
 # @atlaskit/pubsub
 
+## 6.6.4
+
+### Patch Changes
+
+- [#68561](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68561) [`6a1919bf8400`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a1919bf8400) - Migrate packages to use declarative entry points
+
 ## 6.6.3
 
 ### Patch Changes

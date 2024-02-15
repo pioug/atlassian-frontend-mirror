@@ -1,14 +1,18 @@
 /** @jsx jsx */
 import React from 'react';
+
 import { css, jsx } from '@emotion/react';
+
 import EditorCollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import EditorExpandIcon from '@atlaskit/icon/glyph/editor/expand';
-import {
-  LOCALSTORAGE_defaultMode,
-  FULL_WIDTH_MODE,
-  DEFAULT_MODE,
-} from './example-constants';
+
 import type { EditorAppearance } from '../src/types';
+
+import {
+  DEFAULT_MODE,
+  FULL_WIDTH_MODE,
+  LOCALSTORAGE_defaultMode,
+} from './example-constants';
 
 const toggleWrapper = css`
   cursor: pointer;

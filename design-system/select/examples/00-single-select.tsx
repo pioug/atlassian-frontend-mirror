@@ -8,7 +8,7 @@ const SingleExample = () => (
   <>
     <Label htmlFor="single-select-example">What city do you live in?</Label>
     <Select
-      inputId="single-select"
+      inputId="single-select-example"
       className="single-select"
       classNamePrefix="react-select"
       options={[

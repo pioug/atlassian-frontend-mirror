@@ -1,9 +1,6 @@
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import type {
-  ContextIdentifierProvider,
-  MediaProvider,
-} from '@atlaskit/editor-common/provider-factory';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { MediaClientConfig } from '@atlaskit/media-core';
@@ -44,11 +41,8 @@ export interface MediaPluginState {
   isResizing: boolean;
   resizingWidth: number;
   currentMaxWidth?: number;
+  allowInlineImages?: boolean;
   dispatch?: Dispatch;
-  onContextIdentifierProvider: (
-    _name: string,
-    provider?: Promise<ContextIdentifierProvider>,
-  ) => Promise<void>;
   setMediaProvider: (mediaProvider?: Promise<MediaProvider>) => Promise<void>;
   getMediaOptions: () => MediaPluginOptions;
   insertFile: (
@@ -101,3 +95,5 @@ export interface MediaPluginState {
 
   clone(): MediaPluginState;
 }
+
+export type EventInput = 'keyboard' | 'mouse' | 'floatingToolBar';

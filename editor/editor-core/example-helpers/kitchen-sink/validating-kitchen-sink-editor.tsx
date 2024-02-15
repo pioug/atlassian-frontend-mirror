@@ -1,45 +1,44 @@
 import React from 'react';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import { validator } from '@atlaskit/adf-utils/validator';
 import type {
   ErrorCallback,
   ValidationError,
 } from '@atlaskit/adf-utils/validatorTypes';
-import { validator } from '@atlaskit/adf-utils/validator';
-import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import {
-  mentionResourceProviderWithResolver,
-  mentionResourceProvider,
-} from '@atlaskit/util-data-test/mention-story-data';
+import { validationErrorHandler } from '@atlaskit/editor-common/utils';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
+import {
+  mentionResourceProvider,
+  mentionResourceProviderWithResolver,
+} from '@atlaskit/util-data-test/mention-story-data';
+
+import {
+  getProviders,
+  mediaProvider,
+  quickInsertProvider,
+} from '../../examples/5-full-page';
 import { Editor } from '../../src';
+import type { EditorActions } from '../../src';
 import type {
   EditorAppearance,
   EditorPlugin,
   EditorProps,
 } from '../../src/types';
-import type { EditorActions } from '../../src';
-
-import {
-  mediaProvider,
-  getProviders,
-  quickInsertProvider,
-} from '../../examples/5-full-page';
 import type { Error } from '../ErrorReport';
-import { validationErrorHandler } from '@atlaskit/editor-common/utils';
 
-// import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+// import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 
 export type ValidatingKitchenSinkEditorProps = {
   actions: EditorActions;
@@ -195,6 +194,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             allowResizingInTables: true,
             allowAltTextOnImages: true,
             allowCaptions: true,
+            allowMediaInlineImages: true,
             featureFlags: {
               ...exampleMediaFeatureFlags,
               mediaInline: true,
@@ -213,7 +213,6 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           showIndentationButtons={true}
           featureFlags={{
             'safer-dispatched-transactions': true,
-            'restart-numbered-lists': true,
             ...this.props.featureFlags,
           }}
           dangerouslyAppendPlugins={{

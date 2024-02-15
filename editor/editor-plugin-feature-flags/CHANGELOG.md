@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-feature-flags
 
+## 1.0.4
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.2
 
 ### Patch Changes

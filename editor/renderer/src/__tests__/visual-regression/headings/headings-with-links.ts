@@ -1,27 +1,24 @@
-import {
-  PuppeteerPage,
-  waitForElementCount,
-} from '@atlaskit/visual-regression/helper';
-import { initRendererWithADF } from '../_utils';
-import {
-  Alignment,
-  hoverOnHeadingWithLinkThenSnapshot,
-  getAlignmentADF,
-  propsWithHeadingLinksEnabled,
-  spoofMediaQuery,
-} from './_heading-utils';
-import { snapshot } from '../_utils';
-import { selectors } from '../../__helpers/page-objects/_renderer';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { waitForElementCount } from '@atlaskit/visual-regression/helper';
 import adfHeading from '../../__fixtures__/heading-tooltip.adf.json';
 import adfHeadings from '../../__fixtures__/headings-aligned-left.adf.json';
+import adfHeadingsMultilined from '../../__fixtures__/headings-multilined.adf.json';
 import adfHeadingsRTLEmoji from '../../__fixtures__/headings-right-aligned-emoji.adf.json';
 import adfHeadingsRTLStatus from '../../__fixtures__/headings-right-aligned-status.adf.json';
 import adfHeadingsRTLSymbols from '../../__fixtures__/headings-right-aligned-symbols.adf.json';
 import adfHeadingsWithLink from '../../__fixtures__/headings-with-link.adf.json';
-import adfHeadingsMultilined from '../../__fixtures__/headings-multilined.adf.json';
+import { selectors } from '../../__helpers/page-objects/_renderer';
+import { initRendererWithADF, snapshot } from '../_utils';
+import type { Alignment } from './_heading-utils';
+import {
+  getAlignmentADF,
+  hoverOnHeadingWithLinkThenSnapshot,
+  propsWithHeadingLinksEnabled,
+  spoofMediaQuery,
+} from './_heading-utils';
 
 // Headings with anchor links enabled
-describe.skip('Headings with links', () => {
+describe('Headings with links', () => {
   let page: PuppeteerPage;
 
   const setPage = () => (page = global.page);

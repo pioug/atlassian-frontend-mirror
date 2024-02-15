@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 
 import Button from '@atlaskit/button/standard-button';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../index';
 
@@ -82,6 +81,55 @@ describe('dropdown menu', () => {
 
       expect(screen.queryAllByRole('menuitem')).toHaveLength(items.length);
     });
+
+    it('should return focus to the trigger after closing the menu if it is called via MouseEvent click', () => {
+      render(
+        <DropdownMenu trigger={triggerText}>
+          <DropdownItemGroup>
+            {items.map((text) => (
+              <DropdownItem>{text}</DropdownItem>
+            ))}
+          </DropdownItemGroup>
+        </DropdownMenu>,
+      );
+
+      const trigger = screen.getByRole('button');
+
+      // Simulating MouseEvent click
+      fireEvent.click(trigger, {
+        clientX: 1,
+        clientY: 1,
+        detail: 1,
+      });
+      fireEvent.click(screen.getAllByRole('menuitem', { name: 'Clone' })[0]);
+
+      expect(trigger).toHaveFocus();
+    });
+
+    it('should render aria-label via label prop', () => {
+      render(<DropdownMenu label={triggerText} />);
+
+      const trigger = screen.getByRole('button');
+      expect(trigger).toHaveAttribute('aria-label', triggerText);
+    });
+
+    it('should not render aria-label if label prop is not present', () => {
+      render(<DropdownMenu trigger={triggerText} />);
+
+      const trigger = screen.getByRole('button');
+      expect(trigger).not.toHaveAttribute('aria-label');
+    });
+
+    it('should render visible label and aria-label separately', () => {
+      const label = 'more about clicking';
+      render(<DropdownMenu trigger={triggerText} label={label} />);
+
+      const trigger = screen.getByRole('button', { expanded: false });
+      const visibleLabel = within(trigger).getByText(triggerText);
+
+      expect(trigger).toHaveAttribute('aria-label', label);
+      expect(visibleLabel).toBeInTheDocument();
+    });
   });
 
   describe('nested dropdown', () => {
@@ -104,49 +152,35 @@ describe('dropdown menu', () => {
         </DropdownMenu>
       );
     };
-    // should render nested dropdown on the page
-    ffTest(
-      'platform.design-system-team.layering_popup_1cnzt',
-      // Test when true
-      () => {
-        render(<NestedDropdown />);
-        let level = 0;
-        while (level < 5) {
-          // test nested dropdown can be opened correctly
-          const nestedTrigger = screen.getByTestId(`nested-${level}--trigger`);
-          expect(nestedTrigger).toBeInTheDocument();
-          fireEvent.click(nestedTrigger);
-          level += 1;
-        }
-        while (level > 0) {
-          // close the dropdown by pressing Escape
-          fireEvent.keyDown(document, { key: 'Escape', code: 27 });
-          // 0 timeout is needed to meet the same flow in layering
-          // avoid immediate cleanup using setTimeout when component unmount
-          // this will make sure non-top layer components can get the correct top level value
-          // when multiple layers trigger onClose in sequence.
-          setTimeout(() => {
-            // test if top level of nested dropdown is closed
-            expect(
-              screen.queryByTestId(`nested-${level}--trigger`),
-            ).not.toBeInTheDocument();
-          }, 0);
-          level -= 1;
-          expect(
-            screen.getByTestId(`nested-${level}--trigger`),
-          ).toBeInTheDocument();
-        }
-      },
-      () => {
-        render(<NestedDropdown />);
+    it('should render nested dropdown on the page', () => {
+      render(<NestedDropdown />);
+      let level = 0;
+      while (level < 5) {
         // test nested dropdown can be opened correctly
-        const nestedTrigger = screen.getByTestId('nested-0--trigger');
+        const nestedTrigger = screen.getByTestId(`nested-${level}--trigger`);
         expect(nestedTrigger).toBeInTheDocument();
         fireEvent.click(nestedTrigger);
-        const nestedItem1 = screen.getByTestId('nested-1--trigger');
-        expect(nestedItem1).not.toHaveFocus();
-      },
-    );
+        level += 1;
+      }
+      while (level > 0) {
+        // close the dropdown by pressing Escape
+        fireEvent.keyDown(document, { key: 'Escape', code: 27 });
+        // 0 timeout is needed to meet the same flow in layering
+        // avoid immediate cleanup using setTimeout when component unmount
+        // this will make sure non-top layer components can get the correct top level value
+        // when multiple layers trigger onClose in sequence.
+        setTimeout(() => {
+          // test if top level of nested dropdown is closed
+          expect(
+            screen.queryByTestId(`nested-${level}--trigger`),
+          ).not.toBeInTheDocument();
+        }, 0);
+        level -= 1;
+        expect(
+          screen.getByTestId(`nested-${level}--trigger`),
+        ).toBeInTheDocument();
+      }
+    });
   });
 
   describe('customised trigger', () => {

@@ -10,8 +10,11 @@ import useButtonBase, {
 
 import { type CommonIconButtonProps } from './types';
 
-type UseIconButtonArgs<TagName extends HTMLElement> =
-  UseButtonBaseArgs<TagName> & CommonIconButtonProps;
+type UseIconButtonArgs<TagName extends HTMLElement> = Omit<
+  UseButtonBaseArgs<TagName>,
+  'children'
+> &
+  CommonIconButtonProps;
 
 type UseIconButtonReturn<TagName extends HTMLElement> =
   UseButtonBaseReturn<TagName>;
@@ -47,11 +50,13 @@ const useIconButton = <TagName extends HTMLElement>({
   onClickCapture,
   overlay,
   ref,
+  shape,
   shouldFitContainer,
   spacing,
   UNSAFE_size,
 }: UseIconButtonArgs<TagName>): UseIconButtonReturn<TagName> => {
   const hasOverlay = Boolean(overlay);
+  const isCircle = shape === 'circle';
 
   const baseProps = useButtonBase<TagName>({
     analyticsContext,
@@ -68,6 +73,7 @@ const useIconButton = <TagName extends HTMLElement>({
     isDisabled,
     isSelected,
     isIconButton: true,
+    isCircle,
     onClick,
     onMouseDownCapture,
     onMouseUpCapture,

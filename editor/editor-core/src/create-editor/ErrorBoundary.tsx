@@ -1,14 +1,8 @@
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import React from 'react';
+
 import uuid from 'uuid';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { ExperienceStore } from '@atlaskit/editor-common/ufo';
-import { IntlErrorBoundary } from '@atlaskit/editor-common/ui';
-import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
-import { sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils';
-import type { CustomData } from '@atlaskit/ufo/types';
 import type {
   ErrorEventAttributes,
   ErrorEventPayload,
@@ -16,14 +10,25 @@ import type {
 import {
   ACTION,
   ACTION_SUBJECT,
-  EVENT_TYPE,
   editorAnalyticsChannel,
+  EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import type { FeatureFlags } from '../types/feature-flags';
-import { getDocStructure } from '../utils/document-logger';
-import { WithEditorView } from './WithEditorView';
-import { isOutdatedBrowser } from '@atlaskit/editor-common/utils';
+import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 import { logException } from '@atlaskit/editor-common/monitoring';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import { ExperienceStore } from '@atlaskit/editor-common/ufo';
+import { IntlErrorBoundary } from '@atlaskit/editor-common/ui';
+import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
+import {
+  isOutdatedBrowser,
+  sniffUserBrowserExtensions,
+} from '@atlaskit/editor-common/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { CustomData } from '@atlaskit/ufo/types';
+
+import type { FeatureFlags } from '../types/feature-flags';
+
+import { WithEditorView } from './WithEditorView';
 
 export type ErrorBoundaryProps = {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
@@ -111,9 +116,6 @@ export class ErrorBoundaryWithEditorView extends React.Component<
       attributes: {
         errorId: sharedId,
       },
-      nonPrivacySafeAttributes: {
-        errorStack,
-      },
     });
 
     if (this.featureFlags.ufo && this.props.editorView) {
@@ -158,6 +160,11 @@ export class ErrorBoundaryWithEditorView extends React.Component<
   });
 
   componentDidCatch(error: Error, errorInfo: AnalyticsErrorBoundaryErrorInfo) {
+    // Only report and re-render once, to avoid over-reporting errors and infinite rerendering
+    if (this.state.error) {
+      return;
+    }
+
     if (this.props.errorTracking) {
       this.sendErrorData({
         error,
@@ -166,11 +173,11 @@ export class ErrorBoundaryWithEditorView extends React.Component<
       });
     }
 
-    // // Update state to allow a re-render to attempt graceful recovery (in the event that
-    // // the error was caused by a race condition or is intermittent)
+    // Update state to allow a re-render to attempt graceful recovery (in the event that
+    // the error was caused by a race condition or is intermittent)
     this.setState({ error }, () => {
       if (this.props.rethrow) {
-        // Now that a re-render has occured, we re-throw to allow product error boundaries
+        // Now that a re-render has occurred, we re-throw to allow product error boundaries
         // to catch and handle the error too.
         //
         // Note that when rethrowing inside a error boundary, the stack trace

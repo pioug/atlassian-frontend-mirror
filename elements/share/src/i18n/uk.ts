@@ -20,6 +20,7 @@ export default {
   'fabric.elements.share.form.no-permissions': 'У вас немає можливості поділитися.',
   'fabric.elements.share.form.public.send': 'Надіслати загальнодоступне посилання',
   'fabric.elements.share.form.public.share': 'Поділитися загальнодоступним посиланням',
+  'fabric.elements.share.form.required-field.summary': 'Обов’язкові поля позначені зірочкою',
   'fabric.elements.share.form.retry': 'Повторити спробу',
   'fabric.elements.share.form.send': 'Надіслати',
   'fabric.elements.share.form.share': 'Поділитися',

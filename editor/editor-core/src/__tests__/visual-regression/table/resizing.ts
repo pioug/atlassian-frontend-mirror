@@ -1,37 +1,39 @@
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  snapshot,
-  initFullPageEditorWithAdf,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import adfTableWithMergedCellsOnFirstRow from './__fixtures__/table-with-merged-cells-on-first-row.adf.json';
-import adfTableWithManyRows from './__fixtures__/table-with-many-rows.adf.json';
-import adfTableWithMergedCells from './__fixtures__/table-with-merged-cells.adf.json';
-import adf from '../common/__fixtures__/noData-adf.json';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  deleteColumn,
-  resizeColumn,
-  resizeColumnAndReflow,
-  insertTable,
-  grabResizeHandle,
-  clickFirstCell,
-  scrollTable,
-  unselectTable,
-  tableSelectors,
-} from '@atlaskit/editor-test-helpers/page-objects/table';
+import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { TableCssClassName as ClassName } from '@atlaskit/editor-plugins/table/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   animationFrame,
   scrollToBottom,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  clickFirstCell,
+  deleteColumn,
+  grabResizeHandle,
+  insertTable,
+  resizeColumn,
+  resizeColumnAndReflow,
+  scrollTable,
+  tableSelectors,
+  unselectTable,
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  Appearance,
+  initEditorWithAdf,
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { TableCssClassName as ClassName } from '@atlaskit/editor-plugin-table/types';
+
 import type { EditorProps } from '../../../types';
-import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
+import adf from '../common/__fixtures__/noData-adf.json';
+
+import adfTableWithManyRows from './__fixtures__/table-with-many-rows.adf.json';
+import adfTableWithMergedCellsOnFirstRow from './__fixtures__/table-with-merged-cells-on-first-row.adf.json';
+import adfTableWithMergedCells from './__fixtures__/table-with-merged-cells.adf.json';
 
 const waitToolbarThenSnapshot = async (page: PuppeteerPage) => {
   await retryUntilStablePosition(
@@ -197,8 +199,7 @@ describe('Snapshot Test: table resizing', () => {
         await unselectTable(page);
       });
 
-      // FIXME: This test was skipped on 09/11/2023 https://product-fabric.atlassian.net/browse/DTR-2011
-      it.skip('header shadows are aligned when focusing overflown table', async () => {
+      it('header shadows are aligned when focusing overflown table', async () => {
         // Scroll to the middle of the table horizontally to have shadows on both sides
         await scrollTable(page, 0.5);
         // scroll to bottom to have sticky header

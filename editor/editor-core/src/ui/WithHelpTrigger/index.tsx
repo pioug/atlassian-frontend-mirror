@@ -1,16 +1,19 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
+
 import type { AnalyticsDispatch } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
-  INPUT_METHOD,
-  EVENT_TYPE,
   ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { createDispatch } from '../../event-dispatcher';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils';
-import { deprecatedOpenHelpCommand } from '@atlaskit/editor-plugin-help-dialog';
+import { deprecatedOpenHelpCommand } from '@atlaskit/editor-plugins/help-dialog';
+
+import { createDispatch } from '../../event-dispatcher';
 
 interface WithHelpTriggerProps {
   render: (openHelp: () => void) => React.ReactNode;

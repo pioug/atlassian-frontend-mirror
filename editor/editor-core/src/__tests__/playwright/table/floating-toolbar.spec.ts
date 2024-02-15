@@ -1,14 +1,15 @@
 import {
+  EditorFloatingToolbarModel,
   EditorNodeContainerModel,
   EditorTableModel,
-  EditorFloatingToolbarModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import {
-  simpleTable,
-  documentWithMergedCells,
   basicTableWithMergedCell,
+  documentWithMergedCells,
+  simpleTable,
 } from './__fixtures__/base-adfs';
 
 test.use({
@@ -128,7 +129,7 @@ test.describe('Floating toolbar', () => {
       await mergeCellsMenuItem.click({ force: true });
 
       // The context menu should remains open, thus the menu item should still be visible
-      expect(await mergeCellsMenuItem.isVisible()).toBe(true);
+      await expect(mergeCellsMenuItem).toBeVisible();
     });
   });
 

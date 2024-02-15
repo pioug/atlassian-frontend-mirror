@@ -1,28 +1,27 @@
 import {
-  editorTestCase as test,
-  expect,
-  EditorNodeContainerModel,
-  EditorExpandModel,
-  fixTest,
   BROWSERS,
+  EditorExpandModel,
+  EditorNodeContainerModel,
+  expect,
+  fixTest,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  p,
-  doc,
   code_block,
+  doc,
   expand,
+  p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import {
-  expandAdf,
-  doubleCollapsedExpand,
   collapsedExpandAdf,
-  multiLineExpandAdf,
+  doubleCollapsedExpand,
+  expandAdf,
+  expandWithNestedCodeBlockAdf,
   expandWithNestedCodeBlockTallAdf,
   expandWithNestedPanelAdf,
-  expandWithNestedCodeBlockAdf,
+  multiLineExpandAdf,
 } from './navigation.spec.ts-fixtures';
 
 test.describe('expand: navigation', () => {

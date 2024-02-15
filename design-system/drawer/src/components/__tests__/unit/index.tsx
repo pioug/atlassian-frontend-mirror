@@ -210,6 +210,7 @@ describe('Drawer Transitions', () => {
       jest.runAllTimers();
     });
     expect(onCloseComplete).toHaveBeenCalled();
+    jest.useRealTimers();
   });
 
   it('should call onOpenComplete when DrawerPrimitive calls onOpenComplete', () => {
@@ -225,6 +226,7 @@ describe('Drawer Transitions', () => {
       jest.runAllTimers();
     });
     expect(onOpenComplete).toHaveBeenCalled();
+    jest.useRealTimers();
   });
 
   it('should call onKeyDown if user press ESC', () => {

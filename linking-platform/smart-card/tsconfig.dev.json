@@ -119,6 +119,9 @@
       "path": "../../platform/feature-flags/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/primitives/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/radio/tsconfig.app.json"
     },
     {
@@ -138,6 +141,9 @@
     },
     {
       "path": "../../design-system/tabs/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/textarea/tsconfig.app.json"
     },
     {
       "path": "../../design-system/textfield/tsconfig.app.json"

@@ -1,4 +1,23 @@
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
+import type {
+  ContextUpdateHandler,
+  EditorActionsOptions,
+  FeatureFlags,
+  ReplaceRawValue,
+  Transformer,
+} from '@atlaskit/editor-common/types';
+import {
+  analyticsEventKey,
+  findNodePosByLocalIds,
+  isEmptyDocument,
+  processRawValue,
+} from '@atlaskit/editor-common/utils';
 import { Node } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  PluginKey,
+} from '@atlaskit/editor-prosemirror/state';
 import {
   NodeSelection,
   TextSelection,
@@ -6,25 +25,8 @@ import {
 import { findParentNode, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
-import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
-import type {
-  ContextUpdateHandler,
-  EditorActionsOptions,
-  ReplaceRawValue,
-  FeatureFlags,
-  Transformer,
-} from '@atlaskit/editor-common/types';
-import {
-  analyticsEventKey,
-  isEmptyDocument,
-  processRawValue,
-  findNodePosByLocalIds,
-} from '@atlaskit/editor-common/utils';
-
 import type { EventDispatcher } from '../event-dispatcher';
 import { createDispatch } from '../event-dispatcher';
-import { getCollabProvider } from '../plugins/collab-edit/native-collab-provider-plugin';
 import { toJSON } from '../utils';
 import {
   __temporaryFixForConfigPanel,
@@ -33,6 +35,16 @@ import {
 import deprecationWarnings from '../utils/deprecation-warnings';
 import { processRawFragmentValue } from '../utils/document';
 import { findNodePosByFragmentLocalIds } from '../utils/nodes-by-localIds';
+
+// TODO: ED-21786
+// Please, do not copy or use this kind of code below
+// @ts-ignore
+const fakePluginKey = {
+  key: 'nativeCollabProviderPlugin$',
+  getState: (state: EditorState) => {
+    return (state as any)['nativeCollabProviderPlugin$'];
+  },
+} as PluginKey;
 
 export default class EditorActions<T = any> implements EditorActionsOptions<T> {
   private editorView?: EditorView;
@@ -154,12 +166,16 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
   }
 
   async __temporaryFixForConfigPanel() {
-    const { editorView } = this;
-    if (!editorView) {
+    // @ts-ignore Internal API not for use, just to unblock extracting extension plugin
+    const { editorView, __EDITOR_INTERNALS_DO_NOT_USE__API } = this;
+    if (!editorView || !__EDITOR_INTERNALS_DO_NOT_USE__API) {
       return;
     }
 
-    __temporaryFixForConfigPanel(editorView);
+    __temporaryFixForConfigPanel(
+      editorView,
+      __EDITOR_INTERNALS_DO_NOT_USE__API,
+    );
   }
 
   // WARNING: this may be called repeatedly, async with care
@@ -348,6 +364,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
     }
     const editorView = this.editorView;
     await getEditorValueWithMedia(editorView);
-    return getCollabProvider(editorView.state)?.getFinalAcknowledgedState();
+    const collabEditState = fakePluginKey.getState(editorView.state);
+    return collabEditState?.getFinalAcknowledgedState();
   };
 }

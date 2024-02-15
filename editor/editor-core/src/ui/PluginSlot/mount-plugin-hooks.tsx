@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { ReactHookFactory } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

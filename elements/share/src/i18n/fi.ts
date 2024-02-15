@@ -19,6 +19,7 @@ export default {
   'fabric.elements.share.form.no-permissions': 'Sinulla ei ole jakamisoikeutta.',
   'fabric.elements.share.form.public.send': 'Lähetä julkinen linkki',
   'fabric.elements.share.form.public.share': 'Jaa julkinen linkki',
+  'fabric.elements.share.form.required-field.summary': 'Pakolliset kentät on merkitty tähdellä',
   'fabric.elements.share.form.retry': 'Yritä uudelleen',
   'fabric.elements.share.form.send': 'Lähetä',
   'fabric.elements.share.form.share': 'Jaa',

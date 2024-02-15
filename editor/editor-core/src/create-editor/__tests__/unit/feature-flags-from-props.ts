@@ -212,32 +212,4 @@ describe('Feature Flags from Props', () => {
       );
     });
   });
-
-  describe('restartNumberedLists', () => {
-    it('should add the FF value', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {
-            restartNumberedLists: true,
-          },
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          restartNumberedLists: true,
-        }),
-      );
-    });
-
-    it('should default to false if nothing passed in', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {},
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          restartNumberedLists: false,
-        }),
-      );
-    });
-  });
 });

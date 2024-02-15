@@ -11,6 +11,7 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { mergeStyles, SelectProps, StylesConfig } from '@atlaskit/select';
 import {
@@ -26,7 +27,6 @@ import {
 import { token } from '@atlaskit/tokens';
 
 import { defaultTimes, formatDateTimeZoneIntoIso } from '../internal';
-import ClearButton from '../internal/clear-button';
 import { Appearance, Spacing } from '../types';
 
 import DatePicker, {
@@ -469,8 +469,6 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
     const isClearable = Boolean(dateValue || timeValue);
     const notFocusedOrIsDisabled = !(isFocused || isDisabled);
 
-    const ariaLabelledbyId = id && `label--${id}`;
-
     return (
       <div
         css={[
@@ -486,7 +484,6 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
           bothProps.appearance === 'none' && noBgStyles,
         ]}
         {...innerProps}
-        aria-labelledby={innerProps['aria-labelledby'] || ariaLabelledbyId}
         data-testid={testId}
       >
         <input
@@ -526,13 +523,19 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
           />
         </div>
         {isClearable && !isDisabled ? (
-          <ClearButton
-            inputId={id}
-            buttonStyles={iconContainerStyles}
+          <button
+            css={iconContainerStyles}
             onClick={this.onClear}
             data-testid={testId && `${testId}--icon--container`}
-            primaryColor="inherit"
-          />
+            tabIndex={-1}
+            type="button"
+          >
+            <SelectClearIcon
+              size="small"
+              primaryColor="inherit"
+              label="clear"
+            />
+          </button>
         ) : null}
       </div>
     );

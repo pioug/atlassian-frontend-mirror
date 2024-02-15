@@ -91,8 +91,7 @@ type EditorPerfAEP = OperationalAEPWithObjectId<
     ttfb?: number;
     severity?: SEVERITY;
     distortedDuration?: boolean;
-  },
-  undefined
+  }
 >;
 
 type EditorTTIAEP = OperationalAEP<
@@ -106,8 +105,7 @@ type EditorTTIAEP = OperationalAEP<
     ttiSeverity?: SEVERITY;
     ttiFromInvocationSeverity?: SEVERITY;
     distortedDuration: boolean;
-  },
-  undefined
+  }
 >;
 
 type EditorContentRetrievalPerformedAEP = OperationalAEP<
@@ -118,8 +116,7 @@ type EditorContentRetrievalPerformedAEP = OperationalAEP<
     success: boolean;
     errorInfo?: string;
     errorStack?: string;
-  },
-  undefined
+  }
 >;
 
 type EditorRenderedAEP<T> = OperationalAEP<
@@ -129,8 +126,7 @@ type EditorRenderedAEP<T> = OperationalAEP<
   {
     propsDifference: PropsDifference<T> | ShallowPropsDifference<T>;
     count: number;
-  },
-  undefined
+  }
 >;
 
 export type UfoSessionCompletePayloadAEP = OperationalAEP<
@@ -139,8 +135,7 @@ export type UfoSessionCompletePayloadAEP = OperationalAEP<
   undefined,
   {
     interval: number;
-  },
-  undefined
+  }
 >;
 
 type BrowserFreezePayload = OperationalAEPWithObjectId<
@@ -153,8 +148,7 @@ type BrowserFreezePayload = OperationalAEPWithObjectId<
     nodeCount?: Record<string, number>;
     interactionType?: BROWSER_FREEZE_INTERACTION_TYPE;
     severity?: SEVERITY;
-  },
-  undefined
+  }
 >;
 
 type SelectionAEP = TrackAEP<
@@ -173,8 +167,7 @@ type SlowInputAEP = OperationalAEPWithObjectId<
     time: number;
     nodeSize: number;
     nodeCount?: Record<string, number>;
-  },
-  undefined
+  }
 >;
 
 type InputPerfSamlingAEP = OperationalAEPWithObjectId<
@@ -188,8 +181,7 @@ type InputPerfSamlingAEP = OperationalAEPWithObjectId<
     nodeSize: number;
     nodeCount?: Record<string, number>;
     severity?: SEVERITY;
-  },
-  undefined
+  }
 >;
 
 type InputPerfSamplingAvgAEP = OperationalAEPWithObjectId<
@@ -205,8 +197,7 @@ type InputPerfSamplingAvgAEP = OperationalAEPWithObjectId<
     nodeCount?: Record<string, number>;
     nodeSize: number;
     severity?: SEVERITY;
-  },
-  undefined
+  }
 >;
 
 type DispatchedTransactionAEP = OperationalAEP<
@@ -216,8 +207,7 @@ type DispatchedTransactionAEP = OperationalAEP<
   {
     report: PluginPerformanceReportData;
     participants: number;
-  },
-  undefined
+  }
 >;
 
 type TransactionMutatedAEP = OperationalAEP<
@@ -226,9 +216,6 @@ type TransactionMutatedAEP = OperationalAEP<
   undefined,
   {
     pluginKey: string;
-  },
-  {
-    stack: string | undefined;
   }
 >;
 
@@ -239,8 +226,7 @@ type WithPluginStateCalledAEP = OperationalAEP<
   {
     plugin: string;
     duration: number;
-  },
-  undefined
+  }
 >;
 
 type ReactNodeViewRenderedAEP = OperationalAEP<
@@ -250,14 +236,12 @@ type ReactNodeViewRenderedAEP = OperationalAEP<
   {
     node: string;
     duration: number;
-  },
-  undefined
+  }
 >;
 
 type UploadExternalFailedAEP = OperationalAEP<
   ACTION.UPLOAD_EXTERNAL_FAIL,
   ACTION_SUBJECT.EDITOR,
-  undefined,
   undefined,
   undefined
 >;
@@ -266,9 +250,6 @@ type InvalidProsemirrorDocumentErrorAEP = OperationalAEP<
   ACTION.INVALID_PROSEMIRROR_DOCUMENT,
   ACTION_SUBJECT.EDITOR,
   undefined,
-  {
-    errorStack?: string;
-  },
   undefined
 >;
 
@@ -276,10 +257,7 @@ type DocumentProcessingErrorAEP = OperationalAEP<
   ACTION.DOCUMENT_PROCESSING_ERROR,
   ACTION_SUBJECT.EDITOR,
   undefined,
-  undefined,
-  {
-    errorStack?: string;
-  }
+  undefined
 >;
 
 type EditorStopAEP = UIAEP<
@@ -412,14 +390,12 @@ type MediaLinkTransformedAEP = OperationalAEP<
   ACTION.MEDIA_LINK_TRANSFORMED,
   ACTION_SUBJECT.EDITOR,
   undefined,
-  undefined,
   undefined
 >;
 
 type TextLinkCodeMarkTransformedAEP = OperationalAEP<
   ACTION.TEXT_LINK_MARK_TRANSFORMED,
   ACTION_SUBJECT.EDITOR,
-  undefined,
   undefined,
   undefined
 >;
@@ -435,14 +411,12 @@ type DedupeMarksTransformedAEP = OperationalAEP<
    */
   {
     discardedMarkTypes: string[];
-  },
-  undefined
+  }
 >;
 
 type IndentationMarksTransformedAEP = OperationalAEP<
   ACTION.INDENTATION_MARKS_TRANSFORMED,
   ACTION_SUBJECT.EDITOR,
-  undefined,
   undefined,
   undefined
 >;
@@ -451,14 +425,12 @@ type NodesMissingContentTransformedAEP = OperationalAEP<
   ACTION.NODES_MISSING_CONTENT_TRANSFORMED,
   ACTION_SUBJECT.EDITOR,
   undefined,
-  undefined,
   undefined
 >;
 
 type InvalidMediaContentTransformedAEP = OperationalAEP<
   ACTION.INVALID_MEDIA_CONTENT_TRANSFORMED,
   ACTION_SUBJECT.EDITOR,
-  undefined,
   undefined,
   undefined
 >;

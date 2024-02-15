@@ -339,7 +339,7 @@ export default class MediaSingleNode extends Component<
     const isSelected = selected();
 
     const currentMaxWidth = isSelected
-      ? pluginInjectionApi?.media.sharedState.currentState()?.currentMaxWidth
+      ? pluginInjectionApi?.media?.sharedState.currentState()?.currentMaxWidth
       : undefined;
 
     const contentWidthForLegacyExperience =

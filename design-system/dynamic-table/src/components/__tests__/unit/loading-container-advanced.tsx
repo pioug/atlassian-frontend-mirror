@@ -80,7 +80,21 @@ describe('LoadingContainerAdvanced', () => {
 
     const spinner = screen.getByTestId(`${testId}--loadingSpinner`);
     expect(spinner).toBeInTheDocument();
-    expect(spinner.getAttribute('width')).toBe('48');
+    expect(spinner).toHaveAttribute('width', '48');
+    expect(spinner).toHaveAccessibleName('Loading table');
+  });
+
+  it('should accept a label for accessible name', () => {
+    const label = 'Table loading';
+
+    render(
+      <LoadingContainerAdvanced testId={testId} loadingLabel={label}>
+        <Contents />
+      </LoadingContainerAdvanced>,
+    );
+
+    const spinner = screen.getByRole('img');
+    expect(spinner).toHaveAccessibleName(label);
   });
 
   it('should render the spinner of a given size', () => {
@@ -91,7 +105,7 @@ describe('LoadingContainerAdvanced', () => {
     );
     const spinner = screen.getByTestId(`${testId}--loadingSpinner`);
     expect(spinner).toBeInTheDocument();
-    expect(spinner.getAttribute('width')).toBe('96');
+    expect(spinner).toHaveAttribute('width', '96');
   });
 
   describe('target manipulations', () => {

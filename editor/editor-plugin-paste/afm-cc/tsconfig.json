@@ -1,0 +1,61 @@
+{
+    "extends": "../../../../tsconfig.entry-points.confluence.json",
+    "compilerOptions": {
+        "target": "es5",
+        "composite": true,
+        "outDir": "../dist",
+        "rootDir": "../",
+        "baseUrl": "../"
+    },
+    "include": [
+        "../src/**/*.ts",
+        "../src/**/*.tsx"
+    ],
+    "exclude": [
+        "../src/**/__tests__/*",
+        "../src/**/*.test.*",
+        "../src/**/test.*",
+        "../src/**/examples.*"
+    ],
+    "references": [
+        {
+            "path": "../../editor-common/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-markdown-transformer/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-annotation/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-better-type-history/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-card/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-list/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-media/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-tables/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../media/media-client/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../media/media-common/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        }
+    ]
+}

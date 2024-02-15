@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/inline-message",
-  "version": "12.0.1",
+  "version": "12.0.4",
   "description": "An inline message lets users know when important information is available or when an action is required.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,21 +14,28 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
+  "af:exports": {
+    ".": "./src/index.tsx",
+    "./constants": "./src/constants.tsx",
+    "./types": "./src/types.tsx"
+  },
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Inline message",
       "category": "Components"
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^16.17.0",
+    "@atlaskit/button": "^17.3.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/inline-dialog": "^14.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -42,7 +49,6 @@
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/jest": "^11.8.0",
     "@testing-library/react": "^12.1.5",

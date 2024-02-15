@@ -8,16 +8,14 @@ import { injectIntl } from 'react-intl-next';
 import Button from '@atlaskit/button/custom-theme-button';
 import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import Modal, { ModalTransition, useModal } from '@atlaskit/modal-dialog';
-import { DN50, N0 } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
-import { borderRadius } from '@atlaskit/theme/constants';
+import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { getCategories } from './categories';
-import { messages } from './messages';
 
 export const MODAL_WRAPPER_PADDING = 16;
 
@@ -48,11 +46,8 @@ const wrapperStyles = css({
   boxSizing: 'border-box',
   padding: `${token('space.200', '16px')} ${token('space.200', '16px')} 0 10px`,
   overflow: 'hidden',
-  backgroundColor: `${themed({
-    light: token('elevation.surface.overlay', N0),
-    dark: token('elevation.surface.overlay', DN50),
-  })()}`,
-  borderRadius: `${borderRadius()}px`,
+  backgroundColor: token('elevation.surface.overlay', N0),
+  borderRadius: token('border.radius', '3px'),
 });
 
 const modalFooterStyles = css({

@@ -13,10 +13,16 @@ Use a progress bar when you can determine the percentage of the completed task a
 
 ## Anatomy
 
-![Progress bar anatomy](/images/progress-bar-anatomy.png)
+![The example progress bar is a light grey horizontal line partially filled with a dark blue fill.](/images/progress-bar-anatomy.png)
 
-1. Progress line: The visual representation of the progress.
-2. Progress bar container: Determine the length of the bar by the available screen space.
+1. Progress line: Progress is visually represented by a filled line. It can be partially filled, complete, or indeterminate (partial completion of an unknown amount).
+2. Progress bar container: This determines the length of the bar within the available screen space.
+
+## Accessibility
+
+- Always provide a clear `ariaLabel` that describes the current state of the progress bar. For example, "5 of 10 files uploaded", not "Files uploading".
+- Use helper text with a progress bar if the process is complex or has a long wait time. This lets people know what sub-processes are taking place.
+- Use a clear success state when the actions required to continue have been fulfilled.
 
 ## Best practice
 
@@ -24,7 +30,7 @@ Use a progress bar when you can determine the percentage of the completed task a
   type="do"
   image={{
     url: progressBarDo,
-    alt: 'Atlaskit button that says Reset Password',
+    alt: 'An example UI with the heading "Attach files". There are three files with progress bars indicating how far they are in the upload process.',
   }}
 >
   Use the progress bar component as a loading indicator or to communicate the
@@ -35,19 +41,14 @@ Use a progress bar when you can determine the percentage of the completed task a
   type="dont"
   image={{
     url: progressBarDont,
-    alt: 'Atlaskit button that says Click here to choose a password',
+    alt: 'An example table where the progress bar is used to indicate the percentage of work allocated per person.',
   }}
 >
   Don't use the progress bar for data visualization. Use a custom component
   instead.
 </DoDont>
 
-## Content guidelines
-
-- Use helper text with a progress bar if the process is complex or has a long wait time. This lets users know what sub-processes are taking place.
-- Use a success state when the actions required to continue have been fulfilled.
-
 ## Related
 
-- To find guidelines on an alternative indeterminate loading state for constrained spaces, see [spinner](/components/spinner).
-- To find guidelines on applying color to custom progress bars for data visualization, see [data visualization color](/foundations/color-new/data-visualization-color/).
+- For guidelines on an alternative indeterminate loading state for constrained spaces, see [spinner](/components/spinner).
+- For guidelines on applying color to custom progress bars for data visualization, see [data visualization color](/foundations/color-new/data-visualization-color/).

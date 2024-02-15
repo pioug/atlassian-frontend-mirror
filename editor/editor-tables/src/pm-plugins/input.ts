@@ -2,16 +2,14 @@
 // table-related functionality.
 
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
-import { ResolvedPos, Slice } from '@atlaskit/editor-prosemirror/model';
-import {
-  EditorState,
-  Selection,
-  TextSelection,
-} from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { CellSelection } from '../cell-selection';
-import { Axis, CommandWithView, Direction, Dispatch } from '../types';
+import type { Axis, CommandWithView, Direction, Dispatch } from '../types';
 import { tableNodeTypes } from '../utils';
 import { cellAround, nextCell } from '../utils/cells';
 import { inSameTable } from '../utils/tables';
@@ -165,7 +163,11 @@ export function handleTripleClick(view: EditorView, pos: number): boolean {
   return true;
 }
 
-export function handleMouseDown(view: EditorView, event: Event): boolean {
+export function handleMouseDown(
+  view: EditorView,
+  event: Event,
+  dragAndDropEnabled: boolean,
+): boolean {
   const startEvent = event as MouseEvent;
   // Prevent right clicks from making a cell selection https://product-fabric.atlassian.net/browse/ED-12527
   if (
@@ -180,6 +182,9 @@ export function handleMouseDown(view: EditorView, event: Event): boolean {
   const $anchor = cellAround(view.state.selection.$anchor);
   if (startEvent.shiftKey && view.state.selection instanceof CellSelection) {
     // Adding to an existing cell selection
+    if (dragAndDropEnabled) {
+      return false;
+    }
     setCellSelection(view.state.selection.$anchorCell, startEvent);
     startEvent.preventDefault();
   } else if (

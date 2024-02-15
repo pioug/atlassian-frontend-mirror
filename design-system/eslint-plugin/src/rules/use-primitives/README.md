@@ -6,24 +6,70 @@ This rule marks code as violations when it can be replaced 1:1 with a primitive 
 
 ### Incorrect
 
-```js
-<div />
-^^^^^^^
+```jsx
+const someStyles = css({
+  padding: '8px';
+})
 
-<Component>
-  <div css={someStyles}></div>
-  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-</Component>
+<div css={someStyles}>
+^^^^^^^^^^^^^^^^^^^^^^
+  // ...
+</div>
 ```
 
 ### Correct
 
-```js
-<Box />
+```jsx
+const someStyles = xcss({
+  padding: 'space.100';
+})
+
+<Box xcss={someStyles}>
+  // ...
+</Box>
 ```
 
-```js
-<Component>
-  <Box xcss={someStyles}></Box>
-</Component>
-```
+Currently, the rule is extremely defensive, only reporting on `css` styles that contain:
+
+- one, and only one, style property from this list:
+
+  - padding
+  - paddingBlock
+  - paddingBlockEnd
+  - paddingBlockStart
+  - paddingBottom
+  - paddingInline
+  - paddingInlineEnd
+  - paddingInlineStart
+  - paddingLeft
+  - paddingRight
+  - paddingTop
+  - margin
+  - marginBlock
+  - marginBlockEnd
+  - marginBlockStart
+  - marginBottom
+  - marginInline
+  - marginInlineEnd
+  - marginInlineStart
+  - marginLeft
+  - marginRight
+  - marginTop
+
+- and where the style value is one of:
+  - 0px
+  - 2px
+  - 4px
+  - 6px
+  - 8px
+  - 12px
+  - 16px
+  - 20px
+  - 24px
+  - 32px
+  - 40px
+  - 48px
+  - 64px
+  - 80px
+
+If these conditions are not met, then no violation will be reported.

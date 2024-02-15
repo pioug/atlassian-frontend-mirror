@@ -1,10 +1,10 @@
 import { SimpleMeasurementLogger } from '../../simple-measure-to-entries';
 import {
   EVENT_NAME_DISPATCH_TRANSACTION,
+  EVENT_NAME_ON_CHANGE,
   EVENT_NAME_STATE_APPLY,
   EVENT_NAME_UPDATE_STATE,
   EVENT_NAME_VIEW_STATE_UPDATED,
-  EVENT_NAME_ON_CHANGE,
 } from '../../track-transactions';
 
 const createReading = (

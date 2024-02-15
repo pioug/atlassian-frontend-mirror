@@ -51,6 +51,7 @@ export const PasteContents: { [P in PasteContent]: P } = {
   blockquote: 'blockquote',
   blockCard: 'blockCard',
   bodiedExtension: 'bodiedExtension',
+  multiBodiedExtension: 'multiBodiedExtension',
   bulletList: 'bulletList',
   codeBlock: 'codeBlock',
   decisionList: 'decisionList',
@@ -77,6 +78,7 @@ export type PasteContent =
   | 'blockquote'
   | 'blockCard'
   | 'bodiedExtension'
+  | 'multiBodiedExtension'
   | 'bulletList'
   | 'codeBlock'
   | 'decisionList'
@@ -128,14 +130,12 @@ type PasteBaseAEP<Action, Attributes, NonPrivacySafeAttributes> = TrackAEP<
   NonPrivacySafeAttributes
 >;
 
-type PasteBaseOperationalAEP<Action, Attributes, NonPrivacySafeAttributes> =
-  OperationalAEP<
-    Action,
-    ACTION_SUBJECT.EDITOR,
-    PASTE_ACTION_SUBJECT_ID,
-    Attributes,
-    NonPrivacySafeAttributes
-  >;
+type PasteBaseOperationalAEP<Action, Attributes> = OperationalAEP<
+  Action,
+  ACTION_SUBJECT.EDITOR,
+  PASTE_ACTION_SUBJECT_ID,
+  Attributes
+>;
 
 type PasteAEP = PasteBaseAEP<
   ACTION.PASTED,
@@ -169,8 +169,7 @@ type PastedTimedAEP = PasteBaseOperationalAEP<
     content: Array<string>;
     time: number;
     distortedDuration: boolean;
-  },
-  undefined
+  }
 >;
 
 export type PasteEventPayload = PasteAEP | PasteAsPlainAEP | PastedTimedAEP;

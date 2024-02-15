@@ -5,6 +5,7 @@ import { snapshotInformational } from '@af/visual-regression';
 
 import BasicFiltersVR from '../../examples/basic-filters-vr';
 import WithModal from '../../examples/with-modal';
+import { BasicFilterFieldType } from '../../src/ui/jira-issues-modal/basic-filters/types';
 
 type OptionsType = Parameters<typeof snapshotInformational>[1];
 
@@ -20,7 +21,12 @@ const options: OptionsType = {
   drawsOutsideBounds: true,
 };
 
-const filters = ['project', 'issuetype', 'status', 'assignee'];
+const filters: BasicFilterFieldType[] = [
+  'project',
+  'type',
+  'status',
+  'assignee',
+];
 
 const selectOption = async (
   page: Page,
@@ -31,7 +37,7 @@ const selectOption = async (
   await page.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
   let optionType: string;
 
-  if (filter === 'project' || filter === 'issuetype') {
+  if (filter === 'project' || filter === 'type') {
     optionType = 'icon-label';
   } else if (filter === 'status') {
     optionType = 'lozenge--text';
@@ -77,19 +83,19 @@ snapshotInformational(WithModal, {
 
 snapshotInformational(WithModal, {
   ...options,
-
+  drawsOutsideBounds: false,
   prepare: async (page: Page) => {
-    await page.getByTestId('mode-toggle-basic').click();
-
     await selectOption(page, 'project');
     await selectOption(page, 'status');
-    await selectOption(page, 'issuetype');
+    await selectOption(page, 'type');
     await selectOption(page, 'assignee');
-    await page.pause();
   },
   description: 'basic mode with basic filters with each filter selected',
   featureFlags: {
     'platform.linking-platform.datasource.show-jlol-basic-filters': true,
+  },
+  selector: {
+    byTestId: 'jlol-basic-filter-container',
   },
 });
 
@@ -151,7 +157,9 @@ filters.forEach(filter => {
         `loading-message`,
       );
 
-      await page.waitForTimeout(1000);
+      await component.getByTestId(
+        'jlol-basic-filter-popup-select--loading-message',
+      );
     },
     description: `${filter} open and view loading state`,
   });
@@ -169,7 +177,9 @@ filters.forEach(filter => {
         `empty-message`,
       );
 
-      await page.waitForTimeout(1000);
+      await component.getByTestId(
+        'jlol-basic-filter-popup-select--no-options-message',
+      );
     },
     description: `${filter} open and view empty state`,
   });
@@ -187,7 +197,9 @@ filters.forEach(filter => {
         `error-message`,
       );
 
-      await page.waitForTimeout(1000);
+      await component.getByTestId(
+        'jlol-basic-filter-popup-select--error-message',
+      );
     },
     description: `${filter} open and view error state`,
   });

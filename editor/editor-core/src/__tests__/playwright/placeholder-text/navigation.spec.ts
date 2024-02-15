@@ -1,25 +1,26 @@
 /* eslint-disable playwright/max-nested-describe */
 import {
-  editorTestCase as test,
-  expect,
   EditorPlaceholderTextModel,
   EditorTypeAheadModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import {
-  onePlaceholderInsideTableCells,
-  twoPlaceholdersInsideTableCells,
-} from './navigation.spec.ts-fixtures';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
-  table,
-  tr,
-  td,
   placeholder,
-  taskList,
+  table,
   taskItem,
+  taskList,
+  td,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import {
+  onePlaceholderInsideTableCells,
+  twoPlaceholdersInsideTableCells,
+} from './navigation.spec.ts-fixtures';
 
 test.describe('navigation', () => {
   test.describe('placeholder-text: arrow navigation', () => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

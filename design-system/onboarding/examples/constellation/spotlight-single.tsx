@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button';
+import Button, { IconButton } from '@atlaskit/button/new';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -20,7 +20,7 @@ const SpotlightTourExample = () => {
   return (
     <SpotlightManager>
       <SpotlightTarget name="codesandbox">
-        <Button iconBefore={<CodeSandboxIcon />} />
+        <IconButton icon={CodeSandboxIcon} label="codesandbox" />
       </SpotlightTarget>
       <div style={{ marginTop: token('space.200', '16px') }}>
         <Button appearance="primary" onClick={() => start()}>

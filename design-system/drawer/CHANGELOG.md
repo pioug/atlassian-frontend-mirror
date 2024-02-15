@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 7.6.6
+
+### Patch Changes
+
+- [#69022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69022) [`395c74147990`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/395c74147990) - Migrate packages to use declarative entry points
+
 ## 7.6.5
 
 ### Patch Changes

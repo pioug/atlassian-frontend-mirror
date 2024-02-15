@@ -1,9 +1,12 @@
 import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '@atlaskit/editor-common/analytics';
 import type {
-  FeatureFlags,
   InputRuleHandler,
   InputRuleWrapper,
 } from '@atlaskit/editor-common/types';
+import {
+  isOrderedList,
+  isOrderedListContinuous,
+} from '@atlaskit/editor-common/utils';
 import type {
   NodeType,
   Node as PMNode,
@@ -11,13 +14,13 @@ import type {
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { canJoin, findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { createRule } from '@atlaskit/prosemirror-input-rules';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Attrs = Record<string, any>;
 
 type WrappingRuleProps = {
-  featureFlags: FeatureFlags;
   match: RegExp;
   nodeType: NodeType;
   getAttrs?: Attrs | ((matchResult: RegExpExecArray) => Attrs);
@@ -33,7 +36,6 @@ export const createWrappingJoinRule = ({
   nodeType,
   getAttrs,
   joinPredicate,
-  featureFlags,
 }: WrappingRuleProps): InputRuleWrapper => {
   const handler: InputRuleHandler = (
     state: EditorState,
@@ -72,17 +74,14 @@ export const createWrappingJoinRule = ({
 
     tr.wrap(range, wrapping);
 
-    if (
-      featureFlags?.restartNumberedLists &&
-      nodeType === state.schema.nodes.orderedList
-    ) {
-      // if an orderedList node would be inserted by the input rule match, and
-      // that orderedList node is being added directly before another orderedList
-      // node, then join those nodes
-      const $end = tr.doc.resolve(tr.mapping.map(end));
-      const node = findParentNodeOfTypeClosestToPos($end, nodeType);
-      if (node) {
-        const nodeEnd = node.pos + node.node.nodeSize;
+    // if an orderedList node would be inserted by the input rule match, and
+    // that orderedList node is being added directly after another orderedList
+    const $end = tr.doc.resolve(tr.mapping.map(end));
+    const nodeWithPos = findParentNodeOfTypeClosestToPos($end, nodeType);
+    if (nodeType === state.schema.nodes.orderedList) {
+      // otherwise join the lists
+      if (nodeWithPos) {
+        const nodeEnd = nodeWithPos.pos + nodeWithPos.node.nodeSize;
         const after = tr.doc.resolve(nodeEnd).nodeAfter;
         if (
           after &&
@@ -113,7 +112,15 @@ export const createWrappingJoinRule = ({
           JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST.JOINED_TO_LIST_ABOVE,
         ))
     ) {
-      tr.join(fixedStart - 1);
+      if (
+        !getBooleanFF(
+          'platform.editor.ordered-list-auto-join-improvements_mrlv5',
+        ) ||
+        !isOrderedList(before) ||
+        (nodeWithPos?.node && isOrderedListContinuous(before, nodeWithPos.node))
+      ) {
+        tr.join(fixedStart - 1);
+      }
     }
 
     return tr;

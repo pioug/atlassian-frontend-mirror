@@ -1,11 +1,11 @@
 import {
   EditorFloatingToolbarModel,
   EditorPasteModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 
-import { emptyDocument } from './../__fixtures__/adf-document';
+import { emptyDocument } from '../__fixtures__/adf-document';
 
 test.use({
   editorProps: {
@@ -38,6 +38,6 @@ test.describe('link', () => {
       editorPasteModel,
     );
 
-    expect(await floatingToolbarModel.isVisible()).toEqual(false);
+    await expect(floatingToolbarModel.toolbar).toBeHidden();
   });
 });

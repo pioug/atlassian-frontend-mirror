@@ -7,15 +7,15 @@ import PageHeader from '../../src';
 
 const breadcrumbs = (
   <Breadcrumbs onExpand={__noop}>
-    <BreadcrumbsItem text="Some project" key="Some project" />
-    <BreadcrumbsItem text="Parent page" key="Parent page" />
+    <BreadcrumbsItem text="Projects" key="Projects" />
+    <BreadcrumbsItem text="Design System" key="Design System" />
   </Breadcrumbs>
 );
 
 const PageHeaderDefaultExample = () => {
   return (
     <PageHeader breadcrumbs={breadcrumbs}>
-      Title describing what content to expect on the page
+      How to use the page header component
     </PageHeader>
   );
 };

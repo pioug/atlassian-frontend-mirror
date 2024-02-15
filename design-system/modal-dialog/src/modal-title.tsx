@@ -42,10 +42,9 @@ const textStyles = css({
 });
 
 const iconStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  marginRight: `${titleIconMargin}px`,
   flex: '0 0 auto',
   alignSelf: 'start',
+  marginInlineEnd: `${titleIconMargin}px`,
 });
 
 /**
@@ -56,20 +55,17 @@ const iconStyles = css({
 const lineHeightOffset = fontSize - fontSize * adjustedLineHeight;
 
 const truncatedTextStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
-  marginTop: `${lineHeightOffset / 2}px`,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
-  marginBottom: `${lineHeightOffset / 2}px`,
   lineHeight: adjustedLineHeight,
+  marginBlockEnd: `${lineHeightOffset / 2}px`,
+  marginBlockStart: `${lineHeightOffset / 2}px`,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
 });
 
 const truncatedTextIconStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
-  marginBottom: `${lineHeightOffset / 2}px`,
   lineHeight: 1.2,
+  marginBlockEnd: `${lineHeightOffset / 2}px`,
 });
 
 const TitleIcon = ({

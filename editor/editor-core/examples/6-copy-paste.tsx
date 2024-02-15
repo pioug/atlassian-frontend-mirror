@@ -1,50 +1,36 @@
 /** @jsx jsx */
-import type { SerializedStyles } from '@emotion/react';
-import { css, jsx } from '@emotion/react';
 import type { ReactNode } from 'react';
 import React, { Fragment, useEffect, useState } from 'react';
+
+import type { SerializedStyles } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
+
+import type { DocNode } from '@atlaskit/adf-schema';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-import { ReactRenderer } from '@atlaskit/renderer';
-import { Editor } from './../src';
-import type { EditorProps, EditorAppearance } from './../src/editor';
-import EditorContext from './../src/ui/EditorContext';
-import WithEditorActions from './../src/ui/WithEditorActions';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
-import {
-  currentUser,
-  getEmojiProvider,
-} from '@atlaskit/util-data-test/get-emoji-provider';
-import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { SmartCardProvider } from '@atlaskit/link-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
-import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
-import { TitleInput } from '../example-helpers/PageElements';
-import type { EditorActions } from './../src';
-import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { MockActivityResource } from '../example-helpers/activity-provider';
-import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
-import {
-  defaultCollectionName,
-  defaultMediaPickerCollectionName,
-} from '@atlaskit/media-test-helpers/collectionNames';
-import { videoFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { DocNode } from '@atlaskit/adf-schema';
+import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type {
   ImagePreview,
   UploadPreviewUpdateEventPayload,
 } from '@atlaskit/media-picker';
 import { Clipboard } from '@atlaskit/media-picker';
+import {
+  defaultCollectionName,
+  defaultMediaPickerCollectionName,
+} from '@atlaskit/media-test-helpers/collectionNames';
+import { videoFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
 import { fileToDataURI } from '@atlaskit/media-ui';
-import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import Modal, {
   ModalBody,
   ModalFooter,
@@ -52,6 +38,23 @@ import Modal, {
   ModalTitle,
   ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { ReactRenderer } from '@atlaskit/renderer';
+import {
+  currentUser,
+  getEmojiProvider,
+} from '@atlaskit/util-data-test/get-emoji-provider';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+
+import { MockActivityResource } from '../example-helpers/activity-provider';
+import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
+import { TitleInput } from '../example-helpers/PageElements';
+import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
+import type { EditorActions } from '../src';
+import { Editor } from '../src';
+import type { EditorAppearance, EditorProps } from '../src/editor';
+import EditorContext from '../src/ui/EditorContext';
+import WithEditorActions from '../src/ui/WithEditorActions';
 
 const wrapper = css`
   box-sizing: border-box;

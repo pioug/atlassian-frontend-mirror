@@ -1,5 +1,7 @@
 import { JsonLd } from 'json-ld-types';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import { extractContext } from '../context';
 
 import { extractType } from './extractType';
@@ -34,6 +36,16 @@ export const extractTitle = (
     }
     // BRANCH: `repo-name/branch-name`
     if (type.includes('atlassian:SourceCodeReference')) {
+      return contextName + name;
+    }
+
+    // FILE: `repo-name: filepath`
+    if (
+      getBooleanFF(
+        'platform.linking-platform.extractor.improve-bitbucket-file-links',
+      ) &&
+      type.includes('schema:DigitalDocument')
+    ) {
       return contextName + name;
     }
   }

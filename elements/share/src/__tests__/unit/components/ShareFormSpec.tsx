@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { render } from '@testing-library/react';
 import { shallow } from 'enzyme';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
@@ -504,6 +505,23 @@ describe('ShareForm', () => {
       const childTabs = tabList.find(Tab);
       expect(childTabs).toHaveLength(2);
     });
+  });
+
+  it('should render helper text on top to explain asterisk', () => {
+    const { getByText } = render(
+      <IntlProvider locale="en">
+        <ShareForm
+          {...defaultProps}
+          title="Share"
+          showTitle={false}
+          copyLink="link"
+          product="confluence"
+        />
+      </IntlProvider>,
+    );
+    expect(
+      getByText('Required fields are marked with an asterisk'),
+    ).toBeInTheDocument();
   });
 });
 

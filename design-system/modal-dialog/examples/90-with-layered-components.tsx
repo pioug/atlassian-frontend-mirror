@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import AvatarGroup from '@atlaskit/avatar-group';
-import Button from '@atlaskit/button/standard-button';
+import Button, { IconButton } from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import DropdownMenu, {
@@ -102,12 +102,13 @@ export default () => {
                 )}
                 trigger={(triggerProps) => (
                   <Fragment>
-                    <Button
+                    <IconButton
                       {...triggerProps}
                       testId="popup-trigger"
                       isSelected={isPopupOpen}
                       onClick={() => setIsPopupOpen(!isPopupOpen)}
-                      iconBefore={<AddCommentIcon label="Add" />}
+                      icon={AddCommentIcon}
+                      label="Add"
                     />
                     <Break />
                   </Fragment>

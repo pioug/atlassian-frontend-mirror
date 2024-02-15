@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button';
+import { IconButton } from '@atlaskit/button/new';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import {
   ButtonItem,
@@ -59,7 +59,7 @@ const Menu = () => {
       onClose={() => setIsOpen(false)}
       content={() => <PopupMenu closePopupMenu={closePopupMenu} />}
       trigger={(triggerProps) => (
-        <Button
+        <IconButton
           {...triggerProps}
           testId="popup-trigger"
           isSelected={isOpen}
@@ -67,7 +67,8 @@ const Menu = () => {
             e.stopPropagation();
             setIsOpen(!isOpen);
           }}
-          iconAfter={<MoreIcon label="more" />}
+          icon={MoreIcon}
+          label="more"
         />
       )}
     />

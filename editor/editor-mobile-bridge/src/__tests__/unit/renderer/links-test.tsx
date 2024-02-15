@@ -1,20 +1,20 @@
-import { mount } from 'enzyme';
-import React from 'react';
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { ResolveResponse } from '@atlaskit/smart-card';
-import {
-  MobileSmartCardClient,
-  createCardClient,
-} from '../../../providers/cardProvider';
-import { MobileRenderer } from '../../../renderer/mobile-renderer-element';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import React from 'react';
+import type { IntlShape } from 'react-intl-next';
 import {
   createEmojiProvider,
   createMediaProvider,
   createMentionProvider,
 } from '../../../providers';
-import { FetchProxy } from '../../../utils/fetch-proxy';
-import type { IntlShape } from 'react-intl-next';
+import {
+  createCardClient,
+  MobileSmartCardClient,
+} from '../../../providers/cardProvider';
+import { MobileRenderer } from '../../../renderer/mobile-renderer-element';
 import RendererBridgeImplementation from '../../../renderer/native-to-web/implementation';
+import { FetchProxy } from '../../../utils/fetch-proxy';
 
 const mockIntersectionObserver = () => {
   class MockIntersectionObserver implements IntersectionObserver {
@@ -39,19 +39,6 @@ const mockIntersectionObserver = () => {
     value: MockIntersectionObserver,
   });
 };
-
-type MockedEvent = { preventDefault: () => void; defaultPrevented: boolean };
-
-function createMockedPreventableEvent(): MockedEvent {
-  const e: MockedEvent = {
-    defaultPrevented: false,
-    preventDefault: () => {},
-  };
-  e.preventDefault = jest.fn(() => {
-    e.defaultPrevented = true;
-  });
-  return e;
-}
 
 class MockedMobileSmartCardClient extends MobileSmartCardClient {
   async fetchData(url: string) {
@@ -119,6 +106,7 @@ const linkADF: DocNode = {
     },
   ],
 };
+
 const smartLinkADF: DocNode = {
   version: 1,
   type: 'doc',
@@ -162,15 +150,10 @@ describe('renderer bridge: links', () => {
     mockIntersectionObserver();
   });
 
-  beforeEach(() => {
-    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
-      cb(1);
-      return 1;
-    });
-  });
+  afterEach(jest.clearAllMocks);
 
-  it('should prevent WebView redirection when clicking regular links', () => {
-    const mobileRenderer = mount(
+  it('should prevent WebView redirection when clicking regular links', async () => {
+    render(
       <MobileRenderer
         cardClient={createCardClient()}
         emojiProvider={createEmojiProvider(new FetchProxy())}
@@ -182,17 +165,22 @@ describe('renderer bridge: links', () => {
       />,
     );
 
-    const normalLink = mobileRenderer.find('a:not([role])').first();
-    const mockMouseEvent = createMockedPreventableEvent();
-    normalLink.simulate('click', mockMouseEvent);
-    expect(mockMouseEvent.preventDefault).toHaveBeenCalled();
-    expect(mockMouseEvent.defaultPrevented).toEqual(true);
+    const normalLink = screen.getByRole('link', { name: "I'm a normal link" });
 
-    mobileRenderer.unmount();
+    const mouseEvent = new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
+    });
+    const preventDefaultSpy = jest.spyOn(mouseEvent, 'preventDefault');
+
+    fireEvent(normalLink, mouseEvent);
+
+    await waitFor(() => expect(preventDefaultSpy).toHaveBeenCalledTimes(1));
+    expect(mouseEvent.defaultPrevented).toBe(true);
   });
 
   it('should prevent WebView redirection when clicking smart links', async () => {
-    const mobileRenderer = mount(
+    render(
       <MobileRenderer
         document={smartLinkADF}
         cardClient={mockCardClient}
@@ -204,22 +192,17 @@ describe('renderer bridge: links', () => {
       />,
     );
 
-    // Wait 100ms for the smart link provider to resolve the url's data and re-render
-    await new Promise<void>((resolve) => {
-      setTimeout(() => {
-        mobileRenderer.update();
-        resolve();
-      }, 100);
+    const smartLink = await screen.findByRole('button', { name: '' });
+
+    const mouseEvent = new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
     });
+    const preventDefaultSpy = jest.spyOn(mouseEvent, 'preventDefault');
 
-    const smartLink = mobileRenderer
-      .find('span[data-inline-card] a[role]')
-      .first();
-    const mockMouseEvent = createMockedPreventableEvent();
-    smartLink.simulate('click', mockMouseEvent);
-    expect(mockMouseEvent.preventDefault).toHaveBeenCalled();
-    expect(mockMouseEvent.defaultPrevented).toEqual(true);
+    fireEvent(smartLink, mouseEvent);
 
-    mobileRenderer.unmount();
+    await waitFor(() => expect(preventDefaultSpy).toHaveBeenCalled()); // Called twice?
+    expect(mouseEvent.defaultPrevented).toBe(true);
   });
 });

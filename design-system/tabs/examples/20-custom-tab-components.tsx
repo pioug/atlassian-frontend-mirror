@@ -53,16 +53,16 @@ const CustomTabComponent = () => (
         <TooltipTab label="Tab 4" tooltip="Tooltip for tab 4" />
       </TabList>
       <TabPanel>
-        <Panel>One</Panel>
+        <Panel>This is the content area of the first tab.</Panel>
       </TabPanel>
       <TabPanel>
-        <Panel>Two</Panel>
+        <Panel>This is the content area of the second tab.</Panel>
       </TabPanel>
       <TabPanel>
-        <Panel>Three</Panel>
+        <Panel>This is the content area of the third tab.</Panel>
       </TabPanel>
       <TabPanel>
-        <Panel>Four</Panel>
+        <Panel>This is the content area of the fourth tab.</Panel>
       </TabPanel>
     </Tabs>
     <h3>Tabs as links</h3>
@@ -74,16 +74,16 @@ const CustomTabComponent = () => (
         <LinkTab label="Tab 4" href={href} />
       </TabList>
       <TabPanel>
-        <Panel>One</Panel>
+        <Panel>This is the content area of the first tab.</Panel>
       </TabPanel>
       <TabPanel>
-        <Panel>Two</Panel>
+        <Panel>This is the content area of the second tab.</Panel>
       </TabPanel>
       <TabPanel>
-        <Panel>Three</Panel>
+        <Panel>This is the content area of the third tab.</Panel>
       </TabPanel>
       <TabPanel>
-        <Panel>Four</Panel>
+        <Panel>This is the content area of the fourth tab.</Panel>
       </TabPanel>
     </Tabs>
   </div>

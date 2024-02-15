@@ -1,0 +1,34 @@
+{
+    "extends": "../../../../tsconfig.entry-points.confluence.json",
+    "compilerOptions": {
+        "declaration": true,
+        "target": "es5",
+        "composite": true,
+        "outDir": "../dist",
+        "rootDir": "../",
+        "baseUrl": "../"
+    },
+    "include": [
+        "../src/**/*.ts",
+        "../src/**/*.tsx"
+    ],
+    "exclude": [
+        "../src/**/__tests__/*",
+        "../src/**/*.test.*",
+        "../src/**/test.*"
+    ],
+    "references": [
+        {
+            "path": "../../../analytics/analytics-gas-types/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../analytics/analytics-namespaced-context/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/section-message/afm-cc/tsconfig.json"
+        }
+    ]
+}

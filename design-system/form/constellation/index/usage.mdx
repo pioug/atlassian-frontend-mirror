@@ -33,11 +33,18 @@ Common form components include [text fields](/components/textfield/examples), [s
 6. **Disabled fields:** Show disabled fields if users need to know what controls might not be available to them.
 7. **Form footer:** Always use a submit button and distinguish primary and secondary buttons.
 
+## Accessibility
+
+- Ensure there is a legend at the top of the form so people know that `*` indicates a required field.
+- Never disable a submit button, even if all of the required fields aren't filled in. Instead, describe what needs to be done with clear instructions, validation and error messages.
+- Avoid using placeholder text wherever possible. If you do use placeholder text, don't include any critical information in the placeholder text.
+- Make sure all fields have an accessible label visible. Search fields are sometimes an exception to this.
+- Use [standard HTML autofill tokens](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute) to reduce typing and user error by letting the browser suggest previously saved information.
+- Persist forms on refresh so that user data isn’t lost.
+- Validate forms inline so keyboard users don't have to navigate far to get feedback. Ideally, make the interactions and written instructions clear to prevent errors happening in the first place, and help people fix problems as they occur.
+- Match keyboard to input on mobile.
+
 ## Best practices
-
-### General
-
-Persist forms on refresh so that user data isn’t lost.
 
 ### Layout
 
@@ -89,7 +96,7 @@ Max-width: **624px**, recommended by the [cozy grid](/foundations/grid#gutter-sp
 
 ### Fields and labels
 
-- Reduce the number of fields in your form to avoid a large cognitive load on users, and help them submit the form faster.
+- Reduce the number of fields in your form to avoid a large cognitive load for people, and help them submit the form faster.
 - Avoid optional fields by only asking for relevant information.
 - Avoid using default selections, or, instead, use smart defaults. For example, preselect the user's country based on location data.
 - Always include a visible label with an input field. Don't use placeholder text in place of labels. The only exception to this is for search fields, which often have icons or other indicators of purpose.
@@ -194,15 +201,6 @@ Buttons are sorted by importance from right to left, with the most important but
 Exceptions to this are single-page forms, flags, and section messages where buttons are left aligned with the primary button on the left.
 
 ![Button positioned to the left in a form.](../images/button-positioning-3.png)
-
-## Accessibility
-
-- Ensure sighted users are given a legend to know that `*` indicates a required field.
-- Never disable a submit button, even if all of the required fields aren't filled in. Instead, describe what needs to be done using [validation and error messages](/content/writing-guidelines).
-- Match keyboard to input on mobile.
-- Avoid using placeholder text wherever possible. If you do use placeholder text, don't include any critical information in the placeholder text.
-- Make sure all fields have an accessible label visible. Search fields are sometimes an exception to this.
-- Use autocompletion to reduce typing and user error.
 
 ## Related
 

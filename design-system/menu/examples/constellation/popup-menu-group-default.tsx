@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { ButtonItem, PopupMenuGroup, Section } from '../../src';

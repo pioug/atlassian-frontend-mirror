@@ -1,6 +1,6 @@
 import type { SnapPointsProps } from '@atlaskit/editor-common/types';
-import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { calculateSnapPoints } from '@atlaskit/editor-common/utils';
+import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 
 describe('calculations', () => {
   describe('snapPoints', () => {

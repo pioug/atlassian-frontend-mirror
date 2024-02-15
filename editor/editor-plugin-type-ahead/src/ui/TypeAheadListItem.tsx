@@ -1,3 +1,5 @@
+// Disabling for ED-21403 fixing accessibility issue.
+/* eslint-disable jsx-a11y/role-supports-aria-props */
 /** @jsx jsx */
 import React, { useCallback, useLayoutEffect, useMemo } from 'react';
 
@@ -5,7 +7,10 @@ import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
 import { IconFallback } from '@atlaskit/editor-common/quick-insert';
-import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import {
+  SelectItemMode,
+  typeAheadListMessages,
+} from '@atlaskit/editor-common/type-ahead';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
@@ -13,7 +18,6 @@ import { B400, N200, N30, N800 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { typeAheadListMessages } from '../messages';
 import type { TypeAheadItem } from '../types';
 
 export const ICON_HEIGHT = 40;
@@ -96,11 +100,9 @@ const selectedStyle = css`
   box-shadow: inset 2px 0px 0px ${token('color.border.focused', B400)};
 `;
 
-const FallbackIcon: React.FC<Record<'label', string>> = React.memo(
-  ({ label }) => {
-    return <IconFallback />;
-  },
-);
+const FallbackIcon = React.memo(({ label }: Record<'label', string>) => {
+  return <IconFallback />;
+});
 
 const noop = () => {};
 
@@ -113,43 +115,29 @@ type TypeAheadListItemProps = {
   onItemClick: (mode: SelectItemMode, index: number) => void;
 };
 
-const AssistiveText = ({
-  title,
-  description,
-  shortcut,
-}: {
-  title: string;
-  description?: string;
-  shortcut?: string;
-}) => {
-  const intl = useIntl();
-  const descriptionText = description
-    ? ` ${intl.formatMessage(
-        typeAheadListMessages.descriptionLabel,
-      )} ${description}.`
-    : '';
-  const shortcutText = shortcut
-    ? ` ${intl.formatMessage(typeAheadListMessages.shortcutLabel)} ${shortcut}.`
-    : '';
-  return (
-    <span className="assistive">{`${title}. ${descriptionText} ${shortcutText}`}</span>
-  );
-};
-
-export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
+export const TypeAheadListItem = ({
   item,
   itemsLength,
   selectedIndex,
   onItemClick,
   itemIndex,
   ariaLabel,
-}) => {
+}: TypeAheadListItemProps) => {
   /**
    * To select and highlight the first Item when no item is selected
    * However selectedIndex remains -1, So that user does not skip the first item when down arrow key is used from typeahead query(inputQuery.tsx)
    */
   const isSelected =
     itemIndex === selectedIndex || (selectedIndex === -1 && itemIndex === 0);
+
+  // Assistive text
+  const intl = useIntl();
+  const descriptionText = item.description ? `${item.description}.` : '';
+  const shortcutText = item.keyshortcut
+    ? ` ${intl.formatMessage(typeAheadListMessages.shortcutLabel)} ${
+        item.keyshortcut
+      }.`
+    : '';
 
   const { icon, title, render: customRenderItem } = item;
   const elementIcon = useMemo(() => {
@@ -233,6 +221,7 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
         isSelected={isSelected}
         aria-selected={isSelected}
         aria-label={title}
+        aria-description={`${descriptionText} ${shortcutText}`}
         aria-setsize={itemsLength}
         aria-posinset={itemIndex}
         role="option"
@@ -253,11 +242,6 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
             <div className="item-description">{item.description}</div>
           </div>
         </div>
-        <AssistiveText
-          title={item.title}
-          description={item.description}
-          shortcut={item.keyshortcut}
-        />
       </ButtonItem>
     </span>
   );

@@ -14,7 +14,6 @@ import {
   NodeSelection,
   TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 function findInsertPoint(
   doc: PMNode,
@@ -108,14 +107,6 @@ export const insertBlockNode = ({
 
   if (node.isBlock) {
     let mappedStart = start;
-    if (
-      !getBooleanFF(
-        'platform.editor.content-insertion.block-node-prefer-insert-after-selection',
-      )
-    ) {
-      tr.delete(start, end);
-      mappedStart = tr.mapping.map(start);
-    }
     const nodeNormalized = normaliseNestedLayout(tr, node);
 
     // Handle edge cases for hr and mediaSingle

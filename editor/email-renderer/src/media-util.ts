@@ -1,4 +1,4 @@
-import { MediaType } from './interfaces';
+import type { MediaType } from './interfaces';
 
 export const getIconFromMediaType = (mediaType: MediaType) => {
   switch (mediaType) {

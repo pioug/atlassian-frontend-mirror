@@ -10,7 +10,6 @@ import { token } from '@atlaskit/tokens';
 import { SlackIcon } from '../assets/slack';
 import { GoogleIcon } from '../assets/google';
 import { MicrosoftIcon } from '../assets/microsoft';
-import { GitHubIcon } from '../assets/github';
 import { messages } from '../i18n';
 import { UserSource } from '../../types';
 import { ExternalUserSourcesData } from '../ExternalUserSourcesContainer';
@@ -59,11 +58,6 @@ const SUPPORTED_SOURCES: RenderableSource[] = [
     sourceType: 'microsoft',
     icon: <MicrosoftIcon />,
     label: messages.microsoftProvider,
-  },
-  {
-    sourceType: 'github',
-    icon: <GitHubIcon />,
-    label: messages.gitHubProvider,
   },
 ];
 

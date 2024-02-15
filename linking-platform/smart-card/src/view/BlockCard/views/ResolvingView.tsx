@@ -17,6 +17,12 @@ export interface ResolvingProps {
   inheritDimensions?: boolean;
 }
 
+/**
+ * Class name for selecting non-flexible resolving block card
+ *
+ * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-6878 Internal documentation for deprecation (no external access)}
+ * Using this selctor is deprecated as once the flexible block card feature flag is removed, this class will no longer be used.
+ */
 export const blockCardResolvingViewClassName = 'block-card-resolving-view';
 
 export const ResolvingView = ({

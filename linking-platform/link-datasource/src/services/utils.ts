@@ -1,3 +1,10 @@
+/**
+ * HELLO DEV :wave
+ * If you are here to change these queries, please also remember to update the query in jira/src/packages/platform/linking/link-datasource/src/index.tsx
+ * We have the entry in @atlassian/jira-linking-platform-link-datasource to ensure that, if a developer makes a breaking change to the schema,
+ * then the relay compiler start yelling, and it can help the dev to notify us.
+ */
+
 export const hydrateJQLQuery = `query hydrate($cloudId: ID!, $jql: String!) {
   jira {
     jqlBuilder(cloudId: $cloudId) {

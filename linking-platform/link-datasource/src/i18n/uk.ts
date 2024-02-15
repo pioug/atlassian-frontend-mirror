@@ -28,7 +28,7 @@ export default {
   'linkDataSource.column-picker.search': 'Пошук полів',
   'linkDataSource.column-picker.tooltip': 'Налаштувати стовпці',
   'linkDataSource.jira-issues.accessInstructions': 'Щоб надіслати запит на доступ, зверніться до адміністратора сайту.',
-  'linkDataSource.jira-issues.accessRequired': 'У вас немає доступу до цього сайту',
+  'linkDataSource.jira-issues.accessRequired': 'У вас немає доступу до цього вмісту',
   'linkDataSource.jira-issues.accessRequiredWithSite': 'У вас немає доступу до цього сайту:',
   'linkDataSource.jira-issues.checkConnection': 'Перевірте з’єднання та оновіть сторінку або повторіть спробу пізніше.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
@@ -46,14 +46,14 @@ export default {
   'linkDataSource.jira-issues.configmodal.issue':
     '{totalCount, plural, one {завдання} few {завдання} many {завдань} other {завдання}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Подання завдань',
+  'linkDataSource.jira-issues.no.jira.sites.access.description': 'Щоб запитати доступ, зверніться до адміністратора.',
+  'linkDataSource.jira-issues.no.jira.sites.access.title': 'У вас немає доступу до жодного сайту Jira',
   'linkDataSource.jira-issues.noResultsFound': 'Немає результатів',
   'linkDataSource.jira-issues.refresh': 'Оновити',
   'linkDataSource.jira-issues.unableToLoadItems': 'Не вдалося завантажити елементи',
   'linkDataSource.jira-issues.unableToLoadResults': 'Не вдалося завантажити результати',
   'linkDataSource.modal-initial-state.beta': 'Бета-версія',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Дізнайтеся, як виконувати пошук засобами JQL',
-  'linkDataSource.modal-initial-state.searchDescription':
-    'Використовуйте JQL (Jira Query Language) для пошуку завдань.',
   'linkDataSource.modal-initial-state.searchTitle': 'Пошук завдань Jira',
   'linkDataSource.render-type.boolean.false': 'Ні',
   'linkDataSource.render-type.boolean.true': 'Так',

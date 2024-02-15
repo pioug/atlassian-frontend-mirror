@@ -45,7 +45,14 @@ export {
   removeRowClosestToPos,
 } from './utils/remove-row';
 export { removeTable } from './utils/remove-table';
-export { selectColumn, selectRow, selectTable } from './utils/select-nodes';
+export {
+  selectColumn,
+  selectColumns,
+  selectRow,
+  selectRows,
+  selectTable,
+  selectTableClosestToPos,
+} from './utils/select-nodes';
 export { selectionCell } from './utils/selection-cell';
 export { selectedRect } from './utils/selection-rect';
 export type { SelectionRect } from './utils/selection-rect';

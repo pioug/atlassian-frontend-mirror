@@ -8,14 +8,15 @@ export interface RowsProps<T> {
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   items?: WithChildren<T>[];
   render: (args: WithChildren<T>) => React.ReactNode;
+  loadingLabel?: string;
 }
 
 export default class Rows<T> extends Component<RowsProps<T>> {
   render() {
-    const { items, render } = this.props;
+    const { items, render, loadingLabel = 'Loading' } = this.props;
     return (
-      <div>
-        <Items items={items} render={render} />
+      <div role="rowgroup">
+        <Items items={items} loadingLabel={loadingLabel} render={render} />
       </div>
     );
   }

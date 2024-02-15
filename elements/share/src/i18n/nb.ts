@@ -19,6 +19,7 @@ export default {
   'fabric.elements.share.form.no-permissions': 'Du har ikke muligheten til å dele.',
   'fabric.elements.share.form.public.send': 'Send offentlig tilgjengelig kobling',
   'fabric.elements.share.form.public.share': 'Del offentlig kobling',
+  'fabric.elements.share.form.required-field.summary': 'Obligatoriske felt er merket med stjerne',
   'fabric.elements.share.form.retry': 'Prøv igjen',
   'fabric.elements.share.form.send': 'Send',
   'fabric.elements.share.form.share': 'Del',

@@ -1,12 +1,15 @@
 import React from 'react';
+
 import { AnnotationTypes } from '@atlaskit/adf-schema';
+
 import { exampleDocumentWithComments } from '../example-helpers/example-doc-with-comments';
 import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
-} from '@atlaskit/editor-test-helpers/example-inline-comment-component';
-import { default as FullPageExample } from './5-full-page';
+} from '../example-helpers/example-inline-comment-component';
 import { AnnotationUpdateEmitter } from '../src';
+
+import { default as FullPageExample } from './5-full-page';
 
 const emitter = new AnnotationUpdateEmitter();
 
@@ -128,6 +131,23 @@ export default class ExampleAnnotationExperiment extends React.Component<
     });
   };
 
+  /**
+   * Mimics behaviour of Confluence comments button - this will look for
+   * the first comment in the document and open it
+   */
+  handleShowInlineComments = () => {
+    const firstComment = document.querySelector(
+      '.ak-editor-annotation-focus,.ak-editor-annotation-blur',
+    );
+
+    if (firstComment) {
+      const firstCommentID = (
+        firstComment.closest('.annotationView-content-wrap') as HTMLElement
+      ).id;
+      emitter.emit('setselectedannotation', firstCommentID);
+    }
+  };
+
   render() {
     const {
       annotationStates,
@@ -139,6 +159,9 @@ export default class ExampleAnnotationExperiment extends React.Component<
       <div style={{ display: 'flex', height: '100%' }}>
         <div style={{ flex: '20%', padding: '16px' }}>
           <h3>Annotations</h3>
+          <button onClick={this.handleShowInlineComments}>
+            Show inline comments
+          </button>
           <div>
             <EnableAnnotationTypeCheckbox
               id="enable-inline-comments"

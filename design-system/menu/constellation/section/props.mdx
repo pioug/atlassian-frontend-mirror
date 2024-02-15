@@ -2,10 +2,12 @@
 title: Section
 description: A way to group related menu items.
 order: 1
+props:
+  packageName: '@atlaskit/menu'
+  exports:
+    - Section
 ---
-
-import SectionProps from '!!extract-react-types-loader!../../src/menu-section/section';
 
 ## Props
 
-<PropsTable heading="" props={SectionProps} />
+<TSMorphProps exportName="Section" packageName="@atlaskit/menu" />

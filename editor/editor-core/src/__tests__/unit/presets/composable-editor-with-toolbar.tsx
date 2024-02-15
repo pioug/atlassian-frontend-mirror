@@ -1,19 +1,22 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { usePreset } from '../../../use-preset';
-import { ComposableEditor } from '../../../composable-editor';
-import { createDefaultPreset } from '../../../labs-next';
-import { EditorContext } from '../../..';
-import type {
-  PublicPluginAPI,
-  NextEditorPlugin,
-  EditorCommand,
-} from '@atlaskit/editor-common/types';
+
+import { fireEvent, render } from '@testing-library/react';
+
 import Button from '@atlaskit/button';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type {
+  EditorCommand,
+  NextEditorPlugin,
+  PublicPluginAPI,
+} from '@atlaskit/editor-common/types';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+
+import { ComposableEditor } from '../../../composable-editor';
+import { EditorContext } from '../../../index';
+import { createDefaultPreset } from '../../../labs-next';
+import { usePreset } from '../../../use-preset';
 
 describe('composable editor with toolbar', () => {
   it('should be able to execute commands from outside the composable editor', () => {
@@ -164,8 +167,8 @@ function Toolbar({
       </p>
       <Button
         onClick={() => {
-          const command = editorApi?.dog.commands.bark;
-          editorApi?.core.actions.execute(command);
+          const command = editorApi?.dog?.commands.bark;
+          editorApi?.core?.actions.execute(command);
         }}
       >
         Click me!

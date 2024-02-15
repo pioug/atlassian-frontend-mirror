@@ -1,5 +1,29 @@
 # @atlaskit/task-decision
 
+## 17.9.7
+
+### Patch Changes
+
+- [#68561](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68561) [`6a1919bf8400`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a1919bf8400) - Migrate packages to use declarative entry points
+
+## 17.9.6
+
+### Patch Changes
+
+- [#57137](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57137) [`9b9900944973`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b9900944973) - Remove legacy theming logic from @atlaskit/date, @atlaskit/mention, @atlaskit/task-decision and @atlaskit/user-picker.
+
+## 17.9.5
+
+### Patch Changes
+
+- [#57731](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57731) [`889df47f0f25`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/889df47f0f25) - Add data-testid to placeholder
+
+## 17.9.4
+
+### Patch Changes
+
+- [#57181](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57181) [`38733803e64f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/38733803e64f) - Upgrade Emotion v10 (@emotion/core) to Emotion v11 (@emotion/react). No behaviour change expected.
+
 ## 17.9.3
 
 ### Patch Changes

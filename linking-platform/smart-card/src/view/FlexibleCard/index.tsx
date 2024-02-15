@@ -29,7 +29,7 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
   renderers,
   showAuthTooltip,
   showHoverPreview,
-  showServerActions,
+  actionOptions,
   testId,
   ui,
   url,
@@ -43,11 +43,11 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
         response: details,
         id,
         renderers,
-        showServerActions,
+        actionOptions,
         status,
         url,
       }),
-    [details, id, renderers, showServerActions, status, url],
+    [details, id, renderers, actionOptions, status, url],
   );
   const retry = getRetryOptions(url, status, details, onAuthorize);
   const { title } = context || {};
@@ -93,7 +93,7 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
             onClick={onClick}
             retry={retry}
             showHoverPreview={showHoverPreview}
-            showServerActions={showServerActions}
+            actionOptions={actionOptions}
             showAuthTooltip={showAuthTooltip}
             status={status}
           >

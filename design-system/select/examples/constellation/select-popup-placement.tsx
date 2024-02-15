@@ -1,6 +1,6 @@
 import React from 'react';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { PopupSelect } from '../../src';
 
 const options = [
@@ -35,7 +35,7 @@ const PopupSelectExample = () => {
         <Button
           {...triggerProps}
           isSelected={isOpen}
-          iconAfter={<ChevronDownIcon label="" />}
+          iconAfter={ChevronDownIcon}
         >
           Open
         </Button>

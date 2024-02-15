@@ -1,3 +1,5 @@
+/** @jsx jsx */
+
 import React, { useRef, useCallback } from 'react';
 import {
   useAnalyticsEvents,
@@ -10,6 +12,7 @@ import { gridSize } from '@atlaskit/theme/constants';
 import Spinner from '@atlaskit/spinner';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
+import { jsx } from '@emotion/react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import { REQUEST_STATE } from '../../../model/Requests';

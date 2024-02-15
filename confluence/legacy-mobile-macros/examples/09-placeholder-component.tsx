@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import { PlaceholderComponent } from '../src/ui/MacroComponent/PlaceholderComponent';
 
 export default function PlaceholderComponentExample() {
@@ -24,7 +26,7 @@ export default function PlaceholderComponentExample() {
   const renderFallback = () => <></>;
 
   return (
-    <div style={{ padding: '50px' }}>
+    <div style={{ padding: `${token('space.600', '48px')}` }}>
       <PlaceholderComponent
         createPromise={createPromise}
         extension={extension}

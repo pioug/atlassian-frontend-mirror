@@ -1,7 +1,10 @@
 import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../messages';
-import { CONTENT_URL_SECURITY_AND_PERMISSIONS } from '../../constants';
+import {
+  CONTENT_URL_3P_ACCOUNT_AUTH,
+  CONTENT_URL_SECURITY_AND_PERMISSIONS,
+} from '../../constants';
 import { AnalyticsFacade } from '../../state/analytics';
 
 type UnauthorisedViewContentProps = {
@@ -10,6 +13,12 @@ type UnauthorisedViewContentProps = {
    * Eg. Google, Microsoft etc
    */
   providerName?: string;
+
+  /**
+   * If `true`, display an alternative message which prompts user to connect all
+   * Atlassian products (vs. smart links only) to the 3rd party account.
+   */
+  isProductIntegrationSupported?: boolean;
 
   /**
    * A `testId` prop is provided for specified elements, which is a unique
@@ -31,12 +40,17 @@ type UnauthorisedViewContentProps = {
  */
 const UnauthorisedViewContent = ({
   providerName,
+  isProductIntegrationSupported,
   testId = 'unauthorised-view-content',
   analytics,
 }: UnauthorisedViewContentProps) => {
   const handleLearnMoreClick = useCallback(() => {
     analytics?.ui.learnMoreClickedEvent();
   }, [analytics?.ui]);
+
+  const learnMoreMessage = isProductIntegrationSupported
+    ? messages.learn_more_about_connecting_account
+    : messages.learn_more_about_smart_links;
 
   return (
     <>
@@ -51,12 +65,16 @@ const UnauthorisedViewContent = ({
         />
       )}{' '}
       <a
-        href={CONTENT_URL_SECURITY_AND_PERMISSIONS}
+        href={
+          isProductIntegrationSupported
+            ? CONTENT_URL_3P_ACCOUNT_AUTH
+            : CONTENT_URL_SECURITY_AND_PERMISSIONS
+        }
         target="_blank"
         data-testid={`${testId}-learn-more`}
         onClick={handleLearnMoreClick}
       >
-        <FormattedMessage {...messages.learn_more_about_smart_links} />
+        <FormattedMessage {...learnMoreMessage} />
       </a>
     </>
   );

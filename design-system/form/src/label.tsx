@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, Fragment, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -41,24 +41,16 @@ const fieldsetLabelStyles = css([
  * It's recommended that a label has a `4px` spacing above its associated
  * control element.
  */
-export const Label: FC<LabelProps> = ({ children, htmlFor, id, testId }) => {
-  return (
-    <Fragment>
-      {/*it's associate the label with the clear button in input */}
-      <span hidden id={`label--${id || htmlFor}`}>
-        {children}
-      </span>
-      <label
-        css={fieldsetLabelStyles}
-        id={id}
-        htmlFor={htmlFor}
-        data-testid={testId}
-      >
-        {children}
-      </label>
-    </Fragment>
-  );
-};
+export const Label: FC<LabelProps> = ({ children, htmlFor, id, testId }) => (
+  <label
+    css={fieldsetLabelStyles}
+    id={id}
+    htmlFor={htmlFor}
+    data-testid={testId}
+  >
+    {children}
+  </label>
+);
 
 /**
  * __Legend__

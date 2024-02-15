@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import React from 'react';
 
 import type { RenderResult } from '@testing-library/react';
@@ -77,13 +78,13 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
 
   it('should render disabled ToolbarButton if isDisabled property is true', () => {
     const { editorAPI } = editor(doc(p('text')));
-    const pluginState = editorAPI.blockType.sharedState.currentState()!;
+    const pluginState = editorAPI.blockType?.sharedState.currentState()!;
     const toolbarOption = renderWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
         setTextLevel={name =>
-          editorAPI.core.actions.execute(
-            editorAPI.blockType.commands.setTextLevel(
+          editorAPI.core?.actions.execute(
+            editorAPI.blockType?.commands.setTextLevel(
               name,
               INPUT_METHOD.TOOLBAR,
             ),
@@ -98,13 +99,13 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
 
   it('should render disabled ToolbarButton if current selection is blockquote', () => {
     const { editorAPI } = editor(doc(blockquote(p('te{<>}xt'))));
-    const pluginState = editorAPI.blockType.sharedState.currentState()!;
+    const pluginState = editorAPI.blockType?.sharedState.currentState()!;
     const toolbarOption = renderWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
         setTextLevel={name =>
-          editorAPI.core.actions.execute(
-            editorAPI.blockType.commands.setTextLevel(
+          editorAPI.core?.actions.execute(
+            editorAPI.blockType?.commands.setTextLevel(
               name,
               INPUT_METHOD.TOOLBAR,
             ),
@@ -119,14 +120,14 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
 
   it('should not render disabled ToolbarButton if current selection is panel', () => {
     const { editorAPI } = editor(doc(panel()(p('te{<>}xt'))));
-    const pluginState = editorAPI.blockType.sharedState.currentState()!;
+    const pluginState = editorAPI.blockType?.sharedState.currentState()!;
 
     const toolbarOption = renderWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
         setTextLevel={name =>
-          editorAPI.core.actions.execute(
-            editorAPI.blockType.commands.setTextLevel(
+          editorAPI.core?.actions.execute(
+            editorAPI.blockType?.commands.setTextLevel(
               name,
               INPUT_METHOD.TOOLBAR,
             ),
@@ -142,13 +143,13 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
     const { editorAPI } = editor(
       doc(code_block({ language: 'js' })('te{<>}xt')),
     );
-    const pluginState = editorAPI.blockType.sharedState.currentState()!;
+    const pluginState = editorAPI.blockType?.sharedState.currentState()!;
     const toolbarOption = renderWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
         setTextLevel={name =>
-          editorAPI.core.actions.execute(
-            editorAPI.blockType.commands.setTextLevel(
+          editorAPI.core?.actions.execute(
+            editorAPI.blockType?.commands.setTextLevel(
               name,
               INPUT_METHOD.TOOLBAR,
             ),
@@ -164,13 +165,13 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
   // TODO: asserting on a prop, need to convert to VR or something similar
   it('should have spacing of toolbar button set to none if property isReducedSpacing=true', () => {
     const { editorAPI } = editor(doc(p('text')));
-    const pluginState = editorAPI.blockType.sharedState.currentState()!;
+    const pluginState = editorAPI.blockType?.sharedState.currentState()!;
     const toolbarOption = mountWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
         setTextLevel={name =>
-          editorAPI.core.actions.execute(
-            editorAPI.blockType.commands.setTextLevel(
+          editorAPI.core?.actions.execute(
+            editorAPI.blockType?.commands.setTextLevel(
               name,
               INPUT_METHOD.TOOLBAR,
             ),
@@ -185,13 +186,13 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
 
   it('should render icon in dropdown-menu if property isSmall=true', () => {
     const { editorAPI } = editor(doc(p('text')));
-    const pluginState = editorAPI.blockType.sharedState.currentState()!;
+    const pluginState = editorAPI.blockType?.sharedState.currentState()!;
     const toolbarOption = renderWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
         setTextLevel={name =>
-          editorAPI.core.actions.execute(
-            editorAPI.blockType.commands.setTextLevel(
+          editorAPI.core?.actions.execute(
+            editorAPI.blockType?.commands.setTextLevel(
               name,
               INPUT_METHOD.TOOLBAR,
             ),
@@ -208,13 +209,13 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
 
   it('should render current block type in dropdown-menu if property isSmall=false', () => {
     const { editorAPI } = editor(doc(p('text')));
-    const pluginState = editorAPI.blockType.sharedState.currentState()!;
+    const pluginState = editorAPI.blockType?.sharedState.currentState()!;
     const toolbarOption = renderWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
         setTextLevel={name =>
-          editorAPI.core.actions.execute(
-            editorAPI.blockType.commands.setTextLevel(
+          editorAPI.core?.actions.execute(
+            editorAPI.blockType?.commands.setTextLevel(
               name,
               INPUT_METHOD.TOOLBAR,
             ),
@@ -232,7 +233,7 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
     let toolbarOption: RenderResult;
     beforeEach(async () => {
       const { editorView, editorAPI } = editor(doc(p('text')));
-      const pluginState = editorAPI.blockType.sharedState.currentState()!;
+      const pluginState = editorAPI.blockType?.sharedState.currentState()!;
       const editorRef = {
         current: document.createElement('div'),
       };
@@ -246,8 +247,8 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
           <ToolbarBlockType
             pluginState={pluginState}
             setTextLevel={name =>
-              editorAPI.core.actions.execute(
-                editorAPI.blockType.commands.setTextLevel(
+              editorAPI.core?.actions.execute(
+                editorAPI.blockType?.commands.setTextLevel(
                   name,
                   INPUT_METHOD.TOOLBAR,
                 ),

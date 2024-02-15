@@ -63,6 +63,8 @@ describe('validate invalid schema', () => {
     'media-with-link-mark.json',
     'layoutSection-with-one-column.json',
     'extension-with-named-fragment-mark.json',
+    // to be removed after list inside blockquote is fully supported in PM Schema. See https://product-fabric.atlassian.net/browse/ED-21452
+    'blockquote-with-list-inside.json',
   ];
   const expectAnyErrorList = [
     'extension-with-empty-local-id.json',

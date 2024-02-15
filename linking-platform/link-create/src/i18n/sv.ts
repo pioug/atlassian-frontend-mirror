@@ -17,6 +17,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': 'Dina ändringar kommer inte att sparas',
   'linkCreate.createForm.button.close': 'Stäng',
   'linkCreate.createForm.button.create': 'Skapa',
-  'linkCreate.createForm.button.edit': 'Redigera',
+  'linkCreate.createForm.button.createAndOpen': 'Skapa + Öppna',
   'linkCreate.modal.heading': 'Skapa ny',
 };

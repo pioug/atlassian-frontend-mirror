@@ -1,20 +1,22 @@
-import React from 'react';
+import type React from 'react';
 import Loadable from 'react-loadable';
-import { Fragment, Node, Mark } from '@atlaskit/editor-prosemirror/model';
+import type { Fragment, Node, Mark } from '@atlaskit/editor-prosemirror/model';
 
 import Blockquote from './blockquote';
-import BodiedExtension, {
-  Props as BodiedExtensionProps,
-} from './bodiedExtension';
+import type { Props as BodiedExtensionProps } from './bodiedExtension';
+import BodiedExtension from './bodiedExtension';
+import type { Props as MultiBodiedExtensionProps } from './multiBodiedExtension';
+import MultiBodiedExtension from './multiBodiedExtension';
+import ExtensionFrame from './extensionFrame';
 import BulletList from './bulletList';
 
 import Doc, { DocWithSelectAllTrap } from './doc';
-import Extension, { Props as ExtensionProps } from './extension';
+import type { Props as ExtensionProps } from './extension';
+import Extension from './extension';
 import HardBreak from './hardBreak';
 import Heading from './heading';
-import InlineExtension, {
-  Props as InlineExtensionProps,
-} from './inlineExtension';
+import type { Props as InlineExtensionProps } from './inlineExtension';
+import InlineExtension from './inlineExtension';
 import LayoutSection from './layoutSection';
 import LayoutColumn from './layoutColumn';
 import ListItem from './listItem';
@@ -49,7 +51,7 @@ import type MediaInlineComponent from './mediaInline';
 import type MediaSingleComponent from './mediaSingle';
 import type MentionComponent from './mention';
 import type ExpandComponent from '../../ui/Expand';
-import { NodeComponentsProps } from '../../ui/Renderer/types';
+import type { NodeComponentsProps } from '../../ui/Renderer/types';
 
 import type CodeBlockComponent from './codeBlock/codeBlock';
 import type WindowedCodeBlockComponent from './codeBlock/windowedCodeBlock';
@@ -237,6 +239,8 @@ export const nodeToReact: { [key: string]: React.ComponentType<any> } = {
   emoji: Emoji,
   extension: Extension,
   bodiedExtension: BodiedExtension,
+  multiBodiedExtension: MultiBodiedExtension,
+  extensionFrame: ExtensionFrame,
   hardBreak: HardBreak,
   heading: Heading,
   inlineCard: InlineCard,
@@ -458,6 +462,7 @@ export {
   DocWithSelectAllTrap,
   Emoji,
   Extension,
+  ExtensionFrame,
   Expand,
   HardBreak,
   Heading,
@@ -471,6 +476,7 @@ export {
   MediaInline,
   MediaSingle,
   Mention,
+  MultiBodiedExtension,
   OrderedList,
   Panel,
   Paragraph,
@@ -485,4 +491,9 @@ export {
   UnknownBlock,
   EmbedCard,
 };
-export type { BodiedExtensionProps, ExtensionProps, InlineExtensionProps };
+export type {
+  BodiedExtensionProps,
+  ExtensionProps,
+  InlineExtensionProps,
+  MultiBodiedExtensionProps,
+};

@@ -4,20 +4,20 @@ import { TargetInner, TargetOverlay } from '../styled/target';
 
 export interface CloneProps {
   /**
-   * Whether or not to display a pulse animation around the spotlighted element
+   * Whether or not to display a pulse animation around the spotlighted element.
    */
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   pulse: boolean;
   /**
-   * An object containing the information used for positioning clone
+   * An object containing the information used for positioning clone.
    */
   style: Record<string, any>;
   /**
-   * The name of the SpotlightTarget
+   * The name of the SpotlightTarget.
    */
   target?: string;
   /**
-   * The spotlight target node
+   * The spotlight target node.
    */
   targetNode: HTMLElement;
   /**
@@ -25,14 +25,14 @@ export interface CloneProps {
    */
   targetBgColor?: string;
   /**
-   * Function to fire when a user clicks on the cloned target
+   * Function to fire when a person clicks on the cloned target.
    */
   targetOnClick?: (eventData: {
     event: MouseEvent<HTMLElement>;
     target?: string;
   }) => void;
   /**
-   * The border-radius of the element being highlighted
+   * The border radius of the element being highlighted.
    */
   targetRadius?: number;
 
@@ -44,9 +44,30 @@ export interface CloneProps {
   testId?: string;
 }
 
+type CloneableStyleAttribute =
+  | 'fontSize'
+  | 'fontWeight'
+  | 'lineHeight'
+  | 'padding'
+  | 'color'
+  | 'textOverflow';
+const computedStyleAttributesToClone: CloneableStyleAttribute[] = [
+  'fontSize',
+  'fontWeight',
+  'lineHeight',
+  'padding',
+  'color',
+  'textOverflow',
+];
+
 function cloneAndOverrideStyles(node: HTMLElement): HTMLElement {
   const shouldCloneChildren = true;
   const clonedNode = node.cloneNode(shouldCloneChildren) as HTMLElement;
+  const computedStyles = getComputedStyle(node);
+
+  computedStyleAttributesToClone.forEach((attribute) => {
+    clonedNode.style[attribute] = computedStyles[attribute];
+  });
 
   clonedNode.style.margin = '0';
   clonedNode.style.position = 'static';

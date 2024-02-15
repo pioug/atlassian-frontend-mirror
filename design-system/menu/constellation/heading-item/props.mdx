@@ -2,10 +2,12 @@
 title: Heading item
 description: For rendering a heading inside a section.
 order: 1
+props:
+  packageName: '@atlaskit/menu'
+  exports:
+    - HeadingItem
 ---
-
-import HeadingItemProps from '!!extract-react-types-loader!../../src/menu-item/heading-item';
 
 ## Props
 
-<PropsTable heading="" props={HeadingItemProps} />
+<TSMorphProps exportName="HeadingItem" packageName="@atlaskit/menu" />

@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.15.0
+
+### Minor Changes
+
+- [#64792](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64792) [`5e543c3a5479`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e543c3a5479) - Adds Loom icon and logo components.
+
 ## 13.14.9
 
 ### Patch Changes

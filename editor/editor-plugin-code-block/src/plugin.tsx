@@ -16,9 +16,9 @@ import type {
   OptionalPlugin,
   PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { compositionPlugin } from '@atlaskit/editor-plugin-composition';
-import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { CompositionPlugin } from '@atlaskit/editor-plugin-composition';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 import {
   createInsertCodeBlockTransaction,
@@ -38,9 +38,9 @@ export type CodeBlockPlugin = NextEditorPlugin<
   {
     pluginConfiguration: CodeBlockOptions;
     dependencies: [
-      typeof decorationsPlugin,
-      typeof compositionPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
+      DecorationsPlugin,
+      CompositionPlugin,
+      OptionalPlugin<AnalyticsPlugin>,
     ];
     actions: {
       insertCodeBlock: (inputMethod: INPUT_METHOD) => Command;

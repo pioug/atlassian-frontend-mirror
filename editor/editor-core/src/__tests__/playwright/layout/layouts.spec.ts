@@ -1,9 +1,8 @@
 import {
-  editorTestCase as test,
-  expect,
   EditorMainToolbarModel,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
 import { toolbarInsertBlockMessages as insertBlockMessages } from '@atlaskit/editor-common/messages';
 
 test.use({

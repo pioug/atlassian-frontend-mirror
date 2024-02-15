@@ -38,23 +38,31 @@ const withHistoryMethod = (
   };
 };
 
-export const getMethod = withHistoryMethod(({ inputMethod }: EventMetadata) => {
-  switch (inputMethod) {
-    case INPUT_METHOD.CLIPBOARD:
-      return 'editor_paste';
-    case INPUT_METHOD.FLOATING_TB:
-      return 'editor_floatingToolbar';
-    case INPUT_METHOD.AUTO_DETECT:
-    case INPUT_METHOD.FORMATTING:
-      return 'editor_type';
-    case INPUT_METHOD.TYPEAHEAD:
-      return 'linkpicker_searchResult';
-    case INPUT_METHOD.MANUAL:
-      return 'linkpicker_manual';
-    default:
-      return 'unknown';
-  }
-});
+export const getMethod = withHistoryMethod(
+  ({ inputMethod, sourceEvent }: EventMetadata) => {
+    inputMethod =
+      inputMethod ??
+      (sourceEvent as UIAnalyticsEvent)?.payload?.attributes?.inputMethod;
+
+    switch (inputMethod) {
+      case INPUT_METHOD.CLIPBOARD:
+        return 'editor_paste';
+      case INPUT_METHOD.FLOATING_TB:
+        return 'editor_floatingToolbar';
+      case INPUT_METHOD.AUTO_DETECT:
+      case INPUT_METHOD.FORMATTING:
+        return 'editor_type';
+      case INPUT_METHOD.TYPEAHEAD:
+        return 'linkpicker_searchResult';
+      case INPUT_METHOD.MANUAL:
+        return 'linkpicker_manual';
+      case INPUT_METHOD.DATASOURCE:
+        return 'datasource_config';
+      default:
+        return 'unknown';
+    }
+  },
+);
 
 export const getUpdateType = withHistoryMethod(({ action }: EventMetadata) => {
   switch (action) {

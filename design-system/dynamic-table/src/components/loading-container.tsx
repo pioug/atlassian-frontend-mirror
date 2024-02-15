@@ -16,6 +16,7 @@ interface LoadingContainerProps {
   spinnerSize?: SpinnerSizeType;
   contentsOpacity: number;
   testId?: string;
+  loadingLabel?: string;
 }
 
 export default class LoadingContainer extends React.Component<LoadingContainerProps> {
@@ -23,11 +24,18 @@ export default class LoadingContainer extends React.Component<LoadingContainerPr
     isLoading: true,
     spinnerSize: LARGE,
     contentsOpacity: LOADING_CONTENTS_OPACITY,
+    loadingLabel: 'Loading table',
   };
 
   render() {
-    const { children, isLoading, spinnerSize, contentsOpacity, testId } =
-      this.props;
+    const {
+      children,
+      isLoading,
+      spinnerSize,
+      contentsOpacity,
+      testId,
+      loadingLabel,
+    } = this.props;
 
     return (
       <Container testId={testId}>
@@ -43,6 +51,7 @@ export default class LoadingContainer extends React.Component<LoadingContainerPr
             <Spinner
               size={spinnerSize}
               testId={testId && `${testId}--loadingSpinner`}
+              label={loadingLabel}
             />
           </SpinnerContainer>
         )}

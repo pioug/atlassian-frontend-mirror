@@ -1,22 +1,22 @@
 import {
-  editorTestCase as test,
-  EditorNodeContainerModel,
   EditorExpandModel,
   EditorFloatingToolbarModel,
+  EditorNodeContainerModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  p,
-  nestedExpand,
   doc,
+  nestedExpand,
+  p,
   table,
-  tr,
-  thEmpty,
   td,
   tdEmpty,
+  thEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { simpleTableWithExpandInCell } from './__fixtures__/base-adfs';
 
 test.use({

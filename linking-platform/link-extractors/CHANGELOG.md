@@ -1,5 +1,17 @@
 # @atlaskit/link-extractors
 
+## 1.2.2
+
+### Patch Changes
+
+- [#68194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68194) [`c1d4a8fecc4e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1d4a8fecc4e) - bump json-ld-types to version 3.11.0
+
+## 1.2.1
+
+### Patch Changes
+
+- [#65857](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65857) [`af6c077d8694`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af6c077d8694) - [ux] change title for BB file links to include repo name and file path
+
 ## 1.2.0
 
 ### Minor Changes

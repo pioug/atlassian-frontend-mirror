@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 
 import { DynamicTableStateless } from '../src';
 
@@ -15,7 +15,7 @@ export default function TableControlled() {
 
   return (
     <>
-      <ButtonGroup>
+      <ButtonGroup label="Paging navigation">
         <Button
           isDisabled={pageNumber === 1}
           onClick={() => navigateTo(pageNumber - 1)}

@@ -7,11 +7,9 @@ import DecisionIcon from '@atlaskit/icon/glyph/editor/decision';
 import Item from './Item';
 import { Appearance, ContentRef } from '../types';
 import { token } from '@atlaskit/tokens';
-import { G200, G400, N100 } from '@atlaskit/theme/colors';
-import { themed, useGlobalTheme } from '@atlaskit/theme/components';
-import type { Theme } from '@atlaskit/theme/types';
+import { G400, N100 } from '@atlaskit/theme/colors';
 
-const iconStyles = (showPlaceholder: boolean | undefined) => (theme: Theme) => {
+const iconStyles = (showPlaceholder: boolean | undefined) => {
   return css({
     flex: '0 0 16px',
     height: '16px',
@@ -19,10 +17,7 @@ const iconStyles = (showPlaceholder: boolean | undefined) => (theme: Theme) => {
     margin: `${token('space.050', '4px')} ${token('space.150', '12px')} 0 0`,
     color: showPlaceholder
       ? token('color.icon.subtle', N100)
-      : themed({
-          light: token('color.icon.success', G400),
-          dark: token('color.icon.success', G200),
-        })({ theme }),
+      : token('color.icon.success', G400),
     '> span': {
       margin: token('space.negative.100', '-8px'),
     },
@@ -46,9 +41,8 @@ const DecisionItem = ({
   showPlaceholder,
   dataAttributes,
 }: Props) => {
-  const theme = useGlobalTheme();
   const icon = (
-    <span contentEditable={false} css={iconStyles(showPlaceholder)(theme)}>
+    <span contentEditable={false} css={iconStyles(showPlaceholder)}>
       <DecisionIcon label="Decision" size="large" />
     </span>
   );
@@ -62,7 +56,6 @@ const DecisionItem = ({
       showPlaceholder={showPlaceholder}
       itemType="DECISION"
       dataAttributes={dataAttributes}
-      theme={theme}
     >
       {children}
     </Item>

@@ -47,7 +47,7 @@ export const getKey = ({ id, collectionName, occurrenceKey }: FileIdentifier) =>
 export const storeDataURI = (
   key: string,
   dataURI?: string,
-  dimensions?: NumericalCardDimensions,
+  dimensions?: Partial<NumericalCardDimensions>,
   error?: MediaCardErrorInfo,
   globalScope: any = window,
 ) => {
@@ -58,7 +58,7 @@ export const storeDataURI = (
 const generateScript = (
   identifier: FileIdentifier,
   dataURI?: string,
-  dimensions?: NumericalCardDimensions,
+  dimensions?: Partial<NumericalCardDimensions>,
   error?: MediaCardErrorInfo,
 ) => {
   const functionCall = printFunctionCall(
@@ -75,22 +75,13 @@ const generateScript = (
   ]);
 };
 
-export type StoreSSRDataScriptProps = {
-  identifier: FileIdentifier;
-  dataURI?: string;
-  dimensions?: NumericalCardDimensions;
-  error?: MediaCardErrorInfo;
-};
-
-export const StoreSSRDataScript: React.FC<StoreSSRDataScriptProps> = ({
-  dataURI,
-  identifier,
-  dimensions,
-  error,
-}) => (
-  <script
-    dangerouslySetInnerHTML={{
-      __html: generateScript(identifier, dataURI, dimensions, error),
-    }}
-  ></script>
-);
+export const generateScriptProps = (
+  identifier: FileIdentifier,
+  dataURI?: string,
+  dimensions?: Partial<NumericalCardDimensions>,
+  error?: MediaCardErrorInfo,
+): React.ScriptHTMLAttributes<HTMLScriptElement> => ({
+  dangerouslySetInnerHTML: {
+    __html: generateScript(identifier, dataURI, dimensions, error),
+  },
+});

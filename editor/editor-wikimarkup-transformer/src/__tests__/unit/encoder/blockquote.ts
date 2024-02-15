@@ -6,6 +6,8 @@ import {
   doc,
   hardBreak,
   p,
+  ul,
+  li,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('ADF => WikiMarkup - BlockQuote', () => {
@@ -34,6 +36,13 @@ describe('ADF => WikiMarkup - BlockQuote', () => {
         ),
       ),
     )(defaultSchema);
+    expect(transformer.encode(node)).toMatchSnapshot();
+  });
+
+  test('should convert list inside a blockquote', () => {
+    const node = doc(blockquote(ul(li(p('item 1')), li(p('item 2')))))(
+      defaultSchema,
+    );
     expect(transformer.encode(node)).toMatchSnapshot();
   });
 });

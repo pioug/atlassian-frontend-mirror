@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import Text from '@atlaskit/ds-explorations/text';
 import DropboxIcon from '@atlaskit/icon/glyph/dropbox';
 import WorkIcon from '@atlaskit/icon/glyph/folder';

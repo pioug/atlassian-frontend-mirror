@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 
 import EmptyState from '../../src';
 import LockClosedImage from '../images/LockClosed.png';

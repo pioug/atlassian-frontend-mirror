@@ -106,6 +106,10 @@ export const shiftArrowUp = makeKeyMapWithCommon(
 );
 export const shiftTab = makeKeyMapWithCommon('Shift Tab', 'Shift-Tab');
 export const toggleTable = makeKeyMapWithCommon('Table', 'Shift-Alt-t');
+export const focusTableResizer = makeKeyMapWithCommon(
+  'Focus Table Resizer',
+  'Mod-Alt-Shift-r',
+);
 export const addRowBefore = makeKeyMapWithCommon(
   'Add Row Above',
   'Ctrl-Alt-ArrowUp',
@@ -122,6 +126,34 @@ export const addColumnBefore = makeKeyMapWithCommon(
   'Add Column Before',
   'Ctrl-Alt-ArrowLeft',
 );
+
+export const moveColumnLeft = makeKeyMapWithCommon(
+  'Move Column Left',
+  'Ctrl-Alt-Shift-ArrowLeft',
+);
+export const moveColumnRight = makeKeyMapWithCommon(
+  'Move Column Right',
+  'Ctrl-Alt-Shift-ArrowRight',
+);
+export const moveRowDown = makeKeyMapWithCommon(
+  'Move Row Down',
+  'Ctrl-Alt-Shift-ArrowDown',
+);
+export const moveRowUp = makeKeyMapWithCommon(
+  'Move Row Up',
+  'Ctrl-Alt-Shift-ArrowUp',
+);
+
+export const deleteColumn = makeKeyMapWithCommon(
+  'Delete Column',
+  'Ctrl-Backspace',
+);
+export const deleteRow = makeKeyMapWithCommon('Delete Row', 'Ctrl-Backspace');
+
+export const startColumnResizing = makeKeyMapWithCommon(
+  'Activate Column Resize',
+  'Mod-Alt-Shift-C',
+);
 export const cut = makeKeyMapWithCommon('Cut', 'Mod-x');
 export const copy = makeKeyMapWithCommon('Copy', 'Mod-c');
 export const paste = makeKeyMapWithCommon('Paste', 'Mod-v');
@@ -133,6 +165,23 @@ export const alignLeft = makeKeyMapWithCommon('Align Left', 'Mod-Shift-l');
 export const toggleTaskItemCheckbox = makeKeyMapWithCommon(
   'Toggles task item',
   'Mod-Alt-Enter',
+);
+export const selectRow = makeKeyMapArrayWithCommon('Select row', [
+  'Mod-Alt-Shift-ArrowLeft',
+  'Mod-Alt-Shift-ArrowRight',
+]);
+export const selectColumn = makeKeyMapArrayWithCommon('Select column', [
+  'Mod-Alt-Shift-ArrowDown',
+  'Mod-Alt-Shift-ArrowUp',
+]);
+
+export const increaseMediaSize = makeKeyMapWithCommon(
+  'increase image size',
+  'Mod-Alt-]',
+);
+export const decreaseMediaSize = makeKeyMapWithCommon(
+  'increase image size',
+  'Mod-Alt-[',
 );
 
 const arrowKeysMap: Record<string, string> = {
@@ -333,6 +382,17 @@ export function makeKeyMapWithCommon(
   return makeKeymap(description, windows, mac, common);
 }
 
+export function makeKeyMapArrayWithCommon(
+  description: string,
+  shortcuts: string[],
+): Keymap[] {
+  const keymapArray: Keymap[] = [];
+  shortcuts.forEach((shortcut) => {
+    keymapArray.push(makeKeyMapWithCommon(description, shortcut));
+  });
+  return keymapArray;
+}
+
 export interface Keymap {
   description: string;
   windows: string;
@@ -353,6 +413,17 @@ export function bindKeymapWithCommand(
 ) {
   const oldCmd = keymap[shortcut];
   keymap[shortcut] = oldCmd ? combineWithOldCommand(cmd, oldCmd) : cmd;
+}
+
+// If there is a need to use the same command with several shortcuts
+export function bindKeymapArrayWithCommand(
+  shortcutsArray: Keymap[],
+  cmd: Command,
+  keymap: { [key: string]: Command },
+) {
+  shortcutsArray.forEach((shortcut) => {
+    return bindKeymapWithCommand(shortcut.common!, cmd, keymap);
+  });
 }
 
 export function bindKeymapWithEditorCommand(

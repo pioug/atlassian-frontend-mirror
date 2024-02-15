@@ -1,12 +1,11 @@
 import {
-  EditorTableModel,
-  EditorNodeContainerModel,
   EditorExtensionModel,
-  editorTestCase as test,
+  EditorNodeContainerModel,
+  EditorTableModel,
   expect,
-  fixTest,
-  BROWSERS,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import { tableInsideLayoutAfterExtension } from './__fixtures__/base-adfs';
 
 test.use({
@@ -47,13 +46,6 @@ test.describe('when the extension context panel opens', () => {
 test('should not overflow the table when changing viewport', async ({
   editor,
 }) => {
-  fixTest({
-    jiraIssueId: 'ED-19608',
-    reason:
-      'FIXME: This test was automatically skipped due to failure on 20/08/2023: https://product-fabric.atlassian.net/browse/ED-19608',
-    browsers: [BROWSERS.webkit],
-  });
-
   const nodes = EditorNodeContainerModel.from(editor);
   const tableModel = EditorTableModel.from(nodes.table);
   await editor.page.setViewportSize({ width: 1000, height: 1024 });

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button, { LinkButton } from '@atlaskit/button/new';
 
 import EmptyState from '../src';
 
@@ -16,13 +16,13 @@ const primaryAction = (
 );
 
 const tertiaryAction = (
-  <Button
+  <LinkButton
     appearance="subtle-link"
     href="http://www.example.com"
     target="_blank"
   >
     Tertiary action
-  </Button>
+  </LinkButton>
 );
 
 const props = {

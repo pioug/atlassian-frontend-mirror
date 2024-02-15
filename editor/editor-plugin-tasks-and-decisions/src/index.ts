@@ -1,2 +1,8 @@
 export { tasksAndDecisionsPlugin } from './plugin';
-export type { TasksAndDecisionsPlugin } from './types';
+export type {
+  TasksAndDecisionsPlugin,
+  TaskDecisionPluginOptions,
+  TaskAndDecisionsSharedState,
+  TaskDecisionListType,
+  AddItemTransactionCreator,
+} from './types';

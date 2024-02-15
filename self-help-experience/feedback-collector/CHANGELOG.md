@@ -1,5 +1,35 @@
 # @atlaskit/feedback-collector
 
+## 13.2.7
+
+### Patch Changes
+
+- [#68561](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68561) [`6a1919bf8400`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a1919bf8400) - Migrate packages to use declarative entry points
+
+## 13.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.5
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
+## 13.2.4
+
+### Patch Changes
+
+- [#56606](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56606) [`9a14ce6e5fe6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a14ce6e5fe6) - [ux] Add \* on the label of select field, and remove placeholder of textarea
+
+## 13.2.3
+
+### Patch Changes
+
+- [#43918](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43918) [`d100ca42f46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d100ca42f46) - Push model consumption configuration done for these packages
+
 ## 13.2.2
 
 ### Patch Changes

@@ -5,7 +5,7 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Badge from '@atlaskit/badge';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import * as colors from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';

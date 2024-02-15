@@ -2,10 +2,11 @@ import { ContainerProps } from '../types';
 
 export type HoverCardDelayProps = Pick<
   ContainerProps,
-  'hideHoverCardPreviewButton' | 'showServerActions'
+  'hideHoverCardPreviewButton' | 'actionOptions'
 > & {
   isHoverPreview?: boolean;
   isAuthTooltip?: boolean;
   testId?: string;
   url: string;
+  delay?: number;
 };

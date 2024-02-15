@@ -27,10 +27,7 @@ export const canRenderDatasource = (
 
   switch (datasourceType) {
     case 'jira':
-      if (getBooleanFF('platform.linking-platform.datasource-jira_issues')) {
-        return true;
-      }
-      return false;
+      return true;
     case 'assets':
       if (getBooleanFF('platform.linking-platform.datasource-assets_objects')) {
         return true;

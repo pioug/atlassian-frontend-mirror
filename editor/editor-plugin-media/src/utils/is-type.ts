@@ -1,7 +1,9 @@
-export const isImage = (fileType?: string): boolean => {
+export const isImage = (type?: string): boolean => {
   return (
-    !!fileType &&
-    (fileType.indexOf('image/') > -1 || fileType.indexOf('video/') > -1)
+    !!type &&
+    (type.indexOf('image/') > -1 ||
+      type.indexOf('video/') > -1 ||
+      type === 'image')
   );
 };
 

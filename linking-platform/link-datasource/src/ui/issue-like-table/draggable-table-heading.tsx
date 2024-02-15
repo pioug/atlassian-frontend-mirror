@@ -6,6 +6,12 @@ import ReactDOM from 'react-dom';
 import invariant from 'tiny-invariant';
 
 import {
+  attachClosestEdge,
+  Edge,
+  extractClosestEdge,
+} from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box-without-terminal';
+import {
   draggable,
   dropTargetForElements,
   monitorForElements,
@@ -15,17 +21,10 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/disable-native-drag-preview';
 import { offsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/offset-from-pointer';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
-import {
-  attachClosestEdge,
-  Edge,
-  extractClosestEdge,
-} from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
-import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box-without-terminal';
 import { token } from '@atlaskit/tokens';
 
 import { TableHeading } from './styled';
-
-import { COLUMN_MIN_WIDTH } from './index';
+import { COLUMN_MIN_WIDTH, getWidthCss } from './utils';
 
 type DraggableState =
   | { type: 'idle' }
@@ -256,12 +255,6 @@ export const DraggableTableHeading = ({
 
         // Set the width of our header being resized
         let proposedWidth = initialWidth + relativeDistanceX;
-        if (
-          initialWidth >= COLUMN_MIN_WIDTH &&
-          proposedWidth < COLUMN_MIN_WIDTH
-        ) {
-          proposedWidth = COLUMN_MIN_WIDTH;
-        }
 
         // We update width css directly live
         mainHeaderCell.style.setProperty('width', `${proposedWidth}px`);
@@ -270,9 +263,14 @@ export const DraggableTableHeading = ({
         cancelUnhandled.stop();
         setState(idleState);
         if (onWidthChange) {
-          // We use element's css value as a source of truth (compare to another Ref)
-          const currentWidthPx = mainHeaderCell.style.getPropertyValue('width');
-          onWidthChange(+currentWidthPx.slice(0, -2));
+          let cssWidth = +mainHeaderCell.style
+            .getPropertyValue('width')
+            .slice(0, -2);
+
+          if (cssWidth < COLUMN_MIN_WIDTH) {
+            cssWidth = COLUMN_MIN_WIDTH;
+          }
+          onWidthChange(cssWidth);
         }
       },
     });
@@ -281,11 +279,10 @@ export const DraggableTableHeading = ({
   return (
     <TableHeading
       ref={mainHeaderCellRef}
-      className="has-column-picker"
       data-testid={`${id}-column-heading`}
       style={{
         cursor: 'grab',
-        ...(onWidthChange ? { width } : { maxWidth: width }),
+        ...getWidthCss({ shouldUseWidth: !!onWidthChange, width }),
       }}
     >
       {onWidthChange ? (

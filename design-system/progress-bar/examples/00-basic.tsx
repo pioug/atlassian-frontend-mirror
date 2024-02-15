@@ -13,6 +13,6 @@ export const containerStyle: React.CSSProperties = {
 
 export default () => (
   <div style={containerStyle}>
-    <ProgressBar value={progress} />
+    <ProgressBar value={progress} ariaLabel="Done: 4 of 10 issues" />
   </div>
 );

@@ -12,7 +12,9 @@ import {
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import commonMessages from '@atlaskit/editor-common/messages';
+import commonMessages, {
+  panelMessages as messages,
+} from '@atlaskit/editor-common/messages';
 import { getPanelTypeBackgroundNoTokens } from '@atlaskit/editor-common/panel';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
@@ -44,7 +46,6 @@ import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import WarningIcon from '@atlaskit/icon/glyph/editor/warning';
 
 import { changePanelType, removePanel } from './actions';
-import { messages } from './message';
 import type { EmojiInfo, PanelPluginOptions } from './types';
 import { findPanel } from './utils';
 
@@ -267,6 +268,7 @@ export const getToolbarItems = (
       const colorPicker: FloatingToolbarColorPicker<Command> = {
         id: 'editor.panel.colorPicker',
         title: formatMessage(messages.backgroundColor),
+        isAriaExpanded: true,
         type: 'select',
         selectType: 'color',
         defaultValue: defaultPalette,
@@ -363,7 +365,7 @@ export const getToolbarConfig = (
       options.allowCustomPanel || false,
       (options.allowCustomPanel && options.allowCustomPanelEdit) || false,
       providerFactory,
-      api?.decorations.actions.hoverDecoration,
+      api?.decorations?.actions.hoverDecoration,
       api?.analytics?.actions,
       panelType,
       options.allowCustomPanel ? panelColor : undefined,

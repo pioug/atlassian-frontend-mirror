@@ -1,4 +1,5 @@
-import { editorTestCase as test, expect } from '@af/editor-libra';
+import { expect, editorTestCase as test } from '@af/editor-libra';
+
 import { simpleTableAfterParagraph } from './__fixtures__/base-adfs';
 
 test.use({

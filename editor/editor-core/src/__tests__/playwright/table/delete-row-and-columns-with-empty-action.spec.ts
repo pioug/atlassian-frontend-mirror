@@ -1,21 +1,22 @@
 import {
   EditorNodeContainerModel,
   EditorTableModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import {
-  tableWithActionItemInFirstCellOfLastRow,
-  tableWithActionItemInTopCellOfLastColumn,
-} from './__fixtures__/base-adfs';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   table,
-  tr,
-  thEmpty,
   tdEmpty,
+  thEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import {
+  tableWithActionItemInFirstCellOfLastRow,
+  tableWithActionItemInTopCellOfLastColumn,
+} from './__fixtures__/base-adfs';
 
 test.describe('when there is an empty action in the last row', () => {
   test.use({

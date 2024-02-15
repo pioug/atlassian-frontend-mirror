@@ -144,6 +144,21 @@ describe('IconButton: Accessibility', () => {
     });
   });
 
+  const shapes: ComponentProps<typeof IconButton>['shape'][] = [
+    'default',
+    'circle',
+  ];
+
+  shapes.forEach((shape) => {
+    it(`should not fail an aXe audit with ${shape} shape`, async () => {
+      const view = render(
+        <IconButton icon={SettingsIcon} label="Settings" shape={shape} />,
+      );
+
+      await axe(view.container);
+    });
+  });
+
   it('should not fail an aXe audit when disabled', async () => {
     const view = render(
       <IconButton isDisabled icon={SettingsIcon} label="Settings" />,

@@ -1,7 +1,9 @@
-import { IntlProviderIfMissingWrapper } from '@atlaskit/editor-common/ui';
 import React from 'react';
-import Editor from '../../editor';
+
+import { IntlProviderIfMissingWrapper } from '@atlaskit/editor-common/ui';
+
 import { ComposableEditor } from '../../composable-editor';
+import Editor from '../../editor';
 import EditorWithActions from '../../EditorWithActions';
 import ChromeCollapsed from '../ChromeCollapsed';
 

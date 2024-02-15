@@ -1,0 +1,63 @@
+---
+title: Link button
+description: A button for navigation and URL changes.
+order: 2
+---
+
+## Usage
+
+Link buttons open new pages, websites, or new locations on a page. These are buttons that behave like links. For actions that only affect the current page, use a regular [button](/components/button/button-new/).
+
+### Use link buttons for navigation or other URL-change actions
+
+If you need a button that changes the page location, opens an email client, or otherwise links to somewhere, consider whether you could use a link in your design instead:
+
+- Buttons are typically for on-page actions, such as opening a modal.
+- Links are for changing locations or page URLs in some way.
+
+If a button is better suited to your design, use a link button. This ensures people using assistive technologies can interact with the link as expected.
+
+## Accessibility
+
+<!-- TODO: Update this section based on accessibility changes to anchor/link, in particular for open in new tab icon readouts: DSP-16572. -->
+
+### Avoid disabling buttons or links
+
+Avoid disabling elements like buttons and links. Instead, use validation and errors to explain what needs to be done to proceed.
+
+Disabled elements don’t explain why they are usable. They also aren’t reachable in the tab order and don’t receive hover, focus, or click events, making them entirely inaccessible to some people.
+
+### Never put tooltips on disabled elements
+
+Tooltips can't be reached on all devices or by some assitive technologies, and they should never appear on elements that aren't interactable.
+
+<!-- We know that disabled buttons with tooltips are sometimes used for feature discovery. We're working on guidance for this case. -->
+
+## Best practices
+
+### Alignment and positioning
+
+In general, the primary button placement should match the alignment of the button group. For example, right aligned button groups place the primary button on the right. Left aligned button groups place the primary button on the left.
+
+## Content guidelines
+
+### Use sentence case capitalization
+
+Only capitalize the first letter of the button and any proper nouns. Most feature names aren’t capitalized or considered proper nouns when following [our capitalization guidance](/content/language-and-grammar#capitalization).
+
+### Keep button labels short
+
+Keep labels short and free of punctuation. Drop unnecessary articles, such as ‘a’ or ‘the’, for a more concise label.
+
+### Use specific labels wherever possible
+
+Start with the verb and specify what is being acted on. Use dynamic text to make the button very specific if possible.
+
+### Make button labels consistent with other UI in view
+
+For example, if a button is part of a larger modal, use the same language in the button as in headings and other related text.
+
+## Related
+
+- For more best practices, follow all general [button usage guidelines](/components/button/usage).
+- For icon-only link buttons, use [icon button](/components/button/icon-button).

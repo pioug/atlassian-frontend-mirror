@@ -9,6 +9,7 @@ import {
   fieldValuesResponseForAssigneesMapped,
   fieldValuesResponseForProjectsMapped,
   fieldValuesResponseForStatusesMapped,
+  mockSite,
 } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { token } from '@atlaskit/tokens';
@@ -26,7 +27,7 @@ jest.useFakeTimers();
 
 const setup = ({
   filterType = 'project',
-  cloudId,
+  site = mockSite,
   selection,
   onSelectionChange,
   filterOptions,
@@ -57,7 +58,7 @@ const setup = ({
       <IntlProvider locale="en">
         <AsyncPopupSelect
           filterType={filterType}
-          cloudId={cloudId as string}
+          site={site}
           selection={selection || []}
           onSelectionChange={onSelectionChange || mockOnSelectionChange}
           isDisabled={isDisabled}
@@ -67,16 +68,16 @@ const setup = ({
     </AnalyticsListener>,
   );
 
-  if (openPicker) {
-    const triggerButton = renderResult.queryByTestId(
-      `jlol-basic-filter-${filterType}-trigger`,
-    );
+  const triggerButton = renderResult.queryByTestId(
+    `jlol-basic-filter-${filterType}-trigger`,
+  );
 
+  if (openPicker) {
     invariant(triggerButton);
     fireEvent.click(triggerButton);
   }
 
-  return { ...renderResult, onAnalyticFireEvent };
+  return { ...renderResult, onAnalyticFireEvent, triggerButton };
 };
 
 describe('Testing AsyncPopupSelect', () => {
@@ -84,7 +85,7 @@ describe('Testing AsyncPopupSelect', () => {
     it.each<[BasicFilterFieldType, string]>([
       ['project', 'Project'],
       ['assignee', 'Assignee'],
-      ['issuetype', 'Type'],
+      ['type', 'Type'],
       ['status', 'Status'],
     ])(
       'should render the correct label for %s filter button',
@@ -101,12 +102,7 @@ describe('Testing AsyncPopupSelect', () => {
       },
     );
 
-    it.each<BasicFilterFieldType>([
-      'project',
-      'assignee',
-      'issuetype',
-      'status',
-    ])(
+    it.each<BasicFilterFieldType>(['project', 'assignee', 'type', 'status'])(
       'should disable %s filter trigger button when isDisabled is true',
       filterType => {
         const { queryByTestId } = setup({ filterType, isDisabled: true });
@@ -133,7 +129,7 @@ describe('Testing AsyncPopupSelect', () => {
       it.each<[BasicFilterFieldType, string]>([
         ['project', 'Project: Authorize'],
         ['assignee', 'Assignee: Authorize'],
-        ['issuetype', 'Type: Authorize'],
+        ['type', 'Type: Authorize'],
         ['status', 'Status: Authorize'],
       ])(
         'should render the correct label for %s filter button when a single option has been selected',
@@ -164,7 +160,7 @@ describe('Testing AsyncPopupSelect', () => {
       it.each<[BasicFilterFieldType, string]>([
         ['project', 'Project: Authorize+1'],
         ['assignee', 'Assignee: Authorize+1'],
-        ['issuetype', 'Type: Authorize+1'],
+        ['type', 'Type: Authorize+1'],
         ['status', 'Status: Authorize+1'],
       ])(
         'should render the correct label for %s filter button when multiple options have been selected',
@@ -406,6 +402,40 @@ describe('Testing AsyncPopupSelect', () => {
     });
   });
 
+  it('should clear the search box when reopening the filter dropdown', async () => {
+    const mockFetchFilterOptions = jest.fn();
+
+    const { container, triggerButton } = setup({
+      filterType: 'status',
+      openPicker: true,
+      fetchFilterOptions: mockFetchFilterOptions,
+      status: 'empty',
+    });
+    invariant(triggerButton);
+
+    const inputBeforeClose = container.parentElement?.querySelector(
+      '#jlol-basic-filter-popup-select--input',
+    );
+    invariant(inputBeforeClose);
+
+    fireEvent.change(inputBeforeClose, { target: { value: 'projects' } });
+    jest.advanceTimersByTime(350);
+
+    expect(inputBeforeClose).toHaveValue('projects');
+
+    // close dropdown
+    fireEvent.click(triggerButton);
+
+    // open dropdown
+    fireEvent.click(triggerButton);
+
+    const inputAfterClose = container.parentElement?.querySelector(
+      '#jlol-basic-filter-popup-select--input',
+    );
+    invariant(inputAfterClose);
+    expect(inputAfterClose).toHaveValue('');
+  });
+
   it('should render the correct options', () => {
     const { getByText } = setup({
       filterType: 'status',
@@ -549,7 +579,7 @@ describe('Testing AsyncPopupSelect', () => {
       <IntlProvider locale="en">
         <AsyncPopupSelect
           filterType={'status'}
-          cloudId={''}
+          site={mockSite}
           onSelectionChange={mockOnSelection}
           selection={expectedFirstSelection}
           isJQLHydrating={false}

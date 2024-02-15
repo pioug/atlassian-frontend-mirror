@@ -720,6 +720,7 @@ describe('Feedback Collector unit tests', () => {
               url={url}
               showTypeField={false}
               atlassianAccountId={'12345'}
+              summaryPlaceholder="Let us know what's on your mind"
             />,
           );
           const textarea = screen.getByPlaceholderText(
@@ -759,6 +760,7 @@ describe('Feedback Collector unit tests', () => {
               url={url}
               customFeedbackUrl={customFeedbackUrl}
               showTypeField={false}
+              summaryPlaceholder="Let us know what's on your mind"
             />,
           );
           const textarea = screen.getByPlaceholderText(
@@ -918,7 +920,7 @@ describe('Feedback Collector unit tests', () => {
           selectLabel="test label name"
         />,
       );
-      const label = screen.getByLabelText('test label name');
+      const label = screen.getByText('test label name');
       expect(label).toBeInTheDocument();
     });
   });

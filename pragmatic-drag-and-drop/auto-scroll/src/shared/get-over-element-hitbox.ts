@@ -1,20 +1,25 @@
-import type { Axis, Edge, Side } from '../internal-types';
+import type { Axis, Edge, InternalConfig, Side } from '../internal-types';
 
 import { axisLookup } from './axis';
-import { defaultConfig } from './configuration';
 import { mainAxisSideLookup } from './side';
 
 function makeGetHitbox({ edge, axis }: { edge: Edge; axis: Axis }) {
-  return function hitbox({ clientRect }: { clientRect: DOMRect }) {
+  return function hitbox({
+    clientRect,
+    config,
+  }: {
+    clientRect: DOMRect;
+    config: InternalConfig;
+  }) {
     const { mainAxis, crossAxis } = axisLookup[axis];
     const side: Side = mainAxisSideLookup[edge];
 
     const mainAxisHitboxSize: number = Math.min(
       // scale the size of the hitbox down for smaller elements
-      defaultConfig.startHitboxAtPercentageRemainingOfElement[edge] *
+      config.startHitboxAtPercentageRemainingOfElement[edge] *
         clientRect[mainAxis.size],
       // Don't let the hitbox grow too big for big elements
-      defaultConfig.maxMainAxisHitboxSize,
+      config.maxMainAxisHitboxSize,
     );
 
     return DOMRect.fromRect({
@@ -34,7 +39,10 @@ function makeGetHitbox({ edge, axis }: { edge: Edge; axis: Axis }) {
 }
 
 export const getOverElementHitbox: {
-  [Key in Edge]: (args: { clientRect: DOMRect }) => DOMRect;
+  [Key in Edge]: (args: {
+    clientRect: DOMRect;
+    config: InternalConfig;
+  }) => DOMRect;
 } = {
   top: makeGetHitbox({
     axis: 'vertical',

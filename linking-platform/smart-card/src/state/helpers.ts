@@ -87,3 +87,6 @@ export const getCanBeDatasource = (
   const datasources = getDatasources(details);
   return !!datasources && datasources.length > 0;
 };
+
+export const hasAuthScopeOverrides = (details?: JsonLd.Response) =>
+  !!details?.meta.hasScopeOverrides;

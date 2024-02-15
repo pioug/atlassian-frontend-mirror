@@ -39,6 +39,7 @@ export interface Props {
   onCountUpdating?: (param: ValueUpdatingParams) => ValueUpdatingResult;
   onCountUpdated?: (param: ValueUpdatedParams) => void;
   createAnalyticsEvent?: any;
+  showEmptyBadge?: boolean;
 }
 
 export interface State {
@@ -204,7 +205,18 @@ class NotificationIndicator extends Component<Props, State> {
   render() {
     const { count } = this.state;
 
-    const { appearance, max } = this.props;
+    const { appearance, max, showEmptyBadge } = this.props;
+
+    if (showEmptyBadge && count === 0) {
+      return (
+        <div data-test-selector="EmptyNotificationIndicator">
+          <Badge max={max} appearance={appearance}>
+            {/* renders a non-break space to occupy the badge space */}
+            {'\u00A0'}
+          </Badge>
+        </div>
+      );
+    }
 
     return count ? (
       <div data-test-selector="NotificationIndicator">

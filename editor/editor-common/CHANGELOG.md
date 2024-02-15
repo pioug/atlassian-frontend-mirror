@@ -1,5 +1,741 @@
 # @atlaskit/editor-common
 
+## 77.4.4
+
+### Patch Changes
+
+- [#72231](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72231) [`edf38e369597`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/edf38e369597) - ED-21768 enable ssr for inline image
+
+## 77.4.3
+
+### Patch Changes
+
+- [#72710](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72710) [`3a884530c4d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3a884530c4d2) - Move translation strings for find-replace to ICU format.
+- Updated dependencies
+
+## 77.4.2
+
+### Patch Changes
+
+- [#72440](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72440) [`eee41a9f4bda`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eee41a9f4bda) - [ux] Ensures that when a table is inserted via popup, the table has a blinking cursor.
+
+## 77.4.1
+
+### Patch Changes
+
+- [#72081](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72081) [`4487160917d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4487160917d2) - [ux] ED-22052: adds button type attribute to non atlaskit button instances
+
+## 77.4.0
+
+### Minor Changes
+
+- [#71201](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71201) [`1b48cdd3c074`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b48cdd3c074) - ED-21767 fixed dom structure for inline images.
+- [#69911](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69911) [`af0eee5ebf98`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af0eee5ebf98) - Added DropdownMenuItem export from ui-menu, added DropList export from ui
+
+### Patch Changes
+
+- Updated dependencies
+
+## 77.3.2
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+- Updated dependencies
+
+## 77.3.1
+
+### Patch Changes
+
+- [#71503](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71503) [`2e81432d605a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e81432d605a) - [ux] ED-21943 Fixed outdent behaviour when multiple lists at same level including TaskList, and add relevant testcases.
+
+## 77.3.0
+
+### Minor Changes
+
+- [#71136](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71136) [`c803fea1e6a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c803fea1e6a4) - Move all plugin translations to editor-common
+
+### Patch Changes
+
+- [#71193](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71193) [`65316c6dfea0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/65316c6dfea0) - ED-21911 Regenerate MBE macro ID on paste.
+
+## 77.2.5
+
+### Patch Changes
+
+- [#71056](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71056) [`eb723312de15`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb723312de15) - Remove `platform.linking-platform.datasource-jira_issues` feature flag from editor.
+- Updated dependencies
+
+## 77.2.4
+
+### Patch Changes
+
+- [#65713](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65713) [`7a7d83f8e361`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7a7d83f8e361) - Analytics for create inline comment button in highlight actions menu
+
+## 77.2.3
+
+### Patch Changes
+
+- [#70802](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70802) [`ee58189e1b0e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee58189e1b0e) - ED-21911 Adding custom paste handling for content copied from MBE frames.
+
+## 77.2.2
+
+### Patch Changes
+
+- [#70152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70152) [`53ed3673df28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53ed3673df28) - Updating adf-schema version to 35.5.1
+- Updated dependencies
+
+## 77.2.1
+
+### Patch Changes
+
+- [#70741](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70741) [`7c1487568202`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c1487568202) - ED-21973: Fix for MBE side panel config params update
+
+## 77.2.0
+
+### Minor Changes
+
+- [#70612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70612) [`87457cd97d6b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87457cd97d6b) - [ux] Added a new `datasourceAppearanceTitle` i18n message.
+
+### Patch Changes
+
+- [#68372](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68372) [`17f42e77e826`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17f42e77e826) - add allowMediaInlineImage media option to support new media inline image feature
+- Updated dependencies
+
+## 77.1.2
+
+### Patch Changes
+
+- [#70373](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70373) [`fdcf1d5c6b11`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fdcf1d5c6b11) - Fix duplicate I18N IDs for media toolbar
+
+## 77.1.1
+
+### Patch Changes
+
+- [#69226](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69226) [`eb9cd91f1bdb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb9cd91f1bdb) - ED-21807: Replace Dnd LD feature flag with Statsig experiment
+- [#65334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65334) [`089979f0308f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/089979f0308f) - [ux] ECA11Y-111/ECA11Y-86 Help dialog - resize table and media information
+- Updated dependencies
+
+## 77.1.0
+
+### Minor Changes
+
+- [#68790](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68790) [`c6d8affc52d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6d8affc52d1) - Support maybeAdd plugins in usePreset. Add typing support for universal preset.
+
+  Now when using the editor API with the universal preset
+
+### Patch Changes
+
+- [#68535](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68535) [`9d9c89e4ff0c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d9c89e4ff0c) - Implement smart-card actionOptions prop within editor and expose prop to editor and renderer
+- [#69366](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69366) [`7241925578c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7241925578c1) - [ED-21934] Upgrade markdown-it dependency for prosemirror bump
+- [#68264](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68264) [`daa71f6aa162`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/daa71f6aa162) - [ux] ED-21883: Updated MultiBodied Extension related CSS and selections
+- Updated dependencies
+
+## 77.0.6
+
+### Patch Changes
+
+- [#68174](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68174) [`408257a30904`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/408257a30904) - [ECA11Y-157] Removed repeated accesible name
+
+## 77.0.5
+
+### Patch Changes
+
+- [#69008](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69008) [`dbf9e9255cea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dbf9e9255cea) - [ux] Show caption remove tooltip on media inline switcher in floating toolbar
+
+## 77.0.4
+
+### Patch Changes
+
+- [#63634](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63634) [`669b7038b354`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/669b7038b354) - chenged aria-label text
+
+## 77.0.3
+
+### Patch Changes
+
+- [#68088](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68088) [`ce6f5787f89a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce6f5787f89a) - Cleanup FF platform.editor.find-changed-nodes-from-transaction-optimisation
+
+## 77.0.2
+
+### Patch Changes
+
+- [#68501](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68501) [`c813e900fdde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c813e900fdde) - ED-21735: Added extension config panel support for MBE
+- [#67948](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67948) [`28fcdf6793a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/28fcdf6793a4) - Expand/collapse for panel and table color pickers
+
+## 77.0.1
+
+### Patch Changes
+
+- [#67703](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67703) [`d5303cb0f0cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d5303cb0f0cb) - When a table is inserted via the table selector popup, an analytics event should be sent with the totalRowCount and totalColumnCount and the input method picker. Removed ASCII and TYPEAHEAD inputMethod from table selector command.
+
+## 77.0.0
+
+### Major Changes
+
+- [#67576](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67576) [`ebaeefd6ab17`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ebaeefd6ab17) - [ED-21835] Change EditorAPI type to always union with undefined
+
+  # Breaking change
+
+  ## What
+
+  EditorAPI nows set all plugins as possible `undefined` as default
+
+  ## Why
+
+  That is too guarantee safe-null on runtime, since the EditorBuilderPreset does not guarantee the plugin required is on bundle anymore.
+
+  ## How
+
+  If you have anycode doing usign the editorAPI like this:
+
+  ```
+  editorAPI.core.commands
+  ```
+
+  You will need to safe-null it like this:
+
+  ```
+  editorAPI.core?.commands
+  ```
+
+- [#67576](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67576) [`0c7a7fae2055`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c7a7fae2055) - [ED-21835] EditorPresetBuilder.maybeAdd changed to keep the typesafety
+
+  warn This Changeset includes a major change and we STRONGLY recommend adding more information to the changeset:
+  warn WHAT the breaking change is
+  warn WHY the change was made
+  warn HOW a consumer should update their code
+
+  # WHAT the breaking change is
+
+  The Editor Preset creation process. When you need to add a plugin based on some condition, you used to do this:
+
+  ```
+  // BEFORE
+  const preset = new EditorPresetBuilder()
+    .add(pluginOne)
+    .maybeAdd(tablePlugin, (plugin, builder) => {
+
+      if (featureFlag.addTablePlugin) {
+          return builder.add(tablePlugin)
+      }
+      return builder;
+    });
+
+  ```
+
+  # WHY the change was made
+
+  The `maybeAdd` was breaking the whole typesystem always returning a `EditorPresetBuilder<any, any>`.
+
+  # HOW a consumer should update their code
+
+  You need to do a similar change like this below:
+
+  ```
+  // AFTER
+
+  const preset = new EditorPresetBuilder()
+    .add(pluginOne)
+    .maybeAdd(tablePlugin, featureFlag.addTablePlugin);
+
+  ```
+
+  Now, the `maybeAdd` type is `maybeAdd: (plugin, boolean) => EditorPresetBuilder`
+
+## 76.41.1
+
+### Patch Changes
+
+- [#68067](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68067) [`5b13ed605a1b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b13ed605a1b) - ED-21828 -fix layouts for wide inline images
+
+## 76.41.0
+
+### Minor Changes
+
+- [#67100](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67100) [`55cdf07c41cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/55cdf07c41cb) - Allow create label formatting for custom fields from extension
+
+### Patch Changes
+
+- [#66230](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66230) [`251435677e82`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/251435677e82) - [ux] ED-21621 Fixing alignment of panel icon and content.
+
+## 76.40.1
+
+### Patch Changes
+
+- [#67197](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67197) [`cb5f569a1b4a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb5f569a1b4a) - ED-21819 support copy inline image from renderer
+
+## 76.40.0
+
+### Minor Changes
+
+- [#67557](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67557) [`124d0c6d5286`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/124d0c6d5286) - Migrating block-type, text-color, and text-formatting to use useSharedPluginState rather than WithPluginState. Removing unused option on default preset. Adding formattingIsPresent prop to TextFormattingState.
+
+### Patch Changes
+
+- [#67051](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67051) [`08b5bd90a149`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/08b5bd90a149) - [ux] The table selector popup should gradually expand to 10 x 10 rows when hovered
+
+## 76.39.3
+
+### Patch Changes
+
+- [#66631](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66631) [`c1d10d6c2013`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1d10d6c2013) - Updated alt text analytics to log additional attributes
+- [#67113](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67113) [`7160ae19d9e5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7160ae19d9e5) - [ux] Adds localisation for table drag handle menu options
+- [#65788](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65788) [`be744e423e9f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be744e423e9f) - ED-21700 Extraction of avatar group plugin
+- [#66456](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66456) [`f67ea3106bb9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f67ea3106bb9) - Add support for i18n for drag handles
+- [#66919](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66919) [`d23cba211264`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d23cba211264) - Added a unsupported node type counts map to the unsupported content level tracking analytics event. This will provide information as to the type of unsupported nodes being encountered by user and help with debuggging the issue.
+- [#67194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67194) [`37379761475c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/37379761475c) - [ED-21806] Skip changes from NCS and tinted transactions.
+
+## 76.39.2
+
+### Patch Changes
+
+- [#65874](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65874) [`282862992d2a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/282862992d2a) - [ux] added popup to table selector button using mouse movement
+- Updated dependencies
+
+## 76.39.1
+
+### Patch Changes
+
+- [#64647](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64647) [`f2cd17119b76`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2cd17119b76) - [ECA11Y-15] Fixing screen reader announcement for Emoji
+
+## 76.39.0
+
+### Minor Changes
+
+- [#65084](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65084) [`609bca09a972`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/609bca09a972) - expose selection as part of the shared state
+
+## 76.38.0
+
+### Minor Changes
+
+- [#57215](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57215) [`73841c209537`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73841c209537) - [ux] ECA11Y-107: Add basic keyboard navigation for resize sliders
+
+## 76.37.0
+
+### Minor Changes
+
+- [#66364](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66364) [`212c782cb7a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/212c782cb7a6) - No longer require `cardOptions` to be passed to the hyperlink plugin configuration, it exposes a new optional way to skip analytics via the prependToolbarButtons action.
+
+### Patch Changes
+
+- [#60550](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60550) [`3016a811c0c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3016a811c0c7) - ECA11Y-92 Added assistive hidden message which are announcing for the screen reader when do any actions at the search field
+
+## 76.36.0
+
+### Minor Changes
+
+- [#65019](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65019) [`7290a6f8d435`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7290a6f8d435) - Adding lpLinkPicker param to card and hyperlink plugins instead of using feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 76.35.0
+
+### Minor Changes
+
+- [#65382](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65382) [`5f67f805635f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f67f805635f) - # WHAT
+
+  Deprecating entry-points from `@atlaskit/editor-core` to decouple the `extension` plugin.
+
+  These entry-points will no longer be available:
+
+  - `@atlaskit/editor-core/extensibility`
+  - `@atlaskit/editor-core/extensions`
+
+  # WHY
+
+  We are going to extract the `extension` plugin code to its own package.
+  These entry-points are only used for internal packages and are no longer required.
+
+  They couple the `extension` plugin to `editor-core` which blocks extraction.
+
+  # HOW
+
+  In general these were only used internally and should not be required.
+
+  However we do expose some of the components from `@atlaskit/editor-core/extensibility` in `@atlaskit/editor-common/extensibility`.
+
+  This includes:
+
+  - Extension
+  - ExtensionNode
+  - ExtensionNodeWrapper
+
+  For any issues please reach out to #help-editor
+
+- [#64844](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64844) [`fdad147e2231`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fdad147e2231) - [ED-21730] Extract Collab Edit Plugin
+
+### Patch Changes
+
+- [#65031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65031) [`a00094111b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a00094111b5a) - ED-21609 Update adf-schema to 35.3.0
+- [#64930](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64930) [`800c9e0275bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/800c9e0275bb) - NO-ISSUE Add optional chaining to the build info window variable when generating Sentry tags to avoid missing Jira errors
+- Updated dependencies
+
+## 76.34.0
+
+### Minor Changes
+
+- [#64836](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64836) [`f3e1604287a9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3e1604287a9) - ED-20879 add ssr support for mediaInline
+
+### Patch Changes
+
+- [#64335](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64335) [`efc8826c907f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/efc8826c907f) - [ux] [ED-16509] Restart numbered list inserting nodes via QUICK INSERT, nodes including : panels, expands, decisions, tables, layout, quotes, actions, dividers, headings. Changes are being guarded behind feature flag platform.editor.ordered-list-inserting-nodes_bh0vo
+- [#63266](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63266) [`630f6c9fc80c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/630f6c9fc80c) - ED-21576: Added new Example for MBE - Interactive Fake Tabs
+- Updated dependencies
+
+## 76.33.2
+
+### Patch Changes
+
+- [#64359](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64359) [`e728a3537d3b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e728a3537d3b) - [ux] Adds table shortcust to move row or column and to delete row or column when drag and drop enabled
+
+## 76.33.1
+
+### Patch Changes
+
+- [#64546](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64546) [`105de5d67d78`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/105de5d67d78) - ED-21733 fix style for inline image with link mark
+- Updated dependencies
+
+## 76.33.0
+
+### Minor Changes
+
+- [#64107](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64107) [`0372daafc639`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0372daafc639) - [ux] Refresh the inline card discoverability overlay design:
+
+  - changed color, text size, font, padding, overlay behaviour
+
+### Patch Changes
+
+- [#64152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64152) [`4bc51e1731ba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4bc51e1731ba) - [ux] Added a table selector button to the full page toolbar and button styles
+
+## 76.32.0
+
+### Minor Changes
+
+- [#63540](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63540) [`f90baf9336e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f90baf9336e6) - [ux] EDF-52: Hide quickInsert AI items based on AI config item isVisible handler (such as when documents are empty). This change is behind the platform flag platform.editor.ai-dynamic-show-hide-quick-insert-items_4ie8s (since it depends on adoption of a corresponding editor-common version to be enabled).
+
+## 76.31.0
+
+### Minor Changes
+
+- [#63849](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63849) [`75e0c3b954b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/75e0c3b954b3) - Extract feedback dialog plugin from editor-core as @atlaskit/editor-plugin-feedback-dialog
+- [#63553](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63553) [`e022e5359b7a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e022e5359b7a) - [ux] ED-21352: Support more edge cases for ordered list auto-join improvements. These improvements are guarded behind platform.editor.ordered-list-auto-join-improvements_mrlv5.
+
+### Patch Changes
+
+- [#64179](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64179) [`3754cce9321d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3754cce9321d) - setup table resizing performance experiment
+
+## 76.30.0
+
+### Minor Changes
+
+- [#63303](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63303) [`db6946b29596`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db6946b29596) - [ux] ED-18288 Adding right offset to color palette in config panel
+
+### Patch Changes
+
+- [#63306](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63306) [`61970079e90c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61970079e90c) - ED-21651 : This PR fixes the bug where copy list-in-quote should paste as list in quote. Its working for bullet but not for ordered list.
+
+## 76.29.3
+
+### Patch Changes
+
+- [#63388](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63388) [`999a8302f404`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/999a8302f404) - add analytics for changing media inline to media single
+- [#63608](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63608) [`bfb98fe84eae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfb98fe84eae) - [ux] EDF-93: Report and resolve existing duplicate i18n message descriptor keys/IDs in editor, as precursor work to adding CI check
+
+## 76.29.2
+
+### Patch Changes
+
+- [#63348](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63348) [`2d6eebf2ed74`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d6eebf2ed74) - Extract annotation plugin from editor-core to @atlaskit/editor-plugin-annotation.
+
+## 76.29.1
+
+### Patch Changes
+
+- [#62416](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62416) [`9f3c36680d89`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f3c36680d89) - [ux] Updated table context menu styling.
+
+## 76.29.0
+
+### Minor Changes
+
+- [#62560](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62560) [`5ad72b247e6a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ad72b247e6a) - [ux] ED-20895 Added linking support for inline images
+
+## 76.28.0
+
+### Minor Changes
+
+- [#61685](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61685) [`ac1ec9ea4cd3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ac1ec9ea4cd3) - [ux] Add border mark support to mediaInline in Editor/Renderer
+
+## 76.27.10
+
+### Patch Changes
+
+- [#61676](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61676) [`765a60628f08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/765a60628f08) - [ux] Change vertical alignment of media inline image to top
+- [#62545](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62545) [`85392e5f9be9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85392e5f9be9) - Remove legacy theming logic from the @atlaskit/editor-common package. Theming is still available via @atlaskit/tokens.
+- Updated dependencies
+
+## 76.27.9
+
+### Patch Changes
+
+- [#61048](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61048) [`f70a1b67acf4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f70a1b67acf4) - [ED-19879] Add zero width space after inline nodes to fix android bug where pressing backspace on inline nodes
+  in Android inserts a slice of inline node's string.
+
+## 76.27.8
+
+### Patch Changes
+
+- [#61923](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61923) [`04e38cfe9e90`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/04e38cfe9e90) - Remove legacy theming logic from all Editor plugin packages. Theming is still available via the @atlaskit/tokens package.
+- Updated dependencies
+
+## 76.27.7
+
+### Patch Changes
+
+- [#62165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62165) [`b44ac0968d79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b44ac0968d79) - [ED-21562] Bump @atlaskit/adf-schema to 35.2.0 for border mark update
+- Updated dependencies
+
+## 76.27.6
+
+### Patch Changes
+
+- [#58893](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58893) [`ed82b25d516b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed82b25d516b) - [ux] [ECA11Y-110] Selecting table columns and rows via shortcuts
+
+## 76.27.5
+
+### Patch Changes
+
+- [#61112](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61112) [`283d290a41e5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/283d290a41e5) - ED-21499: analytics event added for remove child operation in MBE
+- [#62117](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62117) [`f2c6b2f4cca8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2c6b2f4cca8) - Update table header cell color token to match user cell background colour picker
+
+## 76.27.4
+
+### Patch Changes
+
+- [#59319](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59319) [`d2e34e936bf2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2e34e936bf2) - [ED-15859] Clean up restartNumberedLists feature flag and set this feature as the default behaviour for ordered lists. Currently this feature is only rolled out in Confluence so this change will roll it out to all other products which adopt this version.
+
+## 76.27.3
+
+### Patch Changes
+
+- [#61839](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61839) [`4c12f0d11959`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c12f0d11959) - Fix react 18 popup flicker issue by synchronously flushing the position state.
+
+## 76.27.2
+
+### Patch Changes
+
+- [#60182](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60182) [`a2d430ec4462`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a2d430ec4462) - ED-21373 Initial changes for MBE analytics events
+
+## 76.27.1
+
+### Patch Changes
+
+- [#61320](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61320) [`faf6d59c38d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/faf6d59c38d3) - [ux] Pass in media dimensions to media card when rendered through inline image card
+
+## 76.27.0
+
+### Minor Changes
+
+- [#60937](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60937) [`fd6ea5aa5a6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fd6ea5aa5a6e) - Added new table analytics to cover moving row/column scenarios
+
+## 76.26.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 76.26.14
+
+### Patch Changes
+
+- [#60504](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60504) [`fdd20fa0201f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fdd20fa0201f) - ED-21506: multiBodiedExtension- Fix issues with Renderer
+
+## 76.26.13
+
+### Patch Changes
+
+- [#60660](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60660) [`102ad9375609`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/102ad9375609) - Fixed an issue where link creationMethod attribute was set as unknown when inserting via datasource config modal.
+
+## 76.26.12
+
+### Patch Changes
+
+- [#60827](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60827) [`5a8360781c14`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a8360781c14) - ED-21527 fix inline image height inside an action item
+- Updated dependencies
+
+## 76.26.11
+
+### Patch Changes
+
+- [#60808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60808) [`f509a21be124`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f509a21be124) - ED-21506: @atlaskit/adf-schema upgraded to 35.1.1 to support renderer for MBE
+- Updated dependencies
+
+## 76.26.10
+
+### Patch Changes
+
+- [#60714](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60714) [`8df9fdabe055`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8df9fdabe055) - Fixed minor issue in changed node diff scan where if the last position in a doc was replaced then and error would occur in prosemirror because it was trying to find a node which is outside its bounds
+- [#60465](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60465) [`9be6f70c0e22`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9be6f70c0e22) - ECA11Y-111 Rewrite the translations variables using ICU messages
+
+## 76.26.9
+
+### Patch Changes
+
+- [#59969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59969) [`53133f2e66d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53133f2e66d3) - [ED-21388] Fixed a bug where display date is inconsistent within action items, all format is now without the day of the week
+- Updated dependencies
+
+## 76.26.8
+
+### Patch Changes
+
+- [#58246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58246) [`a381b2599716`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a381b2599716) - ED-21371 Update adf-schema to 35.1.0
+- Updated dependencies
+
+## 76.26.7
+
+### Patch Changes
+
+- [#59951](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59951) [`a42a17e8af1b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a42a17e8af1b) - ED-21106: Remove nonPrivacySafeAttributes from editor operational events
+
+## 76.26.6
+
+### Patch Changes
+
+- [#60295](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60295) [`48109245628a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48109245628a) - Optimised the change node diff scan which occurs for every dispatched transaction within the editor
+
+## 76.26.5
+
+### Patch Changes
+
+- [#60035](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60035) [`5cf5779a8cbe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5cf5779a8cbe) - [ux] [ED-19814] Fixed infinite loop when none of the dropdown menu items were enabled during keyboard navigation
+
+## 76.26.4
+
+### Patch Changes
+
+- [#59829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59829) [`3120b36a9f2c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3120b36a9f2c) - Converted spacing values to the corresponding space tokens
+
+## 76.26.3
+
+### Patch Changes
+
+- [#56823](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56823) [`d2fbdf3b6822`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2fbdf3b6822) - [ux] ECA11Y-111: Keyboard accessibility of table resizer
+
+## 76.26.2
+
+### Patch Changes
+
+- [#59086](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59086) [`8b5cbc397cfd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b5cbc397cfd) - [ux] add convert media inline image to media single floating toolbar item
+- Updated dependencies
+
+## 76.26.1
+
+### Patch Changes
+
+- [#58565](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58565) [`1f112c9375db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1f112c9375db) - replace table sticky scrollbar platform feature flag with an editorFeatureFlag
+
+## 76.26.0
+
+### Minor Changes
+
+- [#59421](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59421) [`3747754f8ab0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3747754f8ab0) - NO-ISSUE Added the capability to directly trigger an analytics event as an action to the editor analytics plugin
+
+### Patch Changes
+
+- [#59245](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59245) [`0faff8fd352b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0faff8fd352b) - ED-20980 implemented default size for inline images.
+
+## 76.25.5
+
+### Patch Changes
+
+- [#57192](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57192) [`cb7776f514cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb7776f514cb) - Fix issue like table and assets editor plugin card not translated issue
+
+## 76.25.4
+
+### Patch Changes
+
+- [#56827](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56827) [`9966463429c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9966463429c6) - ECA11Y-86: Added ability to resize media via keyboard and added announcer
+
+## 76.25.3
+
+### Patch Changes
+
+- [#59047](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59047) [`2adceab3521d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2adceab3521d) - [ED-21288] Add constants for default image dimension for mediaInline node
+
+## 76.25.2
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+- [#58884](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58884) [`a149612dc46d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a149612dc46d) - [ux] Added support for Media Inline Image Card in Editor and Renderer
+- [#56822](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56822) [`77f4fbf44e93`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77f4fbf44e93) - ECA11Y-78: Added announce for the selected file
+- Updated dependencies
+
+## 76.25.1
+
+### Patch Changes
+
+- [#58503](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58503) [`b98a7eb489b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b98a7eb489b9) - [ED-20984] Implement loading and error view for media inline image card
+
+## 76.25.0
+
+### Minor Changes
+
+- [#58193](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58193) [`142df4424484`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/142df4424484) - NO-ISSUE Added new editor plugin to enable Loom video recording in the Editor
+
+## 76.24.5
+
+### Patch Changes
+
+- [#58316](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58316) [`eb496c9a3474`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb496c9a3474) - Bug fixes for configuraton panel boolean & enum fields
+- [#58763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58763) [`0fdbd64522bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fdbd64522bf) - update ADF schema
+- Updated dependencies
+
+## 76.24.4
+
+### Patch Changes
+
+- [#58075](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58075) [`236ea45c6d27`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/236ea45c6d27) - Fix with outer listerens event handlers ordering to work with React 18
+
+## 76.24.3
+
+### Patch Changes
+
+- [#57101](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57101) [`80da63d8b9d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80da63d8b9d5) - [ux] Feature flag cleanup (platform.linking-platform.smart-card.show-smart-links-refreshed-design) for Smart Links refresh design. This surfaces rounder corner and styling changes on Smart Links.
+
+## 76.24.2
+
+### Patch Changes
+
+- [#56725](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56725) [`4401801c484b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4401801c484b) - Add new rowOrColumnMoved event to table plugin, behind a feature flag
+
+## 76.24.1
+
+### Patch Changes
+
+- [#57610](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57610) [`587bbbfbf44d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/587bbbfbf44d) - Fix flicker of type-ahead popup in react 18.
+
+## 76.24.0
+
+### Minor Changes
+
+- [#56510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56510) [`baa76cfe522b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/baa76cfe522b) - Port Enzyme tests to RTL for the card hyperlink add toolbar
+  Minor functional changes to support React 18 behaviour (batching of updates).
+
+## 76.23.6
+
+### Patch Changes
+
+- [#57079](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/57079) [`d15db1b00c5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d15db1b00c5a) - [ED-21267] Improve arrow navigation across MultiBodiedExtensions
+
+## 76.23.5
+
+### Patch Changes
+
+- [#56790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56790) [`ff577a7969d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff577a7969d4) - ED-21266: Updated @atlaskit/adf-schema to 34.0.1
+- Updated dependencies
+
 ## 76.23.4
 
 ### Patch Changes
@@ -4823,7 +5559,7 @@ Bumped dependencies.
 
   Please see [the package documentation](https://atlaskit.atlassian.com/packages/editor/editor-core/docs/annotations) for more information.
 
-  There is an example component called `ExampleInlineCommentComponent` within the `@atlaskit/editor-test-helpers` package. It is currently featured in the full page examples on the Atlaskit website.
+  There is an example component called `ExampleViewInlineCommentComponent` within the `@atlaskit/editor-core` package. It is currently featured in the full page examples on the Atlaskit website.
 
   Annotations are styled within the editor using the `fabric-editor-annotation` CSS class.
 

@@ -32,9 +32,4 @@ const options: OptionsType = {
 
 snapshot(DefaultCreateWithModal, options);
 snapshot(DefaultCreateWithModalTitle, options);
-snapshot(DefaultCreateWithEditButton, {
-  featureFlags: {
-    'platform.linking-platform.link-create.enable-edit': true,
-  },
-  ...options,
-});
+snapshot(DefaultCreateWithEditButton, options);

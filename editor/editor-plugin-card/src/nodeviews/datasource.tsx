@@ -49,6 +49,7 @@ export interface DatasourceProps extends ReactComponentProps {
   eventDispatcher: EventDispatcher;
   hasIntlContext: boolean;
   pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
+  isNodeNested?: boolean;
 }
 
 interface DatasourceComponentProps
@@ -193,6 +194,7 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
 
 export class Datasource extends ReactNodeView<DatasourceProps> {
   private tableWidth: number | undefined;
+  private isNodeNested: boolean | undefined;
 
   constructor(props: DatasourceProps) {
     super(
@@ -211,6 +213,7 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
     const sharedState = props?.pluginInjectionApi?.width?.sharedState;
 
     this.tableWidth = sharedState?.currentState()?.width;
+    this.isNodeNested = props.isNodeNested;
 
     sharedState?.onChange(({ nextSharedState }) => {
       if (
@@ -233,6 +236,7 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 
   render() {
     const { attrs } = this.node;
+
     return (
       <DatasourceErrorBoundary
         unsupportedComponent={UnsupportedInline}
@@ -242,7 +246,9 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
         <div
           className={DATASOURCE_INNER_CONTAINER_CLASSNAME}
           style={{
-            minWidth: calcBreakoutWidth(attrs.layout, this.tableWidth),
+            minWidth: this.isNodeNested
+              ? '100%'
+              : calcBreakoutWidth(attrs.layout, this.tableWidth),
           }}
         >
           <DatasourceComponent

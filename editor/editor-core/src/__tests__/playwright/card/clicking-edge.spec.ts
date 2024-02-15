@@ -1,10 +1,11 @@
 import {
-  editorTestCase as test,
-  EditorNodeContainerModel,
-  EditorInlineCardModel,
   EditorFloatingToolbarModel,
+  EditorInlineCardModel,
+  EditorNodeContainerModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import { inlineCardWithinTableAdf } from './clicking-edge.spec.ts-fixtures/adf';
 
 test.use({

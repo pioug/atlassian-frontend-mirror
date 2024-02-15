@@ -14,6 +14,6 @@ const containerStyle = {
 
 export default () => (
   <div style={containerStyle}>
-    <TransparentProgressBar value={progress} />
+    <TransparentProgressBar value={progress} ariaLabel="Done: 4 of 10 issues" />
   </div>
 );

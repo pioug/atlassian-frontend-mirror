@@ -46,26 +46,29 @@ const transformer = (file: FileInfo, api: API): string => {
       j(node).insertAfter(defaultButtonImport);
     }
 
-    const defaultTypeSpecifiers = specifiers?.filter(
-      (specifier) => (specifier as any).importKind === 'type',
+    const valueSpecifiers = specifiers?.filter(
+      (specifier) => specifier.type === 'ImportSpecifier',
     );
 
-    if (defaultTypeSpecifiers?.length) {
+    const newTypeSpecifier = valueSpecifiers?.filter(
+      (specifier) =>
+        specifier.type === 'ImportSpecifier' &&
+        (specifier.imported.name === 'Appearance' ||
+          specifier.imported.name === 'Spacing'),
+    );
+
+    const otherTypeSpecifiers = valueSpecifiers?.filter((specifier) =>
+      BUTTON_TYPES.includes((specifier as any).imported.name),
+    );
+
+    if (newTypeSpecifier?.length) {
       const typeImport = j.importDeclaration(
-        defaultTypeSpecifiers,
+        newTypeSpecifier,
         j.stringLiteral('@atlaskit/button/types'),
       );
 
       j(node).insertAfter(typeImport);
     }
-
-    const valueSpecifiers = specifiers?.filter(
-      (specifier) => specifier.type === 'ImportSpecifier',
-    );
-    const otherTypeSpecifiers = valueSpecifiers?.filter((specifier) =>
-      BUTTON_TYPES.includes((specifier as any).imported.name),
-    );
-
     if (otherTypeSpecifiers?.length) {
       const typeImport = j.importDeclaration(
         otherTypeSpecifiers,

@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "target": "es5",
+    "baseUrl": "./",
+    "paths": {}
+  },
+  "include": [
+    "../src/**/*.ts"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*"
+  ]
+}

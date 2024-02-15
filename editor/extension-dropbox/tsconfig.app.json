@@ -46,6 +46,9 @@
     },
     {
       "path": "../../design-system/modal-dialog/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tokens/tsconfig.app.json"
     }
   ]
 }

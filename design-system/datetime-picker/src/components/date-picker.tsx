@@ -39,7 +39,6 @@ import {
   padToTwo,
   placeholderDatetime,
 } from '../internal';
-import ClearIndicator from '../internal/clear-indicator';
 import FixedLayer from '../internal/fixed-layer';
 import { makeSingleValue } from '../internal/single-value';
 import { Appearance, Spacing } from '../types';
@@ -172,7 +171,7 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps {
    */
   dateFormat?: string;
   /**
-   * Placeholder text displayed in input
+   * Placeholder text displayed in input.
    */
   placeholder?: string;
   /**
@@ -205,7 +204,7 @@ interface State {
   /**
    * When being cleared from the icon the DatePicker is blurred.
    * This variable defines whether the default onSelectBlur or onSelectFocus
-   * events should behave as normal
+   * events should behave as normal.
    */
   isFocused: boolean;
   clearingFromIcon: boolean;
@@ -464,12 +463,21 @@ class DatePicker extends Component<DatePickerProps, State> {
     return calendarValue;
   };
 
-  onInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  onInputKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
     const { value, calendarValue } = this.getSafeState();
 
     const keyPressed = event.key.toLowerCase();
     switch (keyPressed) {
       case 'escape':
+        // Yes, this is not ideal. The alternative is to be able to place a ref
+        // on the inner input of Select itself, which would require a lot of
+        // extra stuff in the Select component for only this one thing. While
+        // this would be more "React-y", it doesn't seem to pose any other
+        // benefits. Performance-wise, we are only searching within the
+        // container, so it's quick.
+        const innerCombobox: HTMLInputElement | undefined | null =
+          this.containerRef?.querySelector('[role="combobox"]');
+        innerCombobox?.focus();
         this.setState({ isOpen: false });
         break;
       case 'backspace':
@@ -572,8 +580,8 @@ class DatePicker extends Component<DatePickerProps, State> {
   /**
    * There are two props that can change how the date is parsed.
    * The priority of props used is:
-   *   1. parseInputValue
-   *   2. locale
+   *   1. `parseInputValue`
+   *   2. `locale`
    */
   parseDate = (date: string) => {
     const { parseInputValue, dateFormat } = this.props;
@@ -590,9 +598,9 @@ class DatePicker extends Component<DatePickerProps, State> {
   /**
    * There are multiple props that can change how the date is formatted.
    * The priority of props used is:
-   *   1. formatDisplayLabel
-   *   2. dateFormat
-   *   3. locale
+   *   1. `formatDisplayLabel`
+   *   2. `dateFormat`
+   *   3. `locale`
    */
   formatDate = (value: string) => {
     const { formatDisplayLabel, dateFormat } = this.props;
@@ -674,9 +682,7 @@ class DatePicker extends Component<DatePickerProps, State> {
       DropdownIndicator: dropDownIcon,
       Menu,
       SingleValue,
-      ...(showClearIndicator
-        ? { ClearIndicator: ClearIndicator }
-        : { ClearIndicator: EmptyComponent }),
+      ...(!showClearIndicator && { ClearIndicator: EmptyComponent }),
     };
 
     const { styles: selectStyles = {} } = selectProps;

@@ -33,8 +33,10 @@ const Motion = (props: { id: string; color?: string; onRender?: Function }) => {
 
 describe('<ExitingPersistence />', () => {
   beforeEach(() => {
-    jest.useRealTimers();
     (isReducedMotion as jest.Mock).mockReturnValue(false);
+  });
+  afterEach(() => {
+    jest.useRealTimers();
   });
 
   it('should not persist if reduced motion is preferred', () => {
@@ -59,7 +61,7 @@ describe('<ExitingPersistence />', () => {
 
     rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-    expect(getByTestId('element')).toBeDefined();
+    expect(getByTestId('element')).toBeInTheDocument();
   });
 
   it('should remove the child once the exit motion is finished', () => {
@@ -100,7 +102,7 @@ describe('<ExitingPersistence />', () => {
       </ExitingPersistence>,
     );
 
-    expect(getByTestId('element2')).toBeDefined();
+    expect(getByTestId('element2')).toBeInTheDocument();
   });
 
   it('should remove the child inside a list when the motion is finished', () => {
@@ -172,7 +174,7 @@ describe('<ExitingPersistence />', () => {
       </ExitingPersistence>,
     );
 
-    expect(getByTestId('element3')).toBeDefined();
+    expect(getByTestId('element3')).toBeInTheDocument();
   });
 
   it('should persist the child if it is replaced with another element', () => {
@@ -196,7 +198,7 @@ describe('<ExitingPersistence />', () => {
       </ExitingPersistence>,
     );
 
-    expect(getByTestId('element2')).toBeDefined();
+    expect(getByTestId('element2')).toBeInTheDocument();
   });
 
   it('should persist a list of children if they are all removed', () => {
@@ -212,9 +214,9 @@ describe('<ExitingPersistence />', () => {
 
     rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-    expect(getByTestId('element1')).toBeDefined();
-    expect(getByTestId('element2')).toBeDefined();
-    expect(getByTestId('element3')).toBeDefined();
+    expect(getByTestId('element1')).toBeInTheDocument();
+    expect(getByTestId('element2')).toBeInTheDocument();
+    expect(getByTestId('element3')).toBeInTheDocument();
   });
 
   it('should ensure when persisting children other child elements are updated', () => {
@@ -237,7 +239,7 @@ describe('<ExitingPersistence />', () => {
       </ExitingPersistence>,
     );
 
-    expect(getByTestId('element1').getAttribute('data-color')).toEqual('blue');
+    expect(getByTestId('element1')).toHaveAttribute('data-color', 'blue');
   });
 
   it('should persist a child when being removed when there are multiple conditional children', () => {
@@ -257,7 +259,7 @@ describe('<ExitingPersistence />', () => {
       </ExitingPersistence>,
     );
 
-    expect(getByTestId('element2')).toBeDefined();
+    expect(getByTestId('element2')).toBeInTheDocument();
   });
 
   it('should remove a child when motion is finished when there are multiple conditional children', () => {
@@ -321,7 +323,7 @@ describe('<ExitingPersistence />', () => {
       </ExitingPersistence>,
     );
 
-    expect(getByTestId('element2')).toBeDefined();
+    expect(getByTestId('element2')).toBeInTheDocument();
   });
 
   it('should splice new children added at the same time as some are exiting', () => {
@@ -371,8 +373,8 @@ describe('<ExitingPersistence />', () => {
       </ExitingPersistence>,
     );
 
-    expect(getByTestId('element1')).toBeDefined();
-    expect(getByTestId('element2')).toBeDefined();
+    expect(getByTestId('element1')).toBeInTheDocument();
+    expect(getByTestId('element2')).toBeInTheDocument();
   });
 
   it('should persist exiting children when sequential exits happen during another exit motion', () => {
@@ -405,9 +407,9 @@ describe('<ExitingPersistence />', () => {
     rerender(<ExitingPersistence>{[]}</ExitingPersistence>);
     jest.advanceTimersByTime(99);
 
-    expect(getByTestId('element1')).toBeDefined();
-    expect(getByTestId('element2')).toBeDefined();
-    expect(getByTestId('element3')).toBeDefined();
+    expect(getByTestId('element1')).toBeInTheDocument();
+    expect(getByTestId('element2')).toBeInTheDocument();
+    expect(getByTestId('element3')).toBeInTheDocument();
   });
 
   it('should remove sequential exiting children after all inflight exits have finished', () => {
@@ -484,7 +486,7 @@ describe('<ExitingPersistence />', () => {
       jest.runAllTimers();
     });
 
-    expect(getByTestId('element2')).toBeDefined();
+    expect(getByTestId('element2')).toBeInTheDocument();
   });
 
   it('should re-render once', () => {

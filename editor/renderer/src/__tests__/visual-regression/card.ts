@@ -1,24 +1,25 @@
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   evaluateTeardownMockDate,
-  PuppeteerPage,
   waitForLoadedImageElements,
 } from '@atlaskit/visual-regression/helper';
 
-import { snapshot, initRendererWithADF, ViewPortOptions } from './_utils';
-import * as cardXSSADF from '../__fixtures__/card-xss.adf.json';
-import * as cardAdf from '../__fixtures__/card.adf.json';
-import * as cardAdfBlock from '../__fixtures__/card.adf.block.json';
 import * as cardAdfRequestAccess from '../__fixtures__/card-request-access.adf.json';
+import * as cardXSSADF from '../__fixtures__/card-xss.adf.json';
+import * as cardAdfBlock from '../__fixtures__/card.adf.block.json';
+import * as cardAdf from '../__fixtures__/card.adf.json';
+import type { ViewPortOptions } from './_utils';
+import { initRendererWithADF, snapshot } from './_utils';
 
 import {
-  waitForResolvedInlineCard,
-  waitForResolvedBlockCard,
-  waitForResolvedEmbedCard,
-  openPreviewState,
-  waitForPreviewState,
-  waitForSuccessfullyResolvedEmbedCard,
   embedCombinationsWithTitle,
   generateEmbedCombinationAdf,
+  openPreviewState,
+  waitForPreviewState,
+  waitForResolvedBlockCard,
+  waitForResolvedEmbedCard,
+  waitForResolvedInlineCard,
+  waitForSuccessfullyResolvedEmbedCard,
 } from '@atlaskit/media-integration-test-helpers';
 
 const initRenderer = async (
@@ -42,7 +43,6 @@ describe('Snapshot Test: Cards', () => {
   });
 
   afterEach(async () => {
-    // FIXME These tests were flakey in the Puppeteer v10 Upgrade
     await snapshot(page, { tolerance: 0.05, useUnsafeThreshold: true });
   });
 
@@ -51,8 +51,7 @@ describe('Snapshot Test: Cards', () => {
     await waitForResolvedInlineCard(page);
   });
 
-  // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-  it.skip('displays links with correct appearance', async () => {
+  it('displays links with correct appearance', async () => {
     await initRenderer(page, cardAdf, {
       width: 800,
       height: 5000,

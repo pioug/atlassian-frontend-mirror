@@ -71,6 +71,28 @@ export const toolbarInsertBlockMessages = defineMessages({
     defaultMessage: 'Insert a table',
     description: 'Inserts a table in the document',
   },
+  tableSelector: {
+    id: 'fabric.editor.tableSelector',
+    defaultMessage: 'Table size',
+    description:
+      'Opens a table selector that lets you insert a table of custom size',
+  },
+  tableSelectorDescription: {
+    id: 'fabric.editor.tableSelector.description',
+    defaultMessage: 'Add a table using popup to select a custom size',
+    description:
+      'Opens a table selector that lets you insert a table of a custom size',
+  },
+  tableSizeSelectorButton: {
+    id: 'fabric.editor.tableSizeSelectorButton',
+    defaultMessage: 'Create table of size',
+    description: 'Creates table popup grid of defined size',
+  },
+  tableSizeSelectorPopup: {
+    id: 'fabric.editor.tableSizeSelectorPopup',
+    defaultMessage: 'Table size selector',
+    description: 'Table selector popup to create table of custom size',
+  },
   expand: {
     id: 'fabric.editor.expand',
     defaultMessage: 'Expand',
@@ -160,7 +182,7 @@ export const toolbarInsertBlockMessages = defineMessages({
   },
   insertMenu: {
     id: 'fabric.editor.insertMenu',
-    defaultMessage: 'Insert',
+    defaultMessage: 'Insert elements',
     description:
       'Opens a menu of additional items that can be inserted into your document.',
   },
@@ -173,5 +195,15 @@ export const toolbarInsertBlockMessages = defineMessages({
     id: 'fabric.editor.help.description',
     defaultMessage: 'Browse all the keyboard shortcuts and markdown options',
     description: 'Browse all the keyboard shortcuts and markdown options',
+  },
+  recordVideo: {
+    id: 'fabric.editor.recordVideo',
+    defaultMessage: 'Record video',
+    description: 'Record video using Loom',
+  },
+  recordVideoDescription: {
+    id: 'fabric.editor.recordVideo.description',
+    defaultMessage: 'Record video using Loom',
+    description: 'Record video using Loom',
   },
 });

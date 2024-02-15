@@ -1,5 +1,12 @@
 # @atlaskit/theme
 
+## 12.6.3
+
+### Patch Changes
+
+- [#71146](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71146) [`13f5d2d5911d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/13f5d2d5911d) - Minor internal codemod tweaks
+- Updated dependencies
+
 ## 12.6.2
 
 ### Patch Changes

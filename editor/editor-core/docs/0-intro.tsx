@@ -1,260 +1,316 @@
 import React from 'react';
+
 import {
-  md,
+  AtlassianInternalWarning,
   code,
   Example,
+  md,
   Props,
-  AtlassianInternalWarning,
 } from '@atlaskit/docs';
 
 export default md`
 ${(<AtlassianInternalWarning />)}
+  ## Introduction
 
-  ### Note:
+  The \`@atlaskit/editor-core\` package is part of the Atlassian front-end platform and provides core functionality for the rich text editor. It provides an easy-to-use and highly customizable editing experience, built on React as our primary rendering approach. It relies on the ProseMirror libraries, which offer a wide range of out-of-the-box features, including support for text formatting, lists, and more.
 
-  Don't forget to add these polyfills to your product build if you're using emoji or mentions in the editor and you want to target older browsers:
+  There is a separate Renderer package that caters for rendering the edited content without the editing experience.
 
-  * Promise ([polyfill](https://www.npmjs.com/package/es6-promise), [browser support](http://caniuse.com/#feat=promises))
-  * Fetch API ([polyfill](https://www.npmjs.com/package/whatwg-fetch), [browser support](http://caniuse.com/#feat=fetch))
-  * Element.closest ([polyfill](https://www.npmjs.com/package/element-closest), [browser support](http://caniuse.com/#feat=element-closest))
+  This documentation will provide you with everything you need to get started using the Atlassian Editor, including:
 
-  # Installing the editor package
+  * Installation instructions
+  * Basic usage examples
+  * Advanced customization options
 
-  The dependencies of editor is a complex beast and can confuse some package managers (\`npm\` does not seem to result in duplicates, but \`yarn\` does).
+  ## Prerequisites
 
-  We have encountered many strange bugs that were caused by duplicated packages in a product codebase. It is highly recommend to deduplicate packages to work around the yarn bug.
+  * **React 16:** at the time of writing, the Atlassian Editor is built on top of React 16 and doesn’t explicitly support any higher versions of React yet, which means both the \`react\` and \`react-dom\` libraries and their dependencies need to be set to React 16 compatible version.
+  * **Singleton:** the ProseMirror libraries in use and the document format \(Atlassian Document Format, ADF\) demand that some of the libraries using them are singletons, as multiple versions of the library will cause breaking issues. So, consumers of the Atlassian Editor need to enforce these singletons; this is usually done by deduplicating after installing the dependencies or by setting libraries to specific versions through resolutions to avoid multiple versions. Our recommendation is to use [yarn-deduplicate](https://www.npmjs.com/package/yarn-deduplicate).
 
-  Be sure to dedupe your packages after adding or upgrading \`@atlaskit/editor-core\` in your package.json file. Our recommendation is to use [yarn-deduplicate](https://www.npmjs.com/package/yarn-deduplicate).
+  ## Installation
 
-  # Starting to use the editor
+  1. Install the editor libraries  
+    - **npm:** \`npm install --save @atlaskit/editor-core @atlaskit/css-reset\`
+    - **yarn:** \`yarn add @atlaskit/editor-core @atlaskit/css-reset\`
 
-  ## Simplest Editor
+  2. Deduplicate the dependencies \(if necessary\) by setting resolutions to avoid multiple versions of the editor libraries or by running [npm dedupe](https://docs.npmjs.com/cli/v6/commands/npm-dedupe) or [yarn dedupe](https://yarnpkg.com/cli/dedupe) after installation.
+  3. Setup the CSS reset in your application  
+    \`import '@atlaskit/css-reset';\`
 
-  The simplest editor in the world is just:
+  ## Usage
+
+  ### [Legacy Editor](editor-core/docs/legacy-editor)
+
+
+  ### Composable Editor
+
+  #### Simplest implementation
+
+  The following code example will render the comment editor with only basic text formatting enabled.
 
 ${code`
-  import { Editor } from '@atlaskit/editor-core';
+import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { basePlugin } from '@atlaskit/editor-plugins/base';
 
-  <Editor appearance="comment" />;
+const CommentEditor = () => {
+  const { preset } = usePreset(() => new EditorPresetBuilder().add(basePlugin));
+
+  return <ComposableEditor preset={preset} />;
+};
 `}
 
-  This will render the comment editor with only text formatting (bold / italics / underline / superscript/subscript) enabled.
+  ## Configuration
 
-  You can enable more functionality in the editor via passing extra props.
+  ### Presets
 
-  ## Editor with mentions
+  The Atlassian Editor employs a plugin system to extend its capabilities, offering a wide range of plugins to enhance its feature set. Plugins can also have dependencies on one another to deliver their functionality \(for example, the table plugin depends on the guideline plugin\). To simplify the process of including and configuring these plugins, we've introduced the concept of presets. Presets are a collection of plugins that work seamlessly together.
 
-  To add mention capabilities to the editor, you will need to pass in a "Mention Provider". At a high level, this is simply an object that will allow us to interface whatever mention source you want to use with the editor. This looks like:
+  You can start with one of the preset provided with \`editor-core\` and extend their functionality, or build your own using \`EditorPresetBuilder\`. You always need the \`basePlugin\` in any preset.
+
+  #### Using the Pre-defined Default Preset
 
 ${code`
-  import { Editor } from '@atlaskit/editor-core';
-  import mentionProvider from './mentionProvider';
+import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
+import { usePreset } from '@atlaskit/editor-core/use-preset';
 
-  <Editor
-    appearance="comment"
-    mentionProvider={mentionProvider.get()}
-  />;
+const createPreset = () =>
+  createDefaultPreset({ featureFlags: {}, paste: {} });
+const { preset } = usePreset(createPreset);
 `}
 
-  ## Collapsed Editor
+  The default preset encompasses all the essentials needed for the Editor to function, representing the minimum set of plugins. It includes core Atlassian libraries essential for editor development \(feature flags, analytics, editor state management\), as well as common editor features \(copy/paste, clipboard support, focus, composition, decorations, undo/redo, block elements, annotations, hyperlink support, basic text formatting, responsive width support, quick-insert, type-ahead, placeholder text, editor controls, selections, code blocks\). Some of these core plugins can be disabled through the configuration object passed into \`createDefaultPreset\`.
 
-  Sometimes we don't want to show the whole editor at the start and instead show a collapsed state for a user to click on to start typing. This looks like:
+
+  #### Using the Pre-defined Universal Preset
 
 ${code`
-  import { Editor, CollapsedEditor } from '@atlaskit/editor-core';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 
-  class CollapsibleEditor extends React.Component {
-    state = { isExpanded: false };
-
-    expandEditor = () => this.setState({ isExpanded: true });
-    collapseEditor = () => this.setState({ isExpanded: false });
-
-    onSave = () => {
-      /* do something */
-    };
-
-    render() {
-      return (
-        <CollapsedEditor
-          placeholder="What would you like to say?"
-          isExpanded={this.state.isExpanded}
-          onFocus={this.expandEditor}
-        >
-          <Editor
-            appearance="comment"
-            onSave={this.onSave}
-            onCancel={this.collapseEditor}
-          />
-        </CollapsedEditor>
-      );
-    }
-  }
+const presetProps = {
+  props: {},
+};
+const universalPreset = useUniversalPreset(presetProps);
 `}
 
-  ## What is EditorContext?!?!
+  In addition to the default preset, the universal preset contains a comprehensive set of features for a fully-featured editor. It supports functionalities like data consumers, content insertion, breakout, alignment, text color, lists, rules, expands, guidelines, media, captions, mentions, emoji, tables, tasks & decisions, feedback dialogs, help dialogs, collaborative editing, maximum content size restrictions, Jira issue linking, panels, context panels, extensions, macros, annotations, dates, placeholder text, layouts, cards, auto-formatting rules, status elements, indentation, scroll-into-view behavior, complex history behavior, mobile support, and advanced toolbar support.
 
-  EditorContext allows you, in conjunction with WithEditorActions, to manipulate the editor from anywhere inside the EditorContext. In the example below, notice that no reference is kept to the editor instance.
+  Warning: The universal preset includes all editor plugins, which can significantly increase bundle size. It is generally advisable to create a custom preset according to your needs.
+
+  #### Adding a plugin to a preset
+
+  To add a plugin to a preset, use the following methods:
+
+  * Use \`maybeAdd\` to conditionally add the plugin.
+  * Use \`add\` for plugins that should always be included.
 
 ${code`
-  import { EditorContext, WithEditorActions } from '@atlaskit/editor-core';
-  import { CollapsibleEditor } from 'previous-example';
+import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
+import { usePreset } from '@atlaskit/editor-core/use-preset';
 
-  <EditorContext>
-    <div>
-      <CollapsibleEditor />
-      <WithEditorActions
-        render={actions => (
-          <ButtonGroup>
-            <Button onClick={() => actions.clear()}>Clear Editor</Button>
-            <Button onClick={() => actions.focus()}>Focus Editor</Button>
-          </ButtonGroup>
-        )}
+const createPreset = () =>
+  createDefaultPreset({ featureFlags: {}, paste: {} })
+    .add(listPlugin)
+    .maybeAdd(historyPlugin, (plugin, builder) => {
+      if (featureFlag) {
+        return builder.add(plugin); // Add the plugin
+      }
+      return builder; // Don't add the plugin
+    });
+    
+const { preset } = usePreset(createPreset);
+`}
+
+  Some plugins are dependent on others. If you encounter type issues with a specific plugin, it's crucial to verify that all necessary dependencies have been added. These can be cross-checked within the individual documentation of each plugin.
+
+  #### Create a custom preset
+
+  Create your custom preset using the \`default\` preset as a base (extending with card and list functionality).
+
+${code`
+import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { createDefaultPreset } from '@atlaskit/editor-core/labs-next';
+
+const createPreset = () =>
+  createDefaultPreset({ featureFlags: {}, paste: {} })
+    .add(gridPlugin)
+    .add([cardPlugin, { platform: 'web' }])
+    .add(listPlugin);
+
+const { preset } = usePreset(createPreset);
+`}
+
+  Or from scratch (simple preset with basic text formatting, list, analytics, and headings):
+
+  ${code`
+import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { basePlugin } from '@atlaskit/editor-plugins/base';
+import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
+import { listPlugin } from '@atlaskit/editor-plugins/list';
+import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
+
+const createPreset = () =>
+    new EditorPresetBuilder()
+      .add(basePlugin)
+      .add(analyticsPlugin)
+      .add(blockTypePlugin)
+      .add(listPlugin)
+
+const { preset } = usePreset(createPreset);
+`}
+
+  To keep your integrated editor running smoothly, it's important to have a stable preset. If you generate a new preset every time the editor re-renders, it can slow things down significantly. The best way to maintain a stable preset across re-renders is to use the \`usePreset\` hook or similar memoization techniques. This helps your editor run efficiently without unnecessary recalculations.
+
+  ---
+
+  ### Appearances
+
+  Appearances determine how the editor's user interface \(UI\) is displayed and can be configured using a property passed into the editor component.
+
+
+  #### Comment
+
+  The comment editor appearance provides a contained editor UI with a simple toolbar. It is best used when the Editor isn't the primary focus area of the page, such as when it's used for editing comments on a page. This editor appearance still includes a toolbar with editor controls.
+
+${code`
+
+  const createPreset = () =>
+    createDefaultPreset({ featureFlags: {}, paste: {} });
+  const { preset } = usePreset(createPreset);
+
+  // 'comment' is the default appearance, you don't need to pass it
+  return <ComposableEditor appearance='comment' preset={preset} />;
+`}
+
+  Comment is the default appearance so this is equivalent:
+
+${code`
+
+  const createPreset = () =>
+    createDefaultPreset({ featureFlags: {}, paste: {} });
+  const { preset } = usePreset(createPreset);
+
+  return <ComposableEditor preset={preset} />;
+`}
+
+
+  #### Full Page and Full Width
+
+  The full-page and full-width editor appearances provide an editor UI that stretches to fill the entire page. They are suitable when the Editor is the main focus area on the page.
+
+${code`
+  const createPreset = () =>
+    createDefaultPreset({ featureFlags: {}, paste: {} });
+  const { preset } = usePreset(createPreset);
+  
+  return <ComposableEditor appearance='full-page' preset={preset} />;
+  // Or full-width
+  return <ComposableEditor appearance='full-width' preset={preset} />;
+`}
+
+
+  #### Chromeless
+
+  The chromeless editor appearance provides the Editor without any of the standard UI features. It's ideal for cases where the integrator wants complete control and responsibility over the editor UI.
+
+${code`
+  const createPreset = () =>
+    createDefaultPreset({ featureFlags: {}, paste: {} });
+  const { preset } = usePreset(createPreset);
+  return <ComposableEditor appearance='chromeless' preset={preset} />;
+`}
+
+  #### Mobile
+
+  The mobile editor appearance is tailored to deliver a mobile experience through a mobile web view. It's essentially a full-page editor version for mobile.
+
+${code`
+  const createPreset = () =>
+    createDefaultPreset({ featureFlags: {}, paste: {} });
+  const { preset } = usePreset(createPreset);
+  return <ComposableEditor appearance='mobile' preset={preset} />;
+`}
+
+
+  ### Collapsible Editor
+
+  Sometimes, you may not want to display the whole Editor initially, and you'd prefer to show it in a collapsed state so that users can expand it when needed. 
+
+  Here's how you can implement this behavior:
+
+${code`
+import { useState } from 'react';
+import { CollapsedEditor } from '@atlaskit/editor-core';
+import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+
+const CollapsibleEditor = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const createPreset = () =>
+    createDefaultPreset({ featureFlags: {}, paste: {} });
+  const { preset } = usePreset(createPreset);
+
+  return (
+    <CollapsedEditor
+      placeholder='What would you like to say?'
+      onFocus={() => setIsExpanded(true)}
+      isExpanded={isExpanded}>
+      <ComposableEditor
+        preset={preset}
+        onSave={(_editorView) => alert('The save button is a lie.')}
+        onCancel={() => setIsExpanded(false)}
       />
-    </div>
-  </EditorContext>;
+    </CollapsedEditor>
+  );
+};
 `}
 
-  ## How can I set the content of the editor?
 
-  There's two ways at the moment. It depends on whether the editor is mounted yet or not.
+  ### Editor with providers
 
-  ### If the editor is not mounted
+  The Editor can't access information from its context by default. Instead, specific plugins provide a mechanism to allow you to supply custom logic for accessing environment variables.
 
-  You can just pass through the value you want to set the editor to, as the \`defaultValue\` prop
+  An excellent example of this is mentions, where you would want to provide user information the Editor can access and define how it should be presented inside the Editor. To enable the capability of mentioning users inside the Editor, you need to pass in a "mention provider." This object allows you to define the logic used to determine which users can be mentioned in the Editor.
 
-  ### If the Editor is Mounted
-
-  You can use \`WithEditorActions\` and \`actions.replaceDocument(documentValueHere)\` together
-
-  ## Using a non-'Atlassian Document Format' storage format
-
-  Using a custom storage format is fairly straightforward - you simply have to import the relevant transformer and pass it through to the editor. That's all!
+  This could look something like this:
 
 ${code`
-  import { Editor, BitbucketTransformer } from '@atlaskit/editor-core';
+import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+import { MentionDescription, MentionProvider } from '@atlaskit/mention';
 
-  <Editor
-    appearance="comment"
-    contentTransformerProvider={schema => new BitbucketTransformer(schema)}
-  />;
-`}
-
-  ## Example saving content
-
-  If you want an example of actually using \`WithEditorActions\` to save content, you've got it!
-
-${code`
-  class SaveExample extends React.Component {
-    onSubmit = actions => editorView => {
-      actions.getValue().then(value => {
-        if (value != null) {
-          dispatch({ type: 'SAVE_COMMENT', payload: value });
-        }
-      })
-    }
-
-    render() {
-      return (
-        <EditorContext>
-          <WithEditorActions
-            render={actions => (
-              <Editor
-                appearance="comment"
-                onSave={this.onSubmit(actions)}
-              />
-            )}
-          />
-        </EditorContext>
-      )
-    }
-`}
-
-  alternatively
-
-${code`
-  class EditorWrapper extends React.Component {
-    propTypes = { actions: PropTypes.object };
-
-    onSubmit = () => {
-      this.props.actions.getValue().then(value => {
-        if (value != null) {
-          dispatch({ type: 'SAVE_COMMENT', payload: value });
-        }
-      });
-    };
-
-    render() {
-      return (
-        <Editor
-          appearance="comment"
-          onSave={this.onSubmit}
-        />
-      );
-    }
-  }
-
-  class SaveExample extends React.Component {
-    render() {
-      return (
-        <EditorContext>
-          <WithEditorActions
-            render={actions => <EditorWrapper actions={actions} />}
-          />
-        </EditorContext>
-      );
-    }
-  }
-`}
-
-  We’d love to hear your feedback.
-
-  ## Theming and dark mode support
-  To render certain ADF content correctly in different color themes, such as light and dark mode, this package utilise
-  the \`@atlaskit/editor-palette\` package, which converts colors stored in ADF to Atlassian Design Tokens.
-  Learn more about this utility in the [Editor Palette docs](/packages/editor/editor-palette).
-
-  Full light and dark mode support for the Editor is a work in progress. Currently, the following experiences do not yet support theming:
-  - Custom table backgrounds
-
-  ## Tab indexing / focus
-  If you are displaying a title you may need to listen for a tab event to
-  explicitly enable and focus the editor.
-
-  Shift + Tab will move from the title bar to the toolbar preserving tab order.
-
-  See the Full Page Example code for a complete implementation.
-
-  For example:
-
-${code`
-  <WithEditorActions
-
-    render={actions => (
-      <TitleInput
-        placeholder="Give this page a title..."
-        onKeyDown={(e: KeyboardEvent) =>
-          this.onKeyPressed(e, actions)
-        }
-      />
-    )}
-  />
-`}
-
-${code`
-  private onKeyPressed = (e: KeyboardEvent, actions: EditorActions) => {
-    if (e.key === 'Tab' && !e.shiftKey) {
-      actions.focus();
+const CommentEditorWithMentions = () => {
+  const exampleMentionProvider: MentionProvider = {
+    filter(_query?: string): void {},
+    recordMentionSelection(_mention: MentionDescription): void {},
+    shouldHighlightMention(_mention: MentionDescription): boolean {
       return false;
-    }
+    },
+    isFiltering(_query: string): boolean {
+      return false;
+    },
+    subscribe(): void {},
+    unsubscribe(_key: string): void {},
   };
+
+  const createPreset = () =>
+    createDefaultPreset({ featureFlags: {}, paste: {} });
+  const { preset } = usePreset(createPreset);
+
+  return <ComposableEditor preset={preset} mentionProvider={presetProps.props.mentionProvider} />;
+};
 `}
 
 ${(
   <Example
-    packageName="@atlaskit/editor-core"
-    Component={require('../examples/1-basic').default}
+    packageName="@atlaskit/editor-core/composable-editor"
+    Component={require('../examples/1-basic-composable-editor').default}
     title="Basic"
-    source={require('!!raw-loader!../examples/1-basic')}
+    source={require('!!raw-loader!../examples/1-basic-composable-editor')}
   />
 )}
 
@@ -262,7 +318,8 @@ ${(
     <Props
       shouldCollapseProps
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/editor')}
+      props={require('!!extract-react-types-loader!../src/composable-editor')}
     />
   )}
+
 `;

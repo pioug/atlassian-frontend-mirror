@@ -1,17 +1,21 @@
 /** @jsx jsx */
 import React from 'react';
+
 import { css, jsx } from '@emotion/react';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { EditorAppearance, UIComponentFactory } from '../../types';
-import type { EventDispatcher } from '../../event-dispatcher';
-import type EditorActions from '../../actions';
+
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ReactHookFactory } from '@atlaskit/editor-common/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import type EditorActions from '../../actions';
+import type { EventDispatcher } from '../../event-dispatcher';
+import type { EditorAppearance, UIComponentFactory } from '../../types';
 import { whichTransitionEvent } from '../../utils';
 import { ErrorBoundary } from '../ErrorBoundary';
+
 import { MountPluginHooks } from './mount-plugin-hooks';
-import type { ReactHookFactory } from '@atlaskit/editor-common/types';
 
 const pluginsComponentsWrapper = css`
   display: flex;

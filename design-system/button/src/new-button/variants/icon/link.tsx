@@ -9,8 +9,7 @@ import useIconButton from './use-icon-button';
 
 export type LinkIconButtonProps<
   RouterLinkConfig extends Record<string, any> = never,
-> = CommonIconButtonProps &
-  Omit<CommonLinkVariantProps<RouterLinkConfig>, 'children' | 'appearance'>;
+> = CommonIconButtonProps & CommonLinkVariantProps<RouterLinkConfig>;
 
 const LinkIconButtonBase = <
   RouterLinkConfig extends Record<string, any> = never,
@@ -36,7 +35,9 @@ const LinkIconButtonBase = <
     onPointerDownCapture,
     onPointerUpCapture,
     onClickCapture,
+    shape,
     testId,
+    UNSAFE_size,
     href,
     ...rest
   }: LinkIconButtonProps<RouterLinkConfig>,
@@ -47,7 +48,6 @@ const LinkIconButtonBase = <
     appearance,
     autoFocus,
     buttonType: 'link',
-    children: null, // Set in hook.
     icon,
     interactionName,
     isDisabled,
@@ -65,7 +65,9 @@ const LinkIconButtonBase = <
     onClickCapture,
     overlay,
     ref,
+    shape,
     spacing,
+    UNSAFE_size,
   });
 
   return (
@@ -110,8 +112,6 @@ const WithRef = forwardRef(LinkIconButtonBase) as <
 
 /**
  * __Link Icon Button__
- *
- * @private __UNSAFE__ LinkIconButton is not yet safe for production use.
  *
  * Renders a link in the style of an icon button.
  *

@@ -15,16 +15,6 @@ import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mocks, waitFor } from '../../../utils/mocks';
 import { IntlProvider } from 'react-intl-next';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-  getBooleanFF: jest
-    .fn()
-    .mockImplementation(
-      (flag) =>
-        flag ===
-        'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-    ),
-}));
-
 mockSimpleIntersectionObserver();
 
 describe('smart-card: card states, inline', () => {

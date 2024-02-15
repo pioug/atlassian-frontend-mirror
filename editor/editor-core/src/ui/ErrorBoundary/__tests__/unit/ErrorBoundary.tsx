@@ -1,12 +1,15 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
-import { ErrorBoundary } from '../..';
-import { ACTION, EVENT_TYPE } from '../../../../';
+
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
+
+import { ACTION, EVENT_TYPE } from '../../../../index';
+import { ErrorBoundary } from '../../index';
 
 describe('ErrorBoundary', () => {
   let mockDispatchAnalyticsEvent: jest.MockedFunction<DispatchAnalyticsEvent>;

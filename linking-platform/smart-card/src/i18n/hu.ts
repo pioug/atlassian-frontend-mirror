@@ -29,9 +29,9 @@ export default {
   'fabric.linking.connect_to': 'Csatlakozás ehhez: {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Csatlakozás ehhez: {context}',
   'fabric.linking.connect_unauthorised_account_description':
-    'Az Atlassian és a(z) {context} csatlakoztatásával egy helyen nézhetsz meg további részleteket a munkádról és működhetsz együtt másokkal.',
+    'Csatlakoztasd a(z) {context}-fiókodat, hogy együtt dolgozhassatok több Atlassian-termékben is.',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    'Az Atlassian csatlakoztatásával egy helyen nézhetsz meg további részleteket a munkádról és működhetsz együtt másokkal.',
+    'Csatlakoztasd a fiókodat, hogy együtt dolgozhassatok több Atlassian-termékben is.',
   'fabric.linking.continue': 'Folytatás',
   'fabric.linking.copy_url_to_clipboard': 'Link másolása',
   'fabric.linking.couldnt_load_link': 'Ismeretlen okból nem tudtuk betölteni ezt a linket.',
@@ -59,6 +59,8 @@ export default {
     'Az előnézet megtekintéséhez hozzáférést kell kérned, vagy másik fiókba kell belépned.',
   'fabric.linking.join_to_view': 'Az ügy megtekintése érdekében csatlakozz ehhez: {context}',
   'fabric.linking.last_mentioned_in': 'Legutóbb megemlítve itt:',
+  'fabric.linking.learn_more_about_connecting_account':
+    'További információ a fiók csatlakoztatásáról az Atlassian-termékekhez.',
   'fabric.linking.learn_more_about_smart_links': 'További információ az okoslinkekről.',
   'fabric.linking.link_safety_warning_message':
     'A(z) {unsafeLinkText} link egy másik webhelyre visz: <a>actual link here</a>',

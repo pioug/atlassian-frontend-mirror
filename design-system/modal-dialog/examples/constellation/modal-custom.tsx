@@ -3,7 +3,8 @@ import { Fragment, useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 import Modal, { ModalTransition, useModal } from '../../src';
@@ -56,8 +57,8 @@ const CustomModalContent = () => {
         <p css={marginBottomStyles}>
           Take it for a spin and let us know what you think.
         </p>
-        <ButtonGroup>
-          <Button appearance="subtle-link">Remind me later</Button>
+        <ButtonGroup label="Switch options">
+          <Button appearance="subtle">Remind me later</Button>
           <Button onClick={onClose} appearance="primary">
             Switch to the new Jira
           </Button>

@@ -1,23 +1,24 @@
-import { editorTestCase as test, expect } from '@af/editor-libra';
-import {
-  infoPanelWithTextBelowExpand,
-  infoPanelWithTextBelowLayout,
-  infoPanelWithTextBelowTable,
-  infoPanelWithTextBelowParagraph,
-} from './__fixtures__/adf-documents-panel';
+import { expect, editorTestCase as test } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
-  panel,
-  p,
   expand,
-  layoutSection,
   layoutColumn,
+  layoutSection,
+  p,
+  panel,
   table,
-  tr,
-  th,
   td,
+  th,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import {
+  infoPanelWithTextBelowExpand,
+  infoPanelWithTextBelowLayout,
+  infoPanelWithTextBelowParagraph,
+  infoPanelWithTextBelowTable,
+} from './__fixtures__/adf-documents-panel';
 
 const cases = [
   // isolating nodes

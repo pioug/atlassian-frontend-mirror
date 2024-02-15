@@ -62,7 +62,7 @@ const select =
               });
 
               const isBackwardSelection =
-                targetRowCells[0] < prevSelection.$head.pos;
+                targetRowCells[0] < prevSelection.$head.pos - table.start;
 
               if (isBackwardSelection && isPrevRowSelection) {
                 const head = table.start + cellsInFirstRow[0];
@@ -100,7 +100,7 @@ const select =
               });
 
               const isBackwardSelection =
-                targetRowCells[0] < prevSelection.$head.pos;
+                targetRowCells[0] < prevSelection.$head.pos - table.start;
 
               if (isBackwardSelection && isPrevRowSelection) {
                 const head = table.start + cellsInFirstRow[0];
@@ -152,6 +152,50 @@ export const selectColumn = select('column');
 // Returns a new transaction that selects a row at index `rowIndex`.
 // Use the optional `expand` param to extend from current selection.
 export const selectRow = select('row');
+
+const selectRowsOrColumns =
+  (type: 'rows' | 'columns') =>
+  (indexes: number[]) =>
+  (tr: Transaction): Transaction => {
+    const table = findTable(tr.selection);
+    if (!table) {
+      return tr;
+    }
+    const map = TableMap.get(table.node);
+    if (
+      !indexes ||
+      indexes.length <= 0 ||
+      (type === 'rows' && Math.max(...indexes) > map.height) ||
+      (type === 'columns' && Math.max(...indexes) > map.width) ||
+      Math.min(...indexes) < 0
+    ) {
+      return tr;
+    }
+    const startCellRect = map.cellsInRect({
+      left: type === 'rows' ? 0 : Math.min(...indexes),
+      top: type === 'rows' ? Math.min(...indexes) : 0,
+      right: type === 'rows' ? map.width : Math.min(...indexes) + 1,
+      bottom: type === 'rows' ? Math.min(...indexes) + 1 : 1,
+    });
+    const endCellRect = map.cellsInRect({
+      left: type === 'rows' ? map.width - 1 : Math.max(...indexes),
+      top: type === 'rows' ? Math.max(...indexes) : map.height - 1,
+      right: type === 'rows' ? map.width : Math.max(...indexes) + 1,
+      bottom: type === 'rows' ? Math.max(...indexes) + 1 : map.height,
+    });
+    const head = table.start + startCellRect[0];
+    const anchor = table.start + endCellRect[endCellRect.length - 1];
+    const $head = tr.doc.resolve(head);
+    const $anchor = tr.doc.resolve(anchor);
+
+    return cloneTr(tr.setSelection(new CellSelection($anchor, $head)));
+  };
+
+// Returns a new transaction that selects all rows at `indexes`.
+export const selectRows = selectRowsOrColumns('rows');
+
+// Returns a new transaction that selects all columns at `indexes`.
+export const selectColumns = selectRowsOrColumns('columns');
 
 // Returns a new transaction that selects a table.
 export const selectTable = (tr: Transaction): Transaction => {

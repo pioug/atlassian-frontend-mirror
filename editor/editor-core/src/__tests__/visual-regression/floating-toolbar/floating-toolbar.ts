@@ -1,33 +1,34 @@
-/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import {
-  getSelectorForTableCell,
-  tableSelectors,
-} from '@atlaskit/editor-test-helpers/page-objects/table';
-import toolbarAdf from './__fixtures__/toolbar-adf.json';
-import extendedToolbarAdf from './__fixtures__/toolbar-with-extension-buttons-adf.json';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular dependencies */
 import { waitForElementWithText } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   clickOnExtension,
   waitForExtensionToolbar,
 } from '@atlaskit/editor-test-helpers/page-objects/extensions';
 import {
-  isDropdownMenuItemFocused,
-  retryUntilStablePosition,
-} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import type { EditorProps } from '../../../types';
-import type { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types';
-import {
   pressKey,
   pressKeyCombo,
 } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import {
+  getSelectorForTableCell,
+  tableSelectors,
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+import {
+  isDropdownMenuItemFocused,
+  retryUntilStablePosition,
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import type { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular dependencies */
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
-/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
+import type { EditorProps } from '../../../types';
+
+import toolbarAdf from './__fixtures__/toolbar-adf.json';
+import extendedToolbarAdf from './__fixtures__/toolbar-with-extension-buttons-adf.json';
 async function focusToolbar() {
   await pressKeyCombo(page, ['Alt', 'F10']);
 }
@@ -81,23 +82,22 @@ describe('Floating toolbars:', () => {
       });
     });
 
-    // FIXME: This test was automatically skipped due to failure on 07/10/2023: https://product-fabric.atlassian.net/browse/ED-20352
-    it.skip('should render and focus the block extension toolbar inside table', async () => {
+    it('should render and focus the block extension toolbar inside table', async () => {
       const endCellSelector = getSelectorForTableCell({ row: 2, cell: 3 });
       await page.click(`${endCellSelector} .extensionView-content-wrap`);
 
       await waitForExtensionToolbar(page);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 07/10/2023: https://product-fabric.atlassian.net/browse/ED-20353
-    it.skip('should render and focus the inline extension toolbar inside table', async () => {
+    it('should render and focus the inline extension toolbar inside table', async () => {
       const endCellSelector = getSelectorForTableCell({ row: 2, cell: 2 });
       await page.click(`${endCellSelector} .inlineExtensionView-content-wrap`);
 
       await waitForExtensionToolbar(page);
     });
 
-    // FIXME: skip this test due to failure on https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1793237/steps/%7Bbfeda82e-4c64-4434-a3e9-82f26105ba1f%7D/test-report
+    // FIXME: TimeoutError: waiting for selector `[data-editor-popup="true"][aria-label*="Extension floating controls" i]`
+    // Build: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2255850/steps/%7Bd7c36316-cb22-424e-9a19-6b29d6776b50%7D
     it.skip('should render and focus the info extension toolbar inside table', async () => {
       const endCellSelector = getSelectorForTableCell({ row: 3, cell: 3 });
       await page.click(`${endCellSelector} .inlineExtensionView-content-wrap`);
@@ -126,8 +126,7 @@ describe('Floating toolbars:', () => {
       });
     });
 
-    // FIXME: This test was automatically skipped due to failure on 5/05/2023: https://product-fabric.atlassian.net/browse/ED-17753
-    it.skip('should render the table toolbar', async () => {
+    it('should render the table toolbar', async () => {
       const endCellSelector = getSelectorForTableCell({ row: 3, cell: 2 });
       await page.waitForSelector(endCellSelector);
       await retryUntilStablePosition(
@@ -308,8 +307,7 @@ describe('Table Floating Toolbar with Cell options', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 19/08/2023: https://product-fabric.atlassian.net/browse/ED-19607
-  it.skip('should focus first menu item in when opening dropdown by keyboard', async () => {
+  it('should focus first menu item in when opening dropdown by keyboard', async () => {
     await initEditor();
     const endCellSelector = getSelectorForTableCell({ row: 3, cell: 2 });
     await page.waitForSelector(endCellSelector);

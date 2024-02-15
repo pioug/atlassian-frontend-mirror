@@ -9,7 +9,6 @@ import {
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { createAndFireEventInElementsChannel } from '../analytics';
-import { useGlobalTheme } from '@atlaskit/theme/components';
 import { checkboxStyles } from './styles';
 
 export interface Props {
@@ -47,7 +46,6 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
     createAnalyticsEvent,
   } = props;
 
-  const theme = useGlobalTheme();
   const checkBoxId = useMemo(() => getCheckBoxId(taskId), [taskId]);
 
   const handleOnChange = useMemo(() => {
@@ -81,7 +79,7 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const icon = (
-    <span css={checkboxStyles(isRenderer)(theme)} contentEditable={false}>
+    <span css={checkboxStyles(isRenderer)} contentEditable={false}>
       <input
         id={checkBoxId}
         aria-labelledby={`${checkBoxId}-wrapper`}
@@ -118,7 +116,6 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
       itemType="TASK"
       dataAttributes={dataAttributes}
       checkBoxId={checkBoxId}
-      theme={theme}
     >
       {children}
     </Item>

@@ -77,8 +77,9 @@ export class HyperlinkToolbarAppearance extends Component<
       isUrlSupported = false;
     }
 
-    supportedUrlsMap.set(url, isUrlSupported);
-    this.setState({ supportedUrlsMap });
+    const newMap = new Map(supportedUrlsMap);
+    newMap.set(url, isUrlSupported);
+    this.setState({ supportedUrlsMap: newMap });
   };
 
   componentDidMount = () => this.resolveUrl(this.props.url);

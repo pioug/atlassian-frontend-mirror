@@ -28,9 +28,9 @@ export default {
   'fabric.linking.connect_to': 'Met {name} verbinden',
   'fabric.linking.connect_unauthorised_account_action': 'Met {context} koppelen',
   'fabric.linking.connect_unauthorised_account_description':
-    'Koppel {context} aan Atlassian om meer gegevens van je werk te kunnen bekijken en samen te werken vanaf één plek.',
+    'Koppel je {context}-account om samen te werken op verschillende Atlassian-producten.',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    'Koppel aan Atlassian om meer gegevens van je werk te kunnen bekijken en samen te werken vanaf één plek.',
+    'Koppel je account om samen te werken op verschillende Atlassian-producten.',
   'fabric.linking.continue': 'Doorgaan',
   'fabric.linking.copy_url_to_clipboard': 'Link kopiëren',
   'fabric.linking.couldnt_load_link': 'Om een onbekende reden konden we deze link niet laden.',
@@ -58,6 +58,8 @@ export default {
     'Je moet om toegang vragen of een ander account proberen om deze voorvertoning te bekijken.',
   'fabric.linking.join_to_view': 'Word lid van {context} om deze issue te bekijken',
   'fabric.linking.last_mentioned_in': 'Laatst vermeld in',
+  'fabric.linking.learn_more_about_connecting_account':
+    'Meer informatie over het koppelen van je account aan Atlassian-producten.',
   'fabric.linking.learn_more_about_smart_links': 'Meer informatie over Smart Links.',
   'fabric.linking.link_safety_warning_message':
     'De link {unsafeLinkText} is gekoppeld aan een andere site, gebruik <a>actual link here</a>',

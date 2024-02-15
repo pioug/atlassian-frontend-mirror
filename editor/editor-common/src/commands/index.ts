@@ -9,7 +9,11 @@ import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import {
+  NodeSelection,
+  Selection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import type { HeadingLevelsAndNormalText } from '../types/block-type';
@@ -112,6 +116,41 @@ export const createToggleBlockMarkOnRange =
               .filter((mark) => !markType.excludes(mark.type))
               .concat(newAttrs === false ? [] : markType.create(newAttrs)),
           );
+          markApplied = true;
+        }
+      }
+      return;
+    });
+    return markApplied;
+  };
+
+export const createToggleInlineMarkOnRange =
+  <T extends {} = object>(
+    markType: MarkType,
+    getAttrs: (prevAttrs?: T, node?: PMNode) => T | undefined | false,
+  ) =>
+  (from: number, to: number, tr: Transaction, state: EditorState): boolean => {
+    let markApplied = false;
+    state.doc.nodesBetween(from, to, (node, pos, parent) => {
+      if (parent?.type.allowsMarkType(markType)) {
+        const oldMarks = node.marks.filter((mark) => mark.type === markType);
+
+        const prevAttrs = oldMarks.length
+          ? (oldMarks[0].attrs as T)
+          : undefined;
+        const newAttrs = getAttrs(prevAttrs, node);
+
+        if (newAttrs !== undefined) {
+          tr.setNodeMarkup(
+            pos,
+            node.type,
+            node.attrs,
+            node.marks
+              .filter((mark) => !markType.excludes(mark.type))
+              .concat(newAttrs === false ? [] : markType.create(newAttrs)),
+          );
+
+          tr.setSelection(NodeSelection.create(tr.doc, state.selection.from));
           markApplied = true;
         }
       }

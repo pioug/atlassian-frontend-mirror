@@ -4,7 +4,6 @@ import {
   MediaClient,
   FileItem,
   FileState,
-  isAbortedRequestError,
   isImageRepresentationReady,
   isErrorFileState,
   addFileAttrsToUrl,
@@ -67,6 +66,11 @@ export class ImageViewer extends BaseViewer<
       return;
     }
 
+    const controller =
+      typeof AbortController !== 'undefined'
+        ? new AbortController()
+        : undefined;
+
     try {
       let orientation = 1;
       let objectUrl: string;
@@ -85,10 +89,7 @@ export class ImageViewer extends BaseViewer<
         }
       } else if (isImageRepresentationReady(fileState)) {
         const item = processedFileStateToMediaItem(fileState);
-        const controller =
-          typeof AbortController !== 'undefined'
-            ? new AbortController()
-            : undefined;
+
         const response = mediaClient.getImage(
           item.details.id,
           {
@@ -99,7 +100,7 @@ export class ImageViewer extends BaseViewer<
           true,
           traceContext,
         );
-        this.cancelImageFetch = () => controller && controller.abort();
+        this.cancelImageFetch = () => controller?.abort();
         objectUrl = URL.createObjectURL(await response);
       } else {
         this.setState({
@@ -130,7 +131,7 @@ export class ImageViewer extends BaseViewer<
       });
     } catch (err) {
       // TODO : properly handle aborted requests (MS-2843)
-      if (!isAbortedRequestError(err)) {
+      if (!controller?.signal.aborted) {
         const imgError = new MediaViewerError(
           'imageviewer-fetch-url',
           err instanceof Error ? err : undefined,

@@ -1,9 +1,10 @@
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+
 import createUniversalPreset from '../presets/universal';
-import type { EditorProps, EditorPlugin } from '../types';
+import type { EditorPlugin, EditorProps } from '../types';
+
 import { getDefaultPresetOptionsFromEditorProps } from './create-plugins-list';
 import { createFeatureFlagsFromProps } from './feature-flags-from-props';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 
 // Separate file, we should not accidentally import this into the `ComposableEditor`
 // otherwise it will blow up the bundle size.
@@ -20,7 +21,11 @@ export function createPreset(props: EditorProps, prevProps?: EditorProps) {
   );
 }
 
-function withDangerouslyAppendPlugins(preset: EditorPresetBuilder<any, any>) {
+function withDangerouslyAppendPlugins(
+  preset: ReturnType<typeof createUniversalPreset>,
+): (
+  plugins: EditorPlugin[] | undefined,
+) => ReturnType<typeof createUniversalPreset> {
   function createEditorNextPluginsFromDangerouslyAppended(
     plugins: EditorPlugin[],
   ): NextEditorPlugin<any, any>[] {
@@ -37,7 +42,11 @@ function withDangerouslyAppendPlugins(preset: EditorPresetBuilder<any, any>) {
 
     const presetWithAppendedPlugins = nextEditorPluginsToAppend.reduce(
       (acc, plugin) => {
-        return acc.add(plugin);
+        // These are dangerously appended, we don't need their type information leaking into
+        // universal preset
+        return acc.add(plugin) as unknown as ReturnType<
+          typeof createUniversalPreset
+        >;
       },
       preset,
     );

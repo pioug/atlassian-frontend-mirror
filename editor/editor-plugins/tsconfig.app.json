@@ -1,0 +1,256 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+  "exclude": [
+    "**/docs/**/*",
+    "**/__tests__/**/*",
+    "**/vr-tests/**/*",
+    "**/__perf__/**/*",
+    "**/*.test.*",
+    "**/test.*",
+    "**/test-*",
+    "**/examples.ts",
+    "**/examples.tsx",
+    "**/examples/*.ts",
+    "**/examples/*.tsx",
+    "**/examples/**/*.ts",
+    "**/examples/**/*.tsx",
+    "**/storybook/**/*",
+    "**/constellation/**/*",
+    ".storybook/*",
+    "./__fixtures__/**/*",
+    "./__generated__/**/*",
+    "./mocks/**/*",
+    "./__mocks__/**/*",
+    "**/mock.*",
+    "**/codemods/**/*.ts",
+    "**/codemods/**/*.tsx"
+  ],
+  "compilerOptions": {
+    "baseUrl": "",
+    "composite": true,
+    "outDir": "../../../tsDist/@atlaskit__editor-plugins/app"
+  },
+  "references": [
+    {
+      "path": "../editor-plugin-alignment/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-analytics/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-annotation/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-avatar-group/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-base/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-before-primary-toolbar/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-better-type-history/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-block-type/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-border/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-breakout/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-caption/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-card/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-clear-marks-on-empty-doc/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-clipboard/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-code-bidi-warning/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-code-block/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-collab-edit/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-composition/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-content-insertion/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-context-identifier/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-context-panel/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-copy-button/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-custom-autoformat/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-data-consumer/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-date/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-decorations/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-editor-disabled/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-emoji/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-expand/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-extension/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-feedback-dialog/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-find-replace/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-floating-toolbar/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-focus/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-fragment/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-grid/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-guideline/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-help-dialog/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-history/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-hyperlink/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-image-upload/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-indentation/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-insert-block/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-layout/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-list/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-loom/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-max-content-size/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-media/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-mentions/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-panel/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-paste/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-paste-options-toolbar/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-placeholder/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-placeholder-text/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-quick-insert/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-rule/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-save-on-enter/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-scroll-into-view/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-selection/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-selection-toolbar/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-status/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-submit-editor/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-table/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-tasks-and-decisions/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-text-color/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-text-formatting/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-toolbar-lists-indentation/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-type-ahead/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-undo-redo/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-unsupported-content/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-width/tsconfig.app.json"
+    }
+  ],
+  "files": []
+}

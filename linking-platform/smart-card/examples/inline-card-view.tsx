@@ -2,46 +2,14 @@ import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 import Button from '@atlaskit/button/standard-button';
 import {
-  InlineCardResolvedView,
-  InlineCardResolvingView,
-  InlineCardErroredView,
-  InlineCardForbiddenView,
-  InlineCardUnauthorizedView,
+  InlineCardResolvedView as ResolvedView,
+  InlineCardResolvingView as ResolvingView,
+  InlineCardErroredView as ErroredView,
+  InlineCardForbiddenView as ForbiddenView,
+  InlineCardUnauthorizedView as UnauthorizedView,
 } from '../src/view/InlineCard';
-import {
-  InlineCardResolvedView as RedesignedInlineCardResolvedView,
-  InlineCardResolvingView as RedesignedInlineCardResolvingView,
-  InlineCardErroredView as RedesignedInlineCardErroredView,
-  InlineCardForbiddenView as RedesignedInlineCardForbiddenView,
-  InlineCardUnauthorizedView as RedesignedInlineCardInlineCardForbiddenView,
-} from '../src/view/RedesignedInlineCard';
 import { IntlProvider } from 'react-intl-next';
 import { mockAnalytics } from '../src/utils/mocks';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
-const [
-  ResolvedView,
-  ResolvingView,
-  ErroredView,
-  ForbiddenView,
-  UnauthorizedView,
-] = getBooleanFF(
-  'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-)
-  ? [
-      RedesignedInlineCardResolvedView,
-      RedesignedInlineCardResolvingView,
-      RedesignedInlineCardErroredView,
-      RedesignedInlineCardForbiddenView,
-      RedesignedInlineCardInlineCardForbiddenView,
-    ]
-  : [
-      InlineCardResolvedView,
-      InlineCardResolvingView,
-      InlineCardErroredView,
-      InlineCardForbiddenView,
-      InlineCardUnauthorizedView,
-    ];
 
 interface Lozenge {
   text: string;

@@ -1,15 +1,14 @@
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
 import type {
-  Mark as PMMark,
   MarkType,
+  Mark as PMMark,
   Slice,
 } from '@atlaskit/editor-prosemirror/model';
 import type {
   EditorState,
   TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
 export {
   isEmptyNode,
@@ -137,12 +136,6 @@ export const isTemporary = (id: string): boolean => {
 
 export const hasOpenEnd = (slice: Slice): boolean => {
   return slice.openStart > 0 || slice.openEnd > 0;
-};
-
-export const isInsideBlockQuote = (state: EditorState): boolean => {
-  const { blockquote } = state.schema.nodes;
-
-  return hasParentNodeOfType(blockquote)(state.selection);
 };
 
 export {

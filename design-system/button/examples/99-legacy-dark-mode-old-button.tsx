@@ -4,6 +4,7 @@ import React, { useCallback, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { Label } from '@atlaskit/form';
 import Select from '@atlaskit/select';
 import * as colors from '@atlaskit/theme/colors';
 import GlobalTheme from '@atlaskit/theme/components';
@@ -36,6 +37,7 @@ function ThemeModeSwitcher({
 }) {
   const [mode, setMode] = useState<ThemeModes>('light');
   const getMode = useCallback(() => ({ mode }), [mode]);
+  const selectId = `${title}--select`;
 
   return (
     <React.Fragment>
@@ -61,21 +63,25 @@ function ThemeModeSwitcher({
               <Component appearance="subtle">Subtle Button</Component>
             </ButtonGroup>
           </ButtonTheme.Provider>
-          <Select
-            styles={{
-              container: (provided) => ({
-                ...provided,
-                marginTop: token('space.150', '12px'),
-              }),
-            }}
-            options={options}
-            defaultValue={options[0]}
-            onChange={(option) => {
-              if (option && !Array.isArray(option)) {
-                setMode((option as Option).value);
-              }
-            }}
-          />
+          <div style={{ marginTop: '1rem' }}>
+            <Label htmlFor={selectId}>Select a theme</Label>
+            <Select
+              styles={{
+                container: (provided) => ({
+                  ...provided,
+                  marginTop: token('space.150', '12px'),
+                }),
+              }}
+              inputId={selectId}
+              options={options}
+              defaultValue={options[0]}
+              onChange={(option) => {
+                if (option && !Array.isArray(option)) {
+                  setMode((option as Option).value);
+                }
+              }}
+            />
+          </div>
         </GlobalTheme.Provider>
       </div>
     </React.Fragment>

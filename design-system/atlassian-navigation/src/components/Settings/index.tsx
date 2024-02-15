@@ -19,16 +19,18 @@ export const Settings = forwardRef(
     const { tooltip, ...iconButtonProps } = props;
 
     return (
-      <IconButton
-        icon={
-          <SettingsIcon
-            label={typeof tooltip === 'string' ? tooltip : 'Settings Icon'}
-          />
-        }
-        ref={ref}
-        tooltip={tooltip}
-        {...iconButtonProps}
-      />
+      <div role="listitem">
+        <IconButton
+          icon={
+            <SettingsIcon
+              label={typeof tooltip === 'string' ? tooltip : 'Settings Icon'}
+            />
+          }
+          ref={ref}
+          tooltip={tooltip}
+          {...iconButtonProps}
+        />
+      </div>
     );
   },
 );

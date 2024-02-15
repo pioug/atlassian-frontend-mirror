@@ -47,14 +47,6 @@ export type MediaUpload = {
   readonly expires: number;
 };
 
-export type MediaChunksProbe = {
-  readonly results: {
-    readonly [etag: string]: {
-      readonly exists: boolean;
-    };
-  };
-};
-
 export enum DATA_UNIT {
   MB = 1024 * 1024,
   GB = 1024 * MB,

@@ -1,4 +1,6 @@
-export const asyncPopupSelectMessages = {
+import { defineMessages } from 'react-intl-next';
+
+export const asyncPopupSelectMessages = defineMessages({
   loadingMessage: {
     id: 'linkDataSource.basic-filter.loading-message',
     defaultMessage: 'Loading...',
@@ -14,4 +16,4 @@ export const asyncPopupSelectMessages = {
     defaultMessage: 'Something went wrong',
     description: 'The text for when an error occurs when loading options',
   },
-};
+});

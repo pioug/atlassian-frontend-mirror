@@ -17,7 +17,9 @@ import {
   hardBreak,
   layoutColumn,
   layoutSection,
+  li,
   a as link,
+  ol,
   p,
   table,
   taskItem,
@@ -29,6 +31,7 @@ import {
   thCursor,
   thEmpty,
   tr,
+  ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
@@ -38,6 +41,8 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('tasks and decisions - input rules', () => {
   const createEditor = createEditorFactory();
@@ -315,6 +320,58 @@ describe('tasks and decisions - input rules', () => {
           eventType: 'track',
         });
       });
+
+      if (['action', 'checked action'].includes(name)) {
+        describe(`should replace "${input}" with a ${name}List inside ordered listitem`, () => {
+          ffTest(
+            'platform.editor.allow-action-in-list',
+            () => {
+              const { editorView, sel } = editorFactory(
+                doc(ol()(li(p('{<>}')))),
+              );
+              insertText(editorView, input, sel);
+
+              expect(editorView.state.doc).toEqualDocument(
+                doc(ol()(li(p(), list(listProps)(item(itemProps)('{<>}'))))),
+              );
+            },
+
+            () => {
+              const { editorView, sel } = editorFactory(
+                doc(ol()(li(p('{<>}')))),
+              );
+              insertText(editorView, input, sel);
+
+              expect(editorView.state.doc).toEqualDocument(
+                doc(ol()(li(p(`${input}{<>}`)))),
+              );
+            },
+          );
+        });
+
+        describe(`should replace "${input}" with a ${name}List inside bulleted listitem`, () => {
+          ffTest(
+            'platform.editor.allow-action-in-list',
+            () => {
+              const { editorView, sel } = editorFactory(doc(ul(li(p('{<>}')))));
+              insertText(editorView, input, sel);
+
+              expect(editorView.state.doc).toEqualDocument(
+                doc(ul(li(p(), list(listProps)(item(itemProps)('{<>}'))))),
+              );
+            },
+
+            () => {
+              const { editorView, sel } = editorFactory(doc(ul(li(p('{<>}')))));
+              insertText(editorView, input, sel);
+
+              expect(editorView.state.doc).toEqualDocument(
+                doc(ul(li(p(`${input}{<>}`)))),
+              );
+            },
+          );
+        });
+      }
     });
   });
 });

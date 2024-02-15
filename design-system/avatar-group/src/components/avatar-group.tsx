@@ -40,15 +40,15 @@ const MAX_COUNT = {
 
 export interface AvatarGroupProps {
   /**
-   * Indicates the layout of the avatar-group.
+   * Indicates the layout of the avatar group.
    * Avatars will either be overlapped in a stack, or
-   * laid out in an even grid formation
+   * laid out in an even grid formation.
    * Defaults to "stack".
    */
   appearance?: 'grid' | 'stack';
 
   /**
-   * Component used to render each avatar
+   * Component used to render each avatar.
    */
   avatar?: typeof Avatar | ElementType<AvatarProps>;
 
@@ -133,7 +133,7 @@ export interface AvatarGroupProps {
   tooltipPosition?: Extract<PositionType, 'bottom' | 'top'>;
 
   /**
-   * Disables tooltips
+   * Disables tooltips.
    */
   isTooltipDisabled?: boolean;
 
@@ -148,6 +148,11 @@ export interface AvatarGroupProps {
    * When there are several AvatarGroups on the page you should use a unique label to let users distinguish different lists.
    */
   label?: string;
+
+  /**
+   * Determines whether the 'show more' popup has `shouldRenderToParent` applied.
+   */
+  shouldPopupRenderToParent?: boolean;
 }
 
 function getOverrides(
@@ -194,6 +199,7 @@ const AvatarGroup = ({
   testId,
   label = 'avatar group',
   tooltipPosition = 'bottom',
+  shouldPopupRenderToParent = false,
 }: AvatarGroupProps) => {
   const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -307,6 +313,7 @@ const AvatarGroup = ({
         rootBoundary={rootBoundary}
         shouldFlip
         zIndex={layers.modal()}
+        shouldRenderToParent={shouldPopupRenderToParent}
         content={({ setInitialFocusRef }) => (
           <FocusManager>
             <PopupAvatarGroup

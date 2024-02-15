@@ -1,22 +1,10 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import {
-  evaluateTeardownMockDate,
-  waitForLoadedImageElements,
-} from '@atlaskit/visual-regression/helper';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initFullPageEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import cardSelectionAdf from './__fixtures__/card-selection-adf.json';
-import cardAdfRequestAccess from './__fixtures__/card-request-access.adf.json';
-import cardAdfBlock from './__fixtures__/card-adf.block.json';
-import cardAdfSupportedPlatforms from './__fixtures__/card-adf.supported-platforms.json';
-import cardAdfBlockLongTitle from './__fixtures__/card-adf-long-title.block.json';
-import cardInsideInfoAndLayout from './__fixtures__/card-inside-info-and-layout-adf.json';
-
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   openPreviewState,
   waitForBlockCardSelection,
@@ -28,6 +16,18 @@ import {
   waitForResolvedInlineCard,
   waitForSuccessfullyResolvedEmbedCard,
 } from '@atlaskit/media-integration-test-helpers';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  evaluateTeardownMockDate,
+  waitForLoadedImageElements,
+} from '@atlaskit/visual-regression/helper';
+
+import cardAdfBlockLongTitle from './__fixtures__/card-adf-long-title.block.json';
+import cardAdfBlock from './__fixtures__/card-adf.block.json';
+import cardAdfSupportedPlatforms from './__fixtures__/card-adf.supported-platforms.json';
+import cardInsideInfoAndLayout from './__fixtures__/card-inside-info-and-layout-adf.json';
+import cardAdfRequestAccess from './__fixtures__/card-request-access.adf.json';
+import cardSelectionAdf from './__fixtures__/card-selection-adf.json';
 import { contexts } from './__helpers__/card-utils';
 
 describe('Cards:', () => {

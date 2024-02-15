@@ -19,6 +19,7 @@ export default {
   'fabric.elements.share.form.no-permissions': 'Nie możesz udostępniać.',
   'fabric.elements.share.form.public.send': 'Wyślij łącze publiczne',
   'fabric.elements.share.form.public.share': 'Udostępnij łącze publiczne',
+  'fabric.elements.share.form.required-field.summary': 'Pola wymagane są oznaczone gwiazdką',
   'fabric.elements.share.form.retry': 'Spróbuj ponownie',
   'fabric.elements.share.form.send': 'Wyślij',
   'fabric.elements.share.form.share': 'Udostępnij',

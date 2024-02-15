@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { act, cleanup, fireEvent, render } from '@testing-library/react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 
 import InlineDialogWithAnalytics from '../../../index';
 import { InlineDialogWithoutAnalytics as InlineDialog } from '../../index';
@@ -42,7 +42,7 @@ describe('inline-dialog', () => {
       </InlineDialog>,
     );
 
-    expect(queryByTestId('child-content')).not.toBeNull();
+    expect(queryByTestId('child-content')).toBeInTheDocument();
   });
 
   describe('isOpen', () => {
@@ -59,7 +59,7 @@ describe('inline-dialog', () => {
         </InlineDialog>,
       );
 
-      expect(queryByTestId('inline-dialog-content')).not.toBeNull();
+      expect(queryByTestId('inline-dialog-content')).toBeInTheDocument();
     });
 
     it('should not render the content when is not open', () => {
@@ -69,7 +69,7 @@ describe('inline-dialog', () => {
         </InlineDialog>,
       );
 
-      expect(queryByTestId('inline-dialog-content')).toBeNull();
+      expect(queryByTestId('inline-dialog-content')).not.toBeInTheDocument();
     });
   });
 
@@ -133,6 +133,11 @@ describe('inline-dialog', () => {
   });
 
   describe('handleCloseRequest', () => {
+    afterEach(() => {
+      jest.restoreAllMocks();
+      jest.useRealTimers();
+    });
+
     describe('EventListeners', () => {
       let addSpy: jest.SpyInstance;
       let removeSpy: jest.SpyInstance;
@@ -141,11 +146,7 @@ describe('inline-dialog', () => {
         removeSpy = jest.spyOn(window, 'removeEventListener');
       });
 
-      afterEach(jest.restoreAllMocks);
-
       it('should add event listener onOpen', () => {
-        jest.useFakeTimers(); // mock timers
-
         const { getByTestId } = render(
           <InlineDialog content={() => null} isOpen testId="inline-dialog">
             <div id="children" />
@@ -336,12 +337,12 @@ describe('inline-dialog', () => {
       // Open first dialog, second dialog should not exist yet.
       fireEvent.click(getByTestId('open-inline-dialog-0'));
       expect(getByTestId('inline-dialog-0')).toBeInTheDocument();
-      expect(queryByTestId('inline-dialog-1')).toBeNull();
+      expect(queryByTestId('inline-dialog-1')).not.toBeInTheDocument();
 
       // Open second dialog, first dialog should close.
       fireEvent.click(getByTestId('open-inline-dialog-1'));
       expect(queryByTestId('inline-dialog-1')).toBeInTheDocument();
-      expect(queryByTestId('inline-dialog-0')).toBeNull();
+      expect(queryByTestId('inline-dialog-0')).not.toBeInTheDocument();
     });
   });
 });
@@ -358,6 +359,7 @@ describe('InlineDialogWithAnalytics', () => {
   afterEach(() => {
     consoleWarn.mockRestore();
     consoleError.mockRestore();
+    jest.useRealTimers();
   });
 
   it('should mount without errors', () => {

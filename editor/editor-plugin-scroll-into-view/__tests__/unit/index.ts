@@ -58,7 +58,7 @@ describe('ScrollIntoView plugin', () => {
 
   it('scrolls into view when transaction updates stored marks', () => {
     const { strong } = state.schema.marks;
-    editorAPI?.core.actions.execute(toggleMark(strong));
+    editorAPI?.core?.actions.execute(toggleMark(strong));
     expect(getAppendedTr().scrolledIntoView).toEqual(true);
   });
 

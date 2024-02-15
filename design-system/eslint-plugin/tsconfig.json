@@ -11,9 +11,7 @@
     "src/**/*.tsx",
     "scripts"
   ],
-  "exclude": [
-    "src/**/__tests__/*.*",
-  ],
+  "exclude": [],
   "compilerOptions": {
     "baseUrl": "./",
     "lib": ["ES2021.String"]
@@ -22,6 +20,6 @@
     // It is faster to skip typechecking.
     "transpileOnly": true,
     // We must load files for third party defs - https://typestrong.org/ts-node/docs/types
-    "files": true,
+    "files": true
   }
 }

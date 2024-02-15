@@ -2,10 +2,10 @@ import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import LoadingButton from '@atlaskit/button/loading-button';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import TextField from '@atlaskit/textfield';
 
-import Form, { Field, FormFooter } from '../src';
+import Form, { Field, FormFooter, FormHeader, RequiredAsterisk } from '../src';
 
 const BASE_SLUG = 'slug';
 
@@ -26,10 +26,15 @@ export default () => (
     >
       {({ formProps, submitting, setFieldValue }) => (
         <form {...formProps}>
+          <FormHeader title="Create an account">
+            <p aria-hidden="true">
+              Required fields are marked with an asterisk <RequiredAsterisk />
+            </p>
+          </FormHeader>
           <Field name="username" label="Username" isRequired defaultValue="">
             {({ fieldProps }) => (
               <TextField
-                autoComplete="off"
+                autoComplete="username"
                 {...fieldProps}
                 onChange={(e) => {
                   // Generate a value for the slug
@@ -50,7 +55,7 @@ export default () => (
             {({ fieldProps }) => <TextField {...fieldProps} />}
           </Field>
           <FormFooter>
-            <ButtonGroup>
+            <ButtonGroup label="Form submit options">
               <Button appearance="subtle">Cancel</Button>
               <LoadingButton
                 type="submit"

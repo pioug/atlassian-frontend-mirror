@@ -4,11 +4,20 @@ import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 import pixelWidthMedia from '../__fixtures__/media-pixel-size.adf.json';
 import pixelWidthMediaNested from '../__fixtures__/media-pixel-size-nested.adf.json';
+
+import pixelWidthGreaterThenDefault from '../__fixtures__/media-pixel-greater-then-default.adf.json';
+
+import inlineImageDefault from '../__fixtures__/media-inline-image-default.adf.json';
+import inlineImageError from '../__fixtures__/media-inline-image-error.adf.json';
+import inlineImageWithBorders from '../__fixtures__/media-inline-image-with-borders.adf.json';
+import inlineImageWithLinks from '../__fixtures__/media-inline-image-with-links.adf.json';
+import inlineImageWideLayout from '../__fixtures__/media-inline-image-wide-layout.adf.json';
+
+import inlineImageWithLinksAndBorders from '../__fixtures__/media-inline-image-with-links-borders.adf.json';
 import datasourceWithRichtext from '../__fixtures__/datasource-with-richtext.adf.json';
+import listInBlockquote from '../__fixtures__/list-in-blockquote.adf.json';
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -16,11 +25,11 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 import { IntlProvider } from 'react-intl-next';
 import { Renderer } from '../../ui';
 import type { RendererProps } from '../..';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
 
-const mediaProvider = fakeMediaProvider();
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
 const providerFactory = ProviderFactory.create({
-  mediaProvider,
   contextIdentifierProvider,
 });
 
@@ -54,12 +63,24 @@ export const generateRendererComponent = (
     return (
       <IntlProvider locale="en">
         <SmartCardProvider client={smartCardClient}>
-          <Renderer {...renderProps} />
+          <MockMediaClientProvider>
+            <Renderer {...renderProps} />
+          </MockMediaClientProvider>
         </SmartCardProvider>
       </IntlProvider>
     );
   };
 };
+
+export const PixelWidthGreaterThenDefault = generateRendererComponent({
+  document: pixelWidthGreaterThenDefault,
+  appearance: 'full-page',
+});
+
+export const PixelWidthGreaterThenDefaultFullWidth = generateRendererComponent({
+  document: pixelWidthGreaterThenDefault,
+  appearance: 'full-width',
+});
 
 export const MediaWithPixelWidth = generateRendererComponent({
   document: pixelWidthMedia,
@@ -81,6 +102,36 @@ export const MediaWithPixelWidthFullWidthNested = generateRendererComponent({
   appearance: 'full-width',
 });
 
+export const MediaImageInlineDefault = generateRendererComponent({
+  document: inlineImageDefault,
+  appearance: 'full-page',
+});
+
+export const MediaImageInlineError = generateRendererComponent({
+  document: inlineImageError,
+  appearance: 'full-page',
+});
+
+export const MediaImageInlineWithBorders = generateRendererComponent({
+  document: inlineImageWithBorders,
+  appearance: 'full-page',
+});
+
+export const MediaImageInlineWithLinks = generateRendererComponent({
+  document: inlineImageWithLinks,
+  appearance: 'full-page',
+});
+
+export const MediaImageInlineWithWideLayout = generateRendererComponent({
+  document: inlineImageWideLayout,
+  appearance: 'full-page',
+});
+
+export const MediaImageInlineWithLinksAndBorders = generateRendererComponent({
+  document: inlineImageWithLinksAndBorders,
+  appearance: 'full-page',
+});
+
 export const DatasourceWithRichTextFullPage = generateRendererComponent(
   {
     document: datasourceWithRichtext,
@@ -92,6 +143,14 @@ export const DatasourceWithRichTextFullPage = generateRendererComponent(
 export const DatasourceWithRichTextFullWidth = generateRendererComponent(
   {
     document: datasourceWithRichtext,
+    appearance: 'full-width',
+  },
+  true,
+);
+
+export const ListInsideBlockquote = generateRendererComponent(
+  {
+    document: listInBlockquote,
     appearance: 'full-width',
   },
   true,

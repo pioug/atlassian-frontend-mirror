@@ -1,12 +1,17 @@
-import SimpleTagProps from '!!extract-react-types-loader!../../src/tag/internal/shared/ert';
-import RemovableTagProps from '!!extract-react-types-loader!../../src/tag/internal/removable/ert';
+---
+props:
+  packageName: '@atlaskit/tag'
+  exports:
+    - SimpleTag
+    - RemovableTag
+---
 
 ## Props
 
 ### Simple tag props
 
-<PropsTable heading="" props={SimpleTagProps} />
+<TSMorphProps exportName="SimpleTag" packageName="@atlaskit/tag" />
 
 ### Removable tag props
 
-<PropsTable heading="" props={RemovableTagProps} />
+<TSMorphProps exportName="RemovableTag" packageName="@atlaskit/tag" />

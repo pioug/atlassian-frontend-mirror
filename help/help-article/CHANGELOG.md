@@ -1,5 +1,23 @@
 # @atlaskit/help-article
 
+## 4.1.9
+
+### Patch Changes
+
+- [#72381](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72381) [`613a669ad9bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/613a669ad9bb) - Enrolling help packages to push model in JFE.
+
+## 4.1.8
+
+### Patch Changes
+
+- [#68561](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68561) [`6a1919bf8400`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a1919bf8400) - Migrate packages to use declarative entry points
+
+## 4.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.6
 
 ### Patch Changes

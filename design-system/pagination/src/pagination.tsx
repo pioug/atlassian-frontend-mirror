@@ -45,6 +45,7 @@ function InnerPagination<T>(
     renderEllipsis = renderDefaultEllipsis,
     analyticsContext,
     testId,
+    isDisabled,
   }: PaginationPropTypes<T>,
   ref: React.Ref<HTMLDivElement>,
 ) {
@@ -87,6 +88,7 @@ function InnerPagination<T>(
         aria-current={page === selectedPage ? 'page' : undefined}
         aria-label={pageIndexLabel}
         isSelected={page === selectedPage}
+        isDisabled={isDisabled}
         page={page}
         testId={
           testId &&
@@ -112,7 +114,7 @@ function InnerPagination<T>(
               selectedPageIndex: selectedIndexValue - 1,
             })
           }
-          isDisabled={selectedIndexValue === 0}
+          isDisabled={isDisabled || selectedIndexValue === 0}
           iconBefore={<ChevronLeftLargeIcon label="" />}
           aria-label={previousLabel}
           pages={pages}
@@ -137,7 +139,7 @@ function InnerPagination<T>(
               selectedPageIndex: selectedIndexValue + 1,
             })
           }
-          isDisabled={selectedIndexValue === pages.length - 1}
+          isDisabled={isDisabled || selectedIndexValue === pages.length - 1}
           iconBefore={<ChevronRightLargeIcon label="" />}
           aria-label={nextLabel}
           pages={pages}

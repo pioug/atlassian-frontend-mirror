@@ -3,6 +3,7 @@ export type Content = {
   link: string;
   title: string;
   type: string;
+  workspaceAri?: string;
 };
 
 export type Comment = {

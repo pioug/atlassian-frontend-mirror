@@ -1,14 +1,17 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl-next';
+
+import { getTranslations } from '../example-helpers/get-translations';
+import LanguagePicker from '../example-helpers/LanguagePicker';
 import enMessages from '../src/i18n/en';
 import languages from '../src/i18n/languages';
-import WithEditorActions from './../src/ui/WithEditorActions';
+import WithEditorActions from '../src/ui/WithEditorActions';
+
 import {
   default as FullPageExample,
   SaveAndCancelButtons,
 } from './5-full-page';
-import LanguagePicker from '../example-helpers/LanguagePicker';
-import { getTranslations } from '../example-helpers/get-translations';
 
 export type Props = {};
 export type State = { locale: string; messages: { [key: string]: string } };

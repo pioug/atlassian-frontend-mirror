@@ -10,6 +10,7 @@ import MoreIcon from '@atlaskit/icon/glyph/more';
 import { LinkItem, MenuGroup } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
+import Tooltip from '@atlaskit/tooltip';
 
 import messages from '../../messages';
 import {
@@ -356,7 +357,9 @@ const TeamProfilecardContent = ({
         image={team.largeHeaderImageUrl || team.smallHeaderImageUrl}
       />
       <CardContent>
-        <TeamName>{team.displayName}</TeamName>
+        <Tooltip content={team.displayName}>
+          <TeamName>{team.displayName}</TeamName>
+        </Tooltip>
         <TeamMembers
           analytics={analytics}
           members={team.members}

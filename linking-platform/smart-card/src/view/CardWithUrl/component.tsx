@@ -20,21 +20,20 @@ import {
 import { useSmartLink } from '../../state';
 import { BlockCard } from '../BlockCard';
 import { InlineCard } from '../InlineCard';
-import { InlineCard as RedesignedInlineCard } from '../RedesignedInlineCard';
-import { InlineCardProps } from '../InlineCard/types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { InvokeClientOpts, InvokeServerOpts } from '../../model/invoke-opts';
 import { EmbedCard } from '../EmbedCard';
 import { isFlexibleUiCard } from '../../utils/flexible';
 import FlexibleCard from '../FlexibleCard';
 import { CardDisplay } from '../../constants';
 import { fireLinkClickedEvent } from '../../utils/analytics/click';
+import { combineActionOptions } from '../../utils/actions/combine-action-options';
 import { SmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyticsContext';
 
 function Component({
   id,
   url,
   isSelected,
+  isHovered,
   isFrameVisible,
   frameStyle,
   platform,
@@ -45,7 +44,8 @@ function Component({
   onError,
   testId,
   showActions,
-  showServerActions: showServerActionsProp,
+  showServerActions,
+  actionOptions: actionOptionsProp,
   inheritDimensions,
   embedIframeRef,
   embedIframeUrlType,
@@ -55,6 +55,7 @@ function Component({
   showHoverPreview,
   showAuthTooltip,
   analyticsEvents,
+  useLegacyBlockCard,
 }: CardWithUrlContentProps) {
   const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -82,7 +83,12 @@ function Component({
     useFeatureFlag('enableFlexibleBlockCard'),
   );
 
-  const showServerActions = showServerActionsProp && platform !== 'mobile';
+  const actionOptions = combineActionOptions(
+    actionOptionsProp,
+    showServerActions,
+    showActions,
+    platform,
+  );
 
   // Setup UI handlers.
   const handleClickWrapper = useCallback(
@@ -275,7 +281,7 @@ function Component({
         ui={ui}
         showHoverPreview={showHoverPreview}
         showAuthTooltip={showAuthTooltip}
-        showServerActions={showServerActions}
+        actionOptions={actionOptions}
         url={url}
         testId={testId}
         onResolve={onResolve}
@@ -294,29 +300,25 @@ function Component({
 
   switch (appearance) {
     case 'inline':
-      const inlineProps: InlineCardProps = {
-        analytics: analytics,
-        id: id,
-        url: url,
-        renderers: renderers,
-        cardState: state,
-        handleAuthorize: (services.length && handleAuthorize) || undefined,
-        handleFrameClick: handleClickWrapper,
-        isSelected: isSelected,
-        onResolve: onResolve,
-        onError: onError,
-        testId: testId,
-        inlinePreloaderStyle: inlinePreloaderStyle,
-        showHoverPreview: showHoverPreview,
-        showAuthTooltip: showAuthTooltip,
-        showServerActions: showServerActions,
-      };
-      return getBooleanFF(
-        'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
-      ) ? (
-        <RedesignedInlineCard {...inlineProps} />
-      ) : (
-        <InlineCard {...inlineProps} />
+      return (
+        <InlineCard
+          analytics={analytics}
+          id={id}
+          url={url}
+          renderers={renderers}
+          cardState={state}
+          handleAuthorize={(services.length && handleAuthorize) || undefined}
+          handleFrameClick={handleClickWrapper}
+          isSelected={isSelected}
+          isHovered={isHovered}
+          onResolve={onResolve}
+          onError={onError}
+          testId={testId}
+          inlinePreloaderStyle={inlinePreloaderStyle}
+          showHoverPreview={showHoverPreview}
+          showAuthTooltip={showAuthTooltip}
+          actionOptions={actionOptions}
+        />
       );
     case 'block':
       return (
@@ -335,10 +337,11 @@ function Component({
           onResolve={onResolve}
           onError={onError}
           testId={testId}
-          showActions={showActions}
-          showServerActions={showServerActions}
+          actionOptions={actionOptions}
           platform={platform}
-          enableFlexibleBlockCard={enableFlexibleBlockCardFlag}
+          enableFlexibleBlockCard={
+            enableFlexibleBlockCardFlag && useLegacyBlockCard !== true
+          }
         />
       );
     case 'embed':
@@ -361,7 +364,7 @@ function Component({
           onError={onError}
           testId={testId}
           inheritDimensions={inheritDimensions}
-          showActions={showActions}
+          actionOptions={actionOptions}
           ref={embedIframeRef}
           onIframeDwell={onIframeDwell}
           onIframeFocus={onIframeFocus}

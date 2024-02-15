@@ -1,44 +1,49 @@
 /** @jsx jsx */
 import type { ReactElement } from 'react';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { jsx } from '@emotion/react';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
-import AvatarsWithPluginState from '../../../plugins/collab-edit/ui';
-import FindReplaceToolbarButtonWithState from '../../../plugins/find-replace/FindReplaceToolbarButtonWithState';
-import { BeforePrimaryToolbarWrapper } from '../../../plugins/before-primaryToolbar/ui/BeforePrimaryToolbarWrapper';
-import Toolbar from '../../Toolbar';
-import {
-  mainToolbarStyle,
-  mainToolbarIconBeforeStyle,
-  mainToolbarFirstChildStyle,
-  mainToolbarSecondChildStyle,
-  nonCustomToolbarWrapperStyle,
-  customToolbarWrapperStyle,
-  MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT,
-} from './MainToolbar';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
+import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
+import type { AvatarGroupPlugin } from '@atlaskit/editor-plugins/avatar-group';
+import type { BeforePrimaryToolbarPlugin } from '@atlaskit/editor-plugins/before-primary-toolbar';
+import type { CollabEditPlugin } from '@atlaskit/editor-plugins/collab-edit';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
+import type { FindReplacePlugin } from '@atlaskit/editor-plugins/find-replace';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import type { EditorActions } from '../../../index';
+import { usePresetContext } from '../../../presets/context';
 import type {
   EditorAppearance,
-  ToolbarUIComponentFactory,
   PrimaryToolbarComponents,
+  ToolbarUIComponentFactory,
 } from '../../../types';
-import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { EditorActions } from '../../..';
-import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
 import type { FeatureFlags } from '../../../types/feature-flags';
-import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
-import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
-import { usePresetContext } from '../../../presets/context';
-import type { FindReplacePlugin } from './../../../plugins/find-replace';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import Toolbar from '../../Toolbar';
 
+import { BeforePrimaryToolbarWrapper } from './BeforeWrapper';
+import {
+  customToolbarWrapperStyle,
+  mainToolbarFirstChildStyle,
+  mainToolbarIconBeforeStyle,
+  mainToolbarSecondChildStyle,
+  mainToolbarStyle,
+  MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT,
+  nonCustomToolbarWrapperStyle,
+} from './MainToolbar';
 export interface FullPageToolbarProps {
   appearance?: EditorAppearance;
   providerFactory: ProviderFactory;
@@ -71,8 +76,19 @@ export const EditorToolbar = React.memo(
           OptionalPlugin<AnalyticsPlugin>,
           OptionalPlugin<FindReplacePlugin>,
           OptionalPlugin<FeatureFlagsPlugin>,
+          OptionalPlugin<CollabEditPlugin>,
+          OptionalPlugin<AvatarGroupPlugin>,
+          OptionalPlugin<BeforePrimaryToolbarPlugin>,
+          OptionalPlugin<EditorViewModePlugin>,
         ]
       >();
+
+    const { editorViewModeState } = useSharedPluginState(editorAPI, [
+      'editorViewMode',
+    ]);
+
+    // To check if the page is in viewMode
+    const isInViewMode = editorViewModeState?.mode === 'view';
 
     // When primary toolbar components is undefined, do not show two line editor toolbar
     const twoLineEditorToolbar =
@@ -110,47 +126,36 @@ export const EditorToolbar = React.memo(
         'before' in props.customPrimaryToolbarComponents ? (
           <BeforePrimaryToolbarWrapper
             beforePrimaryToolbarComponents={
-              props.customPrimaryToolbarComponents.before
+              props.customPrimaryToolbarComponents?.before
             }
           />
         ) : null}
         {props.hideAvatarGroup ||
         (props?.featureFlags?.showAvatarGroupAsPlugin === true &&
-          !props.featureFlags?.twoLineEditorToolbar) ? null : (
-          // Avatars are moved to Confluence codebase for Edit in Context
-          // When Edit in Context is enabled customPrimaryToolbarComponents is undefined
-          // For more details please check
-          // https://hello.atlassian.net/wiki/spaces/PCG/pages/2851572180/Editor+toolbar+for+live+pages+and+edit+in+context+projects
-          <AvatarsWithPluginState
-            editorView={props.editorView}
-            eventDispatcher={props.eventDispatcher}
-            inviteToEditComponent={props.collabEdit?.inviteToEditComponent}
-            inviteToEditHandler={props.collabEdit?.inviteToEditHandler}
-            isInviteToEditButtonSelected={
-              props.collabEdit?.isInviteToEditButtonSelected
-            }
-            featureFlags={props.featureFlags || {}}
-            editorAnalyticsAPI={editorAPI?.analytics?.actions}
-          />
-        )}
-        {editorAPI?.findReplace && twoLineEditorToolbar ? (
-          <FindReplaceToolbarButtonWithState
-            popupsBoundariesElement={props.popupsBoundariesElement}
-            popupsMountPoint={props.popupsMountPoint}
-            popupsScrollableElement={props.popupsScrollableElement}
-            editorView={props.editorView}
-            containerElement={props.containerElement}
-            dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-            // `allowMatchCase` comes through the preset, but not the feature flags
-            // prop with the `ComposableEditor` - grab the FFs from the editor API
-            // instead until we clean this up.
-            featureFlags={
-              editorAPI?.featureFlags?.sharedState.currentState() ??
-              props.featureFlags
-            }
-            editorAnalyticsAPI={editorAPI?.analytics?.actions}
-          />
-        ) : null}
+          !props.featureFlags?.twoLineEditorToolbar)
+          ? null
+          : // Avatars are moved to Confluence codebase for Edit in Context
+            // When Edit in Context is enabled customPrimaryToolbarComponents is undefined
+            // For more details please check
+            // https://hello.atlassian.net/wiki/spaces/PCG/pages/2851572180/Editor+toolbar+for+live+pages+and+edit+in+context+projects
+            editorAPI?.avatarGroup?.actions.getToolbarItem({
+              editorView: props.editorView,
+              inviteToEditComponent: props.collabEdit?.inviteToEditComponent,
+              inviteToEditHandler: props.collabEdit?.inviteToEditHandler,
+              isInviteToEditButtonSelected:
+                props.collabEdit?.isInviteToEditButtonSelected,
+            })}
+        {editorAPI?.findReplace && twoLineEditorToolbar
+          ? editorAPI?.findReplace.actions.getToolbarButton({
+              popupsBoundariesElement: props.popupsBoundariesElement,
+              popupsMountPoint: props.popupsMountPoint,
+              popupsScrollableElement: props.popupsScrollableElement,
+              editorView: props.editorView,
+              containerElement: props.containerElement,
+              dispatchAnalyticsEvent: props.dispatchAnalyticsEvent,
+            })
+          : null}
+
         {!!props.customPrimaryToolbarComponents &&
         'after' in props.customPrimaryToolbarComponents
           ? props.customPrimaryToolbarComponents.after
@@ -183,6 +188,10 @@ export const EditorToolbar = React.memo(
       event.preventDefault();
       event.stopPropagation();
     };
+
+    if (isInViewMode) {
+      return null;
+    }
 
     return (
       <ContextPanelConsumer>

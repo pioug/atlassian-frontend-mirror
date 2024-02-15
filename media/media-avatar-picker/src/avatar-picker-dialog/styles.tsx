@@ -17,11 +17,14 @@ export const avatarPickerViewWrapperStyles = css`
   min-height: 339px;
 `;
 
-export const modalHeaderStyles = css`
-  margin: ${token('space.200', '16px')};
-  font-weight: 500;
-  font-size: 20px;
-`;
+export const modalHeaderStyles = css({
+  // Using `&` twice to increase specificity
+  '&&': {
+    margin: token('space.200', '16px'),
+    fontWeight: 500,
+    fontSize: '20px',
+  },
+});
 
 export const croppingWrapperStyles = css`
   display: inline-block;

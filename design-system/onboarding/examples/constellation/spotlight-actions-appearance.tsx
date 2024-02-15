@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button';
+import Button, { IconButton } from '@atlaskit/button/new';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -19,7 +19,7 @@ const SpotlightActionsAppearance = () => {
   return (
     <SpotlightManager>
       <SpotlightTarget name="action-button-appearances">
-        <Button iconBefore={<SearchIcon label="Example" />} />
+        <IconButton icon={SearchIcon} label="Example" />
       </SpotlightTarget>
       <div style={{ marginTop: token('space.200', '16px') }}>
         <Button appearance="primary" onClick={() => start()}>

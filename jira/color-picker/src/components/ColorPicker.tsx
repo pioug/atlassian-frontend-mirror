@@ -1,17 +1,17 @@
+/** @jsx jsx */
 import React from 'react';
-import { PopupSelect, ValueType, PopupSelectProps } from '@atlaskit/select';
+import { PopupSelect, PopupSelectProps, ValueType } from '@atlaskit/select';
 import Trigger from './Trigger';
-import { Palette, Color } from '../types';
+import { Color, Palette } from '../types';
 import * as components from './components';
-import { KEY_ARROW_UP, KEY_ARROW_DOWN, KEY_TAB } from '../constants';
-
+import { KEY_ARROW_DOWN, KEY_ARROW_UP, KEY_TAB } from '../constants';
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
   createAndFireEvent,
+  withAnalyticsContext,
+  withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import { ColorCardWrapper } from '../styled/ColorPicker';
 import { getOptions } from '../utils';
+import { css, jsx } from '@emotion/react';
 
 export interface Props {
   /** color picker button label */
@@ -96,9 +96,9 @@ export class ColorPickerWithoutAnalytics extends React.Component<Props> {
     return (
       <PopupSelect<Color>
         target={({ ref, isOpen }) => (
-          <ColorCardWrapper innerRef={ref}>
+          <div css={colorCardWrapperStyles} ref={ref}>
             <Trigger {...value} label={fullLabel} expanded={isOpen} />
-          </ColorCardWrapper>
+          </div>
         )}
         popperProps={popperProps}
         maxMenuWidth="auto"
@@ -126,3 +126,7 @@ export default withAnalyticsContext({
   packageName,
   packageVersion,
 })(withAnalyticsEvents()(ColorPickerWithoutAnalytics));
+
+const colorCardWrapperStyles = css({
+  display: 'inline-block',
+});

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/side-navigation",
-  "version": "3.0.2",
+  "version": "3.0.5",
   "description": "A highly composable side navigation component that supports nested views.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,24 +14,29 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
+  "af:exports": {
+    ".": "./src/index.tsx"
+  },
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Side navigation",
       "category": "Components"
     }
   },
   "dependencies": {
-    "@atlaskit/ds-explorations": "^3.0.0",
+    "@atlaskit/ds-explorations": "^3.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/menu": "^2.1.0",
     "@atlaskit/motion": "^1.5.0",
-    "@atlaskit/primitives": "^1.12.0",
+    "@atlaskit/primitives": "^2.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -43,7 +48,6 @@
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/react": "^12.1.5",

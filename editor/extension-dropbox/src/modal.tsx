@@ -10,6 +10,7 @@ import ModalDialog, {
 
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import Button from '@atlaskit/button/custom-theme-button';
+import { token } from '@atlaskit/tokens';
 
 import { DROPBOX_IFRAME_NAME } from './constants';
 
@@ -37,7 +38,7 @@ const bottomShadow = css({
 });
 
 const spacingDivStyle = { width: '28px' };
-const headingStyle = { marginTop: '8px' };
+const headingStyle = { marginTop: `${token('space.100', '8px')}` };
 
 const Header = () => {
   const { onClose, titleId } = useModal();

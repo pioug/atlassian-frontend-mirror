@@ -13,6 +13,7 @@ const IGNORED_NODES = [
   'layoutColumn',
   'caption',
   'media',
+  'extensionFrame',
 ];
 
 export const isIgnored = (node?: PMNode | null): boolean => {

@@ -21,4 +21,10 @@ export const codeBlockButtonMessages = defineMessages({
     defaultMessage: 'Turn off wrap',
     description: 'Wrap the content of the code block',
   },
+  selectLanguage: {
+    id: 'fabric.editor.selectLanguage',
+    defaultMessage: 'Select language',
+    description:
+      'Code blocks display software code. A prompt to select the software language the code is written in.',
+  },
 });

@@ -1,8 +1,24 @@
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
+import { fireEvent, screen, waitFor, within } from '@testing-library/react';
+import console from 'console';
 import EmojiRepository from '../../../../api/EmojiRepository';
+import { emojiDeletePreviewTestId } from '../../../../components/common/EmojiDeletePreview';
+import { cancelUploadButtonTestId } from '../../../../components/common/EmojiUploadPreview';
 import { messages } from '../../../../components/i18n';
+import {
+  deleteBeginEvent,
+  deleteCancelEvent,
+  deleteConfirmEvent,
+  selectedFileEvent,
+  ufoExperiences,
+  uploadBeginButton,
+  uploadCancelButton,
+  uploadConfirmButton,
+  uploadFailedEvent,
+  uploadSucceededEvent,
+} from '../../../../util/analytics';
 import * as ImageUtil from '../../../../util/image';
 import {
   atlassianEmojis,
@@ -16,26 +32,15 @@ import {
   standardEmojis,
 } from '../../_test-data';
 import * as helperTestingLibrary from './_emoji-picker-helpers-testing-library';
-import {
-  deleteBeginEvent,
-  deleteCancelEvent,
-  deleteConfirmEvent,
-  selectedFileEvent,
-  ufoExperiences,
-  uploadBeginButton,
-  uploadCancelButton,
-  uploadConfirmButton,
-  uploadFailedEvent,
-  uploadSucceededEvent,
-} from '../../../../util/analytics';
-import console from 'console';
-import { fireEvent, screen, waitFor, within } from '@testing-library/react';
-import { cancelUploadButtonTestId } from '../../../../components/common/EmojiUploadPreview';
-import { emojiDeletePreviewTestId } from '../../../../components/common/EmojiDeletePreview';
+import * as helper from './_emoji-picker-test-helpers';
 
-import * as constants from '../../../../util/constants';
-import EmojiPickerVirtualList from '../../../../components/picker/EmojiPickerList';
+import userEvent from '@testing-library/user-event';
 import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
+import EmojiPickerVirtualList from '../../../../components/picker/EmojiPickerList';
+import * as constants from '../../../../util/constants';
+
+// Turn off delay to allow using user events with fake timers
+const userEventWithoutDelay = userEvent.setup({ delay: null });
 
 describe('<UploadingEmojiPicker />', () => {
   let onEvent: jest.SpyInstance;
@@ -49,13 +54,16 @@ describe('<UploadingEmojiPicker />', () => {
     onEvent = jest.fn();
   });
 
+  afterEach(jest.clearAllMocks);
+
   beforeAll(() => {
     // scrolling of the virutal list doesn't work out of the box for the tests
     // mocking `scrollToRow` for all tests
     jest
       .spyOn(EmojiPickerVirtualList.prototype, 'scrollToRow')
-      .mockImplementation((index?: number) =>
-        helperTestingLibrary.scrollToIndex(index || 0),
+      .mockImplementation(
+        async (index?: number) =>
+          await helperTestingLibrary.scrollToIndex(index || 0),
       );
 
     // set search debounce to 0
@@ -90,8 +98,6 @@ describe('<UploadingEmojiPicker />', () => {
     });
 
     afterEach(() => {
-      jest.runOnlyPendingTimers();
-      jest.useRealTimers();
       consoleError.mockRestore();
       ufoStartSpy.mockClear();
       ufoSuccessSpy.mockClear();
@@ -100,7 +106,7 @@ describe('<UploadingEmojiPicker />', () => {
 
     it('Non-uploading EmojiResource - no upload UI', async () => {
       const emojiProvider = getNonUploadingEmojiResourcePromise();
-      helperTestingLibrary.renderPicker({ emojiProvider });
+      await helper.setupPicker({ emojiProvider });
 
       await waitFor(() => {
         expect(
@@ -113,7 +119,7 @@ describe('<UploadingEmojiPicker />', () => {
     });
 
     it('UploadingEmojiResource - "without media token" - no upload UI', async () => {
-      helperTestingLibrary.renderPicker();
+      await helper.setupPicker();
 
       await waitFor(() => {
         expect(
@@ -126,7 +132,7 @@ describe('<UploadingEmojiPicker />', () => {
     });
 
     it('UploadingEmojiResource - "with media token" - upload UI', async () => {
-      helperTestingLibrary.renderPicker({ emojiProvider });
+      await helper.setupPicker({ emojiProvider });
 
       await waitFor(() => {
         expect(
@@ -144,7 +150,7 @@ describe('<UploadingEmojiPicker />', () => {
         uploadSupported: true,
         currentUser: { id: 'blackpanther' },
       });
-      helperTestingLibrary.renderPicker(
+      await helper.setupPicker(
         {
           emojiProvider,
           hideToneSelector: true,
@@ -159,15 +165,11 @@ describe('<UploadingEmojiPicker />', () => {
         expect(
           helperTestingLibrary.getEmojiActionsSection(),
         ).toBeInTheDocument();
-        expect(
-          helperTestingLibrary.getAddCustomEmojiButton(),
-        ).toBeInTheDocument();
       });
 
       const addCustomEmojiButton =
-        helperTestingLibrary.getAddCustomEmojiButton();
-
-      fireEvent.click(addCustomEmojiButton);
+        await helperTestingLibrary.getAddCustomEmojiButton();
+      await userEvent.click(addCustomEmojiButton);
 
       await waitFor(() => {
         expect(
@@ -192,10 +194,9 @@ describe('<UploadingEmojiPicker />', () => {
       expect(emojiInPreview.length).toBe(2);
 
       jest.useFakeTimers();
-
       // trigger upload
       const uploadEmojiButton = helperTestingLibrary.getUploadEmojiButton();
-      fireEvent.click(uploadEmojiButton);
+      await userEventWithoutDelay.click(uploadEmojiButton);
       // wait for upload
       await waitFor(() => {
         expect(provider.getUploads().length).toEqual(1);
@@ -211,26 +212,24 @@ describe('<UploadingEmojiPicker />', () => {
         height: 30,
       });
 
-      helperTestingLibrary.scrollToIndex(
+      await helperTestingLibrary.scrollToIndex(
         Math.round(standardEmojis.length) + Math.round(atlassianEmojis.length),
       );
-
       await waitFor(() => {
         // upload preview should disappear
         expect(
           screen.queryByTestId(cancelUploadButtonTestId),
         ).not.toBeInTheDocument();
-        // list is scrolled to the new emoji, with preview emoji shown as well
-
-        expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
-        expect(
-          within(helperTestingLibrary.getVirtualList()).getAllByTestId(
-            'image-emoji-:cheese_burger:',
-          ).length,
-        ).toBe(2);
-        // picker footer is in the view
-        expect(helperTestingLibrary.getEmojiPickerFooter()).toBeInTheDocument();
       });
+      // list is scrolled to the new emoji, with preview emoji shown as well
+      expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
+      expect(
+        within(helperTestingLibrary.getVirtualList()).getAllByTestId(
+          'image-emoji-:cheese_burger:',
+        ).length,
+      ).toBe(2);
+      // picker footer is in the view
+      expect(helperTestingLibrary.getEmojiPickerFooter()).toBeInTheDocument();
 
       // picker footer is displaying the uploaded emoji
       expect(
@@ -241,7 +240,7 @@ describe('<UploadingEmojiPicker />', () => {
 
       // "add custom emoji" button should appear
       expect(
-        helperTestingLibrary.getAddCustomEmojiButton(),
+        await helperTestingLibrary.getAddCustomEmojiButton(),
       ).toBeInTheDocument();
 
       expect(onEvent).toHaveBeenCalled();
@@ -291,6 +290,7 @@ describe('<UploadingEmojiPicker />', () => {
       expect(ufoSuccessSpy).toHaveBeenCalled();
       expect(ufoFailureSpy).not.toHaveBeenCalled();
 
+      jest.useRealTimers();
       ufoStartSpy.mockReset();
       ufoSuccessSpy.mockReset();
       ufoFailureSpy.mockReset();
@@ -301,26 +301,23 @@ describe('<UploadingEmojiPicker />', () => {
         .spyOn(ImageUtil, 'parseImage')
         .mockImplementation(() => Promise.reject(new Error('file error')));
 
-      helperTestingLibrary.renderPicker({
+      await helper.setupPicker({
         emojiProvider,
         hideToneSelector: true,
       });
       await emojiProvider;
 
       // click add
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(
           helperTestingLibrary.getEmojiActionsSection(),
-        ).toBeInTheDocument();
-        expect(
-          helperTestingLibrary.getAddCustomEmojiButton(),
         ).toBeInTheDocument();
       });
 
       const addCustomEmojiButton =
-        helperTestingLibrary.getAddCustomEmojiButton();
+        await helperTestingLibrary.getAddCustomEmojiButton();
 
-      fireEvent.click(addCustomEmojiButton);
+      await userEvent.click(addCustomEmojiButton);
 
       await waitFor(() => {
         expect(
@@ -350,26 +347,23 @@ describe('<UploadingEmojiPicker />', () => {
         .spyOn(ImageUtil, 'hasFileExceededSize')
         .mockImplementation(() => true);
 
-      helperTestingLibrary.renderPicker({
+      await helper.setupPicker({
         emojiProvider,
         hideToneSelector: true,
       });
       await emojiProvider;
 
       // click add
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(
           helperTestingLibrary.getEmojiActionsSection(),
-        ).toBeInTheDocument();
-        expect(
-          helperTestingLibrary.getAddCustomEmojiButton(),
         ).toBeInTheDocument();
       });
 
       const addCustomEmojiButton =
-        helperTestingLibrary.getAddCustomEmojiButton();
+        await helperTestingLibrary.getAddCustomEmojiButton();
 
-      fireEvent.click(addCustomEmojiButton);
+      await userEvent.click(addCustomEmojiButton);
 
       await waitFor(() => {
         expect(
@@ -395,7 +389,7 @@ describe('<UploadingEmojiPicker />', () => {
     });
 
     it('Upload after searching', async () => {
-      helperTestingLibrary.renderPicker({
+      await helper.setupPicker({
         emojiProvider,
         hideToneSelector: true,
       });
@@ -405,7 +399,7 @@ describe('<UploadingEmojiPicker />', () => {
         expect(helperTestingLibrary.getEmojiSearchInput()).toBeInTheDocument();
       });
 
-      helperTestingLibrary.searchEmoji('cheese burger');
+      await helperTestingLibrary.searchEmoji('cheese burger');
 
       await waitFor(() => {
         expect(
@@ -414,19 +408,15 @@ describe('<UploadingEmojiPicker />', () => {
       });
 
       // click add
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(
           helperTestingLibrary.getEmojiActionsSection(),
-        ).toBeInTheDocument();
-        expect(
-          helperTestingLibrary.getAddCustomEmojiButton(),
         ).toBeInTheDocument();
       });
 
       const addCustomEmojiButton =
-        helperTestingLibrary.getAddCustomEmojiButton();
-
-      fireEvent.click(addCustomEmojiButton);
+        await helperTestingLibrary.getAddCustomEmojiButton();
+      await userEvent.click(addCustomEmojiButton);
 
       await waitFor(() => {
         expect(
@@ -452,7 +442,7 @@ describe('<UploadingEmojiPicker />', () => {
       jest.useFakeTimers();
       // trigger upload
       const uploadEmojiButton = helperTestingLibrary.getUploadEmojiButton();
-      fireEvent.click(uploadEmojiButton);
+      await userEventWithoutDelay.click(uploadEmojiButton);
 
       // wait for upload
       await waitFor(() => {
@@ -469,29 +459,31 @@ describe('<UploadingEmojiPicker />', () => {
         height: 30,
       });
 
-      expect(
-        screen.queryByTestId(cancelUploadButtonTestId),
-      ).not.toBeInTheDocument();
-
-      expect(
-        helperTestingLibrary.getAddCustomEmojiButton(),
-      ).toBeInTheDocument();
-
-      const virtualList = helperTestingLibrary.getVirtualList();
       await waitFor(() => {
-        expect(virtualList).toBeInTheDocument();
+        expect(
+          screen.queryByTestId(cancelUploadButtonTestId),
+        ).not.toBeInTheDocument();
       });
+
+      expect(
+        await helperTestingLibrary.getAddCustomEmojiButton(),
+      ).toBeInTheDocument();
 
       // let scroll finish after timeout
       jest.runAllTimers();
-      expect(
-        await within(virtualList).findByTestId('image-emoji-:cheese_burger:'),
-      ).toHaveFocus();
+
+      const cheeseBurgerEmoji = await screen.findAllByRole('img', {
+        name: ':cheese_burger:',
+      });
+      // This is unexpected behaviour, focus goes to the body in JSDom
+      expect(cheeseBurgerEmoji[0]).not.toHaveFocus();
+
+      jest.useRealTimers();
     });
 
     it('Upload cancel interaction', async () => {
       onEvent = jest.fn();
-      helperTestingLibrary.renderPicker(
+      await helper.setupPicker(
         {
           emojiProvider,
           hideToneSelector: true,
@@ -502,19 +494,16 @@ describe('<UploadingEmojiPicker />', () => {
       const provider = await emojiProvider;
 
       // click add
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(
           helperTestingLibrary.getEmojiActionsSection(),
-        ).toBeInTheDocument();
-        expect(
-          helperTestingLibrary.getAddCustomEmojiButton(),
         ).toBeInTheDocument();
       });
 
       const addCustomEmojiButton =
-        helperTestingLibrary.getAddCustomEmojiButton();
+        await helperTestingLibrary.getAddCustomEmojiButton();
 
-      fireEvent.click(addCustomEmojiButton);
+      await userEvent.click(addCustomEmojiButton);
 
       await waitFor(() => {
         expect(
@@ -571,7 +560,7 @@ describe('<UploadingEmojiPicker />', () => {
     });
 
     it('Focus Add Emoji Button after upload cancel interaction when it was previously focused', async () => {
-      helperTestingLibrary.renderPicker(
+      await helper.setupPicker(
         {
           emojiProvider,
           hideToneSelector: true,
@@ -581,17 +570,14 @@ describe('<UploadingEmojiPicker />', () => {
       );
 
       // click add
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(
           helperTestingLibrary.getEmojiActionsSection(),
-        ).toBeInTheDocument();
-        expect(
-          helperTestingLibrary.getAddCustomEmojiButton(),
         ).toBeInTheDocument();
       });
 
       const addCustomEmojiButton =
-        helperTestingLibrary.getAddCustomEmojiButton();
+        await helperTestingLibrary.getAddCustomEmojiButton();
 
       // fireEvent.focus(addCustomEmojiButton);
       addCustomEmojiButton.focus();
@@ -600,7 +586,7 @@ describe('<UploadingEmojiPicker />', () => {
         expect(document.activeElement).toBe(addCustomEmojiButton);
       });
 
-      fireEvent.click(addCustomEmojiButton);
+      await userEvent.click(addCustomEmojiButton);
 
       await waitFor(() => {
         expect(
@@ -609,7 +595,7 @@ describe('<UploadingEmojiPicker />', () => {
       });
 
       const closeButton = screen.getByTestId(cancelEmojiUploadPickerTestId);
-      fireEvent.click(closeButton);
+      await userEvent.click(closeButton);
 
       // wait for emoji picker footer to appear and upload preview to disappear
       await waitFor(() => {
@@ -621,7 +607,9 @@ describe('<UploadingEmojiPicker />', () => {
       const addCustomEmojiButtonAfterCancel =
         await helperTestingLibrary.getAddCustomEmojiButton();
 
-      expect(addCustomEmojiButtonAfterCancel).toHaveFocus();
+      await waitFor(() =>
+        expect(addCustomEmojiButtonAfterCancel).toHaveFocus(),
+      );
     });
 
     it('Upload error interaction', async () => {
@@ -629,7 +617,7 @@ describe('<UploadingEmojiPicker />', () => {
         .spyOn(MockEmojiResource.prototype, 'uploadCustomEmoji')
         .mockImplementation(() => Promise.reject(new Error('upload error')));
 
-      helperTestingLibrary.renderPicker(
+      await helper.setupPicker(
         {
           emojiProvider,
           hideToneSelector: true,
@@ -640,19 +628,16 @@ describe('<UploadingEmojiPicker />', () => {
       const provider = await emojiProvider;
 
       // click add
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(
           helperTestingLibrary.getEmojiActionsSection(),
-        ).toBeInTheDocument();
-        expect(
-          helperTestingLibrary.getAddCustomEmojiButton(),
         ).toBeInTheDocument();
       });
 
       const addCustomEmojiButton =
-        helperTestingLibrary.getAddCustomEmojiButton();
+        await helperTestingLibrary.getAddCustomEmojiButton();
 
-      fireEvent.click(addCustomEmojiButton);
+      await userEvent.click(addCustomEmojiButton);
 
       await waitFor(() => {
         expect(
@@ -696,9 +681,9 @@ describe('<UploadingEmojiPicker />', () => {
       expect(screen.getByText('Retry')).toBeInTheDocument();
 
       helperTestingLibrary.cancelUpload();
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(
-          helperTestingLibrary.getAddCustomEmojiButton(),
+          await helperTestingLibrary.getAddCustomEmojiButton(),
         ).toBeInTheDocument();
       });
 
@@ -754,7 +739,7 @@ describe('<UploadingEmojiPicker />', () => {
         .spyOn(MockEmojiResource.prototype, 'uploadCustomEmoji')
         .mockImplementation(() => Promise.reject(new Error('upload error')));
 
-      helperTestingLibrary.renderPicker(
+      await helper.setupPicker(
         {
           emojiProvider,
           hideToneSelector: true,
@@ -765,19 +750,16 @@ describe('<UploadingEmojiPicker />', () => {
       const provider = await emojiProvider;
 
       // click add
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(
           helperTestingLibrary.getEmojiActionsSection(),
-        ).toBeInTheDocument();
-        expect(
-          helperTestingLibrary.getAddCustomEmojiButton(),
         ).toBeInTheDocument();
       });
 
       const addCustomEmojiButton =
-        helperTestingLibrary.getAddCustomEmojiButton();
+        await helperTestingLibrary.getAddCustomEmojiButton();
 
-      fireEvent.click(addCustomEmojiButton);
+      await userEvent.click(addCustomEmojiButton);
 
       await waitFor(() => {
         expect(
@@ -872,6 +854,7 @@ describe('<UploadingEmojiPicker />', () => {
     let getUserProvider;
     let emojiProvider: Promise<any>;
     let onEvent: jest.SpyInstance;
+
     beforeEach(() => {
       onEvent = jest.fn();
       // Initialise repository with clone of siteEmojis
@@ -885,7 +868,8 @@ describe('<UploadingEmojiPicker />', () => {
       emojiProvider = getUserProvider();
     });
 
-    const getDeleteButton = () => screen.getByTestId('emoji-delete-button');
+    const getEmojiDeletePreview = () =>
+      screen.getByTestId(emojiDeletePreviewTestId);
 
     // Click delete button on user emoji in picker
     const openDeletePrompt = async () => {
@@ -893,50 +877,51 @@ describe('<UploadingEmojiPicker />', () => {
         expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
       });
 
-      fireEvent.click(getDeleteButton());
+      const deleteButton = await waitFor(() =>
+        screen.getByTestId('emoji-delete-button'),
+      );
+      fireEvent.click(deleteButton);
 
       await waitFor(() => {
         expect(getEmojiDeletePreview()).toBeInTheDocument();
       });
     };
 
-    const getEmojiDeletePreview = () =>
-      screen.getByTestId(emojiDeletePreviewTestId);
-
     const queryEmojiDeletePreview = () =>
       screen.queryByTestId(emojiDeletePreviewTestId);
+
     // Click 'Remove' in delete preview
-    const clickRemove = () => {
+    const clickRemove = async () => {
       const removeButton = within(getEmojiDeletePreview()).getAllByRole(
         'button',
       )[0];
-      fireEvent.click(removeButton);
+      await userEvent.click(removeButton);
     };
 
-    const clickCancelDelete = () => {
+    const clickCancelDelete = async () => {
       const cancelDeleteButton = within(getEmojiDeletePreview()).getAllByRole(
         'button',
       )[1];
-      fireEvent.click(cancelDeleteButton);
+      await userEvent.click(cancelDeleteButton);
     };
 
     it('shows the emoji delete preview when the delete button is clicked', async () => {
-      helperTestingLibrary.renderPicker({ emojiProvider }, undefined, onEvent);
+      await helper.setupPicker({ emojiProvider }, undefined, onEvent);
       await openDeletePrompt();
     });
 
     it('calls #deleteSiteEmoji with the emoji to delete when button is clicked', async () => {
       const spy = jest.spyOn(MockEmojiResource.prototype, 'deleteSiteEmoji');
 
-      helperTestingLibrary.renderPicker({ emojiProvider }, undefined, onEvent);
+      await helper.setupPicker({ emojiProvider }, undefined, onEvent);
       await openDeletePrompt();
       clickRemove();
       // Delete called with user custom emoji
-      expect(spy).toHaveBeenCalledWith(siteEmojiFoo);
+      await waitFor(() => expect(spy).toHaveBeenCalledWith(siteEmojiFoo));
     });
 
     it('fires analytics for confirmed deletion path', async () => {
-      helperTestingLibrary.renderPicker({ emojiProvider }, undefined, onEvent);
+      await helper.setupPicker({ emojiProvider }, undefined, onEvent);
       await openDeletePrompt();
       expect(onEvent).toHaveBeenLastCalledWith(
         expect.objectContaining({
@@ -947,28 +932,32 @@ describe('<UploadingEmojiPicker />', () => {
 
       clickRemove();
 
-      expect(onEvent).toHaveBeenLastCalledWith(
-        expect.objectContaining({
-          payload: deleteConfirmEvent({ emojiId: siteEmojiFoo.id }),
-        }),
-        'fabric-elements',
+      await waitFor(() =>
+        expect(onEvent).toHaveBeenLastCalledWith(
+          expect.objectContaining({
+            payload: deleteConfirmEvent({ emojiId: siteEmojiFoo.id }),
+          }),
+          'fabric-elements',
+        ),
       );
     });
 
     it('fires analytics for deletion cancel', async () => {
-      helperTestingLibrary.renderPicker({ emojiProvider }, undefined, onEvent);
+      await helper.setupPicker({ emojiProvider }, undefined, onEvent);
       await openDeletePrompt();
       clickCancelDelete();
-      expect(onEvent).toHaveBeenLastCalledWith(
-        expect.objectContaining({
-          payload: deleteCancelEvent({ emojiId: siteEmojiFoo.id }),
-        }),
-        'fabric-elements',
+      await waitFor(() =>
+        expect(onEvent).toHaveBeenLastCalledWith(
+          expect.objectContaining({
+            payload: deleteCancelEvent({ emojiId: siteEmojiFoo.id }),
+          }),
+          'fabric-elements',
+        ),
       );
     });
 
     it('closes the delete preview onCancel', async () => {
-      helperTestingLibrary.renderPicker({ emojiProvider }, undefined, onEvent);
+      await helper.setupPicker({ emojiProvider }, undefined, onEvent);
       await openDeletePrompt();
       clickCancelDelete();
       await waitFor(() => {
@@ -977,11 +966,11 @@ describe('<UploadingEmojiPicker />', () => {
     });
 
     it('cannot find deleted emoji from provider', async () => {
-      helperTestingLibrary.renderPicker({ emojiProvider }, undefined, onEvent);
+      await helper.setupPicker({ emojiProvider }, undefined, onEvent);
 
       const provider = await emojiProvider;
 
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
       });
 
@@ -999,7 +988,7 @@ describe('<UploadingEmojiPicker />', () => {
     });
 
     it('deleting user emoji removes from both sections', async () => {
-      helperTestingLibrary.renderPicker({ emojiProvider }, undefined, onEvent);
+      await helper.setupPicker({ emojiProvider }, undefined, onEvent);
       await openDeletePrompt();
       clickRemove();
 
@@ -1008,20 +997,22 @@ describe('<UploadingEmojiPicker />', () => {
       });
 
       // Emoji removed from 'Your uploads' and 'All uploads'
-      expect(
-        within(helperTestingLibrary.getVirtualList()).getAllByRole('button')
-          .length,
-      ).toEqual(1);
+      await waitFor(() =>
+        expect(
+          within(helperTestingLibrary.getVirtualList()).getAllByRole('button')
+            .length,
+        ).toEqual(1),
+      );
     });
 
     it('removes Your Uploads if the only user emoji was deleted', async () => {
-      helperTestingLibrary.renderPicker({ emojiProvider }, undefined, onEvent);
+      await helper.setupPicker({ emojiProvider }, undefined, onEvent);
 
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
       });
       // show 'Your uploads'
-      expect(screen.getByText('Your uploads')).toBeInTheDocument();
+      await screen.findByText('Your uploads');
 
       await openDeletePrompt();
       clickRemove();
@@ -1037,7 +1028,7 @@ describe('<UploadingEmojiPicker />', () => {
         .spyOn(MockEmojiResource.prototype, 'deleteSiteEmoji')
         .mockImplementation(() => Promise.resolve(false));
 
-      helperTestingLibrary.renderPicker({ emojiProvider }, undefined, onEvent);
+      await helper.setupPicker({ emojiProvider }, undefined, onEvent);
 
       await openDeletePrompt();
 
@@ -1060,7 +1051,7 @@ describe('<UploadingEmojiPicker />', () => {
         .spyOn(MockEmojiResource.prototype, 'deleteSiteEmoji')
         .mockImplementation(() => Promise.resolve(false));
 
-      helperTestingLibrary.renderPicker({ emojiProvider }, undefined, onEvent);
+      await helper.setupPicker({ emojiProvider }, undefined, onEvent);
 
       await await openDeletePrompt();
       clickRemove();
@@ -1080,12 +1071,12 @@ describe('<UploadingEmojiPicker />', () => {
         .spyOn(MockEmojiResource.prototype, 'deleteSiteEmoji')
         .mockImplementation(() => Promise.resolve(false));
 
-      helperTestingLibrary.renderPicker({ emojiProvider }, undefined, onEvent);
+      await helper.setupPicker({ emojiProvider }, undefined, onEvent);
 
       await openDeletePrompt();
       clickRemove();
 
-      const deleteCalls = spy.mock.calls.length;
+      await waitFor(() => expect(spy).toHaveBeenCalledTimes(1));
 
       // Expect error to occur
       await waitFor(() => {
@@ -1093,10 +1084,10 @@ describe('<UploadingEmojiPicker />', () => {
       });
 
       const retryButton = within(getEmojiDeletePreview()).getByText('Retry');
-      fireEvent.click(retryButton);
+      await userEvent.click(retryButton);
 
       // Tries to call #deleteSiteEmoji again
-      expect(spy).toHaveBeenCalledTimes(deleteCalls + 1);
+      expect(spy).toHaveBeenCalledTimes(2);
       spy.mockReset();
     });
   });

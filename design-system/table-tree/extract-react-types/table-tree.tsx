@@ -36,7 +36,7 @@ type TableTreeProps = {
    * The header text of the respective columns of the table.
    */
   headers?: string[];
-  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
+  /* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
   /**
     Whether a row with children should expand when clicked anywhere within the row. If false or unset, a row with children will only expand when the chevron is clicked.
 
@@ -45,7 +45,6 @@ type TableTreeProps = {
     If not using the `items` prop, `shouldExpandOnClick` should be used on the row component instead.
    */
   shouldExpandOnClick?: boolean;
-  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
     The data used to render the table.
 
@@ -54,6 +53,7 @@ type TableTreeProps = {
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   items?: Item[] | null;
+  /* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
   /**
    * The value used to extend the expand or collapse button label in cases where `Row` has child rows.
    *

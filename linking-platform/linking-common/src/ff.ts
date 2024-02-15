@@ -54,6 +54,7 @@ export interface LinkingPlatformFeatureFlags {
 
   /**
    * Enables firing of analytics tracking events when data is fetched for Hover Cards
+   * @deprecated Implementation removed in EDM-8672
    */
   enableHoverCardResolutionTracking?: boolean;
 }

@@ -20,8 +20,7 @@ export interface StatusProps {
    */
   children?: ReactNode;
   /**
-   * Content to use as a custom status indicator. Not needed if consuming
-   * `Status` separate to `Avatar`.
+   * The type of status indicator to show.
    */
   status?: Status;
 }
@@ -78,13 +77,9 @@ const AvatarStatus: FC<StatusProps> = ({
   children,
   status,
 }: StatusProps) => (
-  <IconWrapper
-    bgColor={borderColor}
-    label={typeof status === 'string' ? status : undefined}
-  >
+  <IconWrapper bgColor={borderColor}>
     {status ? (
       <svg
-        aria-hidden="true"
         height="100%"
         version="1.1"
         viewBox="0 0 8 8"
@@ -104,14 +99,13 @@ export default AvatarStatus;
 interface StatusWrapperProps extends StatusProps {
   appearance: AppearanceType;
   size: IndicatorSizeType;
-  children: ReactNode;
   testId?: string;
 }
 
 /**
- * Status wrapper**
+ * __Status wrapper__
  *
- * A status wrapper is used internally to position status ontop of the avatar.
+ * A status wrapper is used internally to position status on top of the avatar.
  */
 export const StatusWrapper: FC<StatusWrapperProps> = ({
   size,

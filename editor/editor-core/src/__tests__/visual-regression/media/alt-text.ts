@@ -1,25 +1,27 @@
-import type { PuppeteerElementHandle } from '@atlaskit/visual-regression/helper';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import {
-  snapshot,
-  Appearance,
-  initEditorWithAdf,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 
 import {
-  waitForMediaToBeLoaded,
-  clickMediaInPosition,
-  scrollToMedia,
-} from '@atlaskit/editor-test-helpers/page-objects/media';
-import {
-  clickEditableContent,
   animationFrame,
+  clickEditableContent,
   scrollToBottom,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import {
+  clickMediaInPosition,
+  scrollToMedia,
+  waitForMediaToBeLoaded,
+} from '@atlaskit/editor-test-helpers/page-objects/media';
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerElementHandle } from '@atlaskit/visual-regression/helper';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import type { EditorProps } from '../../../types';
+
 import mediaSingleAdf from './__fixtures__/mediaSingle-image.adf.json';
 
 describe('Snapshot Test: Media with alt text', () => {
@@ -87,8 +89,7 @@ describe('Snapshot Test: Media with alt text', () => {
         await snapshot(page);
       });
 
-      // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-      describe.skip('when the shortcut is pressed', () => {
+      describe('when the shortcut is pressed', () => {
         it('should display the alt text description', async () => {
           await pressKeyCombo(page, ['Control', 'Alt', 'y']);
           await page.waitForSelector('[data-testid="alt-text-input"]', {
@@ -99,8 +100,7 @@ describe('Snapshot Test: Media with alt text', () => {
       });
 
       describe('when the alt text button is clicked', () => {
-        // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-        it.skip('should display the alt text description', async () => {
+        it('should display the alt text description', async () => {
           const altTextButton = await page.waitForSelector(
             '[data-testid="alt-text-edit-button"]',
             { visible: true },
@@ -125,8 +125,7 @@ describe('Snapshot Test: Media with alt text', () => {
           ))!;
         });
 
-        // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-        describe.skip('when valid value is entered', () => {
+        describe('when valid value is entered', () => {
           beforeEach(async () => {
             await altTextInput.press('y');
           });
@@ -143,8 +142,7 @@ describe('Snapshot Test: Media with alt text', () => {
           });
         });
 
-        // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-        describe.skip('when invalid value is entered', () => {
+        describe('when invalid value is entered', () => {
           beforeEach(async () => {
             await altTextInput.press('<');
           });

@@ -19,7 +19,7 @@ class CustomClient extends Client {
   }
 }
 
-export default () => (
+export const BlockCardConfluence = () => (
   <div>
     <h4>Confluence Blog</h4>
     <VRCardView
@@ -32,6 +32,24 @@ export default () => (
       appearance="block"
       client={new CustomClient()}
       url={ConfluencePage.data.url}
+    />
+  </div>
+);
+export const BlockCardConfluenceLegacy = () => (
+  <div>
+    <h4>Confluence Blog</h4>
+    <VRCardView
+      appearance="block"
+      client={new CustomClient()}
+      url={ConfluenceBlogPost.data.url}
+      useLegacyBlockCard={true}
+    />
+    <h4>Confluence Page</h4>
+    <VRCardView
+      appearance="block"
+      client={new CustomClient()}
+      url={ConfluencePage.data.url}
+      useLegacyBlockCard={true}
     />
   </div>
 );

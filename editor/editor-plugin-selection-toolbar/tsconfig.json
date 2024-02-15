@@ -8,8 +8,9 @@
     "examples/**/*.ts",
     "examples/**/*.tsx",
     "src/**/*.ts",
-    "src/**/*.tsx"
-, "../editor-common/src/utils/calculate-toolbar-position.ts"  ],
+    "src/**/*.tsx",
+    "../editor-common/src/utils/calculate-toolbar-position.ts"
+  ],
   "compilerOptions": {
     "baseUrl": ""
   }

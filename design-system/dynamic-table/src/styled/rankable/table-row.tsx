@@ -30,7 +30,7 @@ const rankingItemStyles = css({
 
 const draggableStyles = css({
   outlineWidth: token('border.width', '2px'),
-  '&:focus': {
+  '&:focus-visible': {
     outlineColor: token('color.border.focused', B100),
     outlineStyle: 'solid',
   },

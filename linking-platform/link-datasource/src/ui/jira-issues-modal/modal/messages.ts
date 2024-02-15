@@ -22,17 +22,26 @@ export const modalMessages = defineMessages({
       'Title for the Jira Issues modal when a user has to select a site to inserting issues from',
     defaultMessage: 'Insert Jira issues from',
   },
-  issueViewModeLabel: {
-    id: 'linkDataSource.jira-issues.configmodal.issueViewModeLabel',
-    description:
-      'Label for toggle to enable a view mode showing issues in a table list view',
-    defaultMessage: 'Issue view',
+  tableViewModeLabel: {
+    id: 'linkDataSource.jira-issues.configmodal.tableViewModeLabel',
+    description: 'Display Jira search results as a table',
+    defaultMessage: 'Table',
   },
-  countViewModeLabel: {
-    id: 'linkDataSource.jira-issues.configmodal.countViewModeLabel',
-    description:
-      'Label for toggle to enable a view mode showing issues in as a total count',
-    defaultMessage: 'Count view',
+  tableViewModeDescription: {
+    id: 'linkDataSource.jira-issues.configmodal.tableViewModeDescription',
+    description: 'Description for table view mode',
+    defaultMessage: 'Display Jira search results as a table',
+  },
+  inlineLinkViewModeLabel: {
+    id: 'linkDataSource.jira-issues.configmodal.inlineLinkViewModeLabel',
+    description: 'Display the number of search results as an inline smart link',
+    defaultMessage: 'Inline link',
+  },
+  inlineLinkViewModeDescription: {
+    id: 'linkDataSource.jira-issues.configmodal.inlineLinkViewModeDescription',
+    description: 'Description for inline link view mode',
+    defaultMessage:
+      'Display the number of search results or as an inline smart link',
   },
   issuesCountSmartCardPlaceholderText: {
     id: 'linkDataSource.jira-issues.configmodal.placeholder.issues',

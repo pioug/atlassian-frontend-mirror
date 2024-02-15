@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { UNSAFE_BUTTON } from '../../../../src';
-
+import Button from '../../../../src/new';
 const ButtonFullWidthExample = () => {
   return (
-    <UNSAFE_BUTTON shouldFitContainer appearance="primary">
+    <Button shouldFitContainer appearance="primary">
       Full width button
-    </UNSAFE_BUTTON>
+    </Button>
   );
 };
 

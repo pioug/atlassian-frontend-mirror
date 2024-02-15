@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 import Spinner from '../src';
+
+const InvertedSpinner = () => <Spinner appearance="invert" />;
 
 function SpinnerButton() {
   const [showSpinner, setSpinner] = useState<boolean>(false);
@@ -11,9 +13,7 @@ function SpinnerButton() {
   return (
     <Button
       appearance="primary"
-      iconAfter={
-        showSpinner ? <Spinner appearance="invert" /> : <React.Fragment />
-      }
+      iconAfter={showSpinner ? InvertedSpinner : undefined}
       onClick={() => setSpinner((value: boolean) => !value)}
     >
       {showSpinner ? 'hide' : 'show'} spinner

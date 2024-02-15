@@ -131,6 +131,13 @@ export type MessageKey =
   | 'close_and_reopen'
   | 'viewer_rateLimited'
   | 'zip_entry_load_fail'
+  | 'file_image_is_selected'
+  | 'file_video_is_selected'
+  | 'file_audio_is_selected'
+  | 'file_doc_is_selected'
+  | 'file_archive_is_selected'
+  | 'file_unknown_is_selected'
+  | 'open_file_in_viewer'
   | RequestAccessMessageKey;
 
 type Messages = {
@@ -836,5 +843,47 @@ export const messages: Messages = defineMessages({
     id: 'fabric.media.zip_entry_load_failed',
     defaultMessage: `We couldn't load that zip file item to preview`,
     description: 'Zip entry failed to load',
+  },
+  file_image_is_selected: {
+    id: 'fabric.media.file_is_selected',
+    defaultMessage: 'Image {name} is selected',
+    description:
+      '{name} it is the parameter, which saying alt text or file name of uploaded image',
+  },
+  file_video_is_selected: {
+    id: 'fabric.media.file_is_selected',
+    defaultMessage: 'Video {name} is selected',
+    description:
+      '{name} it is the parameter, which saying alt text or file name of uploaded video',
+  },
+  file_audio_is_selected: {
+    id: 'fabric.media.file_is_selected',
+    defaultMessage: 'Audio {name} is selected',
+    description:
+      '{name} it is the parameter, which saying alt text or file name of uploaded audio',
+  },
+  file_doc_is_selected: {
+    id: 'fabric.media.file_is_selected',
+    defaultMessage: 'Document {name} is selected',
+    description:
+      '{name} it is the parameter, which saying alt text or file name of uploaded document',
+  },
+  file_archive_is_selected: {
+    id: 'fabric.media.file_is_selected',
+    defaultMessage: 'Archive {name} is selected',
+    description:
+      '{name} it is the parameter, which saying alt text or file name of uploaded archive',
+  },
+  file_unknown_is_selected: {
+    id: 'fabric.media.file_is_selected',
+    defaultMessage: 'File {name} is selected',
+    description:
+      '{name} it is the parameter, which saying alt text or file name of uploaded file',
+  },
+  open_file_in_viewer: {
+    id: 'fabric.media.open_file_in_viewer',
+    defaultMessage: 'Open {name}',
+    description:
+      'Shown when user focuses on preview to open the full screen viewer of the file with {name}',
   },
 });

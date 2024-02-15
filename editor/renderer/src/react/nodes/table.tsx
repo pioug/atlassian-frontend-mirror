@@ -642,13 +642,7 @@ const TableWithWidth: React.FunctionComponent<
           : width;
       const colWidthsSum =
         props.columnWidths?.reduce((total, val) => total + val, 0) || 0;
-      if (
-        colWidthsSum ||
-        (getBooleanFF(
-          'platform.editor.custom-table-width-scale-down-undefined-column_nkyvx',
-        ) &&
-          isTableResizingEnabled(props.rendererAppearance))
-      ) {
+      if (colWidthsSum || isTableResizingEnabled(props.rendererAppearance)) {
         return <TableWithShadows renderWidth={renderWidth} {...props} />;
       }
       // there should not be a case when colWidthsSum is 0 and table is in overflow state - so no need to render shadows in this case

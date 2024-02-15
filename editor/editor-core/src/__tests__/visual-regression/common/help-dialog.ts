@@ -1,12 +1,12 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  initEditorWithAdf,
-  Appearance,
-  snapshot,
-  pmSelector,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { helpDialogSelector } from '@atlaskit/editor-test-helpers/page-objects/help-dialog';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  Appearance,
+  initEditorWithAdf,
+  pmSelector,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 
 describe('Help Dialog', () => {
   it('displays help dialog', async () => {

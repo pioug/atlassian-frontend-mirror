@@ -7,6 +7,7 @@ import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { CopyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
@@ -49,6 +50,7 @@ export type FloatingToolbarPlugin = NextEditorPlugin<
       OptionalPlugin<ExtensionPlugin>,
       CopyButtonPlugin,
       EditorDisabledPlugin,
+      OptionalPlugin<EditorViewModePlugin>,
     ];
     actions: { forceFocusSelector: ForceFocusSelector };
     sharedState:

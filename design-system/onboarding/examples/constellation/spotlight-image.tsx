@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -42,8 +42,8 @@ const SpotlightImageExample = () => {
             targetRadius={3}
             targetBgColor={N0}
           >
-            Quickly switch between your most recent projects by selecting the
-            project name and icon.
+            Select the project name and icon to quickly switch between your most
+            recent projects.
           </Spotlight>
         )}
       </SpotlightTransition>

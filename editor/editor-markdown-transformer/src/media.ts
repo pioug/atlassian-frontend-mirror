@@ -15,7 +15,7 @@ export interface MdState {
 }
 
 function createRule() {
-  const regx = /!\[[^\]]*\]\([^)]+\)/g;
+  const regx = /!\[([^\]]*)\]\(([^)]*?)\s*(?:"([^")]*)"\s*)?\)/g;
   const validParentTokens = ['th_open', 'td_open', 'list_item_open'];
 
   /**
@@ -57,12 +57,13 @@ function createRule() {
       return '';
     };
 
-    const createMediaTokens = (url: string) => {
+    const createMediaTokens = (url: string, alt: string = '') => {
       const mediaSingleOpen = new State.Token('media_single_open', '', 1);
       const media = new State.Token('media', '', 0);
       media.attrs = [
         ['url', getUrl(url)],
         ['type', 'external'],
+        ['alt', alt],
       ];
       const mediaSingleClose = new State.Token('media_single_close', '', -1);
 
@@ -88,7 +89,8 @@ function createRule() {
     let processedTokens: string[] = [];
     const newTokens = State.tokens.reduce(
       (tokens: Token[], token: Token, i: number, arr: Token[]) => {
-        if (token.type === 'inline' && regx.test(token.content)) {
+        const matchAll = Array.from(token.content.matchAll(regx));
+        if (token.type === 'inline' && matchAll.length) {
           const openingTokens: Token[] = [];
           let cursor = i - 1;
           let previousToken = arr[cursor];
@@ -121,13 +123,14 @@ function createRule() {
             )
             .reverse();
 
-          const matches = token.content.match(regx)!;
           let inlineContentStack = token.content;
-          matches.forEach((match) => {
-            const start = inlineContentStack.indexOf(match);
+
+          matchAll.forEach((match, j) => {
+            const [matchString, alt, url] = match;
+            const start = inlineContentStack.indexOf(matchString);
             const contentBefore = inlineContentStack.substr(0, start);
             inlineContentStack = inlineContentStack.substr(
-              start + match.length,
+              start + matchString.length,
             );
 
             subTree = [
@@ -137,10 +140,9 @@ function createRule() {
                 openingTokens,
                 closingTokens,
               ),
-              ...createMediaTokens(match),
+              ...createMediaTokens(url, alt),
             ];
           });
-
           if (inlineContentStack.length) {
             subTree = [
               ...subTree,

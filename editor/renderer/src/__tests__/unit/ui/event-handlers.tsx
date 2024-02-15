@@ -1,51 +1,15 @@
-jest.mock('@atlaskit/media-client', () => {
-  const { ReplaySubject } = require('rxjs/ReplaySubject');
-  const fileState = {
-    status: 'processed',
-    id: '08640f60-0122-11eb-adc1-0242ac120002',
-    name: 'name',
-    size: 1,
-    artifacts: {},
-    mediaType: 'doc',
-    mimeType: 'application/pdf',
-  };
-  return {
-    ...jest.requireActual<Object>('@atlaskit/media-client'),
-    getCurrentState: () => {
-      return Promise.resolve(fileState);
-    },
-    withMediaClient: (Component: any) => (props: any) => {
-      const fileStateSubject = new ReplaySubject(1);
-      fileStateSubject.next(fileState);
-      const mediaClient = {
-        file: {
-          getFileState: jest.fn().mockReturnValue(fileStateSubject),
-        },
-      };
-
-      return <Component {...props} mediaClient={mediaClient} />;
-    },
-    getMediaClient: () => {
-      const client = {
-        file: {
-          getFileState: jest.fn().mockReturnValue({}),
-          getCurrentState: () => fileState,
-        },
-      };
-
-      return client;
-    },
-  };
-});
-
 import React from 'react';
-import { ReactWrapper } from 'enzyme';
-import Renderer, { Props } from '../../../ui/Renderer';
+import type { ReactWrapper } from 'enzyme';
+import type { Props } from '../../../ui/Renderer';
+import Renderer from '../../../ui/Renderer';
 import { IntlProvider } from 'react-intl-next';
 import { render } from '@testing-library/react';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';
+import {
+  exampleMediaFeatureFlags,
+  fakeMediaClient,
+} from '@atlaskit/media-test-helpers';
 import initialDoc from '../../__fixtures__/event-handlers.adf.json';
+import { MediaClientContext } from '@atlaskit/media-client-react';
 
 jest.mock('react-lazily-render', () => {
   let isOnRenderCalled = false;
@@ -62,25 +26,12 @@ jest.mock('react-lazily-render', () => {
   };
 });
 
-const mediaProvider = Promise.resolve({
-  viewMediaClientConfig: {
-    authProvider: () =>
-      Promise.resolve({
-        clientId: '',
-        token: '',
-        baseUrl: '',
-      }),
-  },
-});
-const providerFactory = ProviderFactory.create({ mediaProvider });
-
 describe('@atlaskit/renderer/event-handlers', () => {
   let renderer: ReactWrapper;
 
   const initRendererTestingLibrary = (doc: any, props: Partial<Props> = {}) => {
     const finalProps: Props = {
       document: doc,
-      dataProviders: providerFactory,
       media: {
         allowLinking: true,
         featureFlags: exampleMediaFeatureFlags,
@@ -89,7 +40,9 @@ describe('@atlaskit/renderer/event-handlers', () => {
     };
     return render(
       <IntlProvider locale="en">
-        <Renderer {...finalProps} />
+        <MediaClientContext.Provider value={fakeMediaClient()}>
+          <Renderer {...finalProps} />
+        </MediaClientContext.Provider>
       </IntlProvider>,
     );
   };

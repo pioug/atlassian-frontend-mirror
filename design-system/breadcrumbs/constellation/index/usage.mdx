@@ -10,11 +10,19 @@ Use breadcrumbs for nested navigation, with each item acting as a link. They sho
 
 ## Anatomy
 
-![Breadcrumbs Anatomy](../images/breadcrumbs-anatomy.png)
+![A diagram showing the position of parts of a breadcrumb component. A caption follows this image.](../images/breadcrumbs-anatomy.png)
 
 1. **Item name:** The section or page within the product, usually a link.
-2. **Separator:** Provides a visual distinction between individual entities using the same font as the rest of the breadcrumbs.
-3. **Graphical elements:** Some entities may have an icon or avatar before or after the entity name that is part of the corresponding page title.
+2. **Separator:** The separator is positioned between each item in the list. It provides visual distinction between individual links using the same font as the rest of the breadcrumbs. Usually a forward slash symbol `/`.
+3. **Icon or avatar (optional):** Some links may have an icon or avatar before or after the corresponding page title.
+
+## Accessibility
+
+- Separators should have the same level of color contrast as the surrounding text.
+- Separator characters should not be announced by screen readers.
+- When additional breadcrumbs are collapsed into an ellipses, this is treated as a single list item for assistive technologies. The default label is ‘Show more breadcrumbs’.
+- Use `isNavigation={false}` for any instances of breadcrumbs that aren't used for main navigation areas, like a listing of search results, to reduce noise for users of assistive technologies.
+- Make sure your breadcrumb items reflect the page or product section titles exactly for screen readers.
 
 ## Best practices
 
@@ -24,11 +32,6 @@ Use breadcrumbs for nested navigation, with each item acting as a link. They sho
 - Make sure breadcrumbs don’t visually overwhelm the page.
 - Place breadcrumbs at the top left corner of the screen, above the page title.
 - In product, avoid using the topmost level of the hierarchy unless the navigation sidebar is collapsed.
-
-## Accessibility
-
-- Use `isNavigation={false}` for any instances of breadcrumbs that aren't used for main navigation areas, like a listing of search results, to reduce noise for users of assistive technologies.
-- Make sure your breadcrumb items reflect the page or product section titles exactly for screen readers.
 
 ## Server
 

@@ -1,13 +1,15 @@
+import React from 'react';
+
+import { fireEvent, render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { render, screen } from '@testing-library/react';
-import React from 'react';
-import { IntlProvider } from 'react-intl-next';
-import Editor from '../../../editor';
-import { ComposableEditor } from '../../../composable-editor';
 
-import CollapsedEditor from '../../../ui/CollapsedEditor';
+import { ComposableEditor } from '../../../composable-editor';
+import Editor from '../../../editor';
 import createUniversalPreset from '../../../presets/universal';
+import CollapsedEditor from '../../../ui/CollapsedEditor';
 
 describe('CollapsedEditor', () => {
   it('should load even if IntlProvider is not provided', () => {
@@ -52,7 +54,10 @@ describe('CollapsedEditor', () => {
         <Editor />
       </CollapsedEditor>,
     );
-    screen.getByRole('textbox').focus();
+    const textbox = screen.getByRole('textbox');
+    textbox.focus();
+    // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+    fireEvent.focusIn(textbox);
     expect(onFocus).toHaveBeenCalledTimes(1);
   });
 
@@ -143,7 +148,10 @@ describe('CollapsedEditor with ComposableEditor', () => {
         <ComposableEditor preset={preset} />
       </CollapsedEditor>,
     );
-    screen.getByRole('textbox').focus();
+    const textbox = screen.getByRole('textbox');
+    textbox.focus();
+    // TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
+    fireEvent.focusIn(textbox);
     expect(onFocus).toHaveBeenCalledTimes(1);
   });
 

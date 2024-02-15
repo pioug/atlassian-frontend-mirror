@@ -32,6 +32,25 @@ const ExperienceContext = createContext<ExperienceContextValue>({
 });
 
 /**
+ * Error message matches to ignore
+ * These should not affect our SLOs as there's nothing we can do about them
+ */
+const IGNORE_ERROR_MESSAGES = [/failed to fetch/i];
+
+/**
+ * Returns false for errors that should not be considered failures of our SLO
+ * because they are failures only the user can handle.
+ */
+const isErrorSLOFailure = (error: unknown) => {
+  if (error instanceof Error) {
+    if (IGNORE_ERROR_MESSAGES.some(msg => msg.test(error.message))) {
+      return false;
+    }
+  }
+  return true;
+};
+
+/**
  * Experience provider that simply keeps track of the state of the experience.
  * Fires an operational event when experience state changes to FAILED.
  */
@@ -57,11 +76,20 @@ export const Experience = ({ children }: ExperienceProps) => {
          * Always capture an event to Splunk
          */
         createAnalyticsEvent(
-          createEventPayload('operational.operation.failed.linkCreate', {
+          createEventPayload('operational.linkCreateExperience.failed', {
             /**
              * The type of error that has failed the experience
              */
             errorType: getErrorType(error),
+            /**
+             * Error message if instanceof Error
+             */
+            errorMessage:
+              getBooleanFF(
+                'platform.linking-platform.link-create.tmp-log-error-message',
+              ) && error instanceof Error
+                ? error.message
+                : null,
             /**
              * The current status of the experience (has failed)
              */
@@ -71,6 +99,14 @@ export const Experience = ({ children }: ExperienceProps) => {
              * has just failed now, or has already failing
              */
             previousExperienceStatus: experience.current,
+            /**
+             * Whether the failure should be involved when considering SLI/SLO
+             */
+            isSLOFailure: getBooleanFF(
+              'platform.linking-platform.link-create.slo-ignore-failed-fetch',
+            )
+              ? isErrorSLOFailure(error)
+              : true,
             /**
              * Fields related to `Response` object that can help with debugging
              * what has gone wrong
@@ -90,8 +126,26 @@ export const Experience = ({ children }: ExperienceProps) => {
           }
         }
 
-        if (experience.current !== experienceStatus) {
-          experience.current = experienceStatus;
+        if (
+          getBooleanFF(
+            'platform.linking-platform.link-create.slo-ignore-failed-fetch',
+          )
+        ) {
+          /**
+           * Only consider the experience truly failed if the
+           * failure is one we haven't correctly handled.
+           *
+           * In otherwords allow the experience to be "restarted" for the user to try again
+           */
+          if (isErrorSLOFailure(error)) {
+            if (experience.current !== experienceStatus) {
+              experience.current = experienceStatus;
+            }
+          }
+        } else {
+          if (experience.current !== experienceStatus) {
+            experience.current = experienceStatus;
+          }
         }
       },
     }),

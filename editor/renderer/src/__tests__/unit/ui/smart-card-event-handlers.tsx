@@ -6,10 +6,11 @@ jest.mock('react-lazily-render', () => ({
 }));
 
 import React from 'react';
-import { ReactWrapper } from 'enzyme';
-import Renderer, { Props } from '../../../ui/Renderer';
+import type { ReactWrapper } from 'enzyme';
+import type { Props } from '../../../ui/Renderer';
+import Renderer from '../../../ui/Renderer';
 import { IntlProvider } from 'react-intl-next';
-import { render } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { cardClient } from '@atlaskit/media-integration-test-helpers';
 
@@ -93,7 +94,7 @@ describe('@atlaskit/renderer/event-handlers', () => {
       const mockCardEventClickHandler = jest.fn();
       const mockLinkEventClickHandler = jest.fn();
       const mockSmartCardEventClickHandler = jest.fn();
-      const { findByTestId } = initRendererTestingLibrary(initialDoc, {
+      initRendererTestingLibrary(initialDoc, {
         eventHandlers: {
           onUnhandledClick: mockOnUnhandledClickHandler,
           mention: {
@@ -112,7 +113,9 @@ describe('@atlaskit/renderer/event-handlers', () => {
           },
         },
       });
-      const smartCard = await findByTestId('inline-card-resolving-view');
+      const smartCard = await waitFor(() =>
+        screen.findByTestId('inline-card-resolving-view'),
+      );
 
       smartCard.click();
 

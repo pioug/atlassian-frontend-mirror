@@ -532,6 +532,22 @@ describe('SlackTransformer: serializer', () => {
         ),
       ).toEqual('[inline file attached]');
     });
+
+    it('should be serialized to an inline image', () => {
+      expect(
+        markdownSerializer.serialize(
+          doc(
+            p(
+              mediaInline({
+                type: 'image',
+                collection: 'test',
+                id: 'media-id',
+              })(),
+            ),
+          )(defaultSchema),
+        ),
+      ).toEqual('[inline image attached]');
+    });
   });
 
   describe('blockquotes', () => {
@@ -544,6 +560,16 @@ describe('SlackTransformer: serializer', () => {
           doc(blockquote(p('foo')), blockquote(p('bar')))(defaultSchema),
         ),
       ).toEqual('> foo\n\n> bar');
+    });
+
+    it('should serialize list inside blockquote', () => {
+      expect(
+        markdownSerializer.serialize(
+          doc(blockquote(ul(li(p('list item 1')), li(p('list item 2')))))(
+            defaultSchema,
+          ),
+        ),
+      ).toEqual('> • list item 1\n> • list item 2\n> \n');
     });
   });
 

@@ -12,7 +12,7 @@ export default function IntlMessagesProvider({
   defaultMessages,
 }: IntlMessagesProviderProps) {
   const intl = useIntl();
-  const messages = useMessages(intl.locale, loaderFn, defaultMessages);
+  const messages = useMessages(intl.locale, loaderFn);
 
   /**
    * IntlProvider does not inherit from upstream IntlProviders,
@@ -20,8 +20,8 @@ export default function IntlMessagesProvider({
    * This prevents the missing messages error
    */
   const mergedMessages = useMemo(() => {
-    return { ...intl.messages, ...messages };
-  }, [intl, messages]);
+    return { ...defaultMessages, ...intl.messages, ...messages };
+  }, [intl, messages, defaultMessages]);
 
   return (
     <IntlProvider

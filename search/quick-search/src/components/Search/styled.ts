@@ -18,7 +18,7 @@ export const SearchFieldBaseOuter = styled.div`
   display: flex;
   flex: 1;
   margin-right: auto;
-  padding-bottom: 2px;
+  padding-bottom: ${token('space.025', '2px')};
   border-bottom: 2px solid ${B200};
 `;
 

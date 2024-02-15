@@ -3,7 +3,7 @@ import { forwardRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import { IconButton } from '@atlaskit/button/new';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -40,11 +40,12 @@ export default () => {
       popupComponent={CustomPopupContainer}
       content={() => <div css={contentStyles} />}
       trigger={(triggerProps) => (
-        <Button
+        <IconButton
           {...triggerProps}
           isSelected={isOpen}
           onClick={() => setIsOpen(!isOpen)}
-          iconBefore={<MoreIcon label="More" />}
+          label="More"
+          icon={MoreIcon}
         />
       )}
     />

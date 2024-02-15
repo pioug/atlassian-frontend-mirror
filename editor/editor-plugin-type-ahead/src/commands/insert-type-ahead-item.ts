@@ -29,7 +29,7 @@ const validateNode = ({
   maybeNode,
 }: {
   schema: Schema;
-  maybeNode: any;
+  maybeNode: PMNode | Object | string | Fragment | undefined;
 }): PMNode | Fragment | null => {
   if (!maybeNode) {
     return null;

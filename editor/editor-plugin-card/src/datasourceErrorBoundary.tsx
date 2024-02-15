@@ -8,12 +8,14 @@ import type { APIError } from '@atlaskit/smart-card';
 import type { DatasourceProps } from './nodeviews/datasource';
 import { setSelectedCardAppearance } from './pm-plugins/doc';
 
-export class DatasourceErrorBoundary extends React.Component<{
+export type DatasourceErrorBoundaryProps = {
   url?: string;
   unsupportedComponent?: React.ComponentType;
   handleError?: () => void;
   view: DatasourceProps['view'];
-}> {
+};
+
+export class DatasourceErrorBoundary extends React.Component<DatasourceErrorBoundaryProps> {
   state = {
     isError: false,
   };

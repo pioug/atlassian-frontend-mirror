@@ -1,5 +1,23 @@
 # @atlaskit/width-detector
 
+## 4.1.8
+
+### Patch Changes
+
+- [#65956](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65956) [`8184b1c5ea61`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8184b1c5ea61) - Migrate @atlaskit/width-detector to use declarative entry points
+
+## 4.1.7
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 4.1.6
+
+### Patch Changes
+
+- [#57118](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57118) [`b9bd80957181`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9bd80957181) - Upgrade Emotion v10 (@emotion/core) to Emotion v11 (@emotion/react). No behaviour change expected.
+
 ## 4.1.5
 
 ### Patch Changes

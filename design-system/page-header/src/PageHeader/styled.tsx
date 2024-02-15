@@ -9,6 +9,7 @@ import React, { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { Box, xcss } from '@atlaskit/primitives';
 import { h700 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
@@ -23,8 +24,8 @@ const outerStyles = css({
 });
 
 const styledTitleStyles = css({
-  marginTop: 0,
   lineHeight: token('font.lineHeight.500', '32px'),
+  marginBlockStart: 0,
   outline: 'none',
 });
 
@@ -41,17 +42,17 @@ const titleWrapperTruncateStyles = css({
 const titleContainerStyles = css({
   minWidth: 0,
   maxWidth: '100%',
-  marginBottom: token('space.100', '8px'),
   flex: '1 0 auto',
   flexShrink: undefined,
+  marginBlockEnd: token('space.100', '8px'),
 });
 
 const actionStyles = css({
   maxWidth: '100%',
-  marginBottom: token('space.100', '8px'),
-  marginLeft: 'auto',
-  paddingLeft: token('space.400', '32px'),
   flex: '0 0 auto',
+  marginBlockEnd: token('space.100', '8px'),
+  marginInlineStart: 'auto',
+  paddingInlineStart: token('space.400', '32px'),
   whiteSpace: 'nowrap',
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '>': {
@@ -63,12 +64,12 @@ const titleContainerTruncateStyles = css({
   flexShrink: 1,
 });
 
-const bottomBarStyles = css({
-  marginTop: token('space.200', '16px'),
+const bottomBarStyles = xcss({
+  marginBlockStart: 'space.200',
 });
 
 /**
- * __Outer wrapper__
+ * __Outer wrapper__.
  *
  * An outer wrapper that is the outermost component of the PageHeader component. It wraps around the PageHeader, its Actions,
  * the BottomBar and its Breadcrumbs.
@@ -88,7 +89,7 @@ interface StyledTitleWrapperProps {
 }
 
 /**
- * __Styled title wrapper__
+ * __Styled title wrapper__.
  *
  * A styled title wrapper is a wrapper around the title that controls its the styles exclusively.
  *
@@ -115,7 +116,7 @@ interface TitleProps {
 }
 
 /**
- * __Title wrapper__
+ * __Title wrapper__.
  *
  * A title wrapper is a wrapper around the title and the actions.
  *
@@ -131,7 +132,7 @@ export const TitleWrapper = ({ children, truncateTitle }: TitleProps) => {
 };
 
 /**
- * Title container
+ * Title container.
  *
  * A title container is a container that wraps around the title and its styles (if applied).
  *
@@ -150,7 +151,7 @@ export const TitleContainer = ({ children, truncateTitle }: TitleProps) => {
 };
 
 /**
- * __Actions wrapper__
+ * __Actions wrapper__.
  *
  * An actions wrapper is a wrapper for the actions, which appear on the top right of the PageHeader component.
  *
@@ -160,11 +161,11 @@ export const ActionsWrapper = ({ children }: { children: ReactNode }) => {
 };
 
 /**
- * __Bottom bar wrapper__
+ * __Bottom bar wrapper__.
  *
  * A bottom bar wrapper is a wrapper for the bottom bar, which appears at the bottom of the PageHeader component.
  *
  */
 export const BottomBarWrapper = ({ children }: { children: ReactNode }) => {
-  return <div css={bottomBarStyles}>{children}</div>;
+  return <Box xcss={bottomBarStyles}>{children}</Box>;
 };

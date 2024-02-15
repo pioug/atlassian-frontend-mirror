@@ -16,7 +16,11 @@ import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CardContext } from '@atlaskit/link-provider';
-import type { APIError, CardPlatform } from '@atlaskit/smart-card';
+import type {
+  APIError,
+  CardProps as BaseCardProps,
+  CardPlatform,
+} from '@atlaskit/smart-card';
 
 import type { cardPlugin } from '../index';
 import { changeSelectedCardToLinkFallback } from '../pm-plugins/doc';
@@ -42,7 +46,13 @@ export interface CardProps extends CardNodeViewProps {
   allowResizing?: boolean;
   fullWidthMode?: boolean;
   useAlternativePreloader?: boolean;
+  /**
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6348 Internal documentation for deprecation (no external access)}
+   *
+   * Prefer `actionOptions` prop.
+   */
   showServerActions?: boolean;
+  actionOptions?: BaseCardProps['actionOptions'];
   pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
   isOverlayEnabled?: boolean;
   isPulseEnabled?: boolean;

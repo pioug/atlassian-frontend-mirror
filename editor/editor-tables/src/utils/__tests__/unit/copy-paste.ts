@@ -291,4 +291,25 @@ describe('insertCells', () => {
     );
     test(table, paste, expected);
   });
+
+  it('should spread paste containing end merged cell', () => {
+    const table = createTable(
+      tr(cEmpty, cEmpty, cEmpty),
+      tr(cAnchor, cEmpty, cEmpty),
+      tr(cEmpty, cEmpty, cEmpty),
+    );
+    const paste = createTable(
+      '{a}',
+      tr(c(1, 1, p('a')), c(1, 1, p('b')), c(1, 2, p('c'))),
+      tr(c(1, 1, p('d')), c(1, 1, p('e'))),
+      '{b}',
+    );
+    const result = createTable(
+      tr(cEmpty, cEmpty, cEmpty),
+      tr(c(1, 1, p('a')), c(1, 1, p('b')), c(1, 2, p('c'))),
+      tr(c(1, 1, p('d')), c(1, 1, p('e'))),
+    );
+
+    test(table, paste, result);
+  });
 });

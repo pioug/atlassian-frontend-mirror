@@ -14,7 +14,6 @@ import {
   akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type { SharedTableProps } from './types';
 import { isTableResizingEnabled } from '../table';
 
@@ -115,25 +114,15 @@ const renderScaleDownColgroup = (
     !isInsideOfBlockNode &&
     !tableResized
   ) {
-    if (
-      getBooleanFF(
-        'platform.editor.custom-table-width-scale-down-undefined-column_nkyvx',
-      )
-    ) {
-      // for tables with no column widths defined, assume that the real table width
-      // is defined by node.attrs.width
-      const tableWidth =
-        (isNumberColumnEnabled
-          ? tableContainerWidth - akEditorTableNumberColumnWidth
-          : tableContainerWidth) - 1;
+    // for tables with no column widths defined, assume that the real table width
+    // is defined by node.attrs.width
+    const tableWidth =
+      (isNumberColumnEnabled
+        ? tableContainerWidth - akEditorTableNumberColumnWidth
+        : tableContainerWidth) - 1;
 
-      const defaultColumnWidth = tableWidth / noOfColumns;
-      targetWidths = new Array(noOfColumns).fill(defaultColumnWidth);
-    } else {
-      return new Array(noOfColumns).fill({
-        minWidth: `${tableCellMinWidth}px`,
-      });
-    }
+    const defaultColumnWidth = tableWidth / noOfColumns;
+    targetWidths = new Array(noOfColumns).fill(defaultColumnWidth);
   } else if (!tableResized) {
     return null;
   }
@@ -143,13 +132,6 @@ const renderScaleDownColgroup = (
   // @see ED-6056
   const maxTableWidth =
     renderWidth < tableContainerWidth ? renderWidth : tableContainerWidth;
-
-  const targetWidth =
-    !getBooleanFF(
-      'platform.editor.disable-default-width-table-scaling-renderer',
-    ) && layout === 'default'
-      ? Math.min(renderWidth, tableContainerWidth)
-      : renderWidth;
 
   let tableWidth = isNumberColumnEnabled ? akEditorTableNumberColumnWidth : 0;
   let minTableWidth = tableWidth;
@@ -178,9 +160,9 @@ const renderScaleDownColgroup = (
     }
   }
   // scaling down
-  else if (targetWidth < tableWidth) {
+  else if (renderWidth < tableWidth) {
     scaleDownPercent = calcScalePercent({
-      renderWidth: targetWidth,
+      renderWidth,
       tableWidth,
       maxScale: MAX_SCALING_PERCENT,
     });

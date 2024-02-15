@@ -1,9 +1,10 @@
 import {
-  EditorTableModel,
   EditorNodeContainerModel,
-  editorTestCase as test,
+  EditorTableModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
+
 import { simpleTable } from './__fixtures__/base-adfs';
 
 test.use({

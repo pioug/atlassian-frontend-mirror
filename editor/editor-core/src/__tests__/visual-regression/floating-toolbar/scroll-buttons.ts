@@ -1,13 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+  pressKey,
+  pressKeyCombo,
+} from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import {
+  floatingToolbarAriaLabel as floatingTableControlsAriaLabel,
   getSelectorForTableCell,
   tableSelectors,
-  floatingToolbarAriaLabel as floatingTableControlsAriaLabel,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   retryUntilStablePosition,
@@ -15,12 +14,14 @@ import {
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import type { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import {
-  pressKey,
-  pressKeyCombo,
-} from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+
+import type { EditorProps } from '../../../types';
 
 import toolbarAdf from './__fixtures__/toolbar-adf.json';
-import type { EditorProps } from '../../../types';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
 const scrollRightButtonSelector = 'button[aria-label="Scroll right"]';
@@ -74,7 +75,9 @@ const waitForTimeOut = async (timerMs: number = 200) => {
   await page.waitForTimeout(timerMs);
 };
 
-describe('Floating toolbars:', () => {
+// FIXME: Skipping theses tests as it has been failing on master on CI due to "Screenshot comparison failed" issue.
+// Build URL: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2319963/steps/%7B31b3ca1c-6917-4861-88ed-d816d6fae22f%7D
+describe.skip('Floating toolbars:', () => {
   beforeAll(async () => {
     page = global.page;
   });

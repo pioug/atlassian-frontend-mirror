@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/smart-user-picker",
-  "version": "6.3.0",
+  "version": "6.7.0",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "description": "Pick users from a ranked user list based on provided context",
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -28,12 +28,15 @@
   "atlassian": {
     "team": "Search Platform: Search Experience",
     "inPublicMirror": false,
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ]
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.1.0",
+    "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/ufo": "^0.2.0",
-    "@atlaskit/user-picker": "^10.12.0",
+    "@atlaskit/user-picker": "^10.16.0",
     "@babel/runtime": "^7.0.0",
     "lodash": "^4.17.21",
     "memoize-one": "^6.0.0",
@@ -45,11 +48,10 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/select": "^17.0.0",
-    "@atlaskit/util-data-test": "^17.8.0",
+    "@atlaskit/select": "^17.1.0",
+    "@atlaskit/util-data-test": "^17.9.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
-    "enzyme-react-intl": "^2.0.6",
     "fetch-mock": "^8.0.0",
     "graphql-tag": "^2.10.1",
     "mock-apollo-client": "^0.1.0",

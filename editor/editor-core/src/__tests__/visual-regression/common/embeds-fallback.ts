@@ -1,14 +1,15 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
   initFullPageEditorWithAdf,
+  snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import adf from './__fixtures__/embeds-fallback.adf.json';
-import erroredViewAdf from './__fixtures__/embeds-errored.adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import { waitForBlockCardSelection } from '@atlaskit/media-integration-test-helpers';
 import { evaluateTeardownMockDate } from '@atlaskit/visual-regression/helper';
+
+import erroredViewAdf from './__fixtures__/embeds-errored.adf.json';
+import adf from './__fixtures__/embeds-fallback.adf.json';
 
 describe('Embed Cards:', () => {
   it('falls back to block card', async () => {

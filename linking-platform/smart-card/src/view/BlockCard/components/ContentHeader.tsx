@@ -8,6 +8,12 @@ export interface ContentHeaderProps {
   children: React.ReactNode;
 }
 
+/**
+ * Class name for selecting non-flexible block card header
+ *
+ * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-6878 Internal documentation for deprecation (no external access)}
+ * Using this selctor is deprecated as once the flexible block card feature flag is removed, this class will no longer be used.
+ */
 export const blockCardContentHeaderClassName = 'block-card-content-header';
 
 export const ContentHeader = ({

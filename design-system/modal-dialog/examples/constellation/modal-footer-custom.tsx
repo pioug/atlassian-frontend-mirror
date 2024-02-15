@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -31,7 +31,7 @@ const wrapperStyles = css({
   cursor: 'help',
 });
 
-const marginLeftStyles = css({ marginLeft: token('space.200', '16px') });
+const marginLeftStyles = css({ marginInlineStart: token('space.200', '16px') });
 
 const CustomFooter = () => {
   const [isHintOpen, setIsHintOpen] = useState(false);

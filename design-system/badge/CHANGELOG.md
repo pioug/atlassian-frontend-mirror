@@ -1,5 +1,23 @@
 # @atlaskit/badge
 
+## 15.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.2.1
+
+### Patch Changes
+
+- [#60167](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60167) [`ae0930df4bfa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae0930df4bfa) - Renamed supportReact18 to runReact18
+
+## 15.2.0
+
+### Minor Changes
+
+- [#57070](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57070) [`42ba4ac39529`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/42ba4ac39529) - Badge now uses height: min-content so it doesn't stretch when directly used as a flex / grid item.
+
 ## 15.1.16
 
 ### Patch Changes

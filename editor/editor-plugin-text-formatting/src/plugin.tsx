@@ -14,7 +14,6 @@ import type {
   TextFormattingOptions,
   TextFormattingState,
 } from '@atlaskit/editor-common/types';
-import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 import {
@@ -40,7 +39,7 @@ import {
   pluginKey as textFormattingPluginKey,
 } from './pm-plugins/main';
 import textFormattingSmartInputRulePlugin from './pm-plugins/smart-input-rule';
-import Toolbar from './ui/Toolbar';
+import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
 
 export type TextFormattingPlugin = NextEditorPlugin<
   'textFormatting',
@@ -128,7 +127,11 @@ export const textFormattingPlugin: TextFormattingPlugin = ({
     if (!editorState) {
       return undefined;
     }
-    return textFormattingPluginKey.getState(editorState);
+    return {
+      ...textFormattingPluginKey.getState(editorState),
+      formattingIsPresent:
+        clearFormattingPluginKey.getState(editorState)?.formattingIsPresent,
+    };
   },
 
   primaryToolbarComponent({
@@ -140,28 +143,15 @@ export const textFormattingPlugin: TextFormattingPlugin = ({
     disabled,
   }) {
     return (
-      <WithPluginState
-        plugins={{
-          textFormattingState: textFormattingPluginKey,
-          clearFormattingPluginState: clearFormattingPluginKey,
-        }}
-        render={() => {
-          return (
-            <Toolbar
-              editorState={editorView.state}
-              popupsMountPoint={popupsMountPoint}
-              popupsScrollableElement={popupsScrollableElement}
-              toolbarSize={toolbarSize}
-              isReducedSpacing={isToolbarReducedSpacing}
-              editorView={editorView}
-              isToolbarDisabled={disabled}
-              shouldUseResponsiveToolbar={Boolean(
-                options?.responsiveToolbarMenu,
-              )}
-              editorAnalyticsAPI={api?.analytics?.actions}
-            />
-          );
-        }}
+      <PrimaryToolbarComponent
+        api={api}
+        popupsMountPoint={popupsMountPoint}
+        popupsScrollableElement={popupsScrollableElement}
+        toolbarSize={toolbarSize}
+        isReducedSpacing={isToolbarReducedSpacing}
+        editorView={editorView}
+        disabled={disabled}
+        shouldUseResponsiveToolbar={Boolean(options?.responsiveToolbarMenu)}
       />
     );
   },

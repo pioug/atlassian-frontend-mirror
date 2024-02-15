@@ -70,7 +70,8 @@ describe('dropdown menu button accessibility', () => {
       ).toBe(true);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 31/08/2023: https://product-fabric.atlassian.net/browse/ED-19808
+    // FIXME: Skipping this test as it is flaky
+    // Build link: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2287979
     it.skip('should shift focus to indent button when bullet lists disable the button', async () => {
       await clickQuerySelectorElement(page, 'li');
 
@@ -86,8 +87,7 @@ describe('dropdown menu button accessibility', () => {
       ).toBe(true);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 17/09/2023: https://product-fabric.atlassian.net/browse/ED-20075
-    it.skip('should shift focus to indent button when task lists disable the button', async () => {
+    it('should shift focus to indent button when task lists disable the button', async () => {
       await clickQuerySelectorElement(page, '.task-item', 1);
 
       await selectToolbarDropdownMenuItemWithKeyboard(

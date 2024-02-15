@@ -1,7 +1,8 @@
-import { editorTestCase as test, expect } from '@af/editor-libra';
-import { placeholderDocument } from './placeholder-text-default.spec.ts-fixtures/placeholder-document';
+import { expect, editorTestCase as test } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { placeholderDocument } from './placeholder-text-default.spec.ts-fixtures/placeholder-document';
 
 export const editable = '.ProseMirror';
 

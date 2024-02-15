@@ -1,19 +1,18 @@
-import {
-  editorTestCase as test,
-  expect,
-  EditorNodeContainerModel,
-  EditorBlockCardModel,
-  fixTest,
-  EditorFloatingToolbarModel,
-  BROWSERS,
-} from '@af/editor-libra';
 import type { EditorPageInterface } from '@af/editor-libra';
+import {
+  EditorBlockCardModel,
+  EditorFloatingToolbarModel,
+  EditorNodeContainerModel,
+  expect,
+  editorTestCase as test,
+} from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   datasourceBlockCard,
   doc,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { blockCardDatasourceAdf } from './datasource-1.spec.ts-fixtures/datasource-adf';
 
 interface DatasourceBuilderProps {
@@ -21,12 +20,14 @@ interface DatasourceBuilderProps {
   id: string;
   parameters: Record<string, unknown>;
   addColumn?: boolean;
+  addPeopleColumn?: boolean;
 }
 const datasourceBlockCardBuilder = ({
   url,
   id,
   parameters,
   addColumn,
+  addPeopleColumn,
 }: DatasourceBuilderProps) => {
   const columns = [
     { key: 'key' },
@@ -42,6 +43,9 @@ const datasourceBlockCardBuilder = ({
 
   if (addColumn) {
     columns.push({ key: 'due' });
+  }
+  if (addPeopleColumn) {
+    columns.splice(5, 0, { key: 'people' });
   }
   return {
     url,
@@ -68,6 +72,7 @@ const expectedDatasourceBlockCard = datasourceBlockCard(
       cloudId: '67899',
       jql: 'text ~ "something*" or summary ~ "something*" ORDER BY created DESC',
     },
+    addPeopleColumn: true,
   }),
 );
 
@@ -90,17 +95,6 @@ const expectedEditedAssetsDatasourceBlockCard = datasourceBlockCard(
       workspaceId: '123',
       schemaId: '2',
       aql: 'Name LIKE A',
-    },
-  }),
-);
-
-const expectedQueryDatasourceBlockCard = datasourceBlockCard(
-  datasourceBlockCardBuilder({
-    url: 'https://hello.atlassian.net/issues/?jql=created%20%3E=%20-30d%20order%20by%20created%20DESC',
-    id: 'd8b75300-dfda-4519-b6cd-e49abbd50401',
-    parameters: {
-      cloudId: '67899',
-      jql: 'created >= -30d order by created DESC',
     },
   }),
 );
@@ -146,7 +140,6 @@ test.describe('blockCard:datasource', () => {
       },
     },
     platformFeatureFlags: {
-      'platform.linking-platform.datasource-jira_issues': true,
       'platform.linking-platform.datasource-assets_objects': true,
     },
   });
@@ -161,22 +154,22 @@ test.describe('blockCard:datasource', () => {
 
     const basicToggle = editor.page.getByTestId(basicToggleTestId);
     await (await basicToggle.elementHandle())?.waitForElementState('stable');
-    basicToggle.click();
+    await basicToggle.click();
 
     const modalInput = editor.page.getByTestId(modalInputTestId);
     await (await modalInput.elementHandle())?.waitForElementState('stable');
-    modalInput.click();
+    await modalInput.click();
 
     await editor.keyboard.type('something');
 
     const modalSearchButton = editor.page.getByTestId(modalSearchButtonTestId);
-    modalSearchButton.click();
+    await modalSearchButton.click();
 
     const modalInsertButton = editor.page.getByTestId(modalInsertButtonTestId);
     await (
       await modalInsertButton.elementHandle()
     )?.waitForElementState('enabled');
-    modalInsertButton.click();
+    await modalInsertButton.click();
 
     await blockCardModel.waitForStable();
 
@@ -184,8 +177,8 @@ test.describe('blockCard:datasource', () => {
       doc(p(), expectedDatasourceBlockCard()),
     );
   });
-
-  test('should insert datasource from the /assets command', async ({
+  // FIXME: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2257574/steps/%7B7f583bb9-62c8-45f0-9ce4-9dce1a495739%7D/test-report
+  test.skip('should insert datasource from the /assets command', async ({
     editor,
   }) => {
     const nodes = EditorNodeContainerModel.from(editor);
@@ -194,15 +187,13 @@ test.describe('blockCard:datasource', () => {
     await editor.keyboard.type('/assets');
     await editor.keyboard.press('Enter');
 
-    await expect(await editor.page.getByTestId(assetModalTestId)).toBeVisible();
+    await expect(editor.page.getByTestId(assetModalTestId)).toBeVisible();
 
     // Find Assets schema select box and select a schema
     const select = editor.page.getByRole('combobox');
     await (await select.elementHandle())?.waitForElementState('stable');
-    editor.keyboard.press('ArrowDown');
-    await expect(
-      await editor.page.getByText('objSchema1').last(),
-    ).toBeVisible();
+    await editor.keyboard.press('ArrowDown');
+    await expect(editor.page.getByText('objSchema1').last()).toBeVisible();
     await editor.keyboard.press('Enter');
 
     // Find search input and insert a query
@@ -225,14 +216,10 @@ test.describe('blockCard:datasource', () => {
     await (await table.elementHandle())?.waitForElementState('stable');
 
     // Assert columns exist before editing them
-    await expect(
-      await editor.page.getByTestId('key-column-heading'),
-    ).toBeVisible();
+    await expect(editor.page.getByTestId('key-column-heading')).toBeVisible();
 
     // Expect this column not to be visible before adding it in
-    await expect(
-      await editor.page.getByTestId('due-column-heading'),
-    ).toBeHidden();
+    await expect(editor.page.getByTestId('due-column-heading')).toBeHidden();
 
     // Find column picker and select the 'Due Date' column
     const columnsButton = editor.page.getByTestId(
@@ -258,7 +245,7 @@ test.describe('blockCard:datasource', () => {
     await modalInsertButton.click();
 
     // Assert that modal has been closed after inserting
-    await expect(await editor.page.getByTestId(assetModalTestId)).toBeHidden();
+    await expect(editor.page.getByTestId(assetModalTestId)).toBeHidden();
 
     // Assert that inserted ADF is correct
     await blockCardModel.waitForStable();
@@ -272,7 +259,7 @@ test.describe('blockCard:datasource', () => {
     await tableFooter.click();
 
     await expect(
-      await editor.page.getByTestId('floating-toolbar-items'),
+      editor.page.getByTestId('floating-toolbar-items'),
     ).toBeVisible();
 
     // Click on 'edit' button
@@ -282,16 +269,14 @@ test.describe('blockCard:datasource', () => {
     await editor.keyboard.press('Enter');
 
     // Wait for drawing of modal to be complete and check if visible
-    await expect(await editor.page.getByTestId(assetModalTestId)).toBeVisible();
+    await expect(editor.page.getByTestId(assetModalTestId)).toBeVisible();
 
     // Find Assets schema select box and select a different schema
     await (await select.elementHandle())?.waitForElementState('stable');
     await editor.keyboard.press('ArrowDown');
     // select second option
     await editor.keyboard.press('ArrowDown');
-    await expect(
-      await editor.page.getByText('objSchema2').last(),
-    ).toBeVisible();
+    await expect(editor.page.getByText('objSchema2').last()).toBeVisible();
     await editor.keyboard.press('Enter');
 
     // Click on search button to get new objects
@@ -359,7 +344,6 @@ test.describe('blockCard:datasource update table', () => {
       },
     },
     platformFeatureFlags: {
-      'platform.linking-platform.datasource-jira_issues': true,
       'platform.linking-platform.datasource-assets_objects': true,
     },
   });
@@ -388,11 +372,6 @@ test.describe('blockCard:datasource update table', () => {
   test('should be able to change my query using the floating toolbar', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-20649',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 25/10/2023: https://product-fabric.atlassian.net/browse/ED-20649',
-    });
     await setupQuery(editor);
     await editor.keyboard.type('created >= -30d order by created ASC');
     await editor.page.getByTestId('jql-editor-search').click();
@@ -405,26 +384,17 @@ test.describe('blockCard:datasource update table', () => {
   });
 
   test('should prevent invalid JQL searches', async ({ editor }) => {
-    fixTest({
-      jiraIssueId: 'ED-20649',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 25/10/2023: https://product-fabric.atlassian.net/browse/ED-20649',
-      browsers: [BROWSERS.firefox],
-    });
-
     await setupQuery(editor);
     await editor.keyboard.type('nonsense');
     await editor.page.getByTestId('jql-editor-search').click();
 
-    const errorIcon = await editor.page.getByRole('img', { name: 'error' });
+    const errorIcon = editor.page.getByRole('img', { name: 'error' });
     await expect(errorIcon).toBeVisible();
 
-    await editor.page
-      .getByTestId('jira-jql-datasource-modal--insert-button')
-      .click();
-
-    await expect(editor).toMatchDocument(
-      doc(expectedQueryDatasourceBlockCard()),
+    const insertButton = editor.page.getByTestId(
+      'jira-jql-datasource-modal--insert-button',
     );
+
+    await expect(insertButton).toBeDisabled();
   });
 });

@@ -1,13 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  Appearance,
-  initEditorWithAdf,
-  snapshot,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import adf from './__fixtures__/date-adf.json';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
   clickOnDate,
   dateSelectors,
   waitForDatePicker,
@@ -15,18 +7,27 @@ import {
 } from '@atlaskit/editor-test-helpers/page-objects/date';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
+  animationFrame,
+  selectors,
+  typeInEditorAtEndOfDocument,
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { quickInsert } from '@atlaskit/editor-test-helpers/page-objects/extensions';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
   pressKey,
   pressKeyCombo,
 } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  animationFrame,
-  typeInEditorAtEndOfDocument,
-  selectors,
-} from '@atlaskit/editor-test-helpers/page-objects/editor';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { quickInsert } from '@atlaskit/editor-test-helpers/page-objects/extensions';
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { standardDateMockMillisUnixTime } from '@atlaskit/visual-regression/helper/mock-date';
+
+import adf from './__fixtures__/date-adf.json';
 
 const { dateInput, dateInputFocused } = dateSelectors;
 const defaultViewPort = { width: 600, height: 600 };
@@ -342,8 +343,7 @@ describe('Date:', () => {
       await snapshot(page);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/ED-18092
-    it.skip('should dismiss the picker when using keys to navigate away', async () => {
+    it('should dismiss the picker when using keys to navigate away', async () => {
       const adf = {
         version: 1,
         type: 'doc',

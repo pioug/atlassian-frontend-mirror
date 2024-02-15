@@ -2,13 +2,12 @@ import React from 'react';
 
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 
-import { UNSAFE_BUTTON } from '../../../../src';
-
+import Button from '../../../../src/new';
 const ButtonIconAfterExample = () => {
   return (
-    <UNSAFE_BUTTON iconAfter={StarFilledIcon} appearance="primary">
+    <Button iconAfter={StarFilledIcon} appearance="primary">
       Icon after
-    </UNSAFE_BUTTON>
+    </Button>
   );
 };
 

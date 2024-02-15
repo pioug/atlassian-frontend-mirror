@@ -11,6 +11,7 @@ import { token } from '@atlaskit/tokens';
 const baseStyles = xcss({
   display: 'inline-flex',
   borderRadius: 'border.radius',
+  blockSize: 'min-content',
   position: 'static',
   overflow: 'hidden',
 });

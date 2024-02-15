@@ -1,5 +1,71 @@
 # @atlaskit/codemod-cli
 
+## 0.18.0
+
+### Minor Changes
+
+- [#71146](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71146) [`3e20d00d3d46`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e20d00d3d46) - Moves tokens codemods into the tokens package.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.17.10
+
+### Patch Changes
+
+- [#69779](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69779) [`8dd71b2e0653`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8dd71b2e0653) - Updated bin property to string as the package name and bin name matches. https://yarnpkg.com/configuration/manifest#bin
+
+## 0.17.9
+
+### Patch Changes
+
+- [#67949](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67949) [`4ceb213f9313`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4ceb213f9313) - Migrate packages to use declarative entry points
+- Updated dependencies
+
+## 0.17.8
+
+### Patch Changes
+
+- [#62539](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62539) [`4055341131ca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4055341131ca) - Update button codemod to add type keywork for type imports
+
+## 0.17.7
+
+### Patch Changes
+
+- [#61900](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61900) [`101b5d5ef72a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/101b5d5ef72a) - Small changes in mixin migration - Use `token` instead of `theamed` to avoid migration to depricated code
+- [#62187](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62187) [`03bb58064010`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/03bb58064010) - Added a small bug-fix in button codemods: add TODO comment on default buttons with "link" or "subtle-link" appearance but without `href`
+
+## 0.17.6
+
+### Patch Changes
+
+- [#61943](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61943) [`dfdb42df4b4c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dfdb42df4b4c) - Now building the `@atlaskit/tokens` package when during `"prestart"` as tokens is required to be built for some of the patterns to run.
+
+## 0.17.5
+
+### Patch Changes
+
+- [#59501](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59501) [`2c30839b5156`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c30839b5156) - Button migration codemods- updated import path to the new entry point "@atlaskit/button/new"
+
+## 0.17.4
+
+### Patch Changes
+
+- [#59085](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59085) [`360ae69766f9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/360ae69766f9) - small fix in button migration codemod - don't move the size prop from icon if it is medium.
+
+## 0.17.3
+
+### Patch Changes
+
+- [#57531](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57531) [`18f167967f89`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/18f167967f89) - Handle button migrations with unsupported props.
+
+## 0.17.2
+
+### Patch Changes
+
+- [#56711](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56711) [`a48d9247ddb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a48d9247ddb2) - Small changes in button migration codemod - renamed UNSAFE_size to UNSAFE_iconBefore/iconAfter_size for new link and default buttons
+
 ## 0.17.1
 
 ### Patch Changes

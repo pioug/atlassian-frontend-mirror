@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import { ButtonGroup } from '@atlaskit/button';
 import type {
@@ -10,10 +10,10 @@ import {
   FloatingToolbarButton as Button,
   FloatingToolbarSeparator,
 } from '@atlaskit/editor-common/ui';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
-const containerStyles = css({
-  marginLeft: token('space.100', '8px'),
+const containerStyles = xcss({
+  marginLeft: 'space.100',
 });
 
 type Props = {
@@ -28,7 +28,7 @@ export const LayoutGroup = ({
   hide,
 }: Props) => {
   return (
-    <div css={containerStyles}>
+    <Box xcss={containerStyles}>
       <ButtonGroup>
         {layoutButtons.map((item, idx) => {
           switch (item.type) {
@@ -54,6 +54,6 @@ export const LayoutGroup = ({
           }
         })}
       </ButtonGroup>
-    </div>
+    </Box>
   );
 };

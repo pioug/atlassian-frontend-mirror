@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
@@ -207,6 +213,7 @@ export const ProfilecardInternal = (
               <Actions
                 actions={realActions}
                 fireAnalyticsWithDuration={fireAnalyticsWithDuration}
+                isTriggeredUsingKeyboard={props.isTriggeredUsingKeyboard}
               />
             </>
           )}
@@ -218,9 +225,14 @@ export const ProfilecardInternal = (
 
 interface ActionsProps extends AnalyticsWithDurationProps {
   actions: ProfileCardAction[];
+  isTriggeredUsingKeyboard: boolean | undefined;
 }
 
-const Actions = ({ actions, fireAnalyticsWithDuration }: ActionsProps) => {
+const Actions = ({
+  actions,
+  fireAnalyticsWithDuration,
+  isTriggeredUsingKeyboard,
+}: ActionsProps) => {
   const onActionClick = useCallback(
     (
       action: ProfileCardAction,
@@ -246,6 +258,13 @@ const Actions = ({ actions, fireAnalyticsWithDuration }: ActionsProps) => {
     [fireAnalyticsWithDuration],
   );
 
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (actions.length > 0 && buttonRef.current && isTriggeredUsingKeyboard) {
+      buttonRef.current.focus();
+    }
+  }, [isTriggeredUsingKeyboard, actions.length]);
+
   if (!actions || actions.length === 0) {
     return null;
   }
@@ -262,7 +281,10 @@ const Actions = ({ actions, fireAnalyticsWithDuration }: ActionsProps) => {
         const isKudos = action.id === GIVE_KUDOS_ACTION_ID;
 
         const button = (
-          <FocusRing isInset>
+          <FocusRing
+            isInset
+            key={`profile-card-action-focus-ring_${action.id || index}`}
+          >
             <Button
               appearance="default"
               key={action.id || index}
@@ -270,6 +292,7 @@ const Actions = ({ actions, fireAnalyticsWithDuration }: ActionsProps) => {
                 onActionClick(action, args, event, index)
               }
               href={action.link}
+              ref={index === 0 ? buttonRef : undefined}
             >
               {action.label}
               {isKudos && (
@@ -282,7 +305,13 @@ const Actions = ({ actions, fireAnalyticsWithDuration }: ActionsProps) => {
         );
 
         if (isKudos) {
-          return <AnimatedKudosButton>{button}</AnimatedKudosButton>;
+          return (
+            <AnimatedKudosButton
+              key={`profile-card-action-kudos_${action.id || index}`}
+            >
+              {button}
+            </AnimatedKudosButton>
+          );
         }
 
         return button;

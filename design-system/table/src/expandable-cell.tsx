@@ -3,7 +3,9 @@ import { memo, useCallback } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button';
+import { IconButton } from '@atlaskit/button/new';
+import ChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
+import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
 
 import useExpand from './hooks/use-expand';
 import * as Primitives from './ui';
@@ -23,13 +25,15 @@ const ExpandableCell = memo(() => {
 
   return (
     <Primitives.ExpandableCell as="td">
-      <Button
+      <IconButton
         spacing="compact"
         appearance="subtle"
-        iconAfter={<Primitives.ExpandIcon isExpanded={isExpanded} />}
+        icon={isExpanded ? ChevronUpIcon : ChevronDownIcon}
+        label="Expand row"
+        aria-label="Expand row"
+        UNSAFE_size="small"
         onClick={handleClick}
         aria-pressed={isExpanded}
-        aria-label="Expand row"
       />
     </Primitives.ExpandableCell>
   );

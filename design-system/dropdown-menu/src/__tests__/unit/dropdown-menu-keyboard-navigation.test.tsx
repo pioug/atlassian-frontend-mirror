@@ -4,7 +4,6 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { replaceRaf, Stub } from 'raf-stub';
 
 import { KEY_DOWN, KEY_END, KEY_HOME, KEY_UP } from '@atlaskit/ds-lib/keycodes';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../index';
 
@@ -501,52 +500,38 @@ describe('dropdown menu keyboard navigation', () => {
         </DropdownMenu>
       );
     };
-    // should have arrow navigation work
-    ffTest(
-      'platform.design-system-team.layering_popup_1cnzt',
-      // Test when true
-      () => {
-        render(<NestedDropdown />);
-        let level = 0;
-        while (level < 3) {
-          // test nested dropdown can be opened correctly
-          const nestedTrigger = screen.getByTestId(`nested-${level}--trigger`);
-          expect(nestedTrigger).toBeInTheDocument();
-          openDropdownWithKeydown(nestedTrigger);
-          level += 1;
-        }
-        const nestedTrigger = screen.getByTestId(`nested-${level}--trigger`);
-        expect(nestedTrigger).toHaveFocus();
-        // test on arrow navigation
-        fireEvent.keyDown(window, {
-          key: KEY_DOWN,
-          code: KEY_DOWN,
-        });
-        const nestedItem1 = screen.getByTestId(`nested-item1-${level}`);
-        expect(nestedItem1).toHaveFocus();
-
-        fireEvent.keyDown(window, {
-          key: KEY_DOWN,
-          code: KEY_DOWN,
-        });
-        const nestedItem2 = screen.getByTestId(`nested-item2-${level}`);
-        expect(nestedItem2).toHaveFocus();
-
-        fireEvent.keyDown(window, {
-          key: KEY_UP,
-          code: KEY_UP,
-        });
-        expect(nestedItem1).toHaveFocus();
-      },
-      () => {
-        render(<NestedDropdown />);
+    it('should have arrow navigation work', () => {
+      render(<NestedDropdown />);
+      let level = 0;
+      while (level < 3) {
         // test nested dropdown can be opened correctly
-        const nestedTrigger = screen.getByTestId('nested-0--trigger');
+        const nestedTrigger = screen.getByTestId(`nested-${level}--trigger`);
         expect(nestedTrigger).toBeInTheDocument();
         openDropdownWithKeydown(nestedTrigger);
-        const nestedItem1 = screen.getByTestId('nested-1--trigger');
-        expect(nestedItem1).toHaveFocus();
-      },
-    );
+        level += 1;
+      }
+      const nestedTrigger = screen.getByTestId(`nested-${level}--trigger`);
+      expect(nestedTrigger).toHaveFocus();
+      // test on arrow navigation
+      fireEvent.keyDown(window, {
+        key: KEY_DOWN,
+        code: KEY_DOWN,
+      });
+      const nestedItem1 = screen.getByTestId(`nested-item1-${level}`);
+      expect(nestedItem1).toHaveFocus();
+
+      fireEvent.keyDown(window, {
+        key: KEY_DOWN,
+        code: KEY_DOWN,
+      });
+      const nestedItem2 = screen.getByTestId(`nested-item2-${level}`);
+      expect(nestedItem2).toHaveFocus();
+
+      fireEvent.keyDown(window, {
+        key: KEY_UP,
+        code: KEY_UP,
+      });
+      expect(nestedItem1).toHaveFocus();
+    });
   });
 });

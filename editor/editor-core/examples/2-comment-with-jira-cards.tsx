@@ -2,13 +2,13 @@
 
 import React from 'react';
 
-import { ResolveResponse, CardAppearance } from '@atlaskit/smart-card';
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import type { CardAppearance, ResolveResponse } from '@atlaskit/smart-card';
 
-import { Editor } from './../src';
-import EditorContext from './../src/ui/EditorContext';
+import { Editor } from '../src';
+import EditorContext from '../src/ui/EditorContext';
 
 const jiraUrlMatch = /https?\:\/\/[a-zA-Z0-9]+\.atlassian\.net\/browse\//i;
 

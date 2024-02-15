@@ -1,5 +1,5 @@
 import { disconnectedReasonMapper } from '../disconnected-reason-mapper';
-import AnalyticsHelper from '../analytics/analytics-helper';
+import type AnalyticsHelper from '../analytics/analytics-helper';
 import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import { telepointerFromStep } from './telepointers-helper';
 import type {
@@ -9,14 +9,14 @@ import type {
   PresencePayload,
   TelepointerPayload,
 } from '../types';
-import {
+import type {
   CollabEventPresenceData,
   CollabTelepointerPayload,
   StepJson,
 } from '@atlaskit/editor-common/collab';
+import type { GetUserType } from './participants-helper';
 import {
   createParticipantFromPayload as enrichParticipant,
-  GetUserType,
   PARTICIPANT_UPDATE_INTERVAL,
 } from './participants-helper';
 import { ParticipantsState } from './participants-state';
@@ -127,7 +127,10 @@ export class ParticipantsService {
       });
     } catch (error) {
       // We don't want to throw errors for Presence features as they tend to self-restore
-      this.analyticsHelper?.sendErrorEvent(error, 'emitting disconnected data');
+      this.analyticsHelper?.sendErrorEvent(
+        error,
+        'Error while emitting disconnected data',
+      );
     }
 
     if (left.length) {

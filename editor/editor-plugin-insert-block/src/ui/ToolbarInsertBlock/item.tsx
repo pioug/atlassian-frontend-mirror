@@ -13,6 +13,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ExpandNodeIcon from '@atlaskit/icon/glyph/chevron-right-circle';
 import CodeIcon from '@atlaskit/icon/glyph/editor/code';
 import DateIcon from '@atlaskit/icon/glyph/editor/date';
@@ -155,6 +156,16 @@ export const table = mem((init: CreateInit) =>
     Icon: TableIcon,
     shortcut: tooltip(toggleTable),
     'aria-keyshortcuts': getAriaKeyshortcuts(toggleTable),
+  }),
+);
+
+export const tableSelector = mem((init: CreateInit) =>
+  from({
+    content: init.content,
+    tooltipDescription: init.tooltipDescription,
+    disabled: init.disabled,
+    name: 'table selector',
+    Icon: ExpandIcon,
   }),
 );
 

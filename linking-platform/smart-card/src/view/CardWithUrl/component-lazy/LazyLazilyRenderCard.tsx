@@ -7,7 +7,7 @@ import { LoadingCardLink } from './LoadingCardLink';
 import { startUfoExperience } from '../../../state/analytics/ufoExperiences';
 
 export function LazyLazilyRenderCard(props: CardWithUrlContentProps) {
-  const { appearance, container, showActions, id } = props;
+  const { appearance, container, id } = props;
   const offset = Math.ceil(window.innerHeight / 4);
 
   useState(() => {
@@ -22,7 +22,7 @@ export function LazyLazilyRenderCard(props: CardWithUrlContentProps) {
       className="loader-wrapper"
       placeholder={<LoadingCardLink {...props} />}
       scrollContainer={container}
-      content={<CardWithUrlContent {...props} showActions={showActions} />}
+      content={<CardWithUrlContent {...props} />}
     />
   );
 }

@@ -2,33 +2,33 @@
 import { css, jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import { IconButton } from '@atlaskit/button/new';
 import AddItemIcon from '@atlaskit/icon/glyph/add-item';
 import JiraCaptureIcon from '@atlaskit/icon/glyph/jira/capture';
 import AddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
+import { Box, xcss } from '@atlaskit/primitives';
 import { B75 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
 
 import Popup from '../src';
 
 const triggerStyles = css({
   backgroundColor: B75,
 });
-const popupStyles = css({
-  padding: token('space.050', '4px'),
+const popupStyles = xcss({
+  padding: 'space.050',
 });
 const HighlightPopup = (props: { children: React.ReactNode }) => (
   <Popup
     isOpen
     placement="bottom"
     content={() => (
-      <div css={popupStyles}>
-        <ButtonGroup>
-          <Button iconBefore={<AddCommentIcon label="Add comment" />} />
-          <Button iconBefore={<AddItemIcon label="Add item" />} />
-          <Button iconBefore={<JiraCaptureIcon label="Capture in Jira" />} />
+      <Box xcss={popupStyles}>
+        <ButtonGroup label="Triggerless popup options">
+          <IconButton icon={AddCommentIcon} label="Add comment" />
+          <IconButton icon={AddItemIcon} label="Add item" />
+          <IconButton icon={JiraCaptureIcon} label="Capture in Jira" />
         </ButtonGroup>
-      </div>
+      </Box>
     )}
     trigger={(triggerProps) => (
       <span css={triggerStyles} {...triggerProps}>

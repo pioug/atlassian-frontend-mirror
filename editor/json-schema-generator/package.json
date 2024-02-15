@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/json-schema-generator",
-  "version": "3.3.6",
+  "version": "3.3.7",
   "description": "A CLI tool for generating JSON Schema from typescript",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "bin/json-schema-generator.js",
@@ -16,9 +16,7 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
-  "bin": {
-    "json-schema-generator": "bin/json-schema-generator.js"
-  },
+  "bin": "bin/json-schema-generator.js",
   "typesVersions": {
     ">=4.0 <4.5": {
       "*": [

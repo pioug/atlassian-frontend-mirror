@@ -1,6 +1,6 @@
 import * as mocks from './bridge-test.mock';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { clearEditorContent } from '@atlaskit/editor-core/src/commands';
+import { clearEditorContent } from '@atlaskit/editor-common/commands';
 import type { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
 import { isLinkAtPos, isTextAtPos } from '@atlaskit/editor-common/link';
 import WebBridgeImpl from '../../../../editor/native-to-web';
@@ -88,33 +88,9 @@ describe('lists should work', () => {
     expect(commands.toggleOrderedList).toBeCalled();
   });
 
-  it('should not call ordered list if view is undefined', () => {
-    bridge.editorView = undefined;
-    bridge.onOrderedListSelected();
-    expect(commands.toggleOrderedList).not.toBeCalled();
-  });
-
-  it('should not call ordered list if state is undefined', () => {
-    bridge.listBridgeState = undefined;
-    bridge.onOrderedListSelected();
-    expect(commands.toggleOrderedList).not.toBeCalled();
-  });
-
   it('should call bullet list toggle', () => {
     bridge.onBulletListSelected();
     expect(commands.toggleBulletList).toBeCalled();
-  });
-
-  it('should not call bullet list if view is undefined', () => {
-    bridge.editorView = undefined;
-    bridge.onBulletListSelected();
-    expect(commands.toggleBulletList).not.toBeCalled();
-  });
-
-  it('should not call bullet list if state is undefined', () => {
-    bridge.listBridgeState = undefined;
-    bridge.onBulletListSelected();
-    expect(commands.toggleBulletList).not.toBeCalled();
   });
 
   it('should call indent list', () => {
@@ -122,33 +98,9 @@ describe('lists should work', () => {
     expect(commands.indentList).toBeCalled();
   });
 
-  it('should not call indent list if view is undefined', () => {
-    bridge.editorView = undefined;
-    bridge.onIndentList();
-    expect(commands.indentList).not.toBeCalled();
-  });
-
-  it('should not call indent list if state is undefined', () => {
-    bridge.listBridgeState = undefined;
-    bridge.onIndentList();
-    expect(commands.indentList).not.toBeCalled();
-  });
-
   it('should call outdent list', () => {
     bridge.onOutdentList();
     expect(commands.outdentList).toBeCalled();
-  });
-
-  it('should not call outdent list if view is undefined', () => {
-    bridge.editorView = undefined;
-    bridge.onOutdentList();
-    expect(commands.outdentList).not.toBeCalled();
-  });
-
-  it('should not call outdent list if state is undefined', () => {
-    bridge.listBridgeState = undefined;
-    bridge.onOutdentList();
-    expect(commands.outdentList).not.toBeCalled();
   });
 });
 

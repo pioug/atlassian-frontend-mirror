@@ -82,8 +82,6 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     resizeButtonLabel,
     resizeGrabAreaLabel,
     overrides,
-    onExpand,
-    onCollapse,
     onResizeStart,
     onResizeEnd,
     onFlyoutExpand,
@@ -346,10 +344,9 @@ const LeftSidebar = (props: LeftSidebarProps) => {
         return current;
       }
 
-      onExpand?.();
       return { ...current, isFlyoutOpen: true };
     });
-  }, [setLeftSidebarState, onExpand, mobileMediaQuery]);
+  }, [setLeftSidebarState, mobileMediaQuery]);
 
   // CLEANUP NOTE: If we revert `'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g'`, this would be gone.
   const closeMobileFlyout = useCallback(() => {
@@ -367,10 +364,9 @@ const LeftSidebar = (props: LeftSidebarProps) => {
         return current;
       }
 
-      onCollapse?.();
       return { ...current, isFlyoutOpen: false };
     });
-  }, [setLeftSidebarState, onCollapse, mobileMediaQuery]);
+  }, [setLeftSidebarState, mobileMediaQuery]);
 
   // CLEANUP NOTE: If we revert `'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g'`, this would be gone.
   useMediaQuery('below.sm', (event) => {
@@ -442,7 +438,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
             onClick={closeMobileFlyout}
           />
         )}
-
+      {/* These are strictly mouse events for mouse optimzation of features not relevant to keyboard users. */}
       {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
       <LeftSidebarOuter
         ref={leftSideBarRef}
@@ -500,8 +496,6 @@ const LeftSidebar = (props: LeftSidebarProps) => {
             resizeButtonLabel={resizeButtonLabel}
             // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
             overrides={overrides}
-            onCollapse={onCollapse}
-            onExpand={onExpand}
             onResizeStart={onResizeStart}
             onResizeEnd={onResizeEnd}
           />

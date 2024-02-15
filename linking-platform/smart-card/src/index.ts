@@ -20,6 +20,7 @@ export { APIError } from '@atlaskit/linking-common';
 export { CardClient as Client } from '@atlaskit/link-provider';
 export { Card } from './view/Card';
 export type { CardProps, CardAppearance, CardPlatform } from './view/Card';
+export { CardAction } from './view/Card/types';
 export { SmartCardContext as Context } from '@atlaskit/link-provider';
 export type { CardContext } from '@atlaskit/link-provider';
 export { EmbedResizeMessageListener } from './view/EmbedCard/EmbedResizeMessageListener';

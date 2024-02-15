@@ -129,6 +129,7 @@ describe('useDatasourceTableState', () => {
         columns: [],
         defaultVisibleColumnKeys: [],
         destinationObjectTypes: [],
+        authDetails: [],
         extensionKey: undefined,
       });
     });
@@ -157,6 +158,7 @@ describe('useDatasourceTableState', () => {
         defaultVisibleColumnKeys: [],
         totalCount: undefined,
         destinationObjectTypes: [],
+        authDetails: [],
         extensionKey: undefined,
       });
       await waitForNextUpdate();
@@ -325,9 +327,20 @@ describe('useDatasourceTableState', () => {
       expect(result.current.status).toBe('unauthorized');
     });
 
+    it('should change status to "forbidden" on request auth error', async () => {
+      asMock(getDatasourceData).mockResolvedValueOnce({
+        ...mockDatasourceDataResponse,
+        meta: { ...mockDatasourceDataResponse.meta, access: 'forbidden' },
+      });
+      const { result, waitForNextUpdate } = setup();
+      await waitForNextUpdate();
+
+      expect(result.current.status).toBe('forbidden');
+    });
+
     it.each([
       ['unauthorized', 401],
-      ['unauthorized', 403],
+      ['forbidden', 403],
       ['rejected', 500],
     ])(
       'should change status to "%s" on request error %s response',
@@ -418,9 +431,43 @@ describe('useDatasourceTableState', () => {
         );
       });
 
-      it('should populate responseItems with new data coming from getDatasourceData', async () => {
+      it('should populate responseItems with new data coming from getDatasourceData and not add duplicate data', async () => {
         const { result, waitForNextUpdate } = setup();
         await waitForNextUpdate();
+
+        expect(result.current.responseItems).toEqual(
+          mockDatasourceDataResponse.data.items,
+        );
+
+        // adding new data to response
+        const newData = {
+          ...mockDatasourceDataResponseWithSchema,
+          data: {
+            totalCount: '1234',
+            items: [
+              {
+                id: { data: 'EDM-17' },
+                description: { data: 'Be a cool guy' },
+                createdAt: { data: '2023-05-08T01:30:00.000-08:00' },
+                assigned: {
+                  data: {
+                    displayName: 'Hana',
+                  },
+                },
+                status: {
+                  data: {
+                    text: 'Done',
+                    style: {
+                      appearance: 'success',
+                    },
+                  },
+                },
+              },
+            ],
+          },
+        };
+
+        asMock(getDatasourceData).mockResolvedValueOnce(newData);
 
         act(() => {
           result.current.onNextPage();
@@ -428,9 +475,10 @@ describe('useDatasourceTableState', () => {
 
         await waitForNextUpdate();
 
-        expect(result.current.responseItems.length).toBe(
-          mockDatasourceDataResponse.data.items.length * 2,
-        );
+        expect(result.current.responseItems).toStrictEqual([
+          ...mockDatasourceDataResponse.data.items,
+          ...newData.data.items,
+        ]);
       });
 
       it('should not call getDatasourceData when requesting already retrieved column', async () => {
@@ -657,6 +705,33 @@ describe('useDatasourceTableState', () => {
 
         expect(onAnalyticFireEvent).not.toHaveBeenCalled();
       });
+
+      it('should update authDetails when the data request is unauthorized', async () => {
+        asMock(getDatasourceData).mockResolvedValue({
+          ...mockDatasourceDataResponseWithSchema,
+          meta: {
+            access: 'unauthorized',
+            auth: [
+              {
+                key: 'amplitude',
+                displayName: 'Atlassian Links - Amplitude',
+                url: 'https://id.atlassian.com/login',
+              },
+            ],
+          },
+        });
+
+        const { waitForNextUpdate, result } = setup();
+        await waitForNextUpdate();
+
+        expect(result.current.authDetails).toEqual([
+          {
+            key: 'amplitude',
+            displayName: 'Atlassian Links - Amplitude',
+            url: 'https://id.atlassian.com/login',
+          },
+        ]);
+      });
     });
 
     describe('when called for the last time', () => {
@@ -753,9 +828,44 @@ describe('useDatasourceTableState', () => {
       expect(result.current.status).toEqual('unauthorized');
     });
 
+    it('should update authDetails when the details request is unauthorized', async () => {
+      asMock(getDatasourceData).mockResolvedValue(
+        mockDatasourceDataResponseWithSchema,
+      );
+
+      asMock(getDatasourceDetails).mockResolvedValue({
+        ...mockDatasourceDetailsResponse,
+        meta: {
+          access: 'unauthorized',
+          auth: [
+            {
+              key: 'amplitude',
+              displayName: 'Atlassian Links - Amplitude',
+              url: 'https://id.atlassian.com/login',
+            },
+          ],
+        },
+      });
+      const { waitForNextUpdate, result } = setup();
+      await waitForNextUpdate();
+
+      act(() => {
+        result.current.loadDatasourceDetails();
+      });
+      await waitForNextUpdate();
+
+      expect(result.current.authDetails).toEqual([
+        {
+          key: 'amplitude',
+          displayName: 'Atlassian Links - Amplitude',
+          url: 'https://id.atlassian.com/login',
+        },
+      ]);
+    });
+
     it.each([
       ['unauthorized', 401],
-      ['unauthorized', 403],
+      ['forbidden', 403],
       ['rejected', 500],
     ])(
       'should update status to "%s" on request error %s response',
@@ -946,6 +1056,42 @@ describe('useDatasourceTableState', () => {
 
       expect(result.current.status).toBe('resolved');
       expect(onAnalyticFireEvent).not.toHaveBeenCalled();
+    });
+
+    it('should reset authDetails when reset() is called', async () => {
+      asMock(getDatasourceData).mockResolvedValue({
+        ...mockDatasourceDataResponseWithSchema,
+        meta: {
+          access: 'unauthorized',
+          auth: [
+            {
+              key: 'amplitude',
+              displayName: 'Atlassian Links - Amplitude',
+              url: 'https://id.atlassian.com/login',
+            },
+          ],
+        },
+      });
+
+      const { waitForNextUpdate, result } = setup();
+      await waitForNextUpdate();
+
+      expect(result.current.authDetails).toEqual([
+        {
+          key: 'amplitude',
+          displayName: 'Atlassian Links - Amplitude',
+          url: 'https://id.atlassian.com/login',
+        },
+      ]);
+
+      asMock(getDatasourceData).mockReset();
+
+      act(() => {
+        result.current.reset();
+      });
+      await waitForNextUpdate();
+
+      expect(result.current.authDetails).toEqual([]);
     });
   });
 

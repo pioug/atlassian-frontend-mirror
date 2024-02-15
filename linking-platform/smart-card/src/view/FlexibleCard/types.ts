@@ -10,7 +10,11 @@ import {
   SmartLinkStatus,
   SmartLinkTheme,
 } from '../../constants';
-import { CardInnerAppearance, OnResolveCallback } from '../Card/types';
+import type {
+  CardInnerAppearance,
+  OnResolveCallback,
+  CardActionOptions,
+} from '../Card/types';
 import { OnErrorCallback } from '../types';
 import { AnalyticsFacade } from '../../state/analytics';
 
@@ -74,9 +78,9 @@ export type FlexibleCardProps = {
   renderers?: CardProviderRenderers;
 
   /**
-   * Determines whether to show available server actions.
+   * Configure visibility of server and client actions
    */
-  showServerActions?: boolean | ServerActionOptions;
+  actionOptions?: CardActionOptions;
 
   /**
    * A `testId` prop is provided for specified elements, which is a unique
@@ -156,28 +160,6 @@ export type FlexibleUiOptions = {
 };
 
 /**
- * Server action options to control action behaviour.
- *
- * If the type is applied to exported component (<Card />, <HoverCard />)
- * please verify with the team if the deprecated prop can be removed prior.
- *
- * In the case that it is being exposed in HoverCard, please remove
- * boolean conversion `Boolean(showServerActions)` in
- * /src/view/FlexibleCard/components/container/index.tsx line 287
- * @internal
- */
-export type ServerActionOptions = {
-  /**
-   * DO NOT USE: This prop is part of an experiment. It will be removed once
-   * the experiment is completed.
-   * @see https://team.atlassian.com/project/ATLAS-13099/about
-   * @internal
-   * @deprecated
-   */
-  showStateActionFeatureDiscovery?: boolean;
-};
-
-/**
  * Retry options used if Smart Link resolves to an errored state.
  */
 export type RetryOptions = {
@@ -199,7 +181,7 @@ export type RetryOptions = {
 
 export type ExtractFlexibleUiDataContextParams = Pick<
   FlexibleCardProps,
-  'id' | 'showServerActions' | 'renderers' | 'url'
+  'id' | 'actionOptions' | 'renderers' | 'url'
 > & {
   status?: SmartLinkStatus;
   response?: JsonLd.Response;

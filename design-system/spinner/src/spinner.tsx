@@ -147,9 +147,10 @@ export default React.memo(
           xmlns="http://www.w3.org/2000/svg"
           data-testid={testId}
           ref={ref}
-          aria-label={label}
+          aria-label={label || undefined}
           css={loadInStyles}
           style={{ animationDelay }}
+          role={label ? 'img' : 'none'}
         >
           <circle cx="8" cy="8" r="7" css={circleStyles} style={{ stroke }} />
         </svg>

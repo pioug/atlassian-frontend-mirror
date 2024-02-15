@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
 import { Field } from '@atlaskit/form';
 import { token } from '@atlaskit/tokens';
@@ -58,7 +58,7 @@ export default function NestedDemo() {
         )}
       </Field>
 
-      <ButtonGroup>
+      <ButtonGroup label="Modal options">
         <Button
           appearance="primary"
           testId="large"

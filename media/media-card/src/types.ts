@@ -151,7 +151,7 @@ export interface CardProps extends SharedCardProps, CardEventProps {
   readonly contextId?: string;
   // Enables the download button for media file.
   readonly shouldEnableDownloadButton?: boolean;
-  // Server-Side-Rendering modes are "media" and "client"
+  // Server-Side-Rendering modes are "server" and "client"
   readonly ssr?: SSR;
   // Disable tooltip for the card
   readonly shouldHideTooltip?: boolean;

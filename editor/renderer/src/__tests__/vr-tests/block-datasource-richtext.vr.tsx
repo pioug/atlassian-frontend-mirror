@@ -9,7 +9,6 @@ import {
  * Ticket: https://product-fabric.atlassian.net/browse/ED-19691
  * Slack: https://atlassian.slack.com/archives/C05DWCW6ZAN/p1692671566069189
  */
-
 snapshot.skip(DatasourceWithRichTextFullPage, {
   variants: [
     {

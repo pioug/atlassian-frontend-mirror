@@ -5,12 +5,12 @@ import {
   TableSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
 import {
-  SelectionStyle,
-  getSelectionStyles,
   akEditorDeleteBackgroundWithOpacity,
   akEditorDeleteBorder,
   akEditorSelectedBorderSize,
   akEditorSelectedNodeClassName,
+  getSelectionStyles,
+  SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 
 export const statusStyles = css`

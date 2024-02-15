@@ -32,9 +32,6 @@ export const freezeUnsafeTransactionProperties = <TrType extends object>({
         attributes: {
           pluginKey: pluginKey || 'unknown',
         },
-        nonPrivacySafeAttributes: {
-          stack: new Error().stack,
-        },
       });
     }
     throw new Error(UNSAFE_PROPERTY_SET_ERROR);

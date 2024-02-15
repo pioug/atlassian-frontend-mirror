@@ -20,6 +20,7 @@ import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group
 import { LinkIcon } from '../../../../FlexibleCard/components/elements';
 import { ActionName, CardDisplay } from '../../../../../constants';
 import { useSmartCardActions } from '../../../../../state/actions';
+import { hasAuthScopeOverrides } from '../../../../../state/helpers';
 
 const HoverCardUnauthorisedView: React.FC<HoverCardUnauthorisedProps> = ({
   analytics,
@@ -32,6 +33,9 @@ const HoverCardUnauthorisedView: React.FC<HoverCardUnauthorisedProps> = ({
   const { cardState } = flexibleCardProps;
   const data = cardState.details?.data as JsonLd.Data.BaseData;
   const providerName = extractProvider(data)?.text;
+  const isProductIntegrationSupported = hasAuthScopeOverrides(
+    cardState.details,
+  );
   const { authorize } = useSmartCardActions(id, url, analytics);
 
   const handleAuthorize = useCallback(() => {
@@ -73,6 +77,7 @@ const HoverCardUnauthorisedView: React.FC<HoverCardUnauthorisedProps> = ({
         <div>
           <UnauthorisedViewContent
             providerName={providerName}
+            isProductIntegrationSupported={isProductIntegrationSupported}
             analytics={analytics}
           />
         </div>

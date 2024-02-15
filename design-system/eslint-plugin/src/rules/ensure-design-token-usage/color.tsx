@@ -14,6 +14,7 @@ import {
   isChildOfType,
   isDecendantOfGlobalToken,
   isDecendantOfStyleBlock,
+  isDecendantOfSvgElement,
 } from '../utils/is-node';
 
 import type { RuleConfig } from './types';
@@ -201,6 +202,10 @@ export const lintJSXLiteralForColor = (
   }
 
   if (!isNodeOfType(node.parent.name, 'JSXIdentifier')) {
+    return;
+  }
+
+  if (isDecendantOfSvgElement(node.parent)) {
     return;
   }
 

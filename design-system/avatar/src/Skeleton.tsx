@@ -15,13 +15,21 @@ import {
 import { AppearanceType, SizeType } from './types';
 
 export interface SkeletonProps {
-  /* Skeleton shape */
+  /**
+   * Indicates the shape of the avatar skeleton. Most avatars are circular, but square avatars can be used for container objects.
+   */
   appearance?: AppearanceType;
-  /* Color of the skeleton. By default, it will inherit the current text color. */
+  /**
+   * Color of the skeleton. By default, it will inherit the current text color.
+   */
   color?: string;
-  /* Skeleton size */
+  /**
+   * Defines the size of the avatar skeleton.
+   */
   size?: SizeType;
-  /* Skeleton opacity */
+  /**
+   * Defines the opacity of the avatar skeleton. Use `weight="normal"` for the default opacity, or `weight="strong"` for a bolder opacity.
+   */
   weight?: 'normal' | 'strong';
 }
 

@@ -1,9 +1,11 @@
 import React from 'react';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { ErrorBoundary } from '../../ErrorBoundary';
-import { ComponentCrashErrorAEP, PLATFORM } from '../../../../analytics/events';
+import type { ComponentCrashErrorAEP } from '../../../../analytics/events';
+import { PLATFORM } from '../../../../analytics/events';
 import {
   ACTION,
   EVENT_TYPE,
@@ -53,13 +55,15 @@ describe('ErrorBoundary', () => {
         componentStack: expect.any(String),
         errorRethrown: false,
       }),
-      nonPrivacySafeAttributes: {
-        errorStack: CustomError?.stack,
-      },
     };
 
     expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith(
       expectedAnalyticsEvent,
+    );
+    expect(mockCreateAnalyticsEvent).not.toHaveBeenCalledWith(
+      expect.objectContaining({
+        nonPrivacySafeAttributes: expect.any(Object),
+      }),
     );
   });
 
@@ -85,13 +89,15 @@ describe('ErrorBoundary', () => {
         componentStack: expect.any(String),
         errorRethrown: false,
       }),
-      nonPrivacySafeAttributes: {
-        errorStack: CustomError.stack,
-      },
     };
 
     expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith(
       expectedAnalyticsEvent,
+    );
+    expect(mockCreateAnalyticsEvent).not.toHaveBeenCalledWith(
+      expect.objectContaining({
+        nonPrivacySafeAttributes: expect.any(Object),
+      }),
     );
   });
 
@@ -161,13 +167,15 @@ describe('ErrorBoundary', () => {
         componentStack: expect.any(String),
         errorRethrown: true,
       }),
-      nonPrivacySafeAttributes: {
-        errorStack: CustomError.stack,
-      },
     };
 
     expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith(
       expectedAnalyticsEvent,
+    );
+    expect(mockCreateAnalyticsEvent).not.toHaveBeenCalledWith(
+      expect.objectContaining({
+        nonPrivacySafeAttributes: expect.any(Object),
+      }),
     );
   });
 
@@ -197,13 +205,15 @@ describe('ErrorBoundary', () => {
         componentStack: expect.any(String),
         errorRethrown: false,
       }),
-      nonPrivacySafeAttributes: {
-        errorStack: CustomError.stack,
-      },
     };
 
     expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith(
       expectedAnalyticsEvent,
+    );
+    expect(mockCreateAnalyticsEvent).not.toHaveBeenCalledWith(
+      expect.objectContaining({
+        nonPrivacySafeAttributes: expect.any(Object),
+      }),
     );
   });
 });

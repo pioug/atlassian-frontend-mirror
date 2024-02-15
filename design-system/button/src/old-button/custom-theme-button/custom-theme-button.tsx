@@ -176,7 +176,8 @@ const CustomThemeButton = React.memo(
                   {...restProps}
                   ref={ref}
                   overlay={isLoading ? <LoadingSpinner {...restProps} /> : null}
-                  aria-busy={isLoading}
+                  // No need to render aria-disabled when it is false
+                  aria-disabled={isLoading || restProps['aria-disabled']}
                   onMouseEnter={onMouseEnter}
                   onMouseLeave={onMouseLeave}
                   onMouseDown={onMouseDown}

@@ -189,11 +189,11 @@ export default Text;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e0cf19767425d8b20b2d3cf5f3adc035>>
+ * @codegen <<SignedSource::3bb126723afcc9864b7ce6a94f386f9a>>
  * @codegenId typography
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography.tsx <<SignedSource::7c95473452cd40813e49496912c844a1>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography-adg3.tsx <<SignedSource::467924fcb40aae7e72632df80023532a>>
  */
 const fontSizeMap = {
   'size.050': css({
@@ -245,7 +245,7 @@ const fontFamilyMap = {
   body: css({
     fontFamily: token(
       'font.family.body',
-      'ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+      'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
   brand: css({
@@ -260,7 +260,7 @@ const fontFamilyMap = {
   heading: css({
     fontFamily: token(
       'font.family.heading',
-      'ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+      'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
   monospace: css({

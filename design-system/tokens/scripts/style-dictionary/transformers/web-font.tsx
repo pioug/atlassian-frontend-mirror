@@ -1,13 +1,9 @@
 import type { Transform, TransformedToken } from 'style-dictionary';
 
-import { getCSSCustomProperty } from '../../../src/utils/token-ids';
-
 export const fontTokenToCSS = ({
   value: { fontSize, fontStyle, fontWeight, lineHeight, fontFamily },
 }: TransformedToken) => {
-  return `${fontStyle} ${fontWeight} ${fontSize}/${lineHeight} var(${getCSSCustomProperty(
-    fontFamily,
-  )})`;
+  return `${fontStyle} ${fontWeight} ${fontSize}/${lineHeight} ${fontFamily}`;
 };
 
 /**

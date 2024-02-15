@@ -4,8 +4,8 @@ import type {
   Scope,
   Event as SentryEvent,
 } from '@sentry/browser';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Integration, Primitive } from '@sentry/types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const SENTRY_DSN =
   'https://930d59a44d4acae29778d788c6391ed3@o55978.ingest.sentry.io/4506181365596160';
@@ -37,9 +37,10 @@ export const captureException = async (
       return;
     }
 
-    const { BrowserClient, defaultIntegrations, getCurrentHub } = await import(
-      /* webpackChunkName: "@atlaskit-internal_linking-common-sentrybrowser" */ '@sentry/browser'
-    );
+    const { BrowserClient, Hub, defaultIntegrations, getCurrentHub } =
+      await import(
+        /* webpackChunkName: "@atlaskit-internal_linking-common-sentrybrowser" */ '@sentry/browser'
+      );
     const { ExtraErrorData } = await import(
       /* webpackChunkName: "@atlaskit-internal_linking-common-sentryintegrations" */ '@sentry/integrations'
     );
@@ -60,37 +61,76 @@ export const captureException = async (
       integrations: (_integrations: Integration[]): Integration[] => [
         // Remove the Breadcrumbs integration from the default as it's too likely to log UGC/PII
         // https://docs.sentry.io/platforms/javascript/configuration/integrations/default/
-        ...defaultIntegrations.filter(({ name }) => name !== 'Breadcrumbs'),
+        ...defaultIntegrations.filter(
+          getBooleanFF(
+            'platform.linking-platform.linking-common.sentry.disable-dedupe',
+          )
+            ? ({ name }) => !['Breadcrumbs', 'Dedupe'].includes(name)
+            : ({ name }) => name !== 'Breadcrumbs',
+        ),
         // Extracts all non-native attributes from the error object and attaches them to the event as the extra data
         // https://docs.sentry.io/platforms/javascript/configuration/integrations/plugin/?original_referrer=https%3A%2F%2Fduckduckgo.com%2F#extraerrordata
         new ExtraErrorData(),
       ],
       beforeSend: sanitiseSentryEvents,
     };
-    // Use a client to avoid picking up the errors from parent applications
-    const client = new BrowserClient(sentryOptions);
-    const hub = getCurrentHub();
-    hub.bindClient(client);
 
-    hub.withScope((scope: Scope) => {
-      scope.setTags({
-        // Jira environment variables
-        'jira-bundler': (window as any).BUNDLER_VERSION,
-        'jira-variant': (window as any).BUILD_VARIANT,
-        'jira-release': (window as any).BUILD_KEY,
-        // Confluence environment variables
-        'confluence-frontend-version': (window as any).__buildInfo
-          ?.FRONTEND_VERSION,
-        packageName,
-        ...tags,
+    if (
+      getBooleanFF(
+        'platform.linking-platform.linking-common.isolated-sentry-hub',
+      )
+    ) {
+      // Use a client to avoid picking up the errors from parent applications
+      const client = new BrowserClient(sentryOptions);
+      const hub = new Hub(client);
+
+      hub.run(currentHub => {
+        currentHub.withScope(scope => {
+          scope.setTags({
+            // Jira environment variables
+            'jira-bundler': (window as any).BUNDLER_VERSION,
+            'jira-variant': (window as any).BUILD_VARIANT,
+            'jira-release': (window as any).BUILD_KEY,
+            // Confluence environment variables
+            'confluence-frontend-version': (window as any).__buildInfo
+              ?.FRONTEND_VERSION,
+            packageName,
+            ...tags,
+          });
+          // Explicitly remove the breadcrumbs as it's too likely to log UGC/PII to side-step the hub integrations not being respected
+          scope.clearBreadcrumbs();
+
+          hub.captureException(error);
+        });
       });
-      // Explicitly remove the breadcrumbs as it's too likely to log UGC/PII to side-step the hub integrations not being respected
-      scope.clearBreadcrumbs();
 
-      hub.captureException(error);
-    });
+      return client.close();
+    } else {
+      // Use a client to avoid picking up the errors from parent applications
+      const client = new BrowserClient(sentryOptions);
+      const hub = getCurrentHub();
+      hub.bindClient(client);
 
-    return client.close();
+      hub.withScope((scope: Scope) => {
+        scope.setTags({
+          // Jira environment variables
+          'jira-bundler': (window as any).BUNDLER_VERSION,
+          'jira-variant': (window as any).BUILD_VARIANT,
+          'jira-release': (window as any).BUILD_KEY,
+          // Confluence environment variables
+          'confluence-frontend-version': (window as any).__buildInfo
+            ?.FRONTEND_VERSION,
+          packageName,
+          ...tags,
+        });
+        // Explicitly remove the breadcrumbs as it's too likely to log UGC/PII to side-step the hub integrations not being respected
+        scope.clearBreadcrumbs();
+
+        hub.captureException(error);
+      });
+
+      return client.close();
+    }
   } catch (_error) {
     // Error reporting failed, we don't want this to generate more errors
   }

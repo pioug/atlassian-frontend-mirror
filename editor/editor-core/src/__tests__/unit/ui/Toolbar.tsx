@@ -1,14 +1,15 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
+import { act } from 'react-dom/test-utils';
+
+import { asMockFunction } from '@atlaskit/media-test-helpers';
+import type { WidthObserver } from '@atlaskit/width-detector';
+
 import { Toolbar } from '../../../ui/Toolbar/Toolbar';
 import { ToolbarWithSizeDetector } from '../../../ui/Toolbar/ToolbarWithSizeDetector';
-import { act } from 'react-dom/test-utils';
-import {
-  ToolbarSize,
-  ToolbarUIComponentFactory,
-} from '../../../ui/Toolbar/types';
-import { WidthObserver } from '@atlaskit/width-detector';
-import { asMockFunction } from '@atlaskit/media-test-helpers';
+import type { ToolbarUIComponentFactory } from '../../../ui/Toolbar/types';
+import { ToolbarSize } from '../../../ui/Toolbar/types';
 
 let mockInnerSetWidth: Function | undefined;
 

@@ -18,6 +18,7 @@ export interface LoadingContainerAdvancedProps {
   contentsOpacity: number | string;
   targetRef?: () => HTMLTableSectionElement | null;
   testId?: string;
+  loadingLabel?: string;
 }
 
 export default class LoadingContainerAdvanced extends React.Component<
@@ -31,6 +32,7 @@ export default class LoadingContainerAdvanced extends React.Component<
     isLoading: true,
     spinnerSize: LARGE,
     contentsOpacity: token('opacity.loading', `${LOADING_CONTENTS_OPACITY}`),
+    loadingLabel: 'Loading table',
   };
 
   componentDidMount = () => {
@@ -208,7 +210,8 @@ export default class LoadingContainerAdvanced extends React.Component<
   }
 
   render() {
-    const { children, isLoading, spinnerSize, testId } = this.props;
+    const { children, isLoading, spinnerSize, testId, loadingLabel } =
+      this.props;
 
     return (
       <Container
@@ -222,6 +225,7 @@ export default class LoadingContainerAdvanced extends React.Component<
               <Spinner
                 size={spinnerSize}
                 testId={testId && `${testId}--loadingSpinner`}
+                label={loadingLabel}
               />
             </SpinnerContainer>
           </SpinnerBackdrop>

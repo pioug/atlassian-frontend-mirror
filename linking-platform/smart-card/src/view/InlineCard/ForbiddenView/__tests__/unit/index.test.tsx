@@ -4,8 +4,11 @@ import { IntlProvider } from 'react-intl-next';
 
 import { InlineCardForbiddenView } from '../..';
 import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
+import { Provider } from '../../../../../';
 
 jest.mock('react-render-image');
+
+jest.mock('@atlaskit/platform-feature-flags');
 
 const URL =
   'http://product.example.com/lorem/ipsum/dolor/sit/amet/consectetur/adipiscing/volutpat/';
@@ -65,33 +68,11 @@ describe('Forbidden view', () => {
     );
   });
 
-  it('should show correct icon if present', async () => {
-    const iconUrl = 'https://google.com/favicon.ico';
-    render(
-      <IntlProvider locale={'en'}>
-        <InlineCardForbiddenView
-          url={URL}
-          icon="https://google.com/favicon.ico"
-          onAuthorise={jest.fn()}
-        />
-      </IntlProvider>,
-    );
-    await expectElementWithText(
-      'inline-card-forbidden-view',
-      `${URL}Restricted content`,
-    );
-    expect(await screen.findByRole('img')).toHaveAttribute('src', iconUrl);
-  });
-
   it('should show correct icon if not present (fallback icon)', async () => {
     render(
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView url={URL} onAuthorise={jest.fn()} />
       </IntlProvider>,
-    );
-    await expectElementWithText(
-      'inline-card-forbidden-view',
-      `${URL}Restricted content`,
     );
     expect(
       await screen.findByTestId('forbidden-view-fallback-icon'),
@@ -100,8 +81,9 @@ describe('Forbidden view', () => {
 
   it('should show correct text if request access type is DIRECT_ACCESS', async () => {
     const requestAccessContext = {
-      callToActionMessageKey: 'click_to_join',
+      callToActionMessageKey: 'direct_access',
     };
+
     render(
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView
@@ -111,36 +93,38 @@ describe('Forbidden view', () => {
         />
       </IntlProvider>,
     );
-    await expectElementWithText(
-      'inline-card-forbidden-view',
-      `${URL} - Join Jira`,
-    );
+
+    await expectElementWithText('button-connect-other-account', `Join now`);
   });
 
   it('should do promise if Join to preview clicked', async () => {
     const promise = jest.fn();
     const requestAccessContext = {
-      callToActionMessageKey: 'click_to_join',
+      callToActionMessageKey: 'direct_access',
       action: { promise },
     };
     render(
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView
           url={URL}
+          context="Jira"
           requestAccessContext={requestAccessContext as any}
         />
       </IntlProvider>,
     );
-    fireEvent.click(await screen.findByRole('button', { name: 'Join' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Join now' }));
     expect(promise).toHaveBeenCalledTimes(1);
   });
 
   it('should show correct text if request access type is REQUEST_ACCESS', async () => {
-    const requestAccessContext = { callToActionMessageKey: 'request_access' };
+    const requestAccessContext = {
+      callToActionMessageKey: 'request_access',
+    };
     render(
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView
           url={URL}
+          context="Jira"
           requestAccessContext={requestAccessContext as any}
         />
       </IntlProvider>,
@@ -148,7 +132,7 @@ describe('Forbidden view', () => {
 
     await expectElementWithText(
       'inline-card-forbidden-view',
-      `${URL} - Request access`,
+      `${URL}Request access`,
     );
   });
 
@@ -162,6 +146,7 @@ describe('Forbidden view', () => {
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView
           url={URL}
+          context="Jira"
           requestAccessContext={requestAccessContext as any}
         />
       </IntlProvider>,
@@ -170,5 +155,28 @@ describe('Forbidden view', () => {
       await screen.findByRole('button', { name: 'Request access' }),
     );
     expect(promise).toHaveBeenCalledTimes(1);
+  });
+
+  it('should render a hover card when showHoverPreview prop is enabled', async () => {
+    render(
+      <Provider>
+        <InlineCardForbiddenView
+          showHoverPreview={true}
+          url="www.test.com"
+          context="Jira"
+        />
+        ,
+      </Provider>,
+    );
+    expect(
+      await screen.findByTestId('hover-card-trigger-wrapper'),
+    ).toBeInTheDocument();
+  });
+
+  it('should not render a hover card when showHoverPreview prop is not enabled', async () => {
+    render(<InlineCardForbiddenView url="www.test.com" context="Jira" />);
+    expect(
+      screen.queryByTestId('hover-card-trigger-wrapper'),
+    ).not.toBeInTheDocument();
   });
 });

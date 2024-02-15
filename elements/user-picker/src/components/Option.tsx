@@ -1,4 +1,6 @@
+import { Box } from '@atlaskit/primitives';
 import { components, OptionProps as AkOptionProps } from '@atlaskit/select';
+import Tooltip from '@atlaskit/tooltip';
 import React, { FC } from 'react';
 import { Option as OptionType } from '../types';
 import { UserOption } from './UserOption';
@@ -79,10 +81,22 @@ const dataOption = ({
   return null;
 };
 
+const dataOptionWithTooltip = (props: OptionProps) => {
+  if (props.data?.data?.tooltip) {
+    return (
+      <Tooltip content={props.data?.data?.tooltip}>
+        {(tooltipProps) => <Box {...tooltipProps}>{dataOption(props)}</Box>}
+      </Tooltip>
+    );
+  }
+
+  return dataOption(props);
+};
+
 export const Option: FC<OptionProps> = (props) => (
   <components.Option {...(props as AkOptionProps)}>
     <React.Suspense fallback={defaultOption(props)}>
-      {dataOption(props)}
+      {dataOptionWithTooltip(props)}
     </React.Suspense>
   </components.Option>
 );

@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react';
 import React from 'react';
+
 import { mount } from 'enzyme';
+
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
@@ -9,10 +11,11 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { WithEditorView } from '../../WithEditorView';
+
 import EditorActions from '../../../actions';
 import { EventDispatcher } from '../../../event-dispatcher';
 import EditorContext from '../../../ui/EditorContext';
+import { WithEditorView } from '../../WithEditorView';
 
 describe('WithEditorView', () => {
   const createEditor = createProsemirrorEditorFactory();

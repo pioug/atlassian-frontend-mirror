@@ -8,16 +8,8 @@ import {
   MediaSubscription,
 } from '@atlaskit/media-client';
 
-import { WithMediaClientConfig } from '@atlaskit/media-client-react';
-
-export interface MediaImageChildrenProps {
-  /** Boolean with value to check if component is loading image source from API */
-  loading: boolean;
-  /** Boolean with value to check if there was an error during the image load from media API */
-  error: boolean;
-  /** Data structure with image data, if media API returned with success */
-  data: MediaImageState | undefined;
-}
+import { MediaImageChildrenProps, MediaImageState } from './types';
+import type { SSR } from '@atlaskit/media-common';
 export interface MediaImageInternalProps {
   /** Instance of file identifier */
   identifier: FileIdentifier;
@@ -27,13 +19,8 @@ export interface MediaImageInternalProps {
   apiConfig?: MediaStoreGetFileImageParams;
   /** Render props returning `MediaImageChildrenProps` data structure */
   children: (props: MediaImageChildrenProps) => ReactNode;
-}
-
-export interface MediaImageState {
-  /** Current status of the image to be loaded */
-  status: 'loading' | 'error' | 'processed' | 'succeeded';
-  /** Image source. It will be added in case the request for the image returns with success or image preview is available */
-  src?: string;
+  /** Server-Side-Rendering modes are "server" and "client" */
+  ssr?: SSR;
 }
 
 export class MediaImageInternal extends Component<
@@ -174,5 +161,3 @@ export class MediaImageInternal extends Component<
     });
   }
 }
-
-export type MediaImageProps = MediaImageInternalProps & WithMediaClientConfig;

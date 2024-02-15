@@ -1,13 +1,14 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { selectElementWithText } from '@atlaskit/editor-test-helpers/page-objects/editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  snapshot,
   initFullPageEditorWithAdf,
+  snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import adf from './__fixtures__/table-with-paragraph.adf.json';
 
 describe('Focused table: fullpage', () => {
@@ -17,8 +18,7 @@ describe('Focused table: fullpage', () => {
     page = global.page;
   });
 
-  // FIXME: This test was automatically skipped due to failure on 06/08/2023: https://product-fabric.atlassian.net/browse/ED-19363
-  it.skip('focus via keyboard', async () => {
+  it('focus via keyboard', async () => {
     await initFullPageEditorWithAdf(page, adf, undefined, undefined, {});
     await selectElementWithText({
       page,

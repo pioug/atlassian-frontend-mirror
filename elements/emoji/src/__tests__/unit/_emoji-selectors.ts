@@ -1,31 +1,32 @@
-import type { ReactWrapper, EnzymePropSelector } from 'enzyme';
+import { RenderResult, waitFor } from '@testing-library/react';
+import type { EnzymePropSelector, ReactWrapper } from 'enzyme';
 
-export function getEmojiTypeAheadItemById(
-  emojiTypeAhead: ReactWrapper<any, any>,
-  itemKey?: string,
-): ReactWrapper<any, any> {
-  return emojiTypeAhead.findWhere(
-    (n) => n.name() === 'EmojiTypeAheadItem' && n.key() === itemKey,
+export async function getEmojiTypeAheadItemById(
+  container: RenderResult['container'],
+  id?: string,
+): Promise<Element> {
+  const emojiTypeAhead = await waitFor(() =>
+    container.querySelector(`.ak-emoji-typeahead-item[data-emoji-id="${id}"]`),
+  );
+  expect(emojiTypeAhead).not.toBeNull();
+  return emojiTypeAhead!;
+}
+
+export async function getSelectedEmojiTypeAheadItem(
+  container: RenderResult['container'],
+): Promise<Element | null> {
+  return await waitFor(() =>
+    container.querySelector('.emoji-typeahead-selected'),
   );
 }
 
-export function getSelectedEmojiTypeAheadItem(
-  emojiTypeAhead: ReactWrapper<any, any>,
-): ReactWrapper<any, any> {
-  return (
-    emojiTypeAhead.update() &&
-    emojiTypeAhead.findWhere(
-      (n) => n.name() === 'EmojiTypeAheadItem' && n.prop('selected'),
-    )
-  );
-}
-
-export function isEmojiTypeAheadItemSelected(
-  emojiTypeAhead: ReactWrapper<any, any>,
-  itemKey?: string,
-): boolean {
-  const selectedItem = getSelectedEmojiTypeAheadItem(emojiTypeAhead);
-  return !!(selectedItem.length && selectedItem.key() === itemKey);
+export async function isEmojiTypeAheadItemSelected(
+  container: RenderResult['container'],
+  id?: string,
+): Promise<void> {
+  const selectedItem = await getSelectedEmojiTypeAheadItem(container);
+  expect(selectedItem).toBeVisible();
+  expect(selectedItem).toHaveAttribute('data-emoji-id', id);
 }
 
 /**

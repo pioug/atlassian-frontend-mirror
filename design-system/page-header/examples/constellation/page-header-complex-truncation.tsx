@@ -2,7 +2,7 @@ import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import Select from '@atlaskit/select';
@@ -12,7 +12,7 @@ import PageHeader from '../../src';
 
 const selectContainerStyles = xcss({
   flex: '0 0 200px',
-  marginLeft: 'space.100',
+  marginInlineStart: 'space.100',
 });
 
 const flexBoxStyles = xcss({
@@ -26,7 +26,7 @@ const breadcrumbs = (
   </Breadcrumbs>
 );
 const actionsContent = (
-  <ButtonGroup>
+  <ButtonGroup label="Content actions">
     <Button appearance="primary">Primary Action</Button>
     <Button>Default</Button>
     <Button>...</Button>

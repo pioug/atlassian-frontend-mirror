@@ -68,7 +68,7 @@ describe('mark utilities', () => {
           ),
         );
 
-        editorAPI?.core.actions.execute(
+        editorAPI?.core?.actions.execute(
           toggleMark(editorView.state.schema.marks.code),
         );
 
@@ -95,7 +95,7 @@ describe('mark utilities', () => {
             ),
           );
 
-          editorAPI?.core.actions.execute(
+          editorAPI?.core?.actions.execute(
             toggleMark(editorView.state.schema.marks.code),
           );
 
@@ -123,7 +123,7 @@ describe('mark utilities', () => {
           editorProps: { allowTables: true },
         });
 
-        editorAPI?.core.actions.execute(
+        editorAPI?.core?.actions.execute(
           toggleMark(editorView.state.schema.marks.code),
         );
 
@@ -150,7 +150,7 @@ describe('mark utilities', () => {
           editorProps: { allowTables: true },
         });
 
-        editorAPI?.core.actions.execute(
+        editorAPI?.core?.actions.execute(
           toggleMark(editorView.state.schema.marks.strong),
         );
 
@@ -177,7 +177,7 @@ describe('mark utilities', () => {
           editorProps: { allowTables: true },
         });
 
-        editorAPI?.core.actions.execute(
+        editorAPI?.core?.actions.execute(
           toggleMark(editorView.state.schema.marks.strong),
         );
 
@@ -198,7 +198,7 @@ describe('mark utilities', () => {
         doc(p('{<}text', hardBreak(), 'here{>}')),
       );
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.strong),
       );
 
@@ -212,7 +212,7 @@ describe('mark utilities', () => {
         doc(p('{<}text', hardBreak(), strong('here{>}'))),
       );
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.strong),
       );
 
@@ -231,7 +231,7 @@ describe('mark utilities', () => {
         ),
       );
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.strong),
       );
 
@@ -260,7 +260,7 @@ describe('mark utilities', () => {
         ),
       );
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.strong),
       );
 
@@ -284,11 +284,11 @@ describe('mark utilities', () => {
         doc(p('{<}text', hardBreak(), 'here{>}')),
       );
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.strong),
       );
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.em),
       );
 
@@ -302,11 +302,11 @@ describe('mark utilities', () => {
         doc(p('{<}text', hardBreak(), 'here{>}')),
       );
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.strong),
       );
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.strong),
       );
 
@@ -318,11 +318,11 @@ describe('mark utilities', () => {
     it('can toggle a mark with different attributes', () => {
       const { editorView, editorAPI } = editor(doc(p('{<}text here{>}')));
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.subsup, { type: 'sup' }),
       );
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.subsup, { type: 'sub' }),
       );
 
@@ -344,7 +344,7 @@ describe('mark utilities', () => {
         ),
       );
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.subsup, { type: 'sup' }),
       );
 
@@ -366,7 +366,7 @@ describe('mark utilities', () => {
         doc(p('This is the first normal text {<>}')),
       );
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.subsup, { type: 'sup' }),
       );
 
@@ -374,7 +374,7 @@ describe('mark utilities', () => {
       sendKeyToPm(editorView, 'Enter');
       insertText(editorView, 'This is the second normal text ');
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.subsup, { type: 'sub' }),
       );
 
@@ -397,7 +397,7 @@ describe('mark utilities', () => {
     it('can apply a mark half way through a selection', () => {
       const { editorView, editorAPI } = editor(doc(p('te{<}xt{>}')));
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.strong),
       );
 
@@ -411,11 +411,11 @@ describe('mark utilities', () => {
         editorAPI,
       } = editor(doc(p('text here{<>}{nextCursorPos}')));
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.strong),
       );
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.strong),
       );
 
@@ -428,7 +428,7 @@ describe('mark utilities', () => {
     it('enables a mark with attributes', () => {
       const { editorView, editorAPI } = editor(doc(p('{<}text here{>}')));
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.subsup, { type: 'sup' }),
       );
 
@@ -442,7 +442,7 @@ describe('mark utilities', () => {
         doc(p('text here', subsup({ type: 'sub' })('{<>}'))),
       );
 
-      editorAPI?.core.actions.execute(
+      editorAPI?.core?.actions.execute(
         toggleMark(editorView.state.schema.marks.subsup, { type: 'sup' }),
       );
 

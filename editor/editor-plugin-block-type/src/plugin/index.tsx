@@ -2,7 +2,12 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 
-import { blockquote, hardBreak, heading } from '@atlaskit/adf-schema';
+import {
+  blockquote,
+  blockquoteWithList,
+  hardBreak,
+  heading,
+} from '@atlaskit/adf-schema';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -31,9 +36,9 @@ import type {
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
-import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { TextBlockTypes } from './block-types';
 import { setBlockTypeWithAnalytics } from './commands';
@@ -44,7 +49,7 @@ import keymapPlugin from './pm-plugins/keymap';
 import type { BlockTypeState } from './pm-plugins/main';
 import { createPlugin, pluginKey } from './pm-plugins/main';
 import type { BlockTypeNode, BlockTypePluginOptions } from './types';
-import ToolbarBlockType from './ui/ToolbarBlockType';
+import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
 
 const headingPluginOptions = (
   { formatMessage }: IntlShape,
@@ -156,9 +161,14 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => ({
   name: 'blockType',
 
   nodes() {
+    const blockquoteNode = getBooleanFF(
+      'platform.editor.allow-list-in-blockquote',
+    )
+      ? blockquoteWithList
+      : blockquote;
     const nodes: BlockTypeNode[] = [
       { name: 'heading', node: heading },
-      { name: 'blockquote', node: blockquote },
+      { name: 'blockquote', node: blockquoteNode },
       { name: 'hardBreak', node: hardBreak },
     ];
 
@@ -225,50 +235,27 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => ({
   },
 
   primaryToolbarComponent({
-    editorView,
     popupsMountPoint,
     popupsBoundariesElement,
     popupsScrollableElement,
     toolbarSize,
     disabled,
     isToolbarReducedSpacing,
-    eventDispatcher,
   }) {
     const isSmall =
       options && options.isUndoRedoButtonsEnabled
         ? toolbarSize < ToolbarSize.XXL
         : toolbarSize < ToolbarSize.XL;
-    const boundSetBlockType = (name: TextBlockTypes) => {
-      api?.core.actions.execute(
-        setBlockTypeWithAnalytics(
-          name,
-          INPUT_METHOD.TOOLBAR,
-          api?.analytics?.actions,
-        ),
-      );
-    };
 
     return (
-      <WithPluginState
-        editorView={editorView}
-        eventDispatcher={eventDispatcher}
-        plugins={{
-          pluginState: pluginKey,
-        }}
-        render={({ pluginState }) => {
-          return (
-            <ToolbarBlockType
-              isSmall={isSmall}
-              isDisabled={disabled}
-              isReducedSpacing={isToolbarReducedSpacing}
-              setTextLevel={boundSetBlockType}
-              pluginState={pluginState!}
-              popupsMountPoint={popupsMountPoint}
-              popupsBoundariesElement={popupsBoundariesElement}
-              popupsScrollableElement={popupsScrollableElement}
-            />
-          );
-        }}
+      <PrimaryToolbarComponent
+        isSmall={isSmall}
+        disabled={disabled}
+        isToolbarReducedSpacing={isToolbarReducedSpacing}
+        api={api}
+        popupsMountPoint={popupsMountPoint}
+        popupsBoundariesElement={popupsBoundariesElement}
+        popupsScrollableElement={popupsScrollableElement}
       />
     );
   },

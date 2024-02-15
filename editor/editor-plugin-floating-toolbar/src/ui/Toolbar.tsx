@@ -8,8 +8,9 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import ButtonGroup from '@atlaskit/button/button-group';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
-import { areSameItems } from '@atlaskit/editor-common/floating-toolbar';
 import type { Item } from '@atlaskit/editor-common/floating-toolbar';
+import { areSameItems } from '@atlaskit/editor-common/floating-toolbar';
+import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
   FeatureFlags,
@@ -31,12 +32,6 @@ import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import { clearHoverSelection } from '@atlaskit/editor-plugin-table/commands';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { DN70 } from '@atlaskit/theme/colors';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { themed } from '@atlaskit/theme/components';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { borderRadius } from '@atlaskit/theme/constants';
-import type { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -49,7 +44,6 @@ import Dropdown from './Dropdown';
 import { EmojiPickerButton } from './EmojiPickerButton';
 import { ExtensionsPlaceholder } from './ExtensionsPlaceholder';
 import Input from './Input';
-import messages from './messages';
 import { ScrollButtons } from './ScrollButtons';
 import type { SelectOption } from './Select';
 import Select from './Select';
@@ -82,6 +76,7 @@ export interface Props {
         ]
       >
     | undefined;
+  mediaAssistiveMessage?: string;
 }
 
 const ToolbarItems = React.memo(
@@ -237,6 +232,7 @@ const ToolbarItems = React.memo(
                     <ColorPickerButton
                       skipFocusButtonAfterPick
                       key={idx}
+                      isAriaExpanded={item.isAriaExpanded}
                       title={item.title}
                       onChange={selected => {
                         dispatchCommand(item.onChange(selected));
@@ -331,16 +327,12 @@ const ToolbarItems = React.memo(
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const toolbarContainer = (
-  theme: ThemeProps,
   scrollable?: boolean,
   hasSelect?: boolean,
   firstElementIsSelect?: boolean,
 ) => css`
-  background-color: ${themed({
-    light: token('elevation.surface.overlay', 'white'),
-    dark: token('elevation.surface.overlay', DN70),
-  })(theme)};
-  border-radius: ${borderRadius()}px;
+  background-color: ${token('elevation.surface.overlay', 'white')};
+  border-radius: ${token('border.radius', '3px')};
   box-shadow: ${token(
     'elevation.shadow.overlay',
     `0 0 1px rgba(9, 30, 66, 0.31), 0 4px 8px -2px rgba(9, 30, 66, 0.25)`,
@@ -439,7 +431,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
       if (table) {
         return clearHoverSelection()(state, dispatch);
       }
-      this.props.api?.decorations.actions.removeDecoration(state, dispatch);
+      this.props.api?.decorations?.actions.removeDecoration(state, dispatch);
     }
   }
 
@@ -513,7 +505,8 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
   };
 
   render() {
-    const { items, className, node, intl, scrollable } = this.props;
+    const { items, className, node, intl, scrollable, mediaAssistiveMessage } =
+      this.props;
 
     if (!items || !items.length) {
       return null;
@@ -541,9 +534,8 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
         >
           <div
             ref={this.toolbarContainerRef}
-            css={(theme: ThemeProps) => [
+            css={() => [
               toolbarContainer(
-                { theme },
                 scrollable,
                 hasSelect !== undefined,
                 firstElementIsSelect,
@@ -555,7 +547,13 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
             className={className}
           >
             <Announcer
-              text={intl.formatMessage(messages.floatingToolbarAnnouncer)}
+              text={
+                mediaAssistiveMessage
+                  ? `${mediaAssistiveMessage}, ${intl.formatMessage(
+                      messages.floatingToolbarAnnouncer,
+                    )}`
+                  : intl.formatMessage(messages.floatingToolbarAnnouncer)
+              }
               delay={250}
             />
             <div

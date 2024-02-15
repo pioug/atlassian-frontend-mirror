@@ -11,7 +11,7 @@ import {
   PrimaryButton,
   ProductHome,
 } from '@atlaskit/atlassian-navigation';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/logo';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';

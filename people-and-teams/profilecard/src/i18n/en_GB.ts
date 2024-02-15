@@ -7,6 +7,7 @@
  */
 //English (United Kingdom)
 export default {
+  'profilecard.user.trigger.aria-label': 'More information about {fullName}',
   'pt.profile-card.closed.account': 'Account deleted',
   'pt.profile-card.closed.account.has.date.a.few.months': 'Their account has been deleted for a few months.',
   'pt.profile-card.closed.account.has.date.last.month': 'Their account was deleted last month.',

@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { bindAll, UnbindFn } from 'bind-event-listener';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { CodeBlock } from '@atlaskit/code';
+import { Box, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 import { token } from '@atlaskit/tokens';
 
@@ -15,12 +16,12 @@ import Portal, {
   type PortalEvent,
 } from '../../src';
 
-const containerStyles = css({
-  margin: token('space.200', '16px'),
+const containerStyles = xcss({
+  margin: 'space.200',
 });
 
-const verticalSpaceContainerStyles = css({
-  marginBottom: token('space.200', '16px'),
+const verticalSpaceContainerStyles = xcss({
+  marginBlockEnd: 'space.200',
 });
 
 const portalContentStyles = css({
@@ -60,12 +61,12 @@ const PortalEventExample = () => {
   }, []);
 
   return (
-    <div css={containerStyles}>
-      <div css={verticalSpaceContainerStyles}>
+    <Box xcss={containerStyles}>
+      <Box xcss={verticalSpaceContainerStyles}>
         <Button appearance="primary" onClick={() => setIsMounted(!isMounted)}>
           {isMounted ? 'Unmount' : 'Mount'} portal
         </Button>
-      </div>
+      </Box>
       <div>
         <figure css={figureStyles}>
           <figcaption>PortalEvent specific data:</figcaption>
@@ -79,7 +80,7 @@ const PortalEventExample = () => {
           </div>
         </Portal>
       )}
-    </div>
+    </Box>
   );
 };
 

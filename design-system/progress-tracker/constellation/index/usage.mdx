@@ -4,35 +4,34 @@ order: 2
 
 ## Usage
 
-Use a progress tracker to guide users through steps or actions across multiple screens, in order to complete a task. Progress tracker tasks must have three or more steps. The tracker shows users where they are in the process, and can be used to navigate through the process by selecting steps.
+Use a progress tracker to guide people through steps or actions across multiple screens, in order to complete a task. The progress tracker must have three or more steps.
 
-- Use a progress tracker to guide users through steps or actions across multiple screens, in order to complete a task.
-- Progress tracker tasks must have three or more steps.
-- The tracker shows users where they are in the process, and can be used to navigate through the process by selecting steps.
+The tracker shows people what stage they are in a process. They can navigate through the process by selecting one of the steps.
 
 ## Anatomy
 
-![Progress tracker anatomy](images/progress-tracker-anatomy.png)
+![The example progress tracker is a 4-step horizontal bar, with the labels "Welcome", "Create a space", "Upload photo" and "Your details".](images/progress-tracker-anatomy.png)
 
-1. **Progress bar:** Shows users their progress and the number of steps required to complete the task.
-2. **Current step:** Shows the current step that the user is on.
-3. **Unvisited:** Shows steps that user has not visited. The step and label are more subtle to indicate this.
-4. **Visited:** Steps that have already been visited have clickable links, so that users can navigate back to them.
-5. **Disabled:** A grayed-out label indicates a step that users can not revisit.
+1. **Progress bar:** A filled horizontal bar that shows people their progress and the number of steps required to complete the task.
+2. **Current step:** The current step in the progress aligns with the color fill and has colored text.
+3. **Unvisited:** Shows steps that haven't been visited yet. The step and label are more subtle to indicate this.
+4. **Visited:** Steps that have already been visited are higher contrast and have clickable links, so that people can navigate back to them.
+5. **Disabled:** A grayed-out label indicates a step that people can't revisit.
 
 ## Best practices
 
-- Use labels that clearly indicate the purpose of the step. When writing, keep options to a single line of text, be short and concise (1-2 words), and follow the [writing guidelines](/content/writing-style)
 - If a task needs more than six steps, consider simplifying the process or breaking it up into multiple tasks
 - If there are less than three steps, consider using a button labelled "Next"
 
 ## Content guidelines
 
-When labeling each step, identify the general theme of each step so that if details in the process change, the label still makes sense to the user.
+Use labels that clearly indicate the purpose of the step. When writing, keep options to a single line of text, be short and concise (1-2 words), and follow the [writing guidelines](/content/writing-style).
 
-For example, you have a check-out process where, depending on whether the purchase is of a digital item or a physical item, users may or may not need to enter their shipping details, but must always enter payment details. Calling this step "Your details” allows it to either be connected to the payment and shipping details screen, or just the payment screen.
+When labeling each step, identify the general theme of each step so that if details in the process change, the label still makes sense.
 
-![Progress tracker content guidelines](images/progress-tracker-content-guidelines.png)
+For example, in a checkout process people may or may not need to enter their shipping details, depending on whether the purchase is of a digital item or a physical item, but must always enter payment details. Calling this step "Your details” allows it to either be connected to the payment and shipping details screen, or just the payment screen.
+
+![The example progress tracker has three steps, with the labels "Checked items", "Your details", and "Place order".](images/progress-tracker-content-guidelines.png)
 
 ## Server
 
@@ -40,4 +39,4 @@ Consult [AUI](https://docs.atlassian.com/aui/latest/docs/progress-tracker.html) 
 
 ## Related
 
-- Use a [progress indicator](/components/progress-indicator) to show the user where they are in a journey.
+- Use a [progress indicator](/components/progress-indicator) for a simpler experience that also shows people where they are in a journey.

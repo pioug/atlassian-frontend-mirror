@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/editor-bitbucket-transformer",
-  "version": "8.1.18",
+  "version": "8.1.30",
   "description": "Editor Bitbucket transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -24,25 +24,25 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor: ADF",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "continuous",
     "website": {
       "name": "Editor Bitbucket Transformer"
-    }
+    },
+    "runReact18": false
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^76.23.0",
-    "@atlaskit/editor-prosemirror": "1.1.0",
+    "@atlaskit/editor-common": "^77.4.0",
+    "@atlaskit/editor-prosemirror": "3.0.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/adf-schema": "^34.0.0",
+    "@atlaskit/adf-schema": "^35.5.1",
     "@atlaskit/editor-json-transformer": "^8.10.0",
-    "@atlaskit/editor-test-helpers": "^18.14.0",
+    "@atlaskit/editor-test-helpers": "^18.18.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "typescript": "~4.9.5"
   },
@@ -57,5 +57,11 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./serializer": "./src/serializer.ts",
+    "./tableSerializer": "./src/tableSerializer.ts",
+    "./util": "./src/util.ts"
+  }
 }

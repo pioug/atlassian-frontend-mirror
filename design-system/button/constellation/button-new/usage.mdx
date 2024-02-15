@@ -4,6 +4,12 @@ description: A button triggers an event or action. They let users know what will
 order: 2
 ---
 
+import buttonPrimaryDo from './images/button-primary-do.png';
+import buttonPrimaryDont from './images/button-primary-dont.png';
+import buttonDisableDo from './images/button-disable-do.png';
+import buttonDisableDont from './images/button-disable-dont.png';
+import buttonAlignmentModal from './images/button-alignment-modal.png';
+import buttonAlignmentPage from './images/button-alignment-page.png';
 import buttonConciseDo from './images/button-concise-do.png';
 import buttonConciseDont from './images/button-concise-dont.png';
 import buttonCapitalizationDo from './images/button-capitalization-do.png';
@@ -21,8 +27,9 @@ Buttons are triggers for events or actions. They’re a common part of larger ex
 
 Buttons typically have a label and can include an icon before or after the label.
 
+1. **Label:** Text describing the button action. Use action verbs or phrases to tell the user what will happen next, and follow the [button label content guidelines](/components/button/button-new/usage#content-guidelines).
+1. **Button:** The selectable area of the button.
 1. **Icon (optional):** Most buttons don’t need an icon. Use an icon to add additional affordance where the icon has a clear and well-established meaning.
-2. **Label:** Text describing the button action. Use action verbs or phrases to tell the user what will happen next, and follow the [button label content guidelines](/components/button/usage#content-guidelines).
 
 ### Use one primary call to action
 
@@ -30,11 +37,23 @@ Only include one primary button or call to action (CTA) in a page or area of UI.
 
 Primary buttons indicate the most important action in a group or area. Having multiple primary CTAs in one area can be confusing or visually overwhelming because they compete for attention.
 
-<DoDont type="do">
+<DoDont
+  type="do"
+  image={{
+    url: buttonPrimaryDo,
+    alt: 'Two buttons in a group. One says cancel and is grey, the other says primary and is blue, making it the more promenint call to action.',
+  }}
+>
   Use one primary call to action to help people proceed.
 </DoDont>
 
-<DoDont type="dont">
+<DoDont
+  type="dont"
+  image={{
+    url: buttonPrimaryDont,
+    alt: 'Two buttons in a group. One says cancel and the other says primary. Both are primary blue, causing them to compete for attention.',
+  }}
+>
   Don’t use many calls to action in one page or container.
 </DoDont>
 
@@ -52,39 +71,46 @@ In general, don’t use a `<button>` in place of a link (`<a>`) or a link in pla
 
 ## Accessibility
 
-### Aria labels for buttons with icons
-
-When using an icon alongside text, do not add a label to the icon. Doing so will unnecessarily repeat labels for people using screen readers.
-
-Always include a clear, accessible name as an aria label for [icon-only buttons](/components/button/icon-button/usage#accessibility).
-
 ### Avoid disabling buttons
 
 Avoid disabling buttons, especially in forms. Instead, keep the button pressable, and use validation and errors to explain what needs to be done to proceed.
 
 Disabled buttons don’t explain why the button isn’t usable. They also aren’t reachable in the tab order and don’t receive hover, focus, or click events, making them entirely inaccessible to some people.
 
-<DoDont type="do">
+<DoDont
+  type="do"
+  image={{
+    url: buttonDisableDo,
+    alt: 'A form that is incomplete. The button remains visible and pressable, and validation text explains what must be done to proceed.',
+  }}
+>
   Use validation or other clear on-screen directions to help people proceed.
 </DoDont>
 
-<DoDont type="dont">
+<DoDont
+  type="dont"
+  image={{
+    url: buttonDisableDont,
+    alt: 'A form that is incomplete. The button is disabled and light grey in color, which is difficult to see. There is no explanation of what to do to proceed.',
+  }}
+>
   Don’t disable form submission buttons, as this doesn't give people clear a
   direction for how to proceed.
 </DoDont>
 
 ### Never put tooltips on disabled buttons
 
-Tooltips aren't visible on all devices or assitive technologies, and they should never appear on elements that aren't interactable.
+Tooltips can't be reached on all devices or by some assitive technologies, and they should never appear on elements that aren't interactable.
 
 <!-- Don’t attempt to create workarounds. If you are an Atlassian, Accessibility QA will make you redesign these implementations. -->
 
-Some questions you should ask if you feel you need a tooltip on a disabled button:
+Things to consider before using a tooltip:
 
-- Is this information **essential** to the user experience? If so, don’t hide it behind a tooltip. Tooltips aren’t easy to discover and aren’t accessible on mobile. If it isn’t essential, consider whether you need to show it at all.
-- Is this information **actionable**? Being shown things that you can’t use without any actionable next step can be frustrating or confusing. Consider only showing UI that a user is able to interact with, or replacing the disabled button with text that has the same content you were going to put in the tooltip. If you do this, you can make things even more actionable for the user by providing a link to a next step that they can take, or further information.
+- Is this information **essential** to the user experience? If so, never hide it behind a tooltip. Tooltips aren’t easy to discover and aren’t accessible at all on mobile devices. If it isn’t essential information, consider if you need to show it at all.
+- Is this information **actionable**? Being shown things that you can’t use without any next steps can be frustrating or confusing. Consider only showing UI that a user can interact with.
+- If the information is still necessary or helpful, consider using helper text or other more accessible text that has the same content instead of a tooltip. This gives you more options to provide a link to a next step or another more action.
 
-We know that disabled buttons with tooltips are sometimes used to promote feature discovery. We are working to provide guidance for this use case in the future.
+<!-- We know that disabled buttons with tooltips are sometimes used for feature discovery. We're working on guidance for this case. -->
 
 <!-- TODO: make example showcasing focus behavior. Would be ideal to remove from usage and have as an example instead. -->
 
@@ -92,18 +118,30 @@ We know that disabled buttons with tooltips are sometimes used to promote featur
 
 ### Alignment and positioning
 
-In general, the primary button or main CTA should match the alignment of the button group. For example, right aligned button groups place the primary button on the right. Left aligned button groups place the primary button on the left.
+In general, the primary button placement should match the alignment of the button group. For example, right aligned button groups place the primary button on the right. Left aligned button groups place the primary button on the left.
 
 - **Right align** buttons for focussed tasks, series of tasks (such as [onboarding](/components/onboarding)), and [modal dialogs](/components/modal-dialog). Right aligning buttons is best for experiences with less copy, so users end scanning on the most important action (following a Z-pattern).
 - **Left align** buttons for single-page forms and other full-page tasks where there is a lot of content in view. This aligns with how people scan full pages with more content (F-pattern), sorting by importance from left to right. Cards can also left-align the primary action, as they’re typically part of a larger page experience.
 - **Exceptions:** Benefits modals and login forms currently center align buttons.
 
-<DoDont type="do">
+<DoDont
+  type="do"
+  image={{
+    url: buttonAlignmentModal,
+    alt: 'Buttons aligned to the right in a modal dialog, with the primary action furthest right.',
+  }}
+>
   Right-align buttons for focussed tasks, modal dialogs, and other areas with
   less content.
 </DoDont>
 
-<DoDont type="do">
+<DoDont
+  type="do"
+  image={{
+    url: buttonAlignmentPage,
+    alt: 'Buttons aligned to the left in a full-page layout, with the primary action furthest left.',
+  }}
+>
   Left align buttons on full-page forms, long lists of cards, or other screens
   with a lot of full-page content.
 </DoDont>
@@ -120,7 +158,7 @@ Only capitalize the first letter of the button and any proper nouns. Most featur
   type="do"
   image={{
     url: buttonCapitalizationDo,
-    alt: 'Button that says Copy ticket',
+    alt: 'Button that says Complete sprint. Only the first letter is capitalized.',
   }}
 >
   Use sentence-case capitalization.
@@ -130,7 +168,7 @@ Only capitalize the first letter of the button and any proper nouns. Most featur
   type="dont"
   image={{
     url: buttonCapitalizationDont,
-    alt: 'Buttons that say copy text in sentence case and all caps',
+    alt: 'Buttons that say Complete sprint text in title case and all caps.',
   }}
 >
   Use title case capitalization or all caps.
@@ -144,7 +182,7 @@ Keep labels short and free of punctuation. Drop unnecessary articles, such as �
   type="do"
   image={{
     url: buttonConciseDo,
-    alt: 'Button that says Reset Password',
+    alt: 'Button that says Reset Password.',
   }}
 >
   Use concise, easy to scan button labels to describe the action.
@@ -154,7 +192,7 @@ Keep labels short and free of punctuation. Drop unnecessary articles, such as �
   type="dont"
   image={{
     url: buttonConciseDont,
-    alt: 'Button that says Click here to choose a password',
+    alt: 'Button that says Send a password reset email.',
   }}
 >
   Use long, redundant button labels.
@@ -162,7 +200,7 @@ Keep labels short and free of punctuation. Drop unnecessary articles, such as �
 
 ### Use specific labels wherever possible
 
-Start with the verb and specify what is being acted on. Use dynamic text to make the button very specific if posible.
+Start with the verb and specify what is being acted on. Use dynamic text to make the button very specific if possible.
 
 <DoDont
   type="do"
@@ -217,6 +255,7 @@ Consult [AUI](https://docs.atlassian.com/aui/latest/docs/buttons.html) for imple
 ## Related
 
 - [Icon buttons](/components/button/icon-button)
+- [Link buttons](/components/button/link-button)
 - [Button groups](/components/button/button-group/usage)
 - [Split buttons](/components/button/split-button)
 - [Forms](/patterns/forms)

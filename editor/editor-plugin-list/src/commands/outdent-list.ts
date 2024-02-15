@@ -12,10 +12,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { getCommonListAnalyticsAttributes } from '@atlaskit/editor-common/lists';
 import { PassiveTransaction } from '@atlaskit/editor-common/preset';
-import type {
-  EditorCommand,
-  FeatureFlags,
-} from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types';
 import { isBulletList } from '@atlaskit/editor-common/utils';
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -28,10 +25,7 @@ import { isInsideListItem, isInsideTableCell } from '../utils/selection';
 type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 export const outdentList =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-  (
-    inputMethod: InputMethod = INPUT_METHOD.KEYBOARD,
-    featureFlags: FeatureFlags,
-  ): EditorCommand => {
+  (inputMethod: InputMethod = INPUT_METHOD.KEYBOARD): EditorCommand => {
     return function ({ tr }) {
       if (!isInsideListItem(tr)) {
         return null;
@@ -51,7 +45,7 @@ export const outdentList =
         : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
 
       let customTr: Transaction = tr;
-      outdentListAction(customTr, featureFlags);
+      outdentListAction(customTr);
       if (!customTr || !customTr.docChanged) {
         // Even though this is a non-operation, we don't want to send this event to the browser. Because if we return false, the browser will move the focus to another place
         // If inside table cell and can't outdent list, then let it handle by table keymap
@@ -59,13 +53,11 @@ export const outdentList =
       }
 
       const restartListsAttributes: RestartListAttributes = {};
-      if (featureFlags?.restartNumberedLists) {
-        const { outdentScenario, splitListStartNumber } =
-          getRestartListsAttributes(customTr);
-        if (outdentScenario === OUTDENT_SCENARIOS.SPLIT_LIST) {
-          restartListsAttributes.outdentScenario = outdentScenario;
-          restartListsAttributes.splitListStartNumber = splitListStartNumber;
-        }
+      const { outdentScenario, splitListStartNumber } =
+        getRestartListsAttributes(customTr);
+      if (outdentScenario === OUTDENT_SCENARIOS.SPLIT_LIST) {
+        restartListsAttributes.outdentScenario = outdentScenario;
+        restartListsAttributes.splitListStartNumber = splitListStartNumber;
       }
 
       editorAnalyticsAPI?.attachAnalyticsEvent({

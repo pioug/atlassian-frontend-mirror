@@ -219,6 +219,10 @@ const colorTests: Tests = {
           white-space: nowrap;
         \`;
         `,
+    `css({ 'white-space': 'no-wrap' });`,
+    `css({ whiteSpace: 'no-wrap', });`,
+    `css\`white-space: nowrap;\``,
+    `styled.li({ "white-space": "nowrap", });`,
     `console.log(\`Removed \${text}.\`);`,
     `export const App = () => <SimpleTag text="Base Tag" testId="standard" />;`,
     `export const App = () => <Avatar src="0x400" />;`,
@@ -311,6 +315,27 @@ const colorTests: Tests = {
       >
         {name}
       </span>`,
+    },
+    {
+      // SVG fill is allowed
+      code: `
+      <svg fill="none" viewBox="0 0 24 24">
+        <g clipPath="url(#a)" fill="#006644">
+          <path d="m7 19c1.1046 0 2-0.8954 2-2s-0.89543-2-2-2-2 0.8954-2 2 0.89543 2 2 2z" />
+        </g>
+      </svg>`,
+    },
+    {
+      // SVG stopColor is allowed
+      code: `
+      <svg viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="a" x1="108.695%" x2="12.439%" y1="21.812%" y2="47.923%">
+                <stop offset="0%" stopColor="#0052CC" />
+                <stop offset="100%" stopColor="#2684FF" />
+            </linearGradient>
+        </defs>
+      </svg>`,
     },
     {
       code: `

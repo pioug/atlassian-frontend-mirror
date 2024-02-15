@@ -1,18 +1,19 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
 import type { AnnotationId, DocNode } from '@atlaskit/adf-schema';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
-import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
 import type {
-  AnnotationState,
   AnnotationProviders,
+  AnnotationState,
 } from '@atlaskit/editor-common/types';
+import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
 import {
   UnsupportedBlock,
   UnsupportedInline,
 } from '@atlaskit/editor-common/ui';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
 
 import {
   SEVERITY,
@@ -25,13 +26,13 @@ import type {
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import RendererDefaultComponent, {
-  Renderer,
-  NORMAL_SEVERITY_THRESHOLD,
   DEGRADED_SEVERITY_THRESHOLD,
+  NORMAL_SEVERITY_THRESHOLD,
+  Renderer,
 } from '../../';
-import type { RendererAppearance } from '../../types';
-import { SelectionComponentWrapper } from '../../../annotations/selection';
 import { Paragraph } from '../../../../react/nodes';
+import { SelectionComponentWrapper } from '../../../annotations/selection';
+import type { RendererAppearance } from '../../types';
 
 let mockCreateAnalyticsEvent = jest.fn(() => ({ fire() {} }));
 
@@ -192,10 +193,8 @@ describe('Renderer', () => {
     });
   });
 
-  // Skipped to unblock https://product-fabric.atlassian.net/browse/ED-13790
-  // TODO: unskip and fix test
-  describe.skip('error boundary', () => {
-    it('should log error on Renderer render errors', () => {
+  describe('error boundary', () => {
+    it.skip('should log error on Renderer render errors', () => {
       let wrapper: ReactWrapper;
       wrapper = mount(<RendererDefaultComponent document={adf} />);
       const rendererWrapper = wrapper.find(Renderer);

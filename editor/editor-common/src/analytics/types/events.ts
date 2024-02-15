@@ -28,6 +28,7 @@ import type { ExtensionEventPayload } from './extension-events';
 import type { FindReplaceEventPayload } from './find-replace-events';
 import type { FormatEventPayload } from './format-events';
 import type { GeneralEventPayload } from './general-events';
+import type { HighlightActionsEventPayload } from './highlight-actions-menu-events';
 import type { InsertEventPayload } from './insert-events';
 import type {
   CreateLinkInlineDialogEventPayload,
@@ -36,6 +37,7 @@ import type {
   UnlinkToolbarAEP,
 } from './link-tool-bar-events';
 import type { ListEventPayload } from './list-events';
+import type { LoomEventPayload } from './loom-events';
 import type { MediaEventPayload } from './media-events';
 import type { NodeEventPayload } from './node-events';
 import type { PasteEventPayload } from './paste-events';
@@ -76,6 +78,7 @@ export type AnalyticsEventPayload<T = void> =
   | ConfigPanelEventPayload
   | ElementBrowserEventPayload
   | CreateLinkInlineDialogEventPayload
+  | HighlightActionsEventPayload
   | UnsupportedContentPayload
   | ExtensionEventPayload
   | TransactionEventPayload
@@ -87,7 +90,9 @@ export type AnalyticsEventPayload<T = void> =
   | FeatureExposureAEP
   | NewCollabSyncUpErrorAEP
   | UnsupportedContentTooltipPayload
-  | ReferentialityEventPayload;
+  | ReferentialityEventPayload
+  | LoomEventPayload
+  | MBEEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<
   ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,
@@ -96,6 +101,25 @@ type CustomPanelEventPayload = TrackAEP<
   | { previousColor: string; newColor: string }
   | { previousIcon: string; newIcon: string }
   | { icon: string },
+  undefined
+>;
+
+type MBEEventPayload = TrackAEP<
+  | ACTION.ADD_CHILD
+  | ACTION.CHANGE_ACTIVE
+  | ACTION.DELETED
+  | ACTION.REMOVE_CHILD
+  | ACTION.UPDATE_PARAMETERS
+  | ACTION.GET_CHILDERN,
+  ACTION_SUBJECT.MULTI_BODIED_EXTENSION,
+  undefined,
+  {
+    extensionType: string;
+    extensionKey: string;
+    localId: string;
+    maxFramesCount: number;
+    currentFramesCount: number;
+  },
   undefined
 >;
 
@@ -126,14 +150,12 @@ type InvalidTransactionErrorAEP = OperationalAEP<
   {
     analyticsEventPayloads: AnalyticsEventPayloadWithChannel[];
     invalidNodes: (SimplifiedNode | string)[];
-  },
-  undefined
+  }
 >;
 
 type DispatchedValidTransactionAEP = OperationalAEP<
   ACTION.DISPATCHED_VALID_TRANSACTION,
   ACTION_SUBJECT.EDITOR,
-  undefined,
   undefined,
   undefined
 >;
@@ -144,8 +166,7 @@ type InvalidTransactionStepErrorAEP = OperationalAEP<
   undefined,
   {
     analyticsEventPayloads: AnalyticsEventPayloadWithChannel[];
-  },
-  undefined
+  }
 >;
 
 export type TransactionEventPayload = DispatchedValidTransactionAEP;
@@ -160,8 +181,7 @@ type FailedToUnmountErrorAEP = OperationalAEP<
       container?: string;
       child?: string;
     };
-  },
-  undefined
+  }
 >;
 
 type SynchronyErrorAEP = OperationalAEP<
@@ -172,16 +192,14 @@ type SynchronyErrorAEP = OperationalAEP<
     error: Error;
     docStructure?: string | SimplifiedNode;
     browserExtensions?: UserBrowserExtensionResults;
-  },
-  undefined
+  }
 >;
 
 type NewCollabSyncUpErrorAEP = OperationalAEP<
   ACTION.NEW_COLLAB_SYNC_UP_ERROR_NO_STEPS,
   ACTION_SUBJECT.EDITOR,
   undefined,
-  NewCollabSyncUpErrorAttributes,
-  undefined
+  NewCollabSyncUpErrorAttributes
 >;
 
 type InvalidDocumentEncounteredAEP = OperationalAEP<
@@ -193,8 +211,7 @@ type InvalidDocumentEncounteredAEP = OperationalAEP<
     reason: string;
     tableLocalId: string;
     spanValue: number;
-  },
-  undefined
+  }
 >;
 
 type SynchronyEntityErrorAEP = OperationalAEP<
@@ -204,8 +221,7 @@ type SynchronyEntityErrorAEP = OperationalAEP<
   {
     onLine: boolean;
     visibilityState: string;
-  },
-  undefined
+  }
 >;
 
 type ContentComponentErrorAEP = OperationalAEP<
@@ -218,9 +234,6 @@ type ContentComponentErrorAEP = OperationalAEP<
     selection: { [key: string]: string };
     position: number;
     docSize: number;
-  },
-  {
-    errorStack?: string;
   }
 >;
 
@@ -245,8 +258,7 @@ type ComponentCrashErrorAEP = OperationalAEP<
   | ACTION_SUBJECT.FLOATING_TOOLBAR_PLUGIN
   | ACTION_SUBJECT.EDITOR,
   ACTION_SUBJECT_ID | FLOATING_CONTROLS_TITLE,
-  ErrorEventAttributes,
-  undefined
+  ErrorEventAttributes
 >;
 
 type ComponentCrashAdditionalInfoErrorAEP = OperationalAEP<
@@ -255,9 +267,6 @@ type ComponentCrashAdditionalInfoErrorAEP = OperationalAEP<
   undefined,
   {
     errorId: string;
-  },
-  {
-    errorStack: string;
   }
 >;
 
@@ -268,8 +277,7 @@ type SmartLinkErrorAEP = OperationalAEP<
   {
     error: string;
     errorStack?: string;
-  },
-  undefined
+  }
 >;
 
 export type ErrorEventPayload =

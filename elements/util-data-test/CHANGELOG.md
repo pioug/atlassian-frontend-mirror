@@ -1,5 +1,130 @@
 # @atlaskit/util-data-test
 
+## 17.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.9.0
+
+### Minor Changes
+
+- [#69969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69969) [`c9939127a605`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c9939127a605) - [ux] Render the custom byline instead of email for external users.
+
+### Patch Changes
+
+- [#70375](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70375) [`18028d32522b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/18028d32522b) - Adding tooltip to option shown on hover
+- Updated dependencies
+
+## 17.8.52
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.51
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.50
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.49
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.48
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.47
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.46
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.45
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.44
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.43
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.42
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.41
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.40
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.39
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.38
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.37
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.8.35
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.8.34
 
 ### Patch Changes

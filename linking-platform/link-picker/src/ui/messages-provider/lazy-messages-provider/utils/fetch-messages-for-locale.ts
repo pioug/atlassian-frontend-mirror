@@ -1,6 +1,4 @@
-import messages from '../../../../i18n/en';
-
-import { I18NMessages } from './types';
+import { I18NMessages } from '@atlaskit/intl-messages-provider';
 
 export const fetchMessagesForLocale = async (
   locale: string,
@@ -26,9 +24,4 @@ export const fetchMessagesForLocale = async (
   } catch (e) {
     // ignore
   }
-
-  /**
-   * English bundled by default as this is the majority of users
-   */
-  return messages;
 };

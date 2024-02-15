@@ -1,5 +1,51 @@
 # @atlaskit/dynamic-table
 
+## 14.14.0
+
+### Minor Changes
+
+- [#68812](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68812) [`91d4a48c1430`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91d4a48c1430) - Support better loading state for assistive tech
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.13.1
+
+### Patch Changes
+
+- [#69022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69022) [`395c74147990`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/395c74147990) - Migrate packages to use declarative entry points
+
+## 14.13.0
+
+### Minor Changes
+
+- [#66438](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66438) [`334df1af360b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/334df1af360b) - [ux] `react-beautiful-dnd` is now lazy loaded for rankable tables. It will no longer be loaded for non-rankable tables.
+
+  Tests relying on ranking being synchronously available may need to be modified.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.12.1
+
+### Patch Changes
+
+- [#66234](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66234) [`eca303e7af0a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eca303e7af0a) - Changed :focus selector with :focus-visible
+
+## 14.12.0
+
+### Minor Changes
+
+- [#64300](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64300) [`9897d788b9ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9897d788b9ea) - Export prop types
+
+## 14.11.11
+
+### Patch Changes
+
+- [#58292](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58292) [`0dc821f0ecba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0dc821f0ecba) - [ux] Use `td` over `th` when a table head cell has no content.
+
 ## 14.11.10
 
 ### Patch Changes

@@ -10,8 +10,10 @@ import {
   linkMessages,
   linkToolbarMessages,
 } from '@atlaskit/editor-common/messages';
-import { FloatingToolbarButton as ToolbarButton } from '@atlaskit/editor-common/ui';
-import { FloatingToolbarSeparator as Separator } from '@atlaskit/editor-common/ui';
+import {
+  FloatingToolbarSeparator as Separator,
+  FloatingToolbarButton as ToolbarButton,
+} from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/glyph/editor/link';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
@@ -20,7 +22,10 @@ import { token } from '@atlaskit/tokens';
 import type { MediaLinkingState } from '../pm-plugins/linking';
 import { stateKey } from '../pm-plugins/plugin-key';
 import { checkMediaType } from '../utils/check-media-type';
-import { currentMediaNode } from '../utils/current-media-node';
+import {
+  currentMediaInlineNode,
+  currentMediaNode,
+} from '../utils/current-media-node';
 
 export interface LinkingToolbarProps {
   editorState: EditorState;
@@ -29,6 +34,7 @@ export interface LinkingToolbarProps {
   onAddLink: React.MouseEventHandler;
   onEditLink: React.MouseEventHandler;
   onOpenLink: React.MouseEventHandler;
+  isInlineNode?: boolean;
 }
 
 // need this wrapper, need to have 4px between items.
@@ -45,11 +51,14 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
   onAddLink,
   onEditLink,
   onOpenLink,
+  isInlineNode,
 }) => {
   const [showLinkingControls, setShowLinkingControls] = useState(true);
 
   useEffect(() => {
-    const mediaNode = currentMediaNode(editorState);
+    const mediaNode = isInlineNode
+      ? currentMediaInlineNode(editorState)
+      : currentMediaNode(editorState);
     if (!mediaNode) {
       setShowLinkingControls(false);
       return;
@@ -65,7 +74,7 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
     checkMediaType(mediaNode, mediaClientConfig).then(mediaType => {
       setShowLinkingControls(mediaType === 'external' || mediaType === 'image');
     });
-  }, [editorState]);
+  }, [editorState, isInlineNode]);
 
   if (!showLinkingControls) {
     return null;

@@ -1,5 +1,59 @@
 # @atlassian/smart-user-picker
 
+## 6.7.0
+
+### Minor Changes
+
+- [#70375](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70375) [`14ab45c8b78b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14ab45c8b78b) - Adding tooltip to option shown on hover
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.6.0
+
+### Minor Changes
+
+- [#68110](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68110) [`8f8a81b663ca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f8a81b663ca) - [ux] Introduced includeNonLicensedUsers prop to request including non licensed users from the recommendation API.
+
+## 6.5.0
+
+### Minor Changes
+
+- [#68878](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68878) [`6c49996cd842`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6c49996cd842) - update user recommendations api to return user's title
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.3
+
+### Patch Changes
+
+- [#67296](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67296) [`8b0a2a9e0969`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b0a2a9e0969) - This package has been added to the Jira push model.
+
+## 6.4.2
+
+### Patch Changes
+
+- [#60464](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60464) [`a30f9a5f3e0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a30f9a5f3e0d) - Removing unused dependencies
+
+## 6.4.1
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
+## 6.4.0
+
+### Minor Changes
+
+- [#59712](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59712) [`229363c1c1b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/229363c1c1b3) - Add required attribute to the user-picker components and add its consumption in the share component.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.3.0
 
 ### Minor Changes

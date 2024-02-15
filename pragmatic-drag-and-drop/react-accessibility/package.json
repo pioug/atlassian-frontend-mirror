@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-react-accessibility",
-  "version": "0.4.1",
+  "version": "0.5.1",
   "description": "Optional react components to help implement accessible alternative flows for Pragmatic drag and drop",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -37,17 +37,13 @@
   "atlaskit:src": "src/index.tsx",
   "af:exports": {
     "./drag-handle-button": "./src/drag-handle-button.tsx",
-    "./drag-handle-dropdown-menu": "./src/drag-handle-dropdown-menu.tsx",
-    "./drag-handle-button-small": "./src/drag-handle-button-small.tsx",
-    "./drag-handle-dropdown-menu-small": "./src/drag-handle-dropdown-menu-small.tsx"
+    "./drag-handle-button-small": "./src/drag-handle-button-small.tsx"
   },
   "dependencies": {
-    "@atlaskit/dropdown-menu": "^12.1.0",
-    "@atlaskit/ds-lib": "^2.2.3",
     "@atlaskit/focus-ring": "^1.3.4",
     "@atlaskit/icon": "^22.0.0",
-    "@atlaskit/primitives": "^1.12.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/primitives": "^2.0.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -56,9 +52,9 @@
   },
   "devDependencies": {
     "@af/visual-regression": "*",
+    "@atlaskit/ds-lib": "^2.2.3",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",

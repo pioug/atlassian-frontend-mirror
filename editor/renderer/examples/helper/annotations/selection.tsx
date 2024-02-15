@@ -1,16 +1,16 @@
 /** @jsx jsx */
-import React from 'react';
 import Button from '@atlaskit/button/standard-button';
-import AddCommentIcon from '@atlaskit/icon/glyph/comment';
-import uuid from 'uuid/v4';
 import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
-import { css, jsx } from '@emotion/react';
 import { Popup } from '@atlaskit/editor-common/ui';
+import AddCommentIcon from '@atlaskit/icon/glyph/comment';
+import { css, jsx } from '@emotion/react';
+import React from 'react';
+import uuid from 'uuid/v4';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
-import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-test-helpers/example-inline-comment-component';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
+import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-core/example-helpers/example-inline-comment-component';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { token } from '@atlaskit/tokens';
 
 const whiteBoxStyle = css`

@@ -3,7 +3,8 @@ import React from 'react';
 import { boolean, object, radios, withKnobs } from '@storybook/addon-knobs';
 import { IntlProvider } from 'react-intl-next';
 
-import Editor, { EditorProps } from '../editor';
+import type { EditorProps } from '../editor';
+import Editor from '../editor';
 import EditorContext from '../ui/EditorContext';
 
 function WrapperEditorComponent(props: EditorProps) {

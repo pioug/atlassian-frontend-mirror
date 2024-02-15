@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/intl-messages-provider",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": " IntlMessagesProvider is a Frontend Utility to asynchronously load i18n translated messages and feed them to IntlProvider based on the locale in product.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -11,11 +11,12 @@
     "team": "Frontend Platform Consortium",
     "inPublicMirror": false,
     "releaseModel": "continuous",
+    "i18n": true,
     "website": {
       "name": "IntlMessagesProvider"
     }
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -43,7 +44,6 @@
   "devDependencies": {
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",

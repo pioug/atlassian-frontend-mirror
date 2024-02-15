@@ -1,16 +1,23 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { IconButton } from '../../index';
 
 describe('<IconButton />', () => {
   it('should pass down test id', () => {
-    const { getByTestId } = render(
-      <IconButton tooltip="test" icon={<div />} testId="icon" />,
+    render(<IconButton tooltip="test" icon={<div />} testId="icon" />);
+
+    expect(screen.getByTestId('icon')).toBeInTheDocument();
+  });
+
+  it('should pass `label` prop to `aria-label`', () => {
+    const label = 'label';
+    render(
+      <IconButton tooltip={label} label={label} icon={<div />} testId="icon" />,
     );
 
-    expect(() => getByTestId('icon')).not.toThrow();
+    expect(screen.getByTestId('icon')).toHaveAttribute('aria-label', label);
   });
 
   it('can be used with custom components', () => {
@@ -23,7 +30,7 @@ describe('<IconButton />', () => {
     );
 
     const href = 'some/test/path';
-    const { queryByTestId } = render(
+    render(
       <IconButton
         tooltip="test"
         icon={<div />}
@@ -33,6 +40,6 @@ describe('<IconButton />', () => {
       />,
     );
 
-    expect(queryByTestId('custom')).toHaveAttribute('href', href);
+    expect(screen.queryByTestId('custom')).toHaveAttribute('href', href);
   });
 });

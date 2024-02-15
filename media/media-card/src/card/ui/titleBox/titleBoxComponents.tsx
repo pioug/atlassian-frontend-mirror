@@ -14,11 +14,8 @@ import {
   TitleBoxWrapperProps,
 } from './types';
 
-import { useGlobalTheme } from '@atlaskit/theme/components';
-
 export const TitleBoxWrapper = (props: TitleBoxWrapperProps) => {
   const { breakpoint, titleBoxBgColor } = props;
-  const theme = useGlobalTheme();
 
   return (
     <div
@@ -27,7 +24,6 @@ export const TitleBoxWrapper = (props: TitleBoxWrapperProps) => {
       css={titleBoxWrapperStyles({
         breakpoint: breakpoint,
         titleBoxBgColor: titleBoxBgColor,
-        theme,
       })}
     >
       {props.children}

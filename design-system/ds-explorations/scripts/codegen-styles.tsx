@@ -19,7 +19,7 @@ const colorTokensDependencyPath = require.resolve(
 );
 
 const typographyTokensDependencyPath = require.resolve(
-  '../../tokens/src/artifacts/tokens-raw/atlassian-typography',
+  '../../tokens/src/artifacts/tokens-raw/atlassian-typography-adg3',
 );
 
 writeFile(

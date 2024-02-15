@@ -29,12 +29,25 @@ type ExtensionPlugin = NextEditorPlugin<
   {
     pluginConfiguration: ExtensionPluginOptions | undefined;
     dependencies: [
+      OptionalPlugin<AnalyticsPlugin>,
       OptionalPlugin<FeatureFlagsPlugin>,
       WidthPlugin,
       DecorationsPlugin,
       OptionalPlugin<ContextPanelPlugin>,
+      BasePlugin,
     ];
-    actions: { createExtensionAPI: CreateExtensionAPI };
+    sharedState:
+      | {
+          showContextPanel: boolean | undefined;
+        }
+      | undefined;
+    actions: {
+      editSelectedExtension: () => boolean;
+      api: () => ExtensionAPI;
+      insertMacroFromMacroBrowser: InsertMacroFromMacroBrowser;
+      runMacroAutoConvert: RunMacroAutoConvert;
+      forceAutoSave: typeof forceAutoSave;
+    };
   }
 >;
 `}

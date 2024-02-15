@@ -32,20 +32,15 @@ import type {
   CatchUpFailedError,
   ConnectionError,
   DocumentNotFoundError,
-  RateLimitError,
   ReconnectionError,
   ReconnectionNetworkError,
   TokenPermissionError,
   InternalError,
-} from './errors/error-types';
-import {
-  NotConnectedError,
-  NotInitializedError,
-  INTERNAL_ERROR_CODE,
-  NCS_ERROR_CODE,
-} from './errors/error-types';
-import { SocketMessageMetrics } from './helpers/socket-message-metrics';
-import { getCollabProviderFeatureFlag } from './feature-flags';
+} from './errors/internal-errors';
+import type { RateLimitError } from './errors/ncs-errors';
+import { INTERNAL_ERROR_CODE } from './errors/internal-errors';
+import { NCS_ERROR_CODE } from './errors/ncs-errors';
+import { NotConnectedError, NotInitializedError } from './errors/custom-errors';
 import type { Metadata } from '@atlaskit/editor-common/collab';
 
 const logger = createLogger('Channel', 'green');
@@ -64,7 +59,6 @@ export class Channel extends Emitter<ChannelEvent> {
   private initExperience?: UFOExperience;
   private token?: string;
   private network: Network | null = null;
-  private socketMessageMetrics?: SocketMessageMetrics;
 
   private readonly rateLimitWindowDurationMs: number = 60000;
   private rateLimitWindowStartMs: number = 0;
@@ -93,6 +87,21 @@ export class Channel extends Emitter<ChannelEvent> {
   // sets the token as undefined
   private unsetToken = () => this.setToken();
 
+  // Used to retrieve the x-token for API requests
+  getChannelToken = async () => {
+    if (this.token) {
+      return this.token;
+    }
+    if (!this.config.permissionTokenRefresh) {
+      return undefined;
+    }
+    const token = (await this.config.permissionTokenRefresh()) ?? undefined;
+    if (token) {
+      this.setToken(token);
+    }
+    return token;
+  };
+
   /**
    * Connect to collab service using websockets
    */
@@ -111,7 +120,7 @@ export class Channel extends Emitter<ChannelEvent> {
     const { createSocket } = this.config;
     const { permissionTokenRefresh, cacheToken } = this.config;
 
-    let auth: InitAndAuthData | AuthCallback;
+    let auth: AuthCallback;
     if (permissionTokenRefresh) {
       auth = async (cb: (data: InitAndAuthData) => void) => {
         // Rebuild authData to ensure values are current
@@ -158,11 +167,15 @@ export class Channel extends Emitter<ChannelEvent> {
         }
       };
     } else {
-      auth = {
-        // The initialized status. If false, BE will send document, otherwise not.
-        initialized: this.initialized,
-        // ESS-1009 Allow to opt-in into 404 response
-        need404: this.config.need404,
+      auth = async (cb: (data: InitAndAuthData) => void) => {
+        // Rebuild authData to ensure values are current
+        const authData: InitAndAuthData = {
+          // The initialized status. If false, BE will send document, otherwise not.
+          initialized: this.initialized,
+          // ESS-1009 Allow to opt-in into 404 response
+          need404: this.config.need404,
+        };
+        cb(authData);
       };
     }
 
@@ -171,13 +184,6 @@ export class Channel extends Emitter<ChannelEvent> {
       auth,
       this.config.productInfo,
     ) as Socket;
-
-    if (this.socket && this.analyticsHelper) {
-      this.socketMessageMetrics = new SocketMessageMetrics(
-        this.socket,
-        this.analyticsHelper,
-      );
-    }
 
     // Due to https://github.com/socketio/socket.io-client/issues/1473,
     // reconnect no longer fired on the socket.
@@ -232,16 +238,6 @@ export class Channel extends Emitter<ChannelEvent> {
     });
 
     this.socket.on('disconnect', async (reason: string) => {
-      if (
-        getCollabProviderFeatureFlag(
-          'socketMessageMetricsFF',
-          this.config.featureFlags,
-        ) &&
-        this.socketMessageMetrics
-      ) {
-        this.socketMessageMetrics.closeSocketMessageMetrics();
-      }
-
       this.connected = false;
       logger(`disconnect reason: ${reason}`);
       this.emit('disconnect', { reason });
@@ -448,16 +444,6 @@ export class Channel extends Emitter<ChannelEvent> {
   };
 
   private onConnect = () => {
-    if (
-      getCollabProviderFeatureFlag(
-        'socketMessageMetricsFF',
-        this.config.featureFlags,
-      ) &&
-      this.socketMessageMetrics
-    ) {
-      this.socketMessageMetrics.setupSocketMessageMetrics();
-    }
-
     this.connected = true;
     logger('Connected.', this.socket!.id);
     const measure = stopMeasure(
@@ -545,17 +531,7 @@ export class Channel extends Emitter<ChannelEvent> {
             headers: {
               ...(this.config.permissionTokenRefresh
                 ? {
-                    'x-token':
-                      this.token ??
-                      (await this.config
-                        .permissionTokenRefresh()
-                        .then((token) => {
-                          if (token) {
-                            this.setToken(token);
-                          }
-                          return token;
-                        })) ??
-                      undefined,
+                    'x-token': await this.getChannelToken(),
                   }
                 : {}),
               'x-product': getProduct(this.config.productInfo),
@@ -615,17 +591,7 @@ export class Channel extends Emitter<ChannelEvent> {
           headers: {
             ...(this.config.permissionTokenRefresh
               ? {
-                  'x-token':
-                    this.token ??
-                    (await this.config
-                      .permissionTokenRefresh()
-                      .then((token) => {
-                        if (token) {
-                          this.setToken(token);
-                        }
-                        return token;
-                      })) ??
-                    undefined,
+                  'x-token': await this.getChannelToken(),
                 }
               : {}),
             'x-product': getProduct(this.config.productInfo),

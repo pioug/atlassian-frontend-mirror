@@ -27,6 +27,10 @@ import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { ModalTransition } from '@atlaskit/modal-dialog';
 import {
+  Instruction,
+  ItemMode,
+} from '@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item';
+import {
   draggable,
   dropTargetForElements,
   monitorForElements,
@@ -35,10 +39,6 @@ import type { DragLocationHistory } from '@atlaskit/pragmatic-drag-and-drop/type
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { offsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/offset-from-pointer';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
-import {
-  Instruction,
-  ItemMode,
-} from '@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item';
 import { token } from '@atlaskit/tokens';
 
 import { TreeItem as TreeItemType } from '../../data/tree';
@@ -180,10 +180,12 @@ const TreeItem = memo(function TreeItem({
   item,
   mode,
   level,
+  index,
 }: {
   item: TreeItemType;
   mode: ItemMode;
   level: number;
+  index: number;
 }) {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -420,6 +422,9 @@ const TreeItem = memo(function TreeItem({
             ref={buttonRef}
             type="button"
             style={{ paddingLeft: level * indentPerLevel }}
+            data-index={index}
+            data-level={level}
+            data-testid={`tree-item-${item.id}`}
           >
             <span
               css={[
@@ -484,6 +489,7 @@ const TreeItem = memo(function TreeItem({
                 key={child.id}
                 level={level + 1}
                 mode={childType}
+                index={index}
               />
             );
           })}

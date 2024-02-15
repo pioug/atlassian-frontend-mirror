@@ -80,7 +80,7 @@ export default function RadioInputExample() {
       <table>
         <thead>
           <tr>
-            <th style={{ width: 0 }} />
+            <td style={{ width: 0 }} />
             <th id="head-description">Branch</th>
             <th id="head-commit">Last commit</th>
             <th id="head-updated">Updated</th>

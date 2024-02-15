@@ -1,5 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
+import { Label } from '@atlaskit/form';
+
 import Range from '../src';
 
 export default () => {
@@ -12,7 +14,9 @@ export default () => {
 
   return (
     <Fragment>
+      <Label htmlFor="range-ref">Value by ref</Label>
       <Range
+        id="range-ref"
         ref={ref}
         step={1}
         value={value}

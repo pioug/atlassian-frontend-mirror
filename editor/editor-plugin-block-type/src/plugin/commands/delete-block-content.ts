@@ -1,5 +1,31 @@
 import type { Command } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import {
+  NodeSelection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import {
+  findParentNodeOfType,
+  hasParentNodeOfType,
+} from '@atlaskit/editor-prosemirror/utils';
+
+// function to check whether the selected node is the sole decision item in the decision list
+const isSelectedNodeSoleDecisionItem = (state: EditorState): boolean => {
+  const isDecisionItemNodeSelected =
+    state.selection instanceof NodeSelection &&
+    state.selection.node.type.name === 'decisionItem';
+
+  if (!isDecisionItemNodeSelected) {
+    return false;
+  }
+
+  const decisionList = findParentNodeOfType([state.schema.nodes.decisionList])(
+    state.selection,
+  )?.node;
+
+  return decisionList?.childCount === 1;
+};
 
 /**
  * Prevent removing the block when deleting block content
@@ -27,9 +53,6 @@ export function deleteBlockContent(
     doc.nodesBetween($from.pos, $to.pos, (node, pos) => {
       // Optimisation. If selection crosses wrapping block node
       // short circuit the loop by returning false
-      if (selectionCrossesWrappingBlockNode) {
-        return false;
-      }
       if (isNodeAWrappingBlockNode(node)) {
         selectionCrossesWrappingBlockNode = true;
         return false;
@@ -40,7 +63,20 @@ export function deleteBlockContent(
       return false;
     }
 
-    tr.delete($from.pos, $to.pos);
+    const decisionIsInsidePanel = hasParentNodeOfType([
+      state.schema.nodes.panel,
+    ])(state.selection);
+
+    // If decision is inside panel and the decision list have only one decision item which is selected,
+    // delete the whole decision list.
+    if (decisionIsInsidePanel && isSelectedNodeSoleDecisionItem(state)) {
+      tr.setSelection(new TextSelection(tr.doc.resolve($from.before()))).delete(
+        $from.before(),
+        $from.after(),
+      );
+    } else {
+      tr.delete($from.pos, $to.pos);
+    }
 
     if (dispatch) {
       dispatch(tr);

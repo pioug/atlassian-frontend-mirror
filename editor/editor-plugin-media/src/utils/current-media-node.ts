@@ -36,16 +36,55 @@ export const currentMediaNodeWithPos = (
   };
 };
 
+export const currentMediaInlineNodeWithPos = (
+  editorState: EditorState,
+):
+  | {
+      node: PMNode;
+      pos: number;
+    }
+  | undefined => {
+  const { doc, selection, schema } = editorState;
+  if (
+    !doc ||
+    !selection ||
+    !(selection instanceof NodeSelection) ||
+    selection.node.type !== schema.nodes.mediaInline
+  ) {
+    return;
+  }
+
+  const pos = selection.$anchor.pos;
+
+  const node = doc.nodeAt(pos);
+
+  if (!node || node.type !== schema.nodes.mediaInline) {
+    return;
+  }
+
+  return {
+    node,
+    pos,
+  };
+};
+
 export const currentMediaNode = (
   editorState: EditorState,
 ): PMNode | undefined => {
   return currentMediaNodeWithPos(editorState)?.node;
 };
 
-export const currentMediaNodeBorderMark = (
+export const currentMediaInlineNode = (
+  editorState: EditorState,
+): PMNode | undefined => {
+  return currentMediaInlineNodeWithPos(editorState)?.node;
+};
+
+export const currentMediaOrInlineNodeBorderMark = (
   editorState: EditorState,
 ): BorderMarkAttributes | undefined => {
-  const node = currentMediaNode(editorState);
+  const node =
+    currentMediaNode(editorState) || currentMediaInlineNode(editorState);
 
   if (!node) {
     return;

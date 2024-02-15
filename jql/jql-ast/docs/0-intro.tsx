@@ -25,13 +25,31 @@ export default md`
 
   ## Basic usage
 
-  To generate an AST you need the JQL string you want to parse and a \`JastBuilder\`.
+  To generate an AST from a JQL string, you can use the \`JastBuilder\`.
 
   ${code`
 import { JastBuilder, Jast } from "@atlaskit/jql-ast";
 
 const someJqlQuery = 'issuetype = bug';
 const myJast: Jast = new JastBuilder().build(someJqlQuery);
+  `}
+
+  Alternatively, to generate an AST from scratch (when you do not have a JQL string) you can use the \`jast\` creator.
+  The creator does not depend on the ANTLR4 parser, which is a large library that can negatively impact your output bundle size.
+
+  ${code`
+import { creators, OPERATOR_EQUALS, Jast } from "@atlaskit/jql-ast";
+
+// Equivalent JQL: project = PRJ
+const myJast: Jast = creators.jast(
+  creators.query(
+    creators.terminalClause(
+      creators.field('project'),
+      creators.operator(OPERATOR_EQUALS),
+      creators.valueOperand('PRJ'),
+    ),
+  )
+);
   `}
 
   ## FAQ

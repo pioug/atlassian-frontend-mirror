@@ -1,6 +1,9 @@
 import uuidV4 from 'uuid/v4';
 
-import type { MediaADFAttrs, MediaAttributes } from '@atlaskit/adf-schema';
+import type {
+  MediaAttributes,
+  MediaInlineAttributes,
+} from '@atlaskit/adf-schema';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
@@ -28,13 +31,14 @@ import type { MediaTraceContext } from '@atlaskit/media-common';
 
 import {
   replaceExternalMedia,
-  updateAllMediaSingleNodesAttrs,
+  updateAllMediaNodesAttrs,
   updateCurrentMediaNodeAttrs,
-  updateMediaSingleNodeAttrs,
+  updateMediaNodeAttrs,
 } from '../commands/helpers';
 import type {
   MediaOptions,
   getPosHandler as ProsemirrorGetPosHandler,
+  SupportedMediaAttributes,
 } from '../types';
 
 export type RemoteDimensions = { id: string; height: number; width: number };
@@ -48,6 +52,13 @@ export interface MediaNodeUpdaterProps {
   mediaOptions?: MediaOptions;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 }
+
+const isMediaTypeSupported = (type: SupportedMediaAttributes['type']) => {
+  if (type) {
+    return ['image', 'file'].includes(type);
+  }
+  return false;
+};
 
 export class MediaNodeUpdater {
   props: MediaNodeUpdaterProps;
@@ -67,24 +78,23 @@ export class MediaNodeUpdater {
   }
 
   // Updates the node with contextId if it doesn't have one already
-  // TODO [MS-2258]: remove updateContextId in order to only use updateMediaSingleFileAttrs
   updateContextId = async () => {
-    const attrs = this.getAttrs();
-    if (!attrs || attrs.type !== 'file') {
+    const attrs = this.getAttrs() as MediaAttributes;
+    if (!attrs || (attrs && !isMediaTypeSupported(attrs.type))) {
       return;
     }
 
     const { id } = attrs;
     const objectId = await this.getObjectId();
 
-    updateAllMediaSingleNodesAttrs(id, {
+    updateAllMediaNodesAttrs(id, {
       __contextId: objectId,
     })(this.props.view.state, this.props.view.dispatch);
   };
 
   updateNodeContextId = async (getPos: ProsemirrorGetPosHandler) => {
-    const attrs = this.getAttrs();
-    if (attrs?.type !== 'file') {
+    const attrs = this.getAttrs() as MediaAttributes;
+    if (!attrs || (attrs && !isMediaTypeSupported(attrs.type))) {
       return;
     }
 
@@ -101,7 +111,7 @@ export class MediaNodeUpdater {
     )(this.props.view.state, this.props.view.dispatch);
   };
 
-  private hasFileAttributesDefined = (attrs: MediaADFAttrs) => {
+  private hasFileAttributesDefined = (attrs: SupportedMediaAttributes) => {
     return (
       attrs &&
       attrs.type === 'file' &&
@@ -113,13 +123,13 @@ export class MediaNodeUpdater {
   };
 
   private getNewFileAttrsForNode = async () => {
-    const attrs = this.getAttrs();
+    const attrs = this.getAttrs() as MediaAttributes;
     const mediaProvider = await this.props.mediaProvider;
     if (
       !mediaProvider ||
       !mediaProvider.uploadParams ||
       !attrs ||
-      attrs.type !== 'file' ||
+      !isMediaTypeSupported(attrs.type) ||
       this.hasFileAttributesDefined(attrs)
     ) {
       return;
@@ -160,7 +170,7 @@ export class MediaNodeUpdater {
     const newAttrs = await this.getNewFileAttrsForNode();
     const { id } = this.getAttrs() as MediaAttributes;
     if (id && newAttrs) {
-      updateAllMediaSingleNodesAttrs(id, newAttrs)(
+      updateAllMediaNodesAttrs(id, newAttrs)(
         this.props.view.state,
         this.props.view.dispatch,
       );
@@ -178,10 +188,10 @@ export class MediaNodeUpdater {
     }
   };
 
-  getAttrs = (): MediaADFAttrs | undefined => {
+  getAttrs = (): SupportedMediaAttributes | undefined => {
     const { attrs } = this.props.node;
     if (attrs) {
-      return attrs as MediaAttributes;
+      return attrs as MediaAttributes | MediaInlineAttributes;
     }
 
     return undefined;
@@ -242,8 +252,8 @@ export class MediaNodeUpdater {
   };
 
   getNodeContextId = (): string | null => {
-    const attrs = this.getAttrs();
-    if (!attrs || attrs.type !== 'file') {
+    const attrs = this.getAttrs() as MediaAttributes;
+    if (!attrs || (attrs && !isMediaTypeSupported(attrs.type))) {
       return null;
     }
 
@@ -251,7 +261,7 @@ export class MediaNodeUpdater {
   };
 
   updateDimensions = (dimensions: RemoteDimensions) => {
-    updateAllMediaSingleNodesAttrs(dimensions.id, {
+    updateAllMediaNodesAttrs(dimensions.id, {
       height: dimensions.height,
       width: dimensions.width,
     })(this.props.view.state, this.props.view.dispatch);
@@ -330,8 +340,8 @@ export class MediaNodeUpdater {
     }
 
     const currentCollectionName = mediaProvider.uploadParams.collection;
-    const attrs = this.getAttrs();
-    if (!attrs || attrs.type !== 'file') {
+    const attrs = this.getAttrs() as MediaAttributes;
+    if (!attrs || (attrs && !isMediaTypeSupported(attrs.type))) {
       return false;
     }
 
@@ -417,8 +427,8 @@ export class MediaNodeUpdater {
     getPos: ProsemirrorGetPosHandler,
     traceContext?: MediaTraceContext,
   ) => {
-    const attrs = this.getAttrs();
-    if (attrs?.type !== 'file') {
+    const attrs = this.getAttrs() as MediaAttributes;
+    if (!attrs || (attrs && !isMediaTypeSupported(attrs.type))) {
       return;
     }
 
@@ -439,9 +449,9 @@ export class MediaNodeUpdater {
 
   // Copies the pasted node into the current collection
   copyNode = async (traceContext?: MediaTraceContext) => {
-    const attrs = this.getAttrs();
+    const attrs = this.getAttrs() as MediaAttributes;
     const { view } = this.props;
-    if (attrs?.type !== 'file') {
+    if (!attrs || (attrs && !isMediaTypeSupported(attrs.type))) {
       return;
     }
 
@@ -454,10 +464,7 @@ export class MediaNodeUpdater {
       return;
     }
 
-    updateMediaSingleNodeAttrs(attrs.id, copiedAttrs)(
-      view.state,
-      view.dispatch,
-    );
+    updateMediaNodeAttrs(attrs.id, copiedAttrs)(view.state, view.dispatch);
   };
 
   private copyFile = async (

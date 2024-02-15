@@ -7,8 +7,7 @@ import AddIcon from '@atlaskit/icon/glyph/add';
 import { Stack } from '@atlaskit/primitives';
 
 import { ButtonGroup } from '../src';
-import LinkButton from '../src/new-button/variants/default/link';
-import LinkIconButton from '../src/new-button/variants/icon/link';
+import { LinkButton, LinkIconButton } from '../src/new';
 
 type MyRouterLinkConfig = {
   to: string;

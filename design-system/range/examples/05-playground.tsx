@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
+import { Label } from '@atlaskit/form';
 import { N80 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -25,9 +26,12 @@ function Playground() {
 
   return (
     <Fragment>
-      <p>Example Range (current value is {actualVal}):</p>
       <div dir={rtl ? 'rtl' : 'ltr'}>
+        <Label htmlFor="range-example">
+          Example Range (current value is {actualVal}):
+        </Label>
         <Range
+          id="range-example"
           min={min}
           max={max}
           step={step}
@@ -62,23 +66,32 @@ function Playground() {
         name="toggle-rtl"
       />
       <p>The ranges below control the values in the range above</p>
-      <p>Change minimum value (currently at {min})</p>
+      <Label htmlFor="range-min">
+        Change minimum value (currently at {min})
+      </Label>
       <Range
+        id="range-min"
         max={max}
         defaultValue={initialState.min}
         step={1}
         onChange={(newMin) => setMin(newMin)}
       />
-      <p>Change maximum value (currently at {max})</p>
+      <Label htmlFor="range-max">
+        Change maximum value (currently at {max})
+      </Label>
       <Range
+        id="range-max"
         min={min}
         defaultValue={initialState.max}
         max={500}
         step={1}
         onChange={(newMax) => setMax(newMax)}
       />
-      <p>Change step distance (currently at {step})</p>
+      <Label htmlFor="range-distance">
+        Change step distance (currently at {step})
+      </Label>
       <Range
+        id="range-distance"
         max={50}
         defaultValue={initialState.step}
         onChange={(newStep) => setStep(newStep)}

@@ -1,19 +1,20 @@
 import type { EditorPageInterface } from '@af/editor-libra';
 import {
-  editorTestCase as test,
-  EditorNodeContainerModel,
-  EditorMediaSingleModel,
   EditorBreakoutModel,
+  EditorMediaSingleModel,
+  EditorNodeContainerModel,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
-  table,
-  tr,
-  td,
   mediaSingle,
+  table,
+  td,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { tableWithOneCallAndMedia } from './__fixtures__/adf-documents';
 
 const testMediaSingle = {
@@ -108,7 +109,7 @@ test.describe('when media is inside a table', () => {
   test.describe('and has wide breakout', () => {
     test('should resize the media single', async ({ editor }) => {
       const breakoutModel = EditorBreakoutModel.from(editor);
-      await test.step('change layout to wide ', async () => {
+      await test.step('change layout to wide', async () => {
         await breakoutModel.toWide();
       });
       await testStepResize(editor);
@@ -119,7 +120,7 @@ test.describe('when media is inside a table', () => {
   test.describe('and has full-width breakout', () => {
     test('should resize the media single', async ({ editor }) => {
       const breakoutModel = EditorBreakoutModel.from(editor);
-      await test.step('change layout to wide ', async () => {
+      await test.step('change layout to wide', async () => {
         await breakoutModel.toWide();
       });
       await test.step('change layout to full width', async () => {

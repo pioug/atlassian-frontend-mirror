@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Select from '@atlaskit/select';
 
 import Modal, {
@@ -40,11 +40,7 @@ export default function DefaultModal() {
   const Footer = () => {
     return (
       <ModalFooter>
-        <Button
-          appearance="primary"
-          style={{ marginRight: 'auto' }}
-          onClick={close}
-        >
+        <Button appearance="primary" onClick={close}>
           test button
         </Button>
       </ModalFooter>

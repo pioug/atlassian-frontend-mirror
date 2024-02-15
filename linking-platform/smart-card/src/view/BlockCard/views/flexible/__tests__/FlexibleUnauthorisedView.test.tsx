@@ -1,9 +1,13 @@
 import React from 'react';
+import { screen } from '@testing-library/react';
 import { CardState } from '@atlaskit/linking-common';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import FlexibleUnauthorisedView from '../FlexibleUnauthorisedView';
+import {
+  CONTENT_URL_3P_ACCOUNT_AUTH,
+  CONTENT_URL_SECURITY_AND_PERMISSIONS,
+} from '../../../../../constants';
 import { mockAnalytics, mocks } from '../../../../../utils/mocks';
 
 describe('FlexibleUnauthorisedView', () => {
@@ -46,17 +50,63 @@ describe('FlexibleUnauthorisedView', () => {
     );
 
   it('renders unauthorised view', async () => {
-    const { findByTestId } = renderComponent();
+    renderComponent();
 
-    const title = await findByTestId(titleTestId);
+    const title = await screen.findByTestId(titleTestId);
     expect(title.textContent).toBe(url);
 
-    const description = await findByTestId(descriptionTestId);
+    const description = await screen.findByTestId(descriptionTestId);
     expect(description.textContent).toBe(
-      'Connect 3P to Atlassian to view more details of your work and collaborate from one place. Learn more about Smart Links.',
+      'Connect your 3P account to collaborate on work across Atlassian products. Learn more about Smart Links.',
     );
 
-    const button = await findByTestId(buttonTestId);
+    const learnMoreUrl = (
+      await screen.findByRole('link', { name: /learn more/i })
+    ).getAttribute('href');
+    expect(learnMoreUrl).toBe(CONTENT_URL_SECURITY_AND_PERMISSIONS);
+
+    const button = await screen.findByTestId(buttonTestId);
+    expect(button.textContent).toBe('Connect to 3P');
+  });
+
+  it('renders unauthorised view with alternative message when `hasScopeOverrides` flag is present in meta', async () => {
+    renderComponent({
+      cardState: {
+        status: 'unauthorized',
+        details: {
+          meta: {
+            ...mocks.unauthorized.meta,
+            hasScopeOverrides: true,
+          },
+          data: {
+            ...mocks.unauthorized.data,
+            generator: {
+              '@type': 'Application',
+              icon: {
+                '@type': 'Image',
+                url: 'https://some.icon.url',
+              },
+              name: '3P',
+            },
+          },
+        },
+      } as CardState,
+    });
+
+    const title = await screen.findByTestId(titleTestId);
+    expect(title.textContent).toBe(url);
+
+    const description = await screen.findByTestId(descriptionTestId);
+    expect(description.textContent).toBe(
+      'Connect your 3P account to collaborate on work across Atlassian products. Learn more about connecting your account to Atlassian products.',
+    );
+
+    const learnMoreUrl = (
+      await screen.findByRole('link', { name: /learn more/i })
+    ).getAttribute('href');
+    expect(learnMoreUrl).toBe(CONTENT_URL_3P_ACCOUNT_AUTH);
+
+    const button = await screen.findByTestId(buttonTestId);
     expect(button.textContent).toBe('Connect to 3P');
   });
 
@@ -73,7 +123,7 @@ describe('FlexibleUnauthorisedView', () => {
 
     const description = await findByTestId(descriptionTestId);
     expect(description.textContent).toBe(
-      'Connect to Atlassian to view more details of your work and collaborate from one place. Learn more about Smart Links.',
+      'Connect your account to collaborate on work across Atlassian products. Learn more about Smart Links.',
     );
 
     const button = await findByTestId(buttonTestId);

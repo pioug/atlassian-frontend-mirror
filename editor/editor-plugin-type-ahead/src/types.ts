@@ -145,6 +145,18 @@ type CloseTypeAheadProps = {
   attachCommand?: Command;
 };
 
+export interface TypeAheadPluginSharedState {
+  query: string;
+  isOpen: boolean;
+  isAllowed: boolean;
+  currentHandler?: TypeAheadHandler;
+  decorationSet: DecorationSet;
+  decorationElement: HTMLElement | null;
+  triggerHandler?: TypeAheadHandler;
+  items: Array<TypeAheadItem>;
+  selectedIndex: number;
+}
+
 /**
  * Type ahead plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
  * from `@atlaskit/editor-core`.
@@ -154,12 +166,7 @@ export type TypeAheadPlugin = NextEditorPlugin<
   {
     pluginConfiguration: TypeAheadPluginOptions | undefined;
     dependencies: [OptionalPlugin<AnalyticsPlugin>];
-    sharedState: {
-      query: string;
-      isOpen: boolean;
-      isAllowed: boolean;
-      currentHandler?: TypeAheadHandler;
-    };
+    sharedState: TypeAheadPluginSharedState;
     actions: {
       isOpen: (editorState: EditorState) => boolean;
       isAllowed: (editorState: EditorState) => boolean;

@@ -10,7 +10,7 @@ jest.mock('@atlaskit/util-service-support', () => {
 
 import { utils } from '@atlaskit/util-service-support';
 import { Channel } from '../../channel';
-import {
+import type {
   Config,
   InitPayload,
   PresencePayload,
@@ -26,16 +26,17 @@ import type {
 } from '@atlaskit/editor-common/collab';
 import * as Performance from '../../analytics/performance';
 import { createSocketIOSocket } from '../../socket-io-provider';
-import { io, Socket } from 'socket.io-client';
+import type { Socket } from 'socket.io-client';
+import { io } from 'socket.io-client';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { getProduct, getSubProduct } from '../../helpers/utils';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import Network from '../../connectivity/network';
+import type { InternalError } from '../../errors/internal-errors';
 import {
-  InternalError,
   NotConnectedError,
   NotInitializedError,
-} from '../../errors/error-types';
+} from '../../errors/custom-errors';
 
 const expectValidChannel = (channel: Channel): void => {
   expect(channel).toBeDefined();
@@ -212,10 +213,7 @@ describe('Channel unit tests', () => {
           initialized: false,
         });
         expect(channel.getConnected()).toBe(true);
-        expect(authData).toEqual({
-          initialized: false,
-          need404: true,
-        });
+        expect(authData).toEqual(expect.any(Function));
         done();
       } catch (err) {
         done(err);
@@ -259,10 +257,7 @@ describe('Channel unit tests', () => {
           initialized: true,
         });
         expect(channel.getConnected()).toBe(true);
-        expect(authData).toEqual({
-          initialized: true,
-          need404: true,
-        });
+        expect(authData).toEqual(expect.any(Function));
         done();
       } catch (err) {
         done(err);
@@ -1148,7 +1143,7 @@ describe('Channel unit tests', () => {
       expect(createSocketMock).toHaveBeenCalledTimes(1);
       expect(createSocketMock).toHaveBeenCalledWith(
         'https://localhost/ccollab/session/ari:cloud:confluence:a436116f-02ce-4520-8fbb-7301462a1674:page/1731046230',
-        { initialized: false, need404: undefined },
+        expect.any(Function),
         { product: 'confluence' },
       );
     });

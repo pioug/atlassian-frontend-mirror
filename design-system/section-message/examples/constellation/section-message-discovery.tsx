@@ -6,7 +6,11 @@ export default () => (
   <SectionMessage
     title="Your managed accounts now include Trello access"
     appearance="discovery"
-    actions={<SectionMessageAction href="#">Learn more</SectionMessageAction>}
+    actions={
+      <SectionMessageAction href="#">
+        See who's using Trello
+      </SectionMessageAction>
+    }
   >
     <p>
       Some users haven't started using their Atlassian account for Trello.

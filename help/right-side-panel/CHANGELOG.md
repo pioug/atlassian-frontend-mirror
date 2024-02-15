@@ -1,5 +1,18 @@
 # @atlaskit/right-side-panel
 
+## 1.2.7
+
+### Patch Changes
+
+- [#72083](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72083) [`4f8e79eb0b7a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f8e79eb0b7a) - Enrolling @atlaskit/right-side-panel to push model in JFE.
+
+## 1.2.6
+
+### Patch Changes
+
+- [#67949](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67949) [`4ceb213f9313`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4ceb213f9313) - Migrate packages to use declarative entry points
+- Updated dependencies
+
 ## 1.2.5
 
 ### Patch Changes

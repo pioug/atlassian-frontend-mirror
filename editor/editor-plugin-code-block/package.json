@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-code-block",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "description": "Code block plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -9,10 +9,12 @@
   },
   "atlassian": {
     "team": "Editor: Scarlet",
+    "singleton": true,
     "inPublicMirror": false,
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "runReact18": false
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -31,13 +33,13 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^34.0.0",
+    "@atlaskit/adf-schema": "^35.5.1",
     "@atlaskit/code": "^15.1.0",
-    "@atlaskit/editor-common": "^76.23.0",
-    "@atlaskit/editor-plugin-analytics": "^0.3.0",
-    "@atlaskit/editor-plugin-composition": "^0.1.0",
-    "@atlaskit/editor-plugin-decorations": "^0.2.0",
-    "@atlaskit/editor-prosemirror": "1.1.0",
+    "@atlaskit/editor-common": "^77.4.0",
+    "@atlaskit/editor-plugin-analytics": "^1.0.0",
+    "@atlaskit/editor-plugin-composition": "^1.0.0",
+    "@atlaskit/editor-plugin-decorations": "^1.0.0",
+    "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/prosemirror-input-rules": "^2.4.0",
     "@babel/runtime": "^7.0.0",
@@ -48,20 +50,8 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@af/integration-testing": "*",
-    "@af/visual-regression": "*",
-    "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
-    "@atlaskit/editor-plugin-indentation": "^0.2.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "@testing-library/react": "^12.1.5",
-    "raf-stub": "^2.0.1",
-    "react-dom": "^16.8.0",
-    "typescript": "~4.9.5",
-    "wait-for-expect": "^1.2.0"
+    "typescript": "~4.9.5"
   },
   "techstack": {
     "@atlassian/frontend": {
@@ -98,5 +88,10 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
+  "stricter": {
+    "no-unused-dependencies": {
+      "checkDevDependencies": true
+    }
+  }
 }

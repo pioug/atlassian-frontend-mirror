@@ -1,4 +1,7 @@
-import { CantSyncUpError, UpdateDocumentError } from '../../errors/error-types';
+import {
+  CantSyncUpError,
+  UpdateDocumentError,
+} from '../../errors/custom-errors';
 
 jest.mock('../catchup', () => {
   return {
@@ -21,22 +24,22 @@ jest.mock('@atlaskit/prosemirror-collab', () => {
   };
 });
 
-import { catchup } from '../catchup';
-import type { DocumentService } from '../document-service';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import type { CollabInitPayload } from '@atlaskit/editor-common/collab';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
 import type AnalyticsHelper from '../../analytics/analytics-helper';
 import { ACK_MAX_TRY } from '../../helpers/const';
-import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
-import type { StepsPayload } from '../../types';
-import type { CollabInitPayload } from '@atlaskit/editor-common/collab';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { MAX_STEP_REJECTED_ERROR } from '../../provider';
-import { throttledCommitStep } from '../../provider/commit-step';
-import { createMockService } from './document-service.mock';
 import step from '../../helpers/__tests__/__fixtures__/clean-step-for-empty-doc.json';
 import emptyDoc from '../../helpers/__tests__/__fixtures__/empty-document.json';
-import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
-import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import { MAX_STEP_REJECTED_ERROR } from '../../provider';
+import { commitStepQueue } from '../../provider/commit-step';
+import type { StepsPayload } from '../../types';
+import { catchup } from '../catchup';
+import type { DocumentService } from '../document-service';
+import { createMockService } from './document-service.mock';
 
 const proseMirrorStep = ProseMirrorStep.fromJSON(
   getSchemaBasedOnStage('stage0'),
@@ -47,81 +50,6 @@ describe('document-service', () => {
   afterEach(() => jest.clearAllMocks());
   afterAll(() => {
     jest.resetAllMocks();
-  });
-
-  describe('catchup', () => {
-    it('Does not process catchup with queue is already paused', async () => {
-      const { service, stepQueue } = createMockService();
-      stepQueue.pauseQueue();
-      await service.throttledCatchup();
-      expect(catchup).not.toBeCalled();
-    });
-
-    it('Calls catchup when process queue is not paused', async () => {
-      const { service, analyticsHelperMock, fetchCatchupMock, stepQueue } =
-        createMockService();
-
-      // @ts-expect-error - spy on private
-      jest.spyOn(service, 'processQueue');
-      jest.spyOn(service, 'sendStepsFromCurrentState');
-      await service.throttledCatchup();
-      expect(catchup).toBeCalledWith({
-        getCurrentPmVersion: service.getCurrentPmVersion,
-        fetchCatchup: fetchCatchupMock,
-        getUnconfirmedSteps: service.getUnconfirmedSteps,
-        filterQueue: stepQueue.filterQueue,
-        updateDocument: service.updateDocument,
-        // @ts-ignore
-        updateMetadata: service.metadataService.updateMetadata,
-        // @ts-expect-error - checking if private method is passed
-        applyLocalSteps: service.applyLocalSteps,
-        analyticsHelper: analyticsHelperMock,
-      });
-
-      expect(analyticsHelperMock.sendActionEvent).toBeCalledWith(
-        'catchup',
-        'SUCCESS',
-        { latency: 0 },
-      );
-
-      // After execution, the queue must be unpaused
-      expect(stepQueue.isPaused()).toEqual(false);
-
-      // @ts-expect-error - checking if private method is called
-      expect(service.processQueue).toBeCalled();
-      expect(service.sendStepsFromCurrentState).toBeCalled();
-    });
-
-    it('Resets stepRejectCounter after catchup', async () => {
-      const { service } = createMockService();
-      // @ts-expect-error - Setting private variables
-      service.stepRejectCounter = 10;
-      await service.throttledCatchup();
-      expect(catchup).toBeCalled();
-      // @ts-expect-error - Checking private variables
-      expect(service.stepRejectCounter).toEqual(0);
-    });
-
-    it('Handles catchup throwing an exception', async () => {
-      const { service, analyticsHelperMock, stepQueue } = createMockService();
-      (catchup as jest.Mock).mockRejectedValueOnce('Err');
-      // @ts-expect-error
-      jest.spyOn(service, 'processQueue');
-      jest.spyOn(service, 'sendStepsFromCurrentState');
-
-      await service.throttledCatchup();
-      expect(analyticsHelperMock.sendActionEvent).toBeCalledWith(
-        'catchup',
-        'FAILURE',
-        { latency: 0 },
-      );
-
-      // The service must continue processing even if catchup throws an exception
-      expect(stepQueue.isPaused()).toEqual(false);
-      // @ts-expect-error
-      expect(service.processQueue).toBeCalled();
-      expect(service.sendStepsFromCurrentState).toBeCalled();
-    });
   });
 
   describe('steps', () => {
@@ -680,137 +608,6 @@ describe('document-service', () => {
       });
     });
 
-    describe('onRestore', () => {
-      const dummyRestorePayload = {
-        doc: {
-          data: 'someData',
-        },
-        version: 1,
-        metadata: {
-          title: 'Hello bello',
-        },
-      };
-      let service: DocumentService;
-      let analyticsHelperMock: any;
-      let onErrorHandledMock: jest.Mock;
-      beforeEach(() => {
-        const mocks = createMockService();
-        service = mocks.service;
-        analyticsHelperMock = mocks.analyticsHelperMock;
-        onErrorHandledMock = mocks.onErrorHandledMock;
-        // @ts-ignore - spying on private function
-        jest.spyOn(service, 'applyLocalSteps');
-        jest.spyOn(service, 'getUnconfirmedSteps');
-      });
-      describe('reinitialise the document', () => {
-        it('calls updateDocument with correct parameters', () => {
-          jest.spyOn(service, 'updateDocument');
-          // @ts-ignore
-          service.onRestore(dummyRestorePayload);
-          expect(service.updateDocument).toBeCalledWith({
-            ...dummyRestorePayload,
-            reserveCursor: true,
-          });
-        });
-
-        describe('without unconfirmed steps', () => {
-          const unconfirmedSteps: any[] = [];
-          beforeEach(() => {
-            (service.getUnconfirmedSteps as jest.Mock).mockReturnValue(
-              unconfirmedSteps,
-            );
-            // @ts-ignore
-            service.onRestore(dummyRestorePayload);
-          });
-
-          it('fires analytics with correct unconfirmedSteps length', () => {
-            expect(analyticsHelperMock.sendActionEvent).toBeCalledTimes(1);
-            expect(analyticsHelperMock.sendActionEvent).toBeCalledWith(
-              'reinitialiseDocument',
-              'SUCCESS',
-              { hasTitle: true, numUnconfirmedSteps: unconfirmedSteps.length },
-            );
-          });
-
-          it('doesnot call applyLocalSteps if there are not steps to apply', () => {
-            // @ts-ignore assessing private function for test
-            expect(service.applyLocalSteps).not.toBeCalled();
-          });
-        });
-
-        describe('with unconfirmed steps', () => {
-          const unconfirmedSteps: any[] = ['test', 'test'];
-          beforeEach(() => {
-            jest
-              .spyOn(service, 'getUnconfirmedSteps')
-              .mockReturnValue(unconfirmedSteps);
-            // @ts-ignore
-            service.onRestore(dummyRestorePayload);
-          });
-
-          it('fires analytics with correct unconfirmedSteps length', () => {
-            expect(analyticsHelperMock.sendActionEvent).toBeCalledTimes(1);
-            expect(analyticsHelperMock.sendActionEvent).toBeCalledWith(
-              'reinitialiseDocument',
-              'SUCCESS',
-              { hasTitle: true, numUnconfirmedSteps: unconfirmedSteps.length },
-            );
-          });
-
-          it('calls applyLocalSteps with steps to apply', () => {
-            // @ts-ignore assessing private function for test
-            expect(service.applyLocalSteps).toBeCalledTimes(1);
-            // @ts-ignore assessing private function for test
-            expect(service.applyLocalSteps).toBeCalledWith(unconfirmedSteps);
-          });
-        });
-      });
-
-      describe('Catch and relay correct errors', () => {
-        const unconfirmedSteps: any[] = ['test', 'test'];
-        const testError = new Error('testing');
-        beforeEach(() => {
-          (service.getUnconfirmedSteps as jest.Mock).mockReturnValue(
-            unconfirmedSteps,
-          );
-        });
-
-        it('when updateDocument throws', () => {
-          jest.spyOn(service, 'updateDocument').mockImplementation(() => {
-            throw testError;
-          });
-
-          service.onRestore(dummyRestorePayload);
-          expect(onErrorHandledMock).toBeCalledTimes(1);
-          expect(onErrorHandledMock).toBeCalledWith({
-            message: 'Caught error while trying to recover the document',
-            data: {
-              status: 500, // Meaningless, remove when we review error structure
-              code: 'DOCUMENT_RESTORE_ERROR',
-            },
-          });
-        });
-
-        it('when applyLocalSteps throws', () => {
-          // @ts-ignore
-          (service.applyLocalSteps as jest.Mock).mockImplementation(() => {
-            throw new Error('testing');
-          });
-
-          service.onRestore(dummyRestorePayload);
-
-          expect(onErrorHandledMock).toBeCalledTimes(1);
-          expect(onErrorHandledMock).toBeCalledWith({
-            message: 'Caught error while trying to recover the document',
-            data: {
-              status: 500, // Meaningless, remove when we review error structure
-              code: 'DOCUMENT_RESTORE_ERROR',
-            },
-          });
-        });
-      });
-    });
-
     describe('processQueue', () => {
       let service: DocumentService;
       let processStepsSpy: jest.SpyInstance;
@@ -955,7 +752,7 @@ describe('document-service', () => {
         (sendableSteps as jest.Mock).mockReturnValue(undefined);
         service.send(null, null, 'state' as any);
         expect(sendableSteps).toBeCalledWith('state');
-        expect(throttledCommitStep).not.toBeCalled();
+        expect(commitStepQueue).not.toBeCalled();
       });
 
       it('Does nothing when there the sendable steps is an empty array', () => {
@@ -963,7 +760,7 @@ describe('document-service', () => {
         (sendableSteps as jest.Mock).mockReturnValue({ steps: [] });
         service.send(null, null, 'state' as any);
         expect(sendableSteps).toBeCalledWith('state');
-        expect(throttledCommitStep).not.toBeCalled();
+        expect(commitStepQueue).not.toBeCalled();
       });
 
       it('Sends steps to be committed', () => {
@@ -979,7 +776,7 @@ describe('document-service', () => {
         });
         service.send(null, null, 'state' as any);
         expect(sendableSteps).toBeCalledWith('state');
-        expect(throttledCommitStep).toBeCalledWith({
+        expect(commitStepQueue).toBeCalledWith({
           broadcast: broadcastMock,
           userId: undefined,
           clientId: undefined,

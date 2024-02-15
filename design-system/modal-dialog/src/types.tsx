@@ -93,9 +93,10 @@ export interface ModalDialogProps {
   shouldCloseOnEscapePress?: boolean;
 
   /**
-   * ReturnFocus is used to control what happens when the user exists
-   * focus lock mode. If true, focus will be returned to the element that had focus before focus lock
+   * ReturnFocus controls what happens when the user exits
+   * focus lock mode. If true, focus returns to the element that had focus before focus lock
    * was activated. If false, focus remains where it was when the FocusLock was deactivated.
+   * If ref is passed, focus returns to that specific ref element.
    */
   shouldReturnFocus?: boolean | RefObject<HTMLElement>;
 

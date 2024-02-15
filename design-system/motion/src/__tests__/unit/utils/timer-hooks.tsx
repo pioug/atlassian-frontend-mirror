@@ -84,6 +84,9 @@ describe('timer hooks', () => {
   });
 
   describe('useSetTimeout()', () => {
+    afterEach(() => {
+      jest.useRealTimers();
+    });
     const Component = (props: {
       callback?: Function;
       cleanup: 'next-effect' | 'unmount';

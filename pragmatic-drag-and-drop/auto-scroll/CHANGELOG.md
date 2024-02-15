@@ -1,5 +1,42 @@
 # @atlaskit/pragmatic-drag-and-drop-auto-scroll
 
+## 0.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.8.0
+
+### Minor Changes
+
+- [#57337](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57337) [`4ad3fa749a5c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4ad3fa749a5c) - Adding the ability to increase the maximum automatic scroll speed.
+
+  ```diff
+  autoScrollForElements({
+    element: myElement,
+  +  getConfiguration: () => ({maxScrollSpeed: 'fast' | 'standard'}),
+  })
+  ```
+
+  `getConfiguration()` is a new _optional_ argument be used with all auto scrolling registration functions:
+
+  - `autoScrollForElements`
+  - `autoScrollWindowForElements`
+  - `autoScrollForFiles`
+  - `autoScrollWindowForFiles`
+  - `unsafeOverflowForElements`
+  - `unsafeOverflowForFiles`
+
+  ```ts
+  autoScrollForElements({
+    element: myElement,
+    getConfiguration: () => ({ maxScrollSpeed : 'fast' })
+  }),
+  ```
+
+  We recommend using the default `"standard"` max scroll speed for most experiences. However, on _some_ larger experiences, a faster max scroll speed (`"fast"`) can feel better.
+
 ## 0.7.0
 
 ### Minor Changes

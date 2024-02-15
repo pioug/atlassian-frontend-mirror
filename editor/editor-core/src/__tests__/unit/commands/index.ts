@@ -1,10 +1,9 @@
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import { clearEditorContent } from '@atlaskit/editor-common/commands';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { p, doc } from '@atlaskit/editor-test-helpers/doc-builder';
-
-import { clearEditorContent } from '../../../commands';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('commands', () => {
   const createEditor = (doc: DocBuilder) =>

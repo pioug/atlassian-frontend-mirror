@@ -1,6 +1,9 @@
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
-import { currentMediaNodeWithPos } from '../utils/current-media-node';
+import {
+  currentMediaInlineNodeWithPos,
+  currentMediaNodeWithPos,
+} from '../utils/current-media-node';
 
 export function shouldShowImageBorder(editorState: EditorState): boolean {
   const border = editorState.schema.marks.border;
@@ -8,7 +11,9 @@ export function shouldShowImageBorder(editorState: EditorState): boolean {
     return false;
   }
 
-  const nodeWithPos = currentMediaNodeWithPos(editorState);
+  const nodeWithPos =
+    currentMediaNodeWithPos(editorState) ||
+    currentMediaInlineNodeWithPos(editorState);
   if (!nodeWithPos) {
     return false;
   }

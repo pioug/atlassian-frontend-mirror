@@ -93,20 +93,24 @@ export interface DatasourceAdfTableView {
 //   };
 // }
 
-export interface Datasource {
+export interface Datasource<
+  P extends Record<string, unknown> = Record<string, unknown>,
+> {
   id: string;
-  parameters: object;
+  parameters: P;
   views: DatasourceAdfView[];
 }
 
 export type DatasourceAdfView =
   DatasourceAdfTableView /*| DatasourceAdfSomethingView*/;
 
-export interface DatasourceAdf {
+export interface DatasourceAdf<
+  P extends Record<string, unknown> = Record<string, unknown>,
+> {
   type: 'blockCard';
   attrs: {
     url?: string;
-    datasource: Datasource;
+    datasource: Datasource<P>;
   };
 }
 export type CardAdf = InlineCardAdf | BlockCardAdf | EmbedCardAdf;

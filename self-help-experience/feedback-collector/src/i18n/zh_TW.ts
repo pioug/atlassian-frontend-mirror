@@ -12,6 +12,7 @@ export default {
   'feedback-collector.can-be-contacted.label':
     '是的，Atlassian 團隊可以與我聯繫，詢問我的使用體驗，以便改善 Atlassian 產品和服務。我同意 <a>Atlassian 隱私政策</a>。',
   'feedback-collector.cancel-button.label': '取消',
+  'feedback-collector.default.custom.textarea.label': '讓我們知道您的想法。',
   'feedback-collector.enrol-in-research.label': '我想要參與產品研究',
   'feedback-collector.feedback-title': '分享您的想法',
   'feedback-collector.form.bug.label': '描述錯誤或問題',
@@ -25,6 +26,7 @@ export default {
   'feedback-collector.option.default.placeholder': '選擇一個',
   'feedback-collector.option.question.label': '提出問題',
   'feedback-collector.option.suggestion.label': '建議改進',
+  'feedback-collector.required.fields.summary': '必填欄位標有星號',
   'feedback-collector.submit-button.label': '傳送意見反應',
   'feedback-collector.success-flag.description': '您的意見反應很珍貴，能幫助我們持續改善產品。',
   'feedback-collector.success-flag.title': '謝謝！',

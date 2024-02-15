@@ -25,18 +25,18 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import Heading from '@atlaskit/heading';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import {
+  attachClosestEdge,
+  Edge,
+  extractClosestEdge,
+} from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
+import {
   draggable,
   dropTargetForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { dropTargetForFiles } from '@atlaskit/pragmatic-drag-and-drop/adapter/file';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
-import {
-  attachClosestEdge,
-  Edge,
-  extractClosestEdge,
-} from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
-import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import { ColumnType, Person } from '../../data/people';

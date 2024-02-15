@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-bar",
-  "version": "1.0.2",
+  "version": "2.0.1",
   "description": "A progress bar communicates the status of a system process.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,9 +14,12 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
+  "af:exports": {
+    ".": "./src/index.tsx",
+    "./types": "./src/types.tsx"
+  },
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "productPushConsumption": [
       "jira"
@@ -27,9 +30,8 @@
     }
   },
   "dependencies": {
-    "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
+    "@atlaskit/tokens": "^1.37.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

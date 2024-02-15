@@ -8,6 +8,7 @@ import memoize from 'memoize-one';
 
 import { JQLLexer, JQLParser } from '@atlaskit/jql-parser';
 
+import creators from '../creators';
 import { JastBuilderErrorListener, JQLParseError } from '../errors';
 import { Jast } from '../types';
 import { QueryVisitor } from '../visitors';
@@ -59,17 +60,11 @@ export class JastBuilder {
       const parseTree = parser.jqlQuery();
       const query = parseTree.accept(visitor);
 
-      return {
-        query,
-        represents: value,
-        errors: astErrorListener.errors,
-      };
+      return creators.jast(query, value, astErrorListener.errors);
     } catch (error: any) {
-      return {
-        query: undefined,
-        represents: value,
-        errors: [new JQLParseError(error.message, error)],
-      };
+      return creators.jast(undefined, value, [
+        new JQLParseError(error.message, error),
+      ]);
     }
   }
 }

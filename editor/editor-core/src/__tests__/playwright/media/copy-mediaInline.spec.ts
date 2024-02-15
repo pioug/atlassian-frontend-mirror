@@ -1,13 +1,14 @@
 import {
-  editorTestCase as test,
+  BROWSERS,
+  EditorMediaInlineModel,
+  EditorNodeContainerModel,
   expect,
   fixTest,
-  EditorNodeContainerModel,
-  EditorMediaInlineModel,
-  BROWSERS,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p, mediaInline } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, mediaInline, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import { mediaInlineAdf } from './copy-mediaInline.spec.ts-fixtures/adf-mediaInline';
 
 const providedMediaInline = mediaInline({

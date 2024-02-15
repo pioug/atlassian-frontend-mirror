@@ -6,6 +6,7 @@ import { FORM_ERROR, MutableState, Tools } from 'final-form';
 import { Form, FormSpy } from 'react-final-form';
 import { useIntl } from 'react-intl-next';
 
+import { RequiredAsterisk } from '@atlaskit/form';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -98,27 +99,23 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
 
   const handleSubmit = useCallback(
     async (data: WithReservedFields<FormData>) => {
-      if (getBooleanFF('platform.linking-platform.link-create.enable-edit')) {
-        const {
-          [LINK_CREATE_FORM_POST_CREATE_FIELD]: shouldEnableEditView,
-          ...formData
-        } = data;
+      const {
+        [LINK_CREATE_FORM_POST_CREATE_FIELD]: shouldEnableEditView,
+        ...formData
+      } = data;
 
-        /**
-         * If form has post-create field set to trigger post-create edit
-         * send this to the form context so we know what to do next
-         * if submission is successful
-         */
-        enableEditView?.(!!shouldEnableEditView);
+      /**
+       * If form has post-create field set to trigger post-create edit
+       * send this to the form context so we know what to do next
+       * if submission is successful
+       */
+      enableEditView?.(!!shouldEnableEditView);
 
-        /**
-         * This is the onSubmit handler provided by the plugin
-         * It will be async, and it will likely involve awaiting `onCreate` (the adopters handler)
-         */
-        return onSubmit(formData);
-      }
-
-      return onSubmit(data);
+      /**
+       * This is the onSubmit handler provided by the plugin
+       * It will be async, and it will likely involve awaiting `onCreate` (the adopters handler)
+       */
+      return onSubmit(formData);
     },
     [onSubmit, enableEditView],
   );
@@ -178,7 +175,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
         },
       }}
     >
-      {({ submitting, submitError, ...formProps }) => {
+      {({ submitError, ...formProps }) => {
         return (
           <form
             onSubmit={formProps.handleSubmit}
@@ -200,6 +197,14 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
                 setShouldShowWarning(isModified);
               }}
             />
+            {getBooleanFF(
+              'platform.linking-platform.link-create.enable-expected-field-errors',
+            ) && (
+              <p aria-hidden="true">
+                {intl.formatMessage(messages.requiredFieldInstruction)}{' '}
+                <RequiredAsterisk />
+              </p>
+            )}
             <Box>{children}</Box>
             {!hideFooter && (
               <CreateFormFooter
@@ -217,7 +222,6 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
                     : formErrorMessage
                 }
                 handleCancel={handleCancel}
-                submitting={submitting}
                 testId={testId}
               />
             )}

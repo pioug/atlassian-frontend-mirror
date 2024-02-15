@@ -3,8 +3,9 @@ import { useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import FocusRing from '@atlaskit/focus-ring';
+import { Label } from '@atlaskit/form';
 import {
   BitbucketIcon,
   ConfluenceIcon,
@@ -66,19 +67,20 @@ export default () => {
           css={css({
             width: '100%',
             maxWidth: '500px',
-            marginTop: token('space.300', '24px'),
-            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-            marginBottom: '56px',
-            paddingBottom: token('space.100', '8px'),
             borderRadius: token('border.radius.100', '3px'),
             boxShadow: token(
               'elevation.shadow.overlay',
               `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`,
             ),
+            marginBlockEnd: '56px',
+            marginBlockStart: token('space.300', '24px'),
+            paddingBlockEnd: token('space.100', '8px'),
           })}
         >
+          <Label htmlFor="resize-text">Resize</Label>
           <FocusRing isInset>
             <input
+              id="resize-text"
               type="text"
               readOnly
               value={searchTerm[`s${num}`]}
@@ -86,7 +88,6 @@ export default () => {
                 display: 'block',
                 boxSizing: 'border-box',
                 width: '100%',
-                marginBottom: token('space.100', '8px'),
                 padding: token('space.200', '16px'),
                 border: 'none',
                 borderRadius: `${token('border.radius', '3px')} ${token(
@@ -95,6 +96,7 @@ export default () => {
                 )} 0 0`,
                 color: '#172b4d',
                 fontSize: token('font.size.400', '24px'),
+                marginBlockEnd: token('space.100', '8px'),
                 ':hover': {
                   backgroundColor: N10,
                 },

@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { Box, xcss } from '@atlaskit/primitives';
 import TextArea from '@atlaskit/textarea';
@@ -11,7 +11,7 @@ import TextArea from '@atlaskit/textarea';
 import Drawer from '../../src';
 
 const checkboxStyles = xcss({
-  paddingTop: 'space.200',
+  paddingBlockStart: 'space.200',
 });
 
 const DrawerUnmountExample = () => {

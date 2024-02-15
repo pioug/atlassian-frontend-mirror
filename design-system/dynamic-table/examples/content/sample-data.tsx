@@ -8,7 +8,7 @@ import DropdownMenu, {
   DropdownItem,
   DropdownItemGroup,
 } from '@atlaskit/dropdown-menu';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import { lorem } from './lorem';
 import { presidents } from './presidents';
@@ -37,12 +37,12 @@ const NameWrapper: FC<{ children: ReactNode }> = ({ children }) => (
   <span css={nameWrapperStyles}>{children}</span>
 );
 
-const avatarWrapperStyles = css({
-  marginRight: token('space.100', '8px'),
+const avatarWrapperStyles = xcss({
+  marginInlineEnd: 'space.100',
 });
 
 const AvatarWrapper: FC<{ children: ReactNode }> = ({ children }) => (
-  <div css={avatarWrapperStyles}>{children}</div>
+  <Box xcss={avatarWrapperStyles}>{children}</Box>
 );
 
 export const caption = 'List of US Presidents';
@@ -77,6 +77,7 @@ export const createHead = (withWidth: boolean) => {
       },
       {
         key: 'more',
+        content: 'Actions',
         shouldTruncate: true,
       },
     ],
@@ -115,7 +116,7 @@ export const rows = presidents.map((president: President, index: number) => ({
     {
       key: 'MoreDropdown',
       content: (
-        <DropdownMenu trigger="More">
+        <DropdownMenu trigger="More" label={`More about ${president.name}`}>
           <DropdownItemGroup>
             <DropdownItem>{president.name}</DropdownItem>
           </DropdownItemGroup>

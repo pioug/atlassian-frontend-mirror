@@ -1,18 +1,20 @@
 /* eslint-disable no-console */
 
 import React from 'react';
+
 import { IntlProvider } from 'react-intl-next';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-import { Editor } from './../src';
-import EditorContext from './../src/ui/EditorContext';
-import WithEditorActions from './../src/ui/WithEditorActions';
-import ToolbarHelp from './../src/ui/ToolbarHelp';
+
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
-import CollapsedEditor from '../src/ui/CollapsedEditor';
-import ToolbarFeedback from '../src/ui/ToolbarFeedback';
 import { name, version } from '../package.json';
+import { Editor } from '../src';
+import CollapsedEditor from '../src/ui/CollapsedEditor';
+import EditorContext from '../src/ui/EditorContext';
+import ToolbarFeedback from '../src/ui/ToolbarFeedback';
+import ToolbarHelp from '../src/ui/ToolbarHelp';
+import WithEditorActions from '../src/ui/WithEditorActions';
 
 const SAVE_ACTION = () => console.log('Save');
 const CANCEL_ACTION = () => console.log('Cancel');

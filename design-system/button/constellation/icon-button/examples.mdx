@@ -3,3 +3,114 @@ title: Icon button
 description: An icon-only button lets people take a common and recognizable action where space is limited.
 order: 0
 ---
+
+import SectionMessage from '@atlaskit/section-message';
+
+import IconButtonDefault from '../../examples/constellation/new-button/icon-button/icon-button-default';
+import IconButtonPrimary from '../../examples/constellation/new-button/icon-button/icon-button-primary';
+import IconButtonSubtle from '../../examples/constellation/new-button/icon-button/icon-button-subtle';
+import IconButtonCircle from '../../examples/constellation/new-button/icon-button/icon-button-circle';
+import IconButtonSmall from '../../examples/constellation/new-button/icon-button/icon-button-small';
+import IconButtonDisabled from '../../examples/constellation/new-button/icon-button/icon-button-disabled';
+import LinkIconButton from '../../examples/constellation/new-button/icon-button/link-icon-button';
+import LinkIconButtonWithRouting from '../../examples/constellation/new-button/icon-button/link-icon-button-with-routing';
+import LinkIconButtonDisabled from '../../examples/constellation/new-button/icon-button/link-icon-button-disabled';
+import IconButtonSelected from '../../examples/constellation/new-button/icon-button/icon-button-selected';
+
+## Default
+
+The default icon button, used for most cases. They aren't impactful enough to represent a primary action.
+
+<Example Component={IconButtonDefault} packageName="@atlaskit/button" />
+
+## Appearance
+
+### Primary
+
+A primary button calls attention to the most important action on a page or in an area. Primary icon buttons aren't common because critical actions should typically use [a button with a label for clarity](components/button/button-new).
+
+<Example Component={IconButtonPrimary} packageName="@atlaskit/button" />
+
+### Subtle
+
+Use a `subtle` icon button for secondary actions.
+
+<Example Component={IconButtonSubtle} packageName="@atlaskit/button" />
+
+## Shape
+
+### Circle
+
+Only use circle icon buttons in the top navigation or other areas that already have circular buttons.
+
+<Example Component={IconButtonCircle} packageName="@atlaskit/button" />
+
+## Overriding icon size
+
+To override the default icon size, use `UNSAFE_size`.
+
+<SectionMessage title="Caution" appearance="warning">
+  <p>
+    This is an UNSAFE prop which will be removed in a later version. There are
+    plans to revise iconography to provide consistent sizing at which point this
+    will no longer be necessary.
+  </p>
+</SectionMessage>
+
+### Small
+
+<Example Component={IconButtonSmall} packageName="@atlaskit/button" />
+
+## Link icon button
+
+For buttons that are links for navigation rather than on-page actions. Link icon buttons render an `<a>` tag instead of a `<button>`. They accept anchor tag HTML attributes, including `href`.
+
+<Example Component={LinkIconButton} packageName="@atlaskit/button" />
+
+### Routing
+
+When available, link icon button will consume the router link component configured in the **app provider**. This allows router links to be configured once across an entire application. (This replaces [the component prop](/components/button/examples#routing)).
+
+These links won't use the configured router link component when passed to `href`, and instead render a standard `<a>` tag:
+
+- External links
+- Non-HTTP-based links (`mailto:`, `tel:`, `sms:`)
+- Anchor / hash links (`#`)
+
+If your application doesn't have an existing app provider or `routerLinkComponent` configuration, see how to set this up in [the app provider documentation](/components/app-provider/examples#router-links).
+
+### Advanced href usage with TypeScript
+
+Link button accepts a generic type containing the configured router link's props. This is only required for advanced usage to allow an object to be passed to `href`.
+
+<Example
+  Component={LinkIconButtonWithRouting}
+  packageName="@atlaskit/button"
+  appearance="source-only"
+/>
+
+## State
+
+### Disabled
+
+Set `isDisabled` to disable an icon button that shouldn't be actionable. The icon button will appear faded and won't respond to user interaction.
+
+Avoid disabling buttons because this can cause accessibility problems, and [never put a tooltip on a disabled button](/components/button-new/usage#do-not-put-tooltips-on-disabled-buttons).
+
+<Example Component={IconButtonDisabled} packageName="@atlaskit/button" />
+
+#### Disabled link buttons
+
+The `disabled` HTML attribute does not exist for anchor `<a>` tags, so link buttons are disabled using this accessible technique:
+
+- Adds `aria-disabled="true"`
+- Adds `role="link"`
+- Removes `href` attribute
+
+<Example Component={LinkIconButtonDisabled} packageName="@atlaskit/button" />
+
+### Selected
+
+Set `isSelected` to indicate the button is selected.
+
+<Example Component={IconButtonSelected} packageName="@atlaskit/button" />

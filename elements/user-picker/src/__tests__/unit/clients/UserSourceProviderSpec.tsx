@@ -16,21 +16,21 @@ describe('UserSourceProvider', () => {
     });
     it('returns initial sources by default if passed as props', () => {
       const { result, rerender } = renderHook(() =>
-        useUserSource('1234', true, ['github']),
+        useUserSource('1234', true, ['microsoft']),
       );
       const { sources, loading } = result.current;
       rerender();
       expect(loading).toStrictEqual(false);
-      expect(sources).toEqual(['github']);
+      expect(sources).toEqual(['microsoft']);
     });
     it('returns initial sources by default if argument indicating that sources do not need to be fetched', () => {
       const { result, rerender } = renderHook(() =>
-        useUserSource('1234', false, ['github']),
+        useUserSource('1234', false, ['microsoft']),
       );
       const { sources, loading } = result.current;
       rerender();
       expect(loading).toStrictEqual(false);
-      expect(sources).toEqual(['github']);
+      expect(sources).toEqual(['microsoft']);
     });
     it('sets loading to false when sources have finished fetching', async () => {
       const mockFetch = jest.fn(
@@ -39,7 +39,7 @@ describe('UserSourceProvider', () => {
             resolve([
               {
                 sourceId: '1234',
-                sourceType: 'github',
+                sourceType: 'microsoft',
               },
             ]);
           }),
@@ -59,7 +59,7 @@ describe('UserSourceProvider', () => {
       expect(result.current.loading).toStrictEqual(false);
       rerender();
       expect(result.current.sources).toHaveLength(1);
-      expect(result.current.sources).toEqual(['github']);
+      expect(result.current.sources).toEqual(['microsoft']);
     });
     it('sets loading to false and returns an error if thrown', async () => {
       const mockFetch = jest.fn(

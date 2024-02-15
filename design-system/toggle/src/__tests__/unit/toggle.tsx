@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
@@ -12,24 +12,28 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 describe('Toggle component', () => {
   it('should be able to switch', () => {
     const onChange = jest.fn();
-    const { container } = render(
-      <Toggle size="large" defaultChecked={false} onChange={onChange} />,
+    render(
+      <Toggle
+        size="large"
+        label="switch"
+        defaultChecked={false}
+        onChange={onChange}
+      />,
     );
-    const label = container.querySelector('label');
+    const label = screen.getByLabelText('switch').parentElement as HTMLElement;
 
-    expect(label).toBeDefined();
-    expect(label?.getAttribute('data-checked')).toBe(null);
+    expect(label).not.toHaveAttribute('data-checked');
 
-    fireEvent.click(label!);
+    fireEvent.click(label);
     expect(onChange).toHaveBeenCalled();
 
-    expect(label?.getAttribute('data-checked')).toBe('true');
+    expect(label).toHaveAttribute('data-checked', 'true');
   });
 
   it('should be able to handle name/value', () => {
     const onChange = jest.fn();
 
-    const { container } = render(
+    render(
       <Toggle
         size="large"
         defaultChecked={false}
@@ -39,48 +43,56 @@ describe('Toggle component', () => {
       />,
     );
 
-    const input = container.querySelector('input[type="checkbox"]');
+    const input = screen.getByRole('checkbox');
 
-    expect(input).toBeDefined();
-    expect(input?.getAttribute('name')).toEqual('notification');
-    expect(input?.getAttribute('value')).toEqual('off');
+    expect(input).toHaveAttribute('name', 'notification');
+    expect(input).not.toBeChecked();
   });
 
   it('should not be able to switch when disabled', () => {
     const onChange = jest.fn();
-    const { container } = render(
-      <Toggle size="large" isDisabled defaultChecked={false} />,
+    render(
+      <Toggle size="large" isDisabled label="toggle" defaultChecked={false} />,
     );
-    const label = container.querySelector('label');
+    const label = screen.getByLabelText('toggle');
 
-    expect(label).toBeDefined();
-    expect(label?.getAttribute('data-checked')).toBe(null);
+    expect(label).not.toHaveAttribute('data-checked');
 
-    fireEvent.click(label!);
+    fireEvent.click(label);
     expect(onChange).not.toHaveBeenCalled();
 
-    expect(label?.getAttribute('data-checked')).toBe(null);
+    expect(label).not.toHaveAttribute('data-checked');
   });
 
   it('should set received label to input', () => {
-    const { container } = render(<Toggle label="Allow pull request" />);
-    const input = container.querySelector('input[type="checkbox"]');
+    render(<Toggle label="Allow pull request" />);
+    const input = screen.getByRole('checkbox');
 
-    expect(input).toBeDefined();
-    expect(input?.getAttribute('aria-label')).toBe('Allow pull request');
+    expect(input).toHaveAttribute('aria-label', 'Allow pull request');
+  });
+
+  it('should set received aria-describedby to input', () => {
+    render(
+      <>
+        <p id="toggle-desc">Allow pull request</p>
+        <Toggle descriptionId="toggle-desc" />
+      </>,
+    );
+    const input = screen.getByRole('checkbox');
+    expect(input).toHaveAttribute('aria-describedby', 'toggle-desc');
   });
 
   it('due to check and cross icons are decorative they should not have a label', () => {
-    const { getByTestId } = render(<Toggle testId="Test" />);
+    render(<Toggle testId="Test" />);
 
-    const crossIcon = getByTestId('Test--toggle-check-icon');
-    expect(crossIcon).toBeDefined();
+    const crossIcon = screen.getByTestId('Test--toggle-check-icon');
+    expect(crossIcon).toBeInTheDocument();
 
-    const checkIcon = getByTestId('Test--toggle-check-icon');
-    expect(checkIcon).toBeDefined();
+    const checkIcon = screen.getByTestId('Test--toggle-check-icon');
+    expect(checkIcon).toBeInTheDocument();
 
-    expect(crossIcon.getAttribute('aria-label')).toBeNull();
-    expect(crossIcon.getAttribute('aria-label')).toBeNull();
+    expect(crossIcon).not.toHaveAttribute('aria-label');
+    expect(crossIcon).not.toHaveAttribute('aria-label');
   });
 
   describe('analytics', () => {
@@ -88,18 +100,19 @@ describe('Toggle component', () => {
       const originOnChange = jest.fn();
       const onAnalyticsEvent = jest.fn();
 
-      const { container } = render(
+      render(
         <AnalyticsListener channel="atlaskit" onEvent={onAnalyticsEvent}>
           <Toggle
             size="large"
             defaultChecked={false}
+            label="analytics"
             onChange={originOnChange}
           />
         </AnalyticsListener>,
       );
 
-      const label = container.querySelector('label');
-      fireEvent.click(label!);
+      const label = screen.getByLabelText('analytics');
+      fireEvent.click(label);
 
       expect(originOnChange).toHaveBeenCalled();
       expect(onAnalyticsEvent).toHaveBeenCalledTimes(1);
@@ -123,19 +136,21 @@ describe('Toggle component', () => {
       const originOnChange = jest.fn();
       const onAnalyticsEvent = jest.fn();
 
-      const { container } = render(
+      render(
         <AnalyticsListener channel="atlaskit" onEvent={onAnalyticsEvent}>
           <Toggle
             size="large"
             defaultChecked={false}
             isDisabled
+            label="disabled toggle"
             onChange={originOnChange}
           />
         </AnalyticsListener>,
       );
 
-      const label = container.querySelector('label');
-      fireEvent.click(label!);
+      const label = screen.getByLabelText('disabled toggle')
+        .parentElement as HTMLElement;
+      fireEvent.click(label);
 
       expect(originOnChange).not.toHaveBeenCalled();
       expect(onAnalyticsEvent).not.toHaveBeenCalled();

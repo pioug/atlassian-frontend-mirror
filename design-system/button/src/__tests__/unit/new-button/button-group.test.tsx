@@ -3,6 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import ButtonGroup from '../../../containers/button-group';
+import Button from '../../../new';
 import variants from '../../../utils/variants';
 
 const testId = 'button-group';
@@ -26,10 +27,21 @@ describe('Button Group', () => {
     expect(buttonGroup).not.toHaveAttribute('data-testid');
   });
 
+  it('should have `role="group"`', () => {
+    render(
+      <ButtonGroup testId={testId}>
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+      </ButtonGroup>,
+    );
+    const buttonGroup = screen.getByTestId(testId);
+    expect(buttonGroup).toHaveAttribute('role', 'group');
+  });
+
   variants.forEach(async ({ name, Component }) => {
     describe(`${name} variant`, () => {
       it('applies a shared `appearance` prop to contained buttons', () => {
-        const appearance = 'danger';
+        const appearance = 'primary';
         render(
           <>
             {/* Render a reference button outside the ButtonGroup so we can compare the resulting `className` */}
@@ -49,7 +61,7 @@ describe('Button Group', () => {
       });
 
       it('does not allow individual buttons to override a shared `appearance` prop', () => {
-        const appearance = 'danger';
+        const appearance = 'primary';
         render(
           <>
             {/* Render a reference button outside the ButtonGroup so we can compare the resulting `className` */}

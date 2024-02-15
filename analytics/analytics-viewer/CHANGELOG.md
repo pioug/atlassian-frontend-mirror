@@ -1,5 +1,17 @@
 # @atlaskit/analytics-viewer
 
+## 0.5.5
+
+### Patch Changes
+
+- [#65919](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65919) [`58f864986ba2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/58f864986ba2) - Migrate @atlaskit/analytics-viewer to use declarative entry points
+
+## 0.5.4
+
+### Patch Changes
+
+- [#61323](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61323) [`e9e3532437e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9e3532437e8) - Converted spacing values to corresponding space tokens
+
 ## 0.5.3
 
 ### Patch Changes

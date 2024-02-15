@@ -1,18 +1,19 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-
-import adfWithMixedContent from './__fixtures__/content.adf.json';
-import adfWithNoBreakoutContent from './__fixtures__/content-nobreakout.adf.json';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { contextPanelSelectors } from '@atlaskit/editor-test-helpers/page-objects/context-panel';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { scrollToTop } from '@atlaskit/editor-test-helpers/page-objects/editor';
-import { CONTENT_AREA_TEST_ID } from '../../../ui/Appearance/FullPage/FullPageContentArea';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { contextPanelSelectors } from '@atlaskit/editor-test-helpers/page-objects/context-panel';
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import { CONTENT_AREA_TEST_ID } from '../../../ui/Appearance/FullPage/FullPageContentArea';
+
+import adfWithNoBreakoutContent from './__fixtures__/content-nobreakout.adf.json';
+import adfWithMixedContent from './__fixtures__/content.adf.json';
 
 describe('Context panel', () => {
   let page: PuppeteerPage;

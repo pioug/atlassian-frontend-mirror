@@ -1,41 +1,43 @@
 /** @jsx jsx */
-import React, { useRef, useCallback, useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
+import React, { useCallback, useMemo, useRef } from 'react';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize, fontSize } from '@atlaskit/theme/constants';
-import { ThemeProps } from '@atlaskit/theme/types';
-import { token } from '@atlaskit/tokens';
-import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
-import Tooltip from '@atlaskit/tooltip';
-import {
-  expandMessages,
-  sharedExpandStyles,
-  WidthProvider,
-  ExpandIconWrapper,
-  clearNextSiblingMarginTopStyle,
-  ExpandLayoutWrapperWithRef,
-} from '@atlaskit/editor-common/ui';
-import {
-  akEditorLineHeight,
-  relativeFontSizeToBase16,
-} from '@atlaskit/editor-shared-styles';
-import { AnalyticsEventPayload, PLATFORM, MODE } from '../analytics/events';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import { ActiveHeaderIdConsumer } from './active-header-id-provider';
+import {
+  clearNextSiblingMarginTopStyle,
+  ExpandIconWrapper,
+  ExpandLayoutWrapperWithRef,
+  expandMessages,
+  sharedExpandStyles,
+  WidthProvider,
+} from '@atlaskit/editor-common/ui';
+import {
+  akEditorLineHeight,
+  relativeFontSizeToBase16,
+} from '@atlaskit/editor-shared-styles';
+import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
+import { fontSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 import _uniqueId from 'lodash/uniqueId';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
+import type { AnalyticsEventPayload } from '../analytics/events';
+import { MODE, PLATFORM } from '../analytics/events';
 import { getPlatform } from '../utils';
-import { RendererAppearance } from './Renderer/types';
+import { ActiveHeaderIdConsumer } from './active-header-id-provider';
+import type { RendererAppearance } from './Renderer/types';
 
 export type StyleProps = {
   expanded?: boolean;
   focused?: boolean;
   'data-node-type'?: 'expand' | 'nestedExpand';
   'data-title'?: string;
+  children?: React.ReactNode;
 };
 
 const titleStyles = css`
@@ -51,14 +53,14 @@ const titleStyles = css`
   text-align: left;
 `;
 
-const Container: React.FC<StyleProps> = (props) => {
+const Container = (props: StyleProps) => {
   const paddingBottom = props.expanded
     ? token('space.100', '8px')
     : token('space.0', '0px');
   const sharedContainerStyles = sharedExpandStyles.containerStyles(props);
 
-  const styles = (themeProps: ThemeProps) => css`
-    ${sharedContainerStyles({ theme: themeProps })}
+  const styles = () => css`
+    ${sharedContainerStyles()}
     padding: 0;
     padding-bottom: ${paddingBottom};
   `;
@@ -70,21 +72,21 @@ const Container: React.FC<StyleProps> = (props) => {
   );
 };
 
-const TitleContainer: React.FC<
-  StyleProps & React.ButtonHTMLAttributes<HTMLButtonElement>
-> = (props) => {
+const TitleContainer = (
+  props: StyleProps & React.ButtonHTMLAttributes<HTMLButtonElement>,
+) => {
   const paddingBottom = !props.expanded
     ? token('space.100', '8px')
     : token('space.0', '0px');
 
-  const styles = (themeProps: ThemeProps) => css`
-    ${sharedExpandStyles.titleContainerStyles({ theme: themeProps })}
+  const styles = () => css`
+    ${sharedExpandStyles.titleContainerStyles()}
     padding: ${token('space.100', '8px')};
     padding-bottom: ${paddingBottom};
   `;
 
   return (
-    <button css={styles} {...props}>
+    <button type="button" css={styles} {...props}>
       {props.children}
     </button>
   );
@@ -92,16 +94,14 @@ const TitleContainer: React.FC<
 
 TitleContainer.displayName = 'TitleContainerButton';
 
-const ContentContainer: React.FC<StyleProps> = (props) => {
+const ContentContainer = (props: StyleProps) => {
   const sharedContentStyles = sharedExpandStyles.contentStyles(props);
   const visibility = props.expanded ? 'visible' : 'hidden';
 
-  const styles = (themeProps: ThemeProps) => css`
-    ${sharedContentStyles({ theme: themeProps })};
+  const styles = () => css`
+    ${sharedContentStyles()};
     padding-right: ${token('space.200', '16px')};
-    // TODO: Migrate away from gridSize
-    // Recommendation: Replace gridSize with 8, or directly replace with 36px
-    padding-left: ${gridSize() * 5 - gridSize() / 2}px;
+    padding-left: ${token('space.400', '32px')};
     visibility: ${visibility};
   `;
 
@@ -185,6 +185,7 @@ function Expand({
       ) : null}
       <TitleContainer
         onClick={(e: React.SyntheticEvent) => {
+          e.preventDefault();
           e.stopPropagation();
           fireExpandToggleAnalytics(nodeType, expanded, fireAnalyticsEvent);
           setExpanded(!expanded);

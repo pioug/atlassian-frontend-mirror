@@ -10,6 +10,7 @@ import {
   UnsupportedInline,
 } from '@atlaskit/editor-common/ui';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
@@ -55,13 +56,13 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
         return;
       }
 
-      view.dispatch(
-        registerCard({
-          title,
-          url,
-          pos,
-        })(view.state.tr),
-      );
+      const tr = view.state.tr;
+      registerCard({
+        title,
+        url,
+        pos,
+      })(tr);
+      view.dispatch(tr);
     })();
   };
 
@@ -74,8 +75,13 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
   };
 
   render() {
-    const { node, cardContext, showServerActions, useAlternativePreloader } =
-      this.props;
+    const {
+      node,
+      cardContext,
+      actionOptions,
+      showServerActions,
+      useAlternativePreloader,
+    } = this.props;
 
     const { url, data } = node.attrs;
     const card = (
@@ -92,6 +98,7 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
           inlinePreloaderStyle={
             useAlternativePreloader ? 'on-right-without-skeleton' : undefined
           }
+          actionOptions={actionOptions}
           showServerActions={showServerActions}
         />
       </span>
@@ -117,6 +124,7 @@ const WrappedInlineCardWithAwareness = Card(
 export type InlineCardNodeViewProps = Pick<
   SmartCardProps,
   | 'useAlternativePreloader'
+  | 'actionOptions'
   | 'showServerActions'
   | 'allowEmbeds'
   | 'allowBlockCards'
@@ -140,6 +148,7 @@ export function InlineCardNodeView(
     node,
     view,
     getPos,
+    actionOptions,
     showServerActions,
     allowEmbeds,
     allowBlockCards,
@@ -153,14 +162,34 @@ export function InlineCardNodeView(
         node={node}
         view={view}
         getPos={getPos}
+        actionOptions={actionOptions}
         showServerActions={showServerActions}
         useAlternativePreloader={useAlternativePreloader}
       />
     );
   }
 
-  // BEGIN: Awareness (To be revisited in EDM-8508)
-  const editorState = view.state;
+  return (
+    <WrappedInlineCardWithAwareness
+      node={node}
+      view={view}
+      getPos={getPos}
+      actionOptions={actionOptions}
+      showServerActions={showServerActions}
+      useAlternativePreloader={useAlternativePreloader}
+      pluginInjectionApi={pluginInjectionApi}
+      {...(enableInlineUpgradeFeatures &&
+        getAwarenessProps(view.state, getPos, allowEmbeds, allowBlockCards))}
+    />
+  );
+}
+
+const getAwarenessProps = (
+  editorState: EditorState,
+  getPos: () => number | undefined,
+  allowEmbeds?: boolean,
+  allowBlockCards?: boolean,
+) => {
   const linkPosition =
     getPos && typeof getPos() === 'number' ? getPos() : undefined;
 
@@ -174,28 +203,14 @@ export function InlineCardNodeView(
       ? isBlockSupportedAtPosition(linkPosition, editorState, 'inline')
       : false;
 
-  const isPulseEnabled = enableInlineUpgradeFeatures && canBeUpgradedToEmbed;
-  const isOverlayEnabled =
-    enableInlineUpgradeFeatures &&
-    (canBeUpgradedToEmbed || canBeUpgradedToBlock);
-
   const isSelected =
-    view.state.selection instanceof NodeSelection &&
-    view.state.selection?.node?.type === view.state.schema.nodes.inlineCard &&
-    view.state.selection?.from === getPos();
-  // END: Awareness
+    editorState.selection instanceof NodeSelection &&
+    editorState.selection?.node?.type === editorState.schema.nodes.inlineCard &&
+    editorState.selection?.from === getPos();
 
-  return (
-    <WrappedInlineCardWithAwareness
-      node={node}
-      view={view}
-      getPos={getPos}
-      showServerActions={showServerActions}
-      useAlternativePreloader={useAlternativePreloader}
-      isOverlayEnabled={isOverlayEnabled}
-      isPulseEnabled={isPulseEnabled}
-      pluginInjectionApi={pluginInjectionApi}
-      isSelected={isSelected}
-    />
-  );
-}
+  return {
+    isPulseEnabled: canBeUpgradedToEmbed,
+    isOverlayEnabled: canBeUpgradedToEmbed || canBeUpgradedToBlock,
+    isSelected,
+  };
+};

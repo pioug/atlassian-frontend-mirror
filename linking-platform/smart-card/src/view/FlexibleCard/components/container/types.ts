@@ -7,7 +7,7 @@ import {
 
 export type ContainerProps = Pick<
   FlexibleCardProps,
-  'onClick' | 'showHoverPreview' | 'showServerActions' | 'showAuthTooltip'
+  'onClick' | 'showHoverPreview' | 'actionOptions' | 'showAuthTooltip'
 > &
   FlexibleUiOptions & {
     /**

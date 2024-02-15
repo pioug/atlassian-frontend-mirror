@@ -1,7 +1,7 @@
 import {
   EditorLayoutFloatingToolbarModel,
-  editorTestCase as test,
   expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 
 test.describe('feature name: libra test', () => {

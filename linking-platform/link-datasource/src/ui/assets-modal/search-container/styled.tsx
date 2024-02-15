@@ -24,5 +24,6 @@ export const FieldContainer = styled.div`
 `;
 
 export const SchemaSelectContainer = styled.div`
-  width: 200px;
+  width: 100%;
+  max-width: 386px;
 `;

@@ -16,6 +16,7 @@ describe('ColorPaletteMenu', () => {
         palette={palette}
         onChange={mockFn}
         selectedColor="blue"
+        cols={3}
       />,
     );
   };

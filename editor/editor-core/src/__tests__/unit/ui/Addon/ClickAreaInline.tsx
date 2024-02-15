@@ -1,10 +1,13 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+
+import { fireEvent, render, screen } from '@testing-library/react';
+
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+
 import { ClickAreaInline } from '../../../../ui/Addon';
 
 const clickWrapperId = 'click-wrapper';

@@ -59,7 +59,7 @@ type AutoDismissFlagPropsWithoutId = {
    */
   appearance?: AppearanceTypes;
   /**
-   * The secondary content shown below the flag title
+   * The secondary content shown below the flag title.
    */
   description?: ReactNode;
   /**
@@ -100,7 +100,7 @@ type AutoDismissFlagPropsWithoutId = {
    */
   testId?: string;
   /**
-   * Additional information to be included in the `context` of analytics events that come from flag
+   * Additional information to be included in the `context` of analytics events that come from flag.
    */
   analyticsContext?: Record<string, any>;
 };
@@ -115,25 +115,25 @@ export interface FlagPropsWithoutId
   extends AutoDismissFlagPropsWithoutId,
     WithAnalyticsEventsProps {
   /**
-   * Standard onBlur event, applied to Flag by AutoDismissFlag
+   * Standard onBlur event, applied to Flag by AutoDismissFlag.
    */
   onBlur?: (
     e: React.FocusEvent<HTMLElement>,
     analyticsEvent: UIAnalyticsEvent,
   ) => void;
   /**
-   * Standard onFocus event, applied to Flag by AutoDismissFlag
+   * Standard onFocus event, applied to Flag by AutoDismissFlag.
    */
   onFocus?: (
     e: React.FocusEvent<HTMLElement>,
     analyticsEvent: UIAnalyticsEvent,
   ) => void;
   /**
-   * Standard onMouseOut event, applied to Flag by AutoDismissFlag
+   * Standard onMouseOut event, applied to Flag by AutoDismissFlag.
    */
   onMouseOut?: MouseEventHandler;
   /**
-   * Standard onMouseOver event, applied to Flag by AutoDismissFlag
+   * Standard onMouseOver event, applied to Flag by AutoDismissFlag.
    */
   onMouseOver?: MouseEventHandler;
 }

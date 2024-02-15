@@ -7,41 +7,48 @@ import inlineEditDont from './images/inline-edit-dont.png';
 
 ## Usage
 
-Use inline edit on screens where information needs to be updated often, such as a view issue page. Users can toggle between read view and edit view without leaving the page.
+Use inline edit on screens where information needs to be updated often, such as a view issue page. People can toggle between read view and edit view without leaving the page.
 
-Use this instead of a [form](https://atlaskit.atlassian.com/packages/design-system/form) when you have information that may already exist that will need to be edited.
+Use this instead of a [form](/components/form/examples) when you have information that may already exist and can be edited.
 
-Inline edit can use but is not limited to a [text field](/components/textfield), [select](/components/select) and [datetime picker](https://atlaskit.atlassian.com/packages/design-system/datetime-picker). The appearance of the inline edit will vary depending on which components it is used with.
+Inline edit can use data input components such as a [text field](/components/textfield), [select](/components/select) and [datetime picker](https://atlaskit.atlassian.com/packages/design-system/datetime-picker). The appearance of the inline edit will vary depending on which components it is used with.
+
+## Accessibility
+
+- For larger areas of text, set `keepEditViewOpenOnBlur` to true. This ensures that inline edit stays in editing mode when the user clicks or moves away. This is recommended to help prevent people from accidentally discarding or saving their unfinished work.
+- Keep action buttons visible wherever possible. The contents in the field are saved when the user navigates away from the element, but this isn't immediately obvious on its' own.
+- Make sure that inline edit fields have enough visual affordance that sighted people recognise them as editable, especially if you are using custom font sizing.
 
 ## Anatomy
 
 ### Read view
 
-![Inline edit read anatomy](/images/inline-edit-anatomy-read.png)
+![An inline edit in read view. The example label is "Team name" and the content of the field is "Design System Team".](/images/inline-edit-anatomy-read.png)
 
-1. ** Label: ** Labels are sentence case and are as short as possible, while clearly describing the content of the field.
+1. ** Label: ** Labels are concise, sentence case text describing what to enter in the field.
 
-2. ** Field: ** When in read view, the field is hidden and aligned with the label. When in an empty state, this field text can be customized.
+2. ** Field: ** When in read view, the field is hidden and aligned with the label. When in an empty state, you can customise what placeholder text is shown here.
 
 ### Edit view
 
-![Inline edit edit anatomy](/images/inline-edit-anatomy-edit.png)
+![An inline edit in edit view. The example label is "Team name" and the field is a dropdown menu with the placeholder text "Select a team". At the bottom right there are two controls with a tick icon and a cross icon.](/images/inline-edit-anatomy-edit.png)
 
-1. ** Label: ** Labels are sentence case and are as short as possible, while clearly describing the content of the field.
+1. ** Label: ** Labels are concise, sentence case text describing what to enter in the field.
 
 2. ** Field: ** When in edit view, the field snaps to the width of the column and the text remains aligned with the label.
 
-3. ** Controls: ** Always appear to the right of the field.
+3. ** Controls: ** Options to save or cancel the current data entry appear at the end of the field.
 
 ## Behavior
 
-Inline edit wraps around any standard text field. Any styling of the text field component is handled outside of this component. If you are placing a custom inline edit on a component like a header, ensure that the font and box size line up properly.
+Inline edit wraps around any standard text field. Any styling of the text field component is handled outside of this component. If you are placing a custom inline edit on a component like a header, check that the font and box size line up properly.
 
-Since inline edit is used when entering content, it is optimized for use with keyboard inputs (use return to save and esc to cancel). When using a mouse, controls should always display on the bottom right of the field.
+Since inline edit is used for entering content, it's optimized for use with keyboard inputs (use return to save and esc to cancel). When using a mouse, controls should always display at the end of the field. For example, at the bottom right in a left-to-right reading order.
 
 ## Best practices
 
-- Use inline edit for an editable field that is not part of a [form](/patterns/forms). Do not use inline edit inside of a form.
+- Use inline edit for an editable field that is not part of a [form](/patterns/forms). Don't use inline edit inside of a form.
+- If you need a simple inline editable text field, use [inline editable textfield component](/components/inline-edit/inline-editable-textfield/examples) to get our recommended default settings.
 
 <DoDont
   type="do"
@@ -50,15 +57,15 @@ Since inline edit is used when entering content, it is optimized for use with ke
     alt: 'Inline edit header in read view and edit view with the same styling and layout.',
   }}
 >
-  Ensure read view and edit view components have identical styling. This avoids
-  confusing the user.
+  To avoid confusing experiences, ensure read view and edit view components have
+  identical styling.
 </DoDont>
 
 <DoDont
   type="dont"
   image={{
     url: inlineEditDont,
-    alt: 'Inline edit header in read view and edit view with the same styling.',
+    alt: 'When editing, the inline edit has a different text size and font weight.',
   }}
 >
   Pass in read view and edit view components that have different styling.

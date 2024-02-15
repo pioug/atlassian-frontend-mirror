@@ -1,17 +1,18 @@
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
-import mentionAdf from './__fixtures__/mention-adf.json';
+import { normalizeHexColor } from '@atlaskit/adf-schema';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mentionSelectors } from '@atlaskit/editor-test-helpers/page-objects/mention';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  Appearance,
+  initEditorWithAdf,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { getElementComputedStyle } from '@atlaskit/editor-test-helpers/vr-utils/get-computed-style';
-import { normalizeHexColor } from '@atlaskit/adf-schema';
 import { B50, DN80 } from '@atlaskit/theme/colors';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
+
+import mentionAdf from './__fixtures__/mention-adf.json';
 
 describe('Mention', () => {
   let page: PuppeteerPage;
@@ -40,9 +41,7 @@ describe('Mention', () => {
       focusedMentionBgColor,
     );
   });
-
-  // FIXME: This test was automatically skipped due to failure on 17/05/2023: https://product-fabric.atlassian.net/browse/ED-17871
-  it.skip('Should repaint when theme mode changes', async () => {
+  it('Should repaint when theme mode changes', async () => {
     const url = getExampleUrl('editor', 'editor-core', 'kitchen-sink');
 
     const { page } = global;

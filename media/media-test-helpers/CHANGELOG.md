@@ -1,5 +1,20 @@
 # @atlaskit/media-test-helpers
 
+## 33.0.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.26
+
+### Patch Changes
+
+- [#60352](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60352) [`ff9488b450dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ff9488b450dd) - WHAT: Media has removed the ability to probe for existing file chunks.  
+  WHY: This is to support the work to deprecate SHA1 usage and make the Media Platform comply with FedRAMP moderate controls.
+  HOW: Remove any calls you have directly to probing, instead upload all files directly. If you upload files via MediaPicker no changes are required.
+- Updated dependencies
+
 ## 33.0.25
 
 ### Patch Changes

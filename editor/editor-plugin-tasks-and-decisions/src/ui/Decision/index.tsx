@@ -1,18 +1,11 @@
 import React from 'react';
 
 import type { WrappedComponentProps } from 'react-intl-next';
-import { defineMessages, injectIntl } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
+import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import type { ContentRef } from '@atlaskit/task-decision';
 import { DecisionItem } from '@atlaskit/task-decision';
-
-const messages = defineMessages({
-  placeholder: {
-    id: 'fabric.editor.decisionPlaceholder',
-    defaultMessage: 'Add a decision…',
-    description: 'Placeholder description for an empty decision in the editor',
-  },
-});
 
 interface Props {
   contentRef: ContentRef;
@@ -24,7 +17,9 @@ export const Decision = ({
   showPlaceholder,
   intl: { formatMessage },
 }: Props & WrappedComponentProps) => {
-  const placeholder = formatMessage(messages.placeholder);
+  const placeholder = formatMessage(
+    tasksAndDecisionsMessages.decisionPlaceholder,
+  );
 
   return (
     <DecisionItem

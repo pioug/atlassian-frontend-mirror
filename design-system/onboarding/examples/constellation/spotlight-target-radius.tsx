@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 import Avatar from '@atlaskit/avatar';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button, { IconButton } from '@atlaskit/button/new';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -81,12 +82,12 @@ const SpotlightTargetRadius = () => {
 
   return (
     <SpotlightManager>
-      <ButtonGroup>
+      <ButtonGroup label="Choose spotlight options">
         <SpotlightTarget name="codesandbox">
-          <Button iconBefore={<CodeSandboxIcon />} />
+          <IconButton icon={CodeSandboxIcon} label="codesandbox" />
         </SpotlightTarget>
         <SpotlightTarget name="copy">
-          <Button iconBefore={<CopyIcon label="Copy" />} />
+          <IconButton icon={CopyIcon} label="Copy" />
         </SpotlightTarget>
       </ButtonGroup>
       <SpotlightTarget name="avatar">

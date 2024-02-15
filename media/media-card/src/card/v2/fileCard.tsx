@@ -2,72 +2,50 @@ import {
   UIAnalyticsEvent,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import {
   FileDetails,
   FileIdentifier,
   FileState,
-  Identifier,
-  MediaClient,
-  MediaStoreGetFileImageParams,
-  RECENTS_COLLECTION,
-  addFileAttrsToUrl,
   globalMediaEventEmitter,
+  Identifier,
+  ImageResizeMode,
+  MediaBlobUrlAttrs,
+  RECENTS_COLLECTION,
   imageResizeModeToFileImageMode,
-  isImageRepresentationReady,
+  isProcessedFileState,
 } from '@atlaskit/media-client';
 import {
   MediaFileStateError,
   useFileState,
+  useMediaClient,
 } from '@atlaskit/media-client-react';
 import {
-  MediaTraceContext,
-  SSR,
-  getMediaTypeFromMimeType,
   getRandomHex,
   isMimeTypeSupportedByBrowser,
+  MediaFeatureFlags,
+  MediaTraceContext,
+  NumericalCardDimensions,
+  SSR,
+  isVideoMimeTypeSupportedByBrowser,
 } from '@atlaskit/media-common';
-import { getOrientation } from '@atlaskit/media-ui';
 import { MediaViewer } from '@atlaskit/media-viewer';
-import React, {
-  Suspense,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { MediaCardError } from '../../errors';
 import {
-  ImageLoadError,
-  LocalPreviewError,
-  MediaCardError,
-  ensureMediaCardError,
-  isLocalPreviewError,
-  isUnsupportedLocalPreviewError,
-} from '../../errors';
-import {
+  CardAppearance,
+  CardDimensions,
   CardEventProps,
-  CardPreview,
   CardStatus,
   FileStateFlags,
-  SharedCardProps,
+  TitleBoxIcon,
 } from '../../types';
-import {
-  SSRStatus,
-  SSRStatusFail,
-  extractErrorInfo,
-} from '../../utils/analytics';
-import { isBigger } from '../../utils/dimensionComparer';
 import getDocument from '../../utils/document';
 import { generateUniqueId } from '../../utils/generateUniqueId';
-import { getRequestedDimensions } from '../../utils/getDataURIDimension';
+import { resolveCardPreviewDimensions } from '../../utils/getDataURIDimension';
 import { getMediaCardCursor } from '../../utils/getMediaCardCursor';
-import {
-  MediaCardSsrData,
-  getSSRData,
-  StoreSSRDataScript,
-} from '../../utils/globalScope';
 import { getFileDetails } from '../../utils/metadata';
 import {
   abortUfoExperience,
@@ -76,9 +54,8 @@ import {
 } from '../../utils/ufoExperiences';
 import { useCurrentValueRef } from '../../utils/useCurrentValueRef';
 import { usePrevious } from '../../utils/usePrevious';
-import { videoIsPlayable } from '../../utils/videoIsPlayable';
-import { takeSnapshot } from '../../utils/videoSnapshot';
 import { ViewportDetector } from '../../utils/viewportDetector';
+import { getDefaultCardDimensions } from '../../utils/cardDimensions';
 import {
   fireCommencedEvent,
   fireCopiedEvent,
@@ -86,45 +63,68 @@ import {
   fireOperationalEvent,
   fireScreenEvent,
 } from '../cardAnalytics';
-import {
-  fetchAndCacheRemotePreview,
-  getCardPreviewFromCache,
-  getSSRCardPreview,
-  isLocalPreview,
-  isSSRClientPreview,
-  isSSRDataPreview,
-  isSSRPreview,
-  removeCardPreviewFromCache,
-  shouldResolvePreview,
-} from '../getCardPreview';
-import cardPreviewCache from '../getCardPreview/cache';
+import { isSSRPreview } from '../getCardPreview';
 import { CardViewV2 } from './cardViewV2';
+import { CardViews } from './cardviews';
 import { InlinePlayerLazyV2 } from './inlinePlayerLazyV2';
+import { useFilePreview, MediaFilePreview } from '@atlaskit/media-file-preview';
+import { CardAction } from '../actions';
+import { performanceNow } from './performance';
 
-export interface FileCardProps extends SharedCardProps, CardEventProps {
-  // Instance of MediaClient.
-  readonly mediaClient: MediaClient;
-  // Instance of file identifier.
+export interface FileCardProps extends CardEventProps {
+  /** Overlay the media file. */
+  readonly disableOverlay?: boolean;
+  /** Resize the media to 'crop' | 'fit' | 'full-fit' | 'stretchy-fit'. */
+  readonly resizeMode?: ImageResizeMode;
+  /* Includes media features like caption, timestamp etc. */
+  readonly featureFlags?: MediaFeatureFlags;
+  /** Sets meida card appearance */
+  readonly appearance?: CardAppearance;
+  /** Custom media card dimension like width and height. */
+  readonly dimensions?: CardDimensions;
+  /** Original media card dimension like width and height. */
+  readonly originalDimensions?: NumericalCardDimensions;
+  /** Array of additional media card actions. */
+  readonly actions?: Array<CardAction>;
+  /** Enable media card selectable. */
+  readonly selectable?: boolean;
+  /** Renders media card as selected, if selected is true. */
+  readonly selected?: boolean;
+  /** Alternate text for an media card. */
+  readonly alt?: string;
+  /** ID for testing the media card. */
+  readonly testId?: string;
+  /** Sets the title box background color. */
+  readonly titleBoxBgColor?: string;
+  /** Sets the title box icon. */
+  readonly titleBoxIcon?: TitleBoxIcon;
+  /** Instance of file identifier. */
   readonly identifier: FileIdentifier;
-  // Lazy loads the media file.
+  /** Lazy loads the media file. */
   readonly isLazy?: boolean;
-  // Uses the inline player for media file.
+  /** Uses the inline player for media file. */
   readonly useInlinePlayer?: boolean;
-  // Uses media MediaViewer to preview the media file.
+  /** Uses media MediaViewer to preview the media file. */
   readonly shouldOpenMediaViewer?: boolean;
-  // Media file list to display in Media Viewer.
+  /** Media file list to display in Media Viewer. */
   readonly mediaViewerItems?: Identifier[];
-  // Retrieve auth based on a given context.
+  /** Retrieve auth based on a given context. */
   readonly contextId?: string;
-  // Enables the download button for media file.
+  /** Enables the download button for media file. */
   readonly shouldEnableDownloadButton?: boolean;
-  // Server-Side-Rendering modes are "media" and "client"
+  /** Server-Side-Rendering modes are "server" and "client" */
   readonly ssr?: SSR;
-  // Disable tooltip for the card
+  /** Disable tooltip for the card */
   readonly shouldHideTooltip?: boolean;
 }
 
 export type FileCardBaseProps = FileCardProps & WithAnalyticsEventsProps;
+
+const LoadedCardView = getBooleanFF(
+  'platform.media-experience.card-views-refactor_b91lr',
+)
+  ? CardViews
+  : CardViewV2;
 
 export const FileCard = ({
   appearance = 'auto',
@@ -135,7 +135,6 @@ export const FileCard = ({
   featureFlags = {},
   identifier,
   ssr,
-  mediaClient,
   dimensions,
   originalDimensions,
   contextId,
@@ -157,101 +156,29 @@ export const FileCard = ({
   createAnalyticsEvent,
 }: FileCardBaseProps) => {
   //----------------------------------------------------------------//
-  //---------------- State Initializer Functions -------------------//
+  //------------ State, Refs & Initial Values ----------------------//
   //----------------------------------------------------------------//
 
-  const ssrDataRef = useRef<MediaCardSsrData>();
-  const ssrReliabilityRef = useRef<SSRStatus>({
-    server: { status: 'unknown' },
-    client: { status: 'unknown' },
-  });
+  const mediaClient = useMediaClient();
 
   const [cardElement, setCardElement] = useState<HTMLDivElement | null>(null);
 
-  const imageURLParams = useMemo<MediaStoreGetFileImageParams>(
-    () => ({
-      collection: identifier.collectionName,
-      mode: resizeMode === 'stretchy-fit' ? 'full-fit' : resizeMode,
-      ...getRequestedDimensions({ dimensions, element: cardElement }),
-      allowAnimated: true,
-    }),
-    [cardElement, dimensions, identifier.collectionName, resizeMode],
+  const cardDimensions = dimensions || getDefaultCardDimensions(appearance);
+
+  // Calculate the preview dimensions if card dimensions are "percentage" based
+  const previewDimensions = useMemo(
+    () =>
+      // resolving dimensions is eventually an expensive operation if the dimensions are a percentage
+      // thus needs to be memoized
+      resolveCardPreviewDimensions({
+        dimensions: cardDimensions,
+        element: cardElement,
+      }),
+    [cardDimensions, cardElement],
   );
 
-  const getMediaBlobUrlAttrs = useCallback(
-    (fileState?: FileState) => {
-      const { id, collectionName: collection } = identifier;
-      const { mimeType, name, size } = getFileDetails(identifier, fileState);
-      return contextId
-        ? {
-            id,
-            collection,
-            contextId,
-            mimeType,
-            name,
-            size,
-            ...(originalDimensions ||
-              getRequestedDimensions({ dimensions, element: cardElement })),
-            alt,
-          }
-        : undefined;
-    },
-    [alt, cardElement, contextId, dimensions, identifier, originalDimensions],
-  );
+  const [isCardVisible, setIsCardVisible] = useState(!isLazy);
 
-  const getSSRPreview = (
-    ssr: SSR,
-    identifier: FileIdentifier,
-    mediaClient: MediaClient,
-  ): CardPreview | undefined => {
-    ssrDataRef.current = getSSRData(identifier);
-    if (ssrDataRef.current?.error) {
-      ssrReliabilityRef.current.server = {
-        status: 'fail',
-        ...ssrDataRef.current.error,
-      };
-    }
-
-    if (!ssrDataRef.current?.dataURI) {
-      try {
-        return getSSRCardPreview(
-          ssr,
-          mediaClient,
-          identifier.id,
-          imageURLParams,
-          getMediaBlobUrlAttrs(fileStateValue),
-        );
-      } catch (e: any) {
-        ssrReliabilityRef.current[ssr] = {
-          status: 'fail',
-          ...extractErrorInfo(e),
-        };
-      }
-    } else {
-      return { dataURI: ssrDataRef.current.dataURI, source: 'ssr-data' };
-    }
-  };
-
-  const cardPreviewInitializer = () => {
-    let cardPreview: CardPreview | undefined;
-    const { id } = identifier;
-    const fileImageMode = imageResizeModeToFileImageMode(resizeMode);
-    cardPreview = getCardPreviewFromCache(id, fileImageMode);
-    if (!cardPreview && ssr) {
-      cardPreview = getSSRPreview(ssr, identifier, mediaClient);
-    }
-    return cardPreview;
-  };
-
-  const [cardPreview, setCardPreview] = useState(cardPreviewInitializer);
-
-  // If cardPreview is available from local cache or external, `isCardVisible`
-  // should be true to avoid flickers during re-mount of the component
-  // should not be visible for SSR preview, otherwise we'll fire the metadata fetch from
-  // outside the viewport
-  const [isCardVisible, setIsCardVisible] = useState(
-    () => !isLazy || (cardPreview && !isSSRPreview(cardPreview)),
-  );
   const { fileState } = useFileState(identifier.id, {
     skipRemote: !isCardVisible,
     collectionName: identifier.collectionName,
@@ -273,12 +200,14 @@ export const FileCard = ({
   //----------------------------------------------------------------//
 
   const internalOccurrenceKey = useMemo(() => generateUniqueId(), []);
-  const timeElapsedTillCommenced = useMemo(() => performance.now(), []);
+  const timeElapsedTillCommenced = useMemo(() => performanceNow(), []);
 
   const fileStateFlagsRef = useRef<FileStateFlags>({
     wasStatusUploading: false,
     wasStatusProcessing: false,
   });
+
+  const mediaViewerButtonRef = useRef<HTMLButtonElement>(null);
 
   // Generate unique traceId for file
   const traceContext = useMemo<MediaTraceContext>(
@@ -293,10 +222,60 @@ export const FileCard = ({
   const [isPlayingFile, setIsPlayingFile] = useState(false);
   const [shouldAutoplay, setShouldAutoplay] = useState(false);
 
-  const [isBannedLocalPreview, setIsBannedLocalPreview] = useState(false);
   const [previewDidRender, setPreviewDidRender] = useState(false);
+
+  const mediaBlobUrlAttrs = useMemo<MediaBlobUrlAttrs | undefined>(() => {
+    const { id, collectionName: collection } = identifier;
+    const { mimeType, name, size } = getFileDetails(identifier, fileStateValue);
+    return contextId
+      ? {
+          id,
+          collection,
+          contextId,
+          mimeType,
+          name,
+          size,
+          ...(originalDimensions || previewDimensions),
+          alt,
+        }
+      : undefined;
+  }, [
+    alt,
+    previewDimensions,
+    contextId,
+    fileStateValue,
+    identifier,
+    originalDimensions,
+  ]);
+
+  const {
+    preview,
+    status: previewStatus,
+    error: previewError,
+    nonCriticalError,
+    ssrReliability,
+    onImageError: onImageErrorBase,
+    onImageLoad: onImageLoadBase,
+    getSsrScriptProps,
+  } = useFilePreview({
+    mediaBlobUrlAttrs,
+    resizeMode: imageResizeModeToFileImageMode(resizeMode),
+    identifier,
+    ssr,
+    dimensions: previewDimensions,
+    traceContext,
+    skipRemote: !isCardVisible,
+  });
+
   const [error, setError] = useState<MediaCardError | undefined>();
-  const wasResolvedUpfrontPreviewRef = useRef(false);
+
+  // CXP-2723 TODO: TEMPORARY VARIABLES
+  const finalError =
+    error ||
+    (previewError && previewError.primaryReason !== 'failed-processing'
+      ? previewError
+      : undefined);
+  const finalStatus = finalError ? 'error' : status;
 
   const [mediaViewerSelectedItem, setMediaViewerSelectedItem] =
     useState<Identifier | null>(null);
@@ -349,7 +328,7 @@ export const FileCard = ({
   ]);
 
   const computedActions = useMemo(() => {
-    if (status === 'failed-processing' || shouldEnableDownloadButton) {
+    if (finalStatus === 'failed-processing' || shouldEnableDownloadButton) {
       const downloadAction = {
         label: 'Download',
         icon: <DownloadIcon label="Download" />,
@@ -371,7 +350,7 @@ export const FileCard = ({
     mediaClient.file,
     metadata.name,
     shouldEnableDownloadButton,
-    status,
+    finalStatus,
   ]);
 
   //----------------------------------------------------------------//
@@ -379,7 +358,7 @@ export const FileCard = ({
   //----------------------------------------------------------------//
 
   const fireOperationalEventRef = useCurrentValueRef(() => {
-    const timeElapsedTillEvent = performance.now();
+    const timeElapsedTillEvent = performanceNow();
     const durationSinceCommenced =
       timeElapsedTillEvent - timeElapsedTillCommenced;
 
@@ -392,21 +371,21 @@ export const FileCard = ({
     createAnalyticsEvent &&
       fireOperationalEvent(
         createAnalyticsEvent,
-        status,
+        finalStatus,
         fileAttributes,
         performanceAttributes,
-        ssrReliabilityRef.current,
-        error,
+        ssrReliability,
+        finalError,
         traceContext,
         fileStateValue?.metadataTraceContext,
       );
     completeUfoExperience(
       internalOccurrenceKey,
-      status,
+      finalStatus,
       fileAttributes,
       fileStateFlagsRef.current,
-      ssrReliabilityRef.current,
-      error,
+      ssrReliability,
+      finalError,
     );
   });
 
@@ -415,15 +394,21 @@ export const FileCard = ({
       createAnalyticsEvent &&
         fireNonCriticalErrorEvent(
           createAnalyticsEvent,
-          status,
+          finalStatus,
           fileAttributes,
-          ssrReliabilityRef.current,
+          ssrReliability,
           error,
           traceContext,
           fileStateValue?.metadataTraceContext,
         );
     },
   );
+
+  useEffect(() => {
+    if (nonCriticalError) {
+      fireNonCriticalErrorEventRef.current(nonCriticalError);
+    }
+  }, [nonCriticalError, fireNonCriticalErrorEventRef]);
 
   const fireScreenEventRef = useCurrentValueRef(() => {
     createAnalyticsEvent &&
@@ -448,94 +433,38 @@ export const FileCard = ({
     abortUfoExperience(internalOccurrenceKey, {
       fileAttributes,
       fileStateFlags: fileStateFlagsRef?.current,
-      ssrReliability: ssrReliabilityRef?.current,
+      ssrReliability: ssrReliability,
     });
   });
+
+  //----------------------------------------------------------------//
+  //--------------------- Focus on Close Viewer  -------------------//
+  //----------------------------------------------------------------//
+
+  const wasViewerPreviouslyOpen = usePrevious(mediaViewerSelectedItem);
+
+  useEffect(() => {
+    if (wasViewerPreviouslyOpen && !mediaViewerSelectedItem) {
+      mediaViewerButtonRef.current?.focus();
+    }
+  }, [wasViewerPreviouslyOpen, mediaViewerSelectedItem]);
 
   //----------------------------------------------------------------//
   //---------------------- Callbacks & Handlers  -------------------//
   //----------------------------------------------------------------//
 
-  const onImageError = (newCardPreview?: CardPreview) => {
-    if (newCardPreview) {
-      const failedSSRObject: SSRStatusFail = {
-        status: 'fail',
-        ...extractErrorInfo(new ImageLoadError(newCardPreview.source)),
-      };
-
-      if (isSSRClientPreview(newCardPreview)) {
-        ssrReliabilityRef.current.client = failedSSRObject;
-      }
-
-      /*
-        If the cardPreview failed and it comes from server (global scope / ssrData), it means that we have reused it in client and the error counts for both: server & client.
-      */
-
-      if (isSSRDataPreview(newCardPreview)) {
-        ssrReliabilityRef.current.server = failedSSRObject;
-        ssrReliabilityRef.current.client = failedSSRObject;
-      }
-    }
-
-    // If the dataURI has been replaced, we can dismiss this error
-    if (newCardPreview?.dataURI !== cardPreview?.dataURI) {
-      return;
-    }
-    const error = new ImageLoadError(newCardPreview?.source);
-    const isLocal = newCardPreview && isLocalPreview(newCardPreview);
-    const isSSR =
-      newCardPreview &&
-      (isSSRClientPreview(newCardPreview) || isSSRDataPreview(newCardPreview));
-
-    if (isLocal || isSSR) {
-      if (isLocal) {
-        setIsBannedLocalPreview(true);
-        fireNonCriticalErrorEventRef.current &&
-          fireNonCriticalErrorEventRef.current(error);
-      }
-      const fileImageMode = imageResizeModeToFileImageMode(resizeMode);
-      removeCardPreviewFromCache(identifier.id, fileImageMode);
-      setCardPreview(undefined);
-    } else {
-      if (!['complete', 'error', 'failed-processing'].includes(status)) {
-        setStatus('error');
-        setError(error);
-      }
-    }
+  const onImageError = (newCardPreview?: MediaFilePreview) => {
+    onImageErrorBase(newCardPreview);
   };
 
-  const onImageLoad = (newCardPreview?: CardPreview) => {
-    if (newCardPreview) {
-      if (
-        isSSRClientPreview(newCardPreview) &&
-        ssrReliabilityRef.current.client.status === 'unknown'
-      ) {
-        ssrReliabilityRef.current.client = { status: 'success' };
-      }
-
-      /*
-        If the image loads successfully and it comes from server (global scope / ssrData), it means that we have reused it in client and the success counts for both: server & client.
-      */
-
-      if (
-        isSSRDataPreview(newCardPreview) &&
-        ssrReliabilityRef.current.server.status === 'unknown'
-      ) {
-        ssrReliabilityRef.current.server = { status: 'success' };
-        ssrReliabilityRef.current.client = { status: 'success' };
-      }
-    }
-
-    // If the dataURI has been replaced, we can dismiss this callback
-    if (newCardPreview?.dataURI !== cardPreview?.dataURI) {
-      return;
-    }
+  const onImageLoad = (newCardPreview?: MediaFilePreview) => {
+    onImageLoadBase(newCardPreview);
 
     setPreviewDidRender(true);
   };
 
   const onCardClick = (
-    event: React.MouseEvent<HTMLDivElement>,
+    event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>,
     analyticsEvent?: UIAnalyticsEvent,
   ) => {
     if (onClick) {
@@ -548,7 +477,7 @@ export const FileCard = ({
   };
 
   const onCardViewClick = (
-    event: React.MouseEvent<HTMLDivElement>,
+    event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>,
     analyticsEvent?: UIAnalyticsEvent,
   ) => {
     onCardClick(event, analyticsEvent);
@@ -557,8 +486,19 @@ export const FileCard = ({
       return;
     }
 
-    const isVideo = metadata && (metadata as FileDetails).mediaType === 'video';
-    if (useInlinePlayer && isVideo && !!cardPreview && status !== 'error') {
+    const isVideo = metadata.mediaType === 'video';
+
+    const isBrowserSupported =
+      metadata.mimeType && isMimeTypeSupportedByBrowser(metadata.mimeType);
+
+    // TODO: this should be handled by Inline Player
+    const isPlayable =
+      !!fileState &&
+      (fileState.status === 'processed' ||
+        (isBrowserSupported &&
+          ['processing', 'uploading'].includes(fileState.status)));
+
+    if (useInlinePlayer && isVideo && isPlayable && finalStatus !== 'error') {
       setIsPlayingFile(true);
       setShouldAutoplay(true);
     } else if (shouldOpenMediaViewer) {
@@ -570,258 +510,6 @@ export const FileCard = ({
       });
     }
   };
-
-  //----------------------------------------------------------------//
-  //---------------------- Helper Functions  -----------------------//
-  //----------------------------------------------------------------//
-
-  const fetchRemotePreviewRef = useCurrentValueRef(
-    (identifier: FileIdentifier) => {
-      return fetchAndCacheRemotePreview(
-        mediaClient,
-        identifier.id,
-        dimensions ?? {},
-        imageURLParams,
-        getMediaBlobUrlAttrs(fileStateValue),
-      );
-    },
-  );
-
-  const resolvePreviewRef = useCurrentValueRef(
-    async (identifier: FileIdentifier, fileState: FileState) => {
-      const filePreview = isBannedLocalPreview
-        ? undefined
-        : fileState.status !== 'error' &&
-          'mimeType' in fileState &&
-          isMimeTypeSupportedByBrowser(fileState.mimeType)
-        ? fileState.preview
-        : undefined;
-
-      const isRemotePreviewReady = isImageRepresentationReady(fileState);
-
-      try {
-        const mode = imageURLParams.mode;
-        const cachedPreview = cardPreviewCache.get(identifier.id, mode);
-        const dimensionsAreBigger = isBigger(
-          cachedPreview?.dimensions,
-          dimensions,
-        );
-
-        if (cachedPreview && !dimensionsAreBigger) {
-          return cachedPreview;
-        }
-
-        let localPreview: CardPreview;
-        try {
-          if (filePreview) {
-            let value;
-            try {
-              const resolvedFilePreview = await filePreview;
-              value = resolvedFilePreview.value;
-            } catch (e) {
-              throw new LocalPreviewError(
-                'local-preview-rejected',
-                e instanceof Error ? e : undefined,
-              );
-            }
-            if (typeof value === 'string') {
-              localPreview = {
-                dataURI: value,
-                orientation: 1,
-                source: 'local',
-              };
-            } else if (value instanceof Blob) {
-              const { type } = value;
-              const mediaType = getMediaTypeFromMimeType(type);
-              switch (mediaType) {
-                case 'image':
-                  try {
-                    const orientation = await getOrientation(value as File);
-                    const dataURI = URL.createObjectURL(value);
-                    localPreview = {
-                      dataURI,
-                      orientation,
-                      source: 'local',
-                    };
-                  } catch (e) {
-                    throw new LocalPreviewError(
-                      'local-preview-image',
-                      e instanceof Error ? e : undefined,
-                    );
-                  }
-                  break;
-                case 'video':
-                  try {
-                    const dataURI = await takeSnapshot(value);
-                    localPreview = {
-                      dataURI,
-                      orientation: 1,
-                      source: 'local',
-                    };
-                  } catch (e) {
-                    throw new LocalPreviewError(
-                      'local-preview-video',
-                      e instanceof Error ? e : undefined,
-                    );
-                  }
-                  break;
-                default:
-                  throw new LocalPreviewError('local-preview-unsupported');
-              }
-            } else {
-              throw new LocalPreviewError('local-preview-unsupported');
-            }
-
-            const preview = { ...localPreview, dimensions };
-
-            let source: CardPreview['source'];
-            switch (preview.source) {
-              case 'local':
-                source = 'cache-local';
-                break;
-              case 'remote':
-                source = 'cache-remote';
-                break;
-              case 'ssr-server':
-                source = 'cache-ssr-server';
-                break;
-              case 'ssr-client':
-                source = 'cache-ssr-client';
-                break;
-              default:
-                source = preview.source;
-            }
-            // We want to embed some meta context into dataURI for Copy/Paste to work.
-            const mediaBlobUrlAttrs = getMediaBlobUrlAttrs(fileStateValue);
-            const dataURI = mediaBlobUrlAttrs
-              ? addFileAttrsToUrl(preview.dataURI, mediaBlobUrlAttrs)
-              : preview.dataURI;
-            // We store new cardPreview into cache
-            cardPreviewCache.set(identifier.id, mode, {
-              ...preview,
-              source,
-              dataURI,
-            });
-            setCardPreview({ ...preview, dataURI });
-            return;
-          }
-        } catch (e: any) {
-          /**
-           * We report the error if:
-           * - local preview is supported and fails
-           * - local preview is unsupported and remote preview is NOT READY
-           *   i.e. the function was called for "no reason".
-           * We DON'T report the error if:
-           * - local preview is unsupported and remote preview IS READY
-           *   i.e. local preview is available and not supported,
-           *   but we are after the remote preview instead.
-           */
-          if (
-            !isUnsupportedLocalPreviewError(e) ||
-            (isUnsupportedLocalPreviewError(e) && !isRemotePreviewReady)
-          ) {
-            fireNonCriticalErrorEventRef.current &&
-              fireNonCriticalErrorEventRef.current(e);
-          }
-          /**
-           * No matter the reason why the local preview failed, we break the process
-           * if there is no remote preview available
-           */
-          if (!isRemotePreviewReady) {
-            throw e;
-          }
-        }
-        if (!isRemotePreviewReady) {
-          /**
-           * We throw this in case this function has been called
-           * without checking isRemotePreviewReady first.
-           * If remote preview is not ready, the call to getCardPreviewFromBackend
-           * will generate a console error due to a 404 code
-           */
-          throw new MediaCardError('remote-preview-not-ready');
-        }
-
-        const remotePreview = await fetchAndCacheRemotePreview(
-          mediaClient,
-          identifier.id,
-          dimensions ?? {},
-          imageURLParams,
-          getMediaBlobUrlAttrs(fileStateValue),
-          traceContext,
-        );
-
-        setCardPreview(remotePreview);
-        return;
-      } catch (e) {
-        const wrappedError = ensureMediaCardError('preview-fetch', e as Error);
-        //  If remote preview fails, we set status 'error'
-        //  If local preview fails (i.e, no remote preview available),
-        //  we can stay in the same status until there is a remote preview available
-        //  If it's any other error we set status 'error'
-        if (isLocalPreviewError(wrappedError)) {
-          // This error should already been logged inside the getCardPreview. No need to log it here.
-          setIsBannedLocalPreview(true);
-        } else {
-          if (!['complete', 'error', 'failed-processing'].includes(status)) {
-            setStatus('error');
-            setError(wrappedError);
-          }
-        }
-      }
-    },
-  );
-
-  //----------------------------------------------------------------//
-  //------------ resolveUpfrontPreview useEffect -------------------//
-  //----------------------------------------------------------------//
-  const prevCardPreview = usePrevious(cardPreview);
-  const dimensionsRef = useCurrentValueRef(dimensions);
-
-  useEffect(() => {
-    const resolveUpfrontPreview = async (identifier: FileIdentifier) => {
-      // We block any possible future call to this method regardless of the outcome (success or fail)
-      // If it fails, the normal preview fetch should occur after the file state is fetched anyways
-      wasResolvedUpfrontPreviewRef.current = true;
-      try {
-        const requestedDimensions = { ...dimensions };
-        const newCardPreview = await fetchRemotePreviewRef.current(identifier);
-        const areValidRequestedDimensions = !isBigger(
-          requestedDimensions,
-          dimensionsRef.current,
-        );
-
-        // If there are new and bigger dimensions in the props, and the upfront preview is still resolving,
-        // the fetched preview is no longer valid, and thus, we dismiss it
-        if (areValidRequestedDimensions) {
-          setCardPreview(newCardPreview);
-        }
-      } catch (e) {
-        // NO need to log error. If this call fails, a refetch will happen after
-      }
-    };
-
-    const hadSSRCardPreview =
-      ssr === 'client' &&
-      !!prevCardPreview &&
-      isSSRClientPreview(prevCardPreview);
-
-    if (
-      (isCardVisible || hadSSRCardPreview) &&
-      !cardPreview &&
-      !wasResolvedUpfrontPreviewRef.current
-    ) {
-      resolveUpfrontPreview(identifier);
-    }
-  }, [
-    cardPreview,
-    dimensions,
-    dimensionsRef,
-    fetchRemotePreviewRef,
-    identifier,
-    isCardVisible,
-    prevCardPreview,
-    ssr,
-  ]);
 
   //----------------------------------------------------------------//
   //------------------------ handle fireCopiedEvent   --------------//
@@ -861,103 +549,22 @@ export const FileCard = ({
   //---------------- fetch and resolve card preview ----------------//
   //----------------------------------------------------------------//
 
-  const prevDimensions = usePrevious(dimensions);
+  const prevStatus = usePrevious(finalStatus);
   const prevIsCardVisible = usePrevious(isCardVisible);
-  const prevStatus = usePrevious(status);
 
   useEffect(() => {
-    if (prevStatus !== undefined && status !== prevStatus) {
+    if (prevStatus !== undefined && finalStatus !== prevStatus) {
       fireOperationalEventRef.current();
     }
-  }, [fireOperationalEventRef, prevStatus, status]);
+  }, [fireOperationalEventRef, prevStatus, finalStatus]);
 
   useEffect(() => {
-    /**
-     * Variable turnedVisible should only be true when media card
-     * was invisible in the previous state and is visible in the current one
-     *
-     * prevIsCardVisible | isCardVisible |  turnedVisible
-     * ----------------------------------------------------
-     *       false       |    false      |      false
-     *       false       |    true       |      true
-     *       true        |    true       |      false
-     *       true        |    false      |      false       (unreachable case)
-     * ----------------------------------------------------
-     */
-
     const turnedVisible = !prevIsCardVisible && isCardVisible;
 
     if (turnedVisible) {
       fireCommencedEventRef.current();
     }
-
-    if (
-      cardPreview &&
-      turnedVisible &&
-      isSSRDataPreview(cardPreview) &&
-      isBigger(ssrDataRef.current?.dimensions, dimensions)
-    ) {
-      // If dimensions from Server have changed and are bigger,
-      // we need to refetch
-      // refetchSRRPreview
-      fetchRemotePreviewRef
-        .current(identifier)
-        .then(setCardPreview)
-        .catch((e) => {
-          const wrappedError = ensureMediaCardError(
-            'remote-preview-fetch-ssr',
-            e as Error,
-            true,
-          );
-          fireNonCriticalErrorEventRef.current(wrappedError);
-        });
-    }
-
-    if (
-      fileStateValue &&
-      shouldResolvePreview({
-        status,
-        fileState: fileStateValue,
-        prevDimensions,
-        dimensions,
-        hasCardPreview: !!cardPreview,
-        isBannedLocalPreview,
-        wasResolvedUpfrontPreview: wasResolvedUpfrontPreviewRef.current,
-      })
-    ) {
-      resolvePreviewRef.current(identifier, fileStateValue);
-    }
-    if (
-      turnedVisible &&
-      ssr &&
-      !!cardPreview &&
-      isSSRClientPreview(cardPreview)
-    ) {
-      // Since the SSR preview brings the token in the query params,
-      // We need to fetch the remote preview to be able to cache it,
-      fetchRemotePreviewRef.current(identifier).catch(() => {
-        // No need to log this error.
-        // If preview fails, it will be refetched later
-        //TODO: test this catch
-        // https://product-fabric.atlassian.net/browse/MEX-1071
-      });
-    }
-  }, [
-    cardPreview,
-    dimensions,
-    fetchRemotePreviewRef,
-    fileStateValue,
-    fireCommencedEventRef,
-    fireNonCriticalErrorEventRef,
-    identifier,
-    isBannedLocalPreview,
-    isCardVisible,
-    prevDimensions,
-    prevIsCardVisible,
-    resolvePreviewRef,
-    ssr,
-    status,
-  ]);
+  }, [fireCommencedEventRef, isCardVisible, prevIsCardVisible]);
 
   //----------------------------------------------------------------//
   //----------------- set complete status --------------------------//
@@ -967,13 +574,12 @@ export const FileCard = ({
     if (
       previewDidRender &&
       // We should't complete if status is uploading
-      ['loading-preview', 'processing'].includes(status)
+      ['loading-preview', 'processing'].includes(finalStatus)
     ) {
       setStatus('complete');
       // TODO MEX-788: add test for "do not remove the card preview when unsubscribing".
-      setIsBannedLocalPreview(false);
     }
-  }, [previewDidRender, status]);
+  }, [previewDidRender, finalStatus]);
 
   //----------------------------------------------------------------//
   //----------------- set isPlayingFile state ----------------------//
@@ -983,11 +589,9 @@ export const FileCard = ({
     const isVideo = fileAttributes.fileMediatype === 'video';
 
     const { mimeType } = getFileDetails(identifier, fileStateValue);
-    const isVideoPlayable = videoIsPlayable(
-      isBannedLocalPreview,
-      fileStateValue,
-      mimeType,
-    );
+    const isVideoPlayable =
+      (mimeType && isVideoMimeTypeSupportedByBrowser(mimeType)) ||
+      (fileStateValue && isProcessedFileState(fileStateValue));
 
     if (
       /**
@@ -1001,7 +605,7 @@ export const FileCard = ({
       disableOverlay &&
       useInlinePlayer &&
       isVideoPlayable &&
-      status !== 'error'
+      finalStatus !== 'error'
     ) {
       setIsPlayingFile(true);
     }
@@ -1011,9 +615,8 @@ export const FileCard = ({
     fileAttributes.fileMediatype,
     fileStateValue,
     identifier,
-    isBannedLocalPreview,
     isPlayingFile,
-    status,
+    finalStatus,
     useInlinePlayer,
   ]);
 
@@ -1022,17 +625,17 @@ export const FileCard = ({
   //----------------------------------------------------------------//
 
   useEffect(() => {
-    if (prevStatus !== undefined && status !== prevStatus) {
+    if (prevStatus !== undefined && finalStatus !== prevStatus) {
       if (
-        status === 'complete' ||
+        finalStatus === 'complete' ||
         (fileAttributes.fileMediatype === 'video' &&
-          !!cardPreview &&
-          status === 'processing')
+          !!preview &&
+          finalStatus === 'processing')
       ) {
         fireScreenEventRef.current();
       }
     }
-  }, [status, prevStatus, fileAttributes, cardPreview, fireScreenEventRef]);
+  }, [finalStatus, prevStatus, fileAttributes, preview, fireScreenEventRef]);
 
   //----------------------------------------------------------------//
   //----------------- abort UFO experience -------------------------//
@@ -1052,28 +655,11 @@ export const FileCard = ({
   const updateFileStateRef = useCurrentValueRef(() => {
     if (fileState) {
       // do not update the card status if the status is final
-      if (['complete', 'error', 'failed-processing'].includes(status)) {
+      if (['complete', 'error', 'failed-processing'].includes(finalStatus)) {
         return;
       }
 
       if (fileState.status !== 'error') {
-        const mediaType =
-          'mediaType' in fileState ? fileState.mediaType : undefined;
-        const isPreviewable =
-          !!mediaType &&
-          ['audio', 'video', 'image', 'doc'].indexOf(mediaType) > -1;
-        const isPreviewableFileState = !!fileState.preview;
-        const isSupportedLocalPreview =
-          mediaType === 'image' || mediaType === 'video';
-        const hasLocalPreview =
-          !isBannedLocalPreview &&
-          isPreviewableFileState &&
-          isSupportedLocalPreview &&
-          !!fileState.mimeType &&
-          isMimeTypeSupportedByBrowser(fileState.mimeType);
-
-        const hasRemotePreview = isImageRepresentationReady(fileState);
-        const hasPreview = hasLocalPreview || hasRemotePreview;
         let newStatus: CardStatus;
         switch (fileState.status) {
           case 'uploading':
@@ -1082,7 +668,8 @@ export const FileCard = ({
             newStatus = fileState.status;
             break;
           case 'processed':
-            if (!isPreviewable || !hasPreview) {
+            // Set complete if processing is done and there is no preview
+            if (!preview && previewStatus === 'complete') {
               newStatus = 'complete';
               break;
             }
@@ -1108,7 +695,7 @@ export const FileCard = ({
         );
 
         const errorReason =
-          status === 'uploading' ? 'upload' : 'metadata-fetch';
+          finalStatus === 'uploading' ? 'upload' : 'metadata-fetch';
         setError(new MediaCardError(errorReason, e));
         setStatus('error');
       }
@@ -1117,7 +704,7 @@ export const FileCard = ({
 
   useEffect(() => {
     updateFileStateRef.current();
-  }, [fileState, updateFileStateRef]);
+  }, [fileState, preview, previewStatus, updateFileStateRef]);
 
   //----------------------------------------------------------------//
   //---------------------- Render Card Function --------------------//
@@ -1133,34 +720,39 @@ export const FileCard = ({
     const isLazyWithOverride =
       izLazyOverride === undefined ? isLazy : izLazyOverride;
 
-    // Card can be artificially turned visible before entering the viewport
-    // For example, when we have the image in cache
-    const nativeLazyLoad = isLazyWithOverride && !isCardVisible;
+    // We should natively lazy load an SSR preview when card is not visible,
+    // otherwise we'll fire the metadata fetch from outside the viewport
+    // Side note: We should not lazy load if the cardPreview is available from local cache,
+    // in order to avoid flickers during re-mount of the component
+    // CXP-2723 TODO: Create test cases for the above scenarios
+    const nativeLazyLoad =
+      isLazyWithOverride && !isCardVisible && preview && isSSRPreview(preview);
     // Force Media Image to always display img for SSR
     const forceSyncDisplay = !!ssr;
 
     const mediaCardCursor = getMediaCardCursor(
       !!useInlinePlayer,
       !!shouldOpenMediaViewer,
-      status === 'error' || status === 'failed-processing',
-      !!cardPreview,
+      finalStatus === 'error' || finalStatus === 'failed-processing',
+      !!preview,
       metadata.mediaType,
     );
 
     const card = (
-      <CardViewV2
-        status={cardStatusOverride || status}
-        error={error}
+      <LoadedCardView
+        status={cardStatusOverride || finalStatus}
+        error={finalError}
         mediaItemType={mediaItemType}
         metadata={metadata}
-        cardPreview={cardPreview}
+        cardPreview={preview}
         alt={alt}
-        appearance={appearance}
         resizeMode={resizeMode}
-        dimensions={dimensions}
+        dimensions={cardDimensions}
         actions={computedActions}
         selectable={selectable}
         selected={selected}
+        shouldOpenMediaViewer={shouldOpenMediaViewer}
+        openMediaViewerButtonRef={mediaViewerButtonRef}
         onClick={withCallbacks ? onCardViewClick : undefined}
         onMouseEnter={
           withCallbacks
@@ -1192,7 +784,6 @@ export const FileCard = ({
         }
         innerRef={setCardElement}
         testId={testId}
-        featureFlags={featureFlags}
         titleBoxBgColor={titleBoxBgColor}
         titleBoxIcon={titleBoxIcon}
         onImageError={withCallbacks ? onImageError : undefined}
@@ -1230,7 +821,7 @@ export const FileCard = ({
       {isPlayingFile ? (
         <Suspense fallback={inlinePlayerFallback}>
           <InlinePlayerLazyV2
-            dimensions={dimensions}
+            dimensions={cardDimensions}
             originalDimensions={originalDimensions}
             identifier={identifier}
             autoplay={!!shouldAutoplay}
@@ -1244,7 +835,7 @@ export const FileCard = ({
             selected={selected}
             ref={setCardElement}
             testId={testId}
-            cardPreview={cardPreview}
+            cardPreview={preview}
           />
         </Suspense>
       ) : (
@@ -1266,21 +857,8 @@ export const FileCard = ({
             document.body,
           )
         : null}
-      {ssr === 'server' && (
-        <StoreSSRDataScript
-          identifier={identifier}
-          dataURI={cardPreview?.dataURI}
-          dimensions={getRequestedDimensions({
-            dimensions,
-            element: cardElement,
-          })}
-          error={
-            ssrReliabilityRef.current.server?.status === 'fail'
-              ? ssrReliabilityRef.current.server
-              : undefined
-          }
-        />
-      )}
+      {/* Print the SSR result to be used during hydration */}
+      {getSsrScriptProps && <script {...getSsrScriptProps()} />}
     </>
   );
 };

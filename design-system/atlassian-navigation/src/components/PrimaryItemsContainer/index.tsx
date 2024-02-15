@@ -101,6 +101,7 @@ export const PrimaryItemsContainer = ({
     <div
       css={containerStyles}
       data-testid={testId && `${testId}-primary-actions`}
+      role="list"
     >
       <OverflowProvider
         isVisible

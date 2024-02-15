@@ -1,5 +1,35 @@
 # @atlaskit/help-layout
 
+## 4.2.14
+
+### Patch Changes
+
+- [#72218](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72218) [`de9ef5e93a22`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de9ef5e93a22) - [ux] Add accessible label to close button for help panel
+
+## 4.2.13
+
+### Patch Changes
+
+- [#69022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69022) [`395c74147990`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/395c74147990) - Migrate packages to use declarative entry points
+
+## 4.2.12
+
+### Patch Changes
+
+- [#63677](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63677) [`f320c8ce5039`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f320c8ce5039) - This package has been added to the Jira push model.
+
+## 4.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.10
+
+### Patch Changes
+
+- [#57178](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57178) [`018d8853290a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/018d8853290a) - Upgrade Emotion v10 (@emotion/core) to Emotion v11 (@emotion/react). No behaviour change expected.
+
 ## 4.2.9
 
 ### Patch Changes

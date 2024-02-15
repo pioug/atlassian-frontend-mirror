@@ -9,6 +9,7 @@ export type {
   Breakpoint,
   ResponsiveObject,
   ResponsiveCSSObject,
+  MediaQuery,
 } from './types';
 
 export { UNSAFE_useMediaQuery } from './use-media-query';

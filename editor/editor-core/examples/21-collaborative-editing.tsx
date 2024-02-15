@@ -1,26 +1,29 @@
 /* eslint-disable no-console */
 /** @jsx jsx */
-import URLSearchParams from 'url-search-params';
-import { css, jsx } from '@emotion/react';
 import React, { Fragment } from 'react';
+
+import { css, jsx } from '@emotion/react';
+import URLSearchParams from 'url-search-params';
+
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-
-import { Editor } from './../src';
-import EditorContext from './../src/ui/EditorContext';
-import { LOCALSTORAGE_defaultTitleKey } from './5-full-page';
-import WithEditorActions from './../src/ui/WithEditorActions';
+import type { Provider } from '@atlaskit/collab-provider';
+import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
-import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
-import type { Provider } from '@atlaskit/collab-provider';
-import type { EditorActions } from '../src';
+
 import { TitleInput } from '../example-helpers/PageElements';
+import type { EditorActions } from '../src';
+import { Editor } from '../src';
+import EditorContext from '../src/ui/EditorContext';
+import WithEditorActions from '../src/ui/WithEditorActions';
+
+import { LOCALSTORAGE_defaultTitleKey } from './5-full-page';
 
 export const getRandomUser = () => {
   return Math.floor(Math.random() * 10000).toString();
@@ -106,6 +109,7 @@ export default class Example extends React.Component<Props, State> {
     isInviteToEditButtonSelected: false,
     documentId: getQueryParam('documentId'),
     collabUrl: getQueryParam('collabUrl') || defaultCollabUrl,
+    need404: getQueryParam('need404'),
     documentIdInput: undefined,
     collabUrlInput: undefined,
     hasError: false,
@@ -154,7 +158,7 @@ export default class Example extends React.Component<Props, State> {
   }
 
   renderEditor() {
-    const { documentId, collabUrl } = this.state;
+    const { documentId, collabUrl, need404 } = this.state;
     // Enable the debug log
     (window as any).COLLAB_PROVIDER_LOGGER = true;
 
@@ -165,6 +169,7 @@ export default class Example extends React.Component<Props, State> {
 
     const collabProvider = createSocketIOCollabProvider({
       url: collabUrl,
+      need404,
       documentAri: incomingDocAri,
       productInfo: {
         product: 'editor-core example',
@@ -172,11 +177,67 @@ export default class Example extends React.Component<Props, State> {
       },
       featureFlags: { testFF: false, testAF: true },
     });
-    collabProvider.on('error', (err) => {
-      console.error('error from collabProvider:', {
-        message: err.message,
-        code: err.code,
+
+    // Example POST method implementation:
+    async function postData(url = '', data = {}) {
+      url = url.replace(/\?.*$/, '');
+      // Default options are marked with *
+      const response = await fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'include', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(data), // body data type must match "Content-Type" header
       });
+      return response.json(); // parses JSON response into native JavaScript objects
+    }
+
+    async function recoveryPage() {
+      const validResetADF: any = {
+        doc: JSON.stringify({
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Demo Editor initial text',
+                },
+              ],
+            },
+          ],
+        }),
+        productId: 'ccollab',
+        metadata: {
+          title: 'Demo Editor initial title',
+        },
+      };
+      await postData(
+        `${collabUrl.slice(0, -8)}/document/${encodeURIComponent(
+          incomingDocAri,
+        )}/reset`,
+        validResetADF,
+      );
+    }
+
+    collabProvider.on('error', (err) => {
+      if (err.code === 'DOCUMENT_NOT_FOUND') {
+        recoveryPage().catch((err) => {
+          console.error(err, 'page recovery failed');
+        });
+      } else {
+        console.error('error from collabProvider:', {
+          message: err.message,
+          code: err.code,
+        });
+      }
     });
     collabProvider.on('metadata:changed', (data: any) => {
       this.setState({

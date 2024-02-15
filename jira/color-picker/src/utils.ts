@@ -3,10 +3,13 @@
 import { gridSize } from '@atlaskit/theme';
 import { COLOR_CARD_SIZE } from './constants';
 import memoizeOne from 'memoize-one';
-import { Palette } from './types';
+import { Mode, Palette } from './types';
 
-export const getWidth = (cols: number) =>
-  cols * (COLOR_CARD_SIZE + gridSize() / 2);
+export const getWidth = (cols: number, mode?: Mode) => {
+  const width = cols * (COLOR_CARD_SIZE + gridSize() / 2);
+
+  return mode === Mode.Standard ? width + gridSize() : width;
+};
 
 export const getOptions = memoizeOne(
   (palette: Palette, selectedColor?: string) => {

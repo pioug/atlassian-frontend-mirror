@@ -1,39 +1,42 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/react';
-import type { KeyboardEvent, FormEvent } from 'react';
+import type { FormEvent, KeyboardEvent } from 'react';
 import React from 'react';
+
+import { css, jsx } from '@emotion/react';
+
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-import type { EditorProps, EditorAppearance } from '../src/editor';
-import Editor from '../src/editor';
-import EditorContext from '../src/ui/EditorContext';
-import WithEditorActions from '../src/ui/WithEditorActions';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
+import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import {
+  defaultCollectionName,
+  defaultMediaPickerCollectionName,
+} from '@atlaskit/media-test-helpers/collectionNames';
 import {
   currentUser,
   getEmojiProvider,
 } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
-import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
-import { TitleInput } from '../example-helpers/PageElements';
-import type { EditorActions } from '../src';
-import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+
 import { MockActivityResource } from '../example-helpers/activity-provider';
 import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
-import {
-  defaultCollectionName,
-  defaultMediaPickerCollectionName,
-} from '@atlaskit/media-test-helpers/collectionNames';
-import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
+import { TitleInput } from '../example-helpers/PageElements';
+import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
+import type { EditorActions } from '../src';
+import type { EditorAppearance, EditorProps } from '../src/editor';
+import Editor from '../src/editor';
+import EditorContext from '../src/ui/EditorContext';
+import WithEditorActions from '../src/ui/WithEditorActions';
 
 const mediaMock = createEditorMediaMock();
 mediaMock.enable();

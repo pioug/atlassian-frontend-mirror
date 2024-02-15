@@ -63,8 +63,8 @@ export const extractBlockActions = (
   meta?: JsonLd.Meta.BaseMeta,
 ): ActionProps[] => {
   if (opts) {
-    const { handleInvoke } = opts;
-    const actions = extractClientActions(jsonLd, handleInvoke);
+    const { handleInvoke, actionOptions } = opts;
+    const actions = extractClientActions(jsonLd, handleInvoke, actionOptions);
     const previewAction = extractPreviewAction({
       ...opts,
       viewProps: props,
@@ -77,6 +77,7 @@ export const extractBlockActions = (
     if (previewAction) {
       actions.push(previewAction);
     }
+
     return actions;
   }
 

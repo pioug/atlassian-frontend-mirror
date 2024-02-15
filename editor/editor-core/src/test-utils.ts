@@ -1,8 +1,3 @@
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type { Plugin } from '@atlaskit/editor-prosemirror/state';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-
 import type { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type {
@@ -10,6 +5,11 @@ import type {
   ReactHookFactory,
   UIComponentFactory,
 } from '@atlaskit/editor-common/types';
+import { basePlugin } from '@atlaskit/editor-plugins/base';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Plugin } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { createSchema } from './create-editor/create-schema';
 import type {
@@ -19,7 +19,6 @@ import type {
   OnEditorViewStateUpdated,
 } from './create-editor/get-plugins';
 import { sortByOrder } from './create-editor/sort-by-order';
-import { basePlugin } from '@atlaskit/editor-plugin-base';
 import type { MarkConfig, NodeConfig } from './types/pm-config';
 
 export type { LightEditorPlugin } from './create-editor/get-plugins';

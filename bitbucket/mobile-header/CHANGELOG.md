@@ -1,5 +1,24 @@
 # @atlaskit/mobile-header
 
+## 6.1.8
+
+### Patch Changes
+
+- [#67949](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67949) [`4ceb213f9313`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4ceb213f9313) - Migrate packages to use declarative entry points
+- Updated dependencies
+
+## 6.1.7
+
+### Patch Changes
+
+- [#61588](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61588) [`c2563e7fb1f5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c2563e7fb1f5) - Remove reliance on logic from the deprecated `@atlaskit/theme` package. Theming is still available via the `@atlaskit/tokens` package.
+
+## 6.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.5
 
 ### Patch Changes

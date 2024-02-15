@@ -1,22 +1,23 @@
 import React from 'react';
+
 import { mount } from 'enzyme';
+
+import * as commands from '@atlaskit/editor-common/commands';
+import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
+import * as selectionUtils from '@atlaskit/editor-common/selection';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
+import { closestElement } from '@atlaskit/editor-common/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
-import { closestElement } from '@atlaskit/editor-common/utils';
+import Modal from '@atlaskit/modal-dialog';
 
 import {
-  clickAreaClickHandler,
   checkForModal,
+  clickAreaClickHandler,
 } from '../../../../ui/Addon/click-area-helper';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
-import * as commands from '@atlaskit/editor-common/commands';
-import * as selectionUtils from '@atlaskit/editor-common/selection';
-
-import Modal from '@atlaskit/modal-dialog';
 
 jest.mock('@atlaskit/editor-common/selection', () => ({
   __esModule: true,

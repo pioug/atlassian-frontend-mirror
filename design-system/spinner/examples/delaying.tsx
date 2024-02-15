@@ -10,7 +10,7 @@ import React, {
 import { css, jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 import Select, { ValueType } from '@atlaskit/select';
@@ -28,9 +28,9 @@ type Phase = 'stopped' | 'loading' | 'ready';
 
 const layoutStyles = css({
   display: 'grid',
-  marginTop: token('space.400', '32px'),
   justifyContent: 'center',
   gridTemplateColumns: 'repeat(auto-fit, minmax(0, 300px))',
+  marginBlockStart: token('space.400', '32px'),
 });
 
 const controlContainerStyles = css({

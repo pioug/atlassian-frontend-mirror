@@ -5,7 +5,7 @@ import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { IntlProvider } from 'react-intl-next';
 import * as analytics from '../../../utils/analytics';
-import { fakeFactory, mocks } from '../../../utils/mocks';
+import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
 import { Provider } from '../../..';
 import { Card } from '../../Card';
 import React from 'react';
@@ -171,7 +171,9 @@ describe('smart-card: card states, flexible block withUrl', () => {
           getByTestId('smart-block-forbidden-view'),
         );
         expect(frame).toBeTruthy();
-        const forbiddenLink = await waitFor(() => getByText(mockUrl));
+        const forbiddenLink = await waitFor(() =>
+          getByText('Restricted content'),
+        );
         expect(forbiddenLink).toBeTruthy();
         const forbiddenLinkButton = container.querySelector('button');
         expect(forbiddenLinkButton).toBeTruthy();
@@ -202,14 +204,16 @@ describe('smart-card: card states, flexible block withUrl', () => {
           getByTestId('smart-block-forbidden-view'),
         );
         expect(frame).toBeTruthy();
-        const forbiddenLink = await waitFor(() => getByText(mockUrl));
+        const forbiddenLink = await waitFor(() =>
+          getByText('Join Google to view this content'),
+        );
         expect(forbiddenLink).toBeTruthy();
 
         const messageContainer = await waitFor(() =>
           getByTestId('smart-element-text'),
         );
         expect(messageContainer.textContent).toBe(
-          "You've been approved, so you can join Google right away.",
+          'Your team uses Google to collaborate and you can start using it right away!',
         );
 
         const buttons = container.querySelectorAll('button');
@@ -223,7 +227,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 
         const joinButton = buttons[1];
         expect(joinButton).toBeTruthy();
-        expect(joinButton!.textContent).toBe('Join Google');
+        expect(joinButton!.textContent).toBe('Join now');
 
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
@@ -249,14 +253,16 @@ describe('smart-card: card states, flexible block withUrl', () => {
           getByTestId('smart-block-forbidden-view'),
         );
         expect(frame).toBeTruthy();
-        const forbiddenLink = await waitFor(() => getByText(mockUrl));
+        const forbiddenLink = await waitFor(() =>
+          getByText('Join Google to view this content'),
+        );
         expect(forbiddenLink).toBeTruthy();
 
         const messageContainer = await waitFor(() =>
           getByTestId('smart-element-text'),
         );
         expect(messageContainer.textContent).toBe(
-          'Request access to Google view this preview.',
+          'Your team uses Google to collaborate. Send your admin a request for access.',
         );
 
         const buttons = container.querySelectorAll('button');
@@ -296,14 +302,16 @@ describe('smart-card: card states, flexible block withUrl', () => {
           getByTestId('smart-block-forbidden-view'),
         );
         expect(frame).toBeTruthy();
-        const forbiddenLink = await waitFor(() => getByText(mockUrl));
+        const forbiddenLink = await waitFor(() =>
+          getByText('Access to Google is pending'),
+        );
         expect(forbiddenLink).toBeTruthy();
 
         const messageContainer = await waitFor(() =>
           getByTestId('smart-element-text'),
         );
         expect(messageContainer.textContent).toBe(
-          'Your access request is pending.',
+          'Your request to access drive.google.com is awaiting admin approval.',
         );
 
         const forbiddenLinkButton = container.querySelector('button');
@@ -336,14 +344,16 @@ describe('smart-card: card states, flexible block withUrl', () => {
           getByTestId('smart-block-forbidden-view'),
         );
         expect(frame).toBeTruthy();
-        const forbiddenLink = await waitFor(() => getByText(mockUrl));
+        const forbiddenLink = await waitFor(() =>
+          getByText("You don't have access to this content"),
+        );
         expect(forbiddenLink).toBeTruthy();
 
         const messageContainer = await waitFor(() =>
           getByTestId('smart-element-text'),
         );
         expect(messageContainer.textContent).toBe(
-          'You don’t have access to this preview. Contact the site admin if you need access.',
+          'Contact your admin to request access to drive.google.com.',
         );
 
         const forbiddenLinkButton = container.querySelector('button');
@@ -376,14 +386,16 @@ describe('smart-card: card states, flexible block withUrl', () => {
           getByTestId('smart-block-forbidden-view'),
         );
         expect(frame).toBeTruthy();
-        const forbiddenLink = await waitFor(() => getByText(mockUrl));
+        const forbiddenLink = await waitFor(() =>
+          getByText("You don't have access to this content"),
+        );
         expect(forbiddenLink).toBeTruthy();
 
         const messageContainer = await waitFor(() =>
           getByTestId('smart-element-text'),
         );
         expect(messageContainer.textContent).toBe(
-          'Your access request was denied. Contact the site admin if you still need access.',
+          "Your admin didn't approve your request to view Google pages from drive.google.com.",
         );
 
         const forbiddenLinkButton = container.querySelector('button');
@@ -417,7 +429,9 @@ describe('smart-card: card states, flexible block withUrl', () => {
           getByTestId('smart-block-forbidden-view'),
         );
         expect(frame).toBeTruthy();
-        const forbiddenLink = await waitFor(() => getByText(mockUrl));
+        const forbiddenLink = await waitFor(() =>
+          getByText('Restricted content'),
+        );
         const forbiddenLinkButton = container.querySelector('button');
         expect(forbiddenLink).toBeTruthy();
         expect(forbiddenLinkButton).toBeFalsy();
@@ -462,7 +476,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
       );
       expect(unauthorizedContent).toBeTruthy();
       expect(unauthorizedContent.textContent).toBe(
-        'Connect to Atlassian to view more details of your work and collaborate from one place. Learn more about Smart Links.',
+        'Connect your account to collaborate on work across Atlassian products. Learn more about Smart Links.',
       );
 
       const providerImage = queryByTestId(
@@ -545,7 +559,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
       );
       expect(unauthorizedContent).toBeTruthy();
       expect(unauthorizedContent.textContent).toBe(
-        'Connect Google to Atlassian to view more details of your work and collaborate from one place. Learn more about Smart Links.',
+        'Connect your Google account to collaborate on work across Atlassian products. Learn more about Smart Links.',
       );
 
       const providerImage = getByTestId(
@@ -621,8 +635,15 @@ describe('smart-card: card states, flexible block withUrl', () => {
     });
 
     it('flexible block card: renders not found card when link not found', async () => {
-      mockFetch.mockImplementationOnce(async () => mocks.notFound);
-      const { getByText, getByTestId } = render(
+      mockFetch.mockImplementationOnce(async () => ({
+        ...mocks.notFound,
+        data: {
+          ...mocks.notFound.data,
+          generator: mockGenerator,
+        },
+      }));
+
+      const { getByTestId, getByText } = render(
         <Provider
           client={mockClient}
           featureFlags={{ enableFlexibleBlockCard: true }}
@@ -634,7 +655,9 @@ describe('smart-card: card states, flexible block withUrl', () => {
         getByTestId('smart-block-not-found-view'),
       );
       expect(frame).toBeTruthy();
-      const link = await waitFor(() => getByText(mockUrl));
+      const link = await waitFor(() =>
+        getByText("We can't show you this Jira page"),
+      );
       expect(link).toBeTruthy();
       expect(mockFetch).toBeCalled();
       expect(mockFetch).toBeCalledTimes(1);

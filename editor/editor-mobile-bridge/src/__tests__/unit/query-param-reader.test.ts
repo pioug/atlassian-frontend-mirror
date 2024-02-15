@@ -1,7 +1,6 @@
 import {
   getAllowCaptions,
   getAllowMediaInline,
-  getRestartNumberedLists,
 } from '../../query-param-reader';
 
 describe('Query param reader', () => {
@@ -43,22 +42,6 @@ describe('Query param reader', () => {
     it('should return false if allowMediaInline is false in query string', () => {
       window.location.search = 'allowMediaInline=false&andOneMoreThing=true';
       expect(getAllowMediaInline()).toBeFalsy();
-    });
-  });
-
-  describe('getRestartNumberedLists', () => {
-    it('should return true if restartNumberedLists is true in query string', () => {
-      window.location.search = 'restartNumberedLists=true&anotherThing=false';
-      expect(getRestartNumberedLists()).toBeTruthy();
-    });
-    it('should return false if restartNumberedLists is not in query string', () => {
-      window.location.search = 'anotherThing=false&andOneMoreThing=true';
-      expect(getRestartNumberedLists()).toBeFalsy();
-    });
-    it('should return false if restartNumberedLists is false in query string', () => {
-      window.location.search =
-        'restartNumberedLists=false&andOneMoreThing=true';
-      expect(getRestartNumberedLists()).toBeFalsy();
     });
   });
 });

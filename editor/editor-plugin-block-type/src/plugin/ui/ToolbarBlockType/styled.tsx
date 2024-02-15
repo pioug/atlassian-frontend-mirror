@@ -4,7 +4,6 @@ import { css } from '@emotion/react';
 import { headingsSharedStyles } from '@atlaskit/editor-common/styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { N400 } from '@atlaskit/theme/colors';
-import type { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 export const blockTypeMenuItemStyle = (tagName: string, selected?: boolean) => {
@@ -13,8 +12,8 @@ export const blockTypeMenuItemStyle = (tagName: string, selected?: boolean) => {
     ? `${tagName} { color: ${token('color.text', 'white')} !important; }`
     : '';
 
-  return (themeProps: ThemeProps) => css`
-    ${headingsSharedStyles(themeProps)};
+  return () => css`
+    ${headingsSharedStyles()};
     > {
       h1,
       h2,
@@ -58,5 +57,5 @@ export const wrapperSmallStyle = css`
 `;
 
 export const expandIconWrapperStyle = css`
-  margin-left: -8px;
+  margin-left: ${token('space.negative.100', '-8px')};
 `;

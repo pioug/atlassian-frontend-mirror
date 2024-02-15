@@ -6,7 +6,7 @@ import type { MenuGroupProps } from '../types';
 import MenuGroup from './menu-group';
 
 /**
- * @deprecated
+ * @deprecated refer to MenuGroup, explicitly set maxWidth and minWidth
  */
 const PopupMenuGroup = ({
   maxWidth = 800,

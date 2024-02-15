@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape, MessageDescriptor } from 'react-intl-next';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
@@ -12,15 +12,22 @@ import {
 import {
   alignmentIcons,
   buildLayoutButtons,
+  IconCard,
+  IconEmbed,
+  IconInline,
   layoutToMessages,
   wrappingIcons,
 } from '@atlaskit/editor-common/card';
+import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
 import {
   calcMinWidth,
   DEFAULT_IMAGE_HEIGHT,
   DEFAULT_IMAGE_WIDTH,
 } from '@atlaskit/editor-common/media-single';
-import commonMessages, { cardMessages } from '@atlaskit/editor-common/messages';
+import commonMessages, {
+  cardMessages,
+  mediaAndEmbedToolbarMessages,
+} from '@atlaskit/editor-common/messages';
 import type {
   Command,
   DropdownOptions,
@@ -31,9 +38,11 @@ import type {
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
+import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
+  contains,
   findParentNodeOfType,
   hasParentNode,
   hasParentNodeOfType,
@@ -63,14 +72,13 @@ import type { MediaPluginState } from '../pm-plugins/types';
 import type { MediaFloatingToolbarOptions } from '../types';
 import ImageBorderItem from '../ui/ImageBorder';
 import { FullWidthDisplay, PixelEntry } from '../ui/PixelEntry';
-import { currentMediaNodeBorderMark } from '../utils/current-media-node';
+import { currentMediaOrInlineNodeBorderMark } from '../utils/current-media-node';
 import { isVideo } from '../utils/media-single';
 
 import { altTextButton, getAltTextToolbar } from './alt-text';
 import {
-  changeInlineToMediaCard,
   changeMediaCardToInline,
-  removeInlineCard,
+  changeMediaSingleToMediaInline,
   setBorderMark,
   toggleBorderMark,
   updateMediaSingleWidth,
@@ -80,8 +88,10 @@ import { shouldShowImageBorder } from './imageBorder';
 import { LayoutGroup } from './layout-group';
 import { getLinkingToolbar, shouldShowMediaLinkToolbar } from './linking';
 import { LinkToolbarAppearance } from './linking-toolbar-appearance';
+import { generateMediaInlineFloatingToolbar } from './mediaInline';
 import {
   calcNewLayout,
+  canShowSwitchButtons,
   downloadMedia,
   getMaxToolbarWidth,
   getPixelWidthOfElement,
@@ -89,6 +99,15 @@ import {
   getSelectedMediaSingle,
   removeMediaGroupNode,
 } from './utils';
+
+const mediaTypeMessages = {
+  image: messages.file_image_is_selected,
+  video: messages.file_video_is_selected,
+  audio: messages.file_audio_is_selected,
+  doc: messages.file_doc_is_selected,
+  archive: messages.file_archive_is_selected,
+  unknown: messages.file_unknown_is_selected,
+};
 
 const remove: Command = (state, dispatch) => {
   if (dispatch) {
@@ -111,34 +130,10 @@ const generateMediaCardFloatingToolbar = (
   mediaPluginState: MediaPluginState,
   hoverDecoration: HoverDecorationHandler | undefined,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+  forceFocusSelector: ForceFocusSelector | undefined,
 ) => {
   const { mediaGroup } = state.schema.nodes;
   const items: FloatingToolbarItem<Command>[] = [
-    {
-      id: 'editor.media.view.switcher',
-      type: 'dropdown',
-      title: intl.formatMessage(messages.changeView),
-      options: [
-        {
-          id: 'editor.media.view.switcher.inline',
-          title: intl.formatMessage(cardMessages.inline),
-          selected: false,
-          disabled: false,
-          onClick: changeMediaCardToInline(editorAnalyticsAPI),
-          testId: 'inline-appearance',
-        },
-        {
-          id: 'editor.media.view.switcher.thumbnail',
-          title: intl.formatMessage(messages.displayThumbnail),
-          selected: true,
-          disabled: false,
-          onClick: () => {
-            return true;
-          },
-          testId: 'thumbnail-appearance',
-        },
-      ],
-    },
     {
       type: 'separator',
     },
@@ -193,99 +188,65 @@ const generateMediaCardFloatingToolbar = (
       testId: 'media-toolbar-remove-button',
     },
   ];
-
-  return items;
-};
-
-const generateMediaInlineFloatingToolbar = (
-  state: EditorState,
-  intl: IntlShape,
-  mediaPluginState: MediaPluginState,
-  hoverDecoration: HoverDecorationHandler | undefined,
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-) => {
-  const { mediaInline } = state.schema.nodes;
-  const items: FloatingToolbarItem<Command>[] = [
-    {
-      id: 'editor.media.view.switcher',
-      type: 'dropdown',
-      title: intl.formatMessage(messages.changeView),
-      options: [
+  getBooleanFF('platform.editor.ally-media-file-dropdown_1kxo8')
+    ? // TODO: after removing Feature Flag move items back to previous array definition instead of unshift
+      items.unshift(
         {
           id: 'editor.media.view.switcher.inline',
-          title: intl.formatMessage(cardMessages.inline),
-          selected: true,
+          type: 'button',
+          icon: IconInline,
+          selected: false,
+          focusEditoronEnter: true,
           disabled: false,
-          onClick: () => {
-            return true;
-          },
+          onClick: changeMediaCardToInline(
+            editorAnalyticsAPI,
+            forceFocusSelector,
+          ),
+          title: intl.formatMessage(cardMessages.inlineTitle),
           testId: 'inline-appearance',
+          className: 'inline-appearance', // a11y. uses to force focus on item
         },
         {
           id: 'editor.media.view.switcher.thumbnail',
-          title: intl.formatMessage(messages.displayThumbnail),
-          selected: false,
+          type: 'button',
+          icon: IconCard,
+          selected: true,
           disabled: false,
-          onClick: changeInlineToMediaCard(editorAnalyticsAPI),
+          focusEditoronEnter: true,
+          onClick: () => true,
+          title: intl.formatMessage(cardMessages.blockTitle),
           testId: 'thumbnail-appearance',
+          className: 'thumbnail-appearance', // a11y. uses to force focus on item
         },
-      ],
-    },
-    {
-      type: 'separator',
-    },
-    {
-      type: 'custom',
-      fallback: [],
-      render: () => {
-        return (
-          <FilePreviewItem
-            key="editor.media.card.preview"
-            mediaPluginState={mediaPluginState}
-            intl={intl}
-          />
-        );
-      },
-    },
-    { type: 'separator' },
-    {
-      id: 'editor.media.card.download',
-      type: 'button',
-      icon: DownloadIcon,
-      onClick: () => {
-        downloadMedia(mediaPluginState);
-        return true;
-      },
-      title: intl.formatMessage(messages.download),
-    },
-    { type: 'separator' },
-    {
-      type: 'copy-button',
-      items: [
-        {
-          state,
-          formatMessage: intl.formatMessage,
-          nodeType: mediaInline,
-        },
-        { type: 'separator' },
-      ],
-    },
-    {
-      id: 'editor.media.delete',
-      type: 'button',
-      appearance: 'danger',
-      focusEditoronEnter: true,
-      icon: RemoveIcon,
-      onMouseEnter: hoverDecoration?.(mediaInline, true),
-      onMouseLeave: hoverDecoration?.(mediaInline, false),
-      onFocus: hoverDecoration?.(mediaInline, true),
-      onBlur: hoverDecoration?.(mediaInline, false),
-      title: intl.formatMessage(commonMessages.remove),
-      onClick: removeInlineCard,
-      testId: 'media-toolbar-remove-button',
-    },
-  ];
-
+      )
+    : items.unshift({
+        id: 'editor.media.view.switcher',
+        type: 'dropdown',
+        title: intl.formatMessage(messages.changeView),
+        options: [
+          {
+            id: 'editor.media.view.switcher.inline',
+            title: intl.formatMessage(cardMessages.inline),
+            selected: false,
+            disabled: false,
+            onClick: changeMediaCardToInline(
+              editorAnalyticsAPI,
+              forceFocusSelector,
+            ),
+            testId: 'inline-appearance',
+          },
+          {
+            id: 'editor.media.view.switcher.thumbnail',
+            title: intl.formatMessage(messages.displayThumbnail),
+            selected: true,
+            disabled: false,
+            onClick: () => {
+              return true;
+            },
+            testId: 'thumbnail-appearance',
+          },
+        ],
+      });
   return items;
 };
 
@@ -307,10 +268,12 @@ const generateMediaSingleFloatingToolbar = (
     allowAdvancedToolBarOptions,
     allowResizingInTables,
     allowAltTextOnImages,
+    allowMediaInline,
+    allowMediaInlineImages,
   } = options;
 
   let toolbarButtons: FloatingToolbarItem<Command>[] = [];
-  const { hoverDecoration } = pluginInjectionApi?.decorations.actions ?? {};
+  const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
 
   if (shouldShowImageBorder(state)) {
     toolbarButtons.push({
@@ -321,7 +284,7 @@ const generateMediaSingleFloatingToolbar = (
           return null;
         }
         const { dispatch, state } = editorView;
-        const borderMark = currentMediaNodeBorderMark(state);
+        const borderMark = currentMediaOrInlineNodeBorderMark(state);
         return (
           <ImageBorderItem
             toggleBorder={() => {
@@ -375,7 +338,10 @@ const generateMediaSingleFloatingToolbar = (
       true,
       isChangingLayoutDisabled,
     );
-    if (getBooleanFF('platform.editor.media.grouped-layout') && selectedNode) {
+    if (
+      mediaInlineImagesEnabled(allowMediaInline, allowMediaInlineImages) &&
+      selectedNode
+    ) {
       const selectedLayoutIcon = getSelectedLayoutIcon(
         [...alignmentIcons, ...wrappingIcons],
         selectedNode.node,
@@ -405,6 +371,57 @@ const generateMediaSingleFloatingToolbar = (
 
       if (layoutButtons.length) {
         toolbarButtons.push({ type: 'separator' });
+      }
+    }
+
+    // floating and inline switcher
+    if (
+      pluginState.allowInlineImages &&
+      selectedNode &&
+      canShowSwitchButtons(selectedNode.node)
+    ) {
+      // mediaInlne doesn't suppprt external images, so hiding buttons to prevent conversion from mediaSingle to mediaInline
+      if (selectedNode.node.firstChild?.attrs.type !== 'external') {
+        const hasCaption = contains(
+          selectedNode.node,
+          state.schema.nodes.caption,
+        );
+        const inlineSwitcherTitle = intl.formatMessage(
+          hasCaption
+            ? mediaAndEmbedToolbarMessages.changeToMediaInlineImageCaptionWarning
+            : mediaAndEmbedToolbarMessages.changeToMediaInlineImage,
+        );
+        const floatingSwitcherTitle = intl.formatMessage(
+          mediaAndEmbedToolbarMessages.changeToMediaSingle,
+        );
+        toolbarButtons.push(
+          {
+            type: 'button',
+            id: 'editor.media.image.view.switcher.inline',
+            title: inlineSwitcherTitle,
+            icon: () => (
+              <IconInline size="medium" label={inlineSwitcherTitle} />
+            ),
+            onClick: changeMediaSingleToMediaInline(
+              pluginInjectionApi?.analytics?.actions,
+            ),
+            testId: 'image-inline-appearance',
+          },
+          {
+            type: 'button',
+            id: 'editor.media.image.view.switcher.floating',
+            title: floatingSwitcherTitle,
+            icon: () => (
+              <IconEmbed size="medium" label={floatingSwitcherTitle} />
+            ),
+            onClick: () => {
+              return true;
+            },
+            testId: 'image-floating-appearance',
+            selected: true,
+          },
+          { type: 'separator' },
+        );
       }
     }
 
@@ -448,7 +465,7 @@ const generateMediaSingleFloatingToolbar = (
             selectedMediaNode.attrs;
 
           const maxWidthForNestedNode =
-            pluginInjectionApi?.media.sharedState.currentState()
+            pluginInjectionApi?.media?.sharedState.currentState()
               ?.currentMaxWidth;
 
           const maxWidth =
@@ -516,6 +533,7 @@ const generateMediaSingleFloatingToolbar = (
                 updateMediaSingleWidth(pluginInjectionApi?.analytics?.actions)(
                   width,
                   validation,
+                  'floatingToolBar',
                   newLayout,
                 )(state, dispatch);
               }}
@@ -653,6 +671,17 @@ const generateMediaSingleFloatingToolbar = (
   return items;
 };
 
+const getMediaTypeMessage = (
+  selectedNodeTypeSingle: string,
+): MessageDescriptor => {
+  const mediaType = Object.keys(mediaTypeMessages).find(key =>
+    selectedNodeTypeSingle?.includes(key),
+  );
+  return mediaType
+    ? mediaTypeMessages[mediaType as keyof typeof mediaTypeMessages]
+    : messages.file_unknown_is_selected;
+};
+
 export const floatingToolbar = (
   state: EditorState,
   intl: IntlShape,
@@ -675,7 +704,7 @@ export const floatingToolbar = (
     stateKey.getState(state);
 
   const mediaLinkingState: MediaLinkingState = getMediaLinkingState(state);
-  const { hoverDecoration } = pluginInjectionApi?.decorations.actions ?? {};
+  const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
 
   if (!mediaPluginState) {
     return;
@@ -714,7 +743,7 @@ export const floatingToolbar = (
       return getAltTextToolbar(baseToolbar, {
         altTextValidator,
         forceFocusSelector:
-          pluginInjectionApi?.floatingToolbar.actions?.forceFocusSelector,
+          pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector,
       });
     }
   }
@@ -739,6 +768,7 @@ export const floatingToolbar = (
       mediaPluginState,
       hoverDecoration,
       pluginInjectionApi?.analytics?.actions,
+      pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector,
     );
   } else if (
     allowMediaInline &&
@@ -756,7 +786,8 @@ export const floatingToolbar = (
       intl,
       mediaPluginState,
       hoverDecoration,
-      pluginInjectionApi?.analytics?.actions,
+      pluginInjectionApi,
+      options,
     );
   } else {
     baseToolbar.getDomRef = () => {
@@ -776,10 +807,27 @@ export const floatingToolbar = (
     );
   }
 
+  var assistiveMessage = '';
+
+  const selectedMediaSingleNode = getSelectedMediaSingle(state);
+  if (selectedMediaSingleNode) {
+    const selectedMediaNodeView = selectedMediaSingleNode?.node.content;
+    if (selectedMediaNodeView) {
+      const selectedMediaNode = selectedMediaNodeView.firstChild;
+      const selectedNodeTypeSingle = selectedMediaNode?.attrs.__fileMimeType;
+      const selectedMediaAlt = selectedMediaNode?.attrs.alt;
+      assistiveMessage = intl?.formatMessage(
+        getMediaTypeMessage(selectedNodeTypeSingle),
+        { name: selectedMediaAlt },
+      );
+    }
+  }
+
   const toolbarConfig = {
     ...baseToolbar,
     items,
     scrollable: true,
+    mediaAssistiveMessage: assistiveMessage,
   };
 
   if (

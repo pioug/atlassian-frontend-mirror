@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
+import { Box, xcss } from '@atlaskit/primitives';
 import { components, OptionType } from '@atlaskit/select';
-import { token } from '@atlaskit/tokens';
 import { css, jsx } from '@emotion/react';
 import { AddOptionAvatar } from './AddOptionAvatar';
 import { SizeableAvatar } from './SizeableAvatar';
@@ -28,8 +28,8 @@ export const scrollToValue = (
   }
 };
 
-const groupTagContainer = css({
-  paddingLeft: token('space.025', '2px'),
+const groupTagContainer = xcss({
+  paddingLeft: 'space.025',
 });
 
 const nameWrapper = css({
@@ -92,7 +92,7 @@ export class MultiValue extends React.Component<Props> {
 
   getElemBefore = () => {
     const {
-      data: { data, label },
+      data: { data },
       selectProps,
     } = this.props;
     if (isEmail(data)) {
@@ -109,19 +109,13 @@ export class MultiValue extends React.Component<Props> {
 
     if (isGroup(data)) {
       return (
-        <div css={groupTagContainer}>
+        <Box xcss={groupTagContainer}>
           <PeopleIcon label="group-icon" size="small" />
-        </div>
+        </Box>
       );
     }
 
-    return (
-      <SizeableAvatar
-        appearance="multi"
-        src={getAvatarUrl(data)}
-        name={label}
-      />
-    );
+    return <SizeableAvatar appearance="multi" src={getAvatarUrl(data)} />;
   };
 
   render() {

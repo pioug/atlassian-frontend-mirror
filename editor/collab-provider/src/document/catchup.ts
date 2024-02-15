@@ -1,4 +1,4 @@
-import type { InternalError } from '../errors/error-types';
+import type { InternalError } from '../errors/internal-errors';
 import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import { createLogger } from '../helpers/utils';
 import type { CatchupOptions, StepsPayload } from '../types';
@@ -22,6 +22,24 @@ export function rebaseSteps(steps: readonly Step[], mapping: Mapping): Step[] {
     }
   }
   return newSteps;
+}
+
+/**
+ * Check if clientId is in list of StepMaps returned by server, to avoid duplicating content
+ * Each time a StepMap contains the clientId, we should drop an unconfirmedStep
+ */
+export function removeConfirmedSteps(
+  unconfirmedSteps: readonly Step[] = [],
+  serverStepMaps: any[] = [],
+  clientId: string | number | undefined,
+) {
+  let newUnconfirmedSteps = Array.from(unconfirmedSteps);
+  for (let i = 0; i < serverStepMaps.length; i++) {
+    if (serverStepMaps[i].clientId === clientId) {
+      newUnconfirmedSteps.shift();
+    }
+  }
+  return newUnconfirmedSteps;
 }
 
 export const catchup = async (opt: CatchupOptions) => {
@@ -72,7 +90,7 @@ export const catchup = async (opt: CatchupOptions) => {
       } else {
         // Please, do not use those steps inside of async
         // method. That will lead to outdated steps
-        const unconfirmedSteps = opt.getUnconfirmedSteps();
+        let unconfirmedSteps = opt.getUnconfirmedSteps();
         logger(
           `Too far behind[current: v${currentPmVersion}, server: v${serverVersion}. ${
             serverStepMaps!.length
@@ -105,6 +123,11 @@ export const catchup = async (opt: CatchupOptions) => {
         if (unconfirmedSteps?.length) {
           // Create StepMap from StepMap JSON
           // eslint-disable-next-line no-unused-vars
+          unconfirmedSteps = removeConfirmedSteps(
+            unconfirmedSteps,
+            serverStepMaps,
+            opt.clientId,
+          );
           const stepMaps = serverStepMaps!.map(
             ({
               ranges,

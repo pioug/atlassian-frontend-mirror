@@ -1,5 +1,6 @@
 import React from 'react';
-import { ToolbarProps } from './toolbar-types';
+
+import type { ToolbarProps } from './toolbar-types';
 import { ToolbarInner } from './ToolbarInner';
 import { ToolbarSize } from './types';
 

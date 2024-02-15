@@ -3,7 +3,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Lorem from 'react-lorem-component';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { N50A, N60A } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';

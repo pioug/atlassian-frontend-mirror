@@ -1,6 +1,6 @@
 import { JsonLd } from 'json-ld-types';
 import { ElementName } from '../../../constants';
-import { getSimulatedBetterMetadata } from '../utils';
+import { getIsAISummaryEnabled, getSimulatedBetterMetadata } from '../utils';
 import {
   mockJiraResponse,
   mockConfluenceResponse,
@@ -8,7 +8,10 @@ import {
   mockBaseResponseWithPreview,
   mockBaseResponseAtlasProject,
   mockBBPullRequest,
+  mockBBFile,
 } from './__mocks__/mocks';
+
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('getSimulatedBetterMetadata', () => {
   const defaultBottomMetadata = {
@@ -177,6 +180,42 @@ describe('getSimulatedBetterMetadata', () => {
       expect(metadata.topMetadataBlock).toEqual(topMetadata);
       expect(metadata.bottomMetadataBlock).toEqual(defaultBottomMetadata);
     });
+    describe('should return metadata elements for top primary, including CollaboratorGroup & LatestCommit for BB files', () => {
+      ffTest(
+        'platform.linking-platform.extractor.improve-bitbucket-file-links',
+        () => {
+          const metadata = getSimulatedBetterMetadata(
+            'native-bitbucket-object-provider',
+            mockBBFile.data as JsonLd.Data.BaseData,
+          );
+          const topMetadata = {
+            primary: [
+              ElementName.LatestCommit,
+              ElementName.CollaboratorGroup,
+              ElementName.ModifiedOn,
+            ],
+            secondary: [],
+            subtitle: [],
+          };
+
+          expect(metadata.topMetadataBlock).toEqual(topMetadata);
+          expect(metadata.bottomMetadataBlock).toEqual(defaultBottomMetadata);
+        },
+        () => {
+          const metadata = getSimulatedBetterMetadata(
+            'native-bitbucket-object-provider',
+            mockBBFile.data as JsonLd.Data.BaseData,
+          );
+          const topMetadata = {
+            primary: [ElementName.AuthorGroup, ElementName.ModifiedOn],
+            secondary: [],
+            subtitle: [],
+          };
+          expect(metadata.topMetadataBlock).toEqual(topMetadata);
+          expect(metadata.bottomMetadataBlock).toEqual(defaultBottomMetadata);
+        },
+      );
+    });
     it('should return metadata elements for top primary, without ModifiedOn for Objects that are not SourceCodePullRequest', () => {
       const metadata = getSimulatedBetterMetadata(
         'native-bitbucket-object-provider',
@@ -220,6 +259,75 @@ describe('getSimulatedBetterMetadata', () => {
 
       expect(metadata.topMetadataBlock).toEqual(topMetadata);
       expect(metadata.bottomMetadataBlock).toEqual(defaultBottomMetadata);
+    });
+  });
+});
+
+describe('getIsAISummaryEnabled', () => {
+  const getMockResponse = (meta: Partial<JsonLd.Meta.BaseMeta> = {}) =>
+    ({
+      ...mockConfluenceResponse,
+      meta: {
+        ...mockConfluenceResponse.meta,
+        ...meta,
+      },
+    } as JsonLd.Response);
+
+  describe('returns false when AI is disabled', () => {
+    const response = getMockResponse({ supportedFeatures: ['AISummary'] });
+
+    ffTest(
+      'platform.linking-platform.smart-card.hover-card-ai-summaries',
+      () => {
+        const isAISummaryEnabled = getIsAISummaryEnabled(false, response);
+        expect(isAISummaryEnabled).toBe(false);
+      },
+      () => {
+        const isAISummaryEnabled = getIsAISummaryEnabled(false, response);
+        expect(isAISummaryEnabled).toBe(false);
+      },
+    );
+  });
+
+  describe('when AI is enabled', () => {
+    describe('returns true when AISummary is included in supportedFeatures', () => {
+      const response = getMockResponse({ supportedFeatures: ['AISummary'] });
+
+      ffTest(
+        'platform.linking-platform.smart-card.hover-card-ai-summaries',
+        () => {
+          const isAISummaryEnabled = getIsAISummaryEnabled(true, response);
+          expect(isAISummaryEnabled).toBe(true);
+        },
+        () => {
+          const isAISummaryEnabled = getIsAISummaryEnabled(true, response);
+          expect(isAISummaryEnabled).toBe(false);
+        },
+      );
+    });
+
+    describe('returns false when AISummary is not included in supportedFeatures', () => {
+      const response = getMockResponse({ supportedFeatures: [] });
+
+      ffTest(
+        'platform.linking-platform.smart-card.hover-card-ai-summaries',
+        () => {
+          const isAISummaryEnabled = getIsAISummaryEnabled(true, response);
+          expect(isAISummaryEnabled).toBe(false);
+        },
+      );
+    });
+
+    describe('returns false when link does not have supportedFeatures', () => {
+      const response = getMockResponse();
+
+      ffTest(
+        'platform.linking-platform.smart-card.hover-card-ai-summaries',
+        () => {
+          const isAISummaryEnabled = getIsAISummaryEnabled(true, response);
+          expect(isAISummaryEnabled).toBe(false);
+        },
+      );
     });
   });
 });

@@ -1,4 +1,5 @@
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 import React from 'react';
 import {
   createAnalyticsWebClientMock,
@@ -52,7 +53,16 @@ class Example extends React.Component {
             <Button appearance="primary" onClick={this.changeLogLevel}>
               Change log level
             </Button>
-            <div style={{ padding: '16px 8px' }}>Level: {logLevel.name}</div>
+            <div
+              style={{
+                padding: `${token('space.200', '16px')} ${token(
+                  'space.100',
+                  '8px',
+                )}`,
+              }}
+            >
+              Level: {logLevel.name}
+            </div>
           </div>
           <div style={{ display: 'block' }}>
             <DummyElementsComponentWithAnalytics onClick={myOnClickHandler} />

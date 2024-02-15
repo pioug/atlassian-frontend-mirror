@@ -3,8 +3,13 @@ import { forwardRef, useCallback, useContext } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import { DragHandleDropdownMenu } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-dropdown-menu';
+import DropdownMenu, {
+  DropdownItem,
+  DropdownItemGroup,
+} from '@atlaskit/dropdown-menu';
+// eslint-disable-next-line @atlaskit/design-system/no-banned-imports
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { DragHandleButton } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-button';
 
 import { TableContext } from './table-context';
 
@@ -56,7 +61,15 @@ export const RowMenuButton = forwardRef<
 
   return (
     <div css={[baseMenuButtonWrapperStyles, rowMenuButtonWrapperStyles]}>
-      <DragHandleDropdownMenu triggerRef={ref} label="Reorder">
+      <DropdownMenu
+        trigger={({ triggerRef, ...triggerProps }) => (
+          <DragHandleButton
+            ref={mergeRefs([ref, triggerRef])}
+            {...triggerProps}
+            label="Reorder"
+          />
+        )}
+      >
         <DropdownItemGroup>
           <DropdownItem isDisabled={isFirstRow} onClick={moveUp}>
             Move up
@@ -65,7 +78,7 @@ export const RowMenuButton = forwardRef<
             Move down
           </DropdownItem>
         </DropdownItemGroup>
-      </DragHandleDropdownMenu>
+      </DropdownMenu>
     </div>
   );
 });
@@ -98,7 +111,15 @@ export const ColumnMenuButton = forwardRef<
 
   return (
     <div css={[baseMenuButtonWrapperStyles, columnMenuButtonWrapperStyles]}>
-      <DragHandleDropdownMenu triggerRef={ref} label="Reorder">
+      <DropdownMenu
+        trigger={({ triggerRef, ...triggerProps }) => (
+          <DragHandleButton
+            ref={mergeRefs([ref, triggerRef])}
+            {...triggerProps}
+            label="Reorder"
+          />
+        )}
+      >
         <DropdownItemGroup>
           <DropdownItem isDisabled={isFirstColumn} onClick={moveLeft}>
             Move left
@@ -107,7 +128,7 @@ export const ColumnMenuButton = forwardRef<
             Move right
           </DropdownItem>
         </DropdownItemGroup>
-      </DragHandleDropdownMenu>
+      </DropdownMenu>
     </div>
   );
 });

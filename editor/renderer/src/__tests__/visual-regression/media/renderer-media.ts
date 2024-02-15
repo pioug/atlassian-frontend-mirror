@@ -1,30 +1,30 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  deviceViewPorts,
   Device,
+  deviceViewPorts,
 } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import { snapshot, initRendererWithADF } from '../_utils';
-import resizeAdf from './__fixtures__/renderer-media.adf.json';
+import layoutAdf from '../../../../examples/helper/media-resize-layout.adf.json';
+import { initRendererWithADF, snapshot } from '../_utils';
 import commentRendererAdf from './__fixtures__/comment-renderer-media-adf.json';
 import wrappedCommentRendererAdf from './__fixtures__/comment-renderer-wrapped-media.adf.json';
-import wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
-import wrappedMediaTextAdf from './__fixtures__/wrapped-media-text.adf.json';
-import wrappedMediaTextLeftAdf from './__fixtures__/wrapped-media-text-left.adf.json';
-import wrappedMediaTextSplitAdf from './__fixtures__/wrapped-media-text-split.adf.json';
-import wrappedMediaTextLayoutAdf from './__fixtures__/wrapped-media-text-layout.adf.json';
-import wrappedMediaTextLayoutSplitAdf from './__fixtures__/wrapped-media-text-layout-split.adf.json';
-import wrappedMediaSmallAdf from './__fixtures__/wrapped-media-small.adf.json';
-import layoutAdf from '../../../../examples/helper/media-resize-layout.adf.json';
 import mediaImageWidthBiggerThanColumnWidth from './__fixtures__/media-image-width-bigger-than-column-width.adf.json';
 import mediaWithUnsupportedMarksAndAttributes from './__fixtures__/media-with-unsupported-marks-and-node-attributes.json';
+import resizeAdf from './__fixtures__/renderer-media.adf.json';
 import mediaGroupAdf from './__fixtures__/renderer-mediaGroup.adf.json';
+import wrappedMediaSmallAdf from './__fixtures__/wrapped-media-small.adf.json';
+import wrappedMediaTextLayoutSplitAdf from './__fixtures__/wrapped-media-text-layout-split.adf.json';
+import wrappedMediaTextLayoutAdf from './__fixtures__/wrapped-media-text-layout.adf.json';
+import wrappedMediaTextLeftAdf from './__fixtures__/wrapped-media-text-left.adf.json';
+import wrappedMediaTextSplitAdf from './__fixtures__/wrapped-media-text-split.adf.json';
+import wrappedMediaTextAdf from './__fixtures__/wrapped-media-text.adf.json';
+import wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
 
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { BoundingBox } from 'puppeteer';
+import type { MediaOptions } from '../../../types/mediaOptions';
+import type { RendererAppearance } from '../../../ui/Renderer/types';
 import { waitForAllMedia } from '../../__helpers/page-objects/_media';
 import { selectors as rendererSelectors } from '../../__helpers/page-objects/_renderer';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import type { RendererAppearance } from '../../../ui/Renderer/types';
-import type { MediaOptions } from '../../../types/mediaOptions';
-import type { BoundingBox } from 'puppeteer';
 
 const devices = [
   Device.LaptopHiDPI,
@@ -126,8 +126,7 @@ describe('Snapshot Test: Media', () => {
 
   describe('resize', () => {
     devices.forEach((device) => {
-      // FIXME: This test was automatically skipped due to failure on 30/05/2023: https://product-fabric.atlassian.net/browse/ED-18130
-      it.skip(`should correctly render for ${device}`, async () => {
+      it(`should correctly render for ${device}`, async () => {
         await initRenderer(page, resizeAdf, device);
         await waitForAllMedia(page, 17, { visible: true, timeout: 8000 });
         await snapshotRenderer();

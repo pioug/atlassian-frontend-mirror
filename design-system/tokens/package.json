@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "1.29.0",
+  "version": "1.37.1",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
   "scripts": {
     "ak-postbuild": "(cd $(npx repo-root) && yarn build @atlassian/codegen -d cjs,esm,es2019) && yarn workspace @atlaskit/tokens codegen-tokens && yarn workspace @atlaskit/tokens check-clean-git",
     "check-clean-git": "git diff --exit-code -- packages/design-system/tokens/ || (echo 'tokens are out of date, run yarn build tokens' && false)",
-    "codegen-tokens": "ts-node --project $(npx repo-root)/tsconfig.node.json ./scripts/style-dictionary/build && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/ds-explorations && yarn codegen-styles"
+    "codegen-tokens": "ts-node --project $(npx repo-root)/tsconfig.node.json ./scripts/style-dictionary/build && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/ds-explorations && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/heading && yarn codegen"
   },
   "dependencies": {
     "@atlaskit/ds-lib": "^2.2.0",
@@ -50,8 +50,8 @@
     "@atlassian/codegen": "^0.1.0",
     "@atlassian/feature-flags-test-utils": "*",
     "@babel/core": "^7.20.0",
-    "@emotion/core": "^10.0.9",
     "@emotion/react": "^11.7.1",
+    "@hypermod/utils": "^0.4.2",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
@@ -62,7 +62,10 @@
     "echarts": "^5.4.1",
     "echarts-for-react": "^3.0.2",
     "fuse.js": "^6.6.2",
+    "jscodeshift": "^0.13.0",
     "lodash": "^4.17.21",
+    "postcss": "^8.4.7",
+    "postcss-less": "^6.0.0",
     "prettier": "^2.8.0",
     "react": "^16.8.0",
     "react-use-clipboard": "^1.0.0",
@@ -107,7 +110,8 @@
     "./token-order": "./src/entry-points/token-order.tsx",
     "./token-default-values": "./src/entry-points/token-default-values.tsx",
     "./rename-mapping": "./src/entry-points/rename-mapping.tsx",
-    "./babel-plugin": "./src/entry-points/babel-plugin.tsx"
+    "./babel-plugin": "./src/entry-points/babel-plugin.tsx",
+    "./css-type-schema": "./src/entry-points/css-type-schema.codegen.tsx"
   },
   "platform-feature-flags": {
     "platform.design-system-team.border-checkbox_nyoiu": {

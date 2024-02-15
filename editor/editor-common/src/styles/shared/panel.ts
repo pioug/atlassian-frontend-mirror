@@ -26,23 +26,17 @@ import {
   P50,
   P75,
   R100,
-  R200,
   R400,
   R50,
   R75,
   T100,
   T50,
   T75,
-  Y100,
   Y200,
   Y400,
   Y50,
   Y75,
 } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
-import type { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 const lightPanelColors = {
@@ -140,30 +134,9 @@ const lightIconColor = {
   error: token('color.icon.danger', R400),
 };
 
-const darkIconColor = {
-  info: token('color.icon.information', B100),
-  note: token('color.icon.discovery', P100),
-  tip: token('color.icon.success', G200),
-  success: token('color.icon.success', G200),
-  warning: token('color.icon.warning', Y100),
-  error: token('color.icon.danger', R200),
-};
-
-const tokenDarkPanelColors = {
-  info: token('color.background.information', darkPanelColors['info']),
-  note: token('color.background.discovery', darkPanelColors['note']),
-  tip: token('color.background.success', darkPanelColors['tip']),
-  success: token('color.background.success', darkPanelColors['success']),
-  warning: token('color.background.warning', darkPanelColors['warning']),
-  error: token('color.background.danger', darkPanelColors['error']),
-};
-
-// TODO: Migrate away from gridSize
-// Recommendation: Replace gridSize with 8
 // New custom icons are a little smaller than predefined icons.
 // To fix alignment issues with custom icons, vertical alignment is updated.
-const panelEmojiSpriteVerticalAlignment =
-  -(gridSize() * 3 - akEditorCustomIconSize) / 2;
+const panelEmojiSpriteVerticalAlignment = -(8 * 3 - akEditorCustomIconSize) / 2;
 const panelEmojiImageVerticalAlignment = panelEmojiSpriteVerticalAlignment - 1;
 
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4066
@@ -247,62 +220,37 @@ export const PanelSharedSelectors = {
   copyButton: `button[aria-label="Copy"]`,
 };
 
-const iconDynamicStyles =
-  (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (props: ThemeProps) => {
-    const light = lightIconColor[panelType];
-    const dark = darkIconColor[panelType];
-    const color = themed({ light, dark })(props);
-    return `
-    color: ${color};
-  `;
-  };
+const iconDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) =>
+  `color: ${lightIconColor[panelType]};`;
 
 // Provides the color without tokens, used when converting to a custom panel
 export const getPanelTypeBackgroundNoTokens = (
   panelType: Exclude<PanelType, PanelType.CUSTOM>,
-  props: ThemeProps = {},
-): string => {
-  const light = lightPanelColors[panelType];
-  const dark = darkPanelColors[panelType];
-  const background = themed({ light, dark })(props);
-  return background || 'none';
-};
+): string => lightPanelColors[panelType] || 'none';
 
 export const getPanelTypeBackground = (
   panelType: Exclude<PanelType, PanelType.CUSTOM>,
-  props: ThemeProps = {},
-): string => {
-  const light = hexToEditorBackgroundPaletteColor(lightPanelColors[panelType]);
-  // hexToEditorBackgroundPaletteColor has a light mode as a fallback color - for legacy dark mode we define the tokens locally
-  const dark = tokenDarkPanelColors[panelType];
-  const background = themed({ light, dark })(props);
-  return background || 'none';
+): string =>
+  hexToEditorBackgroundPaletteColor(lightPanelColors[panelType]) || 'none';
+
+const mainDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => {
+  return `
+    background-color: ${getPanelTypeBackground(panelType)};
+    color: inherit;
+  `;
 };
 
-const mainDynamicStyles =
-  (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (props: ThemeProps) => {
-    const background = getPanelTypeBackground(panelType, props);
-    const text = themed({
-      light: 'inherit',
-      dark: darkPanelColors.TextColor,
-    })(props);
-    return `
-    background-color: ${background};
-    color: ${text};
-  `;
-  };
-
-export const panelSharedStylesWithoutPrefix = (props: ThemeProps) => css`
-  border-radius: ${borderRadius()}px;
+export const panelSharedStylesWithoutPrefix = () => css`
+  border-radius: ${token('border.radius', '3px')};
   margin: ${blockNodesVerticalMargin} 0 0;
   padding: ${token('space.100', '8px')};
   min-width: ${akEditorTableCellMinWidth}px;
   display: flex;
   position: relative;
-  align-items: baseline;
+  align-items: normal;
   word-break: break-word;
 
-  ${mainDynamicStyles(PanelType.INFO)(props)}
+  ${mainDynamicStyles(PanelType.INFO)}
 
   .${PanelSharedCssClassName.icon} {
     flex-shrink: 0;
@@ -315,7 +263,8 @@ export const panelSharedStylesWithoutPrefix = (props: ThemeProps) => css`
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-    ${iconDynamicStyles(PanelType.INFO)(props)}
+    margin-top: 0.1em;
+    ${iconDynamicStyles(PanelType.INFO)}
 
     > span {
       vertical-align: middle;
@@ -349,52 +298,48 @@ export const panelSharedStylesWithoutPrefix = (props: ThemeProps) => css`
   }
 
   &[data-panel-type='${PanelType.NOTE}'] {
-    ${mainDynamicStyles(PanelType.NOTE)(props)}
+    ${mainDynamicStyles(PanelType.NOTE)}
 
     .${PanelSharedCssClassName.icon} {
-      ${iconDynamicStyles(PanelType.NOTE)(props)}
+      ${iconDynamicStyles(PanelType.NOTE)}
     }
   }
 
   &[data-panel-type='${PanelType.TIP}'] {
-    ${mainDynamicStyles(PanelType.TIP)(props)}
+    ${mainDynamicStyles(PanelType.TIP)}
 
     .${PanelSharedCssClassName.icon} {
-      ${iconDynamicStyles(PanelType.TIP)(props)}
+      ${iconDynamicStyles(PanelType.TIP)}
     }
   }
 
   &[data-panel-type='${PanelType.WARNING}'] {
-    ${mainDynamicStyles(PanelType.WARNING)(props)}
+    ${mainDynamicStyles(PanelType.WARNING)}
 
     .${PanelSharedCssClassName.icon} {
-      ${iconDynamicStyles(PanelType.WARNING)(props)}
+      ${iconDynamicStyles(PanelType.WARNING)}
     }
   }
 
   &[data-panel-type='${PanelType.ERROR}'] {
-    ${mainDynamicStyles(PanelType.ERROR)(props)}
+    ${mainDynamicStyles(PanelType.ERROR)}
 
     .${PanelSharedCssClassName.icon} {
-      ${iconDynamicStyles(PanelType.ERROR)(props)}
+      ${iconDynamicStyles(PanelType.ERROR)}
     }
   }
 
   &[data-panel-type='${PanelType.SUCCESS}'] {
-    ${mainDynamicStyles(PanelType.SUCCESS)(props)}
+    ${mainDynamicStyles(PanelType.SUCCESS)}
 
     .${PanelSharedCssClassName.icon} {
-      ${iconDynamicStyles(PanelType.SUCCESS)(props)}
+      ${iconDynamicStyles(PanelType.SUCCESS)}
     }
-  }
-
-  &[data-panel-type='${PanelType.CUSTOM}'] {
-    ${themed({ dark: getPanelBackgroundDarkModeColors })(props)};
   }
 `;
 
-export const panelSharedStyles = (props: ThemeProps) => css`
+export const panelSharedStyles = () => css`
   .${PanelSharedCssClassName.prefix} {
-    ${panelSharedStylesWithoutPrefix(props)}
+    ${panelSharedStylesWithoutPrefix()}
   }
 `;

@@ -1,10 +1,11 @@
 import React from 'react';
-import { logException } from '@atlaskit/editor-common/monitoring';
+
 import type {
   DispatchAnalyticsEvent,
   ErrorEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import { ACTION, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { logException } from '@atlaskit/editor-common/monitoring';
 
 type ErrorCrashPayload = Extract<
   ErrorEventPayload,

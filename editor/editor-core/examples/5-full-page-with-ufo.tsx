@@ -1,6 +1,7 @@
 import React from 'react';
-import { payloadPublisher } from '@atlassian/ufo';
+
 import { ufologger } from '@atlaskit/ufo/logger';
+import { payloadPublisher } from '@atlassian/ufo';
 
 import { default as FullPageExample } from './5-full-page';
 

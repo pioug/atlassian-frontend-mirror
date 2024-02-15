@@ -1,9 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
-  snapshot,
   initFullPageEditorWithAdf,
+  snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+
 import * as mediaGroup from './__fixtures__/mediaGroup.adf.json';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 

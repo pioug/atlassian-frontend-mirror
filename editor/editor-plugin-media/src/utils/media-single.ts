@@ -4,6 +4,7 @@ import type {
   EditorAnalyticsAPI,
   InputMethodInsertMedia,
   InsertEventPayload,
+  MediaSwitchType,
 } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
@@ -30,17 +31,22 @@ import type {
   Schema,
 } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { safeInsert as pmSafeInsert } from '@atlaskit/editor-prosemirror/utils';
+import {
+  safeInsert as pmSafeInsert,
+  removeSelectedNode,
+} from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { MediaState } from '../types';
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 
+import { findChangeFromLocation, getChangeMediaAnalytics } from './analytics';
 import { isImage } from './is-type';
 
 export interface MediaSingleState extends MediaState {
@@ -76,13 +82,17 @@ function insertNodesWithOptionalParagraph(
   analyticsAttributes: {
     inputMethod?: InputMethodInsertMedia;
     fileExtension?: string;
+    newType?: MediaSwitchType;
+    previousType?: MediaSwitchType;
   } = {},
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): Command {
   return function (state, dispatch) {
     const { tr, schema } = state;
+
     const { paragraph } = schema.nodes;
-    const { inputMethod, fileExtension } = analyticsAttributes;
+    const { inputMethod, fileExtension, newType, previousType } =
+      analyticsAttributes;
 
     let openEnd = 0;
     if (shouldAddParagraph(state)) {
@@ -90,13 +100,40 @@ function insertNodesWithOptionalParagraph(
       openEnd = 1;
     }
 
-    tr.replaceSelection(new Slice(Fragment.from(nodes), 0, openEnd));
+    if (getBooleanFF('platform.editor.allow-extended-panel')) {
+      if (state.selection.empty) {
+        tr.insert(state.selection.from, nodes);
+        // Set the cursor position at the end of the insertion
+        const endPos =
+          state.selection.from +
+          nodes.reduce(
+            (totalSize, currNode) => totalSize + currNode.nodeSize,
+            0,
+          );
+        tr.setSelection(
+          new TextSelection(tr.doc.resolve(endPos), tr.doc.resolve(endPos)),
+        );
+      } else {
+        tr.replaceSelection(new Slice(Fragment.from(nodes), 0, openEnd));
+      }
+    } else {
+      tr.replaceSelection(new Slice(Fragment.from(nodes), 0, openEnd));
+    }
+
     if (inputMethod) {
       editorAnalyticsAPI?.attachAnalyticsEvent(
         getInsertMediaAnalytics(inputMethod, fileExtension),
       )(tr);
     }
-
+    if (newType && previousType) {
+      editorAnalyticsAPI?.attachAnalyticsEvent(
+        getChangeMediaAnalytics(
+          previousType,
+          newType,
+          findChangeFromLocation(state.selection),
+        ),
+      )(tr);
+    }
     if (dispatch) {
       dispatch(tr);
     }
@@ -145,6 +182,14 @@ export const insertMediaAsMediaSingle = (
     analyticsAttributes,
     editorAnalyticsAPI,
   )(state, dispatch);
+};
+
+const getFileExtension = (fileName: string | undefined | null) => {
+  if (fileName) {
+    const extensionIdx = fileName.lastIndexOf('.');
+    return extensionIdx >= 0 ? fileName.substring(extensionIdx + 1) : undefined;
+  }
+  return undefined;
 };
 
 export const insertMediaSingleNode = (
@@ -229,6 +274,76 @@ export const insertMediaSingleNode = (
   return true;
 };
 
+export const changeFromMediaInlineToMediaSingleNode = (
+  view: EditorView,
+  fromNode: PMNode,
+  widthPluginState?: WidthPluginState | undefined,
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+): boolean => {
+  const { state, dispatch } = view;
+  const { mediaInline } = state.schema.nodes;
+  if (fromNode.type !== mediaInline) {
+    return false;
+  }
+  const grandParentNodeType = state.selection.$from.node(-1)?.type;
+  const parentNodeType = state.selection.$from.parent.type;
+
+  // add undefined as fallback as we don't want media single width to have upper limit as 0
+  // if widthPluginState.width is 0, default 760 will be used
+  const contentWidth =
+    getMaxWidthForNestedNodeNext(view, state.selection.$from.pos, true) ||
+    widthPluginState?.lineLength ||
+    widthPluginState?.width ||
+    undefined;
+
+  const node = replaceWithMediaSingleNode(
+    state.schema,
+    contentWidth,
+    MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
+  )(fromNode);
+
+  const fileExtension = getFileExtension(fromNode.attrs.__fileName);
+  // should split if media is valid content for the grandparent of the selected node
+  // and the parent node is a paragraph
+  if (
+    shouldSplitSelectedNodeOnNodeInsertion({
+      parentNodeType,
+      grandParentNodeType,
+      content: node,
+    })
+  ) {
+    return insertNodesWithOptionalParagraph(
+      [node],
+      {
+        fileExtension,
+        newType: ACTION_SUBJECT_ID.MEDIA_SINGLE,
+        previousType: ACTION_SUBJECT_ID.MEDIA_INLINE,
+      },
+      editorAnalyticsAPI,
+    )(state, dispatch);
+  } else {
+    const nodePos = state.tr.doc.resolve(state.selection.from).end();
+    let tr: Transaction | null = null;
+    tr = removeSelectedNode(state.tr);
+    tr = safeInsert(node, nodePos)(tr);
+    if (!tr) {
+      const content = shouldAddParagraph(view.state)
+        ? Fragment.fromArray([node, state.schema.nodes.paragraph.create()])
+        : node;
+      tr = pmSafeInsert(content, undefined, true)(state.tr);
+    }
+    editorAnalyticsAPI?.attachAnalyticsEvent(
+      getChangeMediaAnalytics(
+        ACTION_SUBJECT_ID.MEDIA_INLINE,
+        ACTION_SUBJECT_ID.MEDIA_SINGLE,
+        findChangeFromLocation(state.selection),
+      ),
+    )(tr);
+    dispatch(tr);
+  }
+  return true;
+};
+
 export const createMediaSingleNode =
   (
     schema: Schema,
@@ -238,7 +353,7 @@ export const createMediaSingleNode =
     alignLeftOnInsert?: boolean,
   ) =>
   (mediaState: MediaSingleState) => {
-    const { id, dimensions, contextId, scaleFactor = 1 } = mediaState;
+    const { id, dimensions, contextId, scaleFactor = 1, fileName } = mediaState;
     const { width, height } = dimensions || {
       height: undefined,
       width: undefined,
@@ -253,6 +368,7 @@ export const createMediaSingleNode =
       contextId,
       width: scaledWidth,
       height: height && Math.round(height / scaleFactor),
+      ...(fileName && { alt: fileName }),
     });
 
     const mediaSingleAttrs = alignLeftOnInsert ? { layout: 'align-start' } : {};
@@ -270,6 +386,31 @@ export const createMediaSingleNode =
 
     copyOptionalAttrsFromMediaState(mediaState, mediaNode);
     return mediaSingle.createChecked(extendedMediaSingleAttrs, mediaNode);
+  };
+
+const replaceWithMediaSingleNode =
+  (schema: Schema, maxWidth?: number, minWidth?: number) =>
+  (mediaNode: PMNode) => {
+    const { width } = mediaNode.attrs;
+    const { media, mediaSingle } = schema.nodes;
+    const copiedMediaNode = media.create(
+      {
+        ...mediaNode.attrs,
+        type: 'file',
+      },
+      mediaNode.content,
+      mediaNode.marks,
+    );
+
+    const extendedMediaSingleAttrs = getBooleanFF(
+      'platform.editor.media.extended-resize-experience',
+    )
+      ? {
+          width: getMediaSingleInitialWidth(width, maxWidth, minWidth),
+          widthType: 'pixel',
+        }
+      : {};
+    return mediaSingle.createChecked(extendedMediaSingleAttrs, copiedMediaNode);
   };
 
 export function isCaptionNode(editorView: EditorView) {

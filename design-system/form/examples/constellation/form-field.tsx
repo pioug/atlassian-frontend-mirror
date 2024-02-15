@@ -2,7 +2,7 @@ import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import LoadingButton from '@atlaskit/button/loading-button';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import TextField from '@atlaskit/textfield';
 
 import Form, { Field, FormFooter } from '../../src';
@@ -41,7 +41,7 @@ const FormFieldExample = () => (
         <form {...formProps}>
           <UsernameField />
           <FormFooter>
-            <ButtonGroup>
+            <ButtonGroup label="Form submit options">
               <Button appearance="subtle">Cancel</Button>
               <LoadingButton
                 type="submit"

@@ -18,14 +18,14 @@ import { token } from '@atlaskit/tokens';
 import InlineEdit from '../../src';
 
 const containerStyles = xcss({
-  paddingTop: 'space.100',
-  paddingRight: 'space.100',
-  paddingBottom: 'space.600',
+  paddingBlockStart: 'space.100',
+  paddingInlineEnd: 'space.100',
+  paddingBlockEnd: 'space.600',
   width: '50%',
 });
 
 const errorIconContainerStyles = xcss({
-  paddingRight: 'space.075',
+  paddingInlineEnd: 'space.075',
   lineHeight: '100%',
 });
 
@@ -65,7 +65,7 @@ const InlineEditValidationExample = () => {
           if (value.length <= 6) {
             resolve({
               value,
-              error: 'Enter a value greater than 6 characters',
+              error: 'Enter a description greater than 6 characters',
             });
           }
           resolve(undefined);
@@ -90,7 +90,7 @@ const InlineEditValidationExample = () => {
       </button>
       <InlineEdit
         defaultValue={editValue}
-        label="Inline edit validation"
+        label="Description"
         editView={({ errorMessage, ...fieldProps }) => (
           <InlineDialog
             isOpen={fieldProps.isInvalid}
@@ -115,8 +115,8 @@ const InlineEditValidationExample = () => {
           </InlineDialog>
         )}
         readView={() => (
-          <Box xcss={readViewContainerStyles} data-testid="read-view">
-            {editValue || 'Click to enter value'}
+          <Box xcss={readViewContainerStyles} testId="read-view">
+            {editValue || 'Add a description'}
           </Box>
         )}
         onConfirm={(value) => setEditValue(value)}

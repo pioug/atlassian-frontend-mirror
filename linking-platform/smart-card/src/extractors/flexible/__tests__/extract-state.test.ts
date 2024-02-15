@@ -56,40 +56,54 @@ describe('extractState', () => {
       details: { url, id },
     };
 
-    it('returns lozenge action when server action is enabled', () => {
-      const state = extractState(jiraTask as JsonLd.Response, true, id);
+    it('returns lozenge action when actionOptions is not provided', () => {
+      const state = extractState(jiraTask as JsonLd.Response);
 
       expect(state?.action).toBeDefined();
       expect(state?.action?.read).toBeDefined();
       expect(state?.action?.update).toBeDefined();
     });
 
-    it('does not return lozenge action when server action is disabled', () => {
-      const state = extractState(jiraTask as JsonLd.Response, false, id);
+    it('returns lozenge action when actionOptions is enabled', () => {
+      const state = extractState(
+        jiraTask as JsonLd.Response,
+        { hide: false },
+        id,
+      );
+
+      expect(state?.action).toBeDefined();
+      expect(state?.action?.read).toBeDefined();
+      expect(state?.action?.update).toBeDefined();
+    });
+
+    it('does not return lozenge action when actionOptions is disabled', () => {
+      const state = extractState(
+        jiraTask as JsonLd.Response,
+        { hide: true },
+        id,
+      );
 
       expect(state?.action).toBeUndefined();
     });
 
-    it('does not return lozenge action when server action is not provided', () => {
-      const state = extractState(jiraTask as JsonLd.Response);
+    it('does not return lozenge action when actionOptions is not defined', () => {
+      const state = extractState(response(), { hide: false }, id);
 
       expect(state?.action).toBeUndefined();
     });
 
-    it('does not return lozenge action when server action is not defined', () => {
-      const state = extractState(response(), true, id);
-
-      expect(state?.action).toBeUndefined();
-    });
-
-    it('does not return lozenge action when server action are empty', () => {
-      const state = extractState(response([]), true, id);
+    it('does not return lozenge action when actionOptions are empty', () => {
+      const state = extractState(response([]), { hide: false }, id);
 
       expect(state?.action).toBeUndefined();
     });
 
     it('returns read and update action', () => {
-      const state = extractState(jiraTask as JsonLd.Response, true, id);
+      const state = extractState(
+        jiraTask as JsonLd.Response,
+        { hide: false },
+        id,
+      );
 
       expect(state?.action).toEqual({ read, update });
     });
@@ -108,7 +122,7 @@ describe('extractState', () => {
             resourceIdentifiers,
           },
         ]),
-        true,
+        { hide: false },
         id,
       );
 
@@ -129,7 +143,7 @@ describe('extractState', () => {
             resourceIdentifiers,
           },
         ]),
-        true,
+        { hide: false },
         id,
       );
 
@@ -152,7 +166,7 @@ describe('extractState', () => {
             resourceIdentifiers,
           },
         ]),
-        true,
+        { hide: false },
         id,
       );
 
@@ -172,7 +186,7 @@ describe('extractState', () => {
             refField: 'tag',
           },
         ]),
-        true,
+        { hide: false },
         id,
       );
 
@@ -193,7 +207,7 @@ describe('extractState', () => {
             resourceIdentifiers,
           },
         ]),
-        true,
+        { hide: false },
         id,
       );
 
@@ -221,7 +235,7 @@ describe('extractState', () => {
           ],
           previewData,
         ),
-        true,
+        { hide: false },
         id,
       );
 
@@ -243,40 +257,30 @@ describe('extractState', () => {
     });
 
     describe('server action options', () => {
-      it('returns action when server action options is an object (truthy)', () => {
-        const state = extractState(jiraTask as JsonLd.Response, {}, id);
+      it('returns action by default when actionOptions are undefined', () => {
+        const state = extractState(jiraTask as JsonLd.Response, undefined, id);
 
         expect(state?.action).toEqual({ read, update });
       });
 
-      describe('feature discovery', () => {
-        it('returns feature discovery option with truthy value', () => {
-          const state = extractState(
-            jiraTask as JsonLd.Response,
-            { showStateActionFeatureDiscovery: true },
-            id,
-          );
+      it('returns action when action options are not hidden', () => {
+        const state = extractState(
+          jiraTask as JsonLd.Response,
+          { hide: false },
+          id,
+        );
 
-          expect(state?.action).toEqual({
-            read,
-            update,
-            showFeatureDiscovery: true,
-          });
-        });
+        expect(state?.action).toEqual({ read, update });
+      });
 
-        it('returns feature discovery option with falsy value', () => {
-          const state = extractState(
-            jiraTask as JsonLd.Response,
-            { showStateActionFeatureDiscovery: false },
-            id,
-          );
+      it('does not return action when action options are hidden', () => {
+        const state = extractState(
+          jiraTask as JsonLd.Response,
+          { hide: true },
+          id,
+        );
 
-          expect(state?.action).toEqual({
-            read,
-            update,
-            showFeatureDiscovery: false,
-          });
-        });
+        expect(state?.action).toBeUndefined();
       });
     });
   });

@@ -1,11 +1,15 @@
 import React from 'react';
 
+import { fireEvent, waitFor } from '@testing-library/dom';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { DatasourceTableStatusType } from '@atlaskit/linking-types';
+import {
+  DatasourceDataResponseItem,
+  DatasourceTableStatusType,
+} from '@atlaskit/linking-types';
 import { ConcurrentExperience } from '@atlaskit/ufo';
 
 import { EVENT_CHANNEL } from '../../analytics';
@@ -53,15 +57,29 @@ jest.mock('@atlaskit/ufo', () => ({
   }),
 }));
 
+jest.mock('@atlaskit/outbound-auth-flow-client', () => ({
+  __esModule: true,
+  ...jest.requireActual<Object>('@atlaskit/outbound-auth-flow-client'),
+  auth: (url: string) => {
+    if (url === 'test.success.url') {
+      return Promise.resolve();
+    }
+
+    return Promise.reject();
+  },
+}));
+
 const onAnalyticFireEvent = jest.fn();
 
 const setup = (
   overrides: Partial<DatasourceTableState> & {
     visibleColumnKeys?: string[] | null;
     onVisibleColumnKeysChange?: ((visibleColumnKeys: string[]) => void) | null;
+    responseItems?: DatasourceDataResponseItem[];
   } = {},
 ) => {
-  const { visibleColumnKeys, onVisibleColumnKeysChange } = overrides;
+  const { visibleColumnKeys, onVisibleColumnKeysChange, responseItems } =
+    overrides;
 
   const mockReset = jest.fn();
   asMock(useDatasourceTableState).mockReturnValue({
@@ -70,7 +88,7 @@ const setup = (
     onNextPage: jest.fn(),
     loadDatasourceDetails: jest.fn(),
     hasNextPage: false,
-    responseItems: [
+    responseItems: responseItems || [
       {
         myColumn: {
           data: 'some-value',
@@ -80,10 +98,10 @@ const setup = (
         },
       },
     ],
-    totalCount: 2,
+    totalCount: responseItems?.length || 2,
     columns: [
       { key: 'myColumn', title: 'My Column', type: 'string' },
-      { key: 'id' },
+      { key: 'id', title: 'Id' },
     ],
     defaultVisibleColumnKeys: ['myColumn'],
     extensionKey: 'jira-object-provider',
@@ -234,6 +252,56 @@ describe('DatasourceTableView', () => {
     expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
   });
 
+  it('should not show duplicate response items when a new column is added', () => {
+    const { rerender, getByTestId } = setup({
+      visibleColumnKeys: ['title'],
+      responseItems: [
+        {
+          title: {
+            data: 'title1',
+          },
+          id: {
+            data: 'id1',
+          },
+          date: {
+            data: 'date1',
+          },
+        },
+      ],
+    });
+
+    // check there is 1 response item
+    expect(getByTestId('item-count').textContent).toEqual('1 item');
+
+    // rerender the component with the new column added
+    rerender(
+      <IntlProvider locale="en">
+        <DatasourceTableView
+          datasourceId={'some-datasource-id'}
+          parameters={{
+            cloudId: 'some-cloud-id',
+            jql: 'some-jql-query',
+          }}
+          visibleColumnKeys={['title', 'id']}
+          onVisibleColumnKeysChange={jest.fn()}
+        />
+      </IntlProvider>,
+    );
+
+    // ensure hook is called with the new column
+    expect(useDatasourceTableState).toHaveBeenCalledWith({
+      datasourceId: 'some-datasource-id',
+      parameters: {
+        cloudId: 'some-cloud-id',
+        jql: 'some-jql-query',
+      },
+      fieldKeys: ['title', 'id'],
+    });
+
+    // check there is still only 1 response item
+    expect(getByTestId('item-count').textContent).toEqual('1 item');
+  });
+
   it.each([
     ['should', true, true],
     ['should not', true, false],
@@ -265,6 +333,7 @@ describe('DatasourceTableView', () => {
 
       getByRole('button', { name: 'Refresh' }).click();
       expect(mockReset).toHaveBeenCalledTimes(1);
+      expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
     });
   });
 
@@ -278,14 +347,82 @@ describe('DatasourceTableView', () => {
 
       getByRole('button', { name: 'Refresh' }).click();
       expect(mockReset).toHaveBeenCalledTimes(1);
+      expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
     });
 
-    it('should show an unauthorized message on 403 response', () => {
-      const { getByText } = setup({ status: 'unauthorized' });
+    it('should show an no results message on 403 response', () => {
+      const { getByTestId } = setup({ status: 'forbidden' });
 
       expect(
-        getByText("You don't have access to this content"),
+        getByTestId('jira-jql-datasource-modal--no-results'),
       ).toBeInTheDocument();
+    });
+  });
+
+  describe('when the request status is unauthorized', () => {
+    it('should display the access error ui', () => {
+      const { getByTestId } = setup({ status: 'unauthorized' });
+      expect(getByTestId('datasource--access-required')).toBeInTheDocument();
+    });
+
+    it('should display the access error ui with auth connection info when auth details is available', () => {
+      const { getByTestId, getByRole } = setup({
+        status: 'unauthorized',
+        authDetails: [
+          {
+            key: 'amplitude',
+            displayName: 'Atlassian Links - Amplitude',
+            url: 'https://id.atlassian.com/login',
+          },
+        ],
+      });
+
+      const authUI = getByTestId('datasource--access-required-with-auth');
+      expect(authUI).toBeInTheDocument();
+      expect(getByRole('button')).toHaveTextContent('Connect');
+      expect(getByRole('heading')).toHaveTextContent('Connect your account');
+      expect(getByRole('link')).toHaveTextContent(
+        'Learn more about Smart Links.',
+      );
+      expect(authUI).toHaveTextContent(
+        `Connect your account to collaborate on work across Atlassian products.`,
+      );
+    });
+
+    it('should call reset when auth completes successfully', async () => {
+      const { getByRole, mockReset } = setup({
+        status: 'unauthorized',
+        authDetails: [
+          {
+            key: 'amplitude',
+            displayName: 'Atlassian Links - Amplitude',
+            url: 'test.success.url',
+          },
+        ],
+      });
+
+      const authConnectButton = getByRole('button');
+      fireEvent.click(authConnectButton);
+
+      await waitFor(() => expect(mockReset).toHaveBeenCalled());
+    });
+
+    it('should call reset when auth fails', async () => {
+      const { getByRole, mockReset } = setup({
+        status: 'unauthorized',
+        authDetails: [
+          {
+            key: 'amplitude',
+            displayName: 'Atlassian Links - Amplitude',
+            url: 'test.fail.url',
+          },
+        ],
+      });
+
+      const authConnectButton = getByRole('button');
+      fireEvent.click(authConnectButton);
+
+      await waitFor(() => expect(mockReset).toHaveBeenCalled());
     });
   });
 });
@@ -371,8 +508,7 @@ describe('Analytics: DatasourceTableView', () => {
         },
         context: [
           {
-            packageName: '@atlaskit/fabric',
-            packageVersion: '0.0.0',
+            component: 'datasourceTable',
           },
         ],
       },
@@ -398,8 +534,7 @@ describe('Analytics: DatasourceTableView', () => {
       },
       context: [
         {
-          packageName: '@atlaskit/fabric',
-          packageVersion: '0.0.0',
+          component: 'datasourceTable',
         },
       ],
     });
@@ -447,6 +582,73 @@ describe('Analytics: DatasourceTableView', () => {
       },
     );
   });
+
+  it('should Fire "operational.provider.authSuccess" on sucessful auth flow', async () => {
+    const { getByRole } = setup({
+      status: 'unauthorized',
+      authDetails: [
+        {
+          key: 'Jira',
+          displayName: 'Atlassian Links - Jira',
+          url: 'test.success.url',
+        },
+      ],
+    });
+
+    const authConnectButton = getByRole('button');
+    fireEvent.click(authConnectButton);
+
+    await waitFor(() => {
+      expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'authSuccess',
+            actionSubject: 'provider',
+            attributes: {
+              extensionKey: 'jira-object-provider',
+              experience: 'datasource',
+            },
+            eventType: 'operational',
+          },
+        },
+        EVENT_CHANNEL,
+      );
+    });
+  });
+
+  it('should Fire "operational.provider.authFailure" on auth failure', async () => {
+    const { getByRole } = setup({
+      status: 'unauthorized',
+      authDetails: [
+        {
+          key: 'Jira',
+          displayName: 'Atlassian Links - Jira',
+          url: 'test.fail.url',
+        },
+      ],
+    });
+
+    const authConnectButton = getByRole('button');
+    fireEvent.click(authConnectButton);
+
+    await waitFor(() => {
+      expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'authFailure',
+            actionSubject: 'provider',
+            attributes: {
+              reason: null,
+              extensionKey: 'jira-object-provider',
+              experience: 'datasource',
+            },
+            eventType: 'operational',
+          },
+        },
+        EVENT_CHANNEL,
+      );
+    });
+  });
 });
 
 describe('UFO metrics: DatasourceTableView', () => {
@@ -454,7 +656,7 @@ describe('UFO metrics: DatasourceTableView', () => {
     jest.clearAllMocks();
   });
 
-  describe('TableRendered', async () => {
+  describe('TableRendered', () => {
     it('should start ufo experience when DatasourceTableView is initialised', async () => {
       setup({
         status: 'loading',
@@ -584,7 +786,7 @@ describe('UFO metrics: DatasourceTableView', () => {
     });
   });
 
-  describe('ColumnPickerRendered', async () => {
+  describe('ColumnPickerRendered', () => {
     it('should not mark as a failed experience when status is resolved', async () => {
       setup();
 

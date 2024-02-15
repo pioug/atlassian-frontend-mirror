@@ -10,7 +10,6 @@ import {
   getExampleUrl,
   navigateToUrl,
 } from '@atlaskit/visual-regression/helper';
-import type { ThemeModes } from '@atlaskit/theme/types';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import type { RendererPropsOverrides } from '../__helpers/testing-example-helpers';
 import type { ViewportSize } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
@@ -75,7 +74,6 @@ type InitRendererWithADFOptions = {
   viewport?: ViewPortOptions;
   rendererProps?: RendererPropsOverrides;
   allowSideEffects?: SideEffectOptions;
-  themeMode?: ThemeModes;
   /** Swap renderer to 'dummy' editor when when renderer calls onUnhandledClick */
   enableClickToEdit?: boolean;
 };
@@ -89,7 +87,6 @@ export async function initRendererWithADF(
     viewport,
     rendererProps,
     allowSideEffects,
-    themeMode,
     enableClickToEdit,
   }: InitRendererWithADFOptions,
 ) {
@@ -108,7 +105,7 @@ export async function initRendererWithADF(
   await disableAllSideEffects(page, allowSideEffects);
 
   // Mount the renderer with the right attributes
-  await mountRenderer(page, { appearance, themeMode, ...rendererProps }, adf);
+  await mountRenderer(page, { appearance, ...rendererProps }, adf);
 }
 
 export async function snapshot(

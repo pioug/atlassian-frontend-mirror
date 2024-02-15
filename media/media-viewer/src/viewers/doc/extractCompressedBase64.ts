@@ -14,10 +14,7 @@ export async function extractCompressedBase64(
   data: string,
   output: 'uint' | 'blob' = 'uint',
 ): Promise<unknown> {
-  const response = await fetch(data);
-  const zippedBinary = await response.arrayBuffer();
-
-  const uint = new Uint8Array(zippedBinary);
+  const uint = Uint8Array.from(atob(data), (c) => c.charCodeAt(0));
   const decompressed = await new Promise<Uint8Array>((res, rej) =>
     gunzip(uint, (err, data) => (err ? rej(err) : res(data))),
   );

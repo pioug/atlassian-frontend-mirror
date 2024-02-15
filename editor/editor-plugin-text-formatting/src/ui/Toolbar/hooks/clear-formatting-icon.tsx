@@ -10,35 +10,24 @@ import {
   tooltip,
 } from '@atlaskit/editor-common/keymaps';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { TextFormattingState } from '@atlaskit/editor-common/types';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 
 import { clearFormattingWithAnalytics } from '../../../commands/clear-formatting';
-import type { ClearFormattingState } from '../../../pm-plugins/clear-formatting';
-import { pluginKey as clearFormattingPluginKey } from '../../../pm-plugins/clear-formatting';
 import type { IconHookProps, MenuIconItem } from '../types';
 
 interface ClearIconHookProps extends IconHookProps {
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+  textFormattingState: TextFormattingState | undefined;
 }
-
-const useClearFormattingPluginState = (
-  editorState: EditorState,
-): ClearFormattingState | undefined => {
-  return useMemo(
-    () => clearFormattingPluginKey.getState(editorState),
-    [editorState],
-  );
-};
 
 export const useClearIcon = ({
   intl,
-  editorState,
+  textFormattingState,
   editorAnalyticsAPI,
 }: ClearIconHookProps): MenuIconItem | null => {
-  const pluginState = useClearFormattingPluginState(editorState);
-  const isPluginAvailable = Boolean(pluginState);
-  const formattingIsPresent = Boolean(pluginState?.formattingIsPresent);
+  const isPluginAvailable = Boolean(textFormattingState);
+  const formattingIsPresent = Boolean(textFormattingState?.formattingIsPresent);
   const clearFormattingLabel = intl.formatMessage(
     toolbarMessages.clearFormatting,
   );

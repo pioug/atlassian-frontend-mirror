@@ -1,5 +1,42 @@
 # @atlaskit/calendar
 
+## 14.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.6
+
+### Patch Changes
+
+- [#65872](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65872) [`42fb30840f3c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/42fb30840f3c) - [ux] Migrate buttons in Calendar to consume new icon buttons.
+- Updated dependencies
+
+## 14.0.5
+
+### Patch Changes
+
+- [#63677](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63677) [`f320c8ce5039`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f320c8ce5039) - This package has been added to the Jira push model.
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 14.0.2
+
+### Patch Changes
+
+- [#58458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58458) [`536478cdcf0b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/536478cdcf0b) - Made some tiny tweaks to the weekday header so its height is now an integer.
+
 ## 14.0.1
 
 ### Patch Changes

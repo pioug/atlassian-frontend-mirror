@@ -1,47 +1,48 @@
 /** @jsx jsx */
 import React, { Fragment } from 'react';
+
 import { css, jsx } from '@emotion/react';
-import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
-import { borderRadius } from '@atlaskit/theme/constants';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import { N40 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
-
-import Toolbar from '../../Toolbar';
-import PluginSlot from '../../PluginSlot';
-
-import type {
-  EditorAppearanceComponentProps,
-  EditorAppearance,
-} from '../../../types';
-import type {
-  MaxContentSizePluginState,
-  MaxContentSizePlugin,
-} from '@atlaskit/editor-plugin-max-content-size';
-import { ClickAreaBlock } from '../../Addon';
-import { tableCommentEditorStyles } from '@atlaskit/editor-plugin-table/ui/common-styles';
-import WithFlash from '../../WithFlash';
-import { WidthConsumer } from '@atlaskit/editor-common/ui';
-import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
-import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import classnames from 'classnames';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
+
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import { WidthConsumer } from '@atlaskit/editor-common/ui';
+import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
+import type {
+  MaxContentSizePlugin,
+  MaxContentSizePluginState,
+} from '@atlaskit/editor-plugins/max-content-size';
+import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
+import type { MediaPluginState } from '@atlaskit/editor-plugins/media/types';
+import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
+import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { N40 } from '@atlaskit/theme/colors';
+import { borderRadius } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
+
 import messages from '../../../messages';
-import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
-import type { MediaPluginState } from '@atlaskit/editor-plugin-media/types';
 import { usePresetContext } from '../../../presets/context';
+import type {
+  EditorAppearance,
+  EditorAppearanceComponentProps,
+} from '../../../types';
+import { ClickAreaBlock } from '../../Addon';
+import { createEditorContentStyle } from '../../ContentStyles';
+import PluginSlot from '../../PluginSlot';
+import Toolbar from '../../Toolbar';
+import WithFlash from '../../WithFlash';
 
 import {
-  TableControlsPadding,
   MainToolbar,
   mainToolbarCustomComponentsSlotStyle,
+  TableControlsPadding,
 } from './Toolbar';
-import { createEditorContentStyle } from '../../ContentStyles';
-import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 
 const CommentEditorMargin = 14;
 
@@ -172,6 +173,9 @@ class Editor extends React.Component<
       return event.altKey && (event.key === 'F9' || event.keyCode === 120);
     };
 
+    const isTwoLineToolbarEnabled =
+      !!customPrimaryToolbarComponents && !!featureFlags?.twoLineEditorToolbar;
+
     const handleEscape = (event: KeyboardEvent) => {
       if (!editorView?.hasFocus()) {
         editorView?.focus();
@@ -192,7 +196,10 @@ class Editor extends React.Component<
           className="akEditor"
           ref={this.wrapperElementRef}
         >
-          <MainToolbar useStickyToolbar={useStickyToolbar}>
+          <MainToolbar
+            useStickyToolbar={useStickyToolbar}
+            twoLineEditorToolbar={isTwoLineToolbarEnabled}
+          >
             <ToolbarArrowKeyNavigationProvider
               editorView={editorView}
               childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
@@ -215,8 +222,13 @@ class Editor extends React.Component<
                 disabled={!!disabled}
                 dispatchAnalyticsEvent={dispatchAnalyticsEvent}
                 containerElement={this.containerElement}
+                twoLineEditorToolbar={isTwoLineToolbarEnabled}
               />
-              <div css={mainToolbarCustomComponentsSlotStyle}>
+              <div
+                css={mainToolbarCustomComponentsSlotStyle(
+                  isTwoLineToolbarEnabled,
+                )}
+              >
                 {customPrimaryToolbarComponents}
               </div>
             </ToolbarArrowKeyNavigationProvider>
@@ -239,7 +251,10 @@ class Editor extends React.Component<
                     })}
                     featureFlags={featureFlags}
                   >
-                    {customContentComponents}
+                    {customContentComponents &&
+                    'before' in customContentComponents
+                      ? customContentComponents.before
+                      : customContentComponents}
                     <PluginSlot
                       editorView={editorView}
                       editorActions={editorActions}
@@ -257,6 +272,10 @@ class Editor extends React.Component<
                       pluginHooks={pluginHooks}
                     />
                     {editorDOMElement}
+                    {customContentComponents &&
+                    'after' in customContentComponents
+                      ? customContentComponents.after
+                      : null}
                   </ContentArea>
                 );
               }}

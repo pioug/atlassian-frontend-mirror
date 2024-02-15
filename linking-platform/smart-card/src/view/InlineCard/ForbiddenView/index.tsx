@@ -11,10 +11,9 @@ import { FormattedMessage } from 'react-intl-next';
 import { IconStyledButton } from '../styled';
 import { RequestAccessContextProps } from '../../types';
 import Lozenge from '@atlaskit/lozenge';
-import {
-  LozengeWrapper,
-  LozengeBlockWrapper,
-} from '../IconAndTitleLayout/styled';
+import { LozengeWrapper } from '../IconAndTitleLayout/styled';
+import withFrameStyleControl from '../utils/withFrameStyleControl';
+import { HoverCard } from '../../HoverCard';
 
 export interface InlineCardForbiddenViewProps {
   /** The url to display */
@@ -33,6 +32,8 @@ export interface InlineCardForbiddenViewProps {
   testId?: string;
   /* Describes additional metadata based on the type of access a user has to the link */
   requestAccessContext?: RequestAccessContextProps;
+  /** Enables showing a custom preview on hover of link */
+  showHoverPreview?: boolean;
 }
 
 const FallbackForbiddenIcon = (
@@ -47,6 +48,8 @@ const FallbackForbiddenIcon = (
 );
 
 export class InlineCardForbiddenView extends React.Component<InlineCardForbiddenViewProps> {
+  private frameRef = React.createRef<HTMLSpanElement & null>();
+
   state = {
     hasRequestAccessContextMessage:
       !!this.props?.requestAccessContext?.callToActionMessageKey,
@@ -66,10 +69,11 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
   renderForbiddenAccessMessage = () => {
     if (this.props?.requestAccessContext?.callToActionMessageKey) {
       const { callToActionMessageKey } = this.props.requestAccessContext;
+
       return (
         <FormattedMessage
           {...messages[callToActionMessageKey]}
-          values={{ context: this.props.context }}
+          values={{ product: this.props.context }}
         />
       );
     }
@@ -84,45 +88,43 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
     );
   };
 
-  renderRightSide = () => {
+  renderActionButton = () => {
     const { onAuthorise } = this.props;
+    const ActionButton = withFrameStyleControl(Button, this.frameRef);
+    const accessType = this.props.requestAccessContext?.accessType;
 
     if (this.state.hasRequestAccessContextMessage) {
       return (
-        <Button
+        <ActionButton
           spacing="none"
-          appearance="subtle-link"
           onClick={this.handleRetry}
           component={IconStyledButton}
           testId="button-connect-other-account"
           role="button"
+          isDisabled={accessType === 'PENDING_REQUEST_EXISTS'}
         >
           {this.renderForbiddenAccessMessage()}
-        </Button>
+        </ActionButton>
       );
     }
 
     if (onAuthorise) {
       return (
-        <LozengeBlockWrapper>
-          <Button
-            spacing="none"
-            appearance="subtle-link"
-            onClick={this.handleRetry}
-            component={IconStyledButton}
-            testId="button-connect-other-account"
-            role="button"
-          >
-            <LozengeWrapper>
-              <Lozenge appearance={'moved'}>
-                {this.renderForbiddenAccessMessage()}
-              </Lozenge>
-            </LozengeWrapper>
-          </Button>
-        </LozengeBlockWrapper>
+        <Button
+          spacing="none"
+          onClick={this.handleRetry}
+          appearance="subtle-link"
+          testId="button-connect-other-account"
+          role="button"
+        >
+          <LozengeWrapper>
+            <Lozenge appearance={'moved'}>
+              {this.renderForbiddenAccessMessage()}
+            </Lozenge>
+          </LozengeWrapper>
+        </Button>
       );
     }
-
     return null;
   };
 
@@ -134,18 +136,24 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
       isSelected,
       testId = 'inline-card-forbidden-view',
     } = this.props;
-    return (
-      <Frame testId={testId} isSelected={isSelected}>
+
+    const content = (
+      <Frame testId={testId} isSelected={isSelected} ref={this.frameRef}>
         <IconAndTitleLayout
           icon={icon ? icon : FallbackForbiddenIcon}
           link={url}
           title={url}
           onClick={onClick}
           titleColor={token('color.text.subtle', N500)}
-          rightSide={this.renderRightSide()}
-          rightSideSpacer={this.state.hasRequestAccessContextMessage}
         />
+        {this.renderActionButton()}
       </Frame>
     );
+
+    if (this.props.showHoverPreview) {
+      return <HoverCard url={url}>{content}</HoverCard>;
+    }
+
+    return content;
   }
 }

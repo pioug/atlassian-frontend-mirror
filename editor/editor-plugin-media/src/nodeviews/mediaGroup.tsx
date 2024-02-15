@@ -5,6 +5,7 @@ import { injectIntl } from 'react-intl-next';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { nodeViewsMessages as messages } from '@atlaskit/editor-common/media';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
@@ -41,7 +42,6 @@ import type {
 } from '../types';
 
 import { MediaNodeUpdater } from './mediaNodeUpdater';
-import { messages } from './messages';
 
 export type MediaGroupProps = {
   forwardRef?: (ref: HTMLElement) => void;

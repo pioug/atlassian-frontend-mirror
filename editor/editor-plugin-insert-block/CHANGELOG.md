@@ -1,5 +1,237 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.0.1
+
+### Patch Changes
+
+- [#72440](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72440) [`eee41a9f4bda`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eee41a9f4bda) - [ux] Ensures that when a table is inserted via popup, the table has a blinking cursor.
+
+## 1.0.0
+
+### Major Changes
+
+- [#72386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72386) [`0c52b0be40c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c52b0be40c1) - This changeset exists to bump all editor plugins that currently don't have a major version. This is to address an issue with Jira plugin consumption.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.3.6
+
+### Patch Changes
+
+- [#72081](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72081) [`4487160917d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4487160917d2) - [ux] ED-22052: adds button type attribute to non atlaskit button instances
+
+## 0.3.5
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+
+## 0.3.4
+
+### Patch Changes
+
+- [#71128](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71128) [`d8b202a941c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d8b202a941c9) - [ux] When the Right Arrow is pressed and the selection reaches the last row of the default popup, the grid should expand
+- Updated dependencies
+
+## 0.3.3
+
+### Patch Changes
+
+- [#70300](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70300) [`9622d585a805`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9622d585a805) - [ux] decreased popup size when wrapping selection with arrowRight
+
+## 0.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.3.1
+
+### Patch Changes
+
+- [#68670](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68670) [`801899ef02f2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/801899ef02f2) - [ux] Added accessibility via keyboard for arrows left, right, up and down
+- Updated dependencies
+
+## 0.3.0
+
+### Minor Changes
+
+- [#68790](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68790) [`c6d8affc52d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6d8affc52d1) - Support maybeAdd plugins in usePreset. Add typing support for universal preset.
+
+  Now when using the editor API with the universal preset
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.26
+
+### Patch Changes
+
+- [#63634](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63634) [`669b7038b354`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/669b7038b354) - chenged aria-label text
+
+## 0.2.25
+
+### Patch Changes
+
+- [#67703](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67703) [`d5303cb0f0cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d5303cb0f0cb) - When a table is inserted via the table selector popup, an analytics event should be sent with the totalRowCount and totalColumnCount and the input method picker. Removed ASCII and TYPEAHEAD inputMethod from table selector command.
+- Updated dependencies
+
+## 0.2.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.21
+
+### Patch Changes
+
+- [#67051](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67051) [`08b5bd90a149`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/08b5bd90a149) - [ux] The table selector popup should gradually expand to 10 x 10 rows when hovered
+- Updated dependencies
+
+## 0.2.20
+
+### Patch Changes
+
+- [#67238](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67238) [`40533849b2ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40533849b2ec) - [ED-21835] Change EditorAPI type to always union with undefined
+
+## 0.2.19
+
+### Patch Changes
+
+- [#65874](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65874) [`282862992d2a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/282862992d2a) - [ux] added popup to table selector button using mouse movement
+
+## 0.2.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.15
+
+### Patch Changes
+
+- [#65802](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65802) [`438ead060875`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/438ead060875) - Ensure all editor plugins are marked as singletons
+
+## 0.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.12
+
+### Patch Changes
+
+- [#64152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64152) [`4bc51e1731ba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4bc51e1731ba) - [ux] Added a table selector button to the full page toolbar and button styles
+- Updated dependencies
+
+## 0.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.6
+
+### Patch Changes
+
+- [#61337](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61337) [`2d827c1d6c40`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d827c1d6c40) - Remove emojiProvider property from the sharedState of the emoji plugin. This avoids a performance degradation if the provider is not memoised. It can still be retrieved via the provider factory if required internally.
+- Updated dependencies
+
+## 0.2.5
+
+### Patch Changes
+
+- [#60612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60612) [`7edc766361a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7edc766361a2) - Created an EditorCommad on table plugin to insert a table of custom size
+
+## 0.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.0
 
 ### Minor Changes

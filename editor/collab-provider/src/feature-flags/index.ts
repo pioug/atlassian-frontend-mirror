@@ -7,9 +7,7 @@ import type {
 
 const defaultNCSFeatureFlags: Required<NCSFeatureFlags> = {
   testFF: false,
-  socketMessageMetricsFF: false,
-  sendStepsQueueFF: false,
-  blockViewOnlyFF: false,
+  blockViewOnly: false,
 };
 
 /**
@@ -18,10 +16,7 @@ const defaultNCSFeatureFlags: Required<NCSFeatureFlags> = {
 const productKeys: ProductKeys = {
   confluence: {
     testFF: 'confluence.frontend.collab.provider.testFF',
-    socketMessageMetricsFF:
-      'confluence.frontend.collab.provider.socketMessageMetricsFF',
-    sendStepsQueueFF: 'confluence.frontend.collab.provider.sendStepsQueueFF',
-    blockViewOnlyFF: 'confluence.frontend.collab.provider.blockViewOnlyFF',
+    blockViewOnly: 'confluence.frontend.ncs.block-view-only',
   },
 };
 

@@ -7,13 +7,10 @@ import { type CommonButtonVariantProps } from '../types';
 import { type CommonIconButtonProps } from './types';
 import useIconButton from './use-icon-button';
 
-export type IconButtonProps = CommonIconButtonProps &
-  Omit<CommonButtonVariantProps, 'children' | 'appearance'>;
+export type IconButtonProps = CommonButtonVariantProps & CommonIconButtonProps;
 
 /**
  * __Icon Button__
- *
- * @private __UNSAFE__ IconButton is not yet safe for production use.
  *
  * TODO: Description
  *
@@ -44,6 +41,7 @@ const IconButton = React.memo(
       onPointerDownCapture,
       onPointerUpCapture,
       onClickCapture,
+      shape,
       type = 'button',
       testId,
       UNSAFE_size,
@@ -60,7 +58,6 @@ const IconButton = React.memo(
       appearance,
       autoFocus,
       buttonType: 'button',
-      children: null, // Set in hook.
       icon,
       interactionName,
       isDisabled,
@@ -78,6 +75,7 @@ const IconButton = React.memo(
       onClickCapture,
       overlay,
       ref,
+      shape,
       spacing,
       UNSAFE_size,
     });

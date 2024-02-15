@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import React from 'react';
+
 import { css, jsx } from '@emotion/react';
+
+import { createParagraphAtEnd } from '@atlaskit/editor-common/commands';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { createParagraphAtEnd } from '../../../commands';
 
 const clickArea = css`
   flex-grow: 1;

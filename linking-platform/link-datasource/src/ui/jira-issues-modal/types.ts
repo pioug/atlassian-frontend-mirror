@@ -20,23 +20,14 @@ export type JiraIssueDatasourceParameters = {
 
 export type JiraIssueViewModes = 'issue' | 'count';
 
-export interface JiraIssuesDatasourceAdf extends DatasourceAdf {
-  attrs: {
-    url?: string;
-    datasource: {
-      id: string;
-      parameters: JiraIssueDatasourceParameters;
-      views: [
-        {
-          type: 'table';
-          properties?: {
-            columns: { key: string; width?: number }[];
-          };
-        },
-      ];
-    };
-  };
+export interface Site {
+  cloudId: string;
+  displayName: string;
+  url: string;
 }
+
+export type JiraIssuesDatasourceAdf =
+  DatasourceAdf<JiraIssueDatasourceParameters>;
 
 export interface JiraIssuesConfigModalProps {
   /** Unique identifier for which type of datasource is being rendered and for making its requests */
@@ -56,7 +47,10 @@ export interface JiraIssuesConfigModalProps {
     analyticsEvent?: UIAnalyticsEvent,
   ) => void;
   /** The view mode that the modal will show on open:
-   * - issues = list of links table
-   * - count = smart link showing query results count */
+   * - Table = Displays a list of links in table format
+   * - Inline link = Presents a smart link that shows the count of query results. However, if there's only one result, it converts to an inline smart link of that issue.
+
+   * The view modes in 'JiraIssueViewModes' have not been changed from 'count' to 'inline link' and 'issue' to 'table'
+   * because it will introduce breaking changes to the public API requiring a major version bump*/
   viewMode?: JiraIssueViewModes;
 }

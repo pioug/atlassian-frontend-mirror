@@ -36,7 +36,7 @@ type WrapperProps = {
   inputMethod?: TypeAheadInputMethod;
 };
 
-export const WrapperTypeAhead: React.FC<WrapperProps> = React.memo(
+export const WrapperTypeAhead = React.memo(
   ({
     triggerHandler,
     editorView,
@@ -50,7 +50,7 @@ export const WrapperTypeAhead: React.FC<WrapperProps> = React.memo(
     getDecorationPosition,
     reopenQuery,
     onUndoRedo,
-  }) => {
+  }: WrapperProps) => {
     const [closed, setClosed] = useState(false);
     const [query, setQuery] = useState<string>(reopenQuery || '');
     const queryRef = useRef(query);

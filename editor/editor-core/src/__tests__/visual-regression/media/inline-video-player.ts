@@ -1,14 +1,16 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
-import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import mediaSingleVideoAdf from '../table/__fixtures__/mediasingle-video.adf.json';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import mediaSingleVideoAdf from '../table/__fixtures__/mediasingle-video.adf.json';
 
 describe('Snapshot Test: Media inline video player', () => {
   let page: PuppeteerPage;
@@ -44,8 +46,7 @@ describe('Snapshot Test: Media inline video player', () => {
     await waitForMediaToBeLoaded(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 9/5/2021: https://product-fabric.atlassian.net/browse/MEX-929
-  it.skip('should render inline video player', async () => {
+  it('should render inline video player', async () => {
     await page.waitForSelector('[data-testid="media-file-card-view"]');
     await makeSnapshot(page);
     await page.click('[data-testid="media-file-card-view"]');
@@ -63,8 +64,7 @@ describe('Snapshot Test: Media inline video player', () => {
     await makeSnapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 9/5/2021: https://product-fabric.atlassian.net/browse/MEX-929
-  it.skip('volume controls', async () => {
+  it('volume controls', async () => {
     await page.waitForSelector('[data-testid="media-file-card-view"]');
     await page.click('[data-testid="media-file-card-view"]');
     await waitForMediaFloatingToolbar(page);
@@ -79,8 +79,7 @@ describe('Snapshot Test: Media inline video player', () => {
     await makeSnapshot(page);
   });
 
-  // FIXME: flakey test
-  it.skip('danger styles', async () => {
+  it('danger styles', async () => {
     await page.waitForSelector('[data-testid="media-file-card-view"]');
     await page.click('[data-testid="media-file-card-view"]');
     await waitForMediaFloatingToolbar(page);

@@ -1,27 +1,25 @@
 import {
-  editorTestCase as test,
-  expect,
-  EditorMentionModel,
   EditorMainToolbarModel,
+  EditorMentionModel,
   EditorNodeContainerModel,
-  fixTest,
-  BROWSERS,
+  expect,
+  editorTestCase as test,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  doc,
-  p,
   blockquote,
-  mention,
-  ul,
-  li,
-  ol,
-  decisionList,
-  decisionItem,
-  taskList,
-  taskItem,
   code,
   code_block,
+  decisionItem,
+  decisionList,
+  doc,
+  li,
+  mention,
+  ol,
+  p,
+  taskItem,
+  taskList,
+  ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.describe('feature name: Mention', () => {
@@ -99,38 +97,6 @@ test.describe('feature name: Mention', () => {
         ),
       ),
     );
-  });
-
-  test.describe('when restartNumberedLists is true', () => {
-    test.use({
-      editorProps: {
-        appearance: 'full-page',
-        featureFlags: {
-          restartNumberedLists: true,
-        },
-      },
-    });
-    test('mention-1.ts: user can see mention inside orderedList with restartNumberedLists', async ({
-      editor,
-    }) => {
-      const mentionModel = EditorMentionModel.from(editor);
-      await editor.keyboard.type('1. list ');
-      await mentionModel.search('Carolyn');
-      await editor.keyboard.press('Enter');
-      await expect(editor).toHaveDocument(
-        doc(
-          ol()(
-            li(
-              p(
-                'list ',
-                mention({ id: '0', text: '@Carolyn', accessLevel: '' })(),
-                ' ',
-              ),
-            ),
-          ),
-        ),
-      );
-    });
   });
 
   test('mention-1.ts: user can see mention inside decision', async ({
@@ -275,13 +241,6 @@ test.describe('feature name: Mention', () => {
   test('mention-3.ts: should not insert on space if multiple exact nickname match', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-20853, ED-20968',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 11/11/2023: https://product-fabric.atlassian.net/browse/ED-20853',
-      browsers: [BROWSERS.chromium, BROWSERS.webkit],
-    });
-
     const mentionModel = EditorMentionModel.from(editor);
     const pgillLocator = await mentionModel.mentionItemByName('pgill');
     const jjacksonLocator = await mentionModel.mentionItemByName('jjackson');
@@ -337,13 +296,6 @@ test.describe('feature name: Mention', () => {
   test('mention-3.ts: users with same first name should not be selected if space', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-21068',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 20/11/2023: https://product-fabric.atlassian.net/browse/ED-21068',
-      browsers: [BROWSERS.webkit],
-    });
-
     const mentionModel = EditorMentionModel.from(editor);
     const awoodsLocator = await mentionModel.mentionItemByName('awoods');
     const fatimaLocator = await mentionModel.mentionItemByName('Fatima');

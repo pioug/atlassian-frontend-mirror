@@ -8,7 +8,10 @@ import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { AKIconWrapper } from '../Icon';
 import { messages } from '../../../messages';
 import { FormattedMessage } from 'react-intl-next';
-import { IconStyledButton, LowercaseAppearance } from '../styled';
+import { IconStyledButton } from '../styled';
+import withFrameStyleControl from '../utils/withFrameStyleControl';
+import { HoverCard } from '../../HoverCard';
+
 export interface InlineCardErroredViewProps {
   /** The url to display */
   url: string;
@@ -24,9 +27,13 @@ export interface InlineCardErroredViewProps {
   testId?: string;
   /* Icon to be provided to show this error state */
   icon?: React.ReactNode;
+  /** Enables showing a custom preview on hover of link */
+  showHoverPreview?: boolean;
 }
 
 export class InlineCardErroredView extends React.Component<InlineCardErroredViewProps> {
+  private frameRef = React.createRef<HTMLSpanElement & null>();
+
   handleRetry = (event: React.MouseEvent<HTMLElement>) => {
     const { onRetry } = this.props;
     if (onRetry) {
@@ -36,30 +43,22 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
     }
   };
 
-  renderRightSide = () => {
-    const { onRetry, message } = this.props;
-    return !onRetry ? (
-      message
-    ) : (
-      <>
-        {message}
-        {', '}
-        <Button
+  renderActionButton = () => {
+    const { onRetry } = this.props;
+
+    const ActionButton = withFrameStyleControl(Button, this.frameRef);
+
+    return (
+      onRetry && (
+        <ActionButton
           spacing="none"
-          appearance="subtle-link"
           component={IconStyledButton}
           onClick={this.handleRetry}
           role="button"
         >
-          <FormattedMessage {...messages.try_again}>
-            {(formattedMessage) => {
-              return (
-                <LowercaseAppearance>{formattedMessage}</LowercaseAppearance>
-              );
-            }}
-          </FormattedMessage>
-        </Button>
-      </>
+          <FormattedMessage {...messages.try_again} />
+        </ActionButton>
+      )
     );
   };
 
@@ -70,9 +69,11 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
       isSelected,
       testId = 'inline-card-errored-view',
       icon,
+      message,
     } = this.props;
-    return (
-      <Frame testId={testId} isSelected={isSelected}>
+
+    const content = (
+      <Frame testId={testId} isSelected={isSelected} ref={this.frameRef}>
         <IconAndTitleLayout
           icon={
             icon || (
@@ -89,9 +90,16 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
           link={url}
           title={url}
           onClick={onClick}
-          rightSide={this.renderRightSide()}
+          rightSide={message}
         />
+        {this.renderActionButton()}
       </Frame>
     );
+
+    if (this.props.showHoverPreview) {
+      return <HoverCard url={url}>{content}</HoverCard>;
+    }
+
+    return content;
   }
 }

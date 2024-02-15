@@ -1,7 +1,7 @@
 import prettier from 'prettier';
 import parserTypeScript from 'prettier/parser-typescript';
 
-import { typography as tokens } from '@atlaskit/tokens/tokens-raw';
+import { typographyAdg3 as tokens } from '@atlaskit/tokens/tokens-raw';
 
 import { capitalize, constructTokenFunctionCall } from './utils';
 
@@ -61,10 +61,17 @@ const activeTokens: Token[] = tokens.map(t => ({
 }));
 
 const removeVerbosity = (name: string): string => {
-  const toRemove = ['font.heading', 'font.ui', 'font.body'];
-  if (toRemove.some(s => name.includes(s))) {
+  const partialRemove = ['font.heading', 'font.ui', 'font.body'];
+  if (partialRemove.some(s => name.includes(s))) {
     return name.replace('font.', '');
   }
+
+  const fullRemove = ['font.weight'];
+  const removeIndex = fullRemove.findIndex(s => name.includes(s));
+  if (removeIndex > -1) {
+    return name.replace(`${fullRemove[removeIndex]}.`, '');
+  }
+
   return name;
 };
 
@@ -81,19 +88,19 @@ export const createTypographyStylesFromTemplate = (
     prettier.format(
       `
 export const ${objectName}Map = {
-  ${activeTokens
-    .filter(filterFn)
-    .map(t => ({ ...t, name: t.name.replace(/\.\[default\]/g, '') }))
-    .sort((a, b) => (a.name < b.name ? -1 : 1))
-    .map(token => {
-      return `
-        '${removeVerbosity(token.name)}': ${constructTokenFunctionCall(
-        token.name,
-        token.fallback,
-      )}
-      `.trim();
-    })
-    .join(',\n\t')}
+${activeTokens
+  .filter(filterFn)
+  .map(t => ({ ...t, name: t.name.replace(/\.\[default\]/g, '') }))
+  .sort((a, b) => (a.name < b.name ? -1 : 1))
+  .map(token => {
+    return `
+      '${removeVerbosity(token.name)}': ${constructTokenFunctionCall(
+      token.name,
+      token.fallback,
+    )}
+    `.trim();
+  })
+  .join(',\n\t')}
 };`,
       {
         singleQuote: true,

@@ -1,42 +1,48 @@
 import React from 'react';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import { normalizeHexColor } from '@atlaskit/adf-schema';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
-  deviceViewPorts,
-  Device,
-} from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+  animationFrame,
+  clickEditableContent,
+  scrollToBottom,
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import {
+  pressKey,
+  pressKeyCombo,
+} from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import { resetMousePosition } from '@atlaskit/editor-test-helpers/page-objects/mouse';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import {
+  clickToolbarMenu,
+  isDropdownMenuItemFocused,
+  mainToolbarSelector,
+  retryUntilStablePosition,
+  toolbarMenuItemsSelectors as selectors,
+  selectToolbarMenuWithKeyboard,
+  toolbarDropdownMenuSelectors,
+  ToolbarMenuItem,
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   Appearance,
   editorSelector,
   initEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import {
-  clickToolbarMenu,
-  isDropdownMenuItemFocused,
-  mainToolbarSelector,
-  retryUntilStablePosition,
-  selectToolbarMenuWithKeyboard,
-  toolbarDropdownMenuSelectors,
-  ToolbarMenuItem,
-  toolbarMenuItemsSelectors as selectors,
-} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import { resetMousePosition } from '@atlaskit/editor-test-helpers/page-objects/mouse';
-import {
-  pressKey,
-  pressKeyCombo,
-} from '@atlaskit/editor-test-helpers/page-objects/keyboard';
-import {
-  animationFrame,
-  clickEditableContent,
-  scrollToBottom,
-} from '@atlaskit/editor-test-helpers/page-objects/editor';
-import * as parapgrahADF from './__fixtures__/paragraph-of-text.adf.json';
-import { getElementComputedStyle } from '@atlaskit/editor-test-helpers/vr-utils/get-computed-style';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-
+import {
+  Device,
+  deviceViewPorts,
+} from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import { getElementComputedStyle } from '@atlaskit/editor-test-helpers/vr-utils/get-computed-style';
 import { N700 } from '@atlaskit/theme/colors';
-import { normalizeHexColor } from '@atlaskit/adf-schema';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import * as parapgrahADF from './__fixtures__/paragraph-of-text.adf.json';
 
 const selectedColor = N700;
 
@@ -44,9 +50,7 @@ async function focusToolbar(page: PuppeteerPage) {
   await pressKeyCombo(page, ['Alt', 'F9']);
 }
 
-// FIXME: Skipped because of flakiness
-// https://product-fabric.atlassian.net/browse/ED-16626
-describe.skip('Toolbar', () => {
+describe('Toolbar', () => {
   let page: PuppeteerPage;
 
   beforeEach(async () => {
@@ -81,8 +85,7 @@ describe.skip('Toolbar', () => {
 });
 
 describe('Toolbar keyboard shortcut', () => {
-  // FIXME: This test was automatically skipped due to failure on 13/04/2023: https://product-fabric.atlassian.net/browse/ED-17488
-  it.skip.each([Appearance.fullPage, Appearance.comment])(
+  it.each([Appearance.fullPage, Appearance.comment])(
     'in %s, should focus main toolbar and return on "ESC" ',
     async (appearance) => {
       let page = global.page;
@@ -107,9 +110,7 @@ describe('Toolbar keyboard shortcut', () => {
   );
 });
 
-// FIXME: Skipped because of flakiness
-// https://product-fabric.atlassian.net/browse/ED-16626
-describe.skip('Toolbar: Text Color', () => {
+describe('Toolbar: Text Color', () => {
   let page: PuppeteerPage;
 
   beforeEach(async () => {
@@ -144,22 +145,16 @@ describe.skip('Toolbar: Text Color', () => {
     await snapshot(page, undefined, editorSelector);
   });
 
-  // Skipped because of flakiness
-  // https://product-fabric.atlassian.net/browse/ED-16626
-  it.skip('should close the text color menu when ESC is pressed', async () => {
+  it('should close the text color menu when ESC is pressed', async () => {
     await page.keyboard.down('Escape');
   });
 
-  // Skipped because of flakiness
-  // https://product-fabric.atlassian.net/browse/ED-16626
-  it.skip('should close the text color menu when clicked outside', async () => {
+  it('should close the text color menu when clicked outside', async () => {
     await page.mouse.click(0, 0);
   });
 });
 
-// FIXME: Skipped because of flakiness
-// https://product-fabric.atlassian.net/browse/ED-16626
-describe.skip('Toolbar: Emoji', () => {
+describe('Toolbar: Emoji', () => {
   let page: PuppeteerPage;
 
   const EmojiButtonSelector =
@@ -211,22 +206,16 @@ describe.skip('Toolbar: Emoji', () => {
     expect(currentBgColor).toBe('rgba(0, 0, 0, 0)');
   });
 
-  // FIXME: Skipped because of flakiness
-  // https://product-fabric.atlassian.net/browse/ED-16626
-  it.skip('should close the emoji menu when ESC is pressed', async () => {
+  it('should close the emoji menu when ESC is pressed', async () => {
     await page.keyboard.down('Escape');
   });
 
-  // FIXME: Skipped because of flakiness
-  // https://product-fabric.atlassian.net/browse/ED-16626
-  it.skip('should close the emoji menu when clicked outside', async () => {
+  it('should close the emoji menu when clicked outside', async () => {
     await page.mouse.click(0, 0);
   });
 });
 
-// FIXME: Skipped because of flakiness
-// https://product-fabric.atlassian.net/browse/ED-16626
-describe.skip('Toolbar: Comment', () => {
+describe('Toolbar: Comment', () => {
   let page: PuppeteerPage;
 
   beforeEach(async () => {
@@ -248,9 +237,7 @@ describe.skip('Toolbar: Comment', () => {
   });
 });
 
-// FIXME: Skipped because of flakiness
-// https://product-fabric.atlassian.net/browse/ED-16626
-describe.skip('Toolbar: IconBefore', () => {
+describe('Toolbar: IconBefore', () => {
   let page: PuppeteerPage;
 
   afterEach(async () => {
@@ -270,16 +257,22 @@ describe.skip('Toolbar: IconBefore', () => {
       });
     });
 
-    it('should show the icon', async () => {
+    // FIXME: Skipping this test as it is flaky
+    // Build link: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2287979
+    it.skip('should show the icon', async () => {
       await page.mouse.move(-30, -30);
     });
 
-    it('should show the icon in narrow view', async () => {
+    // FIXME: Skipping this test as it is flaky
+    // Build link: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2289567
+    it.skip('should show the icon in narrow view', async () => {
       await page.setViewport({ width: 400, height: 350 });
     });
   });
 
-  it('should allow primary toolbar to span entire width when not specified', async () => {
+  // FIXME: Skipping this test as it is flaky
+  // Build link: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2289567
+  it.skip('should allow primary toolbar to span entire width when not specified', async () => {
     page = global.page;
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,

@@ -4,7 +4,11 @@ export default {
     attrs: {
       props: {
         data: { type: 'object', optional: true },
-        type: { type: 'enum', values: ['link', 'file'], optional: true },
+        type: {
+          type: 'enum',
+          values: ['link', 'file', 'image'],
+          optional: true,
+        },
         id: { type: 'string', minLength: 1 },
         collection: { type: 'string' },
         height: { type: 'number', optional: true },
@@ -13,6 +17,6 @@ export default {
         alt: { type: 'string', optional: true },
       },
     },
-    marks: { type: 'array', items: ['link'], optional: true },
+    marks: { type: 'array', items: [['link', 'border']], optional: true },
   },
 };

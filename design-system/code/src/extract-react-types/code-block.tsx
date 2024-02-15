@@ -9,10 +9,10 @@ export default function CodeBlock(__: {
    */
   testId?: string;
   /**
-   * Sets whether to display code line numbers or not. Defaults to `true`
+   * Sets whether to display code line numbers or not. Defaults to `true`.
    */
   showLineNumbers?: boolean;
-  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
+  /* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
   /**
    Language reference designed to be populated from `SUPPORTED_LANGUAGES` in
    `design-system/code`. Run against language grammars from PrismJS (full list
@@ -21,10 +21,9 @@ export default function CodeBlock(__: {
    When set to `text` will not perform highlighting. If unsupported language
    provided - code will be treated as "text" with no highlighting.
 
-   Defaults to `text`
+   Defaults to `text`.
    */
   language?: string;
-  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
    Comma delimited lines to highlight.
 
@@ -34,6 +33,7 @@ export default function CodeBlock(__: {
    - To highlight multiple groups `highlight="1-5,7,10,15-20"`
    */
   highlight?: string;
+  /* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
 
   /**
    * Screen reader text for the start of a highlighted line.
@@ -46,7 +46,7 @@ export default function CodeBlock(__: {
   highlightedEndText?: string;
   /**
    * Sets whether long lines will create a horizontally scrolling container.
-   * When set to `true`, these lines will visually wrap instead. Defaults to `false`
+   * When set to `true`, these lines will visually wrap instead. Defaults to `false`.
    */
   shouldWrapLongLines?: boolean;
 }) {

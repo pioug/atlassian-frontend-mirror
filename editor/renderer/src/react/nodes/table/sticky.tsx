@@ -85,6 +85,10 @@ const fixedTableDivStaticStyles = (
       top: 0px;
       height: 100%;
     }
+
+    &.fixed-table-div-custom-table-resizing[mode='stick'] {
+      z-index: ${stickyHeaderZIndex};
+    }
   `;
 };
 
@@ -98,7 +102,16 @@ export const FixedTableDiv: React.FC<FixedProps> = (props) => {
   const attrs = { mode };
 
   return (
-    <div {...attrs} data-testid="sticky-table-fixed" css={fixedTableCss}>
+    <div
+      {...attrs}
+      data-testid="sticky-table-fixed"
+      className={
+        isTableResizingEnabled(rendererAppearance)
+          ? 'fixed-table-div-custom-table-resizing'
+          : ''
+      }
+      css={fixedTableCss}
+    >
       {props.children}
     </div>
   );

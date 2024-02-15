@@ -15,7 +15,6 @@ It takes a file as an input and pushes it through Observable pipe that consist o
 
 - `slicenator`
 - `hashinator`
-- `probinator`
 - `uploadinator`
 - `processinator`
 
@@ -26,8 +25,6 @@ interface Options {
   chunkSize: number;
   hashingConcurrency: number;
   hashingFunction?: HashingFunction;
-  probingBatchSize: number;
-  probingFunction: ProbingFunction;
   uploadingConcurrency: number;
   uploadingFunction: UploadingFunction;
   processingBatchSize: number;
@@ -51,17 +48,9 @@ Options' `hashingConcurrency` defines how many
 chunks are hashed at the same time. `hashingFunction` is optional hashing function. If `hashingFunction` is not
 provided `SHA-1` will be used instead.
 
-## probinator
-
-This component takes already hashed blobs and probes each of them with backend for it already being uploaded.
-Resulting stream contains blob with hash and boolean indicating if it exists on a backend already.
-
-Options' `probingFunction` is a function that takes batch of hashed blobs and returns list of booleans.
-`probingBatchSize` controls how many hashed blobs are given to probing function at a time.
-
 ## uploadinator
 
-This component takes probed and hashed blobs and uploads them if blob doesn't exists on a backend.
+This component takes hashed blobs and uploads them if blob doesn't exists on a backend.
 
 Options' `uploadingFunction` is a callback that takes a blob and uploads it to the server.
 `uploadingConcurrency` controls how many of these calls happens at the same time.

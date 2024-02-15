@@ -11,6 +11,7 @@ import { ARTIFACT_OUTPUT_DIR, THEME_INPUT_DIR } from './constants';
 import formatterTokenDescriptionCSV from './formatters/csv-token-description';
 import formatterDynamicImportMap from './formatters/dynamic-import-map';
 import formatterReplacementMapper from './formatters/replacement-mapper';
+import formatterTSCssTypeSchema from './formatters/typescript-css-type-schema';
 import formatterTSTokenDefaults from './formatters/typescript-token-defaults';
 import formatterTSGeneratedTypes from './formatters/typescript-token-generated-types';
 import formatterTSGeneratedTypesInternal from './formatters/typescript-token-generated-types-internal';
@@ -61,6 +62,7 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
     'typescript/token-types-internal': formatterTSGeneratedTypesInternal as any,
     'typescript/generate-recommended-pairs':
       formatterTSGeneratedPairings as any,
+    'typescript/css-type-schema': formatterTSCssTypeSchema as any,
     'css/dynamic-import-map': formatterDynamicImportMap as any,
   },
   platforms: {
@@ -116,6 +118,10 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
         {
           format: 'typescript/generate-recommended-pairs',
           destination: 'generated-pairs.tsx',
+        },
+        {
+          format: 'typescript/css-type-schema',
+          destination: '../entry-points/css-type-schema.codegen.tsx',
         },
       ],
     },

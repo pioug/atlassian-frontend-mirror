@@ -1,5 +1,17 @@
 # @atlaskit/grid
 
+## 0.11.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.11.11
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
 ## 0.11.10
 
 ### Patch Changes

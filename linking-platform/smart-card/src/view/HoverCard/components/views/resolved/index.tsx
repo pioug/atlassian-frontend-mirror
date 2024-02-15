@@ -7,6 +7,7 @@ import {
 import {
   ActionName,
   CardDisplay,
+  ElementName,
   SmartLinkPosition,
   SmartLinkSize,
 } from '../../../../../constants';
@@ -16,6 +17,7 @@ import {
   RelatedUrlsBlock,
   SnippetBlock,
   TitleBlock,
+  AISummaryBlock,
 } from '../../../../FlexibleCard/components/blocks';
 import {
   footerBlockCss,
@@ -81,7 +83,9 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   analytics,
   cardState,
   cardActions = [],
+  isAISummaryEnabled,
   onActionClick,
+  onAIActionChange,
   extensionKey,
   url,
 }) => {
@@ -158,11 +162,19 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
       {getBooleanFF(
         'platform.linking-platform.smart-card.enable-hover-card-related-urls',
       ) && <RelatedUrlsBlock url={url} size={SmartLinkSize.Small} />}
-      <FooterBlock
-        actions={footerActions}
-        size={SmartLinkSize.Large}
-        overrideCss={footerBlockCss}
-      />
+      {isAISummaryEnabled ? (
+        <AISummaryBlock
+          metadata={[{ name: ElementName.Provider }]}
+          actions={footerActions}
+          onAIActionChange={onAIActionChange}
+        />
+      ) : (
+        <FooterBlock
+          actions={footerActions}
+          size={SmartLinkSize.Large}
+          overrideCss={footerBlockCss}
+        />
+      )}
     </FlexibleCard>
   );
 };

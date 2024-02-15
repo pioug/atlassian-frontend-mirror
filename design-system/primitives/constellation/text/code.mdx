@@ -2,6 +2,10 @@
 title: Text
 description: Text is a token-backed typography component to display body and UI text.
 order: 1
+props:
+  packageName: '@atlaskit/primitives'
+  exports:
+    - Text
 ---
 
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
@@ -12,8 +16,6 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
   directoryName="primitives"
 />
 
-import ERTText from '!!extract-react-types-loader!../../extract-react-types/text-props';
-
 ## Props
 
-<PropsTable heading="" props={ERTText} />
+<TSMorphProps exportName="Text" packageName="@atlaskit/primitives" />

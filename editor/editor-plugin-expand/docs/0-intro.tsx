@@ -29,7 +29,6 @@ ${code`
   {
     pluginConfiguration: ExpandPluginOptions | undefined;
     dependencies: [
-      OptionalPlugin<FeatureFlagsPlugin>,
       DecorationsPlugin,
       SelectionPlugin,
       OptionalPlugin<AnalyticsPlugin>,

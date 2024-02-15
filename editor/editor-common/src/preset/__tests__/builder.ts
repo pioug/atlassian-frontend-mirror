@@ -28,11 +28,11 @@ const PluginBark: NextEditorPlugin<
     dependencies: [typeof PluginDog];
   }
 > = ({ api }) => {
-  const dogState = api?.dog.sharedState.currentState();
+  const dogState = api?.dog?.sharedState.currentState();
   // eslint-disable-next-line no-console
   console.log(dogState?.goodDog);
 
-  api?.dog.sharedState.onChange(({ nextSharedState }) => {
+  api?.dog?.sharedState.onChange(({ nextSharedState }) => {
     // eslint-disable-next-line no-console
     console.log(nextSharedState.goodDog);
   });
@@ -73,8 +73,8 @@ const PluginBarkLoud: NextEditorPlugin<
     dependencies: [typeof PluginBark, typeof PluginDog];
   }
 > = ({ api }) => {
-  api?.dog.sharedState.currentState()?.goodDog;
-  api?.bark.sharedState.currentState()?.coisa;
+  api?.dog?.sharedState.currentState()?.goodDog;
+  api?.bark?.sharedState.currentState()?.coisa;
 
   return {
     name: 'bark-loud',
@@ -402,7 +402,7 @@ describe('building a builder', () => {
   > = ({ api }) => {
     // eslint-disable-next-line no-console
     console.log('two', api);
-    api?.one.sharedState.currentState();
+    api?.one?.sharedState.currentState();
     return {
       name: 'two',
     };
@@ -416,7 +416,7 @@ describe('building a builder', () => {
   > = ({ api }) => {
     // eslint-disable-next-line no-console
     console.log('three', api);
-    api?.two.sharedState.currentState();
+    api?.two?.sharedState.currentState();
     return {
       name: 'three',
     };
@@ -473,74 +473,26 @@ describe('building a builder', () => {
   });
 
   describe('EditorEditorPresetBuilder.maybeAdd', () => {
-    describe('when a builder was created conditionally', () => {
-      it.todo(
-        'TODO: ED-17023 - should throw should type-error when try to add a dependency plugin',
-      );
-      it.skip('should throw should type-error when try to add a dependency plugin', () => {
-        const randomNumber = 99;
-
-        expect(() => {
-          const maybeEditorPresetBuilderWithPlugin3 = new EditorPresetBuilder()
-            .add([plugin1, 111])
-            .add(plugin2)
-            .maybeAdd(plugin3, (pluginToAdd, builder) => {
-              if (randomNumber % 2 === 0) {
-                return builder.add(plugin3);
-              }
-
-              return builder;
-            });
-
-          // maybeEditorPresetBuilderWithPlugin3 can or can not have the plugin3
-          // So, you can't add it directly
-          // TODO: ED-17023 - Bring back type safety to the EditorPresetBuilder.add preset
-          // ts-expect-error
-          maybeEditorPresetBuilderWithPlugin3.add(plugin4);
-        }).not.toThrow();
-      });
-    });
-
-    describe('when there is no valid type in the builder type union', () => {
-      it('should force the callback builder parameter type to be never ', () => {
+    describe('when no valid dependency was added in the builder', () => {
+      it('should not allow the plugin to be add (typechecking only)', () => {
         expect(() => {
           new EditorPresetBuilder()
             .add([plugin1, 111])
             .add(plugin2)
-            .maybeAdd(plugin4, (plugin, builder) => {
-              // plugin4 depends on plugin3
-              // but it wasn't part of the builder type union
-              // TODO: ED-17023 - Bring back type safety to the EditorPresetBuilder.add preset
-              // ts-expect-error
-              builder.add(plugin);
-
-              return builder;
-            });
+            // @ts-expect-error
+            .maybeAdd(plugin4, true);
         }).not.toThrow();
       });
     });
 
-    describe('when there a valid type in the builder type union', () => {
-      it('should cast the callback builder to a valid combination ', () => {
+    describe('when valid dependency was added in the builder using the maybeAdd2', () => {
+      it('should allowed the plugin to be add', () => {
         expect(() => {
           new EditorPresetBuilder()
             .add([plugin1, 111])
             .add(plugin2)
-
-            .maybeAdd(plugin3, (pluginToAdd, builder) => {
-              return builder.add(pluginToAdd);
-            })
-            .maybeAdd(plugin4, (plugin, builder) => {
-              // plugin4 depends on plugin3
-              // The current EditorPresetBuilder instance should have at least a valid type combination,
-              // something like this below:
-              // builder instance:
-              //  | EditorPresetBuilder<['one', 'two'], [/* ... */]>
-              //  | EditorPresetBuilder<['one', 'two', 'three'], [/* ... */]>
-              builder.add(plugin);
-
-              return builder;
-            });
+            .maybeAdd(plugin3, false)
+            .maybeAdd(plugin4, true);
         }).not.toThrow();
       });
     });
@@ -565,14 +517,14 @@ describe('building a builder', () => {
         ];
       }
     > = ({ api }) => {
-      api?.one.sharedState.currentState();
+      api?.one?.sharedState.currentState();
 
       // @ts-expect-error Two is optional so should be unwrapped to access
       api?.two.sharedState.currentState();
 
       api?.two?.sharedState.currentState();
 
-      api?.withoutDependencies.sharedState.currentState();
+      api?.withoutDependencies?.sharedState.currentState();
 
       // @ts-expect-error We shouldn't be able to access anything that doesn't exist as a dependency
       api?.five.sharedState.currentState();
@@ -595,10 +547,7 @@ describe('building a builder', () => {
         ];
       }
     > = ({ api }) => {
-      api?.one.sharedState.currentState();
-
-      // @ts-expect-error Three is optional so should be unwrapped to access
-      api?.three.sharedState.currentState();
+      api?.one?.sharedState.currentState();
 
       api?.three?.sharedState.currentState();
       return {
@@ -618,15 +567,12 @@ describe('building a builder', () => {
         };
       }
     > = ({ api }) => {
-      api?.one.sharedState.currentState();
-
-      // @ts-expect-error Three is optional so should be unwrapped to access
-      api?.withOptionalDepsComplex.sharedState.currentState();
+      api?.one?.sharedState.currentState();
 
       api?.withOptionalDepsComplex?.sharedState.currentState();
 
       // Actions should be typed appropriately
-      api?.dependingOnOptional.actions.doesSomething();
+      api?.dependingOnOptional?.actions.doesSomething();
 
       // @ts-expect-error
       api?.dependingOnOptional.actions.doesNothing();

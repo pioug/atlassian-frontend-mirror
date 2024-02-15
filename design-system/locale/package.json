@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/locale",
-  "version": "2.6.1",
+  "version": "2.6.4",
   "description": "Utility functions for handling localization",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,17 +22,23 @@
   },
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./LocaleSelect": "./src/LocaleSelect.tsx"
+  },
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Locale",
       "category": "Libraries"
     }
   },
   "dependencies": {
-    "@atlaskit/select": "^17.0.0",
+    "@atlaskit/select": "^17.1.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

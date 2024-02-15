@@ -3,10 +3,12 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import styled from 'styled-components';
 
+import { token } from '@atlaskit/tokens';
+
 import { MacroFallbackCard } from '../src/ui';
 
 const MacroWrapper = styled.div`
-  padding: 16px 32px;
+  padding: ${token('space.200', '16px')} ${token('space.400', '32px')};
 `;
 
 export default function MacroFallbackCardIconsExample() {

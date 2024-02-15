@@ -7,7 +7,7 @@ import { constructTokenFunctionCall } from './utils';
 
 const spacingTokenPrefix = 'space.';
 const negativeSuffix = '.negative';
-const spaceTokens = tokens
+const positiveSpaceTokens = tokens
   .filter(token => token.name.startsWith(spacingTokenPrefix))
   .filter(token => !token.name.includes(negativeSuffix))
   .map(t => ({
@@ -25,13 +25,13 @@ const negativeSpaceTokens = tokens
 
 export const createSpacingStylesFromTemplate = () => {
   const output = [
-    `export const spaceMap = {\n${spaceTokens
+    `export const positiveSpaceMap = {\n${positiveSpaceTokens
       .map(
         ({ name, fallback }) =>
           `'${name}': ${constructTokenFunctionCall(name, fallback)},`,
       )
       .join('\n')}}`,
-    `export type Space = keyof typeof spaceMap;\n`,
+    `export type Space = keyof typeof positiveSpaceMap;\n`,
     `export const negativeSpaceMap = {\n${negativeSpaceTokens
       .map(
         ({ name, fallback }) =>
@@ -39,6 +39,8 @@ export const createSpacingStylesFromTemplate = () => {
       )
       .join('\n')}}`,
     `export type NegativeSpace = keyof typeof negativeSpaceMap;\n`,
+    `export const allSpaceMap = { ...positiveSpaceMap, ...negativeSpaceMap };\n`,
+    `export type AllSpace = keyof typeof allSpaceMap;\n`,
   ].join('\n');
 
   return prettier.format(output, {

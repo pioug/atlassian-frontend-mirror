@@ -1,16 +1,16 @@
-import type { Config, PresencePayload } from '../types';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
-import { createSocketIOCollabProvider } from '../socket-io-provider';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { collab } from '@atlaskit/prosemirror-collab';
+import { createSocketIOCollabProvider } from '../socket-io-provider';
+import type { Config, PresencePayload } from '../types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
-import type { Provider } from '../provider';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import SocketIOClient from 'socket.io-client';
+import type { Provider } from '../provider';
 import { mockIo } from './jest_mocks/socket.io-client.mock';
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 
 describe('Collab Provider Integration Tests - Confluence', () => {
   let provider: Provider;

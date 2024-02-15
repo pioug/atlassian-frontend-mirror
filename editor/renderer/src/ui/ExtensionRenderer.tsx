@@ -25,6 +25,7 @@ export interface Props {
   rendererContext: RendererContext;
   extensionType: string;
   extensionKey: string;
+  actions?: MultiBodiedExtensionActions;
   text?: string;
   parameters?: any;
   content?: any;
@@ -64,10 +65,7 @@ export default class ExtensionRenderer extends React.Component<Props, State> {
 
   getNodeRenderer = memoizeOne(getNodeRenderer);
 
-  renderExtensionNode = (
-    extensionProvider?: ExtensionProvider | null,
-    actions?: MultiBodiedExtensionActions,
-  ) => {
+  renderExtensionNode = (extensionProvider?: ExtensionProvider | null) => {
     const {
       extensionHandlers,
       rendererContext,
@@ -79,6 +77,7 @@ export default class ExtensionRenderer extends React.Component<Props, State> {
       type,
       localId,
       marks,
+      actions,
     } = this.props;
 
     const fragmentLocalId = marks?.find((m) => m.type.name === 'fragment')

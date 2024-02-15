@@ -1,0 +1,38 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": null,
+        "layout": "align-start",
+        "widthType": null
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "fake-aaaa-bbbb-cccc-dddddddddd",
+            "type": "file",
+            "collection": "InitialCollectionForTesting",
+            "occurrenceKey": null,
+            "alt": "test-file.jpeg",
+            "width": 2265,
+            "height": 1500,
+            "url": null,
+            "__fileName": "test-file.jpeg",
+            "__fileSize": null,
+            "__fileMimeType": "image/jpeg",
+            "__displayType": null,
+            "__contextId": null,
+            "__mediaTraceId": null,
+            "__external": false
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph"
+    }
+  ]
+}

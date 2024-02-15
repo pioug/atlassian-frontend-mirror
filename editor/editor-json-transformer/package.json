@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/editor-json-transformer",
-  "version": "8.10.14",
+  "version": "8.10.24",
   "description": "JSON transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -31,7 +31,8 @@
     ],
     "website": {
       "name": "Editor Json Transformer"
-    }
+    },
+    "runReact18": false
   },
   "af:exports": {
     ".": "./src/index.ts",
@@ -40,9 +41,9 @@
     "./types": "./src/types.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^34.0.0",
+    "@atlaskit/adf-schema": "^35.5.1",
     "@atlaskit/adf-utils": "^19.0.0",
-    "@atlaskit/editor-prosemirror": "1.1.0",
+    "@atlaskit/editor-prosemirror": "3.0.0",
     "@babel/runtime": "^7.0.0",
     "lodash": "^4.17.21"
   },

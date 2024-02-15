@@ -9,14 +9,15 @@
  */
 export type Themes =
   | 'atlassian-light'
+  | 'atlassian-light-future'
   | 'atlassian-light-increased-contrast'
   | 'atlassian-dark'
+  | 'atlassian-dark-future'
   | 'atlassian-dark-increased-contrast'
   | 'atlassian-legacy-light'
   | 'atlassian-legacy-dark'
   | 'atlassian-shape'
   | 'atlassian-spacing'
-  | 'atlassian-typography'
   | 'atlassian-typography-minor3'
   | 'atlassian-typography-adg3';
 export type ThemeFileNames = Themes;
@@ -64,12 +65,13 @@ export type DataContrastModes = 'more' | 'no-preference' | 'auto';
 export const themeIds = [
   'light-increased-contrast',
   'light',
+  'light-future',
   'dark',
+  'dark-future',
   'dark-increased-contrast',
   'legacy-light',
   'legacy-dark',
   'spacing',
-  'typography',
   'shape',
   'typography-adg3',
   'typography-minor3',
@@ -169,6 +171,16 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
       mode: 'light',
     },
   },
+  'atlassian-light-future': {
+    id: 'light-future',
+    displayName: 'Future Light Theme',
+    palette: 'defaultPalette',
+    attributes: {
+      type: 'color',
+      mode: 'light',
+    },
+    override: 'light',
+  },
   'atlassian-light-increased-contrast': {
     id: 'light-increased-contrast',
     displayName: 'Light Theme (increased contrast)',
@@ -188,6 +200,16 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
       type: 'color',
       mode: 'dark',
     },
+  },
+  'atlassian-dark-future': {
+    id: 'dark-future',
+    displayName: 'Future Dark Theme',
+    palette: 'defaultPalette',
+    attributes: {
+      type: 'color',
+      mode: 'dark',
+    },
+    override: 'light',
   },
   'atlassian-dark-increased-contrast': {
     id: 'dark-increased-contrast',
@@ -262,14 +284,6 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
       mode: 'dark',
     },
   },
-  'atlassian-typography': {
-    id: 'typography',
-    displayName: 'Atlassian Typography (Minor Second)',
-    palette: 'typographyPalette',
-    attributes: {
-      type: 'typography',
-    },
-  },
   'atlassian-typography-minor3': {
     id: 'typography-minor3',
     displayName: 'Atlassian Typography (Minor Third)',
@@ -297,7 +311,9 @@ export interface ThemeState {
   light: Extract<
     ThemeIds,
     | 'light'
+    | 'light-future'
     | 'dark'
+    | 'dark-future'
     | 'legacy-dark'
     | 'legacy-light'
     | 'light-increased-contrast'
@@ -306,7 +322,9 @@ export interface ThemeState {
   dark: Extract<
     ThemeIds,
     | 'light'
+    | 'light-future'
     | 'dark'
+    | 'dark-future'
     | 'legacy-dark'
     | 'legacy-light'
     | 'light-increased-contrast'

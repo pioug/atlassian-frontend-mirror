@@ -19,6 +19,7 @@ export default {
   'fabric.elements.share.form.no-permissions': 'Je kunt niet delen.',
   'fabric.elements.share.form.public.send': 'Openbare link verzenden',
   'fabric.elements.share.form.public.share': 'Openbare link delen',
+  'fabric.elements.share.form.required-field.summary': 'Verplichte velden zijn aangeduid met een asterisk',
   'fabric.elements.share.form.retry': 'Opnieuw proberen',
   'fabric.elements.share.form.send': 'Verzenden',
   'fabric.elements.share.form.share': 'Delen',

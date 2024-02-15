@@ -22,6 +22,9 @@ const buttonStyles = css`
   overflow: hidden;
 `;
 
+// We have tried with changing border and padding from 1px to token near version 2px,
+// the pop - up is being expanded to two lines.
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 const buttonWrapperStyles = css`
   border: 1px solid transparent;
   margin: 0 ${token('space.025', '2px')};
@@ -29,7 +32,7 @@ const buttonWrapperStyles = css`
   display: flex;
   align-items: center;
   padding: 1px;
-  border-radius: 6px;
+  border-radius: ${token('space.075', '6px')};
   &:hover {
     border: 1px solid ${token('color.border', N50)};
   }

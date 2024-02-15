@@ -4,3 +4,5 @@ export type {
   PastePluginState,
   LastContentPasted,
 } from './types';
+
+export { pastePlugin } from './plugin';

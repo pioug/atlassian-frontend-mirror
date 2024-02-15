@@ -15,6 +15,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': '您的更改将不会保存',
   'linkCreate.createForm.button.close': '关闭',
   'linkCreate.createForm.button.create': '创建',
-  'linkCreate.createForm.button.edit': '编辑',
+  'linkCreate.createForm.button.createAndOpen': '创建 + 打开',
   'linkCreate.modal.heading': '新建',
 };

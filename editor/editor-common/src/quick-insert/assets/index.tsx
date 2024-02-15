@@ -2,7 +2,7 @@ import React from 'react';
 
 import Loadable from 'react-loadable';
 
-import { HeadingLevels, IconProps } from '../../types';
+import type { HeadingLevels, IconProps } from '../../types';
 
 export { default as IconCustomPanel } from './custom-panel';
 export { default as IconFallback } from './fallback';
@@ -276,6 +276,16 @@ export const IconDatasourceAssetsObjects = Loadable({
   loader: () =>
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-datasource-assets-objects" */ './datasource-assets-objects'
+    ).then((module) => module.default) as Promise<
+      React.ComponentType<IconProps>
+    >,
+  loading: () => null,
+});
+
+export const IconLoom = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_editor-icon-loom" */ './loom'
     ).then((module) => module.default) as Promise<
       React.ComponentType<IconProps>
     >,

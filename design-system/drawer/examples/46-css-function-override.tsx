@@ -4,7 +4,7 @@ import { Component, SyntheticEvent } from 'react';
 
 import { css, CSSObject, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { B400, G400, N0, P400, R400, T400, Y400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -46,12 +46,10 @@ const sectionStyles = css({
 
 const sectionHeaderStyles = css({
   maxWidth: '50%',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   margin: '0 auto',
   position: 'relative',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  top: '50%',
   color: N0,
+  insetBlockStart: '50%',
   transform: 'translate(0, -50%)',
 });
 export default class DrawersExample extends Component<{}, State> {

@@ -201,6 +201,11 @@ export const TEST_DOCUMENT_WITH_VIEW_ACTION: JsonLd.Data.BaseData = {
   'schema:potentialAction': [TEST_VIEW_ACTION],
 };
 
+export const TEST_DOCUMENT_WITH_MULTIPLE_ACTIONS: JsonLd.Data.BaseData = {
+  ...TEST_DOCUMENT,
+  'schema:potentialAction': [TEST_VIEW_ACTION, TEST_DOWNLOAD_ACTION],
+};
+
 export const PREVIEW: JsonLd.Data.BaseData['preview'] = {
   '@type': 'Link',
   href: TEST_URL,

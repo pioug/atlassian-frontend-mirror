@@ -1,21 +1,21 @@
 import {
-  editorTestCase as test,
-  expect,
-  EditorNodeContainerModel,
-  fixTest,
   BROWSERS,
+  EditorNodeContainerModel,
+  expect,
+  fixTest,
+  editorTestCase as test,
 } from '@af/editor-libra';
-import { inlineCardAdf, cardFatalAdf } from './copy-paste.spec.ts-fixtures';
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  p,
   doc,
   inlineCard,
   a as link,
+  p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-test.describe('card: copy-paste ', () => {
+import { cardFatalAdf, inlineCardAdf } from './copy-paste.spec.ts-fixtures';
+
+test.describe('card: copy-paste', () => {
   test.use({
     adf: inlineCardAdf,
     editorProps: {
@@ -61,7 +61,7 @@ test.describe('card: copy-paste ', () => {
   });
 });
 
-test.describe('card: pasting ', () => {
+test.describe('card: pasting', () => {
   test.use({
     editorProps: {
       appearance: 'full-page',

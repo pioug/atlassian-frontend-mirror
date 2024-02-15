@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview */
 import { AnalyticsListener as AnalyticsListenerNext } from '@atlaskit/analytics-next';
 import { mountWithIntl } from '../helpers/_enzyme';
 import Lozenge from '@atlaskit/lozenge';

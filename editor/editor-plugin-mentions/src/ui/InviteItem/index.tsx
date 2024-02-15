@@ -6,13 +6,12 @@ import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { FormattedMessage, injectIntl } from 'react-intl-next';
 
+import { mentionMessages as messages } from '@atlaskit/editor-common/messages';
 import AddIcon from '@atlaskit/icon/glyph/add';
 import type { UserRole } from '@atlaskit/mention';
 import type { MentionDescription } from '@atlaskit/mention/resource';
 import { N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import { messages } from '../../messages';
 
 import {
   avatarStyle,

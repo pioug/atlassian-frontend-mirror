@@ -1,5 +1,73 @@
 # @atlaskit/media-image
 
+## 18.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.3
+
+### Patch Changes
+
+- [#70034](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70034) [`0cf829b2ca1f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0cf829b2ca1f) - Updated prop names from Preview Hook
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- [#65749](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65749) [`1b2e73df14b4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b2e73df14b4) - Updated Preview Hook usage
+- Updated dependencies
+
+## 18.0.0
+
+### Major Changes
+
+- [#63829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63829) [`572ec913a0ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/572ec913a0ae) - Fixed the `MediaImageProps` type to be semantically correct. Previously, the accepted prop type of the `MediaImage` component and the exported `MediaImageProps` type was inconsistent since `MediaImageProps` had an additional `mediaClient` property. This inconsistency was fixed such that the additional property was removed. Consequently, the `MediaImageProps` type accurately reflects the type of props that `MediaImage` actually accepts.
+
+  This should not require any changes for consumers since a `mediaClient` could not actually be passed to the `MediaImage` component. If one was to be using the `mediaClient` property of `MediaImageProps`, please use `mediaClientConfig` instead.
+
+### Minor Changes
+
+- [#64371](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64371) [`1a8b5d9880dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a8b5d9880dd) - Added an optional `ssr` property to MediaInline props. This prop enables SSR support in MediaInline version V2 (which is still in development) and will make no difference for the current version of MediaInline.
+
+## 17.4.12
+
+### Patch Changes
+
+- [#63417](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63417) [`8b146c6cdeff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b146c6cdeff) - Removed async loader from MediaImageV2
+
+## 17.4.11
+
+### Patch Changes
+
+- [#61636](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/61636) [`c15983092689`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c15983092689) - Updates to Media Image V2: Converted MediaImageV2 to a functional component that is integrated with the `useFilePreview` hook and an SSR compatiable loader.
+
+## 17.4.10
+
+### Patch Changes
+
+- [#59476](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59476) [`719cd6fb0bc0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/719cd6fb0bc0) - Duplicated MediaImage to provide a V2 version that will include refactors in the future
+
+## 17.4.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.4.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.4.7
 
 ### Patch Changes

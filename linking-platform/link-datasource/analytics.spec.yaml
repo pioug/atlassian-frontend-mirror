@@ -3,13 +3,10 @@ common:
   product: media
 
 context:
-  PackageMetaData: &PackageMetaDataContext
-    packageName:
+  ComponentMetaData: &ComponentMetaDataContext
+    component:
       type: string
-      description: name of the package the event was fired from.
-    packageVersion:
-      type: string
-      description: version of the package the event was fired from.
+      description: name of the component the event was fired from.
   AnalyticsContext: &AnalyticsContext
     source:
       type: ["datasourceConfigModal"]
@@ -62,7 +59,7 @@ attributes:
       description: The type of update made to datasource config.
   BasicFilterFieldTypes: &BasicFilterFieldTypes
     filterType:
-      type: ["project", "assignee", "issuetype", "status"]
+      type: ["project", "assignee", "type", "status"]
       description: The basic filters available in jlol config modal
   StatusCodeGroup: &StatusCodeGroup
     statusCodeGroup:
@@ -81,7 +78,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
           ]
@@ -91,7 +88,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
           ]
@@ -110,7 +107,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *IsQueryComplex,
@@ -121,7 +118,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
           ]
@@ -131,7 +128,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
           ]
@@ -141,7 +138,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
           ]
@@ -154,7 +151,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *ExtensionKey,
@@ -166,7 +163,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *SearchCount,
@@ -179,13 +176,25 @@ events:
             *Actions,
             *IsQueryComplex,
           ]
+        projectBasicFilterSelectionCount:
+          type: number
+          description: The number of selections made in the project basic filter dropdown
+        statusBasicFilterSelectionCount:
+          type: number
+          description: The number of selections made in the status basic filter dropdown
+        typeBasicFilterSelectionCount:
+          type: number
+          description: The number of selections made in the type basic filter dropdown
+        assigneeBasicFilterSelectionCount:
+          type: number
+          description: The number of selections made in the assignee basic filter dropdown
   - button clicked (cancel):
       type: ui
       description: Fired on cancel button click
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *SearchCount,
@@ -193,25 +202,13 @@ events:
             *ExtensionKey,
             *Actions,
           ]
-        projectBasicFilterSelectionCount:
-          type: number
-          description: The number of selections made in the project basic filter dropdown
-        statusBasicFilterSelectionCount:
-          type: number
-          description: The number of selections made in the status basic filter dropdown
-        issuetypeBasicFilterSelectionCount:
-          type: number
-          description: The number of selections made in the issuetype basic filter dropdown
-        assigneeBasicFilterSelectionCount:
-          type: number
-          description: The number of selections made in the assignee basic filter dropdown
   - link clicked (singleItem):
       type: ui
       description: Fired when user clicks on datasource items
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *ExtensionKey,
@@ -223,7 +220,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *TotalItemCount,
@@ -240,7 +237,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
           ]
@@ -253,7 +250,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
           ]
@@ -269,13 +266,47 @@ events:
           type: number
           required: false
           description: HTTP status of an associated response
+  - provider authSuccess:
+      type: operational
+      description: Fired when an auth provider connection is successful.
+      attributes:
+        <<:
+          [
+            *ComponentMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *ExtensionKey,
+          ]
+        experience:
+          type: ["datasource"]
+          required: true
+          description: Experience identifier.
+  - provider authFailure:
+      type: operational
+      description: Fired when an auth provider connection failed to complete.
+      attributes:
+        <<:
+          [
+            *ComponentMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *ExtensionKey,
+          ]
+        reason:
+          type: ["auth_window_closed","invalid_request","unauthorized_client","access_denied","unsupported_response_type","invalid_scope","server_error","temporarily_unavailable","authclientoauth2.autherror"]
+          required: false
+          description: Reason for provider auth failure.
+        experience:
+          type: ["datasource"]
+          required: true
+          description: Experience identifier.
   - nextItem loaded:
       type: track
       description: Fired when user scrolls to the next page/list of the objects
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *DestinationObjectTypes,
@@ -290,7 +321,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *DestinationObjectTypes,
@@ -305,7 +336,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *DestinationObjectTypes,
@@ -318,7 +349,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *DestinationObjectTypes,
@@ -332,7 +363,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *BasicFilterFieldTypes,
@@ -343,7 +374,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *BasicFilterFieldTypes,
@@ -357,7 +388,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *BasicFilterFieldTypes,
@@ -371,7 +402,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *BasicFilterFieldTypes,
@@ -385,7 +416,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *BasicFilterFieldTypes,
@@ -400,7 +431,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
           ]
@@ -410,7 +441,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
           ]
@@ -420,7 +451,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *StatusCodeGroup,
@@ -431,7 +462,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
           ]
@@ -441,7 +472,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *StatusCodeGroup,
@@ -452,7 +483,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
           ]
@@ -462,7 +493,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *StatusCodeGroup,
@@ -473,7 +504,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
           ]
@@ -483,7 +514,7 @@ events:
       attributes:
         <<:
           [
-            *PackageMetaDataContext,
+            *ComponentMetaDataContext,
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *StatusCodeGroup,

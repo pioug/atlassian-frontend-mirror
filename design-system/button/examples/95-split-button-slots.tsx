@@ -4,9 +4,8 @@ import Heading from '@atlaskit/heading';
 import ChevronDown from '@atlaskit/icon/glyph/chevron-down';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
 
+import Button, { IconButton } from '../src/new';
 import { SplitButtonWithSlots } from '../src/new-button/containers/split-button';
-import Button from '../src/new-button/variants/default/button';
-import IconButton from '../src/new-button/variants/icon/button';
 
 export default () => (
   <Box padding="space.250">

@@ -3,7 +3,9 @@ import { css, jsx } from '@emotion/react';
 import React from 'react';
 import { CardStatus } from '../src';
 import { CardView } from '../src/card/cardView';
+import { CardViews } from '../src/card/v2/cardviews';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { IntlProvider } from 'react-intl-next';
 import { MainWrapper } from '../example-helpers';
@@ -63,6 +65,12 @@ const IconsTable = () => {
   );
 };
 
+const LoadedCardView = getBooleanFF(
+  'platform.media-experience.card-views-refactor_b91lr',
+)
+  ? CardViews
+  : CardView;
+
 function renderCardImageView(
   status: CardStatus,
   mediaType: MediaType = 'image',
@@ -85,7 +93,7 @@ function renderCardImageView(
         wrapperDimensions={wrapperDimensionsSmall}
         displayInline={true}
       >
-        <CardView
+        <LoadedCardView
           status={status}
           mediaItemType="file"
           metadata={metadata}

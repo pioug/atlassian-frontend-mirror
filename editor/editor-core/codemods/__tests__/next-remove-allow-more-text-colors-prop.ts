@@ -1,6 +1,7 @@
 jest.autoMockOff();
-import { createTransformer } from '../utils';
 import { removeAllowMoreColorsProp } from '../migrates/next-remove-allow-more-text-colors-prop';
+import { createTransformer } from '../utils';
+
 // This stays as require() since changing to import will trigger a linter error
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 const transformer = createTransformer('@atlaskit/editor-core', [

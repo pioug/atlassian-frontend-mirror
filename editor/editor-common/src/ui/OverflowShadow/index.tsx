@@ -26,7 +26,7 @@ export interface OverflowShadowOptions {
 export default function overflowShadow<P>(
   Component:
     | React.ComponentType<P & OverflowShadowProps>
-    | React.StatelessComponent<P & OverflowShadowProps>,
+    | React.FunctionComponent<P & OverflowShadowProps>,
   options: OverflowShadowOptions,
 ) {
   return class OverflowShadow extends React.Component<P, OverflowShadowState> {

@@ -25,4 +25,30 @@ describe('Confluence Transformer', () => {
       );
     });
   });
+
+  describe('should parse jira issue node', () => {
+    const html =
+      '<ac:structured-macro ac:name="JIRA"><ac:parameter ac:name="key">testKey123</ac:parameter></ac:structured-macro>';
+
+    it('should be parsed as text', () => {
+      const expectedADF: JSONDocNode = {
+        type: 'doc',
+        version: 1,
+        content: [
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                text: 'testKey123',
+              },
+            ],
+          },
+        ],
+      };
+      const confluenceTransformer = new ConfluenceTransformer(confluenceSchema);
+
+      expect(toJSON(confluenceTransformer.parse(html))).toEqual(expectedADF);
+    });
+  });
 });

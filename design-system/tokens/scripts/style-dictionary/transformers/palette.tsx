@@ -115,8 +115,7 @@ const transform = (palette: Record<string, any>): Transform => {
           fontStyle: fontStyle,
           fontWeight: palette.typography.fontWeight[fontWeight].value,
           lineHeight: palette.typography.lineHeight[lineHeight].value,
-          // should we try and get fontFamily metadata out here
-          fontFamily: fontFamily,
+          fontFamily: palette.typography.fontFamily[fontFamily].value,
           letterSpacing: palette.typography.letterSpacing[letterSpacing].value,
         };
       }

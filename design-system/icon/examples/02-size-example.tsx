@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 
 import { Size } from '../src/types';
 
@@ -51,7 +51,7 @@ const IconSizeExample = ({ defaultSize = 'medium' }: { defaultSize: Size }) => {
 
   return (
     <div>
-      <ButtonGroup>
+      <ButtonGroup label="Choose icon size">
         {sizes.map((sizeOpt) => (
           <div style={{ marginRight: token('space.050', '4px') }} key={sizeOpt}>
             <Button

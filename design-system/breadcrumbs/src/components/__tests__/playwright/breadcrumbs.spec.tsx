@@ -23,5 +23,5 @@ test('Breadcrumbs should be able to be clicked by data-testid', async ({
 
   // Once the `breadcrumbsItemTestId` is displayed, we can click on it and checks the url redirection.
   await page.click(breadcrumbsItemTestId);
-  await expect(page).toHaveURL('packages/design-system/breadcrumbs');
+  await expect(page).toHaveURL('packages/design-system/breadcrumbs/');
 });

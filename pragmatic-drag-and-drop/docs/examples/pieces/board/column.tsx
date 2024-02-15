@@ -15,13 +15,6 @@ import Heading from '@atlaskit/heading';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { easeInOut } from '@atlaskit/motion/curves';
 import { mediumDurationMs } from '@atlaskit/motion/durations';
-import {
-  draggable,
-  dropTargetForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { centerUnderPointer } from '@atlaskit/pragmatic-drag-and-drop/util/center-under-pointer';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
-import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import {
   attachClosestEdge,
@@ -29,6 +22,13 @@ import {
   extractClosestEdge,
 } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
+import {
+  draggable,
+  dropTargetForElements,
+} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { centerUnderPointer } from '@atlaskit/pragmatic-drag-and-drop/util/center-under-pointer';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
 import { token } from '@atlaskit/tokens';
 
 import { ColumnType } from '../../data/people';

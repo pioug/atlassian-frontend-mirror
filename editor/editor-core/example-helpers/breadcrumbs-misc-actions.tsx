@@ -1,11 +1,16 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 import React from 'react';
+
 import { css, jsx } from '@emotion/react';
-import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
+
 import LabelIcon from '@atlaskit/icon/glyph/label';
+import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
+import { token } from '@atlaskit/tokens';
+
+import type { EditorAppearance } from '../src/types';
+
 import FullWidthToggle from './full-width-toggle';
-import { EditorAppearance } from '../src/types';
 
 const breadcrumbWrapper = css`
   flex: 1 1 80%;
@@ -15,7 +20,7 @@ const breadcrumbWrapper = css`
 const wrapper = css`
   display: flex;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: ${token('space.300', '24px')};
 `;
 
 const link = css`

@@ -1,6 +1,7 @@
-import { name } from '../../../version-wrapper';
-import { EventDispatcher, createDispatch } from '../../../event-dispatcher';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+
+import { createDispatch, EventDispatcher } from '../../../event-dispatcher';
+import { name } from '../../../version-wrapper';
 
 describe(name, () => {
   describe('Event Dispatcher', () => {

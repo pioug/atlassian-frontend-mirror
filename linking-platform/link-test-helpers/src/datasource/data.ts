@@ -12,6 +12,16 @@ import {
   task,
   trivial,
 } from '../images';
+
+import { Site } from './index';
+
+const generateMockPeopleResponse = (size: number) => {
+  return new Array(size).fill(null).map(() => ({
+    displayName: 'Scott Farquhar',
+    avatarSource: profile,
+  }));
+};
+
 // It is not in a particular format. IT is transformed into expected format when consumed.
 export const mockJiraData = {
   nextPageCursor: 'c3RhcnRBdD01',
@@ -28,6 +38,7 @@ export const mockJiraData = {
         displayName: 'Scott Farquhar',
         source: profile,
       },
+      people: generateMockPeopleResponse(4),
       priority: {
         label: 'major',
         source: questionMark,
@@ -51,6 +62,7 @@ export const mockJiraData = {
       issueNumber: 'DONUT-1173',
       summary: "Audio in meeting room K909 doesn't work",
       assignee: undefined,
+      people: generateMockPeopleResponse(3),
       priority: {
         label: 'high',
         source: high,
@@ -73,6 +85,7 @@ export const mockJiraData = {
       issueNumber: 'DONUT-1174',
       summary: 'In the underground area, under three Rotating spheres',
       assignee: undefined,
+      people: generateMockPeopleResponse(2),
       priority: {
         label: 'medium',
         source: medium,
@@ -95,6 +108,7 @@ export const mockJiraData = {
       issueNumber: 'DONUT-1175',
       summary: 'This level is hard',
       assignee: undefined,
+      people: generateMockPeopleResponse(1),
       priority: {
         label: 'low',
         source: low,
@@ -121,6 +135,7 @@ export const mockJiraData = {
         displayName: 'Scott Farquhar',
         source: profile,
       },
+      people: undefined,
       priority: {
         label: 'trivial',
         source: trivial,
@@ -143,6 +158,7 @@ export const mockJiraData = {
       issueNumber: 'DONUT-1177',
       summary: 'This level is hard',
       assignee: undefined,
+      people: generateMockPeopleResponse(10),
       priority: {
         label: 'blocker',
         source: blocker,
@@ -165,6 +181,7 @@ export const mockJiraData = {
       issueNumber: 'DONUT-1178',
       summary: 'This level is hard',
       assignee: undefined,
+      people: generateMockPeopleResponse(12),
       priority: {
         label: 'high',
         source: high,
@@ -190,6 +207,7 @@ export const mockJiraData = {
         displayName: 'Scott Farquhar',
         source: profile,
       },
+      people: generateMockPeopleResponse(0),
       priority: {
         label: 'high',
         source: high,
@@ -212,6 +230,7 @@ export const mockJiraData = {
       issueNumber: 'DONUT-1180',
       summary: 'This level is hard',
       assignee: undefined,
+      people: generateMockPeopleResponse(5),
       priority: {
         label: 'high',
         source: high,
@@ -234,6 +253,7 @@ export const mockJiraData = {
       issueNumber: 'DONUT-1181',
       summary: 'This level is hard',
       assignee: undefined,
+      people: generateMockPeopleResponse(6),
       priority: {
         label: 'high',
         source: high,
@@ -259,6 +279,7 @@ export const mockJiraData = {
         displayName: 'Scott Farquhar',
         source: profile,
       },
+      people: generateMockPeopleResponse(8),
       priority: {
         label: 'high',
         source: high,
@@ -284,6 +305,7 @@ export const mockJiraData = {
         displayName: 'Scott Farquhar',
         source: profile,
       },
+      people: generateMockPeopleResponse(20),
       priority: {
         label: 'major',
         source: major,
@@ -306,6 +328,7 @@ export const mockJiraData = {
       issueNumber: 'DONUT-1184',
       summary: "Audio in meeting room K909 doesn't work",
       assignee: undefined,
+      people: generateMockPeopleResponse(2),
       priority: {
         label: 'high',
         source: high,
@@ -328,6 +351,7 @@ export const mockJiraData = {
       issueNumber: 'DONUT-1185',
       summary: 'This level is hard',
       assignee: undefined,
+      people: generateMockPeopleResponse(3),
       priority: {
         label: 'low',
         source: low,
@@ -354,6 +378,7 @@ export const mockJiraData = {
         displayName: 'Scott Farquhar',
         source: profile,
       },
+      people: generateMockPeopleResponse(3),
       priority: {
         label: 'trivial',
         source: trivial,
@@ -376,6 +401,7 @@ export const mockJiraData = {
       issueNumber: 'DONUT-1187',
       summary: 'This level is hard',
       assignee: undefined,
+      people: generateMockPeopleResponse(4),
       priority: {
         label: 'blocker',
         source: blocker,
@@ -398,6 +424,7 @@ export const mockJiraData = {
       issueNumber: 'DONUT-1188',
       summary: 'This level is hard',
       assignee: undefined,
+      people: generateMockPeopleResponse(2),
       priority: {
         label: 'high',
         source: high,
@@ -423,6 +450,7 @@ export const mockJiraData = {
         displayName: 'Scott Farquhar',
         source: profile,
       },
+      people: generateMockPeopleResponse(7),
       priority: {
         label: 'high',
         source: high,
@@ -445,6 +473,7 @@ export const mockJiraData = {
       issueNumber: 'DONUT-1190',
       summary: 'This level is hard',
       assignee: undefined,
+      people: generateMockPeopleResponse(5),
       priority: {
         label: 'high',
         source: high,
@@ -467,6 +496,7 @@ export const mockJiraData = {
       issueNumber: 'DONUT-1191',
       summary: 'This level is hard',
       assignee: undefined,
+      people: generateMockPeopleResponse(1),
       priority: {
         label: 'high',
         source: high,
@@ -492,6 +522,7 @@ export const mockJiraData = {
         displayName: 'Scott Farquhar',
         source: profile,
       },
+      people: generateMockPeopleResponse(4),
       priority: {
         label: 'high',
         source: high,
@@ -551,6 +582,12 @@ export const mockSiteData = [
     displayName: 'testSingleIssue',
   },
 ];
+
+export const mockSite: Site = {
+  cloudId: 'DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b',
+  displayName: 'forge-smart-link-battleground',
+  url: 'https://forge-smart-link-battleground.jira-dev.com',
+};
 
 // https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-jql/#api-rest-api-3-jql-autocompletedata-post
 export const mockAutoCompleteData = {

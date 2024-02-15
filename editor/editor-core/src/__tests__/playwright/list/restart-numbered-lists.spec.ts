@@ -1,27 +1,25 @@
-import { editorTestCase as test, expect } from '@af/editor-libra';
-import {
-  listStartingFrom3Adf,
-  listStartingFrom2Point9Adf,
-  listStartingFrom0Adf,
-  listStartingFrom1Point9Adf,
-} from './restart-numbered-lists.spec.ts-fixtures';
+import { expect, editorTestCase as test } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
+  hardBreak,
+  li,
   ol,
   p,
-  li,
-  hardBreak,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-test.describe('restart-numbered-lists', () => {
+import {
+  listStartingFrom0Adf,
+  listStartingFrom1Point9Adf,
+  listStartingFrom2AndListStartingFrom6Adf,
+  listStartingFrom2Point9Adf,
+  listStartingFrom3Adf,
+} from './restart-numbered-lists.spec.ts-fixtures';
+
+test.describe('restart-numbered-lists (custom start numbers for ordered lists)', () => {
   test.use({
     editorProps: {
       appearance: 'full-page',
-
-      featureFlags: {
-        restartNumberedLists: true,
-      },
     },
   });
 
@@ -126,6 +124,134 @@ test.describe('restart-numbered-lists', () => {
             li(p('b')),
           ),
           p(),
+        ),
+      );
+    });
+  });
+
+  test.describe('with order 3 ordered list adf AND auto join improvements FF enabled', () => {
+    test.use({
+      adf: listStartingFrom3Adf,
+      platformFeatureFlags: {
+        'platform.editor.ordered-list-auto-join-improvements_mrlv5': true,
+      },
+    });
+
+    test('restart-numbered-lists.ts: typing "5." below an existing ordered list should join them and start from the existing list start number because the numbers match', async ({
+      editor,
+    }) => {
+      await editor.selection.set({
+        anchor: 15,
+        head: 15,
+      });
+
+      await editor.keyboard.type('5. x');
+
+      await expect(editor).toHaveDocument(
+        // prettier-ignore
+        doc(
+          p(),
+          ol({ order: 3 })(
+            li(p('a')),
+            li(p('b')),
+            li(p('x')),
+          ),
+        ),
+      );
+    });
+
+    test('restart-numbered-lists.ts: typing "99." below an existing ordered list should NOT join them and start from the existing list start number because the numbers DO NOT match', async ({
+      editor,
+    }) => {
+      await editor.selection.set({
+        anchor: 15,
+        head: 15,
+      });
+
+      await editor.keyboard.type('99. x');
+
+      await expect(editor).toHaveDocument(
+        // prettier-ignore
+        doc(
+          p(),
+          ol({ order: 3 })(
+            li(p('a')),
+            li(p('b')),
+          ),
+          ol({ order: 99 })(
+            li(p('x')),
+          ),
+        ),
+      );
+    });
+  });
+
+  test.describe('with order 2 ordered list and order 6 ordered list adf', () => {
+    test.use({
+      adf: listStartingFrom2AndListStartingFrom6Adf,
+    });
+
+    test('restart-numbered-lists.ts: typing "5. " in between two existing ordered lists should join them all if the numbers form a continuous ordered list', async ({
+      editor,
+    }) => {
+      await editor.selection.set({
+        anchor: 20,
+        head: 20,
+      });
+
+      await editor.keyboard.type('5. ');
+
+      await expect(editor).toHaveDocument(
+        // prettier-ignore
+        doc(
+          p(''),
+          ol({ order: 2 })(
+            li(p('a')),
+            li(p('b')),
+            li(p('c')),
+            li(p('')),
+            li(p('e')),
+            li(p('f')),
+            li(p('g')),
+          ),
+          p(''),
+        ),
+      );
+    });
+  });
+
+  test.describe('with order 2 ordered list and order 6 ordered list adf FF enabled', () => {
+    test.use({
+      adf: listStartingFrom2AndListStartingFrom6Adf,
+      platformFeatureFlags: {
+        'platform.editor.ordered-list-auto-join-improvements_mrlv5': true,
+      },
+    });
+
+    test('restart-numbered-lists.ts: typing "5. " in between two existing ordered lists should join them all if the numbers form a continuous ordered list', async ({
+      editor,
+    }) => {
+      await editor.selection.set({
+        anchor: 20,
+        head: 20,
+      });
+
+      await editor.keyboard.type('5. ');
+
+      await expect(editor).toHaveDocument(
+        // prettier-ignore
+        doc(
+          p(''),
+          ol({ order: 2 })(
+            li(p('a')),
+            li(p('b')),
+            li(p('c')),
+            li(p('')),
+            li(p('e')),
+            li(p('f')),
+            li(p('g')),
+          ),
+          p(''),
         ),
       );
     });

@@ -1,5 +1,3 @@
-export { FORM_ERROR } from 'final-form';
-
 export type { CreateFormProps } from './ui/index';
 export type {
   LinkCreateProps,
@@ -25,3 +23,5 @@ export {
 } from './controllers/callback-context';
 
 export type { Validator, ValidatorMap } from './common/types';
+
+export { FORM_ERROR } from 'final-form';

@@ -24,6 +24,7 @@ import { TitleBlockProps } from '../blocks/title-block/types';
 import HoverCardControl from './hover-card-control';
 import { isFlexUiPreviewPresent } from '../../../../state/flexible-ui-context/utils';
 import { N40 } from '@atlaskit/theme/colors';
+import { di } from 'react-magnetic-di';
 
 const elevationStyles: SerializedStyles = css`
   border: 1px solid ${token('color.border', N40)};
@@ -231,12 +232,14 @@ const Container: React.FC<ContainerProps> = ({
   retry,
   showAuthTooltip = false,
   showHoverPreview = false,
-  showServerActions = false,
+  actionOptions,
   size = SmartLinkSize.Medium,
   status,
   testId = 'smart-links-container',
   theme = SmartLinkTheme.Link,
 }) => {
+  di(HoverCardControl);
+
   const context = useContext(FlexibleUiContext);
   const childrenOptions = getChildrenOptions(children, context);
   const canShowHoverPreview = showHoverPreview && status === 'resolved';
@@ -271,7 +274,7 @@ const Container: React.FC<ContainerProps> = ({
         hideHoverCardPreviewButton={hideHoverCardPreviewButton}
         isHoverPreview={canShowHoverPreview}
         isAuthTooltip={canShowAuthTooltip}
-        showServerActions={showServerActions}
+        actionOptions={actionOptions}
         testId={testId}
         url={context.url}
       >

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { filter } from '@atlaskit/adf-utils/traverse';
@@ -16,8 +16,9 @@ import type {
   ExternalImageIdentifier,
   Identifier,
   FileState,
+  MediaClient,
 } from '@atlaskit/media-client';
-import { getMediaClient } from '@atlaskit/media-client-react';
+import { MediaClientContext } from '@atlaskit/media-client-react';
 import type { MediaType } from '@atlaskit/adf-schema';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { withImageLoader } from '@atlaskit/editor-common/utils';
@@ -33,7 +34,6 @@ export type MediaProvider = {
 
 export interface MediaCardProps {
   id?: string;
-  mediaProvider?: Promise<MediaProvider>;
   contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
   eventHandlers?: {
     media?: {
@@ -61,7 +61,6 @@ export interface MediaCardProps {
 }
 
 export interface State {
-  mediaClientConfig?: MediaClientConfig;
   contextIdentifierProvider?: ContextIdentifierProvider;
   fileState?: FileState;
 }
@@ -96,30 +95,26 @@ export const getListOfIdentifiersFromDoc = (doc?: ADFEntity): Identifier[] => {
   );
 };
 
-export class MediaCardInternal extends Component<MediaCardProps, State> {
+export class MediaCardView extends Component<
+  MediaCardProps & { mediaClient?: MediaClient },
+  State
+> {
   state: State = {};
 
   async componentDidMount() {
     const {
       rendererContext,
-      mediaProvider,
       contextIdentifierProvider,
       id,
       url,
       collection: collectionName,
     } = this.props;
 
-    if (!mediaProvider) {
-      return;
-    }
-
     if (contextIdentifierProvider) {
       this.setState({
         contextIdentifierProvider: await contextIdentifierProvider,
       });
     }
-    const mediaProviderObject = await mediaProvider;
-    const mediaClientConfig = mediaProviderObject.viewMediaClientConfig;
 
     const nodeIsInCache =
       (id && mediaIdentifierMap.has(id)) ||
@@ -138,20 +133,16 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
         },
       );
     }
-    this.setState({
-      mediaClientConfig: mediaClientConfig,
-    });
 
     if (id) {
-      this.saveFileState(id, mediaClientConfig);
+      this.saveFileState(id);
     }
   }
 
   UNSAFE_componentWillReceiveProps(newProps: MediaCardProps) {
-    const { mediaClientConfig } = this.state;
     const { id: newId } = newProps;
-    if (mediaClientConfig && newId && newId !== this.props.id) {
-      this.saveFileState(newId, mediaClientConfig);
+    if (newId && newId !== this.props.id) {
+      this.saveFileState(newId);
     }
   }
 
@@ -165,17 +156,18 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
     }
   }
 
-  saveFileState = async (id: string, mediaClientConfig: MediaClientConfig) => {
-    const { collection: collectionName } = this.props;
-    const mediaClient = getMediaClient(mediaClientConfig);
+  saveFileState = async (id: string) => {
+    const { collection: collectionName, mediaClient } = this.props;
     const options = {
       collectionName,
     };
     try {
-      const fileState = await mediaClient.file.getCurrentState(id, options);
-      this.setState({
-        fileState,
-      });
+      if (mediaClient) {
+        const fileState = await mediaClient.file.getCurrentState(id, options);
+        this.setState({
+          fileState,
+        });
+      }
     } catch (error) {
       // do not set state on error
     }
@@ -188,7 +180,6 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
   };
 
   private renderExternal(shouldOpenMediaViewer: boolean) {
-    const { mediaClientConfig } = this.state;
     const {
       cardDimensions,
       resizeMode,
@@ -200,6 +191,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       featureFlags,
       ssr,
       rendererAppearance,
+      mediaClient,
     } = this.props;
 
     if (imageStatus === 'loading' || !url) {
@@ -211,6 +203,9 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       name: url,
       mediaItemType: 'external-image',
     };
+
+    // we need this statement for the mandatory mediaClientConfig below
+    const mediaClientConfig = mediaClient?.mediaClientConfig;
 
     return (
       <Card
@@ -261,11 +256,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
   };
 
   render() {
-    const {
-      contextIdentifierProvider,
-      mediaClientConfig: mediaClientConfigInState,
-      fileState,
-    } = this.state;
+    const { contextIdentifierProvider, fileState } = this.state;
     const {
       id,
       alt,
@@ -282,6 +273,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       featureFlags,
       shouldEnableDownloadButton,
       ssr,
+      mediaClient,
     } = this.props;
     const isMobile = rendererAppearance === 'mobile';
     const shouldPlayInline =
@@ -304,7 +296,9 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       return null;
     }
 
-    const mediaClientConfig = !!ssr ? ssr.config : mediaClientConfigInState;
+    const mediaClientConfig = !!ssr
+      ? ssr.config
+      : mediaClient?.mediaClientConfig;
 
     if (!mediaClientConfig || !id) {
       return this.renderLoadingCard();
@@ -403,6 +397,12 @@ export const getClipboardAttrs = ({
     'data-file-mime-type': fileMimeType,
     'data-alt': alt,
   };
+};
+
+export const MediaCardInternal = (props: MediaCardProps) => {
+  const mediaClient = useContext(MediaClientContext);
+
+  return <MediaCardView {...props} mediaClient={mediaClient} />;
 };
 
 export const MediaCard = withImageLoader<MediaCardProps>(MediaCardInternal);

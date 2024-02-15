@@ -1,5 +1,29 @@
 # @atlaskit/link-provider
 
+## 1.7.0
+
+### Minor Changes
+
+- [#68990](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68990) [`61004adee81f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61004adee81f) - EDM-9083: add is ai enabled prop to smart link context
+
+## 1.6.15
+
+### Patch Changes
+
+- [#68764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68764) [`59b851a5d621`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/59b851a5d621) - [ux] Render Polaris (Jira Product Discovery) published view as an embed by default
+
+## 1.6.14
+
+### Patch Changes
+
+- [#68194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68194) [`c1d4a8fecc4e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1d4a8fecc4e) - bump json-ld-types to version 3.11.0
+
+## 1.6.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.6.12
 
 ### Patch Changes

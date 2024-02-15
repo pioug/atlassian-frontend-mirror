@@ -19,8 +19,8 @@ const SpotlightCardHeadingAfterExample = () => {
       heading="Switch it up"
       actions={[{ text: 'Next', onClick: __noop }]}
     >
-      Quickly switch between your most recent projects by selecting the project
-      name and icon.
+      Select the project name and icon to quickly switch between your most
+      recent projects.
     </SpotlightCard>
   );
 };

@@ -270,18 +270,9 @@ describe('TimePicker', () => {
 
   it('should clear the value if the clear button is pressed and the menu should stay closed', () => {
     const onChangeSpy = jest.fn();
-    const testId = 'test';
-    const clearButtonTestId = `${testId}--clear--btn`;
-    render(
-      <TimePicker
-        value="15:32"
-        onChange={onChangeSpy}
-        testId={testId}
-        selectProps={{ testId: testId }}
-      />,
-    );
+    render(<TimePicker value="15:32" onChange={onChangeSpy} testId="test" />);
 
-    const clearButton = screen.getByTestId(clearButtonTestId);
+    const clearButton = screen.getByLabelText('clear').parentElement;
     if (!clearButton) {
       throw new Error('Expected button to be non-null');
     }
@@ -299,19 +290,18 @@ describe('TimePicker', () => {
   it('should clear the value and leave the menu open if the clear button is pressed while menu is open', () => {
     const onChangeSpy = jest.fn();
     const testId = 'test';
-    const clearButtonTestId = `${testId}--clear--btn`;
 
     render(
       <TimePicker
         value={'15:32'}
         onChange={onChangeSpy}
-        testId={testId}
+        testId="test"
         defaultIsOpen
         selectProps={{ testId: testId }}
       />,
     );
 
-    const clearButton = screen.getByTestId(clearButtonTestId);
+    const clearButton = screen.getByLabelText('clear').parentElement;
     if (!clearButton) {
       throw new Error('Expected button to be non-null');
     }

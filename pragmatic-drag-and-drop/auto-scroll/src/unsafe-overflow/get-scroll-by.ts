@@ -4,7 +4,7 @@ import type {
   Position,
 } from '@atlaskit/pragmatic-drag-and-drop/types';
 
-import type { Axis, Edge, Spacing } from '../internal-types';
+import type { Axis, Edge, InternalConfig, Spacing } from '../internal-types';
 import { canScrollOnEdge } from '../shared/can-scroll-on-edge';
 import { edges } from '../shared/edges';
 import { markAndGetEngagement } from '../shared/engagement-history';
@@ -52,10 +52,12 @@ export function getScrollBy<DragType extends AllDragTypes>({
   entry,
   timeSinceLastFrame,
   input,
+  config,
 }: {
   entry: UnsafeOverflowAutoScrollArgs<DragType>;
   input: Input;
   timeSinceLastFrame: number;
+  config: InternalConfig;
 }): Pick<ScrollToOptions, 'top' | 'left'> | null {
   const client: Position = {
     x: input.clientX,
@@ -76,6 +78,7 @@ export function getScrollBy<DragType extends AllDragTypes>({
       const { insideOfEdge, outsideOfEdge } = getHitbox[edge]({
         clientRect,
         overflow,
+        config,
       });
 
       /** Note:
@@ -160,6 +163,7 @@ export function getScrollBy<DragType extends AllDragTypes>({
         axis,
         timeSinceLastFrame,
         engagement,
+        config,
       });
     }
     const rightEdge = lookup.get('right');
@@ -172,6 +176,7 @@ export function getScrollBy<DragType extends AllDragTypes>({
         axis,
         timeSinceLastFrame,
         engagement,
+        config,
       });
     }
 
@@ -190,6 +195,7 @@ export function getScrollBy<DragType extends AllDragTypes>({
         axis,
         timeSinceLastFrame,
         engagement,
+        config,
       });
     }
     const topEdge = lookup.get('top');
@@ -202,6 +208,7 @@ export function getScrollBy<DragType extends AllDragTypes>({
         axis,
         timeSinceLastFrame,
         engagement,
+        config,
       });
     }
 

@@ -23,7 +23,7 @@ export const Notifications = forwardRef(
     const { badge, tooltip, ...iconButtonProps } = props;
 
     return (
-      <BadgeContainer id={NOTIFICATIONS_BADGE_ID} badge={badge}>
+      <BadgeContainer id={NOTIFICATIONS_BADGE_ID} badge={badge} role="listitem">
         <IconButton
           icon={
             <NotificationIcon

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-toolbar-lists-indentation",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Toolbar lists and indentation plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -9,10 +9,12 @@
   },
   "atlassian": {
     "team": "Editor: AI",
+    "singleton": true,
     "inPublicMirror": false,
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "runReact18": false
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -31,15 +33,15 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^76.22.0",
-    "@atlaskit/editor-plugin-analytics": "^0.3.0",
+    "@atlaskit/editor-common": "^77.4.0",
+    "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-block-type": "^3.0.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
-    "@atlaskit/editor-plugin-indentation": "^0.2.0",
-    "@atlaskit/editor-plugin-list": "^1.3.0",
-    "@atlaskit/editor-plugin-tasks-and-decisions": "^0.2.0",
-    "@atlaskit/editor-prosemirror": "1.1.0",
-    "@atlaskit/editor-shared-styles": "^2.8.0",
+    "@atlaskit/editor-plugin-indentation": "^1.0.0",
+    "@atlaskit/editor-plugin-list": "^3.1.0",
+    "@atlaskit/editor-plugin-tasks-and-decisions": "^1.0.0",
+    "@atlaskit/editor-prosemirror": "3.0.0",
+    "@atlaskit/editor-shared-styles": "^2.9.0",
     "@atlaskit/icon": "^22.0.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
@@ -51,13 +53,12 @@
   "devDependencies": {
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/adf-schema": "^34.0.0",
-    "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/editor-plugin-base": "^0.2.0",
-    "@atlaskit/editor-plugin-text-formatting": "^0.4.0",
+    "@atlaskit/adf-schema": "^35.5.1",
+    "@atlaskit/analytics-next": "^9.2.0",
+    "@atlaskit/editor-plugin-base": "^1.0.0",
+    "@atlaskit/editor-plugin-text-formatting": "^1.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",

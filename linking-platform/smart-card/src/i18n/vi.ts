@@ -28,9 +28,9 @@ export default {
   'fabric.linking.connect_to': 'Kết nối với {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Kết nối với {context}',
   'fabric.linking.connect_unauthorised_account_description':
-    'Kết nối {context} với Atlassian để xem thêm chi tiết về công việc của bạn và cộng tác ở một nơi tập trung.',
+    'Kết nối tài khoản {context} của bạn để cộng tác trong công việc trên khắp các sản phẩm Atlassian.',
   'fabric.linking.connect_unauthorised_account_description_no_provider':
-    'Kết nối với Atlassian để xem thêm chi tiết về công việc của bạn và cộng tác ở một nơi tập trung.',
+    'Kết nối tài khoản của bạn để cộng tác trong công việc trên khắp các sản phẩm Atlassian.',
   'fabric.linking.continue': 'Tiếp tục',
   'fabric.linking.copy_url_to_clipboard': 'Sao chép liên kết',
   'fabric.linking.couldnt_load_link': 'Chúng tôi không thể tải đường liên kết này vì một lý do không xác định.',
@@ -58,6 +58,8 @@ export default {
     'Bạn cần có quyền truy cập hoặc thử một tài khoản khác để xem bản xem trước này.',
   'fabric.linking.join_to_view': 'Tham gia {context} để xem vấn đề này',
   'fabric.linking.last_mentioned_in': 'Được nhắc đến lần gần đây nhất trong',
+  'fabric.linking.learn_more_about_connecting_account':
+    'Tìm hiểu thêm về cách kết nối tài khoản với các sản phẩm của Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Tìm hiểu thêm về Liên kết Thông minh.',
   'fabric.linking.link_safety_warning_message':
     'Liên kết {unsafeLinkText} sẽ đưa bạn đến một trang khác, <a>actual link here</a>',

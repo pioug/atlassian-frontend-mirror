@@ -3,10 +3,10 @@ import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import { createIntl } from 'react-intl-next';
 
+import { messages } from '@atlaskit/editor-common/quick-insert';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
-import { messages } from '../ui/ModalElementBrowser/messages';
 import ModalElementBrowser from '../ui/ModalElementBrowser/ModalElementBrowser';
 
 let testProps = {} as any;

@@ -1,14 +1,16 @@
 import React from 'react';
-import { Editor } from '../src/index';
-import EditorContext from '../src/ui/EditorContext';
-import WithEditorActions from '../src/ui/WithEditorActions';
-import {
+
+import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
+import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import type {
   MentionDescription,
   MentionProvider,
 } from '@atlaskit/mention/resource';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
-import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
+
+import { Editor } from '../src';
+import EditorContext from '../src/ui/EditorContext';
+import WithEditorActions from '../src/ui/WithEditorActions';
 
 const cardClient = new ConfluenceCardClient('staging');
 const cardProvider = new ConfluenceCardProvider('staging');

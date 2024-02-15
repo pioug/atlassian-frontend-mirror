@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-save-on-enter",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Save-on-enter plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -9,14 +9,12 @@
   },
   "atlassian": {
     "team": "Editor: Lego",
+    "singleton": true,
     "inPublicMirror": false,
     "releaseModel": "continuous",
-    "website": {
-      "name": "EditorPluginSaveOnEnter",
-      "category": "Components"
-    }
+    "runReact18": false
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -35,23 +33,16 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^76.23.0",
-    "@atlaskit/editor-prosemirror": "1.1.0",
+    "@atlaskit/editor-common": "^77.4.0",
+    "@atlaskit/editor-prosemirror": "3.0.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@af/visual-regression": "*",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "@testing-library/react": "^12.1.5",
-    "react-dom": "^16.8.0",
-    "typescript": "~4.9.5",
-    "wait-for-expect": "^1.2.0"
+    "typescript": "~4.9.5"
   },
   "techstack": {
     "@atlassian/frontend": {
@@ -88,5 +79,10 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
+  "stricter": {
+    "no-unused-dependencies": {
+      "checkDevDependencies": true
+    }
+  }
 }

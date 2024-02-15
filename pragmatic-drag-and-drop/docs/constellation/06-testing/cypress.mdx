@@ -17,7 +17,8 @@ it('should allow drag and drop between columns', () => {
   cy.get('[data-testid="column-A--card-list"]')
     .find('[draggable="true"]')
     .should('have.length', 16);
-  cy.get('[data-testid="column-A--card-list"]')
+
+  cy.get('[data-testid="column-B--card-list"]')
     .find('[draggable="true"]')
     .should('have.length', 16);
 
@@ -28,6 +29,7 @@ it('should allow drag and drop between columns', () => {
     .trigger('dragenter', { force: true })
     .trigger('drop', { force: true });
 
+  // asserting list sizes after drag and drop
   cy.get('[data-testid="column-A--card-list"]')
     .find('[draggable="true"]')
     .should('have.length', 15);

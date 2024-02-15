@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { Form } from 'react-final-form';
+import { IntlProvider } from 'react-intl-next';
+
+import { FormContextProvider } from '../../src/controllers/form-context';
 import {
   CreateFormFooter,
   CreateFormFooterProps,
@@ -7,30 +11,48 @@ import {
 
 const createExample = (
   props: Partial<CreateFormFooterProps>,
+  enableEditView?: () => void,
 ): React.ComponentType => {
   return function Example() {
     return (
-      <CreateFormFooter
-        formErrorMessage={props.formErrorMessage}
-        handleCancel={() => {}}
-        submitting={props.submitting || false}
-        testId="link-create-form"
-      />
+      <IntlProvider locale="en">
+        <FormContextProvider enableEditView={enableEditView}>
+          <Form<FormData> onSubmit={() => {}}>
+            {({}) => {
+              return (
+                <form onSubmit={() => {}}>
+                  <CreateFormFooter
+                    formErrorMessage={props.formErrorMessage}
+                    handleCancel={() => {}}
+                    testId="link-create-form"
+                  />
+                </form>
+              );
+            }}
+          </Form>
+        </FormContextProvider>
+      </IntlProvider>
     );
   };
 };
 
-export const CreateFormFooterWithErrorMessage = createExample({
-  formErrorMessage: 'This is an error message',
-  submitting: false,
-});
+export const CreateFormFooterWithErrorMessage = createExample(
+  {
+    formErrorMessage: 'This is an error message',
+  },
+  () => {},
+);
 
-export const CreateFormFooterSubmitting = createExample({
-  formErrorMessage: undefined,
-  submitting: true,
-});
+export const CreateFormFooterWithoutEdit = createExample(
+  {
+    formErrorMessage: undefined,
+  },
+  undefined,
+);
 
-export const CreateFormFooterSubmittingWithErrorMessage = createExample({
-  formErrorMessage: 'This is an error message',
-  submitting: true,
-});
+export const CreateFormFooterDefault = createExample(
+  {
+    formErrorMessage: undefined,
+  },
+  () => {},
+);

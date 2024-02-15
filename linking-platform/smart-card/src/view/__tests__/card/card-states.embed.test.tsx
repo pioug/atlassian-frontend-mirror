@@ -5,7 +5,6 @@ import { JsonLd } from 'json-ld-types';
 import { render, cleanup, waitFor } from '@testing-library/react';
 import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import * as analytics from '../../../utils/analytics';
@@ -312,11 +311,6 @@ describe('smart-card: card states, embed', () => {
                 'Your team uses Jira to collaborate. Send your admin a request for access.',
               button: 'Request access',
             },
-            {
-              title: 'Restricted content',
-              description: 'Request access to Jira view this preview.',
-              button: 'Request access',
-            },
           ],
           [
             "site - pending request: I don't have access to the site, but I've already requested access and I'm waiting",
@@ -327,10 +321,6 @@ describe('smart-card: card states, embed', () => {
                 'Your request to access site.atlassian.net is awaiting admin approval.',
               button: 'Pending approval',
             },
-            {
-              title: 'Restricted content',
-              description: 'Your access request is pending.',
-            },
           ],
           [
             "site - denied request: I don't have access to the site, and my previous request was denied",
@@ -339,11 +329,6 @@ describe('smart-card: card states, embed', () => {
               title: "You don't have access to this content",
               description:
                 "Your admin didn't approve your request to view Jira pages from site.atlassian.net.",
-            },
-            {
-              title: 'Restricted content',
-              description:
-                'Your access request was denied. Contact the site admin if you still need access.',
             },
           ],
           [
@@ -355,12 +340,6 @@ describe('smart-card: card states, embed', () => {
                 'Your team uses Jira to collaborate and you can start using it right away!',
               button: 'Join now',
             },
-            {
-              title: 'Restricted content',
-              description:
-                "You've been approved, so you can join Jira right away.",
-              button: 'Join Jira',
-            },
           ],
           [
             'object - request Access: I have access to the site, but not the object',
@@ -371,12 +350,6 @@ describe('smart-card: card states, embed', () => {
                 'Request access to view this content from site.atlassian.net.',
               button: 'Request access',
             },
-            {
-              title: 'Restricted content',
-              description:
-                "You'll need to request access or try a different account to view this preview.",
-              button: 'Try another account',
-            },
           ],
           [
             'not found, access exists: I have access to the site, but not the object or object is not-found',
@@ -385,11 +358,6 @@ describe('smart-card: card states, embed', () => {
               title: "We can't show you this Jira page",
               description:
                 "The page doesn't exist or it may have changed after this link was added.",
-            },
-            {
-              title: "Uh oh. We can't find this link!",
-              description:
-                "We couldn't find the link. Check the url and try editing or paste again.",
             },
           ],
           [
@@ -400,219 +368,209 @@ describe('smart-card: card states, embed', () => {
               description:
                 'Contact your admin to request access to site.atlassian.net.',
             },
-            {
-              title: 'Restricted content',
-              description:
-                'You don’t have access to this preview. Contact the site admin if you need access.',
-            },
           ],
         ])(
           '%s',
-          (
-            name: string,
-            context: ContextProp,
-            expected: ContentProps,
-            expectedFFOff: ContentProps,
-          ) => {
-            ffTest(
-              'platform.linking-platform.smart-card.cross-join',
-              async () => {
-                const { container, findByText } = await setup(
-                  mockResponse(context),
-                );
+          (name: string, context: ContextProp, expected: ContentProps) =>
+            async () => {
+              const { container, findByText } = await setup(
+                mockResponse(context),
+              );
 
-                expect(await findByText(expected.title)).toBeVisible();
-                expect(container).toHaveTextContent(expected.description);
-                if (expected.button) {
-                  expect(await findByText(expected.button)).toBeVisible();
-                }
-              },
-              async () => {
-                const { findByText } = await setup(mockResponse(context));
-
-                expect(await findByText(expectedFFOff.title)).toBeVisible();
-                expect(
-                  await findByText(expectedFFOff.description),
-                ).toBeVisible();
-                if (expectedFFOff.button) {
-                  expect(await findByText(expectedFFOff.button)).toBeVisible();
-                }
-              },
-            );
-          },
+              expect(await findByText(expected.title)).toBeVisible();
+              expect(container).toHaveTextContent(expected.description);
+              if (expected.button) {
+                expect(await findByText(expected.button)).toBeVisible();
+              }
+            },
         );
       });
     });
+  });
 
-    describe('> state: unauthorized', () => {
-      describe('with auth services available', () => {
-        it('embed: renders with connect flow', async () => {
-          mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-          const { getByText, getByTestId } = render(
-            <Provider client={mockClient}>
-              <Card
-                testId="block-unauthorized-connect"
-                appearance="embed"
-                url={mockUrl}
-                onError={mockOnError}
-              />
-            </Provider>,
-          );
-          const unauthorizedLink = await waitFor(() =>
-            getByText(/Connect your.*?account/),
-          );
-
-          expect(unauthorizedLink).toBeTruthy();
-          const unauthorizedLinkButton = getByTestId('button-connect-account');
-          expect(unauthorizedLinkButton).toBeTruthy();
-          expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
-          expect(mockFetch).toBeCalled();
-          expect(mockFetch).toBeCalledTimes(1);
-          expect(mockOnError).toHaveBeenCalledWith({
-            url: mockUrl,
-            status: 'unauthorized',
-          });
-        });
-      });
-
-      describe('with auth services not available', () => {
-        it('embed: renders without connect flow', async () => {
-          mockFetch.mockImplementationOnce(
-            async () => mocks.unauthorizedWithNoAuth,
-          );
-          const { findByTestId } = render(
-            <Provider client={mockClient}>
-              <Card appearance="embed" url={mockUrl} onError={mockOnError} />
-            </Provider>,
-          );
-          const unauthorizedLink = await findByTestId(
-            'embed-card-unauthorized-view-unresolved-title',
-          );
-          expect(unauthorizedLink).toBeTruthy();
-          expect(mockFetch).toBeCalled();
-          expect(mockFetch).toBeCalledTimes(1);
-          expect(mockOnError).toHaveBeenCalledWith({
-            url: mockUrl,
-            status: 'unauthorized',
-          });
-        });
-      });
-
-      describe('with authFlow explicitly disabled', () => {
-        it('embed: renders in error state', async () => {
-          mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-          const { getByText } = render(
-            <Provider client={mockClient} authFlow="disabled">
-              <Card appearance="embed" url={mockUrl} onError={mockOnError} />
-            </Provider>,
-          );
-          const errorView = await waitFor(() =>
-            getByText(/We couldn't load this link/),
-          );
-          expect(errorView).toBeTruthy();
-          expect(mockFetch).toBeCalled();
-          expect(mockFetch).toBeCalledTimes(1);
-          expect(mockOnError).toHaveBeenCalledWith({
-            url: mockUrl,
-            status: 'fallback',
-          });
-        });
-      });
-
-      describe('with text content', () => {
-        type ContentProps = {
-          button?: string;
-          description: string;
-          title: string;
-        };
-
-        const setup = async (response = mocks.forbidden) => {
-          mockFetch.mockImplementationOnce(async () => response);
-          const renderResult = render(
-            <Provider client={mockClient}>
-              <Card
-                appearance="embed"
-                url="https://site.atlassian.net/browse/key-1"
-              />
-            </Provider>,
-          );
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-
-          return renderResult;
-        };
-
-        describe.each([
-          [
-            'unauthorized: connect to provider',
-            {
-              ...mocks.unauthorized,
-              data: {
-                ...mocks.unauthorized.data,
-                generator: mockGenerator,
-              },
-            } as JsonLd.Response,
-            {
-              title: 'Connect your Jira account',
-              description:
-                'Connect Jira to Atlassian to view more details of your work and collaborate from one place. Learn more about Smart Links.',
-              button: 'Connect to Jira',
-            },
-          ],
-          [
-            'unauthorized: connect to unknown provider',
-            mocks.unauthorized,
-            {
-              // Our title and button messages always expect the product name to be present
-              // while the description support when product name is not present.
-              // To be looked at https://product-fabric.atlassian.net/browse/EDM-8173
-              title: 'Connect your account',
-              description:
-                'Connect to Atlassian to view more details of your work and collaborate from one place. Learn more about Smart Links.',
-              button: 'Connect to',
-            },
-          ],
-          [
-            'unauthorized: cannot connect to provider',
-            {
-              ...mocks.unauthorizedWithNoAuth,
-              data: {
-                ...mocks.unauthorizedWithNoAuth.data,
-                generator: mockGenerator,
-              },
-            } as JsonLd.Response,
-            {
-              title: "We can't display private pages from Jira",
-              description:
-                "You're trying to preview a link to a private Jira page. We recommend you review the URL or contact the page owner.",
-            },
-          ],
-          [
-            'unauthorized: cannot connect to unknown provider',
-            mocks.unauthorizedWithNoAuth,
-            {
-              title: "We can't display private pages",
-              description:
-                "You're trying to preview a link to a private page. We recommend you review the URL or contact the page owner.",
-            },
-          ],
-        ])(
-          '%s',
-          (name: string, response: JsonLd.Response, expected: ContentProps) => {
-            ffTest(
-              'platform.linking-platform.smart-card.cross-join',
-              async () => {
-                const { container, findByText } = await setup(response);
-
-                expect(await findByText(expected.title)).toBeVisible();
-                expect(container).toHaveTextContent(expected.description);
-                if (expected.button) {
-                  expect(await findByText(expected.button)).toBeVisible();
-                }
-              },
-            );
-          },
+  describe('> state: unauthorized', () => {
+    describe('with auth services available', () => {
+      it('embed: renders with connect flow', async () => {
+        mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+        const { findByTestId, getByTestId } = render(
+          <Provider client={mockClient}>
+            <Card
+              testId="block-unauthorized-connect"
+              appearance="embed"
+              url={mockUrl}
+              onError={mockOnError}
+            />
+          </Provider>,
         );
+
+        const unauthorizedLink = await findByTestId(
+          'block-unauthorized-connect-unresolved-title',
+        );
+        expect(unauthorizedLink).toBeTruthy();
+        const unauthorizedLinkButton = getByTestId('connect-account');
+        expect(unauthorizedLinkButton).toBeTruthy();
+        expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
+        expect(mockFetch).toBeCalled();
+        expect(mockFetch).toBeCalledTimes(1);
+        expect(mockOnError).toHaveBeenCalledWith({
+          url: mockUrl,
+          status: 'unauthorized',
+        });
       });
+    });
+
+    describe('with auth services not available', () => {
+      it('embed: renders without connect flow', async () => {
+        mockFetch.mockImplementationOnce(
+          async () => mocks.unauthorizedWithNoAuth,
+        );
+        const { findByTestId } = render(
+          <Provider client={mockClient}>
+            <Card appearance="embed" url={mockUrl} onError={mockOnError} />
+          </Provider>,
+        );
+        const unauthorizedLink = await findByTestId(
+          'embed-card-unauthorized-view-unresolved-title',
+        );
+        expect(unauthorizedLink).toBeTruthy();
+        expect(mockFetch).toBeCalled();
+        expect(mockFetch).toBeCalledTimes(1);
+        expect(mockOnError).toHaveBeenCalledWith({
+          url: mockUrl,
+          status: 'unauthorized',
+        });
+      });
+    });
+
+    describe('with authFlow explicitly disabled', () => {
+      it('embed: renders in error state', async () => {
+        mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+        const { getByText } = render(
+          <Provider client={mockClient} authFlow="disabled">
+            <Card appearance="embed" url={mockUrl} onError={mockOnError} />
+          </Provider>,
+        );
+        const errorView = await waitFor(() =>
+          getByText(/We couldn't load this link/),
+        );
+        expect(errorView).toBeTruthy();
+        expect(mockFetch).toBeCalled();
+        expect(mockFetch).toBeCalledTimes(1);
+        expect(mockOnError).toHaveBeenCalledWith({
+          url: mockUrl,
+          status: 'fallback',
+        });
+      });
+    });
+
+    describe('with text content', () => {
+      type ContentProps = {
+        button?: string;
+        description: string;
+        title: string;
+      };
+
+      const setup = async (response = mocks.forbidden) => {
+        mockFetch.mockImplementationOnce(async () => response);
+        const renderResult = render(
+          <Provider client={mockClient}>
+            <Card
+              appearance="embed"
+              url="https://site.atlassian.net/browse/key-1"
+            />
+          </Provider>,
+        );
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        return renderResult;
+      };
+
+      describe.each([
+        [
+          'unauthorized: connect to provider',
+          {
+            ...mocks.unauthorized,
+            data: {
+              ...mocks.unauthorized.data,
+              generator: mockGenerator,
+            },
+          } as JsonLd.Response,
+          {
+            title: 'Connect your Jira account',
+            description:
+              'Connect your Jira account to collaborate on work across Atlassian products. Learn more about Smart Links.',
+            button: 'Connect to Jira',
+          },
+        ],
+        [
+          'unauthorized: connect to provider with `hasScopeOverrides` flag set in the meta',
+          {
+            ...mocks.unauthorized,
+            meta: {
+              ...mocks.unauthorized.meta,
+              hasScopeOverrides: true,
+            },
+            data: {
+              ...mocks.unauthorized.data,
+            },
+          } as JsonLd.Response,
+          {
+            title: 'Connect your Jira account',
+            description:
+              'Connect your Jira account to collaborate on work across Atlassian products. Learn more about connecting your account to Atlassian products.',
+            button: 'Connect to Jira',
+          },
+        ],
+        [
+          'unauthorized: connect to unknown provider',
+          mocks.unauthorized,
+          {
+            // Our title and button messages always expect the product name to be present
+            // while the description support when product name is not present.
+            // To be looked at https://product-fabric.atlassian.net/browse/EDM-8173
+            title: 'Connect your account',
+            description:
+              'Connect your account to collaborate on work across Atlassian products. Learn more about Smart Links.',
+            button: 'Connect to',
+          },
+        ],
+        [
+          'unauthorized: cannot connect to provider',
+          {
+            ...mocks.unauthorizedWithNoAuth,
+            data: {
+              ...mocks.unauthorizedWithNoAuth.data,
+              generator: mockGenerator,
+            },
+          } as JsonLd.Response,
+          {
+            title: "We can't display private pages from Jira",
+            description:
+              "You're trying to preview a link to a private Jira page. We recommend you review the URL or contact the page owner.",
+          },
+        ],
+        [
+          'unauthorized: cannot connect to unknown provider',
+          mocks.unauthorizedWithNoAuth,
+          {
+            title: "We can't display private pages",
+            description:
+              "You're trying to preview a link to a private page. We recommend you review the URL or contact the page owner.",
+          },
+        ],
+      ])(
+        '%s',
+        (name: string, response: JsonLd.Response, expected: ContentProps) =>
+          async () => {
+            const { container, findByText } = await setup(response);
+
+            expect(await findByText(expected.title)).toBeVisible();
+            expect(container).toHaveTextContent(expected.description);
+            if (expected.button) {
+              expect(await findByText(expected.button)).toBeVisible();
+            }
+          },
+      );
     });
 
     describe('> state: error', () => {
@@ -636,14 +594,17 @@ describe('smart-card: card states, embed', () => {
       });
 
       it('embed: renders not found card when link not found', async () => {
-        mockFetch.mockImplementationOnce(async () => mocks.notFound);
+        mockFetch.mockImplementationOnce(async () => ({
+          ...mocks.notFound,
+          data: { ...mocks.notFound.data, generator: mockGenerator },
+        }));
         const { getByText } = render(
           <Provider client={mockClient}>
             <Card appearance="embed" url={mockUrl} onError={mockOnError} />
           </Provider>,
         );
         const errorView = await waitFor(() =>
-          getByText(/Uh oh. We can't find this link!/),
+          getByText(/We can't show you this Jira page/),
         );
         expect(errorView).toBeTruthy();
         expect(mockFetch).toBeCalled();

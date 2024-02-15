@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
+import { Box, Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import Portal from '../src';
@@ -10,25 +11,29 @@ export default function BasicPortalExample() {
   const [child, setChild] = useState(1);
   return (
     <>
-      <div>
-        <Button
-          id="toggleZIndexBtn"
-          appearance={'primary'}
-          style={{ margin: `0px ${token('space.300', '24px')}` }}
-          onClick={() =>
-            setzIndex({ zIndex1: zIndexes.zIndex2, zIndex2: zIndexes.zIndex1 })
-          }
-        >
-          Toggle z-index
-        </Button>
-        <Button
-          id="changeChildValue"
-          appearance={'primary'}
-          onClick={() => setChild(child + 1)}
-        >
-          Change child value of Portal 2
-        </Button>
-      </div>
+      <Box paddingInline="space.300">
+        <Inline space="space.300">
+          <Button
+            id="toggleZIndexBtn"
+            appearance={'primary'}
+            onClick={() =>
+              setzIndex({
+                zIndex1: zIndexes.zIndex2,
+                zIndex2: zIndexes.zIndex1,
+              })
+            }
+          >
+            Toggle z-index
+          </Button>
+          <Button
+            id="changeChildValue"
+            appearance={'primary'}
+            onClick={() => setChild(child + 1)}
+          >
+            Change child value of Portal 2
+          </Button>
+        </Inline>
+      </Box>
       <Portal zIndex={zIndexes.zIndex1}>
         <div
           style={{

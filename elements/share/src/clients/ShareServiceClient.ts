@@ -2,17 +2,6 @@ import { ServiceConfig, utils } from '@atlaskit/util-service-support';
 
 import { Comment, Content, MetaData, User } from '../types';
 
-export interface ShareClient {
-  share(
-    content: Content,
-    recipients: User[],
-    metadata: MetaData,
-    comment?: Comment,
-  ): Promise<ShareResponse>;
-
-  getConfig(cloudId: string): Promise<ConfigResponse>;
-}
-
 export type ShareRequest = (
   content: Content,
   recipients: User[],
@@ -23,6 +12,11 @@ export type ShareRequest = (
 export type ShareResponse = {
   shareRequestId: string;
 };
+export interface ShareClient {
+  share: ShareRequest;
+
+  getConfig(cloudId: string): Promise<ConfigResponse>;
+}
 
 export type ConfigResponse = {
   disableSharingToEmails?: boolean;

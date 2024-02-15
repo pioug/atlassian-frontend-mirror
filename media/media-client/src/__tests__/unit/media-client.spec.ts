@@ -234,7 +234,12 @@ describe('MediaClient', () => {
       const subscription = new Subscription();
       subscription.add(
         mediaClient.file
-          .upload(file, controller, uploadableFileUpfrontIds)
+          .upload(
+            file,
+
+            controller,
+            uploadableFileUpfrontIds,
+          )
           .subscribe({
             next(state) {
               const fileId = state.id;
@@ -456,7 +461,12 @@ describe('MediaClient', () => {
 
       return new Promise<void>((resolve) => {
         mediaClient.file
-          .upload(file, controller, uploadableFileUpfrontIds)
+          .upload(
+            file,
+
+            controller,
+            uploadableFileUpfrontIds,
+          )
           .subscribe({
             error: (error: any) => {
               expect(error).toEqual('canceled');

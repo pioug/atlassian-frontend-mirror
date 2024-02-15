@@ -21,7 +21,7 @@ export const mockBasicFilterAGGFetchRequests = () => {
       const mockBasicFilterData: Record<string, any> = {
         project: fieldValuesResponseForProjects,
         assignee: fieldValuesResponseForAssignees,
-        issuetype: fieldValuesResponseForTypes,
+        type: fieldValuesResponseForTypes,
         status: fieldValuesResponseForStatuses,
       };
 

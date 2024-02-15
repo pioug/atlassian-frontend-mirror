@@ -10,12 +10,16 @@ import type {
   INPUT_METHOD,
   MediaLinkAEP,
 } from '@atlaskit/editor-common/analytics';
-import { createToggleBlockMarkOnRange } from '@atlaskit/editor-common/commands';
+import {
+  createToggleBlockMarkOnRange,
+  createToggleInlineMarkOnRange,
+} from '@atlaskit/editor-common/commands';
 import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type {
   EditorState,
+  NodeSelection,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -28,13 +32,16 @@ import {
 import { MediaLinkingActionsTypes } from '../pm-plugins/linking/actions';
 import { getMediaPluginState } from '../pm-plugins/main';
 import { checkMediaType } from '../utils/check-media-type';
-import { currentMediaNode } from '../utils/current-media-node';
+import {
+  currentMediaInlineNode,
+  currentMediaNode,
+} from '../utils/current-media-node';
 
 export const showLinkingToolbar = createMediaLinkingCommand(state => {
   const mediaLinkingState = getMediaLinkingState(state);
   if (mediaLinkingState && mediaLinkingState.mediaPos !== null) {
-    const mediaSingle = state.doc.nodeAt(mediaLinkingState.mediaPos);
-    if (mediaSingle) {
+    const node = state.doc.nodeAt(mediaLinkingState.mediaPos);
+    if (node) {
       return {
         type: MediaLinkingActionsTypes.showToolbar,
       };
@@ -50,8 +57,12 @@ export const showLinkingToolbarWithMediaTypeCheck: Command = (
 ) => {
   if (dispatch && editorView) {
     const mediaNode = currentMediaNode(editorState);
+    const mediaInlineNode = currentMediaInlineNode(editorState);
 
-    if (!mediaNode) {
+    const nodeSelection = editorState.selection as NodeSelection;
+    const currentSelectedNode = nodeSelection.node;
+
+    if (!mediaNode && !mediaInlineNode) {
       return false;
     }
 
@@ -61,19 +72,37 @@ export const showLinkingToolbarWithMediaTypeCheck: Command = (
       return false;
     }
 
-    checkMediaType(mediaNode, mediaClientConfig).then(mediaType => {
-      if (
-        (mediaType === 'external' || mediaType === 'image') &&
-        // We make sure the selection and the node hasn't changed.
-        currentMediaNode(editorView.state) === mediaNode
-      ) {
-        dispatch(
-          editorView.state.tr.setMeta(mediaLinkingPluginKey, {
-            type: MediaLinkingActionsTypes.showToolbar,
-          }),
-        );
-      }
-    });
+    if (mediaNode && currentSelectedNode !== mediaInlineNode) {
+      checkMediaType(mediaNode, mediaClientConfig).then(mediaType => {
+        if (
+          (mediaType === 'external' || mediaType === 'image') &&
+          // We make sure the selection and the node hasn't changed.
+          currentMediaNode(editorView.state) === mediaNode
+        ) {
+          dispatch(
+            editorView.state.tr.setMeta(mediaLinkingPluginKey, {
+              type: MediaLinkingActionsTypes.showToolbar,
+            }),
+          );
+        }
+      });
+    }
+
+    if (mediaInlineNode) {
+      checkMediaType(mediaInlineNode, mediaClientConfig).then(mediaType => {
+        if (
+          (mediaType === 'external' || mediaType === 'image') &&
+          // We make sure the selection and the node hasn't changed.
+          currentMediaInlineNode(editorView.state) === mediaInlineNode
+        ) {
+          dispatch(
+            editorView.state.tr.setMeta(mediaLinkingPluginKey, {
+              type: MediaLinkingActionsTypes.showToolbar,
+            }),
+          );
+        }
+      });
+    }
   }
   return true;
 };
@@ -139,12 +168,44 @@ function toggleLinkMark(
   }
 
   const linkMark = state.schema.marks.link;
-  const { media } = state.schema.nodes;
-  const toggleBlockLinkMark = createToggleBlockMarkOnRange<LinkAttributes>(
+  const { media, mediaInline } = state.schema.nodes;
+
+  if (node.type !== mediaInline) {
+    const toggleBlockLinkMark = createToggleBlockMarkOnRange<LinkAttributes>(
+      linkMark,
+      (prevAttrs, node) => {
+        // Only add mark to media
+        if (!node || node.type !== media) {
+          return; //No op
+        }
+        if (forceRemove) {
+          return false;
+        }
+        const href = normalizeUrl(url);
+
+        if (prevAttrs && prevAttrs.href === href) {
+          return; //No op
+        }
+
+        if (href.trim() === '') {
+          return false; // remove
+        }
+
+        return {
+          ...prevAttrs,
+          href: href,
+        };
+      },
+      [media],
+    );
+    toggleBlockLinkMark($pos.pos, $pos.pos + node.nodeSize, tr, state);
+  }
+
+  const toggleInlineLinkMark = createToggleInlineMarkOnRange<LinkAttributes>(
     linkMark,
     (prevAttrs, node) => {
-      // Only add mark to media
-      if (!node || node.type !== media) {
+      // Only add mark to mediaInline
+      if (!node || node.type !== mediaInline) {
         return; //No op
       }
       if (forceRemove) {
@@ -165,9 +226,8 @@ function toggleLinkMark(
         href: href,
       };
     },
-    [media],
   );
-  toggleBlockLinkMark($pos.pos, $pos.pos + node.nodeSize, tr, state);
+  toggleInlineLinkMark($pos.pos, $pos.pos + node.nodeSize, tr, state);
 
   return tr;
 }
@@ -198,7 +258,7 @@ export const unlink = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
       return fireAnalyticForMediaLink(
         transaction,
         ACTION.DELETED,
-        undefined,
+        { ...getNodeTypeAndMediaTypeAttributes(state) },
         editorAnalyticsAPI,
       );
     },
@@ -212,6 +272,32 @@ const getAction = (newUrl: string, state: EditorState) => {
     return ACTION.EDITED;
   }
   return undefined;
+};
+
+const getNodeTypeAndMediaTypeAttributes = (state: EditorState) => {
+  const mediaLinkingState = getMediaLinkingState(state);
+  const { allowInlineImages } = getMediaPluginState(state);
+  const { mediaInline, mediaSingle } = state.schema.nodes;
+  if (!mediaLinkingState || mediaLinkingState.mediaPos === null) {
+    return;
+  }
+  const $pos = state.doc.resolve(mediaLinkingState.mediaPos);
+  const node = state.doc.nodeAt($pos.pos);
+
+  if (!node) {
+    return {};
+  }
+
+  if (allowInlineImages && node.type === mediaInline) {
+    return {
+      type: mediaInline.name,
+      mediaType: node.attrs.type,
+    };
+  }
+  return {
+    type: mediaSingle.name,
+    mediaType: node.attrs.type,
+  };
 };
 
 export const setUrlToMedia = (
@@ -229,13 +315,16 @@ export const setUrlToMedia = (
       if (!action) {
         return tr;
       }
-
+      const nodeTypeAndMediaTypeAttrs =
+        getNodeTypeAndMediaTypeAttributes(state);
       try {
         const toggleLinkMarkResult = toggleLinkMark(tr, state, { url: url });
         fireAnalyticForMediaLink(
           tr,
           action,
-          action === ACTION.ADDED ? { inputMethod } : undefined,
+          action === ACTION.ADDED
+            ? { inputMethod, ...nodeTypeAndMediaTypeAttrs }
+            : nodeTypeAndMediaTypeAttrs,
           editorAnalyticsAPI,
         );
         return toggleLinkMarkResult;
@@ -245,6 +334,7 @@ export const setUrlToMedia = (
           ACTION.ERRORED,
           {
             action: action,
+            ...nodeTypeAndMediaTypeAttrs,
           },
           editorAnalyticsAPI,
         );

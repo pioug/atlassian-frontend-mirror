@@ -17,6 +17,7 @@ const nestedCases: Record<string, string> = {
   'tableView-content-wrap': 'table',
   'mediaSingleView-content-wrap': '.rich-media-item',
   'bodiedExtensionView-content-wrap': '.extension-container',
+  'multiBodiedExtensionView-content-wrap': '.multiBodiedExtension--container',
   'embedCardView-content-wrap': '.rich-media-item',
   'datasourceView-content-wrap': '.datasourceView-content-inner-wrap',
 };

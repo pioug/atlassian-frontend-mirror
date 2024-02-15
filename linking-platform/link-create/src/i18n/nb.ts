@@ -17,6 +17,6 @@ export default {
   'linkCreate.confirm-dismiss-dialog.modal.title': 'Endringene dine blir ikke lagret',
   'linkCreate.createForm.button.close': 'Lukk',
   'linkCreate.createForm.button.create': 'Opprett',
-  'linkCreate.createForm.button.edit': 'Rediger',
+  'linkCreate.createForm.button.createAndOpen': 'Opprett + åpne',
   'linkCreate.modal.heading': 'Opprett ny',
 };

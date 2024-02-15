@@ -1,5 +1,87 @@
 # @atlaskit/profilecard
 
+## 19.10.0
+
+### Minor Changes
+
+- [#71508](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71508) [`e6125d2215ef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e6125d2215ef) - Added accountType prop
+
+## 19.9.0
+
+### Minor Changes
+
+- [#70817](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70817) [`bc59c17947b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc59c17947b6) - Add focus to view profile button when Profile card display
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.8.0
+
+### Minor Changes
+
+- [#68345](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68345) [`c769c4488d20`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c769c4488d20) - Add aria label to trigger & add ProfilecardTriggerNext
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.7.15
+
+### Patch Changes
+
+- [#67206](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67206) [`277421c217ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/277421c217ae) - PTC-8511 ENGHEALTH-5595 fix deprecated token
+
+## 19.7.14
+
+### Patch Changes
+
+- [#66217](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66217) [`60bb0cdab810`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/60bb0cdab810) - Without providing button attribute in the hover state, it won't trigger by keyboard. That's why, we are providing button behavior as default to profilecard component.
+- Updated dependencies
+
+## 19.7.13
+
+### Patch Changes
+
+- [#64872](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64872) [`146b7db2c017`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/146b7db2c017) - No changes, as far as I know
+
+## 19.7.12
+
+### Patch Changes
+
+- [#65031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65031) [`a00094111b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a00094111b5a) - ED-21609 Update adf-schema to 35.3.0
+
+## 19.7.11
+
+### Patch Changes
+
+- [#64821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64821) [`64e3db3a22e4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64e3db3a22e4) - Remove SST feature flag
+- Updated dependencies
+
+## 19.7.10
+
+### Patch Changes
+
+- [#63681](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63681) [`0a62538b713e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a62538b713e) - role attribute updated for profile card. Previously we are not providing any role attribute for hover state. Now, we are providing dialog as role since it will open popup and show user's detail in popup. Also atlaskit component that we used for openning popup is providing popup aria attributes so just providing dialog is enough to pass a11y checks.
+
+## 19.7.9
+
+### Patch Changes
+
+- [#62980](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62980) [`d85be9b35a7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d85be9b35a7b) - [ux] PTC-8115 add tooltip to the team name in team profile card
+
+## 19.7.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.7.7
+
+### Patch Changes
+
+- [#57499](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57499) [`d66fad636c89`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d66fad636c89) - Remove legacy theming logic (e.g. themed(), AtlaskitThemeProvider, etc) from platform packages. Theming is available via the new design token-based system.
+
 ## 19.7.6
 
 ### Patch Changes

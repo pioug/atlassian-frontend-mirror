@@ -1,5 +1,5 @@
-import type { ComponentClass, StatelessComponent } from 'react';
-import React, { PureComponent } from 'react';
+import type { ComponentClass, FunctionComponent } from 'react';
+import React, { PureComponent, useEffect, useState } from 'react';
 
 import ReactDOM from 'react-dom';
 
@@ -111,7 +111,7 @@ function hasIsOpen(props: any): props is HasIsOpen {
 }
 
 export default function withReactEditorViewOuterListeners<P extends {}>(
-  Component: ComponentClass<P> | StatelessComponent<P>,
+  Component: ComponentClass<P> | FunctionComponent<P>,
 ): React.FC<P & WithOutsideClickProps> {
   return ({
     handleClickOutside,
@@ -120,7 +120,15 @@ export default function withReactEditorViewOuterListeners<P extends {}>(
     closeOnTab,
     ...props
   }) => {
-    const isActiveComponent = hasIsOpen(props) ? props.isOpen : true;
+    const isActiveProp = hasIsOpen(props) ? props.isOpen : true;
+    const [isActiveComponent, setActiveComponent] = useState(false);
+
+    useEffect(() => {
+      requestAnimationFrame(() => {
+        setActiveComponent(isActiveProp);
+      });
+    }, [isActiveProp]);
+
     return (
       <ReactEditorViewContext.Consumer>
         {({ editorView, editorRef }) => (

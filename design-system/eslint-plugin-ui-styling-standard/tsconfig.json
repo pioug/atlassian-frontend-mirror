@@ -1,0 +1,24 @@
+{
+  "extends": "../../../tsconfig.node.json",
+  "include": [
+    "__tests__/**/*.ts",
+    "__tests__/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "scripts"
+  ],
+  "exclude": [
+    "src/**/__tests__/*.*",
+  ],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "lib": ["ES2021.String"],
+    "paths": {}
+  },
+  "ts-node": {
+    // It is faster to skip typechecking.
+    "transpileOnly": true,
+    // We must load files for third party defs - https://typestrong.org/ts-node/docs/types
+    "files": true,
+  }
+}

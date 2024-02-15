@@ -1,19 +1,21 @@
 /** @jsx jsx */
-import { token } from '@atlaskit/tokens';
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import { jsx } from '@emotion/react';
 import React from 'react';
+
+import { jsx } from '@emotion/react';
+
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { ReactRenderer } from '@atlaskit/renderer';
+import { token } from '@atlaskit/tokens';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { ReactRenderer } from '@atlaskit/renderer';
+
+import { toJSON } from '../src/utils';
 
 import { content } from './styles';
-import { toJSON } from '../src/utils';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 
 const emojiProvider = getEmojiProvider({
   uploadSupported: true,
@@ -67,11 +69,13 @@ export default class ToolsDrawer extends React.Component<any, State> {
       return (
         <div>
           <div
+            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             style={{ color: '#ccc', marginBottom: token('space.100', '8px') }}
           >
             &lt;Renderer&gt;
           </div>
           <ReactRenderer {...props} />
+          {/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */}
           <div style={{ color: '#ccc', marginTop: token('space.100', '8px') }}>
             &lt;/Renderer&gt;
           </div>

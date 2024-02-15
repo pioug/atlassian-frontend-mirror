@@ -1,20 +1,19 @@
 import React from 'react';
-import ToolbarFeedback from '../../../ui/ToolbarFeedback';
-import { openFeedbackDialog } from '../../../plugins/feedback-dialog';
-import { analyticsEventKey } from '@atlaskit/editor-common/utils';
-import type { basePlugin } from '@atlaskit/editor-plugin-base';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import EditorContext from '../../../ui/EditorContext';
+
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import { analyticsEventKey } from '@atlaskit/editor-common/utils';
+import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-identifier';
+import type { FeedbackDialogPlugin } from '@atlaskit/editor-plugins/feedback-dialog';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+
 import type EditorActions from '../../../actions';
 import * as presetContext from '../../../presets/context';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-
-jest.mock('../../../plugins/feedback-dialog', () => ({
-  openFeedbackDialog: jest.fn(),
-}));
+import EditorContext from '../../../ui/EditorContext';
+import ToolbarFeedback from '../../../ui/ToolbarFeedback';
 
 describe('@atlaskit/editor-core/ui/ToolbarFeedback', () => {
   beforeAll(() => {
@@ -78,20 +77,28 @@ describe('@atlaskit/editor-core/ui/ToolbarFeedback', () => {
 
     it('should call openFeedbackDialog with correct params', async () => {
       const usePresetContext = jest.spyOn(presetContext, 'usePresetContext');
+      const mockOpenFeedbackDialog = jest.fn();
       usePresetContext.mockImplementation(() => {
         return {
-          base: {
+          contextIdentifier: {
             sharedState: {
               currentState: () => {
                 return {
-                  contextIdentifier: {
+                  contextIdentifierProvider: {
                     objectId: 'object-id',
                   },
                 };
               },
             },
           },
-        } as PublicPluginAPI<[typeof basePlugin]>;
+          feedbackDialog: {
+            actions: {
+              openFeedbackDialog: mockOpenFeedbackDialog,
+            },
+          },
+        } as unknown as PublicPluginAPI<
+          [ContextIdentifierPlugin, FeedbackDialogPlugin]
+        >;
       });
 
       renderWithIntl(
@@ -110,7 +117,7 @@ describe('@atlaskit/editor-core/ui/ToolbarFeedback', () => {
 
       await userEvent.click(screen.getByRole('button'));
 
-      expect(openFeedbackDialog).toHaveBeenCalledWith({
+      expect(mockOpenFeedbackDialog).toHaveBeenCalledWith({
         packageName: 'editor',
         packageVersion: '1.1.1',
         labels: ['label1', 'label2'],

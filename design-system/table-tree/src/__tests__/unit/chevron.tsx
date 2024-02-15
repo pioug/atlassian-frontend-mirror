@@ -14,50 +14,46 @@ describe('Chevron', () => {
 
     const button = getByRole('button');
     expect(button).toBeInTheDocument();
-    expect(button.getAttribute('aria-controls')).toBe(controlledId);
+    expect(button).toHaveAttribute('aria-controls', controlledId);
   });
 
   it('should give context of the row ID in the label', () => {
     const changedRowId = '100';
-    const { getByLabelText } = render(<Chevron rowId={changedRowId} />);
+    const { getByText } = render(<Chevron rowId={changedRowId} />);
 
-    const chevronIconWithRowIdInLabel = getByLabelText(
-      new RegExp(changedRowId),
-    );
+    const chevronIconWithRowIdInLabel = getByText(new RegExp(changedRowId));
     expect(chevronIconWithRowIdInLabel).toBeInTheDocument();
   });
 
   it('should give context of the row content in the label', () => {
     const extendedLabel = 'Chapter 1: Clean Code';
-    const { getByLabelText } = render(
+    const { getByText } = render(
       <Chevron rowId="1" extendedLabel={extendedLabel} />,
     );
 
-    const chevronIconWithRowIdInLabel = getByLabelText(
-      new RegExp(extendedLabel),
-    );
-    expect(chevronIconWithRowIdInLabel).toBeInTheDocument();
+    const labelElement = getByText(new RegExp(extendedLabel));
+    expect(labelElement).toBeInTheDocument();
   });
 
   test('expanded', () => {
-    const { getByLabelText, queryByLabelText } = render(
+    const { getByText, queryByText } = render(
       <Chevron isExpanded={true} rowId="1" />,
     );
 
-    const chevronLeftIcon = queryByLabelText(/Expand/);
-    const chevronRightIcon = getByLabelText(/Collapse/);
+    const chevronLeftIconLabel = queryByText(/Expand/);
+    const chevronRightIconLabel = getByText(/Collapse/);
 
-    expect(chevronLeftIcon).not.toBeInTheDocument();
-    expect(chevronRightIcon).toBeInTheDocument();
+    expect(chevronLeftIconLabel).not.toBeInTheDocument();
+    expect(chevronRightIconLabel).toBeInTheDocument();
   });
 
   test('collapsed', () => {
-    const { getByLabelText, queryByLabelText } = render(
+    const { getByText, queryByText } = render(
       <Chevron isExpanded={false} rowId="1" />,
     );
 
-    const chevronLeftIcon = getByLabelText(/Expand/);
-    const chevronRightIcon = queryByLabelText(/Collapse/);
+    const chevronLeftIcon = getByText(/Expand/);
+    const chevronRightIcon = queryByText(/Collapse/);
 
     expect(chevronLeftIcon).toBeInTheDocument();
     expect(chevronRightIcon).not.toBeInTheDocument();

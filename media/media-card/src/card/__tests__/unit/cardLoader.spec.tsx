@@ -4,7 +4,8 @@ import { mount } from 'enzyme';
 import { fakeMediaClient, nextTick } from '@atlaskit/media-test-helpers';
 import { FileIdentifier } from '@atlaskit/media-client';
 import { CardLoading } from '../../../utils/lightCards/cardLoading';
-import CardLoader, { CardWithMediaClientConfigProps } from '../../cardLoader';
+import CardLoader from '../../cardLoader';
+import { CardWithMediaClientConfigProps } from '../../types';
 
 const mediaClient = fakeMediaClient();
 

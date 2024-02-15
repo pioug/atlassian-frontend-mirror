@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/adf-utils",
-  "version": "19.0.12",
+  "version": "19.0.20",
   "description": "Set of utilities to traverse, modify and create ADF documents.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -41,7 +41,7 @@
     "generate:spec": "rm -rf ./src/validator/specs/ && yarn json-schema-generator --outDir=./src/validator/specs/ --mode=Spec --stage=0 ./src/validator/entry.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^34.0.0",
+    "@atlaskit/adf-schema": "^35.5.1",
     "@atlaskit/codemod-utils": "^4.2.0",
     "@babel/runtime": "^7.0.0"
   },

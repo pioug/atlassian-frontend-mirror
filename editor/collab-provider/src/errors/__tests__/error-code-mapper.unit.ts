@@ -1,5 +1,6 @@
 import { errorCodeMapper } from '../error-code-mapper';
-import { InternalError, NCS_ERROR_CODE } from '../error-types';
+import type { InternalError } from '../internal-errors';
+import { NCS_ERROR_CODE } from '../ncs-errors';
 import { PROVIDER_ERROR_CODE } from '@atlaskit/editor-common/collab';
 
 describe('Error code mapper', () => {
@@ -147,6 +148,7 @@ describe('Error code mapper', () => {
         message:
           'The document is currently not available, please try again later',
         recoverable: true,
+        status: 423,
       },
     ],
     [

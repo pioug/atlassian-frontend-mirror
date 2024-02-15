@@ -1,40 +1,37 @@
+import type { DocBuilder } from '@atlaskit/editor-common/types';
+import { dedupe, shallowEqual } from '@atlaskit/editor-common/utils';
+import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-
-import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  doc,
-  code_block,
-  code,
-  p,
-  strong,
-  panel,
   blockquote,
-  h1,
-  ul,
-  ol,
-  li,
-  taskList,
-  taskItem,
-  decisionList,
+  code,
+  code_block,
   decisionItem,
+  decisionList,
+  doc,
+  h1,
+  li,
   media,
   mediaGroup,
   mediaSingle,
+  ol,
+  p,
+  panel,
+  strong,
+  taskItem,
+  taskList,
+  ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
-import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
 
 import {
-  isMarkTypeAllowedInCurrentSelection,
   isEmptyNode,
+  isMarkTypeAllowedInCurrentSelection,
   isSelectionInsideLastNodeInDocument,
 } from '../../../utils';
-import { shallowEqual, dedupe } from '@atlaskit/editor-common/utils';
-
-import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { closestElement } from '../../../utils/dom';
 
 describe('@atlaskit/editore-core/utils', () => {

@@ -1,10 +1,14 @@
 import React from 'react';
-import QuestionIcon from '@atlaskit/icon/glyph/question';
-import ToolbarButton from '../ToolbarButton';
-import WithHelpTrigger from '../WithHelpTrigger';
-import type { PositionType } from '@atlaskit/tooltip/types';
+
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
+
+import QuestionIcon from '@atlaskit/icon/glyph/question';
+import type { PositionType } from '@atlaskit/tooltip/types';
+
+import ToolbarButton from '../ToolbarButton';
+import WithHelpTrigger from '../WithHelpTrigger';
+
 import { messages } from './messages';
 
 interface Props {

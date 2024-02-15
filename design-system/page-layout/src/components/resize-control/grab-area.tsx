@@ -4,6 +4,7 @@ import { ComponentProps, FocusEvent, KeyboardEvent, MouseEvent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -51,6 +52,12 @@ const grabAreaStyles = css({
   },
 });
 
+const grabAreaReducedHeightStyles = css({
+  height: `calc(100% - ${token('space.600', '3rem')} * 2)`,
+  position: 'absolute',
+  insetBlockEnd: 0,
+});
+
 const grabAreaCollapsedStyles = css({
   padding: 0,
   backgroundColor: 'transparent',
@@ -95,7 +102,15 @@ const GrabArea = ({
     // range input would be more semantically accurate, it does not affect
     // usability.
     role="slider"
-    css={[grabAreaStyles, isLeftSidebarCollapsed && grabAreaCollapsedStyles]}
+    css={[
+      grabAreaStyles,
+      isLeftSidebarCollapsed && grabAreaCollapsedStyles,
+      getBooleanFF(
+        'platform.design-system-team.page-layout-resize-button-fix_u0qxv',
+      ) &&
+        isLeftSidebarCollapsed &&
+        grabAreaReducedHeightStyles,
+    ]}
     aria-orientation="vertical"
     aria-valuenow={leftSidebarPercentageExpanded}
     aria-valuemin={0}

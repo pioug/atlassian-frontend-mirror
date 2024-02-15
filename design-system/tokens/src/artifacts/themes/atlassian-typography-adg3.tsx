@@ -1,32 +1,32 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3440d4cd41486b7e2bc04c1fab9ebdfe>>
+ * @codegen <<SignedSource::8805a9363c77bb3681dad874e8097353>>
  * @codegenCommand yarn build tokens
  */
 export default `
 html[data-theme~="typography:typography-adg3"] {
   --ds-UNSAFE-textTransformUppercase: uppercase;
-  --ds-font-body: normal 400 0.875rem/1.25rem var(--ds-font-family-body);
-  --ds-font-body-large: normal 400 1rem/1.5rem var(--ds-font-family-body);
-  --ds-font-body-small: normal 400 0.6875rem/1rem var(--ds-font-family-body);
-  --ds-font-code: normal 400 0.875em/1 var(--ds-font-family-code);
-  --ds-font-heading-large: normal 500 1.5rem/1.75rem var(--ds-font-family-heading);
-  --ds-font-heading-medium: normal 500 1.25rem/1.5rem var(--ds-font-family-heading);
-  --ds-font-heading-small: normal 600 1rem/1.25rem var(--ds-font-family-heading);
-  --ds-font-heading-xlarge: normal 600 1.8125rem/2rem var(--ds-font-family-heading);
-  --ds-font-heading-xsmall: normal 600 0.875rem/1rem var(--ds-font-family-heading);
-  --ds-font-heading-xxlarge: normal 500 2.1875rem/2.5rem var(--ds-font-family-heading);
-  --ds-font-heading-xxsmall: normal 600 0.75rem/1rem var(--ds-font-family-heading);
+  --ds-font-heading-xxlarge: normal 500 2.1875rem/2.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
+  --ds-font-heading-xlarge: normal 600 1.8125rem/2rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
+  --ds-font-heading-large: normal 500 1.5rem/1.75rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
+  --ds-font-heading-medium: normal 500 1.25rem/1.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
+  --ds-font-heading-small: normal 600 1rem/1.25rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
+  --ds-font-heading-xsmall: normal 600 0.875rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
+  --ds-font-heading-xxsmall: normal 600 0.75rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
+  --ds-font-body-large: normal 400 1rem/1.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
+  --ds-font-body: normal 400 0.875rem/1.25rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
+  --ds-font-body-small: normal 400 0.6875rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
+  --ds-font-ui: normal 500 0.875rem/1 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
+  --ds-font-ui-small: normal 400 0.6875rem/1 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
+  --ds-font-code: normal 400 0.875em/1 ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
   --ds-font-letterSpacing-0: 0;
   --ds-font-letterSpacing-100: -0.003em;
   --ds-font-letterSpacing-200: -0.006em;
   --ds-font-letterSpacing-300: -0.008em;
   --ds-font-letterSpacing-400: -0.01em;
-  --ds-font-ui: normal 400 0.875rem/1 var(--ds-font-family-body);
-  --ds-font-ui-small: normal 400 0.6875rem/1 var(--ds-font-family-body);
-  --ds-font-family-body: ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
+  --ds-font-family-body: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-family-code: ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
-  --ds-font-family-heading: ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
+  --ds-font-family-heading: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-family-monospace: ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
   --ds-font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   --ds-font-family-brand: Charlie Sans;

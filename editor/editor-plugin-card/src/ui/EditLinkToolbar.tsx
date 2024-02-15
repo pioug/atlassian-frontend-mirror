@@ -19,7 +19,6 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
   Command,
   ExtractInjectionAPI,
-  FeatureFlags,
   FloatingToolbarConfig,
   FloatingToolbarItem,
   LinkInputType,
@@ -57,8 +56,8 @@ export type EditLinkToolbarProps = InjectionAPI & {
     analytic?: UIAnalyticsEvent | null | undefined,
   ) => void;
   linkPickerOptions?: LinkPickerOptions;
-  featureFlags: FeatureFlags;
   forceFocusSelector: ForceFocusSelector | undefined;
+  lpLinkPicker: boolean;
 };
 
 export function HyperlinkAddToolbarWithState({
@@ -70,7 +69,7 @@ export function HyperlinkAddToolbarWithState({
   view,
   onCancel,
   invokeMethod,
-  featureFlags,
+  lpLinkPicker,
   onClose,
   onEscapeCallback,
   onClickAwayCallback,
@@ -89,7 +88,7 @@ export function HyperlinkAddToolbarWithState({
       view={view}
       onCancel={onCancel}
       invokeMethod={invokeMethod}
-      featureFlags={featureFlags}
+      lpLinkPicker={lpLinkPicker}
       onClose={onClose}
       onEscapeCallback={onEscapeCallback}
       onClickAwayCallback={onClickAwayCallback}
@@ -122,10 +121,10 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
       url,
       text,
       view,
-      featureFlags,
       onSubmit,
       pluginInjectionApi,
       forceFocusSelector,
+      lpLinkPicker,
     } = this.props;
 
     return (
@@ -139,7 +138,7 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
         // Assumes that the smart card link picker can only ever be invoked by clicking "edit"
         // via the floating toolbar
         invokeMethod={INPUT_METHOD.FLOATING_TB}
-        featureFlags={featureFlags}
+        lpLinkPicker={lpLinkPicker}
         onSubmit={(href, title, displayText, inputMethod, analytic) => {
           this.hideLinkToolbar();
           if (onSubmit) {
@@ -148,7 +147,7 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
         }}
         onEscapeCallback={(state, dispatch) => {
           const { tr } = state;
-          pluginInjectionApi?.hyperlink.actions.hideLinkToolbar(tr);
+          pluginInjectionApi?.hyperlink?.actions.hideLinkToolbar(tr);
           hideLinkToolbar(tr);
 
           forceFocusSelector?.(
@@ -163,7 +162,7 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
         }}
         onClickAwayCallback={(state, dispatch) => {
           const { tr } = state;
-          pluginInjectionApi?.hyperlink.actions.hideLinkToolbar(tr);
+          pluginInjectionApi?.hyperlink?.actions.hideLinkToolbar(tr);
 
           if (dispatch) {
             dispatch(tr);
@@ -206,14 +205,14 @@ export const buildEditLinkToolbar = ({
   providerFactory,
   node,
   linkPicker,
-  featureFlags,
   pluginInjectionApi,
+  lpLinkPicker,
 }: {
   providerFactory: ProviderFactory;
   node: Node;
   linkPicker?: LinkPickerOptions;
-  featureFlags: FeatureFlags;
   pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
+  lpLinkPicker: boolean;
 }): FloatingToolbarItem<Command> => {
   return {
     type: 'custom',
@@ -236,9 +235,9 @@ export const buildEditLinkToolbar = ({
           url={displayInfo.url}
           text={displayInfo.title || ''}
           node={node}
-          featureFlags={featureFlags}
+          lpLinkPicker={lpLinkPicker}
           forceFocusSelector={
-            pluginInjectionApi?.floatingToolbar.actions?.forceFocusSelector
+            pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector
           }
           onSubmit={(newHref, newText, inputMethod, analytic) => {
             const urlChanged = newHref !== displayInfo.url;
@@ -277,7 +276,7 @@ export const buildEditLinkToolbar = ({
 
 export const editLinkToolbarConfig = (
   showLinkingToolbar: boolean,
-  lpLinkPicker: boolean,
+  lpLinkPicker?: boolean,
 ): Partial<FloatingToolbarConfig> => {
   return showLinkingToolbar
     ? {

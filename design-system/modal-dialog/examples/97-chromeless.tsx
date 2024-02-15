@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import { Box, Flex, Inline, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';

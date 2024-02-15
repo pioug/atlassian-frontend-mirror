@@ -50,8 +50,7 @@ export const defaultAssetsMeta = {
 };
 
 export const assetsContext = {
-  packageName: '@atlaskit/fabric',
-  packageVersion: '0.0.0',
+  component: 'datasourceConfigModal',
   source: 'datasourceConfigModal',
   attributes: { dataProvider: 'jsm-assets' },
 };
@@ -214,10 +213,9 @@ export const getAssetsClientErrorHookState: ({
 
 export const geValidateAqlTextDefaultHookState: () => UseValidateAqlTextState =
   () => ({
-    isValidAqlText: false,
-    validateAqlTextError: undefined,
-    validateAqlTextLoading: false,
-    validateAqlText: jest.fn().mockResolvedValue(true),
+    lastValidationResult: { type: 'valid', validatedAql: 'valid aql' },
+    debouncedValidation: jest.fn().mockResolvedValue(undefined),
+    validateAqlText: jest.fn().mockRejectedValue(undefined),
   });
 
 export const setup = async (

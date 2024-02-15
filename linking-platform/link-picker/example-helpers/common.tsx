@@ -1,52 +1,68 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useContext } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import {
+  createIntl,
+  createIntlCache,
+  IntlContext,
+  IntlProvider,
+} from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { Box, xcss } from '@atlaskit/primitives';
 import { ufologger } from '@atlaskit/ufo';
-
-import languages from '../src/i18n/languages';
-
-import { LanguagePicker } from './LanguagePicker';
 
 interface WrapperProps {
   children: ReactNode;
-  isLanguagePickerVisible?: boolean;
 }
 
 export type messages = { [key: string]: string };
 
-export function PageWrapper({
-  children,
-  isLanguagePickerVisible = false,
-}: WrapperProps) {
+const pageWrapperStyles = xcss({
+  marginBottom: '2em',
+  maxWidth: '700px',
+});
+
+const exampleWrapperStyles = xcss({
+  padding: 'space.600',
+});
+
+// Prevents memory leaks
+const cache = createIntlCache();
+
+// Required for VR testing
+const useSafeIntl = () => {
+  const context = useContext(IntlContext);
+  if (!context) {
+    return createIntl(
+      {
+        locale: 'en',
+        messages: {},
+      },
+      cache,
+    );
+  }
+  return context;
+};
+
+export function PageWrapper({ children }: WrapperProps) {
   ufologger.enable();
-  const [locale, setLocale] = useState('en');
-
-  const getProperLanguageKey = (locale: string) => locale.replace('_', '-');
-
-  const languagePicker = isLanguagePickerVisible && (
-    <LanguagePicker
-      locale={locale}
-      languages={languages}
-      onChange={locale => setLocale(getProperLanguageKey(locale))}
-    />
-  );
+  const intl = useSafeIntl();
 
   return (
     <SmartCardProvider>
-      <div className="example" style={{ padding: 50 }}>
-        {languagePicker}
-        <IntlProvider locale={locale}>{children}</IntlProvider>
-      </div>
+      <Box xcss={[exampleWrapperStyles]}>
+        <IntlProvider
+          locale={intl.locale}
+          // should be remove when ff: platform.linking-platform.link-picker.lazy-intl-messages is cleaned up
+          onError={() => {}}
+        >
+          {children}
+        </IntlProvider>
+      </Box>
     </SmartCardProvider>
   );
 }
 
 export function PageHeader(wrapperProps: WrapperProps) {
-  return (
-    <div style={{ marginBottom: '2em', maxWidth: 700 }}>
-      {wrapperProps.children}
-    </div>
-  );
+  return <Box xcss={[pageWrapperStyles]}>{wrapperProps.children}</Box>;
 }

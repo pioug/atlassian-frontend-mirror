@@ -1,5 +1,5 @@
 export {
-  updateMediaSingleNodeAttrs,
-  updateAllMediaSingleNodesAttrs,
+  updateMediaNodeAttrs as updateMediaSingleNodeAttrs,
+  updateAllMediaNodesAttrs as updateAllMediaSingleNodesAttrs,
   replaceExternalMedia,
 } from './helpers';

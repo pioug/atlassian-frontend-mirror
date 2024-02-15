@@ -36,7 +36,7 @@ export type EngagementHistoryEntry = {
   timeOfEngagementStart: number;
 };
 
-type BaseConfig = {
+export type InternalConfig = {
   startHitboxAtPercentageRemainingOfElement: Spacing;
   maxScrollAtPercentageRemainingOfHitbox: Spacing;
   maxPixelScrollPerSecond: number;
@@ -44,17 +44,17 @@ type BaseConfig = {
   maxMainAxisHitboxSize: number;
 };
 
-export type ScrollContainerConfig = BaseConfig;
+export type PublicConfig = Partial<{ maxScrollSpeed: 'standard' | 'fast' }>;
 
 export type ElementAutoScrollArgs<DragType extends AllDragTypes> = {
   element: Element;
   canScroll?: (args: ElementGetFeedbackArgs<DragType>) => boolean;
-  // We are not currently enabling per item configuration
+  getConfiguration?: (args: ElementGetFeedbackArgs<DragType>) => PublicConfig;
 };
 
 export type WindowAutoScrollArgs<DragType extends AllDragTypes> = {
   canScroll?: (args: WindowGetFeedbackArgs<DragType>) => boolean;
-  // We are not currently enabling per item configuration
+  getConfiguration?: (args: WindowGetFeedbackArgs<DragType>) => PublicConfig;
 };
 
 export type Side = 'start' | 'end';

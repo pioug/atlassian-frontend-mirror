@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 
-import { JQLEditor, JQLEditorProps } from '@atlassianlabs/jql-editor';
 import { queries } from '@testing-library/dom';
 import { act, fireEvent, render, RenderResult } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { JQLEditor, JQLEditorProps } from '@atlaskit/jql-editor';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
@@ -25,6 +25,7 @@ import {
   JiraIssueDatasourceParameters,
   JiraIssuesConfigModalProps,
   JiraIssuesDatasourceAdf,
+  JiraIssueViewModes,
 } from '../../types';
 import { JiraIssuesConfigModal } from '../index';
 
@@ -38,7 +39,7 @@ jest.mock('@atlaskit/jql-editor-autocomplete-rest', () => ({
     .mockReturnValue('useAutocompleteProvider-call-result'),
 }));
 
-jest.mock('@atlassianlabs/jql-editor', () => ({
+jest.mock('@atlaskit/jql-editor', () => ({
   JQLEditor: jest
     .fn()
     .mockReturnValue(<div data-testid={'mocked-jql-editor'}></div>),
@@ -216,6 +217,7 @@ export const setup = async (
     }[];
     columnCustomSizes?: JiraIssuesConfigModalProps['columnCustomSizes'];
     url?: JiraIssuesConfigModalProps['url'];
+    viewMode?: JiraIssueViewModes;
   } = {},
 ) => {
   asMock(getAvailableJiraSites).mockResolvedValue(
@@ -274,6 +276,7 @@ export const setup = async (
     findByTestId,
     findByText,
     getByLabelText,
+    getByPlaceholderText,
     getByTestId,
     getByText,
     getByRole,
@@ -298,6 +301,19 @@ export const setup = async (
     await component.findByTestId(
       'jira-jql-datasource-modal--site-selector--trigger',
     );
+  }
+
+  const switchMode = (viewMode: JiraIssueViewModes) => {
+    fireEvent.click(
+      getByTestId('jira-jql-datasource-modal--view-drop-down--trigger'),
+    );
+    viewMode === 'issue'
+      ? fireEvent.click(getByTestId('dropdown-item-table'))
+      : fireEvent.click(getByTestId('dropdown-item-inline-link'));
+  };
+
+  if (args.viewMode) {
+    switchMode(args.viewMode);
   }
 
   const assertInsertResult = <T extends { attributes?: object } | undefined>(
@@ -459,6 +475,7 @@ export const setup = async (
     onCancel,
     onInsert,
     onAnalyticFireEvent,
+    getByPlaceholderText,
     assertInsertResult,
     getSiteSelectorText,
     getJiraModalTitleText,
@@ -469,6 +486,7 @@ export const setup = async (
     searchWithNewBasic,
     assertAnalyticsAfterButtonClick,
     updateVisibleColumnList,
+    switchMode,
   };
 };
 

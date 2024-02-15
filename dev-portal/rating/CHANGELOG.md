@@ -1,5 +1,11 @@
 # @atlaskit/rating
 
+## 0.3.27
+
+### Patch Changes
+
+- [#65957](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65957) [`18bda6c93ac8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/18bda6c93ac8) - Migrate @atlaskit/rating to use declarative entry points
+
 ## 0.3.26
 
 ### Patch Changes

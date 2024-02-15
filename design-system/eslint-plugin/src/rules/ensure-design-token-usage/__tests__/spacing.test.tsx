@@ -29,6 +29,24 @@ export const spacingTests: Tests = {
       options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({ padding: token('space.100', '8px') })`,
     },
+
+    /**
+     * This is invalid code, obviously, but we've had issues where this lint rule:
+     * - sees this code,
+     * - throws an error
+     * - CI (in `issue-automat`) breaks
+     * - we get blamed.
+     * So, the lint rule has been updated to not throw an error for this case instead.
+     *
+     * It's also not the responsibility of this lint rule to fix this pattern. So, we should
+     * ignore it here (and write a separate lint rule to lint against this pattern).
+     */
+    {
+      options: [
+        { domains: ['spacing'], applyImport: false, failSilently: true },
+      ],
+      code: `const styles = css({ padding: -token('space.100', '8px') })`,
+    },
     {
       options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({ borderRadius: token('border.radius', '3px') })`,

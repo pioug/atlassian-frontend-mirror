@@ -1,6 +1,11 @@
 export const CONTENT_URL_SECURITY_AND_PERMISSIONS =
   'https://support.atlassian.com/confluence-cloud/docs/insert-links-and-anchors/#Smart-links';
 
+export const CONTENT_URL_3P_ACCOUNT_AUTH =
+  'https://support.atlassian.com/confluence-cloud/docs/what-data-is-sent-and-received-when-pasting-a-smart-link/';
+
+export const CONTENT_URL_AI =
+  'https://www.atlassian.com/trust/atlassian-intelligence';
 /**
  * The alignment of Flexible UI component.
  */

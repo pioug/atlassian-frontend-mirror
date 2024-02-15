@@ -1,10 +1,8 @@
-import {
-  PuppeteerPage,
-  waitForLoadedImageElements,
-} from '@atlaskit/visual-regression/helper';
-import { snapshot, initRendererWithADF, animationFrame } from './_utils';
-import * as mixedAdf from '../__fixtures__/document-without-media.adf.json';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { waitForLoadedImageElements } from '@atlaskit/visual-regression/helper';
 import * as mediaAdf from '../__fixtures__/1600px-media.adf.json';
+import * as mixedAdf from '../__fixtures__/document-without-media.adf.json';
+import { animationFrame, initRendererWithADF, snapshot } from './_utils';
 
 const initRenderer = async (
   page: PuppeteerPage,
@@ -18,8 +16,8 @@ const initRenderer = async (
     adf,
   });
 };
-// TODO: https://product-fabric.atlassian.net/browse/ED-12011
-describe.skip('Snapshot Test: Full Width', () => {
+
+describe('Snapshot Test: Full Width', () => {
   let page: PuppeteerPage;
   beforeAll(() => {
     page = global.page;

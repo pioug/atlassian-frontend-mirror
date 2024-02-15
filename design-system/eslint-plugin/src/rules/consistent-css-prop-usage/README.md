@@ -21,12 +21,16 @@ This rule has options - see below.
 
 👎 Example of **incorrect** code for this rule:
 
+**Calling a css/xcss function or direct objects inside the JSX attribute.**
+
 ```js
 function Button({ children }) {
   return <div css={css({...})}>{children}</div>;
                    ^^^^^^^ css function call used inline (performance issue)
 }
 ```
+
+**Inserting a non css-function based object identifier into a css JSX attribute.**
 
 ```js
 const container = {
@@ -39,6 +43,8 @@ function Button({ children }) {
 }
 ```
 
+**Importing styles from another file.**
+
 ```js
 import { container } from './styles';
          ^^^^^^^^^ styles should be local, not shared
@@ -47,6 +53,8 @@ function Button({ children }) {
   return <button css={container}>{children}</button>;
 }
 ```
+
+**Nesting styles with objects instead of arrays.**
 
 ```js
 const baseContainerStyles = css({
@@ -66,6 +74,13 @@ function Button({ children }) {
 
 👍 Example of **correct** code for this rule:
 
+**Using the css() function to create a style object that follows the naming convention (ends in Styles) and passing it as a variable into the css={...} JSX attribute.**
+
+With the following options turned on:
+
+- cssFunctions = ['css']
+- stylesPlacement = 'top'
+
 ```js
 const containerStyles = css({
   zIndex: 1,
@@ -76,7 +91,38 @@ function Button({ children }) {
 }
 ```
 
+**Technically correct usage of the cssMap function.**
+
+With the following options turned on:
+
+- cssFunctions = ['css']
+- stylesPlacement = 'top'
+
 ```js
+const borderStyles = cssMap({
+  'solid': '1px solid';
+  'none': '0px';
+})
+
+function Button({ children }) {
+  return <button css={borderStyles[solid]}>{children}</button>;
+}
+```
+
+**Create composite styles with arrays, not objects.**
+
+With the following options turned on:
+
+- cssFunctions = ['css']
+- stylesPlacement = 'bottom'
+
+```js
+function Button({ children }) {
+  return (
+    <button css={[baseContainerStyles, containerStyles]}>{children}</button>
+  );
+}
+
 const baseContainerStyles = css({
   zIndex: 5,
 });
@@ -84,12 +130,15 @@ const baseContainerStyles = css({
 const containerStyles = css({
   zIndex: 7,
 });
+```
 
-function Button({ children }) {
-  return (
-    <button css={[baseContainerStyles, containerStyles]}>{children}</button>
-  );
-}
+**Ternaries can be used inline**
+
+```js
+const baseStyles = css({ color: token('color.text.primary') });
+const disabledStyles = css({ color: token('color.text.disabled') });
+
+<div css={props.disabled ? disabledStyles : baseStyles}></div>;
 ```
 
 ## Options
@@ -98,7 +147,7 @@ This rule comes with options to support different repository configurations.
 
 ### cssFunctions
 
-An array of function names the linting rule should target. Defaults to `['css', 'xcss']`.
+An array of function names the linting rule should target. Defaults to `['css', 'xcss']`. Functionality of cssMap will be linted regardless of the configuration of `cssFunctions` as it can be used with either attribute.
 
 ### stylesPlacement
 

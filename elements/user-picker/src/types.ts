@@ -157,6 +157,14 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   name?: string;
   /** Header to be displayed in MenuList */
   header?: React.ReactNode;
+  /** Accessibility: A field to dictate if this is a mandatory field in the form. */
+  required?: boolean;
+  /**
+   * Enables workaround for when <Select /> is nested inside <Draggable /> from react-beautiful-dnd
+   * This relationship prevents the dropdown menu from opening because of bugs in the default focus state and clicking in a particular area of <Select />
+   * Context: https://hello.atlassian.net/wiki/spaces/~989411314/pages/2861097485/Investigation+Notes+for+atlaskit+select+react-beautiful-dnd#Temporary-Solution
+   */
+  UNSAFE_hasDraggableParentComponent?: boolean;
 };
 
 export type PopupUserPickerProps = UserPickerProps & {
@@ -215,6 +223,7 @@ export type UserPickerState = {
   inputValue: string;
   resolving: boolean;
   showError: boolean;
+  initialFocusHandled: boolean;
 };
 
 export interface HighlightRange {
@@ -247,7 +256,8 @@ export interface OptionData {
   isDisabled?: boolean;
   lozenge?: string | LozengeProps | ReactNode;
   name: string;
-  type?: 'user' | 'team' | 'email' | 'group' | 'custom';
+  type?: 'user' | 'team' | 'email' | 'group' | 'custom' | 'external_user';
+  tooltip?: string;
 }
 
 export const UserType = 'user';
@@ -256,7 +266,6 @@ export type UserSource =
   | 'google'
   | 'slack'
   | 'microsoft'
-  | 'github'
   | 'jira'
   | 'confluence'
   | 'other-atlassian';
@@ -273,9 +282,10 @@ export interface User extends OptionData {
   publicName?: string;
   highlight?: UserHighlight;
   byline?: string;
-  type?: 'user';
+  type?: 'user' | 'external_user';
   email?: string;
   isExternal?: boolean;
+  title?: string;
 }
 
 export type LozengeColor =

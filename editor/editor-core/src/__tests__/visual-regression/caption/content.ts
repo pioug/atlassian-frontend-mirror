@@ -1,11 +1,3 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  snapshot,
-  initFullPageEditorWithAdf,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForEmojisToLoad } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -13,13 +5,22 @@ import {
   clickMediaInPosition,
   waitForMediaToBeLoaded,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import captionWithDate from './__fixtures__/caption-with-date.adf.json';
 import captionWithEmoji from './__fixtures__/caption-with-emoji.adf.json';
 import captionWithLongText from './__fixtures__/caption-with-long-text.adf.json';
 import captionWithMention from './__fixtures__/caption-with-mention.adf.json';
 import captionWithStatus from './__fixtures__/caption-with-status.adf.json';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 async function initEditor(page: PuppeteerPage, adf: object) {
   await initFullPageEditorWithAdf(page, adf, Device.LaptopMDPI, undefined, {

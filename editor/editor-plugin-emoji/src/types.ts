@@ -36,7 +36,7 @@ export type EmojiPlugin = NextEditorPlugin<
   {
     pluginConfiguration: EmojiPluginOptions | undefined;
     dependencies: [OptionalPlugin<AnalyticsPlugin>, TypeAheadPlugin];
-    sharedState: EmojiPluginSharedState | undefined;
+    sharedState: Omit<EmojiPluginSharedState, 'emojiProvider'> | undefined;
     commands: {
       insertEmoji: (
         emojiId: EmojiId,

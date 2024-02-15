@@ -2,18 +2,12 @@
 import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import { ButtonProps } from '@atlaskit/button/types';
+import { Box, Inline } from '@atlaskit/primitives';
+import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
 import { Note } from '../examples-util/helpers';
 import Avatar from '../src';
-
-const Btn = (props: ButtonProps) => (
-  <span style={{ marginLeft: token('space.100', '8px') }}>
-    {/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
-    <Button type="button" {...props} />
-  </span>
-);
 
 type State = {
   inputValue: string;
@@ -55,21 +49,31 @@ const ExternalSrcAvatar: FC = (props) => {
       <div
         style={{
           display: 'flex',
+          gap: token('space.100', '8px'),
           marginBottom: token('space.100', '8px'),
           marginTop: token('space.100', '8px'),
+          alignItems: 'end',
+          justifyContent: 'center',
         }}
       >
-        <input
-          onChange={changeUrl}
-          style={{ flex: 1 }}
-          type="text"
-          value={inputValue}
-        />
-        <Btn type="submit" appearance="primary">
-          Load Image
-        </Btn>
-        <Btn onClick={resetState}>Reset</Btn>
-        <Btn onClick={forceRemount}>Remount</Btn>
+        <label htmlFor="image-url" style={{ flexGrow: 1 }}>
+          Image URL
+          <Textfield
+            id="image-url"
+            onChange={changeUrl}
+            style={{ flex: 1 }}
+            value={inputValue}
+          />
+        </label>
+        <Box paddingBlockEnd="space.050">
+          <Inline space="space.100">
+            <Button type="submit" appearance="primary">
+              Load Image
+            </Button>
+            <Button onClick={resetState}>Reset</Button>
+            <Button onClick={forceRemount}>Remount</Button>
+          </Inline>
+        </Box>
       </div>
       <Avatar key={avatarKey} name={avatarName} size="xlarge" src={imageUrl} />
     </form>

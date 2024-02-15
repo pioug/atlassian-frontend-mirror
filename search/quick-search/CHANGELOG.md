@@ -1,5 +1,17 @@
 # @atlaskit/quick-search
 
+## 8.1.7
+
+### Patch Changes
+
+- [#66003](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66003) [`9d097306f2e7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d097306f2e7) - Migrate @atlaskit/quick-search to use declarative entry points
+
+## 8.1.6
+
+### Patch Changes
+
+- [#59897](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59897) [`48e22f03d838`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48e22f03d838) - Converted spacing values to corresponding space tokens
+
 ## 8.1.5
 
 ### Patch Changes

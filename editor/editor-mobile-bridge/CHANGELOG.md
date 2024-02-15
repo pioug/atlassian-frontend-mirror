@@ -1,5 +1,929 @@
 # @atlaskit/editor-mobile-bridge
 
+## 192.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 192.1.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 192.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 192.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 192.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.7.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.7.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.7.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.7.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.7.12
+
+### Patch Changes
+
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572) [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) - Upgrading @atlaskit/editor-prosemirror dependency
+- Updated dependencies
+
+## 191.7.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.7.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.7.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.7.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.7.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.7.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.7.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.7.4
+
+### Patch Changes
+
+- [#70152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70152) [`53ed3673df28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53ed3673df28) - Updating adf-schema version to 35.5.1
+- Updated dependencies
+
+## 191.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.7.2
+
+### Patch Changes
+
+- [#70084](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70084) [`4d651eb93ab5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d651eb93ab5) - Add editor-plugin-annotation pr and create shared utils for it in editor-test-helpers
+- Updated dependencies
+
+## 191.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.7.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.6.0
+
+### Patch Changes
+
+- [#69272](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69272) [`35f47019f443`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35f47019f443) - Migrate packages to use declarative entry points
+- Updated dependencies
+
+## 191.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.5.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.4.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.4.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.4.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.4.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.4.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.3.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.2.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.1.4
+
+### Patch Changes
+
+- [#67238](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67238) [`40533849b2ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40533849b2ec) - [ED-21835] Change EditorAPI type to always union with undefined
+- Updated dependencies
+
+## 191.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.1.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 191.0.0
+
+### Patch Changes
+
+- [#65031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65031) [`a00094111b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a00094111b5a) - ED-21609 Update adf-schema to 35.3.0
+- Updated dependencies
+
+## 190.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.2.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.29
+
+### Patch Changes
+
+- [#63540](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63540) [`f90baf9336e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f90baf9336e6) - [ux] EDF-52: Hide quickInsert AI items based on AI config item isVisible handler (such as when documents are empty). This change is behind the platform flag platform.editor.ai-dynamic-show-hide-quick-insert-items_4ie8s (since it depends on adoption of a corresponding editor-common version to be enabled).
+- Updated dependencies
+
+## 190.1.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.26
+
+### Patch Changes
+
+- [#63830](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63830) [`a21d2c99bd13`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a21d2c99bd13) - Move code for editor paste plugin from editor-core to @atlaskit/editor-plugin-paste
+- Updated dependencies
+
+## 190.1.25
+
+### Patch Changes
+
+- [#63788](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63788) [`dd7fa9ede15f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dd7fa9ede15f) - Comment change to trigger builds for mobile bridge
+- Updated dependencies
+
+## 190.1.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.17
+
+### Patch Changes
+
+- [#63170](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63170) [`d81c444c0883`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d81c444c0883) - [ED-21637] Convert links test to RTL
+
+## 190.1.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.8
+
+### Patch Changes
+
+- [#62199](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62199) [`755cef0498e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/755cef0498e0) - Extract editor alignment to new package @atlaskit/editor-plugin-alignment
+- Updated dependencies
+
+## 190.1.7
+
+### Patch Changes
+
+- [#62176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62176) [`60bdfaccaa8c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/60bdfaccaa8c) - Move all mobile-only Editor plugins to editor-mobile-bridge package
+- Updated dependencies
+
+## 190.1.6
+
+### Patch Changes
+
+- [#62165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62165) [`b44ac0968d79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b44ac0968d79) - [ED-21562] Bump @atlaskit/adf-schema to 35.2.0 for border mark update
+- Updated dependencies
+
+## 190.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.1.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 190.0.0
+
+### Major Changes
+
+- [#59319](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59319) [`d2e34e936bf2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2e34e936bf2) - [ED-15859] Clean up restartNumberedLists feature flag and set this feature as the default behaviour for ordered lists. Currently this feature is only rolled out in Confluence so this change will roll it out to all other products which adopt this version.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.14
+
+### Patch Changes
+
+- [#60808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60808) [`f509a21be124`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f509a21be124) - ED-21506: @atlaskit/adf-schema upgraded to 35.1.1 to support renderer for MBE
+- Updated dependencies
+
+## 189.6.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.12
+
+### Patch Changes
+
+- [#60464](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60464) [`a30f9a5f3e0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a30f9a5f3e0d) - Removing unused dependencies
+- Updated dependencies
+
+## 189.6.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.9
+
+### Patch Changes
+
+- [#58246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58246) [`a381b2599716`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a381b2599716) - ED-21371 Update adf-schema to 35.1.0
+- Updated dependencies
+
+## 189.6.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.6.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.5.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.5.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.5.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.5.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.5.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.5.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.5.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.5.3
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+- [#59076](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59076) [`743b43aa0c60`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/743b43aa0c60) - [ux] [ED-21020] Remove unnecessary if statement that was checking for state which isn't needed with new pluginInjectionApi. Was causing list buttons to not work on initial load of editor until another action had taken place first.
+- [#58865](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58865) [`557b4b6e1f30`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/557b4b6e1f30) - Replace emitter.off with emitter.removeListener to fix esbuild
+- Updated dependencies
+
+## 189.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.5.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.4.19
+
+### Patch Changes
+
+- [#58763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58763) [`0fdbd64522bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fdbd64522bf) - update ADF schema
+- Updated dependencies
+
+## 189.4.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.4.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.4.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.4.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.4.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.4.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.4.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.4.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.4.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.4.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.4.8
+
+### Patch Changes
+
+- [#56790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/56790) [`ff577a7969d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff577a7969d4) - ED-21266: Updated @atlaskit/adf-schema to 34.0.1
+- Updated dependencies
+
+## 189.4.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 189.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 189.4.5
 
 ### Patch Changes

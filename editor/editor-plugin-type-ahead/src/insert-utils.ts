@@ -2,6 +2,7 @@ import {
   normaliseNestedLayout,
   safeInsert,
 } from '@atlaskit/editor-common/insert';
+import { transformNodeIntoListItem } from '@atlaskit/editor-common/utils';
 import {
   Fragment,
   Node as PMNode,
@@ -12,6 +13,7 @@ import {
   NodeSelection,
   TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 function findInsertPoint(
   doc: PMNode,
@@ -103,6 +105,27 @@ export const insertBlockNode = ({
 
     const mappedStart = tr.mapping.map(start);
     const nodeNormalized = normaliseNestedLayout(tr, node);
+
+    if (getBooleanFF('platform.editor.ordered-list-inserting-nodes_bh0vo')) {
+      const { listItem } = tr.doc.type.schema.nodes;
+
+      // Handle edge cases if it's in a list or that it's inserting a node in the same node type
+      /* e.g.
+       * panel (
+       *   1. text (insertion)
+       * )
+       * at insertion, text is parent (0), listItem is grandParent (-1), list is greatGrandparent (-2), panel is ggreatGrandParent (-3)
+       */
+      const grandParentNodeType = tr.selection.$from.node(-1)?.type;
+      const ggreatGrandParentNodeType = tr.selection.$from.node(-3)?.type;
+
+      if (
+        grandParentNodeType === listItem &&
+        !(ggreatGrandParentNodeType === node.type)
+      ) {
+        return transformNodeIntoListItem(tr, nodeNormalized);
+      }
+    }
 
     // Handle edge cases for hr and mediaSingle
     const inserted = safeInsert(nodeNormalized, mappedStart)(tr);

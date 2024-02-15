@@ -1,10 +1,10 @@
 import { useLayoutEffect, useState } from 'react';
-import type { EditorProps } from '../types/editor-props';
 
 import { usePreviousState } from '@atlaskit/editor-common/hooks';
+
 import { createPreset } from '../create-editor/create-preset';
 import { shouldRecreatePreset } from '../create-editor/preset-utils';
-import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import type { EditorProps } from '../types/editor-props';
 
 interface PresetProps {
   props: EditorProps;
@@ -12,7 +12,7 @@ interface PresetProps {
 
 export default function useUniversalPreset({ props }: PresetProps) {
   const previousEditorProps = usePreviousState(props);
-  const [preset, setPreset] = useState<EditorPresetBuilder<any, any>>(() =>
+  const [preset, setPreset] = useState(() =>
     createPreset(props, previousEditorProps),
   );
   useLayoutEffect(() => {

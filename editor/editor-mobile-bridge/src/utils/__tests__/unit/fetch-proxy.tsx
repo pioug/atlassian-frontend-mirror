@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { act, create, ReactTestRenderer } from 'react-test-renderer';
+import type { ReactTestRenderer } from 'react-test-renderer';
+import { act, create } from 'react-test-renderer';
 import { FetchProxy, fetchProxy } from '../../fetch-proxy';
 import { isApple } from '../../is-apple';
 jest.mock('../../is-apple');
@@ -178,7 +179,9 @@ describe('use FetchProxy in component', () => {
     fetchSpy.mockRestore();
     (isApple as jest.Mock).mockClear();
 
-    renderResult.unmount();
+    act(() => {
+      renderResult.unmount();
+    });
   });
 
   it('should intercept url on atlassian domain', function () {

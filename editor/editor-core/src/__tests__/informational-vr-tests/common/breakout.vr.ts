@@ -1,12 +1,13 @@
-import { snapshotInformational } from '@af/visual-regression';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Page } from '@playwright/test';
+
 import {
   EditorBreakoutModel,
   EditorLayoutModel,
   EditorNodeContainerModel,
   EditorPageModel,
 } from '@af/editor-libra/page-models';
+import { snapshotInformational } from '@af/visual-regression';
 
 import { CONTENT_AREA_TEST_ID } from '../../../ui/Appearance/FullPage/FullPageContentArea';
 

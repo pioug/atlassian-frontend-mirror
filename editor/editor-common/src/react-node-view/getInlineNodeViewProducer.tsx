@@ -14,6 +14,7 @@ import type { AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
 import type { PMPluginFactoryParams } from '../types';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
+import { browser } from '../utils';
 import {
   analyticsEventKey,
   getPerformanceOptions,
@@ -231,7 +232,14 @@ function getPortalChildren<ExtraComponentProps>({
           node={currentNode}
           {...extraComponentProps}
         />
-        <span className={`${inlineNodeViewClassname}AddZeroWidthSpace`} />
+        {browser.android ? (
+          <span className={`zeroWidthSpaceContainer`} contentEditable="false">
+            <span className={`${inlineNodeViewClassname}AddZeroWidthSpace`} />
+            {ZERO_WIDTH_SPACE}
+          </span>
+        ) : (
+          <span className={`${inlineNodeViewClassname}AddZeroWidthSpace`} />
+        )}
       </ErrorBoundary>
     );
   };

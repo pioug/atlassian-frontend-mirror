@@ -1,11 +1,12 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { initWysiwygTest } from '@atlaskit/editor-test-helpers/wysiwyg-helpers';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import { minimalCodeBlock } from '../../__fixtures__/code-block/minimal-code-block';
-import { tableHeaderCodeBlock } from '../../__fixtures__/code-block/table-header-code-block';
 import { overflowCodeBlock } from '../../__fixtures__/code-block/overflow-code-block';
-import { tableHeaderOverflowCodeBlock } from '../../__fixtures__/code-block/table-header-overflow-code-block';
 import { tabCodeBlock } from '../../__fixtures__/code-block/tab-code-block';
+import { tableHeaderCodeBlock } from '../../__fixtures__/code-block/table-header-code-block';
+import { tableHeaderOverflowCodeBlock } from '../../__fixtures__/code-block/table-header-overflow-code-block';
 
 /**
  * Note: these WYSIWYG tests don't have corresponding LFS image snapshots.
@@ -50,8 +51,7 @@ describe('code-block: WYSIWYG', () => {
     });
   });
 
-  // FIXME: This test was automatically skipped due to failure on 19/06/2023: https://product-fabric.atlassian.net/browse/ED-18872
-  test.skip('code-block is WYSIWYG when in table header', async () => {
+  test('code-block is WYSIWYG when in table header', async () => {
     const { $editorElement, $rendererElement } = await initWysiwygTest(page, {
       adf: tableHeaderCodeBlock,
       editorSelector: '.code-block',
@@ -75,8 +75,7 @@ describe('code-block: WYSIWYG', () => {
     });
   });
 
-  // FIXME: This test was automatically skipped due to failure on 21/06/2023: https://product-fabric.atlassian.net/browse/ED-18894
-  test.skip('code-block is WYSIWYG when overflowing in table header', async () => {
+  test('code-block is WYSIWYG when overflowing in table header', async () => {
     const { $editorElement, $rendererElement } = await initWysiwygTest(page, {
       adf: tableHeaderOverflowCodeBlock,
       editorSelector: '.code-block',

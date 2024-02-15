@@ -74,10 +74,9 @@ describe('LoadingContainer', () => {
       );
 
       expect(loadingSpinner).toBeInTheDocument();
-      expect(loadingSpinner.getAttribute('width')).toBe('48');
+      expect(loadingSpinner).toHaveAttribute('width', '48');
 
       expect(contentsContainer).toBeInTheDocument();
-      screen.debug(contentsContainer);
       expect(contentsOpacity).toBe('0.22');
     });
 
@@ -108,7 +107,7 @@ describe('LoadingContainer', () => {
         </LoadingContainer>,
       );
       let loadingSpinner = screen.getByTestId(`${testId}--loadingSpinner`);
-      expect(loadingSpinner.getAttribute('width')).toBe('96');
+      expect(loadingSpinner).toHaveAttribute('width', '96');
 
       rerender(
         <LoadingContainer testId={testId} spinnerSize="medium">
@@ -116,7 +115,7 @@ describe('LoadingContainer', () => {
         </LoadingContainer>,
       );
       loadingSpinner = screen.getByTestId(`${testId}--loadingSpinner`);
-      expect(loadingSpinner.getAttribute('width')).toBe('24');
+      expect(loadingSpinner).toHaveAttribute('width', '24');
 
       rerender(
         <LoadingContainer testId={testId} spinnerSize="small">
@@ -124,7 +123,30 @@ describe('LoadingContainer', () => {
         </LoadingContainer>,
       );
       loadingSpinner = screen.getByTestId(`${testId}--loadingSpinner`);
-      expect(loadingSpinner.getAttribute('width')).toBe('16');
+      expect(loadingSpinner).toHaveAttribute('width', '16');
+    });
+
+    it('should have default accessible name', () => {
+      render(
+        <LoadingContainer testId={testId}>
+          <Contents />
+        </LoadingContainer>,
+      );
+
+      const loadingSpinner = screen.getByRole('img');
+      expect(loadingSpinner).toHaveAccessibleName('Loading table');
+    });
+
+    it('should accept a label for accessible name', () => {
+      const label = 'Table loading';
+      render(
+        <LoadingContainer testId={testId} loadingLabel={label}>
+          <Contents />
+        </LoadingContainer>,
+      );
+
+      const loadingSpinner = screen.getByRole('img');
+      expect(loadingSpinner).toHaveAccessibleName(label);
     });
   });
 });

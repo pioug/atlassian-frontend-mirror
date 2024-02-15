@@ -22,9 +22,9 @@ const positionerStyles = css({
   height: '100%',
   position: 'fixed',
   zIndex: layers.modal(),
-  top: 0,
-  left: 0,
   flexDirection: 'column',
+  insetBlockStart: 0,
+  insetInlineStart: 0,
 });
 
 const viewportScrollStyles = css({
@@ -40,15 +40,12 @@ const bodyScrollStyles = css({
   [media.above.xs]: {
     maxWidth: maxWidthDimensions,
     maxHeight: maxHeightDimensions,
-
-    marginRight: 'auto',
-    marginLeft: 'auto',
-
     position: 'absolute',
-    top: `${gutter}px`,
-    right: 0,
-    left: 0,
-
+    insetBlockStart: `${gutter}px`,
+    insetInlineEnd: 0,
+    insetInlineStart: 0,
+    marginInlineEnd: 'auto',
+    marginInlineStart: 'auto',
     pointerEvents: 'none',
   },
 });

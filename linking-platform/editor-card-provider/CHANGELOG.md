@@ -1,5 +1,48 @@
 # @atlaskit/editor-card-provider
 
+## 3.1.17
+
+### Patch Changes
+
+- [#72315](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72315) [`818ff8704f34`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/818ff8704f34) - Updated default smart card view for Confluence Databases to include default for savedViewId
+- [#71047](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71047) [`931a7edba41e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/931a7edba41e) - update window.location usage to be compatible with SSR
+
+## 3.1.16
+
+### Patch Changes
+
+- [#68764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68764) [`59b851a5d621`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/59b851a5d621) - [ux] Render Polaris (Jira Product Discovery) published view as an embed by default
+
+## 3.1.15
+
+### Patch Changes
+
+- [#68194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68194) [`c1d4a8fecc4e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1d4a8fecc4e) - bump json-ld-types to version 3.11.0
+
+## 3.1.14
+
+### Patch Changes
+
+- [#66881](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66881) [`d940eeab50d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d940eeab50d9) - [ux] Updated default smart card view for Confluence Databases to include all-entries for savedViewId and only uuid for unsavedView
+
+## 3.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.12
+
+### Patch Changes
+
+- [#63428](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63428) [`441be131933f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/441be131933f) - [ux] make youtube videos embed by default
+
+## 3.1.11
+
+### Patch Changes
+
+- [#62385](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/62385) [`f3e422857a54`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3e422857a54) - [ux] Updated default smart card view for Confluence Databases to include check for unsavedView parameter
+
 ## 3.1.10
 
 ### Patch Changes

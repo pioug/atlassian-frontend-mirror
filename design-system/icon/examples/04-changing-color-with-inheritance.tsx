@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { N0, N800, B500 } from '@atlaskit/theme/colors';
 import { css, jsx } from '@emotion/react';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 import BookIcon from '../glyph/book';
@@ -53,7 +53,7 @@ const ChangingColorWithInheritance = () => {
         style={{ backgroundColor: isColorFlipped ? 'inherit' : 'white' }}
       >
         <Button
-          appearance="subtle-link"
+          appearance="subtle"
           onClick={() => setIsColorFlipped(!isColorFlipped)}
         >
           Change colour

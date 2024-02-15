@@ -21,6 +21,7 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
+  Command,
   ExtractInjectionAPI,
   FloatingToolbarButton,
   FloatingToolbarConfig,
@@ -244,10 +245,12 @@ function ContentComponent({
 }) {
   const featureFlags =
     pluginInjectionApi?.featureFlags?.sharedState.currentState() || {};
-  const { floatingToolbarState, editorDisabledState } = useSharedPluginState(
-    pluginInjectionApi,
-    ['floatingToolbar', 'editorDisabled'],
-  );
+  const { floatingToolbarState, editorDisabledState, editorViewModeState } =
+    useSharedPluginState(pluginInjectionApi, [
+      'floatingToolbar',
+      'editorDisabled',
+      'editorViewMode',
+    ]);
 
   const { configWithNodeInfo, floatingToolbarData } =
     floatingToolbarState ?? {};
@@ -262,10 +265,10 @@ function ContentComponent({
   }
 
   const { config, node } = configWithNodeInfo;
+  let { items } = config;
   const {
     title,
     getDomRef = getDomRefFromSelection,
-    items,
     align = 'center',
     className = '',
     height,
@@ -277,23 +280,39 @@ function ContentComponent({
     onPositionCalculated,
     absoluteOffset = { top: 0, left: 0, right: 0, bottom: 0 },
     focusTrap,
+    mediaAssistiveMessage = '',
   } = config;
   const targetRef = getDomRef(editorView, dispatchAnalyticsEvent);
 
-  if (
-    !targetRef ||
-    (editorDisabledState && editorDisabledState.editorDisabled)
-  ) {
+  const isEditorDisabled =
+    editorDisabledState && editorDisabledState.editorDisabled;
+  const isInViewMode = editorViewModeState?.mode === 'view';
+
+  if (!targetRef || (isEditorDisabled && !isInViewMode)) {
     return null;
+  }
+
+  // TODO: MODES-3950 Update this view mode specific logic once we refactor view mode.
+  //       We should inverse the responsibility here: A blacklist for toolbar items in view mode, rather than this white list.
+  //       Also consider moving this logic to the more specific toolbar plugins (media and selection).
+  const iterableItems = Array.isArray(items) ? items : [];
+  if (isInViewMode) {
+    // Typescript note: Not all toolbar item types have the `supportsViewMode` prop.
+    const toolbarItemViewModeProp: keyof FloatingToolbarButton<Command> =
+      'supportsViewMode';
+    items = iterableItems.filter(
+      item =>
+        toolbarItemViewModeProp in item && !!item[toolbarItemViewModeProp],
+    );
   }
 
   let customPositionCalculation;
   const toolbarItems =
-    pluginInjectionApi?.copyButton.actions.processCopyButtonItems(
+    pluginInjectionApi?.copyButton?.actions.processCopyButtonItems(
       editorView.state,
     )(
       Array.isArray(items) ? items : items(node),
-      pluginInjectionApi?.decorations.actions.hoverDecoration,
+      pluginInjectionApi?.decorations?.actions.hoverDecoration,
     );
 
   if (onPositionCalculated) {
@@ -367,6 +386,7 @@ function ContentComponent({
                 scrollable={scrollable}
                 featureFlags={featureFlags}
                 api={pluginInjectionApi}
+                mediaAssistiveMessage={mediaAssistiveMessage}
               />
             );
           }}

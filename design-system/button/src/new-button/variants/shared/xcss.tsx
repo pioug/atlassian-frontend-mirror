@@ -18,6 +18,12 @@ export const heights: { [key in Spacing]: string } = {
   none: 'auto',
 };
 
+const lineHeights: { [key in Spacing]: string } = {
+  default: heights.default,
+  compact: heights.compact,
+  none: 'inherit',
+};
+
 const paddingInline: {
   [key in Spacing]: {
     default: Space;
@@ -51,14 +57,6 @@ const verticalAlign: { [key in Spacing]: string } = {
 };
 
 const splitBorderStyles = {
-  ':first-of-type': {
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0,
-  },
-  ':last-of-type': {
-    borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0,
-  },
   ':focus-visible': {
     zIndex: 1,
   },
@@ -133,6 +131,7 @@ export type GetXCSSArgs = {
   shouldFitContainer: boolean;
   hasOverlay: boolean;
   isIconButton: boolean;
+  isCircle: boolean;
   hasIconBefore: boolean;
   hasIconAfter: boolean;
   /**
@@ -157,6 +156,7 @@ export function getXCSS({
   isHighlighted,
   isActiveOverSelected,
   isIconButton,
+  isCircle,
   shouldFitContainer,
   isLink,
   isSplit,
@@ -218,9 +218,10 @@ export function getXCSS({
     getNavigationSplitButtonPaddings();
 
   return xcss({
-    alignItems: 'center',
+    alignItems: 'baseline',
     borderWidth: 'border.width.0',
-    borderRadius: 'border.radius.100',
+    borderRadius:
+      isCircle && !isSplit ? 'border.radius.circle' : 'border.radius.100',
     boxSizing: 'border-box',
     display: 'inline-flex',
     fontSize: 'inherit',
@@ -235,6 +236,7 @@ export function getXCSS({
       'background 0.1s ease-out, box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
     whiteSpace: 'nowrap',
     height,
+    lineHeight: lineHeights[spacing],
     paddingBlock: 'space.0',
     paddingInlineStart,
     paddingInlineEnd,

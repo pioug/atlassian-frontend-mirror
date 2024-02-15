@@ -1,24 +1,25 @@
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { decisionSelectors } from '@atlaskit/editor-test-helpers/page-objects/decision';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { typeInEditorAtEndOfDocument } from '@atlaskit/editor-test-helpers/page-objects/editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { quickInsert } from '@atlaskit/editor-test-helpers/page-objects/extensions';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { tableSelectors } from '@atlaskit/editor-test-helpers/page-objects/table';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initFullPageEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import longContent from './__fixtures__/long-content-adf.json';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { typeInEditorAtEndOfDocument } from '@atlaskit/editor-test-helpers/page-objects/editor';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { tableSelectors } from '@atlaskit/editor-test-helpers/page-objects/table';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { decisionSelectors } from '@atlaskit/editor-test-helpers/page-objects/decision';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { quickInsert } from '@atlaskit/editor-test-helpers/page-objects/extensions';
 
 const waitForScrollGutter = async (page: PuppeteerPage) => {
   await page.waitForSelector('#editor-scroll-gutter');
@@ -41,7 +42,7 @@ describe('Gutter:', () => {
     await waitForScrollGutter(page);
   });
 
-  it.skip('should add gutter if a table is added at the end of the editor', async () => {
+  it('should add gutter if a table is added at the end of the editor', async () => {
     await typeInEditorAtEndOfDocument(page, '');
     await quickInsert(page, 'Table', false);
     await pressKey(page, 'Enter');
@@ -51,7 +52,7 @@ describe('Gutter:', () => {
     await waitForScrollGutter(page);
   });
 
-  it.skip('should add gutter if a panel is added at the end of the editor', async () => {
+  it('should add gutter if a panel is added at the end of the editor', async () => {
     await typeInEditorAtEndOfDocument(page, '');
     await quickInsert(page, 'info', false);
     await pressKey(page, 'Enter');
@@ -60,7 +61,7 @@ describe('Gutter:', () => {
     await waitForScrollGutter(page);
   });
 
-  it.skip('should add gutter if a decision is added at the end of the editor', async () => {
+  it('should add gutter if a decision is added at the end of the editor', async () => {
     await typeInEditorAtEndOfDocument(page, '');
     await quickInsert(page, 'decision', false);
     await pressKey(page, 'Enter');

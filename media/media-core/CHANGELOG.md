@@ -1,5 +1,11 @@
 # @atlaskit/media-core
 
+## 34.2.0
+
+### Minor Changes
+
+- [#70414](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70414) [`2125e318f970`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2125e318f970) - Adding the option to use SHA256 for file uploads to ensure Media is FedRAMP compliant. If not specified the system will default to SHA1 to preserve backwards compatibiilty.
+
 ## 34.1.4
 
 ### Patch Changes

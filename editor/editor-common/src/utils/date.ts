@@ -1,10 +1,9 @@
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import isBefore from 'date-fns/isBefore';
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 enum FORMATS {
   ISO_FORMAT = 'YYYY-MM-DD',
-  CURRENT_YEAR_FORMAT_WITHOUT_YEAR = 'CURRENT_YEAR_FORMAT_WITHOUT_YEAR',
   LOCALIZED_FORMAT = 'LOCALIZED_FORMAT',
 }
 
@@ -55,14 +54,11 @@ export const timestampToString = (
 
   const date = new Date(Number(timestamp));
 
-  const showWeekday = pattern === FORMATS.CURRENT_YEAR_FORMAT_WITHOUT_YEAR;
-  const showYear = !showWeekday;
   return intl.formatDate(date, {
     timeZone: 'UTC',
-    weekday: showWeekday ? 'short' : undefined,
     month: 'short',
     day: 'numeric',
-    year: showYear ? 'numeric' : undefined,
+    year: 'numeric',
     formatMatcher: 'best fit',
   });
 };
@@ -89,19 +85,11 @@ export const timestampToTaskContext = (
   const curDate = new Date(Number(todayTimestampInUTC()));
   const givenDate = new Date(Number(timestamp));
   const distance = differenceInCalendarDays(givenDate, curDate);
-  const sameYear = givenDate.getUTCFullYear() === curDate.getUTCFullYear();
-
   if (intl && [-1, 0, 1].indexOf(distance) > -1) {
     return capitalizeFirstLetter(
       intl.formatRelativeTime(distance, 'day', { numeric: 'auto' }),
     );
   }
 
-  return timestampToString(
-    timestamp,
-    intl,
-    sameYear
-      ? FORMATS.CURRENT_YEAR_FORMAT_WITHOUT_YEAR
-      : FORMATS.LOCALIZED_FORMAT,
-  );
+  return timestampToString(timestamp, intl, FORMATS.LOCALIZED_FORMAT);
 };

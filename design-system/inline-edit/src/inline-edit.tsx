@@ -122,7 +122,7 @@ const InnerInlineEdit = <FieldValue extends unknown>(
   );
 
   /** If keepEditViewOpenOnBlur prop is set to false, will call confirmIfUnfocused() which
-   *  confirms the value, if the focus is not transferred to the action buttons
+   *  confirms the value, if the focus is not transferred to the action buttons.
    *
    *  When you're in `editing` state, the focus will be on the input field. And if you use keyboard
    *  to navigate to `submit` button, this function will be invoked. Then function `onEditViewWrapperFocus`
@@ -132,7 +132,7 @@ const InnerInlineEdit = <FieldValue extends unknown>(
    *  There are two paths here the function can be triggered:
    *
    *  - focus on input first, and then use keyboard to `submit`
-   *  - focus on input first, and then click anywhere else on the page (outside of edit view wrapper) to `submit` (auto save)
+   *  - focus on input first, and then click anywhere else on the page (outside of edit view wrapper) to `submit` (auto save).
    */
   const onEditViewWrapperBlur = useCallback(
     (
@@ -151,13 +151,13 @@ const InnerInlineEdit = <FieldValue extends unknown>(
     [keepEditViewOpenOnBlur, tryAutoSubmitWhenBlur],
   );
 
-  /** Gets called when focus is transferred to the editView, or action buttons
+  /** Gets called when focus is transferred to the editView, or action buttons.
    *
    * There are three paths here the function can be called:
    *
    * - when a user click the `editView`
    * - when a user use keyboard to tab into `editView`
-   * - when a user use keyboard to tab into `submit` when they were on input field
+   * - when a user use keyboard to tab into `submit` when they were on input field.
    */
   const onEditViewWrapperFocus = useCallback(() => {
     wasFocusReceivedSinceLastBlurRef.current = true;
@@ -176,30 +176,28 @@ const InnerInlineEdit = <FieldValue extends unknown>(
     );
   };
 
-  if (shouldBeEditing) {
-    return (
-      <Form
-        onSubmit={(data: { inlineEdit: any }) => onConfirm(data.inlineEdit)}
-      >
-        {({ formProps: { onKeyDown, onSubmit, ref: formRef } }) => (
-          <form
-            /**
-             * It is not normally acceptable to add key handlers to non-interactive elements
-             * as this is an accessibility anti-pattern. However, because this instance is
-             * to add support for keyboard functionality instead of creating an inaccessible
-             * custom element, we can add role="presentation" so that there is no negative
-             * impacts to assistive technologies.
-             */
-            role="presentation"
-            onKeyDown={(e) => {
-              onKeyDown(e);
-              if (e.key === 'Esc' || e.key === 'Escape') {
-                onCancel();
-              }
-            }}
-            onSubmit={onSubmit}
-            ref={formRef}
-          >
+  return (
+    <Form onSubmit={(data: { inlineEdit: any }) => onConfirm(data.inlineEdit)}>
+      {({ formProps: { onKeyDown, onSubmit, ref: formRef }, reset }) => (
+        <form
+          /**
+           * It is not normally acceptable to add key handlers to non-interactive elements
+           * as this is an accessibility anti-pattern. However, because this instance is
+           * to add support for keyboard functionality instead of creating an inaccessible
+           * custom element, we can add role="presentation" so that there is no negative
+           * impacts to assistive technologies.
+           */
+          role="presentation"
+          onKeyDown={(e) => {
+            onKeyDown(e);
+            if (e.key === 'Esc' || e.key === 'Escape') {
+              onCancel();
+            }
+          }}
+          onSubmit={onSubmit}
+          ref={formRef}
+        >
+          {shouldBeEditing ? (
             <Field
               name="inlineEdit"
               label={label}
@@ -235,7 +233,10 @@ const InnerInlineEdit = <FieldValue extends unknown>(
                         /** Prevents focus on edit button only if mouse is used to click button, but not when keyboard is used */
                         doNotFocusOnEditButton();
                       }}
-                      onCancelClick={onCancelClick}
+                      onCancelClick={(e) => {
+                        reset();
+                        onCancelClick(e);
+                      }}
                     />
                   ) : (
                     /** This is to allow Ctrl + Enter to submit without action buttons */
@@ -244,25 +245,21 @@ const InnerInlineEdit = <FieldValue extends unknown>(
                 </div>
               )}
             </Field>
-          </form>
-        )}
-      </Form>
-    );
-  }
-
-  return (
-    /** Form, Field are used here only for the label and spacing */
-    <form>
-      <Field
-        name="inlineEdit"
-        label={label}
-        defaultValue=""
-        isRequired={isRequired}
-        key="read-view" // used for reset to default value
-      >
-        {renderReadView}
-      </Field>
-    </form>
+          ) : (
+            /** Field is used here only for the label and spacing */
+            <Field
+              name="inlineEdit"
+              label={label}
+              defaultValue=""
+              isRequired={isRequired}
+              key="read-view" // used for reset to default value
+            >
+              {renderReadView}
+            </Field>
+          )}
+        </form>
+      )}
+    </Form>
   );
 };
 

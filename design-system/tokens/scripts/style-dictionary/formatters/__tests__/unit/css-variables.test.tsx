@@ -378,20 +378,11 @@ describe('formatter', () => {
         allTokens: [
           {
             name: 'brand',
-            value: '24px',
-            path: ['typog', 'ffbase'],
-            attributes: { group: 'fontFamily' },
-            original: {
-              value: 'FontValue',
-            },
-          },
-          {
-            name: 'brand',
             value: {
               fontWeight: 'bold',
               fontStyle: 'normal',
               fontSize: '16px',
-              fontFamily: 'typog.ffbase',
+              fontFamily: 'sans-serif',
               lineHeight: '24px',
             },
             original: {
@@ -409,14 +400,13 @@ describe('formatter', () => {
         ],
       },
       options: {
-        themeName: 'atlassian-typography',
+        themeName: 'atlassian-typography-adg3',
       },
     } as any);
 
     expect(result).toMatchInlineSnapshot(`
-        "html[data-theme~=\\"typography:typography\\"] {
-          --ds-base: normal bold 16px/24px var(--ds-ffbase);
-          --ds-ffbase: 24px;
+        "html[data-theme~=\\"typography:typography-adg3\\"] {
+          --ds-base: normal bold 16px/24px sans-serif;
         }
         "
       `);

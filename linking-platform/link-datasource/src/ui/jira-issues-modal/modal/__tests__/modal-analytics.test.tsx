@@ -38,8 +38,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
         },
         context: [
           {
-            packageName: '@atlaskit/fabric',
-            packageVersion: '0.0.0',
+            component: 'datasourceConfigModal',
             source: 'datasourceConfigModal',
             attributes: { dataProvider: 'jira-issues' },
           },
@@ -66,8 +65,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
         },
         context: [
           {
-            packageName: '@atlaskit/fabric',
-            packageVersion: '0.0.0',
+            component: 'datasourceConfigModal',
             source: 'datasourceConfigModal',
             attributes: { dataProvider: 'jira-issues' },
           },
@@ -93,8 +91,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
         },
         context: [
           {
-            packageName: '@atlaskit/fabric',
-            packageVersion: '0.0.0',
+            component: 'datasourceConfigModal',
             source: 'datasourceConfigModal',
             attributes: { dataProvider: 'jira-issues' },
           },
@@ -121,8 +118,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
         },
         context: [
           {
-            packageName: '@atlaskit/fabric',
-            packageVersion: '0.0.0',
+            component: 'datasourceConfigModal',
             source: 'datasourceConfigModal',
             attributes: { dataProvider: 'jira-issues' },
           },
@@ -149,8 +145,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
         },
         context: [
           {
-            packageName: '@atlaskit/fabric',
-            packageVersion: '0.0.0',
+            component: 'datasourceConfigModal',
             source: 'datasourceConfigModal',
             attributes: { dataProvider: 'jira-issues' },
           },
@@ -180,8 +175,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
       },
       context: [
         {
-          packageName: '@atlaskit/fabric',
-          packageVersion: '0.0.0',
+          component: 'datasourceConfigModal',
           source: 'datasourceConfigModal',
           attributes: { dataProvider: 'jira-issues' },
         },
@@ -202,11 +196,18 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           );
         };
 
-        it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "instance updated" when user selected a new site and then clicked the ${buttonName} button`, async () => {
-          const { selectNewJiraInstanceSite, assertAnalyticsAfterButtonClick } =
-            await setup();
+        it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "instance updated" when user selected a new site, searched for results and then clicked the ${buttonName} button`, async () => {
+          const {
+            selectNewJiraInstanceSite,
+            assertAnalyticsAfterButtonClick,
+            searchWithNewJql,
+          } = await setup();
 
           await selectNewJiraInstanceSite();
+
+          if (actionSubjectId === 'insert') {
+            await searchWithNewJql();
+          }
 
           await assertAnalyticsAfterButtonClick(
             buttonName,
@@ -232,10 +233,9 @@ describe('Analytics: JiraIssuesConfigModal', () => {
         });
 
         it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "display view changed" and display = "datasource_inline" when user changed the view and then clicked the ${buttonName} button`, async () => {
-          const { getByLabelText, assertAnalyticsAfterButtonClick } =
-            await setup();
-
-          getByLabelText('Count view').click();
+          const { assertAnalyticsAfterButtonClick } = await setup({
+            viewMode: 'count',
+          });
 
           await assertAnalyticsAfterButtonClick(
             buttonName,
@@ -336,7 +336,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
       );
 
       describe('with "display" attribute', () => {
-        it('should fire "ui.button.clicked.insert" with display "datasource_table" when the insert button is clicked and results are presented as a table for more than 1 issue', async () => {
+        it('should fire "ui.button.clicked.insert" with display "datasource_table" when the insert button is clicked and results are presented as a table', async () => {
           const { assertAnalyticsAfterButtonClick } = await setup();
           await assertAnalyticsAfterButtonClick(
             INSERT_BUTTON_NAME,
@@ -344,11 +344,21 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           );
         });
 
-        it('should fire "ui.button.clicked.insert" with display "inline" when the insert button is clicked and results are presented as a single issue', async () => {
-          const expectedPayload = getEventPayload('insert', defaultAttributes, {
-            totalItemCount: 1,
-            display: 'inline',
-          });
+        it('should fire "ui.button.clicked.insert" with display "inline" when the insert button is clicked and results are presented as a single issue in count view', async () => {
+          const expectedPayload = getEventPayload(
+            'insert',
+            defaultAttributes,
+            {
+              totalItemCount: 1,
+              display: 'inline',
+            },
+            {
+              eventType: 'track',
+              actionSubject: 'macro',
+              action: 'inserted',
+              actionSubjectId: 'jlol',
+            },
+          );
 
           const { assertAnalyticsAfterButtonClick } = await setup({
             hookState: {
@@ -362,6 +372,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
               ],
               totalCount: 1,
             },
+            viewMode: 'count',
           });
 
           await assertAnalyticsAfterButtonClick(
@@ -370,18 +381,12 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           );
         });
 
-        it('should fire "macro inserted" when the insert button is clicked and results are presented as a single issue', async () => {
-          const expectedPayload = getEventPayload(
-            'insert',
-            defaultAttributes,
-            { totalItemCount: 1, displayedColumnCount: 1, display: 'inline' },
-            {
-              eventType: 'track',
-              actionSubject: 'macro',
-              action: 'inserted',
-              actionSubjectId: 'jlol',
-            },
-          );
+        it('payload should contain "datasource_table" as display option when the insert button is clicked and results are presented as a single issue in issue view', async () => {
+          const expectedPayload = getEventPayload('insert', defaultAttributes, {
+            totalItemCount: 1,
+            displayedColumnCount: 1,
+            display: 'datasource_table',
+          });
 
           const { assertAnalyticsAfterButtonClick } = await setup({
             hookState: {
@@ -407,10 +412,9 @@ describe('Analytics: JiraIssuesConfigModal', () => {
             display: 'datasource_inline',
           });
 
-          const { assertAnalyticsAfterButtonClick, getByLabelText } =
-            await setup();
-
-          getByLabelText('Count view').click();
+          const { assertAnalyticsAfterButtonClick } = await setup({
+            viewMode: 'count',
+          });
 
           await assertAnalyticsAfterButtonClick(
             INSERT_BUTTON_NAME,
@@ -431,10 +435,9 @@ describe('Analytics: JiraIssuesConfigModal', () => {
             },
           );
 
-          const { assertAnalyticsAfterButtonClick, getByLabelText } =
-            await setup();
-
-          getByLabelText('Count view').click();
+          const { assertAnalyticsAfterButtonClick } = await setup({
+            viewMode: 'count',
+          });
 
           await assertAnalyticsAfterButtonClick(
             INSERT_BUTTON_NAME,
@@ -643,8 +646,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
       },
       context: [
         {
-          packageName: '@atlaskit/fabric',
-          packageVersion: '0.0.0',
+          component: 'datasourceConfigModal',
           source: 'datasourceConfigModal',
           attributes: { dataProvider: 'jira-issues' },
         },
@@ -689,9 +691,10 @@ describe('Analytics: JiraIssuesConfigModal', () => {
       };
 
       it('should fire "ui.link.viewed.count" event once when a issue count viewed', async () => {
-        const { getByLabelText, onAnalyticFireEvent } = await setup();
+        const { onAnalyticFireEvent } = await setup({
+          viewMode: 'count',
+        });
 
-        getByLabelText('Count view').click();
         expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
           getEventPayload(
             linkActionSubject,
@@ -705,11 +708,11 @@ describe('Analytics: JiraIssuesConfigModal', () => {
       it.each(unresolvedTestCases)(
         'should not fire "ui.link.viewed.count" when status is %s',
         async (status, hookState) => {
-          const { getByLabelText, onAnalyticFireEvent } = await setup({
+          const { onAnalyticFireEvent } = await setup({
             hookState,
+            viewMode: 'count',
           });
 
-          getByLabelText('Count view').click();
           expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
             getEventPayload(
               linkActionSubject,

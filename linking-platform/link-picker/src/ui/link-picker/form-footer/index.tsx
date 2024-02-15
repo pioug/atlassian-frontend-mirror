@@ -1,11 +1,14 @@
 /** @jsx jsx */
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 import { jsx } from '@emotion/react';
-import { defineMessages, useIntl } from 'react-intl-next';
+import { defineMessages, MessageDescriptor, useIntl } from 'react-intl-next';
+import uuid from 'uuid';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
+import LoadingButton from '@atlaskit/button/loading-button';
 import EditorAddIcon from '@atlaskit/icon/glyph/editor/add';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
   LinkPickerPluginAction,
@@ -18,7 +21,7 @@ import FeatureDiscovery from './feature-discovery';
 import { formFooterActionStyles, formFooterStyles } from './styled';
 import { checkSubmitDisabled } from './utils';
 
-const messages = defineMessages({
+export const messages = defineMessages({
   cancelButton: {
     id: 'fabric.linkPicker.button.cancel',
     defaultMessage: 'Cancel',
@@ -34,12 +37,19 @@ const messages = defineMessages({
     defaultMessage: 'Insert',
     description: 'Button to insert searched or selected link',
   },
+  submittingStatusMessage: {
+    id: 'fabric.linkPicker.status.submitting',
+    defaultMessage: 'Submitting',
+    description:
+      'Accessibility text to indicate the form has been submitted, and submission is in-progress',
+  },
 });
 
 export const testIds = {
   insertButton: 'link-picker-insert-button',
   cancelButton: 'link-picker-cancel-button',
   actionButton: 'link-picker-action-button',
+  submitStatusA11yIndicator: 'link-picker-submit-status-a11y-indicator',
   /** Feature discovery for action button (css pulse) */
   actionButtonDiscovery: 'link-picker-action-button-discovery',
 } as const;
@@ -47,6 +57,8 @@ export const testIds = {
 interface FormFooterProps extends React.HTMLAttributes<HTMLElement> {
   /** If the results section appears to be loading, impact whether the submit button is disabled */
   isLoading: boolean;
+  /** Controls showing a "submission in-progres" UX */
+  isSubmitting?: boolean;
   error: unknown | null;
   url: string;
   queryState: LinkPickerState | null;
@@ -55,11 +67,13 @@ interface FormFooterProps extends React.HTMLAttributes<HTMLElement> {
   onCancel?: () => void;
   action?: LinkPickerPluginAction;
   createFeatureDiscovery?: boolean;
+  customSubmitButtonLabel?: MessageDescriptor;
 }
 
 export const FormFooter = memo(
   ({
     isLoading,
+    isSubmitting = false,
     error,
     url,
     queryState,
@@ -68,9 +82,12 @@ export const FormFooter = memo(
     onCancel,
     action,
     createFeatureDiscovery = false,
+    customSubmitButtonLabel,
     ...restProps
   }: FormFooterProps) => {
     const intl = useIntl();
+
+    const submitMessageId = useMemo(() => uuid(), []);
 
     if (error && error instanceof UnauthenticatedError) {
       return null;
@@ -78,6 +95,7 @@ export const FormFooter = memo(
 
     const isSubmitDisabled = checkSubmitDisabled(
       isLoading,
+      isSubmitting,
       error,
       url,
       queryState,
@@ -94,6 +112,8 @@ export const FormFooter = memo(
         onClick={pluginAction.callback}
         appearance="default"
         iconBefore={<EditorAddIcon label="" size="medium" />}
+        isDisabled={isSubmitting}
+        aria-labelledby={isSubmitting ? submitMessageId : undefined}
       >
         {typeof pluginAction.label === 'string'
           ? pluginAction.label
@@ -103,6 +123,15 @@ export const FormFooter = memo(
 
     return (
       <footer css={formFooterStyles} {...restProps}>
+        {isSubmitting && (
+          <VisuallyHidden
+            role="status"
+            id={submitMessageId}
+            testId={testIds.submitStatusA11yIndicator}
+          >
+            {intl.formatMessage(messages.submittingStatusMessage)}
+          </VisuallyHidden>
+        )}
         {action && (
           <div css={formFooterActionStyles}>
             {createFeatureDiscovery ? (
@@ -115,21 +144,29 @@ export const FormFooter = memo(
           </div>
         )}
         <ButtonGroup>
-          <Button
-            appearance="subtle"
-            onClick={onCancel}
-            testId={testIds.cancelButton}
-          >
-            {intl.formatMessage(messages.cancelButton)}
-          </Button>
-          <Button
+          {onCancel && (
+            <Button
+              appearance="subtle"
+              onClick={onCancel}
+              testId={testIds.cancelButton}
+              isDisabled={isSubmitting}
+              aria-labelledby={isSubmitting ? submitMessageId : undefined}
+            >
+              {intl.formatMessage(messages.cancelButton)}
+            </Button>
+          )}
+          <LoadingButton
             type="submit"
             appearance="primary"
             testId={testIds.insertButton}
             isDisabled={isSubmitDisabled}
+            aria-labelledby={isSubmitting ? submitMessageId : undefined}
+            isLoading={isSubmitting}
           >
-            {intl.formatMessage(insertButtonMsg)}
-          </Button>
+            {customSubmitButtonLabel
+              ? intl.formatMessage(customSubmitButtonLabel)
+              : intl.formatMessage(insertButtonMsg)}
+          </LoadingButton>
         </ButtonGroup>
       </footer>
     );

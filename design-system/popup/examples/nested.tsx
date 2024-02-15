@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import ArrowRight from '@atlaskit/icon/glyph/arrow-right';
 import MenuIcon from '@atlaskit/icon/glyph/menu';
 import { ButtonItem, PopupMenuGroup, Section } from '@atlaskit/menu';
@@ -53,7 +53,7 @@ export default () => {
       trigger={(triggerProps) => (
         <Button
           {...triggerProps}
-          iconBefore={<MenuIcon label="" />}
+          iconBefore={MenuIcon}
           isSelected={isOpen}
           onClick={() => setIsOpen(!isOpen)}
         >

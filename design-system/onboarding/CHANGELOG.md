@@ -1,5 +1,59 @@
 # @atlaskit/onboarding
 
+## 11.2.3
+
+### Patch Changes
+
+- [#71144](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71144) [`d8feaa592375`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d8feaa592375) - This package has been added to the Jira push model.
+
+## 11.2.2
+
+### Patch Changes
+
+- [#69022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69022) [`395c74147990`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/395c74147990) - Migrate packages to use declarative entry points
+
+## 11.2.1
+
+### Patch Changes
+
+- [#67032](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67032) [`038e62a39d23`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/038e62a39d23) - [ux] Ensure spotlight dialog always uses heading level 2. This will eventually become heading level 1 once the dialog becomes a true modal.
+
+## 11.2.0
+
+### Minor Changes
+
+- [#64059](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64059) [`d69cb4f14309`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d69cb4f14309) - [ux] Adds `headingLevel` to the SpotlightCard component. This will allow the usage of the correct heading level depending on context.
+
+## 11.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.2
+
+### Patch Changes
+
+- [#59147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59147) [`f12e489f23b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12e489f23b0) - Re-build and deploy packages to NPM to resolve React/Compiled not found error (HOT-106483).
+
+## 11.1.1
+
+### Patch Changes
+
+- [#58458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58458) [`536478cdcf0b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/536478cdcf0b) - Tweaked ModalBody left and right padding to better align to the spacing scale.
+
+## 11.1.0
+
+### Minor Changes
+
+- [#58176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58176) [`32032c9c1289`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32032c9c1289) - [ux] Fix spotlight padding and font style issues on tabs.
+
+## 11.0.0
+
+### Major Changes
+
+- [#54210](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/54210) [`524ec7b6505d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/524ec7b6505d) - Removed all remaining legacy theming logic from the Onboarding component.
+
 ## 10.8.12
 
 ### Patch Changes

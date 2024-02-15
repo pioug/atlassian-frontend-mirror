@@ -1,13 +1,14 @@
 import { css } from '@emotion/react';
+
 import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
-import { token } from '@atlaskit/tokens';
 import {
-  SelectionStyle,
-  getSelectionStyles,
-  akEditorSelectedBorderSize,
   akEditorDeleteBorder,
+  akEditorSelectedBorderSize,
   akEditorSelectedNodeClassName,
+  getSelectionStyles,
+  SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 export const dateStyles = css`
   .${DateSharedCssClassName.DATE_CONTAINER} {

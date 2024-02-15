@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import ModalDialog, {
   ModalBody,
@@ -46,13 +46,15 @@ export default function ModalDialogForm() {
                     </p>
 
                     <Field label="Name" name="my-name" defaultValue="">
-                      {({ fieldProps }) => <Textfield {...fieldProps} />}
+                      {({ fieldProps }) => (
+                        <Textfield autoComplete="name" {...fieldProps} />
+                      )}
                     </Field>
 
                     <Field label="Email" name="my-email" defaultValue="">
                       {({ fieldProps }) => (
                         <Textfield
-                          autoComplete="off"
+                          autoComplete="email"
                           placeholder="charlie@atlassian.com"
                           {...fieldProps}
                         />

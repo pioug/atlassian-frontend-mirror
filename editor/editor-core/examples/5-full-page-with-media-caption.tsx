@@ -1,16 +1,20 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl-next';
+
+import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
+
+import { getTranslations } from '../example-helpers/get-translations';
+import LanguagePicker from '../example-helpers/LanguagePicker';
+import adf from '../example-helpers/templates/media-with-caption.adf.json';
 import enMessages from '../src/i18n/en';
 import languages from '../src/i18n/languages';
 import WithEditorActions from '../src/ui/WithEditorActions';
+
 import {
   default as FullPageExample,
   SaveAndCancelButtons,
 } from './5-full-page';
-import LanguagePicker from '../example-helpers/LanguagePicker';
-import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
-import adf from '../example-helpers/templates/media-with-caption.adf.json';
-import { getTranslations } from '../example-helpers/get-translations';
 
 export type Props = {};
 export type State = { locale: string; messages: { [key: string]: string } };

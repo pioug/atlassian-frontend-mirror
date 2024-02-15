@@ -1,5 +1,29 @@
 # @atlaskit/contextual-survey
 
+## 2.2.12
+
+### Patch Changes
+
+- [#69022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69022) [`395c74147990`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/395c74147990) - Migrate packages to use declarative entry points
+
+## 2.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.10
+
+### Patch Changes
+
+- [#60029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60029) [`b9826ea49c47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9826ea49c47) - Update dependencies that were impacted by HOT-106483 to latest.
+
+## 2.2.9
+
+### Patch Changes
+
+- [#57124](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57124) [`7ee324f9de67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7ee324f9de67) - Upgrade Emotion v10 (@emotion/core) to Emotion v11 (@emotion/react). No behaviour change expected.
+
 ## 2.2.8
 
 ### Patch Changes

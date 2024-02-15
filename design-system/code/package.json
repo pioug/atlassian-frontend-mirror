@@ -28,8 +28,8 @@
   "dependencies": {
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.29.0",
-    "@atlaskit/tooltip": "^18.0.0",
+    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/visually-hidden": "^1.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -41,11 +41,11 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
+    "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@types/jscodeshift": "^0.11.0",

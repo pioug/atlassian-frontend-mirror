@@ -1533,6 +1533,7 @@ describe('FileFetcher', () => {
 
       fileFetcher.upload(
         createUploadableFile('image.heic', 'image/heic'), // requires remote preview
+
         undefined,
         uploadFileUpfrontIds,
       );

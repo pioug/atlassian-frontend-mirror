@@ -122,7 +122,7 @@ export function createPlugin(
         createPlaceHolderStateFrom(
           Boolean(api?.focus?.sharedState.currentState()?.hasFocus),
           state,
-          api?.typeAhead.actions.isOpen,
+          api?.typeAhead?.actions.isOpen,
           defaultPlaceholderText,
           bracketPlaceholderText,
         ),
@@ -141,7 +141,7 @@ export function createPlugin(
             return createPlaceHolderStateFrom(
               isEditorFocused,
               newEditorState,
-              api?.typeAhead.actions.isOpen,
+              api?.typeAhead?.actions.isOpen,
               defaultPlaceholderText,
               bracketPlaceholderText,
             );
@@ -151,7 +151,7 @@ export function createPlugin(
         return createPlaceHolderStateFrom(
           isEditorFocused,
           newEditorState,
-          api?.typeAhead.actions.isOpen,
+          api?.typeAhead?.actions.isOpen,
           defaultPlaceholderText,
           bracketPlaceholderText,
         );

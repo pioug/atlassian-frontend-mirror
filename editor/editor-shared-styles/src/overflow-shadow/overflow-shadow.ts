@@ -1,19 +1,17 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { css } from '@emotion/react';
 
+import { N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export const overflowShadow = ({
-  background,
-  width = token('space.100', '8px'),
   leftCoverWidth,
   rightCoverWidth,
 }: {
-  background: string;
-  width?: string;
   leftCoverWidth?: string;
   rightCoverWidth?: string;
 }) => {
+  const width = token('space.100', '8px');
   const leftCoverWidthResolved = leftCoverWidth || width;
   const rightCoverWidthResolved = rightCoverWidth || width;
 
@@ -21,7 +19,7 @@ export const overflowShadow = ({
 /* shadow cover left */
   linear-gradient(
     to right,
-    ${background} ${leftCoverWidthResolved},
+    ${token('color.background.neutral', N20)} ${leftCoverWidthResolved},
     transparent ${leftCoverWidthResolved}
   ),
 /* shadow cover background left */
@@ -36,7 +34,7 @@ export const overflowShadow = ({
 /* shadow cover right */
   linear-gradient(
     to left,
-    ${background} ${rightCoverWidthResolved},
+    ${token('color.background.neutral', N20)} ${rightCoverWidthResolved},
     transparent ${rightCoverWidthResolved}
   ),
 /* shadow cover background right */

@@ -50,7 +50,7 @@ const IconCustomExample = () => (
     <path d="M11.75 8.968c.62 0 .98-.037 1.106-.037a.302.302 0 0 1 .275.421c-.082.22-.457 1.011-1.155 1.69a.319.319 0 0 1-.228.09.318.318 0 0 1-.229-.09c-.698-.679-1.073-1.47-1.155-1.69a.302.302 0 0 1 .275-.421c.127 0 .486.037 1.106.037h.005" />
   </g>
 </svg>`}
-    label="Custom icon"
+    label="Atlassian Logo"
     size="medium"
   />
 );
@@ -59,7 +59,7 @@ const IconRow = () => (
   <div css={iconRowStyles}>
     {demoIcons.map((Icon, i) => (
       <span css={iconWrapperStyles} key={i}>
-        <Icon label={`Icon ${i}`} size="medium" />
+        <Icon label={Icon.name} size="medium" />
       </span>
     ))}
     <span css={iconWrapperStyles}>

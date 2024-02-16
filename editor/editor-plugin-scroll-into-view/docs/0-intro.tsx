@@ -1,19 +1,21 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
+import { Box, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import { createEditorUseOnlyNotice } from './editor-use-only';
+
+const warnStyles = xcss({ marginTop: token('space.100', '8px') });
 
 export default md`
   ${createEditorUseOnlyNotice('Editor Plugin Scroll-into-view', [
     { name: 'Editor Core', link: '/packages/editor/editor-core' },
   ])}
   ${(
-    <>
-      <div style={{ marginTop: '0.5rem' }}>
-        <AtlassianInternalWarning />
-      </div>
-    </>
+    <Box xcss={warnStyles}>
+      <AtlassianInternalWarning />
+    </Box>
   )}
   This package includes the Scroll-into-view plugin used by @atlaskit/editor-core.
   ## Usage

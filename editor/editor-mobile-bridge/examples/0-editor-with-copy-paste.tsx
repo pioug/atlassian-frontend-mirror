@@ -3,6 +3,7 @@
 import { css, jsx } from '@emotion/react';
 import React from 'react';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
+import { token } from '@atlaskit/tokens';
 import TextArea from '@atlaskit/textarea';
 import { N50 } from '@atlaskit/theme/colors';
 import { disableZooming } from './utils/viewport';
@@ -32,10 +33,10 @@ export const wrapper: any = css`
   box-sizing: border-box;
 `;
 
-export const toolbar: any = css`
-  border-bottom: 1px dashed ${N50};
-  padding: 1em;
-`;
+export const toolbar = css({
+  borderBottom: `1px dashed ${token('color.border.disabled', N50)}`,
+  padding: token('space.200', '16px'),
+});
 
 export const clipboardZone: any = css`
   max-width: 500px;

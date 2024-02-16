@@ -249,7 +249,6 @@ const editorProps: EditorProps = {
   allowBreakout: true,
   allowRule: true,
   allowHelpDialog: true,
-  allowJiraIssue: true,
   allowPanel: {
     allowCustomPanel: true,
     allowCustomPanelEdit: true,
@@ -272,7 +271,6 @@ const editorProps: EditorProps = {
   allowTextAlignment: true,
   allowIndentation: true,
   showIndentationButtons: true,
-  allowNewInsertionBehaviour: true,
   allowFindReplace: {
     allowMatchCase: true,
   },

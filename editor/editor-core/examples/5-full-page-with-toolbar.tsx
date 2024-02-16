@@ -101,7 +101,6 @@ export class ExampleEditor extends React.Component<Props> {
                     allowHeaderColumn: true,
                     permittedLayouts: 'all',
                   }}
-                  allowJiraIssue={true}
                   allowPanel={true}
                   allowStatus={true}
                   allowExtension={{

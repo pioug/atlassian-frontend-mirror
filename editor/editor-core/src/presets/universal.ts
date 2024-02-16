@@ -136,7 +136,13 @@ export default function createUniversalPreset(
           allowInsertion: isExpandInsertionEnabled(props),
           useLongPressSelection: false,
           appearance: appearance,
-          allowInteractiveExpand: featureFlags.interactiveExpand,
+          allowInteractiveExpand:
+            typeof props.allowExpand === 'boolean'
+              ? props.allowExpand
+              : Boolean(
+                  props.allowExpand &&
+                    props.allowExpand.allowInteractiveExpand !== false,
+                ),
         },
       ],
       Boolean(props.allowExpand),

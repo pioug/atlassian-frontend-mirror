@@ -247,10 +247,7 @@ const tableStickyHeaderFirefoxFixStyle = () => {
     This fixes a bug which occurs in firefox when the first row becomes sticky.
     see https://product-fabric.atlassian.net/browse/ED-19177
   */
-  if (
-    browser.gecko &&
-    getBooleanFF('platform.editor.table.alternative-sticky-header-logic')
-  ) {
+  if (browser.gecko) {
     return css`
       .${ClassName.TABLE_STICKY} > tbody::before {
         content: '';

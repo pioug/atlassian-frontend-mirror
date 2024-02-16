@@ -60,9 +60,6 @@
       "path": "../editor-plugin-editor-disabled/tsconfig.app.json"
     },
     {
-      "path": "../editor-plugin-feature-flags/tsconfig.app.json"
-    },
-    {
       "path": "../editor-plugin-floating-toolbar/tsconfig.app.json"
     },
     {

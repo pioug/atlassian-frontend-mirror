@@ -28,6 +28,11 @@ const payload: PresencePayload = {
   userId: activeUser.userId,
   clientId: activeUser.clientId,
   timestamp: baseTime,
+  permit: {
+    isPermittedToComment: false,
+    isPermittedToEdit: false,
+    isPermittedToView: true,
+  },
 };
 
 const participantsServiceConstructor = (deps: {

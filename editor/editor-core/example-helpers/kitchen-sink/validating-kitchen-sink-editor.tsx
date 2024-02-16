@@ -148,7 +148,6 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           }}
           // allowTables={false}
           allowBreakout={true}
-          allowJiraIssue={true}
           allowPanel={{
             allowCustomPanel: true,
             allowCustomPanelEdit: true,

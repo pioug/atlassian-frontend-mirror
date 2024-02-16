@@ -13,8 +13,6 @@ export const findReplacePlugin: FindReplacePlugin = ({
   config: props,
   api,
 }) => {
-  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
-
   return {
     name: 'findReplace',
 
@@ -56,10 +54,6 @@ export const findReplacePlugin: FindReplacePlugin = ({
             editorView={editorView}
             containerElement={containerElement}
             dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-            // `allowMatchCase` comes through the preset, but not the feature flags
-            // prop with the `ComposableEditor` - grab the FFs from the editor API
-            // instead until we clean this up.
-            featureFlags={featureFlags}
             isToolbarReducedSpacing={isToolbarReducedSpacing}
             api={api}
           />
@@ -89,7 +83,6 @@ export const findReplacePlugin: FindReplacePlugin = ({
             containerElement={containerElement}
             dispatchAnalyticsEvent={dispatchAnalyticsEvent}
             takeFullWidth={props?.takeFullWidth}
-            featureFlags={featureFlags}
             api={api}
           />
         );

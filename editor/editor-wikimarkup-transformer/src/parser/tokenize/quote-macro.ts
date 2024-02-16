@@ -1,6 +1,9 @@
-import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { Token, TokenParser } from '.';
-import { Context } from '../../interfaces';
+import type {
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import type { Token, TokenParser } from '.';
+import type { Context } from '../../interfaces';
 import { commonMacro } from './common-macro';
 import { hasAnyOfMarks } from '../utils/text';
 import { normalizePMNodes } from '../utils/normalize';
@@ -61,9 +64,11 @@ function sanitize(nodes: PMNode[], schema: Schema) {
 
   for (const n of nodes) {
     switch (n.type.name) {
-      case 'paragraph': {
+      case 'paragraph':
+      case 'bulletList':
+      case 'orderedList': {
         /**
-         * blockquote is happy with paragraph
+         * blockquote is happy with paragraph and list
          */
         contentBuffer.push(n);
         break;

@@ -1,12 +1,10 @@
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type {
   ExtractInjectionAPI,
-  FeatureFlags,
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type {
   DecorationSet,
   EditorView,
@@ -43,13 +41,12 @@ export type FindReplaceToolbarButtonWithStateProps = {
   containerElement: HTMLElement | null;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   takeFullWidth?: boolean;
-  featureFlags: FeatureFlags;
   api: ExtractInjectionAPI<FindReplacePlugin> | undefined;
 };
 
 export type FindReplaceToolbarButtonActionProps = Omit<
   FindReplaceToolbarButtonWithStateProps,
-  'featureFlags' | 'api'
+  'api'
 >;
 
 type Config = {
@@ -62,10 +59,7 @@ export type FindReplacePlugin = NextEditorPlugin<
   {
     pluginConfiguration: Config;
     sharedState: FindReplacePluginState | undefined;
-    dependencies: [
-      OptionalPlugin<FeatureFlagsPlugin>,
-      OptionalPlugin<AnalyticsPlugin>,
-    ];
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
     actions: {
       getToolbarButton: (
         params: FindReplaceToolbarButtonActionProps,

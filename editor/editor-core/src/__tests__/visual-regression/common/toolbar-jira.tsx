@@ -30,7 +30,6 @@ describe('Toolbar: Jira configurarion', () => {
         allowExpand: false,
         allowExtension: false,
         allowIndentation: false,
-        allowJiraIssue: false,
         allowLayouts: false,
         allowTables: {
           allowColumnResizing: true,

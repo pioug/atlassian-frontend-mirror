@@ -17,6 +17,11 @@ const activeUser: ProviderParticipant = {
   name: 'Mr Kafei',
   avatar: 'www.jamescameron.com/image.png',
   email: 'fake.user@email.com',
+  permit: {
+    isPermittedToComment: false,
+    isPermittedToEdit: false,
+    isPermittedToView: true,
+  },
 };
 
 const payload: PresencePayload = {
@@ -24,6 +29,11 @@ const payload: PresencePayload = {
   userId: activeUser.userId,
   clientId: activeUser.clientId,
   timestamp: baseTime,
+  permit: {
+    isPermittedToComment: false,
+    isPermittedToEdit: false,
+    isPermittedToView: true,
+  },
 };
 
 const participantsServiceConstructor = (deps: {

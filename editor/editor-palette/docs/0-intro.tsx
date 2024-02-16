@@ -2,6 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
+import { token } from '@atlaskit/tokens';
 
 export default md`
 ${(<AtlassianInternalWarning />)}
@@ -36,7 +37,7 @@ or reach out to the Design System Team via the [Atlassian Developer Community fo
 ## API documentation
 
 ${(
-  <div style={{ marginTop: '0.5rem' }}>
+  <div style={{ marginTop: token('space.100', '8px') }}>
     <SectionMessage
       title="Design token names and values are an implementation detail."
       appearance="warning"

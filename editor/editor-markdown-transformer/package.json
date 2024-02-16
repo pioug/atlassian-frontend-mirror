@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-markdown-transformer",
-  "version": "5.3.5",
+  "version": "5.3.6",
   "description": "Editor Markdown transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^35.5.1",
-    "@atlaskit/editor-common": "^77.5.0",
+    "@atlaskit/editor-common": "^78.1.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@babel/runtime": "^7.0.0",
     "markdown-it": "^13.0.2",

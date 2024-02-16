@@ -25,7 +25,6 @@ test.use({
       allowMediaSingle: false,
       allowMediaGroup: true,
     },
-    allowNewInsertionBehaviour: true,
   },
 });
 

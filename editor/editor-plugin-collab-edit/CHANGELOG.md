@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.1.0
+
+### Minor Changes
+
+- [#72920](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72920) [`8fafb6fc0bc6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8fafb6fc0bc6) - Add extra field to collabTrackNCSInitializationPlugin which indicates if the document was changed excluding inline comments
+
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.1
 
 ### Patch Changes

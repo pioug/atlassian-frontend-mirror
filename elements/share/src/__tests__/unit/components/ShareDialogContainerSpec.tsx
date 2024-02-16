@@ -80,6 +80,12 @@ describe('ShareDialogContainer', () => {
     params: { spaceKey: 'NEW', contentId: '456' },
   };
 
+  const mockHeader = 'User Picker Custom Header';
+  const mockNoOptionsMessageHandler: jest.Mock = jest.fn();
+  const mockUserPickerOptions = {
+    header: mockHeader,
+    noOptionsMessageHandler: mockNoOptionsMessageHandler,
+  };
   beforeEach(() => {
     mockOriginTracing = {
       id: 'id',
@@ -160,6 +166,7 @@ describe('ShareDialogContainer', () => {
       triggerButtonTooltipText: mockTriggerButtonTooltipText,
       triggerButtonTooltipPosition: mockTriggerButtonTooltipPosition,
       createAnalyticsEvent: mockCreateAnalyticsEvent,
+      userPickerOptions: mockUserPickerOptions,
       ...overrides,
     };
 
@@ -202,6 +209,12 @@ describe('ShareDialogContainer', () => {
     expect(shareDialogWithTrigger.prop('shouldCloseOnEscapePress')).toEqual(
       mockShouldCloseOnEscapePress,
     );
+    expect(shareDialogWithTrigger.prop('userPickerOptions').header).toEqual(
+      mockHeader,
+    );
+    expect(
+      shareDialogWithTrigger.prop('userPickerOptions').noOptionsMessageHandler,
+    ).toEqual(mockNoOptionsMessageHandler);
     expect(mockOriginTracingFactory).toHaveBeenCalledTimes(2);
     expect(shareDialogWithTrigger.prop('orgId')).toEqual(mockOrgId);
   });

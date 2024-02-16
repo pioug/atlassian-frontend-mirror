@@ -1,5 +1,11 @@
 # @atlaskit/forge-react-types
 
+## 0.2.1
+
+### Patch Changes
+
+- [#73546](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73546) [`99cb74ecf428`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/99cb74ecf428) - Update eslint level for signed-source violation to warn for UIKit2 codegen
+
 ## 0.2.0
 
 ### Minor Changes

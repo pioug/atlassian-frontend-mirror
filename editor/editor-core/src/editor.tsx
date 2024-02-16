@@ -53,7 +53,6 @@ export default class Editor extends React.Component<EditorProps> {
     disabled: false,
     extensionHandlers: {},
     allowHelpDialog: true,
-    allowNewInsertionBehaviour: true,
     quickInsert: true,
   };
 

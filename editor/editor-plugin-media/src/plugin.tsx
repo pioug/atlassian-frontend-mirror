@@ -80,8 +80,6 @@ export const mediaPlugin: MediaNextEditorPluginType = ({
   config: options = {},
   api,
 }) => {
-  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
-
   return {
     name: 'media',
 
@@ -213,7 +211,6 @@ export const mediaPlugin: MediaNextEditorPluginType = ({
               api,
               dispatch,
               options,
-              featureFlags.newInsertionBehaviour,
             );
           },
         },

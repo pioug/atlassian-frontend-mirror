@@ -1393,47 +1393,6 @@ Object {
 }
 `;
 
-exports[`JIRA wiki markup - Macros should lift list in a blockquote 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "text": "something",
-              "type": "text",
-            },
-          ],
-          "type": "paragraph",
-        },
-      ],
-      "type": "blockquote",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "content": Array [
-                Object {
-                  "text": "list item",
-                  "type": "text",
-                },
-              ],
-              "type": "paragraph",
-            },
-          ],
-          "type": "listItem",
-        },
-      ],
-      "type": "bulletList",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
 exports[`JIRA wiki markup - Macros should lift rule node when it is inside macro 1`] = `
 Object {
   "content": Array [
@@ -1750,6 +1709,47 @@ Object {
         },
       ],
       "type": "panel",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Macros should render list in a blockquote 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "something",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "list item",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "listItem",
+            },
+          ],
+          "type": "bulletList",
+        },
+      ],
+      "type": "blockquote",
     },
   ],
   "type": "doc",

@@ -43,6 +43,7 @@ export interface ReadOnlyParticipants {
 export type CollabInitializedMetadata = {
   collabInitialisedAt: null | number;
   firstChangeAfterInitAt: null | number;
+  firstContentBodyChangeAfterInitAt: null | number;
 };
 
 export type CollabEditPluginSharedState = {

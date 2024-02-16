@@ -551,6 +551,11 @@ describe('Channel unit tests', () => {
         sessionId: 'NX5-eFC6rmgE7Y3PAH1D',
         timestamp: 1680759407071,
         userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
+        permit: {
+          isPermittedToEdit: true,
+          isPermittedToView: true,
+          isPermittedToComment: true,
+        },
       });
       done();
     });

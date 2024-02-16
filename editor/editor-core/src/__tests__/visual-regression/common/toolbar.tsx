@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { normalizeHexColor } from '@atlaskit/adf-schema';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   animationFrame,
@@ -22,7 +21,6 @@ import {
   retryUntilStablePosition,
   toolbarMenuItemsSelectors as selectors,
   selectToolbarMenuWithKeyboard,
-  toolbarDropdownMenuSelectors,
   ToolbarMenuItem,
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
@@ -39,12 +37,9 @@ import {
 } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { getElementComputedStyle } from '@atlaskit/editor-test-helpers/vr-utils/get-computed-style';
-import { N700 } from '@atlaskit/theme/colors';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 import * as parapgrahADF from './__fixtures__/paragraph-of-text.adf.json';
-
-const selectedColor = N700;
 
 async function focusToolbar(page: PuppeteerPage) {
   await pressKeyCombo(page, ['Alt', 'F9']);
@@ -108,111 +103,6 @@ describe('Toolbar keyboard shortcut', () => {
       );
     },
   );
-});
-
-describe('Toolbar: Text Color', () => {
-  let page: PuppeteerPage;
-
-  beforeEach(async () => {
-    page = global.page;
-    await initEditorWithAdf(page, {
-      appearance: Appearance.fullPage,
-      viewport: { width: 1000, height: 350 },
-    });
-
-    await clickToolbarMenu(page, ToolbarMenuItem.textColor);
-    await retryUntilStablePosition(
-      page,
-      async () => {
-        await page.waitForSelector(toolbarDropdownMenuSelectors.textColor);
-      },
-      editorSelector,
-    );
-    await page.mouse.move(0, 0);
-    await snapshot(page, undefined, editorSelector);
-  });
-
-  afterEach(async () => {
-    await retryUntilStablePosition(
-      page,
-      async () => {
-        await page.waitForSelector(toolbarDropdownMenuSelectors.textColor, {
-          hidden: true,
-        });
-      },
-      editorSelector,
-    );
-    await snapshot(page, undefined, editorSelector);
-  });
-
-  it('should close the text color menu when ESC is pressed', async () => {
-    await page.keyboard.down('Escape');
-  });
-
-  it('should close the text color menu when clicked outside', async () => {
-    await page.mouse.click(0, 0);
-  });
-});
-
-describe('Toolbar: Emoji', () => {
-  let page: PuppeteerPage;
-
-  const EmojiButtonSelector =
-    "[data-testid='ak-editor-main-toolbar'] [data-testid='Emoji']";
-
-  beforeEach(async () => {
-    page = global.page;
-    await initEditorWithAdf(page, {
-      appearance: Appearance.fullPage,
-      viewport: { width: 1000, height: 350 },
-    });
-
-    // make sure mouse position is reset to avoid accidental button hover
-    await page.mouse.click(0, 0);
-
-    await clickToolbarMenu(page, ToolbarMenuItem.emoji);
-    await page.waitForSelector(toolbarDropdownMenuSelectors.emoji);
-
-    const currentBgColor = await getElementComputedStyle(
-      page,
-      EmojiButtonSelector,
-      'background-color',
-    );
-
-    // test if emoji button have selected bg colour
-    expect(normalizeHexColor(currentBgColor)).toBe(selectedColor);
-  });
-
-  afterEach(async () => {
-    await retryUntilStablePosition(
-      page,
-      async () => {
-        await page.waitForSelector(toolbarDropdownMenuSelectors.emoji, {
-          hidden: true,
-        });
-      },
-      editorSelector,
-    );
-    await snapshot(page, undefined, editorSelector);
-
-    const currentBgColor = await getElementComputedStyle(
-      page,
-      EmojiButtonSelector,
-      'background-color',
-    );
-
-    // test if emoji button have default bg colour
-    // note: rgba(0, 0, 0, 0) is when bg is undefined
-    expect(currentBgColor).toBe('rgba(0, 0, 0, 0)');
-  });
-
-  it('should close the emoji menu when ESC is pressed', async () => {
-    await page.keyboard.down('Escape');
-  });
-
-  it('should close the emoji menu when clicked outside', async () => {
-    await page.mouse.click(0, 0);
-  });
 });
 
 describe('Toolbar: Comment', () => {

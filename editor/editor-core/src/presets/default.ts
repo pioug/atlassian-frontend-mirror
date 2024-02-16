@@ -110,7 +110,12 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions) {
       },
     ])
     .maybeAdd(historyPlugin, Boolean(isMobile || options.allowUndoRedoButtons))
-    .maybeAdd(undoRedoPlugin, Boolean(options.featureFlags?.undoRedoButtons))
+    .maybeAdd(
+      undoRedoPlugin,
+      Boolean(
+        options.featureFlags?.undoRedoButtons ?? options.allowUndoRedoButtons,
+      ),
+    )
     .add([blockTypePlugin, options.blockType])
     .add(clearMarksOnEmptyDocPlugin)
     .maybeAdd(

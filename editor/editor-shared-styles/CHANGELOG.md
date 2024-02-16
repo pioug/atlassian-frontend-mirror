@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 2.9.1
+
+### Patch Changes
+
+- [#73177](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73177) [`22452599ed8f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/22452599ed8f) - Move styling for certain packages to tokens.
+
 ## 2.9.0
 
 ### Minor Changes

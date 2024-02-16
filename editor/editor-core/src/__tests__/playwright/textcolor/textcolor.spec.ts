@@ -58,6 +58,19 @@ test.describe('Toolbar TextColor', () => {
     await expect(textColorPalette.palette).toBeHidden();
   });
 
+  test('clicking outside should close the popup', async ({ editor }) => {
+    const { keyboard } = editor;
+    const toolbar = EditorMainToolbarModel.from(editor);
+    await keyboard.type('Hello');
+    await toolbar.clickAt('Text color');
+    const popup = EditorPopupModel.from(editor);
+    const textColorPalette = EditorTextColourModel.from(popup);
+    await textColorPalette.toBeVisible();
+    await editor.page.mouse.move(0, 0);
+    await editor.page.mouse.click(0, 0);
+    await expect(textColorPalette.palette).toBeHidden();
+  });
+
   test('escape should close the picker', async ({ editor }) => {
     const { keyboard } = editor;
     const toolbar = EditorMainToolbarModel.from(editor);

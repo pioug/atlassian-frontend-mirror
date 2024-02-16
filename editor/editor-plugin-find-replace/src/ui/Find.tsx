@@ -252,7 +252,7 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
   };
 
   handleMatchCaseClick = (buttonRef: React.RefObject<HTMLButtonElement>) => {
-    if (this.props.allowMatchCase && this.props.onToggleMatchCase) {
+    if (this.props.onToggleMatchCase) {
       this.props.onToggleMatchCase();
       this.props.onFind(this.props.findText);
     }
@@ -262,7 +262,6 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
     const {
       findText,
       count,
-      allowMatchCase,
       shouldMatchCase,
       intl: { formatMessage },
     } = this.props;
@@ -285,24 +284,22 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
               </span>
             )}
           </div>
-          {allowMatchCase && (
-            <div css={matchCaseSection}>
-              <FindReplaceTooltipButton
-                title={this.matchCase}
-                appearance="default"
-                icon={this.matchCaseIcon}
-                newIcon={MatchCaseIcon}
-                iconLabel={this.matchCase}
-                iconSize={
-                  getBooleanFF('platform.editor.a11y-find-replace')
-                    ? 'small'
-                    : undefined
-                }
-                onClick={this.handleMatchCaseClick}
-                isPressed={shouldMatchCase}
-              />
-            </div>
-          )}
+          <div css={matchCaseSection}>
+            <FindReplaceTooltipButton
+              title={this.matchCase}
+              appearance="default"
+              icon={this.matchCaseIcon}
+              newIcon={MatchCaseIcon}
+              iconLabel={this.matchCase}
+              iconSize={
+                getBooleanFF('platform.editor.a11y-find-replace')
+                  ? 'small'
+                  : undefined
+              }
+              onClick={this.handleMatchCaseClick}
+              isPressed={shouldMatchCase}
+            />
+          </div>
         </div>
       );
 
@@ -352,21 +349,19 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
               </span>
             )}
           </div>
-          {allowMatchCase && (
-            <FindReplaceTooltipButton
-              title={this.matchCase}
-              icon={this.matchCaseIcon}
-              newIcon={MatchCaseIcon}
-              iconLabel={this.matchCase}
-              iconSize={
-                getBooleanFF('platform.editor.a11y-find-replace')
-                  ? 'small'
-                  : undefined
-              }
-              onClick={this.handleMatchCaseClick}
-              isPressed={shouldMatchCase}
-            />
-          )}
+          <FindReplaceTooltipButton
+            title={this.matchCase}
+            icon={this.matchCaseIcon}
+            newIcon={MatchCaseIcon}
+            iconLabel={this.matchCase}
+            iconSize={
+              getBooleanFF('platform.editor.a11y-find-replace')
+                ? 'small'
+                : undefined
+            }
+            onClick={this.handleMatchCaseClick}
+            isPressed={shouldMatchCase}
+          />
           <FindReplaceTooltipButton
             title={this.findNext}
             icon={this.findNextIcon}

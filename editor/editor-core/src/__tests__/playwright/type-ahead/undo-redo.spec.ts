@@ -73,6 +73,36 @@ test.describe('typeahead - multiple typeaheads', () => {
     });
   });
 
+  test.describe('when undo and right-arrow pressed', () => {
+    test.use({
+      editorProps: {
+        appearance: 'full-page',
+        allowUndoRedoButtons: true,
+        allowPanel: true,
+      },
+    });
+    test('it should close the typeahead popup and place cursor at the end', async ({
+      editor,
+    }) => {
+      await editor.typeAhead.search('/Info');
+      await editor.keyboard.press('ArrowDown');
+      await editor.keyboard.press('Enter');
+      await editor.typeAhead.popup.waitFor({ state: 'hidden' });
+
+      await editor.undo();
+
+      await editor.keyboard.press('ArrowRight');
+      await editor.keyboard.type('text after panel');
+
+      await expect(editor).toHaveDocument(doc(p(' text after panel')));
+      await expect(editor).toHaveSelection({
+        anchor: 18,
+        head: 18,
+        type: 'text',
+      });
+    });
+  });
+
   test.describe('when undone the query inside of the typeahead', () => {
     test('it should not add the raw trigger in the document', async ({
       editor,

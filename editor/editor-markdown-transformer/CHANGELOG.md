@@ -1,5 +1,11 @@
 # @atlaskit/editor-markdown-transformer
 
+## 5.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.5
 
 ### Patch Changes

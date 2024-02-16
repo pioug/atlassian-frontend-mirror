@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 109.4.6
+
+### Patch Changes
+
+- [#73177](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73177) [`22452599ed8f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/22452599ed8f) - Move styling for certain packages to tokens.
+
+## 109.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.4.4
 
 ### Patch Changes

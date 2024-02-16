@@ -5,7 +5,12 @@ import type {
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { Emitter } from '../emitter';
 import { Channel } from '../channel';
-import type { Config, InitialDraft, Permit } from '../types';
+import type {
+  Config,
+  InitialDraft,
+  UserPermitType,
+  PresenceData,
+} from '../types';
 import type {
   CollabEditProvider,
   CollabEvents,
@@ -18,9 +23,6 @@ import type {
 
 import { createLogger } from '../helpers/utils';
 import AnalyticsHelper from '../analytics/analytics-helper';
-
-import type { PresenceData } from '../types';
-
 import { telepointerCallback } from '../participants/telepointers-helper';
 import {
   DestroyError,
@@ -68,17 +70,20 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   private initialDraft?: InitialDraft;
   private isProviderInitialized: boolean = false;
   private isBuffered: boolean = false;
+  // User permit is used to determine if the user is allowed to view, comment or edit the document
+  // Therefore, the initial value is false for all three
+  private permit: UserPermitType = {
+    isPermittedToView: false,
+    isPermittedToComment: false,
+    isPermittedToEdit: false,
+  };
 
   // isBufferingEnabled is a boolean value passed to the config during provider creation.
   // It determines if the provider should initialize immediately and will only be true if:
   // the feature flag is enabled and the initial draft fetched from NCS is also passed in the config.
   private isBufferingEnabled: boolean = false;
-
-  private permit: Permit = {};
-
   // SessionID is the unique socket-session.
   private sessionId?: string;
-
   // ClientID is the unique ID for a prosemirror client. Used for step-rebasing.
   private clientId?: number | string;
 
@@ -239,7 +244,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         this.updateDocumentAndMetadata({ doc, version, metadata });
       })
       .on('restore', this.documentService.onRestore)
-      .on('permission', (permit: Permit) => {
+      .on('permission', (permit: UserPermitType) => {
         this.permit = Object.assign(this.permit, permit);
       })
       .on('steps:added', this.documentService.onStepsAdded)
@@ -268,6 +273,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       sessionId: this.sessionId!,
       userId: this.userId!,
       clientId: this.clientId!,
+      permit: this.permit,
     };
   };
 
@@ -461,6 +467,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
           sessionId: this.sessionId!,
           clientId: this.clientId!,
           selection: data.selection,
+          permit: this.permit,
         };
         const callback = telepointerCallback(this.config.documentAri);
         this.channel.broadcast('participant:telepointer', payload, callback);

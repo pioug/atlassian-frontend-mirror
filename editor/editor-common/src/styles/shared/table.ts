@@ -179,10 +179,6 @@ const tableSharedStyle = () => css`
 
             .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} {
               background-image: ${overflowShadow({
-                background: token(
-                  'color.background.neutral',
-                  'rgb(235, 237, 240)',
-                ),
                 leftCoverWidth: token('space.300', '24px'),
               })};
 
@@ -202,10 +198,6 @@ const tableSharedStyle = () => css`
             /* this is only relevant to the element taken care of by renderer */
             > [data-ds--code--code-block] {
               background-image: ${overflowShadow({
-                background: token(
-                  'color.background.neutral',
-                  'rgb(235, 237, 240)',
-                ),
                 leftCoverWidth: token('space.300', '24px'),
               })}!important;
 

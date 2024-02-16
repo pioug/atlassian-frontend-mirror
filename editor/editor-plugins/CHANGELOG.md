@@ -1,5 +1,54 @@
 # @atlaskit/editor-plugins
 
+## 1.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.4.3
+
+### Patch Changes
+
+- [#73765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73765) [`0914ec0459bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0914ec0459bb) - Update plugin dependencies.
+- [#70116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70116) [`31f1fa8d4ba3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/31f1fa8d4ba3) - Removed Feature Flag for platform.editor.table.alternative-sticky-header-logic
+- Updated dependencies
+
+## 1.4.2
+
+### Patch Changes
+
+- [#73177](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73177) [`22452599ed8f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/22452599ed8f) - Move styling for certain packages to tokens.
+
+## 1.4.1
+
+### Patch Changes
+
+- [#72122](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72122) [`c3186450404a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3186450404a) - Breaking change:
+
+  ## WHAT?:
+
+  Removing feature flags:
+
+  - singleLayout
+  - newInsertionBehaviour
+  - interactiveExpand
+  - findReplace
+  - findReplaceMatchCase
+  - extendFloatingToolbar
+
+  ## WHY?:
+
+  Because the flags and props are unused/by default active. Removing them will reduce our maintenance burden
+
+  ## HOW to update your code:
+
+  - If you were using the feature flag - the behaviour is now default and you can remove the flags
+  - If you were not using the feature flag - the behaviour is now default.
+  - If you have opted out of using the feature flag - we have been careful to ensure no-one has opted out of the behaviours. If you do have an issue please reach out to #help-editor.
+
+- Updated dependencies
+
 ## 1.4.0
 
 ### Minor Changes

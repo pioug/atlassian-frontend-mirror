@@ -40,6 +40,9 @@
     },
     {
       "path": "../../design-system/section-message/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tokens/tsconfig.app.json"
     }
   ]
 }

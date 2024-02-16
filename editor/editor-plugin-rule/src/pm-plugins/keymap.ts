@@ -6,23 +6,18 @@ import {
   insertRule,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
 import { insertHorizontalRule } from '../commands';
 
 export function keymapPlugin(
-  featureFlags: FeatureFlags,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): SafePlugin {
   const list = {};
 
   bindKeymapWithCommand(
     insertRule.common!,
-    insertHorizontalRule(
-      featureFlags,
-      editorAnalyticsAPI,
-    )(INPUT_METHOD.SHORTCUT),
+    insertHorizontalRule(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
     list,
   );
 

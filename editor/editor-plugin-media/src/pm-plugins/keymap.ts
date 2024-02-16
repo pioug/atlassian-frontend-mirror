@@ -133,7 +133,7 @@ const validationMaxMin = (
 };
 
 const createAnnouncer = (
-  action: string,
+  action: 'increased' | 'decreased',
   mediaWidth: number,
   changeAmount: number,
   validation: string,
@@ -167,8 +167,10 @@ const createAnnouncer = (
       );
     } else {
       announcerContainer.textContent = intl.formatMessage(
-        mediaResizeAnnouncerMess.DefaultMediaWidth,
-        { action: action, newMediaWidth: newMediaWidth },
+        action === 'increased'
+          ? mediaResizeAnnouncerMess.DefaultMediaWidthIncreased
+          : mediaResizeAnnouncerMess.DefaultMediaWidthDecreased,
+        { newMediaWidth },
       );
     }
   }
@@ -180,7 +182,7 @@ const handleMediaSizeChange =
     widthPlugin: WidthPlugin | undefined,
     options: MediaOptions | undefined,
     changeAmount: number,
-    action: string,
+    action: 'increased' | 'decreased',
     getIntl: () => IntlShape,
   ): Command =>
   (state, dispatch) => {
@@ -214,7 +216,6 @@ const handleMediaSizeChange =
 
     let validation: PixelEntryValidation = 'valid';
     let newWidth: number = mediaWidth + changeAmount;
-    const intl = getIntl();
 
     if (options?.fullWidthEnabled) {
       maxWidth = widthPlugin?.sharedState.currentState()?.lineLength;
@@ -224,18 +225,6 @@ const handleMediaSizeChange =
 
     const { newWidthValidated, validation: validationResult } =
       validationMaxMin(newWidth, maxWidth, minWidth, validation);
-
-    let formattedAction: string = action;
-
-    if (action === 'increased') {
-      formattedAction = intl.formatMessage(
-        mediaResizeAnnouncerMess.IncreasedAction,
-      );
-    } else if (action === 'decreased') {
-      formattedAction = intl.formatMessage(
-        mediaResizeAnnouncerMess.DecreasedAction,
-      );
-    }
 
     const newLayout = calcNewLayout(
       newWidthValidated,
@@ -250,7 +239,7 @@ const handleMediaSizeChange =
       newLayout,
     )(state, dispatch);
     createAnnouncer(
-      formattedAction,
+      action,
       mediaWidth,
       changeAmount,
       validationResult,

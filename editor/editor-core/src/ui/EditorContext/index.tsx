@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import EditorActions from '../../actions';
 import { PresetContextProvider } from '../../presets/context';
 
-export type EditorContextProps = { editorActions?: EditorActions };
+export type EditorContextProps = React.PropsWithChildren<{
+  editorActions?: EditorActions;
+}>;
 
 const EditorContext = React.createContext({});
 

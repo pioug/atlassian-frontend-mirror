@@ -126,7 +126,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   mediaNodes: MediaNodeWithPosHandler[] = [];
   options: MediaPluginOptions;
   mediaProvider?: MediaProvider;
-  newInsertionBehaviour?: boolean;
   isResizing: boolean = false;
   resizingWidth: number = 0;
   currentMaxWidth?: number;
@@ -169,7 +168,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   ) {
     this.options = options;
     this.mediaOptions = mediaOptions;
-    this.newInsertionBehaviour = newInsertionBehaviour;
     this.dispatch = dispatch;
     this.pluginInjectionApi = pluginInjectionApi;
 
@@ -426,7 +424,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
           this.getInputMethod(pickerType),
           collection,
           this.mediaOptions && this.mediaOptions.alignLeftOnInsert,
-          this.newInsertionBehaviour,
           widthPluginState,
           editorAnalyticsAPI,
         );

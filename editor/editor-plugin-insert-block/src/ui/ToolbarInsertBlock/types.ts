@@ -3,7 +3,6 @@ import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
   Command,
   EditorActionsOptions as EditorActions,
-  FeatureFlags,
   ImageUploadPluginReferenceEvent,
   PluginInjectionAPIWithDependencies,
 } from '@atlaskit/editor-common/types';
@@ -60,7 +59,6 @@ export interface Props {
     isEditing?: boolean,
   ) => (view: EditorView) => void;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-  featureFlags: FeatureFlags;
   pluginInjectionApi?: PluginInjectionAPIWithDependencies<InsertBlockPluginDependencies>;
   mentionsDisabled?: boolean;
 }

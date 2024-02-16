@@ -39,9 +39,6 @@
       "path": "../editor-plugin-analytics/tsconfig.app.json"
     },
     {
-      "path": "../editor-plugin-feature-flags/tsconfig.app.json"
-    },
-    {
       "path": "../input-rules/tsconfig.app.json"
     }
   ]

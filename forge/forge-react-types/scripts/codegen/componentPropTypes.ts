@@ -114,7 +114,7 @@ const generateComponentPropTypeSourceFiles = (
         );
         const sourceFilePath = resolve(
           componentOutputDir,
-          `${componentSymbol.getName()}.tsx`,
+          `${componentSymbol.getName()}.codegen.tsx`,
         );
 
         const signedSourceCode = createSignedArtifact(
@@ -156,21 +156,21 @@ const generateComponentIndexSourceFile = (
       const componentName = symbol.getName();
       const componentAliasedName = symbol.getAliasedSymbol()?.getName();
       if (componentName !== componentAliasedName) {
-        return `export type { ${componentAliasedName} as ${componentName} } from './${componentName}';`;
+        return `export type { ${componentAliasedName} as ${componentName} } from './${componentName}.codegen';`;
       } else {
-        return `export type { ${componentName} } from './${componentName}';`;
+        return `export type { ${componentName} } from './${componentName}.codegen';`;
       }
     })
     .join('\n');
 
-  const indexFilePath = resolve(componentOutputDir, 'index.ts');
+  const indexFilePath = resolve(componentOutputDir, 'index.codegen.ts');
   const signedIndexFileContent = createSignedArtifact(
     indexFileContent,
     'yarn workspace @atlaskit/forge-react-types codegen',
     {
       description: 'Index file for component prop types',
       dependencies: componentPropTypeSymbols.map(
-        (symbol) => `${componentOutputDir}/${symbol.getName()}.tsx`,
+        (symbol) => `${componentOutputDir}/${symbol.getName()}.codegen.tsx`,
       ),
       outputFolder: componentOutputDir,
     },

@@ -124,7 +124,7 @@ function getUpdatedDependenciesFromPackageJsons(
     if (!version) {
       throw new Error(`Package.json version not found for ${packageJson.name}`);
     }
-    depVersions[name] = `^${version}`;
+    depVersions[name] = `${version}`;
   });
 
   return depVersions;
@@ -281,11 +281,12 @@ function updatePluginsFiles(
 function preferOlderVersions(
   currentDeps: Dependencies,
   newDeps: Dependencies,
+  forceUpdate: boolean,
 ): Dependencies {
   const deps: Dependencies = {};
 
   for (let key in newDeps) {
-    if (currentDeps.hasOwnProperty(key)) {
+    if (currentDeps.hasOwnProperty(key) && !forceUpdate) {
       // If the current dependency version exists, use it
       deps[key] = currentDeps[key];
     } else {
@@ -379,6 +380,12 @@ async function run() {
       description: 'Update feature flags as well',
       default: false,
     })
+    .option('force-versions', {
+      alias: 'force',
+      type: 'boolean',
+      description: 'Force the plugins to update to the latest',
+      default: false,
+    })
     .parse();
 
   try {
@@ -404,6 +411,7 @@ async function run() {
     const newEditorPluginsDepsWithOldVersions = preferOlderVersions(
       currentEditorPluginDeps,
       newEditorPluginsDeps,
+      argv['force-versions'],
     );
     const diff = generateDependenciesDiff(
       currentEditorPluginDeps,
@@ -438,11 +446,8 @@ async function run() {
         dependencies: sortObjectKeys(updatedDeps),
         'platform-feature-flags': featureFlags,
       };
-      const updatedPackageJsonString = JSON.stringify(
-        updatedPackageJson,
-        null,
-        2,
-      );
+      const updatedPackageJsonString =
+        JSON.stringify(updatedPackageJson, null, 2) + '\n';
 
       fs.writeFileSync(editorPluginsPackageJsonPath, updatedPackageJsonString);
 

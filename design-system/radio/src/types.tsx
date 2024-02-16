@@ -23,7 +23,7 @@ export type RadioValue = string;
 // If updating props in OwnProps, also update in ExtractReactTypeProps
 type OwnProps = {
   /**
-   * The aria-label attribute associated with the radio element.
+   * The `aria-label` attribute associated with the radio element.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   ariaLabel?: string;
@@ -48,7 +48,7 @@ type OwnProps = {
    */
   label?: ReactNode;
   /**
-   * OnChange event handler, passed into the props of each `Radio` Component instantiated within `RadioGroup`.
+   * `onChange` event handler, passed into the props of each `Radio` Component instantiated within `RadioGroup`.
    */
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement>,

@@ -25,6 +25,9 @@
   "atlassian": {
     "team": "Foundational Elements",
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Emoji"
     },

@@ -43,9 +43,6 @@
             "path": "../../editor-plugin-extension/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-plugin-hyperlink/afm-cc/tsconfig.json"
         },
         {

@@ -24,6 +24,7 @@ import {
   MessageDescriptor,
   ProductName,
   ShareError,
+  UserPickerOptions,
 } from '../types';
 
 import { MAX_PICKER_HEIGHT } from './styles';
@@ -59,6 +60,7 @@ export type Props = {
   orgId?: string;
   isBrowseUsersDisabled?: boolean;
   shareError?: ShareError;
+  userPickerOptions?: UserPickerOptions;
 };
 
 type GetMessageDescriptor = (
@@ -83,14 +85,20 @@ const getNoOptionsMessageDescriptor: GetNoOptionMessageDescriptor = (
   if (isPublicLink || !allowEmail) {
     return messages.userPickerExistingUserOnlyNoOptionsMessage;
   }
-
   return messages.userPickerGenericNoOptionsMessage;
 };
 
 const getNoOptionsMessage =
-  (isPublicLink?: boolean, allowEmail?: boolean): GetNoOptionMessage =>
-  ({ inputValue }: { inputValue: string }): GetNoOptionMessage =>
-    inputValue && inputValue.trim().length > 0
+  (
+    isPublicLink?: boolean,
+    allowEmail?: boolean,
+    noOptionsMessageHandler?: any,
+  ): GetNoOptionMessage =>
+  ({ inputValue }: { inputValue: string }): GetNoOptionMessage => {
+    if (noOptionsMessageHandler) {
+      return noOptionsMessageHandler({ inputValue, isPublicLink, allowEmail });
+    }
+    return inputValue && inputValue.trim().length > 0
       ? ((
           <FormattedMessage
             {...getNoOptionsMessageDescriptor(
@@ -104,6 +112,7 @@ const getNoOptionsMessage =
           />
         ) as any)
       : null;
+  };
 
 const getPlaceHolderMessageDescriptor: GetMessageDescriptor = (
   product: ProductName = 'confluence',
@@ -244,6 +253,7 @@ export class UserPickerFieldComponent extends React.Component<
       orgId,
       isBrowseUsersDisabled,
       shareError,
+      userPickerOptions,
     } = this.props;
 
     const smartUserPickerProps: Partial<SmartUserPickerProps> =
@@ -267,17 +277,24 @@ export class UserPickerFieldComponent extends React.Component<
       isBrowseUsersDisabled,
     );
 
+    const { header, noOptionsMessageHandler } = userPickerOptions ?? {};
+
     const commonPickerProps: Partial<UserPickerProps> = {
       fieldId: 'share',
       loadOptions: this.loadOptions,
       isMulti: true,
       width: '100%',
       allowEmail,
-      noOptionsMessage: getNoOptionsMessage(isPublicLink, allowEmail),
+      noOptionsMessage: getNoOptionsMessage(
+        isPublicLink,
+        allowEmail,
+        noOptionsMessageHandler,
+      ),
       isLoading,
       onInputChange: onInputChange,
       maxPickerHeight: MAX_PICKER_HEIGHT,
       textFieldBackgroundColor: true,
+      header,
     };
 
     const UserPickerComponent:
@@ -318,7 +335,7 @@ export class UserPickerFieldComponent extends React.Component<
             ? null
             : intl.formatMessage(messages.userPickerAddMoreMessage);
 
-          const wasValidationOrShareError =
+          const wasValidationOrShareError: boolean =
             !!fieldValidationError || !!shareError;
 
           return (

@@ -32,13 +32,9 @@ import type { TypeAheadHandler, TypeAheadItem } from '../types';
 import { getTypeAheadListAriaLabels, moveSelectedIndex } from '../utils';
 
 import { AssistiveText } from './AssistiveText';
-import {
-  ICON_HEIGHT,
-  ITEM_PADDING,
-  TypeAheadListItem,
-} from './TypeAheadListItem';
+import { TypeAheadListItem } from './TypeAheadListItem';
 
-const LIST_ITEM_ESTIMATED_HEIGHT = ICON_HEIGHT + ITEM_PADDING * 2;
+const LIST_ITEM_ESTIMATED_HEIGHT = 64;
 const LIST_WIDTH = 320;
 
 type TypeAheadListProps = {

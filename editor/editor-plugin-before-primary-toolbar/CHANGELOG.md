@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-before-primary-toolbar
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

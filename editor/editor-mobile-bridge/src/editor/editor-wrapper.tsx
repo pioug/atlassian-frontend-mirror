@@ -49,7 +49,6 @@ export class Editor extends React.Component<EditorWrapperProps> {
     disabled: false,
     extensionHandlers: {},
     allowHelpDialog: true,
-    allowNewInsertionBehaviour: true,
     quickInsert: true,
   };
 

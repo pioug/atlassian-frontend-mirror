@@ -11,20 +11,16 @@ export const mediaResizeAnnouncerMessMessages = defineMessages({
     defaultMessage: 'Media decreased to the minimum size',
     description: 'The media has the minimum allowed width',
   },
-  DefaultMediaWidth: {
-    id: 'fabric.editor.media.DefaultMediaWidth',
+  DefaultMediaWidthIncreased: {
+    id: 'fabric.editor.media.DefaultMediaWidthIncreased',
     defaultMessage:
-      '{newMediaWidth, plural, one {Media width {action} to # pixel.} other {Media width {action} to # pixels.}}',
-    description: 'Media width {action} to {newMediaWidth} pixels.',
+      '{newMediaWidth, plural, one {Media width increased to # pixel.} other {Media width increased to # pixels.}}',
+    description: 'Media width increased to {newMediaWidth} pixels.',
   },
-  IncreasedAction: {
-    id: 'fabric.editor.media.increased',
-    defaultMessage: 'increased',
-    description: 'Increased action',
-  },
-  DecreasedAction: {
-    id: 'fabric.editor.media.decreased',
-    defaultMessage: 'decreased',
-    description: 'Decreased action',
+  DefaultMediaWidthDecreased: {
+    id: 'fabric.editor.media.DefaultMediaWidthDecreased',
+    defaultMessage:
+      '{newMediaWidth, plural, one {Media width decreased to # pixel.} other {Media width decreased to # pixels.}}',
+    description: 'Media width decreased to {newMediaWidth} pixels.',
   },
 });

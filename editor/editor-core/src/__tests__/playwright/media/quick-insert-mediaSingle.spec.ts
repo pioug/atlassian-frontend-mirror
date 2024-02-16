@@ -21,7 +21,6 @@ test.use({
       allowMediaGroup: true,
     },
     allowPanel: true,
-    allowNewInsertionBehaviour: true,
   },
 });
 

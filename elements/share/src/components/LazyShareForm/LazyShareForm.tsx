@@ -47,6 +47,7 @@ export type LazyShareFormProps = Pick<
   | 'onDialogClose'
   | 'orgId'
   | 'isBrowseUsersDisabled'
+  | 'userPickerOptions'
 > &
   Pick<
     ShareDialogWithTriggerStates,
@@ -115,6 +116,7 @@ function LazyShareForm(props: LazyShareFormProps) {
     showTitle,
     orgId,
     isBrowseUsersDisabled,
+    userPickerOptions,
   } = props;
 
   const footer = (
@@ -190,6 +192,7 @@ function LazyShareForm(props: LazyShareFormProps) {
               handleCloseDialog={onDialogClose}
               onTabChange={onTabChange}
               isBrowseUsersDisabled={isBrowseUsersDisabled}
+              userPickerOptions={userPickerOptions}
             />
           ) : (
             <p>

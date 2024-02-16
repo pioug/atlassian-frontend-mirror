@@ -31,27 +31,6 @@ import type { DisableSpellcheckByBrowser } from './supported-browsers';
  */
 export type FeatureFlags = {
   /**
-   * @description Enable single layout option
-   *
-   * @see https://hello.atlassian.net/browse/LOVE-187
-   * @default false
-   */
-  singleLayout?: boolean;
-  /**
-   * @description Enable new insertion behaviour
-   *
-   * @see https://product-fabric.atlassian.net/l/c/JYoSEu00
-   * @default false
-   */
-  newInsertionBehaviour?: boolean;
-
-  /**
-   * @description Allows to toggle expand open state
-   * @default true
-   */
-  interactiveExpand?: boolean;
-
-  /**
    * @description
    * Whether a placeholder bracket hint was provided (`string => boolean`)
    * Placeholder text to be displayed when a bracket '{' is typed and the line is empty e.g. 'Did you mean to use '/' to insert content?'
@@ -71,24 +50,6 @@ export type FeatureFlags = {
    * @default false
    */
   placeholderHints?: boolean;
-
-  /**
-   * @description
-   * Enable find/replace functionality within the editor
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-3504
-   * @default false
-   */
-  findReplace?: boolean;
-
-  /**
-   * @description
-   * Enable case matching functionality in find/replace feature within the editor
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-9684
-   * @default false
-   */
-  findReplaceMatchCase?: boolean;
 
   /**
    * @description
@@ -133,13 +94,6 @@ export type FeatureFlags = {
    * @default false
    */
   queueAnalytics?: boolean;
-
-  /**
-   * Enable extend floating toolbars
-   * @see https://product-fabric.atlassian.net/browse/ED-11963
-   * @default false
-   */
-  extendFloatingToolbar?: boolean;
 
   /**
    * Show the avatar group as a plugin
@@ -288,6 +242,15 @@ export type FeatureFlags = {
    * @default false
    */
   tableSelector?: boolean;
+
+  /**
+   * @description
+   * Enables commenting on media
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-22102
+   * @default false
+   */
+  commentsOnMedia?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

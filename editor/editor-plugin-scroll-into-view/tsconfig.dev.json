@@ -39,7 +39,13 @@
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/primitives/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/section-message/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tokens/tsconfig.app.json"
     }
   ]
 }

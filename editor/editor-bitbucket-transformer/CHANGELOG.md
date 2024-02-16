@@ -1,5 +1,11 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 8.1.31
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.30
 
 ### Patch Changes

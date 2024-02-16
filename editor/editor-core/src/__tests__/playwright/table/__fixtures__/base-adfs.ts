@@ -2890,7 +2890,7 @@ export const simpleTableWithScroll = {
   ],
 };
 
-export const tableWithScoll = {
+export const tableWithScroll = {
   version: 1,
   type: 'doc',
   content: [

@@ -48,6 +48,11 @@ export const mockIo = {
             sessionId: 'NX5-eFC6rmgE7Y3PAH1D',
             userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
             clientId: 3274991230,
+            permit: {
+              isPermittedToEdit: true,
+              isPermittedToView: true,
+              isPermittedToComment: true,
+            },
           },
         });
         events?.get('presence:joined')?.({

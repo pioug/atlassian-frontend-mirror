@@ -5,11 +5,11 @@ import Loadable from 'react-loadable';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import ButtonGroup from '@atlaskit/button/button-group';
 import type {
+  ExtensionAPI,
   ExtensionManifest,
   ExtensionProvider,
   ExtensionToolbarButton,
 } from '@atlaskit/editor-common/extensions';
-import type { ExtensionAPI } from '@atlaskit/editor-common/extensions';
 import { getContextualToolbarItemsFromModule } from '@atlaskit/editor-common/extensions';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 import { nodeToJSON } from '@atlaskit/editor-common/utils';

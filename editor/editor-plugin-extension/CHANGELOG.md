@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.0.2
+
+### Patch Changes
+
+- [#72671](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72671) [`c446a8ca183b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c446a8ca183b) - ED-21912 Adding support for left arrow navigation from within MBE tabs.
+- Updated dependencies
+
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

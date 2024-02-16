@@ -50,7 +50,6 @@ const FindReplaceToolbarButtonWithState = ({
   editorView,
   containerElement,
   dispatchAnalyticsEvent,
-  featureFlags,
   takeFullWidth,
   api,
 }: FindReplaceToolbarButtonWithStateProps) => {
@@ -161,14 +160,11 @@ const FindReplaceToolbarButtonWithState = ({
     dispatchCommand(toggleMatchCase());
   };
 
-  const { findReplaceMatchCase } = featureFlags;
-
   if (!findReplaceState) {
     return null;
   }
   return (
     <FindReplaceToolbarButton
-      allowMatchCase={findReplaceMatchCase}
       shouldMatchCase={findReplaceState.shouldMatchCase}
       onToggleMatchCase={handleToggleMatchCase}
       isActive={findReplaceState.isActive}

@@ -552,6 +552,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       integrationMode,
       shareIntegrations,
       isBrowseUsersDisabled,
+      userPickerOptions,
     } = this.props;
 
     const style =
@@ -618,6 +619,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                 //ref
                 selectPortalRef={this.selectPortalRef}
                 isBrowseUsersDisabled={isBrowseUsersDisabled}
+                userPickerOptions={userPickerOptions}
               />
             </div>
           )}

@@ -52,9 +52,6 @@
             "path": "../../editor-plugin-extension/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-plugin-table/afm-cc/tsconfig.json"
         },
         {

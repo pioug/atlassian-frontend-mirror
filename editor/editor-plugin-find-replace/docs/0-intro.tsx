@@ -30,7 +30,7 @@ type FeedbackDialogPlugin = NextEditorPlugin<
   'findReplace',
   {
     pluginConfiguration: Config;
-    dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<FeatureFlagsPlugin>];
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
   }
 >;
 `}

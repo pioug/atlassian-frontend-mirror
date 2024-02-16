@@ -1,11 +1,16 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { adf2wiki } from '../_test-helpers';
+import { adf2wiki, wiki2adf } from '../_test-helpers';
 
 import {
   blockquote,
   doc,
   hardBreak,
   p,
+  table,
+  tr,
+  td,
+  ul,
+  li,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('ADF => WikiMarkup => ADF - BlockQuote', () => {
@@ -34,6 +39,28 @@ describe('ADF => WikiMarkup => ADF - BlockQuote', () => {
           ),
         ),
       )(defaultSchema),
+    );
+  });
+
+  test('should convert blockquote with lists properly', () => {
+    adf2wiki(
+      doc(blockquote(ul(li(p('item 1')), li(p('item 2')))))(defaultSchema),
+    );
+  });
+
+  test('should convert blockquote with lists nested in a table properly', () => {
+    adf2wiki(
+      doc(table()(tr(td()(blockquote(ul(li(p('item 1')), li(p('item 2'))))))))(
+        defaultSchema,
+      ),
+    );
+  });
+});
+
+describe('WikiMarkup => ADF => WikiMarkup - Blockquote', () => {
+  test('should convert blockquote with lists nested in a table properly', () => {
+    wiki2adf(
+      `|{quote}* list item 1\n* list item 2\n\n# Numbered list 1\n# Numbered list 2{quote}|`,
     );
   });
 });

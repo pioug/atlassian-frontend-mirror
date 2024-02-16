@@ -1,12 +1,13 @@
 import React from 'react';
+import { token } from '@atlaskit/tokens';
 
 const Seperator = () => {
   return (
     <div
       style={{
         height: '80%',
-        marginLeft: 4,
-        marginRight: 4,
+        marginLeft: token('space.050', '4px'),
+        marginRight: token('space.050', '4px'),
         marginTop: 'auto',
         marginBottom: 'auto',
         width: 1,

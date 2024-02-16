@@ -8,7 +8,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { safeInsert } from '@atlaskit/editor-common/insert';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type {
@@ -25,7 +24,6 @@ import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 
 export const createHorizontalRule = (
   state: EditorState,
-  featureFlags: FeatureFlags,
   start: number,
   end: number,
   inputMethod:
@@ -42,17 +40,14 @@ export const createHorizontalRule = (
 
   let tr: Transaction | null = null;
   const { rule } = state.schema.nodes;
-  const { newInsertionBehaviour } = featureFlags;
-  if (newInsertionBehaviour) {
-    /**
-     * This is a workaround to get rid of the typeahead text when using quick insert
-     * Once we insert *nothing*, we get a new transaction, so we can use the new selection
-     * without considering the extra text after the `/` command.
-     **/
-    tr = state.tr.replaceWith(start, end, Fragment.empty);
+  /**
+   * This is a workaround to get rid of the typeahead text when using quick insert
+   * Once we insert *nothing*, we get a new transaction, so we can use the new selection
+   * without considering the extra text after the `/` command.
+   **/
+  tr = state.tr.replaceWith(start, end, Fragment.empty);
 
-    tr = safeInsert(rule.createChecked(), tr.selection.from)(tr);
-  }
+  tr = safeInsert(rule.createChecked(), tr.selection.from)(tr);
 
   if (!tr) {
     tr = state.tr.replaceRange(
@@ -75,7 +70,6 @@ export const createHorizontalRule = (
 
 const createHorizontalRuleAutoformat = (
   state: EditorState,
-  featureFlags: FeatureFlags,
   start: number,
   end: number,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
@@ -88,7 +82,6 @@ const createHorizontalRuleAutoformat = (
 
   return createHorizontalRule(
     state,
-    featureFlags,
     start,
     end,
     INPUT_METHOD.FORMATTING,
@@ -98,7 +91,6 @@ const createHorizontalRuleAutoformat = (
 
 export function inputRulePlugin(
   schema: Schema,
-  featureFlags: FeatureFlags,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): SafePlugin | undefined {
   const rules: Array<InputRuleWrapper> = [];
@@ -107,13 +99,7 @@ export function inputRulePlugin(
     // '---' and '***' for hr
     rules.push(
       createRule(/^(\-\-\-|\*\*\*)$/, (state, _match, start, end) =>
-        createHorizontalRuleAutoformat(
-          state,
-          featureFlags,
-          start,
-          end,
-          editorAnalyticsAPI,
-        ),
+        createHorizontalRuleAutoformat(state, start, end, editorAnalyticsAPI),
       ),
     );
 
@@ -128,7 +114,6 @@ export function inputRulePlugin(
           }
           return createHorizontalRuleAutoformat(
             state,
-            featureFlags,
             start,
             end,
             editorAnalyticsAPI,

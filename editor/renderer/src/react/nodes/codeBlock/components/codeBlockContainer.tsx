@@ -34,7 +34,6 @@ const codeBlockStyleOverrides = css`
     font-size: ${relativeFontSizeToBase16(fontSize())};
     line-height: 1.5rem;
     background-image: ${overflowShadow({
-      background: token('color.background.neutral', N20),
       leftCoverWidth: token('space.300', '24px'),
     })};
     background-attachment: local, local, local, local, scroll, scroll, scroll,

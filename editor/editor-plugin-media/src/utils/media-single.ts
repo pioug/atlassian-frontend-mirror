@@ -198,7 +198,6 @@ export const insertMediaSingleNode = (
   inputMethod?: InputMethodInsertMedia,
   collection?: string,
   alignLeftOnInsert?: boolean,
-  newInsertionBehaviour?: boolean,
   widthPluginState?: WidthPluginState | undefined,
   editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 ): boolean => {
@@ -252,9 +251,7 @@ export const insertMediaSingleNode = (
     )(state, dispatch);
   } else {
     let tr: Transaction | null = null;
-    if (newInsertionBehaviour) {
-      tr = safeInsert(node, state.selection.from)(state.tr);
-    }
+    tr = safeInsert(node, state.selection.from)(state.tr);
 
     if (!tr) {
       const content = shouldAddParagraph(view.state)

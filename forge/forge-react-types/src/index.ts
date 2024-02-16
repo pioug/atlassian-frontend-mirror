@@ -51,4 +51,4 @@ export type {
   ToggleProps,
   TooltipProps,
   ValidMessageProps,
-} from './components/__generated__';
+} from './components/__generated__/index.codegen';

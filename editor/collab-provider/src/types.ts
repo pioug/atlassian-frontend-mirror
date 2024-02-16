@@ -172,10 +172,17 @@ export type BroadcastIncomingPayload = {
   data: PresencePayload | TelepointerPayload | StepsPayload | any; // broadcasted data from NCS, any added as a fallback
 };
 
+export type UserPermitType = {
+  isPermittedToView: boolean;
+  isPermittedToComment: boolean;
+  isPermittedToEdit: boolean;
+};
+
 export type PresenceData = {
   sessionId: string;
   userId: string | undefined;
   clientId: number | string;
+  permit?: UserPermitType;
 };
 
 export type PresencePayload = PresenceData & {
@@ -226,14 +233,6 @@ export type NamespaceStatus = {
   waitTimeInMs?: number;
 };
 
-export type Permit = {
-  reason?: string;
-  isPermittedToView?: boolean;
-  isPermittedToComment?: boolean;
-  isPermittedToEdit?: boolean;
-  maintenanceMode?: boolean;
-};
-
 export type ChannelEvent = {
   connected: {
     sid: string;
@@ -250,7 +249,7 @@ export type ChannelEvent = {
   'steps:commit': StepsPayload & { userId: string };
   'steps:added': StepsPayload;
   'metadata:changed': Metadata;
-  permission: Permit;
+  permission: UserPermitType;
   error: InternalError;
   disconnect: { reason: string };
   status: NamespaceStatus;

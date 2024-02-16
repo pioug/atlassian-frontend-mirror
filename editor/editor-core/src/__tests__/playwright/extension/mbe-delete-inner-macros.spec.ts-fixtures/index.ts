@@ -150,6 +150,278 @@ export const mbeAdfWithAnInnerTable = {
   ],
 };
 
+export const mbeAdfWithAnInnerTableWithTwoTabs = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'multiBodiedExtension',
+      attrs: {
+        extensionKey: 'fake_tabs.com:fakeTabNode',
+        extensionType: 'com.atlassian.confluence.',
+        maxFrames: 5,
+        parameters: {
+          activeTabIndex: 0,
+          macroParams: {},
+          macroMetadata: {
+            placeholder: [
+              {
+                data: {
+                  url: '',
+                },
+                type: 'icon',
+              },
+            ],
+          },
+        },
+        layout: 'default',
+      },
+      content: [
+        {
+          type: 'extensionFrame',
+          content: [
+            {
+              type: 'table',
+              attrs: {
+                isNumberColumnEnabled: false,
+                layout: 'default',
+                localId: '114ea369-b416-4e08-9be4-f262d2b0d797',
+              },
+              content: [
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableHeader',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableHeader',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableHeader',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'extensionFrame',
+          content: [
+            {
+              type: 'table',
+              attrs: {
+                isNumberColumnEnabled: false,
+                layout: 'default',
+                localId: '114ea369-b416-4e08-9be4-f262d2b0d797',
+              },
+              content: [
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableHeader',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableHeader',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableHeader',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
 export const mbeAdfWithAnInnerPanel = {
   version: 1,
   type: 'doc',
@@ -238,6 +510,57 @@ export const mbeAdfWithACodeBlock = {
     },
   ],
 };
+
+export const mbeAdfWithACodeBlockWithTwoTabs = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'multiBodiedExtension',
+      attrs: {
+        extensionKey: 'fake_tabs.com:fakeTabNode',
+        extensionType: 'com.atlassian.confluence.',
+        maxFrames: 5,
+        parameters: {
+          activeTabIndex: 0,
+          macroParams: {},
+          macroMetadata: {
+            placeholder: [
+              {
+                data: {
+                  url: '',
+                },
+                type: 'icon',
+              },
+            ],
+          },
+        },
+        layout: 'default',
+      },
+      content: [
+        {
+          type: 'extensionFrame',
+          content: [
+            {
+              type: 'codeBlock',
+              attrs: {},
+            },
+          ],
+        },
+        {
+          type: 'extensionFrame',
+          content: [
+            {
+              type: 'codeBlock',
+              attrs: {},
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
 export const mbeAdfWithTextBeforeAfterAndWithAnInnerTable = {
   version: 1,
   type: 'doc',

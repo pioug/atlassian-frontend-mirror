@@ -15,7 +15,6 @@ import type {
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { insertHorizontalRule } from './commands';
@@ -26,10 +25,7 @@ export type RulePlugin = NextEditorPlugin<
   'rule',
   {
     pluginConfiguration: undefined;
-    dependencies: [
-      OptionalPlugin<FeatureFlagsPlugin>,
-      OptionalPlugin<AnalyticsPlugin>,
-    ];
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
     actions: {
       insertHorizontalRule: ReturnType<typeof insertHorizontalRule>;
     };
@@ -37,7 +33,6 @@ export type RulePlugin = NextEditorPlugin<
 >;
 
 export const rulePlugin: RulePlugin = ({ api }) => {
-  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
   return {
     name: 'rule',
 
@@ -46,10 +41,7 @@ export const rulePlugin: RulePlugin = ({ api }) => {
     },
 
     actions: {
-      insertHorizontalRule: insertHorizontalRule(
-        featureFlags,
-        api?.analytics?.actions,
-      ),
+      insertHorizontalRule: insertHorizontalRule(api?.analytics?.actions),
     },
 
     pmPlugins() {
@@ -57,11 +49,11 @@ export const rulePlugin: RulePlugin = ({ api }) => {
         {
           name: 'ruleInputRule',
           plugin: ({ schema }) =>
-            inputRulePlugin(schema, featureFlags, api?.analytics?.actions),
+            inputRulePlugin(schema, api?.analytics?.actions),
         },
         {
           name: 'ruleKeymap',
-          plugin: () => keymapPlugin(featureFlags, api?.analytics?.actions),
+          plugin: () => keymapPlugin(api?.analytics?.actions),
         },
       ];
     },

@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 4.14.0
+
+### Minor Changes
+
+- [#72864](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72864) [`967b26e5f6b8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/967b26e5f6b8) - [ux] Added new `userPickerCustomHeader` and `noOptionsMessage` prop to Share Dialog. `userPickerCustomHeader` adds custom header to User Picker Option List and `noOptionsMessage` renders a custom message when the user picker returns an empty options list.
+
 ## 4.13.0
 
 ### Minor Changes

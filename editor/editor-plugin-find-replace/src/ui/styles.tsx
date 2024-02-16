@@ -107,9 +107,9 @@ export const matchCaseSection = css`
   }
 `;
 
-export const NextPreviousItem = css`
-  padding: 0px 3px;
-`;
+export const nextPreviousItemStyles = css({
+  padding: `0px ${token('space.025', '2px')}`,
+});
 
 export const countStyles = css({
   color: `${token('color.text.subtlest', '#626F86')}`,
@@ -132,11 +132,12 @@ export const countWrapperStyles = css({
 
 export const orderZeroStyles = css({
   order: '0',
-  marginInline: getBooleanFF(
-    'platform.design-system-team.editor-new-button_jjjdo',
-  )
-    ? `${token('space.050', '4px')} ${token('space.025', '2px')}`
-    : 0,
+  marginInline: `${token('space.050', '4px')} ${token('space.025', '2px')}`,
+});
+
+export const orderZeroDeprecatedStyles = css({
+  order: '0',
+  marginInline: 0,
 });
 
 export const orderOneStyles = css({

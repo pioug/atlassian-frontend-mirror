@@ -25,7 +25,6 @@ test.use({
   editorProps: {
     appearance: 'full-page',
     allowPanel: true,
-    allowNewInsertionBehaviour: true,
   },
 });
 

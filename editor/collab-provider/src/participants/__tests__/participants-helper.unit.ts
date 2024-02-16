@@ -17,6 +17,11 @@ const activeUser: ProviderParticipant = {
   name: 'Mr Kafei',
   avatar: 'www.jamescameron.com/image.png',
   email: 'fake.user@email.com',
+  permit: {
+    isPermittedToComment: false,
+    isPermittedToEdit: false,
+    isPermittedToView: true,
+  },
 };
 
 describe('participantForUpdate', () => {
@@ -26,6 +31,11 @@ describe('participantForUpdate', () => {
     const payload = {
       ...activeUser,
       timestamp: lastActive,
+      permit: {
+        isPermittedToComment: false,
+        isPermittedToEdit: false,
+        isPermittedToView: true,
+      },
     };
 
     describe('and getUser doesnt', () => {
@@ -83,6 +93,11 @@ describe('participantForUpdate', () => {
       userId: '50',
       clientId: '',
       timestamp: baseTime,
+      permit: {
+        isPermittedToComment: false,
+        isPermittedToEdit: false,
+        isPermittedToView: true,
+      },
     };
     const { timestamp, ...rest } = payload;
     const expectedParticipant: ProviderParticipant = {

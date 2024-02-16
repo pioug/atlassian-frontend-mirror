@@ -12,6 +12,7 @@ import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { EditorContext } from '@atlaskit/editor-core';
 import { useDefaultQuickInsertGetItems } from '@atlaskit/editor-core/example-helpers/use-default-quickinsert-get-items';
 import InlineDialog from '@atlaskit/inline-dialog';
+import { token } from '@atlaskit/tokens';
 
 import ModalElementBrowser from '../src/ui/ModalElementBrowser/ModalElementBrowser';
 
@@ -28,7 +29,10 @@ const inlineBrowserWrapperStyles = css({
   maxHeight: 'inherit',
   width: '320px',
   height: '480px', // The internal AutoSizer component for react-virtualized needs a fixed height from parent level.
-  margin: '-16px -24px',
+  margin: `${token('space.negative.200', '-16px')} ${token(
+    'space.negative.300',
+    '-24px',
+  )}`,
 });
 
 const onInsertItem = (item: QuickInsertItem) => {

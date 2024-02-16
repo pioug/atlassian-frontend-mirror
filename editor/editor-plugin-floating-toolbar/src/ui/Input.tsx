@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 import { jsx } from '@emotion/react';
 

@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import React from 'react';
-import { Color as StatusColor } from '@atlaskit/status/element';
+import type { Color as StatusColor } from '@atlaskit/status/element';
 import Form, { Field, FormFooter } from '@atlaskit/form';
 import AkButton from '@atlaskit/button/standard-button';
 import Textfield from '@atlaskit/textfield';
@@ -14,6 +14,9 @@ import { fetchProxy } from '../src/utils/fetch-proxy';
 import WebBridgeImpl from '../src/editor/native-to-web';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
 import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
+
+// Disable tokens for the file - this package is deprecated, it's an example and it's not worth the effort of migrating
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 
 export interface Props {
   text: string;

@@ -26,7 +26,6 @@ test.describe('Layout nodes should not be allowed inside the MBE', () => {
       allowFragmentMark: true,
       insertMenuItems: [],
       allowLayouts: true,
-      allowNewInsertionBehaviour: true,
     },
     editorMountOptions: {
       withConfluenceMacrosExtensionProvider: true,

@@ -304,7 +304,6 @@ class ExampleEditorComponent extends React.Component<
                     advanced: true,
                   }}
                   allowBreakout={true}
-                  allowJiraIssue={true}
                   allowPanel={true}
                   allowExtension={{
                     allowBreakout: true,

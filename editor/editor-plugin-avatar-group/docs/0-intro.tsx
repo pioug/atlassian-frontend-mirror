@@ -2,6 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, md } from '@atlaskit/docs';
 import { createEditorUseOnlyNotice } from '@atlaskit/editor-core/docs/editor-use-only';
+import { token } from '@atlaskit/tokens';
 
 export default md`
 
@@ -11,7 +12,7 @@ export default md`
 
   ${(
     <>
-      <div style={{ marginTop: '0.5rem' }}>
+      <div style={{ marginTop: token('space.100', '8px') }}>
         <AtlassianInternalWarning />
       </div>
     </>

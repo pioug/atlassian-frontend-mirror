@@ -15,6 +15,7 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   createSelectionClickHandler,
+  GapCursorSelection,
   isSelectionAtEndOfNode,
   isSelectionAtStartOfNode,
 } from '@atlaskit/editor-common/selection';
@@ -319,6 +320,51 @@ const createPlugin = (
               }
             }
           }
+
+          // Handle non shift key case for MBE
+          if (
+            event instanceof KeyboardEvent &&
+            !event.shiftKey &&
+            event.key === 'ArrowLeft'
+          ) {
+            const {
+              schema,
+              selection,
+              selection: { $head },
+              doc,
+              tr,
+            } = view.state;
+            const { multiBodiedExtension, extensionFrame, paragraph } =
+              schema.nodes;
+            if (
+              selection instanceof GapCursorSelection ||
+              (selection instanceof TextSelection &&
+                $head.parent.type === paragraph)
+            ) {
+              const maybeMultiBodiedExtension =
+                findParentNodeOfTypeClosestToPos($head, multiBodiedExtension);
+              if (maybeMultiBodiedExtension) {
+                /* In case of gap cursor, we need to decrement the position by 1 as we need to check the node at previous position
+                 * In case of text selection, we need to decrement the position by 2 as we need to jump back twice, once from text node and then its parent paragraph node
+                 */
+                const previousPositionDecrement =
+                  selection instanceof GapCursorSelection ? 1 : 2;
+                if (
+                  tr.doc.nodeAt($head.pos - previousPositionDecrement)?.type ===
+                  extensionFrame
+                ) {
+                  const newSelection = TextSelection.create(
+                    doc,
+                    tr.doc
+                      .resolve($head.pos - previousPositionDecrement)
+                      .start($head.depth - previousPositionDecrement),
+                  );
+                  view.dispatch(tr.setSelection(newSelection));
+                }
+              }
+            }
+          }
+
           return false;
         },
       },

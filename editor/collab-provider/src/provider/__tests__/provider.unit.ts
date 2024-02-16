@@ -69,7 +69,7 @@ import { ProviderInitialisationError } from '../../errors/custom-errors';
 import type { InternalError } from '../../errors/internal-errors';
 import { INTERNAL_ERROR_CODE } from '../../errors/internal-errors';
 import { NCS_ERROR_CODE } from '../../errors/ncs-errors';
-import type { Permit } from '../../types';
+import type { UserPermitType } from '../../types';
 
 const testProviderConfig = {
   url: `http://provider-url:66661`,
@@ -1565,7 +1565,7 @@ describe('Provider', () => {
         'getIsNamespaceLocked',
       );
       provider.initialize(() => editorState);
-      const permissionResponse: Permit = {
+      const permissionResponse: UserPermitType = {
         isPermittedToView: true,
         isPermittedToComment: true,
         isPermittedToEdit: false,

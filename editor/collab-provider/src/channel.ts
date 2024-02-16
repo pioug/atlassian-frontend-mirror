@@ -12,7 +12,7 @@ import type {
   AuthCallback,
   BroadcastIncomingPayload,
   ReconcileResponse,
-  Permit,
+  UserPermitType,
 } from './types';
 import { createLogger, getProduct, getSubProduct } from './helpers/utils';
 import {
@@ -190,7 +190,7 @@ export class Channel extends Emitter<ChannelEvent> {
     // We should use `connect` for better cross platform compatibility(Mobile/Web).
     this.socket.on('connect', this.onConnect);
     this.socket.on('data', this.onReceiveData);
-    this.socket.on('permission', (permit: Permit) => {
+    this.socket.on('permission', (permit: UserPermitType) => {
       this.emit('permission', permit);
     });
     this.socket.on('steps:added', (data: StepsPayload) => {

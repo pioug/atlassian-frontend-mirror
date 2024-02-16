@@ -233,6 +233,11 @@ describe('Collab Provider Integration Tests - Confluence', () => {
               userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
               clientId: 3274991230,
               email: '',
+              permit: {
+                isPermittedToEdit: true,
+                isPermittedToView: true,
+                isPermittedToComment: true,
+              },
             },
           ],
         });
@@ -287,6 +292,11 @@ describe('Collab Provider Integration Tests - Confluence', () => {
         userId: 'abc',
         clientId: 0,
         timestamp: 0,
+        permit: {
+          isPermittedToComment: false,
+          isPermittedToEdit: false,
+          isPermittedToView: true,
+        },
       };
       // @ts-ignore accessing private method for testing purposes
       await provider.participantsService.onParticipantUpdated(

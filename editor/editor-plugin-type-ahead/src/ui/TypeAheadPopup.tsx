@@ -26,7 +26,6 @@ import type {
 } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -37,13 +36,13 @@ import {
 import type { OnSelectItem, TypeAheadHandler, TypeAheadItem } from '../types';
 
 import { TypeAheadList } from './TypeAheadList';
-import { ITEM_PADDING } from './TypeAheadListItem';
 
 const DEFAULT_TYPEAHEAD_MENU_HEIGHT = 380;
+const ITEM_PADDING = 12;
 
 const typeAheadContent = css`
   background: ${token('elevation.surface.overlay', N0)};
-  border-radius: ${borderRadius()}px;
+  border-radius: ${token('border.radius', '3px')};
   box-shadow: ${token(
     'elevation.shadow.overlay',
     `0 0 1px ${N60A}, 0 4px 8px -2px ${N50A}`,

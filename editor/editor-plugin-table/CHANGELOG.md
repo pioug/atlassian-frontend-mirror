@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-table
 
+## 7.3.7
+
+### Patch Changes
+
+- [#70116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70116) [`31f1fa8d4ba3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/31f1fa8d4ba3) - Removed Feature Flag for platform.editor.table.alternative-sticky-header-logic
+- Updated dependencies
+
+## 7.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.3.5
 
 ### Patch Changes

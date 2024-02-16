@@ -47,3 +47,4 @@ export type KeysOfType<T, TProp> = {
 
 export type { ShareDialogContainerProps } from './ShareDialogContainer';
 export type { ShareFormProps } from './ShareForm';
+export type { UserPickerOptions } from './UserPickerOptions';

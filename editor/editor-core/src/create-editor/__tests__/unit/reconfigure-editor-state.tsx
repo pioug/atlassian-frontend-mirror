@@ -56,46 +56,6 @@ describe('ReactEditorView/reconfigureState', () => {
     });
   });
 
-  describe('when the editor props flag changes', () => {
-    it('should reconfigure the state using new allowUndoRedoButtons', () => {
-      const editorProps = {
-        allowUndoRedoButtons: false,
-      };
-      const { rerender, unmount } = renderWithIntl(
-        <ReactEditorView
-          {...defaultProps}
-          editorProps={editorProps}
-          preset={createPreset(editorProps)}
-        />,
-      );
-
-      expect(featureFlagsCurrentStateSpy).toHaveBeenCalledTimes(1);
-      expect(featureFlagsCurrentStateSpy).toHaveBeenCalledWith({
-        config: expect.objectContaining({ undoRedoButtons: false }),
-        api: expect.objectContaining({}),
-      });
-
-      const nextEditorProps = {
-        allowUndoRedoButtons: true,
-      };
-      rerender(
-        <ReactEditorView
-          {...defaultProps}
-          editorProps={nextEditorProps}
-          preset={createPreset(nextEditorProps)}
-        />,
-      );
-
-      expect(featureFlagsCurrentStateSpy).toHaveBeenCalledTimes(2);
-      expect(featureFlagsCurrentStateSpy).toHaveBeenNthCalledWith(2, {
-        config: expect.objectContaining({ undoRedoButtons: true }),
-        api: expect.objectContaining({}),
-      });
-
-      unmount();
-    });
-  });
-
   describe('when the editor props flag changes on mobile appearance', () => {
     it('should reconfigure the state using the new feature flag', () => {
       const editorProps = {

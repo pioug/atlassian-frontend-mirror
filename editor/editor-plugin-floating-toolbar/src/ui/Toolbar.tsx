@@ -9,11 +9,12 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type { Item } from '@atlaskit/editor-common/floating-toolbar';
-import { areSameItems } from '@atlaskit/editor-common/floating-toolbar';
-import { messages } from '@atlaskit/editor-common/floating-toolbar';
+import {
+  areSameItems,
+  messages,
+} from '@atlaskit/editor-common/floating-toolbar';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
-  FeatureFlags,
   OptionalPlugin,
   PluginInjectionAPIWithDependencies,
 } from '@atlaskit/editor-common/types';
@@ -23,8 +24,10 @@ import {
 } from '@atlaskit/editor-common/ui';
 import { backgroundPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
-import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
-import { ColorPickerButton } from '@atlaskit/editor-common/ui-menu';
+import {
+  ColorPickerButton,
+  ToolbarArrowKeyNavigationProvider,
+} from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import type { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -66,7 +69,6 @@ export interface Props {
   node: Node;
   extensionsProvider?: Promise<ExtensionProvider>;
   scrollable?: boolean;
-  featureFlags: FeatureFlags;
   api:
     | PluginInjectionAPIWithDependencies<
         [
@@ -94,7 +96,6 @@ const ToolbarItems = React.memo(
     node,
     setDisableScroll,
     mountRef,
-    featureFlags,
     api,
   }: Props & {
     setDisableScroll?: (disable: boolean) => void;
@@ -285,10 +286,6 @@ const ToolbarItems = React.memo(
                 if (!editorView || !extensionsProvider) {
                   return null;
                 }
-                const { extendFloatingToolbar } = featureFlags || {};
-                if (!extendFloatingToolbar) {
-                  return null;
-                }
 
                 return (
                   <ExtensionsPlaceholder
@@ -381,7 +378,7 @@ const toolbarOverflow = (
               overflow-y: hidden;
             `}
         -webkit-overflow-scrolling: touch;
-        padding: ${token('space.050', '4px')} 0 50px;
+        padding: ${token('space.050', '4px')} 0 ${token('space.600', '48px')};
         > div {
           > div:first-child {
             ${firstElementIsSelect
@@ -397,9 +394,7 @@ const toolbarOverflow = (
           }
         }
       `
-    : css`
-        display: flex;
-      `}
+    : css({ display: 'flex' })}
 `;
 
 export interface State {
@@ -571,7 +566,6 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
                 setDisableScroll={this.setDisableScroll.bind(this)}
                 mountRef={this.mountRef}
                 mounted={this.state.mounted}
-                featureFlags={this.props.featureFlags}
               />
             </div>
             {scrollable && (

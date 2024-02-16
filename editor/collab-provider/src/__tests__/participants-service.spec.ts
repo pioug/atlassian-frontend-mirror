@@ -203,6 +203,11 @@ describe('participantsService integration tests', () => {
         lastActive: 1680759407071,
         name: '',
         sessionId: 'NX5-eFC6rmgE7Y3PAH1D',
+        permit: {
+          isPermittedToEdit: true,
+          isPermittedToView: true,
+          isPermittedToComment: true,
+        },
         userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
         email: '',
       });

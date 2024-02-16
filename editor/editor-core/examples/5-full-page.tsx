@@ -350,7 +350,6 @@ export class ExampleEditorComponent extends React.Component<
                 }}
                 // allowTables={false}
                 allowBreakout={true}
-                allowJiraIssue={true}
                 allowPanel
                 allowExtension={{
                   allowBreakout: true,

@@ -25,8 +25,9 @@ import Textfield from '@atlaskit/textfield';
 
 import { FindReplaceTooltipButton } from './FindReplaceTooltipButton';
 import {
-  NextPreviousItem,
+  nextPreviousItemStyles,
   orderOneStyles,
+  orderZeroDeprecatedStyles,
   orderZeroStyles,
   replaceSectionButtonStyles,
   sectionWrapperJustified,
@@ -316,7 +317,7 @@ class Replace extends React.PureComponent<
           ]}
         >
           <div css={orderOneStyles}>
-            <div css={NextPreviousItem}>
+            <div css={nextPreviousItemStyles}>
               <FindReplaceTooltipButton
                 title={this.findNext}
                 icon={this.findNextIcon}
@@ -327,7 +328,7 @@ class Replace extends React.PureComponent<
                 disabled={count.total <= 1}
               />
             </div>
-            <div css={NextPreviousItem}>
+            <div css={nextPreviousItemStyles}>
               <FindReplaceTooltipButton
                 title={this.findPrevious}
                 icon={this.findPrevIcon}
@@ -344,7 +345,9 @@ class Replace extends React.PureComponent<
               <Inline
                 space="space.075"
                 xcss={xcss({
+                  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
                   paddingInlineStart: 'space.050',
+                  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
                   paddingInlineEnd: 'space.025',
                 })}
               >
@@ -390,7 +393,15 @@ class Replace extends React.PureComponent<
               </Fragment>
             )}
           </div>
-          <div css={orderZeroStyles}>
+          <div
+            css={
+              getBooleanFF(
+                'platform.design-system-team.editor-new-button_jjjdo',
+              )
+                ? orderZeroStyles
+                : orderZeroDeprecatedStyles
+            }
+          >
             {getBooleanFF(
               'platform.design-system-team.editor-new-button_jjjdo',
             ) ? (

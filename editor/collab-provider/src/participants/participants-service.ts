@@ -12,6 +12,7 @@ import type {
 import type {
   CollabEventPresenceData,
   CollabTelepointerPayload,
+  ProviderParticipant,
   StepJson,
 } from '@atlaskit/editor-common/collab';
 import type { GetUserType } from './participants-helper';
@@ -73,7 +74,7 @@ export class ParticipantsService {
       return;
     }
 
-    let participant;
+    let participant: ProviderParticipant | undefined;
     // getUser is a failable callback, hence try-catch
     try {
       participant = await enrichParticipant(
@@ -293,7 +294,7 @@ export class ParticipantsService {
     try {
       clearTimeout(this.presenceUpdateTimeout);
 
-      const data = this.getPresenceData();
+      const data: PresenceData = this.getPresenceData();
       this.channelBroadcast('participant:updated', data);
 
       this.presenceUpdateTimeout = window.setTimeout(

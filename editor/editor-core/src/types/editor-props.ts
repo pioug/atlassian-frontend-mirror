@@ -393,6 +393,7 @@ export interface EditorPluginFeatureProps {
   showIndentationButtons?: boolean;
 
   /**
+   * @deprecated
    * This enables new insertion behaviour only for horizontal rule and media single in certain conditions.
    * The idea of this new behaviour is to have a consistent outcome regardless of the insertion method.
    **/

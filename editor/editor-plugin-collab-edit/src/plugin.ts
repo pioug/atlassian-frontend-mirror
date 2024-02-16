@@ -79,6 +79,7 @@ export const collabEditPlugin: CollabEditPlugin = ({
           initialised: {
             collabInitialisedAt: null,
             firstChangeAfterInitAt: null,
+            firstContentBodyChangeAfterInitAt: null,
           },
           activeParticipants: undefined,
           sessionId: undefined,
@@ -94,6 +95,8 @@ export const collabEditPlugin: CollabEditPlugin = ({
         initialised: {
           collabInitialisedAt: metadata?.collabInitialisedAt || null,
           firstChangeAfterInitAt: metadata?.firstChangeAfterInitAt || null,
+          firstContentBodyChangeAfterInitAt:
+            metadata?.firstContentBodyChangeAfterInitAt || null,
         },
       };
     },

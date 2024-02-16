@@ -1,7 +1,7 @@
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
 
-import type { EditorProps } from '../types';
 import type { DisableSpellcheckByBrowser } from '../types/browser';
+import type { EditorNextProps } from '../types/editor-props';
 import type { FeatureFlags } from '../types/feature-flags';
 
 function verifyJSON(json: string) {
@@ -36,47 +36,17 @@ function getSpellCheck(featureFlags: {
  * Transforms EditorProps to an FeatureFlags object,
  * which is used by both current and archv3 editors.
  */
-export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
+export function createFeatureFlagsFromProps(
+  props: Omit<EditorNextProps, 'preset'>,
+): FeatureFlags {
   const normalizedFeatureFlags = normalizeFeatureFlags(props.featureFlags);
 
   return {
     ...normalizedFeatureFlags,
 
-    newInsertionBehaviour: props.allowNewInsertionBehaviour,
-
-    interactiveExpand:
-      typeof props.allowExpand === 'boolean'
-        ? props.allowExpand
-        : Boolean(
-            props.allowExpand &&
-              props.allowExpand.allowInteractiveExpand !== false,
-          ),
-
     placeholderBracketHint: !!props.placeholderBracketHint,
 
-    findReplace: !!props.allowFindReplace,
-
-    findReplaceMatchCase:
-      typeof props.allowFindReplace === 'object' &&
-      Boolean(props.allowFindReplace.allowMatchCase),
-
-    addColumnWithCustomStep:
-      !props.allowTables || typeof props.allowTables === 'boolean'
-        ? false
-        : Boolean(props.allowTables.allowAddColumnWithCustomStep),
-
-    singleLayout:
-      typeof props.allowLayouts === 'object' &&
-      !!props.allowLayouts?.UNSAFE_allowSingleColumnLayout,
-
-    undoRedoButtons: props.allowUndoRedoButtons,
-
     catchAllTracking: props.performanceTracking?.catchAllTracking?.enabled,
-
-    extendFloatingToolbar: Boolean(
-      typeof props.allowExtension === 'object' &&
-        props.allowExtension?.allowExtendFloatingToolbars,
-    ),
 
     showAvatarGroupAsPlugin: Boolean(
       typeof props.featureFlags?.showAvatarGroupAsPlugin === 'boolean'

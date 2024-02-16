@@ -5,6 +5,8 @@ import type {
   EditorState,
   ReadonlyTransaction,
 } from '@atlaskit/editor-prosemirror/state';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
 
 import type { CollabInitializedMetadata } from '../types';
 
@@ -21,6 +23,7 @@ export const createPlugin = () => {
         return {
           collabInitialisedAt: null,
           firstChangeAfterInitAt: null,
+          firstContentBodyChangeAfterInitAt: null,
         };
       },
       apply(
@@ -32,12 +35,13 @@ export const createPlugin = () => {
           return {
             collabInitialisedAt: Date.now(),
             firstChangeAfterInitAt: null,
+            firstContentBodyChangeAfterInitAt: null,
           };
         }
 
         const shouldCheckDocument =
           prevPluginState.collabInitialisedAt &&
-          !prevPluginState.firstChangeAfterInitAt;
+          !prevPluginState.firstContentBodyChangeAfterInitAt;
 
         if (!shouldCheckDocument) {
           return prevPluginState;
@@ -56,9 +60,20 @@ export const createPlugin = () => {
         }
 
         if (transaction.docChanged && !transaction.doc.eq(oldState.doc)) {
+          // For analytics purposes, inline comment annotations are not considered as edits to the document body
+          // Transaction may contain other steps, but we know that they won't be user-generated (non synthetic) steps
+          const isAnnotationStep = !!transaction.steps.find(
+            (step: Step) =>
+              step instanceof AddMarkStep &&
+              step.mark?.type?.name === 'annotation',
+          );
+
           return {
             collabInitialisedAt: prevPluginState.collabInitialisedAt,
             firstChangeAfterInitAt: Date.now(),
+            firstContentBodyChangeAfterInitAt: !isAnnotationStep
+              ? Date.now()
+              : prevPluginState.firstContentBodyChangeAfterInitAt,
           };
         }
 

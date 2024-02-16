@@ -4,11 +4,11 @@ import { Component } from 'react';
 import { pd } from 'pretty-data';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
+import type { EditorActions } from '@atlaskit/editor-core';
 import {
   Editor,
   EditorContext,
   WithEditorActions,
-  EditorActions,
 } from '@atlaskit/editor-core';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
@@ -32,7 +32,7 @@ import {
   DATE,
 } from '../example-helpers/cxhtml-test-data';
 import { ConfluenceTransformer } from '../src';
-import { Node } from '@atlaskit/editor-prosemirror/model';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 
 export const content = css`
   padding: 0 20px;
@@ -146,7 +146,6 @@ class Example extends Component<ExampleProps, ExampleState> {
                     allowBackgroundColor: true,
                     allowNumberColumn: true,
                   }}
-                  allowJiraIssue={true}
                   allowPanel={true}
                   allowExtension={true}
                   allowConfluenceInlineComment={true}

@@ -8,7 +8,6 @@ import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type {
   Command,
   ExtractInjectionAPI,
-  FeatureFlags,
   NextEditorPlugin,
   ToolbarUiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
@@ -85,7 +84,6 @@ export const insertBlockPlugin: InsertBlockPlugin = ({
   config: options = {},
   api,
 }) => {
-  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
   return {
     name: 'insertBlock',
 
@@ -117,7 +115,6 @@ export const insertBlockPlugin: InsertBlockPlugin = ({
             disabled={disabled}
             isToolbarReducedSpacing={isToolbarReducedSpacing}
             isLastItem={isLastItem}
-            featureFlags={featureFlags}
             providers={providers}
             options={options}
           />
@@ -143,7 +140,6 @@ interface ToolbarInsertBlockWithInjectionApiProps
   providers: Providers;
   pluginInjectionApi: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined;
   options: InsertBlockOptions;
-  featureFlags: FeatureFlags;
 }
 
 function ToolbarInsertBlockWithInjectionApi({
@@ -160,7 +156,6 @@ function ToolbarInsertBlockWithInjectionApi({
   providers,
   pluginInjectionApi,
   options,
-  featureFlags,
 }: ToolbarInsertBlockWithInjectionApiProps) {
   const buttons = toolbarSizeToButtons(toolbarSize);
   const {
@@ -249,7 +244,6 @@ function ToolbarInsertBlockWithInjectionApi({
       }
       showElementBrowserLink={options.showElementBrowserLink}
       showSeparator={!isLastItem && toolbarSize <= ToolbarSize.S}
-      featureFlags={featureFlags}
     />
   );
 }

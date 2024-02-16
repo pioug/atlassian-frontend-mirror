@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { createRef, useCallback, useEffect, useState } from 'react';
-import { Component } from 'react';
+import { Component, createRef, useCallback, useEffect, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
@@ -24,33 +23,33 @@ export const menuItemDimensions = {
   height: 32,
 };
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const spacer = css`
-  display: flex;
-  flex: 1;
-  padding: ${token('space.100', '8px')};
-`;
+const spacerStyles = css({
+  display: 'flex',
+  flex: 1,
+  padding: token('space.100', '8px'),
+});
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const menuContainer = css`
-  min-width: ${menuItemDimensions.width}px;
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+const menuContainerStyles = css({
+  minWidth: `${menuItemDimensions.width}px`,
 
   // temporary solution to retain spacing defined by @atlaskit/Item
-  & button {
-    min-height: ${token('space.400', '32px')};
-    padding: ${token('space.100', '8px')} ${token('space.100', '8px')} 7px;
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+  '& button': {
+    minHeight: token('space.400', '32px'),
+    padding: `${token('space.100', '8px')} ${token('space.100', '8px')} 7px`,
 
-    & > [data-item-elem-before] {
-      margin-right: ${token('space.050', '4px')};
-    }
-  }
-`;
+    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+    '& > [data-item-elem-before]': {
+      marginRight: token('space.050', '4px'),
+    },
+  },
+});
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const label = css`
-  display: inline-block;
-  width: 100%;
-`;
+const labelStyles = css({
+  display: 'inline-block',
+  width: '100%',
+});
 
 // TODO: Migrate away from gridSize
 // Recommendation: Replace with 4 as itemSpacing is used in calculations expecting a number
@@ -222,7 +221,7 @@ const DropdownMenuItem = ({
       onFocus={handleItemOnFocus}
       onBlur={handleItemOnBlur}
     >
-      <span ref={labelRef} css={label}>
+      <span ref={labelRef} css={labelStyles}>
         {item.title}
       </span>
     </DropdownButtonItem>
@@ -240,7 +239,7 @@ class Dropdown extends Component<Props & WrappedComponentProps> {
   render() {
     const { hide, dispatchCommand, items, intl, editorView } = this.props;
     return (
-      <div css={menuContainer}>
+      <div css={menuContainerStyles}>
         {items
           .filter(item => !item.hidden)
           .map((item, idx) => (
@@ -271,7 +270,7 @@ class Dropdown extends Component<Props & WrappedComponentProps> {
       );
     }
 
-    return <span css={spacer} />;
+    return <span css={spacerStyles} />;
   }
 }
 

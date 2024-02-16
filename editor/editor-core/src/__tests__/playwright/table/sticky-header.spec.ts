@@ -6,8 +6,13 @@ import {
   editorTestCase as test,
 } from '@af/editor-libra';
 
-import { tableWithScoll } from './__fixtures__/base-adfs';
-import { simpleTableWithScroll } from './sticky-header.spec.ts-fixtures';
+import { tableWithScroll } from './__fixtures__/base-adfs';
+import {
+  simpleTableWithScroll,
+  tableInLayout,
+  tableWithMultipleHeaderRows,
+  tableWithMultipleMergedHeaderRows,
+} from './sticky-header.spec.ts-fixtures';
 
 test.use({
   editorProps: {
@@ -17,8 +22,9 @@ test.use({
       stickyHeaders: true,
     },
     allowStatus: true,
+    allowLayouts: true,
   },
-  adf: tableWithScoll,
+  adf: tableWithScroll,
 });
 
 test.describe('sticky header', () => {
@@ -209,6 +215,64 @@ test.describe('sticky header', () => {
 
       const bottom = editor.page.getByText('Bottom');
       await bottom.scrollIntoViewIfNeeded();
+
+      await expect(tableModel.tableElement).toHaveClass('pm-table-sticky');
+      await expect(stickyModel.stickyRow).toBeVisible();
+    });
+  });
+
+  test.describe('tables with multiple headers', () => {
+    test.use({
+      adf: tableWithMultipleHeaderRows,
+    });
+
+    test('should only have the first header be sticky', async ({ editor }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table.nth(0));
+      const stickyModel = await tableModel.stickyHeader();
+
+      await expect(tableModel.tableElement).not.toHaveClass('pm-table-sticky');
+      await expect(stickyModel.stickyRow).toBeHidden();
+
+      const scrollAnchor = nodes.table.locator('[localid="scroll-here"]');
+      await scrollAnchor.scrollIntoViewIfNeeded();
+
+      await expect(tableModel.tableElement).toHaveClass('pm-table-sticky');
+      await expect(stickyModel.stickyRow).toBeVisible();
+      await expect(stickyModel.stickyRow).toHaveText('FirstHeaderRow');
+    });
+  });
+
+  test.describe('tables with multiple merged headers', () => {
+    test.use({
+      adf: tableWithMultipleMergedHeaderRows,
+    });
+
+    test('should not have sticky header', async ({ editor }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table.nth(0));
+      const stickyModel = await tableModel.stickyHeader();
+
+      const scrollAnchor = nodes.table.locator('[localid="scroll-here"]');
+      await scrollAnchor.scrollIntoViewIfNeeded();
+
+      await expect(tableModel.tableElement).not.toHaveClass('pm-table-sticky');
+      await expect(stickyModel.stickyRow).toBeHidden();
+    });
+  });
+
+  test.describe('tables inside layout node', () => {
+    test.use({
+      adf: tableInLayout,
+    });
+
+    test('should have sticky header', async ({ editor }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table.nth(0));
+      const stickyModel = await tableModel.stickyHeader();
+
+      const scrollAnchor = nodes.table.locator('[localid="scroll-here"]');
+      await scrollAnchor.scrollIntoViewIfNeeded();
 
       await expect(tableModel.tableElement).toHaveClass('pm-table-sticky');
       await expect(stickyModel.stickyRow).toBeVisible();

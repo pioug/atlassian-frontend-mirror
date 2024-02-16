@@ -105,7 +105,7 @@ this is a text as well`,
       '{quote}h6. header six{quote}',
     ],
     [
-      'should lift list in a blockquote',
+      'should render list in a blockquote',
       `{quote}something
 * list item
 {quote}`,

@@ -3,10 +3,8 @@ import throttle from 'lodash/throttle';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
-import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../pm-plugins/plugin-key';
@@ -18,7 +16,6 @@ import {
 import type { TablePluginState } from '../types';
 import { TableCssClassName as ClassName, TableCssClassName } from '../types';
 import {
-  STICKY_HEADER_TOGGLE_TOLERANCE_MS,
   stickyHeaderBorderBottomWidth,
   stickyRowOffsetTop,
   tableControlsSpacing,
@@ -80,7 +77,6 @@ export default class TableRow
   private focused = false;
   private topPosEditorElement = 0;
   private isSticky: boolean;
-  private lastStickyTimestamp: number | undefined;
   private intersectionObserver?: IntersectionObserver;
   private resizeObserver?: ResizeObserver;
   private sentinels: {
@@ -349,108 +345,38 @@ export default class TableRow
   }
 
   private createIntersectionObserver() {
-    if (getBooleanFF('platform.editor.table.alternative-sticky-header-logic')) {
-      this.intersectionObserver = new IntersectionObserver(
-        (entries: IntersectionObserverEntry[], _: IntersectionObserver) => {
-          // IMPORTANT: please try and avoid using entry.rootBounds it's terribly inconsistent. For example; sometimes it may return
-          // 0 height. In safari it will multiply all values by the window scale factor, however chrome & firfox won't.
-          // This is why i just get the scroll view bounding rect here and use it, and fallback to the entry.rootBounds if needed.
-          const rootBounds = (
-            this.editorScrollableElement as Element
-          )?.getBoundingClientRect?.();
+    this.intersectionObserver = new IntersectionObserver(
+      (entries: IntersectionObserverEntry[], _: IntersectionObserver) => {
+        // IMPORTANT: please try and avoid using entry.rootBounds it's terribly inconsistent. For example; sometimes it may return
+        // 0 height. In safari it will multiply all values by the window scale factor, however chrome & firfox won't.
+        // This is why i just get the scroll view bounding rect here and use it, and fallback to the entry.rootBounds if needed.
+        const rootBounds = (
+          this.editorScrollableElement as Element
+        )?.getBoundingClientRect?.();
 
-          entries.forEach((entry) => {
-            const { target, isIntersecting, boundingClientRect } = entry;
-            // This observer only every looks at the top/bottom sentinels, we can assume if it's not one then it's the other.
-            const targetKey = target.classList.contains(
-              ClassName.TABLE_STICKY_SENTINEL_TOP,
-            )
-              ? 'top'
-              : 'bottom';
-            // Cache the latest sentinel information
-            this.sentinelData[targetKey] = {
-              isIntersecting,
-              boundingClientRect,
-              rootBounds: rootBounds ?? entry.rootBounds,
-            };
-            // Keep the other sentinels rootBounds in sync with this latest one
-            this.sentinelData[
-              targetKey === 'top' ? 'bottom' : targetKey
-            ].rootBounds = rootBounds ?? entry.rootBounds;
-          });
-          this.refreshStickyState();
-        },
-        { threshold: 0, root: this.editorScrollableElement as Element },
-      );
-    } else {
-      this.intersectionObserver = new IntersectionObserver(
-        (entries: IntersectionObserverEntry[], _: IntersectionObserver) => {
-          const tree = getTree(this.dom);
-          if (!tree) {
-            return;
-          }
-          const { table } = tree;
-
-          if (table.rows.length < 2) {
-            // ED-19307 - When there's only one row in a table the top & bottom sentinels become inverted. This creates some nasty visiblity
-            // toggling side-effects because the intersection observers gets confused.
-            return;
-          }
-
-          entries.forEach((entry) => {
-            const target = entry.target as HTMLElement;
-
-            // if the rootBounds has 0 height, e.g. confluence preview mode, we do nothing.
-            if (entry.rootBounds?.height === 0) {
-              return;
-            }
-
-            if (
-              target.classList.contains(ClassName.TABLE_STICKY_SENTINEL_TOP)
-            ) {
-              const sentinelIsBelowScrollArea =
-                (entry.rootBounds?.bottom || 0) <
-                entry.boundingClientRect.bottom;
-
-              if (!entry.isIntersecting && !sentinelIsBelowScrollArea) {
-                tree && this.makeHeaderRowSticky(tree, entry.rootBounds?.top);
-                this.lastStickyTimestamp = Date.now();
-              } else {
-                table && this.makeRowHeaderNotSticky(table);
-              }
-            }
-
-            if (
-              target.classList.contains(ClassName.TABLE_STICKY_SENTINEL_BOTTOM)
-            ) {
-              const sentinelIsAboveScrollArea =
-                entry.boundingClientRect.top - this.dom.offsetHeight <
-                (entry.rootBounds?.top || 0);
-
-              if (table && !entry.isIntersecting && sentinelIsAboveScrollArea) {
-                // Not a perfect solution, but need to this code specific for FireFox ED-19177
-                if (browser.gecko) {
-                  if (
-                    this.lastStickyTimestamp &&
-                    Date.now() - this.lastStickyTimestamp >
-                      STICKY_HEADER_TOGGLE_TOLERANCE_MS
-                  ) {
-                    this.makeRowHeaderNotSticky(table);
-                  }
-                } else {
-                  this.makeRowHeaderNotSticky(table);
-                }
-              } else if (entry.isIntersecting && sentinelIsAboveScrollArea) {
-                tree && this.makeHeaderRowSticky(tree, entry?.rootBounds?.top);
-                this.lastStickyTimestamp = Date.now();
-              }
-            }
-            return;
-          });
-        },
-        { root: this.editorScrollableElement as Element },
-      );
-    }
+        entries.forEach((entry) => {
+          const { target, isIntersecting, boundingClientRect } = entry;
+          // This observer only every looks at the top/bottom sentinels, we can assume if it's not one then it's the other.
+          const targetKey = target.classList.contains(
+            ClassName.TABLE_STICKY_SENTINEL_TOP,
+          )
+            ? 'top'
+            : 'bottom';
+          // Cache the latest sentinel information
+          this.sentinelData[targetKey] = {
+            isIntersecting,
+            boundingClientRect,
+            rootBounds: rootBounds ?? entry.rootBounds,
+          };
+          // Keep the other sentinels rootBounds in sync with this latest one
+          this.sentinelData[
+            targetKey === 'top' ? 'bottom' : targetKey
+          ].rootBounds = rootBounds ?? entry.rootBounds;
+        });
+        this.refreshStickyState();
+      },
+      { threshold: 0, root: this.editorScrollableElement as Element },
+    );
   }
 
   private refreshStickyState() {

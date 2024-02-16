@@ -42,9 +42,6 @@
       "path": "../editor-plugin-analytics/tsconfig.app.json"
     },
     {
-      "path": "../editor-plugin-feature-flags/tsconfig.app.json"
-    },
-    {
       "path": "../editor-shared-styles/tsconfig.app.json"
     },
     {

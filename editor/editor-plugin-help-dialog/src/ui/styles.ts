@@ -6,12 +6,11 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import * as colors from '@atlaskit/theme/colors';
 import { N400 } from '@atlaskit/theme/colors';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 export const header = css`
   z-index: ${akEditorUnitZIndex};
-  min-height: 24px;
+  min-height: ${token('space.300', '24px')};
   padding: ${token('space.250', '20px')} ${token('space.500', '40px')};
   font-size: ${relativeFontSizeToBase16(24)};
   display: flex;
@@ -20,13 +19,13 @@ export const header = css`
   box-shadow: 'none';
   color: ${token('color.text', colors.N400)};
   background-color: ${token('color.background.neutral.subtle', colors.N0)};
-  border-radius: ${borderRadius()}px;
+  border-radius: ${token('border.radius', '3px')};
 `;
 
 export const footer = css`
   z-index: ${akEditorUnitZIndex};
   font-size: ${relativeFontSizeToBase16(14)};
-  line-height: 20px;
+  line-height: ${token('space.250', '20px')};
   color: ${token('color.text.subtlest', colors.N300)};
   padding: ${token('space.300', '24px')};
   text-align: right;
@@ -34,8 +33,8 @@ export const footer = css`
 `;
 
 export const contentWrapper = css`
-  padding: ${token('space.250', '20px')} 44px;
-  border-bottom-right-radius: ${borderRadius()}px;
+  padding: ${token('space.250', '20px')} ${token('space.500', '40px')};
+  border-bottom-right-radius: ${token('border.radius', '3px')};
   overflow: auto;
   position: relative;
   color: ${token('color.text.subtle', colors.N400)};
@@ -46,7 +45,7 @@ export const line = css`
   background: ${token('color.background.neutral.subtle', '#fff')};
   content: '';
   display: block;
-  height: 2px;
+  height: ${token('space.025', '2px')};
   left: 0;
   position: absolute;
   top: 0;
@@ -97,19 +96,19 @@ export const title = {
 
 export const codeSm = css`
   background-color: ${token('color.background.neutral', colors.N20)};
-  border-radius: ${borderRadius()}px;
-  width: 24px;
+  border-radius: ${token('border.radius', '3px')};
+  width: ${token('space.300', '24px')};
   display: inline-block;
-  height: 24px;
+  height: ${token('space.300', '24px')};
   line-height: 24px;
   text-align: center;
 `;
 
 export const codeMd = css`
   background-color: ${token('color.background.neutral', colors.N20)};
-  border-radius: ${borderRadius()}px;
+  border-radius: ${token('border.radius', '3px')};
   display: inline-block;
-  height: 24px;
+  height: ${token('space.300', '24px')};
   line-height: 24px;
   width: 50px;
   text-align: center;
@@ -117,11 +116,11 @@ export const codeMd = css`
 
 export const codeLg = css`
   background-color: ${token('color.background.neutral', colors.N20)};
-  border-radius: ${borderRadius()}px;
+  border-radius: ${token('border.radius', '3px')};
   display: inline-block;
-  height: 24px;
-  line-height: 24px;
-  padding: 0 10px;
+  height: ${token('space.300', '24px')};
+  line-height: ${token('space.300', '24px')};
+  padding: 0 ${token('space.150', '12px')};
   text-align: center;
 `;
 

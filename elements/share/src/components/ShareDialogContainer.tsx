@@ -421,6 +421,7 @@ export class ShareDialogContainerInternal extends React.Component<
       copyTooltipText,
       onDialogClose,
       isBrowseUsersDisabled,
+      userPickerOptions,
     } = this.props;
     const { config, isFetchingConfig } = this.state;
 
@@ -476,6 +477,7 @@ export class ShareDialogContainerInternal extends React.Component<
             copyTooltipText={copyTooltipText}
             onDialogClose={onDialogClose}
             isBrowseUsersDisabled={isBrowseUsersDisabled}
+            userPickerOptions={userPickerOptions}
           />
         </MessagesIntlProvider>
       </ErrorBoundary>

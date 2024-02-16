@@ -1,5 +1,21 @@
 # @atlaskit/collab-provider
 
+## 9.23.0
+
+### Minor Changes
+
+- [#73460](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73460) [`5bd301383865`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5bd301383865) - Add support for PermitOnlyPermissions to determine the user type in PresencePayload
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.22.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.22.8
 
 ### Patch Changes

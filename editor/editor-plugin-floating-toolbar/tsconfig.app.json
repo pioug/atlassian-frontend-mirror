@@ -66,9 +66,6 @@
       "path": "../editor-plugin-extension/tsconfig.app.json"
     },
     {
-      "path": "../editor-plugin-feature-flags/tsconfig.app.json"
-    },
-    {
       "path": "../editor-plugin-table/tsconfig.app.json"
     },
     {

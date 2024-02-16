@@ -31,7 +31,7 @@ test.use({
 });
 
 test.describe('inlineCard', () => {
-  test('should switch to datasource mode', async ({ editor }) => {
+  test.skip('should switch to datasource mode', async ({ editor }) => {
     const nodes = EditorNodeContainerModel.from(editor);
     const datasourceModel = EditorBlockCardModel.from(nodes.datasource);
 

@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.2.40
+
+### Patch Changes
+
+- [#73858](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73858) [`925ea89ab300`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/925ea89ab300) - ED-21501 Add support for lists in blockquote in wiki->adf conversion
+
 ## 11.2.39
 
 ### Patch Changes

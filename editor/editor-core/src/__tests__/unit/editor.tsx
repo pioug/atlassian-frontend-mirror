@@ -1163,7 +1163,6 @@ describe('setting default props as expected', () => {
       1,
       expect.objectContaining({
         appearance: 'comment',
-        allowNewInsertionBehaviour: true,
         disabled: false,
         extensionHandlers: {},
         allowHelpDialog: true,

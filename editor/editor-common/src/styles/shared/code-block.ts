@@ -62,7 +62,6 @@ export const codeBlockSharedStyles = () => css`
       overflow-x: auto;
 
       background-image: ${overflowShadow({
-        background: token('color.background.neutral', N20),
         leftCoverWidth: token('space.300', '24px'),
       })};
 

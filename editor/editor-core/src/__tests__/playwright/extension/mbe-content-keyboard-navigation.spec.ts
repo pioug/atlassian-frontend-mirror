@@ -1,5 +1,7 @@
 import {
   BROWSERS,
+  EditorMultiBodiedExtensionModel,
+  EditorNodeContainerModel,
   expect,
   fixTest,
   editorTestCase as test,
@@ -19,12 +21,15 @@ import {
 
 import {
   mbeAdfWithACodeBlock,
+  mbeAdfWithACodeBlockWithTwoTabs,
   mbeAdfWithAnInnerPanel,
   mbeAdfWithAnInnerTable,
+  mbeAdfWithAnInnerTableWithTwoTabs,
   mbeAdfWithTextBeforeAfterAndWithACodeBlock,
   mbeAdfWithTextBeforeAfterAndWithAnInnerPanel,
   mbeAdfWithTextBeforeAfterAndWithAnInnerTable,
 } from './mbe-delete-inner-macros.spec.ts-fixtures';
+import { adfWithMBE } from './multi-bodied-extensions.spec.ts-fixtures';
 
 test.describe('MultiBodiedExtensions: frames keyboard navigation', () => {
   test.use({
@@ -677,6 +682,217 @@ test.describe('MultiBodiedExtensions: frames keyboard navigation', () => {
           anchor: 11,
           head: 11,
           type: 'text',
+        });
+      });
+    });
+  });
+
+  test.describe('left navigation from inside tab 1 and 2 to outside MBE', () => {
+    test.describe('from inside the table in tab 1', () => {
+      test.use({ adf: mbeAdfWithAnInnerTableWithTwoTabs });
+      test('Pressing LeftArrow should move to Left Gap cursor, then select whole node, then move outside MBE', async ({
+        editor,
+      }) => {
+        fixTest({
+          jiraIssueId: 'ED-20526',
+          reason: 'selection issue on firefox',
+          browsers: [BROWSERS.firefox],
+        });
+        // Set the position at the table header's top cell
+        await editor.selection.set({ anchor: 6, head: 6 });
+        await editor.keyboard.press('ArrowLeft');
+
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          pos: 2,
+          side: 'left',
+          type: 'gapcursor',
+        });
+
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          anchor: 0,
+          type: 'node',
+        });
+
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          pos: 0,
+          side: 'left',
+          type: 'gapcursor',
+        });
+      });
+    });
+
+    test.describe('from inside the table in tab 2', () => {
+      test.use({ adf: mbeAdfWithAnInnerTableWithTwoTabs });
+      test('Pressing LeftArrow should move to Left Gap cursor, then select whole node, then move outside MBE', async ({
+        editor,
+      }) => {
+        fixTest({
+          jiraIssueId: 'ED-20526',
+          reason: 'selection issue on firefox',
+          browsers: [BROWSERS.firefox],
+        });
+        // Set the position at the table header's top cell in second tab
+        const nodes = EditorNodeContainerModel.from(editor);
+        const model = EditorMultiBodiedExtensionModel.from(
+          nodes.multiBodiedExtension.first(),
+        );
+        await model.tabButtons.nth(1).click();
+        await editor.selection.set({ anchor: 52, head: 52 });
+        await editor.keyboard.press('ArrowLeft');
+
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          pos: 48,
+          side: 'left',
+          type: 'gapcursor',
+        });
+
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          anchor: 0,
+          type: 'node',
+        });
+
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          pos: 0,
+          side: 'left',
+          type: 'gapcursor',
+        });
+      });
+    });
+
+    test.describe('from inside the code_block in tab 1', () => {
+      test.use({ adf: mbeAdfWithACodeBlockWithTwoTabs });
+      test('Pressing LeftArrow should move to Left Gap cursor, then select whole node, then move outside MBE', async ({
+        editor,
+      }) => {
+        fixTest({
+          jiraIssueId: 'ED-20526',
+          reason: 'selection issue on firefox',
+          browsers: [BROWSERS.firefox],
+        });
+        // Set the position at the code_block content start
+        await editor.selection.set({ anchor: 3, head: 3 });
+        await editor.keyboard.press('ArrowLeft');
+
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          pos: 2,
+          side: 'left',
+          type: 'gapcursor',
+        });
+
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          anchor: 0,
+          type: 'node',
+        });
+
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          pos: 0,
+          side: 'left',
+          type: 'gapcursor',
+        });
+      });
+    });
+
+    test.describe('from inside the code_block in tab 2', () => {
+      test.use({ adf: mbeAdfWithACodeBlockWithTwoTabs });
+      test('Pressing LeftArrow should move to Left Gap cursor, then select whole node, then move outside MBE', async ({
+        editor,
+      }) => {
+        fixTest({
+          jiraIssueId: 'ED-20526',
+          reason: 'selection issue on firefox',
+          browsers: [BROWSERS.firefox],
+        });
+        // Set the position at the code_block content start in second tab
+        const nodes = EditorNodeContainerModel.from(editor);
+        const model = EditorMultiBodiedExtensionModel.from(
+          nodes.multiBodiedExtension.first(),
+        );
+        await model.tabButtons.nth(1).click();
+        await editor.selection.set({ anchor: 7, head: 7 });
+        await editor.keyboard.press('ArrowLeft');
+
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          pos: 6,
+          side: 'left',
+          type: 'gapcursor',
+        });
+
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          anchor: 0,
+          type: 'node',
+        });
+
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          pos: 0,
+          side: 'left',
+          type: 'gapcursor',
+        });
+      });
+    });
+
+    test.describe('from inside text node in tab 1', () => {
+      test.use({ adf: adfWithMBE });
+      test('Pressing LeftArrow should move to Left Gap cursor, then select whole node, then move outside MBE', async ({
+        editor,
+      }) => {
+        // Set the position at the text node in second tab at the third character
+        await editor.selection.set({ anchor: 6, head: 6 });
+        await editor.keyboard.press('ArrowLeft');
+        await editor.keyboard.press('ArrowLeft');
+        await editor.keyboard.press('ArrowLeft');
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          anchor: 0,
+          type: 'node',
+        });
+
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          pos: 0,
+          side: 'left',
+          type: 'gapcursor',
+        });
+      });
+    });
+
+    test.describe('from inside text node in tab 2', () => {
+      test.use({ adf: adfWithMBE });
+      test('Pressing LeftArrow should move to Left Gap cursor, then select whole node, then move outside MBE', async ({
+        editor,
+      }) => {
+        // Set the position at the text node in second tab at the third character
+        const nodes = EditorNodeContainerModel.from(editor);
+        const model = EditorMultiBodiedExtensionModel.from(
+          nodes.multiBodiedExtension.first(),
+        );
+        await model.tabButtons.nth(1).click();
+        await editor.selection.set({ anchor: 18, head: 18 });
+        await editor.keyboard.press('ArrowLeft');
+        await editor.keyboard.press('ArrowLeft');
+        await editor.keyboard.press('ArrowLeft');
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          anchor: 0,
+          type: 'node',
+        });
+
+        await editor.keyboard.press('ArrowLeft');
+        await expect(editor).toHaveSelection({
+          pos: 0,
+          side: 'left',
+          type: 'gapcursor',
         });
       });
     });

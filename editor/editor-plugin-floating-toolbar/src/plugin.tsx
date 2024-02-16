@@ -243,8 +243,6 @@ function ContentComponent({
 > & {
   pluginInjectionApi: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
 }) {
-  const featureFlags =
-    pluginInjectionApi?.featureFlags?.sharedState.currentState() || {};
   const { floatingToolbarState, editorDisabledState, editorViewModeState } =
     useSharedPluginState(pluginInjectionApi, [
       'floatingToolbar',
@@ -384,7 +382,6 @@ function ContentComponent({
                 dispatchAnalyticsEvent={dispatchAnalyticsEvent}
                 extensionsProvider={providers.extensionProvider}
                 scrollable={scrollable}
-                featureFlags={featureFlags}
                 api={pluginInjectionApi}
                 mediaAssistiveMessage={mediaAssistiveMessage}
               />

@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.1.0
+
+### Minor Changes
+
+- [#72122](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72122) [`c3186450404a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3186450404a) - Breaking change:
+
+  ## WHAT?:
+
+  Removing feature flags:
+
+  - singleLayout
+  - newInsertionBehaviour
+  - interactiveExpand
+  - findReplace
+  - findReplaceMatchCase
+  - extendFloatingToolbar
+
+  ## WHY?:
+
+  Because the flags and props are unused/by default active. Removing them will reduce our maintenance burden
+
+  ## HOW to update your code:
+
+  - If you were using the feature flag - the behaviour is now default and you can remove the flags
+  - If you were not using the feature flag - the behaviour is now default.
+  - If you have opted out of using the feature flag - we have been careful to ensure no-one has opted out of the behaviours. If you do have an issue please reach out to #help-editor.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.1
 
 ### Patch Changes

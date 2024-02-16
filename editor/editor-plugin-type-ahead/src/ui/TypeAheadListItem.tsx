@@ -15,32 +15,30 @@ import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
 import { B400, N200, N30, N800 } from '@atlaskit/theme/colors';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import type { TypeAheadItem } from '../types';
 
-export const ICON_HEIGHT = 40;
-export const ICON_WIDTH = 40;
-export const ITEM_PADDING = 12;
+export const itemIcon = css({
+  width: token('space.500', '40px'),
+  height: token('space.500', '40px'),
+  overflow: 'hidden',
+  border: `1px solid ${token(
+    'color.border',
+    'rgba(223, 225, 229, 0.5)',
+  )}` /* N60 at 50% */,
+  borderRadius: token('border.radius', '3px'),
+  boxSizing: 'border-box',
 
-export const itemIcon = css`
-  width: ${ICON_WIDTH}px;
-  height: ${ICON_HEIGHT}px;
-  overflow: hidden;
-  border: 1px solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}; /* N60 at 50% */
-  border-radius: ${borderRadius()}px;
-  box-sizing: border-box;
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  div {
-    width: ${ICON_WIDTH}px;
-    height: ${ICON_HEIGHT}px;
-  }
-`;
+  div: {
+    width: token('space.500', '40px'),
+    height: token('space.500', '40px'),
+  },
+});
 
 const itemBody = css`
   display: flex;
@@ -58,7 +56,7 @@ const itemText = css`
   .item-description {
     font-size: ${relativeFontSizeToBase16(12)};
     color: ${token('color.text.subtlest', N200)};
-    margin-top: 3px;
+    margin-top: ${token('space.050', '4px')};
   }
 `;
 

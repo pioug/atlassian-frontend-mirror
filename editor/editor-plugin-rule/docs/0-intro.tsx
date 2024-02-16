@@ -2,7 +2,10 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
 import { createEditorUseOnlyNotice } from '@atlaskit/editor-core/docs/editor-use-only';
+import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
+
+const warnStyles = xcss({ marginTop: token('space.100', '8px') });
 
 export default md`
 
@@ -12,9 +15,9 @@ ${createEditorUseOnlyNotice('Editor Plugin Rule', [
 
 
   ${(
-    <div style={{ marginTop: token('space.100', '8px') }}>
+    <Box xcss={warnStyles}>
       <AtlassianInternalWarning />
-    </div>
+    </Box>
   )}
 
   This package includes the rule plugin used by \`@atlaskit/editor-core\`.
@@ -31,7 +34,6 @@ type RulePlugin = NextEditorPlugin<
   {
     pluginConfiguration: undefined;
     dependencies: [
-      OptionalPlugin<FeatureFlagsPlugin>,
       OptionalPlugin<AnalyticsPlugin>
     ];
     actions: {

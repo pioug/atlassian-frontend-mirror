@@ -47,7 +47,9 @@ export default function Search(props: Props) {
           controlWrapper && props.setDisableParentScroll
             ? {
                 // since the portal is now outside, we need to position it as before
+                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
                 top: controlWrapper.offsetTop,
+                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
                 left: controlWrapper.offsetLeft,
                 height: controlWrapper.offsetHeight,
                 width,

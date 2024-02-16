@@ -17,6 +17,7 @@ import type {
   RenderCustomTriggerButton,
 } from './ShareDialogWithTrigger';
 import type { Integration, IntegrationMode } from './ShareEntities';
+import type { UserPickerOptions } from './UserPickerOptions';
 
 export type ShareDialogContainerProps = {
   /* Callback function to be called on trigger button click. */
@@ -149,6 +150,8 @@ export type ShareDialogContainerProps = {
    * Footer for the share dialog.
    */
   customFooter?: React.ReactNode;
+  /* common Props to pass to userPicker */
+  userPickerOptions?: UserPickerOptions;
   /* Callback function to be called on user selection change in the share form. */
   onUserSelectionChange?: (value: Value) => void;
   /* Footer component to display under the share form fields. */

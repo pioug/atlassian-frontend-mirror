@@ -1,16 +1,19 @@
 import {
-  User,
-  Team,
+  ExternalUser,
+  ExternalUserType,
   Group,
-  TeamType,
-  UserType,
-  LozengeProps,
   GroupType,
+  LozengeProps,
   OptionData,
+  Team,
   TeamMember,
+  TeamType,
+  User,
+  UserType,
 } from '@atlaskit/user-picker';
-import { messages } from '../i18n';
 import { IntlShape } from 'react-intl-next';
+import { messages } from '../i18n';
+import { EntityType } from '../types';
 
 interface ServerItem {
   id: string;
@@ -29,6 +32,7 @@ interface ServerUser extends ServerItem {
   avatarUrl: string;
   email?: string;
   attributes?: Record<string, string>;
+  nonLicensedUser?: boolean;
 }
 
 interface ServerTeam extends ServerItem {
@@ -50,12 +54,6 @@ interface ServerGroup extends ServerItem {
 interface ServerResponse {
   recommendedUsers: ServerItem[];
   intl: IntlShape;
-}
-
-enum EntityType {
-  USER = 'USER',
-  TEAM = 'TEAM',
-  GROUP = 'GROUP',
 }
 
 const getLozenzeProperties = (
@@ -84,7 +82,7 @@ const getLozenzeProperties = (
 const transformUser = (
   item: ServerItem,
   intl: IntlShape,
-): User | Team | Group | void => {
+): User | ExternalUser | Team | Group | void => {
   const type = item.entityType;
 
   if (type === EntityType.USER) {
@@ -94,18 +92,21 @@ const transformUser = (
 
     return {
       id: user.id,
-      type: UserType,
+      type: user.nonLicensedUser ? ExternalUserType : UserType,
       avatarUrl: user.avatarUrl,
       name: user.name,
       email: user.email,
       title: user.title,
       lozenge: lozenge,
       tooltip: user.name,
+      isExternal: Boolean(user.nonLicensedUser),
+      sources: user.nonLicensedUser ? ['other-atlassian'] : undefined,
     };
   }
 
   if (type === EntityType.TEAM) {
     const team = item as ServerTeam;
+
     return {
       id: team.id,
       type: TeamType,

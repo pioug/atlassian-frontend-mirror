@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.17.0
+
+### Minor Changes
+
+- [#73914](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73914) [`ca85dd7a4109`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca85dd7a4109) - Added ExternalUserType and exported it in the public API
+
 ## 10.16.1
 
 ### Patch Changes

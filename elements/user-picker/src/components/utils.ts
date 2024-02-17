@@ -20,11 +20,13 @@ import {
   OptionIdentifier,
   DefaultValue,
   LozengeProps,
+  ExternalUserType,
 } from '../types';
 import { PopupSelect } from '@atlaskit/select';
 
 export const isExternalUser = (option: OptionData): option is ExternalUser =>
-  isUser(option) && Boolean(option.isExternal);
+  option.type === ExternalUserType ||
+  Boolean((option as ExternalUser).isExternal);
 
 export const isUser = (option: OptionData): option is User =>
   option.type === undefined || option.type === UserType;

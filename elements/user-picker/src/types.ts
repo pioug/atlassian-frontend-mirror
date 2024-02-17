@@ -261,6 +261,7 @@ export interface OptionData {
 }
 
 export const UserType = 'user';
+export const ExternalUserType = 'external_user';
 
 export type UserSource =
   | 'google'

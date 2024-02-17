@@ -1,5 +1,5 @@
 import path, { ParsedPath } from 'path';
-import glob from 'glob';
+import { globSync } from 'glob';
 import semver from 'semver';
 import presets from './presets';
 import { ParsedPkg } from './types';
@@ -19,7 +19,7 @@ const basePath = (packages?: ParsedPkg[]) => {
 };
 
 export const hasTransform = (transformPath: string) =>
-  glob.sync(transformPath).length > 0;
+  globSync(transformPath).length > 0;
 
 /** Retrieves transforms for `packages` if provided, otherwise all transforms including presets */
 export const getTransforms = (packages?: ParsedPkg[]): ParsedPath[] => {
@@ -33,7 +33,7 @@ export const getTransforms = (packages?: ParsedPkg[]): ParsedPath[] => {
   }
 
   return transforms
-    .map((transform) => glob.sync(transform))
+    .map((transform) => globSync(transform))
     .reduce((acc, val) => acc.concat(val), [])
     .map((transform) => parseTransformPath(transform))
     .filter(filterTransforms(packages))

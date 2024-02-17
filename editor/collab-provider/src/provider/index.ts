@@ -246,6 +246,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       .on('restore', this.documentService.onRestore)
       .on('permission', (permit: UserPermitType) => {
         this.permit = Object.assign(this.permit, permit);
+        this.emit('permission', permit);
       })
       .on('steps:added', this.documentService.onStepsAdded)
       .on('metadata:changed', this.metadataService.onMetadataChanged)

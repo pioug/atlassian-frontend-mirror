@@ -13,6 +13,7 @@ export {
   GroupType,
   TeamType,
   UserType,
+  ExternalUserType,
 } from './types';
 export type {
   // Types

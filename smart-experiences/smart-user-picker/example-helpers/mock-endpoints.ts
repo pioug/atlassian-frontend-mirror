@@ -17,12 +17,13 @@ const mockEndpoints = (failRecommendations: boolean) => {
   const userRecommendationsResponse = (): RecommendationResponse => {
     return {
       recommendedUsers: randomMentions().map(
-        ({ id, name, avatarUrl = '', nickname }) => ({
+        ({ id, name, avatarUrl = '', nickname, nonLicensedUser }) => ({
           entityType: EntityType.USER,
           id,
           name,
           avatarUrl,
           nickname,
+          nonLicensedUser,
         }),
       ),
       errors: [],

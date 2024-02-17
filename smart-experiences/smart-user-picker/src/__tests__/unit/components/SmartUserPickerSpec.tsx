@@ -386,6 +386,33 @@ describe('SmartUserPicker', () => {
       ]);
     });
 
+    it('should use the overrideByline to set bylines for options', async () => {
+      getUserRecommendationsMock.mockReturnValue(
+        Promise.resolve(mockReturnOptions),
+      );
+
+      const overrideByline = jest.fn((user: any) => `byline for ${user.name}`);
+
+      const component = smartUserPickerWrapper({
+        prefetch: true,
+        overrideByline,
+      });
+
+      await flushPromises();
+      component.update();
+
+      expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
+      expect(overrideByline).toHaveBeenCalledTimes(2);
+
+      const options = component.find(UserPicker).prop('options');
+      const expectedOptions = mockReturnOptions.map((option) => ({
+        ...option,
+        byline: `byline for ${option.name}`,
+      }));
+
+      expect(options).toEqual(expectedOptions);
+    });
+
     it('should set nothing if empty', async () => {
       getUsersByIdMock.mockReturnValue(Promise.resolve([]));
       const component = smartUserPickerWrapper({

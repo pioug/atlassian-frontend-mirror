@@ -1,4 +1,4 @@
-import { glob } from 'glob';
+import { globSync } from 'glob';
 import { promises } from 'fs';
 const { readFile } = promises;
 
@@ -19,7 +19,7 @@ export async function findDependentPackagePaths(
       ? `{${searchStrings.join(',')}}`
       : searchStrings[0];
 
-  const packageJsonPaths = glob.sync(globString, {
+  const packageJsonPaths = globSync(globString, {
     ignore: '**/node_modules/**',
     nodir: true,
   });

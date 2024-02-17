@@ -1,5 +1,21 @@
 # @atlaskit/collab-provider
 
+## 9.24.0
+
+### Minor Changes
+
+- [#73554](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73554) [`c03a65a711ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c03a65a711ea) - Emit permission event on collab provider when permissions are set/changed
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.23.1
+
+### Patch Changes
+
+- [#73588](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73588) [`d06aa1426a45`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d06aa1426a45) - Thess packages has been added to the Jira push model.
+
 ## 9.23.0
 
 ### Minor Changes

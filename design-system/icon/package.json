@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
-    "@af/icon-build-process": "^0.3.0",
+    "@af/icon-build-process": "^0.4.0",
     "@af/visual-regression": "*",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/logo": "^13.15.0",

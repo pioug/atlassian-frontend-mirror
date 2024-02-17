@@ -1,5 +1,15 @@
 # @atlassian/smart-user-picker
 
+## 6.8.0
+
+### Minor Changes
+
+- [#73914](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73914) [`7acf8bb50dea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7acf8bb50dea) - Added support for external users being returned by the user-recommendations service. Non-licensed users will have a `type` of `external_user` and have `isExternal` set to `true`. A new prop `overrideByline` was also added to allow for the byline to be customised as SmartUserPicker does not currently set any bylines on options.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.7.0
 
 ### Minor Changes

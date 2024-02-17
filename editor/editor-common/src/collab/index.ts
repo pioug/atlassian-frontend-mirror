@@ -394,6 +394,14 @@ export type CollabCommitStatusEventPayload = {
   version: number;
 };
 
+export type UserPermitType = {
+  isPermittedToView: boolean;
+  isPermittedToComment: boolean;
+  isPermittedToEdit: boolean;
+};
+
+export type CollabPermissionEventPayload = UserPermitType;
+
 export interface CollabEvents {
   'metadata:changed': Metadata;
   init: CollabInitPayload;
@@ -406,6 +414,7 @@ export interface CollabEvents {
   error: ProviderError;
   entity: any;
   connecting: CollabConnectingPayload;
+  permission: CollabPermissionEventPayload;
   'commit-status': CollabCommitStatusEventPayload;
 }
 

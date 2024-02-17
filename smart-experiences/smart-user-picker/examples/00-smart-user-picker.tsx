@@ -7,6 +7,9 @@ import {
   OnInputChange,
   Value,
   OptionData,
+  ExternalUser,
+  User,
+  Team,
 } from '@atlaskit/user-picker';
 import SmartUserPicker from '../src';
 import Textfield from '@atlaskit/textfield';
@@ -136,6 +139,10 @@ const SmartUserPickerCustomizableExample = () => {
       ...state,
       selectedOptionIds,
     });
+  };
+
+  let overrideByline = (item: User | ExternalUser | Team) => {
+    return (item as ExternalUser).isExternal ? 'Invite to Product' : '';
   };
 
   let createBoolean = (
@@ -445,6 +452,7 @@ const SmartUserPickerCustomizableExample = () => {
             onError={(e) => {
               console.error(e);
             }}
+            overrideByline={overrideByline}
           />
         </IntlProvider>
       </AnalyticsListener>

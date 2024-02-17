@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 78.2.0
+
+### Minor Changes
+
+- [#73554](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73554) [`c03a65a711ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c03a65a711ea) - Emit permission event on collab provider when permissions are set/changed
+
 ## 78.1.0
 
 ### Minor Changes

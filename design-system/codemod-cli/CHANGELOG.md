@@ -1,5 +1,11 @@
 # @atlaskit/codemod-cli
 
+## 0.19.0
+
+### Minor Changes
+
+- [#60956](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/60956) [`3c438c899565`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c438c899565) - Updated glob dependency to 9.0.0 to fix VULN-1129796
+
 ## 0.18.0
 
 ### Minor Changes

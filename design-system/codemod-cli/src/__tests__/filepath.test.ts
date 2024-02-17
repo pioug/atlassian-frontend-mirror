@@ -17,10 +17,13 @@ describe('filterFilePath', () => {
       packagePaths,
       '@atlaskit/dep3',
     );
-    expect(packages).toEqual([
-      'packages/design-system/codemod-cli/src/__tests__/__fixtures__/bar',
-      'packages/design-system/codemod-cli/src/__tests__/__fixtures__/baz',
-    ]);
+    expect(packages.length).toBe(2);
+    expect(packages).toEqual(
+      expect.arrayContaining([
+        'packages/design-system/codemod-cli/src/__tests__/__fixtures__/bar',
+        'packages/design-system/codemod-cli/src/__tests__/__fixtures__/baz',
+      ]),
+    );
   });
 
   it('gets empty array with dependency which does not exist', async () => {

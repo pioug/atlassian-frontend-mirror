@@ -1,8 +1,8 @@
 jest.mock('glob', () => ({
-  sync: jest.fn(),
+  globSync: jest.fn(),
 }));
 
-import { sync as globSync } from 'glob';
+import { globSync } from 'glob';
 import path from 'path';
 import {
   hasTransform,
@@ -54,8 +54,8 @@ describe('transforms', () => {
         ),
       );
 
-      // There should be a part here that tests what arguments glob.sync is called with
-      // The problem is that glob.sync is called a variable number of times based on the length of presets
+      // There should be a part here that tests what arguments globSync is called with
+      // The problem is that globSync is called a variable number of times based on the length of presets
       // Ideally we would just use a consistent glob to represent all presets and not import them at all
     });
 

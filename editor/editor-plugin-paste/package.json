@@ -33,7 +33,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^78.1.0",
+    "@atlaskit/editor-common": "^78.2.0",
     "@atlaskit/editor-markdown-transformer": "^5.3.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-annotation": "^1.0.0",

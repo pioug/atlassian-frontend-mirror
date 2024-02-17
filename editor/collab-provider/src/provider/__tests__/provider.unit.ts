@@ -1570,6 +1570,13 @@ describe('Provider', () => {
         isPermittedToComment: true,
         isPermittedToEdit: false,
       };
+      provider.on('permission', (permissions) => {
+        expect(permissions).toStrictEqual({
+          isPermittedToView: true,
+          isPermittedToEdit: false,
+          isPermittedToComment: true,
+        });
+      });
       channel.emit('permission', permissionResponse);
       provider.send(null, null, {} as any);
       provider.setMetadata({});

@@ -5,7 +5,12 @@ import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import memoizeOne from 'memoize-one';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { CustomData, UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
-import UserPicker, { OptionData } from '@atlaskit/user-picker';
+import UserPicker, {
+  OptionData,
+  isExternalUser,
+  isTeam,
+  isUser,
+} from '@atlaskit/user-picker';
 
 import {
   requestUsersEvent,
@@ -216,6 +221,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
       objectId,
       onEmpty,
       onError,
+      overrideByline,
       orgId,
       principalId,
       productAttributes,
@@ -254,6 +260,15 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
         recommendationsRequest,
         intl,
       );
+
+      if (overrideByline) {
+        for (let option of recommendedUsers) {
+          if (isUser(option) || isExternalUser(option) || isTeam(option)) {
+            option.byline = overrideByline(option);
+          }
+        }
+      }
+
       const elapsedTimeMilli = window.performance.now() - startTime;
 
       const displayedUsers =

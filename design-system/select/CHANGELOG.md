@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 17.1.1
+
+### Patch Changes
+
+- [#73588](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73588) [`d06aa1426a45`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d06aa1426a45) - Thess packages has been added to the Jira push model.
+
 ## 17.1.0
 
 ### Minor Changes

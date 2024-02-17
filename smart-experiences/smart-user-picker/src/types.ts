@@ -1,7 +1,10 @@
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
   DefaultValue,
+  ExternalUser,
   OptionData,
+  Team,
+  User,
   UserPickerProps,
 } from '@atlaskit/user-picker';
 
@@ -93,12 +96,15 @@ export interface RecommendationItem {
   description?: string;
   teamAri?: string;
   displayName?: string;
+  nonLicensedUser?: boolean;
 }
 
 export interface RecommendationResponse {
   errors?: any[];
   recommendedUsers: RecommendationItem[];
 }
+
+export type OverrideByline = (option: User | ExternalUser | Team) => string;
 
 export interface SmartProps {
   /**
@@ -170,6 +176,11 @@ export interface SmartProps {
    * Error handler used to provide OptionData[] values when the server fails to hydrate the `defaultValue` prop's values.
    */
   onValueError?: OnValueError;
+  /**
+   * Function to generate the byline of each option. The server response is
+   * provided as an argument to the function.
+   */
+  overrideByline?: OverrideByline;
   /**
    * Prefetch the list of suggested assignees before the user picker is focused.
    * WARNING: please consider carefully before deciding to prefetch your suggestions

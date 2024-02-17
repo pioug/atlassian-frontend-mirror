@@ -10,6 +10,7 @@ import type {
   StepJson,
   CollabSendableSelection,
   Metadata,
+  UserPermitType,
 } from '@atlaskit/editor-common/collab';
 
 // Re-export values for the /types entry point to this package
@@ -31,6 +32,8 @@ export type {
   CollabMetadataPayload,
   CollabLocalStepsPayload,
   CollabCommitStatusEventPayload,
+  CollabPermissionEventPayload,
+  UserPermitType,
   CollabEvents,
   Metadata,
   StepJson,
@@ -170,12 +173,6 @@ export type BroadcastIncomingPayload = {
   sessionId?: string;
   timestamp?: number;
   data: PresencePayload | TelepointerPayload | StepsPayload | any; // broadcasted data from NCS, any added as a fallback
-};
-
-export type UserPermitType = {
-  isPermittedToView: boolean;
-  isPermittedToComment: boolean;
-  isPermittedToEdit: boolean;
 };
 
 export type PresenceData = {

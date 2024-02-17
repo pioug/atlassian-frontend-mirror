@@ -94,6 +94,18 @@ export const mentions = [
     },
   },
   {
+    id: '3333',
+    avatarUrl: 'https://api.adorable.io/avatars/8',
+    name: 'Nonlicensed User',
+    mentionName: 'NonlicensedUser',
+    nickname: 'NoLicense',
+    accessLevel: 'NONE',
+    presence: {
+      status: 'focus',
+    },
+    nonLicensedUser: true,
+  },
+  {
     id: '12312428',
     avatarUrl: 'https://api.adorable.io/avatars/7',
     name: 'Monkey Trousers',

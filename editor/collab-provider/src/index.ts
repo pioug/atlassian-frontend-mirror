@@ -13,6 +13,7 @@ export type {
   CollabTelepointerPayload,
   CollabPresencePayload,
   CollabLocalStepsPayload,
+  CollabPermissionEventPayload,
   CollabEventRemoteData,
   CollabEventPresenceData,
   CollabEventConnectingData,
@@ -25,5 +26,6 @@ export type {
   ProviderError,
   ProviderParticipant,
   CollabEventLocalStepData,
+  UserPermitType,
 } from '@atlaskit/editor-common/collab';
 export { PROVIDER_ERROR_CODE } from '@atlaskit/editor-common/collab';

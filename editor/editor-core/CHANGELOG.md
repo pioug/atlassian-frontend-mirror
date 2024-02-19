@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 192.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 192.2.2
 
 ### Patch Changes

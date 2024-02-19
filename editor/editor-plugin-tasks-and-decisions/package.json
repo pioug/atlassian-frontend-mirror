@@ -100,10 +100,5 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
-  "platform-feature-flags": {
-    "platform.editor.allow-action-in-list": {
-      "type": "boolean"
-    }
-  }
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

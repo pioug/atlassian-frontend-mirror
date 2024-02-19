@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
 import { Placement } from '@atlaskit/popper';
-import styled from '@emotion/styled';
 import Range from '@atlaskit/range';
 import Select from '@atlaskit/select';
-import { PopupUserPicker } from '../src';
-import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
+import styled from '@emotion/styled';
+import React, { useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
+import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
+import { PopupUserPicker } from '../src';
+import { token } from '@atlaskit/tokens';
 
 export const MenuPlaceholder = styled.div`
-  min-width: ${12}px;
+  min-width: ${token('space.150', '12px')};
   visibility: ${(props) => (props ? 'visible' : 'hidden')};
-  margin-left: ${4}px;
+  margin-left: ${token('space.050', '4px')};
   position: relative;
 `;
 
 const SelectContainer = styled.div`
   width: 250px;
-  padding-left: 10px;
+  padding-left: ${token('space.150', '12px')};
 `;
 
 const OptionContainer = styled.div`

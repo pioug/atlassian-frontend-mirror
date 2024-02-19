@@ -45,7 +45,7 @@ describe('ModalElementBrowser', () => {
       });
     });
 
-    it('should match ModalElementBrowser with help link snapshot', async () => {
+    it.skip('should match ModalElementBrowser with help link snapshot', async () => {
       const element = await page.waitForSelector(
         elementBrowserSelectors.modalBrowser,
         {

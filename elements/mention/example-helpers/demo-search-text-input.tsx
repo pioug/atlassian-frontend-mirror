@@ -1,5 +1,5 @@
-import React from 'react';
-import { ChangeEventHandler, Component, FocusEventHandler } from 'react';
+import { token } from '@atlaskit/tokens';
+import React, { ChangeEventHandler, Component, FocusEventHandler } from 'react';
 import uuid from 'uuid/v1';
 
 function noModifiers(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -85,8 +85,8 @@ class SearchTextInput extends Component<Props, {}> {
           onKeyDown={this.handleKeyDown}
           ref={this.inputRefUpdate}
           style={{
-            height: '20px',
-            marginLeft: '10px',
+            height: `${token('space.250', '20px')}`,
+            marginLeft: `${token('space.150', '12px')}`,
           }}
         />
       </div>

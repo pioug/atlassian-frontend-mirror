@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import React, { useState } from 'react';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import UserPicker from '../src';
@@ -7,7 +8,13 @@ const Example = () => {
   return (
     <ExampleWrapper>
       {({ loadUsers }) => (
-        <div style={{ display: 'grid', gridGap: '16px', padding: '16px' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridGap: `${token('space.200', '16px')}`,
+            padding: `${token('space.200', '16px')}`,
+          }}
+        >
           <div>
             <p>Async load options</p>
             <UserPicker

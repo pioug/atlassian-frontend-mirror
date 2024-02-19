@@ -2286,6 +2286,636 @@ exports[`Renderer - EmailSerializer should render list inside a blockquote: html
 </div>
 `;
 
+exports[`Renderer - EmailSerializer should render list, action, code-block, panel, quote, decision, rule inside nested expand: html 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <div
+    class="csg-tableNode-wrapper"
+    style="margin-bottom: 20px; margin-top: 20px;"
+  >
+    <table
+      class="csg-tableNode"
+      style="border: 1px solid #C1C7D0; border-collapse: collapse; width: 100%; table-layout: fixed;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            bgcolor="white"
+            class="csg-tableCell"
+            colspan="1"
+            rowspan="1"
+            style="background-clip: padding-box; height: auto; min-width: 3em; vertical-align: top; border: 1px solid #C1C7D0; border-right-width: 0; border-bottom-width: 0; padding: 8px; background-color: white;"
+            valign="top"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-expand csg-commonTable"
+              style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%; border: 1px solid rgba(9,30,66,0.25); border-radius: 4px;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-expand-iconWrapper"
+                    height="24"
+                    style="width: 24px; height: 24px; padding: 0 4px 0 8px;"
+                    width="24"
+                  >
+                    <img
+                      class="csg-expand-icon"
+                      height="24"
+                      src="cid:csg-icon-expand"
+                      style="width: 24px; height: 24px;"
+                      width="24"
+                    />
+                  </td>
+                  <td
+                    class="csg-expand-title"
+                    style="width: 100%; padding: 8px 0; color: rgba(9,30,66,0.60);"
+                    width="100%"
+                  >
+                    Click here to expand...
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style=""
+                  />
+                  <td
+                    class="csg-expand-content"
+                    style="font-size: 14px; line-height: 20px; padding: 4px 16px 8px 0;"
+                  >
+                    <ul
+                      class="csg-ul"
+                      style="margin-top: 12px; margin-bottom: 12px;"
+                    >
+                      <li
+                        class="csg-li"
+                        style="margin-top: 4px;"
+                      >
+                        <p
+                          class="csg-p"
+                          style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; margin-bottom: 0px; padding-top: 0px;"
+                        >
+                          one
+                        </p>
+                      </li>
+                      <li
+                        class="csg-li"
+                        style="margin-top: 4px;"
+                      >
+                        <p
+                          class="csg-p"
+                          style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; margin-bottom: 0px; padding-top: 0px;"
+                        >
+                          two
+                        </p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td
+            bgcolor="white"
+            class="csg-tableCell"
+            colspan="1"
+            rowspan="1"
+            style="background-clip: padding-box; height: auto; min-width: 3em; vertical-align: top; border: 1px solid #C1C7D0; border-right-width: 0; border-bottom-width: 0; padding: 8px; background-color: white;"
+            valign="top"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-expand csg-commonTable"
+              style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%; border: 1px solid rgba(9,30,66,0.25); border-radius: 4px;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-expand-iconWrapper"
+                    height="24"
+                    style="width: 24px; height: 24px; padding: 0 4px 0 8px;"
+                    width="24"
+                  >
+                    <img
+                      class="csg-expand-icon"
+                      height="24"
+                      src="cid:csg-icon-expand"
+                      style="width: 24px; height: 24px;"
+                      width="24"
+                    />
+                  </td>
+                  <td
+                    class="csg-expand-title"
+                    style="width: 100%; padding: 8px 0; color: rgba(9,30,66,0.60);"
+                    width="100%"
+                  >
+                    Click here to expand...
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style=""
+                  />
+                  <td
+                    class="csg-expand-content"
+                    style="font-size: 14px; line-height: 20px; padding: 4px 16px 8px 0;"
+                  >
+                    <div
+                      class="csg-taskList"
+                      style="margin-top: 12px;"
+                    >
+                      <table
+                        border="0"
+                        cellpadding="0"
+                        cellspacing="0"
+                        class=" csg-commonTable"
+                        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                        width="100%"
+                      >
+                        <tbody>
+                          <tr>
+                            <td
+                              class="csg-taskItem-wrapper"
+                              style="padding: 4px 0px 4px 0;"
+                            >
+                              <table
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                class="csg-taskItem-mainContent csg-commonTable"
+                                style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                                width="100%"
+                              >
+                                <tbody>
+                                  <tr>
+                                    <td
+                                      class="csg-taskItem-iconTd"
+                                      height="24"
+                                      style="vertical-align: top; padding: 10px 0px 0px 8px; line-height: 20px; width: 24px; height: 24px;"
+                                      valign="top"
+                                      width="24"
+                                    >
+                                      <img
+                                        class="csg-taskItem-img"
+                                        height="16"
+                                        src="cid:csg-icon-taskItemUnchecked"
+                                        style="width: 16px; height: 16px;"
+                                        width="16"
+                                      />
+                                    </td>
+                                    <td
+                                      class="csg-taskItem-textTd"
+                                      style="font-size: 14px; line-height: 20px; padding: 8px 8px 8px 0;"
+                                    >
+                                      action
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td
+            bgcolor="white"
+            class="csg-tableCell"
+            colspan="1"
+            rowspan="1"
+            style="background-clip: padding-box; height: auto; min-width: 3em; vertical-align: top; border: 1px solid #C1C7D0; border-right-width: 0; border-bottom-width: 0; padding: 8px; background-color: white;"
+            valign="top"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-expand csg-commonTable"
+              style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%; border: 1px solid rgba(9,30,66,0.25); border-radius: 4px;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-expand-iconWrapper"
+                    height="24"
+                    style="width: 24px; height: 24px; padding: 0 4px 0 8px;"
+                    width="24"
+                  >
+                    <img
+                      class="csg-expand-icon"
+                      height="24"
+                      src="cid:csg-icon-expand"
+                      style="width: 24px; height: 24px;"
+                      width="24"
+                    />
+                  </td>
+                  <td
+                    class="csg-expand-title"
+                    style="width: 100%; padding: 8px 0; color: rgba(9,30,66,0.60);"
+                    width="100%"
+                  >
+                    Click here to expand...
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style=""
+                  />
+                  <td
+                    class="csg-expand-content"
+                    style="font-size: 14px; line-height: 20px; padding: 4px 16px 8px 0;"
+                  >
+                    <div
+                      class="csg-codeBlock-div"
+                      style="padding: 8px 16px; background-color: #F4F5F7; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; color: rgb(23, 43, 77);"
+                    >
+                      <pre
+                        class="csg-codeBlock-pre"
+                        style="white-space: pre-wrap; font-size: 12px; line-height: 20px; font-family: 'SFMono-Medium', 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', 'Ubuntu Mono', Menlo, Consolas, Courier, monospace; color: rgb(23, 43, 77); background: #F4F5F7; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; margin: 0px; overflow-wrap: break-word;"
+                      >
+                        code
+                      </pre>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td
+            bgcolor="white"
+            class="csg-tableCell"
+            colspan="1"
+            rowspan="1"
+            style="background-clip: padding-box; height: auto; min-width: 3em; vertical-align: top; border: 1px solid #C1C7D0; border-right-width: 0; border-bottom-width: 0; padding: 8px; background-color: white;"
+            valign="top"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-expand csg-commonTable"
+              style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%; border: 1px solid rgba(9,30,66,0.25); border-radius: 4px;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-expand-iconWrapper"
+                    height="24"
+                    style="width: 24px; height: 24px; padding: 0 4px 0 8px;"
+                    width="24"
+                  >
+                    <img
+                      class="csg-expand-icon"
+                      height="24"
+                      src="cid:csg-icon-expand"
+                      style="width: 24px; height: 24px;"
+                      width="24"
+                    />
+                  </td>
+                  <td
+                    class="csg-expand-title"
+                    style="width: 100%; padding: 8px 0; color: rgba(9,30,66,0.60);"
+                    width="100%"
+                  >
+                    Click here to expand...
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style=""
+                  />
+                  <td
+                    class="csg-expand-content"
+                    style="font-size: 14px; line-height: 20px; padding: 4px 16px 8px 0;"
+                  >
+                    <table
+                      border="0"
+                      cellpadding="0"
+                      cellspacing="0"
+                      class=" csg-commonTable"
+                      style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                      width="100%"
+                    >
+                      <tbody>
+                        <tr>
+                          <td
+                            class="csg-panel"
+                            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; line-height: 24px; font-weight: 400; padding: 8px 0px 8px 0px; margin: 0px; width: 100%;"
+                            width="100%"
+                          >
+                            <table
+                              border="0"
+                              cellpadding="0"
+                              cellspacing="0"
+                              class="csg-panel-innerTable csg-panel-type-info csg-commonTable"
+                              style="line-height: 24px; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; table-layout: fixed; line-height: 20px; background: #DEEBFF; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                              width="100%"
+                            >
+                              <tbody>
+                                <tr>
+                                  <td
+                                    class="csg-panel-iconTd"
+                                    height="24"
+                                    style="vertical-align: top; width: 24px; height: 24px; padding: 12px 0px 0px 8px;"
+                                    valign="top"
+                                    width="24"
+                                  >
+                                    <img
+                                      class="csg-panel-icon"
+                                      height="16"
+                                      src="cid:csg-icon-info"
+                                      style="width: 16px; height: 16px;"
+                                      width="16"
+                                    />
+                                  </td>
+                                  <td
+                                    class="csg-panel-inner"
+                                    style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; line-height: 24px; font-weight: 400; font-size: 14px; width: 100%; padding: 1px 8px 1px 0; margin: 0px;"
+                                    width="100%"
+                                  >
+                                    <p
+                                      class="csg-p"
+                                      style="margin: 0; padding: 0px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; margin-bottom: 7px; padding-top: 7px;"
+                                    >
+                                      panel
+                                    </p>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td
+            bgcolor="white"
+            class="csg-tableCell"
+            colspan="1"
+            rowspan="1"
+            style="background-clip: padding-box; height: auto; min-width: 3em; vertical-align: top; border: 1px solid #C1C7D0; border-right-width: 0; border-bottom-width: 0; padding: 8px; background-color: white;"
+            valign="top"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-expand csg-commonTable"
+              style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%; border: 1px solid rgba(9,30,66,0.25); border-radius: 4px;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-expand-iconWrapper"
+                    height="24"
+                    style="width: 24px; height: 24px; padding: 0 4px 0 8px;"
+                    width="24"
+                  >
+                    <img
+                      class="csg-expand-icon"
+                      height="24"
+                      src="cid:csg-icon-expand"
+                      style="width: 24px; height: 24px;"
+                      width="24"
+                    />
+                  </td>
+                  <td
+                    class="csg-expand-title"
+                    style="width: 100%; padding: 8px 0; color: rgba(9,30,66,0.60);"
+                    width="100%"
+                  >
+                    Click here to expand...
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style=""
+                  />
+                  <td
+                    class="csg-expand-content"
+                    style="font-size: 14px; line-height: 20px; padding: 4px 16px 8px 0;"
+                  >
+                    <blockquote
+                      class="csg-blockquote"
+                      style="border-left: 2px solid #DFE1E6; color: #5E6C84; margin: 12px 0 0 0; padding-left: 16px;"
+                    >
+                      <p
+                        class="csg-p"
+                        style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+                      >
+                        quote
+                      </p>
+                    </blockquote>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td
+            bgcolor="white"
+            class="csg-tableCell"
+            colspan="1"
+            rowspan="1"
+            style="background-clip: padding-box; height: auto; min-width: 3em; vertical-align: top; border: 1px solid #C1C7D0; border-right-width: 0; border-bottom-width: 0; padding: 8px; background-color: white;"
+            valign="top"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-expand csg-commonTable"
+              style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%; border: 1px solid rgba(9,30,66,0.25); border-radius: 4px;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-expand-iconWrapper"
+                    height="24"
+                    style="width: 24px; height: 24px; padding: 0 4px 0 8px;"
+                    width="24"
+                  >
+                    <img
+                      class="csg-expand-icon"
+                      height="24"
+                      src="cid:csg-icon-expand"
+                      style="width: 24px; height: 24px;"
+                      width="24"
+                    />
+                  </td>
+                  <td
+                    class="csg-expand-title"
+                    style="width: 100%; padding: 8px 0; color: rgba(9,30,66,0.60);"
+                    width="100%"
+                  >
+                    Click here to expand...
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style=""
+                  />
+                  <td
+                    class="csg-expand-content"
+                    style="font-size: 14px; line-height: 20px; padding: 4px 16px 8px 0;"
+                  >
+                    <hr
+                      class="csg-rule"
+                      style="border: none; border-bottom: 1px solid #EBECF0;"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td
+            bgcolor="white"
+            class="csg-tableCell"
+            colspan="3"
+            rowspan="1"
+            style="background-clip: padding-box; height: auto; min-width: 3em; vertical-align: top; border: 1px solid #C1C7D0; border-right-width: 0; border-bottom-width: 0; padding: 8px; background-color: white;"
+            valign="top"
+          >
+            <table
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              class="csg-expand csg-commonTable"
+              style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%; border: 1px solid rgba(9,30,66,0.25); border-radius: 4px;"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="csg-expand-iconWrapper"
+                    height="24"
+                    style="width: 24px; height: 24px; padding: 0 4px 0 8px;"
+                    width="24"
+                  >
+                    <img
+                      class="csg-expand-icon"
+                      height="24"
+                      src="cid:csg-icon-expand"
+                      style="width: 24px; height: 24px;"
+                      width="24"
+                    />
+                  </td>
+                  <td
+                    class="csg-expand-title"
+                    style="width: 100%; padding: 8px 0; color: rgba(9,30,66,0.60);"
+                    width="100%"
+                  >
+                    Click here to expand...
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style=""
+                  />
+                  <td
+                    class="csg-expand-content"
+                    style="font-size: 14px; line-height: 20px; padding: 4px 16px 8px 0;"
+                  >
+                    <div
+                      class="csg-decisionList"
+                      style="margin-top: 12px;"
+                    >
+                      <table
+                        border="0"
+                        cellpadding="0"
+                        cellspacing="0"
+                        class=" csg-commonTable"
+                        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                        width="100%"
+                      >
+                        <tbody>
+                          <tr>
+                            <td
+                              class="csg-decision"
+                              style="padding: 4px 0px 4px 0;"
+                            >
+                              <table
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                class="csg-decision-content csg-commonTable"
+                                style="border-radius: 3px; table-layout: fixed; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; margin: 0px; padding: 0px; display: table; border-spacing: 0px; width: 100%;"
+                                width="100%"
+                              >
+                                <tbody>
+                                  <tr>
+                                    <td
+                                      class="csg-decision-iconTd"
+                                      height="24"
+                                      style="vertical-align: top; padding: 11px 0px 0px 8px; width: 24px; height: 24px;"
+                                      valign="top"
+                                      width="24"
+                                    >
+                                      <img
+                                        class="csg-decision-icon"
+                                        height="16"
+                                        src="cid:csg-icon-decision"
+                                        style="width: 16px; height: 16px;"
+                                        width="16"
+                                      />
+                                    </td>
+                                    <td
+                                      class="csg-decision-textTd"
+                                      style="font-size: 14px; padding: 8px 8px 8px 0;"
+                                    >
+                                      decision
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+     
+  </p>
+</div>
+`;
+
 exports[`Renderer - EmailSerializer should render lists: html 1`] = `
 <div
   class="csg-wrapper"

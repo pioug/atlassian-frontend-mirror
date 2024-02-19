@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { onSelection, resourceProvider } from '../example-helpers';
@@ -56,7 +57,9 @@ export default class DemoResourcedMentionList extends React.Component<
 
     return (
       <IntlProvider locale="en">
-        <div style={{ width: '400px', padding: '10px' }}>
+        <div
+          style={{ width: '100%', padding: `${token('space.150', '12px')}` }}
+        >
           <SearchTextInput
             inputId="mention-input"
             label="User search"

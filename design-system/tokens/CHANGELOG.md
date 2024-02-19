@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.37.2
+
+### Patch Changes
+
+- [#73844](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73844) [`c7683b370ae8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c7683b370ae8) - Adds dependency whitelist to codemod configuration
+
 ## 1.37.1
 
 ### Patch Changes

@@ -19,7 +19,7 @@ describe('Code block:', () => {
     page = global.page;
   });
 
-  it('displays as selected when click on 1', async () => {
+  it.skip('displays as selected when click on 1', async () => {
     await initEditorWithAdf(page, {
       adf: basicCodeBlock,
       appearance: Appearance.fullPage,

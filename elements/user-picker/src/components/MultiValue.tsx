@@ -11,6 +11,7 @@ import { getAvatarUrl, isEmail, isGroup } from './utils';
 import { Option, UserPickerProps } from '../types';
 import PeopleIcon from '@atlaskit/icon/glyph/people';
 import { MultiValueProps } from '@atlaskit/select';
+import { token } from '@atlaskit/tokens';
 
 export const scrollToValue = (
   valueContainer: HTMLDivElement,
@@ -33,7 +34,7 @@ const groupTagContainer = xcss({
 });
 
 const nameWrapper = css({
-  paddingLeft: '5px',
+  paddingLeft: `${token('space.050', '4px')}`,
 });
 
 type Props = MultiValueProps<OptionType> & {

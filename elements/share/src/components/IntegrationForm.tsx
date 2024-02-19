@@ -23,7 +23,7 @@ export const formWrapperStyle = css`
   }
 
   [class^='FormSection__FormSectionWrapper'] {
-    margin-top: 0px;
+    margin-top: ${token('space.0', '0px')};
   }
 
   [class^='FormFooter__FormFooterWrapper'] {

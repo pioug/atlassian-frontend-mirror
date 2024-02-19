@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import React from 'react';
 import serializeJavascript from 'serialize-javascript';
 import MentionResource, {
@@ -46,7 +47,7 @@ export default class ConfigurableMentionPicker extends React.Component<
     const { resourceProvider } = this.state;
 
     return (
-      <div style={{ padding: '10px' }}>
+      <div style={{ padding: `${token('space.150', '12px')}` }}>
         {React.cloneElement(this.props.children, { resourceProvider })}
         <p>
           <label htmlFor="mention-urls">MentionResource config</label>

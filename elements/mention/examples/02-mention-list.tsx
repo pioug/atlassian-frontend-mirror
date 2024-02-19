@@ -1,4 +1,6 @@
+import { token } from '@atlaskit/tokens';
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import {
   mentions as mentionsData,
   onSelection,
@@ -6,7 +8,6 @@ import {
 } from '../example-helpers';
 import MentionList from '../src/components/MentionList';
 import { MentionDescription } from '../src/types';
-import { IntlProvider } from 'react-intl-next';
 
 export interface State {
   mentions: MentionDescription[];
@@ -55,23 +56,32 @@ export default class DemoMentionList extends React.Component<any, State> {
     );
 
     return (
-      <div style={{ paddingLeft: '10px' }}>
-        <div style={{ paddingBottom: '10px' }}>
+      <div style={{ paddingLeft: `${token('space.150', '12px')}` }}>
+        <div style={{ paddingBottom: `${token('space.150', '12px')}` }}>
           <button
             onClick={this.updateData}
-            style={{ height: '30px', marginRight: '10px' }}
+            style={{
+              height: `${token('space.400', '32px')}`,
+              marginRight: `${token('space.150', '12px')}`,
+            }}
           >
             Random refresh
           </button>
           <button
             onClick={this.moveUp}
-            style={{ height: '30px', marginRight: '10px' }}
+            style={{
+              height: `${token('space.400', '32px')}`,
+              marginRight: `${token('space.150', '12px')}`,
+            }}
           >
             Up
           </button>
           <button
             onClick={this.moveDown}
-            style={{ height: '30px', marginRight: '10px' }}
+            style={{
+              height: `${token('space.400', '32px')}`,
+              marginRight: `${token('space.150', '12px')}`,
+            }}
           >
             Down
           </button>

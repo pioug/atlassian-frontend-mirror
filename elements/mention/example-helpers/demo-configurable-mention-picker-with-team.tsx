@@ -1,6 +1,7 @@
+import { token } from '@atlaskit/tokens';
 import React from 'react';
-import TeamMentionResource from '../src/api/TeamMentionResource';
 import { MentionResourceConfig } from '../src/api/MentionResource';
+import TeamMentionResource from '../src/api/TeamMentionResource';
 
 export interface Props {
   children?: any;
@@ -74,7 +75,7 @@ export default class ConfigurableTeamMentionPicker extends React.Component<
     const { resourceProvider } = this.state;
 
     return (
-      <div style={{ padding: '10px' }}>
+      <div style={{ padding: `${token('space.150', '12px')}` }}>
         {React.cloneElement(this.props.children, { resourceProvider })}
         <p>
           <label htmlFor="mention-urls">MentionResource config</label>

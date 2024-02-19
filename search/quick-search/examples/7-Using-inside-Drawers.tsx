@@ -7,6 +7,7 @@ import { AkSearchDrawer } from '@atlaskit/navigation';
 import Drawer from '@atlaskit/drawer';
 import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
 import BasicQuickSearch from './utils/BasicQuickSearch';
+import { token } from '@atlaskit/tokens';
 
 type State = {
   isDrawerOpen: boolean;
@@ -63,7 +64,7 @@ export default class IssueUsingDrawers extends React.Component<any, State> {
     const Wrapper = this.state.shouldRenderNewDrawer ? Drawer : AkSearchDrawer;
 
     return (
-      <div style={{ padding: '2rem' }}>
+      <div style={{ padding: `${token('space.400', '32px')}` }}>
         <Wrapper
           onClose={this.closeDrawer}
           onBackButton={this.closeDrawer}
@@ -78,7 +79,7 @@ export default class IssueUsingDrawers extends React.Component<any, State> {
         <button type="button" onClick={this.openDrawer}>
           Open drawer
         </button>
-        <div style={{ marginTop: '2rem' }}>
+        <div style={{ marginTop: `${token('space.400', '32px')}` }}>
           <label htmlFor="wrapper-checkbox">
             <input
               id="wrapper-checkbox"
@@ -88,7 +89,12 @@ export default class IssueUsingDrawers extends React.Component<any, State> {
             />
             Use new Drawer component
           </label>
-          <div style={{ display: 'block', paddingTop: '1rem' }}>
+          <div
+            style={{
+              display: 'block',
+              paddingTop: `${token('space.200', '16px')}`,
+            }}
+          >
             Quick search is wrapped using drawer component from{' '}
             <strong>{`${
               this.state.shouldRenderNewDrawer
@@ -98,7 +104,7 @@ export default class IssueUsingDrawers extends React.Component<any, State> {
           </div>
         </div>
         {this.state.shouldRenderNewDrawer && (
-          <div style={{ marginTop: '2rem' }}>
+          <div style={{ marginTop: `${token('space.400', '32px')}` }}>
             <label htmlFor="checkbox">
               <input
                 id="checkbox"
@@ -108,7 +114,12 @@ export default class IssueUsingDrawers extends React.Component<any, State> {
               />
               Toggle remounting of drawer contents on exit
             </label>
-            <div style={{ display: 'block', paddingTop: '1rem' }}>
+            <div
+              style={{
+                display: 'block',
+                paddingTop: `${token('space.200', '16px')}`,
+              }}
+            >
               Contents of the drawer will be{' '}
               <strong>{`${
                 this.state.shouldUnmountOnExit ? 'discarded' : 'retained'

@@ -10,6 +10,7 @@ import {
   SearchInputControlsContainer,
   SearchInputTypeAhead,
 } from './styled';
+import { token } from '@atlaskit/tokens';
 
 export const controlKeys = [
   'ArrowUp',
@@ -20,9 +21,9 @@ export const controlKeys = [
 ];
 
 const SpinnerParent = styled.div`
-  height: 20px;
-  margin-left: 10px;
-  margin-top: 10px;
+  height: ${token('space.250', '20px')};
+  margin-left: ${token('space.150', '12px')};
+  margin-top: ${token('space.150', '12px')};
 `;
 
 type Props = {

@@ -7,6 +7,7 @@ import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import UserPicker from '../src';
 import { UserSource, UserSourceResult } from '../src/types';
 import { isExternalUser } from '../src/components/utils';
+import { token } from '@atlaskit/tokens';
 
 interface Option {
   label: string;
@@ -28,11 +29,11 @@ const ExampleContainer = styled.div`
   justify-content: space-around;
   width: 320px;
   height: 120px;
-  padding: 40px;
+  padding: ${token('space.500', '40px')};
 `;
 
 const InputWrapper = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: ${token('space.250', '20px')};
 `;
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

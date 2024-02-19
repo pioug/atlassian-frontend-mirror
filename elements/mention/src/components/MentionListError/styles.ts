@@ -16,10 +16,9 @@ export const MentionListErrorStyle = styled.div`
 `;
 
 export const GenericErrorVisualStyle = styled.div`
-  height: 108px;
   margin-bottom: ${token('space.100', '8px')};
-  margin-top: 36px;
-  width: 83px;
+  margin-top: ${token('space.400', '32px')};
+  width: ${token('space.1000', '80px')};
 `;
 
 // TODO: Figure out why the themed css function is causing type errors when passed prop children

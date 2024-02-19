@@ -1,5 +1,11 @@
 # @atlaskit/quick-search
 
+## 8.1.8
+
+### Patch Changes
+
+- [#72162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72162) [`dadc682d36ba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dadc682d36ba) - Replace hardcoded values with space tokens
+
 ## 8.1.7
 
 ### Patch Changes

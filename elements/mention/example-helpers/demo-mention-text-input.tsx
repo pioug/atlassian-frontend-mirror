@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { MentionProvider } from '../src/api/MentionResource';
@@ -119,7 +120,7 @@ export default class MentionTextInput extends React.Component<Props, State> {
 
     return (
       <IntlProvider locale="en">
-        <div style={{ padding: '10px' }}>
+        <div style={{ padding: `${token('space.150', '12px')}` }}>
           {searchInput}
           {mentionPicker}
         </div>

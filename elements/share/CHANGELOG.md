@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 4.14.1
+
+### Patch Changes
+
+- [#74147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74147) [`a9a862061df0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a9a862061df0) - Enforce usage of spacing design tokens instead of hard-coded values
+
 ## 4.14.0
 
 ### Minor Changes

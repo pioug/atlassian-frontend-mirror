@@ -12,14 +12,14 @@ export default () => (
   <div
     css={{
       maxWidth: '100%',
-      lineHeight: '40px',
+      lineHeight: `${token('space.500', '40px')}`,
       color: `${token('color.text.subtle', N300)}`,
     }}
   >
     <span
       css={{
         position: 'relative',
-        bottom: '5px',
+        bottom: `${token('space.050', '4px')}`,
       }}
     >
       {message}

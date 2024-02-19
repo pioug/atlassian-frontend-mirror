@@ -5,10 +5,11 @@ import { Option } from '../types';
 import { components, SingleValueProps } from '@atlaskit/select';
 import { SizeableAvatar } from './SizeableAvatar';
 import { getAvatarUrl } from './utils';
+import { token } from '@atlaskit/tokens';
 
 const avatarItemComponent = css({
   border: 'none !important',
-  padding: '0 !important',
+  padding: `${token('space.0', '0px')} !important`,
   width: 'auto',
   overflow: 'hidden',
   minWidth: '100px',

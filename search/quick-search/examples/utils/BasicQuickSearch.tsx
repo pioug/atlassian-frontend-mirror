@@ -15,6 +15,7 @@ import {
   ObjectResult,
   ObjectResultProps,
 } from '../../src';
+import { token } from '@atlaskit/tokens';
 
 type DataShape = {
   title: string;
@@ -171,7 +172,7 @@ export default class BasicQuickSearch extends React.Component<Props, State> {
             : undefined
         }
       >
-        <div style={{ paddingLeft: '10px' }}>
+        <div style={{ paddingLeft: `${token('space.150', '12px')}` }}>
           {mapResultsDataToComponents(this.state.results)}
         </div>
       </QuickSearch>

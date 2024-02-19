@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "192.2.2",
+  "version": "192.2.5",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -54,7 +54,7 @@
     "@atlaskit/emoji": "^67.6.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/media-card": "^77.10.0",
-    "@atlaskit/mention": "^22.1.0",
+    "@atlaskit/mention": "^23.0.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/task-decision": "^17.9.0",

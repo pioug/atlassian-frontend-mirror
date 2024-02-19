@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.11.1
+
+### Patch Changes
+
+- [#73706](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73706) [`3a5408573683`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3a5408573683) - Fix bug causing profilecard to disappear early in some circumstances
+
 ## 19.11.0
 
 ### Minor Changes

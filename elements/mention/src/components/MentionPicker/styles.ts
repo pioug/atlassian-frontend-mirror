@@ -31,7 +31,7 @@ export const MentionPickerInfoStyle = styled.div`
     p {
       margin: 0;
       overflow: hidden;
-      padding: 9px;
+      padding: ${token('space.100', '8px')};
       text-overflow: ellipsis;
     }
   }

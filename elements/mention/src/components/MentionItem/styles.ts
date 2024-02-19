@@ -24,7 +24,7 @@ export const RowStyle = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   overflow: hidden;
-  padding: ${token('space.075', '6px')} 14px;
+  padding: ${token('space.075', '6px')} ${token('space.150', '12px')};
   text-overflow: ellipsis;
   vertical-align: middle;
 `;
@@ -38,7 +38,7 @@ export const AvatarStyle = styled.span<AvatarSectionStyleProps>`
 export const NameSectionStyle = styled.div<NameSectionStyleProps>`
   flex: 1;
   min-width: 0;
-  margin-left: 14px;
+  margin-left: ${token('space.150', '12px')};
   opacity: ${(props) => (props.restricted ? '0.5' : 'inherit')};
 `;
 
@@ -84,6 +84,6 @@ export const MentionItemStyle = styled.div<MentionItemStyleProps>`
 `;
 
 export const AccessSectionStyle = styled.div`
-  padding-left: 5px;
+  padding-left: ${token('space.050', '4px')};
   color: ${token('color.text.subtle', N500)};
 `;

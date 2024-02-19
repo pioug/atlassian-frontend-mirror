@@ -1,0 +1,254 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "table",
+      "attrs": {
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "ea5dbb15-51cd-4a0c-b667-f987545a3c26"
+      },
+      "content": [
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "nestedExpand",
+                  "attrs": {
+                    "title": ""
+                  },
+                  "content": [
+                    {
+                      "type": "bulletList",
+                      "content": [
+                        {
+                          "type": "listItem",
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": [
+                                {
+                                  "type": "text",
+                                  "text": "one"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": [
+                                {
+                                  "type": "text",
+                                  "text": "two"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "nestedExpand",
+                  "attrs": {
+                    "title": ""
+                  },
+                  "content": [
+                    {
+                      "type": "taskList",
+                      "attrs": {
+                        "localId": "861c66fd-2a07-4557-aeb2-af7e1b19c14a"
+                      },
+                      "content": [
+                        {
+                          "type": "taskItem",
+                          "attrs": {
+                            "localId": "40d3f8d2-38f0-4f59-b3e3-c1e2fa40d6c9",
+                            "state": "TODO"
+                          },
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "action"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "nestedExpand",
+                  "attrs": {
+                    "title": ""
+                  },
+                  "content": [
+                    {
+                      "type": "codeBlock",
+                      "attrs": {},
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "code"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "nestedExpand",
+                  "attrs": {
+                    "title": ""
+                  },
+                  "content": [
+                    {
+                      "type": "panel",
+                      "attrs": {
+                        "panelType": "info"
+                      },
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "panel"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "nestedExpand",
+                  "attrs": {
+                    "title": ""
+                  },
+                  "content": [
+                    {
+                      "type": "blockquote",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "quote"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "nestedExpand",
+                  "attrs": {
+                    "title": ""
+                  },
+                  "content": [
+                    {
+                      "type": "rule"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {
+                "colspan": 3
+              },
+              "content": [
+                {
+                  "type": "nestedExpand",
+                  "attrs": {
+                    "title": ""
+                  },
+                  "content": [
+                    {
+                      "type": "decisionList",
+                      "attrs": {
+                        "localId": "50fe99a8-a927-427a-8e9d-c04e5b23cb86"
+                      },
+                      "content": [
+                        {
+                          "type": "decisionItem",
+                          "attrs": {
+                            "localId": "2c61ec4b-aeb3-4971-a34e-c44c15d729e8",
+                            "state": "DECIDED"
+                          },
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "decision"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

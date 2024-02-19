@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/mention",
-  "version": "22.1.10",
+  "version": "23.0.0",
   "description": "A React component used to display user profiles in a list for 'Mention' functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,6 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Search Platform: Search Experience",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "productPushConsumption": [
       "jira"
@@ -92,5 +91,16 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./element": "./src/element.ts",
+    "./i18n": "./src/i18n.ts",
+    "./item": "./src/item.ts",
+    "./resource": "./src/resource.ts",
+    "./shared-styles": "./src/shared-styles.ts",
+    "./team-resource": "./src/team-resource.ts",
+    "./typeahead": "./src/typeahead.ts",
+    "./types": "./src/types.ts"
+  }
 }

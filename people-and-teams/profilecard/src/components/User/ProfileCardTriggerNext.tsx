@@ -55,8 +55,8 @@ export default function ProfilecardTriggerNext({
   const showDelay = trigger === 'click' ? 0 : DELAY_MS_SHOW;
   const hideDelay = trigger === 'click' ? 0 : DELAY_MS_HIDE;
 
-  const [showTimer, setShowTimer] = useState<number>(0);
-  const [hideTimer, setHideTimer] = useState<number>(0);
+  const showTimer = useRef<number>(0);
+  const hideTimer = useRef<number>(0);
   const [visible, setVisible] = useState<boolean>(false);
 
   const [isLoading, setIsLoading] = useState<boolean | undefined>(undefined);
@@ -78,8 +78,8 @@ export default function ProfilecardTriggerNext({
     setIsMounted(true);
     return () => {
       setIsMounted(false);
-      clearTimeout(showTimer);
-      clearTimeout(hideTimer);
+      clearTimeout(showTimer.current);
+      clearTimeout(hideTimer.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -108,16 +108,14 @@ export default function ProfilecardTriggerNext({
   );
 
   const hideProfilecard = useCallback(() => {
-    clearTimeout(showTimer);
-    clearTimeout(hideTimer);
+    clearTimeout(showTimer.current);
+    clearTimeout(hideTimer.current);
     if (!isTriggeredUsingKeyboard) {
-      setHideTimer(
-        window.setTimeout(() => {
-          setVisible(false);
-        }, hideDelay),
-      );
+      hideTimer.current = window.setTimeout(() => {
+        setVisible(false);
+      }, hideDelay);
     }
-  }, [hideDelay, hideTimer, showTimer, isTriggeredUsingKeyboard]);
+  }, [hideDelay, isTriggeredUsingKeyboard]);
 
   const handleKeyboardClose = useCallback(
     (event: React.KeyboardEvent) => {
@@ -207,17 +205,15 @@ export default function ProfilecardTriggerNext({
   ]);
 
   const showProfilecard = useCallback(() => {
-    clearTimeout(hideTimer);
-    clearTimeout(showTimer);
-    setShowTimer(
-      window.setTimeout(() => {
-        if (!visible) {
-          void clientFetchProfile();
-          setVisible(true);
-        }
-      }, showDelay),
-    );
-  }, [hideTimer, showDelay, showTimer, visible, clientFetchProfile]);
+    clearTimeout(hideTimer.current);
+    clearTimeout(showTimer.current);
+    showTimer.current = window.setTimeout(() => {
+      if (!visible) {
+        void clientFetchProfile();
+        setVisible(true);
+      }
+    }, showDelay);
+  }, [showDelay, visible, clientFetchProfile]);
 
   const onClick = useCallback(
     (event: React.MouseEvent) => {
@@ -326,12 +322,12 @@ export default function ProfilecardTriggerNext({
           handleKeyboardClose(event);
         }}
         placement={position}
-        content={() =>
-          showLoading ? (
-            <LoadingView fireAnalytics={fireAnalytics} />
-          ) : (
-            <div {...wrapperProps}>
-              {visible && (
+        content={() => (
+          <div {...wrapperProps}>
+            {showLoading ? (
+              <LoadingView fireAnalytics={fireAnalytics} />
+            ) : (
+              visible && (
                 <Suspense fallback={null}>
                   <ProfileCardLazy
                     {...profilecardProps}
@@ -341,10 +337,10 @@ export default function ProfilecardTriggerNext({
                     withoutElevation
                   />
                 </Suspense>
-              )}
-            </div>
-          )
-        }
+              )
+            )}
+          </div>
+        )}
         trigger={(triggerProps) => {
           const { ref: callbackRef, ...innerProps } = triggerProps;
           const ref = (element: HTMLElement | null) => {

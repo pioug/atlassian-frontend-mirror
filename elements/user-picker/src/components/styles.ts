@@ -13,7 +13,7 @@ import { token } from '@atlaskit/tokens';
 import memoizeOne from 'memoize-one';
 import { mergeStyles, StylesConfig } from '@atlaskit/select';
 
-export const BORDER_PADDING = 6;
+export const BORDER_PADDING = token('space.075', '6px');
 export const AVATAR_PADDING = 6;
 export const INDICATOR_WIDTH = 39;
 
@@ -118,8 +118,8 @@ export const getStyles = memoizeOne(
         return {
           ...css,
           gridTemplateColumns: 'auto 1fr',
-          paddingTop: isCompact ? 0 : `${BORDER_PADDING}px`,
-          paddingBottom: isCompact ? 0 : `${BORDER_PADDING}px`,
+          paddingTop: isCompact ? 0 : BORDER_PADDING,
+          paddingBottom: isCompact ? 0 : BORDER_PADDING,
           paddingLeft: isMulti ? BORDER_PADDING : 0,
           overflowX: 'hidden',
           overflowY: 'auto',
@@ -157,7 +157,7 @@ export const getStyles = memoizeOne(
         return {
           ...css,
           gridArea: '1/2/2/3',
-          paddingLeft: state.selectProps.isMulti ? 0 : `${BORDER_PADDING}px`,
+          paddingLeft: state.selectProps.isMulti ? 0 : BORDER_PADDING,
           /* Margin left right of 2px set by default */
           // margin: `0 ${BORDER_PADDING}px`,
           margin: 0,
@@ -181,7 +181,7 @@ export const getStyles = memoizeOne(
         paddingTop: 0,
         paddingBottom: 0,
 
-        paddingLeft: state.selectProps.isMulti ? 0 : `${BORDER_PADDING}px`,
+        paddingLeft: state.selectProps.isMulti ? 0 : BORDER_PADDING,
         '& input::placeholder': {
           /* Chrome, Firefox, Opera, Safari 10.1+ */
           color: token('color.text.subtlest', N100),

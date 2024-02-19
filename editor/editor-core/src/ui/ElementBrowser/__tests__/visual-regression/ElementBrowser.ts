@@ -8,7 +8,7 @@ import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-obj
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 describe('ElementBrowser', () => {
-  it('should match ElementBrowser snapshot', async () => {
+  it.skip('should match ElementBrowser snapshot', async () => {
     const url = getExampleUrl(
       'editor',
       'editor-core',

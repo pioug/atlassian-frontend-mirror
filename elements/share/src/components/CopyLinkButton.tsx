@@ -28,7 +28,7 @@ export const messageContainerStyle = css`
 `;
 
 const messageTextStyle = css`
-  text-indent: 6px;
+  text-indent: ${token('space.075', '6px')};
 `;
 
 const isSafari = navigator.userAgent.indexOf('Safari');

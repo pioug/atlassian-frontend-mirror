@@ -8,7 +8,7 @@ import { BORDER_PADDING } from './styles';
 import ValueContainerWrapper from './ValueContainerWrapper';
 
 const placeholderIconContainer = css({
-  paddingLeft: `${BORDER_PADDING}px`,
+  paddingLeft: BORDER_PADDING,
   lineHeight: 0,
   gridArea: '1/1/2/2',
 });

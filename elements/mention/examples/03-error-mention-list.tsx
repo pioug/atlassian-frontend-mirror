@@ -1,7 +1,8 @@
+import { token } from '@atlaskit/tokens';
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import { HttpError } from '../src/api/MentionResource';
 import MentionList from '../src/components/MentionList';
-import { IntlProvider } from 'react-intl-next';
 
 const resourceError = new Error('monkey trousers');
 const error401 = new HttpError(401, 'not used');
@@ -43,23 +44,32 @@ export default class DemoMentionList extends React.Component<any, State> {
     );
 
     return (
-      <div style={{ paddingLeft: '10px' }}>
-        <div style={{ paddingBottom: '10px' }}>
+      <div style={{ paddingLeft: `${token('space.150', '12px')}` }}>
+        <div style={{ paddingBottom: `${token('space.150', '12px')}` }}>
           <button
             onClick={this.setGenericError}
-            style={{ height: '30px', marginRight: '10px' }}
+            style={{
+              height: `${token('space.400', '32px')}`,
+              marginRight: `${token('space.150', '12px')}`,
+            }}
           >
             Generic
           </button>
           <button
             onClick={this.set401Error}
-            style={{ height: '30px', marginRight: '10px' }}
+            style={{
+              height: `${token('space.400', '32px')}`,
+              marginRight: `${token('space.150', '12px')}`,
+            }}
           >
             401
           </button>
           <button
             onClick={this.set403Error}
-            style={{ height: '30px', marginRight: '10px' }}
+            style={{
+              height: `${token('space.400', '32px')}`,
+              marginRight: `${token('space.150', '12px')}`,
+            }}
           >
             403
           </button>

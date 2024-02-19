@@ -1,5 +1,15 @@
 # @atlaskit/mention
 
+## 23.0.0
+
+### Major Changes
+
+- [#65974](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/65974) [`edca08bd6e06`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/edca08bd6e06) - Migrate @atlaskit/mention to use declarative entry points. /\_constants public endpoint has been removed as part of the migration process.
+
+### Patch Changes
+
+- [#72162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72162) [`dadc682d36ba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dadc682d36ba) - Replace hardcoded values with space tokens
+
 ## 22.1.10
 
 ### Patch Changes

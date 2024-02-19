@@ -14,7 +14,6 @@ import DropdownMenu, {
 import { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { N800 } from '@atlaskit/theme/colors';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../i18n';
@@ -26,20 +25,24 @@ import IntegrationButton from './IntegrationButton';
 const splitButtonWrapperStyles = css`
   display: flex;
   button {
-    border-radius: ${borderRadius()}px 0 0 ${borderRadius()}px;
+    border-radius: ${token('border.radius', '3px')} ${token('space.0', '0px')}
+      ${token('space.0', '0px')} ${token('border.radius', '3px')};
   }
   button:hover {
-    border-radius: ${borderRadius()}px 0 0 ${borderRadius()}px;
+    border-radius: ${token('border.radius', '3px')} ${token('space.0', '0px')}
+      ${token('space.0', '0px')} ${token('border.radius', '3px')};
   }
 `;
 
 const dropdownMenuWrapperStyles = css`
-  margin-left: 1px;
+  margin-left: ${token('space.025', '2px')};
   button {
-    border-radius: 0 ${borderRadius()}px ${borderRadius()}px 0;
+    border-radius: ${token('space.0', '0px')} ${token('border.radius', '3px')}
+      ${token('border.radius', '3px')} ${token('space.0', '0px')};
   }
   button:hover {
-    border-radius: 0 ${borderRadius()}px ${borderRadius()}px 0;
+    border-radius: ${token('space.0', '0px')} ${token('border.radius', '3px')}
+      ${token('border.radius', '3px')} ${token('space.0', '0px')};
   }
 `;
 

@@ -39,7 +39,7 @@ const submitButtonWrapperStyles = css`
 const centerAlignedIconWrapperStyles = css`
   display: flex;
   align-self: center;
-  padding: 0 10px;
+  padding: ${token('space.0', '0px')} ${token('space.150', '12px')};
 
   > div {
     line-height: 1;
@@ -72,7 +72,7 @@ const integrationWrapperStyles = css`
 
 const integrationIconWrapperStyles = css`
   margin-bottom: ${token('space.negative.075', '-6px')};
-  margin-right: 5px;
+  margin-right: ${token('space.050', '4px')};
 `;
 
 const requiredFieldInfoStyles = css`

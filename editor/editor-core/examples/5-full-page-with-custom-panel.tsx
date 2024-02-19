@@ -53,7 +53,7 @@ export default class ExampleEditor extends React.Component<Props, State> {
       // eslint-disable-next-line import/dynamic-import-chunkname
       import(`../src/i18n/${locale}`),
       // eslint-disable-next-line import/dynamic-import-chunkname
-      import(`@atlaskit/mention/src/i18n/${locale}`),
+      import(`../../../elements/mention/src/i18n/${locale}`),
     ]).then((args) => ({
       ...args[0].default,
       ...args[1].default,

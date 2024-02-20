@@ -21,11 +21,28 @@ export default {
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Objekt einfügen} other {Objekte einfügen}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Objekte einfügen aus',
+  'linkDataSource.assets.configmodal.updateObjectsButtonText': 'Tabelle aktualisieren',
+  'linkDataSource.basic-filter.assignee.label': 'Zugewiesene Person',
+  'linkDataSource.basic-filter.dropdown.select.assignee.unassigned': 'Nicht zugewiesen',
+  'linkDataSource.basic-filter.dropdown.select.placeholder': 'Suchen',
+  'linkDataSource.basic-filter.error-message': 'Etwas ist schiefgelaufen',
+  'linkDataSource.basic-filter.footer.pagination-details': '{currentDisplayCount} von {totalCount}',
+  'linkDataSource.basic-filter.loading-message': 'Wird geladen …',
+  'linkDataSource.basic-filter.no-options-message': 'Keine Treffer gefunden',
+  'linkDataSource.basic-filter.project.label': 'Projekt',
+  'linkDataSource.basic-filter.showMoreButton': 'Mehr anzeigen',
+  'linkDataSource.basic-filter.status.label': 'Status',
+  'linkDataSource.basic-filter.type.label': 'Typ',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1': 'Ihre Suche brachte zu viele Ergebnisse.',
   'linkDataSource.column-picker.no-all-items-shown-message.line-2':
     'Versuchen Sie es erneut mit konkreteren Stichwörtern.',
   'linkDataSource.column-picker.search': 'Nach Feldern suchen',
   'linkDataSource.column-picker.tooltip': 'Spalten konfigurieren',
+  'linkDataSource.datasource.table.authConnectButtonText': 'Verbinden',
+  'linkDataSource.datasource.table.authScreenDescriptionText':
+    'Verbinden Sie Ihr Konto, um an verschiedenen Atlassian-Produkten mitzuarbeiten.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Konto verbinden',
+  'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Mehr über intelligente Links erfahren',
   'linkDataSource.jira-issues.accessInstructions':
     'Wenden Sie sich an Ihren Site-Administrator, um Zugriff zu beantragen.',
   'linkDataSource.jira-issues.accessRequired': 'Sie haben keinen Zugriff auf diesen Inhalt',
@@ -40,12 +57,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'Mit Stichwörtern nach Vorgängen suchen',
   'linkDataSource.jira-issues.configmodal.cancelButtonText': 'Abbrechen',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Site wählen',
-  'linkDataSource.jira-issues.configmodal.countViewModeLabel': 'Anzahlansicht',
+  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeDescription':
+    'Anzahl der Suchergebnisse als intelligenten Inline-Link anzeigen',
+  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeLabel': 'Inline-Link',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Vorgänge einfügen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira-Vorgänge einfügen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-Vorgänge von folgender Site einfügen:',
   'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {Vorgang} other {Vorgänge}}',
-  'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Vorgangsansicht',
+  'linkDataSource.jira-issues.configmodal.tableViewModeDescription': 'Jira-Ergebnisse als Tabelle anzeigen',
+  'linkDataSource.jira-issues.configmodal.tableViewModeLabel': 'Tabelle',
   'linkDataSource.jira-issues.no.jira.sites.access.description':
     'Wenden Sie sich an Ihren Administrator, um Zugriff anzufordern.',
   'linkDataSource.jira-issues.no.jira.sites.access.title': 'Sie haben keinen Zugriff auf Jira-Sites',
@@ -55,6 +75,10 @@ export default {
   'linkDataSource.jira-issues.unableToLoadResults': 'Ergebnisse konnten nicht geladen werden',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Weitere Informationen zur Suche mit JQL',
+  'linkDataSource.modal-initial-state.searchDescription-basic':
+    'Suchen Sie nach Vorgängen, indem Sie ein Schlüsselwort eingeben.',
+  'linkDataSource.modal-initial-state.searchDescription-jql':
+    'Suchen Sie mithilfe von JQL (Jira-Abfragesprache) nach Vorgängen.',
   'linkDataSource.modal-initial-state.searchTitle': 'Nach Jira-Vorgängen suchen',
   'linkDataSource.render-type.boolean.false': 'Nein',
   'linkDataSource.render-type.boolean.true': 'Ja',

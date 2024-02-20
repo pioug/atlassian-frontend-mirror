@@ -36,43 +36,10 @@
       "path": "tsconfig.app.json"
     },
     {
-      "path": "../../analytics/analytics-next/tsconfig.app.json"
-    },
-    {
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
-      "path": "../editor-common/tsconfig.app.json"
-    },
-    {
       "path": "../editor-core/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-analytics/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-base/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-block-type/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-feature-flags/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-indentation/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-list/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-tasks-and-decisions/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-text-formatting/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-test-helpers/tsconfig.app.json"
     },
     {
       "path": "../../design-system/tokens/tsconfig.app.json"

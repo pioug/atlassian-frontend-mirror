@@ -10,6 +10,7 @@ describe('Feature flags', () => {
         testFF: true,
         blockViewOnly: true,
         reconcileOnRecovery: true,
+        connectWebsocketFirst: true,
       },
       'confluence',
     );
@@ -17,6 +18,7 @@ describe('Feature flags', () => {
       'confluence.frontend.collab.provider.testFF',
       'confluence.frontend.ncs.block-view-only',
       'confluence.frontend.ncs.reconcile-on-recovery',
+      'confluence.frontend.ncs.connect-websocket-first',
     ]);
   });
 

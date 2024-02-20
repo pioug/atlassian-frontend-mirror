@@ -1,6 +1,7 @@
 import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { DatasourceModalType } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { DatasourceAdfView } from '@atlaskit/linking-common';
 import type { SmartLinkEvents } from '@atlaskit/smart-card';
 
 import type { CardInfo, CardPluginAction, Request } from '../types';
@@ -101,3 +102,11 @@ export const hideDatasourceModal = (tr: Transaction) =>
 
 export const clearOverlayCandidate = (tr: Transaction) =>
   cardAction(tr, { type: 'CLEAR_OVERLAY_CANDIDATE' });
+
+export const setDatasourceStash = (
+  tr: Transaction,
+  datasourceStash: { url: string; views: DatasourceAdfView[] },
+) => cardAction(tr, { type: 'SET_DATASOURCE_STASH', datasourceStash });
+
+export const removeDatasourceStash = (tr: Transaction, url: string) =>
+  cardAction(tr, { type: 'REMOVE_DATASOURCE_STASH', url });

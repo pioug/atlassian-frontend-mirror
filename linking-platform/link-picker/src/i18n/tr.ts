@@ -31,6 +31,7 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'Son kullanılan bağlantıları bulun veya yeni bir bağlantı yapıştırın',
   'fabric.linkPicker.search.noResults.description': 'Farklı bir terim aramayı deneyin.',
   'fabric.linkPicker.search.noResults.heading': 'Aramanızla eşleşen sonuç bulunamadı.',
+  'fabric.linkPicker.status.submitting': 'Gönderiliyor',
   'fabric.linkPicker.time.message.updated': 'Son güncelleme: {time}',
   'fabric.linkPicker.time.message.viewed': 'Son görüntüleme: {time}',
   'fabric.linkPicker.unhandledError.description': 'Sayfayı yeniden yüklemeyi deneyin.',

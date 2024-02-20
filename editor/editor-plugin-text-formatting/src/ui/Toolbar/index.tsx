@@ -162,6 +162,8 @@ const ToolbarFormatting = ({
     toolbarMessages.moreFormatting,
   );
 
+  const labelTextFormat = intl.formatMessage(toolbarMessages.textFormatting);
+
   useEffect(() => {
     if (screenReaderMessage) {
       setMessage(screenReaderMessage);
@@ -171,47 +173,53 @@ const ToolbarFormatting = ({
   return (
     // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
     <span css={buttonGroupStyle}>
-      {message && (
-        <Announcer
-          ariaLive="assertive"
-          text={message}
-          ariaRelevant="additions"
-          delay={250}
-        />
-      )}
-      <SingleToolbarButtons
-        items={singleItems}
-        editorView={editorView}
-        isReducedSpacing={isReducedSpacing}
-      />
-      {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
-      <span css={wrapperStyle}>
-        {isToolbarDisabled ? (
-          <div>
-            <MoreButton
-              label={moreFormattingButtonLabel}
-              isReducedSpacing={isReducedSpacing}
-              isDisabled={true}
-              isSelected={false}
-              aria-expanded={undefined}
-              aria-pressed={undefined}
-            />
-          </div>
-        ) : (
-          <FormattingTextDropdownMenu
-            popupsMountPoint={popupsMountPoint}
-            popupsBoundariesElement={popupsBoundariesElement}
-            popupsScrollableElement={popupsScrollableElement}
-            editorView={editorView}
-            isReducedSpacing={isReducedSpacing}
-            moreButtonLabel={moreFormattingButtonLabel}
-            hasFormattingActive={hasFormattingActive}
-            items={items}
+      <div
+        role="group"
+        className={'js-text-format-wrap'}
+        aria-label={labelTextFormat}
+      >
+        {message && (
+          <Announcer
+            ariaLive="assertive"
+            text={message}
+            ariaRelevant="additions"
+            delay={250}
           />
         )}
+        <SingleToolbarButtons
+          items={singleItems}
+          editorView={editorView}
+          isReducedSpacing={isReducedSpacing}
+        />
         {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
-        <span css={separatorStyles} />
-      </span>
+        <span css={wrapperStyle}>
+          {isToolbarDisabled ? (
+            <div>
+              <MoreButton
+                label={moreFormattingButtonLabel}
+                isReducedSpacing={isReducedSpacing}
+                isDisabled={true}
+                isSelected={false}
+                aria-expanded={undefined}
+                aria-pressed={undefined}
+              />
+            </div>
+          ) : (
+            <FormattingTextDropdownMenu
+              popupsMountPoint={popupsMountPoint}
+              popupsBoundariesElement={popupsBoundariesElement}
+              popupsScrollableElement={popupsScrollableElement}
+              editorView={editorView}
+              isReducedSpacing={isReducedSpacing}
+              moreButtonLabel={moreFormattingButtonLabel}
+              hasFormattingActive={hasFormattingActive}
+              items={items}
+            />
+          )}
+          {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
+          <span css={separatorStyles} />
+        </span>
+      </div>
     </span>
   );
 };

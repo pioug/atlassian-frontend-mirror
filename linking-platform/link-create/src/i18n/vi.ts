@@ -9,7 +9,7 @@
 export default {
   'link-create.unknown-error.description':
     'Làm mới trang hoặc liên hệ với <a>Bộ phận hỗ trợ Atlassian</a> nếu sự cố này vẫn tiếp diễn.',
-  'link-create.unknown-error.heading': 'Đã xảy ra lỗi',
+  'link-create.unknown-error.heading': 'Đã xảy ra lỗi.',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Quay lại',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Hủy bỏ',
   'linkCreate.confirm-dismiss-dialog.modal.description':
@@ -18,5 +18,6 @@ export default {
   'linkCreate.createForm.button.close': 'Đóng',
   'linkCreate.createForm.button.create': 'Tạo',
   'linkCreate.createForm.button.createAndOpen': 'Tạo + Mở',
+  'linkCreate.form.requiredField.instruction': 'Các trường bắt buộc được đánh dấu bằng dấu sao',
   'linkCreate.modal.heading': 'Tạo mới',
 };

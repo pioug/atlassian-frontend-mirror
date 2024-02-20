@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.18.0
+
+### Minor Changes
+
+- [#71808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71808) [`eaf1018c6017`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eaf1018c6017) - Displaying users title in Atlas search results and changing meta style to align to the right without fixed width
+
 ## 10.17.1
 
 ### Patch Changes

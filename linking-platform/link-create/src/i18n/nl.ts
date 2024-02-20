@@ -9,7 +9,7 @@
 export default {
   'link-create.unknown-error.description':
     'Vernieuw de pagina of neem contact op met <a>Atlassian-support</a> als dit blijft gebeuren.',
-  'link-create.unknown-error.heading': 'Er is iets misgegaan',
+  'link-create.unknown-error.heading': 'Er is iets misgegaan.',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Teruggaan',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Wissen',
   'linkCreate.confirm-dismiss-dialog.modal.description':
@@ -18,5 +18,6 @@ export default {
   'linkCreate.createForm.button.close': 'Sluiten',
   'linkCreate.createForm.button.create': 'Aanmaken',
   'linkCreate.createForm.button.createAndOpen': 'Aanmaken en openen',
+  'linkCreate.form.requiredField.instruction': 'Verplichte velden zijn aangeduid met een asterisk',
   'linkCreate.modal.heading': 'Nieuwe aanmaken',
 };

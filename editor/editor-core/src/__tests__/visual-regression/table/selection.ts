@@ -27,8 +27,7 @@ import complexTableWithMergedCells from './__fixtures__/complex-table-with-merge
 import lastColumnMergedTable from './__fixtures__/last-column-merged-table.adf.json';
 import tableWithNumberedColumn from './__fixtures__/table-with-numbered-column.adf.json';
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Snapshot Test: Table selection', () => {
+describe('Snapshot Test: Table selection', () => {
   let page: PuppeteerPage;
   beforeAll(async () => {
     page = global.page;

@@ -53,6 +53,7 @@ import {
   hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { PastePluginActionTypes } from '../actions';
 import { splitParagraphs, upgradeTextToLists } from '../commands';
@@ -257,7 +258,14 @@ export function createPlugin(
             return true;
           }
 
-          event.stopImmediatePropagation();
+          /**
+           * https://product-fabric.atlassian.net/browse/ED-21993
+           * stopImmediatePropagation will run the first event attached to the same element
+           * Which chould have race condition issue
+           */
+          getBooleanFF('platform.editor.media.fix-copy-paste-excel_62g4s')
+            ? event.stopPropagation()
+            : event.stopImmediatePropagation();
         }
 
         const { state } = view;

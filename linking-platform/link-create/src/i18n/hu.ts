@@ -9,7 +9,7 @@
 export default {
   'link-create.unknown-error.description':
     'Frissítsd az oldalt, vagy vedd fel a kapcsolatot az <a>Atlassian Támogatással</a>, ha ez a későbbiekben is megtörténik.',
-  'link-create.unknown-error.heading': 'Hiba történt',
+  'link-create.unknown-error.heading': 'Hiba történt.',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Vissza',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Elvetés',
   'linkCreate.confirm-dismiss-dialog.modal.description': 'Ha elhagyod az oldalt, nem tudjuk menteni az információkat.',
@@ -17,5 +17,6 @@ export default {
   'linkCreate.createForm.button.close': 'Bezárás',
   'linkCreate.createForm.button.create': 'Létrehozás',
   'linkCreate.createForm.button.createAndOpen': 'Létrehozás és megnyitás',
+  'linkCreate.form.requiredField.instruction': 'A kötelező mezők csillaggal vannak megjelölve',
   'linkCreate.modal.heading': 'Új létrehozása',
 };

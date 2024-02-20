@@ -9,7 +9,7 @@
 export default {
   'link-create.unknown-error.description':
     'Laden Sie die Seite erneut oder wenden Sie sich an den <a>Atlassian Support</a>, falls das Problem weiterhin besteht.',
-  'link-create.unknown-error.heading': 'Etwas ist schiefgelaufen',
+  'link-create.unknown-error.heading': 'Irgendetwas ist schiefgelaufen.',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Zurück',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Verwerfen',
   'linkCreate.confirm-dismiss-dialog.modal.description':
@@ -18,5 +18,6 @@ export default {
   'linkCreate.createForm.button.close': 'Schließen',
   'linkCreate.createForm.button.create': 'Erstellen',
   'linkCreate.createForm.button.createAndOpen': 'Erstellen + Öffnen',
+  'linkCreate.form.requiredField.instruction': 'Pflichtfelder sind mit einem Sternchen markiert.',
   'linkCreate.modal.heading': 'Neu erstellen',
 };

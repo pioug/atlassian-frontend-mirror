@@ -6,10 +6,12 @@ import type {
   Queue,
   Register,
   RegisterSmartCardEvents,
+  RemoveDatasourceStash,
   Request,
   Resolve,
   SetCardLayout,
   SetCardLayoutAndDatasourceTableRef,
+  SetDatasourceStash,
   SetDatasourceTableRef,
   SetProvider,
   ShowDatasourceModal,
@@ -127,6 +129,30 @@ const registerRemoveOverlayOnInsertedLink = (
   };
 };
 
+const setDatasourceStash = (
+  state: CardPluginState,
+  action: SetDatasourceStash,
+): CardPluginState => {
+  return {
+    ...state,
+    datasourceStash: {
+      ...state.datasourceStash,
+      [action.datasourceStash.url]: { views: action.datasourceStash.views },
+    },
+  };
+};
+
+const removeDatasourceStash = (
+  state: CardPluginState,
+  action: RemoveDatasourceStash,
+): CardPluginState => {
+  const { [action.url]: _, ...datasourceStash } = state.datasourceStash;
+  return {
+    ...state,
+    datasourceStash,
+  };
+};
+
 export default (
   state: CardPluginState,
   action: CardPluginAction,
@@ -159,5 +185,9 @@ export default (
       return clearOverlayCandidate(state);
     case 'REGISTER_REMOVE_OVERLAY_ON_INSERTED_LINK':
       return registerRemoveOverlayOnInsertedLink(state, action);
+    case 'SET_DATASOURCE_STASH':
+      return setDatasourceStash(state, action);
+    case 'REMOVE_DATASOURCE_STASH':
+      return removeDatasourceStash(state, action);
   }
 };

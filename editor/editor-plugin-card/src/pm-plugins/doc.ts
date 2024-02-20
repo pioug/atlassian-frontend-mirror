@@ -53,9 +53,19 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type { DatasourceAdfView, InlineCardAdf } from '@atlaskit/smart-card';
 
 import type { CardPluginState, Request } from '../types';
-import { appearanceForNodeType, selectedCardAppearance } from '../utils';
+import {
+  appearanceForNodeType,
+  isDatasourceConfigEditable,
+  selectedCardAppearance,
+} from '../utils';
 
-import { hideDatasourceModal, queueCards, resolveCard } from './actions';
+import {
+  hideDatasourceModal,
+  queueCards,
+  removeDatasourceStash,
+  resolveCard,
+  setDatasourceStash,
+} from './actions';
 import { pluginKey } from './plugin-key';
 import { shouldReplaceLink } from './shouldReplaceLink';
 /**
@@ -378,6 +388,19 @@ export const changeSelectedCardToLink =
     const selectedNode =
       state.selection instanceof NodeSelection && state.selection.node;
 
+    if (
+      getBooleanFF(
+        'platform.linking-platform.enable-datasource-appearance-toolbar',
+      ) &&
+      selectedNode &&
+      !isDatasourceConfigEditable(selectedNode.attrs.datasource.id)
+    ) {
+      setDatasourceStash(tr, {
+        url: selectedNode.attrs.url,
+        views: selectedNode.attrs.datasource.views,
+      });
+    }
+
     if (sendAnalytics) {
       if (selectedNode) {
         editorAnalyticsApi?.attachAnalyticsEvent({
@@ -580,6 +603,19 @@ export const setSelectedCardAppearance: (
   const nodeType = getLinkNodeType(appearance, state.schema.nodes as LinkNodes);
   const tr = state.tr.setNodeMarkup(from, nodeType, attrs, selectedNode.marks);
 
+  if (
+    getBooleanFF(
+      'platform.linking-platform.enable-datasource-appearance-toolbar',
+    ) &&
+    selectedNode &&
+    !isDatasourceConfigEditable(selectedNode.attrs.datasource.id)
+  ) {
+    setDatasourceStash(tr, {
+      url: selectedNode.attrs.url,
+      views: selectedNode.attrs.datasource.views,
+    });
+  }
+
   // When the selected card is the last element in the doc we add a new paragraph after it for consistent replacement
   if (tr.doc.nodeSize - 2 === to) {
     tr.insertText(' ', to);
@@ -638,6 +674,7 @@ export const updateCardViaDatasource = (
   newAdf: DatasourceAdf | InlineCardAdf,
   view: EditorView,
   sourceEvent?: UIAnalyticsEvent,
+  isDeletingConfig?: boolean,
 ) => {
   const {
     tr,
@@ -683,7 +720,11 @@ export const updateCardViaDatasource = (
     sourceEvent,
   });
 
-  hideDatasourceModal(tr);
+  if (isDeletingConfig) {
+    removeDatasourceStash(tr, node.attrs.url);
+  } else {
+    hideDatasourceModal(tr);
+  }
   view.dispatch(tr.scrollIntoView());
 };
 

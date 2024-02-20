@@ -10,6 +10,10 @@ export default {
   'fabric.linking.access_exists_description': 'Yêu cầu quyền truy cập để xem nội dung này từ {hostname}.',
   'fabric.linking.actions': 'Hành động',
   'fabric.linking.add_account': 'Thêm tài khoản',
+  'fabric.linking.ai_summarize': 'Tóm tắt',
+  'fabric.linking.ai_summarized': 'Do Atlassian Intelligence tóm tắt',
+  'fabric.linking.ai_summarized_info': 'Chất lượng thông tin có thể khác nhau. <a>Tìm hiểu thêm</a>',
+  'fabric.linking.ai_summarizing': 'Atlassian Intelligence đang xử lý...',
   'fabric.linking.assigned_to': 'Đã chỉ định cho {context}',
   'fabric.linking.cancel': 'Hủy',
   'fabric.linking.cannot_connect': 'Không thể kết nối, hãy thử lại',
@@ -38,19 +42,16 @@ export default {
   'fabric.linking.create_on_relative': 'Đã tạo {context}',
   'fabric.linking.created_by': 'Được tạo bởi {context}',
   'fabric.linking.delete': 'Xóa',
-  'fabric.linking.direct_access_crossjoin': 'Tham gia ngay',
-  'fabric.linking.direct_access_description_crossjoin':
+  'fabric.linking.direct_access': 'Tham gia ngay',
+  'fabric.linking.direct_access_description':
     'Nhóm của bạn sử dụng {product} để cộng tác và bạn có thể bắt đầu sử dụng sản phẩm này ngay lập tức!',
-  'fabric.linking.direct_access_title_crossjoin': 'Tham gia {product} để xem nội dung này',
+  'fabric.linking.direct_access_title': 'Tham gia {product} để xem nội dung này',
   'fabric.linking.download': 'Tải xuống',
   'fabric.linking.edit': 'Chỉnh sửa',
   'fabric.linking.follow': 'Theo dõi',
   'fabric.linking.forbidden_access': 'Quyền truy cập của bạn bị cấm',
-  'fabric.linking.forbidden_description':
-    'Bạn không có quyền truy cập vào bản xem trước này. Hãy liên hệ với quản trị viên trang web nếu bạn cần quyền truy cập.',
-  'fabric.linking.forbidden_description_crossjoin':
-    'Hãy liên hệ với quản trị viên để yêu cầu cấp quyền truy cập vào {hostname}.',
-  'fabric.linking.forbidden_title_crossjoin': 'Bạn không có quyền truy cập nội dung này',
+  'fabric.linking.forbidden_description': 'Hãy liên hệ với quản trị viên để yêu cầu cấp quyền truy cập vào {hostname}.',
+  'fabric.linking.forbidden_title': 'Bạn không có quyền truy cập nội dung này',
   'fabric.linking.generic_error_message': 'Đã xảy ra lỗi',
   'fabric.linking.go_back': 'Quay lại',
   'fabric.linking.invalid_permissions': 'Nội dung bị hạn chế',
@@ -67,13 +68,10 @@ export default {
   'fabric.linking.modified_on_absolute': 'Đã cập nhật trên {context}',
   'fabric.linking.modified_on_relative': 'Đã cập nhật {context}',
   'fabric.linking.more_actions': 'Hành động khác',
-  'fabric.linking.no_access_title_crossjoin': 'Tham gia {product} để xem nội dung này',
+  'fabric.linking.no_access_title': 'Tham gia {product} để xem nội dung này',
   'fabric.linking.not_found_description':
-    'Chúng tôi không thể tìm thấy đường liên kết này. Hãy kiểm tra url và thử chỉnh sửa hoặc dán lại.',
-  'fabric.linking.not_found_description_crossjoin':
     'Trang này không tồn tại hoặc có thể đã thay đổi sau khi liên kết này được thêm vào.',
-  'fabric.linking.not_found_title': 'Ôi! Chúng tôi không thể tìm thấy liên kết này!',
-  'fabric.linking.not_found_title_crossjoin': 'Chúng tôi không thể hiển thị cho bạn trang {product} này',
+  'fabric.linking.not_found_title': 'Chúng tôi không thể hiển thị cho bạn trang {product} này',
   'fabric.linking.open_issue_in_jira': 'Mở vấn đề trong Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Mở liên kết trong tab mới',
   'fabric.linking.owned_by': 'Sở hữu bởi {context}',
@@ -97,21 +95,15 @@ export default {
   'fabric.linking.related': 'Có liên quan',
   'fabric.linking.related_work_items_not_found': 'Liên kết này chưa được nhắc đến ở bất cứ đâu.',
   'fabric.linking.request_access': 'Yêu cầu cấp quyền truy cập',
-  'fabric.linking.request_access_crossjoin': 'Yêu cầu cấp quyền truy cập',
-  'fabric.linking.request_access_description': 'Yêu cầu quyền truy cập để {context} xem bản xem trước này.',
-  'fabric.linking.request_access_description_crossjoin':
+  'fabric.linking.request_access_description':
     'Nhóm của bạn sử dụng {product} để cộng tác. Hãy gửi yêu cầu cho quản trị viên của bạn để được cấp quyền truy cập.',
-  'fabric.linking.request_access_pending': 'Đang chờ xử lý quyền truy cập',
-  'fabric.linking.request_access_pending_crossjoin': 'Đang chờ phê duyệt',
-  'fabric.linking.request_access_pending_description': 'Đang chờ xử lý yêu cầu quyền truy cập của bạn.',
-  'fabric.linking.request_access_pending_description_crossjoin':
+  'fabric.linking.request_access_pending': 'Đang chờ phê duyệt',
+  'fabric.linking.request_access_pending_description':
     'Yêu cầu quyền truy cập {hostname} của bạn đang chờ quản trị viên phê duyệt.',
-  'fabric.linking.request_access_pending_title_crossjoin': 'Đang chờ cấp quyền truy cập {product}',
+  'fabric.linking.request_access_pending_title': 'Đang chờ cấp quyền truy cập {product}',
   'fabric.linking.request_access_to_view': 'Yêu cầu quyền truy cập vào {context} để xem vấn đề này',
   'fabric.linking.request_denied': 'Yêu cầu quyền truy cập của bạn đã bị từ chối',
   'fabric.linking.request_denied_description':
-    'Yêu cầu quyền truy cập của bạn đã bị từ chối. Hãy liên hệ với quản trị viên trang web nếu bạn vẫn cần quyền truy cập.',
-  'fabric.linking.request_denied_description_crossjoin':
     'Quản trị viên không chấp thuận yêu cầu xem các trang {product} từ {hostname} của bạn.',
   'fabric.linking.restricted_link': 'Liên kết bị hạn chế, thử một tài khoản khác',
   'fabric.linking.retry': 'Thử lại',

@@ -9,7 +9,7 @@
 export default {
   'link-create.unknown-error.description':
     'Oppdater siden, eller kontakt <a>Atlassian-støtte</a> hvis problemet vedvarer.',
-  'link-create.unknown-error.heading': 'Det oppstod en feil',
+  'link-create.unknown-error.heading': 'Det oppstod en feil.',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Gå tilbake',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Forkast',
   'linkCreate.confirm-dismiss-dialog.modal.description':
@@ -18,5 +18,6 @@ export default {
   'linkCreate.createForm.button.close': 'Lukk',
   'linkCreate.createForm.button.create': 'Opprett',
   'linkCreate.createForm.button.createAndOpen': 'Opprett + åpne',
+  'linkCreate.form.requiredField.instruction': 'Obligatoriske felt er merket med stjerne',
   'linkCreate.modal.heading': 'Opprett ny',
 };

@@ -11,6 +11,10 @@ export default {
     '{hostname} からこのコンテンツを閲覧するには、アクセス権をリクエストしてください。',
   'fabric.linking.actions': 'アクション',
   'fabric.linking.add_account': 'アカウントを追加',
+  'fabric.linking.ai_summarize': '要約',
+  'fabric.linking.ai_summarized': 'Atlassian Intelligence による要約',
+  'fabric.linking.ai_summarized_info': '情報の質は異なる場合があります。<a>詳細をご確認ください</a>',
+  'fabric.linking.ai_summarizing': 'Atlassian Intelligence が作動中...',
   'fabric.linking.assigned_to': '割り当て先: {context}',
   'fabric.linking.cancel': 'キャンセル',
   'fabric.linking.cannot_connect': '接続できません、もう一度お試しください。',
@@ -38,19 +42,16 @@ export default {
   'fabric.linking.create_on_relative': '作成日: {context}',
   'fabric.linking.created_by': '作成元: {context}',
   'fabric.linking.delete': '削除',
-  'fabric.linking.direct_access_crossjoin': '今すぐ参加する',
-  'fabric.linking.direct_access_description_crossjoin':
+  'fabric.linking.direct_access': '今すぐ参加する',
+  'fabric.linking.direct_access_description':
     'あなたのチームは {product} を使用してコラボレーションしています。あなたも今すぐ使用を開始できます！',
-  'fabric.linking.direct_access_title_crossjoin': '{product} に参加してこのコンテンツを閲覧する',
+  'fabric.linking.direct_access_title': '{product} に参加してこのコンテンツを閲覧する',
   'fabric.linking.download': 'ダウンロード',
   'fabric.linking.edit': '編集',
   'fabric.linking.follow': 'フォロー',
   'fabric.linking.forbidden_access': 'アクセスは禁止されています。',
-  'fabric.linking.forbidden_description':
-    'このプレビューにアクセスできません。アクセスが必要な場合はサイト管理者にお問い合わせください。',
-  'fabric.linking.forbidden_description_crossjoin':
-    '{hostname} へのアクセス権をリクエストするには、管理者に連絡してください。',
-  'fabric.linking.forbidden_title_crossjoin': 'このコンテンツへのアクセス権がありません',
+  'fabric.linking.forbidden_description': '{hostname} へのアクセス権をリクエストするには、管理者に連絡してください。',
+  'fabric.linking.forbidden_title': 'このコンテンツへのアクセス権がありません',
   'fabric.linking.generic_error_message': 'エラーが発生しました',
   'fabric.linking.go_back': '戻る',
   'fabric.linking.invalid_permissions': '制限付きコンテンツ',
@@ -66,13 +67,9 @@ export default {
   'fabric.linking.modified_on_absolute': '更新日: {context}',
   'fabric.linking.modified_on_relative': '更新日: {context}',
   'fabric.linking.more_actions': 'その他のアクション',
-  'fabric.linking.no_access_title_crossjoin': '{product} に参加してこのコンテンツを閲覧する',
-  'fabric.linking.not_found_description':
-    'リンクが見つかりませんでした。URL を確認して編集するか、もう一度貼り付けてください。',
-  'fabric.linking.not_found_description_crossjoin':
-    'ページが存在しないか、このリンクの追加後に変更された可能性があります。',
-  'fabric.linking.not_found_title': '申し訳ありません。リンクが見つかりません。',
-  'fabric.linking.not_found_title_crossjoin': 'この {product} のページは表示できません',
+  'fabric.linking.no_access_title': '{product} に参加してこのコンテンツを閲覧する',
+  'fabric.linking.not_found_description': 'ページが存在しないか、このリンクの追加後に変更された可能性があります。',
+  'fabric.linking.not_found_title': 'この {product} のページは表示できません',
   'fabric.linking.open_issue_in_jira': 'Jira で課題を開く',
   'fabric.linking.open_link_in_a_new_tab': 'リンクを新しいタブで開く',
   'fabric.linking.owned_by': '所有者: {context}',
@@ -96,22 +93,14 @@ export default {
   'fabric.linking.related': '関連',
   'fabric.linking.related_work_items_not_found': 'このリンクは他のどこでも言及されていません。',
   'fabric.linking.request_access': 'アクセスをリクエスト',
-  'fabric.linking.request_access_crossjoin': 'アクセス権をリクエスト',
   'fabric.linking.request_access_description':
-    'このプレビューを表示するための{context}へのアクセスをリクエストします。',
-  'fabric.linking.request_access_description_crossjoin':
     'あなたのチームは {product} を使用してコラボレーションしています。管理者にアクセス権をリクエストしてください。',
-  'fabric.linking.request_access_pending': 'アクセス保留中',
-  'fabric.linking.request_access_pending_crossjoin': '承認待ち',
-  'fabric.linking.request_access_pending_description': 'アクセス リクエストは保留中です。',
-  'fabric.linking.request_access_pending_description_crossjoin':
-    '{hostname} へのアクセス権のリクエストは管理者の承認待ちです。',
-  'fabric.linking.request_access_pending_title_crossjoin': '{product} へのアクセス権は保留中です',
+  'fabric.linking.request_access_pending': '承認待ち',
+  'fabric.linking.request_access_pending_description': '{hostname} へのアクセス権のリクエストは管理者の承認待ちです。',
+  'fabric.linking.request_access_pending_title': '{product} へのアクセス権は保留中です',
   'fabric.linking.request_access_to_view': 'この課題を表示するには、{context}へのアクセスをリクエストします。',
   'fabric.linking.request_denied': 'アクセス リクエストが拒否されました。',
   'fabric.linking.request_denied_description':
-    'アクセス リクエストが拒否されました。アクセスが必要な場合はサイト管理者にお問い合わせください。',
-  'fabric.linking.request_denied_description_crossjoin':
     '{hostname} の {product} ページを閲覧するリクエストが管理者によって承認されませんでした。',
   'fabric.linking.restricted_link': '制限されているリンクです、別のアカウントをお試しください。',
   'fabric.linking.retry': '再試行',

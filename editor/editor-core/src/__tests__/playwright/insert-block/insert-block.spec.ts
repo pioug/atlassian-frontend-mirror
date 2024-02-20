@@ -5,6 +5,8 @@ import {
   expect,
   editorTestCase as test,
 } from '@af/editor-libra';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { code_block, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.describe('insert-block:', () => {
   test.use({
@@ -88,5 +90,23 @@ test.describe('insert-block: with new extensions', () => {
       // Assert that the right of the insert menu is equal to the right of the dropdown.
       expect(insertMenuRight).toBe(dropdownRight);
     });
+  });
+
+  test('should insert searched element on pressing enter', async ({
+    editor,
+    page,
+  }) => {
+    const { keyboard } = editor;
+    const toolbar = EditorMainToolbarModel.from(editor);
+    const insertMenu = await toolbar.openInsertMenu();
+
+    await expect(insertMenu.searchInput).toBeFocused();
+    await keyboard.type('Code Snippet');
+    await keyboard.press('Enter');
+
+    await editor.isEditorFocused();
+
+    await keyboard.type('Hello World');
+    await expect(editor).toHaveDocument(doc(code_block()('Hello World')));
   });
 });

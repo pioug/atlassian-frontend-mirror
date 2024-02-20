@@ -247,22 +247,17 @@ export async function onChangeAction(
   }
 
   const { node } = nodeWithPos;
-  const newAttributes = {
-    ...node.attrs,
-    parameters: {
-      ...oldParameters,
-      ...newParameters,
-      macroParams: {
-        ...oldParameters?.macroParams,
-        ...newParameters?.macroParams,
-      },
-    },
-  };
 
   const newNode = buildExtensionNode(
     nodeWithPos.node.toJSON().type,
     editorView.state.schema,
-    newAttributes,
+    {
+      ...node.attrs,
+      parameters: {
+        ...oldParameters,
+        ...newParameters,
+      },
+    },
     node.content,
     node.marks,
   );

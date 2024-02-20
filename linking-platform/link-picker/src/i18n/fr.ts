@@ -32,6 +32,7 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'Recherchez des liens récents ou collez un nouveau lien',
   'fabric.linkPicker.search.noResults.description': 'Réessayez avec un autre terme.',
   'fabric.linkPicker.search.noResults.heading': "Nous n'avons trouvé aucun résultat correspondant à votre recherche.",
+  'fabric.linkPicker.status.submitting': 'Envoi',
   'fabric.linkPicker.time.message.updated': 'Mise à jour : {time}',
   'fabric.linkPicker.time.message.viewed': 'Consultation : {time}',
   'fabric.linkPicker.unhandledError.description': 'Essayez de recharger la page.',

@@ -21,11 +21,28 @@ export default {
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Wstaw obiekt} few {Wstaw obiekty} many {Wstaw obiekty} other {Wstaw obiekty}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Wstawianie obiektów z',
+  'linkDataSource.assets.configmodal.updateObjectsButtonText': 'Aktualizuj tabelę',
+  'linkDataSource.basic-filter.assignee.label': 'Osoba przypisana',
+  'linkDataSource.basic-filter.dropdown.select.assignee.unassigned': 'Nie przypisano',
+  'linkDataSource.basic-filter.dropdown.select.placeholder': 'Szukaj',
+  'linkDataSource.basic-filter.error-message': 'Coś poszło nie tak',
+  'linkDataSource.basic-filter.footer.pagination-details': '{currentDisplayCount} z {totalCount}',
+  'linkDataSource.basic-filter.loading-message': 'Ładowanie...',
+  'linkDataSource.basic-filter.no-options-message': 'Nie znaleziono dopasowań',
+  'linkDataSource.basic-filter.project.label': 'Projekt',
+  'linkDataSource.basic-filter.showMoreButton': 'Pokaż więcej',
+  'linkDataSource.basic-filter.status.label': 'Status',
+  'linkDataSource.basic-filter.type.label': 'Typ',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1': 'Wyszukiwanie zwróciło zbyt wiele wyników.',
   'linkDataSource.column-picker.no-all-items-shown-message.line-2':
     'Spróbuj ponownie z bardziej szczegółowymi słowami kluczowymi.',
   'linkDataSource.column-picker.search': 'Wyszukaj pola',
   'linkDataSource.column-picker.tooltip': 'Konfiguruj kolumny',
+  'linkDataSource.datasource.table.authConnectButtonText': 'Połącz',
+  'linkDataSource.datasource.table.authScreenDescriptionText':
+    'Połącz swoje konto, aby współpracować w różnych produktach Atlassian.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Łączenie konta',
+  'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Dowiedz się więcej o inteligentnych łączach.',
   'linkDataSource.jira-issues.accessInstructions': 'Aby poprosić o dostęp, skontaktuj się z administratorem witryny.',
   'linkDataSource.jira-issues.accessRequired': 'Nie masz dostępu do tej treści',
   'linkDataSource.jira-issues.accessRequiredWithSite': 'Nie masz dostępu do następującej witryny:',
@@ -38,13 +55,17 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'Wyszukaj zgłoszenia według słów kluczowych',
   'linkDataSource.jira-issues.configmodal.cancelButtonText': 'Anuluj',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Wybierz witrynę',
-  'linkDataSource.jira-issues.configmodal.countViewModeLabel': 'Widok licznika',
+  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeDescription':
+    'Wyświetl liczbę wyników wyszukiwania lub jako śródwierszowe inteligentne łącze',
+  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeLabel': 'Łącze śródwierszowe',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Wstaw zgłoszenia',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Wstaw zgłoszenia Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Wstaw zgłoszenia Jira z witryny',
   'linkDataSource.jira-issues.configmodal.issue':
     '{totalCount, plural, one {zgłoszenie} few {zgłoszenia} many {zgłoszeń} other {zgłoszenia}}',
-  'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Widok zgłoszenia',
+  'linkDataSource.jira-issues.configmodal.tableViewModeDescription':
+    'Wyświetl wyniki wyszukiwania Jira w formie tabeli',
+  'linkDataSource.jira-issues.configmodal.tableViewModeLabel': 'Tabela',
   'linkDataSource.jira-issues.no.jira.sites.access.description':
     'Aby poprosić o dostęp, skontaktuj się z administratorem.',
   'linkDataSource.jira-issues.no.jira.sites.access.title': 'Nie masz dostępu do żadnej witryny Jira',
@@ -54,6 +75,10 @@ export default {
   'linkDataSource.jira-issues.unableToLoadResults': 'Nie można załadować wyników',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Dowiedz się, jak wyszukiwać przy użyciu zapytań JQL',
+  'linkDataSource.modal-initial-state.searchDescription-basic':
+    'Wyszukaj zgłoszenia do wstawienia według słowa kluczowego.',
+  'linkDataSource.modal-initial-state.searchDescription-jql':
+    'Użyj zapytań w języku JQL (Jira Query Language), aby wyszukiwać zgłoszenia.',
   'linkDataSource.modal-initial-state.searchTitle': 'Wyszukaj zgłoszenia Jira',
   'linkDataSource.render-type.boolean.false': 'Nie',
   'linkDataSource.render-type.boolean.true': 'Tak',

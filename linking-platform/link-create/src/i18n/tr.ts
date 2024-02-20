@@ -9,7 +9,7 @@
 export default {
   'link-create.unknown-error.description':
     'Sayfayı yenileyin veya sorun devam ederse <a>Atlassian Destek</a> ekibiyle iletişime geçin.',
-  'link-create.unknown-error.heading': 'Bir hata oluştu',
+  'link-create.unknown-error.heading': 'Bir hata oluştu.',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Geri dön',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Vazgeç',
   'linkCreate.confirm-dismiss-dialog.modal.description': 'Bu sayfadan ayrılırsanız bilgileriniz kaydedilemez.',
@@ -17,5 +17,6 @@ export default {
   'linkCreate.createForm.button.close': 'Kapat',
   'linkCreate.createForm.button.create': 'Oluştur',
   'linkCreate.createForm.button.createAndOpen': 'Oluştur + Aç',
+  'linkCreate.form.requiredField.instruction': 'Gerekli alanlar yıldız işaretiyle belirtilmiştir',
   'linkCreate.modal.heading': 'Yenisini oluşturun',
 };

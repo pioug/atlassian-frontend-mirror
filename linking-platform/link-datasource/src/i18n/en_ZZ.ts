@@ -22,6 +22,7 @@ export default {
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {⁣⁢Insert object؜⁪⁭‌؜‌⁯⁮؜⁭؜⁮⁪⁡⁬؜⁪⁫⁠⁪⁭⁪‌⁣⁤} other {⁣⁢Insert objects؜⁪⁭‌؜‌⁯⁮؜⁭؜⁮⁪⁡⁬؜⁪⁫⁠⁪⁭⁪‌⁣⁤}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': '⁣⁢Insert objects from⁫‍؜‌⁭⁠⁬؜⁠؜⁪⁡‌⁬⁯⁯‍⁯⁪⁫⁣⁤',
+  'linkDataSource.assets.configmodal.updateObjectsButtonText': '⁣⁢Update table⁭⁫‍⁠‍⁪⁫⁠⁬⁭⁯؜⁯⁡‌⁡⁡⁮⁫⁭⁣⁤',
   'linkDataSource.basic-filter.assignee.label': '⁣⁢Assignee‍⁮⁪⁫‌؜⁮؜‌⁡⁫⁪‍؜‌⁡⁫⁫⁠⁭⁡؜⁠⁮⁪⁠⁠⁣⁤',
   'linkDataSource.basic-filter.dropdown.select.assignee.unassigned': '⁣⁢Unassigned⁮⁬⁬⁡⁮⁡‌‌⁯⁪؜‍⁪‌⁪⁪⁣⁤',
   'linkDataSource.basic-filter.dropdown.select.placeholder': '⁣⁢Search⁯‍⁠؜⁡⁡⁯⁬‍⁬⁠⁭⁭⁮⁡⁭⁬⁮⁫⁮⁣⁤',
@@ -40,6 +41,12 @@ export default {
     '⁣⁢Try again with more specific keywords.⁮⁡⁬⁬⁪⁡‍⁯⁠⁭⁯⁮⁮⁭⁪‍⁯‍⁪⁮⁪⁫⁣⁤',
   'linkDataSource.column-picker.search': '⁣⁢Search for fields⁭⁮⁡⁪⁠‌‍⁫؜⁪⁬⁫؜⁡⁯⁭⁡⁬⁬⁫⁠⁡‌‍⁣⁤',
   'linkDataSource.column-picker.tooltip': '⁣⁢Configure columns⁠⁮؜‍⁫⁠⁪⁠؜⁪‍⁪⁫⁪⁮⁫‌؜⁪⁮⁡⁮؜⁡⁣⁤',
+  'linkDataSource.datasource.table.authConnectButtonText': '⁣⁢Connect⁫⁡⁡⁡⁪⁮‌⁬⁮⁭⁯‍⁫⁯‍⁮⁡⁪⁮⁯⁯⁮⁣⁤',
+  'linkDataSource.datasource.table.authScreenDescriptionText':
+    '⁣⁢Connect your account to collaborate on work across Atlassian products.⁮⁭⁭⁮؜⁠‍⁠⁯⁡⁬⁬⁮⁠⁭⁪⁯؜؜⁮⁡⁮⁬⁬⁣⁤',
+  'linkDataSource.datasource.table.authScreenHeaderText': '⁣⁢Connect your account⁭‍⁭⁯⁬⁠‍⁯⁮‌؜⁮⁬⁪⁪⁮⁠‍⁯⁠⁯⁣⁤',
+  'linkDataSource.datasource.table.learnMoreAboutSmartLinks':
+    '⁣⁢Learn more about Smart Links.‍⁯‌‍⁡؜؜‍‌⁯⁪⁮⁠⁪⁫⁡⁠⁫⁠‍‌⁠⁯⁯⁣⁤',
   'linkDataSource.jira-issues.accessInstructions':
     '⁣⁢To request access, contact your site administrator.⁪⁬⁪⁫⁫⁬⁮⁡⁯⁪⁮⁪⁯؜⁯⁫⁫⁮؜⁬⁣⁤',
   'linkDataSource.jira-issues.accessRequired': "⁣⁢You don't have access to this content⁠⁪‍⁬⁠⁫⁯⁫⁮⁬⁫⁪⁡⁠⁮⁭⁭⁯‌⁭⁬⁭⁭‌‌⁠⁣⁤",
@@ -56,15 +63,19 @@ export default {
     '⁣⁢Search for issues by keyword‌‍⁮‌‍⁪⁬‍‍⁠⁫⁭‌‍‌⁭⁪⁠⁮⁮⁯⁣⁤',
   'linkDataSource.jira-issues.configmodal.cancelButtonText': '⁣⁢Cancel⁯⁯⁬⁯؜‍⁮؜⁪‍؜⁡⁡⁡؜⁡‌⁯⁡‌⁮⁭⁣⁤',
   'linkDataSource.jira-issues.configmodal.chooseSite': '⁣⁢Choose site⁫؜⁫⁯؜⁯؜⁫⁬⁡⁡⁯⁠⁮⁬⁯⁠⁯⁮⁣⁤',
-  'linkDataSource.jira-issues.configmodal.countViewModeLabel': '⁣⁢Count view⁪⁯⁮⁯⁪‍⁯⁮‍⁫‍⁭‍⁬⁯⁭‌⁭⁯⁣⁤',
+  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeDescription':
+    '⁣⁢Display the number of search results or as an inline smart link⁬‌؜⁭⁫‌؜⁭‍⁫⁯⁭⁪⁬⁯‍‌⁯⁠⁭‍⁪⁣⁤',
+  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeLabel': '⁣⁢Inline link⁭⁭⁫⁯‌⁬⁬⁮‍⁪‍⁮⁮⁫⁬⁫⁮؜⁣⁤',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': '⁣⁢Insert issues⁭⁫⁫⁭⁬⁫⁫⁬⁮⁬⁪⁮⁬⁮⁯‍⁫⁯⁭⁪⁡⁬⁡‌‍⁣⁤',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': '⁣⁢Insert Jira issues⁡⁡⁭‌⁯؜⁮⁮‌⁬‌⁬⁯‍؜⁮⁮⁠⁬⁭⁫⁬‍⁭⁣⁤',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites':
     '⁣⁢Insert Jira issues from⁭‍⁭؜⁮⁯⁭⁮⁬⁫؜⁮⁭⁠⁪⁬⁬⁪⁭⁠⁯‍‌⁡⁣⁤',
   'linkDataSource.jira-issues.configmodal.issue':
     '{totalCount, plural, one {⁣⁢issue⁯‌⁬⁠⁭⁡⁡⁭⁪⁯⁠‌⁮‌‍⁫؜⁫⁭⁮؜⁯⁣⁤} other {⁣⁢issues⁯‌⁬⁠⁭⁡⁡⁭⁪⁯⁠‌⁮‌‍⁫؜⁫⁭⁮؜⁯⁣⁤}}',
-  'linkDataSource.jira-issues.configmodal.issueViewModeLabel': '⁣⁢Issue view⁡⁡‌؜⁭⁪⁫⁭⁯⁭⁯؜⁫⁡⁡⁯⁬؜⁬⁯⁮‌⁣⁤',
   'linkDataSource.jira-issues.configmodal.placeholder.issues': '⁣⁢### Issues؜؜⁮⁪⁡‌⁯⁮⁡؜‍⁡⁮‌‍⁬⁯؜⁮⁭⁪⁪⁠⁡⁫؜⁣⁤',
+  'linkDataSource.jira-issues.configmodal.tableViewModeDescription':
+    '⁣⁢Display Jira search results as a table⁪⁮⁮‍‍⁭⁭‍⁭⁯⁮⁯⁯⁠⁠⁫⁪⁠؜‌‌⁣⁤',
+  'linkDataSource.jira-issues.configmodal.tableViewModeLabel': '⁣⁢Table⁪⁠⁠⁭‌‌⁯⁫؜‌‌⁯⁡‍‍⁫؜⁫⁯‌⁫‍⁡⁡‍⁣⁤',
   'linkDataSource.jira-issues.no.jira.sites.access.description':
     '⁣⁢To request access, contact your admin.⁬⁮⁭⁠⁪‌‍‍⁠⁯⁡⁬⁫⁭⁬؜؜‌⁪‌‌؜⁡؜⁪⁭⁡⁭⁣⁤',
   'linkDataSource.jira-issues.no.jira.sites.access.title':

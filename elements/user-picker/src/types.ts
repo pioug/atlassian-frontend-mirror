@@ -258,6 +258,7 @@ export interface OptionData {
   name: string;
   type?: 'user' | 'team' | 'email' | 'group' | 'custom' | 'external_user';
   tooltip?: string;
+  title?: string;
 }
 
 export const UserType = 'user';

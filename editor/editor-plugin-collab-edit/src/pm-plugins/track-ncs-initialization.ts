@@ -47,9 +47,10 @@ export const createPlugin = () => {
           return prevPluginState;
         }
 
+        const isRemote = Boolean(transaction.getMeta('isRemote'));
+
         const isDocumentReplaceFromRemote =
-          Boolean(transaction.getMeta('isRemote')) &&
-          Boolean(transaction.getMeta('replaceDocument'));
+          isRemote && Boolean(transaction.getMeta('replaceDocument'));
 
         if (isDocumentReplaceFromRemote) {
           return prevPluginState;
@@ -62,6 +63,7 @@ export const createPlugin = () => {
         if (transaction.docChanged && !transaction.doc.eq(oldState.doc)) {
           // For analytics purposes, inline comment annotations are not considered as edits to the document body
           // Transaction may contain other steps, but we know that they won't be user-generated (non synthetic) steps
+          // Additionally, for analytics purposes we do not want to trigger on other participants' changes (i.e. remote changes)
           const isAnnotationStep = !!transaction.steps.find(
             (step: Step) =>
               step instanceof AddMarkStep &&
@@ -71,9 +73,10 @@ export const createPlugin = () => {
           return {
             collabInitialisedAt: prevPluginState.collabInitialisedAt,
             firstChangeAfterInitAt: Date.now(),
-            firstContentBodyChangeAfterInitAt: !isAnnotationStep
-              ? Date.now()
-              : prevPluginState.firstContentBodyChangeAfterInitAt,
+            firstContentBodyChangeAfterInitAt:
+              isAnnotationStep || isRemote
+                ? prevPluginState.firstContentBodyChangeAfterInitAt
+                : Date.now(),
           };
         }
 

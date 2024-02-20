@@ -10,6 +10,10 @@ export default {
   'fabric.linking.access_exists_description': 'Pyydä oikeutta tarkastella tätä sisältöä kohteesta {hostname}.',
   'fabric.linking.actions': 'Toiminnot',
   'fabric.linking.add_account': 'Lisää tili',
+  'fabric.linking.ai_summarize': 'Tee yhteenveto',
+  'fabric.linking.ai_summarized': 'Atlassian Intelligence loi yhteenvedon',
+  'fabric.linking.ai_summarized_info': 'Tietojen laatu voi vaihdella. <a>Lue lisää.</a>',
+  'fabric.linking.ai_summarizing': 'Atlassian Intelligence työssä...',
   'fabric.linking.assigned_to': 'Määrätty käyttäjälle {context}',
   'fabric.linking.cancel': 'Peruuta',
   'fabric.linking.cannot_connect': 'Ei voi muodostaa yhteyttä, yritä uudelleen',
@@ -39,19 +43,17 @@ export default {
   'fabric.linking.create_on_relative': 'Luotu {context}',
   'fabric.linking.created_by': 'Tekijä: {context}',
   'fabric.linking.delete': 'Poista',
-  'fabric.linking.direct_access_crossjoin': 'Liity nyt',
-  'fabric.linking.direct_access_description_crossjoin':
+  'fabric.linking.direct_access': 'Liity nyt',
+  'fabric.linking.direct_access_description':
     '{product} on tiimisi käytössä yhteistyön tukena, ja voit aloittaa sen käytön heti!',
-  'fabric.linking.direct_access_title_crossjoin': 'Näytä tämä sisältö liittymällä {product}-palveluun',
+  'fabric.linking.direct_access_title': 'Näytä tämä sisältö liittymällä {product}-palveluun',
   'fabric.linking.download': 'Lataa',
   'fabric.linking.edit': 'Muokkaa',
   'fabric.linking.follow': 'Seuraa',
   'fabric.linking.forbidden_access': 'Pääsy on kielletty',
   'fabric.linking.forbidden_description':
-    'Sinulla ei ole tämän esikatselun käyttöoikeutta. Jos tarvitset käyttöoikeuden, ota yhteyttä sivuston ylläpitäjään.',
-  'fabric.linking.forbidden_description_crossjoin':
     'Ota yhteyttä ylläpitäjääsi oikeuden pyytämistä varten kohteeseen {hostname}.',
-  'fabric.linking.forbidden_title_crossjoin': 'Sinulla ei ole oikeutta tähän sisältöön',
+  'fabric.linking.forbidden_title': 'Sinulla ei ole oikeutta tähän sisältöön',
   'fabric.linking.generic_error_message': 'Tapahtui virhe',
   'fabric.linking.go_back': 'Siirry takaisin',
   'fabric.linking.invalid_permissions': 'Rajoitettu sisältö',
@@ -67,12 +69,10 @@ export default {
   'fabric.linking.modified_on_absolute': 'Päivitetty {context}',
   'fabric.linking.modified_on_relative': 'Päivitetty {context}',
   'fabric.linking.more_actions': 'Lisää toimintoja',
-  'fabric.linking.no_access_title_crossjoin': 'Näytä tämä sisältö liittymällä {product}-palveluun',
-  'fabric.linking.not_found_description': 'Linkkiä ei löytynyt. Tarkista URL-osoite ja muokkaa tai liitä uudelleen.',
-  'fabric.linking.not_found_description_crossjoin':
+  'fabric.linking.no_access_title': 'Näytä tämä sisältö liittymällä {product}-palveluun',
+  'fabric.linking.not_found_description':
     'Sivua ei ole olemassa, tai sitä on saatettu muuttaa tämän linkin lisäämisen jälkeen.',
-  'fabric.linking.not_found_title': 'Oho. Emme löydä tätä linkkiä!',
-  'fabric.linking.not_found_title_crossjoin': 'Tätä {product}-sivua ei voida näyttää',
+  'fabric.linking.not_found_title': 'Tätä {product}-sivua ei voida näyttää',
   'fabric.linking.open_issue_in_jira': 'Avaa asia Jirassa',
   'fabric.linking.open_link_in_a_new_tab': 'Avaa linkki uudessa välilehdessä',
   'fabric.linking.owned_by': 'Omistaja: {context}',
@@ -96,22 +96,15 @@ export default {
   'fabric.linking.related': 'Liittyvät',
   'fabric.linking.related_work_items_not_found': 'Tätä linkkiä ei ole mainittu missään muualla.',
   'fabric.linking.request_access': 'Pyydä pääsyä',
-  'fabric.linking.request_access_crossjoin': 'Pyydä pääsyä',
   'fabric.linking.request_access_description':
-    'Pyydä sovelluksen {context} käyttöoikeutta tämän esikatselun katsomista varten.',
-  'fabric.linking.request_access_description_crossjoin':
     '{product} on tiimisi käytössä yhteistyön tukena. Pyydä käyttöoikeutta ylläpitäjältäsi.',
-  'fabric.linking.request_access_pending': 'Käyttöoikeuksia odotetaan',
-  'fabric.linking.request_access_pending_crossjoin': 'Odottaa hyväksyntää',
-  'fabric.linking.request_access_pending_description': 'Käyttöoikeuspyyntösi on vireillä.',
-  'fabric.linking.request_access_pending_description_crossjoin':
+  'fabric.linking.request_access_pending': 'Odottaa hyväksyntää',
+  'fabric.linking.request_access_pending_description':
     'Oikeuspyyntösi kohteelle {hostname} odottaa ylläpitäjän hyväksyntää.',
-  'fabric.linking.request_access_pending_title_crossjoin': 'Oikeus tuotteeseen {product} odottaa',
+  'fabric.linking.request_access_pending_title': 'Oikeus tuotteeseen {product} odottaa',
   'fabric.linking.request_access_to_view': 'Pyydä palvelun {context} käyttöoikeutta tämän asian tarkastelua varten',
   'fabric.linking.request_denied': 'Käyttöoikeuspyyntösi evättiin',
   'fabric.linking.request_denied_description':
-    'Käyttöoikeuspyyntösi evättiin. Ota yhteyttä sivustosi ylläpitäjään, jos silti tarvitset käyttöoikeuden.',
-  'fabric.linking.request_denied_description_crossjoin':
     'Ylläpitäjä ei hyväksynyt pyyntöäsi tarkastella {product}-sivuja kohteesta {hostname}.',
   'fabric.linking.restricted_link': 'Rajoitettu linkki, kokeile toista tiliä',
   'fabric.linking.retry': 'Yritä uudelleen',

@@ -17,8 +17,7 @@ import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import tableWithMergeRowAdf from './__fixtures__/table-with-merged-rows.adf.json';
 import tableWithTrelloCardNarrowColumnsAdf from './__fixtures__/table-with-trello-card-narrow-columns.adf.json';
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Table cells borders:fullpage', () => {
+describe('Table cells borders:fullpage', () => {
   let page: PuppeteerPage;
 
   beforeAll(async () => {
@@ -31,8 +30,7 @@ describe.skip('Table cells borders:fullpage', () => {
   });
 });
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Table cells are above content', () => {
+describe('Table cells are above content', () => {
   let page: PuppeteerPage;
 
   beforeAll(async () => {

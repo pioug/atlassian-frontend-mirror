@@ -31,6 +31,7 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'Busca enlaces recientes o pega un nuevo enlace',
   'fabric.linkPicker.search.noResults.description': 'Prueba con otro término.',
   'fabric.linkPicker.search.noResults.heading': 'No se ha podido encontrar nada que coincida con tu búsqueda.',
+  'fabric.linkPicker.status.submitting': 'Enviando',
   'fabric.linkPicker.time.message.updated': 'Última actualización: {time}',
   'fabric.linkPicker.time.message.viewed': 'Visto: {time}',
   'fabric.linkPicker.unhandledError.description': 'Prueba volviendo a cargar la página.',

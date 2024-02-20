@@ -31,6 +31,7 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': '최근 링크를 찾거나 새 링크를 붙여넣으세요',
   'fabric.linkPicker.search.noResults.description': '다른 검색어로 다시 시도하세요.',
   'fabric.linkPicker.search.noResults.heading': '검색 조건과 일치하는 항목을 찾을 수 없습니다.',
+  'fabric.linkPicker.status.submitting': '제출 중',
   'fabric.linkPicker.time.message.updated': '{time}에 업데이트',
   'fabric.linkPicker.time.message.viewed': '{time}에 확인',
   'fabric.linkPicker.unhandledError.description': '페이지를 다시 로드해 보세요.',

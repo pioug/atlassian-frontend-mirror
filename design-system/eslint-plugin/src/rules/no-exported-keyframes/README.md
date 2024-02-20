@@ -4,8 +4,6 @@ In Compiled, exporting keyframes declarations may result in unexpected errors wh
 
 ## Examples
 
-<!-- To fill out -- tell us when this rule will mark violations. -->
-
 ### Incorrect
 
 ```tsx

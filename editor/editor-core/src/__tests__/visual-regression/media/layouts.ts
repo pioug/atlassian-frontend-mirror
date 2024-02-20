@@ -31,8 +31,7 @@ import mediaSingleForIndividualLayoutAdf from './__fixtures__/mediaSingle-layout
 import * as singleCellTable from './__fixtures__/single-cell-table-adf.json';
 import singleCellTableWithMultipleMediaAdf from './__fixtures__/single-cell-table-with-multiple-media.adf.json';
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Snapshot Test: Media', () => {
+describe('Snapshot Test: Media', () => {
   let page: PuppeteerPage;
 
   const initEditor = async (

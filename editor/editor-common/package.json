@@ -165,6 +165,7 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
+    "@af/visual-regression": "*",
     "@atlaskit/media-core": "^34.2.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/util-data-test": "^17.9.0",

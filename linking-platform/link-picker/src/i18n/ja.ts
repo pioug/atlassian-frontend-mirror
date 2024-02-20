@@ -31,6 +31,7 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': '最近のリンクを検索または新しいリンクを貼り付け',
   'fabric.linkPicker.search.noResults.description': '別の検索語句でもう一度お試しください。',
   'fabric.linkPicker.search.noResults.heading': '検索条件に一致する結果が見つかりませんでした。',
+  'fabric.linkPicker.status.submitting': '送信中',
   'fabric.linkPicker.time.message.updated': '{time} に更新',
   'fabric.linkPicker.time.message.viewed': '{time} に閲覧',
   'fabric.linkPicker.unhandledError.description': 'ページを再読み込みしてください。',

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { memo, useLayoutEffect, useRef } from 'react';
+import React, { memo, useLayoutEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
@@ -27,6 +27,7 @@ interface Props {
   onKeyDown: (e: React.KeyboardEvent) => void;
   searchTerm?: string;
   items: QuickInsertItem[];
+  selectedItemIndex?: number;
 }
 
 function ElementSearch({
@@ -38,9 +39,12 @@ function ElementSearch({
   onKeyDown,
   searchTerm,
   items,
+  selectedItemIndex,
 }: Props & WrappedComponentProps): JSX.Element {
   const ref = useFocus(focus);
   const assistiveTextRef = useRef<HTMLDivElement>(null);
+
+  const [inputFocused, setInputFocused] = useState(false);
 
   useLayoutEffect(() => {
     if (assistiveTextRef) {
@@ -58,29 +62,39 @@ function ElementSearch({
   }: React.ChangeEvent<HTMLInputElement>) => {
     onSearch(value);
   };
-  const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {};
-  const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {};
+  const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    setInputFocused(true);
+  };
+  const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    setInputFocused(false);
+  };
 
   const getFormattedMessage = (itemsCount: number): string => {
     if (searchTerm === '') {
-      return `${itemsCount} ${formatMessage(
-        commonMessages.assistiveTextSuggestionsDefault,
-      )}`;
+      return `${formatMessage(commonMessages.assistiveTextSuggestionsDefault, {
+        count: itemsCount,
+      })}`;
     }
     if (itemsCount > 1) {
-      return `${itemsCount} ${formatMessage(
-        commonMessages.assistiveTextSuggestions,
-      )}`;
+      return `${formatMessage(commonMessages.assistiveTextSuggestions, {
+        count: itemsCount,
+      })}`;
     }
     if (itemsCount === 1) {
-      return `${itemsCount} ${formatMessage(
-        commonMessages.assistiveTextSuggestion,
-      )}`;
+      return `${formatMessage(commonMessages.assistiveTextSuggestion, {
+        count: itemsCount,
+      })}`;
     }
     return formatMessage(commonMessages.assistiveTextSuggestionNothing);
   };
 
   const assistiveMessage = getFormattedMessage(items?.length);
+
+  const isInputNotFocusedAndItemSelected =
+    !inputFocused && selectedItemIndex !== undefined;
+  const ariaActiveDescendant = isInputNotFocusedAndItemSelected
+    ? `searched-item-${selectedItemIndex}`
+    : undefined;
 
   return (
     <div css={[wrapper, mode === Modes.inline && wrapperInline]}>
@@ -95,6 +109,7 @@ function ElementSearch({
           <div
             css={elementBeforeInput}
             data-testid="element_search__element_before_input"
+            aria-hidden="true"
           >
             <SearchIcon
               size="medium"
@@ -117,6 +132,8 @@ function ElementSearch({
         aria-label="search"
         aria-labelledby="search-assistive"
         className="js-search-input"
+        role="combobox"
+        aria-activedescendant={ariaActiveDescendant}
         value={searchTerm}
       />
       <span

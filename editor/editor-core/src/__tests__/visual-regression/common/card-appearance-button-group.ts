@@ -30,8 +30,9 @@ import cardListBlueLinkAppearanceAdf from './__fixtures__/card-list-blue-link-ap
 import cardInsideUnsupportedNodesAdf from './__fixtures__/card_inside_unsupported_nodes.adf.json';
 import { contexts } from './__helpers__/card-utils';
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Cards with icons toolbar', () => {
+// FIXME: Skipping theses tests as it has been failing on master on CI due to "Screenshot comparison failed" issue.
+// Build URL: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2319963/steps/%7B31b3ca1c-6917-4861-88ed-d816d6fae22f%7D
+describe('Cards with icons toolbar', () => {
   const initEditor = async (
     adf: any,
     viewport: { width: number; height: number } = {

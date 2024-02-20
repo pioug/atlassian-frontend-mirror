@@ -109,6 +109,7 @@ export const createPlugin =
             requests: [],
             provider: null,
             cards: [],
+            datasourceStash: {},
             showLinkingToolbar: false,
             smartLinkEvents: undefined,
             editorAppearance,

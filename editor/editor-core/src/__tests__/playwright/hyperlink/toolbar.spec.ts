@@ -11,6 +11,11 @@ import {
 import { a, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { basicHyperlinkAdf } from './__fixtures__/basic-hyperlink-adf';
+import {
+  decisionListAdf,
+  headingAdf,
+  taskListAdf,
+} from './__fixtures__/many-hyperlinks-adf';
 
 test.use({
   adf: basicHyperlinkAdf,
@@ -363,6 +368,91 @@ test.describe('toolbar', () => {
         'Second check (repeated to ensure lazy-loaded assets have not affected test)',
         checkUrlFieldAutoFocus,
       );
+    });
+  });
+
+  test.describe('should display the link toolbar', () => {
+    test.use({
+      editorProps: {
+        appearance: 'full-page',
+        featureFlags: { 'lp-link-picker': true },
+        allowTasksAndDecisions: true,
+      },
+    });
+
+    test.describe('in a heading', () => {
+      test.use({ adf: headingAdf });
+      test('toolbar is visible', async ({ editor }) => {
+        const nodes = EditorNodeContainerModel.from(editor);
+        const link = nodes.link.first();
+        await link.click();
+
+        const hyperlinkModel = EditorHyperlinkModel.from(link);
+        const floatingToolbarModel = EditorFloatingToolbarModel.from(
+          editor,
+          hyperlinkModel,
+        );
+        await floatingToolbarModel.waitForStable();
+        await expect(floatingToolbarModel.toolbar).toBeVisible();
+      });
+    });
+
+    test.describe('in a task list', () => {
+      test.use({ adf: taskListAdf });
+      test('toolbar is visible', async ({ editor }) => {
+        const nodes = EditorNodeContainerModel.from(editor);
+        const link = nodes.link.first();
+        await link.click();
+
+        const hyperlinkModel = EditorHyperlinkModel.from(link);
+        const floatingToolbarModel = EditorFloatingToolbarModel.from(
+          editor,
+          hyperlinkModel,
+        );
+        await floatingToolbarModel.waitForStable();
+        await expect(floatingToolbarModel.toolbar).toBeVisible();
+      });
+    });
+
+    test.describe('in a decision list', () => {
+      test.use({ adf: decisionListAdf });
+      test('toolbar is visible', async ({ editor }) => {
+        const nodes = EditorNodeContainerModel.from(editor);
+        const link = nodes.link.first();
+        await link.click();
+
+        const hyperlinkModel = EditorHyperlinkModel.from(link);
+        const floatingToolbarModel = EditorFloatingToolbarModel.from(
+          editor,
+          hyperlinkModel,
+        );
+        await floatingToolbarModel.waitForStable();
+        await expect(floatingToolbarModel.toolbar).toBeVisible();
+      });
+    });
+  });
+
+  test.describe('with shift select', () => {
+    test.use({ adf: basicHyperlinkAdf });
+    test('toolbar is visible', async ({ editor }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const link = nodes.link.first();
+
+      await editor.selection.set({ anchor: 4, head: 4 });
+
+      // Shift select a few letters
+      await editor.keyboard.down('Shift');
+      await editor.keyboard.press('ArrowRight');
+      await editor.keyboard.press('ArrowRight');
+      await editor.keyboard.up('Shift');
+
+      const hyperlinkModel = EditorHyperlinkModel.from(link);
+      const floatingToolbarModel = EditorFloatingToolbarModel.from(
+        editor,
+        hyperlinkModel,
+      );
+      await floatingToolbarModel.waitForStable();
+      await expect(floatingToolbarModel.toolbar).toBeVisible();
     });
   });
 });

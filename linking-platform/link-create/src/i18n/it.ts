@@ -9,7 +9,7 @@
 export default {
   'link-create.unknown-error.description':
     "Aggiorna la pagina o, se il problema persiste, contatta l'<a>Assistenza Atlassian</a>.",
-  'link-create.unknown-error.heading': 'Si è verificato un problema',
+  'link-create.unknown-error.heading': 'Si è verificato un errore.',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Torna indietro',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Ignora',
   'linkCreate.confirm-dismiss-dialog.modal.description':
@@ -18,5 +18,6 @@ export default {
   'linkCreate.createForm.button.close': 'Chiudi',
   'linkCreate.createForm.button.create': 'Crea',
   'linkCreate.createForm.button.createAndOpen': 'Crea e apri',
+  'linkCreate.form.requiredField.instruction': 'I campi obbligatori sono contrassegnati da un asterisco',
   'linkCreate.modal.heading': 'Crea nuovo',
 };

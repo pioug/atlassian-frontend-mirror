@@ -5,6 +5,7 @@ import type {
   EditorAppearance,
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { MediaNextEditorPluginType } from '../../next-plugin-type';
 import type { MediaPluginState } from '../../pm-plugins/types';
@@ -44,7 +45,20 @@ const MediaPicker = ({
   const featureFlags =
     mediaState.mediaOptions && mediaState.mediaOptions.featureFlags;
 
-  const container = editorDomElement as HTMLElement;
+  const editorDom = editorDomElement as HTMLElement;
+  const editorParent = editorDom.parentElement ?? undefined;
+
+  /**
+   * https://product-fabric.atlassian.net/browse/ED-21993
+   * Avoid attach paste event to same dom element,
+   * so editor-paste-plugin can use stopPropagation,
+   * as stopImmediatePropagation could cause race condition issues
+   */
+  const container = getBooleanFF(
+    'platform.editor.media.fix-copy-paste-excel_62g4s',
+  )
+    ? editorParent
+    : editorDom;
 
   const clipboard = focusState?.hasFocus ? (
     <ClipboardWrapper

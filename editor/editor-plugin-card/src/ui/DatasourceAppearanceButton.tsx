@@ -18,6 +18,8 @@ import type { DatasourceAdf } from '@atlaskit/linking-common/types';
 import { Flex } from '@atlaskit/primitives';
 
 import { updateCardViaDatasource } from '../pm-plugins/doc';
+import { pluginKey } from '../pm-plugins/plugin-key';
+import type { CardPluginState } from '../types';
 
 import { CardContextProvider } from './CardContextProvider';
 import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
@@ -54,11 +56,16 @@ const DatasourceAppearanceButtonWithCardContext = ({
     if (!editorView || !datasourceId || !parameters) {
       return;
     }
+
+    const state = pluginKey.getState(editorState) as
+      | CardPluginState
+      | undefined;
+
     const newAdf: DatasourceAdf = buildDatasourceAdf(
       {
         id: datasourceId,
         parameters,
-        views: [{ type: 'table' }],
+        views: state?.datasourceStash[url]?.views ?? [{ type: 'table' }],
       },
       url,
     );
@@ -73,6 +80,7 @@ const DatasourceAppearanceButtonWithCardContext = ({
         newAdf,
         editorView,
         undefined,
+        true,
       );
     }
   }, [parameters, datasourceId, editorState, editorView, url]);

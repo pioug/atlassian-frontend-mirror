@@ -1,5 +1,30 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.27.0
+
+### Minor Changes
+
+- [#72966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72966) [`ec187f466e23`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec187f466e23) - Update `consistent-css-prop-usage` to incorporate some updates previously made to the `@compiled/eslint-plugin` equivalent.
+
+  1. Add autofixer to add the `css` function for the following scenario:
+
+  ```
+  const styles = { ... };
+  <div css={styles} />
+  ```
+
+  Note that this autofixer will not run if local variables are used inside the style object (e.g. `{ height: makeTaller ? '5px' : '2px' }`), or if there are spread elements, template literals, and other tricky-to-parse code. These continue to require fixing manually.
+
+  (This rule would previously only autofix if the file was originally `<div css={{ ... }} />`)
+
+  2. Add `import { css } from '@compiled/react'` (or `xcss`) automatically when fixing. The package from which to import the `css` function can be specified through the `importSource` option.
+
+  3. Add `excludeReactComponents` to exclude linting React components (i.e. components that start with uppercase). Sometimes it may not be desirable to have this rule apply to React components (e.g. `@atlaskit/button`), which could either use the Emotion or Compiled APIs when they expose a `css` prop. Passing a function from the wrong library can result in the styling erroneously not being applied.
+
+  4. Treat `{ ... } as const` statements the same way as `{ ... }` objects.
+
+  5. Add `fixNamesOnly` to disable all autofixers _except_ the autofixer that adds `styles` to the end of existing style variables. For example, in `<div css={buttonComponent} />; const buttonComponent = css({ ... })`, `buttonComponent` will continue to be renamed to `buttonComponentStyles`. Autofixers that will be _disabled_ include hoisting the styles to the top-most scope, and adding the `css` function call around style objects.
+
 ## 8.26.0
 
 ### Minor Changes

@@ -30,6 +30,7 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': '尋找最近的連結或貼上新連結',
   'fabric.linkPicker.search.noResults.description': '請使用不同的字詞再試一次。',
   'fabric.linkPicker.search.noResults.heading': '我們找不到任何符合您搜尋的項目。',
+  'fabric.linkPicker.status.submitting': '正在提交',
   'fabric.linkPicker.time.message.updated': '更新時間：{time}',
   'fabric.linkPicker.time.message.viewed': '檢視時間：{time}',
   'fabric.linkPicker.unhandledError.description': '請嘗試重新載入頁面。',

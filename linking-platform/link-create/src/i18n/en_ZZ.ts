@@ -9,7 +9,7 @@
 export default {
   'link-create.unknown-error.description':
     '⁣⁢Refresh the page, or contact <a>Atlassian Support</a> if this keeps happening.⁠⁮⁫‌⁭؜⁡⁯‍⁮⁫⁭‌⁮⁯⁡؜⁠‌؜⁠⁯⁣⁤',
-  'link-create.unknown-error.heading': '⁣⁢Something went wrong⁮⁯‍⁮⁪⁪‍⁡⁭⁡‌‌⁠⁫⁠⁮⁪⁬⁬‌⁡⁬⁬⁣⁤',
+  'link-create.unknown-error.heading': '⁣⁢Something went wrong.⁪⁠⁪⁬⁯⁮‌⁡⁮‍‌؜⁡⁬⁮⁠⁠⁣⁤',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': '⁣⁢Go back⁫⁬‌⁫؜؜⁫⁠؜‌⁡⁠⁪⁫⁪؜‍⁭⁫⁬⁡⁮⁣⁤',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': '⁣⁢Discard⁡⁡⁫⁡⁭⁯‍؜‍؜⁬‍⁡⁬⁡‍⁡⁠⁫⁯‌⁣⁤',
   'linkCreate.confirm-dismiss-dialog.modal.description':
@@ -18,5 +18,6 @@ export default {
   'linkCreate.createForm.button.close': '⁣⁢Close‌‌‌⁡⁯⁯⁯‍⁡⁬⁬⁮⁮⁬⁭⁭⁪⁭⁡؜‌‍⁣⁤',
   'linkCreate.createForm.button.create': '⁣⁢Create‍⁡⁯‌⁬؜⁬⁡⁪؜⁯⁪⁫‍⁮⁯⁯⁫‌⁭‌⁬⁣⁤',
   'linkCreate.createForm.button.createAndOpen': '⁣⁢Create + Open⁫⁪‍⁬⁪⁬⁠‍؜‍‌⁮⁮⁪⁣⁤',
+  'linkCreate.form.requiredField.instruction': '⁣⁢Required fields are marked with an asterisk؜‌⁮⁫⁪؜⁠⁠‌⁯⁭⁪⁫⁠⁠⁫⁫⁭⁠⁠⁠⁠⁣⁤',
   'linkCreate.modal.heading': '⁣⁢Create new‌‌⁭⁯⁪⁠⁡⁯⁬؜‌⁮⁭⁪⁭⁠⁫⁠⁣⁤',
 };

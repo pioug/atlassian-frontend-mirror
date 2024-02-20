@@ -122,6 +122,9 @@
     },
     "platform.editor.allow-action-in-list": {
       "type": "boolean"
+    },
+    "platform.editor.media.fix-copy-paste-excel_62g4s": {
+      "type": "boolean"
     }
   }
 }

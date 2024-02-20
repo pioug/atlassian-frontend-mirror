@@ -28,8 +28,7 @@ describe('Indentation', () => {
   afterEach(async () => {
     await snapshot(page);
   });
-  // FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-  describe.skip('on tab key press', () => {
+  describe('on tab key press', () => {
     // If the indentation mark is applied to the first node in the doc, it should have no margin-topu
     it('adds indentation mark to first paragraph and removes margin-top', async () => {
       await page.click(firstParagraphSelector);

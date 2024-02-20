@@ -10,6 +10,10 @@ export default {
   'fabric.linking.access_exists_description': 'Begär åtkomst för att visa det här innehållet från {hostname}.',
   'fabric.linking.actions': 'Åtgärder',
   'fabric.linking.add_account': 'Lägg till konto',
+  'fabric.linking.ai_summarize': 'Sammanfatta',
+  'fabric.linking.ai_summarized': 'Sammanfattat av Atlassian Intelligence',
+  'fabric.linking.ai_summarized_info': 'Informationskvaliteten kan variera. <a>Läs mer</a>',
+  'fabric.linking.ai_summarizing': 'Atlassian Intelligence arbetar ...',
   'fabric.linking.assigned_to': 'Tilldelad till {context}',
   'fabric.linking.cancel': 'Avbryt',
   'fabric.linking.cannot_connect': 'Det går inte att ansluta, försök igen',
@@ -38,18 +42,16 @@ export default {
   'fabric.linking.create_on_relative': 'Skapades {context}',
   'fabric.linking.created_by': 'Skapades av {context}',
   'fabric.linking.delete': 'Radera',
-  'fabric.linking.direct_access_crossjoin': 'Gå med nu',
-  'fabric.linking.direct_access_description_crossjoin':
+  'fabric.linking.direct_access': 'Gå med nu',
+  'fabric.linking.direct_access_description':
     'Ditt team använder {product} för att samarbeta och du kan börja använda det direkt!',
-  'fabric.linking.direct_access_title_crossjoin': 'Anslut till {product} för att visa innehållet',
+  'fabric.linking.direct_access_title': 'Anslut till {product} för att visa innehållet',
   'fabric.linking.download': 'Ladda ner',
   'fabric.linking.edit': 'Redigera',
   'fabric.linking.follow': 'Följ',
   'fabric.linking.forbidden_access': 'Din åtkomst är förbjuden',
-  'fabric.linking.forbidden_description':
-    'Du har inte behörighet för den här förhandsgranskningen. Kontakta webbplatsadministratören om du behöver åtkomst.',
-  'fabric.linking.forbidden_description_crossjoin': 'Kontakta administratören för att begära åtkomst till {hostname}.',
-  'fabric.linking.forbidden_title_crossjoin': 'Du har inte åtkomst till det här innehållet',
+  'fabric.linking.forbidden_description': 'Kontakta administratören för att begära åtkomst till {hostname}.',
+  'fabric.linking.forbidden_title': 'Du har inte åtkomst till det här innehållet',
   'fabric.linking.generic_error_message': 'Ett fel inträffade',
   'fabric.linking.go_back': 'Gå tillbaka',
   'fabric.linking.invalid_permissions': 'Begränsat innehåll',
@@ -65,13 +67,10 @@ export default {
   'fabric.linking.modified_on_absolute': 'Uppdaterades {context}',
   'fabric.linking.modified_on_relative': 'Uppdaterades {context}',
   'fabric.linking.more_actions': 'Fler åtgärder',
-  'fabric.linking.no_access_title_crossjoin': 'Anslut till {product} för att visa innehållet',
+  'fabric.linking.no_access_title': 'Anslut till {product} för att visa innehållet',
   'fabric.linking.not_found_description':
-    'Vi kunde inte hitta länken. Kontrollera URL-adressen och försök att redigera eller klistra in igen.',
-  'fabric.linking.not_found_description_crossjoin':
     'Sidan finns inte eller så har den ändrats efter att den här länken lades till.',
-  'fabric.linking.not_found_title': 'Oj då. Vi kan inte hitta den här länken!',
-  'fabric.linking.not_found_title_crossjoin': 'Vi kan inte visa dig den här {product}-sidan.',
+  'fabric.linking.not_found_title': 'Vi kan inte visa dig den här {product}-sidan.',
   'fabric.linking.open_issue_in_jira': 'Öppna ärendet i Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Öppna länk i en ny flik',
   'fabric.linking.owned_by': 'Ägs av {context}',
@@ -95,21 +94,15 @@ export default {
   'fabric.linking.related': 'Relaterat',
   'fabric.linking.related_work_items_not_found': 'Länken nämns inte någon annanstans.',
   'fabric.linking.request_access': 'Begär åtkomst',
-  'fabric.linking.request_access_crossjoin': 'Begär åtkomst',
-  'fabric.linking.request_access_description': 'Be om åtkomst till {context} för att visa förhandsgranskningen.',
-  'fabric.linking.request_access_description_crossjoin':
+  'fabric.linking.request_access_description':
     'Ditt team använder {product} för att samarbeta. Skicka en åtkomstförfrågan till din administratör.',
-  'fabric.linking.request_access_pending': 'Väntar på åtkomst',
-  'fabric.linking.request_access_pending_crossjoin': 'Väntar på godkännande',
-  'fabric.linking.request_access_pending_description': 'Din åtkomstförfrågan väntar på svar.',
-  'fabric.linking.request_access_pending_description_crossjoin':
+  'fabric.linking.request_access_pending': 'Väntar på godkännande',
+  'fabric.linking.request_access_pending_description':
     'Din begäran om åtkomst till {hostname} väntar på godkännande från administratören.',
-  'fabric.linking.request_access_pending_title_crossjoin': 'Väntar på åtkomst till {product}',
+  'fabric.linking.request_access_pending_title': 'Väntar på åtkomst till {product}',
   'fabric.linking.request_access_to_view': 'Be om åtkomst till {context} för att visa ärendet',
   'fabric.linking.request_denied': 'Din åtkomstförfrågan har nekats',
   'fabric.linking.request_denied_description':
-    'Din åtkomstförfrågan har nekats. Kontakta webbplatsadministratören om du fortfarande behöver åtkomst.',
-  'fabric.linking.request_denied_description_crossjoin':
     'Din administratör godkände inte din begäran om att visa {product}-sidor från {hostname}.',
   'fabric.linking.restricted_link': 'Begränsad länk, prova ett annat konto',
   'fabric.linking.retry': 'Försök igen',

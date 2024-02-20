@@ -27,4 +27,9 @@ export const messages = defineMessages({
     defaultMessage: 'Lists',
     description: 'Menu shows ordered/bullet list and unordered/numbered lists',
   },
+  listsFormat: {
+    id: 'fabric.editor.listsFormat',
+    defaultMessage: 'List formating',
+    description: 'Aria label for the wrapper of list buttons',
+  },
 });

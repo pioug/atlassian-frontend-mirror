@@ -31,6 +31,7 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'Vyhledejte nedávné odkazy nebo vložte nový.',
   'fabric.linkPicker.search.noResults.description': 'Zkuste to znovu s jiným termínem.',
   'fabric.linkPicker.search.noResults.heading': 'Vašemu vyhledávání neodpovídají žádné výsledky.',
+  'fabric.linkPicker.status.submitting': 'Odesílání',
   'fabric.linkPicker.time.message.updated': 'Aktualizováno: {time}',
   'fabric.linkPicker.time.message.viewed': 'Zobrazeno: {time}',
   'fabric.linkPicker.unhandledError.description': 'Zkuste stránku načíst znovu.',

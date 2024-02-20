@@ -33,6 +33,7 @@ export default {
   'fabric.linkPicker.search.noResults.description': '⁣⁢Try again with a different term.⁫⁬‍⁭⁪⁬⁠‌⁪‍⁪⁯؜‍⁡‍‌⁫⁪⁫⁬⁠⁣⁤',
   'fabric.linkPicker.search.noResults.heading':
     '⁣⁢We couldn’t find anything matching your search.؜⁬⁭⁯⁠‌⁠⁪⁡⁡‍⁡⁫‌⁫؜⁭⁬⁮⁭⁯⁠⁫⁣⁤',
+  'fabric.linkPicker.status.submitting': '⁣⁢Submitting⁭⁮⁭⁡⁭‌‌⁡⁫⁪⁫⁬⁭⁡⁫⁬⁬‌‌⁫⁡⁬⁫⁭⁣⁤',
   'fabric.linkPicker.time.message.updated': '⁣⁢Updated {time}⁭⁮‌⁮‍⁬⁭⁡⁫؜⁭⁯؜⁯⁠⁬⁬‌⁯⁭⁣⁤',
   'fabric.linkPicker.time.message.viewed': '⁣⁢Viewed {time}⁭‌⁡؜‌‍‍⁮؜؜⁠⁪⁪⁪⁬⁫⁪‍‍‌⁬⁣⁤',
   'fabric.linkPicker.unhandledError.description': '⁣⁢Try reloading the page.‌⁪‍⁡⁮⁪⁯⁫⁬‌⁬⁮⁠⁪‍⁠‍⁠⁪⁭⁠⁯؜؜‍⁣⁤',

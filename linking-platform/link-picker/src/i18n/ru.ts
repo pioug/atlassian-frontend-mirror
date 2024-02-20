@@ -31,6 +31,7 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'Выполните поиск недавних ссылок или вставьте новую',
   'fabric.linkPicker.search.noResults.description': 'Попробуйте изменить запрос.',
   'fabric.linkPicker.search.noResults.heading': 'Ничего не найдено.',
+  'fabric.linkPicker.status.submitting': 'Отправка',
   'fabric.linkPicker.time.message.updated': 'Обновлено {time}',
   'fabric.linkPicker.time.message.viewed': 'Просмотрено {time}',
   'fabric.linkPicker.unhandledError.description': 'Попробуйте перезагрузить страницу.',

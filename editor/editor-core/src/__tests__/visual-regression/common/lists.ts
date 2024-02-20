@@ -51,8 +51,7 @@ import smartLinksAdf from './__fixtures__/smart-link-nested-in-list.adf.json';
 import statusAdf from './__fixtures__/status-inside-lists.adf.json';
 import { createListWithNItems } from './__fixtures__/very-long-lists.adf';
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Lists', () => {
+describe('Lists', () => {
   let page: PuppeteerPage;
   const cardProvider = new EditorTestCardProvider();
 
@@ -146,8 +145,7 @@ describe.skip('Lists', () => {
   });
 });
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Lists adjacent floated media', () => {
+describe('Lists adjacent floated media', () => {
   let page: PuppeteerPage;
 
   const initEditor = async (page: PuppeteerPage, adf: any) =>

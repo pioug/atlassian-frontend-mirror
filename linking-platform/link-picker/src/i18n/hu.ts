@@ -31,6 +31,7 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'Legutóbbi linkek keresése vagy új link beillesztése',
   'fabric.linkPicker.search.noResults.description': 'Próbálkozz újra egy másik kifejezéssel.',
   'fabric.linkPicker.search.noResults.heading': 'Nincs a keresésnek megfelelő találat.',
+  'fabric.linkPicker.status.submitting': 'Küldés',
   'fabric.linkPicker.time.message.updated': 'Frissítve: {time}',
   'fabric.linkPicker.time.message.viewed': 'Megtekintve: {time}',
   'fabric.linkPicker.unhandledError.description': 'Próbáld meg újra betölteni az oldalt.',

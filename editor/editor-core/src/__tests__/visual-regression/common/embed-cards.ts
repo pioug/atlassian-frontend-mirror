@@ -24,8 +24,7 @@ import embedTableADF from './__fixtures__/embed-card-inside-table.adf.json';
 import adf from './__fixtures__/embed-card-layouts-adf.json';
 import containerADF from './__fixtures__/embed-containers.adf.json';
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Embed Cards:', () => {
+describe('Embed Cards:', () => {
   it('displays embed properly with different layouts', async () => {
     const { page } = global;
 
@@ -165,8 +164,7 @@ describe.skip('Embed Cards:', () => {
   });
 });
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-it.skip('Seperators are in correct locations in the toolbar', async () => {
+it('Seperators are in correct locations in the toolbar', async () => {
   const page = global.page;
 
   await initFullPageEditorWithAdf(

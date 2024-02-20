@@ -18,5 +18,6 @@ export default {
   'linkCreate.createForm.button.close': 'ปิด',
   'linkCreate.createForm.button.create': 'สร้าง',
   'linkCreate.createForm.button.createAndOpen': 'สร้าง + เปิด',
+  'linkCreate.form.requiredField.instruction': 'ช่องที่จำเป็นต้องระบุจะมีเครื่องหมายดอกจัน',
   'linkCreate.modal.heading': 'สร้างใหม่',
 };

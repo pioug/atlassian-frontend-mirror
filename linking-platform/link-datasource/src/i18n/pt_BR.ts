@@ -21,11 +21,28 @@ export default {
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Inserir objeto} other {Inserir objetos}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Inserir objetos de',
+  'linkDataSource.assets.configmodal.updateObjectsButtonText': 'Atualizar tabela',
+  'linkDataSource.basic-filter.assignee.label': 'Responsável',
+  'linkDataSource.basic-filter.dropdown.select.assignee.unassigned': 'Sem responsável',
+  'linkDataSource.basic-filter.dropdown.select.placeholder': 'Pesquisar',
+  'linkDataSource.basic-filter.error-message': 'Algo deu errado',
+  'linkDataSource.basic-filter.footer.pagination-details': '{currentDisplayCount} de {totalCount}',
+  'linkDataSource.basic-filter.loading-message': 'Carregando...',
+  'linkDataSource.basic-filter.no-options-message': 'Nenhuma correspondência encontrada',
+  'linkDataSource.basic-filter.project.label': 'Projeto',
+  'linkDataSource.basic-filter.showMoreButton': 'Ver mais',
+  'linkDataSource.basic-filter.status.label': 'Status',
+  'linkDataSource.basic-filter.type.label': 'Tipo',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1': 'A pesquisa retornou muitos resultados.',
   'linkDataSource.column-picker.no-all-items-shown-message.line-2':
     'Tente de novo com palavras-chave mais específicas.',
   'linkDataSource.column-picker.search': 'Pesquisar campos',
   'linkDataSource.column-picker.tooltip': 'Configurar colunas',
+  'linkDataSource.datasource.table.authConnectButtonText': 'Conectar',
+  'linkDataSource.datasource.table.authScreenDescriptionText':
+    'Conecte a conta para colaborar no trabalho em todos os produtos da Atlassian.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Conectar conta',
+  'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Saiba mais sobre os links inteligentes.',
   'linkDataSource.jira-issues.accessInstructions': 'Para pedir acesso, entre em contato com o administrador do site.',
   'linkDataSource.jira-issues.accessRequired': 'Você não tem acesso a este conteúdo',
   'linkDataSource.jira-issues.accessRequiredWithSite': 'Você não tem acesso ao seguinte site:',
@@ -38,12 +55,16 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'Pesquise itens por palavra-chave',
   'linkDataSource.jira-issues.configmodal.cancelButtonText': 'Cancelar',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Escolha o site',
-  'linkDataSource.jira-issues.configmodal.countViewModeLabel': 'Visualização da contagem',
+  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeDescription':
+    'Exibir o número de resultados da pesquisa ou como link inteligente',
+  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeLabel': 'Link em linha',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Inserir itens',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Inserir itens no Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Inserir itens do Jira de',
   'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {item} other {itens}}',
-  'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Visualização do item',
+  'linkDataSource.jira-issues.configmodal.tableViewModeDescription':
+    'Exibir os resultados da pesquisa do Jira como tabela',
+  'linkDataSource.jira-issues.configmodal.tableViewModeLabel': 'Tabela',
   'linkDataSource.jira-issues.no.jira.sites.access.description':
     'Para solicitar acesso, entre em contato com o administrador.',
   'linkDataSource.jira-issues.no.jira.sites.access.title': 'Você não tem acesso a nenhum site do Jira',
@@ -53,6 +74,10 @@ export default {
   'linkDataSource.jira-issues.unableToLoadResults': 'Não é possível carregar os resultados',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Saiba como pesquisar com JQL',
+  'linkDataSource.modal-initial-state.searchDescription-basic':
+    'Use palavras-chave para pesquisar os itens a serem inseridos.',
+  'linkDataSource.modal-initial-state.searchDescription-jql':
+    'Use JQL (Linguagem de Consulta do Jira) para pesquisar itens.',
   'linkDataSource.modal-initial-state.searchTitle': 'Pesquisar itens do Jira',
   'linkDataSource.render-type.boolean.false': 'Não',
   'linkDataSource.render-type.boolean.true': 'Sim',

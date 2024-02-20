@@ -32,8 +32,7 @@ type ToggleFullWidthOptions = {
   postToggleCallback?: () => void;
 };
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Snapshot Test: Toggle between full-width and default mode', () => {
+describe('Snapshot Test: Toggle between full-width and default mode', () => {
   let page: PuppeteerPage;
   let fullWidthMode: boolean;
 

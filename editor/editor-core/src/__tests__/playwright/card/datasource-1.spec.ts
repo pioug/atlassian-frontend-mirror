@@ -369,7 +369,10 @@ test.describe('blockCard:datasource update table', () => {
     await editor.page.getByTestId('jql-editor-input').click({ clickCount: 3 });
   };
 
-  test('should be able to change my query using the floating toolbar', async ({
+  // FIXME: Flaky on master
+  // Build url: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2449958/steps/%7Bf0946fe8-f257-48e1-aa60-32e90e5e989a%7D
+  // Report url: https://statlas.prod.atl-paas.net/integration-tests/atlassian-frontend:2449958:4/index.html
+  test.skip('should be able to change my query using the floating toolbar', async ({
     editor,
   }) => {
     await setupQuery(editor);

@@ -18,7 +18,7 @@ import borderADFWithLink from './__fixtures__/media-border-with-link.adf.json';
 import borderADFWithinTable from './__fixtures__/media-border-within-table.adf.json';
 import borderADF from './__fixtures__/media-border.adf.json';
 
-describe.skip('Snapshot Test: Media Border Mark', () => {
+describe('Snapshot Test: Media Border Mark', () => {
   let page: PuppeteerPage;
   const initEditor = async (
     appearance: Appearance,

@@ -324,6 +324,7 @@ function MobileBrowser({
             onClick={setFocusOnSearch}
             searchTerm={searchTerm}
             items={items}
+            selectedItemIndex={selectedItemIndex}
           />
         )}
         {showCategories && (
@@ -418,6 +419,7 @@ function DesktopBrowser({
               onClick={setFocusOnSearch}
               searchTerm={searchTerm}
               items={items}
+              selectedItemIndex={selectedItemIndex}
             />
           </div>
         )}

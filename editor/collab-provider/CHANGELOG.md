@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.24.1
+
+### Patch Changes
+
+- [#74416](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74416) [`444dfaa08f4a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/444dfaa08f4a) - ESS-4450: Trial websocket first then polling in Collab Provider
+
 ## 9.24.0
 
 ### Minor Changes

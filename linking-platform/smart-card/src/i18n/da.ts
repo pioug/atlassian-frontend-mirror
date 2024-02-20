@@ -10,6 +10,10 @@ export default {
   'fabric.linking.access_exists_description': 'Anmod om adgang til at se dette indhold fra {hostname}.',
   'fabric.linking.actions': 'Handlinger',
   'fabric.linking.add_account': 'Tilføj konto',
+  'fabric.linking.ai_summarize': 'Opsummer',
+  'fabric.linking.ai_summarized': 'Opsummeret af Atlassian Intelligence',
+  'fabric.linking.ai_summarized_info': 'Informationskvaliteten kan variere. <a>Få mere at vide</a>',
+  'fabric.linking.ai_summarizing': 'Atlassian Intelligence arbejder ...',
   'fabric.linking.assigned_to': 'Tildelt til {context}',
   'fabric.linking.cancel': 'Annuller',
   'fabric.linking.cannot_connect': 'Kan ikke oprette forbindelse. Prøv igen.',
@@ -38,18 +42,16 @@ export default {
   'fabric.linking.create_on_relative': 'Oprettet: {context}',
   'fabric.linking.created_by': 'Oprettet af {context}',
   'fabric.linking.delete': 'Slet',
-  'fabric.linking.direct_access_crossjoin': 'Tilmeld dig nu',
-  'fabric.linking.direct_access_description_crossjoin':
+  'fabric.linking.direct_access': 'Tilmeld dig nu',
+  'fabric.linking.direct_access_description':
     'Dit team bruger {product} til at samarbejde, og du kan begynde at bruge det med det samme!',
-  'fabric.linking.direct_access_title_crossjoin': 'Deltag i {product} for at se dette indhold',
+  'fabric.linking.direct_access_title': 'Deltag i {product} for at se dette indhold',
   'fabric.linking.download': 'Hent',
   'fabric.linking.edit': 'Rediger',
   'fabric.linking.follow': 'Følg',
   'fabric.linking.forbidden_access': 'Du har ikke adgang',
-  'fabric.linking.forbidden_description':
-    'Du har ikke adgang til denne forhåndsvisning. Kontakt webstedets administrator, hvis du har brug for adgang.',
-  'fabric.linking.forbidden_description_crossjoin': 'Kontakt din administrator for at anmode om adgang til {hostname}.',
-  'fabric.linking.forbidden_title_crossjoin': 'Du har ikke adgang til dette indhold',
+  'fabric.linking.forbidden_description': 'Kontakt din administrator for at anmode om adgang til {hostname}.',
+  'fabric.linking.forbidden_title': 'Du har ikke adgang til dette indhold',
   'fabric.linking.generic_error_message': 'Der opstod en fejl',
   'fabric.linking.go_back': 'Gå tilbage',
   'fabric.linking.invalid_permissions': 'Begrænset indhold',
@@ -66,13 +68,10 @@ export default {
   'fabric.linking.modified_on_absolute': 'Opdateret {context}',
   'fabric.linking.modified_on_relative': 'Opdateret: {context}',
   'fabric.linking.more_actions': 'Flere handlinger',
-  'fabric.linking.no_access_title_crossjoin': 'Deltag i {product} for at se dette indhold',
+  'fabric.linking.no_access_title': 'Deltag i {product} for at se dette indhold',
   'fabric.linking.not_found_description':
-    'Vi kunne ikke finde linket. Kontrollér og rediger URL-adressen, eller indsæt den igen.',
-  'fabric.linking.not_found_description_crossjoin':
     'Siden findes ikke, eller den kan være ændret, efter at linket blev tilføjet.',
-  'fabric.linking.not_found_title': 'Ups. Vi kan ikke finde dette link!',
-  'fabric.linking.not_found_title_crossjoin': 'Vi kan ikke vise dig denne {product}-side',
+  'fabric.linking.not_found_title': 'Vi kan ikke vise dig denne {product}-side',
   'fabric.linking.open_issue_in_jira': 'Åbn sag i Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Åbn link i en ny fane',
   'fabric.linking.owned_by': 'Ejet af {context}',
@@ -96,21 +95,15 @@ export default {
   'fabric.linking.related': 'Relateret',
   'fabric.linking.related_work_items_not_found': 'Dette link omtales ikke andre steder.',
   'fabric.linking.request_access': 'Anmod om adgang',
-  'fabric.linking.request_access_crossjoin': 'Anmod om adgang',
-  'fabric.linking.request_access_description': 'Anmod om adgang til {context} for at se denne forhåndsvisning.',
-  'fabric.linking.request_access_description_crossjoin':
+  'fabric.linking.request_access_description':
     'Dit team bruger {product} til at samarbejde. Send din administrator en anmodning om adgang.',
-  'fabric.linking.request_access_pending': 'Afventer adgang',
-  'fabric.linking.request_access_pending_crossjoin': 'Afventer godkendelse',
-  'fabric.linking.request_access_pending_description': 'Din anmodning om adgang afventer behandling.',
-  'fabric.linking.request_access_pending_description_crossjoin':
+  'fabric.linking.request_access_pending': 'Afventer godkendelse',
+  'fabric.linking.request_access_pending_description':
     'Din anmodning om adgang til {hostname} afventer administratorens godkendelse.',
-  'fabric.linking.request_access_pending_title_crossjoin': 'Afventer adgang til {product}',
+  'fabric.linking.request_access_pending_title': 'Afventer adgang til {product}',
   'fabric.linking.request_access_to_view': 'Anmod om adgang til {context} for at se denne sag',
   'fabric.linking.request_denied': 'Din anmodning om adgang blev afvist',
   'fabric.linking.request_denied_description':
-    'Din anmodning om adgang blev afvist. Kontakt webstedets administrator, hvis du stadig har brug for adgang.',
-  'fabric.linking.request_denied_description_crossjoin':
     'Din administrator godkendte ikke din anmodning om at få vist {product}-sider fra {hostname}.',
   'fabric.linking.restricted_link': 'Begrænset link. Prøv en anden konto',
   'fabric.linking.retry': 'Prøv igen',

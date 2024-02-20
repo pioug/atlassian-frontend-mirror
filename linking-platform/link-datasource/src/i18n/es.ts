@@ -21,11 +21,28 @@ export default {
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Insertar objeto} other {Insertar objetos}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Insertar objetos de',
+  'linkDataSource.assets.configmodal.updateObjectsButtonText': 'Actualizar tabla',
+  'linkDataSource.basic-filter.assignee.label': 'Persona asignada',
+  'linkDataSource.basic-filter.dropdown.select.assignee.unassigned': 'Sin asignar',
+  'linkDataSource.basic-filter.dropdown.select.placeholder': 'Buscar',
+  'linkDataSource.basic-filter.error-message': 'Se ha producido un error',
+  'linkDataSource.basic-filter.footer.pagination-details': '{currentDisplayCount} de {totalCount}',
+  'linkDataSource.basic-filter.loading-message': 'Cargando...',
+  'linkDataSource.basic-filter.no-options-message': 'No se han encontrado coincidencias',
+  'linkDataSource.basic-filter.project.label': 'Proyecto',
+  'linkDataSource.basic-filter.showMoreButton': 'Mostrar más',
+  'linkDataSource.basic-filter.status.label': 'Estado',
+  'linkDataSource.basic-filter.type.label': 'Tipo',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1': 'Tu búsqueda ha devuelto demasiados resultados.',
   'linkDataSource.column-picker.no-all-items-shown-message.line-2':
     'Vuelve a intentarlo con palabras clave más específicas.',
   'linkDataSource.column-picker.search': 'Buscar campos',
   'linkDataSource.column-picker.tooltip': 'Configurar columnas',
+  'linkDataSource.datasource.table.authConnectButtonText': 'Conectar',
+  'linkDataSource.datasource.table.authScreenDescriptionText':
+    'Conecta tu cuenta para colaborar en el trabajo a través de los productos de Atlassian.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Conecta tu cuenta',
+  'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Más información sobre los enlaces inteligentes.',
   'linkDataSource.jira-issues.accessInstructions':
     'Para solicitar acceso, ponte en contacto con tu administrador del sitio.',
   'linkDataSource.jira-issues.accessRequired': 'No tienes acceso a este contenido',
@@ -40,12 +57,16 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'Buscar incidencias por palabra clave',
   'linkDataSource.jira-issues.configmodal.cancelButtonText': 'Cancelar',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Elegir sitio',
-  'linkDataSource.jira-issues.configmodal.countViewModeLabel': 'Vista de recuento',
+  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeDescription':
+    'Mostrar el número de resultados de búsqueda o como un enlace inteligente insertado',
+  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeLabel': 'Enlace insertado',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Insertar incidencias',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Insertar incidencias de Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Insertar incidencias de Jira desde',
   'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {incidencia} other {incidencias}}',
-  'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Vista de la incidencia',
+  'linkDataSource.jira-issues.configmodal.tableViewModeDescription':
+    'Mostrar los resultados de búsqueda de Jira en forma de tabla',
+  'linkDataSource.jira-issues.configmodal.tableViewModeLabel': 'Tabla',
   'linkDataSource.jira-issues.no.jira.sites.access.description':
     'Para solicitar acceso, ponte en contacto con tu administrador.',
   'linkDataSource.jira-issues.no.jira.sites.access.title': 'No tienes acceso a ningún sitio de Jira',
@@ -55,6 +76,9 @@ export default {
   'linkDataSource.jira-issues.unableToLoadResults': 'No se pueden cargar los resultados',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Más información sobre cómo buscar con JQL',
+  'linkDataSource.modal-initial-state.searchDescription-basic': 'Busca por palabras clave para insertar incidencias.',
+  'linkDataSource.modal-initial-state.searchDescription-jql':
+    'Utiliza JQL (Jira Query Language) para buscar incidencias.',
   'linkDataSource.modal-initial-state.searchTitle': 'Buscar incidencias de Jira',
   'linkDataSource.render-type.boolean.false': 'No',
   'linkDataSource.render-type.boolean.true': 'Sí',

@@ -13,6 +13,7 @@ import type {
   EditorAppearance,
   LinkPickerOptions,
 } from '@atlaskit/editor-common/types';
+import type { DatasourceAdfView } from '@atlaskit/linking-common';
 import type { SmartLinkEvents } from '@atlaskit/smart-card';
 
 import type { EditorCardPluginEvents } from './analytics/create-events-queue';
@@ -79,10 +80,17 @@ export type Request = {
   sourceEvent?: UIAnalyticsEvent | null | undefined;
 };
 
+/**
+ * Each key in the stash is URL.
+ * For any given URL we might temporarily stash some user preferences, like view settings for the datasource.
+ */
+type DatasourceStash = Record<string, { views: DatasourceAdfView[] }>;
+
 export type CardPluginState = {
   requests: Request[];
   provider: CardProvider | null;
   cards: CardInfo[];
+  datasourceStash: DatasourceStash;
   showLinkingToolbar: boolean;
   smartLinkEvents?: SmartLinkEvents;
   editorAppearance?: EditorAppearance;
@@ -175,6 +183,16 @@ export type RegisterRemoveOverlayOnInsertedLink = {
   callback: () => void;
 };
 
+export type SetDatasourceStash = {
+  type: 'SET_DATASOURCE_STASH';
+  datasourceStash: { url: string; views: DatasourceAdfView[] };
+};
+
+export type RemoveDatasourceStash = {
+  type: 'REMOVE_DATASOURCE_STASH';
+  url: string;
+};
+
 export type CardPluginAction =
   | SetProvider
   | Queue
@@ -189,4 +207,6 @@ export type CardPluginAction =
   | SetCardLayout
   | SetCardLayoutAndDatasourceTableRef
   | ClearOverlayCandidate
-  | RegisterRemoveOverlayOnInsertedLink;
+  | RegisterRemoveOverlayOnInsertedLink
+  | SetDatasourceStash
+  | RemoveDatasourceStash;

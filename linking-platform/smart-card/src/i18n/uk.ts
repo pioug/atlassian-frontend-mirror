@@ -10,6 +10,10 @@ export default {
   'fabric.linking.access_exists_description': 'Надішліть запит на перегляд цього вмісту з {hostname}.',
   'fabric.linking.actions': 'Дії',
   'fabric.linking.add_account': 'Додати обліковий запис',
+  'fabric.linking.ai_summarize': 'Підсумок',
+  'fabric.linking.ai_summarized': 'Узагальнено Atlassian Intelligence',
+  'fabric.linking.ai_summarized_info': 'Якість інформації може бути різною. <a>Докладніше</a>',
+  'fabric.linking.ai_summarizing': 'Atlassian Intelligence узагальнює дані…',
   'fabric.linking.assigned_to': 'Призначено для {context}',
   'fabric.linking.cancel': 'Скасувати',
   'fabric.linking.cannot_connect': 'Не вдається підключитися, спробуйте ще раз',
@@ -39,19 +43,16 @@ export default {
   'fabric.linking.create_on_relative': 'Створено {context}',
   'fabric.linking.created_by': 'Автор: {context}',
   'fabric.linking.delete': 'Видалити',
-  'fabric.linking.direct_access_crossjoin': 'Приєднатися',
-  'fabric.linking.direct_access_description_crossjoin':
+  'fabric.linking.direct_access': 'Приєднатися',
+  'fabric.linking.direct_access_description':
     'Ваша команда використовує {product} для співпраці, і ви можете почати роботу з продуктом просто зараз!',
-  'fabric.linking.direct_access_title_crossjoin': 'Приєднайтеся до {product}, щоб переглянути цей вміст',
+  'fabric.linking.direct_access_title': 'Приєднайтеся до {product}, щоб переглянути цей вміст',
   'fabric.linking.download': 'Завантажити',
   'fabric.linking.edit': 'Редагувати',
   'fabric.linking.follow': 'Підписатися',
   'fabric.linking.forbidden_access': 'У вас немає доступу',
-  'fabric.linking.forbidden_description':
-    'Ви не маєте доступу до цього вмісту. Якщо вам потрібен доступ, зверніться до адміністратора сайту.',
-  'fabric.linking.forbidden_description_crossjoin':
-    'Зверніться до адміністратора з проханням надати доступ до {hostname}.',
-  'fabric.linking.forbidden_title_crossjoin': 'У вас немає доступу до цього вмісту',
+  'fabric.linking.forbidden_description': 'Зверніться до адміністратора з проханням надати доступ до {hostname}.',
+  'fabric.linking.forbidden_title': 'У вас немає доступу до цього вмісту',
   'fabric.linking.generic_error_message': 'Сталася помилка',
   'fabric.linking.go_back': 'Назад',
   'fabric.linking.invalid_permissions': 'Вміст із обмеженим доступом',
@@ -68,13 +69,9 @@ export default {
   'fabric.linking.modified_on_absolute': 'Оновлено {context}',
   'fabric.linking.modified_on_relative': 'Оновлено {context}',
   'fabric.linking.more_actions': 'Інші дії',
-  'fabric.linking.no_access_title_crossjoin': 'Приєднайтеся до {product}, щоб переглянути цей вміст',
-  'fabric.linking.not_found_description':
-    'Не вдалося знайти посилання. Перевірте URL-адресу й спробуйте її відредагувати або вставити знову.',
-  'fabric.linking.not_found_description_crossjoin':
-    'Сторінка не існує або, можливо, змінилася після додавання цього посилання.',
-  'fabric.linking.not_found_title': 'Ой! Не вдається знайти це посилання.',
-  'fabric.linking.not_found_title_crossjoin': 'Не вдається відобразити цю сторінку {product}',
+  'fabric.linking.no_access_title': 'Приєднайтеся до {product}, щоб переглянути цей вміст',
+  'fabric.linking.not_found_description': 'Сторінка не існує або, можливо, змінилася після додавання цього посилання.',
+  'fabric.linking.not_found_title': 'Не вдається відобразити цю сторінку {product}',
   'fabric.linking.open_issue_in_jira': 'Відкрити завдання в Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Відкрити посилання в новій вкладці',
   'fabric.linking.owned_by': 'Власник: {context}',
@@ -98,22 +95,15 @@ export default {
   'fabric.linking.related': 'Пов’язані ресурси',
   'fabric.linking.related_work_items_not_found': 'Це посилання більше ніде не згадується.',
   'fabric.linking.request_access': 'Надіслати запит на доступ',
-  'fabric.linking.request_access_crossjoin': 'Надіслати запит на доступ',
   'fabric.linking.request_access_description':
-    'Надішліть запит на доступ до {context}, щоб попередньо переглянути продукт.',
-  'fabric.linking.request_access_description_crossjoin':
     'Ваша команда використовує {product} для співпраці. Надішліть адміністратору запит на доступ до продукту.',
-  'fabric.linking.request_access_pending': 'Очікується надання доступу',
-  'fabric.linking.request_access_pending_crossjoin': 'Очікується підтвердження',
-  'fabric.linking.request_access_pending_description': 'Ваш запит на надання доступу в очікуванні.',
-  'fabric.linking.request_access_pending_description_crossjoin':
+  'fabric.linking.request_access_pending': 'Очікується підтвердження',
+  'fabric.linking.request_access_pending_description':
     'Ваш запит на доступ до {hostname} очікує на схвалення адміністратора.',
-  'fabric.linking.request_access_pending_title_crossjoin': 'Очікується надання доступу до {product}',
+  'fabric.linking.request_access_pending_title': 'Очікується надання доступу до {product}',
   'fabric.linking.request_access_to_view': 'Надішліть запит на доступ до {context}, щоб переглянути завдання',
   'fabric.linking.request_denied': 'Ваш запит на надання доступу відхилено',
   'fabric.linking.request_denied_description':
-    'Ваш запит на надання доступу відхилено. Якщо вам усе ще потрібен доступ, зверніться до адміністратора сайту.',
-  'fabric.linking.request_denied_description_crossjoin':
     'Ваш адміністратор не схвалив запит на перегляд сторінок {product} з {hostname}.',
   'fabric.linking.restricted_link': 'Посилання з обмеженим доступом; спробуйте інший обліковий запис',
   'fabric.linking.retry': 'Повторити спробу',

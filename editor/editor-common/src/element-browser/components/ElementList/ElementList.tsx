@@ -267,6 +267,7 @@ export function ElementItem({
         aria-describedby={title}
         ref={ref}
         testId={`element-item-${index}`}
+        id={`searched-item-${index}`}
       >
         <ItemContent
           style={inlineMode ? null : itemStyleOverrides}

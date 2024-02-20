@@ -12,6 +12,7 @@ export const CSS_IN_JS_IMPORTS = {
   emotionCore: '@emotion/core',
   styledComponents: 'styled-components',
   atlaskitCss: '@atlaskit/css',
+  atlaskitPrimitives: '@atlaskit/primitives',
 } as const;
 
 // A CSS-in-JS library an import of a valid css, cx, cssMap, etc.

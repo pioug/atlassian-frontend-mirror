@@ -31,6 +31,7 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'Hitta senaste länkar eller klistra in en ny länk',
   'fabric.linkPicker.search.noResults.description': 'Försök med ett annat sökord.',
   'fabric.linkPicker.search.noResults.heading': 'Vi kunde inte hitta några träffar för din sökning.',
+  'fabric.linkPicker.status.submitting': 'Skickar in',
   'fabric.linkPicker.time.message.updated': 'Uppdaterades {time}',
   'fabric.linkPicker.time.message.viewed': 'Visades {time}',
   'fabric.linkPicker.unhandledError.description': 'Försök uppdatera sidan.',

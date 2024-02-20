@@ -15,8 +15,7 @@ import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 import adf from './__fixtures__/custom-panel.json';
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Custom panel looks correct for fullpage:', () => {
+describe('Custom panel looks correct for fullpage:', () => {
   let page: PuppeteerPage;
   const allowPanel = { allowCustomPanel: true, allowCustomPanelEdit: true };
   const floatingControlsAriaLabel = 'Panel floating controls';

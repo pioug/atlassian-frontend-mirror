@@ -11,6 +11,10 @@ export default {
     'Bitten Sie Ihren Administrator um Zugriffsrechte für die Anzeige dieses Inhalts von {hostname}.',
   'fabric.linking.actions': 'Aktionen',
   'fabric.linking.add_account': 'Account hinzufügen',
+  'fabric.linking.ai_summarize': 'Zusammenfassen',
+  'fabric.linking.ai_summarized': 'Zusammengefasst von Atlassian Intelligence',
+  'fabric.linking.ai_summarized_info': 'Die Qualität der Informationen kann variieren. <a>Weitere Informationen</a>',
+  'fabric.linking.ai_summarizing': 'Atlassian Intelligence arbeitet …',
   'fabric.linking.assigned_to': 'Zugewiesen an {context}',
   'fabric.linking.cancel': 'Abbrechen',
   'fabric.linking.cannot_connect': 'Verbindung nicht möglich, versuchen Sie es erneut',
@@ -39,18 +43,16 @@ export default {
   'fabric.linking.create_on_relative': 'Erstellt: {context}',
   'fabric.linking.created_by': 'Erstellt von {context}',
   'fabric.linking.delete': 'Löschen',
-  'fabric.linking.direct_access_crossjoin': 'Jetzt beitreten',
-  'fabric.linking.direct_access_description_crossjoin':
+  'fabric.linking.direct_access': 'Jetzt beitreten',
+  'fabric.linking.direct_access_description':
     'Ihr Team nutzt {product} bereits zur Zusammenarbeit und kann gleich loslegen!',
-  'fabric.linking.direct_access_title_crossjoin': 'Treten Sie {product} bei, um diesen Inhalt anzuzeigen',
+  'fabric.linking.direct_access_title': 'Treten Sie {product} bei, um diesen Inhalt anzuzeigen',
   'fabric.linking.download': 'Herunterladen',
   'fabric.linking.edit': 'Bearbeiten',
   'fabric.linking.follow': 'Folgen',
   'fabric.linking.forbidden_access': 'Sie sind nicht zugriffsberechtigt',
-  'fabric.linking.forbidden_description':
-    'Sie haben keinen Zugriff auf diese Vorschau. Wenden Sie sich an Ihren Administrator, falls Sie noch Zugriff benötigen.',
-  'fabric.linking.forbidden_description_crossjoin': 'Bitten Sie Ihren Administrator um Zugriffsrechte für {hostname}.',
-  'fabric.linking.forbidden_title_crossjoin': 'Sie haben keinen Zugriff auf diesen Inhalt',
+  'fabric.linking.forbidden_description': 'Bitten Sie Ihren Administrator um Zugriffsrechte für {hostname}.',
+  'fabric.linking.forbidden_title': 'Sie haben keinen Zugriff auf diesen Inhalt',
   'fabric.linking.generic_error_message': 'Ein Fehler ist aufgetreten',
   'fabric.linking.go_back': 'Zurück',
   'fabric.linking.invalid_permissions': 'Inhalt mit Beschränkungen',
@@ -67,13 +69,10 @@ export default {
   'fabric.linking.modified_on_absolute': 'Aktualisiert am: {context}',
   'fabric.linking.modified_on_relative': 'Aktualisiert: {context}',
   'fabric.linking.more_actions': 'Weitere Aktionen',
-  'fabric.linking.no_access_title_crossjoin': 'Treten Sie {product} bei, um diesen Inhalt anzuzeigen',
+  'fabric.linking.no_access_title': 'Treten Sie {product} bei, um diesen Inhalt anzuzeigen',
   'fabric.linking.not_found_description':
-    'Der Link konnte nicht gefunden werden. Überprüfen Sie die URL und versuchen Sie die Bearbeitung oder das Einfügen erneut.',
-  'fabric.linking.not_found_description_crossjoin':
     'Die Seite existiert nicht oder sie hat sich möglicherweise geändert, nachdem dieser Link hinzugefügt wurde.',
-  'fabric.linking.not_found_title': 'Oh! Diese Verknüpfung konnte nicht gefunden werden!',
-  'fabric.linking.not_found_title_crossjoin': 'Diese {product}-Seite kann nicht angezeigt werden',
+  'fabric.linking.not_found_title': 'Diese {product}-Seite kann nicht angezeigt werden',
   'fabric.linking.open_issue_in_jira': 'Vorgang in Jira öffnen',
   'fabric.linking.open_link_in_a_new_tab': 'Link in neuer Registerkarte öffnen',
   'fabric.linking.owned_by': 'Besitzer: {context}',
@@ -97,22 +96,15 @@ export default {
   'fabric.linking.related': 'Zugehörig',
   'fabric.linking.related_work_items_not_found': 'Dieser Link wird nirgendwo sonst erwähnt.',
   'fabric.linking.request_access': 'Zugriff anfordern',
-  'fabric.linking.request_access_crossjoin': 'Zugriff anfordern',
   'fabric.linking.request_access_description':
-    'Sie müssen Zugriff auf {context} anfordern, um diese Vorschau anzeigen zu können.',
-  'fabric.linking.request_access_description_crossjoin':
     'Ihr Team verwendet {product} zur Zusammenarbeit. Senden Sie Ihrem Administrator eine Zugriffsanfrage.',
-  'fabric.linking.request_access_pending': 'Zugriff ausstehend',
-  'fabric.linking.request_access_pending_crossjoin': 'Genehmigung ausstehend',
-  'fabric.linking.request_access_pending_description': 'Ihre Zugriffsanfrage ist ausstehend.',
-  'fabric.linking.request_access_pending_description_crossjoin':
+  'fabric.linking.request_access_pending': 'Genehmigung ausstehend',
+  'fabric.linking.request_access_pending_description':
     'Ihre Zugriffsanfrage für {hostname} wartet auf die Genehmigung durch den Administrator.',
-  'fabric.linking.request_access_pending_title_crossjoin': 'Zugriff auf {product} ausstehend',
+  'fabric.linking.request_access_pending_title': 'Zugriff auf {product} ausstehend',
   'fabric.linking.request_access_to_view': 'Zugriff auf {context} anfordern, um diesen Vorgang anzuzeigen',
   'fabric.linking.request_denied': 'Ihre Zugriffsanfrage wurde abgelehnt.',
   'fabric.linking.request_denied_description':
-    'Ihre Zugriffsanfrage wurde abgelehnt. Wenden Sie sich an Ihren Administrator, falls Sie noch Zugriff benötigen.',
-  'fabric.linking.request_denied_description_crossjoin':
     'Ihr Administrator hat Ihre Anfrage zur Anzeige der {product}-Seiten von {hostname} nicht genehmigt.',
   'fabric.linking.restricted_link': 'Eingeschränkter Link, bitte versuchen Sie es mit einem anderen Konto.',
   'fabric.linking.retry': 'Erneut versuchen',

@@ -1,12 +1,7 @@
 import type { Rule } from 'eslint';
-import { isNodeOfType } from 'eslint-codemod-utils';
-import type {
-  Identifier,
-  ImportDeclaration,
-  MemberExpression,
-  Program,
-} from 'estree';
+import type { Identifier, MemberExpression } from 'estree';
 
+import { getFirstSupportedImport } from '../get-first-supported-import';
 import type { ImportSource } from '../is-supported-import';
 
 type Node = Rule.Node;
@@ -67,22 +62,11 @@ const getStyledImportSpecifierName = (
   context: RuleContext,
   importSources: ImportSource[],
 ): string | undefined => {
-  const isSupportedImport = (
-    node: Program['body'][number],
-  ): node is ImportDeclaration => {
-    return (
-      isNodeOfType(node, 'ImportDeclaration') &&
-      typeof node.source.value === 'string' &&
-      importSources.includes(node.source.value as ImportSource)
-    );
-  };
-
-  const source = context.getSourceCode();
-  const supportedImports = source.ast.body.filter(isSupportedImport);
-
-  return supportedImports[0].specifiers.find(
+  const supportedImport = getFirstSupportedImport(context, importSources);
+  return supportedImport?.specifiers.find(
     (spec) =>
-      spec.type === 'ImportSpecifier' && spec.imported.name === 'styled',
+      (spec.type === 'ImportSpecifier' && spec.imported.name === 'styled') ||
+      (spec.type === 'ImportDefaultSpecifier' && spec.local.name === 'styled'),
   )?.local.name;
 };
 

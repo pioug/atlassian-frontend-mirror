@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.1.1
+
+### Patch Changes
+
+- [#74185](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74185) [`bdf01577a3b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bdf01577a3b3) - Exclude remote changes from firstContentBodyChange field
+
 ## 1.1.0
 
 ### Minor Changes

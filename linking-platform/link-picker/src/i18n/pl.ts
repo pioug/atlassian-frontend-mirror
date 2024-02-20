@@ -31,6 +31,7 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'Znajdź ostatnie łącza lub wklej nowe łącze',
   'fabric.linkPicker.search.noResults.description': 'Spróbuj ponownie, wybierając inne wyrażenie.',
   'fabric.linkPicker.search.noResults.heading': 'Nie można znaleźć dopasowań do wyszukiwania.',
+  'fabric.linkPicker.status.submitting': 'Przesyłanie',
   'fabric.linkPicker.time.message.updated': 'Zaktualizowano {time}',
   'fabric.linkPicker.time.message.viewed': 'Wyświetlono {time}',
   'fabric.linkPicker.unhandledError.description': 'Spróbuj załadować stronę ponownie.',

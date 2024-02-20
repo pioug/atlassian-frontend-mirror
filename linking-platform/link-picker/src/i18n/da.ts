@@ -31,6 +31,7 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'Find de seneste links, eller indsæt et nyt link',
   'fabric.linkPicker.search.noResults.description': 'Prøv igen med et andet ord.',
   'fabric.linkPicker.search.noResults.heading': 'Vi kunne ikke finde noget, der opfylder dine søgekriterier.',
+  'fabric.linkPicker.status.submitting': 'Indsender',
   'fabric.linkPicker.time.message.updated': 'Opdateret {time}',
   'fabric.linkPicker.time.message.viewed': 'Vist {time}',
   'fabric.linkPicker.unhandledError.description': 'Prøv at genindlæse siden.',

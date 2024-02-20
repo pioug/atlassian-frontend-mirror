@@ -57,8 +57,7 @@ const waitTableThenSnapshot = async (page: PuppeteerPage) => {
   await snapshot(page);
 };
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Snapshot Test: table resizing', () => {
+describe('Snapshot Test: table resizing', () => {
   describe('Re-sizing', () => {
     let page: PuppeteerPage;
 
@@ -239,8 +238,7 @@ describe.skip('Snapshot Test: table resizing', () => {
   });
 });
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Snapshot Test: table resize handle', () => {
+describe('Snapshot Test: table resize handle', () => {
   let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
@@ -270,8 +268,7 @@ describe('Snapshot Test: table scale', () => {
   });
 });
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Snapshot Test: table with merged cell on first row', () => {
+describe('Snapshot Test: table with merged cell on first row', () => {
   let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
@@ -298,8 +295,7 @@ describe.skip('Snapshot Test: table with merged cell on first row', () => {
   });
 });
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Snapshot Test: table resize handle line', () => {
+describe('Snapshot Test: table resize handle line', () => {
   let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;

@@ -9,7 +9,7 @@
 export default {
   'link-create.unknown-error.description':
     'Якщо помилка виникатиме знову, оновіть сторінку або зверніться до <a>служби підтримки Atlassian</a>.',
-  'link-create.unknown-error.heading': 'Сталася помилка',
+  'link-create.unknown-error.heading': 'Сталася помилка.',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Назад',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Скасувати',
   'linkCreate.confirm-dismiss-dialog.modal.description':
@@ -18,5 +18,6 @@ export default {
   'linkCreate.createForm.button.close': 'Закрити',
   'linkCreate.createForm.button.create': 'Створити',
   'linkCreate.createForm.button.createAndOpen': 'Створити й відкрити',
+  'linkCreate.form.requiredField.instruction': 'Обов’язкові поля позначені зірочкою',
   'linkCreate.modal.heading': 'Створення',
 };

@@ -31,6 +31,7 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'ค้นหาลิงก์ล่าสุดหรือวางลิงก์ใหม่',
   'fabric.linkPicker.search.noResults.description': 'ลองอีกครั้งด้วยคำอื่น',
   'fabric.linkPicker.search.noResults.heading': 'เราไม่พบรายการใด ๆ ที่ตรงกับการค้นหาของคุณ',
+  'fabric.linkPicker.status.submitting': 'กำลังส่ง',
   'fabric.linkPicker.time.message.updated': 'อัปเดตแล้วเมื่อ {time}',
   'fabric.linkPicker.time.message.viewed': 'ดูเมื่อ {time}',
   'fabric.linkPicker.unhandledError.description': 'ลองโหลดหน้าข้อมูลใหม่อีกครั้ง',

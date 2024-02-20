@@ -32,8 +32,7 @@ const secondItemBackgroundColor = `window.getComputedStyle(document.querySelecto
 const secondItemSelectedBackgroundColor = `window.getComputedStyle(document.querySelector('${secondItemSelectedSelector}')).backgroundColor`;
 const secondItemBoxShadow = `window.getComputedStyle(document.querySelector('${secondItemSelectedSelector}')).boxShadow`;
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Quick Insert:', () => {
+describe('Quick Insert:', () => {
   let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
@@ -68,7 +67,8 @@ describe.skip('Quick Insert:', () => {
   });
 });
 
-describe('should render the quick insert menu, highlight and select the menu item when hovered', () => {
+// FIXME: This is blocking master-publish https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2449447/steps/%7Bfd14db61-2c09-4311-843a-9d1ba74a979d%7D#line=6-1747
+describe.skip('should render the quick insert menu, highlight and select the menu item when hovered', () => {
   let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;

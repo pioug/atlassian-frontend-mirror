@@ -35,7 +35,7 @@
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
-    "@atlaskit/eslint-plugin-design-system": "^8.26.0",
+    "@atlaskit/eslint-plugin-design-system": "^8.27.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@compiled/eslint-plugin": "^0.13.3",
     "@types/eslint": "^8.4.5",

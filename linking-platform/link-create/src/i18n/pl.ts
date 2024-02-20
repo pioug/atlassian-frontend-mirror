@@ -9,7 +9,7 @@
 export default {
   'link-create.unknown-error.description':
     'Odśwież stronę lub skontaktuj się z <a>działem wsparcia Atlassian</a>, jeśli sytuacja będzie się powtarzać.',
-  'link-create.unknown-error.heading': 'Coś poszło nie tak',
+  'link-create.unknown-error.heading': 'Coś poszło nie tak.',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Wstecz',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Odrzuć',
   'linkCreate.confirm-dismiss-dialog.modal.description':
@@ -18,5 +18,6 @@ export default {
   'linkCreate.createForm.button.close': 'Zamknij',
   'linkCreate.createForm.button.create': 'Utwórz',
   'linkCreate.createForm.button.createAndOpen': 'Utwórz + Otwórz',
+  'linkCreate.form.requiredField.instruction': 'Pola wymagane są oznaczone gwiazdką',
   'linkCreate.modal.heading': 'Utwórz nową',
 };

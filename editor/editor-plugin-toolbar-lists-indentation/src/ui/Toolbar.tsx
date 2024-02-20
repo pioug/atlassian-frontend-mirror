@@ -49,6 +49,7 @@ export function Toolbar(props: ToolbarProps) {
   } = props;
   const labelUnorderedList = formatMessage(messages.unorderedList);
   const labelOrderedList = formatMessage(messages.orderedList);
+  const labelListsFormat = formatMessage(messages.listsFormat);
   const indentMessage = formatMessage(indentationMessages.indent);
   const outdentMessage = formatMessage(indentationMessages.outdent);
   const isIndentButtonFocused =
@@ -79,82 +80,84 @@ export function Toolbar(props: ToolbarProps) {
   return (
     // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
     <span css={buttonGroupStyle}>
-      <ToolbarButton
-        buttonId={TOOLBAR_BUTTON.BULLET_LIST}
-        testId={labelUnorderedList}
-        spacing={isReducedSpacing ? 'none' : 'default'}
-        onClick={handleOnItemActivated('bullet_list')}
-        selected={bulletListActive}
-        aria-pressed={bulletListActive}
-        aria-label={tooltip(toggleBulletListKeymap, labelUnorderedList)}
-        aria-keyshortcuts={getAriaKeyshortcuts(toggleBulletListKeymap)}
-        disabled={bulletListDisabled || disabled}
-        title={
-          <ToolTipContent
-            description={labelUnorderedList}
-            keymap={toggleBulletListKeymap}
-          />
-        }
-        iconBefore={<BulletListIcon label="" />}
-      />
-      <ToolbarButton
-        buttonId={TOOLBAR_BUTTON.ORDERED_LIST}
-        testId={labelOrderedList}
-        spacing={isReducedSpacing ? 'none' : 'default'}
-        onClick={handleOnItemActivated('ordered_list')}
-        selected={orderedListActive}
-        aria-pressed={orderedListActive}
-        aria-label={tooltip(toggleOrderedListKeymap, labelOrderedList)}
-        aria-keyshortcuts={getAriaKeyshortcuts(toggleOrderedListKeymap)}
-        disabled={orderedListDisabled || disabled}
-        title={
-          <ToolTipContent
-            description={labelOrderedList}
-            keymap={toggleOrderedListKeymap}
-          />
-        }
-        iconBefore={<NumberListIcon label="" />}
-      />
-      {showIndentationButtons && (
+      <div role="group" aria-label={labelListsFormat}>
         <ToolbarButton
-          buttonId={TOOLBAR_BUTTON.OUTDENT}
-          testId={TOOLBAR_BUTTON.OUTDENT}
-          ref={outdentButtonRef}
+          buttonId={TOOLBAR_BUTTON.BULLET_LIST}
+          testId={labelUnorderedList}
           spacing={isReducedSpacing ? 'none' : 'default'}
-          onClick={handleOnItemActivated('outdent')}
-          iconBefore={<OutdentIcon label="" />}
-          disabled={outdentDisabled || disabled}
-          aria-label={tooltip(toggleOutdentKeymap, outdentMessage)}
-          aria-keyshortcuts={getAriaKeyshortcuts(toggleOutdentKeymap)}
+          onClick={handleOnItemActivated('bullet_list')}
+          selected={bulletListActive}
+          aria-pressed={bulletListActive}
+          aria-label={tooltip(toggleBulletListKeymap, labelUnorderedList)}
+          aria-keyshortcuts={getAriaKeyshortcuts(toggleBulletListKeymap)}
+          disabled={bulletListDisabled || disabled}
           title={
             <ToolTipContent
-              description={outdentMessage}
-              keymap={toggleOutdentKeymap}
+              description={labelUnorderedList}
+              keymap={toggleBulletListKeymap}
             />
           }
+          iconBefore={<BulletListIcon label="" />}
         />
-      )}
-      {showIndentationButtons && (
         <ToolbarButton
-          buttonId={TOOLBAR_BUTTON.INDENT}
-          testId={TOOLBAR_BUTTON.INDENT}
-          ref={indentButtonRef}
+          buttonId={TOOLBAR_BUTTON.ORDERED_LIST}
+          testId={labelOrderedList}
           spacing={isReducedSpacing ? 'none' : 'default'}
-          onClick={handleOnItemActivated('indent')}
-          iconBefore={<IndentIcon label="" />}
-          disabled={indentDisabled || disabled}
-          aria-label={tooltip(toggleIndentKeymap, indentMessage)}
-          aria-keyshortcuts={getAriaKeyshortcuts(toggleIndentKeymap)}
+          onClick={handleOnItemActivated('ordered_list')}
+          selected={orderedListActive}
+          aria-pressed={orderedListActive}
+          aria-label={tooltip(toggleOrderedListKeymap, labelOrderedList)}
+          aria-keyshortcuts={getAriaKeyshortcuts(toggleOrderedListKeymap)}
+          disabled={orderedListDisabled || disabled}
           title={
             <ToolTipContent
-              description={indentMessage}
-              keymap={toggleIndentKeymap}
+              description={labelOrderedList}
+              keymap={toggleOrderedListKeymap}
             />
           }
+          iconBefore={<NumberListIcon label="" />}
         />
-      )}
-      {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
-      <span css={separatorStyles} />
+        {showIndentationButtons && (
+          <ToolbarButton
+            buttonId={TOOLBAR_BUTTON.OUTDENT}
+            testId={TOOLBAR_BUTTON.OUTDENT}
+            ref={outdentButtonRef}
+            spacing={isReducedSpacing ? 'none' : 'default'}
+            onClick={handleOnItemActivated('outdent')}
+            iconBefore={<OutdentIcon label="" />}
+            disabled={outdentDisabled || disabled}
+            aria-label={tooltip(toggleOutdentKeymap, outdentMessage)}
+            aria-keyshortcuts={getAriaKeyshortcuts(toggleOutdentKeymap)}
+            title={
+              <ToolTipContent
+                description={outdentMessage}
+                keymap={toggleOutdentKeymap}
+              />
+            }
+          />
+        )}
+        {showIndentationButtons && (
+          <ToolbarButton
+            buttonId={TOOLBAR_BUTTON.INDENT}
+            testId={TOOLBAR_BUTTON.INDENT}
+            ref={indentButtonRef}
+            spacing={isReducedSpacing ? 'none' : 'default'}
+            onClick={handleOnItemActivated('indent')}
+            iconBefore={<IndentIcon label="" />}
+            disabled={indentDisabled || disabled}
+            aria-label={tooltip(toggleIndentKeymap, indentMessage)}
+            aria-keyshortcuts={getAriaKeyshortcuts(toggleIndentKeymap)}
+            title={
+              <ToolTipContent
+                description={indentMessage}
+                keymap={toggleIndentKeymap}
+              />
+            }
+          />
+        )}
+        {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
+        <span css={separatorStyles} />
+      </div>
     </span>
   );
 }

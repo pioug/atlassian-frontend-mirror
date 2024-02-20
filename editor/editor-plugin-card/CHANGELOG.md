@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 1.0.3
+
+### Patch Changes
+
+- [#72875](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72875) [`0d1e8b03af0b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d1e8b03af0b) - Adding datasource stash to save datasource views when switching to inline/block and then back to datasource view
+
 ## 1.0.2
 
 ### Patch Changes

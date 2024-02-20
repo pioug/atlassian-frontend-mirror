@@ -9,7 +9,7 @@
 export default {
   'link-create.unknown-error.description':
     'Opdater siden, eller kontakt <a>Atlassian-support</a>, hvis det bliver ved med at ske.',
-  'link-create.unknown-error.heading': 'Noget gik galt',
+  'link-create.unknown-error.heading': 'Noget gik galt.',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Gå tilbage',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Kassér',
   'linkCreate.confirm-dismiss-dialog.modal.description': 'Vi kan ikke gemme dine oplysninger, hvis du forlader siden.',
@@ -17,5 +17,6 @@ export default {
   'linkCreate.createForm.button.close': 'Luk',
   'linkCreate.createForm.button.create': 'Opret',
   'linkCreate.createForm.button.createAndOpen': 'Opret + Åbn',
+  'linkCreate.form.requiredField.instruction': 'Påkrævede felter er markeret med en stjerne',
   'linkCreate.modal.heading': 'Opret ny',
 };

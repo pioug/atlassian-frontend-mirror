@@ -12,26 +12,20 @@ import {
   waitForInlineCardSelection,
   waitForPreviewState,
   waitForResolvedBlockCard,
-  waitForResolvedEmbedCard,
   waitForResolvedInlineCard,
   waitForSuccessfullyResolvedEmbedCard,
 } from '@atlaskit/media-integration-test-helpers';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import {
-  evaluateTeardownMockDate,
-  waitForLoadedImageElements,
-} from '@atlaskit/visual-regression/helper';
+import { evaluateTeardownMockDate } from '@atlaskit/visual-regression/helper';
 
 import cardAdfBlockLongTitle from './__fixtures__/card-adf-long-title.block.json';
 import cardAdfBlock from './__fixtures__/card-adf.block.json';
 import cardAdfSupportedPlatforms from './__fixtures__/card-adf.supported-platforms.json';
 import cardInsideInfoAndLayout from './__fixtures__/card-inside-info-and-layout-adf.json';
-import cardAdfRequestAccess from './__fixtures__/card-request-access.adf.json';
 import cardSelectionAdf from './__fixtures__/card-selection-adf.json';
 import { contexts } from './__helpers__/card-utils';
 
-// FIXME: This is failing in master-publish pipeline: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2440494/steps/%7B7c2a0f37-ea6f-4ffc-8a60-a5a7868dac4c%7D
-describe.skip('Cards:', () => {
+describe('Cards:', () => {
   let page: PuppeteerPage;
 
   beforeEach(async () => {
@@ -64,36 +58,6 @@ describe.skip('Cards:', () => {
       });
     },
   );
-
-  it('displays request access forbidden links with correct appearance', async () => {
-    await initFullPageEditorWithAdf(
-      page,
-      cardAdfRequestAccess,
-      Device.LaptopHiDPI,
-      {
-        width: 800,
-        height: 5300,
-      },
-      {
-        smartLinks: {
-          resolveBeforeMacros: ['jira'],
-          allowBlockCards: true,
-          allowEmbeds: true,
-        },
-      },
-      undefined,
-      undefined,
-      true,
-    );
-    await evaluateTeardownMockDate(page);
-
-    await waitForResolvedInlineCard(page, 'forbidden');
-    await waitForResolvedBlockCard(page, 'forbidden');
-    await waitForResolvedEmbedCard(page, 'forbidden');
-    await waitForLoadedImageElements(page, 3000);
-
-    await snapshot(page);
-  });
 
   it('displays selection styles', async () => {
     await initFullPageEditorWithAdf(

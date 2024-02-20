@@ -8,14 +8,19 @@ Every product should be defining styles in the same way, using the same tools, e
 
 This rule checks for the following cases:
 
-- When styles are defined inline.
-- When styles are not using `css` object api.
-- When styles are coming from outside of the module i.e. using imports.
-- When styles are spread inside another styles and not using array composition.
+- Styles should not be defined inline; it should instead be in a standalone variable.
+  - The exception for this is style composition (e.g. `<div css={[baseStyles, moreStyles]} />`), which is a way to combine styles from two variables.
+- Styles must be wrapped in a `css` function call.
+- Styles must be defined in the same file as their usage, and not be imported.
+- Styles should not contain spread operators (e.g. `css({ ...spreadStyles })`).
+- Styles must all be defined at the top of the file, or at the bottom of the file.
+- Styles must be in a variable whose name ends in `styles` (or `Styles`).
+
+This rule also has an autofixer that enforces and fixes the code (where practical) to meet the above requirements.
 
 All the above can also work for custom `css` functions, such as `xcss` (https://atlassian.design/components/primitives/xcss/).
 
-This rule has options - see below.
+This rule has several options - see below.
 
 ## Examples
 
@@ -147,9 +152,40 @@ This rule comes with options to support different repository configurations.
 
 ### cssFunctions
 
-An array of function names the linting rule should target. Defaults to `['css', 'xcss']`. Functionality of cssMap will be linted regardless of the configuration of `cssFunctions` as it can be used with either attribute.
+An array of function names the linting rule should target. Defaults to `['css', 'xcss']`. The functionality of `cssMap` will be linted regardless of the configuration of `cssFunctions`, as it can be used with either attribute.
 
 ### stylesPlacement
 
+Either `top` or `bottom`.
+
 The rule prevents inline styles from being created. This option defines what the error message should say: "(...) styles at the top (...)" or "(...) styles at the bottom (...)".
 Defaults to `top`.
+
+### cssImportSource
+
+When auto-fixing the contents of the `css` attribute, this rule will wrap CSS styles in a `css(...)` function call or `` css\`...\`  `` template expression, and it will add an import declaration for the `css` function. `cssImportSource` is a string that determines what package `css` should be imported from.
+
+This is `@compiled/react` by default.
+
+### xcssImportSource
+
+When auto-fixing the contents of the `xcss` attribute, this rule will wrap XCSS styles in a `xcss(...)` function call, and it will add an import declaration for the `xcss` function. `xcssImportSource` is a string that determines what package `xcss` should be imported from.
+
+This is `@atlaskit/primitives` by default.
+
+### excludeReactComponents
+
+Whether to exclude `css` attributes of React components from being affected by this ESLint rule. We assume that an element is a React component if its name starts with a capital letter, e.g. `<Button />`.
+
+This is `false` by default.
+
+### fixNamesOnly
+
+When enabled, this rule will only add `styles` at the end of existing style variables. All other autofixers will be disabled. For example:
+
+```tsx
+//    vvvvv will be renamed to `myCssStyles`
+const myCss = { color: 'blue' };
+```
+
+This is `false` by default.
